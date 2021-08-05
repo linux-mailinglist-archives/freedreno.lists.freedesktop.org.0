@@ -2,91 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C03373E178F
-	for <lists+freedreno@lfdr.de>; Thu,  5 Aug 2021 17:07:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 268703E1A0D
+	for <lists+freedreno@lfdr.de>; Thu,  5 Aug 2021 19:08:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC2386EAC6;
-	Thu,  5 Aug 2021 15:07:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9F1E6EB15;
+	Thu,  5 Aug 2021 17:08:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F8D6EAC6
- for <freedreno@lists.freedesktop.org>; Thu,  5 Aug 2021 15:07:53 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id bh26so6210261oib.10
- for <freedreno@lists.freedesktop.org>; Thu, 05 Aug 2021 08:07:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=BBB7L293VRE1xtWeabnOwCuv9LT+6aC8pQhMp5UBuVk=;
- b=PGkuVH3GXPS+KlF9fXUDxmTHuHa54hC9pCQpqpTElPPvFPUT1Fp8pTq4BZTAbDdgBI
- 5zwsb4xiSZbG5P0/48HEVvvjg2aa/RWxlivVxULoo1qmQgtGrooKpfNR353bzGBbPdpx
- 4/piyaarKnRKjwgLazIHzaK6ALxrmYSx/pvBo=
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD1A6EB15
+ for <freedreno@lists.freedesktop.org>; Thu,  5 Aug 2021 17:08:19 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id bq29so12502675lfb.5
+ for <freedreno@lists.freedesktop.org>; Thu, 05 Aug 2021 10:08:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=u5iij8rID6SAk24Gs2UckGpZrRbqv5ALWYEAvBtS4mY=;
+ b=HihlEB7QQCsFTB7m+r/iDAPKeJlly9uHAUNgUoNvFpkED6Sq13q3A39T6yGWWvyIRM
+ dHl1lYp/dNL8tb/8x4AWFOcv8iz6BEvrNoR64kXCnCZLIMTyTq+PkC7iYjUFeALvzr6o
+ lDvDD/6cEGkrzj64tBO8X+WosK1kMz7JfhNZucPvOqktE+lxFMshAFEqUPl5v6ZXWzxS
+ o5XKKsmeSZLNvtyI39w8UpqAPOY3t96adfVB1G0BAhsVJcZe1vrjSi9TKLzKhrkQFcll
+ YI6EUT38/GEpLaFDHpYR1+dPktXbqWlLFdXfcaIkMu8Lt+YeoDlTbwYyUi1Yw9/IUzPV
+ zudg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=BBB7L293VRE1xtWeabnOwCuv9LT+6aC8pQhMp5UBuVk=;
- b=RSKwU9+f0uQn6Ytv8z78Vh1JkYxE9BF/ISevIgHCaCe11dOZWOneg73KHl25IImD0j
- aEKom3zW1Cb/PN3lA5pwRUQz+xQtyCweFgs8bkVKwcRHIAEU2Ur25vFpHt3br6aGz7w5
- nBojP4Gefh+8AOwlKUnO7awqGAEHMZwejq9CWoe0H1zTu3fP263vwJsvW4psG1+2/t06
- e5e2Wl6NeVQDvC+ce3XeE9aOmt3laUBscFhCBs9kltHCczmFAEj93ufgL1QMr8RarOeH
- EOnFNsOi9d1UJHEoUz78TUnjSwyUtKcE6DQ1wMeqagzAoGhiUcr+JWMALq/GcPpPa4fr
- 8OGw==
-X-Gm-Message-State: AOAM533boRsfErbOdfTDDqWaX8H9OFG5xzrn40eFbR4gG6TK6A+ACV14
- LaXOcRNiURJw9RXTOfStA9ck0FCfVAnWcuXcLxxeWg==
-X-Google-Smtp-Source: ABdhPJxB2hE0PQDE18UU+IPf6Yn10IX5bTKp8Wt5TwMgpr0QfRfVKLjZCNPhtQZ2ip1uRzlVyb6cVyb6H2qsdffAOG8=
-X-Received: by 2002:a05:6808:2109:: with SMTP id
- r9mr9399868oiw.101.1628176072814; 
- Thu, 05 Aug 2021 08:07:52 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=u5iij8rID6SAk24Gs2UckGpZrRbqv5ALWYEAvBtS4mY=;
+ b=ZPpjHq8o3n5UqEiTJxQqy6XWkt9k1uYcHON3ZkPyhp/xJJYO+Qc3wv5IbftyOmQlOC
+ a0Nav9cHs5n+Z6EOysNSIdgOWHYg4y7/j0x7agboZ89/HGsQFYU75lrqIpwahE5d3hwF
+ 57DtTqUsopnfJjVGy0G2zB99UT+kIarruxTBqEYHmg0Icp2z9D6at/JWuqcj22BACLZi
+ uhxweQza8PnWjPNP5ZQcf8gLQ94xzfawndmPrMzrIlscW3ToVo2QX+ZWX921w83I7QX2
+ epvB9vB845JBa8fuATkwidrkc7Kqh3dB+aeYwGyhWSXNvf67g4I6WSaeiY2HsvwhuTjM
+ rdAQ==
+X-Gm-Message-State: AOAM531mO5oRzRPS2nfCKNtEgS7ytcEgU98mnGysdbSgKBINfinDWsKP
+ 2t+gIrFuxSLTtun4dnymA3TtJw==
+X-Google-Smtp-Source: ABdhPJx+iKXMxN1ZaUHnr/vBFWgK62YDFCoxXE2ugla5zcpEvl/+wWZVyK8vcLL/S3SfYk6G/g+yAw==
+X-Received: by 2002:a19:e00a:: with SMTP id x10mr4679538lfg.536.1628183298064; 
+ Thu, 05 Aug 2021 10:08:18 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id v19sm568935lfg.134.2021.08.05.10.08.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Aug 2021 10:08:17 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Date: Thu,  5 Aug 2021 20:08:17 +0300
+Message-Id: <20210805170817.3337665-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
- <20210805104705.862416-2-daniel.vetter@ffwll.ch>
- <7f7f839f-4944-32a5-2554-51131e7765a0@amd.com>
- <CAKMK7uGEjO16mFcUWbzXHybvSBWcye9eJgVsX7A6QjSHQeM0yw@mail.gmail.com>
- <04699641-1db2-5e85-5ac4-ffb7cdf868ee@amd.com>
-In-Reply-To: <04699641-1db2-5e85-5ac4-ffb7cdf868ee@amd.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 5 Aug 2021 17:07:41 +0200
-Message-ID: <CAKMK7uGN=VgLvES0d1HMJR0EKCZVvXfANXA+Uu55UZ8bAJa_-w@mail.gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: DRI Development <dri-devel@lists.freedesktop.org>, 
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Melissa Wen <mwen@igalia.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Emma Anholt <emma@anholt.net>, 
- Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Daniel Vetter <daniel.vetter@intel.com>, Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, Qiang Yu <yuq825@gmail.com>, 
- Rob Herring <robh@kernel.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- David Airlie <airlied@linux.ie>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Masahiro Yamada <masahiroy@kernel.org>,
- Kees Cook <keescook@chromium.org>, Adam Borowski <kilobyte@angband.pl>, 
- Nick Terrell <terrelln@fb.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Paul Menzel <pmenzel@molgen.mpg.de>, Sami Tolvanen <samitolvanen@google.com>, 
- Viresh Kumar <viresh.kumar@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Dave Airlie <airlied@redhat.com>, Nirmoy Das <nirmoy.das@amd.com>, 
- Deepak R Varma <mh12gx2825@gmail.com>, Lee Jones <lee.jones@linaro.org>, 
- Kevin Wang <kevin1.wang@amd.com>, Chen Li <chenli@uniontech.com>, 
- Luben Tuikov <luben.tuikov@amd.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>, 
- Dennis Li <Dennis.Li@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Sonny Jiang <sonny.jiang@amd.com>, Tian Tao <tiantao6@hisilicon.com>, 
- The etnaviv authors <etnaviv@lists.freedesktop.org>, lima@lists.freedesktop.org,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>, 
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v5 01/20] drm/sched: Split drm_sched_job_init
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5] drm/msm/dsi: add continuous clock support
+ for 7nm PHY
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,506 +75,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 5, 2021 at 4:47 PM Christian K=C3=B6nig <christian.koenig@amd.c=
-om> wrote:
->
-> Am 05.08.21 um 16:07 schrieb Daniel Vetter:
-> > On Thu, Aug 5, 2021 at 3:44 PM Christian K=C3=B6nig <christian.koenig@a=
-md.com> wrote:
-> >> Am 05.08.21 um 12:46 schrieb Daniel Vetter:
-> >>> This is a very confusingly named function, because not just does it
-> >>> init an object, it arms it and provides a point of no return for
-> >>> pushing a job into the scheduler. It would be nice if that's a bit
-> >>> clearer in the interface.
-> >>>
-> >>> But the real reason is that I want to push the dependency tracking
-> >>> helpers into the scheduler code, and that means drm_sched_job_init
-> >>> must be called a lot earlier, without arming the job.
-> >>>
-> >>> v2:
-> >>> - don't change .gitignore (Steven)
-> >>> - don't forget v3d (Emma)
-> >>>
-> >>> v3: Emma noticed that I leak the memory allocated in
-> >>> drm_sched_job_init if we bail out before the point of no return in
-> >>> subsequent driver patches. To be able to fix this change
-> >>> drm_sched_job_cleanup() so it can handle being called both before and
-> >>> after drm_sched_job_arm().
-> >>>
-> >>> Also improve the kerneldoc for this.
-> >>>
-> >>> v4:
-> >>> - Fix the drm_sched_job_cleanup logic, I inverted the booleans, as
-> >>>     usual (Melissa)
-> >>>
-> >>> - Christian pointed out that drm_sched_entity_select_rq() also needs
-> >>>     to be moved into drm_sched_job_arm, which made me realize that th=
-e
-> >>>     job->id definitely needs to be moved too.
-> >>>
-> >>>     Shuffle things to fit between job_init and job_arm.
-> >>>
-> >>> v5:
-> >>> Reshuffle the split between init/arm once more, amdgpu abuses
-> >>> drm_sched.ready to signal gpu reset failures. Also document this
-> >>> somewhat. (Christian)
-> >>>
-> >>> v6:
-> >>> Rebase on top of the msm drm/sched support. Note that the
-> >>> drm_sched_job_init() call is completely misplaced, and hence also the
-> >>> split-out drm_sched_entity_push_job(). I've put in a FIXME which the =
-next
-> >>> patch will address.
-> >>>
-> >>> Acked-by: Melissa Wen <mwen@igalia.com>
-> >>> Cc: Melissa Wen <melissa.srw@gmail.com>
-> >>> Acked-by: Emma Anholt <emma@anholt.net>
-> >>> Acked-by: Steven Price <steven.price@arm.com> (v2)
-> >>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> (v5)
-> >>> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> >> At least the amdgpu parts look ok of hand, but I can't judge the rest =
-I
-> >> think.
-> > The thing that really scares me here and that I got wrong a few times
-> > is the cleanup for drm_sched_job at the various points. Can you give
-> > those parts in drm/scheduler/ a full review pls, just to make sure? I
-> > can note that in the tag ofc, just like a bit more confidence here
-> > that it's not busted :-)
->
-> I can take another look, but I won't have time for that in the next two
-> weeks - vacation and kid starting school.
+Unlike previous generations, 7nm PHYs are required to collaborate with
+the host for conitnuos clock mode. Add changes neccessary to enable
+continuous clock mode in the 7nm DSI PHYs.
 
-Hm ok I'll ask others, since this is kinda needed for the msm fix. At
-least the msm design relies on this split being present, so fixing it
-without this split here would be a pile of rather pointless work.
--Daniel
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes since v4:
+ - Fix the comment regarding msm_dsi_phy_set_continuous_clock()
 
-> Christian.
->
-> >
-> >> So only Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Thanks, Daniel
-> >
-> >>> Cc: Lucas Stach <l.stach@pengutronix.de>
-> >>> Cc: Russell King <linux+etnaviv@armlinux.org.uk>
-> >>> Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
-> >>> Cc: Qiang Yu <yuq825@gmail.com>
-> >>> Cc: Rob Herring <robh@kernel.org>
-> >>> Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>
-> >>> Cc: Steven Price <steven.price@arm.com>
-> >>> Cc: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
-> >>> Cc: David Airlie <airlied@linux.ie>
-> >>> Cc: Daniel Vetter <daniel@ffwll.ch>
-> >>> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> >>> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> >>> Cc: Masahiro Yamada <masahiroy@kernel.org>
-> >>> Cc: Kees Cook <keescook@chromium.org>
-> >>> Cc: Adam Borowski <kilobyte@angband.pl>
-> >>> Cc: Nick Terrell <terrelln@fb.com>
-> >>> Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> >>> Cc: Paul Menzel <pmenzel@molgen.mpg.de>
-> >>> Cc: Sami Tolvanen <samitolvanen@google.com>
-> >>> Cc: Viresh Kumar <viresh.kumar@linaro.org>
-> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >>> Cc: Dave Airlie <airlied@redhat.com>
-> >>> Cc: Nirmoy Das <nirmoy.das@amd.com>
-> >>> Cc: Deepak R Varma <mh12gx2825@gmail.com>
-> >>> Cc: Lee Jones <lee.jones@linaro.org>
-> >>> Cc: Kevin Wang <kevin1.wang@amd.com>
-> >>> Cc: Chen Li <chenli@uniontech.com>
-> >>> Cc: Luben Tuikov <luben.tuikov@amd.com>
-> >>> Cc: "Marek Ol=C5=A1=C3=A1k" <marek.olsak@amd.com>
-> >>> Cc: Dennis Li <Dennis.Li@amd.com>
-> >>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> >>> Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> >>> Cc: Sonny Jiang <sonny.jiang@amd.com>
-> >>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> >>> Cc: Tian Tao <tiantao6@hisilicon.com>
-> >>> Cc: etnaviv@lists.freedesktop.org
-> >>> Cc: lima@lists.freedesktop.org
-> >>> Cc: linux-media@vger.kernel.org
-> >>> Cc: linaro-mm-sig@lists.linaro.org
-> >>> Cc: Emma Anholt <emma@anholt.net>
-> >>> Cc: Rob Clark <robdclark@gmail.com>
-> >>> Cc: Sean Paul <sean@poorly.run>
-> >>> Cc: linux-arm-msm@vger.kernel.org
-> >>> Cc: freedreno@lists.freedesktop.org
-> >>> ---
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  2 +
-> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  2 +
-> >>>    drivers/gpu/drm/etnaviv/etnaviv_sched.c  |  2 +
-> >>>    drivers/gpu/drm/lima/lima_sched.c        |  2 +
-> >>>    drivers/gpu/drm/msm/msm_gem_submit.c     |  3 ++
-> >>>    drivers/gpu/drm/panfrost/panfrost_job.c  |  2 +
-> >>>    drivers/gpu/drm/scheduler/sched_entity.c |  6 +--
-> >>>    drivers/gpu/drm/scheduler/sched_fence.c  | 19 ++++---
-> >>>    drivers/gpu/drm/scheduler/sched_main.c   | 69 ++++++++++++++++++++=
-----
-> >>>    drivers/gpu/drm/v3d/v3d_gem.c            |  2 +
-> >>>    include/drm/gpu_scheduler.h              |  7 ++-
-> >>>    11 files changed, 94 insertions(+), 22 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_cs.c
-> >>> index 139cd3bf1ad6..32e80bc6af22 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> >>> @@ -1226,6 +1226,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_pa=
-rser *p,
-> >>>        if (r)
-> >>>                goto error_unlock;
-> >>>
-> >>> +     drm_sched_job_arm(&job->base);
-> >>> +
-> >>>        /* No memory allocation is allowed while holding the notifier =
-lock.
-> >>>         * The lock is held until amdgpu_cs_submit is finished and fen=
-ce is
-> >>>         * added to BOs.
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_job.c
-> >>> index d33e6d97cc89..5ddb955d2315 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >>> @@ -170,6 +170,8 @@ int amdgpu_job_submit(struct amdgpu_job *job, str=
-uct drm_sched_entity *entity,
-> >>>        if (r)
-> >>>                return r;
-> >>>
-> >>> +     drm_sched_job_arm(&job->base);
-> >>> +
-> >>>        *f =3D dma_fence_get(&job->base.s_fence->finished);
-> >>>        amdgpu_job_free_resources(job);
-> >>>        drm_sched_entity_push_job(&job->base, entity);
-> >>> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/dr=
-m/etnaviv/etnaviv_sched.c
-> >>> index feb6da1b6ceb..05f412204118 100644
-> >>> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> >>> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> >>> @@ -163,6 +163,8 @@ int etnaviv_sched_push_job(struct drm_sched_entit=
-y *sched_entity,
-> >>>        if (ret)
-> >>>                goto out_unlock;
-> >>>
-> >>> +     drm_sched_job_arm(&submit->sched_job);
-> >>> +
-> >>>        submit->out_fence =3D dma_fence_get(&submit->sched_job.s_fence=
-->finished);
-> >>>        submit->out_fence_id =3D idr_alloc_cyclic(&submit->gpu->fence_=
-idr,
-> >>>                                                submit->out_fence, 0,
-> >>> diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima=
-/lima_sched.c
-> >>> index dba8329937a3..38f755580507 100644
-> >>> --- a/drivers/gpu/drm/lima/lima_sched.c
-> >>> +++ b/drivers/gpu/drm/lima/lima_sched.c
-> >>> @@ -129,6 +129,8 @@ int lima_sched_task_init(struct lima_sched_task *=
-task,
-> >>>                return err;
-> >>>        }
-> >>>
-> >>> +     drm_sched_job_arm(&task->base);
-> >>> +
-> >>>        task->num_bos =3D num_bos;
-> >>>        task->vm =3D lima_vm_get(vm);
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/m=
-sm/msm_gem_submit.c
-> >>> index fdc5367aecaa..6d6c44f0e1f3 100644
-> >>> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> >>> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> >>> @@ -52,6 +52,9 @@ static struct msm_gem_submit *submit_create(struct =
-drm_device *dev,
-> >>>                return ERR_PTR(ret);
-> >>>        }
-> >>>
-> >>> +     /* FIXME: this is way too early */
-> >>> +     drm_sched_job_arm(&job->base);
-> >>> +
-> >>>        xa_init_flags(&submit->deps, XA_FLAGS_ALLOC);
-> >>>
-> >>>        kref_init(&submit->ref);
-> >>> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/dr=
-m/panfrost/panfrost_job.c
-> >>> index 71a72fb50e6b..2992dc85325f 100644
-> >>> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> >>> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> >>> @@ -288,6 +288,8 @@ int panfrost_job_push(struct panfrost_job *job)
-> >>>                goto unlock;
-> >>>        }
-> >>>
-> >>> +     drm_sched_job_arm(&job->base);
-> >>> +
-> >>>        job->render_done_fence =3D dma_fence_get(&job->base.s_fence->f=
-inished);
-> >>>
-> >>>        ret =3D panfrost_acquire_object_fences(job->bos, job->bo_count=
-,
-> >>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/d=
-rm/scheduler/sched_entity.c
-> >>> index 79554aa4dbb1..f7347c284886 100644
-> >>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> >>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> >>> @@ -485,9 +485,9 @@ void drm_sched_entity_select_rq(struct drm_sched_=
-entity *entity)
-> >>>     * @sched_job: job to submit
-> >>>     * @entity: scheduler entity
-> >>>     *
-> >>> - * Note: To guarantee that the order of insertion to queue matches
-> >>> - * the job's fence sequence number this function should be
-> >>> - * called with drm_sched_job_init under common lock.
-> >>> + * Note: To guarantee that the order of insertion to queue matches t=
-he job's
-> >>> + * fence sequence number this function should be called with drm_sch=
-ed_job_arm()
-> >>> + * under common lock.
-> >>>     *
-> >>>     * Returns 0 for success, negative error code otherwise.
-> >>>     */
-> >>> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/dr=
-m/scheduler/sched_fence.c
-> >>> index 69de2c76731f..bcea035cf4c6 100644
-> >>> --- a/drivers/gpu/drm/scheduler/sched_fence.c
-> >>> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
-> >>> @@ -90,7 +90,7 @@ static const char *drm_sched_fence_get_timeline_nam=
-e(struct dma_fence *f)
-> >>>     *
-> >>>     * Free up the fence memory after the RCU grace period.
-> >>>     */
-> >>> -static void drm_sched_fence_free(struct rcu_head *rcu)
-> >>> +void drm_sched_fence_free(struct rcu_head *rcu)
-> >>>    {
-> >>>        struct dma_fence *f =3D container_of(rcu, struct dma_fence, rc=
-u);
-> >>>        struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
-> >>> @@ -152,27 +152,32 @@ struct drm_sched_fence *to_drm_sched_fence(stru=
-ct dma_fence *f)
-> >>>    }
-> >>>    EXPORT_SYMBOL(to_drm_sched_fence);
-> >>>
-> >>> -struct drm_sched_fence *drm_sched_fence_create(struct drm_sched_enti=
-ty *entity,
-> >>> -                                            void *owner)
-> >>> +struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entit=
-y *entity,
-> >>> +                                           void *owner)
-> >>>    {
-> >>>        struct drm_sched_fence *fence =3D NULL;
-> >>> -     unsigned seq;
-> >>>
-> >>>        fence =3D kmem_cache_zalloc(sched_fence_slab, GFP_KERNEL);
-> >>>        if (fence =3D=3D NULL)
-> >>>                return NULL;
-> >>>
-> >>>        fence->owner =3D owner;
-> >>> -     fence->sched =3D entity->rq->sched;
-> >>>        spin_lock_init(&fence->lock);
-> >>>
-> >>> +     return fence;
-> >>> +}
-> >>> +
-> >>> +void drm_sched_fence_init(struct drm_sched_fence *fence,
-> >>> +                       struct drm_sched_entity *entity)
-> >>> +{
-> >>> +     unsigned seq;
-> >>> +
-> >>> +     fence->sched =3D entity->rq->sched;
-> >>>        seq =3D atomic_inc_return(&entity->fence_seq);
-> >>>        dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_schedul=
-ed,
-> >>>                       &fence->lock, entity->fence_context, seq);
-> >>>        dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished=
-,
-> >>>                       &fence->lock, entity->fence_context + 1, seq);
-> >>> -
-> >>> -     return fence;
-> >>>    }
-> >>>
-> >>>    module_init(drm_sched_fence_slab_init);
-> >>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
-/scheduler/sched_main.c
-> >>> index 33c414d55fab..454cb6164bdc 100644
-> >>> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> >>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> >>> @@ -48,9 +48,11 @@
-> >>>    #include <linux/wait.h>
-> >>>    #include <linux/sched.h>
-> >>>    #include <linux/completion.h>
-> >>> +#include <linux/dma-resv.h>
-> >>>    #include <uapi/linux/sched/types.h>
-> >>>
-> >>>    #include <drm/drm_print.h>
-> >>> +#include <drm/drm_gem.h>
-> >>>    #include <drm/gpu_scheduler.h>
-> >>>    #include <drm/spsc_queue.h>
-> >>>
-> >>> @@ -569,7 +571,6 @@ EXPORT_SYMBOL(drm_sched_resubmit_jobs_ext);
-> >>>
-> >>>    /**
-> >>>     * drm_sched_job_init - init a scheduler job
-> >>> - *
-> >>>     * @job: scheduler job to init
-> >>>     * @entity: scheduler entity to use
-> >>>     * @owner: job owner for debugging
-> >>> @@ -577,27 +578,28 @@ EXPORT_SYMBOL(drm_sched_resubmit_jobs_ext);
-> >>>     * Refer to drm_sched_entity_push_job() documentation
-> >>>     * for locking considerations.
-> >>>     *
-> >>> + * Drivers must make sure drm_sched_job_cleanup() if this function r=
-eturns
-> >>> + * successfully, even when @job is aborted before drm_sched_job_arm(=
-) is called.
-> >>> + *
-> >>> + * WARNING: amdgpu abuses &drm_sched.ready to signal when the hardwa=
-re
-> >>> + * has died, which can mean that there's no valid runqueue for a @en=
-tity.
-> >>> + * This function returns -ENOENT in this case (which probably should=
- be -EIO as
-> >>> + * a more meanigful return value).
-> >>> + *
-> >>>     * Returns 0 for success, negative error code otherwise.
-> >>>     */
-> >>>    int drm_sched_job_init(struct drm_sched_job *job,
-> >>>                       struct drm_sched_entity *entity,
-> >>>                       void *owner)
-> >>>    {
-> >>> -     struct drm_gpu_scheduler *sched;
-> >>> -
-> >>>        drm_sched_entity_select_rq(entity);
-> >>>        if (!entity->rq)
-> >>>                return -ENOENT;
-> >>>
-> >>> -     sched =3D entity->rq->sched;
-> >>> -
-> >>> -     job->sched =3D sched;
-> >>>        job->entity =3D entity;
-> >>> -     job->s_priority =3D entity->rq - sched->sched_rq;
-> >>> -     job->s_fence =3D drm_sched_fence_create(entity, owner);
-> >>> +     job->s_fence =3D drm_sched_fence_alloc(entity, owner);
-> >>>        if (!job->s_fence)
-> >>>                return -ENOMEM;
-> >>> -     job->id =3D atomic64_inc_return(&sched->job_id_count);
-> >>>
-> >>>        INIT_LIST_HEAD(&job->list);
-> >>>
-> >>> @@ -606,13 +608,58 @@ int drm_sched_job_init(struct drm_sched_job *jo=
-b,
-> >>>    EXPORT_SYMBOL(drm_sched_job_init);
-> >>>
-> >>>    /**
-> >>> - * drm_sched_job_cleanup - clean up scheduler job resources
-> >>> + * drm_sched_job_arm - arm a scheduler job for execution
-> >>> + * @job: scheduler job to arm
-> >>> + *
-> >>> + * This arms a scheduler job for execution. Specifically it initiali=
-zes the
-> >>> + * &drm_sched_job.s_fence of @job, so that it can be attached to str=
-uct dma_resv
-> >>> + * or other places that need to track the completion of this job.
-> >>> + *
-> >>> + * Refer to drm_sched_entity_push_job() documentation for locking
-> >>> + * considerations.
-> >>>     *
-> >>> + * This can only be called if drm_sched_job_init() succeeded.
-> >>> + */
-> >>> +void drm_sched_job_arm(struct drm_sched_job *job)
-> >>> +{
-> >>> +     struct drm_gpu_scheduler *sched;
-> >>> +     struct drm_sched_entity *entity =3D job->entity;
-> >>> +
-> >>> +     BUG_ON(!entity);
-> >>> +
-> >>> +     sched =3D entity->rq->sched;
-> >>> +
-> >>> +     job->sched =3D sched;
-> >>> +     job->s_priority =3D entity->rq - sched->sched_rq;
-> >>> +     job->id =3D atomic64_inc_return(&sched->job_id_count);
-> >>> +
-> >>> +     drm_sched_fence_init(job->s_fence, job->entity);
-> >>> +}
-> >>> +EXPORT_SYMBOL(drm_sched_job_arm);
-> >>> +
-> >>> +/**
-> >>> + * drm_sched_job_cleanup - clean up scheduler job resources
-> >>>     * @job: scheduler job to clean up
-> >>> + *
-> >>> + * Cleans up the resources allocated with drm_sched_job_init().
-> >>> + *
-> >>> + * Drivers should call this from their error unwind code if @job is =
-aborted
-> >>> + * before drm_sched_job_arm() is called.
-> >>> + *
-> >>> + * After that point of no return @job is committed to be executed by=
- the
-> >>> + * scheduler, and this function should be called from the
-> >>> + * &drm_sched_backend_ops.free_job callback.
-> >>>     */
-> >>>    void drm_sched_job_cleanup(struct drm_sched_job *job)
-> >>>    {
-> >>> -     dma_fence_put(&job->s_fence->finished);
-> >>> +     if (kref_read(&job->s_fence->finished.refcount)) {
-> >>> +             /* drm_sched_job_arm() has been called */
-> >>> +             dma_fence_put(&job->s_fence->finished);
-> >>> +     } else {
-> >>> +             /* aborted job before committing to run it */
-> >>> +             drm_sched_fence_free(&job->s_fence->finished.rcu);
-> >>> +     }
-> >>> +
-> >>>        job->s_fence =3D NULL;
-> >>>    }
-> >>>    EXPORT_SYMBOL(drm_sched_job_cleanup);
-> >>> diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_=
-gem.c
-> >>> index 5689da118197..2e808097b4d1 100644
-> >>> --- a/drivers/gpu/drm/v3d/v3d_gem.c
-> >>> +++ b/drivers/gpu/drm/v3d/v3d_gem.c
-> >>> @@ -480,6 +480,8 @@ v3d_push_job(struct v3d_file_priv *v3d_priv,
-> >>>        if (ret)
-> >>>                return ret;
-> >>>
-> >>> +     drm_sched_job_arm(&job->base);
-> >>> +
-> >>>        job->done_fence =3D dma_fence_get(&job->base.s_fence->finished=
-);
-> >>>
-> >>>        /* put by scheduler job completion */
-> >>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.=
-h
-> >>> index 88ae7f331bb1..83afc3aa8e2f 100644
-> >>> --- a/include/drm/gpu_scheduler.h
-> >>> +++ b/include/drm/gpu_scheduler.h
-> >>> @@ -348,6 +348,7 @@ void drm_sched_fini(struct drm_gpu_scheduler *sch=
-ed);
-> >>>    int drm_sched_job_init(struct drm_sched_job *job,
-> >>>                       struct drm_sched_entity *entity,
-> >>>                       void *owner);
-> >>> +void drm_sched_job_arm(struct drm_sched_job *job);
-> >>>    void drm_sched_entity_modify_sched(struct drm_sched_entity *entity=
-,
-> >>>                                    struct drm_gpu_scheduler **sched_l=
-ist,
-> >>>                                       unsigned int num_sched_list);
-> >>> @@ -387,8 +388,12 @@ void drm_sched_entity_set_priority(struct drm_sc=
-hed_entity *entity,
-> >>>                                   enum drm_sched_priority priority);
-> >>>    bool drm_sched_entity_is_ready(struct drm_sched_entity *entity);
-> >>>
-> >>> -struct drm_sched_fence *drm_sched_fence_create(
-> >>> +struct drm_sched_fence *drm_sched_fence_alloc(
-> >>>        struct drm_sched_entity *s_entity, void *owner);
-> >>> +void drm_sched_fence_init(struct drm_sched_fence *fence,
-> >>> +                       struct drm_sched_entity *entity);
-> >>> +void drm_sched_fence_free(struct rcu_head *rcu);
-> >>> +
-> >>>    void drm_sched_fence_scheduled(struct drm_sched_fence *fence);
-> >>>    void drm_sched_fence_finished(struct drm_sched_fence *fence);
-> >>>
-> >
->
+Changes since v3:
+ - Invert the DSI_LANE_CTRL_HS_REQ_SEL_PHY bit logic, as noted by
+   Abhinav.
 
+Changes since v2:
+ - Really drop msm_dsi_phy_needs_hs_phy_sel()
 
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Changes since v1:
+ - Remove the need for a separate msm_dsi_phy_needs_hs_phy_sel() call
+ - Fix setting continuous clock for a dual DSI case.
+---
+ drivers/gpu/drm/msm/dsi/dsi.h             |  3 ++-
+ drivers/gpu/drm/msm/dsi/dsi.xml.h         |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c        | 12 ++++++++----
+ drivers/gpu/drm/msm/dsi/dsi_manager.c     |  4 ++--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  9 +++++++++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 17 +++++++++++++++++
+ 7 files changed, 40 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 9b8e9b07eced..58e63bf34fe9 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -109,7 +109,7 @@ int msm_dsi_host_enable(struct mipi_dsi_host *host);
+ int msm_dsi_host_disable(struct mipi_dsi_host *host);
+ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+ 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
+-			bool is_dual_dsi);
++			bool is_dual_dsi, struct msm_dsi_phy *phy);
+ int msm_dsi_host_power_off(struct mipi_dsi_host *host);
+ int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
+ 				  const struct drm_display_mode *mode);
+@@ -175,6 +175,7 @@ int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+ void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
+ int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
+ void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct msm_dsi_phy *phy);
++bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable);
+ 
+ #endif /* __DSI_CONNECTOR_H__ */
+ 
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+index eadbcc78fd72..473c81605054 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+@@ -518,6 +518,7 @@ static inline uint32_t DSI_CLKOUT_TIMING_CTRL_T_CLK_POST(uint32_t val)
+ #define DSI_LANE_STATUS_DLN0_DIRECTION				0x00010000
+ 
+ #define REG_DSI_LANE_CTRL					0x000000a8
++#define DSI_LANE_CTRL_HS_REQ_SEL_PHY				0x01000000
+ #define DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST			0x10000000
+ 
+ #define REG_DSI_LANE_SWAP_CTRL					0x000000ac
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index ed504fe5074f..3558e5cd400f 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -834,7 +834,7 @@ static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
+ }
+ 
+ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
+-			struct msm_dsi_phy_shared_timings *phy_shared_timings)
++			struct msm_dsi_phy_shared_timings *phy_shared_timings, struct msm_dsi_phy *phy)
+ {
+ 	u32 flags = msm_host->mode_flags;
+ 	enum mipi_dsi_pixel_format mipi_fmt = msm_host->format;
+@@ -929,6 +929,10 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
+ 
+ 	if (!(flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)) {
+ 		lane_ctrl = dsi_read(msm_host, REG_DSI_LANE_CTRL);
++
++		if (msm_dsi_phy_set_continuous_clock(phy, enable))
++			lane_ctrl &= ~DSI_LANE_CTRL_HS_REQ_SEL_PHY;
++
+ 		dsi_write(msm_host, REG_DSI_LANE_CTRL,
+ 			lane_ctrl | DSI_LANE_CTRL_CLKLN_HS_FORCE_REQUEST);
+ 	}
+@@ -2354,7 +2358,7 @@ static void msm_dsi_sfpb_config(struct msm_dsi_host *msm_host, bool enable)
+ 
+ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+ 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
+-			bool is_dual_dsi)
++			bool is_dual_dsi, struct msm_dsi_phy *phy)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+@@ -2394,7 +2398,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+ 
+ 	dsi_timing_setup(msm_host, is_dual_dsi);
+ 	dsi_sw_reset(msm_host);
+-	dsi_ctrl_config(msm_host, true, phy_shared_timings);
++	dsi_ctrl_config(msm_host, true, phy_shared_timings, phy);
+ 
+ 	if (msm_host->disp_en_gpio)
+ 		gpiod_set_value(msm_host->disp_en_gpio, 1);
+@@ -2425,7 +2429,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
+ 		goto unlock_ret;
+ 	}
+ 
+-	dsi_ctrl_config(msm_host, false, NULL);
++	dsi_ctrl_config(msm_host, false, NULL, NULL);
+ 
+ 	if (msm_host->disp_en_gpio)
+ 		gpiod_set_value(msm_host->disp_en_gpio, 0);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 4ebfedc4a9ac..1b89fef8f805 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -381,7 +381,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+ 	if (ret)
+ 		goto phy_en_fail;
+ 
+-	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi);
++	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], is_dual_dsi, msm_dsi->phy);
+ 	if (ret) {
+ 		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
+ 		goto host_on_fail;
+@@ -389,7 +389,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+ 
+ 	if (is_dual_dsi && msm_dsi1) {
+ 		ret = msm_dsi_host_power_on(msm_dsi1->host,
+-				&phy_shared_timings[DSI_1], is_dual_dsi);
++				&phy_shared_timings[DSI_1], is_dual_dsi, msm_dsi1->phy);
+ 		if (ret) {
+ 			pr_err("%s: power on host1 failed, %d\n",
+ 							__func__, ret);
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 6ca6bfd4809b..723d2eeafa69 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -835,6 +835,15 @@ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
+ 		phy->usecase = uc;
+ }
+ 
++/* Returns true if we have to clear DSI_LANE_CTRL.HS_REQ_SEL_PHY */
++bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
++{
++	if (!phy || !phy->cfg->ops.set_continuous_clock)
++		return false;
++
++	return phy->cfg->ops.set_continuous_clock(phy, enable);
++}
++
+ int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+ 	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
+ {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+index 5b0feef87127..43dee28450b4 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+@@ -24,6 +24,7 @@ struct msm_dsi_phy_ops {
+ 	void (*disable)(struct msm_dsi_phy *phy);
+ 	void (*save_pll_state)(struct msm_dsi_phy *phy);
+ 	int (*restore_pll_state)(struct msm_dsi_phy *phy);
++	bool (*set_continuous_clock)(struct msm_dsi_phy *phy, bool enable);
+ };
+ 
+ struct msm_dsi_phy_cfg {
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index 7c23d4c47338..a78a0c45d101 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -932,6 +932,21 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 	return 0;
+ }
+ 
++static bool dsi_7nm_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
++{
++	void __iomem *base = phy->base;
++	u32 data;
++
++	data = dsi_phy_read(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1);
++	if (enable)
++		data |= BIT(5) | BIT(6);
++	else
++		data &= ~(BIT(5) | BIT(6));
++	dsi_phy_write(base + REG_DSI_7nm_PHY_CMN_LANE_CTRL1, data);
++
++	return enable;
++}
++
+ static void dsi_7nm_phy_disable(struct msm_dsi_phy *phy)
+ {
+ 	void __iomem *base = phy->base;
+@@ -972,6 +987,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs = {
+ 		.pll_init = dsi_pll_7nm_init,
+ 		.save_pll_state = dsi_7nm_pll_save_state,
+ 		.restore_pll_state = dsi_7nm_pll_restore_state,
++		.set_continuous_clock = dsi_7nm_set_continuous_clock,
+ 	},
+ 	.min_pll_rate = 600000000UL,
+ #ifdef CONFIG_64BIT
+@@ -998,6 +1014,7 @@ const struct msm_dsi_phy_cfg dsi_phy_7nm_8150_cfgs = {
+ 		.pll_init = dsi_pll_7nm_init,
+ 		.save_pll_state = dsi_7nm_pll_save_state,
+ 		.restore_pll_state = dsi_7nm_pll_restore_state,
++		.set_continuous_clock = dsi_7nm_set_continuous_clock,
+ 	},
+ 	.min_pll_rate = 1000000000UL,
+ 	.max_pll_rate = 3500000000UL,
+-- 
+2.30.2
+
