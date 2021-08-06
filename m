@@ -1,43 +1,38 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4FE3E2187
-	for <lists+freedreno@lfdr.de>; Fri,  6 Aug 2021 04:31:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7062F3E2726
+	for <lists+freedreno@lfdr.de>; Fri,  6 Aug 2021 11:22:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5B4E6E7D1;
-	Fri,  6 Aug 2021 02:31:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23E466EB10;
+	Fri,  6 Aug 2021 09:22:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from qq.com (smtpbg476.qq.com [59.36.132.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 605306E7D1;
- Fri,  6 Aug 2021 02:31:35 +0000 (UTC)
-X-QQ-mid: bizesmtp48t1628217051too04ab3
-Received: from localhost.localdomain (unknown [111.207.172.18])
- by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 06 Aug 2021 10:30:49 +0800 (CST)
-X-QQ-SSF: 0140000000200020C000B00B0000000
-X-QQ-FEAT: qEuLDdMiAwGKHL+Wg0BUhCvrpVoKG7VEAOgcB/U0rdhkCM8wsDD4kOdYOpECF
- fkiVWPmZWVx/yGc+v/lveUhPM0X4QrGl9KjxBYMfEbyj87Tp2GIY5ZFICuvzN4zDr3gVOcH
- rRMhS+JBb1NV41KHkZu++ZQndX4RA+NFB8K9FyGd+Ri0v6eONA2CycS8fReZTIGWsNySfAs
- ICnkPbxcW5g9yp5Lu64Prvt4pfsXiP5Tf7jenn34S1fnfHTyMnIXFHJppQX0dVY1Gx/d/Hs
- Sj/UJr4GsOJ+Q6peFDnOhXHhoTl+W3z1h35ve1mRvjGm3Ez4tISNl+LKhlgtbgsf3CXQ==
-X-QQ-GoodBg: 2
-From: zhaoxiao <zhaoxiao@uniontech.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Received: from smtp.smtpout.orange.fr (smtp05.smtpout.orange.fr
+ [80.12.242.127])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D26FD6EB07
+ for <freedreno@lists.freedesktop.org>; Fri,  6 Aug 2021 09:22:50 +0000 (UTC)
+Received: from localhost.localdomain ([217.128.214.245]) by mwinf5d28 with ME
+ id e9FH2500C5JEng9039FH0u; Fri, 06 Aug 2021 11:15:19 +0200
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Fri, 06 Aug 2021 11:15:19 +0200
+X-ME-IP: 217.128.214.245
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org, hali@codeaurora.org
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- zhaoxiao <zhaoxiao@uniontech.com>
-Date: Fri,  6 Aug 2021 10:30:47 +0800
-Message-Id: <20210806023047.24386-1-zhaoxiao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ kernel-janitors@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Date: Fri,  6 Aug 2021 11:15:13 +0200
+Message-Id: <f15bc57648a00e7c99f943903468a04639d50596.1628241097.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
-X-QQ-Bgrelay: 1
-Subject: [Freedreno] [PATCH v2] drm/drv: Remove initialization of static
- variables
+Subject: [Freedreno] [PATCH] drm/msm/dsi: Fix some reference counted
+ resource leaks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,45 +48,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Address the following checkpatch errors:
-ERROR: do not initialise statics to false
+'of_find_device_by_node()' takes a reference that must be released when
+not needed anymore.
+This is expected to be done in 'dsi_destroy()'.
 
-FILE: :drivers/gpu/drm/msm/msm_drv.c:21:
--static bool reglog = false;
+However, there are 2 issues in 'dsi_get_phy()'.
 
-FILE: :drivers/gpu/drm/msm/msm_drv.c:31:
--bool dumpstate = false;
+First, if 'of_find_device_by_node()' succeeds but 'platform_get_drvdata()'
+returns NULL, 'msm_dsi->phy_dev' will still be NULL, and the reference
+won't be released in 'dsi_destroy()'.
 
-Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
+Secondly, as 'of_find_device_by_node()' already takes a reference, there is
+no need for an additional 'get_device()'.
+
+Move the assignment to 'msm_dsi->phy_dev' a few lines above and remove the
+unneeded 'get_device()' to solve both issues.
+
+Fixes: ec31abf6684e ("drm/msm/dsi: Separate PHY to another platform device")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 ---
-v2: change the patch description 
- drivers/gpu/drm/msm/msm_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Review carefully, management of reference counted resources is sometimes
+tricky.
+---
+ drivers/gpu/drm/msm/dsi/dsi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 9b8fa2ad0d84..d9ca4bc9620b 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -59,7 +59,7 @@ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
- };
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+index 75afc12a7b25..29d11f1cb79b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.c
++++ b/drivers/gpu/drm/msm/dsi/dsi.c
+@@ -26,8 +26,10 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
+ 	}
  
- #ifdef CONFIG_DRM_MSM_REGISTER_LOGGING
--static bool reglog = false;
-+static bool reglog;
- MODULE_PARM_DESC(reglog, "Enable register read/write logging");
- module_param(reglog, bool, 0600);
- #else
-@@ -76,7 +76,7 @@ static char *vram = "16m";
- MODULE_PARM_DESC(vram, "Configure VRAM size (for devices without IOMMU/GPUMMU)");
- module_param(vram, charp, 0);
+ 	phy_pdev = of_find_device_by_node(phy_node);
+-	if (phy_pdev)
++	if (phy_pdev) {
+ 		msm_dsi->phy = platform_get_drvdata(phy_pdev);
++		msm_dsi->phy_dev = &phy_pdev->dev;
++	}
  
--bool dumpstate = false;
-+bool dumpstate;
- MODULE_PARM_DESC(dumpstate, "Dump KMS state on errors");
- module_param(dumpstate, bool, 0600);
+ 	of_node_put(phy_node);
+ 
+@@ -36,8 +38,6 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
+ 		return -EPROBE_DEFER;
+ 	}
+ 
+-	msm_dsi->phy_dev = get_device(&phy_pdev->dev);
+-
+ 	return 0;
+ }
  
 -- 
-2.20.1
-
-
+2.30.2
 
