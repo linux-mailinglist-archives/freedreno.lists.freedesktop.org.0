@@ -1,91 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24DD3E33D1
-	for <lists+freedreno@lfdr.de>; Sat,  7 Aug 2021 08:51:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FE603E3648
+	for <lists+freedreno@lfdr.de>; Sat,  7 Aug 2021 18:26:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9F589862;
-	Sat,  7 Aug 2021 06:51:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA9F89CDF;
+	Sat,  7 Aug 2021 16:26:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD296E02A;
- Sat,  7 Aug 2021 06:51:17 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EC8511FF2F;
- Sat,  7 Aug 2021 06:51:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628319075; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2iWQjCcku2emV9iVUDyYBfn4Rs7El/xBHQu+pZtKB+A=;
- b=FQ5+ZaZSKs57v/Z8xft0XI2c+jeXxpcwSXndeZ4HdB4MEWSobrbxnhztbSyUMKUV6seBiO
- vO2SL64fuHzl9X4H/NF6gnpJs28VWlgo+WU2ZfAfBaAnnIWjwNSeXdy3ZTCg4TaOCOlHd/
- ASa7QHYrejkEjyLDmIrtCK4cVAXfA/M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628319075;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2iWQjCcku2emV9iVUDyYBfn4Rs7El/xBHQu+pZtKB+A=;
- b=LiWRvOLyfrwTMRGiwX/AJEIuwT0pZGlUdVCewrP2tzxwKxzmWkJOvcQ4rJhn2wnN9BNKcs
- fmFc54Nxtcgz3fDA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 33A5B13997;
- Sat,  7 Aug 2021 06:51:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id A46yCmMtDmEARAAAGKfGzw
- (envelope-from <tzimmermann@suse.de>); Sat, 07 Aug 2021 06:51:15 +0000
-To: "Chrisanthus, Anitha" <anitha.chrisanthus@intel.com>,
- Sam Ravnborg <sam@ravnborg.org>
-Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>, "airlied@linux.ie"
- <airlied@linux.ie>, "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "bbrezillon@kernel.org" <bbrezillon@kernel.org>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "stefan@agner.ch"
- <stefan@agner.ch>, "alison.wang@nxp.com" <alison.wang@nxp.com>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "Dea, Edmund J" <edmund.j.dea@intel.com>, "sean@poorly.run"
- <sean@poorly.run>, "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "jyri.sarha@iki.fi" <jyri.sarha@iki.fi>, "tomba@kernel.org"
- <tomba@kernel.org>, "Dan.Sneddon@microchip.com" <Dan.Sneddon@microchip.com>,
- "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-References: <20210803090704.32152-1-tzimmermann@suse.de>
- <YQlbFjbrnyeWv7QP@ravnborg.org>
- <BY5PR11MB41822706053ADEE927E34E628CF09@BY5PR11MB4182.namprd11.prod.outlook.com>
- <4dbc29d7-5f88-e3ac-5dab-e2dc5c6a703e@suse.de>
- <BY5PR11MB4182FBA1D240321F7D9BEC7D8CF29@BY5PR11MB4182.namprd11.prod.outlook.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <8d10b841-8960-f782-4ed3-d15fa9761dce@suse.de>
-Date: Sat, 7 Aug 2021 08:51:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FA5589CDE;
+ Sat,  7 Aug 2021 16:26:06 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id mt6so21315220pjb.1;
+ Sat, 07 Aug 2021 09:26:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KK6pClbRoyb7NoLCLxdt7TZo5IqArGIaNgS9FD1UJck=;
+ b=Jo7Z5SIQMndDQNZMfafxV3iHlM0HyuITIt3fo+N3zm85xbzvJysih0K3Ga+nv+wbbx
+ 9QKD9Pgx+BxNT6l6fz1xPjpEvyAqTUNUYkuXVRl799mqt/2z5CkC29bqlg8BBtl1kIo+
+ hTh9KWekSDbXX0z3v9AvoO7lzdBO/1otyd+uh+Rp0EgEPaNCE90aOV/thgbe0xU9hWFk
+ vcZ+fz4mExKhkkWw1Ox8+gPSciDvz/djzj3ia0aYVQk0h+ZbEXtj2iWpNziWc2qghuBd
+ 8ICFp/MHMCck6pb15cj80csk24/NnP3kK+bGnwrcsJ30DoBLRhNpjtOTMCfRS0OmUEKZ
+ gJLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KK6pClbRoyb7NoLCLxdt7TZo5IqArGIaNgS9FD1UJck=;
+ b=TeX/7oEFZiHr0AIsV+77pH5gUqWhGB0qi5UuvHYEsvUJwBO5JoTjdu82Npx1uCQPn9
+ VhboGClc/b2yMdzGMtQvIsGiw/eEk9jCObtz8BKmXOLBCV3NPTtMiuTiduxzXyMQ1UW/
+ AuV0ys7K7vf54crO7uDXOkRu5YmgINijh5io89fSOCMg5E1+9GfrGyyzjL1ahGRisGkE
+ oIdPlxO+i3VJqlQA/xpHUjgbtIwbOcw+UY2FRGIxapDgYcbZKXb24jc9KLGGYX1+WC90
+ d43HSsOojluSoOV6rSpdiiakl6fWhLF+GFiLTJMTqaOI5RkA4JLLnmTHnn1Eyf7+nwBR
+ svtg==
+X-Gm-Message-State: AOAM532P+2a45t8+29KThnw4OtHOv4+XKZtERMYgGcCgAtJmNWleyhgI
+ eDvJumy0QbCDdtVphWvl1G7li1DQtaaCoQ==
+X-Google-Smtp-Source: ABdhPJyZpLLZHxalF+8THlswZkTPT3+hN7LYOH8rxbXjNvAupYVKZNmiTg7h801YxUdqBteLBG9jRg==
+X-Received: by 2002:aa7:9891:0:b029:3c4:dab0:6379 with SMTP id
+ r17-20020aa798910000b02903c4dab06379mr10289322pfl.12.1628353565007; 
+ Sat, 07 Aug 2021 09:26:05 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id bv4sm2760097pjb.27.2021.08.07.09.26.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Aug 2021 09:26:03 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Jonathan Marek <jonathan@marek.ca>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Eric Anholt <eric@anholt.net>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ linux-kernel@vger.kernel.org (open list)
+Date: Sat,  7 Aug 2021 09:30:11 -0700
+Message-Id: <20210807163019.379003-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <BY5PR11MB4182FBA1D240321F7D9BEC7D8CF29@BY5PR11MB4182.namprd11.prod.outlook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="BfWkLwAIF2tnbDGIJawI2jZ0MYa9F09kk"
-Subject: Re: [Freedreno] [PATCH v2 00/14] drm: Make DRM's IRQ helpers legacy
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/2] drm/msm: Add adreno_is_a640_family()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,233 +83,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---BfWkLwAIF2tnbDGIJawI2jZ0MYa9F09kk
-Content-Type: multipart/mixed; boundary="RN6maTAJdcwFszuGs8voIwcuLOKCG9DTE";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: "Chrisanthus, Anitha" <anitha.chrisanthus@intel.com>,
- Sam Ravnborg <sam@ravnborg.org>
-Cc: "daniel@ffwll.ch" <daniel@ffwll.ch>, "airlied@linux.ie"
- <airlied@linux.ie>, "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "bbrezillon@kernel.org" <bbrezillon@kernel.org>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "stefan@agner.ch"
- <stefan@agner.ch>, "alison.wang@nxp.com" <alison.wang@nxp.com>,
- "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "Dea, Edmund J" <edmund.j.dea@intel.com>, "sean@poorly.run"
- <sean@poorly.run>, "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "jyri.sarha@iki.fi" <jyri.sarha@iki.fi>, "tomba@kernel.org"
- <tomba@kernel.org>, "Dan.Sneddon@microchip.com" <Dan.Sneddon@microchip.com>,
- "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
-Message-ID: <8d10b841-8960-f782-4ed3-d15fa9761dce@suse.de>
-Subject: Re: [PATCH v2 00/14] drm: Make DRM's IRQ helpers legacy
-References: <20210803090704.32152-1-tzimmermann@suse.de>
- <YQlbFjbrnyeWv7QP@ravnborg.org>
- <BY5PR11MB41822706053ADEE927E34E628CF09@BY5PR11MB4182.namprd11.prod.outlook.com>
- <4dbc29d7-5f88-e3ac-5dab-e2dc5c6a703e@suse.de>
- <BY5PR11MB4182FBA1D240321F7D9BEC7D8CF29@BY5PR11MB4182.namprd11.prod.outlook.com>
-In-Reply-To: <BY5PR11MB4182FBA1D240321F7D9BEC7D8CF29@BY5PR11MB4182.namprd11.prod.outlook.com>
+From: Rob Clark <robdclark@chromium.org>
 
---RN6maTAJdcwFszuGs8voIwcuLOKCG9DTE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Combine adreno_is_a640() and adreno_is_a680().
 
-Hi
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   |  5 ++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 15 +++++++--------
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c   |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  9 ++-------
+ 4 files changed, 12 insertions(+), 19 deletions(-)
 
-Am 06.08.21 um 01:59 schrieb Chrisanthus, Anitha:
-> Hi Thomas,
->=20
->> -----Original Message-----
->> From: Thomas Zimmermann <tzimmermann@suse.de>
->> Sent: Wednesday, August 4, 2021 12:11 AM
->> To: Chrisanthus, Anitha <anitha.chrisanthus@intel.com>; Sam Ravnborg
->> <sam@ravnborg.org>
->> Cc: daniel@ffwll.ch; airlied@linux.ie; alexander.deucher@amd.com;
->> christian.koenig@amd.com; liviu.dudau@arm.com; brian.starkey@arm.com;
->> bbrezillon@kernel.org; nicolas.ferre@microchip.com;
->> maarten.lankhorst@linux.intel.com; mripard@kernel.org; stefan@agner.ch=
-;
->> alison.wang@nxp.com; patrik.r.jakobsson@gmail.com; robdclark@gmail.com=
-;
->> Dea, Edmund J <edmund.j.dea@intel.com>; sean@poorly.run;
->> shawnguo@kernel.org; s.hauer@pengutronix.de; kernel@pengutronix.de;
->> jyri.sarha@iki.fi; tomba@kernel.org; Dan.Sneddon@microchip.com;
->> tomi.valkeinen@ideasonboard.com; amd-gfx@lists.freedesktop.org; dri-
->> devel@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org; lin=
-ux-arm-
->> msm@vger.kernel.org; freedreno@lists.freedesktop.org
->> Subject: Re: [PATCH v2 00/14] drm: Make DRM's IRQ helpers legacy
->>
->> Hi
->>
->> Am 03.08.21 um 20:36 schrieb Chrisanthus, Anitha:
->>> Hi Thomas,
->>> Can you please hold off on applying the kmb patch, I am seeing some i=
-ssues
->> while testing. Modetest works, but video playback only plays once, and=
- it fails
->> the second time with this patch.
->>
->> Sounds a bit like the testing issue at [1]. For testing, you need the
->> latest drm-misc-next or drm-tip. Specifically, you need commit
->> 1e4cd78ed493 ("drm: Don't test for IRQ support in VBLANK ioctls").
->=20
->=20
-> You are right, with the above patch video plays fine. It's all good now=
-! Sorry about the confusion.
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index ab6b22264c2b..a7c58018959f 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -521,8 +521,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 
+ 	if (adreno_is_a650(adreno_gpu) || adreno_is_a660_family(adreno_gpu))
+ 		pdc_in_aop = true;
+-	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640(adreno_gpu) ||
+-		 adreno_is_a680(adreno_gpu))
++	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640_family(adreno_gpu))
+ 		pdc_address_offset = 0x30090;
+ 	else
+ 		pdc_address_offset = 0x30080;
+@@ -1527,7 +1526,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 			SZ_16M - SZ_16K, 0x04000);
+ 		if (ret)
+ 			goto err_memory;
+-	} else if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu)) {
++	} else if (adreno_is_a640_family(adreno_gpu)) {
+ 		ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
+ 			SZ_256K - SZ_16K, 0x04000);
+ 		if (ret)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 6ddd9010cc4b..be62f492538c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -683,7 +683,7 @@ static void a6xx_set_ubwc_config(struct msm_gpu *gpu)
+ 	if (adreno_is_a618(adreno_gpu))
+ 		return;
+ 
+-	if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu))
++	if (adreno_is_a640_family(adreno_gpu))
+ 		amsbc = 1;
+ 
+ 	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu)) {
+@@ -764,7 +764,7 @@ static bool a6xx_ucode_check_version(struct a6xx_gpu *a6xx_gpu,
+ 	 * a660 targets have all the critical security fixes from the start
+ 	 */
+ 	if (adreno_is_a618(adreno_gpu) || adreno_is_a630(adreno_gpu) ||
+-	    adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu)) {
++	    adreno_is_a640_family(adreno_gpu)) {
+ 		/*
+ 		 * If the lowest nibble is 0xa that is an indication that this
+ 		 * microcode has been patched. The actual version is in dword
+@@ -904,8 +904,8 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+ 	a6xx_set_hwcg(gpu, true);
+ 
+ 	/* VBIF/GBIF start*/
+-	if (adreno_is_a640(adreno_gpu) || adreno_is_a650_family(adreno_gpu) ||
+-	    adreno_is_a680(adreno_gpu)) {
++	if (adreno_is_a640_family(adreno_gpu) ||
++	    adreno_is_a650_family(adreno_gpu)) {
+ 		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE0, 0x00071620);
+ 		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE1, 0x00071620);
+ 		gpu_write(gpu, REG_A6XX_GBIF_QSB_SIDE2, 0x00071620);
+@@ -943,8 +943,8 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+ 	gpu_write(gpu, REG_A6XX_UCHE_FILTER_CNTL, 0x804);
+ 	gpu_write(gpu, REG_A6XX_UCHE_CACHE_WAYS, 0x4);
+ 
+-	if (adreno_is_a640(adreno_gpu) || adreno_is_a650_family(adreno_gpu) ||
+-	    adreno_is_a680(adreno_gpu))
++	if (adreno_is_a640_family(adreno_gpu) ||
++	    adreno_is_a650_family(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x02000140);
+ 	else
+ 		gpu_write(gpu, REG_A6XX_CP_ROQ_THRESHOLDS_2, 0x010000c0);
+@@ -961,8 +961,7 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+ 	*/
+ 	if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
+-	else if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu) ||
+-			adreno_is_7c3(adreno_gpu))
++	else if (adreno_is_a640_family(adreno_gpu) || adreno_is_7c3(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00200200);
+ 	else if (adreno_is_a650(adreno_gpu) || adreno_is_a660(adreno_gpu))
+ 		gpu_write(gpu, REG_A6XX_PC_DBG_ECO_CNTL, 0x00300200);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index 376d0d9809fa..d4c65bf0a1b7 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -458,7 +458,7 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
+ 
+ 	if (adreno_is_a618(adreno_gpu))
+ 		a618_build_bw_table(&msg);
+-	else if (adreno_is_a640(adreno_gpu) || adreno_is_a680(adreno_gpu))
++	else if (adreno_is_a640_family(adreno_gpu))
+ 		a640_build_bw_table(&msg);
+ 	else if (adreno_is_a650(adreno_gpu))
+ 		a650_build_bw_table(&msg);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 899cca8fc68a..225c277a6223 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -241,9 +241,9 @@ static inline int adreno_is_a630(struct adreno_gpu *gpu)
+        return gpu->revn == 630;
+ }
+ 
+-static inline int adreno_is_a640(struct adreno_gpu *gpu)
++static inline int adreno_is_a640_family(struct adreno_gpu *gpu)
+ {
+-       return gpu->revn == 640;
++	return (gpu->revn == 640) || (gpu->revn == 680);
+ }
+ 
+ static inline int adreno_is_a650(struct adreno_gpu *gpu)
+@@ -274,11 +274,6 @@ static inline int adreno_is_a650_family(struct adreno_gpu *gpu)
+ 	       adreno_is_a660_family(gpu);
+ }
+ 
+-static inline int adreno_is_a680(struct adreno_gpu *gpu)
+-{
+-       return gpu->revn == 680;
+-}
+-
+ int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value);
+ const struct firmware *adreno_request_fw(struct adreno_gpu *adreno_gpu,
+ 		const char *fwname);
+-- 
+2.31.1
 
-Thanks for trying. Can I add your Tested-by tag?
-
-Best regards
-Thomas
-
->>
->> Let me know whether this works for you.
->>
->> Best regards
->> Thomas
->>
->> [1] https://patchwork.freedesktop.org/patch/447057/?series=3D93078&rev=
-=3D1
->>
->>>
->>> Thanks,
->>> Anitha
->>>
->>>
->>>> -----Original Message-----
->>>> From: Sam Ravnborg <sam@ravnborg.org>
->>>> Sent: Tuesday, August 3, 2021 8:05 AM
->>>> To: Thomas Zimmermann <tzimmermann@suse.de>
->>>> Cc: daniel@ffwll.ch; airlied@linux.ie; alexander.deucher@amd.com;
->>>> christian.koenig@amd.com; liviu.dudau@arm.com;
->> brian.starkey@arm.com;
->>>> bbrezillon@kernel.org; nicolas.ferre@microchip.com;
->>>> maarten.lankhorst@linux.intel.com; mripard@kernel.org;
->> stefan@agner.ch;
->>>> alison.wang@nxp.com; patrik.r.jakobsson@gmail.com; Chrisanthus, Anit=
-ha
->>>> <anitha.chrisanthus@intel.com>; robdclark@gmail.com; Dea, Edmund J
->>>> <edmund.j.dea@intel.com>; sean@poorly.run; shawnguo@kernel.org;
->>>> s.hauer@pengutronix.de; kernel@pengutronix.de; jyri.sarha@iki.fi;
->>>> tomba@kernel.org; Dan.Sneddon@microchip.com;
->>>> tomi.valkeinen@ideasonboard.com; amd-gfx@lists.freedesktop.org; dri-=
-
->>>> devel@lists.freedesktop.org; linux-arm-kernel@lists.infradead.org; l=
-inux-
->> arm-
->>>> msm@vger.kernel.org; freedreno@lists.freedesktop.org
->>>> Subject: Re: [PATCH v2 00/14] drm: Make DRM's IRQ helpers legacy
->>>>
->>>> Hi Thomas,
->>>>
->>>> On Tue, Aug 03, 2021 at 11:06:50AM +0200, Thomas Zimmermann wrote:
->>>>> DRM's IRQ helpers are only helpful for old, non-KMS drivers. Move
->>>>> the code behind CONFIG_DRM_LEGACY. Convert KMS drivers to Linux
->>>>> IRQ interfaces.
->>>>>
->>>>> DRM provides IRQ helpers for setting up, receiving and removing IRQ=
-
->>>>> handlers. It's an abstraction over plain Linux functions. The code
->>>>> is mid-layerish with several callbacks to hook into the rsp drivers=
-=2E
->>>>> Old UMS driver have their interrupts enabled via ioctl, so these
->>>>> abstractions makes some sense. Modern KMS manage all their interrup=
-ts
->>>>> internally. Using the DRM helpers adds indirection without benefits=
-=2E
->>>>>
->>>>> Most KMS drivers already use Linux IRQ functions instead of DRM's
->>>>> abstraction layer. Patches 1 to 12 convert the remaining ones.
->>>>> The patches also resolve a bug for devices without assigned interru=
-pt
->>>>> number. DRM helpers don't test for IRQ_NOTCONNECTED, so drivers do
->>>>> not detect if the device has no interrupt assigned.
->>>>>
->>>>> Patch 13 removes an unused function.
->>>>>
->>>>> Patch 14 moves the DRM IRQ helpers behind CONFIG_DRM_LEGACY. Only
->>>>> the old non-KMS drivers still use the functionality.
->>>>>
->>>>> v2:
->>>>> 	* drop IRQ_NOTCONNECTED test from atmel-hlcdc (Sam)
->>>>> 	* use devm_request_irq() in atmel-hlcdc (Sam)
->>>>> 	* unify variable names in arm/hlcdc (Sam)
->>>>>
->>>>> Thomas Zimmermann (14):
->>>>
->>>> The following patches are all:
->>>> Acked-by: Sam Ravnborg <sam@ravnborg.org>
->>>>
->>>>>     drm/fsl-dcu: Convert to Linux IRQ interfaces
->>>>>     drm/gma500: Convert to Linux IRQ interfaces
->>>>>     drm/kmb: Convert to Linux IRQ interfaces
->>>>>     drm/msm: Convert to Linux IRQ interfaces
->>>>>     drm/mxsfb: Convert to Linux IRQ interfaces
->>>>>     drm/tidss: Convert to Linux IRQ interfaces
->>>>>     drm/vc4: Convert to Linux IRQ interfaces
->>>>>     drm: Remove unused devm_drm_irq_install()
->>>>
->>>> The remaining patches I either skipped or already had a feedback fro=
-m
->>>> me or I asked a question.
->>>>
->>>> 	Sam
->>
->> --
->> Thomas Zimmermann
->> Graphics Driver Developer
->> SUSE Software Solutions Germany GmbH
->> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
->> (HRB 36809, AG N=C3=BCrnberg)
->> Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---RN6maTAJdcwFszuGs8voIwcuLOKCG9DTE--
-
---BfWkLwAIF2tnbDGIJawI2jZ0MYa9F09kk
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmEOLWIFAwAAAAAACgkQlh/E3EQov+A2
-VA//efpGWFRuKfguvkSaqFDi5usf++VXgIYP0Pr1yzNb0cGjTrkESh4PQzO8c+Nd1LcwlQiJTL3+
-Y/yvAuUid35YNb/srf7Mij5TLkoD+EZAiPawNEwNrHTA5dI4sqNPF2lWjymWmFSWI6lciZowNSZq
-Kh/fkkzMg3lzT5muI9lsFfRB5JPaiG5GZWeaVESyPpVKIJuoXt8+iX10MK4zh654J8OtP8HsJV8l
-X44SAOeic+TBNwG8pAwSG3aFPvttx/QmcNt7KnqYfkCY2IwDT3XOx8YSisZ90jwNbHTX9bbGuUQV
-DnLC48D9fWVAF5j6AYalRiCONULSRyBuf5TVr7FsQtsqACRy86z2G35/OrGNbt+1Y+iXa3oSKJF9
-bDwTQUbTCyWXTOMcvqmkRgRHi97esHk9PHxorfuezkMvtaknav1tFVxgXns6b9vi87+MQLgz363i
-NE4OJo0uJLdkLCizy3EvP39P+L5rhsOgXW6CnFtdSZWONwPJQGgU7QGAdV2FSvpbHbMVgI1Nfnxz
-ixJSZNdsAGwGYExhQMS8dhtRBGneaDy9PDekfzhUBW//8jinnGZEBvtEHEvi5dmDhvIMKF/6vcIb
-mbsJz52cm3qZ0P8q0iJ5tjW4PGiCuChGm2Z6KA/rgKaINvJ7ZF6QNyl/hWznKEFrrn6MQDkLUZcf
-H3s=
-=I+OL
------END PGP SIGNATURE-----
-
---BfWkLwAIF2tnbDGIJawI2jZ0MYa9F09kk--
