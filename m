@@ -2,51 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7328E3E8306
-	for <lists+freedreno@lfdr.de>; Tue, 10 Aug 2021 20:32:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 406383E830B
+	for <lists+freedreno@lfdr.de>; Tue, 10 Aug 2021 20:33:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E0989708;
-	Tue, 10 Aug 2021 18:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B99C289F61;
+	Tue, 10 Aug 2021 18:33:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9680089708
- for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 18:31:58 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id be20so420982oib.8
- for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 11:31:58 -0700 (PDT)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C03FA89F61
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 18:33:43 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id r5so434766oiw.7
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 11:33:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=bRoFoIrgb6DbxUcPZ4qNbvdQX1dffX7W/rihsgTb2z4=;
- b=QWJyaYLaSvyDInTM/b9ve7OmtT4fI/gbefn4OkqqYoJoS7qSL4WjCukVdCd2aFJn2+
- zgWtJrsWMWdriv+2tJAI0RqmwdkA/XtnmcxTNQ7J1bav4E8LazOhIbDE7cG92Wk9e7aA
- uptQrHkXkrQlnroBRb7ExPIZiqo7aqnrrjCRM=
+ bh=gYZz10QOH/TLSpK9xInSP5W9KjyrAu8lPPeUY1ToCJE=;
+ b=UkvTnleb2ewtinuVC7dDQEd5XOLkYp23xWGkwCzb6rbXV4wMfIeKFe8mHA8REQnDU6
+ zGcRQ4iXxZoqPZSXdY2hTOG25VHEEnhB5DnBZVq/0HB/QDmw0jte5gSNNAFfDuw1RDvN
+ 6vxdDI/B+WY8yszlYAUNnPhoiWJpC8GPZsS3I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=bRoFoIrgb6DbxUcPZ4qNbvdQX1dffX7W/rihsgTb2z4=;
- b=De8XiF5SBJPpE9zW5EuJBAhiHvuYMZZVITlG7C9d9x2CnvHukAzE5VpVy6RlNK+fsd
- LdMY7Pu6Lbp+W4gl/8U3u/LrY1PtuD3RQUCBfRCb0WdZ7zPo5eWS+qXuLn0c+Obe1djn
- urS4eyBpop5xSDIBkI/P3xPfG2PvmaReo0y8PN0WrduWY6UuRyF+wVd48jNZ5qPUAMbK
- hLf6bm6zh9JEcO0JMcEh16ku5mrM+kfL9Qw/9PTny2qx7ec4B4u5JSnVETsiOKZC15b4
- g2tHCGyXLyrEDlmyOmctKfhOT+VgwLhwB9CiX5re0l+Kg06Co/SgLBJysmo9uMcyyz6x
- TVyA==
-X-Gm-Message-State: AOAM5317DE1CQga0sDREo9N2UtI3ttQay2QeQBgQBiTgQtyzd5+kNMGt
- 2cXOg8uihQEc52HRLuou/GuUMTCuyfOGaqlH0Rm7zg==
-X-Google-Smtp-Source: ABdhPJzuO8bdHRY8YfA6qtIShSohbIviDAruhTY93vX+OuVbguE9JaTNgfjrPkPDvsy+kBJf3jR5BGgDV0t7AZoC898=
-X-Received: by 2002:a54:468d:: with SMTP id k13mr4595160oic.125.1628620317662; 
- Tue, 10 Aug 2021 11:31:57 -0700 (PDT)
+ bh=gYZz10QOH/TLSpK9xInSP5W9KjyrAu8lPPeUY1ToCJE=;
+ b=oPKAAHIKryQnH3/X9X+CJ8DcqmYq/wtBZFRIoRYCd4jufp33M9pRl9GasRlPpx3DBf
+ S+qyv3EA6tXCJJgwSOBLsKSK8VlAIBoaGjRKYZ4pWknHhzHmvoIdZGtLGCu49R24Jqqb
+ e1Q6nufuh4JbihSHvgYo1qiEsvJk0vEgcBw8a66riyHUUxb/gwQyfnbWzfMhW/v03wWU
+ 8lsxMmfveOHpVto8YRduUGawtUr7+5Fo3RprHbX8xHm57CH/ObNsuWd9NDOPRxYu2PcS
+ KxE2rhhKumtsA1YaadDtKIzycRNy4Q2Uabq6wvYM9TM4dBDXY1vUJKPId906AHqKxyxI
+ 0gBQ==
+X-Gm-Message-State: AOAM532BN8U/JxU4xOAykzHltMnkqYvdbbHwNMzlopebfd82Pa4sPPge
+ ydCCeP4ZQhnrha9Y31LSSXO7e/72BjIJq7q6BPe7SA==
+X-Google-Smtp-Source: ABdhPJx0r1eGpKElyHXDzuipufR0h+pMIYXO/v3pEKBRmpQ1oxloy4TUZvZtg8REVo/F47kGgJfrsCMhXbD/8mXWsTE=
+X-Received: by 2002:a05:6808:984:: with SMTP id
+ a4mr4781026oic.166.1628620423016; 
+ Tue, 10 Aug 2021 11:33:43 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 10 Aug 2021 11:31:57 -0700
+ HTTPREST; Tue, 10 Aug 2021 11:33:42 -0700
 MIME-Version: 1.0
 In-Reply-To: <1628609362-2109-1-git-send-email-khsieh@codeaurora.org>
 References: <1628609362-2109-1-git-send-email-khsieh@codeaurora.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Tue, 10 Aug 2021 11:31:57 -0700
-Message-ID: <CAE-0n51wQMmL-TYshTugGbR7JNnVeTq257OQMMQ6LSTcB30w5g@mail.gmail.com>
+Date: Tue, 10 Aug 2021 11:33:42 -0700
+Message-ID: <CAE-0n52a8i-2oNxtqKaS+XGBE0+wcp0Jx05VgL2KnHoQLW-vDQ@mail.gmail.com>
 To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
  bjorn.andersson@linaro.org, 
  robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
@@ -79,5 +80,8 @@ Quoting Kuogee Hsieh (2021-08-10 08:29:22)
 > Fixes: 601f0479c583 ("drm/msm/dp: add logs across DP driver for ease of debugging")
 > Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 > ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+BTW, this conflicts with commit e8a767e04dbc7b201cb17ab99dca723a3488b6d4
+in msm-next. The resolution is trivial but just wanted to mention it.
