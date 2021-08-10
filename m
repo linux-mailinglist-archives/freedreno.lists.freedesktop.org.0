@@ -1,61 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C90363E4EDB
-	for <lists+freedreno@lfdr.de>; Mon,  9 Aug 2021 23:59:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 803623E503D
+	for <lists+freedreno@lfdr.de>; Tue, 10 Aug 2021 02:06:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D66889DA8;
-	Mon,  9 Aug 2021 21:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D76ED89C21;
+	Tue, 10 Aug 2021 00:06:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4285C89DA8
- for <freedreno@lists.freedesktop.org>; Mon,  9 Aug 2021 21:59:20 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1628546363; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=YoIl9jvlPyrOxsI6tf0MTkNAV4w2Spy4m3DWXCoWoeI=;
- b=nR9uSu2s9p2Xo67jcXnuhSLzEeLn6asIGLw9UGp1u7tTZZu4G9rozQDQqWXA/9aPJJQLPb57
- SFUbX1mDJ3V26sfyP/SbF/gkxSzWUjoZpt8ZzaVDGW5h+xxFpf0QmfHD3kkNo3gf+nBoaYWI
- EFlh80GqWLw0ovmZV15mA2FQhck=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 6111a52b91487ad520a0fd29 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 09 Aug 2021 21:59:07
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id B4554C43217; Mon,  9 Aug 2021 21:59:06 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7F80FC433D3;
- Mon,  9 Aug 2021 21:59:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7F80FC433D3
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F03F689C21
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 00:06:49 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ a7-20020a9d5c870000b029050333abe08aso6233833oti.13
+ for <freedreno@lists.freedesktop.org>; Mon, 09 Aug 2021 17:06:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=z7lFn/OgIbozxfPpWIL41tqWAyoo1c25CUhE+wVHy2E=;
+ b=YhtgTTL24J2Q901pxxraRzr2e6aEAsvLQkHaiYTevOHYcVNNb70cjDiaEwdsIq8BXN
+ wpYvPIjDyag/iyLToGVOJkKLG7uJdWDBeQ0RrSjIpGoUS+WRXWr4Uuc+9lFlSBwQdix3
+ ZJi1BJJhihwUbTrgXthbzJEm8hOQtXIW2ldEY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=z7lFn/OgIbozxfPpWIL41tqWAyoo1c25CUhE+wVHy2E=;
+ b=S9HQB5yQwvgD9RUIJqJVjIu+NZcyCr5WKOl+y/rzpbJwcPkVrbu+RpP3gp0JbgjyGn
+ frGcwyyR3ufnqaMBevx4yK67bmTXyFFvX5t803E8ttXm5hrGOxbtCFwVRCaZCIvH3o9v
+ 8J8jIj3l8lHheqR3w1XwWkkIFT4iLba/KaTw4DhGKH1WhEql967qAm9qtAVrytx2X7RY
+ 2GgxHkhH0wBfXrHhsEJXYxNBSAQiI6ljaX0Ed5bVYr1okM1+CBRfQdqUWBlIulmaSTaD
+ oBnzYN805bWSM/pLRCuOV8QeqPjlrMOYJxTXIAJCweRI1/ZhpGp/WliAA0Ddoa2LNIiV
+ Raqw==
+X-Gm-Message-State: AOAM533ZV0h00x0auH8phBug6/ikIBXs5B8KDuhW5r2Sr2/UaUB3kWVH
+ xIKxhmC/vhBI9LTjY1JuuA6e3y8wfjCzeU29YuwdSQ==
+X-Google-Smtp-Source: ABdhPJyHxPiz+4jZdua08WndVHVUUZwOp93vnlfR/lihn4zZ0NeOwGKE8URDZ20NU/NwrBeRkck27YsGd7/EAhlLU98=
+X-Received: by 2002:a05:6830:1490:: with SMTP id
+ s16mr18959569otq.233.1628554009313; 
+ Mon, 09 Aug 2021 17:06:49 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 9 Aug 2021 17:06:48 -0700
+MIME-Version: 1.0
+In-Reply-To: <1628546337-15517-1-git-send-email-khsieh@codeaurora.org>
+References: <1628546337-15517-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Mon, 9 Aug 2021 17:06:48 -0700
+Message-ID: <CAE-0n52+DWvcO54WJEJUaFQ9y=4sb4SeuVzQ5LSXGm24bJ-16w@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon,  9 Aug 2021 14:58:57 -0700
-Message-Id: <1628546337-15517-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm/msm/dp: add drm debug logs to
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add drm debug logs to
  dp_pm_resume/suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,61 +73,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add drm debug logs to dp_pm_resume and dp_pm_suspend to help
-debug suspend/resume issues.
+Quoting Kuogee Hsieh (2021-08-09 14:58:57)
+> Add drm debug logs to dp_pm_resume and dp_pm_suspend to help
+> debug suspend/resume issues.
+>
+> Fixes: 355ab7428f09 ("drm/msm/dp: add debug logs to dp_pm_resume/suspend")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-Fixes: 355ab7428f09 ("drm/msm/dp: add debug logs to dp_pm_resume/suspend")
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 8a85613..870b926 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1284,6 +1284,9 @@ static int dp_pm_resume(struct device *dev)
- 
- 	mutex_lock(&dp->event_mutex);
- 
-+	DRM_DEBUG_DP("Before, core_inited=%d power_on=%d\n",
-+			dp->core_initialized, dp_display->power_on);
-+
- 	/* start from disconnected state */
- 	dp->hpd_state = ST_DISCONNECTED;
- 
-@@ -1315,6 +1318,10 @@ static int dp_pm_resume(struct device *dev)
- 	else
- 		dp->dp_display.is_connected = false;
- 
-+	DRM_DEBUG_DP("After, sink_count=%d is_connected=%d core_inited=%d power_on=%d\n",
-+			dp->link->sink_count, dp->dp_display.is_connected,
-+			dp->core_initialized, dp_display->power_on);
-+
- 	mutex_unlock(&dp->event_mutex);
- 
- 	return 0;
-@@ -1330,6 +1337,9 @@ static int dp_pm_suspend(struct device *dev)
- 
- 	mutex_lock(&dp->event_mutex);
- 
-+	DRM_DEBUG_DP("Before, core_inited=%d power_on=%d\n",
-+			dp->core_initialized, dp_display->power_on);
-+
- 	if (dp->core_initialized == true) {
- 		/* mainlink enabled */
- 		if (dp_power_clk_status(dp->power, DP_CTRL_PM))
-@@ -1343,6 +1353,9 @@ static int dp_pm_suspend(struct device *dev)
- 	/* host_init will be called at pm_resume */
- 	dp->core_initialized = false;
- 
-+	DRM_DEBUG_DP("After, core_inited=%d power_on=%d\n",
-+			dp->core_initialized, dp_display->power_on);
-+
- 	mutex_unlock(&dp->event_mutex);
- 
- 	return 0;
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
