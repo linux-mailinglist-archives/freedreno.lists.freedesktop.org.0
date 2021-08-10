@@ -1,51 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660F83E590A
-	for <lists+freedreno@lfdr.de>; Tue, 10 Aug 2021 13:26:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD1EF3E7C3E
+	for <lists+freedreno@lfdr.de>; Tue, 10 Aug 2021 17:30:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F2889A5C;
-	Tue, 10 Aug 2021 11:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63BF6898BE;
+	Tue, 10 Aug 2021 15:30:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 2192 seconds by postgrey-1.36 at gabe;
- Tue, 10 Aug 2021 11:26:06 UTC
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 093A189A5C
- for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 11:26:05 +0000 (UTC)
-X-QQ-mid: bizesmtp31t1628594759tu6p5dd4
-Received: from [10.10.53.82] (unknown [124.126.19.250])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 10 Aug 2021 19:25:01 +0800 (CST)
-X-QQ-SSF: 0040000000200030C000B00A0000000
-X-QQ-FEAT: CoFLB+lOOOJ03bnkBnovcjk5d+ve2GH7tifewNdmjt3K78C3TfnbVxro1Pk9P
- AOEDqaCoIbLMmUdiImScWvAu0avh12qXWguw4ZQFG9V+Wnc+T8qGXT2X4XFhOUnzDMEpIFX
- RHX8925Khs4ulvyJhUNkUb1sn6TtgtWtoqq1VNZfAjpThuuCoRrL6TU4mLH2J/SuWrk4V0b
- H8FPwC2/itrDsd6X5d9Vmq7KgfoT988vAcHbavsfv4pq4uzBxKJ3+sVvbcesP8eVMwF8FTw
- jc7WVOL6KIWUuOm5pZwAXASdSrJVVkMPTDp8Lameumm4kuhJmk9+0QYXFRjwKGEUOP/GYhY
- qNAJsnfRUiBVmS8UxNTuaOz7LZduA==
-X-QQ-GoodBg: 2
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20210806023047.24386-1-zhaoxiao@uniontech.com>
- <YRJOCzKVJOfCS4Ro@phenom.ffwll.local>
-From: zhaoxiao <zhaoxiao@uniontech.com>
-Message-ID: <622b0d89-2d75-8e60-4dd4-3e5fc49f5eb8@uniontech.com>+B320512A2A78F14B
-Date: Tue, 10 Aug 2021 19:25:01 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <YRJOCzKVJOfCS4Ro@phenom.ffwll.local>
-Content-Type: multipart/alternative;
- boundary="------------A426B56454A84EBBBCD6BF36"
-Content-Language: en-US
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
-X-QQ-Bgrelay: 1
-Subject: Re: [Freedreno] [PATCH v2] drm/drv: Remove initialization of static
- variables
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDBBA898BE
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 15:29:58 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1628609406; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=HgKakaRiW9LgKPRH3JPzKe8BzZrBQ8j/TWIYvdkiy94=;
+ b=vcvXe8nscWU4zxMUjLHt3Zhb822vhmbyDijR2/7mboI9Pgv0XTMd7hwxsDJAnnysfmEnQ2lQ
+ 6dowd3+Lzmxo2OEgGeBZo1+yNP92Si82W/GAtubT2CRzjlBFBh/7YbeYmxEbX+IR+JLgORGB
+ ilKReESZm+v6LAxqTvn6fQLLTSc=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 61129b5a91487ad520207548 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 10 Aug 2021 15:29:30
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 538ABC433F1; Tue, 10 Aug 2021 15:29:29 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7C5ABC433F1;
+ Tue, 10 Aug 2021 15:29:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7C5ABC433F1
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=khsieh@codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 10 Aug 2021 08:29:22 -0700
+Message-Id: <1628609362-2109-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: add drm debug logs to
+ dp_pm_resume/suspend
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,140 +72,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------A426B56454A84EBBBCD6BF36
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Changes in V2:
+-- correct Fixes text
+-- drop commit text
 
-Thanks for you advice, and I modify the patch according to your suggestions.
+Fixes: 601f0479c583 ("drm/msm/dp: add logs across DP driver for ease of debugging")
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-在 2021/8/10 下午5:59, Daniel Vetter 写道:
-> On Fri, Aug 06, 2021 at 10:30:47AM +0800, zhaoxiao wrote:
->> Address the following checkpatch errors:
->> ERROR: do not initialise statics to false
->>
->> FILE: :drivers/gpu/drm/msm/msm_drv.c:21:
->> -static bool reglog = false;
->>
->> FILE: :drivers/gpu/drm/msm/msm_drv.c:31:
->> -bool dumpstate = false;
->>
->> Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
-> Subject should start out with drm/msm, not drm/drv - that would indicate a
-> patch touching the drm_drv.c core files, or things related to that.
-> -Daniel
->
->> ---
->> v2: change the patch description
->>   drivers/gpu/drm/msm/msm_drv.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index 9b8fa2ad0d84..d9ca4bc9620b 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -59,7 +59,7 @@ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
->>   };
->>   
->>   #ifdef CONFIG_DRM_MSM_REGISTER_LOGGING
->> -static bool reglog = false;
->> +static bool reglog;
->>   MODULE_PARM_DESC(reglog, "Enable register read/write logging");
->>   module_param(reglog, bool, 0600);
->>   #else
->> @@ -76,7 +76,7 @@ static char *vram = "16m";
->>   MODULE_PARM_DESC(vram, "Configure VRAM size (for devices without IOMMU/GPUMMU)");
->>   module_param(vram, charp, 0);
->>   
->> -bool dumpstate = false;
->> +bool dumpstate;
->>   MODULE_PARM_DESC(dumpstate, "Dump KMS state on errors");
->>   module_param(dumpstate, bool, 0600);
->>   
->> -- 
->> 2.20.1
->>
->>
->>
-
---------------A426B56454A84EBBBCD6BF36
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Thanks for you advice, and I  <span class="Y2IQFc" lang="en">modify
-        the patch according to your suggestions.<br>
-      </span></p>
-    <div class="moz-cite-prefix">在 2021/8/10 下午5:59, Daniel Vetter 写道:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:YRJOCzKVJOfCS4Ro@phenom.ffwll.local">
-      <pre class="moz-quote-pre" wrap="">On Fri, Aug 06, 2021 at 10:30:47AM +0800, zhaoxiao wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Address the following checkpatch errors:
-ERROR: do not initialise statics to false
-
-FILE: :drivers/gpu/drm/msm/msm_drv.c:21:
--static bool reglog = false;
-
-FILE: :drivers/gpu/drm/msm/msm_drv.c:31:
--bool dumpstate = false;
-
-Signed-off-by: zhaoxiao <a class="moz-txt-link-rfc2396E" href="mailto:zhaoxiao@uniontech.com">&lt;zhaoxiao@uniontech.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Subject should start out with drm/msm, not drm/drv - that would indicate a
-patch touching the drm_drv.c core files, or things related to that.
--Daniel
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">---
-v2: change the patch description 
- drivers/gpu/drm/msm/msm_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 9b8fa2ad0d84..d9ca4bc9620b 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -59,7 +59,7 @@ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
- };
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 8a85613..870b926 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1284,6 +1284,9 @@ static int dp_pm_resume(struct device *dev)
  
- #ifdef CONFIG_DRM_MSM_REGISTER_LOGGING
--static bool reglog = false;
-+static bool reglog;
- MODULE_PARM_DESC(reglog, "Enable register read/write logging");
- module_param(reglog, bool, 0600);
- #else
-@@ -76,7 +76,7 @@ static char *vram = "16m";
- MODULE_PARM_DESC(vram, "Configure VRAM size (for devices without IOMMU/GPUMMU)");
- module_param(vram, charp, 0);
+ 	mutex_lock(&dp->event_mutex);
  
--bool dumpstate = false;
-+bool dumpstate;
- MODULE_PARM_DESC(dumpstate, "Dump KMS state on errors");
- module_param(dumpstate, bool, 0600);
++	DRM_DEBUG_DP("Before, core_inited=%d power_on=%d\n",
++			dp->core_initialized, dp_display->power_on);
++
+ 	/* start from disconnected state */
+ 	dp->hpd_state = ST_DISCONNECTED;
  
+@@ -1315,6 +1318,10 @@ static int dp_pm_resume(struct device *dev)
+ 	else
+ 		dp->dp_display.is_connected = false;
+ 
++	DRM_DEBUG_DP("After, sink_count=%d is_connected=%d core_inited=%d power_on=%d\n",
++			dp->link->sink_count, dp->dp_display.is_connected,
++			dp->core_initialized, dp_display->power_on);
++
+ 	mutex_unlock(&dp->event_mutex);
+ 
+ 	return 0;
+@@ -1330,6 +1337,9 @@ static int dp_pm_suspend(struct device *dev)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
++	DRM_DEBUG_DP("Before, core_inited=%d power_on=%d\n",
++			dp->core_initialized, dp_display->power_on);
++
+ 	if (dp->core_initialized == true) {
+ 		/* mainlink enabled */
+ 		if (dp_power_clk_status(dp->power, DP_CTRL_PM))
+@@ -1343,6 +1353,9 @@ static int dp_pm_suspend(struct device *dev)
+ 	/* host_init will be called at pm_resume */
+ 	dp->core_initialized = false;
+ 
++	DRM_DEBUG_DP("After, core_inited=%d power_on=%d\n",
++			dp->core_initialized, dp_display->power_on);
++
+ 	mutex_unlock(&dp->event_mutex);
+ 
+ 	return 0;
 -- 
-2.20.1
-
-
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------A426B56454A84EBBBCD6BF36--
-
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
