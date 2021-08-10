@@ -2,43 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54233E8646
-	for <lists+freedreno@lfdr.de>; Wed, 11 Aug 2021 01:01:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F60E3E866A
+	for <lists+freedreno@lfdr.de>; Wed, 11 Aug 2021 01:24:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E29D489483;
-	Tue, 10 Aug 2021 23:01:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122878972D;
+	Tue, 10 Aug 2021 23:24:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E92E98946E;
- Tue, 10 Aug 2021 23:01:30 +0000 (UTC)
-Received: from [10.0.20.6] (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 159FD1F578;
- Wed, 11 Aug 2021 01:01:28 +0200 (CEST)
-To: Abhinav Kumar <abhinavk@codeaurora.org>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org,
- nganji@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
- dmitry.baryshkov@linaro.org
-References: <1626922232-29105-1-git-send-email-abhinavk@codeaurora.org>
- <1626922232-29105-2-git-send-email-abhinavk@codeaurora.org>
-From: Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <6f4f6a68-6da2-2cf7-4772-3947b287be10@somainline.org>
-Date: Wed, 11 Aug 2021 01:01:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3EB189EB8
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 23:24:36 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1628637879; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=zx8YddFJh59+5EnrQhywAgtFI/9rzkZOrxfXUeR4R9I=;
+ b=VCwSoqFVG1i4w5ivHjA4enEzVQn22pg1/MB6zkQrS61JidNfifrKC24q4KhnIFmyTEfjoXNI
+ Udj6PEMwABhE3QyIRSxQj2qjYN/rQqI2L1YE38pNFw8toEyq6SUajk+xnyV8Vg/T5xkRtCpX
+ yFrQmiKTPDc8Ch7mopz8Jic1bCc=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 61130aad7ee60409779d45c2 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 10 Aug 2021 23:24:29
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 8217FC433D3; Tue, 10 Aug 2021 23:24:28 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4FB33C433D3;
+ Tue, 10 Aug 2021 23:24:26 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1626922232-29105-2-git-send-email-abhinavk@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dsi: add support for dsi
- test pattern generator
+Date: Tue, 10 Aug 2021 16:24:26 -0700
+From: abhinavk@codeaurora.org
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <1cc300dc-7647-0431-fe05-d5504c337652@somainline.org>
+References: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
+ <61cdcd07-5bff-a8ae-7156-b85b9c6c8801@somainline.org>
+ <f6235d170811ad02bf6321dcb5ef3568@codeaurora.org>
+ <1cc300dc-7647-0431-fe05-d5504c337652@somainline.org>
+Message-ID: <82699a2eb95fa619e772551f2a500921@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: add support for dsi test
+ pattern generator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,157 +76,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
+Hi Marijn
 
-On 7/22/21 4:50 AM, Abhinav Kumar wrote:
-> During board bringups its useful to have a DSI test pattern
-> generator to isolate a DPU vs a DSI issue and focus on the relevant
-> hardware block.
+Thanks for reviewing and testing the latest patchset.
+
+On 2021-08-10 15:59, Marijn Suijten wrote:
+> Hi Abhinav,
 > 
-> To facilitate this, add an API which triggers the DSI controller
-> test pattern. The expected output is a rectangular checkered pattern.
+> On 7/16/21 2:01 AM, abhinavk@codeaurora.org wrote:
+>> Hi Marijn
+>> 
+>> Sorry for the late response.
 > 
-> This has been validated on a single DSI video mode panel by calling it
-> right after drm_panel_enable() which is also the ideal location to use
-> this as the DSI host and the panel have been initialized by then.
 > 
-> Further validation on dual DSI and command mode panel is pending.
-> If there are any fix ups needed for those, it shall be applied on top
-> of this change.
+> Apologies from my side as well.
 > 
-> Changes in v2:
->   - generate the new dsi.xml.h and update the bitfield names
+> [...]
 > 
-> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
-
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
-
-And tested on Sony phones powered by MSM8956, SDM630, and SM6125.
-
-> ---
->   drivers/gpu/drm/msm/dsi/dsi.h         |  3 ++
->   drivers/gpu/drm/msm/dsi/dsi_host.c    | 61 +++++++++++++++++++++++++++++++++++
->   drivers/gpu/drm/msm/dsi/dsi_manager.c | 13 ++++++++
->   3 files changed, 77 insertions(+)
+>>>> +static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host
+>>>> *msm_host)
+>>>> +{
+>>>> +	u32 reg;
+>>>> +
+>>>> +	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
+>>>> +
+>>>> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0,
+>>>> 0xff);
+>>>> +
+>>>> +	reg |= (0x3 << 0x8);
+>>>> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
+>>>> +	/* draw checkered rectangle pattern */
+>>>> +	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2, (0x1 << 0x7));
+>>> 
+>>> 
+>>> How about BIT(7)?
+>> 
+>> You mean BIT(7) of REG_DSI_TPG_MAIN_CONTROL2? Thats what this is 
+>> right?
+>> Did you mean some other bit?
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-> index 9b8e9b0..663ccbd 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -84,6 +84,7 @@ void msm_dsi_manager_setup_encoder(int id);
->   int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
->   void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
->   bool msm_dsi_manager_validate_current_config(u8 id);
-> +void msm_dsi_manager_tpg_enable(void);
->   
->   /* msm dsi */
->   static inline bool msm_dsi_device_connected(struct msm_dsi *msm_dsi)
-> @@ -148,6 +149,8 @@ int dsi_clk_init_6g_v2(struct msm_dsi_host *msm_host);
->   int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_dual_dsi);
->   int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_dual_dsi);
->   void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
-> +void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
-> +
->   /* dsi phy */
->   struct msm_dsi_phy;
->   struct msm_dsi_phy_shared_timings {
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index ed504fe..e0a3581 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -2495,3 +2495,64 @@ void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_ho
->   
->   	pm_runtime_put_sync(&msm_host->pdev->dev);
->   }
-> +
-> +static void msm_dsi_host_video_test_pattern_setup(struct msm_dsi_host *msm_host)
-> +{
-> +	u32 reg;
-> +
-> +	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_VIDEO_INIT_VAL, 0xff);
-> +	/* draw checkered rectangle pattern */
-> +	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL,
-> +			DSI_TPG_MAIN_CONTROL_CHECKERED_RECTANGLE_PATTERN);
-> +	/* use 24-bit RGB test pttern */
-
-
-pattern*
-
-> +	dsi_write(msm_host, REG_DSI_TPG_VIDEO_CONFIG,
-> +			DSI_TPG_VIDEO_CONFIG_BPP(VIDEO_CONFIG_24BPP) |
-> +			DSI_TPG_VIDEO_CONFIG_RGB);
-> +
-> +	reg |= DSI_TEST_PATTERN_GEN_CTRL_VIDEO_PATTERN_SEL(VID_MDSS_GENERAL_PATTERN);
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
-> +
-> +	DBG("Video test pattern setup done\n");
-> +}
-> +
-> +static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host *msm_host)
-> +{
-> +	u32 reg;
-> +
-> +	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +
-> +	/* initial value for test pattern */
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0, 0xff);
-> +
-> +	reg |= DSI_TEST_PATTERN_GEN_CTRL_CMD_MDP_STREAM0_PATTERN_SEL(CMD_MDP_MDSS_GENERAL_PATTERN);
-> +
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
-> +	/* draw checkered rectangle pattern */
-> +	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2,
-> +			DSI_TPG_MAIN_CONTROL2_CMD_MDP0_CHECKERED_RECTANGLE_PATTERN);
-> +
-> +	DBG("Cmd test pattern setup done\n");
-> +}
-> +
-> +void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host)
-> +{
-> +	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-> +	bool is_video_mode = !!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO);
-> +	u32 reg;
-> +
-> +	if (is_video_mode)
-> +		msm_dsi_host_video_test_pattern_setup(msm_host);
-> +	else
-> +		msm_dsi_host_cmd_test_pattern_setup(msm_host);
-> +
-> +	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
-> +	/* enable the test pattern generator */
-> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, (reg | DSI_TEST_PATTERN_GEN_CTRL_EN));
-> +
-> +	/* for command mode need to trigger one frame from tpg */
-> +	if (!is_video_mode)
-> +		dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER,
-> +				DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER_SW_TRIGGER);
-> +}
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index 4ebfedc..db80de6 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -441,6 +441,19 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
->   	return;
->   }
->   
-> +void msm_dsi_manager_tpg_enable(void)
-> +{
-> +	struct msm_dsi *m_dsi = dsi_mgr_get_dsi(DSI_0);
-> +	struct msm_dsi *s_dsi = dsi_mgr_get_dsi(DSI_1);
-> +
-> +	/* if dual dsi, trigger tpg on master first then slave */
-> +	if (m_dsi) {
-> +		msm_dsi_host_test_pattern_en(m_dsi->host);
-> +		if (IS_DUAL_DSI() && s_dsi)
-> +			msm_dsi_host_test_pattern_en(s_dsi->host);
-> +	}
-> +}
-> +
->   static void dsi_mgr_bridge_enable(struct drm_bridge *bridge)
->   {
->   	int id = dsi_mgr_bridge_get_id(bridge);
+> 
+> I meant to replace (0x1 << 0x7) with BIT(7), but replacing it with
+> DSI_TPG_MAIN_CONTROL2_CMD_MDP0_CHECKERED_RECTANGLE_PATTERN is even
+> better, thanks.
+> 
+>> 
+>>> 
+>>> On SM6125 this seems to change the color intensity of the pattern; it
+>>> is always colored lines of a few pixels wide alternating R, B and G
+>>> from left to right.  Is it possible to document the meaning and
+>>> available values of these registers, especially if they differ 
+>>> between
+>>> SoC / DSI block?
+>>> 
+>> 
+>> I have requested access for SM6125, will check this register on that 
+>> to
+>> see if there
+>> is any difference.
+>> 
+>> Are you saying you are not seeing a rectangular checkered pattern 
+>> while
+>> testing?
+> 
+> 
+> Correct.  It's fixed now, and this patch already proves its
+> usefulness!  We had two minor configuration issues, and are now seeing
+> the squares just like on the other SoCs.  Meaning we can finally move
+> on to configuring the DPU, thanks!
 > 
 
-Marijn
+Thats good to know !
+
+>> Also are you testing on command mode or video mode?
+> 
+> 
+> Command mode, if it's still worth anything.
+Thats good to know too, as I had not been able to test command mode.
+> 
+>> As requested by Rob, I will add the bit definitions and update the
+>> dsi.xml.h in the
+>> next patchset for the registers and the bits which I am using here.
+>> 
+>> With that the meaning of these bits will be more clear.
+>> 
+>> I dont think I will be able to document all the bits because the goal 
+>> of
+>> this patch
+>> was only to draw a test pattern to help with validation. Different 
+>> bits
+>> of the REG_DSI_TPG_MAIN_CONTROL2
+>> register only draw different patterns so the goal wasnt that we can 
+>> draw
+>> any pattern, it was just to
+>> draw some pattern on the screen.
+>> 
+>> When we add support for all other patterns, we can expose those bits 
+>> as
+>> well but it should not
+>> be required in my opinion.
+> 
+> 
+> Understandable.  I'm curious if other patterns are useful in certain
+> situations, like DSC?  Other than that, knowing that the DSI and PHY
+> is correct is good enough for us.
+
+The TPG in this patch is only for the DSI block which is after the DSC 
+block.
+So any pattern we pick from the DSI_TPG_MAIN_CONTROL2 register (using 
+any other bit)
+will only look different visually but will still be from DSI and no 
+other block.
+So it will not help to validate DSC block individually.
+
+> 
+>> 
+>>> Kind regards,
+>>> Marijn
+>>> 
+>>>> +	DBG("Cmd test pattern setup done\n");
+>>>> +}
+>>> [...]
+> 
+> 
+> Thanks!
+> Marijn
