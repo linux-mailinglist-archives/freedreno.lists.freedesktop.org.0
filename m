@@ -2,61 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E2D3E85A7
-	for <lists+freedreno@lfdr.de>; Tue, 10 Aug 2021 23:49:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25AC53E8643
+	for <lists+freedreno@lfdr.de>; Wed, 11 Aug 2021 00:59:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2A58973E;
-	Tue, 10 Aug 2021 21:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E5A76E063;
+	Tue, 10 Aug 2021 22:59:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6899D8973E
- for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 21:49:40 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- r16-20020a0568304190b02904f26cead745so835958otu.10
- for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 14:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=+HYiu1hW88Bpj8WftJ5CqOz/LeBLWxJEO+HNgAITcxU=;
- b=f/xWfkbKitmRmGG+Ekhc7MQBa3QgQs/6Zk8sKw0qdYl62Xwpi3CX4mYHsahRMBxy5f
- Ik1Q9sJy77ceI/3yp+qhALsMcAcLPD3NleInGIoO8w0rtylP7FsxDgC5kWN4LrhjNToV
- HGyfInuryvPdOPn/iUR7AO21+najA4fciE/lE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=+HYiu1hW88Bpj8WftJ5CqOz/LeBLWxJEO+HNgAITcxU=;
- b=eYMElSUgy4q2Qfk1MQE+xoG8Xawcu/lWBDsdhXElnV+ECMTJFhusNu9iBdeeKHZ36I
- XSoiPbv/WKVD6oeryvAb+qvHm2ZGrApX9Vl0wRJzUPyU1lOQxK6a6nxJO0D9fVOBN4V7
- xf4lwPEruHL1t96DJsvDz/iL37Ud6G5iq24pljpCMfxAL9/DjSSHV0I+rzAF8JrAG4F9
- eh5oYop4fDv+IcEJIhR7KZesb0QqRyYUxoF+6doqVm4+zQAQ+u4W9vW7AFaQWVkgHfdX
- h9OzUtGmtrOPoG79Hwa/H191CZ0VOD8UxULe1rH5grrDTA0KU+uTS9v5kCGHiMQgapdC
- swWQ==
-X-Gm-Message-State: AOAM530d2jLM/Hpw+kJvkiQ44X+dbT6ZIcsl0RF7TCQYdC8rR58NZTlY
- bw6zqQXD7XPQg0dBDsQKCTIBNEP3SdbOP6Dk6uhfMQ==
-X-Google-Smtp-Source: ABdhPJwWB0tX5GDFBeHZ1LiAt30TiVNcHXV5DfsWQz9Zp1GM9/8CHg1+g2E6eAgybkGTqrk8/i3G9uSY7xs2fWzT30k=
-X-Received: by 2002:a05:6830:44a7:: with SMTP id
- r39mr22563794otv.25.1628632179611; 
- Tue, 10 Aug 2021 14:49:39 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 10 Aug 2021 14:49:39 -0700
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8EBD6E062
+ for <freedreno@lists.freedesktop.org>; Tue, 10 Aug 2021 22:59:35 +0000 (UTC)
+Received: from [10.0.20.6] (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id CB30B1F562;
+ Wed, 11 Aug 2021 00:59:30 +0200 (CEST)
+To: abhinavk@codeaurora.org
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
+References: <1624993464-20447-1-git-send-email-abhinavk@codeaurora.org>
+ <61cdcd07-5bff-a8ae-7156-b85b9c6c8801@somainline.org>
+ <f6235d170811ad02bf6321dcb5ef3568@codeaurora.org>
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <1cc300dc-7647-0431-fe05-d5504c337652@somainline.org>
+Date: Wed, 11 Aug 2021 00:59:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <1628196295-7382-1-git-send-email-khsieh@codeaurora.org>
-References: <1628196295-7382-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 10 Aug 2021 14:49:39 -0700
-Message-ID: <CAE-0n506f7yb3g7bGj0Xk43qL1Xw2Qzo5nRw76sdAYZz3NhO9w@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org, 
- robdclark@gmail.com, sean@poorly.run
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, airlied@linux.ie, 
- daniel@ffwll.ch, bjorn.andersson@linaro.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 0/6] add fixes to pass DP Link Layer
- compliance test cases
+In-Reply-To: <f6235d170811ad02bf6321dcb5ef3568@codeaurora.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: add support for dsi test
+ pattern generator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,19 +55,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-08-05 13:44:49)
-> add fixes to pass DP Link Layer compliance test cases
->
-> Kuogee Hsieh (6):
->   drm/msm/dp: use dp_ctrl_off_link_stream during PHY compliance test run
->   drm/msm/dp: reduce link rate if failed at link training 1
->   drm/msm/dp: reset aux controller after dp_aux_cmd_fifo_tx() failed.
->   drm/msm/dp: replug event is converted into an unplug followed by an
->     plug events
->   drm/msm/dp: return correct edid checksum after corrupted edid checksum
->     read
->   drm/msm/dp: do not end dp link training until video is ready
+Hi Abhinav,
 
-I'm still able to use my Apple dongle with these patches so
+On 7/16/21 2:01 AM, abhinavk@codeaurora.org wrote:
+> Hi Marijn
+> 
+> Sorry for the late response.
 
-Tested-by: Stephen Boyd <swboyd@chromium.org>
+
+Apologies from my side as well.
+
+[...]
+
+>>> +static void msm_dsi_host_cmd_test_pattern_setup(struct msm_dsi_host
+>>> *msm_host)
+>>> +{
+>>> +	u32 reg;
+>>> +
+>>> +	reg = dsi_read(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL);
+>>> +
+>>> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_MDP_INIT_VAL0,
+>>> 0xff);
+>>> +
+>>> +	reg |= (0x3 << 0x8);
+>>> +	dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CTRL, reg);
+>>> +	/* draw checkered rectangle pattern */
+>>> +	dsi_write(msm_host, REG_DSI_TPG_MAIN_CONTROL2, (0x1 << 0x7));
+>>
+>>
+>> How about BIT(7)?
+> 
+> You mean BIT(7) of REG_DSI_TPG_MAIN_CONTROL2? Thats what this is right?
+> Did you mean some other bit?
+
+
+I meant to replace (0x1 << 0x7) with BIT(7), but replacing it with 
+DSI_TPG_MAIN_CONTROL2_CMD_MDP0_CHECKERED_RECTANGLE_PATTERN is even 
+better, thanks.
+
+> 
+>>
+>> On SM6125 this seems to change the color intensity of the pattern; it
+>> is always colored lines of a few pixels wide alternating R, B and G
+>> from left to right.  Is it possible to document the meaning and
+>> available values of these registers, especially if they differ between
+>> SoC / DSI block?
+>>
+> 
+> I have requested access for SM6125, will check this register on that to
+> see if there
+> is any difference.
+> 
+> Are you saying you are not seeing a rectangular checkered pattern while
+> testing?
+
+
+Correct.  It's fixed now, and this patch already proves its usefulness! 
+  We had two minor configuration issues, and are now seeing the squares 
+just like on the other SoCs.  Meaning we can finally move on to 
+configuring the DPU, thanks!
+
+> Also are you testing on command mode or video mode?
+
+
+Command mode, if it's still worth anything.
+
+> As requested by Rob, I will add the bit definitions and update the
+> dsi.xml.h in the
+> next patchset for the registers and the bits which I am using here.
+> 
+> With that the meaning of these bits will be more clear.
+> 
+> I dont think I will be able to document all the bits because the goal of
+> this patch
+> was only to draw a test pattern to help with validation. Different bits
+> of the REG_DSI_TPG_MAIN_CONTROL2
+> register only draw different patterns so the goal wasnt that we can draw
+> any pattern, it was just to
+> draw some pattern on the screen.
+> 
+> When we add support for all other patterns, we can expose those bits as
+> well but it should not
+> be required in my opinion.
+
+
+Understandable.  I'm curious if other patterns are useful in certain 
+situations, like DSC?  Other than that, knowing that the DSI and PHY is 
+correct is good enough for us.
+
+> 
+>> Kind regards,
+>> Marijn
+>>
+>>> +	DBG("Cmd test pattern setup done\n");
+>>> +}
+>> [...]
+
+
+Thanks!
+Marijn
