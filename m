@@ -2,66 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C423E95F9
-	for <lists+freedreno@lfdr.de>; Wed, 11 Aug 2021 18:32:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 140D33E970E
+	for <lists+freedreno@lfdr.de>; Wed, 11 Aug 2021 19:51:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B55E6E16F;
-	Wed, 11 Aug 2021 16:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A310896ED;
+	Wed, 11 Aug 2021 17:51:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC5F6E16F
- for <freedreno@lists.freedesktop.org>; Wed, 11 Aug 2021 16:31:57 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1628699525; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=NhUiz5QC3KQBDifLSXQI8f1jKY1S0Ahvc8LKMho5enA=;
- b=k5sX3HKw4p1Ic3+LU14a9zEmlqQASZ0/graKSMIETImQ72V9RJkNDtfN1t8J4+VAgReTXH4z
- YDD83wOb+kiUl1g5QacPYVXWsiCHZzCgggyUv/ry17ZvEMq56lFFcoSqB2FKqcGbiQ+uJmA/
- pap7k7XHn75c8KWkJtOLjCZZkS8=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 6113fb3c66ff1079041926c0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 11 Aug 2021 16:30:52
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 71395C433D3; Wed, 11 Aug 2021 16:30:51 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 44163C43143;
- Wed, 11 Aug 2021 16:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 44163C43143
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=khsieh@codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com,
-	sean@poorly.run,
-	swboyd@chromium.org
-Cc: Kuogee Hsieh <khsieh@codeaurora.org>, abhinavk@codeaurora.org,
- aravindh@codeaurora.org, airlied@linux.ie, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 11 Aug 2021 09:30:07 -0700
-Message-Id: <1628699407-28358-7-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1628699407-28358-1-git-send-email-khsieh@codeaurora.org>
-References: <1628699407-28358-1-git-send-email-khsieh@codeaurora.org>
-Subject: [Freedreno] [PATCH v4 6/6] drm/msm/dp: do not end dp link training
- until video is ready
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5FF28972B
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Aug 2021 17:51:40 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ n1-20020a9d1e810000b0290514da4485e4so1577956otn.4
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Aug 2021 10:51:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=2DfNuz5O7Mpdzge58x7dhXEmqV1KbsWUVKw3z3NErkw=;
+ b=KegjHwRhqP0eyTIjTxdo+VQWrHOjxNclssYbN0gYdv+UXtuPfpLohCE61Br2R0f0xS
+ sVV35sxF3U+OMySclqVD79ydUWjUvGcKMnapmPU/O6z0A22kYnk00cKWLKFDpniF2zh7
+ YgjtJ2yV4YWL/DTcfHaijEnuQsELdmlb8846E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=2DfNuz5O7Mpdzge58x7dhXEmqV1KbsWUVKw3z3NErkw=;
+ b=V0z0XxGFxB/HKxxlGTaxnLrRj0rLE6LERmp1+BH9CnBoUF0WeGfhyUpWwgaXraI7gK
+ WegJypuQzy2jMckz9H5OVCmz4/NWjF/jwppPYpSPOi9Y15+uoAqUOnd2tp/X06cQyKn4
+ D/8A+CRanoenm96xFEtGY+wa0kN21jO0MCN366S7QTc111J0xbPBtoxwj89EebxfxUEB
+ wAaAUPiCyyGHgLDMArJZOzR85BlviuNU1qX/QwLNlAimNZ7p46RwPRuKN94ppqugtTbs
+ qyEXjM5iUp26fpP3G8RQe+/8mo7Q4hPEqX4/WtMYwc/CtY2iw64lZ5Bjygi0OFx+O9z5
+ 68/Q==
+X-Gm-Message-State: AOAM530V8UjSCOfwA2STDUqrHcIsZca2X4Hu+CAKZkoelDlTceI4czJx
+ NGLY06l1pVen6pk+PoyjqIoQMBfT0U+9zd4KMinocQ==
+X-Google-Smtp-Source: ABdhPJxP4Vj/nnRZByQ6ppiULeaZtVP0wwSMf/t1xhztsfuKaN7WpnJStix5REbZv/OdPm2wJyTwoly2glhXlLB7PX4=
+X-Received: by 2002:a05:6830:1490:: with SMTP id
+ s16mr120971otq.233.1628704299752; 
+ Wed, 11 Aug 2021 10:51:39 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 11 Aug 2021 10:51:39 -0700
+MIME-Version: 1.0
+In-Reply-To: <1628691835-36958-1-git-send-email-akhilpo@codeaurora.org>
+References: <1628691835-36958-1-git-send-email-akhilpo@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 11 Aug 2021 10:51:39 -0700
+Message-ID: <CAE-0n51i2OcQ5G=nDXyOQwYoT4j3iyRKu8r-YYotmqTNfaBzhQ@mail.gmail.com>
+To: Akhil P Oommen <akhilpo@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Manaf Meethalavalappu Pallikunhi <manafm@codeaurora.org>, 
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>, 
+ linux-arm-msm@vger.kernel.org
+Cc: Jordan Crouse <jordan@cosmicpenguin.net>,
+ Matthias Kaehlcke <mka@chromium.org>, 
+ Jonathan Marek <jonathan@marek.ca>, Douglas Anderson <dianders@chromium.org>, 
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5 1/2] arm64: dts: qcom: sc7280: Add gpu
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,140 +79,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Initialize both pre-emphasis and voltage swing level to 0 before
-start link training and do not end link training until video is
-ready to reduce the period between end of link training and video
-start to meet Link Layer CTS requirement.  Some dongle main link
-symbol may become unlocked again if host did not end link training
-soon enough after completion of link training 2. Host have to re
-train main link if loss of symbol locked detected before end link
-training so that the coming video stream can be transmitted to sink
-properly. This fixes Link Layer CTS cases 4.3.2.1, 4.3.2.2, 4.3.2.3
-and 4.3.2.4.
+Quoting Akhil P Oommen (2021-08-11 07:23:54)
+> Add the necessary dt nodes for gpu support in sc7280.
+>
+> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> ---
 
-Changes in v3:
--- merge retrain link if loss of symbol locked happen into this patch
--- replace dp_ctrl_loss_symbol_lock() with dp_ctrl_channel_eq_ok()
-
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 56 +++++++++++++++++++++++++++++-----------
- 1 file changed, 41 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 0002805..ffed523 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1484,6 +1484,9 @@ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
- 
- 	dp_ctrl_push_idle(&ctrl->dp_ctrl);
- 
-+	ctrl->link->phy_params.p_level = 0;
-+	ctrl->link->phy_params.v_level = 0;
-+
- 	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
- 
- 	ret = dp_ctrl_setup_main_link(ctrl, &training_step);
-@@ -1636,6 +1639,16 @@ static bool dp_ctrl_clock_recovery_any_ok(
- 	return drm_dp_clock_recovery_ok(link_status, reduced_cnt);
- }
- 
-+static bool dp_ctrl_channel_eq_ok(struct dp_ctrl_private *ctrl)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE];
-+	int num_lanes = ctrl->link->link_params.num_lanes;
-+
-+	dp_ctrl_read_link_status(ctrl, link_status);
-+
-+	return drm_dp_channel_eq_ok(link_status, num_lanes);
-+}
-+
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- {
- 	int rc = 0;
-@@ -1671,6 +1684,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 		ctrl->link->link_params.rate,
- 		ctrl->link->link_params.num_lanes, ctrl->dp_ctrl.pixel_rate);
- 
-+	ctrl->link->phy_params.p_level = 0;
-+	ctrl->link->phy_params.v_level = 0;
-+
- 	rc = dp_ctrl_enable_mainlink_clocks(ctrl);
- 	if (rc)
- 		return rc;
-@@ -1736,17 +1752,19 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN)
- 		return rc;
- 
--	/* stop txing train pattern */
--	dp_ctrl_clear_training_pattern(ctrl);
-+	if (rc == 0) {  /* link train successfully */
-+		/*
-+		 * do not stop train pattern here
-+		 * stop link training at on_stream
-+		 * to pass compliance test
-+		 */
-+	} else  {
-+		/*
-+		 * link training failed
-+		 * end txing train pattern here
-+		 */
-+		dp_ctrl_clear_training_pattern(ctrl);
- 
--	/*
--	 * keep transmitting idle pattern until video ready
--	 * to avoid main link from loss of sync
--	 */
--	if (rc == 0)  /* link train successfully */
--		dp_ctrl_push_idle(dp_ctrl);
--	else  {
--		/* link training failed */
- 		dp_ctrl_deinitialize_mainlink(ctrl);
- 		rc = -ECONNRESET;
- 	}
-@@ -1754,9 +1772,15 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	return rc;
- }
- 
-+static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
-+{
-+	int training_step = DP_TRAINING_NONE;
-+
-+	return dp_ctrl_setup_main_link(ctrl, &training_step);
-+}
-+
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- {
--	u32 rate = 0;
- 	int ret = 0;
- 	bool mainlink_ready = false;
- 	struct dp_ctrl_private *ctrl;
-@@ -1766,10 +1790,6 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- 
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
- 
--	rate = ctrl->panel->link_info.rate;
--
--	ctrl->link->link_params.rate = rate;
--	ctrl->link->link_params.num_lanes = ctrl->panel->link_info.num_lanes;
- 	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
- 
- 	DRM_DEBUG_DP("rate=%d, num_lanes=%d, pixel_rate=%d\n",
-@@ -1784,6 +1804,12 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- 		}
- 	}
- 
-+	if (!dp_ctrl_channel_eq_ok(ctrl))
-+		dp_ctrl_link_retrain(ctrl);
-+
-+	/* stop txing train pattern to end link training */
-+	dp_ctrl_clear_training_pattern(ctrl);
-+
- 	ret = dp_ctrl_enable_stream_clocks(ctrl);
- 	if (ret) {
- 		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
