@@ -1,60 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 668443E97C2
-	for <lists+freedreno@lfdr.de>; Wed, 11 Aug 2021 20:38:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 551CF3E9B23
+	for <lists+freedreno@lfdr.de>; Thu, 12 Aug 2021 01:11:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4D4D6E1A4;
-	Wed, 11 Aug 2021 18:38:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD75D894C0;
+	Wed, 11 Aug 2021 23:11:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB1C36E106
- for <freedreno@lists.freedesktop.org>; Wed, 11 Aug 2021 18:38:54 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- o7-20020a05600c5107b0290257f956e02dso5120568wms.1
- for <freedreno@lists.freedesktop.org>; Wed, 11 Aug 2021 11:38:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eQhLP2HpYl3mxTssveBjr1kKyZxliJO4Ylz3sYBifvQ=;
- b=gLXLq97An/NSHIdiFRGjpYHcahaLAOeMqlOjQ0lTs/Oy4mVwecGF13c0K9Z4sEDDMF
- leSrj6Wpzj/UoirgeM7fbSLqOJuOI4oXLfEGbFGOfLANd/M8F7/35YJQeqYF/GqDcj9q
- HD2u/UIT8+K+A/p/EsAVN3tncwWLRQEw7BVTZ3zGtZ6ssxgU1ugKQzF10LMHDs13Rwm4
- SvVMB1p89BRdfLyNcG94XAzKjs+JtwQgQKpjDKtPm4+3FI4nXmPCgG5Eh56vEwzx12Fz
- fn+LUSshcWrwiRl9TDTfctF72r/GFuIZ/TdPnTg7SqlSp2IhStANjvcqF4AFY3m8iT2s
- MCSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eQhLP2HpYl3mxTssveBjr1kKyZxliJO4Ylz3sYBifvQ=;
- b=HMw4/b1rRj7ZFqB7eewFqTre1JtNhIp505+DspRj7n27rCRtEEtVNzKwGJObxQ/S/V
- 4hVpMqNL8+AYwVmy5q1DF3D87/o3U5GdXkt3XsFO/x8JcjBrCPNhvi/6gxzmlkPoySbQ
- axdblucxyYOfptgkhLG0TzaD3+Jf3SiA56V64bAwTxX20T6a+q4+SD1oGr5LYcrCtsVe
- at7ylrsx+KjMgunuId81YlZ11cZ9idlakWa8xqcNpLUTHcwJT1TOPnPJ7c4DnKcCevgi
- cMIk5wH/yrpYytxUKeXhjj3B5STzF4aoBFYjolA9Z+6SAKHhjwdZTXN7FUjlp8cgWJ4I
- seiw==
-X-Gm-Message-State: AOAM530rqee645ncx2QfddedRyHNdOPS5Tl/J9icRYEkDsG9dsUl8a9T
- ps07jNhA52Kp8FdKCUtLtR0aDvKfcjr82qksVyQ=
-X-Google-Smtp-Source: ABdhPJxp/OJghjYG77CWEM0BOC7nX2DHfOVMFK6FSsbOPvoPAsWIZPqN5jxhG9kBOsxFLJVVBylnYEgwmGBfWPkcw2Q=
-X-Received: by 2002:a05:600c:2046:: with SMTP id
- p6mr11477927wmg.164.1628707133341; 
- Wed, 11 Aug 2021 11:38:53 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C68A2894C0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 Aug 2021 23:11:32 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1628723495; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=ektryqDHpsXlRkPXe6VBb6zwKA59TAebgBvvQmqRG+w=;
+ b=B133ZlMkNuj7AlFGEZGaqDPOBKyJyl/5D9/XxXPb6rI7R1J+p8Cu11WTqy1BTcD1BpdtVGSu
+ yZFdz054FsXueRUY9qRH4ifE1Ihu4xdk0+t6Q+OP5VnM2cF3bmf4l+8pAuyEX4epPvgnUIfW
+ 3oNKbHrc+Oqtqp268SX4iMpNNmk=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 61145920f746c298d95d86ac (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 11 Aug 2021 23:11:28
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 69626C433F1; Wed, 11 Aug 2021 23:11:28 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5837AC433D3;
+ Wed, 11 Aug 2021 23:11:27 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210811180844.2130484-1-markyacoub@chromium.org>
-In-Reply-To: <20210811180844.2130484-1-markyacoub@chromium.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 11 Aug 2021 11:43:09 -0700
-Message-ID: <CAF6AEGveSFBOQkP=NXeRZAuAeL_yQc5Sq6LO+huf4bJO6c2yKA@mail.gmail.com>
-To: Mark Yacoub <markyacoub@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Cc: Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@chromium.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Mark Yacoub <markyacoub@google.com>, 
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 11 Aug 2021 16:11:27 -0700
+From: abhinavk@codeaurora.org
+To: Rob Clark <robdclark@gmail.com>
+Cc: Mark Yacoub <markyacoub@chromium.org>, Sean Paul
+ <seanpaul@chromium.org>, Rob Clark <robdclark@chromium.org>, linux-arm-msm
+ <linux-arm-msm@vger.kernel.org>, Mark Yacoub <markyacoub@google.com>,
  freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAF6AEGveSFBOQkP=NXeRZAuAeL_yQc5Sq6LO+huf4bJO6c2yKA@mail.gmail.com>
+References: <20210811180844.2130484-1-markyacoub@chromium.org>
+ <CAF6AEGveSFBOQkP=NXeRZAuAeL_yQc5Sq6LO+huf4bJO6c2yKA@mail.gmail.com>
+Message-ID: <105abb2369fdd47a76e330857024c96a@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
 Subject: Re: [Freedreno] [PATCH] drm/msm: Read frame_count and line_count
  even when disabled.
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -72,87 +74,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 11, 2021 at 11:12 AM Mark Yacoub <markyacoub@chromium.org> wrote:
->
-> From: Mark Yacoub <markyacoub@google.com>
->
-> [why]
-> Reading frame count register used to get the vblank counter, which calls
-> dpu_encoder_phys to get the frame count. Even when it's disabled, the
-> vblank counter (through frame count) should return a valid value for the
-> count. An invalid value of 0, when compared to vblank->last (in
-> drm_vblank.c::drm_update_vblank_count()) returns an invalid number that
-> throws off the vblank counter for the lifetime of the process.
->
-> Rationale:
-> In drm_vblank.c::drm_update_vblank_count(), the new diff is calculated
-> through:
-> diff = (cur_vblank - vblank->last) & max_vblank_count;
-> cur_vblank comes from: cur_vblank = __get_vblank_counter(dev, pipe);
-> When the value is 0, diff results in a negative number (a very large
-> number as it's unsigned), which inflates the vblank count when the diff
-> is added to the current vblank->count.
->
-> [How]
-> Read frame_count register whether interface timing engine is enabled or
-> not.
->
-> Fixes: IGT:kms_flip::modeset-vs-vblank-race-interruptible
-> Tested on ChromeOS Trogdor(msm)
->
-> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+On 2021-08-11 11:43, Rob Clark wrote:
+> On Wed, Aug 11, 2021 at 11:12 AM Mark Yacoub <markyacoub@chromium.org> 
+> wrote:
+>> 
+>> From: Mark Yacoub <markyacoub@google.com>
+>> 
+>> [why]
+>> Reading frame count register used to get the vblank counter, which 
+>> calls
+>> dpu_encoder_phys to get the frame count. Even when it's disabled, the
+>> vblank counter (through frame count) should return a valid value for 
+>> the
+>> count. An invalid value of 0, when compared to vblank->last (in
+>> drm_vblank.c::drm_update_vblank_count()) returns an invalid number 
+>> that
+>> throws off the vblank counter for the lifetime of the process.
+>> 
+>> Rationale:
+>> In drm_vblank.c::drm_update_vblank_count(), the new diff is calculated
+>> through:
+>> diff = (cur_vblank - vblank->last) & max_vblank_count;
+>> cur_vblank comes from: cur_vblank = __get_vblank_counter(dev, pipe);
+>> When the value is 0, diff results in a negative number (a very large
+>> number as it's unsigned), which inflates the vblank count when the 
+>> diff
+>> is added to the current vblank->count.
+>> 
+>> [How]
+>> Read frame_count register whether interface timing engine is enabled 
+>> or
+>> not.
+>> 
+>> Fixes: IGT:kms_flip::modeset-vs-vblank-race-interruptible
+>> Tested on ChromeOS Trogdor(msm)
+>> 
+>> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+> 
+> Reviewed-by: Rob Clark <robdclark@chromium.org>
+> 
+> But I suspect we may have a bit more work for the display-off case..
+> or at least I'm not seeing anything obviously doing a pm_runtime_get()
+> in this call path.
+> 
+> I'm also not sure if the line/frame-count registers loose state across
+> a suspend->resume cycle, it might be that we need to save/restore
+> these registers in the suspend/resume path?  Abhinav?
+> 
+> BR,
+> -R
+> 
+I spent sometime checking this and I dont think we should go ahead with 
+this change.
+So when the timing engine is off, I believe the reason this works is 
+that the clocks are still not OFF yet
+so this should be returning the last value of the vsync counter before 
+the timing engine was turned OFF.
+If the clocks got turned OFF and there is a power collapse, I expect the 
+frame_count and line_count to get reset
+to 0.
 
-Reviewed-by: Rob Clark <robdclark@chromium.org>
+I was also looking at the stack in which this error will start 
+happening. So I believe the sequence is like this
+(mark can correct me if wrong):
 
-But I suspect we may have a bit more work for the display-off case..
-or at least I'm not seeing anything obviously doing a pm_runtime_get()
-in this call path.
+drm_crtc_vblank_off(crtc); ---> drm_vblank_disable_and_save ----> 
+drm_update_vblank_count ----> __get_vblank_counter().
 
-I'm also not sure if the line/frame-count registers loose state across
-a suspend->resume cycle, it might be that we need to save/restore
-these registers in the suspend/resume path?  Abhinav?
+crtc is disabled after the encoder so this path triggers an incorrect 
+value because encoder was already disabled (hence timing
+engine was too). Clocks were still ON as full suspend hasnt happened 
+yet.
 
-BR,
--R
+To fix this, I think we should do what the downstream drivers did, so 
+something like this:
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 9 ++-------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h | 2 +-
->  2 files changed, 3 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index 116e2b5b1a90f..c436d901629f3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -266,13 +266,8 @@ static void dpu_hw_intf_get_status(
->
->         s->is_en = DPU_REG_READ(c, INTF_TIMING_ENGINE_EN);
->         s->is_prog_fetch_en = !!(DPU_REG_READ(c, INTF_CONFIG) & BIT(31));
-> -       if (s->is_en) {
-> -               s->frame_count = DPU_REG_READ(c, INTF_FRAME_COUNT);
-> -               s->line_count = DPU_REG_READ(c, INTF_LINE_COUNT);
-> -       } else {
-> -               s->line_count = 0;
-> -               s->frame_count = 0;
-> -       }
-> +       s->frame_count = DPU_REG_READ(c, INTF_FRAME_COUNT);
-> +       s->line_count = DPU_REG_READ(c, INTF_LINE_COUNT);
->  }
->
->  static u32 dpu_hw_intf_get_line_count(struct dpu_hw_intf *intf)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> index 3568be80dab51..877ff48bfef04 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-> @@ -41,7 +41,7 @@ struct intf_prog_fetch {
->  struct intf_status {
->         u8 is_en;               /* interface timing engine is enabled or not */
->         u8 is_prog_fetch_en;    /* interface prog fetch counter is enabled or not */
-> -       u32 frame_count;        /* frame count since timing engine enabled */
-> +       u32 frame_count; /* frame count since timing engine first enabled */
->         u32 line_count;         /* current line count including blanking */
->  };
->
-> --
-> 2.33.0.rc1.237.g0d66db33f3-goog
->
+5471 static u32 dpu_crtc_get_vblank_counter(struct drm_crtc *crtc)
+5472 {
+5473 	struct drm_encoder *encoder;
+         struct dpu_encoder_virt *dpu_enc = NULL;
+
+         dpu_enc = to_dpu_encoder_virt(drm_enc);
+5480
+***********************************************************
+5485 		return dpu_encoder_get_frame_count(encoder);
+************************************************************
+
+this just returns phys->vsync_cnt (which is just an atomic counter which 
+doesnt reset during disable)
+So in other words instead of relying on the hw register value which can 
+be unpredictable when the timing engine is off,
+use a sw counter
+
+5486 	}
+5487
+5488 	return 0;
+5489 }
+
+
+>> ---
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 9 ++-------
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h | 2 +-
+>>  2 files changed, 3 insertions(+), 8 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> index 116e2b5b1a90f..c436d901629f3 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+>> @@ -266,13 +266,8 @@ static void dpu_hw_intf_get_status(
+>> 
+>>         s->is_en = DPU_REG_READ(c, INTF_TIMING_ENGINE_EN);
+>>         s->is_prog_fetch_en = !!(DPU_REG_READ(c, INTF_CONFIG) & 
+>> BIT(31));
+>> -       if (s->is_en) {
+>> -               s->frame_count = DPU_REG_READ(c, INTF_FRAME_COUNT);
+>> -               s->line_count = DPU_REG_READ(c, INTF_LINE_COUNT);
+>> -       } else {
+>> -               s->line_count = 0;
+>> -               s->frame_count = 0;
+>> -       }
+>> +       s->frame_count = DPU_REG_READ(c, INTF_FRAME_COUNT);
+>> +       s->line_count = DPU_REG_READ(c, INTF_LINE_COUNT);
+>>  }
+>> 
+>>  static u32 dpu_hw_intf_get_line_count(struct dpu_hw_intf *intf)
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> index 3568be80dab51..877ff48bfef04 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+>> @@ -41,7 +41,7 @@ struct intf_prog_fetch {
+>>  struct intf_status {
+>>         u8 is_en;               /* interface timing engine is enabled 
+>> or not */
+>>         u8 is_prog_fetch_en;    /* interface prog fetch counter is 
+>> enabled or not */
+>> -       u32 frame_count;        /* frame count since timing engine 
+>> enabled */
+>> +       u32 frame_count; /* frame count since timing engine first 
+>> enabled */
+>>         u32 line_count;         /* current line count including 
+>> blanking */
+>>  };
+>> 
+>> --
+>> 2.33.0.rc1.237.g0d66db33f3-goog
+>> 
