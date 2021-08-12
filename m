@@ -1,71 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 455FB3EAAFC
-	for <lists+freedreno@lfdr.de>; Thu, 12 Aug 2021 21:29:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8A53EAB80
+	for <lists+freedreno@lfdr.de>; Thu, 12 Aug 2021 22:08:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB93A6E450;
-	Thu, 12 Aug 2021 19:29:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48B7F6E471;
+	Thu, 12 Aug 2021 20:08:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70DB16E459
- for <freedreno@lists.freedesktop.org>; Thu, 12 Aug 2021 19:29:10 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id q10so9852627wro.2
- for <freedreno@lists.freedesktop.org>; Thu, 12 Aug 2021 12:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=vK3N1x/8SbosoS3uBizGVb1PhP4NVJPTrGmAX9XbKo0=;
- b=HHCdJzDBUSSv4gJIkst4UkP003ypJI9ih1Q2cy6gken6e776ZhrJj+MaiecCYquivY
- oV5b8yMgCwSMpQ54XpCjKAiLfuou0JiTOy00ftVAthVt8/xAY5W1xB1VqYAr2EfDMKnu
- oH8/QgoaMPRMj4wLy60MntfWEzzryxVreT1B8=
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0E906E471
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Aug 2021 20:08:26 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id f11so10073282ioj.3
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Aug 2021 13:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1bGQrduUL+m7VKRi0v0z85Q4dsnPpu6fOOpwbY1ffcA=;
+ b=VkYCJom5pQdEVeQHfD3XlI4ousGOTHyxeSAvOpfTqiA6czSNTcbk54qIadf6AzTflf
+ tuEyhtjXasOIcoOn/irN1qhAoj5mL8+7JP3Rmt1aqlq9OrRyvlUJ/JFa2Yo1lYJkNVUW
+ aiVQWCBmqdke9ohe/yMCVhVBFLWk1Eag9+qWc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=vK3N1x/8SbosoS3uBizGVb1PhP4NVJPTrGmAX9XbKo0=;
- b=uX+D7e7e5z8JemIlOK3JbbCt40qfz2vvIc32LVLKusD+akAbzeMQcfZKv/71vhmp1p
- PiHWNNPUrABDaBHR839A7pRprfqpXmjUX1ye23lciYY3h773H4yyCMs+AHufpGzdTbAf
- hSi2lZEQKxHfLTCJBvl8TRJ7XxUdSD1ypQSJ8j/D8zIcXij+XY2q66utnoRnYKTV5+mL
- a3+4nkmKm2Ndiqqde4fRfwFLgrLhlk+h9Lj819/DCrXBJx0HYNnXMB94eheJUdE30U5y
- CqJoyTNuhVF8zyWNlxlThUtUzYrMxKRR6vb3q5MQYiP1Z88zJE+d7dhg4fUBjI4+a8zz
- +tdg==
-X-Gm-Message-State: AOAM531CRB4M8nhDIavZe4s1lKUyomdjO7MYI2qwSFX7RqHY29yj06d0
- IA+fh5LoQolj8ON2x0NR8UkmEw==
-X-Google-Smtp-Source: ABdhPJxtaf2b2aXWftudMkaUX0scxPW67FZyX2NlvkEhxSM3RIrnq+OhL1847l8YFlS55Urw3cH0pQ==
-X-Received: by 2002:a05:6000:1b02:: with SMTP id
- f2mr5719224wrz.274.1628796549010; 
- Thu, 12 Aug 2021 12:29:09 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id a11sm4182999wrq.6.2021.08.12.12.29.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Aug 2021 12:29:08 -0700 (PDT)
-Date: Thu, 12 Aug 2021 21:29:06 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Message-ID: <YRV2goAobvG+6dmn@phenom.ffwll.local>
-References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
- <20210805104705.862416-13-daniel.vetter@ffwll.ch>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1bGQrduUL+m7VKRi0v0z85Q4dsnPpu6fOOpwbY1ffcA=;
+ b=aXUpxVEPoMMPkYSYtItP1gK24dDHSipwsIjmIeu/a3sGojWkVVTbEmodL8XpyZG+mp
+ wXVN8Pt5ldIkK8/+2PSWaD2f54sRSvr4VaNnag/GL3tcRu+iFjnliG/ZWwYP9HJLRrnz
+ 2bOkh70j1niBQN07fj51gCXQMUlwszSb/GJOpMhIqHYCEzXuJ5ljDUuzH0cwWnDvq2t4
+ GfQhiGrwTcYww+zoSj8Ylw/BFtvmRFD4Op8V1WhzcAUTlt6URwucZm97SBXWa5GvO7kX
+ VqBCbUh9bl/5b6Ef+EFpNCHYd/hHJrs9ndRL4rAJJRrv4+qDgmx2dtr+1POL3SMo87Eq
+ SiCg==
+X-Gm-Message-State: AOAM530TddC+bB3jRBIcu4I47KSSmj6nQzO2zKIPueE5b08WBGdgmrUd
+ s55m+sIXDRBgN+T9mVwDue4nPZJuaNxGow==
+X-Google-Smtp-Source: ABdhPJzzEvXGtFdcklZllwjDEg/e4D78pFi71iApIyKFdDRFgKLHPr9BxbhjAN/jjdP9Nu7uTCxlEw==
+X-Received: by 2002:a05:6602:3359:: with SMTP id
+ c25mr4313935ioz.181.1628798905998; 
+ Thu, 12 Aug 2021 13:08:25 -0700 (PDT)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com.
+ [209.85.166.175])
+ by smtp.gmail.com with ESMTPSA id g11sm1909674iom.46.2021.08.12.13.08.24
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Aug 2021 13:08:25 -0700 (PDT)
+Received: by mail-il1-f175.google.com with SMTP id i4so8378838ila.1
+ for <freedreno@lists.freedesktop.org>; Thu, 12 Aug 2021 13:08:24 -0700 (PDT)
+X-Received: by 2002:a05:6e02:d49:: with SMTP id
+ h9mr223667ilj.229.1628798904325; 
+ Thu, 12 Aug 2021 13:08:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210805104705.862416-13-daniel.vetter@ffwll.ch>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Freedreno] [PATCH v5 12/20] drm/msm: Use scheduler dependency
- handling
+References: <20210811235253.924867-1-robdclark@gmail.com>
+ <20210811235253.924867-5-robdclark@gmail.com>
+ <YRV10ew/Lr8GPzEv@pendragon.ideasonboard.com>
+In-Reply-To: <YRV10ew/Lr8GPzEv@pendragon.ideasonboard.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 12 Aug 2021 13:08:11 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Xd9fizYdxfXYOkpJ_1fZcHp3-ROJ7k4iPg0g0RQ_+A3Q@mail.gmail.com>
+Message-ID: <CAD=FV=Xd9fizYdxfXYOkpJ_1fZcHp3-ROJ7k4iPg0g0RQ_+A3Q@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@chromium.org>, 
+ Andrzej Hajda <a.hajda@samsung.com>, Neil Armstrong <narmstrong@baylibre.com>, 
+ Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@linux.ie>, 
+ Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 4/4] drm/bridge: ti-sn65dsi86: Add
+ NO_CONNECTOR support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,145 +86,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 05, 2021 at 12:46:57PM +0200, Daniel Vetter wrote:
-> drm_sched_job_init is already at the right place, so this boils down
-> to deleting code.
-> 
-> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-media@vger.kernel.org
-> Cc: linaro-mm-sig@lists.linaro.org
+Laurent,
 
-Ping for ack&testing please.
--Daniel
+On Thu, Aug 12, 2021 at 12:26 PM Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Rob,
+>
+> Thank you for the patch.
+>
+> On Wed, Aug 11, 2021 at 04:52:50PM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Slightly awkward to fish out the display_info when we aren't creating
+> > own connector.  But I don't see an obvious better way.
+>
+> We need a bit more than this, to support the NO_CONNECTOR case, the
+> bridge has to implement a few extra operations, and set the bridge .ops
+> field. I've submitted two patches to do so a while ago:
+>
+> - [RFC PATCH 08/11] drm/bridge: ti-sn65dsi86: Implement bridge connector operations ([1])
 
-> ---
->  drivers/gpu/drm/msm/msm_gem.h        |  5 -----
->  drivers/gpu/drm/msm/msm_gem_submit.c | 19 +++++--------------
->  drivers/gpu/drm/msm/msm_ringbuffer.c | 12 ------------
->  3 files changed, 5 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> index f9e3ffb2309a..8bf0ac707fd7 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -312,11 +312,6 @@ struct msm_gem_submit {
->  	struct ww_acquire_ctx ticket;
->  	uint32_t seqno;		/* Sequence number of the submit on the ring */
->  
-> -	/* Array of struct dma_fence * to block on before submitting this job.
-> -	 */
-> -	struct xarray deps;
-> -	unsigned long last_dep;
-> -
->  	/* Hw fence, which is created when the scheduler executes the job, and
->  	 * is signaled when the hw finishes (via seqno write from cmdstream)
->  	 */
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 96cea0ba4cfd..fb5a2eab27a2 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -52,8 +52,6 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
->  		return ERR_PTR(ret);
->  	}
->  
-> -	xa_init_flags(&submit->deps, XA_FLAGS_ALLOC);
-> -
->  	kref_init(&submit->ref);
->  	submit->dev = dev;
->  	submit->aspace = queue->ctx->aspace;
-> @@ -72,8 +70,6 @@ void __msm_gem_submit_destroy(struct kref *kref)
->  {
->  	struct msm_gem_submit *submit =
->  			container_of(kref, struct msm_gem_submit, ref);
-> -	unsigned long index;
-> -	struct dma_fence *fence;
->  	unsigned i;
->  
->  	if (submit->fence_id) {
-> @@ -82,12 +78,6 @@ void __msm_gem_submit_destroy(struct kref *kref)
->  		mutex_unlock(&submit->queue->lock);
->  	}
->  
-> -	xa_for_each (&submit->deps, index, fence) {
-> -		dma_fence_put(fence);
-> -	}
-> -
-> -	xa_destroy(&submit->deps);
-> -
->  	dma_fence_put(submit->user_fence);
->  	dma_fence_put(submit->hw_fence);
->  
-> @@ -343,8 +333,9 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
->  		if (no_implicit)
->  			continue;
->  
-> -		ret = drm_gem_fence_array_add_implicit(&submit->deps, obj,
-> -			write);
-> +		ret = drm_sched_job_add_implicit_dependencies(&submit->base,
-> +							      obj,
-> +							      write);
->  		if (ret)
->  			break;
->  	}
-> @@ -588,7 +579,7 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
->  		if (ret)
->  			break;
->  
-> -		ret = drm_gem_fence_array_add(&submit->deps, fence);
-> +		ret = drm_sched_job_add_dependency(&submit->base, fence);
->  		if (ret)
->  			break;
->  
-> @@ -798,7 +789,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->  			goto out_unlock;
->  		}
->  
-> -		ret = drm_gem_fence_array_add(&submit->deps, in_fence);
-> +		ret = drm_sched_job_add_dependency(&submit->base, in_fence);
->  		if (ret)
->  			goto out_unlock;
->  	}
-> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> index bd54c1412649..652b1dedd7c1 100644
-> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> @@ -11,17 +11,6 @@ static uint num_hw_submissions = 8;
->  MODULE_PARM_DESC(num_hw_submissions, "The max # of jobs to write into ringbuffer (default 8)");
->  module_param(num_hw_submissions, uint, 0600);
->  
-> -static struct dma_fence *msm_job_dependency(struct drm_sched_job *job,
-> -		struct drm_sched_entity *s_entity)
-> -{
-> -	struct msm_gem_submit *submit = to_msm_submit(job);
-> -
-> -	if (!xa_empty(&submit->deps))
-> -		return xa_erase(&submit->deps, submit->last_dep++);
-> -
-> -	return NULL;
-> -}
-> -
->  static struct dma_fence *msm_job_run(struct drm_sched_job *job)
->  {
->  	struct msm_gem_submit *submit = to_msm_submit(job);
-> @@ -52,7 +41,6 @@ static void msm_job_free(struct drm_sched_job *job)
->  }
->  
->  const struct drm_sched_backend_ops msm_sched_ops = {
-> -	.dependency = msm_job_dependency,
->  	.run_job = msm_job_run,
->  	.free_job = msm_job_free
->  };
-> -- 
-> 2.32.0
-> 
+Rob asked me about this over IRC, so if he left it out and it's needed
+then it's my fault. However, I don't believe it's needed until your
+series making this bridge chip support full DP. For the the eDP case
+the bridge chip driver in ToT no longer queries the EDID itself. It
+simply provides an AUX bus to the panel driver and the panel driver
+queries the EDID. I think that means we don't need to add
+DRM_BRIDGE_OP_EDID, right?
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+I was also wondering if in the full DP case we should actually model
+the physical DP jack as a drm_bridge and have it work the same way. It
+would get probed via the DP AUX bus just like a panel. I seem to
+remember Stephen Boyd was talking about modeling the DP connector as a
+drm_bridge because it would allow us to handle the fact that some TCPC
+chips could only support HBR2 whereas others could support HBR3. Maybe
+it would end up being a fairly elegant solution?
+
+> - [RFC PATCH 09/11] drm/bridge: ti-sn65dsi86: Make connector creation optional ([2])
+>
+> The second patch is similar to the first half of this patch, but misses
+> the cleanup code. I'll try to rebase this and resubmit, but it may take
+> a bit of time.
+
+Whoops! You're right that Rob's patch won't work at all because we'll
+just hit the "Fix bridge driver to make connector optional!" case. I
+should have noticed that. :(
+
+-Doug
