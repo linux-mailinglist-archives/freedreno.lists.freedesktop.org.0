@@ -1,66 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7A843EADED
-	for <lists+freedreno@lfdr.de>; Fri, 13 Aug 2021 02:28:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 721833EB086
+	for <lists+freedreno@lfdr.de>; Fri, 13 Aug 2021 08:42:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDFC66E49C;
-	Fri, 13 Aug 2021 00:28:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8036E526;
+	Fri, 13 Aug 2021 06:42:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 193F16E49C
- for <freedreno@lists.freedesktop.org>; Fri, 13 Aug 2021 00:28:43 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1628814524; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=Wzc6c47jdJP+SX2jmJlgxTZVRxNp8P8GJXI7b5FXiDQ=;
- b=KhZh+3Mb6QsYeYEHyUrE7CQ90bub5hbJHS+31P3n59pap8qNaiXidNFeGMcJvVtD+yzWGmyQ
- b5j/BABChp+CWZmJaMlgAgxeKGl79Dl0xTu02ZypUrSxi+IwD20J2LSaEg3CUJZhzRfmVQQo
- YcT4NQnHBbHhVfBiOjWTTVeOurY=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 6115bcbab14e7e2ecb154276 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 13 Aug 2021 00:28:42
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 33638C4323A; Fri, 13 Aug 2021 00:28:42 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: sbillaka)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 144CAC433F1;
- Fri, 13 Aug 2021 00:28:41 +0000 (UTC)
+Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4764E6E51C;
+ Fri, 13 Aug 2021 06:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+ s=20170329; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+ bh=2BDYHROUGREoCWD93TahQhvltPOcCQ9Rqb/VhTH2opE=; 
+ b=Mv8o2IQqonJgFKICzXh2FrFhFwTUonW8QwaIUORNoLJB5AMK7lvVvI8n2SEPIRzhVOSmNvMxz4C0+vaLxtyxV0VEyuAgUJytiAIvGq5lRwYLUn9VtK2VXLqZt12dSXUoPvhfVfmIeLJbBEYBBJycRNZ9GrGe91h2R+O9vqK6GIj/HgKNfWYlk9y2I3lQLgv7Pz6kzQ90uXh6idNLc96IUclje5ZJzjoxE4oHh5TTG5nWeV4qIVeaX0o6y3ypFaPo48eq7mXQlEvr8ZUUvdDi8q6jkMWZsW/T1r2+FvKcvgIfYe1NKt9OCfAMPC6GrpHBig6UT+q+Chhh6N9HAHP9HQ==;
+Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
+ helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
+ (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
+ id 1mEQtK-0004jz-LK; Fri, 13 Aug 2021 08:42:06 +0200
+Message-ID: <472cd2efff2a53809dc2e8ec0ece7f475256005d.camel@igalia.com>
+From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
+To: "events@lists.x.org" <events@lists.x.org>, 
+ "xorg-devel@lists.freedesktop.org"
+ <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Date: Fri, 13 Aug 2021 08:41:56 +0200
+In-Reply-To: <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
+References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
+ <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
+ <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-HussvbpJOUQoFuLCPOPI"
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Fri, 13 Aug 2021 05:58:40 +0530
-From: sbillaka@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org,
- abhinavk@codeaurora.org, dianders@chromium.org, khsieh@codeaurora.org,
- mkrishn@codeaurora.org
-In-Reply-To: <CAE-0n52=mR0Zt8UZ3vOM-nt0UJszcFhi-eYfzDtD0bt3zhNA_Q@mail.gmail.com>
-References: <1628726882-27841-1-git-send-email-sbillaka@codeaurora.org>
- <1628726882-27841-2-git-send-email-sbillaka@codeaurora.org>
- <CAE-0n52=mR0Zt8UZ3vOM-nt0UJszcFhi-eYfzDtD0bt3zhNA_Q@mail.gmail.com>
-Message-ID: <0b2aa426c8f511a29143f2a1117fe9a2@codeaurora.org>
-X-Sender: sbillaka@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm/dp: Add support for SC7280
- eDP
+Subject: Re: [Freedreno] [Mesa-dev] Requests For Proposals for hosting XDC
+ 2022 are now open
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,252 +57,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-08-12 06:11, Stephen Boyd wrote:
-> Quoting Sankeerth Billakanti (2021-08-11 17:08:01)
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> index b131fd37..1096c44 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> @@ -856,9 +856,9 @@ static const struct dpu_intf_cfg sm8150_intf[] = {
->>  };
->> 
->>  static const struct dpu_intf_cfg sc7280_intf[] = {
->> -       INTF_BLK("intf_0", INTF_0, 0x34000, INTF_DP, 0, 24, 
->> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
->> +       INTF_BLK("intf_0", INTF_0, 0x34000, INTF_DP, 1, 24, 
->> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
->>         INTF_BLK("intf_1", INTF_1, 0x35000, INTF_DSI, 0, 24, 
->> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
->> -       INTF_BLK("intf_5", INTF_5, 0x39000, INTF_EDP, 0, 24, 
->> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
->> +       INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, 0, 24, 
->> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
->>  };
->> 
->>  /*************************************************************
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
->> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index d2569da..06d5a2d 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -1244,7 +1244,9 @@ static int dp_ctrl_link_train(struct 
->> dp_ctrl_private *ctrl,
->>                 struct dp_cr_status *cr, int *training_step)
->>  {
->>         int ret = 0;
->> +       u8 *dpcd = ctrl->panel->dpcd;
->>         u8 encoding = DP_SET_ANSI_8B10B;
->> +       u8 ssc = 0, assr = 0;
-> 
-> Please don't initialize to zero and then overwrite it before using it.
-> It hides usage before actual initialization bugs.
-> 
 
-Okay. I will change it.
+--=-HussvbpJOUQoFuLCPOPI
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->>         struct dp_link_info link_info = {0};
->> 
->>         dp_ctrl_config_ctrl(ctrl);
->> @@ -1254,9 +1256,21 @@ static int dp_ctrl_link_train(struct 
->> dp_ctrl_private *ctrl,
->>         link_info.capabilities = DP_LINK_CAP_ENHANCED_FRAMING;
->> 
->>         dp_aux_link_configure(ctrl->aux, &link_info);
->> +
->> +       if (dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5) {
->> +               ssc = DP_SPREAD_AMP_0_5;
->> +               drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, &ssc, 
->> 1);
->> +       }
->> +
->>         drm_dp_dpcd_write(ctrl->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
->>                                 &encoding, 1);
->> 
->> +       if (dpcd[DP_EDP_CONFIGURATION_CAP] & 
->> DP_ALTERNATE_SCRAMBLER_RESET_CAP) {
->> +               assr = DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
->> +               drm_dp_dpcd_write(ctrl->aux, DP_EDP_CONFIGURATION_SET,
->> +                               &assr, 1);
->> +       }
->> +
->>         ret = dp_ctrl_link_train_1(ctrl, cr, training_step);
->>         if (ret) {
->>                 DRM_ERROR("link training #1 failed. ret=%d\n", ret);
->> @@ -1328,9 +1342,11 @@ static int 
->> dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
->>         struct dp_io *dp_io = &ctrl->parser->io;
->>         struct phy *phy = dp_io->phy;
->>         struct phy_configure_opts_dp *opts_dp = &dp_io->phy_opts.dp;
->> +       u8 *dpcd = ctrl->panel->dpcd;
-> 
-> const?
-> 
+Deadline is at the end of this month. Do not forget to submit your XDC
+2022 hosting proposal!
 
-Okay. I will change to const u8 *dpcd at all the required places.
+Sam
 
->> 
->>         opts_dp->lanes = ctrl->link->link_params.num_lanes;
->>         opts_dp->link_rate = ctrl->link->link_params.rate / 100;
->> +       opts_dp->ssc = dpcd[DP_MAX_DOWNSPREAD] & 
->> DP_MAX_DOWNSPREAD_0_5;
->>         dp_ctrl_set_clock_rate(ctrl, DP_CTRL_PM, "ctrl_link",
->>                                         ctrl->link->link_params.rate * 
->> 1000);
->> 
->> @@ -1760,6 +1776,9 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
->>         ctrl->link->link_params.num_lanes = 
->> ctrl->panel->link_info.num_lanes;
->>         ctrl->dp_ctrl.pixel_rate = 
->> ctrl->panel->dp_mode.drm_mode.clock;
->> 
->> +       if (ctrl->dp_ctrl.pixel_rate == 0)
->> +               return -EINVAL;
->> +
-> 
-> Why are we enabling the stream with a zero pixel clk?
-> 
+On Thu, 2021-07-29 at 21:01 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> Remember before enjoying your holiday that the deadline for XDC 2022
+> proposals is *September 1st, 2021* :-)
+>=20
+> Feel free to submit your proposal before, so we can give you early
+> feedback on it!
+>=20
+> Sam
+>=20
+> On Thu, 2021-07-01 at 18:14 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> > This is a reminder that the call for proposals for hosting XDC 2022
+> > period finishes in two months.
+> >=20
+> > Be sure to prepare your submission before you leave on holiday!
+> >=20
+> > Sam
+> >=20
+> > On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote=
+:
+> > > Hello everyone!
+> > >=20
+> > > The X.org board is soliciting proposals to host XDC in 2022.
+> > > Since
+> > > XDC 2021 is being held in Europe this year (although virtually),
+> > > we've
+> > > decided to host in North America. However, the board is open to
+> > > other
+> > > locations, especially if there's an interesting co-location with
+> > > another conference.
+> > >=20
+> > > Of course though, due to the ongoing COVID-19 pandemic it's not
+> > > yet
+> > > clear whether or not it will be possible to host XDC 2022 in
+> > > person,
+> > > although is seems very likely. Because of this, we would like to
+> > > make it clear that sponsors should prepare for both the
+> > > possibility
+> > > of an in person conference, and the possibility of a virtual
+> > > conference. We will work with organizers on coming up with a
+> > > deadline for deciding whether or not we'll be going virtual,
+> > > likely
+> > > sometime around July 2022.
+> > >=20
+> > > If you're considering hosting XDC, we've assembled a wiki page
+> > > with
+> > > what's generally expected and needed:
+> > >=20
+> > > https://www.x.org/wiki/Events/RFP/
+> > >=20
+> > > When submitting your proposal, please make sure to include at
+> > > least
+> > > the
+> > > key information about the potential location in question,
+> > > possible
+> > > dates along with estimated costs. Proposals can be submitted to
+> > > board
+> > > at foundation.x.org until the deadline of *September 1st, 2021*.=C2=
+=A0
+> > >=20
+> > > Additionally, an quirk early heads-up to the board if you're
+> > > considering hosting would be appreciated, in case we need to
+> > > adjust
+> > > the
+> > > schedule a bit. Also, earlier is better since there generally
+> > > will
+> > > be
+> > > a
+> > > bit of Q&A with organizers.
+> > >=20
+> > > And if you just have some questions about what organizing XDC
+> > > entails,
+> > > please feel free to chat with previous organizers, or someone
+> > > from
+> > > the
+> > > board.
+> > >=20
+> > > Thanks,
+> > >=20
+> > > Sam
+> > >=20
+> > > _______________________________________________
+> > > mesa-dev mailing list
+> > > mesa-dev@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+> >=20
+> > _______________________________________________
+> > mesa-dev mailing list
+> > mesa-dev@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>=20
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
 
-This was an error condition I encountered while bringing up sc7280. HPD 
-processing was delayed and I got a commit with pixel clock = 0. I will 
-recheck why this is happening.
 
->>         DRM_DEBUG_DP("rate=%d, num_lanes=%d, pixel_rate=%d\n",
->>                 ctrl->link->link_params.rate,
->>                 ctrl->link->link_params.num_lanes, 
->> ctrl->dp_ctrl.pixel_rate);
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->> b/drivers/gpu/drm/msm/dp/dp_display.c
->> index ee5bf64..a772290 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -117,8 +117,36 @@ struct dp_display_private {
->>         struct dp_audio *audio;
->>  };
->> 
->> +struct msm_dp_config {
->> +       phys_addr_t io_start[3];
->> +       size_t num_dp;
->> +};
->> +
->> +static const struct msm_dp_config sc7180_dp_cfg = {
->> +       .io_start = { 0x0ae90000 },
->> +       .num_dp = 1,
->> +};
->> +
->> +static const struct msm_dp_config sc8180x_dp_cfg = {
->> +       .io_start = { 0xae90000, 0xae98000, 0 },
->> +       .num_dp = 3,
->> +};
->> +
->> +static const struct msm_dp_config sc8180x_edp_cfg = {
->> +       .io_start = { 0, 0, 0xae9a000 },
->> +       .num_dp = 3,
->> +};
->> +
->> +static const struct msm_dp_config sc7280_edp_cfg = {
->> +       .io_start = { 0xaea0000, 0 },
->> +       .num_dp = 2,
->> +};
-> 
-> Are all of these supposed to be here?
+--=-HussvbpJOUQoFuLCPOPI
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-No. I will remove them. Only sc7280_edp_cfg will be there.
+-----BEGIN PGP SIGNATURE-----
 
-> 
->> +
->>  static const struct of_device_id dp_dt_match[] = {
->> -       {.compatible = "qcom,sc7180-dp"},
->> +       { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
->> +       { .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
->> +       { .compatible = "qcom,sc8180x-edp", .data = &sc8180x_edp_cfg 
->> },
->> +       { .compatible = "qcom,sc7280-edp", .data = &sc7280_edp_cfg },
-> 
-> Please sort alphabetically on compatible string, it helps avoid
-> conflicts in the future.
+iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmEWFDQACgkQf/S6MvF9
+w0PpBQ/+LKbsYVBGGMAGgaH52TYRAurvN22z9+7CzfCioK4x2ebgtKaGwXs7C4en
+htjd5yFiaEQQJpjOx7l3J4eVjs75qmZNws3QwU20Dadl2TrbOgpStlLL3xY/U6iX
+WCuWQiyACbDjdb5Cwd1F+0rne1r/FBwf/uLkYlIslvSGdp9Ryl/wkV3GFDc+ptIv
+PAiIyye2wpRdJAWP6peqYiW6fB/iohOJdInic/hgZ1ajPCafiH/3NPwFWmo64cWH
+FEpnEmu82KOk22sSnSWZx0gei2krv/u+rnlKvKGi6Fs5PWEEg1SDRRy7I2kpUCsr
+Kz0y+9I7fWYii+CKphENwcmLjTqRvpEZguqukfzwtr7aap1fwQuVETgvtCDFDUle
+6v0tkP0nbQrV/TqH/8xE2h+2zVKhM+w2eCFNIjDyTxKcPTgLL2yrIzF123Iwk6QF
+4aoNhSMY2X6+5N23ksjTB3iWzaPNofz3yBlwUz09z4ZK/2H8a/2RSCOojYYdx8B5
+asadkS+o2HoCbv7kZfCdi+yKT3AlAGKgQokWoIY0r4KGxakXeTC3HWVmLVdRiNaM
+aZPNhvLXeS6onZDyQsneCQNdNX5/YVGXJm77dso1p7y2oSFmdICTIYIK2R5ma4N+
+bOp6NhIABv5Sfjabt1vAWof9PH18RxvwWjtX1IpSPzSHaGtBdkM=
+=ZcQa
+-----END PGP SIGNATURE-----
 
-Okay
+--=-HussvbpJOUQoFuLCPOPI--
 
-> 
->>         {}
->>  };
->> 
->> @@ -1408,7 +1436,7 @@ void msm_dp_irq_postinstall(struct msm_dp 
->> *dp_display)
->> 
->>         dp_hpd_event_setup(dp);
->> 
->> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
->> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1);
->>  }
->> 
->>  void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor 
->> *minor)
->> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c 
->> b/drivers/gpu/drm/msm/dp/dp_parser.c
->> index 0519dd3..c05fc0a 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
->> @@ -248,6 +248,33 @@ static int dp_parser_clock(struct dp_parser 
->> *parser)
->>         return 0;
->>  }
->> 
->> +static int dp_parser_gpio(struct dp_parser *parser)
->> +{
->> +       struct device *dev = &parser->pdev->dev;
->> +       int ret;
->> +
->> +       parser->panel_bklt_gpio = devm_gpiod_get(dev, "panel-bklt",
->> +                       GPIOD_OUT_HIGH);
->> +       if (IS_ERR(parser->panel_bklt_gpio)) {
->> +               ret = PTR_ERR(parser->panel_bklt_gpio);
->> +               parser->panel_bklt_gpio = NULL;
->> +               DRM_ERROR("%s: cannot get panel-bklt gpio, %d\n", 
->> __func__, ret);
->> +               goto fail;
->> +       }
->> +
->> +       parser->panel_pwm_gpio = devm_gpiod_get(dev, "panel-pwm", 
->> GPIOD_OUT_HIGH);
->> +       if (IS_ERR(parser->panel_pwm_gpio)) {
->> +               ret = PTR_ERR(parser->panel_pwm_gpio);
->> +               parser->panel_pwm_gpio = NULL;
->> +               DRM_ERROR("%s: cannot get panel-pwm gpio, %d\n", 
->> __func__, ret);
->> +               goto fail;
->> +       }
->> +
->> +       DRM_INFO("gpio on");
->> +fail:
->> +       return 0;
->> +}
-> 
-> Don't we have pwm backlight drivers like
-> drivers/video/backlight/pwm_bl.c to support this? This sort of thing
-> doesn't belong in the dp driver.
-
-Okay. I will explore it.
-
-> 
->> +
->>  static int dp_parser_parse(struct dp_parser *parser)
->>  {
->>         int rc = 0;
->> @@ -269,6 +296,10 @@ static int dp_parser_parse(struct dp_parser 
->> *parser)
->>         if (rc)
->>                 return rc;
->> 
->> +       rc = dp_parser_gpio(parser);
->> +       if (rc)
->> +               return rc;
->> +
->>         /* Map the corresponding regulator information according to
->>          * version. Currently, since we only have one supported 
->> platform,
->>          * mapping the regulator directly.
-
-Thank you,
-Sankeerth
