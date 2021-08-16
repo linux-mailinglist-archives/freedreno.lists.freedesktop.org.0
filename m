@@ -1,47 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721833EB086
-	for <lists+freedreno@lfdr.de>; Fri, 13 Aug 2021 08:42:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63C703ED1BD
+	for <lists+freedreno@lfdr.de>; Mon, 16 Aug 2021 12:14:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8036E526;
-	Fri, 13 Aug 2021 06:42:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 006AA89A0E;
+	Mon, 16 Aug 2021 10:14:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4764E6E51C;
- Fri, 13 Aug 2021 06:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
- bh=2BDYHROUGREoCWD93TahQhvltPOcCQ9Rqb/VhTH2opE=; 
- b=Mv8o2IQqonJgFKICzXh2FrFhFwTUonW8QwaIUORNoLJB5AMK7lvVvI8n2SEPIRzhVOSmNvMxz4C0+vaLxtyxV0VEyuAgUJytiAIvGq5lRwYLUn9VtK2VXLqZt12dSXUoPvhfVfmIeLJbBEYBBJycRNZ9GrGe91h2R+O9vqK6GIj/HgKNfWYlk9y2I3lQLgv7Pz6kzQ90uXh6idNLc96IUclje5ZJzjoxE4oHh5TTG5nWeV4qIVeaX0o6y3ypFaPo48eq7mXQlEvr8ZUUvdDi8q6jkMWZsW/T1r2+FvKcvgIfYe1NKt9OCfAMPC6GrpHBig6UT+q+Chhh6N9HAHP9HQ==;
-Received: from 152.red-88-9-105.dynamicip.rima-tde.net ([88.9.105.152]
- helo=[192.168.2.252]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1mEQtK-0004jz-LK; Fri, 13 Aug 2021 08:42:06 +0200
-Message-ID: <472cd2efff2a53809dc2e8ec0ece7f475256005d.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org
-Cc: "board@foundation.x.org" <board@foundation.x.org>
-Date: Fri, 13 Aug 2021 08:41:56 +0200
-In-Reply-To: <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
-References: <95ec2c414f7dd1ea5685184435b95430e1709047.camel@igalia.com>
- <f5ee80e067e79dff0b2d65c67dbb83b9be70014f.camel@igalia.com>
- <c002b2564f430cea5fae1270c85ac471bf53afb7.camel@igalia.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-HussvbpJOUQoFuLCPOPI"
-User-Agent: Evolution 3.38.3-1 
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 650D489875;
+ Mon, 16 Aug 2021 10:14:38 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id r7so22870319wrs.0;
+ Mon, 16 Aug 2021 03:14:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=HEiM/mHMC+8fZgGgGDrXO50KgFWhokpC7aZfIza5YoU=;
+ b=Alj3JYG7a9UTx5Tj/BtzO+qKDd1xCGe0XdfEAcw9Dau4ACK96PX+Djr/axmyQgoX6R
+ Qvw1P5WoBQ0Zu4439v4+F5DLDdDCoS2adFB2fGQ/+RfPhE2BPUKvDB4iS3xNV2DWhqEh
+ ciwDM/15gCMos0rxTHUU6AcIchpqLSHjNOy5QZYERvtL+zHfGLZUj6qzXSLnKRpwB4Sf
+ 7DBTcFZ2h1usxN7rpOQU3MhNGARGMuAB3Eih9eKDGUQtDk5r0DupKGA+6vrFRuR4zMyE
+ PeKoORolAUgrtvZWdokZqasLxdrn1iIAAu5M4MglS+0i19PVVSOYx7NsLHTJWAXq0rJS
+ vE+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=HEiM/mHMC+8fZgGgGDrXO50KgFWhokpC7aZfIza5YoU=;
+ b=p/QrrMVdQOx8qUjHyYoRUmSmSTOueqV2ERETkrpF2oYrMyChRQaqqvvcVLCZjhYkBz
+ OgplBD8dNlsseQOXveyffEZPtnMkP1pwjjKlIhbe9WeKJK/PfQtgHihip73fMABQ9NP/
+ t1kETFObu4JLIlB0f4tYfHbhEumtkw1Gk7pCukqaPhpIT99Oel4e3teaAGVaNnxU6Yw2
+ 8OmOzH6QCYNLYKeXdVPhBhDqR/tEHcCO1zrtnMLLifNn51p15Ivf249E6YsKL6P5Akm5
+ JA017QBMURTaxztDe9vpFi9B+72U952evU/jXqwMk4Pd7GYJ7GXGR8//+9yeVnObo6rE
+ HW8g==
+X-Gm-Message-State: AOAM531AcLyJWjSWAAX2cqSZrc4HIeV1g+09Nh+AINcUdj7D+FM193UJ
+ Wn8FRYWOARjUvl0H23nfM5s=
+X-Google-Smtp-Source: ABdhPJxcowAPKRR0W2f+L+GI0ijJFGD6kVXHxpnQwMe320KTJy2VjSNfp1hksoEJaUJeNnRTKuOYPw==
+X-Received: by 2002:adf:9084:: with SMTP id i4mr17980571wri.23.1629108876990; 
+ Mon, 16 Aug 2021 03:14:36 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:7d83:fd8:eb16:8605?
+ ([2a02:908:1252:fb60:7d83:fd8:eb16:8605])
+ by smtp.gmail.com with ESMTPSA id q22sm10646849wmj.32.2021.08.16.03.14.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Aug 2021 03:14:36 -0700 (PDT)
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@chromium.org>,
+ David Airlie <airlied@linux.ie>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Steven Price <steven.price@arm.com>, Roy Sun <Roy.Sun@amd.com>,
+ Lee Jones <lee.jones@linaro.org>, Jack Zhang <Jack.Zhang1@amd.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK"
+ <linaro-mm-sig@lists.linaro.org>
+References: <20210807183804.459850-1-robdclark@gmail.com>
+ <20210807183804.459850-5-robdclark@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e28020c5-3da3-c721-96df-9a115f105bf7@gmail.com>
+Date: Mon, 16 Aug 2021 12:14:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Subject: Re: [Freedreno] [Mesa-dev] Requests For Proposals for hosting XDC
- 2022 are now open
+In-Reply-To: <20210807183804.459850-5-robdclark@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH v2 4/5] drm/scheduler: Add fence deadline
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,133 +90,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Am 07.08.21 um 20:37 schrieb Rob Clark:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> As the finished fence is the one that is exposed to userspace, and
+> therefore the one that other operations, like atomic update, would
+> block on, we need to propagate the deadline from from the finished
+> fence to the actual hw fence.
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/scheduler/sched_fence.c | 25 +++++++++++++++++++++++++
+>   drivers/gpu/drm/scheduler/sched_main.c  |  3 +++
+>   include/drm/gpu_scheduler.h             |  6 ++++++
+>   3 files changed, 34 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+> index 69de2c76731f..f389dca44185 100644
+> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> @@ -128,6 +128,30 @@ static void drm_sched_fence_release_finished(struct dma_fence *f)
+>   	dma_fence_put(&fence->scheduled);
+>   }
+>   
+> +static void drm_sched_fence_set_deadline_finished(struct dma_fence *f,
+> +						  ktime_t deadline)
+> +{
+> +	struct drm_sched_fence *fence = to_drm_sched_fence(f);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&fence->lock, flags);
+> +
+> +	/* If we already have an earlier deadline, keep it: */
+> +	if (test_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags) &&
+> +	    ktime_before(fence->deadline, deadline)) {
+> +		spin_unlock_irqrestore(&fence->lock, flags);
+> +		return;
+> +	}
+> +
+> +	fence->deadline = deadline;
+> +	set_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags);
+> +
+> +	spin_unlock_irqrestore(&fence->lock, flags);
+> +
+> +	if (fence->parent)
+> +		dma_fence_set_deadline(fence->parent, deadline);
+> +}
+> +
+>   static const struct dma_fence_ops drm_sched_fence_ops_scheduled = {
+>   	.get_driver_name = drm_sched_fence_get_driver_name,
+>   	.get_timeline_name = drm_sched_fence_get_timeline_name,
+> @@ -138,6 +162,7 @@ static const struct dma_fence_ops drm_sched_fence_ops_finished = {
+>   	.get_driver_name = drm_sched_fence_get_driver_name,
+>   	.get_timeline_name = drm_sched_fence_get_timeline_name,
+>   	.release = drm_sched_fence_release_finished,
+> +	.set_deadline = drm_sched_fence_set_deadline_finished,
+>   };
+>   
+>   struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f)
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index a2a953693b45..3ab0900d3596 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -818,6 +818,9 @@ static int drm_sched_main(void *param)
+>   
+>   		if (!IS_ERR_OR_NULL(fence)) {
+>   			s_fence->parent = dma_fence_get(fence);
+> +			if (test_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT,
+> +				     &s_fence->finished.flags))
+> +				dma_fence_set_deadline(fence, s_fence->deadline);
 
---=-HussvbpJOUQoFuLCPOPI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Maybe move this into a dma_sched_fence_set_parent() function.
 
-Deadline is at the end of this month. Do not forget to submit your XDC
-2022 hosting proposal!
+Apart from that looks good to me.
 
-Sam
+Regards,
+Christian.
 
-On Thu, 2021-07-29 at 21:01 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> Remember before enjoying your holiday that the deadline for XDC 2022
-> proposals is *September 1st, 2021* :-)
->=20
-> Feel free to submit your proposal before, so we can give you early
-> feedback on it!
->=20
-> Sam
->=20
-> On Thu, 2021-07-01 at 18:14 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > This is a reminder that the call for proposals for hosting XDC 2022
-> > period finishes in two months.
-> >=20
-> > Be sure to prepare your submission before you leave on holiday!
-> >=20
-> > Sam
-> >=20
-> > On Thu, 2021-05-20 at 12:15 +0200, Samuel Iglesias Gons=C3=A1lvez wrote=
-:
-> > > Hello everyone!
-> > >=20
-> > > The X.org board is soliciting proposals to host XDC in 2022.
-> > > Since
-> > > XDC 2021 is being held in Europe this year (although virtually),
-> > > we've
-> > > decided to host in North America. However, the board is open to
-> > > other
-> > > locations, especially if there's an interesting co-location with
-> > > another conference.
-> > >=20
-> > > Of course though, due to the ongoing COVID-19 pandemic it's not
-> > > yet
-> > > clear whether or not it will be possible to host XDC 2022 in
-> > > person,
-> > > although is seems very likely. Because of this, we would like to
-> > > make it clear that sponsors should prepare for both the
-> > > possibility
-> > > of an in person conference, and the possibility of a virtual
-> > > conference. We will work with organizers on coming up with a
-> > > deadline for deciding whether or not we'll be going virtual,
-> > > likely
-> > > sometime around July 2022.
-> > >=20
-> > > If you're considering hosting XDC, we've assembled a wiki page
-> > > with
-> > > what's generally expected and needed:
-> > >=20
-> > > https://www.x.org/wiki/Events/RFP/
-> > >=20
-> > > When submitting your proposal, please make sure to include at
-> > > least
-> > > the
-> > > key information about the potential location in question,
-> > > possible
-> > > dates along with estimated costs. Proposals can be submitted to
-> > > board
-> > > at foundation.x.org until the deadline of *September 1st, 2021*.=C2=
-=A0
-> > >=20
-> > > Additionally, an quirk early heads-up to the board if you're
-> > > considering hosting would be appreciated, in case we need to
-> > > adjust
-> > > the
-> > > schedule a bit. Also, earlier is better since there generally
-> > > will
-> > > be
-> > > a
-> > > bit of Q&A with organizers.
-> > >=20
-> > > And if you just have some questions about what organizing XDC
-> > > entails,
-> > > please feel free to chat with previous organizers, or someone
-> > > from
-> > > the
-> > > board.
-> > >=20
-> > > Thanks,
-> > >=20
-> > > Sam
-> > >=20
-> > > _______________________________________________
-> > > mesa-dev mailing list
-> > > mesa-dev@lists.freedesktop.org
-> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-> >=20
-> > _______________________________________________
-> > mesa-dev mailing list
-> > mesa-dev@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->=20
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
-
-
---=-HussvbpJOUQoFuLCPOPI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmEWFDQACgkQf/S6MvF9
-w0PpBQ/+LKbsYVBGGMAGgaH52TYRAurvN22z9+7CzfCioK4x2ebgtKaGwXs7C4en
-htjd5yFiaEQQJpjOx7l3J4eVjs75qmZNws3QwU20Dadl2TrbOgpStlLL3xY/U6iX
-WCuWQiyACbDjdb5Cwd1F+0rne1r/FBwf/uLkYlIslvSGdp9Ryl/wkV3GFDc+ptIv
-PAiIyye2wpRdJAWP6peqYiW6fB/iohOJdInic/hgZ1ajPCafiH/3NPwFWmo64cWH
-FEpnEmu82KOk22sSnSWZx0gei2krv/u+rnlKvKGi6Fs5PWEEg1SDRRy7I2kpUCsr
-Kz0y+9I7fWYii+CKphENwcmLjTqRvpEZguqukfzwtr7aap1fwQuVETgvtCDFDUle
-6v0tkP0nbQrV/TqH/8xE2h+2zVKhM+w2eCFNIjDyTxKcPTgLL2yrIzF123Iwk6QF
-4aoNhSMY2X6+5N23ksjTB3iWzaPNofz3yBlwUz09z4ZK/2H8a/2RSCOojYYdx8B5
-asadkS+o2HoCbv7kZfCdi+yKT3AlAGKgQokWoIY0r4KGxakXeTC3HWVmLVdRiNaM
-aZPNhvLXeS6onZDyQsneCQNdNX5/YVGXJm77dso1p7y2oSFmdICTIYIK2R5ma4N+
-bOp6NhIABv5Sfjabt1vAWof9PH18RxvwWjtX1IpSPzSHaGtBdkM=
-=ZcQa
------END PGP SIGNATURE-----
-
---=-HussvbpJOUQoFuLCPOPI--
+>   			r = dma_fence_add_callback(fence, &sched_job->cb,
+>   						   drm_sched_job_done_cb);
+>   			if (r == -ENOENT)
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index d18af49fd009..0f08ade614ae 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -144,6 +144,12 @@ struct drm_sched_fence {
+>            */
+>   	struct dma_fence		finished;
+>   
+> +	/**
+> +	 * @deadline: deadline set on &drm_sched_fence.finished which
+> +	 * potentially needs to be propagated to &drm_sched_fence.parent
+> +	 */
+> +	ktime_t				deadline;
+> +
+>           /**
+>            * @parent: the fence returned by &drm_sched_backend_ops.run_job
+>            * when scheduling the job on hardware. We signal the
 
