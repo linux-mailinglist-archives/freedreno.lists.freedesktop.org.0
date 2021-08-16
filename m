@@ -2,65 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2605C3EDCBC
-	for <lists+freedreno@lfdr.de>; Mon, 16 Aug 2021 20:01:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E49C3EDFE3
+	for <lists+freedreno@lfdr.de>; Tue, 17 Aug 2021 00:21:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92DB2899DC;
-	Mon, 16 Aug 2021 18:01:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 348CE6E07B;
+	Mon, 16 Aug 2021 22:21:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71631899BB
- for <freedreno@lists.freedesktop.org>; Mon, 16 Aug 2021 18:01:46 +0000 (UTC)
-Received: by mail-pj1-x1031.google.com with SMTP id
- 28-20020a17090a031cb0290178dcd8a4d1so638060pje.0
- for <freedreno@lists.freedesktop.org>; Mon, 16 Aug 2021 11:01:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=CQAn3RJnCnEKhUAHlpFfnDVdKYIBRS8GR6cHa78A0bI=;
- b=OiP/jE5lIKzaI86z/cSbkWq8KS+Zn367o727+x1oyIZCvtiHty5VuI3vR9Wd9m/DKC
- mrAvJapyrn3wsenqZ8mHt9roDOSCGfRyzs/k1mCcI1rBa1xvrOhQ1kmKQT1zcDOSS1FB
- 9jlHPQve9GjHuRcHIygklthjRruh8CAuZ7VKU=
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D298B6E07B;
+ Mon, 16 Aug 2021 22:21:03 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ h24-20020a1ccc180000b029022e0571d1a0so871026wmb.5; 
+ Mon, 16 Aug 2021 15:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=MD79y8jzRWUs3Lb63ir/9Z7YXREjW2AbOeDZQfYBwAY=;
+ b=ugjLgS1SYCinwoxSubl122blXZUlhE1G5WredQD0xopGMNFOzMPiOp67DuKNE81PUM
+ PYLk7BQMupvkdwFt5fX0QQ+EWpDIlS8VrZs8qi/rYMKubAjkXqD5AwQJXoY2LcWMk2iE
+ +OeWAi8t49LfB5Boh0PJoXlmZf5XviDE0v0udsa+cSbvLIwJHeRKVEswQuf8Srkh95UL
+ cx7dblIlthEvXUzdBWEjfLj0B0ElI84hfn33WSSTG6r3ZJxYyONcRB4JEz0YwCY/VOnp
+ 4uTCLXK+DQkCqfvDz6/jq5x4kxw2AI7q2GBrFUKBtiGLzxy3eNnYC+XL/0kEAydHrLK0
+ az2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=CQAn3RJnCnEKhUAHlpFfnDVdKYIBRS8GR6cHa78A0bI=;
- b=rAjZ0e6DS62q47M5ROEZTwpflQfUvmUor6Ki/ctJDKUwMQjxBf5SyLVrXfRCscHfGE
- A0FMCI3LiHOAoH4GV8jJbw48m/uPB02XidipITHAcGoRTJ7O3BtpwKQbM3cpZjRqcVsn
- icAG605W4aYlg+YdTL/6dV0Uj/3rEvSPp9oQO/jd30Efn9XrZI9Y/QTJhL0Xzsohrvnj
- WObz4K8X8X2aqzPmzTttX390PoVP7wUBy3Sr17sDAwrL1WVt62FEwzOtUqX+wJGhK9ds
- FRf/YAg+kFtWU4XGNnLN1PT231rYZbN2chAr6aJfyBLfqpcw0VlrxZB4KXVCN1N0kG90
- KZ3g==
-X-Gm-Message-State: AOAM530eFkEVwJdJWwGgBTLyk90J7z/ggndQATa5XUNAF8M/s3wP4r4c
- dXtKsZwjpOGhEOyx2EflKUJU3g==
-X-Google-Smtp-Source: ABdhPJwa1Xm3ePFA3SuM8XZOqgsVOXYMQm8FtguFpY+P9+T3EtyPVM2ryfi8HpcN6WgUHqWEMqbCBg==
-X-Received: by 2002:a17:902:a609:b029:12b:858e:d116 with SMTP id
- u9-20020a170902a609b029012b858ed116mr104173plq.25.1629136905928; 
- Mon, 16 Aug 2021 11:01:45 -0700 (PDT)
-Received: from localhost ([2620:15c:202:201:5cff:3a19:755c:1b91])
- by smtp.gmail.com with UTF8SMTPSA id x12sm63119pfu.21.2021.08.16.11.01.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Aug 2021 11:01:45 -0700 (PDT)
-Date: Mon, 16 Aug 2021 11:01:43 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Sankeerth Billakanti <sbillaka@codeaurora.org>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, seanpaul@chromium.org, swboyd@chromium.org,
- kalyan_t@codeaurora.org, abhinavk@codeaurora.org,
- dianders@chromium.org, khsieh@codeaurora.org, mkrishn@codeaurora.org
-Message-ID: <YRqoB2UEJtVcr6AN@google.com>
-References: <1628726882-27841-1-git-send-email-sbillaka@codeaurora.org>
- <1628726882-27841-3-git-send-email-sbillaka@codeaurora.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=MD79y8jzRWUs3Lb63ir/9Z7YXREjW2AbOeDZQfYBwAY=;
+ b=H/JbEQECD6aph8nzQSmKArCyikrJ6IsOX+r/1Q5nzZY5Ems8kXs7uOqh+qPGUfit98
+ Moa8sR/L4BZn9FkCJcj19VHeIvgdSfw2xMtSiOq2jsZ6tl+ghDsID1UJ1cI2cIclt9Yv
+ bmK3YaDhbOkMjuvAYvbZauFoBet1E/y2KovCGxLeA5xy7Xj10m5Gf/bPXIV+7nPF7m9i
+ 2zFC+lVQW1zw7qkQw0VFc3uVJdhIxODRhi3/JSllQcUlKZqkucC+wgPuTjGRsj2TVNgz
+ 3Abej3mSYOBdIq2o9fDaYWtB8TES4/k+IqAn3MiLIDda80hhqK0ro8REpBPmfo0uNs0v
+ K2cA==
+X-Gm-Message-State: AOAM531hKZ3Nvm4c/kNjBY26pOb0kSo/cZfW92EGSJSlVgooRln2JftP
+ MSjzEOM6iXpZcLQ8A+pNahuXe7+L/EBH6EFxINg=
+X-Google-Smtp-Source: ABdhPJxcwI5NX0yTJwhaks0eDKYsxDJoy28PKEeAcGDKp+JI9zbCEcdxqA0pFxhb4hDbfFEJyCzBMmpbuQKLPMvgMH8=
+X-Received: by 2002:a05:600c:35d1:: with SMTP id
+ r17mr264901wmq.175.1629152462126; 
+ Mon, 16 Aug 2021 15:21:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1628726882-27841-3-git-send-email-sbillaka@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v1 2/2] dt-bindings: Add SC7280 compatible
- string
+References: <20210807183804.459850-1-robdclark@gmail.com>
+ <20210807183804.459850-5-robdclark@gmail.com>
+ <e28020c5-3da3-c721-96df-9a115f105bf7@gmail.com>
+ <YRqGazgGJ2NAIzg2@phenom.ffwll.local>
+In-Reply-To: <YRqGazgGJ2NAIzg2@phenom.ffwll.local>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 16 Aug 2021 15:25:20 -0700
+Message-ID: <CAF6AEGtyA2ovPcsP_3wbD-KfJFZosc=qf=SMkE2BVMq5+=cxWw@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Tian Tao <tiantao6@hisilicon.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, 
+ Steven Price <steven.price@arm.com>, Roy Sun <Roy.Sun@amd.com>,
+ Lee Jones <lee.jones@linaro.org>, 
+ Jack Zhang <Jack.Zhang1@amd.com>, open list <linux-kernel@vger.kernel.org>, 
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 4/5] drm/scheduler: Add fence deadline
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,32 +87,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 12, 2021 at 05:38:02AM +0530, Sankeerth Billakanti wrote:
-> The Qualcomm SC7280 platform supports an eDP controller, add
-> compatible string for it to msm/binding.
-> 
-> Signed-off-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 64d8d9e..23b78ac 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -17,6 +17,9 @@ properties:
->    compatible:
->      enum:
->        - qcom,sc7180-dp
-> +      - qcom,sc8180x-dp
-> +      - qcom,sc8180x-edp
-> +      - qcom,sc7280-edp
+On Mon, Aug 16, 2021 at 8:38 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Mon, Aug 16, 2021 at 12:14:35PM +0200, Christian K=C3=B6nig wrote:
+> > Am 07.08.21 um 20:37 schrieb Rob Clark:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > >
+> > > As the finished fence is the one that is exposed to userspace, and
+> > > therefore the one that other operations, like atomic update, would
+> > > block on, we need to propagate the deadline from from the finished
+> > > fence to the actual hw fence.
+> > >
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+>
+> I guess you're already letting the compositor run at a higher gpu priorit=
+y
+> so that your deadline'd drm_sched_job isn't stuck behind the app renderin=
+g
+> the next frame?
 
-This adds compatible strings for sc8180x and sc7280 (e)DP, however the
-commit message only mentions sc7280. So either the commit message needs
-and update or the sc8180x compatibles should be removed.
+With the scheduler conversion we do have multiple priorities (provided
+by scheduler) for all generations.. but not yet preemption for all
+generations.
 
-The driver change (https://patchwork.kernel.org/project/linux-arm-msm/patch/1628726882-27841-2-git-send-email-sbillaka@codeaurora.org/)
-adds some (currently unused) 'io_start' addresses which are hardcoded,
-I wonder if these should be in the device tree instead (and 'num_dp'
-too?), if they are needed at all.
+But the most common use-case where we need this ends up being display
+composition (either fullscreen app/game or foreground app/game
+composited via overlay) so I haven't thought too much about the next
+step of boosting job priority.  I might leave that to someone who
+already has preemption wired up ;-)
+
+BR,
+-R
+
+> I'm not sure whether you wire that one up as part of the conversion to
+> drm/sched. Without that I think we might need to ponder how we can do a
+> prio-boost for these, e.g. within a scheduling class we pick the jobs wit=
+h
+> the nearest deadline first, before we pick others.
+> -Daniel
+>
+> > > ---
+> > >   drivers/gpu/drm/scheduler/sched_fence.c | 25 ++++++++++++++++++++++=
++++
+> > >   drivers/gpu/drm/scheduler/sched_main.c  |  3 +++
+> > >   include/drm/gpu_scheduler.h             |  6 ++++++
+> > >   3 files changed, 34 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/dr=
+m/scheduler/sched_fence.c
+> > > index 69de2c76731f..f389dca44185 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> > > @@ -128,6 +128,30 @@ static void drm_sched_fence_release_finished(str=
+uct dma_fence *f)
+> > >     dma_fence_put(&fence->scheduled);
+> > >   }
+> > > +static void drm_sched_fence_set_deadline_finished(struct dma_fence *=
+f,
+> > > +                                             ktime_t deadline)
+> > > +{
+> > > +   struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
+> > > +   unsigned long flags;
+> > > +
+> > > +   spin_lock_irqsave(&fence->lock, flags);
+> > > +
+> > > +   /* If we already have an earlier deadline, keep it: */
+> > > +   if (test_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags) &&
+> > > +       ktime_before(fence->deadline, deadline)) {
+> > > +           spin_unlock_irqrestore(&fence->lock, flags);
+> > > +           return;
+> > > +   }
+> > > +
+> > > +   fence->deadline =3D deadline;
+> > > +   set_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags);
+> > > +
+> > > +   spin_unlock_irqrestore(&fence->lock, flags);
+> > > +
+> > > +   if (fence->parent)
+> > > +           dma_fence_set_deadline(fence->parent, deadline);
+> > > +}
+> > > +
+> > >   static const struct dma_fence_ops drm_sched_fence_ops_scheduled =3D=
+ {
+> > >     .get_driver_name =3D drm_sched_fence_get_driver_name,
+> > >     .get_timeline_name =3D drm_sched_fence_get_timeline_name,
+> > > @@ -138,6 +162,7 @@ static const struct dma_fence_ops drm_sched_fence=
+_ops_finished =3D {
+> > >     .get_driver_name =3D drm_sched_fence_get_driver_name,
+> > >     .get_timeline_name =3D drm_sched_fence_get_timeline_name,
+> > >     .release =3D drm_sched_fence_release_finished,
+> > > +   .set_deadline =3D drm_sched_fence_set_deadline_finished,
+> > >   };
+> > >   struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f)
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm=
+/scheduler/sched_main.c
+> > > index a2a953693b45..3ab0900d3596 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -818,6 +818,9 @@ static int drm_sched_main(void *param)
+> > >             if (!IS_ERR_OR_NULL(fence)) {
+> > >                     s_fence->parent =3D dma_fence_get(fence);
+> > > +                   if (test_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT,
+> > > +                                &s_fence->finished.flags))
+> > > +                           dma_fence_set_deadline(fence, s_fence->de=
+adline);
+> >
+> > Maybe move this into a dma_sched_fence_set_parent() function.
+> >
+> > Apart from that looks good to me.
+> >
+> > Regards,
+> > Christian.
+> >
+> > >                     r =3D dma_fence_add_callback(fence, &sched_job->c=
+b,
+> > >                                                drm_sched_job_done_cb)=
+;
+> > >                     if (r =3D=3D -ENOENT)
+> > > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.=
+h
+> > > index d18af49fd009..0f08ade614ae 100644
+> > > --- a/include/drm/gpu_scheduler.h
+> > > +++ b/include/drm/gpu_scheduler.h
+> > > @@ -144,6 +144,12 @@ struct drm_sched_fence {
+> > >            */
+> > >     struct dma_fence                finished;
+> > > +   /**
+> > > +    * @deadline: deadline set on &drm_sched_fence.finished which
+> > > +    * potentially needs to be propagated to &drm_sched_fence.parent
+> > > +    */
+> > > +   ktime_t                         deadline;
+> > > +
+> > >           /**
+> > >            * @parent: the fence returned by &drm_sched_backend_ops.ru=
+n_job
+> > >            * when scheduling the job on hardware. We signal the
+> >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
