@@ -1,100 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C3063EE914
-	for <lists+freedreno@lfdr.de>; Tue, 17 Aug 2021 11:04:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 943FD3EF115
+	for <lists+freedreno@lfdr.de>; Tue, 17 Aug 2021 19:48:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6906E120;
-	Tue, 17 Aug 2021 09:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 387CD6E216;
+	Tue, 17 Aug 2021 17:48:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA3C6E11C
- for <freedreno@lists.freedesktop.org>; Tue, 17 Aug 2021 09:04:21 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id k8so8506834wrn.3
- for <freedreno@lists.freedesktop.org>; Tue, 17 Aug 2021 02:04:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=j4i/x9tyzc/3LgdLRFqgQgxEO4pmJgQLsrj80WtwhVI=;
- b=KxIpxVtWjns4F7qLg1rRcmYAW3SH1eBW9sxDxCEB/2uN9a/FcASQ4t2WjsOxmPgxmd
- fgz5X/LnvStc/dmaZypl8I2CLhvMTPQvq6+5wSjEtiUMwMdBFl0TqJEk7e7klYUpDrkI
- 1ao2oorbeN2dN+umv0mr5W2gM8/ZhXk0b3GGM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=j4i/x9tyzc/3LgdLRFqgQgxEO4pmJgQLsrj80WtwhVI=;
- b=r9yJlyHaS1FByYl1PWNRp6Da6Gh+c/lgxzRMzNEz1gVfssgvFhrkgGVbrxWH1d5hOM
- uFSMBgFuLLH7VLvEb0pW0//iLZQ4n3FIwsSGVhZRx0LSlXuy5ky3Pjate0rx+RdFdTqD
- BRiMedBD6cm4rydAQT3ZE9JaCEO6/X5T4lU8mfXlosiyu+96R9WUAevB80Gp8m/ddH5Z
- +DKWp+MHBOgqOfylsHBOxYXb8K+1qiUYi/q/xElVEmCe585x3HLJg4Z5ZK7BM/gkdP14
- KnGhgdfRms3KsPujfTDAIZ1gvpxUtxWLN/wH+Ngg+Ltg3DALNnYpC4h3ZJQXvG0hgL3y
- oDaQ==
-X-Gm-Message-State: AOAM532DtqcFjAoiWVonbJpdo4rcKc+U1vGAkNArasPuycKFJLVQFTlP
- fSYmJjCu+QFeD5Qi3EVVVRzJng==
-X-Google-Smtp-Source: ABdhPJy/Dl1NsISUcWJ7CU+4M3hb5C4YhyxhHFqeiJF0/2LxZzlK7v8qd5PIxfPQBoJAIj1gqztDvw==
-X-Received: by 2002:a05:6000:1043:: with SMTP id
- c3mr2732415wrx.144.1629191059584; 
- Tue, 17 Aug 2021 02:04:19 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id e17sm1625963wrs.78.2021.08.17.02.04.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Aug 2021 02:04:19 -0700 (PDT)
-Date: Tue, 17 Aug 2021 11:04:17 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Tian Tao <tiantao6@hisilicon.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Steven Price <steven.price@arm.com>, Roy Sun <Roy.Sun@amd.com>,
- Lee Jones <lee.jones@linaro.org>, Jack Zhang <Jack.Zhang1@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <YRt7ka8TZrjdxy/6@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Tian Tao <tiantao6@hisilicon.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Steven Price <steven.price@arm.com>, Roy Sun <Roy.Sun@amd.com>,
- Lee Jones <lee.jones@linaro.org>, Jack Zhang <Jack.Zhang1@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>
-References: <20210807183804.459850-1-robdclark@gmail.com>
- <20210807183804.459850-5-robdclark@gmail.com>
- <e28020c5-3da3-c721-96df-9a115f105bf7@gmail.com>
- <YRqGazgGJ2NAIzg2@phenom.ffwll.local>
- <CAF6AEGtyA2ovPcsP_3wbD-KfJFZosc=qf=SMkE2BVMq5+=cxWw@mail.gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 510FD6E216
+ for <freedreno@lists.freedesktop.org>; Tue, 17 Aug 2021 17:48:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1629222515; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=XBtQo/a+e5NB19WIOi/LVxJedsfU596PScMqe8VQa4k=;
+ b=Sw805Dg+U9rn8VE+g2FYjx9SnsPLbL92c/cu7oG2dMJ9cHODYVq0oIqfz5ZX0spmivNZRAD/
+ NrF1DjxifU/GVuxd21MIjH05YN+B5++rTtpVRbsXC6BIz9zsXf/xc4v78uepOe0DC/MxEbcW
+ SwLdSG/0o9ofuzv/sJTpLhuHl/U=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 611bf6702892f803bc9399cb (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 17 Aug 2021 17:48:32
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 867CCC43617; Tue, 17 Aug 2021 17:48:31 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3B1B9C4360C;
+ Tue, 17 Aug 2021 17:48:30 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGtyA2ovPcsP_3wbD-KfJFZosc=qf=SMkE2BVMq5+=cxWw@mail.gmail.com>
-X-Operating-System: Linux phenom 5.10.0-7-amd64 
-Subject: Re: [Freedreno] [PATCH v2 4/5] drm/scheduler: Add fence deadline
- support
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 17 Aug 2021 10:48:30 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Jonathan Marek
+ <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20210628191958.2754731-1-dmitry.baryshkov@linaro.org>
+References: <20210628191958.2754731-1-dmitry.baryshkov@linaro.org>
+Message-ID: <34ee522aa37172099dac9f686f0196ec@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add support for alpha blending
+ properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,144 +75,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 16, 2021 at 03:25:20PM -0700, Rob Clark wrote:
-> On Mon, Aug 16, 2021 at 8:38 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Mon, Aug 16, 2021 at 12:14:35PM +0200, Christian König wrote:
-> > > Am 07.08.21 um 20:37 schrieb Rob Clark:
-> > > > From: Rob Clark <robdclark@chromium.org>
-> > > >
-> > > > As the finished fence is the one that is exposed to userspace, and
-> > > > therefore the one that other operations, like atomic update, would
-> > > > block on, we need to propagate the deadline from from the finished
-> > > > fence to the actual hw fence.
-> > > >
-> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >
-> > I guess you're already letting the compositor run at a higher gpu priority
-> > so that your deadline'd drm_sched_job isn't stuck behind the app rendering
-> > the next frame?
+On 2021-06-28 12:19, Dmitry Baryshkov wrote:
+> Add support for alpha blending properties. Setup the plane blend state
+> according to those properties.
 > 
-> With the scheduler conversion we do have multiple priorities (provided
-> by scheduler) for all generations.. but not yet preemption for all
-> generations.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+I think this has already been picked up by Rob but just had a couple of 
+comments
+below.
+
+Also, how has this been validated? On RB boards i dont think all the 
+paths get
+executed.
+
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 43 ++++++++++++++++-------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 10 ++++--
+>  2 files changed, 37 insertions(+), 16 deletions(-)
 > 
-> But the most common use-case where we need this ends up being display
-> composition (either fullscreen app/game or foreground app/game
-> composited via overlay) so I haven't thought too much about the next
-> step of boosting job priority.  I might leave that to someone who
-> already has preemption wired up ;-)
-
-Atm no-one, drm/sched isn't really aware that's a concept. I was more
-thinking of just boosting that request as a first step. Maybe within the
-same priority class we pick jobs with deadlines first, or something like
-that.
-
-Preempting is an entire can of worms on top.
--Daniel
-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 9a5c70c87cc8..768012243b44 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -30,12 +30,6 @@
+>  #include "dpu_core_perf.h"
+>  #include "dpu_trace.h"
 > 
-> BR,
-> -R
+> -#define DPU_DRM_BLEND_OP_NOT_DEFINED    0
+> -#define DPU_DRM_BLEND_OP_OPAQUE         1
+> -#define DPU_DRM_BLEND_OP_PREMULTIPLIED  2
+> -#define DPU_DRM_BLEND_OP_COVERAGE       3
+> -#define DPU_DRM_BLEND_OP_MAX            4
+> -
+>  /* layer mixer index on dpu_crtc */
+>  #define LEFT_MIXER 0
+>  #define RIGHT_MIXER 1
+> @@ -146,20 +140,43 @@ static void _dpu_crtc_setup_blend_cfg(struct
+> dpu_crtc_mixer *mixer,
+>  {
+>  	struct dpu_hw_mixer *lm = mixer->hw_lm;
+>  	uint32_t blend_op;
+> +	uint32_t fg_alpha, bg_alpha;
 > 
-> > I'm not sure whether you wire that one up as part of the conversion to
-> > drm/sched. Without that I think we might need to ponder how we can do a
-> > prio-boost for these, e.g. within a scheduling class we pick the jobs with
-> > the nearest deadline first, before we pick others.
-> > -Daniel
-> >
-> > > > ---
-> > > >   drivers/gpu/drm/scheduler/sched_fence.c | 25 +++++++++++++++++++++++++
-> > > >   drivers/gpu/drm/scheduler/sched_main.c  |  3 +++
-> > > >   include/drm/gpu_scheduler.h             |  6 ++++++
-> > > >   3 files changed, 34 insertions(+)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
-> > > > index 69de2c76731f..f389dca44185 100644
-> > > > --- a/drivers/gpu/drm/scheduler/sched_fence.c
-> > > > +++ b/drivers/gpu/drm/scheduler/sched_fence.c
-> > > > @@ -128,6 +128,30 @@ static void drm_sched_fence_release_finished(struct dma_fence *f)
-> > > >     dma_fence_put(&fence->scheduled);
-> > > >   }
-> > > > +static void drm_sched_fence_set_deadline_finished(struct dma_fence *f,
-> > > > +                                             ktime_t deadline)
-> > > > +{
-> > > > +   struct drm_sched_fence *fence = to_drm_sched_fence(f);
-> > > > +   unsigned long flags;
-> > > > +
-> > > > +   spin_lock_irqsave(&fence->lock, flags);
-> > > > +
-> > > > +   /* If we already have an earlier deadline, keep it: */
-> > > > +   if (test_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags) &&
-> > > > +       ktime_before(fence->deadline, deadline)) {
-> > > > +           spin_unlock_irqrestore(&fence->lock, flags);
-> > > > +           return;
-> > > > +   }
-> > > > +
-> > > > +   fence->deadline = deadline;
-> > > > +   set_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT, &f->flags);
-> > > > +
-> > > > +   spin_unlock_irqrestore(&fence->lock, flags);
-> > > > +
-> > > > +   if (fence->parent)
-> > > > +           dma_fence_set_deadline(fence->parent, deadline);
-> > > > +}
-> > > > +
-> > > >   static const struct dma_fence_ops drm_sched_fence_ops_scheduled = {
-> > > >     .get_driver_name = drm_sched_fence_get_driver_name,
-> > > >     .get_timeline_name = drm_sched_fence_get_timeline_name,
-> > > > @@ -138,6 +162,7 @@ static const struct dma_fence_ops drm_sched_fence_ops_finished = {
-> > > >     .get_driver_name = drm_sched_fence_get_driver_name,
-> > > >     .get_timeline_name = drm_sched_fence_get_timeline_name,
-> > > >     .release = drm_sched_fence_release_finished,
-> > > > +   .set_deadline = drm_sched_fence_set_deadline_finished,
-> > > >   };
-> > > >   struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f)
-> > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > index a2a953693b45..3ab0900d3596 100644
-> > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
-> > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> > > > @@ -818,6 +818,9 @@ static int drm_sched_main(void *param)
-> > > >             if (!IS_ERR_OR_NULL(fence)) {
-> > > >                     s_fence->parent = dma_fence_get(fence);
-> > > > +                   if (test_bit(DMA_FENCE_FLAG_HAS_DEADLINE_BIT,
-> > > > +                                &s_fence->finished.flags))
-> > > > +                           dma_fence_set_deadline(fence, s_fence->deadline);
-> > >
-> > > Maybe move this into a dma_sched_fence_set_parent() function.
-> > >
-> > > Apart from that looks good to me.
-> > >
-> > > Regards,
-> > > Christian.
-> > >
-> > > >                     r = dma_fence_add_callback(fence, &sched_job->cb,
-> > > >                                                drm_sched_job_done_cb);
-> > > >                     if (r == -ENOENT)
-> > > > diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> > > > index d18af49fd009..0f08ade614ae 100644
-> > > > --- a/include/drm/gpu_scheduler.h
-> > > > +++ b/include/drm/gpu_scheduler.h
-> > > > @@ -144,6 +144,12 @@ struct drm_sched_fence {
-> > > >            */
-> > > >     struct dma_fence                finished;
-> > > > +   /**
-> > > > +    * @deadline: deadline set on &drm_sched_fence.finished which
-> > > > +    * potentially needs to be propagated to &drm_sched_fence.parent
-> > > > +    */
-> > > > +   ktime_t                         deadline;
-> > > > +
-> > > >           /**
-> > > >            * @parent: the fence returned by &drm_sched_backend_ops.run_job
-> > > >            * when scheduling the job on hardware. We signal the
-> > >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+> -	/* default to opaque blending */
+> -	blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+> -		DPU_BLEND_BG_ALPHA_BG_CONST;
+> +	fg_alpha = pstate->base.alpha >> 8;
+> +	bg_alpha = 0xff - fg_alpha;
+> 
+> -	if (format->alpha_enable) {
+> +	/* default to opaque blending */
+> +	if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE ||
+> +	    !format->alpha_enable) {
+> +		blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+> +			DPU_BLEND_BG_ALPHA_BG_CONST;
+> +	} else if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PREMULTI) 
+> {
+> +		blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+> +			DPU_BLEND_BG_ALPHA_FG_PIXEL;
+> +		if (fg_alpha != 0xff) {
+> +			bg_alpha = fg_alpha;
+> +			blend_op |= DPU_BLEND_BG_MOD_ALPHA |
+> +				    DPU_BLEND_BG_INV_MOD_ALPHA;
+> +		} else {
+> +			blend_op |= DPU_BLEND_BG_INV_ALPHA;
+> +		}
+> +	} else {
+>  		/* coverage blending */
+>  		blend_op = DPU_BLEND_FG_ALPHA_FG_PIXEL |
+> -			DPU_BLEND_BG_ALPHA_FG_PIXEL |
+> -			DPU_BLEND_BG_INV_ALPHA;
+> +			DPU_BLEND_BG_ALPHA_FG_PIXEL;
+> +		if (fg_alpha != 0xff) {
+> +			bg_alpha = fg_alpha;
+> +			blend_op |= DPU_BLEND_FG_MOD_ALPHA |
+> +				    DPU_BLEND_FG_INV_MOD_ALPHA |
+comparing this with the blend rule downstream, is this inversion 
+necessary?
+I only see below rule downstream:
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+628 			if (fg_alpha != 0xff) {
+629 				bg_alpha = fg_alpha;
+630 				blend_op |= SDE_BLEND_FG_MOD_ALPHA |
+631 					SDE_BLEND_BG_MOD_ALPHA |
+632 					SDE_BLEND_BG_INV_MOD_ALPHA;
+
+> +				    DPU_BLEND_BG_MOD_ALPHA |
+> +				    DPU_BLEND_BG_INV_MOD_ALPHA;
+> +		} else {
+> +			blend_op |= DPU_BLEND_BG_INV_ALPHA;
+> +		}
+>  	}
+> 
+>  	lm->ops.setup_blend_config(lm, pstate->stage,
+> -				0xFF, 0, blend_op);
+> +				fg_alpha, bg_alpha, blend_op);
+> 
+>  	DRM_DEBUG_ATOMIC("format:%p4cc, alpha_en:%u blend_op:0x%x\n",
+>  		  &format->base.pixel_format, format->alpha_enable, blend_op);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ec4a6f04394a..c989621209aa 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1339,9 +1339,7 @@ static void dpu_plane_reset(struct drm_plane 
+> *plane)
+>  		return;
+>  	}
+> 
+> -	pstate->base.plane = plane;
+> -
+> -	plane->state = &pstate->base;
+> +	__drm_atomic_helper_plane_reset(plane, &pstate->base);
+>  }
+> 
+>  #ifdef CONFIG_DEBUG_FS
+> @@ -1647,6 +1645,12 @@ struct drm_plane *dpu_plane_init(struct 
+> drm_device *dev,
+>  	if (ret)
+>  		DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
+> 
+> +	drm_plane_create_alpha_property(plane);
+> +	drm_plane_create_blend_mode_property(plane,
+> +			BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+> +			BIT(DRM_MODE_BLEND_PREMULTI) |
+> +			BIT(DRM_MODE_BLEND_COVERAGE));
+> +
+>  	drm_plane_create_rotation_property(plane,
+>  			DRM_MODE_ROTATE_0,
+>  			DRM_MODE_ROTATE_0 |
