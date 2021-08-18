@@ -1,72 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BA553F0BDB
-	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 21:34:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 203353F0C21
+	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 21:56:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2406E92E;
-	Wed, 18 Aug 2021 19:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D1C6E934;
+	Wed, 18 Aug 2021 19:56:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9456E92E
- for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 19:34:48 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id n7so7197799ljq.0
- for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 12:34:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=TZlXaJlwbJlKP9XZ2W5P2GZHKRhAsGJfCRtafkq42N0=;
- b=czGYTLZlBSS0MpLF+grC/baAZmnoaauH2+vYDEPDp1X4LQDp6Ut5KRonPkauh8QBTZ
- P/0bK23QJTUYqjE2IaQDExLdOJs8g7BI0BwP/VuaHlHEI3BNP9BMA6JTrGE867xhX2Fh
- QtHDMZuKGNgaJUbtw91tTcYhoJmQEAIOzxpAkVcoNtAKzMNTM/aE4ZeKiFrzTWYEnVF8
- OphFelD929rzV4CpSDjt4jVhsRw+MqMRzCvx/ZlCay7Av5kSrbyg+Lg3OsKkmUDLg7OY
- 30ulL53oLZVbkZ9T3S4mIqbxlTirg638Wf9/BBYoU4vJ4MwQeKCbmG7xoQsx5NPAS9a/
- ZsGQ==
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 535D16E935
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 19:56:09 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id bd1so5065079oib.3
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 12:56:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=lnkk/T/aSVI4Ump22xAFuwRx7dWfYC9RRa9zf5h/Kgg=;
+ b=IX/JYcTzfF7BoKHZ+2ft1Yhwky6jC9DYooFKt3ldlMpHdw9ltSCrS4F1caWdWQ9g+/
+ hyGA0mF+j5Rn+AlccOcroHSGkJ1bKtdu+wc6T9nZbh9g6DV8dv8g7LgKQYCh2UiEreIl
+ JpjTt0rJFKTIQMDC0cWhkutUS4taiN7XLuPQo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=TZlXaJlwbJlKP9XZ2W5P2GZHKRhAsGJfCRtafkq42N0=;
- b=PyPM5H0rsyiF8tuO8t4w5iqw5Ix2gmRGNIs4Uu4jKVrJck0fbtfv2M505tkMfYecSh
- 0RokdIKbekyi0mLuBY+GS7Rqae+FXePZRvPcpsKljV54wupoBilEB87RUnHAt7KkMRuc
- 1LC+601+9ImKv3JPx4ViqwsNtWufqP1BZ/TkmsgOZIkoP9oZeMtUrFtziqB8LDOMvnqa
- VD1oJtnA1l5p/glikSyJXwkVqhGiR90HWQjBLv46KK9d/F1Ln8uM4if/aCG5sde7SZOt
- 2ZRLAy8nfpHkoN/lWggEAAiXDpqHduxJoHBZLs7MO3ePkUOnQN00DCN2YZq2TSDyrWJc
- 8Lag==
-X-Gm-Message-State: AOAM531kuOwlOIec+HRpm+UaruqdDBbTilNwUrXsO5PxV7zxfQ+kwXNd
- 2OktvAUw87uYq2OXLx87hRPCftMjDa8t+g==
-X-Google-Smtp-Source: ABdhPJw2+c2F6EluGW6TFgDdrC99bIRcb/YQdf85++cOTvPzkUrPy/YikduJ8dq2zCdYVyugwh49RQ==
-X-Received: by 2002:a2e:9802:: with SMTP id a2mr3448720ljj.470.1629315286311; 
- Wed, 18 Aug 2021 12:34:46 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id w16sm54372lfd.295.2021.08.18.12.34.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Aug 2021 12:34:45 -0700 (PDT)
-To: abhinavk@codeaurora.org
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
-References: <20210628191958.2754731-1-dmitry.baryshkov@linaro.org>
- <34ee522aa37172099dac9f686f0196ec@codeaurora.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <9584eaee-d3ed-041e-f473-06d9a1ddb0bc@linaro.org>
-Date: Wed, 18 Aug 2021 22:34:43 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=lnkk/T/aSVI4Ump22xAFuwRx7dWfYC9RRa9zf5h/Kgg=;
+ b=ZR+wyakzWA4AtS4JX1CWNOrONlP/Vi9YjfEBloJslo2zAQ9fpE0l+9zFiN4wsjyMGC
+ nKAmJ2poZtvL/IrWcSTkUxEzoOkuqmk/aydJMapsT6SrJKL/ytSImbY23CrSGa3ss16v
+ nB21GB71cFSDA0AQYWGlmjgvLU8peNhj+UKexwR2WLw3ZLvEHQbJDRUWKMfUegpgsdwi
+ RnOw03nd3JSLXhDe3jmNSOjqXKL8CvybyTqu//UD8ON2gmprmFwZacly1XCPynloiMyQ
+ s/+/gTO3Sls2sCufG4GuV2HK1vM+m4pMFmU6kygeDxUHrvdJFVNoWDsVXiqbcS57VSUG
+ 9Yqw==
+X-Gm-Message-State: AOAM533mAYCAiLVu4Xw68HR/F/zIuuqPMavn1umDD7TwVWuGW1FZmqIi
+ TeOYGE40Sbj7/EDTpmRgDnFZLW+KIfu/4XF0qRDXig==
+X-Google-Smtp-Source: ABdhPJwWaSEh0l4rfS6AnLEn+5Nky79nrd23VWAk2Jz9D3cE+s4pVEATJomMUMIfl0VwJmICzX0QUe2NO2sWJ/kd0nc=
+X-Received: by 2002:a05:6808:114a:: with SMTP id
+ u10mr8633175oiu.19.1629316568179; 
+ Wed, 18 Aug 2021 12:56:08 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 18 Aug 2021 12:56:07 -0700
 MIME-Version: 1.0
-In-Reply-To: <34ee522aa37172099dac9f686f0196ec@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add support for alpha blending
- properties
+In-Reply-To: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
+References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 18 Aug 2021 12:56:07 -0700
+Message-ID: <CAE-0n51EY9_D26um_YjOEzcCzMvBu5m6e5jTRwsSsi_cj3mE-w@mail.gmail.com>
+To: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: kalyan_t@codeaurora.org, sbillaka@codeaurora.org, abhinavk@codeaurora.org, 
+ robdclark@gmail.com, bjorn.andersson@linaro.org, khsieh@codeaurora.org, 
+ rajeevny@codeaurora.org, freedreno@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, robh+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v1 1/4] dt-bindings: msm: add DT bindings
+ for sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,156 +72,269 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/08/2021 20:48, abhinavk@codeaurora.org wrote:
-> On 2021-06-28 12:19, Dmitry Baryshkov wrote:
->> Add support for alpha blending properties. Setup the plane blend state
->> according to those properties.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> I think this has already been picked up by Rob but just had a couple of 
-> comments
-> below.
-> 
-> Also, how has this been validated? On RB boards i dont think all the 
-> paths get
-> executed.
+Quoting Krishna Manikandan (2021-08-18 03:27:01)
+> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+> new file mode 100644
+> index 0000000..3d256c0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+> @@ -0,0 +1,228 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/dpu-sc7280.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Display DPU dt properties for SC7280 target
 
-I've used modetest to set pixel blending properties. The results looked 
-logical from my point of view.
+Drop "target"?
 
-> 
->> ---
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 43 ++++++++++++++++-------
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 10 ++++--
->>  2 files changed, 37 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> index 9a5c70c87cc8..768012243b44 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->> @@ -30,12 +30,6 @@
->>  #include "dpu_core_perf.h"
->>  #include "dpu_trace.h"
->>
->> -#define DPU_DRM_BLEND_OP_NOT_DEFINED    0
->> -#define DPU_DRM_BLEND_OP_OPAQUE         1
->> -#define DPU_DRM_BLEND_OP_PREMULTIPLIED  2
->> -#define DPU_DRM_BLEND_OP_COVERAGE       3
->> -#define DPU_DRM_BLEND_OP_MAX            4
->> -
->>  /* layer mixer index on dpu_crtc */
->>  #define LEFT_MIXER 0
->>  #define RIGHT_MIXER 1
->> @@ -146,20 +140,43 @@ static void _dpu_crtc_setup_blend_cfg(struct
->> dpu_crtc_mixer *mixer,
->>  {
->>      struct dpu_hw_mixer *lm = mixer->hw_lm;
->>      uint32_t blend_op;
->> +    uint32_t fg_alpha, bg_alpha;
->>
->> -    /* default to opaque blending */
->> -    blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
->> -        DPU_BLEND_BG_ALPHA_BG_CONST;
->> +    fg_alpha = pstate->base.alpha >> 8;
->> +    bg_alpha = 0xff - fg_alpha;
->>
->> -    if (format->alpha_enable) {
->> +    /* default to opaque blending */
->> +    if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE ||
->> +        !format->alpha_enable) {
->> +        blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
->> +            DPU_BLEND_BG_ALPHA_BG_CONST;
->> +    } else if (pstate->base.pixel_blend_mode == 
->> DRM_MODE_BLEND_PREMULTI) {
->> +        blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
->> +            DPU_BLEND_BG_ALPHA_FG_PIXEL;
->> +        if (fg_alpha != 0xff) {
->> +            bg_alpha = fg_alpha;
->> +            blend_op |= DPU_BLEND_BG_MOD_ALPHA |
->> +                    DPU_BLEND_BG_INV_MOD_ALPHA;
->> +        } else {
->> +            blend_op |= DPU_BLEND_BG_INV_ALPHA;
->> +        }
->> +    } else {
->>          /* coverage blending */
->>          blend_op = DPU_BLEND_FG_ALPHA_FG_PIXEL |
->> -            DPU_BLEND_BG_ALPHA_FG_PIXEL |
->> -            DPU_BLEND_BG_INV_ALPHA;
->> +            DPU_BLEND_BG_ALPHA_FG_PIXEL;
->> +        if (fg_alpha != 0xff) {
->> +            bg_alpha = fg_alpha;
->> +            blend_op |= DPU_BLEND_FG_MOD_ALPHA |
->> +                    DPU_BLEND_FG_INV_MOD_ALPHA |
-> comparing this with the blend rule downstream, is this inversion necessary?
-> I only see below rule downstream:
-> 
-> 628             if (fg_alpha != 0xff) {
-> 629                 bg_alpha = fg_alpha;
-> 630                 blend_op |= SDE_BLEND_FG_MOD_ALPHA |
-> 631                     SDE_BLEND_BG_MOD_ALPHA |
-> 632                     SDE_BLEND_BG_INV_MOD_ALPHA;
+> +
+> +maintainers:
+> +  - Krishna Manikandan <mkrishn@codeaurora.org>
+> +
+> +description: |
+> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
 
-I've also stumbled upon this for quite some time. If you check old 
-kernel trees, you'll see that up to 4.9 there was an inversion. But 
-during the import to 4.14 this line was silently removed. I suspect that 
-it got lost because of some mistake during the import.
+Space after Subsystem please.
 
-The same code (with the inversion) was present in the mdp5 driver.
+> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
+> +  bindings of MDSS and DPU are mentioned for SC7280 target.
 
-Could you please check against the manual, how these bits should work?
-See 
-https://www.kernel.org/doc/html/latest/gpu/drm-kms.html#plane-composition-properties 
-for the expected formulas.
+Drop "target"?
 
-> 
->> +                    DPU_BLEND_BG_MOD_ALPHA |
->> +                    DPU_BLEND_BG_INV_MOD_ALPHA;
->> +        } else {
->> +            blend_op |= DPU_BLEND_BG_INV_ALPHA;
->> +        }
->>      }
->>
->>      lm->ops.setup_blend_config(lm, pstate->stage,
->> -                0xFF, 0, blend_op);
->> +                fg_alpha, bg_alpha, blend_op);
->>
->>      DRM_DEBUG_ATOMIC("format:%p4cc, alpha_en:%u blend_op:0x%x\n",
->>            &format->base.pixel_format, format->alpha_enable, blend_op);
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index ec4a6f04394a..c989621209aa 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -1339,9 +1339,7 @@ static void dpu_plane_reset(struct drm_plane 
->> *plane)
->>          return;
->>      }
->>
->> -    pstate->base.plane = plane;
->> -
->> -    plane->state = &pstate->base;
->> +    __drm_atomic_helper_plane_reset(plane, &pstate->base);
->>  }
->>
->>  #ifdef CONFIG_DEBUG_FS
->> @@ -1647,6 +1645,12 @@ struct drm_plane *dpu_plane_init(struct 
->> drm_device *dev,
->>      if (ret)
->>          DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
->>
->> +    drm_plane_create_alpha_property(plane);
->> +    drm_plane_create_blend_mode_property(plane,
->> +            BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->> +            BIT(DRM_MODE_BLEND_PREMULTI) |
->> +            BIT(DRM_MODE_BLEND_COVERAGE));
->> +
->>      drm_plane_create_rotation_property(plane,
->>              DRM_MODE_ROTATE_0,
->>              DRM_MODE_ROTATE_0 |
+> +
+> +properties:
+> +  compatible:
+> +    items:
 
+Will there be anymore? If not, drop items and only have const.
 
--- 
-With best wishes
-Dmitry
+> +      - const: qcom,sc7280-mdss
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reg-names:
+> +    const: mdss
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB clock from gcc
+> +      - description: Display AHB clock from dispcc
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: ahb
+> +      - const: core
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#address-cells": true
+> +
+> +  "#size-cells": true
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +
+> +  iommus:
+> +    items:
+> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+> +
+> +  ranges: true
+> +
+> +  interconnects:
+> +    items:
+> +      - description: Interconnect path specifying the port ids for data bus
+> +
+> +  interconnect-names:
+> +    const: mdp0-mem
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    description: Node containing the properties of DPU.
+> +
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,sc7280-dpu
+
+Will there be anymore? If not, drop items and only have const.
+
+> +
+> +      reg:
+> +        items:
+> +          - description: Address offset and size for mdp register set
+> +          - description: Address offset and size for vbif register set
+> +
+> +      reg-names:
+> +        items:
+> +          - const: mdp
+> +          - const: vbif
+> +
+> +      clocks:
+> +        items:
+> +          - description: Display hf axi clock
+> +          - description: Display sf axi clock
+> +          - description: Display ahb clock
+> +          - description: Display lut clock
+> +          - description: Display core clock
+> +          - description: Display vsync clock
+> +
+> +      clock-names:
+> +        items:
+> +          - const: bus
+> +          - const: nrt_bus
+> +          - const: iface
+> +          - const: lut
+> +          - const: core
+> +          - const: vsync
+> +
+> +      interrupts:
+> +        maxItems: 1
+> +
+> +      power-domains:
+> +        maxItems: 1
+> +
+> +      operating-points-v2: true
+> +
+> +      ports:
+> +        $ref: /schemas/graph.yaml#/properties/ports
+> +        description: |
+> +          Contains the list of output ports from DPU device. These ports
+> +          connect to interfaces that are external to the DPU hardware,
+> +          such as DSI, DP etc. Each output port contains an endpoint that
+> +          describes how it is connected to an external interface.
+> +
+> +        properties:
+> +          port@0:
+> +            $ref: /schemas/graph.yaml#/properties/port
+> +            description: DPU_INTF1 (DSI)
+> +
+> +          port@1:
+> +            $ref: /schemas/graph.yaml#/properties/port
+> +            description: DPU_INTF5 (EDP)
+> +
+> +        required:
+> +          - port@0
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +      - reg-names
+> +      - clocks
+> +      - interrupts
+> +      - power-domains
+> +      - operating-points-v2
+> +      - ports
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - power-domains
+> +  - clocks
+> +  - interrupts
+> +  - interrupt-controller
+> +  - iommus
+> +  - ranges
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,dispcc-sc7280.h>
+> +    #include <dt-bindings/clock/qcom,gcc-sc7280.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interconnect/qcom,sc7280.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    display-subsystem@ae00000 {
+
+Maybe just 'subsystem' as that is generic enough.
+
+> +         #address-cells = <1>;
+> +         #size-cells = <1>;
+> +         compatible = "qcom,sc7280-mdss";
+> +         reg = <0xae00000 0x1000>;
+> +         reg-names = "mdss";
+> +         power-domains = <&dispcc DISP_CC_MDSS_CORE_GDSC>;
+> +         clocks = <&gcc GCC_DISP_AHB_CLK>,
+> +                  <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                  <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> +         clock-names = "iface", "ahb", "core";
+
+Can these names be one per line? It makes it easier to match to the
+clocks property above.
+
+> +
+> +         interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +         interrupt-controller;
+> +         #interrupt-cells = <1>;
+> +
+> +         interconnects = <&mmss_noc MASTER_MDP0 &mc_virt SLAVE_EBI1>;
+> +         interconnect-names = "mdp0-mem";
+> +
+> +         iommus = <&apps_smmu 0x900 0x402>;
+> +         ranges;
+> +
+> +         display-controller@ae01000 {
+> +                   compatible = "qcom,sc7280-dpu";
+> +                   reg = <0x0ae01000 0x8f000>,
+> +                         <0x0aeb0000 0x2008>;
+> +
+> +                   reg-names = "mdp", "vbif";
+> +
+> +                   clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                            <&gcc GCC_DISP_SF_AXI_CLK>,
+> +                            <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                            <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> +                            <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> +                            <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> +                   clock-names = "bus", "nrt_bus", "iface", "lut", "core",
+> +                                 "vsync";
+
+Can these names be one per line? It makes it easier to match to the
+clocks property above.
+
+> +
+> +                   interrupt-parent = <&mdss>;
+> +                   interrupts = <0>;
+> +                   power-domains = <&rpmhpd SC7280_CX>;
+> +                   operating-points-v2 = <&mdp_opp_table>;
+> +
+> +                   ports {
+> +                           #address-cells = <1>;
+> +                           #size-cells = <0>;
+> +
+> +                           port@0 {
+> +                                   reg = <0>;
+> +                                   dpu_intf1_out: endpoint {
+> +                                                  remote-endpoint = <&dsi0_in>;
+
+Tabbed one too many times.
+
+> +                                   };
+> +                           };
+> +
+> +                           port@1 {
+> +                                   reg = <1>;
+> +                                   dpu_intf5_out: endpoint {
+> +                                                  remote-endpoint = <&edp_in>;
+
+Tabbed one too many times.
+
+> +                                   };
+> +                           };
+> +                   };
+> +         };
+> +    };
