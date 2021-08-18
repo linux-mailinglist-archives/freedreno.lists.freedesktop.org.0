@@ -2,68 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDCE03F08D2
-	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 18:14:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9971C3F0933
+	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 18:35:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664936E84E;
-	Wed, 18 Aug 2021 16:14:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA676E862;
+	Wed, 18 Aug 2021 16:35:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA4456E84E
- for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 16:14:42 +0000 (UTC)
-Received: by mail-pl1-x633.google.com with SMTP id o10so2166462plg.0
- for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 09:14:42 -0700 (PDT)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0826E861
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 16:35:03 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id mq3so2951424pjb.5
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 09:35:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=/XpeMbE0cedXmwuwUc/IBOQeV2qs0fBRVLWO6KJw4i0=;
- b=QVZS8hvaokW7Rt90QwrZr6OVmeqYKKPauf+0OHbWua3HvLKukt9vBjzQzxxt5jAe2H
- 4CNdUz/mlx6KsUV5AVf0WVwze9hgUZozU4Zx7o5NTjcTZ1EF1K9C+wHQNTv8lRGdoEnd
- Iq0m6pMSmRBuLWXfnYNnRdw7NU4tKJaa3hqHU=
+ bh=m1+hMN42icqTlxVWLTEkH0/pkiGKB8NQcMU6EbHVJG8=;
+ b=Mt3IY0k0VkCNIkfPQhsBY3B4z79w4r4++PooLHAONBUnzJjrzVuEhPjAJwV2FL8xp7
+ PlhWqmkMBIDvGjH6i1IM7fMtFTAbntsgFrD6Qp3BuWQzTM0aBspGJJyKpSV1wQ8uHkBK
+ KdD7ohp4BxnIm8kEKQUkbL4T3wU0KSqNL+E74=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=/XpeMbE0cedXmwuwUc/IBOQeV2qs0fBRVLWO6KJw4i0=;
- b=RY0rmhz97L0lCbnSE2ciLobI/1yB9ugmV+ocU+Cf/fZw2BhCrE0P/141LeN69/HXg8
- rkXyebIO64xbOUSwETh/mTKrmRPZEUvtcTyxb7PUY+uj+qGzJPB7aahIZLVQmwjkP9N5
- CYzgjeFUzTHIokoMXt3T8jJq3VR3SHuaZWiHRqkBlPLxV1vAJ7Wj+qf60mLLLFbgZIEN
- mSE42Gi4vbzxrTWyarWTkB9iwYcOxdGvt5W0wINNS7lzjPekeXwi1pzFM6FMjNsZuPFk
- JfEH/qMlY+zDr7mBR4Rxx3Dft+aFCItknxEaJ9NWKRaxwmGVVEvHPi9UM/w2uQqiukll
- yuPg==
-X-Gm-Message-State: AOAM531N0gAAb87BA0F/pLlC/xAxLYMPpc5NLgSqJ5RVWvqSY3Kz7aeI
- 3qt+QcH0Lg3eRo8eY08FT4+WLg==
-X-Google-Smtp-Source: ABdhPJzNkC8cFHGOwPJN+VKQaqv1bzx4/CQLog8Y1S9d7RTSiSjA+HDu+dTUkyaI/W0BKb8LXl4D1A==
-X-Received: by 2002:a17:90b:f17:: with SMTP id
- br23mr3488420pjb.60.1629303282317; 
- Wed, 18 Aug 2021 09:14:42 -0700 (PDT)
+ bh=m1+hMN42icqTlxVWLTEkH0/pkiGKB8NQcMU6EbHVJG8=;
+ b=llEsAYEEy5y4klYcCfORxhGUWe0coNcVYx+uAPkkrlBbhUSzGyf1sLIvXlm88PdpAy
+ JfayOAgnNnpHF+sXQxKQCU32jq4HizR3VwHjziWPopindl1F7aMnEVoTFE7tHkNr+p/M
+ 6IMDOnmbx0hiQxJ+0LUQj1J2b5A+wrBhc4qFHPB8chZ5OkVd1YwcJ3cjc679B/3ui6IL
+ Rk0FcDqQgo+7TZ69riNm0xzvwbq51zUxNhKsqlexmbiHxGjAehbzgZozqRVKUVVoZ2G2
+ EOEg4WO4HDvc5doy9392gCQWUmo+LG3MEFB06PQSnHFHahBUlNNhO55VPXAyYMdRSZR+
+ HErA==
+X-Gm-Message-State: AOAM533ZnvLT4hkeSiZwSQ7hqXn/UYoO0VuqDdH0s50y+TP0mSdThF/s
+ 7e92vdva7MZD0IuWUtVhrqDTGg==
+X-Google-Smtp-Source: ABdhPJzW2zNeRcHd7qe6M0HKGzkNMa+UEgzEFvjDRd8IQcbcxugUUS9wiUmRFP2v2rVEL64AsplTrQ==
+X-Received: by 2002:a17:902:c94c:b0:12d:905f:d80d with SMTP id
+ i12-20020a170902c94c00b0012d905fd80dmr8031229pla.21.1629304503073; 
+ Wed, 18 Aug 2021 09:35:03 -0700 (PDT)
 Received: from localhost ([2620:15c:202:201:1d24:fb00:9009:ffbe])
- by smtp.gmail.com with UTF8SMTPSA id 22sm179892pgn.88.2021.08.18.09.14.41
+ by smtp.gmail.com with UTF8SMTPSA id p30sm261393pfh.116.2021.08.18.09.35.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Aug 2021 09:14:41 -0700 (PDT)
-Date: Wed, 18 Aug 2021 09:14:40 -0700
+ Wed, 18 Aug 2021 09:35:02 -0700 (PDT)
+Date: Wed, 18 Aug 2021 09:35:00 -0700
 From: Matthias Kaehlcke <mka@chromium.org>
 To: Krishna Manikandan <mkrishn@codeaurora.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org,
- Sankeerth Billakanti <sbillaka@codeaurora.org>,
- kalyan_t@codeaurora.org, abhinavk@codeaurora.org,
+ Rajeev Nandan <rajeevny@codeaurora.org>, kalyan_t@codeaurora.org,
+ sbillaka@codeaurora.org, abhinavk@codeaurora.org,
  robdclark@gmail.com, swboyd@chromium.org,
  bjorn.andersson@linaro.org, khsieh@codeaurora.org,
- rajeevny@codeaurora.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, robh+dt@kernel.org,
- satya priya <skakit@codeaurora.org>
-Message-ID: <YR0x8NQw/Do3L0Zz@google.com>
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ robh+dt@kernel.org
+Message-ID: <YR02tKJcautEPQHC@google.com>
 References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
- <1629282424-4070-4-git-send-email-mkrishn@codeaurora.org>
+ <1629282424-4070-3-git-send-email-mkrishn@codeaurora.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1629282424-4070-4-git-send-email-mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v1 4/4] arm64: dts: qcom: sc7280: add edp
- display dt nodes
+In-Reply-To: <1629282424-4070-3-git-send-email-mkrishn@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH v1 3/4] arm64: dts: qcom: sc7280: Add DSI
+ display nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,186 +78,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 18, 2021 at 03:57:04PM +0530, Krishna Manikandan wrote:
-> From: Sankeerth Billakanti <sbillaka@codeaurora.org>
+On Wed, Aug 18, 2021 at 03:57:03PM +0530, Krishna Manikandan wrote:
+> From: Rajeev Nandan <rajeevny@codeaurora.org>
 > 
-> Add edp controller and phy DT nodes for sc7280.
+> Add DSI controller and PHY nodes for sc7280.
 > 
-> Signed-off-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+
+You should sign off patches you send, even if you aren't the original author.
+
 > ---
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 127 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 126 insertions(+), 1 deletion(-)
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 101 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 101 insertions(+)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index aadf55d..5be318e 100644
+> index fd7ff1c..aadf55d 100644
 > --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 > +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -1412,7 +1412,7 @@
->  			reg = <0 0xaf00000 0 0x20000>;
->  			clocks = <&rpmhcc RPMH_CXO_CLK>,
->  				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
-> -				 <0>, <0>, <0>, <0>, <0>, <0>;
-> +				 <0>, <0>, <0>, <0>, <&edp_phy 0>, <&edp_phy 1>;
->  			clock-names = "bi_tcxo", "gcc_disp_gpll0_clk",
->  				      "dsi0_phy_pll_out_byteclk",
->  				      "dsi0_phy_pll_out_dsiclk",
-> @@ -1493,6 +1493,12 @@
->  							remote-endpoint = <&dsi0_in>;
->  						};
->  					};
-> +					port@1 {
-> +						reg = <1>;
-> +						dpu_intf5_out: endpoint {
-> +							remote-endpoint = <&edp_in>;
-> +						};
-> +					};
->  				};
->  
->  				mdp_opp_table: mdp-opp-table {
-> @@ -1608,6 +1614,101 @@
+> @@ -1483,6 +1483,18 @@
 >  
 >  				status = "disabled";
+>  
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +
+> +					port@0 {
+> +						reg = <0>;
+> +						dpu_intf1_out: endpoint {
+> +							remote-endpoint = <&dsi0_in>;
+> +						};
+> +					};
+> +				};
+> +
+>  				mdp_opp_table: mdp-opp-table {
+>  					compatible = "operating-points-v2";
+>  
+> @@ -1507,6 +1519,95 @@
+>  					};
+>  				};
 >  			};
 > +
-> +			msm_edp: edp@aea0000 {
-> +				status = "disabled";
-> +				compatible = "qcom,sc7280-edp";
-> +				reg = <0 0xaea0000 0 0x200>,
-> +				      <0 0xaea0200 0 0x200>,
-> +				      <0 0xaea0400 0 0xc00>,
-> +				      <0 0xaea1000 0 0x400>;
+> +			dsi0: dsi@ae94000 {
+> +				compatible = "qcom,mdss-dsi-ctrl";
+> +				reg = <0 0x0ae94000 0 0x400>;
+> +				reg-names = "dsi_ctrl";
 > +
 > +				interrupt-parent = <&mdss>;
-> +				interrupts = <14 IRQ_TYPE_NONE>;
+> +				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
 > +
-> +				clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +					 <&gcc GCC_EDP_CLKREF_EN>,
+> +				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
 > +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_AUX_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_LINK_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_LINK_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK>;
-> +				clock-names = "core_xo", "core_ref",
-> +					      "core_iface", "core_aux", "ctrl_link",
-> +					      "ctrl_link_iface", "stream_pixel";
-> +				#clock-cells = <1>;
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
-> +						  <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
-> +				assigned-clock-parents = <&edp_phy 0>, <&edp_phy 1>;
+> +					 <&gcc GCC_DISP_HF_AXI_CLK>;
+> +				clock-names = "byte",
+> +					      "byte_intf",
+> +					      "pixel",
+> +					      "core",
+> +					      "iface",
+> +					      "bus";
 > +
-> +				phys = <&edp_phy>;
-> +				phy-names = "dp";
-> +
-> +				vdda-1p2-supply = <&vreg_l6b_1p2>;
-> +				vdda-0p9-supply = <&vreg_l10c_0p8>;
-
-These regulators are defined in the board .dts (sc7280-idp.dts), hence the SoC
-.dtsi shouldn't depend on them. My impression is that pm7325.dtsi and pm8350c.dtsi
-should include definitions for regulators that supply basic SoC blocks. If the
-configuration can vary depending on the SoC there could be SoC specific includes
-for each PMIC. If a board uses a different configuration it could overwrite the
-PMIC .dtsi settings.
-
-> +				operating-points-v2 = <&edp_opp_table>;
+> +				operating-points-v2 = <&dsi_opp_table>;
 > +				power-domains = <&rpmhpd SC7280_CX>;
 > +
-> +				pinctrl-names = "default";
-> +				pinctrl-0 = <&edp_hot_plug_det>, <&edp_panel_power_on>;
+> +				phys = <&dsi_phy>;
+> +				phy-names = "dsi";
 > +
-> +				panel-bklt-gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
-> +				panel-pwm-gpio = <&pm8350c_gpios 8 GPIO_ACTIVE_HIGH>;
-
-The pins are board specific, hence they shouldn't be configured in the .dtsi of
-the SoC.
-
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				status = "disabled";
 > +
 > +				ports {
 > +					#address-cells = <1>;
 > +					#size-cells = <0>;
+> +
 > +					port@0 {
 > +						reg = <0>;
-> +						edp_in: endpoint {
-> +							remote-endpoint = <&dpu_intf5_out>;
+> +						dsi0_in: endpoint {
+> +							remote-endpoint = <&dpu_intf1_out>;
+> +						};
+> +					};
+> +
+> +					port@1 {
+> +						reg = <1>;
+> +						dsi0_out: endpoint {
 > +						};
 > +					};
 > +				};
 > +
-> +				edp_opp_table: edp-opp-table {
+> +				dsi_opp_table: dsi-opp-table {
 > +					compatible = "operating-points-v2";
 > +
-> +					opp-160000000 {
-> +						opp-hz = /bits/ 64 <160000000>;
+> +					opp-187500000 {
+> +						opp-hz = /bits/ 64 <187500000>;
 > +						required-opps = <&rpmhpd_opp_low_svs>;
 > +					};
 > +
-> +					opp-270000000 {
-> +						opp-hz = /bits/ 64 <270000000>;
+> +					opp-300000000 {
+> +						opp-hz = /bits/ 64 <300000000>;
 > +						required-opps = <&rpmhpd_opp_svs>;
 > +					};
 > +
-> +					opp-540000000 {
-> +						opp-hz = /bits/ 64 <540000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +
-> +					opp-810000000 {
-> +						opp-hz = /bits/ 64 <810000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
+> +					opp-358000000 {
+> +						opp-hz = /bits/ 64 <358000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
 > +					};
 > +				};
 > +			};
 > +
-> +			edp_phy: phy@aec2000 {
-> +				status = "disabled";
-> +				compatible = "qcom,sc7280-edp-phy";
-> +				reg = <0 0xaec2a00 0 0x19c>,
-> +				      <0 0xaec2200 0 0xa0>,
-> +				      <0 0xaec2600 0 0xa0>,
-> +				      <0 0xaec2000 0 0x1c0>;
-> +
-> +				clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +					 <&gcc GCC_EDP_CLKREF_EN>;
-> +				clock-names = "aux", "cfg_ahb";
-> +
-> +				vdda-pll-supply = <&vreg_l6b_1p2>;
-> +				vdda-phy-supply = <&vreg_l10c_0p8>;
+> +			dsi_phy: dsi-phy@ae94400 {
+> +				compatible = "qcom,sc7280-dsi-phy-7nm";
+> +				reg = <0 0x0ae94400 0 0x200>,
+> +				      <0 0x0ae94600 0 0x280>,
+> +				      <0 0x0ae94900 0 0x280>;
+> +				reg-names = "dsi_phy",
+> +					    "dsi_phy_lane",
+> +					    "dsi_pll";
 > +
 > +				#clock-cells = <1>;
 > +				#phy-cells = <0>;
-> +			};
->  		};
->  
->  		pdc: interrupt-controller@b220000 {
-> @@ -1704,6 +1805,30 @@
->  				function = "qup13";
->  			};
->  
-> +			edp_hot_plug_det: edp-hot-plug-det {
-> +				pinmux {
-> +					pins = "gpio60";
-> +					function = "edp_hot";
-> +				};
-> +				pinconf {
-> +					pins = "gpio60";
-> +					bias-pull-down;
-> +					input-enable;
-> +				};
-
-There should be no separate 'pinmux' and 'pinconf' nodes, see other entries
-in this section.
-
-> +			};
 > +
-> +			edp_panel_power_on: edp-panel-power-on {
-> +				pinmux {
-> +					pins = "gpio80";
-> +					function = "gpio";
-> +				};
-> +				pinconf {
-> +					pins = "gpio80";
-> +					bias-disable;
-> +					output-high;
-> +				};
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&rpmhcc RPMH_CXO_CLK>;
+> +				clock-names = "iface", "ref";
+> +
+> +				status = "disabled";
 > +			};
 
-IIUC this could be any GPIO and hence should be configured by the board file.
+I'm not an expect, but this looks sane to me and it's very similar to the
+SC7180 config.
+
+Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
