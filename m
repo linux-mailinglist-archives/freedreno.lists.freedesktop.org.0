@@ -1,43 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7373F01D1
-	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 12:36:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A2A3F08C6
+	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 18:14:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E69096E527;
-	Wed, 18 Aug 2021 10:36:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F386E841;
+	Wed, 18 Aug 2021 16:14:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABD556E519;
- Wed, 18 Aug 2021 10:35:35 +0000 (UTC)
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 18 Aug 2021 03:27:40 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 18 Aug 2021 03:27:38 -0700
-X-QCInternal: smtphost
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg01-blr.qualcomm.com with ESMTP; 18 Aug 2021 15:57:10 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id EC86C21FCF; Wed, 18 Aug 2021 15:57:08 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Sankeerth Billakanti <sbillaka@codeaurora.org>, kalyan_t@codeaurora.org,
- abhinavk@codeaurora.org, robdclark@gmail.com, swboyd@chromium.org,
- bjorn.andersson@linaro.org, khsieh@codeaurora.org, rajeevny@codeaurora.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- robh+dt@kernel.org
-Date: Wed, 18 Aug 2021 15:57:04 +0530
-Message-Id: <1629282424-4070-4-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 828CB6E841;
+ Wed, 18 Aug 2021 16:14:15 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ f16-20020a056830205000b00519b99d3dcbso4756337otp.2; 
+ Wed, 18 Aug 2021 09:14:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=yauHXJCxHoVp5aXAAes27TDBGWrBr9jVMGaMrDiigz8=;
+ b=FuavDhbCc/bfEhGs3VMlzTuOas5h+Q34TCaTdIqdid8Td/hh97NSymwLbPALiKIG/U
+ exAW+P7R5cVwVaDZqrb+EWggL4OO803auxlDxUkN3eu5ecZt8GoArD7pnOWJVUYN/8M6
+ f7jeUEegsSsa+HATIEJJkpeV2tGSwmwiCbNQAi5G2D7t5X7CLB80WVlN2LGjgPBicLEH
+ GaYFnBs+Wa/abddt8WV0l/z0yIqWSrN4qmtb8EHaGLRaxSFDhkari7oyi+lTdpnG0J89
+ /yrP4lSf1/Q9iiEh1ocL/u/cdr/Cl4ZDwtKRcrauFGu+mGTj1zVr99+tdkBnxPZ3yl0D
+ 9rCQ==
+X-Gm-Message-State: AOAM533GEdVM2AlMLSNFVi8IFwdl55Y+HkjTQ8BOh7FoIYn1TafuLIWX
+ ANIcjC2iOvgdBpAgtq3BUQ==
+X-Google-Smtp-Source: ABdhPJzzOuQIH8PiEiqnXaNNItIPBPXASTbgrSCmxUFvf7DxF43cogknZxmC20Q63vL+nLiIp/5AIg==
+X-Received: by 2002:a05:6830:2807:: with SMTP id
+ w7mr7528360otu.70.1629303254775; 
+ Wed, 18 Aug 2021 09:14:14 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id 4sm97281oil.38.2021.08.18.09.14.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Aug 2021 09:14:14 -0700 (PDT)
+Received: (nullmailer pid 2696510 invoked by uid 1000);
+ Wed, 18 Aug 2021 16:14:13 -0000
+From: Rob Herring <robh@kernel.org>
+To: Krishna Manikandan <mkrishn@codeaurora.org>
+Cc: rajeevny@codeaurora.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, bjorn.andersson@linaro.org,
+ kalyan_t@codeaurora.org, robh+dt@kernel.org, abhinavk@codeaurora.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, linux-arm-msm@vger.kernel.org, khsieh@codeaurora.org,
+ swboyd@chromium.org, sbillaka@codeaurora.org
 In-Reply-To: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
 References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
-Subject: [Freedreno] [PATCH v1 4/4] arm64: dts: qcom: sc7280: add edp
- display dt nodes
+Date: Wed, 18 Aug 2021 11:14:13 -0500
+Message-Id: <1629303253.016460.2696509.nullmailer@robh.at.kernel.org>
+Subject: Re: [Freedreno] [PATCH v1 1/4] dt-bindings: msm: add DT bindings
+ for sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,174 +69,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Sankeerth Billakanti <sbillaka@codeaurora.org>
+On Wed, 18 Aug 2021 15:57:01 +0530, Krishna Manikandan wrote:
+> MSM Mobile Display Subsystem (MDSS) encapsulates sub-blocks
+> like DPU display controller, DSI, EDP etc. Add required DPU
+> device tree bindings for SC7280.
+> 
+> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+> ---
+>  .../bindings/display/msm/dpu-sc7280.yaml           | 228 +++++++++++++++++++++
+>  1 file changed, 228 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+> 
 
-Add edp controller and phy DT nodes for sc7280.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Signed-off-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
----
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 127 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 126 insertions(+), 1 deletion(-)
+yamllint warnings/errors:
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index aadf55d..5be318e 100644
---- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -1412,7 +1412,7 @@
- 			reg = <0 0xaf00000 0 0x20000>;
- 			clocks = <&rpmhcc RPMH_CXO_CLK>,
- 				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
--				 <0>, <0>, <0>, <0>, <0>, <0>;
-+				 <0>, <0>, <0>, <0>, <&edp_phy 0>, <&edp_phy 1>;
- 			clock-names = "bi_tcxo", "gcc_disp_gpll0_clk",
- 				      "dsi0_phy_pll_out_byteclk",
- 				      "dsi0_phy_pll_out_dsiclk",
-@@ -1493,6 +1493,12 @@
- 							remote-endpoint = <&dsi0_in>;
- 						};
- 					};
-+					port@1 {
-+						reg = <1>;
-+						dpu_intf5_out: endpoint {
-+							remote-endpoint = <&edp_in>;
-+						};
-+					};
- 				};
- 
- 				mdp_opp_table: mdp-opp-table {
-@@ -1608,6 +1614,101 @@
- 
- 				status = "disabled";
- 			};
-+
-+			msm_edp: edp@aea0000 {
-+				status = "disabled";
-+				compatible = "qcom,sc7280-edp";
-+				reg = <0 0xaea0000 0 0x200>,
-+				      <0 0xaea0200 0 0x200>,
-+				      <0 0xaea0400 0 0xc00>,
-+				      <0 0xaea1000 0 0x400>;
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <14 IRQ_TYPE_NONE>;
-+
-+				clocks = <&rpmhcc RPMH_CXO_CLK>,
-+					 <&gcc GCC_EDP_CLKREF_EN>,
-+					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_EDP_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_EDP_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_EDP_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK>;
-+				clock-names = "core_xo", "core_ref",
-+					      "core_iface", "core_aux", "ctrl_link",
-+					      "ctrl_link_iface", "stream_pixel";
-+				#clock-cells = <1>;
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
-+				assigned-clock-parents = <&edp_phy 0>, <&edp_phy 1>;
-+
-+				phys = <&edp_phy>;
-+				phy-names = "dp";
-+
-+				vdda-1p2-supply = <&vreg_l6b_1p2>;
-+				vdda-0p9-supply = <&vreg_l10c_0p8>;
-+				operating-points-v2 = <&edp_opp_table>;
-+				power-domains = <&rpmhpd SC7280_CX>;
-+
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&edp_hot_plug_det>, <&edp_panel_power_on>;
-+
-+				panel-bklt-gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
-+				panel-pwm-gpio = <&pm8350c_gpios 8 GPIO_ACTIVE_HIGH>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					port@0 {
-+						reg = <0>;
-+						edp_in: endpoint {
-+							remote-endpoint = <&dpu_intf5_out>;
-+						};
-+					};
-+				};
-+
-+				edp_opp_table: edp-opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-160000000 {
-+						opp-hz = /bits/ 64 <160000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
-+
-+			edp_phy: phy@aec2000 {
-+				status = "disabled";
-+				compatible = "qcom,sc7280-edp-phy";
-+				reg = <0 0xaec2a00 0 0x19c>,
-+				      <0 0xaec2200 0 0xa0>,
-+				      <0 0xaec2600 0 0xa0>,
-+				      <0 0xaec2000 0 0x1c0>;
-+
-+				clocks = <&rpmhcc RPMH_CXO_CLK>,
-+					 <&gcc GCC_EDP_CLKREF_EN>;
-+				clock-names = "aux", "cfg_ahb";
-+
-+				vdda-pll-supply = <&vreg_l6b_1p2>;
-+				vdda-phy-supply = <&vreg_l10c_0p8>;
-+
-+				#clock-cells = <1>;
-+				#phy-cells = <0>;
-+			};
- 		};
- 
- 		pdc: interrupt-controller@b220000 {
-@@ -1704,6 +1805,30 @@
- 				function = "qup13";
- 			};
- 
-+			edp_hot_plug_det: edp-hot-plug-det {
-+				pinmux {
-+					pins = "gpio60";
-+					function = "edp_hot";
-+				};
-+				pinconf {
-+					pins = "gpio60";
-+					bias-pull-down;
-+					input-enable;
-+				};
-+			};
-+
-+			edp_panel_power_on: edp-panel-power-on {
-+				pinmux {
-+					pins = "gpio80";
-+					function = "gpio";
-+				};
-+				pinconf {
-+					pins = "gpio80";
-+					bias-disable;
-+					output-high;
-+				};
-+			};
-+
- 			sdc1_on: sdc1-on {
- 				clk {
- 					pins = "sdc1_clk";
--- 
-2.7.4
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/msm/dpu-sc7280.example.dts:19:18: fatal error: dt-bindings/clock/qcom,dispcc-sc7280.h: No such file or directory
+   19 |         #include <dt-bindings/clock/qcom,dispcc-sc7280.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.lib:380: Documentation/devicetree/bindings/display/msm/dpu-sc7280.example.dt.yaml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1419: dt_binding_check] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1517976
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 
