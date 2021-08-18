@@ -2,67 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9971C3F0933
-	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 18:35:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BA553F0BDB
+	for <lists+freedreno@lfdr.de>; Wed, 18 Aug 2021 21:34:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA676E862;
-	Wed, 18 Aug 2021 16:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2406E92E;
+	Wed, 18 Aug 2021 19:34:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0826E861
- for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 16:35:03 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id mq3so2951424pjb.5
- for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 09:35:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=m1+hMN42icqTlxVWLTEkH0/pkiGKB8NQcMU6EbHVJG8=;
- b=Mt3IY0k0VkCNIkfPQhsBY3B4z79w4r4++PooLHAONBUnzJjrzVuEhPjAJwV2FL8xp7
- PlhWqmkMBIDvGjH6i1IM7fMtFTAbntsgFrD6Qp3BuWQzTM0aBspGJJyKpSV1wQ8uHkBK
- KdD7ohp4BxnIm8kEKQUkbL4T3wU0KSqNL+E74=
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E9456E92E
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 19:34:48 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id n7so7197799ljq.0
+ for <freedreno@lists.freedesktop.org>; Wed, 18 Aug 2021 12:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=TZlXaJlwbJlKP9XZ2W5P2GZHKRhAsGJfCRtafkq42N0=;
+ b=czGYTLZlBSS0MpLF+grC/baAZmnoaauH2+vYDEPDp1X4LQDp6Ut5KRonPkauh8QBTZ
+ P/0bK23QJTUYqjE2IaQDExLdOJs8g7BI0BwP/VuaHlHEI3BNP9BMA6JTrGE867xhX2Fh
+ QtHDMZuKGNgaJUbtw91tTcYhoJmQEAIOzxpAkVcoNtAKzMNTM/aE4ZeKiFrzTWYEnVF8
+ OphFelD929rzV4CpSDjt4jVhsRw+MqMRzCvx/ZlCay7Av5kSrbyg+Lg3OsKkmUDLg7OY
+ 30ulL53oLZVbkZ9T3S4mIqbxlTirg638Wf9/BBYoU4vJ4MwQeKCbmG7xoQsx5NPAS9a/
+ ZsGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=m1+hMN42icqTlxVWLTEkH0/pkiGKB8NQcMU6EbHVJG8=;
- b=llEsAYEEy5y4klYcCfORxhGUWe0coNcVYx+uAPkkrlBbhUSzGyf1sLIvXlm88PdpAy
- JfayOAgnNnpHF+sXQxKQCU32jq4HizR3VwHjziWPopindl1F7aMnEVoTFE7tHkNr+p/M
- 6IMDOnmbx0hiQxJ+0LUQj1J2b5A+wrBhc4qFHPB8chZ5OkVd1YwcJ3cjc679B/3ui6IL
- Rk0FcDqQgo+7TZ69riNm0xzvwbq51zUxNhKsqlexmbiHxGjAehbzgZozqRVKUVVoZ2G2
- EOEg4WO4HDvc5doy9392gCQWUmo+LG3MEFB06PQSnHFHahBUlNNhO55VPXAyYMdRSZR+
- HErA==
-X-Gm-Message-State: AOAM533ZnvLT4hkeSiZwSQ7hqXn/UYoO0VuqDdH0s50y+TP0mSdThF/s
- 7e92vdva7MZD0IuWUtVhrqDTGg==
-X-Google-Smtp-Source: ABdhPJzW2zNeRcHd7qe6M0HKGzkNMa+UEgzEFvjDRd8IQcbcxugUUS9wiUmRFP2v2rVEL64AsplTrQ==
-X-Received: by 2002:a17:902:c94c:b0:12d:905f:d80d with SMTP id
- i12-20020a170902c94c00b0012d905fd80dmr8031229pla.21.1629304503073; 
- Wed, 18 Aug 2021 09:35:03 -0700 (PDT)
-Received: from localhost ([2620:15c:202:201:1d24:fb00:9009:ffbe])
- by smtp.gmail.com with UTF8SMTPSA id p30sm261393pfh.116.2021.08.18.09.35.01
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=TZlXaJlwbJlKP9XZ2W5P2GZHKRhAsGJfCRtafkq42N0=;
+ b=PyPM5H0rsyiF8tuO8t4w5iqw5Ix2gmRGNIs4Uu4jKVrJck0fbtfv2M505tkMfYecSh
+ 0RokdIKbekyi0mLuBY+GS7Rqae+FXePZRvPcpsKljV54wupoBilEB87RUnHAt7KkMRuc
+ 1LC+601+9ImKv3JPx4ViqwsNtWufqP1BZ/TkmsgOZIkoP9oZeMtUrFtziqB8LDOMvnqa
+ VD1oJtnA1l5p/glikSyJXwkVqhGiR90HWQjBLv46KK9d/F1Ln8uM4if/aCG5sde7SZOt
+ 2ZRLAy8nfpHkoN/lWggEAAiXDpqHduxJoHBZLs7MO3ePkUOnQN00DCN2YZq2TSDyrWJc
+ 8Lag==
+X-Gm-Message-State: AOAM531kuOwlOIec+HRpm+UaruqdDBbTilNwUrXsO5PxV7zxfQ+kwXNd
+ 2OktvAUw87uYq2OXLx87hRPCftMjDa8t+g==
+X-Google-Smtp-Source: ABdhPJw2+c2F6EluGW6TFgDdrC99bIRcb/YQdf85++cOTvPzkUrPy/YikduJ8dq2zCdYVyugwh49RQ==
+X-Received: by 2002:a2e:9802:: with SMTP id a2mr3448720ljj.470.1629315286311; 
+ Wed, 18 Aug 2021 12:34:46 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id w16sm54372lfd.295.2021.08.18.12.34.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Aug 2021 09:35:02 -0700 (PDT)
-Date: Wed, 18 Aug 2021 09:35:00 -0700
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Krishna Manikandan <mkrishn@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Rajeev Nandan <rajeevny@codeaurora.org>, kalyan_t@codeaurora.org,
- sbillaka@codeaurora.org, abhinavk@codeaurora.org,
- robdclark@gmail.com, swboyd@chromium.org,
- bjorn.andersson@linaro.org, khsieh@codeaurora.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- robh+dt@kernel.org
-Message-ID: <YR02tKJcautEPQHC@google.com>
-References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
- <1629282424-4070-3-git-send-email-mkrishn@codeaurora.org>
+ Wed, 18 Aug 2021 12:34:45 -0700 (PDT)
+To: abhinavk@codeaurora.org
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+References: <20210628191958.2754731-1-dmitry.baryshkov@linaro.org>
+ <34ee522aa37172099dac9f686f0196ec@codeaurora.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <9584eaee-d3ed-041e-f473-06d9a1ddb0bc@linaro.org>
+Date: Wed, 18 Aug 2021 22:34:43 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1629282424-4070-3-git-send-email-mkrishn@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v1 3/4] arm64: dts: qcom: sc7280: Add DSI
- display nodes
+In-Reply-To: <34ee522aa37172099dac9f686f0196ec@codeaurora.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add support for alpha blending
+ properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,137 +82,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 18, 2021 at 03:57:03PM +0530, Krishna Manikandan wrote:
-> From: Rajeev Nandan <rajeevny@codeaurora.org>
+On 17/08/2021 20:48, abhinavk@codeaurora.org wrote:
+> On 2021-06-28 12:19, Dmitry Baryshkov wrote:
+>> Add support for alpha blending properties. Setup the plane blend state
+>> according to those properties.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> Add DSI controller and PHY nodes for sc7280.
+> I think this has already been picked up by Rob but just had a couple of 
+> comments
+> below.
 > 
-> Signed-off-by: Rajeev Nandan <rajeevny@codeaurora.org>
+> Also, how has this been validated? On RB boards i dont think all the 
+> paths get
+> executed.
 
-You should sign off patches you send, even if you aren't the original author.
+I've used modetest to set pixel blending properties. The results looked 
+logical from my point of view.
 
-> ---
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 101 +++++++++++++++++++++++++++++++++++
->  1 file changed, 101 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index fd7ff1c..aadf55d 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -1483,6 +1483,18 @@
->  
->  				status = "disabled";
->  
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						dpu_intf1_out: endpoint {
-> +							remote-endpoint = <&dsi0_in>;
-> +						};
-> +					};
-> +				};
-> +
->  				mdp_opp_table: mdp-opp-table {
->  					compatible = "operating-points-v2";
->  
-> @@ -1507,6 +1519,95 @@
->  					};
->  				};
->  			};
-> +
-> +			dsi0: dsi@ae94000 {
-> +				compatible = "qcom,mdss-dsi-ctrl";
-> +				reg = <0 0x0ae94000 0 0x400>;
-> +				reg-names = "dsi_ctrl";
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +				clock-names = "byte",
-> +					      "byte_intf",
-> +					      "pixel",
-> +					      "core",
-> +					      "iface",
-> +					      "bus";
-> +
-> +				operating-points-v2 = <&dsi_opp_table>;
-> +				power-domains = <&rpmhpd SC7280_CX>;
-> +
-> +				phys = <&dsi_phy>;
-> +				phy-names = "dsi";
-> +
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				status = "disabled";
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +
-> +					port@0 {
-> +						reg = <0>;
-> +						dsi0_in: endpoint {
-> +							remote-endpoint = <&dpu_intf1_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dsi0_out: endpoint {
-> +						};
-> +					};
-> +				};
-> +
-> +				dsi_opp_table: dsi-opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-187500000 {
-> +						opp-hz = /bits/ 64 <187500000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-300000000 {
-> +						opp-hz = /bits/ 64 <300000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-358000000 {
-> +						opp-hz = /bits/ 64 <358000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +				};
-> +			};
-> +
-> +			dsi_phy: dsi-phy@ae94400 {
-> +				compatible = "qcom,sc7280-dsi-phy-7nm";
-> +				reg = <0 0x0ae94400 0 0x200>,
-> +				      <0 0x0ae94600 0 0x280>,
-> +				      <0 0x0ae94900 0 0x280>;
-> +				reg-names = "dsi_phy",
-> +					    "dsi_phy_lane",
-> +					    "dsi_pll";
-> +
-> +				#clock-cells = <1>;
-> +				#phy-cells = <0>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&rpmhcc RPMH_CXO_CLK>;
-> +				clock-names = "iface", "ref";
-> +
-> +				status = "disabled";
-> +			};
+>> ---
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 43 ++++++++++++++++-------
+>>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 10 ++++--
+>>  2 files changed, 37 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> index 9a5c70c87cc8..768012243b44 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>> @@ -30,12 +30,6 @@
+>>  #include "dpu_core_perf.h"
+>>  #include "dpu_trace.h"
+>>
+>> -#define DPU_DRM_BLEND_OP_NOT_DEFINED    0
+>> -#define DPU_DRM_BLEND_OP_OPAQUE         1
+>> -#define DPU_DRM_BLEND_OP_PREMULTIPLIED  2
+>> -#define DPU_DRM_BLEND_OP_COVERAGE       3
+>> -#define DPU_DRM_BLEND_OP_MAX            4
+>> -
+>>  /* layer mixer index on dpu_crtc */
+>>  #define LEFT_MIXER 0
+>>  #define RIGHT_MIXER 1
+>> @@ -146,20 +140,43 @@ static void _dpu_crtc_setup_blend_cfg(struct
+>> dpu_crtc_mixer *mixer,
+>>  {
+>>      struct dpu_hw_mixer *lm = mixer->hw_lm;
+>>      uint32_t blend_op;
+>> +    uint32_t fg_alpha, bg_alpha;
+>>
+>> -    /* default to opaque blending */
+>> -    blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+>> -        DPU_BLEND_BG_ALPHA_BG_CONST;
+>> +    fg_alpha = pstate->base.alpha >> 8;
+>> +    bg_alpha = 0xff - fg_alpha;
+>>
+>> -    if (format->alpha_enable) {
+>> +    /* default to opaque blending */
+>> +    if (pstate->base.pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE ||
+>> +        !format->alpha_enable) {
+>> +        blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+>> +            DPU_BLEND_BG_ALPHA_BG_CONST;
+>> +    } else if (pstate->base.pixel_blend_mode == 
+>> DRM_MODE_BLEND_PREMULTI) {
+>> +        blend_op = DPU_BLEND_FG_ALPHA_FG_CONST |
+>> +            DPU_BLEND_BG_ALPHA_FG_PIXEL;
+>> +        if (fg_alpha != 0xff) {
+>> +            bg_alpha = fg_alpha;
+>> +            blend_op |= DPU_BLEND_BG_MOD_ALPHA |
+>> +                    DPU_BLEND_BG_INV_MOD_ALPHA;
+>> +        } else {
+>> +            blend_op |= DPU_BLEND_BG_INV_ALPHA;
+>> +        }
+>> +    } else {
+>>          /* coverage blending */
+>>          blend_op = DPU_BLEND_FG_ALPHA_FG_PIXEL |
+>> -            DPU_BLEND_BG_ALPHA_FG_PIXEL |
+>> -            DPU_BLEND_BG_INV_ALPHA;
+>> +            DPU_BLEND_BG_ALPHA_FG_PIXEL;
+>> +        if (fg_alpha != 0xff) {
+>> +            bg_alpha = fg_alpha;
+>> +            blend_op |= DPU_BLEND_FG_MOD_ALPHA |
+>> +                    DPU_BLEND_FG_INV_MOD_ALPHA |
+> comparing this with the blend rule downstream, is this inversion necessary?
+> I only see below rule downstream:
+> 
+> 628             if (fg_alpha != 0xff) {
+> 629                 bg_alpha = fg_alpha;
+> 630                 blend_op |= SDE_BLEND_FG_MOD_ALPHA |
+> 631                     SDE_BLEND_BG_MOD_ALPHA |
+> 632                     SDE_BLEND_BG_INV_MOD_ALPHA;
 
-I'm not an expect, but this looks sane to me and it's very similar to the
-SC7180 config.
+I've also stumbled upon this for quite some time. If you check old 
+kernel trees, you'll see that up to 4.9 there was an inversion. But 
+during the import to 4.14 this line was silently removed. I suspect that 
+it got lost because of some mistake during the import.
 
-Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+The same code (with the inversion) was present in the mdp5 driver.
+
+Could you please check against the manual, how these bits should work?
+See 
+https://www.kernel.org/doc/html/latest/gpu/drm-kms.html#plane-composition-properties 
+for the expected formulas.
+
+> 
+>> +                    DPU_BLEND_BG_MOD_ALPHA |
+>> +                    DPU_BLEND_BG_INV_MOD_ALPHA;
+>> +        } else {
+>> +            blend_op |= DPU_BLEND_BG_INV_ALPHA;
+>> +        }
+>>      }
+>>
+>>      lm->ops.setup_blend_config(lm, pstate->stage,
+>> -                0xFF, 0, blend_op);
+>> +                fg_alpha, bg_alpha, blend_op);
+>>
+>>      DRM_DEBUG_ATOMIC("format:%p4cc, alpha_en:%u blend_op:0x%x\n",
+>>            &format->base.pixel_format, format->alpha_enable, blend_op);
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> index ec4a6f04394a..c989621209aa 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+>> @@ -1339,9 +1339,7 @@ static void dpu_plane_reset(struct drm_plane 
+>> *plane)
+>>          return;
+>>      }
+>>
+>> -    pstate->base.plane = plane;
+>> -
+>> -    plane->state = &pstate->base;
+>> +    __drm_atomic_helper_plane_reset(plane, &pstate->base);
+>>  }
+>>
+>>  #ifdef CONFIG_DEBUG_FS
+>> @@ -1647,6 +1645,12 @@ struct drm_plane *dpu_plane_init(struct 
+>> drm_device *dev,
+>>      if (ret)
+>>          DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
+>>
+>> +    drm_plane_create_alpha_property(plane);
+>> +    drm_plane_create_blend_mode_property(plane,
+>> +            BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>> +            BIT(DRM_MODE_BLEND_PREMULTI) |
+>> +            BIT(DRM_MODE_BLEND_COVERAGE));
+>> +
+>>      drm_plane_create_rotation_property(plane,
+>>              DRM_MODE_ROTATE_0,
+>>              DRM_MODE_ROTATE_0 |
+
+
+-- 
+With best wishes
+Dmitry
