@@ -2,65 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E0143F1A7A
-	for <lists+freedreno@lfdr.de>; Thu, 19 Aug 2021 15:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5203F1DAD
+	for <lists+freedreno@lfdr.de>; Thu, 19 Aug 2021 18:20:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF13F6E835;
-	Thu, 19 Aug 2021 13:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3946E9A3;
+	Thu, 19 Aug 2021 16:20:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 011C96E835
- for <freedreno@lists.freedesktop.org>; Thu, 19 Aug 2021 13:36:44 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id b10so12955319eju.9
- for <freedreno@lists.freedesktop.org>; Thu, 19 Aug 2021 06:36:44 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7CAB6E9A5
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Aug 2021 16:20:31 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id t9so14168987lfc.6
+ for <freedreno@lists.freedesktop.org>; Thu, 19 Aug 2021 09:20:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/BAopytyK/R8bUpbK+b7Q0+6GCUrOVsER44boOsZ9dQ=;
- b=UeVsli6ZqeVfyxuDP82l6Qchdxd0SS9uCWKergbqRpdGjWukw6CdmP19lDB0j6CeHc
- kZoC1YnwRSRcSKTrfDIP46iuVub+8E5lBPazngHEZVtCxE8Dt99wvylfuFdsJxJTKcei
- tgQwEKfYgXVjIv1RvlErvCsIk0WxVwr8WrCI74L3F26QlW7QyC7Y5NRDLhGrdVguY501
- hB6uoV6dn4V6XN/KCizDVURHciZZrB8Qcjs7iROlCpv14cTfzS2vaZ8BbBqS+9lSDE8U
- 6DP4dPYFalWvW/zQpp560Ne0VjzaY5T/Db8Zn2uCZAWs0Ei5wlpAYXCdvXYO30jaIqBe
- /I0g==
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=3asku0pLtHQRy/+xXumiM58BWe9crM57UxtzOfQVQq4=;
+ b=bNYG/IJ/v86SVujewP4QJxLlN/utOyYqjWhe3wbSTEcCLJDtxm3Dr7bqajuumek1FY
+ 4Cde2gyL7jmUrv6J3cvLu8H4m8nP2BXCOW53Fckz38BkRNUq62n9GkYUz8ebeJgBO43e
+ Tu7fi+nbJDnDgYk/qu/4KpR5MEi6vHE4CFb0ZSUc4rMwwVbEf0s3cChC7t9w1yMjrUHh
+ 0S+JunTw2an+s5pAFUgEV878CM/EmtGtexBRNwOEClD91Jvc0tZKMI9j87vaSEQPkbuz
+ 4mO2fBIKj41KlWaXzlxkt5QqSA0nL9x2pGA8zorzIp9NwvIM0TD1mhInDZsYbRfFEO8B
+ L19g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=/BAopytyK/R8bUpbK+b7Q0+6GCUrOVsER44boOsZ9dQ=;
- b=V7+MLcVMeIVl/IvBTn3vk7414rNyXi1Ko8suIFTUSZ0Gkg6L+hDsqOnmmVGs3nHrvP
- lj1cA1kqAIOzm++YX3TCmEwXUnOpYYrWIntfB8IZgValH0AV5g3oVMo2rAM3Ovx7FE2G
- mzxuxWc1IB6Pb8FojJac7fYazFDWM/LOipgFpoY2nMfy3XyrnKX/zj3jF2070wNzar3x
- em64QUHPz8F1zS9aSDqIzt44lyUbWDKil1hZwTINM1d3Hfakg7q/6ROpKqPd3Vu7QtdJ
- IRNVdF06pGBuEhCCZkMVSA9VMtBEnCZTSAgfU1e8vmxC+fpid2yOFopTfBngcp035LfO
- dNrA==
-X-Gm-Message-State: AOAM533Xpy/MaPR3KovqY9gip7arQIITTwc74tWU42LeGxtX3bRdy6Z7
- EqTs+YqcNkIbctfQD54exkqzoQ==
-X-Google-Smtp-Source: ABdhPJzWpeXlmAlC6oKFJXd83aDooz5YGi7xRGcALh6ivDz0hfP0Xwl6LH+PhBTG6C5khTlVBapj4Q==
-X-Received: by 2002:a17:906:ad7:: with SMTP id
- z23mr16114025ejf.419.1629380203406; 
- Thu, 19 Aug 2021 06:36:43 -0700 (PDT)
-Received: from xps7590.fritz.box ([2a02:2454:3e5:b700:eb3d:3695:30c3:3572])
- by smtp.gmail.com with ESMTPSA id ay20sm1770138edb.91.2021.08.19.06.36.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Aug 2021 06:36:43 -0700 (PDT)
-From: Robert Foss <robert.foss@linaro.org>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org,
+ bh=3asku0pLtHQRy/+xXumiM58BWe9crM57UxtzOfQVQq4=;
+ b=a5NAjX+98duGa904RUDCq6YVhin+4HLypCx3EmpP07X6FmrUDBUOZkSoXYAROWvdZ/
+ qSAgdC1rteHsXDOeRM4LsAuzPDky/eH6PNEtafy5WeuEISbHfpwernjtEfpFXfUrQ7kW
+ JqLR9iGsgdCrtKkWCyIwu8Ykrub+g9v1P8prbQrfY89fxtqpauzT6eHc5NdImk9ptxJO
+ l3f9bABolGtNOH9KMr2i7djUN/T3KQk9Pfh26oh/cLSBfeKetpd2AG2edCQYh0Tr0JeM
+ 9QC720RDkvWrUN9Deyi6ax6g/KLeM2IqTx5s5qsx45sNGHM0Kkpe3E/IrFNHYgmbhYT9
+ 9lnw==
+X-Gm-Message-State: AOAM530NZS0knMtoTSzOoBEyqRTIYF/ID8u0TiQM322KT6Pk56R5V/4w
+ 1d3KRXeEOM6Q9FW6rfT5UwW2cw==
+X-Google-Smtp-Source: ABdhPJyXdxWtx1IexvtSBR0aUvfLyPXwSJV4HhYjAENl0Srz4sZjkoHT9yHpNluBqLYsRnLFr2hSKQ==
+X-Received: by 2002:a05:6512:110b:: with SMTP id
+ l11mr11099003lfg.199.1629390029852; 
+ Thu, 19 Aug 2021 09:20:29 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id c9sm348734lfb.236.2021.08.19.09.20.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Aug 2021 09:20:29 -0700 (PDT)
+To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
+ sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, abhinavk@codeaurora.org,
  angelogioacchino.delregno@somainline.org, mkrishn@codeaurora.org,
  kalyan_t@codeaurora.org, lee.jones@linaro.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Robert Foss <robert.foss@linaro.org>
-Date: Thu, 19 Aug 2021 15:36:36 +0200
-Message-Id: <20210819133636.2045766-1-robert.foss@linaro.org>
-X-Mailer: git-send-email 2.30.2
+References: <20210819133636.2045766-1-robert.foss@linaro.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <acf419d8-724b-4df3-a610-0c8cb7502094@linaro.org>
+Date: Thu, 19 Aug 2021 19:20:28 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1] drm/msm/dpu: Fix address of SM8150 PINGPONG5
- IRQ register
+In-Reply-To: <20210819133636.2045766-1-robert.foss@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1] drm/msm/dpu: Fix address of SM8150
+ PINGPONG5 IRQ register
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,30 +81,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Both PINGPONG4 and PINGPONG5 IRQ registers are using the
-same address, which is incorrect. PINGPONG4 should use the
-register offset 30, and PINGPONG5 should use the register
-offset 31 according to the downstream driver.
+On 19/08/2021 16:36, Robert Foss wrote:
+> Both PINGPONG4 and PINGPONG5 IRQ registers are using the
+> same address, which is incorrect. PINGPONG4 should use the
+> register offset 30, and PINGPONG5 should use the register
+> offset 31 according to the downstream driver.
+> 
+> Fixes: 667e9985ee24 ("drm/msm/dpu: replace IRQ lookup with the data in hw catalog")
+> Signed-off-by: Robert Foss <robert.foss@linaro.org>
 
-Fixes: 667e9985ee24 ("drm/msm/dpu: replace IRQ lookup with the data in hw catalog")
-Signed-off-by: Robert Foss <robert.foss@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 2e482cdd7b3c5..420d78cfce8af 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -794,7 +794,7 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
- 			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
- 			-1),
- 	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, MERGE_3D_2, sdm845_pp_sblk,
--			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
-+			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
- 			-1),
- };
- 
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 2e482cdd7b3c5..420d78cfce8af 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -794,7 +794,7 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
+>   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
+>   			-1),
+>   	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, MERGE_3D_2, sdm845_pp_sblk,
+> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
+> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
+>   			-1),
+>   };
+>   
+> 
+
+
 -- 
-2.30.2
-
+With best wishes
+Dmitry
