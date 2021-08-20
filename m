@@ -2,70 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F5203F1DAD
-	for <lists+freedreno@lfdr.de>; Thu, 19 Aug 2021 18:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3023C3F30F4
+	for <lists+freedreno@lfdr.de>; Fri, 20 Aug 2021 18:05:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B3946E9A3;
-	Thu, 19 Aug 2021 16:20:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE8D56EAC3;
+	Fri, 20 Aug 2021 16:05:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7CAB6E9A5
- for <freedreno@lists.freedesktop.org>; Thu, 19 Aug 2021 16:20:31 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id t9so14168987lfc.6
- for <freedreno@lists.freedesktop.org>; Thu, 19 Aug 2021 09:20:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=3asku0pLtHQRy/+xXumiM58BWe9crM57UxtzOfQVQq4=;
- b=bNYG/IJ/v86SVujewP4QJxLlN/utOyYqjWhe3wbSTEcCLJDtxm3Dr7bqajuumek1FY
- 4Cde2gyL7jmUrv6J3cvLu8H4m8nP2BXCOW53Fckz38BkRNUq62n9GkYUz8ebeJgBO43e
- Tu7fi+nbJDnDgYk/qu/4KpR5MEi6vHE4CFb0ZSUc4rMwwVbEf0s3cChC7t9w1yMjrUHh
- 0S+JunTw2an+s5pAFUgEV878CM/EmtGtexBRNwOEClD91Jvc0tZKMI9j87vaSEQPkbuz
- 4mO2fBIKj41KlWaXzlxkt5QqSA0nL9x2pGA8zorzIp9NwvIM0TD1mhInDZsYbRfFEO8B
- L19g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=3asku0pLtHQRy/+xXumiM58BWe9crM57UxtzOfQVQq4=;
- b=a5NAjX+98duGa904RUDCq6YVhin+4HLypCx3EmpP07X6FmrUDBUOZkSoXYAROWvdZ/
- qSAgdC1rteHsXDOeRM4LsAuzPDky/eH6PNEtafy5WeuEISbHfpwernjtEfpFXfUrQ7kW
- JqLR9iGsgdCrtKkWCyIwu8Ykrub+g9v1P8prbQrfY89fxtqpauzT6eHc5NdImk9ptxJO
- l3f9bABolGtNOH9KMr2i7djUN/T3KQk9Pfh26oh/cLSBfeKetpd2AG2edCQYh0Tr0JeM
- 9QC720RDkvWrUN9Deyi6ax6g/KLeM2IqTx5s5qsx45sNGHM0Kkpe3E/IrFNHYgmbhYT9
- 9lnw==
-X-Gm-Message-State: AOAM530NZS0knMtoTSzOoBEyqRTIYF/ID8u0TiQM322KT6Pk56R5V/4w
- 1d3KRXeEOM6Q9FW6rfT5UwW2cw==
-X-Google-Smtp-Source: ABdhPJyXdxWtx1IexvtSBR0aUvfLyPXwSJV4HhYjAENl0Srz4sZjkoHT9yHpNluBqLYsRnLFr2hSKQ==
-X-Received: by 2002:a05:6512:110b:: with SMTP id
- l11mr11099003lfg.199.1629390029852; 
- Thu, 19 Aug 2021 09:20:29 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id c9sm348734lfb.236.2021.08.19.09.20.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Aug 2021 09:20:29 -0700 (PDT)
-To: Robert Foss <robert.foss@linaro.org>, robdclark@gmail.com,
- sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, abhinavk@codeaurora.org,
- angelogioacchino.delregno@somainline.org, mkrishn@codeaurora.org,
- kalyan_t@codeaurora.org, lee.jones@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20210819133636.2045766-1-robert.foss@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <acf419d8-724b-4df3-a610-0c8cb7502094@linaro.org>
-Date: Thu, 19 Aug 2021 19:20:28 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EF3796EAC3;
+ Fri, 20 Aug 2021 16:05:11 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E785B11FB;
+ Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A61903F70D;
+ Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
+Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
+ id 66016683943; Fri, 20 Aug 2021 17:05:09 +0100 (BST)
+Date: Fri, 20 Aug 2021 17:05:09 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, brian.starkey@arm.com, sam@ravnborg.org,
+ bbrezillon@kernel.org, nicolas.ferre@microchip.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ stefan@agner.ch, alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
+ anitha.chrisanthus@intel.com, robdclark@gmail.com,
+ edmund.j.dea@intel.com, sean@poorly.run, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, kernel@pengutronix.de, jyri.sarha@iki.fi,
+ tomba@kernel.org, Dan.Sneddon@microchip.com,
+ tomi.valkeinen@ideasonboard.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Message-ID: <20210820160509.eo267b4r64v4qa3n@e110455-lin.cambridge.arm.com>
+References: <20210803090704.32152-1-tzimmermann@suse.de>
+ <20210803090704.32152-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20210819133636.2045766-1-robert.foss@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v1] drm/msm/dpu: Fix address of SM8150
- PINGPONG5 IRQ register
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210803090704.32152-3-tzimmermann@suse.de>
+Subject: Re: [Freedreno] [PATCH v2 02/14] drm/arm/hdlcd: Convert to Linux
+ IRQ interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +62,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/08/2021 16:36, Robert Foss wrote:
-> Both PINGPONG4 and PINGPONG5 IRQ registers are using the
-> same address, which is incorrect. PINGPONG4 should use the
-> register offset 30, and PINGPONG5 should use the register
-> offset 31 according to the downstream driver.
+On Tue, Aug 03, 2021 at 11:06:52AM +0200, Thomas Zimmermann wrote:
+> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
+> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
+> don't benefit from using it.
 > 
-> Fixes: 667e9985ee24 ("drm/msm/dpu: replace IRQ lookup with the data in hw catalog")
-> Signed-off-by: Robert Foss <robert.foss@linaro.org>
+> DRM IRQ callbacks are now being called directly or inlined.
+> 
+> Calls to platform_get_irq() can fail with a negative errno code.
+> Abort initialization in this case. The DRM IRQ midlayer does not
+> handle this case correctly.
+> 
+> v2:
+> 	* name struct drm_device variables 'drm' (Sam)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Sorry for the delayed response due to holidays.
+
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/arm/hdlcd_drv.c | 174 ++++++++++++++++++--------------
+>  drivers/gpu/drm/arm/hdlcd_drv.h |   1 +
+>  2 files changed, 97 insertions(+), 78 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 2e482cdd7b3c5..420d78cfce8af 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -794,7 +794,7 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
->   			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
->   			-1),
->   	PP_BLK("pingpong_5", PINGPONG_5, 0x72800, MERGE_3D_2, sdm845_pp_sblk,
-> -			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
-> +			DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
->   			-1),
->   };
->   
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
+> index 81ae92390736..479c2422a2e0 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+> @@ -29,7 +29,6 @@
+>  #include <drm/drm_fb_helper.h>
+>  #include <drm/drm_gem_cma_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> -#include <drm/drm_irq.h>
+>  #include <drm/drm_modeset_helper.h>
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_probe_helper.h>
+> @@ -38,6 +37,94 @@
+>  #include "hdlcd_drv.h"
+>  #include "hdlcd_regs.h"
+>  
+> +static irqreturn_t hdlcd_irq(int irq, void *arg)
+> +{
+> +	struct drm_device *drm = arg;
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	unsigned long irq_status;
+> +
+> +	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
+> +		atomic_inc(&hdlcd->buffer_underrun_count);
+> +
+> +	if (irq_status & HDLCD_INTERRUPT_DMA_END)
+> +		atomic_inc(&hdlcd->dma_end_count);
+> +
+> +	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
+> +		atomic_inc(&hdlcd->bus_error_count);
+> +
+> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> +		atomic_inc(&hdlcd->vsync_count);
+> +
+> +#endif
+> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> +		drm_crtc_handle_vblank(&hdlcd->crtc);
+> +
+> +	/* acknowledge interrupt(s) */
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void hdlcd_irq_preinstall(struct drm_device *drm)
+> +{
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	/* Ensure interrupts are disabled */
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
+> +}
+> +
+> +static void hdlcd_irq_postinstall(struct drm_device *drm)
+> +{
+> +#ifdef CONFIG_DEBUG_FS
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> +
+> +	/* enable debug interrupts */
+> +	irq_mask |= HDLCD_DEBUG_INT_MASK;
+> +
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> +#endif
+> +}
+> +
+> +static int hdlcd_irq_install(struct drm_device *drm, int irq)
+> +{
+> +	int ret;
+> +
+> +	if (irq == IRQ_NOTCONNECTED)
+> +		return -ENOTCONN;
+> +
+> +	hdlcd_irq_preinstall(drm);
+> +
+> +	ret = request_irq(irq, hdlcd_irq, 0, drm->driver->name, drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hdlcd_irq_postinstall(drm);
+> +
+> +	return 0;
+> +}
+> +
+> +static void hdlcd_irq_uninstall(struct drm_device *drm)
+> +{
+> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> +	/* disable all the interrupts that we might have enabled */
+> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	/* disable debug interrupts */
+> +	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
+> +#endif
+> +
+> +	/* disable vsync interrupts */
+> +	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
+> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> +
+> +	free_irq(hdlcd->irq, drm);
+> +}
+> +
+>  static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+>  {
+>  	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> @@ -90,7 +177,12 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+>  		goto setup_fail;
+>  	}
+>  
+> -	ret = drm_irq_install(drm, platform_get_irq(pdev, 0));
+> +	ret = platform_get_irq(pdev, 0);
+> +	if (ret < 0)
+> +		goto irq_fail;
+> +	hdlcd->irq = ret;
+> +
+> +	ret = hdlcd_irq_install(drm, hdlcd->irq);
+>  	if (ret < 0) {
+>  		DRM_ERROR("failed to install IRQ handler\n");
+>  		goto irq_fail;
+> @@ -122,76 +214,6 @@ static void hdlcd_setup_mode_config(struct drm_device *drm)
+>  	drm->mode_config.funcs = &hdlcd_mode_config_funcs;
+>  }
+>  
+> -static irqreturn_t hdlcd_irq(int irq, void *arg)
+> -{
+> -	struct drm_device *drm = arg;
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	unsigned long irq_status;
+> -
+> -	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
+> -
+> -#ifdef CONFIG_DEBUG_FS
+> -	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
+> -		atomic_inc(&hdlcd->buffer_underrun_count);
+> -
+> -	if (irq_status & HDLCD_INTERRUPT_DMA_END)
+> -		atomic_inc(&hdlcd->dma_end_count);
+> -
+> -	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
+> -		atomic_inc(&hdlcd->bus_error_count);
+> -
+> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> -		atomic_inc(&hdlcd->vsync_count);
+> -
+> -#endif
+> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
+> -		drm_crtc_handle_vblank(&hdlcd->crtc);
+> -
+> -	/* acknowledge interrupt(s) */
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
+> -
+> -	return IRQ_HANDLED;
+> -}
+> -
+> -static void hdlcd_irq_preinstall(struct drm_device *drm)
+> -{
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	/* Ensure interrupts are disabled */
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
+> -}
+> -
+> -static int hdlcd_irq_postinstall(struct drm_device *drm)
+> -{
+> -#ifdef CONFIG_DEBUG_FS
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> -
+> -	/* enable debug interrupts */
+> -	irq_mask |= HDLCD_DEBUG_INT_MASK;
+> -
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> -#endif
+> -	return 0;
+> -}
+> -
+> -static void hdlcd_irq_uninstall(struct drm_device *drm)
+> -{
+> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
+> -	/* disable all the interrupts that we might have enabled */
+> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
+> -
+> -#ifdef CONFIG_DEBUG_FS
+> -	/* disable debug interrupts */
+> -	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
+> -#endif
+> -
+> -	/* disable vsync interrupts */
+> -	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
+> -
+> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
+> -}
+> -
+>  #ifdef CONFIG_DEBUG_FS
+>  static int hdlcd_show_underrun_count(struct seq_file *m, void *arg)
+>  {
+> @@ -236,10 +258,6 @@ DEFINE_DRM_GEM_CMA_FOPS(fops);
+>  
+>  static const struct drm_driver hdlcd_driver = {
+>  	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+> -	.irq_handler = hdlcd_irq,
+> -	.irq_preinstall = hdlcd_irq_preinstall,
+> -	.irq_postinstall = hdlcd_irq_postinstall,
+> -	.irq_uninstall = hdlcd_irq_uninstall,
+>  	DRM_GEM_CMA_DRIVER_OPS,
+>  #ifdef CONFIG_DEBUG_FS
+>  	.debugfs_init = hdlcd_debugfs_init,
+> @@ -316,7 +334,7 @@ static int hdlcd_drm_bind(struct device *dev)
+>  err_unload:
+>  	of_node_put(hdlcd->crtc.port);
+>  	hdlcd->crtc.port = NULL;
+> -	drm_irq_uninstall(drm);
+> +	hdlcd_irq_uninstall(drm);
+>  	of_reserved_mem_device_release(drm->dev);
+>  err_free:
+>  	drm_mode_config_cleanup(drm);
+> @@ -338,7 +356,7 @@ static void hdlcd_drm_unbind(struct device *dev)
+>  	hdlcd->crtc.port = NULL;
+>  	pm_runtime_get_sync(dev);
+>  	drm_atomic_helper_shutdown(drm);
+> -	drm_irq_uninstall(drm);
+> +	hdlcd_irq_uninstall(drm);
+>  	pm_runtime_put(dev);
+>  	if (pm_runtime_enabled(dev))
+>  		pm_runtime_disable(dev);
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
+> index fd438d177b64..909c39c28487 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.h
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.h
+> @@ -11,6 +11,7 @@ struct hdlcd_drm_private {
+>  	struct clk			*clk;
+>  	struct drm_crtc			crtc;
+>  	struct drm_plane		*plane;
+> +	unsigned int			irq;
+>  #ifdef CONFIG_DEBUG_FS
+>  	atomic_t buffer_underrun_count;
+>  	atomic_t bus_error_count;
+> -- 
+> 2.32.0
 > 
-
 
 -- 
-With best wishes
-Dmitry
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
