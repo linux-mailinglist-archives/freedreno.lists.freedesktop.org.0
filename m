@@ -2,51 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3023C3F30F4
-	for <lists+freedreno@lfdr.de>; Fri, 20 Aug 2021 18:05:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B6E93F6BD7
+	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 00:45:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE8D56EAC3;
-	Fri, 20 Aug 2021 16:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 957036E0E5;
+	Tue, 24 Aug 2021 22:45:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id EF3796EAC3;
- Fri, 20 Aug 2021 16:05:11 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E785B11FB;
- Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A61903F70D;
- Fri, 20 Aug 2021 09:05:10 -0700 (PDT)
-Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
- id 66016683943; Fri, 20 Aug 2021 17:05:09 +0100 (BST)
-Date: Fri, 20 Aug 2021 17:05:09 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, brian.starkey@arm.com, sam@ravnborg.org,
- bbrezillon@kernel.org, nicolas.ferre@microchip.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- stefan@agner.ch, alison.wang@nxp.com, patrik.r.jakobsson@gmail.com,
- anitha.chrisanthus@intel.com, robdclark@gmail.com,
- edmund.j.dea@intel.com, sean@poorly.run, shawnguo@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, jyri.sarha@iki.fi,
- tomba@kernel.org, Dan.Sneddon@microchip.com,
- tomi.valkeinen@ideasonboard.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-Message-ID: <20210820160509.eo267b4r64v4qa3n@e110455-lin.cambridge.arm.com>
-References: <20210803090704.32152-1-tzimmermann@suse.de>
- <20210803090704.32152-3-tzimmermann@suse.de>
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [IPv6:2607:f8b0:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21F7C6E0E4;
+ Tue, 24 Aug 2021 22:45:14 +0000 (UTC)
+Received: by mail-pg1-x536.google.com with SMTP id c17so21200516pgc.0;
+ Tue, 24 Aug 2021 15:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=okg0hFDj8TjYsXX+EaNAzrjXTufRcIdi+BwPbEnVuq0=;
+ b=VHaRffUTC9ofm4EXosGi3bHfkruxwkVWm26ty1xsnWvYcFJPfe1fLEitC93p+aiK3x
+ YFFM5IFakgksv1QfC2j1IN+nkSurAaTOSBqJoJSsO/Uft+8AlsTvnqOjqeQt935rpnci
+ Ff8JYfnedSzbnQpQVq6w01C4fVfKvAeDsAZZ4pgPiaaYbsOxwQYyS+32oQZKG/mFr9Zu
+ y4+IcFs2JCNYKP2SbOqKaejUuwzlGqNxWwjLK35HCntbwz0Tk9RmuCSEJbcHz4uCODDf
+ OZL1hqJQK2nHMbNOmxZpUgLpHPrTRx+H6rh6gQFS49r5Vogk1r7A9y/QGv8cmSrFZEYj
+ 4/YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=okg0hFDj8TjYsXX+EaNAzrjXTufRcIdi+BwPbEnVuq0=;
+ b=pfv7IwYXTO+coa1PrDMElprp0KZVYcMNr/opdWf5gssvhAWNV5oWfETzfunUE8OPex
+ 7IF3OAUCGuxtE4vHuCJaxF41dE+KdgSeDkhG7YC4hq29ioTzsaS5Y9Ii1+Ti7wM0uSfa
+ iEc3prsAY57aj8otk3zPA5eajPukgd54DYdwuHEGyu6j7U+OuriM+CNW77gz8Td9pL/K
+ Zi6xS0cJiUOhXDupcWSs3WyD5KMGRUXcY1fTD8quB57Pr3BXcX8wkjR3bj7/vWOyjehs
+ pZuNMISMLhsoobgmsxutkHoJpAiFjHxGUeWHJZ8loaw/jW4RQT9IMeP7B5HozKsb9IuO
+ 4bIA==
+X-Gm-Message-State: AOAM532R7mOyHumE4mY1YfFyHuOipACkrDkn85SpWgHh8ZhnBUxOzmdc
+ Q3QZEI5PJL5zIADOHaEV98+dM4Ib3JU=
+X-Google-Smtp-Source: ABdhPJyNwORw3GjlxMlyqjjW45WdD9XoCR3CwPyqBM0IRHK44V/DJSqosVpbgtToT7RXE3eBYAus9A==
+X-Received: by 2002:aa7:87d1:0:b029:3e0:e44b:6429 with SMTP id
+ i17-20020aa787d10000b02903e0e44b6429mr41886882pfo.81.1629845112856; 
+ Tue, 24 Aug 2021 15:45:12 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ h5sm19330376pfv.131.2021.08.24.15.45.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Aug 2021 15:45:11 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: igt-dev@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
+Date: Tue, 24 Aug 2021 15:49:29 -0700
+Message-Id: <20210824224932.564352-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210803090704.32152-3-tzimmermann@suse.de>
-Subject: Re: [Freedreno] [PATCH v2 02/14] drm/arm/hdlcd: Convert to Linux
- IRQ interfaces
+Subject: [Freedreno] [PATCH igt 0/3] Initial igt tests for drm/msm ioctls
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,284 +73,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Aug 03, 2021 at 11:06:52AM +0200, Thomas Zimmermann wrote:
-> Drop the DRM IRQ midlayer in favor of Linux IRQ interfaces. DRM's
-> IRQ helpers are mostly useful for UMS drivers. Modern KMS drivers
-> don't benefit from using it.
-> 
-> DRM IRQ callbacks are now being called directly or inlined.
-> 
-> Calls to platform_get_irq() can fail with a negative errno code.
-> Abort initialization in this case. The DRM IRQ midlayer does not
-> handle this case correctly.
-> 
-> v2:
-> 	* name struct drm_device variables 'drm' (Sam)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+From: Rob Clark <robdclark@chromium.org>
 
-Sorry for the delayed response due to holidays.
+Add an initial set of tests for the gpu SUBMIT ioctl.  There is
+plenty more we can add, but need to start somewhere.
 
-Acked-by: Liviu Dudau <liviu.dudau@arm.com>
+Rob Clark (3):
+  drmtest: Add DRIVER_MSM support
+  msm: Add helper library
+  msm: Add submit ioctl tests
 
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/arm/hdlcd_drv.c | 174 ++++++++++++++++++--------------
->  drivers/gpu/drm/arm/hdlcd_drv.h |   1 +
->  2 files changed, 97 insertions(+), 78 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-> index 81ae92390736..479c2422a2e0 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-> @@ -29,7 +29,6 @@
->  #include <drm/drm_fb_helper.h>
->  #include <drm/drm_gem_cma_helper.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> -#include <drm/drm_irq.h>
->  #include <drm/drm_modeset_helper.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_probe_helper.h>
-> @@ -38,6 +37,94 @@
->  #include "hdlcd_drv.h"
->  #include "hdlcd_regs.h"
->  
-> +static irqreturn_t hdlcd_irq(int irq, void *arg)
-> +{
-> +	struct drm_device *drm = arg;
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	unsigned long irq_status;
-> +
-> +	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
-> +		atomic_inc(&hdlcd->buffer_underrun_count);
-> +
-> +	if (irq_status & HDLCD_INTERRUPT_DMA_END)
-> +		atomic_inc(&hdlcd->dma_end_count);
-> +
-> +	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
-> +		atomic_inc(&hdlcd->bus_error_count);
-> +
-> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> +		atomic_inc(&hdlcd->vsync_count);
-> +
-> +#endif
-> +	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> +		drm_crtc_handle_vblank(&hdlcd->crtc);
-> +
-> +	/* acknowledge interrupt(s) */
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static void hdlcd_irq_preinstall(struct drm_device *drm)
-> +{
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	/* Ensure interrupts are disabled */
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
-> +}
-> +
-> +static void hdlcd_irq_postinstall(struct drm_device *drm)
-> +{
-> +#ifdef CONFIG_DEBUG_FS
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> +
-> +	/* enable debug interrupts */
-> +	irq_mask |= HDLCD_DEBUG_INT_MASK;
-> +
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> +#endif
-> +}
-> +
-> +static int hdlcd_irq_install(struct drm_device *drm, int irq)
-> +{
-> +	int ret;
-> +
-> +	if (irq == IRQ_NOTCONNECTED)
-> +		return -ENOTCONN;
-> +
-> +	hdlcd_irq_preinstall(drm);
-> +
-> +	ret = request_irq(irq, hdlcd_irq, 0, drm->driver->name, drm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	hdlcd_irq_postinstall(drm);
-> +
-> +	return 0;
-> +}
-> +
-> +static void hdlcd_irq_uninstall(struct drm_device *drm)
-> +{
-> +	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> +	/* disable all the interrupts that we might have enabled */
-> +	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +	/* disable debug interrupts */
-> +	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
-> +#endif
-> +
-> +	/* disable vsync interrupts */
-> +	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
-> +	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> +
-> +	free_irq(hdlcd->irq, drm);
-> +}
-> +
->  static int hdlcd_load(struct drm_device *drm, unsigned long flags)
->  {
->  	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> @@ -90,7 +177,12 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
->  		goto setup_fail;
->  	}
->  
-> -	ret = drm_irq_install(drm, platform_get_irq(pdev, 0));
-> +	ret = platform_get_irq(pdev, 0);
-> +	if (ret < 0)
-> +		goto irq_fail;
-> +	hdlcd->irq = ret;
-> +
-> +	ret = hdlcd_irq_install(drm, hdlcd->irq);
->  	if (ret < 0) {
->  		DRM_ERROR("failed to install IRQ handler\n");
->  		goto irq_fail;
-> @@ -122,76 +214,6 @@ static void hdlcd_setup_mode_config(struct drm_device *drm)
->  	drm->mode_config.funcs = &hdlcd_mode_config_funcs;
->  }
->  
-> -static irqreturn_t hdlcd_irq(int irq, void *arg)
-> -{
-> -	struct drm_device *drm = arg;
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	unsigned long irq_status;
-> -
-> -	irq_status = hdlcd_read(hdlcd, HDLCD_REG_INT_STATUS);
-> -
-> -#ifdef CONFIG_DEBUG_FS
-> -	if (irq_status & HDLCD_INTERRUPT_UNDERRUN)
-> -		atomic_inc(&hdlcd->buffer_underrun_count);
-> -
-> -	if (irq_status & HDLCD_INTERRUPT_DMA_END)
-> -		atomic_inc(&hdlcd->dma_end_count);
-> -
-> -	if (irq_status & HDLCD_INTERRUPT_BUS_ERROR)
-> -		atomic_inc(&hdlcd->bus_error_count);
-> -
-> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> -		atomic_inc(&hdlcd->vsync_count);
-> -
-> -#endif
-> -	if (irq_status & HDLCD_INTERRUPT_VSYNC)
-> -		drm_crtc_handle_vblank(&hdlcd->crtc);
-> -
-> -	/* acknowledge interrupt(s) */
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, irq_status);
-> -
-> -	return IRQ_HANDLED;
-> -}
-> -
-> -static void hdlcd_irq_preinstall(struct drm_device *drm)
-> -{
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	/* Ensure interrupts are disabled */
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, 0);
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_CLEAR, ~0);
-> -}
-> -
-> -static int hdlcd_irq_postinstall(struct drm_device *drm)
-> -{
-> -#ifdef CONFIG_DEBUG_FS
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> -
-> -	/* enable debug interrupts */
-> -	irq_mask |= HDLCD_DEBUG_INT_MASK;
-> -
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> -#endif
-> -	return 0;
-> -}
-> -
-> -static void hdlcd_irq_uninstall(struct drm_device *drm)
-> -{
-> -	struct hdlcd_drm_private *hdlcd = drm->dev_private;
-> -	/* disable all the interrupts that we might have enabled */
-> -	unsigned long irq_mask = hdlcd_read(hdlcd, HDLCD_REG_INT_MASK);
-> -
-> -#ifdef CONFIG_DEBUG_FS
-> -	/* disable debug interrupts */
-> -	irq_mask &= ~HDLCD_DEBUG_INT_MASK;
-> -#endif
-> -
-> -	/* disable vsync interrupts */
-> -	irq_mask &= ~HDLCD_INTERRUPT_VSYNC;
-> -
-> -	hdlcd_write(hdlcd, HDLCD_REG_INT_MASK, irq_mask);
-> -}
-> -
->  #ifdef CONFIG_DEBUG_FS
->  static int hdlcd_show_underrun_count(struct seq_file *m, void *arg)
->  {
-> @@ -236,10 +258,6 @@ DEFINE_DRM_GEM_CMA_FOPS(fops);
->  
->  static const struct drm_driver hdlcd_driver = {
->  	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
-> -	.irq_handler = hdlcd_irq,
-> -	.irq_preinstall = hdlcd_irq_preinstall,
-> -	.irq_postinstall = hdlcd_irq_postinstall,
-> -	.irq_uninstall = hdlcd_irq_uninstall,
->  	DRM_GEM_CMA_DRIVER_OPS,
->  #ifdef CONFIG_DEBUG_FS
->  	.debugfs_init = hdlcd_debugfs_init,
-> @@ -316,7 +334,7 @@ static int hdlcd_drm_bind(struct device *dev)
->  err_unload:
->  	of_node_put(hdlcd->crtc.port);
->  	hdlcd->crtc.port = NULL;
-> -	drm_irq_uninstall(drm);
-> +	hdlcd_irq_uninstall(drm);
->  	of_reserved_mem_device_release(drm->dev);
->  err_free:
->  	drm_mode_config_cleanup(drm);
-> @@ -338,7 +356,7 @@ static void hdlcd_drm_unbind(struct device *dev)
->  	hdlcd->crtc.port = NULL;
->  	pm_runtime_get_sync(dev);
->  	drm_atomic_helper_shutdown(drm);
-> -	drm_irq_uninstall(drm);
-> +	hdlcd_irq_uninstall(drm);
->  	pm_runtime_put(dev);
->  	if (pm_runtime_enabled(dev))
->  		pm_runtime_disable(dev);
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
-> index fd438d177b64..909c39c28487 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.h
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.h
-> @@ -11,6 +11,7 @@ struct hdlcd_drm_private {
->  	struct clk			*clk;
->  	struct drm_crtc			crtc;
->  	struct drm_plane		*plane;
-> +	unsigned int			irq;
->  #ifdef CONFIG_DEBUG_FS
->  	atomic_t buffer_underrun_count;
->  	atomic_t bus_error_count;
-> -- 
-> 2.32.0
-> 
+ lib/drmtest.c      |   3 +
+ lib/drmtest.h      |   1 +
+ lib/igt_msm.c      | 163 +++++++++++++++++++++++++++++++++++++++
+ lib/igt_msm.h      | 128 ++++++++++++++++++++++++++++++
+ lib/meson.build    |   1 +
+ tests/meson.build  |   1 +
+ tests/msm_submit.c | 188 +++++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 485 insertions(+)
+ create mode 100644 lib/igt_msm.c
+ create mode 100644 lib/igt_msm.h
+ create mode 100644 tests/msm_submit.c
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.31.1
+
