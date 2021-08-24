@@ -2,44 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E9E3FC271
-	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 08:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4223FC9E7
+	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 16:36:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0094589B0C;
-	Tue, 31 Aug 2021 06:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 633736E0A5;
+	Tue, 31 Aug 2021 14:36:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6FBC89B0C;
- Tue, 31 Aug 2021 06:14:18 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="218417865"
-X-IronPort-AV: E=Sophos;i="5.84,365,1620716400"; d="scan'208";a="218417865"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 23:13:18 -0700
-X-IronPort-AV: E=Sophos;i="5.84,365,1620716400"; d="scan'208";a="687546953"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2021 23:13:15 -0700
-Received: from platvala by thrakatuluk with local (Exim 4.94)
- (envelope-from <petri.latvala@intel.com>)
- id 1mKx4B-00023j-Hd; Tue, 31 Aug 2021 09:16:15 +0300
-Date: Tue, 31 Aug 2021 09:16:15 +0300
-From: Petri Latvala <petri.latvala@intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
-Message-ID: <YS3JL6lDT8ZdBNWJ@platvala-desk.ger.corp.intel.com>
-References: <20210830162232.1328594-1-robdclark@gmail.com>
- <20210830162232.1328594-4-robdclark@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210830162232.1328594-4-robdclark@gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH igt v3 3/3] msm: Add submit ioctl tests
+X-Greylist: delayed 14628 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Aug 2021 11:41:25 UTC
+Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com
+ [203.205.221.164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F4042896C4;
+ Tue, 24 Aug 2021 11:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1629805283; bh=XIAM28Z3fXYR7IbU7/TyqjKEa+vznn5NPLK7eadSdKs=;
+ h=From:To:Subject:Date;
+ b=RhUJvfuVrxHh7yoDgjkuirfPi2DvFa2iDL2ZR6T4g9hn0xJVTjgkQz02qTCFQ1cKk
+ 5+s7cfbkW/j9JwQLtLE7mKunXDVZwj7X0BjgbaISSz7oceIYRfAvUTSEnCcUmrD552
+ F5zNRfs2Q4OVfvpOq48Hj6sroP5d7Yh5GPkCc5nY=
+X-QQ-FEAT: 3C1WcPM5lQ5tbp5z0bMsuB5BjaW3SL9m0FwUaVuddoM=
+X-QQ-SSF: 0000000000000010
+X-QQ-XMAILINFO: OcC4JLN881G4YExs8+v6wRPRMOUQpiLr+EBEsNQ33tNaeDmCdm9/CqVm0BnSCW
+ AQu569IaCvq2Gtln6+1n1/RcoSdc1UAzaiOr+BaBYYOU+2pla4YjfjnaxNX81E5WSCVRkC2GzjJDA
+ 3JSieyw29RoS/ZMGvOu//yg4K3+46ywNk5SbxR5/sNg96OC10nGHi35aJv02XzLNYcvyXjCcjQqEK
+ DZS+Dx4M35p2ohtU5Xc0iQQMbIWjb0k83TdnIc73sODFevkVG9bh/R0g2ihJHJP3FrT7tKZnRwc8j
+ 2TiP2H/VA1Uhu9zKlqfG/crwNyFo+sULO8g5NJqPwAkw56hIC8PT22bNGszquc5HOnQCT2h+OX4cU
+ ACChbNN3CKcidkTr9h8SixzWQFO/PbZ6aIvr0JdzQjbx1D3fjRgGUyAxB84Rn9YbqABC3ghrBPKFE
+ Sx3CczATbYfjQfRgqNdoBFnWZ1pvCJW6QpqivkWhaXQ/f1h9VrUEklEuChRrPnAn9sALVrSBYhZ3L
+ lbndDp95zDDyOtc4ekOr7PDcXB4YyIRA/Dn3AUWvmEiIBTh2IPHkFJ4MhW2g1G/if/B2IU98EKWm0
+ mzBhBl0ohrBNAChrUtXKReMAsGtcq7NVNFaNAMgPx8WkRorstF0+wwBbc4eWd0Up3a1M8moN82slp
+ B0CxTHJQnRCoD5vOWLKt4w6LbT2lYtbEFfONWpt/M/FBY5Mu61hyRXc4A1MnCm4Ur2SpRIQ1d/kpV
+ C2myAjC1gtcf4l3uYd/km0UJWD7erC893Rp9ZQUdGXWovYLbRZU0o5BLC+U4IZ4u80sj/uhoSbXb+
+ it/gqXR8eq1AxwIRwfdjT+41iCLfIw3EcrqjuIPBsz5I/d3XxwNqSTQ=
+X-QQ-WAPMAIL: 1
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 117.61.86.227
+X-QQ-STYLE: 
+X-QQ-mid: riamail60t1629790654t6870111
+From: "=?utf-8?B?TUMgcGxheWVy?=" <3121917003@qq.com>
+To: "=?utf-8?B?ZnJlZWRyZW5v?=" <freedreno@lists.freedesktop.org>,
+ "=?utf-8?B?bWVzYS11c2Vycw==?=" <mesa-users@lists.freedesktop.org>
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_6124A1BE_11B66F40_65F30397"
+Content-Transfer-Encoding: 8Bit
+Date: Tue, 24 Aug 2021 15:37:34 +0800
+X-Priority: 3
+Message-ID: <tencent_FFCAD18733F4CDF50ADADC8BCE6A1B009406@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-Mailman-Approved-At: Tue, 31 Aug 2021 14:36:08 +0000
+Subject: [Freedreno] How OSMesa bootstraps the GL renderer to output to main
+ memory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,243 +71,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Aug 30, 2021 at 09:22:32AM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Add an initial set of tests for the submit ioctl.
-> 
-> v2: Add NULL inits, igt_describe()
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  tests/meson.build  |   1 +
->  tests/msm_submit.c | 194 +++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 195 insertions(+)
->  create mode 100644 tests/msm_submit.c
-> 
-> diff --git a/tests/meson.build b/tests/meson.build
-> index 1bdfddbb..ff7c709a 100644
-> --- a/tests/meson.build
-> +++ b/tests/meson.build
-> @@ -107,6 +107,7 @@ test_progs = [
->  	'vc4_wait_seqno',
->  	'vgem_basic',
->  	'vgem_slow',
-> +	'msm_submit',
+This is a multi-part message in MIME format.
 
-Alphabetical order for this please.
+------=_NextPart_6124A1BE_11B66F40_65F30397
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-When more msm-specific tests start appearing, consider an msm
-subdirectory. Not needed for now.
+SG93IE9TTWVzYSBib290c3RyYXBzIHRoZSBHTCByZW5kZXJlciB0byBvdXRwdXQgdG8gbWFp
+biBtZW1vcnk/IEkgaGF2ZSBzZWVuIE9zbWVzYSBzb3VyY2UgY29kZSwgYnV0IEkgZG9uJ3Qg
+a25vdyBtdWNoLiBJIGd1ZXNzIE9zbWVzYSBpcyBzb21lIG9mIHRoZSBpbmZvcm1hdGlvbiBp
+bnNpZGUgdGhlIEdMIGNvbnRleHQgdG8gYm9vdCB0aGUgb3V0cHV0IGxvY2F0aW9uIG9mIHRo
+ZSByZW5kZXJlciwgYnV0IEkgYW0gdW5jZXJ0YWluLCBjYW4gYW55b25lIHRlbGwgbWUgc29t
+ZSBtb3JlIGRldGFpbGVkIHRoaW5ncz8NCkkgYW0gdHJ5aW5nIHRvIG1ha2UgVnVsa2FuIG91
+dHB1dCB0byB0aGUgc3VyZmFjZSBjcmVhdGVkIGJ5IEVHTCwgYnV0IEkgZG9uJ3Qga25vdyBo
+b3cgdG8gImJvb3QiIFZLLCBidXQgSSBzZWUgT1NNRVNBIHRvIG1ha2UgWmluayB0byB0aGUg
+Y2xpZW50IG1lbW9yeS4gU28gSSBndWVzcyB3aGV0aGVyIHRoaXMgaXMgcmVsYXRlZCB0byB0
+aGUgaW5mb3JtYXRpb24gc3RvcmVkIHdpdGggdGhlIGNvbnRleHQgSW4gYWRkaXRpb24sIEkg
+ZG9uJ3Qga25vdyB3aGF0IGNoYW5nZXMgd2lsbCBiZSBtYWRlIGFmdGVyIHRoZSBjb250ZXh0
+IGlzIGJvdW5kIHRvIHRoZSB3aW5kb3cu
 
+------=_NextPart_6124A1BE_11B66F40_65F30397
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Acked-by: Petri Latvala <petri.latvala@intel.com>
+PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNo
+YXJzZXQ9VVRGLTgiPjxkaXY+SG93IE9TTWVzYSBib290c3RyYXBzIHRoZSBHTCByZW5kZXJl
+ciB0byBvdXRwdXQgdG8gbWFpbiBtZW1vcnk/IEkgaGF2ZSBzZWVuIE9zbWVzYSBzb3VyY2Ug
+Y29kZSwgYnV0IEkgZG9uJ3Qga25vdyBtdWNoLiBJIGd1ZXNzIE9zbWVzYSBpcyBzb21lIG9m
+IHRoZSBpbmZvcm1hdGlvbiBpbnNpZGUgdGhlIEdMIGNvbnRleHQgdG8gYm9vdCB0aGUgb3V0
+cHV0IGxvY2F0aW9uIG9mIHRoZSByZW5kZXJlciwgYnV0IEkgYW0gdW5jZXJ0YWluLCBjYW4g
+YW55b25lIHRlbGwgbWUgc29tZSBtb3JlIGRldGFpbGVkIHRoaW5ncz88L2Rpdj48ZGl2Pkkg
+YW0gdHJ5aW5nIHRvIG1ha2UgVnVsa2FuIG91dHB1dCB0byB0aGUgc3VyZmFjZSBjcmVhdGVk
+IGJ5IEVHTCwgYnV0IEkgZG9uJ3Qga25vdyBob3cgdG8gImJvb3QiIFZLLCBidXQgSSBzZWUg
+T1NNRVNBIHRvIG1ha2UgWmluayB0byB0aGUgY2xpZW50IG1lbW9yeS4gU28gSSBndWVzcyB3
+aGV0aGVyIHRoaXMgaXMgcmVsYXRlZCB0byB0aGUgaW5mb3JtYXRpb24gc3RvcmVkIHdpdGgg
+dGhlIGNvbnRleHQgSW4gYWRkaXRpb24sIEkgZG9uJ3Qga25vdyB3aGF0IGNoYW5nZXMgd2ls
+bCBiZSBtYWRlIGFmdGVyIHRoZSBjb250ZXh0IGlzIGJvdW5kIHRvIHRoZSB3aW5kb3cuPC9k
+aXY+PGRpdj48IS0tZW1wdHlzaWduLS0+PC9kaXY+
 
+------=_NextPart_6124A1BE_11B66F40_65F30397--
 
-
->  ]
->  
->  i915_progs = [
-> diff --git a/tests/msm_submit.c b/tests/msm_submit.c
-> new file mode 100644
-> index 00000000..95f8318f
-> --- /dev/null
-> +++ b/tests/msm_submit.c
-> @@ -0,0 +1,194 @@
-> +/*
-> + * Copyright © 2021 Google, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice (including the next
-> + * paragraph) shall be included in all copies or substantial portions of the
-> + * Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-> + * IN THE SOFTWARE.
-> + */
-> +
-> +#include "igt.h"
-> +#include "igt_msm.h"
-> +
-> +igt_main
-> +{
-> +	struct msm_device *dev = NULL;
-> +	struct msm_pipe *pipe = NULL;
-> +	struct msm_bo *a = NULL, *b = NULL;
-> +
-> +	igt_fixture {
-> +		dev = igt_msm_dev_open();
-> +		pipe = igt_msm_pipe_open(dev, 0);
-> +		a = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> +		b = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> +	}
-> +
-> +	igt_describe("Check that a valid empty submit succeeds");
-> +	igt_subtest("empty-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +		};
-> +		do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> +	}
-> +
-> +	igt_describe("Check that submit with invalid submitqueue id fails");
-> +	igt_subtest("invalid-queue-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = 0x1234,
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, ENOENT);
-> +	}
-> +
-> +	igt_describe("Check that submit with invalid flags fails");
-> +	igt_subtest("invalid-flags-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = 0x1234,
-> +				.queueid = pipe->submitqueue_id,
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_describe("Check that submit with invalid in-fence fd fails");
-> +	igt_subtest("invalid-in-fence-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe | MSM_SUBMIT_FENCE_FD_IN,
-> +				.queueid = pipe->submitqueue_id,
-> +				.fence_fd = dev->fd,  /* This is not a fence fd! */
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_describe("Check that submit with duplicate bo fails");
-> +	igt_subtest("invalid-duplicate-bo-submit") {
-> +		struct drm_msm_gem_submit_bo bos[] = {
-> +			[0] = {
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +			[1] = {
-> +				.handle     = b->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +			[2] = {
-> +				/* this is invalid.. there should not be two entries
-> +				 * for the same bo, instead a single entry w/ all
-> +				 * usage flags OR'd together should be used.  Kernel
-> +				 * should catch this, and return an error code after
-> +				 * cleaning up properly (not leaking any bo's)
-> +				 */
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_WRITE,
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_bos  = ARRAY_SIZE(bos),
-> +				.bos     = VOID2U64(bos),
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_describe("Check that submit with cmdstream referencing an invalid bo fails");
-> +	igt_subtest("invalid-cmd-idx-submit") {
-> +		struct drm_msm_gem_submit_cmd cmds[] = {
-> +			[0] = {
-> +				.type       = MSM_SUBMIT_CMD_BUF,
-> +				.submit_idx = 0,      /* bos[0] does not exist */
-> +				.size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_cmds    = ARRAY_SIZE(cmds),
-> +				.cmds       = VOID2U64(cmds),
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_describe("Check that submit with invalid cmdstream type fails");
-> +	igt_subtest("invalid-cmd-type-submit") {
-> +		struct drm_msm_gem_submit_bo bos[] = {
-> +			[0] = {
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit_cmd cmds[] = {
-> +			[0] = {
-> +				.type       = 0x1234,
-> +				.submit_idx = 0,
-> +				.size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_cmds    = ARRAY_SIZE(cmds),
-> +				.cmds       = VOID2U64(cmds),
-> +				.nr_bos  = ARRAY_SIZE(bos),
-> +				.bos     = VOID2U64(bos),
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_describe("Check that a valid non-empty submit succeeds");
-> +	igt_subtest("valid-submit") {
-> +		struct drm_msm_gem_submit_bo bos[] = {
-> +			[0] = {
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit_cmd cmds[] = {
-> +			[0] = {
-> +				.type       = MSM_SUBMIT_CMD_BUF,
-> +				.submit_idx = 0,
-> +				.size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_cmds    = ARRAY_SIZE(cmds),
-> +				.cmds       = VOID2U64(cmds),
-> +				.nr_bos  = ARRAY_SIZE(bos),
-> +				.bos     = VOID2U64(bos),
-> +		};
-> +		uint32_t *cmdstream = igt_msm_bo_map(a);
-> +		if (dev->gen >= 5) {
-> +			*(cmdstream++) = pm4_pkt7_hdr(CP_NOP, 3);
-> +		} else {
-> +			*(cmdstream++) = pm4_pkt3_hdr(CP_NOP, 3);
-> +		}
-> +		*(cmdstream++) = 0;
-> +		*(cmdstream++) = 0;
-> +		*(cmdstream++) = 0;
-> +
-> +		do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> +	}
-> +
-> +	igt_fixture {
-> +		igt_msm_bo_free(a);
-> +		igt_msm_bo_free(b);
-> +		igt_msm_pipe_close(pipe);
-> +		igt_msm_dev_close(dev);
-> +	}
-> +}
-> -- 
-> 2.31.1
-> 
