@@ -2,61 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28E973F78A3
-	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 17:33:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E18FB3F79DB
+	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 18:06:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A370A6E32F;
-	Wed, 25 Aug 2021 15:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78D706E3B2;
+	Wed, 25 Aug 2021 16:06:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A80176E32A;
- Wed, 25 Aug 2021 15:33:20 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id v10so25868045wrd.4;
- Wed, 25 Aug 2021 08:33:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=P8P1YSzuu5vQY8TAxZQvRED9ADCllOt0xeyKWK3K/2c=;
- b=pVy1BCgxxbH8KXZ+5MHAgbXy4BjxMsuRH/fRr6GpbNQsPwJFxCGFYlRkgrzdmNvSOL
- QUC11n8EanrHJ2S2vjWKyJORViXeXJcbD4voXKCja3dcktV9jvl+4mJcOyMsb5oC9xpX
- IW02GRodGpgkmn05ulGJvkGLQNU/joJrzDvgElIXIHT4f4ILTnaT1sJ98tFV0rrPsBYU
- aNfCLHHdmptoV1pqAC8jrZAD3MZvxwxWD+8ww2qciJQAChv7In288Z9zKaHYqKB9yQTz
- uNqKNs2R/fgREiEQdEXnmULyP0stHlQFVAIoxWtT64hmMRmXRO+Ws1XJwy+Yj+cVZYCz
- BEQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=P8P1YSzuu5vQY8TAxZQvRED9ADCllOt0xeyKWK3K/2c=;
- b=EWWtZJ2ZU3zt45n+QsP1VMaYgzN1vlFvgWmROlcA0+eprUKLtjOKUaZhpD3+X5E0k3
- K4mrH1jdz5cMoCbpwvg/pXpb6hfYWA2G4WPQI3G0maDqtYdsed3/gITx71ct5z8AU7hM
- oJYuDq62wqGmPcSiVC65CAKKjeN7YEqWyfvEK7/kLBrBDuEv6cRCGpF9NsfUiRmWtCrk
- MyFCZ7hI1eYLHXcilCoCtaIPqO9BVQgNEiEzlN63eqA80eo16AWXTeyHFkXYqMQi6U1V
- wHliG1oSni3n9jqNy9JyGm4dQ+TpLobN//wQcYHVes6JqeIiIyzV297okpXeMqJxN3k7
- BDog==
-X-Gm-Message-State: AOAM533wHRWd6zg18unX60McL4EIBEXsushJBQXJIlLX+xFQeE7RJy/J
- eTTuNezgnxBuQ/0jz/8SLMrAmi8vkuNpcWZNJO8=
-X-Google-Smtp-Source: ABdhPJx70/62TVjHqPs+jMq+vcvgW+aWjb78G+uZ58A4D2TFdiQdjPWBkJajaHTqmjnWdEkO2zLOTuupjW7u+YDOEiI=
-X-Received: by 2002:a5d:460a:: with SMTP id t10mr21167746wrq.147.1629905599169; 
- Wed, 25 Aug 2021 08:33:19 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 322036E3B2
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 16:06:06 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1629907567; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=yc5dXmEbANnSyJ5gTovdFTL4dL+lLozkExAzl2y9EgI=;
+ b=IcBpd4j3sVr6qemESKk9EWQHyoh7BDitaBRZr2Pm5uZHYzelVFDhJbBE+zaN4/kd7U3k7Z6a
+ r8koGgWURjsbF/kAh1+dIH+CN/B3bCDCMD7D2hiUzJi0yHBZY69ttrwRWmwBhgCu2WbVQPnT
+ bJesicDfIdyJE9s6I0d9wb6gySU=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 61266a6cfc1f4cb6929a8704 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 25 Aug 2021 16:06:04
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id E608EC4361B; Wed, 25 Aug 2021 16:06:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2B4E6C4361A;
+ Wed, 25 Aug 2021 16:06:02 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210824224932.564352-1-robdclark@gmail.com>
- <20210824224932.564352-3-robdclark@gmail.com>
- <YSYDsJXPPZgTMYzR@platvala-desk.ger.corp.intel.com>
-In-Reply-To: <YSYDsJXPPZgTMYzR@platvala-desk.ger.corp.intel.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 25 Aug 2021 08:37:39 -0700
-Message-ID: <CAF6AEGtMwFOoTJW_zadN0d9v8+KCaS4PxKyEt485SXV7xU6uhA@mail.gmail.com>
-To: Petri Latvala <petri.latvala@intel.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [igt-dev] [PATCH igt 2/3] msm: Add helper library
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+Date: Wed, 25 Aug 2021 09:06:02 -0700
+From: khsieh@codeaurora.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, abhinavk@codeaurora.org,
+ aravindh@codeaurora.org, rsubbia@codeaurora.org, rnayak@codeaurora.org,
+ freedreno@lists.freedesktop.org, airlied@linux.ie, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <e725235a77935184cd20dab5af55da95b28d9e88.camel@redhat.com>
+References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+ <87zguy7c5a.fsf@intel.com> <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
+ <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
+ <d9ec812b4be57e32246735ca2f5e9560@codeaurora.org>
+ <79c5a60fc189261b7a9ef611acd126a41f921593.camel@redhat.com>
+ <696a009e2ab34747abd12bda03c103c7@codeaurora.org>
+ <e725235a77935184cd20dab5af55da95b28d9e88.camel@redhat.com>
+Message-ID: <64049ef6c598910c1025e0e5802bb83e@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,274 +81,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 25, 2021 at 1:44 AM Petri Latvala <petri.latvala@intel.com> wro=
-te:
->
-> On Tue, Aug 24, 2021 at 03:49:31PM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Handle some of the boilerplate for tests.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  lib/igt_msm.c   | 163 ++++++++++++++++++++++++++++++++++++++++++++++++
-> >  lib/igt_msm.h   | 128 +++++++++++++++++++++++++++++++++++++
-> >  lib/meson.build |   1 +
-> >  3 files changed, 292 insertions(+)
-> >  create mode 100644 lib/igt_msm.c
-> >  create mode 100644 lib/igt_msm.h
-> >
-> > diff --git a/lib/igt_msm.c b/lib/igt_msm.c
-> > new file mode 100644
-> > index 00000000..1bcb08d9
-> > --- /dev/null
-> > +++ b/lib/igt_msm.c
-> > @@ -0,0 +1,163 @@
-> > +/*
-> > + * Copyright =C2=A9 2021 Google, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaini=
-ng a
-> > + * copy of this software and associated documentation files (the "Soft=
-ware"),
-> > + * to deal in the Software without restriction, including without limi=
-tation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
-ense,
-> > + * and/or sell copies of the Software, and to permit persons to whom t=
-he
-> > + * Software is furnished to do so, subject to the following conditions=
-:
-> > + *
-> > + * The above copyright notice and this permission notice (including th=
-e next
-> > + * paragraph) shall be included in all copies or substantial portions =
-of the
-> > + * Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
-RESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
-LITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
-SHALL
-> > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES O=
-R OTHER
-> > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARI=
-SING
-> > + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER=
- DEALINGS
-> > + * IN THE SOFTWARE.
-> > + */
-> > +
-> > +#include <assert.h>
-> > +#include <string.h>
-> > +#include <signal.h>
-> > +#include <errno.h>
-> > +#include <sys/mman.h>
-> > +#include <sys/types.h>
-> > +#include <sys/stat.h>
-> > +#include <sys/ioctl.h>
-> > +#include <fcntl.h>
-> > +
-> > +#include "drmtest.h"
-> > +#include "igt_aux.h"
-> > +#include "igt_core.h"
-> > +#include "igt_msm.h"
-> > +#include "ioctl_wrappers.h"
-> > +
-> > +/**
-> > + * SECTION:igt_msm
-> > + * @short_description: msm support library
-> > + * @title: msm
-> > + * @include: igt_msm.h
-> > + *
-> > + * This library provides various auxiliary helper functions for writin=
-g msm
-> > + * tests.
-> > + */
-> > +
-> > +struct msm_device *
-> > +igt_msm_dev_open(void)
-> > +{
-> > +     struct msm_device *dev =3D calloc(1, sizeof(*dev));
-> > +
-> > +     dev->fd =3D drm_open_driver_render(DRIVER_MSM);
-> > +     if (dev->fd < 0) {
-> > +             free(dev);
-> > +             return NULL;
-> > +     }
-> > +
-> > +     return dev;
-> > +}
-> > +
-> > +void
-> > +igt_msm_dev_close(struct msm_device *dev)
-> > +{
-> > +     close(dev->fd);
-> > +     free(dev);
-> > +}
-> > +
-> > +struct msm_bo *
-> > +igt_msm_bo_new(struct msm_device *dev, size_t size, uint32_t flags)
-> > +{
-> > +     struct msm_bo *bo =3D calloc(1, sizeof(*bo));
-> > +
-> > +     struct drm_msm_gem_new req =3D {
-> > +                     .size =3D size,
-> > +                     .flags =3D flags,
-> > +     };
-> > +
-> > +     bo->dev =3D dev;
-> > +     bo->size =3D size;
-> > +
-> > +     do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_NEW, &req);
-> > +
-> > +     bo->handle =3D req.handle;
-> > +
-> > +     return bo;
-> > +}
-> > +
-> > +void
-> > +igt_msm_bo_free(struct msm_bo *bo)
-> > +{
-> > +     if (bo->map)
-> > +             munmap(bo->map, bo->size);
-> > +     gem_close(bo->dev->fd, bo->handle);
-> > +     free(bo);
-> > +}
-> > +
-> > +void *
-> > +igt_msm_bo_map(struct msm_bo *bo)
-> > +{
-> > +     if (!bo->map) {
-> > +             struct drm_msm_gem_info req =3D {
-> > +                             .handle =3D bo->handle,
-> > +                             .info =3D MSM_INFO_GET_OFFSET,
-> > +             };
-> > +             void *ptr;
-> > +
-> > +             do_ioctl(bo->dev->fd, DRM_IOCTL_MSM_GEM_INFO, &req);
-> > +
-> > +             ptr =3D mmap(0, bo->size, PROT_READ | PROT_WRITE, MAP_SHA=
-RED,
-> > +                             bo->dev->fd, req.value);
-> > +             if (ptr =3D=3D MAP_FAILED)
-> > +                     return NULL;
-> > +
-> > +             bo->map =3D ptr;
-> > +     }
-> > +     return bo->map;
-> > +}
-> > +
-> > +struct msm_pipe *
-> > +igt_msm_pipe_open(struct msm_device *dev, uint32_t prio)
-> > +{
-> > +     struct msm_pipe *pipe =3D calloc(1, sizeof(*pipe));
-> > +     struct drm_msm_submitqueue req =3D {
-> > +                     .flags =3D 0,
-> > +                     .prio =3D prio,
-> > +     };
-> > +
-> > +     pipe->dev =3D dev;
-> > +     pipe->pipe =3D MSM_PIPE_3D0;
-> > +
-> > +     /* Note that kerenels prior to v4.15 did not support submitqueues=
-.
-> > +      * Mesa maintains support for older kernels, but I do not think
-> > +      * that IGT needs to.
-> > +      */
-> > +     do_ioctl(dev->fd, DRM_IOCTL_MSM_SUBMITQUEUE_NEW, &req);
-> > +
-> > +     pipe->submitqueue_id =3D req.id;
-> > +
-> > +     return pipe;
-> > +}
-> > +
-> > +void
-> > +igt_msm_pipe_close(struct msm_pipe *pipe)
-> > +{
-> > +     do_ioctl(pipe->dev->fd, DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE, &pipe->s=
-ubmitqueue_id);
-> > +     free(pipe);
-> > +}
-> > +
-> > +uint64_t
-> > +igt_msm_pipe_get_param(struct msm_pipe *pipe, uint32_t param)
-> > +{
-> > +     struct drm_msm_param req =3D {
-> > +                     .pipe =3D pipe->pipe,
-> > +                     .param =3D param,
-> > +     };
-> > +
-> > +     do_ioctl(pipe->dev->fd, DRM_IOCTL_MSM_GET_PARAM, &req);
-> > +
-> > +     return req.value;
-> > +}
-> > diff --git a/lib/igt_msm.h b/lib/igt_msm.h
-> > new file mode 100644
-> > index 00000000..0d302e18
-> > --- /dev/null
-> > +++ b/lib/igt_msm.h
-> > @@ -0,0 +1,128 @@
-> > +/*
-> > + * Copyright =C2=A9 2021 Google, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaini=
-ng a
-> > + * copy of this software and associated documentation files (the "Soft=
-ware"),
-> > + * to deal in the Software without restriction, including without limi=
-tation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
-ense,
-> > + * and/or sell copies of the Software, and to permit persons to whom t=
-he
-> > + * Software is furnished to do so, subject to the following conditions=
-:
-> > + *
-> > + * The above copyright notice and this permission notice (including th=
-e next
-> > + * paragraph) shall be included in all copies or substantial portions =
-of the
-> > + * Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
-RESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
-LITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
-SHALL
-> > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES O=
-R OTHER
-> > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARI=
-SING
-> > + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER=
- DEALINGS
-> > + * IN THE SOFTWARE.
-> > + */
-> > +
-> > +#ifndef IGT_MSM_H
-> > +#define IGT_MSM_H
-> > +
-> > +#include "msm_drm.h"
-> > +
-> > +struct msm_device {
-> > +     int fd;
-> > +};
->
-> Why do you need this wrapper struct?
+On 2021-07-27 15:44, Lyude Paul wrote:
+> Nice timing, you literally got me as I was 2 minutes away from leaving 
+> work
+> for the day :P. I will go ahead and push it now.
+> 
+Hi Lyude,
 
-It isn't adding a lot of value yet, and I was a bit on the fence about
-whether to include it.. but based on my experience on the mesa side of
-things, I could see ways that it becomes useful.  For example if we
-needed to add refcnt'ing so the drm fd is closed when the last user is
-done (multi-threaded tests?).  Or if we want to centralize collection
-of GPU info/configuration, rather than duplicating in individual
-tests.
+Had you pushed this patch yet?
+We still did not see this patch at msm-nex and v5.10 branch.
+Thanks,
 
-In the end, it doesn't add/remove any lines of code from the tests,
-but it would be churn to retrofit it later.  So I kept it.
 
-BR,
--R
+> BTW - in the future I recommend using dim to add Fixes: tags as it'll 
+> add Cc:
+> to stable as appropriate (this patch in particular should be Cc:
+> stable@vger.kernel.org # v5.3+). will add these tags when I push it
+> 
+> On Tue, 2021-07-27 at 15:41 -0700, khsieh@codeaurora.org wrote:
+>> On 2021-07-27 12:21, Lyude Paul wrote:
+>> > On Thu, 2021-07-22 at 15:28 -0700, khsieh@codeaurora.org wrote:
+>> > >
+>> > > It looks like this patch is good to go (mainlined).
+>> > > Anything needed from me to do?
+>> > > Thanks,
+>> >
+>> > Do you have access for pushing this patch? If not let me know and I can
+>> > go
+>> > ahead and push it to drm-misc-next for you.
+>> no, I do not have access to drm-misc-next.
+>> Please push it for me.
+>> Thanks a lots.
+>> 
