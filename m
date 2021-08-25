@@ -1,46 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA1A3F71C1
-	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 11:32:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AB433F72F8
+	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 12:25:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4E16890E9;
-	Wed, 25 Aug 2021 09:32:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C846689949;
+	Wed, 25 Aug 2021 10:25:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC301890E9
- for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 09:32:46 +0000 (UTC)
-X-QQ-mid: bizesmtp39t1629883939tmjexs0h
-Received: from localhost.localdomain (unknown [111.207.172.18])
- by esmtp6.qq.com (ESMTP) with 
- id ; Wed, 25 Aug 2021 17:32:17 +0800 (CST)
-X-QQ-SSF: 0140000000200040D000B00F0000000
-X-QQ-FEAT: DgJAXuPMHm6yIFA8xHOBJw9pfIUs9YKEUj1RCAMLUimR7RCn5pitq417UmVnE
- GOYBvZGt1MkL1Saq3zmmOA0wO6hW0ieBICxf3ThOTCWoa7x1JzEd2fW79UiqByZKsQs6QqW
- 0dp4m3Kuk3J0MQv4azXyf1cO5u/Wfu2sUomBIrhMGRlvzR8WRBR/AzjXzXM7/O8bpZxveEb
- mvUksTIvB8oruiqHAt1nWDwbjqncbX/UV39vupXltJvY0ZE4miiLi7sUqLUMLk2Bwmr0hZe
- rcisp/x9LqiRuYnz6cKpssjd8G7ufjhDeZvLtFZRttDKEx57uXdHWGF9f2kD5uzSM1dHQJi
- S4A34d1
-X-QQ-GoodBg: 2
-From: zhaoxiao <zhaoxiao@uniontech.com>
-To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
-Cc: jordan@cosmicpenguin.net, saiprakash.ranjan@codeaurora.org,
- jonathan@marek.ca, airlied@redhat.com, smasetty@codeaurora.org,
- konrad.dybcio@somainline.org, akhilpo@codeaurora.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- zhaoxiao <zhaoxiao@uniontech.com>
-Date: Wed, 25 Aug 2021 17:32:16 +0800
-Message-Id: <20210825093216.15032-1-zhaoxiao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9916D89949
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 10:25:53 +0000 (UTC)
+Received: from [10.0.20.3] (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 82FFC1F5F9;
+ Wed, 25 Aug 2021 12:25:50 +0200 (CEST)
+To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, vkoul@kernel.org, agross@kernel.org,
+ bjorn.andersson@linaro.org, robh+dt@kernel.org, devicetree@vger.kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, mkrishn@codeaurora.org, 
+ kalyan_t@codeaurora.org, rajeevny@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+References: <1629847226-10112-1-git-send-email-khsieh@codeaurora.org>
+From: Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <668c5297-56c3-101a-1490-36fe48d0b6e4@somainline.org>
+Date: Wed, 25 Aug 2021 12:25:50 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
-X-QQ-Bgrelay: 1
-Subject: [Freedreno] [PATCH] drm: msm: adreno_gpu.c: Add and use pr_fmt(fmt)
+In-Reply-To: <1629847226-10112-1-git-send-email-khsieh@codeaurora.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: Add Display Port
+ node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,71 +56,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+Hi Kuogee,
 
-Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 9f5a30234b33..6b75fbd39121 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -20,6 +20,8 @@
- #include "msm_gem.h"
- #include "msm_mmu.h"
- 
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
- static bool zap_available = true;
- 
- static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
-@@ -753,7 +755,7 @@ void adreno_dump_info(struct msm_gpu *gpu)
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	int i;
- 
--	printk("revision: %d (%d.%d.%d.%d)\n",
-+	pr_info("revision: %d (%d.%d.%d.%d)\n",
- 			adreno_gpu->info->revn, adreno_gpu->rev.core,
- 			adreno_gpu->rev.major, adreno_gpu->rev.minor,
- 			adreno_gpu->rev.patchid);
-@@ -761,12 +763,12 @@ void adreno_dump_info(struct msm_gpu *gpu)
- 	for (i = 0; i < gpu->nr_rings; i++) {
- 		struct msm_ringbuffer *ring = gpu->rb[i];
- 
--		printk("rb %d: fence:    %d/%d\n", i,
-+		pr_info("rb %d: fence:    %d/%d\n", i,
- 			ring->memptrs->fence,
- 			ring->seqno);
- 
--		printk("rptr:     %d\n", get_rptr(adreno_gpu, ring));
--		printk("rb wptr:  %d\n", get_wptr(ring));
-+		pr_info("rptr:     %d\n", get_rptr(adreno_gpu, ring));
-+		pr_info("rb wptr:  %d\n", get_wptr(ring));
- 	}
- }
- 
-@@ -780,7 +782,7 @@ void adreno_dump(struct msm_gpu *gpu)
- 		return;
- 
- 	/* dump these out in a form that can be parsed by demsm: */
--	printk("IO:region %s 00000000 00020000\n", gpu->name);
-+	pr_info("IO:region %s 00000000 00020000\n", gpu->name);
- 	for (i = 0; adreno_gpu->registers[i] != ~0; i += 2) {
- 		uint32_t start = adreno_gpu->registers[i];
- 		uint32_t end   = adreno_gpu->registers[i+1];
-@@ -788,7 +790,7 @@ void adreno_dump(struct msm_gpu *gpu)
- 
- 		for (addr = start; addr <= end; addr++) {
- 			uint32_t val = gpu_read(gpu, addr);
--			printk("IO:R %08x %08x\n", addr<<2, val);
-+			pr_info("IO:R %08x %08x\n", addr<<2, val);
- 		}
- 	}
- }
--- 
-2.20.1
+On 8/25/21 1:20 AM, Kuogee Hsieh wrote:
+> [..]
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index c29226b..a350d84 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> [..]
+> +			msm_dp: displayport-controller@ae90000 {
+> +				status = "disabled";
+> +				compatible = "qcom,sc7180-dp";
+> +
+> +				reg = <0 0x0ae90000 0 0x1400>;
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <12 IRQ_TYPE_NONE>;
+> +
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+> +				clock-names = "core_iface", "core_aux", "ctrl_link",
+> +					      "ctrl_link_iface", "stream_pixel";
+> +				#clock-cells = <1>;
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> +				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+> +				phys = <&dp_phy>;
+> +				phy-names = "dp";
+> +
+> +				operating-points-v2 = <&dp_opp_table>;
+> +				power-domains = <&rpmhpd SC7180_CX>;
 
 
+Despite having the same value as SC7180_CX, you may want to use 
+SC7280_CX here.
 
+- Marijn
