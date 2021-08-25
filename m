@@ -2,92 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B8983F7A73
-	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 18:26:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65263F7B4A
+	for <lists+freedreno@lfdr.de>; Wed, 25 Aug 2021 19:13:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7256E3CE;
-	Wed, 25 Aug 2021 16:26:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78A6D89956;
+	Wed, 25 Aug 2021 17:13:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 153E96E3C6
- for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 16:26:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1629908771;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=81MH9LvvmF94Xq/fdROYPDvLqRHwmN8vJwPNmh3G3RI=;
- b=A4pdS+tI5EX/Q9qrSjTc58IP9TetBOaA7z+6Q9tmGS6wtS34jli55hOM2yXbiAhQ+njUCB
- U6SyAQcjKwfAuccaX14X8bjGmNFk01Qj35uvKPaXC2BesM7r0QMfsOQgzLMSc2nU2rneRg
- w8ShmhQxOJidX58Flw+ZuUDpiXqvQIA=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-JX6c59eZNYy3BO809hT0nw-1; Wed, 25 Aug 2021 12:26:07 -0400
-X-MC-Unique: JX6c59eZNYy3BO809hT0nw-1
-Received: by mail-qk1-f198.google.com with SMTP id
- w2-20020a3794020000b02903b54f40b442so12404qkd.0
- for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 09:26:07 -0700 (PDT)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 271F589956
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 17:13:28 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ o16-20020a9d2210000000b0051b1e56c98fso40922462ota.8
+ for <freedreno@lists.freedesktop.org>; Wed, 25 Aug 2021 10:13:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=UCTcnsSbnb2BZPV5ZPemMMiSns8GwhF8Z8WDFU9MAlI=;
+ b=Ibh57Mm8xpQqtAjHZeGcPf8lxPMd2widHCoILjnCYnTqer/uKN4ADjUsOUz/d8yeOn
+ JSABs5wZGdIApigvNsHdWChYLvkAAtKABlqdFHzntcL38IXkoEf5VBY9P0iet573RMyT
+ 0mRFTWy4GCeiC1ANUzQ3PzLdIqEpqXZRaGZlo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=81MH9LvvmF94Xq/fdROYPDvLqRHwmN8vJwPNmh3G3RI=;
- b=IBF7vahQkPWeEocampjllC7z965TN+cakm5V6zJWGIB28NdCBqz3wFtIZnE0Z8M0Mp
- IUyHVTvynqYv+bRzRUw/O5T1Wk7G4S48MPKS4d+5aBpcPyPuNGVdFifVlwxMAhaPJsGJ
- 3OJTjmMK+cg1SRHsQallyVh6L5tBxp5gY4ZJ5yVoG4lbMsZ3CvDUhMHKO0OG9RgpmE3U
- RZExRfBd08El2DFPkbcR4QRGxIP8qd/2pufwtXBjpqXMyIEXJz/uxIc2sj3aQNVPhhG2
- 9D/UZNTBivbd9I+MKRN9T2Ss6/rPGqOfznIS3b0hdkU2BbBdl2xhRrP67b/SJO9Gn7Kz
- Jdag==
-X-Gm-Message-State: AOAM5320yo6D9B/xFDRsPsdqphYVs2tNT5tm7XF1iSvtRP1jt0J9P98m
- RT5iRasc89Q3fTMjLJ30Zb0IinXXfqy6/B6Uh2WfK15fEfSk4EdJpJYXQ28e0/4/nEGd0ulXVT1
- +FNukinpuDsybb9aJve9GQrFgXuHq
-X-Received: by 2002:a05:620a:cd0:: with SMTP id
- b16mr33236676qkj.136.1629908766855; 
- Wed, 25 Aug 2021 09:26:06 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz2hbGvq6X6Eeo1e/X0RrlLiDx0IZFm+v9074G6Af3gBq7QNBz9w7hpyaUv9eJGkjMTtQrdGg==
-X-Received: by 2002:a05:620a:cd0:: with SMTP id
- b16mr33236646qkj.136.1629908766609; 
- Wed, 25 Aug 2021 09:26:06 -0700 (PDT)
-Received: from [192.168.8.104] (pool-108-49-102-102.bstnma.fios.verizon.net.
- [108.49.102.102])
- by smtp.gmail.com with ESMTPSA id c68sm327240qkf.48.2021.08.25.09.26.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Aug 2021 09:26:06 -0700 (PDT)
-Message-ID: <88b5fbe60c95bcdf42353bec9f8c48aefa864a31.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: khsieh@codeaurora.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, robdclark@gmail.com, 
- sean@poorly.run, swboyd@chromium.org, abhinavk@codeaurora.org, 
- aravindh@codeaurora.org, rsubbia@codeaurora.org, rnayak@codeaurora.org, 
- freedreno@lists.freedesktop.org, airlied@linux.ie, daniel@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 25 Aug 2021 12:26:03 -0400
-In-Reply-To: <64049ef6c598910c1025e0e5802bb83e@codeaurora.org>
-References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
- <87zguy7c5a.fsf@intel.com>
- <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
- <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
- <d9ec812b4be57e32246735ca2f5e9560@codeaurora.org>
- <79c5a60fc189261b7a9ef611acd126a41f921593.camel@redhat.com>
- <696a009e2ab34747abd12bda03c103c7@codeaurora.org>
- <e725235a77935184cd20dab5af55da95b28d9e88.camel@redhat.com>
- <64049ef6c598910c1025e0e5802bb83e@codeaurora.org>
-Organization: Red Hat
-User-Agent: Evolution 3.40.4 (3.40.4-1.fc34)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=UCTcnsSbnb2BZPV5ZPemMMiSns8GwhF8Z8WDFU9MAlI=;
+ b=gTfSga0xdXf6R9mT9Ug1fsqWCF2ElTsz3jXkA4FLVgWkktJ3fF8/M+CCc997paW8lY
+ MOTe+/lHlX05WoDg6Y9YeHPOqx4e+H3Wd/HsK49KVML/WlFAB92i3oiBUSM1gfZSBRff
+ UhXUFk2Tf/oYWVSWPyhMXJPdraHaCC4fAa2Op33PJFWXYjusORsW+o8coP52ISmeWtBB
+ AnXKApa5h7a4glxTS57DWeiUnc4v2Ya35ur3IidrZ5Lipi4curQOEVBereu2Nm+ZQvx/
+ 7JEgwrHR0YlNj+Ys6j1t0gTLhEbxt3cqP4cMnbydlmu/9CZ8A32RKD2Bu0omRTPeJ/56
+ +8kw==
+X-Gm-Message-State: AOAM5324+AdmlcS+B6Utxg7qc9Jex5zmHq/iGkEG79tFwRMyS5zvP391
+ HUTTD8F6KONu2yUyos4kpCyfjriHr54Uo1+N8sr97Q==
+X-Google-Smtp-Source: ABdhPJzUAvvASSSNhBU6e1q+DsAdjQ//tA+JJPp3BoOFd00NZu2mdaPhv4bOdOq7WiLeweSJGe5V1lDrezdQ5NtyZMU=
+X-Received: by 2002:a05:6830:2473:: with SMTP id
+ x51mr31010415otr.34.1629911607276; 
+ Wed, 25 Aug 2021 10:13:27 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 25 Aug 2021 17:13:26 +0000
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <1629847226-10112-1-git-send-email-khsieh@codeaurora.org>
+References: <1629847226-10112-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 25 Aug 2021 17:13:26 +0000
+Message-ID: <CAE-0n50Yp00hzAhSET8txib3BhTzz2ptOaLhERoF-ggUGU6ChQ@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ devicetree@vger.kernel.org, robdclark@gmail.com, robh+dt@kernel.org, 
+ sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, mkrishn@codeaurora.org, 
+ kalyan_t@codeaurora.org, rajeevny@codeaurora.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
- message failure
+Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: Add Display Port
+ node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,47 +75,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The patch was pushed yes (was part of drm-misc-next-2021-07-29), seems like it
-just hasn't trickled down to linus's branch quite yet.
+Quoting Kuogee Hsieh (2021-08-24 16:20:26)
+> Add display port supported node for sc7280. Also correct dp-phy node
+> tx/rx/pcs/tx2/rx2 base reg address to fix aux channel read/write
+> failure issue.
+>
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7280-idp2.dts |  9 +++
 
-On Wed, 2021-08-25 at 09:06 -0700, khsieh@codeaurora.org wrote:
-> On 2021-07-27 15:44, Lyude Paul wrote:
-> > Nice timing, you literally got me as I was 2 minutes away from leaving 
-> > work
-> > for the day :P. I will go ahead and push it now.
-> > 
-> Hi Lyude,
-> 
-> Had you pushed this patch yet?
-> We still did not see this patch at msm-nex and v5.10 branch.
-> Thanks,
-> 
-> 
-> > BTW - in the future I recommend using dim to add Fixes: tags as it'll 
-> > add Cc:
-> > to stable as appropriate (this patch in particular should be Cc:
-> > stable@vger.kernel.org # v5.3+). will add these tags when I push it
-> > 
-> > On Tue, 2021-07-27 at 15:41 -0700, khsieh@codeaurora.org wrote:
-> > > On 2021-07-27 12:21, Lyude Paul wrote:
-> > > > On Thu, 2021-07-22 at 15:28 -0700, khsieh@codeaurora.org wrote:
-> > > > > 
-> > > > > It looks like this patch is good to go (mainlined).
-> > > > > Anything needed from me to do?
-> > > > > Thanks,
-> > > > 
-> > > > Do you have access for pushing this patch? If not let me know and I
-> > > > can
-> > > > go
-> > > > ahead and push it to drm-misc-next for you.
-> > > no, I do not have access to drm-misc-next.
-> > > Please push it for me.
-> > > Thanks a lots.
-> > > 
-> 
+Please split the idp diff from the sc7280.dts diff so that there are two
+patches instead of one. It helps with ignoring the idp diff.
 
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi     | 98 +++++++++++++++++++++++++++++---
+>  2 files changed, 100 insertions(+), 7 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280-idp2.dts b/arch/arm64/boot/dts/qcom/sc7280-idp2.dts
+> index b1cf70e..4aea369 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280-idp2.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc7280-idp2.dts
+> @@ -202,3 +202,12 @@ ap_h1_spi: &spi14 {};
+>                 backlight = <&backlight>;
+>         };
+>  };
+> +
+> +&msm_dp {
+> +       status = "okay";
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&dp_hot_plug_det>;
+> +       data-lanes = <0 1>;
+> +       vdda-1p2-supply = <&vreg_l6b_1p2>;
+> +       vdda-0p9-supply = <&vreg_l1b_0p8>;
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index c29226b..a350d84 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2918,15 +2918,11 @@
+>                         dp_phy: dp-phy@88ea200 {
+>                                 reg = <0 0x088ea200 0 0x200>,
+>                                       <0 0x088ea400 0 0x200>,
+> -                                     <0 0x088eac00 0 0x400>,
+> +                                     <0 0x088eaa00 0 0x200>,
+>                                       <0 0x088ea600 0 0x200>,
+> -                                     <0 0x088ea800 0 0x200>,
+> -                                     <0 0x088eaa00 0 0x100>;
+> +                                     <0 0x088ea800 0 0x200>;
 
+So this was wrong? Best to split that out into another patch with the
+appropriate Fixes tag.
+
+>                                 #phy-cells = <0>;
+>                                 #clock-cells = <1>;
+> -                               clocks = <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
+> -                               clock-names = "pipe0";
+> -                               clock-output-names = "usb3_phy_pipe_clk_src";
+
+And then mention this part in the commit text of the fixing patch.
+
+>                         };
+>                 };
+>
+> @@ -3389,6 +3392,74 @@
+>                                         };
+>                                 };
+>                         };
+> +
+> +                       msm_dp: displayport-controller@ae90000 {
+> +                               status = "disabled";
+> +                               compatible = "qcom,sc7180-dp";
+
+Can we add qcom,sc7280-dp as well? Just in case anything is wrong with
+sc7280 specifically.
+
+> +
+> +                               reg = <0 0x0ae90000 0 0x1400>;
+> +
+> +                               interrupt-parent = <&mdss>;
+> +                               interrupts = <12 IRQ_TYPE_NONE>;
+
+Drop IRQ_TYPE_NONE per the binding it is one cell, not two.
+
+> +
+> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+> +                               clock-names = "core_iface", "core_aux", "ctrl_link",
+> +                                             "ctrl_link_iface", "stream_pixel";
+
+Can we get clock-names on one line matching the clocks property please?
+That makes it easier to match it up between the two properties.
+
+> +                               #clock-cells = <1>;
+> +                               assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> +                                                 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> +                               assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+> +                               phys = <&dp_phy>;
+> +                               phy-names = "dp";
+> +
+> +                               operating-points-v2 = <&dp_opp_table>;
+> +                               power-domains = <&rpmhpd SC7180_CX>;
+> +
+> +                               #sound-dai-cells = <0>;
+
+Nitpick: Newline here.
+
+> +                               ports {
+> +                                       #address-cells = <1>;
+> +                                       #size-cells = <0>;
+> +                                       port@0 {
+> +                                               reg = <0>;
+> +                                               dp_in: endpoint {
+> +                                                       remote-endpoint = <&dpu_intf0_out>;
+> +                                               };
+> +                                       };
+> +
+> +                                       port@1 {
+> +                                               reg = <1>;
+> +                                               dp_out: endpoint { };
+> +                                       };
+> +                               };
+> +
+> +                               dp_opp_table: dp-opp-table {
+
+dp_opp_table: opp-table {
+
+> +                                       compatible = "operating-points-v2";
+> +
+> +                                       opp-160000000 {
+> +                                               opp-hz = /bits/ 64 <160000000>;
+> +                                               required-opps = <&rpmhpd_opp_low_svs>;
+> +                                       };
+> +
+> +                                       opp-270000000 {
+> +                                               opp-hz = /bits/ 64 <270000000>;
+> +                                               required-opps = <&rpmhpd_opp_svs>;
+> +                                       };
+> +
+> +                                       opp-540000000 {
+> +                                               opp-hz = /bits/ 64 <540000000>;
+> +                                               required-opps = <&rpmhpd_opp_svs_l1>;
+> +                                       };
+> +
+> +                                       opp-810000000 {
+> +                                               opp-hz = /bits/ 64 <810000000>;
+> +                                               required-opps = <&rpmhpd_opp_nom>;
+> +                                       };
+> +                               };
+> +                       };
+>                 };
+>
+>                 dispcc: clock-controller@af00000 {
+> @@ -3398,7 +3469,8 @@
+>                                  <&gcc GCC_DISP_GPLL0_CLK_SRC>,
+>                                  <&dsi_phy 0>,
+>                                  <&dsi_phy 1>,
+> -                                <0>, <0>,
+> +                                <&dp_phy 0>,
+> +                                <&dp_phy 1>,
+>                                  <&msm_edp 0>,
+>                                  <&msm_edp 1>;
+>                         clock-names = "bi_tcxo", "gcc_disp_gpll0_clk",
+> @@ -3525,6 +3597,18 @@
+>                                  };
+>                          };
+>
+> +                       dp_hot_plug_det: dp-hot-plug-det {
+> +                                pinmux {
+> +                                        pins = "gpio47";
+> +                                        function = "dp_hot";
+> +                                };
+> +
+> +                               pinconf {
+> +                                       pins = "gpio47";
+> +                                       bias-disable;
+> +                               };
+
+Combine these two nodes (pinmux and pinconf) into one please.
+
+                         dp_hot_plug_det: dp-hot-plug-det {
+                                  pins = "gpio47";
+                                  function = "dp_hot";
+                                  bias-disable;
+			 };
+
+> +                        };
+> +
+>                         qspi_clk: qspi-clk {
+>                                 pins = "gpio14";
+>                                 function = "qspi_clk";
