@@ -2,68 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C83443F8D73
-	for <lists+freedreno@lfdr.de>; Thu, 26 Aug 2021 20:00:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBF03F8FB2
+	for <lists+freedreno@lfdr.de>; Thu, 26 Aug 2021 22:35:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B996E056;
-	Thu, 26 Aug 2021 18:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E49B6E8B8;
+	Thu, 26 Aug 2021 20:35:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF1016E056
- for <freedreno@lists.freedesktop.org>; Thu, 26 Aug 2021 18:00:00 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- v33-20020a0568300921b0290517cd06302dso4583586ott.13
- for <freedreno@lists.freedesktop.org>; Thu, 26 Aug 2021 11:00:00 -0700 (PDT)
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C18B6E8B8
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Aug 2021 20:35:02 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id g9so5395581ioq.11
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Aug 2021 13:35:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=RcIYF9R/pHJGqLoLVM8C2PNIjlEdG+08V6XIw2z0GXA=;
- b=bEcMfQI7Jf4WT5ynaI3vWPhlVDv8Cva8+DmGatup6oPvlw20KIo97L2C2ScgUKHhVC
- hdUPgZ6+b4k87ono5IHVsrFOPhC67bHf4R3Tt00XuS3+xegaCJtLSJtW8sUdyUqUBR7b
- Ep9YqQSIAcuV+fwTcLMpIY5lLK3AD/zdnpTu8=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KS5bnFn8Y6gpkFwk4lSN+qMk+pSitVKJiQuPfookyLw=;
+ b=T54Mvt1OkOwZKZVC8yB84osFcFFszP3nEEnPGks9V+7ttcd8WE2PBRj6Ot7p1qMdsW
+ VSv9mCMx7aofBcB6mNmnGZjZWadQh+ektzlJapxEgZg2Dng9mfsIUQW/K8eCyu+Z58Nf
+ zby4pVnJ8OIKewOqb1HUFgKHhglU2C+pPtqcs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=RcIYF9R/pHJGqLoLVM8C2PNIjlEdG+08V6XIw2z0GXA=;
- b=aqT7gA50o7u6Zb54arjp1lQkM29ZO4lQ+hcnPXZ0woTUqYFjepG8CAtbb/dVK2xN/f
- Qt9Jdvc0FIFzf2A3kaLO5WyUsocgMn/0NCW6KYVftly/JV/YpKSRjN/DEcyK1//9o5C5
- b5p5YktTIShTsxYMt+gi0Qi+Ofm40kIvjdmom8ukTLOwbqWY2UBScITBWIVFkmYx8UQh
- lVTCQ5w9MYWCymZsN4Aj1BQ6et9lkqT0Cw4+o+j+sumUsaLIjTY1+eLTu5tgAStiYGM0
- ba246QvEYO5/HYrPkdv2N9JNzGozoHW3YE0CA0kHgfSyFFetFrmWq0REMc13lY9j0cqS
- zIKg==
-X-Gm-Message-State: AOAM5321bERVTkfB9bLRyiLxCNT+nehosj2Pw0yGdLTHw9AvccnDXIDW
- PwRNJ0ydXldWHpd0na+yKnlPiBjo2iyd+PZ1QJgakQ==
-X-Google-Smtp-Source: ABdhPJyu2G2XRMt2TFHuTq1cHhTZmiAqHMH+7NXBJGNrokExA+VfOjpgGhUKc4kR5HSTLWP8EzKT6YUkZBeBKGhkVvw=
-X-Received: by 2002:a05:6830:2b24:: with SMTP id
- l36mr4312663otv.25.1630000799901; 
- Thu, 26 Aug 2021 10:59:59 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 26 Aug 2021 17:59:59 +0000
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KS5bnFn8Y6gpkFwk4lSN+qMk+pSitVKJiQuPfookyLw=;
+ b=rKPNKLIp1MX9npz42q/ypr49deiJwOtOGfwUL2CEtOUsd1yobbGVE851PcZebRL5qy
+ Gl7gAPJZYjpUY0CHVe6kc0kSsd1G8IRGZAchl/O6rXOUC7D4XfeMdJSnPU25bfjunLOu
+ e18NwGBVGZgFlyPaROVEGORg+cG9ZVQ+nmiMTM6jq6qPcDMcRKHrpB5KhLqmKttaV3YD
+ Crgm9yTC8i9/d9sh0rR4rhXm4NZld6bA+Mh9Ah0Dj5UfuSGbjNxRQD8mK8SRP7DSStYV
+ eUEStrbeo4PNbkcdS9fDOWaLQ2xVx98OIr6YPnEJr/8shDrmR4AEQeuKO3CKQiHmM85k
+ l/tg==
+X-Gm-Message-State: AOAM533ouFMzixADq8W3RPt8NyXKWn2kKYzaXSNjZ/kfC7baFzpaI3Uc
+ tu+OD0fEade8VbP4+kLePnZO7rFXCJ+fZQ==
+X-Google-Smtp-Source: ABdhPJw3c3h8HbCGSBk4nJWck+dJNvVKmb7amvUj9DfjT4fUA3UoMMca/zqRoXTrD5jFMVe0fKwWAg==
+X-Received: by 2002:a05:6638:d85:: with SMTP id l5mr5013675jaj.2.1630010101305; 
+ Thu, 26 Aug 2021 13:35:01 -0700 (PDT)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com.
+ [209.85.166.47])
+ by smtp.gmail.com with ESMTPSA id g13sm2315811ile.68.2021.08.26.13.35.01
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Aug 2021 13:35:01 -0700 (PDT)
+Received: by mail-io1-f47.google.com with SMTP id n24so5397305ion.10
+ for <freedreno@lists.freedesktop.org>; Thu, 26 Aug 2021 13:35:01 -0700 (PDT)
+X-Received: by 2002:a92:cf4a:: with SMTP id c10mr4099123ilr.269.1630009785168; 
+ Thu, 26 Aug 2021 13:29:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YSfH7j+24OMa3rVE@ripper>
-References: <20210825234233.1721068-1-bjorn.andersson@linaro.org>
- <20210825234233.1721068-4-bjorn.andersson@linaro.org>
- <CAE-0n50JXw6KL-u70csWS-9F6YhZy0pNah91h4e9a_9MnjJzmA@mail.gmail.com>
- <YSfH7j+24OMa3rVE@ripper>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 26 Aug 2021 17:59:59 +0000
-Message-ID: <CAE-0n50xdTugw_gw97b2VLXjAFp-E064_NfLJ9tzkfaUvq3UvA@mail.gmail.com>
+References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
+In-Reply-To: <20210726231351.655302-1-bjorn.andersson@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 26 Aug 2021 13:29:32 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VUeV+G30b=YOMrdNbvT8rVkA-iibeB3S36NFwOrxcfiw@mail.gmail.com>
+Message-ID: <CAD=FV=VUeV+G30b=YOMrdNbvT8rVkA-iibeB3S36NFwOrxcfiw@mail.gmail.com>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, 
- David Airlie <airlied@linux.ie>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, 
+ Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>, 
+ Kuogee Hsieh <khsieh@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ Vara Reddy <varar@codeaurora.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 3/5] drm/msm/dp: Support up to 3 DP
- controllers
+Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,64 +81,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-08-26 09:57:18)
-> On Thu 26 Aug 00:13 PDT 2021, Stephen Boyd wrote:
-> > Quoting Bjorn Andersson (2021-08-25 16:42:31)
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> [..]
-> > > @@ -203,8 +204,8 @@ static int dpu_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
-> > >         dpu_debugfs_vbif_init(dpu_kms, entry);
-> > >         dpu_debugfs_core_irq_init(dpu_kms, entry);
-> > >
-> > > -       if (priv->dp)
-> > > -               msm_dp_debugfs_init(priv->dp, minor);
-> > > +       for (i = 0; i < ARRAY_SIZE(priv->dp); i++)
-> > > +               msm_dp_debugfs_init(priv->dp[i], minor);
-> >
-> > Does this need the same if (!priv->dp) continue check like the other
-> > loops over priv->dp?
-> >
-> [..]
-> > > @@ -800,7 +809,8 @@ static int dpu_irq_postinstall(struct msm_kms *kms)
-> > >         if (!priv)
-> > >                 return -EINVAL;
-> > >
-> > > -       msm_dp_irq_postinstall(priv->dp);
-> > > +       for (i = 0; i < ARRAY_SIZE(priv->dp); i++)
-> > > +               msm_dp_irq_postinstall(priv->dp[i]);
-> >
-> > This one too? Or maybe those gained NULL pointer checks.
-> >
+Hi,
+
+On Mon, Jul 26, 2021 at 4:15 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
 >
-> This already has a NULL check, that's why I added one to the adjacent
-> msm_dp_debugfs_init() as well.
+> +static int dp_parser_find_panel(struct dp_parser *parser)
+> +{
+> +       struct device_node *np = parser->pdev->dev.of_node;
+> +       int rc;
+> +
+> +       rc = drm_of_find_panel_or_bridge(np, 2, 0, &parser->drm_panel, NULL);
+> +       if (rc == -ENODEV)
+> +               rc = 0;
+> +       else if (rc)
+> +               DRM_ERROR("failed to acquire DRM panel: %d\n", rc);
+> +
+> +       return rc;
 
-Ok.
+So rather than storing the drm_panel, I suggest that you actually wrap
+it with a "panel_bridge". Follow the ideas from commit 4e5763f03e10
+("drm/bridge: ti-sn65dsi86: Wrap panel with panel-bridge") and the fix
+in commit c7782443a889 ("drm/bridge: ti-sn65dsi86: Avoid creating
+multiple connectors").
 
->
-> > >
-> > >         return 0;
-> > >  }
-> > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> [..]
-> > > @@ -1194,6 +1230,10 @@ static int dp_display_probe(struct platform_device *pdev)
-> > >         if (!dp)
-> > >                 return -ENOMEM;
-> > >
-> > > +       dp->id = dp_display_get_id(pdev);
-> >
-> > Ah ok, it's signed for this error check. Maybe assign dp->id in the
-> > function and return 0 instead of assigning it here?
-> > dp_display_assign_id()
-> >
->
-> I like the fact that the "getter" doesn't have side effects, but making
-> dp->id unsigned makes sense. So let's pay the price of a local signed
-> variable here.
->
+If you do that then actually a bunch of your patch becomes
+unnecessary. You basically just have to attach the "next" bridge in
+the right place and you're good, right?
 
-Sure. If that's the only change then feel free to add
-
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-
-on the next version.
+-Doug
