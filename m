@@ -2,61 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 383C43F8B13
-	for <lists+freedreno@lfdr.de>; Thu, 26 Aug 2021 17:33:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC403F8B1D
+	for <lists+freedreno@lfdr.de>; Thu, 26 Aug 2021 17:34:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C04DF6E876;
-	Thu, 26 Aug 2021 15:33:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40DAB6E87D;
+	Thu, 26 Aug 2021 15:34:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
  [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D044E6E884;
- Thu, 26 Aug 2021 15:33:00 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id n5so5673892wro.12;
- Thu, 26 Aug 2021 08:33:00 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B07866E038;
+ Thu, 26 Aug 2021 15:34:31 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id q14so5758468wrp.3;
+ Thu, 26 Aug 2021 08:34:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=Q1SH8MwQ6PjzX6JWRx/sXqetb1E/JWe6lZDdJhUpJxY=;
- b=utGyAROurQrtYLJmDO3s0trf56feQzxtz1yit4AfZeZ89bw2JEaK90sJIyz2pObdV5
- F66+D9WKppnTMhyZ14J3MymftHfSNa8kB33OyZwC2Wum9gn3fFmqKXhf7GspEoX5O92e
- pqdcqf+QLL2nbSuM5ucji+GWXI0XEAOvaOVIiKpCSzCv7UkMQIF1N6locAGX4VosNX4k
- AC2FF8764pwyGgSTmGpaFQyJFzMaN22hPoQJntQlBDxEdbR4yRUXHm6B2UlctQD+s+vd
- +8P8avbNl1G3+uxP+7hTSXrqSoRlWfHRb855gHwg8VfgNcKjUgsQJpocoAK/6oA7XSXB
- Ya2w==
+ bh=6ledkqU9D7FzcL/5ouJNmCXuXtKins7U1aoW3QxLbVU=;
+ b=jiDI7yC/eT7HEe9sQm38w7hIxFvvo4EfE4Scx9xXHFUrWsbewLm3vkOb+B1QtiBPTc
+ 1pmwSmFQzxPGrrJh4AP8FppBdNDpQ2Aw65Bmro1bbZGcOxe8tesKl0HXb50Mgvz4xCdn
+ zfJbhzNxfFIKD4BXgyUJYuYsUBicVPm6ngREnHXMFqiDAszRpcG/5dGTTmStoAmv8062
+ QbQQeQPk33VzCUkcG6AfCSOKMbq4nNhib3wDooslcoiyQKIHCIZOCDiGwW6OQ7pAwkBA
+ SJscnToOzErB9p3dp2gCvGHJRpL0oFfpEZ6qLihP0aot4co1SCXahgLNAzO1OjBuaRM8
+ bGJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=Q1SH8MwQ6PjzX6JWRx/sXqetb1E/JWe6lZDdJhUpJxY=;
- b=HiSBLx9yJZ+vkSxeh8GGbFspxT9GbUVcRyAcmIIZhrhsj8u84fX6gxD+nz7aBir8vA
- sED8vcplgE+37jolWpoAaOvshxVFZMIhgSDYVQIPI6h45MB9zRYJQu/3ZuyrTv2z0YEH
- nB6Z51e0sDvWEcIU/manOl4pLYb6qwBpbds1YhFP6jYEYoYgG9jOQ/NcdTMlut4jnWt6
- splGSRXA6DxxG6qs7UVuAUdRY+4O1czMwEW9Cn3IqCvG8tv81PztxVqvVEV0Ua8fzkMM
- 0WXDVfATXLLYg4j1jevCQkPDeU3WXVIvwo88ul+4nqUsP5T2POu8oHDjuTFWqDktr2br
- iS1A==
-X-Gm-Message-State: AOAM53077T7FUUW7aQrMc28SFYY66qPCrsnZL3UgQxn4QTfsem51xg6X
- XK6jl/AV4KePMkWxtc6bQnsZawGv83sIx4xpweo=
-X-Google-Smtp-Source: ABdhPJylzSwq4r+qEE6LOXaikcbp2iZiGZloqtcYgnCdLwo1qE3YIxa1BHgFMbaxgEadAfEiImbvH8goVDPVYxwOoiw=
-X-Received: by 2002:adf:9021:: with SMTP id h30mr4539092wrh.327.1629991979210; 
- Thu, 26 Aug 2021 08:32:59 -0700 (PDT)
+ bh=6ledkqU9D7FzcL/5ouJNmCXuXtKins7U1aoW3QxLbVU=;
+ b=TecZJdSHeWySsrS/9MZTAwu18Je1Nkv+cm7dSu60P1ZXF7imIcaT1nd0HlyeLyfqNS
+ YC+WvqDHgiz98vOiJaqljGeHXGQGbQXEide8w66xJYA73OMfExURhdIhptFnD9cEOV16
+ F6On3BnNNUZtueQY3vhS4vd5wpTR/z9gupIDQVstRHFGz7gLfYZeSE87C1YFxnnDJkfq
+ GmaPuqkkB9ZMqN18KFeThsrLVfQB1ZiIgbB80XArwx2HvmYCLdrXZCtLOA/QtupS5PeS
+ 2mCDFXJlDTAkzsXUJe/2vof2UOdoNMSpDKNrz8fKwpUKvHMWxlgfBHW5cQfZJHEbaSqF
+ 5pnw==
+X-Gm-Message-State: AOAM5319j4NZNxJzanc+xiL63L6E3xUNVR5aIYdqcUFHZx+y4yNM6jiJ
+ d7Q6T7Sy7LcXSd2pIUirbO++lU7H/n5+xBcEMA0=
+X-Google-Smtp-Source: ABdhPJxNi7BD0F9Nk2M8iBXkon89Q02BBjrW2NrVCNpKlZ5X5qHkwp/W2LBzZ7ppSDqjH2XlmT9Atndgc3cblhH236o=
+X-Received: by 2002:adf:9021:: with SMTP id h30mr4549091wrh.327.1629992070122; 
+ Thu, 26 Aug 2021 08:34:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210825233139.1066504-1-robdclark@gmail.com>
- <20210825233139.1066504-4-robdclark@gmail.com>
- <YScnGRjPt48cEtF1@platvala-desk.ger.corp.intel.com>
-In-Reply-To: <YScnGRjPt48cEtF1@platvala-desk.ger.corp.intel.com>
+References: <20210817085308.3557257-1-daniel.vetter@ffwll.ch>
+ <20210826093334.1117944-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20210826093334.1117944-1-daniel.vetter@ffwll.ch>
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 26 Aug 2021 08:37:19 -0700
-Message-ID: <CAF6AEGsf=jf7-miUXt+4h5cOEYx0obW-_Gmxm=vUL4wWTsbsJw@mail.gmail.com>
-To: Petri Latvala <petri.latvala@intel.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
+Date: Thu, 26 Aug 2021 08:38:50 -0700
+Message-ID: <CAF6AEGvVjrii3-22ocsuej8Hw-2OLG8Zok-LsUceh4Aqu=45-g@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: DRI Development <dri-devel@lists.freedesktop.org>, 
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Rob Clark <robdclark@chromium.org>, 
+ Sean Paul <sean@poorly.run>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
+ freedreno <freedreno@lists.freedesktop.org>, 
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>, 
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH igt v2 3/3] msm: Add submit ioctl tests
+Subject: Re: [Freedreno] [PATCH] drm/msm: Improve drm/sched point of no
+ return rules
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,266 +78,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 25, 2021 at 10:28 PM Petri Latvala <petri.latvala@intel.com> wr=
-ote:
+On Thu, Aug 26, 2021 at 2:33 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrot=
+e:
 >
-> On Wed, Aug 25, 2021 at 04:31:39PM -0700, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Add an initial set of tests for the submit ioctl.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >  tests/meson.build  |   1 +
-> >  tests/msm_submit.c | 186 +++++++++++++++++++++++++++++++++++++++++++++
-> >  2 files changed, 187 insertions(+)
-> >  create mode 100644 tests/msm_submit.c
-> >
-> > diff --git a/tests/meson.build b/tests/meson.build
-> > index 1bdfddbb..ff7c709a 100644
-> > --- a/tests/meson.build
-> > +++ b/tests/meson.build
-> > @@ -107,6 +107,7 @@ test_progs =3D [
-> >       'vc4_wait_seqno',
-> >       'vgem_basic',
-> >       'vgem_slow',
-> > +     'msm_submit',
-> >  ]
-> >
-> >  i915_progs =3D [
-> > diff --git a/tests/msm_submit.c b/tests/msm_submit.c
-> > new file mode 100644
-> > index 00000000..da93c574
-> > --- /dev/null
-> > +++ b/tests/msm_submit.c
-> > @@ -0,0 +1,186 @@
-> > +/*
-> > + * Copyright =C2=A9 2021 Google, Inc.
-> > + *
-> > + * Permission is hereby granted, free of charge, to any person obtaini=
-ng a
-> > + * copy of this software and associated documentation files (the "Soft=
-ware"),
-> > + * to deal in the Software without restriction, including without limi=
-tation
-> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
-ense,
-> > + * and/or sell copies of the Software, and to permit persons to whom t=
-he
-> > + * Software is furnished to do so, subject to the following conditions=
-:
-> > + *
-> > + * The above copyright notice and this permission notice (including th=
-e next
-> > + * paragraph) shall be included in all copies or substantial portions =
-of the
-> > + * Software.
-> > + *
-> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
-RESS OR
-> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
-LITY,
-> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
-SHALL
-> > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES O=
-R OTHER
-> > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARI=
-SING
-> > + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER=
- DEALINGS
-> > + * IN THE SOFTWARE.
-> > + */
-> > +
-> > +#include "igt.h"
-> > +#include "igt_msm.h"
-> > +
-> > +igt_main
-> > +{
-> > +     struct msm_device *dev;
-> > +     struct msm_pipe *pipe;
-> > +     struct msm_bo *a, *b;
-> > +
-> > +     igt_fixture {
-> > +             dev =3D igt_msm_dev_open();
+> Originally drm_sched_job_init was the point of no return, after which
+> drivers really should submit a job. I've split that up, which allows
+> us to fix this issue pretty easily.
 >
-> What I replied on 2/3 applies here: If opening the device fails,
-> igt_msm_dev_open() does not return and 'dev' is left uninitialized,
-> those other pointers likewise. Leading to...
+> Only thing we have to take care of is to not skip to error paths after
+> that. Other drivers do this the same for out-fence and similar things.
 >
-> > +             pipe =3D igt_msm_pipe_open(dev, 0);
-> > +             a =3D igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> > +             b =3D igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> > +     }
-> > +
-> > +     igt_subtest("empty-submit") {
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +             };
-> > +             do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> > +     }
-> > +
-> > +     igt_subtest("invalid-queue-submit") {
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe,
-> > +                             .queueid =3D 0x1234,
-> > +             };
-> > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, ENO=
-ENT);
-> > +     }
-> > +
-> > +     igt_subtest("invalid-flags-submit") {
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D 0x1234,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +             };
-> > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EIN=
-VAL);
-> > +     }
-> > +
-> > +     igt_subtest("invalid-in-fence-submit") {
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe | MSM_SUBMIT_FENC=
-E_FD_IN,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +                             .fence_fd =3D dev->fd,  /* This is not a =
-fence fd! */
-> > +             };
-> > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EIN=
-VAL);
-> > +     }
-> > +
-> > +     igt_subtest("invalid-duplicate-bo-submit") {
-> > +             struct drm_msm_gem_submit_bo bos[] =3D {
-> > +                     [0] =3D {
-> > +                             .handle     =3D a->handle,
-> > +                             .flags      =3D MSM_SUBMIT_BO_READ,
-> > +                     },
-> > +                     [1] =3D {
-> > +                             .handle     =3D b->handle,
-> > +                             .flags      =3D MSM_SUBMIT_BO_READ,
-> > +                     },
-> > +                     [2] =3D {
-> > +                             /* this is invalid.. there should not be =
-two entries
-> > +                              * for the same bo, instead a single entr=
-y w/ all
-> > +                              * usage flags OR'd together should be us=
-ed.  Kernel
-> > +                              * should catch this, and return an error=
- code after
-> > +                              * cleaning up properly (not leaking any =
-bo's)
-> > +                              */
-> > +                             .handle     =3D a->handle,
-> > +                             .flags      =3D MSM_SUBMIT_BO_WRITE,
-> > +                     },
-> > +             };
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +                             .nr_bos  =3D ARRAY_SIZE(bos),
-> > +                             .bos     =3D VOID2U64(bos),
-> > +             };
-> > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EIN=
-VAL);
-> > +     }
-> > +
-> > +     igt_subtest("invalid-cmd-idx-submit") {
-> > +             struct drm_msm_gem_submit_cmd cmds[] =3D {
-> > +                     [0] =3D {
-> > +                             .type       =3D MSM_SUBMIT_CMD_BUF,
-> > +                             .submit_idx =3D 0,      /* bos[0] does no=
-t exist */
-> > +                             .size       =3D 4 * 4,  /* 4 dwords in cm=
-dbuf */
-> > +                     },
-> > +             };
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +                             .nr_cmds    =3D ARRAY_SIZE(cmds),
-> > +                             .cmds       =3D VOID2U64(cmds),
-> > +             };
-> > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EIN=
-VAL);
-> > +     }
-> > +
-> > +     igt_subtest("invalid-cmd-type-submit") {
-> > +             struct drm_msm_gem_submit_bo bos[] =3D {
-> > +                     [0] =3D {
-> > +                             .handle     =3D a->handle,
-> > +                             .flags      =3D MSM_SUBMIT_BO_READ,
-> > +                     },
-> > +             };
-> > +             struct drm_msm_gem_submit_cmd cmds[] =3D {
-> > +                     [0] =3D {
-> > +                             .type       =3D 0x1234,
-> > +                             .submit_idx =3D 0,
-> > +                             .size       =3D 4 * 4,  /* 4 dwords in cm=
-dbuf */
-> > +                     },
-> > +             };
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +                             .nr_cmds    =3D ARRAY_SIZE(cmds),
-> > +                             .cmds       =3D VOID2U64(cmds),
-> > +                             .nr_bos  =3D ARRAY_SIZE(bos),
-> > +                             .bos     =3D VOID2U64(bos),
-> > +             };
-> > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EIN=
-VAL);
-> > +     }
-> > +
-> > +     igt_subtest("valid-submit") {
-> > +             struct drm_msm_gem_submit_bo bos[] =3D {
-> > +                     [0] =3D {
-> > +                             .handle     =3D a->handle,
-> > +                             .flags      =3D MSM_SUBMIT_BO_READ,
-> > +                     },
-> > +             };
-> > +             struct drm_msm_gem_submit_cmd cmds[] =3D {
-> > +                     [0] =3D {
-> > +                             .type       =3D MSM_SUBMIT_CMD_BUF,
-> > +                             .submit_idx =3D 0,
-> > +                             .size       =3D 4 * 4,  /* 4 dwords in cm=
-dbuf */
-> > +                     },
-> > +             };
-> > +             struct drm_msm_gem_submit req =3D {
-> > +                             .flags   =3D pipe->pipe,
-> > +                             .queueid =3D pipe->submitqueue_id,
-> > +                             .nr_cmds    =3D ARRAY_SIZE(cmds),
-> > +                             .cmds       =3D VOID2U64(cmds),
-> > +                             .nr_bos  =3D ARRAY_SIZE(bos),
-> > +                             .bos     =3D VOID2U64(bos),
-> > +             };
-> > +             uint32_t *cmdstream =3D igt_msm_bo_map(a);
-> > +             if (dev->gen >=3D 5) {
-> > +                     *(cmdstream++) =3D pm4_pkt7_hdr(CP_NOP, 3);
-> > +             } else {
-> > +                     *(cmdstream++) =3D pm4_pkt3_hdr(CP_NOP, 3);
-> > +             }
-> > +             *(cmdstream++) =3D 0;
-> > +             *(cmdstream++) =3D 0;
-> > +             *(cmdstream++) =3D 0;
-> > +
-> > +             do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> > +     }
-> > +
-> > +     igt_fixture {
-> > +             igt_msm_bo_free(a);
-> > +             igt_msm_bo_free(b);
-> > +             igt_msm_pipe_close(pipe);
-> > +             igt_msm_dev_close(dev);
+> v2: It's not really a bugfix, just an improvement, since all
+> drm_sched_job_arm does is reserve the fence number. And gaps should be
+> fine, as long as the drm_sched_job doesn't escape anywhere at all.
 >
-> ... crashes in here.
+> For robustness it's still better to align with other drivers here and
+> not bail out after job_arm().
 >
+> v3: I misplaced drm_sched_job_arm by _one_ line! Thanks to Rob for
+> testing and debug help.
+>
+> Cc: Rob Clark <robdclark@chromium.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
 
-I did test this on intel as well, and it skips properly.. I think the
-setjmp/longjmp magic just bails completely out so we never try to run
-the cleanup?
+t-b && r-b
 
 BR,
 -R
+
+> ---
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/m=
+sm_gem_submit.c
+> index 4d1c4d5f6a2a..71b8c8f752a3 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -52,8 +52,6 @@ static struct msm_gem_submit *submit_create(struct drm_=
+device *dev,
+>                 return ERR_PTR(ret);
+>         }
+>
+> -       drm_sched_job_arm(&job->base);
+> -
+>         xa_init_flags(&submit->deps, XA_FLAGS_ALLOC);
+>
+>         kref_init(&submit->ref);
+> @@ -880,6 +878,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void=
+ *data,
+>
+>         submit->nr_cmds =3D i;
+>
+> +       drm_sched_job_arm(&submit->base);
+> +
+>         submit->user_fence =3D dma_fence_get(&submit->base.s_fence->finis=
+hed);
+>
+>         /*
+> @@ -891,17 +891,16 @@ int msm_ioctl_gem_submit(struct drm_device *dev, vo=
+id *data,
+>         if (submit->fence_id < 0) {
+>                 ret =3D submit->fence_id =3D 0;
+>                 submit->fence_id =3D 0;
+> -               goto out;
+>         }
+>
+> -       if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+> +       if (ret =3D=3D 0 && args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+>                 struct sync_file *sync_file =3D sync_file_create(submit->=
+user_fence);
+>                 if (!sync_file) {
+>                         ret =3D -ENOMEM;
+> -                       goto out;
+> +               } else {
+> +                       fd_install(out_fence_fd, sync_file->file);
+> +                       args->fence_fd =3D out_fence_fd;
+>                 }
+> -               fd_install(out_fence_fd, sync_file->file);
+> -               args->fence_fd =3D out_fence_fd;
+>         }
+>
+>         submit_attach_object_fences(submit);
+> --
+> 2.32.0
+>
