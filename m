@@ -1,45 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D252A3F94A4
-	for <lists+freedreno@lfdr.de>; Fri, 27 Aug 2021 08:56:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E77F23F9D10
+	for <lists+freedreno@lfdr.de>; Fri, 27 Aug 2021 18:55:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A1056E8E4;
-	Fri, 27 Aug 2021 06:56:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F5FD6E995;
+	Fri, 27 Aug 2021 16:55:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFACB6E8E4;
- Fri, 27 Aug 2021 06:56:41 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10088"; a="303483743"
-X-IronPort-AV: E=Sophos;i="5.84,355,1620716400"; d="scan'208";a="303483743"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 23:56:38 -0700
-X-IronPort-AV: E=Sophos;i="5.84,355,1620716400"; d="scan'208";a="427032981"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 23:56:35 -0700
-Received: from platvala by thrakatuluk with local (Exim 4.94)
- (envelope-from <petri.latvala@intel.com>)
- id 1mJVps-0003V8-Em; Fri, 27 Aug 2021 09:59:32 +0300
-Date: Fri, 27 Aug 2021 09:59:32 +0300
-From: Petri Latvala <petri.latvala@intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
-Message-ID: <YSiNVEAlkdpVykOe@platvala-desk.ger.corp.intel.com>
-References: <20210825233139.1066504-1-robdclark@gmail.com>
- <20210825233139.1066504-4-robdclark@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210825233139.1066504-4-robdclark@gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH igt v2 3/3] msm: Add submit ioctl tests
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F046E995
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Aug 2021 16:55:25 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1630083325; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=MSpuInI2Ya9FQMQo9vEHYIhYMW5aeYY8bnIKR5TldBE=;
+ b=U4gcCKQ9NMgTAT/VXUQHF1Huk9VDkVbWIJKkx6mk9hJZ9/4PyB5Hic5biWQE0Sekd9CaFdj0
+ cNJziMigRD76gG6taYE1JTJ/dVq3S9x0CtoMb+UmaZnDQQ2UguhLEaarX8S8Vgb4bfyrf2/Z
+ B8TbzKbn4EYualpSFSXngegz8XA=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 612918fc40d2129ac15372a3 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 27 Aug 2021 16:55:24
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 564ABC4360D; Fri, 27 Aug 2021 16:55:24 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B6097C4338F;
+ Fri, 27 Aug 2021 16:55:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org B6097C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
+ mkrishn@codeaurora.org, kalyan_t@codeaurora.org, rajeevny@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 27 Aug 2021 09:55:16 -0700
+Message-Id: <1630083316-2028-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: fix display port phy
+ base address offset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,231 +73,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Aug 25, 2021 at 04:31:39PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Add an initial set of tests for the submit ioctl.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  tests/meson.build  |   1 +
->  tests/msm_submit.c | 186 +++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 187 insertions(+)
->  create mode 100644 tests/msm_submit.c
-> 
-> diff --git a/tests/meson.build b/tests/meson.build
-> index 1bdfddbb..ff7c709a 100644
-> --- a/tests/meson.build
-> +++ b/tests/meson.build
-> @@ -107,6 +107,7 @@ test_progs = [
->  	'vc4_wait_seqno',
->  	'vgem_basic',
->  	'vgem_slow',
-> +	'msm_submit',
->  ]
->  
->  i915_progs = [
-> diff --git a/tests/msm_submit.c b/tests/msm_submit.c
-> new file mode 100644
-> index 00000000..da93c574
-> --- /dev/null
-> +++ b/tests/msm_submit.c
-> @@ -0,0 +1,186 @@
-> +/*
-> + * Copyright © 2021 Google, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice (including the next
-> + * paragraph) shall be included in all copies or substantial portions of the
-> + * Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-> + * IN THE SOFTWARE.
-> + */
-> +
-> +#include "igt.h"
-> +#include "igt_msm.h"
-> +
-> +igt_main
-> +{
-> +	struct msm_device *dev;
-> +	struct msm_pipe *pipe;
-> +	struct msm_bo *a, *b;
-> +
-> +	igt_fixture {
-> +		dev = igt_msm_dev_open();
-> +		pipe = igt_msm_pipe_open(dev, 0);
-> +		a = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> +		b = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> +	}
-> +
-> +	igt_subtest("empty-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +		};
-> +		do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> +	}
-> +
-> +	igt_subtest("invalid-queue-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = 0x1234,
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, ENOENT);
-> +	}
-> +
-> +	igt_subtest("invalid-flags-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = 0x1234,
-> +				.queueid = pipe->submitqueue_id,
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_subtest("invalid-in-fence-submit") {
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe | MSM_SUBMIT_FENCE_FD_IN,
-> +				.queueid = pipe->submitqueue_id,
-> +				.fence_fd = dev->fd,  /* This is not a fence fd! */
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_subtest("invalid-duplicate-bo-submit") {
-> +		struct drm_msm_gem_submit_bo bos[] = {
-> +			[0] = {
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +			[1] = {
-> +				.handle     = b->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +			[2] = {
-> +				/* this is invalid.. there should not be two entries
-> +				 * for the same bo, instead a single entry w/ all
-> +				 * usage flags OR'd together should be used.  Kernel
-> +				 * should catch this, and return an error code after
-> +				 * cleaning up properly (not leaking any bo's)
-> +				 */
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_WRITE,
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_bos  = ARRAY_SIZE(bos),
-> +				.bos     = VOID2U64(bos),
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_subtest("invalid-cmd-idx-submit") {
-> +		struct drm_msm_gem_submit_cmd cmds[] = {
-> +			[0] = {
-> +				.type       = MSM_SUBMIT_CMD_BUF,
-> +				.submit_idx = 0,      /* bos[0] does not exist */
-> +				.size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_cmds    = ARRAY_SIZE(cmds),
-> +				.cmds       = VOID2U64(cmds),
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_subtest("invalid-cmd-type-submit") {
-> +		struct drm_msm_gem_submit_bo bos[] = {
-> +			[0] = {
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit_cmd cmds[] = {
-> +			[0] = {
-> +				.type       = 0x1234,
-> +				.submit_idx = 0,
-> +				.size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_cmds    = ARRAY_SIZE(cmds),
-> +				.cmds       = VOID2U64(cmds),
-> +				.nr_bos  = ARRAY_SIZE(bos),
-> +				.bos     = VOID2U64(bos),
-> +		};
-> +		do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> +	}
-> +
-> +	igt_subtest("valid-submit") {
-> +		struct drm_msm_gem_submit_bo bos[] = {
-> +			[0] = {
-> +				.handle     = a->handle,
-> +				.flags      = MSM_SUBMIT_BO_READ,
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit_cmd cmds[] = {
-> +			[0] = {
-> +				.type       = MSM_SUBMIT_CMD_BUF,
-> +				.submit_idx = 0,
-> +				.size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> +			},
-> +		};
-> +		struct drm_msm_gem_submit req = {
-> +				.flags   = pipe->pipe,
-> +				.queueid = pipe->submitqueue_id,
-> +				.nr_cmds    = ARRAY_SIZE(cmds),
-> +				.cmds       = VOID2U64(cmds),
-> +				.nr_bos  = ARRAY_SIZE(bos),
-> +				.bos     = VOID2U64(bos),
-> +		};
-> +		uint32_t *cmdstream = igt_msm_bo_map(a);
-> +		if (dev->gen >= 5) {
-> +			*(cmdstream++) = pm4_pkt7_hdr(CP_NOP, 3);
-> +		} else {
-> +			*(cmdstream++) = pm4_pkt3_hdr(CP_NOP, 3);
-> +		}
-> +		*(cmdstream++) = 0;
-> +		*(cmdstream++) = 0;
-> +		*(cmdstream++) = 0;
-> +
-> +		do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> +	}
+Fixes: 9886e8fd8438 ("arm64: dts: qcom: sc7280: Add USB related nodes")
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-Add igt_describe()s for all subtests.
-
-
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index c29226b..77b0b4e 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -2918,15 +2918,11 @@
+ 			dp_phy: dp-phy@88ea200 {
+ 				reg = <0 0x088ea200 0 0x200>,
+ 				      <0 0x088ea400 0 0x200>,
+-				      <0 0x088eac00 0 0x400>,
++				      <0 0x088eaa00 0 0x200>,
+ 				      <0 0x088ea600 0 0x200>,
+-				      <0 0x088ea800 0 0x200>,
+-				      <0 0x088eaa00 0 0x100>;
++				      <0 0x088ea800 0 0x200>;
+ 				#phy-cells = <0>;
+ 				#clock-cells = <1>;
+-				clocks = <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
+-				clock-names = "pipe0";
+-				clock-output-names = "usb3_phy_pipe_clk_src";
+ 			};
+ 		};
+ 
 -- 
-Petri Latvala
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-
-
-> +
-> +	igt_fixture {
-> +		igt_msm_bo_free(a);
-> +		igt_msm_bo_free(b);
-> +		igt_msm_pipe_close(pipe);
-> +		igt_msm_dev_close(dev);
-> +	}
-> +}
-> -- 
-> 2.31.1
-> 
