@@ -1,48 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B075E3F940E
-	for <lists+freedreno@lfdr.de>; Fri, 27 Aug 2021 07:35:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (unknown [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C94653F949A
+	for <lists+freedreno@lfdr.de>; Fri, 27 Aug 2021 08:54:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D60016E8D6;
-	Fri, 27 Aug 2021 05:34:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 772396E8E2;
+	Fri, 27 Aug 2021 06:53:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E40F06E8D5;
- Fri, 27 Aug 2021 05:34:56 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10088"; a="216052046"
-X-IronPort-AV: E=Sophos;i="5.84,355,1620716400"; d="scan'208";a="216052046"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 22:34:56 -0700
-X-IronPort-AV: E=Sophos;i="5.84,355,1620716400"; d="scan'208";a="687325748"
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89DB36E8E2;
+ Fri, 27 Aug 2021 06:53:39 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10088"; a="217911485"
+X-IronPort-AV: E=Sophos;i="5.84,355,1620716400"; d="scan'208";a="217911485"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2021 23:53:38 -0700
+X-IronPort-AV: E=Sophos;i="5.84,355,1620716400"; d="scan'208";a="457426240"
 Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 22:34:54 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2021 23:53:36 -0700
 Received: from platvala by thrakatuluk with local (Exim 4.94)
  (envelope-from <petri.latvala@intel.com>)
- id 1mJUYp-0002Iy-71; Fri, 27 Aug 2021 08:37:51 +0300
-Date: Fri, 27 Aug 2021 08:37:51 +0300
+ id 1mJVmy-0003UL-90; Fri, 27 Aug 2021 09:56:32 +0300
+Date: Fri, 27 Aug 2021 09:56:32 +0300
 From: Petri Latvala <petri.latvala@intel.com>
 To: Rob Clark <robdclark@gmail.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
+Cc: igt-dev@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>,
  Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
-Message-ID: <YSh6L+oBDPMFqq06@platvala-desk.ger.corp.intel.com>
+Message-ID: <YSiMoK5r1OgrGh3I@platvala-desk.ger.corp.intel.com>
 References: <20210825233139.1066504-1-robdclark@gmail.com>
- <20210825233139.1066504-4-robdclark@gmail.com>
- <YScnGRjPt48cEtF1@platvala-desk.ger.corp.intel.com>
- <CAF6AEGsf=jf7-miUXt+4h5cOEYx0obW-_Gmxm=vUL4wWTsbsJw@mail.gmail.com>
+ <20210825233139.1066504-2-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGsf=jf7-miUXt+4h5cOEYx0obW-_Gmxm=vUL4wWTsbsJw@mail.gmail.com>
+In-Reply-To: <20210825233139.1066504-2-robdclark@gmail.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH igt v2 3/3] msm: Add submit ioctl tests
+Subject: Re: [Freedreno] [PATCH igt v2 1/3] drmtest: Add DRIVER_MSM support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,242 +54,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 26, 2021 at 08:37:19AM -0700, Rob Clark wrote:
-> On Wed, Aug 25, 2021 at 10:28 PM Petri Latvala <petri.latvala@intel.com> wrote:
-> >
-> > On Wed, Aug 25, 2021 at 04:31:39PM -0700, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Add an initial set of tests for the submit ioctl.
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  tests/meson.build  |   1 +
-> > >  tests/msm_submit.c | 186 +++++++++++++++++++++++++++++++++++++++++++++
-> > >  2 files changed, 187 insertions(+)
-> > >  create mode 100644 tests/msm_submit.c
-> > >
-> > > diff --git a/tests/meson.build b/tests/meson.build
-> > > index 1bdfddbb..ff7c709a 100644
-> > > --- a/tests/meson.build
-> > > +++ b/tests/meson.build
-> > > @@ -107,6 +107,7 @@ test_progs = [
-> > >       'vc4_wait_seqno',
-> > >       'vgem_basic',
-> > >       'vgem_slow',
-> > > +     'msm_submit',
-> > >  ]
-> > >
-> > >  i915_progs = [
-> > > diff --git a/tests/msm_submit.c b/tests/msm_submit.c
-> > > new file mode 100644
-> > > index 00000000..da93c574
-> > > --- /dev/null
-> > > +++ b/tests/msm_submit.c
-> > > @@ -0,0 +1,186 @@
-> > > +/*
-> > > + * Copyright © 2021 Google, Inc.
-> > > + *
-> > > + * Permission is hereby granted, free of charge, to any person obtaining a
-> > > + * copy of this software and associated documentation files (the "Software"),
-> > > + * to deal in the Software without restriction, including without limitation
-> > > + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> > > + * and/or sell copies of the Software, and to permit persons to whom the
-> > > + * Software is furnished to do so, subject to the following conditions:
-> > > + *
-> > > + * The above copyright notice and this permission notice (including the next
-> > > + * paragraph) shall be included in all copies or substantial portions of the
-> > > + * Software.
-> > > + *
-> > > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> > > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> > > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> > > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> > > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> > > + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-> > > + * IN THE SOFTWARE.
-> > > + */
-> > > +
-> > > +#include "igt.h"
-> > > +#include "igt_msm.h"
-> > > +
-> > > +igt_main
-> > > +{
-> > > +     struct msm_device *dev;
-> > > +     struct msm_pipe *pipe;
-> > > +     struct msm_bo *a, *b;
-> > > +
-> > > +     igt_fixture {
-> > > +             dev = igt_msm_dev_open();
-> >
-> > What I replied on 2/3 applies here: If opening the device fails,
-> > igt_msm_dev_open() does not return and 'dev' is left uninitialized,
-> > those other pointers likewise. Leading to...
-> >
-> > > +             pipe = igt_msm_pipe_open(dev, 0);
-> > > +             a = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> > > +             b = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> > > +     }
-> > > +
-> > > +     igt_subtest("empty-submit") {
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +             };
-> > > +             do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> > > +     }
-> > > +
-> > > +     igt_subtest("invalid-queue-submit") {
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe,
-> > > +                             .queueid = 0x1234,
-> > > +             };
-> > > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, ENOENT);
-> > > +     }
-> > > +
-> > > +     igt_subtest("invalid-flags-submit") {
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = 0x1234,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +             };
-> > > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> > > +     }
-> > > +
-> > > +     igt_subtest("invalid-in-fence-submit") {
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe | MSM_SUBMIT_FENCE_FD_IN,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +                             .fence_fd = dev->fd,  /* This is not a fence fd! */
-> > > +             };
-> > > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> > > +     }
-> > > +
-> > > +     igt_subtest("invalid-duplicate-bo-submit") {
-> > > +             struct drm_msm_gem_submit_bo bos[] = {
-> > > +                     [0] = {
-> > > +                             .handle     = a->handle,
-> > > +                             .flags      = MSM_SUBMIT_BO_READ,
-> > > +                     },
-> > > +                     [1] = {
-> > > +                             .handle     = b->handle,
-> > > +                             .flags      = MSM_SUBMIT_BO_READ,
-> > > +                     },
-> > > +                     [2] = {
-> > > +                             /* this is invalid.. there should not be two entries
-> > > +                              * for the same bo, instead a single entry w/ all
-> > > +                              * usage flags OR'd together should be used.  Kernel
-> > > +                              * should catch this, and return an error code after
-> > > +                              * cleaning up properly (not leaking any bo's)
-> > > +                              */
-> > > +                             .handle     = a->handle,
-> > > +                             .flags      = MSM_SUBMIT_BO_WRITE,
-> > > +                     },
-> > > +             };
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +                             .nr_bos  = ARRAY_SIZE(bos),
-> > > +                             .bos     = VOID2U64(bos),
-> > > +             };
-> > > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> > > +     }
-> > > +
-> > > +     igt_subtest("invalid-cmd-idx-submit") {
-> > > +             struct drm_msm_gem_submit_cmd cmds[] = {
-> > > +                     [0] = {
-> > > +                             .type       = MSM_SUBMIT_CMD_BUF,
-> > > +                             .submit_idx = 0,      /* bos[0] does not exist */
-> > > +                             .size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> > > +                     },
-> > > +             };
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +                             .nr_cmds    = ARRAY_SIZE(cmds),
-> > > +                             .cmds       = VOID2U64(cmds),
-> > > +             };
-> > > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> > > +     }
-> > > +
-> > > +     igt_subtest("invalid-cmd-type-submit") {
-> > > +             struct drm_msm_gem_submit_bo bos[] = {
-> > > +                     [0] = {
-> > > +                             .handle     = a->handle,
-> > > +                             .flags      = MSM_SUBMIT_BO_READ,
-> > > +                     },
-> > > +             };
-> > > +             struct drm_msm_gem_submit_cmd cmds[] = {
-> > > +                     [0] = {
-> > > +                             .type       = 0x1234,
-> > > +                             .submit_idx = 0,
-> > > +                             .size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> > > +                     },
-> > > +             };
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +                             .nr_cmds    = ARRAY_SIZE(cmds),
-> > > +                             .cmds       = VOID2U64(cmds),
-> > > +                             .nr_bos  = ARRAY_SIZE(bos),
-> > > +                             .bos     = VOID2U64(bos),
-> > > +             };
-> > > +             do_ioctl_err(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req, EINVAL);
-> > > +     }
-> > > +
-> > > +     igt_subtest("valid-submit") {
-> > > +             struct drm_msm_gem_submit_bo bos[] = {
-> > > +                     [0] = {
-> > > +                             .handle     = a->handle,
-> > > +                             .flags      = MSM_SUBMIT_BO_READ,
-> > > +                     },
-> > > +             };
-> > > +             struct drm_msm_gem_submit_cmd cmds[] = {
-> > > +                     [0] = {
-> > > +                             .type       = MSM_SUBMIT_CMD_BUF,
-> > > +                             .submit_idx = 0,
-> > > +                             .size       = 4 * 4,  /* 4 dwords in cmdbuf */
-> > > +                     },
-> > > +             };
-> > > +             struct drm_msm_gem_submit req = {
-> > > +                             .flags   = pipe->pipe,
-> > > +                             .queueid = pipe->submitqueue_id,
-> > > +                             .nr_cmds    = ARRAY_SIZE(cmds),
-> > > +                             .cmds       = VOID2U64(cmds),
-> > > +                             .nr_bos  = ARRAY_SIZE(bos),
-> > > +                             .bos     = VOID2U64(bos),
-> > > +             };
-> > > +             uint32_t *cmdstream = igt_msm_bo_map(a);
-> > > +             if (dev->gen >= 5) {
-> > > +                     *(cmdstream++) = pm4_pkt7_hdr(CP_NOP, 3);
-> > > +             } else {
-> > > +                     *(cmdstream++) = pm4_pkt3_hdr(CP_NOP, 3);
-> > > +             }
-> > > +             *(cmdstream++) = 0;
-> > > +             *(cmdstream++) = 0;
-> > > +             *(cmdstream++) = 0;
-> > > +
-> > > +             do_ioctl(dev->fd, DRM_IOCTL_MSM_GEM_SUBMIT, &req);
-> > > +     }
-> > > +
-> > > +     igt_fixture {
-> > > +             igt_msm_bo_free(a);
-> > > +             igt_msm_bo_free(b);
-> > > +             igt_msm_pipe_close(pipe);
-> > > +             igt_msm_dev_close(dev);
-> >
-> > ... crashes in here.
-> >
+On Wed, Aug 25, 2021 at 04:31:37PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> I did test this on intel as well, and it skips properly.. I think the
-> setjmp/longjmp magic just bails completely out so we never try to run
-> the cleanup?
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Ah, indeed, skip_henceforth prevents entering the latter fixture.
-
-It still looks scary, can I implore to add some defensive layers with
-NULL-inits and handling of NULLs in the functions? It might not crash
-today...
+Reviewed-by: Petri Latvala <petri.latvala@intel.com>
 
 
--- 
-Petri Latvala
+> ---
+>  lib/drmtest.c | 3 +++
+>  lib/drmtest.h | 1 +
+>  2 files changed, 4 insertions(+)
+> 
+> diff --git a/lib/drmtest.c b/lib/drmtest.c
+> index e1f9b115..29cb3f4c 100644
+> --- a/lib/drmtest.c
+> +++ b/lib/drmtest.c
+> @@ -179,6 +179,7 @@ static const struct module {
+>  } modules[] = {
+>  	{ DRIVER_AMDGPU, "amdgpu" },
+>  	{ DRIVER_INTEL, "i915", modprobe_i915 },
+> +	{ DRIVER_MSM, "msm" },
+>  	{ DRIVER_PANFROST, "panfrost" },
+>  	{ DRIVER_V3D, "v3d" },
+>  	{ DRIVER_VC4, "vc4" },
+> @@ -539,6 +540,8 @@ static const char *chipset_to_str(int chipset)
+>  		return "amdgpu";
+>  	case DRIVER_PANFROST:
+>  		return "panfrost";
+> +	case DRIVER_MSM:
+> +		return "msm";
+>  	case DRIVER_ANY:
+>  		return "any";
+>  	default:
+> diff --git a/lib/drmtest.h b/lib/drmtest.h
+> index 7d17a0f9..a6eb60c3 100644
+> --- a/lib/drmtest.h
+> +++ b/lib/drmtest.h
+> @@ -50,6 +50,7 @@
+>  #define DRIVER_AMDGPU	(1 << 3)
+>  #define DRIVER_V3D	(1 << 4)
+>  #define DRIVER_PANFROST	(1 << 5)
+> +#define DRIVER_MSM	(1 << 6)
+>  
+>  /*
+>   * Exclude DRVER_VGEM from DRIVER_ANY since if you run on a system
+> -- 
+> 2.31.1
+> 
