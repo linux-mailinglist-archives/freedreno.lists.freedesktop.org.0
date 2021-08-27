@@ -2,70 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB3953F9D84
-	for <lists+freedreno@lfdr.de>; Fri, 27 Aug 2021 19:19:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB61D3FA03A
+	for <lists+freedreno@lfdr.de>; Fri, 27 Aug 2021 22:00:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A007F6E996;
-	Fri, 27 Aug 2021 17:19:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0C96E9BA;
+	Fri, 27 Aug 2021 20:00:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21F7D6E996
- for <freedreno@lists.freedesktop.org>; Fri, 27 Aug 2021 17:19:11 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- k12-20020a056830150c00b0051abe7f680bso8831417otp.1
- for <freedreno@lists.freedesktop.org>; Fri, 27 Aug 2021 10:19:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=LUINJeVF8Mv+Qni9gSoxQ0tMUJKZ5DY+dY1yDHy05KU=;
- b=wXzAoFu3YPB/qKtRMuy9NS/vw+iY8qqKSMhL91DwkH3fx1VFILrLHQtvDJmfVw/vWt
- u0Gmea/jMmYkBs0l2KLAt0hNR6cljTmPyyig+3a8NslpVjwrpPlq/V5HKevdiWunMVAL
- 5dYm2M2SZOdSfBVuIJwiptec/K/PECRi7UdwO+40h2rvwcR4JLB8PISkchwuwfkkmICf
- LMlN97nC/yJnI43xCuUk2ZX2f3sSe5el182ghH6U7YLnuVBQgALrCZERCZN1HTeZtCLz
- gE/n61OXCM0PdihuljqD6O/yjb8PoVAPYXmmW+ePkLzJ1THBUJhVV9Td6wGBA/sa2z1B
- Wjtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=LUINJeVF8Mv+Qni9gSoxQ0tMUJKZ5DY+dY1yDHy05KU=;
- b=VeNyZCS1cAQcH0mANepKlPlJGhhPzxDOpFTOtFMjeSRJ60w5SjW3xWOw3YsKOVXUZb
- SDwR/Q45ZLz1E4Jn1KiuyBTh/KoXuwYsc+bgR9FMgLrEQiV7YW8UdVhPw925aaRqtOH1
- CfItsYMf2DwjdrbeV3wwJTfsU/zM4Q4M9/QAmW8fTqqnM61dBarAwJDytHPoQ+prSIFU
- 9eInO2l7ShmMdu5ghwSYuDRaLr6rUkyZMBzp4HunsAlafDXKGQt6aVZk2YZxkp4m7pX0
- 1dYvlV/MQc/1VaZ3Kqpjmy4AIUoUCUMbA6hNd8LdyBMF1CIGlabYfYcJ+yLdAvtS3Liy
- HJUA==
-X-Gm-Message-State: AOAM533Fm27B/MffAC2vFEtEN0u+8tVOefqcAogOsPe35ZKZbfBWe7zp
- cg5Sfd81BwnSV4hl5SWGY3emwQ==
-X-Google-Smtp-Source: ABdhPJzpZGHJr2Nwej0U+Rd/3Jh75eu1bT9hRrxL9fP6KKzmFMhs9Syiz/V9cJhMDnuwNkWiUOuqsQ==
-X-Received: by 2002:a05:6830:314b:: with SMTP id
- c11mr9064499ots.169.1630084750178; 
- Fri, 27 Aug 2021 10:19:10 -0700 (PDT)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id m20sm1461021oiw.46.2021.08.27.10.19.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Aug 2021 10:19:09 -0700 (PDT)
-Date: Fri, 27 Aug 2021 10:20:23 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>
-Cc: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, robh+dt@kernel.org,
- devicetree@vger.kernel.org, abhinavk@codeaurora.org,
- aravindh@codeaurora.org, mkrishn@codeaurora.org,
- kalyan_t@codeaurora.org, rajeevny@codeaurora.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-ID: <YSke10cPLS9QlKKZ@ripper>
-References: <1630083316-2028-1-git-send-email-khsieh@codeaurora.org>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA516E9BA
+ for <freedreno@lists.freedesktop.org>; Fri, 27 Aug 2021 20:00:24 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1630094426; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=z72idV3NWgM7ioiLJkOrmuVDeX54IRncvfUCduwkFdc=;
+ b=Yd756af4pvvU0RkhDdg7/vCp/SDJxt2iNEGVzEu/HP1k3ZvNPZ3RzWPebGgbpKNWCic2SByi
+ B/rAvG/3RM5OX1ZKKDMcJ5VnPlTytj6ZAQwIj1WdBnptjHUOna4dJoefvX6z+KHX/tJlvlpo
+ YExsGvqiRZ7+C/hb10J9Rq3r0FQ=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 61294453d6653df7679f288e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 27 Aug 2021 20:00:19
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id F0ED7C43460; Fri, 27 Aug 2021 20:00:18 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 781D6C4338F;
+ Fri, 27 Aug 2021 20:00:16 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1630083316-2028-1-git-send-email-khsieh@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: fix display port
- phy base address offset
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 27 Aug 2021 13:00:16 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: agross@kernel.org, bjorn.andersson@linaro.org,
+ devicetree@vger.kernel.org, robdclark@gmail.com, robh+dt@kernel.org,
+ sean@poorly.run, vkoul@kernel.org, abhinavk@codeaurora.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, kishon@ti.com,
+ p.zabel@pengutronix.de
+In-Reply-To: <CAE-0n52obotsMwXLHm8Fkd3+7QnXCEZgVhO_FNSY7RsbC+pbcA@mail.gmail.com>
+References: <1629847775-16767-1-git-send-email-khsieh@codeaurora.org>
+ <CAE-0n52obotsMwXLHm8Fkd3+7QnXCEZgVhO_FNSY7RsbC+pbcA@mail.gmail.com>
+Message-ID: <556428d20109fee3b4e3e1fd185e22cf@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] phy: qcom-qmp: add support for voltage and
+ pre emphesis swing
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,51 +76,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 27 Aug 09:55 PDT 2021, Kuogee Hsieh wrote:
-
-So the order was mixed up, 0x088eaa00 got the wrong length and you got
-one hardware block too many in there?
-
-> Fixes: 9886e8fd8438 ("arm64: dts: qcom: sc7280: Add USB related nodes")
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
+On 2021-08-25 10:49, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2021-08-24 16:29:35)
+>> Add voltage and pre emphesis swing tables so that voltage and
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index c29226b..77b0b4e 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -2918,15 +2918,11 @@
->  			dp_phy: dp-phy@88ea200 {
->  				reg = <0 0x088ea200 0 0x200>,
->  				      <0 0x088ea400 0 0x200>,
-> -				      <0 0x088eac00 0 0x400>,
-> +				      <0 0x088eaa00 0 0x200>,
->  				      <0 0x088ea600 0 0x200>,
-> -				      <0 0x088ea800 0 0x200>,
-> -				      <0 0x088eaa00 0 0x100>;
-> +				      <0 0x088ea800 0 0x200>;
->  				#phy-cells = <0>;
->  				#clock-cells = <1>;
-> -				clocks = <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
-> -				clock-names = "pipe0";
-> -				clock-output-names = "usb3_phy_pipe_clk_src";
-
-This is not "base address offset", please fix $subject.
-
-
-Looking at this makes me feel that the dp-phy node was copy-pasted from
-the usb3-node and that this patch corrects a copy-paste issue. Seems
-like this would be an excellent thing to write in a commit message.
-
-Thanks,
-Bjorn
-
->  			};
->  		};
->  
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
+> Is it "pre-emphasis"?
 > 
+>> pre emphsis swing level can be configured base on link rate.
+> 
+> This one is also different.
+> 
+>> 
+>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> 
+> Presumably
+> 
+> Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp 
+> phy")
+> 
+>> ---
+>>  drivers/phy/qualcomm/phy-qcom-qmp.c | 95 
+>> ++++++++++++++++++++++++++++++++-----
+>>  1 file changed, 82 insertions(+), 13 deletions(-)
+>> 
+>> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c 
+>> b/drivers/phy/qualcomm/phy-qcom-qmp.c
+>> index 31036aa..52bab6e 100644
+>> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
+>> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+>> @@ -1916,7 +1916,7 @@ static const struct qmp_phy_init_tbl 
+>> qmp_v4_dp_tx_tbl[] = {
+>>         QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_RX, 0x11),
+>>         QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_BAND, 0x4),
+>>         QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_POL_INV, 0x0a),
+>> -       QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_DRV_LVL, 0x2a),
+>> +       QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_DRV_LVL, 0x22),
+> 
+> Is 0x22 the better "default"? Can that be described in the commit text?
+> 
+>>         QMP_PHY_INIT_CFG(QSERDES_V4_TX_TX_EMP_POST1_LVL, 0x20),
+>>  };
+>> 
+>> @@ -3727,6 +3727,81 @@ static int qcom_qmp_v3_dp_phy_calibrate(struct 
+>> qmp_phy *qphy)
+>> 
+>>         return 0;
+>>  }
+> 
+> Nitpick: Newline here please.
+> 
+>> +/*
+>> + * 0x20 deducted from tables
+>> + *
+>> + * swing_value |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
+>> + * pre_emphasis_value |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+>> +*/
+>> +static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
+>> +       /* p0    p1    p2    p3 */
+>> +       { 0x00, 0x0c, 0x15, 0x1b },     /* s0 */
+>> +       { 0x02, 0x0e, 0x16, 0xff },     /* s1 */
+>> +       { 0x02, 0x11, 0xff, 0xff },     /* s2 */
+>> +       { 0x04, 0xff, 0xff, 0xff }      /* s3 */
+>> +};
+>> +
+>> +static const u8 qmp_dp_v4_voltage_swing_hbr3_hbr2[4][4] = {
+> 
+> This looks the same as qmp_dp_v3_voltage_swing_hbr3_hbr2. Can that be
+> used?
+to avoid confuse, i like to keep them separated.
+> 
+>> +       /* p0    p1    p2    p3 */
+>> +       { 0x02, 0x12, 0x16, 0x1a },     /* s0 */
+>> +       { 0x09, 0x19, 0x1f, 0xff },     /* s1 */
+>> +       { 0x10, 0x1f, 0xff, 0xff },     /* s2 */
+>> +       { 0x1f, 0xff, 0xff, 0xff }      /* s3 */
+>> +};
+>> +
+>> +static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
+>> +       /* p0    p1    p2    p3 */
+>> +       { 0x00, 0x0e, 0x15, 0x1b },     /* s0 */
+>> +       { 0x00, 0x0e, 0x15, 0xff },     /* s1 */
+>> +       { 0x00, 0x0e, 0xff, 0xff },     /* s2 */
+>> +       { 0x04, 0xff, 0xff, 0xff }      /* s3 */
+>> +};
+>> +
+>> +static const u8 qmp_dp_v4_voltage_swing_hbr_rbr[4][4] = {
+>> +       /* p0    p1    p2    p3 */
+>> +       { 0x08, 0x0f, 0x16, 0x1f },     /* s0 */
+>> +       { 0x11, 0x1e, 0x1f, 0xff },     /* s1 */
+>> +       { 0x16, 0x1f, 0xff, 0xff },     /* s2 */
+>> +       { 0x1f, 0xff, 0xff, 0xff }      /* s3 */
+> 
+> Do these comments add any value? Can we drop them?
+> 
+>> +};
+>> +
+>> +static int qcom_qmp_v4_phy_configure_dp_swing(struct qmp_phy *qphy,
+>> +               unsigned int drv_lvl_reg, unsigned int emp_post_reg)
+>> +{
+>> +       const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+>> +       unsigned int v_level = 0, p_level = 0;
+>> +       u8 voltage_swing_cfg, pre_emphasis_cfg;
+>> +       int i;
+>> +
+>> +       for (i = 0; i < dp_opts->lanes; i++) {
+>> +               v_level = max(v_level, dp_opts->voltage[i]);
+>> +               p_level = max(p_level, dp_opts->pre[i]);
+>> +       }
+>> +
+>> +
+> 
+> Nitpick: Drop extra newline.
+> 
+>> +       if (dp_opts->link_rate <= 2700) {
+>> +               voltage_swing_cfg = 
+>> qmp_dp_v4_voltage_swing_hbr_rbr[v_level][p_level];
+>> +               pre_emphasis_cfg = 
+>> qmp_dp_v4_pre_emphasis_hbr_rbr[v_level][p_level];
+>> +       } else {
+>> +               voltage_swing_cfg = 
+>> qmp_dp_v4_voltage_swing_hbr3_hbr2[v_level][p_level];
+>> +               pre_emphasis_cfg = 
+>> qmp_dp_v4_pre_emphasis_hbr3_hbr2[v_level][p_level];
+>> +       }
+>> +
+>> +       /* TODO: Move check to config check */
+>> +       if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
+>> +               return -EINVAL;
+>> +
+>> +       /* Enable MUX to use Cursor values from these registers */
+>> +       voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
+>> +       pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+>> +
+>> +       writel(voltage_swing_cfg, qphy->tx + drv_lvl_reg);
+>> +       writel(pre_emphasis_cfg, qphy->tx + emp_post_reg);
+>> +       writel(voltage_swing_cfg, qphy->tx2 + drv_lvl_reg);
+>> +       writel(pre_emphasis_cfg, qphy->tx2 + emp_post_reg);
+> 
+> This is copy/pasted from qcom_qmp_phy_configure_dp_swing() right? How
+> about making a function
+> 
+> static int
+> __qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+> 				  unsigned int drv_lvl_reg,
+> 				  unsigned int emp_post_reg,
+> 				  const u8 **voltage_rbr_hbr,
+> 				  const u8 **pre_emphasis_rbr_hbr,
+> 				  const u8 **voltage_hbr3_hbr2,
+> 				  const u8 **pre_emphasis_hbr3_hbr2)
+> 
+> that does the same stuff but allows the tables to be different.
+> 
+>> +
+>> +       return 0;
+>> +}
+>> 
+>>  static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+>>  {
+>> @@ -3757,14 +3832,7 @@ static void qcom_qmp_v4_phy_dp_aux_init(struct 
+>> qmp_phy *qphy)
+>> 
+>>  static void qcom_qmp_v4_phy_configure_dp_tx(struct qmp_phy *qphy)
+>>  {
+>> -       /* Program default values before writing proper values */
+>> -       writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+>> -       writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+>> -
+>> -       writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+>> -       writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+>> -
+>> -       qcom_qmp_phy_configure_dp_swing(qphy,
+>> +       qcom_qmp_v4_phy_configure_dp_swing(qphy,
+>>                         QSERDES_V4_TX_TX_DRV_LVL,
+>>                         QSERDES_V4_TX_TX_EMP_POST1_LVL);
+>>  }
+>> @@ -3885,6 +3953,9 @@ static int 
+>> qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+>>         writel(drvr1_en, qphy->tx2 + QSERDES_V4_TX_HIGHZ_DRVR_EN);
+>>         writel(bias1_en, qphy->tx2 + 
+>> QSERDES_V4_TX_TRANSCEIVER_BIAS_EN);
+>> 
+>> +       writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
+>> +       writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
+> 
+> Is this mentioned in the commit text? Is this fixing the sequence?
+> It doesn't look like we're adding tables.
+
+add these since they are missed from HPG sequence.
+> 
+>> +
+>>         writel(0x18, qphy->pcs + QSERDES_DP_PHY_CFG);
+>>         udelay(2000);
+>>         writel(0x19, qphy->pcs + QSERDES_DP_PHY_CFG);
+>> @@ -3896,11 +3967,9 @@ static int 
+>> qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+>>                         10000))
+>>                 return -ETIMEDOUT;
+>> 
+>> -       writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
+>> -       writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
+>> 
+>> -       writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+>> -       writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+>> +       writel(0x22, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+>> +       writel(0x22, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+>> 
+>>         writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+>>         writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
