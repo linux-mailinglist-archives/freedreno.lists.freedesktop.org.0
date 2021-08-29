@@ -2,73 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61FD53FA63D
-	for <lists+freedreno@lfdr.de>; Sat, 28 Aug 2021 16:40:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7793FA98B
+	for <lists+freedreno@lfdr.de>; Sun, 29 Aug 2021 08:50:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8406EA55;
-	Sat, 28 Aug 2021 14:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F11A89F3B;
+	Sun, 29 Aug 2021 06:50:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
  [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5466EA55
- for <freedreno@lists.freedesktop.org>; Sat, 28 Aug 2021 14:40:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7E6D89F3B
+ for <freedreno@lists.freedesktop.org>; Sun, 29 Aug 2021 06:50:30 +0000 (UTC)
 Received: by mail-ot1-x32e.google.com with SMTP id
- g66-20020a9d12c8000000b0051aeba607f1so11846895otg.11
- for <freedreno@lists.freedesktop.org>; Sat, 28 Aug 2021 07:40:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=5YPoL8GlpbFtSNjK3CYZgxgeOeetG15fvTthzuY2WMc=;
- b=iVWEM1beHr4kq2zNmhblRgSN3FGepoKEmyL4yElV1Ctij9bUPoWDx72laKDCLFu0/r
- KdBqgnRmDcf6v/Ut6bhfq+iUmWHKKH/+6ENEJYcmuvHqBzgxRTXrxY7CXN+mhqb0BYfU
- JIsRVh1vXfGNfz3aii0PcBHTgbhBV8sp4cojFlWasi6VWv6L0bLGeflI5Db1Z0SJHC2w
- g+Jz5QDAUPspAB8f6HGy67XQQb3hPKc3WbhQoDFCD7QsmDpRRa2b84fuckfol4OIBBVr
- HzLx4qcl5Sr3DWMjTyBFeWuwHW2HK9iZKjobSIaKa/NcLp9dT05T/EzdUSwKh+OoSMqb
- J4TQ==
+ o16-20020a9d2210000000b0051b1e56c98fso13933741ota.8
+ for <freedreno@lists.freedesktop.org>; Sat, 28 Aug 2021 23:50:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=UcZsfTL7lo6QG03jH0zcLyA1nl3b2l6q7cLqiJ7RM6w=;
+ b=C3yZviTdjca8Y6g3vvGkt67eBiVQkzTNyQJZ3Hymfg7j6b8YftJ/j/4/JhVjbttF+A
+ Dc5OXJ/rbmHT1kJVqGDi/xWwlbLezhdODZyt5xaSP66IkqgULSKpdks+hB8VQ0i4H7lF
+ ktUn5uKtG2eTCU7ZiZyyFbiOC4l/K3nw2Sjrc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=5YPoL8GlpbFtSNjK3CYZgxgeOeetG15fvTthzuY2WMc=;
- b=ab7va9G1DMLV/2oakNE6VDwyZBtXPyOPA361jJE13feufy3rJZzaTPugXDy6hCZqLO
- hUDK/4ommEZh9wjX2TPw0U4Nxp5ShKbhNo/5tmSkwwzGqmhyJSDonXYcWxjAowix6ot7
- 4ZYVyHGlr0KIrap4L0ymGqnedArnF4aEq/b9pyBEJSNMArgGL63tshwQTyekWf2VBuc/
- IoEmlJVKhn+b5YOZcr93Pw7Sh8D6mzzBpMn5Qm7v/pwMHIGm84DFW0oHZk5T6csdU7qE
- bZjjJ4M4URmrhNQsTUxFo4Lwx1auKUN6sF8xty8YUQk8u83VpT3hr4Uy8YcdQQGeO9RZ
- tclQ==
-X-Gm-Message-State: AOAM533PYN02sk4K1qPsBiWAzxqnOaejZpaVBb3XxiURgtGu08UNrm3W
- lRkC56osqd/Oix90BoyYHrVmOA==
-X-Google-Smtp-Source: ABdhPJzKJsmSdUekZjhIgLwPoay9yS3v22MJnOumK09rmQaevnM2pWN41fMpQJqzK/xbyf2unTc4vw==
-X-Received: by 2002:a05:6830:402c:: with SMTP id
- i12mr12679667ots.287.1630161634668; 
- Sat, 28 Aug 2021 07:40:34 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id k1sm1942767otr.43.2021.08.28.07.40.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Aug 2021 07:40:34 -0700 (PDT)
-Date: Sat, 28 Aug 2021 09:40:31 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vara Reddy <varar@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Message-ID: <YSpK3wTUdqlUyJxb@yoga>
-References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
- <CAD=FV=UGtHXD==Yy8CVCOioYGb=2hqGQOoNWftD1Jj7OiEp51g@mail.gmail.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=UcZsfTL7lo6QG03jH0zcLyA1nl3b2l6q7cLqiJ7RM6w=;
+ b=uoKCLD6t25o+4chDfQyhUnHdFKBG+D0E+9pA4UBOrv59e2KwiUXAU8Da6vAGEVSGkQ
+ mRh7kG+OGbIE2PucQscXb3OKibOkYpJPmO5BVX6Br74gvkjwC44dLKnJlfQ3wKQoGbcA
+ lDHHmLQIzAnoaMHDUpzATqP1wc7inyruxvd1sf8sz1QfbuQUub9VJTua6ICdzpAygmM4
+ ZH7huV7ZOSjPH92rGoaArC2k/GPUpdZpK0AFEWLN0IJmNIqpkzbcxG8aOp83gWmhHE1E
+ noxGO/zUGqoLqeePtzO1BobTQmoIN9S6Jsqa/rOEBHLZo/wrQySVlSqkFCc23rAcfjSn
+ ihDA==
+X-Gm-Message-State: AOAM533sITRs0R4geUkfPMAG7hL2uXw67AQfOoKlUov07ixQnMFGGenW
+ nLLA6B9qOAdj69RwT+deaoniFa/YGIHqVQyyrbGlMw==
+X-Google-Smtp-Source: ABdhPJwt0axpFUQul8bw0k3jGfLZe7Fjddj2YcPWzVIguNKXiCod9lEN608fOnSzy15l8/WSbOgeRxJUsyLHYpXYzJQ=
+X-Received: by 2002:a9d:5f85:: with SMTP id g5mr8562392oti.139.1630219829726; 
+ Sat, 28 Aug 2021 23:50:29 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 29 Aug 2021 06:50:29 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=UGtHXD==Yy8CVCOioYGb=2hqGQOoNWftD1Jj7OiEp51g@mail.gmail.com>
-Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
+In-Reply-To: <1630083934-9361-1-git-send-email-khsieh@codeaurora.org>
+References: <1630083934-9361-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Sun, 29 Aug 2021 06:50:29 +0000
+Message-ID: <CAE-0n51tzL8T2Zoqhu7CqEWRpaCBpRmy=+PZ-N8tCmFj85nbww@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ devicetree@vger.kernel.org, robdclark@gmail.com, robh+dt@kernel.org, 
+ sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, mkrishn@codeaurora.org, 
+ kalyan_t@codeaurora.org, rajeevny@codeaurora.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] arm64: dts: qcom: sc7280: enable IDP
+ display port
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,31 +74,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 27 Aug 15:52 CDT 2021, Doug Anderson wrote:
+Quoting Kuogee Hsieh (2021-08-27 10:05:34)
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-> Hi,
-> 
-> On Mon, Jul 26, 2021 at 4:15 PM Bjorn Andersson
-> <bjorn.andersson@linaro.org> wrote:
-> >
-> > +static int dp_parser_find_panel(struct dp_parser *parser)
-> > +{
-> > +       struct device_node *np = parser->pdev->dev.of_node;
-> > +       int rc;
-> > +
-> > +       rc = drm_of_find_panel_or_bridge(np, 2, 0, &parser->drm_panel, NULL);
-> 
-> Why port 2? Shouldn't this just be port 1 always? The yaml says that
-> port 1 is "Output endpoint of the controller". We should just use port
-> 1 here, right?
-> 
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-I thought port 1 was the link to the Type-C controller, didn't give it a
-second thought and took the next available.
-
-But per the binding it makes sense that the panel is the "Output
-endpoint of the controller" and I guess one will have either a Type-C
-controller or a panel - even after the DP rework?
-
-Regards,
-Bjorn
+But this must depend on the patch that introduces the phandle to begin
+with.
