@@ -2,72 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA4263FB999
-	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 18:02:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0783FB9B4
+	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 18:05:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B68189AEE;
-	Mon, 30 Aug 2021 16:02:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78BBC89C5E;
+	Mon, 30 Aug 2021 16:05:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5BCC89AEE
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 16:02:14 +0000 (UTC)
-Received: by mail-io1-xd2b.google.com with SMTP id b10so20580859ioq.9
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 09:02:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=G49FQ0uWZW6i9vFSjQGplZyOwvgazjM4XABr+KXbVDU=;
- b=FgHn+o867IORlJciLs9Bi5TiNrh3rHwcUaE5v5BWRE+D8Ogj7RMwzmHDca7m5f8xyj
- 9k6vgOSezNdEwZZ1S0k2a3NC7CqeBjcGdzWdN8NEYaWiFGWtWUCGltPFnCPFQ9udKeno
- Z4/rimxn50hBdSQnCkBaIIuQD78qeLnmmelk0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=G49FQ0uWZW6i9vFSjQGplZyOwvgazjM4XABr+KXbVDU=;
- b=TUhElcbzX2OpgfmjqKIeRGu9Ea70Bx6CMBpcgQ+gVFbS9v1bgUtyDliZbhhN5+OxA+
- 95ktC7OdO8NsdC4w7Mmx22jJkEY+zeU60OKCEL3o+iUZz4PQ0z43/SxKRiiz7DfcEKwO
- lssuVnInpOxxslRP7jAsC734luSMLCs01lnkQxhat6pVFfUCTtYWCFnVhIJij4wIuF5U
- tW/3/78xRbk1zmCVYdzFEGSA3tI66bOUAQg3tKJ4bXEs0YyyJCUwBYHn7oJR8noyblSr
- 0BCaEOrseN8wqoMaySMW+WW2S9iXP5FQvhtxupWJY1vABgXecoJ4SNXOnPAUl/wiA/bY
- thAw==
-X-Gm-Message-State: AOAM532zQeVkMRKF6kXWvXACZaZLUPT94zIS8CyJQCme4of+L0kyE+/F
- 4HihjWzEU4M7Defb2/lcTBTFGUyt/cdspQ==
-X-Google-Smtp-Source: ABdhPJxTxjGp1C93/SphTCeeEGxiyGPUNIIMTc6Vww3sRWXuNT/y090K61RBOc71Gc75NoeYGb+q2A==
-X-Received: by 2002:a02:c7c6:: with SMTP id s6mr4357369jao.34.1630339333637;
- Mon, 30 Aug 2021 09:02:13 -0700 (PDT)
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com.
- [209.85.166.45])
- by smtp.gmail.com with ESMTPSA id m13sm8394428ilh.43.2021.08.30.09.02.11
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Aug 2021 09:02:12 -0700 (PDT)
-Received: by mail-io1-f45.google.com with SMTP id b7so20593155iob.4
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 09:02:11 -0700 (PDT)
-X-Received: by 2002:a02:c7d2:: with SMTP id s18mr17206234jao.22.1630339331487; 
- Mon, 30 Aug 2021 09:02:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
- <CAD=FV=UGtHXD==Yy8CVCOioYGb=2hqGQOoNWftD1Jj7OiEp51g@mail.gmail.com>
- <YSpK3wTUdqlUyJxb@yoga>
-In-Reply-To: <YSpK3wTUdqlUyJxb@yoga>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 30 Aug 2021 09:01:58 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=URLJHujmu36sNMfPVMYtDZUirJq5T-PLbeMGqjLuMtNQ@mail.gmail.com>
-Message-ID: <CAD=FV=URLJHujmu36sNMfPVMYtDZUirJq5T-PLbeMGqjLuMtNQ@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>, 
- Kuogee Hsieh <khsieh@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Vara Reddy <varar@codeaurora.org>, freedreno <freedreno@lists.freedesktop.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C9F89C5E
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 16:05:14 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1630339520; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=AhYDa4UTLC4jIGO17fGnHbzpCStT+TLgkWbSA//0TlQ=;
+ b=SatnR/lK/aRtSuvzT2s0nioQpxf6yyCW9mtFseoHMJTkuOJJmgDaIhWH9VyRtXmP7WetW6Xf
+ pAhpQLwQYZsMniA5OjNJRfIvqWLoRTmpFHswm/wwEvYuaPYk/8G/6JRNG93gkpJzUaG6Mp0D
+ 1pqY/Fktmh0bwRai5H26Gsxt4I0=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 612d01abc603a0154fa6d2a9 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 30 Aug 2021 16:04:59
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1095DC43617; Mon, 30 Aug 2021 16:04:58 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 83DEDC43460;
+ Mon, 30 Aug 2021 16:04:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 83DEDC43460
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
+ mkrishn@codeaurora.org, kalyan_t@codeaurora.org, rajeevny@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 30 Aug 2021 09:04:49 -0700
+Message-Id: <1630339489-23172-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7280: Add Display Port
+ node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,41 +74,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Changes in v2:
+-- break this patch into 3 patches
 
-On Sat, Aug 28, 2021 at 7:40 AM Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
-> On Fri 27 Aug 15:52 CDT 2021, Doug Anderson wrote:
->
-> > Hi,
-> >
-> > On Mon, Jul 26, 2021 at 4:15 PM Bjorn Andersson
-> > <bjorn.andersson@linaro.org> wrote:
-> > >
-> > > +static int dp_parser_find_panel(struct dp_parser *parser)
-> > > +{
-> > > +       struct device_node *np = parser->pdev->dev.of_node;
-> > > +       int rc;
-> > > +
-> > > +       rc = drm_of_find_panel_or_bridge(np, 2, 0, &parser->drm_panel, NULL);
-> >
-> > Why port 2? Shouldn't this just be port 1 always? The yaml says that
-> > port 1 is "Output endpoint of the controller". We should just use port
-> > 1 here, right?
-> >
->
-> I thought port 1 was the link to the Type-C controller, didn't give it a
-> second thought and took the next available.
->
-> But per the binding it makes sense that the panel is the "Output
-> endpoint of the controller" and I guess one will have either a Type-C
-> controller or a panel - even after the DP rework?
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ arch/arm64/boot/dts/qcom/sc7280.dtsi | 88 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 87 insertions(+), 1 deletion(-)
 
-Right, my understanding is that "port 1" is the output port
-irregardless of whether you're outputting to a panel or a DP
-connector. I think the only case it would make sense to add a new port
-is if it was possible for the output to be connected to both a panel
-and a DP port simultaneously. ...but that doesn't make sense.
+diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+index c29226b..f224029 100644
+--- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+@@ -3202,6 +3202,13 @@
+ 							remote-endpoint = <&edp_in>;
+ 						};
+ 					};
++
++					port@2 {
++                                                reg = <2>;
++                                                dpu_intf0_out: endpoint {
++                                                        remote-endpoint = <&dp_in>;
++                                                };
++                                        };
+ 				};
+ 
+ 				mdp_opp_table: mdp-opp-table {
+@@ -3389,6 +3396,78 @@
+ 					};
+ 				};
+ 			};
++
++			msm_dp: displayport-controller@ae90000 {
++				status = "disabled";
++				compatible = "qcom,sc7180-dp", "qcom,sc7280-dp";
++
++				reg = <0 0x0ae90000 0 0x1400>;
++
++				interrupt-parent = <&mdss>;
++				interrupts = <12>;
++
++				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
++					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
++				clock-names =	"core_iface",
++						"core_aux",
++						"ctrl_link",
++					     	"ctrl_link_iface",
++						"stream_pixel";
++				#clock-cells = <1>;
++				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
++						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
++				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
++				phys = <&dp_phy>;
++				phy-names = "dp";
++
++				operating-points-v2 = <&dp_opp_table>;
++				power-domains = <&rpmhpd SC7280_CX>;
++
++				#sound-dai-cells = <0>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					port@0 {
++						reg = <0>;
++						dp_in: endpoint {
++							remote-endpoint = <&dpu_intf0_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						dp_out: endpoint { };
++					};
++				};
++
++				dp_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					opp-160000000 {
++						opp-hz = /bits/ 64 <160000000>;
++						required-opps = <&rpmhpd_opp_low_svs>;
++					};
++
++					opp-270000000 {
++						opp-hz = /bits/ 64 <270000000>;
++						required-opps = <&rpmhpd_opp_svs>;
++					};
++
++					opp-540000000 {
++						opp-hz = /bits/ 64 <540000000>;
++						required-opps = <&rpmhpd_opp_svs_l1>;
++					};
++
++					opp-810000000 {
++						opp-hz = /bits/ 64 <810000000>;
++						required-opps = <&rpmhpd_opp_nom>;
++					};
++				};
++			};
+ 		};
+ 
+ 		dispcc: clock-controller@af00000 {
+@@ -3398,7 +3477,8 @@
+ 				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
+ 				 <&dsi_phy 0>,
+ 				 <&dsi_phy 1>,
+-				 <0>, <0>,
++			  	 <&dp_phy 0>,
++			  	 <&dp_phy 1>,
+ 				 <&msm_edp 0>,
+ 				 <&msm_edp 1>;
+ 			clock-names = "bi_tcxo", "gcc_disp_gpll0_clk",
+@@ -3525,6 +3605,12 @@
+                                 };
+                         };
+ 
++			dp_hot_plug_det: dp-hot-plug-det {
++				pins = "gpio47";
++				function = "dp_hot";
++				bias-disable;
++                        };
++
+ 			qspi_clk: qspi-clk {
+ 				pins = "gpio14";
+ 				function = "qspi_clk";
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
--Doug
