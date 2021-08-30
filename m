@@ -1,72 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD1A3FAF77
-	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 03:17:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEEBD3FB2D1
+	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 11:01:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0DE89915;
-	Mon, 30 Aug 2021 01:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAD2899F3;
+	Mon, 30 Aug 2021 09:01:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8061489915
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 01:17:44 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id w17so756519qta.9
- for <freedreno@lists.freedesktop.org>; Sun, 29 Aug 2021 18:17:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WfXFIu2YP/cyEtXqUoY+pbv5W2e1wSkIPAhVHrp+0/4=;
- b=W1ici69Kt2rAChENIXMHZGGffeOYJlATguvIpNwgAHVB7g5juXF2AiTxCQ6wfYSrFA
- PDa+pXiZVHWIgyW/S7pjve7GPhyvwpUz5M1ZNMF1e9dW21JQy7ZLuO59I53+J8wT3gpB
- 1SC+YO+ue2sAQKcWXpif7QJhykrUotm96p4T56hDFOYsi0KlRpuOPI1N/rJXugV1dSNU
- Z2itCS+9uIhP/9XHFxX4EzJmD3ObKjuwkF0rNFtLwStYcnPx8QFp5jYPmL8IZuLQMdyS
- 3H5fMitmMhO8ddUQPHreyR4Z+yEoBB+NgWgKoecdEhbWYz2HSttqszHbANPbPAEeiyaB
- Rh5A==
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F02899F3
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 09:01:52 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id e21so29514656ejz.12
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 02:01:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=6TxX20RG9vZKNb6s13O3Zgz2CFeRVUtXKUgw8R7voIM=;
+ b=DE0IIXDcdI727XPGVqrtky2yQdWuMlMmMgSWIrTGscmSI542IIZjQr6ow8aeAoJp2C
+ 2NTnYz2F03dI4OkBH+l2grUnqH4P58F5LPe2sdT79g0apRPMM8rtYgIexPiCfVxr/SUx
+ oyTIzK4y0HsjaMyKMrEpgKc+7oP19WAme9/WU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WfXFIu2YP/cyEtXqUoY+pbv5W2e1wSkIPAhVHrp+0/4=;
- b=hNAPsIjo9oVhXFcwc1Rln0aeRgLpGMvFfFNt24t7Erj7rhc+eQMWLL/0WD4nzvZYUi
- l/5JnICkeEmwqf5czztJgz4UonVQsORf0srKzWPQ3lYFOhFs58mQG79rY37RJalLHiyU
- vn9Fgp785NTP/3G7jagOog8/jkxAgBPGNw1jwIZeSaQENG0RYgjbmq6IRZwnVMZJAeSl
- Od1iCVEa45bpZxeaLxCf+xCQAx2QjZNC5VOWvq/y3ayRIeOb4icb/xgGTpsZ4XJ7quo7
- RAzfkgSnZn0K4b/FwoJjMkzunauCWL+biippodaKPgIJiPCj4ubnVNOWWJB/+9I6GOW6
- SVgA==
-X-Gm-Message-State: AOAM530mNbPCsETrwzB2swoAuDl/CCiG/jYEWbudPi3d4fmGc90tpGQk
- 5jTjxdD4OuF5zAf8mLdqVItzWgvTr/EFKAFp1nbVnQ==
-X-Google-Smtp-Source: ABdhPJx8aZaQ2hRtqSFrECAuYeiv3KsLCobfsAE1chhz9/GxB0w+F/Ai49RdNUU/F53c3wne99H6s6bjr/joVRjQkpU=
-X-Received: by 2002:ac8:66da:: with SMTP id m26mr18703305qtp.273.1630286263447; 
- Sun, 29 Aug 2021 18:17:43 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=6TxX20RG9vZKNb6s13O3Zgz2CFeRVUtXKUgw8R7voIM=;
+ b=mw/3ZMAW6ToW6M3PEcQWtTJhMB7LfG9WRHacoHqtU96Q1m8rnqKyuZaWDCwUTHHjNZ
+ wVh0zBlfmdMbMuCNA7paVUod3NRGJkrdYJPOweK14yVT/2y5p16m9QY97O9kbpRepjek
+ /ZOgMqhiXXTTW39TZ+8XKAQoR/Uym8/b9jghjz1xBFv/LX9p1Bn5vvOR8beLyhJl5i4Z
+ fD0OmkpB5FPR7pLviMncXLfjaBt+jjtahII0JEHiK0qIekGw9ouV31WV04sXchmUoO/U
+ kk81zjtgUOrFtipI8fquoNMTGXTBkbaFwG/ESgsD4F03QpZRueKEAUGJZNEHWfy8WCB5
+ 4STQ==
+X-Gm-Message-State: AOAM530QNmJ+Yg2uysgFNomuR4AzCgTBz+s9WEytKVK3SED3bRZ/vwDI
+ ABH1Shd+u9hSjUGLzCzXdx/OVA==
+X-Google-Smtp-Source: ABdhPJxB08ojJo6OGjtdEhKjXGnu9dMQoQyBwlcdnF+4nIzqbNcU7sKY3XjYnrjFGe6CGtKcNnl9hg==
+X-Received: by 2002:a17:906:1806:: with SMTP id
+ v6mr23825047eje.420.1630314111091; 
+ Mon, 30 Aug 2021 02:01:51 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v10sm7269829edt.25.2021.08.30.02.01.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Aug 2021 02:01:50 -0700 (PDT)
+Date: Mon, 30 Aug 2021 11:01:48 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Message-ID: <YSyefFUvvoeNJVTe@phenom.ffwll.local>
+References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
+ <20210805104705.862416-13-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-References: <20210829203027.276143-1-marijn.suijten@somainline.org>
- <20210829203027.276143-3-marijn.suijten@somainline.org>
- <CAA8EJppmBvohk3CC87N_P3m+CP=bRLWWknS7esDrYb-xArJFvg@mail.gmail.com>
- <a27b4e74-3856-8c5c-73af-05e976430ea2@somainline.org>
-In-Reply-To: <a27b4e74-3856-8c5c-73af-05e976430ea2@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 30 Aug 2021 04:17:32 +0300
-Message-ID: <CAA8EJpp38fRff+j-+iG2pATSQ9e_R4zRxepmbGqpKP=gcOZotA@mail.gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>, 
- Jami Kettunen <jami.kettunen@somainline.org>,
- Pavel Dubrova <pashadubrova@gmail.com>, 
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dsi: Use "ref" fw clock instead
- of global name for VCO parent
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210805104705.862416-13-daniel.vetter@ffwll.ch>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH v5 12/20] drm/msm: Use scheduler dependency
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,56 +81,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 30 Aug 2021 at 00:53, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
->
-> Hi Dmitry,
->
-> On 8/29/21 10:39 PM, Dmitry Baryshkov wrote:
-> > Hi,
-> >
-> > On Sun, 29 Aug 2021 at 23:30, Marijn Suijten
-> > <marijn.suijten@somainline.org> wrote:
-> >>
-> >> All DSI PHY/PLL drivers were referencing their VCO parent clock by a
-> >> global name, most of which don't exist or have been renamed.  These
-> >> clock drivers seem to function fine without that except the 14nm driver
-> >> for the sdm6xx [1].
-> >>
-> >> At the same time all DTs provide a "ref" clock as per the requirements
-> >> of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
-> >> that clock to use without relying on a global clock name, so that all
-> >> dependencies are explicitly defined in DT (the firmware) in the end.
-> >
-> > msm8974 (28nm-hpm) does not define the "ref" clock. So you'd have to:
-> > 1) add ref clock to the dtsi (should come in a separate patch).
->
->
-> Thanks for double-checking and noticing this!  I've queued up this patch
-> for v2.
->
-> > 2) add .name = "xo" as a fallback to the 28nm driver (to be compatible
-> > with older devices)
->
->
-> Are there msm8974 devices out there that might upgrade kernels, but not
-> firmware (DT)?  On other boards (sdm630) I'm removing these from various
-> drivers as to not have any possibility of relying on global names, in
-> favour of having the clock dependencies fully specified in the DT.
+On Thu, Aug 05, 2021 at 12:46:57PM +0200, Daniel Vetter wrote:
+> drm_sched_job_init is already at the right place, so this boils down
+> to deleting code.
+> 
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linaro-mm-sig@lists.linaro.org
 
-IIUC it is a general policy of trying to be (somewhat)
-backwards-compatible. For example because your dts might come from a
-different source/be a part of different build process/etc.
+Merged up to this patch, except for etnaviv.
+-Daniel
 
->
-> > Other than that this looks good to me.
->
->
-> Any r-b/a-b/t-b I can pick up for the next round?
-
-Let's get those issues fixed and I'll respond with R-B tags
-
+> ---
+>  drivers/gpu/drm/msm/msm_gem.h        |  5 -----
+>  drivers/gpu/drm/msm/msm_gem_submit.c | 19 +++++--------------
+>  drivers/gpu/drm/msm/msm_ringbuffer.c | 12 ------------
+>  3 files changed, 5 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index f9e3ffb2309a..8bf0ac707fd7 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -312,11 +312,6 @@ struct msm_gem_submit {
+>  	struct ww_acquire_ctx ticket;
+>  	uint32_t seqno;		/* Sequence number of the submit on the ring */
+>  
+> -	/* Array of struct dma_fence * to block on before submitting this job.
+> -	 */
+> -	struct xarray deps;
+> -	unsigned long last_dep;
+> -
+>  	/* Hw fence, which is created when the scheduler executes the job, and
+>  	 * is signaled when the hw finishes (via seqno write from cmdstream)
+>  	 */
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 96cea0ba4cfd..fb5a2eab27a2 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -52,8 +52,6 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
+>  		return ERR_PTR(ret);
+>  	}
+>  
+> -	xa_init_flags(&submit->deps, XA_FLAGS_ALLOC);
+> -
+>  	kref_init(&submit->ref);
+>  	submit->dev = dev;
+>  	submit->aspace = queue->ctx->aspace;
+> @@ -72,8 +70,6 @@ void __msm_gem_submit_destroy(struct kref *kref)
+>  {
+>  	struct msm_gem_submit *submit =
+>  			container_of(kref, struct msm_gem_submit, ref);
+> -	unsigned long index;
+> -	struct dma_fence *fence;
+>  	unsigned i;
+>  
+>  	if (submit->fence_id) {
+> @@ -82,12 +78,6 @@ void __msm_gem_submit_destroy(struct kref *kref)
+>  		mutex_unlock(&submit->queue->lock);
+>  	}
+>  
+> -	xa_for_each (&submit->deps, index, fence) {
+> -		dma_fence_put(fence);
+> -	}
+> -
+> -	xa_destroy(&submit->deps);
+> -
+>  	dma_fence_put(submit->user_fence);
+>  	dma_fence_put(submit->hw_fence);
+>  
+> @@ -343,8 +333,9 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
+>  		if (no_implicit)
+>  			continue;
+>  
+> -		ret = drm_gem_fence_array_add_implicit(&submit->deps, obj,
+> -			write);
+> +		ret = drm_sched_job_add_implicit_dependencies(&submit->base,
+> +							      obj,
+> +							      write);
+>  		if (ret)
+>  			break;
+>  	}
+> @@ -588,7 +579,7 @@ static struct drm_syncobj **msm_parse_deps(struct msm_gem_submit *submit,
+>  		if (ret)
+>  			break;
+>  
+> -		ret = drm_gem_fence_array_add(&submit->deps, fence);
+> +		ret = drm_sched_job_add_dependency(&submit->base, fence);
+>  		if (ret)
+>  			break;
+>  
+> @@ -798,7 +789,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>  			goto out_unlock;
+>  		}
+>  
+> -		ret = drm_gem_fence_array_add(&submit->deps, in_fence);
+> +		ret = drm_sched_job_add_dependency(&submit->base, in_fence);
+>  		if (ret)
+>  			goto out_unlock;
+>  	}
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> index bd54c1412649..652b1dedd7c1 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> @@ -11,17 +11,6 @@ static uint num_hw_submissions = 8;
+>  MODULE_PARM_DESC(num_hw_submissions, "The max # of jobs to write into ringbuffer (default 8)");
+>  module_param(num_hw_submissions, uint, 0600);
+>  
+> -static struct dma_fence *msm_job_dependency(struct drm_sched_job *job,
+> -		struct drm_sched_entity *s_entity)
+> -{
+> -	struct msm_gem_submit *submit = to_msm_submit(job);
+> -
+> -	if (!xa_empty(&submit->deps))
+> -		return xa_erase(&submit->deps, submit->last_dep++);
+> -
+> -	return NULL;
+> -}
+> -
+>  static struct dma_fence *msm_job_run(struct drm_sched_job *job)
+>  {
+>  	struct msm_gem_submit *submit = to_msm_submit(job);
+> @@ -52,7 +41,6 @@ static void msm_job_free(struct drm_sched_job *job)
+>  }
+>  
+>  const struct drm_sched_backend_ops msm_sched_ops = {
+> -	.dependency = msm_job_dependency,
+>  	.run_job = msm_job_run,
+>  	.free_job = msm_job_free
+>  };
+> -- 
+> 2.32.0
+> 
 
 -- 
-With best wishes
-Dmitry
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
