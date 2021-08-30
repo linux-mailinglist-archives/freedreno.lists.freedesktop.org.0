@@ -2,60 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41AC53FBB88
-	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 20:14:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E723FBC53
+	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 20:24:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9B2E89C08;
-	Mon, 30 Aug 2021 18:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7782189C1B;
+	Mon, 30 Aug 2021 18:24:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [IPv6:2607:f8b0:4864:20::833])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5465489C08
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 18:14:09 +0000 (UTC)
-Received: by mail-qt1-x833.google.com with SMTP id w17so2754349qta.9
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 11:14:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=IVWaWVzfZ6dq3aPM/lg08djCsHf+IxpxXcQYxpXjdvo=;
- b=kjRYVTdHYuIFgk2GntwtTxPtNC5JrGOxLcZ95T8Zfj7pePKT1W57iB7Z8bRLFXxKCd
- hROF5hS/7GX4zTMubhriKydOkNaywkylxsoIFS5ZaoykDCufEPBzTS1U/ILASY3KsRxK
- f4C0HPBKeHV/hCCw4lcgPAGVxzsiQ7ydHoCMw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=IVWaWVzfZ6dq3aPM/lg08djCsHf+IxpxXcQYxpXjdvo=;
- b=qEMrf+4112PE6bQdpBik++JwXpVVw0aD86dpWEBFHu5eg2/nP+HlxiE96RxfJP31en
- k3Cxo935kwvNKF757S2h9mkkd/9Izib4/TmgE2fek0XELYI3xBBuJ/slBOoC6c+5GZ9y
- QYQOklMQlrFNU1QSfyLS78bFC8bzUXVpB8cdkRp+BTYie9yNKc98IuC11ByHujTan1Gz
- AWyXp8lee4zl4FvVHee/wTW+o6lm+RLQDtB67tlcYKX57057izl1SN5sugQcDM3jQ44M
- 4DuBomexfdHRb3KLt7MjlUKXb4f5XzH0Xzkyw7j7ySGcvTIzKWHGORkqMwXWABb4ERVV
- Bxrw==
-X-Gm-Message-State: AOAM532gvW0Dd8+8e1xm9/L0L2rGCQEySZfUmXIDMxmaCHfCBZq5iVbg
- k9C+EqQsieExTkgAcosojgSjXLJD0i8CtQ==
-X-Google-Smtp-Source: ABdhPJwaxvSzca/tsIiaIMY+/TE97JesTABqx9M/rn05CbqJMLSyVtrOLov5IbLY2P1uoxC0N9bpUA==
-X-Received: by 2002:ac8:73d8:: with SMTP id v24mr22049022qtp.203.1630347248097; 
- Mon, 30 Aug 2021 11:14:08 -0700 (PDT)
-Received: from markyacoub.nyc.corp.google.com
- ([2620:0:1003:416:6752:2510:e746:b547])
- by smtp.gmail.com with ESMTPSA id r140sm11911311qke.15.2021.08.30.11.14.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Aug 2021 11:14:07 -0700 (PDT)
-From: Mark Yacoub <markyacoub@chromium.org>
-To: freedreno@lists.freedesktop.org
-Cc: seanpaul@chromium.org, abhinavk@codeaurora.org, robdclark@chromium.org,
- Mark Yacoub <markyacoub@google.com>, Mark Yacoub <markyacoub@chromium.org>
-Date: Mon, 30 Aug 2021 14:13:59 -0400
-Message-Id: <20210830181359.124267-1-markyacoub@chromium.org>
-X-Mailer: git-send-email 2.33.0.259.gc128427fd7-goog
-In-Reply-To: <20210811180844.2130484-1-markyacoub@chromium.org>
-References: <20210811180844.2130484-1-markyacoub@chromium.org>
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3372489C1B
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 18:24:51 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 0DEA13E7B2;
+ Mon, 30 Aug 2021 20:24:48 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-msm@vger.kernel.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Andy Gross <agross@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Date: Mon, 30 Aug 2021 20:24:43 +0200
+Message-Id: <20210830182445.167527-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm: Change dpu_crtc_get_vblank_counter
- to use vsync count.
+Subject: [Freedreno] [PATCH v2 0/2] Use "ref" clocks from firmware for DSI
+ PLL VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,95 +63,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Mark Yacoub <markyacoub@google.com>
+All DSI PHY/PLL drivers were referencing their VCO parent clock by a
+global name, most of which don't exist or have been renamed.  These
+clock drivers seem to function fine without that except the 14nm driver
+for the sdm6xx [1].
 
-[why]
-vsync_cnt atomic counter increments for every hw vsync. On the other
-hand, frame count is a register that increments when the frame gets
-actually pushed out. We cannnot read this register whenever the timing
-engine is off, but vblank counter should still return a valid number.
-This behavior also matches the downstream driver.
+At the same time all DTs provide a "ref" clock as per the requirements
+of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
+that clock to use without relying on a global clock name, so that all
+dependencies are explicitly defined in DT (the firmware) in the end.
 
-[How]
-Read the encoder vsync count instead of the dpu_encoder_phys frame
-count.
+[1]: https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc83f8a1be96@somainline.org/
 
-Suggested-by: Abhinav Kumar <abhinavk@codeaurora.org>
-CC: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  8 +++-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++--
- 3 files changed, 9 insertions(+), 19 deletions(-)
+Changes since v1:
+  - Dropped "arm: dts: qcom: apq8064: Use 27MHz PXO clock as DSI PLL
+    reference" which has made its way into 5.15-fixes in advance of this
+    patchset landing in 5.16.
+  - Added Fixes: tags for commits that added missing "ref" clocks to DT
+    while this firmware clock was never used (until this patchset).
+  - Documented missing/wrong and later-added clocks (by aforementioned
+    patches) in patch 1/2 more clearly.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 9a5c70c87cc86..cfd426b6776e0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -78,15 +78,13 @@ static struct drm_encoder *get_encoder_from_crtc(struct drm_crtc *crtc)
- 
- static u32 dpu_crtc_get_vblank_counter(struct drm_crtc *crtc)
- {
--	struct drm_encoder *encoder;
--
--	encoder = get_encoder_from_crtc(crtc);
-+	struct drm_encoder *encoder = get_encoder_from_crtc(crtc);
- 	if (!encoder) {
- 		DRM_ERROR("no encoder found for crtc %d\n", crtc->index);
--		return false;
-+		return 0;
- 	}
- 
--	return dpu_encoder_get_frame_count(encoder);
-+	return dpu_encoder_get_vsync_count(encoder);
- }
- 
- static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1c04b7cce43e3..41d5643327709 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -397,19 +397,11 @@ int dpu_encoder_helper_unregister_irq(struct dpu_encoder_phys *phys_enc,
- 	return 0;
- }
- 
--int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc)
-+int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc)
- {
--	struct dpu_encoder_virt *dpu_enc;
--	struct dpu_encoder_phys *phys;
--	int framecount = 0;
--
--	dpu_enc = to_dpu_encoder_virt(drm_enc);
--	phys = dpu_enc ? dpu_enc->cur_master : NULL;
--
--	if (phys && phys->ops.get_frame_count)
--		framecount = phys->ops.get_frame_count(phys);
--
--	return framecount;
-+	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
-+	struct dpu_encoder_phys *phys = dpu_enc ? dpu_enc->cur_master : NULL;
-+	return phys ? atomic_read(&phys->vsync_cnt) : 0;
- }
- 
- int dpu_encoder_get_linecount(struct drm_encoder *drm_enc)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 99a5d73c9b886..e241914a96777 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -163,9 +163,9 @@ void dpu_encoder_set_idle_timeout(struct drm_encoder *drm_enc,
- int dpu_encoder_get_linecount(struct drm_encoder *drm_enc);
- 
- /**
-- * dpu_encoder_get_frame_count - get interface frame count for the encoder.
-+ * dpu_encoder_get_vsync_count - get vsync count for the encoder.
-  * @drm_enc:    Pointer to previously created drm encoder structure
-  */
--int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc);
-+int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc);
- 
- #endif /* __DPU_ENCODER_H__ */
+Dmitry:
+  I have not added the .name="xo" fallback to the 28nm-hpm driver for
+  the missing "ref" clock in msm8974 yet.  This patch is supposed to
+  make it in for 5.16 while the missing clock should be added in 5.15,
+  is that enough time?
+  If not I'll gladly respin a v3 with that fallback, but I hope everyone
+  can update their DT firmware before that time.  Likewise Bjorn
+  acknowledged that there is enough time for the same to happen on
+  apq8064.
+
+Marijn Suijten (2):
+  drm/msm/dsi: Use "ref" fw clock instead of global name for VCO parent
+  clk: qcom: gcc-sdm660: Remove transient global "xo" clock
+
+ drivers/clk/qcom/gcc-sdm660.c                   | 14 --------------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      |  4 +++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      |  4 +++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      |  4 +++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c |  4 +++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       |  4 +++-
+ 6 files changed, 15 insertions(+), 19 deletions(-)
+
 -- 
-2.33.0.259.gc128427fd7-goog
+2.33.0
 
