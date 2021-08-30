@@ -2,52 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 228CC3FB7E6
-	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 16:22:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E063FB95F
+	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 17:56:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9AD589C6E;
-	Mon, 30 Aug 2021 14:22:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE5889893;
+	Mon, 30 Aug 2021 15:56:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 077D289C6E;
- Mon, 30 Aug 2021 14:22:42 +0000 (UTC)
-Received: from Marijn-Arch-PC.localdomain
- (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 910501F4B4;
- Mon, 30 Aug 2021 16:22:39 +0200 (CEST)
-Date: Mon, 30 Aug 2021 16:22:38 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Pavel Dubrova <pashadubrova@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-ID: <YSzprptcXt6hxYRt@Marijn-Arch-PC.localdomain>
-References: <20210829203027.276143-1-marijn.suijten@somainline.org>
- <20210829203027.276143-3-marijn.suijten@somainline.org>
- <CAA8EJppmBvohk3CC87N_P3m+CP=bRLWWknS7esDrYb-xArJFvg@mail.gmail.com>
- <a27b4e74-3856-8c5c-73af-05e976430ea2@somainline.org>
- <CAA8EJpp38fRff+j-+iG2pATSQ9e_R4zRxepmbGqpKP=gcOZotA@mail.gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4E089893
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 15:56:17 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1630338980; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=U10YrBfczfj2F0eAJkorX2N74cH0fDyM7HdEotnpp4w=;
+ b=GICsiM44pNtuVwH7tm8WL2Ja1HG2RYkGMpo6ZXlb+PV7OG1kDL0BOFP8yD5Uf+/whHRX/qQ5
+ jF+mT2OpXOQIqXcGxoyYXH8LxYqdvuSwLcOZy7QhrGOKqSTDIu5c6lfss/J79hKpuR8uYKM1
+ QIAaJMGiHBE28+hTH360RUiPTUw=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 612cff934d644b7d1c20dd0c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 30 Aug 2021 15:56:03
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 68534C4361A; Mon, 30 Aug 2021 15:56:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 48AA7C43460;
+ Mon, 30 Aug 2021 15:56:02 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpp38fRff+j-+iG2pATSQ9e_R4zRxepmbGqpKP=gcOZotA@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dsi: Use "ref" fw clock instead
- of global name for VCO parent
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+Date: Mon, 30 Aug 2021 08:56:02 -0700
+From: khsieh@codeaurora.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, abhinavk@codeaurora.org,
+ aravindh@codeaurora.org, rsubbia@codeaurora.org, rnayak@codeaurora.org,
+ freedreno@lists.freedesktop.org, airlied@linux.ie, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <88b5fbe60c95bcdf42353bec9f8c48aefa864a31.camel@redhat.com>
+References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
+ <87zguy7c5a.fsf@intel.com> <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
+ <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
+ <d9ec812b4be57e32246735ca2f5e9560@codeaurora.org>
+ <79c5a60fc189261b7a9ef611acd126a41f921593.camel@redhat.com>
+ <696a009e2ab34747abd12bda03c103c7@codeaurora.org>
+ <e725235a77935184cd20dab5af55da95b28d9e88.camel@redhat.com>
+ <64049ef6c598910c1025e0e5802bb83e@codeaurora.org>
+ <88b5fbe60c95bcdf42353bec9f8c48aefa864a31.camel@redhat.com>
+Message-ID: <f0fcfe7a73e87150a7a1f042269b76a3@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
+ message failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,72 +83,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+On 2021-08-25 09:26, Lyude Paul wrote:
+> The patch was pushed yes (was part of drm-misc-next-2021-07-29), seems 
+> like it
+> just hasn't trickled down to linus's branch quite yet.
 
-On Mon, Aug 30, 2021 at 04:17:32AM +0300, Dmitry Baryshkov wrote:
-> On Mon, 30 Aug 2021 at 00:53, Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
-> >
-> > Hi Dmitry,
-> >
-> > On 8/29/21 10:39 PM, Dmitry Baryshkov wrote:
-> > > Hi,
-> > >
-> > > On Sun, 29 Aug 2021 at 23:30, Marijn Suijten
-> > > <marijn.suijten@somainline.org> wrote:
-> > >>
-> > >> All DSI PHY/PLL drivers were referencing their VCO parent clock by a
-> > >> global name, most of which don't exist or have been renamed.  These
-> > >> clock drivers seem to function fine without that except the 14nm driver
-> > >> for the sdm6xx [1].
-> > >>
-> > >> At the same time all DTs provide a "ref" clock as per the requirements
-> > >> of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
-> > >> that clock to use without relying on a global clock name, so that all
-> > >> dependencies are explicitly defined in DT (the firmware) in the end.
-> > >
-> > > msm8974 (28nm-hpm) does not define the "ref" clock. So you'd have to:
-> > > 1) add ref clock to the dtsi (should come in a separate patch).
-> >
-> >
-> > Thanks for double-checking and noticing this!  I've queued up this patch
-> > for v2.
-> >
-> > > 2) add .name = "xo" as a fallback to the 28nm driver (to be compatible
-> > > with older devices)
-> >
-> >
-> > Are there msm8974 devices out there that might upgrade kernels, but not
-> > firmware (DT)?  On other boards (sdm630) I'm removing these from various
-> > drivers as to not have any possibility of relying on global names, in
-> > favour of having the clock dependencies fully specified in the DT.
+Hi Stephen B,
+
+Would you mind back porting this patch to V5.10 branch?
+It will have lots of helps for us to support display port MST case.
+Thanks,
+
+
+
 > 
-> IIUC it is a general policy of trying to be (somewhat)
-> backwards-compatible. For example because your dts might come from a
-> different source/be a part of different build process/etc.
-
-Good thinking; DT was after all intended to be used as firmware shipping
-on the device, when we're usually modifying and shipping it with the
-kernel in the end.
-
-Just to make sure other platforms aren't affected by these changes,
-every board currently providing a "ref" clock has done so since the DSI
-node was added, except these for these three patches that added them
-after the fact:
-
-    79e51645a1dd ("arm64: dts: qcom: msm8916: Set 'xo_board' as ref clock of the DSI PHY")
-    6969d1d9c615 ("ARM: dts: qcom-apq8064: Set 'cxo_board' as ref clock of the DSI PHY")
-    0c0e72705a33 ("arm64: dts: sdm845: Set 'bi_tcxo' as ref clock of the DSI PHYs")
-
-Their commit-messages confuse me.  They make it seem like the "ref"
-clock was previously used when this doesn't seem to be the case (hence
-my patch).  Has there possibly been a patchset like mine that removed
-the mentioned hardcoded clock, but ended up never being merged?
-
-Either way, perhaps it's worth mentioning those patches with Fixes: so
-that this commit can be backported (have to be careful that DT changes
-for the other drivers are also backported, or this patch is split per
-PHY file), and maybe it's worth cc-ing the original authors to ask for
-clarification or at least make them aware?
-
-- Marijn
+> On Wed, 2021-08-25 at 09:06 -0700, khsieh@codeaurora.org wrote:
+>> On 2021-07-27 15:44, Lyude Paul wrote:
+>> > Nice timing, you literally got me as I was 2 minutes away from leaving
+>> > work
+>> > for the day :P. I will go ahead and push it now.
+>> >
+>> Hi Lyude,
+>> 
+>> Had you pushed this patch yet?
+>> We still did not see this patch at msm-nex and v5.10 branch.
+>> Thanks,
+>> 
+>> 
+>> > BTW - in the future I recommend using dim to add Fixes: tags as it'll
+>> > add Cc:
+>> > to stable as appropriate (this patch in particular should be Cc:
+>> > stable@vger.kernel.org # v5.3+). will add these tags when I push it
+>> >
+>> > On Tue, 2021-07-27 at 15:41 -0700, khsieh@codeaurora.org wrote:
+>> > > On 2021-07-27 12:21, Lyude Paul wrote:
+>> > > > On Thu, 2021-07-22 at 15:28 -0700, khsieh@codeaurora.org wrote:
+>> > > > >
+>> > > > > It looks like this patch is good to go (mainlined).
+>> > > > > Anything needed from me to do?
+>> > > > > Thanks,
+>> > > >
+>> > > > Do you have access for pushing this patch? If not let me know and I
+>> > > > can
+>> > > > go
+>> > > > ahead and push it to drm-misc-next for you.
+>> > > no, I do not have access to drm-misc-next.
+>> > > Please push it for me.
+>> > > Thanks a lots.
+>> > >
+>> 
