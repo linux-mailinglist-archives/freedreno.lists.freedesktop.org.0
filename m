@@ -2,67 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB503FB2D8
-	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 11:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228CC3FB7E6
+	for <lists+freedreno@lfdr.de>; Mon, 30 Aug 2021 16:22:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4C5899F3;
-	Mon, 30 Aug 2021 09:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9AD589C6E;
+	Mon, 30 Aug 2021 14:22:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DDB989A5E
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 09:02:46 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id dm15so20505851edb.10
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 02:02:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=P0VwUkxlwiDNF5zXlJbfV8JNAaRiNE6CCyXYomEyvrI=;
- b=hfS6z/FKy4eXTdRumbtkBdRZxKmkoRQer3FHqIbFXcWZ8JldQkNBXy8cS5R8V8X199
- wa30n7EaQ1FNoXda2wlwE6FFaoG7Lbp4KuGTyk3b0A1fZJXCCDIgia+z+nDtH21B4z3I
- tlK6+VPFd52FGv9TuLI6/1g7hm/2h15D1abSA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=P0VwUkxlwiDNF5zXlJbfV8JNAaRiNE6CCyXYomEyvrI=;
- b=atYO8uc9JgbgTqS9VaGoPSLZgUesZcuv5cdG88uHnrKgaAvFBJwnmADKB9Gy7QbrQ6
- IRlRLgJUeozdK19MqL3s/ifvI5qNpNUAZE0quU0HCHHY5xTedcMC9Gl/rL9fmieEUwJd
- cU6lF2V/q5+yjx277qwZlRxncXhLPgQ+DjHHSxHU7ZnC3lo7OsWDIzhXjyri+lnNV0ys
- e80pUv6gzFy38MGvB6k6aFPN8RvLHfWTsW9Mc3sZ3q5rWzz1juHpi+czhSM5TE323hOO
- xFjePnhP30W9Hfi+fJ7RaG1YrLTuMDPwC9ZpVrRfs7JxIYnonCpHXFdcmSPulc88PG6+
- hLSg==
-X-Gm-Message-State: AOAM531PRmEGJN+wzRoCJ/XiqHQt9WZnsYkSOuXZM14yBGsVRIKeZfz2
- 6Frx/l3YsAvlfdYtLO/ISCg20Q==
-X-Google-Smtp-Source: ABdhPJxYyxhCjR7uuGM8J7R+lgAExXey1usensekyctDskpS84BLeSBbFiTNH3XD6qyITSLiAHrxkQ==
-X-Received: by 2002:aa7:cc02:: with SMTP id q2mr22493221edt.154.1630314164602; 
- Mon, 30 Aug 2021 02:02:44 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id cb22sm3862182edb.5.2021.08.30.02.02.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Aug 2021 02:02:44 -0700 (PDT)
-Date: Mon, 30 Aug 2021 11:02:42 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Lucas Stach <l.stach@pengutronix.de>,
- Daniel Vetter <daniel.vetter@intel.com>, Sean Paul <sean@poorly.run>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Message-ID: <YSyesupzftTAuWqI@phenom.ffwll.local>
-References: <20210805104705.862416-1-daniel.vetter@ffwll.ch>
- <20210805104705.862416-17-daniel.vetter@ffwll.ch>
- <CAF6AEGtSM_TfCKvHh48WFX4DvhdrWLLi3oCMPz1x2_pCZwbPCQ@mail.gmail.com>
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 077D289C6E;
+ Mon, 30 Aug 2021 14:22:42 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 910501F4B4;
+ Mon, 30 Aug 2021 16:22:39 +0200 (CEST)
+Date: Mon, 30 Aug 2021 16:22:38 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <YSzprptcXt6hxYRt@Marijn-Arch-PC.localdomain>
+References: <20210829203027.276143-1-marijn.suijten@somainline.org>
+ <20210829203027.276143-3-marijn.suijten@somainline.org>
+ <CAA8EJppmBvohk3CC87N_P3m+CP=bRLWWknS7esDrYb-xArJFvg@mail.gmail.com>
+ <a27b4e74-3856-8c5c-73af-05e976430ea2@somainline.org>
+ <CAA8EJpp38fRff+j-+iG2pATSQ9e_R4zRxepmbGqpKP=gcOZotA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAF6AEGtSM_TfCKvHh48WFX4DvhdrWLLi3oCMPz1x2_pCZwbPCQ@mail.gmail.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Freedreno] [PATCH v5 16/20] drm/msm: Don't break exclusive
- fence ordering
+In-Reply-To: <CAA8EJpp38fRff+j-+iG2pATSQ9e_R4zRxepmbGqpKP=gcOZotA@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dsi: Use "ref" fw clock instead
+ of global name for VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,62 +63,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 26, 2021 at 09:16:25AM -0700, Rob Clark wrote:
-> On Thu, Aug 5, 2021 at 3:47 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+Hi Dmitry,
+
+On Mon, Aug 30, 2021 at 04:17:32AM +0300, Dmitry Baryshkov wrote:
+> On Mon, 30 Aug 2021 at 00:53, Marijn Suijten
+> <marijn.suijten@somainline.org> wrote:
 > >
-> > There's only one exclusive slot, and we must not break the ordering.
+> > Hi Dmitry,
 > >
-> > Adding a new exclusive fence drops all previous fences from the
-> > dma_resv. To avoid violating the signalling order we err on the side of
-> > over-synchronizing by waiting for the existing fences, even if
-> > userspace asked us to ignore them.
+> > On 8/29/21 10:39 PM, Dmitry Baryshkov wrote:
+> > > Hi,
+> > >
+> > > On Sun, 29 Aug 2021 at 23:30, Marijn Suijten
+> > > <marijn.suijten@somainline.org> wrote:
+> > >>
+> > >> All DSI PHY/PLL drivers were referencing their VCO parent clock by a
+> > >> global name, most of which don't exist or have been renamed.  These
+> > >> clock drivers seem to function fine without that except the 14nm driver
+> > >> for the sdm6xx [1].
+> > >>
+> > >> At the same time all DTs provide a "ref" clock as per the requirements
+> > >> of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
+> > >> that clock to use without relying on a global clock name, so that all
+> > >> dependencies are explicitly defined in DT (the firmware) in the end.
+> > >
+> > > msm8974 (28nm-hpm) does not define the "ref" clock. So you'd have to:
+> > > 1) add ref clock to the dtsi (should come in a separate patch).
 > >
-> > A better fix would be to us a dma_fence_chain or _array like e.g.
-> > amdgpu now uses, but
-> > - msm has a synchronous dma_fence_wait for anything from another
-> >   context, so doesn't seem to care much,
-> > - and it probably makes sense to lift this into dma-resv.c code as a
-> >   proper concept, so that drivers don't have to hack up their own
-> >   solution each on their own.
 > >
-> > v2: Improve commit message per Lucas' suggestion.
+> > Thanks for double-checking and noticing this!  I've queued up this patch
+> > for v2.
 > >
-> > Cc: Lucas Stach <l.stach@pengutronix.de>
-> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> > Cc: Rob Clark <robdclark@gmail.com>
-> > Cc: Sean Paul <sean@poorly.run>
-> > Cc: linux-arm-msm@vger.kernel.org
-> > Cc: freedreno@lists.freedesktop.org
+> > > 2) add .name = "xo" as a fallback to the 28nm driver (to be compatible
+> > > with older devices)
+> >
+> >
+> > Are there msm8974 devices out there that might upgrade kernels, but not
+> > firmware (DT)?  On other boards (sdm630) I'm removing these from various
+> > drivers as to not have any possibility of relying on global names, in
+> > favour of having the clock dependencies fully specified in the DT.
 > 
-> a-b
+> IIUC it is a general policy of trying to be (somewhat)
+> backwards-compatible. For example because your dts might come from a
+> different source/be a part of different build process/etc.
 
-Also pushed to drm-misc-next, thanks for review&testing.
--Daniel
+Good thinking; DT was after all intended to be used as firmware shipping
+on the device, when we're usually modifying and shipping it with the
+kernel in the end.
 
-> 
-> > ---
-> >  drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > index fb5a2eab27a2..66633dfd58a2 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -330,7 +330,8 @@ static int submit_fence_sync(struct msm_gem_submit *submit, bool no_implicit)
-> >                                 return ret;
-> >                 }
-> >
-> > -               if (no_implicit)
-> > +               /* exclusive fences must be ordered */
-> > +               if (no_implicit && !write)
-> >                         continue;
-> >
-> >                 ret = drm_sched_job_add_implicit_dependencies(&submit->base,
-> > --
-> > 2.32.0
-> >
+Just to make sure other platforms aren't affected by these changes,
+every board currently providing a "ref" clock has done so since the DSI
+node was added, except these for these three patches that added them
+after the fact:
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+    79e51645a1dd ("arm64: dts: qcom: msm8916: Set 'xo_board' as ref clock of the DSI PHY")
+    6969d1d9c615 ("ARM: dts: qcom-apq8064: Set 'cxo_board' as ref clock of the DSI PHY")
+    0c0e72705a33 ("arm64: dts: sdm845: Set 'bi_tcxo' as ref clock of the DSI PHYs")
+
+Their commit-messages confuse me.  They make it seem like the "ref"
+clock was previously used when this doesn't seem to be the case (hence
+my patch).  Has there possibly been a patchset like mine that removed
+the mentioned hardcoded clock, but ended up never being merged?
+
+Either way, perhaps it's worth mentioning those patches with Fixes: so
+that this commit can be backported (have to be careful that DT changes
+for the other drivers are also backported, or this patch is split per
+PHY file), and maybe it's worth cc-ing the original authors to ask for
+clarification or at least make them aware?
+
+- Marijn
