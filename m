@@ -1,57 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C539C3FBF44
-	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 01:10:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76CD93FC038
+	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 02:58:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A4789A98;
-	Mon, 30 Aug 2021 23:10:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D354389DDD;
+	Tue, 31 Aug 2021 00:58:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A26789A83;
- Mon, 30 Aug 2021 23:10:30 +0000 (UTC)
-Received: from Marijn-Arch-PC.localdomain
- (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id F3FBB1F738;
- Tue, 31 Aug 2021 01:10:27 +0200 (CEST)
-Date: Tue, 31 Aug 2021 01:10:26 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Pavel Dubrova <pashadubrova@gmail.com>, Andy Gross <agross@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>
-Message-ID: <YS1lYui5aXadgkEr@Marijn-Arch-PC.localdomain>
-References: <20210830182445.167527-1-marijn.suijten@somainline.org>
- <20210830182445.167527-2-marijn.suijten@somainline.org>
- <163036177339.2676726.12271104951144475163@swboyd.mtv.corp.google.com>
- <YS1fllEswGQEGWPc@Marijn-Arch-PC.localdomain>
- <163036399040.2676726.5816296584899284140@swboyd.mtv.corp.google.com>
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 344D689DDD
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Aug 2021 00:58:02 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id 6so22320684oiy.8
+ for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 17:58:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=XYpN3SAtfvTTijjUpUhGm+neUMN/BjViflHhfgj+W+M=;
+ b=L1SCg7SonFYijTI7AWQxcDtkQmPNoWFDMG13dWrcS1VQ/1iHc3PEAkb9tExC8YJbKy
+ 4snvL1BY+USFvZP7f0P7Cbu7NDyBed617lUjXt+lDKKURJmqQLdG/wG2Htcv5cj64mb9
+ rxH50EQScj5U8ghqPdl/ltVmwxEsXiwPQ7JtU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=XYpN3SAtfvTTijjUpUhGm+neUMN/BjViflHhfgj+W+M=;
+ b=j/8qnom179lHzHLfMby9LObtvvHwXwJsF4RCHPrCzoU5FqdsWkK/ox+PQedNyAo+Jd
+ FNtjj/lytShMDoRFN3fhT8RBeunDnaSPwsx3CkD8Xy0Dlz9Yerxt7aRBaGU64zFTcoMe
+ P6mTQWk+PUNjBOc/1cKLp+E76ZGaJrIK9a6xiW8DZ5h2JfQXJrykpvJ2XngTmVh99jJN
+ t5nwvut0VhkiKnvnlir0Tyma9Qh1xJyx4Hu38I57Ubt1GEseRJgRg2gWxGPszlBSHYnJ
+ h0C/IYNN2uC4/UjGVB+wONXCEc7vUBPRPg05Gij/OHBM+RZq5QQBuDpKbC9e+uibp5J5
+ 4FgA==
+X-Gm-Message-State: AOAM5303KiDMgmKNUb7JLps5BsZtykYVl6gSFwyknWawpip8PpMJTiHK
+ oJaZy6TGOv/fyow5CS75L8GBY/x6JLiNPwCF/1NjGA==
+X-Google-Smtp-Source: ABdhPJyAt70CIHuM1fAQgI+/NvPTolzh5c0egjVTluneOAw3mU57bB65j1CAQcMKkEBiPn0xE3peYDhwnb/M7j3U7Sk=
+X-Received: by 2002:aca:2310:: with SMTP id e16mr1421394oie.64.1630371481520; 
+ Mon, 30 Aug 2021 17:58:01 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 30 Aug 2021 17:58:01 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <163036399040.2676726.5816296584899284140@swboyd.mtv.corp.google.com>
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: Use "ref" fw clock
- instead of global name for VCO parent
+In-Reply-To: <1630339489-23172-1-git-send-email-khsieh@codeaurora.org>
+References: <1630339489-23172-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Mon, 30 Aug 2021 17:58:00 -0700
+Message-ID: <CAE-0n52OjXovJJ2HNFPgyGn6vS84wgrEv4C66-tb176nUbdwSg@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ devicetree@vger.kernel.org, robdclark@gmail.com, robh+dt@kernel.org, 
+ sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, mkrishn@codeaurora.org, 
+ kalyan_t@codeaurora.org, rajeevny@codeaurora.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7280: Add Display
+ Port node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,87 +73,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-08-30 15:53:10, Stephen Boyd wrote:
-> Quoting Marijn Suijten (2021-08-30 15:45:42)
-> > Hi Stephen,
-> > 
-> > On 2021-08-30 15:16:13, Stephen Boyd wrote:
-> > > Quoting Marijn Suijten (2021-08-30 11:24:44)
-> > > > All DSI PHY/PLL drivers were referencing their VCO parent clock by a
-> > > > global name, most of which don't exist or have been renamed.  These
-> > > > clock drivers seem to function fine without that except the 14nm driver
-> > > > for the sdm6xx [1].
-> > > > 
-> > > > At the same time all DTs provide a "ref" clock as per the requirements
-> > > > of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
-> > > > that clock to use without relying on a global clock name, so that all
-> > > > dependencies are explicitly defined in DT (the firmware) in the end.
-> > > > 
-> > > > Note that msm8974 is the only board not providing this clock, and
-> > > > apq8064 was providing the wrong clock (19.2MHz cxo instead of 27MHz
-> > > > pxo).  Both have been been addressed in separate patches that are
-> > > > supposed to land well in advance of this patchset.
-> > > > 
-> > > > Furthermore not all board-DTs provided this clock initially but that
-> > > > deficiency has been addressed in followup patches (see the Fixes:
-> > > > below).  Those commits seem to assume that the clock was used, while
-> > > > nothing in history indicates that this "ref" clock was ever retrieved.
-> > > > 
-> > > > [1]: https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc83f8a1be96@somainline.org/
-> > > > 
-> > > > Fixes: 79e51645a1dd ("arm64: dts: qcom: msm8916: Set 'xo_board' as ref clock of the DSI PHY")
-> > > > Fixes: 6969d1d9c615 ("ARM: dts: qcom-apq8064: Set 'cxo_board' as ref clock of the DSI PHY")
-> > > > Fixes: 0c0e72705a33 ("arm64: dts: sdm845: Set 'bi_tcxo' as ref clock of the DSI PHYs")
-> > > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > > > ---
-> > > >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 4 +++-
-> > > >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 4 +++-
-> > > >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 4 +++-
-> > > >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 4 +++-
-> > > >  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 4 +++-
-> > > >  5 files changed, 15 insertions(+), 5 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> > > > index e46b10fc793a..3cbb1f1475e8 100644
-> > > > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> > > > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> > > > @@ -562,7 +562,9 @@ static int pll_10nm_register(struct dsi_pll_10nm *pll_10nm, struct clk_hw **prov
-> > > >         char clk_name[32], parent[32], vco_name[32];
-> > > >         char parent2[32], parent3[32], parent4[32];
-> > > >         struct clk_init_data vco_init = {
-> > > > -               .parent_names = (const char *[]){ "xo" },
-> > > > +               .parent_data = &(const struct clk_parent_data) {
-> > > > +                       .fw_name = "ref",
-> > > 
-> > > Please also add .name as the old parent_names value so that newer
-> > > kernels can be used without having to use new DT.
-> > 
-> > We discussed that only msm8974 misses this "ref" clock at the time of
-> > writing.  Aforementioned Fixes: patches have all been merged about 3
-> > years ago, are those DTs still in use with a newer kernel?  I suppose
-> > this patch is only backported to kernels including those DT patches, is
-> > it reasonable to assume that at least that DT is in use there?
-> 
-> I have no idea.
-> 
-> > 
-> > Besides, not all clock trees provide this global "xo" or "bi_tcxo" clock
-> > in the first place.
-> > 
-> 
-> It doesn't hurt to also specify a .name to help migrate anything else
-> over. Unless you're confident it won't cause problems to rely on proper
-> DT being used?
+Quoting Kuogee Hsieh (2021-08-30 09:04:49)
+> Changes in v2:
+> -- break this patch into 3 patches
 
-I'm 95% sure this shouldn't cause any problems given current DTs and
-their history, but that's probably not enough.  This might also impact
-DTs that have not yet been upstreamed, but afaik the general stance is
-to not care and actually serve as a fair hint/warning before new DTs
-make it to the list.
+Are there two more somewhere?
 
-If there is a protocol in place to deprecate, warn, and eventually
-remove this reliance on global clock names I'm more than happy to add
-.name as a temporary fallback, even if likely unneeded.  Otherwise we
-might never get rid of it.
+>
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 88 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 87 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index c29226b..f224029 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -3202,6 +3202,13 @@
+>                                                         remote-endpoint = <&edp_in>;
+>                                                 };
+>                                         };
+> +
+> +                                       port@2 {
+> +                                                reg = <2>;
+> +                                                dpu_intf0_out: endpoint {
+> +                                                        remote-endpoint = <&dp_in>;
+> +                                                };
+> +                                        };
+>                                 };
+>
+>                                 mdp_opp_table: mdp-opp-table {
+> @@ -3389,6 +3396,78 @@
+>                                         };
+>                                 };
+>                         };
+> +
+> +                       msm_dp: displayport-controller@ae90000 {
+> +                               status = "disabled";
+> +                               compatible = "qcom,sc7180-dp", "qcom,sc7280-dp";
 
-- Marijn
+It should be most specific to least specific from left to right. I'd
+rather see "qcom,sc7180-dp" dropped entirely as it will become important
+to know that sc7280 has eDP and DP whereas sc7180 only has DP. We should
+key that knowledge off the compatible string, so having sc7180-dp here
+makes that harder, not easier.
+
+> +
+> +                               reg = <0 0x0ae90000 0 0x1400>;
+> +
+> +                               interrupt-parent = <&mdss>;
+> +                               interrupts = <12>;
+> +
+> +                               clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +                                        <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+> +                               clock-names =   "core_iface",
+> +                                               "core_aux",
