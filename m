@@ -1,61 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE4223FC9E7
-	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 16:36:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EBA33FC9E8
+	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 16:36:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 633736E0A5;
-	Tue, 31 Aug 2021 14:36:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 033F16E0AC;
+	Tue, 31 Aug 2021 14:36:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 14628 seconds by postgrey-1.36 at gabe;
- Tue, 24 Aug 2021 11:41:25 UTC
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com
- [203.205.221.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F4042896C4;
- Tue, 24 Aug 2021 11:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1629805283; bh=XIAM28Z3fXYR7IbU7/TyqjKEa+vznn5NPLK7eadSdKs=;
- h=From:To:Subject:Date;
- b=RhUJvfuVrxHh7yoDgjkuirfPi2DvFa2iDL2ZR6T4g9hn0xJVTjgkQz02qTCFQ1cKk
- 5+s7cfbkW/j9JwQLtLE7mKunXDVZwj7X0BjgbaISSz7oceIYRfAvUTSEnCcUmrD552
- F5zNRfs2Q4OVfvpOq48Hj6sroP5d7Yh5GPkCc5nY=
-X-QQ-FEAT: 3C1WcPM5lQ5tbp5z0bMsuB5BjaW3SL9m0FwUaVuddoM=
-X-QQ-SSF: 0000000000000010
-X-QQ-XMAILINFO: OcC4JLN881G4YExs8+v6wRPRMOUQpiLr+EBEsNQ33tNaeDmCdm9/CqVm0BnSCW
- AQu569IaCvq2Gtln6+1n1/RcoSdc1UAzaiOr+BaBYYOU+2pla4YjfjnaxNX81E5WSCVRkC2GzjJDA
- 3JSieyw29RoS/ZMGvOu//yg4K3+46ywNk5SbxR5/sNg96OC10nGHi35aJv02XzLNYcvyXjCcjQqEK
- DZS+Dx4M35p2ohtU5Xc0iQQMbIWjb0k83TdnIc73sODFevkVG9bh/R0g2ihJHJP3FrT7tKZnRwc8j
- 2TiP2H/VA1Uhu9zKlqfG/crwNyFo+sULO8g5NJqPwAkw56hIC8PT22bNGszquc5HOnQCT2h+OX4cU
- ACChbNN3CKcidkTr9h8SixzWQFO/PbZ6aIvr0JdzQjbx1D3fjRgGUyAxB84Rn9YbqABC3ghrBPKFE
- Sx3CczATbYfjQfRgqNdoBFnWZ1pvCJW6QpqivkWhaXQ/f1h9VrUEklEuChRrPnAn9sALVrSBYhZ3L
- lbndDp95zDDyOtc4ekOr7PDcXB4YyIRA/Dn3AUWvmEiIBTh2IPHkFJ4MhW2g1G/if/B2IU98EKWm0
- mzBhBl0ohrBNAChrUtXKReMAsGtcq7NVNFaNAMgPx8WkRorstF0+wwBbc4eWd0Up3a1M8moN82slp
- B0CxTHJQnRCoD5vOWLKt4w6LbT2lYtbEFfONWpt/M/FBY5Mu61hyRXc4A1MnCm4Ur2SpRIQ1d/kpV
- C2myAjC1gtcf4l3uYd/km0UJWD7erC893Rp9ZQUdGXWovYLbRZU0o5BLC+U4IZ4u80sj/uhoSbXb+
- it/gqXR8eq1AxwIRwfdjT+41iCLfIw3EcrqjuIPBsz5I/d3XxwNqSTQ=
-X-QQ-WAPMAIL: 1
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 117.61.86.227
-X-QQ-STYLE: 
-X-QQ-mid: riamail60t1629790654t6870111
-From: "=?utf-8?B?TUMgcGxheWVy?=" <3121917003@qq.com>
-To: "=?utf-8?B?ZnJlZWRyZW5v?=" <freedreno@lists.freedesktop.org>,
- "=?utf-8?B?bWVzYS11c2Vycw==?=" <mesa-users@lists.freedesktop.org>
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_6124A1BE_11B66F40_65F30397"
-Content-Transfer-Encoding: 8Bit
-Date: Tue, 24 Aug 2021 15:37:34 +0800
-X-Priority: 3
-Message-ID: <tencent_FFCAD18733F4CDF50ADADC8BCE6A1B009406@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042EC8977A;
+ Tue, 31 Aug 2021 11:51:38 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ j4-20020a17090a734400b0018f6dd1ec97so2191247pjs.3; 
+ Tue, 31 Aug 2021 04:51:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RX2rigJ/4yVGAmIjeTnRBQKJ9haoWNb/JQuSYn5hcTw=;
+ b=oK5tdGSOQTMsLfb4/ETbVqXw4L2ZZPy7lgqdzuKE5vGRQ9NRXt3hyP4pkf+9CWn1I9
+ JuuRZsjmLhas77RfTcWUeWg0TZBjR6pcEs0Jvu2IHxVmD3ZW/7TNY4HTfnSLoHC0WyfU
+ Io6jF6RjVQ2U77QU7U000QluIYRTee+UuOWvI2Tfod4dkOU3vHk+4tXpGX/4TmlmX420
+ 2t3vi+xtP94r268cWL1AzAwpIz4xv5FNijaoCHf9CrRI63svgHwH3gVKAeBJ7QFq4kRb
+ wEzPfOrSoCD6LRpPK5QZpiMWCEzYg27he/KSY2SJs4+Gs+TRPCR9ExT/pBpYsFjfeOq6
+ SsJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RX2rigJ/4yVGAmIjeTnRBQKJ9haoWNb/JQuSYn5hcTw=;
+ b=ZSurMLhj64nkBt1WXaPf3RvYYGQ/y3gsFj9a9LIUBt1k7NOKhqra6Y/kyiZTRiZ9ya
+ Eok6X14AGXED1/yndcSSMMRL4d2EE3f+SWH0DmL25koIqdjc/cgswThTmKema7ava539
+ HxH1XUpRXg1PeOfFsLyEDr1/5WRDU4G+mCWb5CgNrEjGLAPEI32Tcm3j6IB8TcdI3o9b
+ GMv46XBpACaTrDisCGWdz8jV6A+TfW30uZ54sVVij90Z0nI8itdvwyYBrCboYoZRU1+s
+ Y3/aaWaDNTLWzGVZcz4lBw31fVvXgDj9K4yiqQJVIz2Z7DQSGJu+PrmaMAifZ+n92mAi
+ 46mg==
+X-Gm-Message-State: AOAM531zVBzNdqUmzMjh20sp0LKV9erPXondDZz0oLR5hC11llfDACK0
+ amIoG632WoxdNbImM8J0nc0=
+X-Google-Smtp-Source: ABdhPJzXWq2tYhWG1U3hwSgB2KoPkJW4AwHFV1/8WNeGxVPjtCWZWir2TS/a1El7ezWCydmwoCMq9w==
+X-Received: by 2002:a17:902:a70e:b0:12d:9eff:23be with SMTP id
+ w14-20020a170902a70e00b0012d9eff23bemr4351271plq.34.1630410697578; 
+ Tue, 31 Aug 2021 04:51:37 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id r8sm20399460pgp.30.2021.08.31.04.51.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Aug 2021 04:51:37 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: chi.minghao@zte.com.cn
+To: robdclark@gmail.com
+Cc: sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, lyude@redhat.com,
+ airlied@redhat.com, laurent.pinchart@ideasonboard.com,
+ chi.minghao@zte.com.cn, treding@nvidia.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>
+Date: Tue, 31 Aug 2021 04:51:27 -0700
+Message-Id: <20210831115127.18236-1-chi.minghao@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 31 Aug 2021 14:36:08 +0000
-Subject: [Freedreno] How OSMesa bootstraps the GL renderer to output to main
- memory
+Subject: [Freedreno] [PATCH] drm/msm: remove unneeded variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,45 +77,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
+From: Chi Minghao <chi.minghao@zte.com.cn>
 
-------=_NextPart_6124A1BE_11B66F40_65F30397
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+Fix the following coccicheck REVIEW:
+./drivers/gpu/drm/msm/edp/edp_ctrl.c:1245:5-8 Unneeded variable
 
-SG93IE9TTWVzYSBib290c3RyYXBzIHRoZSBHTCByZW5kZXJlciB0byBvdXRwdXQgdG8gbWFp
-biBtZW1vcnk/IEkgaGF2ZSBzZWVuIE9zbWVzYSBzb3VyY2UgY29kZSwgYnV0IEkgZG9uJ3Qg
-a25vdyBtdWNoLiBJIGd1ZXNzIE9zbWVzYSBpcyBzb21lIG9mIHRoZSBpbmZvcm1hdGlvbiBp
-bnNpZGUgdGhlIEdMIGNvbnRleHQgdG8gYm9vdCB0aGUgb3V0cHV0IGxvY2F0aW9uIG9mIHRo
-ZSByZW5kZXJlciwgYnV0IEkgYW0gdW5jZXJ0YWluLCBjYW4gYW55b25lIHRlbGwgbWUgc29t
-ZSBtb3JlIGRldGFpbGVkIHRoaW5ncz8NCkkgYW0gdHJ5aW5nIHRvIG1ha2UgVnVsa2FuIG91
-dHB1dCB0byB0aGUgc3VyZmFjZSBjcmVhdGVkIGJ5IEVHTCwgYnV0IEkgZG9uJ3Qga25vdyBo
-b3cgdG8gImJvb3QiIFZLLCBidXQgSSBzZWUgT1NNRVNBIHRvIG1ha2UgWmluayB0byB0aGUg
-Y2xpZW50IG1lbW9yeS4gU28gSSBndWVzcyB3aGV0aGVyIHRoaXMgaXMgcmVsYXRlZCB0byB0
-aGUgaW5mb3JtYXRpb24gc3RvcmVkIHdpdGggdGhlIGNvbnRleHQgSW4gYWRkaXRpb24sIEkg
-ZG9uJ3Qga25vdyB3aGF0IGNoYW5nZXMgd2lsbCBiZSBtYWRlIGFmdGVyIHRoZSBjb250ZXh0
-IGlzIGJvdW5kIHRvIHRoZSB3aW5kb3cu
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Chi Minghao <chi.minghao@zte.com.cn>
+---
+ drivers/gpu/drm/msm/edp/edp_ctrl.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-------=_NextPart_6124A1BE_11B66F40_65F30397
-Content-Type: text/html;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-
-PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNo
-YXJzZXQ9VVRGLTgiPjxkaXY+SG93IE9TTWVzYSBib290c3RyYXBzIHRoZSBHTCByZW5kZXJl
-ciB0byBvdXRwdXQgdG8gbWFpbiBtZW1vcnk/IEkgaGF2ZSBzZWVuIE9zbWVzYSBzb3VyY2Ug
-Y29kZSwgYnV0IEkgZG9uJ3Qga25vdyBtdWNoLiBJIGd1ZXNzIE9zbWVzYSBpcyBzb21lIG9m
-IHRoZSBpbmZvcm1hdGlvbiBpbnNpZGUgdGhlIEdMIGNvbnRleHQgdG8gYm9vdCB0aGUgb3V0
-cHV0IGxvY2F0aW9uIG9mIHRoZSByZW5kZXJlciwgYnV0IEkgYW0gdW5jZXJ0YWluLCBjYW4g
-YW55b25lIHRlbGwgbWUgc29tZSBtb3JlIGRldGFpbGVkIHRoaW5ncz88L2Rpdj48ZGl2Pkkg
-YW0gdHJ5aW5nIHRvIG1ha2UgVnVsa2FuIG91dHB1dCB0byB0aGUgc3VyZmFjZSBjcmVhdGVk
-IGJ5IEVHTCwgYnV0IEkgZG9uJ3Qga25vdyBob3cgdG8gImJvb3QiIFZLLCBidXQgSSBzZWUg
-T1NNRVNBIHRvIG1ha2UgWmluayB0byB0aGUgY2xpZW50IG1lbW9yeS4gU28gSSBndWVzcyB3
-aGV0aGVyIHRoaXMgaXMgcmVsYXRlZCB0byB0aGUgaW5mb3JtYXRpb24gc3RvcmVkIHdpdGgg
-dGhlIGNvbnRleHQgSW4gYWRkaXRpb24sIEkgZG9uJ3Qga25vdyB3aGF0IGNoYW5nZXMgd2ls
-bCBiZSBtYWRlIGFmdGVyIHRoZSBjb250ZXh0IGlzIGJvdW5kIHRvIHRoZSB3aW5kb3cuPC9k
-aXY+PGRpdj48IS0tZW1wdHlzaWduLS0+PC9kaXY+
-
-------=_NextPart_6124A1BE_11B66F40_65F30397--
+diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
+index 4fb397ee7c84..3610e26e62fa 100644
+--- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
++++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
+@@ -1242,8 +1242,6 @@ bool msm_edp_ctrl_panel_connected(struct edp_ctrl *ctrl)
+ int msm_edp_ctrl_get_panel_info(struct edp_ctrl *ctrl,
+ 		struct drm_connector *connector, struct edid **edid)
+ {
+-	int ret = 0;
+-
+ 	mutex_lock(&ctrl->dev_mutex);
+ 
+ 	if (ctrl->edid) {
+@@ -1278,7 +1276,7 @@ int msm_edp_ctrl_get_panel_info(struct edp_ctrl *ctrl,
+ 	}
+ unlock_ret:
+ 	mutex_unlock(&ctrl->dev_mutex);
+-	return ret;
++	return 0;
+ }
+ 
+ int msm_edp_ctrl_timing_cfg(struct edp_ctrl *ctrl,
+-- 
+2.25.1
 
