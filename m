@@ -2,69 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94EE83FC0D0
-	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 04:28:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 389963FC0DB
+	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 04:38:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 016E689B0B;
-	Tue, 31 Aug 2021 02:28:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFBD689A20;
+	Tue, 31 Aug 2021 02:38:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6DAB89B0B
- for <freedreno@lists.freedesktop.org>; Tue, 31 Aug 2021 02:28:55 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id q39so22464688oiw.12
- for <freedreno@lists.freedesktop.org>; Mon, 30 Aug 2021 19:28:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=UIQLT8EPduQMUqMI4iVttelDDuEcYdyw9o3jt4FJ8Z4=;
- b=jkKB3Whxj1ObFBcZOwXML52FUZsXQ51zcfUXS2/G13PcYd4RFkMQVtJJgSgr5iH9Iy
- CHwLPDijjUcAbnQq+rwwbcPRoGw5a+wn4tbpgF9bKasEAbH+p4/WwSzdlsFE2uyrFV45
- 7URjVqzsq3YxJj6+4VhowJ3bvTB5tbhukDAL2OdSsEn3xQk54oUKssA/WNOs3VWagAmg
- IKAKbEQX1DPpXeZqP6yvkq8KLv5xbXRUIueZWBOOivBEw37Jw+qhpXPi/Ep//2NZ1TG1
- V09Q4JN2GXOiECodR/u/AomRt7McGvbyDXw/bmoAdJ853WnmCbwozJ/rNCV6otBe7w9p
- FLnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=UIQLT8EPduQMUqMI4iVttelDDuEcYdyw9o3jt4FJ8Z4=;
- b=sqjwcpZ/mkQyaOQsSK69ew5Jis42F9oRiXdneBV/Tq3P9BVqST7MAEX1MOL/aTX31p
- LkHrXrI79G/zjYh7q7XV0t45cfAvB7nb0pvWYPB0g57FzIlb8gnquVhjg+/R9kIy13nH
- cpM5XFjglnaSqIMonX2pD8MAZ0PbOWyX6ujwuC+RrNTvfF7sMq/l2ts7y8lwi5OWmzzx
- EaBBcMHZPQ6kEHTrjuEiE7a+PUpFp54LwC3Qo3FlrFwozJEzEjI8LwVyJSk6EiOd3lHC
- sAY7V2AZjRP6SNjWtnzFNc+tMaKn/ZEErdt31Bn8srunfqjDTkTiEs7K7FtFXRGc0NFY
- cn6A==
-X-Gm-Message-State: AOAM533CVwWSr/gEMbW8t+82nrGsbmzKQiB6ZmXa15vH9y68/EjhpS4M
- BejY6cIoU3LrmypzMVBZefTE2Q==
-X-Google-Smtp-Source: ABdhPJy1iru4/pf2lh8rlhBB57xc7Cxsy9R4pxXrsP+a9+ayWIoQnSs1HmZun2WV8JDylC7ar87Ynw==
-X-Received: by 2002:a05:6808:1449:: with SMTP id
- x9mr1533304oiv.14.1630376935083; 
- Mon, 30 Aug 2021 19:28:55 -0700 (PDT)
-Received: from yoga (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id g8sm3631746otk.34.2021.08.30.19.28.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Aug 2021 19:28:54 -0700 (PDT)
-Date: Mon, 30 Aug 2021 21:28:52 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <khsieh@codeaurora.org>
-Cc: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, robh+dt@kernel.org,
- devicetree@vger.kernel.org, abhinavk@codeaurora.org,
- aravindh@codeaurora.org, mkrishn@codeaurora.org,
- kalyan_t@codeaurora.org, rajeevny@codeaurora.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-ID: <YS2T5M9ozfz7tQu7@yoga>
-References: <1630339489-23172-1-git-send-email-khsieh@codeaurora.org>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3643B89A20
+ for <freedreno@lists.freedesktop.org>; Tue, 31 Aug 2021 02:38:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1630377485; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=f5PH1c2Q9OdWIhu2QIBmQoNKRUvL9mV+r77gAYAqJl4=;
+ b=EgtQz2+t0JkH/MYFahi0BUnHQgbPvpVaIsSzMGRVrLNqC38/MbI+clZrUI0oq3CHOcDLOvX+
+ 4H43vccCDmnpfuHlWCwN68fYZ9ZWrxIaKs18qsGCmw3Yr7x1aK0plDCJNLEDPzaJVLl/PWfk
+ zzU2Q9QlS/75Wlpg6XQM/zE4t+Y=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 612d960cb52e91333cd2bffa (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 31 Aug 2021 02:38:04
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D3278C43460; Tue, 31 Aug 2021 02:38:03 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6D6BDC4338F;
+ Tue, 31 Aug 2021 02:38:02 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1630339489-23172-1-git-send-email-khsieh@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH v2] arm64: dts: qcom: sc7280: Add Display
- Port node
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 30 Aug 2021 19:38:02 -0700
+From: abhinavk@codeaurora.org
+To: Mark Yacoub <markyacoub@chromium.org>
+Cc: freedreno@lists.freedesktop.org, seanpaul@chromium.org,
+ robdclark@chromium.org, Mark Yacoub <markyacoub@google.com>
+In-Reply-To: <20210830181359.124267-1-markyacoub@chromium.org>
+References: <20210811180844.2130484-1-markyacoub@chromium.org>
+ <20210830181359.124267-1-markyacoub@chromium.org>
+Message-ID: <3afb697f8bbe4a8d557612a6717f2c37@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: Change
+ dpu_crtc_get_vblank_counter to use vsync count.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,166 +72,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 30 Aug 11:04 CDT 2021, Kuogee Hsieh wrote:
-
-> Changes in v2:
-> -- break this patch into 3 patches
+On 2021-08-30 11:13, Mark Yacoub wrote:
+> From: Mark Yacoub <markyacoub@google.com>
 > 
+> [why]
+> vsync_cnt atomic counter increments for every hw vsync. On the other
+> hand, frame count is a register that increments when the frame gets
+> actually pushed out. We cannnot read this register whenever the timing
+> engine is off, but vblank counter should still return a valid number.
+> This behavior also matches the downstream driver.
+> 
+> [How]
+> Read the encoder vsync count instead of the dpu_encoder_phys frame
+> count.
+> 
+> Suggested-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> CC: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
 
-It's only the DRM tree that want the changelog above '---', please move
-it down.
-
-Also, why isn't this "patch n/3" if there's three patches?
-
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+LGTM,
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 88 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 87 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  8 +++-----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++------------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  4 ++--
+>  3 files changed, 9 insertions(+), 19 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index c29226b..f224029 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -3202,6 +3202,13 @@
->  							remote-endpoint = <&edp_in>;
->  						};
->  					};
-> +
-> +					port@2 {
-> +                                                reg = <2>;
-> +                                                dpu_intf0_out: endpoint {
-> +                                                        remote-endpoint = <&dp_in>;
-> +                                                };
-> +                                        };
-
-This block seems to be indented with spaces?
-
->  				};
->  
->  				mdp_opp_table: mdp-opp-table {
-> @@ -3389,6 +3396,78 @@
->  					};
->  				};
->  			};
-> +
-> +			msm_dp: displayport-controller@ae90000 {
-
-Prefixing the labels of all the mdss children mdss_ instead has the
-benefit that the nodes group naturally in the board dts.
-
-> +				status = "disabled";
-> +				compatible = "qcom,sc7180-dp", "qcom,sc7280-dp";
-
-This isn't a sc7180-dp block.
-
-> +
-> +				reg = <0 0x0ae90000 0 0x1400>;
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <12>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-> +				clock-names =	"core_iface",
-> +						"core_aux",
-> +						"ctrl_link",
-> +					     	"ctrl_link_iface",
-
-There seems to be some spaced among the tabs here.
-
-> +						"stream_pixel";
-> +				#clock-cells = <1>;
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-> +				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
-> +				phys = <&dp_phy>;
-> +				phy-names = "dp";
-> +
-> +				operating-points-v2 = <&dp_opp_table>;
-> +				power-domains = <&rpmhpd SC7280_CX>;
-> +
-> +				#sound-dai-cells = <0>;
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +					port@0 {
-> +						reg = <0>;
-> +						dp_in: endpoint {
-> +							remote-endpoint = <&dpu_intf0_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dp_out: endpoint { };
-> +					};
-> +				};
-> +
-> +				dp_opp_table: opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-160000000 {
-> +						opp-hz = /bits/ 64 <160000000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-270000000 {
-> +						opp-hz = /bits/ 64 <270000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-540000000 {
-> +						opp-hz = /bits/ 64 <540000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
-> +					};
-> +
-> +					opp-810000000 {
-> +						opp-hz = /bits/ 64 <810000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +				};
-> +			};
->  		};
->  
->  		dispcc: clock-controller@af00000 {
-> @@ -3398,7 +3477,8 @@
->  				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
->  				 <&dsi_phy 0>,
->  				 <&dsi_phy 1>,
-> -				 <0>, <0>,
-> +			  	 <&dp_phy 0>,
-> +			  	 <&dp_phy 1>,
-
-Same here, seems to be some spaces among the tabs on both of these
-lines.
-
->  				 <&msm_edp 0>,
->  				 <&msm_edp 1>;
->  			clock-names = "bi_tcxo", "gcc_disp_gpll0_clk",
-> @@ -3525,6 +3605,12 @@
->                                  };
->                          };
->  
-> +			dp_hot_plug_det: dp-hot-plug-det {
-> +				pins = "gpio47";
-> +				function = "dp_hot";
-> +				bias-disable;
-> +                        };
-
-This seems to be indented with spaces?
-
-Regards,
-Bjorn
-
-> +
->  			qspi_clk: qspi-clk {
->  				pins = "gpio14";
->  				function = "qspi_clk";
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 9a5c70c87cc86..cfd426b6776e0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -78,15 +78,13 @@ static struct drm_encoder
+> *get_encoder_from_crtc(struct drm_crtc *crtc)
 > 
+>  static u32 dpu_crtc_get_vblank_counter(struct drm_crtc *crtc)
+>  {
+> -	struct drm_encoder *encoder;
+> -
+> -	encoder = get_encoder_from_crtc(crtc);
+> +	struct drm_encoder *encoder = get_encoder_from_crtc(crtc);
+>  	if (!encoder) {
+>  		DRM_ERROR("no encoder found for crtc %d\n", crtc->index);
+> -		return false;
+> +		return 0;
+>  	}
+> 
+> -	return dpu_encoder_get_frame_count(encoder);
+> +	return dpu_encoder_get_vsync_count(encoder);
+>  }
+> 
+>  static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 1c04b7cce43e3..41d5643327709 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -397,19 +397,11 @@ int dpu_encoder_helper_unregister_irq(struct
+> dpu_encoder_phys *phys_enc,
+>  	return 0;
+>  }
+> 
+> -int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc)
+> +int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc)
+>  {
+> -	struct dpu_encoder_virt *dpu_enc;
+> -	struct dpu_encoder_phys *phys;
+> -	int framecount = 0;
+> -
+> -	dpu_enc = to_dpu_encoder_virt(drm_enc);
+> -	phys = dpu_enc ? dpu_enc->cur_master : NULL;
+> -
+> -	if (phys && phys->ops.get_frame_count)
+> -		framecount = phys->ops.get_frame_count(phys);
+> -
+> -	return framecount;
+> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +	struct dpu_encoder_phys *phys = dpu_enc ? dpu_enc->cur_master : NULL;
+> +	return phys ? atomic_read(&phys->vsync_cnt) : 0;
+>  }
+> 
+>  int dpu_encoder_get_linecount(struct drm_encoder *drm_enc)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> index 99a5d73c9b886..e241914a96777 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> @@ -163,9 +163,9 @@ void dpu_encoder_set_idle_timeout(struct
+> drm_encoder *drm_enc,
+>  int dpu_encoder_get_linecount(struct drm_encoder *drm_enc);
+> 
+>  /**
+> - * dpu_encoder_get_frame_count - get interface frame count for the 
+> encoder.
+> + * dpu_encoder_get_vsync_count - get vsync count for the encoder.
+>   * @drm_enc:    Pointer to previously created drm encoder structure
+>   */
+> -int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc);
+> +int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc);
+> 
+>  #endif /* __DPU_ENCODER_H__ */
