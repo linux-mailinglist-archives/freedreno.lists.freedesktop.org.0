@@ -1,67 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EBA33FC9E8
-	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 16:36:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 544313FCB41
+	for <lists+freedreno@lfdr.de>; Tue, 31 Aug 2021 18:12:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033F16E0AC;
-	Tue, 31 Aug 2021 14:36:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47BB36E0EA;
+	Tue, 31 Aug 2021 16:12:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042EC8977A;
- Tue, 31 Aug 2021 11:51:38 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id
- j4-20020a17090a734400b0018f6dd1ec97so2191247pjs.3; 
- Tue, 31 Aug 2021 04:51:37 -0700 (PDT)
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF0926E029;
+ Tue, 31 Aug 2021 16:12:49 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id
+ d3-20020a17090ae28300b0019629c96f25so2820283pjz.2; 
+ Tue, 31 Aug 2021 09:12:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=RX2rigJ/4yVGAmIjeTnRBQKJ9haoWNb/JQuSYn5hcTw=;
- b=oK5tdGSOQTMsLfb4/ETbVqXw4L2ZZPy7lgqdzuKE5vGRQ9NRXt3hyP4pkf+9CWn1I9
- JuuRZsjmLhas77RfTcWUeWg0TZBjR6pcEs0Jvu2IHxVmD3ZW/7TNY4HTfnSLoHC0WyfU
- Io6jF6RjVQ2U77QU7U000QluIYRTee+UuOWvI2Tfod4dkOU3vHk+4tXpGX/4TmlmX420
- 2t3vi+xtP94r268cWL1AzAwpIz4xv5FNijaoCHf9CrRI63svgHwH3gVKAeBJ7QFq4kRb
- wEzPfOrSoCD6LRpPK5QZpiMWCEzYg27he/KSY2SJs4+Gs+TRPCR9ExT/pBpYsFjfeOq6
- SsJw==
+ bh=nJ/vHQ8m8iLAMD8+ZyhKRlQPyo+UcB05ujjGTF6TT/E=;
+ b=ShrvEdu4aBcZuH9JQOrGSy5IboFfiYymwSoisBjRrV5v7aapU7MLCcajLG+cvPcidq
+ 6rJkTEoUyl21HJ93R/q0D5Y0dWQvWFsLjCEc6TKpRrxYBI0LBoRc3lFXuolvQoZSaMjs
+ M1v8rZ/k+KK/Y/wcAQj3jzeFJQjfRLhtkVmP39glhN52Lxmw+btmis/QMLmD2O2urNNj
+ kmk6gx9Zxsti+4SHkTEVJ+DsZA67rCM1NthxOO8oieo+6RI/SHguz3UjMcgcImWQMG8L
+ qpIPaewOz3j+3kFeitJN39iIt9RCrmEB7fw6jj9HVCp09nDNMknxvDIUhxKBt/PlEbQO
+ AcYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=RX2rigJ/4yVGAmIjeTnRBQKJ9haoWNb/JQuSYn5hcTw=;
- b=ZSurMLhj64nkBt1WXaPf3RvYYGQ/y3gsFj9a9LIUBt1k7NOKhqra6Y/kyiZTRiZ9ya
- Eok6X14AGXED1/yndcSSMMRL4d2EE3f+SWH0DmL25koIqdjc/cgswThTmKema7ava539
- HxH1XUpRXg1PeOfFsLyEDr1/5WRDU4G+mCWb5CgNrEjGLAPEI32Tcm3j6IB8TcdI3o9b
- GMv46XBpACaTrDisCGWdz8jV6A+TfW30uZ54sVVij90Z0nI8itdvwyYBrCboYoZRU1+s
- Y3/aaWaDNTLWzGVZcz4lBw31fVvXgDj9K4yiqQJVIz2Z7DQSGJu+PrmaMAifZ+n92mAi
- 46mg==
-X-Gm-Message-State: AOAM531zVBzNdqUmzMjh20sp0LKV9erPXondDZz0oLR5hC11llfDACK0
- amIoG632WoxdNbImM8J0nc0=
-X-Google-Smtp-Source: ABdhPJzXWq2tYhWG1U3hwSgB2KoPkJW4AwHFV1/8WNeGxVPjtCWZWir2TS/a1El7ezWCydmwoCMq9w==
-X-Received: by 2002:a17:902:a70e:b0:12d:9eff:23be with SMTP id
- w14-20020a170902a70e00b0012d9eff23bemr4351271plq.34.1630410697578; 
- Tue, 31 Aug 2021 04:51:37 -0700 (PDT)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id r8sm20399460pgp.30.2021.08.31.04.51.34
+ bh=nJ/vHQ8m8iLAMD8+ZyhKRlQPyo+UcB05ujjGTF6TT/E=;
+ b=Ycwa8R9tPE47vsnAVfPYyi0NGGj4KHcDkqE8ImNKQbjUK/6wq3nh4fQocaBBtsPGvz
+ KeVaOlz7Fs2L+Te0IRXjoOLtFMFSirsDFnfa6jN5ghRIXbNgkUIwdUVcr2GUZV2M8HI3
+ 5X8leCQa+nBitQI2V1YjDeI4A9/DW9RRWnEuNavpzr5FJzcEHzHM44G2r7KeqiBShYFA
+ CHd21MBzRQgcccDo6AUbVLX6YbBGdW7LCDF8/VGkfJ8JLqvBefQWl8HiTT8oH2p1vDzc
+ J2lN1EGzA69ukgFjpLert8T0SeKFO1o6hNjHDFWOdd1f3GxZngFYWYjNT7z1vZNgl41z
+ Y1Vw==
+X-Gm-Message-State: AOAM530Jyl+CyCVv139ZJv83k2tXUUEbn2fnYW469WP0gxfxQfx3/01U
+ tMafaCFFDYWiE3QT0fLvQscTN35wZeg=
+X-Google-Smtp-Source: ABdhPJyfGDeblGXkDl4WZ1mV/1NAF3JEfJAqlDwzgZp48do1VYkeKvrEdCp7apeoDZQRlFawms82AQ==
+X-Received: by 2002:a17:902:6b47:b0:12d:7aa6:1e45 with SMTP id
+ g7-20020a1709026b4700b0012d7aa61e45mr5351215plt.80.1630426368260; 
+ Tue, 31 Aug 2021 09:12:48 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ v20sm21386083pgi.39.2021.08.31.09.12.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Aug 2021 04:51:37 -0700 (PDT)
-From: cgel.zte@gmail.com
-X-Google-Original-From: chi.minghao@zte.com.cn
-To: robdclark@gmail.com
-Cc: sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, lyude@redhat.com,
- airlied@redhat.com, laurent.pinchart@ideasonboard.com,
- chi.minghao@zte.com.cn, treding@nvidia.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>
-Date: Tue, 31 Aug 2021 04:51:27 -0700
-Message-Id: <20210831115127.18236-1-chi.minghao@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+ Tue, 31 Aug 2021 09:12:47 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: igt-dev@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Petri Latvala <petri.latvala@intel.com>, Rob Clark <robdclark@chromium.org>
+Date: Tue, 31 Aug 2021 09:17:13 -0700
+Message-Id: <20210831161716.1400057-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 31 Aug 2021 14:36:08 +0000
-Subject: [Freedreno] [PATCH] drm/msm: remove unneeded variable
+Subject: [Freedreno] [PATCH igt v4 0/3] Initial igt tests for drm/msm ioctls
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,39 +75,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Chi Minghao <chi.minghao@zte.com.cn>
+From: Rob Clark <robdclark@chromium.org>
 
-Fix the following coccicheck REVIEW:
-./drivers/gpu/drm/msm/edp/edp_ctrl.c:1245:5-8 Unneeded variable
+Add an initial set of tests for the gpu SUBMIT ioctl.  There is
+plenty more we can add, but need to start somewhere.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Chi Minghao <chi.minghao@zte.com.cn>
----
- drivers/gpu/drm/msm/edp/edp_ctrl.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Rob Clark (3):
+  drmtest: Add DRIVER_MSM support
+  msm: Add helper library
+  msm: Add submit ioctl tests
 
-diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-index 4fb397ee7c84..3610e26e62fa 100644
---- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
-+++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-@@ -1242,8 +1242,6 @@ bool msm_edp_ctrl_panel_connected(struct edp_ctrl *ctrl)
- int msm_edp_ctrl_get_panel_info(struct edp_ctrl *ctrl,
- 		struct drm_connector *connector, struct edid **edid)
- {
--	int ret = 0;
--
- 	mutex_lock(&ctrl->dev_mutex);
- 
- 	if (ctrl->edid) {
-@@ -1278,7 +1276,7 @@ int msm_edp_ctrl_get_panel_info(struct edp_ctrl *ctrl,
- 	}
- unlock_ret:
- 	mutex_unlock(&ctrl->dev_mutex);
--	return ret;
-+	return 0;
- }
- 
- int msm_edp_ctrl_timing_cfg(struct edp_ctrl *ctrl,
+ .../igt-gpu-tools/igt-gpu-tools-docs.xml      |   1 +
+ lib/drmtest.c                                 |   3 +
+ lib/drmtest.h                                 |   1 +
+ lib/igt_msm.c                                 | 211 ++++++++++++++++++
+ lib/igt_msm.h                                 | 142 ++++++++++++
+ lib/meson.build                               |   1 +
+ tests/meson.build                             |   1 +
+ tests/msm_submit.c                            | 194 ++++++++++++++++
+ 8 files changed, 554 insertions(+)
+ create mode 100644 lib/igt_msm.c
+ create mode 100644 lib/igt_msm.h
+ create mode 100644 tests/msm_submit.c
+
 -- 
-2.25.1
+2.31.1
 
