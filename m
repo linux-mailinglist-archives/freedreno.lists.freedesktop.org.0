@@ -2,44 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B9733FE15E
-	for <lists+freedreno@lfdr.de>; Wed,  1 Sep 2021 19:49:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13E53FE1F9
+	for <lists+freedreno@lfdr.de>; Wed,  1 Sep 2021 20:11:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C43D38935B;
-	Wed,  1 Sep 2021 17:49:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB506E23B;
+	Wed,  1 Sep 2021 18:11:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 309 seconds by postgrey-1.36 at gabe;
- Wed, 01 Sep 2021 17:49:00 UTC
-Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F83E8935B
- for <freedreno@lists.freedesktop.org>; Wed,  1 Sep 2021 17:49:00 +0000 (UTC)
+Received: from relay05.th.seeweb.it (relay05.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C03C6E237;
+ Wed,  1 Sep 2021 18:11:41 +0000 (UTC)
 Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6F52420115;
- Wed,  1 Sep 2021 19:43:50 +0200 (CEST)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 0DDD23F357;
+ Wed,  1 Sep 2021 20:11:40 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
 To: robdclark@gmail.com
 Cc: sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org,
+ dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org, robh+dt@kernel.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  konrad.dybcio@somainline.org, marijn.suijten@somainline.org,
  martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
  phone-devel@vger.kernel.org, paul.bouchara@somainline.org,
+ devicetree@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Date: Wed,  1 Sep 2021 19:43:47 +0200
-Message-Id: <20210901174347.1012129-2-angelogioacchino.delregno@somainline.org>
+Date: Wed,  1 Sep 2021 20:11:36 +0200
+Message-Id: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210901174347.1012129-1-angelogioacchino.delregno@somainline.org>
-References: <20210901174347.1012129-1-angelogioacchino.delregno@somainline.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/dpu: Fix timeout issues on command
- mode panels
+Subject: [Freedreno] [PATCH 1/3] drm/msm/dpu1: Add DMA2,
+ DMA3 clock control to enum
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,40 +52,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In function dpu_encoder_phys_cmd_wait_for_commit_done we are always
-checking if the relative CTL is started by waiting for an interrupt
-to fire: it is fine to do that, but then sometimes we call this
-function while the CTL is up and has never been put down, but that
-interrupt gets raised only when the CTL gets a state change from
-0 to 1 (disabled to enabled), so we're going to wait for something
-that will never happen on its own.
-
-Solving this while avoiding to restart the CTL is actually possible
-and can be done by just checking if it is already up and running
-when the wait_for_commit_done function is called: in this case, so,
-if the CTL was already running, we can say that the commit is done
-if the command transmission is complete (in other terms, if the
-interface has been flushed).
+The enum dpu_clk_ctrl_type misses DPU_CLK_CTRL_DMA{2,3} even though
+this driver does actually handle both, if present: add the two in
+preparation for adding support for SoCs having them.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index aa01698d6b25..b5b1b555ac4e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -682,6 +682,9 @@ static int dpu_encoder_phys_cmd_wait_for_commit_done(
- 	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
- 		return 0;
- 
-+	if (phys_enc->hw_ctl->ops.is_started)
-+		return dpu_encoder_phys_cmd_wait_for_tx_complete(phys_enc);
-+
- 	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
- }
- 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index d2a945a27cfa..059e1402b7d0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -432,6 +432,8 @@ enum dpu_clk_ctrl_type {
+ 	DPU_CLK_CTRL_RGB3,
+ 	DPU_CLK_CTRL_DMA0,
+ 	DPU_CLK_CTRL_DMA1,
++	DPU_CLK_CTRL_DMA2,
++	DPU_CLK_CTRL_DMA3,
+ 	DPU_CLK_CTRL_CURSOR0,
+ 	DPU_CLK_CTRL_CURSOR1,
+ 	DPU_CLK_CTRL_INLINE_ROT0_SSPP,
 -- 
 2.32.0
 
