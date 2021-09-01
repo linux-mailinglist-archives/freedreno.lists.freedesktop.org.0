@@ -2,58 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53CAD3FD2F8
-	for <lists+freedreno@lfdr.de>; Wed,  1 Sep 2021 07:36:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54C603FD5E1
+	for <lists+freedreno@lfdr.de>; Wed,  1 Sep 2021 10:49:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F07946E11C;
-	Wed,  1 Sep 2021 05:35:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 018D16E059;
+	Wed,  1 Sep 2021 08:49:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9316E11C;
- Wed,  1 Sep 2021 05:35:57 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7A69260F3A;
- Wed,  1 Sep 2021 05:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630474557;
- bh=ksxPtNuYubbYJ6aEkWBWuzz8xHMdSYMscQIeT1im6IA=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=Ty0GJFSIcWgaBeKRXN4/6uAX4nYak0fxSLv9YsiCxQrOq79+KbqEd0zoNVkXvrZKS
- JHMUw+A2yt9SQuGiKpyKsZsfmXtWCPSolx5ojWtH2vkpV41ivnNuLOXPQBKdu6mMJk
- ctQFh2ju314ODOaTNG8f/rA20CAvCg55lT/BiD/wQiSX1GUJBX2vbT8HF1duftd5uV
- p9Od94iKZ66AHJ5UlKSWx+d5oRkSMiRiJcMsgV1pRMIkWS0jiGoHE5B5R5lpDFRKGw
- Hkcv8Ct2redDoA3wyGoP/1zbLDd/Yar5oewZM4lzlyOekLtVrhsdbP9mp50h7KzKL+
- 9ZpRfmlhFXuWQ==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20210830182445.167527-3-marijn.suijten@somainline.org>
-References: <20210830182445.167527-1-marijn.suijten@somainline.org>
- <20210830182445.167527-3-marijn.suijten@somainline.org>
-From: Stephen Boyd <sboyd@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
+Received: from m-r1.th.seeweb.it (m-r1.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22DE36E06B
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Sep 2021 08:49:15 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id D6D581FAA7;
+ Wed,  1 Sep 2021 10:49:11 +0200 (CEST)
+Date: Wed, 1 Sep 2021 10:49:10 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Martin Botka <martin.botka@somainline.org>,
  Jami Kettunen <jami.kettunen@somainline.org>,
- Pavel Dubrova <pashadubrova@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, Andy Gross <agross@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Pavel Dubrova <pashadubrova@gmail.com>, Andy Gross <agross@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
- Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org
-Date: Tue, 31 Aug 2021 22:35:56 -0700
-Message-ID: <163047455623.42057.15513441659841056105@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v2 2/2] clk: qcom: gcc-sdm660: Remove
- transient global "xo" clock
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>
+Message-ID: <YS8+hnrf6FZVif0D@Marijn-Arch-PC.localdomain>
+References: <20210830182445.167527-1-marijn.suijten@somainline.org>
+ <20210830182445.167527-2-marijn.suijten@somainline.org>
+ <163036177339.2676726.12271104951144475163@swboyd.mtv.corp.google.com>
+ <YS1fllEswGQEGWPc@Marijn-Arch-PC.localdomain>
+ <163036399040.2676726.5816296584899284140@swboyd.mtv.corp.google.com>
+ <YS1lYui5aXadgkEr@Marijn-Arch-PC.localdomain>
+ <163047451225.42057.10341429266269552927@swboyd.mtv.corp.google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <163047451225.42057.10341429266269552927@swboyd.mtv.corp.google.com>
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: Use "ref" fw clock
+ instead of global name for VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,22 +71,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Marijn Suijten (2021-08-30 11:24:45)
-> The DSI PHY/PLL was relying on a global "xo" clock to be found, but the
-> real clock is named "xo_board" in the DT.  The standard nowadays is to
-> never use global clock names anymore but require the firmware (DT) to
-> provide every clock binding explicitly with .fw_name.  The DSI PLLs have
-> since been converted to this mechanism (specifically 14nm for SDM660)
-> and this transient clock can now be removed.
->=20
-> This issue was originally discovered in:
-> https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc83f8a1be9=
-6@somainline.org/
-> and prevented the removal of "xo" at that time.
->=20
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
+Hi Stephen,
 
-Presumably this wants to go with the first one.
+On 2021-08-31 22:35:12, Stephen Boyd wrote:
+> Quoting Marijn Suijten (2021-08-30 16:10:26)
+> > 
+> > I'm 95% sure this shouldn't cause any problems given current DTs and
+> > their history, but that's probably not enough.  This might also impact
+> > DTs that have not yet been upstreamed, but afaik the general stance is
+> > to not care and actually serve as a fair hint/warning before new DTs
+> > make it to the list.
+> > 
+> > If there is a protocol in place to deprecate, warn, and eventually
+> > remove this reliance on global clock names I'm more than happy to add
+> > .name as a temporary fallback, even if likely unneeded.  Otherwise we
+> > might never get rid of it.
+> 
+> I'm not aware of any protocol to deprecate, warn, and remove the
+> fallback name. It's a fallback because it can't ever really be removed.
 
-Acked-by: Stephen Boyd <sboyd@kernel.org>
+That is unfortunate, I was hoping for a breaking "kernel release" at
+some point where we could say "no more, update your DTs first".  But
+that may not be possible in every scenario?
+
+> Anyway, if you're not willing to add the .name then that's fine.
+
+I feel like .name has caused more problems for us than it solves, but in
+a fallback position it might be fine.  My main gripe is that I don't
+want DT to rely on the clock to also be discoverable through the clock
+tree, which we've seen on many occasions (not sure if the former was
+done upstream, but: "xo" being renamed to "xo_board", and DSI PLL clocks
+loosing +1 causing a naming mismatch with what mmcc expects, to name
+some examples).  Omitting .name is the only way to enforce that.
+
+> We can
+> deal with the problem easily by adding a .name in the future if someone
+> complains that things aren't working. Sound like a plan? If so, it's
+> probably good to add some sort of note in the commit text so that when
+> the bisector lands on this patch they can realize that this
+> intentionally broke them.
+
+I'm all for this but lack the industrial knowledge to sign off on the
+approach.  Bjorn and Dmitry should ack/agree before going ahead (you may
+wonder why I'm worrying about getting clock drivers and DT in sync on
+platforms I don't own...):
+
+We have the following situations:
+- apq8064 used the wrong clock.  Bjorn acknowledged that landing the DT
+  fix in 5.15, and this patch in 5.16 should give enough time for DT to
+  be updated (this is nothing we can fix with .name anyway).
+- msm8974 doesn't have the clock at all.  Dmitry recommended to add
+  .name for this specific case, but I'm wondering if the 5.15 -> 5.16
+  window is enough to update DTs too?
+- msm8916 and sdm845 had the missing "ref" clock added three years ago.
+  Would a 5.16 kernel still work in any meaningful way with a DT that
+  old?
+
+Should we decide on a case-by-case basis whether to add .name, ie. only
+for (some/all) of the aforementioned SoCs?
+
+Thanks!
+
+- Marijn
