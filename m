@@ -1,59 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B923FE827
-	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 05:46:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0DC53FE9FB
+	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 09:27:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB5BF6E427;
-	Thu,  2 Sep 2021 03:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8D26E47A;
+	Thu,  2 Sep 2021 07:27:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D866E420;
- Thu,  2 Sep 2021 03:46:36 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 207E461041;
- Thu,  2 Sep 2021 03:46:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630554396;
- bh=/8DW5SDT/Ey58NWCYefeAXYVgJQH1XZS90QfyYkPXso=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=NWPNYXYrInATmspjofKaT83KWCK/PEHYOHcB+VO/cDJSgmHxTb/BnIBdrUvgfTcsw
- HjT5EgNGxuwTRwvJjhBRXgdt//YCYXBp7mw4Lbh3m5UjjWDv16CQTyV3IcUYnvEQCK
- 3N72BjOGAzm9nRc6bokowrW73SKQ7KyXsYNjaDdTF8x90M5If0Ae8ZtOfCBt0G+oqu
- ZMCtAMfSjpI1PPAaMTQoQU3KitqgkYemAioqGYeaL6icGrYSJf1g9LFRsILRBVJ02+
- FYInXNpGnz3uewtvj3VZeMMclEP9qYs+G3BPX+XFWE5gkMwBvJznVO/WMDeTl6jfWY
- 1aOR6IMM5Ekww==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <YS9Aa0tADAf5KMSl@Marijn-Arch-PC.localdomain>
-References: <20210830182445.167527-1-marijn.suijten@somainline.org>
- <20210830182445.167527-3-marijn.suijten@somainline.org>
- <163047455623.42057.15513441659841056105@swboyd.mtv.corp.google.com>
- <YS9Aa0tADAf5KMSl@Marijn-Arch-PC.localdomain>
-From: Stephen Boyd <sboyd@kernel.org>
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63E536E47B
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Sep 2021 07:27:52 +0000 (UTC)
+Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DA8F03F35F;
+ Thu,  2 Sep 2021 09:27:49 +0200 (CEST)
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ phone-devel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-msm@vger.kernel.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
  Konrad Dybcio <konrad.dybcio@somainline.org>,
  Martin Botka <martin.botka@somainline.org>,
  Jami Kettunen <jami.kettunen@somainline.org>,
  Pavel Dubrova <pashadubrova@gmail.com>, Andy Gross <agross@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
- Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-To: Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 01 Sep 2021 20:46:34 -0700
-Message-ID: <163055439497.405991.16122720273000010218@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Subject: Re: [Freedreno] [PATCH v2 2/2] clk: qcom: gcc-sdm660: Remove
- transient global "xo" clock
+ Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>
+References: <20210830182445.167527-1-marijn.suijten@somainline.org>
+ <20210830182445.167527-2-marijn.suijten@somainline.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Message-ID: <18b7fbaf-a284-660d-09d7-e1191166efb8@somainline.org>
+Date: Thu, 2 Sep 2021 09:27:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
+MIME-Version: 1.0
+In-Reply-To: <20210830182445.167527-2-marijn.suijten@somainline.org>
+Content-Type: text/plain; charset=iso-8859-15; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: Use "ref" fw clock
+ instead of global name for VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,31 +66,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Marijn Suijten (2021-09-01 01:57:15)
-> On 2021-08-31 22:35:56, Stephen Boyd wrote:
-> > Quoting Marijn Suijten (2021-08-30 11:24:45)
-> > > The DSI PHY/PLL was relying on a global "xo" clock to be found, but t=
-he
-> > > real clock is named "xo_board" in the DT.  The standard nowadays is to
-> > > never use global clock names anymore but require the firmware (DT) to
-> > > provide every clock binding explicitly with .fw_name.  The DSI PLLs h=
-ave
-> > > since been converted to this mechanism (specifically 14nm for SDM660)
-> > > and this transient clock can now be removed.
-> > >=20
-> > > This issue was originally discovered in:
-> > > https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc83f8a=
-1be96@somainline.org/
-> > > and prevented the removal of "xo" at that time.
-> > >=20
-> > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > > ---
-> >=20
-> > Presumably this wants to go with the first one.
->=20
-> What are you referring to with "the first one"?  This patch can only go
-> in after patch 1/2 of this series, unless you are suggesting to squash
-> it with Bjorns cleanup and making sure that lands after the fix in the
-> DSI?
+Il 30/08/21 20:24, Marijn Suijten ha scritto:
+> All DSI PHY/PLL drivers were referencing their VCO parent clock by a
+> global name, most of which don't exist or have been renamed.  These
+> clock drivers seem to function fine without that except the 14nm driver
+> for the sdm6xx [1].
+> 
+> At the same time all DTs provide a "ref" clock as per the requirements
+> of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
+> that clock to use without relying on a global clock name, so that all
+> dependencies are explicitly defined in DT (the firmware) in the end.
+> 
+> Note that msm8974 is the only board not providing this clock, and
+> apq8064 was providing the wrong clock (19.2MHz cxo instead of 27MHz
+> pxo).  Both have been been addressed in separate patches that are
+> supposed to land well in advance of this patchset.
+> 
+> Furthermore not all board-DTs provided this clock initially but that
+> deficiency has been addressed in followup patches (see the Fixes:
+> below).  Those commits seem to assume that the clock was used, while
+> nothing in history indicates that this "ref" clock was ever retrieved.
+> 
+> [1]: https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc83f8a1be96@somainline.org/
+> 
+> Fixes: 79e51645a1dd ("arm64: dts: qcom: msm8916: Set 'xo_board' as ref clock of the DSI PHY")
+> Fixes: 6969d1d9c615 ("ARM: dts: qcom-apq8064: Set 'cxo_board' as ref clock of the DSI PHY")
+> Fixes: 0c0e72705a33 ("arm64: dts: sdm845: Set 'bi_tcxo' as ref clock of the DSI PHYs")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-The first patch in this series.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+
+> ---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c      | 4 +++-
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 4 +++-
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c      | 4 +++-
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 4 +++-
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c       | 4 +++-
+>   5 files changed, 15 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> index e46b10fc793a..3cbb1f1475e8 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> @@ -562,7 +562,9 @@ static int pll_10nm_register(struct dsi_pll_10nm *pll_10nm, struct clk_hw **prov
+>   	char clk_name[32], parent[32], vco_name[32];
+>   	char parent2[32], parent3[32], parent4[32];
+>   	struct clk_init_data vco_init = {
+> -		.parent_names = (const char *[]){ "xo" },
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "ref",
+> +		},
+>   		.num_parents = 1,
+>   		.name = vco_name,
+>   		.flags = CLK_IGNORE_UNUSED,
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> index bb31230721bd..406470265408 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> @@ -804,7 +804,9 @@ static int pll_14nm_register(struct dsi_pll_14nm *pll_14nm, struct clk_hw **prov
+>   {
+>   	char clk_name[32], parent[32], vco_name[32];
+>   	struct clk_init_data vco_init = {
+> -		.parent_names = (const char *[]){ "xo" },
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "ref",
+> +		},
+>   		.num_parents = 1,
+>   		.name = vco_name,
+>   		.flags = CLK_IGNORE_UNUSED,
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> index 2da673a2add6..8ee9c9c0548d 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
+> @@ -521,7 +521,9 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+>   {
+>   	char clk_name[32], parent1[32], parent2[32], vco_name[32];
+>   	struct clk_init_data vco_init = {
+> -		.parent_names = (const char *[]){ "xo" },
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "ref",
+> +		},
+>   		.num_parents = 1,
+>   		.name = vco_name,
+>   		.flags = CLK_IGNORE_UNUSED,
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+> index aaa37456f4ee..9662cb236468 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+> @@ -385,7 +385,9 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+>   {
+>   	char *clk_name, *parent_name, *vco_name;
+>   	struct clk_init_data vco_init = {
+> -		.parent_names = (const char *[]){ "pxo" },
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "ref",
+> +		},
+>   		.num_parents = 1,
+>   		.flags = CLK_IGNORE_UNUSED,
+>   		.ops = &clk_ops_dsi_pll_28nm_vco,
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> index 7c23d4c47338..c77c30628cca 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> @@ -590,7 +590,9 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
+>   	char clk_name[32], parent[32], vco_name[32];
+>   	char parent2[32], parent3[32], parent4[32];
+>   	struct clk_init_data vco_init = {
+> -		.parent_names = (const char *[]){ "bi_tcxo" },
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "ref",
+> +		},
+>   		.num_parents = 1,
+>   		.name = vco_name,
+>   		.flags = CLK_IGNORE_UNUSED,
+> 
+
