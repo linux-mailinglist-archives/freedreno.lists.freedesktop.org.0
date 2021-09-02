@@ -1,56 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 426E63FEE4F
-	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 15:05:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8973FF1B8
+	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 18:43:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC0946E52F;
-	Thu,  2 Sep 2021 13:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C3F26E7D9;
+	Thu,  2 Sep 2021 16:43:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91BD46E52E
- for <freedreno@lists.freedesktop.org>; Thu,  2 Sep 2021 13:05:39 +0000 (UTC)
-Received: from Marijn-Arch-Book.localdomain (D57D4C6E.static.ziggozakelijk.nl
- [213.125.76.110])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id CC4D03F215;
- Thu,  2 Sep 2021 15:05:35 +0200 (CEST)
-Date: Thu, 2 Sep 2021 15:05:34 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Pavel Dubrova <pashadubrova@gmail.com>, Andy Gross <agross@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B415089F3C;
+ Thu,  2 Sep 2021 16:00:35 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id v123so1986844pfb.11;
+ Thu, 02 Sep 2021 09:00:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Fk9qOIpqNtU9mgu+Mf4bLSy/z5UFG7XV8I5EL88asX4=;
+ b=LfetnEEzuuv1qb0fAS/ttShZ8N+iLIfmiaAvg0iByOqil4Eglps4NdIUsbuJYWHc6+
+ r3nPDtzkMYi2sXbCSa7bm69tT5eg1CTUkkYi4qrEtmJ3UnHdCxI3AwFfDtgSW+m267Py
+ BSgxMtUBWixV+cqF1xu1NfFxhNYPFrbJujQdoWdhoN0oruKGzaUes320a1GvPq1kEbNb
+ 2PKzLo3z470yxoFtsruvSXyYgfYlQFR1UDvywszuIoRKbCu/GAkghVh/RGYcHym4XKVO
+ CXoHsSDXkGtA8Shtt62oSnZSROQGNOxh2ewV5Guk1ZcRBYhUEUMHgSyg52KpY38olKT1
+ /98Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Fk9qOIpqNtU9mgu+Mf4bLSy/z5UFG7XV8I5EL88asX4=;
+ b=XhWrQhaWUf/Vn6wF1rYnxrtk9AbvrEywIdv9tkTy9P+tYgET8xutK5aVVxJ79OyVWM
+ yrykVqha4ZN8iqzy8TweQFwW9Y84T7f/8fy+MStMiW/szUn5MEDkAwBytzqvCevAkgQb
+ Giioc4G0Vy2sip3IKLzty4XAmrxxe5tfWG3HeEF12xswzbuSfE0OHgZQnLsLoI5aAu/M
+ WmYeTxYo+u1V7OYlBsqqhofLHmWR0iJAJ8cXIEWYRr0DdaiiyDlstU4ymdYGjiPl+5B/
+ oi239YfzPVYhQA/7eAtBN/WQGAohMwwFUON5EQ8PIQHZ0LjgovXplFYUwErCyZcUkbnn
+ zPvQ==
+X-Gm-Message-State: AOAM530L3wLXO90GD1SILXukijg0eOVEX53it+5o2yLMYJ8FlXJ64EXC
+ 5K2sSsxfEq+xX+92fSX9XwI=
+X-Google-Smtp-Source: ABdhPJwdcf0AY5VrBw8nqRBAXD7oZ7oS0Nq63NYpoqJ/4WbclGVKR/NdySwp0vV0i/uql9AyHvpanw==
+X-Received: by 2002:a63:62c7:: with SMTP id w190mr3837011pgb.105.1630598435401; 
+ Thu, 02 Sep 2021 09:00:35 -0700 (PDT)
+Received: from skynet-linux.local ([106.203.214.216])
+ by smtp.googlemail.com with ESMTPSA id a15sm3528540pgn.25.2021.09.02.09.00.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Sep 2021 09:00:34 -0700 (PDT)
+From: Sireesh Kodali <sireeshkodali1@gmail.com>
+To: sireeshkodali1@gmail.com
+Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ dri-devel@lists.freedesktop.org, airlied@linux.ie, robdclark@gmail.com,
+ linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Message-ID: <YTDMHq3rLUrldNfB@Marijn-Arch-Book.localdomain>
-References: <20210830182445.167527-1-marijn.suijten@somainline.org>
- <20210830182445.167527-3-marijn.suijten@somainline.org>
- <163047455623.42057.15513441659841056105@swboyd.mtv.corp.google.com>
- <YS9Aa0tADAf5KMSl@Marijn-Arch-PC.localdomain>
- <163055439497.405991.16122720273000010218@swboyd.mtv.corp.google.com>
+ Jonathan Marek <jonathan@marek.ca>,
+ Rajeev Nandan <rajeevny@codeaurora.org>,
+ Krishna Manikandan <mkrishn@codeaurora.org>,
+ freedreno@lists.freedesktop.org (open list:DRM DRIVER FOR MSM ADRENO GPU),
+ devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE
+ BINDINGS), linux-kernel@vger.kernel.org (open list)
+Date: Thu,  2 Sep 2021 21:29:50 +0530
+Message-Id: <20210902155951.6672-2-sireeshkodali1@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210902155951.6672-1-sireeshkodali1@gmail.com>
+References: <20210902155951.6672-1-sireeshkodali1@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <163055439497.405991.16122720273000010218@swboyd.mtv.corp.google.com>
-Subject: Re: [Freedreno] [PATCH v2 2/2] clk: qcom: gcc-sdm660: Remove
- transient global "xo" clock
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 02 Sep 2021 16:43:03 +0000
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dsi: Add phy configuration for
+ MSM8953
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,33 +85,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-09-01 20:46:34, Stephen Boyd wrote:
-> Quoting Marijn Suijten (2021-09-01 01:57:15)
-> > On 2021-08-31 22:35:56, Stephen Boyd wrote:
-> > > Quoting Marijn Suijten (2021-08-30 11:24:45)
-> > > > The DSI PHY/PLL was relying on a global "xo" clock to be found, but the
-> > > > real clock is named "xo_board" in the DT.  The standard nowadays is to
-> > > > never use global clock names anymore but require the firmware (DT) to
-> > > > provide every clock binding explicitly with .fw_name.  The DSI PLLs have
-> > > > since been converted to this mechanism (specifically 14nm for SDM660)
-> > > > and this transient clock can now be removed.
-> > > > 
-> > > > This issue was originally discovered in:
-> > > > https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc83f8a1be96@somainline.org/
-> > > > and prevented the removal of "xo" at that time.
-> > > > 
-> > > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> > > > ---
-> > > 
-> > > Presumably this wants to go with the first one.
-> > 
-> > What are you referring to with "the first one"?  This patch can only go
-> > in after patch 1/2 of this series, unless you are suggesting to squash
-> > it with Bjorns cleanup and making sure that lands after the fix in the
-> > DSI?
-> 
-> The first patch in this series.
+From: Vladimir Lypak <vladimir.lypak@gmail.com>
 
-Are you suggesting to squash this patch into the first patch in this
-series?  Note that the first patch touches drm/msm/dsi, the second
-(this) patch touches clk/qcom.
+Add phy configuration for 14nm dsi phy found on MSM8953 SoC. Only
+difference from existing configurations are io_start addresses.
+
+Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
+Signed-off-by: Sireesh Kodali <sireeshkodali1@gmail.com>
+---
+ .../bindings/display/msm/dsi-phy-14nm.yaml    |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c         |  2 ++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h         |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    | 21 +++++++++++++++++++
+ 4 files changed, 25 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+index 72a00cce0147..7527fb299caa 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml
+@@ -17,6 +17,7 @@ properties:
+     oneOf:
+       - const: qcom,dsi-phy-14nm
+       - const: qcom,dsi-phy-14nm-660
++      - const: qcom,dsi-phy-14nm-8953
+ 
+   reg:
+     items:
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 8c65ef6968ca..9842e04b5858 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -627,6 +627,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
+ 	  .data = &dsi_phy_14nm_cfgs },
+ 	{ .compatible = "qcom,dsi-phy-14nm-660",
+ 	  .data = &dsi_phy_14nm_660_cfgs },
++	{ .compatible = "qcom,dsi-phy-14nm-8953",
++	  .data = &dsi_phy_14nm_8953_cfgs },
+ #endif
+ #ifdef CONFIG_DRM_MSM_DSI_10NM_PHY
+ 	{ .compatible = "qcom,dsi-phy-10nm",
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+index b91303ada74f..4c8257581bfc 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+@@ -48,6 +48,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_20nm_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_28nm_8960_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_14nm_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs;
++extern const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_7nm_cfgs;
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+index d13552b2213b..9a6b1f0cbbaf 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+@@ -1065,3 +1065,24 @@ const struct msm_dsi_phy_cfg dsi_phy_14nm_660_cfgs = {
+ 	.io_start = { 0xc994400, 0xc996000 },
+ 	.num_dsi_phy = 2,
+ };
++
++const struct msm_dsi_phy_cfg dsi_phy_14nm_8953_cfgs = {
++	.has_phy_lane = true,
++	.reg_cfg = {
++		.num = 1,
++		.regs = {
++			{"vcca", 17000, 32},
++		},
++	},
++	.ops = {
++		.enable = dsi_14nm_phy_enable,
++		.disable = dsi_14nm_phy_disable,
++		.pll_init = dsi_pll_14nm_init,
++		.save_pll_state = dsi_14nm_pll_save_state,
++		.restore_pll_state = dsi_14nm_pll_restore_state,
++	},
++	.min_pll_rate = VCO_MIN_RATE,
++	.max_pll_rate = VCO_MAX_RATE,
++	.io_start = { 0x1a94400, 0x1a96400 },
++	.num_dsi_phy = 2,
++};
+-- 
+2.33.0
+
