@@ -2,80 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFBE63FF355
-	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 20:41:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28E6A3FF441
+	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 21:34:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38BA96E7DC;
-	Thu,  2 Sep 2021 18:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B437E6E7F5;
+	Thu,  2 Sep 2021 19:34:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA9A56E09F
- for <freedreno@lists.freedesktop.org>; Thu,  2 Sep 2021 18:41:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1630608063;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bj1YZCOICCuWhBGeiWp2KDW8cxmxWvm+507OpITl/f8=;
- b=i3Q0mECxGd2NdWzq6oZ1wNm1mNzoSPQLGlhYDz179t/wl/zBQeOkhBq1iyKWEsuUxe+AIH
- eS/2lROe2WSiH5coDCelKkaL3ES7rBvEua+7yTE+T/vEybm27f0nW6TD8zX238etaNnYzr
- a07g8X5GvUN8TGUEcJJvpVgR+QoRPmU=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-344-VLlOX_5XMBik0vNgEaQMsw-1; Thu, 02 Sep 2021 14:41:02 -0400
-X-MC-Unique: VLlOX_5XMBik0vNgEaQMsw-1
-Received: by mail-qk1-f200.google.com with SMTP id
- p23-20020a05620a22f700b003d5ac11ac5cso3258666qki.15
- for <freedreno@lists.freedesktop.org>; Thu, 02 Sep 2021 11:41:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=Bj1YZCOICCuWhBGeiWp2KDW8cxmxWvm+507OpITl/f8=;
- b=dX/TkXbRM6a5cfYrMJn69H9pMAmKRIK+S2mlCSE7pasqB5jC9woYQdhJZtEi4XkEbB
- WMM8VZACq8w+2mJF+fJqBqm1b6PyKqpEGhSMoxuUgyG925v5slZ2kJTJPmLj7oeh5rRY
- wUqC7wbgcxfNbbfwhr/IWIm2Lnr5EhQhMmThdijMf5rkax0+pe3momsLr0UJUHhZjazB
- n9ldvqkPfom2OfV2UmIuy0n8oMZpFXHOibISrCe+1QncwklslHodAELTyWfWtXg5heeo
- nZ2Zu4CoTo5XsRv1kUuO4KK7g7kUsXlEaYmbyQMIwyndRmJxnFksT0/G5oPm3Hub394W
- VLpQ==
-X-Gm-Message-State: AOAM532hklSuMpvfC8LbLa+Bl3+iOVGnoXuQXjJJqIwyKeKeNzrUaTNs
- fVFB8JXwp9E7uy74Jhb3Q88I2C9ioMd+3yCyWZdBw510q03el/Fy6yDxdInQPnz++9C5Gn4jim6
- wtnJBaxG2QAwbkm5Jn3Dl2E5nTOIQ
-X-Received: by 2002:ac8:7ef6:: with SMTP id r22mr4422771qtc.158.1630608061769; 
- Thu, 02 Sep 2021 11:41:01 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzER9U7aKRPWcbQbf6Y4ZH5pTc8T3UJYAdtuN5uesnicOA+1yjnC5jy8JOV95bM70GmgFDNcw==
-X-Received: by 2002:ac8:7ef6:: with SMTP id r22mr4422741qtc.158.1630608061430; 
- Thu, 02 Sep 2021 11:41:01 -0700 (PDT)
-Received: from [192.168.8.104] (pool-108-49-102-102.bstnma.fios.verizon.net.
- [108.49.102.102])
- by smtp.gmail.com with ESMTPSA id p22sm1995353qkj.16.2021.09.02.11.41.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Sep 2021 11:41:00 -0700 (PDT)
-Message-ID: <2d6784e3327cab7bfdc88ca1ef7c9c4c9cca113a.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: cgel.zte@gmail.com, robdclark@gmail.com
-Cc: sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, airlied@redhat.com, 
- laurent.pinchart@ideasonboard.com, chi.minghao@zte.com.cn,
- treding@nvidia.com,  linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>
-Date: Thu, 02 Sep 2021 14:40:59 -0400
-In-Reply-To: <20210831115127.18236-1-chi.minghao@zte.com.cn>
-References: <20210831115127.18236-1-chi.minghao@zte.com.cn>
-Organization: Red Hat
-User-Agent: Evolution 3.40.4 (3.40.4-1.fc34)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 668C96E7F5;
+ Thu,  2 Sep 2021 19:34:52 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 231B260F42;
+ Thu,  2 Sep 2021 19:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630611292;
+ bh=lkU0Lg08Q92PGe4kuQ+5cTptrzCavgcMALCXl/UW/aw=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=pHOYUBoPGg/0YvR6uixHYK6V+0HOgvvWB6/QWB4NXXBIkPvQRiRstlkBnZ37YUt8O
+ aW+qzwreY0wQXQGsIpHrpmL13pJDUflsG1vpgSG4Tu7XDBSmkIsY/G5ITmXU1GEBFo
+ 4UmEBWepaeTqsjVpiDaAWwc4bH2oOduaFLbnAvhBGmnNr4lTWJ4HORaoF+xItUQrwO
+ m3YrNmP1UZ/WwRYTa6mu6TUYL8v7Lzgh81EYfDYzknYOpqdOz8usZ9ZCuPkff/kl4I
+ sr6sWIBqW9/77+RQFGSBw9DDDYcsx6ViHJFQ4sS24j4ET9V2ezV1u/fRWJ7S5QdbeT
+ 1ho+CFS5gYaiw==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: remove unneeded variable
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <YTDMHq3rLUrldNfB@Marijn-Arch-Book.localdomain>
+References: <20210830182445.167527-1-marijn.suijten@somainline.org>
+ <20210830182445.167527-3-marijn.suijten@somainline.org>
+ <163047455623.42057.15513441659841056105@swboyd.mtv.corp.google.com>
+ <YS9Aa0tADAf5KMSl@Marijn-Arch-PC.localdomain>
+ <163055439497.405991.16122720273000010218@swboyd.mtv.corp.google.com>
+ <YTDMHq3rLUrldNfB@Marijn-Arch-Book.localdomain>
+From: Stephen Boyd <sboyd@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>, Andy Gross <agross@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Date: Thu, 02 Sep 2021 12:34:50 -0700
+Message-ID: <163061129079.405991.11763080753220412244@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v2 2/2] clk: qcom: gcc-sdm660: Remove
+ transient global "xo" clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,49 +71,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Quoting Marijn Suijten (2021-09-02 06:05:34)
+> On 2021-09-01 20:46:34, Stephen Boyd wrote:
+> > Quoting Marijn Suijten (2021-09-01 01:57:15)
+> > > On 2021-08-31 22:35:56, Stephen Boyd wrote:
+> > > > Quoting Marijn Suijten (2021-08-30 11:24:45)
+> > > > > The DSI PHY/PLL was relying on a global "xo" clock to be found, b=
+ut the
+> > > > > real clock is named "xo_board" in the DT.  The standard nowadays =
+is to
+> > > > > never use global clock names anymore but require the firmware (DT=
+) to
+> > > > > provide every clock binding explicitly with .fw_name.  The DSI PL=
+Ls have
+> > > > > since been converted to this mechanism (specifically 14nm for SDM=
+660)
+> > > > > and this transient clock can now be removed.
+> > > > >=20
+> > > > > This issue was originally discovered in:
+> > > > > https://lore.kernel.org/linux-arm-msm/386db1a6-a1cd-3c7d-a88e-dc8=
+3f8a1be96@somainline.org/
+> > > > > and prevented the removal of "xo" at that time.
+> > > > >=20
+> > > > > Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > > > > ---
+> > > >=20
+> > > > Presumably this wants to go with the first one.
+> > >=20
+> > > What are you referring to with "the first one"?  This patch can only =
+go
+> > > in after patch 1/2 of this series, unless you are suggesting to squash
+> > > it with Bjorns cleanup and making sure that lands after the fix in the
+> > > DSI?
+> >=20
+> > The first patch in this series.
+>=20
+> Are you suggesting to squash this patch into the first patch in this
+> series?  Note that the first patch touches drm/msm/dsi, the second
+> (this) patch touches clk/qcom.
 
-Do you need me to push this?
-
-On Tue, 2021-08-31 at 04:51 -0700, cgel.zte@gmail.com wrote:
-> From: Chi Minghao <chi.minghao@zte.com.cn>
-> 
-> Fix the following coccicheck REVIEW:
-> ./drivers/gpu/drm/msm/edp/edp_ctrl.c:1245:5-8 Unneeded variable
-> 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Chi Minghao <chi.minghao@zte.com.cn>
-> ---
->  drivers/gpu/drm/msm/edp/edp_ctrl.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> index 4fb397ee7c84..3610e26e62fa 100644
-> --- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> @@ -1242,8 +1242,6 @@ bool msm_edp_ctrl_panel_connected(struct edp_ctrl
-> *ctrl)
->  int msm_edp_ctrl_get_panel_info(struct edp_ctrl *ctrl,
->                 struct drm_connector *connector, struct edid **edid)
->  {
-> -       int ret = 0;
-> -
->         mutex_lock(&ctrl->dev_mutex);
->  
->         if (ctrl->edid) {
-> @@ -1278,7 +1276,7 @@ int msm_edp_ctrl_get_panel_info(struct edp_ctrl *ctrl,
->         }
->  unlock_ret:
->         mutex_unlock(&ctrl->dev_mutex);
-> -       return ret;
-> +       return 0;
->  }
->  
->  int msm_edp_ctrl_timing_cfg(struct edp_ctrl *ctrl,
-
--- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+No.
