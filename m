@@ -2,43 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE7083FE20F
-	for <lists+freedreno@lfdr.de>; Wed,  1 Sep 2021 20:11:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C44F33FE825
+	for <lists+freedreno@lfdr.de>; Thu,  2 Sep 2021 05:46:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03D396E245;
-	Wed,  1 Sep 2021 18:11:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 831686E41D;
+	Thu,  2 Sep 2021 03:46:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7CB86E237
- for <freedreno@lists.freedesktop.org>; Wed,  1 Sep 2021 18:11:42 +0000 (UTC)
-Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id CFE0D3F35F;
- Wed,  1 Sep 2021 20:11:40 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-To: robdclark@gmail.com
-Cc: sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org, robh+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- konrad.dybcio@somainline.org, marijn.suijten@somainline.org,
- martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org, paul.bouchara@somainline.org,
- devicetree@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Date: Wed,  1 Sep 2021 20:11:38 +0200
-Message-Id: <20210901181138.1052653-3-angelogioacchino.delregno@somainline.org>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
-References: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF3B6E41B;
+ Thu,  2 Sep 2021 03:46:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BF09761041;
+ Thu,  2 Sep 2021 03:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630554367;
+ bh=e/r7aNYpXqByZsD0ObhSpe/4xl4wcGCv20OudDQBW9Y=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=BkJcSTHPMbL1+5MtpZOJLVg+Nnrfc2PyezFl0mS8WjZ6eQrzEDmGhFdhwXSgDGbJn
+ OjFzEFjxRgH48VZxYkfLoV3a1pBh1tVTfMUKA92k8S9mxeI5AoHJjwSFm5Hhqpotm6
+ vcl9GRWine+M1ZEkmEPukQzrDx1wKGjzZ1wPkMcrIuUpSzd9b0PHLnGAUgM4p5S0zK
+ DtOo0e5p9VKARBXoOumhoNCs9lNRcCCByZK5muQyPayjzlKB2351XVtIiaUQw2HB3D
+ GZbLb0PlDH2Ca/z0EikPWuZ742PsJyJykQPtVpMw9RSspJMVgpgwDoKo+lRoqCQF2t
+ DfjIKKYWgeisg==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] dt-bindings: display: msm: Add binding for
- msm8998 dpu
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <YS8+hnrf6FZVif0D@Marijn-Arch-PC.localdomain>
+References: <20210830182445.167527-1-marijn.suijten@somainline.org>
+ <20210830182445.167527-2-marijn.suijten@somainline.org>
+ <163036177339.2676726.12271104951144475163@swboyd.mtv.corp.google.com>
+ <YS1fllEswGQEGWPc@Marijn-Arch-PC.localdomain>
+ <163036399040.2676726.5816296584899284140@swboyd.mtv.corp.google.com>
+ <YS1lYui5aXadgkEr@Marijn-Arch-PC.localdomain>
+ <163047451225.42057.10341429266269552927@swboyd.mtv.corp.google.com>
+ <YS8+hnrf6FZVif0D@Marijn-Arch-PC.localdomain>
+From: Stephen Boyd <sboyd@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>, Andy Gross <agross@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>
+Date: Wed, 01 Sep 2021 20:46:06 -0700
+Message-ID: <163055436647.405991.3416730531261875767@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: Use "ref" fw clock
+ instead of global name for VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,240 +76,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add yaml binding for msm8998 dpu1 support.
+Quoting Marijn Suijten (2021-09-01 01:49:10)
+> Hi Stephen,
+>=20
+> On 2021-08-31 22:35:12, Stephen Boyd wrote:
+> > Quoting Marijn Suijten (2021-08-30 16:10:26)
+> > >=20
+> > > I'm 95% sure this shouldn't cause any problems given current DTs and
+> > > their history, but that's probably not enough.  This might also impact
+> > > DTs that have not yet been upstreamed, but afaik the general stance is
+> > > to not care and actually serve as a fair hint/warning before new DTs
+> > > make it to the list.
+> > >=20
+> > > If there is a protocol in place to deprecate, warn, and eventually
+> > > remove this reliance on global clock names I'm more than happy to add
+> > > .name as a temporary fallback, even if likely unneeded.  Otherwise we
+> > > might never get rid of it.
+> >=20
+> > I'm not aware of any protocol to deprecate, warn, and remove the
+> > fallback name. It's a fallback because it can't ever really be removed.
+>=20
+> That is unfortunate, I was hoping for a breaking "kernel release" at
+> some point where we could say "no more, update your DTs first".  But
+> that may not be possible in every scenario?
+>=20
+> > Anyway, if you're not willing to add the .name then that's fine.
+>=20
+> I feel like .name has caused more problems for us than it solves, but in
+> a fallback position it might be fine.  My main gripe is that I don't
+> want DT to rely on the clock to also be discoverable through the clock
+> tree, which we've seen on many occasions (not sure if the former was
+> done upstream, but: "xo" being renamed to "xo_board", and DSI PLL clocks
+> loosing +1 causing a naming mismatch with what mmcc expects, to name
+> some examples).  Omitting .name is the only way to enforce that.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
----
- .../bindings/display/msm/dpu-msm8998.yaml     | 220 ++++++++++++++++++
- 1 file changed, 220 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+The simple approach to take is anything new should use fw_name. The name
+member is only there for the backup mode when the DT isn't properly
+setup to describe connections between clk controllers. If the code is
+new then name can be omitted and everything is OK. Otherwise, if
+parent_names was already being used, then most likely it will need to be
+set as .name in the clk_parent_data struct to maintain compatibility. If
+parent_names was wrong, then it was all broken to begin with and .name
+can be omitted.
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
-new file mode 100644
-index 000000000000..db435342ecbf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
-@@ -0,0 +1,220 @@
-+# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/dpu-msm8998.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Display DPU dt properties for MSM8998 target
-+
-+maintainers:
-+  - AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-+
-+description: |
-+  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
-+  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-+  bindings of MDSS and DPU are mentioned for MSM8998 target.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: qcom,msm8998-mdss
-+
-+  reg:
-+    maxItems: 1
-+
-+  reg-names:
-+    const: mdss
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Display AHB clock
-+      - description: Display AXI clock
-+      - description: Display core clock
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: bus
-+      - const: core
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  "#address-cells": true
-+
-+  "#size-cells": true
-+
-+  "#interrupt-cells":
-+    const: 1
-+
-+  iommus:
-+    items:
-+      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
-+
-+  ranges: true
-+
-+patternProperties:
-+  "^display-controller@[0-9a-f]+$":
-+    type: object
-+    description: Node containing the properties of DPU.
-+
-+    properties:
-+      compatible:
-+        items:
-+          - const: qcom,msm8998-dpu
-+
-+      reg:
-+        items:
-+          - description: Address offset and size for mdp register set
-+          - description: Address offset and size for regdma register set
-+          - description: Address offset and size for vbif register set
-+          - description: Address offset and size for non-realtime vbif register set
-+
-+      reg-names:
-+        items:
-+          - const: mdp
-+          - const: regdma
-+          - const: vbif
-+          - const: vbif_nrt
-+
-+      clocks:
-+        items:
-+          - description: Display ahb clock
-+          - description: Display axi clock
-+          - description: Display mem-noc clock
-+          - description: Display core clock
-+          - description: Display vsync clock
-+
-+      clock-names:
-+        items:
-+          - const: iface
-+          - const: bus
-+          - const: mnoc
-+          - const: core
-+          - const: vsync
-+
-+      interrupts:
-+        maxItems: 1
-+
-+      power-domains:
-+        maxItems: 1
-+
-+      operating-points-v2: true
-+      ports:
-+        $ref: /schemas/graph.yaml#/properties/ports
-+        description: |
-+          Contains the list of output ports from DPU device. These ports
-+          connect to interfaces that are external to the DPU hardware,
-+          such as DSI, DP etc. Each output port contains an endpoint that
-+          describes how it is connected to an external interface.
-+
-+        properties:
-+          port@0:
-+            $ref: /schemas/graph.yaml#/properties/port
-+            description: DPU_INTF1 (DSI1)
-+
-+          port@1:
-+            $ref: /schemas/graph.yaml#/properties/port
-+            description: DPU_INTF2 (DSI2)
-+
-+        required:
-+          - port@0
-+          - port@1
-+
-+    required:
-+      - compatible
-+      - reg
-+      - reg-names
-+      - clocks
-+      - interrupts
-+      - power-domains
-+      - operating-points-v2
-+      - ports
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - power-domains
-+  - clocks
-+  - interrupts
-+  - interrupt-controller
-+  - iommus
-+  - ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,mmcc-msm8998.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    display-subsystem@c900000 {
-+        compatible = "qcom,msm8998-mdss";
-+        reg = <0x0c900000 0x1000>;
-+        reg-names = "mdss";
-+
-+        clocks = <&mmcc MDSS_AHB_CLK>,
-+                 <&mmcc MDSS_AXI_CLK>,
-+                 <&mmcc MDSS_MDP_CLK>;
-+        clock-names = "iface", "bus", "core";
-+
-+        #address-cells = <1>;
-+        #interrupt-cells = <1>;
-+        #size-cells = <1>;
-+
-+        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-controller;
-+        iommus = <&mmss_smmu 0>;
-+
-+        power-domains = <&mmcc MDSS_GDSC>;
-+        ranges;
-+        status = "disabled";
-+
-+        display-controller@c901000 {
-+            compatible = "qcom,msm8998-dpu";
-+            reg = <0x0c901000 0x8f000>,
-+                  <0x0c9a8e00 0xf0>,
-+                  <0x0c9b0000 0x2008>,
-+                  <0x0c9b8000 0x1040>;
-+            reg-names = "mdp", "regdma", "vbif", "vbif_nrt";
-+
-+            clocks = <&mmcc MDSS_AHB_CLK>,
-+                     <&mmcc MDSS_AXI_CLK>,
-+                     <&mmcc MNOC_AHB_CLK>,
-+                     <&mmcc MDSS_MDP_CLK>,
-+                     <&mmcc MDSS_VSYNC_CLK>;
-+            clock-names = "iface", "bus", "mnoc", "core", "vsync";
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
-+            operating-points-v2 = <&mdp_opp_table>;
-+            power-domains = <&rpmpd MSM8998_VDDMX>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dpu_intf1_out: endpoint {
-+                        remote-endpoint = <&dsi0_in>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dpu_intf2_out: endpoint {
-+                        remote-endpoint = <&dsi1_in>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-+...
--- 
-2.32.0
+>=20
+> > We can
+> > deal with the problem easily by adding a .name in the future if someone
+> > complains that things aren't working. Sound like a plan? If so, it's
+> > probably good to add some sort of note in the commit text so that when
+> > the bisector lands on this patch they can realize that this
+> > intentionally broke them.
+>=20
+> I'm all for this but lack the industrial knowledge to sign off on the
+> approach.  Bjorn and Dmitry should ack/agree before going ahead (you may
+> wonder why I'm worrying about getting clock drivers and DT in sync on
+> platforms I don't own...):
+>=20
+> We have the following situations:
+> - apq8064 used the wrong clock.  Bjorn acknowledged that landing the DT
+>   fix in 5.15, and this patch in 5.16 should give enough time for DT to
+>   be updated (this is nothing we can fix with .name anyway).
+> - msm8974 doesn't have the clock at all.  Dmitry recommended to add
+>   .name for this specific case, but I'm wondering if the 5.15 -> 5.16
+>   window is enough to update DTs too?
+> - msm8916 and sdm845 had the missing "ref" clock added three years ago.
+>   Would a 5.16 kernel still work in any meaningful way with a DT that
+>   old?
+>=20
+> Should we decide on a case-by-case basis whether to add .name, ie. only
+> for (some/all) of the aforementioned SoCs?
+>=20
 
+I sort of glossed over this, sorry. Hopefully what I wrote above can
+guide you and then we shouldn't really need to worry about anything?
