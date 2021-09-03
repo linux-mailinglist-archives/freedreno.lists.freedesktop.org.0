@@ -1,65 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C3ED4005AD
-	for <lists+freedreno@lfdr.de>; Fri,  3 Sep 2021 21:16:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C77B24005F7
+	for <lists+freedreno@lfdr.de>; Fri,  3 Sep 2021 21:39:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3F3A6E8C7;
-	Fri,  3 Sep 2021 19:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B79F6E8D5;
+	Fri,  3 Sep 2021 19:39:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A906E8C7
- for <freedreno@lists.freedesktop.org>; Fri,  3 Sep 2021 19:16:28 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- i3-20020a056830210300b0051af5666070so271157otc.4
- for <freedreno@lists.freedesktop.org>; Fri, 03 Sep 2021 12:16:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=L/2apcW8mrsz6OK3ilemzV65I67pSLK0BxUTy23sO3E=;
- b=WKQZrk6yltU3VyKmYhd5vG0mMGP/sJVUz/zftd7FGa0OxfST8O3CEhtI9sUdu1a2jv
- wfzLRo5HzKmq1GGXyS15IkB2T+5d8mWYilCkCGIVmPcCO9JTonM0qsBo3StvWz6q2xfA
- EnQGHVQDN9xrNbe755whrDgTDu9W+Fm8kboQE=
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C6AE6E8D5
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Sep 2021 19:39:50 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id y34so372716lfa.8
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Sep 2021 12:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=q/mMqrwEsTCjyLsgA0ikvXEubjygmiehwCmD4JsY2Oo=;
+ b=e5KHOH74YJ5L0QdbPHJWvvNhRVg/kBYpih9FO9zzwTE3Q95WeI/s7HOBinP1qxUIZB
+ QAnJYNt+L1n3Q1Q6X0ppIwQErEr9+ku2/sUUsPrIL8ry1YUEYkbZczH1n2G4sgcJpwlC
+ OyvooXJFcMqYybUZPr/Tp0U4dLLYZJ0nsREnA1bJe/IEeffA+p15vQgG1GazeUiVB75u
+ YHQK2m7Wt4ruuuxdJAk19NWUzUsnHXlHpcoPvWYpqRNkWLUoWuQWlfznNOzPmXPgaFPx
+ CCvMEskqit7QrrcQ3bnSx3i95ugtRUclnRIOx4hxGieGT7BdAV0Hv/XNxCCNjH1LiGU7
+ g6ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=L/2apcW8mrsz6OK3ilemzV65I67pSLK0BxUTy23sO3E=;
- b=bIc5u+ApB8fDH5bBDfU2v0M3U6JUy+ebqxkG47MkGA/7DWfv03i5Vsy4ymNvoNp5ku
- O8qlQXwsfQtawaiId/hZeuGQo/SPelLd4WNU+lYQvG03Txi6BAQ/SeOOwxksBD9Nh6CQ
- b2fygmeqHU4ni8EXgWaq13kt4UFrgo9/EFpQ2NixkY77UVZkZbJJMgiLp57hUFobavxT
- vptU004nNbCpqsnS9r1tzV0kElRkB3+mnciFHpCRVSfxBMDekneasxLiK1HLHa79YJD7
- 3sLmyR21j1+RmWtbQogOwKIH0d6Wluoev1SdcYK8LUhNiEcMobi1WotEpttmf0e+qFUb
- UIzw==
-X-Gm-Message-State: AOAM530ad51looqYHXSSVcotnhwJ14+zh8oXBJnsInXEuawhEOrRmq6G
- rpxS3SwxklTru36z3szbGLkE4oEZo3YBq19CIVP4bA==
-X-Google-Smtp-Source: ABdhPJw/cOlPupXT1h50NnHT0u5fcyjLVurBe+rkxu3+Ri7msyNK7piJ5M/yOhc92+uWMS+u1chlm0BirEeM+SKmFXQ=
-X-Received: by 2002:a05:6830:719:: with SMTP id
- y25mr502893ots.77.1630696588117; 
- Fri, 03 Sep 2021 12:16:28 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 3 Sep 2021 15:16:27 -0400
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=q/mMqrwEsTCjyLsgA0ikvXEubjygmiehwCmD4JsY2Oo=;
+ b=HZYv29cBuTCgKRAaBSgorQFg2vDvudPul8hc2iRFozw9cOY/MsJV8wED8prHwe050H
+ K4OSiqGK6VNacKmzMlQxFGhUrGIEJvwiihX80cG4yxgFcBy67By6s8oPwN0kNsIBzhCX
+ srVwVJFaDiIjqj4Acce0DD4EaYSbsqkTecKCM5Wjr/oRwJQrhnoNa/FCrqdnGgis/f8z
+ BN4copFSVKW8QZWR1BOFImNl1SOfQHcT04Fw4a71KlrzJEyynRvE6pLce9hzO24cgdzr
+ KL4vGDAMdDIDuE4WpCUOWUHjy+zBmrQZQ1Lo4zW+17KzA4VW2oWwleEPYm3rOblwYRE+
+ YIlg==
+X-Gm-Message-State: AOAM530Ca9n/hrpyQwBs2dVquQPIcWovCH1dLqX7xYayKY1V0llW8TOi
+ qiPIIgAygkJYB0YWNmCXp7GEW9357YWtdgv+gVryBg==
+X-Google-Smtp-Source: ABdhPJwPSfd3cWkRvtg1v4fnIt3ikKAKPBDq7JAoqQpURwTDA2QPNnmpp0MqualUro8TR/v6pKApJ8aZS9sZIfFIKQ0=
+X-Received: by 2002:a05:6512:118e:: with SMTP id
+ g14mr348609lfr.661.1630697988724; 
+ Fri, 03 Sep 2021 12:39:48 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <72483937-8ccb-331b-e1af-8f30f6cefc07@linaro.org>
-References: <1630098658-23149-1-git-send-email-khsieh@codeaurora.org>
- <72483937-8ccb-331b-e1af-8f30f6cefc07@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Fri, 3 Sep 2021 15:16:27 -0400
-Message-ID: <CAE-0n50R1+6Jx4+OeLS2XZdO5RdueEbrp=tUxk2YoJPJ9v-ssQ@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, 
- agross@kernel.org, bjorn.andersson@linaro.org, devicetree@vger.kernel.org, 
- robdclark@gmail.com, robh+dt@kernel.org, sean@poorly.run, vkoul@kernel.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kishon@ti.com, p.zabel@pengutronix.de
+References: <20210729183942.2839925-1-robdclark@gmail.com>
+ <1a38a590-a64e-58ef-1bbf-0ae49c004d05@linaro.org>
+ <CAF6AEGs5dzA7kfO89Uqbh3XmorXoEa=fpW+unk5_oaihHm479Q@mail.gmail.com>
+ <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
+ <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
+In-Reply-To: <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
+From: John Stultz <john.stultz@linaro.org>
+Date: Fri, 3 Sep 2021 12:39:38 -0700
+Message-ID: <CALAqxLUkyXK2gqNMBbtJFfh01ZpcG46dZaM7Zq4jG3OngvFREg@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: Caleb Connolly <caleb.connolly@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, 
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, 
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] phy: qcom-qmp: add support for display
- port voltage and pre-emphasis swing
+Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,44 +81,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2021-09-03 12:09:14)
-> On 28/08/2021 00:10, Kuogee Hsieh wrote:
-> > Both voltage and pre-emphasis swing level are set during link training
-> > negotiation between host and sink. There are totally four tables added.
-> > A voltage swing table for both hbr and hbr1, a voltage table for both
-> > hbr2 and hbr3, a pre-emphasis table for both hbr and hbr1 and a pre-emphasis
-> > table for both hbr2 and hbr3. In addition, write 0x0a to TX_TX_POL_INV is
-> > added to complete the sequence of configure dp phy base on HPG.
+On Thu, Jul 29, 2021 at 1:49 PM Rob Clark <robdclark@gmail.com> wrote:
+> On Thu, Jul 29, 2021 at 1:28 PM Caleb Connolly
+> <caleb.connolly@linaro.org> wrote:
+> > On 29/07/2021 21:24, Rob Clark wrote:
+> > > On Thu, Jul 29, 2021 at 1:06 PM Caleb Connolly
+> > > <caleb.connolly@linaro.org> wrote:
+> > >>
+> > >> Hi Rob,
+> > >>
+> > >> I've done some more testing! It looks like before that patch ("drm/msm: Devfreq tuning") the GPU would never get above
+> > >> the second frequency in the OPP table (342MHz) (at least, not in glxgears). With the patch applied it would more
+> > >> aggressively jump up to the max frequency which seems to be unstable at the default regulator voltages.
+> > >
+> > > *ohh*, yeah, ok, that would explain it
+> > >
+> > >> Hacking the pm8005 s1 regulator (which provides VDD_GFX) up to 0.988v (instead of the stock 0.516v) makes the GPU stable
+> > >> at the higher frequencies.
+> > >>
+> > >> Applying this patch reverts the behaviour, and the GPU never goes above 342MHz in glxgears, losing ~30% performance in
+> > >> glxgear.
+> > >>
+> > >> I think (?) that enabling CPR support would be the proper solution to this - that would ensure that the regulators run
+> > >> at the voltage the hardware needs to be stable.
+> > >>
+> > >> Is hacking the voltage higher (although ideally not quite that high) an acceptable short term solution until we have
+> > >> CPR? Or would it be safer to just not make use of the higher frequencies on a630 for now?
+> > >>
+> > >
+> > > tbh, I'm not sure about the regulator stuff and CPR.. Bjorn is already
+> > > on CC and I added sboyd, maybe one of them knows better.
+> > >
+> > > In the short term, removing the higher problematic OPPs from dts might
+> > > be a better option than this patch (which I'm dropping), since there
+> > > is nothing stopping other workloads from hitting higher OPPs.
+> > Oh yeah that sounds like a more sensible workaround than mine .
+> > >
+> > > I'm slightly curious why I didn't have problems at higher OPPs on my
+> > > c630 laptop (sdm850)
+> > Perhaps you won the sillicon lottery - iirc sdm850 is binned for higher clocks as is out of the factory.
 > >
-> > Chnages in v2:
-> > -- revise commit test
-> > -- add Fixes tag
-> > -- replaced voltage_swing_cfg with voltage
-> > -- replaced pre_emphasis_cfg with emphasis
-> > -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_v4_phy_configure_dp_swing()
-> > -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_phy_configure_dp_swing()
-> >
-> > Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
-> > Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> > ---
-> >   drivers/phy/qualcomm/phy-qcom-qmp.c | 117 ++++++++++++++++++++++++++----------
-> >   1 file changed, 85 insertions(+), 32 deletions(-)
-> >
-> > diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> > index 31036aa..021cbb0 100644
-> > --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
-> > +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> > @@ -3546,12 +3546,11 @@ static const u8 qmp_dp_v3_voltage_swing_hbr_rbr[4][4] = {
-> >       { 0x1f, 0xff, 0xff, 0xff }
-> >   };
-> >
-> > -static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
-> > -             unsigned int drv_lvl_reg, unsigned int emp_post_reg)
-> > +static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy)
+> > Would it be best to drop the OPPs for all devices? Or just those affected? I guess it's possible another c630 might
+> > crash where yours doesn't?
 >
-> As this becomes a v3-only function, could you please rename it to
-> qcom_qmp_v3_phy_configure_dp_swing()
+> I've not heard any reports of similar issues from the handful of other
+> folks with c630's on #aarch64-laptops.. but I can't really say if that
+> is luck or not.
+>
+> Maybe just remove it for affected devices?  But I'll defer to Bjorn.
 
-Can it be combined with the v4 version instead? The code structure is
-essentially the same, modulo the tables used and the register offset
-written to.
+Just as another datapoint, I was just marveling at how suddenly smooth
+the UI was performing on db845c and Caleb pointed me at the "drm/msm:
+Devfreq tuning" patch as the likely cause of the improvement, and
+mid-discussion my board crashed into USB crash mode:
+[  146.157696][    C0] adreno 5000000.gpu: CP | AHB bus error
+[  146.163303][    C0] adreno 5000000.gpu: CP | AHB bus error
+[  146.168837][    C0] adreno 5000000.gpu: RBBM | ATB bus overflow
+[  146.174960][    C0] adreno 5000000.gpu: CP | HW fault | status=0x00000000
+[  146.181917][    C0] adreno 5000000.gpu: CP | AHB bus error
+[  146.187547][    C0] adreno 5000000.gpu: CP illegal instruction error
+[  146.194009][    C0] adreno 5000000.gpu: CP | AHB bus error
+[  146.308909][    T9] Internal error: synchronous external abort:
+96000010 [#1] PREEMPT SMP
+[  146.317150][    T9] Modules linked in:
+[  146.320941][    T9] CPU: 3 PID: 9 Comm: kworker/u16:1 Tainted: G
+    W         5.14.0-mainline-06795-g42b258c2275c #24
+[  146.331974][    T9] Hardware name: Thundercomm Dragonboar
+Format: Log Type - Time(microsec) - Message - Optional Info
+Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+S - QC_IMAGE_VERSION_STRING=BOOT.XF.2.0-00371-SDM845LZB-1
+S - IMAGE_VARIANT_STRING=SDM845LA
+S - OEM_IMAGE_VERSION_STRING=TSBJ-FA-PC-02170
+
+So Caleb sent me to this thread. :)
+
+I'm still trying to trip it again, but it does seem like db845c is
+also seeing some stability issues with Linus' HEAD.
+
+thanks
+-john
