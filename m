@@ -1,72 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B842640068E
-	for <lists+freedreno@lfdr.de>; Fri,  3 Sep 2021 22:24:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C9034008C4
+	for <lists+freedreno@lfdr.de>; Sat,  4 Sep 2021 02:40:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C2F06E8D9;
-	Fri,  3 Sep 2021 20:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2CB6E8EC;
+	Sat,  4 Sep 2021 00:40:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C266E8D9;
- Fri,  3 Sep 2021 20:24:51 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id q14so350900wrp.3;
- Fri, 03 Sep 2021 13:24:51 -0700 (PDT)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B3D6E8EA;
+ Sat,  4 Sep 2021 00:40:01 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id c5so510210plz.2;
+ Fri, 03 Sep 2021 17:40:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TVVpgjo5Cfaza682w5KWsOpwl1uwq/nsCC8e82zI314=;
- b=Rt8geQ7VCeNG5FbQLG/Jq3ZI2ZqvY7V9exoYMOKRRIjM2KDZhdKEHcPgMf+q0F32SY
- HEzLYxPXZ5jXzKdW3iHEE0We7krPXLol/7nM2840OZt4WprWlzUpnJFDayFLt2E0grYV
- 0t1GlyOxsxWyhWBCp5CtzuxQMtFUvkr/dB3CyiEgXufg13gSP+h5umq7hPb5GJkD8+Vj
- isowlzyY6TI9BNRMKLGN6sWZVtj/5EpGNK+M1KZBYPPNQFPSksXwYEpYKGY/SVQzyXoO
- Jtb9M/GjLuUwgk4nWh/BZcKG5EvkZT7QXDMWWWQ7jNnIynlFAHoh+nd+6BMVyO3Yhxh2
- 0plw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=FI6R42Oo7MX5/xkTwAAMjl52Mc/0wUr0Fx+yPEL+Ji4=;
+ b=P9p3I1iFOOqZHomjJ9vNMefUT3hZPzD+F1bNrOIYlplXPkvXNDcsEoyzTJIVAmJ35Y
+ 0rkjEw3jIJ562VBGidsZBdYFLb+XXXwWHfP4361rOcoFkfXJlccu6Oa3StlZZpt8UB3p
+ RMeJs65RYXCbGcJ9FCY+9HyR8PojZBDka55C1UZ9rYWMF3GUYyXqiBqOFxjLDEwwr1Pt
+ s85jHd6VurdxdjV9hbU5CoLvTBeJI79gIHfkKkC9t7c8rptQ4B/9hqjUJgLc0CkQ7nQY
+ IYyLlGH5GENe7taBtOG5A0IXy2YH8nbyCN6a+STlteI8sxyU1mv5PnWuHxgGuCtiClCx
+ gtgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TVVpgjo5Cfaza682w5KWsOpwl1uwq/nsCC8e82zI314=;
- b=ldeiNNbTTNkWGxgKNb4ztSyhGWEDQnZxWr49cKa3QPulCeazoEvOyCDX14PVOSlXcu
- scO1cegn8sjTPe/I9IiMSP5F8jrF27FFfmOqiwU8bSCvIYIlXqsl7ijXVys8ITxeQ9zZ
- ANi3KUgzdiqyURz6OHBV0RRM+EFNQVWP+Xqlgbr7/iR0QpOAy+oXk87RK9kVZV0Q4k7i
- YA3rSH4GtBeIZm9PwfPpUUCr2Qsttj8jx+3OOcICG4l4GhexYgNDa3978FfWGPiNFFss
- DW4NGNPPt2AP9izjIN/TkSddrm7YT5ULvc3oDduMtH8QIqOOif/wyfeseIT7VorcMy+Z
- /H0Q==
-X-Gm-Message-State: AOAM533vEjSNpVME556WzupHI9eW2ltAM15Mq179hvbHf26WaLJn0XFK
- /642H1N0yJBpKFAwc72XFeS6oeuXqk7a5yFIPMg=
-X-Google-Smtp-Source: ABdhPJz2LkXMZvkKMZnpMYID0ppLFrezLyfGdDdSTKP3FE3h1lTjyVd7tUbeqw2d6AXKTgLzDhlA/m9dpTloDw2fsdw=
-X-Received: by 2002:a05:6000:178b:: with SMTP id
- e11mr800697wrg.151.1630700690229; 
- Fri, 03 Sep 2021 13:24:50 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=FI6R42Oo7MX5/xkTwAAMjl52Mc/0wUr0Fx+yPEL+Ji4=;
+ b=nMUCv6uShQrbKcxiRafSqeSNhKiAQqETKFPB8GmZ6py3ugvHmwfFPYKW4GmVZQgQUD
+ gXopDATVDAnQRl7SJBCZ/Qi0oilTEPjo2c8dB0/J4ob1E7Nr3qJMKlAX7j3IJ0jtbW1/
+ h4/eY7yesjLf8C+3hnpvs0QUJvHgO7ZIZe3Fi1i2gPGBQskITDGXCPj1flOyPcYJbaI0
+ 6hBaQijNLTH4AQLWefxMk4Oh4HUc60zobPM64w/l1vaClNi6tbUQ6mx51q9mLAOt5JBa
+ u3Uq3lf3jNktfTJqlaDBtn43XXdqknviKPolSC/9RNsx3b8TnhCh0ERbB7V7r4FggD5h
+ oZbw==
+X-Gm-Message-State: AOAM533x20fTlGBi6FsIKynD6mQZF3WwH0n6zl1I1u2R+E9nmiSlJMg+
+ n4a5t2RE448K2DNnTDjJy5A=
+X-Google-Smtp-Source: ABdhPJzz1rwyz2vh+Ezx9pYFTMx4kmC/xaZ4SlrqqT6MjtyqC6xvt8h0O3Dz2Zp+MEjlpU0HVoMEtw==
+X-Received: by 2002:a17:90b:33c6:: with SMTP id
+ lk6mr1588157pjb.203.1630716000885; 
+ Fri, 03 Sep 2021 17:40:00 -0700 (PDT)
+Received: from skynet-linux.local ([136.185.149.81])
+ by smtp.googlemail.com with ESMTPSA id o2sm487823pgu.76.2021.09.03.17.39.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Sep 2021 17:40:00 -0700 (PDT)
+From: Sireesh Kodali <sireeshkodali1@gmail.com>
+To: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Cc: Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Sireesh Kodali <sireeshkodali1@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ James Willcox <jwillcox@squareup.com>,
+ freedreno@lists.freedesktop.org (open list:DRM DRIVER FOR MSM ADRENO GPU),
+ linux-kernel@vger.kernel.org (open list)
+Date: Sat,  4 Sep 2021 06:09:17 +0530
+Message-Id: <20210904003919.36575-1-sireeshkodali1@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20210903170844.35694-1-sireeshkodali1@gmail.com>
+References: <20210903170844.35694-1-sireeshkodali1@gmail.com>
 MIME-Version: 1.0
-References: <20210729183942.2839925-1-robdclark@gmail.com>
- <1a38a590-a64e-58ef-1bbf-0ae49c004d05@linaro.org>
- <CAF6AEGs5dzA7kfO89Uqbh3XmorXoEa=fpW+unk5_oaihHm479Q@mail.gmail.com>
- <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
- <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
- <CALAqxLUkyXK2gqNMBbtJFfh01ZpcG46dZaM7Zq4jG3OngvFREg@mail.gmail.com>
-In-Reply-To: <CALAqxLUkyXK2gqNMBbtJFfh01ZpcG46dZaM7Zq4jG3OngvFREg@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 3 Sep 2021 13:29:09 -0700
-Message-ID: <CAF6AEGsACLcDuszcgmHHs04GghLPiRfei3tGo161yBXsg7Y-YA@mail.gmail.com>
-To: John Stultz <john.stultz@linaro.org>
-Cc: Caleb Connolly <caleb.connolly@linaro.org>,
- Rob Clark <robdclark@chromium.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, 
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 3/3] drm/msm/mdp5: Add configuration for MDP
+ v1.16
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,98 +82,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Sep 3, 2021 at 12:39 PM John Stultz <john.stultz@linaro.org> wrote:
->
-> On Thu, Jul 29, 2021 at 1:49 PM Rob Clark <robdclark@gmail.com> wrote:
-> > On Thu, Jul 29, 2021 at 1:28 PM Caleb Connolly
-> > <caleb.connolly@linaro.org> wrote:
-> > > On 29/07/2021 21:24, Rob Clark wrote:
-> > > > On Thu, Jul 29, 2021 at 1:06 PM Caleb Connolly
-> > > > <caleb.connolly@linaro.org> wrote:
-> > > >>
-> > > >> Hi Rob,
-> > > >>
-> > > >> I've done some more testing! It looks like before that patch ("drm/msm: Devfreq tuning") the GPU would never get above
-> > > >> the second frequency in the OPP table (342MHz) (at least, not in glxgears). With the patch applied it would more
-> > > >> aggressively jump up to the max frequency which seems to be unstable at the default regulator voltages.
-> > > >
-> > > > *ohh*, yeah, ok, that would explain it
-> > > >
-> > > >> Hacking the pm8005 s1 regulator (which provides VDD_GFX) up to 0.988v (instead of the stock 0.516v) makes the GPU stable
-> > > >> at the higher frequencies.
-> > > >>
-> > > >> Applying this patch reverts the behaviour, and the GPU never goes above 342MHz in glxgears, losing ~30% performance in
-> > > >> glxgear.
-> > > >>
-> > > >> I think (?) that enabling CPR support would be the proper solution to this - that would ensure that the regulators run
-> > > >> at the voltage the hardware needs to be stable.
-> > > >>
-> > > >> Is hacking the voltage higher (although ideally not quite that high) an acceptable short term solution until we have
-> > > >> CPR? Or would it be safer to just not make use of the higher frequencies on a630 for now?
-> > > >>
-> > > >
-> > > > tbh, I'm not sure about the regulator stuff and CPR.. Bjorn is already
-> > > > on CC and I added sboyd, maybe one of them knows better.
-> > > >
-> > > > In the short term, removing the higher problematic OPPs from dts might
-> > > > be a better option than this patch (which I'm dropping), since there
-> > > > is nothing stopping other workloads from hitting higher OPPs.
-> > > Oh yeah that sounds like a more sensible workaround than mine .
-> > > >
-> > > > I'm slightly curious why I didn't have problems at higher OPPs on my
-> > > > c630 laptop (sdm850)
-> > > Perhaps you won the sillicon lottery - iirc sdm850 is binned for higher clocks as is out of the factory.
-> > >
-> > > Would it be best to drop the OPPs for all devices? Or just those affected? I guess it's possible another c630 might
-> > > crash where yours doesn't?
-> >
-> > I've not heard any reports of similar issues from the handful of other
-> > folks with c630's on #aarch64-laptops.. but I can't really say if that
-> > is luck or not.
-> >
-> > Maybe just remove it for affected devices?  But I'll defer to Bjorn.
->
-> Just as another datapoint, I was just marveling at how suddenly smooth
-> the UI was performing on db845c and Caleb pointed me at the "drm/msm:
-> Devfreq tuning" patch as the likely cause of the improvement, and
-> mid-discussion my board crashed into USB crash mode:
-> [  146.157696][    C0] adreno 5000000.gpu: CP | AHB bus error
-> [  146.163303][    C0] adreno 5000000.gpu: CP | AHB bus error
-> [  146.168837][    C0] adreno 5000000.gpu: RBBM | ATB bus overflow
-> [  146.174960][    C0] adreno 5000000.gpu: CP | HW fault | status=0x00000000
-> [  146.181917][    C0] adreno 5000000.gpu: CP | AHB bus error
-> [  146.187547][    C0] adreno 5000000.gpu: CP illegal instruction error
-> [  146.194009][    C0] adreno 5000000.gpu: CP | AHB bus error
-> [  146.308909][    T9] Internal error: synchronous external abort:
-> 96000010 [#1] PREEMPT SMP
-> [  146.317150][    T9] Modules linked in:
-> [  146.320941][    T9] CPU: 3 PID: 9 Comm: kworker/u16:1 Tainted: G
->     W         5.14.0-mainline-06795-g42b258c2275c #24
-> [  146.331974][    T9] Hardware name: Thundercomm Dragonboar
-> Format: Log Type - Time(microsec) - Message - Optional Info
-> Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
-> S - QC_IMAGE_VERSION_STRING=BOOT.XF.2.0-00371-SDM845LZB-1
-> S - IMAGE_VARIANT_STRING=SDM845LA
-> S - OEM_IMAGE_VERSION_STRING=TSBJ-FA-PC-02170
->
-> So Caleb sent me to this thread. :)
->
-> I'm still trying to trip it again, but it does seem like db845c is
-> also seeing some stability issues with Linus' HEAD.
->
+From: Vladimir Lypak <vladimir.lypak@gmail.com>
 
-Caleb's original pastebin seems to have expired (or at least require
-some sort of ubuntu login to access).. were the crashes he was seeing
-also 'AHB bus error'?
+MDP version v1.16 is almost identical to v1.15 with most significant
+difference being presence of second DSI interface. MDP v1.16 is found on
+SoCs such as MSM8x53, SDM450, SDM632 (All with Adreno 506).
 
-If you have a reliable reproducer, I guess it would be worth seeing if
-increasing the min_freq (ie. to limit how far we jump the freq in one
-shot) "fixes" it?
+Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
+Signed-off-by: Sireesh Kodali <sireeshkodali1@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 89 ++++++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
-I guess I could check downstream kgsl to see if they were doing
-something to increase freq in smaller increments.. I don't recall that
-they were but it has been a while since I dug thru that code.  And I
-suppose downstream it could also be done in their custom tz governor.
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+index 9741544ffc35..0d28c8ff4009 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+@@ -752,6 +752,94 @@ const struct mdp5_cfg_hw msm8x76_config = {
+ 	.max_clk = 360000000,
+ };
+ 
++static const struct mdp5_cfg_hw msm8x53_config = {
++	.name = "msm8x53",
++	.mdp = {
++		.count = 1,
++		.caps = MDP_CAP_CDM |
++			MDP_CAP_SRC_SPLIT,
++	},
++	.ctl = {
++		.count = 3,
++		.base = { 0x01000, 0x01200, 0x01400 },
++		.flush_hw_mask = 0xffffffff,
++	},
++	.pipe_vig = {
++		.count = 1,
++		.base = { 0x04000 },
++		.caps = MDP_PIPE_CAP_HFLIP	|
++			MDP_PIPE_CAP_VFLIP	|
++			MDP_PIPE_CAP_SCALE	|
++			MDP_PIPE_CAP_CSC	|
++			MDP_PIPE_CAP_DECIMATION	|
++			MDP_PIPE_CAP_SW_PIX_EXT	|
++			0,
++	},
++	.pipe_rgb = {
++		.count = 2,
++		.base = { 0x14000, 0x16000 },
++		.caps = MDP_PIPE_CAP_HFLIP	|
++			MDP_PIPE_CAP_VFLIP	|
++			MDP_PIPE_CAP_DECIMATION	|
++			MDP_PIPE_CAP_SW_PIX_EXT	|
++			0,
++	},
++	.pipe_dma = {
++		.count = 1,
++		.base = { 0x24000 },
++		.caps = MDP_PIPE_CAP_HFLIP	|
++			MDP_PIPE_CAP_VFLIP	|
++			MDP_PIPE_CAP_SW_PIX_EXT	|
++			0,
++	},
++	.pipe_cursor = {
++		.count = 1,
++		.base = { 0x34000 },
++		.caps = MDP_PIPE_CAP_HFLIP	|
++			MDP_PIPE_CAP_VFLIP	|
++			MDP_PIPE_CAP_SW_PIX_EXT	|
++			MDP_PIPE_CAP_CURSOR	|
++			0,
++	},
++
++	.lm = {
++		.count = 3,
++		.base = { 0x44000, 0x45000 },
++		.instances = {
++				{ .id = 0, .pp = 0, .dspp = 0,
++				  .caps = MDP_LM_CAP_DISPLAY |
++					  MDP_LM_CAP_PAIR },
++				{ .id = 1, .pp = 1, .dspp = -1,
++				  .caps = MDP_LM_CAP_DISPLAY },
++			     },
++		.nb_stages = 5,
++		.max_width = 2048,
++		.max_height = 0xFFFF,
++	},
++	.dspp = {
++		.count = 1,
++		.base = { 0x54000 },
++
++	},
++	.pp = {
++		.count = 2,
++		.base = { 0x70000, 0x70800 },
++	},
++	.cdm = {
++		.count = 1,
++		.base = { 0x79200 },
++	},
++	.intf = {
++		.base = { 0x6a000, 0x6a800, 0x6b000 },
++		.connect = {
++			[0] = INTF_DISABLED,
++			[1] = INTF_DSI,
++			[2] = INTF_DSI,
++		},
++	},
++	.max_clk = 400000000,
++};
++
+ static const struct mdp5_cfg_hw msm8917_config = {
+ 	.name = "msm8917",
+ 	.mdp = {
+@@ -1151,6 +1239,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
+ 	{ .revision = 7, .config = { .hw = &msm8x96_config } },
+ 	{ .revision = 11, .config = { .hw = &msm8x76_config } },
+ 	{ .revision = 15, .config = { .hw = &msm8917_config } },
++	{ .revision = 16, .config = { .hw = &msm8x53_config } },
+ };
+ 
+ static const struct mdp5_cfg_handler cfg_handlers_v3[] = {
+-- 
+2.33.0
 
-BR,
--R
