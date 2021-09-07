@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14395402FDF
-	for <lists+freedreno@lfdr.de>; Tue,  7 Sep 2021 22:47:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD6B403143
+	for <lists+freedreno@lfdr.de>; Wed,  8 Sep 2021 00:59:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95EA66E0D5;
-	Tue,  7 Sep 2021 20:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09F936E0E1;
+	Tue,  7 Sep 2021 22:59:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 903376E0D6
- for <freedreno@lists.freedesktop.org>; Tue,  7 Sep 2021 20:47:50 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8646E0E1
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Sep 2021 22:59:09 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1631047670; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1631055552; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=84xmrz2XVH3FwGCgz/JKGOKJty2YePbiyLIkDOPrV8U=;
- b=N4DifhmNzOxLorhAv4afzrlphd3rFZBtoEEJGgqowJqUIrIZ/bOXjzOISj3UKJgwQkXXY6GH
- 5mbQYVDnAOYF01BbIC7+5kNSK8f8qveftyUkk2P3f4yquCFftfWYQtgrDySIQCSCJIlDTtCA
- DjMGtlDLsaYCxfeC2WnEklkA9tI=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ MIME-Version: Sender; bh=YHLJt++Yk8SoMmB1dGCCJS5cBmhjYlM8QhmxUbhnFP4=;
+ b=JmlurWMq8IOMpewsbWdJeAkxKQ5S4Ou2EBG6lu/d6He17hjzcH1KA2jS1kqlktb3l4wjAPm0
+ tQvDPQKDSHPS1Oc9EwjeMTXJnrAnwKcM8SieDI1zGtlxLHLSCNzTJ21i83h84XBYcTn7H9M5
+ 0dvHLgc45yEyMkWETtA7o9aK9V4=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 6137cff56fc2cf7ad94f8777 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 07 Sep 2021 20:47:49
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 6137eeaeb52e91333ce79c72 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 07 Sep 2021 22:58:54
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7EF79C43635; Tue,  7 Sep 2021 20:47:48 +0000 (UTC)
+ id B073BC4360D; Tue,  7 Sep 2021 22:58:53 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -37,39 +37,33 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
  URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 5A64FC43460;
- Tue,  7 Sep 2021 20:47:47 +0000 (UTC)
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C9FACC4338F;
+ Tue,  7 Sep 2021 22:58:52 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
+Content-Type: text/plain; charset=US-ASCII;
  format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Tue, 07 Sep 2021 13:47:47 -0700
-From: khsieh@codeaurora.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, abhinavk@codeaurora.org,
- aravindh@codeaurora.org, rsubbia@codeaurora.org, rnayak@codeaurora.org,
- freedreno@lists.freedesktop.org, airlied@linux.ie, daniel@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <db5ae1c8d070509580218a501cfa9caaf3f029e1.camel@redhat.com>
-References: <1625585434-9562-1-git-send-email-khsieh@codeaurora.org>
- <87zguy7c5a.fsf@intel.com> <a514c19f712a6feeddf854dc17cb8eb5@codeaurora.org>
- <2da3949fa3504592da42c9d01dc060691c6a8b8b.camel@redhat.com>
- <d9ec812b4be57e32246735ca2f5e9560@codeaurora.org>
- <79c5a60fc189261b7a9ef611acd126a41f921593.camel@redhat.com>
- <696a009e2ab34747abd12bda03c103c7@codeaurora.org>
- <e725235a77935184cd20dab5af55da95b28d9e88.camel@redhat.com>
- <64049ef6c598910c1025e0e5802bb83e@codeaurora.org>
- <88b5fbe60c95bcdf42353bec9f8c48aefa864a31.camel@redhat.com>
- <f0fcfe7a73e87150a7a1f042269b76a3@codeaurora.org>
- <db5ae1c8d070509580218a501cfa9caaf3f029e1.camel@redhat.com>
-Message-ID: <4937c56eb3efd91a09f8293bcec3221e@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
+Content-Transfer-Encoding: 7bit
+Date: Tue, 07 Sep 2021 15:58:52 -0700
+From: abhinavk@codeaurora.org
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, Martin Botka
+ <martin.botka@somainline.org>, Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter
+ <daniel@ffwll.ch>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jonathan
+ Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20210906202535.824233-1-marijn.suijten@somainline.org>
+References: <20210906202535.824233-1-marijn.suijten@somainline.org>
+Message-ID: <37d3d27f56787ebe608121ce05bb2ad0@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v3] drm/dp_mst: Fix return code on sideband
- message failure
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Use division result from
+ div_u64_rem in 7nm and 14nm PLL
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,65 +79,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-08-30 09:58, Lyude Paul wrote:
-> On Mon, 2021-08-30 at 08:56 -0700, khsieh@codeaurora.org wrote:
->> On 2021-08-25 09:26, Lyude Paul wrote:
->> > The patch was pushed yes (was part of drm-misc-next-2021-07-29), seems
->> > like it
->> > just hasn't trickled down to linus's branch quite yet.
->> 
->> Hi Stephen B,
->> 
->> Would you mind back porting this patch to V5.10 branch?
->> It will have lots of helps for us to support display port MST case.
->> Thanks,
+On 2021-09-06 13:25, Marijn Suijten wrote:
+> div_u64_rem provides the result of the divison and additonally the
+> remainder; don't use this function to solely calculate the remainder
+> while calculating the division again with div_u64.
 > 
-> I'm assuming you're talking to someone else? A little confused because 
-> I don't
-> see a Stephen B in this thread
-
-Yes,
-I am asking Stephen B (swbody@chromium.org) helps to back port this 
-patch to v5.10.
+> A similar improvement was applied earlier to the 10nm pll in
+> 5c191fef4ce2 ("drm/msm/dsi_pll_10nm: Fix dividing the same numbers
+> twice").
 > 
->> 
->> 
->> 
->> >
->> > On Wed, 2021-08-25 at 09:06 -0700, khsieh@codeaurora.org wrote:
->> > > On 2021-07-27 15:44, Lyude Paul wrote:
->> > > > Nice timing, you literally got me as I was 2 minutes away from leaving
->> > > > work
->> > > > for the day :P. I will go ahead and push it now.
->> > > >
->> > > Hi Lyude,
->> > >
->> > > Had you pushed this patch yet?
->> > > We still did not see this patch at msm-nex and v5.10 branch.
->> > > Thanks,
->> > >
->> > >
->> > > > BTW - in the future I recommend using dim to add Fixes: tags as it'll
->> > > > add Cc:
->> > > > to stable as appropriate (this patch in particular should be Cc:
->> > > > stable@vger.kernel.org # v5.3+). will add these tags when I push it
->> > > >
->> > > > On Tue, 2021-07-27 at 15:41 -0700, khsieh@codeaurora.org wrote:
->> > > > > On 2021-07-27 12:21, Lyude Paul wrote:
->> > > > > > On Thu, 2021-07-22 at 15:28 -0700, khsieh@codeaurora.org wrote:
->> > > > > > >
->> > > > > > > It looks like this patch is good to go (mainlined).
->> > > > > > > Anything needed from me to do?
->> > > > > > > Thanks,
->> > > > > >
->> > > > > > Do you have access for pushing this patch? If not let me know and
->> > > > > > I
->> > > > > > can
->> > > > > > go
->> > > > > > ahead and push it to drm-misc-next for you.
->> > > > > no, I do not have access to drm-misc-next.
->> > > > > Please push it for me.
->> > > > > Thanks a lots.
->> > > > >
->> > >
->> 
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 4 +---
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c  | 4 +---
+>  2 files changed, 2 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> index 3c1e2106d962..8905f365c932 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> @@ -213,9 +213,7 @@ static void pll_14nm_dec_frac_calc(struct
+> dsi_pll_14nm *pll, struct dsi_pll_conf
+>  	DBG("vco_clk_rate=%lld ref_clk_rate=%lld", vco_clk_rate, fref);
+> 
+>  	dec_start_multiple = div_u64(vco_clk_rate * multiplier, fref);
+> -	div_u64_rem(dec_start_multiple, multiplier, &div_frac_start);
+> -
+> -	dec_start = div_u64(dec_start_multiple, multiplier);
+> +	dec_start = div_u64_rem(dec_start_multiple, multiplier, 
+> &div_frac_start);
+> 
+>  	pconf->dec_start = (u32)dec_start;
+>  	pconf->div_frac_start = div_frac_start;
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> index c77c30628cca..1a5abbd9fb76 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+> @@ -114,9 +114,7 @@ static void dsi_pll_calc_dec_frac(struct
+> dsi_pll_7nm *pll, struct dsi_pll_config
+> 
+>  	multiplier = 1 << FRAC_BITS;
+>  	dec_multiple = div_u64(pll_freq * multiplier, divider);
+> -	div_u64_rem(dec_multiple, multiplier, &frac);
+> -
+> -	dec = div_u64(dec_multiple, multiplier);
+> +	dec = div_u64_rem(dec_multiple, multiplier, &frac);
+> 
+>  	if (!(pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V4_1))
+>  		config->pll_clock_inverters = 0x28;
