@@ -1,83 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A83B402C12
-	for <lists+freedreno@lfdr.de>; Tue,  7 Sep 2021 17:42:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5948F402E75
+	for <lists+freedreno@lfdr.de>; Tue,  7 Sep 2021 20:37:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88486E02D;
-	Tue,  7 Sep 2021 15:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED1136E096;
+	Tue,  7 Sep 2021 18:37:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7432C6E02D
- for <freedreno@lists.freedesktop.org>; Tue,  7 Sep 2021 15:42:42 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- c19-20020a9d6153000000b0051829acbfc7so13260809otk.9
- for <freedreno@lists.freedesktop.org>; Tue, 07 Sep 2021 08:42:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=KNbOLMCwMZ973irBYuo2tAIbXEXO0VYxqZWYBUT5gjk=;
- b=hiPgsqN677B0jn349F/bP1hBclos5cYp+rAVIXNWRMzpldZ2r3LStiBtPRGQIwuOTg
- iEKybnoAf01XwCmR1jl5RkIuFxtQUeTjii9ahzhQmMXcLioL7GBlCCGTCP87TOeWBUaV
- AazpWl0ZcLZc6/y8bMKD9WWVIFmIBEkMEptzN9lJJQ6ODJMntfnWQgZg3KMHBTVoSeTY
- YEUMFIlVEkj9rBLhbINypoC22CwHqT89fpHxbtLF9isG++SKR3yBR7z1SrKLYJHve136
- KjAF3WsAakU+aFqdyEem9G9WkzS5UNX2TDtaNRhYHNvMy7nWgWruU6o/iEdzX9K8ZgV6
- TGJw==
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C23536E096;
+ Tue,  7 Sep 2021 18:37:30 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 107-20020a9d0bf4000000b0051b8be1192fso258873oth.7; 
+ Tue, 07 Sep 2021 11:37:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=KNbOLMCwMZ973irBYuo2tAIbXEXO0VYxqZWYBUT5gjk=;
- b=uQEmt+9n7VokMZi9V5XNk7cXksNWqKg5EwFHjn1tHjZL3Jfjb31NEZcZlayn5r61Jk
- OfeRCQeqtmKZ9E4Prsusn8D9XgEdSj5AAN6WMKspyj2AR7xqRiN0wyh25Q8rNYVr5P9e
- KHYmxkUF6FowZ+fMzQatQ2LZHi42h7bbJ2NW6Prkqzc5HVtwwWVqnSpRwz7EZzQxRq3U
- cw0Tn3GI4mqGZt6k60eZ6zOi92rCY2DnWb+AQt6A4PDNioiYnLiQpUSgFrBAx/aPRmLe
- Iezl8AmPQZzjBfzYW0Myb6mDXu5ECkfRpsGTBnnn/nl3u9vHrEn/U2yANLLcryF9SrXa
- is4g==
-X-Gm-Message-State: AOAM533tLXYyMYGeCr4kaXqwHSm7q5u2/OlsvnDj4QUMOrmHCpPWqfSw
- 2Uz+U3Nl/xBA9XcIY1YFv+YmhQ==
-X-Google-Smtp-Source: ABdhPJzMVW1KBhWkZVUABVDwfun7aED2vWIe7+Yk0WvVtTMM8sot8zjfvcaHxJjpViMeLCkwREzMHA==
-X-Received: by 2002:a9d:700c:: with SMTP id k12mr14306040otj.225.1631029361446; 
- Tue, 07 Sep 2021 08:42:41 -0700 (PDT)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id y138sm2142431oie.22.2021.09.07.08.42.40
+ bh=VGXBiHd8aGiY42ZI/fI58ICBBOHjaU8L6zf9vtrLjgM=;
+ b=P7d1V1yRYZMPLVxyPOc0dJdHVSQyRAPa6x1qbN39Ghy/39C/2VFBnjefUHyLQShSpE
+ 5Nido0K6IXxiT6WhUVuJCY77tLbd+iUjKk3rrwwYcrkojthLRUXXParpTEa0NjgDQiZP
+ ibC1TXBW/kmqVxL2kTeQo0hK5L/qp/TWqP4QvpTb/aJk6BSOYtth19c6nVBsiqxVy4YZ
+ IWXzRemB5T+BUgWX/PsZwx/nN178lVjWwUGVjkOH9G6ZYtF7eNi1gk50fbA6mLWzXktU
+ tAJnBYHFRbdiuh6r83xGDNf3s1Zkg5Lxazr0WOeKLGPZ35EP6DiD0f7xGcragLzUuf1Y
+ lT5A==
+X-Gm-Message-State: AOAM532bo26vvoqe8Lm4wU/zsqH2nbC+iudockEDu2ke8Y1kFvS0vEee
+ Y7r2e/DLnD3OCe3MVKsHvg==
+X-Google-Smtp-Source: ABdhPJzpedN7Uv+lz7hd5t31kUf84boXO+DYEziXPnP+k2WKfHCFw4wTNB1/H2gD4Z64yRKl0c0l3w==
+X-Received: by 2002:a05:6830:91:: with SMTP id
+ a17mr17024877oto.189.1631039849985; 
+ Tue, 07 Sep 2021 11:37:29 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id b11sm2372980ooi.0.2021.09.07.11.37.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Sep 2021 08:42:40 -0700 (PDT)
-Date: Tue, 7 Sep 2021 08:43:41 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Caleb Connolly <caleb.connolly@linaro.org>,
- Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Jonathan Marek <jonathan@marek.ca>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Message-ID: <YTeIrRwAkItd1xQE@ripper>
-References: <CAF6AEGv0WWB3Z1hmXf8vxm1_-d7fsNBRcaQF35aE2JXcJn8-cA@mail.gmail.com>
- <8aa590be-6a9f-9343-e897-18e86ea48202@linaro.org>
- <CAF6AEGtd_5jKhixp6h+NnN8-aqjBHTLopRozASE73oT3rfnFHA@mail.gmail.com>
- <6eefedb2-9e59-56d2-7703-2faf6cb0ca3a@codeaurora.org>
- <CAF6AEGvhqPHWNK=6GYz+Mu5aKe8+iE4_Teem6o=X6eiANhWsPg@mail.gmail.com>
- <83ecbe74-caf0-6c42-e6f5-4887b3b534c6@linaro.org>
- <53d3e5b7-9dc0-a806-70e9-b9b5ff877462@codeaurora.org>
- <CAJs_Fx4brw8j8Wk5ethSrhTHC+Kj0=cWga4q69Cv6JA6L8cDxA@mail.gmail.com>
- <7c354c1a-d528-ed77-586b-881cc3df4563@linaro.org>
- <CAF6AEGtRHa4udfZMmdozTcXU-SkF8Cr_ASbgWbVDESKQVr=spQ@mail.gmail.com>
+ Tue, 07 Sep 2021 11:37:29 -0700 (PDT)
+Received: (nullmailer pid 122301 invoked by uid 1000);
+ Tue, 07 Sep 2021 18:37:28 -0000
+Date: Tue, 7 Sep 2021 13:37:28 -0500
+From: Rob Herring <robh@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Cc: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ konrad.dybcio@somainline.org, marijn.suijten@somainline.org,
+ martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, paul.bouchara@somainline.org,
+ devicetree@vger.kernel.org
+Message-ID: <YTexaJuQSNazh9sn@robh.at.kernel.org>
+References: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
+ <20210901181138.1052653-3-angelogioacchino.delregno@somainline.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAF6AEGtRHa4udfZMmdozTcXU-SkF8Cr_ASbgWbVDESKQVr=spQ@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
+In-Reply-To: <20210901181138.1052653-3-angelogioacchino.delregno@somainline.org>
+Subject: Re: [Freedreno] [PATCH 3/3] dt-bindings: display: msm: Add binding
+ for msm8998 dpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,353 +75,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 09 Aug 14:08 PDT 2021, Rob Clark wrote:
+On Wed, Sep 01, 2021 at 08:11:38PM +0200, AngeloGioacchino Del Regno wrote:
+> Add yaml binding for msm8998 dpu1 support.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+> ---
+>  .../bindings/display/msm/dpu-msm8998.yaml     | 220 ++++++++++++++++++
+>  1 file changed, 220 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+> new file mode 100644
+> index 000000000000..db435342ecbf
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+> @@ -0,0 +1,220 @@
+> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/dpu-msm8998.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Display DPU dt properties for MSM8998 target
+> +
+> +maintainers:
+> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+> +
+> +description: |
+> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
+> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
+> +  bindings of MDSS and DPU are mentioned for MSM8998 target.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: qcom,msm8998-mdss
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reg-names:
+> +    const: mdss
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB clock
+> +      - description: Display AXI clock
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: bus
+> +      - const: core
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#address-cells": true
+> +
+> +  "#size-cells": true
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +
+> +  iommus:
+> +    items:
+> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    description: Node containing the properties of DPU.
+> +
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,msm8998-dpu
+> +
+> +      reg:
+> +        items:
+> +          - description: Address offset and size for mdp register set
+> +          - description: Address offset and size for regdma register set
+> +          - description: Address offset and size for vbif register set
+> +          - description: Address offset and size for non-realtime vbif register set
+> +
+> +      reg-names:
+> +        items:
+> +          - const: mdp
+> +          - const: regdma
+> +          - const: vbif
+> +          - const: vbif_nrt
+> +
+> +      clocks:
+> +        items:
+> +          - description: Display ahb clock
+> +          - description: Display axi clock
+> +          - description: Display mem-noc clock
+> +          - description: Display core clock
+> +          - description: Display vsync clock
+> +
+> +      clock-names:
+> +        items:
+> +          - const: iface
+> +          - const: bus
+> +          - const: mnoc
+> +          - const: core
+> +          - const: vsync
+> +
+> +      interrupts:
+> +        maxItems: 1
+> +
+> +      power-domains:
+> +        maxItems: 1
+> +
+> +      operating-points-v2: true
+> +      ports:
+> +        $ref: /schemas/graph.yaml#/properties/ports
+> +        description: |
+> +          Contains the list of output ports from DPU device. These ports
+> +          connect to interfaces that are external to the DPU hardware,
+> +          such as DSI, DP etc. Each output port contains an endpoint that
+> +          describes how it is connected to an external interface.
+> +
+> +        properties:
+> +          port@0:
+> +            $ref: /schemas/graph.yaml#/properties/port
+> +            description: DPU_INTF1 (DSI1)
+> +
+> +          port@1:
+> +            $ref: /schemas/graph.yaml#/properties/port
+> +            description: DPU_INTF2 (DSI2)
+> +
+> +        required:
+> +          - port@0
+> +          - port@1
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +      - reg-names
+> +      - clocks
+> +      - interrupts
+> +      - power-domains
+> +      - operating-points-v2
+> +      - ports
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - power-domains
+> +  - clocks
+> +  - interrupts
+> +  - interrupt-controller
+> +  - iommus
+> +  - ranges
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,mmcc-msm8998.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    display-subsystem@c900000 {
+> +        compatible = "qcom,msm8998-mdss";
+> +        reg = <0x0c900000 0x1000>;
+> +        reg-names = "mdss";
+> +
+> +        clocks = <&mmcc MDSS_AHB_CLK>,
+> +                 <&mmcc MDSS_AXI_CLK>,
+> +                 <&mmcc MDSS_MDP_CLK>;
+> +        clock-names = "iface", "bus", "core";
+> +
+> +        #address-cells = <1>;
+> +        #interrupt-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-controller;
+> +        iommus = <&mmss_smmu 0>;
+> +
+> +        power-domains = <&mmcc MDSS_GDSC>;
+> +        ranges;
+> +        status = "disabled";
 
-> On Mon, Aug 9, 2021 at 1:35 PM Caleb Connolly <caleb.connolly@linaro.org> wrote:
-> >
-> >
-> >
-> > On 09/08/2021 18:58, Rob Clark wrote:
-> > > On Mon, Aug 9, 2021 at 10:28 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
-> > >>
-> > >> On 8/9/2021 9:48 PM, Caleb Connolly wrote:
-> > >>>
-> > >>>
-> > >>> On 09/08/2021 17:12, Rob Clark wrote:
-> > >>>> On Mon, Aug 9, 2021 at 7:52 AM Akhil P Oommen <akhilpo@codeaurora.org>
-> > >>>> wrote:
-> > >>>>>
-> > >>>>> On 8/8/2021 10:22 PM, Rob Clark wrote:
-> > >>>>>> On Sun, Aug 8, 2021 at 7:33 AM Caleb Connolly
-> > >>>>>> <caleb.connolly@linaro.org> wrote:
-> > >>>>>>>
-> > >>>>>>>
-> > >>>>>>>
-> > >>>>>>> On 07/08/2021 21:04, Rob Clark wrote:
-> > >>>>>>>> On Sat, Aug 7, 2021 at 12:21 PM Caleb Connolly
-> > >>>>>>>> <caleb.connolly@linaro.org> wrote:
-> > >>>>>>>>>
-> > >>>>>>>>> Hi Rob, Akhil,
-> > >>>>>>>>>
-> > >>>>>>>>> On 29/07/2021 21:53, Rob Clark wrote:
-> > >>>>>>>>>> On Thu, Jul 29, 2021 at 1:28 PM Caleb Connolly
-> > >>>>>>>>>> <caleb.connolly@linaro.org> wrote:
-> > >>>>>>>>>>>
-> > >>>>>>>>>>>
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> On 29/07/2021 21:24, Rob Clark wrote:
-> > >>>>>>>>>>>> On Thu, Jul 29, 2021 at 1:06 PM Caleb Connolly
-> > >>>>>>>>>>>> <caleb.connolly@linaro.org> wrote:
-> > >>>>>>>>>>>>>
-> > >>>>>>>>>>>>> Hi Rob,
-> > >>>>>>>>>>>>>
-> > >>>>>>>>>>>>> I've done some more testing! It looks like before that patch
-> > >>>>>>>>>>>>> ("drm/msm: Devfreq tuning") the GPU would never get above
-> > >>>>>>>>>>>>> the second frequency in the OPP table (342MHz) (at least, not
-> > >>>>>>>>>>>>> in glxgears). With the patch applied it would more
-> > >>>>>>>>>>>>> aggressively jump up to the max frequency which seems to be
-> > >>>>>>>>>>>>> unstable at the default regulator voltages.
-> > >>>>>>>>>>>>
-> > >>>>>>>>>>>> *ohh*, yeah, ok, that would explain it
-> > >>>>>>>>>>>>
-> > >>>>>>>>>>>>> Hacking the pm8005 s1 regulator (which provides VDD_GFX) up
-> > >>>>>>>>>>>>> to 0.988v (instead of the stock 0.516v) makes the GPU stable
-> > >>>>>>>>>>>>> at the higher frequencies.
-> > >>>>>>>>>>>>>
-> > >>>>>>>>>>>>> Applying this patch reverts the behaviour, and the GPU never
-> > >>>>>>>>>>>>> goes above 342MHz in glxgears, losing ~30% performance in
-> > >>>>>>>>>>>>> glxgear.
-> > >>>>>>>>>>>>>
-> > >>>>>>>>>>>>> I think (?) that enabling CPR support would be the proper
-> > >>>>>>>>>>>>> solution to this - that would ensure that the regulators run
-> > >>>>>>>>>>>>> at the voltage the hardware needs to be stable.
-> > >>>>>>>>>>>>>
-> > >>>>>>>>>>>>> Is hacking the voltage higher (although ideally not quite
-> > >>>>>>>>>>>>> that high) an acceptable short term solution until we have
-> > >>>>>>>>>>>>> CPR? Or would it be safer to just not make use of the higher
-> > >>>>>>>>>>>>> frequencies on a630 for now?
-> > >>>>>>>>>>>>>
-> > >>>>>>>>>>>>
-> > >>>>>>>>>>>> tbh, I'm not sure about the regulator stuff and CPR.. Bjorn is
-> > >>>>>>>>>>>> already
-> > >>>>>>>>>>>> on CC and I added sboyd, maybe one of them knows better.
-> > >>>>>>>>>>>>
-> > >>>>>>>>>>>> In the short term, removing the higher problematic OPPs from
-> > >>>>>>>>>>>> dts might
-> > >>>>>>>>>>>> be a better option than this patch (which I'm dropping), since
-> > >>>>>>>>>>>> there
-> > >>>>>>>>>>>> is nothing stopping other workloads from hitting higher OPPs.
-> > >>>>>>>>>>> Oh yeah that sounds like a more sensible workaround than mine .
-> > >>>>>>>>>>>>
-> > >>>>>>>>>>>> I'm slightly curious why I didn't have problems at higher OPPs
-> > >>>>>>>>>>>> on my
-> > >>>>>>>>>>>> c630 laptop (sdm850)
-> > >>>>>>>>>>> Perhaps you won the sillicon lottery - iirc sdm850 is binned
-> > >>>>>>>>>>> for higher clocks as is out of the factory.
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> Would it be best to drop the OPPs for all devices? Or just
-> > >>>>>>>>>>> those affected? I guess it's possible another c630 might
-> > >>>>>>>>>>> crash where yours doesn't?
-> > >>>>>>>>>>
-> > >>>>>>>>>> I've not heard any reports of similar issues from the handful of
-> > >>>>>>>>>> other
-> > >>>>>>>>>> folks with c630's on #aarch64-laptops.. but I can't really say
-> > >>>>>>>>>> if that
-> > >>>>>>>>>> is luck or not.
-> > >>>>>>>>> It looks like this affects at least the OnePlus 6 and PocoPhone
-> > >>>>>>>>> F1, I've done some more poking and the following diff
-> > >>>>>>>>> seems to fix the stability issues completely, it seems the delay
-> > >>>>>>>>> is required to let the update propagate.
-> > >>>>>>>>>
-> > >>>>>>>>> This doesn't feel like the right fix, but hopefully it's enough
-> > >>>>>>>>> to come up with a better solution than disabling the new
-> > >>>>>>>>> devfreq behaviour on a630.
-> > >>>>>>>>>
-> > >>>>>>>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>>>>>>>> b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>>>>>>>> index d7cec7f0dde0..69e2a5e84dae 100644
-> > >>>>>>>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>>>>>>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>>>>>>>> @@ -139,6 +139,10 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu,
-> > >>>>>>>>> struct dev_pm_opp *opp)
-> > >>>>>>>>>                      return;
-> > >>>>>>>>>              }
-> > >>>>>>>>>
-> > >>>>>>>>> +       dev_pm_opp_set_opp(&gpu->pdev->dev, opp);
-> > >>>>>>>>> +
-> > >>>>>>>>> +       usleep_range(300, 500);
-> > >>>>>>>>> +
-> > >>>>>>>>
-> > >>>>>
-> > >>>>> I am a bit confused. We don't define a power domain for gpu in dt,
-> > >>>>> correct? Then what exactly set_opp do here? Do you think this usleep is
-> > >>>>> what is helping here somehow to mask the issue?
-> > >>> The power domains (for cx and gx) are defined in the GMU DT, the OPPs in
-> > >>> the GPU DT. For the sake of simplicity I'll refer to the lowest
-> > >>> frequency (257000000) and OPP level (RPMH_REGULATOR_LEVEL_LOW_SVS) as
-> > >>> the "min" state, and the highest frequency (710000000) and OPP level
-> > >>> (RPMH_REGULATOR_LEVEL_TURBO_L1) as the "max" state. These are defined in
-> > >>> sdm845.dtsi under the gpu node.
-> > >>>
-> > >>> The new devfreq behaviour unmasks what I think is a driver bug, it
-> > >>> inadvertently puts much more strain on the GPU regulators than they
-> > >>> usually get. With the new behaviour the GPU jumps from it's min state to
-> > >>> the max state and back again extremely rapidly under workloads as small
-> > >>> as refreshing UI. Where previously the GPU would rarely if ever go above
-> > >>> 342MHz when interacting with the device, it now jumps between min and
-> > >>> max many times per second.
-> > >>>
-> > >>> If my understanding is correct, the current implementation of the GMU
-> > >>> set freq is the following:
-> > >>>    - Get OPP for frequency to set
-> > >>>    - Push the frequency to the GMU - immediately updating the core clock
-> > >>>    - Call dev_pm_opp_set_opp() which triggers a notify chain, this winds
-> > >>> up somewhere in power management code and causes the gx regulator level
-> > >>> to be updated
-> > >>
-> > >> Nope. dev_pm_opp_set_opp() sets the bandwidth for gpu and nothing else.
-> > >> We were using a different api earlier which got deprecated -
-> > >> dev_pm_opp_set_bw().
-> > Huh ok, thanks for the correction. So it's the GMU writes in this function which cause the regulator to be adjusted?
-> > >
-> > > Hmm, ok, if this is just setting icc vote, the order shouldn't be too important.
-> > >
-> > > I guess GMU then is the one that is controlling the regulator(s) to
-> > > ensure adequate voltage for the requested freq?
-> > >
-> > > But the GMU fw should be the same for a618 and a630, md5sum of what
-> > > I'm using (from linux-firmware):
-> > >
-> > >    ab20135f7adf48e0f344282a37da80e4  a630_gmu.bin
-> > Same here.
-> > >
-> > >>>
-> > >>> The regulator will then take some time to reach it's new voltage level
-> > >>> and stabilise. I believe that rapid transitions between min and max
-> > >>> state - in combination with the increased current load from the GPU core
-> > >>> - lead to the regulator becoming unstable (e.g. when it's requested to
-> > >>> transition from it's lowest to highest levels immediately after
-> > >>> transitioning down), the unstable voltage causes the GPU to crash.
-> > >>>
-> > >>> Sillicon lottery will of course play a role here - this is very much an
-> > >>> edge case and would definitely be different on a per-device and even
-> > >>> per-unit basis.
-> > >>>>
-> > >>>> Hmm, I thought "opp-level = RPMH_REGULATOR_LEVEL_*" did *something*,
-> > >>>> but tbh I'm not sure exactly what..
-> > >>>>
-> > >>>>> I feel we should just leave the new dcvs feature (shall we call it NAP?)
-> > >>>>> disabled for a630 (and 10ms devfreq interval), until this is root
-> > >>>>> caused.
-> > >>> I believe this hacky workaround expresses the root cause of the issue
-> > >>> quite clearly, by setting the OPP first and allowing the gx regulator to
-> > >>> become stable before telling the GPU to change clock speeds, we avoid
-> > >>> the edge case and prevent the crashes.
-> > >>>
-> > >>> I took some rough measurements by adding logging to msm_devfreq_idle and
-> > >>> causing UI updates for ~20 seconds and that function is being called
-> > >>> about 30 times per second, this means the GPU is transitioning between
-> > >>> min (idle) state and max (active / boost) state at that frequency and
-> > >>> causing the issue I described above. It's likely that the usleep is
-> > >>> helping to mask this behaviour.
-> > >>>
-> > >>> I hope this serves as a slightly better explanation of what I perceive
-> > >>> to be the issue, I realise my previous explanations were not very
-> > >>> adequate, I apologise for all the noise.
-> > >>>>
-> > >>>> I suppose "NAP" is a reasonable name.
-> > >>>>
-> > >>>> But I think that reverting to previous behavior would not be enough,
-> > >>>> there is nothing stopping devfreq from jumping from min to max freq,
-> > >>>> which AFAIU should be enough to trigger this.  I guess that there just
-> > >>>> hasn't been enough testing with different game workloads on those
-> > >>>> phones to trigger this.
-> > >>> Ack
-> > >>>>
-> > >>>> That said, I haven't seen similar issues on my sdm850 laptop, where I
-> > >>>> defn have triggered mix->max freq transitions.. I guess it would be
-> > >>>> interesting to know if this issue could be reproduced on db845c, or if
-> > >>>> it really is board specific?
-> > >>> My db845c arrives this week, I'll definitely try and reproduce this.
-> > >>>>
-> > >>>> To workaround, I think we'd need to implement some way to limit that
-> > >>>> maximum frequency jump (and then use delayed work to continue ramping
-> > >>>> up the freq over time until we hit the target).. which seems like a
-> > >>>> lot of work if this is just a board(s) specific workaround and isn't
-> > >>>> needed once CPR is supported
-> > >>> Based on my reasoning above, I came up with the following: reducing
-> > >>> thrashing by preventing rapid idle/active transitions. The minimum
-> > >>> active time of 30ms was just used for testing, I think some number
-> > >>> between 2 and 4 frames would be a sensible choice - the higher the safer.
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>> b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>> index d7cec7f0dde0..87f2d1085c3e 100644
-> > >>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> > >>> @@ -139,6 +139,8 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct
-> > >>> dev_pm_opp *opp)
-> > >>>                   return;
-> > >>>           }
-> > >>>
-> > >>> +       dev_pm_opp_set_opp(&gpu->pdev->dev, opp);
-> > >>> +
-> > >>>           gmu_write(gmu, REG_A6XX_GMU_DCVS_ACK_OPTION, 0);
-> > >>>
-> > >>>           gmu_write(gmu, REG_A6XX_GMU_DCVS_PERF_SETTING,
-> > >>> @@ -158,7 +160,6 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct
-> > >>> dev_pm_opp *opp)
-> > >>>           if (ret)
-> > >>>                   dev_err(gmu->dev, "GMU set GPU frequency error: %d\n",
-> > >>> ret);
-> > >>>
-> > >>> -       dev_pm_opp_set_opp(&gpu->pdev->dev, opp);
-> > >>>           pm_runtime_put(gmu->dev);
-> > >>>    }
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> > >>> index 0e4b45bff2e6..0e2293bcb46d 100644
-> > >>> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > >>> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > >>> @@ -99,8 +99,8 @@ struct msm_gpu_devfreq {
-> > >>>           /** time: Time of last sampling period. */
-> > >>>           ktime_t time;
-> > >>>
-> > >>> -       /** idle_time: Time of last transition to idle: */
-> > >>> -       ktime_t idle_time;
-> > >>> +       /** transition_time: Time of last transition between
-> > >>> idle/active: */
-> > >>> +       ktime_t transition_time;
-> > >>>
-> > >>>           /**
-> > >>>            * idle_freq:
-> > >>> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > >>> b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > >>> index 0a1ee20296a2..774a7be33e7a 100644
-> > >>> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > >>> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > >>> @@ -157,7 +157,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
-> > >>>            */
-> > >>>           mutex_lock(&df->devfreq->lock);
-> > >>>
-> > >>> -       idle_time = ktime_to_ms(ktime_sub(ktime_get(), df->idle_time));
-> > >>> +       idle_time = ktime_to_ms(ktime_sub(ktime_get(),
-> > >>> df->transition_time));
-> > >>>
-> > >>>           /*
-> > >>>            * If we've been idle for a significant fraction of a polling
-> > >>> @@ -168,7 +168,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
-> > >>>                   target_freq *= 2;
-> > >>>           }
-> > >>>
-> > >>> -       df->idle_freq = 0;
-> > >>> +       df->transition_time = ktime_get();;
-> > >>>
-> > >>>           msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
-> > >>>
-> > >>> @@ -185,6 +185,16 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
-> > >>>    {
-> > >>>           struct msm_gpu_devfreq *df = &gpu->devfreq;
-> > >>>           unsigned long idle_freq, target_freq = 0;
-> > >>> +       unsigned int active_time;
-> > >>> +
-> > >>> +       active_time = ktime_to_ms(ktime_sub(ktime_get(),
-> > >>> df->transition_time));
-> > >>> +       /*
-> > >>> +        * Don't go back to idle unless we've been active for at least 30ms
-> > >>> +        * to avoid thrashing.
-> > >>
-> > >> This basically defeats the purpose of this feature! At least, we should
-> > >> keep this '30' gpu specific. Does a Kconfig makes sense here?? BTW, if
-> > >> 300us was helping you earlier why do you want it to be 30ms now?
-> > Previously I thought that the issue was related to specifically the transition from idle/active, hence sleeping to let
-> > the regulator catch up, whilst that masked the issue it didn't *fix* it, I now think it's actually due to the repeated
-> > transition between idle and active states.
-> >
-> > Enforcing that the GPU stay active for at least two frames should still give the intended goal of reducing latency and
-> > more reliably fixes the issue.
-> >
-> > AFAIU from reading the commit description, the goal of the devfreq tuning is to reduce latency by quickly bursting up
-> > when there's user activity, by telling the GPU to stay active for longer we shouldn't impede this behaviour at all.
-> 
-> Well, there are a couple parts to it.. one thing it was intended to
-> fix was a bad devfreq behavior I was seeing with, for example, games
-> that throttle themselves to 30fps, so rendering one 16ms frame every
-> other vblank cycle.. previously devfreq would ramp up to max just as
-> it was at the end of rendering a frame, and then sit there at fmax
-> while GPU was doing nothing for the next 16ms, and then ramp back down
-> to fmin just as the GPU got some more work to do.  So it was nearly
-> 180deg out of phase with where you'd want it to be
-> increasing/decreasing GPU freq.
-> 
+Drop. Why disable an example?
 
-But afaict you only change the selection of frequency, not the actual
-change. As such this issue isn't related to your change.
-
-> The longer polling interval is meant to smooth that out, with clamping
-> to fmin while GPU is idle to offset the fact that it would take the
-> GPU longer to ramp down (and it otherwise being pointless to keep the
-> GPU at a high freq when it isn't doing anything), and boosting above
-> what freq devfreq would have picked if the gpu had been idle for a
-> while (to offset the longer ramp up on user input).
+> +
+> +        display-controller@c901000 {
+> +            compatible = "qcom,msm8998-dpu";
+> +            reg = <0x0c901000 0x8f000>,
+> +                  <0x0c9a8e00 0xf0>,
+> +                  <0x0c9b0000 0x2008>,
+> +                  <0x0c9b8000 0x1040>;
+> +            reg-names = "mdp", "regdma", "vbif", "vbif_nrt";
+> +
+> +            clocks = <&mmcc MDSS_AHB_CLK>,
+> +                     <&mmcc MDSS_AXI_CLK>,
+> +                     <&mmcc MNOC_AHB_CLK>,
+> +                     <&mmcc MDSS_MDP_CLK>,
+> +                     <&mmcc MDSS_VSYNC_CLK>;
+> +            clock-names = "iface", "bus", "mnoc", "core", "vsync";
+> +
+> +            interrupt-parent = <&mdss>;
+> +            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
+> +            operating-points-v2 = <&mdp_opp_table>;
+> +            power-domains = <&rpmpd MSM8998_VDDMX>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    dpu_intf1_out: endpoint {
+> +                        remote-endpoint = <&dsi0_in>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    dpu_intf2_out: endpoint {
+> +                        remote-endpoint = <&dsi1_in>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> -- 
+> 2.32.0
 > 
-> So the 30ms delay for clamping to fmin would defeat one part of that.
 > 
-> We could perhaps somehow disable the clamping to fmin for certain
-> boards and/or gpus, which would possibly lose a bit of power savings
-> but otherwise be ok.  But I'm not clear whether this is a board
-> specific issue (ie. are these phones using different PMICs compared to
-> sdm850 laptops and db845c?  Or is there some difference in what power
-> rail is powering the GPU?)
-> 
-> I think it was mentioned earlier that CPR should help (AFAIU that is
-> some sort of hw closed loop voltage regulation?) so maybe this is just
-> a short term workaround?
-> 
-
-On 845 and onwards, we pick a corner which will be translated to an
-actual voltage by someone else and if CPR is involved is hidden in that
-other entity.
-
-Regards,
-Bjorn
