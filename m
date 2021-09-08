@@ -2,69 +2,85 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7C22403B69
-	for <lists+freedreno@lfdr.de>; Wed,  8 Sep 2021 16:22:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F51403E96
+	for <lists+freedreno@lfdr.de>; Wed,  8 Sep 2021 19:48:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B24016E10B;
-	Wed,  8 Sep 2021 14:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46A796E21A;
+	Wed,  8 Sep 2021 17:48:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [IPv6:2607:f8b0:4864:20::d2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB44E6E0F0;
- Wed,  8 Sep 2021 14:22:26 +0000 (UTC)
-Received: by mail-io1-xd2c.google.com with SMTP id n24so3437849ion.10;
- Wed, 08 Sep 2021 07:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YpdBvQHElQQMTNbuBwkHS1EwYa93WjW1ptFmOObW2Xw=;
- b=IA+yYcV3lrwLM0feMjVIJieiMAU0XNB/HFLzY2A5TzPYgPoXoPsc7hFBlZ1dNFRT+L
- whiebHATH0j5SnEd4lwNEoYYqtnminOZ/+/guARgLywB57EQpYVhAopw3vhc/thO42uL
- zxXSslYCLF1t25LM8VsTYVipsZbuIYFCPsCvsVWF1uyBlA0fiCWpIdry2seOLCEeKWwo
- uXdDZ5dEKM3o736PeLoDhy/NAS7AO85Rzl9HGX6qxp/dANyX+9364yVr1O1dhiRmP0KA
- NXnlFxIXdpWik2j8m3qyG7OkjLL91wEPJT6RiPe5pLfHVZakKi476sTmScQEVf4h3YvY
- +eDw==
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA2E6E21A
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Sep 2021 17:48:30 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id s25so4096524edw.0
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Sep 2021 10:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=E+YAoUpFBPenSdEyF8eVW03w6KHxvLFxLdfK1N27oPA=;
+ b=M/BJVnJgVj0IkOHTljFFm/0AMU0j5VZVeHE8HO6aoWhEen6uT4Zrc1FJcA2Qtlk2f5
+ x6DsShh/n9kEA0XpgoWAaUiaAf+/1uRXeOXEvBilpN3NY43QWoN0/ZqmJ3tsj/y8rDxz
+ mR62xjX4v+/BOu/jo9Pjdc0wcCuJsnNBTX8bU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YpdBvQHElQQMTNbuBwkHS1EwYa93WjW1ptFmOObW2Xw=;
- b=fOaaxxIhsAc961+qFddLoEgRJjnap5TdHAZj6mOZazNSL1y2uGpQ+hXd+kjqX5xWfA
- r5/Gm8PPVKeWTrvNNDJn09l4CCkNAGCb6zzT9Sxk09fQNerjvIJeNBm4Pcng9+PTet8t
- n7UCQ7MlUO6H/7ssZOWL4fjgFf2zXgpdVsfCoM+ZMwAGB+bzjKaCHqpQ0ABbTdTFPx+v
- 3z0i9HRd4F3E8KoNC4CnnP8bKSGGBdIjLexIocHNjyrthVb05dzpNG8pT9VOFdkwEE7U
- m4EIicEzcaEN7kGO5vM9+3YzGyzhLVEvR4BrptMpUrIATN9BPUiGuQK9QFdVwUh01hrE
- z4+w==
-X-Gm-Message-State: AOAM5334HDecm0Hk+aeJgF6SHHVquPcjusREFhPCUkuMs/WvYVN4zWPP
- f+Q/3i9Q19zwlFqssZFWmYtxdN1WjD9o8bGZ1A0=
-X-Google-Smtp-Source: ABdhPJyI/7ApcpbBgb+r9bxjYHvbYNE2+8+uKXOYdImqu4lLCliR7ctiq7PlopceQaBnnrce+6hzXGm/HJ9S1fqsSbU=
-X-Received: by 2002:a6b:7a03:: with SMTP id h3mr83894iom.39.1631110946133;
- Wed, 08 Sep 2021 07:22:26 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=E+YAoUpFBPenSdEyF8eVW03w6KHxvLFxLdfK1N27oPA=;
+ b=g7tvBnow7ngkdVBPGAPPgyRY+zlEk0cI4NIKlSqRp1nVas0YwTBffdJyWpk780v9RD
+ YfqUAUnKTNnbjf8/pxq0cT5K92CU8IfnIRxCplK8pD5LCQcX6hI4LLJLZq7zPccind3o
+ 5GKJkTofbX8otTBtrd65xOg84t8LNStPpMlL9kfvydGWZKoX6fnfIZxpb8mcsQhgADJ/
+ NCbznwdDLCwYulc77vXArepJojOJsuc7VDWK9gHR0es2eyQG6lCJ4M5H3x4th4wgg/jg
+ K8PtfcQ5T045mZd5yw5LF7E7ZvdNQgN7FIQBQuzBEe2Ft/IB7wpgG/ReH4mx2WkCyH6Z
+ Tpjw==
+X-Gm-Message-State: AOAM533yNwdQh0nnxqt8LnG4Bsud6m8qkt/GiPjuYSMYdZI/i7v1mW+U
+ /G3f0lT7JAsEAfPfj7TthyRgRw==
+X-Google-Smtp-Source: ABdhPJzzeDTNTtbFSZ8UxoTecHDyD485iGujOJ8/saouuqiIsL3dbaV4CZ2kCgpPkOXrD0kq+8RXbQ==
+X-Received: by 2002:aa7:cd79:: with SMTP id ca25mr5067498edb.389.1631123309063; 
+ Wed, 08 Sep 2021 10:48:29 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id js21sm1365959ejc.35.2021.09.08.10.48.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Sep 2021 10:48:28 -0700 (PDT)
+Date: Wed, 8 Sep 2021 19:48:26 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Message-ID: <YTj3akinO0jVbCFc@phenom.ffwll.local>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+References: <20210903184806.1680887-1-robdclark@gmail.com>
+ <20210903184806.1680887-6-robdclark@gmail.com>
 MIME-Version: 1.0
-References: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
- <20210901181138.1052653-2-angelogioacchino.delregno@somainline.org>
- <CAOCk7NoOdjxp0vxu9XJzYsi7a04kpqpTOZHm42ApAN3MqkqtDw@mail.gmail.com>
- <CAA8EJpp6tj10A0QUR1E75t7BZf2Y3jHUyVNniYhEUd9rXj8Vrg@mail.gmail.com>
-In-Reply-To: <CAA8EJpp6tj10A0QUR1E75t7BZf2Y3jHUyVNniYhEUd9rXj8Vrg@mail.gmail.com>
-From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
-Date: Wed, 8 Sep 2021 08:22:15 -0600
-Message-ID: <CAOCk7NqhuCJqh-u6ke=Mn=EPgHnc7C2RS_X1nSCg_Nc8An=yPA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Dave Airlie <airlied@linux.ie>, 
- Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>, 
- Rob Herring <robh+dt@kernel.org>, MSM <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>,
- lkml <linux-kernel@vger.kernel.org>, 
- Konrad Dybcio <konrad.dybcio@somainline.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Martin Botka <martin.botka@somainline.org>, 
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- paul.bouchara@somainline.org, DTML <devicetree@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu1: Add MSM8998 to hw catalog
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210903184806.1680887-6-robdclark@gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH v3 5/9] drm/msm: Add deadline based boost
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,75 +96,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 8, 2021 at 2:26 AM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> Hi,
->
-> On Tue, 7 Sept 2021 at 22:13, Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
-> >
-> > On Wed, Sep 1, 2021 at 12:11 PM AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@somainline.org> wrote:
-> > >
-> > > Bringup functionality for MSM8998 in the DPU, driver which is mostly
-> > > the same as SDM845 (just a few variations).
-> > >
-> > > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-> >
-> > I don't seem to see a cover letter for this series.
-> >
-> > Eh, there are a fair number of differences between the MDSS versions
-> > for 8998 and 845.
-> >
-> > Probably a bigger question, why extend the DPU driver for 8998, when
-> > the MDP5 driver already supports it[1]?  The MDP/DPU split is pretty
-> > dumb, but I don't see a valid reason for both drivers supporting the
-> > same target/display revision.  IMO, if you want this support in DPU,
-> > remove it from MDP5.
-> >
-> > [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v5.14&id=d6c7b2284b14c66a268a448a7a8d54f585d38785
->
-> I don't think that we should enforce such requirements. Having support
-> both in MDP5 and DPU would allow one to compare those two drivers,
-> performance, features, etc.
-> It might be that all MDP5-supported hardware would be also supported
-> by DPU, thus allowing us to remove the former driver. But until that
-> time I'd suggest leaving support in place.
+On Fri, Sep 03, 2021 at 11:47:56AM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Well, then you have a host of problems to solve.
+Why do you need a kthread_work here? Is this just to make sure you're
+running at realtime prio? Maybe a comment to that effect would be good.
+-Daniel
 
-Lets ignore the code duplication for a minute and assume we've gone
-with this grand experiment.  Two drivers enter, one leaves the victor.
+> ---
+>  drivers/gpu/drm/msm/msm_fence.c       | 76 +++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_fence.h       | 20 +++++++
+>  drivers/gpu/drm/msm/msm_gpu.h         |  1 +
+>  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 20 +++++++
+>  4 files changed, 117 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
+> index f2cece542c3f..67c2a96e1c85 100644
+> --- a/drivers/gpu/drm/msm/msm_fence.c
+> +++ b/drivers/gpu/drm/msm/msm_fence.c
+> @@ -8,6 +8,37 @@
+>  
+>  #include "msm_drv.h"
+>  #include "msm_fence.h"
+> +#include "msm_gpu.h"
+> +
+> +static inline bool fence_completed(struct msm_fence_context *fctx, uint32_t fence);
+> +
+> +static struct msm_gpu *fctx2gpu(struct msm_fence_context *fctx)
+> +{
+> +	struct msm_drm_private *priv = fctx->dev->dev_private;
+> +	return priv->gpu;
+> +}
+> +
+> +static enum hrtimer_restart deadline_timer(struct hrtimer *t)
+> +{
+> +	struct msm_fence_context *fctx = container_of(t,
+> +			struct msm_fence_context, deadline_timer);
+> +
+> +	kthread_queue_work(fctx2gpu(fctx)->worker, &fctx->deadline_work);
+> +
+> +	return HRTIMER_NORESTART;
+> +}
+> +
+> +static void deadline_work(struct kthread_work *work)
+> +{
+> +	struct msm_fence_context *fctx = container_of(work,
+> +			struct msm_fence_context, deadline_work);
+> +
+> +	/* If deadline fence has already passed, nothing to do: */
+> +	if (fence_completed(fctx, fctx->next_deadline_fence))
+> +		return;
+> +
+> +	msm_devfreq_boost(fctx2gpu(fctx), 2);
+> +}
+>  
+>  
+>  struct msm_fence_context *
+> @@ -26,6 +57,13 @@ msm_fence_context_alloc(struct drm_device *dev, volatile uint32_t *fenceptr,
+>  	fctx->fenceptr = fenceptr;
+>  	spin_lock_init(&fctx->spinlock);
+>  
+> +	hrtimer_init(&fctx->deadline_timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
+> +	fctx->deadline_timer.function = deadline_timer;
+> +
+> +	kthread_init_work(&fctx->deadline_work, deadline_work);
+> +
+> +	fctx->next_deadline = ktime_get();
+> +
+>  	return fctx;
+>  }
+>  
+> @@ -49,6 +87,8 @@ void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence)
+>  {
+>  	spin_lock(&fctx->spinlock);
+>  	fctx->completed_fence = max(fence, fctx->completed_fence);
+> +	if (fence_completed(fctx, fctx->next_deadline_fence))
+> +		hrtimer_cancel(&fctx->deadline_timer);
+>  	spin_unlock(&fctx->spinlock);
+>  }
+>  
+> @@ -79,10 +119,46 @@ static bool msm_fence_signaled(struct dma_fence *fence)
+>  	return fence_completed(f->fctx, f->base.seqno);
+>  }
+>  
+> +static void msm_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
+> +{
+> +	struct msm_fence *f = to_msm_fence(fence);
+> +	struct msm_fence_context *fctx = f->fctx;
+> +	unsigned long flags;
+> +	ktime_t now;
+> +
+> +	spin_lock_irqsave(&fctx->spinlock, flags);
+> +	now = ktime_get();
+> +
+> +	if (ktime_after(now, fctx->next_deadline) ||
+> +			ktime_before(deadline, fctx->next_deadline)) {
+> +		fctx->next_deadline = deadline;
+> +		fctx->next_deadline_fence =
+> +			max(fctx->next_deadline_fence, (uint32_t)fence->seqno);
+> +
+> +		/*
+> +		 * Set timer to trigger boost 3ms before deadline, or
+> +		 * if we are already less than 3ms before the deadline
+> +		 * schedule boost work immediately.
+> +		 */
+> +		deadline = ktime_sub(deadline, ms_to_ktime(3));
+> +
+> +		if (ktime_after(now, deadline)) {
+> +			kthread_queue_work(fctx2gpu(fctx)->worker,
+> +					&fctx->deadline_work);
+> +		} else {
+> +			hrtimer_start(&fctx->deadline_timer, deadline,
+> +					HRTIMER_MODE_ABS);
+> +		}
+> +	}
+> +
+> +	spin_unlock_irqrestore(&fctx->spinlock, flags);
+> +}
+> +
+>  static const struct dma_fence_ops msm_fence_ops = {
+>  	.get_driver_name = msm_fence_get_driver_name,
+>  	.get_timeline_name = msm_fence_get_timeline_name,
+>  	.signaled = msm_fence_signaled,
+> +	.set_deadline = msm_fence_set_deadline,
+>  };
+>  
+>  struct dma_fence *
+> diff --git a/drivers/gpu/drm/msm/msm_fence.h b/drivers/gpu/drm/msm/msm_fence.h
+> index 4783db528bcc..d34e853c555a 100644
+> --- a/drivers/gpu/drm/msm/msm_fence.h
+> +++ b/drivers/gpu/drm/msm/msm_fence.h
+> @@ -50,6 +50,26 @@ struct msm_fence_context {
+>  	volatile uint32_t *fenceptr;
+>  
+>  	spinlock_t spinlock;
+> +
+> +	/*
+> +	 * TODO this doesn't really deal with multiple deadlines, like
+> +	 * if userspace got multiple frames ahead.. OTOH atomic updates
+> +	 * don't queue, so maybe that is ok
+> +	 */
+> +
+> +	/** next_deadline: Time of next deadline */
+> +	ktime_t next_deadline;
+> +
+> +	/**
+> +	 * next_deadline_fence:
+> +	 *
+> +	 * Fence value for next pending deadline.  The deadline timer is
+> +	 * canceled when this fence is signaled.
+> +	 */
+> +	uint32_t next_deadline_fence;
+> +
+> +	struct hrtimer deadline_timer;
+> +	struct kthread_work deadline_work;
+>  };
+>  
+>  struct msm_fence_context * msm_fence_context_alloc(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 0e4b45bff2e6..e031c9b495ed 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -425,6 +425,7 @@ void msm_devfreq_init(struct msm_gpu *gpu);
+>  void msm_devfreq_cleanup(struct msm_gpu *gpu);
+>  void msm_devfreq_resume(struct msm_gpu *gpu);
+>  void msm_devfreq_suspend(struct msm_gpu *gpu);
+> +void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor);
+>  void msm_devfreq_active(struct msm_gpu *gpu);
+>  void msm_devfreq_idle(struct msm_gpu *gpu);
+>  
+> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> index 0a1ee20296a2..8a8d7b9028a3 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> @@ -144,6 +144,26 @@ void msm_devfreq_suspend(struct msm_gpu *gpu)
+>  	devfreq_suspend_device(gpu->devfreq.devfreq);
+>  }
+>  
+> +void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+> +{
+> +	struct msm_gpu_devfreq *df = &gpu->devfreq;
+> +	unsigned long freq;
+> +
+> +	/*
+> +	 * Hold devfreq lock to synchronize with get_dev_status()/
+> +	 * target() callbacks
+> +	 */
+> +	mutex_lock(&df->devfreq->lock);
+> +
+> +	freq = get_freq(gpu);
+> +
+> +	freq *= factor;
+> +
+> +	msm_devfreq_target(&gpu->pdev->dev, &freq, 0);
+> +
+> +	mutex_unlock(&df->devfreq->lock);
+> +}
+> +
+>  void msm_devfreq_active(struct msm_gpu *gpu)
+>  {
+>  	struct msm_gpu_devfreq *df = &gpu->devfreq;
+> -- 
+> 2.31.1
+> 
 
-How are the clients supposed to pick which driver to use in the mean
-time?  We already have one DT binding for 8998 (which the MDP5 driver
-services).  This series proposes a second.  If we go forward with what
-you propose, we'll have two bindings for the same hardware, which IMO
-doesn't make sense in the context of DT, and the reason for that is to
-select which driver is "better".  Driver selection is not supposed to
-be tied to DT like this.
-
-So, some boards think MDP5 is better, and some boards think DPU is
-better.  At some point, we decide one of the drivers is the clear
-winner (lets assume DPU).  Then what happens to the existing DTs that
-were using the MDP5 description?  Are they really compatible with DPU?
-
-From a DT perspective, there should be one description, but then how
-do you pick which driver to load?  Both can't bind on the single
-description, and while you could argue that the users should build one
-driver or the other, but not both (thus picking which one at build
-time), that doesn't work for distros that want to build both drivers
-so that they can support all platforms with a single build (per arch).
-
-From where I sit, your position starts with a good idea, but isn't
-fully thought out and leads to problems.
-
-If there is some reason why DPU is better for 8998, please enumerate
-it.  Does DPU support some config that MDP5 doesn't, which is valuable
-to you?  I'm ok with ripping out the MDP5 support, the reason I didn't
-go with DPU was that the DPU driver was clearly written only for 845
-at the time, and needed significant rework to "downgrade" to an
-earlier hardware.  However, the "reason" DPU exists separate from MDP5
-is the claim that the MDP hardware underwent a significant
-rearchitecture, and thus it was too cumbersome to extend MDP5.  While
-I disagree with the premise, that "rearch" started with 8998.
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
