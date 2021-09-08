@@ -2,84 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC25F40328F
-	for <lists+freedreno@lfdr.de>; Wed,  8 Sep 2021 04:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6FF240360E
+	for <lists+freedreno@lfdr.de>; Wed,  8 Sep 2021 10:26:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A82F66E0F1;
-	Wed,  8 Sep 2021 02:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 839596E154;
+	Wed,  8 Sep 2021 08:26:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA626E0F1
- for <freedreno@lists.freedesktop.org>; Wed,  8 Sep 2021 02:20:26 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- y3-20020a4ab403000000b00290e2a52c71so284021oon.2
- for <freedreno@lists.freedesktop.org>; Tue, 07 Sep 2021 19:20:26 -0700 (PDT)
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 350146E157
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Sep 2021 08:26:02 +0000 (UTC)
+Received: by mail-qt1-x835.google.com with SMTP id t35so1159289qtc.6
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Sep 2021 01:26:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=d7N2sG5KH7lGAgEggC9zCBdx01DXAMxZT+wV9lrlBZo=;
- b=d1E5oZrpcIsuWWUnDrUU47njxjPHb/BblH3zYvHGr+MCBfMhW4jULBFqddvrjoGij4
- Esn56yeCeCihAXL3SPlDeop4KwnLgw2Zth1cO7tEg6EEGYPT84FDGoOsdf9wHBXly+xK
- n7z7rJ5rZm8UPwA0Tzz7Z4X84paxUv5bcSBgUKCRUWG6XD+nPkOQ4wUxx6Qg6551i1so
- 535pxB4UK+7PUCkjW1dAkhL30cKrtgRPpGi97tbJCwuBw2YfazhVrdRKb0Ebqdx93rPR
- tWy8F7nj55XsSYGCz6R6F1sFVet2HvE4zEBNZbceFbgcsVHvZ84nzucACI8hCFsj98sy
- G5kw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=I2GYoAF05W4QlTQNUCm2X4ED9hxXNWtrDyXhLShUptk=;
+ b=e7g/IsbTln55dVeqTe5gmEnqabfSh7kHTb727uLUnyovBvkSGw8go8jXg95jjjF7tX
+ R3bxp8omNg2Es3zR/CXIfV9ZMzXzQv+UEh4eSsWJkGl23Kssli7oOmRZQy9Pkaz7gEQy
+ T44E5FFPOfRGx0HrA7fHZ6ZY2+IQ+KdzAvmJAeRJMA//xqk3Km7DEs34HVTG8+rE4tdi
+ Nbz5dPeEyxoWv4I3QLfTHj1lYqM5Pp+pZfwjb075mSYqkvPbTo02Io6Avm0Rim4MyC0R
+ 4CYSQPxj0VXCNf6T7mcbGmua46gZ5pVoJTpvZBN/cJg4xb18jQYmvSm3Laik4qD63ecW
+ Eo7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=d7N2sG5KH7lGAgEggC9zCBdx01DXAMxZT+wV9lrlBZo=;
- b=G/KG3XC/sRDX+Dw0fMPFq8jjYzOaOT6gMnmwNsiwJd6YMnJcqd48C0vOaKE6lIyz9h
- V1uB0hB/7BwnsaXK01JxTi+zXGVYeudy8WmpFXwLXjSaXgPtjwsXMQDMXC5aztF45+2K
- mqhXCPX8rW/Vj+NrakxE4zuoSbQCr72smS6usEUYFH9rMVQiM/zgDE45VEmSW9ic3unI
- LXSK5v2mcfmcpxiLM787ov5gACRsWiINSKUv4a+H4xWB4156qZnALZccBEoJpxTF09la
- RU6Oa9Qd7uPIp3Ea2uFk4zrPZv2ZvQQKwTjxryIarez/WS4lVZWRZUbDGTvt9ukqcAeL
- 2Etg==
-X-Gm-Message-State: AOAM532DuVPzJjPEjVaGQbBAt6PHqRwF0+f6u1XJgdFdLncwK42oB/uc
- BsfRjUyHlN6kH5H6wgaKMKz3EQ==
-X-Google-Smtp-Source: ABdhPJy4e+NyBQqTI3ph3rpEZzw5lV6yuX5+1N+QnhylAh1cGWwXQGa2BONNTDVnj2G+++dfD0QPJg==
-X-Received: by 2002:a4a:de90:: with SMTP id v16mr1072428oou.42.1631067624003; 
- Tue, 07 Sep 2021 19:20:24 -0700 (PDT)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id d10sm159139ooj.24.2021.09.07.19.20.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Sep 2021 19:20:23 -0700 (PDT)
-Date: Tue, 7 Sep 2021 19:21:22 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Cc: Caleb Connolly <caleb.connolly@linaro.org>,
- Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Jonathan Marek <jonathan@marek.ca>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Message-ID: <YTgeIuwumPoR9ZTE@ripper>
-References: <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
- <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
- <b7334a1a-c4ad-da90-03b4-0d19e1811b13@linaro.org>
- <CAF6AEGv0WWB3Z1hmXf8vxm1_-d7fsNBRcaQF35aE2JXcJn8-cA@mail.gmail.com>
- <8aa590be-6a9f-9343-e897-18e86ea48202@linaro.org>
- <CAF6AEGtd_5jKhixp6h+NnN8-aqjBHTLopRozASE73oT3rfnFHA@mail.gmail.com>
- <6eefedb2-9e59-56d2-7703-2faf6cb0ca3a@codeaurora.org>
- <CAF6AEGvhqPHWNK=6GYz+Mu5aKe8+iE4_Teem6o=X6eiANhWsPg@mail.gmail.com>
- <83ecbe74-caf0-6c42-e6f5-4887b3b534c6@linaro.org>
- <53d3e5b7-9dc0-a806-70e9-b9b5ff877462@codeaurora.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=I2GYoAF05W4QlTQNUCm2X4ED9hxXNWtrDyXhLShUptk=;
+ b=luJsWI8b2gTf/4mD2BEsgmU465E57CCrm5ARn6nE/k3AOjeBpP+t+Hf67+aYJiIKpe
+ q2HZ4CSxy83zw9v//veb/a49eSHkxboSwlF0BsOxISRD9GSbK2Ybkkgzk9muirPszF+V
+ hcF35tCRnu2KFZUJZmGUH/JMquu/cqzUksRE5JFy9G1IX6rCuJ5Xl1yZxCSBKSRvxWw/
+ prY5Tw4bw22WlcdltxLfyfbXz3Gn/OzfLKXvmkCTzBQ5UdNEmpfN2ncb3y0ooMz5Lm0r
+ N/vxucdNvO1MYPPXqED07lpmR8+GRRx5muVgV+QKc84dwB1jnj3NrO8Ti6GIQLxpACBj
+ 6Clg==
+X-Gm-Message-State: AOAM532pc3BA2gJP1//PO4hUmBVRhULJFRZY6z5IFcdDtsloKDGkE+5x
+ 4JFtgc4XPHVlpyD3QZn4o3MuAQXrrvhisYRMuntHiw==
+X-Google-Smtp-Source: ABdhPJxJhjzUMRnWrBQrlHB5E1FH9Zjc6focYT3nA4MBbnlIPOsA5Rm9xuH5jYYfBZrGvUDOGlMTALwyLQ7v5Mh8YaQ=
+X-Received: by 2002:ac8:578e:: with SMTP id v14mr2471269qta.285.1631089561173; 
+ Wed, 08 Sep 2021 01:26:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <53d3e5b7-9dc0-a806-70e9-b9b5ff877462@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
+References: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
+ <20210901181138.1052653-2-angelogioacchino.delregno@somainline.org>
+ <CAOCk7NoOdjxp0vxu9XJzYsi7a04kpqpTOZHm42ApAN3MqkqtDw@mail.gmail.com>
+In-Reply-To: <CAOCk7NoOdjxp0vxu9XJzYsi7a04kpqpTOZHm42ApAN3MqkqtDw@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 8 Sep 2021 11:25:50 +0300
+Message-ID: <CAA8EJpp6tj10A0QUR1E75t7BZf2Y3jHUyVNniYhEUd9rXj8Vrg@mail.gmail.com>
+To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Dave Airlie <airlied@linux.ie>, 
+ Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>, 
+ Rob Herring <robh+dt@kernel.org>, MSM <linux-arm-msm@vger.kernel.org>, 
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>,
+ lkml <linux-kernel@vger.kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ paul.bouchara@somainline.org, DTML <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu1: Add MSM8998 to hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,78 +79,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 09 Aug 10:26 PDT 2021, Akhil P Oommen wrote:
+Hi,
 
-> On 8/9/2021 9:48 PM, Caleb Connolly wrote:
-> > 
-> > 
-> > On 09/08/2021 17:12, Rob Clark wrote:
-> > > On Mon, Aug 9, 2021 at 7:52 AM Akhil P Oommen
-> > > <akhilpo@codeaurora.org> wrote:
-[..]
-> > > > I am a bit confused. We don't define a power domain for gpu in dt,
-> > > > correct? Then what exactly set_opp do here? Do you think this usleep is
-> > > > what is helping here somehow to mask the issue?
-> > The power domains (for cx and gx) are defined in the GMU DT, the OPPs in
-> > the GPU DT. For the sake of simplicity I'll refer to the lowest
-> > frequency (257000000) and OPP level (RPMH_REGULATOR_LEVEL_LOW_SVS) as
-> > the "min" state, and the highest frequency (710000000) and OPP level
-> > (RPMH_REGULATOR_LEVEL_TURBO_L1) as the "max" state. These are defined in
-> > sdm845.dtsi under the gpu node.
-> > 
-> > The new devfreq behaviour unmasks what I think is a driver bug, it
-> > inadvertently puts much more strain on the GPU regulators than they
-> > usually get. With the new behaviour the GPU jumps from it's min state to
-> > the max state and back again extremely rapidly under workloads as small
-> > as refreshing UI. Where previously the GPU would rarely if ever go above
-> > 342MHz when interacting with the device, it now jumps between min and
-> > max many times per second.
-> > 
-> > If my understanding is correct, the current implementation of the GMU
-> > set freq is the following:
-> >   - Get OPP for frequency to set
-> >   - Push the frequency to the GMU - immediately updating the core clock
-> >   - Call dev_pm_opp_set_opp() which triggers a notify chain, this winds
-> > up somewhere in power management code and causes the gx regulator level
-> > to be updated
-> 
-> Nope. dev_pm_opp_set_opp() sets the bandwidth for gpu and nothing else. We
-> were using a different api earlier which got deprecated -
-> dev_pm_opp_set_bw().
-> 
+On Tue, 7 Sept 2021 at 22:13, Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
+>
+> On Wed, Sep 1, 2021 at 12:11 PM AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@somainline.org> wrote:
+> >
+> > Bringup functionality for MSM8998 in the DPU, driver which is mostly
+> > the same as SDM845 (just a few variations).
+> >
+> > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+>
+> I don't seem to see a cover letter for this series.
+>
+> Eh, there are a fair number of differences between the MDSS versions
+> for 8998 and 845.
+>
+> Probably a bigger question, why extend the DPU driver for 8998, when
+> the MDP5 driver already supports it[1]?  The MDP/DPU split is pretty
+> dumb, but I don't see a valid reason for both drivers supporting the
+> same target/display revision.  IMO, if you want this support in DPU,
+> remove it from MDP5.
+>
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v5.14&id=d6c7b2284b14c66a268a448a7a8d54f585d38785
 
-On the Lenovo Yoga C630 this is reproduced by starting alacritty and if
-I'm lucky I managed to hit a few keys before it crashes, so I spent a
-few hours looking into this as well...
+I don't think that we should enforce such requirements. Having support
+both in MDP5 and DPU would allow one to compare those two drivers,
+performance, features, etc.
+It might be that all MDP5-supported hardware would be also supported
+by DPU, thus allowing us to remove the former driver. But until that
+time I'd suggest leaving support in place.
 
-As you say, the dev_pm_opp_set_opp() will only cast a interconnect vote.
-The opp-level is just there for show and isn't used by anything, at
-least not on 845.
-
-Further more, I'm missing something in my tree, so the interconnect
-doesn't hit sync_state, and as such we're not actually scaling the
-buses. So the problem is not that Linux doesn't turn on the buses in
-time.
-
-So I suspect that the "AHB bus error" isn't saying that we turned off
-the bus, but rather that the GPU becomes unstable or something of that
-sort.
-
-
-Lastly, I reverted 9bc95570175a ("drm/msm: Devfreq tuning") and ran
-Aquarium for 20 minutes without a problem. I then switched the gpu
-devfreq governor to "userspace" and ran the following:
-
-while true; do
-  echo 257000000 > /sys/class/devfreq/5000000.gpu/userspace/set_freq
-  echo 710000000 > /sys/class/devfreq/5000000.gpu/userspace/set_freq
-done
-
-It took 19 iterations of this loop to crash the GPU.
-
-So the problem doesn't seem to be Rob's change, it's just that prior to
-it the chance to hitting it is way lower. Question is still what it is
-that we're triggering.
-
-Regards,
-Bjorn
+-- 
+With best wishes
+Dmitry
