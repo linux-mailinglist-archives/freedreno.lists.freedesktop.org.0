@@ -1,76 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91077404E6C
-	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 14:17:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C32F405800
+	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 15:46:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 391F56E865;
-	Thu,  9 Sep 2021 12:17:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C717E6E88A;
+	Thu,  9 Sep 2021 13:46:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E700D6E865
- for <freedreno@lists.freedesktop.org>; Thu,  9 Sep 2021 12:17:52 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id q3so1986821iot.3
- for <freedreno@lists.freedesktop.org>; Thu, 09 Sep 2021 05:17:52 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0190B6E889
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Sep 2021 13:46:29 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id s10so3819083lfr.11
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Sep 2021 06:46:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rYmN9+Vy/Zm7v0RZi8m78PsGaMbXCo9rwM4fXnlFa0A=;
- b=jw+iTpcLGi33/KUcEaVR3lYwDq9++0Zt56YuT9/orXgQXI25hLKmgRmzW2toJi7myz
- JPbld8zzLLon+cNCj7SMJHWAl067f8z7RD/RvROUFdI3Ou9HjZc9T162pgu15ZOYJZWf
- 8l6XWBvHQpCKJinTzZt7rdtsbGzQav/fEejvqKQbrPDpfyb0sFGaBk0BRRnT7PFZbdPv
- yDVqfSiMT2ie32yRsY5ei1vNEx8mK2qHqgyP2v9nXFZ+u09F6NjF7dVD9o9Dow2NTDdo
- xk3EumusBusF2wvolA+8go4RMKS8aOVH48wEZotYmp2DTIahIZFdmmYTDp8UB7F2vQc+
- wEzg==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=IcwFUmmVK4ypxuZB23EEwU2VdYJAuPPWgw97xtMQXeU=;
+ b=RINgsBNhJnCucEyXqV3FOzzraqEYyxPdozRS9NKc72eAh06i1T6Gj5zxbFPIf9eG2I
+ 6JmenaLmC7P9DfI1SztdX6NWRzh5Qy2Lam0FGQhLsKOAm0rftefD7Q48aaec0NHKfil1
+ M5fQiqk8iz1TDrGBR4hg2in/9UPakmlNJJW2HFfCtQBgAEwGxk0SlJ2r/1A528FCojRB
+ 2K89O0XOXJd7vkYBaKvyRfYq065zoCXx5ZLxdAFZx0A60a6UHr+T2QXotcAlVVyDzqsO
+ V+pZwquUI98tXSDgn48q+J8ECzQ22N9/qyN/1nMZRn1xRHP91Jl/LMqdL/EhSIliWy5Z
+ PHaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rYmN9+Vy/Zm7v0RZi8m78PsGaMbXCo9rwM4fXnlFa0A=;
- b=I6oUcHmIcK49mvtdStfWFLbtFESbSbAjKt9Z5372c2+YubzKhLN001RVjIfRIW95o/
- xSoE1MDYkcBB9qHAD9/2TNHI3WTvzPUzTz3UiBQOa5XosLQgvzyEEWXGaM3b63UDp6Az
- F3i4rDdOXZ374/PM7+JJO0COqeK0xCetZuwOJmthNdXqVOcnAvbXRjKX45j8AbxtfdYF
- C5w7scq3NfMh32weKtJf6CeCeV0s2lMA1AeOUpwe6rcCRMUuL9rR1j8zsUQgSYCLB0XE
- hNcvMuu+hQR30Z5yaTMiTCyhmzj5bXkYWJ5TZnFe6AOl/Vy+fPkXV5bz0HbH8+R2Wx8B
- qWOQ==
-X-Gm-Message-State: AOAM533cxjinBEI0imCZsb1ZgUFWaS+JedAkGX+O2p/ZilEaTnq8XpO9
- 70W0ZTlCAVVhIUFgi8v7i49GZBAT3WLLFI1OOQLFIg==
-X-Google-Smtp-Source: ABdhPJzzGnEJRhZfFJ5kL+XJ9LhYV5UeHMmZWo/JVUq5RLvA5TfAvwZJL681YJ5O4yJaKOgNEx7M/kGJZcKwTSrjL5c=
-X-Received: by 2002:a6b:3f02:: with SMTP id m2mr2358919ioa.136.1631189872259; 
- Thu, 09 Sep 2021 05:17:52 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=IcwFUmmVK4ypxuZB23EEwU2VdYJAuPPWgw97xtMQXeU=;
+ b=l370KBQXO2RT5sl08KRqEB+xe7wDzqJunX7XHIKovFYM1W7IL+8kjJLIZffurniJLk
+ w84l4daQdRbV6iZBndG71RH3uhdTiBj3aLTovqVN1Wboso1BCMenqZBDgH7IdrtC7zYN
+ bR+CA+guI94x6p6Jc2O/ttWM72ZhlWDaPTnniEc4Z75q+bBoBgHXoAQ2K6SARAUjVuZj
+ STlBRhBvaGEa9qpmwCj2TNzN3m/iud9Aokh9hLqbx0jjBvpbIvHd3Vc5YHnk9Z85aqi1
+ Y7pMHbm5Ie1MC5qi2G8QGM4bvZKn6Q+K5A7OXrMG8tYZHOQrmlQeE7GsDrofkX4VbhrH
+ uZWQ==
+X-Gm-Message-State: AOAM533NeVACBkwHj6G39/3b1vm+IEIAxoVWBJ/FCHJvSqjoS7foyBfs
+ 07gq8I04NdSLd6DyXz2tCCE9Aw==
+X-Google-Smtp-Source: ABdhPJyF6qKPZwa2rQgVlQLfXg7myYMb6+RC7nDu5gtDEdqGAda5fbEso5nkszPL4Y+XWmWjXZ0w4g==
+X-Received: by 2002:ac2:5c0d:: with SMTP id r13mr2487808lfp.552.1631195188217; 
+ Thu, 09 Sep 2021 06:46:28 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id p5sm205874lfr.72.2021.09.09.06.46.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Sep 2021 06:46:27 -0700 (PDT)
+To: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
+ MSM <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ lkml <linux-kernel@vger.kernel.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ paul.bouchara@somainline.org, DTML <devicetree@vger.kernel.org>
+References: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
+ <20210901181138.1052653-2-angelogioacchino.delregno@somainline.org>
+ <CAOCk7NoOdjxp0vxu9XJzYsi7a04kpqpTOZHm42ApAN3MqkqtDw@mail.gmail.com>
+ <CAA8EJpp6tj10A0QUR1E75t7BZf2Y3jHUyVNniYhEUd9rXj8Vrg@mail.gmail.com>
+ <CAOCk7NqhuCJqh-u6ke=Mn=EPgHnc7C2RS_X1nSCg_Nc8An=yPA@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <2d25526f-dd9c-e336-970d-e8882f848d65@linaro.org>
+Date: Thu, 9 Sep 2021 16:46:25 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-References: <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
- <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
- <b7334a1a-c4ad-da90-03b4-0d19e1811b13@linaro.org>
- <CAF6AEGv0WWB3Z1hmXf8vxm1_-d7fsNBRcaQF35aE2JXcJn8-cA@mail.gmail.com>
- <8aa590be-6a9f-9343-e897-18e86ea48202@linaro.org>
- <CAF6AEGtd_5jKhixp6h+NnN8-aqjBHTLopRozASE73oT3rfnFHA@mail.gmail.com>
- <6eefedb2-9e59-56d2-7703-2faf6cb0ca3a@codeaurora.org>
- <CAF6AEGvhqPHWNK=6GYz+Mu5aKe8+iE4_Teem6o=X6eiANhWsPg@mail.gmail.com>
- <83ecbe74-caf0-6c42-e6f5-4887b3b534c6@linaro.org>
- <53d3e5b7-9dc0-a806-70e9-b9b5ff877462@codeaurora.org>
- <YTgeIuwumPoR9ZTE@ripper>
-In-Reply-To: <YTgeIuwumPoR9ZTE@ripper>
-From: Amit Pundir <amit.pundir@linaro.org>
-Date: Thu, 9 Sep 2021 17:47:16 +0530
-Message-ID: <CAMi1Hd1TOFj5USToEhuvZz8vgboQbMWco7gN413-jHJp-A7Ozg@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Akhil P Oommen <akhilpo@codeaurora.org>,
- Caleb Connolly <caleb.connolly@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Jordan Crouse <jordan@cosmicpenguin.net>, Jonathan Marek <jonathan@marek.ca>, 
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sharat Masetty <smasetty@codeaurora.org>, 
- open list <linux-kernel@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
+In-Reply-To: <CAOCk7NqhuCJqh-u6ke=Mn=EPgHnc7C2RS_X1nSCg_Nc8An=yPA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu1: Add MSM8998 to hw catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,88 +91,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 8 Sept 2021 at 07:50, Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
-> On Mon 09 Aug 10:26 PDT 2021, Akhil P Oommen wrote:
->
-> > On 8/9/2021 9:48 PM, Caleb Connolly wrote:
-> > >
-> > >
-> > > On 09/08/2021 17:12, Rob Clark wrote:
-> > > > On Mon, Aug 9, 2021 at 7:52 AM Akhil P Oommen
-> > > > <akhilpo@codeaurora.org> wrote:
-> [..]
-> > > > > I am a bit confused. We don't define a power domain for gpu in dt,
-> > > > > correct? Then what exactly set_opp do here? Do you think this usleep is
-> > > > > what is helping here somehow to mask the issue?
-> > > The power domains (for cx and gx) are defined in the GMU DT, the OPPs in
-> > > the GPU DT. For the sake of simplicity I'll refer to the lowest
-> > > frequency (257000000) and OPP level (RPMH_REGULATOR_LEVEL_LOW_SVS) as
-> > > the "min" state, and the highest frequency (710000000) and OPP level
-> > > (RPMH_REGULATOR_LEVEL_TURBO_L1) as the "max" state. These are defined in
-> > > sdm845.dtsi under the gpu node.
-> > >
-> > > The new devfreq behaviour unmasks what I think is a driver bug, it
-> > > inadvertently puts much more strain on the GPU regulators than they
-> > > usually get. With the new behaviour the GPU jumps from it's min state to
-> > > the max state and back again extremely rapidly under workloads as small
-> > > as refreshing UI. Where previously the GPU would rarely if ever go above
-> > > 342MHz when interacting with the device, it now jumps between min and
-> > > max many times per second.
-> > >
-> > > If my understanding is correct, the current implementation of the GMU
-> > > set freq is the following:
-> > >   - Get OPP for frequency to set
-> > >   - Push the frequency to the GMU - immediately updating the core clock
-> > >   - Call dev_pm_opp_set_opp() which triggers a notify chain, this winds
-> > > up somewhere in power management code and causes the gx regulator level
-> > > to be updated
-> >
-> > Nope. dev_pm_opp_set_opp() sets the bandwidth for gpu and nothing else. We
-> > were using a different api earlier which got deprecated -
-> > dev_pm_opp_set_bw().
-> >
->
-> On the Lenovo Yoga C630 this is reproduced by starting alacritty and if
-> I'm lucky I managed to hit a few keys before it crashes, so I spent a
-> few hours looking into this as well...
->
-> As you say, the dev_pm_opp_set_opp() will only cast a interconnect vote.
-> The opp-level is just there for show and isn't used by anything, at
-> least not on 845.
->
-> Further more, I'm missing something in my tree, so the interconnect
-> doesn't hit sync_state, and as such we're not actually scaling the
-> buses. So the problem is not that Linux doesn't turn on the buses in
-> time.
->
-> So I suspect that the "AHB bus error" isn't saying that we turned off
-> the bus, but rather that the GPU becomes unstable or something of that
-> sort.
->
->
-> Lastly, I reverted 9bc95570175a ("drm/msm: Devfreq tuning") and ran
-> Aquarium for 20 minutes without a problem. I then switched the gpu
-> devfreq governor to "userspace" and ran the following:
->
-> while true; do
->   echo 257000000 > /sys/class/devfreq/5000000.gpu/userspace/set_freq
->   echo 710000000 > /sys/class/devfreq/5000000.gpu/userspace/set_freq
-> done
->
-> It took 19 iterations of this loop to crash the GPU.
+On 08/09/2021 17:22, Jeffrey Hugo wrote:
+> On Wed, Sep 8, 2021 at 2:26 AM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>>
+>> Hi,
+>>
+>> On Tue, 7 Sept 2021 at 22:13, Jeffrey Hugo <jeffrey.l.hugo@gmail.com> wrote:
+>>>
+>>> On Wed, Sep 1, 2021 at 12:11 PM AngeloGioacchino Del Regno
+>>> <angelogioacchino.delregno@somainline.org> wrote:
+>>>>
+>>>> Bringup functionality for MSM8998 in the DPU, driver which is mostly
+>>>> the same as SDM845 (just a few variations).
+>>>>
+>>>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+>>>
+>>> I don't seem to see a cover letter for this series.
+>>>
+>>> Eh, there are a fair number of differences between the MDSS versions
+>>> for 8998 and 845.
+>>>
+>>> Probably a bigger question, why extend the DPU driver for 8998, when
+>>> the MDP5 driver already supports it[1]?  The MDP/DPU split is pretty
+>>> dumb, but I don't see a valid reason for both drivers supporting the
+>>> same target/display revision.  IMO, if you want this support in DPU,
+>>> remove it from MDP5.
+>>>
+>>> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v5.14&id=d6c7b2284b14c66a268a448a7a8d54f585d38785
+>>
+>> I don't think that we should enforce such requirements. Having support
+>> both in MDP5 and DPU would allow one to compare those two drivers,
+>> performance, features, etc.
+>> It might be that all MDP5-supported hardware would be also supported
+>> by DPU, thus allowing us to remove the former driver. But until that
+>> time I'd suggest leaving support in place.
+> 
+> Well, then you have a host of problems to solve.
+> 
+> Lets ignore the code duplication for a minute and assume we've gone
+> with this grand experiment.  Two drivers enter, one leaves the victor.
+> 
+> How are the clients supposed to pick which driver to use in the mean
+> time?  We already have one DT binding for 8998 (which the MDP5 driver
+> services).  This series proposes a second.  If we go forward with what
+> you propose, we'll have two bindings for the same hardware, which IMO
+> doesn't make sense in the context of DT, and the reason for that is to
+> select which driver is "better".  Driver selection is not supposed to
+> be tied to DT like this.
+> 
+> So, some boards think MDP5 is better, and some boards think DPU is
+> better.  At some point, we decide one of the drivers is the clear
+> winner (lets assume DPU).  Then what happens to the existing DTs that
+> were using the MDP5 description?  Are they really compatible with DPU?
+> 
+>  From a DT perspective, there should be one description, but then how
+> do you pick which driver to load?  Both can't bind on the single
+> description, and while you could argue that the users should build one
+> driver or the other, but not both (thus picking which one at build
+> time), that doesn't work for distros that want to build both drivers
+> so that they can support all platforms with a single build (per arch).
 
-Ack. With your above script, I can reproduce a crash too on db845c
-(A630) running v5.14. I didn't get any crash log though and device
-just rebooted to USB crash mode.
+Yep, the DT issue wasn't thought about from my side at the review time. 
+I considered qcom,msm8998-dpu as an extension/upgrade of bare qcom,mdp5 
+compatibility string (as we usually add chip-specific compatibilities).
 
-And same crash on RB5 (A650) too https://hastebin.com/raw/ejutetuwun
+In fact using just 'qcom,mdp5' prevents us from having such kind of 
+driver upgrades.
 
->
-> So the problem doesn't seem to be Rob's change, it's just that prior to
-> it the chance to hitting it is way lower. Question is still what it is
-> that we're triggering.
->
-> Regards,
-> Bjorn
+What I'd propose if everybody else agrees on moving 8998 (and maybe 
+others later) from MDP5 to DPU would be to continue supporting qcom,mdp5 
+binding in the mdp5 driver and to add qcom,msm8998-dpu binding used by 
+the DPU driver. Maybe with the warning telling to update the binding. 
+Then at some point if all the MDP5-supported hardware is supported by 
+the DPU we can drop the MDP5 driver and implement required bindings 
+compatibility in the DPU.
+
+> 
+>  From where I sit, your position starts with a good idea, but isn't
+> fully thought out and leads to problems.
+> 
+> If there is some reason why DPU is better for 8998, please enumerate
+> it.  Does DPU support some config that MDP5 doesn't, which is valuable
+> to you? 
+
+The DPU receives more attention from both Qualcomm and Linaro, so it 
+will continue acquiring features (which MDP5 might not have at the moment).
+
+For example consider the SmartDMA (multirect) support. For now the 
+multirect patchset it is limited to newer versions, but it might be 
+extended to support older chips (in the DPU) too. We did not have plans 
+to backport SmartDMA v1 support to MDP5.
+
+Writeback also has more chances to be supported in the DPU rather than 
+in the MDP5 driver (I remember Rob's patches for the MDP5, but they 
+never actually landed upstream).
+
+Last but not least at this moment DPU has bandwidth scaling support, 
+while MDP5 does not. I've sent a patch for MDP5 earlier, which then got 
+reverted because of armv7 support. At this moment I did not resend it 
+since we found some underrun issues on resume or when quickly changing 
+bw down and up.
+
+> I'm ok with ripping out the MDP5 support, the reason I didn't
+> go with DPU was that the DPU driver was clearly written only for 845
+> at the time, and needed significant rework to "downgrade" to an
+> earlier hardware.  However, the "reason" DPU exists separate from MDP5
+> is the claim that the MDP hardware underwent a significant
+> rearchitecture, and thus it was too cumbersome to extend MDP5.  While
+> I disagree with the premise, that "rearch" started with 8998.
+
+Just checked, the SDE, the origin (or parent) of the DPU driver starts 
+it's support from the 8996 and 8998.
+
+
+
+
+-- 
+With best wishes
+Dmitry
