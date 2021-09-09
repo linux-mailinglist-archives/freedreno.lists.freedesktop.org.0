@@ -1,47 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D11F2404A0C
-	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 13:44:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82644404AE9
+	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 13:49:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAF976E54C;
-	Thu,  9 Sep 2021 11:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78A566E5BB;
+	Thu,  9 Sep 2021 11:49:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD826E544;
- Thu,  9 Sep 2021 11:44:16 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2C2F561288;
- Thu,  9 Sep 2021 11:44:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB3F26E5B4;
+ Thu,  9 Sep 2021 11:49:00 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CD86161A04;
+ Thu,  9 Sep 2021 11:48:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631187856;
- bh=0bo7ow20Vjjagu611zzbdx4DpyRacN4U9snfytX4aUM=;
+ s=k20201202; t=1631188140;
+ bh=xL8R0xhcv7lM2CtakF54LGe40ktCPUaMQx6L5gTtMWA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kuOpgUP2sAbxb6Zpe01vzmgWpkRpI1lAikCNlW5RFmCgKsavnYCAEQHPxoYb7PeUc
- W0NxXOqtVZwH9kPFeqYGTDfCTzgpu0WdLGBFCcTBqSlq0ZVkkunSnSbmvxutT3S2v9
- XJyLwZVyQeCoDk0OlGrzyP4U9nrEZ8X01PIrilO/fmbj5zirg6F2GFjDoDsXeN16BU
- gqvKfye116fZesSuMtDoLhRFAr7rYtchzgd5R6baSdF3+Ry0oToc3lm/+YwXWNkXUm
- GY88KGH5CjqnU4Cu6lG0VXnw2FNTDjuFVaCALai2GcDYYt2ODyrBa7TFTQAO52dQC7
- E3WS8oc5gRV8w==
+ b=HDNMOp9V1fiuqlJz1rfD0paJbo5/rl2lhA21TolT8e9aY6TikJN2PKpjG3KmUHTlV
+ EwVD1N3E3g6Or5XF0nipAOuC464hXxQPONC+ShzY/3GlJuFWqrkWL+G9s6ntdFSR88
+ 8jO75uaCWjzDVWp5iNmb+fG9LPDlq0pPTkk6pm0eHMYIs+4VNl92hQT90HkJSXTsXk
+ sh4vUbcK1e28y538gYJVfIFtDY0j2oSHmbSlzR01LcVwQv0LhB1j3rwM6Ug/hbx9T/
+ f0zt7Amf/1UTCty8YiZVQeSVnUK+aWJr6lp+XI5k3V82LKcdls2ZDyzjcWu+lYs2MT
+ 4+micmTXxta7w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Kuogee Hsieh <khsieh@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+Cc: David Heidelberg <david@ixit.cz>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Date: Thu,  9 Sep 2021 07:39:19 -0400
-Message-Id: <20210909114106.141462-145-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:44:48 -0400
+Message-Id: <20210909114635.143983-112-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
-References: <20210909114106.141462-1-sashal@kernel.org>
+In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
+References: <20210909114635.143983-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.14 145/252] drm/msm/dp: do not end dp
- link training until video is ready
+Subject: [Freedreno] [PATCH AUTOSEL 5.13 112/219] drm/msm: mdp4: drop vblank
+ get/put from prepare/complete_commit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,146 +58,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Kuogee Hsieh <khsieh@codeaurora.org>
+From: David Heidelberg <david@ixit.cz>
 
-[ Upstream commit 2e0adc765d884cc080baa501e250bfad97035b09 ]
+[ Upstream commit 56bd931ae506730c9ab1e4cc4bfefa43fc2d18fa ]
 
-Initialize both pre-emphasis and voltage swing level to 0 before
-start link training and do not end link training until video is
-ready to reduce the period between end of link training and video
-start to meet Link Layer CTS requirement.  Some dongle main link
-symbol may become unlocked again if host did not end link training
-soon enough after completion of link training 2. Host have to re
-train main link if loss of symbol locked detected before end link
-training so that the coming video stream can be transmitted to sink
-properly. This fixes Link Layer CTS cases 4.3.2.1, 4.3.2.2, 4.3.2.3
-and 4.3.2.4.
+msm_atomic is doing vblank get/put's already,
+currently there no need to duplicate the effort in MDP4
 
-Changes in v3:
--- merge retrain link if loss of symbol locked happen into this patch
--- replace dp_ctrl_loss_symbol_lock() with dp_ctrl_channel_eq_ok()
+Fix warning:
+...
+WARNING: CPU: 3 PID: 79 at drivers/gpu/drm/drm_vblank.c:1194 drm_vblank_put+0x1cc/0x1d4
+...
+and multiple vblank time-outs:
+...
+msm 5100000.mdp: vblank time out, crtc=1
+...
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Link: https://lore.kernel.org/r/1628196295-7382-7-git-send-email-khsieh@codeaurora.org
+Tested on Nexus 7 2013 (deb), LTS 5.10.50.
+
+Introduced by: 119ecb7fd3b5 ("drm/msm/mdp4: request vblank during modeset")
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Link: https://lore.kernel.org/r/20210715060925.7880-1-david@ixit.cz
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 56 +++++++++++++++++++++++---------
- 1 file changed, 41 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 30d20e3beb29..6f5e45d54b26 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1480,6 +1480,9 @@ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 4a5b518288b0..1325731282f7 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -108,13 +108,6 @@ static void mdp4_disable_commit(struct msm_kms *kms)
  
- 	dp_ctrl_push_idle(&ctrl->dp_ctrl);
- 
-+	ctrl->link->phy_params.p_level = 0;
-+	ctrl->link->phy_params.v_level = 0;
-+
- 	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
- 
- 	ret = dp_ctrl_setup_main_link(ctrl, &training_step);
-@@ -1632,6 +1635,16 @@ static bool dp_ctrl_clock_recovery_any_ok(
- 	return drm_dp_clock_recovery_ok(link_status, reduced_cnt);
- }
- 
-+static bool dp_ctrl_channel_eq_ok(struct dp_ctrl_private *ctrl)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE];
-+	int num_lanes = ctrl->link->link_params.num_lanes;
-+
-+	dp_ctrl_read_link_status(ctrl, link_status);
-+
-+	return drm_dp_channel_eq_ok(link_status, num_lanes);
-+}
-+
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ static void mdp4_prepare_commit(struct msm_kms *kms, struct drm_atomic_state *state)
  {
- 	int rc = 0;
-@@ -1666,6 +1679,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 		ctrl->link->link_params.rate,
- 		ctrl->link->link_params.num_lanes, ctrl->dp_ctrl.pixel_rate);
- 
-+	ctrl->link->phy_params.p_level = 0;
-+	ctrl->link->phy_params.v_level = 0;
-+
- 	rc = dp_ctrl_enable_mainlink_clocks(ctrl);
- 	if (rc)
- 		return rc;
-@@ -1731,17 +1747,19 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN)
- 		return rc;
- 
--	/* stop txing train pattern */
--	dp_ctrl_clear_training_pattern(ctrl);
-+	if (rc == 0) {  /* link train successfully */
-+		/*
-+		 * do not stop train pattern here
-+		 * stop link training at on_stream
-+		 * to pass compliance test
-+		 */
-+	} else  {
-+		/*
-+		 * link training failed
-+		 * end txing train pattern here
-+		 */
-+		dp_ctrl_clear_training_pattern(ctrl);
- 
--	/*
--	 * keep transmitting idle pattern until video ready
--	 * to avoid main link from loss of sync
--	 */
--	if (rc == 0)  /* link train successfully */
--		dp_ctrl_push_idle(dp_ctrl);
--	else  {
--		/* link training failed */
- 		dp_ctrl_deinitialize_mainlink(ctrl);
- 		rc = -ECONNRESET;
- 	}
-@@ -1749,9 +1767,15 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 	return rc;
- }
- 
-+static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
-+{
-+	int training_step = DP_TRAINING_NONE;
-+
-+	return dp_ctrl_setup_main_link(ctrl, &training_step);
-+}
-+
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- {
--	u32 rate = 0;
- 	int ret = 0;
- 	bool mainlink_ready = false;
- 	struct dp_ctrl_private *ctrl;
-@@ -1761,10 +1785,6 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- 
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
- 
--	rate = ctrl->panel->link_info.rate;
+-	int i;
+-	struct drm_crtc *crtc;
+-	struct drm_crtc_state *crtc_state;
 -
--	ctrl->link->link_params.rate = rate;
--	ctrl->link->link_params.num_lanes = ctrl->panel->link_info.num_lanes;
- 	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+-	/* see 119ecb7fd */
+-	for_each_new_crtc_in_state(state, crtc, crtc_state, i)
+-		drm_crtc_vblank_get(crtc);
+ }
  
- 	DRM_DEBUG_DP("rate=%d, num_lanes=%d, pixel_rate=%d\n",
-@@ -1779,6 +1799,12 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
- 		}
- 	}
+ static void mdp4_flush_commit(struct msm_kms *kms, unsigned crtc_mask)
+@@ -133,12 +126,6 @@ static void mdp4_wait_flush(struct msm_kms *kms, unsigned crtc_mask)
  
-+	if (!dp_ctrl_channel_eq_ok(ctrl))
-+		dp_ctrl_link_retrain(ctrl);
-+
-+	/* stop txing train pattern to end link training */
-+	dp_ctrl_clear_training_pattern(ctrl);
-+
- 	ret = dp_ctrl_enable_stream_clocks(ctrl);
- 	if (ret) {
- 		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+ static void mdp4_complete_commit(struct msm_kms *kms, unsigned crtc_mask)
+ {
+-	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
+-	struct drm_crtc *crtc;
+-
+-	/* see 119ecb7fd */
+-	for_each_crtc_mask(mdp4_kms->dev, crtc, crtc_mask)
+-		drm_crtc_vblank_put(crtc);
+ }
+ 
+ static long mdp4_round_pixclk(struct msm_kms *kms, unsigned long rate,
 -- 
 2.30.2
 
