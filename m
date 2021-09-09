@@ -2,60 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B302C405A1D
-	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 17:21:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69BF9405A8B
+	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 18:13:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 501D56E88C;
-	Thu,  9 Sep 2021 15:21:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE7496E528;
+	Thu,  9 Sep 2021 16:13:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3C376E88C;
- Thu,  9 Sep 2021 15:21:06 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id n5so3083814wro.12;
- Thu, 09 Sep 2021 08:21:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10C6D6E528
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Sep 2021 16:13:29 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id b7so3013280iob.4
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Sep 2021 09:13:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rvwve1JVv7qCtcua8E5GzDzzsYSmvS/kJBQKySmuWws=;
- b=NppwK7rUCgUe0chvs65SWbif95sBaqTzuKm3NJR4VG+y8fY2LrGNPEo2y49NP8WThD
- CeojhHJaiYraWKKswlUe03y65jSZEHcAQNSDM6RjaesHs0372O5jY/gZlkbuiIkK0fL+
- RyKuJ0X6YGfuOgsUJoPFIIhFHxAsL9sKRaKsMyIqI1rPqwQQbfcXcWdQyryC24VLBhEl
- KJXB5+F17qCWEqj8R4KeqXOQ1mxoXfPJHjRxAcjQlsTjrQtsPuipkVGdOhxYXQ3uRUQX
- 2pi0OmeS7s+9AkEaH2/N0Fofq6bPldWph2yBE9Z8jnQBGWHPQkynwfi4Z4btMbdfhqxv
- 1ohg==
+ :cc; bh=pACnzJlHMR2izPaEcZdZJlVxKc2mAvyrU+PyfYWuqjY=;
+ b=t6b96zprUu+yVzDHJupCAH73jnub/kQdWCLt5XJgNoL33Oiellv9B1ido23G4XTORY
+ 7k9Hh37OLWFfZcZlwIJVrbE2YWyDirMOczoUQ6/EofSVVgQ+Ol8mrcRsTmFdzvzRv6wF
+ elvTuv8Ea4SJP+CKYRit3qTfis4np14DXqIbiqW0B8J1mYwUI23q1FdzYQ+guyA4My+6
+ O00/IyGfcO6QP6VZc9+6jh//JSE2zz4WxNMOQPfZV8j0r9Zfgvxm5mHfBzyEKvoKGZdQ
+ KD8m6joLHqL4VV3E3b0GgqeIETpWKbSItcDG/lvtFdw8lzZ9vAtF7VxS5rioJduy6ztD
+ J3fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rvwve1JVv7qCtcua8E5GzDzzsYSmvS/kJBQKySmuWws=;
- b=bQ95OQrSOPj40wC6YVIYdk3J/ilNo2Fj3Si7n2N1dFfoIRr5TGC9ukGCys9RK+AOz1
- TbxQe8Hp+eoI2a7gjwGwEtR/JH1QaRVpxnNmFrd2NZFnPV39aDlDuTSHU3GIP47L3HxW
- XkUqxviPdq7BkbdaV8hU/2U9NxNtDtRcG7VfN3y3NoRv3xFLerGJZCiHkcqhN1e1oDdF
- q5daBzJX4IgbFyRAIE+ZQA6JOzNEHC+Z6mfFKNcOF1ZlxB2S1r2OCxxs8SfrT38kKQO5
- O/QtJ/6bolDwl9P8824i60iIqTdn0v4lG6R/rdbk2F+suuhhjTUIuBMd7Abt303V9awC
- euow==
-X-Gm-Message-State: AOAM531BhMw2T/5zh2vdnE1hppeb6LwkUcZ7Awdok77xzgSlxL267yhk
- 7nE0bKbqlDtPyu+0Tn8IkL9CFgGYoPbQUCLd6Wc=
-X-Google-Smtp-Source: ABdhPJztlwrv7ry+m1wiT/dRKecbPi6idR0Qddi85pJxJlf9bK8wOtbZGXS8VjHlLFucQa4yKPBfzIO2KHchZcutc24=
-X-Received: by 2002:adf:e5c2:: with SMTP id a2mr4251841wrn.251.1631200865258; 
- Thu, 09 Sep 2021 08:21:05 -0700 (PDT)
+ bh=pACnzJlHMR2izPaEcZdZJlVxKc2mAvyrU+PyfYWuqjY=;
+ b=csDJ1LyVNUgBrGbakSD6BUlOdLgoS7+bmdJTf8EtCCOF8YKvUAiIxeH1/OP2g4uE/Y
+ CQYnRrSULh9PR70NoN2hyxjdQRe2uI1Ch8etHjdribGsQjK/i/kHoxHFORzuQZfRxvoq
+ yQzb8ejZIL487R6Bg5xUx5dyuFzgP/+mk4etlj50wCB2Tw1kSuNCA80G66HYIuEa5KNo
+ C4n2PHX/SDrQ46I3BGudUAPDfbCN0KMjF9SL5isL54cU3+93P/lU5vF6/W3ei+fQHJen
+ LG27oob2q5PdknqKCiYC8Hfc+02jEZwih4eVTzClETL1ydOOGri3aJtzkYmVdMDCQAcM
+ 1FSA==
+X-Gm-Message-State: AOAM531Pm/NCRelF6JjFXiDWIGDu2DrkVbKBba4NrFM1pmULTVprLRhU
+ ZUeXkJq9+doFejshlSscm44In9cuQbhjdk7CU8zqMg==
+X-Google-Smtp-Source: ABdhPJxt/WFs4KqqqwMz/AgcK0MKJvBdp6ymGY5KAiQiTL/VZpyvs3S9RKg1jPGlq525uKKkkgkmSwOdN7n8iEtOMo0=
+X-Received: by 2002:a02:9204:: with SMTP id x4mr523733jag.45.1631204009109;
+ Thu, 09 Sep 2021 09:13:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210830162232.1328594-1-robdclark@gmail.com>
- <CAF6AEGs2dycGhitXWdcOD8pNqmsueRxD_ZmR0NCXc074kHTwUw@mail.gmail.com>
- <YTmb/3jxCUwXOp9K@platvala-desk.ger.corp.intel.com>
-In-Reply-To: <YTmb/3jxCUwXOp9K@platvala-desk.ger.corp.intel.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 9 Sep 2021 08:25:32 -0700
-Message-ID: <CAF6AEGv5gJrs8PX6tKg8uMxMmCTvVgTqSvqA0dWrFdm2nCwVRg@mail.gmail.com>
-To: Petri Latvala <petri.latvala@intel.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
+References: <e2cebf65-012d-f818-8202-eb511c996e28@linaro.org>
+ <CAF6AEGs11aYnkL30kp79pMqLTg3_4otFwG2Oc890Of2ndLbELw@mail.gmail.com>
+ <b7334a1a-c4ad-da90-03b4-0d19e1811b13@linaro.org>
+ <CAF6AEGv0WWB3Z1hmXf8vxm1_-d7fsNBRcaQF35aE2JXcJn8-cA@mail.gmail.com>
+ <8aa590be-6a9f-9343-e897-18e86ea48202@linaro.org>
+ <CAF6AEGtd_5jKhixp6h+NnN8-aqjBHTLopRozASE73oT3rfnFHA@mail.gmail.com>
+ <6eefedb2-9e59-56d2-7703-2faf6cb0ca3a@codeaurora.org>
+ <CAF6AEGvhqPHWNK=6GYz+Mu5aKe8+iE4_Teem6o=X6eiANhWsPg@mail.gmail.com>
+ <83ecbe74-caf0-6c42-e6f5-4887b3b534c6@linaro.org>
+ <53d3e5b7-9dc0-a806-70e9-b9b5ff877462@codeaurora.org>
+ <YTgeIuwumPoR9ZTE@ripper>
+ <CAMi1Hd1TOFj5USToEhuvZz8vgboQbMWco7gN413-jHJp-A7Ozg@mail.gmail.com>
+In-Reply-To: <CAMi1Hd1TOFj5USToEhuvZz8vgboQbMWco7gN413-jHJp-A7Ozg@mail.gmail.com>
+From: Amit Pundir <amit.pundir@linaro.org>
+Date: Thu, 9 Sep 2021 21:42:52 +0530
+Message-ID: <CAMi1Hd2gmo-qzDSDpi1hwpX=N1eGM+Q5HqPSvdbq9LdqwNuK+w@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Akhil P Oommen <akhilpo@codeaurora.org>,
+ Caleb Connolly <caleb.connolly@linaro.org>, 
+ Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
+ Rob Clark <robdclark@chromium.org>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, Jonathan Marek <jonathan@marek.ca>, 
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ open list <linux-kernel@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH igt v3 0/3] Initial igt tests for drm/msm
- ioctls
+Subject: Re: [Freedreno] [PATCH] drm/msm: Disable frequency clamping on a630
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,28 +86,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 8, 2021 at 10:27 PM Petri Latvala <petri.latvala@intel.com> wrote:
+On Thu, 9 Sept 2021 at 17:47, Amit Pundir <amit.pundir@linaro.org> wrote:
 >
-> On Wed, Sep 08, 2021 at 11:02:42AM -0700, Rob Clark wrote:
-> > On Mon, Aug 30, 2021 at 9:18 AM Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Add an initial set of tests for the gpu SUBMIT ioctl.  There is
-> > > plenty more we can add, but need to start somewhere.
-> > >
-> > > Rob Clark (3):
-> > >   drmtest: Add DRIVER_MSM support
-> > >   msm: Add helper library
-> > >   msm: Add submit ioctl tests
+> On Wed, 8 Sept 2021 at 07:50, Bjorn Andersson
+> <bjorn.andersson@linaro.org> wrote:
 > >
-> > If there are no more comments on this series, could somebody push it?
+> > On Mon 09 Aug 10:26 PDT 2021, Akhil P Oommen wrote:
+> >
+> > > On 8/9/2021 9:48 PM, Caleb Connolly wrote:
+> > > >
+> > > >
+> > > > On 09/08/2021 17:12, Rob Clark wrote:
+> > > > > On Mon, Aug 9, 2021 at 7:52 AM Akhil P Oommen
+> > > > > <akhilpo@codeaurora.org> wrote:
+> > [..]
+> > > > > > I am a bit confused. We don't define a power domain for gpu in dt,
+> > > > > > correct? Then what exactly set_opp do here? Do you think this usleep is
+> > > > > > what is helping here somehow to mask the issue?
+> > > > The power domains (for cx and gx) are defined in the GMU DT, the OPPs in
+> > > > the GPU DT. For the sake of simplicity I'll refer to the lowest
+> > > > frequency (257000000) and OPP level (RPMH_REGULATOR_LEVEL_LOW_SVS) as
+> > > > the "min" state, and the highest frequency (710000000) and OPP level
+> > > > (RPMH_REGULATOR_LEVEL_TURBO_L1) as the "max" state. These are defined in
+> > > > sdm845.dtsi under the gpu node.
+> > > >
+> > > > The new devfreq behaviour unmasks what I think is a driver bug, it
+> > > > inadvertently puts much more strain on the GPU regulators than they
+> > > > usually get. With the new behaviour the GPU jumps from it's min state to
+> > > > the max state and back again extremely rapidly under workloads as small
+> > > > as refreshing UI. Where previously the GPU would rarely if ever go above
+> > > > 342MHz when interacting with the device, it now jumps between min and
+> > > > max many times per second.
+> > > >
+> > > > If my understanding is correct, the current implementation of the GMU
+> > > > set freq is the following:
+> > > >   - Get OPP for frequency to set
+> > > >   - Push the frequency to the GMU - immediately updating the core clock
+> > > >   - Call dev_pm_opp_set_opp() which triggers a notify chain, this winds
+> > > > up somewhere in power management code and causes the gx regulator level
+> > > > to be updated
+> > >
+> > > Nope. dev_pm_opp_set_opp() sets the bandwidth for gpu and nothing else. We
+> > > were using a different api earlier which got deprecated -
+> > > dev_pm_opp_set_bw().
+> > >
+> >
+> > On the Lenovo Yoga C630 this is reproduced by starting alacritty and if
+> > I'm lucky I managed to hit a few keys before it crashes, so I spent a
+> > few hours looking into this as well...
+> >
+> > As you say, the dev_pm_opp_set_opp() will only cast a interconnect vote.
+> > The opp-level is just there for show and isn't used by anything, at
+> > least not on 845.
+> >
+> > Further more, I'm missing something in my tree, so the interconnect
+> > doesn't hit sync_state, and as such we're not actually scaling the
+> > buses. So the problem is not that Linux doesn't turn on the buses in
+> > time.
+> >
+> > So I suspect that the "AHB bus error" isn't saying that we turned off
+> > the bus, but rather that the GPU becomes unstable or something of that
+> > sort.
+> >
+> >
+> > Lastly, I reverted 9bc95570175a ("drm/msm: Devfreq tuning") and ran
+> > Aquarium for 20 minutes without a problem. I then switched the gpu
+> > devfreq governor to "userspace" and ran the following:
+> >
+> > while true; do
+> >   echo 257000000 > /sys/class/devfreq/5000000.gpu/userspace/set_freq
+> >   echo 710000000 > /sys/class/devfreq/5000000.gpu/userspace/set_freq
+> > done
+> >
+> > It took 19 iterations of this loop to crash the GPU.
 >
-> Ah, I was expecting you to do it yourself. Merged now.
+> Ack. With your above script, I can reproduce a crash too on db845c
+> (A630) running v5.14. I didn't get any crash log though and device
+> just rebooted to USB crash mode.
 >
+> And same crash on RB5 (A650) too https://hastebin.com/raw/ejutetuwun
 
-Thanks.. and actually now that I've checked, I realized I had
-developer access to push.  Sorry, I didn't realize that before
+fwiw I can't reproduce this crash on RB5 so far with v5.15-rc1 merge
+window (HEAD: 477f70cd2a67)
 
-BR,
--R
+>
+> >
+> > So the problem doesn't seem to be Rob's change, it's just that prior to
+> > it the chance to hitting it is way lower. Question is still what it is
+> > that we're triggering.
+> >
+> > Regards,
+> > Bjorn
