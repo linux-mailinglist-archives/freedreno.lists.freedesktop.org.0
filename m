@@ -2,45 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF01E4044F5
-	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 07:27:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBA004049E8
+	for <lists+freedreno@lfdr.de>; Thu,  9 Sep 2021 13:43:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26986E159;
-	Thu,  9 Sep 2021 05:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46CB96E523;
+	Thu,  9 Sep 2021 11:43:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F6296E14F;
- Thu,  9 Sep 2021 05:27:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10101"; a="281699118"
-X-IronPort-AV: E=Sophos;i="5.85,279,1624345200"; d="scan'208";a="281699118"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2021 22:27:34 -0700
-X-IronPort-AV: E=Sophos;i="5.85,279,1624345200"; d="scan'208";a="696084370"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.68.154])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2021 22:27:32 -0700
-Received: from platvala by thrakatuluk with local (Exim 4.94)
- (envelope-from <petri.latvala@intel.com>)
- id 1mOCdz-0000Z8-Uz; Thu, 09 Sep 2021 08:30:39 +0300
-Date: Thu, 9 Sep 2021 08:30:39 +0300
-From: Petri Latvala <petri.latvala@intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: igt-dev@lists.freedesktop.org, freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Rob Clark <robdclark@chromium.org>
-Message-ID: <YTmb/3jxCUwXOp9K@platvala-desk.ger.corp.intel.com>
-References: <20210830162232.1328594-1-robdclark@gmail.com>
- <CAF6AEGs2dycGhitXWdcOD8pNqmsueRxD_ZmR0NCXc074kHTwUw@mail.gmail.com>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A91816E51D;
+ Thu,  9 Sep 2021 11:43:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A48A361245;
+ Thu,  9 Sep 2021 11:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1631187788;
+ bh=N+oKi7eeVnuYEUVTGN5wXiWpy68Vo34sA0FAwHUYF8I=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=nCCV6U8x3s3v1ch5xWkNyDRwLzdVak9idScxJcLrwf0XMnfLpduLdle5aBIxgyfFg
+ 6EiYbz8cK1pRx7g7dxStRjnh1leuxY1/JXzgw9pqeJwS73p6s4hZjUfiiLJKkmKQRJ
+ 8h8+ffxGP6ALXG73hitW3RfKahNDWSW1Gy/Lg6wA5L+01S2MOd3w0Yob7WcqgmACbW
+ ZGkHbM38njwOcpfTERed3sn9T0cGPAL3kC1fKlDKQbQPqoeuBZYRIakZ5aNvyuo2V5
+ DBNneQJU+N9bgfGPJoyPgqCzspnorvqLSGiWeTmke2iJfg5F+hbvmtup8V4TOtrlGL
+ WnXGCnqm3wShA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Akhil P Oommen <akhilpo@codeaurora.org>,
+ Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Date: Thu,  9 Sep 2021 07:38:29 -0400
+Message-Id: <20210909114106.141462-95-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210909114106.141462-1-sashal@kernel.org>
+References: <20210909114106.141462-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGs2dycGhitXWdcOD8pNqmsueRxD_ZmR0NCXc074kHTwUw@mail.gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH igt v3 0/3] Initial igt tests for drm/msm
- ioctls
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH AUTOSEL 5.14 095/252] drm/msm/a6xx: Fix llcc
+ configuration for a660 gpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,23 +57,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 08, 2021 at 11:02:42AM -0700, Rob Clark wrote:
-> On Mon, Aug 30, 2021 at 9:18 AM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Add an initial set of tests for the gpu SUBMIT ioctl.  There is
-> > plenty more we can add, but need to start somewhere.
-> >
-> > Rob Clark (3):
-> >   drmtest: Add DRIVER_MSM support
-> >   msm: Add helper library
-> >   msm: Add submit ioctl tests
-> 
-> If there are no more comments on this series, could somebody push it?
+From: Akhil P Oommen <akhilpo@codeaurora.org>
 
-Ah, I was expecting you to do it yourself. Merged now.
+[ Upstream commit a6f24383f6c0a8d64d1f6afa10733ae4e8f236e0 ]
 
+Add the missing scache_cntl0 register programing which is required for
+a660 gpu.
 
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+Link: https://lore.kernel.org/r/20210730011945.v4.1.I110b87677ef16d97397fb7c81c07a16e1f5d211e@changeid
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 46 ++++++++++++++++-----------
+ 1 file changed, 27 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 9c5e4618aa0a..183b9f9c1b31 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1383,13 +1383,13 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
+-	u32 cntl1_regval = 0;
++	u32 gpu_scid, cntl1_regval = 0;
+ 
+ 	if (IS_ERR(a6xx_gpu->llc_mmio))
+ 		return;
+ 
+ 	if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
+-		u32 gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
++		gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
+ 
+ 		gpu_scid &= 0x1f;
+ 		cntl1_regval = (gpu_scid << 0) | (gpu_scid << 5) | (gpu_scid << 10) |
+@@ -1409,26 +1409,34 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+ 		}
+ 	}
+ 
+-	if (cntl1_regval) {
++	if (!cntl1_regval)
++		return;
++
++	/*
++	 * Program the slice IDs for the various GPU blocks and GPU MMU
++	 * pagetables
++	 */
++	if (!a6xx_gpu->have_mmu500) {
++		a6xx_llc_write(a6xx_gpu,
++			REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
++
+ 		/*
+-		 * Program the slice IDs for the various GPU blocks and GPU MMU
+-		 * pagetables
++		 * Program cacheability overrides to not allocate cache
++		 * lines on a write miss
+ 		 */
+-		if (a6xx_gpu->have_mmu500)
+-			gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0),
+-				cntl1_regval);
+-		else {
+-			a6xx_llc_write(a6xx_gpu,
+-				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
+-
+-			/*
+-			 * Program cacheability overrides to not allocate cache
+-			 * lines on a write miss
+-			 */
+-			a6xx_llc_rmw(a6xx_gpu,
+-				REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
+-		}
++		a6xx_llc_rmw(a6xx_gpu,
++			REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
++		return;
+ 	}
++
++	gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0), cntl1_regval);
++
++	/* On A660, the SCID programming for UCHE traffic is done in
++	 * A6XX_GBIF_SCACHE_CNTL0[14:10]
++	 */
++	if (adreno_is_a660(adreno_gpu))
++		gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL0, (0x1f << 10) |
++			(1 << 8), (gpu_scid << 10) | (1 << 8));
+ }
+ 
+ static void a6xx_llc_slices_destroy(struct a6xx_gpu *a6xx_gpu)
 -- 
-Petri Latvala
+2.30.2
+
