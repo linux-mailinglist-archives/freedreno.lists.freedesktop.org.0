@@ -1,67 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE2AD409393
-	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 16:23:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E22A40929C
+	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 16:14:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 552016E10A;
-	Mon, 13 Sep 2021 14:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38A9F6E0EC;
+	Mon, 13 Sep 2021 14:14:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 1375 seconds by postgrey-1.36 at gabe;
- Mon, 13 Sep 2021 04:56:02 UTC
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD696E0D8;
- Mon, 13 Sep 2021 04:56:02 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 18D4X234102717;
- Sun, 12 Sep 2021 23:33:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1631507582;
- bh=69WhAtP/XV2lc3VDriRBaF77eUBDt+20lz9YeiUgYXo=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=V/Ed3+V9Mfi4Lo3Yk2sjcpbZ98c+KrgEXKFp4pfczIfLPZ4SqyCaNnT7g9xlGmBYY
- jn3omaqTNz1HQ4QC+abxwIy8wheZ0FpCeGCEvU0S0w9bhLooxDUjoVJP9U2oQxyhE4
- MKoCk7026w/mywpXI9DyDjK4G6eLhFWiUWQXhoX4=
-Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 18D4X2Qj005183
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Sun, 12 Sep 2021 23:33:02 -0500
-Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Sun, 12
- Sep 2021 23:33:01 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE101.ent.ti.com
- (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
- Frontend Transport; Sun, 12 Sep 2021 23:33:01 -0500
-Received: from [10.250.232.51] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 18D4WuO2118326;
- Sun, 12 Sep 2021 23:32:58 -0500
-To: Rob Herring <robh@kernel.org>, <devicetree@vger.kernel.org>
-CC: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Mark Brown
- <broonie@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter
- Roeck <linux@roeck-us.net>,
- Jonathan Marek <jonathan@marek.ca>, Marc Zyngier <maz@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-spi@vger.kernel.org>, <linux-watchdog@vger.kernel.org>
-References: <20210910165153.2843871-1-robh@kernel.org>
-From: Aswath Govindraju <a-govindraju@ti.com>
-Message-ID: <b56ee1c2-ce2d-a3ed-ff54-7b0d956f959a@ti.com>
-Date: Mon, 13 Sep 2021 10:02:55 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 664B56E0EC
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Sep 2021 14:14:22 +0000 (UTC)
+Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6CC6A1F4B9;
+ Mon, 13 Sep 2021 16:14:18 +0200 (CEST)
+Date: Mon, 13 Sep 2021 16:14:17 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Cc: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ konrad.dybcio@somainline.org, martin.botka@somainline.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ paul.bouchara@somainline.org
+Message-ID: <20210913141417.7brqczhagufgqch2@SoMainline.org>
+References: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
+ <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
 MIME-Version: 1.0
-In-Reply-To: <20210910165153.2843871-1-robh@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Mailman-Approved-At: Mon, 13 Sep 2021 14:23:20 +0000
-Subject: Re: [Freedreno] [PATCH] dt-bindings: More use 'enum' instead of
- 'oneOf' plus 'const' entries
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Fix timeout issues on
+ command mode panels
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,97 +54,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/09/21 10:21 pm, Rob Herring wrote:
-> 'enum' is equivalent to 'oneOf' with a list of 'const' entries, but 'enum'
-> is more concise and yields better error messages.
+On 2021-09-11 18:39:19, AngeloGioacchino Del Regno wrote:
+> In function dpu_encoder_phys_cmd_wait_for_commit_done we are always
+> checking if the relative CTL is started by waiting for an interrupt
+> to fire: it is fine to do that, but then sometimes we call this
+> function while the CTL is up and has never been put down, but that
+> interrupt gets raised only when the CTL gets a state change from
+> 0 to 1 (disabled to enabled), so we're going to wait for something
+> that will never happen on its own.
 > 
-> Fix a couple more cases which have appeared.
+> Solving this while avoiding to restart the CTL is actually possible
+> and can be done by just checking if it is already up and running
+> when the wait_for_commit_done function is called: in this case, so,
+> if the CTL was already running, we can say that the commit is done
+> if the command transmission is complete (in other terms, if the
+> interface has been flushed).
 > 
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Jonathan Marek <jonathan@marek.ca>
-> Cc: Aswath Govindraju <a-govindraju@ti.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-spi@vger.kernel.org
-> Cc: linux-watchdog@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+
+This has unfortunately not solved any ctl_start timeout issues for me/us
+on other platforms yet, but for the code:
+
+Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+
 > ---
->  .../bindings/display/msm/dsi-phy-7nm.yaml          |  8 ++++----
->  .../devicetree/bindings/spi/omap-spi.yaml          |  6 +++---
-
-For omap-spi:
-
-Acked-by: Aswath Govindraju <a-govindraju@ti.com>
-
->  .../bindings/watchdog/maxim,max63xx.yaml           | 14 +++++++-------
->  3 files changed, 14 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> index 4265399bb154..c851770bbdf2 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-7nm.yaml
-> @@ -14,10 +14,10 @@ allOf:
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> index aa01698d6b25..aa5d3b3cef15 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> @@ -682,6 +682,9 @@ static int dpu_encoder_phys_cmd_wait_for_commit_done(
+>  	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
+>  		return 0;
 >  
->  properties:
->    compatible:
-> -    oneOf:
-> -      - const: qcom,dsi-phy-7nm
-> -      - const: qcom,dsi-phy-7nm-8150
-> -      - const: qcom,sc7280-dsi-phy-7nm
-> +    enum:
-> +      - qcom,dsi-phy-7nm
-> +      - qcom,dsi-phy-7nm-8150
-> +      - qcom,sc7280-dsi-phy-7nm
+> +	if (phys_enc->hw_ctl->ops.is_started(phys_enc->hw_ctl))
+> +		return dpu_encoder_phys_cmd_wait_for_tx_complete(phys_enc);
+> +
+>  	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
+>  }
 >  
->    reg:
->      items:
-> diff --git a/Documentation/devicetree/bindings/spi/omap-spi.yaml b/Documentation/devicetree/bindings/spi/omap-spi.yaml
-> index e55538186cf6..9952199cae11 100644
-> --- a/Documentation/devicetree/bindings/spi/omap-spi.yaml
-> +++ b/Documentation/devicetree/bindings/spi/omap-spi.yaml
-> @@ -84,9 +84,9 @@ unevaluatedProperties: false
->  if:
->    properties:
->      compatible:
-> -      oneOf:
-> -        - const: ti,omap2-mcspi
-> -        - const: ti,omap4-mcspi
-> +      enum:
-> +        - ti,omap2-mcspi
-> +        - ti,omap4-mcspi
->  
->  then:
->    properties:
-> diff --git a/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml b/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> index f2105eedac2c..ab9641e845db 100644
-> --- a/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/maxim,max63xx.yaml
-> @@ -15,13 +15,13 @@ maintainers:
->  
->  properties:
->    compatible:
-> -    oneOf:
-> -      - const: maxim,max6369
-> -      - const: maxim,max6370
-> -      - const: maxim,max6371
-> -      - const: maxim,max6372
-> -      - const: maxim,max6373
-> -      - const: maxim,max6374
-> +    enum:
-> +      - maxim,max6369
-> +      - maxim,max6370
-> +      - maxim,max6371
-> +      - maxim,max6372
-> +      - maxim,max6373
-> +      - maxim,max6374
->  
->    reg:
->      description: This is a 1-byte memory-mapped address
+> -- 
+> 2.32.0
 > 
-
