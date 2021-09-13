@@ -2,43 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E22A40929C
-	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 16:14:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F735409A05
+	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 18:52:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38A9F6E0EC;
-	Mon, 13 Sep 2021 14:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F165E6ECC4;
+	Mon, 13 Sep 2021 16:52:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 664B56E0EC
- for <freedreno@lists.freedesktop.org>; Mon, 13 Sep 2021 14:14:22 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 6CC6A1F4B9;
- Mon, 13 Sep 2021 16:14:18 +0200 (CEST)
-Date: Mon, 13 Sep 2021 16:14:17 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-Cc: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, abhinavk@codeaurora.org,
+X-Greylist: delayed 345 seconds by postgrey-1.36 at gabe;
+ Mon, 13 Sep 2021 16:52:08 UTC
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B345B6E207;
+ Mon, 13 Sep 2021 16:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1631551571;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=LDKU/RP1Q4cF+tw+7bkG3lbITIkUa4qSx/UdAGSCvN0=;
+ b=Ax0e5xbmRT9KN0bWzxrOe/h3pdnK5ju7e8yOrARnvkxqKXf/zGmnjgExpFukHA0pwH
+ MZpcFbMWA9xvTxyx77rocc8y9QdI6FlH5VSKfeL0l4wNXsSCywTAz3qEQsYfYR951iYy
+ RrLYlnMXQNM8tr959amuhAEpm/Kce1B6yFxGVOiDm7KuM/j2yA3JQqlqNNZsXrOv7uKq
+ 0J4ipcBuol3TluSqOBKEAXPHMaOIIVAiheAV9c0tptWF9dtlG7KmEM9+3HyTbt3rdnxK
+ dKXy8G4QEroKwGkjPREetIqnaykb89qWDokPTYsGcxySbOjCnAdqexViV+pozYYSFOk0
+ gnMQ==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXTbAOHjRHIhr2eFSKC/A="
+X-RZG-CLASS-ID: mo00
+Received: from droid.. by smtp.strato.de (RZmta 47.33.3 DYNA|AUTH)
+ with ESMTPSA id L05399x8DGkAKD1
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 13 Sep 2021 18:46:10 +0200 (CEST)
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Rob Clark <robdclark@gmail.com>,
+	Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- konrad.dybcio@somainline.org, martin.botka@somainline.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- paul.bouchara@somainline.org
-Message-ID: <20210913141417.7brqczhagufgqch2@SoMainline.org>
-References: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
- <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
+ freedreno@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Stephan Gerhold <stephan@gerhold.net>, Nikita Travkin <nikita@trvn.ru>
+Date: Mon, 13 Sep 2021 18:45:56 +0200
+Message-Id: <20210913164556.16284-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Fix timeout issues on
- command mode panels
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Fix devfreq NULL pointer dereference
+ on a3xx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,47 +63,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-09-11 18:39:19, AngeloGioacchino Del Regno wrote:
-> In function dpu_encoder_phys_cmd_wait_for_commit_done we are always
-> checking if the relative CTL is started by waiting for an interrupt
-> to fire: it is fine to do that, but then sometimes we call this
-> function while the CTL is up and has never been put down, but that
-> interrupt gets raised only when the CTL gets a state change from
-> 0 to 1 (disabled to enabled), so we're going to wait for something
-> that will never happen on its own.
-> 
-> Solving this while avoiding to restart the CTL is actually possible
-> and can be done by just checking if it is already up and running
-> when the wait_for_commit_done function is called: in this case, so,
-> if the CTL was already running, we can say that the commit is done
-> if the command transmission is complete (in other terms, if the
-> interface has been flushed).
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+There is no devfreq on a3xx at the moment since gpu_busy is not
+implemented. This means that msm_devfreq_init() will return early
+and the entire devfreq setup is skipped.
 
-This has unfortunately not solved any ctl_start timeout issues for me/us
-on other platforms yet, but for the code:
+However, msm_devfreq_active() and msm_devfreq_idle() are still called
+unconditionally later, causing a NULL pointer dereference:
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
+  Internal error: Oops: 96000004 [#1] PREEMPT SMP
+  CPU: 0 PID: 133 Comm: ring0 Not tainted 5.15.0-rc1 #4
+  Hardware name: Longcheer L8150 (DT)
+  pc : mutex_lock_io+0x2bc/0x2f0
+  lr : msm_devfreq_active+0x3c/0xe0 [msm]
+  Call trace:
+   mutex_lock_io+0x2bc/0x2f0
+   msm_gpu_submit+0x164/0x180 [msm]
+   msm_job_run+0x54/0xe0 [msm]
+   drm_sched_main+0x2b0/0x4a0 [gpu_sched]
+   kthread+0x154/0x160
+   ret_from_fork+0x10/0x20
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> index aa01698d6b25..aa5d3b3cef15 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> @@ -682,6 +682,9 @@ static int dpu_encoder_phys_cmd_wait_for_commit_done(
->  	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
->  		return 0;
->  
-> +	if (phys_enc->hw_ctl->ops.is_started(phys_enc->hw_ctl))
-> +		return dpu_encoder_phys_cmd_wait_for_tx_complete(phys_enc);
-> +
->  	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
->  }
->  
-> -- 
-> 2.32.0
-> 
+Fix this by adding a check in msm_devfreq_active/idle() which ensures
+that devfreq was actually initialized earlier.
+
+Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
+Reported-by: Nikita Travkin <nikita@trvn.ru>
+Tested-by: Nikita Travkin <nikita@trvn.ru>
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+---
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index 0a1ee20296a2..84e98c07c900 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -151,6 +151,9 @@ void msm_devfreq_active(struct msm_gpu *gpu)
+ 	unsigned int idle_time;
+ 	unsigned long target_freq = df->idle_freq;
+ 
++	if (!df->devfreq)
++		return;
++
+ 	/*
+ 	 * Hold devfreq lock to synchronize with get_dev_status()/
+ 	 * target() callbacks
+@@ -186,6 +189,9 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 	unsigned long idle_freq, target_freq = 0;
+ 
++	if (!df->devfreq)
++		return;
++
+ 	/*
+ 	 * Hold devfreq lock to synchronize with get_dev_status()/
+ 	 * target() callbacks
+-- 
+2.33.0
+
