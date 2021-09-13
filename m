@@ -2,52 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F735409A05
-	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 18:52:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84B0D409B59
+	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 19:57:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F165E6ECC4;
-	Mon, 13 Sep 2021 16:52:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B718D6ECCF;
+	Mon, 13 Sep 2021 17:57:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 345 seconds by postgrey-1.36 at gabe;
- Mon, 13 Sep 2021 16:52:08 UTC
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B345B6E207;
- Mon, 13 Sep 2021 16:52:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1631551571;
- s=strato-dkim-0002; d=gerhold.net;
- h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
- bh=LDKU/RP1Q4cF+tw+7bkG3lbITIkUa4qSx/UdAGSCvN0=;
- b=Ax0e5xbmRT9KN0bWzxrOe/h3pdnK5ju7e8yOrARnvkxqKXf/zGmnjgExpFukHA0pwH
- MZpcFbMWA9xvTxyx77rocc8y9QdI6FlH5VSKfeL0l4wNXsSCywTAz3qEQsYfYR951iYy
- RrLYlnMXQNM8tr959amuhAEpm/Kce1B6yFxGVOiDm7KuM/j2yA3JQqlqNNZsXrOv7uKq
- 0J4ipcBuol3TluSqOBKEAXPHMaOIIVAiheAV9c0tptWF9dtlG7KmEM9+3HyTbt3rdnxK
- dKXy8G4QEroKwGkjPREetIqnaykb89qWDokPTYsGcxySbOjCnAdqexViV+pozYYSFOk0
- gnMQ==
-Authentication-Results: strato.com;
-    dkim=none
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXTbAOHjRHIhr2eFSKC/A="
-X-RZG-CLASS-ID: mo00
-Received: from droid.. by smtp.strato.de (RZmta 47.33.3 DYNA|AUTH)
- with ESMTPSA id L05399x8DGkAKD1
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 13 Sep 2021 18:46:10 +0200 (CEST)
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Rob Clark <robdclark@gmail.com>,
-	Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht,
- Stephan Gerhold <stephan@gerhold.net>, Nikita Travkin <nikita@trvn.ru>
-Date: Mon, 13 Sep 2021 18:45:56 +0200
-Message-Id: <20210913164556.16284-1-stephan@gerhold.net>
-X-Mailer: git-send-email 2.33.0
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECFD36ECCE
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Sep 2021 17:57:49 +0000 (UTC)
+Received: by mail-qt1-x831.google.com with SMTP id t35so8878464qtc.6
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Sep 2021 10:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=l+Z/gkmVCvsztDvwQKTtg9653j9bA3DsjkVqL1DsfRE=;
+ b=ZTjRV66shwmj2cONWMz6N7yJ8CIb1rpv2xIwGXJTegcXg6y9l5BxWFca8wfHUbkUbr
+ Yh7isYBmCzbTR0kQMLIX/LgKfFRiw9Fj/jGky4Tq3goU/wDelLMX9djzJboCSd1w9fC+
+ 21h/+ZhuS+zLXWNXBfC0OWs4y7mQJaQfHiNy5WYWuHLgOyBX8znaC3wVh9/uVxsUbVaK
+ OVa/COnz9sMI4bSxrlaPiJn3xtwInduha2gQOMoEOWZ5EOHzgFCdOhdJEkQebi/OLOV8
+ PCqxP7xRsYks3hJbnqu3mGWQsR1MPdOS5HSCcLeFUwCsFLhCOk32YzIpzEw7OXC0x/k1
+ lbMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=l+Z/gkmVCvsztDvwQKTtg9653j9bA3DsjkVqL1DsfRE=;
+ b=y8ex2RO+gzglT2YVdAJvg1GrWWwd2sss8zqZpXX60leFICbuX22SU1fcppNn6KSOvS
+ ut6uQ4iYgBYh/LwPL+YG/Y9pLRaYv6nWBf8vMu8NG9C4ve0OA+IflojpIKS5RorKoQmX
+ JxUL/NQ47XuH8kTKInlm492975VdziFjAIz498F0VevTFnRZQgJ29AszbkzXSjx6IDXc
+ AKC6j6UgidXDUm7P/v7mBIyMLA+nVfa+6w86HpPg3h4sUrqmR9rxgZ/FX75Hq53HL0n0
+ q+hRPfv84XhigpeYT395jrQwQD3qY81wZhN9mCqMLYq4nVD4upmnRatjzpPvkH/7cYaH
+ 85Gw==
+X-Gm-Message-State: AOAM531UWxS64Aw8zEb5dC8FoObCJERjVGyyqWX93F2xbeqPrqDZqF5m
+ S75iK5y/UvxmbtRm4ShMUmyUNug9/QuL7w==
+X-Google-Smtp-Source: ABdhPJw8UyOvmhVyjPN/ZpDg5fwq/8CfA8xWtWK68mOOymsPtJuvjxAn4Tjy3QOlkHd3+SUvFRWKTQ==
+X-Received: by 2002:ac8:5f09:: with SMTP id x9mr753242qta.103.1631555868924;
+ Mon, 13 Sep 2021 10:57:48 -0700 (PDT)
+Received: from localhost ([167.100.64.199])
+ by smtp.gmail.com with ESMTPSA id s10sm5630845qko.134.2021.09.13.10.57.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 13 Sep 2021 10:57:48 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Cc: Sean Paul <seanpaul@chromium.org>
+Date: Mon, 13 Sep 2021 13:57:31 -0400
+Message-Id: <20210913175747.47456-1-sean@poorly.run>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix devfreq NULL pointer dereference
- on a3xx
+Subject: [Freedreno] [PATCH 00/14] drm/hdcp: Pull HDCP auth/exchange/check
+ into
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,62 +71,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is no devfreq on a3xx at the moment since gpu_busy is not
-implemented. This means that msm_devfreq_init() will return early
-and the entire devfreq setup is skipped.
+From: Sean Paul <seanpaul@chromium.org>
 
-However, msm_devfreq_active() and msm_devfreq_idle() are still called
-unconditionally later, causing a NULL pointer dereference:
+Hello,
+This patchset pulls the HDCP protocol auth/exchange/check logic out from
+i915 into a HDCP helper library which drivers can use to implement the
+proper protocol and UAPI interactions for achieving HDCP.
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
-  Internal error: Oops: 96000004 [#1] PREEMPT SMP
-  CPU: 0 PID: 133 Comm: ring0 Not tainted 5.15.0-rc1 #4
-  Hardware name: Longcheer L8150 (DT)
-  pc : mutex_lock_io+0x2bc/0x2f0
-  lr : msm_devfreq_active+0x3c/0xe0 [msm]
-  Call trace:
-   mutex_lock_io+0x2bc/0x2f0
-   msm_gpu_submit+0x164/0x180 [msm]
-   msm_job_run+0x54/0xe0 [msm]
-   drm_sched_main+0x2b0/0x4a0 [gpu_sched]
-   kthread+0x154/0x160
-   ret_from_fork+0x10/0x20
+Originally this was all stuffed into i915 since it was the only driver
+supporting HDCP. Over the last while I've been working on HDCP support
+in the msm driver and have identified the parts which can/should be
+shared between drivers and the parts which are hw-specific.
 
-Fix this by adding a check in msm_devfreq_active/idle() which ensures
-that devfreq was actually initialized earlier.
+We can generalize all of the sink interactions in the helper as well as
+state handling and link checks. This tends to be the trickiest part of
+adding HDCP support, since the property state and locking is a bit of a
+nightmare. The driver need only implement the more mechanical display
+controller register accesses.
 
-Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
-Reported-by: Nikita Travkin <nikita@trvn.ru>
-Tested-by: Nikita Travkin <nikita@trvn.ru>
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
----
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+The first third of the pachset is establishing the helpers, the next
+third is converting the i915 driver to use the helpers, and the last
+third is the msm driver implementation.
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 0a1ee20296a2..84e98c07c900 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -151,6 +151,9 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	unsigned int idle_time;
- 	unsigned long target_freq = df->idle_freq;
- 
-+	if (!df->devfreq)
-+		return;
-+
- 	/*
- 	 * Hold devfreq lock to synchronize with get_dev_status()/
- 	 * target() callbacks
-@@ -186,6 +189,9 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
- 	struct msm_gpu_devfreq *df = &gpu->devfreq;
- 	unsigned long idle_freq, target_freq = 0;
- 
-+	if (!df->devfreq)
-+		return;
-+
- 	/*
- 	 * Hold devfreq lock to synchronize with get_dev_status()/
- 	 * target() callbacks
+I've left out HDCP 2.x support, since we still only have i915 as the
+reference implementation and I'm not super comfortable speculating on
+which parts are platform independent.
+
+Please take a look,
+
+Sean
+
+Sean Paul (14):
+  drm/hdcp: Add drm_hdcp_atomic_check()
+  drm/hdcp: Avoid changing crtc state in hdcp atomic check
+  drm/hdcp: Update property value on content type and user changes
+  drm/hdcp: Expand HDCP helper library for enable/disable/check
+  drm/i915/hdcp: Consolidate HDCP setup/state cache
+  drm/i915/hdcp: Retain hdcp_capable return codes
+  drm/i915/hdcp: Use HDCP helpers for i915
+  drm/msm/dpu_kms: Re-order dpu includes
+  drm/msm/dpu: Remove useless checks in dpu_encoder
+  drm/msm/dpu: Remove encoder->enable() hack
+  drm/msm/dp: Re-order dp_audio_put in deinit_sub_modules
+  dt-bindings: msm/dp: Add bindings for HDCP registers
+  drm/msm: Add hdcp register ranges to sc7180 device tree
+  drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+
+ .../bindings/display/msm/dp-controller.yaml   |   11 +-
+ drivers/gpu/drm/drm_hdcp.c                    | 1198 ++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
+ .../drm/i915/display/intel_display_debugfs.c  |   11 +-
+ .../drm/i915/display/intel_display_types.h    |   58 +-
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  341 ++---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
+ drivers/gpu/drm/i915/display/intel_hdcp.h     |   35 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
+ drivers/gpu/drm/msm/Makefile                  |    1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   17 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   30 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |    4 -
+ drivers/gpu/drm/msm/dp/dp_debug.c             |   49 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
+ drivers/gpu/drm/msm/dp/dp_display.c           |   47 +-
+ drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
+ drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
+ drivers/gpu/drm/msm/dp/dp_hdcp.c              |  433 ++++++
+ drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
+ drivers/gpu/drm/msm/dp/dp_parser.c            |   30 +-
+ drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+ drivers/gpu/drm/msm/dp/dp_reg.h               |   44 +-
+ drivers/gpu/drm/msm/msm_atomic.c              |   15 +
+ include/drm/drm_hdcp.h                        |  194 +++
+ 29 files changed, 2570 insertions(+), 1385 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+ create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+
 -- 
-2.33.0
+Sean Paul, Software Engineer, Google / Chromium OS
 
