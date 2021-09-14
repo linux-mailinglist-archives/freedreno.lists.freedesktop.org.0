@@ -2,94 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C4040B0FD
-	for <lists+freedreno@lfdr.de>; Tue, 14 Sep 2021 16:35:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D542040B52E
+	for <lists+freedreno@lfdr.de>; Tue, 14 Sep 2021 18:45:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 811046E4C5;
-	Tue, 14 Sep 2021 14:35:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 150786E51B;
+	Tue, 14 Sep 2021 16:45:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 712496E4B5;
- Tue, 14 Sep 2021 14:35:52 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id 540172B01324;
- Tue, 14 Sep 2021 10:35:48 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 14 Sep 2021 10:35:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=gzQp1QWFJ1terVGLXG3LkelZHX1
- PY0zeCf7c+zfmKMQ=; b=qwrojLetWm8vSiNaOYOzvA/4bx5c9Ldp0mN1akY5Tic
- XOFC+LZ3NHVFZI0Q4j2gV0uL7YEnEhe21l1M5TJFRig2DKZ4Un6hDXjgQOii1Y82
- 5WyO4KZZoNqJ7oKdX2MwmOfMWRot1Q9AgXdATsPsVVG1riN9nlnyyYDqXn3YFXN+
- 9s2V28gn97sb698EtmBEz1ccHFSZHOl3o33DXtlw99spoJ9ov5lx4oe2vyal1Z25
- oC6aWg/N2xi93fEny5sIuxmWO0VPSLBWD1xzy12AF01w9pCYn7bWBQxuyyMCpvaM
- y39vOL7n4ExOP5RKVrgIgcSbtNTWg/52A2XQpR9ZJ2g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=gzQp1Q
- WFJ1terVGLXG3LkelZHX1PY0zeCf7c+zfmKMQ=; b=c/mMgHLb69f6Km6Eo4UNJk
- iqu9ZZm7TixCWDggjEknfbBqsJ52MzYz/I4E70KNWN/WqGb3DQztg8k8Yrg3GJWH
- j2J6KLBaFTzsJxJV91N4IKyxV0/a6O4XJ3IvpCkAC8pP6I0sr3cNzGcMlPlA8env
- X2ImR9ouayJUHXEp/1vY0qlG+uEifOqaQSSqfF8UuJkExlp3xMnD0e7qfgfD0Sg1
- OE5DWmY8f3GCZHWtF+3JmCP1ZfpRdijxPE1U4kDXV43gPOKkuJp+IpDKyKvq8XYx
- 80xU/GYYirii0rkNFO/4xy2V+mCPAhIrhQzaztYQ68dD9DiEY6KnX9Q9zY8okcEw
- ==
-X-ME-Sender: <xms:QLNAYRRIFa4rSrl28gZuhzlFsybDsgQ7nkmeZl5zpLuNJOQCstlOig>
- <xme:QLNAYazEN1B0GtYZNDVvBnlB_inGyLt5gYMTwFR3Val9eFw9-oUu_QjcxdFVSsaHx
- H8s-ha7EhGz4epG-b8>
-X-ME-Received: <xmr:QLNAYW2dYbBrD_FTXbHB145EFkvIvpd4rn-cFX4ZyFRbm2b4ZWNyTLHLaYZHybdI9mP_f4AgYSHO9N5K59xExzFWHeqMJ_FLvMwB>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudegledgjeejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepuddvudfhkeekhefgffetffelgffftdehffduffegveetffehueeivddvjedv
- gfevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:QLNAYZBhX7gMyjqQnd3byuW810fgxZwSXvXY1EKAd67AkaRHHH7Evw>
- <xmx:QLNAYaiuRz9tXXyco0VVshdpldJ7Wd0Gkg2gWwox-6NPEz6x1FD2-g>
- <xmx:QLNAYdrpNozFNjj3x9MkmlrhwAaq7s2DlUm_F_ZyK07OOwtm1JX4kg>
- <xmx:Q7NAYV2Gu08tOsNR8-vbHEH_8RwSgikcxSllFFc66JW-Hpv9TPo8yYDvtyI>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Sep 2021 10:35:44 -0400 (EDT)
-Date: Tue, 14 Sep 2021 16:35:41 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Andrzej Hajda <a.hajda@samsung.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>, 
- David Airlie <airlied@linux.ie>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,	Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org,
- Kyungmin Park <kyungmin.park@samsung.com>,	linux-kernel@vger.kernel.org,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Tian Tao <tiantao6@hisilicon.com>, Inki Dae <inki.dae@samsung.com>,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- John Stultz <john.stultz@linaro.org>, Chen Feng <puck.chen@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>
-Message-ID: <20210914143541.433ucx2kvz36tw42@gilmour>
-References: <20210910101218.1632297-1-maxime@cerno.tech>
- <CGME20210910101246eucas1p17191a80c37b0e1784d6d9b8bf6fbcd60@eucas1p1.samsung.com>
- <20210910101218.1632297-3-maxime@cerno.tech>
- <7ad18d53-3ad6-a614-a8e1-cce6505f90a8@samsung.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="6br4ofwy642o3hq4"
-Content-Disposition: inline
-In-Reply-To: <7ad18d53-3ad6-a614-a8e1-cce6505f90a8@samsung.com>
-Subject: Re: [Freedreno] [PATCH v4 02/24] drm/bridge: Document the probe
- issue with MIPI-DSI bridges
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB366E51B
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Sep 2021 16:45:18 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1631637920; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=HdBbjcFRoVBTq3FbmSR4WqjbhbjPw/BfnRkSugVZlvk=;
+ b=hVU+VQE8H7X2Q6HI079uhBhBnj11xx1AsEZyIkYOZcjm5Bxq6SWvuz5Fv85IDb4tmZbuOmDt
+ OUTMa7eVeX+h1aYzhqtLezQLh7gncxL8/EnvwcwD4Q129QqlV3EL4KpBgrhmT8TS8ZNlfp/t
+ 3ncUb7kwe49nd3bra2cqWAqJWeM=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 6140d198bd6681d8edd84592 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 14 Sep 2021 16:45:12
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 55B0FC43618; Tue, 14 Sep 2021 16:45:11 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 430F0C4338F;
+ Tue, 14 Sep 2021 16:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 430F0C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Kuogee Hsieh <khsieh@codeaurora.org>
+To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kishon@ti.com, p.zabel@pengutronix.de
+Date: Tue, 14 Sep 2021 09:45:01 -0700
+Message-Id: <1631637901-11603-1-git-send-email-khsieh@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v4] phy: qcom-qmp: add support for display port
+ voltage and pre-emphasis swing
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,154 +72,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Both voltage and pre-emphasis swing level are set during link training
+negotiation between host and sink. There are totally four tables added.
+A voltage swing table for both hbr and hbr1, a voltage table for both
+hbr2 and hbr3, a pre-emphasis table for both hbr and hbr1 and a pre-emphasis
+table for both hbr2 and hbr3. In addition, write 0x0a to TX_TX_POL_INV is
+added to complete the sequence of configure dp phy base on HPG.
 
---6br4ofwy642o3hq4
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Chnages in v2:
+-- revise commit test
+-- add Fixes tag
+-- replaced voltage_swing_cfg with voltage
+-- replaced pre_emphasis_cfg with emphasis
+-- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_v4_phy_configure_dp_swing()
+-- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_phy_configure_dp_swing()
 
-Hi,
+Changes in V3:
+-- add __qcom_qmp_phy_configure_dp_swing() to commit swing/pre-emphasis level
 
-On Mon, Sep 13, 2021 at 08:29:37AM +0200, Andrzej Hajda wrote:
->=20
-> W dniu 10.09.2021 o=A012:11, Maxime Ripard pisze:
-> > Interactions between bridges, panels, MIPI-DSI host and the component
-> > framework are not trivial and can lead to probing issues when
-> > implementing a display driver. Let's document the various cases we need
-> > too consider, and the solution to support all the cases.
-> >
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > ---
-> >   Documentation/gpu/drm-kms-helpers.rst |  6 +++
-> >   drivers/gpu/drm/drm_bridge.c          | 57 +++++++++++++++++++++++++++
-> >   2 files changed, 63 insertions(+)
-> >
-> > diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/=
-drm-kms-helpers.rst
-> > index 10f8df7aecc0..ec2f65b31930 100644
-> > --- a/Documentation/gpu/drm-kms-helpers.rst
-> > +++ b/Documentation/gpu/drm-kms-helpers.rst
-> > @@ -157,6 +157,12 @@ Display Driver Integration
-> >   .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
-> >      :doc: display driver integration
-> >  =20
-> > +Special Care with MIPI-DSI bridges
-> > +----------------------------------
-> > +
-> > +.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
-> > +   :doc: special care dsi
-> > +
-> >   Bridge Operations
-> >   -----------------
-> >  =20
-> > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> > index baff74ea4a33..7cc2d2f94ae3 100644
-> > --- a/drivers/gpu/drm/drm_bridge.c
-> > +++ b/drivers/gpu/drm/drm_bridge.c
-> > @@ -96,6 +96,63 @@
-> >    * documentation of bridge operations for more details).
-> >    */
-> >  =20
-> > +/**
-> > + * DOC: special care dsi
-> > + *
-> > + * The interaction between the bridges and other frameworks involved in
-> > + * the probing of the upstream driver and the bridge driver can be
-> > + * challenging. Indeed, there's multiple cases that needs to be
-> > + * considered:
-> > + *
-> > + * - The upstream driver doesn't use the component framework and isn't=
- a
-> > + *   MIPI-DSI host. In this case, the bridge driver will probe at some
-> > + *   point and the upstream driver should try to probe again by return=
-ing
-> > + *   EPROBE_DEFER as long as the bridge driver hasn't probed.
-> > + *
-> > + * - The upstream driver doesn't use the component framework, but is a
-> > + *   MIPI-DSI host. The bridge device uses the MIPI-DCS commands to be
-> > + *   controlled. In this case, the bridge device is a child of the
-> > + *   display device and when it will probe it's assured that the displ=
-ay
-> > + *   device (and MIPI-DSI host) is present. The upstream driver will be
-> > + *   assured that the bridge driver is connected between the
-> > + *   &mipi_dsi_host_ops.attach and &mipi_dsi_host_ops.detach operation=
-s.
-> > + *   Therefore, it must run mipi_dsi_host_register() in its probe
-> > + *   function, and then run drm_bridge_attach() in its
-> > + *   &mipi_dsi_host_ops.attach hook.
-> > + *
-> > + * - The upstream driver uses the component framework and is a MIPI-DSI
-> > + *   host. The bridge device uses the MIPI-DCS commands to be
-> > + *   controlled. This is the same situation than above, and can run
-> > + *   mipi_dsi_host_register() in either its probe or bind hooks.
-> > + *
-> > + * - The upstream driver uses the component framework and is a MIPI-DSI
-> > + *   host. The bridge device uses a separate bus (such as I2C) to be
-> > + *   controlled. In this case, there's no correlation between the probe
-> > + *   of the bridge and upstream drivers, so care must be taken to avoid
-> > + *   an endless EPROBE_DEFER loop, with each driver waiting for the
-> > + *   other to probe.
-> > + *
-> > + * The ideal pattern to cover the last item (and all the others in the
-> > + * MIPI-DSI host driver case) is to split the operations like this:
-> > + *
-> > + * - The MIPI-DSI host driver must run mipi_dsi_host_register() in its
-> > + *   probe hook. It will make sure that the MIPI-DSI host sticks aroun=
-d,
-> > + *   and that the driver's bind can be called.
-> > + *
-> > + * - In its probe hook, the bridge driver must try to find its MIPI-DSI
-> > + *   host, register as a MIPI-DSI device and attach the MIPI-DSI device
-> > + *   to its host. The bridge driver is now functional.
-> > + *
-> > + * - In its &struct mipi_dsi_host_ops.attach hook, the MIPI-DSI host c=
-an
-> > + *   now add its component. Its bind hook will now be called and since
-> > + *   the bridge driver is attached and registered, we can now look for
-> > + *   and attach it.
-> > + *
-> > + * At this point, we're now certain that both the upstream driver and
-> > + * the bridge driver are functional and we can't have a deadlock-like
-> > + * situation when probing.
-> > + */
-> > +
-> >   static DEFINE_MUTEX(bridge_lock);
-> >   static LIST_HEAD(bridge_list);
->=20
->=20
-> Nice work with documenting this initialization dance. It clearly shows=20
-> that bridge API lacks better mechanism - usage of mipi dsi callbacks to=
-=20
-> get notifications about bridge appearance is ugly.
+Changes in V4:
+-- pass 2D array to __qcom_qmp_phy_configure_dp_swing()
 
-Yeah, there's so many moving parts it's definitely not great.
+Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp.c | 97 +++++++++++++++++++++++++------------
+ 1 file changed, 66 insertions(+), 31 deletions(-)
 
-> It remains me my resource tracking patches which I have posted long
-> time ago [1] - they would solve the issue in much more elegant way,
-> described here [2]. Apparently I was not stubborn enough in promoting
-> this solution.
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+index 31036aa..fb029e4 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+@@ -3546,12 +3546,17 @@ static const u8 qmp_dp_v3_voltage_swing_hbr_rbr[4][4] = {
+ 	{ 0x1f, 0xff, 0xff, 0xff }
+ };
+ 
+-static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+-		unsigned int drv_lvl_reg, unsigned int emp_post_reg)
++static int __qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
++				unsigned int drv_lvl_reg,
++				unsigned int emp_post_reg,
++				const u8 voltage_swing_hbr_rbr[4][4],
++				const u8 pre_emphasis_hbr_rbr[4][4],
++				const u8 voltage_swing_hbr3_hbr2[4][4],
++				const u8 pre_emphasis_hbr3_hbr2[4][4])
+ {
+ 	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+ 	unsigned int v_level = 0, p_level = 0;
+-	u8 voltage_swing_cfg, pre_emphasis_cfg;
++	u8 voltage, emphasis;
+ 	int i;
+ 
+ 	for (i = 0; i < dp_opts->lanes; i++) {
+@@ -3560,26 +3565,25 @@ static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+ 	}
+ 
+ 	if (dp_opts->link_rate <= 2700) {
+-		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
+-		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
++		voltage = voltage_swing_hbr_rbr[v_level][p_level];
++		emphasis = pre_emphasis_hbr_rbr[v_level][p_level];
+ 	} else {
+-		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
+-		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
++		voltage = voltage_swing_hbr3_hbr2[v_level][p_level];
++		emphasis = pre_emphasis_hbr3_hbr2[v_level][p_level];
+ 	}
+ 
+ 	/* TODO: Move check to config check */
+-	if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
++	if (voltage == 0xFF && emphasis == 0xFF)
+ 		return -EINVAL;
+ 
+ 	/* Enable MUX to use Cursor values from these registers */
+-	voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
+-	pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+-
+-	writel(voltage_swing_cfg, qphy->tx + drv_lvl_reg);
+-	writel(pre_emphasis_cfg, qphy->tx + emp_post_reg);
+-	writel(voltage_swing_cfg, qphy->tx2 + drv_lvl_reg);
+-	writel(pre_emphasis_cfg, qphy->tx2 + emp_post_reg);
++	voltage |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
++	emphasis |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+ 
++	writel(voltage, qphy->tx + drv_lvl_reg);
++	writel(emphasis, qphy->tx + emp_post_reg);
++	writel(voltage, qphy->tx2 + drv_lvl_reg);
++	writel(emphasis, qphy->tx2 + emp_post_reg);
+ 	return 0;
+ }
+ 
+@@ -3588,9 +3592,13 @@ static void qcom_qmp_v3_phy_configure_dp_tx(struct qmp_phy *qphy)
+ 	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+ 	u32 bias_en, drvr_en;
+ 
+-	if (qcom_qmp_phy_configure_dp_swing(qphy,
+-				QSERDES_V3_TX_TX_DRV_LVL,
+-				QSERDES_V3_TX_TX_EMP_POST1_LVL) < 0)
++	if (__qcom_qmp_phy_configure_dp_swing(qphy,
++			QSERDES_V3_TX_TX_DRV_LVL,
++			QSERDES_V3_TX_TX_EMP_POST1_LVL,
++			qmp_dp_v3_voltage_swing_hbr_rbr,
++			qmp_dp_v3_pre_emphasis_hbr_rbr,
++			qmp_dp_v3_voltage_swing_hbr3_hbr2,
++			qmp_dp_v3_pre_emphasis_hbr3_hbr2) < 0)
+ 		return;
+ 
+ 	if (dp_opts->lanes == 1) {
+@@ -3728,6 +3736,35 @@ static int qcom_qmp_v3_dp_phy_calibrate(struct qmp_phy *qphy)
+ 	return 0;
+ }
+ 
++/* The values in these tables are given without MUX_EN (0x20) bit set */
++static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
++	{ 0x00, 0x0c, 0x15, 0x1b },
++	{ 0x02, 0x0e, 0x16, 0xff },
++	{ 0x02, 0x11, 0xff, 0xff },
++	{ 0x04, 0xff, 0xff, 0xff }
++};
++
++static const u8 qmp_dp_v4_voltage_swing_hbr3_hbr2[4][4] = {
++	{ 0x02, 0x12, 0x16, 0x1a },
++	{ 0x09, 0x19, 0x1f, 0xff },
++	{ 0x10, 0x1f, 0xff, 0xff },
++	{ 0x1f, 0xff, 0xff, 0xff }
++};
++
++static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
++	{ 0x00, 0x0e, 0x15, 0x1b },
++	{ 0x00, 0x0e, 0x15, 0xff },
++	{ 0x00, 0x0e, 0xff, 0xff },
++	{ 0x04, 0xff, 0xff, 0xff }
++};
++
++static const u8 qmp_dp_v4_voltage_swing_hbr_rbr[4][4] = {
++	{ 0x08, 0x0f, 0x16, 0x1f },
++	{ 0x11, 0x1e, 0x1f, 0xff },
++	{ 0x16, 0x1f, 0xff, 0xff },
++	{ 0x1f, 0xff, 0xff, 0xff }
++};
++
+ static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+ {
+ 	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_PSR_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+@@ -3757,16 +3794,13 @@ static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+ 
+ static void qcom_qmp_v4_phy_configure_dp_tx(struct qmp_phy *qphy)
+ {
+-	/* Program default values before writing proper values */
+-	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+-	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+-
+-	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+-	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+-
+-	qcom_qmp_phy_configure_dp_swing(qphy,
++	__qcom_qmp_phy_configure_dp_swing(qphy,
+ 			QSERDES_V4_TX_TX_DRV_LVL,
+-			QSERDES_V4_TX_TX_EMP_POST1_LVL);
++			QSERDES_V4_TX_TX_EMP_POST1_LVL,
++			qmp_dp_v4_voltage_swing_hbr_rbr,
++			qmp_dp_v4_pre_emphasis_hbr_rbr,
++			qmp_dp_v4_voltage_swing_hbr3_hbr2,
++			qmp_dp_v4_pre_emphasis_hbr3_hbr2);
+ }
+ 
+ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+@@ -3885,6 +3919,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+ 	writel(drvr1_en, qphy->tx2 + QSERDES_V4_TX_HIGHZ_DRVR_EN);
+ 	writel(bias1_en, qphy->tx2 + QSERDES_V4_TX_TRANSCEIVER_BIAS_EN);
+ 
++	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
++	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
++
+ 	writel(0x18, qphy->pcs + QSERDES_DP_PHY_CFG);
+ 	udelay(2000);
+ 	writel(0x19, qphy->pcs + QSERDES_DP_PHY_CFG);
+@@ -3896,11 +3933,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+ 			10000))
+ 		return -ETIMEDOUT;
+ 
+-	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
+-	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
+ 
+-	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+-	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
++	writel(0x22, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
++	writel(0x22, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+ 
+ 	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+ 	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-Wow, that sounds like a massive change indeed :/
-
-> Anyway:
->=20
-> Reviewed-by: Andrzej Hajda <a.hajda@samsung.com>
-
-I assume you'll want me to hold off that patch before someone reviews
-the rest?
-
-Thanks!
-Maxime
-
---6br4ofwy642o3hq4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYUCzPQAKCRDj7w1vZxhR
-xZX4AQCpuzsltUoIAMTseQh0blWKIJdfpCQSgO0Tdf29VLbP8gEAx8aZkhD8UtLs
-gYRcFQgX4NWKsoez7eyiExM4WOxRygQ=
-=zKFO
------END PGP SIGNATURE-----
-
---6br4ofwy642o3hq4--
