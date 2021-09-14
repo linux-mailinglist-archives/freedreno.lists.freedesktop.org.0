@@ -2,63 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB4A40B857
-	for <lists+freedreno@lfdr.de>; Tue, 14 Sep 2021 21:49:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDDE040BAAD
+	for <lists+freedreno@lfdr.de>; Tue, 14 Sep 2021 23:44:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 900CE6E5C3;
-	Tue, 14 Sep 2021 19:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C8566E828;
+	Tue, 14 Sep 2021 21:44:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5536E5C3
- for <freedreno@lists.freedesktop.org>; Tue, 14 Sep 2021 19:49:14 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- i3-20020a056830210300b0051af5666070so178726otc.4
- for <freedreno@lists.freedesktop.org>; Tue, 14 Sep 2021 12:49:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=v3c6E6MMQg7r5oBUq1m5l+3onlEbo8USrY7KqxJROCA=;
- b=d82STJplqEDvwvwojrzgiDLySxHC1xT1ThA3Ss936NRBXycfFJuLyM8brNvGk8Q0BZ
- RfBmUa9WgZiV5/lphxebcR9MMFlYTDzmZFqlnn1xZL+BdktpnYJhU6VO5vbPEWNE8pmP
- 0O+noFpedvkPblcENKaTnLBR08KFvN7bCh7tc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=v3c6E6MMQg7r5oBUq1m5l+3onlEbo8USrY7KqxJROCA=;
- b=S2zpmue7Ka0FkwJpsMEW8bHbLndrxXTRvZOpuHCx2IWJvnUkw8o5zH3taltO4fJJ9K
- BDcaO57h8LxY/3OTkFaDCK2Ui2UE0q+twRGfzQ827GF4AF79DZQjyY8B7DkpOyd6vTv6
- YF+vEb5PKuwDYfi24xT+vng2mU1FNyH8PCl2TAq69UTlWqnyol4rIFcc2zzJRIBx9qj1
- 9IMJFON8gaVchg97+SS3g/M+UkcNn/i5FKGs5216GnFOWLhlHKFfQNL6vczhwTRZlbAa
- XNT+Fjotf3cWlf8N86r4bUt2Ef0bQeoBk6ZLz6AlGqfxU6QEAfHCFGI0MTNXviyuVkes
- AbaA==
-X-Gm-Message-State: AOAM532ELvhg4JgHmsK+OwR07OKknjw1YnJOmH2+A9GkMMmxF5HAzqxD
- mrsSKkhiu8KJPlpNVsZfp7KJnjY8ALGAuk+kLB6JB80vGfs=
-X-Google-Smtp-Source: ABdhPJxmespo1Jy0mHteRtDveO8RQ+I+51B8KS7gLjSxy7Zo9ipn42budJZnsYHGhJ2GXe/Dp851pqDqSjKJs8/Nhqk=
-X-Received: by 2002:a05:6830:1212:: with SMTP id
- r18mr15731034otp.159.1631648953925; 
- Tue, 14 Sep 2021 12:49:13 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 14 Sep 2021 12:49:13 -0700
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20FEE6E828;
+ Tue, 14 Sep 2021 21:44:03 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BAA5A60F46;
+ Tue, 14 Sep 2021 21:44:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1631655842;
+ bh=3IpTKFXSBjSFe20nKx8nZa4WQLOW39FByQrB2ntGZL8=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=mEsUQtu+9MhluvTdl9nCPHzk0Ga97G7eHWYAJaE5dcCmjQt+8WBRAxbvaKKAT9HSq
+ ZiLmZbTmgrW8eGU3AnRPUkQsrhaTp4BhgUgNpTZq3Z2MyaSLubRcpzwqYpR9CR24FQ
+ 6iZpNJYcJkjsgvhpO7hKcp1QZZHLHRSAW9KeKHY5Z67cTf26nhuEyer7LMwcLlCSBu
+ 7xunri1ZAOjoe9BPG8SL4d5KN5lr+CrQZ03jFE9yKBoozaEFz1BCVOfCYfniPJNoCT
+ ze/X0e5UK/r9qIgvT3s5pfwDQzO9EBEntliTBrWpBWR7qxDlZ0ehCsAitj77oDWs+q
+ xMWw1EkJBXCQQ==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <1631637901-11603-1-git-send-email-khsieh@codeaurora.org>
-References: <1631637901-11603-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20210911131922.387964-1-marijn.suijten@somainline.org>
+References: <20210911131922.387964-1-marijn.suijten@somainline.org>
+From: Stephen Boyd <sboyd@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
+ Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
+Date: Tue, 14 Sep 2021 14:44:01 -0700
+Message-ID: <163165584152.763609.4056232270079096475@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
-Date: Tue, 14 Sep 2021 12:49:13 -0700
-Message-ID: <CAE-0n50R1wfw=V7o19N20YOqSrRZKR7Zd4QLcRcjYQNsdf3QHg@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, 
- devicetree@vger.kernel.org, robdclark@gmail.com, robh+dt@kernel.org, 
- sean@poorly.run, vkoul@kernel.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kishon@ti.com, p.zabel@pengutronix.de
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4] phy: qcom-qmp: add support for display
- port voltage and pre-emphasis swing
+Subject: Re: [Freedreno] [PATCH v3 0/2] Use "ref" clocks from firmware for
+ DSI PLL VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,30 +67,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-09-14 09:45:01)
-> Both voltage and pre-emphasis swing level are set during link training
-> negotiation between host and sink. There are totally four tables added.
-> A voltage swing table for both hbr and hbr1, a voltage table for both
-> hbr2 and hbr3, a pre-emphasis table for both hbr and hbr1 and a pre-emphasis
-> table for both hbr2 and hbr3. In addition, write 0x0a to TX_TX_POL_INV is
-> added to complete the sequence of configure dp phy base on HPG.
->
-> Chnages in v2:
-> -- revise commit test
-> -- add Fixes tag
-> -- replaced voltage_swing_cfg with voltage
-> -- replaced pre_emphasis_cfg with emphasis
-> -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_v4_phy_configure_dp_swing()
-> -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_phy_configure_dp_swing()
->
-> Changes in V3:
-> -- add __qcom_qmp_phy_configure_dp_swing() to commit swing/pre-emphasis level
->
-> Changes in V4:
-> -- pass 2D array to __qcom_qmp_phy_configure_dp_swing()
->
-> Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
+Quoting Marijn Suijten (2021-09-11 06:19:19)
+> All DSI PHY/PLL drivers were referencing their VCO parent clock by a
+> global name, most of which don't exist or have been renamed.  These
+> clock drivers seem to function fine without that except the 14nm driver
+> for sdm6xx [1].
+>=20
+> At the same time all DTs provide a "ref" clock as per the requirements
+> of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
+> that clock to use without relying on a global clock name, so that all
+> dependencies are explicitly defined in DT (the firmware) in the end.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+I can take this through clk tree if it helps avoid conflicts. There are
+some other patches to sdm660.c in the clk tree already.
