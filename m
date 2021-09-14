@@ -1,57 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D35B5409F23
-	for <lists+freedreno@lfdr.de>; Mon, 13 Sep 2021 23:32:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB8740A26F
+	for <lists+freedreno@lfdr.de>; Tue, 14 Sep 2021 03:23:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BE346E25A;
-	Mon, 13 Sep 2021 21:31:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 823216E30F;
+	Tue, 14 Sep 2021 01:23:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F14A26E25A;
- Mon, 13 Sep 2021 21:31:58 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- i3-20020a056830210300b0051af5666070so15362350otc.4; 
- Mon, 13 Sep 2021 14:31:58 -0700 (PDT)
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEE66E2A3
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Sep 2021 01:23:39 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ l7-20020a0568302b0700b0051c0181deebso16038175otv.12
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Sep 2021 18:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=QApNJaQ+4zf4NOG0NQxMwjGWEI23AT3h/AkJ/g+8Fgs=;
+ b=B5Ou/+YkeYt3m8Q4F5zkxmBu02DaZz1pg/FLbUK/u9KR9D6/RBSadeL749BhJffFZS
+ ddZSGbKbX7mjHwLeAJm9SOVnxFLF3RbBLh30gTW/tmeDg4J21yw/L3DWCT0XyVA8IKYj
+ MObgqrM+4P5HiRWPev07GLPN4TATag+/AXGAc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=QU12R93C/2HpZJoOcgXvSj7FddUhGVnWB6kugUlE2BE=;
- b=Um1uBF7zCMtuawMsLnQIMGefVBnlv4f/hGDaDK527BZp+d/r3KdO3h2Xv2kPvcCNNA
- 5+TGrw8k/gXGpC4RYBQsd6Qk1tSvBo6gShUt+nAwlW8qsAiQ3NNFWET5Ue346+N4S0EP
- 60JN0AeNosZunDx4q2aPQg7OoesbpdhlU1rVMRBidLhVp77QTAzCOqhWRCbZWbhq+k52
- zRG4p1hIL8ddNYaCjy4fysdpjEMda70W3+EyK6d6nhE3iG+QGYcbT2mcfvK5mdm5o2/n
- YOLWxDZ0Mvm3oZR7yNFVKCVrFTKhaFcWEN/Qsd2asF6rekP1D0E243pXO/QTpSfDJfg1
- kI/g==
-X-Gm-Message-State: AOAM532OiLDJzRgXAljEhSNkpd7musS7EKIMpq8rA1/36lz0ZxfQorHQ
- x7f3s/IgSNeYDvxezirULQ==
-X-Google-Smtp-Source: ABdhPJws5hIKPlUv/5PkbnyXdCuMInLDuRZvOVl9H4kZSwlpFdEIIwEw12ixvJugCp4dooNmhS8Yaw==
-X-Received: by 2002:a9d:71c6:: with SMTP id z6mr11552420otj.382.1631568718235; 
- Mon, 13 Sep 2021 14:31:58 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id i19sm2180255ooe.44.2021.09.13.14.31.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Sep 2021 14:31:57 -0700 (PDT)
-Received: (nullmailer pid 1413000 invoked by uid 1000);
- Mon, 13 Sep 2021 21:31:54 -0000
-From: Rob Herring <robh@kernel.org>
-To: Sean Paul <sean@poorly.run>
-Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- intel-gfx@lists.freedesktop.org, devicetree@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=QApNJaQ+4zf4NOG0NQxMwjGWEI23AT3h/AkJ/g+8Fgs=;
+ b=r29J9t35tV9zxm6Nai2ykOVXsgHVdW2hBT86t/QWEOsmsEtnHuwyzuuJ//VjGnPfHU
+ Wza73pMSXcy0Nu67zdjDk9NIeg4GuoZSYhdOZ4cYCs+P4IuVHIuf/V/caZLus4SC1Cps
+ tyctI9dyJsxbQxXq8u37fnjl+TrLUjZTqH29+SwESQ/ApCGMeABi503NqAaqXVxvLt5A
+ RbivOp277Iwap/v0WTGT7Blrko6Sxf4eAukWZmcdgMjKRS53MuYi0zSXQYUPJu5q3/Vg
+ a4bXNVcpdXv94O7vd2Gzj1YPqFSTWSngkSkF8rmHc7xscdsehsO/W/DIqB2loCJ49zJO
+ C7Tg==
+X-Gm-Message-State: AOAM532QnraLvP3wNRovbBLLaVMyg5WvBY3KXlxK/kRLjSbPX+vyj6Ak
+ GSRVFgYIqTrHuQD9ZF1q5HiUhtN6l3WTEqhxAyEMdQ==
+X-Google-Smtp-Source: ABdhPJz81mU20V2tbBwEn6dAUEH0d4iWsffBcpOJ1p+/Gm0extfrRrbnhXl70N8M3Fw8rJM5F/QFgiqaOkCPoiRYZeo=
+X-Received: by 2002:a05:6830:719:: with SMTP id
+ y25mr12251836ots.77.1631582618692; 
+ Mon, 13 Sep 2021 18:23:38 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Sep 2021 18:23:38 -0700
+MIME-Version: 1.0
 In-Reply-To: <20210913175747.47456-13-sean@poorly.run>
 References: <20210913175747.47456-1-sean@poorly.run>
  <20210913175747.47456-13-sean@poorly.run>
-Date: Mon, 13 Sep 2021 16:31:54 -0500
-Message-Id: <1631568714.653445.1412999.nullmailer@robh.at.kernel.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Mon, 13 Sep 2021 18:23:38 -0700
+Message-ID: <CAE-0n507ehHX3FHDUjvsdNRXHvNUM4YRNYuE+PN=PrZb+94U+w@mail.gmail.com>
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@gmail.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH 12/14] dt-bindings: msm/dp: Add bindings for
  HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -69,108 +75,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 13 Sep 2021 13:57:43 -0400, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> This patch adds the bindings for the MSM DisplayPort HDCP registers
-> which are required to write the HDCP key into the display controller as
-> well as the registers to enable HDCP authentication/key
-> exchange/encryption.
-> 
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> ---
->  .../bindings/display/msm/dp-controller.yaml           | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
+Quoting Sean Paul (2021-09-13 10:57:43)
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 64d8d9e5e47a..984301442653 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -21,6 +21,11 @@ properties:
+>    reg:
+>      maxItems: 1
+>
+> +  reg-names:
+> +    const: dp_controller
+> +    const: hdcp_key
+> +    const: hdcp_tz
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Perhaps we should drop reg-names and assume index 1 is hdcp_key and
+index 2 is hdcp_tz? And then make them optional by having minItems: 1 on
+the reg property.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:26:5: [error] duplication of key "const" in mapping (key-duplicates)
-./Documentation/devicetree/bindings/display/msm/dp-controller.yaml:27:5: [error] duplication of key "const" in mapping (key-duplicates)
-
-dtschema/dtc warnings/errors:
-make[1]: *** Deleting file 'Documentation/devicetree/bindings/display/msm/dp-controller.example.dts'
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-extract-example", line 45, in <module>
-    binding = yaml.load(open(args.yamlfile, encoding='utf-8').read())
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/main.py", line 434, in load
-    return constructor.get_single_data()
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 122, in get_single_data
-    return self.construct_document(node)
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 132, in construct_document
-    for _dummy in generator:
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 722, in construct_yaml_map
-    value = self.construct_mapping(node)
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 446, in construct_mapping
-    return BaseConstructor.construct_mapping(self, node, deep=deep)
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 264, in construct_mapping
-    if self.check_mapping_key(node, key_node, mapping, key, value):
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 295, in check_mapping_key
-    raise DuplicateKeyError(*args)
-ruamel.yaml.constructor.DuplicateKeyError: while constructing a mapping
-  in "<unicode string>", line 25, column 5
-found duplicate key "const" with value "hdcp_key" (original value: "dp_controller")
-  in "<unicode string>", line 26, column 5
-
-To suppress this check see:
-    http://yaml.readthedocs.io/en/latest/api.html#duplicate-keys
-
-make[1]: *** [Documentation/devicetree/bindings/Makefile:20: Documentation/devicetree/bindings/display/msm/dp-controller.example.dts] Error 1
-make[1]: *** Waiting for unfinished jobs....
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-doc-validate", line 25, in check_doc
-    testtree = dtschema.load(filename, line_number=line_number)
-  File "/usr/local/lib/python3.8/dist-packages/dtschema/lib.py", line 623, in load
-    return yaml.load(f.read())
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/main.py", line 434, in load
-    return constructor.get_single_data()
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 122, in get_single_data
-    return self.construct_document(node)
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 132, in construct_document
-    for _dummy in generator:
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 722, in construct_yaml_map
-    value = self.construct_mapping(node)
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 446, in construct_mapping
-    return BaseConstructor.construct_mapping(self, node, deep=deep)
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 264, in construct_mapping
-    if self.check_mapping_key(node, key_node, mapping, key, value):
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 295, in check_mapping_key
-    raise DuplicateKeyError(*args)
-ruamel.yaml.constructor.DuplicateKeyError: while constructing a mapping
-  in "<unicode string>", line 25, column 5
-found duplicate key "const" with value "hdcp_key" (original value: "dp_controller")
-  in "<unicode string>", line 26, column 5
-
-To suppress this check see:
-    http://yaml.readthedocs.io/en/latest/api.html#duplicate-keys
-
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-doc-validate", line 67, in <module>
-    ret = check_doc(f)
-  File "/usr/local/bin/dt-doc-validate", line 30, in check_doc
-    print(filename + ":", exc.path[-1], exc.message, file=sys.stderr)
-AttributeError: 'DuplicateKeyError' object has no attribute 'path'
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.yaml: ignoring, error parsing file
-warning: no schema found in file: ./Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-make: *** [Makefile:1441: dt_binding_check] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1527534
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+> +
+>    interrupts:
+>      maxItems: 1
+>
