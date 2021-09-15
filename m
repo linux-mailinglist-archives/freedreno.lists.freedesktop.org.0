@@ -2,49 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F007B40CE37
-	for <lists+freedreno@lfdr.de>; Wed, 15 Sep 2021 22:39:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5C5840CE3C
+	for <lists+freedreno@lfdr.de>; Wed, 15 Sep 2021 22:39:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6EB66EA48;
-	Wed, 15 Sep 2021 20:39:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DB926EA49;
+	Wed, 15 Sep 2021 20:39:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19DD86EA4A
- for <freedreno@lists.freedesktop.org>; Wed, 15 Sep 2021 20:39:21 +0000 (UTC)
-Received: by mail-qv1-xf2e.google.com with SMTP id a13so2750214qvo.9
- for <freedreno@lists.freedesktop.org>; Wed, 15 Sep 2021 13:39:21 -0700 (PDT)
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC7386EA4C
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Sep 2021 20:39:26 +0000 (UTC)
+Received: by mail-qt1-x833.google.com with SMTP id u4so3626965qta.2
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Sep 2021 13:39:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=KxmkAJV9ZiXz1VZdO5RDAtoOnhIZgkvlq9IMhYeBvCI=;
- b=VJyq0dLF/hIukXRkiDYuN1USKHBDNJJRvqQz/YqQ/52q3fKBVx+ATDY+KWNBxaN1tJ
- AMrdwzvzeryTANiyfxKXDNq0nxCzDD+X7IysTKAOWljDT9uQA38v5lBLAYnum3kCppv3
- 6yIXCGpDkzqtQLKL90J4bEa8sZTXtS776viOPZxqUBto75jnLvZm3zcFinO0cA148ocY
- mHCc6ErzdPiqjGDZ4Uf9yILcXglEoETzc/GRAXLIqQG/G50PidjiwqBIU0Y7bIdUTykK
- jB12yk3Bc16zH2tIvk7AiSUAI8dOOBK4LK5AS+KSrU7aTA54laZXtLpM5mOCHC4FmMkT
- W4vw==
+ bh=H84Fn7lFm82mhboBfZaDXvDO8OLx8vAai5mm15LtSck=;
+ b=bxm40dBSdOV7+C8Kfmn1Pk+lmphP2jUaGJRdaCyHMS7ZSEsx5MyqJ0D+U7KjzIKbut
+ MDIVwqLFf7zFNKMKiOCOqUUKALYNFpvKrjvfaL6PXKdzNT+ID+4zwbkgqncjTu9qA+SR
+ 0Biug/cYOSi137T2BNb2F5AZTum3lFK2iKb5cQB5EwM3a9GSsuaqrWWex4KLmjipgNQN
+ VQWUx3eid1VLsZX7FYG9cXYzvtR4KaKciBKRt213SsMm9abrS+rkS/yTJWrWHJqPDyDF
+ eUiMpnp1zKqkJxzUn9wz88tRSx4YGupJSarCLxloSCxsHA0N9O83N/IoPf9QWDsnnRZ6
+ yhIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=KxmkAJV9ZiXz1VZdO5RDAtoOnhIZgkvlq9IMhYeBvCI=;
- b=oI/riKgTB8HB4df1TndKQNoK2KP8t2704PPL9ObDishXPQTtwdCRMSR5N92oUwzgTw
- z3L8vGQ+y0FgwPcgf5IzLLLAqLUqeoOzBWWR2gJPuY7mOvH03rGfutB9kW4tFUzbGDhc
- LdJptTgUoFjvkhfiah1sUXk5i/a+ymjgxS8JzjE6mXwt4DaSeYuyk4khx1YhxmHWm2Aj
- 8tILma0t55OZbijhJVYJ3KrtABBYBJDEFeC73Xye1/nblwYGDAxsoBglohP26oVMcMby
- uUzaYv/t6uhkJ16EiS+qrhI/WPhnjjjZIN6z+BThmvEYodHKvaFDjqOKU5B8kMm2i1Pz
- K3xQ==
-X-Gm-Message-State: AOAM533p6hK5Z+GdSLjeyS4XZLcblCHXy0MEDkS+bKAVXN1zZUvL95oh
- WIMvp0oU9K6tsN1jr5GxjhvbPg==
-X-Google-Smtp-Source: ABdhPJxSKhnrhOf3Y3kLRjW3BfWFtWjOwSoFk1lnfWF7C34Zq9UO645CASu+Vc7YqbfL43cag+DaBg==
-X-Received: by 2002:a0c:80ce:: with SMTP id 72mr1859211qvb.39.1631738360201;
- Wed, 15 Sep 2021 13:39:20 -0700 (PDT)
+ bh=H84Fn7lFm82mhboBfZaDXvDO8OLx8vAai5mm15LtSck=;
+ b=VW4Nvg70qe5x9/+E38Lu6GC3L6MN+5BJotC/6cFF4kvpBklus60ZpVQHv7mFdibxu7
+ wzgxAQ5IZsF8kWqbi4oSw3ZFW3hsRs7ewnF6dnxo6Mcla7OyaF+Mi2U9k7l+NQT2ydsV
+ SXgm9ps3hWKvD+8WHWSQzh6O+/jImhDO0fAWVH3HqNgv8b3dqTJapDqglGHzVSzp4by/
+ Zj85z58iox4Pb13EBUvGxoGaYWw5UOxIFM/TK9oqTohVkF1Rac+rjRCw2+OHkCwbx6sK
+ FxKHP9CfCX08DKI2CCA112P8UNOc+0qQBwJhumYHiEgGoF7ov/Vq8qjSq3j4Ft8Gr1fE
+ c+5Q==
+X-Gm-Message-State: AOAM532A7ibQT7iug16rk1JnDn3nJTsI7I3C00QBp/CoMWnrlnPxDeTJ
+ ROjRBCfJyHzVa9of5TlwoKMzGbLTd+gqXA==
+X-Google-Smtp-Source: ABdhPJyWd5G4I5a96EWMQ6pxXfznktirs46o5eNFcUrBk10T1Nr90SW76/dra1hpl3hbJwyooyMGaA==
+X-Received: by 2002:ac8:7dc6:: with SMTP id c6mr1759681qte.25.1631738366022;
+ Wed, 15 Sep 2021 13:39:26 -0700 (PDT)
 Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id 90sm696629qte.89.2021.09.15.13.39.19
+ by smtp.gmail.com with ESMTPSA id a22sm739849qtd.56.2021.09.15.13.39.25
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 Sep 2021 13:39:19 -0700 (PDT)
+ Wed, 15 Sep 2021 13:39:25 -0700 (PDT)
 From: Sean Paul <sean@poorly.run>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
@@ -52,14 +52,15 @@ Cc: swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org
-Date: Wed, 15 Sep 2021 16:38:27 -0400
-Message-Id: <20210915203834.1439-9-sean@poorly.run>
+Date: Wed, 15 Sep 2021 16:38:28 -0400
+Message-Id: <20210915203834.1439-10-sean@poorly.run>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210915203834.1439-1-sean@poorly.run>
 References: <20210915203834.1439-1-sean@poorly.run>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 08/13] drm/msm/dpu_kms: Re-order dpu includes
+Subject: [Freedreno] [PATCH v2 09/13] drm/msm/dpu: Remove useless checks in
+ dpu_encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,40 +78,47 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Sean Paul <seanpaul@chromium.org>
 
-Make includes alphabetical in dpu_kms.c
+A couple more useless checks to remove in dpu_encoder.
 
 Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-9-sean@poorly.run #v1
+Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-10-sean@poorly.run #v1
 
 Changes in v2:
 -None
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index ae48f41821cf..fb0d9f781c66 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -21,14 +21,14 @@
- #include "msm_gem.h"
- #include "disp/msm_disp_snapshot.h"
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 0e9d3fa1544b..984f8a59cb73 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1153,10 +1153,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
+ 	struct msm_drm_private *priv;
+ 	struct drm_display_mode *cur_mode = NULL;
  
--#include "dpu_kms.h"
- #include "dpu_core_irq.h"
-+#include "dpu_crtc.h"
-+#include "dpu_encoder.h"
- #include "dpu_formats.h"
- #include "dpu_hw_vbif.h"
--#include "dpu_vbif.h"
--#include "dpu_encoder.h"
-+#include "dpu_kms.h"
- #include "dpu_plane.h"
--#include "dpu_crtc.h"
-+#include "dpu_vbif.h"
+-	if (!drm_enc) {
+-		DPU_ERROR("invalid encoder\n");
+-		return;
+-	}
+ 	dpu_enc = to_dpu_encoder_virt(drm_enc);
  
- #define CREATE_TRACE_POINTS
- #include "dpu_trace.h"
+ 	mutex_lock(&dpu_enc->enc_lock);
+@@ -1203,14 +1199,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+ 	struct msm_drm_private *priv;
+ 	int i = 0;
+ 
+-	if (!drm_enc) {
+-		DPU_ERROR("invalid encoder\n");
+-		return;
+-	} else if (!drm_enc->dev) {
+-		DPU_ERROR("invalid dev\n");
+-		return;
+-	}
+-
+ 	dpu_enc = to_dpu_encoder_virt(drm_enc);
+ 	DPU_DEBUG_ENC(dpu_enc, "\n");
+ 
 -- 
 Sean Paul, Software Engineer, Google / Chromium OS
 
