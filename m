@@ -1,60 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1330C40E0A3
-	for <lists+freedreno@lfdr.de>; Thu, 16 Sep 2021 18:24:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C966640E19F
+	for <lists+freedreno@lfdr.de>; Thu, 16 Sep 2021 18:37:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C5636EE35;
-	Thu, 16 Sep 2021 16:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0CC46EB83;
+	Thu, 16 Sep 2021 16:37:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3C86EE34;
- Thu, 16 Sep 2021 16:24:38 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id b18so19234358lfb.1;
- Thu, 16 Sep 2021 09:24:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uCbvTsHrDfqrbHo7IDUZ1BawMYMw+OHW2eckD6leFrw=;
- b=SKdjY5FEaQ0GqG9e7SUgo3EJSdJ9cBYQfxQTaKIHYZlyV4GZikhSGj/4oOjIDWk5Wb
- Edk0aD9yZxW1Ze/5veona7v7EhD0rk69CslNznNbGzx61hz2Pnu82abABw8+gqdSHsoT
- geqFzAv+UZ+DCqHZE2jBeRQkVdl1JC5M9HYZ73S/dwMHkj8W+elzP9reXkaAQm5L8aRK
- woMVia+kvmYjfmJnGUoYgxOT+SNPICULOARPEM3WmqSK5XZdr0ZwtEFcT64NtSoGNBYc
- LS/a03kc0rRbDgV+YeV/gf6C3oBkmriTLlTZzXCedGAMrtxGX30oMRzS90xOUopFT6P/
- M5wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=uCbvTsHrDfqrbHo7IDUZ1BawMYMw+OHW2eckD6leFrw=;
- b=LGO0F7fOzA9UqZOCRv40u1UV02qqVDodLNR1hLLluwoHIh8dCXgC0BnyYOt85Q3fQx
- vSr2Hel6jtst04A7uObDiDwh7HKBzUDi7HPPCJ4MI3Z/esQ48D6x2yG0eBExcv31M/3r
- ZcNrnDx3pw9cfRtOEVQjL6X5BcIDLzOKsqo7Lp/Zvnonw14tS7APPX3gbXMD5p1zISCu
- prYEZiReFdJ42gAApqJcFE/FJqWKXRQPZWGcgdvfGlUp2eljZPNVlG51eHRnOGjuBxOd
- HV6mYxI8eL4NUGE/6c8s9juUhZJtlVcDMB1MQ5Dg/K+RHRIOQ84blmoaMG35gm2FJDOm
- E+wg==
-X-Gm-Message-State: AOAM531BVl3vyQPhBMuIw6yovZY+r4Y1eXDRKm1D+S6s7Id5jTOXXbY0
- 6zN9VYLYIHPQ0e8o6/P4twMHmxeEVPioxp0tq2Q=
-X-Google-Smtp-Source: ABdhPJytnDVsosxCMngJE5yp0mRR8F94qT0u4e2mWXWm3g/0VWW/3nL+Ga0NESVIvac7i3Nkv2XPSJi9VgDnP2OqOq4=
-X-Received: by 2002:ac2:5d49:: with SMTP id w9mr4596739lfd.450.1631809476327; 
- Thu, 16 Sep 2021 09:24:36 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E37AF6EB83
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Sep 2021 16:37:30 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1631810255; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=gVEj4dzgzrzJlW1qXcUVinQb3TzvihTAGFLdLH6ovGk=;
+ b=qPqMZvC+XG0dfAPTjhE8Sq3mmi5UWzeAzgXuDzY69nuZYd+ZRO29y2biM+Zw8sGR3Zffagwg
+ BW43x3O9sH8JBsoswIwOqsmtP5t4bV940zsJTP5UXgRf5xMBSl8hPHHgeavdsjYjWiQ9wKKB
+ tJsGPBH2NB8aGmEcbv3UlVqFdL8=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 614372b5b585cc7d24dc38c3 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 16 Sep 2021 16:37:09
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 02683C0044B; Thu, 16 Sep 2021 16:37:08 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 76447C43637;
+ Thu, 16 Sep 2021 16:37:06 +0000 (UTC)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 16 Sep 2021 09:37:05 -0700
+From: abhinavk@codeaurora.org
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Rob Clark <robdclark@gmail.com>, DRI mailing list
+ <dri-devel@lists.freedesktop.org>, "open list:DRM DRIVER FOR MSM ADRENO GPU"
+ <freedreno@lists.freedesktop.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, stable <stable@vger.kernel.org>
+In-Reply-To: <CAOMZO5CgFFmKmKF0C_1okmu7N24=udevT3LE=0bRoZqUeDQSWg@mail.gmail.com>
 References: <20210914174831.2044420-1-festevam@gmail.com>
  <96038e06b1141ad3348611a25544356e@codeaurora.org>
  <CAOMZO5BzU3_x7nb8sEF_NDeDOxYM0bQLEpbRzv39jayX=fudYg@mail.gmail.com>
  <5409ccef7ee4359d070eed3acd955590@codeaurora.org>
-In-Reply-To: <5409ccef7ee4359d070eed3acd955590@codeaurora.org>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 16 Sep 2021 13:24:25 -0300
-Message-ID: <CAOMZO5CgFFmKmKF0C_1okmu7N24=udevT3LE=0bRoZqUeDQSWg@mail.gmail.com>
-To: abhinavk@codeaurora.org
-Cc: Rob Clark <robdclark@gmail.com>,
- DRI mailing list <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, stable <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAOMZO5CgFFmKmKF0C_1okmu7N24=udevT3LE=0bRoZqUeDQSWg@mail.gmail.com>
+Message-ID: <f027fcafc30d922b64f954de213a583d@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
 Subject: Re: [Freedreno] [PATCH] drm/msm: Do not run snapshot on non-DPU
  devices
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -72,30 +77,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
+Hi Fabio
 
-On Thu, Sep 16, 2021 at 1:15 PM <abhinavk@codeaurora.org> wrote:
->
-> Hi Fabio
->
-> Thanks for confirming.
->
-> Although I have no issues with your change, I am curious why even msm is
-> probing and/or binding.
-> Your device tree should not be having any mdp/dpu nodes then.
+Ah, I did not realize that amd compatible is present in the list and its 
+quite a surprise.
 
-The i.MX53 does have the following GPU node:
+/*
+  * We don't know what's the best binding to link the gpu with the drm 
+device.
+  * Fow now, we just hunt for all the possible gpus that we support, and 
+add them
+  * as components.
+  */
+static const struct of_device_id msm_gpu_match[] = {
+	{ .compatible = "qcom,adreno" },
+	{ .compatible = "qcom,adreno-3xx" },
+	{ .compatible = "amd,imageon" },
+	{ .compatible = "qcom,kgsl-3d0" },
+	{ },
+};
 
-compatible = "amd,imageon-200.0", "amd,imageon";
+https://github.com/torvalds/linux/commit/e6f6d63ed14c20528aa6df05a8f0707c183c6ba3
 
-That's why it probes the msm driver.
+For this change itself,
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 
-However, i.MX53 does not have any of the Qualcomm display controllers.
-
-It uses the i.MX IPU display controller instead.
-
-Hope that clarifies.
-
-Please reply with a Reviewed-by if you are happy with my fix.
-
-Thanks
+On 2021-09-16 09:24, Fabio Estevam wrote:
+> Hi Abhinav,
+> 
+> On Thu, Sep 16, 2021 at 1:15 PM <abhinavk@codeaurora.org> wrote:
+>> 
+>> Hi Fabio
+>> 
+>> Thanks for confirming.
+>> 
+>> Although I have no issues with your change, I am curious why even msm 
+>> is
+>> probing and/or binding.
+>> Your device tree should not be having any mdp/dpu nodes then.
+> 
+> The i.MX53 does have the following GPU node:
+> 
+> compatible = "amd,imageon-200.0", "amd,imageon";
+> 
+> That's why it probes the msm driver.
+> 
+> However, i.MX53 does not have any of the Qualcomm display controllers.
+> 
+> It uses the i.MX IPU display controller instead.
+> 
+> Hope that clarifies.
+> 
+> Please reply with a Reviewed-by if you are happy with my fix.
+> 
+> Thanks
