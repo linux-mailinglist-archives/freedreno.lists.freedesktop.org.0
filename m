@@ -2,55 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 506E240D9C7
-	for <lists+freedreno@lfdr.de>; Thu, 16 Sep 2021 14:22:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1650240DA78
+	for <lists+freedreno@lfdr.de>; Thu, 16 Sep 2021 14:58:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1216ED9A;
-	Thu, 16 Sep 2021 12:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 952CE6EDA9;
+	Thu, 16 Sep 2021 12:58:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDC36ED8E;
- Thu, 16 Sep 2021 12:22:02 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id h29so6442945ila.2;
- Thu, 16 Sep 2021 05:22:02 -0700 (PDT)
+Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
+ [209.85.166.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F176EDA7;
+ Thu, 16 Sep 2021 12:58:41 +0000 (UTC)
+Received: by mail-il1-f172.google.com with SMTP id q14so6531101ils.5;
+ Thu, 16 Sep 2021 05:58:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=EVQqC8AW3pOLfAZpC/J13w/nd9TcW2QmXYLcYpULoW0=;
- b=UEfPcJ7BtlqcVv5cTG92IAXhz9b3dAMVUXyOyTktEjFsiaXla2C2oOex5EI5C0wVQU
- 1Xg9Clw7APGklqbhC0bZZjUIviGEHJixLxPzZ7lk9Cp2Y0lLnaiqzyUqeYKPGbXnRy1a
- KeruHjTZHctqqWkElrYiTfy2pBaxWGNtTNCLdORoBPYaahsanmPJNhjlodHngTn5xap0
- BCU17p6BX/ZarP68jSIDQMLII9TeQGHRS5TcP8I1wt6hk0N0xRWZz1YfnnbCwObS/n06
- QS2m3S04aflvIupZy+Ayctq5PLu9IeoFL9ZZfS4cHm+XFNvF7p5aW2bI85AhM3gUWxXj
- bVoQ==
-X-Gm-Message-State: AOAM5310QUm4te2edUzHR2UEsqA9ptgGvIMdnbaWh3OKmb91FA5+PR7Q
- 5bsRLPC97azEeqtscM9Y4g==
-X-Google-Smtp-Source: ABdhPJwf4LTJaVVOvBti2mp++cV6RVQejghzfyjFl1WK2fdLYY06RrcvFWCtsVFoXJlhrSb+x0UeIQ==
-X-Received: by 2002:a92:c98b:: with SMTP id y11mr3665064iln.205.1631794921982; 
- Thu, 16 Sep 2021 05:22:01 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=xuGmIRYmRVR4BbQ5sSs7x/lja/8gmIMOpkyKDr7Fynw=;
+ b=kb97ry6zdEGkEzo1wrEA8gPpOCH+yKNeGa4Z8o1uQ0QfYhT/IxuTvXyXjg8QdRuLAl
+ rYGUYJIxInLlyZ0S44GxmBZ1vah5XGrgu+5rKs0WLwbiPmpikN1mn7a2YrilAkFP9K5Y
+ /MjI4QLFNsR8BDgeTY1lV8+IIyK2I+Hylr7xAXE+nK4SCMz+RBOlihfromzgNCi8FMri
+ c1E4RVktkPfgcpIc72lVBZESH2lz8khK8tzWm3TTrxaG/oZZFzsH16bd2+u1ijY0Lgad
+ 84BkTyfnjHpBL2NpwLsXWjI8aacaFNcbUj4yKndKhxlUYlWz0sj4tEnCa3RA6EP2aui0
+ 8KQw==
+X-Gm-Message-State: AOAM5313oemua/E3UGuyHwKaae7ZNpB8iyj+Sm+friwTnHEFBPuUKP2R
+ Bau4VtA0nQITL7jzx75SSg==
+X-Google-Smtp-Source: ABdhPJyyXBHunWFCmA9Dfv2/1tQjiuIFaS0T9uMZFgBdkv0SEDRIS4IlK00+pb6X39FFOXCwOT2fsg==
+X-Received: by 2002:a05:6e02:dce:: with SMTP id
+ l14mr3985745ilj.272.1631797120682; 
+ Thu, 16 Sep 2021 05:58:40 -0700 (PDT)
 Received: from robh.at.kernel.org (96-84-70-89-static.hfc.comcastbusiness.net.
  [96.84.70.89])
- by smtp.gmail.com with ESMTPSA id i14sm1737953ilc.51.2021.09.16.05.21.59
+ by smtp.gmail.com with ESMTPSA id k7sm1654209iok.22.2021.09.16.05.58.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Sep 2021 05:22:00 -0700 (PDT)
-Received: (nullmailer pid 1119418 invoked by uid 1000);
- Thu, 16 Sep 2021 12:21:53 -0000
+ Thu, 16 Sep 2021 05:58:39 -0700 (PDT)
+Received: (nullmailer pid 1170339 invoked by uid 1000);
+ Thu, 16 Sep 2021 12:58:38 -0000
+Date: Thu, 16 Sep 2021 07:58:38 -0500
 From: Rob Herring <robh@kernel.org>
 To: Sean Paul <sean@poorly.run>
-Cc: swboyd@chromium.org, Daniel Vetter <daniel@ffwll.ch>,
- devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- intel-gfx@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- Sean Paul <seanpaul@chromium.org>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
-In-Reply-To: <20210915203834.1439-13-sean@poorly.run>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, swboyd@chromium.org,
+ Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Message-ID: <YUM/fl0U95Cxc+iM@robh.at.kernel.org>
 References: <20210915203834.1439-1-sean@poorly.run>
  <20210915203834.1439-13-sean@poorly.run>
-Date: Thu, 16 Sep 2021 07:21:53 -0500
-Message-Id: <1631794913.488685.1119417.nullmailer@robh.at.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210915203834.1439-13-sean@poorly.run>
 Subject: Re: [Freedreno] [PATCH v2 12/13] dt-bindings: msm/dp: Add bindings
  for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -68,7 +72,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Sep 2021 16:38:31 -0400, Sean Paul wrote:
+On Wed, Sep 15, 2021 at 04:38:31PM -0400, Sean Paul wrote:
 > From: Sean Paul <seanpaul@chromium.org>
 > 
 > This patch adds the bindings for the MSM DisplayPort HDCP registers
@@ -88,32 +92,40 @@ On Wed, 15 Sep 2021 16:38:31 -0400, Sean Paul wrote:
 >  .../devicetree/bindings/display/msm/dp-controller.yaml     | 7 ++++---
 >  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 64d8d9e5e47a..80a55e9ff532 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -19,7 +19,7 @@ properties:
+>        - qcom,sc7180-dp
+>  
+>    reg:
+> -    maxItems: 1
+> +    maxItems: 3
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+You need to define what each entry is.
 
-yamllint warnings/errors:
+items:
+  - description: ...
+  - description: ...
+  - description: ...
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.example.dt.yaml: example-0: displayport-controller@ae90000:reg:0: [0, 183042048, 0, 5120] is too long
-	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.example.dt.yaml: example-0: displayport-controller@ae90000:reg:1: [0, 183308288, 0, 372] is too long
-	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.example.dt.yaml: example-0: displayport-controller@ae90000:reg:2: [0, 183373824, 0, 44] is too long
-	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1528559
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+>  
+>    interrupts:
+>      maxItems: 1
+> @@ -99,8 +99,9 @@ examples:
+>      #include <dt-bindings/power/qcom-rpmpd.h>
+>  
+>      displayport-controller@ae90000 {
+> -        compatible = "qcom,sc7180-dp";
+> -        reg = <0xae90000 0x1400>;
+> +        reg = <0 0x0ae90000 0 0x1400>,
+> +              <0 0x0aed1000 0 0x174>,
+> +              <0 0x0aee1000 0 0x2c>;
+>          interrupt-parent = <&mdss>;
+>          interrupts = <12>;
+>          clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> -- 
+> Sean Paul, Software Engineer, Google / Chromium OS
+> 
+> 
