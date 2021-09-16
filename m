@@ -1,60 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C90BE40D8F3
-	for <lists+freedreno@lfdr.de>; Thu, 16 Sep 2021 13:42:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 506E240D9C7
+	for <lists+freedreno@lfdr.de>; Thu, 16 Sep 2021 14:22:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66FA96ED0E;
-	Thu, 16 Sep 2021 11:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1216ED9A;
+	Thu, 16 Sep 2021 12:22:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 936CC6ED0E;
- Thu, 16 Sep 2021 11:42:43 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id i25so17395135lfg.6;
- Thu, 16 Sep 2021 04:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PUQk7iybu5WtIm/qZMASrmynw7Z5a2vpy/m8p2+iZe8=;
- b=MDg7v6ox6x0o3dfn7tgSllIApU6+EXugjT5h/sHE1X8f3CJ9vYDfcGnDMLhjlMEzzn
- NlYB0ZabvKyD3RBCK1cS4R1nvvh9S7HtvgYtXH88QdwIZBei7fIiT1sNb+A7dfFlSFmq
- xCRCRz5dkiR1j64YTuhzS3mPVgfRODdqwxX46cu/bNCjGXo0QuaultoU15K+lJUGnWz2
- z9UBHuILkhBIC9HW7FPfkqPQ3mOBGUUpZZZZ/xgCQP9RQHwbfvKnx1Y+VBPieN6jzVvc
- 2kE2ra+vvY7GY33loXSss7lZYiG+0k/Qm1gKs66R+F7mp22AZ//RBYTjeJLT+sxZJIFf
- vzig==
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EDC36ED8E;
+ Thu, 16 Sep 2021 12:22:02 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id h29so6442945ila.2;
+ Thu, 16 Sep 2021 05:22:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PUQk7iybu5WtIm/qZMASrmynw7Z5a2vpy/m8p2+iZe8=;
- b=TsVGbFRTpbtHHlBhosMmt7HFC/s3sxRgeYDuc4fFs8m5uzsIFC7WpLMOOJTiqIDxLM
- fIbJhR7iK4hhCr2uwa5yJvuE7DcXTVu686IK1IeArg6U/M5leOBJBLOKpHLLRt326JHM
- CbM/zzEjQdOWxIgxcywWFEx3Pzl0fjl3SIHfPoRQipsMyYIxKOG9VcLw0ZIpaL7lvPZN
- mESZJ80Tjrn+nGDS0mu3JlSiT5Vfjtopj5TnRrOVBs/8ARnYy3+okbCHvzn+jr2ZQS09
- dC2hs0tKBZ9MX+mMzq4p7zluUy/WnJ+sk63NWW04Rvb/JIsZCpnwKmgyNdPJLy/YFYoN
- vGMw==
-X-Gm-Message-State: AOAM530oOuFrTwM/tMQQR78bkWRVHYTbe312vGgJSk91SBnHRn8d0kA5
- Ts89cBBLVhPgkX4vpbVKIWAIjj2QXr958uVn68k=
-X-Google-Smtp-Source: ABdhPJza6hu/ncrOpwL7Lf2mvCRXBLaEbrjvI29b1pcjk3aPpiyh9OcqUow6EQtX7q/hL3NBu594dbpJIuOD+B8W4P4=
-X-Received: by 2002:ac2:5d49:: with SMTP id w9mr3665501lfd.450.1631792561854; 
- Thu, 16 Sep 2021 04:42:41 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210914174831.2044420-1-festevam@gmail.com>
- <96038e06b1141ad3348611a25544356e@codeaurora.org>
-In-Reply-To: <96038e06b1141ad3348611a25544356e@codeaurora.org>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 16 Sep 2021 08:42:30 -0300
-Message-ID: <CAOMZO5BzU3_x7nb8sEF_NDeDOxYM0bQLEpbRzv39jayX=fudYg@mail.gmail.com>
-To: abhinavk@codeaurora.org
-Cc: Rob Clark <robdclark@gmail.com>,
- DRI mailing list <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, stable <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Do not run snapshot on non-DPU
- devices
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=EVQqC8AW3pOLfAZpC/J13w/nd9TcW2QmXYLcYpULoW0=;
+ b=UEfPcJ7BtlqcVv5cTG92IAXhz9b3dAMVUXyOyTktEjFsiaXla2C2oOex5EI5C0wVQU
+ 1Xg9Clw7APGklqbhC0bZZjUIviGEHJixLxPzZ7lk9Cp2Y0lLnaiqzyUqeYKPGbXnRy1a
+ KeruHjTZHctqqWkElrYiTfy2pBaxWGNtTNCLdORoBPYaahsanmPJNhjlodHngTn5xap0
+ BCU17p6BX/ZarP68jSIDQMLII9TeQGHRS5TcP8I1wt6hk0N0xRWZz1YfnnbCwObS/n06
+ QS2m3S04aflvIupZy+Ayctq5PLu9IeoFL9ZZfS4cHm+XFNvF7p5aW2bI85AhM3gUWxXj
+ bVoQ==
+X-Gm-Message-State: AOAM5310QUm4te2edUzHR2UEsqA9ptgGvIMdnbaWh3OKmb91FA5+PR7Q
+ 5bsRLPC97azEeqtscM9Y4g==
+X-Google-Smtp-Source: ABdhPJwf4LTJaVVOvBti2mp++cV6RVQejghzfyjFl1WK2fdLYY06RrcvFWCtsVFoXJlhrSb+x0UeIQ==
+X-Received: by 2002:a92:c98b:: with SMTP id y11mr3665064iln.205.1631794921982; 
+ Thu, 16 Sep 2021 05:22:01 -0700 (PDT)
+Received: from robh.at.kernel.org (96-84-70-89-static.hfc.comcastbusiness.net.
+ [96.84.70.89])
+ by smtp.gmail.com with ESMTPSA id i14sm1737953ilc.51.2021.09.16.05.21.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Sep 2021 05:22:00 -0700 (PDT)
+Received: (nullmailer pid 1119418 invoked by uid 1000);
+ Thu, 16 Sep 2021 12:21:53 -0000
+From: Rob Herring <robh@kernel.org>
+To: Sean Paul <sean@poorly.run>
+Cc: swboyd@chromium.org, Daniel Vetter <daniel@ffwll.ch>,
+ devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ intel-gfx@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Sean Paul <seanpaul@chromium.org>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
+In-Reply-To: <20210915203834.1439-13-sean@poorly.run>
+References: <20210915203834.1439-1-sean@poorly.run>
+ <20210915203834.1439-13-sean@poorly.run>
+Date: Thu, 16 Sep 2021 07:21:53 -0500
+Message-Id: <1631794913.488685.1119417.nullmailer@robh.at.kernel.org>
+Subject: Re: [Freedreno] [PATCH v2 12/13] dt-bindings: msm/dp: Add bindings
+ for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,45 +68,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
+On Wed, 15 Sep 2021 16:38:31 -0400, Sean Paul wrote:
+> From: Sean Paul <seanpaul@chromium.org>
+> 
+> This patch adds the bindings for the MSM DisplayPort HDCP registers
+> which are required to write the HDCP key into the display controller as
+> well as the registers to enable HDCP authentication/key
+> exchange/encryption.
+> 
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
+> 
+> Changes in v2:
+> -Drop register range names (Stephen)
+> -Fix yaml errors (Rob)
+> ---
+>  .../devicetree/bindings/display/msm/dp-controller.yaml     | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
 
-On Wed, Sep 15, 2021 at 11:22 PM <abhinavk@codeaurora.org> wrote:
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-> Are you not using DPU or are you not using mdp4/mdp5 as well? Even if
-> you are using any of mdps, kms should
-> not be NULL. Hence wanted to check the test case.
+yamllint warnings/errors:
 
-I am running i.MX53, which is an NXP SoC, not Qualcomm's.
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.example.dt.yaml: example-0: displayport-controller@ae90000:reg:0: [0, 183042048, 0, 5120] is too long
+	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.example.dt.yaml: example-0: displayport-controller@ae90000:reg:1: [0, 183308288, 0, 372] is too long
+	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dp-controller.example.dt.yaml: example-0: displayport-controller@ae90000:reg:2: [0, 183373824, 0, 44] is too long
+	From schema: /usr/local/lib/python3.8/dist-packages/dtschema/schemas/reg.yaml
 
-It does not use DPU, nor MDP4/5 and kms is NULL in this case.
+doc reference errors (make refcheckdocs):
 
-Some debug prints to confirm:
+See https://patchwork.ozlabs.org/patch/1528559
 
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -557,18 +557,22 @@ static int msm_drm_init(struct device *dev,
-const struct drm_driver *drv)
-        case KMS_MDP4:
-                kms = mdp4_kms_init(ddev);
-                priv->kms = kms;
-+               pr_err("******** KMS_MDP4\n");
-                break;
-        case KMS_MDP5:
-                kms = mdp5_kms_init(ddev);
-+               pr_err("******** KMS_MDP5\n");
-                break;
-        case KMS_DPU:
-                kms = dpu_kms_init(ddev);
-+               pr_err("******** KMS_DPU\n");
-                priv->kms = kms;
-                break;
-        default:
-                /* valid only for the dummy headless case, where of_node=NULL */
-                WARN_ON(dev->of_node);
-                kms = NULL;
-+               pr_err("******** KMS is NULL\n");
-                break;
-        }
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
 
-# dmesg | grep KMS
-[    3.153215] ******** KMS is NULL
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+
