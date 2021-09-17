@@ -1,130 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD07C40F827
-	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 14:43:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 61CA840F859
+	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 14:51:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6D389E5B;
-	Fri, 17 Sep 2021 12:43:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE01F6EC77;
+	Fri, 17 Sep 2021 12:51:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 499 seconds by postgrey-1.36 at gabe;
- Fri, 17 Sep 2021 12:43:30 UTC
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5F7E6EC6E
- for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 12:43:30 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20210917123509euoutp016879538a43f8df153a4460d509050b30~lnCHdRQdQ1682316823euoutp01Q
- for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 12:35:09 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20210917123509euoutp016879538a43f8df153a4460d509050b30~lnCHdRQdQ1682316823euoutp01Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1631882109;
- bh=m1Y6LWA4PXoajOSun3pzOfX28Emf6U0QDQDDXYjTyUo=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=N525ixmYaI2hd+M1rwOKqQVzKJ4Ph/PvZVgw5t2si/8X/FBgRxoFO7pfAgozcgP4m
- 7ceKEKFFI5QyBzGnx/Ptl1NE5F2AGuMVW33EPSSxHSJszv0+3fI8/0ofAYSfaZUJfS
- oaaeMWeY1pTPoUuad1YLZqA3nCFg9yzbLN3K1Qyg=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20210917123508eucas1p1ca60528d596ee60f53e6b3499307e58d~lnCG4xCFU2999629996eucas1p13;
- Fri, 17 Sep 2021 12:35:08 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id E3.73.45756.C7B84416; Fri, 17
- Sep 2021 13:35:08 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20210917123508eucas1p2a73b5bf1cab9fac80de826cacfd817b8~lnCGVm2Fj2071520715eucas1p2a;
- Fri, 17 Sep 2021 12:35:08 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20210917123508eusmtrp268e219a81f573fd96d703a8a52ea4af2~lnCGUPcK31459814598eusmtrp2E;
- Fri, 17 Sep 2021 12:35:08 +0000 (GMT)
-X-AuditID: cbfec7f2-7d5ff7000002b2bc-0d-61448b7c201e
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 37.FD.20981.B7B84416; Fri, 17
- Sep 2021 13:35:07 +0100 (BST)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20210917123505eusmtip1840ad4dd0237808a52a6821790b51fda~lnCEVoqUS1263012630eusmtip1b;
- Fri, 17 Sep 2021 12:35:05 +0000 (GMT)
-To: Andrzej Hajda <a.hajda@samsung.com>, Maxime Ripard <maxime@cerno.tech>,
- Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>,
- David Airlie <airlied@linux.ie>, Jonas Karlman <jonas@kwiboo.se>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Thierry Reding
- <thierry.reding@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Neil Armstrong <narmstrong@baylibre.com>, Robert Foss
- <robert.foss@linaro.org>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org, Kyungmin
- Park <kyungmin.park@samsung.com>, linux-kernel@vger.kernel.org, Xinliang Liu
- <xinliang.liu@linaro.org>, Seung-Woo Kim <sw0312.kim@samsung.com>, Tian Tao
- <tiantao6@hisilicon.com>, Inki Dae <inki.dae@samsung.com>,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, Rob Clark
- <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, John Stultz
- <john.stultz@linaro.org>, Chen Feng <puck.chen@hisilicon.com>, Xinwei Kong
- <kong.kongxinwei@hisilicon.com>, Joonyoung Shim <jy0922.shim@samsung.com>
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <fc1fbd42-6ed4-9d67-2903-8f9cc2aaad43@samsung.com>
-Date: Fri, 17 Sep 2021 14:35:05 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEA56EC73;
+ Fri, 17 Sep 2021 12:51:25 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="286475861"
+X-IronPort-AV: E=Sophos;i="5.85,301,1624345200"; d="scan'208";a="286475861"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 05:51:24 -0700
+X-IronPort-AV: E=Sophos;i="5.85,301,1624345200"; d="scan'208";a="546361699"
+Received: from unknown (HELO localhost) ([10.251.216.224])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2021 05:51:20 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>, "Saarinen\,
+ Jani" <jani.saarinen@intel.com>
+In-Reply-To: <20210915203834.1439-1-sean@poorly.run>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20210915203834.1439-1-sean@poorly.run>
+Date: Fri, 17 Sep 2021 15:51:15 +0300
+Message-ID: <87pmt7uzzw.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <29a2111d-024b-4d9e-27ef-e3399509ff32@samsung.com>
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SfUxTVxjGc+69vf0wbS5Vw4kfGEvmGBsUlmWcRYMDcd6RmTln4qJx2OkN
- KFC0FV0dbEgFoThSJIHSgrQrG4xhmQhakUBW3WopbfkYhBEUURJoRU1hOJDBRrm68d/vfc/z
- fjxvDg8Xd5DreMfkpxiFXJYmIQXE9d/mPBFZRQmyKG33ZjRkcXPQt24Hhmq7LDj6feYZiSrH
- XQBdGtESaLzaAlDXfARyTPYTaOJ+D4FmF9o5yJU7yUWFJTVcVNLh4qK+1koS6TztGDL5Wwik
- m10EyFZ8EI2U6Zd6mGZxNKUfxVHdXAtA90rvAKQr9ZJorvUygX563M5FzZMlHPRrRz3n/Y30
- s8E8Lj3s9pD0Tf09Lv2o6iqXNhRUcGhzmxej72p7MXp4oI2kbzx/wKEvOz6hR4rsGG1vHeLS
- NWX9JF3cXA/oa86v6OmmkD3UAcG2o0zasdOMQhp7WJCSWxl1Qs3/suZ2HicHNHA1gM+D1DvQ
- 3VSyxAKemKoDsLZqEGeDPwGcmvVibDANoGbGSGgAb7nE35DJ5msBdD18gQVaiSk/gN9XxAd4
- NRUHtVP3iYBoDWUkoPNcwXJbnOohYMtDDR5QkVQ01DzRkAEWUrHQa3VyAkxQr8E6TzcR4LXU
- EVi2kIuzmiDoqBhbzvOp7fAHTw4IME5tguoWA85yMBwaq15eG1IOARwuHCJZpwmwfuApzvJq
- 6LM3v7zABvjPzVcFagBH3Ve4bHARwL5cHWBVW+Gw+wUZOABOvQEbW6VsOg4WNI29vIsIDj4J
- YpcQwUvXy3E2LYQF+WJWvQXq7Zb/xv7S3YtrgUS/wpp+hR39Cjv6/+caAVEPgplMZXoyo4yW
- M2cilbJ0ZaY8OfJIRnoTWPrjzkX7lBVU+fyRNoDxgA1AHi5ZI+zOipOJhUdlqrOMIiNJkZnG
- KG1gPY+QBAvrDQ1JYipZdopJZZgTjOLVK8bjr8vBslYpBvC9Bf7v3rq9vXr3mzv3t99S7TV/
- bI1PC9tc26n+MSb1bKjq9ZSr+8L4137+sPOQL0F6oHGfZqavKFQv9sPH3sNRD1yfDqqsu6cf
- LYS91xV6Pnwx8bNNGye/SY0n5nuOq2LIERDXGVEVkmhW3KgrX/X1RLYxxegM55dKHV+MihpF
- Mfl5A1vzrYIMM189YfLtCXvb6go136E+Lx9XnfyoJSR7x8VCX7W2aZvwD2gQ37qr3bnwgfp5
- rGsX/XRLZOnY/JW/gpst+42JjuNr10sPJpX1v9twWndoPt/9t0nSaZNvMJptsTsMJ3vCu9D5
- 3rYz2aLGICd5jnOhON40dWGXhFCmyKLDcYVS9i/CyZHTUgQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0xTZxTA+e69fZGR3VWMH8ShaUKcCoWW0n11QpEo3MUssWQucW5Ah1dg
- Qqu97RzDQSMhjhJZWRdSSuWRIUNWMLw2rAihoqXjUafSLB0PjW4MxJGCUwg+1oJL+O93Hr9z
- cpLDxfm3WeHcXJWW1qiUeQJ2MDH80jkZXVi+Xxl72RKHvG1jLHR+zIWhH0facHT33wU2ss6M
- AvTdtJFAM3VtAI2sRiPX/DiB/p76jUDLL/pYaPTsPAeVVTZyUGX/KAfdsVvZyOzuw1CDr5tA
- 5uWXADkqjqLpKot/RsMyjhYt93HUvNIN0KRpECCzaZaNVuy1BPrpUR8Hdc1XstCN/hZW0tvU
- wu+lHGpizM2mrlgmOdSDC+0cquabahb1Q+8sRg0Zb2PUhKeXTf3y9B6LqnUpqOlyJ0Y57V4O
- 1Vg1zqYquloA1TlcSC11RBwiPxbu1ah1Wnp7jprRJgiOipBYKJIhoVgiE4ri3v10jzheEJO4
- 9xidl/sFrYlJzBTmnLXGnizhfdl4vZSlBzaOAXC5kJRAn01nAMFcPnkRQM/QAGYAPH9+K3RV
- 6VnrvAk+9xjY600LAM6ZX7ADhU3kPmhcnCIChVCykYDXKz0gEODkOAH1NyyvFR+Ar5x2PKCw
- SRE0PDas6SFkIpztGV7bQZCRsNl9iwjwZjILPn70DFvveQu6qh+u5XmkHDa59SDAOCmFtZ33
- 8XXeBku6a17zFuh9WIcZAd+yQbdsUCwbFMsGpR4QLSCU1jH52fmMWMgo8xmdKluYpc7vAP7n
- +vnmSlcPuDTnEzoAxgUOALm4IDTk1pl9Sn7IMWXBV7RGnaHR5dGMA8T776nEwzdnqf3fqdJm
- iKSx8SKJVBYbL5PGCbaESAZtGXwyW6mlT9D0SVrzv4dxeeF67GB/Hx120aA15/2Tzjl1qT5d
- Qcl9xtgPmtMOh32bcqWhY7L+QtTVw0+O/yVXFFuDIkxvtva2f//1gMS9MzX7+JGEJ5kfJVcf
- XLrWMVKzar/a2U75fi3fzdOBofKJoraZge1l3qAKU7qymSna0bR0zjEoP7F44LStPpp72WtL
- +TOhRz2VZHzGnGlNTcWKyZ3x3HvC0t3FN1tlb7SW3FldcWhMakXyq0Ll+a3byqK0BdLuqORP
- Hnz4nEqKoMGhXU0azFxbepc5cDo18jP5U/G5z4n9R3gxxQXWNKHqHXlmzbW0IDedop6IC0ss
- eN+5Izfjj/66U8GR73kgUYHPKfbMFgkIJkcp2oVrGOV/GhjNROUDAAA=
-X-CMS-MailID: 20210917123508eucas1p2a73b5bf1cab9fac80de826cacfd817b8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20210910101445eucas1p172f99ff7fe853052fc457861c3174f9e
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20210910101445eucas1p172f99ff7fe853052fc457861c3174f9e
-References: <20210910101218.1632297-1-maxime@cerno.tech>
- <CGME20210910101445eucas1p172f99ff7fe853052fc457861c3174f9e@eucas1p1.samsung.com>
- <20210910101218.1632297-25-maxime@cerno.tech>
- <29a2111d-024b-4d9e-27ef-e3399509ff32@samsung.com>
-Subject: Re: [Freedreno] [PATCH v4 24/24] drm/exynos: dsi: Adjust probe order
+Content-Type: text/plain
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH v2 00/13] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,33 +50,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 13.09.2021 12:30, Andrzej Hajda wrote:
-> W dniu 10.09.2021 o 12:12, Maxime Ripard pisze:
->> Without proper care and an agreement between how DSI hosts and devices
->> drivers register their MIPI-DSI entities and potential components, we can
->> end up in a situation where the drivers can never probe.
->>
->> Most drivers were taking evasive maneuvers to try to workaround this,
->> but not all of them were following the same conventions, resulting in
->> various incompatibilities between DSI hosts and devices.
->>
->> Now that we have a sequence agreed upon and documented, let's convert
->> exynos to it.
->>
->> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> This patch should be dropped, as it will probably break the driver.
+On Wed, 15 Sep 2021, Sean Paul <sean@poorly.run> wrote:
+> From: Sean Paul <seanpaul@chromium.org>
 >
-> Exynos is already compatible with the pattern
-> register-bus-then-get-sink, but it adds/removes panel/bridge
-> dynamically, so it creates drm_device without waiting for downstream sink.
+> Hello again,
+> This is the second version of the HDCP helper patchset. See version 1
+> here: https://patchwork.freedesktop.org/series/94623/
+>
+> In this second version, I've fixed up the oopsies exposed by 0-day and
+> yamllint and incorporated early review feedback from the dt/dts reviews.
+>
+> Please take a look,
 
-Right, this patch breaks Exynos DSI driver operation. Without it, the 
-whole series works fine on all Exynos based test boards.
+I'll try to ping folks to get someone to review the i915 parts, but the
+general idea of moving common HDCP code from i915 to drm is, I hope
+obviously,
 
-Best regards
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+
+>
+> Sean
+>
+> Sean Paul (13):
+>   drm/hdcp: Add drm_hdcp_atomic_check()
+>   drm/hdcp: Avoid changing crtc state in hdcp atomic check
+>   drm/hdcp: Update property value on content type and user changes
+>   drm/hdcp: Expand HDCP helper library for enable/disable/check
+>   drm/i915/hdcp: Consolidate HDCP setup/state cache
+>   drm/i915/hdcp: Retain hdcp_capable return codes
+>   drm/i915/hdcp: Use HDCP helpers for i915
+>   drm/msm/dpu_kms: Re-order dpu includes
+>   drm/msm/dpu: Remove useless checks in dpu_encoder
+>   drm/msm/dpu: Remove encoder->enable() hack
+>   drm/msm/dp: Re-order dp_audio_put in deinit_sub_modules
+>   dt-bindings: msm/dp: Add bindings for HDCP registers
+>   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+>
+>  .../bindings/display/msm/dp-controller.yaml   |    7 +-
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    4 +-
+>  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
+>  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
+>  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
+>  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
+>  .../drm/i915/display/intel_display_types.h    |   58 +-
+>  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
+>  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
+>  drivers/gpu/drm/i915/display/intel_hdcp.h     |   35 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
+>  drivers/gpu/drm/msm/Makefile                  |    1 +
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   17 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   30 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 -
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |    4 -
+>  drivers/gpu/drm/msm/dp/dp_debug.c             |   49 +-
+>  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c           |   47 +-
+>  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
+>  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
+>  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  433 ++++++
+>  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
+>  drivers/gpu/drm/msm/dp/dp_parser.c            |   22 +-
+>  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+>  drivers/gpu/drm/msm/dp/dp_reg.h               |   44 +-
+>  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
+>  include/drm/drm_hdcp.h                        |  194 +++
+>  30 files changed, 2561 insertions(+), 1389 deletions(-)
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+>  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Jani Nikula, Intel Open Source Graphics Center
