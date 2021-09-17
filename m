@@ -1,161 +1,130 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76DF940F661
-	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 12:59:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD07C40F827
+	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 14:43:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BAA06EC23;
-	Fri, 17 Sep 2021 10:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6D389E5B;
+	Fri, 17 Sep 2021 12:43:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F01396EC21;
- Fri, 17 Sep 2021 10:59:16 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18H9bTrZ009091; 
- Fri, 17 Sep 2021 10:59:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : in-reply-to : mime-version;
- s=corp-2021-07-09; bh=1RuBMXNf2imQ6m9WFOEHzb5vgvdNWcH9iKCdezXUQSE=;
- b=wfrE9gwJ0LRqOHAeJFYpxrk/g4dpMmVK9UyEQ+qqiO0aQaPcQwK7C9zCkfACvavttpaJ
- 6IoRqi4S5bdp5WUZiYHYJ0kRrp6zJCKOo18lJPfkxyLNikckEZCyKb+ix05VAwh+Hm68
- 0pMzsyCjMLjA7Fqs7988omt39AGzdW9DkyfG99ByOjn5IGnNQIALdg7zVoyE5aedR3lk
- 462Jpg4t+Av5I0PiGiubxoDusi6Kvz4AvhTMFGL+0lTHoQlELRdBcFlIA7NkFfmHunCh
- 3QXp/jL0ptG4L9+yh2cOfFWa9KpNGL51p0UNNLB1MuTQ9RmLf4LIzubh8xTh/mqK9aMc Bg== 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : in-reply-to : mime-version;
- s=corp-2020-01-29; bh=1RuBMXNf2imQ6m9WFOEHzb5vgvdNWcH9iKCdezXUQSE=;
- b=DaTW2oHZ8ONupMeTxJbngKllBH+rj7hOXeHCfsGVxAB9iohfW25wDc3Ic4xL5AsPthso
- iSczLhZO7X4+gDEToTdhraiRYoOYJQO9sxrOU2N6XlYEoQummbW8ANgSWFMyMtqkGWpt
- Rqg9Q83te+czAwoehb2vseIG6oXAbRxw78Mm4MLs2c2ayOBTiNObFYRTVAXnAq3R+7SV
- z3B1Ytcj5jISQzMU5NvK6LI3/bqo6TLqBcBa5extDYt7Kcx3ktQaeZVkB9vdITLTJ7SS
- O8s/2DXwcoAFJriqebXz1G2ea6vzJhbyIyWfEvyEWIr6T8HCUYRmoKxLE/mtNxSa4Zc8 tg== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by mx0b-00069f02.pphosted.com with ESMTP id 3b3s74p46n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 17 Sep 2021 10:59:08 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 18HAtkmi137141;
- Fri, 17 Sep 2021 10:59:07 GMT
-Received: from nam11-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam11lp2171.outbound.protection.outlook.com [104.47.58.171])
- by userp3020.oracle.com with ESMTP id 3b167wmy40-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 17 Sep 2021 10:59:07 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DAe0KMdFQQxDrvLUkhKFFbSkYJpeEQmwKTYHPpHzbNNbarWgG6bszPC+NLtQCISjyekslc8yZNSOf8n4cf0wlD5kBljXskz2Bg3T6tquwAk4c8aF2DI6TxZdjQdKGnQuSIP5p5KW9/YmjlA3KXqQK9svgRN9Yz7dGcknoLX4JdwBpdYVy83IYV8qEOANHf/9E9CD4CKG7jsgsj8ZYS6dV6ywbflLn2HsWdzW7sXysIQ9KJNLDrBPsfgva0UvK3ZI5jreT8XDxA7Z3wEgsyY76SeqARaVS66kSEXqUBIAWF1+s4AIUBFcy6Ng7cmYDt+Dwb2+3VQw2FTy1UkAZpXSVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=1RuBMXNf2imQ6m9WFOEHzb5vgvdNWcH9iKCdezXUQSE=;
- b=h+VUBIuX7xbOgrTZ5sNGSlwfSNr86O/0Jidaj5WRPlbShuFQRGJZHvJ7y7n6LxhJW+fwfijkoDtugf0Bzka0Qg5grwY8d1qtOhxwRnjiSSJW1VhcNLiVhu70ejVb1Ze6jZ8FyiyEC0v4JCbN+8fZSGUBkzr2NzhLL02B8dLO83AoOhZHB8taI3PwOm+ledr1/X6Q6R/EHZXB4MFDCjzoTaH6sEpHx4LJPRqgUNablJTQiBmld7riGX7RghyEdpzSZNgFzMhFwDSl2lI+XdNygxXfOoImshe6YhxuOXRAUjRtnrtWrbn3g7jT4V4PiuCQgchBU224VdNiEZL3Tx8V8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1RuBMXNf2imQ6m9WFOEHzb5vgvdNWcH9iKCdezXUQSE=;
- b=dSIZL92HvmmEqfgqa1QakEj5Muakag9JhUiQQsQZz4QM+uuy1B0OHn3GwxUtCN7Hbg4EHB+H+bRen4CxdPCrSqxnXuArJqYjwWST5JA29uNOv4uAsUAkNQGwy56wO3o+EuZcvoQeGFmdSCYiF1ndP5WCPa8G2CpIT9+jxj5qupQ=
-Authentication-Results: lists.01.org; dkim=none (message not signed)
- header.d=none;lists.01.org; dmarc=none action=none header.from=oracle.com;
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by MWHPR10MB1888.namprd10.prod.outlook.com
- (2603:10b6:300:113::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Fri, 17 Sep
- 2021 10:59:05 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::d409:11b5:5eb2:6be9]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::d409:11b5:5eb2:6be9%5]) with mapi id 15.20.4523.016; Fri, 17 Sep 2021
- 10:59:05 +0000
-Date: Fri, 17 Sep 2021 13:58:45 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: kbuild@lists.01.org, Sean Paul <sean@poorly.run>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Cc: lkp@intel.com, kbuild-all@lists.01.org, swboyd@chromium.org,
- Sean Paul <seanpaul@chromium.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <202109170917.5gPBFFFL-lkp@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210915203834.1439-5-sean@poorly.run>
-Message-ID-Hash: DK7X7XUGNON6VZIM5RZK6LMBXD5QCA6X
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: JNAP275CA0045.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4e::22)
- To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+X-Greylist: delayed 499 seconds by postgrey-1.36 at gabe;
+ Fri, 17 Sep 2021 12:43:30 UTC
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5F7E6EC6E
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 12:43:30 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20210917123509euoutp016879538a43f8df153a4460d509050b30~lnCHdRQdQ1682316823euoutp01Q
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 12:35:09 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20210917123509euoutp016879538a43f8df153a4460d509050b30~lnCHdRQdQ1682316823euoutp01Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1631882109;
+ bh=m1Y6LWA4PXoajOSun3pzOfX28Emf6U0QDQDDXYjTyUo=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=N525ixmYaI2hd+M1rwOKqQVzKJ4Ph/PvZVgw5t2si/8X/FBgRxoFO7pfAgozcgP4m
+ 7ceKEKFFI5QyBzGnx/Ptl1NE5F2AGuMVW33EPSSxHSJszv0+3fI8/0ofAYSfaZUJfS
+ oaaeMWeY1pTPoUuad1YLZqA3nCFg9yzbLN3K1Qyg=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20210917123508eucas1p1ca60528d596ee60f53e6b3499307e58d~lnCG4xCFU2999629996eucas1p13;
+ Fri, 17 Sep 2021 12:35:08 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id E3.73.45756.C7B84416; Fri, 17
+ Sep 2021 13:35:08 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20210917123508eucas1p2a73b5bf1cab9fac80de826cacfd817b8~lnCGVm2Fj2071520715eucas1p2a;
+ Fri, 17 Sep 2021 12:35:08 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20210917123508eusmtrp268e219a81f573fd96d703a8a52ea4af2~lnCGUPcK31459814598eusmtrp2E;
+ Fri, 17 Sep 2021 12:35:08 +0000 (GMT)
+X-AuditID: cbfec7f2-7d5ff7000002b2bc-0d-61448b7c201e
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 37.FD.20981.B7B84416; Fri, 17
+ Sep 2021 13:35:07 +0100 (BST)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20210917123505eusmtip1840ad4dd0237808a52a6821790b51fda~lnCEVoqUS1263012630eusmtip1b;
+ Fri, 17 Sep 2021 12:35:05 +0000 (GMT)
+To: Andrzej Hajda <a.hajda@samsung.com>, Maxime Ripard <maxime@cerno.tech>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>,
+ David Airlie <airlied@linux.ie>, Jonas Karlman <jonas@kwiboo.se>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Neil Armstrong <narmstrong@baylibre.com>, Robert Foss
+ <robert.foss@linaro.org>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org, Kyungmin
+ Park <kyungmin.park@samsung.com>, linux-kernel@vger.kernel.org, Xinliang Liu
+ <xinliang.liu@linaro.org>, Seung-Woo Kim <sw0312.kim@samsung.com>, Tian Tao
+ <tiantao6@hisilicon.com>, Inki Dae <inki.dae@samsung.com>,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org, Rob Clark
+ <robdclark@gmail.com>, dri-devel@lists.freedesktop.org, John Stultz
+ <john.stultz@linaro.org>, Chen Feng <puck.chen@hisilicon.com>, Xinwei Kong
+ <kong.kongxinwei@hisilicon.com>, Joonyoung Shim <jy0922.shim@samsung.com>
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <fc1fbd42-6ed4-9d67-2903-8f9cc2aaad43@samsung.com>
+Date: Fri, 17 Sep 2021 14:35:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0)
+ Gecko/20100101 Thunderbird/78.14.0
 MIME-Version: 1.0
-Received: from kadam (62.8.83.99) by JNAP275CA0045.ZAFP275.PROD.OUTLOOK.COM
- (2603:1086:0:4e::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23 via Frontend
- Transport; Fri, 17 Sep 2021 10:58:57 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2866ef84-f9e1-45bf-f7bd-08d979ca2a2f
-X-MS-TrafficTypeDiagnostic: MWHPR10MB1888:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR10MB188803EFD29F5FF7F21A82CF8EDD9@MWHPR10MB1888.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0xKu63X4NfDKMh+jNW2a6W3DkQRzyQPY2YQHcDlIE1U7tGOm5nJJoQUo0z2RIzDsALwsSnvzsekLBs17rg6Pt0cprtT3qoRQB0Q90GvnhM25lXYoz1cJ6aWevBHIVSkzXRUphjtuFMH4Quaj5aYYm1oIffUloBPDt2JOZGBiqhwqKXl0BH83JIoe8VJ/nuUWO3/PVlZkzqtF44jIsRAioqKDFSmY00VdhDXytlNy/WVzmi7pwx+xI23jdGfA2W381c31DiTUoB/7OapvDPHzfLouPL46Mv0hv3A8xM55axXn/8tmIhxV0Tf6ZgNIiqijO+gVWP4LBRawMiP2Ie+46DidcPm33fF7G7lnys1s+YPYf3J/jQe4xskL5s0woiiE3gKlDSsI/3nprV6Mt9RBlg9/LqyUu+xVwTGGvOQEdlZ2Yo3QzZC1CLnis1wNlMXZT3uW4HDBI+7AydrDTpcVzqHXq0xd49jrS6hOb/bF9NytDwn5q/ohP7tDpDIbXHiLNQ1YYt51AMu9RzwskQGqUSGb6Z70nx7YAqe4FsBSASMOkJ1rW1nbrRqenHGRUpWgsVindrCg6FOZV+relv1/HFtQ/0bTHMFQCNhShG+b139j1DMkjQa+VOwNEm5nIDUR2dEu37oMT13xzU7N57y0LClqtBVE6adnPgWOFfzQQg/AE532W4h2h6fK+Cg7Oe8NnWuBZx9/iaYY3EXGgp0FMr2nFncD1/W5NjJldVcfVB4XU36bjRoLXrKZ6C/Tkw1ZTxNGVtYXHKE/cojmcQdTGkGQU9hlw2h0KKqV0dRXfD4HJfvu4Ykxp1gAppUBehmH
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(83380400001)(54906003)(52116002)(44832011)(956004)(8676002)(8936002)(9686003)(1076003)(508600001)(6496006)(6666004)(36756003)(66946007)(26005)(86362001)(966005)(186003)(6486002)(7416002)(4326008)(2906002)(316002)(38100700002)(66556008)(66476007)(5660300002)(38350700002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?F1o5oI9VOg5SLZVz2x4vcUVIvngcfFW/5z5iJSjqqtP4+DOiZ04BH7yKZPzd?=
- =?us-ascii?Q?57e435xmfaC0o9Ybl5fjuLbKmNNimv1XWo5491dKmJxan0Ic5y9a+wYFEMvj?=
- =?us-ascii?Q?FHgBs8ruwcWlduPGHwuww+sdrNFFMfqQL4azjGD5/Nt6Yd/d4rzN+nMlxyaE?=
- =?us-ascii?Q?bGT4NOReCBW7H+eREkRWcAHyUISv0yfv/xc7m4bqvRBdK1o80UKPANbJgIuE?=
- =?us-ascii?Q?/5L/WIX9ynKa+rxKMBoB5y/n3MdSFm8LBv6pli0q9LZU3w9uU7wgod2BgJfg?=
- =?us-ascii?Q?1GiojEsYkB5kxRPwQwh1Yv/gTnPYbb0i1yAvOXfXbYrveqIjuFKuh0u6oRKW?=
- =?us-ascii?Q?zxROb/7aJ54hgNEZSt2Ry/OqdjW0fH3XxUir6DbB8aIu5aMoZRr5V+Ubij6S?=
- =?us-ascii?Q?yqg3t9GQyTRYl7YfIUamtk1B3pLipWH+EK3cN/egy9CHPuU4usMwqaCyXLJK?=
- =?us-ascii?Q?cnh//7Upy5WYkCnUBdydN9c+OAI73iO9ZOSJI5VRpnlHK2x4StZ5ftN53hCS?=
- =?us-ascii?Q?KEPRMI/pGUpiPZBH+kNqr/AaGt3+Yl3znJ/JYkqYDYUfioJgbfqM3LyIBO6w?=
- =?us-ascii?Q?6tMoU3aNolUs9eAog8o2MZSZcX1VWQ501zR+tJ5CFTE3lxsUho3rBrZ8czVd?=
- =?us-ascii?Q?p7Rd7ANxUS6xLUMS+i9Tkduif/cP5+dEie9LMy5Co0bVlDe5Lh54SbDdDmnK?=
- =?us-ascii?Q?mkQF533w1JPYzjTC29jPNHVglZKAFZTwKEd2FTASwwYsMAGOS0DCgRCyR7ej?=
- =?us-ascii?Q?71E04sxW/Zl1X7+7I+iAHQsPthJfOEepreUUi3e/og66AeMvy9jL7/aTGcjo?=
- =?us-ascii?Q?KP6eINi5HtbfNhrrIIBX30hw1SJAHFZ/ycbyXzJFF3dU1IBIiTvkHs0KWIp4?=
- =?us-ascii?Q?LWcIV3xKhSAZ3zJo1RFwkYaPowllIpgBwPW8/FTvGfeTOBlQup+cJB0K50Fy?=
- =?us-ascii?Q?PAAY86SrLMf6fpVAllz93lIVzU/xi5LPHE8eguSeAfLZdBxmNFSItGFiOU/m?=
- =?us-ascii?Q?iqrvkQhFK3r9TJ3hYGL/6CISpTQFExDcXoohExurKoFGYlT3M+/fBzi9v+k2?=
- =?us-ascii?Q?sNj8Uvd/4YfcoiBgPQ3ck/B0whZ9BMITnsuPb4IwfP3SCg2osrnZQIdupssl?=
- =?us-ascii?Q?ecbtodToNwHqzN+Cj/NU7EOueBzxE+HY+sDmqOz9hPJiUS+NH7XRkSUjd6ax?=
- =?us-ascii?Q?G616bPD5Re96CeB1hcOl+hoXmIbA+NaZYxKkeJpClzGd4/UgYHQe04M6MEA0?=
- =?us-ascii?Q?D4lD4Ep/+ZlecyOQtex+wPpM7QcC4wkQe5OTu3OkEvaszADA4BgB8kiHgzOG?=
- =?us-ascii?Q?lfdwc0jhHfavErZJhpEAreGR?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2866ef84-f9e1-45bf-f7bd-08d979ca2a2f
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2021 10:59:05.0995 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: klkIAZDZu02GlhP/M1dKzu0eQ/M5hgM1uKcxBzLHDiqMBJZ7dmoR+/4Px+s6HAl2lxnj6WPUP6GYNxQyLj80eUcGMeNxgl2ejfpQuLBZpgc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR10MB1888
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10109
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- adultscore=0 suspectscore=0
- phishscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
- definitions=main-2109170071
-X-Proofpoint-ORIG-GUID: OZAKuFCE0iwqLFlNnO1BLWuWJDQOa7wn
-X-Proofpoint-GUID: OZAKuFCE0iwqLFlNnO1BLWuWJDQOa7wn
-Subject: [Freedreno] [kbuild] Re: [PATCH v2 04/13] drm/hdcp: Expand HDCP
- helper library for enable/disable/check
+In-Reply-To: <29a2111d-024b-4d9e-27ef-e3399509ff32@samsung.com>
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SfUxTVxjGc+69vf0wbS5Vw4kfGEvmGBsUlmWcRYMDcd6RmTln4qJx2OkN
+ KFC0FV0dbEgFoThSJIHSgrQrG4xhmQhakUBW3WopbfkYhBEUURJoRU1hOJDBRrm68d/vfc/z
+ fjxvDg8Xd5DreMfkpxiFXJYmIQXE9d/mPBFZRQmyKG33ZjRkcXPQt24Hhmq7LDj6feYZiSrH
+ XQBdGtESaLzaAlDXfARyTPYTaOJ+D4FmF9o5yJU7yUWFJTVcVNLh4qK+1koS6TztGDL5Wwik
+ m10EyFZ8EI2U6Zd6mGZxNKUfxVHdXAtA90rvAKQr9ZJorvUygX563M5FzZMlHPRrRz3n/Y30
+ s8E8Lj3s9pD0Tf09Lv2o6iqXNhRUcGhzmxej72p7MXp4oI2kbzx/wKEvOz6hR4rsGG1vHeLS
+ NWX9JF3cXA/oa86v6OmmkD3UAcG2o0zasdOMQhp7WJCSWxl1Qs3/suZ2HicHNHA1gM+D1DvQ
+ 3VSyxAKemKoDsLZqEGeDPwGcmvVibDANoGbGSGgAb7nE35DJ5msBdD18gQVaiSk/gN9XxAd4
+ NRUHtVP3iYBoDWUkoPNcwXJbnOohYMtDDR5QkVQ01DzRkAEWUrHQa3VyAkxQr8E6TzcR4LXU
+ EVi2kIuzmiDoqBhbzvOp7fAHTw4IME5tguoWA85yMBwaq15eG1IOARwuHCJZpwmwfuApzvJq
+ 6LM3v7zABvjPzVcFagBH3Ve4bHARwL5cHWBVW+Gw+wUZOABOvQEbW6VsOg4WNI29vIsIDj4J
+ YpcQwUvXy3E2LYQF+WJWvQXq7Zb/xv7S3YtrgUS/wpp+hR39Cjv6/+caAVEPgplMZXoyo4yW
+ M2cilbJ0ZaY8OfJIRnoTWPrjzkX7lBVU+fyRNoDxgA1AHi5ZI+zOipOJhUdlqrOMIiNJkZnG
+ KG1gPY+QBAvrDQ1JYipZdopJZZgTjOLVK8bjr8vBslYpBvC9Bf7v3rq9vXr3mzv3t99S7TV/
+ bI1PC9tc26n+MSb1bKjq9ZSr+8L4137+sPOQL0F6oHGfZqavKFQv9sPH3sNRD1yfDqqsu6cf
+ LYS91xV6Pnwx8bNNGye/SY0n5nuOq2LIERDXGVEVkmhW3KgrX/X1RLYxxegM55dKHV+MihpF
+ Mfl5A1vzrYIMM189YfLtCXvb6go136E+Lx9XnfyoJSR7x8VCX7W2aZvwD2gQ37qr3bnwgfp5
+ rGsX/XRLZOnY/JW/gpst+42JjuNr10sPJpX1v9twWndoPt/9t0nSaZNvMJptsTsMJ3vCu9D5
+ 3rYz2aLGICd5jnOhON40dWGXhFCmyKLDcYVS9i/CyZHTUgQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0xTZxTA+e69fZGR3VWMH8ShaUKcCoWW0n11QpEo3MUssWQucW5Ah1dg
+ Qqu97RzDQSMhjhJZWRdSSuWRIUNWMLw2rAihoqXjUafSLB0PjW4MxJGCUwg+1oJL+O93Hr9z
+ cpLDxfm3WeHcXJWW1qiUeQJ2MDH80jkZXVi+Xxl72RKHvG1jLHR+zIWhH0facHT33wU2ss6M
+ AvTdtJFAM3VtAI2sRiPX/DiB/p76jUDLL/pYaPTsPAeVVTZyUGX/KAfdsVvZyOzuw1CDr5tA
+ 5uWXADkqjqLpKot/RsMyjhYt93HUvNIN0KRpECCzaZaNVuy1BPrpUR8Hdc1XstCN/hZW0tvU
+ wu+lHGpizM2mrlgmOdSDC+0cquabahb1Q+8sRg0Zb2PUhKeXTf3y9B6LqnUpqOlyJ0Y57V4O
+ 1Vg1zqYquloA1TlcSC11RBwiPxbu1ah1Wnp7jprRJgiOipBYKJIhoVgiE4ri3v10jzheEJO4
+ 9xidl/sFrYlJzBTmnLXGnizhfdl4vZSlBzaOAXC5kJRAn01nAMFcPnkRQM/QAGYAPH9+K3RV
+ 6VnrvAk+9xjY600LAM6ZX7ADhU3kPmhcnCIChVCykYDXKz0gEODkOAH1NyyvFR+Ar5x2PKCw
+ SRE0PDas6SFkIpztGV7bQZCRsNl9iwjwZjILPn70DFvveQu6qh+u5XmkHDa59SDAOCmFtZ33
+ 8XXeBku6a17zFuh9WIcZAd+yQbdsUCwbFMsGpR4QLSCU1jH52fmMWMgo8xmdKluYpc7vAP7n
+ +vnmSlcPuDTnEzoAxgUOALm4IDTk1pl9Sn7IMWXBV7RGnaHR5dGMA8T776nEwzdnqf3fqdJm
+ iKSx8SKJVBYbL5PGCbaESAZtGXwyW6mlT9D0SVrzv4dxeeF67GB/Hx120aA15/2Tzjl1qT5d
+ Qcl9xtgPmtMOh32bcqWhY7L+QtTVw0+O/yVXFFuDIkxvtva2f//1gMS9MzX7+JGEJ5kfJVcf
+ XLrWMVKzar/a2U75fi3fzdOBofKJoraZge1l3qAKU7qymSna0bR0zjEoP7F44LStPpp72WtL
+ +TOhRz2VZHzGnGlNTcWKyZ3x3HvC0t3FN1tlb7SW3FldcWhMakXyq0Ll+a3byqK0BdLuqORP
+ Hnz4nEqKoMGhXU0azFxbepc5cDo18jP5U/G5z4n9R3gxxQXWNKHqHXlmzbW0IDedop6IC0ss
+ eN+5Izfjj/66U8GR73kgUYHPKfbMFgkIJkcp2oVrGOV/GhjNROUDAAA=
+X-CMS-MailID: 20210917123508eucas1p2a73b5bf1cab9fac80de826cacfd817b8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20210910101445eucas1p172f99ff7fe853052fc457861c3174f9e
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20210910101445eucas1p172f99ff7fe853052fc457861c3174f9e
+References: <20210910101218.1632297-1-maxime@cerno.tech>
+ <CGME20210910101445eucas1p172f99ff7fe853052fc457861c3174f9e@eucas1p1.samsung.com>
+ <20210910101218.1632297-25-maxime@cerno.tech>
+ <29a2111d-024b-4d9e-27ef-e3399509ff32@samsung.com>
+Subject: Re: [Freedreno] [PATCH v4 24/24] drm/exynos: dsi: Adjust probe order
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,132 +140,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Sean,
+Hi,
 
-url:    https://github.com/0day-ci/linux/commits/Sean-Paul/drm-hdcp-Pull-HDCP-auth-exchange-check-into-helpers/20210916-044145 
-base:   git://anongit.freedesktop.org/drm-intel for-linux-next
-config: x86_64-randconfig-m001-20210916 (attached as .config)
-compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+On 13.09.2021 12:30, Andrzej Hajda wrote:
+> W dniu 10.09.2021 o 12:12, Maxime Ripard pisze:
+>> Without proper care and an agreement between how DSI hosts and devices
+>> drivers register their MIPI-DSI entities and potential components, we can
+>> end up in a situation where the drivers can never probe.
+>>
+>> Most drivers were taking evasive maneuvers to try to workaround this,
+>> but not all of them were following the same conventions, resulting in
+>> various incompatibilities between DSI hosts and devices.
+>>
+>> Now that we have a sequence agreed upon and documented, let's convert
+>> exynos to it.
+>>
+>> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> This patch should be dropped, as it will probably break the driver.
+>
+> Exynos is already compatible with the pattern
+> register-bus-then-get-sink, but it adds/removes panel/bridge
+> dynamically, so it creates drm_device without waiting for downstream sink.
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Right, this patch breaks Exynos DSI driver operation. Without it, the 
+whole series works fine on all Exynos based test boards.
 
-New smatch warnings:
-drivers/gpu/drm/drm_hdcp.c:1208 drm_hdcp_helper_enable_hdcp() error: uninitialized symbol 'check_link_interval'.
-
-Old smatch warnings:
-drivers/gpu/drm/drm_hdcp.c:514 drm_hdcp_atomic_check() warn: inconsistent indenting
-
-vim +/check_link_interval +1208 drivers/gpu/drm/drm_hdcp.c
-
-cbc5065be3a652f Sean Paul 2021-09-15  1127  static int drm_hdcp_helper_enable_hdcp(struct drm_hdcp_helper_data *data,
-cbc5065be3a652f Sean Paul 2021-09-15  1128  				       struct drm_atomic_state *state,
-cbc5065be3a652f Sean Paul 2021-09-15  1129  				       struct mutex *driver_mutex)
-cbc5065be3a652f Sean Paul 2021-09-15  1130  {
-cbc5065be3a652f Sean Paul 2021-09-15  1131  	struct drm_connector *connector = data->connector;
-cbc5065be3a652f Sean Paul 2021-09-15  1132  	struct drm_connector_state *conn_state;
-cbc5065be3a652f Sean Paul 2021-09-15  1133  	struct drm_device *dev = connector->dev;
-cbc5065be3a652f Sean Paul 2021-09-15  1134  	unsigned long check_link_interval;
-                                                              ^^^^^^^^^^^^^^^^^^^
-cbc5065be3a652f Sean Paul 2021-09-15  1135  	bool capable;
-cbc5065be3a652f Sean Paul 2021-09-15  1136  	int ret = 0;
-cbc5065be3a652f Sean Paul 2021-09-15  1137  
-cbc5065be3a652f Sean Paul 2021-09-15  1138  	conn_state = drm_atomic_get_new_connector_state(state, connector);
-cbc5065be3a652f Sean Paul 2021-09-15  1139  
-cbc5065be3a652f Sean Paul 2021-09-15  1140  	mutex_lock(&data->mutex);
-cbc5065be3a652f Sean Paul 2021-09-15  1141  
-cbc5065be3a652f Sean Paul 2021-09-15  1142  	if (data->value == DRM_MODE_CONTENT_PROTECTION_ENABLED) {
-cbc5065be3a652f Sean Paul 2021-09-15  1143  		drm_hdcp_update_value(data, DRM_MODE_CONTENT_PROTECTION_ENABLED,
-cbc5065be3a652f Sean Paul 2021-09-15  1144  				      true);
-cbc5065be3a652f Sean Paul 2021-09-15  1145  		goto out_data_mutex;
-cbc5065be3a652f Sean Paul 2021-09-15  1146  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1147  
-cbc5065be3a652f Sean Paul 2021-09-15  1148  	drm_WARN_ON(dev, data->driver_mutex != NULL);
-cbc5065be3a652f Sean Paul 2021-09-15  1149  	data->driver_mutex = driver_mutex;
-cbc5065be3a652f Sean Paul 2021-09-15  1150  
-cbc5065be3a652f Sean Paul 2021-09-15  1151  	drm_hdcp_helper_driver_lock(data);
-cbc5065be3a652f Sean Paul 2021-09-15  1152  
-cbc5065be3a652f Sean Paul 2021-09-15  1153  	if (data->funcs->setup) {
-cbc5065be3a652f Sean Paul 2021-09-15  1154  		ret = data->funcs->setup(connector, state);
-cbc5065be3a652f Sean Paul 2021-09-15  1155  		if (ret) {
-cbc5065be3a652f Sean Paul 2021-09-15  1156  			drm_err(dev, "Failed to setup HDCP %d\n", ret);
-cbc5065be3a652f Sean Paul 2021-09-15  1157  			goto out;
-cbc5065be3a652f Sean Paul 2021-09-15  1158  		}
-cbc5065be3a652f Sean Paul 2021-09-15  1159  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1160  
-cbc5065be3a652f Sean Paul 2021-09-15  1161  	if (!data->funcs->are_keys_valid ||
-cbc5065be3a652f Sean Paul 2021-09-15  1162  	    !data->funcs->are_keys_valid(connector)) {
-cbc5065be3a652f Sean Paul 2021-09-15  1163  		if (data->funcs->load_keys) {
-cbc5065be3a652f Sean Paul 2021-09-15  1164  			ret = data->funcs->load_keys(connector);
-cbc5065be3a652f Sean Paul 2021-09-15  1165  			if (ret) {
-cbc5065be3a652f Sean Paul 2021-09-15  1166  				drm_err(dev, "Failed to load HDCP keys %d\n", ret);
-cbc5065be3a652f Sean Paul 2021-09-15  1167  				goto out;
-cbc5065be3a652f Sean Paul 2021-09-15  1168  			}
-cbc5065be3a652f Sean Paul 2021-09-15  1169  		}
-cbc5065be3a652f Sean Paul 2021-09-15  1170  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1171  
-cbc5065be3a652f Sean Paul 2021-09-15  1172  	/*
-cbc5065be3a652f Sean Paul 2021-09-15  1173  	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
-cbc5065be3a652f Sean Paul 2021-09-15  1174  	 * is capable of HDCP2.2, it is preferred to use HDCP2.2.
-cbc5065be3a652f Sean Paul 2021-09-15  1175  	 */
-cbc5065be3a652f Sean Paul 2021-09-15  1176  	ret = data->funcs->hdcp2_capable(connector, &capable);
-cbc5065be3a652f Sean Paul 2021-09-15  1177  	if (ret) {
-cbc5065be3a652f Sean Paul 2021-09-15  1178  		drm_err(dev, "HDCP 2.x capability check failed %d\n", ret);
-cbc5065be3a652f Sean Paul 2021-09-15  1179  		goto out;
-cbc5065be3a652f Sean Paul 2021-09-15  1180  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1181  	if (capable) {
-cbc5065be3a652f Sean Paul 2021-09-15  1182  		data->enabled_type = DRM_MODE_HDCP_CONTENT_TYPE1;
-cbc5065be3a652f Sean Paul 2021-09-15  1183  		ret = data->funcs->hdcp2_enable(connector);
-cbc5065be3a652f Sean Paul 2021-09-15  1184  		if (!ret) {
-cbc5065be3a652f Sean Paul 2021-09-15  1185  			check_link_interval = DRM_HDCP2_CHECK_PERIOD_MS;
-cbc5065be3a652f Sean Paul 2021-09-15  1186  			goto out;
-cbc5065be3a652f Sean Paul 2021-09-15  1187  		}
-cbc5065be3a652f Sean Paul 2021-09-15  1188  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1189  
-cbc5065be3a652f Sean Paul 2021-09-15  1190  	/*
-cbc5065be3a652f Sean Paul 2021-09-15  1191  	 * When HDCP2.2 fails and Content Type is not Type1, HDCP1.4 will
-cbc5065be3a652f Sean Paul 2021-09-15  1192  	 * be attempted.
-cbc5065be3a652f Sean Paul 2021-09-15  1193  	 */
-cbc5065be3a652f Sean Paul 2021-09-15  1194  	ret = drm_hdcp_helper_hdcp1_capable(data, &capable);
-cbc5065be3a652f Sean Paul 2021-09-15  1195  	if (ret) {
-cbc5065be3a652f Sean Paul 2021-09-15  1196  		drm_err(dev, "HDCP 1.x capability check failed %d\n", ret);
-cbc5065be3a652f Sean Paul 2021-09-15  1197  		goto out;
-cbc5065be3a652f Sean Paul 2021-09-15  1198  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1199  	if (capable && conn_state->content_type != DRM_MODE_HDCP_CONTENT_TYPE1) {
-cbc5065be3a652f Sean Paul 2021-09-15  1200  		data->enabled_type = DRM_MODE_HDCP_CONTENT_TYPE0;
-cbc5065be3a652f Sean Paul 2021-09-15  1201  		ret = drm_hdcp_helper_hdcp1_enable(data);
-cbc5065be3a652f Sean Paul 2021-09-15  1202  		if (!ret)
-cbc5065be3a652f Sean Paul 2021-09-15  1203  			check_link_interval = DRM_HDCP_CHECK_PERIOD_MS;
-cbc5065be3a652f Sean Paul 2021-09-15  1204  	}
-
-"ret = 0" and "check_link_interval" is unitialized on else path.
-
-
-cbc5065be3a652f Sean Paul 2021-09-15  1205  
-cbc5065be3a652f Sean Paul 2021-09-15  1206  out:
-cbc5065be3a652f Sean Paul 2021-09-15  1207  	if (!ret) {
-cbc5065be3a652f Sean Paul 2021-09-15 @1208  		schedule_delayed_work(&data->check_work, check_link_interval);
-                                                                                                 ^^^^^^^^^^^^^^^^^^^
-
-cbc5065be3a652f Sean Paul 2021-09-15  1209  		drm_hdcp_update_value(data, DRM_MODE_CONTENT_PROTECTION_ENABLED,
-cbc5065be3a652f Sean Paul 2021-09-15  1210  				      true);
-cbc5065be3a652f Sean Paul 2021-09-15  1211  	}
-cbc5065be3a652f Sean Paul 2021-09-15  1212  
-cbc5065be3a652f Sean Paul 2021-09-15  1213  	drm_hdcp_helper_driver_unlock(data);
-cbc5065be3a652f Sean Paul 2021-09-15  1214  	if (ret)
-cbc5065be3a652f Sean Paul 2021-09-15  1215  		data->driver_mutex = NULL;
-cbc5065be3a652f Sean Paul 2021-09-15  1216  
-cbc5065be3a652f Sean Paul 2021-09-15  1217  out_data_mutex:
-cbc5065be3a652f Sean Paul 2021-09-15  1218  	mutex_unlock(&data->mutex);
-cbc5065be3a652f Sean Paul 2021-09-15  1219  	return ret;
-cbc5065be3a652f Sean Paul 2021-09-15  1220  }
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org 
-
-_______________________________________________
-kbuild mailing list -- kbuild@lists.01.org
-To unsubscribe send an email to kbuild-leave@lists.01.org
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
