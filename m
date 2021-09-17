@@ -2,39 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61CA840F859
-	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 14:51:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD94F40FC2D
+	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 17:24:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE01F6EC77;
-	Fri, 17 Sep 2021 12:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB27A6ED93;
+	Fri, 17 Sep 2021 15:24:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEA56EC73;
- Fri, 17 Sep 2021 12:51:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10109"; a="286475861"
-X-IronPort-AV: E=Sophos;i="5.85,301,1624345200"; d="scan'208";a="286475861"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 05:51:24 -0700
-X-IronPort-AV: E=Sophos;i="5.85,301,1624345200"; d="scan'208";a="546361699"
-Received: from unknown (HELO localhost) ([10.251.216.224])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2021 05:51:20 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Cc: swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>, "Saarinen\,
- Jani" <jani.saarinen@intel.com>
-In-Reply-To: <20210915203834.1439-1-sean@poorly.run>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20210915203834.1439-1-sean@poorly.run>
-Date: Fri, 17 Sep 2021 15:51:15 +0300
-Message-ID: <87pmt7uzzw.fsf@intel.com>
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 155A86ED8A
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 15:24:32 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ c190-20020a1c9ac7000000b0030b459ea869so1679855wme.4
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 08:24:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UUmIc1Zm6f0TtwRpO+dF5pS2Y2cDE7pjg0cLbOF+M+E=;
+ b=Rzn08IPZenhQ6bvtAtCZFtUgcNOadCOdu78eHBCqYGv/hV+L9cluJaEyplz5gcBA7R
+ 38wK30kV3P5we6pC4sOpGFJx71Gq1+1ryDNONUjrKLim7Yfc3dXqvMmu3/gJm1MKY0gs
+ TcW6XWN+ON+jrkBcBdm/eQYlZqOq4Sg4Mar8E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=UUmIc1Zm6f0TtwRpO+dF5pS2Y2cDE7pjg0cLbOF+M+E=;
+ b=txxSLAJyQgfl9LRb3vnGvtlNr45R4GsV4HcHwIUBXIFq8oQQSXhnOlyOtISPz2tbJR
+ xsB68LJ2AORLY7S5N4C/4spnoZjvBwyw00m0/q4rnKyGzrfy7LoQJjq48Val1ayrD++o
+ Z6HGBJBEcgWccy0GqWh+YcJ5BabRF5b1tRKLOvZpHN54Mr5y/jk5s8b7SaE5pxqQ6vic
+ l8xx4mtoQE3XB2QTnMltEbTfoiCbg9oFoelClulDDUk3vsgMLmO5XRi8FINhttDaGgDM
+ YgBYWqhrO3+edbDvjiw4EnZKUBgJTQ526qwusADuMb4mS/d1IujnaQL1brOCaT3F8PVj
+ bIPg==
+X-Gm-Message-State: AOAM530DP3aqhJhmIql6ylhSNJpCUIoWorROu50fzcbOZ/QiDIv0Z9yH
+ F+bsnOEO8RNNFntlQwdCyAB4Gw==
+X-Google-Smtp-Source: ABdhPJy9S40vw/exT9dD330IOj7yv3V6vas+VLUTS5747KBqEVcQ3/55Lywp40+PNtXXNtDS+CHl4w==
+X-Received: by 2002:a1c:7e12:: with SMTP id z18mr16190125wmc.60.1631892270408; 
+ Fri, 17 Sep 2021 08:24:30 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id r5sm6880779wrm.79.2021.09.17.08.24.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Sep 2021 08:24:29 -0700 (PDT)
+Date: Fri, 17 Sep 2021 17:24:27 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Fernando Ramos <greenfoo@u92.eu>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sean@poorly.run, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Message-ID: <YUSzKxZwW8C29dLV@phenom.ffwll.local>
+Mail-Followup-To: Fernando Ramos <greenfoo@u92.eu>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sean@poorly.run, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+References: <20210916211552.33490-1-greenfoo@u92.eu>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH v2 00/13] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210916211552.33490-1-greenfoo@u92.eu>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH 00/15] drm: cleanup: Use
+ DRM_MODESET_LOCK_ALL_* helpers where possible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,76 +84,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Sep 2021, Sean Paul <sean@poorly.run> wrote:
-> From: Sean Paul <seanpaul@chromium.org>
->
-> Hello again,
-> This is the second version of the HDCP helper patchset. See version 1
-> here: https://patchwork.freedesktop.org/series/94623/
->
-> In this second version, I've fixed up the oopsies exposed by 0-day and
-> yamllint and incorporated early review feedback from the dt/dts reviews.
->
-> Please take a look,
+On Thu, Sep 16, 2021 at 11:15:37PM +0200, Fernando Ramos wrote:
+> Hi all,
+> 
+> One of the things in the DRM TODO list ("Documentation/gpu/todo.rst") was to
+> "use DRM_MODESET_LOCAL_ALL_* helpers instead of boilerplate". That's what this
+> patch series is about.
+> 
+> You will find two types of changes here:
+> 
+>   - Replacing "drm_modeset_lock_all_ctx()" (and surrounding boilerplate) with
+>     "DRM_MODESET_LOCK_ALL_BEGIN()/END()" in the remaining places (as it has
+>     already been done in previous commits such as b7ea04d2)
+> 
+>   - Replacing "drm_modeset_lock_all()" with "DRM_MODESET_LOCK_ALL_BEGIN()/END()"
+>     in the remaining places (as it has already been done in previous commits
+>     such as 57037094)
+>     
+> Most of the changes are straight forward, except for a few cases in the "amd"
+> and "i915" drivers where some extra dancing was needed to overcome the
+> limitation that the DRM_MODESET_LOCK_ALL_BEGIN()/END() macros can only be used
+> once inside the same function (the reason being that the macro expansion
+> includes *labels*, and you can not have two labels named the same inside one
+> function)
+> 
+> Notice that, even after this patch series, some places remain where
+> "drm_modeset_lock_all()" and "drm_modeset_lock_all_ctx()" are still present,
+> all inside drm core (which makes sense), except for two (in "amd" and "i915")
+> which cannot be replaced due to the way they are being used.
 
-I'll try to ping folks to get someone to review the i915 parts, but the
-general idea of moving common HDCP code from i915 to drm is, I hope
-obviously,
+Can we at least replace those with drm_modeset_lock_all_ctx and delete
+drm_modeset_lock_all? That would be really nice goal to make sure these
+don't spread further.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Otherwise great stuff, I'm trying to volunteer a few reviewers.
+-Daniel
 
-
->
-> Sean
->
-> Sean Paul (13):
->   drm/hdcp: Add drm_hdcp_atomic_check()
->   drm/hdcp: Avoid changing crtc state in hdcp atomic check
->   drm/hdcp: Update property value on content type and user changes
->   drm/hdcp: Expand HDCP helper library for enable/disable/check
->   drm/i915/hdcp: Consolidate HDCP setup/state cache
->   drm/i915/hdcp: Retain hdcp_capable return codes
->   drm/i915/hdcp: Use HDCP helpers for i915
->   drm/msm/dpu_kms: Re-order dpu includes
->   drm/msm/dpu: Remove useless checks in dpu_encoder
->   drm/msm/dpu: Remove encoder->enable() hack
->   drm/msm/dp: Re-order dp_audio_put in deinit_sub_modules
->   dt-bindings: msm/dp: Add bindings for HDCP registers
->   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
->
->  .../bindings/display/msm/dp-controller.yaml   |    7 +-
->  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    4 +-
->  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
->  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
->  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
->  .../drm/i915/display/intel_display_types.h    |   58 +-
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
->  drivers/gpu/drm/i915/display/intel_hdcp.h     |   35 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
->  drivers/gpu/drm/msm/Makefile                  |    1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   17 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   30 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 -
->  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |    4 -
->  drivers/gpu/drm/msm/dp/dp_debug.c             |   49 +-
->  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
->  drivers/gpu/drm/msm/dp/dp_display.c           |   47 +-
->  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
->  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
->  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
->  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  433 ++++++
->  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
->  drivers/gpu/drm/msm/dp/dp_parser.c            |   22 +-
->  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
->  drivers/gpu/drm/msm/dp/dp_reg.h               |   44 +-
->  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
->  include/drm/drm_hdcp.h                        |  194 +++
->  30 files changed, 2561 insertions(+), 1389 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+> 
+> Fernando Ramos (15):
+>   dmr: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   dmr/i915: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   dmr/msm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/vmwgfx: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/tegra: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/shmobile: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/radeon: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/omapdrm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/nouveau: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/msm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/gma500: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   drm/amd: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+>   doc: drm: remove TODO entry regarding DRM_MODSET_LOCK_ALL cleanup
+> 
+>  Documentation/gpu/todo.rst                    | 17 -------
+>  Documentation/locking/ww-mutex-design.rst     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 13 +++--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++++++----------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 23 +++++----
+>  drivers/gpu/drm/drm_client_modeset.c          | 14 +++---
+>  drivers/gpu/drm/drm_crtc_helper.c             | 18 ++++---
+>  drivers/gpu/drm/drm_fb_helper.c               | 10 ++--
+>  drivers/gpu/drm/drm_framebuffer.c             |  6 ++-
+>  drivers/gpu/drm/gma500/psb_device.c           | 14 ++++--
+>  drivers/gpu/drm/i915/display/intel_audio.c    | 12 +++--
+>  drivers/gpu/drm/i915/display/intel_display.c  | 22 +++-----
+>  .../drm/i915/display/intel_display_debugfs.c  | 35 ++++++++-----
+>  drivers/gpu/drm/i915/display/intel_overlay.c  | 45 ++++++++---------
+>  drivers/gpu/drm/i915/display/intel_pipe_crc.c |  5 +-
+>  drivers/gpu/drm/i915/i915_drv.c               | 12 +++--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  6 ++-
+>  .../gpu/drm/msm/disp/msm_disp_snapshot_util.c | 10 ++--
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       | 12 +++--
+>  drivers/gpu/drm/omapdrm/omap_fb.c             |  6 ++-
+>  drivers/gpu/drm/radeon/radeon_device.c        | 13 +++--
+>  drivers/gpu/drm/radeon/radeon_dp_mst.c        |  7 ++-
+>  drivers/gpu/drm/shmobile/shmob_drm_drv.c      |  6 ++-
+>  drivers/gpu/drm/tegra/dsi.c                   |  6 ++-
+>  drivers/gpu/drm/tegra/hdmi.c                  |  5 +-
+>  drivers/gpu/drm/tegra/sor.c                   | 10 ++--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c         | 11 ++--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           | 12 +++--
+>  28 files changed, 222 insertions(+), 180 deletions(-)
+> 
+> -- 
+> 2.33.0
+> 
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
