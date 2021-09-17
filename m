@@ -1,69 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D4A40FD5C
-	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 17:56:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DE4240FE95
+	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 19:25:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B09B6EE39;
-	Fri, 17 Sep 2021 15:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92CE06E039;
+	Fri, 17 Sep 2021 17:25:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [IPv6:2607:f8b0:4864:20::830])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 787CA6EE3D
- for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 15:56:54 +0000 (UTC)
-Received: by mail-qt1-x830.google.com with SMTP id c19so9125188qte.7
- for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 08:56:54 -0700 (PDT)
+Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
+ [IPv6:2607:f8b0:4864:20::f32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D29B6E03E
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 17:25:31 +0000 (UTC)
+Received: by mail-qv1-xf32.google.com with SMTP id w8so763808qvu.1
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 10:25:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=0sCoJcMzph8m7gHdWZKN3dp454V4z1+jmuXCQGYY1eU=;
- b=UX6GzuE3DTpJzHN/aIeG3aCWzhBV+fCkDtBgEsxVhOm3+8K8AyENBXdIjuOYPRQKxs
- CTuel8m/m8KvyUEtzzp6eSepsKHiz/6oQvR50EcDMCZsQ3D7ykraTZ1895PCkIJHaqP5
- sfVz/lJFm7SXIqu1gLW50masMo1/nUD/Q4NJaqleeYLk/IDnaaWJNf0YBugq8do4COrv
- tgciBCa4sJznbQ680HUkBOi8azZ7pZjDQk932tTjNeS8fwuKs1XZMUEsUQPyod+7kBIn
- PX4L5mBmBUGYZaIWPqPbQt+e/XskkfcMsuLlF5APW7WdqHZcqEAGziGAp2Q4K1+CChVa
- kfMA==
+ bh=p9Wdpm3PSA3ThdYdzsHmj18B3OFNZmUu9ZK37+B/sXA=;
+ b=MiEhajDEtlfmkDMoND8cuyhvIhfBuSMlc/EhJaGD+lkLlcJuKNZ76xtz6U9+KRKV1C
+ IyvlpwDvhazxPoMO4zautNbQ+zDTNioitudaWEOuIn7iCvMFKAnnXANt3dye7v6UsYLZ
+ ueLzU8q3Mft61+tgDnFm+v6QdiFKePN8WBkNukAKikOZ3+e72vFyRjwJRirDJX794H2P
+ guThBiD/SRfY7ilMSZy7NpqGVt+Vxer/a6tf5JEp/dvL7JECXIoWF2mKA7QVJQTdVszS
+ iY8aFTcXskm8bNmK3+QAJeZUIR4sd7oZOlDwxlF9MZiE5goDAssZlZXT+fTtHewskAbH
+ KlJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=0sCoJcMzph8m7gHdWZKN3dp454V4z1+jmuXCQGYY1eU=;
- b=wgi8KKIQ2rXtapKt0iP/mnFespmylNusIfdXn1jsVhHzVmWU4e1iV0TXY9zby9ZKEh
- n1FKH6giJKsmYDmuqrLRWivb66V+URCoM8ZfGlRgIXxQKyEh1an5EijfIRLrFM05uKmL
- wJherbwpy73b7yVCkId45TAzxH4K0cif26C+BkzVFQ/hjJwOb02jBbxjp9BvNUa/mgby
- DXk3SgMNLJUcSWt8Jqw+ly0IFg9Ue9cvRyRky59kGaVG5TYdeFoANzWcFpb5utv0f9aD
- h8rCBXISzgH24W4Vw2A+g64qwq0KRItnUviYF6QFU/3LUy2Aoh9er1kKf6AYREIdA6tO
- 3ATA==
-X-Gm-Message-State: AOAM530BfdQEFMYp8Vl2ifRcQFmsJj8JLfJHnJZ4sGbqP01MdqE4NvNL
- f7IWbN5QKzXC8VYCorTSuKvmcQ==
-X-Google-Smtp-Source: ABdhPJy2rUDs6BeN9kdSRBI5w9E4e4qiGJ6kgMTqOz5qaJIsLmkzMmZBlXt+Y/EFA7itiDo5nxOSnA==
-X-Received: by 2002:ac8:4a90:: with SMTP id l16mr5492592qtq.154.1631894213604; 
- Fri, 17 Sep 2021 08:56:53 -0700 (PDT)
+ bh=p9Wdpm3PSA3ThdYdzsHmj18B3OFNZmUu9ZK37+B/sXA=;
+ b=6C+/u2lWLV5HN4NOdF/QUsRecZ4u3yutUXGFrDeVp5nIMLFpd2/jT7k00Jb1h/0NgQ
+ /NSolj+fBWwWlj6ZAdbPTKTXACelXOEjY92lcPQ4Z/q0FmVPYPcR7uAPYhLYK9rq4u5X
+ 4SlyStsMA/vEvKjKGykWwL0PSIrQxOQ2TOiReo70GPW2Nw7rjbplqUsprO5fjK7/TZZp
+ qsEGTJO5ZCyorqnaPCtlIB2JqbcIKE6TdXo0Q0j1drAT+vZYQpglYQpeg2d2thHLlptN
+ acUMUzTwEO4M/9SONvy731+C5pQrhYkGRWLaGZMljDTwvgqPBkYIOXG1v3rK4qTdL4ZJ
+ 7bzw==
+X-Gm-Message-State: AOAM533p6H44ZJp5QvmVIctnvi3D38PA44FXmldyQkCPpV5cQSUIg96K
+ P8LcYGVkSw+zovHGjoN3+hoOsQ==
+X-Google-Smtp-Source: ABdhPJxy0iPe43C+sb2UJxr4WCzMyQAwirLD6q9JPWwd91MwFYk3IdM0k7kiIIS+zm2T3Xr76odp3A==
+X-Received: by 2002:a0c:e2d3:: with SMTP id t19mr12202361qvl.23.1631899530240; 
+ Fri, 17 Sep 2021 10:25:30 -0700 (PDT)
 Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id a8sm4075889qtx.39.2021.09.17.08.56.53
+ by smtp.gmail.com with ESMTPSA id q7sm5295437qkm.68.2021.09.17.10.25.29
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 17 Sep 2021 08:56:53 -0700 (PDT)
-Date: Fri, 17 Sep 2021 11:56:52 -0400
+ Fri, 17 Sep 2021 10:25:29 -0700 (PDT)
+Date: Fri, 17 Sep 2021 13:25:25 -0400
 From: Sean Paul <sean@poorly.run>
-To: Fernando Ramos <greenfoo@u92.eu>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Message-ID: <20210917155652.GP2515@art_vandelay>
-References: <20210916211552.33490-1-greenfoo@u92.eu>
- <20210916211552.33490-16-greenfoo@u92.eu>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
+Message-ID: <20210917172525.GQ2515@art_vandelay>
+References: <20210915203834.1439-1-sean@poorly.run>
+ <20210915203834.1439-11-sean@poorly.run>
+ <CAE-0n53uAEcj8Rpx36cRUU34k9mqtg2_tiXW_4+CYmrcihguHg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210916211552.33490-16-greenfoo@u92.eu>
+In-Reply-To: <CAE-0n53uAEcj8Rpx36cRUU34k9mqtg2_tiXW_4+CYmrcihguHg@mail.gmail.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Freedreno] [PATCH 15/15] doc: drm: remove TODO entry regarding
- DRM_MODSET_LOCK_ALL cleanup
+Subject: Re: [Freedreno] [PATCH v2 10/13] drm/msm/dpu: Remove
+ encoder->enable() hack
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,70 +79,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 16, 2021 at 11:15:52PM +0200, Fernando Ramos wrote:
-> The previous commits do exactly what this entry in the TODO file asks
-> for, thus we can remove it now as it is no longer applicable.
+On Thu, Sep 16, 2021 at 08:53:50PM -0700, Stephen Boyd wrote:
+> Quoting Sean Paul (2021-09-15 13:38:29)
+> > From: Sean Paul <seanpaul@chromium.org>
+> >
+> > encoder->commit() was being misused because there were some global
+> > resources which needed to be tweaked in encoder->enable() which were not
+> > accessible in dpu_encoder.c. That is no longer true and the redirect
+> > serves no purpose any longer. So remove the indirection.
+> 
+> When did it become false? Just curious when this became obsolete.
 
-Thanks for doing this work!
+In commit
 
-Can we remove drm_modeset_lock_all[_ctx] now? If so, let's queue that up as part
-of the set.
+commit cd6d923167b1bf3e051f9d90fa129456d78ef06e
+Author: Rob Clark <robdclark@chromium.org>
+Date:   Thu Aug 29 09:45:17 2019 -0700
 
+    drm/msm/dpu: async commit support
 
-Reviewed-by: Sean Paul <sean@poorly.run>
-
+There was a call to dpu_crtc_commit_kickoff() which was removed from
+dpu_kms_encoder_enable(). That was the bit which required the back-and-forth
+between ->enable() and ->commit().
 
 > 
-> Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
-> ---
->  Documentation/gpu/todo.rst                | 17 -----------------
->  Documentation/locking/ww-mutex-design.rst |  2 +-
->  2 files changed, 1 insertion(+), 18 deletions(-)
+> >
+> > Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> > Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-11-sean@poorly.run #v1
+> >
+> > Changes in v2:
+> > -None
+> > ---
 > 
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 12e61869939e..6613543955e9 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -353,23 +353,6 @@ converted, except for struct drm_driver.gem_prime_mmap.
->  
->  Level: Intermediate
->  
-> -Use DRM_MODESET_LOCK_ALL_* helpers instead of boilerplate
-> ----------------------------------------------------------
-> -
-> -For cases where drivers are attempting to grab the modeset locks with a local
-> -acquire context. Replace the boilerplate code surrounding
-> -drm_modeset_lock_all_ctx() with DRM_MODESET_LOCK_ALL_BEGIN() and
-> -DRM_MODESET_LOCK_ALL_END() instead.
-> -
-> -This should also be done for all places where drm_modeset_lock_all() is still
-> -used.
-> -
-> -As a reference, take a look at the conversions already completed in drm core.
-> -
-> -Contact: Sean Paul, respective driver maintainers
-> -
-> -Level: Starter
-> -
->  Rename CMA helpers to DMA helpers
->  ---------------------------------
->  
-> diff --git a/Documentation/locking/ww-mutex-design.rst b/Documentation/locking/ww-mutex-design.rst
-> index 6a4d7319f8f0..6a8f8beb9ec4 100644
-> --- a/Documentation/locking/ww-mutex-design.rst
-> +++ b/Documentation/locking/ww-mutex-design.rst
-> @@ -60,7 +60,7 @@ Concepts
->  Compared to normal mutexes two additional concepts/objects show up in the lock
->  interface for w/w mutexes:
->  
-> -Acquire context: To ensure eventual forward progress it is important the a task
-> +Acquire context: To ensure eventual forward progress it is important that a task
->  trying to acquire locks doesn't grab a new reservation id, but keeps the one it
->  acquired when starting the lock acquisition. This ticket is stored in the
->  acquire context. Furthermore the acquire context keeps track of debugging state
-> -- 
-> 2.33.0
-> 
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Tested-by: Stephen Boyd <swboyd@chromium.org>
+
+Thanks!
 
 -- 
 Sean Paul, Software Engineer, Google / Chromium OS
