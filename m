@@ -2,50 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDDA940EEA0
-	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 03:11:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F25B40F083
+	for <lists+freedreno@lfdr.de>; Fri, 17 Sep 2021 05:51:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB296EAC4;
-	Fri, 17 Sep 2021 01:11:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F07166EB49;
+	Fri, 17 Sep 2021 03:51:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 582 seconds by postgrey-1.36 at gabe;
- Fri, 17 Sep 2021 01:09:27 UTC
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 403486EABF
- for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 01:09:27 +0000 (UTC)
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 61AA682D18;
- Fri, 17 Sep 2021 02:59:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1631840381;
- bh=bDuOrCdzoWsT+rs95Bjmzf6kn4ZJSlEQSQ56zrjHy00=;
- h=From:To:Cc:Subject:Date:From;
- b=XtwTVrXomL8ZRHqs6Dkl8BjlH0Ti6cypahlBILc0YUuU6lExCL5PBeihb/VNsEgmM
- 3OR70Jf9aeUfE5x63S3MvYRTWg3oybdsN/CNUS10yU1c1/yH3M5OYGlWRrikSyLCJx
- /gM+hAolHkHatiPiRWU67/UQ8v6Sea7K9ydTR4Wch+T5GWRnG/2H560Er4q3qsmmMe
- zJl6bsrfLFH06uN+fXtC+C9glX+wcMnLs0o86XVuAdvNUe3DBG4MLkElYdLDWMmAa8
- 33Ocksq5YJ3bCtXJBIB9Mut/+NZQ6xgwdwf6MvTSZ9bENMZ1EVL4OCs+pK3py1lVRY
- ZSb82sU7X5mlA==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Marek Vasut <marex@denx.de>, Arnd Bergmann <arnd@arndb.de>,
- Jordan Crouse <jcrouse@codeaurora.org>, Rob Clark <robdclark@chromium.org>,
- stable@vger.kernel.org
-Date: Fri, 17 Sep 2021 02:59:13 +0200
-Message-Id: <20210917005913.157379-1-marex@denx.de>
-X-Mailer: git-send-email 2.33.0
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C166EB47
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Sep 2021 03:51:54 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ 77-20020a9d0ed3000000b00546e10e6699so65116otj.2
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Sep 2021 20:51:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=eC8WWm0GB9m9+OiTXjvJDwwJ4bOx9YsGIUwSquTEdkE=;
+ b=leXlvUp4wCgJ+WDoSlsI5mfKEeObgFzMYEyDUeRToizAqmkwRLhzsTBxrdEHJ1LdYD
+ F1jlqshs/rFCIBHW6i5CscigoTLiIEwaxQ1O/7w84B5WqXaa6JB05tIBgBGUouTzY+BZ
+ 5ngRCTCyGAVKY1/dVw68vCIPuKawOTvBfu5lM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=eC8WWm0GB9m9+OiTXjvJDwwJ4bOx9YsGIUwSquTEdkE=;
+ b=xNLC00jjFpBEnwtut1LxVJsCoW+aosmV7y7SCpNY1Tm73prb2vLuoZgogR8q6Ah7//
+ ayjq/2Uvrs1/ErHsBUp0JNYhokEbYcB+7Zxz2VX3pL7FTx9hM4GxlfwUTS4Q+lnbMprd
+ Bl8DZSjAKXM6K6Lnk2Xbzz2U/LaEwGWYP76tvLnDrcVLJ+HuIstXvs3CVJiJZZ17hLHG
+ ebCetFxHX2MblbahkSesJqydQRyqDH4llQl8MmnAoeJLd8aIv/SY8uX31PQOzK0aLzZF
+ NhqW94o+qcq5sCHEuf/1Uij7AoJmL6ufrnTPkh/iwDhy4wbkz45t6fXY7WFQ6hyAB+Iy
+ 2t3g==
+X-Gm-Message-State: AOAM5310Slr9sXSigSQN/1ylIob/xCMw7r1YSxDLkxaXdj48dYMmu2W+
+ /hFJWgAFVgRlQmszjo75wim19iv6uf8qXMP7rTYJOg==
+X-Google-Smtp-Source: ABdhPJwb+CAeP1LbhPRSrTra9NOvhp96+APdALmb4BWvnUD6hxz1CMABXqTRzuUhf7PFT5ityKS48rAG+XuHAMo+ZcQ=
+X-Received: by 2002:a05:6830:719:: with SMTP id
+ y25mr7534615ots.77.1631850713468; 
+ Thu, 16 Sep 2021 20:51:53 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Sep 2021 20:51:52 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
-X-Virus-Status: Clean
-X-Mailman-Approved-At: Fri, 17 Sep 2021 01:11:03 +0000
-Subject: [Freedreno] [PATCH] drm/msm: Avoid potential overflow in
- timeout_to_jiffies()
+In-Reply-To: <20210915203834.1439-12-sean@poorly.run>
+References: <20210915203834.1439-1-sean@poorly.run>
+ <20210915203834.1439-12-sean@poorly.run>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 16 Sep 2021 20:51:52 -0700
+Message-ID: <CAE-0n53jiiasodgaat9jJPifxGg=mNo8vewzORdBB+ZVd3VXTw@mail.gmail.com>
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Sean Paul <seanpaul@chromium.org>, Rob Clark <robdclark@gmail.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 11/13] drm/msm/dp: Re-order dp_audio_put
+ in deinit_sub_modules
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,61 +73,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The return type of ktime_divns() is s64. The timeout_to_jiffies() currently
-assigns the result of this ktime_divns() to unsigned long, which on 32 bit
-systems may overflow. Furthermore, the result of this function is sometimes
-also passed to functions which expect signed long, dma_fence_wait_timeout()
-is one such example.
+Quoting Sean Paul (2021-09-15 13:38:30)
+> From: Sean Paul <seanpaul@chromium.org>
+>
+> Audio is initialized last, it should be de-initialized first to match
+> the order in dp_init_sub_modules().
 
-Fix this by adjusting the type of remaining_jiffies to s64, so we do not
-suffer overflow there, and return a value limited to range of 0..INT_MAX,
-which is safe for all usecases of this timeout.
+I don't really understand why the driver is written with all this "get"
+stuff but sure.
 
-The above overflow can be triggered if userspace passes in too large timeout
-value, larger than INT_MAX / HZ seconds. The kernel detects it and complains
-about "schedule_timeout: wrong timeout value %lx" and generates a warning
-backtrace.
+>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-12-sean@poorly.run #v1
+>
+> Changes in v2:
+> -None
+> ---
 
-Note that this fixes commit 6cedb8b377bb ("drm/msm: avoid using 'timespec'"),
-because the previously used timespec_to_jiffies() function returned unsigned
-long instead of s64:
-static inline unsigned long timespec_to_jiffies(const struct timespec *value)
-
-Fixes: 6cedb8b377bb ("drm/msm: avoid using 'timespec'")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Jordan Crouse <jcrouse@codeaurora.org>
-Cc: Rob Clark <robdclark@chromium.org>
-Cc: stable@vger.kernel.org # 5.6+
----
-NOTE: This is related to Mesa MR
-      https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/12886
----
- drivers/gpu/drm/msm/msm_drv.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 0b2686b060c73..d96b254b8aa46 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -543,7 +543,7 @@ static inline int align_pitch(int width, int bpp)
- static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
- {
- 	ktime_t now = ktime_get();
--	unsigned long remaining_jiffies;
-+	s64 remaining_jiffies;
- 
- 	if (ktime_compare(*timeout, now) < 0) {
- 		remaining_jiffies = 0;
-@@ -552,7 +552,7 @@ static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
- 		remaining_jiffies = ktime_divns(rem, NSEC_PER_SEC / HZ);
- 	}
- 
--	return remaining_jiffies;
-+	return clamp(remaining_jiffies, 0LL, (s64)INT_MAX);
- }
- 
- #endif /* __MSM_DRV_H__ */
--- 
-2.33.0
-
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
