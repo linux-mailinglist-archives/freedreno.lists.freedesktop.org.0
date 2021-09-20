@@ -1,44 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 986C84111C2
-	for <lists+freedreno@lfdr.de>; Mon, 20 Sep 2021 11:14:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9638F4123F1
+	for <lists+freedreno@lfdr.de>; Mon, 20 Sep 2021 20:27:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39CE66E453;
-	Mon, 20 Sep 2021 09:14:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22C826E5C3;
+	Mon, 20 Sep 2021 18:27:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C23486E454
- for <freedreno@lists.freedesktop.org>; Mon, 20 Sep 2021 09:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=k1; bh=KXU1uvvGG3Zwek
- t4tqYouB7lvi7vVs87+GJSqA8pvcg=; b=ZEoox5cWHSEWiHX8F3b60QHgE4BSTo
- ByZKSvlB6kYXa1ekjk10OzxT4DMgE4kXw/hNgUrkE3YFzKuS9cmAwn1Nv/NYg6xr
- 8HK7vUzn4Nz1CUKHfk8rDmzcJowZczuj89ZApRzYNdDXBFJG0FfX+Ln5fNM56RBg
- UdoO29nU/CcAo=
-Received: (qmail 2412676 invoked from network); 20 Sep 2021 11:05:25 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 20 Sep 2021 11:05:25 +0200
-X-UD-Smtp-Session: l3s3148p1@ky/klGnMDosgAwDPXwlxANIWpbLKE1Uh
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Date: Mon, 20 Sep 2021 11:05:16 +0200
-Message-Id: <20210920090522.23784-5-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210920090522.23784-1-wsa+renesas@sang-engineering.com>
-References: <20210920090522.23784-1-wsa+renesas@sang-engineering.com>
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567BF6E5BE;
+ Mon, 20 Sep 2021 18:27:32 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id d21so32294608wra.12;
+ Mon, 20 Sep 2021 11:27:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=y9zwU5sYqKQSmloO/YdgRLqeETN2yQaV2Mq9YoCcAeI=;
+ b=SyirlfFaRyUdz9gloQTpR5LDjfVwEkVbGAKz3rA4+raBnbaIk7GgLE3cRNSVmNsJ2T
+ JkAkx5J15BZqvGTnXpSAtMhcW8GIpbkKYz2o/fjKqnI7nvBKVq2Jtz7IbC8Fxfend/aT
+ cCRjbtW6tlCL62XP7oma8j5FxslfQyutluSRo3uL68wvPMjUlYshaafTq0nWn7rc+/K0
+ X23Cy/6Zd2aJ/yV5Bd1gNBmWM7UE1ZhKunrY3CvgiHOnnJEeBbf3dekuSIuwb6Q/2klJ
+ ROAo5Rgkac0ZG3z2/sAy1GbRbPopzBsEH3+I1VBUbmtoYuVc/qLJlZm084MYYLGUrKoK
+ +CPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=y9zwU5sYqKQSmloO/YdgRLqeETN2yQaV2Mq9YoCcAeI=;
+ b=QSHGjVKeQaf7Et0xh/372SwaU1yUkqdqGuEkuwK8InOLb+E4DiH+J3kKUbuD3y5Ii/
+ AQNuzs2Jr5z5pOUX650jfuU1gYWxurbKoEE/zUWfiAIo0JOFmYdzCPgkxt8IgnyFUqiH
+ 00VVPtcGdIZT5DIcjoRM16lk0uhtfXP0vi+ZGBAoMYif21aORIX0r9qmlAOL0H0DvOex
+ m1XLhjq2Qi8rlR9nESVqRwn3r5QPXBNdj07qOTu4H82UScJIUC9NzGwryi3nkp3lvdeF
+ uFElBaOaEJd7IG8jiCqFE4FBkclWlhHAU3v7t7OD5ddjGrj+Jue7gD0aOngEMPOTP5pN
+ Af6A==
+X-Gm-Message-State: AOAM530zVOGwFWoh3GATZCe1Io9G91TCWUpmch+EOXBTnpBUH5TYmXlG
+ 11OGjQN60BluODY32RI4W4SSUdZBkrmNB4qxbAU=
+X-Google-Smtp-Source: ABdhPJw/EQD0n+XxVEqlN0NQvPPWtr7hnSNfLxBFHmeACTGd4fEURr8HGGl7QADWcofo1LfgcxwBHTMNCADEDP4umVY=
+X-Received: by 2002:adf:e5c2:: with SMTP id a2mr29789784wrn.251.1632162450723; 
+ Mon, 20 Sep 2021 11:27:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 4/9] drm/msm: simplify getting .driver_data
+References: <20210811235253.924867-1-robdclark@gmail.com>
+ <20210811235253.924867-5-robdclark@gmail.com>
+ <YRV10ew/Lr8GPzEv@pendragon.ideasonboard.com>
+ <CAD=FV=Xd9fizYdxfXYOkpJ_1fZcHp3-ROJ7k4iPg0g0RQ_+A3Q@mail.gmail.com>
+In-Reply-To: <CAD=FV=Xd9fizYdxfXYOkpJ_1fZcHp3-ROJ7k4iPg0g0RQ_+A3Q@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 20 Sep 2021 11:32:02 -0700
+Message-ID: <CAF6AEGt8K=iy8=dn+GJxt7ybfPtGDPy9w3StqWDwyOv_CKLNVg@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, 
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@chromium.org>, 
+ Andrzej Hajda <a.hajda@samsung.com>, Neil Armstrong <narmstrong@baylibre.com>, 
+ Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@linux.ie>, 
+ Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 4/4] drm/bridge: ti-sn65dsi86: Add
+ NO_CONNECTOR support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,151 +77,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We should get 'driver_data' from 'struct device' directly. Going via
-platform_device is an unneeded step back and forth.
+On Thu, Aug 12, 2021 at 1:08 PM Doug Anderson <dianders@chromium.org> wrote:
+>
+> Laurent,
+>
+> On Thu, Aug 12, 2021 at 12:26 PM Laurent Pinchart
+> <laurent.pinchart@ideasonboard.com> wrote:
+> >
+> > Hi Rob,
+> >
+> > Thank you for the patch.
+> >
+> > On Wed, Aug 11, 2021 at 04:52:50PM -0700, Rob Clark wrote:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > >
+> > > Slightly awkward to fish out the display_info when we aren't creating
+> > > own connector.  But I don't see an obvious better way.
+> >
+> > We need a bit more than this, to support the NO_CONNECTOR case, the
+> > bridge has to implement a few extra operations, and set the bridge .ops
+> > field. I've submitted two patches to do so a while ago:
+> >
+> > - [RFC PATCH 08/11] drm/bridge: ti-sn65dsi86: Implement bridge connector operations ([1])
+>
+> Rob asked me about this over IRC, so if he left it out and it's needed
+> then it's my fault. However, I don't believe it's needed until your
+> series making this bridge chip support full DP. For the the eDP case
+> the bridge chip driver in ToT no longer queries the EDID itself. It
+> simply provides an AUX bus to the panel driver and the panel driver
+> queries the EDID. I think that means we don't need to add
+> DRM_BRIDGE_OP_EDID, right?
+>
+> I was also wondering if in the full DP case we should actually model
+> the physical DP jack as a drm_bridge and have it work the same way. It
+> would get probed via the DP AUX bus just like a panel. I seem to
+> remember Stephen Boyd was talking about modeling the DP connector as a
+> drm_bridge because it would allow us to handle the fact that some TCPC
+> chips could only support HBR2 whereas others could support HBR3. Maybe
+> it would end up being a fairly elegant solution?
+>
+> > - [RFC PATCH 09/11] drm/bridge: ti-sn65dsi86: Make connector creation optional ([2])
+> >
+> > The second patch is similar to the first half of this patch, but misses
+> > the cleanup code. I'll try to rebase this and resubmit, but it may take
+> > a bit of time.
+>
+> Whoops! You're right that Rob's patch won't work at all because we'll
+> just hit the "Fix bridge driver to make connector optional!" case. I
+> should have noticed that. :(
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
+Yes, indeed.. once I fix that, I get no display..
 
-Build tested only. buildbot is happy.
+Not sure if Laurent is still working on his series, otherwise I can
+try to figure out what bridge ops are missing
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 13 +++++--------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  6 ++----
- drivers/gpu/drm/msm/dp/dp_display.c      |  6 ++----
- drivers/gpu/drm/msm/dsi/dsi_host.c       |  6 ++----
- drivers/gpu/drm/msm/msm_drv.c            |  3 +--
- 5 files changed, 12 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index ae48f41821cf..32410bd299e7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1185,16 +1185,15 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 
- static void dpu_unbind(struct device *dev, struct device *master, void *data)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
-+	struct dpu_kms *dpu_kms = dev_get_drvdata(dev);
- 	struct dss_module_power *mp = &dpu_kms->mp;
- 
- 	msm_dss_put_clk(mp->clk_config, mp->num_clk);
--	devm_kfree(&pdev->dev, mp->clk_config);
-+	devm_kfree(dev, mp->clk_config);
- 	mp->num_clk = 0;
- 
- 	if (dpu_kms->rpm_enabled)
--		pm_runtime_disable(&pdev->dev);
-+		pm_runtime_disable(dev);
- }
- 
- static const struct component_ops dpu_ops = {
-@@ -1216,8 +1215,7 @@ static int dpu_dev_remove(struct platform_device *pdev)
- static int __maybe_unused dpu_runtime_suspend(struct device *dev)
- {
- 	int i, rc = -1;
--	struct platform_device *pdev = to_platform_device(dev);
--	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
-+	struct dpu_kms *dpu_kms = dev_get_drvdata(dev);
- 	struct dss_module_power *mp = &dpu_kms->mp;
- 
- 	/* Drop the performance state vote */
-@@ -1235,8 +1233,7 @@ static int __maybe_unused dpu_runtime_suspend(struct device *dev)
- static int __maybe_unused dpu_runtime_resume(struct device *dev)
- {
- 	int rc = -1;
--	struct platform_device *pdev = to_platform_device(dev);
--	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
-+	struct dpu_kms *dpu_kms = dev_get_drvdata(dev);
- 	struct drm_encoder *encoder;
- 	struct drm_device *ddev;
- 	struct dss_module_power *mp = &dpu_kms->mp;
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index b3b42672b2d4..3db9d1603dfe 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -1015,8 +1015,7 @@ static int mdp5_dev_remove(struct platform_device *pdev)
- 
- static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = dev_get_drvdata(dev);
- 
- 	DBG("");
- 
-@@ -1025,8 +1024,7 @@ static __maybe_unused int mdp5_runtime_suspend(struct device *dev)
- 
- static __maybe_unused int mdp5_runtime_resume(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct mdp5_kms *mdp5_kms = platform_get_drvdata(pdev);
-+	struct mdp5_kms *mdp5_kms = dev_get_drvdata(dev);
- 
- 	DBG("");
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index fbe4c2cd52a3..a58fccacc874 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1272,8 +1272,7 @@ static int dp_display_remove(struct platform_device *pdev)
- 
- static int dp_pm_resume(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct msm_dp *dp_display = platform_get_drvdata(pdev);
-+	struct msm_dp *dp_display = dev_get_drvdata(dev);
- 	struct dp_display_private *dp;
- 	int sink_count = 0;
- 
-@@ -1329,8 +1328,7 @@ static int dp_pm_resume(struct device *dev)
- 
- static int dp_pm_suspend(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct msm_dp *dp_display = platform_get_drvdata(pdev);
-+	struct msm_dp *dp_display = dev_get_drvdata(dev);
- 	struct dp_display_private *dp;
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index e269df285136..d27db5777f2c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -470,8 +470,7 @@ static void dsi_bus_clk_disable(struct msm_dsi_host *msm_host)
- 
- int msm_dsi_runtime_suspend(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct msm_dsi *msm_dsi = platform_get_drvdata(pdev);
-+	struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
- 	struct mipi_dsi_host *host = msm_dsi->host;
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 
-@@ -485,8 +484,7 @@ int msm_dsi_runtime_suspend(struct device *dev)
- 
- int msm_dsi_runtime_resume(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct msm_dsi *msm_dsi = platform_get_drvdata(pdev);
-+	struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
- 	struct mipi_dsi_host *host = msm_dsi->host;
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 2e6fc185e54d..ede3d8b43761 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -309,8 +309,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
- 
- static int msm_drm_uninit(struct device *dev)
- {
--	struct platform_device *pdev = to_platform_device(dev);
--	struct drm_device *ddev = platform_get_drvdata(pdev);
-+	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct msm_drm_private *priv = ddev->dev_private;
- 	struct msm_kms *kms = priv->kms;
- 	struct msm_mdss *mdss = priv->mdss;
--- 
-2.30.2
-
+BR,
+-R
