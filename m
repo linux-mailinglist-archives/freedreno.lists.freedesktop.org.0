@@ -2,40 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FF8E410FA4
-	for <lists+freedreno@lfdr.de>; Mon, 20 Sep 2021 08:52:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B499B4111B7
+	for <lists+freedreno@lfdr.de>; Mon, 20 Sep 2021 11:12:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B72C26E3B7;
-	Mon, 20 Sep 2021 06:52:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51B586E44C;
+	Mon, 20 Sep 2021 09:12:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from fanzine.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 939DD89D30;
- Mon, 20 Sep 2021 06:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
- s=20170329; 
- h=MIME-Version:Content-Type:Date:Cc:To:From:Subject:Message-ID;
- bh=HIeG4c8Cgmfkp2RX70iP04l8SH3i1ZCSA3GfMJ3wXno=; 
- b=DCzMV7lmoCMokoovP1iX2KHPGYUR/wTQpGCNy+9xKRZkBQcH07aWbXFGYERIkHM3lfFVNoNx0iGJ5Xbps1UWSIYcX6hrx1iwGVmKoldMLAR7Q1Y5Ggxlj1lUKDEA4xMMs2cAyZmRB8Ra+zyIl/BeQL2G/ezHTAnxTieKYFoai4KWnNlxXKPINbVM6yWl/GYC0oNJD4FftCFPmgwUQfb1rjvYfjF2tpYeAuStkjfKhdqUWloAn/k/f6NXLhEhVr5YeKcpgrNvWGZ8jJ0W2xAMRYm7YRg9/9ggKVljN6gjGrn3CKcXmHEiZYC8YOapYTB7Tm6mlLYaguEqBmczc5PJkw==;
-Received: from 1.pool85-50-22.dynamic.orange.es ([85.50.22.1]
- helo=[192.168.1.109]) by fanzine.igalia.com with esmtpsa 
- (Cipher TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim)
- id 1mSD9s-0001Nl-0K; Mon, 20 Sep 2021 08:52:08 +0200
-Message-ID: <f61913b1abac118c7c85a3b788264e2f8c8fab33.camel@igalia.com>
-From: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>
-To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org
-Cc: board@foundation.x.org
-Date: Mon, 20 Sep 2021 08:51:57 +0200
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-2+e6MjXtLH+zpwS79csn"
-User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
+X-Greylist: delayed 399 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Sep 2021 09:12:06 UTC
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2E46E44C
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Sep 2021 09:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=k1; bh=8Ic7rPl8wS6tSUDgDBOpnPfgXT8
+ diIPVuuJEV7+3x14=; b=y3zScd6qLqQkIP3VZO9fvHA8J6/TlWpstJuxEWG+2wh
+ RSUW1mVxF26O2U33Dq6EbBJ3XmayRck4KWgT5z4BxcgklO7B+9wEmZO5zVAmdCUU
+ eq691H+mkSBSVXJ5b+Z4iTQ6tBhA1RnGtNmi7NlL+YGjQ7U1KmJ/dc6bhwHIpZnk
+ =
+Received: (qmail 2412526 invoked from network); 20 Sep 2021 11:05:23 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 20 Sep 2021 11:05:23 +0200
+X-UD-Smtp-Session: l3s3148p1@Lz7AlGnMBosgAwDPXwlxANIWpbLKE1Uh
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, dmaengine@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org
+Date: Mon, 20 Sep 2021 11:05:12 +0200
+Message-Id: <20210920090522.23784-1-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [Freedreno] Have you attended XDC 2021? Give us your feedback!
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/9] treewide: simplify getting .driver_data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,73 +55,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+I got tired of fixing this in Renesas drivers manually, so I took the big
+hammer. Remove this cumbersome code pattern which got copy-pasted too much
+already:
 
---=-2+e6MjXtLH+zpwS79csn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct ep93xx_keypad *keypad = platform_get_drvdata(pdev);
++	struct ep93xx_keypad *keypad = dev_get_drvdata(dev);
 
-Hi,
+A branch, tested by buildbot, can be found here:
 
-First of all, thanks organizers for such a great conference. It was
-smooth and, although there were some issues as it is usual in any
-conference, they were fixed promptly :-)
+git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git coccinelle/get_drvdata
 
-I would like also to thank all of you for attending and participating
-either via submitting talks, watching them or joining the hallway track
-in IRC :-D Without you this conference won't make sense.
+I am open for other comments, suggestions, too, of course.
 
-Now it is time to gather feedback from you :-D
+Here is the cocci-script I created:
 
-* Do you have any comment on how was XDC 2021?
-  - For example, have you tried the new streaming service
-(https://streaming.media.ccc.de/xdc2021)? Was it fine?
+@@
+struct device* d;
+identifier pdev;
+expression *ptr;
+@@
+(
+-	struct platform_device *pdev = to_platform_device(d);
+|
+-	struct platform_device *pdev;
+	...
+-	pdev = to_platform_device(d);
+)
+	<... when != pdev
+-	&pdev->dev
++	d
+	...>
 
-* Do you think we can improve on something for future events?
+	ptr =
+-	platform_get_drvdata(pdev)
++	dev_get_drvdata(d)
 
-* What did you like most/least about the conference?
+	<... when != pdev
+-	&pdev->dev
++	d
+	...>
 
-You can reply privately to me if you wish. We will share all the
-gathered feedback among organizers and the X.Org Foundation board.
+Kind regards,
 
-Now that I got your attention... Did you like XDC 2021? What about
-organizing XDC 2023 (likely in Europe)?
-
-We know this is a decision that takes time (trigger internal
-discussion, looking for volunteers, budget, and a venue suitable for
-the event, etc). Therefore, we encourage potential interested parties
-to start the internal discussions now, so any question they have can be
-answered before we open the call for proposals for XDC 2023 next year.
-Please read [0] and feel free to contact me or the board for more info
-if needed.
-
-Thanks,
-
-Sam
-
-[0] https://www.x.org/wiki/Events/RFP/
+   Wolfram
 
 
---=-2+e6MjXtLH+zpwS79csn
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Wolfram Sang (9):
+  dmaengine: stm32-dmamux: simplify getting .driver_data
+  firmware: meson: simplify getting .driver_data
+  gpio: xilinx: simplify getting .driver_data
+  drm/msm: simplify getting .driver_data
+  drm/panfrost: simplify getting .driver_data
+  iio: common: cros_ec_sensors: simplify getting .driver_data
+  net: mdio: mdio-bcm-iproc: simplify getting .driver_data
+  platform: chrome: cros_ec_sensorhub: simplify getting .driver_data
+  remoteproc: omap_remoteproc: simplify getting .driver_data
 
------BEGIN PGP SIGNATURE-----
+ drivers/dma/stm32-dmamux.c                         | 14 +++++---------
+ drivers/firmware/meson/meson_sm.c                  |  3 +--
+ drivers/gpio/gpio-xilinx.c                         |  6 ++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 13 +++++--------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  6 ++----
+ drivers/gpu/drm/msm/dp/dp_display.c                |  6 ++----
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 |  6 ++----
+ drivers/gpu/drm/msm/msm_drv.c                      |  3 +--
+ drivers/gpu/drm/panfrost/panfrost_device.c         |  6 ++----
+ .../common/cros_ec_sensors/cros_ec_sensors_core.c  |  3 +--
+ drivers/net/mdio/mdio-bcm-iproc.c                  |  3 +--
+ drivers/platform/chrome/cros_ec_sensorhub.c        |  6 ++----
+ drivers/remoteproc/omap_remoteproc.c               |  6 ++----
+ 13 files changed, 28 insertions(+), 53 deletions(-)
 
-iQIzBAABCAAdFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmFIL40ACgkQf/S6MvF9
-w0Pm2xAAiXNnIPiWHUDIS5hG6kdWVdDYs0mf/4THHuuVhq6m3TmlKWgpE4EACuNu
-mRX84tg+mEpvp8BDvWYH9sweHTM8qjzRvm95m/RODQGkIHy2VPcHVAeswUm6+9Gh
-a1z8trwsFqIeAiyCXzzQzHx1ix/NrleOnSAL6vSSYvKzDJl5gLfMX4b910SZIhGD
-MSRBDQyi1xTg+4bwvDTP3Digp/Z/YPjoQi8W/TMyMArwoP6Wh/knDfamm/cE+fhF
-1Ijd0JAy5EAB3da9ElurrMuYnlG1N4V0qhS7VCBsaHDSb+/5eM+sZVZcn8tUboVM
-qQ2Vk7+zdlHKxLGEIDePJKQWACG91EpMahZGmAFgJHP0V8iD78XO6oXGLVrzJNYZ
-ppYlgfVXzQLpeKC/SIgIi1qtVI3r1mmbjNVk3tmAOURFxJjm/E2e+Sushh0P0RSN
-T4wuUA8Y3dcmyya/A+k+mu7hkQqmHa2ejbjtn0ie4F2qlXA4X1gypeWSGQdDEKHp
-wvbZKawnEQhPQMAIoX7WoeEmxebMIO8xIJL+A698P+/G7aaIqjuOIvYGX7JWKp5k
-HhxiAnf/iAimeCkkdLhjfDO3zbtEqwQ28XCOM2IW3kI9pmCohbWH7bUxKXYgSuIr
-PInGDOUadk/c3jDZGf7Ta1d7ekcp9b62czwrZSw6rVeHG5NYrUA=
-=JFe3
------END PGP SIGNATURE-----
-
---=-2+e6MjXtLH+zpwS79csn--
+-- 
+2.30.2
 
