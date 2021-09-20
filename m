@@ -1,67 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9638F4123F1
-	for <lists+freedreno@lfdr.de>; Mon, 20 Sep 2021 20:27:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C4124127DA
+	for <lists+freedreno@lfdr.de>; Mon, 20 Sep 2021 23:20:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22C826E5C3;
-	Mon, 20 Sep 2021 18:27:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E93BC6E872;
+	Mon, 20 Sep 2021 21:20:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567BF6E5BE;
- Mon, 20 Sep 2021 18:27:32 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id d21so32294608wra.12;
- Mon, 20 Sep 2021 11:27:32 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF436E872;
+ Mon, 20 Sep 2021 21:20:21 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id b15so54773552lfe.7;
+ Mon, 20 Sep 2021 14:20:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=y9zwU5sYqKQSmloO/YdgRLqeETN2yQaV2Mq9YoCcAeI=;
- b=SyirlfFaRyUdz9gloQTpR5LDjfVwEkVbGAKz3rA4+raBnbaIk7GgLE3cRNSVmNsJ2T
- JkAkx5J15BZqvGTnXpSAtMhcW8GIpbkKYz2o/fjKqnI7nvBKVq2Jtz7IbC8Fxfend/aT
- cCRjbtW6tlCL62XP7oma8j5FxslfQyutluSRo3uL68wvPMjUlYshaafTq0nWn7rc+/K0
- X23Cy/6Zd2aJ/yV5Bd1gNBmWM7UE1ZhKunrY3CvgiHOnnJEeBbf3dekuSIuwb6Q/2klJ
- ROAo5Rgkac0ZG3z2/sAy1GbRbPopzBsEH3+I1VBUbmtoYuVc/qLJlZm084MYYLGUrKoK
- +CPw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=b1EtS8SFEilKGxAqVcNeCV6TdhHIw4BRQAXI7jUyN0E=;
+ b=F7GvyO3PHMHAjafzsYHavQ0Fkq/aaIx9zKV7wt6gdd+ee4E0AxQAHKYI9u8Wlbxqpf
+ qyCzCtkEMgp9CSaIux4BBfHlPI1QHwu1HigeztwFwhlr5O56Rt5VdFccVVkBk/C9TCh9
+ Y8VCmCHHssd+ifeW4Xt2c3vVQtaITI/xVArhVSgJ4pUf7Ql90A5pnTsQZmiNVJc2o+qY
+ TWswccDgC49VPhxTs0/n4W7cTcnHiyZhIpgwdPFe6HVqCsV/s3gb8Wkhl3rh6qUZgV5Q
+ PJCrsejAqOH1D2tUwDTzMqrLZ0Cg+Y1wnYFypOccpV86u4PwH3iiEOcmG/6xf18tQO5l
+ ZP2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=y9zwU5sYqKQSmloO/YdgRLqeETN2yQaV2Mq9YoCcAeI=;
- b=QSHGjVKeQaf7Et0xh/372SwaU1yUkqdqGuEkuwK8InOLb+E4DiH+J3kKUbuD3y5Ii/
- AQNuzs2Jr5z5pOUX650jfuU1gYWxurbKoEE/zUWfiAIo0JOFmYdzCPgkxt8IgnyFUqiH
- 00VVPtcGdIZT5DIcjoRM16lk0uhtfXP0vi+ZGBAoMYif21aORIX0r9qmlAOL0H0DvOex
- m1XLhjq2Qi8rlR9nESVqRwn3r5QPXBNdj07qOTu4H82UScJIUC9NzGwryi3nkp3lvdeF
- uFElBaOaEJd7IG8jiCqFE4FBkclWlhHAU3v7t7OD5ddjGrj+Jue7gD0aOngEMPOTP5pN
- Af6A==
-X-Gm-Message-State: AOAM530zVOGwFWoh3GATZCe1Io9G91TCWUpmch+EOXBTnpBUH5TYmXlG
- 11OGjQN60BluODY32RI4W4SSUdZBkrmNB4qxbAU=
-X-Google-Smtp-Source: ABdhPJw/EQD0n+XxVEqlN0NQvPPWtr7hnSNfLxBFHmeACTGd4fEURr8HGGl7QADWcofo1LfgcxwBHTMNCADEDP4umVY=
-X-Received: by 2002:adf:e5c2:: with SMTP id a2mr29789784wrn.251.1632162450723; 
- Mon, 20 Sep 2021 11:27:30 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=b1EtS8SFEilKGxAqVcNeCV6TdhHIw4BRQAXI7jUyN0E=;
+ b=P3toKq57EmDHTNbv0WIBjoih3uP9Dn7DpPlUE/BBWihTzYeXQxemwTB/NYZ9i7sFak
+ wl+QdXhhdFFHjetZEGUF7YSmuBDMYTgAFlMtZS72Ht0Z0SzilKty3lnCz3BnNKCVcAvT
+ afjjwpe2nrHFd1CBoeURCcxBgPjzFsGY116h3ymcUf5MCM27pJbV3+epf86Z8qSY6UVd
+ YrW2VZpzpolIifIZqnHkrfQHHVGc70uLv32KI57ArnFUivtxNOBB5Dfmiyk31Y3IEsOG
+ rsZsE78y8X2xMRw63Z/paxMqw2+zSjnNEKePpgd43i6l7btUwSY0YM5jS4IXoNg+kyRS
+ qMSA==
+X-Gm-Message-State: AOAM5321IZPbuPCv/ubEn8X24K/eOqaoWc+ERJYESsK7XSMFYiXsr0Ed
+ /AFTs18RReFYXrwCJzh2GzM=
+X-Google-Smtp-Source: ABdhPJy1GY2SFpUgi0kmJ0T1bvcQNuO0PgWm2azxtOwrqDJmsBQxu3l9OcwXJtY4BVXyBDp4Z28d4A==
+X-Received: by 2002:a05:6512:3c92:: with SMTP id
+ h18mr19866364lfv.656.1632172819899; 
+ Mon, 20 Sep 2021 14:20:19 -0700 (PDT)
+Received: from localhost.localdomain (h-98-128-228-193.NA.cust.bahnhof.se.
+ [98.128.228.193])
+ by smtp.gmail.com with ESMTPSA id z5sm1887615ljz.23.2021.09.20.14.20.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Sep 2021 14:20:19 -0700 (PDT)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>
+Date: Mon, 20 Sep 2021 23:20:14 +0200
+Message-Id: <20210920212014.40520-1-rikard.falkeborn@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-References: <20210811235253.924867-1-robdclark@gmail.com>
- <20210811235253.924867-5-robdclark@gmail.com>
- <YRV10ew/Lr8GPzEv@pendragon.ideasonboard.com>
- <CAD=FV=Xd9fizYdxfXYOkpJ_1fZcHp3-ROJ7k4iPg0g0RQ_+A3Q@mail.gmail.com>
-In-Reply-To: <CAD=FV=Xd9fizYdxfXYOkpJ_1fZcHp3-ROJ7k4iPg0g0RQ_+A3Q@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 20 Sep 2021 11:32:02 -0700
-Message-ID: <CAF6AEGt8K=iy8=dn+GJxt7ybfPtGDPy9w3StqWDwyOv_CKLNVg@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@chromium.org>, 
- Andrzej Hajda <a.hajda@samsung.com>, Neil Armstrong <narmstrong@baylibre.com>, 
- Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@linux.ie>, 
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 4/4] drm/bridge: ti-sn65dsi86: Add
- NO_CONNECTOR support
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm: msm: hdmi: Constify static structs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,59 +74,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Aug 12, 2021 at 1:08 PM Doug Anderson <dianders@chromium.org> wrote:
->
-> Laurent,
->
-> On Thu, Aug 12, 2021 at 12:26 PM Laurent Pinchart
-> <laurent.pinchart@ideasonboard.com> wrote:
-> >
-> > Hi Rob,
-> >
-> > Thank you for the patch.
-> >
-> > On Wed, Aug 11, 2021 at 04:52:50PM -0700, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Slightly awkward to fish out the display_info when we aren't creating
-> > > own connector.  But I don't see an obvious better way.
-> >
-> > We need a bit more than this, to support the NO_CONNECTOR case, the
-> > bridge has to implement a few extra operations, and set the bridge .ops
-> > field. I've submitted two patches to do so a while ago:
-> >
-> > - [RFC PATCH 08/11] drm/bridge: ti-sn65dsi86: Implement bridge connector operations ([1])
->
-> Rob asked me about this over IRC, so if he left it out and it's needed
-> then it's my fault. However, I don't believe it's needed until your
-> series making this bridge chip support full DP. For the the eDP case
-> the bridge chip driver in ToT no longer queries the EDID itself. It
-> simply provides an AUX bus to the panel driver and the panel driver
-> queries the EDID. I think that means we don't need to add
-> DRM_BRIDGE_OP_EDID, right?
->
-> I was also wondering if in the full DP case we should actually model
-> the physical DP jack as a drm_bridge and have it work the same way. It
-> would get probed via the DP AUX bus just like a panel. I seem to
-> remember Stephen Boyd was talking about modeling the DP connector as a
-> drm_bridge because it would allow us to handle the fact that some TCPC
-> chips could only support HBR2 whereas others could support HBR3. Maybe
-> it would end up being a fairly elegant solution?
->
-> > - [RFC PATCH 09/11] drm/bridge: ti-sn65dsi86: Make connector creation optional ([2])
-> >
-> > The second patch is similar to the first half of this patch, but misses
-> > the cleanup code. I'll try to rebase this and resubmit, but it may take
-> > a bit of time.
->
-> Whoops! You're right that Rob's patch won't work at all because we'll
-> just hit the "Fix bridge driver to make connector optional!" case. I
-> should have noticed that. :(
+The only usage of hdmi_8996_pll_ops is to assign its address to the ops
+field in the clk_init_data struct, and the only usage of pll_init is to
+assign its address to the init field in the clk_hw struct, both which
+are pointers to const. Make them const to allow the compiler to put them
+in read-only memory.
 
-Yes, indeed.. once I fix that, I get no display..
+Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+---
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Not sure if Laurent is still working on his series, otherwise I can
-try to figure out what bridge ops are missing
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+index a8f3b2cbfdc5..99c7853353fd 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
+@@ -682,7 +682,7 @@ static int hdmi_8996_pll_is_enabled(struct clk_hw *hw)
+ 	return pll_locked;
+ }
+ 
+-static struct clk_ops hdmi_8996_pll_ops = {
++static const struct clk_ops hdmi_8996_pll_ops = {
+ 	.set_rate = hdmi_8996_pll_set_clk_rate,
+ 	.round_rate = hdmi_8996_pll_round_rate,
+ 	.recalc_rate = hdmi_8996_pll_recalc_rate,
+@@ -695,7 +695,7 @@ static const char * const hdmi_pll_parents[] = {
+ 	"xo",
+ };
+ 
+-static struct clk_init_data pll_init = {
++static const struct clk_init_data pll_init = {
+ 	.name = "hdmipll",
+ 	.ops = &hdmi_8996_pll_ops,
+ 	.parent_names = hdmi_pll_parents,
+-- 
+2.33.0
 
-BR,
--R
