@@ -1,72 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7B3412914
-	for <lists+freedreno@lfdr.de>; Tue, 21 Sep 2021 00:53:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB7441377B
+	for <lists+freedreno@lfdr.de>; Tue, 21 Sep 2021 18:22:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87A2F6E8A1;
-	Mon, 20 Sep 2021 22:53:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78EF56E9A5;
+	Tue, 21 Sep 2021 16:22:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B75D66E89E;
- Mon, 20 Sep 2021 22:53:34 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id m26so17659626pff.3;
- Mon, 20 Sep 2021 15:53:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vCz18209aZjxX68VY6I5xMHLRD2Ccy0UqHFvYku0NNA=;
- b=H5WoUKZoRCGn0F5IG7ChSePrGH/W1GoC/gJahDMQdRC6+76rieWJbM2hgS8eb1nehK
- SDoiUiq9YPC32FhftznNSOvLcmT5v3qY2/i/80Xe1fi/aul4Dx1Zz2mcd1JKPQXESRj+
- qCklL2OzveRCh/yRG/O6jLy1du5vRP8w5gzVe/PXYbkj6I/BxiV3Q/6D8s3+yAxyTAuc
- AjKRFBuZDOHB1KO5NZd+YsRKx6aIr2cEGsLeXNkmHYx2plJY5jkKzNIl8/MFDJ7XYAL8
- /lu32PG1iKZxpFu/AuEn8PQdylwGUKwKuLgTllWkje0lvnly7aqqo4qngLTmt8MTHTPi
- TcaQ==
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 910096E98E
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 16:22:53 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id u18so7640706lfd.12
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 09:22:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PvMNvv3sYbU3IT6mahg4mt0FldiKwEFahBq/kmBwdgg=;
+ b=g3Bp/l36yCXsaJDwrsykQTfOkJXTOU8gKVlNQbOv9S8KMhOHJ2WaPkIabsknTtxZ0X
+ mN2tdJbCtgPrB4D129z/TFLWz0GZR583FE1Nh+qCRIAuo5UtzfrQ9na/etPLuQbssJ1z
+ h/ioHUFgE8uQWHX2AH5mQTSIDdhBvafu6rHt0tPZnn7sCRNgXqW3zhR06IlJJsaoTykz
+ Jn9mtJIL7LFfkJ2s1GwyD56dmP1oHJBgVh/TqRHKI81O8zUOh73and4beFJFS3uy2hXt
+ EnxHPryNwbl3gPT/a/U7U089X08MOz2KkCXZWRsebR22PT3nKiIfemblRuALNWGrD0gP
+ 9ahw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vCz18209aZjxX68VY6I5xMHLRD2Ccy0UqHFvYku0NNA=;
- b=pNfgKvCVdnOFdsv0Tv0Q/UuZ6J35OVyMDx3B0JESAX9aLGj6QT/aCix+T4DEG+xaq/
- ctoFPfpA4vMPl7QaBLQLE/xgVi3Ag3+8ZLr5dOBWEZFI9dszdlUd2GJmUSlzxm8WiEgM
- 1ouL12XZ8lnPWkte0P3W93FehR4ohkLr6sObFGQiZ8VpDNvgP3/5RaHHu0Fut1ynTWo8
- Z+v5tc0kORF9m+gE8fNhrNaNdOR2gc+bHQLafSvpQuVKf6FZcxNaoiDrJlFyAJ/ZzfoK
- Y6SU8r+58v/sJ5VwhPdMuWLP9GE7MaphREWKMZK2UU/XCCELILZ/2UGK3+UfxSUbXHgp
- sXAw==
-X-Gm-Message-State: AOAM530n7SXcgQfq0x8r9esmUWhunoLz59xky5ch7GKhU2jAoi4Tb/64
- knGzYcZx9P5YcVzQCP3JovpnROq2dU4=
-X-Google-Smtp-Source: ABdhPJwXFcgNrdtg16son2IIazSXF5if2APFcLfqLr521yNXaCWlsxFiRpyVfsBLXE5Z+Vj3v8hfBQ==
-X-Received: by 2002:a62:19d4:0:b0:43d:1bb7:13ae with SMTP id
- 203-20020a6219d4000000b0043d1bb713aemr27253731pfz.63.1632178413677; 
- Mon, 20 Sep 2021 15:53:33 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- k22sm15495282pfi.149.2021.09.20.15.53.32
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PvMNvv3sYbU3IT6mahg4mt0FldiKwEFahBq/kmBwdgg=;
+ b=qPxP9C+4bwLWtmI9qJoKK+VVtj8zIx6qBbMoHJAhS0CnWM4HLAGuCV885qQzjRoyq/
+ +ns7l+v+WWa0j2jXpORS1ggwG7xci6sp3WfpO6Ae3AinXfy/7B9aMm0e/SV2HtstiQU0
+ LKsmmxFwgQoJU/PQXmJcIN6rLQyAP/9tDz3NKU965FiCchIeko1rCYLCc0UsKV2SrwGz
+ 7dpQFH++Go0IzKWfpmsezGMIZTvApKIfQZFKXkCQL6O7EUDd2qDmBE6VH/ypBWmj1WoG
+ 9ajn/Hvt2HLCqm9MpcYh6Se3RKToal3YLTMlgtPLaRgJTet0SU4xj6TO/VojBPTAlGNA
+ fWXw==
+X-Gm-Message-State: AOAM532yqb7dFFdLPb3gMd5ON5EugOFdU9OKsps9SLPL+j0E03CPTJGG
+ Rck/0YokyR5vNLD3ty6lD4sgJf1C+u7GCg==
+X-Google-Smtp-Source: ABdhPJwdRviDVzXDEdat1U8xrx4utFSsYpeLV1LWwpMpSY4cAPxvpzT4K9sj4c7yVu8H7X2fT4t/lQ==
+X-Received: by 2002:a2e:5046:: with SMTP id v6mr9094222ljd.368.1632241366609; 
+ Tue, 21 Sep 2021 09:22:46 -0700 (PDT)
+Received: from umbar.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id v77sm1559567lfa.93.2021.09.21.09.22.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Sep 2021 15:53:32 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Clark <robdclark@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Tue, 21 Sep 2021 09:22:46 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Date: Mon, 20 Sep 2021 15:58:00 -0700
-Message-Id: <20210920225801.227211-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210920225801.227211-1-robdclark@gmail.com>
-References: <20210920225801.227211-1-robdclark@gmail.com>
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, David Heidelberg <david@ixit.cz>
+Date: Tue, 21 Sep 2021 19:22:45 +0300
+Message-Id: <20210921162245.1858118-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/bridge: ti-sn65dsi86: Add
- NO_CONNECTOR support
+Subject: [Freedreno] [PATCH] drm/msm/dsi/phy: fix clock names in 28nm_8960
+ phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,91 +75,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+The commit 9f91f22aafcd ("drm/msm/dsi: remove duplicate fields from
+dsi_pll_Nnm instances") mistakenly changed registered clock names. While
+the platform is in progress of migration to using clock properties in
+the dts rather than the global clock names, we should provide backwards
+compatibility. Thus restore registerd global clock names.
 
-Slightly awkward to fish out the display_info when we aren't creating
-own connector.  But I don't see an obvious better way.
-
-v2: Remove error return with NO_CONNECTOR flag
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+Fixes: 9f91f22aafcd ("drm/msm/dsi: remove duplicate fields from dsi_pll_Nnm instances")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi86.c | 39 ++++++++++++++++++++-------
- 1 file changed, 29 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-index 6154bed0af5b..94c94cc8a4d8 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-@@ -667,11 +667,6 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
- 						   .node = NULL,
- 						 };
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+index aaa37456f4ee..71ed4aa0dc67 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+@@ -428,7 +428,7 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+ 	bytediv->reg = pll_28nm->phy->pll_base + REG_DSI_28nm_8960_PHY_PLL_CTRL_9;
  
--	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
--		DRM_ERROR("Fix bridge driver to make connector optional!");
--		return -EINVAL;
--	}
--
- 	pdata->aux.drm_dev = bridge->dev;
- 	ret = drm_dp_aux_register(&pdata->aux);
- 	if (ret < 0) {
-@@ -679,9 +674,11 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+ 	snprintf(parent_name, 32, "dsi%dvco_clk", pll_28nm->phy->id);
+-	snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id);
++	snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id + 1);
+ 
+ 	bytediv_init.name = clk_name;
+ 	bytediv_init.ops = &clk_bytediv_ops;
+@@ -442,7 +442,7 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
  		return ret;
- 	}
+ 	provided_clocks[DSI_BYTE_PLL_CLK] = &bytediv->hw;
  
--	ret = ti_sn_bridge_connector_init(pdata);
--	if (ret < 0)
--		goto err_conn_init;
-+	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-+		ret = ti_sn_bridge_connector_init(pdata);
-+		if (ret < 0)
-+			goto err_conn_init;
-+	}
- 
- 	/*
- 	 * TODO: ideally finding host resource and dsi dev registration needs
-@@ -743,7 +740,8 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
- err_dsi_attach:
- 	mipi_dsi_device_unregister(dsi);
- err_dsi_host:
--	drm_connector_cleanup(&pdata->connector);
-+	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
-+		drm_connector_cleanup(&pdata->connector);
- err_conn_init:
- 	drm_dp_aux_unregister(&pdata->aux);
- 	return ret;
-@@ -792,9 +790,30 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
- 	regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
- }
- 
-+/*
-+ * Find the connector and fish out the bpc from display_info.  It would
-+ * be nice if we could get this instead from drm_bridge_state, but that
-+ * doesn't yet appear to be the case.
-+ */
- static unsigned int ti_sn_bridge_get_bpp(struct ti_sn65dsi86 *pdata)
- {
--	if (pdata->connector.display_info.bpc <= 6)
-+	struct drm_bridge *bridge = &pdata->bridge;
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	unsigned bpc = 0;
-+
-+	drm_connector_list_iter_begin(bridge->dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (drm_connector_has_possible_encoder(connector, bridge->encoder)) {
-+			bpc = connector->display_info.bpc;
-+			break;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	WARN_ON(bpc == 0);
-+
-+	if (bpc <= 6)
- 		return 18;
- 	else
- 		return 24;
+-	snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id);
++	snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id + 1);
+ 	/* DIV3 */
+ 	hw = devm_clk_hw_register_divider(dev, clk_name,
+ 				parent_name, 0, pll_28nm->phy->pll_base +
 -- 
-2.31.1
+2.30.2
 
