@@ -1,66 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1580F413D73
-	for <lists+freedreno@lfdr.de>; Wed, 22 Sep 2021 00:20:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DB6D413DA8
+	for <lists+freedreno@lfdr.de>; Wed, 22 Sep 2021 00:37:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7FB6E88B;
-	Tue, 21 Sep 2021 22:20:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D75576E8B3;
+	Tue, 21 Sep 2021 22:37:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
- [IPv6:2607:f8b0:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D786E85A
- for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 22:20:02 +0000 (UTC)
-Received: by mail-il1-x12a.google.com with SMTP id m4so479154ilj.9
- for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 15:20:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5160B6E8A8;
+ Tue, 21 Sep 2021 22:37:34 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id t18so1317800wrb.0;
+ Tue, 21 Sep 2021 15:37:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HWLoAInOLCehVyUDdEFgyA0aq8c1810nqg999R8oxfU=;
- b=aj3QxekWfRi3uAdc5lpdDn6FoYAedJ8FsTjBDvBCDWRjEzt/JQ6p7imxAG/DApK+mF
- 2gagVt3X8luIoitRLXSKRYVwLgSznNVpaZyG8m/4FCGZweCBBZsIAUvT7PdIPZbU8wN1
- mfAQEwrxhepXNPQuDT3ppCtjQk9jPR2TpYAss=
+ :cc; bh=NF/erRb1xvPiKeuz4vBloWnkjZnF25C64FmvspbwiEo=;
+ b=JYjh8ATXm2rsrUDRYndqccmq6DGYrm5G5oFK0PZXiGJoNKohaS1/MHXzIgY7DdAXpw
+ bL4LKJHOwlXzBZjI4gZmIAtxO4OxYq2Su5L8Di4QO7DjVkyyBL9ArU39slEuMQnHItjY
+ d9fqTTl6hRWixuueYxiVGwJm4aZg7d79t694owtoAdVY8UdbwDTw3HKt2+GerXIv9Vfc
+ IM9z1BHJHHud/yTUA/IZBbib8s7DIEM7z8e74ulK65VduDRs3HHTlbat7RGYmBIkfJXc
+ gvf4Bk+dyL2yC3udwwiFlF899jZ3k7UFinfilIFMRsx9yzoq0QFvbKqgeFjjteG+uAmv
+ FLEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=HWLoAInOLCehVyUDdEFgyA0aq8c1810nqg999R8oxfU=;
- b=zUHCihwQDkwaK5qffTaO5HUDEk8I5L4w3kCpk2O3kWek8vmTz8xU4tAZZQ5nxoAQsn
- 0uYO7uQShot7QyMMb9BIPpaI3wfBKaYZl/AFPXrZxCDWFwufZXQUA7cJCiXw2L8ARD0J
- +BSnHw3pTVoJz2PMrf6bYtiQx7KLYOtc2p/nAROg76y/PGtgYvRkV0vQxwWlecvngDwJ
- aOQVFLtgipLelRl0WNh2nFiyCfjsjuMWxfdQd7itjzJJcny8GneUwHzUUqeBebx+vpZz
- G8H+OhU4klwYa8N6LkD4IH56oea7XEeJWhTCDkLDKTNjjANCy2pKwYedTtnW2QT7f0zL
- gQkA==
-X-Gm-Message-State: AOAM531ZWID8Hj0HOLj6qSURniV5VRXgioQGLH1jbqnOzH/AXfavQkTE
- DhgzAXOcxLO2JUJKKcjB9J65fXDMdADrLA==
-X-Google-Smtp-Source: ABdhPJw0ZaxKxDzCs3VFPajwY1eAg3V8uhfPnxLt/bOMYedn+p5kbUnzGqIaOk4x0d3OKMR/8zmlgw==
-X-Received: by 2002:a92:c56d:: with SMTP id b13mr12736469ilj.86.1632262801960; 
- Tue, 21 Sep 2021 15:20:01 -0700 (PDT)
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com.
- [209.85.166.178])
- by smtp.gmail.com with ESMTPSA id d6sm105424ile.51.2021.09.21.15.20.00
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Sep 2021 15:20:00 -0700 (PDT)
-Received: by mail-il1-f178.google.com with SMTP id q14so509136ils.5
- for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 15:20:00 -0700 (PDT)
-X-Received: by 2002:a05:6e02:1b0c:: with SMTP id
- i12mr20195314ilv.27.1632262799686; 
- Tue, 21 Sep 2021 15:19:59 -0700 (PDT)
+ bh=NF/erRb1xvPiKeuz4vBloWnkjZnF25C64FmvspbwiEo=;
+ b=10vAU25ehkwkSHEJ5r/TfIyx8I4hjgR+dN898aEUpAmpkh8uzG8VV9AHtWQ9+zKow9
+ xBSjvIKnCepRcY7iTg+SUOAa67oA9iCGdiXMEKMaY9D+uyqCSCprJ6cU+WG6fYPVovpl
+ A3GhgkHfa6rRVHAv6tgyU+TtE6imdqjrrOwaq0RXu6DaU9TrY7/jnwI56Mez4nh4vLrs
+ jHB9e21ghK6mzE9uEqPJ4iaFsUrFYKkcsDe/WZfPmDDDTvrdfHofUiRsy8iMIfqtylL4
+ NjRAx6kMN+rBAMUPB0gRlLi2Qdmdu9IzLZMkZXkqwv8gbGIIMA7Dws9GtC3amA0Aazka
+ EeuA==
+X-Gm-Message-State: AOAM530kAfZQiTa7+pmGZ33u75cnnu6YSFPDcHKzGuom6N5cdIOXgSUQ
+ jPpaBIvbx4qOgLzyYhn9VZp0iykzBiTTO1t/BsE=
+X-Google-Smtp-Source: ABdhPJwQrPe5g07Tgw6bfhoM7DZmOuM0RlxSlbPtGLd/rX3SR68UPXcB1WP9tH3HG9lf3JQ2MI9QK4YJvhJ6cChuQtI=
+X-Received: by 2002:a05:600c:1d16:: with SMTP id
+ l22mr5431621wms.101.1632263852964; 
+ Tue, 21 Sep 2021 15:37:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210920225801.227211-1-robdclark@gmail.com>
  <20210920225801.227211-4-robdclark@gmail.com>
-In-Reply-To: <20210920225801.227211-4-robdclark@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 21 Sep 2021 15:19:48 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WGmk6UY2MA4=y4gaM4G66t-qxuLtAZvUahzwg8YsLv=g@mail.gmail.com>
-Message-ID: <CAD=FV=WGmk6UY2MA4=y4gaM4G66t-qxuLtAZvUahzwg8YsLv=g@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
+ <CAD=FV=WGmk6UY2MA4=y4gaM4G66t-qxuLtAZvUahzwg8YsLv=g@mail.gmail.com>
+In-Reply-To: <CAD=FV=WGmk6UY2MA4=y4gaM4G66t-qxuLtAZvUahzwg8YsLv=g@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 21 Sep 2021 15:42:05 -0700
+Message-ID: <CAF6AEGuE1y7ZdOE+=N1v7Zc=gigopS50BaADHpUOoM2TrshSCw@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>, 
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Clark <robdclark@chromium.org>, 
+ Maxime Ripard <maxime@cerno.tech>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@chromium.org>,
  Andrzej Hajda <a.hajda@samsung.com>, Neil Armstrong <narmstrong@baylibre.com>, 
  Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>, 
  Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@linux.ie>, 
@@ -83,27 +76,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Sep 20, 2021 at 3:53 PM Rob Clark <robdclark@gmail.com> wrote:
+On Tue, Sep 21, 2021 at 3:20 PM Doug Anderson <dianders@chromium.org> wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
+> Hi,
 >
-> Slightly awkward to fish out the display_info when we aren't creating
-> own connector.  But I don't see an obvious better way.
+> On Mon, Sep 20, 2021 at 3:53 PM Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Slightly awkward to fish out the display_info when we aren't creating
+> > own connector.  But I don't see an obvious better way.
+> >
+> > v2: Remove error return with NO_CONNECTOR flag
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 39 ++++++++++++++++++++-------
+> >  1 file changed, 29 insertions(+), 10 deletions(-)
 >
-> v2: Remove error return with NO_CONNECTOR flag
+> This seems fine to me:
 >
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 39 ++++++++++++++++++++-------
->  1 file changed, 29 insertions(+), 10 deletions(-)
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+>
+> ...if you would like me to apply patch #2 / #3 to drm-misc-next then
+> please yell.
 
-This seems fine to me:
+Thanks.. I think we can give it a few days for Laurent to have a look.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+This will conflict some with Maxime's bridge vs dsi-host ordering
+series.. not sure how close that one is to the finish line, but I can
+rebase either patch on top of the other depending on which order they
+are applied
 
-...if you would like me to apply patch #2 / #3 to drm-misc-next then
-please yell.
-
--Doug
+BR,
+-R
