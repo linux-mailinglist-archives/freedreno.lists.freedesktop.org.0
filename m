@@ -1,50 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BB7441377B
-	for <lists+freedreno@lfdr.de>; Tue, 21 Sep 2021 18:22:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3934413780
+	for <lists+freedreno@lfdr.de>; Tue, 21 Sep 2021 18:23:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78EF56E9A5;
-	Tue, 21 Sep 2021 16:22:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EFB76E9D3;
+	Tue, 21 Sep 2021 16:23:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 910096E98E
- for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 16:22:53 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id u18so7640706lfd.12
- for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 09:22:53 -0700 (PDT)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6246E9D3
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 16:23:05 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id b15so64977938lfe.7
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Sep 2021 09:23:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=PvMNvv3sYbU3IT6mahg4mt0FldiKwEFahBq/kmBwdgg=;
- b=g3Bp/l36yCXsaJDwrsykQTfOkJXTOU8gKVlNQbOv9S8KMhOHJ2WaPkIabsknTtxZ0X
- mN2tdJbCtgPrB4D129z/TFLWz0GZR583FE1Nh+qCRIAuo5UtzfrQ9na/etPLuQbssJ1z
- h/ioHUFgE8uQWHX2AH5mQTSIDdhBvafu6rHt0tPZnn7sCRNgXqW3zhR06IlJJsaoTykz
- Jn9mtJIL7LFfkJ2s1GwyD56dmP1oHJBgVh/TqRHKI81O8zUOh73and4beFJFS3uy2hXt
- EnxHPryNwbl3gPT/a/U7U089X08MOz2KkCXZWRsebR22PT3nKiIfemblRuALNWGrD0gP
- 9ahw==
+ bh=eZxXiK/igoFZEqHLXFTBpMKSnJsFZcbyROjm+cR8HWM=;
+ b=YmYjwO0jEb52u3Hn99lxS9rdHaIDmjXLWGx0oAW1T8SPbmWAlvkpd6GhP0JY7R/XLh
+ yLVAXMKqeiRFTsoiMhKsbiUROl5bgalCYjrd/SU0+nn5bxKWS2xBoL8vk2wlEQ+WM53S
+ zzLNJGHuXux45DBtlgioxB/37/g1Q1D1xrtlmUDzyDwha/vCSUB7oCTYPqM8g9iSFipL
+ 88gjDDN8ogIH5+mSR5DJ2YWWtwMHH40a72qypvB1cyXNPpnwJJHTgHEZn5kyXMFUExu9
+ Mv7F7Ahl+7I6imf9d1RlZjkL7war+NxzPJJDep6ZSRgyUHioTg+pyr0ZwKgAjePwlPEi
+ JhzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=PvMNvv3sYbU3IT6mahg4mt0FldiKwEFahBq/kmBwdgg=;
- b=qPxP9C+4bwLWtmI9qJoKK+VVtj8zIx6qBbMoHJAhS0CnWM4HLAGuCV885qQzjRoyq/
- +ns7l+v+WWa0j2jXpORS1ggwG7xci6sp3WfpO6Ae3AinXfy/7B9aMm0e/SV2HtstiQU0
- LKsmmxFwgQoJU/PQXmJcIN6rLQyAP/9tDz3NKU965FiCchIeko1rCYLCc0UsKV2SrwGz
- 7dpQFH++Go0IzKWfpmsezGMIZTvApKIfQZFKXkCQL6O7EUDd2qDmBE6VH/ypBWmj1WoG
- 9ajn/Hvt2HLCqm9MpcYh6Se3RKToal3YLTMlgtPLaRgJTet0SU4xj6TO/VojBPTAlGNA
- fWXw==
-X-Gm-Message-State: AOAM532yqb7dFFdLPb3gMd5ON5EugOFdU9OKsps9SLPL+j0E03CPTJGG
- Rck/0YokyR5vNLD3ty6lD4sgJf1C+u7GCg==
-X-Google-Smtp-Source: ABdhPJwdRviDVzXDEdat1U8xrx4utFSsYpeLV1LWwpMpSY4cAPxvpzT4K9sj4c7yVu8H7X2fT4t/lQ==
-X-Received: by 2002:a2e:5046:: with SMTP id v6mr9094222ljd.368.1632241366609; 
- Tue, 21 Sep 2021 09:22:46 -0700 (PDT)
+ bh=eZxXiK/igoFZEqHLXFTBpMKSnJsFZcbyROjm+cR8HWM=;
+ b=SmzZZmTOB+vMBTimPLqC0UXC+f6I8e/3CLohxBG3t9HBoVEmtsiJsq7vprUtOxrkSm
+ YRYHXbzmnRZnMKYvOcGIx73ajRS9WK+m2kcLWYThSZ7jtOeqre/s1O/2TZ5xwwquVIFu
+ vqs+OitT4wHZjnpIDDPj6io60HF1NhgSmD1n7DKaRhERZ/AtURp/JUjiwBwsMXAJZRm0
+ 4fEE2FIanQ5tx/9WB2fDxi7CwFeiDJlNBWlLyjDE7Ftg8A/vXIxtzx4Fscx9pWuJnEpQ
+ 4HW76Po2VKvNqp4XcktRAKgTFCmvh+RkWGCLV4MlLZ+pbIsqzTOdPw8V2+OFqpaYy65e
+ zIcA==
+X-Gm-Message-State: AOAM530TVxcPQBaTl5pU4JloBF02xh7JukMROiyJ8o398Q0a35UAXYlW
+ 9cBlQnkgO0b9B2o8mJN8vUD8LA==
+X-Google-Smtp-Source: ABdhPJzTRtDkvxjwVw3Lwwct57gIcSM3sLoNOcbn4HI4ZvhAQagf467vxob+9Vsac/I1/i9H3+pPkg==
+X-Received: by 2002:a2e:f01:: with SMTP id 1mr23190390ljp.204.1632241379786;
+ Tue, 21 Sep 2021 09:22:59 -0700 (PDT)
 Received: from umbar.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id v77sm1559567lfa.93.2021.09.21.09.22.45
+ by smtp.gmail.com with ESMTPSA id w5sm1558553lfu.48.2021.09.21.09.22.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 09:22:46 -0700 (PDT)
+ Tue, 21 Sep 2021 09:22:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -53,13 +53,13 @@ Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, David Heidelberg <david@ixit.cz>
-Date: Tue, 21 Sep 2021 19:22:45 +0300
-Message-Id: <20210921162245.1858118-1-dmitry.baryshkov@linaro.org>
+Date: Tue, 21 Sep 2021 19:22:58 +0300
+Message-Id: <20210921162258.1858223-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dsi/phy: fix clock names in 28nm_8960
- phy
+Subject: [Freedreno] [PATCH] drm/msm/dsi: do not install irq handler before
+ power up the host
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,40 +75,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The commit 9f91f22aafcd ("drm/msm/dsi: remove duplicate fields from
-dsi_pll_Nnm instances") mistakenly changed registered clock names. While
-the platform is in progress of migration to using clock properties in
-the dts rather than the global clock names, we should provide backwards
-compatibility. Thus restore registerd global clock names.
+The DSI host might be left in some state by the bootloader. If this
+state generates an IRQ, it might hang the system by holding the
+interrupt line before the driver sets up the DSI host to the known
+state.
 
-Fixes: 9f91f22aafcd ("drm/msm/dsi: remove duplicate fields from dsi_pll_Nnm instances")
+Move the request/free_irq calls into msm_dsi_host_power_on/_off calls,
+so that we can be sure that the interrupt is delivered when the host is
+in the known state.
+
+Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-index aaa37456f4ee..71ed4aa0dc67 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-@@ -428,7 +428,7 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
- 	bytediv->reg = pll_28nm->phy->pll_base + REG_DSI_28nm_8960_PHY_PLL_CTRL_9;
- 
- 	snprintf(parent_name, 32, "dsi%dvco_clk", pll_28nm->phy->id);
--	snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id);
-+	snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id + 1);
- 
- 	bytediv_init.name = clk_name;
- 	bytediv_init.ops = &clk_bytediv_ops;
-@@ -442,7 +442,7 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index e269df285136..cd842347a6b1 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1951,15 +1951,6 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
  		return ret;
- 	provided_clocks[DSI_BYTE_PLL_CLK] = &bytediv->hw;
+ 	}
  
--	snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id);
-+	snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id + 1);
- 	/* DIV3 */
- 	hw = devm_clk_hw_register_divider(dev, clk_name,
- 				parent_name, 0, pll_28nm->phy->pll_base +
+-	ret = devm_request_irq(&pdev->dev, msm_host->irq,
+-			dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+-			"dsi_isr", msm_host);
+-	if (ret < 0) {
+-		DRM_DEV_ERROR(&pdev->dev, "failed to request IRQ%u: %d\n",
+-				msm_host->irq, ret);
+-		return ret;
+-	}
+-
+ 	msm_host->dev = dev;
+ 	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
+ 	if (ret) {
+@@ -2413,6 +2404,16 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
+ 	if (msm_host->disp_en_gpio)
+ 		gpiod_set_value(msm_host->disp_en_gpio, 1);
+ 
++	ret = devm_request_irq(&msm_host->pdev->dev, msm_host->irq,
++			dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
++			"dsi_isr", msm_host);
++	if (ret < 0) {
++		DRM_DEV_ERROR(&msm_host->pdev->dev, "failed to request IRQ%u: %d\n",
++				msm_host->irq, ret);
++		return ret;
++	}
++
++
+ 	msm_host->power_on = true;
+ 	mutex_unlock(&msm_host->dev_mutex);
+ 
+@@ -2439,6 +2440,8 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
+ 		goto unlock_ret;
+ 	}
+ 
++	devm_free_irq(&msm_host->pdev->dev, msm_host->irq, msm_host);
++
+ 	dsi_ctrl_config(msm_host, false, NULL, NULL);
+ 
+ 	if (msm_host->disp_en_gpio)
 -- 
 2.30.2
 
