@@ -1,84 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56422415A16
-	for <lists+freedreno@lfdr.de>; Thu, 23 Sep 2021 10:35:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15DE9416466
+	for <lists+freedreno@lfdr.de>; Thu, 23 Sep 2021 19:27:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5EAC6E0E7;
-	Thu, 23 Sep 2021 08:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 461876ED98;
+	Thu, 23 Sep 2021 17:27:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 153FE6E0E5;
- Thu, 23 Sep 2021 08:35:38 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id 798C4580B93;
- Thu, 23 Sep 2021 04:35:37 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 23 Sep 2021 04:35:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=Mv1dM1XlluWkxjEGeV7otIr7/fs
- pJ3KHQ2KiFAG61OM=; b=iK1NTf7ptyEzO5VBw4byNjaHAZ3Og3z8XlZq5eDNBER
- hN4M2ipGBufUVq5sRz8xpA+52wM7zCRWOpQDuMtQEIGPonQQ+kHTsHVODUAPcLEO
- e+PUW04t/5QxLqUUam4LygFwLm2S/UYZ6KxwCwW5LY5bpObnS0sw7U3eJlR7VGdN
- zsQeTmkPcCDJEqWCyARbEUjUdwfLz42E4gEIp/RgrOIJkBvguOtJobQ1BPz3Z+g3
- 5KLRxxW5AQeti0sVcnb8QhHz9e8/hsrrNTf3hgT0H2Xp2jsOoUuUKLgEPSJ5wvLW
- C3HaJYqwHCgA73E+a1LPZlhq0esI8dO/lBnopYh0YZw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Mv1dM1
- XlluWkxjEGeV7otIr7/fspJ3KHQ2KiFAG61OM=; b=INs6UivT4gDkWulgonwMIk
- Z2oukmma9XBPVeE70nRmC1g3YNl1Vgxq19vVK9IgPvVmJHSLT0140jYKCU9Td/N0
- gjwUZMMc2gXMYvE/yPD314KaHv0jJ/vKKzVRz3SwogItRr5dyR516p6GqQ0LIYHJ
- d4c2/e4C/RP+97dYcBxMV23eTxFLeToGWNv2KPvqidaU3ccfBir+pc9w9s88V3f0
- f7hdJKUMOsDKwRLOP2pmD7dYTNDiSLRw8DwWkuu+pWFtQ04YPjZD4M0uXJjn8vnt
- x0FTPEpp4b/IQwFnK3YxeNq3DojCyNhhh8tI1Ycv7uDqBBOQTBrYXFpsSpz8Nltg
- ==
-X-ME-Sender: <xms:WDxMYZHsTZSEyAHOe90ZZM5Q4LtbaOdyBr6XE6zcruZoTvsMBCpvpw>
- <xme:WDxMYeUbWkP4_tkMYqMvpWgainrHqWvXZk9scS4KCgtXEvfA3-5ByumW6jvBoJi4o
- Y6EhNschSNzu0tftag>
-X-ME-Received: <xmr:WDxMYbL26eYZ0Zbx81hiOY8CH8ColBLKSErA7WtT5ZSMqEO1bR68PTXR2bIOXmVVJEgZqCtFEGlpiBX7rfDWV81M0gNyxnJUAjRE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeiledgtdegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:WDxMYfFhPZJqW7gul9C4fVQQwdbzAINO48bBwHAUgb-CLZC31pOpDw>
- <xmx:WDxMYfX9kO4aZTb6DceLiquAWRTRgLOSs32A7pR1zGPYE6pqiHoCMg>
- <xmx:WDxMYaPbqOxK0OPBhm1j9xYs0NGH9TnVt01VGGf8onyvL9-vLHr-4A>
- <xmx:WTxMYYtdHRw3i3E_VU76h-z-qHqbQc8O4lAeySh80S8XgEyvWcubWg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Sep 2021 04:35:36 -0400 (EDT)
-Date: Thu, 23 Sep 2021 10:35:35 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Doug Anderson <dianders@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Rob Clark <robdclark@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Message-ID: <20210923083535.fx25ooihsw65zy3e@gilmour>
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ECC86ED94;
+ Thu, 23 Sep 2021 17:27:21 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id i24so3419534wrc.9;
+ Thu, 23 Sep 2021 10:27:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Z8P/N3nWO0xQm62MFlmAAZqgDHsYeso9viJ+hbtMyd4=;
+ b=hy7aVkeaLnbUmjeFX+DYjMGNVNYriACYfGZQyjwmls49RYDUYd3/HoBrjRYAUBcP5u
+ WdQnR73JdNER1uCzMJocK1HW91vlAVMxtZcESqP1i97xaJzjUhusfzOq5bZNIb/07u6O
+ PHxp1L2be2L6LFSHWSN2hvDKWp6O/aFYzk04ao59UCgXZo4CfdQEz43ubxVEWZ+YhSyY
+ 7DAnjTjddx0gG8gorwAX2HMRpSZH3Xlg2biA8xt0TZ6xAl7dHMTaGxRx/P/jgPE9K9hy
+ Aecwnh8Zc8otTWFXx6czDnJzLZ1teitLwEa8ByCIXrXn0AkpK3BAr9sNL8x0FgN0bPVR
+ X+rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Z8P/N3nWO0xQm62MFlmAAZqgDHsYeso9viJ+hbtMyd4=;
+ b=S5nkrLeGDEzu5UIRWmThsU+0DuYqxoxSssigb2Xmx+nSqF5Ulq+v1iwzs5DfjIUWoD
+ DThAk7py1piVr3u2xUJorudqz8HTOEIf1v9tYXiiZGJ8FnAaLgU5ZD6KnxGT8tmrVp2g
+ rJfTTPy55UHkWbsLnhIeHtMp+5yrFcSzSz/fTZZbwcusdns/LdRMbWZCL0Pvnv43slKw
+ +bUBcZzf8G42uxlpSO622PasyyEVP1rxuxjkvkdZJX5IF7H9BeFClVIE678JalvxPHw7
+ NFx/8xxr3Y+d4k3gkGHU/IAcvpxRST+W86oxZaehZPY7MogvEkSpnGcBTbFC+CBOdSpA
+ RQ4A==
+X-Gm-Message-State: AOAM530LRFxOcRBpBL1+1X0MT7eU1dvX+DyHzjRDHOCXIHpOYAeSCoCk
+ P684IITYRSG5KBcRpi5YSFHgahImq9NDTamwR+E=
+X-Google-Smtp-Source: ABdhPJx6UeLUNJEg4ECtZTPmdRdNxeNfodeUo9giXcpmLiqe3uXJ23JEPIV7y6k3ETipKna4LRADAw7g7juNd7bi/Bg=
+X-Received: by 2002:a1c:2b04:: with SMTP id r4mr5668001wmr.168.1632418040015; 
+ Thu, 23 Sep 2021 10:27:20 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210920225801.227211-1-robdclark@gmail.com>
  <20210920225801.227211-4-robdclark@gmail.com>
- <CAD=FV=WGmk6UY2MA4=y4gaM4G66t-qxuLtAZvUahzwg8YsLv=g@mail.gmail.com>
- <CAF6AEGuE1y7ZdOE+=N1v7Zc=gigopS50BaADHpUOoM2TrshSCw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="m2xqcwj7ise3su22"
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGuE1y7ZdOE+=N1v7Zc=gigopS50BaADHpUOoM2TrshSCw@mail.gmail.com>
+ <YUvN3j0v+8NMjNte@pendragon.ideasonboard.com>
+In-Reply-To: <YUvN3j0v+8NMjNte@pendragon.ideasonboard.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 23 Sep 2021 10:31:52 -0700
+Message-ID: <CAF6AEGviyfX6+c-CB5gMXqRQfHhvb5L8t++-VkZpvS3r9qDNoA@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, 
+ Rob Clark <robdclark@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>, 
+ Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v2 3/3] drm/bridge: ti-sn65dsi86: Add
  NO_CONNECTOR support
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -96,64 +75,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
---m2xqcwj7ise3su22
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-On Tue, Sep 21, 2021 at 03:42:05PM -0700, Rob Clark wrote:
-> On Tue, Sep 21, 2021 at 3:20 PM Doug Anderson <dianders@chromium.org> wro=
-te:
+On Wed, Sep 22, 2021 at 5:44 PM Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Rob,
+>
+> Thank you for the patch.
+>
+> On Mon, Sep 20, 2021 at 03:58:00PM -0700, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
 > >
-> > Hi,
+> > Slightly awkward to fish out the display_info when we aren't creating
+> > own connector.  But I don't see an obvious better way.
 > >
-> > On Mon, Sep 20, 2021 at 3:53 PM Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Slightly awkward to fish out the display_info when we aren't creating
-> > > own connector.  But I don't see an obvious better way.
-> > >
-> > > v2: Remove error return with NO_CONNECTOR flag
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 39 ++++++++++++++++++++-----=
---
-> > >  1 file changed, 29 insertions(+), 10 deletions(-)
+> > v2: Remove error return with NO_CONNECTOR flag
 > >
-> > This seems fine to me:
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 39 ++++++++++++++++++++-------
+> >  1 file changed, 29 insertions(+), 10 deletions(-)
 > >
-> > Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> > index 6154bed0af5b..94c94cc8a4d8 100644
+> > --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> > @@ -667,11 +667,6 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+> >                                                  .node = NULL,
+> >                                                };
 > >
-> > ...if you would like me to apply patch #2 / #3 to drm-misc-next then
-> > please yell.
->=20
-> Thanks.. I think we can give it a few days for Laurent to have a look.
->=20
-> This will conflict some with Maxime's bridge vs dsi-host ordering
-> series.. not sure how close that one is to the finish line, but I can
-> rebase either patch on top of the other depending on which order they
-> are applied
+> > -     if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+> > -             DRM_ERROR("Fix bridge driver to make connector optional!");
+> > -             return -EINVAL;
+> > -     }
+> > -
+> >       pdata->aux.drm_dev = bridge->dev;
+> >       ret = drm_dp_aux_register(&pdata->aux);
+> >       if (ret < 0) {
+> > @@ -679,9 +674,11 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+> >               return ret;
+> >       }
+> >
+> > -     ret = ti_sn_bridge_connector_init(pdata);
+> > -     if (ret < 0)
+> > -             goto err_conn_init;
+> > +     if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
+> > +             ret = ti_sn_bridge_connector_init(pdata);
+> > +             if (ret < 0)
+> > +                     goto err_conn_init;
+> > +     }
+> >
+> >       /*
+> >        * TODO: ideally finding host resource and dsi dev registration needs
+> > @@ -743,7 +740,8 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+> >  err_dsi_attach:
+> >       mipi_dsi_device_unregister(dsi);
+> >  err_dsi_host:
+> > -     drm_connector_cleanup(&pdata->connector);
+> > +     if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
+> > +             drm_connector_cleanup(&pdata->connector);
+>
+> I wonder if we actually need this. The connector gets attached to the
+> encoder, won't it be destroyed by the DRM core in the error path ?
 
-It's probably going to take a bit of time to get merged, so don't worry
-about this series and just go ahead, I'll rebase it on top of yours if
-needed.
+This does not appear to be the case, we leak the connector if I remove
+this (and add a hack to trigger the error path)
 
-Maxime
+> >  err_conn_init:
+> >       drm_dp_aux_unregister(&pdata->aux);
+> >       return ret;
+> > @@ -792,9 +790,30 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
+> >       regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
+> >  }
+> >
+> > +/*
+> > + * Find the connector and fish out the bpc from display_info.  It would
+> > + * be nice if we could get this instead from drm_bridge_state, but that
+> > + * doesn't yet appear to be the case.
+>
+> You already have a bus format in the bridge state, from which you can
+> derive the bpp. Could you give it a try ?
 
---m2xqcwj7ise3su22
-Content-Type: application/pgp-signature; name="signature.asc"
+Possibly the bridge should be converted to ->atomic_enable(), etc..
+I'll leave that for another time
 
------BEGIN PGP SIGNATURE-----
+BR,
+-R
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYUw8VwAKCRDj7w1vZxhR
-xSxaAQDcHuVvqYdYP/vWufS3mA01olIW3ObhX5c5gvCC94UPrwEA1PbFIV8S3GrH
-dlh2ut7HZ20ROw/r3xa6bBKon3bxUQY=
-=xq8N
------END PGP SIGNATURE-----
-
---m2xqcwj7ise3su22--
+> > + */
+> >  static unsigned int ti_sn_bridge_get_bpp(struct ti_sn65dsi86 *pdata)
+> >  {
+> > -     if (pdata->connector.display_info.bpc <= 6)
+> > +     struct drm_bridge *bridge = &pdata->bridge;
+> > +     struct drm_connector_list_iter conn_iter;
+> > +     struct drm_connector *connector;
+> > +     unsigned bpc = 0;
+> > +
+> > +     drm_connector_list_iter_begin(bridge->dev, &conn_iter);
+> > +     drm_for_each_connector_iter(connector, &conn_iter) {
+> > +             if (drm_connector_has_possible_encoder(connector, bridge->encoder)) {
+> > +                     bpc = connector->display_info.bpc;
+> > +                     break;
+> > +             }
+> > +     }
+> > +     drm_connector_list_iter_end(&conn_iter);
+> > +
+> > +     WARN_ON(bpc == 0);
+> > +
+> > +     if (bpc <= 6)
+> >               return 18;
+> >       else
+> >               return 24;
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
