@@ -2,75 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0A1416C36
-	for <lists+freedreno@lfdr.de>; Fri, 24 Sep 2021 08:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 646ED416CA6
+	for <lists+freedreno@lfdr.de>; Fri, 24 Sep 2021 09:18:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0056EE19;
-	Fri, 24 Sep 2021 06:50:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0A26EDFE;
+	Fri, 24 Sep 2021 07:18:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0369F6EDF4;
- Fri, 24 Sep 2021 06:50:53 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id BA6BC581082;
- Fri, 24 Sep 2021 02:44:22 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 24 Sep 2021 02:44:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=XfJogIGLAj5OT
- 81g+tui9DWnR48Irs4IqE3/HCsJYoM=; b=ij/gSoCX7lvPk5tr1A9OXnqZqCMRr
- U0haB6gEeGrh9Y9jN/nJwy6w+i5kDtagb7aEnzhFzgD2HOEM6DlS3UH+Kk6bFhjC
- ebrgK7f/MHy5rHDg8y3AE9z7KmK13hnWr+wfF1auvNmv0lz4748rBukBbB1i/T4f
- J5FIk8r0j1xguek2Pz4c4qQJ4L62LuJ4BI2f7QSx62q1kZhor5d0PyHH2WtFpJQJ
- Hs9Cy34+aJ0tYQc/HuIBosphvrtUMOxDNr/QITNp5P1idIGKJEkbYGw36AcY2FiI
- PT93zcxsfWgOKFE0BohvydKzh5BsM3DIeQU5ERYPYZLPYCzXxdnrH7Qfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=XfJogIGLAj5OT81g+tui9DWnR48Irs4IqE3/HCsJYoM=; b=amtM/Scu
- 45i/msMp1j/6QmVXCuKWbczO3R6PXM4V2IqrrtRNMczn528AikHK1P4YKlI557MZ
- YRQGReMlh7/kCFniNkGe+g7ERM3UoDjWukuRpfccgIkKvRt6IMbKWzlbIvW6vB7L
- wqHLHpmjDJFeKAxf6X7K+5LnJ4GuF7ivlti/9CcXik+fVplAymdFYum7eByYKCZo
- 9zF3/wDeRu8YQr/eEM7cI3yCJBNDgf0TJ2hrrfxcacu+n2JNWKORSwc32TB3Nvav
- 7bt43SpqlSb6ET66yp3mcBZHJgyGv4kKwc6LcgYF2gPV3qWdQ45sJbDC5DqRrvLU
- KUhQ23ysoOM1SQ==
-X-ME-Sender: <xms:xnNNYSvEzsNEIDIAsKMKyBq1Y1KpBd5sGi0Y_-LjnXGX_C-TGGLziA>
- <xme:xnNNYXdE4oyjZcvRl-GxJtVInMAYdqKNVTDhehR4JpkmZvtIOpjb3_FCwdDbhZqgb
- GRlDo-MQaUr9kzU3g>
-X-ME-Received: <xmr:xnNNYdxo7owbIRCtkYUXDdcMOrCvDqD3RWirTKdRY5rqoh-LMZcps_N6Lt9xhA3TPtB_>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejtddguddtkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
- ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpeekleekjedtheejheekfefggeevvd
- fgueegffeuveduhfehueegkeeijedvvdejfeenucevlhhushhtvghrufhiiigvpeegnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:xnNNYdO5a-sMk-t_g8OUbcznBnK42aehjeXKomDIZX14mNFK5FcOPQ>
- <xmx:xnNNYS91mYrXXL9edztOfmblpQ9uVG88-cFkO2gSC01eT4_wwgg99w>
- <xmx:xnNNYVW72SwU9pak8JcwrTPW1yJkAVUZF5v8sdlKx-vtGJKA0GT-lA>
- <xmx:xnNNYVb1fg46HdQu4etxelBVYEKR4qB7pQhZQgYnzuXz9_IZ55PtXg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 24 Sep 2021 02:44:19 -0400 (EDT)
-From: Fernando Ramos <greenfoo@u92.eu>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org
-Date: Fri, 24 Sep 2021 08:43:24 +0200
-Message-Id: <20210924064324.229457-18-greenfoo@u92.eu>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210924064324.229457-1-greenfoo@u92.eu>
-References: <20210924064324.229457-1-greenfoo@u92.eu>
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCB26EDF9;
+ Fri, 24 Sep 2021 07:18:03 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id i23so24431940wrb.2;
+ Fri, 24 Sep 2021 00:18:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CV/9mi9uteLuWVq9Kj9QRPmNqPHDt+M2/XdEbBVbpko=;
+ b=XSlFWfM60+Q0dxzzRauhgrG8cg1+/vgxeSpdmBrnfYoaLQ1muwXC9j+73Gp0aodDNI
+ KPQo6BkE52aw0+d7Tc8Sh+RPdJCtvB/ts10tU+CjDxqt9sjd74a7s+40+J0+D4pDxyky
+ kjx3FPqgnJ2fyInrN14PA5oZviatMPu2alrtQ2uj9qelfowm9xili2XqUSFxJT9Nam/W
+ TiJJ+JQrbxkRhlX6QOqt5LtdWBa5ckrCBiSLtKkfJzx5ljGZC+YRKo6YAOxqgGDuenAL
+ 4Dffn+qQY/yx4TFIMpDOgfB1cIlcpPmpoWnRabg9r+gCq5rUgWkY7sm/Vv8kgTwNXtd1
+ ZwXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CV/9mi9uteLuWVq9Kj9QRPmNqPHDt+M2/XdEbBVbpko=;
+ b=E/OIvu8u/q4lh+vdKAz/8NNi34i/S4OpAY8Tfal3Kg77zirUih1nwkJcG/T4HcqKll
+ I4pOFGezy68YAar3Rycwp48WGE/E0UBRsmo/bClmZ7To43z7VVMwlLiRaFSUYHlatShi
+ EJY1zV4KAmh7kvnXQbK10LxzTktf6180vcvx84Yh9lXQjSN8/LyyRQ+BwNxvCxY+5Xyp
+ mGz5oh8xHfdM1wF85b14M0gT6ifMUWdDV4diUvGMF34mWmPpnhsS5fk9kaWUegvFTOBR
+ zzmgVrlMyGonmrocjr5LR7FK2EU/kM76uJzn2ZL/LY/rCDkEL7L7MWq/dCGPFV36k3Tu
+ 8isw==
+X-Gm-Message-State: AOAM531rFa5zUUNnq2xvTjnJSeO7wbViyqAtz6YflecCNUh/69uC4daf
+ EBkdKv0pffa0SalJ8xQirvso/Xj6eqM=
+X-Google-Smtp-Source: ABdhPJyG0gAB4wSfjtppxcJR/M6I6ToAkPgteRQM02KJpVdcOahsN3BWZmPXZWv0nwE4d/F8d/N8zA==
+X-Received: by 2002:adf:e88d:: with SMTP id d13mr9451231wrm.91.1632467881845; 
+ Fri, 24 Sep 2021 00:18:01 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ b7sm9200070wrm.9.2021.09.24.00.18.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Sep 2021 00:18:01 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, etnaviv@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ linux+etnaviv@armlinux.org.uk, robdclark@gmail.com, sean@poorly.run
+Date: Fri, 24 Sep 2021 09:17:56 +0200
+Message-Id: <20210924071759.22659-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 17/17] doc: drm: remove TODO entry regarding
- DRM_MODSET_LOCK_ALL cleanup
+Subject: [Freedreno] [PATCH 1/4] dma-buf: add dma_fence_describe and
+ dma_resv_describe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,57 +77,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The previous commits do exactly what this entry in the TODO file asks
-for, thus we can remove it now as it is no longer applicable.
+Add functions to dump dma_fence and dma_resv objects into a seq_file and
+use them for printing the debugfs informations.
 
-Signed-off-by: Fernando Ramos <greenfoo@u92.eu>
-Reviewed-by: Sean Paul <sean@poorly.run>
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- Documentation/gpu/todo.rst                | 17 -----------------
- Documentation/locking/ww-mutex-design.rst |  2 +-
- 2 files changed, 1 insertion(+), 18 deletions(-)
+ drivers/dma-buf/dma-buf.c   | 11 +----------
+ drivers/dma-buf/dma-fence.c | 16 ++++++++++++++++
+ drivers/dma-buf/dma-resv.c  | 23 +++++++++++++++++++++++
+ include/linux/dma-fence.h   |  1 +
+ include/linux/dma-resv.h    |  1 +
+ 5 files changed, 42 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 12e61869939e..6613543955e9 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -353,23 +353,6 @@ converted, except for struct drm_driver.gem_prime_mmap.
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d35c71743ccb..4975c9289b02 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1368,8 +1368,6 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ {
+ 	struct dma_buf *buf_obj;
+ 	struct dma_buf_attachment *attach_obj;
+-	struct dma_resv_iter cursor;
+-	struct dma_fence *fence;
+ 	int count = 0, attach_count;
+ 	size_t size = 0;
+ 	int ret;
+@@ -1397,14 +1395,7 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ 				file_inode(buf_obj->file)->i_ino,
+ 				buf_obj->name ?: "");
  
- Level: Intermediate
+-		dma_resv_for_each_fence(&cursor, buf_obj->resv, true, fence) {
+-			seq_printf(s, "\t%s fence: %s %s %ssignalled\n",
+-				   dma_resv_iter_is_exclusive(&cursor) ?
+-					"Exclusive" : "Shared",
+-				   fence->ops->get_driver_name(fence),
+-				   fence->ops->get_timeline_name(fence),
+-				   dma_fence_is_signaled(fence) ? "" : "un");
+-		}
++		dma_resv_describe(buf_obj->resv, s);
  
--Use DRM_MODESET_LOCK_ALL_* helpers instead of boilerplate
-----------------------------------------------------------
--
--For cases where drivers are attempting to grab the modeset locks with a local
--acquire context. Replace the boilerplate code surrounding
--drm_modeset_lock_all_ctx() with DRM_MODESET_LOCK_ALL_BEGIN() and
--DRM_MODESET_LOCK_ALL_END() instead.
--
--This should also be done for all places where drm_modeset_lock_all() is still
--used.
--
--As a reference, take a look at the conversions already completed in drm core.
--
--Contact: Sean Paul, respective driver maintainers
--
--Level: Starter
--
- Rename CMA helpers to DMA helpers
- ---------------------------------
+ 		seq_puts(s, "\tAttached Devices:\n");
+ 		attach_count = 0;
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index 1e82ecd443fa..5175adf58644 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -907,6 +907,22 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+ }
+ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
  
-diff --git a/Documentation/locking/ww-mutex-design.rst b/Documentation/locking/ww-mutex-design.rst
-index 6a4d7319f8f0..6a8f8beb9ec4 100644
---- a/Documentation/locking/ww-mutex-design.rst
-+++ b/Documentation/locking/ww-mutex-design.rst
-@@ -60,7 +60,7 @@ Concepts
- Compared to normal mutexes two additional concepts/objects show up in the lock
- interface for w/w mutexes:
++/**
++ * dma_fence_describe - Dump fence describtion into seq_file
++ * @fence: the 6fence to describe
++ * @seq: the seq_file to put the textual description into
++ *
++ * Dump a textual description of the fence and it's state into the seq_file.
++ */
++void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
++{
++	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
++		   fence->ops->get_driver_name(fence),
++		   fence->ops->get_timeline_name(fence), fence->seqno,
++		   dma_fence_is_signaled(fence) ? "" : "un");
++}
++EXPORT_SYMBOL(dma_fence_describe);
++
+ /**
+  * dma_fence_init - Initialize a custom fence.
+  * @fence: the fence to initialize
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 266ec9e3caef..6bb25d53e702 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -38,6 +38,7 @@
+ #include <linux/mm.h>
+ #include <linux/sched/mm.h>
+ #include <linux/mmu_notifier.h>
++#include <linux/seq_file.h>
  
--Acquire context: To ensure eventual forward progress it is important the a task
-+Acquire context: To ensure eventual forward progress it is important that a task
- trying to acquire locks doesn't grab a new reservation id, but keeps the one it
- acquired when starting the lock acquisition. This ticket is stored in the
- acquire context. Furthermore the acquire context keeps track of debugging state
+ /**
+  * DOC: Reservation Object Overview
+@@ -654,6 +655,28 @@ bool dma_resv_test_signaled(struct dma_resv *obj, bool test_all)
+ }
+ EXPORT_SYMBOL_GPL(dma_resv_test_signaled);
+ 
++/**
++ * dma_resv_describe - Dump description of the resv object into seq_file
++ * @obj: the reservation object
++ * @seq: the seq_file to dump the description into
++ *
++ * Dump a textual description of the fences inside an dma_resv object into the
++ * seq_file.
++ */
++void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq)
++{
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
++
++	dma_resv_for_each_fence(&cursor, obj, true, fence) {
++		seq_printf(seq, "\t%s fence:",
++			   dma_resv_iter_is_exclusive(&cursor) ?
++				"Exclusive" : "Shared");
++		dma_fence_describe(fence, seq);
++	}
++}
++EXPORT_SYMBOL_GPL(dma_resv_describe);
++
+ #if IS_ENABLED(CONFIG_LOCKDEP)
+ static int __init dma_resv_lockdep(void)
+ {
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index a706b7bf51d7..1ea691753bd3 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -264,6 +264,7 @@ void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 
+ void dma_fence_release(struct kref *kref);
+ void dma_fence_free(struct dma_fence *fence);
++void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
+ 
+ /**
+  * dma_fence_put - decreases refcount of the fence
+diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+index d4b4cd43f0f1..49c0152073fd 100644
+--- a/include/linux/dma-resv.h
++++ b/include/linux/dma-resv.h
+@@ -486,5 +486,6 @@ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src);
+ long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
+ 			   unsigned long timeout);
+ bool dma_resv_test_signaled(struct dma_resv *obj, bool test_all);
++void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq);
+ 
+ #endif /* _LINUX_RESERVATION_H */
 -- 
-2.33.0
+2.25.1
 
