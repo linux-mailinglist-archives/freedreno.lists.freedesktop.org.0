@@ -2,51 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3112416A02
-	for <lists+freedreno@lfdr.de>; Fri, 24 Sep 2021 04:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5CD416C44
+	for <lists+freedreno@lfdr.de>; Fri, 24 Sep 2021 08:52:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1A616EDDC;
-	Fri, 24 Sep 2021 02:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E6146EE75;
+	Fri, 24 Sep 2021 06:51:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8BF6EDD8;
- Fri, 24 Sep 2021 02:26:00 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C17E458B;
- Fri, 24 Sep 2021 04:25:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1632450358;
- bh=45e1RdVipct+ZYgoBCG59Y1r2CqJIiDZM00tNcmo9cw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lSWHnGvkX11Tky0znlaLjMETSaEQ7jIikpeUFmvnDesmOwI8Jp14TnLq9qdo1Aja9
- Hvgw/Y8YwpLOU+SK4X2IHk1RTVHw6kUnKVbG2r+h/j4xg1rdUF/Zaar9xTnEUIC3Nc
- nczMoz4hMNDQu045FhKIcOhUdXZKSjfnJVw3/PWw=
-Date: Fri, 24 Sep 2021 05:25:55 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>,
- Rob Clark <robdclark@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Message-ID: <YU03M+CXJ+ALi8De@pendragon.ideasonboard.com>
-References: <20210920225801.227211-1-robdclark@gmail.com>
- <20210920225801.227211-4-robdclark@gmail.com>
- <YUvN3j0v+8NMjNte@pendragon.ideasonboard.com>
- <CAF6AEGviyfX6+c-CB5gMXqRQfHhvb5L8t++-VkZpvS3r9qDNoA@mail.gmail.com>
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9146EE03;
+ Fri, 24 Sep 2021 06:50:54 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 172CB580591;
+ Fri, 24 Sep 2021 02:43:33 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 24 Sep 2021 02:43:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=from
+ :to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm3; bh=8JxUh0idl2OqTGZk5RBguL60tV
+ 5G7pyRJ1PUXb3KSO8=; b=UazL6jNFbUYv1RK8ZFvI998QvQhhzP8gyc4/g2VeN2
+ sHUeRdspdNoQLtL/1myW6NPN2N47+4fLHR8PHba6d6Bg0SZ4DQGaTBqy/jQhM+iw
+ 9jsxicANK3u3q/F5W3GG3XXy6QTKJD3nO1R62NZ/Mgw2ai+Y0vKHEVxd7vXxxO0I
+ FkeqYHghU+mksumRTOK96yc+EpBQBEsX2LLzxOqHXArQzlzQP/2IexbbUSNcWrDq
+ t9vweO5LmYIEwF0DxYYMD+8PG1bZTNMb/iy6MBCrkgjGJqk+IjUPtus/FCNETpbr
+ 219hS8JrZp8AbeQu/Pr8IrVeT+vKo+qujJazXqZ8SCeQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=8JxUh0idl2OqTGZk5
+ RBguL60tV5G7pyRJ1PUXb3KSO8=; b=AnHvEYhKcDFMV8oGVr0u7Pe14AyyyiQhH
+ wwTKp1bF/EWMUIo4sHWX5rNMTm81OoaWLYX2Uf8D8dFAMBFHRGUGujhXtdr+eKJ0
+ Grl4PmTYvsr9GAfbgFvzejBfvttqA/vMFyBQdj3npM6wiNUuxpBBYxtkVNIKW7aN
+ Kl+Zkts+x0e6LPi3S8QuRdDgSfgeTD+j9O65ytmPzT0MGF+mjFVhsNSOwmzNTwwr
+ AKx5Zox0RUeJa6KAI7F2aztC4zKYv5S36AoEVIddLtfcfi9+BN/SyWcDnFEPDLI1
+ 1El5NHxQt4UEC1yQEyPmulIOfB84GjGYvredlE6tX8+qcB/emWXBQ==
+X-ME-Sender: <xms:lHNNYT_YRaW0CDRib44K7f-o632_sljDgiGxqOXLY-_sFsjU2RsZYA>
+ <xme:lHNNYfvID2OaXtn6bhfFWVfB0awSYBFtpfVd9YwGdJkQuLQEsVrS7pxsa_QBLwMig
+ 0WGjklEspF0YWtg7Q>
+X-ME-Received: <xmr:lHNNYRBtDkXyi-hazgRBv0OnErKymeGM5e56I1El9ltnUG1IqMYyAVoLX3jdUm9NCsVt>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejtddguddtkecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhhoohes
+ uhelvddrvghuqeenucggtffrrghtthgvrhhnpeeiueevtdegtdffgeeggfeuteejkeekvd
+ dvkeeiueekgfefgfeuueffgeelvdeggeenucevlhhushhtvghrufhiiigvpedtnecurfgr
+ rhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
+X-ME-Proxy: <xmx:lHNNYfc7xAwlJbnY8z6DIhlqmNFgLD9ew_CIMHQANpyzpg_6StXmBQ>
+ <xmx:lHNNYYM2ZXPseFBG9iF6TFZxCXpI5fDGDS19zPEbDCcNZdCoQLF_7A>
+ <xmx:lHNNYRmEvGydt9qLP9-zeLKD-u-Svya9Gx_HhArCcgKaWzFThkQR-Q>
+ <xmx:lXNNYXpITK9_ctPoDq7MDCrPzR7CHLI9wCWmLCE3vPi5EE66LK8v7g>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 24 Sep 2021 02:43:29 -0400 (EDT)
+From: Fernando Ramos <greenfoo@u92.eu>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, sean@poorly.run, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Date: Fri, 24 Sep 2021 08:43:07 +0200
+Message-Id: <20210924064324.229457-1-greenfoo@u92.eu>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGviyfX6+c-CB5gMXqRQfHhvb5L8t++-VkZpvS3r9qDNoA@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 3/3] drm/bridge: ti-sn65dsi86: Add
- NO_CONNECTOR support
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/17] drm: cleanup: Use
+ DRM_MODESET_LOCK_ALL_* helpers where possible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,116 +83,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob,
+Hi all,
 
-On Thu, Sep 23, 2021 at 10:31:52AM -0700, Rob Clark wrote:
-> On Wed, Sep 22, 2021 at 5:44 PM Laurent Pinchart wrote:
-> > On Mon, Sep 20, 2021 at 03:58:00PM -0700, Rob Clark wrote:
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Slightly awkward to fish out the display_info when we aren't creating
-> > > own connector.  But I don't see an obvious better way.
-> > >
-> > > v2: Remove error return with NO_CONNECTOR flag
-> > >
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > ---
-> > >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 39 ++++++++++++++++++++-------
-> > >  1 file changed, 29 insertions(+), 10 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> > > index 6154bed0af5b..94c94cc8a4d8 100644
-> > > --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> > > +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> > > @@ -667,11 +667,6 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
-> > >                                                  .node = NULL,
-> > >                                                };
-> > >
-> > > -     if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
-> > > -             DRM_ERROR("Fix bridge driver to make connector optional!");
-> > > -             return -EINVAL;
-> > > -     }
-> > > -
-> > >       pdata->aux.drm_dev = bridge->dev;
-> > >       ret = drm_dp_aux_register(&pdata->aux);
-> > >       if (ret < 0) {
-> > > @@ -679,9 +674,11 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
-> > >               return ret;
-> > >       }
-> > >
-> > > -     ret = ti_sn_bridge_connector_init(pdata);
-> > > -     if (ret < 0)
-> > > -             goto err_conn_init;
-> > > +     if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-> > > +             ret = ti_sn_bridge_connector_init(pdata);
-> > > +             if (ret < 0)
-> > > +                     goto err_conn_init;
-> > > +     }
-> > >
-> > >       /*
-> > >        * TODO: ideally finding host resource and dsi dev registration needs
-> > > @@ -743,7 +740,8 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
-> > >  err_dsi_attach:
-> > >       mipi_dsi_device_unregister(dsi);
-> > >  err_dsi_host:
-> > > -     drm_connector_cleanup(&pdata->connector);
-> > > +     if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
-> > > +             drm_connector_cleanup(&pdata->connector);
-> >
-> > I wonder if we actually need this. The connector gets attached to the
-> > encoder, won't it be destroyed by the DRM core in the error path ?
-> 
-> This does not appear to be the case, we leak the connector if I remove
-> this (and add a hack to trigger the error path)
+One of the things in the DRM TODO list ("Documentation/gpu/todo.rst") was to
+"use DRM_MODESET_LOCAL_ALL_* helpers instead of boilerplate". That's what this
+patch series is about.
 
-OK.
+You will find two types of changes here:
 
-> > >  err_conn_init:
-> > >       drm_dp_aux_unregister(&pdata->aux);
-> > >       return ret;
-> > > @@ -792,9 +790,30 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
-> > >       regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
-> > >  }
-> > >
-> > > +/*
-> > > + * Find the connector and fish out the bpc from display_info.  It would
-> > > + * be nice if we could get this instead from drm_bridge_state, but that
-> > > + * doesn't yet appear to be the case.
-> >
-> > You already have a bus format in the bridge state, from which you can
-> > derive the bpp. Could you give it a try ?
-> 
-> Possibly the bridge should be converted to ->atomic_enable(), etc..
-> I'll leave that for another time
+  - Replacing "drm_modeset_lock_all_ctx()" (and surrounding boilerplate) with
+    "DRM_MODESET_LOCK_ALL_BEGIN()/END()" in the remaining places (as it has
+    already been done in previous commits such as b7ea04d2)
 
-It should be fairly straightforward, and would avoid the hack below.
+  - Replacing "drm_modeset_lock_all()" with "DRM_MODESET_LOCK_ALL_BEGIN()/END()"
+    in the remaining places (as it has already been done in previous commits
+    such as 57037094)
+    
+Most of the changes are straight forward, except for a few cases in the "amd"
+and "i915" drivers where some extra dancing was needed to overcome the
+limitation that the DRM_MODESET_LOCK_ALL_BEGIN()/END() macros can only be used
+once inside the same function (the reason being that the macro expansion
+includes *labels*, and you can not have two labels named the same inside one
+function)
 
-> > > + */
-> > >  static unsigned int ti_sn_bridge_get_bpp(struct ti_sn65dsi86 *pdata)
-> > >  {
-> > > -     if (pdata->connector.display_info.bpc <= 6)
-> > > +     struct drm_bridge *bridge = &pdata->bridge;
-> > > +     struct drm_connector_list_iter conn_iter;
-> > > +     struct drm_connector *connector;
-> > > +     unsigned bpc = 0;
-> > > +
-> > > +     drm_connector_list_iter_begin(bridge->dev, &conn_iter);
-> > > +     drm_for_each_connector_iter(connector, &conn_iter) {
-> > > +             if (drm_connector_has_possible_encoder(connector, bridge->encoder)) {
-> > > +                     bpc = connector->display_info.bpc;
-> > > +                     break;
-> > > +             }
-> > > +     }
-> > > +     drm_connector_list_iter_end(&conn_iter);
-> > > +
-> > > +     WARN_ON(bpc == 0);
-> > > +
-> > > +     if (bpc <= 6)
-> > >               return 18;
-> > >       else
-> > >               return 24;
+Notice that, even after this patch series, some places remain where
+"drm_modeset_lock_all()" and "drm_modeset_lock_all_ctx()" are still present,
+all inside drm core (which makes sense), except for two (in "amd" and "i915")
+which cannot be replaced due to the way they are being used.
 
+Changes in v2:
+
+  - Fix commit message typo
+  - Use the value returned by DRM_MODESET_LOCK_ALL_END when possible
+  - Split drm/i915 patch into two simpler ones
+  - Remove drm_modeset_(un)lock_all()
+  - Fix build problems in non-x86 platforms
+
+Fernando Ramos (17):
+  drm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/i915: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/msm: cleanup: drm_modeset_lock_all_ctx() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN() drm/vmwgfx: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/tegra: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/shmobile: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/radeon: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/omapdrm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/nouveau: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/msm: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/i915: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN() part 2
+  drm/gma500: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm/amd: cleanup: drm_modeset_lock_all() --> DRM_MODESET_LOCK_ALL_BEGIN()
+  drm: cleanup: remove drm_modeset_(un)lock_all()
+  doc: drm: remove TODO entry regarding DRM_MODSET_LOCK_ALL cleanup
+
+ Documentation/gpu/todo.rst                    | 17 ----
+ Documentation/locking/ww-mutex-design.rst     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 21 +++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 50 +++++-----
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 25 ++---
+ drivers/gpu/drm/drm_client_modeset.c          | 14 ++-
+ drivers/gpu/drm/drm_crtc_helper.c             | 18 ++--
+ drivers/gpu/drm/drm_fb_helper.c               | 10 +-
+ drivers/gpu/drm/drm_framebuffer.c             |  6 +-
+ drivers/gpu/drm/drm_modeset_lock.c            | 94 +------------------
+ drivers/gpu/drm/gma500/psb_device.c           | 18 ++--
+ drivers/gpu/drm/i915/display/intel_audio.c    | 16 ++--
+ drivers/gpu/drm/i915/display/intel_display.c  | 23 ++---
+ .../drm/i915/display/intel_display_debugfs.c  | 46 +++++----
+ drivers/gpu/drm/i915/display/intel_overlay.c  | 46 ++++-----
+ drivers/gpu/drm/i915/display/intel_pipe_crc.c |  7 +-
+ drivers/gpu/drm/i915/i915_drv.c               | 13 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 10 +-
+ .../gpu/drm/msm/disp/msm_disp_snapshot_util.c | 12 +--
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       | 15 ++-
+ drivers/gpu/drm/omapdrm/omap_fb.c             |  9 +-
+ drivers/gpu/drm/radeon/radeon_device.c        | 21 +++--
+ drivers/gpu/drm/radeon/radeon_dp_mst.c        | 10 +-
+ drivers/gpu/drm/shmobile/shmob_drm_drv.c      |  6 +-
+ drivers/gpu/drm/tegra/dsi.c                   |  6 +-
+ drivers/gpu/drm/tegra/hdmi.c                  |  6 +-
+ drivers/gpu/drm/tegra/sor.c                   | 11 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c         | 11 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           | 12 ++-
+ include/drm/drm_modeset_lock.h                |  2 -
+ 30 files changed, 265 insertions(+), 292 deletions(-)
+
+
+base-commit: 6880fa6c56601bb8ed59df6c30fd390cc5f6dd8f
 -- 
-Regards,
+2.33.0
 
-Laurent Pinchart
