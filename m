@@ -2,67 +2,92 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8561416CAC
-	for <lists+freedreno@lfdr.de>; Fri, 24 Sep 2021 09:18:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21135417A14
+	for <lists+freedreno@lfdr.de>; Fri, 24 Sep 2021 19:52:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2F526EE09;
-	Fri, 24 Sep 2021 07:18:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8D936E1F9;
+	Fri, 24 Sep 2021 17:52:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9A056EE02;
- Fri, 24 Sep 2021 07:18:06 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id d21so24211571wra.12;
- Fri, 24 Sep 2021 00:18:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=zdiCR57I2VQ9UbAgMh1ATN9FWtSQnQ+P4kUe0ofzWJM=;
- b=WspNFDBd3YguRCkegjfpIkoKi4mAXUIwY99A+hOeTdLBMvPRUA9/jI58DgAO/njnJY
- ii/ubXUaX2Qn8rRaIyWHkgcv8Kkwiw2ZK1z9c4a8WgZBD/Aqp1vzvUkYPlHE02QtcLqA
- +Jv6C15obv9SgvSg/+Kw/S17D+QfEOaCxsBA1H88TKwIwKQ05a7r8JHgqaGiKgGWiDIw
- tg357eFJuakgqnK87Fh7KGLUVQO/gENGj7NJi5QSFNUliujrUKjxhaqA9+V6gGjp4MG+
- BflL7igpt/0w98+v14C/TwblWBJyW2n/PVOkTn+IITMcrj5MRHf+pfOiQkDsCmCiciRs
- Yjgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=zdiCR57I2VQ9UbAgMh1ATN9FWtSQnQ+P4kUe0ofzWJM=;
- b=uWdDW+m+KzrFfLn81zNrNz6DesU8YnPnFfK5WQbhwPwDHWQCp2tzZECPcQrZ9LubQj
- c+f1KYA/tKOVCiu4QEzvY+nrtGRf/dJ+Dj1wKsxVQzd3kKHsRy9Lt2/UtZeIqnafLqVb
- lYuPjUx995XIE0bCMimqAxZo1SD8zwvPkpRJR51k/CABGm1FCd7+Uocl1Y1FIUUyqLGU
- eULqVHGEAlC6acPZxTF0jvNp5vGdSJV3LGFOVs6rMu1zXqn6LtdwPk04IlmMRa8ZU5/0
- dQXBHzeUD7FT+2StI6cAjSE5oeFNOKkYbELX8Lr/fTRq489JMHhSyZoaEu88tcwEnVJA
- PfJw==
-X-Gm-Message-State: AOAM533A7CYBJa1pciLBbLOzFF/XbRhPPxG2/pnZHn3NwQhqwhEhkRGH
- Mktrlay4ojxm5BRpaL7u3Hyrie2rBSM=
-X-Google-Smtp-Source: ABdhPJztLdLXtRY+dHAnQxKC62ECEE/JQBUNN3kIlTaempf7aLIH0KHkHYPSRCQaVQiQyzq2faqTlA==
-X-Received: by 2002:adf:cf04:: with SMTP id o4mr9280410wrj.352.1632467885212; 
- Fri, 24 Sep 2021 00:18:05 -0700 (PDT)
-Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id
- b7sm9200070wrm.9.2021.09.24.00.18.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Sep 2021 00:18:04 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, etnaviv@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Cc: l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- linux+etnaviv@armlinux.org.uk, robdclark@gmail.com, sean@poorly.run
-Date: Fri, 24 Sep 2021 09:17:59 +0200
-Message-Id: <20210924071759.22659-4-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210924071759.22659-1-christian.koenig@amd.com>
-References: <20210924071759.22659-1-christian.koenig@amd.com>
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3DE6E1F8;
+ Fri, 24 Sep 2021 17:52:39 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 4BB37580AA6;
+ Fri, 24 Sep 2021 13:52:37 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Fri, 24 Sep 2021 13:52:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-type:content-transfer-encoding; s=fm3; bh=
+ sp6EE7DxKHroQEvu81eWzZGB1zBIRkggUg0gv0hvam8=; b=VM6q5bS2qLSgMt+D
+ goet5bmHTy6oMn4zQAzhRAs6mn7w1sUlmPwFYnvQT3A7kHXaaHnXibpwUjBmGFC5
+ MW2f9LjBQ9uAmq7QGJB4Ai99bhhQZIOH39htM4p+n9xq64H3la0tXQ386DznJtvA
+ rpYT0VJJNNlE2A62P3cto7y/cAeNKJMLqPU8S/q96Wd1o3l3xCP86vbmvnmOC2fN
+ N+72i1Bz1SIALKklIAZU4hyRFIXO3iLcViCHthHxofFqdV0opcBtdO940YNjQxzt
+ UvjotCc6CV0XlXoLLq9TW61PIg6mqCxK/NMVo8dWyEszULZVc4I7N6SLhQQsczPa
+ +krAyA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=sp6EE7DxKHroQEvu81eWzZGB1zBIRkggUg0gv0hva
+ m8=; b=YOClWC7dNyVRH+WEdQwpFn3W3SRPaP3PhD64DwBD8hBOMwA3WU7F5tRLG
+ ghzY6u7B01hfVKY2rOgvduoicGGPJ+8SjnhgiskkTxc2kN/1siKeoubCuy8Ek1mv
+ PbjEQIcS3tbe177JyVoJeBbgmVM0pYEC69RsDBz/g8wLnRjHHuKKlE7NxgJBWbTE
+ kWUdEdg5CAVqbaFJN5LV2C/KVKx1/T1kCSL88R+zuvkxRJ/rKTVAU6BgkE8gwK89
+ ERGpto7Lb/Xw3fw8Pwfzg+4SrxjbC6+aFEujbLf22s94GiUwXlINKXN+5qXJDlbp
+ FTTC7LXPz31pvbe7ZSTYmGqDrpabA==
+X-ME-Sender: <xms:YxBOYQc_BFvFw7iVbv2i_Vaw-QjltiBlupjMV1sdiQQV1h6uMGFq3A>
+ <xme:YxBOYSM82QV2YCdcIxxMFZDx0mA1jTesxid5Pm-zPXTCUjNHNOQIoFLOHHJvl-55n
+ oPX8VOkhGoh1ddxWXU>
+X-ME-Received: <xmr:YxBOYRhlKmtfeX2cdoRfcSEbuQo8TWqif3jU4-l0bzQmcL-bhA0jux7QZVSbMrjJOrQtct6YgfxRphCJXKOvWXbifCEhbRuFbT_z>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejuddguddujecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefhvffufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforgig
+ ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
+ grthhtvghrnhepjeeugfegkeffgfeuvedtvddufffhjeffjeejvddvudduteehhfefhfef
+ geeikeeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+ epmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:YxBOYV8H5P5HWDUqNCArUELWeKByLFG62t5JBnzSpI1_vpKTku2UxQ>
+ <xmx:YxBOYctBjs8DcOCIp3L8xv7L8EMY-vOf-HNAAIYnAEogBlUEnXevmQ>
+ <xmx:YxBOYcEBuWBdzG_rugbu0CLhT4vErI4JUZKKWUtlZRF0vWMaXbfONQ>
+ <xmx:ZRBOYQcjzO1ZQXxUbAswUZATyvdlNjMAQgkMUfd4aO2LpzlVjL_qVw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 24 Sep 2021 13:52:35 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, David Airlie <airlied@linux.ie>,
+ Robert Foss <robert.foss@linaro.org>, Andrzej Hajda <a.hajda@samsung.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maxime Ripard <maxime@cerno.tech>, Sam Ravnborg <sam@ravnborg.org>
+Cc: Chen Feng <puck.chen@hisilicon.com>, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ dri-devel@lists.freedesktop.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Inki Dae <inki.dae@samsung.com>, Xinliang Liu <xinliang.liu@linaro.org>,
+ Sean Paul <sean@poorly.run>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ John Stultz <john.stultz@linaro.org>, freedreno@lists.freedesktop.org,
+ Tian Tao <tiantao6@hisilicon.com>
+Date: Fri, 24 Sep 2021 19:52:25 +0200
+Message-Id: <163250593261.1360097.5766561564698142265.b4-ty@cerno.tech>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210910101218.1632297-2-maxime@cerno.tech>
+References: <20210910101218.1632297-1-maxime@cerno.tech>
+ <20210910101218.1632297-2-maxime@cerno.tech>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 4/4] drm/etnaviv: use dma_resv_describe
+Subject: Re: [Freedreno] (subset) [PATCH v4 01/24] drm/bridge: Add
+ documentation sections
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,61 +103,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Instead of dumping the fence info manually.
+On Fri, 10 Sep 2021 12:11:55 +0200, Maxime Ripard wrote:
+> The bridge documentation overview is quite packed already, and we'll add
+> some more documentation that isn't part of an overview at all.
+> 
+> Let's add some sections to the documentation to separate each bits.
+> 
+> 
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_gem.c | 26 +++++++-------------------
- 1 file changed, 7 insertions(+), 19 deletions(-)
+Applied to drm/drm-misc (drm-misc-next).
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index 0eeb33de2ff4..304b006e86bb 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -425,36 +425,24 @@ int etnaviv_gem_wait_bo(struct etnaviv_gpu *gpu, struct drm_gem_object *obj,
- }
- 
- #ifdef CONFIG_DEBUG_FS
--static void etnaviv_gem_describe_fence(struct dma_fence *fence,
--	const char *type, struct seq_file *m)
--{
--	seq_printf(m, "\t%9s: %s %s seq %llu\n", type,
--		   fence->ops->get_driver_name(fence),
--		   fence->ops->get_timeline_name(fence),
--		   fence->seqno);
--}
--
- static void etnaviv_gem_describe(struct drm_gem_object *obj, struct seq_file *m)
- {
- 	struct etnaviv_gem_object *etnaviv_obj = to_etnaviv_bo(obj);
- 	struct dma_resv *robj = obj->resv;
--	struct dma_resv_iter cursor;
--	struct dma_fence *fence;
- 	unsigned long off = drm_vma_node_start(&obj->vma_node);
-+	int r;
- 
- 	seq_printf(m, "%08x: %c %2d (%2d) %08lx %p %zd\n",
- 			etnaviv_obj->flags, is_active(etnaviv_obj) ? 'A' : 'I',
- 			obj->name, kref_read(&obj->refcount),
- 			off, etnaviv_obj->vaddr, obj->size);
- 
--	dma_resv_iter_begin(&cursor, robj, true);
--	dma_resv_for_each_fence_unlocked(&cursor, fence) {
--		if (dma_resv_iter_is_exclusive(&cursor))
--			etnaviv_gem_describe_fence(fence, "Exclusive", m);
--		else
--			etnaviv_gem_describe_fence(fence, "Shared", m);
--	}
--	dma_resv_iter_end(&cursor);
-+	r = dma_resv_lock(robj, NULL);
-+	if (r)
-+		return;
-+
-+	dma_resv_describe(robj, m);
-+	dma_resv_unlock(robj);
- }
- 
- void etnaviv_gem_describe_objects(struct etnaviv_drm_private *priv,
--- 
-2.25.1
-
+Thanks!
+Maxime
