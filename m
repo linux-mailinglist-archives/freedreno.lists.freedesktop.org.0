@@ -1,50 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9CFA418427
-	for <lists+freedreno@lfdr.de>; Sat, 25 Sep 2021 21:28:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D466141842A
+	for <lists+freedreno@lfdr.de>; Sat, 25 Sep 2021 21:28:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F5236E45C;
-	Sat, 25 Sep 2021 19:28:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B906E459;
+	Sat, 25 Sep 2021 19:28:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9B346E459
- for <freedreno@lists.freedesktop.org>; Sat, 25 Sep 2021 19:27:59 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id i25so56445560lfg.6
- for <freedreno@lists.freedesktop.org>; Sat, 25 Sep 2021 12:27:59 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84D396E45D
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Sep 2021 19:28:27 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id i4so56024514lfv.4
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Sep 2021 12:28:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=8GNhncKhzYt179JtcdPH7NHcfH9wwnLbbbm0VxyfgFY=;
- b=Gj5pzAQvVgG2EffN+M+6NlFN8FcsHHq1Wn80RUxW4esA5eJjxuh+fNK0wva16U3AM7
- PYkL2thL37ugm+QR7NUPh01QXaYpyvkrBzRgN7aRvEzhGb6VgzrPe1940OR80e31IsV/
- L39vWXpE/d1l+vHZyGMXGbbrfofIbkt3pKaGWsN00zO3EpFlOpaTBIt5tOFid8W6fMdf
- /kjEKFNuJUyQufP2PRx5RuUC5W8NQXhzHw91v/P4Y6G8qJ0shZ26nQiyIRChLa/2zEAA
- URACDn0qAZgDmwsdQMlV36gR64lHB7e9XCq7SzYz00TC9Gzr0+O2Vu8k5JDJ1N//ZH+B
- 4Bog==
+ bh=m99EiPyhkZvdOX8UTmF6dH9ah1E6JEGQ0qZKHQtZrX0=;
+ b=swOlu8g/Muy2xcoCPbEKqTmf50DxfKGVzS7GCFunbLzLdpYAh4/LefYVWp1O0qsRFa
+ XnVuSPGgpZmYh/ciCYSaBXRAgNHzRKM5eiTsH1dQESR61V5SNENiw73cM8sOzIp9sjAC
+ 7PwYfiyjCoRTKSZeOMgNEcUbg8uZX5zHK7pQHyyYN6+nUPUElb0RS7oHmTJSDCVvqQxy
+ S2fm5DVhKoePdXacEEvsaCXKMHeQze1KHbzc8fP+rqaaF1FEGm5rp+1c4P9XE5rQ2lQc
+ EP9QxA2zW3uwN+peJnYk4I5iqdvYjQrKdGfuaVTbSyguPdJ0/uAOoQJY2auLVxrYDPXc
+ hXXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=8GNhncKhzYt179JtcdPH7NHcfH9wwnLbbbm0VxyfgFY=;
- b=IBzmGwBEKBEW1jXCATwsYjowFSW57X/dBOxYBuo7PzJ4Z4hDi9XPmnpwRsV/gREbRl
- e5APLb1zfapJRGwiRAeMKDKFaxPzMaxgxwnJWCcrbQ9L12sbK8bPiV8kRdh1sGPiciLQ
- SiIxofnWKVs2zhyR5f+/0NBUEor3eDs2vRx/sJwPN7gp67HA8N4tcrFgTCdUP6dnseDb
- oqvEfCe2VgCqRBS+JOBlUrJcsZZ3jaZYWi7niSRGNFumRW0LRPi2yec+Se32DT4gwFWP
- cij8245ao5eKgq2ylHUR/QjRKU8+2qU4VT/e+nGoczCvSv+6Ck8mMUMAmqRCd+MJVuen
- C7BQ==
-X-Gm-Message-State: AOAM5311V5f+906eh+8uXXzqJe9MLbHOVdk1S5sgc/BIt+uQ1BBRsPVO
- l40xqKaEtZES9JOv60dVUrN8hA==
-X-Google-Smtp-Source: ABdhPJy6LX179GHqGuBzASUeTK3hyXnohSWMwDszmleLcDgLGKerUG7Nt+weSiJSkUa7xW24kN4OJw==
-X-Received: by 2002:a19:6a16:: with SMTP id u22mr16061203lfu.444.1632598078048; 
- Sat, 25 Sep 2021 12:27:58 -0700 (PDT)
+ bh=m99EiPyhkZvdOX8UTmF6dH9ah1E6JEGQ0qZKHQtZrX0=;
+ b=B9WRNsLfj/oZE2SJzmR+gfhV9tfj3r+O3Q6o/Gbv5m1cMo+/cnwIrEadMrjj5gODYJ
+ NVQTyOapglX6eUT3CetpH7L81H/LsVynPLxtCkS3BifLA9n6yHjadfyeAUpX28YkcVsY
+ tP7lQwIvQU0GsDDR3Q/37ip/4MFl8772hNTpUKMe1vV+qZndlTk3hmI182qYUO30v3nC
+ AuQeqqm/26wEmxVV/kMKcXZDU65oknIYe7W9Nme6ob/X1+Sp+DpHtqM63h0lu/SSqviH
+ OXcPWH9KxtmhU+P+OkSZQ5tCIPOaNURxBKw89EIeKhIfJssurPw5wYcERXod7zAeXk2T
+ d+Eg==
+X-Gm-Message-State: AOAM530an0cS1UfQssqEuvw/bhaINTdi069Mr+Pomof+c6LW+B9aIJ4d
+ 3UM/7fEuGMZJ3neProePtR5L6A==
+X-Google-Smtp-Source: ABdhPJzxIV95tbhespWGHjkNJrQC2gi2WZygdMrgs7a5ZkA7a2ev1lJhZAYszYK8GGr2OuchyexIbw==
+X-Received: by 2002:a2e:5c08:: with SMTP id q8mr18316827ljb.304.1632598105729; 
+ Sat, 25 Sep 2021 12:28:25 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id x9sm1100753lfn.303.2021.09.25.12.27.57
+ by smtp.gmail.com with ESMTPSA id h21sm1338375lji.66.2021.09.25.12.28.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Sep 2021 12:27:57 -0700 (PDT)
+ Sat, 25 Sep 2021 12:28:25 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -53,13 +53,12 @@ Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Date: Sat, 25 Sep 2021 22:27:54 +0300
-Message-Id: <20210925192754.3416212-1-dmitry.baryshkov@linaro.org>
+Date: Sat, 25 Sep 2021 22:28:24 +0300
+Message-Id: <20210925192824.3416259-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: fix possible oops in msm_submitqueues
- code
+Subject: [Freedreno] [PATCH] drm/msm/mdp5: fix cursor-related warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,40 +74,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Even without GPU, the ctx->submitqueues list should be properly
-initialized. Otherwise msm_submitqueue_close() (which can still be
-called even w/o the GPU) will ooops while trying to traverse the list.
+Since f35a2a99100f ("drm/encoder: make encoder control functions
+optional") drm_mode_config_validate would print warnings if both cursor
+plane and cursor functions are provided. Restore separate set of
+drm_crtc_funcs to be used if separate cursor plane is provided.
 
-Move ctx->submitqueues initialization earlier, before !GPU check.
+[    6.556046] ------------[ cut here ]------------
+[    6.556071] [CRTC:93:crtc-0] must not have both a cursor plane and a cursor_set func
+[    6.556091] WARNING: CPU: 1 PID: 76 at drivers/gpu/drm/drm_mode_config.c:648 drm_mode_config_validate+0x238/0x4d0
+[    6.567453] Modules linked in:
+[    6.577604] CPU: 1 PID: 76 Comm: kworker/u8:2 Not tainted 5.15.0-rc1-dirty #43
+[    6.580557] Hardware name: Qualcomm Technologies, Inc. DB820c (DT)
+[    6.587763] Workqueue: events_unbound deferred_probe_work_func
+[    6.593926] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    6.599740] pc : drm_mode_config_validate+0x238/0x4d0
+[    6.606596] lr : drm_mode_config_validate+0x238/0x4d0
+[    6.611804] sp : ffff8000121b3980
+[    6.616838] x29: ffff8000121b3990 x28: 0000000000000000 x27: 0000000000000001
+[    6.620140] x26: ffff8000114cde50 x25: ffff8000114cdd40 x24: ffff0000987282d8
+[    6.627258] x23: 0000000000000000 x22: 0000000000000000 x21: 0000000000000001
+[    6.634376] x20: ffff000098728000 x19: ffff000080a39000 x18: ffffffffffffffff
+[    6.641494] x17: 3136564e3631564e x16: 0000000000000324 x15: ffff800011c78709
+[    6.648613] x14: 0000000000000000 x13: ffff800011a22850 x12: 00000000000009ab
+[    6.655730] x11: 0000000000000339 x10: ffff800011a22850 x9 : ffff800011a22850
+[    6.662848] x8 : 00000000ffffefff x7 : ffff800011a7a850 x6 : ffff800011a7a850
+[    6.669966] x5 : 000000000000bff4 x4 : 40000000fffff339 x3 : 0000000000000000
+[    6.677084] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff00008093b800
+[    6.684205] Call trace:
+[    6.691319]  drm_mode_config_validate+0x238/0x4d0
+[    6.693577]  drm_dev_register+0x17c/0x210
+[    6.698435]  msm_drm_bind+0x4b4/0x694
+[    6.702429]  try_to_bring_up_master+0x164/0x1d0
+[    6.706075]  __component_add+0xa0/0x170
+[    6.710415]  component_add+0x14/0x20
+[    6.714234]  msm_hdmi_dev_probe+0x1c/0x2c
+[    6.718053]  platform_probe+0x68/0xe0
+[    6.721959]  really_probe.part.0+0x9c/0x30c
+[    6.725606]  __driver_probe_device+0x98/0x144
+[    6.729600]  driver_probe_device+0xc8/0x15c
+[    6.734114]  __device_attach_driver+0xb4/0x120
+[    6.738106]  bus_for_each_drv+0x78/0xd0
+[    6.742619]  __device_attach+0xdc/0x184
+[    6.746351]  device_initial_probe+0x14/0x20
+[    6.750172]  bus_probe_device+0x9c/0xa4
+[    6.754337]  deferred_probe_work_func+0x88/0xc0
+[    6.758158]  process_one_work+0x1d0/0x370
+[    6.762671]  worker_thread+0x2c8/0x470
+[    6.766839]  kthread+0x15c/0x170
+[    6.770483]  ret_from_fork+0x10/0x20
+[    6.773870] ---[ end trace 5884eb76cd26d274 ]---
+[    6.777500] ------------[ cut here ]------------
+[    6.782043] [CRTC:93:crtc-0] must not have both a cursor plane and a cursor_move func
+[    6.782063] WARNING: CPU: 1 PID: 76 at drivers/gpu/drm/drm_mode_config.c:654 drm_mode_config_validate+0x290/0x4d0
+[    6.794362] Modules linked in:
+[    6.804600] CPU: 1 PID: 76 Comm: kworker/u8:2 Tainted: G        W         5.15.0-rc1-dirty #43
+[    6.807555] Hardware name: Qualcomm Technologies, Inc. DB820c (DT)
+[    6.816148] Workqueue: events_unbound deferred_probe_work_func
+[    6.822311] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    6.828126] pc : drm_mode_config_validate+0x290/0x4d0
+[    6.834981] lr : drm_mode_config_validate+0x290/0x4d0
+[    6.840189] sp : ffff8000121b3980
+[    6.845223] x29: ffff8000121b3990 x28: 0000000000000000 x27: 0000000000000001
+[    6.848525] x26: ffff8000114cde50 x25: ffff8000114cdd40 x24: ffff0000987282d8
+[    6.855643] x23: 0000000000000000 x22: 0000000000000000 x21: 0000000000000001
+[    6.862763] x20: ffff000098728000 x19: ffff000080a39000 x18: ffffffffffffffff
+[    6.869879] x17: 3136564e3631564e x16: 0000000000000324 x15: ffff800011c790c2
+[    6.876998] x14: 0000000000000000 x13: ffff800011a22850 x12: 0000000000000a2f
+[    6.884116] x11: 0000000000000365 x10: ffff800011a22850 x9 : ffff800011a22850
+[    6.891234] x8 : 00000000ffffefff x7 : ffff800011a7a850 x6 : ffff800011a7a850
+[    6.898351] x5 : 000000000000bff4 x4 : 40000000fffff365 x3 : 0000000000000000
+[    6.905470] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff00008093b800
+[    6.912590] Call trace:
+[    6.919702]  drm_mode_config_validate+0x290/0x4d0
+[    6.921960]  drm_dev_register+0x17c/0x210
+[    6.926821]  msm_drm_bind+0x4b4/0x694
+[    6.930813]  try_to_bring_up_master+0x164/0x1d0
+[    6.934459]  __component_add+0xa0/0x170
+[    6.938799]  component_add+0x14/0x20
+[    6.942619]  msm_hdmi_dev_probe+0x1c/0x2c
+[    6.946438]  platform_probe+0x68/0xe0
+[    6.950345]  really_probe.part.0+0x9c/0x30c
+[    6.953991]  __driver_probe_device+0x98/0x144
+[    6.957984]  driver_probe_device+0xc8/0x15c
+[    6.962498]  __device_attach_driver+0xb4/0x120
+[    6.966492]  bus_for_each_drv+0x78/0xd0
+[    6.971004]  __device_attach+0xdc/0x184
+[    6.974737]  device_initial_probe+0x14/0x20
+[    6.978556]  bus_probe_device+0x9c/0xa4
+[    6.982722]  deferred_probe_work_func+0x88/0xc0
+[    6.986543]  process_one_work+0x1d0/0x370
+[    6.991057]  worker_thread+0x2c8/0x470
+[    6.995223]  kthread+0x15c/0x170
+[    6.998869]  ret_from_fork+0x10/0x20
+[    7.002255] ---[ end trace 5884eb76cd26d275 ]---
 
-Fixes: 86c2a0f000c1 ("drm/msm: Small submitqueue creation cleanup")
+Fixes: aa649e875daf ("drm/msm/mdp5: mdp5_crtc: Restore cursor state only if LM cursors are enabled")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_submitqueue.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index 32a55d81b58b..a0303be05445 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -128,6 +128,8 @@ int msm_submitqueue_init(struct drm_device *drm, struct msm_file_private *ctx)
- 	struct msm_drm_private *priv = drm->dev_private;
- 	int default_prio, max_priority;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+index f482e0911d03..bb7d066618e6 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+@@ -1125,6 +1125,20 @@ static void mdp5_crtc_reset(struct drm_crtc *crtc)
+ 	__drm_atomic_helper_crtc_reset(crtc, &mdp5_cstate->base);
+ }
  
-+	INIT_LIST_HEAD(&ctx->submitqueues);
++static const struct drm_crtc_funcs mdp5_crtc_no_lm_cursor_funcs = {
++	.set_config = drm_atomic_helper_set_config,
++	.destroy = mdp5_crtc_destroy,
++	.page_flip = drm_atomic_helper_page_flip,
++	.reset = mdp5_crtc_reset,
++	.atomic_duplicate_state = mdp5_crtc_duplicate_state,
++	.atomic_destroy_state = mdp5_crtc_destroy_state,
++	.atomic_print_state = mdp5_crtc_atomic_print_state,
++	.get_vblank_counter = mdp5_crtc_get_vblank_counter,
++	.enable_vblank  = msm_crtc_enable_vblank,
++	.disable_vblank = msm_crtc_disable_vblank,
++	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
++};
 +
- 	if (!priv->gpu)
- 		return -ENODEV;
+ static const struct drm_crtc_funcs mdp5_crtc_funcs = {
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.destroy = mdp5_crtc_destroy,
+@@ -1313,6 +1327,8 @@ struct drm_crtc *mdp5_crtc_init(struct drm_device *dev,
+ 	mdp5_crtc->lm_cursor_enabled = cursor_plane ? false : true;
  
-@@ -140,8 +142,6 @@ int msm_submitqueue_init(struct drm_device *drm, struct msm_file_private *ctx)
- 	 */
- 	default_prio = DIV_ROUND_UP(max_priority, 2);
+ 	drm_crtc_init_with_planes(dev, crtc, plane, cursor_plane,
++				  cursor_plane ?
++				  &mdp5_crtc_no_lm_cursor_funcs :
+ 				  &mdp5_crtc_funcs, NULL);
  
--	INIT_LIST_HEAD(&ctx->submitqueues);
--
- 	rwlock_init(&ctx->queuelock);
- 
- 	return msm_submitqueue_create(drm, ctx, default_prio, 0, NULL);
+ 	drm_flip_work_init(&mdp5_crtc->unref_cursor_work,
 -- 
 2.33.0
 
