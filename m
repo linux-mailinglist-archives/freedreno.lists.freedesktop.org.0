@@ -2,73 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463E441843F
-	for <lists+freedreno@lfdr.de>; Sat, 25 Sep 2021 21:45:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22ABD4187E0
+	for <lists+freedreno@lfdr.de>; Sun, 26 Sep 2021 11:15:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A54046E463;
-	Sat, 25 Sep 2021 19:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8B06E50E;
+	Sun, 26 Sep 2021 09:15:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB18A6E463
- for <freedreno@lists.freedesktop.org>; Sat, 25 Sep 2021 19:45:02 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id y26so16671885lfa.11
- for <freedreno@lists.freedesktop.org>; Sat, 25 Sep 2021 12:45:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WspVhhcjbCVl9IH7qDEfbtgDZV8Aq2EsjEj0ktZelOw=;
- b=fhbQyWBNLF64uI82RiruuNDrkFY/USs3yyOBryCQkwnGM+ZP3DK2n9PEN7rxIgvcz1
- lE8inSoC4TOxygspX8NgvKfhZWbYxyPeq7cjnDiCuEKYwlyZqIJbH/VXabwC9k3v5MVq
- PrO0jV0AQULreWhQaqS2PdmK8BCdIjAZ8T/7rmKYaewg7TvN+Sw06gCYCgspTZcgoj3m
- 6zNtEb+6opWLtm072mOyTZszg8Y3aZpqxcdrT/aSVyyOBf7t1rp7PBiw7Pwa2C0g6GQs
- 4W2nj2e3AZ3E2fcEYaDJWDm1qXFdeUt76seQDHEQB4jI8KS6lmzgEXBajTqcEIMeqZ+J
- 6gWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WspVhhcjbCVl9IH7qDEfbtgDZV8Aq2EsjEj0ktZelOw=;
- b=7o1DtSrJzX7PM1TWwYg9MMjv8NU8BcZGF7mNkrYQhUq/kJz5OzcOD/kBl37aCI43I4
- mCf97KXNfrPe4HorpRjhZdVB+Ty4rwAI30DrfGho/cWnPh11JqLeZqx7nzqVMtMSIjQ/
- kXpc1gWPtThEkes5iTUYZEzkVZ+eJOk6dsO2aTG4rf+ltafYQ54uUcTyKgknIwK8CtKS
- NCkCHZs0CAvxwZVPWxWgt5hu/MFGu+YY0UFRdrLZTT0T4MuOqa2r+LBChP3z/t1ghiIH
- h+Fi3tO4ZUxqeKS7aeEaxQr8B3mrQdsTsCJ8zWgG2Z6QvWql6doXXue/1qiaeWRJ5EAc
- ykvA==
-X-Gm-Message-State: AOAM530w+ajvOnkbA96uFvazPZIC5he6dAexCY+F0+LJD7cGEE6dVYAi
- kLgcgnVRn94UJ382WBBqihxLOxMq3T8ruw==
-X-Google-Smtp-Source: ABdhPJxbvUPgocojPNJLSgMMqvRJaOrbWuVqziqUNPhqrIEXEnKwLQhptW/hfBjI3nDLzGQljmYmsg==
-X-Received: by 2002:a19:c757:: with SMTP id x84mr15490521lff.121.1632599100987; 
- Sat, 25 Sep 2021 12:45:00 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id f9sm1102563lfc.189.2021.09.25.12.45.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 25 Sep 2021 12:45:00 -0700 (PDT)
-To: Andrzej Hajda <a.hajda@samsung.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
+Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
+ [185.70.41.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C0316E50E
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Sep 2021 09:15:06 +0000 (UTC)
+Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
+ [51.77.79.158])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ by mail-41104.protonmail.ch (Postfix) with ESMTPS id 4HHKqD5qrjz4wxT4
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Sep 2021 09:15:04 +0000 (UTC)
+Authentication-Results: mail-41104.protonmail.ch;
+ dkim=pass (1024-bit key) header.d=protonmail.com header.i=@protonmail.com
+ header.b="bSPcZlne"
+Date: Sun, 26 Sep 2021 09:14:53 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail; t=1632647699;
+ bh=EaQZugeIZYFPOkLvYmzmKldXWgaDiRwWgn2j4xItey8=;
+ h=Date:To:From:Cc:Reply-To:Subject:From;
+ b=bSPcZlneXLjZQEI1V1R7+URkdM2jA65GQPp+CRaP1QalBNY9Zt74xsrEP65uF37hs
+ GWpdOFh/Th7cFf2Ty1/cmrZ+Y+GrFKh023AkPrCxg1QSmrAT8SytHah+u7tBhDXWwD
+ hkbIitOAVpBWa/wOEgVtn02QCxu2dulxDxwSjreg=
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <abhinavk@codeaurora.org>
+From: Yassine Oudjana <y.oudjana@protonmail.com>
 Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, David Heidelberg <david@ixit.cz>
-References: <CGME20210921162311eucas1p203a8c6477b03f44887f76e99c9c60e28@eucas1p2.samsung.com>
- <20210921162258.1858223-1-dmitry.baryshkov@linaro.org>
- <ead3bbcd-5d24-5015-e2b1-3a82141708b6@samsung.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <8164885c-7f58-c901-aa9a-1bfd5bcb63a1@linaro.org>
-Date: Sat, 25 Sep 2021 22:44:59 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ freedreno@lists.freedesktop.org
+Message-ID: <12096203c2651e07403d236956ae56bebe061654.camel@protonmail.com>
 MIME-Version: 1.0
-In-Reply-To: <ead3bbcd-5d24-5015-e2b1-3a82141708b6@samsung.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: do not install irq handler
- before power up the host
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+ mailout.protonmail.ch
+Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: fix cursor-related warnings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,93 +61,180 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Yassine Oudjana <y.oudjana@protonmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/09/2021 21:26, Andrzej Hajda wrote:
-> W dniu 21.09.2021 o 18:22, Dmitry Baryshkov pisze:
->> The DSI host might be left in some state by the bootloader. If this
->> state generates an IRQ, it might hang the system by holding the
->> interrupt line before the driver sets up the DSI host to the known
->> state.
->>
->> Move the request/free_irq calls into msm_dsi_host_power_on/_off calls,
->> so that we can be sure that the interrupt is delivered when the host is
->> in the known state.
-> 
-> 
-> The established practice is to request IRQ in probe, to avoid
-> auto-enabling use IRQF_NO_AUTOEN flag.
-> 
-> Then you can call enable_irq in power-on.
+On Sat, 2021-09-25 at 22:28 +0300, Dmitry Baryshkov wrote:
+> Since f35a2a99100f ("drm/encoder: make encoder control functions
+> optional") drm_mode_config_validate would print warnings if both cursor
+> plane and cursor functions are provided. Restore separate set of
+> drm_crtc_funcs to be used if separate cursor plane is provided.
+>=20
+> [    6.556046] ------------[ cut here ]------------
+> [    6.556071] [CRTC:93:crtc-0] must not have both a cursor plane and a c=
+ursor_set func
+> [    6.556091] WARNING: CPU: 1 PID: 76 at drivers/gpu/drm/drm_mode_config=
+.c:648 drm_mode_config_validate+0x238/0x4d0
+> [    6.567453] Modules linked in:
+> [    6.577604] CPU: 1 PID: 76 Comm: kworker/u8:2 Not tainted 5.15.0-rc1-d=
+irty #43
+> [    6.580557] Hardware name: Qualcomm Technologies, Inc. DB820c (DT)
+> [    6.587763] Workqueue: events_unbound deferred_probe_work_func
+> [    6.593926] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYP=
+E=3D--)
+> [    6.599740] pc : drm_mode_config_validate+0x238/0x4d0
+> [    6.606596] lr : drm_mode_config_validate+0x238/0x4d0
+> [    6.611804] sp : ffff8000121b3980
+> [    6.616838] x29: ffff8000121b3990 x28: 0000000000000000 x27: 000000000=
+0000001
+> [    6.620140] x26: ffff8000114cde50 x25: ffff8000114cdd40 x24: ffff00009=
+87282d8
+> [    6.627258] x23: 0000000000000000 x22: 0000000000000000 x21: 000000000=
+0000001
+> [    6.634376] x20: ffff000098728000 x19: ffff000080a39000 x18: fffffffff=
+fffffff
+> [    6.641494] x17: 3136564e3631564e x16: 0000000000000324 x15: ffff80001=
+1c78709
+> [    6.648613] x14: 0000000000000000 x13: ffff800011a22850 x12: 000000000=
+00009ab
+> [    6.655730] x11: 0000000000000339 x10: ffff800011a22850 x9 : ffff80001=
+1a22850
+> [    6.662848] x8 : 00000000ffffefff x7 : ffff800011a7a850 x6 : ffff80001=
+1a7a850
+> [    6.669966] x5 : 000000000000bff4 x4 : 40000000fffff339 x3 : 000000000=
+0000000
+> [    6.677084] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff00008=
+093b800
+> [    6.684205] Call trace:
+> [    6.691319]  drm_mode_config_validate+0x238/0x4d0
+> [    6.693577]  drm_dev_register+0x17c/0x210
+> [    6.698435]  msm_drm_bind+0x4b4/0x694
+> [    6.702429]  try_to_bring_up_master+0x164/0x1d0
+> [    6.706075]  __component_add+0xa0/0x170
+> [    6.710415]  component_add+0x14/0x20
+> [    6.714234]  msm_hdmi_dev_probe+0x1c/0x2c
+> [    6.718053]  platform_probe+0x68/0xe0
+> [    6.721959]  really_probe.part.0+0x9c/0x30c
+> [    6.725606]  __driver_probe_device+0x98/0x144
+> [    6.729600]  driver_probe_device+0xc8/0x15c
+> [    6.734114]  __device_attach_driver+0xb4/0x120
+> [    6.738106]  bus_for_each_drv+0x78/0xd0
+> [    6.742619]  __device_attach+0xdc/0x184
+> [    6.746351]  device_initial_probe+0x14/0x20
+> [    6.750172]  bus_probe_device+0x9c/0xa4
+> [    6.754337]  deferred_probe_work_func+0x88/0xc0
+> [    6.758158]  process_one_work+0x1d0/0x370
+> [    6.762671]  worker_thread+0x2c8/0x470
+> [    6.766839]  kthread+0x15c/0x170
+> [    6.770483]  ret_from_fork+0x10/0x20
+> [    6.773870] ---[ end trace 5884eb76cd26d274 ]---
+> [    6.777500] ------------[ cut here ]------------
+> [    6.782043] [CRTC:93:crtc-0] must not have both a cursor plane and a c=
+ursor_move func
+> [    6.782063] WARNING: CPU: 1 PID: 76 at drivers/gpu/drm/drm_mode_config=
+.c:654 drm_mode_config_validate+0x290/0x4d0
+> [    6.794362] Modules linked in:
+> [    6.804600] CPU: 1 PID: 76 Comm: kworker/u8:2 Tainted: G        W     =
+    5.15.0-rc1-dirty #43
+> [    6.807555] Hardware name: Qualcomm Technologies, Inc. DB820c (DT)
+> [    6.816148] Workqueue: events_unbound deferred_probe_work_func
+> [    6.822311] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYP=
+E=3D--)
+> [    6.828126] pc : drm_mode_config_validate+0x290/0x4d0
+> [    6.834981] lr : drm_mode_config_validate+0x290/0x4d0
+> [    6.840189] sp : ffff8000121b3980
+> [    6.845223] x29: ffff8000121b3990 x28: 0000000000000000 x27: 000000000=
+0000001
+> [    6.848525] x26: ffff8000114cde50 x25: ffff8000114cdd40 x24: ffff00009=
+87282d8
+> [    6.855643] x23: 0000000000000000 x22: 0000000000000000 x21: 000000000=
+0000001
+> [    6.862763] x20: ffff000098728000 x19: ffff000080a39000 x18: fffffffff=
+fffffff
+> [    6.869879] x17: 3136564e3631564e x16: 0000000000000324 x15: ffff80001=
+1c790c2
+> [    6.876998] x14: 0000000000000000 x13: ffff800011a22850 x12: 000000000=
+0000a2f
+> [    6.884116] x11: 0000000000000365 x10: ffff800011a22850 x9 : ffff80001=
+1a22850
+> [    6.891234] x8 : 00000000ffffefff x7 : ffff800011a7a850 x6 : ffff80001=
+1a7a850
+> [    6.898351] x5 : 000000000000bff4 x4 : 40000000fffff365 x3 : 000000000=
+0000000
+> [    6.905470] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff00008=
+093b800
+> [    6.912590] Call trace:
+> [    6.919702]  drm_mode_config_validate+0x290/0x4d0
+> [    6.921960]  drm_dev_register+0x17c/0x210
+> [    6.926821]  msm_drm_bind+0x4b4/0x694
+> [    6.930813]  try_to_bring_up_master+0x164/0x1d0
+> [    6.934459]  __component_add+0xa0/0x170
+> [    6.938799]  component_add+0x14/0x20
+> [    6.942619]  msm_hdmi_dev_probe+0x1c/0x2c
+> [    6.946438]  platform_probe+0x68/0xe0
+> [    6.950345]  really_probe.part.0+0x9c/0x30c
+> [    6.953991]  __driver_probe_device+0x98/0x144
+> [    6.957984]  driver_probe_device+0xc8/0x15c
+> [    6.962498]  __device_attach_driver+0xb4/0x120
+> [    6.966492]  bus_for_each_drv+0x78/0xd0
+> [    6.971004]  __device_attach+0xdc/0x184
+> [    6.974737]  device_initial_probe+0x14/0x20
+> [    6.978556]  bus_probe_device+0x9c/0xa4
+> [    6.982722]  deferred_probe_work_func+0x88/0xc0
+> [    6.986543]  process_one_work+0x1d0/0x370
+> [    6.991057]  worker_thread+0x2c8/0x470
+> [    6.995223]  kthread+0x15c/0x170
+> [    6.998869]  ret_from_fork+0x10/0x20
+> [    7.002255] ---[ end trace 5884eb76cd26d275 ]---
+>=20
+> Fixes: aa649e875daf ("drm/msm/mdp5: mdp5_crtc: Restore cursor state only =
+if LM cursors are enabled")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/=
+msm/disp/mdp5/mdp5_crtc.c
+> index f482e0911d03..bb7d066618e6 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+> @@ -1125,6 +1125,20 @@ static void mdp5_crtc_reset(struct drm_crtc *crtc)
+>  =09__drm_atomic_helper_crtc_reset(crtc, &mdp5_cstate->base);
+>  }
+> =20
+> +static const struct drm_crtc_funcs mdp5_crtc_no_lm_cursor_funcs =3D {
+> +=09.set_config =3D drm_atomic_helper_set_config,
+> +=09.destroy =3D mdp5_crtc_destroy,
+> +=09.page_flip =3D drm_atomic_helper_page_flip,
+> +=09.reset =3D mdp5_crtc_reset,
+> +=09.atomic_duplicate_state =3D mdp5_crtc_duplicate_state,
+> +=09.atomic_destroy_state =3D mdp5_crtc_destroy_state,
+> +=09.atomic_print_state =3D mdp5_crtc_atomic_print_state,
+> +=09.get_vblank_counter =3D mdp5_crtc_get_vblank_counter,
+> +=09.enable_vblank  =3D msm_crtc_enable_vblank,
+> +=09.disable_vblank =3D msm_crtc_disable_vblank,
+> +=09.get_vblank_timestamp =3D drm_crtc_vblank_helper_get_vblank_timestamp=
+,
+> +};
+> +
+>  static const struct drm_crtc_funcs mdp5_crtc_funcs =3D {
+>  =09.set_config =3D drm_atomic_helper_set_config,
+>  =09.destroy =3D mdp5_crtc_destroy,
+> @@ -1313,6 +1327,8 @@ struct drm_crtc *mdp5_crtc_init(struct drm_device *=
+dev,
+>  =09mdp5_crtc->lm_cursor_enabled =3D cursor_plane ? false : true;
+> =20
+>  =09drm_crtc_init_with_planes(dev, crtc, plane, cursor_plane,
+> +=09=09=09=09  cursor_plane ?
+> +=09=09=09=09  &mdp5_crtc_no_lm_cursor_funcs :
+>  =09=09=09=09  &mdp5_crtc_funcs, NULL);
+> =20
+>  =09drm_flip_work_init(&mdp5_crtc->unref_cursor_work,
 
-Nice idea, thank you! I somehow missed addition of IRQF_NO_AUTOEN. I've 
-used it in v2 ([PATCH v2] drm/msm/dsi: do not enable irq handler before 
-powering up the host).
+On msm8996-xiaomi-scorpio:
 
-> 
-> 
-> Regards
-> 
-> Andrzej
-> 
-> 
-> 
->>
->> Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>    drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++---------
->>    1 file changed, 12 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index e269df285136..cd842347a6b1 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -1951,15 +1951,6 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
->>    		return ret;
->>    	}
->>    
->> -	ret = devm_request_irq(&pdev->dev, msm_host->irq,
->> -			dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
->> -			"dsi_isr", msm_host);
->> -	if (ret < 0) {
->> -		DRM_DEV_ERROR(&pdev->dev, "failed to request IRQ%u: %d\n",
->> -				msm_host->irq, ret);
->> -		return ret;
->> -	}
->> -
->>    	msm_host->dev = dev;
->>    	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
->>    	if (ret) {
->> @@ -2413,6 +2404,16 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
->>    	if (msm_host->disp_en_gpio)
->>    		gpiod_set_value(msm_host->disp_en_gpio, 1);
->>    
->> +	ret = devm_request_irq(&msm_host->pdev->dev, msm_host->irq,
->> +			dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
->> +			"dsi_isr", msm_host);
->> +	if (ret < 0) {
->> +		DRM_DEV_ERROR(&msm_host->pdev->dev, "failed to request IRQ%u: %d\n",
->> +				msm_host->irq, ret);
->> +		return ret;
->> +	}
->> +
->> +
->>    	msm_host->power_on = true;
->>    	mutex_unlock(&msm_host->dev_mutex);
->>    
->> @@ -2439,6 +2440,8 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
->>    		goto unlock_ret;
->>    	}
->>    
->> +	devm_free_irq(&msm_host->pdev->dev, msm_host->irq, msm_host);
->> +
->>    	dsi_ctrl_config(msm_host, false, NULL, NULL);
->>    
->>    	if (msm_host->disp_en_gpio)
+Tested-by: Yassine Oudjana <y.oudjana@protonmail.com>
 
 
--- 
-With best wishes
-Dmitry
