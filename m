@@ -2,62 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15C9D418AD1
-	for <lists+freedreno@lfdr.de>; Sun, 26 Sep 2021 21:36:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14392418FA4
+	for <lists+freedreno@lfdr.de>; Mon, 27 Sep 2021 09:01:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA9956E558;
-	Sun, 26 Sep 2021 19:36:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A99A16E837;
+	Mon, 27 Sep 2021 07:01:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [IPv6:2607:f8b0:4864:20::835])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E0D6E558
- for <freedreno@lists.freedesktop.org>; Sun, 26 Sep 2021 19:36:05 +0000 (UTC)
-Received: by mail-qt1-x835.google.com with SMTP id m26so3278574qtn.1
- for <freedreno@lists.freedesktop.org>; Sun, 26 Sep 2021 12:36:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QNLo+BDeRzswu8OVj0ImwhuxytbjRMbnLrd3OSd+ezM=;
- b=mxWrjX5he+m1gtrMynC7sxL4bJR4TEb7Z5+iKgZ4UA7fEs/FUwqkXf7ngwMGFT5/Db
- Sots6y/e+AyMpHYfxPDxM15ivMQ64EpVso917AW6iutqoaIgnIiLC2RLz/tbjphMwui+
- C1CXEh4rnk6MQrQPluTDU4Rca24IDOzB3v16c3kKmckfaJIh27/vZA/i5Sz7lVZvwCqb
- LlUhCs9WKOWYVi7HnehJ3DVAYTgpYVNqn0trmnNzNMXpCv4YUbHsTqStwvLxgoYKJewK
- dVKr8Qb8Zd7oMYKxEVmA1jHxSPWrG3vgP9Hl7auD98qbty89k6QYFMeb1AY/eUfS+3IG
- /DYg==
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 699146E834;
+ Mon, 27 Sep 2021 07:01:22 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id t8so49404874wrq.4;
+ Mon, 27 Sep 2021 00:01:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=zQB26B5eWUnzl+964mpUpFb8aQd6/nGrTcRgYihaeWc=;
+ b=hhkZKKfmY6xHACewDTWjOFBz4xjAdw6xepF6ktK90NO/v63YVfo3bclcJjktmyxKd9
+ Z/c4igoFBRypdKeRup7kuFoUmC/X1Ve6oHCvfGuhIPEsLfcEPQw33+GPKhEzsaTZc8AB
+ FRO4bjD10C8Oh8tk8cVFMIHRCrcV/nFhAVuQJwEXZYxXtzHVZWPwpH6WwM4X58xMxD3G
+ ANTPz2NS8tzJLST011L1Ub4nsekD7rgLMNy021dE0rsoWx/yWUahwOlLMkjDzbTjLZyQ
+ gg06B5E6Oq2eJ6mqcnpBhkZzaI05ZMPzkrFUOtTv6WPupPyIVVbHmiOWBJUuvTNXTRaP
+ 2vyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QNLo+BDeRzswu8OVj0ImwhuxytbjRMbnLrd3OSd+ezM=;
- b=yvBR02C/8DRF2d6xHGG2xPv21d2fSmDV2U0GjngPeCvK3+twnzWwqxgpOkjQpvyIND
- m0ZlXvICFSEHlYKTPmCIFN8k3wDo0ojZrxC72pFVQ3vCIh4X9Sex3J7yFiaNUQvVOwJW
- JZIYp38kfwmW/aATxIUA1HXlISgO9RpspvyRSRUmPpH66JRC2xPl2k83va8dA5aj66sU
- Izd1BH+oZPDIayXLMATwzMnK/gNuWvp4gi+ruZlT/xjpLSpgNh4GWFQuYl9z3tGlyAfj
- LE78hS7tI5a8DoPK86ih6b1ZXQu8D+UlIyHKpM24IPjjwa6pw8tyQAZeXt2NBZCGVNNg
- HArQ==
-X-Gm-Message-State: AOAM531gtNAZNTw/lTVqjYKB0qGiWf8VurI0UXrkXEXtBbsoqCl++qQY
- Rrie0aCOp5m0V8LyFm5lO7r+Ini2gKar24doiNTTrw==
-X-Google-Smtp-Source: ABdhPJwPrdFOmtZSNs2/CV2JSD0Gdn8+7TSgw7cBpjnVt5rPCDBdy/Kp5IW7mXOuEB6cBPz3cI2vO9xpI/n4gVj8suo=
-X-Received: by 2002:ac8:5685:: with SMTP id h5mr15207682qta.153.1632684964087; 
- Sun, 26 Sep 2021 12:36:04 -0700 (PDT)
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=zQB26B5eWUnzl+964mpUpFb8aQd6/nGrTcRgYihaeWc=;
+ b=HjGfuglVhGBd8xEVGHYVO7xC7wJm8G0tgaLiXxxuiVvosuWgMBoJgQ3YO+Cbvo5NNI
+ ryzS0PGdsN3IeSyT+YLOdEkvMn4wYFH0/lM82IsfRHJUwmPrWlycl0/H7yIzbL4dl1pB
+ O022xFfyje4oL83zxS6pa3wWpOktpHKRIYuwRFO97gjZSXIDDNwR4U3ozrVmMM5wcoJo
+ ImUiQpyl91lUyXvEKu8s/PV6A5xLdL86UYhB6fYIBtbfgEacsWkN5J40YwpkqbxcjiEF
+ H+1Aj3u/J8WMBHnymq5U5/fGMuHI3cdC3GDCvDfp6w5YqtVyK2OyfeR/7RkbBPQfZgoo
+ xAmw==
+X-Gm-Message-State: AOAM531oQ+Vh7XKn5Nj/KPCCK3AF3x1QR1Yn2xjLctKmelhKl3tQH+Ku
+ Q8s542RFbRawA0AXZ/9HICU=
+X-Google-Smtp-Source: ABdhPJyKxcFSxLyjYTbrEPilQCvwXzB/i+kykltwhE6uBKLPaKa7c1AQMv9DtFoICMHeA7Ce1DlXbg==
+X-Received: by 2002:a5d:6a08:: with SMTP id m8mr25303052wru.336.1632726080941; 
+ Mon, 27 Sep 2021 00:01:20 -0700 (PDT)
+Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
+ [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id w21sm2167288wmk.15.2021.09.27.00.01.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Sep 2021 00:01:20 -0700 (PDT)
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, etnaviv@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: l.stach@pengutronix.de, christian.gmeiner@gmail.com,
+ linux+etnaviv@armlinux.org.uk, robdclark@gmail.com, sean@poorly.run
+References: <20210924071759.22659-1-christian.koenig@amd.com>
+ <20210924071759.22659-2-christian.koenig@amd.com>
+Message-ID: <dbf6b324-511e-45d4-3316-f41f076c4f82@gmail.com>
+Date: Mon, 27 Sep 2021 09:01:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-References: <20210926190554.761482-1-robdclark@gmail.com>
-In-Reply-To: <20210926190554.761482-1-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 26 Sep 2021 22:35:53 +0300
-Message-ID: <CAA8EJpozNAfQpy4w-Edx_8wyQ_X+sDzAgqk6Z6EHj0ZJ5r0HBg@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- Rob Clark <robdclark@chromium.org>, Steev Klimaszewski <steev@kali.org>,
- Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix crash on dev file close
+In-Reply-To: <20210924071759.22659-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Subject: Re: [Freedreno] [PATCH 2/4] drm/msm: allow compile_test on !ARM
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,101 +80,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 26 Sept 2021 at 22:01, Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> If the device file was opened prior to fw being available (such as from
-> initrd before rootfs is mounted, when the initrd does not contain GPU
-> fw), that would cause a later crash when the dev file is closed due to
-> unitialized submitqueues list:
+As long as nobody objects I'm going to push this one here to 
+drm-misc-next with Rob's rb.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+The other patches still need a bit more work, but being able to at least 
+compile test MSM on x86 is really helpful.
 
-I've sent a close version of this patch a day or so ago, but yours is
-better, as I did not touch rwlock init.
+Christian.
 
+Am 24.09.21 um 09:17 schrieb Christian König:
+> MSM is one of the few drivers which won't even compile
+> test on !ARM platforms.
 >
->    CPU: 4 PID: 263 Comm: plymouthd Tainted: G        W         5.15.0-rc2-next-20210924 #2
->    Hardware name: LENOVO 81JL/LNVNB161216, BIOS 9UCN33WW(V2.06) 06/ 4/2019
->    pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
->    pc : msm_submitqueue_close+0x30/0x190 [msm]
->    lr : msm_postclose+0x54/0xf0 [msm]
->    sp : ffff80001074bb80
->    x29: ffff80001074bb80 x28: ffff03ad80c4db80 x27: ffff03ad80dc5ab0
->    x26: 0000000000000000 x25: ffff03ad80dc5af8 x24: ffff03ad81e90800
->    x23: 0000000000000000 x22: ffff03ad81e90800 x21: ffff03ad8b35e788
->    x20: ffff03ad81e90878 x19: 0000000000000000 x18: 0000000000000000
->    x17: 0000000000000000 x16: ffffda15f14f7940 x15: 0000000000000000
->    x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000040
->    x11: 0000000000000000 x10: 0000000000000000 x9 : ffffda15cd18ff88
->    x8 : ffff03ad80c4db80 x7 : 0000000000000228 x6 : 0000000000000000
->    x5 : 1793a4e807e636bd x4 : ffff03ad80c4db80 x3 : ffff03ad81e90878
->    x2 : 0000000000000000 x1 : ffff03ad80c4db80 x0 : 0000000000000000
->    Call trace:
->     msm_submitqueue_close+0x30/0x190 [msm]
->     msm_postclose+0x54/0xf0 [msm]
->     drm_file_free.part.0+0x1cc/0x2e0 [drm]
->     drm_close_helper.isra.0+0x74/0x84 [drm]
->     drm_release+0x78/0x120 [drm]
->     __fput+0x78/0x23c
->     ____fput+0x1c/0x30
->     task_work_run+0xcc/0x22c
->     do_exit+0x304/0x9f4
->     do_group_exit+0x44/0xb0
->     __wake_up_parent+0x0/0x3c
->     invoke_syscall+0x50/0x120
->     el0_svc_common.constprop.0+0x4c/0xf4
->     do_el0_svc+0x30/0x9c
->     el0_svc+0x20/0x60
->     el0t_64_sync_handler+0xe8/0xf0
->     el0t_64_sync+0x1a0/0x1a4
->    Code: aa0003f5 a90153f3 f8408eb3 aa1303e0 (f85e8674)
->    ---[ end trace 39b2fa37509a2be2 ]---
->    Fixing recursive fault but reboot is needed!
+> Looking into this a bit more it turned out that there is
+> actually not that much missing to at least let the driver
+> compile on x86 as well.
 >
-> Fixes: 86c2a0f000c1 drm/msm: ("Small submitqueue creation cleanup")
-> Reported-by: Steev Klimaszewski <steev@kali.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> So this patch replaces the use of phys_to_page() with the
+> open coded version and provides a dummy for of_drm_find_bridge().
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/msm/msm_drv.c         | 3 +++
->  drivers/gpu/drm/msm/msm_submitqueue.c | 4 ----
->  2 files changed, 3 insertions(+), 4 deletions(-)
+>   drivers/gpu/drm/msm/Kconfig   |  4 ++--
+>   drivers/gpu/drm/msm/msm_gem.c |  2 +-
+>   include/drm/drm_bridge.h      | 10 +++++++++-
+>   3 files changed, 12 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index f350de754f84..938765ad7109 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -689,6 +689,9 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
->         if (!ctx)
->                 return -ENOMEM;
->
-> +       INIT_LIST_HEAD(&ctx->submitqueues);
-> +       rwlock_init(&ctx->queuelock);
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index e9c6af78b1d7..5879f67bc88c 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -3,9 +3,9 @@
+>   config DRM_MSM
+>   	tristate "MSM DRM"
+>   	depends on DRM
+> -	depends on ARCH_QCOM || SOC_IMX5 || (ARM && COMPILE_TEST)
+> +	depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
+>   	depends on IOMMU_SUPPORT
+> -	depends on OF && COMMON_CLK
+> +	depends on (OF && COMMON_CLK) || COMPILE_TEST
+>   	depends on QCOM_OCMEM || QCOM_OCMEM=n
+>   	depends on QCOM_LLCC || QCOM_LLCC=n
+>   	depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=n
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 14907622769f..5bd511f07c07 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -85,7 +85,7 @@ static struct page **get_pages_vram(struct drm_gem_object *obj, int npages)
+>   
+>   	paddr = physaddr(obj);
+>   	for (i = 0; i < npages; i++) {
+> -		p[i] = phys_to_page(paddr);
+> +		p[i] = pfn_to_page(__phys_to_pfn(paddr));
+>   		paddr += PAGE_SIZE;
+>   	}
+>   
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 9cdbd209388e..a445298e1c25 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -790,11 +790,19 @@ drm_priv_to_bridge(struct drm_private_obj *priv)
+>   
+>   void drm_bridge_add(struct drm_bridge *bridge);
+>   void drm_bridge_remove(struct drm_bridge *bridge);
+> -struct drm_bridge *of_drm_find_bridge(struct device_node *np);
+>   int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+>   		      struct drm_bridge *previous,
+>   		      enum drm_bridge_attach_flags flags);
+>   
+> +#ifdef CONFIG_OF
+> +struct drm_bridge *of_drm_find_bridge(struct device_node *np);
+> +#else
+> +static inline struct drm_bridge *of_drm_find_bridge(struct device_node *np)
+> +{
+> +	return NULL;
+> +}
+> +#endif
 > +
->         kref_init(&ctx->ref);
->         msm_submitqueue_init(dev, ctx);
->
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-> index 32a55d81b58b..7ce0771b5582 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> @@ -140,10 +140,6 @@ int msm_submitqueue_init(struct drm_device *drm, struct msm_file_private *ctx)
->          */
->         default_prio = DIV_ROUND_UP(max_priority, 2);
->
-> -       INIT_LIST_HEAD(&ctx->submitqueues);
-> -
-> -       rwlock_init(&ctx->queuelock);
-> -
->         return msm_submitqueue_create(drm, ctx, default_prio, 0, NULL);
->  }
->
-> --
-> 2.31.1
->
+>   /**
+>    * drm_bridge_get_next_bridge() - Get the next bridge in the chain
+>    * @bridge: bridge object
 
-
--- 
-With best wishes
-Dmitry
