@@ -2,69 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14392418FA4
-	for <lists+freedreno@lfdr.de>; Mon, 27 Sep 2021 09:01:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73EE5419335
+	for <lists+freedreno@lfdr.de>; Mon, 27 Sep 2021 13:36:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A99A16E837;
-	Mon, 27 Sep 2021 07:01:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8238E891D7;
+	Mon, 27 Sep 2021 11:36:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 699146E834;
- Mon, 27 Sep 2021 07:01:22 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id t8so49404874wrq.4;
- Mon, 27 Sep 2021 00:01:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=zQB26B5eWUnzl+964mpUpFb8aQd6/nGrTcRgYihaeWc=;
- b=hhkZKKfmY6xHACewDTWjOFBz4xjAdw6xepF6ktK90NO/v63YVfo3bclcJjktmyxKd9
- Z/c4igoFBRypdKeRup7kuFoUmC/X1Ve6oHCvfGuhIPEsLfcEPQw33+GPKhEzsaTZc8AB
- FRO4bjD10C8Oh8tk8cVFMIHRCrcV/nFhAVuQJwEXZYxXtzHVZWPwpH6WwM4X58xMxD3G
- ANTPz2NS8tzJLST011L1Ub4nsekD7rgLMNy021dE0rsoWx/yWUahwOlLMkjDzbTjLZyQ
- gg06B5E6Oq2eJ6mqcnpBhkZzaI05ZMPzkrFUOtTv6WPupPyIVVbHmiOWBJUuvTNXTRaP
- 2vyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=zQB26B5eWUnzl+964mpUpFb8aQd6/nGrTcRgYihaeWc=;
- b=HjGfuglVhGBd8xEVGHYVO7xC7wJm8G0tgaLiXxxuiVvosuWgMBoJgQ3YO+Cbvo5NNI
- ryzS0PGdsN3IeSyT+YLOdEkvMn4wYFH0/lM82IsfRHJUwmPrWlycl0/H7yIzbL4dl1pB
- O022xFfyje4oL83zxS6pa3wWpOktpHKRIYuwRFO97gjZSXIDDNwR4U3ozrVmMM5wcoJo
- ImUiQpyl91lUyXvEKu8s/PV6A5xLdL86UYhB6fYIBtbfgEacsWkN5J40YwpkqbxcjiEF
- H+1Aj3u/J8WMBHnymq5U5/fGMuHI3cdC3GDCvDfp6w5YqtVyK2OyfeR/7RkbBPQfZgoo
- xAmw==
-X-Gm-Message-State: AOAM531oQ+Vh7XKn5Nj/KPCCK3AF3x1QR1Yn2xjLctKmelhKl3tQH+Ku
- Q8s542RFbRawA0AXZ/9HICU=
-X-Google-Smtp-Source: ABdhPJyKxcFSxLyjYTbrEPilQCvwXzB/i+kykltwhE6uBKLPaKa7c1AQMv9DtFoICMHeA7Ce1DlXbg==
-X-Received: by 2002:a5d:6a08:: with SMTP id m8mr25303052wru.336.1632726080941; 
- Mon, 27 Sep 2021 00:01:20 -0700 (PDT)
-Received: from [192.168.178.21] (p5b0ea1b5.dip0.t-ipconnect.de.
- [91.14.161.181])
- by smtp.gmail.com with ESMTPSA id w21sm2167288wmk.15.2021.09.27.00.01.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Sep 2021 00:01:20 -0700 (PDT)
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-To: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, etnaviv@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Cc: l.stach@pengutronix.de, christian.gmeiner@gmail.com,
- linux+etnaviv@armlinux.org.uk, robdclark@gmail.com, sean@poorly.run
-References: <20210924071759.22659-1-christian.koenig@amd.com>
- <20210924071759.22659-2-christian.koenig@amd.com>
-Message-ID: <dbf6b324-511e-45d4-3316-f41f076c4f82@gmail.com>
-Date: Mon, 27 Sep 2021 09:01:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C68E8891D7;
+ Mon, 27 Sep 2021 11:36:37 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ED57060F58;
+ Mon, 27 Sep 2021 11:36:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632742597;
+ bh=Rl3OTC7V1DvxO5S+CLcKb/G4xypiFLCG7rhJzIouM9o=;
+ h=From:To:Cc:Subject:Date:From;
+ b=GIRQdOlWtQeOMLb+VYfzHERHrDKA38VhnFhqfoB27L2ZztW1kG/YwfGnx8+bG5m2w
+ tIDcTjzg8OBfBy9I1T9duPEeXgoEHSjzRE69zF4UJ7AN7s9NWuE0m658Wci7xL0xai
+ ea0aXKeWWRmrVH1JbjRfizMoUuLHo3hr8X0TrZixmNsPDHbeeIng78GbIcOuvMrqu8
+ SE4vg9tVwLTVvaJB9O6sjiGoXNzhsd0WjChOtXE+Iu3PjfXtqu4Gt2Iej5V8WYyQ4x
+ +/9bhZDBAYhH7wIdixdaYvEL5yVXxdw563oV7wHam7QvEezxKicYyfyS58W33vgEEx
+ LNh6HRkSCn50A==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ "Kristian H. Kristensen" <hoegsberg@google.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Date: Mon, 27 Sep 2021 13:36:23 +0200
+Message-Id: <20210927113632.3849987-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <20210924071759.22659-2-christian.koenig@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Subject: Re: [Freedreno] [PATCH 2/4] drm/msm: allow compile_test on !ARM
+Subject: [Freedreno] [PATCH] drm/msm/submit: fix overflow check on 64-bit
+ architectures
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,84 +57,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As long as nobody objects I'm going to push this one here to 
-drm-misc-next with Rob's rb.
+From: Arnd Bergmann <arnd@arndb.de>
 
-The other patches still need a bit more work, but being able to at least 
-compile test MSM on x86 is really helpful.
+The overflow check does causes a warning from clang-14 when 'sz' is a type
+that is smaller than size_t:
 
-Christian.
+drivers/gpu/drm/msm/msm_gem_submit.c:217:10: error: result of comparison of constant 18446744073709551615 with expression of type 'unsigned int' is always false [-Werror,-Wtautological-constant-out-of-range-compare]
+                if (sz == SIZE_MAX) {
 
-Am 24.09.21 um 09:17 schrieb Christian König:
-> MSM is one of the few drivers which won't even compile
-> test on !ARM platforms.
->
-> Looking into this a bit more it turned out that there is
-> actually not that much missing to at least let the driver
-> compile on x86 as well.
->
-> So this patch replaces the use of phys_to_page() with the
-> open coded version and provides a dummy for of_drm_find_bridge().
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/gpu/drm/msm/Kconfig   |  4 ++--
->   drivers/gpu/drm/msm/msm_gem.c |  2 +-
->   include/drm/drm_bridge.h      | 10 +++++++++-
->   3 files changed, 12 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index e9c6af78b1d7..5879f67bc88c 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -3,9 +3,9 @@
->   config DRM_MSM
->   	tristate "MSM DRM"
->   	depends on DRM
-> -	depends on ARCH_QCOM || SOC_IMX5 || (ARM && COMPILE_TEST)
-> +	depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->   	depends on IOMMU_SUPPORT
-> -	depends on OF && COMMON_CLK
-> +	depends on (OF && COMMON_CLK) || COMPILE_TEST
->   	depends on QCOM_OCMEM || QCOM_OCMEM=n
->   	depends on QCOM_LLCC || QCOM_LLCC=n
->   	depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=n
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 14907622769f..5bd511f07c07 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -85,7 +85,7 @@ static struct page **get_pages_vram(struct drm_gem_object *obj, int npages)
->   
->   	paddr = physaddr(obj);
->   	for (i = 0; i < npages; i++) {
-> -		p[i] = phys_to_page(paddr);
-> +		p[i] = pfn_to_page(__phys_to_pfn(paddr));
->   		paddr += PAGE_SIZE;
->   	}
->   
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 9cdbd209388e..a445298e1c25 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -790,11 +790,19 @@ drm_priv_to_bridge(struct drm_private_obj *priv)
->   
->   void drm_bridge_add(struct drm_bridge *bridge);
->   void drm_bridge_remove(struct drm_bridge *bridge);
-> -struct drm_bridge *of_drm_find_bridge(struct device_node *np);
->   int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
->   		      struct drm_bridge *previous,
->   		      enum drm_bridge_attach_flags flags);
->   
-> +#ifdef CONFIG_OF
-> +struct drm_bridge *of_drm_find_bridge(struct device_node *np);
-> +#else
-> +static inline struct drm_bridge *of_drm_find_bridge(struct device_node *np)
-> +{
-> +	return NULL;
-> +}
-> +#endif
-> +
->   /**
->    * drm_bridge_get_next_bridge() - Get the next bridge in the chain
->    * @bridge: bridge object
+Change the type accordingly.
+
+Fixes: 20224d715a88 ("drm/msm/submit: Move copy_from_user ahead of locking bos")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/msm/msm_gem_submit.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index fdc5367aecaa..ac23bbdb0bab 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -171,7 +171,8 @@ static int submit_lookup_objects(struct msm_gem_submit *submit,
+ static int submit_lookup_cmds(struct msm_gem_submit *submit,
+ 		struct drm_msm_gem_submit *args, struct drm_file *file)
+ {
+-	unsigned i, sz;
++	unsigned i;
++	size_t sz;
+ 	int ret = 0;
+ 
+ 	for (i = 0; i < args->nr_cmds; i++) {
+-- 
+2.29.2
 
