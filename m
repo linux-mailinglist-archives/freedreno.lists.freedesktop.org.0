@@ -1,66 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E5AB41B5A8
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 20:06:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B0B41B88A
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 22:42:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CB246E921;
-	Tue, 28 Sep 2021 18:06:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 190096E97D;
+	Tue, 28 Sep 2021 20:42:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [IPv6:2607:f8b0:4864:20::72e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C98CA6E91C
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 18:06:21 +0000 (UTC)
-Received: by mail-qk1-x72e.google.com with SMTP id i132so41780504qke.1
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 11:06:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=jbQFOGMuTOKZGwegVTpIlO1GcuK+9dCOI/aFvlff79w=;
- b=E7z3kTRQP6BYuSBPNKJREQrSt7Uq0DBXGYkqoBpcNwGrRa1dkf7qKbhfqAC3SH6Mik
- vwKpsRXq9rrjonbiSNCGLwOLyWW63mOKe92QdcUoxpKzRh3bl18ThjaPvsx99nc8ZjXl
- e0dhedx1wbEqjv0NW96gcrCY9WxFLMc1hwB9UHbnVbV+8JAgJiq+V0+T4MqiWgkwkPtO
- 2FP2s4nfWLLWaTvFZH6Xerj4MwIdXxTgythjcuw4svDSqKvcFCDeYDkl8Foc2LDUFMVM
- 7BlzRIsqS8BgjYjTRc7zkuhC7KILFQs7ZIP9tmNIyP1GLbQyOkXWu1i9cufwFEdcaG4z
- +E2Q==
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E53E6E981
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 20:42:36 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ l16-20020a9d6a90000000b0053b71f7dc83so81460otq.7
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 13:42:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=uegvCqgF33M3moNAXxbTAqPKWgE2zUFv3rJPDnCK318=;
+ b=bTGLeyAqVm4yvVybxFMvfr82sU4tDikUIegRQQB2zrmSWA2/zpvsM79ITuVnhLIS3y
+ cy0ov0MHqaZXUa48g1wwmcKzX/Ym9dC6tBedVGhUrduILDfeVkl3Anc9L3hLXRQrT2FW
+ X0cQtuXqNiJzsuCZRMczREtR8wOuChTM/babo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=jbQFOGMuTOKZGwegVTpIlO1GcuK+9dCOI/aFvlff79w=;
- b=AyHjOXPr6MjkP0Oe6arGBW0T6UskTlwqL6C67LF8waVOZ6LQVq6LX34kdlSVcFAExb
- 4u5J52CCc4Nz/3JHln/i7bdYwuDKWOKgNz9dtpRFQS44rFEQLE4TJimi3DA2R2np7pRZ
- lO6Gkkx+C/9OHgoohXEzwGJf+0LwIk+1o9+Is32qDOuRRqfSUahhThqCeLI8liMO+15E
- cQkw7H6Tr/doTUXpthj+XhG5caahsMYnjpIh5SY6FQfWRMnC84tuFPPeK9cTUXrP3AQ6
- uCt/o1lHBwP3JtIKrvawuy/RKKih0J4vgQ4mX0+9G4pEANftSk75zKTOThhbD601JMa1
- 6WVw==
-X-Gm-Message-State: AOAM530SXz7O0LOY4ju9QbWt2/Ko3VNJch+G+Q0sYpUjY+2s70xMitso
- rfigxK7wuyjxYJ32p6MiZyl3whMWQkgQ8A==
-X-Google-Smtp-Source: ABdhPJyqCvsm3f0vv6z72yNtFONjy2gE9DjHUmi4zAIY0uIK0nTiyRTb/KdfUqpiQvOsRnsjZO+u6Q==
-X-Received: by 2002:a37:2e03:: with SMTP id u3mr1320123qkh.313.1632852381004; 
- Tue, 28 Sep 2021 11:06:21 -0700 (PDT)
-Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id y22sm14993445qkp.9.2021.09.28.11.06.20
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 28 Sep 2021 11:06:20 -0700 (PDT)
-Date: Tue, 28 Sep 2021 14:06:19 -0400
-From: Sean Paul <sean@poorly.run>
-To: abhinavk@codeaurora.org
-Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>
-Message-ID: <20210928180619.GU2515@art_vandelay>
-References: <20210915203834.1439-1-sean@poorly.run>
- <6ccc0ce547ccb015a114a9a1292d59f6@codeaurora.org>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=uegvCqgF33M3moNAXxbTAqPKWgE2zUFv3rJPDnCK318=;
+ b=2Wj5WOtT+z4dXLms039twMVZ4RlFN0yJ5NkdXE0GeozNfY2V1GgUmZh1LXqN8NK2ao
+ zRli8593oE9dL6tcDcuAv6rf4X1devNLx2hKy0SEqvv34ePaKfdUl6hRCTjJFoP9p+tF
+ BhmQYLb+U7IQViFQ5/MnVlcM9j+UypVP1uBxppQdnTrFQLbBjoGMaCvKZea4J+3yuzuo
+ OEnN57EwytTBHHVr/ABTxA9REitGtZxXthap9DbYfi+AmmyOR+upS8q7TfhRoCKaOVSD
+ XRt2kdptsQvXgdkONU6rWr6421StMKyXWnOXie78R+RM+eZb/yB+SHwbBJH37pJntZc3
+ tQ8w==
+X-Gm-Message-State: AOAM531RMXFfdQlLEVaCBYk58cpxdLF962ncLXqHb0PRp4Musccjl8HZ
+ VcF3rWmysyQbXhmWgxyUpf6cwW6zG+/Mm7imm7KvRQ==
+X-Google-Smtp-Source: ABdhPJzbrReCsPak9qtP+xmmFsOIy27/pz5auaxnHNLOf59z46/3FuUj4GNV6gNgUU6sLbKtpPIPTPQA/PZ66xgDUdU=
+X-Received: by 2002:a05:6830:358:: with SMTP id
+ h24mr6640507ote.159.1632861755401; 
+ Tue, 28 Sep 2021 13:42:35 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 28 Sep 2021 13:42:34 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6ccc0ce547ccb015a114a9a1292d59f6@codeaurora.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Subject: Re: [Freedreno] [PATCH v2 00/13] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+In-Reply-To: <1632845472-29276-1-git-send-email-khsieh@codeaurora.org>
+References: <1632845472-29276-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 28 Sep 2021 13:42:34 -0700
+Message-ID: <CAE-0n53qPN_ujrs8ABnvdUWgg7mKvcgZBaNq3Os17i7iPKnoTA@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: only signal audio when
+ disconnected detected at dp_pm_resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,92 +73,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Sep 21, 2021 at 07:30:29PM -0700, abhinavk@codeaurora.org wrote:
-> Hi Sean
-> 
-> On 2021-09-15 13:38, Sean Paul wrote:
-> > From: Sean Paul <seanpaul@chromium.org>
-> > 
-> > Hello again,
-> > This is the second version of the HDCP helper patchset. See version 1
-> > here: https://patchwork.freedesktop.org/series/94623/
-> > 
-> > In this second version, I've fixed up the oopsies exposed by 0-day and
-> > yamllint and incorporated early review feedback from the dt/dts reviews.
-> > 
-> > Please take a look,
-> > 
-> > Sean
-> 
-> One question overall on the series:
-> 
-> 1) Regarding validation, did you run any secure video to check the
-> transitions?
+Quoting Kuogee Hsieh (2021-09-28 09:11:12)
+> Only signal audio when disconnected detected at dp_pm_resume since
+> connected status will be signaled to audio at next plugin handler.
 
-Yep, the transitions look good, no visual artifacts.
-Unplug/replug/suspend/resume all seem to be behaving as expected.
+Please add more details. This says what the patch does but it would be
+better if it included why it is important. Does it fix something?
+There's a fixes tag so it must fix something. Is it bad to signal audio
+plug change on resume when it hasn't actually changed from last time?
+Why is that bad? What if the cable is unplugged and then plugged in
+before resume? Does audio still get signalled in that case?
 
-> 2) Is running HDCP 1x compliance also part of the validation efforts?
-
-If Qualcomm has the ability to run validation, I'd be very keen to get some
-help in that regard.
-
-Sean
-
-> 
-> Thanks
-> 
-> Abhinav
-> 
-> > 
-> > Sean Paul (13):
-> >   drm/hdcp: Add drm_hdcp_atomic_check()
-> >   drm/hdcp: Avoid changing crtc state in hdcp atomic check
-> >   drm/hdcp: Update property value on content type and user changes
-> >   drm/hdcp: Expand HDCP helper library for enable/disable/check
-> >   drm/i915/hdcp: Consolidate HDCP setup/state cache
-> >   drm/i915/hdcp: Retain hdcp_capable return codes
-> >   drm/i915/hdcp: Use HDCP helpers for i915
-> >   drm/msm/dpu_kms: Re-order dpu includes
-> >   drm/msm/dpu: Remove useless checks in dpu_encoder
-> >   drm/msm/dpu: Remove encoder->enable() hack
-> >   drm/msm/dp: Re-order dp_audio_put in deinit_sub_modules
-> >   dt-bindings: msm/dp: Add bindings for HDCP registers
-> >   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-> > 
-> >  .../bindings/display/msm/dp-controller.yaml   |    7 +-
-> >  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    4 +-
-> >  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
-> >  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
-> >  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
-> >  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
-> >  .../drm/i915/display/intel_display_types.h    |   58 +-
-> >  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
-> >  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
-> >  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
-> >  drivers/gpu/drm/i915/display/intel_hdcp.h     |   35 +-
-> >  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
-> >  drivers/gpu/drm/msm/Makefile                  |    1 +
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   17 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   30 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 -
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |    4 -
-> >  drivers/gpu/drm/msm/dp/dp_debug.c             |   49 +-
-> >  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
-> >  drivers/gpu/drm/msm/dp/dp_display.c           |   47 +-
-> >  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
-> >  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
-> >  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
-> >  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  433 ++++++
-> >  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
-> >  drivers/gpu/drm/msm/dp/dp_parser.c            |   22 +-
-> >  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
-> >  drivers/gpu/drm/msm/dp/dp_reg.h               |   44 +-
-> >  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
-> >  include/drm/drm_hdcp.h                        |  194 +++
-> >  30 files changed, 2561 insertions(+), 1389 deletions(-)
-> >  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
-> >  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+>
+> Fixes: 078867ce04ed ("drm/msm/dp: signal audio plugged change at dp_pm_resume")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 0e543a03..6f13008 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1356,14 +1356,14 @@ static int dp_pm_resume(struct device *dev)
+>          * can not declared display is connected unless
+>          * HDMI cable is plugged in and sink_count of
+>          * dongle become 1
+> +        * also only signal audio when disconnected
+>          */
+> -       if (dp->link->sink_count)
+> +       if (dp->link->sink_count) {
+>                 dp->dp_display.is_connected = true;
+> -       else
+> +       } else {
+>                 dp->dp_display.is_connected = false;
+> -
+> -       dp_display_handle_plugged_change(g_dp_display,
+> -                               dp->dp_display.is_connected);
+> +               dp_display_handle_plugged_change(g_dp_display, false);
+> +       }
