@@ -2,80 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391EC41A4DD
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 03:40:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD61B41A957
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 09:09:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D5A36E0A5;
-	Tue, 28 Sep 2021 01:40:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F6CF6E0BE;
+	Tue, 28 Sep 2021 07:09:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1F016E0A5
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 01:40:32 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id e15so85824589lfr.10
- for <freedreno@lists.freedesktop.org>; Mon, 27 Sep 2021 18:40:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=5mCrKE0GDlLabpI7YqJDyPiBttHdWhByN5WOQxF+aD4=;
- b=VdQL6KnzARNa4sInyViSIsvYCuBZRcMGTRBjQLNjsn8SnpyVFyJ2mfTomvBTvYsZKW
- Gx2RCuBpmHj0pbTHbAIv3a//Zgbt31MVp3coUUJmoGqA+0+fzc2PJuoBANiQy4mTncw6
- 0+UaAJKkie6LBtmLygKKkXhlww0nUGpoX9cx0PKFsRT6mkMt0kiMYY3jhkR5Y/gAYEVY
- kw5xwI4AxkqxOIoWtB5U82LSXffWjmZaHIbbOCcmmZmQZvAjKaUhj/G2wPbmS7V7kiim
- M0pSu+VeYE3wXV9w0QWQylnpfSIdHdfXsrlgs3lxWTW60pgif8Z9k3nban4oPF34FOmM
- iANw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=5mCrKE0GDlLabpI7YqJDyPiBttHdWhByN5WOQxF+aD4=;
- b=7Dxr5SBrn59USKTvZSNLfZeH5zyW3uRj4ClcIbhWPRdrEdAwt9ZrX+X+flW9/yf7dR
- oQUnpt5EzzgnA68uj1jh+9uCAisdLCQsxFK/KZmfot3W5T/1Z9gxBqHEzZL/bZi061mn
- rQyS94BT8NTadrz1KvgNGytHbUYmmLV8Q77VHseePrt3Gefj2kYGQ6YjbEC4xF7fBsWO
- fj4JglOLkcT9f2U4XhRqmFyULNlu/cfYvs3gBv2At/LPcKRA7iBtRUQHGeo59lGgpfdn
- mfc66MZsm3N3YNQTb+l5Zr4TLl5bmSFngHrMLXZINrwNN/7Ph1N6bT32Cx7Cpi6ZH1pV
- 7KGA==
-X-Gm-Message-State: AOAM532eZM2sFFCzsvYYjsrQVKhQ/JFLGj0I+ZenohyVZfItU39Ysx2M
- iFNncCGGIUVi4YyLJaOVZfENQw==
-X-Google-Smtp-Source: ABdhPJyjwKF7MLhtPT/CgDaXiy9KQvu52edeFRq/0m03oCmvUSCTZebTabXlFRCWeV2rmr5GE6jt3w==
-X-Received: by 2002:a2e:b80f:: with SMTP id u15mr3200349ljo.414.1632793231185; 
- Mon, 27 Sep 2021 18:40:31 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id f10sm2068828ljp.55.2021.09.27.18.40.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Sep 2021 18:40:30 -0700 (PDT)
-To: abhinavk@codeaurora.org
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>, David Heidelberg <david@ixit.cz>
-References: <20210921162258.1858223-1-dmitry.baryshkov@linaro.org>
- <0c275df228a1925e43a4dc59ceeab6b7@codeaurora.org>
- <CAA8EJppLDpmT81OhdpWjHh4joPL=mNaG8eZN2cZOZk8mSpbd+w@mail.gmail.com>
- <8c1e44cf44f917d38fa7133b869047b0@codeaurora.org>
- <7512b299-106f-2ffa-6d4f-46dc195abb84@linaro.org>
- <8060e6fd83d521ed14785ea66386337b@codeaurora.org>
- <CAA8EJpqvNJudg8-PActLEYf-BgmnJD3N7a4pMqb8VNf4hFiHdw@mail.gmail.com>
- <1ebb9efd461e9a84027ea63f7141a208@codeaurora.org>
- <45473d71-5986-7299-336a-ed498160fce4@linaro.org>
- <2a64ac4f1ef77d2e525486d411c9142b@codeaurora.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <97b8dcb9-5828-ea55-139e-6d655834b3a8@linaro.org>
-Date: Tue, 28 Sep 2021 04:40:30 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9AC6E0BC;
+ Tue, 28 Sep 2021 07:09:01 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B10F8611CE;
+ Tue, 28 Sep 2021 07:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1632812941;
+ bh=UL3HabPZo5poDvomfSgnMsUOXswOov4XaFV+Mhe/hPM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=peKRlRdshfCDM0WKkr1XAFZ5JA0DCpMVcB0qXm9NxkojuV08GN8y4VUWHQuL7c9ZY
+ 6sWn8yb6HkL33eo7lHoIpmV+16YmcV5URUsbb5ROqMLP/B2oYGO9uzYlQKzwmYIte9
+ JjCrZb+8LY02VUAqdkytXO6BXCrNT6hTbVe6tjxqsCJOIcI5lKKEAFEQw+MtMj1kd9
+ 7TD06BzKQnK5KlREkvXV6RcZ4dYFoBhJ+Sg8NqJMxbI95VJng6XTqHy4AQImO9S4Kf
+ gEL4X76N6d2P14bUwruG/Y5pIfa3QIReUn3JXZEw80+7KD8/DNNMDPScLhF7pMaSHH
+ +Epm+raz+IWiQ==
+Received: by mail-wm1-f49.google.com with SMTP id
+ l18-20020a05600c4f1200b002f8cf606262so1274463wmq.1; 
+ Tue, 28 Sep 2021 00:09:01 -0700 (PDT)
+X-Gm-Message-State: AOAM531umYjHY5s1jJYoV79TJ5+e5d1gVI4OdQHQWgILGGt7QvgWk8F5
+ GqrgpMhleUPC1oBNcnhYhUeJST7KLMNLsZTcQzM=
+X-Google-Smtp-Source: ABdhPJy7UdwG5CMt3vBprQtkQXDtnziSdWAdhBrxF2DYHzwuiJfWIuOu4DEBfNVS3j3HCobxe7h4te4Xc8Y+nnvjU1E=
+X-Received: by 2002:a1c:7413:: with SMTP id p19mr3161995wmc.98.1632812940328; 
+ Tue, 28 Sep 2021 00:09:00 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <2a64ac4f1ef77d2e525486d411c9142b@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: do not install irq handler
- before power up the host
+References: <20210927152412.2900928-1-arnd@kernel.org>
+ <87k0j1qj0i.fsf@codeaurora.org>
+In-Reply-To: <87k0j1qj0i.fsf@codeaurora.org>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Tue, 28 Sep 2021 09:08:44 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2FiMLZK7W9L9XD5h=3yS8QJ6iMr0pXHtCNrpctZG4FhQ@mail.gmail.com>
+Message-ID: <CAK8P3a2FiMLZK7W9L9XD5h=3yS8QJ6iMr0pXHtCNrpctZG4FhQ@mail.gmail.com>
+To: Kalle Valo <kvalo@codeaurora.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, 
+ Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, 
+ Alex Elder <elder@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, 
+ Andy Gross <agross@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>, 
+ "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>, 
+ Networking <netdev@vger.kernel.org>, ath10k@lists.infradead.org, 
+ linux-wireless <linux-wireless@vger.kernel.org>, 
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] [RFC] qcom_scm: hide Kconfig symbol
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,202 +82,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/09/2021 04:33, abhinavk@codeaurora.org wrote:
-> On 2021-09-27 18:29, Dmitry Baryshkov wrote:
->> On 28/09/2021 04:19, abhinavk@codeaurora.org wrote:
->>> On 2021-09-27 18:06, Dmitry Baryshkov wrote:
->>>> On Tue, 28 Sept 2021 at 03:22, <abhinavk@codeaurora.org> wrote:
->>>>>
->>>>> On 2021-09-25 12:43, Dmitry Baryshkov wrote:
->>>>> > On 21/09/2021 23:52, abhinavk@codeaurora.org wrote:
->>>>> >> On 2021-09-21 10:47, Dmitry Baryshkov wrote:
->>>>> >>> Hi,
->>>>> >>>
->>>>> >>> On Tue, 21 Sept 2021 at 20:01, <abhinavk@codeaurora.org> wrote:
->>>>> >>>>
->>>>> >>>> On 2021-09-21 09:22, Dmitry Baryshkov wrote:
->>>>> >>>> > The DSI host might be left in some state by the bootloader. 
->>>>> If this
->>>>> >>>> > state generates an IRQ, it might hang the system by holding the
->>>>> >>>> > interrupt line before the driver sets up the DSI host to the 
->>>>> known
->>>>> >>>> > state.
->>>>> >>>> >
->>>>> >>>> > Move the request/free_irq calls into 
->>>>> msm_dsi_host_power_on/_off calls,
->>>>> >>>> > so that we can be sure that the interrupt is delivered when 
->>>>> the host is
->>>>> >>>> > in the known state.
->>>>> >>>> >
->>>>> >>>> > Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector 
->>>>> support")
->>>>> >>>> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> >>>>
->>>>> >>>> This is a valid change and we have seen interrupt storms in
->>>>> >>>> downstream
->>>>> >>>> happening
->>>>> >>>> when like you said the bootloader leaves the DSI host in unknown
->>>>> >>>> state.
->>>>> >>>> Just one question below.
->>>>> >>>>
->>>>> >>>> > ---
->>>>> >>>> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++---------
->>>>> >>>> >  1 file changed, 12 insertions(+), 9 deletions(-)
->>>>> >>>> >
->>>>> >>>> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>> >>>> > b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>> >>>> > index e269df285136..cd842347a6b1 100644
->>>>> >>>> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>> >>>> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->>>>> >>>> > @@ -1951,15 +1951,6 @@ int msm_dsi_host_modeset_init(struct
->>>>> >>>> > mipi_dsi_host *host,
->>>>> >>>> >               return ret;
->>>>> >>>> >       }
->>>>> >>>> >
->>>>> >>>> > -     ret = devm_request_irq(&pdev->dev, msm_host->irq,
->>>>> >>>> > -                     dsi_host_irq, IRQF_TRIGGER_HIGH | 
->>>>> IRQF_ONESHOT,
->>>>> >>>> > -                     "dsi_isr", msm_host);
->>>>> >>>> > -     if (ret < 0) {
->>>>> >>>> > -             DRM_DEV_ERROR(&pdev->dev, "failed to request 
->>>>> IRQ%u: %d\n",
->>>>> >>>> > -                             msm_host->irq, ret);
->>>>> >>>> > -             return ret;
->>>>> >>>> > -     }
->>>>> >>>> > -
->>>>> >>>> >       msm_host->dev = dev;
->>>>> >>>> >       ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
->>>>> >>>> >       if (ret) {
->>>>> >>>> > @@ -2413,6 +2404,16 @@ int msm_dsi_host_power_on(struct 
->>>>> mipi_dsi_host
->>>>> >>>> > *host,
->>>>> >>>> >       if (msm_host->disp_en_gpio)
->>>>> >>>> >               gpiod_set_value(msm_host->disp_en_gpio, 1);
->>>>> >>>> >
->>>>> >>>> > +     ret = devm_request_irq(&msm_host->pdev->dev, 
->>>>> msm_host->irq,
->>>>> >>>> > +                     dsi_host_irq, IRQF_TRIGGER_HIGH | 
->>>>> IRQF_ONESHOT,
->>>>> >>>> > +                     "dsi_isr", msm_host);
->>>>> >>>> > +     if (ret < 0) {
->>>>> >>>> > +             DRM_DEV_ERROR(&msm_host->pdev->dev, "failed to 
->>>>> request IRQ%u: %d\n",
->>>>> >>>> > +                             msm_host->irq, ret);
->>>>> >>>> > +             return ret;
->>>>> >>>> > +     }
->>>>> >>>> > +
->>>>> >>>> > +
->>>>> >>>>
->>>>> >>>> Do you want to move this to msm_dsi_host_enable()?
->>>>> >>>> So without the controller being enabled it is still in unknown
->>>>> >>>> state?
->>>>> >>>
->>>>> >>> msm_dsi_host_power_on() reconfigures the host registers, so the 
->>>>> state
->>>>> >>> is known at the end of the power_on().
->>>>> >>>
->>>>> >>>> Also do you want to do this after dsi0 and dsi1 are 
->>>>> initialized to
->>>>> >>>> account for
->>>>> >>>> dual dsi cases?
->>>>> >>>
->>>>> >>> I don't think this should matter. The host won't generate 'extra'
->>>>> >>> interrupts in such case, will it?
->>>>> >>>
->>>>> >> We have seen cases where misconfiguration has caused interrupts to
->>>>> >> storm only
->>>>> >> on one DSI in some cases. So yes, I would prefer this is done after
->>>>> >> both are
->>>>> >> configured.
->>>>> >
->>>>> > I've checked. The power_on is called from 
->>>>> dsi_mgr_bridge_pre_enable()
->>>>> > when both DSI hosts should be bound.
->>>>>
->>>>> DSI being bound is enough? I thought the issue we are trying to 
->>>>> address
->>>>> is that
->>>>> we need to have called msm_dsi_host_power_on() for both the hosts so
->>>>> that both are
->>>>> put in the known state before requesting the irq.
->>>>>
->>>>> OR in other words move the irq_enable() to below location.
->>>>>
->>>>> 341 static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
->>>>> 342 {
->>>>> ********************************
->>>>> 364     ret = msm_dsi_host_power_on(host, &phy_shared_timings[id],
->>>>> is_bonded_dsi, msm_dsi->phy);
->>>>> 365     if (ret) {
->>>>> 366             pr_err("%s: power on host %d failed, %d\n", 
->>>>> __func__, id, ret);
->>>>> 367             goto host_on_fail;
->>>>> 368     }
->>>>> 369
->>>>> 370     if (is_bonded_dsi && msm_dsi1) {
->>>>> 371             ret = msm_dsi_host_power_on(msm_dsi1->host,
->>>>> 372                             &phy_shared_timings[DSI_1], 
->>>>> is_bonded_dsi, msm_dsi1->phy);
->>>>> 373             if (ret) {
->>>>> 374                     pr_err("%s: power on host1 failed, %d\n",
->>>>> 375                                                     __func__, 
->>>>> ret);
->>>>> 376                     goto host1_on_fail;
->>>>> 377             }
->>>>> 378     }
->>>>>
->>>>> < move the irq enable here >
->>>>> **********************************
->>>>
->>>> Ah, I see your point. What about moving to msm_dsi_host_enable() then?
->>>
->>> Yes, I had suggested this a few replies ago. But only at the dsi_msgr 
->>> we know if DSI1 is also done.
->>> So you can do it right after it in below location?
->>>
->>> 427     if (is_dual_dsi && msm_dsi1) {
->>> 428         ret = msm_dsi_host_enable(msm_dsi1->host);
->>> 429         if (ret) {
->>> 430             pr_err("%s: enable host1 failed, %d\n", __func__, ret);
->>> 431             goto host1_en_fail;
->>> 432         }
->>> 433     }
->>>
->>> <enable_irq here? >
->>
->> If there is DSI1, it was also powered on/programmed at the time of
->> msm_dsi_host_enable, so enabling IRQs from it should be safe. Do you
->> see any pitfalls from enabling the irq from that function?
-> 
-> Just about symmetry. We will enable_irq() for DSI0 when DSI0 and DSI1 
-> are powered on
-> But for DSI1, we will enable it when its powered ON but not enabled.
-> Hence i thought its better this way.
+On Tue, Sep 28, 2021 at 9:05 AM Kalle Valo <kvalo@codeaurora.org> wrote:
+> Arnd Bergmann <arnd@kernel.org> writes:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> I assume I can continue to build test ATH10K_SNOC with x86 as before?
+> That's important for me. If yes, then:
+>
+> Acked-by: Kalle Valo <kvalo@codeaurora.org>
+>
+> --
+> https://patchwork.kernel.org/project/linux-wireless/list/
+>
+> https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
 
-Ah. Then it would be better to call it between power_on() and enable(). 
-I'll send v3.
+Yes, the difference is that this will then also build the qcom_scm module, but
+that should not cause any problems after the other changes in this patch.
 
-> 
->>
->>>
->>>>
->>>>> >>>> >       msm_host->power_on = true;
->>>>> >>>> >       mutex_unlock(&msm_host->dev_mutex);
->>>>> >>>> >
->>>>> >>>> > @@ -2439,6 +2440,8 @@ int msm_dsi_host_power_off(struct 
->>>>> mipi_dsi_host
->>>>> >>>> > *host)
->>>>> >>>> >               goto unlock_ret;
->>>>> >>>> >       }
->>>>> >>>> >
->>>>> >>>> > +     devm_free_irq(&msm_host->pdev->dev, msm_host->irq, 
->>>>> msm_host);
->>>>> >>>> > +
->>>>> >>>> >       dsi_ctrl_config(msm_host, false, NULL, NULL);
->>>>> >>>> >
->>>>> >>>> >       if (msm_host->disp_en_gpio)
-
-
--- 
-With best wishes
-Dmitry
+      Arnd
