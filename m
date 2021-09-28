@@ -2,67 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0274441A381
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 01:00:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B78441A42C
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 02:22:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9CF86E054;
-	Mon, 27 Sep 2021 23:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4F75895B5;
+	Tue, 28 Sep 2021 00:22:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5828E6E054;
- Mon, 27 Sep 2021 23:00:22 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- mi2-20020a17090b4b4200b0019f1349df1dso119221pjb.0; 
- Mon, 27 Sep 2021 16:00:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4rbLOO10kE7IzUzgrNCp18mct+mNdp/gWXsyE0YgXgA=;
- b=I62cA8quqW9adN9QhJVpPFvFlzGroeNfhwxgIjahjW4W1zokWRtF3RBXmvV9qpzKZR
- KlzsEK2U7EJLFR6aeVm31MQUvxnvInsreHPjdbiDeguDnkPWr6mS+gDqVZrT+K7G/1U/
- AYSIcE6rq2wkMze3oMZ2PgeGY1Asqh2ELq6vE/IrEzb/QctT5XxBgkXApJU+0tHb5MEG
- rWjZLC6bz7PVqlgd35/BR0XJFGZgBIdKSmB5wSZrDs8a/HB4VHVCWaGw3wCIVSfTNnKo
- kaOM2AMiQlYk1/9bp9KCKk6okR2sORxBnPgvotwNc5hECpKhsDhPnfQfR2nUOO4ywO5o
- Tpig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4rbLOO10kE7IzUzgrNCp18mct+mNdp/gWXsyE0YgXgA=;
- b=MVNeGKKXMdb2rPQUeNeiBQNv57vhpL5tO1WSjZmPSpFTWPhEFRIczMkNV4h4Tv58uW
- l8V43/ERXaUz33DWcL39OkPGrm4kpzRevHoJ+NVoevMUjmHEIo2EyIfjzC/10TBWlB/G
- PyvPR2DIvr/PKca5Bx/+9MLLLo4yHDAa+MeWnd2oi5SxmFW9t/g+oAI9kD6Ef43GKozb
- ZEDdA24el/myCDnzHLB1wv6jpMTlrjSrr7utcROdvBi64LMqUh6F+QlaPyRnyB4PRc2U
- TGtmGrRivXdEi8CCUSF+JT6KML/pbd/byJ6OyrjNqqqDuxovYiZ8ZXVZ/WOB9SP3xAa7
- EbCg==
-X-Gm-Message-State: AOAM530Lhv/CqfWlVsQ8fcofsr1Q+q0XQo9vZS3XnDYy4VPo5A99oUlm
- yLgZMi72E8hWDR/UKTASVhT33Gt2/lI=
-X-Google-Smtp-Source: ABdhPJzuknYifE3KPt5cVuBI+RL/qmqMB1RznGFPDXHlgg/SO4wWp2Q/1kzjyHxtcauARjqGVJ7rGg==
-X-Received: by 2002:a17:90a:728b:: with SMTP id
- e11mr1729887pjg.107.1632783621244; 
- Mon, 27 Sep 2021 16:00:21 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id 23sm20582922pfw.97.2021.09.27.16.00.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Sep 2021 16:00:20 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-kernel@vger.kernel.org (open list)
-Date: Mon, 27 Sep 2021 16:04:54 -0700
-Message-Id: <20210927230455.1066297-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210927230455.1066297-1-robdclark@gmail.com>
-References: <20210927230455.1066297-1-robdclark@gmail.com>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61A789613
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 00:22:53 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632788573; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=cvG6f6/AwEQrbt3Nv5yZaMyVOIQyNeNi/VJHXNZmoqI=;
+ b=vXpcs0ySiJqDnAEuns2wna9bi2ifQN0RFpYeBuxsbzoARrGOaAVUzg2AmTXnCwCZKImPsDd+
+ HIDeSO4G/ao718xh/c/dSBzvSFOsCfAUpST2bdf6vx7ufF5aG3u7nGccAEHmg35BYwoxcTZf
+ QdEoI2I0u45NAvj59qEl+NHIWAg=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 6152605d519bd8dcf0e5906c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 28 Sep 2021 00:22:53
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D529FC43616; Tue, 28 Sep 2021 00:22:52 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8339DC4338F;
+ Tue, 28 Sep 2021 00:22:51 +0000 (UTC)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/devfreq: Add 1ms delay before
- clamping freq
+Date: Mon, 27 Sep 2021 17:22:51 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Jonathan Marek
+ <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "open list:DRM DRIVER
+ FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, "open list:DRM DRIVER
+ FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>, freedreno
+ <freedreno@lists.freedesktop.org>, David Heidelberg <david@ixit.cz>
+In-Reply-To: <7512b299-106f-2ffa-6d4f-46dc195abb84@linaro.org>
+References: <20210921162258.1858223-1-dmitry.baryshkov@linaro.org>
+ <0c275df228a1925e43a4dc59ceeab6b7@codeaurora.org>
+ <CAA8EJppLDpmT81OhdpWjHh4joPL=mNaG8eZN2cZOZk8mSpbd+w@mail.gmail.com>
+ <8c1e44cf44f917d38fa7133b869047b0@codeaurora.org>
+ <7512b299-106f-2ffa-6d4f-46dc195abb84@linaro.org>
+Message-ID: <8060e6fd83d521ed14785ea66386337b@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: do not install irq handler
+ before power up the host
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,134 +80,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On 2021-09-25 12:43, Dmitry Baryshkov wrote:
+> On 21/09/2021 23:52, abhinavk@codeaurora.org wrote:
+>> On 2021-09-21 10:47, Dmitry Baryshkov wrote:
+>>> Hi,
+>>> 
+>>> On Tue, 21 Sept 2021 at 20:01, <abhinavk@codeaurora.org> wrote:
+>>>> 
+>>>> On 2021-09-21 09:22, Dmitry Baryshkov wrote:
+>>>> > The DSI host might be left in some state by the bootloader. If this
+>>>> > state generates an IRQ, it might hang the system by holding the
+>>>> > interrupt line before the driver sets up the DSI host to the known
+>>>> > state.
+>>>> >
+>>>> > Move the request/free_irq calls into msm_dsi_host_power_on/_off calls,
+>>>> > so that we can be sure that the interrupt is delivered when the host is
+>>>> > in the known state.
+>>>> >
+>>>> > Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
+>>>> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> 
+>>>> This is a valid change and we have seen interrupt storms in 
+>>>> downstream
+>>>> happening
+>>>> when like you said the bootloader leaves the DSI host in unknown 
+>>>> state.
+>>>> Just one question below.
+>>>> 
+>>>> > ---
+>>>> >  drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++---------
+>>>> >  1 file changed, 12 insertions(+), 9 deletions(-)
+>>>> >
+>>>> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> > b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> > index e269df285136..cd842347a6b1 100644
+>>>> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>>>> > @@ -1951,15 +1951,6 @@ int msm_dsi_host_modeset_init(struct
+>>>> > mipi_dsi_host *host,
+>>>> >               return ret;
+>>>> >       }
+>>>> >
+>>>> > -     ret = devm_request_irq(&pdev->dev, msm_host->irq,
+>>>> > -                     dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+>>>> > -                     "dsi_isr", msm_host);
+>>>> > -     if (ret < 0) {
+>>>> > -             DRM_DEV_ERROR(&pdev->dev, "failed to request IRQ%u: %d\n",
+>>>> > -                             msm_host->irq, ret);
+>>>> > -             return ret;
+>>>> > -     }
+>>>> > -
+>>>> >       msm_host->dev = dev;
+>>>> >       ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
+>>>> >       if (ret) {
+>>>> > @@ -2413,6 +2404,16 @@ int msm_dsi_host_power_on(struct mipi_dsi_host
+>>>> > *host,
+>>>> >       if (msm_host->disp_en_gpio)
+>>>> >               gpiod_set_value(msm_host->disp_en_gpio, 1);
+>>>> >
+>>>> > +     ret = devm_request_irq(&msm_host->pdev->dev, msm_host->irq,
+>>>> > +                     dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+>>>> > +                     "dsi_isr", msm_host);
+>>>> > +     if (ret < 0) {
+>>>> > +             DRM_DEV_ERROR(&msm_host->pdev->dev, "failed to request IRQ%u: %d\n",
+>>>> > +                             msm_host->irq, ret);
+>>>> > +             return ret;
+>>>> > +     }
+>>>> > +
+>>>> > +
+>>>> 
+>>>> Do you want to move this to msm_dsi_host_enable()?
+>>>> So without the controller being enabled it is still in unknown 
+>>>> state?
+>>> 
+>>> msm_dsi_host_power_on() reconfigures the host registers, so the state
+>>> is known at the end of the power_on().
+>>> 
+>>>> Also do you want to do this after dsi0 and dsi1 are initialized to
+>>>> account for
+>>>> dual dsi cases?
+>>> 
+>>> I don't think this should matter. The host won't generate 'extra'
+>>> interrupts in such case, will it?
+>>> 
+>> We have seen cases where misconfiguration has caused interrupts to 
+>> storm only
+>> on one DSI in some cases. So yes, I would prefer this is done after 
+>> both are
+>> configured.
+> 
+> I've checked. The power_on is called from dsi_mgr_bridge_pre_enable()
+> when both DSI hosts should be bound.
 
-Add a short delay before clamping to idle frequency on active->idle
-transition.  It takes ~0.5ms to increase the freq again on the next
-idle->active transition, so this helps avoid extra freq transitions
-on workloads that bounce between CPU and GPU.
+DSI being bound is enough? I thought the issue we are trying to address 
+is that
+we need to have called msm_dsi_host_power_on() for both the hosts so 
+that both are
+put in the known state before requesting the irq.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
-Note that this sort of re-introduces the theoretical race solved
-by [1].. but that should not be a problem with something along the
-lines of [2]. 
+OR in other words move the irq_enable() to below location.
 
-[1] https://patchwork.freedesktop.org/patch/455910/?series=95111&rev=1
-[2] https://patchwork.freedesktop.org/patch/455928/?series=95119&rev=1
+341 static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+342 {
+********************************
+364 	ret = msm_dsi_host_power_on(host, &phy_shared_timings[id], 
+is_bonded_dsi, msm_dsi->phy);
+365 	if (ret) {
+366 		pr_err("%s: power on host %d failed, %d\n", __func__, id, ret);
+367 		goto host_on_fail;
+368 	}
+369
+370 	if (is_bonded_dsi && msm_dsi1) {
+371 		ret = msm_dsi_host_power_on(msm_dsi1->host,
+372 				&phy_shared_timings[DSI_1], is_bonded_dsi, msm_dsi1->phy);
+373 		if (ret) {
+374 			pr_err("%s: power on host1 failed, %d\n",
+375 							__func__, ret);
+376 			goto host1_on_fail;
+377 		}
+378 	}
 
- drivers/gpu/drm/msm/msm_gpu.h         |  7 +++++
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 38 +++++++++++++++++++++------
- 2 files changed, 37 insertions(+), 8 deletions(-)
+< move the irq enable here >
+**********************************
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 32a859307e81..2fcb6c195865 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -120,6 +120,13 @@ struct msm_gpu_devfreq {
- 	 * it is inactive.
- 	 */
- 	unsigned long idle_freq;
-+
-+	/**
-+	 * idle_work:
-+	 *
-+	 * Used to delay clamping to idle freq on active->idle transition.
-+	 */
-+	struct msm_hrtimer_work idle_work;
- };
- 
- struct msm_gpu {
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 15b64f35c0f6..36e1930ee26d 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -96,8 +96,12 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
- 	.get_cur_freq = msm_devfreq_get_cur_freq,
- };
- 
-+static void msm_devfreq_idle_work(struct kthread_work *work);
-+
- void msm_devfreq_init(struct msm_gpu *gpu)
- {
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+
- 	/* We need target support to do devfreq */
- 	if (!gpu->funcs->gpu_busy)
- 		return;
-@@ -113,25 +117,27 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 	msm_devfreq_profile.freq_table = NULL;
- 	msm_devfreq_profile.max_state = 0;
- 
--	gpu->devfreq.devfreq = devm_devfreq_add_device(&gpu->pdev->dev,
-+	df->devfreq = devm_devfreq_add_device(&gpu->pdev->dev,
- 			&msm_devfreq_profile, DEVFREQ_GOV_SIMPLE_ONDEMAND,
- 			NULL);
- 
--	if (IS_ERR(gpu->devfreq.devfreq)) {
-+	if (IS_ERR(df->devfreq)) {
- 		DRM_DEV_ERROR(&gpu->pdev->dev, "Couldn't initialize GPU devfreq\n");
--		gpu->devfreq.devfreq = NULL;
-+		df->devfreq = NULL;
- 		return;
- 	}
- 
--	devfreq_suspend_device(gpu->devfreq.devfreq);
-+	devfreq_suspend_device(df->devfreq);
- 
--	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node,
--			gpu->devfreq.devfreq);
-+	gpu->cooling = of_devfreq_cooling_register(gpu->pdev->dev.of_node, df->devfreq);
- 	if (IS_ERR(gpu->cooling)) {
- 		DRM_DEV_ERROR(&gpu->pdev->dev,
- 				"Couldn't register GPU cooling device\n");
- 		gpu->cooling = NULL;
- 	}
-+
-+	msm_hrtimer_work_init(&df->idle_work, gpu->worker, msm_devfreq_idle_work,
-+			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- }
- 
- void msm_devfreq_cleanup(struct msm_gpu *gpu)
-@@ -179,6 +185,11 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	unsigned int idle_time;
- 	unsigned long target_freq = df->idle_freq;
- 
-+	/*
-+	 * Cancel any pending transition to idle frequency:
-+	 */
-+	hrtimer_cancel(&df->idle_work.timer);
-+
- 	/*
- 	 * Hold devfreq lock to synchronize with get_dev_status()/
- 	 * target() callbacks
-@@ -209,9 +220,12 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	mutex_unlock(&df->devfreq->lock);
- }
- 
--void msm_devfreq_idle(struct msm_gpu *gpu)
-+
-+static void msm_devfreq_idle_work(struct kthread_work *work)
- {
--	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+	struct msm_gpu_devfreq *df = container_of(work,
-+			struct msm_gpu_devfreq, idle_work.work);
-+	struct msm_gpu *gpu = container_of(df, struct msm_gpu, devfreq);
- 	unsigned long idle_freq, target_freq = 0;
- 
- 	/*
-@@ -229,3 +243,11 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
- 
- 	mutex_unlock(&df->devfreq->lock);
- }
-+
-+void msm_devfreq_idle(struct msm_gpu *gpu)
-+{
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+
-+	msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
-+			       HRTIMER_MODE_ABS);
-+}
--- 
-2.31.1
-
+> 
+>> 
+>>>> 
+>>>> >       msm_host->power_on = true;
+>>>> >       mutex_unlock(&msm_host->dev_mutex);
+>>>> >
+>>>> > @@ -2439,6 +2440,8 @@ int msm_dsi_host_power_off(struct mipi_dsi_host
+>>>> > *host)
+>>>> >               goto unlock_ret;
+>>>> >       }
+>>>> >
+>>>> > +     devm_free_irq(&msm_host->pdev->dev, msm_host->irq, msm_host);
+>>>> > +
+>>>> >       dsi_ctrl_config(msm_host, false, NULL, NULL);
+>>>> >
+>>>> >       if (msm_host->disp_en_gpio)
