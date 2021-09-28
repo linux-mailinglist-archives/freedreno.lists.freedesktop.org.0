@@ -2,98 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E06C41B205
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 16:22:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF5541B265
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 16:52:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E202F6E8A1;
-	Tue, 28 Sep 2021 14:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 770D86E092;
+	Tue, 28 Sep 2021 14:52:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 339666E094
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 13:29:52 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id h20so23254601ilj.13
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 06:29:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=KV5AEITggXzrcUqW0Pn0JDUCXvtzQQd7nfX6VcyNvh0=;
- b=gsEil9aJ5ZOw0ASchzCW/AY/NlZwbg7FdvHHAbffANcuyVgNVj8F3r/I3y/OyqwIbk
- QkY/gO8vfPAMQp75rG6vgEG7NkfLO4ZNSWbXrGEOjX3dKqow4MOof9p7GrAO13Ckl/VP
- f8/C6WiPIW+rxE9R7UiZnONtD/dro2yaem2kM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=KV5AEITggXzrcUqW0Pn0JDUCXvtzQQd7nfX6VcyNvh0=;
- b=4YZbyjj5nxtNsw+fO1aaVKiky4iZ2syN4dGzgPd742pN7l177O8615JjCxZZhPmM+H
- Klivp3s3XiQxNtSFTqwYcWhrA1rMNiY7bOh3R0vWo7WFhEHmrpraepnX2GE2UDrJ9Oyy
- 7B5T/x4c+PXWqYlwiFlSsCB0ltke5gKaViQMV2VzLnbuaONBUi0sDBnmMjhr+R9wBgO6
- Yjs3vYTYmPs4WBXEhe0uZo69GU0bozurnltcOAK7VbcN3sTcqb2OYuqgvUjXNrICHu/p
- aM91BZsKFmLtM+Ea4LS8oTGYM4Coo/9Ft4PKULfkIVJcX4ddUbya48wQK+k2jtBpbUY+
- fxiQ==
-X-Gm-Message-State: AOAM533Hxucq4NPUoFF8lsWF7Yh8MRKYMiN5bui4oSqA6h4R7ccTv+YI
- ENVwm1sBuF9g0uRWBeffPpxoyQ==
-X-Google-Smtp-Source: ABdhPJz3qmL3tZ3U3XkVDcDl9dtP+yn06EspPEdsou0GIPYBieCdKEZlaSYFieS9Yrw1uFrX87cOuw==
-X-Received: by 2002:a92:c744:: with SMTP id y4mr4108077ilp.288.1632835791399; 
- Tue, 28 Sep 2021 06:29:51 -0700 (PDT)
-Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
- [73.185.129.58])
- by smtp.googlemail.com with ESMTPSA id m13sm11831997ilh.45.2021.09.28.06.29.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Sep 2021 06:29:50 -0700 (PDT)
-To: Arnd Bergmann <arnd@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Simon Trimmer <simont@opensource.cirrus.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linus.walleij@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-ia64@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-riscv@lists.infradead.org,
- Kalle Valo <kvalo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>, Alex Elder <elder@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Andy Gross <agross@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Sudeep Holla <sudeep.holla@arm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- iommu@lists.linux-foundation.org, linux-media@vger.kernel.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20210928075216.4193128-1-arnd@kernel.org>
- <20210928075216.4193128-2-arnd@kernel.org>
-From: Alex Elder <elder@ieee.org>
-Message-ID: <19bbc40d-3f13-7e9d-72c0-5d206b016bb7@ieee.org>
-Date: Tue, 28 Sep 2021 08:29:48 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC9866E111
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 14:52:51 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632840775; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: From: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: Sender; bh=f4WFcVRXiFJASWpKKkg7ZPFGull7j3liSd4EXDLOK4g=;
+ b=Q3Tm62qC+u0IvDK5xMkGl+LvMrsTISgNkd5a1V7zZrSs4J6gWiFrsY9ZD8Rw4sQ3jMtYe2Pk
+ A0LomCcHh7e9RvkWvrklEfSpyEpvwEbhlYYqwiIjmIBLs8aLY3epllHyMzHd07m1v1KcuJxS
+ nyO3zGKoYvod1UqI9wVlnEc65Gk=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 61532c22a5a9bab6e828b038 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 28 Sep 2021 14:52:18
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id A1B3FC43619; Tue, 28 Sep 2021 14:52:18 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.5 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [192.168.1.10] (unknown [59.89.231.221])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 69BF7C43617;
+ Tue, 28 Sep 2021 14:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 69BF7C43617
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Message-ID: <f1c6fff0-a220-86d9-8572-2de3d47ab96a@codeaurora.org>
+Date: Tue, 28 Sep 2021 20:22:11 +0530
 MIME-Version: 1.0
-In-Reply-To: <20210928075216.4193128-2-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
 Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20210927152928.831245-1-robdclark@gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+In-Reply-To: <20210927152928.831245-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 28 Sep 2021 14:22:14 +0000
-Subject: Re: [Freedreno] [PATCH 2/2] [v2] qcom_scm: hide Kconfig symbol
+Subject: Re: [Freedreno] [PATCH] drm/msm: Switch ordering of runpm put vs
+ devfreq_idle
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,65 +78,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 9/28/21 2:50 AM, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On 9/27/2021 8:59 PM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Now that SCM can be a loadable module, we have to add another
-> dependency to avoid link failures when ipa or adreno-gpu are
-> built-in:
+> I've seen a few crashes like:
 > 
-> aarch64-linux-ld: drivers/net/ipa/ipa_main.o: in function `ipa_probe':
-> ipa_main.c:(.text+0xfc4): undefined reference to `qcom_scm_is_available'
+>      Internal error: synchronous external abort: 96000010 [#1] PREEMPT SMP
+>      Modules linked in: snd_seq_dummy snd_seq snd_seq_device bridge stp llc tun nf_nat_tftp nf_conntrack_tftp nf_nat_ftp nf_conntrack_ftp esp6 ah6 ip6t_REJECT ip6t_ipv6header vhost_vsock vhost vmw_vsock_virtio_transport_common vsock rfcomm algif_hash algif_skcipher af_alg uinput veth xt_cgroup xt_MASQUERADE venus_enc venus_dec videobuf2_dma_contig qcom_spmi_adc5 qcom_spmi_adc_tm5 hci_uart qcom_vadc_common cros_ec_typec qcom_spmi_temp_alarm typec btqca snd_soc_rt5682_i2c snd_soc_rt5682 snd_soc_sc7180 bluetooth snd_soc_qcom_common snd_soc_rl6231 ecdh_generic ecc venus_core v4l2_mem2mem snd_soc_lpass_sc7180 snd_soc_lpass_hdmi snd_soc_lpass_cpu snd_soc_lpass_platform snd_soc_max98357a ip6table_nat fuse iio_trig_sysfs cros_ec_lid_angle cros_ec_sensors cros_ec_sensors_core industrialio_triggered_buffer kfifo_buf cros_ec_sensorhub lzo_rle ath10k_snoc lzo_compress ath10k_core ath zram mac80211 cfg80211 ax88179_178a usbnet mii uvcvideo videobuf2_vmalloc joydev
+>      CPU: 3 PID: 212 Comm: A618-worker Tainted: G W 5.4.139-16300-g88d8e1285982 #1
+>      Hardware name: Google Pompom (rev1) with LTE (DT)
+>      pstate: 60c00009 (nZCv daif +PAN +UAO)
+>      pc : a6xx_gmu_set_oob+0x114/0x200
+>      lr : a6xx_gmu_set_oob+0x10c/0x200
+>      sp : ffffffc011b7bc20
+>      x29: ffffffc011b7bc20 x28: ffffffdad27c5000
+>      x27: 0000000000000001 x26: ffffffdad1521044
+>      x25: ffffffbef7498338 x24: 0000000000000018
+>      x23: 0000000000000002 x22: 0000000000014648
+>      x21: 0000033732fe638b x20: 0000000080000000
+>      x19: ffffffbef7433bc8 x18: 0000000040000000
+>      x17: 000000243508d982 x16: 000000000000b67e
+>      x15: 00000000000090d4 x14: 0000000000000024
+>      x13: 0000000000000024 x12: 0000000000017521
+>      x11: 0000000000000b48 x10: 0000000000326a48
+>      x9 : 1a130d33f6371600 x8 : ffffffc011e54648
+>      x7 : 614948e00005003c x6 : ffffffbe3cd17e60
+>      x5 : 0000000000000040 x4 : 0000000000000004
+>      x3 : 0000000000000000 x2 : ffffffbef7488000
+>      x1 : ffffffbef7488000 x0 : 0000000000000000
+>      Call trace:
+>      a6xx_gmu_set_oob+0x114/0x200
+>      a6xx_gmu_set_freq+0xe0/0x1fc
+>      msm_devfreq_target+0x80/0x13c
+>      msm_devfreq_idle+0x54/0x94
+>      retire_submit+0x170/0x254
+>      retire_submits+0xa4/0xdc
+>      retire_worker+0x1c/0x28
+>      kthread_worker_fn+0xf4/0x1bc
+>      kthread+0x140/0x158
+>      ret_from_fork+0x10/0x18
+>      Code: 52800c81 9415bbe5 f9400a68 8b160108 (b9400108)
+>      ---[ end trace 16b871df2482cd61 ]---
+>      Kernel panic - not syncing: Fatal exception
+>      SMP: stopping secondary CPUs
+>      Kernel Offset: 0x1ac1400000 from 0xffffffc010000000
+>      PHYS_OFFSET: 0xffffffc280000000
+>      CPU features: 0x88102e,2a80aa38
+>      Memory Limit: none
 > 
-> ld.lld: error: undefined symbol: qcom_scm_is_available
->>>> referenced by adreno_gpu.c
->>>>                gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load) in archive drivers/built-in.a
+> Which smells a lot like touching hw after power collapse.  I'm not
+> *entirely* sure how it could have taken 66ms (the autosuspend delay)
+> before we get to a6xx_gmu_set_oob(), but to be safe we should move
+> the pm_runtime_put_autosuspend() after msm_devfreq_idle().
+https://elixir.bootlin.com/linux/v5.15-rc1/source/drivers/gpu/drm/msm/adreno/a6xx_gmu.c#L132
+We have this check in the gmu freq set path which should avoid this 
+scenario. I might be a bit pedantic here, but I feel that the original 
+code is more accurate. We should immediately mark last busy and put 
+runtime_pm refcount.
+
+-Akhil.
+
 > 
-> This can happen when CONFIG_ARCH_QCOM is disabled and we don't select
-> QCOM_MDT_LOADER, but some other module selects QCOM_SCM. Ideally we'd
-> use a similar dependency here to what we have for QCOM_RPROC_COMMON,
-> but that causes dependency loops from other things selecting QCOM_SCM.
-> 
-> This appears to be an endless problem, so try something different this
-> time:
-> 
->   - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
->     but that is simply selected by all of its users
-> 
->   - All the stubs in include/linux/qcom_scm.h can go away
-> 
->   - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
->     allow compile-testing QCOM_SCM on all architectures.
-> 
->   - To avoid a circular dependency chain involving RESET_CONTROLLER
->     and PINCTRL_SUNXI, drop the 'select RESET_CONTROLLER' statement.
->     According to my testing this still builds fine, and the QCOM
->     platform selects this symbol already.
-> 
-> Acked-by: Kalle Valo <kvalo@codeaurora.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
-> Changes in v2:
->    - drop the 'select RESET_CONTROLLER' line, rather than adding
->      more of the same
-> ---
->   drivers/firmware/Kconfig                |  5 +-
->   drivers/gpu/drm/msm/Kconfig             |  4 +-
->   drivers/iommu/Kconfig                   |  2 +-
->   drivers/media/platform/Kconfig          |  2 +-
->   drivers/mmc/host/Kconfig                |  2 +-
->   drivers/net/ipa/Kconfig                 |  1 +
-
-For drivers/net/ipa/Kconfig, looks good to me.
-Nice simplification.
-
-Acked-by: Alex Elder <elder@linaro.org>
-
->   drivers/net/wireless/ath/ath10k/Kconfig |  2 +-
->   drivers/pinctrl/qcom/Kconfig            |  3 +-
->   include/linux/arm-smccc.h               | 10 ++++
->   include/linux/qcom_scm.h                | 71 -------------------------
->   10 files changed, 20 insertions(+), 82 deletions(-)
+>   drivers/gpu/drm/msm/msm_gpu.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index d1a16642ecd5..2b2bbe7499e6 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -667,9 +667,6 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>   
+>   	msm_submit_retire(submit);
+>   
+> -	pm_runtime_mark_last_busy(&gpu->pdev->dev);
+> -	pm_runtime_put_autosuspend(&gpu->pdev->dev);
+> -
+>   	spin_lock_irqsave(&ring->submit_lock, flags);
+>   	list_del(&submit->node);
+>   	spin_unlock_irqrestore(&ring->submit_lock, flags);
+> @@ -683,6 +680,9 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>   	mutex_unlock(&gpu->active_lock);
+>   
+>   	msm_gem_submit_put(submit);
+> +
+> +	pm_runtime_mark_last_busy(&gpu->pdev->dev);
+> +	pm_runtime_put_autosuspend(&gpu->pdev->dev);
+>   }
+>   
+>   static void retire_submits(struct msm_gpu *gpu)
 > 
 
-. . .
