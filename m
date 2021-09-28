@@ -1,71 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1891541B40B
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 18:39:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F2641B510
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 19:23:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 007466E07D;
-	Tue, 28 Sep 2021 16:39:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12E6D6E8F7;
+	Tue, 28 Sep 2021 17:23:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDC66E07D
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 16:39:20 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id b15so93329108lfe.7
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 09:39:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=G7Nu624BHA+ciBaAN51wOEprdQ45Szw6B8+mMioIzMU=;
- b=cetdKQLhcnBhXSFEllvSJ8rYG6P547knd8cgm9LIqgEBIpZbimxBdLyGX5CLabrDi2
- uiLSxpnHuOhVwpOg/pWAfEVtMdG1dS4PBMGIF/oy7GAyQ2xf9y+1EtWxxId3s9NIlvao
- v/lb3+AibTbQAIj+2DJu5cdBrkKvqBEJFLvTBlh7QM7HcrmdXH635oioXiHj26pFw8dM
- MyoltSzyCbx8X6MgoyFB6SyYgw0itqm+KK7oSR1GwxcRZaXXKr8syeTCWFN1RSwjaMLB
- FCicBfESaEPfPJszwJV0M43V04uc7L4ayKKK1LQ+VahfpNjLioeyiqxoyysoOv+kXDVE
- TeDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=G7Nu624BHA+ciBaAN51wOEprdQ45Szw6B8+mMioIzMU=;
- b=Z3wsylTHKOLI5NSm3zZtv3pBX4BlXQv/Yu0hVUBldTa3x0ZdD0QF7reqs8sn92bOTJ
- P7Ae4LMKWyckReTqikYksgEdgduJMHCXNCJv8CWPinSxN0xjYVaM2RAq/VlgUibucjbn
- 6HP6QONwlpxU9Fi38zpUvSPYKHAwXyCvmNvBP0QfEzk50rYctKw7EyNElISCBqqCLXWl
- nk+3nqZ3QbSuxA0VglP916u9p3Dr6/s/I2pFglJ5B69/tDcm2XBDExXr/EBigM9hKjuq
- F7HSfysYECtCadMfN/Ejii0JsLJzfJpImeISY1r8NIUporEanwUOuwkf4idVt57ThWQM
- uDgA==
-X-Gm-Message-State: AOAM533xNVnq+gscbeu0EbJMFHsnJovmCJT7ZNk/KZIFbm0NGqFiH/B2
- fqAHT8VZzqEWVDU0lZUymrhg9sqdOEWZ6w==
-X-Google-Smtp-Source: ABdhPJyCj8nkgVuxflTeFioAAJwZAukYxUdj8p/t666Q+NKGnuf9aDbO0HpPK9CHZhyIDATH2r/4Lg==
-X-Received: by 2002:ac2:4bc1:: with SMTP id o1mr6633392lfq.596.1632847155514; 
- Tue, 28 Sep 2021 09:39:15 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u10sm1970336lfl.87.2021.09.28.09.39.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Sep 2021 09:39:14 -0700 (PDT)
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, Lee Jones
- <lee.jones@linaro.org>, open list <linux-kernel@vger.kernel.org>
-References: <20210928162903.1104847-1-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <dbefd596-4382-3822-fdec-486cf3df1560@linaro.org>
-Date: Tue, 28 Sep 2021 19:39:14 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8133F6E8F7
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 17:22:55 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632849779; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=mb/o+TU/jtzYpiRKctEI+EzDEsfd4AjUR8iTNCtSlZo=;
+ b=Vtuqy3l8Ki80MCzOBvAS+Nh2B5P5u+Xq+mIXeooXNjtYRWZ7ajEXQuyZ7WdCztHQEO2waqCg
+ zjLyubOHsJG9XWAg1sxbNN1c11esFMTwKy37mILK2BitaYwbqWoWD/216G8BN97QW631SL3k
+ bF9xUwrsym5r/bBgqB9fNLS+fvo=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
+ 61534f64a5a9bab6e8c9faa9 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 28 Sep 2021 17:22:44
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 6073CC44BC2; Tue, 28 Sep 2021 17:22:43 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id B7904C008EF;
+ Tue, 28 Sep 2021 17:22:41 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210928162903.1104847-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove some nonsense
+Date: Tue, 28 Sep 2021 10:22:41 -0700
+From: khsieh@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar
+ <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, David Airlie
+ <airlied@linux.ie>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Kalyan
+ Thota <kalyan_t@codeaurora.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <YSkdaljt7DPbyTDe@builder.lan>
+References: <20210825234233.1721068-1-bjorn.andersson@linaro.org>
+ <20210825234233.1721068-4-bjorn.andersson@linaro.org>
+ <CAE-0n52YaQXQ4-=bR5ffMHOMp7CyFnCS-u9a2pddvaRUQhLrog@mail.gmail.com>
+ <YSkdaljt7DPbyTDe@builder.lan>
+Message-ID: <66f0f29e449b02e30678ed2e3487c7f2@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2 3/5] drm/msm/dp: Support up to 3 DP
+ controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,67 +79,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/09/2021 19:28, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 2021-08-27 10:14, Bjorn Andersson wrote:
+> On Fri 27 Aug 00:20 CDT 2021, Stephen Boyd wrote:
 > 
-> These aren't used.  And if we add use for them later, we should probably
-> do something a bit more structured than string parsing.
+>> Quoting Bjorn Andersson (2021-08-25 16:42:31)
+>> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> > index 2c7de43f655a..4a6132c18e57 100644
+>> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> > @@ -78,6 +78,8 @@ struct dp_display_private {
+>> >         char *name;
+>> >         int irq;
+>> >
+>> > +       int id;
+>> > +
+>> >         /* state variables */
+>> >         bool core_initialized;
+>> >         bool hpd_irq_on;
+>> > @@ -115,8 +117,19 @@ struct dp_display_private {
+>> >         struct dp_audio *audio;
+>> >  };
+>> >
+>> > +
+>> > +struct msm_dp_config {
+>> > +       phys_addr_t io_start[3];
+>> 
+>> Can this be made into another struct, like msm_dp_desc, that also
+>> indicates what type of DP connector it is, i.e. eDP vs DP? That would
+>> help me understand in modetest and /sys/class/drm what sort of 
+>> connector
+>> is probing. dp_drm_connector_init() would need to pass the type of
+>> connector appropriately. Right now, eDP connectors still show up as DP
+>> instead of eDP in sysfs.
+>> 
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 6 ------
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 8 --------
->   2 files changed, 14 deletions(-)
+> I like it, will spin a v3 with this.
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index b131fd376192..e32dbb06aad1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -958,12 +958,6 @@ static const struct dpu_perf_cfg sdm845_perf_data = {
->   	.min_core_ib = 2400000,
->   	.min_llcc_ib = 800000,
->   	.min_dram_ib = 800000,
-> -	.core_ib_ff = "6.0",
-> -	.core_clk_ff = "1.0",
-> -	.comp_ratio_rt =
-> -	"NV12/5/1/1.23 AB24/5/1/1.23 XB24/5/1/1.23",
-> -	.comp_ratio_nrt =
-> -	"NV12/5/1/1.25 AB24/5/1/1.25 XB24/5/1/1.25",
->   	.undersized_prefill_lines = 2,
->   	.xtra_prefill_lines = 2,
->   	.dest_scale_prefill_lines = 3,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index d2a945a27cfa..4ade44bbd37e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -676,10 +676,6 @@ struct dpu_perf_cdp_cfg {
->    * @min_core_ib        minimum mnoc ib vote in kbps
->    * @min_llcc_ib        minimum llcc ib vote in kbps
->    * @min_dram_ib        minimum dram ib vote in kbps
-> - * @core_ib_ff         core instantaneous bandwidth fudge factor
-> - * @core_clk_ff        core clock fudge factor
-> - * @comp_ratio_rt      string of 0 or more of <fourcc>/<ven>/<mod>/<comp ratio>
-> - * @comp_ratio_nrt     string of 0 or more of <fourcc>/<ven>/<mod>/<comp ratio>
->    * @undersized_prefill_lines   undersized prefill in lines
->    * @xtra_prefill_lines         extra prefill latency in lines
->    * @dest_scale_prefill_lines   destination scaler latency in lines
-> @@ -702,10 +698,6 @@ struct dpu_perf_cfg {
->   	u32 min_core_ib;
->   	u32 min_llcc_ib;
->   	u32 min_dram_ib;
-> -	const char *core_ib_ff;
-> -	const char *core_clk_ff;
-> -	const char *comp_ratio_rt;
-> -	const char *comp_ratio_nrt;
->   	u32 undersized_prefill_lines;
->   	u32 xtra_prefill_lines;
->   	u32 dest_scale_prefill_lines;
+> Regards,
+> Bjorn
+
+Hi Bjorn,
+
+Have you spin off V3 yet?
+When you expect your patches related to DP be up streamed?
+
+Thanks,
+kuogee
 > 
-
-
--- 
-With best wishes
-Dmitry
+>> > +       size_t num_dp;
+>> > +};
+>> > +
+>> > +static const struct msm_dp_config sc7180_dp_cfg = {
+>> > +       .io_start = { 0x0ae90000 },
+>> > +       .num_dp = 1,
+>> > +};
+>> > +
+>> >  static const struct of_device_id dp_dt_match[] = {
+>> > -       {.compatible = "qcom,sc7180-dp"},
+>> > +       { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
+>> >         {}
+>> >  };
+>> >
