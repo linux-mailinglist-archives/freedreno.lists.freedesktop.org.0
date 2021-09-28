@@ -2,79 +2,98 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6429841B206
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 16:22:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E06C41B205
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 16:22:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08F016E8A4;
-	Tue, 28 Sep 2021 14:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E202F6E8A1;
+	Tue, 28 Sep 2021 14:22:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD9C6E0AC
- for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 07:05:05 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1632812709; h=Content-Type: MIME-Version: Message-ID:
- In-Reply-To: Date: References: Subject: Cc: To: From: Sender;
- bh=mcC+NI9lbMYVHDFKxEvKMLG3JdbT8e+is/T3jV6QeT8=;
- b=lnHEgDur6Xawdt6sYgHVg9Bv7KuVhMUZ1aAhZOVOKMgx8sPZPvH0XxphKHy1BrmxtiqaSYqj
- XlP7NJF/EEgZMokSoXKWPzROkuWNWJsMPK7iis4gHyRErWbNvpZpcckkDhR0tI4YI9wHLe4D
- 3caLWlIiEzUmPQGbrAkGhfxEFkw=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 6152be4b47d64efb6d8782e6 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 28 Sep 2021 07:03:39
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2747BC43637; Tue, 28 Sep 2021 07:03:38 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from tykki (tynnyri.adurom.net [51.15.11.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: kvalo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9DA53C4338F;
- Tue, 28 Sep 2021 07:03:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 9DA53C4338F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Kalle Valo <kvalo@codeaurora.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,  Arnd Bergmann
- <arnd@arndb.de>,  Rob Clark <robdclark@gmail.com>,  Sean Paul
- <sean@poorly.run>,  David Airlie <airlied@linux.ie>,  Daniel Vetter
- <daniel@ffwll.ch>,  Joerg Roedel <joro@8bytes.org>,  Will Deacon
- <will@kernel.org>,  Mauro Carvalho Chehab <mchehab@kernel.org>,  Ulf
- Hansson <ulf.hansson@linaro.org>,  Alex Elder <elder@kernel.org>,  "David
- S. Miller" <davem@davemloft.net>,  Jakub Kicinski <kuba@kernel.org>,  Andy
- Gross <agross@kernel.org>,  Linus Walleij <linus.walleij@linaro.org>,
- Maxime Ripard <mripard@kernel.org>,  Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,  Mark Rutland
- <mark.rutland@arm.com>,  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Sudeep Holla <sudeep.holla@arm.com>,  linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org,  dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org,  iommu@lists.linux-foundation.org,
- linux-media@vger.kernel.org,  linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org,  ath10k@lists.infradead.org,
- linux-wireless@vger.kernel.org,  linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev
-References: <20210927152412.2900928-1-arnd@kernel.org>
-Date: Tue, 28 Sep 2021 10:03:25 +0300
-In-Reply-To: <20210927152412.2900928-1-arnd@kernel.org> (Arnd Bergmann's
- message of "Mon, 27 Sep 2021 17:22:13 +0200")
-Message-ID: <87k0j1qj0i.fsf@codeaurora.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 339666E094
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 13:29:52 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id h20so23254601ilj.13
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 06:29:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=KV5AEITggXzrcUqW0Pn0JDUCXvtzQQd7nfX6VcyNvh0=;
+ b=gsEil9aJ5ZOw0ASchzCW/AY/NlZwbg7FdvHHAbffANcuyVgNVj8F3r/I3y/OyqwIbk
+ QkY/gO8vfPAMQp75rG6vgEG7NkfLO4ZNSWbXrGEOjX3dKqow4MOof9p7GrAO13Ckl/VP
+ f8/C6WiPIW+rxE9R7UiZnONtD/dro2yaem2kM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=KV5AEITggXzrcUqW0Pn0JDUCXvtzQQd7nfX6VcyNvh0=;
+ b=4YZbyjj5nxtNsw+fO1aaVKiky4iZ2syN4dGzgPd742pN7l177O8615JjCxZZhPmM+H
+ Klivp3s3XiQxNtSFTqwYcWhrA1rMNiY7bOh3R0vWo7WFhEHmrpraepnX2GE2UDrJ9Oyy
+ 7B5T/x4c+PXWqYlwiFlSsCB0ltke5gKaViQMV2VzLnbuaONBUi0sDBnmMjhr+R9wBgO6
+ Yjs3vYTYmPs4WBXEhe0uZo69GU0bozurnltcOAK7VbcN3sTcqb2OYuqgvUjXNrICHu/p
+ aM91BZsKFmLtM+Ea4LS8oTGYM4Coo/9Ft4PKULfkIVJcX4ddUbya48wQK+k2jtBpbUY+
+ fxiQ==
+X-Gm-Message-State: AOAM533Hxucq4NPUoFF8lsWF7Yh8MRKYMiN5bui4oSqA6h4R7ccTv+YI
+ ENVwm1sBuF9g0uRWBeffPpxoyQ==
+X-Google-Smtp-Source: ABdhPJz3qmL3tZ3U3XkVDcDl9dtP+yn06EspPEdsou0GIPYBieCdKEZlaSYFieS9Yrw1uFrX87cOuw==
+X-Received: by 2002:a92:c744:: with SMTP id y4mr4108077ilp.288.1632835791399; 
+ Tue, 28 Sep 2021 06:29:51 -0700 (PDT)
+Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
+ [73.185.129.58])
+ by smtp.googlemail.com with ESMTPSA id m13sm11831997ilh.45.2021.09.28.06.29.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Sep 2021 06:29:50 -0700 (PDT)
+To: Arnd Bergmann <arnd@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-ia64@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Kalle Valo <kvalo@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Alex Elder <elder@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Andy Gross <agross@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ iommu@lists.linux-foundation.org, linux-media@vger.kernel.org,
+ linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20210928075216.4193128-1-arnd@kernel.org>
+ <20210928075216.4193128-2-arnd@kernel.org>
+From: Alex Elder <elder@ieee.org>
+Message-ID: <19bbc40d-3f13-7e9d-72c0-5d206b016bb7@ieee.org>
+Date: Tue, 28 Sep 2021 08:29:48 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <20210928075216.4193128-2-arnd@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 28 Sep 2021 14:22:14 +0000
-Subject: Re: [Freedreno] [PATCH] [RFC] qcom_scm: hide Kconfig symbol
+Subject: Re: [Freedreno] [PATCH 2/2] [v2] qcom_scm: hide Kconfig symbol
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,75 +109,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Arnd Bergmann <arnd@kernel.org> writes:
-
+On 9/28/21 2:50 AM, Arnd Bergmann wrote:
 > From: Arnd Bergmann <arnd@arndb.de>
->
+> 
 > Now that SCM can be a loadable module, we have to add another
 > dependency to avoid link failures when ipa or adreno-gpu are
 > built-in:
->
+> 
 > aarch64-linux-ld: drivers/net/ipa/ipa_main.o: in function `ipa_probe':
 > ipa_main.c:(.text+0xfc4): undefined reference to `qcom_scm_is_available'
->
+> 
 > ld.lld: error: undefined symbol: qcom_scm_is_available
 >>>> referenced by adreno_gpu.c
->>>>               gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load)
->>>> in archive drivers/built-in.a
->
+>>>>                gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load) in archive drivers/built-in.a
+> 
 > This can happen when CONFIG_ARCH_QCOM is disabled and we don't select
 > QCOM_MDT_LOADER, but some other module selects QCOM_SCM. Ideally we'd
 > use a similar dependency here to what we have for QCOM_RPROC_COMMON,
 > but that causes dependency loops from other things selecting QCOM_SCM.
->
+> 
 > This appears to be an endless problem, so try something different this
 > time:
->
->  - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
->    but that is simply selected by all of its users
->
->  - All the stubs in include/linux/qcom_scm.h can go away
->
->  - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
->    allow compile-testing QCOM_SCM on all architectures.
->
->  - To avoid a circular dependency chain involving RESET_CONTROLLER
->    and PINCTRL_SUNXI, change the 'depends on RESET_CONTROLLER' in
->    the latter one to 'select'.
->
-> The last bit is rather annoying, as drivers should generally never
-> 'select' another subsystem, and about half the users of the reset
-> controller interface do this anyway.
->
-> Nevertheless, this version seems to pass all my randconfig tests
-> and is more robust than any of the prior versions.
->
-> Comments?
->
+> 
+>   - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
+>     but that is simply selected by all of its users
+> 
+>   - All the stubs in include/linux/qcom_scm.h can go away
+> 
+>   - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
+>     allow compile-testing QCOM_SCM on all architectures.
+> 
+>   - To avoid a circular dependency chain involving RESET_CONTROLLER
+>     and PINCTRL_SUNXI, drop the 'select RESET_CONTROLLER' statement.
+>     According to my testing this still builds fine, and the QCOM
+>     platform selects this symbol already.
+> 
+> Acked-by: Kalle Valo <kvalo@codeaurora.org>
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> Changes in v2:
+>    - drop the 'select RESET_CONTROLLER' line, rather than adding
+>      more of the same
+> ---
+>   drivers/firmware/Kconfig                |  5 +-
+>   drivers/gpu/drm/msm/Kconfig             |  4 +-
+>   drivers/iommu/Kconfig                   |  2 +-
+>   drivers/media/platform/Kconfig          |  2 +-
+>   drivers/mmc/host/Kconfig                |  2 +-
+>   drivers/net/ipa/Kconfig                 |  1 +
 
-[...]
+For drivers/net/ipa/Kconfig, looks good to me.
+Nice simplification.
 
-> diff --git a/drivers/net/wireless/ath/ath10k/Kconfig b/drivers/net/wireless/ath/ath10k/Kconfig
-> index 741289e385d5..ca007b800f75 100644
-> --- a/drivers/net/wireless/ath/ath10k/Kconfig
-> +++ b/drivers/net/wireless/ath/ath10k/Kconfig
-> @@ -44,7 +44,7 @@ config ATH10K_SNOC
->  	tristate "Qualcomm ath10k SNOC support"
->  	depends on ATH10K
->  	depends on ARCH_QCOM || COMPILE_TEST
-> -	depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
-> +	select QCOM_SCM
->  	select QCOM_QMI_HELPERS
->  	help
->  	  This module adds support for integrated WCN3990 chip connected
+Acked-by: Alex Elder <elder@linaro.org>
 
-I assume I can continue to build test ATH10K_SNOC with x86 as before?
-That's important for me. If yes, then:
+>   drivers/net/wireless/ath/ath10k/Kconfig |  2 +-
+>   drivers/pinctrl/qcom/Kconfig            |  3 +-
+>   include/linux/arm-smccc.h               | 10 ++++
+>   include/linux/qcom_scm.h                | 71 -------------------------
+>   10 files changed, 20 insertions(+), 82 deletions(-)
+> 
 
-Acked-by: Kalle Valo <kvalo@codeaurora.org>
-
--- 
-https://patchwork.kernel.org/project/linux-wireless/list/
-
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
+. . .
