@@ -2,72 +2,79 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D70F941AFF4
-	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 15:21:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6429841B206
+	for <lists+freedreno@lfdr.de>; Tue, 28 Sep 2021 16:22:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0116E8A4;
-	Tue, 28 Sep 2021 13:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08F016E8A4;
+	Tue, 28 Sep 2021 14:22:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBED46E8A4;
- Tue, 28 Sep 2021 13:21:07 +0000 (UTC)
-Received: by mail-pj1-x102b.google.com with SMTP id
- me5-20020a17090b17c500b0019af76b7bb4so1728605pjb.2; 
- Tue, 28 Sep 2021 06:21:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=FI6R42Oo7MX5/xkTwAAMjl52Mc/0wUr0Fx+yPEL+Ji4=;
- b=gRG8Yad0DkgCqHgfSM6eKAjkEesndtjSXcOrNoLI43C1HCMqCTIF5up6G1wuxVvuX7
- OsE5cXBYzUjJi7UJ9JIWZATR1mBUnsOqLkhEex7Qte7mZWLLBbQLcDXOZeO/5bTcceXK
- W4eQ+BpVJfkJWTYjuFNdBf7S33ZniFXYdrKf87Um+yFlyv1quA165gXIlG3quo2QZsKv
- C90PjeyABy/OANhATHURszi9l9W6yYOhhksGWAhhrgfFybbLcqJDJAcg9uvvIjkoB4RO
- G/fF2Re+afwznQTT8oDwrL5g7541T5vc5JQzJYZOkSbBJexL8D2IC2AsysSrknbNvFK/
- qEZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=FI6R42Oo7MX5/xkTwAAMjl52Mc/0wUr0Fx+yPEL+Ji4=;
- b=G8gmg78kpshbhVJKH6YL6FkkCXCf9Issc2+yxgnH4X1b+K0aXaMuBExbTMHKjJ9ffq
- V3xSLSmLu/fHh8fhEz6Sdnu1RKwPrOX3t0/sh+HW6tRCBSM+0bNBWryQcwDYuKgNdb9g
- 7ZWaPVK3sl2GNWPzJRyPgiIkEoN1eaqnT7TAd/ZOsxHrPAgRC5WLP5NQC9RbRvBYE0hN
- HyetV3sC7QXFriSK++2tzs+UNDvSdSgopGbTJ40p2seeqqgWu6PXjo1w9iblyS6tucSZ
- 7vRyN5J6JoOYkqDt8lF6b0ZycFPTSrEwtOe9JavigravSxbyncNYayx5PEyE2S7t4vZu
- 7Hyw==
-X-Gm-Message-State: AOAM531LMvmEZeO/ttmFg3AAjbsmSQ+fsFaCkX599cU4VYDvN5o+Et5N
- 1cjzERI5WRzEQggSDl1IUTU=
-X-Google-Smtp-Source: ABdhPJymzcJo+QKmf4mnPfuNVaN/DDPzbo/krHlEYR8n1hDHvEtBus3O3CctB3dT8q0IRyhI+AVR+A==
-X-Received: by 2002:a17:90a:4815:: with SMTP id
- a21mr5575292pjh.108.1632835267542; 
- Tue, 28 Sep 2021 06:21:07 -0700 (PDT)
-Received: from skynet-linux.local ([122.162.197.175])
- by smtp.googlemail.com with ESMTPSA id h13sm22063964pgf.14.2021.09.28.06.21.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Sep 2021 06:21:07 -0700 (PDT)
-From: Sireesh Kodali <sireeshkodali1@gmail.com>
-To: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Vladimir Lypak <vladimir.lypak@gmail.com>,
- Sireesh Kodali <sireeshkodali1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- James Willcox <jwillcox@squareup.com>
-Date: Tue, 28 Sep 2021 18:49:29 +0530
-Message-Id: <20210928131929.18567-4-sireeshkodali1@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210928131929.18567-1-sireeshkodali1@gmail.com>
-References: <20210928131929.18567-1-sireeshkodali1@gmail.com>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD9C6E0AC
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Sep 2021 07:05:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632812709; h=Content-Type: MIME-Version: Message-ID:
+ In-Reply-To: Date: References: Subject: Cc: To: From: Sender;
+ bh=mcC+NI9lbMYVHDFKxEvKMLG3JdbT8e+is/T3jV6QeT8=;
+ b=lnHEgDur6Xawdt6sYgHVg9Bv7KuVhMUZ1aAhZOVOKMgx8sPZPvH0XxphKHy1BrmxtiqaSYqj
+ XlP7NJF/EEgZMokSoXKWPzROkuWNWJsMPK7iis4gHyRErWbNvpZpcckkDhR0tI4YI9wHLe4D
+ 3caLWlIiEzUmPQGbrAkGhfxEFkw=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 6152be4b47d64efb6d8782e6 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 28 Sep 2021 07:03:39
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 2747BC43637; Tue, 28 Sep 2021 07:03:38 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from tykki (tynnyri.adurom.net [51.15.11.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: kvalo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 9DA53C4338F;
+ Tue, 28 Sep 2021 07:03:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 9DA53C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Kalle Valo <kvalo@codeaurora.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,  Arnd Bergmann
+ <arnd@arndb.de>,  Rob Clark <robdclark@gmail.com>,  Sean Paul
+ <sean@poorly.run>,  David Airlie <airlied@linux.ie>,  Daniel Vetter
+ <daniel@ffwll.ch>,  Joerg Roedel <joro@8bytes.org>,  Will Deacon
+ <will@kernel.org>,  Mauro Carvalho Chehab <mchehab@kernel.org>,  Ulf
+ Hansson <ulf.hansson@linaro.org>,  Alex Elder <elder@kernel.org>,  "David
+ S. Miller" <davem@davemloft.net>,  Jakub Kicinski <kuba@kernel.org>,  Andy
+ Gross <agross@kernel.org>,  Linus Walleij <linus.walleij@linaro.org>,
+ Maxime Ripard <mripard@kernel.org>,  Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,  Mark Rutland
+ <mark.rutland@arm.com>,  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,  linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,  dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org,  iommu@lists.linux-foundation.org,
+ linux-media@vger.kernel.org,  linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org,  ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org,  linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev
+References: <20210927152412.2900928-1-arnd@kernel.org>
+Date: Tue, 28 Sep 2021 10:03:25 +0300
+In-Reply-To: <20210927152412.2900928-1-arnd@kernel.org> (Arnd Bergmann's
+ message of "Mon, 27 Sep 2021 17:22:13 +0200")
+Message-ID: <87k0j1qj0i.fsf@codeaurora.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 3/3] drm/msm/mdp5: Add configuration for MDP
- v1.16
+Content-Type: text/plain
+X-Mailman-Approved-At: Tue, 28 Sep 2021 14:22:14 +0000
+Subject: Re: [Freedreno] [PATCH] [RFC] qcom_scm: hide Kconfig symbol
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,125 +90,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Vladimir Lypak <vladimir.lypak@gmail.com>
+Arnd Bergmann <arnd@kernel.org> writes:
 
-MDP version v1.16 is almost identical to v1.15 with most significant
-difference being presence of second DSI interface. MDP v1.16 is found on
-SoCs such as MSM8x53, SDM450, SDM632 (All with Adreno 506).
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> Now that SCM can be a loadable module, we have to add another
+> dependency to avoid link failures when ipa or adreno-gpu are
+> built-in:
+>
+> aarch64-linux-ld: drivers/net/ipa/ipa_main.o: in function `ipa_probe':
+> ipa_main.c:(.text+0xfc4): undefined reference to `qcom_scm_is_available'
+>
+> ld.lld: error: undefined symbol: qcom_scm_is_available
+>>>> referenced by adreno_gpu.c
+>>>>               gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load)
+>>>> in archive drivers/built-in.a
+>
+> This can happen when CONFIG_ARCH_QCOM is disabled and we don't select
+> QCOM_MDT_LOADER, but some other module selects QCOM_SCM. Ideally we'd
+> use a similar dependency here to what we have for QCOM_RPROC_COMMON,
+> but that causes dependency loops from other things selecting QCOM_SCM.
+>
+> This appears to be an endless problem, so try something different this
+> time:
+>
+>  - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
+>    but that is simply selected by all of its users
+>
+>  - All the stubs in include/linux/qcom_scm.h can go away
+>
+>  - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
+>    allow compile-testing QCOM_SCM on all architectures.
+>
+>  - To avoid a circular dependency chain involving RESET_CONTROLLER
+>    and PINCTRL_SUNXI, change the 'depends on RESET_CONTROLLER' in
+>    the latter one to 'select'.
+>
+> The last bit is rather annoying, as drivers should generally never
+> 'select' another subsystem, and about half the users of the reset
+> controller interface do this anyway.
+>
+> Nevertheless, this version seems to pass all my randconfig tests
+> and is more robust than any of the prior versions.
+>
+> Comments?
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
-Signed-off-by: Sireesh Kodali <sireeshkodali1@gmail.com>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 89 ++++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
+[...]
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-index 9741544ffc35..0d28c8ff4009 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-@@ -752,6 +752,94 @@ const struct mdp5_cfg_hw msm8x76_config = {
- 	.max_clk = 360000000,
- };
- 
-+static const struct mdp5_cfg_hw msm8x53_config = {
-+	.name = "msm8x53",
-+	.mdp = {
-+		.count = 1,
-+		.caps = MDP_CAP_CDM |
-+			MDP_CAP_SRC_SPLIT,
-+	},
-+	.ctl = {
-+		.count = 3,
-+		.base = { 0x01000, 0x01200, 0x01400 },
-+		.flush_hw_mask = 0xffffffff,
-+	},
-+	.pipe_vig = {
-+		.count = 1,
-+		.base = { 0x04000 },
-+		.caps = MDP_PIPE_CAP_HFLIP	|
-+			MDP_PIPE_CAP_VFLIP	|
-+			MDP_PIPE_CAP_SCALE	|
-+			MDP_PIPE_CAP_CSC	|
-+			MDP_PIPE_CAP_DECIMATION	|
-+			MDP_PIPE_CAP_SW_PIX_EXT	|
-+			0,
-+	},
-+	.pipe_rgb = {
-+		.count = 2,
-+		.base = { 0x14000, 0x16000 },
-+		.caps = MDP_PIPE_CAP_HFLIP	|
-+			MDP_PIPE_CAP_VFLIP	|
-+			MDP_PIPE_CAP_DECIMATION	|
-+			MDP_PIPE_CAP_SW_PIX_EXT	|
-+			0,
-+	},
-+	.pipe_dma = {
-+		.count = 1,
-+		.base = { 0x24000 },
-+		.caps = MDP_PIPE_CAP_HFLIP	|
-+			MDP_PIPE_CAP_VFLIP	|
-+			MDP_PIPE_CAP_SW_PIX_EXT	|
-+			0,
-+	},
-+	.pipe_cursor = {
-+		.count = 1,
-+		.base = { 0x34000 },
-+		.caps = MDP_PIPE_CAP_HFLIP	|
-+			MDP_PIPE_CAP_VFLIP	|
-+			MDP_PIPE_CAP_SW_PIX_EXT	|
-+			MDP_PIPE_CAP_CURSOR	|
-+			0,
-+	},
-+
-+	.lm = {
-+		.count = 3,
-+		.base = { 0x44000, 0x45000 },
-+		.instances = {
-+				{ .id = 0, .pp = 0, .dspp = 0,
-+				  .caps = MDP_LM_CAP_DISPLAY |
-+					  MDP_LM_CAP_PAIR },
-+				{ .id = 1, .pp = 1, .dspp = -1,
-+				  .caps = MDP_LM_CAP_DISPLAY },
-+			     },
-+		.nb_stages = 5,
-+		.max_width = 2048,
-+		.max_height = 0xFFFF,
-+	},
-+	.dspp = {
-+		.count = 1,
-+		.base = { 0x54000 },
-+
-+	},
-+	.pp = {
-+		.count = 2,
-+		.base = { 0x70000, 0x70800 },
-+	},
-+	.cdm = {
-+		.count = 1,
-+		.base = { 0x79200 },
-+	},
-+	.intf = {
-+		.base = { 0x6a000, 0x6a800, 0x6b000 },
-+		.connect = {
-+			[0] = INTF_DISABLED,
-+			[1] = INTF_DSI,
-+			[2] = INTF_DSI,
-+		},
-+	},
-+	.max_clk = 400000000,
-+};
-+
- static const struct mdp5_cfg_hw msm8917_config = {
- 	.name = "msm8917",
- 	.mdp = {
-@@ -1151,6 +1239,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
- 	{ .revision = 7, .config = { .hw = &msm8x96_config } },
- 	{ .revision = 11, .config = { .hw = &msm8x76_config } },
- 	{ .revision = 15, .config = { .hw = &msm8917_config } },
-+	{ .revision = 16, .config = { .hw = &msm8x53_config } },
- };
- 
- static const struct mdp5_cfg_handler cfg_handlers_v3[] = {
+> diff --git a/drivers/net/wireless/ath/ath10k/Kconfig b/drivers/net/wireless/ath/ath10k/Kconfig
+> index 741289e385d5..ca007b800f75 100644
+> --- a/drivers/net/wireless/ath/ath10k/Kconfig
+> +++ b/drivers/net/wireless/ath/ath10k/Kconfig
+> @@ -44,7 +44,7 @@ config ATH10K_SNOC
+>  	tristate "Qualcomm ath10k SNOC support"
+>  	depends on ATH10K
+>  	depends on ARCH_QCOM || COMPILE_TEST
+> -	depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
+> +	select QCOM_SCM
+>  	select QCOM_QMI_HELPERS
+>  	help
+>  	  This module adds support for integrated WCN3990 chip connected
+
+I assume I can continue to build test ATH10K_SNOC with x86 as before?
+That's important for me. If yes, then:
+
+Acked-by: Kalle Valo <kvalo@codeaurora.org>
+
 -- 
-2.33.0
+https://patchwork.kernel.org/project/linux-wireless/list/
 
+https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
