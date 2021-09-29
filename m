@@ -1,51 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658A341C321
-	for <lists+freedreno@lfdr.de>; Wed, 29 Sep 2021 13:02:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B55841C32B
+	for <lists+freedreno@lfdr.de>; Wed, 29 Sep 2021 13:08:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB1706E1A3;
-	Wed, 29 Sep 2021 11:02:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DABD96EA27;
+	Wed, 29 Sep 2021 11:08:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 436 seconds by postgrey-1.36 at gabe;
- Wed, 29 Sep 2021 11:02:16 UTC
 Received: from smtp-relay-canonical-0.canonical.com
  (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5306E1A3
- for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 11:02:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2E06EA28;
+ Wed, 29 Sep 2021 11:08:06 +0000 (UTC)
 Received: from localhost (1.general.cking.uk.vpn [10.172.193.212])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 47D6540658; 
- Wed, 29 Sep 2021 10:54:58 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id DAF6B405B1; 
+ Wed, 29 Sep 2021 11:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1632912898;
- bh=YOZiyetPPMC5PNnyBKeg3t/QdWNAhWHiGFM/sM4glVM=;
+ s=20210705; t=1632913684;
+ bh=aX6lNt/v2bM3fOhUKFXaVJ5cGbOoFHK0cgvLwy/sgvM=;
  h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type;
- b=wANz101VligmwN3KD5B2T1VyV0Dpv8QeSwMCuZDnMOFdTcimpF511kYoFEVB2mYVV
- 8o8iAqesljHE8T81NfGebrU0G3JYsEZSjhRAXMysBns6c7Y6fbhGe4TEtw0a85yY2l
- jsH9He1ISdV7InwNUpmb1PupzIFXj7hb3DVZbmnUiSrWqkYFWWFQ9TAw1Tx3clZZ+X
- +LI8D+xaPkppvtZ3wlGEMi2OLwqNAXvp9QEyQfx0oqi7BU9V7IODDuVfrHmoisiIp7
- y1UDaXfonsK5NiqEDFChN/qStpCksFcGC/xCyxYpM/aZ89bGMMHZDdRnRcrEUOJxgs
- 9kmgkxX0UwgVg==
+ b=Y9GNT/Ozu5xpPI5SkDNEBzAjAJoeFYKkCEuXCar5Rm0+o8CHNwp3InBRgQrvq7jEj
+ QU5zTVsspxz0xh7Fshfla6ZqugwzKLuW0knZwSL8mFavVwLT73xfAY7GOGEF7PovBX
+ U+MfDH2fbswzilbJcSZJGlW2OI6gg/ikHu6Z7Sh4Gluilq5kMviKhp/DQXck+GKxjV
+ zer2SVAJSSjrKgi0VKimiuQE22/z1+3yCHpSGldVRn3CcQKwV4Hhw1U4t/n0wc3FFb
+ ZniyaHIoDsEG5HX3AgFEdZs2o6JKlgJPKZaEJ4JFg/xlOrgnA6eIEwMuB1iR1yDhI8
+ rehr0oWkqJu6A==
 From: Colin King <colin.king@canonical.com>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Cc: kernel-janitors@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Wed, 29 Sep 2021 11:54:58 +0100
-Message-Id: <20210929105458.209895-1-colin.king@canonical.com>
+Date: Wed, 29 Sep 2021 12:08:04 +0100
+Message-Id: <20210929110804.210725-1-colin.king@canonical.com>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: Remove redundant initialization of
- variable bpp
+Subject: [Freedreno] [PATCH] drm/msm/mdp4: Fix potential integer overflow on
+ 32 bit multiply
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,29 +60,32 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Colin Ian King <colin.king@canonical.com>
 
-The variable bpp is being initialized with a value that is never
-read, it is being updated later on in both paths of an if statement.
-The assignment is redundant and can be removed.
+In the case where clock is 2147485 or greater the 32 bit multiplication
+by 1000 will cause an integer overflow. Fix this by making the constant
+1000 a long to ensure a long multiply occurs to avoid the overflow
+before assigning the result to the long result in variable requested.
+Most probably a theoretical overflow issue, but worth fixing.
 
-Addresses-Coverity: ("Unused value")
+Addresses-Coverity: ("Unintentional integer overflow")
+Fixes: 3e87599b68e7 ("drm/msm/mdp4: add LVDS panel support")
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/msm/dp/dp_panel.c | 2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 2181b60e1d1d..71db10c0f262 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -234,7 +234,7 @@ u32 dp_panel_get_mode_bpp(struct dp_panel *dp_panel,
- 		u32 mode_edid_bpp, u32 mode_pclk_khz)
- {
- 	struct dp_panel_private *panel;
--	u32 bpp = mode_edid_bpp;
-+	u32 bpp;
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+index 7288041dd86a..deada745d5b9 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+@@ -64,7 +64,7 @@ static int mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+ 	struct drm_encoder *encoder = mdp4_lvds_connector->encoder;
+ 	long actual, requested;
  
- 	if (!dp_panel || !mode_edid_bpp || !mode_pclk_khz) {
- 		DRM_ERROR("invalid input\n");
+-	requested = 1000 * mode->clock;
++	requested = 1000L * mode->clock;
+ 	actual = mdp4_lcdc_round_pixclk(encoder, requested);
+ 
+ 	DBG("requested=%ld, actual=%ld", requested, actual);
 -- 
 2.32.0
 
