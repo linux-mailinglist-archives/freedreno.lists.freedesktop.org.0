@@ -2,73 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49D8241CBD6
-	for <lists+freedreno@lfdr.de>; Wed, 29 Sep 2021 20:30:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AFAE41CE01
+	for <lists+freedreno@lfdr.de>; Wed, 29 Sep 2021 23:27:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FCA66EACC;
-	Wed, 29 Sep 2021 18:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE566E24D;
+	Wed, 29 Sep 2021 21:27:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC0D6EACB;
- Wed, 29 Sep 2021 18:30:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A7FD661507;
- Wed, 29 Sep 2021 18:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632940249;
- bh=gjF28VMTIug2m1bl/FU/M9snQ4rR61AFv5fVsRKalNI=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=CISl9Rl7R+M6haM6b37hM8Y55j2HAbcMi0eojp8x2X5LO3rMaVS5sudmIbZDpY2Fa
- v3jkZlxqIQsgk7xdc/KNDPDNwnRYggSWDCUgB/s/FiZxlhlKX24dWHVpR7Wt0mlN/7
- mhK6ym9B69BkMQdp4WI4pKJ+rr90hmai+tmZp9rhMJtK7ONWh9AhmLAFD2pHKhaUG3
- HMRbEb2CCpVxIrKjjd6yE6ttU5SikyGGITOLPKJu1L7QFLNrx8p43TXVkgBvbCSBJk
- HoUf+R5uDfbywO7AlRlXS5uX8pbpj5u56JSH5+uMScUwkPlS/zeQ1/1lCIAk541NMv
- d88464bdH/fHQ==
-Received: by mail-wr1-f47.google.com with SMTP id m22so360112wrb.0;
- Wed, 29 Sep 2021 11:30:49 -0700 (PDT)
-X-Gm-Message-State: AOAM5321wngN/E/lXSbYRpZO40h5PTaN/aixR23U4SPeeSN+3+uk03Fi
- gRbedwXrw12iCdSBzAddQKHn/k/D+ffCUe+ogKg=
-X-Google-Smtp-Source: ABdhPJznh64DeD5YLkqLyCdpGZrw2eJDCFhsGINcOBsXO/6p1u7dAzpxKDez727ElHRBigRMgHpji/X6aGMkMR1n8h4=
-X-Received: by 2002:a05:6000:1561:: with SMTP id
- 1mr1607418wrz.369.1632940247984; 
- Wed, 29 Sep 2021 11:30:47 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB946E24D
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 21:27:33 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id i19so13432500lfu.0
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 14:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vjQP0/+z55MvzkQLmpO17f1ojfgarxRQxkpypeDCRYQ=;
+ b=P6d7v/ARFy2oAzNGlzkCFMmhuF0dw1E4Ty8/aKGGomT30aic5OSINMht/5eTnTjw+E
+ HVwG/Vb0f044xHEAedWSzxWElToMUBbgbJq2HpAC0E3cTqgTRqpyyvO/TxZlRGm7Knzd
+ g197vNwd2IHxhZjeaz4yRtAoxCOvziEh/yVbtU+3O8VuswsBr07x1VFM5xAtgWihuCkO
+ uaX1aUCJfdL12bZY+cJm7vPnn7R7kAZO2pzg6uXgoaCGHwkzYiXL2tUrJgQgg6Kyykb/
+ RcZANF9j+IZ5JhNrzRCHZVii00VULrEZwGuwD9dkVZiGUnoOdzpJdvJXgmdVANl52dPG
+ GeTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vjQP0/+z55MvzkQLmpO17f1ojfgarxRQxkpypeDCRYQ=;
+ b=L4/cRs61/D18rbWyIRS0X1WIXn8UtkF3KDPhfHr+6AbKBoV6n7mUx+SFp08TvMA7v+
+ UBvh4u8G+o82NRZH+df+AiHUuK98gOPQrwCOW8p3sk3qUEBEMOUqkC16DJyzaRtEMWi8
+ jXW4bg679stldVUHMeSFVIoGwWtDEQXRRz0J5ZlofOUX8zgS8XJ9kr3aovxeWyMdTiy4
+ Gnl9GItZXsx8CnqKqZ31oZYrtQyxn6LqYz1fIbzSfEM8aYCBQhR6lxOIMm97JCvhGrNi
+ dH8uuqbghpn3kEwBaL0C6J+gR/G/lEatqmJIilj1kMruPfoggrPBlgbQ8PMeCxoBWz++
+ vwVQ==
+X-Gm-Message-State: AOAM531clV3o2Grh2D/gX29FwkFZVI6+J/zd6OvErShgY42A7ATADHaA
+ 88wLdbw1LlAhfgFFQUZhZxydYUTqnOJu52ZaOH8g0g==
+X-Google-Smtp-Source: ABdhPJxlRl2WWh8eZDcWokrINznDZYEeyO4HbV5UfIxRhCovDEAxjUhr3yg0Uy13hYjMGKtihX9SR8gKl3bzVxFYltc=
+X-Received: by 2002:a05:6512:ea5:: with SMTP id
+ bi37mr1986548lfb.36.1632950851440; 
+ Wed, 29 Sep 2021 14:27:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210927152412.2900928-1-arnd@kernel.org>
- <20210929095107.GA21057@willie-the-truck>
- <CAK8P3a2QnJkYCoEWhziYYXQusb-25_wUhA5ZTGtBsyfFx3NWzQ@mail.gmail.com>
- <YVR8Q7LO0weiFin+@yoga>
-In-Reply-To: <YVR8Q7LO0weiFin+@yoga>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Wed, 29 Sep 2021 20:30:30 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2Kk6Y1Hs98z2UFEis8cWekREFt8YKg2Nbu3G5WQJ7Fag@mail.gmail.com>
-Message-ID: <CAK8P3a2Kk6Y1Hs98z2UFEis8cWekREFt8YKg2Nbu3G5WQJ7Fag@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- Joerg Roedel <joro@8bytes.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Ulf Hansson <ulf.hansson@linaro.org>, Alex Elder <elder@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Kalle Valo <kvalo@codeaurora.org>, 
- Andy Gross <agross@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
- Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Sudeep Holla <sudeep.holla@arm.com>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, 
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- linux-mmc <linux-mmc@vger.kernel.org>, 
- Networking <netdev@vger.kernel.org>, ath10k@lists.infradead.org, 
- linux-wireless <linux-wireless@vger.kernel.org>, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-sunxi@lists.linux.dev
+References: <20210910101218.1632297-1-maxime@cerno.tech>
+In-Reply-To: <20210910101218.1632297-1-maxime@cerno.tech>
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 29 Sep 2021 14:27:19 -0700
+Message-ID: <CALAqxLUqdkxXogmPhPgHv4Bgx-4b3mxe12LzzvWb07pLSnb2kA@mail.gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Cc: Andrzej Hajda <a.hajda@samsung.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>, 
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sean Paul <sean@poorly.run>, 
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ lkml <linux-kernel@vger.kernel.org>, Xinliang Liu <xinliang.liu@linaro.org>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Tian Tao <tiantao6@hisilicon.com>, 
+ Inki Dae <inki.dae@samsung.com>, 
+ Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Chen Feng <puck.chen@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] [RFC] qcom_scm: hide Kconfig symbol
+Subject: Re: [Freedreno] [PATCH v4 00/24] drm/bridge: Make panel and bridge
+ probe order consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,104 +86,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 29, 2021 at 4:46 PM Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
+On Fri, Sep 10, 2021 at 3:12 AM Maxime Ripard <maxime@cerno.tech> wrote:
 >
-> On Wed 29 Sep 05:04 CDT 2021, Arnd Bergmann wrote:
+> We've encountered an issue with the RaspberryPi DSI panel that prevented the
+> whole display driver from probing.
 >
-> > On Wed, Sep 29, 2021 at 11:51 AM Will Deacon <will@kernel.org> wrote:
-> > > On Mon, Sep 27, 2021 at 05:22:13PM +0200, Arnd Bergmann wrote:
-> > > >
-> > > > diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-> > > > index 124c41adeca1..989c83acbfee 100644
-> > > > --- a/drivers/iommu/Kconfig
-> > > > +++ b/drivers/iommu/Kconfig
-> > > > @@ -308,7 +308,7 @@ config APPLE_DART
-> > > >  config ARM_SMMU
-> > > >       tristate "ARM Ltd. System MMU (SMMU) Support"
-> > > >       depends on ARM64 || ARM || (COMPILE_TEST && !GENERIC_ATOMIC64)
-> > > > -     depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
-> > > > +     select QCOM_SCM
-> > > >       select IOMMU_API
-> > > >       select IOMMU_IO_PGTABLE_LPAE
-> > > >       select ARM_DMA_USE_IOMMU if ARM
-> > >
-> > > I don't want to get in the way of this patch because I'm also tired of the
-> > > randconfig failures caused by QCOM_SCM. However, ARM_SMMU is applicable to
-> > > a wide variety of (non-qcom) SoCs and so it seems a shame to require the
-> > > QCOM_SCM code to be included for all of those when it's not strictly needed
-> > > at all.
-> >
-> > Good point, I agree that needs to be fixed. I think this additional
-> > change should do the trick:
-> >
+> The issue is described in detail in the commit 7213246a803f ("drm/vc4: dsi:
+> Only register our component once a DSI device is attached"), but the basic idea
+> is that since the panel is probed through i2c, there's no synchronization
+> between its probe and the registration of the MIPI-DSI host it's attached to.
 >
-> ARM_SMMU and QCOM_IOMMU are two separate implementations and both uses
-> QCOM_SCM. So both of them should select QCOM_SCM.
-
-Right, I figured that out later as well.
-
-> "Unfortunately" the Qualcomm portion of ARM_SMMU is builtin
-> unconditionally, so going with something like select QCOM_SCM if
-> ARCH_QCOM would still require the stubs in qcom_scm.h.
-
-Yes, sounds good. I also noticed that I still need one hack in there
-if I do this:
-
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index 55690af1b25d..36c304a8fc9b 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -427,6 +427,9 @@ struct arm_smmu_device *qcom_smmu_impl_init(struct
-arm_smmu_device *smmu)
- {
-        const struct device_node *np = smmu->dev->of_node;
-
-+       if (!IS_ENABLED(CONFIG_QCOM_SCM))
-+               return ERR_PTR(-ENXIO);
-+
- #ifdef CONFIG_ACPI
-        if (np == NULL) {
-                /* Match platform for ACPI boot */
+> We initially moved the component framework registration to the MIPI-DSI Host
+> attach hook to make sure we register our component only when we have a DSI
+> device attached to our MIPI-DSI host, and then use lookup our DSI device in our
+> bind hook.
+>
+> However, all the DSI bridges controlled through i2c are only registering their
+> associated DSI device in their bridge attach hook, meaning with our change
+> above, we never got that far, and therefore ended up in the same situation than
+> the one we were trying to fix for panels.
+>
+> The best practice to avoid those issues is to register its functions only after
+> all its dependencies are live. We also shouldn't wait any longer than we should
+> to play nice with the other components that are waiting for us, so in our case
+> that would mean moving the DSI device registration to the bridge probe.
+>
+> I also had a look at all the DSI hosts, and it seems that exynos, kirin and msm
+> would be affected by this and wouldn't probe anymore after those changes.
+> Exynos and kirin seems to be simple enough for a mechanical change (that still
+> requires to be tested), but the changes in msm seemed to be far more important
+> and I wasn't confortable doing them.
 
 
-Otherwise it still breaks with ARM_SMMU=y and QCOM_SCM=m.
+Hey Maxime,
+  Sorry for taking so long to get to this, but now that plumbers is
+over I've had a chance to check it out on kirin
 
-Splitting out the qualcomm portion of the arm_smmu driver using
-a separate 'bool' symbol should also work, if  you prefer that
-and can suggest a name and help text for that symbol. It would
-look like
+Rob Clark pointed me to his branch with some fixups here:
+   https://gitlab.freedesktop.org/robclark/msm/-/commits/for-mripard/bridge-rework
 
-diff --git a/drivers/iommu/arm/arm-smmu/Makefile
-b/drivers/iommu/arm/arm-smmu/Makefile
-index e240a7bcf310..b0cc01aa20c9 100644
---- a/drivers/iommu/arm/arm-smmu/Makefile
-+++ b/drivers/iommu/arm/arm-smmu/Makefile
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_QCOM_IOMMU) += qcom_iommu.o
- obj-$(CONFIG_ARM_SMMU) += arm_smmu.o
--arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o arm-smmu-qcom.o
-+arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o
-+arm_smmu-$(CONFIG_ARM_SMMU_QCOM) += arm-smmu-qcom.o
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-index 9f465e146799..2c25cce38060 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-@@ -215,7 +215,8 @@ struct arm_smmu_device *arm_smmu_impl_init(struct
-arm_smmu_device *smmu)
-            of_device_is_compatible(np, "nvidia,tegra186-smmu"))
-                return nvidia_smmu_impl_init(smmu);
+But trying to boot hikey with that, I see the following loop indefinitely:
+[    4.632132] adv7511 2-0039: supply avdd not found, using dummy regulator
+[    4.638961] adv7511 2-0039: supply dvdd not found, using dummy regulator
+[    4.645741] adv7511 2-0039: supply pvdd not found, using dummy regulator
+[    4.652483] adv7511 2-0039: supply a2vdd not found, using dummy regulator
+[    4.659342] adv7511 2-0039: supply v3p3 not found, using dummy regulator
+[    4.666086] adv7511 2-0039: supply v1p2 not found, using dummy regulator
+[    4.681898] adv7511 2-0039: failed to find dsi host
+[    4.688836] adv7511 2-0039: supply avdd not found, using dummy regulator
+[    4.695724] adv7511 2-0039: supply dvdd not found, using dummy regulator
+[    4.702583] adv7511 2-0039: supply pvdd not found, using dummy regulator
+[    4.709369] adv7511 2-0039: supply a2vdd not found, using dummy regulator
+[    4.716232] adv7511 2-0039: supply v3p3 not found, using dummy regulator
+[    4.722972] adv7511 2-0039: supply v1p2 not found, using dummy regulator
+[    4.738720] adv7511 2-0039: failed to find dsi host
 
--       smmu = qcom_smmu_impl_init(smmu);
-+       if (IS_ENABLED(CONFIG_ARM_SMMU_QCOM))
-+               smmu = qcom_smmu_impl_init(smmu);
+I'll have to dig a bit to figure out what's going wrong, but wanted to
+give you the heads up that there seems to be a problem
 
-        if (of_device_is_compatible(np, "marvell,ap806-smmu-500"))
-                smmu->impl = &mrvl_mmu500_impl;
-
-
-
-       Arnd
+thanks
+-john
