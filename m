@@ -1,68 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9EEA41E1E3
-	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 20:59:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D4E41E26C
+	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 21:49:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6BF6E44E;
-	Thu, 30 Sep 2021 18:59:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF9A86EC69;
+	Thu, 30 Sep 2021 19:49:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEECC6E44E;
- Thu, 30 Sep 2021 18:59:29 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id u18so11724745wrg.5;
- Thu, 30 Sep 2021 11:59:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E70786EC68
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 19:49:47 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id b78so9105603iof.2
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 12:49:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GtHR/5mhoD+jbjzzofM3zeDSQMp6/bJoeja1COQo/fU=;
- b=Rue0cEAxWW1ZqJcStxVmkOOQUKd4yTba2mlu7wbp4BiLmo71fXj5pV5d7nddvA/HnP
- Qo8Dez5nAUTT6TwQswJl0YMZVKam36NG8MGhA13s7sDCEYjn4YEuZ3nKa/8ZsxE5M0gc
- CMyRMJqhEOoft3QEH2iyBrSUJvodvt/NX6xaRiBaV61stg1sG7vi3QvkBJ9M20UItNqC
- 36YNk/3N/AhDPuM7dmQz7Zgm33zhHLqRcaMZXZ8M3BxlBsNgX7VCpg1Xzk/GM0WJbN+6
- CWf1eLXxhsg1uIH+u+OYfANqlH3nQK5IJehFNEkxCQFj29TQ6maZ5mIKm2eJrpHe26CS
- kntA==
+ :cc; bh=EB277iFt75fl+4aHOINXc6MZFx1y8U+fiFPNDywa6l0=;
+ b=sVwEennI3YOv/UrOQmnsqVqIhhmjAqxaNwYAVxmqBTd4rixuqJ97suJdLoBCvAYXsq
+ vqUyUs6E/zFeeVvYYctFUEAvSIJUjkLfscDw1/XGt8HMdQH02ZPsajyKFSOGMMQnQBE7
+ OMZNJzxZZVH/zuzFfgFLZ7OO5ZUexLEoQULY0HRt9la5ssJXraGbEWXERcIxAXj/Y4iL
+ GbovCIs9o8pOzBpoOA6W3+iSevcBLzocfy3UW8lbRum4hnIXQ32Q6Z4QMmXqv3ToB55w
+ +b0xMP9oWaRrnUXapNlG4vPu4Xu9sUJA3SxgVX6Z9uQmLuh97KpN3INV6q1zl525Tu7h
+ +LSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=GtHR/5mhoD+jbjzzofM3zeDSQMp6/bJoeja1COQo/fU=;
- b=5/6qTdRGS5Ry7JLq1bP+NZEWCnGjv5ApcwK8ND/s3SJflXfmpdD2Q6aVVqIoE1dZxT
- 6aM9LLxEN4zdLcc3NecmkuZDLwUXrBconax02E3+Oq72rrovwtsJnti185jlckufxlZC
- wtqgX9OxOjbX2Zj9asG645g9D1oOCzhzZAhDviFAFPb0+MQIwMrWQAZujTWCIBaSi1BT
- lGMNnuzES12L6XIgrTIF0xkultDugQfKi9NIaW47Ahw/m5h6btPgAdUb9yLm7ciAEsOM
- 3oSDGuaSBac1K7tgApmlsW9t7OWArLu4Be0shonw0Tv9ZUT/8nkG4Sf1bdvazwUpylvN
- uhJg==
-X-Gm-Message-State: AOAM532jT1cLASEq+28JV3sN3wfNNVrVpejW29hJFsPdiciNKfsSXOEM
- c4iAMT4+skCR0Y3mUcEb37eXUKR/eidJuNyVCMs=
-X-Google-Smtp-Source: ABdhPJyOIvWASHtDgHpnHFcHjfxBLo7tND0WZ5iE6kG/zeFv6A54nYbuesLwzfSUvaEg9mH6wThtBhkPpQlVazxPeuE=
-X-Received: by 2002:a5d:544c:: with SMTP id w12mr8240896wrv.398.1633028368278; 
- Thu, 30 Sep 2021 11:59:28 -0700 (PDT)
+ bh=EB277iFt75fl+4aHOINXc6MZFx1y8U+fiFPNDywa6l0=;
+ b=lPEC70PssazDLugCz+nCL7XkqAKcWOe4B+kJSMW4TApN8VwYrdzDBGjFUxhxjwzz0l
+ glpxgm9DL5PKj+IsMs0DcbgxBiTgCr9D1g9HjkQXlbazz7sq+QmlgwTXwPBGQwRx6LlS
+ iRWXpSHm14sadZP5IrkrlqKsArkqA7BRWjr7iJ0kPTtk18t60yqhJBL3daTHhh6wElUn
+ xW/DLEF5lp8pnGqQDgRj/pxdZ8eC3P8y2QaOSqos3s9EaNUzUFf6gA5tsWD6MtdR3H+5
+ bFQ/Cp4WiqVFGSelTAH+6q39xNNqm+34mfCIooWS1AxigRzeueE2yAXBeL7XaWU78ROZ
+ WXWA==
+X-Gm-Message-State: AOAM531dbagQyQ3nNdzQP6frSdajE9Ao9HV7OP5+MNWKAfQtSSzxytuZ
+ s+q74U2aVF9J6Ipaef+7nXcNJvbgBuRFafKRd/mAKQ==
+X-Google-Smtp-Source: ABdhPJwJrWmWi/hsIsUS4oPU9/SBSkqOkq20r51rFH2xJ/wOLttpZT4oZowTFy/G1fwZD09J6piBpcqyb2OELajF8rg=
+X-Received: by 2002:a05:6638:2650:: with SMTP id
+ n16mr6428740jat.30.1633031387130; 
+ Thu, 30 Sep 2021 12:49:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210930182506.1236811-1-robdclark@gmail.com>
- <CAKMK7uF1kfUD1mc4UScvVG0Su9HiN6M388YhT0jO+iGExxnVtw@mail.gmail.com>
-In-Reply-To: <CAKMK7uF1kfUD1mc4UScvVG0Su9HiN6M388YhT0jO+iGExxnVtw@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 30 Sep 2021 12:04:02 -0700
-Message-ID: <CAF6AEGsNAzpzB4_bVSS9VcQwKEi_N+rdXMx3VYrL8ktf7oueZw@mail.gmail.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
+References: <20210910101218.1632297-1-maxime@cerno.tech>
+ <CALAqxLUqdkxXogmPhPgHv4Bgx-4b3mxe12LzzvWb07pLSnb2kA@mail.gmail.com>
+ <CALAqxLUYb=ge4AZZzmk71Qr-92vnnE6sJxwCNUdEz4=VDKr1kg@mail.gmail.com>
+ <CALAqxLX7oK6DeoCPZhMTpHKCihSYq7KZDrt5UKb46=ZBbJd9fA@mail.gmail.com>
+ <CAF6AEGuJgrYrg7FXpVj8P_qf73CXb4=0KysSYQaobJuheDeUSA@mail.gmail.com>
+In-Reply-To: <CAF6AEGuJgrYrg7FXpVj8P_qf73CXb4=0KysSYQaobJuheDeUSA@mail.gmail.com>
+From: Amit Pundir <amit.pundir@linaro.org>
+Date: Fri, 1 Oct 2021 01:19:11 +0530
+Message-ID: <CAMi1Hd0sUUFvNzYwt29af9d99o1-x+LiXBPCrQ8=9H0tHvxVHg@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: John Stultz <john.stultz@linaro.org>, Maxime Ripard <maxime@cerno.tech>, 
+ Andrzej Hajda <a.hajda@samsung.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>, 
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sean Paul <sean@poorly.run>, 
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ lkml <linux-kernel@vger.kernel.org>, Xinliang Liu <xinliang.liu@linaro.org>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Tian Tao <tiantao6@hisilicon.com>, 
+ Inki Dae <inki.dae@samsung.com>, 
+ Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>, 
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>, 
- David Airlie <airlied@linux.ie>, Akhil P Oommen <akhilpo@codeaurora.org>, 
- Jonathan Marek <jonathan@marek.ca>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sharat Masetty <smasetty@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>, 
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Yangtao Li <tiny.windzz@gmail.com>, 
- open list <linux-kernel@vger.kernel.org>
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ Chen Feng <puck.chen@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Joonyoung Shim <jy0922.shim@samsung.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Track current ctx by seqno
+Subject: Re: [Freedreno] [PATCH v4 00/24] drm/bridge: Make panel and bridge
+ probe order consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,137 +91,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Sep 30, 2021 at 11:34 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Thu, 30 Sept 2021 at 04:50, Rob Clark <robdclark@gmail.com> wrote:
 >
-> On Thu, Sep 30, 2021 at 8:20 PM Rob Clark <robdclark@gmail.com> wrote:
+> On Wed, Sep 29, 2021 at 2:51 PM John Stultz <john.stultz@linaro.org> wrote:
 > >
-> > From: Rob Clark <robdclark@chromium.org>
+> > On Wed, Sep 29, 2021 at 2:32 PM John Stultz <john.stultz@linaro.org> wrote:
+> > > On Wed, Sep 29, 2021 at 2:27 PM John Stultz <john.stultz@linaro.org> wrote:
+> > > > On Fri, Sep 10, 2021 at 3:12 AM Maxime Ripard <maxime@cerno.tech> wrote:
+> > > > > The best practice to avoid those issues is to register its functions only after
+> > > > > all its dependencies are live. We also shouldn't wait any longer than we should
+> > > > > to play nice with the other components that are waiting for us, so in our case
+> > > > > that would mean moving the DSI device registration to the bridge probe.
+> > > > >
+> > > > > I also had a look at all the DSI hosts, and it seems that exynos, kirin and msm
+> > > > > would be affected by this and wouldn't probe anymore after those changes.
+> > > > > Exynos and kirin seems to be simple enough for a mechanical change (that still
+> > > > > requires to be tested), but the changes in msm seemed to be far more important
+> > > > > and I wasn't confortable doing them.
+> > > >
+> > > >
+> > > > Hey Maxime,
+> > > >   Sorry for taking so long to get to this, but now that plumbers is
+> > > > over I've had a chance to check it out on kirin
+> > > >
+> > > > Rob Clark pointed me to his branch with some fixups here:
+> > > >    https://gitlab.freedesktop.org/robclark/msm/-/commits/for-mripard/bridge-rework
+> > > >
+> > > > But trying to boot hikey with that, I see the following loop indefinitely:
+> > > > [    4.632132] adv7511 2-0039: supply avdd not found, using dummy regulator
+> > > > [    4.638961] adv7511 2-0039: supply dvdd not found, using dummy regulator
+> > > > [    4.645741] adv7511 2-0039: supply pvdd not found, using dummy regulator
+> > > > [    4.652483] adv7511 2-0039: supply a2vdd not found, using dummy regulator
+> > > > [    4.659342] adv7511 2-0039: supply v3p3 not found, using dummy regulator
+> > > > [    4.666086] adv7511 2-0039: supply v1p2 not found, using dummy regulator
+> > > > [    4.681898] adv7511 2-0039: failed to find dsi host
+> > >
+> > > I just realized Rob's tree is missing the kirin patch. My apologies!
+> > > I'll retest and let you know.
 > >
-> > In theory a context can be destroyed and a new one allocated at the same
-> > address, making the pointer comparision to detect when we don't need to
-> > update the current pagetables invalid.  Instead assign a sequence number
-> > to each context on creation, and use this for the check.
+> > Ok, just retested including the kirin patch and unfortunately I'm
+> > still seeing the same thing.  :(
 > >
-> > Fixes: 84c31ee16f90 ("drm/msm/a6xx: Add support for per-instance pagetables")
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > Will dig a bit and let you know when I find more.
 >
-> Usually the weak reference pattern is to wrap a spinlock or something
-> around it and clear it out on destruction. Or hold a full reference
-> (e.g. on intel hw the hw goes unhappy if there's no context/pagetables
-> at all, so we always need some). But I guess this works too.
+> Did you have a chance to test it on anything using drm/msm with DSI
+> panels?  That would at least confirm that I didn't miss anything in
+> the drm/msm patch to swap the dsi-host vs bridge ordering..
 
-yeah, the seqno approach was so that gen agnostic code didn't have to
-go fishing around in a6xx_gpu..
+Hi, smoke tested
+https://gitlab.freedesktop.org/robclark/msm/-/commits/for-mripard/bridge-rework
+on Pocophone F1 (sdm845 / A630) with v5.15-rc3. I see no obvious
+regressions in my limited testing so far including video (youtube)
+playback.
 
-I guess the downside is userspace could open/close the dev file 2^32
-times without submitting any rendering to trigger the same sort of
-issue.  But there are plenty of easier ways for userspace to trigger
-faults if it wanted.
-
-BR,
--R
-
-> -Daniel
 >
-> > ---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  6 +++---
-> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 11 ++++++++++-
-> >  drivers/gpu/drm/msm/msm_drv.c         |  3 +++
-> >  drivers/gpu/drm/msm/msm_drv.h         |  1 +
-> >  4 files changed, 17 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > index 5e1ae3df42ba..e0a8b2fd1ff0 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > @@ -106,7 +106,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
-> >         u32 asid;
-> >         u64 memptr = rbmemptr(ring, ttbr0);
-> >
-> > -       if (ctx == a6xx_gpu->cur_ctx)
-> > +       if (ctx->seqno == a6xx_gpu->cur_ctx_seqno)
-> >                 return;
-> >
-> >         if (msm_iommu_pagetable_params(ctx->aspace->mmu, &ttbr, &asid))
-> > @@ -139,7 +139,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
-> >         OUT_PKT7(ring, CP_EVENT_WRITE, 1);
-> >         OUT_RING(ring, 0x31);
-> >
-> > -       a6xx_gpu->cur_ctx = ctx;
-> > +       a6xx_gpu->cur_ctx_seqno = ctx->seqno;
-> >  }
-> >
-> >  static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-> > @@ -1081,7 +1081,7 @@ static int hw_init(struct msm_gpu *gpu)
-> >         /* Always come up on rb 0 */
-> >         a6xx_gpu->cur_ring = gpu->rb[0];
-> >
-> > -       a6xx_gpu->cur_ctx = NULL;
-> > +       a6xx_gpu->cur_ctx_seqno = 0;
-> >
-> >         /* Enable the SQE_to start the CP engine */
-> >         gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 1);
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> > index 0bc2d062f54a..8e5527c881b1 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-> > @@ -19,7 +19,16 @@ struct a6xx_gpu {
-> >         uint64_t sqe_iova;
-> >
-> >         struct msm_ringbuffer *cur_ring;
-> > -       struct msm_file_private *cur_ctx;
-> > +
-> > +       /**
-> > +        * cur_ctx_seqno:
-> > +        *
-> > +        * The ctx->seqno value of the context with current pgtables
-> > +        * installed.  Tracked by seqno rather than pointer value to
-> > +        * avoid dangling pointers, and cases where a ctx can be freed
-> > +        * and a new one created with the same address.
-> > +        */
-> > +       int cur_ctx_seqno;
-> >
-> >         struct a6xx_gmu gmu;
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index 624078b3adf2..30c1efc3d8a0 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -711,6 +711,7 @@ static void load_gpu(struct drm_device *dev)
-> >
-> >  static int context_init(struct drm_device *dev, struct drm_file *file)
-> >  {
-> > +       static atomic_t ident = ATOMIC_INIT(0);
-> >         struct msm_drm_private *priv = dev->dev_private;
-> >         struct msm_file_private *ctx;
-> >
-> > @@ -727,6 +728,8 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
-> >         ctx->aspace = msm_gpu_create_private_address_space(priv->gpu, current);
-> >         file->driver_priv = ctx;
-> >
-> > +       ctx->seqno = atomic_inc_return(&ident);
-> > +
-> >         return 0;
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> > index de062450add4..8633d0059a3e 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.h
-> > +++ b/drivers/gpu/drm/msm/msm_drv.h
-> > @@ -59,6 +59,7 @@ struct msm_file_private {
-> >         int queueid;
-> >         struct msm_gem_address_space *aspace;
-> >         struct kref ref;
-> > +       int seqno;
-> >  };
-> >
-> >  enum msm_mdp_plane_property {
-> > --
-> > 2.31.1
-> >
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> BR,
+> -R
