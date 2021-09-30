@@ -1,79 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 582B541CFFD
-	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 01:29:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B274441D066
+	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 02:02:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0826E296;
-	Wed, 29 Sep 2021 23:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10BE66EB0B;
+	Thu, 30 Sep 2021 00:02:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 385496E296
- for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 23:29:56 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id i4so17607964lfv.4
- for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 16:29:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3jxizxNlMd3y5kC30EDvr+i+pHVmPKgABz+DF4rjgKs=;
- b=ZNn9Be9ICes2313BvgS80zA79N5Rq02S19oDdcxEx67Sx2rzL5Gn1xVnuu3/ukS6dh
- RtjBsCpugu9twNEt/dyydKYUcEe//8cHEgNaSmNAM9JttRf66LomPN0bRf8t0UmYIH6J
- bK8f/eh0Jg5jTt5RM3jaBwYLMr4tSVtsnJ6t1BL1Tx/sirWQuI/MN57Yvd5c3rj4jtCl
- ufitWPMWyXCopRxWyRu6ONxWq+6kWNCJWoS0JMr6GptBK0Scan2mjbOH0RyRhmLURchN
- u306sBL0XbZ8cbmzje+XWEYOAekY8Im+A2omYOA/XmPk+EYU7T6M4WCs3u8gTjLcBxXB
- pLKg==
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9F866E2B4
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 00:02:41 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ r43-20020a05683044ab00b0054716b40005so5082784otv.4
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 17:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=sz4qPh2dIGtWybWIz2+FjL1xXs0xQ2gcPE6MG4pSh9s=;
+ b=G5lm0rNGleMtnm89OwP5wrX1UP7DVgf1ffpI+keySiETKAx+04oGYa2qSV9N45Dae5
+ 4oSFDuhP7WYfWr4MFksVnueKfrzQ5VwNgoqGiHqwEFI9DEoNAs7RrciO/LQx4rFXBuY4
+ WL/6osoaLWCDuTBcByfs5EdFt7hXSfiLPRyBM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3jxizxNlMd3y5kC30EDvr+i+pHVmPKgABz+DF4rjgKs=;
- b=5Vr9X9Btcifs+VT4XAF+nx42hG1iH1kDKVar50a4jgeDkcxz7bd4Sl560Pfqm/hf0W
- t/iCJuRy3PTBPfHddPOPtjernHUvIYBZ3eId+ET6j2W6EtOyQ2i3rm2+9tUIHgyxZ3Vf
- bDHXsjHh6smQexM66ioRlHvoIG3B7fscjyZebqaZaRfdY4/+5Nqj8tLAPu5eOnXe1sj0
- xW2eLTn3yQ6aHtOdi3PmsI9OBq58W2LE98SP7VZg3Py3PFjwPtqx0SfJ0nlmf5V/dwK2
- ze+bFWw3tg1/ppYKqsxIJAyeyZOMYPyPZ7drG04WVqmxAr/pjyeCjaNyJTzdwywhlIUm
- u3fQ==
-X-Gm-Message-State: AOAM532PCc0e6scXtO5hQiMAPM1rvhx10VyHX+5eYwt0hm8pNFboZYZY
- 8tYi5dKq40t+CTG/2ssLSd3Q4OF9qQolu2J4LY8LwQ==
-X-Google-Smtp-Source: ABdhPJxEKlQI/LHiS4pZSJWaQTK5azLO1ThGLFdst/S7wFdxgxStmC6elHJTeXAejJ+cfi1lHCUXfQO9r4xF0Yu/Cgs=
-X-Received: by 2002:a05:6512:ea5:: with SMTP id
- bi37mr2501644lfb.36.1632958194363; 
- Wed, 29 Sep 2021 16:29:54 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=sz4qPh2dIGtWybWIz2+FjL1xXs0xQ2gcPE6MG4pSh9s=;
+ b=QrioN7bzhH+koZiszBcLLw5RRk/08ryPqG13v7jlRmXACP+M5d3BNAuee/l9Ta4S4D
+ uWeqWHMs0ZPH8cyChHRA7rkTQunUPZWFdLub3xrXTBUXTm/mV3uoG3uh2OwgtQaJoAML
+ S5kYyGVtJRUBUQZceM5Rzj+m3WtSc+CeuG4NTrDgWZD06lkcr4Be+4+/4MpdSRJLvc2Q
+ 9Cdugfgmo2IDmWtmM1OWby9ElS/Z27wx29hkgpAXVwVODeej6rA+BxzPzxw1uIzFtcxp
+ J59fgc4XuT+eJklk/LdU0wKB8TuFJizQuxSn5mkTPj4qs6dswKsMmfi5dgjk8KJEPjxc
+ 3pWA==
+X-Gm-Message-State: AOAM531GrxFIAzNX6v77pesgXkx80JMLRkNEvNmJmj+IVoYITGsDNlup
+ ufXsq5iVu4LHMLzux3irrSbp4M+E27gAZVCaEUnLPA==
+X-Google-Smtp-Source: ABdhPJxnw99W4CrkwEhmaBpAMawQdJMBR5h0AmtsSMqnz3MManm3XK032vWPW2BVu2aphVCq7lnE3qq6RcZ6fDGC+FU=
+X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr2543966otn.126.1632960161028; 
+ Wed, 29 Sep 2021 17:02:41 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 29 Sep 2021 17:02:40 -0700
 MIME-Version: 1.0
-References: <20210910101218.1632297-1-maxime@cerno.tech>
- <CALAqxLUqdkxXogmPhPgHv4Bgx-4b3mxe12LzzvWb07pLSnb2kA@mail.gmail.com>
- <CALAqxLUYb=ge4AZZzmk71Qr-92vnnE6sJxwCNUdEz4=VDKr1kg@mail.gmail.com>
- <CALAqxLX7oK6DeoCPZhMTpHKCihSYq7KZDrt5UKb46=ZBbJd9fA@mail.gmail.com>
-In-Reply-To: <CALAqxLX7oK6DeoCPZhMTpHKCihSYq7KZDrt5UKb46=ZBbJd9fA@mail.gmail.com>
-From: John Stultz <john.stultz@linaro.org>
-Date: Wed, 29 Sep 2021 16:29:42 -0700
-Message-ID: <CALAqxLW=dJSmfaHAL=BfYVVxZHQvzJWu4UjMixwgM=Nh85JVNw@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Cc: Andrzej Hajda <a.hajda@samsung.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>, 
- Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sean Paul <sean@poorly.run>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- lkml <linux-kernel@vger.kernel.org>, Xinliang Liu <xinliang.liu@linaro.org>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, Tian Tao <tiantao6@hisilicon.com>, 
- Inki Dae <inki.dae@samsung.com>, 
- Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chen Feng <puck.chen@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>
+In-Reply-To: <1632932224-25102-1-git-send-email-khsieh@codeaurora.org>
+References: <1632932224-25102-1-git-send-email-khsieh@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 29 Sep 2021 17:02:40 -0700
+Message-ID: <CAE-0n52iO3rSE59OBOgJ1sZMckweoBxN5ih9fY2dg_ht9cctfw@mail.gmail.com>
+To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
+ bjorn.andersson@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 00/24] drm/bridge: Make panel and bridge
- probe order consistent
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: only signal audio when
+ disconnected detected at dp_pm_resume
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,56 +72,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Sep 29, 2021 at 2:51 PM John Stultz <john.stultz@linaro.org> wrote:
+Quoting Kuogee Hsieh (2021-09-29 09:17:04)
+> Currently there is audio not working problem after system resume from suspend
+> if hdmi monitor stay plugged in at DUT. However this problem does not happen
+> at normal operation but at a particular test case. The root cause is DP driver
+> signal audio with connected state at resume which trigger audio trying to setup
+> audio data path through DP main link but failed due to display port is not setup
+> and enabled by upper layer framework yet. This patch only have DP driver signal
+> audio only when DP is in disconnected state so that audio option shows correct
+> state after system resume. DP driver will not signal audio with connected state
+> until display enabled executed by upper layer framework where display port is
+> setup completed and main link is running.
 >
-> On Wed, Sep 29, 2021 at 2:32 PM John Stultz <john.stultz@linaro.org> wrote:
-> > On Wed, Sep 29, 2021 at 2:27 PM John Stultz <john.stultz@linaro.org> wrote:
-> > > On Fri, Sep 10, 2021 at 3:12 AM Maxime Ripard <maxime@cerno.tech> wrote:
-> > > > The best practice to avoid those issues is to register its functions only after
-> > > > all its dependencies are live. We also shouldn't wait any longer than we should
-> > > > to play nice with the other components that are waiting for us, so in our case
-> > > > that would mean moving the DSI device registration to the bridge probe.
-> > > >
-> > > > I also had a look at all the DSI hosts, and it seems that exynos, kirin and msm
-> > > > would be affected by this and wouldn't probe anymore after those changes.
-> > > > Exynos and kirin seems to be simple enough for a mechanical change (that still
-> > > > requires to be tested), but the changes in msm seemed to be far more important
-> > > > and I wasn't confortable doing them.
-> > >
-> > >
-> > > Hey Maxime,
-> > >   Sorry for taking so long to get to this, but now that plumbers is
-> > > over I've had a chance to check it out on kirin
-> > >
-> > > Rob Clark pointed me to his branch with some fixups here:
-> > >    https://gitlab.freedesktop.org/robclark/msm/-/commits/for-mripard/bridge-rework
-> > >
-> > > But trying to boot hikey with that, I see the following loop indefinitely:
-> > > [    4.632132] adv7511 2-0039: supply avdd not found, using dummy regulator
-> > > [    4.638961] adv7511 2-0039: supply dvdd not found, using dummy regulator
-> > > [    4.645741] adv7511 2-0039: supply pvdd not found, using dummy regulator
-> > > [    4.652483] adv7511 2-0039: supply a2vdd not found, using dummy regulator
-> > > [    4.659342] adv7511 2-0039: supply v3p3 not found, using dummy regulator
-> > > [    4.666086] adv7511 2-0039: supply v1p2 not found, using dummy regulator
-> > > [    4.681898] adv7511 2-0039: failed to find dsi host
-> >
-> > I just realized Rob's tree is missing the kirin patch. My apologies!
-> > I'll retest and let you know.
+> Changes in V2:
+> -- add details commit text
 >
-> Ok, just retested including the kirin patch and unfortunately I'm
-> still seeing the same thing.  :(
->
-> Will dig a bit and let you know when I find more.
+> Fixes: 078867ce04ed ("drm/msm/dp: signal audio plugged change at dp_pm_resume")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> ---
 
-Hey Maxime!
-  I chased down the issue. The dsi probe code was still calling
-drm_of_find_panel_or_bridge() in order to succeed.
-
-I've moved the logic that looks for the bridge into the bridge_init
-and with that it seems to work.
-
-Feel free (assuming it looks ok) to fold this change into your kirin patch:
-  https://git.linaro.org/people/john.stultz/android-dev.git/commit/?id=4a35ccc4d7a53f68d6d93da3b47e232a7c75b91d
-
-thanks
--john
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
