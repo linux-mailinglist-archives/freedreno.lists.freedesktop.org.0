@@ -1,65 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADC3741E067
-	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 19:58:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 529FE41E0FC
+	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 20:20:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B8A96EC3C;
-	Thu, 30 Sep 2021 17:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D59A36E450;
+	Thu, 30 Sep 2021 18:20:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEFDC6EC3C
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 17:58:27 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id s69so8311380oie.13
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 10:58:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=ODaJrzhlII7IaX+qlNLhzszeBmnqReAaw8HMQDA91KQ=;
- b=bTQg8VLL960aI4MFPT4bL+ziwayamEyzDehDR1iOJFMPkxj/2Nk4rKVj9YVCEdzD6b
- UrAEhn7yK+oZWFVFV9a2Vsk+1xTPbIH4KRcCLTJq6nYecBRghntzlrD0p0OATanZSj0t
- St0+87W3xKmk6mTdbO+IC0+LpfWha2ZwUXZQM=
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 486A66E450;
+ Thu, 30 Sep 2021 18:20:35 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id h1so1640349pfv.12;
+ Thu, 30 Sep 2021 11:20:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gjZZ/ucXOWL7CIsLTW5U/ybZd+F2uJjp6RNFoIb1zYc=;
+ b=IM4363ZIbg2YekiDwC2QFrRe/u/VVnOy6LGDPj2DxxC80vB/bOfCcCbiFuMFIWZ1VD
+ egrxrxplwBr3BfS2iZtDxAXuQI+ZVZMTXW9vaKbwndqAUU6h59HYajlupBrbOFqhZyv1
+ XN/caWJJGDoFsb/w/6/FvfWwMUXpFD7LwuNaMz9x5mZbnvQTjx8Uoy3BBTDmV/9AHsIq
+ kppWrjC0Kx1w7witsYITJB69FqKzc6P19HJYyJkeTrX5Mx4Q0p6N6M212gjo0FqDyJgb
+ giE9hSAnnqreGeV5AA+P1XmKRdceNwGXRpezVtyavpscF1IzHumjkfH9YJGkkjhTDwSk
+ JI2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=ODaJrzhlII7IaX+qlNLhzszeBmnqReAaw8HMQDA91KQ=;
- b=0VKA5Gnb5fB+N7Zxw0bmiZ2SZNO9ORTCzhf6YNXDAyqSX75JU0QwsWO6XyUrUqfT+k
- 0tmyXnaC502XYSsxkZXRgekYMYbJ2SETY6I/7uj3aTmREFou8RMusEUCpaD0L+Y8l+j1
- wGOi3/CnIgJa4rXvc3AtDSda0aGpvbCzzXR0c4UWaipbWAXDAzFMymc6U2MffnyPhRDi
- tgeGkQP0fG/16jVoM4E1DBwmYeZVnSSDkl2rLwKS5b/1PjEmIIJ7hstk7b9tY45IhqiM
- dDDaXW/rBak3MUPDH0+bsyGTBJx39WQPe6hCR4Jx7tZny8B9MMASxb599yMJI9C+h65j
- 1+Uw==
-X-Gm-Message-State: AOAM530LBxFPRmCchovG6xyVz5/ajtPrQQtb8RMCHBS+jAzq2aabWAx1
- TVjpmkzfbFReI1D7j9tGJF9pYx+GHdn1Ua67AQiMog==
-X-Google-Smtp-Source: ABdhPJx0TbzSitN4I1kanbYg8IkdrXr3mPw09WhLirZ71+GW8AkE5QIIHBvLl1NRDRFk/IIUhiDGGlyQIyMalzrBWvE=
-X-Received: by 2002:aca:42d7:: with SMTP id p206mr501591oia.32.1633024707214; 
- Thu, 30 Sep 2021 10:58:27 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 30 Sep 2021 10:58:26 -0700
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gjZZ/ucXOWL7CIsLTW5U/ybZd+F2uJjp6RNFoIb1zYc=;
+ b=rzGfNhAzT2Dq97YS5/oC+h6Jn1KCtEk2tEueKBmX2dIsghIrZmTae+zPxndEh61hiz
+ 3sz5RVWYK0gtaQXE469AJczQZatwM5NwjKqxeenw2dWZ0dB4lkXqVVU4859CrB58mO1n
+ AFpAo2fIHVKURxRVLaxRtDO3Gdb/nqsrXn7T6RezHfAknA5vKH0dqyMaHIH8SU/lxHpN
+ d6oknGEXbQseadGX79lIeR3ieFYwBsb/cupJnBU5p6bHBLJY2dmV46ZSkDJ9basC2GFK
+ XEYVxxe/phdxKBwiaUAKyRqzkrMt8TnRlyy/tBeiNxR1eLwDGUTgYoNJn3i8ZDX8X1i+
+ FNEQ==
+X-Gm-Message-State: AOAM5301bH2/EQX3kX4iCGdex6I9N4HjvuzTLzQwyXw9a9WldeR7ykRa
+ py0f5wnRPHfxawDvOT9U+r71tZtFfxU=
+X-Google-Smtp-Source: ABdhPJyUCr7ygKUx86DaLgetw9p4qlMD/xpSRDWXB7zvz7jE7HLv8Cc6vDLV6GdHS5ZUTKVwxpoHVg==
+X-Received: by 2002:a63:191a:: with SMTP id z26mr6084310pgl.373.1633026034126; 
+ Thu, 30 Sep 2021 11:20:34 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ q18sm3629863pfh.170.2021.09.30.11.20.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Sep 2021 11:20:32 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Yangtao Li <tiny.windzz@gmail.com>,
+ linux-kernel@vger.kernel.org (open list)
+Date: Thu, 30 Sep 2021 11:25:02 -0700
+Message-Id: <20210930182506.1236811-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <5adf2ab2c2a162272509d253bd797721@codeaurora.org>
-References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
- <1629282424-4070-2-git-send-email-mkrishn@codeaurora.org>
- <CAE-0n50b=pX=1MFwGPDvDR=O03tUAkAgyMonGm2+SXBft=16KQ@mail.gmail.com>
- <5adf2ab2c2a162272509d253bd797721@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 30 Sep 2021 10:58:26 -0700
-Message-ID: <CAE-0n53kQU=8pdcWR0OZap1wDgxxwed0qvfaGruc71YT5Cj1iA@mail.gmail.com>
-To: mkrishn@codeaurora.org
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org, 
- sbillaka@codeaurora.org, abhinavk@codeaurora.org, robdclark@gmail.com, 
- bjorn.andersson@linaro.org, khsieh@codeaurora.org, rajeevny@codeaurora.org, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- robh+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 2/4] arm64: dts: qcom: sc7280: add
- display dt nodes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Track current ctx by seqno
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,31 +81,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting mkrishn@codeaurora.org (2021-09-30 04:56:59)
-> On 2021-08-19 01:27, Stephen Boyd wrote:
-> > Quoting Krishna Manikandan (2021-08-18 03:27:02)
-> >> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> index 53a21d0..fd7ff1c 100644
-> >> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> +
-> >> +                       status = "disabled";
-> >> +
-> >> +                       mdp: mdp@ae01000 {
-> >
-> > display-controller@ae01000
->
-> Stephen,
->     In the current driver code, there is a substring comparison for "mdp"
-> in device node name as part of probe sequence. If "mdp" is not present
-> in the node name, it will
->     return an error resulting in probe failure. Can we continue using mdp
-> as nodename instead of display controller?
->
+From: Rob Clark <robdclark@chromium.org>
 
-Can we fix the driver to not look for node names and look for compatible
-strings instead? It took me a minute to find compare_name_mdp() in
-drivers/gpu/drm/msm/msm_drv.c to understand what you're talking about.
-Perhaps looking for qcom,mdp5 in there will be sufficient instead of
-looking at the node name.
+In theory a context can be destroyed and a new one allocated at the same
+address, making the pointer comparision to detect when we don't need to
+update the current pagetables invalid.  Instead assign a sequence number
+to each context on creation, and use this for the check.
+
+Fixes: 84c31ee16f90 ("drm/msm/a6xx: Add support for per-instance pagetables")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c |  6 +++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 11 ++++++++++-
+ drivers/gpu/drm/msm/msm_drv.c         |  3 +++
+ drivers/gpu/drm/msm/msm_drv.h         |  1 +
+ 4 files changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 5e1ae3df42ba..e0a8b2fd1ff0 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -106,7 +106,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 	u32 asid;
+ 	u64 memptr = rbmemptr(ring, ttbr0);
+ 
+-	if (ctx == a6xx_gpu->cur_ctx)
++	if (ctx->seqno == a6xx_gpu->cur_ctx_seqno)
+ 		return;
+ 
+ 	if (msm_iommu_pagetable_params(ctx->aspace->mmu, &ttbr, &asid))
+@@ -139,7 +139,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
+ 	OUT_RING(ring, 0x31);
+ 
+-	a6xx_gpu->cur_ctx = ctx;
++	a6xx_gpu->cur_ctx_seqno = ctx->seqno;
+ }
+ 
+ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+@@ -1081,7 +1081,7 @@ static int hw_init(struct msm_gpu *gpu)
+ 	/* Always come up on rb 0 */
+ 	a6xx_gpu->cur_ring = gpu->rb[0];
+ 
+-	a6xx_gpu->cur_ctx = NULL;
++	a6xx_gpu->cur_ctx_seqno = 0;
+ 
+ 	/* Enable the SQE_to start the CP engine */
+ 	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 1);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 0bc2d062f54a..8e5527c881b1 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -19,7 +19,16 @@ struct a6xx_gpu {
+ 	uint64_t sqe_iova;
+ 
+ 	struct msm_ringbuffer *cur_ring;
+-	struct msm_file_private *cur_ctx;
++
++	/**
++	 * cur_ctx_seqno:
++	 *
++	 * The ctx->seqno value of the context with current pgtables
++	 * installed.  Tracked by seqno rather than pointer value to
++	 * avoid dangling pointers, and cases where a ctx can be freed
++	 * and a new one created with the same address.
++	 */
++	int cur_ctx_seqno;
+ 
+ 	struct a6xx_gmu gmu;
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 624078b3adf2..30c1efc3d8a0 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -711,6 +711,7 @@ static void load_gpu(struct drm_device *dev)
+ 
+ static int context_init(struct drm_device *dev, struct drm_file *file)
+ {
++	static atomic_t ident = ATOMIC_INIT(0);
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_file_private *ctx;
+ 
+@@ -727,6 +728,8 @@ static int context_init(struct drm_device *dev, struct drm_file *file)
+ 	ctx->aspace = msm_gpu_create_private_address_space(priv->gpu, current);
+ 	file->driver_priv = ctx;
+ 
++	ctx->seqno = atomic_inc_return(&ident);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index de062450add4..8633d0059a3e 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -59,6 +59,7 @@ struct msm_file_private {
+ 	int queueid;
+ 	struct msm_gem_address_space *aspace;
+ 	struct kref ref;
++	int seqno;
+ };
+ 
+ enum msm_mdp_plane_property {
+-- 
+2.31.1
+
