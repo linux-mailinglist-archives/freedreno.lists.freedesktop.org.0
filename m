@@ -1,62 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B274441D066
-	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 02:02:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6EB41D15A
+	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 04:19:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10BE66EB0B;
-	Thu, 30 Sep 2021 00:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2891F6EB23;
+	Thu, 30 Sep 2021 02:19:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9F866E2B4
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 00:02:41 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- r43-20020a05683044ab00b0054716b40005so5082784otv.4
- for <freedreno@lists.freedesktop.org>; Wed, 29 Sep 2021 17:02:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=sz4qPh2dIGtWybWIz2+FjL1xXs0xQ2gcPE6MG4pSh9s=;
- b=G5lm0rNGleMtnm89OwP5wrX1UP7DVgf1ffpI+keySiETKAx+04oGYa2qSV9N45Dae5
- 4oSFDuhP7WYfWr4MFksVnueKfrzQ5VwNgoqGiHqwEFI9DEoNAs7RrciO/LQx4rFXBuY4
- WL/6osoaLWCDuTBcByfs5EdFt7hXSfiLPRyBM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=sz4qPh2dIGtWybWIz2+FjL1xXs0xQ2gcPE6MG4pSh9s=;
- b=QrioN7bzhH+koZiszBcLLw5RRk/08ryPqG13v7jlRmXACP+M5d3BNAuee/l9Ta4S4D
- uWeqWHMs0ZPH8cyChHRA7rkTQunUPZWFdLub3xrXTBUXTm/mV3uoG3uh2OwgtQaJoAML
- S5kYyGVtJRUBUQZceM5Rzj+m3WtSc+CeuG4NTrDgWZD06lkcr4Be+4+/4MpdSRJLvc2Q
- 9Cdugfgmo2IDmWtmM1OWby9ElS/Z27wx29hkgpAXVwVODeej6rA+BxzPzxw1uIzFtcxp
- J59fgc4XuT+eJklk/LdU0wKB8TuFJizQuxSn5mkTPj4qs6dswKsMmfi5dgjk8KJEPjxc
- 3pWA==
-X-Gm-Message-State: AOAM531GrxFIAzNX6v77pesgXkx80JMLRkNEvNmJmj+IVoYITGsDNlup
- ufXsq5iVu4LHMLzux3irrSbp4M+E27gAZVCaEUnLPA==
-X-Google-Smtp-Source: ABdhPJxnw99W4CrkwEhmaBpAMawQdJMBR5h0AmtsSMqnz3MManm3XK032vWPW2BVu2aphVCq7lnE3qq6RcZ6fDGC+FU=
-X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr2543966otn.126.1632960161028; 
- Wed, 29 Sep 2021 17:02:41 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 29 Sep 2021 17:02:40 -0700
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75FC46EB23
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 02:19:13 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1632968355; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=+7oKjBSrX1u3jxx0QQvh+jT5dPbbCieWUQ1+GE9nPt0=;
+ b=svuQfFmTOaWciHhXn3FXEeQ0hpeFJW7EMimJN7GSU/86tOF5KvvetBMjPNZlTiLqiTZx8m6G
+ cwd1yOArGwsRuO2/aQC9CvIAZIcDbeiMxSpoHLkrBc18FDkps2OoP+dAw3TPDYPgdyx1SoO0
+ LVZ5SVDMLHolyEgyMoc3mbVxkpY=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 61551e9b9ffb413149ce0a6e (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 30 Sep 2021 02:19:07
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 08773C4360C; Thu, 30 Sep 2021 02:19:06 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A0B1EC4338F;
+ Thu, 30 Sep 2021 02:19:05 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1632932224-25102-1-git-send-email-khsieh@codeaurora.org>
-References: <1632932224-25102-1-git-send-email-khsieh@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 29 Sep 2021 17:02:40 -0700
-Message-ID: <CAE-0n52iO3rSE59OBOgJ1sZMckweoBxN5ih9fY2dg_ht9cctfw@mail.gmail.com>
-To: Kuogee Hsieh <khsieh@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: only signal audio when
- disconnected detected at dp_pm_resume
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 29 Sep 2021 19:19:05 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Jonathan Marek
+ <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
+References: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
+Message-ID: <c7caa55f5244ba4b7341a1b912835d91@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2 00/22] drm/msm/dpu: switch dpu_plane to
+ be virtual
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,23 +75,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-09-29 09:17:04)
-> Currently there is audio not working problem after system resume from suspend
-> if hdmi monitor stay plugged in at DUT. However this problem does not happen
-> at normal operation but at a particular test case. The root cause is DP driver
-> signal audio with connected state at resume which trigger audio trying to setup
-> audio data path through DP main link but failed due to display port is not setup
-> and enabled by upper layer framework yet. This patch only have DP driver signal
-> audio only when DP is in disconnected state so that audio option shows correct
-> state after system resume. DP driver will not signal audio with connected state
-> until display enabled executed by upper layer framework where display port is
-> setup completed and main link is running.
->
-> Changes in V2:
-> -- add details commit text
->
-> Fixes: 078867ce04ed ("drm/msm/dp: signal audio plugged change at dp_pm_resume")
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> ---
+Hi Dmitry
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+On 2021-07-04 18:20, Dmitry Baryshkov wrote:
+> As discussed on IRC, change dpu_plane implementation to be virtual:
+> register unified planes and select backing SSPP block at runtime.
+> 
+> Use msm.dpu_use_virtual_planes=1 to enable usage of virtual planes
+> rather than statically allocated SSPPs at the plane registration.
+> 
+> Patches 1-9 move state variables from struct dpu_plane onto the stack
+> allocation. State should not be a part of struct dpu_plane anyway.
+> 
+> Patches 10-18 make additional changes to plane code, reworking check,
+> debugfs, dropping old multirec support, which results in patch 19 
+> adding
+> support for virtual planes per se.
+> 
+> Patches 20-22 demonstrate my main goal behind reworking dpu_plane
+> support. They change dpu_plane to automatically use one of SSPP block
+> features - multirec, an ability to display two unscaled RGB rectangles
+> using single SSPP block. This allows us to double the amount of created
+> planes. If the user tries to enable more planes than actually supported
+> by the underlying SSPP blocks, atomic_check code would return an error.
+> 
+> As you can see, this patchset is not atomic, so different patches can 
+> go
+> separately.
+
+I am half way through this series and have finished checking patches 
+1-12
+I am okay with patches 1-4, 6-12. Its a reasonable cleanup to make the 
+dpu_plane struct lighter.
+I need a little more time with the rest as I am comparing the downstream 
+solution against yours.
+
+As you mentioned, this patchset is not atomic, hence can you break it up 
+like
+-> cleanup of dpu_plane struct in one series
+-> removal of current multirect and current src split which will include 
+patch 5 as well
+
+So that the first series can go through and it gives us a little more 
+time to check the second
+series.
+
+Thanks
+
+Abhinav
+
+> 
+> Changes since v1:
+>  - Add multirec implementation
+>  - Added msm.dpu_use_virtual_planes kernel parameter instead of using
+>    compile time switch
+>  - Changed code to always reallocate SSPPs in the CRTC atomic check to
+>    let the kernel pick up the best multirec config. This can be
+>    optimized later.
+>  - Rework RM SSPP API to always receive plane id
+>  - Removed scaler_cfg, pixel_ext and cdp_cfg from struct 
+> dpu_plane_state
+>  - Made _dpu_scaler_setup() call sspp's setup_scaler and setup_pe
+>  - Removed dpu_csc_cfg from dpu_plane
+> 
+> The following changes since commit 
+> e88bbc91849b2bf57683119c339e52916d34433f:
+> 
+>   Revert "drm/msm/mdp5: provide dynamic bandwidth management"
+> (2021-06-23 14:06:20 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.linaro.org/people/dmitry.baryshkov/kernel.git 
+> dpu-multirec-2
+> 
+> for you to fetch changes up to 
+> 19f6afd40097d4c826e56b8f4a8cbd807f7b61f6:
+> 
+>   drm/msm/dpu: add multirect support (2021-07-05 04:04:50 +0300)
+> 
+> ----------------------------------------------------------------
+> Dmitry Baryshkov (22):
+>       drm/msm/dpu: move LUT levels out of QOS config
+>       drm/msm/dpu: remove pipe_qos_cfg from struct dpu_plane
+>       drm/msm/dpu: drop pipe_name from struct dpu_plane
+>       drm/msm/dpu: remove stage_cfg from struct dpu_crtc
+>       drm/msm/dpu: rip out master planes support
+>       drm/msm/dpu: move dpu_hw_pipe_cfg out of struct dpu_plane
+>       drm/msm/dpu: drop scaler config from plane state
+>       drm/msm/dpu: drop dpu_csc_cfg from dpu_plane
+>       drm/msm/dpu: remove dpu_hw_pipe_cdp_cfg from dpu_plane
+>       drm/msm/dpu: don't cache pipe->cap->features in dpu_plane
+>       drm/msm/dpu: don't cache pipe->cap->sblk in dpu_plane
+>       drm/msm/dpu: rip out debugfs support from dpu_plane
+>       drm/msm/dpu: drop src_split and multirect check from 
+> dpu_crtc_atomic_check
+>       drm/msm/dpu: add list of supported formats to the DPU caps
+>       drm/msm/dpu: simplify DPU_SSPP features checks
+>       drm/msm/dpu: do not limit the zpos property
+>       drm/msm/dpu: add support for SSPP allocation to RM
+>       drm/msm/dpu: move pipe_hw to dpu_plane_state
+>       drm/msm/dpu: add support for virtualized planes
+>       drm/msm/dpu: fix smart dma support
+>       drm/msm/dpu: fix CDP setup to account for multirect index
+>       drm/msm/dpu: add multirect support
+> 
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       | 261 +++-----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h       |   2 -
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  20 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  20 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    |  41 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    |  52 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c    |   2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h    |   2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 234 ++++---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |  70 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 851 
+> +++++++++++--------------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |  75 +--
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |  81 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h         |   6 +
+>  14 files changed, 793 insertions(+), 924 deletions(-)
+> 
+> _______________________________________________
+> Freedreno mailing list
+> Freedreno@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/freedreno
