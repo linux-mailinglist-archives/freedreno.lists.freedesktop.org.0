@@ -2,63 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15EC141D82D
-	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 12:56:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8045C41D940
+	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 13:57:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CEFE6E3DF;
-	Thu, 30 Sep 2021 10:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 388336EB80;
+	Thu, 30 Sep 2021 11:57:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B736E3DF
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 10:56:34 +0000 (UTC)
-Received: by mail-qk1-x731.google.com with SMTP id 138so5281456qko.10
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 03:56:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3SXEQR628QG6aprLZ/8ATDdzNXmEZHiN+i7ietQErBE=;
- b=MPR30yb1MMFtgZ5nxqpjz2a3PA3bjEtkcftcaU4VpmiZ3NleHQUgWyVVgb7BFVPNOS
- czRsOhSt0v/Co9yK6E2FQJitGTfOO/E5srA//5rXoiiSWANQRBcuJTkQeTHS62S4L/WY
- f69/ZJmhAdw7P4gMhC07+4sU8Gz1uQL8Vf4NeYPmFJCMjt6dVIRyrtigndoEhx4lw+LC
- 1OEansD+C6y+GVQeObNWtbQ0nk5xaQM9PW+GsX2A9h/B8qGNEIOIelRHnNCX3UN3rIHF
- /R6fxBHAceKAr3aHDGbRSdaiSVaXrYSRrwXMDfIPiiBOHGCxA7K7Jwsr3Etn1CZHur+h
- lrVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3SXEQR628QG6aprLZ/8ATDdzNXmEZHiN+i7ietQErBE=;
- b=Ps7PH5DLzjdH7Iw2e8wk0xNyp3ySFG8k5dxA107+wj7hfrgUqfX05D6cKSAF2u2j1i
- 40Cp6AoRgvyHs7erB/qdm+SXbcEhfhqOqRQCn/JFElrn0bRq4WFex+VC7spf7xbZjzRH
- RFdITCOyxQKcrdIPJV6E+TlvagHz3BYd4TceQwTBRc7Tkv5a6V5gOBpvfMXCxYoAHgkD
- 2m1TXXjtr3L1ASDzbjXqiARI5UupN8Mwyh8wx6f3E38I76Ht6cDP6s6rgZAHJXSVtWks
- +1pdfh6LWndtUBHRiouKYLZM+IIHG21QPwKSkS1RhQJhLyFOc52QCkjCMoQPuTEI2x6R
- 6liA==
-X-Gm-Message-State: AOAM530DjB4sRyltViVwgmfitPyGgpHAjZDW0H8W7+soxxYdiQys5HBP
- rYAkGRn4YSRyP458r4zcQXzOMixR7E8QOeHnwFjzrw==
-X-Google-Smtp-Source: ABdhPJxmA5IuZvu5pAAvkwwgCJLBY+GxJU6rkWIf58n/KiL0W6gT0BW9ueWiP50cYtUhOOfaPjIyDZuz4dm1kQDq89M=
-X-Received: by 2002:ae9:edd6:: with SMTP id c205mr3919799qkg.289.1632999393811; 
- Thu, 30 Sep 2021 03:56:33 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D73196EB80
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 11:57:17 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633003039; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=MgsTdvHC32CVeXQvpvDOvg9iOpH6jzoyvVH+Vm7ZG44=;
+ b=WNfQg2TIoaB3PwQBJtcyucYylhtRkFJPW28r5XWNLcorFY0unYLHecYwff0IYWV3KuX59Cs3
+ E29p1sU5mxmVczdusyypXHN5pTZRhMe2nazOwm+F/VyanWxIyIqQPta7+L36JOtwfUEE1lYK
+ m4RWqdL0xupT6aAMmxdf5KuqSQM=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 6155a60c63b1f186580d3e46 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 30 Sep 2021 11:57:00
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 1BDD1C43616; Thu, 30 Sep 2021 11:57:00 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: mkrishn)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 44068C4338F;
+ Thu, 30 Sep 2021 11:56:59 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
- <c7caa55f5244ba4b7341a1b912835d91@codeaurora.org>
-In-Reply-To: <c7caa55f5244ba4b7341a1b912835d91@codeaurora.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 30 Sep 2021 13:56:22 +0300
-Message-ID: <CAA8EJpqiCyBZUoE5VafG8cO7dZxHTnV=WT3+Ah+7yEG+3__u+w@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, 
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 00/22] drm/msm/dpu: switch dpu_plane to
- be virtual
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 30 Sep 2021 17:26:59 +0530
+From: mkrishn@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org,
+ sbillaka@codeaurora.org, abhinavk@codeaurora.org, robdclark@gmail.com,
+ bjorn.andersson@linaro.org, khsieh@codeaurora.org, rajeevny@codeaurora.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ robh+dt@kernel.org
+In-Reply-To: <CAE-0n50b=pX=1MFwGPDvDR=O03tUAkAgyMonGm2+SXBft=16KQ@mail.gmail.com>
+References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
+ <1629282424-4070-2-git-send-email-mkrishn@codeaurora.org>
+ <CAE-0n50b=pX=1MFwGPDvDR=O03tUAkAgyMonGm2+SXBft=16KQ@mail.gmail.com>
+Message-ID: <5adf2ab2c2a162272509d253bd797721@codeaurora.org>
+X-Sender: mkrishn@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v1 2/4] arm64: dts: qcom: sc7280: add
+ display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,142 +77,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 2021-08-19 01:27, Stephen Boyd wrote:
+> Quoting Krishna Manikandan (2021-08-18 03:27:02)
+>> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi 
+>> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> index 53a21d0..fd7ff1c 100644
+>> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> @@ -5,6 +5,7 @@
+>>   * Copyright (c) 2020-2021, The Linux Foundation. All rights 
+>> reserved.
+>>   */
+>> 
+>> +#include <dt-bindings/clock/qcom,dispcc-sc7280.h>
+>>  #include <dt-bindings/clock/qcom,gcc-sc7280.h>
+>>  #include <dt-bindings/clock/qcom,rpmh.h>
+>>  #include <dt-bindings/interconnect/qcom,sc7280.h>
+>> @@ -1424,6 +1425,90 @@
+>>                         #power-domain-cells = <1>;
+>>                 };
+>> 
+>> +               mdss: mdss@ae00000 {
+> 
+> subsystem@ae00000
+> 
+>> +                       compatible = "qcom,sc7280-mdss";
+>> +                       reg = <0 0x0ae00000 0 0x1000>;
+>> +                       reg-names = "mdss";
+>> +
+>> +                       power-domains = <&dispcc 
+>> DISP_CC_MDSS_CORE_GDSC>;
+>> +
+>> +                       clocks = <&gcc GCC_DISP_AHB_CLK>,
+>> +                                <&dispcc DISP_CC_MDSS_AHB_CLK>,
+>> +                               <&dispcc DISP_CC_MDSS_MDP_CLK>;
+>> +                       clock-names = "iface", "ahb", "core";
+>> +
+>> +                       assigned-clocks = <&dispcc 
+>> DISP_CC_MDSS_MDP_CLK>;
+>> +                       assigned-clock-rates = <300000000>;
+>> +
+>> +                       interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+>> +                       interrupt-controller;
+>> +                       #interrupt-cells = <1>;
+>> +
+>> +                       interconnects = <&mmss_noc MASTER_MDP0 0 
+>> &mc_virt SLAVE_EBI1 0>;
+>> +                       interconnect-names = "mdp0-mem";
+>> +
+>> +                       iommus = <&apps_smmu 0x900 0x402>;
+>> +
+>> +                       #address-cells = <2>;
+>> +                       #size-cells = <2>;
+>> +                       ranges;
+>> +
+>> +                       status = "disabled";
+>> +
+>> +                       mdp: mdp@ae01000 {
+> 
+> display-controller@ae01000
 
-On Thu, 30 Sept 2021 at 05:19, <abhinavk@codeaurora.org> wrote:
->
-> Hi Dmitry
->
-> On 2021-07-04 18:20, Dmitry Baryshkov wrote:
-> > As discussed on IRC, change dpu_plane implementation to be virtual:
-> > register unified planes and select backing SSPP block at runtime.
-> >
-> > Use msm.dpu_use_virtual_planes=1 to enable usage of virtual planes
-> > rather than statically allocated SSPPs at the plane registration.
-> >
-> > Patches 1-9 move state variables from struct dpu_plane onto the stack
-> > allocation. State should not be a part of struct dpu_plane anyway.
-> >
-> > Patches 10-18 make additional changes to plane code, reworking check,
-> > debugfs, dropping old multirec support, which results in patch 19
-> > adding
-> > support for virtual planes per se.
-> >
-> > Patches 20-22 demonstrate my main goal behind reworking dpu_plane
-> > support. They change dpu_plane to automatically use one of SSPP block
-> > features - multirec, an ability to display two unscaled RGB rectangles
-> > using single SSPP block. This allows us to double the amount of created
-> > planes. If the user tries to enable more planes than actually supported
-> > by the underlying SSPP blocks, atomic_check code would return an error.
-> >
-> > As you can see, this patchset is not atomic, so different patches can
-> > go
-> > separately.
->
-> I am half way through this series and have finished checking patches
-> 1-12
-> I am okay with patches 1-4, 6-12. Its a reasonable cleanup to make the
-> dpu_plane struct lighter.
-> I need a little more time with the rest as I am comparing the downstream
-> solution against yours.
->
-> As you mentioned, this patchset is not atomic, hence can you break it up
-> like
-> -> cleanup of dpu_plane struct in one series
-> -> removal of current multirect and current src split which will include
-> patch 5 as well
->
-> So that the first series can go through and it gives us a little more
-> time to check the second
-> series.
+Stephen,
+    In the current driver code, there is a substring comparison for "mdp" 
+in device node name as part of probe sequence. If "mdp" is not present 
+in the node name, it will
+    return an error resulting in probe failure. Can we continue using mdp 
+as nodename instead of display controller?
 
-Ok, I'll split the series according to your review.
-
->
-> Thanks
->
-> Abhinav
->
-> >
-> > Changes since v1:
-> >  - Add multirec implementation
-> >  - Added msm.dpu_use_virtual_planes kernel parameter instead of using
-> >    compile time switch
-> >  - Changed code to always reallocate SSPPs in the CRTC atomic check to
-> >    let the kernel pick up the best multirec config. This can be
-> >    optimized later.
-> >  - Rework RM SSPP API to always receive plane id
-> >  - Removed scaler_cfg, pixel_ext and cdp_cfg from struct
-> > dpu_plane_state
-> >  - Made _dpu_scaler_setup() call sspp's setup_scaler and setup_pe
-> >  - Removed dpu_csc_cfg from dpu_plane
-> >
-> > The following changes since commit
-> > e88bbc91849b2bf57683119c339e52916d34433f:
-> >
-> >   Revert "drm/msm/mdp5: provide dynamic bandwidth management"
-> > (2021-06-23 14:06:20 -0700)
-> >
-> > are available in the Git repository at:
-> >
-> >   https://git.linaro.org/people/dmitry.baryshkov/kernel.git
-> > dpu-multirec-2
-> >
-> > for you to fetch changes up to
-> > 19f6afd40097d4c826e56b8f4a8cbd807f7b61f6:
-> >
-> >   drm/msm/dpu: add multirect support (2021-07-05 04:04:50 +0300)
-> >
-> > ----------------------------------------------------------------
-> > Dmitry Baryshkov (22):
-> >       drm/msm/dpu: move LUT levels out of QOS config
-> >       drm/msm/dpu: remove pipe_qos_cfg from struct dpu_plane
-> >       drm/msm/dpu: drop pipe_name from struct dpu_plane
-> >       drm/msm/dpu: remove stage_cfg from struct dpu_crtc
-> >       drm/msm/dpu: rip out master planes support
-> >       drm/msm/dpu: move dpu_hw_pipe_cfg out of struct dpu_plane
-> >       drm/msm/dpu: drop scaler config from plane state
-> >       drm/msm/dpu: drop dpu_csc_cfg from dpu_plane
-> >       drm/msm/dpu: remove dpu_hw_pipe_cdp_cfg from dpu_plane
-> >       drm/msm/dpu: don't cache pipe->cap->features in dpu_plane
-> >       drm/msm/dpu: don't cache pipe->cap->sblk in dpu_plane
-> >       drm/msm/dpu: rip out debugfs support from dpu_plane
-> >       drm/msm/dpu: drop src_split and multirect check from
-> > dpu_crtc_atomic_check
-> >       drm/msm/dpu: add list of supported formats to the DPU caps
-> >       drm/msm/dpu: simplify DPU_SSPP features checks
-> >       drm/msm/dpu: do not limit the zpos property
-> >       drm/msm/dpu: add support for SSPP allocation to RM
-> >       drm/msm/dpu: move pipe_hw to dpu_plane_state
-> >       drm/msm/dpu: add support for virtualized planes
-> >       drm/msm/dpu: fix smart dma support
-> >       drm/msm/dpu: fix CDP setup to account for multirect index
-> >       drm/msm/dpu: add multirect support
-> >
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c       | 261 +++-----
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h       |   2 -
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  20 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  20 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c    |  41 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h    |  52 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c    |   2 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h    |   2 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        | 234 ++++---
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h        |  70 +-
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 851
-> > +++++++++++--------------
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |  75 +--
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c         |  81 +++
-> >  drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h         |   6 +
-> >  14 files changed, 793 insertions(+), 924 deletions(-)
-> >
-> > _______________________________________________
-> > Freedreno mailing list
-> > Freedreno@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/freedreno
+Thanks,
+Krishna
 
 
-
--- 
-With best wishes
-Dmitry
+> 
+>> +                               compatible = "qcom,sc7280-dpu";
+>> +                               reg = <0 0x0ae01000 0 0x8f030>,
+>> +                                       <0 0x0aeb0000 0 0x2008>;
+>> +                               reg-names = "mdp", "vbif";
+>> +
+>> +                               clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+>> +                                       <&gcc GCC_DISP_SF_AXI_CLK>,
+>> +                                       <&dispcc 
+>> DISP_CC_MDSS_AHB_CLK>,
+>> +                                       <&dispcc 
+>> DISP_CC_MDSS_MDP_LUT_CLK>,
+>> +                                       <&dispcc 
+>> DISP_CC_MDSS_MDP_CLK>,
+>> +                                       <&dispcc 
+>> DISP_CC_MDSS_VSYNC_CLK>;
+>> +                               clock-names = "bus", "nrt_bus", 
+>> "iface", "lut", "core",
+>> +                                             "vsync";
+> 
+> One line per string please.
+> 
+>> +                               assigned-clocks = <&dispcc 
+>> DISP_CC_MDSS_MDP_CLK>,
+>> +                                               <&dispcc 
+>> DISP_CC_MDSS_VSYNC_CLK>,
+>> +                                               <&dispcc 
+>> DISP_CC_MDSS_AHB_CLK>;
+>> +                               assigned-clock-rates = <300000000>,
+>> +                                                       <19200000>,
+>> +                                                       <19200000>;
+>> +                               operating-points-v2 = 
+>> <&mdp_opp_table>;
+>> +                               power-domains = <&rpmhpd SC7280_CX>;
+>> +
+>> +                               interrupt-parent = <&mdss>;
+>> +                               interrupts = <0>;
+>> +
+>> +                               status = "disabled";
+>> +
+>> +                               mdp_opp_table: mdp-opp-table {
+> 
+> mdp_opp_table: opp-table {
+> 
+>> +                                       compatible = 
+>> "operating-points-v2";
+>> +
+>> +                                       opp-200000000 {
+>> +                                               opp-hz = /bits/ 64 
+>> <200000000>;
+>> +                                               required-opps = 
+>> <&rpmhpd_opp_low_svs>;
+>> +                                       };
+>> +
+>> +                                       opp-300000000 {
+>> +                                               opp-hz = /bits/ 64 
+>> <300000000>;
+>> +                                               required-opps = 
+>> <&rpmhpd_opp_svs>;
+>> +                                       };
+>> +
+>> +                                       opp-380000000 {
+>> +                                               opp-hz = /bits/ 64 
+>> <380000000>;
+>> +                                               required-opps = 
+>> <&rpmhpd_opp_svs_l1>;
+>> +                                       };
+>> +
+>> +                                       opp-506666667 {
+>> +                                               opp-hz = /bits/ 64 
+>> <506666667>;
+>> +                                               required-opps = 
+>> <&rpmhpd_opp_nom>;
+>> +                                       };
+>> +                               };
+>> +                       };
+>> +               };
+>> +
