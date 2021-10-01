@@ -2,65 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6200441F27B
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 18:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5B041F29B
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:01:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA656EE61;
-	Fri,  1 Oct 2021 16:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B27F6EE64;
+	Fri,  1 Oct 2021 17:01:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD326EE65
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 16:50:18 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id m3so40645440lfu.2
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 09:50:18 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A66076EE64
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:01:16 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id y26so41493322lfa.11
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:01:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Z/4G9vgAEk+347Zn9eb+ZAGOAkOwqhySgRQtqU2xH8A=;
- b=LHQTDyqMA4HpiTqHGSqD7z+pmM1cbi9k0rEeOMYnHVY8ya5KNnSAwVogIZCTJWYkbl
- HPoBQmBixW04wPiOZq38dZcOL98kS3o7kJGk2AxawJRdDiX+7KHCcWjQRuv5yRi5NBY0
- agPmY68EmkoYpTJ8w5Sf02kpJO2wjhCZZjIWy2X3+HZ47w1pctbUHmAe+BwCJdUc0TQm
- vu2rTaZS1tP310WamJ0Q4a5/gCznv8KHu4yaME6sC1u4ceGmR1rp823xIVxfhGIqvDIf
- 32UynKpf/MCyV9ToGQU5BAN5QGVOyk5UjkiluFdo+dxdEMuAOxtKMSQcx6PNPQuIk/2K
- 5eIg==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=6V1sgB8xFr3XkM1mp3PJ3AXlar399UUua4e4vTPpcZQ=;
+ b=R1nYDvfDnDxqq9+zLbJvawWEwsFQ1qCwxhw1s0eRSXtDSUV0P+5ratb6sLWXWxpeGT
+ mTkkVcx29cvm50SyXuQg475PdK3XVU0Fn+p+KKFlwADyUQ1BTPLRtkhGd26rhc85f3DT
+ lJA1sllpuu6vHw8GAQsgSP3UFbyT5q57Pk9oBouKOnF/KF1V1PUf0eCmzcvk3AWmZDxE
+ yR/Pu+pFKeWbJoaiwrYOX4aiYi7C/XpkbCglPsdb14Bc7fM/GCFCcsLbsTHuIFBGcgs7
+ lwswcl9ose9N52hQ3/GlkZmTmRo4Mp2QECENFLVKthbqi6hqC0+ANo8qbJf54u+BjUCJ
+ NXqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Z/4G9vgAEk+347Zn9eb+ZAGOAkOwqhySgRQtqU2xH8A=;
- b=Hq91w5qcJ0UgD1LzdRupdTe5/uX3wAA9QprlwWP6J8lPWHaD50pij7TgYpxZG4Ue1Z
- 2nMwgRRBO3+HBnG9HJDvJYxU6ni2ki7nbN9/sLchmrNyKPwGjitkaRdOcSBSqluha+7C
- S2ZhS71FRiGFHlYnU4n7p2dHywU0NFbSAnYr+kEURWZu0FmzxMQGrQPcynpZA6TruAWC
- hy9OLvHsL/Ylia0x2uPzZqwqzaVjwK7GkuZVq/K6EM2wRcQyS7n62bGUjbtS6iu66YCp
- rmM1GUKx4bxwA+g8VbD40SXsgEG+Vou7zEZ4KEgRY3xT97A8tTQxudcfdNGfUReZS6fe
- WDRQ==
-X-Gm-Message-State: AOAM531dtUoiAVORae8bCScmtg0RGIkYRUJ/LFekuBZSb/Fz7hVLFe1X
- qAV8doy0z7KocZlKZ72V2xZ8Pw==
-X-Google-Smtp-Source: ABdhPJzkHZSNcqsjg13S+lAYsg5LtJPkpuOdkh2vYaxSFaqjldIgW17EDxKXWS6QZeYGnubmGFFJ6A==
-X-Received: by 2002:a2e:5807:: with SMTP id m7mr13160180ljb.25.1633107016953; 
- Fri, 01 Oct 2021 09:50:16 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id n24sm787052lfq.294.2021.10.01.09.50.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 09:50:16 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=6V1sgB8xFr3XkM1mp3PJ3AXlar399UUua4e4vTPpcZQ=;
+ b=LpZ9lsiJ5uNg19yU/44vJxRGONVZvYtL20BFnUkrk6Ibf6hs6qByF5uYe2rj3Kd81O
+ oKeNCTEn5zmqz56dOAnAkSe+LnCYgv1cYyNwl2FUJLSmm81/k50Hg+j0lKVNu7AciwTh
+ 7zCp1n3Tr5eRED5hDb295srkk8wWdZfBdCPDoi5yV45I7+FaYp1gcANKOZ5EE7dAGxAN
+ SFDBlhXQK+KEWO2BqBmw1/jU/q2GROONy6g05zFnpR0KH1vj/VlSPnFeWfZc2QIwkBjJ
+ paSIMjukaTnE+AP44fw09gq2bFKJ57Q9edO25XRHkJHyXutcLT7aIL86a4Bb41xZm7K/
+ smOg==
+X-Gm-Message-State: AOAM531lBIIlnJ8dju1BBq6QzN7yQvz0s6ehRO0UEzWpqPEkiMJfSJ+m
+ 8drqi78fTqKOu5pg4FQOH11TyA==
+X-Google-Smtp-Source: ABdhPJwVsPJf/bidsSzZsTPdoUDvBipwmsUBJsjM/aGi4H28uBlyedpYfY6yBtQvp9XJAd83UJY/JA==
+X-Received: by 2002:a2e:92d5:: with SMTP id k21mr13021912ljh.83.1633107674899; 
+ Fri, 01 Oct 2021 10:01:14 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id h12sm693509ljc.65.2021.10.01.10.01.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Oct 2021 10:01:14 -0700 (PDT)
+To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Archit Taneja <architt@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20210906202552.824598-1-marijn.suijten@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Date: Fri,  1 Oct 2021 19:50:11 +0300
-Message-Id: <20211001165011.441945-4-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211001165011.441945-1-dmitry.baryshkov@linaro.org>
-References: <20211001165011.441945-1-dmitry.baryshkov@linaro.org>
+Message-ID: <92d901c6-88e1-778d-dcef-39e460693237@linaro.org>
+Date: Fri, 1 Oct 2021 20:01:13 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] dt-bindings: display/msm: remove edp.txt
+In-Reply-To: <20210906202552.824598-1-marijn.suijten@somainline.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: dsi_phy_14nm: Take ready-bit
+ into account in poll_for_ready
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +86,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-eDP driver is being removed, so drop bindings description.
+On 06/09/2021 23:25, Marijn Suijten wrote:
+> The downstream driver models this PLL lock check as an if-elseif-else.
+> The only way to reach the else case where pll_locked=true [1] is by
+> succeeding both readl_poll_timeout_atomic calls (which return zero on
+> success) in the if _and_ elseif condition.  Hence both the "lock" and
+> "ready" bit need to be tested in the SM_READY_STATUS register before
+> considering the PLL locked and ready to go.
+> 
+> Tested on the Sony Xperia XA2 Ultra (nile-discovery, sdm630).
+> 
+> [1]: https://source.codeaurora.org/quic/la/kernel/msm-4.19/tree/drivers/clk/qcom/mdss/mdss-dsi-pll-14nm-util.c?h=LA.UM.9.2.1.r1-08000-sdm660.0#n302
+> 
+> Fixes: f079f6d999cb ("drm/msm/dsi: Add PHY/PLL for 8x96")
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- .../devicetree/bindings/display/msm/edp.txt   | 56 -------------------
- 1 file changed, 56 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/msm/edp.txt
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/Documentation/devicetree/bindings/display/msm/edp.txt b/Documentation/devicetree/bindings/display/msm/edp.txt
-deleted file mode 100644
-index eff9daff418c..000000000000
---- a/Documentation/devicetree/bindings/display/msm/edp.txt
-+++ /dev/null
-@@ -1,56 +0,0 @@
--Qualcomm Technologies Inc. adreno/snapdragon eDP output
--
--Required properties:
--- compatible:
--  * "qcom,mdss-edp"
--- reg: Physical base address and length of the registers of controller and PLL
--- reg-names: The names of register regions. The following regions are required:
--  * "edp"
--  * "pll_base"
--- interrupts: The interrupt signal from the eDP block.
--- power-domains: Should be <&mmcc MDSS_GDSC>.
--- clocks: device clocks
--  See Documentation/devicetree/bindings/clock/clock-bindings.txt for details.
--- clock-names: the following clocks are required:
--  * "core"
--  * "iface"
--  * "mdp_core"
--  * "pixel"
--  * "link"
--- #clock-cells: The value should be 1.
--- vdda-supply: phandle to vdda regulator device node
--- lvl-vdd-supply: phandle to regulator device node which is used to supply power
--  to HPD receiving chip
--- panel-en-gpios: GPIO pin to supply power to panel.
--- panel-hpd-gpios: GPIO pin used for eDP hpd.
--
--
--Example:
--	mdss_edp: qcom,mdss_edp@fd923400 {
--			compatible = "qcom,mdss-edp";
--			reg-names =
--				"edp",
--				"pll_base";
--			reg =	<0xfd923400 0x700>,
--				<0xfd923a00 0xd4>;
--			interrupt-parent = <&mdss_mdp>;
--			interrupts = <12 0>;
--			power-domains = <&mmcc MDSS_GDSC>;
--			clock-names =
--				"core",
--				"pixel",
--				"iface",
--				"link",
--				"mdp_core";
--			clocks =
--				<&mmcc MDSS_EDPAUX_CLK>,
--				<&mmcc MDSS_EDPPIXEL_CLK>,
--				<&mmcc MDSS_AHB_CLK>,
--				<&mmcc MDSS_EDPLINK_CLK>,
--				<&mmcc MDSS_MDP_CLK>;
--			#clock-cells = <1>;
--			vdda-supply = <&pma8084_l12>;
--			lvl-vdd-supply = <&lvl_vreg>;
--			panel-en-gpios = <&tlmm 137 0>;
--			panel-hpd-gpios = <&tlmm 103 0>;
--	};
+> ---
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 30 +++++++++++-----------
+>   1 file changed, 15 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> index 8905f365c932..789b08c24d25 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+> @@ -110,14 +110,13 @@ static struct dsi_pll_14nm *pll_14nm_list[DSI_MAX];
+>   static bool pll_14nm_poll_for_ready(struct dsi_pll_14nm *pll_14nm,
+>   				    u32 nb_tries, u32 timeout_us)
+>   {
+> -	bool pll_locked = false;
+> +	bool pll_locked = false, pll_ready = false;
+>   	void __iomem *base = pll_14nm->phy->pll_base;
+>   	u32 tries, val;
+>   
+>   	tries = nb_tries;
+>   	while (tries--) {
+> -		val = dsi_phy_read(base +
+> -			       REG_DSI_14nm_PHY_PLL_RESET_SM_READY_STATUS);
+> +		val = dsi_phy_read(base + REG_DSI_14nm_PHY_PLL_RESET_SM_READY_STATUS);
+>   		pll_locked = !!(val & BIT(5));
+>   
+>   		if (pll_locked)
+> @@ -126,23 +125,24 @@ static bool pll_14nm_poll_for_ready(struct dsi_pll_14nm *pll_14nm,
+>   		udelay(timeout_us);
+>   	}
+>   
+> -	if (!pll_locked) {
+> -		tries = nb_tries;
+> -		while (tries--) {
+> -			val = dsi_phy_read(base +
+> -				REG_DSI_14nm_PHY_PLL_RESET_SM_READY_STATUS);
+> -			pll_locked = !!(val & BIT(0));
+> +	if (!pll_locked)
+> +		goto out;
+>   
+> -			if (pll_locked)
+> -				break;
+> +	tries = nb_tries;
+> +	while (tries--) {
+> +		val = dsi_phy_read(base + REG_DSI_14nm_PHY_PLL_RESET_SM_READY_STATUS);
+> +		pll_ready = !!(val & BIT(0));
+>   
+> -			udelay(timeout_us);
+> -		}
+> +		if (pll_ready)
+> +			break;
+> +
+> +		udelay(timeout_us);
+>   	}
+>   
+> -	DBG("DSI PLL is %slocked", pll_locked ? "" : "*not* ");
+> +out:
+> +	DBG("DSI PLL is %slocked, %sready", pll_locked ? "" : "*not* ", pll_ready ? "" : "*not* ");
+>   
+> -	return pll_locked;
+> +	return pll_locked && pll_ready;
+>   }
+>   
+>   static void dsi_pll_14nm_config_init(struct dsi_pll_config *pconf)
+> 
+
+
 -- 
-2.33.0
-
+With best wishes
+Dmitry
