@@ -1,73 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41F7041F7BB
-	for <lists+freedreno@lfdr.de>; Sat,  2 Oct 2021 00:47:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC1C041F7F1
+	for <lists+freedreno@lfdr.de>; Sat,  2 Oct 2021 01:00:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE87C6E59D;
-	Fri,  1 Oct 2021 22:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5F276F450;
+	Fri,  1 Oct 2021 22:59:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B2436E59D
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 22:47:45 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id i25so44169124lfg.6
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 15:47:44 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9FAE6F450
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 22:59:58 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id y26so44556482lfa.11
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 15:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WGjN04878+AMOMEOZmF7yNpwbG05OAzAKgYFczYhOeY=;
- b=bZe2t/n/O2ewi8yHei5TI/UaERKkhxeLGNHYwiOCTMCHlrYgV4mk5y7fnmCRxnrXw6
- 6YhY1nYq0j+TvH0ETbnJPu6HltvKqd8X57GLIAQxPYJkEsbNLx2ahTHaE2Aww9x2sGjY
- boV82MRCpslGNCqEXnkWsE0dWpGiUPnuScI8hsWOzDG5hi5dq6JFSgjN7Bkx7aG93BHj
- ji/ixYG7ZAR/UNjg7YfMWO5HgbFSKtSqaCKJk5Qst+vn1MKt/bjXl1N8YpriyFfZGaNo
- IEkSfm7ZcyHbe2vhAtWcn82yrd6BdnFtZichw/1tYFmLVmy14z/+qxk6poyvT5D8YoMX
- uI8Q==
+ bh=MrcSevZqtNOFUzq3pWbbRjEjIk8+7OFN/vmiST/wtNU=;
+ b=RgwL5KCvqBIeZB/gE1d8cY3bovbOy61asvkdirxaHIlo5MBe0JgNim+YGg9lSkZZi7
+ s3kW6XPLnV8BHaEbrUCX64Qjrjndp+tGvPGvq7kMN3tadiWf7h6qjcNYKbxC9kXAdf1Z
+ zyBlubbSFaP2lUsMcyymA3rJ3NQDPTZuD2qJ7BEZ2LyVBWSHM1jOJFRnqq8xU9ja4Ts0
+ ccq/l0AeBTr+K6OygMYiU5NTee0Z2zxlNf1+wzLSDW4S04qaMgXZV3Pb0DPMqagLI44h
+ vCEY4K+/i7Na4Hq5AGkgnwT3rL3/C2R8FI622J0qkIQCeBVFYycwUE/R3nMBJvnoty/L
+ OA3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=WGjN04878+AMOMEOZmF7yNpwbG05OAzAKgYFczYhOeY=;
- b=5i74qeC5sL5OqjrxAIj0m30aR+os0F0m7XzVwr1Wo2LUL5x4o7guONW7AiAmQU+3qB
- oyy8gzbMPhDcxDhwc+rcpXn9i34OtxMo+MUU2nDLorpyqTa+6DA5kde71Y9uA6g29VNZ
- BjmpAWydj7iqpODM4/j/73pmtVxvtGFdMBc7CPX+tAIIYKmHCznylZ9sWbxl7FpOjNPw
- 6g4NvnznsoHCBHT9FtfV5paEivayb7NErzpoTKfbL64UGRCPUEQpGrxLQEKGudgr/I8n
- EWMMn09uf51vhPu6eDJnm41I66boqIECiDOuzODQ7rw3PyzoWewoDHzoLvhHYFL0ERNu
- RwEA==
-X-Gm-Message-State: AOAM530AboAFm3pjy5OONYxCE56TbFLZvmrlo96CAqfJfBSeM5GZtsDs
- fi1gJ2O3CviRn2+ueptkqpnVIA==
-X-Google-Smtp-Source: ABdhPJyFcXijt2H4S9oPNqMyrwyHFwAbIQq4n5w+wmArWVtZP0jRKm0/fY4MurzPfhycLe2LUEskvw==
-X-Received: by 2002:a19:7519:: with SMTP id y25mr579354lfe.473.1633128463332; 
- Fri, 01 Oct 2021 15:47:43 -0700 (PDT)
+ bh=MrcSevZqtNOFUzq3pWbbRjEjIk8+7OFN/vmiST/wtNU=;
+ b=CjLjen3mZG6ZAtgrv+Ym4EPMykUQMSLJo07RHR9kA44b/7LQcdnjXGvMLV6BjWRvxj
+ 8RH4/hr9Wh4AMGYd0Ylwvg2V2HRfzuZ36K9cv54RCC74KtiOMuz67cC1F7ugoHSRUgoX
+ JRZpwEis8uoUSfD5WTQftrMLWw54pofMbx8W1NA/qxscznx2IWEpqy7gusEmuf0PdeHl
+ wksznbmlvdU/wSpwChUaszZkK8dtCWxuaPtaVcQcBUXw40kx+EZnc5FahYRdFzgwGU3E
+ MaDJWOvrdrOVkBoK1CLoq8urk7wARV0nU9BfkMlnl/aatUydf7MTVHhBwW0JhE1At8gn
+ Mmgg==
+X-Gm-Message-State: AOAM533nPzfpOV1GyYzV/QwtX299Ye7Dwryka7mjASvaB/K/Q3OqW1fJ
+ aG3uhZZDge4zmzRillDcSFIvJw==
+X-Google-Smtp-Source: ABdhPJyDZ2oSrPzTa/TydJ+YDRi4V0TZmc4niH4msrXenJu8SJD6xo7ep5yvzdkledpWM36qcjmr1Q==
+X-Received: by 2002:ac2:4f02:: with SMTP id k2mr645027lfr.265.1633129197104;
+ Fri, 01 Oct 2021 15:59:57 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id d13sm870643lfi.48.2021.10.01.15.47.42
+ by smtp.gmail.com with ESMTPSA id 131sm552169ljj.43.2021.10.01.15.59.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Oct 2021 15:47:42 -0700 (PDT)
+ Fri, 01 Oct 2021 15:59:56 -0700 (PDT)
 To: Dan Carpenter <dan.carpenter@oracle.com>, Rob Clark
- <robdclark@gmail.com>, Archit Taneja <architt@codeaurora.org>
+ <robdclark@gmail.com>, Hai Li <hali@codeaurora.org>
 Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
  Viresh Kumar <viresh.kumar@linaro.org>, Jonathan Marek <jonathan@marek.ca>,
  Yangtao Li <tiny.windzz@gmail.com>, Nicolas Boichat <drinkcat@chromium.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, kernel-janitors@vger.kernel.org
-References: <20211001123409.GG2283@kili>
+References: <20211001123617.GH2283@kili>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <e9aea681-c27a-d3fd-2c2b-1a0486173dbc@linaro.org>
-Date: Sat, 2 Oct 2021 01:47:42 +0300
+Message-ID: <a61cad95-d81d-6f6d-33d4-f5259d9814cb@linaro.org>
+Date: Sat, 2 Oct 2021 01:59:56 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20211001123409.GG2283@kili>
+In-Reply-To: <20211001123617.GH2283@kili>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dsi: fix off by one in
- dsi_bus_clk_enable error handling
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dsi: fix signedness bug in
+ msm_dsi_host_cmd_rx()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,34 +82,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/10/2021 15:34, Dan Carpenter wrote:
-> This disables a lock which wasn't enabled and it does not disable
-> the first lock in the array.
+On 01/10/2021 15:36, Dan Carpenter wrote:
+> The "msg->tx_len" variable is type size_t so if dsi_cmds2buf_tx()
+> returns a negative error code that it type promoted to a high positive
+> value and treat as a success.  The second problem with this code is
+> that it can return meaningless positive values on error.
+
+It looks to me that this piece of code is not fully correct at all.
+dsi_cmds2bus_tx would return the size of DSI packet, not the size of the 
+DSI buffer.
+
+Could you please be more specific, which 'meaningless positive values' 
+were you receiving?
+
 > 
-> Fixes: 6e0eb52eba9e ("drm/msm/dsi: Parse bus clocks from a list")
+> Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
 > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-We should probably switch this to bulk clk api.
-
 > ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e269df285136..c86b5090fae6 100644
+> index c86b5090fae6..42073a562072 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -451,7 +451,7 @@ static int dsi_bus_clk_enable(struct msm_dsi_host *msm_host)
+> @@ -2133,8 +2133,10 @@ int msm_dsi_host_cmd_rx(struct mipi_dsi_host *host,
+>   		}
 >   
->   	return 0;
->   err:
-> -	for (; i > 0; i--)
-> +	while (--i >= 0)
->   		clk_disable_unprepare(msm_host->bus_clks[i]);
+>   		ret = dsi_cmds2buf_tx(msm_host, msg);
+> -		if (ret < msg->tx_len) {
+> +		if (ret < 0 || ret < msg->tx_len) {
+>   			pr_err("%s: Read cmd Tx failed, %d\n", __func__, ret);
+> +			if (ret >= 0)
+> +				ret = -EIO;
+>   			return ret;
+>   		}
 >   
->   	return ret;
 > 
 
 
