@@ -2,73 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA7041F340
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12BD341F36D
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:43:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB5786EE76;
-	Fri,  1 Oct 2021 17:39:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B676EE77;
+	Fri,  1 Oct 2021 17:43:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B326E542
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:39:11 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id y23so2345317lfb.0
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:39:11 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B16E56EE7B
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:43:11 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id x27so41746235lfu.5
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:43:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=IVvmXkzdqqsJWfRDKp2pUYxJw8/s8UhPi23VBkP7rL4=;
- b=qjyN0JeTZaYzcZm+GsbyZAErQn/QN7K5eRXnL9i14K78hbRbfNsj4jehrpylyDZOEt
- ML2qwvnpe9kjQmuDHXD0ZIHjdwpVITI3r53x0GcBdF5nKRS3+bwRJKP1qPSx/EJMx/S6
- qiZUMvHwtNR4sX96Y/PuMlI8l9aLqAxoy6mvd+p4xgTql64XPzelLPTQ43m2qBH6jEVa
- vgCGweRKW1eLuqvb4HQ7q177WAsG8MGy9h7DAZF20+wtrqDEw6DxinuIDhFMNTn4HSY2
- QARq16xPzAQpzYi2g7XbAjrJeofzIeYvZXP7ymRZNHI25PoAbrrUwzsLeXoXm5V9sk+7
- gzGw==
+ bh=trOpTX3fPgPSfjOpDMDPYXwd4LNjI9d/+tq2q/EXfXQ=;
+ b=KI3fJiRswZHK7JIIXimHTd8OowVIiXi/9S53GbwPQ83bF/hY52XkV0A9vlrTu+XBf6
+ Y63wVv35AvDlsSlaO6hsekVqxNao1ElfQNxyhV8XtgGYuZS7p3RCZSy27g2Vm9ErDf4c
+ AKLSENXIget1Mxj9It9IJBJFVM7fA5r1hVRrzLfyGI+UeHSCWlx8b4N+FHesI8dCOn+Y
+ jVVqYwwcBZ4LPGR8DFafriSOG78Tuov+fIPsyruyJ/p6h5mrTwHUOctS/ioY2nN5zl76
+ Fdx1siPDvoxni6Hvn3dPpXzTLCD/83TR630uVYjaQAWvTqiHgA2XqKyd8azozC1SGmWf
+ owTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=IVvmXkzdqqsJWfRDKp2pUYxJw8/s8UhPi23VBkP7rL4=;
- b=VpsePVnrwWp6ffVhAhpgkCiATW8DMsNQaXDu+7ADEAljyRBFQ4xFZiv2+8JdNUGyeU
- 1myxky6xqkMuehJchKO6dyBE8C3D9MI+yMATLpPdEpNWheNF0Ix66B6Ib8WcS92zByHM
- rw+VGOryjtjuDjazJtxOhAhKIB96gFo328gWzQKVWOpWS7w+gvbsMblN4QPVZhDBVZGw
- iwBrW7pDNM5NeD4zhzXqNn0vp7rq8T8lzenrMS/J+xzpGz/yxvft4pz4QU4BI+UAycz7
- uNwR5xOl7j+nvdSMTYufGtibTV6iZVglu0UexefL1INogbp/0mJgGjFnCr4YQC8V2XQu
- Lz2g==
-X-Gm-Message-State: AOAM531gHegRCIoK42wpy5FKQBTY1/Xj7AgQsYQfb4A4urIMgKLLdJbP
- 5Gujw/VraIgSWDZpacAURHhcGQ==
-X-Google-Smtp-Source: ABdhPJx4XpQy1mMQ0K9hKr5qfEu03Pkz/GHI4xDpzxTeCLm2R2rV769qz71GDdVnwuWZKCnP03TFZg==
-X-Received: by 2002:a2e:5806:: with SMTP id m6mr13283109ljb.162.1633109949453; 
- Fri, 01 Oct 2021 10:39:09 -0700 (PDT)
+ bh=trOpTX3fPgPSfjOpDMDPYXwd4LNjI9d/+tq2q/EXfXQ=;
+ b=jgBhEadyGP5q+oCVbGxkFKTk0Y82LCpMbw7aE8QKK82Raz8SJTjKSWw1qOsVcbFFYS
+ MziagnqME5HuDWR6Y4A1nGoNlOrTQY4Yfxxens+fj6zdgkOC9BGpUW0lBSAbcny1yW/M
+ 7Qt2G6JNcDpr315IPrh8CMzS+NmDsX905waXE7fkkjH1MUNLd8eMOskgmILwBuNohPNE
+ uEozIPFlCknFm9inlGgeRr8lB1uaXTBICl/X9P9nV7OPTvsfn2EMUANGmU6w4TrAFRoQ
+ PIW/Yy0+Z3rCJlETykDaxbnZHmtrTYY3BVQLqjFxxn2uIKVcHnd3BHHEHzeHzrkALbBu
+ PsQA==
+X-Gm-Message-State: AOAM5308vljMILO3wURGHYId8jjUhHMr9j7Rdgzr+atE1makvyHA+nsM
+ 3ESf1qHGq2BEu9/07oZWtYV2bc1qsD/1l2QU
+X-Google-Smtp-Source: ABdhPJwnqJ4zOBa3TwxdlBctEXCtk8ih+ennQVb4Li8mAsgMGpf5gT3g7NpA8Y+kGCVKPaXiLBBb9A==
+X-Received: by 2002:ac2:489b:: with SMTP id x27mr6563941lfc.43.1633110189970; 
+ Fri, 01 Oct 2021 10:43:09 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id d9sm799148lfl.175.2021.10.01.10.39.08
+ by smtp.gmail.com with ESMTPSA id v3sm873116lfq.70.2021.10.01.10.43.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Oct 2021 10:39:08 -0700 (PDT)
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark
- <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Eric Anholt <eric@anholt.net>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20210927180345.878859-1-robdclark@gmail.com>
+ Fri, 01 Oct 2021 10:43:09 -0700 (PDT)
+To: Colin King <colin.king@canonical.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20210929105458.209895-1-colin.king@canonical.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <9b3a8067-79d6-e4c2-8025-96f2ebe7fd6a@linaro.org>
-Date: Fri, 1 Oct 2021 20:39:07 +0300
+Message-ID: <f0d9d9f5-2f6f-8936-1a6d-825ce07a5d65@linaro.org>
+Date: Fri, 1 Oct 2021 20:43:08 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20210927180345.878859-1-robdclark@gmail.com>
+In-Reply-To: <20210929105458.209895-1-colin.king@canonical.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC] drm/msm/a6xx: Serialize GMU communication
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Remove redundant initialization
+ of variable bpp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,204 +79,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/09/2021 21:03, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 29/09/2021 13:54, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
 > 
-> I've seen some crashes in our crash reporting that *look* like multiple
-> threads stomping on each other while communicating with GMU.  So wrap
-> all those paths in a lock.
+> The variable bpp is being initialized with a value that is never
+> read, it is being updated later on in both paths of an if statement.
+> The assignment is redundant and can be removed.
 > 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Addresses-Coverity: ("Unused value")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
-> Are we allowed to use c99/gnu99 yet?
+>   drivers/gpu/drm/msm/dp/dp_panel.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->   drivers/gpu/drm/msm/Makefile          |  2 +-
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  6 ++++
->   drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  9 +++++
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 50 ++++++++++++++++++++-------
->   4 files changed, 54 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 904535eda0c4..57283bbad3f0 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -1,5 +1,5 @@
->   # SPDX-License-Identifier: GPL-2.0
-> -ccflags-y := -I $(srctree)/$(src)
-> +ccflags-y := -I $(srctree)/$(src) -std=gnu99
->   ccflags-y += -I $(srctree)/$(src)/disp/dpu1
->   ccflags-$(CONFIG_DRM_MSM_DSI) += -I $(srctree)/$(src)/dsi
->   ccflags-$(CONFIG_DRM_MSM_DP) += -I $(srctree)/$(src)/dp
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index a7c58018959f..8b73f70766a4 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -296,6 +296,8 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
->   	u32 val;
->   	int request, ack;
->   
-> +	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
-> +
->   	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
->   		return -EINVAL;
->   
-> @@ -337,6 +339,8 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index 2181b60e1d1d..71db10c0f262 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -234,7 +234,7 @@ u32 dp_panel_get_mode_bpp(struct dp_panel *dp_panel,
+>   		u32 mode_edid_bpp, u32 mode_pclk_khz)
 >   {
->   	int bit;
+>   	struct dp_panel_private *panel;
+> -	u32 bpp = mode_edid_bpp;
+> +	u32 bpp;
 >   
-> +	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
-> +
->   	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
->   		return;
->   
-> @@ -1482,6 +1486,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
->   	if (!pdev)
->   		return -ENODEV;
->   
-> +	mutex_init(&gmu->lock);
-> +
->   	gmu->dev = &pdev->dev;
->   
->   	of_dma_configure(gmu->dev, node, true);
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index 3c74f64e3126..f05a00c0afd0 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -44,6 +44,9 @@ struct a6xx_gmu_bo {
->   struct a6xx_gmu {
->   	struct device *dev;
->   
-> +	/* For serializing communication with the GMU: */
-> +	struct mutex lock;
-> +
->   	struct msm_gem_address_space *aspace;
->   
->   	void * __iomem mmio;
-> @@ -88,6 +91,12 @@ struct a6xx_gmu {
->   	bool legacy; /* a618 or a630 */
->   };
->   
-> +/* Helper macro for serializing GMU access: */
-> +#define with_gmu_lock(gmu) \
-> +	for (bool done = ({ mutex_lock(&(gmu)->lock); false; }); \
-> +		!done; \
-> +		done = ({ mutex_unlock(&(gmu)->lock); true; }))
-
-The intent is good, but I'm not sure this kind of syntax sugar would be 
-a good approach. What about calling lock/unlock explicitly, like we 
-typically do? Then we won't have to use c99.
-
-> +
->   static inline u32 gmu_read(struct a6xx_gmu *gmu, u32 offset)
->   {
->   	return msm_readl(gmu->mmio + (offset << 2));
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index f6a4dbef796b..5e1ae3df42ba 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -881,7 +881,7 @@ static int a6xx_zap_shader_init(struct msm_gpu *gpu)
->   	  A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS | \
->   	  A6XX_RBBM_INT_0_MASK_UCHE_TRAP_INTR)
->   
-> -static int a6xx_hw_init(struct msm_gpu *gpu)
-> +static int hw_init(struct msm_gpu *gpu)
->   {
->   	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->   	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> @@ -1135,6 +1135,19 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
->   	return ret;
->   }
->   
-> +static int a6xx_hw_init(struct msm_gpu *gpu)
-> +{
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> +	int ret;
-> +
-> +	with_gmu_lock(&a6xx_gpu->gmu) {
-> +		ret = hw_init(gpu);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->   static void a6xx_dump(struct msm_gpu *gpu)
->   {
->   	DRM_DEV_INFO(&gpu->pdev->dev, "status:   %08x\n",
-> @@ -1509,7 +1522,9 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
->   
->   	trace_msm_gpu_resume(0);
->   
-> -	ret = a6xx_gmu_resume(a6xx_gpu);
-> +	with_gmu_lock(&a6xx_gpu->gmu) {
-> +		ret = a6xx_gmu_resume(a6xx_gpu);
-> +	}
->   	if (ret)
->   		return ret;
->   
-> @@ -1532,7 +1547,9 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
->   
->   	msm_devfreq_suspend(gpu);
->   
-> -	ret = a6xx_gmu_stop(a6xx_gpu);
-> +	with_gmu_lock(&a6xx_gpu->gmu) {
-> +		ret = a6xx_gmu_stop(a6xx_gpu);
-> +	}
->   	if (ret)
->   		return ret;
->   
-> @@ -1547,18 +1564,17 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
->   {
->   	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->   	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> -	static DEFINE_MUTEX(perfcounter_oob);
->   
-> -	mutex_lock(&perfcounter_oob);
-> +	with_gmu_lock(&a6xx_gpu->gmu) {
-> +		/* Force the GPU power on so we can read this register */
-> +		a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
->   
-> -	/* Force the GPU power on so we can read this register */
-> -	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
-> +		*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER_LO,
-> +				    REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
->   
-> -	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER_LO,
-> -		REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
-> +		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
-> +	}
->   
-> -	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
-> -	mutex_unlock(&perfcounter_oob);
->   	return 0;
->   }
->   
-> @@ -1622,6 +1638,16 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
->   	return (unsigned long)busy_time;
->   }
->   
-> +void a6xx_gpu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
-> +{
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> +
-> +	with_gmu_lock(&a6xx_gpu->gmu) {
-> +		a6xx_gmu_set_freq(gpu, opp);
-> +	}
-> +}
-> +
->   static struct msm_gem_address_space *
->   a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
->   {
-> @@ -1766,7 +1792,7 @@ static const struct adreno_gpu_funcs funcs = {
->   #endif
->   		.gpu_busy = a6xx_gpu_busy,
->   		.gpu_get_freq = a6xx_gmu_get_freq,
-> -		.gpu_set_freq = a6xx_gmu_set_freq,
-> +		.gpu_set_freq = a6xx_gpu_set_freq,
->   #if defined(CONFIG_DRM_MSM_GPU_STATE)
->   		.gpu_state_get = a6xx_gpu_state_get,
->   		.gpu_state_put = a6xx_gpu_state_put,
+>   	if (!dp_panel || !mode_edid_bpp || !mode_pclk_khz) {
+>   		DRM_ERROR("invalid input\n");
 > 
 
 
