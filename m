@@ -2,52 +2,52 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6851F41F35B
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AD941F35D
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:42:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2EAC6EE82;
-	Fri,  1 Oct 2021 17:42:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37DA26EE79;
+	Fri,  1 Oct 2021 17:42:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6894E6EE7D
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:42:19 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- c6-20020a9d2786000000b005471981d559so12439397otb.5
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:42:19 -0700 (PDT)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A2736EE82
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:42:20 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ d12-20020a05683025cc00b0054d8486c6b8so12526276otu.0
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:42:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=DGy9mZiNTcV5etgHVGwymerH3fD0AS7MvJ9UyCdIkU8=;
- b=pSXnf5t3uN2nk/PMuB0dqtPx9YN0bcx4Cww9UiRSa3YIWXAZ/G2XefKyl5PfpJFIg4
- B2BIDMF/OB3TP4uHWCpsEuBHkTiFQyzjsVFcquOPna/7ZU+Mn7vh4SSF8wOeokzI1CBH
- 4Xv2IuRUhyrRTcaM/HFtjub5MkmGefaP2MMUgY/lFekvV9KPUFkQ8XbxePk9Oj1NrOPg
- 48xHgEC5HCkEgRlg2WLPPVu0+gkEEtl6qDOzAmvoQtjr84YzkdnESTQlYfe0LT/PAft2
- 4iyi5QEWAAq19NvOX1AEB1UccBGHbfiOfhBOwost4buDjdOsNOHXhMVkKChYRZMT3tlV
- WwZw==
+ bh=RuDmOgPfw7NqoydBG9DQd34tvaItfS8ZKq0v6QDg/FY=;
+ b=XLFHevB6WrVgB1k383+Eu2L6o1qbyh58b6SA8R/5BAw8TC7lyqv5IHXHTh7gCmKLsD
+ JtQJBcH+5/FlXZLnaln8on35bnRb9B7YlTtjle+vzTyxT191syLSAlrcBtl/HONyMZ5L
+ OjhVF911PC8tk7jBqUUWTHpKZ2JcO4pvyNFhhZFz66ffzBIJdteqYwJbMYHqHhgrBR5/
+ mINS3p9w6Jerb7cqf9Q6f2tv6/iw0CxHxcDrldyOOyDlZfSqqEDcgp/SjJV2EvHNzoD8
+ Fn2r1P+gRCnNtt6UB9Edv2Guq8nw48v+1tcem18VUIAqkCcywLDGzRjzLEEBavkmiOaq
+ j97A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=DGy9mZiNTcV5etgHVGwymerH3fD0AS7MvJ9UyCdIkU8=;
- b=721Rws7YMMTA6cErLJ6/tlkFduPP73kI/RLyF9pXmFwDm8KQU+yFGIvQoLONYXApar
- UYrPuxhsTP9Z1e7tZ8zMv6lmVXjhuGq3ReDGr6EWPl5pVS1QWOzYL0SWN4Bv9JKgNCa0
- 3ol0QDR/DY3B9T4DYWjbgKVr38EzOpbM7m/KoWaT6JvMr43UccXXF/cPhPt+9DvcTjCE
- P/MVCVKNmqtKvZ9OyruOLK/Aa5fSOwNgUrWTAHxL8NonKD+g3L9Jd6PyBxWxx0UJkh1I
- GaRd6CwPRuMYK0pMb0iiH+VRm+PrIo8mRZOzgGx/wk9MMytXaaMQrqGRawJMf5y8LQa4
- S+gA==
-X-Gm-Message-State: AOAM533ETwN4X3KPkJhX5hEhcfxgxByTEZk7klj0zvZgMVTfWOX5ZV0F
- g8z7LCAY9Q/ocUjbPOMcWEFVPw==
-X-Google-Smtp-Source: ABdhPJx3m2wy8IAaUPUVCfzhP0H0R0i6hF+gkOftCdjDpiVkShrIQ5V26+z56YN1dZGnnZJ/iARM6g==
-X-Received: by 2002:a05:6830:204d:: with SMTP id
- f13mr11309371otp.123.1633110138622; 
- Fri, 01 Oct 2021 10:42:18 -0700 (PDT)
+ bh=RuDmOgPfw7NqoydBG9DQd34tvaItfS8ZKq0v6QDg/FY=;
+ b=jkpCaMY+10puJXAU0DBbtqW+Wb3V/TsJdZV+CCmUyXvp2r4c3TT0MHOZAR3F8T8oaT
+ Rylj8rRx8jxjy/xImhU/68CTZlmal8PaHxLO/vNDwm/PbpMMqM1yqKB4s01lmYeWO6aj
+ Y1NW0sZ4wSb1EAHChsJ0TQ2k6tc2qO2ljpYrra3nBktXCknPr7zKGupX5AANVXct2dpP
+ n/SwfM2fWrAFr0exscAXt5+rKnC8lCOJx64OEwSHcAYXHue+lAE7aj+g7b+bMSD6DYYw
+ 3LEKfddhbGy/p5WlbzTOGUFt2daEYMWYyNYvelDamUaONIt1lHweSusbV2Dz/Z39mW9i
+ QjqQ==
+X-Gm-Message-State: AOAM5338JwBmPyD/lywCSmy/8426YPa57qHhRfzgv/ZecR0SzvX0eZsR
+ cp9H/frCH9sGKxRbhBbd3jkiDw==
+X-Google-Smtp-Source: ABdhPJws9faHBQvlTIfIFjLeXXFXgk7jiuKKfBY2CwB4kFziy9psiZ97T1gAtt89z7WID9l5hdsO1Q==
+X-Received: by 2002:a05:6830:310c:: with SMTP id
+ b12mr11691000ots.193.1633110139673; 
+ Fri, 01 Oct 2021 10:42:19 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
  by smtp.gmail.com with ESMTPSA id
- u15sm1369264oon.35.2021.10.01.10.42.17
+ u15sm1369264oon.35.2021.10.01.10.42.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 10:42:17 -0700 (PDT)
+ Fri, 01 Oct 2021 10:42:19 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -57,15 +57,15 @@ Cc: Kuogee Hsieh <khsieh@codeaurora.org>, Tanmay Shah <tanmay@codeaurora.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri,  1 Oct 2021 10:43:59 -0700
-Message-Id: <20211001174400.981707-5-bjorn.andersson@linaro.org>
+Date: Fri,  1 Oct 2021 10:44:00 -0700
+Message-Id: <20211001174400.981707-6-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20211001174400.981707-1-bjorn.andersson@linaro.org>
 References: <20211001174400.981707-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 4/5] drm/msm/dp: Store each subblock in the
- io region
+Subject: [Freedreno] [PATCH v3 5/5] drm/msm/dp: Allow sub-regions to be
+ specified in DT
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,264 +81,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Not all platforms has DP_P0 at offset 0x1000 from the beginning of the
-DP block. So split the dss_io_data memory region into a set of
-sub-regions, to make it possible in the next patch to specify each of
-the sub-regions individually.
+Not all platforms has P0 at an offset of 0x1000 from the base address,
+so add support for specifying each sub-region in DT. The code falls back
+to the predefined offsets in the case that only a single reg is
+specified, in order to support existing DT.
 
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
 
 Changes since v2:
-- Skipped the unnecessary reorder in struct dss_io_region 
+- None
 
- drivers/gpu/drm/msm/dp/dp_catalog.c | 64 +++++++++--------------------
- drivers/gpu/drm/msm/dp/dp_parser.c  | 28 +++++++++++--
- drivers/gpu/drm/msm/dp/dp_parser.h  |  9 +++-
- 3 files changed, 53 insertions(+), 48 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_parser.c | 49 +++++++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-index cc2bb8295329..6ae9b29044b6 100644
---- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-+++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-@@ -24,15 +24,6 @@
- #define DP_INTERRUPT_STATUS_ACK_SHIFT	1
- #define DP_INTERRUPT_STATUS_MASK_SHIFT	2
- 
--#define MSM_DP_CONTROLLER_AHB_OFFSET	0x0000
--#define MSM_DP_CONTROLLER_AHB_SIZE	0x0200
--#define MSM_DP_CONTROLLER_AUX_OFFSET	0x0200
--#define MSM_DP_CONTROLLER_AUX_SIZE	0x0200
--#define MSM_DP_CONTROLLER_LINK_OFFSET	0x0400
--#define MSM_DP_CONTROLLER_LINK_SIZE	0x0C00
--#define MSM_DP_CONTROLLER_P0_OFFSET	0x1000
--#define MSM_DP_CONTROLLER_P0_SIZE	0x0400
--
- #define DP_INTERRUPT_STATUS1 \
- 	(DP_INTR_AUX_I2C_DONE| \
- 	DP_INTR_WRONG_ADDR | DP_INTR_TIMEOUT | \
-@@ -66,82 +57,77 @@ void dp_catalog_snapshot(struct dp_catalog *dp_catalog, struct msm_disp_state *d
- {
- 	struct dp_catalog_private *catalog = container_of(dp_catalog,
- 			struct dp_catalog_private, dp_catalog);
-+	struct dss_io_data *dss = &catalog->io->dp_controller;
- 
--	msm_disp_snapshot_add_block(disp_state, catalog->io->dp_controller.len,
--			catalog->io->dp_controller.base, "dp_ctrl");
-+	msm_disp_snapshot_add_block(disp_state, dss->ahb.len, dss->ahb.base, "dp_ahb");
-+	msm_disp_snapshot_add_block(disp_state, dss->aux.len, dss->aux.base, "dp_aux");
-+	msm_disp_snapshot_add_block(disp_state, dss->link.len, dss->link.base, "dp_link");
-+	msm_disp_snapshot_add_block(disp_state, dss->p0.len, dss->p0.base, "dp_p0");
- }
- 
- static inline u32 dp_read_aux(struct dp_catalog_private *catalog, u32 offset)
- {
--	offset += MSM_DP_CONTROLLER_AUX_OFFSET;
--	return readl_relaxed(catalog->io->dp_controller.base + offset);
-+	return readl_relaxed(catalog->io->dp_controller.aux.base + offset);
- }
- 
- static inline void dp_write_aux(struct dp_catalog_private *catalog,
- 			       u32 offset, u32 data)
- {
--	offset += MSM_DP_CONTROLLER_AUX_OFFSET;
- 	/*
- 	 * To make sure aux reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	writel(data, catalog->io->dp_controller.base + offset);
-+	writel(data, catalog->io->dp_controller.aux.base + offset);
- }
- 
- static inline u32 dp_read_ahb(struct dp_catalog_private *catalog, u32 offset)
- {
--	offset += MSM_DP_CONTROLLER_AHB_OFFSET;
--	return readl_relaxed(catalog->io->dp_controller.base + offset);
-+	return readl_relaxed(catalog->io->dp_controller.ahb.base + offset);
- }
- 
- static inline void dp_write_ahb(struct dp_catalog_private *catalog,
- 			       u32 offset, u32 data)
- {
--	offset += MSM_DP_CONTROLLER_AHB_OFFSET;
- 	/*
- 	 * To make sure phy reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	writel(data, catalog->io->dp_controller.base + offset);
-+	writel(data, catalog->io->dp_controller.ahb.base + offset);
- }
- 
- static inline void dp_write_p0(struct dp_catalog_private *catalog,
- 			       u32 offset, u32 data)
- {
--	offset += MSM_DP_CONTROLLER_P0_OFFSET;
- 	/*
- 	 * To make sure interface reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	writel(data, catalog->io->dp_controller.base + offset);
-+	writel(data, catalog->io->dp_controller.p0.base + offset);
- }
- 
- static inline u32 dp_read_p0(struct dp_catalog_private *catalog,
- 			       u32 offset)
- {
--	offset += MSM_DP_CONTROLLER_P0_OFFSET;
- 	/*
- 	 * To make sure interface reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	return readl_relaxed(catalog->io->dp_controller.base + offset);
-+	return readl_relaxed(catalog->io->dp_controller.p0.base + offset);
- }
- 
- static inline u32 dp_read_link(struct dp_catalog_private *catalog, u32 offset)
- {
--	offset += MSM_DP_CONTROLLER_LINK_OFFSET;
--	return readl_relaxed(catalog->io->dp_controller.base + offset);
-+	return readl_relaxed(catalog->io->dp_controller.link.base + offset);
- }
- 
- static inline void dp_write_link(struct dp_catalog_private *catalog,
- 			       u32 offset, u32 data)
- {
--	offset += MSM_DP_CONTROLLER_LINK_OFFSET;
- 	/*
- 	 * To make sure link reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	writel(data, catalog->io->dp_controller.base + offset);
-+	writel(data, catalog->io->dp_controller.link.base + offset);
- }
- 
- /* aux related catalog functions */
-@@ -276,29 +262,21 @@ static void dump_regs(void __iomem *base, int len)
- 
- void dp_catalog_dump_regs(struct dp_catalog *dp_catalog)
- {
--	u32 offset, len;
- 	struct dp_catalog_private *catalog = container_of(dp_catalog,
- 		struct dp_catalog_private, dp_catalog);
-+	struct dss_io_data *io = &catalog->io->dp_controller;
- 
- 	pr_info("AHB regs\n");
--	offset = MSM_DP_CONTROLLER_AHB_OFFSET;
--	len = MSM_DP_CONTROLLER_AHB_SIZE;
--	dump_regs(catalog->io->dp_controller.base + offset, len);
-+	dump_regs(io->ahb.base, io->ahb.len);
- 
- 	pr_info("AUXCLK regs\n");
--	offset = MSM_DP_CONTROLLER_AUX_OFFSET;
--	len = MSM_DP_CONTROLLER_AUX_SIZE;
--	dump_regs(catalog->io->dp_controller.base + offset, len);
-+	dump_regs(io->aux.base, io->aux.len);
- 
- 	pr_info("LCLK regs\n");
--	offset = MSM_DP_CONTROLLER_LINK_OFFSET;
--	len = MSM_DP_CONTROLLER_LINK_SIZE;
--	dump_regs(catalog->io->dp_controller.base + offset, len);
-+	dump_regs(io->link.base, io->link.len);
- 
- 	pr_info("P0CLK regs\n");
--	offset = MSM_DP_CONTROLLER_P0_OFFSET;
--	len = MSM_DP_CONTROLLER_P0_SIZE;
--	dump_regs(catalog->io->dp_controller.base + offset, len);
-+	dump_regs(io->p0.base, io->p0.len);
- }
- 
- u32 dp_catalog_aux_get_irq(struct dp_catalog *dp_catalog)
-@@ -493,8 +471,7 @@ int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog,
- 	bit = BIT(pattern - 1) << DP_MAINLINK_READY_LINK_TRAINING_SHIFT;
- 
- 	/* Poll for mainlink ready status */
--	ret = readx_poll_timeout(readl, catalog->io->dp_controller.base +
--					MSM_DP_CONTROLLER_LINK_OFFSET +
-+	ret = readx_poll_timeout(readl, catalog->io->dp_controller.link.base +
- 					REG_DP_MAINLINK_READY,
- 					data, data & bit,
- 					POLLING_SLEEP_US, POLLING_TIMEOUT_US);
-@@ -541,8 +518,7 @@ bool dp_catalog_ctrl_mainlink_ready(struct dp_catalog *dp_catalog)
- 				struct dp_catalog_private, dp_catalog);
- 
- 	/* Poll for mainlink ready status */
--	ret = readl_poll_timeout(catalog->io->dp_controller.base +
--				MSM_DP_CONTROLLER_LINK_OFFSET +
-+	ret = readl_poll_timeout(catalog->io->dp_controller.link.base +
- 				REG_DP_MAINLINK_READY,
- 				data, data & DP_MAINLINK_READY_FOR_VIDEO,
- 				POLLING_SLEEP_US, POLLING_TIMEOUT_US);
 diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index c05ba1990218..1f084b2b5bd3 100644
+index 1f084b2b5bd3..4d6e047f803d 100644
 --- a/drivers/gpu/drm/msm/dp/dp_parser.c
 +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -11,6 +11,15 @@
- #include "dp_parser.h"
- #include "dp_reg.h"
+@@ -50,18 +50,45 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
+ 	if (IS_ERR(dss->ahb.base))
+ 		return PTR_ERR(dss->ahb.base);
  
-+#define DP_DEFAULT_AHB_OFFSET	0x0000
-+#define DP_DEFAULT_AHB_SIZE	0x0200
-+#define DP_DEFAULT_AUX_OFFSET	0x0200
-+#define DP_DEFAULT_AUX_SIZE	0x0200
-+#define DP_DEFAULT_LINK_OFFSET	0x0400
-+#define DP_DEFAULT_LINK_SIZE	0x0C00
-+#define DP_DEFAULT_P0_OFFSET	0x1000
-+#define DP_DEFAULT_P0_SIZE	0x0400
+-	if (dss->ahb.len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
+-		DRM_ERROR("legacy memory region not large enough\n");
+-		return -EINVAL;
+-	}
++	dss->aux.base = dp_ioremap(pdev, 1, &dss->aux.len);
++	if (IS_ERR(dss->aux.base)) {
++		/*
++		 * The initial binding had a single reg, but in order to
++		 * support variation in the sub-region sizes this was split.
++		 * dp_ioremap() will fail with -ENODEV here if only a single
++		 * reg is specified, so fill in the sub-region offsets and
++		 * lengths based on this single region.
++		 */
++		if (PTR_ERR(dss->aux.base) == -ENODEV) {
++			if (dss->ahb.len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
++				DRM_ERROR("legacy memory region not large enough\n");
++				return -EINVAL;
++			}
 +
- static const struct dp_regulator_cfg sdm845_dp_reg_cfg = {
- 	.num = 2,
- 	.regs = {
-@@ -37,9 +46,22 @@ static int dp_parser_ctrl_res(struct dp_parser *parser)
- 	struct dp_io *io = &parser->io;
- 	struct dss_io_data *dss = &io->dp_controller;
++			dss->ahb.len = DP_DEFAULT_AHB_SIZE;
++			dss->aux.base = dss->ahb.base + DP_DEFAULT_AUX_OFFSET;
++			dss->aux.len = DP_DEFAULT_AUX_SIZE;
++			dss->link.base = dss->ahb.base + DP_DEFAULT_LINK_OFFSET;
++			dss->link.len = DP_DEFAULT_LINK_SIZE;
++			dss->p0.base = dss->ahb.base + DP_DEFAULT_P0_OFFSET;
++			dss->p0.len = DP_DEFAULT_P0_SIZE;
++		} else {
++			DRM_ERROR("unable to remap aux region: %pe\n", dss->aux.base);
++			return PTR_ERR(dss->aux.base);
++		}
++	} else {
++		dss->link.base = dp_ioremap(pdev, 2, &dss->link.len);
++		if (IS_ERR(dss->link.base)) {
++			DRM_ERROR("unable to remap link region: %pe\n", dss->link.base);
++			return PTR_ERR(dss->link.base);
++		}
  
--	dss->base = dp_ioremap(pdev, 0, &dss->len);
--	if (IS_ERR(dss->base))
--		return PTR_ERR(dss->base);
-+	dss->ahb.base = dp_ioremap(pdev, 0, &dss->ahb.len);
-+	if (IS_ERR(dss->ahb.base))
-+		return PTR_ERR(dss->ahb.base);
-+
-+	if (dss->ahb.len < DP_DEFAULT_P0_OFFSET + DP_DEFAULT_P0_SIZE) {
-+		DRM_ERROR("legacy memory region not large enough\n");
-+		return -EINVAL;
+-	dss->ahb.len = DP_DEFAULT_AHB_SIZE;
+-	dss->aux.base = dss->ahb.base + DP_DEFAULT_AUX_OFFSET;
+-	dss->aux.len = DP_DEFAULT_AUX_SIZE;
+-	dss->link.base = dss->ahb.base + DP_DEFAULT_LINK_OFFSET;
+-	dss->link.len = DP_DEFAULT_LINK_SIZE;
+-	dss->p0.base = dss->ahb.base + DP_DEFAULT_P0_OFFSET;
+-	dss->p0.len = DP_DEFAULT_P0_SIZE;
++		dss->p0.base = dp_ioremap(pdev, 3, &dss->p0.len);
++		if (IS_ERR(dss->p0.base)) {
++			DRM_ERROR("unable to remap p0 region: %pe\n", dss->p0.base);
++			return PTR_ERR(dss->p0.base);
++		}
 +	}
-+
-+	dss->ahb.len = DP_DEFAULT_AHB_SIZE;
-+	dss->aux.base = dss->ahb.base + DP_DEFAULT_AUX_OFFSET;
-+	dss->aux.len = DP_DEFAULT_AUX_SIZE;
-+	dss->link.base = dss->ahb.base + DP_DEFAULT_LINK_OFFSET;
-+	dss->link.len = DP_DEFAULT_LINK_SIZE;
-+	dss->p0.base = dss->ahb.base + DP_DEFAULT_P0_OFFSET;
-+	dss->p0.len = DP_DEFAULT_P0_SIZE;
  
  	io->phy = devm_phy_get(&pdev->dev, "dp");
  	if (IS_ERR(io->phy))
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index dc62e70b1640..dac10923abde 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -25,11 +25,18 @@ enum dp_pm_type {
- 	DP_MAX_PM
- };
- 
--struct dss_io_data {
-+struct dss_io_region {
- 	size_t len;
- 	void __iomem *base;
- };
- 
-+struct dss_io_data {
-+	struct dss_io_region ahb;
-+	struct dss_io_region aux;
-+	struct dss_io_region link;
-+	struct dss_io_region p0;
-+};
-+
- static inline const char *dp_parser_pm_name(enum dp_pm_type module)
- {
- 	switch (module) {
 -- 
 2.29.2
 
