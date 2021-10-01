@@ -1,76 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC48441F6A8
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 23:09:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDE941F70D
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 23:45:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B02C6F40F;
-	Fri,  1 Oct 2021 21:09:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAB106E560;
+	Fri,  1 Oct 2021 21:45:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E03EC6F40E
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 21:09:18 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id e15so43550250lfr.10
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 14:09:18 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04F376E560
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 21:45:45 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id z24so43870539lfu.13
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 14:45:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=IebbO+ma/A1unpbrZ8oEgbjXE5CUx4OQ3cw7YGHtnpM=;
- b=MmcVHRWhjWn9KKZ/McV6/+Uoq6LupKzHXYCrxqBnqPPByl9LyIApmjQdSArX5IS1wv
- BDDVCN+9yflaCTtMHYwZQ+4iARy/KJH+03vwJWdUSqHCbaR8P4hY6Fu5VcgIiWf9nJg+
- pRCmia4gT/fFJcgBptVySNk7evnIS9V1A20AeUhyqGO1gGfzw/TPA0Lk/xoNQSvF0Jws
- qEWVvp4fE9+kqg5rgO8UrLQZZad35dzpWxvcgyhHeiQLr6Sjwi/y5KDKrEuL7tII4ejq
- M0V94nquYSxGjWFn4H+ppA51fLS2INdCJs5U4TA5NqAG1rv7v4OALlsTqL6J+Y63pW1B
- 2NZw==
+ bh=/3QM+JWeDJkTe4t3CtmCDkFs9BoPpAtgcYva2gyfDlw=;
+ b=pB5FIZYV+BREE/kNjfkIrKBciv7pI7+03MvHIx12OEzfaXErvh15RwP6E4Yk9Z3iXq
+ Y0CutAM4QjWI7YVk4GT2mgln5Fg1QDDIOCSTbk6sfPiQbyTDTaG8Cl8Bnig4FvqnXBzO
+ AyetwfEYYSdp6bqH6zuJ9r5u3KvqvqgmdSsakGxCh5cp2eWifGRTXwDd6gmcavGkqT91
+ 9Mc1cW9c1W6G2AVcU/BB3qCM3hQLeYt/ZkG7VdxWTelg2SIEQMV5QCEL8SneCxxvem81
+ WIELhyeyScTgMdN0kSQQA8BboX3b4C1k6ArQB0PWsI/GPHlvGDPUEiIU2QfU7CqiFgAL
+ FDIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=IebbO+ma/A1unpbrZ8oEgbjXE5CUx4OQ3cw7YGHtnpM=;
- b=n5KgPVFUR5LCulkcsZZhgpDsj/GjsjjplMUGlULHM38y+CkMPn5YY/gi+BG0pFWhGg
- oTxN+EYpSq5ZWxUsEPaZ80UztpilUBSEO3SsbglPpAts5S5tVm6oBD5sO7M7znr0hEyT
- Q8yD2kvMYQ1Rg9wOa5rJ3JqdrKfRephua3pQVg6VgZPqoPRqHsmXriUIWLlLcOB5e4rQ
- wxi0g7XL+ET09G5fbQqy+fzDfglr0/d5x9Bkl9CAqYhKr0qFJptK4rHJ4jXXAjjfRP5p
- BqkrTtCTMzNNqAHEJVX0rCyK6ErKRfZcztEFk7wa1gP5S9TfhjxXHgJbn23NgDGl+4Z/
- fe3w==
-X-Gm-Message-State: AOAM5326s8HF+1Ei8xtngVTSo66gElshksj1C7oS07tdw0AnIJiauqek
- LCiCrRqK7jinWtfShz3tEBhA+g==
-X-Google-Smtp-Source: ABdhPJw3pmsNgv9RYeS4huOp4qxuDaNliY0fsFTacMOU3A1X25G6Gt/OxqhoGbmcF5nk6N3Rx5wpkw==
-X-Received: by 2002:a05:6512:1399:: with SMTP id
- p25mr199919lfa.277.1633122557113; 
- Fri, 01 Oct 2021 14:09:17 -0700 (PDT)
+ bh=/3QM+JWeDJkTe4t3CtmCDkFs9BoPpAtgcYva2gyfDlw=;
+ b=mlP1qWBUevbK82IAeWmthSabD8zCvJ/7hqbyILBlc1wQja4YxCcYfxBN4WaAp119iT
+ g6LmZA/g9wj1I3v7CISiHHUVZ/6wLEPKiLK10+HUyJ4/Pa5oI3kYBZy5/+4dXcOA30BU
+ PCFyhU10Xc/hnV/qj6eDMSzzQzd42GBEob/S+FPEKLyBUMY04Cn+JY1fD63rIz07wx4v
+ Bwct1MJxhvHZ6OY52uEvCyIitxuj4YAIHdYJ2qNYwPd+bIp0VB2QVUR2VtBOtOhDdtuS
+ MzA2Z2xeLAghXSUDXQJJFGOdj24/8Z635c0hyo69pxdu3V1nPklpi4/GbXCv71vld/8B
+ 0Geg==
+X-Gm-Message-State: AOAM530YrvTBJj8pF8DSDjHuI5ujvJGHryRxIhXQ/JQFmxYJnuzEDMu5
+ 46qsyA82hWzuZuClaHzMs0wzRA==
+X-Google-Smtp-Source: ABdhPJw6MWBrdW/oxXgWl6yPDf7EjHUf1K+v4NhgkOTmf9ESfQWJ8lvv4sfudi5dhIHnJ3bY9LClGA==
+X-Received: by 2002:a2e:bc27:: with SMTP id b39mr331770ljf.438.1633124743260; 
+ Fri, 01 Oct 2021 14:45:43 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u25sm846522lfr.279.2021.10.01.14.09.16
+ by smtp.gmail.com with ESMTPSA id c5sm772982ljd.94.2021.10.01.14.45.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Oct 2021 14:09:16 -0700 (PDT)
-To: Sireesh Kodali <sireeshkodali1@gmail.com>, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Vladimir Lypak <vladimir.lypak@gmail.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- James Willcox <jwillcox@squareup.com>
-References: <20210928131929.18567-1-sireeshkodali1@gmail.com>
- <20210928131929.18567-4-sireeshkodali1@gmail.com>
+ Fri, 01 Oct 2021 14:45:42 -0700 (PDT)
+To: Colin King <colin.king@canonical.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20210929115352.212849-1-colin.king@canonical.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <06a40d0d-da39-ba0b-e932-d4435c0735d3@linaro.org>
-Date: Sat, 2 Oct 2021 00:09:15 +0300
+Message-ID: <e1d66d58-7bfa-ec21-9c19-5c81c071932a@linaro.org>
+Date: Sat, 2 Oct 2021 00:45:42 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20210928131929.18567-4-sireeshkodali1@gmail.com>
+In-Reply-To: <20210929115352.212849-1-colin.king@canonical.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 3/3] drm/msm/mdp5: Add configuration for
- MDP v1.16
+Subject: Re: [Freedreno] [PATCH][V2] drm/msm: Fix potential integer overflow
+ on 32 bit multiply
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,129 +79,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/09/2021 16:19, Sireesh Kodali wrote:
-> From: Vladimir Lypak <vladimir.lypak@gmail.com>
+On 29/09/2021 14:53, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
 > 
-> MDP version v1.16 is almost identical to v1.15 with most significant
-> difference being presence of second DSI interface. MDP v1.16 is found on
-> SoCs such as MSM8x53, SDM450, SDM632 (All with Adreno 506).
+> In the case where clock is 2147485 or greater the 32 bit multiplication
+> by 1000 will cause an integer overflow. Fix this by making the constant
+> 1000 an unsigned long to ensure a long multiply occurs to avoid the
+
+You are talking about 'unsigned long' here, however in the patch you've 
+used just 'unsigned' suffix. So, which one should be used?
+
+I suspect that wanted to use UL here, since mode->clock is int, so it is 
+int * unsigned.
+
+Also I'd suggest to define a helper function macro in the drm_modes.h(?) 
+that would take struct drm_display_mode pointer and return proper clock. 
+See icc_units_to_bps() for the inspiration.
+
+
+> overflow before assigning the result to the long result in variable
+> requested.  Most probably a theoretical overflow issue, but worth fixing
+> to clear up static analysis warnings.
 > 
-> Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
-> Signed-off-by: Sireesh Kodali <sireeshkodali1@gmail.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+> Addresses-Coverity: ("Unintentional integer overflow")
+> Fixes: c8afe684c95c ("drm/msm: basic KMS driver for snapdragon")
+> Fixes: 3e87599b68e7 ("drm/msm/mdp4: add LVDS panel support")
+> Fixes: 937f941ca06f ("drm/msm/dp: Use qmp phy for DP PLL and PHY")
+> Fixes: ab5b0107ccf3 ("drm/msm: Initial add eDP support in msm drm driver (v5)")
+> Fixes: a3376e3ec81c ("drm/msm: convert to drm_bridge")
+> 
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 > ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 89 ++++++++++++++++++++++++
->   1 file changed, 89 insertions(+)
+> V2: Find and fix all unintentional integer overflows that match this
+>      overflow pattern.
+> ---
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c    | 2 +-
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c   | 2 +-
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c | 2 +-
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c                    | 4 ++--
+>   drivers/gpu/drm/msm/edp/edp_connector.c             | 2 +-
+>   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c              | 2 +-
+>   drivers/gpu/drm/msm/hdmi/hdmi_connector.c           | 2 +-
+>   7 files changed, 8 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> index 9741544ffc35..0d28c8ff4009 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> @@ -752,6 +752,94 @@ const struct mdp5_cfg_hw msm8x76_config = {
->   	.max_clk = 360000000,
->   };
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c
+> index 88645dbc3785..83140066441e 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c
+> @@ -50,7 +50,7 @@ static void mdp4_dtv_encoder_mode_set(struct drm_encoder *encoder,
 >   
-> +static const struct mdp5_cfg_hw msm8x53_config = {
-> +	.name = "msm8x53",
-> +	.mdp = {
-> +		.count = 1,
-> +		.caps = MDP_CAP_CDM |
-> +			MDP_CAP_SRC_SPLIT,
-> +	},
-> +	.ctl = {
-> +		.count = 3,
-> +		.base = { 0x01000, 0x01200, 0x01400 },
-> +		.flush_hw_mask = 0xffffffff,
-> +	},
-> +	.pipe_vig = {
-> +		.count = 1,
-> +		.base = { 0x04000 },
-> +		.caps = MDP_PIPE_CAP_HFLIP	|
-> +			MDP_PIPE_CAP_VFLIP	|
-> +			MDP_PIPE_CAP_SCALE	|
-> +			MDP_PIPE_CAP_CSC	|
-> +			MDP_PIPE_CAP_DECIMATION	|
-> +			MDP_PIPE_CAP_SW_PIX_EXT	|
-> +			0,
-> +	},
-> +	.pipe_rgb = {
-> +		.count = 2,
-> +		.base = { 0x14000, 0x16000 },
-> +		.caps = MDP_PIPE_CAP_HFLIP	|
-> +			MDP_PIPE_CAP_VFLIP	|
-> +			MDP_PIPE_CAP_DECIMATION	|
-> +			MDP_PIPE_CAP_SW_PIX_EXT	|
-> +			0,
-> +	},
-> +	.pipe_dma = {
-> +		.count = 1,
-> +		.base = { 0x24000 },
-> +		.caps = MDP_PIPE_CAP_HFLIP	|
-> +			MDP_PIPE_CAP_VFLIP	|
-> +			MDP_PIPE_CAP_SW_PIX_EXT	|
-> +			0,
-> +	},
-> +	.pipe_cursor = {
-> +		.count = 1,
-> +		.base = { 0x34000 },
-> +		.caps = MDP_PIPE_CAP_HFLIP	|
-> +			MDP_PIPE_CAP_VFLIP	|
-> +			MDP_PIPE_CAP_SW_PIX_EXT	|
-> +			MDP_PIPE_CAP_CURSOR	|
-> +			0,
-> +	},
-> +
-> +	.lm = {
-> +		.count = 3,
-> +		.base = { 0x44000, 0x45000 },
-> +		.instances = {
-> +				{ .id = 0, .pp = 0, .dspp = 0,
-> +				  .caps = MDP_LM_CAP_DISPLAY |
-> +					  MDP_LM_CAP_PAIR },
-> +				{ .id = 1, .pp = 1, .dspp = -1,
-> +				  .caps = MDP_LM_CAP_DISPLAY },
-> +			     },
-> +		.nb_stages = 5,
-> +		.max_width = 2048,
-> +		.max_height = 0xFFFF,
-> +	},
-> +	.dspp = {
-> +		.count = 1,
-> +		.base = { 0x54000 },
-> +
-> +	},
-> +	.pp = {
-> +		.count = 2,
-> +		.base = { 0x70000, 0x70800 },
-> +	},
-> +	.cdm = {
-> +		.count = 1,
-> +		.base = { 0x79200 },
-> +	},
-> +	.intf = {
-> +		.base = { 0x6a000, 0x6a800, 0x6b000 },
-> +		.connect = {
-> +			[0] = INTF_DISABLED,
-> +			[1] = INTF_DSI,
-> +			[2] = INTF_DSI,
-> +		},
-> +	},
-> +	.max_clk = 400000000,
-> +};
-> +
->   static const struct mdp5_cfg_hw msm8917_config = {
->   	.name = "msm8917",
->   	.mdp = {
-> @@ -1151,6 +1239,7 @@ static const struct mdp5_cfg_handler cfg_handlers_v1[] = {
->   	{ .revision = 7, .config = { .hw = &msm8x96_config } },
->   	{ .revision = 11, .config = { .hw = &msm8x76_config } },
->   	{ .revision = 15, .config = { .hw = &msm8917_config } },
-> +	{ .revision = 16, .config = { .hw = &msm8x53_config } },
->   };
+>   	DBG("set mode: " DRM_MODE_FMT, DRM_MODE_ARG(mode));
 >   
->   static const struct mdp5_cfg_handler cfg_handlers_v3[] = {
+> -	mdp4_dtv_encoder->pixclock = mode->clock * 1000;
+> +	mdp4_dtv_encoder->pixclock = mode->clock * 1000U;
+>   
+>   	DBG("pixclock=%lu", mdp4_dtv_encoder->pixclock);
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+> index 10eb3e5b218e..d90dc0a39855 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c
+> @@ -225,7 +225,7 @@ static void mdp4_lcdc_encoder_mode_set(struct drm_encoder *encoder,
+>   
+>   	DBG("set mode: " DRM_MODE_FMT, DRM_MODE_ARG(mode));
+>   
+> -	mdp4_lcdc_encoder->pixclock = mode->clock * 1000;
+> +	mdp4_lcdc_encoder->pixclock = mode->clock * 1000U;
+>   
+>   	DBG("pixclock=%lu", mdp4_lcdc_encoder->pixclock);
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> index 7288041dd86a..a965e7962a7f 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c
+> @@ -64,7 +64,7 @@ static int mdp4_lvds_connector_mode_valid(struct drm_connector *connector,
+>   	struct drm_encoder *encoder = mdp4_lvds_connector->encoder;
+>   	long actual, requested;
+>   
+> -	requested = 1000 * mode->clock;
+> +	requested = 1000U * mode->clock;
+>   	actual = mdp4_lcdc_round_pixclk(encoder, requested);
+>   
+>   	DBG("requested=%ld, actual=%ld", requested, actual);
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 62e75dc8afc6..6babeb79aeb0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1316,7 +1316,7 @@ static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+>   	opts_dp->lanes = ctrl->link->link_params.num_lanes;
+>   	opts_dp->link_rate = ctrl->link->link_params.rate / 100;
+>   	dp_ctrl_set_clock_rate(ctrl, DP_CTRL_PM, "ctrl_link",
+> -					ctrl->link->link_params.rate * 1000);
+> +					ctrl->link->link_params.rate * 1000U);
+>   
+>   	phy_configure(phy, &dp_io->phy_opts);
+>   	phy_power_on(phy);
+> @@ -1336,7 +1336,7 @@ static int dp_ctrl_enable_stream_clocks(struct dp_ctrl_private *ctrl)
+>   	int ret = 0;
+>   
+>   	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel",
+> -					ctrl->dp_ctrl.pixel_rate * 1000);
+> +					ctrl->dp_ctrl.pixel_rate * 1000U);
+>   
+>   	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, true);
+>   	if (ret)
+> diff --git a/drivers/gpu/drm/msm/edp/edp_connector.c b/drivers/gpu/drm/msm/edp/edp_connector.c
+> index 73cb5fd97a5a..837e7873141f 100644
+> --- a/drivers/gpu/drm/msm/edp/edp_connector.c
+> +++ b/drivers/gpu/drm/msm/edp/edp_connector.c
+> @@ -64,7 +64,7 @@ static int edp_connector_mode_valid(struct drm_connector *connector,
+>   	struct msm_kms *kms = priv->kms;
+>   	long actual, requested;
+>   
+> -	requested = 1000 * mode->clock;
+> +	requested = 1000L * mode->clock;
+>   	actual = kms->funcs->round_pixclk(kms,
+>   			requested, edp_connector->edp->encoder);
+>   
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> index 6e380db9287b..e4c68a59772a 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -209,7 +209,7 @@ static void msm_hdmi_bridge_mode_set(struct drm_bridge *bridge,
+>   
+>   	mode = adjusted_mode;
+>   
+> -	hdmi->pixclock = mode->clock * 1000;
+> +	hdmi->pixclock = mode->clock * 1000U;
+>   
+>   	hstart = mode->htotal - mode->hsync_start;
+>   	hend   = mode->htotal - mode->hsync_start + mode->hdisplay;
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+> index 58707a1f3878..ce116a7b1bba 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
+> @@ -385,7 +385,7 @@ static int msm_hdmi_connector_mode_valid(struct drm_connector *connector,
+>   	struct msm_kms *kms = priv->kms;
+>   	long actual, requested;
+>   
+> -	requested = 1000 * mode->clock;
+> +	requested = 1000U * mode->clock;
+>   	actual = kms->funcs->round_pixclk(kms,
+>   			requested, hdmi_connector->hdmi->encoder);
+>   
 > 
 
 
