@@ -1,69 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B12D441F429
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:59:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BAF3A41F413
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:57:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 865036EEBB;
-	Fri,  1 Oct 2021 17:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5583A6EEA9;
+	Fri,  1 Oct 2021 17:57:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24F326EEB4
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:59:17 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id u22so12445234oie.5
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=JI+sywciYnZbmZEgEJHRDL/J7+jew9UCDT1hip8NvrU=;
- b=FyoEbdW2FqsPcEhkuzRiqeAZHw3KxbHbOcE66Ei50UA+S5jXlr/d7sRdoPXj0zrPM/
- 76r6rt7i+ccdj+mTerjrunN45spBenJDBib2hBvA6rhfnWpjHqmkNK5z5wJgO+jXn4p0
- h8raVVABtgEso+pTjYoll7GzjNoJgFGPIE/Q/rcwKVRadh1jHI48y9214q0FbwcNp5WJ
- M0pg+/b8khuqIFspFtwtwhAfa+JcRwQ+TBmb6BrtuIUOUSEYZ1bb5ZiQFC4p5TnMblcg
- zSxLtACQTor8eVznN8PPWSFJWfAADp52R487S2riQYeeqU7BpyvBkm9YvYD7Txy3HbMS
- Q8+Q==
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 941936EEA9;
+ Fri,  1 Oct 2021 17:57:55 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id d6so16668819wrc.11;
+ Fri, 01 Oct 2021 10:57:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vb73lg9qsqwiLmqj85NjUPL2xZVz8BzLOB9BceFTR54=;
+ b=iKrOVmWDyChr95wi0Eq5QO8i+oz/O3kLyjfsadbWMX4hO+WBoI+OIMQZxE1dLkZGWM
+ /XoObslVzWTfjtdK1Cfc9UCe6IesS3bcjuhEF2CNAszzjlTzjlezvdDICJuw0JnVhXzZ
+ WMLUdLRpDT24l46SofDJO1s85nOVl77XCDgRKnySR/Ys0ImYngf2rsFwFnRkyLqExXUq
+ TDI5vIIHrqwz1mRAlXjRb1csubqWR4sZ+MucNgLf/OrCElqIXTmLZZIZN3advEO/QYRs
+ 5UDCBPL124qq9zc2QfMiJ9+G1eabUxNDa7g2vLeVcPAwEEVIkDVkbiozKI2GBpycLFeE
+ ZsAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=JI+sywciYnZbmZEgEJHRDL/J7+jew9UCDT1hip8NvrU=;
- b=b7GxaQuJ5RPzhgI1KIW0wv9AU0DXcG7FLC8dGTBgxZzcaEn2gdEz9xoFH2ECwiA9Fy
- Io0JRFx7oiv+UC4T8Nf13N/BVsN2ZvZY+mxXwQKqqfG1z+V1nLmbSpAaDBVL+ibEsVX9
- mJ2H3TjmJGNjZjASYXmcvjrLf4PB1NUOQtSYw9D2hXuSHoja5l3g6E8ucOm0+qiBcK08
- hBowAAfhnXubnYOKWLvSMxjofwdptihVysOpz7A62Jz4cAkaPwKfEaZ69V0nLvhF+4Xg
- OT/NtWgRF9GY7WBf+LucfHWxdk8xSIGT5A5ALF0Ad2UxPWjHApQCVfaosDOR8CHzc5cb
- 2X1A==
-X-Gm-Message-State: AOAM530aKtyG/vFx9bMIxcYMDs3+hTCByl2HBSqgwA2AByh9El3yz78q
- b1PjKhWjtf3zHKN7jG7Rwho+Gg==
-X-Google-Smtp-Source: ABdhPJy4WkvL2DtpKyrAXS99LAVSyxpiYi/tK7s8P4u/fX707mFCaQdncul2tax8VCgac4O/k7y/dQ==
-X-Received: by 2002:aca:f189:: with SMTP id p131mr4906839oih.128.1633111156385; 
- Fri, 01 Oct 2021 10:59:16 -0700 (PDT)
-Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id
- w2sm1284798oof.23.2021.10.01.10.59.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 10:59:16 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>
-Cc: Rob Herring <robh+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Fri,  1 Oct 2021 11:00:58 -0700
-Message-Id: <20211001180058.1021913-6-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20211001180058.1021913-1-bjorn.andersson@linaro.org>
-References: <20211001180058.1021913-1-bjorn.andersson@linaro.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vb73lg9qsqwiLmqj85NjUPL2xZVz8BzLOB9BceFTR54=;
+ b=aeBbZPtBFuzkfkLRG3gSFZSqeDRHOqFIJcy1102yaSSjBm8AN9BBE1yHvP3fiH/l/X
+ LDmmaXnLtW5uqrU82dH6QM7hDo/podBHRf5b0bVxLEPrU1784xrrjKWVD53uNYohcmUD
+ Sc3C0maJqtiq0WMeZTmVzakH53JIhn7nGjfKClvcCSUnomewNyZSAhryIdNmstWUlk2S
+ sSDud65tVcnxYK5hEA7iicohSWBvAMFQmD1VgY/xMkCaQS4kcz0dlyUpfTIsfGvh4rG8
+ olDuL/YzRKAcq5KygqPBqQCQkWOHiyVw96UhSGNd2nLQtT5evBlovKhWPLTel2VJJmdQ
+ x/SQ==
+X-Gm-Message-State: AOAM532rJp7COvUJYxF49gHHTHbGFcectBYe0PdtcmAazhbb8RkHy5fg
+ +9qoRXiOkql16gOPlMbp5c77mzYOUxMfH8fhk9WIk1Oa
+X-Google-Smtp-Source: ABdhPJytVyeFma0MtJUTeP9fqX/qokpdavenH1L8LAggVgfF26XCTfWt9vkXs6TbhVUk+tgO9aYRvxTlnv1n1o47bl8=
+X-Received: by 2002:adf:a289:: with SMTP id s9mr2359018wra.260.1633111073891; 
+ Fri, 01 Oct 2021 10:57:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 5/5] drm/msm/dp: Add sc8180x DP controllers
+References: <20210920225801.227211-1-robdclark@gmail.com>
+ <20210920225801.227211-2-robdclark@gmail.com>
+ <bbcf5361-32e7-a2db-ffcc-986e012f000d@linaro.org>
+In-Reply-To: <bbcf5361-32e7-a2db-ffcc-986e012f000d@linaro.org>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 1 Oct 2021 11:02:27 -0700
+Message-ID: <CAF6AEGuRVEy1mXnHoAuD1TfzL+UUi8q0j0N1M3kUoVfgJWOwEw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
+ freedreno <freedreno@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Rob Clark <robdclark@chromium.org>, 
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dsi: Support NO_CONNECTOR
+ bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,39 +77,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The sc8180x has 2 DP and 1 eDP controllers, add support for these to the
-DP driver.
+On Fri, Oct 1, 2021 at 10:28 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 21/09/2021 01:57, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > For now, since we have a mix of bridges which support this flag, which
+> > which do *not* support this flag, or work both ways, try it once with
+> > NO_CONNECTOR and then fall back to the old way if that doesn't work.
+> > Eventually we can drop the fallback path.
+> >
+> > v2: Add missing drm_connector_attach_encoder() so display actually comes
+> >      up when the bridge properly handles the NO_CONNECTOR flag
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> I think this patch can go through the drm/msm, while two other patches
+> would need to through the drm-misc. Is it correct?
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
+Correct, I made sure things worked in either order (ie. with msm patch
+but without bridge patches, and visa versa), so they can land through
+different trees
 
-Changes since v2:
-- None
+BR,
+-R
 
- drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index ff3477474c5d..56a79aeffed4 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -127,8 +127,15 @@ static const struct msm_dp_config sc7180_dp_cfg = {
- 	.num_descs = 1,
- };
- 
-+static const struct msm_dp_config sc8180x_dp_cfg = {
-+	.io_start = { 0xae90000, 0xae98000, 0xae9a000 },
-+	.num_descs = 3,
-+};
-+
- static const struct of_device_id dp_dt_match[] = {
- 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
-+	{ .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
-+	{ .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_cfg },
- 	{}
- };
- 
--- 
-2.29.2
-
+>
+> > ---
+> >   drivers/gpu/drm/msm/Kconfig           |  2 ++
+> >   drivers/gpu/drm/msm/dsi/dsi_manager.c | 50 ++++++++++++++++++++-------
+> >   2 files changed, 39 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> > index e9c6af78b1d7..36e5ba3ccc28 100644
+> > --- a/drivers/gpu/drm/msm/Kconfig
+> > +++ b/drivers/gpu/drm/msm/Kconfig
+> > @@ -14,6 +14,8 @@ config DRM_MSM
+> >       select REGULATOR
+> >       select DRM_KMS_HELPER
+> >       select DRM_PANEL
+> > +     select DRM_BRIDGE
+> > +     select DRM_PANEL_BRIDGE
+> >       select DRM_SCHED
+> >       select SHMEM
+> >       select TMPFS
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > index c41d39f5b7cf..e25877073d31 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> > @@ -3,6 +3,8 @@
+> >    * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+> >    */
+> >
+> > +#include "drm/drm_bridge_connector.h"
+> > +
+> >   #include "msm_kms.h"
+> >   #include "dsi.h"
+> >
+> > @@ -688,10 +690,10 @@ struct drm_connector *msm_dsi_manager_ext_bridge_init(u8 id)
+> >   {
+> >       struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+> >       struct drm_device *dev = msm_dsi->dev;
+> > +     struct drm_connector *connector;
+> >       struct drm_encoder *encoder;
+> >       struct drm_bridge *int_bridge, *ext_bridge;
+> > -     struct drm_connector *connector;
+> > -     struct list_head *connector_list;
+> > +     int ret;
+> >
+> >       int_bridge = msm_dsi->bridge;
+> >       ext_bridge = msm_dsi->external_bridge =
+> > @@ -699,22 +701,44 @@ struct drm_connector *msm_dsi_manager_ext_bridge_init(u8 id)
+> >
+> >       encoder = msm_dsi->encoder;
+> >
+> > -     /* link the internal dsi bridge to the external bridge */
+> > -     drm_bridge_attach(encoder, ext_bridge, int_bridge, 0);
+> > -
+> >       /*
+> > -      * we need the drm_connector created by the external bridge
+> > -      * driver (or someone else) to feed it to our driver's
+> > -      * priv->connector[] list, mainly for msm_fbdev_init()
+> > +      * Try first to create the bridge without it creating its own
+> > +      * connector.. currently some bridges support this, and others
+> > +      * do not (and some support both modes)
+> >        */
+> > -     connector_list = &dev->mode_config.connector_list;
+> > +     ret = drm_bridge_attach(encoder, ext_bridge, int_bridge,
+> > +                     DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> > +     if (ret == -EINVAL) {
+> > +             struct drm_connector *connector;
+> > +             struct list_head *connector_list;
+> > +
+> > +             /* link the internal dsi bridge to the external bridge */
+> > +             drm_bridge_attach(encoder, ext_bridge, int_bridge, 0);
+> > +
+> > +             /*
+> > +              * we need the drm_connector created by the external bridge
+> > +              * driver (or someone else) to feed it to our driver's
+> > +              * priv->connector[] list, mainly for msm_fbdev_init()
+> > +              */
+> > +             connector_list = &dev->mode_config.connector_list;
+> >
+> > -     list_for_each_entry(connector, connector_list, head) {
+> > -             if (drm_connector_has_possible_encoder(connector, encoder))
+> > -                     return connector;
+> > +             list_for_each_entry(connector, connector_list, head) {
+> > +                     if (drm_connector_has_possible_encoder(connector, encoder))
+> > +                             return connector;
+> > +             }
+> > +
+> > +             return ERR_PTR(-ENODEV);
+> > +     }
+> > +
+> > +     connector = drm_bridge_connector_init(dev, encoder);
+> > +     if (IS_ERR(connector)) {
+> > +             DRM_ERROR("Unable to create bridge connector\n");
+> > +             return ERR_CAST(connector);
+> >       }
+> >
+> > -     return ERR_PTR(-ENODEV);
+> > +     drm_connector_attach_encoder(connector, encoder);
+> > +
+> > +     return connector;
+> >   }
+> >
+> >   void msm_dsi_manager_bridge_destroy(struct drm_bridge *bridge)
+> >
+>
+>
+> --
+> With best wishes
+> Dmitry
