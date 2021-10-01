@@ -2,51 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD1CE41F34B
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:42:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3969841F34E
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:42:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2576EE77;
-	Fri,  1 Oct 2021 17:42:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B07F6EE7B;
+	Fri,  1 Oct 2021 17:42:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA806EE78
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:42:15 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- o59-20020a9d2241000000b0054745f28c69so12415406ota.13
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:42:15 -0700 (PDT)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E26A6EE78
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:42:16 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id s69so12312610oie.13
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:42:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=T4Pk/SKGcDml8g9kQfIFxWSgB1QkZnzEqcqoMDRtiFU=;
- b=VRR2kMxgmb9zJjO0qYX8lZqyUNeV+qdczrK/Y59b/4E3QvXYlZ0QNQ5xWsfIh6rK4H
- nD4pIRu9YpKAIAdKd4oIkEF5ff3HecWkEyDSfCgCzmipUezsGOpwt1SxEu3gQbyT0ESX
- nKFje9Tgi0BiW6/BVW4wLn1l4GLuvW2UMx7naANaAnWjU+st9NQKlnGP+yeh/ZWdSEG2
- kfk6c3KYIkOzZN4LkqhYvnfEu+uBHf/g74EKVcCHmv5Ghd/hqILcluFBIBM/RO8lFyFx
- ZMNd1UynGsc3QBwsehEFGtmj3RGwdff8DeSzbHhGQAV1ziSq/XR+ACZlKODvoO079f5N
- yg8A==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=1XfRi83lxmTXo1mPygdX7KTNkhcpA1zU3QO1+ROpzaM=;
+ b=BjV/LAd5fMomk9CbkbZKRN1uPjTa7v3BRm90A2QbqxBtlPl4Ni9iDnE+c2Oqfgt8Y5
+ hAkvSt/rafwEPaawca5eo3p/IGZH6fiDeTm26ytEV3Zw+X1q2g50HOoldTXNwiRLnqy1
+ cGXIM8tSivoVPDrAPTJIiA1e6dttoq+LwXDZVX4pnxCX7nr9C2x97M/iQa+mWAMMzh/j
+ gy+rxYYWOohi+7TL/Un3OYYdBmWZ9MGi2hD7uZOvWrcATewcmSq+4gDL7jhoLAg49ddH
+ g5YG+b31MtqoI6ip7vhMTtf/PjdhwVfpIsy6MX+IVHU/SCAA1QKmXi3SHoB2DUKjGGPe
+ 3v/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=T4Pk/SKGcDml8g9kQfIFxWSgB1QkZnzEqcqoMDRtiFU=;
- b=nrx64NEAivavzmqJMc++Fq0xbpmCFpT7xyEm1m+2h3JvYZxMJ5kKSk2r2BjJE2V2wC
- jE+U7HnDQP/lblf2/Sbtiv0noHyoywB21BAhDGeXkwvyjS2+j8BO7ucyll7uj9nQ/Scr
- jlq665X6Z1I8N4oElDT4bnooL/yG9PegVW63kwl7cVdAQ4NCNGclJTBB+5JegMjXIEsB
- HRkqXpJnT0qBT+43RCHNF3NlhfEfs56VeXqLfCfbmJkF+fRb3L0QeSutMiY6i4eTQXml
- KJ03E9iuwvTYQoxIxCFRmlzzCcCnNICaBNhzOsx+NF+oCFu6hyiybf9Wh9+CwpFTWrFW
- xlog==
-X-Gm-Message-State: AOAM532aVx81u2NMShyv/xLHrjkBI7tAMO/9UUiMGkTjum1CN+DHNOut
- jak8kfA0tpKbO3wCYxK0XwKy7w==
-X-Google-Smtp-Source: ABdhPJwsyNL/kZct1ui5XlNR0vlk5yVHdKEYNUXX7kt5RL34oCziPyKWeZrHRi9vLGJtc5+BkxMkzg==
-X-Received: by 2002:a9d:6399:: with SMTP id w25mr11409273otk.53.1633110134535; 
- Fri, 01 Oct 2021 10:42:14 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=1XfRi83lxmTXo1mPygdX7KTNkhcpA1zU3QO1+ROpzaM=;
+ b=2DXyq8oFXudz+qkrTZxpkhkyjBP81RzB0g1LZQKvcop57ajJgPbIukQrhEFPnnBDLS
+ Z2JbkSSnane63gsStgQaHm234N5vyvlfmApW9Dg/eU9AMsikcI6XyQaWG91jgR13gMSr
+ yGbiv6HNHMkJul2XxzyCQCnobpZiXe+Jhjp6CMlujHIX3AbBKRoli80nR7dRPHd0CUsu
+ 7GF4T8CIyUOGvAkPHxX2aXEltiPD0BcAfglKwOjwKuh8HqX7fZvQHzcyyCoVMnGuQSBN
+ zrEHlKdRSGk7baMIEpBS488QCQyW14UFPgXKE9s8k57MTj7VRakAYC0XbqhdvxJ4usyL
+ +V0g==
+X-Gm-Message-State: AOAM533pa+oyrORZhnLLoYNYKgn5N692uLi/y7O29muZUKNhhBHxqQIr
+ 2g4BHG45eilVQFjxUUY+ZQJyNg==
+X-Google-Smtp-Source: ABdhPJyuU/BD/AoGnySYTk7e7I237mOB/XEoTAJAh3ya/qX1KRqJk7Fv3baULTt7qZ0GjaMfZmcstQ==
+X-Received: by 2002:a54:410b:: with SMTP id l11mr4806256oic.74.1633110135506; 
+ Fri, 01 Oct 2021 10:42:15 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
  by smtp.gmail.com with ESMTPSA id
- u15sm1369264oon.35.2021.10.01.10.42.13
+ u15sm1369264oon.35.2021.10.01.10.42.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 10:42:14 -0700 (PDT)
+ Fri, 01 Oct 2021 10:42:15 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -55,14 +54,17 @@ To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
 Cc: Kuogee Hsieh <khsieh@codeaurora.org>, Tanmay Shah <tanmay@codeaurora.org>,
  Chandan Uddaraju <chandanu@codeaurora.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri,  1 Oct 2021 10:43:55 -0700
-Message-Id: <20211001174400.981707-1-bjorn.andersson@linaro.org>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>
+Date: Fri,  1 Oct 2021 10:43:56 -0700
+Message-Id: <20211001174400.981707-2-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20211001174400.981707-1-bjorn.andersson@linaro.org>
+References: <20211001174400.981707-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 0/5] drm/msm/dp: Allow variation in register
- regions
+Subject: [Freedreno] [PATCH v3 1/5] dt-bindings: msm/dp: Change reg
+ definition
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,25 +80,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-It turns out that sc8180x (among others) doesn't have the same internal
-layout of the 4 subblocks. This series therefor modifies the binding to
-require all four regions to be described individually and then extends
-the driver to read these four regions. The driver will fall back to read
-the old single-reg format and apply the original offsets and sizes.
+reg was defined as one region covering the entire DP block, but the
+memory map is actually split in 4 regions and obviously the size of
+these regions differs between platforms.
 
-Bjorn Andersson (5):
-  dt-bindings: msm/dp: Change reg definition
-  drm/msm/dp: Use devres for ioremap()
-  drm/msm/dp: Refactor ioremap wrapper
-  drm/msm/dp: Store each subblock in the io region
-  drm/msm/dp: Allow sub-regions to be specified in DT
+Switch the reg to require that all four regions are specified instead.
+It is expected that the implementation will handle existing DTBs, even
+though the schema defines the new layout.
 
- .../bindings/display/msm/dp-controller.yaml   |  13 ++-
- drivers/gpu/drm/msm/dp/dp_catalog.c           |  64 ++++-------
- drivers/gpu/drm/msm/dp/dp_parser.c            | 102 ++++++++++--------
- drivers/gpu/drm/msm/dp/dp_parser.h            |  11 +-
- 4 files changed, 100 insertions(+), 90 deletions(-)
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
 
+Changes since v2:
+- None
+
+ .../bindings/display/msm/dp-controller.yaml         | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index d89b3c510c27..6bb424c21340 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -19,7 +19,12 @@ properties:
+       - qcom,sc7180-dp
+ 
+   reg:
+-    maxItems: 1
++    items:
++      - description: ahb register block
++      - description: aux register block
++      - description: link register block
++      - description: p0 register block
++      - description: p1 register block
+ 
+   interrupts:
+     maxItems: 1
+@@ -99,7 +104,11 @@ examples:
+ 
+     displayport-controller@ae90000 {
+         compatible = "qcom,sc7180-dp";
+-        reg = <0xae90000 0x1400>;
++        reg = <0xae90000 0x200>,
++              <0xae90200 0x200>,
++              <0xae90400 0xc00>,
++              <0xae91000 0x400>,
++              <0xae91400 0x400>;
+         interrupt-parent = <&mdss>;
+         interrupts = <12>;
+         clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
 -- 
 2.29.2
 
