@@ -1,68 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00BA341F0DE
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 17:12:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 86BD641F0E3
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 17:12:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 906516EE44;
-	Fri,  1 Oct 2021 15:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E62786EE41;
+	Fri,  1 Oct 2021 15:12:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [IPv6:2607:f8b0:4864:20::830])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 858E96EE45
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 15:12:47 +0000 (UTC)
-Received: by mail-qt1-x830.google.com with SMTP id l13so9248351qtv.3
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 08:12:47 -0700 (PDT)
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 897446EE2E
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 15:12:52 +0000 (UTC)
+Received: by mail-qt1-x82f.google.com with SMTP id m26so9254121qtn.1
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 08:12:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=w9+zSbHr6qN9jSAilmfC3Z1uk1AYYSz6oIU7aW6aixk=;
- b=UvorM/xvDAtRU2OzjaZA2/9s1l8ctVGyZBRXQkRButeYIXvAK55K70XJ/NQRKdhFNc
- mVgmZkjGofBFMl0XNVyiR5o0pZY6OydhhscQ6mrNwnAbYqmonDFQ5RnNhQaeLU/3yiuQ
- iNQ0G2bDicOiqcuNJs9HuVB1vHPS8S4W74BfZftZ/YBezoKJvPEueQMrpesE94KxT0W+
- mrF8VsuH7DhRYR8R6nZGE1u8ce5kVAYwyFjt/IwiysXQWhILRyHbSB6dRMNQnr7fVbO/
- yNzqKSByO2DAcxRESp1xvowQr7X96hRG2Fma5D3YQ0gMhe85DM3hp6JKfNGUFu1vAA6A
- 3zmQ==
+ bh=5zr3OobeWPDbB43eIxP82xAzyAQPk96HLICMejbx2Ro=;
+ b=LNVEaQ7pTm7VaBh9QQpzHYNEUpXgUcY/ayJUSSDUO8lyH2NhPrW8ax0jMQjSRtKV0z
+ 9buqQyQtxJo4p6FMy0OLE+3s3mAEXyNEMUEjuRw/w4FxPGb6wfwjthlOMWiQ+pdF5pDD
+ 2ClY2xhZKXeYDSPmYQ/HFqPv/suYAKP7RWB0WdYiSeV4cf+kI3HVFHMH/XkUIAGNCDgx
+ js3wtlzXm/vI4tititRm2JmkaKr/wCHUVnefnkeeBr63QrM2NeaATidAy9RkWUMHLHCT
+ IH+p5/1lQq6a4V5umxm+MlXf9lfTzvL9KplvE89S0Vfa+83QlyoEf2Sjvn2Up7ICegap
+ JN7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=w9+zSbHr6qN9jSAilmfC3Z1uk1AYYSz6oIU7aW6aixk=;
- b=w++T56Kn+6s96t+sJNuz4xqi33uncDA8zd0ywiggF+Udr5UrQyJnT69/NpuK1CUexi
- JFCMheVRAKpUgmPtDMVjXzSng01upeh5VlILxup2ZWBIK2SNj8maBMoLQdRibAAKUKy6
- IN3tIkIvDtdyvfvT/RrHgs+AHqsJe+0p5DbQTyqaPJOcBEWk/Iubc9nuqEGHRJw0E3ID
- yB/6CzsFll9iLrCvy/VkzuYRlw6a8m+1mgNHposAvTRmBURapW7YuZxp8Tw5rSkpigO9
- GxbQzs06k7vgLPjRtqN9skBBdhExpgmb7ktkyt11+W8aUHVVejxIWJ23PRYMHIzIsPA/
- Rrxw==
-X-Gm-Message-State: AOAM532+9Euf4gJeoNFqRA5gewmLLgarBct36O/aYGIR5tyK+7Ypyr9m
- 2mmNb905/LxWA5ZE6eVdaX/rbA==
-X-Google-Smtp-Source: ABdhPJwVWp69Pjul0IB0gv3ZsKtdti92QdJOZrAvETv0pSiRZ8C+AlC0cv8pBo1qJCozPOLc4IN8eA==
-X-Received: by 2002:ac8:7778:: with SMTP id h24mr13466760qtu.265.1633101166727; 
- Fri, 01 Oct 2021 08:12:46 -0700 (PDT)
+ bh=5zr3OobeWPDbB43eIxP82xAzyAQPk96HLICMejbx2Ro=;
+ b=ykJX06wcFjUN7uKBVhzB12lvmRhWfEPm5UeG6fauiQdl0I/MfhXRVjZZVv3R4usWCy
+ YPHo+tE1iIOJ6hGPy9g2+eoCvZRZKeWvUwoQB7YnqQSg6HQWzRPkCUsEBxXiMNYbZoki
+ wiH3j6O65ju4Y66FdjEOpmwte+6LOaqg5ofdVqE1rRIp075rkeDfZEAZsGfyF9U07twp
+ GfeOAj5uCroea0lan5LD68NCWmnyblRLIZBwVGboMC+oo2ws1dtpRpAvTFR2/PG13ssF
+ bt0qKAYQN5vEGpidUMlB73fW89Y2rI5ItEVt24EtqT6bOf0I5qCXscfnafIjc3pThek8
+ De+A==
+X-Gm-Message-State: AOAM532RZh5QC1ltJrC8xcYk/cM2G/L8K1onT+E04+lfw/p7QNy61T+T
+ jLHD46XvIn96j9/GkHq5mnatTQ==
+X-Google-Smtp-Source: ABdhPJyBZVlKPSTxoaF30k1Yffh0z0OUpyfO1SUldEuXtxsQaxSqtcKpI4aLv84Y6zLhTndZWv1pZw==
+X-Received: by 2002:ac8:7959:: with SMTP id r25mr13301003qtt.29.1633101171713; 
+ Fri, 01 Oct 2021 08:12:51 -0700 (PDT)
 Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id o21sm3467909qtq.43.2021.10.01.08.12.45
+ by smtp.gmail.com with ESMTPSA id o5sm1984163qkl.50.2021.10.01.08.12.51
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 01 Oct 2021 08:12:45 -0700 (PDT)
+ Fri, 01 Oct 2021 08:12:51 -0700 (PDT)
 From: Sean Paul <sean@poorly.run>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
 Cc: swboyd@chromium.org, jani.nikula@linux.intel.com,
- Sean Paul <seanpaul@chromium.org>, Rob Herring <robh@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Date: Fri,  1 Oct 2021 11:11:41 -0400
-Message-Id: <20211001151145.55916-13-sean@poorly.run>
+ Sean Paul <seanpaul@chromium.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Date: Fri,  1 Oct 2021 11:11:42 -0400
+Message-Id: <20211001151145.55916-14-sean@poorly.run>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20211001151145.55916-1-sean@poorly.run>
 References: <20211001151145.55916-1-sean@poorly.run>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 12/14] dt-bindings: msm/dp: Add bindings for
- HDCP registers
+Subject: [Freedreno] [PATCH v3 13/14] arm64: dts: qcom: sc7180: Add support
+ for HDCP in dp-controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,97 +79,41 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Sean Paul <seanpaul@chromium.org>
 
-This patch adds the bindings for the MSM DisplayPort HDCP registers
-which are required to write the HDCP key into the display controller as
-well as the registers to enable HDCP authentication/key
-exchange/encryption.
+This patch adds the register ranges required for HDCP key injection and
+HDCP TrustZone interaction as described in the dt-bindings for the
+sc7180 dp controller. Now that these are supported, change the
+compatible string to "dp-hdcp".
 
-We'll use a new compatible string for this since the fields are optional.
-
-Cc: Rob Herring <robh@kernel.org>
-Cc: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
-Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
+Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
+Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
 
-Changes in v2:
--Drop register range names (Stephen)
--Fix yaml errors (Rob)
 Changes in v3:
--Add new compatible string for dp-hdcp
--Add descriptions to reg
--Add minItems/maxItems to reg
--Make reg depend on the new hdcp compatible string
+-Split off into a new patch containing just the dts change (Stephen)
+-Add hdcp compatible string (Stephen)
 ---
+ arch/arm64/boot/dts/qcom/sc7180.dtsi | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Disclaimer: I really don't know if this is the right way to approach
-this. I tried using examples from other bindings, but feedback would be
-very much welcome on how I could add the optional register ranges.
-
-
- .../bindings/display/msm/dp-controller.yaml   | 34 ++++++++++++++++---
- 1 file changed, 30 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index 64d8d9e5e47a..a176f97b2f4c 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -17,9 +17,10 @@ properties:
-   compatible:
-     enum:
-       - qcom,sc7180-dp
-+      - qcom,sc7180-dp-hdcp
+diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+index c8921e2d6480..f2d7f3c95c1f 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
+@@ -3085,10 +3085,12 @@ dsi_phy: dsi-phy@ae94400 {
+ 			};
  
--  reg:
--    maxItems: 1
-+  # See compatible-specific constraints below.
-+  reg: true
+ 			mdss_dp: displayport-controller@ae90000 {
+-				compatible = "qcom,sc7180-dp";
++				compatible = "qcom,sc7180-dp-hdcp";
+ 				status = "disabled";
  
-   interrupts:
-     maxItems: 1
-@@ -89,6 +90,29 @@ required:
-   - power-domains
-   - ports
+-				reg = <0 0x0ae90000 0 0x1400>;
++				reg = <0 0x0ae90000 0 0x1400>,
++				      <0 0x0aed1000 0 0x174>,
++				      <0 0x0aee1000 0 0x2c>;
  
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,sc7180-dp-hdcp
-+    then:
-+      properties:
-+        reg:
-+          minItems: 3
-+          maxItems: 3
-+          items:
-+            - description: Registers for base DP functionality
-+            - description: (Optional) Registers for HDCP device key injection
-+            - description: (Optional) Registers for HDCP TrustZone interaction
-+    else:
-+      properties:
-+        reg:
-+          minItems: 1
-+          maxItems: 1
-+          items:
-+            - description: Registers for base DP functionality
-+
- additionalProperties: false
- 
- examples:
-@@ -99,8 +123,10 @@ examples:
-     #include <dt-bindings/power/qcom-rpmpd.h>
- 
-     displayport-controller@ae90000 {
--        compatible = "qcom,sc7180-dp";
--        reg = <0xae90000 0x1400>;
-+        compatible = "qcom,sc7180-dp-hdcp";
-+        reg = <0 0x0ae90000 0 0x1400>,
-+              <0 0x0aed1000 0 0x174>,
-+              <0 0x0aee1000 0 0x2c>;
-         interrupt-parent = <&mdss>;
-         interrupts = <12>;
-         clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+ 				interrupt-parent = <&mdss>;
+ 				interrupts = <12>;
 -- 
 Sean Paul, Software Engineer, Google / Chromium OS
 
