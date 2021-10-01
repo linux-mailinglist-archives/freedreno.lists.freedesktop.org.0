@@ -2,94 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE10141E2A2
-	for <lists+freedreno@lfdr.de>; Thu, 30 Sep 2021 22:21:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68E2341E7A9
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 08:39:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5E606EC69;
-	Thu, 30 Sep 2021 20:20:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40CCD6ECF7;
+	Fri,  1 Oct 2021 06:39:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D7756E462
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 20:20:57 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id q2so2152724wrc.4
- for <freedreno@lists.freedesktop.org>; Thu, 30 Sep 2021 13:20:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=498LPkH4Nb6HbpN3dLoVr/vBONswYBBw5ue0vyNDRvI=;
- b=sMhtUwruXOyJZn2fDxnyX3+v2mNpf3hIbtFmvxWrbeAgH8ik+FRE9CJVcS+CPtg4a2
- f8hyMOcyVA8sbGIIO7E9SoFuwi3+FYQoqFla5XHmvCT6u6xSH6Gk+UFXUFXAIVGUgl0I
- Jp9whRs5hhprrmxGI5poYcKgqo7AOJcb3aDTEfM3ZlfVr5Et5pBL/hgVzmKdwGNsd64+
- MQ7NSayuqLd7LHCwvOKZ9WbGd5UdJmChkz7RMXqm5ssqnamUoEJ3El1YPCN2pTtvc2yD
- kFpaY5Z+ORItx4cV5uZvyYb5Kf0Zaov34n9Aa6S9uEnBJmQQUDNUwcOzI77dX11FFIL4
- bbxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=498LPkH4Nb6HbpN3dLoVr/vBONswYBBw5ue0vyNDRvI=;
- b=i2dC7oPUgJYPudh5RQ+c9jVxtSVoiS69pQEHKsVvTud2bNebnFVEBY1BidgbBQOzF+
- fHZimrqJCqscv36bcUX959mrfxFk5co+4WDD1hJwza1nLIw6aYO2ElqCBgcWGtDh7oxF
- nOLLjWSv6UFTMjuIlV2vwBzGSp1lN8yojlW4rJ9DaeqfrrafUAW6Z6iXOI/iM8lWYP6R
- 3tfWi7cqmW3Ju1cCr4w1x5EE5HOKYWKJyr8loN5olFm4ovQdXe6IHYjvP4PgMLOnstDL
- jlixOWSObdQwXGujvg4jY4XIPd5HvOfOlhdgbqcXJ3NWhSMegDOVmn9vlMJwW+iw3Z76
- Sf+g==
-X-Gm-Message-State: AOAM533xYUvsKvKxaFdYuZFMqrzanFCbW0DQd+xu3maUqzj3qjDamSpc
- RQi3AWA7TlUnGVpXGIDldnEKQw==
-X-Google-Smtp-Source: ABdhPJxhz8iWM9UY3qGxY1zsVr08xvko8HAZeg4iYl/l4ntzdnbIG4I3UJSrJH6N/YFj2uMGiYvQEw==
-X-Received: by 2002:a05:6000:144d:: with SMTP id
- v13mr8224593wrx.303.1633033255681; 
- Thu, 30 Sep 2021 13:20:55 -0700 (PDT)
-Received: from [192.168.0.30]
- (cpc78119-cwma10-2-0-cust590.7-3.cable.virginm.net. [81.96.50.79])
- by smtp.gmail.com with ESMTPSA id c132sm5830516wma.22.2021.09.30.13.20.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Sep 2021 13:20:54 -0700 (PDT)
-Message-ID: <b57fbc24-9ef3-a57b-17d4-2cb33fb409d4@linaro.org>
-Date: Thu, 30 Sep 2021 21:20:52 +0100
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7B36ECEF
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 06:39:18 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633070360; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=DH07yRNxfLIbPow4oMCMJkb9io5D23Aj6DAM87OKB7w=;
+ b=FlpCpybfK5RSAENij37LwFaJm4+gckWRhqvX/ybuSJqkP2JD4+JPVh9Y+5ssQfArGjxfumvG
+ /QxpOLuZCYbf+SqdokaZXqj5RataGb77ZQSpEJbfHxFX2P0T0LG+7Y8g6l4bPF9dCs7huDMQ
+ DOvnt0KYRLrA2oAB3YbgO4T7Tgg=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 6156ad0ca5a9bab6e8b8e55f (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 01 Oct 2021 06:39:08
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 92F21C4360D; Fri,  1 Oct 2021 06:39:08 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: mkrishn)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 356EEC43460;
+ Fri,  1 Oct 2021 06:39:07 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Content-Language: en-US
-To: Amit Pundir <amit.pundir@linaro.org>, Rob Clark <robdclark@gmail.com>
-Cc: John Stultz <john.stultz@linaro.org>, Maxime Ripard <maxime@cerno.tech>,
- Andrzej Hajda <a.hajda@samsung.com>, Sam Ravnborg <sam@ravnborg.org>,
- Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>,
- Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sean Paul <sean@poorly.run>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- lkml <linux-kernel@vger.kernel.org>, Xinliang Liu <xinliang.liu@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Tian Tao <tiantao6@hisilicon.com>,
- Inki Dae <inki.dae@samsung.com>,
- Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Chen Feng <puck.chen@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>
-References: <20210910101218.1632297-1-maxime@cerno.tech>
- <CALAqxLUqdkxXogmPhPgHv4Bgx-4b3mxe12LzzvWb07pLSnb2kA@mail.gmail.com>
- <CALAqxLUYb=ge4AZZzmk71Qr-92vnnE6sJxwCNUdEz4=VDKr1kg@mail.gmail.com>
- <CALAqxLX7oK6DeoCPZhMTpHKCihSYq7KZDrt5UKb46=ZBbJd9fA@mail.gmail.com>
- <CAF6AEGuJgrYrg7FXpVj8P_qf73CXb4=0KysSYQaobJuheDeUSA@mail.gmail.com>
- <YXiZIuao6wNch7j-D3ZktdSR3_IRAQ3oSeL8sLCCX8lEhwsoWaouE6_eV6C2Zv9r2_dww_Mtal18UBJfc4fz4g==@protonmail.internalid>
- <CAMi1Hd0sUUFvNzYwt29af9d99o1-x+LiXBPCrQ8=9H0tHvxVHg@mail.gmail.com>
-From: Caleb Connolly <caleb.connolly@linaro.org>
-In-Reply-To: <CAMi1Hd0sUUFvNzYwt29af9d99o1-x+LiXBPCrQ8=9H0tHvxVHg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 00/24] drm/bridge: Make panel and bridge
- probe order consistent
+Date: Fri, 01 Oct 2021 12:09:07 +0530
+From: mkrishn@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org,
+ sbillaka@codeaurora.org, abhinavk@codeaurora.org, robdclark@gmail.com,
+ bjorn.andersson@linaro.org, khsieh@codeaurora.org, rajeevny@codeaurora.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ robh+dt@kernel.org
+In-Reply-To: <CAE-0n53kQU=8pdcWR0OZap1wDgxxwed0qvfaGruc71YT5Cj1iA@mail.gmail.com>
+References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
+ <1629282424-4070-2-git-send-email-mkrishn@codeaurora.org>
+ <CAE-0n50b=pX=1MFwGPDvDR=O03tUAkAgyMonGm2+SXBft=16KQ@mail.gmail.com>
+ <5adf2ab2c2a162272509d253bd797721@codeaurora.org>
+ <CAE-0n53kQU=8pdcWR0OZap1wDgxxwed0qvfaGruc71YT5Cj1iA@mail.gmail.com>
+Message-ID: <8f344213978f31c04e80b804a931db56@codeaurora.org>
+X-Sender: mkrishn@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v1 2/4] arm64: dts: qcom: sc7280: add
+ display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,72 +79,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 30/09/2021 20:49, Amit Pundir wrote:
-> On Thu, 30 Sept 2021 at 04:50, Rob Clark <robdclark@gmail.com> wrote:
->>
->> On Wed, Sep 29, 2021 at 2:51 PM John Stultz <john.stultz@linaro.org> wrote:
->>>
->>> On Wed, Sep 29, 2021 at 2:32 PM John Stultz <john.stultz@linaro.org> wrote:
->>>> On Wed, Sep 29, 2021 at 2:27 PM John Stultz <john.stultz@linaro.org> wrote:
->>>>> On Fri, Sep 10, 2021 at 3:12 AM Maxime Ripard <maxime@cerno.tech> wrote:
->>>>>> The best practice to avoid those issues is to register its functions only after
->>>>>> all its dependencies are live. We also shouldn't wait any longer than we should
->>>>>> to play nice with the other components that are waiting for us, so in our case
->>>>>> that would mean moving the DSI device registration to the bridge probe.
->>>>>>
->>>>>> I also had a look at all the DSI hosts, and it seems that exynos, kirin and msm
->>>>>> would be affected by this and wouldn't probe anymore after those changes.
->>>>>> Exynos and kirin seems to be simple enough for a mechanical change (that still
->>>>>> requires to be tested), but the changes in msm seemed to be far more important
->>>>>> and I wasn't confortable doing them.
->>>>>
->>>>>
->>>>> Hey Maxime,
->>>>>    Sorry for taking so long to get to this, but now that plumbers is
->>>>> over I've had a chance to check it out on kirin
->>>>>
->>>>> Rob Clark pointed me to his branch with some fixups here:
->>>>>     https://gitlab.freedesktop.org/robclark/msm/-/commits/for-mripard/bridge-rework
->>>>>
->>>>> But trying to boot hikey with that, I see the following loop indefinitely:
->>>>> [    4.632132] adv7511 2-0039: supply avdd not found, using dummy regulator
->>>>> [    4.638961] adv7511 2-0039: supply dvdd not found, using dummy regulator
->>>>> [    4.645741] adv7511 2-0039: supply pvdd not found, using dummy regulator
->>>>> [    4.652483] adv7511 2-0039: supply a2vdd not found, using dummy regulator
->>>>> [    4.659342] adv7511 2-0039: supply v3p3 not found, using dummy regulator
->>>>> [    4.666086] adv7511 2-0039: supply v1p2 not found, using dummy regulator
->>>>> [    4.681898] adv7511 2-0039: failed to find dsi host
->>>>
->>>> I just realized Rob's tree is missing the kirin patch. My apologies!
->>>> I'll retest and let you know.
->>>
->>> Ok, just retested including the kirin patch and unfortunately I'm
->>> still seeing the same thing.  :(
->>>
->>> Will dig a bit and let you know when I find more.
->>
->> Did you have a chance to test it on anything using drm/msm with DSI
->> panels?  That would at least confirm that I didn't miss anything in
->> the drm/msm patch to swap the dsi-host vs bridge ordering..
+On 2021-09-30 23:28, Stephen Boyd wrote:
+> Quoting mkrishn@codeaurora.org (2021-09-30 04:56:59)
+>> On 2021-08-19 01:27, Stephen Boyd wrote:
+>> > Quoting Krishna Manikandan (2021-08-18 03:27:02)
+>> >> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> >> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> >> index 53a21d0..fd7ff1c 100644
+>> >> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> >> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+>> >> +
+>> >> +                       status = "disabled";
+>> >> +
+>> >> +                       mdp: mdp@ae01000 {
+>> >
+>> > display-controller@ae01000
+>> 
+>> Stephen,
+>>     In the current driver code, there is a substring comparison for 
+>> "mdp"
+>> in device node name as part of probe sequence. If "mdp" is not present
+>> in the node name, it will
+>>     return an error resulting in probe failure. Can we continue using 
+>> mdp
+>> as nodename instead of display controller?
+>> 
 > 
-> Hi, smoke tested
-> https://gitlab.freedesktop.org/robclark/msm/-/commits/for-mripard/bridge-rework
-> on Pocophone F1 (sdm845 / A630) with v5.15-rc3. I see no obvious
-> regressions in my limited testing so far including video (youtube)
-> playback.
-Tested on the OnePlus 6 too booting AOSP, works fine. This *fixes* FBDEV_EMULATION (so we can get a working framebuffer 
-console) which was otherwise broken on 5.15.
+> Can we fix the driver to not look for node names and look for 
+> compatible
+> strings instead? It took me a minute to find compare_name_mdp() in
+> drivers/gpu/drm/msm/msm_drv.c to understand what you're talking about.
+> Perhaps looking for qcom,mdp5 in there will be sufficient instead of
+> looking at the node name.
 
-However it spits out some warnings during boot: https://p.calebs.dev/gucysowyna.yaml
+Sure Stephen. I will make the necessary changes in msm_drv.c to look for 
+compatible string instead of node name.
+Can I include these two changes (changing mdp--> display controller and 
+msm_drv.c changes) in a separate series ?
 
-
-> 
->>
->> BR,
->> -R
-
--- 
-Kind Regards,
-Caleb (they/them)
+Thanks,
+Krishna
