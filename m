@@ -2,68 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7690041F30B
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:25:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D0EE41F31B
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 19:28:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B496EE68;
-	Fri,  1 Oct 2021 17:25:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC4C6EE68;
+	Fri,  1 Oct 2021 17:28:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7B336EE68
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:25:24 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id i4so41964109lfv.4
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:25:24 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A981F6EE68
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 17:28:31 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id x27so41601367lfu.5
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 10:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=9nlprdDjKhZk+Io06k2/qaSebLAZUpDSI5ZQtfrSfFg=;
- b=I2mfpjE4lJi8vWiLrsdvjrZAZeA+6AtoulIGs0LqXRUet3ernh7Jg5b+wUb2JcCliC
- eTckG5Tr/VNQ/gMXz88clQnF940a/LnuLhqMMQc/e29+cITde/1+LUW0MM0Sg0kDQYrm
- fW4kwd8Gr1InLRHI7JDBZdzfjdimWiNeBgWxffmMUnCRuE1uBtzZNCfIz48ejxKlXHf5
- LKWQszn4ftRtWpwzONbbCtiuSiq0nKAVsT3Z+NmfyX39v+RU3pgjCfZnpqy4DnjlYd1Y
- EWVKMuC1JMIb3cok5QtIkH3j4iDIBhZk/llPZmbmxIrVDkLdzto0kljx7ZqeRN/xuU2i
- oxkQ==
+ bh=SXD/dhTGRzLIJNIJHPxlcHALOO5cR+ta5YocZSpUDMc=;
+ b=W4C54TU577sWSJ4nGNktuMxuuxsYRp8tqsS48uEkCA5pm1bmo3NfwTsk9mm6eIJGcI
+ LsNB7btWyqE+fnMjAOVYKhS+Fd+nHLzHBwe/tBUqN9C7RdW8wkkL3FkDW9Hmj4DjQqda
+ 6HD+7R2whwyv2/NwoWkaUw1o71ylC1v19gX8lnMGFbfUR08QVN+ilLPHnBH54MSda6Cs
+ CB1moVwccgEIJ21iZgoT1DytQD3YfqOpDXaMy036UGx46MhOHf/e1CmWIdyZCYHgIHQR
+ mOYbCmQT6tV6agrK04fVY70kJ/8STIY2udXnnMx8RDMgx5Gr+sP0Eb7b2ZlYc2oFm+d5
+ Loug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=9nlprdDjKhZk+Io06k2/qaSebLAZUpDSI5ZQtfrSfFg=;
- b=blG9sWhrBZPxd3dDJkuM2iMb8bX4NEMPYXWhAI5Xt0X6T/QNu6aR2PDezTkXURyRSM
- +DAiss+SI9ZCY1GLfoftxhoeXjgPsg8ahpHE5rK7Z7v3g6WDqdZNjnOoE0AA8OlS3XRV
- fGKjuYoZ8hOLLS0wlJutpMvaqDMQK32pBcTelh5D9mNPaubIlCqKyZBZms09MhCZMi0/
- zHzxk2rFZ9jKrIm1EmXlA3d1hbaWs0ngLrEUuSiKlbgvYWnuCJF1j0ZK17iOZLzV8DQM
- UR1f1WYEgJWscCLxoRuXmstpU8fFxGVIG1ojfSL+yZPEEGu5aBbUNf77gclZq7geTo4z
- 7beg==
-X-Gm-Message-State: AOAM5329dzH4EJZ99MhsmKPK9SmZy8NpcsetY8TVEQiBQDvnHfbwqUt9
- fT0aXSnbnSXQ7aEGd72qU0+/UA==
-X-Google-Smtp-Source: ABdhPJyUqOBhGpHw6dRT3MwCMEAjtj9svKASrprGteO8UneHjz58Fv/TfDELPSqBBydaxbNvLJ3rQw==
-X-Received: by 2002:a05:6512:158a:: with SMTP id
- bp10mr6711563lfb.122.1633109123011; 
- Fri, 01 Oct 2021 10:25:23 -0700 (PDT)
+ bh=SXD/dhTGRzLIJNIJHPxlcHALOO5cR+ta5YocZSpUDMc=;
+ b=dATZApMa+OpZ84qAWxZfShfRfdIYZaX72HlKw9/LpW5Pt+LX2bKPtPc2lCr1ey+aas
+ 8YjLD/4XFxor7ikzYD2azy3lto1O16ODaI4YA4ac4swa0da3TiLg0UgaweSNOSbjmXfq
+ 3Adg9defD3v+bQ4iN0/ci3zFO2QsEUtuBcZvWvufObzvL2eA+86jyyXIWXu/JSYn/Y5C
+ eTmX61I6zP3mTiomV7Nc5lIPBCUB3DSNQO+XsEfJaxnTGjyKGdHoHhOLiVwM1ltJhggM
+ DQqgM7dhH01l7knZJBqqLFCIiAclCnjTQEU8DB6F0N9bV8vfdufGsRdKp9T7mZoU5s8H
+ 8urA==
+X-Gm-Message-State: AOAM530nEhS4dKxM/odM8PVmDm8s4RFaPHwUWmWZFSLZgdUcz5tkfszM
+ iLHZwlywX+x88VK7ymojlzD5vA==
+X-Google-Smtp-Source: ABdhPJxrmfprjqGO+7bREO2hzyzs5Eer1fEYYEYzh7OREwAsozmlMafhZTDhGm+ZNv7Z18fIrU2yIg==
+X-Received: by 2002:a05:6512:3f87:: with SMTP id
+ x7mr6703806lfa.129.1633109309855; 
+ Fri, 01 Oct 2021 10:28:29 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g5sm796856lfc.98.2021.10.01.10.25.22
+ by smtp.gmail.com with ESMTPSA id m29sm793507lfj.236.2021.10.01.10.28.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Oct 2021 10:25:22 -0700 (PDT)
-To: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20210920212014.40520-1-rikard.falkeborn@gmail.com>
+ Fri, 01 Oct 2021 10:28:29 -0700 (PDT)
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Douglas Anderson
+ <dianders@chromium.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Rob Clark <robdclark@chromium.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20210920225801.227211-1-robdclark@gmail.com>
+ <20210920225801.227211-2-robdclark@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <cf3442eb-ae42-4203-fbea-49ca3a45bdd5@linaro.org>
-Date: Fri, 1 Oct 2021 20:25:21 +0300
+Message-ID: <bbcf5361-32e7-a2db-ffcc-986e012f000d@linaro.org>
+Date: Fri, 1 Oct 2021 20:28:28 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20210920212014.40520-1-rikard.falkeborn@gmail.com>
+In-Reply-To: <20210920225801.227211-2-robdclark@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm: msm: hdmi: Constify static structs
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dsi: Support NO_CONNECTOR
+ bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,43 +85,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/09/2021 00:20, Rikard Falkeborn wrote:
-> The only usage of hdmi_8996_pll_ops is to assign its address to the ops
-> field in the clk_init_data struct, and the only usage of pll_init is to
-> assign its address to the init field in the clk_hw struct, both which
-> are pointers to const. Make them const to allow the compiler to put them
-> in read-only memory.
+On 21/09/2021 01:57, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
 > 
-> Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+> For now, since we have a mix of bridges which support this flag, which
+> which do *not* support this flag, or work both ways, try it once with
+> NO_CONNECTOR and then fall back to the old way if that doesn't work.
+> Eventually we can drop the fallback path.
+> 
+> v2: Add missing drm_connector_attach_encoder() so display actually comes
+>      up when the bridge properly handles the NO_CONNECTOR flag
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+I think this patch can go through the drm/msm, while two other patches 
+would need to through the drm-misc. Is it correct?
+
 > ---
->   drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/msm/Kconfig           |  2 ++
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 50 ++++++++++++++++++++-------
+>   2 files changed, 39 insertions(+), 13 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
-> index a8f3b2cbfdc5..99c7853353fd 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
-> @@ -682,7 +682,7 @@ static int hdmi_8996_pll_is_enabled(struct clk_hw *hw)
->   	return pll_locked;
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index e9c6af78b1d7..36e5ba3ccc28 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -14,6 +14,8 @@ config DRM_MSM
+>   	select REGULATOR
+>   	select DRM_KMS_HELPER
+>   	select DRM_PANEL
+> +	select DRM_BRIDGE
+> +	select DRM_PANEL_BRIDGE
+>   	select DRM_SCHED
+>   	select SHMEM
+>   	select TMPFS
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index c41d39f5b7cf..e25877073d31 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -3,6 +3,8 @@
+>    * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+>    */
+>   
+> +#include "drm/drm_bridge_connector.h"
+> +
+>   #include "msm_kms.h"
+>   #include "dsi.h"
+>   
+> @@ -688,10 +690,10 @@ struct drm_connector *msm_dsi_manager_ext_bridge_init(u8 id)
+>   {
+>   	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>   	struct drm_device *dev = msm_dsi->dev;
+> +	struct drm_connector *connector;
+>   	struct drm_encoder *encoder;
+>   	struct drm_bridge *int_bridge, *ext_bridge;
+> -	struct drm_connector *connector;
+> -	struct list_head *connector_list;
+> +	int ret;
+>   
+>   	int_bridge = msm_dsi->bridge;
+>   	ext_bridge = msm_dsi->external_bridge =
+> @@ -699,22 +701,44 @@ struct drm_connector *msm_dsi_manager_ext_bridge_init(u8 id)
+>   
+>   	encoder = msm_dsi->encoder;
+>   
+> -	/* link the internal dsi bridge to the external bridge */
+> -	drm_bridge_attach(encoder, ext_bridge, int_bridge, 0);
+> -
+>   	/*
+> -	 * we need the drm_connector created by the external bridge
+> -	 * driver (or someone else) to feed it to our driver's
+> -	 * priv->connector[] list, mainly for msm_fbdev_init()
+> +	 * Try first to create the bridge without it creating its own
+> +	 * connector.. currently some bridges support this, and others
+> +	 * do not (and some support both modes)
+>   	 */
+> -	connector_list = &dev->mode_config.connector_list;
+> +	ret = drm_bridge_attach(encoder, ext_bridge, int_bridge,
+> +			DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +	if (ret == -EINVAL) {
+> +		struct drm_connector *connector;
+> +		struct list_head *connector_list;
+> +
+> +		/* link the internal dsi bridge to the external bridge */
+> +		drm_bridge_attach(encoder, ext_bridge, int_bridge, 0);
+> +
+> +		/*
+> +		 * we need the drm_connector created by the external bridge
+> +		 * driver (or someone else) to feed it to our driver's
+> +		 * priv->connector[] list, mainly for msm_fbdev_init()
+> +		 */
+> +		connector_list = &dev->mode_config.connector_list;
+>   
+> -	list_for_each_entry(connector, connector_list, head) {
+> -		if (drm_connector_has_possible_encoder(connector, encoder))
+> -			return connector;
+> +		list_for_each_entry(connector, connector_list, head) {
+> +			if (drm_connector_has_possible_encoder(connector, encoder))
+> +				return connector;
+> +		}
+> +
+> +		return ERR_PTR(-ENODEV);
+> +	}
+> +
+> +	connector = drm_bridge_connector_init(dev, encoder);
+> +	if (IS_ERR(connector)) {
+> +		DRM_ERROR("Unable to create bridge connector\n");
+> +		return ERR_CAST(connector);
+>   	}
+>   
+> -	return ERR_PTR(-ENODEV);
+> +	drm_connector_attach_encoder(connector, encoder);
+> +
+> +	return connector;
 >   }
 >   
-> -static struct clk_ops hdmi_8996_pll_ops = {
-> +static const struct clk_ops hdmi_8996_pll_ops = {
->   	.set_rate = hdmi_8996_pll_set_clk_rate,
->   	.round_rate = hdmi_8996_pll_round_rate,
->   	.recalc_rate = hdmi_8996_pll_recalc_rate,
-> @@ -695,7 +695,7 @@ static const char * const hdmi_pll_parents[] = {
->   	"xo",
->   };
->   
-> -static struct clk_init_data pll_init = {
-> +static const struct clk_init_data pll_init = {
->   	.name = "hdmipll",
->   	.ops = &hdmi_8996_pll_ops,
->   	.parent_names = hdmi_pll_parents,
+>   void msm_dsi_manager_bridge_destroy(struct drm_bridge *bridge)
 > 
 
 
