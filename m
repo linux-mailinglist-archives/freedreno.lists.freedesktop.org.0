@@ -1,76 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1643A41F449
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 20:03:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C31E741F504
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 20:34:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9B26EEB0;
-	Fri,  1 Oct 2021 18:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA6A6EEB0;
+	Fri,  1 Oct 2021 18:34:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFFE86EEB0
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 18:03:09 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id b6so11492553ilv.0
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 11:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TL04/DBPEoOSN56nSu3eaqiiO8NlK2fOuX7kmrPsg2w=;
- b=DRsDMqGo5t/bxn9+5wBzcERkuPc5KHDjQdwCt2EXk2REWJWg+v7NDlDKBEdVOQV8Tr
- rQiDclsnWhqlLo4weSCvtBOjuEtmMTeV0JLQ1zReAAvXljaJID8LuFvXtejnhGd9SZ7o
- pK5cJL6I4QrcjwMawjpp8sJMzu1gxIxRLfMuc=
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2982E6EEA4
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 18:34:57 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id i4so42641816lfv.4
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 11:34:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=h17+SHB1hF/idn3CZToPuuO5Jqa52mgDL9LaLqNP76k=;
+ b=XvZPJRVapHhXbnvxBH+dcTzSWQUb8QLF1Nvs1pcRhCxBeMs5Xcc3SYxz0PJk9MSVwB
+ RO++xnwZyTvuSnUUevpLJg3QzOphbUQYQMzIEN8ZdDC/pBg7emCqlUyytJKci3smdWEz
+ PGKQDIfcwTqn5uHKORxQ95mAv2mamNG7R4cbKDhOgNlMOni5vMR6VfkgZNz3f+w9r6LP
+ RM5PrO44K4PTReIsJatKfc6ou546JK1Y/09aVpYq2fo16JNjbJ30np/Do4fvwBpz7Nls
+ NnJBkqXWOyTByxBLP2U0JC6UhBtJUhfb9XBQKV7BuC/NtZW4K+K44hAwVBC/VzyF8UqV
+ abdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TL04/DBPEoOSN56nSu3eaqiiO8NlK2fOuX7kmrPsg2w=;
- b=EqoLz16x3l8UpzjayEbHa7k69qeE2g+BRe9uxyOmVfX1AAAX1TljYsk/aTuuiWb4Nw
- 8WMFCXsQY6ycUSYRvlGpN6DHwPIwXar6Rs9SI/SQkugsJHyXZrkHaz4j3cPUvoNyQcAR
- 2FPH+XAdsDDkMRxLJ1bUJmfpE3GYNVyx7fQTZRYFaybaVbQSmG4VweEul5/m00qWKtlL
- Nb3dc3M+AM/1NQfQsjzvRDwQDXbxHbyeKrh+zzuSzE6bP5E70YQfXBE8qAqeyLeNYhnP
- Yh1zwG0XUSp66W7PLXPbVOn7gSs10GjnMKGkd7O9fYDjOy2XiOpbGfLdHhV189DbX//Z
- vq6g==
-X-Gm-Message-State: AOAM533JI8oBNt5656j8etSOJhulzvdPId+5etogljeziI7qoMxFNupI
- qw2MhZIBZPUADU3lVgrVCbb1atpJP1a16g==
-X-Google-Smtp-Source: ABdhPJw9HuHsV+GhrocFeiQGBnCXcP3GyX2eq0XTjezNGDkdHRnwWsYbdiOkX3zNarV04wKs847s6Q==
-X-Received: by 2002:a05:6e02:164e:: with SMTP id
- v14mr9587646ilu.74.1633111389234; 
- Fri, 01 Oct 2021 11:03:09 -0700 (PDT)
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com.
- [209.85.166.178])
- by smtp.gmail.com with ESMTPSA id u14sm4116300iob.18.2021.10.01.11.03.06
- for <freedreno@lists.freedesktop.org>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=h17+SHB1hF/idn3CZToPuuO5Jqa52mgDL9LaLqNP76k=;
+ b=hJUPl166fLKJc28ZCw8CBPgNkiazrcf5ikmH4UNnG2kZMUWRaP7gHJ5OdcSiLYeKQd
+ NzZUYccnyK/kFi6IH/RRy4xvIy1DFxDppRNVi19+teL8pxDoUFm5RT/jsn4w8P+66LqU
+ ddR+7HtJdG69GrpEhAPLfUT+CJV9613Nbt7+ggzpRInfuczluHCMCyyG7FVa00iY64G4
+ W8etIsJ13MT3jWoe8/92bOgMzEbaaGFIFk/9Ns/gm9J57hrmv1pvZNOIfLKgM7yY/Sum
+ KXDRjXaZNeJXLYHVEBBrYPwfSEwa6PRXW4RBkGDJfFGkKR+YRetCRgD2is4XKogvRumk
+ xJ8Q==
+X-Gm-Message-State: AOAM532MIkTxnEx02meFKg/N3X+uYy/nfkujbabfxmYiwCaN4W64lfJi
+ twaQ93bPEpMNOJ37YjtHKVGqoA==
+X-Google-Smtp-Source: ABdhPJxAGb0vHrSPSZ+MiRYmStYTxz0nB8m1aCFfXoEXCgOVViaEkeSdPPdoKSd77/QxRlbcQSx0UQ==
+X-Received: by 2002:a2e:a370:: with SMTP id i16mr12844230ljn.35.1633113295365; 
+ Fri, 01 Oct 2021 11:34:55 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id p14sm809515lfa.299.2021.10.01.11.34.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Oct 2021 11:03:07 -0700 (PDT)
-Received: by mail-il1-f178.google.com with SMTP id y17so3158691ilb.9
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 11:03:06 -0700 (PDT)
-X-Received: by 2002:a05:6e02:20eb:: with SMTP id
- q11mr10049918ilv.165.1633111385834; 
- Fri, 01 Oct 2021 11:03:05 -0700 (PDT)
+ Fri, 01 Oct 2021 11:34:54 -0700 (PDT)
+To: Colin King <colin.king@canonical.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20210929121857.213922-1-colin.king@canonical.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <c9a68b02-d9b6-e779-7659-2f92639e55b0@linaro.org>
+Date: Fri, 1 Oct 2021 21:34:50 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-References: <20210920225801.227211-1-robdclark@gmail.com>
- <20210920225801.227211-4-robdclark@gmail.com>
- <YUvN3j0v+8NMjNte@pendragon.ideasonboard.com>
- <CAF6AEGviyfX6+c-CB5gMXqRQfHhvb5L8t++-VkZpvS3r9qDNoA@mail.gmail.com>
- <YU03M+CXJ+ALi8De@pendragon.ideasonboard.com>
-In-Reply-To: <YU03M+CXJ+ALi8De@pendragon.ideasonboard.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 1 Oct 2021 11:02:54 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UU1_ZR0K9XEgkTM2M55FgmqoH=ciU5a_oCC+W2NPdZ-A@mail.gmail.com>
-Message-ID: <CAD=FV=UU1_ZR0K9XEgkTM2M55FgmqoH=ciU5a_oCC+W2NPdZ-A@mail.gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@chromium.org>,
- Andrzej Hajda <a.hajda@samsung.com>, Neil Armstrong <narmstrong@baylibre.com>, 
- Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@linux.ie>, 
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 3/3] drm/bridge: ti-sn65dsi86: Add
- NO_CONNECTOR support
+In-Reply-To: <20210929121857.213922-1-colin.king@canonical.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix null pointer dereference on
+ pointer edp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,36 +80,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 29/09/2021 15:18, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> The initialization of pointer dev dereferences pointer edp before
+> edp is null checked, so there is a potential null pointer deference
+> issue. Fix this by only dereferencing edp after edp has been null
+> checked.
+> 
+> Addresses-Coverity: ("Dereference before null check")
+> Fixes: ab5b0107ccf3 ("drm/msm: Initial add eDP support in msm drm driver (v5)")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
 
-On Thu, Sep 23, 2021 at 7:26 PM Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> > > >  err_conn_init:
-> > > >       drm_dp_aux_unregister(&pdata->aux);
-> > > >       return ret;
-> > > > @@ -792,9 +790,30 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
-> > > >       regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
-> > > >  }
-> > > >
-> > > > +/*
-> > > > + * Find the connector and fish out the bpc from display_info.  It would
-> > > > + * be nice if we could get this instead from drm_bridge_state, but that
-> > > > + * doesn't yet appear to be the case.
-> > >
-> > > You already have a bus format in the bridge state, from which you can
-> > > derive the bpp. Could you give it a try ?
-> >
-> > Possibly the bridge should be converted to ->atomic_enable(), etc..
-> > I'll leave that for another time
->
-> It should be fairly straightforward, and would avoid the hack below.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Given this point of controversy, my inclination is to wait and not
-apply this patch now. I don't think there's anything urgent here,
-right? Worst case eventually Laurent might pick it up in his patch
-series? At least we know it will work with the MSM driver once patch
-#1 lands. :-)
+> ---
+>   drivers/gpu/drm/msm/edp/edp_ctrl.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
+> index 4fb397ee7c84..fe1366b4c49f 100644
+> --- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
+> @@ -1116,7 +1116,7 @@ void msm_edp_ctrl_power(struct edp_ctrl *ctrl, bool on)
+>   int msm_edp_ctrl_init(struct msm_edp *edp)
+>   {
+>   	struct edp_ctrl *ctrl = NULL;
+> -	struct device *dev = &edp->pdev->dev;
+> +	struct device *dev;
+>   	int ret;
+>   
+>   	if (!edp) {
+> @@ -1124,6 +1124,7 @@ int msm_edp_ctrl_init(struct msm_edp *edp)
+>   		return -EINVAL;
+>   	}
+>   
+> +	dev = &edp->pdev->dev;
+>   	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
+>   	if (!ctrl)
+>   		return -ENOMEM;
+> 
 
 
--Doug
+-- 
+With best wishes
+Dmitry
