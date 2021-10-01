@@ -2,70 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF8A341F115
-	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 17:20:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDDAF41F273
+	for <lists+freedreno@lfdr.de>; Fri,  1 Oct 2021 18:50:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 367106EE17;
-	Fri,  1 Oct 2021 15:20:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 870456E536;
+	Fri,  1 Oct 2021 16:50:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C1A26EE24
- for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 15:20:54 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id b20so40426138lfv.3
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 08:20:54 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40A6E6EE22
+ for <freedreno@lists.freedesktop.org>; Fri,  1 Oct 2021 16:50:16 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id b20so41426017lfv.3
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 09:50:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=a42zKH2Tz1xdsd82BNyM3/JzMce4gdtbfSOE4DnvM4I=;
- b=gDvlAQfOEYKry6coVGHJcy7BwGm89sWKXZ10vwTmBlanwHmjpzrbSWRyesPq7+unE+
- 4e62mIX3xbLm+SvW2iXv8SXV9qXyfmFo0LBN11KC0bApcC3faYsj02W9yAxZKKZ7122Z
- ixBcnqsN3KNraq8bpfs18/Gie9xSbXbxyZ+pU+64XGRdqntqmWnlVDrjMxl9FunijN0K
- K6OWwFzP6ie948y/GBQo9DfbqrLCZOtlrGTNoV6MVMj8Bqbyws0WhmAvBaL5PkyYIrXP
- zNxQyxJbuZ3MIFTTZA7TqXnTGyRXVt2VdO0GqvmRMc1/WTfdonQ2wjrRskWiAz+9L2MU
- vpIw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=l5rYfVQ7iM1QyKb4qznpoO3iNcz3ESl00mm9zd/tA4I=;
+ b=g6ToIr4Gbta2a1TWw9cfyk99csGSDgmXcprVJMuHsFrffC9T7CepjZHM7uTDESGGeC
+ naKVZLvOzzBR4wKtsJDjfRnJ6zLQoW8qFTQfGBwpiSOyYU8/AJdcCifj8xi0zPkxZXa4
+ OPhN6q5DcqQluqBD5w9ynPkCeCWDa0lqEEL2FtMBOEPDVCNjEpch8m+3SEcpInKM/DCl
+ 5TC7MfdN6rz2SvF7deiAZsCeeeMiQSxOsUkDmfjH2vjoP+DiB3IYTZUaXEjQeA13wjkf
+ UCavrGa2z6XtSMLdWRAj2ObhHeS9V515WWFlunB2LwZhmagRFpHKylYsMsHrD4nLL3e6
+ f1aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=a42zKH2Tz1xdsd82BNyM3/JzMce4gdtbfSOE4DnvM4I=;
- b=kSB46bvKPQ1a1292uPASubfJV70kuFPH14Z86nOWJv8Exq4Txbj5yeEDpibi6U0rKd
- BRsPzQZVlwFg/pOaJo2f1oPnNCwQMHII7GRRPm1WU6ipMGjvdJNIh0H8pNth2MfPKItA
- l5H7So/tQsJU2/jMkrOUizocUgbW6Uz28zoa8YXP+JoxDTlGGceVayQF3/Pvv3frgud1
- 6kay+N02MicWVdOVKX9JwerEwIzRWs3M2F6aNieGODRftghAQJ1NraANoBZ5xkIioQsX
- QinxllYy0SnanTUsPTBmbzZSiIolbu7f6c1TmYWRhKP7eCKX2xZxgTr6CB07N6sI6b1m
- jimw==
-X-Gm-Message-State: AOAM531kXH/JKlNzUlDVkydwc27H2MN8kVeKw0OMbFHimjaDBZlhKV6c
- v4wjCduKWtnWValW+0DtsH4tXg==
-X-Google-Smtp-Source: ABdhPJz5R8MadhnX8c6ibjK+02JQ4SKsSiXQURM7ZiOQIwjYP/d6zBf1bDX35CC2Hl/Bk+LtwFrhtA==
-X-Received: by 2002:a05:651c:1790:: with SMTP id
- bn16mr12325475ljb.457.1633101652679; 
- Fri, 01 Oct 2021 08:20:52 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id j16sm212083lfk.257.2021.10.01.08.20.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Oct 2021 08:20:52 -0700 (PDT)
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, robdclark@gmail.com,
- sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, abhinavk@codeaurora.org,
- hali@codeaurora.org
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-References: <f15bc57648a00e7c99f943903468a04639d50596.1628241097.git.christophe.jaillet@wanadoo.fr>
+ bh=l5rYfVQ7iM1QyKb4qznpoO3iNcz3ESl00mm9zd/tA4I=;
+ b=pSYBeRAaZdmTb3Km1Z9DSIWvACIICGabNHV2xrRo1419CF9JxBvr2Ul2gTH9qJAcOH
+ BqxVP4dL0y606GnbKUFyUzB6rIyuE0kwiQumiN8Yfae5nh3fVNQFKWvaLAoxY+n41vUC
+ TGIun1HXDEh3C0/YyV9BB8X0bdocIWvJa3GIHzOOfhyR/UMq/UmIg2tiUgITSPVhMAXz
+ lj8OM1kxh8ScchJo+ZIuaq/tGtJz7DPt5vBKfFnMY1ButUOqv9Mi7aD4w42zTWHEAb+6
+ QGsSxK2gHlVzw1+nmP1/pUVCuiTdbzipAn6PK7J1DfAUuEoawCW52G3gZtPK5G762Eqe
+ uu8Q==
+X-Gm-Message-State: AOAM530hwN2NtTBXDivUyF+9Um9fQqfg7FOhKS8ZuknDwK2jjp2/Pc05
+ jt/D+rtIk3T86st/ysAVsMd5dg==
+X-Google-Smtp-Source: ABdhPJzZWw4NFAr/uwTlOqKvU9D7G9fo30WtSVpqyaU9GL9OOfrE/Es7/4tm+la0xr9DdVjkFOJBfA==
+X-Received: by 2002:a05:6512:16a2:: with SMTP id
+ bu34mr6372263lfb.147.1633107014351; 
+ Fri, 01 Oct 2021 09:50:14 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id n24sm787052lfq.294.2021.10.01.09.50.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Oct 2021 09:50:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <9ea0857b-fca5-3011-6ebb-3ff6173ac037@linaro.org>
-Date: Fri, 1 Oct 2021 18:20:51 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Date: Fri,  1 Oct 2021 19:50:08 +0300
+Message-Id: <20211001165011.441945-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-In-Reply-To: <f15bc57648a00e7c99f943903468a04639d50596.1628241097.git.christophe.jaillet@wanadoo.fr>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Fix some reference counted
- resource leaks
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/3] drm/msm: drop old eDP support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,63 +75,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/08/2021 12:15, Christophe JAILLET wrote:
-> 'of_find_device_by_node()' takes a reference that must be released when
-> not needed anymore.
-> This is expected to be done in 'dsi_destroy()'.
-> 
-> However, there are 2 issues in 'dsi_get_phy()'.
-> 
-> First, if 'of_find_device_by_node()' succeeds but 'platform_get_drvdata()'
-> returns NULL, 'msm_dsi->phy_dev' will still be NULL, and the reference
-> won't be released in 'dsi_destroy()'.
-> 
-> Secondly, as 'of_find_device_by_node()' already takes a reference, there is
-> no need for an additional 'get_device()'.
-> 
-> Move the assignment to 'msm_dsi->phy_dev' a few lines above and remove the
-> unneeded 'get_device()' to solve both issues.
-> 
-> Fixes: ec31abf6684e ("drm/msm/dsi: Separate PHY to another platform device")
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+MSM DRM driver has support for eDP block present on MSM 8x74/8x84 SoC
+families. However since addition back in 2015 this driver received only
+generic fixes. No actual devices with these SoCs supported upstream (or
+by the community) seem to support eDP panels. Judging from downstream
+kernels the eDP was present only on MSM8974 LIQUID or on APQ8084 CDP.
+Remove this driver.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+----------------------------------------------------------------
+Dmitry Baryshkov (3):
+      drm/msm/mdp5: drop eDP support
+      drm/msm/edp: drop old eDP support
+      dt-bindings: display/msm: remove edp.txt
 
-> ---
-> Review carefully, management of reference counted resources is sometimes
-> tricky.
-> ---
->   drivers/gpu/drm/msm/dsi/dsi.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-> index 75afc12a7b25..29d11f1cb79b 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
-> @@ -26,8 +26,10 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
->   	}
->   
->   	phy_pdev = of_find_device_by_node(phy_node);
-> -	if (phy_pdev)
-> +	if (phy_pdev) {
->   		msm_dsi->phy = platform_get_drvdata(phy_pdev);
-> +		msm_dsi->phy_dev = &phy_pdev->dev;
-> +	}
->   
->   	of_node_put(phy_node);
->   
-> @@ -36,8 +38,6 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
->   		return -EPROBE_DEFER;
->   	}
->   
-> -	msm_dsi->phy_dev = get_device(&phy_pdev->dev);
-> -
->   	return 0;
->   }
->   
-> 
+ .../devicetree/bindings/display/msm/edp.txt        |   56 -
+ drivers/gpu/drm/msm/Makefile                       |    6 -
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   17 +-
+ drivers/gpu/drm/msm/edp/edp.c                      |  198 ---
+ drivers/gpu/drm/msm/edp/edp.h                      |   77 --
+ drivers/gpu/drm/msm/edp/edp.xml.h                  |  388 ------
+ drivers/gpu/drm/msm/edp/edp_aux.c                  |  265 ----
+ drivers/gpu/drm/msm/edp/edp_bridge.c               |  111 --
+ drivers/gpu/drm/msm/edp/edp_connector.c            |  132 --
+ drivers/gpu/drm/msm/edp/edp_ctrl.c                 | 1375 --------------------
+ drivers/gpu/drm/msm/edp/edp_phy.c                  |   98 --
+ drivers/gpu/drm/msm/msm_drv.c                      |    2 -
+ drivers/gpu/drm/msm/msm_drv.h                      |   12 -
+ 13 files changed, 1 insertion(+), 2736 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/edp.txt
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp.h
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp.xml.h
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_aux.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_bridge.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_connector.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_ctrl.c
+ delete mode 100644 drivers/gpu/drm/msm/edp/edp_phy.c
 
-
--- 
-With best wishes
-Dmitry
