@@ -1,51 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F6AD41F8F7
-	for <lists+freedreno@lfdr.de>; Sat,  2 Oct 2021 03:08:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4436941F8FB
+	for <lists+freedreno@lfdr.de>; Sat,  2 Oct 2021 03:09:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE97C6E80B;
-	Sat,  2 Oct 2021 01:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC3566E80B;
+	Sat,  2 Oct 2021 01:09:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0599A6E80B
- for <freedreno@lists.freedesktop.org>; Sat,  2 Oct 2021 01:08:33 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id b20so45394407lfv.3
- for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 18:08:32 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CDAF6E829
+ for <freedreno@lists.freedesktop.org>; Sat,  2 Oct 2021 01:09:12 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id m3so44625305lfu.2
+ for <freedreno@lists.freedesktop.org>; Fri, 01 Oct 2021 18:09:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=S30XTICHpcD0uvi/avqu8bnv3xWt4/R9/QdUwoHSigA=;
- b=MCvVlOIAnO01PhNfLaI9ZD6qiBKU095jQuZtiS1P39lv1Lhh2XRTBlBj3EabQQxODH
- IG4J5c5a78J/GypHq5hTSp7sFwCFvUMJCIjMxCPhK65dFBn/hDH6oGOaAUXrUWNDGU4K
- y2O303bYmAglKx5cdwm1zdqsAjLwn8IxQPLMCt3bBKdSy0w8w3vcEyQQt53Jk0QgPSVh
- aI9gqvQyv8SYNDRwHxgWlzGN6pnxMErz18OzAwZv3Y3+pC9V4vtN5QIkEtJoAcK8Kq6S
- iDHu6dy5JRqLHCcDeoX+rNzY+bGcQ7hURdOK9kdRDSJSWxPEtBnHl4ICEbIMFPHUeQtX
- N9sg==
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=QJi5dnZCRKyuIr330IEjUyQqWCQ+hUanK7f88GGsu9Y=;
+ b=nFHh7xfeu3FDgfUVmmY7kwwhhlAStH/ZjAG7GcUikKfIqKSAUt8ypN75c+TWlVlGx7
+ 9hvUnWWt4W4QtbuOZpa4cav8jbDq8bMTzwJg3fjNlZC0LJPShuHZfVdR8O9Lw+OoJwpg
+ IDbDajtOhCaK1OJRoscZkI15jZcmKN4dJZM8gD+4JPDLjVrJMxZO5NEf8SYyBk7c2yq3
+ R4ZCVuHd1KMJilEloga5g/IzGElbkf3QCSWo0SLNqdoK/mzVYQXKN2VoMB7Pt+XZ/asi
+ f9Kcv1TmPCxa2ENHfVxpaju+164xC38UZjrUFDSPvq0DluzEM0x4aBpUE5eA/Ki8swEL
+ pLuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=S30XTICHpcD0uvi/avqu8bnv3xWt4/R9/QdUwoHSigA=;
- b=MuOtqWW4K0Vi/Xbgv7moFb6sNF3VcVw9DwWfBnV26gZ4q1AUgMpQCx2OMiQM+EUWGo
- /8GNqQc8dRR8T7oSvGZT1IaPyjZ8FWziPG4iv1Xt4F9tq2osXxvBxUHsKrPvYEtyVLIX
- RFiDXquOhLtFohWb0AAXXjD7l3wd6TGcqSM8Lzu9iCX+5mTONXnRKnYZ/z+/VOCEt89M
- mwfFbbb6iBrunaESV/ZK7AxDeePicriSvysZQXoZs7SSo+cibah32ci5naYcTedQInFG
- eJBJkW3SxSw/cmr3pVPRKluetABHI6giS1aG7qKwPXFJXVjXnbAU4glV5KHOPTyTjm6/
- VwZg==
-X-Gm-Message-State: AOAM531xTWUDPmk7EAS+yzaFeCO21M4PUjZ0aTHiMCNWLdnPtFha3aKI
- 6gW3gdwVUBFZY4lwuuvFmeznUw==
-X-Google-Smtp-Source: ABdhPJx6kcm35k671IBr2x97kCTiPppQ012pDS87srvpn6bY0+5UELCA/LwskvKEDJf73Gc0yIot9Q==
-X-Received: by 2002:a05:6512:1042:: with SMTP id
- c2mr1214514lfb.26.1633136911310; 
- Fri, 01 Oct 2021 18:08:31 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id p19sm977993lfr.210.2021.10.01.18.08.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Oct 2021 18:08:31 -0700 (PDT)
+ bh=QJi5dnZCRKyuIr330IEjUyQqWCQ+hUanK7f88GGsu9Y=;
+ b=dqGBS493O8GRi+zD8KhE5pTP2cHiqldSVXV7r2lQmd8N5xoyhL0fbSPy/6FqBsnjtc
+ imGVRNmvKsRZDLddCbwmDBjJYRp8UGHHD+YRxRq3hqL1WaaMk9FORdX2psdHL/Of9TiP
+ 52LEca4cmrY7Q5xQkLONX7OeqAluuuu8DCHJIawUxCZ8qvZAsxH3s27SIAAMcCZdW2hL
+ FvfeDoy91azjcEKaoIGXUEG7haApJDU6XgHhmNvsKzivziJ3Bs6l4UYMM9JaM1e8AP/a
+ soSURA8O5/u/pcA5EKk3vjHsIhqtd4A9mmzOrISXCAu9iTWmTp5SKuDW61X6gfav9zxX
+ NxKw==
+X-Gm-Message-State: AOAM5337X8yAe+PWNGrlfDy1gxp/EomJZbJHAWRP9aJf033HDXE6wxzY
+ mY4p9ihRsQRiIEgrZSqOOyxuOVC9hVP/Gw==
+X-Google-Smtp-Source: ABdhPJwxzP+S3xwprLe/RPXXMzTtfSmSOF8004b+WHO3RmXKN3BGThk4h2PUn2QcZOVxPlyH+VLdBg==
+X-Received: by 2002:a05:6512:31c6:: with SMTP id
+ j6mr1183238lfe.436.1633136950279; 
+ Fri, 01 Oct 2021 18:09:10 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id t10sm280248lfq.251.2021.10.01.18.09.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 01 Oct 2021 18:09:09 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -54,13 +55,18 @@ Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Date: Sat,  2 Oct 2021 04:08:30 +0300
-Message-Id: <20211002010830.647416-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.33.0
+References: <20211002010814.647394-1-dmitry.baryshkov@linaro.org>
+Message-ID: <1e5700d7-ff19-b714-3192-9f9794056a54@linaro.org>
+Date: Sat, 2 Oct 2021 04:09:09 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3] drm/msm/dsi: do not enable irq handler
- before powering up the host
+In-Reply-To: <20211002010814.647394-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/3] mfd: qcom-pm8xxx: switch away from
+ using chained IRQ handlers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,157 +82,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The DSI host might be left in some state by the bootloader. If this
-state generates an IRQ, it might hang the system by holding the
-interrupt line before the driver sets up the DSI host to the known
-state.
+On 02/10/2021 04:08, Dmitry Baryshkov wrote:
+> PM8xxx PMIC family uses GPIO as parent IRQ. Using it together with the
+> irq_set_chained_handler_and_data() results in warnings from the GPIOLIB
+> as in this path the IRQ resources are not allocated (and thus the
+> corresponding GPIO is not marked as used for the IRQ. Use request_irq so
+> that the IRQ resources are proprely setup.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Move the request_irq into msm_dsi_host_init and pass IRQF_NO_AUTOEN to
-it. Call enable/disable_irq after msm_dsi_host_power_on/_off()
-functions, so that we can be sure that the interrupt is delivered when
-the host is in the known state.
+Please ignore this duplicate, it was sent by mistake.
 
-It is not possible to defer the interrupt enablement to a later point,
-because drm_panel_prepare might need to communicate with the panel over
-the DSI link and that requires working interrupt.
 
-Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/dsi.h         |  2 ++
- drivers/gpu/drm/msm/dsi/dsi_host.c    | 48 +++++++++++++++++----------
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 16 +++++++++
- 3 files changed, 49 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index b50db91cb8a7..569c8ff062ba 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -107,6 +107,8 @@ void msm_dsi_host_cmd_xfer_commit(struct mipi_dsi_host *host,
- 					u32 dma_base, u32 len);
- int msm_dsi_host_enable(struct mipi_dsi_host *host);
- int msm_dsi_host_disable(struct mipi_dsi_host *host);
-+void msm_dsi_host_enable_irq(struct mipi_dsi_host *host);
-+void msm_dsi_host_disable_irq(struct mipi_dsi_host *host);
- int msm_dsi_host_power_on(struct mipi_dsi_host *host,
- 			struct msm_dsi_phy_shared_timings *phy_shared_timings,
- 			bool is_bonded_dsi, struct msm_dsi_phy *phy);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index e269df285136..ce26eb78cb6c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1898,6 +1898,23 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 		return ret;
- 	}
- 
-+	msm_host->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
-+	if (msm_host->irq < 0) {
-+		ret = msm_host->irq;
-+		dev_err(&pdev->dev, "failed to get irq: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* do not autoenable, will be enabled later */
-+	ret = devm_request_irq(&pdev->dev, msm_host->irq, dsi_host_irq,
-+			IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+			"dsi_isr", msm_host);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev, "failed to request IRQ%u: %d\n",
-+				msm_host->irq, ret);
-+		return ret;
-+	}
-+
- 	init_completion(&msm_host->dma_comp);
- 	init_completion(&msm_host->video_comp);
- 	mutex_init(&msm_host->dev_mutex);
-@@ -1941,25 +1958,8 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
--	struct platform_device *pdev = msm_host->pdev;
- 	int ret;
- 
--	msm_host->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
--	if (msm_host->irq < 0) {
--		ret = msm_host->irq;
--		DRM_DEV_ERROR(dev->dev, "failed to get irq: %d\n", ret);
--		return ret;
--	}
--
--	ret = devm_request_irq(&pdev->dev, msm_host->irq,
--			dsi_host_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
--			"dsi_isr", msm_host);
--	if (ret < 0) {
--		DRM_DEV_ERROR(&pdev->dev, "failed to request IRQ%u: %d\n",
--				msm_host->irq, ret);
--		return ret;
--	}
--
- 	msm_host->dev = dev;
- 	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
- 	if (ret) {
-@@ -2315,6 +2315,20 @@ void msm_dsi_host_get_phy_clk_req(struct mipi_dsi_host *host,
- 	clk_req->escclk_rate = msm_host->esc_clk_rate;
- }
- 
-+void msm_dsi_host_enable_irq(struct mipi_dsi_host *host)
-+{
-+	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+
-+	enable_irq(msm_host->irq);
-+}
-+
-+void msm_dsi_host_disable_irq(struct mipi_dsi_host *host)
-+{
-+	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+
-+	disable_irq(msm_host->irq);
-+}
-+
- int msm_dsi_host_enable(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index c41d39f5b7cf..fb4ccffdcfe1 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -377,6 +377,14 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 		}
- 	}
- 
-+	/*
-+	 * Enable before preparing the panel, disable after unpreparing, so
-+	 * that the panel can communicate over the DSI link.
-+	 */
-+	msm_dsi_host_enable_irq(host);
-+	if (is_bonded_dsi && msm_dsi1)
-+		msm_dsi_host_enable_irq(msm_dsi1->host);
-+
- 	/* Always call panel functions once, because even for dual panels,
- 	 * there is only one drm_panel instance.
- 	 */
-@@ -411,6 +419,10 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
- 	if (panel)
- 		drm_panel_unprepare(panel);
- panel_prep_fail:
-+	msm_dsi_host_disable_irq(host);
-+	if (is_bonded_dsi && msm_dsi1)
-+		msm_dsi_host_disable_irq(msm_dsi1->host);
-+
- 	if (is_bonded_dsi && msm_dsi1)
- 		msm_dsi_host_power_off(msm_dsi1->host);
- host1_on_fail:
-@@ -523,6 +535,10 @@ static void dsi_mgr_bridge_post_disable(struct drm_bridge *bridge)
- 								id, ret);
- 	}
- 
-+	msm_dsi_host_disable_irq(host);
-+	if (is_bonded_dsi && msm_dsi1)
-+		msm_dsi_host_disable_irq(msm_dsi1->host);
-+
- 	/* Save PHY status if it is a clock source */
- 	msm_dsi_phy_pll_save_state(msm_dsi->phy);
- 
 -- 
-2.33.0
-
+With best wishes
+Dmitry
