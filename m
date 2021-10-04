@@ -2,62 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F4742167C
-	for <lists+freedreno@lfdr.de>; Mon,  4 Oct 2021 20:29:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C907B42180A
+	for <lists+freedreno@lfdr.de>; Mon,  4 Oct 2021 21:58:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB5946EA8B;
-	Mon,  4 Oct 2021 18:29:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 301146E187;
+	Mon,  4 Oct 2021 19:58:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB27E6EA8A;
- Mon,  4 Oct 2021 18:29:42 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- v17-20020a4ae051000000b002b5a56e3da3so5654487oos.2; 
- Mon, 04 Oct 2021 11:29:42 -0700 (PDT)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBCB46E187
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Oct 2021 19:58:44 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ c6-20020a9d2786000000b005471981d559so23062526otb.5
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Oct 2021 12:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=g/yzddU3WVCKb8sDEoiCgKCNa1rqIwKAtvo70nJX4IU=;
+ b=gfPKM3FjHdGBAhwt4uL+abGKcsFiQiGRM2hJ5cjclU1VruXjJd4Tj+wiXt43GCdYBJ
+ n8XeX4r2eNjq39whRMoOnsfaxS25PS4KibNTNCBtamqzC4ERN3+1bj1ej0Bt2nzkjUuV
+ 2LoFbizg2jY/IkkRpJlsvltaw1UFHNhG7DDlDi7rR1CI+tsFO9nPLy7zKX5Ptwet/Fr8
+ cXlenkWqm4cHBywcT6Z9LPnD8W4kSZ+sBZsxYw4Xi8viQVjiZX1x5uT2KMtB3Wm5bXIC
+ U7neIcxze8C/9DZYxYMuQ8KFx7iKENpL4xvglowYrbQHMcv5rQgL1aRIrXcel49IEY6V
+ D1mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=FSknb9XucRZhO/00BM6q8xI5pafRYeo3fmHNydtNnM0=;
- b=5tJ7RZThZ2Gh5o0KcQ3lrtLKgZZm6FKAkWjFM1g0eQsinfPeTqLVnORDHPQDBNnPT/
- jPEDh1Yo+Kx5ZJLQOS29lED1GwltfA2SEI2OLX6mLIa64MDc6UktiQW/HvvrDgt7lnAN
- 3zHwq2qbHkXJ4ZuoHpsJvGRDoJpE98VYbS0O1s1pKcMGHV7/HfOJDWwIsXeD/crrvgQT
- 86rqRpjnNKMucDHSGbpYJc3xEsTPFDokmuCu9fshaa7hDaFIEZQ9nxOU/APBCg71rr0Q
- 3PpUV8H6TwgDMXb44DgEKjYmcWjjoF908zuZvX93jVv9XuZMUWR0AwwGbZ8xY1pAIYx/
- pP5w==
-X-Gm-Message-State: AOAM532j363nYeGZ59HZ4pQxUD7QGUVLTC/J73sGCUBELXA2dXNSrUqa
- 8RSrYMfhQIXeNNrzJ3pCZA==
-X-Google-Smtp-Source: ABdhPJwuTkETkHYNHgbb6MaD/3AdXAmRL9R4LDUql91q1Gowx5uviZJ/UMF/CcvKt6jC2ED9RpnzbQ==
-X-Received: by 2002:a4a:da41:: with SMTP id f1mr10336324oou.45.1633372181940; 
- Mon, 04 Oct 2021 11:29:41 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id e2sm2925851ooh.40.2021.10.04.11.29.40
+ bh=g/yzddU3WVCKb8sDEoiCgKCNa1rqIwKAtvo70nJX4IU=;
+ b=6ILfbiNA+0mGaUvyS7J3iez1xUsxlaFdD0uaecmJxXJfzJE03ihmapMhJ3SJVITy/9
+ +R7tX8mdM74OhMlkKJbXk1ImAaqIeeOG5HfTTyqDYV5OHgT8qCjYNVzyiMw838nV9qrG
+ o0pf9RmRwKBs1F1qy3lqWqVr/Y/o9A93dkQyGKHi/dkUMbbYe6foPNWVvi44r+KdWf56
+ 4sFo+tw2u/JJBdaWXFM9Ner06aiZ/5oOuZYPzxoXdt727IEEWtcKkDUhNsNu2bcyo+ka
+ Qb/Z3bMUPONpNYlDYBqfulhDAR3nOu9Sm4R5CtyHNRaKhMrkIy2vZd14hJVKGsUxkU6E
+ 0Teg==
+X-Gm-Message-State: AOAM531ao7YtmIeI5FOZaTOWY5e4AW8byJ77BEJFRklr66YzqxsXoZK8
+ OCTgGuJUEKWqU5XFysErJy3MBQ==
+X-Google-Smtp-Source: ABdhPJzYq4RED8G0SFOdF37jr9RVat/1OP+E44y/iGgXH9Gx2Xe/pW5QFihZ7IYmev2/tGszgXYxaA==
+X-Received: by 2002:a9d:458b:: with SMTP id x11mr10939775ote.313.1633377524110; 
+ Mon, 04 Oct 2021 12:58:44 -0700 (PDT)
+Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
+ by smtp.gmail.com with ESMTPSA id p16sm2786526ood.37.2021.10.04.12.58.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Oct 2021 11:29:41 -0700 (PDT)
-Received: (nullmailer pid 1614180 invoked by uid 1000);
- Mon, 04 Oct 2021 18:29:40 -0000
-Date: Mon, 4 Oct 2021 13:29:40 -0500
-From: Rob Herring <robh@kernel.org>
-To: Sireesh Kodali <sireeshkodali1@gmail.com>
-Cc: devicetree@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>,
- ~postmarketos/upstreaming@lists.sr.ht, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, phone-devel@vger.kernel.org,
- Krishna Manikandan <mkrishn@codeaurora.org>
-Message-ID: <YVtIFGfBnJB7Qd0n@robh.at.kernel.org>
-References: <20210928131929.18567-1-sireeshkodali1@gmail.com>
- <20210928131929.18567-2-sireeshkodali1@gmail.com>
+ Mon, 04 Oct 2021 12:58:43 -0700 (PDT)
+Date: Mon, 4 Oct 2021 14:58:41 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Sean Paul <sean@poorly.run>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, swboyd@chromium.org,
+ jani.nikula@linux.intel.com, Sean Paul <seanpaul@chromium.org>,
+ Rob Herring <robh@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Message-ID: <YVtc8ROAWAy1ja27@builder.lan>
+References: <20211001151145.55916-1-sean@poorly.run>
+ <20211001151145.55916-13-sean@poorly.run>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210928131929.18567-2-sireeshkodali1@gmail.com>
-Subject: Re: [Freedreno] [PATCH v3 1/3] dt-bindings: msm: dsi: Add MSM8953
- dsi phy
+In-Reply-To: <20211001151145.55916-13-sean@poorly.run>
+Subject: Re: [Freedreno] [PATCH v3 12/14] dt-bindings: msm/dp: Add bindings
+ for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,13 +81,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 28 Sep 2021 18:49:27 +0530, Sireesh Kodali wrote:
-> SoCs based on the MSM8953 platform use the 14nm DSI PHY driver
+On Fri 01 Oct 10:11 CDT 2021, Sean Paul wrote:
+
+> From: Sean Paul <seanpaul@chromium.org>
 > 
-> Signed-off-by: Sireesh Kodali <sireeshkodali1@gmail.com>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> This patch adds the bindings for the MSM DisplayPort HDCP registers
+> which are required to write the HDCP key into the display controller as
+> well as the registers to enable HDCP authentication/key
+> exchange/encryption.
+> 
+> We'll use a new compatible string for this since the fields are optional.
 > 
 
-Acked-by: Rob Herring <robh@kernel.org>
+I don't think you need a new compatible, in particular since I presume
+we should use the hdcp compatible in all platforms? Or is there a reason
+for not picking that one?
+
+Instead I suggest that you simply do minItems: 1, maxItems: 3 and detect
+which of the two cases you have in the driver.
+
+PS. I hope to get
+https://lore.kernel.org/linux-arm-msm/20211001174400.981707-1-bjorn.andersson@linaro.org/
+landed before we add these new optional regions...
+
+Regards,
+Bjorn
+
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
+> 
+> Changes in v2:
+> -Drop register range names (Stephen)
+> -Fix yaml errors (Rob)
+> Changes in v3:
+> -Add new compatible string for dp-hdcp
+> -Add descriptions to reg
+> -Add minItems/maxItems to reg
+> -Make reg depend on the new hdcp compatible string
+> ---
+> 
+> Disclaimer: I really don't know if this is the right way to approach
+> this. I tried using examples from other bindings, but feedback would be
+> very much welcome on how I could add the optional register ranges.
+> 
+> 
+>  .../bindings/display/msm/dp-controller.yaml   | 34 ++++++++++++++++---
+>  1 file changed, 30 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 64d8d9e5e47a..a176f97b2f4c 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -17,9 +17,10 @@ properties:
+>    compatible:
+>      enum:
+>        - qcom,sc7180-dp
+> +      - qcom,sc7180-dp-hdcp
+>  
+> -  reg:
+> -    maxItems: 1
+> +  # See compatible-specific constraints below.
+> +  reg: true
+>  
+>    interrupts:
+>      maxItems: 1
+> @@ -89,6 +90,29 @@ required:
+>    - power-domains
+>    - ports
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7180-dp-hdcp
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 3
+> +          maxItems: 3
+> +          items:
+> +            - description: Registers for base DP functionality
+> +            - description: (Optional) Registers for HDCP device key injection
+> +            - description: (Optional) Registers for HDCP TrustZone interaction
+> +    else:
+> +      properties:
+> +        reg:
+> +          minItems: 1
+> +          maxItems: 1
+> +          items:
+> +            - description: Registers for base DP functionality
+> +
+>  additionalProperties: false
+>  
+>  examples:
+> @@ -99,8 +123,10 @@ examples:
+>      #include <dt-bindings/power/qcom-rpmpd.h>
+>  
+>      displayport-controller@ae90000 {
+> -        compatible = "qcom,sc7180-dp";
+> -        reg = <0xae90000 0x1400>;
+> +        compatible = "qcom,sc7180-dp-hdcp";
+> +        reg = <0 0x0ae90000 0 0x1400>,
+> +              <0 0x0aed1000 0 0x174>,
+> +              <0 0x0aee1000 0 0x2c>;
+>          interrupt-parent = <&mdss>;
+>          interrupts = <12>;
+>          clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> -- 
+> Sean Paul, Software Engineer, Google / Chromium OS
+> 
