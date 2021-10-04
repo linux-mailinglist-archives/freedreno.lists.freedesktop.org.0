@@ -1,71 +1,72 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46463421815
-	for <lists+freedreno@lfdr.de>; Mon,  4 Oct 2021 22:01:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22975421A46
+	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 00:48:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9BE6E187;
-	Mon,  4 Oct 2021 20:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 699246E22B;
+	Mon,  4 Oct 2021 22:48:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE3306E200
- for <freedreno@lists.freedesktop.org>; Mon,  4 Oct 2021 20:00:57 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- c6-20020a9d2786000000b005471981d559so23070858otb.5
- for <freedreno@lists.freedesktop.org>; Mon, 04 Oct 2021 13:00:57 -0700 (PDT)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33D386E210
+ for <freedreno@lists.freedesktop.org>; Mon,  4 Oct 2021 22:48:43 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id x27so77468532lfa.9
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Oct 2021 15:48:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=J/N5xXP3XszcLimjb3V0HTC1MVBpgM9ZA1sK5TjSsuA=;
- b=fb1ynP6sdAZcOAKPf6k0RP4Z/fnaQKYx7e04HillspFj6WBenAjxlvclyFWB1u2TZ9
- 7Rtsh8/fQRbD5ApkZsPyqQ37XTRuI7F/kS0OahUBHXC2YvMGVYPgHCo+xWLMiRTczbKM
- JxF+o1KgtYXMwpDvUg5xEbyNIOnrMtY/lc30PehqZbXMQ2+yBNucEIS78+2oWiqJcDTf
- vRG7+zhoSPdMOuv5l77jMhPvyoGJR9j2QnhrZXR7uvc/UE8GrmY5AWSYG8+VCU2kzqCg
- qFqzD3u+nI/nvPFOmCbwc+wTR3RKxZ8LRqtWOERt+yCpkBEP2M/a1nlSUTzDH79CeeZ1
- 68Ug==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=fuYKZBlsBN/oAWqlM2Px7R4QB8Yf2Dd4kLqSjdySbDs=;
+ b=xDBuXAYBOQZ3FoLfObUjS3Oy8+W1+6Lc640YUmCqhW9bNWScjA3eE90pEkRYKrdxCP
+ /+TqIXbhPi6BWze7P7HZ+u43LZtcMz7ob3A/I6JkY+1Ti+0WRu/34mRrDPuBiYWNhN1l
+ JPvD0Za7digs9sr22Adxwxi+mnuQ1YfvtbV0wPYGGuyGhA756v13adXoa35h3r7ckczB
+ fXSpc3+c9iDYrNhtSiquLEsVogw44iroJc3J7jsHUK1AIbD+3ckM0A2kdvsVT+omsa07
+ H3THafo7jhLt739RjZuTHicfOpLwlJswq1sL/yrlmuc0ZFu/tt/mqRGo1v0YeZjdKADL
+ pjFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=J/N5xXP3XszcLimjb3V0HTC1MVBpgM9ZA1sK5TjSsuA=;
- b=DnpkOzZghQke8Gn5Nvq3hlJUVSvaajZAz27wpt494BofxpRYRlqph/0Yg6XPtrmmHY
- vHr5Bw2dt00bKH8UfxEw2unatDlnzUq34HLOc6T8e4Q8XTEdHU6hjWWpt6ZoGwQNTBa1
- uixvp9YtxbZ3eNiEGLaydp6w6Q/IkVLfR+M+0WIPd/mTOs7AM/tcqpymayC6Mm1EQB52
- iVoQ31cleWs3Cv/6yxW1Zx9umL8gRUNCx6jJfor95d+5Vpb5Sl3qnsLj4fUnKFfvnn05
- hBsdXPO/QrNThsQaw+611APdFSaBGoP148g4awz6ZfFmzl9K5fOx8TRuG0AJXcn/iq3J
- q3nQ==
-X-Gm-Message-State: AOAM532DLvhJilOddqOcoZhrf4V1ze85z/EKUn4ewg4aPTO867GBAz+U
- KWVSX1QQlVXbZ1/kOtfbq8wOgw==
-X-Google-Smtp-Source: ABdhPJwuV9CjiGCB4paZPKDuSfcGCVQJII2+BskiX5DRJsygA14pmy/OLbebzffWeLf1NgXHPzxkuw==
-X-Received: by 2002:a9d:458b:: with SMTP id x11mr10945333ote.313.1633377656946; 
- Mon, 04 Oct 2021 13:00:56 -0700 (PDT)
-Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
- by smtp.gmail.com with ESMTPSA id c5sm3052476otb.35.2021.10.04.13.00.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Oct 2021 13:00:56 -0700 (PDT)
-Date: Mon, 4 Oct 2021 15:00:54 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Sean Paul <sean@poorly.run>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, swboyd@chromium.org,
- jani.nikula@linux.intel.com, Sean Paul <seanpaul@chromium.org>,
- Rob Herring <robh@kernel.org>, Rob Clark <robdclark@gmail.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Rob Herring <robh+dt@kernel.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org
-Message-ID: <YVtddoe6Ty841Kra@builder.lan>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=fuYKZBlsBN/oAWqlM2Px7R4QB8Yf2Dd4kLqSjdySbDs=;
+ b=StYf9PbUUIq6lb3I1rBjVVL9kyyPhGrwQ5SVC7trG1pm6yWji2jgpfBbKY75nRxoU+
+ 9G57BPU8ucYfaIUWCIwULLenp4UsUS5BUrLFkEBmlLhk/oTX1Duxl66bNuMD3cdk/uRA
+ rbRlEV/UEsI/uJCwDhbZF3IbhTDvRhrd4/le63Kk92WGq3iXAgSduPR7X3F7FF+y94wR
+ uD267C8bJf7M7LKXKujkjE04mWkdCBD9JFqXX+QF7xEuxJHeKJiOmbBGEKc63OQYn8QU
+ evuuA9X3RJe70yG1GHGPbTWLBCoi1cLfYOkq8+hUYnRlrec/2mqvo1jz1/hD+GJh4TH5
+ KqFw==
+X-Gm-Message-State: AOAM532jggn31IxIrhY2K0pDRD94d7uLgQqlCEdNaNJhJhrvwEoXoIzc
+ wKFAo0tb70NZ6n/k5/I6RKdmgg==
+X-Google-Smtp-Source: ABdhPJyQ5BQeCxSIG/H54WDxN3wJp13/97SBah0tsoBTsQykpd2oC1CCjJ2td9Srb0UGTiEzbAwXmw==
+X-Received: by 2002:a05:6512:1520:: with SMTP id
+ bq32mr17670181lfb.232.1633387721505; 
+ Mon, 04 Oct 2021 15:48:41 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id e28sm1881117ljo.63.2021.10.04.15.48.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Oct 2021 15:48:40 -0700 (PDT)
+To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: swboyd@chromium.org, jani.nikula@linux.intel.com,
+ Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org
 References: <20211001151145.55916-1-sean@poorly.run>
- <20211001151145.55916-13-sean@poorly.run>
+ <20211001151145.55916-9-sean@poorly.run>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <fe36a62f-11b7-aac5-5c6f-9690ab739fd1@linaro.org>
+Date: Tue, 5 Oct 2021 01:48:40 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211001151145.55916-13-sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH v3 12/14] dt-bindings: msm/dp: Add bindings
- for HDCP registers
+In-Reply-To: <20211001151145.55916-9-sean@poorly.run>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 08/14] drm/msm/dpu_kms: Re-order dpu
+ includes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,109 +82,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 01 Oct 10:11 CDT 2021, Sean Paul wrote:
-
+On 01/10/2021 18:11, Sean Paul wrote:
 > From: Sean Paul <seanpaul@chromium.org>
 > 
-> This patch adds the bindings for the MSM DisplayPort HDCP registers
-> which are required to write the HDCP key into the display controller as
-> well as the registers to enable HDCP authentication/key
-> exchange/encryption.
+> Make includes alphabetical in dpu_kms.c
 > 
-> We'll use a new compatible string for this since the fields are optional.
-> 
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Stephen Boyd <swboyd@chromium.org>
+> Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 > Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-9-sean@poorly.run #v1
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-9-sean@poorly.run #v2
 > 
 > Changes in v2:
-> -Drop register range names (Stephen)
-> -Fix yaml errors (Rob)
+> -None
 > Changes in v3:
-> -Add new compatible string for dp-hdcp
-> -Add descriptions to reg
-> -Add minItems/maxItems to reg
-> -Make reg depend on the new hdcp compatible string
+> -None
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> Disclaimer: I really don't know if this is the right way to approach
-> this. I tried using examples from other bindings, but feedback would be
-> very much welcome on how I could add the optional register ranges.
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index ae48f41821cf..fb0d9f781c66 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -21,14 +21,14 @@
+>   #include "msm_gem.h"
+>   #include "disp/msm_disp_snapshot.h"
+>   
+> -#include "dpu_kms.h"
+>   #include "dpu_core_irq.h"
+> +#include "dpu_crtc.h"
+> +#include "dpu_encoder.h"
+>   #include "dpu_formats.h"
+>   #include "dpu_hw_vbif.h"
+> -#include "dpu_vbif.h"
+> -#include "dpu_encoder.h"
+> +#include "dpu_kms.h"
+>   #include "dpu_plane.h"
+> -#include "dpu_crtc.h"
+> +#include "dpu_vbif.h"
+>   
+>   #define CREATE_TRACE_POINTS
+>   #include "dpu_trace.h"
 > 
-> 
->  .../bindings/display/msm/dp-controller.yaml   | 34 ++++++++++++++++---
->  1 file changed, 30 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 64d8d9e5e47a..a176f97b2f4c 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -17,9 +17,10 @@ properties:
->    compatible:
->      enum:
->        - qcom,sc7180-dp
-> +      - qcom,sc7180-dp-hdcp
->  
-> -  reg:
-> -    maxItems: 1
-> +  # See compatible-specific constraints below.
-> +  reg: true
->  
->    interrupts:
->      maxItems: 1
-> @@ -89,6 +90,29 @@ required:
->    - power-domains
->    - ports
->  
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sc7180-dp-hdcp
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 3
-> +          maxItems: 3
-> +          items:
-> +            - description: Registers for base DP functionality
-> +            - description: (Optional) Registers for HDCP device key injection
-> +            - description: (Optional) Registers for HDCP TrustZone interaction
-> +    else:
-> +      properties:
-> +        reg:
-> +          minItems: 1
-> +          maxItems: 1
-> +          items:
-> +            - description: Registers for base DP functionality
-> +
->  additionalProperties: false
->  
->  examples:
-> @@ -99,8 +123,10 @@ examples:
->      #include <dt-bindings/power/qcom-rpmpd.h>
->  
->      displayport-controller@ae90000 {
-> -        compatible = "qcom,sc7180-dp";
-> -        reg = <0xae90000 0x1400>;
-> +        compatible = "qcom,sc7180-dp-hdcp";
-> +        reg = <0 0x0ae90000 0 0x1400>,
-> +              <0 0x0aed1000 0 0x174>,
-> +              <0 0x0aee1000 0 0x2c>;
 
-Forgot to mention, #address-cells = #size-cells = <1> in the example
-"environment", so you have to omit the lone 0s in the example to make it
-pass the tests.
 
-Regards,
-Bjorn
-
->          interrupt-parent = <&mdss>;
->          interrupts = <12>;
->          clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> -- 
-> Sean Paul, Software Engineer, Google / Chromium OS
-> 
+-- 
+With best wishes
+Dmitry
