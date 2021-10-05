@@ -2,60 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6146C4233A2
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 00:41:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8FF42340F
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 01:04:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26EB4888AE;
-	Tue,  5 Oct 2021 22:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258536E463;
+	Tue,  5 Oct 2021 23:04:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA6289BFF;
- Tue,  5 Oct 2021 22:41:34 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id v25so2543592wra.2;
- Tue, 05 Oct 2021 15:41:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=innzCsihXomZmrhVK7jQXZcENUr7+ebtMDPo3Mzcujk=;
- b=F1Ahjb4KIfhWT/zPbY7Ny2zkSNa9mWESCa0UGJgHOkiEX/0LCFpCHxDYP1s+pPcOD3
- o8mJnKvFb7hBB4LQ1wfrfpFVA7mhepHTOCCdEWfppXAZq/VAF63pMl0VwnKmCClHqvdY
- y6nLitZOSwLgZVwXHH81jXntq8peAXkctdf2j+zmStkeIyg4ErGOtBAg1F8BFQEw5/TN
- dzRmYdsdb+MXSqHEgHGvVfGsk5L9tGuMTpxhKGGiD2Tzc8wzxSkhne99EWCvv3hx6nlt
- WinMtWY35qIZrERKR+RqgkThuxHZp135mzM2wpFo097yCWGj1NnSyPjy0eHmFk2fWboK
- CfhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=innzCsihXomZmrhVK7jQXZcENUr7+ebtMDPo3Mzcujk=;
- b=yD7UhotG0bdApviaWTtjgKMeop5JGeT/gB1jcobRpr7XbWhxPedM0AKlfyWzjx9O1u
- 3pwVP9QxyY9qKXQqYY4tV8aGCtUN11Z3Nwl9UDDMthGTsT9jVSqxzzGRgzVxwR5uASW3
- 4Lql5j3qFE3KRbB3h8Y5BQNeADieYbnYT5ZMBFPFnF2fGAsZiXFMYI/vpW9tofE5/wfK
- emmUGKLm977J2QR2mFmmWNvNQ2fM9TacLcysKG4gWwQNUE8N90sjXwrR4yzohiQvyy0y
- l+OBw1J2WA4HAc18NQh9xtVTX0bRvyB+FTfVqMmxtNTtNveDwAkYuoh7O/C8kKmfX7kG
- nImg==
-X-Gm-Message-State: AOAM532wIZsAb1tzMkJOi/eLyrPzFhAit3jjt77lKyexMGk/cC2MyAib
- YZ5wL6lDWg0w78GJwL9vS7mQmHUfxs541LG4EQc=
-X-Google-Smtp-Source: ABdhPJyXyel7wd9XYQw7fOOTZFhFN7VZZTsgdvrlgxiXZZDrBBUd8nw8dfi1lXSx+UUe5JcmP8VTe1KQ5j60Dt1zwnk=
-X-Received: by 2002:adf:bbd1:: with SMTP id z17mr24750497wrg.61.1633473692538; 
- Tue, 05 Oct 2021 15:41:32 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5386E463
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 23:04:55 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633475096; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=uG0DDsxj9ZrKdIW3DNhGgroyzNQbGUiq4kmEFJgIQnA=;
+ b=ZHW9sMDmBO5WzsLLmLVRx0m3f8VV5OK21IK4m9E2docClsc883APBjwUVziPgNT2yoRHERY+
+ 3tqUTj4HGw10ga7o+E4Kr8Pjf9SyipYMyN8VozZhPEWv+uVv0GJh31aN/JOWk3n1l6hu7nU/
+ 6ToFeXxz16Nqn24Ek82AiRu3CCM=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 615cda099ebaf35aaa7a3f1f (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Oct 2021 23:04:41
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 42482C4360C; Tue,  5 Oct 2021 23:04:41 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5212FC4338F;
+ Tue,  5 Oct 2021 23:04:40 +0000 (UTC)
 MIME-Version: 1.0
-References: <CAF6AEGtD4u7yyiy+BQLmibUCbn=AdDRu7FrmdViHVx0QrcGf8g@mail.gmail.com>
-In-Reply-To: <CAF6AEGtD4u7yyiy+BQLmibUCbn=AdDRu7FrmdViHVx0QrcGf8g@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 5 Oct 2021 15:46:07 -0700
-Message-ID: <CAF6AEGu0E8TQyW4Zykve5Y_ZG9kGWS_MCa2y1iVu+N6gR5XGtw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, 
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-10-05 for
- v5.15-rc5
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 05 Oct 2021 16:04:40 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Abhinav Kumar
+ <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, David Airlie
+ <airlied@linux.ie>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob
+ Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sankeerth
+ Billakanti <sbillaka@codeaurora.org>
+In-Reply-To: <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
+References: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
+ <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
+ <YVzGVmJXEDH0HfIL@ripper>
+ <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
+Message-ID: <a4a4980e586a70e3b7de989bc61a3e33@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,96 +78,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-+ dri-devel, sorry hit 'send' too quickly
+On 2021-10-05 15:36, Stephen Boyd wrote:
+> Quoting Bjorn Andersson (2021-10-05 14:40:38)
+>> On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
+>> 
+>> > Quoting Bjorn Andersson (2021-10-04 19:37:50)
+>> > > Found in the middle of a patch from Sankeerth was the reduction of the
+>> > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
+>> > > is initalized and HPD interrupt start to be serviced, so in the case of
+>> > > eDP this reduction improves the user experience dramatically - i.e.
+>> > > removes 9.9s of bland screen time at boot.
+>> > >
+>> > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+>> > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>> > > ---
+>> >
+>> > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
+>> > re-read the code a couple times to understand that it's waiting 100ms
+>> > times the 'delay' number. Whaaaaat?
+>> >
+>> 
+>> I assume you're happy with the current 10s delay on the current
+>> devices, so I don't think we should push for this to be backported.
+>> I have no need for it to be backported on my side at least.
+>> 
+> 
+> Sure. Fixes tag != backported to stable trees but it is close.
+> 
+>> > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>> 
+   dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1); <== to 100ms
 
-On Tue, Oct 5, 2021 at 3:45 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> Hi Dave & Daniel,
->
-> A few fixes for v5.15:
->
-> * Fix a new crash on dev file close if the dev file was opened when
->   GPU is not loaded (such as missing fw in initrd)
-> * Switch to single drm_sched_entity per priority level per drm_file
->   to unbreak multi-context userspace
-> * Serialize GMU access to fix GMU OOB errors
-> * Various error path fixes
-> * A couple integer overflow fixes
-> * Fix mdp5 cursor plane WARNs
->
-> The following changes since commit 5816b3e6577eaa676ceb00a848f0fd65fe2adc29:
->
->   Linux 5.15-rc3 (2021-09-26 14:08:19 -0700)
->
-> are available in the Git repository at:
->
->   https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-10-05
->
-> for you to fetch changes up to c6921fbc88e120b2279c55686a071ca312d058e9:
->
->   drm/msm/dsi: fix off by one in dsi_bus_clk_enable error handling
-> (2021-10-04 08:08:07 -0700)
->
-> ----------------------------------------------------------------
-> Arnd Bergmann (1):
->       drm/msm/submit: fix overflow check on 64-bit architectures
->
-> Colin Ian King (1):
->       drm/msm: Fix null pointer dereference on pointer edp
->
-> Dan Carpenter (4):
->       drm/msm/a4xx: fix error handling in a4xx_gpu_init()
->       drm/msm/a3xx: fix error handling in a3xx_gpu_init()
->       drm/msm/dsi: Fix an error code in msm_dsi_modeset_init()
->       drm/msm/dsi: fix off by one in dsi_bus_clk_enable error handling
->
-> Dmitry Baryshkov (2):
->       drm/msm/mdp5: fix cursor-related warnings
->       drm/msm/dsi/phy: fix clock names in 28nm_8960 phy
->
-> Fabio Estevam (1):
->       drm/msm: Do not run snapshot on non-DPU devices
->
-> Kuogee Hsieh (1):
->       drm/msm/dp: only signal audio when disconnected detected at dp_pm_resume
->
-> Marek Vasut (1):
->       drm/msm: Avoid potential overflow in timeout_to_jiffies()
->
-> Marijn Suijten (1):
->       drm/msm/dsi: dsi_phy_14nm: Take ready-bit into account in poll_for_ready
->
-> Rob Clark (5):
->       drm/msm: Fix crash on dev file close
->       drm/msm/a6xx: Serialize GMU communication
->       drm/msm/a6xx: Track current ctx by seqno
->       drm/msm: A bit more docs + cleanup
->       drm/msm: One sched entity per process per priority
->
-> Robert Foss (1):
->       drm/msm/dpu: Fix address of SM8150 PINGPONG5 IRQ register
->
-> Stephan Gerhold (1):
->       drm/msm: Fix devfreq NULL pointer dereference on a3xx
->
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.c           |  9 ++--
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.c           |  9 ++--
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c           |  6 +++
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h           |  3 ++
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c           | 46 ++++++++++++----
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.h           | 11 +++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c  |  2 +-
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c       | 16 ++++++
->  drivers/gpu/drm/msm/dp/dp_display.c             | 10 ++--
->  drivers/gpu/drm/msm/dsi/dsi.c                   |  4 +-
->  drivers/gpu/drm/msm/dsi/dsi_host.c              |  2 +-
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c      | 30 +++++------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c |  4 +-
->  drivers/gpu/drm/msm/edp/edp_ctrl.c              |  3 +-
->  drivers/gpu/drm/msm/msm_drv.c                   | 15 ++++--
->  drivers/gpu/drm/msm/msm_drv.h                   | 47 +---------------
->  drivers/gpu/drm/msm/msm_gem_submit.c            |  7 +--
->  drivers/gpu/drm/msm/msm_gpu.h                   | 66 ++++++++++++++++++++++-
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c           |  6 +++
->  drivers/gpu/drm/msm/msm_submitqueue.c           | 72 ++++++++++++++++++++-----
->  20 files changed, 256 insertions(+), 112 deletions(-)
+This patch will prevent usb3 from working due to dp driver initialize 
+phy earlier than usb3 which cause timeout error at power up usb3 phy 
+when both edp and dp are enabled.
+I had prepared a patch (drm/msm/dp: do not initialize combo phy until 
+plugin interrupt) to fix this problem.
+Unfortunately, my patch is depend on Bjorn's patch (PATCH v3 3/5] 
+drm/msm/dp: Support up to 3 DP controllers).
+I will submit my patch for review once Bjorn's patches merged in.
+Therefore I would think this patch should go after both Bjorn's patches 
+and my patch.
+
+
+
