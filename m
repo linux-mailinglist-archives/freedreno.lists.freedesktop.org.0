@@ -1,78 +1,76 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CE8B422C09
-	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 17:12:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59AC0422CB7
+	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 17:39:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45D996F5DE;
-	Tue,  5 Oct 2021 15:12:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B5C26E427;
+	Tue,  5 Oct 2021 15:39:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF01D6F5DE;
- Tue,  5 Oct 2021 15:12:07 +0000 (UTC)
-Received: by mail-pl1-x62c.google.com with SMTP id y5so2536300pll.3;
- Tue, 05 Oct 2021 08:12:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=U5xnEbhfhj61beE3+fA67pEiROAPJXxy08V2QR5u2+Q=;
- b=i2UkZprCgUbxgED+mE9NNYlCrsOyFziGRNBYfDlIkee5aZlyUOAzVHjHeKsIKJ3bEL
- Io+MEfw2L6035YBZam/xnZ9C9xPAtOP4rwJks3eS5Y550WNr2rRPCxyI8tPFA5ByfAS5
- sUTzLncoYGG4teG7SZiHt2+cjDhys8pI7AO/A2BxZqqUHCKYww14j+kC0umGH3nPxAvX
- ZZ0O0bjrZrAkaBzGU3ieFywKdzm04hlp7t9t1AYZLUQhqvKB8xL0R/CofaqaENwVEA4w
- jxLVcwSP7el4twryc9ZIbr9W5GEcjsk18PHehx0Ytp2vWvVSPFB5kkvVv54EAuYBVz1+
- cGlA==
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3028B6E423
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 15:39:37 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id y197so24788976iof.11
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 08:39:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Jn/8ah9SoyFj7/AW/wHvLR/E0NKkVYESoUG4F0G7wes=;
+ b=f9xqUyzRkkv5jK2D9eJy++YNj6qTjlTkV8LNjYsHXR5hvKLfMpJp7XMAHvfc1LXbza
+ fukG3CzYA7x41zb93VjrPWya2JERm8bljAH1iIC1Ex4rMw1onFVPtSEU722Laf/p58V5
+ wRh9Pwz/I9diTXBAUmMJfu2fjeu4HjskBTB1k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=U5xnEbhfhj61beE3+fA67pEiROAPJXxy08V2QR5u2+Q=;
- b=cdpf+8Pnvzlkgm/t/UpSlsdop5VbVE8P4HSs+CVYpf8ixhpsDpdhAQW9+ZeB+zjj2a
- roK27W+bMpbGzjE1oF61MIiF/eoPbA4DS20MDQbUmOI9YFqZ5RwW6MhcWKZUTTIyKbKk
- yW1s4FbSLqWye5Ttvm3tDmBdENf54FS9r61Iqug+phnyxARni1HgcfzHiQAsQA+J8Wqo
- 4SF1rwqIKDDHOIw1gyIG6XZHHcN6n62RZnLCP3yxd81fDGdfDp2HIiHRZkIfwLGzMiCl
- RJldVVsjbp7bVyzHoVqb9kke3CgAAeqreKudfqE7hmntmNRg8PWh4ENcZMK9OR0IZm94
- 5l2A==
-X-Gm-Message-State: AOAM53283rz1euCWzfv+q7luVKbrm/I1tSinllbNbk22TjZBKI7gnt35
- G/2mM0l+Y7HsZC1uMC1Dnczqz1KFISM=
-X-Google-Smtp-Source: ABdhPJysc5AIcVDOyoSIyIXBuk8VJrPrZ2y4PLlsoKfQxxwLyv+cdhwrCz9VK6Juinqd1t9fPoW73A==
-X-Received: by 2002:a17:902:ab93:b0:13d:e3b5:7ec2 with SMTP id
- f19-20020a170902ab9300b0013de3b57ec2mr5698488plr.26.1633446726696; 
- Tue, 05 Oct 2021 08:12:06 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- m22sm18666113pfo.176.2021.10.05.08.12.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 08:12:05 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Yangtao Li <tiny.windzz@gmail.com>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- linux-arm-msm@vger.kernel.org (open list:DRM DRIVER FOR MSM ADRENO GPU),
- linux-kernel@vger.kernel.org (open list)
-Date: Tue,  5 Oct 2021 08:16:27 -0700
-Message-Id: <20211005151633.1738878-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211005151633.1738878-1-robdclark@gmail.com>
-References: <20211005151633.1738878-1-robdclark@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Jn/8ah9SoyFj7/AW/wHvLR/E0NKkVYESoUG4F0G7wes=;
+ b=yYvjeh9aGGTphQ9jeeccYqvEgeUTexhvrVUYhpX3CaZZFonaXCKXajXIXwTORmEsNS
+ W7B2Ji5sKMTKrhABll2RVJBw757lhMO0/q4AA1s1pZyBbaqvic8FZlTJGNa+QKo7TdBg
+ 5NEGJhTXmO6mwGvgCJvaYSKyXaS/xuNk2GcFwCH9/Eek7lqzp6furx09zLGYOEafuxT4
+ ukjvfw6BDVKiwgWlLqzhjAFw2+l6c1OnEEGJXmJlCP/A2wg+OewW8/gSp0ZqHVwFBSfa
+ KsBYPmw1NeBy1lpM6l+rKYcYvH35GfVLC3b/gHrfYw+JOtCv4EuDLS2pzr8y5O4WHGS1
+ obSA==
+X-Gm-Message-State: AOAM533dPcE6YvYB1vFT2QdwU9w8TB+YiTalwlPWrKvBmgo2u6iFyEzo
+ iIkhnfZ6+7jawc4nZ/xGtcCf4/rZeck7hA==
+X-Google-Smtp-Source: ABdhPJzSiGd8hQAZCo9wSRoRJAEhm8Mr9mojID5ScqKa1UvZfVnpMYwDtmHCqhvIDDH3FJ8OP/4JyQ==
+X-Received: by 2002:a5e:9612:: with SMTP id a18mr2779111ioq.57.1633448375837; 
+ Tue, 05 Oct 2021 08:39:35 -0700 (PDT)
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com.
+ [209.85.166.182])
+ by smtp.gmail.com with ESMTPSA id o3sm10683106iou.11.2021.10.05.08.39.34
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Oct 2021 08:39:34 -0700 (PDT)
+Received: by mail-il1-f182.google.com with SMTP id j15so22273038ila.6
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 08:39:34 -0700 (PDT)
+X-Received: by 2002:a05:6e02:1989:: with SMTP id
+ g9mr2013043ilf.165.1633448374264; 
+ Tue, 05 Oct 2021 08:39:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm: Extend gpu devcore dumps with
- pgtbl info
+References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
+ <CAD=FV=UGtHXD==Yy8CVCOioYGb=2hqGQOoNWftD1Jj7OiEp51g@mail.gmail.com>
+ <YVd3YdfgFVc0Br5T@ripper>
+ <CAD=FV=U=xVLuKOYHbGPTkLjGa8_U+F1ZtEvJt4LGaRuR5SsKFw@mail.gmail.com>
+ <YVumL1lHLqtb/HKS@ripper>
+In-Reply-To: <YVumL1lHLqtb/HKS@ripper>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 5 Oct 2021 08:39:21 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=W9uKq00wXn4H1ax0u2D=R8Wn3J-Je43uxcPyDtk7AK7Q@mail.gmail.com>
+Message-ID: <CAD=FV=W9uKq00wXn4H1ax0u2D=R8Wn3J-Je43uxcPyDtk7AK7Q@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, 
+ Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>, 
+ Kuogee Hsieh <khsieh@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ Vara Reddy <varar@codeaurora.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,127 +86,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi,
 
-In the case of iova fault triggered devcore dumps, include additional
-debug information based on what we think is the current page tables,
-including the TTBR0 value (which should match what we have in
-adreno_smmu_fault_info unless things have gone horribly wrong), and
-the pagetable entries traversed in the process of resolving the
-faulting iova.
+On Mon, Oct 4, 2021 at 6:09 PM Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> On Mon 04 Oct 17:36 PDT 2021, Doug Anderson wrote:
+>
+> > Hi,
+> >
+> > On Fri, Oct 1, 2021 at 2:00 PM Bjorn Andersson
+> > <bjorn.andersson@linaro.org> wrote:
+> > >
+> > > On Fri 27 Aug 13:52 PDT 2021, Doug Anderson wrote:
+> > >
+> > > > Hi,
+> > > >
+> > > > On Mon, Jul 26, 2021 at 4:15 PM Bjorn Andersson
+> > > > <bjorn.andersson@linaro.org> wrote:
+> > > > >
+> > > > > +static int dp_parser_find_panel(struct dp_parser *parser)
+> > > > > +{
+> > > > > +       struct device_node *np = parser->pdev->dev.of_node;
+> > > > > +       int rc;
+> > > > > +
+> > > > > +       rc = drm_of_find_panel_or_bridge(np, 2, 0, &parser->drm_panel, NULL);
+> > > >
+> > > > Why port 2? Shouldn't this just be port 1 always? The yaml says that
+> > > > port 1 is "Output endpoint of the controller". We should just use port
+> > > > 1 here, right?
+> > > >
+> > >
+> > > Finally got back to this, changed it to 1 and figured out why I left it
+> > > at 2.
+> > >
+> > > drm_of_find_panel_or_bridge() on a DP controller will find the of_graph
+> > > reference to the USB-C controller, scan through the registered panels
+> > > and conclude that the of_node of the USB-C controller isn't a registered
+> > > panel and return -EPROBE_DEFER.
+> >
+> > I'm confused, but maybe it would help if I could see something
+> > concrete. Is there a specific board this was happening on?
+> >
+>
+> Right, let's make this more concrete with a snippet from the actual
+> SC8180x DT.
+>
+> > Under the DP node in the device tree I expect:
+> >
+> > ports {
+> >   port@1 {
+> >     reg = <1>;
+> >     edp_out: endpoint {
+> >       remote-endpoint = <&edp_panel_in>;
+> >     };
+> >   };
+> > };
+> >
+>
+> /* We got a panel */
+> panel {
+>     ...
+>     ports {
+>         port {
+>             auo_b133han05_in: endpoint {
+>                 remote-endpoint = <&mdss_edp_out>;
+>             };
+>         };
+>     };
+> };
+>
+> /* And a 2-port USB-C controller */
+> type-c-controller {
+>     ...
+>     connector@0 {
+>         ports {
+>             port@0 {
+>                 reg = <0>;
+>                 ucsi_port_0_dp: endpoint {
+>                     remote-endpoint = <&dp0_mode>;
+>                 };
+>             };
+>
+>             port@1 {
+>                 reg = <1>;
+>                 ucsi_port_0_switch: endpoint {
+>                     remote-endpoint = <&primary_qmp_phy>;
+>                 };
+>             };
+>         };
+>     };
+>
+>         connector@1 {
+>         ports {
+>             port@0 {
+>                 reg = <0>;
+>                 ucsi_port_1_dp: endpoint {
+>                     remote-endpoint = <&dp1_mode>;
+>                 };
+>             };
+>
+>             port@1 {
+>                 reg = <1>;
+>                 ucsi_port_1_switch: endpoint {
+>                     remote-endpoint = <&second_qmp_phy>;
+>                 };
+>             };
+>         };
+>         };
+> };
+>
+> /* And then our 2 DP and single eDP controllers */
+> &mdss_dp0 {
+>     ports {
+>         port@1 {
+>             reg = <1>;
+>             dp0_mode: endpoint {
+>                 remote-endpoint = <&ucsi_port_0_dp>;
+>             };
+>         };
+>     };
+> };
+>
+> &mdss_dp1 {
+>     ports {
+>         port@1 {
+>             reg = <1>;
+>             dp1_mode: endpoint {
+>                 remote-endpoint = <&ucsi_port_1_dp>;
+>             };
+>         };
+>     };
+> };
+>
+> &mdss_edp {
+>     ports {
+>         port@1 {
+>             reg = <1>;
+>             mdss_edp_out: endpoint {
+>                 remote-endpoint = <&auo_b133han05_in>;
+>             };
+>         };
+>     };
+> };
+>
+> > If you have "port@1" pointing to a USB-C controller but this instance
+> > of the DP controller is actually hooked up straight to a panel then
+> > you should simply delete the "port@1" that points to the typeC and
+> > replace it with one that points to a panel, right?
+> >
+>
+> As you can see, port 1 on &mdss_dp0 and &mdss_dp1 points to the two UCSI
+> connectors and the eDP points to the panel, exactly like we agreed.
+>
+> So now I call:
+>     drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, NULL);
+>
+> which for the two DP nodes will pass respective UCSI connector to
+> drm_find_panel() and get EPROBE_DEFER back - because they are not on
+> panel_list.
+>
+> There's nothing indicating in the of_graph that the USB connectors
+> aren't panels (or bridges), so I don't see a way to distinguish the two
+> types remotes.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
-v2: Fix build error on 32b/armv7
+As far as I can tell the way this would be solved would be to actually
+pass &bridge in and then make sure that a bridge would be in place for
+the DP connector. In the full DP case you'll get an -EPROBE_DEFER if
+the connector hasn't been probed but once it's probed then it should
+register as a bridge and thus give you the info you need (AKA that
+this isn't a panel).
 
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++++++
- drivers/gpu/drm/msm/msm_gpu.c           | 10 ++++++++++
- drivers/gpu/drm/msm/msm_gpu.h           |  8 ++++++++
- drivers/gpu/drm/msm/msm_iommu.c         | 17 +++++++++++++++++
- drivers/gpu/drm/msm/msm_mmu.h           |  2 ++
- 5 files changed, 47 insertions(+)
+I haven't done the digging to see how all this works, but according to
+Laurent [1]: "Physical connectors are already handled as bridges, see
+drivers/gpu/drm/bridge/display-connector.c"
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 42e522a60623..7bac86b01f30 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -707,6 +707,16 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
- 		drm_printf(p, "  - dir: %s\n", info->flags & IOMMU_FAULT_WRITE ? "WRITE" : "READ");
- 		drm_printf(p, "  - type: %s\n", info->type);
- 		drm_printf(p, "  - source: %s\n", info->block);
-+
-+		/* Information extracted from what we think are the current
-+		 * pgtables.  Hopefully the TTBR0 matches what we've extracted
-+		 * from the SMMU registers in smmu_info!
-+		 */
-+		drm_puts(p, "pgtable-fault-info:\n");
-+		drm_printf(p, "  - ttbr0: %.16llx\n", (u64)info->pgtbl_ttbr0);
-+		drm_printf(p, "  - asid: %d\n", info->asid);
-+		drm_printf(p, "  - ptes: %.16llx %.16llx %.16llx %.16llx\n",
-+			   info->ptes[0], info->ptes[1], info->ptes[2], info->ptes[3]);
- 	}
- 
- 	drm_printf(p, "rbbm-status: 0x%08x\n", state->rbbm_status);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 8a3a592da3a4..d1a16642ecd5 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -284,6 +284,16 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 	if (submit) {
- 		int i, nr = 0;
- 
-+		if (state->fault_info.smmu_info.ttbr0) {
-+			struct msm_gpu_fault_info *info = &state->fault_info;
-+			struct msm_mmu *mmu = submit->aspace->mmu;
-+
-+			msm_iommu_pagetable_params(mmu, &info->pgtbl_ttbr0,
-+						   &info->asid);
-+			msm_iommu_pagetable_walk(mmu, info->iova, info->ptes,
-+						 ARRAY_SIZE(info->ptes));
-+		}
-+
- 		/* count # of buffers to dump: */
- 		for (i = 0; i < submit->nr_bos; i++)
- 			if (should_dump(submit, i))
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 0e132795123f..ab4c80065ac5 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -78,6 +78,14 @@ struct msm_gpu_fault_info {
- 	int flags;
- 	const char *type;
- 	const char *block;
-+
-+	/* Information about what we think/expect is the current SMMU state,
-+	 * for example expected_ttbr0 should match smmu_info.ttbr0 which
-+	 * was read back from SMMU registers.
-+	 */
-+	phys_addr_t pgtbl_ttbr0;
-+	u64 ptes[4];
-+	int asid;
- };
- 
- /**
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index bcaddbba564d..0f2924fd2524 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -116,6 +116,23 @@ int msm_iommu_pagetable_params(struct msm_mmu *mmu,
- 	return 0;
- }
- 
-+int msm_iommu_pagetable_walk(struct msm_mmu *mmu, unsigned long iova,
-+			     u64 *ptes, int num_ptes)
-+{
-+	struct msm_iommu_pagetable *pagetable;
-+
-+	if (mmu->type != MSM_MMU_IOMMU_PAGETABLE)
-+		return -EINVAL;
-+
-+	pagetable = to_pagetable(mmu);
-+
-+	if (!pagetable->pgtbl_ops->pgtable_walk)
-+		return -EINVAL;
-+
-+	return pagetable->pgtbl_ops->pgtable_walk(pagetable->pgtbl_ops, iova,
-+						  ptes, &num_ptes);
-+}
-+
- static const struct msm_mmu_funcs pagetable_funcs = {
- 		.map = msm_iommu_pagetable_map,
- 		.unmap = msm_iommu_pagetable_unmap,
-diff --git a/drivers/gpu/drm/msm/msm_mmu.h b/drivers/gpu/drm/msm/msm_mmu.h
-index de158e1bf765..519b749c61af 100644
---- a/drivers/gpu/drm/msm/msm_mmu.h
-+++ b/drivers/gpu/drm/msm/msm_mmu.h
-@@ -58,5 +58,7 @@ void msm_gpummu_params(struct msm_mmu *mmu, dma_addr_t *pt_base,
- 
- int msm_iommu_pagetable_params(struct msm_mmu *mmu, phys_addr_t *ttbr,
- 		int *asid);
-+int msm_iommu_pagetable_walk(struct msm_mmu *mmu, unsigned long iova,
-+			     u64 *ptes, int num_ptes);
- 
- #endif /* __MSM_MMU_H__ */
--- 
-2.31.1
+So basically I think this is solvable in code and there's no reason to
+mess with the devicetree bindings to solve this problem. Does that
+sound right?
 
+[1] https://lore.kernel.org/r/YUvMv+Y8tFcWPEHd@pendragon.ideasonboard.com/
