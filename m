@@ -2,73 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00CBB421ABD
-	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 01:35:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67AA6421AF0
+	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 02:03:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 679EA6EABB;
-	Mon,  4 Oct 2021 23:35:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 536366EACF;
+	Tue,  5 Oct 2021 00:03:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AECF56EAB7
- for <freedreno@lists.freedesktop.org>; Mon,  4 Oct 2021 23:35:49 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id y23so39089705lfb.0
- for <freedreno@lists.freedesktop.org>; Mon, 04 Oct 2021 16:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=bAbUrq+YEGQ8QqX2x0huaegjL+DVKSS+ia5e1PaJxbQ=;
- b=g7W5OPmi1aIkzDo+3ETFXRiySovtja0OIr8nT1tL7ZjQT6aVgeLI26HzuGEdUdqcDy
- 6qld8PFaqKQdAmJ679ADX84uIOf2HkayYVSsR41TsYUcnkwQJs3hgjnAqmCHkg4NXtgJ
- ihA7XLOzqxkEoucEGw/bX4GQ0ibaJbjBSFWJ0TOnW3t7+Mh3W/M6eZIFWgsOWEnLb+y3
- gn2UGWrwDGOxDvikkhXLLuxfX9y4fZaCiMt95rE6LpFVYSAmzogbHBYgtFdiT07JLTJ2
- thTmql+V3bde0RKqBUPKY1tBmkOnwRNATvsL+Twdpo2Z+70+DZKGhLaPD5TFnLbYeH0x
- jxTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=bAbUrq+YEGQ8QqX2x0huaegjL+DVKSS+ia5e1PaJxbQ=;
- b=IKh/GO7aOB8bPj/QYaxhnaV/7n4l0/GUMS+W6m6KOjDvyDvhnhZnmT3pqR/Abdknas
- lh9mZR7LZPvYIHWy7YUI9X98hsZujCu75xJy6GmDM8q9I3OXrE4YIaRV+fTFsLrfEFDi
- SRf0EQpgHVN8BNGrmZSqGXVfAMNhwh1Gc0nRJtd4qM5k1LfeVlaxBo9zNnFrezkYCxn9
- l7JEQA69eckhpR/iPOTNSFlZmaxxzmehgvxvzILaupvyVN8LdHtVXZihyP1spWIyVyyM
- aHcUXmxnKfcNZ943s8RUTXiXteu5kDmj3taLjDMz1vFJEVB29FnqwfTefS3if+u5w7C7
- oOUQ==
-X-Gm-Message-State: AOAM532tVtOvg64dmG0WAAx6F34EsukB9+rUcUr+lPIVuMgcbXEZNbmn
- I4hbpiEuekzFHDZDDhfvQmlQkw==
-X-Google-Smtp-Source: ABdhPJxqEOfRrI4DMjINIanU3R0WVfP1o4DgyUrQI2RwWT4K/iTMKPHT32fSDRakRbU/hei4nH9Vbw==
-X-Received: by 2002:a05:6512:33c2:: with SMTP id d2mr33196lfg.18.1633390547930; 
- Mon, 04 Oct 2021 16:35:47 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g27sm276458lfh.162.2021.10.04.16.35.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Oct 2021 16:35:47 -0700 (PDT)
-To: Dan Carpenter <dan.carpenter@oracle.com>, Rob Clark
- <robdclark@gmail.com>, Jordan Crouse <jordan@cosmicpenguin.net>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, Xu Wang <vulab@iscas.ac.cn>,
- Jonathan Marek <jonathan@marek.ca>, Yangtao Li <tiny.windzz@gmail.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, kernel-janitors@vger.kernel.org
-References: <20211004103806.GD25015@kili>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <60e7beb3-e54b-6367-0989-e0f780a34b52@linaro.org>
-Date: Tue, 5 Oct 2021 02:35:46 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 716C16EAC8
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 00:03:43 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633392224; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=PXW3o4AZmsJh5ii/yOZhTQ1+5uA4Slexg39ac4jUnUM=;
+ b=JXjpqXf21ZqHZ0zV5acDVKCTynqGoCrECKEAKYoZV37dolmOURzUvpvrz/v16dTT7XHfKMD0
+ dExumN1ZB0tH1tFGDtUXfbdUTPgqcWjibiidBgvUIygk6TR4d6i/jpPns6bnEj7v3zrSPfw2
+ 3oeAERkUlBHgMSEjEdcMdz80at0=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 615b965d713d5d6f9653556c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Oct 2021 00:03:41
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id CD524C43619; Tue,  5 Oct 2021 00:03:40 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C2776C43460;
+ Tue,  5 Oct 2021 00:03:39 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20211004103806.GD25015@kili>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: potential error pointer
- dereference in init()
+Date: Mon, 04 Oct 2021 17:03:39 -0700
+From: abhinavk@codeaurora.org
+To: Sean Paul <sean@poorly.run>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, swboyd@chromium.org,
+ jani.nikula@linux.intel.com, Sean Paul <seanpaul@chromium.org>, Jani Nikula
+ <jani.nikula@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>
+In-Reply-To: <20211001151145.55916-4-sean@poorly.run>
+References: <20211001151145.55916-1-sean@poorly.run>
+ <20211001151145.55916-4-sean@poorly.run>
+Message-ID: <589f66332a718c7d752cb7714d10a4c6@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3 03/14] drm/hdcp: Update property value on
+ content type and user changes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,37 +77,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/10/2021 13:38, Dan Carpenter wrote:
-> The msm_iommu_new() returns error pointers on failure so check for that
-> to avoid an Oops.
+On 2021-10-01 08:11, Sean Paul wrote:
+> From: Sean Paul <seanpaul@chromium.org>
 > 
-> Fixes: ccac7ce373c1 ("drm/msm: Refactor address space initialization")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> This patch updates the connector's property value in 2 cases which were
+> previously missed:
+> 
+> 1- Content type changes. The value should revert back to DESIRED from
+>    ENABLED in case the driver must re-authenticate the link due to the
+>    new content type.
+> 
+> 2- Userspace sets value to DESIRED while ENABLED. In this case, the
+>    value should be reset immediately to ENABLED since the link is
+>    actively being encrypted.
+> 
+> To accommodate these changes, I've split up the conditionals to make
+> things a bit more clear (as much as one can with this mess of state).
+> 
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> Link:
+> https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-4-sean@poorly.run
+> #v1
+> Link:
+> https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-4-sean@poorly.run
+> #v2
+> 
+> Changes in v2:
+> -None
+> Changes in v3:
+> -Fixed indentation issue identified by 0-day
 > ---
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 ++++
->   1 file changed, 4 insertions(+)
+>  drivers/gpu/drm/drm_hdcp.c | 26 +++++++++++++++++---------
+>  1 file changed, 17 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index ae48f41821cf..ad247c06e198 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -908,6 +908,10 @@ static int _dpu_kms_mmu_init(struct dpu_kms *dpu_kms)
->   		return 0;
->   
->   	mmu = msm_iommu_new(dpu_kms->dev->dev, domain);
-> +	if (IS_ERR(mmu)) {
-> +		iommu_domain_free(domain);
-> +		return PTR_ERR(mmu);
+> diff --git a/drivers/gpu/drm/drm_hdcp.c b/drivers/gpu/drm/drm_hdcp.c
+> index dd8fa91c51d6..8c851d40cd45 100644
+> --- a/drivers/gpu/drm/drm_hdcp.c
+> +++ b/drivers/gpu/drm/drm_hdcp.c
+> @@ -487,21 +487,29 @@ bool drm_hdcp_atomic_check(struct drm_connector
+> *connector,
+>  		return true;
+> 
+>  	/*
+> -	 * Nothing to do if content type is unchanged and one of:
+> -	 *  - state didn't change
+> +	 * Content type changes require an HDCP disable/enable cycle.
+> +	 */
+> +	if (new_conn_state->hdcp_content_type != 
+> old_conn_state->hdcp_content_type) {
+> +		new_conn_state->content_protection =
+> +			DRM_MODE_CONTENT_PROTECTION_DESIRED;
+> +		return true;
 > +	}
->   	aspace = msm_gem_address_space_create(mmu, "dpu1",
->   		0x1000, 0x100000000 - 0x1000);
->   
+> +
+> +	/*
+> +	 * Ignore meaningless state changes:
+>  	 *  - HDCP was activated since the last commit
+> -	 *  - attempting to set to desired while already enabled
+> +	 *  - Attempting to set to desired while already enabled
+>  	 */
+> -	if (old_hdcp == new_hdcp ||
+> -	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
+> +	if ((old_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
+>  	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED) ||
+>  	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
+>  	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED)) {
+> -		if (old_conn_state->hdcp_content_type ==
+> -				new_conn_state->hdcp_content_type)
+> -			return false;
+> +		new_conn_state->content_protection =
+> +			DRM_MODE_CONTENT_PROTECTION_ENABLED;
+> +		return false;
+>  	}
 > 
-
-
--- 
-With best wishes
-Dmitry
+> -	return true;
+> +	/* Finally, if state changes, we need action */
+> +	return old_hdcp != new_hdcp;
+>  }
+>  EXPORT_SYMBOL(drm_hdcp_atomic_check);
