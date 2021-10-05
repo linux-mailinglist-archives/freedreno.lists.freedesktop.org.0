@@ -2,69 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5064232EE
-	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 23:38:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EBF2423393
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 00:36:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 590116EC68;
-	Tue,  5 Oct 2021 21:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11996EC94;
+	Tue,  5 Oct 2021 22:36:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 131836EC68
- for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 21:38:57 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- 97-20020a9d006a000000b00545420bff9eso623355ota.8
- for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 14:38:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=XwBxFBF/Wz7qJo21AO0Spsmb8Z2fz8+ghFhMq6YjQTU=;
- b=WQ8XmZxsPfbZllzokRO7+Jjx/nD/hJboaXKtbethxbp3yID6yrPSP1lSPe2WQPhrn5
- aeG5uWM9yj3v7XY1gQVk6l3rK/YsaGZIADln28Ae7thnLpJf9Ee1SIDTiQdmshxmsX20
- nRwZfEheKCBrFroqZt1ZFnHViTUarBBJrk/mHHGt9sZpCdy06NetQ5pQv86QuaHuLGOf
- keRle//NDqbe2CoGUEJb57LfABJe3RsjgPaU2tIFKthI80mE0XR+6OrW4NKZuCu0ZZnP
- EnhGft/J5pAEvxsRah9fc9NjZjBOlRsX8VYzyOnNtTbHbBtod0DGP66L9iPCddng66Ge
- zmFg==
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D31DC6EC89
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 22:36:44 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ c6-20020a9d2786000000b005471981d559so790649otb.5
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 15:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Ft48Hk1n68Pbbbv8PEM8uaK94jbB+3DvpTmrUODshWs=;
+ b=fuO8D1HZqE0QRC5GpyS800L44yJkv8eq3KoFfIz9YbzMy8gLkKwMt3ak48h8SgP/6a
+ MQeVZSrXVzFGIZXzKkPlnHuvR/smgI79Gp9ry26Wtn83BDr+9N+s5hf0vtcSiqIJXkCr
+ dCVLzMRfCGWeT4zL/RhFyyGcPZALadT1LfwAs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=XwBxFBF/Wz7qJo21AO0Spsmb8Z2fz8+ghFhMq6YjQTU=;
- b=M4goAPQp/ANIRGwGyclx6uDmptgO+JjWbbeb9GYkq+atVM3JDJLb/Rrqc28PXrfGi9
- r1jNW5wDT6QkQDV2XFgSmpoClAyUIQJicNje8sAkuiOxyZHVu573SMTKHSl5fNT1mP7F
- mepL0LYC1BrrU+pCQqPaxwv/h/i62puzk0Rjv3TXkTqHTLjMM21gRyUhJNJHuoMMDqEE
- mhCB9PvsHmAi2UFOz8CaoQRFI4PAi3GOWqsyGPNhrl+z08r1LMkWcBLgDzObQ5P5BT0w
- gJFKcFrQ0YR2pEo92HnoKr/q+grGL+EEmIHhhUy9y0/IJvJ6cAZtISwZnycV0tD56O3A
- T03A==
-X-Gm-Message-State: AOAM531V3qF8qG7Gq1n+QilBdh+bh8Fo2+uc0mawrKkSndLhmHIkvU0/
- QgNhh7Y941IBETwGM3F0WArvZQ==
-X-Google-Smtp-Source: ABdhPJxZU82kUOM2pe8hCHCAjxEF1gNb5QXbBnbhthExkr2zHei0ZXp/UlrjxB3s9dJBtIBvaocs5w==
-X-Received: by 2002:a05:6830:812:: with SMTP id
- r18mr16200467ots.282.1633469936358; 
- Tue, 05 Oct 2021 14:38:56 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id z24sm3514610oic.26.2021.10.05.14.38.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 14:38:55 -0700 (PDT)
-Date: Tue, 5 Oct 2021 14:40:38 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sankeerth Billakanti <sbillaka@codeaurora.org>
-Message-ID: <YVzGVmJXEDH0HfIL@ripper>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Ft48Hk1n68Pbbbv8PEM8uaK94jbB+3DvpTmrUODshWs=;
+ b=eXZ6uW9MdxRmMEHgROGsPd+b7gYd9Cq0nAtYGIlmPLPiGshT4TjYwAGRx2qgPeuPqi
+ a7ypfaPtv7D7lZe2a3L8tfkXqF2PBT/Z8grxpQF4Wd5NRp68NhB1rzYuTGnPCCRAhnIk
+ SRJajMps1m5ES/1JlNFlWzIyqaO4VJ4B+WNe3fW5iwjci96rZenDT50wsagMa69ZHoXm
+ K9maUghOEjcSPXNcvmilKUmbMZda6Dm+5ms4uGTZ4+bOLLCDKPmqxT7C3X1rsw/VvH95
+ tQl09W4k0Y2FCQzULTtiSu6mEbRQxqVVQ+grz6OdwoRYJwbBnWtiSnfvT1UmSjq+STOj
+ EEfw==
+X-Gm-Message-State: AOAM533fuhlEeymFDBS/d/T3UzHlJgupe3KUkI3p8TmejgVXwFPOEfmQ
+ oJr1J3DlUGb14D8Uzbm3Ps9XoDW9HzPppmWKa6zclg==
+X-Google-Smtp-Source: ABdhPJwXTb3iHipqtroSzM7KoB3GtcUPf2KB8S66ztGQmawIKW5iKloHtwS37bzAg5v7wipOcEhtT5hf+0xu3KA/PDA=
+X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr17124450otn.126.1633473404179; 
+ Tue, 05 Oct 2021 15:36:44 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 5 Oct 2021 15:36:43 -0700
+MIME-Version: 1.0
+In-Reply-To: <YVzGVmJXEDH0HfIL@ripper>
 References: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
  <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
+ <YVzGVmJXEDH0HfIL@ripper>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 5 Oct 2021 15:36:43 -0700
+Message-ID: <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, 
+ David Airlie <airlied@linux.ie>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Sankeerth Billakanti <sbillaka@codeaurora.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,29 +76,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
-
-> Quoting Bjorn Andersson (2021-10-04 19:37:50)
-> > Found in the middle of a patch from Sankeerth was the reduction of the
-> > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
-> > is initalized and HPD interrupt start to be serviced, so in the case of
-> > eDP this reduction improves the user experience dramatically - i.e.
-> > removes 9.9s of bland screen time at boot.
+Quoting Bjorn Andersson (2021-10-05 14:40:38)
+> On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
+>
+> > Quoting Bjorn Andersson (2021-10-04 19:37:50)
+> > > Found in the middle of a patch from Sankeerth was the reduction of the
+> > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
+> > > is initalized and HPD interrupt start to be serviced, so in the case of
+> > > eDP this reduction improves the user experience dramatically - i.e.
+> > > removes 9.9s of bland screen time at boot.
+> > >
+> > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+> > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > > ---
 > >
-> > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> 
-> Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
-> re-read the code a couple times to understand that it's waiting 100ms
-> times the 'delay' number. Whaaaaat?
-> 
+> > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
+> > re-read the code a couple times to understand that it's waiting 100ms
+> > times the 'delay' number. Whaaaaat?
+> >
+>
+> I assume you're happy with the current 10s delay on the current
+> devices, so I don't think we should push for this to be backported.
+> I have no need for it to be backported on my side at least.
+>
 
-I assume you're happy with the current 10s delay on the current
-devices, so I don't think we should push for this to be backported.
-I have no need for it to be backported on my side at least.
+Sure. Fixes tag != backported to stable trees but it is close.
 
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-
-Thanks,
-Bjorn
+> > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>
