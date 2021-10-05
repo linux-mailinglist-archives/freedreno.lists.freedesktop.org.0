@@ -2,63 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03309423051
-	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 20:45:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 576B5423156
+	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 22:11:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5E46EC2A;
-	Tue,  5 Oct 2021 18:45:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB726E456;
+	Tue,  5 Oct 2021 20:11:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C39FB6EB7D
- for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 18:45:51 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- u20-20020a9d7214000000b0054e170300adso23973otj.13
- for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 11:45:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=OHTvFeyJP3J+uo/9wz+ahOIzpwEg9uJmeumv+TyQfVM=;
- b=KlgpGE95LIxZlb/pXE9cZu9nugQIb8LshfOewuCbEuACzl+rQB1xWDjBU3mPOLrDcW
- j5C+gbD94hGL4uSgBoXfUM5rt42vBONs9pSviN0hEYnzNWeOvmPxCoa6eWbHPVH7pzq8
- 9uUd3ccnAK2NsO+petzbwloyc4I76262QBVaU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=OHTvFeyJP3J+uo/9wz+ahOIzpwEg9uJmeumv+TyQfVM=;
- b=zK1k8EVcDt1sAzEJQ5c8cNYOV+Wfccs0kGM0Ljz9BPsnuZO1LwnPd/HmN1bIp678RA
- 9CtlHOKgMvX45om9eFvpuYkLG2oI50vi3+bAecTZEy3q2rxfKk3dbnE+zp+7JjWBXEe/
- /0TVHwMwe7n0XUyUuhx3Ffx3MCccxg8OHjaram9IdI6kCH2X/1JGgJePqZbP/ILMReUt
- useBSHGCYHHtFNwMkg+bsJIFN8eourVWpqpVXDmnbUfuq20saZa2EOhVbpLBPMN9GWKk
- cbrmcOC9mUgkjhFWJa9UO+qBSusgwJ75cv8+4O7K6FJnrCRFSPn4uAQgckX2q0oGtknl
- g9Pg==
-X-Gm-Message-State: AOAM5329ND/U2o7mSnZoaHQsRsCo2p9SFzGhctvV5Qy9wNoKLWnvDZYX
- PFYsL4jNEkXCXSNUgylkIQ2HorG/nlbuHpHKmpiZlw==
-X-Google-Smtp-Source: ABdhPJzA4iPXbH8yz7UdLkbyMSd1FJG8yE9lKOiGiI04UiNVk5/3sbM0WRNEBTKxB3XmF+4HfBHW7j8fmcgm3mYJLEA=
-X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr16240694otn.126.1633459551057; 
- Tue, 05 Oct 2021 11:45:51 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Oct 2021 11:45:50 -0700
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B742D6E456
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 20:11:40 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633464701; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=P0DRo+mb9v24WUz418XHZJLSk+CMLADwzwicec1u7rc=;
+ b=QIHfrOfBQ4FZI5RAOQMHdae1FMxWqBvlT9fzvcwj+w7gsyn76wpAC5TWP3jY2CFhxollGIGb
+ UhixIOpaUMcFpJbCG5ElFjfrQRcRkxjbPIUf9dcKq9h2Ra/y7rK/GIPfhjFm6ZPuuIQzu27w
+ ogmHminfaw+SLLnrMM6zFcMy30E=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 615cb17bb8ab9916b37f37c1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Oct 2021 20:11:39
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 7AFC1C43635; Tue,  5 Oct 2021 20:11:38 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id BDEF2C4360D;
+ Tue,  5 Oct 2021 20:11:36 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
-References: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 5 Oct 2021 11:45:50 -0700
-Message-ID: <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Sankeerth Billakanti <sbillaka@codeaurora.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 05 Oct 2021 13:11:36 -0700
+From: abhinavk@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David
+ Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20211001180058.1021913-2-bjorn.andersson@linaro.org>
+References: <20211001180058.1021913-1-bjorn.andersson@linaro.org>
+ <20211001180058.1021913-2-bjorn.andersson@linaro.org>
+Message-ID: <4e36028549fcadd5e31a6b5694d6be8f@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3 1/5] drm/msm/dp: Remove global
+ g_dp_display variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,19 +77,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-10-04 19:37:50)
-> Found in the middle of a patch from Sankeerth was the reduction of the
-> INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
-> is initalized and HPD interrupt start to be serviced, so in the case of
-> eDP this reduction improves the user experience dramatically - i.e.
-> removes 9.9s of bland screen time at boot.
->
-> Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+On 2021-10-01 11:00, Bjorn Andersson wrote:
+> As the Qualcomm DisplayPort driver only supports a single instance of
+> the driver the commonly used struct dp_display is kept in a global
+> variable. As we introduce additional instances this obviously doesn't
+> work.
+> 
+> Replace this with a combination of existing references to adjacent
+> objects and drvdata.
+> 
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
-
-Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
-re-read the code a couple times to understand that it's waiting 100ms
-times the 'delay' number. Whaaaaat?
-
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> 
+> Changes since v2:
+> - None
+> 
+>  drivers/gpu/drm/msm/dp/dp_display.c | 80 ++++++++---------------------
+>  1 file changed, 21 insertions(+), 59 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+> b/drivers/gpu/drm/msm/dp/dp_display.c
+> index fbe4c2cd52a3..5d3ee5ef07c2 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -27,7 +27,6 @@
+>  #include "dp_audio.h"
+>  #include "dp_debug.h"
+> 
+> -static struct msm_dp *g_dp_display;
+>  #define HPD_STRING_SIZE 30
+> 
+>  enum {
+> @@ -121,6 +120,13 @@ static const struct of_device_id dp_dt_match[] = {
+>  	{}
+>  };
+> 
+> +static struct dp_display_private *dev_get_dp_display_private(struct
+> device *dev)
+> +{
+> +	struct msm_dp *dp = dev_get_drvdata(dev);
+> +
+> +	return container_of(dp, struct dp_display_private, dp_display);
+> +}
+> +
+>  static int dp_add_event(struct dp_display_private *dp_priv, u32 event,
+>  						u32 data, u32 delay)
+>  {
+> @@ -197,15 +203,12 @@ static int dp_display_bind(struct device *dev,
+> struct device *master,
+>  			   void *data)
+>  {
+>  	int rc = 0;
+> -	struct dp_display_private *dp;
+> -	struct drm_device *drm;
+> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+>  	struct msm_drm_private *priv;
+> +	struct drm_device *drm;
+> 
+>  	drm = dev_get_drvdata(master);
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> -
+>  	dp->dp_display.drm_dev = drm;
+>  	priv = drm->dev_private;
+>  	priv->dp = &(dp->dp_display);
+> @@ -240,13 +243,10 @@ static int dp_display_bind(struct device *dev,
+> struct device *master,
+>  static void dp_display_unbind(struct device *dev, struct device 
+> *master,
+>  			      void *data)
+>  {
+> -	struct dp_display_private *dp;
+> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+>  	struct drm_device *drm = dev_get_drvdata(master);
+>  	struct msm_drm_private *priv = drm->dev_private;
+> 
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> -
+>  	dp_power_client_deinit(dp->power);
+>  	dp_aux_unregister(dp->aux);
+>  	priv->dp = NULL;
+> @@ -379,38 +379,17 @@ static void dp_display_host_deinit(struct
+> dp_display_private *dp)
+> 
+>  static int dp_display_usbpd_configure_cb(struct device *dev)
+>  {
+> -	int rc = 0;
+> -	struct dp_display_private *dp;
+> -
+> -	if (!dev) {
+> -		DRM_ERROR("invalid dev\n");
+> -		rc = -EINVAL;
+> -		goto end;
+> -	}
+> -
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> 
+>  	dp_display_host_init(dp, false);
+> 
+> -	rc = dp_display_process_hpd_high(dp);
+> -end:
+> -	return rc;
+> +	return dp_display_process_hpd_high(dp);
+>  }
+> 
+>  static int dp_display_usbpd_disconnect_cb(struct device *dev)
+>  {
+>  	int rc = 0;
+> -	struct dp_display_private *dp;
+> -
+> -	if (!dev) {
+> -		DRM_ERROR("invalid dev\n");
+> -		rc = -EINVAL;
+> -		return rc;
+> -	}
+> -
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> 
+>  	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+> 
+> @@ -472,15 +451,7 @@ static int dp_display_usbpd_attention_cb(struct
+> device *dev)
+>  {
+>  	int rc = 0;
+>  	u32 sink_request;
+> -	struct dp_display_private *dp;
+> -
+> -	if (!dev) {
+> -		DRM_ERROR("invalid dev\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+> 
+>  	/* check for any test request issued by sink */
+>  	rc = dp_link_process_request(dp->link);
+> @@ -647,7 +618,7 @@ static int dp_hpd_unplug_handle(struct
+> dp_display_private *dp, u32 data)
+> 
+>  	DRM_DEBUG_DP("hpd_state=%d\n", state);
+>  	/* signal the disconnect event early to ensure proper teardown */
+> -	dp_display_handle_plugged_change(g_dp_display, false);
+> +	dp_display_handle_plugged_change(&dp->dp_display, false);
+> 
+>  	/* enable HDP plug interrupt to prepare for next plugin */
+>  	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, 
+> true);
+> @@ -842,9 +813,7 @@ static int dp_display_prepare(struct msm_dp *dp)
+>  static int dp_display_enable(struct dp_display_private *dp, u32 data)
+>  {
+>  	int rc = 0;
+> -	struct msm_dp *dp_display;
+> -
+> -	dp_display = g_dp_display;
+> +	struct msm_dp *dp_display = &dp->dp_display;
+> 
+>  	DRM_DEBUG_DP("sink_count=%d\n", dp->link->sink_count);
+>  	if (dp_display->power_on) {
+> @@ -880,9 +849,7 @@ static int dp_display_post_enable(struct msm_dp 
+> *dp_display)
+> 
+>  static int dp_display_disable(struct dp_display_private *dp, u32 data)
+>  {
+> -	struct msm_dp *dp_display;
+> -
+> -	dp_display = g_dp_display;
+> +	struct msm_dp *dp_display = &dp->dp_display;
+> 
+>  	if (!dp_display->power_on)
+>  		return 0;
+> @@ -1237,14 +1204,13 @@ static int dp_display_probe(struct
+> platform_device *pdev)
+>  	}
+> 
+>  	mutex_init(&dp->event_mutex);
+> -	g_dp_display = &dp->dp_display;
+> 
+>  	/* Store DP audio handle inside DP display */
+> -	g_dp_display->dp_audio = dp->audio;
+> +	dp->dp_display.dp_audio = dp->audio;
+> 
+>  	init_completion(&dp->audio_comp);
+> 
+> -	platform_set_drvdata(pdev, g_dp_display);
+> +	platform_set_drvdata(pdev, &dp->dp_display);
+> 
+>  	rc = component_add(&pdev->dev, &dp_display_comp_ops);
+>  	if (rc) {
+> @@ -1257,10 +1223,7 @@ static int dp_display_probe(struct 
+> platform_device *pdev)
+> 
+>  static int dp_display_remove(struct platform_device *pdev)
+>  {
+> -	struct dp_display_private *dp;
+> -
+> -	dp = container_of(g_dp_display,
+> -			struct dp_display_private, dp_display);
+> +	struct dp_display_private *dp = 
+> dev_get_dp_display_private(&pdev->dev);
+> 
+>  	dp_display_deinit_sub_modules(dp);
+> 
+> @@ -1315,8 +1278,7 @@ static int dp_pm_resume(struct device *dev)
+>  	else
+>  		dp->dp_display.is_connected = false;
+> 
+> -	dp_display_handle_plugged_change(g_dp_display,
+> -				dp->dp_display.is_connected);
+> +	dp_display_handle_plugged_change(dp_display, 
+> dp->dp_display.is_connected);
+> 
+>  	DRM_DEBUG_DP("After, sink_count=%d is_connected=%d core_inited=%d
+> power_on=%d\n",
+>  			dp->link->sink_count, dp->dp_display.is_connected,
