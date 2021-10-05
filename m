@@ -2,70 +2,80 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B118E4222BB
-	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 11:53:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C53CF422BF8
+	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 17:11:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A646EB48;
-	Tue,  5 Oct 2021 09:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46B0E6E40D;
+	Tue,  5 Oct 2021 15:11:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4B6E6EB48
- for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 09:53:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1633427587; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=9NNh8Apyajof6vjdxuO0fo4bjhrIb3avsDuXH6d364Y=;
- b=dhT+j6U1dwZWpgFF7zQ9HQsPl64MzjBkgxyVvcHP7F/iMDwWNLAk8MwmqvgO8YqU0kfg7B8o
- bN5XVeGGouIDYcC2QepVRjsBPmI9yaof/UEL5vaS6nEPytBQLbTpInHbGKJcIbAeqQ2cqhr3
- XR/6QOqS7U/EJuu4OK30jPa+foU=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 615c207a47d64efb6d0f59c2 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 05 Oct 2021 09:52:58
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 327B5C4360C; Tue,  5 Oct 2021 09:52:58 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: mkrishn)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7639EC4338F;
- Tue,  5 Oct 2021 09:52:57 +0000 (UTC)
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D592D6E40D;
+ Tue,  5 Oct 2021 15:11:54 +0000 (UTC)
+Received: by mail-pg1-x529.google.com with SMTP id v11so7464184pgb.8;
+ Tue, 05 Oct 2021 08:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QSrcQ531lYvMDyqtMmSNSg1D9eOHYmXdh6Sn4g0VZLQ=;
+ b=LE+nGxihu74oC3P/yXCbRUT8joVuLjedGgQjvKmK8f3RDbhsFz2Vi3/sS9u9wXnGcX
+ K2GgrTHQM2kjOTjbHfEDKSOGaIQ95GlbZ/QF327Ospm5XEbm5TPf6490GoZyuWQ1E/y+
+ IeJKKHDWKXVrwoDC9bWA7CsdXkqo8n4aTYFKKesOpEGc2WcdjcTgXydrApYSun1UVsgw
+ iY76WfnFfYcz9KR5eDOdItpIDV0s68u3xP+x9H5iDGJotHLBIZgkU1UDs/KH+Jtv0Uja
+ Hd84BWPjshr5CEK7HmMKnP/2imJsZdYLGNfIk8+cWZQTHfe+FZ/z7BP+9G5U4gsshMEp
+ MPpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QSrcQ531lYvMDyqtMmSNSg1D9eOHYmXdh6Sn4g0VZLQ=;
+ b=msLJbhRf/pMqWHEFI1DTpCda/mQdbMNuuc2+rNtq2fC0ZM3kmgUn8gHZPYN4LS9Es1
+ mfwHNKTtX3lwTY0JTYlUpR15MJJAkR9Q/1SKD1a92MJCU0AEK+aKF+yGafYkSMM45pw1
+ ZmlGSwvkkoV6wGYove7n66nJM8tjmdRD5gFxTpVZPH2R/CzlItjpVvE7OZgm8GN5c67K
+ hAGHaz90Zq9jBYZFUDq+T9rfw93r/9pVAFJ3VAAWGah9jSpHSf8mcIVvRvU5d5uXcMTH
+ 3r65Knz0JETzcmdwaP/0MV56M/b3n3XRvIT1ZVQrpF0+3p+e4thIBYjDc0FTrapKMg+l
+ T+XQ==
+X-Gm-Message-State: AOAM530ovnameaqpKDH4IZCBaigFKxgUE7yMIrZqOwmBvvEqGdLX76jl
+ nOaF3VmXuZdczdL/tG1JCdVop25OpSk=
+X-Google-Smtp-Source: ABdhPJxO3G+HWzM6JzFUJostwno3QxJkFsVc0ojvp/XHIKEdzTvHkYlD/6vx1y3wEb8mXk5HXIWGFA==
+X-Received: by 2002:aa7:828c:0:b0:44c:28d1:46b9 with SMTP id
+ s12-20020aa7828c000000b0044c28d146b9mr19508978pfm.43.1633446713563; 
+ Tue, 05 Oct 2021 08:11:53 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ k22sm18388032pfi.149.2021.10.05.08.11.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Oct 2021 08:11:51 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>,
+ Rob Clark <robdclark@chromium.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Georgi Djakov <quic_c_gdjako@quicinc.com>,
+ iommu@lists.linux-foundation.org (open list:IOMMU DRIVERS),
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ Joerg Roedel <jroedel@suse.de>, Jonathan Marek <jonathan@marek.ca>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ linux-arm-msm@vger.kernel.org (open list:DRM DRIVER FOR MSM ADRENO GPU),
+ linux-kernel@vger.kernel.org (open list),
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Sven Peter <sven@svenpeter.dev>, Yangtao Li <tiny.windzz@gmail.com>,
+ Yong Wu <yong.wu@mediatek.com>
+Date: Tue,  5 Oct 2021 08:16:24 -0700
+Message-Id: <20211005151633.1738878-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 05 Oct 2021 15:22:57 +0530
-From: mkrishn@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org,
- sbillaka@codeaurora.org, abhinavk@codeaurora.org, robdclark@gmail.com,
- bjorn.andersson@linaro.org, khsieh@codeaurora.org, rajeevny@codeaurora.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- robh+dt@kernel.org
-In-Reply-To: <CAE-0n53wqdo7NBZn4UMRZDtc3MrF6JdvZpjcfGapJT1s5iV2jQ@mail.gmail.com>
-References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
- <1629282424-4070-2-git-send-email-mkrishn@codeaurora.org>
- <CAE-0n50b=pX=1MFwGPDvDR=O03tUAkAgyMonGm2+SXBft=16KQ@mail.gmail.com>
- <5adf2ab2c2a162272509d253bd797721@codeaurora.org>
- <CAE-0n53kQU=8pdcWR0OZap1wDgxxwed0qvfaGruc71YT5Cj1iA@mail.gmail.com>
- <8f344213978f31c04e80b804a931db56@codeaurora.org>
- <CAE-0n53wqdo7NBZn4UMRZDtc3MrF6JdvZpjcfGapJT1s5iV2jQ@mail.gmail.com>
-Message-ID: <41fb0eec922ff8499bb4b95ab29000f3@codeaurora.org>
-X-Sender: mkrishn@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v1 2/4] arm64: dts: qcom: sc7280: add
- display dt nodes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/3] io-pgtable-arm + drm/msm: Extend iova
+ fault debugging
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,55 +91,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-05 07:21, Stephen Boyd wrote:
-> Quoting mkrishn@codeaurora.org (2021-09-30 23:39:07)
->> On 2021-09-30 23:28, Stephen Boyd wrote:
->> > Quoting mkrishn@codeaurora.org (2021-09-30 04:56:59)
->> >> On 2021-08-19 01:27, Stephen Boyd wrote:
->> >> > Quoting Krishna Manikandan (2021-08-18 03:27:02)
->> >> >> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> >> >> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> >> >> index 53a21d0..fd7ff1c 100644
->> >> >> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> >> >> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
->> >> >> +
->> >> >> +                       status = "disabled";
->> >> >> +
->> >> >> +                       mdp: mdp@ae01000 {
->> >> >
->> >> > display-controller@ae01000
->> >>
->> >> Stephen,
->> >>     In the current driver code, there is a substring comparison for
->> >> "mdp"
->> >> in device node name as part of probe sequence. If "mdp" is not present
->> >> in the node name, it will
->> >>     return an error resulting in probe failure. Can we continue using
->> >> mdp
->> >> as nodename instead of display controller?
->> >>
->> >
->> > Can we fix the driver to not look for node names and look for
->> > compatible
->> > strings instead? It took me a minute to find compare_name_mdp() in
->> > drivers/gpu/drm/msm/msm_drv.c to understand what you're talking about.
->> > Perhaps looking for qcom,mdp5 in there will be sufficient instead of
->> > looking at the node name.
->> 
->> Sure Stephen. I will make the necessary changes in msm_drv.c to look 
->> for
->> compatible string instead of node name.
->> Can I include these two changes (changing mdp--> display controller 
->> and
->> msm_drv.c changes) in a separate series ?
->> 
-> 
-> Sure. So you'll send the drm driver change now and we'll get the DT
-> change after that with the more generic node name?
+From: Rob Clark <robdclark@chromium.org>
 
-Yes Stephen.I have raised the change to fix the driver issue.
-https://patchwork.kernel.org/project/linux-arm-msm/patch/1633427071-19523-1-git-send-email-mkrishn@codeaurora.org/
+This series extends io-pgtable-arm with a method to retrieve the page
+table entries traversed in the process of address translation, and then
+beefs up drm/msm gpu devcore dump to include this (and additional info)
+in the devcore dump.
 
-Regards,
-Krishna
+The motivation is tracking down an obscure iova fault triggered crash on
+the address of the IB1 cmdstream.  This is one of the few places where
+the GPU address written into the cmdstream is soley under control of the
+kernel mode driver, so I don't think it can be a userspace bug.  The
+logged cmdstream from the devcore's I've looked at look correct, and the
+TTBR0 read back from arm-smmu agrees with the kernel emitted cmdstream.
+Unfortunately it happens infrequently enough (something like once per
+1000hrs of usage, from what I can tell from our telemetry) that actually
+reproducing it with an instrumented debug kernel is not an option.  So
+further spiffying out the devcore dumps and hoping we can spot a clue is
+the plan I'm shooting for.
+
+See https://gitlab.freedesktop.org/drm/msm/-/issues/8 for more info on
+the issue I'm trying to debug.
+
+v2: Fix an armv7/32b build error in the last patch
+
+Rob Clark (3):
+  iommu/io-pgtable-arm: Add way to debug pgtable walk
+  drm/msm: Show all smmu info for iova fault devcore dumps
+  drm/msm: Extend gpu devcore dumps with pgtbl info
+
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 35 +++++++++++++++++-----
+ drivers/gpu/drm/msm/msm_gpu.c           | 10 +++++++
+ drivers/gpu/drm/msm/msm_gpu.h           | 10 ++++++-
+ drivers/gpu/drm/msm/msm_iommu.c         | 17 +++++++++++
+ drivers/gpu/drm/msm/msm_mmu.h           |  2 ++
+ drivers/iommu/io-pgtable-arm.c          | 40 ++++++++++++++++++++-----
+ include/linux/io-pgtable.h              |  9 ++++++
+ 8 files changed, 107 insertions(+), 18 deletions(-)
+
+-- 
+2.31.1
 
