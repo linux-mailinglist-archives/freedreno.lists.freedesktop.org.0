@@ -1,68 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0963421C37
-	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 03:51:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FCFF421C66
+	for <lists+freedreno@lfdr.de>; Tue,  5 Oct 2021 04:12:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D784A6F4F8;
-	Tue,  5 Oct 2021 01:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07CE96EA5C;
+	Tue,  5 Oct 2021 02:12:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B81E16F4FE
- for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 01:51:47 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 5-20020a9d0685000000b0054706d7b8e5so24028432otx.3
- for <freedreno@lists.freedesktop.org>; Mon, 04 Oct 2021 18:51:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=/dkkNpzviYCaFJdQwMp6k08JJ4wijyXvlqLTqGJ1jh0=;
- b=KZCmz7fxQrAK4JnFowRP+/GRUfcb8L4k8Iu9g8CaERdWmvQsS+RiyhmrNv9SvQFEVD
- T6AKEugQqWmsk78/vMnUt2wqQclXISFFYi59AYl7vZ2GtZoJF0OQYJwQVjb2P9mQb/U/
- e3SbW7IIiKTlDvh5hbg3VYgXdxMEdU2XdcDCQ=
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F130C6EA5C
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Oct 2021 02:12:00 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id n64so24228426oih.2
+ for <freedreno@lists.freedesktop.org>; Mon, 04 Oct 2021 19:12:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=VIaEqT/nVfMB1pHC7VOlUsmGSY6hy6pziPPpqp42D2M=;
+ b=YSxdwaK1+PQfuu8Awt7Ozm/Z00dxjmTP0pWrSJ4Z9a+7VBZpO9niYk/mKbIa6E6lW4
+ 9cJiLJiKOq8Vxbdv5cxILBuqjxq2wdOiJKYNcb8YPPlrAKYrGjbvvT4sFKygh5XEeSTy
+ 14GZZSxLii3u0g5VnQnyuOiIGPtlUwJk4AgDIfYDdavbW7pSXnFpe08lDqwKmM+yFCn0
+ CW9GHt9HGGWmJfsQMmeaYbioPKClqT1yl876elHDa0hePgb1lTPHNOj1OzcPPTC5PCtQ
+ qFJBZ/Cl6+omxf0G0NRoh9A5zjfjO+qjz24ovf5Nm3CSdPlrFc9btOfDqAUh3pFyX/M+
+ /XIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=/dkkNpzviYCaFJdQwMp6k08JJ4wijyXvlqLTqGJ1jh0=;
- b=EgOEqhD6u+O1moIQOwWqhoLNGJr6a0xmxiK+cljAJ2KL7kfLpyRORY3po31pDHLZKF
- 67qiUh2xhzv6NvF3QeIhoOW6Q9DywXPbWmzlfPGDnH0RJBPROSQ/9/5sTb4s3lY3hiQt
- qbYX+hy75jz1sjbLyT1iAX7CDek5mFsSK8ytGrE+6gz20W8bNljCy4x+UVxJgzQBnkWO
- jyrFJStIy1As/GUc1ISJ7te3WdSTLvMEvbUwuuKwZUkew5I9x3XEETmbEgaTLJGtm1zk
- J7gW0tRmmpGTSUYN2epF7Jvffz3yAv7PxyBkCStV4O+VehNrnj45B9tAO/J5il4A+lBn
- P0tw==
-X-Gm-Message-State: AOAM530ZddMEx6PH+68IfZaNYkg+DaV062gE6PFc5Ontsudmh7K2ai4R
- BYcwBGaPHn5zUdGZ6jCagsXkCvlOJM9fL3BcBM00Eg==
-X-Google-Smtp-Source: ABdhPJzWLCe5J9N4NEvFccqk7qSekAwNhX8l0RI/XU9tNyqKDe6UT1+tzQun6F9V3idqi29P8qX/SPyM7+msx2mkAW4=
-X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr12435757otn.126.1633398707037; 
- Mon, 04 Oct 2021 18:51:47 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 4 Oct 2021 21:51:46 -0400
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=VIaEqT/nVfMB1pHC7VOlUsmGSY6hy6pziPPpqp42D2M=;
+ b=gd0L7DW8TBPEN9Z5wZmI1f3bB27NwJKSk5CIEIF8cMf1n/c6Y/yRHBVqxf0aMXcpxz
+ kwxSDc7QXLO5qX2o0yezKrN1l3dMOCFtVKQ0+L4KWIyGWFDY9FfOc5doPS8Q4WHIE0k5
+ KFqlIdSKWSwo5iypK70J5IuxNRZR1LfgBoD1CEazcfw/N9HUbecEKQbTuyaGHdtrmDJP
+ NzIqc8dv02YRvncxV2NfCyEVqHXELADpaB7/2F4nD/vcztXp3+ylhHeDBZaY6KxdOYWq
+ QEYEr7MA3ve3NS/rz7LoB4APith6XEWPjn7SIf5u/4/vawJ6YzgJiEXwvqdhSxDQA541
+ wvLg==
+X-Gm-Message-State: AOAM532lG94t6DnHQyf2CgBHFhI9bDLveu+NiBDD2IyKULE76Hj9Th/I
+ 6ENONIZ/bvgwti7vd5nkCvUDBQ==
+X-Google-Smtp-Source: ABdhPJxy057VcLa+dxq8bjpZFGDFAWzNr3c3pXtBMdVSjJYnJO1rE/74i+ewykcyKToocVJJTarQpg==
+X-Received: by 2002:a05:6808:308e:: with SMTP id
+ bl14mr420423oib.31.1633399920203; 
+ Mon, 04 Oct 2021 19:12:00 -0700 (PDT)
+Received: from yoga ([2600:1700:a0:3dc8:c84c:8eff:fe1e:256f])
+ by smtp.gmail.com with ESMTPSA id 18sm3259381otj.10.2021.10.04.19.11.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Oct 2021 19:11:59 -0700 (PDT)
+Date: Mon, 4 Oct 2021 21:11:57 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Doug Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Vara Reddy <varar@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Chandan Uddaraju <chandanu@codeaurora.org>
+Message-ID: <YVu0bRtDtVW8iLfI@yoga>
+References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
+ <CAD=FV=UGtHXD==Yy8CVCOioYGb=2hqGQOoNWftD1Jj7OiEp51g@mail.gmail.com>
+ <YVd3YdfgFVc0Br5T@ripper>
+ <CAD=FV=U=xVLuKOYHbGPTkLjGa8_U+F1ZtEvJt4LGaRuR5SsKFw@mail.gmail.com>
+ <YVumL1lHLqtb/HKS@ripper>
+ <CAE-0n51nP7c5VziUMMoOrE2THK0xdA3A_EiJTquYc0+8KhAWAQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <8f344213978f31c04e80b804a931db56@codeaurora.org>
-References: <1629282424-4070-1-git-send-email-mkrishn@codeaurora.org>
- <1629282424-4070-2-git-send-email-mkrishn@codeaurora.org>
- <CAE-0n50b=pX=1MFwGPDvDR=O03tUAkAgyMonGm2+SXBft=16KQ@mail.gmail.com>
- <5adf2ab2c2a162272509d253bd797721@codeaurora.org>
- <CAE-0n53kQU=8pdcWR0OZap1wDgxxwed0qvfaGruc71YT5Cj1iA@mail.gmail.com>
- <8f344213978f31c04e80b804a931db56@codeaurora.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Mon, 4 Oct 2021 21:51:46 -0400
-Message-ID: <CAE-0n53wqdo7NBZn4UMRZDtc3MrF6JdvZpjcfGapJT1s5iV2jQ@mail.gmail.com>
-To: mkrishn@codeaurora.org
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kalyan_t@codeaurora.org, 
- sbillaka@codeaurora.org, abhinavk@codeaurora.org, robdclark@gmail.com, 
- bjorn.andersson@linaro.org, khsieh@codeaurora.org, rajeevny@codeaurora.org, 
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- robh+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 2/4] arm64: dts: qcom: sc7280: add
- display dt nodes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE-0n51nP7c5VziUMMoOrE2THK0xdA3A_EiJTquYc0+8KhAWAQ@mail.gmail.com>
+Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,45 +87,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting mkrishn@codeaurora.org (2021-09-30 23:39:07)
-> On 2021-09-30 23:28, Stephen Boyd wrote:
-> > Quoting mkrishn@codeaurora.org (2021-09-30 04:56:59)
-> >> On 2021-08-19 01:27, Stephen Boyd wrote:
-> >> > Quoting Krishna Manikandan (2021-08-18 03:27:02)
-> >> >> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> >> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> >> index 53a21d0..fd7ff1c 100644
-> >> >> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> >> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> >> >> +
-> >> >> +                       status = "disabled";
-> >> >> +
-> >> >> +                       mdp: mdp@ae01000 {
-> >> >
-> >> > display-controller@ae01000
-> >>
-> >> Stephen,
-> >>     In the current driver code, there is a substring comparison for
-> >> "mdp"
-> >> in device node name as part of probe sequence. If "mdp" is not present
-> >> in the node name, it will
-> >>     return an error resulting in probe failure. Can we continue using
-> >> mdp
-> >> as nodename instead of display controller?
-> >>
-> >
-> > Can we fix the driver to not look for node names and look for
-> > compatible
-> > strings instead? It took me a minute to find compare_name_mdp() in
-> > drivers/gpu/drm/msm/msm_drv.c to understand what you're talking about.
-> > Perhaps looking for qcom,mdp5 in there will be sufficient instead of
-> > looking at the node name.
->
-> Sure Stephen. I will make the necessary changes in msm_drv.c to look for
-> compatible string instead of node name.
-> Can I include these two changes (changing mdp--> display controller and
-> msm_drv.c changes) in a separate series ?
->
+On Mon 04 Oct 20:50 CDT 2021, Stephen Boyd wrote:
 
-Sure. So you'll send the drm driver change now and we'll get the DT
-change after that with the more generic node name?
+> Quoting Bjorn Andersson (2021-10-04 18:11:11)
+> > On Mon 04 Oct 17:36 PDT 2021, Doug Anderson wrote:
+> >
+> > > Hi,
+> > >
+> > > On Fri, Oct 1, 2021 at 2:00 PM Bjorn Andersson
+> > > <bjorn.andersson@linaro.org> wrote:
+> > > >
+> > > > On Fri 27 Aug 13:52 PDT 2021, Doug Anderson wrote:
+> > > >
+> > > > > Hi,
+> > > > >
+> > > > > On Mon, Jul 26, 2021 at 4:15 PM Bjorn Andersson
+> > > > > <bjorn.andersson@linaro.org> wrote:
+> > > > > >
+> > > > > > +static int dp_parser_find_panel(struct dp_parser *parser)
+> > > > > > +{
+> > > > > > +       struct device_node *np = parser->pdev->dev.of_node;
+> > > > > > +       int rc;
+> > > > > > +
+> > > > > > +       rc = drm_of_find_panel_or_bridge(np, 2, 0, &parser->drm_panel, NULL);
+> > > > >
+> > > > > Why port 2? Shouldn't this just be port 1 always? The yaml says that
+> > > > > port 1 is "Output endpoint of the controller". We should just use port
+> > > > > 1 here, right?
+> > > > >
+> > > >
+> > > > Finally got back to this, changed it to 1 and figured out why I left it
+> > > > at 2.
+> > > >
+> > > > drm_of_find_panel_or_bridge() on a DP controller will find the of_graph
+> > > > reference to the USB-C controller, scan through the registered panels
+> > > > and conclude that the of_node of the USB-C controller isn't a registered
+> > > > panel and return -EPROBE_DEFER.
+> > >
+> > > I'm confused, but maybe it would help if I could see something
+> > > concrete. Is there a specific board this was happening on?
+> > >
+> >
+> > Right, let's make this more concrete with a snippet from the actual
+> > SC8180x DT.
+> 
+> Where is this DT? Is it in the kernel tree?
+> 
+
+Still missing a bunch of driver pieces, so I haven't yet pushed any of
+this upstream.
+
+But if you're interested you can find some work-in-progress here:
+https://github.com/andersson/kernel/commits/wip/sc8180x-next-20210819
+
+> >
+> > > Under the DP node in the device tree I expect:
+> > >
+> > > ports {
+> > >   port@1 {
+> > >     reg = <1>;
+> > >     edp_out: endpoint {
+> > >       remote-endpoint = <&edp_panel_in>;
+> > >     };
+> > >   };
+> > > };
+> > >
+> >
+> > /* We got a panel */
+> > panel {
+> >     ...
+> >     ports {
+> >         port {
+> >             auo_b133han05_in: endpoint {
+> >                 remote-endpoint = <&mdss_edp_out>;
+> >             };
+> >         };
+> >     };
+> > };
+> >
+> > /* And a 2-port USB-C controller */
+> > type-c-controller {
+> >     ...
+> >     connector@0 {
+> >         ports {
+> >             port@0 {
+> >                 reg = <0>;
+> >                 ucsi_port_0_dp: endpoint {
+> >                     remote-endpoint = <&dp0_mode>;
+> >                 };
+> >             };
+> >
+> >             port@1 {
+> >                 reg = <1>;
+> >                 ucsi_port_0_switch: endpoint {
+> >                     remote-endpoint = <&primary_qmp_phy>;
+> >                 };
+> >             };
+> >         };
+> >     };
+> >
+> >         connector@1 {
+> >         ports {
+> >             port@0 {
+> >                 reg = <0>;
+> >                 ucsi_port_1_dp: endpoint {
+> >                     remote-endpoint = <&dp1_mode>;
+> >                 };
+> >             };
+> >
+> >             port@1 {
+> >                 reg = <1>;
+> >                 ucsi_port_1_switch: endpoint {
+> >                     remote-endpoint = <&second_qmp_phy>;
+> >                 };
+> >             };
+> >         };
+> >         };
+> > };
+> >
+> > /* And then our 2 DP and single eDP controllers */
+> > &mdss_dp0 {
+> >     ports {
+> >         port@1 {
+> >             reg = <1>;
+> >             dp0_mode: endpoint {
+> >                 remote-endpoint = <&ucsi_port_0_dp>;
+> >             };
+> >         };
+> >     };
+> > };
+> >
+> > &mdss_dp1 {
+> >     ports {
+> >         port@1 {
+> >             reg = <1>;
+> >             dp1_mode: endpoint {
+> >                 remote-endpoint = <&ucsi_port_1_dp>;
+> >             };
+> >         };
+> >     };
+> > };
+> >
+> > &mdss_edp {
+> >     ports {
+> >         port@1 {
+> >             reg = <1>;
+> >             mdss_edp_out: endpoint {
+> >                 remote-endpoint = <&auo_b133han05_in>;
+> >             };
+> >         };
+> >     };
+> > };
+> >
+> > > If you have "port@1" pointing to a USB-C controller but this instance
+> > > of the DP controller is actually hooked up straight to a panel then
+> > > you should simply delete the "port@1" that points to the typeC and
+> > > replace it with one that points to a panel, right?
+> > >
+> >
+> > As you can see, port 1 on &mdss_dp0 and &mdss_dp1 points to the two UCSI
+> > connectors and the eDP points to the panel, exactly like we agreed.
+> >
+> > So now I call:
+> >     drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, NULL);
+> >
+> > which for the two DP nodes will pass respective UCSI connector to
+> > drm_find_panel() and get EPROBE_DEFER back - because they are not on
+> > panel_list.
+> 
+> That's "good" right?
+> 
+
+Well, it's expected that the connectors aren't panels...
+
+> >
+> > There's nothing indicating in the of_graph that the USB connectors
+> > aren't panels (or bridges), so I don't see a way to distinguish the two
+> > types remotes.
+> >
+> 
+> I'd like to create a bridge, not panel, for USB connectors, so that we
+> can push sideband HPD signaling through to the DP driver. But either way
+> this should work, right? If drm_of_find_panel_or_bridge() returns
+> -EPROBE_DEFER, then assume the connector is DP. Otherwise if there's a
+> valid pointer then treat it as eDP. We can't go too crazy though because
+> once we attach a bridge we're assuming eDP which may not actually be
+> true.
+> 
+
+How will I be able to distinguish this from "the eDP panel is not yet
+probed"? Unless we first implement the rest of this suggestion to make
+sure drm_of_find_panel_or_bridge() has something to find in both cases.
+
+> If we make a bridge for type-C USB connectors then we'll be able to use
+> the drm_bridge_connector code to automatically figure out the connector
+> type (eDP vs. DP vs. whatever else is chained onto the end of the DP
+> connector). That would require updating the bridge connector code to
+> treat DP as a connector type though. And then the eDP path would need to
+> be handled when there's no bridge really involved, like in your case
+> where the eDP hardware is directly connected to the eDP panel.
+> 
+> In this case I think we're supposed to make a bridge in this DP driver
+> itself that does pretty basic stuff and assumes the connector is eDP or
+> DP based on the hardware type it is. Then if we wire a type-c connector
+> up to the eDP hardware the eDP bridge we make in this driver will see a
+> type-c connector that makes a bridge saying "I'm a DP connector" and the
+> drm_bridge_connector code will look at the last bridge in the chain to
+> see that it's actually a DP connector.
+
+This is rather far from how I do handle USB, and its HPD interrupts
+today. But perhaps I'm missing something there...
+
+Let me get that patch on the list as well then.
+
+Regards,
+Bjorn
