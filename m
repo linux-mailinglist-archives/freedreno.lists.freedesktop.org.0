@@ -1,66 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E642042353E
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 02:43:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 409BF42354D
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 02:59:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A47A6E49A;
-	Wed,  6 Oct 2021 00:43:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F17346E49A;
+	Wed,  6 Oct 2021 00:59:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C17916E49A
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 00:43:11 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id e24so1651646oig.11
- for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 17:43:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=wKt6Nae01mSLjqjYH36TB6q2xyVedx1Ybson8Q1DwNo=;
- b=iFAJ9/IgDbQ7Sy4xqhyBxFt3v9D8bevCQfBgMV5P6XDy12y+C8h/tYzAwW05HvLVoq
- GKGeSuk+uuQYFr/xhhCWujoSKaXnwZ6F0I3iIo3xYZyyhO5TtALLjhLHeoq7cZU88mD+
- b+wsFarnUhcTgAiki9DVDpNtzwpTkktWrQwPc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=wKt6Nae01mSLjqjYH36TB6q2xyVedx1Ybson8Q1DwNo=;
- b=SuQXF/sACK34PYN0wrM4LGb+xsqytZipd7RTndKZiFGDLDHkxdmalx1AdcR5E88bkT
- tx1popEVzX7q+9xw6JwT0BYvGGl7TDde9RJ1KeiXCCjjZBBVW5TFFySa2hB78YATFfUd
- AuE7i50QnMvGhBQyYkg7EYJT3GVwEhxU8eX8qwmJr+u67znCvMam6OpeTYjhQEwy5oQq
- kXdeynUqO2OAoKgMBjHrZJb8SEsuw/w0JuN6agzj/wT7ugBGJUeKFcDowRUx5sZdFsM/
- G81nadXYE45IuW2aI5aeRkjIad2QWig71VkIaE6RY4BK0JmB6y0FkgdCd4gDzrlA6oeS
- mqNQ==
-X-Gm-Message-State: AOAM533isDlVdhIkFIPHjC9MX0yrbAJJtgjO+slZq0CNZpstq11fPtfq
- oAeAhFPbU5BbbS/iktGoGCtMiuJFdWjhRlfPfBOLEQ==
-X-Google-Smtp-Source: ABdhPJya2fZABu/CNUYa983sa9i2c4DPhWV3wKcrOj61v8RSJ6oV5qsUFBtRizZg3Lv11yJZ04jeeHU1MRPlii5J3mY=
-X-Received: by 2002:aca:42d7:: with SMTP id p206mr5038548oia.32.1633480990745; 
- Tue, 05 Oct 2021 17:43:10 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Oct 2021 17:43:10 -0700
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8984C6E47A;
+ Wed,  6 Oct 2021 00:59:35 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 059BE581;
+ Wed,  6 Oct 2021 02:59:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1633481973;
+ bh=l+rjQCwGSyO9yFVWNn3k5VoiRZiXyt/OvwCdmBBkbIk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=paeRZwqyBlSZYkzgJ9sRpDHvCCejFY33YXZ973CdSOdB9Lcdu7JHDfVOiLXezm/ZM
+ Q073WIMbnCkoVtsQwmhgPz1FFbvhnpGUDbyxMjpBmetbphhwlwcAp0U3ou3pK5RSQz
+ TJfxjOypdDXomdcFr/KAa28rCEIzOxlsDUhvpNss=
+Date: Wed, 6 Oct 2021 03:59:25 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Rob Clark <robdclark@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+Message-ID: <YVz07YIXzFMwl8iR@pendragon.ideasonboard.com>
+References: <20210920225801.227211-1-robdclark@gmail.com>
+ <20210920225801.227211-4-robdclark@gmail.com>
+ <YUvN3j0v+8NMjNte@pendragon.ideasonboard.com>
+ <CAF6AEGviyfX6+c-CB5gMXqRQfHhvb5L8t++-VkZpvS3r9qDNoA@mail.gmail.com>
+ <YU03M+CXJ+ALi8De@pendragon.ideasonboard.com>
+ <CAD=FV=UU1_ZR0K9XEgkTM2M55FgmqoH=ciU5a_oCC+W2NPdZ-A@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20211005231323.2663520-6-bjorn.andersson@linaro.org>
-References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
- <20211005231323.2663520-6-bjorn.andersson@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 5 Oct 2021 17:43:10 -0700
-Message-ID: <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
-To: Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, 
- Kuogee Hsieh <khsieh@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Cc: Rob Herring <robh+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
- controllers
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=UU1_ZR0K9XEgkTM2M55FgmqoH=ciU5a_oCC+W2NPdZ-A@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v2 3/3] drm/bridge: ti-sn65dsi86: Add
+ NO_CONNECTOR support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,56 +64,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-10-05 16:13:21)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index bdaf227f05dc..674cddfee5b0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -79,6 +79,8 @@ struct dp_display_private {
->         char *name;
->         int irq;
->
-> +       unsigned int id;
-> +
->         /* state variables */
->         bool core_initialized;
->         bool hpd_irq_on;
-> @@ -229,7 +231,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
->
->         dp->dp_display.drm_dev = drm;
->         priv = drm->dev_private;
-> -       priv->dp = &(dp->dp_display);
-> +       priv->dp[dp->id] = &(dp->dp_display);
+Hi Doug,
 
-Can we drop the extra parenthesis?
+On Fri, Oct 01, 2021 at 11:02:54AM -0700, Doug Anderson wrote:
+> On Thu, Sep 23, 2021 at 7:26 PM Laurent Pinchart wrote:
+> >
+> > > > >  err_conn_init:
+> > > > >       drm_dp_aux_unregister(&pdata->aux);
+> > > > >       return ret;
+> > > > > @@ -792,9 +790,30 @@ static void ti_sn_bridge_set_dsi_rate(struct ti_sn65dsi86 *pdata)
+> > > > >       regmap_write(pdata->regmap, SN_DSIA_CLK_FREQ_REG, val);
+> > > > >  }
+> > > > >
+> > > > > +/*
+> > > > > + * Find the connector and fish out the bpc from display_info.  It would
+> > > > > + * be nice if we could get this instead from drm_bridge_state, but that
+> > > > > + * doesn't yet appear to be the case.
+> > > >
+> > > > You already have a bus format in the bridge state, from which you can
+> > > > derive the bpp. Could you give it a try ?
+> > >
+> > > Possibly the bridge should be converted to ->atomic_enable(), etc..
+> > > I'll leave that for another time
+> >
+> > It should be fairly straightforward, and would avoid the hack below.
+> 
+> Given this point of controversy, my inclination is to wait and not
+> apply this patch now. I don't think there's anything urgent here,
+> right? Worst case eventually Laurent might pick it up in his patch
+> series? At least we know it will work with the MSM driver once patch
+> #1 lands. :-)
 
->
->         rc = dp->parser->parse(dp->parser, dp->dp_display.connector_type);
->         if (rc) {
-> @@ -269,7 +271,7 @@ static void dp_display_unbind(struct device *dev, struct device *master,
->
->         dp_power_client_deinit(dp->power);
->         dp_aux_unregister(dp->aux);
-> -       priv->dp = NULL;
-> +       priv->dp[dp->id] = NULL;
->  }
->
->  static const struct component_ops dp_display_comp_ops = {
-> @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
->         if (!dp)
->                 return -ENOMEM;
->
-> -       desc = dp_display_get_desc(pdev);
-> +       desc = dp_display_get_desc(pdev, &dp->id);
+I've recorded the task for my upcoming work on the ti-sn65dsi86 driver.
 
-I'm sad that dp->id has to match the number in the SoC specific
-dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-still. Is there any way we can avoid that? Also, notice how those arrays
-already have INTF_DP macros, which makes me think that it may be better
-to connect this to those arrays instead of making an msm_dp_desc
-structure and then make sure the 'type' member matches a connector
-type number. Otherwise this code is super fragile.
+-- 
+Regards,
 
->         if (!desc)
->                 return -EINVAL;
->
+Laurent Pinchart
