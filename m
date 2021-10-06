@@ -2,67 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE5A42470A
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 21:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E217C424710
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 21:39:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6156EE4B;
-	Wed,  6 Oct 2021 19:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D04D6EE4D;
+	Wed,  6 Oct 2021 19:38:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 898CA6EE4B
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 19:38:46 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id i65so322501pfe.12
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 12:38:46 -0700 (PDT)
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9405F6EE46
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 19:38:47 +0000 (UTC)
+Received: by mail-pg1-x52c.google.com with SMTP id r2so3382401pgl.10
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 12:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=pu3Ettw2+f3cI24EEPlu+iHiL6Bl5h06ZQoWL3Cz2Tw=;
- b=AoJOg0gAf+6zGwvuJJeeIopwS/luJM74WeAdJcNoi4aR3fyjHLgI+7l4/3l4kIibtM
- ILgyOcQB0cXJGhXPmE5p5jSxrGNBoqnbwmkydJPJRwMuNIL3ITrGrsU+3YgYgQV6aLj+
- FqH2V+UVNaS3JmHv5SqQ8Qgtw2hHq1nZQSDB8=
+ bh=JIr2Bk0QBgCC/Qyy7+5Gbgr8NQwlH0hHiIdNIEPo3fk=;
+ b=bW+COjRtbI/s22IeVkOw6yQ870sBScBOBF2HCZngTnHoZtYsMfJOE0ofz7QpGYUlk3
+ /Vl4JW5K0GR+OgSiaMKU5lJV6dRt4U31wvz3SUiHBWgysFRhZ3ohDMdS5R/FK46EaSrt
+ S4SHBAHlZ/K2wI81ii8OutsoM1QQJfn2XGo/k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=pu3Ettw2+f3cI24EEPlu+iHiL6Bl5h06ZQoWL3Cz2Tw=;
- b=T1IlOLFCmlYk3VsP6+Uk+cCXSLLZq9X2DQkvJbCa2vPrF/tJK2YVpjmxNQfbkzL2tF
- A9n65UUVSPoWA0nFneOpVzn7V1D5R4zHqwEF4vAUXHkb+3XCmhLrlqTCBKyOoM7cQaMX
- GNVJ3FAyDuhn4GpBBlBe7npWVvC9VbspD7DPa2HdRpkaLvseYz9DCsMqVjQ0eLsbqBV7
- 10F6qEzMSLaLV1Xx8WRCxd6g7b4zLkEvNG8F0pJdlfh2slQoP/4vAAxZTOdZJK15LRyd
- dSxBNXrDS3zyHILqHg5tOyKD1G9OkArqt8kMWCSzKlJ/1r3GF0lXfWVTTRz0LKyEIvwr
- f34Q==
-X-Gm-Message-State: AOAM531oOV1pKVxasszepKdR52QR7FQG4obOAXSNjUus/PRt0lm1w1N3
- sObVl8aNUGEzVHybMoVz1u8F4A==
-X-Google-Smtp-Source: ABdhPJyI8RrLozWLxX6QPY3zy5oLd/u5hIdHdrRvetAHEi7WRN1RPUvNEvFIk6AytWoJe1c0d9j2Uw==
-X-Received: by 2002:a62:4e87:0:b0:447:ce02:c32e with SMTP id
- c129-20020a624e87000000b00447ce02c32emr38015805pfb.33.1633549126124; 
- Wed, 06 Oct 2021 12:38:46 -0700 (PDT)
+ bh=JIr2Bk0QBgCC/Qyy7+5Gbgr8NQwlH0hHiIdNIEPo3fk=;
+ b=ICu4ctoSr1Gt8alVccqLmkmJGHhpjrzHoL0KK23zgLISn52KxFj5m0/KsN2YnW6Nxt
+ s+aYqCIy9u0Mh1DWrMQ03AbvJJuBqQMppiOEDHS0LKvDJu3Ob4olnR7MQ10qU/CJHnuz
+ RaG4wPwV/KtnlhYc6d4FvWr0PSxHxCY+W0By4s2w2zWnhnqEGvYUJE3HoaKjVDpPvDI4
+ uUukY/poI9cepoVkWi3mdjA0V86z0Dji1JuuogklpEhyOjsLnqg73z01wL9z8J9cWYMY
+ wCglKvMmecQVJxR5d+LMFlXeZSNwDNpOfr7ZH7m332RE2TmNHl3/AFI+0csRCIFtcS3R
+ Pmtw==
+X-Gm-Message-State: AOAM530eW5s6Ly7+Y4iLFvN8/yrrwvbZ8A+hFeMtRIhtGPHwOsglRvrq
+ sVOoViN0HJA2sJVrsThdNhtzmw==
+X-Google-Smtp-Source: ABdhPJxQwqQ7SCmgtuHD6Kn2a24WTCagZcGpwIwgH0tFHMKyN3or9U6DNvjkc8eAzPbVbEHcBDoHvg==
+X-Received: by 2002:a63:d709:: with SMTP id d9mr421671pgg.377.1633549127254;
+ Wed, 06 Oct 2021 12:38:47 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:202:201:d412:c5eb:4aca:4738])
- by smtp.gmail.com with ESMTPSA id o14sm22011296pfh.84.2021.10.06.12.38.45
+ by smtp.gmail.com with ESMTPSA id o14sm22011296pfh.84.2021.10.06.12.38.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 12:38:45 -0700 (PDT)
+ Wed, 06 Oct 2021 12:38:46 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Date: Wed,  6 Oct 2021 12:38:05 -0700
-Message-Id: <20211006193819.2654854-21-swboyd@chromium.org>
+Date: Wed,  6 Oct 2021 12:38:06 -0700
+Message-Id: <20211006193819.2654854-22-swboyd@chromium.org>
 X-Mailer: git-send-email 2.33.0.800.g4c38ced690-goog
 In-Reply-To: <20211006193819.2654854-1-swboyd@chromium.org>
 References: <20211006193819.2654854-1-swboyd@chromium.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 20/34] drm/rockchip: Migrate to aggregate
- driver
+Subject: [Freedreno] [PATCH v2 21/34] drm/sti: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,8 +78,7 @@ Use an aggregate driver instead of component ops so that we can get
 proper driver probe ordering of the aggregate device with respect to all
 the component devices that make up the aggregate device.
 
-Cc: Sandy Huang <hjc@rock-chips.com>
-Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>
@@ -91,70 +86,67 @@ Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_drv.c | 20 +++++++++++++-------
+ drivers/gpu/drm/sti/sti_drv.c | 20 +++++++++++++-------
  1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-index bfba9793d238..cc63222c3ad0 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
-@@ -109,8 +109,9 @@ static void rockchip_iommu_cleanup(struct drm_device *drm_dev)
- 	iommu_domain_free(private->domain);
+diff --git a/drivers/gpu/drm/sti/sti_drv.c b/drivers/gpu/drm/sti/sti_drv.c
+index c7efb43b83ee..b277cc679154 100644
+--- a/drivers/gpu/drm/sti/sti_drv.c
++++ b/drivers/gpu/drm/sti/sti_drv.c
+@@ -182,8 +182,9 @@ static void sti_cleanup(struct drm_device *ddev)
+ 	ddev->dev_private = NULL;
  }
  
--static int rockchip_drm_bind(struct device *dev)
-+static int rockchip_drm_bind(struct aggregate_device *adev)
+-static int sti_bind(struct device *dev)
++static int sti_bind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct drm_device *drm_dev;
- 	struct rockchip_drm_private *private;
+ 	struct drm_device *ddev;
  	int ret;
-@@ -186,8 +187,9 @@ static int rockchip_drm_bind(struct device *dev)
+ 
+@@ -216,8 +217,9 @@ static int sti_bind(struct device *dev)
  	return ret;
  }
  
--static void rockchip_drm_unbind(struct device *dev)
-+static void rockchip_drm_unbind(struct aggregate_device *adev)
+-static void sti_unbind(struct device *dev)
++static void sti_unbind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
  
- 	drm_dev_unregister(drm_dev);
-@@ -342,9 +344,13 @@ static struct component_match *rockchip_drm_match_add(struct device *dev)
- 	return match ?: ERR_PTR(-ENODEV);
+ 	drm_dev_unregister(ddev);
+@@ -225,9 +227,13 @@ static void sti_unbind(struct device *dev)
+ 	drm_dev_put(ddev);
  }
  
--static const struct component_master_ops rockchip_drm_ops = {
--	.bind = rockchip_drm_bind,
--	.unbind = rockchip_drm_unbind,
-+static struct aggregate_driver rockchip_aggregate_driver = {
-+	.probe = rockchip_drm_bind,
-+	.remove = rockchip_drm_unbind,
+-static const struct component_master_ops sti_ops = {
+-	.bind = sti_bind,
+-	.unbind = sti_unbind,
++static struct aggregate_driver sti_aggregate_driver = {
++	.probe = sti_bind,
++	.remove = sti_unbind,
 +	.driver = {
-+		.name = "rockchip_drm",
++		.name = "sti_drm",
 +		.owner = THIS_MODULE,
 +	},
  };
  
- static int rockchip_drm_platform_of_probe(struct device *dev)
-@@ -415,7 +421,7 @@ static int rockchip_drm_platform_probe(struct platform_device *pdev)
- 	if (IS_ERR(match))
- 		return PTR_ERR(match);
+ static int sti_platform_probe(struct platform_device *pdev)
+@@ -249,12 +255,12 @@ static int sti_platform_probe(struct platform_device *pdev)
+ 		child_np = of_get_next_available_child(node, child_np);
+ 	}
  
--	ret = component_master_add_with_match(dev, &rockchip_drm_ops, match);
-+	ret = component_aggregate_register(dev, &rockchip_aggregate_driver, match);
- 	if (ret < 0) {
- 		rockchip_drm_match_remove(dev);
- 		return ret;
-@@ -426,7 +432,7 @@ static int rockchip_drm_platform_probe(struct platform_device *pdev)
+-	return component_master_add_with_match(dev, &sti_ops, match);
++	return component_aggregate_register(dev, &sti_aggregate_driver, match);
+ }
  
- static int rockchip_drm_platform_remove(struct platform_device *pdev)
+ static int sti_platform_remove(struct platform_device *pdev)
  {
--	component_master_del(&pdev->dev, &rockchip_drm_ops);
-+	component_aggregate_unregister(&pdev->dev, &rockchip_aggregate_driver);
+-	component_master_del(&pdev->dev, &sti_ops);
++	component_aggregate_unregister(&pdev->dev, &sti_aggregate_driver);
  
- 	rockchip_drm_match_remove(&pdev->dev);
- 
+ 	return 0;
+ }
 -- 
 https://chromeos.dev
 
