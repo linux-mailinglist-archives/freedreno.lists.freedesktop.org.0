@@ -1,66 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C729A42470C
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 21:39:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C6E424708
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 21:39:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAB3F6EE50;
-	Wed,  6 Oct 2021 19:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDEE36EE4E;
+	Wed,  6 Oct 2021 19:38:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8027E6EE48
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 19:38:44 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id t11so2315265plq.11
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 12:38:44 -0700 (PDT)
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB8B96EE3E
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 19:38:41 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ ls14-20020a17090b350e00b001a00e2251c8so3208948pjb.4
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 12:38:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=147voWq3MMP+9e/FHlW9BwNDYVhXK+csyUVXCf2NteA=;
- b=lXMvuiMq8hDBS+eQ9IBiLv4iJuQR01YqW14KeFdv2SXgBytisZYGSvdJDOtKmAOvN6
- zHGcrOtWZJy2OF3sYPzw+EE113RKOnEEyhsFPAbJblehfwZ7X9lzddUqnE2biPWpGR3Y
- JaN+hKpdBTRkKMHUEyzFFh8LnkjEnkRDrdvSU=
+ bh=3+KKYOBNeMz4YDnDUwMm+dvq1TCGf0KiZpH7bEg1t3k=;
+ b=cIlUCzUKbYKvFQHptHb/+1rEiCBTsA7YiOonN/yDYcHmuOxhI9UWnR+OH082NRPZLz
+ hm6RrKXV48rvk1rg8EA+DZA/S+zzACinmylAqQX3bt/3kavhk739DEfoW4Y4chpquL8Z
+ P3I++WJHYPBUAFicaqfanAqoYLuenzmAfhN4s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=147voWq3MMP+9e/FHlW9BwNDYVhXK+csyUVXCf2NteA=;
- b=DpQmXQmiehAdf981JCdlxudqyxxzUTaCeUDdh0yuOqGpFG1dKVTejJdFvhtZDfyx6c
- 6W5bnuNVHk+AAV6s8ALucmo/I4/TEDyAPiq1W4md/oCVhyZ7peZF+FAjLLO84G62JMd4
- CNpUnaUS+OJ+UqHfj+tRMcEN37uqmeRMWL4x3nAmXAM2ruNYP1W7MQZKE5A43qjyXDcP
- 9pfpL8BBiuLq9f1p+0xhMijt7foPvJ+fzSJ2xPQANWCCEVI/eQE3dTfAXcYS7Wuw1eLj
- 9ViM/2XgJOVhjpN0lXhuUHKe3xfS9mVFEwFZWKTfvtwlxTD5lWPxHLEcguKRS4w9G2vX
- u4VA==
-X-Gm-Message-State: AOAM532NpEYuiBtvYgizqRe8MRvawirqcTZ4aZHHKCB/FnsSorgRbG0K
- fAe1oQ1jKQShr3y/D23rzv5IgA==
-X-Google-Smtp-Source: ABdhPJxU4hwt50HoqlK3Qoo92SCidVgpLN3jBErzx1B92cxFcVEuvHUakr3eWkXCfblXgZvg0cGXVA==
-X-Received: by 2002:a17:902:9a06:b0:13c:86d8:ce0b with SMTP id
- v6-20020a1709029a0600b0013c86d8ce0bmr12674304plp.51.1633549120413; 
- Wed, 06 Oct 2021 12:38:40 -0700 (PDT)
+ bh=3+KKYOBNeMz4YDnDUwMm+dvq1TCGf0KiZpH7bEg1t3k=;
+ b=EOudAIzjlzfVWA258mElULiLPhT+ezW+nq4WcrMj7XkJU4neSecx1Hn455mR9CMNYp
+ Fl2OjmNHjCw+yKe5SWHi+6ZUUhwIoI69VS+CKD/fAs1+/ZmWsZugn/Fs6C+VCC2tTTOT
+ RW15Dym6TYHaVALCsjuKKmUi/Kd5iJIEXkk+Gz/Y+YI0SGXu09bkAEW52IAIrIimdnQl
+ U1zgis3M/wxLnN3trv3ZsSLKhCBXvxrkSKRJU5B38uB4XP1b6vWUSUwx9D1WfMtS2dFA
+ IVQsRGNlOMf+fd0v7/5LC/4bO89BDqISRITKOSRVGMEqC2P+fBiajcgRwnLXGWCKjY4t
+ f4fw==
+X-Gm-Message-State: AOAM532PtAAfFBi2MWP0rEWbVSAUcsqVMU8yMN3OJgO3xN8laTmrgIpp
+ PDomPBkGfTgMXAPKzxo3mM+QAg==
+X-Google-Smtp-Source: ABdhPJzLIboz6ak13hw4FyGymL+hdEvIt62t88kiZKW2shC6ECYiY2A2MZCcaBIHk8qK3kT2wspfbw==
+X-Received: by 2002:a17:902:dacf:b0:13e:ab53:87dc with SMTP id
+ q15-20020a170902dacf00b0013eab5387dcmr12718666plx.78.1633549121440; 
+ Wed, 06 Oct 2021 12:38:41 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:202:201:d412:c5eb:4aca:4738])
- by smtp.gmail.com with ESMTPSA id o14sm22011296pfh.84.2021.10.06.12.38.39
+ by smtp.gmail.com with ESMTPSA id o14sm22011296pfh.84.2021.10.06.12.38.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 12:38:40 -0700 (PDT)
+ Wed, 06 Oct 2021 12:38:41 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Paul Cercueil <paul@crapouillou.net>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Date: Wed,  6 Oct 2021 12:38:00 -0700
-Message-Id: <20211006193819.2654854-16-swboyd@chromium.org>
+Date: Wed,  6 Oct 2021 12:38:01 -0700
+Message-Id: <20211006193819.2654854-17-swboyd@chromium.org>
 X-Mailer: git-send-email 2.33.0.800.g4c38ced690-goog
 In-Reply-To: <20211006193819.2654854-1-swboyd@chromium.org>
 References: <20211006193819.2654854-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 15/34] drm/ingenic: Migrate to aggregate
- driver
+Subject: [Freedreno] [PATCH v2 16/34] drm/mcde: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,9 +79,6 @@ Use an aggregate driver instead of component ops so that we can get
 proper driver probe ordering of the aggregate device with respect to all
 the component devices that make up the aggregate device.
 
-TODO: Move the helpers to PM in aggregate driver hooks.
-
-Cc: Paul Cercueil <paul@crapouillou.net>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>
@@ -90,66 +86,80 @@ Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 24 +++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/mcde/mcde_drv.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index a5df1c8d34cd..058b7bfe5610 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -1150,8 +1150,10 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+diff --git a/drivers/gpu/drm/mcde/mcde_drv.c b/drivers/gpu/drm/mcde/mcde_drv.c
+index e60566a5739c..84fcfe77540e 100644
+--- a/drivers/gpu/drm/mcde/mcde_drv.c
++++ b/drivers/gpu/drm/mcde/mcde_drv.c
+@@ -215,8 +215,9 @@ static const struct drm_driver mcde_drm_driver = {
+ 	DRM_GEM_CMA_DRIVER_OPS,
+ };
+ 
+-static int mcde_drm_bind(struct device *dev)
++static int mcde_drm_bind(struct aggregate_device *adev)
+ {
++	struct device *dev = adev->parent;
+ 	struct drm_device *drm = dev_get_drvdata(dev);
+ 	int ret;
+ 
+@@ -247,8 +248,9 @@ static int mcde_drm_bind(struct device *dev)
  	return ret;
  }
  
--static int ingenic_drm_bind_with_components(struct device *dev)
-+static int ingenic_drm_bind_with_components(struct aggregate_device *adev)
+-static void mcde_drm_unbind(struct device *dev)
++static void mcde_drm_unbind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
-+
- 	return ingenic_drm_bind(dev, true);
+ 	struct drm_device *drm = dev_get_drvdata(dev);
+ 
+ 	drm_dev_unregister(drm);
+@@ -256,9 +258,13 @@ static void mcde_drm_unbind(struct device *dev)
+ 	component_unbind_all(drm->dev, drm);
  }
  
-@@ -1174,9 +1176,19 @@ static void ingenic_drm_unbind(struct device *dev)
- 	drm_atomic_helper_shutdown(&priv->drm);
- }
- 
--static const struct component_master_ops ingenic_master_ops = {
--	.bind = ingenic_drm_bind_with_components,
--	.unbind = ingenic_drm_unbind,
-+static void ingenic_aggregate_remove(struct aggregate_device *adev)
-+{
-+	struct device *dev = adev->parent;
-+	ingenic_drm_unbind(dev);
-+}
-+
-+static struct aggregate_driver ingenic_aggregate_driver = {
-+	.probe = ingenic_drm_bind_with_components,
-+	.remove = ingenic_aggregate_remove,
+-static const struct component_master_ops mcde_drm_comp_ops = {
+-	.bind = mcde_drm_bind,
+-	.unbind = mcde_drm_unbind,
++static struct aggregate_driver mcde_drm_comp_driver = {
++	.probe = mcde_drm_bind,
++	.remove = mcde_drm_unbind,
 +	.driver = {
-+		.name = "ingenic_drm",
++		.name = "mcde_drm",
 +		.owner = THIS_MODULE,
 +	},
  };
  
- static int ingenic_drm_probe(struct platform_device *pdev)
-@@ -1196,7 +1208,7 @@ static int ingenic_drm_probe(struct platform_device *pdev)
- 	drm_of_component_match_add(dev, &match, compare_of, np);
- 	of_node_put(np);
+ static struct platform_driver *const mcde_component_drivers[] = {
+@@ -421,7 +427,7 @@ static int mcde_probe(struct platform_device *pdev)
+ 	 * Perform an invasive reset of the MCDE and all blocks by
+ 	 * cutting the power to the subsystem, then bring it back up
+ 	 * later when we enable the display as a result of
+-	 * component_master_add_with_match().
++	 * component_aggregate_register().
+ 	 */
+ 	ret = regulator_disable(mcde->epod);
+ 	if (ret) {
+@@ -431,8 +437,7 @@ static int mcde_probe(struct platform_device *pdev)
+ 	/* Wait 50 ms so we are sure we cut the power */
+ 	usleep_range(50000, 70000);
  
--	return component_master_add_with_match(dev, &ingenic_master_ops, match);
-+	return component_aggregate_register(dev, &ingenic_aggregate_driver, match);
- }
+-	ret = component_master_add_with_match(&pdev->dev, &mcde_drm_comp_ops,
+-					      match);
++	ret = component_aggregate_register(&pdev->dev, &mcde_drm_comp_driver, match);
+ 	if (ret) {
+ 		dev_err(dev, "failed to add component master\n");
+ 		/*
+@@ -461,7 +466,7 @@ static int mcde_remove(struct platform_device *pdev)
+ 	struct drm_device *drm = platform_get_drvdata(pdev);
+ 	struct mcde *mcde = to_mcde(drm);
  
- static int ingenic_drm_remove(struct platform_device *pdev)
-@@ -1206,7 +1218,7 @@ static int ingenic_drm_remove(struct platform_device *pdev)
- 	if (!IS_ENABLED(CONFIG_DRM_INGENIC_IPU))
- 		ingenic_drm_unbind(dev);
- 	else
--		component_master_del(dev, &ingenic_master_ops);
-+		component_aggregate_unregister(dev, &ingenic_aggregate_driver);
- 
- 	return 0;
- }
+-	component_master_del(&pdev->dev, &mcde_drm_comp_ops);
++	component_aggregate_unregister(&pdev->dev, &mcde_drm_comp_driver);
+ 	clk_disable_unprepare(mcde->mcde_clk);
+ 	regulator_disable(mcde->vana);
+ 	regulator_disable(mcde->epod);
 -- 
 https://chromeos.dev
 
