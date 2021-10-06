@@ -1,32 +1,32 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B7B94249F9
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 00:42:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE94424A75
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 01:20:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 077DA6EEB0;
-	Wed,  6 Oct 2021 22:42:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 136DB6E56D;
+	Wed,  6 Oct 2021 23:20:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C44C6E56D;
- Wed,  6 Oct 2021 22:42:25 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="249403563"
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 742C46E56D;
+ Wed,  6 Oct 2021 23:20:48 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10129"; a="224893731"
 X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; 
- d="gz'50?scan'50,208,50";a="249403563"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2021 15:42:24 -0700
+ d="gz'50?scan'50,208,50";a="224893731"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2021 16:20:25 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.85,352,1624345200"; 
- d="gz'50?scan'50,208,50";a="522394912"
+ d="gz'50?scan'50,208,50";a="589928180"
 Received: from lkp-server01.sh.intel.com (HELO 72c3bd3cf19c) ([10.239.97.150])
- by orsmga001.jf.intel.com with ESMTP; 06 Oct 2021 15:42:20 -0700
+ by orsmga004.jf.intel.com with ESMTP; 06 Oct 2021 16:20:20 -0700
 Received: from kbuild by 72c3bd3cf19c with local (Exim 4.92)
  (envelope-from <lkp@intel.com>)
- id 1mYFcB-0006y0-QZ; Wed, 06 Oct 2021 22:42:19 +0000
-Date: Thu, 7 Oct 2021 06:42:02 +0800
+ id 1mYGCy-0006zD-6p; Wed, 06 Oct 2021 23:20:20 +0000
+Date: Thu, 7 Oct 2021 07:19:28 +0800
 From: kernel test robot <lkp@intel.com>
 To: Stephen Boyd <swboyd@chromium.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -37,15 +37,15 @@ Cc: llvm@lists.linux.dev, kbuild-all@lists.01.org,
  "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Message-ID: <202110070641.fq2Eh2Qq-lkp@intel.com>
-References: <20211006193819.2654854-3-swboyd@chromium.org>
+Message-ID: <202110070715.67F9LH4p-lkp@intel.com>
+References: <20211006193819.2654854-34-swboyd@chromium.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="HlL+5n6rz5pIUxbD"
+Content-Type: multipart/mixed; boundary="uAKRQypu60I7Lcqm"
 Content-Disposition: inline
-In-Reply-To: <20211006193819.2654854-3-swboyd@chromium.org>
+In-Reply-To: <20211006193819.2654854-34-swboyd@chromium.org>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v2 02/34] component: Introduce the aggregate
- bus_type
+Subject: Re: [Freedreno] [PATCH v2 33/34] component: Remove
+ component_master_ops and friends
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,7 +62,7 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
---HlL+5n6rz5pIUxbD
+--uAKRQypu60I7Lcqm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -79,46 +79,285 @@ compiler: clang version 14.0.0 (https://github.com/llvm/llvm-project c0039de2953
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        # https://github.com/0day-ci/linux/commit/b7f12127fd97fe811eaf9600a6677fb1cbb66554
+        # https://github.com/0day-ci/linux/commit/b2ecd8598795ffcc3d4e766c4c4cc93865f3ff33
         git remote add linux-review https://github.com/0day-ci/linux
         git fetch --no-tags linux-review Stephen-Boyd/component-Make-into-an-aggregate-bus/20211007-034200
-        git checkout b7f12127fd97fe811eaf9600a6677fb1cbb66554
+        git checkout b2ecd8598795ffcc3d4e766c4c4cc93865f3ff33
         # save the attached .config to linux build tree
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 ARCH=hexagon 
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/base/
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
->> drivers/base/component.c:509:13: error: incompatible function pointer types initializing 'void (*)(struct device *)' with an expression of type 'int (struct device *)' [-Werror,-Wincompatible-function-pointer-types]
+>> drivers/base/component.c:412:15: error: no member named 'ops' in 'struct aggregate_device'
+           return adev->ops->bind(adev->parent);
+                  ~~~~  ^
+   drivers/base/component.c:417:8: error: no member named 'ops' in 'struct aggregate_device'
+           adev->ops->unbind(adev->parent);
+           ~~~~  ^
+   drivers/base/component.c:488:13: error: incompatible function pointer types initializing 'void (*)(struct device *)' with an expression of type 'int (struct device *)' [-Werror,-Wincompatible-function-pointer-types]
            .remove         = aggregate_driver_remove,
                              ^~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
+   drivers/base/component.c:540:8: error: no member named 'ops' in 'struct aggregate_device'
+           adev->ops = ops;
+           ~~~~  ^
+>> drivers/base/component.c:540:14: error: use of undeclared identifier 'ops'
+           adev->ops = ops;
+                       ^
+>> drivers/base/component.c:572:50: error: too many arguments to function call, expected 3, have 4
+           adev = aggregate_device_add(parent, NULL, adrv, match);
+                  ~~~~~~~~~~~~~~~~~~~~                     ^~~~~
+   drivers/base/component.c:514:33: note: 'aggregate_device_add' declared here
+   static struct aggregate_device *aggregate_device_add(struct device *parent,
+                                   ^
+>> drivers/base/component.c:599:34: error: too many arguments to function call, expected single argument 'parent', have 2 arguments
+           adev = __aggregate_find(parent, NULL);
+                  ~~~~~~~~~~~~~~~~         ^~~~
+   include/linux/stddef.h:8:14: note: expanded from macro 'NULL'
+   #define NULL ((void *)0)
+                ^~~~~~~~~~~
+   drivers/base/component.c:493:33: note: '__aggregate_find' declared here
+   static struct aggregate_device *__aggregate_find(struct device *parent)
+                                   ^
+   drivers/base/component.c:645:34: error: too many arguments to function call, expected single argument 'parent', have 2 arguments
+           adev = __aggregate_find(parent, NULL);
+                  ~~~~~~~~~~~~~~~~         ^~~~
+   include/linux/stddef.h:8:14: note: expanded from macro 'NULL'
+   #define NULL ((void *)0)
+                ^~~~~~~~~~~
+   drivers/base/component.c:493:33: note: '__aggregate_find' declared here
+   static struct aggregate_device *__aggregate_find(struct device *parent)
+                                   ^
+   drivers/base/component.c:734:34: error: too many arguments to function call, expected single argument 'parent', have 2 arguments
+           adev = __aggregate_find(parent, NULL);
+                  ~~~~~~~~~~~~~~~~         ^~~~
+   include/linux/stddef.h:8:14: note: expanded from macro 'NULL'
+   #define NULL ((void *)0)
+                ^~~~~~~~~~~
+   drivers/base/component.c:493:33: note: '__aggregate_find' declared here
+   static struct aggregate_device *__aggregate_find(struct device *parent)
+                                   ^
+   9 errors generated.
 
 
-vim +509 drivers/base/component.c
+vim +412 drivers/base/component.c
 
-   504	
-   505	static struct bus_type aggregate_bus_type = {
-   506		.name		= "aggregate",
-   507		.match		= aggregate_device_match,
-   508		.probe		= aggregate_driver_probe,
- > 509		.remove		= aggregate_driver_remove,
-   510		.shutdown	= aggregate_driver_shutdown,
-   511	};
-   512	
+b7f12127fd97fe Stephen Boyd 2021-10-06  408  
+b7f12127fd97fe Stephen Boyd 2021-10-06  409  /* TODO: Remove once all aggregate drivers use component_aggregate_register() */
+b7f12127fd97fe Stephen Boyd 2021-10-06  410  static int component_probe_bind(struct aggregate_device *adev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  411  {
+b7f12127fd97fe Stephen Boyd 2021-10-06 @412  	return adev->ops->bind(adev->parent);
+b7f12127fd97fe Stephen Boyd 2021-10-06  413  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  414  
+b7f12127fd97fe Stephen Boyd 2021-10-06  415  static void component_remove_unbind(struct aggregate_device *adev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  416  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  417  	adev->ops->unbind(adev->parent);
+b7f12127fd97fe Stephen Boyd 2021-10-06  418  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  419  
+b7f12127fd97fe Stephen Boyd 2021-10-06  420  static int aggregate_driver_probe(struct device *dev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  421  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  422  	const struct aggregate_driver *adrv = to_aggregate_driver(dev->driver);
+b7f12127fd97fe Stephen Boyd 2021-10-06  423  	struct aggregate_device *adev = to_aggregate_device(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  424  	bool modern = adrv->probe != component_probe_bind;
+b7f12127fd97fe Stephen Boyd 2021-10-06  425  	int ret;
+b7f12127fd97fe Stephen Boyd 2021-10-06  426  
+b7f12127fd97fe Stephen Boyd 2021-10-06  427  	/* Only do runtime PM when drivers migrate */
+b7f12127fd97fe Stephen Boyd 2021-10-06  428  	if (modern) {
+b7f12127fd97fe Stephen Boyd 2021-10-06  429  		pm_runtime_get_noresume(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  430  		pm_runtime_set_active(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  431  		pm_runtime_enable(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  432  	}
+b7f12127fd97fe Stephen Boyd 2021-10-06  433  
+b7f12127fd97fe Stephen Boyd 2021-10-06  434  	mutex_lock(&component_mutex);
+b7f12127fd97fe Stephen Boyd 2021-10-06  435  	if (devres_open_group(adev->parent, NULL, GFP_KERNEL)) {
+b7f12127fd97fe Stephen Boyd 2021-10-06  436  		ret = adrv->probe(adev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  437  		if (ret)
+b7f12127fd97fe Stephen Boyd 2021-10-06  438  			devres_release_group(adev->parent, NULL);
+b7f12127fd97fe Stephen Boyd 2021-10-06  439  	} else {
+b7f12127fd97fe Stephen Boyd 2021-10-06  440  		ret = -ENOMEM;
+b7f12127fd97fe Stephen Boyd 2021-10-06  441  	}
+b7f12127fd97fe Stephen Boyd 2021-10-06  442  	mutex_unlock(&component_mutex);
+b7f12127fd97fe Stephen Boyd 2021-10-06  443  
+b7f12127fd97fe Stephen Boyd 2021-10-06  444  	if (ret && modern) {
+b7f12127fd97fe Stephen Boyd 2021-10-06  445  		pm_runtime_disable(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  446  		pm_runtime_set_suspended(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  447  		pm_runtime_put_noidle(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  448  	}
+b7f12127fd97fe Stephen Boyd 2021-10-06  449  
+b7f12127fd97fe Stephen Boyd 2021-10-06  450  	return ret;
+b7f12127fd97fe Stephen Boyd 2021-10-06  451  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  452  
+b7f12127fd97fe Stephen Boyd 2021-10-06  453  static int aggregate_driver_remove(struct device *dev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  454  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  455  	const struct aggregate_driver *adrv = to_aggregate_driver(dev->driver);
+b7f12127fd97fe Stephen Boyd 2021-10-06  456  	struct aggregate_device *adev = to_aggregate_device(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  457  	bool modern = adrv->remove != component_remove_unbind;
+b7f12127fd97fe Stephen Boyd 2021-10-06  458  
+b7f12127fd97fe Stephen Boyd 2021-10-06  459  	/* Only do runtime PM when drivers migrate */
+b7f12127fd97fe Stephen Boyd 2021-10-06  460  	if (modern)
+b7f12127fd97fe Stephen Boyd 2021-10-06  461  		pm_runtime_get_sync(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  462  	adrv->remove(to_aggregate_device(dev));
+b7f12127fd97fe Stephen Boyd 2021-10-06  463  	devres_release_group(adev->parent, NULL);
+b7f12127fd97fe Stephen Boyd 2021-10-06  464  	if (!modern)
+b7f12127fd97fe Stephen Boyd 2021-10-06  465  		return 0;
+b7f12127fd97fe Stephen Boyd 2021-10-06  466  
+b7f12127fd97fe Stephen Boyd 2021-10-06  467  	pm_runtime_put_noidle(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  468  
+b7f12127fd97fe Stephen Boyd 2021-10-06  469  	pm_runtime_disable(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  470  	pm_runtime_set_suspended(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  471  	pm_runtime_put_noidle(dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  472  
+b7f12127fd97fe Stephen Boyd 2021-10-06  473  	return 0;
+b7f12127fd97fe Stephen Boyd 2021-10-06  474  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  475  
+b7f12127fd97fe Stephen Boyd 2021-10-06  476  static void aggregate_driver_shutdown(struct device *dev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  477  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  478  	const struct aggregate_driver *adrv = to_aggregate_driver(dev->driver);
+b7f12127fd97fe Stephen Boyd 2021-10-06  479  
+b7f12127fd97fe Stephen Boyd 2021-10-06  480  	if (adrv && adrv->shutdown)
+b7f12127fd97fe Stephen Boyd 2021-10-06  481  		adrv->shutdown(to_aggregate_device(dev));
+b7f12127fd97fe Stephen Boyd 2021-10-06  482  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  483  
+b7f12127fd97fe Stephen Boyd 2021-10-06  484  static struct bus_type aggregate_bus_type = {
+b7f12127fd97fe Stephen Boyd 2021-10-06  485  	.name		= "aggregate",
+b7f12127fd97fe Stephen Boyd 2021-10-06  486  	.match		= aggregate_device_match,
+b7f12127fd97fe Stephen Boyd 2021-10-06  487  	.probe		= aggregate_driver_probe,
+b7f12127fd97fe Stephen Boyd 2021-10-06  488  	.remove		= aggregate_driver_remove,
+b7f12127fd97fe Stephen Boyd 2021-10-06  489  	.shutdown	= aggregate_driver_shutdown,
+b7f12127fd97fe Stephen Boyd 2021-10-06  490  };
+b7f12127fd97fe Stephen Boyd 2021-10-06  491  
+b7f12127fd97fe Stephen Boyd 2021-10-06  492  /* Callers take ownership of return value, should call put_device() */
+b2ecd8598795ff Stephen Boyd 2021-10-06  493  static struct aggregate_device *__aggregate_find(struct device *parent)
+b7f12127fd97fe Stephen Boyd 2021-10-06  494  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  495  	struct device *dev;
+b7f12127fd97fe Stephen Boyd 2021-10-06  496  
+b2ecd8598795ff Stephen Boyd 2021-10-06  497  	dev = bus_find_device(&aggregate_bus_type, NULL, parent,
+b7f12127fd97fe Stephen Boyd 2021-10-06  498  			      aggregate_bus_find_match);
+b7f12127fd97fe Stephen Boyd 2021-10-06  499  
+b7f12127fd97fe Stephen Boyd 2021-10-06  500  	return dev ? to_aggregate_device(dev) : NULL;
+b7f12127fd97fe Stephen Boyd 2021-10-06  501  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  502  
+b7f12127fd97fe Stephen Boyd 2021-10-06  503  static int aggregate_driver_register(struct aggregate_driver *adrv)
+b7f12127fd97fe Stephen Boyd 2021-10-06  504  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  505  	adrv->driver.bus = &aggregate_bus_type;
+b7f12127fd97fe Stephen Boyd 2021-10-06  506  	return driver_register(&adrv->driver);
+b7f12127fd97fe Stephen Boyd 2021-10-06  507  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  508  
+b7f12127fd97fe Stephen Boyd 2021-10-06  509  static void aggregate_driver_unregister(struct aggregate_driver *adrv)
+b7f12127fd97fe Stephen Boyd 2021-10-06  510  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  511  	driver_unregister(&adrv->driver);
+b7f12127fd97fe Stephen Boyd 2021-10-06  512  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  513  
+b7f12127fd97fe Stephen Boyd 2021-10-06  514  static struct aggregate_device *aggregate_device_add(struct device *parent,
+b2ecd8598795ff Stephen Boyd 2021-10-06  515  	struct aggregate_driver *adrv,
+6955b58254c2bc Russell King 2014-04-19  516  	struct component_match *match)
+2a41e6070dd7ef Russell King 2014-01-10  517  {
+0b7b1dfac42590 Stephen Boyd 2021-10-06  518  	struct aggregate_device *adev;
+0b7b1dfac42590 Stephen Boyd 2021-10-06  519  	int ret, id;
+2a41e6070dd7ef Russell King 2014-01-10  520  
+6955b58254c2bc Russell King 2014-04-19  521  	/* Reallocate the match array for its true size */
+82769cc671b6dd Stephen Boyd 2021-05-19  522  	ret = component_match_realloc(match, match->num);
+ce657b1cddf1f8 Russell King 2015-11-17  523  	if (ret)
+b7f12127fd97fe Stephen Boyd 2021-10-06  524  		return ERR_PTR(ret);
+6955b58254c2bc Russell King 2014-04-19  525  
+0b7b1dfac42590 Stephen Boyd 2021-10-06  526  	adev = kzalloc(sizeof(*adev), GFP_KERNEL);
+0b7b1dfac42590 Stephen Boyd 2021-10-06  527  	if (!adev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  528  		return ERR_PTR(-ENOMEM);
+2a41e6070dd7ef Russell King 2014-01-10  529  
+0b7b1dfac42590 Stephen Boyd 2021-10-06  530  	id = ida_alloc(&aggregate_ida, GFP_KERNEL);
+0b7b1dfac42590 Stephen Boyd 2021-10-06  531  	if (id < 0) {
+0b7b1dfac42590 Stephen Boyd 2021-10-06  532  		kfree(adev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  533  		return ERR_PTR(id);
+0b7b1dfac42590 Stephen Boyd 2021-10-06  534  	}
+0b7b1dfac42590 Stephen Boyd 2021-10-06  535  
+0b7b1dfac42590 Stephen Boyd 2021-10-06  536  	adev->id = id;
+0b7b1dfac42590 Stephen Boyd 2021-10-06  537  	adev->parent = parent;
+b7f12127fd97fe Stephen Boyd 2021-10-06  538  	adev->dev.bus = &aggregate_bus_type;
+b7f12127fd97fe Stephen Boyd 2021-10-06  539  	adev->dev.release = aggregate_device_release;
+0b7b1dfac42590 Stephen Boyd 2021-10-06 @540  	adev->ops = ops;
+0b7b1dfac42590 Stephen Boyd 2021-10-06  541  	adev->match = match;
+b7f12127fd97fe Stephen Boyd 2021-10-06  542  	adev->adrv = adrv;
+0b7b1dfac42590 Stephen Boyd 2021-10-06  543  	dev_set_name(&adev->dev, "aggregate%d", id);
+2a41e6070dd7ef Russell King 2014-01-10  544  
+b7f12127fd97fe Stephen Boyd 2021-10-06  545  	ret = device_register(&adev->dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  546  	if (ret) {
+b7f12127fd97fe Stephen Boyd 2021-10-06  547  		put_device(&adev->dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  548  		return ERR_PTR(ret);
+b7f12127fd97fe Stephen Boyd 2021-10-06  549  	}
+b7f12127fd97fe Stephen Boyd 2021-10-06  550  
+0b7b1dfac42590 Stephen Boyd 2021-10-06  551  	component_master_debugfs_add(adev);
+2a41e6070dd7ef Russell King 2014-01-10  552  
+b7f12127fd97fe Stephen Boyd 2021-10-06  553  	return adev;
+b7f12127fd97fe Stephen Boyd 2021-10-06  554  }
+2a41e6070dd7ef Russell King 2014-01-10  555  
+b7f12127fd97fe Stephen Boyd 2021-10-06  556  /**
+b7f12127fd97fe Stephen Boyd 2021-10-06  557   * component_aggregate_register - register an aggregate driver
+b7f12127fd97fe Stephen Boyd 2021-10-06  558   * @parent: parent device of the aggregate driver
+b7f12127fd97fe Stephen Boyd 2021-10-06  559   * @adrv: aggregate driver to register
+b7f12127fd97fe Stephen Boyd 2021-10-06  560   *
+b7f12127fd97fe Stephen Boyd 2021-10-06  561   * Registers a new aggregate driver consisting of the components added to @adrv.match
+b7f12127fd97fe Stephen Boyd 2021-10-06  562   * by calling one of the component_match_add() functions. Once all components in
+b7f12127fd97fe Stephen Boyd 2021-10-06  563   * @match are available, the aggregate driver will be assembled by calling
+b7f12127fd97fe Stephen Boyd 2021-10-06  564   * &adrv.bind. Must be unregistered by calling component_aggregate_unregister().
+b7f12127fd97fe Stephen Boyd 2021-10-06  565   */
+b7f12127fd97fe Stephen Boyd 2021-10-06  566  int component_aggregate_register(struct device *parent,
+b7f12127fd97fe Stephen Boyd 2021-10-06  567  	struct aggregate_driver *adrv, struct component_match *match)
+b7f12127fd97fe Stephen Boyd 2021-10-06  568  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  569  	struct aggregate_device *adev;
+b7f12127fd97fe Stephen Boyd 2021-10-06  570  	int ret;
+b7f12127fd97fe Stephen Boyd 2021-10-06  571  
+b7f12127fd97fe Stephen Boyd 2021-10-06 @572  	adev = aggregate_device_add(parent, NULL, adrv, match);
+b7f12127fd97fe Stephen Boyd 2021-10-06  573  	if (IS_ERR(adev))
+b7f12127fd97fe Stephen Boyd 2021-10-06  574  		return PTR_ERR(adev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  575  
+b7f12127fd97fe Stephen Boyd 2021-10-06  576  	ret = aggregate_driver_register(adrv);
+b7f12127fd97fe Stephen Boyd 2021-10-06  577  	if (ret)
+b7f12127fd97fe Stephen Boyd 2021-10-06  578  		put_device(&adev->dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  579  
+b7f12127fd97fe Stephen Boyd 2021-10-06  580  	return ret;
+b7f12127fd97fe Stephen Boyd 2021-10-06  581  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  582  EXPORT_SYMBOL_GPL(component_aggregate_register);
+b7f12127fd97fe Stephen Boyd 2021-10-06  583  
+b7f12127fd97fe Stephen Boyd 2021-10-06  584  /**
+b7f12127fd97fe Stephen Boyd 2021-10-06  585   * component_aggregate_unregister - unregister an aggregate driver
+b7f12127fd97fe Stephen Boyd 2021-10-06  586   * @parent: parent device of the aggregate driver
+b7f12127fd97fe Stephen Boyd 2021-10-06  587   * @adrv: registered aggregate driver
+b7f12127fd97fe Stephen Boyd 2021-10-06  588   *
+b7f12127fd97fe Stephen Boyd 2021-10-06  589   * Unregisters an aggregate driver registered with
+b7f12127fd97fe Stephen Boyd 2021-10-06  590   * component_aggregate_register(). If necessary the aggregate driver is first
+b7f12127fd97fe Stephen Boyd 2021-10-06  591   * disassembled.
+b7f12127fd97fe Stephen Boyd 2021-10-06  592   */
+b7f12127fd97fe Stephen Boyd 2021-10-06  593  void component_aggregate_unregister(struct device *parent,
+b7f12127fd97fe Stephen Boyd 2021-10-06  594  	struct aggregate_driver *adrv)
+b7f12127fd97fe Stephen Boyd 2021-10-06  595  {
+b7f12127fd97fe Stephen Boyd 2021-10-06  596  	struct aggregate_device *adev;
+b7f12127fd97fe Stephen Boyd 2021-10-06  597  
+b7f12127fd97fe Stephen Boyd 2021-10-06  598  	mutex_lock(&component_mutex);
+b7f12127fd97fe Stephen Boyd 2021-10-06 @599  	adev = __aggregate_find(parent, NULL);
+b7f12127fd97fe Stephen Boyd 2021-10-06  600  	mutex_unlock(&component_mutex);
+b7f12127fd97fe Stephen Boyd 2021-10-06  601  
+b7f12127fd97fe Stephen Boyd 2021-10-06  602  	if (adev)
+b7f12127fd97fe Stephen Boyd 2021-10-06  603  		device_unregister(&adev->dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  604  	put_device(&adev->dev);
+b7f12127fd97fe Stephen Boyd 2021-10-06  605  
+b7f12127fd97fe Stephen Boyd 2021-10-06  606  	aggregate_driver_unregister(adrv);
+b7f12127fd97fe Stephen Boyd 2021-10-06  607  }
+b7f12127fd97fe Stephen Boyd 2021-10-06  608  EXPORT_SYMBOL_GPL(component_aggregate_unregister);
+b7f12127fd97fe Stephen Boyd 2021-10-06  609  
 
 ---
 0-DAY CI Kernel Test Service, Intel Corporation
 https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
---HlL+5n6rz5pIUxbD
+--uAKRQypu60I7Lcqm
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICOAfXmEAAy5jb25maWcAjDxdd9w2ru/9FXPSl92HNv5K2uw9fqAkasSOJMokNR77RWfi
+H4sICJUqXmEAAy5jb25maWcAjDxdd9w2ru/9FXPSl92HNv5K2uw9fqAkasSOJMokNR77RWfi
 KIm3tidnPO62//4C1BcpQWPvOd14ABAkQRAEQFA///Tzgr0cdo/bw/3d9uHhn8W3+qnebw/1
 l8XX+4f6/xaRXOTSLHgkzK9AnN4/vfz9/nv99/bb7mnx4dfTD7+e/LK/O1us6v1T/bAId09f
 77+9AIf73dNPP/8UyjwWyyoMqzVXWsi8MnxjLt/dPWyfvi3+qvfPQLc4vfj15NeTxb++3R/+
@@ -759,4 +998,4 @@ G5QGHCWLerbZLy1RblHYs7ijaVoCxYxH1lO2K+TnlpVHeH3zPJLhgEerQZ3Pbx/etI1+1llq
 BFqolgkcbyy4SuHo4iBLebu+kbYqqV8cfIDwUHnSCRD5r3XnMXbmWWqdDC2Kvmgl32JMLWvX
 KcVvlaqTwzmUXQ9C9a71/wG62HlQgDMCAA==
 
---HlL+5n6rz5pIUxbD--
+--uAKRQypu60I7Lcqm--
