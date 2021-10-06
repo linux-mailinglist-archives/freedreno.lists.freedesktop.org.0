@@ -2,72 +2,90 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DDB424662
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 20:59:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1D6D4246C3
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 21:38:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B45576EDEE;
-	Wed,  6 Oct 2021 18:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 284166EE20;
+	Wed,  6 Oct 2021 19:38:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB4CF6EDEE
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 18:59:02 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id o4so5386097oia.10
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 11:59:02 -0700 (PDT)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB6C56EE1F
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 19:38:23 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id
+ ls14-20020a17090b350e00b001a00e2251c8so3208282pjb.4
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 12:38:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=5ZINfB9SQVVCASEGMXA+wgTyFsn9PxgEJKXBXsw12vM=;
- b=K+CLm5Qo7QEvPuFku8WgyouC1CTb1elG5a5S+55t0GczwvJh9CWLpZ3MnYfSsXpW+U
- sy29jY0KOoTNyZhbhdK7HgNTrzuePT7XKy07fRysDUQ3zjH3y/5eyzEWFh5uJkCrcr3P
- VxrbQmmgFpOKQImA6d9/x9o1wDLhtri9CKULs=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LOPyAAlgkloGBvBKaHv+rjO0uew1lLPS4TPvNQXgGpg=;
+ b=NfRXDAjZ56Sp834gnEHgLwuXxQVUtsJkT2wga3+6IgC06j+y5bTeXit8d+59Vzb3EB
+ d5z8MUC2yTrMyl/REWDz7Xj7y4VryHU2ACdz7TdMZ2sEy74M46zyTFe14HUcaaYbxfCK
+ nRCyGp7GzMSIaj6tmAg4lxzSmurSmmRsCLgRk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=5ZINfB9SQVVCASEGMXA+wgTyFsn9PxgEJKXBXsw12vM=;
- b=QfoD9Tv3VEhC8h07S7VIzog7jt8YfJ15BVsE1cNStUelucqXhXUYItPWEcTeAXPE0W
- WdrwMulTjt/BfR7vBOitpvCNAIH+Ls5vZ0P4oquUsgRfb40YpMJ4k5LwMgzZd2VL8KpQ
- PTRI8TcaNo4ycFfl626K1RunAGiXVPnoSL7N8fU1VNxgaQJRIOJY+Bi+hXHxrScIOfte
- bm9cEvOo6pnga5QuxgjfOE/ott+bjEfcNsucQwokqLeCr0gNLS/Wkbg2J7ZH2rmWMzUW
- ABCwE3BZwyYKbwkCzR3ehnRvH16GBaFrzH9g8nKpsv9MlZQPWQ20yxG1SkzzCUZtOtK6
- R56A==
-X-Gm-Message-State: AOAM531PnU9wdoclFunmLeRGt/fFdqMNpCrrW+JShyJIhQuHQFI05tIh
- w+2VylQM11eG6jW2iDzMnvlwQi38hOXOrI8xxwQ2wQ==
-X-Google-Smtp-Source: ABdhPJwhHmt0GZCHbm03gHHvMOEwKvkTptVPVNChAlyXV/FvGXgvkjQs1E+1M7ZseTDhJ6HjOQy858aO7MuXYixeHQU=
-X-Received: by 2002:aca:42d7:: with SMTP id p206mr8651607oia.32.1633546742129; 
- Wed, 06 Oct 2021 11:59:02 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 6 Oct 2021 11:59:01 -0700
-MIME-Version: 1.0
-In-Reply-To: <YV3lVWjct5RQ5FEK@ripper>
-References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
- <20211005231323.2663520-6-bjorn.andersson@linaro.org>
- <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
- <YVz/NOL3AFn2zBA0@ripper>
- <CAE-0n513cs282Dh_YFMHK2uKCVFSWxtNyfRaFwWGyUvpfShixw@mail.gmail.com>
- <YV0MAF/Y5BR1e6My@ripper>
- <CAE-0n53TwEyycpAaWVpRUKPpos4z-gqwrvyUdgobh1V88VUsXg@mail.gmail.com>
- <YV3XxadYE/KU2w89@ripper>
- <CAE-0n52q=iEhRO1V-ked6SEesJGozLWv-H1mK81oyP7zAeO6QQ@mail.gmail.com>
- <YV3lVWjct5RQ5FEK@ripper>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LOPyAAlgkloGBvBKaHv+rjO0uew1lLPS4TPvNQXgGpg=;
+ b=RxJhZ0O+KtHo5Cn6AbLhQzrczqrzLbwU7N3Teb9xPYFwce1a66co9jh50V7sNho8Aw
+ ErhSgVK5teIB5RSh3HnuYSwoyHKae4Nh4cXoAeZ63wngCNak5LTZpY3+Y7Ky3cZ7EfxF
+ DUrp6kom4H5nDz9EfAHm/Vfg7r5SyiqW5YJx2asJvuTO1HUf0d5IxWYfzRrujUCk80ZN
+ fsdmZ14qCVxgvJgdPF7hlUzCsjV5yRTp5LxykuQ6e9r8joEo6DYi11KRs0MnYZIVAMxT
+ /lIQTQAV8xW8SYTzXCUGBC5/eFs6K3Suo58W88KJQ1nD/YSGIsrUEBt+hmCIF9TqWF2v
+ yrSA==
+X-Gm-Message-State: AOAM533CvGfkbBM/K0FswUX6NCR8+acx0MHVuUtGQMCUIi2Rc1uBTFiu
+ 45SSpuHyROHvNu6gG8iEn8Zs6Q==
+X-Google-Smtp-Source: ABdhPJyOSP9eTH58O4sZphYJfqDacdQGshqo1a+GgIDJL6zusxu34JwQnPr+XtN/rdjjr7tkocXkfA==
+X-Received: by 2002:a17:902:6b0b:b0:13a:18bf:1ece with SMTP id
+ o11-20020a1709026b0b00b0013a18bf1ecemr12512498plk.49.1633549103194; 
+ Wed, 06 Oct 2021 12:38:23 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:202:201:d412:c5eb:4aca:4738])
+ by smtp.gmail.com with ESMTPSA id o14sm22011296pfh.84.2021.10.06.12.38.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Oct 2021 12:38:22 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 6 Oct 2021 11:59:01 -0700
-Message-ID: <CAE-0n537_YLDkWOX0kBHZHPHMi4-XTODeJ8TB=_xOrZwJc1HfQ@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, 
- David Airlie <airlied@linux.ie>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
- controllers
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Arnd Bergmann <arnd@arndb.de>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Chen Feng <puck.chen@hisilicon.com>, Chen-Yu Tsai <wens@csie.org>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Emma Anholt <emma@anholt.net>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Inki Dae <inki.dae@samsung.com>, James Qian Wang <james.qian.wang@arm.com>,
+ Jaroslav Kysela <perex@perex.cz>, Joerg Roedel <joro@8bytes.org>,
+ John Stultz <john.stultz@linaro.org>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-fbdev@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-pm@vger.kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Sandy Huang <hjc@rock-chips.com>, Saravana Kannan <saravanak@google.com>,
+ Sebastian Reichel <sre@kernel.org>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Takashi Iwai <tiwai@suse.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Tomas Winkler <tomas.winkler@intel.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Will Deacon <will@kernel.org>, Xinliang Liu <xinliang.liu@linaro.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Yong Wu <yong.wu@mediatek.com>
+Date: Wed,  6 Oct 2021 12:37:45 -0700
+Message-Id: <20211006193819.2654854-1-swboyd@chromium.org>
+X-Mailer: git-send-email 2.33.0.800.g4c38ced690-goog
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/34] component: Make into an aggregate bus
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,181 +101,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-10-06 11:05:09)
-> On Wed 06 Oct 10:19 PDT 2021, Stephen Boyd wrote:
->
-> > Quoting Bjorn Andersson (2021-10-06 10:07:17)
-> > > On Tue 05 Oct 21:26 PDT 2021, Stephen Boyd wrote:
-> > >
-> > > > Quoting Bjorn Andersson (2021-10-05 19:37:52)
-> > > > > On Tue 05 Oct 19:06 PDT 2021, Stephen Boyd wrote:
-> > > > >
-> > > > > > Quoting Bjorn Andersson (2021-10-05 18:43:16)
-> > > > > > > On Tue 05 Oct 17:43 PDT 2021, Stephen Boyd wrote:
-> > > > > > >
-> > > > > > > > Quoting Bjorn Andersson (2021-10-05 16:13:21)
-> > > > > > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > > > > > index bdaf227f05dc..674cddfee5b0 100644
-> > > > > > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > > > > > @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
-> > > > > > > > >         if (!dp)
-> > > > > > > > >                 return -ENOMEM;
-> > > > > > > > >
-> > > > > > > > > -       desc = dp_display_get_desc(pdev);
-> > > > > > > > > +       desc = dp_display_get_desc(pdev, &dp->id);
-> > > > > > > >
-> > > > > > > > I'm sad that dp->id has to match the number in the SoC specific
-> > > > > > > > dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > > > > > > > still. Is there any way we can avoid that? Also, notice how those arrays
-> > > > > > > > already have INTF_DP macros, which makes me think that it may be better
-> > > > > > > > to connect this to those arrays instead of making an msm_dp_desc
-> > > > > > > > structure and then make sure the 'type' member matches a connector
-> > > > > > > > type number. Otherwise this code is super fragile.
-> > > > > > > >
-> > > > > > >
-> > > > > > > I'm afraid I don't understand what you're proposing. Or which part you
-> > > > > > > consider fragile, the indices of the INTF_DP instances aren't going to
-> > > > > > > move around...
-> > > > > > >
-> > > > > > > I have N instances of the DP driver that I need to match to N entries
-> > > > > > > from the platform specific intf array, I need some stable reference
-> > > > > > > between them. When I started this journey I figured I could rely on the
-> > > > > > > of_graph between the DPU and the interface controllers, but the values
-> > > > > > > used there today are just bogus, so that was a no go.
-> > > > > > >
-> > > > > > > We can use whatever, as long as _dpu_kms_initialize_displayport() can
-> > > > > > > come up with an identifier to put in h_tile_instance[0] so that
-> > > > > > > dpu_encoder_setup_display() can find the relevant INTF.
-> > > > > > >
-> > > > > >
-> > > > > > To make it more concrete we can look at sc7180
-> > > > > >
-> > > > > > static const struct dpu_intf_cfg sc7180_intf[] = {
-> > > > > >         INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24,
-> > > > > > INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> > > > > >                                                      ^
-> > > > > >                                                      |
-> > > > > >
-> > > > > > intf0 is irrelevant. Also the address is irrelevant. But here we have a
-> > > > > > zero, the number after INTF_DP, and that is very relevant. That number
-> > > > > > needs to match the dp->id. Somewhere we have a match between
-> > > > > > controller_id and dp->id in the code.
-> > > > >
-> > > > > That number (the 0, not INTF_0) is what the code matches against dp->id
-> > > > > in _dpu_kms_initialize_displayport(), in order to figure out that this
-> > > > > is INTF_0 in dpu_encoder_setup_display().
-> > > > >
-> > > > > I.e. look at the sc8180x patch:
-> > > > >
-> > > > > INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> > > > > INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-> > > > > INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
-> > > > > /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
-> > > > > INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
-> > > > > INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
-> > > > > INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
-> > > > >
-> > > > > Where the DP driver defines the 3 controllers with dp->id of 0, 1 and 2,
-> > > > > which the DPU code will match against to INTF_0, INTF_4 and INTF_5.
-> > > > >
-> > > >
-> > > > Yep. I'm saying that having to make that number in this intf array match
-> > > > the order of the register mapping descriptor array is fragile. Why can't
-> > > > we indicate the interface is DP or eDP with INTF_DP or INTF_EDP and then
-> > > > map from the descriptor array to this intf array somehow so that the
-> > > > order of the descriptor array doesn't matter? Then we don't have to put
-> > > > the connector type in the descriptor array, and we don't have to keep
-> > > > the order of the array a certain way to match this intf descriptor.
-> > > >
-> > > > Maybe
-> > > >
-> > > >       struct msm_dp_desc {
-> > > >               phys_addr_t io_start;
-> > > >               unsigned int id;
-> > >
-> > > The INTF_<N> constants are a property of the DPU driver and not
-> > > available in the DP driver and the msm_dp struct is a property of the DP
-> > > driver and can't be dereferenced in the DPU driver.
-> > >
-> > > The proposed way around this is that the descs array defines the order
-> > > in priv->dp[N] and this N is used as controller_id.
-> >
-> > I'm pretty sure I'm following along.
-> >
-> > >
-> > > So the only thing that I don't find straight forward here is that the
-> > > eDP controller is considered just a DP controller, so you have to use
-> > > INTF_DP, <N> for that, and not just INTF_EDP, 0.
-> > >
-> > > >       };
-> > > >
-> > > > and then have msm_dp_desc::id equal INTF_<N> and then look through the
-> > > > intf from DPU here in the DP driver to find the id and type of connector
-> > > > that should be used by default? Still sort of fragile because the only
-> > > > connection is an unsigned int which isn't great, but at least it's
-> > > > explicit instead of implicit based on the array order.
-> > >
-> > > No matter how I look at this, you need to put some number somewhere here
-> > > that will be used to match up the INTF with the right DSI/DP encoder.
-> >
-> > Correct.
-> >
-> > >
-> > > Using the proposed number scheme follows the numbering of all the DP
-> > > controllers from the documentation.
-> > >
-> >
-> > Maybe I can make a better example. I have this for sc7280 in dpu_hw_catalog.c:
-> >
-> >       static const struct dpu_intf_cfg sc7280_intf[] = {
-> >               INTF_BLK("intf_0", INTF_0, 0x34000, INTF_DP, CONTROLLER_ID_A, 24,
-> > INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> >               INTF_BLK("intf_1", INTF_1, 0x35000, INTF_DSI, 0, 24,
-> > INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-> >               INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, CONTROLLER_ID_B, 24,
-> > INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
-> >       };
-> >
-> > And then this array for sc7280 in dp_display.c:
-> >
-> >       static const struct msm_dp_desc sc7280_dp_cfg = {
-> >               .desc = {
-> >                       [CONTROLLER_ID_A] = { 0xaea0000, DRM_MODE_CONNECTOR_eDP },
-> >                       [CONTROLLER_ID_B] = { 0xae90000, DRM_MODE_CONNECTOR_DisplayPort },
-> >               },
-> >               .num_dp = 2,
-> >       };
-> >
-> > So these two arrays must match based on CONTROLLER_ID_{A,B}. I don't
-> > like having to make these two numbers match so if it was explicit, even
-> > possibly by having a bunch of macros put in both places then I would be
-> > happy. I spent a few hours when I messed up the order of the
-> > sc7280_dp_cfg.desc array trying to figure out why things weren't
-> > working.
->
-> So essentially, you didn't know that the controller_id has to match the
-> index in priv->dsi[] and priv->dp[] and providing a define for them
-> would make this more obvious?
+This series is from discussion we had on reordering the device lists for
+drm shutdown paths[1]. I've introduced an 'aggregate' bus that we put
+the aggregate device onto and then we probe the aggregate device once
+all the components are probed and call component_add(). The probe/remove
+hooks are where the bind/unbind calls go, and then a shutdown hook is
+added that can be used to shutdown the drm display pipeline at the right
+time.
 
-Now you got it!
+This works for me on my sc7180 board. I no longer get a warning from i2c
+at shutdown that we're trying to make an i2c transaction after the i2c
+bus has been shutdown. There's more work to do on the msm drm driver to
+extract component device resources like clks, regulators, etc. out of
+the component bind function into the driver probe but I wanted to move
+everything over now in other component drivers before tackling that
+problem.
 
->
-> I think per your argument the 0 following INTF_DSI should also be using
-> this scheme, so we'd have multiple CONTROLLER_ID_A, which probably is
-> confusing as well.
+I'll definitely be sending a v3 so this is partially a request for
+testing to shake out any more problems. Tested-by tags would be appreciated,
+and Acked-by/Reviewed-by tags too. I sent this to gregkh which may be
+incorrect but I don't know what better tree to send it all through.
+Maybe drm?
 
-Agreed.
+I'll be faster at resending this next time, sorry for the long delay!
 
->
-> I tried it out with below patch; it documents the relationship, provides
-> constants for the magic 2 and 3 for number of DSI and DP controllers in
-> struct msm_drm_private.
->
-> I like it.
+Changes since v1 (https://lore.kernel.org/r/20210520002519.3538432-1-swboyd@chromium.org):
+ - Use devlink to connect components to the aggregate device
+ - Don't set the registering device as a parent of the aggregate device
+ - New patch for bind_component/unbind_component ops that takes the
+   aggregate device
+ - Convert all drivers in the tree to use the aggregate driver approach
+ - Allow one aggregate driver to be used for multiple aggregate devices
 
-Thanks. I prefer this approach as well. I can see now why qcom always
-wants to change the output ports on the DPU node in DT to match the
-INTF number. If they would have described this problem it may have made
-sense to have the graph endpoints with reg properties matching the
-interface number in the intf array. Sigh.
+[1] https://lore.kernel.org/r/20210508074118.1621729-1-swboyd@chromium.org
+
+Stephen Boyd (34):
+  component: Introduce struct aggregate_device
+  component: Introduce the aggregate bus_type
+  component: Move struct aggregate_device out to header file
+  drm/msm: Migrate to aggregate driver
+  component: Add {bind,unbind}_component() ops that take aggregate
+    device
+  drm/of: Add a drm_of_aggregate_probe() API
+  drm/komeda: Migrate to aggregate driver
+  drm/arm/hdlcd: Migrate to aggregate driver
+  drm/malidp: Migrate to aggregate driver
+  drm/armada: Migrate to aggregate driver
+  drm/etnaviv: Migrate to aggregate driver
+  drm/kirin: Migrate to aggregate driver
+  drm/exynos: Migrate to aggregate driver
+  drm/imx: Migrate to aggregate driver
+  drm/ingenic: Migrate to aggregate driver
+  drm/mcde: Migrate to aggregate driver
+  drm/mediatek: Migrate to aggregate driver
+  drm/meson: Migrate to aggregate driver
+  drm/omap: Migrate to aggregate driver
+  drm/rockchip: Migrate to aggregate driver
+  drm/sti: Migrate to aggregate driver
+  drm/sun4i: Migrate to aggregate driver
+  drm/tilcdc: Migrate to aggregate driver
+  drm/vc4: Migrate to aggregate driver
+  drm/zte: Migrate to aggregate driver
+  iommu/mtk: Migrate to aggregate driver
+  mei: Migrate to aggregate driver
+  power: supply: ab8500: Migrate to aggregate driver
+  fbdev: omap2: Migrate to aggregate driver
+  sound: hdac: Migrate to aggregate driver
+  ASoC: codecs: wcd938x: Migrate to aggregate driver
+  component: Get rid of drm_of_component_probe()
+  component: Remove component_master_ops and friends
+  component: Remove all references to 'master'
+
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Cc: Chen Feng <puck.chen@hisilicon.com>
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Emma Anholt <emma@anholt.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: James Qian Wang (Arm Technology China) <james.qian.wang@arm.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Joerg Roedel <joro@8bytes.org>
+Cc: John Stultz <john.stultz@linaro.org>
+Cc: Joonyoung Shim <jy0922.shim@samsung.com>
+Cc: Jyri Sarha <jyri.sarha@iki.fi>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: <linux-fbdev@vger.kernel.org>
+Cc: <linux-omap@vger.kernel.org>
+Cc: <linux-pm@vger.kernel.org>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Lucas Stach <l.stach@pengutronix.de>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>
+Cc: Paul Cercueil <paul@crapouillou.net>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Russell King <linux+etnaviv@armlinux.org.uk>
+Cc: Russell King <rmk+kernel@arm.linux.org.uk>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Saravana Kannan <saravanak@google.com>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Tian Tao <tiantao6@hisilicon.com>
+Cc: Tomas Winkler <tomas.winkler@intel.com>
+Cc: Tomi Valkeinen <tomba@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
+Cc: Yong Wu <yong.wu@mediatek.com>
+
+ drivers/base/component.c                      | 555 +++++++++++-------
+ .../gpu/drm/arm/display/komeda/komeda_drv.c   |  20 +-
+ drivers/gpu/drm/arm/hdlcd_drv.c               |  21 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |  21 +-
+ drivers/gpu/drm/armada/armada_drv.c           |  23 +-
+ drivers/gpu/drm/drm_drv.c                     |   2 +-
+ drivers/gpu/drm/drm_of.c                      |  20 +-
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c         |  20 +-
+ drivers/gpu/drm/exynos/exynos_drm_drv.c       |  21 +-
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |  20 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |  20 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |  24 +-
+ drivers/gpu/drm/mcde/mcde_drv.c               |  23 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  20 +-
+ drivers/gpu/drm/meson/meson_drv.c             |  21 +-
+ drivers/gpu/drm/msm/msm_drv.c                 |  46 +-
+ drivers/gpu/drm/omapdrm/dss/dss.c             |  17 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |  20 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |  20 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |  26 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |  28 +-
+ drivers/gpu/drm/vc4/vc4_drv.c                 |  20 +-
+ drivers/gpu/drm/zte/zx_drm_drv.c              |  20 +-
+ drivers/iommu/mtk_iommu.c                     |  14 +-
+ drivers/iommu/mtk_iommu.h                     |   6 +-
+ drivers/iommu/mtk_iommu_v1.c                  |  14 +-
+ drivers/misc/mei/hdcp/mei_hdcp.c              |  22 +-
+ drivers/power/supply/ab8500_charger.c         |  22 +-
+ drivers/video/fbdev/omap2/omapfb/dss/dss.c    |  20 +-
+ include/drm/drm_of.h                          |   9 +-
+ include/linux/component.h                     |  92 ++-
+ sound/hda/hdac_component.c                    |  21 +-
+ sound/soc/codecs/wcd938x.c                    |  20 +-
+ 33 files changed, 780 insertions(+), 488 deletions(-)
+
+
+base-commit: e4e737bb5c170df6135a127739a9e6148ee3da82
+-- 
+https://chromeos.dev
+
