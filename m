@@ -1,70 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEAD6423717
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 06:26:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD8B423777
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 07:24:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C9C6F5E9;
-	Wed,  6 Oct 2021 04:26:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 456596ECF2;
+	Wed,  6 Oct 2021 05:24:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A4A6ECDF
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 04:26:24 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- g62-20020a9d2dc4000000b0054752cfbc59so1650505otb.1
- for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 21:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=lpo3jySHVpuECP223gucHzK6qPCa78lLyTG8fTbUCo0=;
- b=ThymPaq4pAQseP8pjGIzPhYU0jBZgINzCAXU+02yprRKuRVcVnntiVBge5fbOfF1RF
- W8kxfZqaNE8gFDoJPaGn802Vgto0JPchR2hb+G8Q5ANj+OaO6mji9CvK6kyTxeimq/TW
- b00JBCvRa9213DYDkviCzfF9Un4myvLxKzxB4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=lpo3jySHVpuECP223gucHzK6qPCa78lLyTG8fTbUCo0=;
- b=QZ/S8PoorCS08CozRzHBiJkl+MKaQSpZGlnRik/Phq5nvXshmAI48krzLddxQU1lK9
- LBPTKS//cUwN/7lM9XNJJANAsOgGtdprKSiUcp4thjbHDhkUX3nbPxfIdNAn3b8sPBv0
- QEI1oXdN6E3XoPOxl4r5ZueWfyl6WaeaP2J/s8TpazE4HRWivs12NsM9VrlKxb0mqwbR
- DOo2MQx3bvmR4cZPsr26i8zf19vc6LV/ygiSijRz6p7SEY63gyKPmNQe8t6egRiM/s/+
- v/9rCoqbh2Dv85a3dPuVgZ9FgeVdOErDZEU+7NTz69H0SeE6m6HD6xPc+nZLFikkLTPP
- ZwWQ==
-X-Gm-Message-State: AOAM530/nOFgGOdCBAiPgALChRV5vPUBxoSmNGnPuO192VRv5x2/mQea
- SCMYBNl0XuKH8RRI8SNRtfyn3f1u2tTVSLhHeXfnYA==
-X-Google-Smtp-Source: ABdhPJyqbzfyuJgjhBaq32N9NwF+pauRq+8vq/c8zppXAuy0EqIE7jhu1C7daYuBbpWdAykWQtLHt93NS0DMt6rPzcA=
-X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr18218054otn.126.1633494383457; 
- Tue, 05 Oct 2021 21:26:23 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Oct 2021 21:26:22 -0700
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5879C6ECF2;
+ Wed,  6 Oct 2021 05:24:50 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3AAEE611C5;
+ Wed,  6 Oct 2021 05:24:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633497890;
+ bh=cMNu6FCqgjsDuLKBexlofzbQh1accEh+KkJp8jMeKJU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ROe8Bm8gBydsupMVtG3HdpW6qsLjipMrqBLxHcBeI/cajE/eRrtK0/lq7FmVQ3Gng
+ VnxBvjDgsTRqJy52DHX6DcQqOqmUNt4c10cEAX/dlyBN0XZQR+BVnx31TfLjqMARLt
+ VOJy4AhiwfalHBNSnBswAuPnauM+0T/9lIyNyhJnpLP6PQeIWBbj68DTvCI3yY+AoB
+ Lxu4m3QCR4x8jxAQseu0ordikEPgXJw7P6HDbcQ+lBYWs67hjVtxULMLWawUk/Kl+o
+ +pGAstLJ3m2I8So2VbmFikcXCZ3gMhd0CamS4SyW2hrfkZLiG9K6HZrUn76PBj3wg8
+ REkVQXxX5rLww==
+Date: Wed, 6 Oct 2021 10:54:45 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: abhinavk@codeaurora.org
+Cc: Rob Clark <robdclark@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
+Message-ID: <YV0zHet/25Zx9ld5@matsya>
+References: <20210715065203.709914-1-vkoul@kernel.org>
+ <20210715065203.709914-2-vkoul@kernel.org>
+ <c411e4d60efd3029b2dc6b0d899ea8a9@codeaurora.org>
 MIME-Version: 1.0
-In-Reply-To: <YV0MAF/Y5BR1e6My@ripper>
-References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
- <20211005231323.2663520-6-bjorn.andersson@linaro.org>
- <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
- <YVz/NOL3AFn2zBA0@ripper>
- <CAE-0n513cs282Dh_YFMHK2uKCVFSWxtNyfRaFwWGyUvpfShixw@mail.gmail.com>
- <YV0MAF/Y5BR1e6My@ripper>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 5 Oct 2021 21:26:22 -0700
-Message-ID: <CAE-0n53TwEyycpAaWVpRUKPpos4z-gqwrvyUdgobh1V88VUsXg@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, 
- David Airlie <airlied@linux.ie>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
- controllers
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c411e4d60efd3029b2dc6b0d899ea8a9@codeaurora.org>
+Subject: Re: [Freedreno] [PATCH 01/11] drm/msm/dsi: add support for dsc data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,96 +58,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-10-05 19:37:52)
-> On Tue 05 Oct 19:06 PDT 2021, Stephen Boyd wrote:
->
-> > Quoting Bjorn Andersson (2021-10-05 18:43:16)
-> > > On Tue 05 Oct 17:43 PDT 2021, Stephen Boyd wrote:
-> > >
-> > > > Quoting Bjorn Andersson (2021-10-05 16:13:21)
-> > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > index bdaf227f05dc..674cddfee5b0 100644
-> > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > > > > @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
-> > > > >         if (!dp)
-> > > > >                 return -ENOMEM;
-> > > > >
-> > > > > -       desc = dp_display_get_desc(pdev);
-> > > > > +       desc = dp_display_get_desc(pdev, &dp->id);
-> > > >
-> > > > I'm sad that dp->id has to match the number in the SoC specific
-> > > > dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> > > > still. Is there any way we can avoid that? Also, notice how those arrays
-> > > > already have INTF_DP macros, which makes me think that it may be better
-> > > > to connect this to those arrays instead of making an msm_dp_desc
-> > > > structure and then make sure the 'type' member matches a connector
-> > > > type number. Otherwise this code is super fragile.
-> > > >
-> > >
-> > > I'm afraid I don't understand what you're proposing. Or which part you
-> > > consider fragile, the indices of the INTF_DP instances aren't going to
-> > > move around...
-> > >
-> > > I have N instances of the DP driver that I need to match to N entries
-> > > from the platform specific intf array, I need some stable reference
-> > > between them. When I started this journey I figured I could rely on the
-> > > of_graph between the DPU and the interface controllers, but the values
-> > > used there today are just bogus, so that was a no go.
-> > >
-> > > We can use whatever, as long as _dpu_kms_initialize_displayport() can
-> > > come up with an identifier to put in h_tile_instance[0] so that
-> > > dpu_encoder_setup_display() can find the relevant INTF.
-> > >
-> >
-> > To make it more concrete we can look at sc7180
-> >
-> > static const struct dpu_intf_cfg sc7180_intf[] = {
-> >         INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24,
-> > INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> >                                                      ^
-> >                                                      |
-> >
-> > intf0 is irrelevant. Also the address is irrelevant. But here we have a
-> > zero, the number after INTF_DP, and that is very relevant. That number
-> > needs to match the dp->id. Somewhere we have a match between
-> > controller_id and dp->id in the code.
->
-> That number (the 0, not INTF_0) is what the code matches against dp->id
-> in _dpu_kms_initialize_displayport(), in order to figure out that this
-> is INTF_0 in dpu_encoder_setup_display().
->
-> I.e. look at the sc8180x patch:
->
-> INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
-> INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
-> /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
-> INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
-> INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
-> INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
->
-> Where the DP driver defines the 3 controllers with dp->id of 0, 1 and 2,
-> which the DPU code will match against to INTF_0, INTF_4 and INTF_5.
->
+Hi Abhinav,
 
-Yep. I'm saying that having to make that number in this intf array match
-the order of the register mapping descriptor array is fragile. Why can't
-we indicate the interface is DP or eDP with INTF_DP or INTF_EDP and then
-map from the descriptor array to this intf array somehow so that the
-order of the descriptor array doesn't matter? Then we don't have to put
-the connector type in the descriptor array, and we don't have to keep
-the order of the array a certain way to match this intf descriptor.
+On 02-08-21, 15:55, abhinavk@codeaurora.org wrote:
 
-Maybe
+> > +static int dsi_populate_dsc_params(struct msm_display_dsc_config *dsc)
+> > +{
+> > +	int mux_words_size;
+> > +	int groups_per_line, groups_total;
+> > +	int min_rate_buffer_size;
+> > +	int hrd_delay;
+> > +	int pre_num_extra_mux_bits, num_extra_mux_bits;
+> > +	int slice_bits;
+> > +	int target_bpp_x16;
+> > +	int data;
+> > +	int final_value, final_scale;
+> > +	int i;
+> > +
+> > +	dsc->drm->rc_model_size = 8192;
+> > +	dsc->drm->first_line_bpg_offset = 12;
+> > +	dsc->drm->rc_edge_factor = 6;
+> > +	dsc->drm->rc_tgt_offset_high = 3;
+> > +	dsc->drm->rc_tgt_offset_low = 3;
+> > +	dsc->drm->simple_422 = 0;
+> > +	dsc->drm->convert_rgb = 1;
+> > +	dsc->drm->vbr_enable = 0;
+> > +
+> > +	/* handle only bpp = bpc = 8 */
+> > +	for (i = 0; i < DSC_NUM_BUF_RANGES - 1 ; i++)
+> > +		dsc->drm->rc_buf_thresh[i] = dsi_dsc_rc_buf_thresh[i];
+> > +
+> > +	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
+> > +		dsc->drm->rc_range_params[i].range_min_qp = min_qp[i];
+> > +		dsc->drm->rc_range_params[i].range_max_qp = max_qp[i];
+> > +		dsc->drm->rc_range_params[i].range_bpg_offset = bpg_offset[i];
+> > +	}
+> > +
+> > +	dsc->drm->initial_offset = 6144; /* Not bpp 12 */
+> > +	if (dsc->drm->bits_per_pixel != 8)
+> > +		dsc->drm->initial_offset = 2048;	/* bpp = 12 */
+> > +
+> > +	mux_words_size = 48;		/* bpc == 8/10 */
+> > +	if (dsc->drm->bits_per_component == 12)
+> > +		mux_words_size = 64;
+> > +
+> > +	dsc->drm->initial_xmit_delay = 512;
+> > +	dsc->drm->initial_scale_value = 32;
+> > +	dsc->drm->first_line_bpg_offset = 12;
+> > +	dsc->drm->line_buf_depth = dsc->drm->bits_per_component + 1;
+> > +
+> > +	/* bpc 8 */
+> > +	dsc->drm->flatness_min_qp = 3;
+> > +	dsc->drm->flatness_max_qp = 12;
+> > +	dsc->det_thresh_flatness = 7 + 2 * (dsc->drm->bits_per_component - 8);
+> > +	dsc->drm->rc_quant_incr_limit0 = 11;
+> > +	dsc->drm->rc_quant_incr_limit1 = 11;
+> > +	dsc->drm->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
+> > +
+> > +	/* FIXME: need to call drm_dsc_compute_rc_parameters() so that rest of
+> > +	 * params are calculated
+> > +	 */
+> > +	dsc->slice_last_group_size = 3 - (dsc->drm->slice_width % 3);
+> > +	groups_per_line = DIV_ROUND_UP(dsc->drm->slice_width, 3);
+> > +	dsc->drm->slice_chunk_size = dsc->drm->slice_width *
+> > dsc->drm->bits_per_pixel / 8;
+> > +	if ((dsc->drm->slice_width * dsc->drm->bits_per_pixel) % 8)
+> > +		dsc->drm->slice_chunk_size++;
+> > +
+> > +	/* rbs-min */
+> > +	min_rate_buffer_size =  dsc->drm->rc_model_size -
+> > dsc->drm->initial_offset +
+> > +				dsc->drm->initial_xmit_delay * dsc->drm->bits_per_pixel +
+> > +				groups_per_line * dsc->drm->first_line_bpg_offset;
+> > +
+> > +	hrd_delay = DIV_ROUND_UP(min_rate_buffer_size,
+> > dsc->drm->bits_per_pixel);
+> > +
+> > +	dsc->drm->initial_dec_delay = hrd_delay -
+> > dsc->drm->initial_xmit_delay;
+> > +
+> > +	dsc->drm->initial_scale_value = 8 * dsc->drm->rc_model_size /
+> > +				       (dsc->drm->rc_model_size - dsc->drm->initial_offset);
+> > +
+> > +	slice_bits = 8 * dsc->drm->slice_chunk_size * dsc->drm->slice_height;
+> > +
+> > +	groups_total = groups_per_line * dsc->drm->slice_height;
+> > +
+> > +	data = dsc->drm->first_line_bpg_offset * 2048;
+> > +
+> > +	dsc->drm->nfl_bpg_offset = DIV_ROUND_UP(data, (dsc->drm->slice_height
+> > - 1));
+> > +
+> > +	pre_num_extra_mux_bits = 3 * (mux_words_size + (4 *
+> > dsc->drm->bits_per_component + 4) - 2);
+> > +
+> > +	num_extra_mux_bits = pre_num_extra_mux_bits - (mux_words_size -
+> > +			     ((slice_bits - pre_num_extra_mux_bits) % mux_words_size));
+> > +
+> > +	data = 2048 * (dsc->drm->rc_model_size - dsc->drm->initial_offset +
+> > num_extra_mux_bits);
+> > +	dsc->drm->slice_bpg_offset = DIV_ROUND_UP(data, groups_total);
+> > +
+> > +	/* bpp * 16 + 0.5 */
+> > +	data = dsc->drm->bits_per_pixel * 16;
+> > +	data *= 2;
+> > +	data++;
+> > +	data /= 2;
+> > +	target_bpp_x16 = data;
+> > +
+> > +	data = (dsc->drm->initial_xmit_delay * target_bpp_x16) / 16;
+> > +	final_value =  dsc->drm->rc_model_size - data + num_extra_mux_bits;
+> As we discussed, can you please check why there is an additional + 8 and /16
+> in the upstream final_offset calculation?
+> If we can eliminate or root-cause the difference in the calculations, either
+> this patch can be substantially reduced or
+> we will atleast know for future reference what was the delta and can leave a
+> comment.
 
-	struct msm_dp_desc {
-		phys_addr_t io_start;
-		unsigned int id;
-	};
+I am checking this as well, I think there is something more, so will
+continue to debug on that.
 
-and then have msm_dp_desc::id equal INTF_<N> and then look through the
-intf from DPU here in the DP driver to find the id and type of connector
-that should be used by default? Still sort of fragile because the only
-connection is an unsigned int which isn't great, but at least it's
-explicit instead of implicit based on the array order.
+Meanwhile I propose we continue this and then switch once we have
+concluded.
+
+> > +/* DSC config */
+> > +struct msm_display_dsc_config {
+> > +	struct drm_dsc_config *drm;
+> > +	u8 scr_rev;
+> Can scr_rev also move into drm_dsc_config? SCR itself is not QC specific.
+> Its just telling there was a change request
+> for that DSC revision.
+> In QC side, we only use this scr_rev to have some different tables. This can
+> even be true for other vendors.
+> So moving this to drm_dsc_config will only help.
+
+So I checked and looks like this is not used here in the code, so will
+drop it for now. Once we add support for this, we can add this back in
+drm_dsc_config
+
+-- 
+~Vinod
