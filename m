@@ -1,83 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C4AE4240FF
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 17:12:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BBE3C424170
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 17:37:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B61A6ECF6;
-	Wed,  6 Oct 2021 15:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 627216ECFD;
+	Wed,  6 Oct 2021 15:37:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 648496ED09
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 15:12:49 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id q205so3181503iod.8
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 08:12:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5vB299wseJn7aDst1Re2iB3jLFV+Je9gQHlrVHJWsvY=;
- b=RuHdKdXakP9BYMunQazq4s9vUXz80/p+CG/6GlJdkiXGN+6jzaPW6OYXX1jsQjBmHI
- nXpbKp37ZZk3ZZpqSYqoYS+whF8s/ao65WRAmEVhc4nigEi8QA9nqOPSIpSIPpmAQCVs
- wc2nb9l55zl/mIifajzScqVAwjYAIOXJb6CLw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5vB299wseJn7aDst1Re2iB3jLFV+Je9gQHlrVHJWsvY=;
- b=KKUWQQ067lpujIM/YPAztUkZ2fiTI/l3Ab7NdFoObUM6PX07pu5Ui0R+CAqqh1vqz6
- QOl/IifisWfI2dqRb65UNDNZRja7h40wJezNVY9pASnPJ/3iUZO2cXcPKWBkXy7eSoh0
- T4PGuFPNeFBM2hA4Gfrq6ZUuKr5iIl9hZxP4q/tePLh0XjB7+JMr3gPSEFwhkSgnhYr5
- LqQ3HbZPKYL38Ag0PgXEX98saaQMxJz2iz0bhj+NSc7hII/7SfYt5MGEd690gXfFuAvj
- FNCGd2jsY1i/zg0doH592Q7taKkHzgax1Sa5dpc+pV4wcX0Y5SJhDlTdfSH3LYddyVVe
- cZ1Q==
-X-Gm-Message-State: AOAM533ly6D7Rklvozao0cVWqnOapbIE2AB4aSDPl/Gt/xhnpWQPV410
- j2MJNtbwAdnWjHOXka9z0YAiY1dKu5TbFQ==
-X-Google-Smtp-Source: ABdhPJyL2OK/dD+3g/tiii4blyrKjzGZRKpAxTX0fb1BxgorEDn4jvtIR/ahAszmgyR45XP4yp4y4Q==
-X-Received: by 2002:a02:270c:: with SMTP id g12mr7449803jaa.75.1633533168407; 
- Wed, 06 Oct 2021 08:12:48 -0700 (PDT)
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com.
- [209.85.166.180])
- by smtp.gmail.com with ESMTPSA id u14sm12700535iob.18.2021.10.06.08.12.45
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Oct 2021 08:12:45 -0700 (PDT)
-Received: by mail-il1-f180.google.com with SMTP id w10so3168882ilc.13
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 08:12:45 -0700 (PDT)
-X-Received: by 2002:a05:6e02:1847:: with SMTP id
- b7mr7874486ilv.180.1633533164871; 
- Wed, 06 Oct 2021 08:12:44 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61CA6ECFD
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 15:37:49 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633534671; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=nsnvN8SFzET/qx+VaZ+i91Lv8nnayRJHw03nzETyATE=;
+ b=ApeXd206gR0cK9xoPGJif4ykXwrLP/+FvzNxY38i7humEuJJW683IyfkGCwzK3N3GKKz2yJw
+ Q0FvGCMYbC8NO94n3R/FEA96RZwDLFqDa4uCj7Zs9l6mnAK9vK7SC2Pf2gZNx79li8Jqlt/t
+ d4PwKf3kpZVIwragP4HFsDgmpXU=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 615dc2cb9ebaf35aaa3804e7 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 06 Oct 2021 15:37:47
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C7EF3C4360D; Wed,  6 Oct 2021 15:37:46 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C12DBC43460;
+ Wed,  6 Oct 2021 15:37:45 +0000 (UTC)
 MIME-Version: 1.0
-References: <20210726231351.655302-1-bjorn.andersson@linaro.org>
- <CAD=FV=UGtHXD==Yy8CVCOioYGb=2hqGQOoNWftD1Jj7OiEp51g@mail.gmail.com>
- <YVd3YdfgFVc0Br5T@ripper>
- <CAD=FV=U=xVLuKOYHbGPTkLjGa8_U+F1ZtEvJt4LGaRuR5SsKFw@mail.gmail.com>
- <YVumL1lHLqtb/HKS@ripper>
- <CAD=FV=W9uKq00wXn4H1ax0u2D=R8Wn3J-Je43uxcPyDtk7AK7Q@mail.gmail.com>
- <YVyMwsvLl6XalJxB@ripper>
- <CAD=FV=WY+g38p7--QKZCaQnSqx7VvdwC36jH-VKnrEWoxK=XHQ@mail.gmail.com>
- <YV0KBWxVtKgOp2Cj@ripper>
-In-Reply-To: <YV0KBWxVtKgOp2Cj@ripper>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 6 Oct 2021 08:12:32 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X5JFE3u9BtxxocaUrYNSpYXJN90UJ8HOvXZE6oYiVsDQ@mail.gmail.com>
-Message-ID: <CAD=FV=X5JFE3u9BtxxocaUrYNSpYXJN90UJ8HOvXZE6oYiVsDQ@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 06 Oct 2021 08:37:45 -0700
+From: khsieh@codeaurora.org
 To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, 
- Abhinav Kumar <abhinavk@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>, 
- Kuogee Hsieh <khsieh@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Vara Reddy <varar@codeaurora.org>, freedreno <freedreno@lists.freedesktop.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Prashant Malani <pmalani@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
+Cc: Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar
+ <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, David Airlie
+ <airlied@linux.ie>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob
+ Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sankeerth
+ Billakanti <sbillaka@codeaurora.org>
+In-Reply-To: <YV0FlTyMEzlyNsN9@ripper>
+References: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
+ <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
+ <YVzGVmJXEDH0HfIL@ripper>
+ <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
+ <a4a4980e586a70e3b7de989bc61a3e33@codeaurora.org> <YV0FlTyMEzlyNsN9@ripper>
+Message-ID: <3dbe0fe48da88af9dee396a85b940e76@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,131 +79,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 2021-10-05 19:10, Bjorn Andersson wrote:
+> On Tue 05 Oct 16:04 PDT 2021, khsieh@codeaurora.org wrote:
+> 
+>> On 2021-10-05 15:36, Stephen Boyd wrote:
+>> > Quoting Bjorn Andersson (2021-10-05 14:40:38)
+>> > > On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
+>> > >
+>> > > > Quoting Bjorn Andersson (2021-10-04 19:37:50)
+>> > > > > Found in the middle of a patch from Sankeerth was the reduction of the
+>> > > > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
+>> > > > > is initalized and HPD interrupt start to be serviced, so in the case of
+>> > > > > eDP this reduction improves the user experience dramatically - i.e.
+>> > > > > removes 9.9s of bland screen time at boot.
+>> > > > >
+>> > > > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+>> > > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>> > > > > ---
+>> > > >
+>> > > > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
+>> > > > re-read the code a couple times to understand that it's waiting 100ms
+>> > > > times the 'delay' number. Whaaaaat?
+>> > > >
+>> > >
+>> > > I assume you're happy with the current 10s delay on the current
+>> > > devices, so I don't think we should push for this to be backported.
+>> > > I have no need for it to be backported on my side at least.
+>> > >
+>> >
+>> > Sure. Fixes tag != backported to stable trees but it is close.
+>> >
+>> > > > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>> > >
+>>   dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1); <== to 100ms
+>> 
+>> This patch will prevent usb3 from working due to dp driver initialize 
+>> phy
+>> earlier than usb3 which cause timeout error at power up usb3 phy when 
+>> both
+>> edp and dp are enabled.
+> 
+> Can you please help me understand what you mean here, I use this on my
+> sc8180x with both eDP and USB-C/DP right now. What is it that doesn't
+> work? Or am I just lucky in some race condition?
+> 
+> Thanks,
+> Bjorn
+> 
+The problem is seen at sc7280.
+Apple dongle have both  hdmi and usb port.
+plug Apple dongle into type-c, then plug DP into apple's hdmi port and 
+usb mouse into apple's usb port.
+If edp enabled at this time, then usb mouse will not work due to timeout 
+at phy power up.
 
-On Tue, Oct 5, 2021 at 7:27 PM Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
-> > > For reference, this is how I thought one is supposed to tie the Type-C
-> > > controller to the display driver:
-> > > https://lore.kernel.org/all/20211005022451.2037405-1-bjorn.andersson@linaro.org/
-> >
-> > OK, so I looked at that a bit. Fair warning that I've never looked at
-> > the type C code before today so anything I say could be totally wrong!
-> > :-)
-> >
-> > ...but I _think_ you're abusing the "mux" API for this. I think a type
-> > C port can have exactly 1 mux, right? Right now you are claiming to be
-> > _the_ mux in the DP driver, but what about for other alt modes? If
-> > those wanted to be notified about similar things it would be
-> > impossible because you're already _the_ mux, right?
-> >
->
-> I actually don't think so, because I acquire the typec_mux handle by the
-> means of:
->
-> mux_desc.svid = USB_TYPEC_DP_SID;
-> mux_desc.mode = USB_TYPEC_DP_MODE;
-> alt_port->mux = fwnode_typec_mux_get(fwnode, &mux_desc);
-
-Hrm, I guess I need to go find that code. Ah, I see it in your WIP
-tree, but not posted anywhere. :-P The only code I can see calling
-fwnode_typec_mux_get() is `drivers/platform/chrome/cros_ec_typec.c`.
-In that code it passes NULL for the mux_desc and I'm nearly certain
-that it just handles one "mux" per connector despite the fact that it
-handles lots of different types of alternate modes. That doesn't mean
-that the cros_ec implementation is correct / finalized, but it's a
-reference point.
-
-
-> And in the DisplayPort node I provide svid = /bits/ 16 <0xff01>;
->
-> So I will be able to reference multiple different altmode
-> implementors using this scheme.
-
-OK, so I'm trying to grok this more. Let's see.
-
-I'm looking at ucsi_glink_probe() and looking at the matching dts in
-your WIP tree [1] in "sc8180x-lenovo-flex-5g.dts" OK, so:
-
-1. It's looping once per _connector_ by looping with
-`device_for_each_child_node(dev, fwnode)`.
-
-2. For each connector, it has exactly one `alt_port` structure.
-
-3. For each `alt_port` structure it has exactly one `mux`.
-
-...so currently with your WIP tree there is one "mux" per type C connector.
-
-
-Perhaps what you're saying, though, is that the UCSI code in your WIP
-tree can/should be changed to support more than one mux per port. Then
-I guess it would have logic figuring out what muxes to notify about
-which things? ...and I guess that would mean that it's currently a bug
-that the ucsi_altmode_enable_usb() notifies "the DP type C mux" about
-USB changes?
-
-
-> > I _think_ a mux is supposed to be something more like
-> > `drivers/phy/rockchip/phy-rockchip-typec.c` (though that code predates
-> > the type C framework we're looking at here). There the phy can do all
-> > the work of remuxing things / flipping orientation / etc. I don't
-> > think it's a requirement that every SoC be able to do this remuxing
-> > itself but (if memory serves) rk3399 implemented it so we didn't have
-> > to do it on the TCPC and could use a cheaper solution there.
-> >
->
-> I'm afraid I don't see how this interacts with a display controller.
-
-This was actually kinda my point. ;-) Specifically I think
-`phy-rockchip-typec.c` is the thing that's supposed to be a "mux". I
-think your display controller isn't a mux. Yeah, it's handy that muxes
-get told about DP HPD status, but that doesn't mean it's the right
-abstraction for you to implement. In my mental model, it's the same as
-implementing your "i2c" controller with a "pinctrl" driver. :-P
-
-
-> It
-> seems more like it's the phy side of things, what we have split between
-> the Type-C controller and the QMP phy to set the pins in the right
-> state.
->
-> > In any case, my point is that I think there is supposed to be a
-> > _single_ mux per port that handles reassigning pins and that's what
-> > this API is for.
-> >
->
-> If that's the case things such as typec_mux_match() is just completely
-> backwards.
-
-Yeah, I have no explanation for typec_mux_match(). Let me see if I can
-lure some type C folks into this discussion.
-
-
-> > ...so I will still assert that the right thing to do is to have a
-> > drm_bridge for the type c connector and _that's_ what should be
-> > sending HPD.
-> >
->
-> That still implies that all the current typec_mux code got it all wrong
-> and should be thrown out. If you instead consider that you have a Type-C
-> controller that upon switching DisplayPort on/off calls typec_mux_set()
-> to inform the functions that things has changed then all the current
-> code makes sense.
->
-> It also maps nicely to how the TypeC controller would call
-> typec_switch_set() to inform, in our case the QMP phy that the
-> orientation has switched.
->
->
-> It seems reasonable to have some common helper code that registers the
-> typec_mux and turn its notifications into HPD notifications to the
-> display code, but I still think that should live in the DRM framework,
-> separate from the USB code.
-
-I think I'm going to step back and hope that the experts can chime in.
-
-
-[1] https://github.com/andersson/kernel/commits/wip/sc8180x-next-20210819
-
--Doug
+>> I had prepared a patch (drm/msm/dp: do not initialize combo phy until 
+>> plugin
+>> interrupt) to fix this problem.
+>> Unfortunately, my patch is depend on Bjorn's patch (PATCH v3 3/5]
+>> drm/msm/dp: Support up to 3 DP controllers).
+>> I will submit my patch for review once Bjorn's patches merged in.
+>> Therefore I would think this patch should go after both Bjorn's 
+>> patches and
+>> my patch.
+>> 
+>> 
+>> 
