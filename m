@@ -1,73 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 254F1423650
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 05:35:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CEAD6423717
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 06:26:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF9996E444;
-	Wed,  6 Oct 2021 03:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0C9C6F5E9;
+	Wed,  6 Oct 2021 04:26:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A86266E4D2
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 03:35:20 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- l16-20020a9d6a90000000b0053b71f7dc83so1435514otq.7
- for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 20:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=2sbh8LLwhe0nCiTyzEPV2SKVkwsiELLTCq3fosoU3eY=;
- b=CjWp3tQXqVMU4eM/Dp4xP9dx5gR1kbkWFj9qKDDDpvaOnn1iV6QvRhvIhuov5BjYB/
- kZDWWfvJL0yJhr46rXLxozF9dIDwcdWEvrbO6lOlL1TSoRbAuZYJdEOjI5a6hDl81R/h
- If9IlPYsS/KlslkIn1yT84KelCrJsELo8wC41lqaaBOXvrYKkurIzZqaghU/XR2iG/Y2
- TmSkcxwCp8JIAxdhzjnxfZ46oZw9mXp57GoIgKUdQZU1dsfZz23PQ4a63kTmQurjj/5+
- J2o6gz/HN1nrrWD3ga9Ff6XLOh0yjfrO5r9XYXRgvLBNEa6/dwcXzTNN/PUnJ3g+Jpku
- ZAlw==
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36A4A6ECDF
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 04:26:24 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ g62-20020a9d2dc4000000b0054752cfbc59so1650505otb.1
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 21:26:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=lpo3jySHVpuECP223gucHzK6qPCa78lLyTG8fTbUCo0=;
+ b=ThymPaq4pAQseP8pjGIzPhYU0jBZgINzCAXU+02yprRKuRVcVnntiVBge5fbOfF1RF
+ W8kxfZqaNE8gFDoJPaGn802Vgto0JPchR2hb+G8Q5ANj+OaO6mji9CvK6kyTxeimq/TW
+ b00JBCvRa9213DYDkviCzfF9Un4myvLxKzxB4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=2sbh8LLwhe0nCiTyzEPV2SKVkwsiELLTCq3fosoU3eY=;
- b=yjrOsf8QXNEvEDd8o3sAeZnCQzbxPiwcz8QlVbLoyCaYPxUoY64pUDRTvA4/5qxANq
- QnJynOD/Hfr4Pne8jrljHb6Te+Eq3qiqG7DSDSFUl8in4Y9hiakF1S8sGwIsY+4qqsXE
- 4dji6GeaPvjRNX8SGSU0ZiPvQPbn0ViU+xg1gx9Nd2Z0nqj1GDOwPPH9YXFWxXHaUcYP
- tQUStKmagDtEmwlU3avj7pzcCEefOQ/LEv0wd7cApvrNKiRYeR+3/oBHtwrnAhjLfHsX
- Pt9sZBpojvwUaCajcbeZ8MXbILXOw7DEzI+a8eLedHl1sY/1wcMfPjvnAX8zI8C+CFxl
- 8a9g==
-X-Gm-Message-State: AOAM530+RhCuupdOi1X3VQHtwyJWpOyZpKoxxla1ZpJoeGfrgyh2cfL8
- WtAAdTQ3Yp9LNKY1LCrzoDtSUg==
-X-Google-Smtp-Source: ABdhPJzTy8d/HbUt5693DrCKpOktGkmrPUKavSTW1qTcXIrEfQMG1KpYwY3dDGC13/Rs5VW2onMJXA==
-X-Received: by 2002:a9d:6396:: with SMTP id w22mr17247964otk.26.1633491319916; 
- Tue, 05 Oct 2021 20:35:19 -0700 (PDT)
-Received: from yoga ([2600:1700:a0:3dc8:c84c:8eff:fe1e:256f])
- by smtp.gmail.com with ESMTPSA id w1sm3947298ote.41.2021.10.05.20.35.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Oct 2021 20:35:19 -0700 (PDT)
-Date: Tue, 5 Oct 2021 22:35:16 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Rob Herring <robh+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-ID: <YV0ZdF1nMMkDDWRF@yoga>
-References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
- <20211005231323.2663520-4-bjorn.andersson@linaro.org>
- <CAE-0n53bGyVSBC9zsFu9Uacp+t=56vrttq+fWj155zA_LXJbuw@mail.gmail.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=lpo3jySHVpuECP223gucHzK6qPCa78lLyTG8fTbUCo0=;
+ b=QZ/S8PoorCS08CozRzHBiJkl+MKaQSpZGlnRik/Phq5nvXshmAI48krzLddxQU1lK9
+ LBPTKS//cUwN/7lM9XNJJANAsOgGtdprKSiUcp4thjbHDhkUX3nbPxfIdNAn3b8sPBv0
+ QEI1oXdN6E3XoPOxl4r5ZueWfyl6WaeaP2J/s8TpazE4HRWivs12NsM9VrlKxb0mqwbR
+ DOo2MQx3bvmR4cZPsr26i8zf19vc6LV/ygiSijRz6p7SEY63gyKPmNQe8t6egRiM/s/+
+ v/9rCoqbh2Dv85a3dPuVgZ9FgeVdOErDZEU+7NTz69H0SeE6m6HD6xPc+nZLFikkLTPP
+ ZwWQ==
+X-Gm-Message-State: AOAM530/nOFgGOdCBAiPgALChRV5vPUBxoSmNGnPuO192VRv5x2/mQea
+ SCMYBNl0XuKH8RRI8SNRtfyn3f1u2tTVSLhHeXfnYA==
+X-Google-Smtp-Source: ABdhPJyqbzfyuJgjhBaq32N9NwF+pauRq+8vq/c8zppXAuy0EqIE7jhu1C7daYuBbpWdAykWQtLHt93NS0DMt6rPzcA=
+X-Received: by 2002:a9d:6a0f:: with SMTP id g15mr18218054otn.126.1633494383457; 
+ Tue, 05 Oct 2021 21:26:23 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 5 Oct 2021 21:26:22 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAE-0n53bGyVSBC9zsFu9Uacp+t=56vrttq+fWj155zA_LXJbuw@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v4 3/7] drm/msm/dp: Allow specifying
- connector_type per controller
+In-Reply-To: <YV0MAF/Y5BR1e6My@ripper>
+References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
+ <20211005231323.2663520-6-bjorn.andersson@linaro.org>
+ <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
+ <YVz/NOL3AFn2zBA0@ripper>
+ <CAE-0n513cs282Dh_YFMHK2uKCVFSWxtNyfRaFwWGyUvpfShixw@mail.gmail.com>
+ <YV0MAF/Y5BR1e6My@ripper>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 5 Oct 2021 21:26:22 -0700
+Message-ID: <CAE-0n53TwEyycpAaWVpRUKPpos4z-gqwrvyUdgobh1V88VUsXg@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, 
+ David Airlie <airlied@linux.ie>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh+dt@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
+ controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,45 +80,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 05 Oct 19:29 CDT 2021, Stephen Boyd wrote:
-
-> Quoting Bjorn Andersson (2021-10-05 16:13:19)
-> > As the following patches introduced support for multiple DP blocks in a
-> > platform and some of those block might be eDP it becomes useful to be
-> > able to specify the connector type per block.
+Quoting Bjorn Andersson (2021-10-05 19:37:52)
+> On Tue 05 Oct 19:06 PDT 2021, Stephen Boyd wrote:
+>
+> > Quoting Bjorn Andersson (2021-10-05 18:43:16)
+> > > On Tue 05 Oct 17:43 PDT 2021, Stephen Boyd wrote:
+> > >
+> > > > Quoting Bjorn Andersson (2021-10-05 16:13:21)
+> > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > index bdaf227f05dc..674cddfee5b0 100644
+> > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
+> > > > >         if (!dp)
+> > > > >                 return -ENOMEM;
+> > > > >
+> > > > > -       desc = dp_display_get_desc(pdev);
+> > > > > +       desc = dp_display_get_desc(pdev, &dp->id);
+> > > >
+> > > > I'm sad that dp->id has to match the number in the SoC specific
+> > > > dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > > > still. Is there any way we can avoid that? Also, notice how those arrays
+> > > > already have INTF_DP macros, which makes me think that it may be better
+> > > > to connect this to those arrays instead of making an msm_dp_desc
+> > > > structure and then make sure the 'type' member matches a connector
+> > > > type number. Otherwise this code is super fragile.
+> > > >
+> > >
+> > > I'm afraid I don't understand what you're proposing. Or which part you
+> > > consider fragile, the indices of the INTF_DP instances aren't going to
+> > > move around...
+> > >
+> > > I have N instances of the DP driver that I need to match to N entries
+> > > from the platform specific intf array, I need some stable reference
+> > > between them. When I started this journey I figured I could rely on the
+> > > of_graph between the DPU and the interface controllers, but the values
+> > > used there today are just bogus, so that was a no go.
+> > >
+> > > We can use whatever, as long as _dpu_kms_initialize_displayport() can
+> > > come up with an identifier to put in h_tile_instance[0] so that
+> > > dpu_encoder_setup_display() can find the relevant INTF.
+> > >
 > >
-> > Although there's only a single block at this point, the array of descs
-> > and the search in dp_display_get_desc() are introduced here to simplify
-> > the next patch, that does introduce support for multiple DP blocks.
+> > To make it more concrete we can look at sc7180
 > >
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
+> > static const struct dpu_intf_cfg sc7180_intf[] = {
+> >         INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24,
+> > INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> >                                                      ^
+> >                                                      |
 > >
-> > Changes since v3:
-> > - New patch
-> > - Extended msm_dp_config with connector_type, wrapped in inner struct
-> > - Refactored out of the next patch
-> > - Pass the connector_type to drm_connector_init(), from yet another patch
-> > - Dropped double newline and unnecessary {}
-> 
-> BTW, I see that we check for the connector type in debugfs.
-> 
-> $ git grep DRM_MODE_CONNECTOR_DisplayPort -- drivers/gpu/drm/msm/dp/
-> drivers/gpu/drm/msm/dp/dp_debug.c:
-> DRM_MODE_CONNECTOR_DisplayPort)
-> drivers/gpu/drm/msm/dp/dp_debug.c:
-> DRM_MODE_CONNECTOR_DisplayPort)
-> drivers/gpu/drm/msm/dp/dp_debug.c:
-> DRM_MODE_CONNECTOR_DisplayPort)
-> drivers/gpu/drm/msm/dp/dp_debug.c:
-> DRM_MODE_CONNECTOR_DisplayPort)
-> 
-> So do those need to be updated to handle either connector type?
+> > intf0 is irrelevant. Also the address is irrelevant. But here we have a
+> > zero, the number after INTF_DP, and that is very relevant. That number
+> > needs to match the dp->id. Somewhere we have a match between
+> > controller_id and dp->id in the code.
+>
+> That number (the 0, not INTF_0) is what the code matches against dp->id
+> in _dpu_kms_initialize_displayport(), in order to figure out that this
+> is INTF_0 in dpu_encoder_setup_display().
+>
+> I.e. look at the sc8180x patch:
+>
+> INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+> INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
+> INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+>
+> Where the DP driver defines the 3 controllers with dp->id of 0, 1 and 2,
+> which the DPU code will match against to INTF_0, INTF_4 and INTF_5.
+>
 
-The debugfs code loops over all the connectors for the DRM device and
-skips those that aren't DisplayPort ones. So fixing this up to properly
-support multiple instances in the dp_debugfs code as well should resolve
-this.
+Yep. I'm saying that having to make that number in this intf array match
+the order of the register mapping descriptor array is fragile. Why can't
+we indicate the interface is DP or eDP with INTF_DP or INTF_EDP and then
+map from the descriptor array to this intf array somehow so that the
+order of the descriptor array doesn't matter? Then we don't have to put
+the connector type in the descriptor array, and we don't have to keep
+the order of the array a certain way to match this intf descriptor.
 
-Regards,
-Bjorn
+Maybe
+
+	struct msm_dp_desc {
+		phys_addr_t io_start;
+		unsigned int id;
+	};
+
+and then have msm_dp_desc::id equal INTF_<N> and then look through the
+intf from DPU here in the DP driver to find the id and type of connector
+that should be used by default? Still sort of fragile because the only
+connection is an unsigned int which isn't great, but at least it's
+explicit instead of implicit based on the array order.
