@@ -2,49 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A17424837
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 22:48:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC6A424839
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 22:48:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C94B6EE64;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D37E6EE77;
 	Wed,  6 Oct 2021 20:48:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D38D76E558
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 20:48:31 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id x27so15585105lfa.9
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 13:48:31 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973C16E558
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 20:48:32 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id x27so15672956lfu.5
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 13:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=R4j4McPlc/+lAeM9Wl4HLExls29kqJZ7/vF2Ck1kcqA=;
- b=E2FXwHy8vYhenDZFy+97/bSDcaYarSzPGF4sKDxUKKPWqdg5Tns39SAxX794DM65P8
- HcAl5sl3nnD40tEvkP9CRBxm9xNOv9W5DH6Z+iYtMnED+gg6acg7JwcrTHePZpOHFzNJ
- nTFURiSbmPdimg/Ukm00wyj2NOUfqk2ZdY1RRWENhfUKOcCUpZlMnJOcb5024ypR8vWj
- jAZKQ8h4kUY/GJEZezMmoYJCq12mLXHy+Zve0eDTz6dTKFabySzxDORciw9MmK/tGo0/
- 06zLs98mKrC8GuP9KgEXA4kpRxyJ462SJWPtaRfkFmyT39NfZhcc6uLU6b9IfStCH9HA
- /wog==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=omBxJqx/FyuXHNB3iSfAI33Nu5vXJyXne6zSU6njhHw=;
+ b=kMXzRWnKXIXhCAcuRaafEUEmwhOd6NWc2nEUh4LClHTs3R5bCtkIYFIrS9/Raog3Ku
+ D9NVdxNw0AhF7oynGKTQtWVEkdlzqV4QVksSstJ7iiiXsM1irYJUsF4WQmFQMcUOkvcZ
+ 4W4rzmCo2Z7QfJwiCOliCag0FYJ2x6Q9lLE2Khlexe0X5VsDoP1uaIMhMD+zlz6shRjs
+ qqAskVVYkxk9n2HLXFN+odr0++5h6qMv5XJbr+200nIyXOA6Q2Q96ND3AVjU7nPpOYYX
+ 7q9tnCZr6z7eugPd1jwCd+Da5GcGR3etXmaPv5WLAwd2rbOMi8BF+3oMoUyyrx3QckY0
+ fCJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=R4j4McPlc/+lAeM9Wl4HLExls29kqJZ7/vF2Ck1kcqA=;
- b=bNkBmAPeyzmMWphGG4XUeb1qLUeJn4EXfvq5tM5xu/yx1cSejMQyiOCrzngZAG1Qj2
- /CePAgN0yfGgTq9jRPkHwqFGaWzqJOMiUGly/kcESUj1Vu6d1r9qW9g5GOs71fU0T9p/
- 2BhgwqfBxpl0NBSNyAZJvY7XLBOgGCw/gQiow+H/FGiiwdzuDvCafkyv43bNMdeZUFT3
- Bg95ssob0rwGnW0TmJsuNgYJ3OGjBuLMPmjc4M3h5m+FKR2q68TlLU9XZCkBrgBN8/+Y
- WrHYk4sMRXpSETRlSPcecCnRVLQi/WlGVxGAe73nEZkcUxbvo5ajlOAd4cV/a54qx5Tm
- +BTg==
-X-Gm-Message-State: AOAM53055pBPv8MUOiF+sPqXS13P5Ri6f2BDNWJOs4Ux9jvBD0cBPj1N
- nZ+Ukjpg+6F2Spym7t/JDBAAMQ==
-X-Google-Smtp-Source: ABdhPJwpskYvbnXFarxIr/6JKRf3qn0rHbCDumnq9HTNk2sRM5W2ywQqg1tBs2thLAAZtvu4S3Ejng==
-X-Received: by 2002:a2e:7203:: with SMTP id n3mr229653ljc.195.1633553310086;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=omBxJqx/FyuXHNB3iSfAI33Nu5vXJyXne6zSU6njhHw=;
+ b=j4B7EBSfE2GwXmBx4MptoXKAf50SJn+CBGXW3h90w/eUJEYca4/J7wLJv7s3Rd0r/w
+ 0YYNn9G6ulWlFiADZQ5aUxvMD7ctxm+y2KJy56qEiDJ10leySO6ZZo4llOJpJmolcJLI
+ dENhSaEXrrk6T6L3sI96c67kGnlgPDsJT/JTl36+oRFezVqghtcALXwYMVpn26iCLDdW
+ CmK4+u82Yr8C2Gs4tqo3DdLhCvFXmfxZ/kcQS43HNsGyRgQ8gKzB+qF3xbBkT/FEh2/s
+ 6sX6NQJqdMKij6qqeyiWrOxWOprmduDSTbZzlnXheWEuFhYaVUUZV6K0zepiVQATH2Fg
+ AXMQ==
+X-Gm-Message-State: AOAM5302ENqGwbzcw0iFeY8HtleNhmF2SNBMH3fLyrtkSjipeIHLskBh
+ eH7M5YKjwXH3AmMTM6w9ksSuBw==
+X-Google-Smtp-Source: ABdhPJwzRAoSXLNBfgkpGRLNZ/6a2V7s0SldbWKOa+R9EMgjB1wOVpraMIWLbcsaUID8xKyMa2a4Ew==
+X-Received: by 2002:a05:6512:1291:: with SMTP id
+ u17mr238075lfs.226.1633553310810; 
  Wed, 06 Oct 2021 13:48:30 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id y19sm2378787ljc.116.2021.10.06.13.48.29
+ by smtp.gmail.com with ESMTPSA id y19sm2378787ljc.116.2021.10.06.13.48.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 13:48:29 -0700 (PDT)
+ Wed, 06 Oct 2021 13:48:30 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -53,13 +54,15 @@ Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Date: Wed,  6 Oct 2021 23:48:27 +0300
-Message-Id: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
+Date: Wed,  6 Oct 2021 23:48:28 +0300
+Message-Id: <20211006204828.1218225-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
+References: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 1/2] drm/msm/dsi: untangle cphy setting from the
- src pll setting
+Subject: [Freedreno] [PATCH 2/2] drm/msm/dsi: stop setting clock parents
+ manually
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,69 +78,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move DPHY/CPHY setting from msm_dsi_host_set_src_pll() to new function
-msm_dsi_host_set_phy_mode().
+There is no reason to set clock parents manually, use device tree to
+assign DSI/display clock parents to DSI PHY clocks. Dropping this manual
+setup allows us to drop repeating code and to move registration of hw
+clock providers to generic place.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi.h         | 2 ++
- drivers/gpu/drm/msm/dsi/dsi_host.c    | 8 ++++++++
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 3 +++
- 3 files changed, 13 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi.h         |  2 -
+ drivers/gpu/drm/msm/dsi/dsi_host.c    | 53 ---------------------------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 11 +-----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 11 ------
+ 4 files changed, 2 insertions(+), 75 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index b50db91cb8a7..7dfb6d198ca9 100644
+index 7dfb6d198ca9..c03a8d09c764 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi.h
 +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -118,6 +118,8 @@ unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host);
- struct drm_bridge *msm_dsi_host_get_bridge(struct mipi_dsi_host *host);
- int msm_dsi_host_register(struct mipi_dsi_host *host, bool check_defer);
- void msm_dsi_host_unregister(struct mipi_dsi_host *host);
-+void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
-+			struct msm_dsi_phy *src_phy);
- int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
- 			struct msm_dsi_phy *src_phy);
- void msm_dsi_host_reset_phy(struct mipi_dsi_host *host);
+@@ -173,8 +173,6 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
+ void msm_dsi_phy_disable(struct msm_dsi_phy *phy);
+ void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
+ 			     enum msm_dsi_phy_usecase uc);
+-int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+-	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
+ void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
+ int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
+ void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct msm_dsi_phy *phy);
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index e269df285136..1ffcd0577e99 100644
+index 1ffcd0577e99..9600b4fa27eb 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2224,6 +2224,14 @@ void msm_dsi_host_cmd_xfer_commit(struct mipi_dsi_host *host, u32 dma_base,
- 	wmb();
+@@ -2232,59 +2232,6 @@ void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
+ 	msm_host->cphy_mode = src_phy->cphy_mode;
  }
  
-+void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
-+	struct msm_dsi_phy *src_phy)
-+{
-+	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+
-+	msm_host->cphy_mode = src_phy->cphy_mode;
-+}
-+
- int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
- 	struct msm_dsi_phy *src_phy)
+-int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
+-	struct msm_dsi_phy *src_phy)
+-{
+-	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+-	struct clk *byte_clk_provider, *pixel_clk_provider;
+-	int ret;
+-
+-	msm_host->cphy_mode = src_phy->cphy_mode;
+-
+-	ret = msm_dsi_phy_get_clk_provider(src_phy,
+-				&byte_clk_provider, &pixel_clk_provider);
+-	if (ret) {
+-		pr_info("%s: can't get provider from pll, don't set parent\n",
+-			__func__);
+-		return 0;
+-	}
+-
+-	ret = clk_set_parent(msm_host->byte_clk_src, byte_clk_provider);
+-	if (ret) {
+-		pr_err("%s: can't set parent to byte_clk_src. ret=%d\n",
+-			__func__, ret);
+-		goto exit;
+-	}
+-
+-	ret = clk_set_parent(msm_host->pixel_clk_src, pixel_clk_provider);
+-	if (ret) {
+-		pr_err("%s: can't set parent to pixel_clk_src. ret=%d\n",
+-			__func__, ret);
+-		goto exit;
+-	}
+-
+-	if (msm_host->dsi_clk_src) {
+-		ret = clk_set_parent(msm_host->dsi_clk_src, pixel_clk_provider);
+-		if (ret) {
+-			pr_err("%s: can't set parent to dsi_clk_src. ret=%d\n",
+-				__func__, ret);
+-			goto exit;
+-		}
+-	}
+-
+-	if (msm_host->esc_clk_src) {
+-		ret = clk_set_parent(msm_host->esc_clk_src, byte_clk_provider);
+-		if (ret) {
+-			pr_err("%s: can't set parent to esc_clk_src. ret=%d\n",
+-				__func__, ret);
+-			goto exit;
+-		}
+-	}
+-
+-exit:
+-	return ret;
+-}
+-
+ void msm_dsi_host_reset_phy(struct mipi_dsi_host *host)
  {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index c41d39f5b7cf..49a0a0841487 100644
+index 49a0a0841487..9342a822ad20 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -77,6 +77,7 @@ static int dsi_mgr_setup_components(int id)
- 			return ret;
+@@ -78,10 +78,7 @@ static int dsi_mgr_setup_components(int id)
  
  		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-+		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
- 		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
- 	} else if (!other_dsi) {
- 		ret = 0;
-@@ -104,6 +105,8 @@ static int dsi_mgr_setup_components(int id)
- 					MSM_DSI_PHY_MASTER);
- 		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
+ 		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+-		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
+-	} else if (!other_dsi) {
+-		ret = 0;
+-	} else {
++	} else if (other_dsi) {
+ 		struct msm_dsi *master_link_dsi = IS_MASTER_DSI_LINK(id) ?
+ 							msm_dsi : other_dsi;
+ 		struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
+@@ -107,13 +104,9 @@ static int dsi_mgr_setup_components(int id)
  					MSM_DSI_PHY_SLAVE);
-+		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-+		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
- 		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
- 		if (ret)
- 			return ret;
+ 		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+ 		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
+-		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
+-		if (ret)
+-			return ret;
+-		ret = msm_dsi_host_set_src_pll(other_dsi->host, clk_master_dsi->phy);
+ 	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int enable_phy(struct msm_dsi *msm_dsi,
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 8c65ef6968ca..8ec331e751a2 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -890,17 +890,6 @@ bool msm_dsi_phy_set_continuous_clock(struct msm_dsi_phy *phy, bool enable)
+ 	return phy->cfg->ops.set_continuous_clock(phy, enable);
+ }
+ 
+-int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+-	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
+-{
+-	if (byte_clk_provider)
+-		*byte_clk_provider = phy->provided_clocks->hws[DSI_BYTE_PLL_CLK]->clk;
+-	if (pixel_clk_provider)
+-		*pixel_clk_provider = phy->provided_clocks->hws[DSI_PIXEL_PLL_CLK]->clk;
+-
+-	return 0;
+-}
+-
+ void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy)
+ {
+ 	if (phy->cfg->ops.save_pll_state) {
 -- 
 2.33.0
 
