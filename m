@@ -2,61 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 642CB4241FC
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 17:59:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 741924243A9
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 19:05:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC2246ED6B;
-	Wed,  6 Oct 2021 15:59:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00BEF6EDBB;
+	Wed,  6 Oct 2021 17:05:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD2DD6ED6B
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 15:59:40 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1633535986; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=rAlDy/tgm9JVIvTKe6rje74SMjSz8pCctMzm0HGvymI=;
- b=MLyEfdqQnNUpY9b+48aQFFU9EjrJnwBWNhTB31ZTxPo3vXewgyOoHMGqnC3CerHLHnwUN/23
- u1zdKS2vw6YoiJU5NNOc87UjHsU5G1ECqf8WXEFaICiYSOpYzXagkEn0iZinH2jV0GnQwzLx
- pmv8W1X4fmNcOfcB0P762hBZj/o=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 615dc7e8ff0285fb0a52a403 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 06 Oct 2021 15:59:36
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 881E5C4360D; Wed,  6 Oct 2021 15:59:36 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id BD2EEC4338F;
- Wed,  6 Oct 2021 15:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org BD2EEC4338F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Kuogee Hsieh <khsieh@codeaurora.org>
-To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- dmitry.baryshkov@linaro.org, bjorn.andersson@linaro.org
-Cc: abhinavk@codeaurora.org, aravindh@codeaurora.org, khsieh@codeaurora.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed,  6 Oct 2021 08:59:26 -0700
-Message-Id: <1633535966-21005-1-git-send-email-khsieh@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm/msm/dp: do not initialize combo phy until
- plugin interrupt
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8A06EDBB
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 17:05:38 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id t4so3123012oie.5
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 10:05:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=a4URSTGZjx+2c7BWZRnuOrjl6WmKin13RZAsMibF1iQ=;
+ b=ypUFa5NHFyoIff9jLaFvHEWDJcyh88kUl2DpedE1BCHU4qP9PpUYpsjWfOO3nyKDEr
+ 910KtvY1PIx659HOC+xv0b3eiyqaFZxFohQd5O7hKVxVmyX/ylJLDQ3ZV0wrYf7OWJnJ
+ mI+gSsbQN1Tbvkx3U1i27YTE+gm9N9LvVFD7A77QMt970OwtOSK7jisxelTxRytBl8E/
+ nR4Y5QLWn9+rDz0ABMZq0jH1BoSXcS97c+fOyggzAB8UqmZqXm0ruJnCmS2YPUiEdU3I
+ mAqETz7HrcVQYh+Q3t6RpswTJuplpBbT+i5J3EgJr1n0xUPb8/RIewuOPNHz+qKzRkVh
+ V7RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=a4URSTGZjx+2c7BWZRnuOrjl6WmKin13RZAsMibF1iQ=;
+ b=fGhQ3GP2ZMDN40CR0qM0IIIU4nryEBTbpRcQuwasRbeywm3JuX3I/sbUvWnqBbImX4
+ lz16p9JuzD3M10HWpfKuou1fnUhGvCqllh1l8AB3fzFErt7LL8/exAr8tv5Qf86RJQBe
+ BXbSJInLVore2Eyc8+MXVU0uv6EchRKToUpFrWgRmmkAv4tL+mrZBpQZsY4BQLv2Oq05
+ MYNJnMHj8oG+l9TC2YiGwhl9ERSEcijsWHvc3L4RORuUqGmTsv2MjonJ2B+8TZE6p9+c
+ pP0vG8wouNlCLYrgIK6PuwLGR/eyRtGMdZOqr0aniyxLLSc/p8rSF3WI/fM2jhV4wdBV
+ tVvA==
+X-Gm-Message-State: AOAM533kv1dik2j43/pBOyyeYvUSp2BmEaZbVetVJ9vUiNQf/dDvT0Y9
+ jk5rn2TNU/z5ZstWxXrStDnjRg==
+X-Google-Smtp-Source: ABdhPJxKavagNGJEQGO7lorkHNv+5b7excmxoXkn3jywxwdBrb+D1ma68G3DXIWRqf5eA5OoPQkpDw==
+X-Received: by 2002:a05:6808:58:: with SMTP id
+ v24mr8424513oic.144.1633539937479; 
+ Wed, 06 Oct 2021 10:05:37 -0700 (PDT)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id x34sm4243945ott.52.2021.10.06.10.05.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Oct 2021 10:05:36 -0700 (PDT)
+Date: Wed, 6 Oct 2021 10:07:17 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <YV3XxadYE/KU2w89@ripper>
+References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
+ <20211005231323.2663520-6-bjorn.andersson@linaro.org>
+ <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
+ <YVz/NOL3AFn2zBA0@ripper>
+ <CAE-0n513cs282Dh_YFMHK2uKCVFSWxtNyfRaFwWGyUvpfShixw@mail.gmail.com>
+ <YV0MAF/Y5BR1e6My@ripper>
+ <CAE-0n53TwEyycpAaWVpRUKPpos4z-gqwrvyUdgobh1V88VUsXg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE-0n53TwEyycpAaWVpRUKPpos4z-gqwrvyUdgobh1V88VUsXg@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
+ controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,362 +87,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Combo phy support both USB3 and DP simultaneously. USB3 is the
-master of combo phy so that USB3 should initialize and power on
-its phy before DP initialize its phy. At current implementation,
-DP driver initialize its phy happen earlier than  USB3 initialize
-its phy which cause timeout error at procedure of power up USB3 phy
-which prevent USB3 from working. To avoid confliction of phy
-initialization between USB3 and DP, this patch have DP driver postpone
-phy initialization until plugin interrupt handler. DP driver only enable
-regulator, configure its HPD controller and enable interrupt so that it
-is able to receive HPD interrupts after completion of the initialization
-phase. DP driver will initialize and power up phy at plugin interrupt
-handler during normal operation so that both USB3 and DP are work
-simultaneously.
+On Tue 05 Oct 21:26 PDT 2021, Stephen Boyd wrote:
 
-Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 68 ++++++++++++++++++++++---------------
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |  9 +++--
- drivers/gpu/drm/msm/dp/dp_display.c | 51 +++++++++++++++++++++-------
- 3 files changed, 84 insertions(+), 44 deletions(-)
+> Quoting Bjorn Andersson (2021-10-05 19:37:52)
+> > On Tue 05 Oct 19:06 PDT 2021, Stephen Boyd wrote:
+> >
+> > > Quoting Bjorn Andersson (2021-10-05 18:43:16)
+> > > > On Tue 05 Oct 17:43 PDT 2021, Stephen Boyd wrote:
+> > > >
+> > > > > Quoting Bjorn Andersson (2021-10-05 16:13:21)
+> > > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > index bdaf227f05dc..674cddfee5b0 100644
+> > > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
+> > > > > >         if (!dp)
+> > > > > >                 return -ENOMEM;
+> > > > > >
+> > > > > > -       desc = dp_display_get_desc(pdev);
+> > > > > > +       desc = dp_display_get_desc(pdev, &dp->id);
+> > > > >
+> > > > > I'm sad that dp->id has to match the number in the SoC specific
+> > > > > dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > > > > still. Is there any way we can avoid that? Also, notice how those arrays
+> > > > > already have INTF_DP macros, which makes me think that it may be better
+> > > > > to connect this to those arrays instead of making an msm_dp_desc
+> > > > > structure and then make sure the 'type' member matches a connector
+> > > > > type number. Otherwise this code is super fragile.
+> > > > >
+> > > >
+> > > > I'm afraid I don't understand what you're proposing. Or which part you
+> > > > consider fragile, the indices of the INTF_DP instances aren't going to
+> > > > move around...
+> > > >
+> > > > I have N instances of the DP driver that I need to match to N entries
+> > > > from the platform specific intf array, I need some stable reference
+> > > > between them. When I started this journey I figured I could rely on the
+> > > > of_graph between the DPU and the interface controllers, but the values
+> > > > used there today are just bogus, so that was a no go.
+> > > >
+> > > > We can use whatever, as long as _dpu_kms_initialize_displayport() can
+> > > > come up with an identifier to put in h_tile_instance[0] so that
+> > > > dpu_encoder_setup_display() can find the relevant INTF.
+> > > >
+> > >
+> > > To make it more concrete we can look at sc7180
+> > >
+> > > static const struct dpu_intf_cfg sc7180_intf[] = {
+> > >         INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24,
+> > > INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> > >                                                      ^
+> > >                                                      |
+> > >
+> > > intf0 is irrelevant. Also the address is irrelevant. But here we have a
+> > > zero, the number after INTF_DP, and that is very relevant. That number
+> > > needs to match the dp->id. Somewhere we have a match between
+> > > controller_id and dp->id in the code.
+> >
+> > That number (the 0, not INTF_0) is what the code matches against dp->id
+> > in _dpu_kms_initialize_displayport(), in order to figure out that this
+> > is INTF_0 in dpu_encoder_setup_display().
+> >
+> > I.e. look at the sc8180x patch:
+> >
+> > INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> > INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> > INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> > /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+> > INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> > INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
+> > INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+> >
+> > Where the DP driver defines the 3 controllers with dp->id of 0, 1 and 2,
+> > which the DPU code will match against to INTF_0, INTF_4 and INTF_5.
+> >
+> 
+> Yep. I'm saying that having to make that number in this intf array match
+> the order of the register mapping descriptor array is fragile. Why can't
+> we indicate the interface is DP or eDP with INTF_DP or INTF_EDP and then
+> map from the descriptor array to this intf array somehow so that the
+> order of the descriptor array doesn't matter? Then we don't have to put
+> the connector type in the descriptor array, and we don't have to keep
+> the order of the array a certain way to match this intf descriptor.
+> 
+> Maybe
+> 
+> 	struct msm_dp_desc {
+> 		phys_addr_t io_start;
+> 		unsigned int id;
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 5551a8d..4c5d507 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1378,7 +1378,25 @@ static int dp_ctrl_enable_stream_clocks(struct dp_ctrl_private *ctrl)
- 	return ret;
- }
- 
--int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset)
-+void dp_ctrl_irq_enable(struct dp_ctrl *dp_ctrl, bool flip)
-+{
-+	struct dp_ctrl_private *ctrl;
-+
-+	if (!dp_ctrl) {
-+		DRM_ERROR("Invalid input data\n");
-+		return;
-+	}
-+
-+	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-+
-+	ctrl->dp_ctrl.orientation = flip;
-+
-+	dp_catalog_ctrl_reset(ctrl->catalog);
-+
-+	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
-+}
-+
-+void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
- {
- 	struct dp_ctrl_private *ctrl;
- 	struct dp_io *dp_io;
-@@ -1386,33 +1404,44 @@ int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset)
- 
- 	if (!dp_ctrl) {
- 		DRM_ERROR("Invalid input data\n");
--		return -EINVAL;
-+		return;
- 	}
- 
- 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
- 	dp_io = &ctrl->parser->io;
- 	phy = dp_io->phy;
- 
--	ctrl->dp_ctrl.orientation = flip;
--
--	if (reset)
--		dp_catalog_ctrl_reset(ctrl->catalog);
--
- 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
- 	phy_init(phy);
--	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
-+}
- 
--	return 0;
-+void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl)
-+{
-+	struct dp_ctrl_private *ctrl;
-+	struct dp_io *dp_io;
-+	struct phy *phy;
-+
-+	if (!dp_ctrl) {
-+		DRM_ERROR("Invalid input data\n");
-+		return;
-+	}
-+
-+	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-+	dp_io = &ctrl->parser->io;
-+	phy = dp_io->phy;
-+
-+	dp_catalog_ctrl_phy_reset(ctrl->catalog);
-+	phy_exit(phy);
- }
- 
- /**
-- * dp_ctrl_host_deinit() - Uninitialize DP controller
-+ * dp_ctrl_irq_phy_exit() - disable dp irq and exit phy
-  * @dp_ctrl: Display Port Driver data
-  *
-  * Perform required steps to uninitialize DP controller
-  * and its resources.
-  */
--void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl)
-+void dp_ctrl_irq_phy_exit(struct dp_ctrl *dp_ctrl)
- {
- 	struct dp_ctrl_private *ctrl;
- 	struct dp_io *dp_io;
-@@ -1866,23 +1895,6 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
- 	return ret;
- }
- 
--void dp_ctrl_off_phy(struct dp_ctrl *dp_ctrl)
--{
--	struct dp_ctrl_private *ctrl;
--	struct dp_io *dp_io;
--	struct phy *phy;
--
--	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--	dp_io = &ctrl->parser->io;
--	phy = dp_io->phy;
--
--	dp_catalog_ctrl_reset(ctrl->catalog);
--
--	phy_exit(phy);
--
--	DRM_DEBUG_DP("DP off phy done\n");
--}
--
- int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
- {
- 	struct dp_ctrl_private *ctrl;
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 2363a2d..c1e4b1b 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -19,12 +19,9 @@ struct dp_ctrl {
- 	u32 pixel_rate;
- };
- 
--int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset);
--void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
--void dp_ctrl_off_phy(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
- void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl);
- void dp_ctrl_isr(struct dp_ctrl *dp_ctrl);
-@@ -34,4 +31,10 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
- 			struct dp_power *power, struct dp_catalog *catalog,
- 			struct dp_parser *parser);
- 
-+void dp_ctrl_irq_enable(struct dp_ctrl *dp_ctrl, bool flip);
-+void dp_ctrl_irq_disable(struct dp_ctrl *dp_ctrl);
-+void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl);
-+void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl);
-+void dp_ctrl_irq_phy_exit(struct dp_ctrl *dp_ctrl);
-+
- #endif /* _DP_CTRL_H_ */
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index cad25dd..44032ae 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -62,6 +62,11 @@ enum {
- 	EV_DISCONNECT_PENDING_TIMEOUT,
- };
- 
-+enum {
-+	TYPE_eDP = 1,
-+	TYPE_DP,
-+};
-+
- #define EVENT_TIMEOUT	(HZ/10)	/* 100ms */
- #define DP_EVENT_Q_MAX	8
- 
-@@ -81,6 +86,7 @@ struct dp_display_private {
- 	int irq;
- 
- 	int id;
-+	int type;
- 
- 	/* state variables */
- 	bool core_initialized;
-@@ -121,31 +127,37 @@ struct dp_display_private {
- 
- struct msm_dp_config { 
- 	phys_addr_t io_start[3];
-+	int type;
- 	size_t num_dp;
- };
- 
- static const struct msm_dp_config sc7180_dp_cfg = {
- 	.io_start = { 0x0ae90000 },
-+	.type = TYPE_DP,
- 	.num_dp = 1,
- };
- 
- static const struct msm_dp_config sc8180x_dp_cfg = {
- 	.io_start = { 0xae90000, 0xae98000, 0 },
-+	.type = TYPE_DP,
- 	.num_dp = 3,
- };
- 
- static const struct msm_dp_config sc8180x_edp_cfg = {
- 	.io_start = { 0, 0, 0xae9a000 },
- 	.num_dp = 3,
-+	.type = TYPE_eDP,
- };
- 
- static const struct msm_dp_config sc7280_edp_cfg = {
- 	.io_start = { 0xaea0000, 0 },
-+	.type = TYPE_eDP,
- 	.num_dp = 2,
- };
- 
- static const struct msm_dp_config sc7280_dp_cfg = { 
- 	.io_start = { 0, 0xae90000 },
-+	.type = TYPE_DP,
- 	.num_dp = 2,
- };
- 
-@@ -392,7 +404,7 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 	return rc;
- }
- 
--static void dp_display_host_init(struct dp_display_private *dp, int reset)
-+static void dp_display_host_init(struct dp_display_private *dp)
- {
- 	bool flip = false;
- 
-@@ -404,12 +416,21 @@ static void dp_display_host_init(struct dp_display_private *dp, int reset)
- 	if (dp->usbpd->orientation == ORIENTATION_CC2)
- 		flip = true;
- 
--	dp_power_init(dp->power, flip);
--	dp_ctrl_host_init(dp->ctrl, flip, reset);
-+	dp_power_init(dp->power, false);
-+	dp_ctrl_irq_enable(dp->ctrl, flip);
-+
-+	if (dp->type == TYPE_eDP)
-+		dp_ctrl_phy_init(dp->ctrl);
-+
- 	dp_aux_init(dp->aux);
- 	dp->core_initialized = true;
- }
- 
-+static void dp_display_host_phy_init(struct dp_display_private *dp)
-+{
-+	dp_ctrl_phy_init(dp->ctrl);
-+}
-+
- static void dp_display_host_deinit(struct dp_display_private *dp)
- {
- 	if (!dp->core_initialized) {
-@@ -417,7 +438,7 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
- 		return;
- 	}
- 
--	dp_ctrl_host_deinit(dp->ctrl);
-+	dp_ctrl_irq_phy_exit(dp->ctrl);
- 	dp_aux_deinit(dp->aux);
- 	dp_power_deinit(dp->power);
- 
-@@ -435,7 +456,7 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
- 		goto end;
- 	}
- 
--	dp_display_host_init(dp, false);
-+	dp_display_host_phy_init(dp);
- 
- 	rc = dp_display_process_hpd_high(dp);
- end:
-@@ -646,9 +667,8 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
- 	if (state == ST_DISCONNECTED) {
- 		/* triggered by irq_hdp with sink_count = 0 */
- 		if (dp->link->sink_count == 0) {
--			dp_ctrl_off_phy(dp->ctrl);
-+			dp_ctrl_phy_exit(dp->ctrl);
- 			hpd->hpd_high = 0;
--			dp->core_initialized = false;
- 		}
- 		mutex_unlock(&dp->event_mutex);
- 		return 0;
-@@ -1040,7 +1060,7 @@ int dp_display_get_test_bpp(struct msm_dp *dp)
- static void dp_display_config_hpd(struct dp_display_private *dp)
- {
- 
--	dp_display_host_init(dp, true);
-+	dp_display_host_init(dp);
- 	dp_catalog_ctrl_hpd_config(dp->catalog);
- 
- 	/* Enable interrupt first time
-@@ -1222,7 +1242,8 @@ int dp_display_request_irq(struct msm_dp *dp_display)
- 	return 0;
- }
- 
--static int dp_display_get_id(struct platform_device *pdev)
-+static int dp_display_get_id(struct platform_device *pdev,
-+				struct msm_dp_config *dp_cfg)
- {
- 	const struct msm_dp_config *cfg = of_device_get_match_data(&pdev->dev);
- 	struct resource *res;
-@@ -1234,8 +1255,10 @@ static int dp_display_get_id(struct platform_device *pdev)
- 		return -EINVAL;
- 
- 	for (i = 0; i < cfg->num_dp; i++) {
--		if (cfg->io_start[i] == res->start)
-+		if (cfg->io_start[i] == res->start) {
-+			*dp_cfg = *cfg;
- 			return i;
-+		}
- 	}
- 
- 	dev_err(&pdev->dev, "unknown displayport instance\n");
-@@ -1246,6 +1269,7 @@ static int dp_display_probe(struct platform_device *pdev)
- {
- 	int rc = 0;
- 	struct dp_display_private *dp;
-+	struct msm_dp_config dp_cfg;
- 
- 	if (!pdev || !pdev->dev.of_node) {
- 		DRM_ERROR("pdev not found\n");
-@@ -1256,12 +1280,13 @@ static int dp_display_probe(struct platform_device *pdev)
- 	if (!dp)
- 		return -ENOMEM;
- 
--	dp->id = dp_display_get_id(pdev);
-+	dp->id = dp_display_get_id(pdev, &dp_cfg);
- 	if (dp->id < 0)
- 		return -EINVAL;
- 
- 	dp->pdev = pdev;
- 	dp->name = "drm_dp";
-+	dp->type = dp_cfg.type;
- 
- 	rc = dp_init_sub_modules(dp);
- 	if (rc) {
-@@ -1314,7 +1339,7 @@ static int dp_pm_resume(struct device *dev)
- 	dp->hpd_state = ST_DISCONNECTED;
- 
- 	/* turn on dp ctrl/phy */
--	dp_display_host_init(dp, true);
-+	dp_display_host_init(dp);
- 
- 	dp_catalog_ctrl_hpd_config(dp->catalog);
- 
-@@ -1531,7 +1556,7 @@ int msm_dp_display_enable(struct msm_drm_private *priv, struct drm_encoder *enco
- 	state =  dp_display->hpd_state;
- 
- 	if (state == ST_DISPLAY_OFF)
--		dp_display_host_init(dp_display, true);
-+		dp_display_host_phy_init(dp_display);
- 
- 	dp_display_enable(dp_display, 0);
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+The INTF_<N> constants are a property of the DPU driver and not
+available in the DP driver and the msm_dp struct is a property of the DP
+driver and can't be dereferenced in the DPU driver.
 
+The proposed way around this is that the descs array defines the order
+in priv->dp[N] and this N is used as controller_id.
+
+
+So the only thing that I don't find straight forward here is that the
+eDP controller is considered just a DP controller, so you have to use
+INTF_DP, <N> for that, and not just INTF_EDP, 0.
+
+> 	};
+> 
+> and then have msm_dp_desc::id equal INTF_<N> and then look through the
+> intf from DPU here in the DP driver to find the id and type of connector
+> that should be used by default? Still sort of fragile because the only
+> connection is an unsigned int which isn't great, but at least it's
+> explicit instead of implicit based on the array order.
+
+No matter how I look at this, you need to put some number somewhere here
+that will be used to match up the INTF with the right DSI/DP encoder.
+
+Using the proposed number scheme follows the numbering of all the DP
+controllers from the documentation.
+
+Regards,
+Bjorn
