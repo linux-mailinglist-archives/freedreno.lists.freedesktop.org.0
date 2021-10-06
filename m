@@ -1,55 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AD1D423523
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 02:36:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E642042353E
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 02:43:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 645C96E4A5;
-	Wed,  6 Oct 2021 00:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A47A6E49A;
+	Wed,  6 Oct 2021 00:43:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1851D6E49B
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 00:36:40 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- j11-20020a9d190b000000b00546fac94456so1059168ota.6
- for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 17:36:40 -0700 (PDT)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C17916E49A
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 00:43:11 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id e24so1651646oig.11
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Oct 2021 17:43:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=34FHsnThWd5cJ2Bu4AZwOiJDWeSTgTUmslcydMZU27I=;
- b=h3+Dekiu7PeXTtrw/wymCYT7cideBYDpY3zS3TTprVL+pZ/JWaEDq0UbstfC69POmj
- BCjmQtm9drcLf1tPYRVACnccuJW2IkEp7c7K2yBKmYv4a7PKHG6clmum+9hszB3Zep+v
- eyeSZ8UgbMQLzlkO1onJyYElAVEA9VIQRdgbc=
+ bh=wKt6Nae01mSLjqjYH36TB6q2xyVedx1Ybson8Q1DwNo=;
+ b=iFAJ9/IgDbQ7Sy4xqhyBxFt3v9D8bevCQfBgMV5P6XDy12y+C8h/tYzAwW05HvLVoq
+ GKGeSuk+uuQYFr/xhhCWujoSKaXnwZ6F0I3iIo3xYZyyhO5TtALLjhLHeoq7cZU88mD+
+ b+wsFarnUhcTgAiki9DVDpNtzwpTkktWrQwPc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=34FHsnThWd5cJ2Bu4AZwOiJDWeSTgTUmslcydMZU27I=;
- b=Zi68Ol2C8y9EmLI5yJDse0J+i5OcER/YHtIB6zcYJl6B5dgwM1s7Gpx+WmD6lPMNL9
- 6L8a0JhunFqQRZjWVhOW/8nCp+Cdyn2ZTYCBJDg8pzRZtoXWyxDZL8fsyTM099k6hEcd
- VSwJNd2miu/pSLNaTBshB73LbS8wwCaHjgMJeSD4uH13l24Z3/7kqoIlJgTx624tkKAH
- pxMoqRKHKqRSiTmJ7MpYCVHX0/y6AMP8ky7Ityn5pYnSaGvGot2gk4yCIe2xnQqaJhHm
- lrulAg/gHp4MBQ5mAn2THlJxoIM4o/rN/gtIH0ATZ+Lf8L7XKv9nJ2uNu+oAPfazcKE/
- 36BQ==
-X-Gm-Message-State: AOAM530OJapddmcqqwcyDCjruPgjSEfTlAtqQgCPJxfWRBl4fek/fwhE
- yKKRz3axIX/X3Wwke9mntwq/Wxx/yGwjNB63uKsalA==
-X-Google-Smtp-Source: ABdhPJzLtds0BffH3uZEHTiFhq527czugxVx7eDlpHa/6QzckkoMEfbzawgp/QBcet9u1WshjOzIz2lqcbc5Ej7qgYw=
-X-Received: by 2002:a05:6830:4116:: with SMTP id
- w22mr3879148ott.159.1633480599234; 
- Tue, 05 Oct 2021 17:36:39 -0700 (PDT)
+ bh=wKt6Nae01mSLjqjYH36TB6q2xyVedx1Ybson8Q1DwNo=;
+ b=SuQXF/sACK34PYN0wrM4LGb+xsqytZipd7RTndKZiFGDLDHkxdmalx1AdcR5E88bkT
+ tx1popEVzX7q+9xw6JwT0BYvGGl7TDde9RJ1KeiXCCjjZBBVW5TFFySa2hB78YATFfUd
+ AuE7i50QnMvGhBQyYkg7EYJT3GVwEhxU8eX8qwmJr+u67znCvMam6OpeTYjhQEwy5oQq
+ kXdeynUqO2OAoKgMBjHrZJb8SEsuw/w0JuN6agzj/wT7ugBGJUeKFcDowRUx5sZdFsM/
+ G81nadXYE45IuW2aI5aeRkjIad2QWig71VkIaE6RY4BK0JmB6y0FkgdCd4gDzrlA6oeS
+ mqNQ==
+X-Gm-Message-State: AOAM533isDlVdhIkFIPHjC9MX0yrbAJJtgjO+slZq0CNZpstq11fPtfq
+ oAeAhFPbU5BbbS/iktGoGCtMiuJFdWjhRlfPfBOLEQ==
+X-Google-Smtp-Source: ABdhPJya2fZABu/CNUYa983sa9i2c4DPhWV3wKcrOj61v8RSJ6oV5qsUFBtRizZg3Lv11yJZ04jeeHU1MRPlii5J3mY=
+X-Received: by 2002:aca:42d7:: with SMTP id p206mr5038548oia.32.1633480990745; 
+ Tue, 05 Oct 2021 17:43:10 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Oct 2021 17:36:38 -0700
+ HTTPREST; Tue, 5 Oct 2021 17:43:10 -0700
 MIME-Version: 1.0
-In-Reply-To: <20211005231323.2663520-8-bjorn.andersson@linaro.org>
+In-Reply-To: <20211005231323.2663520-6-bjorn.andersson@linaro.org>
 References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
- <20211005231323.2663520-8-bjorn.andersson@linaro.org>
+ <20211005231323.2663520-6-bjorn.andersson@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Tue, 5 Oct 2021 17:36:38 -0700
-Message-ID: <CAE-0n52MhUk_bE23FpDCrrk9errV3CvSAhNV-xm_5eiRyQ1zLw@mail.gmail.com>
+Date: Tue, 5 Oct 2021 17:43:10 -0700
+Message-ID: <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
 To: Abhinav Kumar <abhinavk@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
@@ -61,7 +59,7 @@ Cc: Rob Herring <robh+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 7/7] drm/msm/dp: Add sc8180x DP
+Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
  controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,44 +76,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-10-05 16:13:23)
-> The sc8180x has 2 DP and 1 eDP controllers, add support for these to the
-> DP driver.
->
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
->
-> Changes since v3:
-> - Rebased upon previous patches in series
->
->  drivers/gpu/drm/msm/dp/dp_display.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
+Quoting Bjorn Andersson (2021-10-05 16:13:21)
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 674cddfee5b0..29c2c1c52ddb 100644
+> index bdaf227f05dc..674cddfee5b0 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -135,8 +135,19 @@ static const struct msm_dp_config sc7180_dp_cfg = {
->         .num_descs = 1,
->  };
+> @@ -79,6 +79,8 @@ struct dp_display_private {
+>         char *name;
+>         int irq;
 >
-> +static const struct msm_dp_config sc8180x_dp_cfg = {
-> +       .descs = (struct msm_dp_desc[]) {
-
-const?
-
-> +               { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +               { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +               { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
-> +       },
-> +       .num_descs = 3,
-> +};
+> +       unsigned int id;
 > +
->  static const struct of_device_id dp_dt_match[] = {
->         { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
-> +       { .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
-> +       { .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_cfg },
+>         /* state variables */
+>         bool core_initialized;
+>         bool hpd_irq_on;
+> @@ -229,7 +231,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
+>
+>         dp->dp_display.drm_dev = drm;
+>         priv = drm->dev_private;
+> -       priv->dp = &(dp->dp_display);
+> +       priv->dp[dp->id] = &(dp->dp_display);
 
-Otherwise
+Can we drop the extra parenthesis?
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>
+>         rc = dp->parser->parse(dp->parser, dp->dp_display.connector_type);
+>         if (rc) {
+> @@ -269,7 +271,7 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+>
+>         dp_power_client_deinit(dp->power);
+>         dp_aux_unregister(dp->aux);
+> -       priv->dp = NULL;
+> +       priv->dp[dp->id] = NULL;
+>  }
+>
+>  static const struct component_ops dp_display_comp_ops = {
+> @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
+>         if (!dp)
+>                 return -ENOMEM;
+>
+> -       desc = dp_display_get_desc(pdev);
+> +       desc = dp_display_get_desc(pdev, &dp->id);
+
+I'm sad that dp->id has to match the number in the SoC specific
+dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+still. Is there any way we can avoid that? Also, notice how those arrays
+already have INTF_DP macros, which makes me think that it may be better
+to connect this to those arrays instead of making an msm_dp_desc
+structure and then make sure the 'type' member matches a connector
+type number. Otherwise this code is super fragile.
+
+>         if (!desc)
+>                 return -EINVAL;
+>
