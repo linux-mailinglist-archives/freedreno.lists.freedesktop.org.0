@@ -1,49 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E69A423DAC
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 14:22:45 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55A3A423DEB
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 14:43:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C366E4B7;
-	Wed,  6 Oct 2021 12:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9736EDB2;
+	Wed,  6 Oct 2021 12:43:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B496E4B7;
- Wed,  6 Oct 2021 12:22:43 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E6881610A2;
- Wed,  6 Oct 2021 12:22:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0935C6EDB2;
+ Wed,  6 Oct 2021 12:43:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E8A5B60F23;
+ Wed,  6 Oct 2021 12:43:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633522962;
- bh=gtGj1ZK3qFauXUTVt0mwKMorMTrcx2LU7cWdijC2pBo=;
+ s=k20201202; t=1633524200;
+ bh=NXX/YVeSC1/xMv0e7rgZCXBKEbXgorLqIvzRSnMfkfA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=F5Y3YD1OS4WWQxkIzADJfP7SsvCxK5JOgkgYUHVE2VqN+sP9dgq0q6aiWTOHuomFQ
- MiiPptBcgS/eqfKoO5jR4CyHpN6BTduD8clzM9aIbpzogi6szC7W3ueUFc8y4aNhDd
- UjqEwIa5klJzAIueWubIVlA/PZ7DE8IiAeaqTAC4TXHOBL2gCT4tBVpKcE5bmOsz8q
- nAH1+zKCw88kNy6nl9FRGBMvkDPcAI8MYmogzAPUO2kyaR8Ac2c08nhxgCV7/DM5KX
- UCYuo1F2b3Mt9k2o6tZ/0DK5FKDkfMNVhWnzCmI9QCXwYiba0rDWfCwQjMDGgV5zYO
- ao2y896JArvJQ==
-Date: Wed, 6 Oct 2021 17:52:38 +0530
+ b=KiwZEZTBaFLkFv2VNrd0e9f56QbQwT/fvCufaFLfozr4TRjxw1yntvxAKGYX8gbtL
+ s9Ilw6I4jGZr/w9X7NtIvuZBR2GqSG6mxyfJASQ3v5p7+U+SARrT3cEhZb+M6CmAzf
+ wuc/FZIYjZdMGAyTNDB5etmzBwMaNXjlOqmrartbq1wcGlBcESlsAvP/siFZz9aO1j
+ RFXVme+4roOdlkjaxzxSKMj3IdwVZUGhE+w6aTMpGS/UywqEhpcmvZDPU4sAByK1Ao
+ rjEd7tzi+ZToE5W7ngVUO56CiBeG1rbLXAbpkrlhLeDRWbVXD8ZuyJN685m37EY1C+
+ 2Ja2arWnSxQeA==
+Date: Wed, 6 Oct 2021 18:13:16 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: abhinavk@codeaurora.org
-Cc: Rob Clark <robdclark@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
  Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
-Message-ID: <YV2VDtYMhPJgTXoQ@matsya>
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Message-ID: <YV2Z5JbfFAgLo0n6@matsya>
 References: <20210715065203.709914-1-vkoul@kernel.org>
- <20210715065203.709914-8-vkoul@kernel.org>
- <cd5d1e1fb3a8ce1a9970c29a39df1b4b@codeaurora.org>
+ <20210715065203.709914-9-vkoul@kernel.org>
+ <0227846a-47b1-96e7-f14c-7dc3b4f1ba47@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cd5d1e1fb3a8ce1a9970c29a39df1b4b@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH 07/11] drm/msm/disp/dpu1: Don't use DSC with
- mode_3d
+In-Reply-To: <0227846a-47b1-96e7-f14c-7dc3b4f1ba47@linaro.org>
+Subject: Re: [Freedreno] [PATCH 08/11] drm/msm/disp/dpu1: Add support for
+ DSC in encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,32 +61,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 02-08-21, 17:24, abhinavk@codeaurora.org wrote:
-> On 2021-07-14 23:51, Vinod Koul wrote:
-> > We cannot enable mode_3d when we are using the DSC. So pass
-> > configuration to detect DSC is enabled and not enable mode_3d
-> > when we are using DSC
-> > 
-> > We add a helper dpu_encoder_helper_get_dsc_mode() to detect dsc
-> > enabled and pass this to .setup_intf_cfg()
-> > 
-> This is not entirely correct. This is true only for the 2-2-1 topology you
-> are using
-> on this panel.
-> 
-> When you are using 2-2-1, you are using 2 LMs, 2 DSCs and 1 DSI.
-> So 3D mux shouldnt be used.
-> 
-> If you are using something like 4-2-1 or 4-2-2, then you have 4LMs,
-> 2 DSCs and 2/1 DSI.
-> 
-> Here you need the 3D mux to convert the data from 4LMs to 2 DSCs.
-> 
-> So please correct the commit text here and also add a check for the
-> topology.
+On 29-07-21, 23:54, Dmitry Baryshkov wrote:
+> On 15/07/2021 09:52, Vinod Koul wrote:
 
-Ack, we should mention this and modify it in future when more topology
-support is added.
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 8d942052db8a..41140b781e66 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -21,12 +21,17 @@
+> >   #include "dpu_hw_intf.h"
+> >   #include "dpu_hw_ctl.h"
+> >   #include "dpu_hw_dspp.h"
+> > +#include "dpu_hw_dsc.h"
+> >   #include "dpu_formats.h"
+> >   #include "dpu_encoder_phys.h"
+> >   #include "dpu_crtc.h"
+> >   #include "dpu_trace.h"
+> >   #include "dpu_core_irq.h"
+> > +#define DSC_MODE_SPLIT_PANEL		BIT(0)
+> > +#define DSC_MODE_MULTIPLEX		BIT(1)
+> > +#define DSC_MODE_VIDEO			BIT(2)
+> 
+> This should go into dpu_hw_dsc.h. Ah. They are already defined there and
+> just redefined there. Remove the defines here.
+
+Sure, updated
+
+> It might be cleaner to add bool flags to struct msm_display_dsc_config and
+> then calculate common mode in the dpu_hw_dsc_config().
+
+How would that be better than calculating here? I dont see much of an
+advantage.
+
+> > +static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
+> > +				     struct dpu_hw_pingpong *hw_pp,
+> > +				     struct msm_display_dsc_config *dsc,
+> > +				     u32 common_mode)
+> > +{
+> > +	if (hw_dsc->ops.dsc_config)
+> > +		hw_dsc->ops.dsc_config(hw_dsc, dsc, common_mode);
+> > +
+> > +	if (hw_dsc->ops.dsc_config_thresh)
+> > +		hw_dsc->ops.dsc_config_thresh(hw_dsc, dsc);
+> > +
+> > +	if (hw_pp->ops.setup_dsc)
+> > +		hw_pp->ops.setup_dsc(hw_pp);
+> > +
+> > +	if (hw_pp->ops.enable_dsc)
+> > +		hw_pp->ops.enable_dsc(hw_pp);
+> 
+> I think, we do not need to split these operations, I'd suggest having just
+> hw_dsc->ops.dsc_config() and hw_pp->ops.enable_dsc(), merging
+> dsc_config_thres() and setup_dsc() into respective methods.
+
+Merging hw_dsc->ops.dsc_config() and hw_dsc->ops.dsc_config_thresh() would make
+it from L to XL size, so lets keep them split.
+
+We could merge the small hw_pp->ops.setup_dsc() and
+hw_pp->ops.enable_dsc() though.
+
+> >   void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
+> >   {
+> >   	struct dpu_encoder_virt *dpu_enc;
+> >   	struct dpu_encoder_phys *phys;
+> > +	struct msm_drm_private *priv;
+> >   	bool needs_hw_reset = false;
+> >   	unsigned int i;
+> > @@ -1841,6 +1977,10 @@ void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
+> >   			dpu_encoder_helper_hw_reset(dpu_enc->phys_encs[i]);
+> >   		}
+> >   	}
+> > +
+> > +	priv = drm_enc->dev->dev_private;
+> > +	if (priv->dsc)
+> > +		dpu_encoder_prep_dsc(dpu_enc, priv->dsc);
+> 
+> Not quite. This makes dsc config global, while we can have several encoders
+> enabled at once (think of DSI + DP). So the dsc should be a per-encoder
+> setting rather than global.
+
+I agree it would make sense to have per-encoder. The DP part needs to be
+comprehended for DSC and would need more changes. I think updating this
+for DP then and making it generic as required for DP would be better,
+right? In that case I will skip moving to encoder for now.
 
 -- 
 ~Vinod
