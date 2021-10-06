@@ -1,75 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D015424434
-	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 19:29:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68FA242458D
+	for <lists+freedreno@lfdr.de>; Wed,  6 Oct 2021 20:03:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA456EDDD;
-	Wed,  6 Oct 2021 17:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30F746E542;
+	Wed,  6 Oct 2021 18:03:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2286EDDE
- for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 17:29:53 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- x33-20020a9d37a4000000b0054733a85462so4012891otb.10
- for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 10:29:53 -0700 (PDT)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55C326EDDF
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Oct 2021 18:03:30 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id y201so5232939oie.3
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Oct 2021 11:03:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=sriAlmS/O1ECrsUc2OnPgpiaqh82uZoYCygtIK25Qms=;
- b=U5/BlyXEMbL16pTIuvauG2ZaIDGc6fUX3EV72SGDx4T74Tpwj7UsA4oMhgwrGuZ0rW
- fcA3XyEz97l1ejfg/T3jSNAKYJfOn3lgIulJaltlOzES327tc9JDntqc1WoDwL3IQY+I
- ZX1T766ELr1cACdNGgEYpKpbd4Pd2IiW5/0EdQea1shQixU0ojEhOwdPfmKvKPa1Wm42
- llCsdKQGeEgbfvYOVDfukom68SPhSvDcSK3fFkcrVK4pywZp8HYdJ6x7hp4mpZORmK+y
- iCrBFqSBLAhcSpdFT2gVkB1duSzYAnhDyvHMt7Bb5Cf8jI+opOh59nm4Zr8BHDD6Hd56
- tclA==
+ bh=psbawOvPREZetk25SKjFy5KJSwwye8SwkesERDXI3nE=;
+ b=oR8WbBbdGcBhOyRol0BX9gGw9olPQauh/uNq+0HBvN99nCECfc9sOnfYaSN4cwVW7m
+ lpV+icqQmvwYZ6a3eKAkspe3w7LJq86RW7woQ5liDgTL5yMGk//PYSOZThDirKnJDLU8
+ 4ylLi6kNXp8yhMrSJml5u0ECKZGCu+DA2yOZw+DkTj5TDCXUIRTJavB/VBIF7Y4e/AWN
+ oOSeMhuSpfv/vYZVf21O6jHeLuX7CNr22jnNQQwW3LRdO0FCYyzyGnhWWYgfiGFqhn0d
+ PeVsWMWYr4jLPO3Ed3tLkult6FN2HdeW/+2mq48T8W259f1uwuJwMtd11bjQibmJNIN2
+ Ijeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=sriAlmS/O1ECrsUc2OnPgpiaqh82uZoYCygtIK25Qms=;
- b=hzZkwAvgSAnQjY41ZGVFAFVavJ2qLcgHVvjUpvtdhvI8/9zG/Z+7DoVOzNIphhyQXK
- NTxeDTUsBgqXhGqkuWADhApPZNpbHAjJjseSK/ZGWFz5nLQVO1DQ9tgqMPH9IYPGpY2Y
- prTZpocfWd8G5xdlFg5At0Pry0dqimhITzh6H330cxlhFfd6hMJQ001M0R5ycQXGPemV
- 7npdF65RzQ70eZA5UGBlfMBHsm0dKuUxF0RukcbCPQeoPHCzJXO0I+o5bD8dvc72JCCT
- Y7jKr+e3MaWf0P/EDpllszCBRNsoqslsIG/fwZRuK1Th1Z3WFzXli4ubWUAQTJF/Levt
- R0Uw==
-X-Gm-Message-State: AOAM531cxbUuecPys8RB6e6igkmBwAYcRhjpZN7PP8H+qZETIZNcjMWu
- EzR4YaAYIavtQ+bLA1QfjfjZ6g==
-X-Google-Smtp-Source: ABdhPJyS/b8mbpHQI/Rhb/Fwvm6HfYEn/3btWLeRutifqSrkBNiIKsEaa4tSBor2yY437OBnLj1jhg==
-X-Received: by 2002:a9d:1716:: with SMTP id i22mr20008206ota.20.1633541392652; 
- Wed, 06 Oct 2021 10:29:52 -0700 (PDT)
+ bh=psbawOvPREZetk25SKjFy5KJSwwye8SwkesERDXI3nE=;
+ b=SsmW/OgwEOOkcS9e+jkPEdJzTNvHcAlxT+p5z3ECMl4T9i4i4uAEUv0byAS0AJJ08o
+ IGJ1uosflJOFFGkG4AJoFZUFF7JW1kB+KBDNxAFZl9ZWgF2PC13aUM22+6PqIGUU2Mjd
+ jyrkGM6HCbi8q2gDgpcl1yNw/PnFjte7eHuulgae5eRno1VPTIenxgEcs4HGGRwLUgda
+ rHWDrS/2WcQBrtwIRMj9hHsRwy8H2WR/A4EAWSOY8hzQmqT1IhFxL81B45JJU5uM3E3F
+ 4Qv2sGoUVNgIdLSfjhgu+WPTgP6GS8lslTU5iWFpYACIlQMpLbT5Ma7P9RvqncSPt/qj
+ HZZw==
+X-Gm-Message-State: AOAM530ZH7WUl+JTPDFIptkCQuQv2V/BBj9tZgbdUwKziFNpkdUlVy/v
+ oXqkEyiXLvmb1ZiJlrrHf/ckKw==
+X-Google-Smtp-Source: ABdhPJwUrchPXK9lZJ1tabKRBDpEu+logff6FVa2JUAt5mZfqLq4rQ952XrdMoRX1v0jsuLH8+rr4w==
+X-Received: by 2002:a54:4818:: with SMTP id j24mr8437839oij.150.1633543408990; 
+ Wed, 06 Oct 2021 11:03:28 -0700 (PDT)
 Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id z24sm4027968oic.26.2021.10.06.10.29.51
+ by smtp.gmail.com with ESMTPSA id 17sm4055983ois.45.2021.10.06.11.03.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Oct 2021 10:29:52 -0700 (PDT)
-Date: Wed, 6 Oct 2021 10:31:33 -0700
+ Wed, 06 Oct 2021 11:03:28 -0700 (PDT)
+Date: Wed, 6 Oct 2021 11:05:09 -0700
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: khsieh@codeaurora.org
-Cc: Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>,
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sankeerth Billakanti <sbillaka@codeaurora.org>
-Message-ID: <YV3dddt/GOidTmlN@ripper>
-References: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
- <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
- <YVzGVmJXEDH0HfIL@ripper>
- <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
- <a4a4980e586a70e3b7de989bc61a3e33@codeaurora.org>
- <YV0FlTyMEzlyNsN9@ripper>
- <3dbe0fe48da88af9dee396a85b940e76@codeaurora.org>
+ Rob Herring <robh+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <YV3lVWjct5RQ5FEK@ripper>
+References: <20211005231323.2663520-1-bjorn.andersson@linaro.org>
+ <20211005231323.2663520-6-bjorn.andersson@linaro.org>
+ <CAE-0n52gOCC8bUfMFnNHRKFoq2=q4Ho8a-UYH5JKgumguhUD2A@mail.gmail.com>
+ <YVz/NOL3AFn2zBA0@ripper>
+ <CAE-0n513cs282Dh_YFMHK2uKCVFSWxtNyfRaFwWGyUvpfShixw@mail.gmail.com>
+ <YV0MAF/Y5BR1e6My@ripper>
+ <CAE-0n53TwEyycpAaWVpRUKPpos4z-gqwrvyUdgobh1V88VUsXg@mail.gmail.com>
+ <YV3XxadYE/KU2w89@ripper>
+ <CAE-0n52q=iEhRO1V-ked6SEesJGozLWv-H1mK81oyP7zAeO6QQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3dbe0fe48da88af9dee396a85b940e76@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
+In-Reply-To: <CAE-0n52q=iEhRO1V-ked6SEesJGozLWv-H1mK81oyP7zAeO6QQ@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v4 5/7] drm/msm/dp: Support up to 3 DP
+ controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,87 +88,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed 06 Oct 08:37 PDT 2021, khsieh@codeaurora.org wrote:
+On Wed 06 Oct 10:19 PDT 2021, Stephen Boyd wrote:
 
-> On 2021-10-05 19:10, Bjorn Andersson wrote:
-> > On Tue 05 Oct 16:04 PDT 2021, khsieh@codeaurora.org wrote:
-> > 
-> > > On 2021-10-05 15:36, Stephen Boyd wrote:
-> > > > Quoting Bjorn Andersson (2021-10-05 14:40:38)
-> > > > > On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
-> > > > >
-> > > > > > Quoting Bjorn Andersson (2021-10-04 19:37:50)
-> > > > > > > Found in the middle of a patch from Sankeerth was the reduction of the
-> > > > > > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
-> > > > > > > is initalized and HPD interrupt start to be serviced, so in the case of
-> > > > > > > eDP this reduction improves the user experience dramatically - i.e.
-> > > > > > > removes 9.9s of bland screen time at boot.
+> Quoting Bjorn Andersson (2021-10-06 10:07:17)
+> > On Tue 05 Oct 21:26 PDT 2021, Stephen Boyd wrote:
+> >
+> > > Quoting Bjorn Andersson (2021-10-05 19:37:52)
+> > > > On Tue 05 Oct 19:06 PDT 2021, Stephen Boyd wrote:
+> > > >
+> > > > > Quoting Bjorn Andersson (2021-10-05 18:43:16)
+> > > > > > On Tue 05 Oct 17:43 PDT 2021, Stephen Boyd wrote:
+> > > > > >
+> > > > > > > Quoting Bjorn Andersson (2021-10-05 16:13:21)
+> > > > > > > > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > > > index bdaf227f05dc..674cddfee5b0 100644
+> > > > > > > > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > > > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > > > > > > > @@ -1233,7 +1239,7 @@ static int dp_display_probe(struct platform_device *pdev)
+> > > > > > > >         if (!dp)
+> > > > > > > >                 return -ENOMEM;
+> > > > > > > >
+> > > > > > > > -       desc = dp_display_get_desc(pdev);
+> > > > > > > > +       desc = dp_display_get_desc(pdev, &dp->id);
 > > > > > > >
-> > > > > > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
-> > > > > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > > > > > > ---
+> > > > > > > I'm sad that dp->id has to match the number in the SoC specific
+> > > > > > > dpu_intf_cfg array in drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> > > > > > > still. Is there any way we can avoid that? Also, notice how those arrays
+> > > > > > > already have INTF_DP macros, which makes me think that it may be better
+> > > > > > > to connect this to those arrays instead of making an msm_dp_desc
+> > > > > > > structure and then make sure the 'type' member matches a connector
+> > > > > > > type number. Otherwise this code is super fragile.
+> > > > > > >
 > > > > > >
-> > > > > > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
-> > > > > > re-read the code a couple times to understand that it's waiting 100ms
-> > > > > > times the 'delay' number. Whaaaaat?
+> > > > > > I'm afraid I don't understand what you're proposing. Or which part you
+> > > > > > consider fragile, the indices of the INTF_DP instances aren't going to
+> > > > > > move around...
+> > > > > >
+> > > > > > I have N instances of the DP driver that I need to match to N entries
+> > > > > > from the platform specific intf array, I need some stable reference
+> > > > > > between them. When I started this journey I figured I could rely on the
+> > > > > > of_graph between the DPU and the interface controllers, but the values
+> > > > > > used there today are just bogus, so that was a no go.
+> > > > > >
+> > > > > > We can use whatever, as long as _dpu_kms_initialize_displayport() can
+> > > > > > come up with an identifier to put in h_tile_instance[0] so that
+> > > > > > dpu_encoder_setup_display() can find the relevant INTF.
 > > > > > >
 > > > > >
-> > > > > I assume you're happy with the current 10s delay on the current
-> > > > > devices, so I don't think we should push for this to be backported.
-> > > > > I have no need for it to be backported on my side at least.
+> > > > > To make it more concrete we can look at sc7180
 > > > > >
-> > > >
-> > > > Sure. Fixes tag != backported to stable trees but it is close.
-> > > >
-> > > > > > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> > > > > static const struct dpu_intf_cfg sc7180_intf[] = {
+> > > > >         INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24,
+> > > > > INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> > > > >                                                      ^
+> > > > >                                                      |
 > > > > >
-> > >   dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1); <== to 100ms
-> > > 
-> > > This patch will prevent usb3 from working due to dp driver
-> > > initialize phy
-> > > earlier than usb3 which cause timeout error at power up usb3 phy
-> > > when both
-> > > edp and dp are enabled.
-> > 
-> > Can you please help me understand what you mean here, I use this on my
-> > sc8180x with both eDP and USB-C/DP right now. What is it that doesn't
-> > work? Or am I just lucky in some race condition?
-> > 
-> > Thanks,
-> > Bjorn
-> > 
-> The problem is seen at sc7280.
-> Apple dongle have both  hdmi and usb port.
-> plug Apple dongle into type-c, then plug DP into apple's hdmi port and usb
-> mouse into apple's usb port.
-> If edp enabled at this time, then usb mouse will not work due to timeout at
-> phy power up.
+> > > > > intf0 is irrelevant. Also the address is irrelevant. But here we have a
+> > > > > zero, the number after INTF_DP, and that is very relevant. That number
+> > > > > needs to match the dp->id. Somewhere we have a match between
+> > > > > controller_id and dp->id in the code.
+> > > >
+> > > > That number (the 0, not INTF_0) is what the code matches against dp->id
+> > > > in _dpu_kms_initialize_displayport(), in order to figure out that this
+> > > > is INTF_0 in dpu_encoder_setup_display().
+> > > >
+> > > > I.e. look at the sc8180x patch:
+> > > >
+> > > > INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> > > > INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> > > > INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+> > > > /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+> > > > INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+> > > > INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
+> > > > INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+> > > >
+> > > > Where the DP driver defines the 3 controllers with dp->id of 0, 1 and 2,
+> > > > which the DPU code will match against to INTF_0, INTF_4 and INTF_5.
+> > > >
+> > >
+> > > Yep. I'm saying that having to make that number in this intf array match
+> > > the order of the register mapping descriptor array is fragile. Why can't
+> > > we indicate the interface is DP or eDP with INTF_DP or INTF_EDP and then
+> > > map from the descriptor array to this intf array somehow so that the
+> > > order of the descriptor array doesn't matter? Then we don't have to put
+> > > the connector type in the descriptor array, and we don't have to keep
+> > > the order of the array a certain way to match this intf descriptor.
+> > >
+> > > Maybe
+> > >
+> > >       struct msm_dp_desc {
+> > >               phys_addr_t io_start;
+> > >               unsigned int id;
+> >
+> > The INTF_<N> constants are a property of the DPU driver and not
+> > available in the DP driver and the msm_dp struct is a property of the DP
+> > driver and can't be dereferenced in the DPU driver.
+> >
+> > The proposed way around this is that the descs array defines the order
+> > in priv->dp[N] and this N is used as controller_id.
 > 
+> I'm pretty sure I'm following along.
+> 
+> >
+> > So the only thing that I don't find straight forward here is that the
+> > eDP controller is considered just a DP controller, so you have to use
+> > INTF_DP, <N> for that, and not just INTF_EDP, 0.
+> >
+> > >       };
+> > >
+> > > and then have msm_dp_desc::id equal INTF_<N> and then look through the
+> > > intf from DPU here in the DP driver to find the id and type of connector
+> > > that should be used by default? Still sort of fragile because the only
+> > > connection is an unsigned int which isn't great, but at least it's
+> > > explicit instead of implicit based on the array order.
+> >
+> > No matter how I look at this, you need to put some number somewhere here
+> > that will be used to match up the INTF with the right DSI/DP encoder.
+> 
+> Correct.
+> 
+> >
+> > Using the proposed number scheme follows the numbering of all the DP
+> > controllers from the documentation.
+> >
+> 
+> Maybe I can make a better example. I have this for sc7280 in dpu_hw_catalog.c:
+> 
+> 	static const struct dpu_intf_cfg sc7280_intf[] = {
+> 		INTF_BLK("intf_0", INTF_0, 0x34000, INTF_DP, CONTROLLER_ID_A, 24,
+> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+> 		INTF_BLK("intf_1", INTF_1, 0x35000, INTF_DSI, 0, 24,
+> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+> 		INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, CONTROLLER_ID_B, 24,
+> INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+> 	};
+> 
+> And then this array for sc7280 in dp_display.c:
+> 
+> 	static const struct msm_dp_desc sc7280_dp_cfg = {
+> 		.desc = {
+> 			[CONTROLLER_ID_A] = { 0xaea0000, DRM_MODE_CONNECTOR_eDP },
+> 			[CONTROLLER_ID_B] = { 0xae90000, DRM_MODE_CONNECTOR_DisplayPort },
+> 		},
+> 		.num_dp = 2,
+> 	};
+> 
+> So these two arrays must match based on CONTROLLER_ID_{A,B}. I don't
+> like having to make these two numbers match so if it was explicit, even
+> possibly by having a bunch of macros put in both places then I would be
+> happy. I spent a few hours when I messed up the order of the
+> sc7280_dp_cfg.desc array trying to figure out why things weren't
+> working.
 
-Okay, so you're saying that if the DP driver invokes phy_power_on()
-before the USB driver does, USB initialization fails (or at least USB
-doesn't work)?
+So essentially, you didn't know that the controller_id has to match the
+index in priv->dsi[] and priv->dp[] and providing a define for them
+would make this more obvious?
 
-Sounds like something we need to work out in the QMP phy driver. Do you
-have any more details about what's going wrong.
+I think per your argument the 0 following INTF_DSI should also be using
+this scheme, so we'd have multiple CONTROLLER_ID_A, which probably is
+confusing as well.
 
+I tried it out with below patch; it documents the relationship, provides
+constants for the magic 2 and 3 for number of DSI and DP controllers in
+struct msm_drm_private.
 
-Also, I've seen various references to said "Apple dongle", do you have a
-link to the exact one you're testing with so I can pick one up for
-testing purposes as well?
+I like it.
 
 Regards,
 Bjorn
 
-> > > I had prepared a patch (drm/msm/dp: do not initialize combo phy
-> > > until plugin
-> > > interrupt) to fix this problem.
-> > > Unfortunately, my patch is depend on Bjorn's patch (PATCH v3 3/5]
-> > > drm/msm/dp: Support up to 3 DP controllers).
-> > > I will submit my patch for review once Bjorn's patches merged in.
-> > > Therefore I would think this patch should go after both Bjorn's
-> > > patches and
-> > > my patch.
-> > > 
-> > > 
-> > > 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 60eed3128b54..e9510083f568 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -918,13 +918,13 @@ static const struct dpu_intf_cfg sc7280_intf[] = {
+ };
+ 
+ static const struct dpu_intf_cfg sc8180x_intf[] = {
+-	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+-	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+-	INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
++	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, DP_CONTROLLER_0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
++	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, DSI_CONTROLLER_0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
++	INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, DSI_CONTROLLER_1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+ 	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+ 	INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+-	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
+-	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
++	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, DP_CONTROLLER_1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
++	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, DP_CONTROLLER_2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+ };
+ 
+ /*************************************************************
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 41a6f58916e6..feccdc59b181 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -132,16 +132,16 @@ struct msm_dp_config {
+ 
+ static const struct msm_dp_config sc7180_dp_cfg = {
+ 	.descs = (struct msm_dp_desc[]) {
+-		{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
++		[DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+ 	},
+ 	.num_descs = 1,
+ };
+ 
+ static const struct msm_dp_config sc8180x_dp_cfg = {
+ 	.descs = (struct msm_dp_desc[]) {
+-		{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+-		{ .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+-		{ .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
++		[DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
++		[DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
++		[DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
+ 	},
+ 	.num_descs = 3,
+ };
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 2e84dc30e12e..af572d1297ea 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -68,6 +68,19 @@ enum msm_mdp_plane_property {
+ 	PLANE_PROP_MAX_NUM
+ };
+ 
++enum msm_dsi_controllers {
++	DSI_CONTROLLER_0,
++	DSI_CONTROLLER_1,
++	DSI_CONTROLLER_COUNT,
++};
++
++enum msm_dp_controllers {
++	DP_CONTROLLER_0,
++	DP_CONTROLLER_1,
++	DP_CONTROLLER_2,
++	DP_CONTROLLER_COUNT,
++};
++
+ #define MSM_GPU_MAX_RINGS 4
+ #define MAX_H_TILES_PER_DISPLAY 2
+ 
+@@ -159,9 +172,9 @@ struct msm_drm_private {
+ 	struct msm_edp *edp;
+ 
+ 	/* DSI is shared by mdp4 and mdp5 */
+-	struct msm_dsi *dsi[2];
++	struct msm_dsi *dsi[DSI_CONTROLLER_COUNT];
+ 
+-	struct msm_dp *dp[3];
++	struct msm_dp *dp[DP_CONTROLLER_COUNT];
+ 
+ 	/* when we have more than one 'msm_gpu' these need to be an array: */
+ 	struct msm_gpu *gpu;
