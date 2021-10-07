@@ -1,48 +1,83 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D6142563B
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 17:10:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDA4425770
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 18:13:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28C976F894;
-	Thu,  7 Oct 2021 15:10:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F137C6F891;
+	Thu,  7 Oct 2021 16:13:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6486F894;
- Thu,  7 Oct 2021 15:10:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id ACD6661245;
- Thu,  7 Oct 2021 15:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633619429;
- bh=JbP3u6z5HQuqnmWLruM9RdfFpU2qgop0fFjGQDuIZxQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V8/yyfNYLU57EydIpKKA3rXfdUdQpNHPnxs2fvUwtJTTjVngUbX58IFXCRHacsKWk
- I2ACEGE2JRF6eoklgQ0rk3C1t4UPA8y8qIZ6uk3qYz0wEaKX7TA0noCIAdexMXiM+L
- Q3S1l+UvfetGR8aHMDp1vNwpKF5rBthi4Y6Vy2HPxm4LfPxbEYWlQA7imWut0fPRgC
- kpA4fNPu9gbrfrMXYCo6AEZ+CVtpw25f++4axV+M7NuYCnZO6K//cs6FzP8T7MHAKL
- nswKhq7llI9vu9BM7bPVd3IdVKs/auB/P0z0t60LE7YAF7DZuFe+GFJzTcWq9vg0bE
- IlLA30E7mJBQA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-ia64@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- iommu@lists.linux-foundation.org, linux-media@vger.kernel.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-gpio@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Kalle Valo <kvalo@codeaurora.org>, Alex Elder <elder@linaro.org>
-Date: Thu,  7 Oct 2021 17:10:10 +0200
-Message-Id: <20211007151010.333516-2-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20211007151010.333516-1-arnd@kernel.org>
-References: <20211007151010.333516-1-arnd@kernel.org>
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F51F6F898
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Oct 2021 16:13:34 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id s24so9662483oij.8
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Oct 2021 09:13:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Hb67njsJqIq3sq/4tT7STYAM27g6n4IB/C49A/fpg9Y=;
+ b=tli/T9LJgWtff/X2L6LOoEspmpU2GqB2ZNhpXVL9fz2aSVuh6JxJsDU6PQp+ypfvt0
+ tNulk9mRuEAg6TUgjedNJXePu/Eu8VDvD4atEkIzmzuCZYzaG7CArUY3D4V749BKolFx
+ 91p17GEGDOBDqJF1CXiha0US82d41kU4x6lQR+isM4xvsgggrDqaWmgMHbhDACIvsl8X
+ Ep1xfBbVNX0eWTihYXf77naimyiW+svqtFzhxAojsY5JNyqFdxivbpR+M4zuzUEiS1te
+ S4vBhq7Zo9AorUqbNrUFoZPFkKHd+QegTJOr7Ql94WYY+uh4s3Q+nXpz07RMH6vBP2gL
+ BLjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Hb67njsJqIq3sq/4tT7STYAM27g6n4IB/C49A/fpg9Y=;
+ b=dV2NGXs3lc9C7HWMU5KmUgDYaER0/szVWP6rn4bv468M5Y6XOp3009LxAWiAbN1rxb
+ 227J2F74Ud8nvb0oevmmQ2pSVeAas8l7BZHualiIlZkoWy5eDgcTW2sTWaIRBs9EGYXc
+ Dc7iWu5bh4o5dMna9oKxk9Qm1dwnZVIy1dboXcUScBOVZ8S7OruHg7Q5ewkYuZxEiDsa
+ dzJ31Mnt3e4NBa5vZxJnidIAWQLgwBh8Pbf/BssQOa61XaSwU/cGwjWOFjFJNOR+wLgg
+ MZilezbv1/uNI9E37Y2+E+546c+e9Y66BQP3IVzNK88TIkZ+D1bMjFRUHzeMtuuYaOkG
+ 44fg==
+X-Gm-Message-State: AOAM533RLgX519/Ho5cfYkSVH4DkB2OxJSbAvIrLzqin9C7+mfPRgrXE
+ 9omxJQ5eM7dz1WlJ0qWtFcz1Mw==
+X-Google-Smtp-Source: ABdhPJw7uTUTANA3ePTr3Q+K3DC12nBFseX4KCyWMCqHpXAeqo4nQd/MrXsXMDv32+GT1hLmFpQAKg==
+X-Received: by 2002:aca:4303:: with SMTP id q3mr5723697oia.9.1633623213049;
+ Thu, 07 Oct 2021 09:13:33 -0700 (PDT)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id l25sm8175oic.54.2021.10.07.09.13.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Oct 2021 09:13:32 -0700 (PDT)
+Date: Thu, 7 Oct 2021 09:15:12 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Prashant Malani <pmalani@chromium.org>,
+ Doug Anderson <dianders@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Vara Reddy <varar@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>
+Message-ID: <YV8dEKMhNKKl20j6@ripper>
+References: <YVd3YdfgFVc0Br5T@ripper>
+ <CAD=FV=U=xVLuKOYHbGPTkLjGa8_U+F1ZtEvJt4LGaRuR5SsKFw@mail.gmail.com>
+ <YVumL1lHLqtb/HKS@ripper>
+ <CAD=FV=W9uKq00wXn4H1ax0u2D=R8Wn3J-Je43uxcPyDtk7AK7Q@mail.gmail.com>
+ <YVyMwsvLl6XalJxB@ripper>
+ <CAD=FV=WY+g38p7--QKZCaQnSqx7VvdwC36jH-VKnrEWoxK=XHQ@mail.gmail.com>
+ <YV0KBWxVtKgOp2Cj@ripper>
+ <CAD=FV=X5JFE3u9BtxxocaUrYNSpYXJN90UJ8HOvXZE6oYiVsDQ@mail.gmail.com>
+ <CACeCKac4b_ej87cQD692TNwpsoFsmBwDcSeLy5fp+pvLX1si7g@mail.gmail.com>
+ <YV7JNH9QvI4cBz5s@kuha.fi.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] qcom_scm: hide Kconfig symbol
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YV7JNH9QvI4cBz5s@kuha.fi.intel.com>
+Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,325 +93,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Thu 07 Oct 03:17 PDT 2021, Heikki Krogerus wrote:
 
-Now that SCM can be a loadable module, we have to add another
-dependency to avoid link failures when ipa or adreno-gpu are
-built-in:
+> Hi guys,
+> 
+> On Wed, Oct 06, 2021 at 01:26:35PM -0700, Prashant Malani wrote:
+> > (CC+ Heikki)
+> > 
+> > Hi,
+> > 
+> > On Wed, Oct 6, 2021 at 8:19 AM Doug Anderson <dianders@chromium.org> wrote:
+> > >
+> > > Hi,
+> > >
+> > > On Tue, Oct 5, 2021 at 7:27 PM Bjorn Andersson
+> > > <bjorn.andersson@linaro.org> wrote:
+> > > >
+> > > > > > For reference, this is how I thought one is supposed to tie the Type-C
+> > > > > > controller to the display driver:
+> > > > > > https://lore.kernel.org/all/20211005022451.2037405-1-bjorn.andersson@linaro.org/
+> > > > >
+> > > > > OK, so I looked at that a bit. Fair warning that I've never looked at
+> > > > > the type C code before today so anything I say could be totally wrong!
+> > > > > :-)
+> > > > >
+> > > > > ...but I _think_ you're abusing the "mux" API for this. I think a type
+> > > > > C port can have exactly 1 mux, right? Right now you are claiming to be
+> > > > > _the_ mux in the DP driver, but what about for other alt modes? If
+> > > > > those wanted to be notified about similar things it would be
+> > > > > impossible because you're already _the_ mux, right?
+> > > > >
+> > > >
+> > > > I actually don't think so, because I acquire the typec_mux handle by the
+> > > > means of:
+> > > >
+> > > > mux_desc.svid = USB_TYPEC_DP_SID;
+> > > > mux_desc.mode = USB_TYPEC_DP_MODE;
+> > > > alt_port->mux = fwnode_typec_mux_get(fwnode, &mux_desc);
+> > >
+> > > Hrm, I guess I need to go find that code. Ah, I see it in your WIP
+> > > tree, but not posted anywhere. :-P The only code I can see calling
+> > > fwnode_typec_mux_get() is `drivers/platform/chrome/cros_ec_typec.c`.
+> > > In that code it passes NULL for the mux_desc and I'm nearly certain
+> > > that it just handles one "mux" per connector despite the fact that it
+> > > handles lots of different types of alternate modes. That doesn't mean
+> > > that the cros_ec implementation is correct / finalized, but it's a
+> > > reference point.
+> > >
+> > >
+> > > > And in the DisplayPort node I provide svid = /bits/ 16 <0xff01>;
+> > > >
+> > > > So I will be able to reference multiple different altmode
+> > > > implementors using this scheme.
+> > >
+> > > OK, so I'm trying to grok this more. Let's see.
+> > >
+> > > I'm looking at ucsi_glink_probe() and looking at the matching dts in
+> > > your WIP tree [1] in "sc8180x-lenovo-flex-5g.dts" OK, so:
+> > >
+> > > 1. It's looping once per _connector_ by looping with
+> > > `device_for_each_child_node(dev, fwnode)`.
+> > >
+> > > 2. For each connector, it has exactly one `alt_port` structure.
+> > >
+> > > 3. For each `alt_port` structure it has exactly one `mux`.
+> > >
+> > > ...so currently with your WIP tree there is one "mux" per type C connector.
+> > >
+> > >
+> > > Perhaps what you're saying, though, is that the UCSI code in your WIP
+> > > tree can/should be changed to support more than one mux per port. Then
+> > > I guess it would have logic figuring out what muxes to notify about
+> > > which things? ...and I guess that would mean that it's currently a bug
+> > > that the ucsi_altmode_enable_usb() notifies "the DP type C mux" about
+> > > USB changes?
+> > >
+> > >
+> > > > > I _think_ a mux is supposed to be something more like
+> > > > > `drivers/phy/rockchip/phy-rockchip-typec.c` (though that code predates
+> > > > > the type C framework we're looking at here). There the phy can do all
+> > > > > the work of remuxing things / flipping orientation / etc. I don't
+> > > > > think it's a requirement that every SoC be able to do this remuxing
+> > > > > itself but (if memory serves) rk3399 implemented it so we didn't have
+> > > > > to do it on the TCPC and could use a cheaper solution there.
+> > > > >
+> > > >
+> > > > I'm afraid I don't see how this interacts with a display controller.
+> > >
+> > > This was actually kinda my point. ;-) Specifically I think
+> > > `phy-rockchip-typec.c` is the thing that's supposed to be a "mux". I
+> > > think your display controller isn't a mux. Yeah, it's handy that muxes
+> > > get told about DP HPD status, but that doesn't mean it's the right
+> > > abstraction for you to implement. In my mental model, it's the same as
+> > > implementing your "i2c" controller with a "pinctrl" driver. :-P
+> > >
+> > >
+> > > > It
+> > > > seems more like it's the phy side of things, what we have split between
+> > > > the Type-C controller and the QMP phy to set the pins in the right
+> > > > state.
+> > > >
+> > > > > In any case, my point is that I think there is supposed to be a
+> > > > > _single_ mux per port that handles reassigning pins and that's what
+> > > > > this API is for.
+> > > > >
+> > > >
+> > > > If that's the case things such as typec_mux_match() is just completely
+> > > > backwards.
+> > >
+> > > Yeah, I have no explanation for typec_mux_match(). Let me see if I can
+> > > lure some type C folks into this discussion.
+> > 
+> > This aligns with the model I have in my mind (not that that is
+> > necessarily the right one).
+> > I took that matching code to be meant to handle cases where the
+> > firmware doesn't explicitly
+> > define a "mode-switch" for the port (and so we look at the SVIDs
+> > listed in the Mux fwnode descriptor).
+> > 
+> > The matcher code does suggest there could be a mux for each alternate
+> > mode. But then, how does the
+> > bus code know which mux to set [2] ? In that code, the struct altmode
+> > has a pointer to the struct typec_mux, but I
+> > don't see where that pointer is assigned. I assumed that it was set to
+> > whatever the mux node of the
+> > Type C port was whenever the port driver registered its altmodes for
+> > each port, but I can't substantiate
+> > that assumption in code.
+> > 
+> > Heikki, do you have any guidance regarding what the expected usage is
+> > here? One typec_mux struct per type C port? Or
+> > 1 typec_mux per altmode per port?
+> 
+> I didn't go over the whole thread, so I may have misunderstood
+> something, but I don't think this has anything to do with muxes. The
+> mux should not be a problem for the DRM side under no circumstance.
+> Like Doug said, the mux API is being abused here.
+> 
 
-aarch64-linux-ld: drivers/net/ipa/ipa_main.o: in function `ipa_probe':
-ipa_main.c:(.text+0xfc4): undefined reference to `qcom_scm_is_available'
+No need to read up on the thread, your answer further confirms the
+understanding gained in a lengthy offline chat we had yesterday
+afternoon as well.
 
-ld.lld: error: undefined symbol: qcom_scm_is_available
->>> referenced by adreno_gpu.c
->>>               gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load) in archive drivers/built-in.a
+> HPD was one use case here, so I'll try to explain how that happens...
+> 
+> If the USB Type-C connector is in DP alt mode, then ideally your USB
+> Type-C controller/port driver has registered the partner device DP alt
+> mode the moment it detected that the partner supports that mode, and
+> that partner DP alt mode will have then been bind to the DP alt mode
+> driver:
+> 
+>         drivers/usb/typec/altmodes/displayport.c
+> 
+> After that, if the DP alt mode driver sees HPD - HPD is message
+> signalled in DP alt mode (in case some of you guys didn't know) - the
+> DP alt mode driver notifies the DRM connector about it by calling
+> this function:
+> 
+>         void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode);
+> 
+> If your USB Type-C controller/port driver does not yet register the DP
+> alt mode, the it's responsible of handling HPD separately by calling
+> drm_connector_oob_hotplug_event() on its own.
+> 
 
-This can happen when CONFIG_ARCH_QCOM is disabled and we don't select
-QCOM_MDT_LOADER, but some other module selects QCOM_SCM. Ideally we'd
-use a similar dependency here to what we have for QCOM_RPROC_COMMON,
-but that causes dependency loops from other things selecting QCOM_SCM.
+The drm_connector_oob_hotplug_event() didn't exist when I tried to get
+this working earlier this year and I couldn't figure out what the
+intended design was to feed the HPD information into our DP driver.
 
-This appears to be an endless problem, so try something different this
-time:
+Misplacing the typec_mux made all the pieces fall in place and it looked
+good, but I now agree that the typec_mux should be used to mux in/out
+the DP PHY on the pads as a result of the PD negotiation and then
+separate of that the HPD signals should be sent towards the DRM driver
+using drm_connector_oob_hotplug_event() - hopefully by reusing the
+displayport altmode driver, but I still need to figure out how to
+incorporate that in my custom TypeC controller driver.
 
- - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
-   but that is simply selected by all of its users
+> Either way, the only thing needed here is description of the
+> connection between the USB Type-C connector and the DisplayPort in
+> firmware - the mux is not relevant here. There are no DT bindings
+> defined for that AFAIK (or are there?), but presumable you want to use
+> OF graph with DT. Right now the DP alt mode driver does not try to
+> find the connection from device graph (so OF graph), but it should not
+> be a problem to add support for it.
+> 
 
- - All the stubs in include/linux/qcom_scm.h can go away
+I'll poke around and see what's missing to get
+drm_connector_oob_hotplug_event() work in my model.
 
- - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
-   allow compile-testing QCOM_SCM on all architectures.
+> 
 
- - To avoid a circular dependency chain involving RESET_CONTROLLER
-   and PINCTRL_SUNXI, drop the 'select RESET_CONTROLLER' statement.
-   According to my testing this still builds fine, and the QCOM
-   platform selects this symbol already.
+The one thing that I still don't understand though is, if the typec_mux
+is used by the typec controller to inform _the_ mux about the function
+to be used, what's up with the complexity in typec_mux_match()? This is
+what lead me to believe that typec_mux was enabling/disabling individual
+altmodes, rather just flipping the physical switch at the bottom.
 
-Acked-by: Kalle Valo <kvalo@codeaurora.org>
-Acked-by: Alex Elder <elder@linaro.org>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-Changes in v2:
-- fix the iommu dependencies
+Thanks,
+Bjorn
 
-I've queued this version as a bugfix along with patch 1/2
-in my asm-generic tree.
-
- drivers/firmware/Kconfig                   |  5 +-
- drivers/gpu/drm/msm/Kconfig                |  4 +-
- drivers/iommu/Kconfig                      |  3 +-
- drivers/iommu/arm/arm-smmu/Makefile        |  3 +-
- drivers/iommu/arm/arm-smmu/arm-smmu-impl.c |  3 +-
- drivers/media/platform/Kconfig             |  2 +-
- drivers/mmc/host/Kconfig                   |  2 +-
- drivers/net/ipa/Kconfig                    |  1 +
- drivers/net/wireless/ath/ath10k/Kconfig    |  2 +-
- drivers/pinctrl/qcom/Kconfig               |  3 +-
- include/linux/arm-smccc.h                  | 10 +++
- include/linux/qcom_scm.h                   | 71 ----------------------
- 12 files changed, 24 insertions(+), 85 deletions(-)
-
-diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-index 220a58cf0a44..cda7d7162cbb 100644
---- a/drivers/firmware/Kconfig
-+++ b/drivers/firmware/Kconfig
-@@ -203,10 +203,7 @@ config INTEL_STRATIX10_RSU
- 	  Say Y here if you want Intel RSU support.
- 
- config QCOM_SCM
--	tristate "Qcom SCM driver"
--	depends on ARM || ARM64
--	depends on HAVE_ARM_SMCCC
--	select RESET_CONTROLLER
-+	tristate
- 
- config QCOM_SCM_DOWNLOAD_MODE_DEFAULT
- 	bool "Qualcomm download mode enabled by default"
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index e9c6af78b1d7..3ddf739a6f9b 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -17,7 +17,7 @@ config DRM_MSM
- 	select DRM_SCHED
- 	select SHMEM
- 	select TMPFS
--	select QCOM_SCM if ARCH_QCOM
-+	select QCOM_SCM
- 	select WANT_DEV_COREDUMP
- 	select SND_SOC_HDMI_CODEC if SND_SOC
- 	select SYNC_FILE
-@@ -55,7 +55,7 @@ config DRM_MSM_GPU_SUDO
- 
- config DRM_MSM_HDMI_HDCP
- 	bool "Enable HDMI HDCP support in MSM DRM driver"
--	depends on DRM_MSM && QCOM_SCM
-+	depends on DRM_MSM
- 	default y
- 	help
- 	  Choose this option to enable HDCP state machine
-diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-index 124c41adeca1..c5c71b7ab7e8 100644
---- a/drivers/iommu/Kconfig
-+++ b/drivers/iommu/Kconfig
-@@ -308,7 +308,6 @@ config APPLE_DART
- config ARM_SMMU
- 	tristate "ARM Ltd. System MMU (SMMU) Support"
- 	depends on ARM64 || ARM || (COMPILE_TEST && !GENERIC_ATOMIC64)
--	depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
- 	select IOMMU_API
- 	select IOMMU_IO_PGTABLE_LPAE
- 	select ARM_DMA_USE_IOMMU if ARM
-@@ -438,7 +437,7 @@ config QCOM_IOMMU
- 	# Note: iommu drivers cannot (yet?) be built as modules
- 	bool "Qualcomm IOMMU Support"
- 	depends on ARCH_QCOM || (COMPILE_TEST && !GENERIC_ATOMIC64)
--	depends on QCOM_SCM=y
-+	select QCOM_SCM
- 	select IOMMU_API
- 	select IOMMU_IO_PGTABLE_LPAE
- 	select ARM_DMA_USE_IOMMU
-diff --git a/drivers/iommu/arm/arm-smmu/Makefile b/drivers/iommu/arm/arm-smmu/Makefile
-index e240a7bcf310..b0cc01aa20c9 100644
---- a/drivers/iommu/arm/arm-smmu/Makefile
-+++ b/drivers/iommu/arm/arm-smmu/Makefile
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_QCOM_IOMMU) += qcom_iommu.o
- obj-$(CONFIG_ARM_SMMU) += arm_smmu.o
--arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o arm-smmu-qcom.o
-+arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o
-+arm_smmu-$(CONFIG_ARM_SMMU_QCOM) += arm-smmu-qcom.o
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-index 9f465e146799..2c25cce38060 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-@@ -215,7 +215,8 @@ struct arm_smmu_device *arm_smmu_impl_init(struct arm_smmu_device *smmu)
- 	    of_device_is_compatible(np, "nvidia,tegra186-smmu"))
- 		return nvidia_smmu_impl_init(smmu);
- 
--	smmu = qcom_smmu_impl_init(smmu);
-+	if (IS_ENABLED(CONFIG_ARM_SMMU_QCOM))
-+		smmu = qcom_smmu_impl_init(smmu);
- 
- 	if (of_device_is_compatible(np, "marvell,ap806-smmu-500"))
- 		smmu->impl = &mrvl_mmu500_impl;
-diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
-index 157c924686e4..80321e03809a 100644
---- a/drivers/media/platform/Kconfig
-+++ b/drivers/media/platform/Kconfig
-@@ -565,7 +565,7 @@ config VIDEO_QCOM_VENUS
- 	depends on VIDEO_DEV && VIDEO_V4L2 && QCOM_SMEM
- 	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
- 	select QCOM_MDT_LOADER if ARCH_QCOM
--	select QCOM_SCM if ARCH_QCOM
-+	select QCOM_SCM
- 	select VIDEOBUF2_DMA_CONTIG
- 	select V4L2_MEM2MEM_DEV
- 	help
-diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-index 71313961cc54..95b3511b0560 100644
---- a/drivers/mmc/host/Kconfig
-+++ b/drivers/mmc/host/Kconfig
-@@ -547,7 +547,7 @@ config MMC_SDHCI_MSM
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	select MMC_CQHCI
--	select QCOM_SCM if MMC_CRYPTO && ARCH_QCOM
-+	select QCOM_SCM if MMC_CRYPTO
- 	help
- 	  This selects the Secure Digital Host Controller Interface (SDHCI)
- 	  support present in Qualcomm SOCs. The controller supports
-diff --git a/drivers/net/ipa/Kconfig b/drivers/net/ipa/Kconfig
-index 8f99cfa14680..d037682fb7ad 100644
---- a/drivers/net/ipa/Kconfig
-+++ b/drivers/net/ipa/Kconfig
-@@ -4,6 +4,7 @@ config QCOM_IPA
- 	depends on ARCH_QCOM || COMPILE_TEST
- 	depends on QCOM_RPROC_COMMON || (QCOM_RPROC_COMMON=n && COMPILE_TEST)
- 	select QCOM_MDT_LOADER if ARCH_QCOM
-+	select QCOM_SCM
- 	select QCOM_QMI_HELPERS
- 	help
- 	  Choose Y or M here to include support for the Qualcomm
-diff --git a/drivers/net/wireless/ath/ath10k/Kconfig b/drivers/net/wireless/ath/ath10k/Kconfig
-index 741289e385d5..ca007b800f75 100644
---- a/drivers/net/wireless/ath/ath10k/Kconfig
-+++ b/drivers/net/wireless/ath/ath10k/Kconfig
-@@ -44,7 +44,7 @@ config ATH10K_SNOC
- 	tristate "Qualcomm ath10k SNOC support"
- 	depends on ATH10K
- 	depends on ARCH_QCOM || COMPILE_TEST
--	depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
-+	select QCOM_SCM
- 	select QCOM_QMI_HELPERS
- 	help
- 	  This module adds support for integrated WCN3990 chip connected
-diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-index 32ea2a8ec02b..5ff4207df66e 100644
---- a/drivers/pinctrl/qcom/Kconfig
-+++ b/drivers/pinctrl/qcom/Kconfig
-@@ -3,7 +3,8 @@ if (ARCH_QCOM || COMPILE_TEST)
- 
- config PINCTRL_MSM
- 	tristate "Qualcomm core pin controller driver"
--	depends on GPIOLIB && (QCOM_SCM || !QCOM_SCM) #if QCOM_SCM=m this can't be =y
-+	depends on GPIOLIB
-+	select QCOM_SCM
- 	select PINMUX
- 	select PINCONF
- 	select GENERIC_PINCONF
-diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
-index 7d1cabe15262..63ccb5252190 100644
---- a/include/linux/arm-smccc.h
-+++ b/include/linux/arm-smccc.h
-@@ -321,10 +321,20 @@ asmlinkage unsigned long __arm_smccc_sve_check(unsigned long x0);
-  * from register 0 to 3 on return from the SMC instruction.  An optional
-  * quirk structure provides vendor specific behavior.
-  */
-+#ifdef CONFIG_HAVE_ARM_SMCCC
- asmlinkage void __arm_smccc_smc(unsigned long a0, unsigned long a1,
- 			unsigned long a2, unsigned long a3, unsigned long a4,
- 			unsigned long a5, unsigned long a6, unsigned long a7,
- 			struct arm_smccc_res *res, struct arm_smccc_quirk *quirk);
-+#else
-+static inline void __arm_smccc_smc(unsigned long a0, unsigned long a1,
-+			unsigned long a2, unsigned long a3, unsigned long a4,
-+			unsigned long a5, unsigned long a6, unsigned long a7,
-+			struct arm_smccc_res *res, struct arm_smccc_quirk *quirk)
-+{
-+	*res = (struct arm_smccc_res){};
-+}
-+#endif
- 
- /**
-  * __arm_smccc_hvc() - make HVC calls
-diff --git a/include/linux/qcom_scm.h b/include/linux/qcom_scm.h
-index c0475d1c9885..81cad9e1e412 100644
---- a/include/linux/qcom_scm.h
-+++ b/include/linux/qcom_scm.h
-@@ -61,7 +61,6 @@ enum qcom_scm_ice_cipher {
- #define QCOM_SCM_PERM_RW (QCOM_SCM_PERM_READ | QCOM_SCM_PERM_WRITE)
- #define QCOM_SCM_PERM_RWX (QCOM_SCM_PERM_RW | QCOM_SCM_PERM_EXEC)
- 
--#if IS_ENABLED(CONFIG_QCOM_SCM)
- extern bool qcom_scm_is_available(void);
- 
- extern int qcom_scm_set_cold_boot_addr(void *entry, const cpumask_t *cpus);
-@@ -115,74 +114,4 @@ extern int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
- extern int qcom_scm_lmh_profile_change(u32 profile_id);
- extern bool qcom_scm_lmh_dcvsh_available(void);
- 
--#else
--
--#include <linux/errno.h>
--
--static inline bool qcom_scm_is_available(void) { return false; }
--
--static inline int qcom_scm_set_cold_boot_addr(void *entry,
--		const cpumask_t *cpus) { return -ENODEV; }
--static inline int qcom_scm_set_warm_boot_addr(void *entry,
--		const cpumask_t *cpus) { return -ENODEV; }
--static inline void qcom_scm_cpu_power_down(u32 flags) {}
--static inline u32 qcom_scm_set_remote_state(u32 state,u32 id)
--		{ return -ENODEV; }
--
--static inline int qcom_scm_pas_init_image(u32 peripheral, const void *metadata,
--		size_t size) { return -ENODEV; }
--static inline int qcom_scm_pas_mem_setup(u32 peripheral, phys_addr_t addr,
--		phys_addr_t size) { return -ENODEV; }
--static inline int qcom_scm_pas_auth_and_reset(u32 peripheral)
--		{ return -ENODEV; }
--static inline int qcom_scm_pas_shutdown(u32 peripheral) { return -ENODEV; }
--static inline bool qcom_scm_pas_supported(u32 peripheral) { return false; }
--
--static inline int qcom_scm_io_readl(phys_addr_t addr, unsigned int *val)
--		{ return -ENODEV; }
--static inline int qcom_scm_io_writel(phys_addr_t addr, unsigned int val)
--		{ return -ENODEV; }
--
--static inline bool qcom_scm_restore_sec_cfg_available(void) { return false; }
--static inline int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare)
--		{ return -ENODEV; }
--static inline int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size)
--		{ return -ENODEV; }
--static inline int qcom_scm_iommu_secure_ptbl_init(u64 addr, u32 size, u32 spare)
--		{ return -ENODEV; }
--extern inline int qcom_scm_mem_protect_video_var(u32 cp_start, u32 cp_size,
--						 u32 cp_nonpixel_start,
--						 u32 cp_nonpixel_size)
--		{ return -ENODEV; }
--static inline int qcom_scm_assign_mem(phys_addr_t mem_addr, size_t mem_sz,
--		unsigned int *src, const struct qcom_scm_vmperm *newvm,
--		unsigned int dest_cnt) { return -ENODEV; }
--
--static inline bool qcom_scm_ocmem_lock_available(void) { return false; }
--static inline int qcom_scm_ocmem_lock(enum qcom_scm_ocmem_client id, u32 offset,
--		u32 size, u32 mode) { return -ENODEV; }
--static inline int qcom_scm_ocmem_unlock(enum qcom_scm_ocmem_client id,
--		u32 offset, u32 size) { return -ENODEV; }
--
--static inline bool qcom_scm_ice_available(void) { return false; }
--static inline int qcom_scm_ice_invalidate_key(u32 index) { return -ENODEV; }
--static inline int qcom_scm_ice_set_key(u32 index, const u8 *key, u32 key_size,
--				       enum qcom_scm_ice_cipher cipher,
--				       u32 data_unit_size) { return -ENODEV; }
--
--static inline bool qcom_scm_hdcp_available(void) { return false; }
--static inline int qcom_scm_hdcp_req(struct qcom_scm_hdcp_req *req, u32 req_cnt,
--		u32 *resp) { return -ENODEV; }
--
--static inline int qcom_scm_qsmmu500_wait_safe_toggle(bool en)
--		{ return -ENODEV; }
--
--static inline int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
--				     u64 limit_node, u32 node_id, u64 version)
--		{ return -ENODEV; }
--
--static inline int qcom_scm_lmh_profile_change(u32 profile_id) { return -ENODEV; }
--
--static inline bool qcom_scm_lmh_dcvsh_available(void) { return -ENODEV; }
--#endif
- #endif
--- 
-2.29.2
-
+> > > > > ...so I will still assert that the right thing to do is to have a
+> > > > > drm_bridge for the type c connector and _that's_ what should be
+> > > > > sending HPD.
+> > > > >
+> > > >
+> > > > That still implies that all the current typec_mux code got it all wrong
+> > > > and should be thrown out. If you instead consider that you have a Type-C
+> > > > controller that upon switching DisplayPort on/off calls typec_mux_set()
+> > > > to inform the functions that things has changed then all the current
+> > > > code makes sense.
+> > > >
+> > > > It also maps nicely to how the TypeC controller would call
+> > > > typec_switch_set() to inform, in our case the QMP phy that the
+> > > > orientation has switched.
+> > > >
+> > > >
+> > > > It seems reasonable to have some common helper code that registers the
+> > > > typec_mux and turn its notifications into HPD notifications to the
+> > > > display code, but I still think that should live in the DRM framework,
+> > > > separate from the USB code.
+> > >
+> > > I think I'm going to step back and hope that the experts can chime in.
+> > >
+> > >
+> > > [1] https://github.com/andersson/kernel/commits/wip/sc8180x-next-20210819
+> > [2]: https://elixir.bootlin.com/linux/v5.15-rc4/source/drivers/usb/typec/bus.c#L27
+> > 
+> > >
+> > > -Doug
+> 
+> thanks,
+> 
+> -- 
+> heikki
