@@ -2,65 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D36B425D01
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 22:11:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC53425D3E
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 22:28:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C451C6F40A;
-	Thu,  7 Oct 2021 20:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE846F407;
+	Thu,  7 Oct 2021 20:28:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 705A86F40A
- for <freedreno@lists.freedesktop.org>; Thu,  7 Oct 2021 20:11:41 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- v2-20020a05683018c200b0054e3acddd91so4442809ote.8
- for <freedreno@lists.freedesktop.org>; Thu, 07 Oct 2021 13:11:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=RQk4fZ8zAs/6aRjZB+mzOwZtqbl00fU4slehYKDsrqc=;
- b=IHhVwmWPbTvQi99ZO+D11B1elyHaSTPHfBa98vxfDPsiU7ydHtTDkbfrw+5UWn2CIL
- jQWGqK/pKPW/1iSVBTjlVxyLFQftacDlm45yTJ9znDdg0rSnqXGMOUPUD0Vmhi3yxtxK
- BIPcL3MhLZC72XE6J3d8bsGziRr3hllyrkc1c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=RQk4fZ8zAs/6aRjZB+mzOwZtqbl00fU4slehYKDsrqc=;
- b=OQp+863Sd44hrt4Scr6uD400Itw6Q24qobyaM1cRT4g/acnUS5m4olUPjxuYB3pcKL
- ObP16ZSiDkcimFzjp5gDOXceA2ZDj/7uqNC7YPbQXxBSYqAmTFDD+Bt+rStM2gtroILE
- AQbU9lDPXg0D5jNLwMkN0r3YeOviiwaVGLc1m9omQY9k8u66nows/qfobHwgly3HpEMZ
- gPBdPYKWxlzn8aczhOcG7o9D2RKIfZPT3MWJEtY1VEi3udXgyxWQynOh8RgY97rgGrFt
- hJlsWAFWF3j3p0bD01zEz44ip1p2vZG2PiXxSGnwQfS55A/QccR652yUnNxfFrWhkX9F
- 7tqw==
-X-Gm-Message-State: AOAM531aUsWqscP8udkhAmX4ZBFRVzrt0FqEeiOKMZgSNBeMOjk1YdAR
- qYKbKNh1jZSuzVo0KIYoCizNyx/LU+ej2Fj2pFg97Q==
-X-Google-Smtp-Source: ABdhPJw6F0cMIR3gHGSKrivUlJvz9nMPEORHTG5UDv1ab+eSfl1wmDgSWj65PdXu+FyfAhZ1Zixs1O4RRYobdhRF36Q=
-X-Received: by 2002:a9d:12f4:: with SMTP id g107mr1438053otg.77.1633637500801; 
- Thu, 07 Oct 2021 13:11:40 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 7 Oct 2021 16:11:40 -0400
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB7836F410
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Oct 2021 20:28:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633638519; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=aRwlxy5PdutcRVJLUCyFixnkZpZ7NhnTb589zPa6lVM=;
+ b=WmnNVBIBBTWq+XMBlRoABZZVH/TQja8o4WWAoKMobUINmBAFy0FyA8q1HwUKtEWYOucrvZT0
+ CNFu8S/GQuo+5u4wlgJRHrEvTNFafDJ1HNc9Y0TT2osDt4h/gBcyc3y3ATmwZottqlTw/CgR
+ E5PUh9tBdCWZO1mIliwzCGXHuNU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 615f585ede4c4ed385725363 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 07 Oct 2021 20:28:14
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id DE4A5C43619; Thu,  7 Oct 2021 20:28:13 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4C702C4360D;
+ Thu,  7 Oct 2021 20:28:12 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <CAE-0n50YqKr1nKy-4WaxsfuwPiJ5kZcf46t-U_4i-TpfXzOX1g@mail.gmail.com>
-References: <20211006193819.2654854-1-swboyd@chromium.org>
- <20211006193819.2654854-3-swboyd@chromium.org>
- <CAGETcx9T59dHXodt9MW=tTV_hYhtNOZzYFT=35D--VN7WJ0GqQ@mail.gmail.com>
- <CAE-0n50YqKr1nKy-4WaxsfuwPiJ5kZcf46t-U_4i-TpfXzOX1g@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 7 Oct 2021 16:11:40 -0400
-Message-ID: <CAE-0n532XYgT=dTTCyLcwikvxgUyGi=TcybDh=v3wQTNb=wqyw@mail.gmail.com>
-To: Saravana Kannan <saravanak@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>, 
- Russell King <rmk+kernel@arm.linux.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 02/34] component: Introduce the aggregate
- bus_type
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 07 Oct 2021 13:28:12 -0700
+From: khsieh@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar
+ <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, David Airlie
+ <airlied@linux.ie>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob
+ Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sankeerth
+ Billakanti <sbillaka@codeaurora.org>
+In-Reply-To: <YV9TQEKPh4SXYFF/@ripper>
+References: <20211005023750.2037631-1-bjorn.andersson@linaro.org>
+ <CAE-0n52wN1s=Ph4r4iLposxNPfa562Bv1mM81j1KvNmWOQS1-Q@mail.gmail.com>
+ <YVzGVmJXEDH0HfIL@ripper>
+ <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
+ <a4a4980e586a70e3b7de989bc61a3e33@codeaurora.org> <YV0FlTyMEzlyNsN9@ripper>
+ <3dbe0fe48da88af9dee396a85b940e76@codeaurora.org> <YV3dddt/GOidTmlN@ripper>
+ <9dc50145fb3e9b189fd38857b20f326a@codeaurora.org> <YV9TQEKPh4SXYFF/@ripper>
+Message-ID: <0c72f3fd8c49cdada09bb6ee366b53a6@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,67 +81,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Stephen Boyd (2021-10-07 11:40:07)
-> Quoting Saravana Kannan (2021-10-06 20:07:11)
-> > On Wed, Oct 6, 2021 at 12:38 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> > > diff --git a/drivers/base/component.c b/drivers/base/component.c
-> > > index 0a41bbe14981..d99e99cabb99 100644
-> > > --- a/drivers/base/component.c
-> > > +++ b/drivers/base/component.c
-> [...]
-> > > +                       continue;
-> > > +
-> > > +               /* Matches put in component_del() */
-> > > +               get_device(&adev->dev);
-> > > +               c->link = device_link_add(&adev->dev, c->dev,
-> > > +                                         DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME);
-> >
-> > Remove the STATELESS flag and you'll get a bunch of other stuff done for free:
->
-> I tried that and it didn't work for me. The aggregate device never
-> probed and I was left with no display. Let me see if I can reproduce it
-> with logging to provide more details.
+On 2021-10-07 13:06, Bjorn Andersson wrote:
+> On Thu 07 Oct 12:51 PDT 2021, khsieh@codeaurora.org wrote:
+> 
+>> On 2021-10-06 10:31, Bjorn Andersson wrote:
+>> > On Wed 06 Oct 08:37 PDT 2021, khsieh@codeaurora.org wrote:
+>> >
+>> > > On 2021-10-05 19:10, Bjorn Andersson wrote:
+>> > > > On Tue 05 Oct 16:04 PDT 2021, khsieh@codeaurora.org wrote:
+>> > > >
+>> > > > > On 2021-10-05 15:36, Stephen Boyd wrote:
+>> > > > > > Quoting Bjorn Andersson (2021-10-05 14:40:38)
+>> > > > > > > On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
+>> > > > > > >
+>> > > > > > > > Quoting Bjorn Andersson (2021-10-04 19:37:50)
+>> > > > > > > > > Found in the middle of a patch from Sankeerth was the reduction of the
+>> > > > > > > > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
+>> > > > > > > > > is initalized and HPD interrupt start to be serviced, so in the case of
+>> > > > > > > > > eDP this reduction improves the user experience dramatically - i.e.
+>> > > > > > > > > removes 9.9s of bland screen time at boot.
+>> > > > > > > > >
+>> > > > > > > > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+>> > > > > > > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>> > > > > > > > > ---
+>> > > > > > > >
+>> > > > > > > > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
+>> > > > > > > > re-read the code a couple times to understand that it's waiting 100ms
+>> > > > > > > > times the 'delay' number. Whaaaaat?
+>> > > > > > > >
+>> > > > > > >
+>> > > > > > > I assume you're happy with the current 10s delay on the current
+>> > > > > > > devices, so I don't think we should push for this to be backported.
+>> > > > > > > I have no need for it to be backported on my side at least.
+>> > > > > > >
+>> > > > > >
+>> > > > > > Sure. Fixes tag != backported to stable trees but it is close.
+>> > > > > >
+>> > > > > > > > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>> > > > > > >
+>> > > > >   dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1); <== to 100ms
+>> > > > >
+>> > > > > This patch will prevent usb3 from working due to dp driver
+>> > > > > initialize phy
+>> > > > > earlier than usb3 which cause timeout error at power up usb3 phy
+>> > > > > when both
+>> > > > > edp and dp are enabled.
+>> > > >
+>> > > > Can you please help me understand what you mean here, I use this on my
+>> > > > sc8180x with both eDP and USB-C/DP right now. What is it that doesn't
+>> > > > work? Or am I just lucky in some race condition?
+>> > > >
+>> > > > Thanks,
+>> > > > Bjorn
+>> > > >
+>> > > The problem is seen at sc7280.
+>> > > Apple dongle have both  hdmi and usb port.
+>> > > plug Apple dongle into type-c, then plug DP into apple's hdmi port
+>> > > and usb
+>> > > mouse into apple's usb port.
+>> > > If edp enabled at this time, then usb mouse will not work due to
+>> > > timeout at
+>> > > phy power up.
+>> > >
+>> >
+>> > Okay, so you're saying that if the DP driver invokes phy_power_on()
+>> > before the USB driver does, USB initialization fails (or at least USB
+>> > doesn't work)?
+>> 
+>> if dp driver call qcom_qmp_phy_init() before usb3 call 
+>> qcom_qmp_phy_init(),
+>> usb3 driver will timeout at readl_poll_timeout(status, val, (val & 
+>> mask) ==
+>> ready, 10, PHY_INIT_COMPLETE_TIMEOUT) of qcom_qmp_phy_power_on().
+> 
+> Thanks, I will try to reproduce this on my side. So the 10 seconds here
+> is strictly to give good enough time for the dwc3 driver to probe...
+> 
+> Any idea why you're saying that this is specific to sc7280, what 
+> changed
+> from sc7180?
 
-This patch fixes it (whitespace damaged sorry).
-
-----8<----
-diff --git a/drivers/base/component.c b/drivers/base/component.c
-index 65042c9f8a42..43cac9ed70b7 100644
---- a/drivers/base/component.c
-+++ b/drivers/base/component.c
-@@ -202,7 +202,7 @@ static int find_components(struct aggregate_device *adev)
- 		/* Matches put in component_del() */
- 		get_device(&adev->dev);
- 		c->link = device_link_add(&adev->dev, c->dev,
--					  DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME);
-+					  DL_FLAG_PM_RUNTIME);
- 		c->adev = adev;
- 	}
-
-@@ -749,7 +749,9 @@ static int __component_add(struct device *dev,
-const struct component_ops *ops,
- 	mutex_unlock(&component_mutex);
-
- 	/* Try to bind */
--	return bus_rescan_devices(&aggregate_bus_type);
-+	bus_rescan_devices(&aggregate_bus_type);
-+
-+	return 0;
- }
-
- /**
+I did not have sc7180 with edp before so that i am not sure it will 
+happen on sc7180 or not.
+The usb3 does not work when both edp and dp enabled I just seen at 
+sc7280.
+Current at sc7280 EC is not boot up correctly when system power up.
+I have to manual reboot EC from linux kernel shell before DP/usb3 can 
+work.
+I am not sure this contribute to this problem or not.
 
 
-The important part is ignoring the return value of bus_rescan_devices().
-It's a cycle problem. The last component is probing and calling
-component_add() in its probe function. The call to component_add() is
-trying to probe the aggregate device now that all components are added.
-But when it tries to probe the aggregate device it sees that a supplier,
-which is this component calling compnent_add(), hasn't been probed yet,
-so it returns -EPROBE_DEFER. That is passed up to the component and it
-defers probe.
-
-I don't think the component device cares at all about the aggregate
-device being able to probe or not. We should be able to ignore the
-return value of bus_rescan_devices() in component_add(). I'll add a
-comment to the code here so it's more obvious.
+> 
+>> >
+>> > Sounds like something we need to work out in the QMP phy driver. Do you
+>> > have any more details about what's going wrong.
+>> >
+>> >
+>> > Also, I've seen various references to said "Apple dongle", do you have a
+>> > link to the exact one you're testing with so I can pick one up for
+>> > testing purposes as well?
+>> 
+>> Apple A2119 hdmi+usb dongle.
+>> https://www.amazon.com/Apple-USB-C-Digital-Multiport-Adapter/dp/B07WF96FY5/ref=sr_1_2?dchild=1&keywords=apple+a2119&qid=1633636227&sr=8-2
+>> 
+> 
+> Thanks,
+> Bjorn
+> 
+>> >
+>> > Regards,
+>> > Bjorn
+>> >
+>> > > > > I had prepared a patch (drm/msm/dp: do not initialize combo phy
+>> > > > > until plugin
+>> > > > > interrupt) to fix this problem.
+>> > > > > Unfortunately, my patch is depend on Bjorn's patch (PATCH v3 3/5]
+>> > > > > drm/msm/dp: Support up to 3 DP controllers).
+>> > > > > I will submit my patch for review once Bjorn's patches merged in.
+>> > > > > Therefore I would think this patch should go after both Bjorn's
+>> > > > > patches and
+>> > > > > my patch.
+>> > > > >
+>> > > > >
+>> > > > >
