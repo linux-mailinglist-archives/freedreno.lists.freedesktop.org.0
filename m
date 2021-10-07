@@ -2,82 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCDA4425770
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 18:13:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6097E425ACC
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 20:32:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F137C6F891;
-	Thu,  7 Oct 2021 16:13:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE276F402;
+	Thu,  7 Oct 2021 18:32:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F51F6F898
- for <freedreno@lists.freedesktop.org>; Thu,  7 Oct 2021 16:13:34 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id s24so9662483oij.8
- for <freedreno@lists.freedesktop.org>; Thu, 07 Oct 2021 09:13:34 -0700 (PDT)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD4C6F3F9
+ for <freedreno@lists.freedesktop.org>; Thu,  7 Oct 2021 18:32:03 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ c6-20020a9d2786000000b005471981d559so8601420otb.5
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Oct 2021 11:32:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Hb67njsJqIq3sq/4tT7STYAM27g6n4IB/C49A/fpg9Y=;
- b=tli/T9LJgWtff/X2L6LOoEspmpU2GqB2ZNhpXVL9fz2aSVuh6JxJsDU6PQp+ypfvt0
- tNulk9mRuEAg6TUgjedNJXePu/Eu8VDvD4atEkIzmzuCZYzaG7CArUY3D4V749BKolFx
- 91p17GEGDOBDqJF1CXiha0US82d41kU4x6lQR+isM4xvsgggrDqaWmgMHbhDACIvsl8X
- Ep1xfBbVNX0eWTihYXf77naimyiW+svqtFzhxAojsY5JNyqFdxivbpR+M4zuzUEiS1te
- S4vBhq7Zo9AorUqbNrUFoZPFkKHd+QegTJOr7Ql94WYY+uh4s3Q+nXpz07RMH6vBP2gL
- BLjA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GEaWDjSb3qOp5ad8DMZz/UJKavs+r1WsOl2RdTLvUkE=;
+ b=P8vgcKulAt3tPIgxBfxk8NewRIdpfUhC3Pj0lDILiD4eQggs3acpFediSaHdeBeer7
+ dbDskEBioZ8E4uiwq9bdEZ9w6GXC3VQ3Lwl1KdaG/hDjhhJ6XuPBQ9Mosianq8bbPBPk
+ su532ZBT6ZfzhEsiQzpEqfPsmhDNlXI0jXJltb4pLI1ynDF2FDB1rDPuY58RvZ0S/xKR
+ n4b2N5/3wzGRLlbF9QW6BmhrerIjHh7Cn30K/etKB2mTOqRbb1ZGbrxXiaGpbbuwXiqX
+ zl7sOSsX/vzzab5w6cYndPJLFVjiCJjFcaBG04T8vTtPT2vyBpps+x6FdvD3olvvYWpT
+ t5FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Hb67njsJqIq3sq/4tT7STYAM27g6n4IB/C49A/fpg9Y=;
- b=dV2NGXs3lc9C7HWMU5KmUgDYaER0/szVWP6rn4bv468M5Y6XOp3009LxAWiAbN1rxb
- 227J2F74Ud8nvb0oevmmQ2pSVeAas8l7BZHualiIlZkoWy5eDgcTW2sTWaIRBs9EGYXc
- Dc7iWu5bh4o5dMna9oKxk9Qm1dwnZVIy1dboXcUScBOVZ8S7OruHg7Q5ewkYuZxEiDsa
- dzJ31Mnt3e4NBa5vZxJnidIAWQLgwBh8Pbf/BssQOa61XaSwU/cGwjWOFjFJNOR+wLgg
- MZilezbv1/uNI9E37Y2+E+546c+e9Y66BQP3IVzNK88TIkZ+D1bMjFRUHzeMtuuYaOkG
- 44fg==
-X-Gm-Message-State: AOAM533RLgX519/Ho5cfYkSVH4DkB2OxJSbAvIrLzqin9C7+mfPRgrXE
- 9omxJQ5eM7dz1WlJ0qWtFcz1Mw==
-X-Google-Smtp-Source: ABdhPJw7uTUTANA3ePTr3Q+K3DC12nBFseX4KCyWMCqHpXAeqo4nQd/MrXsXMDv32+GT1hLmFpQAKg==
-X-Received: by 2002:aca:4303:: with SMTP id q3mr5723697oia.9.1633623213049;
- Thu, 07 Oct 2021 09:13:33 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id l25sm8175oic.54.2021.10.07.09.13.32
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GEaWDjSb3qOp5ad8DMZz/UJKavs+r1WsOl2RdTLvUkE=;
+ b=A3xuwS5beXUVAgQY2zaA4uBP0o3u1I4jjdVb7yWu49VWizQ9LqO7eniANpUWJYlkKZ
+ 5/bvXP96+hVmYdXjZ8DQOqK91KjyNtHCz5OCT/3gHMnkVKY9HUWNRnXQaL8tDmvNjjAP
+ DTwdgpRwxt0YFgb1kB1EGtbbeDkzbHkPsIDLLfbzcZ0lpQY4HFc2RNF+oIzv9jQVHX4J
+ XuW3fuLBrerLvFjJd9v8z9adiuvXI0FL8nJvFRjRF8Ns45hfL28LQhGQgoXtrY5zrhzb
+ OKMydI8tQtOshmzTLvHxB7bldeF9kETZzl/30eNotQa7iCKiYhsj7Vt+KaUZZFU7IbZl
+ AMSw==
+X-Gm-Message-State: AOAM5333tdaBEJgiOUZiW3z3N0PM1csXq9ixUvyKW49G9jh7yQiUjab5
+ 4/N33AuVq6PacBVPxaqajSUueQ==
+X-Google-Smtp-Source: ABdhPJxAI+4Du3/vUQ6HcJA9NbX0QpMcVGv8epbY2qunlm9qzADCWYzW2UoRhOF363zHhPY98t6GLw==
+X-Received: by 2002:a9d:4b9d:: with SMTP id k29mr4955459otf.314.1633631522471; 
+ Thu, 07 Oct 2021 11:32:02 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id j4sm45593oia.56.2021.10.07.11.32.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Oct 2021 09:13:32 -0700 (PDT)
-Date: Thu, 7 Oct 2021 09:15:12 -0700
+ Thu, 07 Oct 2021 11:32:02 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Prashant Malani <pmalani@chromium.org>,
- Doug Anderson <dianders@chromium.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vara Reddy <varar@codeaurora.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>
-Message-ID: <YV8dEKMhNKKl20j6@ripper>
-References: <YVd3YdfgFVc0Br5T@ripper>
- <CAD=FV=U=xVLuKOYHbGPTkLjGa8_U+F1ZtEvJt4LGaRuR5SsKFw@mail.gmail.com>
- <YVumL1lHLqtb/HKS@ripper>
- <CAD=FV=W9uKq00wXn4H1ax0u2D=R8Wn3J-Je43uxcPyDtk7AK7Q@mail.gmail.com>
- <YVyMwsvLl6XalJxB@ripper>
- <CAD=FV=WY+g38p7--QKZCaQnSqx7VvdwC36jH-VKnrEWoxK=XHQ@mail.gmail.com>
- <YV0KBWxVtKgOp2Cj@ripper>
- <CAD=FV=X5JFE3u9BtxxocaUrYNSpYXJN90UJ8HOvXZE6oYiVsDQ@mail.gmail.com>
- <CACeCKac4b_ej87cQD692TNwpsoFsmBwDcSeLy5fp+pvLX1si7g@mail.gmail.com>
- <YV7JNH9QvI4cBz5s@kuha.fi.intel.com>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Abhinav Kumar <abhinavk@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu,  7 Oct 2021 11:33:41 -0700
+Message-Id: <20211007183341.3140281-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YV7JNH9QvI4cBz5s@kuha.fi.intel.com>
-Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: Simplify the dp_debug debugfs show
+ function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,236 +76,235 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 07 Oct 03:17 PDT 2021, Heikki Krogerus wrote:
+The "dp_debug" show function allocates a buffer and piecemeal appends
+line by line, checking for buffer overflows etc.
 
-> Hi guys,
-> 
-> On Wed, Oct 06, 2021 at 01:26:35PM -0700, Prashant Malani wrote:
-> > (CC+ Heikki)
-> > 
-> > Hi,
-> > 
-> > On Wed, Oct 6, 2021 at 8:19 AM Doug Anderson <dianders@chromium.org> wrote:
-> > >
-> > > Hi,
-> > >
-> > > On Tue, Oct 5, 2021 at 7:27 PM Bjorn Andersson
-> > > <bjorn.andersson@linaro.org> wrote:
-> > > >
-> > > > > > For reference, this is how I thought one is supposed to tie the Type-C
-> > > > > > controller to the display driver:
-> > > > > > https://lore.kernel.org/all/20211005022451.2037405-1-bjorn.andersson@linaro.org/
-> > > > >
-> > > > > OK, so I looked at that a bit. Fair warning that I've never looked at
-> > > > > the type C code before today so anything I say could be totally wrong!
-> > > > > :-)
-> > > > >
-> > > > > ...but I _think_ you're abusing the "mux" API for this. I think a type
-> > > > > C port can have exactly 1 mux, right? Right now you are claiming to be
-> > > > > _the_ mux in the DP driver, but what about for other alt modes? If
-> > > > > those wanted to be notified about similar things it would be
-> > > > > impossible because you're already _the_ mux, right?
-> > > > >
-> > > >
-> > > > I actually don't think so, because I acquire the typec_mux handle by the
-> > > > means of:
-> > > >
-> > > > mux_desc.svid = USB_TYPEC_DP_SID;
-> > > > mux_desc.mode = USB_TYPEC_DP_MODE;
-> > > > alt_port->mux = fwnode_typec_mux_get(fwnode, &mux_desc);
-> > >
-> > > Hrm, I guess I need to go find that code. Ah, I see it in your WIP
-> > > tree, but not posted anywhere. :-P The only code I can see calling
-> > > fwnode_typec_mux_get() is `drivers/platform/chrome/cros_ec_typec.c`.
-> > > In that code it passes NULL for the mux_desc and I'm nearly certain
-> > > that it just handles one "mux" per connector despite the fact that it
-> > > handles lots of different types of alternate modes. That doesn't mean
-> > > that the cros_ec implementation is correct / finalized, but it's a
-> > > reference point.
-> > >
-> > >
-> > > > And in the DisplayPort node I provide svid = /bits/ 16 <0xff01>;
-> > > >
-> > > > So I will be able to reference multiple different altmode
-> > > > implementors using this scheme.
-> > >
-> > > OK, so I'm trying to grok this more. Let's see.
-> > >
-> > > I'm looking at ucsi_glink_probe() and looking at the matching dts in
-> > > your WIP tree [1] in "sc8180x-lenovo-flex-5g.dts" OK, so:
-> > >
-> > > 1. It's looping once per _connector_ by looping with
-> > > `device_for_each_child_node(dev, fwnode)`.
-> > >
-> > > 2. For each connector, it has exactly one `alt_port` structure.
-> > >
-> > > 3. For each `alt_port` structure it has exactly one `mux`.
-> > >
-> > > ...so currently with your WIP tree there is one "mux" per type C connector.
-> > >
-> > >
-> > > Perhaps what you're saying, though, is that the UCSI code in your WIP
-> > > tree can/should be changed to support more than one mux per port. Then
-> > > I guess it would have logic figuring out what muxes to notify about
-> > > which things? ...and I guess that would mean that it's currently a bug
-> > > that the ucsi_altmode_enable_usb() notifies "the DP type C mux" about
-> > > USB changes?
-> > >
-> > >
-> > > > > I _think_ a mux is supposed to be something more like
-> > > > > `drivers/phy/rockchip/phy-rockchip-typec.c` (though that code predates
-> > > > > the type C framework we're looking at here). There the phy can do all
-> > > > > the work of remuxing things / flipping orientation / etc. I don't
-> > > > > think it's a requirement that every SoC be able to do this remuxing
-> > > > > itself but (if memory serves) rk3399 implemented it so we didn't have
-> > > > > to do it on the TCPC and could use a cheaper solution there.
-> > > > >
-> > > >
-> > > > I'm afraid I don't see how this interacts with a display controller.
-> > >
-> > > This was actually kinda my point. ;-) Specifically I think
-> > > `phy-rockchip-typec.c` is the thing that's supposed to be a "mux". I
-> > > think your display controller isn't a mux. Yeah, it's handy that muxes
-> > > get told about DP HPD status, but that doesn't mean it's the right
-> > > abstraction for you to implement. In my mental model, it's the same as
-> > > implementing your "i2c" controller with a "pinctrl" driver. :-P
-> > >
-> > >
-> > > > It
-> > > > seems more like it's the phy side of things, what we have split between
-> > > > the Type-C controller and the QMP phy to set the pins in the right
-> > > > state.
-> > > >
-> > > > > In any case, my point is that I think there is supposed to be a
-> > > > > _single_ mux per port that handles reassigning pins and that's what
-> > > > > this API is for.
-> > > > >
-> > > >
-> > > > If that's the case things such as typec_mux_match() is just completely
-> > > > backwards.
-> > >
-> > > Yeah, I have no explanation for typec_mux_match(). Let me see if I can
-> > > lure some type C folks into this discussion.
-> > 
-> > This aligns with the model I have in my mind (not that that is
-> > necessarily the right one).
-> > I took that matching code to be meant to handle cases where the
-> > firmware doesn't explicitly
-> > define a "mode-switch" for the port (and so we look at the SVIDs
-> > listed in the Mux fwnode descriptor).
-> > 
-> > The matcher code does suggest there could be a mux for each alternate
-> > mode. But then, how does the
-> > bus code know which mux to set [2] ? In that code, the struct altmode
-> > has a pointer to the struct typec_mux, but I
-> > don't see where that pointer is assigned. I assumed that it was set to
-> > whatever the mux node of the
-> > Type C port was whenever the port driver registered its altmodes for
-> > each port, but I can't substantiate
-> > that assumption in code.
-> > 
-> > Heikki, do you have any guidance regarding what the expected usage is
-> > here? One typec_mux struct per type C port? Or
-> > 1 typec_mux per altmode per port?
-> 
-> I didn't go over the whole thread, so I may have misunderstood
-> something, but I don't think this has anything to do with muxes. The
-> mux should not be a problem for the DRM side under no circumstance.
-> Like Doug said, the mux API is being abused here.
-> 
+Migrate the function to seq_file, to remove all the extra book keeping
+and simplify the function.
 
-No need to read up on the thread, your answer further confirms the
-understanding gained in a lengthy offline chat we had yesterday
-afternoon as well.
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_debug.c | 161 +++++-------------------------
+ 1 file changed, 24 insertions(+), 137 deletions(-)
 
-> HPD was one use case here, so I'll try to explain how that happens...
-> 
-> If the USB Type-C connector is in DP alt mode, then ideally your USB
-> Type-C controller/port driver has registered the partner device DP alt
-> mode the moment it detected that the partner supports that mode, and
-> that partner DP alt mode will have then been bind to the DP alt mode
-> driver:
-> 
->         drivers/usb/typec/altmodes/displayport.c
-> 
-> After that, if the DP alt mode driver sees HPD - HPD is message
-> signalled in DP alt mode (in case some of you guys didn't know) - the
-> DP alt mode driver notifies the DRM connector about it by calling
-> this function:
-> 
->         void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode);
-> 
-> If your USB Type-C controller/port driver does not yet register the DP
-> alt mode, the it's responsible of handling HPD separately by calling
-> drm_connector_oob_hotplug_event() on its own.
-> 
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+index 2f6247e80e9d..566037942343 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.c
++++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+@@ -31,177 +31,69 @@ struct dp_debug_private {
+ 	struct dp_debug dp_debug;
+ };
+ 
+-static int dp_debug_check_buffer_overflow(int rc, int *max_size, int *len)
++static int dp_debug_show(struct seq_file *seq, void *p)
+ {
+-	if (rc >= *max_size) {
+-		DRM_ERROR("buffer overflow\n");
+-		return -EINVAL;
+-	}
+-	*len += rc;
+-	*max_size = SZ_4K - *len;
+-
+-	return 0;
+-}
+-
+-static ssize_t dp_debug_read_info(struct file *file, char __user *user_buff,
+-		size_t count, loff_t *ppos)
+-{
+-	struct dp_debug_private *debug = file->private_data;
+-	char *buf;
+-	u32 len = 0, rc = 0;
++	struct dp_debug_private *debug = seq->private;
+ 	u64 lclk = 0;
+-	u32 max_size = SZ_4K;
+ 	u32 link_params_rate;
+ 	struct drm_display_mode *drm_mode;
+ 
+ 	if (!debug)
+ 		return -ENODEV;
+ 
+-	if (*ppos)
+-		return 0;
+-
+-	buf = kzalloc(SZ_4K, GFP_KERNEL);
+-	if (!buf)
+-		return -ENOMEM;
+-
+ 	drm_mode = &debug->panel->dp_mode.drm_mode;
+ 
+-	rc = snprintf(buf + len, max_size, "\tname = %s\n", DEBUG_NAME);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\tdp_panel\n\t\tmax_pclk_khz = %d\n",
++	seq_printf(seq, "\tname = %s\n", DEBUG_NAME);
++	seq_printf(seq, "\tdp_panel\n\t\tmax_pclk_khz = %d\n",
+ 			debug->panel->max_pclk_khz);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\tdrm_dp_link\n\t\trate = %u\n",
++	seq_printf(seq, "\tdrm_dp_link\n\t\trate = %u\n",
+ 			debug->panel->link_info.rate);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			 "\t\tnum_lanes = %u\n",
++	seq_printf(seq, "\t\tnum_lanes = %u\n",
+ 			debug->panel->link_info.num_lanes);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tcapabilities = %lu\n",
++	seq_printf(seq, "\t\tcapabilities = %lu\n",
+ 			debug->panel->link_info.capabilities);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\tdp_panel_info:\n\t\tactive = %dx%d\n",
++	seq_printf(seq, "\tdp_panel_info:\n\t\tactive = %dx%d\n",
+ 			drm_mode->hdisplay,
+ 			drm_mode->vdisplay);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tback_porch = %dx%d\n",
++	seq_printf(seq, "\t\tback_porch = %dx%d\n",
+ 			drm_mode->htotal - drm_mode->hsync_end,
+ 			drm_mode->vtotal - drm_mode->vsync_end);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tfront_porch = %dx%d\n",
++	seq_printf(seq, "\t\tfront_porch = %dx%d\n",
+ 			drm_mode->hsync_start - drm_mode->hdisplay,
+ 			drm_mode->vsync_start - drm_mode->vdisplay);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tsync_width = %dx%d\n",
++	seq_printf(seq, "\t\tsync_width = %dx%d\n",
+ 			drm_mode->hsync_end - drm_mode->hsync_start,
+ 			drm_mode->vsync_end - drm_mode->vsync_start);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tactive_low = %dx%d\n",
++	seq_printf(seq, "\t\tactive_low = %dx%d\n",
+ 			debug->panel->dp_mode.h_active_low,
+ 			debug->panel->dp_mode.v_active_low);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\th_skew = %d\n",
++	seq_printf(seq, "\t\th_skew = %d\n",
+ 			drm_mode->hskew);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\trefresh rate = %d\n",
++	seq_printf(seq, "\t\trefresh rate = %d\n",
+ 			drm_mode_vrefresh(drm_mode));
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tpixel clock khz = %d\n",
++	seq_printf(seq, "\t\tpixel clock khz = %d\n",
+ 			drm_mode->clock);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tbpp = %d\n",
++	seq_printf(seq, "\t\tbpp = %d\n",
+ 			debug->panel->dp_mode.bpp);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+ 
+ 	/* Link Information */
+-	rc = snprintf(buf + len, max_size,
+-			"\tdp_link:\n\t\ttest_requested = %d\n",
++	seq_printf(seq, "\tdp_link:\n\t\ttest_requested = %d\n",
+ 			debug->link->sink_request);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tnum_lanes = %d\n",
++	seq_printf(seq, "\t\tnum_lanes = %d\n",
+ 			debug->link->link_params.num_lanes);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+ 	link_params_rate = debug->link->link_params.rate;
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tbw_code = %d\n",
++	seq_printf(seq, "\t\tbw_code = %d\n",
+ 			drm_dp_link_rate_to_bw_code(link_params_rate));
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+ 	lclk = debug->link->link_params.rate * 1000;
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tlclk = %lld\n", lclk);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tv_level = %d\n",
++	seq_printf(seq, "\t\tlclk = %lld\n", lclk);
++	seq_printf(seq, "\t\tv_level = %d\n",
+ 			debug->link->phy_params.v_level);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	rc = snprintf(buf + len, max_size,
+-			"\t\tp_level = %d\n",
++	seq_printf(seq, "\t\tp_level = %d\n",
+ 			debug->link->phy_params.p_level);
+-	if (dp_debug_check_buffer_overflow(rc, &max_size, &len))
+-		goto error;
+-
+-	if (copy_to_user(user_buff, buf, len))
+-		goto error;
+-
+-	*ppos += len;
+ 
+-	kfree(buf);
+-	return len;
+- error:
+-	kfree(buf);
+-	return -EINVAL;
++	return 0;
+ }
++DEFINE_SHOW_ATTRIBUTE(dp_debug);
+ 
+ static int dp_test_data_show(struct seq_file *m, void *data)
+ {
+@@ -349,11 +241,6 @@ static int dp_test_active_open(struct inode *inode,
+ 			inode->i_private);
+ }
+ 
+-static const struct file_operations dp_debug_fops = {
+-	.open = simple_open,
+-	.read = dp_debug_read_info,
+-};
+-
+ static const struct file_operations test_active_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = dp_test_active_open,
+-- 
+2.29.2
 
-The drm_connector_oob_hotplug_event() didn't exist when I tried to get
-this working earlier this year and I couldn't figure out what the
-intended design was to feed the HPD information into our DP driver.
-
-Misplacing the typec_mux made all the pieces fall in place and it looked
-good, but I now agree that the typec_mux should be used to mux in/out
-the DP PHY on the pads as a result of the PD negotiation and then
-separate of that the HPD signals should be sent towards the DRM driver
-using drm_connector_oob_hotplug_event() - hopefully by reusing the
-displayport altmode driver, but I still need to figure out how to
-incorporate that in my custom TypeC controller driver.
-
-> Either way, the only thing needed here is description of the
-> connection between the USB Type-C connector and the DisplayPort in
-> firmware - the mux is not relevant here. There are no DT bindings
-> defined for that AFAIK (or are there?), but presumable you want to use
-> OF graph with DT. Right now the DP alt mode driver does not try to
-> find the connection from device graph (so OF graph), but it should not
-> be a problem to add support for it.
-> 
-
-I'll poke around and see what's missing to get
-drm_connector_oob_hotplug_event() work in my model.
-
-> 
-
-The one thing that I still don't understand though is, if the typec_mux
-is used by the typec controller to inform _the_ mux about the function
-to be used, what's up with the complexity in typec_mux_match()? This is
-what lead me to believe that typec_mux was enabling/disabling individual
-altmodes, rather just flipping the physical switch at the bottom.
-
-Thanks,
-Bjorn
-
-> > > > > ...so I will still assert that the right thing to do is to have a
-> > > > > drm_bridge for the type c connector and _that's_ what should be
-> > > > > sending HPD.
-> > > > >
-> > > >
-> > > > That still implies that all the current typec_mux code got it all wrong
-> > > > and should be thrown out. If you instead consider that you have a Type-C
-> > > > controller that upon switching DisplayPort on/off calls typec_mux_set()
-> > > > to inform the functions that things has changed then all the current
-> > > > code makes sense.
-> > > >
-> > > > It also maps nicely to how the TypeC controller would call
-> > > > typec_switch_set() to inform, in our case the QMP phy that the
-> > > > orientation has switched.
-> > > >
-> > > >
-> > > > It seems reasonable to have some common helper code that registers the
-> > > > typec_mux and turn its notifications into HPD notifications to the
-> > > > display code, but I still think that should live in the DRM framework,
-> > > > separate from the USB code.
-> > >
-> > > I think I'm going to step back and hope that the experts can chime in.
-> > >
-> > >
-> > > [1] https://github.com/andersson/kernel/commits/wip/sc8180x-next-20210819
-> > [2]: https://elixir.bootlin.com/linux/v5.15-rc4/source/drivers/usb/typec/bus.c#L27
-> > 
-> > >
-> > > -Doug
-> 
-> thanks,
-> 
-> -- 
-> heikki
