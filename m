@@ -1,49 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 672C7424DE5
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 09:10:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26784424FD3
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 11:13:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD19A6F3A9;
-	Thu,  7 Oct 2021 07:10:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 900856F3D6;
+	Thu,  7 Oct 2021 09:13:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4B3C6F3A2;
- Thu,  7 Oct 2021 07:10:08 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2115D61130;
- Thu,  7 Oct 2021 07:10:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633590608;
- bh=3vu4Bee7oRVtNEuAX+7MQpXOIM3UymsAieFKiYA33TY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WH1M949JZayrWDTDrn0QWRC4vV5vJAtuurxDdIjsju7GA4SWll78oHtm17CVb4ClI
- qXmB99IO5w++fH0Jow7Uq8J5+w3SvrRumejzGwh+R52jPh4AcgbU1nC/WIPbX+XRog
- 8TeejPVOzD1TG5fiNvf/AKL1IVX3z33HijgMLcvx8Xbot1K6XbPo+HpLnRQTfjip4P
- OYXAnOpDRnkuudzmFqJy9ZpJcUJfwpsrNFxJEJyPARwzLexZ1bvJ58SoSWSIWWUmym
- s3NA/6wdX0NnsPl1oHziIWVBNb2RuCdjuPl8YbgyuJ7uEyrTakSO8RTRVaYghmUY7q
- 4LGHjgTYuI63g==
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Jonathan Marek <jonathan@marek.ca>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Date: Thu,  7 Oct 2021 12:39:00 +0530
-Message-Id: <20211007070900.456044-12-vkoul@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211007070900.456044-1-vkoul@kernel.org>
-References: <20211007070900.456044-1-vkoul@kernel.org>
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C00C36F3CB;
+ Thu,  7 Oct 2021 09:13:35 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id o20so16895592wro.3;
+ Thu, 07 Oct 2021 02:13:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lAfZHPm4jtOkGy2SMku+H15JbOWOOnI/vRzw8Q2Wn8w=;
+ b=nnu+flYw6KehjA0AnrB+6Upq2Mvk9WN1rjgEIqJoZRHJ5ZKCoWBeSntOGMGekMaYoA
+ UxYk1Qnbdx7T3t58WLz8OfX5k2eevwl5Vr90XJ0Uiw4W2Gz1pWNOOxtunpFA4scGqFIq
+ Iei7uiYMLhg6J/+AlMsDpFppR4LaIk26SM6yaGkEt/PvsakusnoQaF/ZXP4pyOMHsdRg
+ l7gtzK/4hz15DP/d8wZKhUj0/hCLBG9o/00+/z7ygwFT7Q5LIk1gtKYka8eBpJP0mizf
+ yjfTq14E5tjGcUviOsOSk1pLP3FXEd6CUC+/TsMHpS0mJkGfe3qHB2jeKoa9QPAhddGu
+ NHjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=lAfZHPm4jtOkGy2SMku+H15JbOWOOnI/vRzw8Q2Wn8w=;
+ b=Ku+MxCNZ4xiGUVHw1ZhU2lq4h8ZZKPjWmwV+vEuE1PesGGXhB1rjtiWetlH690B/Mp
+ 8qfnZWLKZvIkCinkk0kzm4ulTZDOOSL+XehaxODnOd8c7XYCCRjQ0BGoFyzufp7pgjz9
+ 9OI0mNiq8thaA9POqhJG6RbNgwdHubRal1Pi6cojajDGqtL6OMgXdvQr5UrQR2xFqFWH
+ d+miztFM0NV+7TpBToSqetRoqMD0lKZ+pFk5u5EfHKQ7OG24xxT2pqPSb8H3f9R1basH
+ UXWZmJdgEGxK4mvpSA1lrQZuqH2nalNo/0C7tbjvuO8sC4NAAG+ffzEugwNZRy+jn9li
+ ueSg==
+X-Gm-Message-State: AOAM533QsF4nW05h8xwPurWBIQKFFMNgY5bH2uqbdbvBVA++XrhaBZzT
+ Vu3i56z7CwqR+ClROzg5Ra0q7D2iXMQ=
+X-Google-Smtp-Source: ABdhPJyl6MnbMHRfR2/58vL6aCUTq4C+yLB/jIZX9v72Zhg1CL8ze8lGdTWex/DSlKat8IrPyYznag==
+X-Received: by 2002:a5d:5250:: with SMTP id k16mr3983312wrc.82.1633598014331; 
+ Thu, 07 Oct 2021 02:13:34 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ g1sm8737226wmk.2.2021.10.07.02.13.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Oct 2021 02:13:33 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: rdunlap@infradead.org,
+	sfr@canb.auug.org.au
+Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ robdclark@gmail.com
+Date: Thu,  7 Oct 2021 11:13:32 +0200
+Message-Id: <20211007091332.22099-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 11/11] drm/msm/dsi: Pass DSC params to
- drm_panel
+Subject: [Freedreno] [PATCH] drm/msm: fix compilation when COMMON_CLK is
+ disabled
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +76,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When DSC is enabled, we need to pass the DSC parameters to panel driver
-as well, so add a dsc parameter in panel and set it when DSC is enabled
+We can't even compile test without this
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Fixes: b3ed524f84f5 ("drm/msm: allow compile_test on !ARM")
+Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 16 +++++++++++++++-
- include/drm/drm_panel.h            |  7 +++++++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 86e36a3e97b6..097827a6149c 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2192,6 +2192,7 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
- 	struct platform_device *pdev = msm_host->pdev;
- 	struct msm_drm_private *priv;
-+	struct drm_panel *panel;
- 	int ret;
- 
- 	msm_host->irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
-@@ -2211,8 +2212,21 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
- 	}
- 
- 	msm_host->dev = dev;
-+	panel = msm_dsi_host_get_panel(&msm_host->base);
- 	priv = dev->dev_private;
--	priv->dsc = msm_host->dsc;
-+
-+	if (panel && panel->dsc) {
-+		struct msm_display_dsc_config *dsc = priv->dsc;
-+
-+		if (!dsc) {
-+			dsc = kzalloc(sizeof(*dsc), GFP_KERNEL);
-+			if (!dsc)
-+				return -ENOMEM;
-+			dsc->drm = panel->dsc;
-+			priv->dsc = dsc;
-+			msm_host->dsc = dsc;
-+		}
-+	}
- 
- 	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
- 	if (ret) {
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 4602f833eb51..eb8ae9bf32ed 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -171,6 +171,13 @@ struct drm_panel {
- 	 * Panel entry in registry.
- 	 */
- 	struct list_head list;
-+
-+	/**
-+	 * @dsc:
-+	 *
-+	 * Panel DSC pps payload to be sent
-+	 */
-+	struct drm_dsc_config *dsc;
- };
- 
- void drm_panel_init(struct drm_panel *panel, struct device *dev,
+diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+index 5879f67bc88c..d9879b011fb0 100644
+--- a/drivers/gpu/drm/msm/Kconfig
++++ b/drivers/gpu/drm/msm/Kconfig
+@@ -5,7 +5,7 @@ config DRM_MSM
+ 	depends on DRM
+ 	depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
+ 	depends on IOMMU_SUPPORT
+-	depends on (OF && COMMON_CLK) || COMPILE_TEST
++	depends on (OF || COMPILE_TEST) && COMMON_CLK
+ 	depends on QCOM_OCMEM || QCOM_OCMEM=n
+ 	depends on QCOM_LLCC || QCOM_LLCC=n
+ 	depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=n
 -- 
-2.31.1
+2.25.1
 
