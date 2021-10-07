@@ -2,62 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78CBE42500E
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 11:28:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC6B4425328
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 14:35:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060246F3F4;
-	Thu,  7 Oct 2021 09:28:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C09F6F45F;
+	Thu,  7 Oct 2021 12:35:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0E056F3E8;
- Thu,  7 Oct 2021 09:28:19 +0000 (UTC)
-Received: by mail-vk1-f176.google.com with SMTP id bb12so421903vkb.5;
- Thu, 07 Oct 2021 02:28:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=hzHW72Ay3gWV8fEJFQ+iu6g37baZLnF8PQ8Ot4oxoaI=;
- b=tOJ9Zo8CdOc9pOAjAQi/tpIdfhrXLUW8JbtJKNo0Fr7Wc6mkTepwxpCiRakSJ+zpVo
- 2oiQBT820NZVLf5X3bDZ2fTVAcd+3/SaCSdtiVBlQ/F+oliGDVHhDckr9jBpp7Yd/uS0
- rqRhOvncq+F2ZbbKJ0aQnBaT+sOkMTYsqlb9rkWqybI89S391O+AwM1tnxbMJaxC/wD2
- 8JynPb90B7dxAOoBD9XSEDkEh2F5b9AtyGdSg7YWdUgHBXh9LheuR17YF/lFdoBU9VJc
- 0RpNrjr0Uu5OFgFNYUmIzOw8mM8QKC1yYpWeu6LsvKNAV+0/00O1H4TMpYGC8dokasqd
- gyrw==
-X-Gm-Message-State: AOAM532Y/y8QY54C3fvfi6XHZYpmlFtenNat7OigczzQZas5I6nei0fQ
- JO3NrAQhlkDu4sFJ+veaCcb38ba75Cnwb5xyGhzrrpPXT7k=
-X-Google-Smtp-Source: ABdhPJxa3fwE1gntWrjljDsvFH6UlsS62TRi8FeltjZ+YAQFTMpawuIEL6cDelrBaNePH9pbfBWO3F+KAs1dSlBCJEY=
-X-Received: by 2002:a1f:3a4b:: with SMTP id h72mr2286297vka.19.1633598898975; 
- Thu, 07 Oct 2021 02:28:18 -0700 (PDT)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F6886E840;
+ Thu,  7 Oct 2021 12:35:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AAFA360F93;
+ Thu,  7 Oct 2021 12:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633610156;
+ bh=6N4+qgtMfBxspS0JmtTqIeZ5IOVPp5soyqeLUMpHPSE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bRwwZH5wCt6PdnH0bLE8X/7hjayq5WPI7EROZPn9tThH7u3t2Hxayiw6SNgVRVWIb
+ kLX4mR10NcyLQJ1rLJb9JbxknYSSszwmxPPu6k2AkRtvUivNxOVBejrnziraGKM9q2
+ ayNJMrQzulHIkt3shn88BvD0zj5flvSn5jHEydatSmgTGDpSonvUqP3VUnH5S5XJLX
+ i3bJWglcaO1aDY+RtFCu13LyKSObSSferLGNQCO/rqZ55U46w/W+eRXGaLdmzeCWAh
+ kQRxPb32QwTLkOFpuBsaMxKdqGB7eNTjV0PjAz6lcSw+o+SnVcfImMtHGhFzz4w5cB
+ gGImsO/t1tG+g==
+Date: Thu, 7 Oct 2021 13:35:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Jaroslav Kysela <perex@perex.cz>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Saravana Kannan <saravanak@google.com>
+Message-ID: <YV7pqY2FMaYy7Vkq@sirena.org.uk>
+References: <20211006193819.2654854-1-swboyd@chromium.org>
+ <20211006193819.2654854-32-swboyd@chromium.org>
 MIME-Version: 1.0
-References: <20211006025350.a5PczFZP4%akpm@linux-foundation.org>
- <58fbf2ff-b367-2137-aa77-fcde6c46bbb7@infradead.org>
- <20211006182052.6ecc17cf@canb.auug.org.au>
- <f877a1c9-1898-23f3-bba3-3442dc1f3979@amd.com>
-In-Reply-To: <f877a1c9-1898-23f3-bba3-3442dc1f3979@amd.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 7 Oct 2021 11:28:07 +0200
-Message-ID: <CAMuHMdV3eMchpgUasU6BBHrDQyjCc2TrqJ+zJgFhgAySpqVGfw@mail.gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Randy Dunlap <rdunlap@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>, 
- Linux FS Devel <linux-fsdevel@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux MM <linux-mm@kvack.org>, 
- Linux-Next <linux-next@vger.kernel.org>, Michal Hocko <mhocko@suse.cz>,
- mm-commits@vger.kernel.org, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, freedreno@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>, 
- DRI <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] mmotm 2021-10-05-19-53 uploaded
- (drivers/gpu/drm/msm/hdmi/hdmi_phy.o)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="1Flv7GPR/yQ1psFZ"
+Content-Disposition: inline
+In-Reply-To: <20211006193819.2654854-32-swboyd@chromium.org>
+X-Cookie: Colors may fade.
+Subject: Re: [Freedreno] [PATCH v2 31/34] ASoC: codecs: wcd938x: Migrate to
+ aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,69 +60,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Christian,
 
-On Wed, Oct 6, 2021 at 9:28 AM Christian K=C3=B6nig <christian.koenig@amd.c=
-om> wrote:
-> Am 06.10.21 um 09:20 schrieb Stephen Rothwell:
-> > On Tue, 5 Oct 2021 22:48:03 -0700 Randy Dunlap <rdunlap@infradead.org> =
-wrote:
-> >> on i386:
-> >>
-> >> ld: drivers/gpu/drm/msm/hdmi/hdmi_phy.o:(.rodata+0x3f0): undefined ref=
-erence to `msm_hdmi_phy_8996_cfg'
-> >>
-> >>
-> >> Full randconfig fle is attached.
-> > This would be because CONFIG_DRM_MSM is set but CONFIG_COMMON_CLOCK is
-> > not and has been exposed by commit
-> >
-> >    b3ed524f84f5 ("drm/msm: allow compile_test on !ARM")
-> >
-> > from the drm-misc tree.
->
-> Good point, how about this change:
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index 5879f67bc88c..d9879b011fb0 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -5,7 +5,7 @@ config DRM_MSM
->          depends on DRM
->          depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->          depends on IOMMU_SUPPORT
-> -       depends on (OF && COMMON_CLK) || COMPILE_TEST
-> +       depends on (OF || COMPILE_TEST) && COMMON_CLK
+--1Flv7GPR/yQ1psFZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I'd make that:
+On Wed, Oct 06, 2021 at 12:38:16PM -0700, Stephen Boyd wrote:
+> Use an aggregate driver instead of component ops so that we can get
+> proper driver probe ordering of the aggregate device with respect to all
+> the component devices that make up the aggregate device.
 
-    -        depends on DRM
-    +       depends on COMMON_CLK && DRM && IOMMU_SUPPORT
-            depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
-    -        depends on IOMMU_SUPPORT
-    -       depends on (OF && COMMON_CLK) || COMPILE_TEST
-    +       depends on OF || COMPILE_TEST
+Acked-by: Mark Brown <broonie@kernel.org>
 
-to keep a better separation between hard and soft dependencies.
+--1Flv7GPR/yQ1psFZ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Note that the "depends on OF || COMPILE_TEST" can even be
-deleted, as the dependency on ARCH_QCOM || SOC_IMX5 implies OF.
+-----BEGIN PGP SIGNATURE-----
 
->          depends on QCOM_OCMEM || QCOM_OCMEM=3Dn
->          depends on QCOM_LLCC || QCOM_LLCC=3Dn
->          depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=3Dn
->
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFe6agACgkQJNaLcl1U
+h9BXYwgAhSJ8+Nsp/fnvma50fxoPjfxJlaILrA7KNR4UFgO76J6jeemfnwtDi7DE
+jGs0zTwsvrRHcoqkLmc0pDv/zDc4uKIQuudO34AtZ6VHq0ZZ4mAFoIITNIUQuQoH
+8OSes8CDhwe6a7jZqIhk60LbcQPuW83UefDgPsqO6jHZXFDE52Ix/YAnYvj3gLE3
+b5sfypPKzUgntV6rlsvZ88N7TJZFuQEFFaE5k/DBZmA6ksuZvzsCxiK4JKFgpqir
+16b+m/CPV5x/KNkJ3RLTqOMkkIs7N0Uu/k7ykroYdkRe9qBTrUCyJpM7JtFO/Ix6
+8pSYl3GgK/QD+f05XZ4Yj7VcQWESPQ==
+=XOZo
+-----END PGP SIGNATURE-----
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+--1Flv7GPR/yQ1psFZ--
