@@ -2,62 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCA744255E2
-	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 16:57:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECBEE425630
+	for <lists+freedreno@lfdr.de>; Thu,  7 Oct 2021 17:10:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B8B66F4B1;
-	Thu,  7 Oct 2021 14:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A0846F893;
+	Thu,  7 Oct 2021 15:10:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CF8D6F4B1;
- Thu,  7 Oct 2021 14:57:20 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- 5-20020a9d0685000000b0054706d7b8e5so7833899otx.3; 
- Thu, 07 Oct 2021 07:57:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=mzk6WiudmT/TF8wQB8x0MzCt8I6DeHYCrar6L1Vp+E8=;
- b=abS/ykrfupEbY9NiEA21C5OeHy8TNemYFC3T0zrw2wkqlMenZpjF18n3J3C22sLOx7
- HMGCh80ulxbT7baxlfll4P6OouOevL5ot6551wCMeQiOgGclDPnnCvXPO4WexpXAOEcU
- rY6Qghhbt6y6JE0UNAA2RBnlH0SyFjGcJJeDoy5K+M4lDP9lbIZlIoDYLFV8PDxQ/0Su
- k4Ekg0kXi/iZ234kzqe1/kkhjjl43GrcNZvUWKolxk/If719lgs7pKaE9fkK6886xs5R
- W4Oz81FeVwAJ5N9IpEQ386aaaAzmTHeKcu7ehCHoi69QaATDGr7Pr+L5aUtYguvg4gqG
- b05A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=mzk6WiudmT/TF8wQB8x0MzCt8I6DeHYCrar6L1Vp+E8=;
- b=em9GsuYOgViL0PCS4+p6i1X6eBjcJcapM+m/pg42titk7tYdeWoKRDDIPZsWtj9AJq
- 2tMAFXjzRudKxd+jrY7JGPe+UhUgm7wtliszBpyR+ZtMSIH7yIcvJVIi4vY1imKRYdAk
- 7TQqqqygXQxWK9JmLLYmDMOk3I6hdJyJtjz3FbY6D0BDHD9aeYPrJYaR44r/2ynmgSUh
- OLfBF7m73J3AEuwlAGtqtV8Cg3PXqWnUHfHbtUD85fvaIGRMYn3rA4MRYW8hb37uNBlr
- r/h9S+PfQfCSodXXABa9aEODRQLFf8j41emeakRBDhcAsYvEz8S0VtDDKEYr8Vbn1pK6
- z0+g==
-X-Gm-Message-State: AOAM533YbqB/mkyHd/texWjc7TGcwiv3J9DLCxL4khjxdthQS2upQxWc
- co3YD8j2c6jR05dMu5uJnTflq2PLrweIOzhGnoo=
-X-Google-Smtp-Source: ABdhPJzJXe7uLLkzQpqyL7kAhRlGbhklkOm+sxdr0Gx13wru39dPV7tQEXD4JLgDuONXErGATWx3r1UjvAc4cqxkBkQ=
-X-Received: by 2002:a05:6830:1bc6:: with SMTP id
- v6mr3927342ota.299.1633618639323; 
- Thu, 07 Oct 2021 07:57:19 -0700 (PDT)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5096F892;
+ Thu,  7 Oct 2021 15:10:23 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4B0B26113E;
+ Thu,  7 Oct 2021 15:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633619423;
+ bh=6XparVng5W/AReJHiKchmXlIe9lsC3Z91YzkLUlPNCg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=uGBU3w5ZPcovOtfzM/FIsHTD7h3JxuPJygqvsc/Akx8WIgRCpgs3UgXZBZTV82I1O
+ pW+TIPVurN88xf3WvDzFDkgp4KUNa7HpHH0yruRMhNm5135jx5bqq+/CKSzQGvE9Do
+ ViwsXF7lFqxOsI6bHhr9Jy2jv4XcchqTsLVaQi+z5d/b1rYbgoS7hR41kw3y30v3an
+ GfXh2Vp3SSFv+/Ic2Yauk4D9evUCiGVqN10/ZzGkA3ER8QQimEVtKd0+OTGa/g7KUM
+ 0ggiEgI2DrGim19ev5P6YtxGkOvCy0ZLC7gw6ICyGtfCMR5AINWv1keeKoUptUyCZ3
+ OdUDZ2/BTlnCQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-ia64@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ iommu@lists.linux-foundation.org, linux-media@vger.kernel.org,
+ linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Will Deacon <will@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>,
+ Michael Ellerman <mpe@ellerman.id.au>
+Date: Thu,  7 Oct 2021 17:10:09 +0200
+Message-Id: <20211007151010.333516-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-References: <20211007091332.22099-1-christian.koenig@amd.com>
-In-Reply-To: <20211007091332.22099-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 Oct 2021 10:57:08 -0400
-Message-ID: <CADnq5_P0G31TM=mWBGZv8c39sziBmMFOsRBUZLe7hHtp9ja78w@mail.gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>,
- Stephen Rothwell <sfr@canb.auug.org.au>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, 
- freedreno <freedreno@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm: fix compilation when COMMON_CLK is
- disabled
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 1/2] firmware: include
+ drivers/firmware/Kconfig unconditionally
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,33 +62,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 7, 2021 at 5:13 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> We can't even compile test without this
->
-> Fixes: b3ed524f84f5 ("drm/msm: allow compile_test on !ARM")
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Compile-testing drivers that require access to a firmware layer
+fails when that firmware symbol is unavailable. This happened
+twice this week:
 
-> ---
->  drivers/gpu/drm/msm/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index 5879f67bc88c..d9879b011fb0 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -5,7 +5,7 @@ config DRM_MSM
->         depends on DRM
->         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->         depends on IOMMU_SUPPORT
-> -       depends on (OF && COMMON_CLK) || COMPILE_TEST
-> +       depends on (OF || COMPILE_TEST) && COMMON_CLK
->         depends on QCOM_OCMEM || QCOM_OCMEM=3Dn
->         depends on QCOM_LLCC || QCOM_LLCC=3Dn
->         depends on QCOM_COMMAND_DB || QCOM_COMMAND_DB=3Dn
-> --
-> 2.25.1
->
+ - My proposed to change to rework the QCOM_SCM firmware symbol
+   broke on ppc64 and others.
+
+ - The cs_dsp firmware patch added device specific firmware loader
+   into drivers/firmware, which broke on the same set of
+   architectures.
+
+We should probably do the same thing for other subsystems as well,
+but fix this one first as this is a dependency for other patches
+getting merged.
+
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Acked-by: Will Deacon <will@kernel.org>
+Acked-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Simon Trimmer <simont@opensource.cirrus.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+No changes in v2, but it's now queued in my asm-generic
+tree for v5.15
+
+ arch/arm/Kconfig    | 2 --
+ arch/arm64/Kconfig  | 2 --
+ arch/ia64/Kconfig   | 2 --
+ arch/mips/Kconfig   | 2 --
+ arch/parisc/Kconfig | 2 --
+ arch/riscv/Kconfig  | 2 --
+ arch/x86/Kconfig    | 2 --
+ drivers/Kconfig     | 2 ++
+ 8 files changed, 2 insertions(+), 14 deletions(-)
+
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index fc196421b2ce..59baf6c132a7 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1989,8 +1989,6 @@ config ARCH_HIBERNATION_POSSIBLE
+ 
+ endmenu
+ 
+-source "drivers/firmware/Kconfig"
+-
+ if CRYPTO
+ source "arch/arm/crypto/Kconfig"
+ endif
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 077f2ec4eeb2..407b4addea36 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -1931,8 +1931,6 @@ source "drivers/cpufreq/Kconfig"
+ 
+ endmenu
+ 
+-source "drivers/firmware/Kconfig"
+-
+ source "drivers/acpi/Kconfig"
+ 
+ source "arch/arm64/kvm/Kconfig"
+diff --git a/arch/ia64/Kconfig b/arch/ia64/Kconfig
+index 045792cde481..1e33666fa679 100644
+--- a/arch/ia64/Kconfig
++++ b/arch/ia64/Kconfig
+@@ -388,8 +388,6 @@ config CRASH_DUMP
+ 	  help
+ 	    Generate crash dump after being started by kexec.
+ 
+-source "drivers/firmware/Kconfig"
+-
+ endmenu
+ 
+ menu "Power management and ACPI options"
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index 771ca53af06d..6b8f591c5054 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -3316,8 +3316,6 @@ source "drivers/cpuidle/Kconfig"
+ 
+ endmenu
+ 
+-source "drivers/firmware/Kconfig"
+-
+ source "arch/mips/kvm/Kconfig"
+ 
+ source "arch/mips/vdso/Kconfig"
+diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
+index 4742b6f169b7..27a8b49af11f 100644
+--- a/arch/parisc/Kconfig
++++ b/arch/parisc/Kconfig
+@@ -384,6 +384,4 @@ config KEXEC_FILE
+ 
+ endmenu
+ 
+-source "drivers/firmware/Kconfig"
+-
+ source "drivers/parisc/Kconfig"
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index c3f3fd583e04..8bc71ab143e3 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -561,5 +561,3 @@ menu "Power management options"
+ source "kernel/power/Kconfig"
+ 
+ endmenu
+-
+-source "drivers/firmware/Kconfig"
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 4e001bbbb425..4dca39744ee9 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -2828,8 +2828,6 @@ config HAVE_ATOMIC_IOMAP
+ 	def_bool y
+ 	depends on X86_32
+ 
+-source "drivers/firmware/Kconfig"
+-
+ source "arch/x86/kvm/Kconfig"
+ 
+ source "arch/x86/Kconfig.assembler"
+diff --git a/drivers/Kconfig b/drivers/Kconfig
+index 30d2db37cc87..0d399ddaa185 100644
+--- a/drivers/Kconfig
++++ b/drivers/Kconfig
+@@ -17,6 +17,8 @@ source "drivers/bus/Kconfig"
+ 
+ source "drivers/connector/Kconfig"
+ 
++source "drivers/firmware/Kconfig"
++
+ source "drivers/gnss/Kconfig"
+ 
+ source "drivers/mtd/Kconfig"
+-- 
+2.29.2
+
