@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EC14261A7
-	for <lists+freedreno@lfdr.de>; Fri,  8 Oct 2021 03:24:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CBEC5426210
+	for <lists+freedreno@lfdr.de>; Fri,  8 Oct 2021 03:33:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D97936E05F;
-	Fri,  8 Oct 2021 01:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676666E071;
+	Fri,  8 Oct 2021 01:32:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C75536E05C
- for <freedreno@lists.freedesktop.org>; Fri,  8 Oct 2021 01:24:04 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id t4so9805780oie.5
- for <freedreno@lists.freedesktop.org>; Thu, 07 Oct 2021 18:24:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=naG1P+MZ79esuZZtF4hMLGLIc5QCJUK3N1b3eboxXww=;
- b=AeoKT6PhHNW1H+jjEz0WRm7QsKDIw2r9uDW8cmImCp6oNqJQEfV7B5dnkPNljyhMyI
- 9L1wWLtJRw2kOFJtji2bs6M4Beav2bPeAYCyttEMkPZv3cBVsQcz0BIB7PHcoHoJ4gIu
- qxHqzKAWcNYfnDYcmi9gv+3MVqTtYh9/pQ5No=
+Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
+ [IPv6:2607:f8b0:4864:20::b29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9671E6E061
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Oct 2021 01:32:57 +0000 (UTC)
+Received: by mail-yb1-xb29.google.com with SMTP id h2so17427781ybi.13
+ for <freedreno@lists.freedesktop.org>; Thu, 07 Oct 2021 18:32:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gq7gSaT8ZCVg6gwqjOCmpvWG1r7KdegQCpYgjA1Cxgs=;
+ b=hVG5BypZOZMCcxoDGMEmb2d9pZUnGW/iR+RCKisjdYIqpy8yvWSifIvE2OUdlFI6Ja
+ 13maROVbcAL6wGxCVvyunsWZL+fOFSQXxIgBep9HCx1s5QSsO2JL52Vt7IYYdTRXNX0L
+ vUEQhiRyZqpCWn+6wdnHnutN9SnZ578yCdcqtzgCeWsxPd2G85GnvCPuz76qi56gD9Wn
+ x2t+4Xgurl5aJkUUghCq6mdySZ2DRhRRZ5CAvm0obdf1j2xHacoZzAcDEovfozPu51f6
+ 3P8Fi8Jd0PUWTi7Ii5Uf3Nu9ORslbQq/dIBGVASDJ2mv1bWoFG0h1Ml6tuUz1GBHr9ry
+ UhYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=naG1P+MZ79esuZZtF4hMLGLIc5QCJUK3N1b3eboxXww=;
- b=ny722xKLHYrCjbMXJ32Uoy80dZRx3QBsIshWdoDBIlZ+PkVBeZ81nvHyVaKPiZi2u3
- QLZj2Prtw2hY+zVZvER1YESurbadLI629oKlZdAJ2uojlOwQ3FiP+hiFabnGI25j8HXY
- jEMZEN6ifGOhDLMsmgLVQXQyOOyXmbjxmNwTQu3w6a/gXyhCko+COybxMicMA2s6y/4m
- WO00GtO9amUEIKoMGGNvTksweAaeuW5NQhRlSvY82R9zh5Ul1iz2JLOxyaH0M54LR5Qk
- L6e4fvz3cPKMH+/idee2iG/zAOut1q4WjXlnXLZ0cAdXOA9Ki0po/f7QKiv7xRJLPdzI
- ZbBQ==
-X-Gm-Message-State: AOAM53223m3oG6yjdI08twdq/U85tbmwyA4UWX9keA2o5WdsdKtBrQZa
- fREwwLpGV2fOb+HFxSKredAypmEC20KE5NF9HAzNZw==
-X-Google-Smtp-Source: ABdhPJxZpYNZdTIYUswnJFAZN5d8OgMx7wQAnRve3zAEDw9kNgGvNb0KWpe4QGeS/wAmqHDijcq6btR/ht/K/Y5dYwo=
-X-Received: by 2002:a05:6808:f8f:: with SMTP id
- o15mr14247028oiw.164.1633656244097; 
- Thu, 07 Oct 2021 18:24:04 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 7 Oct 2021 21:24:03 -0400
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gq7gSaT8ZCVg6gwqjOCmpvWG1r7KdegQCpYgjA1Cxgs=;
+ b=k70KyftHTncnuYa7W39CSGT09Bdz1BMddEHI032ujABpONHqjTptS3MAee6OVRgEcm
+ Ym9Bq6yFsqhUGiDqjRx7EypiauFCBm3pRt7R/EIpLV9nh5XYqXBsskGSmLIFHmNJG0oR
+ 4udrpTNLmOd8pIozwABpR79kzZri0ztNL6N0osclz/X9cyJC5JlvgduZxkS21cd8J7Yb
+ EhNFYrMPWJuOMHidJ7GW+esIF5kLfYIHlRPuCoCi3pLO+fhXdQVnZ5EZhH/gGyx4bsTQ
+ +u+pFAF5Dl3n+tOkwvVTv9aLjocXc11tQa6Bw78KLOcLQsJ9No0LIzczvaBvxWWGu8TV
+ QQhQ==
+X-Gm-Message-State: AOAM53369cTD7bF2jnQw3LYCT3HFduepZEO8jx6+FOkE+xP8ev8d4jOm
+ goTep5ie5bi6JsvLoYImkj1aZkTOSb6+TkzKBgcneA==
+X-Google-Smtp-Source: ABdhPJwphJSVZlbF7TYID3eDKwABnbApJ6AEo/HmKTo0cd9M1/cJR2ESOZf/6UZkw6FwofeT9MuMFeh+InmawpGTJ/w=
+X-Received: by 2002:a05:6902:154c:: with SMTP id
+ r12mr454424ybu.432.1633656776620; 
+ Thu, 07 Oct 2021 18:32:56 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAGETcx_0GRg7u3dAxP9u0qO-hfJ0N3V44CGLwFFX1kVxZ00g+w@mail.gmail.com>
 References: <20211006193819.2654854-1-swboyd@chromium.org>
  <20211006193819.2654854-3-swboyd@chromium.org>
  <CAGETcx9T59dHXodt9MW=tTV_hYhtNOZzYFT=35D--VN7WJ0GqQ@mail.gmail.com>
  <CAE-0n50YqKr1nKy-4WaxsfuwPiJ5kZcf46t-U_4i-TpfXzOX1g@mail.gmail.com>
  <CAE-0n532XYgT=dTTCyLcwikvxgUyGi=TcybDh=v3wQTNb=wqyw@mail.gmail.com>
  <CAGETcx_0GRg7u3dAxP9u0qO-hfJ0N3V44CGLwFFX1kVxZ00g+w@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 7 Oct 2021 21:24:03 -0400
-Message-ID: <CAE-0n52ytNtf5atojYrLviuAKOt3v+mLVoPeqtRUf-6uBpkiJA@mail.gmail.com>
-To: Saravana Kannan <saravanak@google.com>
+ <CAE-0n52ytNtf5atojYrLviuAKOt3v+mLVoPeqtRUf-6uBpkiJA@mail.gmail.com>
+In-Reply-To: <CAE-0n52ytNtf5atojYrLviuAKOt3v+mLVoPeqtRUf-6uBpkiJA@mail.gmail.com>
+From: Saravana Kannan <saravanak@google.com>
+Date: Thu, 7 Oct 2021 18:32:20 -0700
+Message-ID: <CAGETcx9+pL1DxDyZOBGFFVsmb0haAzJTFtyQFEO9ab9u8N=FXQ@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
@@ -78,61 +78,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Saravana Kannan (2021-10-07 18:10:24)
-> On Thu, Oct 7, 2021 at 1:11 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Stephen Boyd (2021-10-07 11:40:07)
-> > > Quoting Saravana Kannan (2021-10-06 20:07:11)
-> > > > On Wed, Oct 6, 2021 at 12:38 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> > > > > diff --git a/drivers/base/component.c b/drivers/base/component.c
-> > > > > index 0a41bbe14981..d99e99cabb99 100644
-> > > > > --- a/drivers/base/component.c
-> > > > > +++ b/drivers/base/component.c
-> > > [...]
-> > > > > +                       continue;
-> > > > > +
-> > > > > +               /* Matches put in component_del() */
-> > > > > +               get_device(&adev->dev);
-> > > > > +               c->link = device_link_add(&adev->dev, c->dev,
-> > > > > +                                         DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME);
-> > > >
-> > > > Remove the STATELESS flag and you'll get a bunch of other stuff done for free:
+On Thu, Oct 7, 2021 at 6:24 PM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Saravana Kannan (2021-10-07 18:10:24)
+> > On Thu, Oct 7, 2021 at 1:11 PM Stephen Boyd <swboyd@chromium.org> wrote:
 > > >
-> > > I tried that and it didn't work for me. The aggregate device never
-> > > probed and I was left with no display. Let me see if I can reproduce it
-> > > with logging to provide more details.
+> > > Quoting Stephen Boyd (2021-10-07 11:40:07)
+> > > > Quoting Saravana Kannan (2021-10-06 20:07:11)
+> > > > > On Wed, Oct 6, 2021 at 12:38 PM Stephen Boyd <swboyd@chromium.org> wrote:
+> > > > > > diff --git a/drivers/base/component.c b/drivers/base/component.c
+> > > > > > index 0a41bbe14981..d99e99cabb99 100644
+> > > > > > --- a/drivers/base/component.c
+> > > > > > +++ b/drivers/base/component.c
+> > > > [...]
+> > > > > > +                       continue;
+> > > > > > +
+> > > > > > +               /* Matches put in component_del() */
+> > > > > > +               get_device(&adev->dev);
+> > > > > > +               c->link = device_link_add(&adev->dev, c->dev,
+> > > > > > +                                         DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME);
+> > > > >
+> > > > > Remove the STATELESS flag and you'll get a bunch of other stuff done for free:
+> > > >
+> > > > I tried that and it didn't work for me. The aggregate device never
+> > > > probed and I was left with no display. Let me see if I can reproduce it
+> > > > with logging to provide more details.
+> > >
+> > > This patch fixes it (whitespace damaged sorry).
 > >
-> > This patch fixes it (whitespace damaged sorry).
+> > Not sure why you have to trigger an explicit rescan, but instead of
+> > this patch below, you could also try setting this flag instead?
+> > DL_FLAG_AUTOPROBE_CONSUMER
+> >
 >
-> Not sure why you have to trigger an explicit rescan, but instead of
-> this patch below, you could also try setting this flag instead?
-> DL_FLAG_AUTOPROBE_CONSUMER
+> I'd rather not conflate component driver probe with component_add()
+> being called. It's simpler if that is the case, i.e. all component
+> drivers are calling component_add() in their driver probe routine, but I
+> don't know if that's always true. I did this poor audit of the kernel
 >
+> $ git grep -p \[^_]component_add | grep \.c=  | grep -v probe
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=static int
+> amdgpu_dm_audio_init(struct amdgpu_device *adev)
+> drivers/gpu/drm/i915/display/intel_audio.c=static void
+> i915_audio_component_init(struct drm_i915_private *dev_priv)
+> drivers/gpu/drm/i915/display/intel_hdcp.c=void
+> intel_hdcp_component_init(struct drm_i915_private *dev_priv)
+> drivers/gpu/drm/nouveau/dispnv50/disp.c=nv50_audio_component_init(struct
+> nouveau_drm *drm)
+> drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c=static int
+> dw_mipi_dsi_rockchip_host_attach(void *priv_data,
+> drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c=static int
+> dw_mipi_dsi_dphy_init(struct phy *phy)
+> drivers/gpu/drm/vc4/vc4_dsi.c=static int vc4_dsi_host_attach(struct
+> mipi_dsi_host *host,
+>
+> and then peeking at rockchip above I see that component_add() is called
+> in the mipi dsi attach ops and then I got lost trying to figure out
+> where it ends up. Maybe it is still in some probe call?
+>
+> Anyway, I think we still have to do a rescan so that we can try to bind
+> the aggregate device. Is there a better API to use for that?
 
-I'd rather not conflate component driver probe with component_add()
-being called. It's simpler if that is the case, i.e. all component
-drivers are calling component_add() in their driver probe routine, but I
-don't know if that's always true. I did this poor audit of the kernel
+If you know the exact device, you could call device_attach()? That's
+what bus_rescan_devices() eventually calls, but you skip the
+unnecessary looping over all the other devices.
 
-$ git grep -p \[^_]component_add | grep \.c=  | grep -v probe
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c=static int
-amdgpu_dm_audio_init(struct amdgpu_device *adev)
-drivers/gpu/drm/i915/display/intel_audio.c=static void
-i915_audio_component_init(struct drm_i915_private *dev_priv)
-drivers/gpu/drm/i915/display/intel_hdcp.c=void
-intel_hdcp_component_init(struct drm_i915_private *dev_priv)
-drivers/gpu/drm/nouveau/dispnv50/disp.c=nv50_audio_component_init(struct
-nouveau_drm *drm)
-drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c=static int
-dw_mipi_dsi_rockchip_host_attach(void *priv_data,
-drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c=static int
-dw_mipi_dsi_dphy_init(struct phy *phy)
-drivers/gpu/drm/vc4/vc4_dsi.c=static int vc4_dsi_host_attach(struct
-mipi_dsi_host *host,
-
-and then peeking at rockchip above I see that component_add() is called
-in the mipi dsi attach ops and then I got lost trying to figure out
-where it ends up. Maybe it is still in some probe call?
-
-Anyway, I think we still have to do a rescan so that we can try to bind
-the aggregate device. Is there a better API to use for that?
+-Saravana
