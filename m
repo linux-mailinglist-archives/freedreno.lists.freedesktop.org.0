@@ -2,76 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D9D04272AA
-	for <lists+freedreno@lfdr.de>; Fri,  8 Oct 2021 22:55:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5C2427E75
+	for <lists+freedreno@lfdr.de>; Sun, 10 Oct 2021 05:03:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197386E117;
-	Fri,  8 Oct 2021 20:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 877286E210;
+	Sun, 10 Oct 2021 03:03:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1FF6E115;
- Fri,  8 Oct 2021 20:55:22 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id A9CF0580C13;
- Fri,  8 Oct 2021 16:55:20 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Fri, 08 Oct 2021 16:55:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=u92.eu; h=date
- :from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=U/0tI2WqpY8R/D5cCNUlc8nWhAl
- LsJXOzrctQujWspY=; b=l/83LD6l0rHvCZwTBsNAVmL0SqTO0/h8C5H2nz6CaE9
- md5NOYwRiHDc6jGDWDvKo0iR9nkIZSNGQEIjT8pR+5GYB9tddVnD9emmUQGwuHeg
- /XaeWspPz3GuFT/xqzFkTKAIDZCsdJU6v8uZ/47/ulLKqul5XLrF7kK6IF1uaNp6
- EvHsRJNO3E2y0TqoqAzBJE+YW16DN+aKXC7jFF0ybZUvzcCKzAcFt+eHdQnUKaU2
- W2YgPK5I2ERA1OQHY4EFj63/CfNVxsAz0e6vdb7aua/tm9u0rj2M2Bd3Z5NaA+TZ
- 6UJUjBL1kIy2hE9BEPChzkjElPApG3xYKnLSSlRIe1w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=U/0tI2
- WqpY8R/D5cCNUlc8nWhAlLsJXOzrctQujWspY=; b=m2SDU6/GzFY7kNBWjel2k5
- QMEEP9MAC0CM9LfpyTHmTohPW33zwMfXCgy9jlfJuRot5mNKDUfluGt1Chnc7S56
- jBAE9SJ2A7OljpYYIbpisObs2KG3x2ppe/cQ6s8F+fk1a46k3RJ3gfRo3F56nQf0
- 9y25aP8ii7jQlGiE19C/ich569t3faFmJxH8ht4VRUuDdLCMhUBPJUgE8j3ASqKD
- JKe+BaXKl7D8AsX+faKETfGglnuEzW8UY3BVgWnLH5+btZA5wccHDMHTdmIkoP6r
- /UuXeszP6MKZkEGiY1ezFuUB3vayyPXgDC4O1zqb4BsaKlwJKa5aXKMvZf4MOKWQ
- ==
-X-ME-Sender: <xms:N7BgYRFnXQpksB119JM60EYoUp1HdvDkDoTj8GqluIHrunTIiMs9xA>
- <xme:N7BgYWVEAF48p_ub6G8kiOLvInPbQRxOQveFA40yTau8rXhuZc0PI4N7JCnysYuuN
- 5GklthLaMCdonISFw>
-X-ME-Received: <xmr:N7BgYTI1DN7JnUaNl4GIN1L0od1bEI4Lb8ivvXSmGNPh7y9W-OH-Pg9Qr9LkMibMGB6LetB3>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddttddgudehvdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttd
- ertddttdejnecuhfhrohhmpefhvghrnhgrnhguohcutfgrmhhoshcuoehgrhgvvghnfhho
- ohesuhelvddrvghuqeenucggtffrrghtthgvrhhnpedvjeeifeelhfetiefhhfdthfefke
- fhhfeutdetvdfgvefgveefheffgfekjeefheenucevlhhushhtvghrufhiiigvpedtnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvvghnfhhoohesuhelvddrvghu
-X-ME-Proxy: <xmx:OLBgYXH--C3B6cyF5MQe8RYpEULz7AsYHfXfb4nxT77sNhnXV1sFqg>
- <xmx:OLBgYXWgDRJjNqBOXiP9JxTR4PnQb05pTwdvIFS_dicO4cgnkYLOMA>
- <xmx:OLBgYSMMudCuWYDBs09GVSCVcETxBx0_XYMLA63OpFrtXz40j5t7Hw>
- <xmx:OLBgYXSdfmbw2Zr7_8ALlJODSWNZqACW47MJLKfrt32cPzHaIv6KdA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 8 Oct 2021 16:55:16 -0400 (EDT)
-Date: Fri, 8 Oct 2021 22:55:14 +0200
-From: Fernando Ramos <greenfoo@u92.eu>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, sean@poorly.run,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-tegra@vger.kernel.org
-Message-ID: <YWCwMnHh09wOKwig@zacax395.localdomain>
-References: <20211007193755.29579-1-greenfoo@u92.eu>
- <20211007193755.29579-21-greenfoo@u92.eu>
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65A9E6E21C
+ for <freedreno@lists.freedesktop.org>; Sun, 10 Oct 2021 03:03:01 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ p6-20020a9d7446000000b0054e6bb223f3so2063587otk.3
+ for <freedreno@lists.freedesktop.org>; Sat, 09 Oct 2021 20:03:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dULes5+aKNO9I+xG1qAGVCL0ir0FJqSn6Fpl0VJVQKg=;
+ b=IrfhRy1H3cFzWgH10PhI0r5z0+eWTpL+BooBqTktyj/FHdmNLVj6svwXEIOi7EktUs
+ EDv6OFCJ4aLOFipxOt93n0rF4Dr0qPyrhg+F9diminBuXyprOk5oeGxIDrzumXPH3yxw
+ CVrpuMzmXQG/P0vPwjS0VLEvizsmVgNZ/IspDoHLADHINn6a7mZYz1bq6OYxiMEC6rL8
+ Ts/ZqxS/oPktK1E+Ec7rJQbVS3bWnR1jsBA4FMRkPrLYwKn130U10JHJW7vL0mS3gKH3
+ F5v3EdFeHWzSo8N4JMxgGKli6AfGZxwuWG77tVrI6m6Q33neQ/JfS3WvrdZfklUJzVCT
+ bqBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dULes5+aKNO9I+xG1qAGVCL0ir0FJqSn6Fpl0VJVQKg=;
+ b=Cp/rGrnCh8IH1FUNXHEvklld2VKJVJeqZ09jALUD9go8gl37ipXtt6zdDWnG/OET+7
+ Q/tLL2zgoT54Z7FqSFB1WuD2PsSutgTBEB3Psz2Td74lCP705ZW4xo6lYyww8L+F9IPb
+ W4NH5ZnoPLtpf+eZrdfZct26y27+VhvOwNeJeU8HdmAL/cj0mVnrW6peWDGwN3z63UAp
+ 2elWQvU+NO4XVH87+ZWQXOpEM/SPhlFSwk/khJhwri0UcsFcNTm3te6YMquRGFHyDNXV
+ eHaKR0c2Pt4HoRkgvAHi9YJIl2owpjLNZuNPDqDJ9cpo05Q7QhNiyyzxbcflUhyTbFUm
+ 2C0g==
+X-Gm-Message-State: AOAM530m6MJc7UmoNb0UjjeWRNjNY3KF9ABouJ8gTGD44kwwQt0KKJjc
+ fufO/8ZO8sDecoSdNwXg12V0oQ==
+X-Google-Smtp-Source: ABdhPJyla0z0yyMYy+ZmMtAsDPkpQKZ/s6cNhagJT2URxlyS37YKvJSmjB+MIKrSb4TcY1g//DJkEQ==
+X-Received: by 2002:a05:6830:3093:: with SMTP id
+ f19mr2218948ots.97.1633834980511; 
+ Sat, 09 Oct 2021 20:03:00 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id
+ s22sm894943ois.32.2021.10.09.20.02.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 Oct 2021 20:02:59 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Sat,  9 Oct 2021 20:04:35 -0700
+Message-Id: <20211010030435.4000642-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20211007193755.29579-21-greenfoo@u92.eu>
-Subject: Re: [Freedreno] [PATCH v3 20/20] drm: cleanup: remove acquire_ctx
- from drm_mode_config
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: Use the connector passed to
+ dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,14 +79,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/10/07 09:37PM, Fernando Ramos wrote:
-> ---
->  include/drm/drm_mode_config.h | 10 ----------
->  1 file changed, 10 deletions(-)
-> 
-> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-> index 48b7de80daf5..b214b07157f2 100644
-> 
-This patch was missing the commit description and signed-off-by line. I'll fix
-that for the next revision (v4) together with the rest of issues that might come
-up.
+The debugfs code is provided an array of a single drm_connector. Then to
+access the connector, the list of all connectors of the DRM device is
+traversed and all non-DisplayPort connectors are skipped, to find the
+one and only DisplayPort connector.
+
+But as we move to support multiple DisplayPort controllers this will now
+find multiple connectors and has no way to distinguish them.
+
+Pass the single connector to dp_debug_get() and use this in the debugfs
+functions instead, both to simplify the code and the support the
+multiple instances.
+
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_debug.c   | 131 ++++++++++------------------
+ drivers/gpu/drm/msm/dp/dp_debug.h   |   2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c |   2 +-
+ 3 files changed, 46 insertions(+), 89 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+index af709d93bb9f..da4323556ef3 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.c
++++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+@@ -24,7 +24,7 @@ struct dp_debug_private {
+ 	struct dp_usbpd *usbpd;
+ 	struct dp_link *link;
+ 	struct dp_panel *panel;
+-	struct drm_connector **connector;
++	struct drm_connector *connector;
+ 	struct device *dev;
+ 	struct drm_device *drm_dev;
+ 
+@@ -97,59 +97,35 @@ DEFINE_SHOW_ATTRIBUTE(dp_debug);
+ 
+ static int dp_test_data_show(struct seq_file *m, void *data)
+ {
+-	struct drm_device *dev;
+-	struct dp_debug_private *debug;
+-	struct drm_connector *connector;
+-	struct drm_connector_list_iter conn_iter;
++	const struct dp_debug_private *debug = m->private;
++	const struct drm_connector *connector = debug->connector;
+ 	u32 bpc;
+ 
+-	debug = m->private;
+-	dev = debug->drm_dev;
+-	drm_connector_list_iter_begin(dev, &conn_iter);
+-	drm_for_each_connector_iter(connector, &conn_iter) {
+-
+-		if (connector->connector_type !=
+-			DRM_MODE_CONNECTOR_DisplayPort)
+-			continue;
+-
+-		if (connector->status == connector_status_connected) {
+-			bpc = debug->link->test_video.test_bit_depth;
+-			seq_printf(m, "hdisplay: %d\n",
+-					debug->link->test_video.test_h_width);
+-			seq_printf(m, "vdisplay: %d\n",
+-					debug->link->test_video.test_v_height);
+-			seq_printf(m, "bpc: %u\n",
+-					dp_link_bit_depth_to_bpc(bpc));
+-		} else
+-			seq_puts(m, "0");
++	if (connector->status == connector_status_connected) {
++		bpc = debug->link->test_video.test_bit_depth;
++		seq_printf(m, "hdisplay: %d\n",
++				debug->link->test_video.test_h_width);
++		seq_printf(m, "vdisplay: %d\n",
++				debug->link->test_video.test_v_height);
++		seq_printf(m, "bpc: %u\n",
++				dp_link_bit_depth_to_bpc(bpc));
++	} else {
++		seq_puts(m, "0");
+ 	}
+ 
+-	drm_connector_list_iter_end(&conn_iter);
+-
+ 	return 0;
+ }
+ DEFINE_SHOW_ATTRIBUTE(dp_test_data);
+ 
+ static int dp_test_type_show(struct seq_file *m, void *data)
+ {
+-	struct dp_debug_private *debug = m->private;
+-	struct drm_device *dev = debug->drm_dev;
+-	struct drm_connector *connector;
+-	struct drm_connector_list_iter conn_iter;
+-
+-	drm_connector_list_iter_begin(dev, &conn_iter);
+-	drm_for_each_connector_iter(connector, &conn_iter) {
+-
+-		if (connector->connector_type !=
+-			DRM_MODE_CONNECTOR_DisplayPort)
+-			continue;
++	const struct dp_debug_private *debug = m->private;
++	const struct drm_connector *connector = debug->connector;
+ 
+-		if (connector->status == connector_status_connected)
+-			seq_printf(m, "%02x", DP_TEST_LINK_VIDEO_PATTERN);
+-		else
+-			seq_puts(m, "0");
+-	}
+-	drm_connector_list_iter_end(&conn_iter);
++	if (connector->status == connector_status_connected)
++		seq_printf(m, "%02x", DP_TEST_LINK_VIDEO_PATTERN);
++	else
++		seq_puts(m, "0");
+ 
+ 	return 0;
+ }
+@@ -161,14 +137,12 @@ static ssize_t dp_test_active_write(struct file *file,
+ {
+ 	char *input_buffer;
+ 	int status = 0;
+-	struct dp_debug_private *debug;
+-	struct drm_device *dev;
+-	struct drm_connector *connector;
+-	struct drm_connector_list_iter conn_iter;
++	const struct dp_debug_private *debug;
++	const struct drm_connector *connector;
+ 	int val = 0;
+ 
+ 	debug = ((struct seq_file *)file->private_data)->private;
+-	dev = debug->drm_dev;
++	connector = debug->connector;
+ 
+ 	if (len == 0)
+ 		return 0;
+@@ -179,30 +153,22 @@ static ssize_t dp_test_active_write(struct file *file,
+ 
+ 	DRM_DEBUG_DRIVER("Copied %d bytes from user\n", (unsigned int)len);
+ 
+-	drm_connector_list_iter_begin(dev, &conn_iter);
+-	drm_for_each_connector_iter(connector, &conn_iter) {
+-		if (connector->connector_type !=
+-			DRM_MODE_CONNECTOR_DisplayPort)
+-			continue;
+-
+-		if (connector->status == connector_status_connected) {
+-			status = kstrtoint(input_buffer, 10, &val);
+-			if (status < 0)
+-				break;
+-			DRM_DEBUG_DRIVER("Got %d for test active\n", val);
+-			/* To prevent erroneous activation of the compliance
+-			 * testing code, only accept an actual value of 1 here
+-			 */
+-			if (val == 1)
+-				debug->panel->video_test = true;
+-			else
+-				debug->panel->video_test = false;
++	if (connector->status == connector_status_connected) {
++		status = kstrtoint(input_buffer, 10, &val);
++		if (status < 0) {
++			kfree(input_buffer);
++			return status;
+ 		}
++		DRM_DEBUG_DRIVER("Got %d for test active\n", val);
++		/* To prevent erroneous activation of the compliance
++		 * testing code, only accept an actual value of 1 here
++		 */
++		if (val == 1)
++			debug->panel->video_test = true;
++		else
++			debug->panel->video_test = false;
+ 	}
+-	drm_connector_list_iter_end(&conn_iter);
+ 	kfree(input_buffer);
+-	if (status < 0)
+-		return status;
+ 
+ 	*offp += len;
+ 	return len;
+@@ -211,25 +177,16 @@ static ssize_t dp_test_active_write(struct file *file,
+ static int dp_test_active_show(struct seq_file *m, void *data)
+ {
+ 	struct dp_debug_private *debug = m->private;
+-	struct drm_device *dev = debug->drm_dev;
+-	struct drm_connector *connector;
+-	struct drm_connector_list_iter conn_iter;
+-
+-	drm_connector_list_iter_begin(dev, &conn_iter);
+-	drm_for_each_connector_iter(connector, &conn_iter) {
+-		if (connector->connector_type !=
+-			DRM_MODE_CONNECTOR_DisplayPort)
+-			continue;
+-
+-		if (connector->status == connector_status_connected) {
+-			if (debug->panel->video_test)
+-				seq_puts(m, "1");
+-			else
+-				seq_puts(m, "0");
+-		} else
++	struct drm_connector *connector = debug->connector;
++
++	if (connector->status == connector_status_connected) {
++		if (debug->panel->video_test)
++			seq_puts(m, "1");
++		else
+ 			seq_puts(m, "0");
++	} else {
++		seq_puts(m, "0");
+ 	}
+-	drm_connector_list_iter_end(&conn_iter);
+ 
+ 	return 0;
+ }
+@@ -278,7 +235,7 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
+ 
+ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
+ 		struct dp_usbpd *usbpd, struct dp_link *link,
+-		struct drm_connector **connector, struct drm_minor *minor)
++		struct drm_connector *connector, struct drm_minor *minor)
+ {
+ 	int rc = 0;
+ 	struct dp_debug_private *debug;
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.h b/drivers/gpu/drm/msm/dp/dp_debug.h
+index 7eaedfbb149c..3f90acfffc5a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.h
++++ b/drivers/gpu/drm/msm/dp/dp_debug.h
+@@ -43,7 +43,7 @@ struct dp_debug {
+  */
+ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
+ 		struct dp_usbpd *usbpd, struct dp_link *link,
+-		struct drm_connector **connector,
++		struct drm_connector *connector,
+ 		struct drm_minor *minor);
+ 
+ /**
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 1708b7cdc1b3..41a6f58916e6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1464,7 +1464,7 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
+ 	dev = &dp->pdev->dev;
+ 
+ 	dp->debug = dp_debug_get(dev, dp->panel, dp->usbpd,
+-					dp->link, &dp->dp_display.connector,
++					dp->link, dp->dp_display.connector,
+ 					minor);
+ 	if (IS_ERR(dp->debug)) {
+ 		rc = PTR_ERR(dp->debug);
+-- 
+2.29.2
+
