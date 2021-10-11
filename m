@@ -1,78 +1,47 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4396429599
-	for <lists+freedreno@lfdr.de>; Mon, 11 Oct 2021 19:28:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1AE9429808
+	for <lists+freedreno@lfdr.de>; Mon, 11 Oct 2021 22:17:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4645F6E910;
-	Mon, 11 Oct 2021 17:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66E29892DE;
+	Mon, 11 Oct 2021 20:17:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAAE6E910
- for <freedreno@lists.freedesktop.org>; Mon, 11 Oct 2021 17:28:49 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- n15-20020a4ad12f000000b002b6e3e5fd5dso1885875oor.1
- for <freedreno@lists.freedesktop.org>; Mon, 11 Oct 2021 10:28:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=4MH/pEzVgo/ojExwE7YAhFK3vsORj8Zyi8WpQdJ1rDI=;
- b=chTqXWqb1JnYIW5QmBJ/4Lj1qC9axFR7iY86cpbQ8wWU+FxIT7FcHYI9+Kha3r7NKH
- UsQM3Rx99zM+xxWEZjKvQyvBLE+3oWv9xSkcSCbJjmTs7noyF4yIzhqAoWnP4md48bgA
- dq7RYa2cyurSn2Ipo7LS654T2dlUDm3ALmhZsKA58z6gfvkkeJVvOfC4aDhPItap3c5a
- yY0YA7p26I+BA43xJ7tCA48sVATeAuhZ0ZJ/iIS4vabzBfqvQyIBRYvzLzVX51B5GmtP
- 34x/I88wRRarwZHOCDXdgCj2jwh22v+nUEvIxfE3rUcIhDmdffWt93pVIF5ykfybH0J3
- 9E1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=4MH/pEzVgo/ojExwE7YAhFK3vsORj8Zyi8WpQdJ1rDI=;
- b=i7PtjSipsowO8i1sNXa2RVduxCJ3AqW+J/2wXlIbAwtvLNlLnSLVM7xWuxWB8MmbAt
- mLHaLqfRoPETKetLE4JeNWgngcf4+x24lPU1s3DtVnoO30U/R6TYShoYk0Unkv4STQSz
- l4KevNEsCCE/1i3bkygGJ4trG5qE5W3fuKQjfiC8xCM9bgAKv1mNJEJiMiqX5AAlG9UL
- 0SmdyMB4iKrr6ocQTfvfl9yYsKsYPuYvKCHp7ewM+nnEHPK8qkRDpzXIaKdoI7BZ5EDL
- oktkJhhWcLQb0EGFhSRSPVOt5VHjfrxc5FUs1mDwOJPNraLtlkAEuLH1yZ9Tl0jWfUOt
- 9Axw==
-X-Gm-Message-State: AOAM532fPYs8AhH9F0wT4il1z52pSFgzwCxe9Gg9OVNZdbhBxhMkbIsM
- lq4bOnvANSmaH3BxBm4j2v0MFw==
-X-Google-Smtp-Source: ABdhPJzd3YrNICV57tvx33jWscFS6h1B7SofDme+36l6NCXoCT53hk4WkFaKqNiPYHv/+98SM0aE2w==
-X-Received: by 2002:a4a:5343:: with SMTP id n64mr20019128oob.30.1633973328783; 
- Mon, 11 Oct 2021 10:28:48 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id i13sm1377807oig.35.2021.10.11.10.28.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Oct 2021 10:28:48 -0700 (PDT)
-Date: Mon, 11 Oct 2021 10:30:22 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: khsieh@codeaurora.org
-Cc: Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB39892DE;
+ Mon, 11 Oct 2021 20:17:08 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id E99401F5FA;
+ Mon, 11 Oct 2021 22:17:04 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Stephen Boyd <swboyd@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sankeerth Billakanti <sbillaka@codeaurora.org>
-Message-ID: <YWR0rrC4yoKtXXTL@ripper>
-References: <YV0FlTyMEzlyNsN9@ripper>
- <3dbe0fe48da88af9dee396a85b940e76@codeaurora.org>
- <YV3dddt/GOidTmlN@ripper>
- <9dc50145fb3e9b189fd38857b20f326a@codeaurora.org>
- <YV9TQEKPh4SXYFF/@ripper>
- <0c72f3fd8c49cdada09bb6ee366b53a6@codeaurora.org>
- <CAE-0n51bvKXmHj0X_cvR2fdk4-mh4SRsrEE33H0e1Q+p=7iPxA@mail.gmail.com>
- <ad244133bdba4570b0b45871fd136350@codeaurora.org>
- <YWB1cXoaGRXfGau1@ripper>
- <44ffcac32270a8ea72dcfc044e2b2585@codeaurora.org>
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 11 Oct 2021 22:16:40 +0200
+Message-Id: <20211011201642.167700-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <44ffcac32270a8ea72dcfc044e2b2585@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dsi: Use division result from
+ div_u64_rem in 7nm and 14nm PLL
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,125 +57,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 11 Oct 08:24 PDT 2021, khsieh@codeaurora.org wrote:
+div_u64_rem provides the result of the division and additionally the
+remainder; don't use this function to solely calculate the remainder
+while calculating the division again with div_u64.
 
-> On 2021-10-08 09:44, Bjorn Andersson wrote:
-> > On Fri 08 Oct 09:07 PDT 2021, khsieh@codeaurora.org wrote:
-> > 
-> > > On 2021-10-07 15:34, Stephen Boyd wrote:
-> > > > Quoting khsieh@codeaurora.org (2021-10-07 13:28:12)
-> > > > > On 2021-10-07 13:06, Bjorn Andersson wrote:
-> > > > > > On Thu 07 Oct 12:51 PDT 2021, khsieh@codeaurora.org wrote:
-> > > > > >
-> > > > > >> On 2021-10-06 10:31, Bjorn Andersson wrote:
-> > > > > >> > On Wed 06 Oct 08:37 PDT 2021, khsieh@codeaurora.org wrote:
-> > > > > >> >
-> > > > > >> > > On 2021-10-05 19:10, Bjorn Andersson wrote:
-> > > > > >> > > > On Tue 05 Oct 16:04 PDT 2021, khsieh@codeaurora.org wrote:
-> > > > > >> > > >
-> > > > > >> > > > > On 2021-10-05 15:36, Stephen Boyd wrote:
-> > > > > >> > > > > > Quoting Bjorn Andersson (2021-10-05 14:40:38)
-> > > > > >> > > > > > > On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
-> > > > > >> > > > > > >
-> > > > > >> > > > > > > > Quoting Bjorn Andersson (2021-10-04 19:37:50)
-> > > > > >> > > > > > > > > Found in the middle of a patch from Sankeerth was the reduction of the
-> > > > > >> > > > > > > > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
-> > > > > >> > > > > > > > > is initalized and HPD interrupt start to be serviced, so in the case of
-> > > > > >> > > > > > > > > eDP this reduction improves the user experience dramatically - i.e.
-> > > > > >> > > > > > > > > removes 9.9s of bland screen time at boot.
-> > > > > >> > > > > > > > >
-> > > > > >> > > > > > > > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
-> > > > > >> > > > > > > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > > > > >> > > > > > > > > ---
-> > > > > >> > > > > > > >
-> > > > > >> > > > > > > > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
-> > > > > >> > > > > > > > re-read the code a couple times to understand that it's waiting 100ms
-> > > > > >> > > > > > > > times the 'delay' number. Whaaaaat?
-> > > > > >> > > > > > > >
-> > > > > >> > > > > > >
-> > > > > >> > > > > > > I assume you're happy with the current 10s delay on the current
-> > > > > >> > > > > > > devices, so I don't think we should push for this to be backported.
-> > > > > >> > > > > > > I have no need for it to be backported on my side at least.
-> > > > > >> > > > > > >
-> > > > > >> > > > > >
-> > > > > >> > > > > > Sure. Fixes tag != backported to stable trees but it is close.
-> > > > > >> > > > > >
-> > > > > >> > > > > > > > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> > > > > >> > > > > > >
-> > > > > >> > > > >   dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1); <== to 100ms
-> > > > > >> > > > >
-> > > > > >> > > > > This patch will prevent usb3 from working due to dp driver
-> > > > > >> > > > > initialize phy
-> > > > > >> > > > > earlier than usb3 which cause timeout error at power up usb3 phy
-> > > > > >> > > > > when both
-> > > > > >> > > > > edp and dp are enabled.
-> > > > > >> > > >
-> > > > > >> > > > Can you please help me understand what you mean here, I use this on my
-> > > > > >> > > > sc8180x with both eDP and USB-C/DP right now. What is it that doesn't
-> > > > > >> > > > work? Or am I just lucky in some race condition?
-> > > > > >> > > >
-> > > > > >> > > > Thanks,
-> > > > > >> > > > Bjorn
-> > > > > >> > > >
-> > > > > >> > > The problem is seen at sc7280.
-> > > > > >> > > Apple dongle have both  hdmi and usb port.
-> > > > > >> > > plug Apple dongle into type-c, then plug DP into apple's hdmi port
-> > > > > >> > > and usb
-> > > > > >> > > mouse into apple's usb port.
-> > > > > >> > > If edp enabled at this time, then usb mouse will not work due to
-> > > > > >> > > timeout at
-> > > > > >> > > phy power up.
-> > > > > >> > >
-> > > > > >> >
-> > > > > >> > Okay, so you're saying that if the DP driver invokes phy_power_on()
-> > > > > >> > before the USB driver does, USB initialization fails (or at least USB
-> > > > > >> > doesn't work)?
-> > > > > >>
-> > > > > >> if dp driver call qcom_qmp_phy_init() before usb3 call
-> > > > > >> qcom_qmp_phy_init(),
-> > > > > >> usb3 driver will timeout at readl_poll_timeout(status, val, (val &
-> > > > > >> mask) ==
-> > > > > >> ready, 10, PHY_INIT_COMPLETE_TIMEOUT) of qcom_qmp_phy_power_on().
-> > > > > >
-> > > > > > Thanks, I will try to reproduce this on my side. So the 10 seconds here
-> > > > > > is strictly to give good enough time for the dwc3 driver to probe...
-> > > > > >
-> > > > > > Any idea why you're saying that this is specific to sc7280, what
-> > > > > > changed
-> > > > > > from sc7180?
-> > > > >
-> > > > > I did not have sc7180 with edp before so that i am not sure it will
-> > > > > happen on sc7180 or not.
-> > > > > The usb3 does not work when both edp and dp enabled I just seen at
-> > > > > sc7280.
-> > > > > Current at sc7280 EC is not boot up correctly when system power up.
-> > > > > I have to manual reboot EC from linux kernel shell before DP/usb3 can
-> > > > > work.
-> > > > > I am not sure this contribute to this problem or not.
-> > > > >
-> > > >
-> > > > Can you make the usb driver into a module and only load that module
-> > > > later in boot after the DP driver calls qcom_qmp_phy_init()? That would
-> > > > be an easy way to move usb probe after DP probe and expose this problem.
-> > > 
-> > > we need usb calls qcom_qmp_phy_init() before dp.
-> > 
-> > Why?
-> I do not know the details.
-> But I did see below scenario,
-> 
-> if dp driver call qcom_qmp_phy_init() before usb3 call
-> qcom_qmp_phy_init(),
-> usb3 driver will timeout at readl_poll_timeout(status, val, (val &
-> mask) ==
-> ready, 10, PHY_INIT_COMPLETE_TIMEOUT) of qcom_qmp_phy_power_on().
+A similar improvement was applied earlier to the 10nm pll in
+5c191fef4ce2 ("drm/msm/dsi_pll_10nm: Fix dividing the same numbers
+twice").
 
-Sounds like a bug in the QMP driver, something that could easily be
-reproduced by waiting for DP to be up before we bring up USB - either by
-chance, or following Stephen's suggestion on purpose.
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
 
-Someone will have to look into this, so that we don't need a 10 second
-workaround in the (e)DP driver.
+Changes in v2:
+- Corrected two typos in the first commit-message sentence.
 
-Regards,
-Bjorn
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c | 4 +---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c  | 4 +---
+ 2 files changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+index 9a959a5dcc1e..de3c6556a587 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c
+@@ -215,9 +215,7 @@ static void pll_14nm_dec_frac_calc(struct dsi_pll_14nm *pll, struct dsi_pll_conf
+ 	DBG("vco_clk_rate=%lld ref_clk_rate=%lld", vco_clk_rate, fref);
+
+ 	dec_start_multiple = div_u64(vco_clk_rate * multiplier, fref);
+-	div_u64_rem(dec_start_multiple, multiplier, &div_frac_start);
+-
+-	dec_start = div_u64(dec_start_multiple, multiplier);
++	dec_start = div_u64_rem(dec_start_multiple, multiplier, &div_frac_start);
+
+ 	pconf->dec_start = (u32)dec_start;
+ 	pconf->div_frac_start = div_frac_start;
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index 9f7c408325ba..36eb6109cb88 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -114,9 +114,7 @@ static void dsi_pll_calc_dec_frac(struct dsi_pll_7nm *pll, struct dsi_pll_config
+
+ 	multiplier = 1 << FRAC_BITS;
+ 	dec_multiple = div_u64(pll_freq * multiplier, divider);
+-	div_u64_rem(dec_multiple, multiplier, &frac);
+-
+-	dec = div_u64(dec_multiple, multiplier);
++	dec = div_u64_rem(dec_multiple, multiplier, &frac);
+
+ 	if (!(pll->phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V4_1))
+ 		config->pll_clock_inverters = 0x28;
+--
+2.33.0
+
