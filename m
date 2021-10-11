@@ -2,64 +2,145 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2D4428C4E
-	for <lists+freedreno@lfdr.de>; Mon, 11 Oct 2021 13:45:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EBB9428D37
+	for <lists+freedreno@lfdr.de>; Mon, 11 Oct 2021 14:40:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A14E898E1;
-	Mon, 11 Oct 2021 11:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C8C6E4A6;
+	Mon, 11 Oct 2021 12:40:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 436 seconds by postgrey-1.36 at gabe;
- Mon, 11 Oct 2021 11:45:13 UTC
-Received: from lb1-smtp-cloud9.xs4all.net (lb1-smtp-cloud9.xs4all.net
- [IPv6:2001:888:0:108::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D35C898E1
- for <freedreno@lists.freedesktop.org>; Mon, 11 Oct 2021 11:45:13 +0000 (UTC)
-Received: from cust-b5b5937f ([IPv6:fc0c:c16d:66b8:757f:c639:739b:9d66:799d])
- by smtp-cloud9.xs4all.net with ESMTPA
- id ZtcrmeTHF8cVwZtcum6mB7; Mon, 11 Oct 2021 13:37:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=s2;
- t=1633952274; bh=EJ468NMYmDML0AsBV+rtlsJvCbh1Ozlsqt14xY8DshU=;
- h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type:From:
- Subject;
- b=uewlgQFmKMF1tLoPklw8UyISWs4X+SzrBkgZk9a4yocsOCZl9USgHVN8k1m1Ovf3P
- ZghQAFKZTYKNfc+WJx9ZxvzVCcIWPInpuqmOiIbKblHBPGmJiKt6wQkgMdp2E2AsbJ
- fKOQ+rdzQ90EtLElLP9nTW1IYLFryKItG7rXdOcEN9jv0ECaVynxanulCyNldxIxCR
- Yn7uKUFdO8rBWPEHWi93OtbPLWmyyjs7pJMGqQr8YdUveZviQS10T/Cgj+oqb+o+gv
- SqHLZV383tgzP9e/rw29caG8P3hEobf0z9HA1sRw133bLAVGoKVDolpPtstQid/Ai8
- Uhwoh2d0gNAsg==
-To: Arnd Bergmann <arnd@kernel.org>, linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-ia64@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E0389FC5;
+ Mon, 11 Oct 2021 12:40:29 +0000 (UTC)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19BCTKiu022706; 
+ Mon, 11 Oct 2021 12:40:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=8uLva7CMEPi/XxAxxcdMwhoM/iLHSnHn+IraUGRIp1E=;
+ b=TOb34Ky8PVurDjPLScc6xIT8bkqnItrHRVfQ0Avla3ensxab5sQ0KRrAASVc+bSjlbkY
+ HGMXITX1umLHiMK4aZ7NcxvKX5+SUDtFVxf3/dJEVO+lN5kaXKaks78lA03KwJpzqs9S
+ TukjZXFpy88KdHcYtOHXxsyQxlXKFxGiOH4QKlq+Ud97MD614fSX+p5JYWD/UGrUVjuI
+ UTSyu5Q5YlQ0LmQuw8DyPwQ08yCKfNSSUddrJNJHgP7z/056Y5Ld/3450arMUzZhlYYZ
+ yjK1met5BkMFGVGn9oiEnaK1ApAAoETYkdWKBPaXByzQ7UlYHuUTYdMT2FJC1BFIgEhv ZA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3bkxxabp4n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 11 Oct 2021 12:40:26 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19BCUtYB191065;
+ Mon, 11 Oct 2021 12:40:21 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2102.outbound.protection.outlook.com [104.47.70.102])
+ by aserp3020.oracle.com with ESMTP id 3bmadw6j1v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 11 Oct 2021 12:40:20 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BDh16BREQDscAVS6DiP7i6xIW94UmYZ6ju53SrmC7Ut+y5M0qM6RwkHmtYhIVDxi9MXZ2dCBCAks+r/4UIDGo5ZkYd5bIcnP7RjdlR3iOfpHNeJOx5OkEmjDHBw99PWC/xHeplBF0bVJfg3L2v83sE7VwYsQsg/PeGjypNiMlDPLN19F6l3qmnbGzbNKcHgNYqO4yVGXqA75LTUWZW2G74DlWpidVczyHj3403rVFtrPqN5PyTH7H5giBtBYdhB97Kem+ICND+4ga9z705nQ1CoqXgWMg0PuUr2/HMRYy58fvhCmxrmikvsWqG9hKTZzK9Ot6IBzlT1fmNsQltSxwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8uLva7CMEPi/XxAxxcdMwhoM/iLHSnHn+IraUGRIp1E=;
+ b=aN1zL0b/AsuiocnXnnppwaVqhuhQv55XSOCms/iQSuI20vMIF6am9GpSLY9zyz45sjqaMzKaT1z3w2AJKHNmxeGTMFhWv0yfQ6cvnSf1IDrLo45389KC7Q53+uS9kKRcFuyrgFjFsutWqzJKbbvvLhrwwGqAkVnxn44yS1B/T/ItxPh7ar4He24QzzNgKcW8BlkC4KyIF4ZyLLNTDriKRSyj8YnGfd7kjegNTVkAxdT9sXuh12e349hhxsysra7YQNjw/vC/ZRtl4/Cu65dzOWNLSB1Qtx2ZlLaqoPZQREiAPQtou1P74Uw4eva78WEqio96DCtsgYP+PF1F8GoZeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8uLva7CMEPi/XxAxxcdMwhoM/iLHSnHn+IraUGRIp1E=;
+ b=fm3KzQouX5QTyt0LUr3+wqS0eGuGD6UPdUINS6V6P7Zlhm8qJ9l0ujiGmWjb8ZtHYGURsQfKHWn9j05pUzy54qsZ/oQICwag1/C3dJg6lzxNabnyZd90Ag7Y9Mx5w+bg/SNdQP+tGU3bz0gcf30xStsp9Hcphwp2FY6J3eZ41GM=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=oracle.com;
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by MWHPR1001MB2127.namprd10.prod.outlook.com
+ (2603:10b6:301:33::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Mon, 11 Oct
+ 2021 12:40:18 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d409:11b5:5eb2:6be9]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d409:11b5:5eb2:6be9%5]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
+ 12:40:18 +0000
+Date: Mon, 11 Oct 2021 15:40:05 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- iommu@lists.linux-foundation.org, linux-media@vger.kernel.org,
- linux-mmc@vger.kernel.org, netdev@vger.kernel.org,
- ath10k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-gpio@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Kalle Valo <kvalo@codeaurora.org>, Alex Elder <elder@linaro.org>
-References: <20211007151010.333516-1-arnd@kernel.org>
- <20211007151010.333516-2-arnd@kernel.org>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <007b8902-312a-cbfd-5504-761687b7fdf8@xs4all.nl>
-Date: Mon, 11 Oct 2021 13:37:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+ kernel-janitors@vger.kernel.org
+Message-ID: <20211011124005.GE15188@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: ZR0P278CA0130.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:40::9) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-In-Reply-To: <20211007151010.333516-2-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfJuuxVzHxX/HmRjTyBbu47R9dyBNkr37HCMQ1Xbi17ioHXz/+hb+Aj8C3tlEtmlSao8NmcH59bXPGXlwwWTUYI7+sNIQF+aiRYEQeezpnbcfpOtkrwq8
- Q3CRj9K7XRQ8VBtz/bAyVP+BqkL3tf6mu4cwRnHr2V30MWOzgJs6sJI/WKL1zfSQ6Edn4Xs/GXz5wO7d4/f6yf8mY8R0Qtdc6tOLXwfiZg44jNDCwvY4jwxD
- 58z29k40YCgWdFKgdHtxq0jIbAzixXJVygYwSTkSnX/Yg4+Oo9H5jZRTH5n+0FICC62LzOG8uIgEhjzea5lne6zyDC/7eqTmxgH0IUuK0pbjgjXVflG5jqdv
- kUp1gU5FeukXumMNNFa1NZWuWZhAq5idlljOJXUrGZRKed307o29pbbLWA472cBxhDF9BQdGKmTCsF75pnxvPMD8yyBvGgd448ENjtqQS9o4QQ0v5XlP5uvm
- tXAqXCAG3FWAv+Q/hFu7ncuj5feQDHbXVK0/bDTC7MGnecml/Zc6v1OllO2CiqPxZeMu7irEWqsnKLdamV3ps+fgcoAz/Dzvfc61OdZkyoNQnYv8zfoWziuz
- nx7wOzWY+5NGM3kDxeU9Jmc/srCjIC8NuqTpV50wlcWCZ5VOsnHP16UywKJMIYomgWsyVfMVSD+Quk0+F6fbaUvUOgL3+iOjbE2pRzuuUDeTPGPPOeh6chfd
- QU4iWqSBFqIkhYUSylrmHj81ryYQwC5SPxaLsIvJt2mikIWprBBDGP6bzJrJKQIbdjg2K6eeVXkTjEqxHhvDLm4Fod8MWYHJPR4TlzFbfZg2pze0xlfPRMeo
- 8XC+rDnxfCeLsjJgT6/a1NSgTtabgCDl7v0mU7ojS+tChDV7a2T20gooopVuFizGq9+GZ1gzqYYVuzZeC9LXh0UQnxrm4AjVNE3OxerZ9pIHYtsW/8q7LWVl
- Ul19nQ==
-Subject: Re: [Freedreno] [PATCH v2 2/2] qcom_scm: hide Kconfig symbol
+Received: from kili (62.8.83.99) by ZR0P278CA0130.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:40::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25 via Frontend
+ Transport; Mon, 11 Oct 2021 12:40:15 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 69ef4a7b-e13b-454c-790d-08d98cb4484f
+X-MS-TrafficTypeDiagnostic: MWHPR1001MB2127:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR1001MB21275B853F5D201898E4C4A18EB59@MWHPR1001MB2127.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:923;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kj7syl/jIOhW9h4/3xRwFu5/YdjHTjmD8A+Gw1em1/MY5g7jkLV2ldWgTP5Gk7XVAEYzN/IBIIqikfW1NbRtz4TSxQXbWRzvlZoy5sbddcdO9vLCWBqcxu2WM7Tj9NgzRcgkU8oXdrM83pVn3q3M3GiAu6zPgDxjsrDv4QNJCCICc0rlyhfeMzi+1TSMxhYyOTgsI4xXHptxw9iMcd8x4n2Sf5fobKT2M/hfn0CITDs5yZMoCPuBNLD1uJRpMJRBhxqVt/wgxK7Xm2ETtLW8D4ic0zpkdLYiHlWzLhRx+LOmFzfxigw3t2vo6nHT9Cy1loCuCIx+QOEZCWqG072jbUXBI857FXVyixOXj5l1yjXJTio5nxd+krMhkzkBu2YXCM3Cu/WBA4rTyFaS0bEHu4DDTbkmq+Haarlb6SmArKPnXP0LRbY465+aEFU7bGrrx7tmBOdZwh092V7UPbLmLU6rZKKObt55O28/y30nJJNUjacaiC/+ls2qJqeiGN6O5ZWfM/eDKNacOTyOpd0DpwpkqoqCxafnYOKoi/5wttFVGEKQGfrmPEe+OSzXuMN5acmNDYpAAK4e5/UubEbVf4L6gHsXIK6XIZKu/NWDRwLdYt6n8kWBZJ3XXGeXxM+jNX8f5mjBDKg5CgSFmQgXF8r16y5BuYRhKJ2/pFIATvsc1gipJT95o3olHLpmgWburc8ct2vy5e5q2eTSfZtHEA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(2906002)(4744005)(9686003)(956004)(55016002)(26005)(316002)(4326008)(83380400001)(6666004)(9576002)(186003)(86362001)(66476007)(66556008)(5660300002)(66946007)(1076003)(8936002)(6496006)(52116002)(33716001)(508600001)(33656002)(54906003)(44832011)(38100700002)(38350700002)(8676002)(6916009);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ywxvtM2Wip8F/QIlFIb5slvYi/sMeC4+M/E4HRfrKmaEf11AdA8ljVdBL3tY?=
+ =?us-ascii?Q?r2gEOROElzurbv/6joWvrTjy48EcEIQaStEyv2Jm6L1x6AcsCQ4PgaW2nWNs?=
+ =?us-ascii?Q?yFG4adDutJhCJzBE/tjZedVl1sSE+XYBi+d3lku/baTvd7S5v3cHaKEmtTv4?=
+ =?us-ascii?Q?HgyZCPO+VqHigTtO+/NO+QR48q0R6NhkZE1YnK91KpG8kxQP+pIH8+YDoTl4?=
+ =?us-ascii?Q?BlAwiDHIPHYAe5B8+1ZTY5ZyRh4x9626tojkZ1u6tLhDpZWbSEI0TDgPHWcE?=
+ =?us-ascii?Q?tNjuNn2jxelxmmOqPst9Xis+uSgXFSty9go53LbKqqBB8zz94rdJ3ztOVcwK?=
+ =?us-ascii?Q?rdC5UtBmd1Hv+a+qoEcLO+qaMnwLm79O1f9lDu3lHnibfJGkLKgxOsaVMhtx?=
+ =?us-ascii?Q?KenKHTIoEGBq0AL5mekabFQ8b1nHJUSminw8q0Cpf11JWgDpLQS2QDVMFW8B?=
+ =?us-ascii?Q?d2gQkeDF2GSqSZ3TCkrRpYGuAnSSz+W4sZr7rLfuYBJAR34hz8vL2vj9X/tm?=
+ =?us-ascii?Q?MD1vRd4WIvAsapiO2LOIUAOYVUAP2roDK7Y5yczCSVW6VJtscoZJJYISJdcx?=
+ =?us-ascii?Q?2QFssB9PTCEySGvOU4KwnKf9QGtJijJ65STgTlfFASWdcQdOf5u+UeiQcK/1?=
+ =?us-ascii?Q?KxGUjbwc1LOJXj0peUI59em94QrWCk5AuRDNOR/HheJ+au+H52t6cCv8qhq6?=
+ =?us-ascii?Q?eM06M/9/F0J6ZebJ9qwY4gyc0NsZJQd6geZDucfRzmsBvIAo0lfYNAaVXvWr?=
+ =?us-ascii?Q?Pj2CgEOaVZpCg+sMJFfgJgbIIl5fmbPvBH0dP7sNzwDWVVru3yBMPRdvUrpL?=
+ =?us-ascii?Q?LFHfhMtLFvMY/MIEQpOuFPJCVZ6foZ/T/8RLwRA+/pi3bk1jIseVdsvBZZ8M?=
+ =?us-ascii?Q?Gftfm6Ccul8E9XI84eltjpqU+nIatbYtlU82MgIa/QE299uYxeD4MVxWYYDt?=
+ =?us-ascii?Q?ohOP0LReBgOV0vu7M/8CjImelpuf2OkpckXk6xuSzB624+dNZPXBuok3XZmz?=
+ =?us-ascii?Q?bBJhon6HNYKwoZqweRDT72zAvUTw/dpugW9rLu/yZ40LxTFTEhvNigaTnJP3?=
+ =?us-ascii?Q?KymNidsb2hE8bDi+PZQ/OVPtVleBxrvsbjkRdy0TT3bfC4PlKebecVfj8KB6?=
+ =?us-ascii?Q?BSHyMZLF/5Ad3Ha37fDOpr66pKoOLh9jNUkXosNOPHelBLGyIoPKPCz0L+5J?=
+ =?us-ascii?Q?wncoBAlksCQEGsM4+oaENmPcu3icmBxhWTit3E0zmzxjyVn53Dw2C6GD+3zi?=
+ =?us-ascii?Q?s6a4yA4kIiaLdNoHQnSUh07QGb0fkNe9y0w2Jxdnwp+8uZeRZrz2n2SXWV9i?=
+ =?us-ascii?Q?iI+YS1FACjRO018T7inZytXX?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69ef4a7b-e13b-454c-790d-08d98cb4484f
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 12:40:18.6094 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yXWa1d91VjmUO51qJOivvuHXEuXaOpluUpLIi6ZPP62NaKlp6mSsVhdB7AZpTIh5CCHbUMsGRozaZwJeuheruOb7lYvQzDaiT7NYZZklcLE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2127
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10133
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0
+ suspectscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0 malwarescore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110110072
+X-Proofpoint-GUID: 2KRIQUVwmY3IrlTGnfHPKktl50ZDOMbz
+X-Proofpoint-ORIG-GUID: 2KRIQUVwmY3IrlTGnfHPKktl50ZDOMbz
+Subject: [Freedreno] [PATCH] drm/msm: unlock on error in get_sched_entity()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,332 +156,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/10/2021 17:10, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Now that SCM can be a loadable module, we have to add another
-> dependency to avoid link failures when ipa or adreno-gpu are
-> built-in:
-> 
-> aarch64-linux-ld: drivers/net/ipa/ipa_main.o: in function `ipa_probe':
-> ipa_main.c:(.text+0xfc4): undefined reference to `qcom_scm_is_available'
-> 
-> ld.lld: error: undefined symbol: qcom_scm_is_available
->>>> referenced by adreno_gpu.c
->>>>               gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load) in archive drivers/built-in.a
-> 
-> This can happen when CONFIG_ARCH_QCOM is disabled and we don't select
-> QCOM_MDT_LOADER, but some other module selects QCOM_SCM. Ideally we'd
-> use a similar dependency here to what we have for QCOM_RPROC_COMMON,
-> but that causes dependency loops from other things selecting QCOM_SCM.
-> 
-> This appears to be an endless problem, so try something different this
-> time:
-> 
->  - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
->    but that is simply selected by all of its users
-> 
->  - All the stubs in include/linux/qcom_scm.h can go away
-> 
->  - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
->    allow compile-testing QCOM_SCM on all architectures.
-> 
->  - To avoid a circular dependency chain involving RESET_CONTROLLER
->    and PINCTRL_SUNXI, drop the 'select RESET_CONTROLLER' statement.
->    According to my testing this still builds fine, and the QCOM
->    platform selects this symbol already.
+Add a missing unlock on the error path if drm_sched_entity_init() fails.
 
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Fixes: 68002469e571 ("drm/msm: One sched entity per process per priority")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/msm/msm_submitqueue.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks,
-
-	Hans
-
-> 
-> Acked-by: Kalle Valo <kvalo@codeaurora.org>
-> Acked-by: Alex Elder <elder@linaro.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> Changes in v2:
-> - fix the iommu dependencies
-> 
-> I've queued this version as a bugfix along with patch 1/2
-> in my asm-generic tree.
-> 
->  drivers/firmware/Kconfig                   |  5 +-
->  drivers/gpu/drm/msm/Kconfig                |  4 +-
->  drivers/iommu/Kconfig                      |  3 +-
->  drivers/iommu/arm/arm-smmu/Makefile        |  3 +-
->  drivers/iommu/arm/arm-smmu/arm-smmu-impl.c |  3 +-
->  drivers/media/platform/Kconfig             |  2 +-
->  drivers/mmc/host/Kconfig                   |  2 +-
->  drivers/net/ipa/Kconfig                    |  1 +
->  drivers/net/wireless/ath/ath10k/Kconfig    |  2 +-
->  drivers/pinctrl/qcom/Kconfig               |  3 +-
->  include/linux/arm-smccc.h                  | 10 +++
->  include/linux/qcom_scm.h                   | 71 ----------------------
->  12 files changed, 24 insertions(+), 85 deletions(-)
-> 
-> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-> index 220a58cf0a44..cda7d7162cbb 100644
-> --- a/drivers/firmware/Kconfig
-> +++ b/drivers/firmware/Kconfig
-> @@ -203,10 +203,7 @@ config INTEL_STRATIX10_RSU
->  	  Say Y here if you want Intel RSU support.
->  
->  config QCOM_SCM
-> -	tristate "Qcom SCM driver"
-> -	depends on ARM || ARM64
-> -	depends on HAVE_ARM_SMCCC
-> -	select RESET_CONTROLLER
-> +	tristate
->  
->  config QCOM_SCM_DOWNLOAD_MODE_DEFAULT
->  	bool "Qualcomm download mode enabled by default"
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index e9c6af78b1d7..3ddf739a6f9b 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -17,7 +17,7 @@ config DRM_MSM
->  	select DRM_SCHED
->  	select SHMEM
->  	select TMPFS
-> -	select QCOM_SCM if ARCH_QCOM
-> +	select QCOM_SCM
->  	select WANT_DEV_COREDUMP
->  	select SND_SOC_HDMI_CODEC if SND_SOC
->  	select SYNC_FILE
-> @@ -55,7 +55,7 @@ config DRM_MSM_GPU_SUDO
->  
->  config DRM_MSM_HDMI_HDCP
->  	bool "Enable HDMI HDCP support in MSM DRM driver"
-> -	depends on DRM_MSM && QCOM_SCM
-> +	depends on DRM_MSM
->  	default y
->  	help
->  	  Choose this option to enable HDCP state machine
-> diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-> index 124c41adeca1..c5c71b7ab7e8 100644
-> --- a/drivers/iommu/Kconfig
-> +++ b/drivers/iommu/Kconfig
-> @@ -308,7 +308,6 @@ config APPLE_DART
->  config ARM_SMMU
->  	tristate "ARM Ltd. System MMU (SMMU) Support"
->  	depends on ARM64 || ARM || (COMPILE_TEST && !GENERIC_ATOMIC64)
-> -	depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
->  	select IOMMU_API
->  	select IOMMU_IO_PGTABLE_LPAE
->  	select ARM_DMA_USE_IOMMU if ARM
-> @@ -438,7 +437,7 @@ config QCOM_IOMMU
->  	# Note: iommu drivers cannot (yet?) be built as modules
->  	bool "Qualcomm IOMMU Support"
->  	depends on ARCH_QCOM || (COMPILE_TEST && !GENERIC_ATOMIC64)
-> -	depends on QCOM_SCM=y
-> +	select QCOM_SCM
->  	select IOMMU_API
->  	select IOMMU_IO_PGTABLE_LPAE
->  	select ARM_DMA_USE_IOMMU
-> diff --git a/drivers/iommu/arm/arm-smmu/Makefile b/drivers/iommu/arm/arm-smmu/Makefile
-> index e240a7bcf310..b0cc01aa20c9 100644
-> --- a/drivers/iommu/arm/arm-smmu/Makefile
-> +++ b/drivers/iommu/arm/arm-smmu/Makefile
-> @@ -1,4 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_QCOM_IOMMU) += qcom_iommu.o
->  obj-$(CONFIG_ARM_SMMU) += arm_smmu.o
-> -arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o arm-smmu-qcom.o
-> +arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o
-> +arm_smmu-$(CONFIG_ARM_SMMU_QCOM) += arm-smmu-qcom.o
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> index 9f465e146799..2c25cce38060 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> @@ -215,7 +215,8 @@ struct arm_smmu_device *arm_smmu_impl_init(struct arm_smmu_device *smmu)
->  	    of_device_is_compatible(np, "nvidia,tegra186-smmu"))
->  		return nvidia_smmu_impl_init(smmu);
->  
-> -	smmu = qcom_smmu_impl_init(smmu);
-> +	if (IS_ENABLED(CONFIG_ARM_SMMU_QCOM))
-> +		smmu = qcom_smmu_impl_init(smmu);
->  
->  	if (of_device_is_compatible(np, "marvell,ap806-smmu-500"))
->  		smmu->impl = &mrvl_mmu500_impl;
-> diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
-> index 157c924686e4..80321e03809a 100644
-> --- a/drivers/media/platform/Kconfig
-> +++ b/drivers/media/platform/Kconfig
-> @@ -565,7 +565,7 @@ config VIDEO_QCOM_VENUS
->  	depends on VIDEO_DEV && VIDEO_V4L2 && QCOM_SMEM
->  	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
->  	select QCOM_MDT_LOADER if ARCH_QCOM
-> -	select QCOM_SCM if ARCH_QCOM
-> +	select QCOM_SCM
->  	select VIDEOBUF2_DMA_CONTIG
->  	select V4L2_MEM2MEM_DEV
->  	help
-> diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-> index 71313961cc54..95b3511b0560 100644
-> --- a/drivers/mmc/host/Kconfig
-> +++ b/drivers/mmc/host/Kconfig
-> @@ -547,7 +547,7 @@ config MMC_SDHCI_MSM
->  	depends on MMC_SDHCI_PLTFM
->  	select MMC_SDHCI_IO_ACCESSORS
->  	select MMC_CQHCI
-> -	select QCOM_SCM if MMC_CRYPTO && ARCH_QCOM
-> +	select QCOM_SCM if MMC_CRYPTO
->  	help
->  	  This selects the Secure Digital Host Controller Interface (SDHCI)
->  	  support present in Qualcomm SOCs. The controller supports
-> diff --git a/drivers/net/ipa/Kconfig b/drivers/net/ipa/Kconfig
-> index 8f99cfa14680..d037682fb7ad 100644
-> --- a/drivers/net/ipa/Kconfig
-> +++ b/drivers/net/ipa/Kconfig
-> @@ -4,6 +4,7 @@ config QCOM_IPA
->  	depends on ARCH_QCOM || COMPILE_TEST
->  	depends on QCOM_RPROC_COMMON || (QCOM_RPROC_COMMON=n && COMPILE_TEST)
->  	select QCOM_MDT_LOADER if ARCH_QCOM
-> +	select QCOM_SCM
->  	select QCOM_QMI_HELPERS
->  	help
->  	  Choose Y or M here to include support for the Qualcomm
-> diff --git a/drivers/net/wireless/ath/ath10k/Kconfig b/drivers/net/wireless/ath/ath10k/Kconfig
-> index 741289e385d5..ca007b800f75 100644
-> --- a/drivers/net/wireless/ath/ath10k/Kconfig
-> +++ b/drivers/net/wireless/ath/ath10k/Kconfig
-> @@ -44,7 +44,7 @@ config ATH10K_SNOC
->  	tristate "Qualcomm ath10k SNOC support"
->  	depends on ATH10K
->  	depends on ARCH_QCOM || COMPILE_TEST
-> -	depends on QCOM_SCM || !QCOM_SCM #if QCOM_SCM=m this can't be =y
-> +	select QCOM_SCM
->  	select QCOM_QMI_HELPERS
->  	help
->  	  This module adds support for integrated WCN3990 chip connected
-> diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-> index 32ea2a8ec02b..5ff4207df66e 100644
-> --- a/drivers/pinctrl/qcom/Kconfig
-> +++ b/drivers/pinctrl/qcom/Kconfig
-> @@ -3,7 +3,8 @@ if (ARCH_QCOM || COMPILE_TEST)
->  
->  config PINCTRL_MSM
->  	tristate "Qualcomm core pin controller driver"
-> -	depends on GPIOLIB && (QCOM_SCM || !QCOM_SCM) #if QCOM_SCM=m this can't be =y
-> +	depends on GPIOLIB
-> +	select QCOM_SCM
->  	select PINMUX
->  	select PINCONF
->  	select GENERIC_PINCONF
-> diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
-> index 7d1cabe15262..63ccb5252190 100644
-> --- a/include/linux/arm-smccc.h
-> +++ b/include/linux/arm-smccc.h
-> @@ -321,10 +321,20 @@ asmlinkage unsigned long __arm_smccc_sve_check(unsigned long x0);
->   * from register 0 to 3 on return from the SMC instruction.  An optional
->   * quirk structure provides vendor specific behavior.
->   */
-> +#ifdef CONFIG_HAVE_ARM_SMCCC
->  asmlinkage void __arm_smccc_smc(unsigned long a0, unsigned long a1,
->  			unsigned long a2, unsigned long a3, unsigned long a4,
->  			unsigned long a5, unsigned long a6, unsigned long a7,
->  			struct arm_smccc_res *res, struct arm_smccc_quirk *quirk);
-> +#else
-> +static inline void __arm_smccc_smc(unsigned long a0, unsigned long a1,
-> +			unsigned long a2, unsigned long a3, unsigned long a4,
-> +			unsigned long a5, unsigned long a6, unsigned long a7,
-> +			struct arm_smccc_res *res, struct arm_smccc_quirk *quirk)
-> +{
-> +	*res = (struct arm_smccc_res){};
-> +}
-> +#endif
->  
->  /**
->   * __arm_smccc_hvc() - make HVC calls
-> diff --git a/include/linux/qcom_scm.h b/include/linux/qcom_scm.h
-> index c0475d1c9885..81cad9e1e412 100644
-> --- a/include/linux/qcom_scm.h
-> +++ b/include/linux/qcom_scm.h
-> @@ -61,7 +61,6 @@ enum qcom_scm_ice_cipher {
->  #define QCOM_SCM_PERM_RW (QCOM_SCM_PERM_READ | QCOM_SCM_PERM_WRITE)
->  #define QCOM_SCM_PERM_RWX (QCOM_SCM_PERM_RW | QCOM_SCM_PERM_EXEC)
->  
-> -#if IS_ENABLED(CONFIG_QCOM_SCM)
->  extern bool qcom_scm_is_available(void);
->  
->  extern int qcom_scm_set_cold_boot_addr(void *entry, const cpumask_t *cpus);
-> @@ -115,74 +114,4 @@ extern int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
->  extern int qcom_scm_lmh_profile_change(u32 profile_id);
->  extern bool qcom_scm_lmh_dcvsh_available(void);
->  
-> -#else
-> -
-> -#include <linux/errno.h>
-> -
-> -static inline bool qcom_scm_is_available(void) { return false; }
-> -
-> -static inline int qcom_scm_set_cold_boot_addr(void *entry,
-> -		const cpumask_t *cpus) { return -ENODEV; }
-> -static inline int qcom_scm_set_warm_boot_addr(void *entry,
-> -		const cpumask_t *cpus) { return -ENODEV; }
-> -static inline void qcom_scm_cpu_power_down(u32 flags) {}
-> -static inline u32 qcom_scm_set_remote_state(u32 state,u32 id)
-> -		{ return -ENODEV; }
-> -
-> -static inline int qcom_scm_pas_init_image(u32 peripheral, const void *metadata,
-> -		size_t size) { return -ENODEV; }
-> -static inline int qcom_scm_pas_mem_setup(u32 peripheral, phys_addr_t addr,
-> -		phys_addr_t size) { return -ENODEV; }
-> -static inline int qcom_scm_pas_auth_and_reset(u32 peripheral)
-> -		{ return -ENODEV; }
-> -static inline int qcom_scm_pas_shutdown(u32 peripheral) { return -ENODEV; }
-> -static inline bool qcom_scm_pas_supported(u32 peripheral) { return false; }
-> -
-> -static inline int qcom_scm_io_readl(phys_addr_t addr, unsigned int *val)
-> -		{ return -ENODEV; }
-> -static inline int qcom_scm_io_writel(phys_addr_t addr, unsigned int val)
-> -		{ return -ENODEV; }
-> -
-> -static inline bool qcom_scm_restore_sec_cfg_available(void) { return false; }
-> -static inline int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare)
-> -		{ return -ENODEV; }
-> -static inline int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size)
-> -		{ return -ENODEV; }
-> -static inline int qcom_scm_iommu_secure_ptbl_init(u64 addr, u32 size, u32 spare)
-> -		{ return -ENODEV; }
-> -extern inline int qcom_scm_mem_protect_video_var(u32 cp_start, u32 cp_size,
-> -						 u32 cp_nonpixel_start,
-> -						 u32 cp_nonpixel_size)
-> -		{ return -ENODEV; }
-> -static inline int qcom_scm_assign_mem(phys_addr_t mem_addr, size_t mem_sz,
-> -		unsigned int *src, const struct qcom_scm_vmperm *newvm,
-> -		unsigned int dest_cnt) { return -ENODEV; }
-> -
-> -static inline bool qcom_scm_ocmem_lock_available(void) { return false; }
-> -static inline int qcom_scm_ocmem_lock(enum qcom_scm_ocmem_client id, u32 offset,
-> -		u32 size, u32 mode) { return -ENODEV; }
-> -static inline int qcom_scm_ocmem_unlock(enum qcom_scm_ocmem_client id,
-> -		u32 offset, u32 size) { return -ENODEV; }
-> -
-> -static inline bool qcom_scm_ice_available(void) { return false; }
-> -static inline int qcom_scm_ice_invalidate_key(u32 index) { return -ENODEV; }
-> -static inline int qcom_scm_ice_set_key(u32 index, const u8 *key, u32 key_size,
-> -				       enum qcom_scm_ice_cipher cipher,
-> -				       u32 data_unit_size) { return -ENODEV; }
-> -
-> -static inline bool qcom_scm_hdcp_available(void) { return false; }
-> -static inline int qcom_scm_hdcp_req(struct qcom_scm_hdcp_req *req, u32 req_cnt,
-> -		u32 *resp) { return -ENODEV; }
-> -
-> -static inline int qcom_scm_qsmmu500_wait_safe_toggle(bool en)
-> -		{ return -ENODEV; }
-> -
-> -static inline int qcom_scm_lmh_dcvsh(u32 payload_fn, u32 payload_reg, u32 payload_val,
-> -				     u64 limit_node, u32 node_id, u64 version)
-> -		{ return -ENODEV; }
-> -
-> -static inline int qcom_scm_lmh_profile_change(u32 profile_id) { return -ENODEV; }
-> -
-> -static inline bool qcom_scm_lmh_dcvsh_available(void) { return -ENODEV; }
-> -#endif
->  #endif
-> 
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index b8621c6e0554..7cb158bcbcf6 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -101,6 +101,7 @@ get_sched_entity(struct msm_file_private *ctx, struct msm_ringbuffer *ring,
+ 
+ 		ret = drm_sched_entity_init(entity, sched_prio, &sched, 1, NULL);
+ 		if (ret) {
++			mutex_unlock(&entity_lock);
+ 			kfree(entity);
+ 			return ERR_PTR(ret);
+ 		}
+-- 
+2.20.1
 
