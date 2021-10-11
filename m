@@ -1,146 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EBB9428D37
-	for <lists+freedreno@lfdr.de>; Mon, 11 Oct 2021 14:40:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 507DA42931B
+	for <lists+freedreno@lfdr.de>; Mon, 11 Oct 2021 17:25:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1C8C6E4A6;
-	Mon, 11 Oct 2021 12:40:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2668F6E575;
+	Mon, 11 Oct 2021 15:25:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E0389FC5;
- Mon, 11 Oct 2021 12:40:29 +0000 (UTC)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19BCTKiu022706; 
- Mon, 11 Oct 2021 12:40:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
- bh=8uLva7CMEPi/XxAxxcdMwhoM/iLHSnHn+IraUGRIp1E=;
- b=TOb34Ky8PVurDjPLScc6xIT8bkqnItrHRVfQ0Avla3ensxab5sQ0KRrAASVc+bSjlbkY
- HGMXITX1umLHiMK4aZ7NcxvKX5+SUDtFVxf3/dJEVO+lN5kaXKaks78lA03KwJpzqs9S
- TukjZXFpy88KdHcYtOHXxsyQxlXKFxGiOH4QKlq+Ud97MD614fSX+p5JYWD/UGrUVjuI
- UTSyu5Q5YlQ0LmQuw8DyPwQ08yCKfNSSUddrJNJHgP7z/056Y5Ld/3450arMUzZhlYYZ
- yjK1met5BkMFGVGn9oiEnaK1ApAAoETYkdWKBPaXByzQ7UlYHuUTYdMT2FJC1BFIgEhv ZA== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by mx0b-00069f02.pphosted.com with ESMTP id 3bkxxabp4n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 11 Oct 2021 12:40:26 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19BCUtYB191065;
- Mon, 11 Oct 2021 12:40:21 GMT
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2102.outbound.protection.outlook.com [104.47.70.102])
- by aserp3020.oracle.com with ESMTP id 3bmadw6j1v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 11 Oct 2021 12:40:20 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BDh16BREQDscAVS6DiP7i6xIW94UmYZ6ju53SrmC7Ut+y5M0qM6RwkHmtYhIVDxi9MXZ2dCBCAks+r/4UIDGo5ZkYd5bIcnP7RjdlR3iOfpHNeJOx5OkEmjDHBw99PWC/xHeplBF0bVJfg3L2v83sE7VwYsQsg/PeGjypNiMlDPLN19F6l3qmnbGzbNKcHgNYqO4yVGXqA75LTUWZW2G74DlWpidVczyHj3403rVFtrPqN5PyTH7H5giBtBYdhB97Kem+ICND+4ga9z705nQ1CoqXgWMg0PuUr2/HMRYy58fvhCmxrmikvsWqG9hKTZzK9Ot6IBzlT1fmNsQltSxwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8uLva7CMEPi/XxAxxcdMwhoM/iLHSnHn+IraUGRIp1E=;
- b=aN1zL0b/AsuiocnXnnppwaVqhuhQv55XSOCms/iQSuI20vMIF6am9GpSLY9zyz45sjqaMzKaT1z3w2AJKHNmxeGTMFhWv0yfQ6cvnSf1IDrLo45389KC7Q53+uS9kKRcFuyrgFjFsutWqzJKbbvvLhrwwGqAkVnxn44yS1B/T/ItxPh7ar4He24QzzNgKcW8BlkC4KyIF4ZyLLNTDriKRSyj8YnGfd7kjegNTVkAxdT9sXuh12e349hhxsysra7YQNjw/vC/ZRtl4/Cu65dzOWNLSB1Qtx2ZlLaqoPZQREiAPQtou1P74Uw4eva78WEqio96DCtsgYP+PF1F8GoZeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8uLva7CMEPi/XxAxxcdMwhoM/iLHSnHn+IraUGRIp1E=;
- b=fm3KzQouX5QTyt0LUr3+wqS0eGuGD6UPdUINS6V6P7Zlhm8qJ9l0ujiGmWjb8ZtHYGURsQfKHWn9j05pUzy54qsZ/oQICwag1/C3dJg6lzxNabnyZd90Ag7Y9Mx5w+bg/SNdQP+tGU3bz0gcf30xStsp9Hcphwp2FY6J3eZ41GM=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=oracle.com;
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by MWHPR1001MB2127.namprd10.prod.outlook.com
- (2603:10b6:301:33::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Mon, 11 Oct
- 2021 12:40:18 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::d409:11b5:5eb2:6be9]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::d409:11b5:5eb2:6be9%5]) with mapi id 15.20.4587.026; Mon, 11 Oct 2021
- 12:40:18 +0000
-Date: Mon, 11 Oct 2021 15:40:05 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- kernel-janitors@vger.kernel.org
-Message-ID: <20211011124005.GE15188@kili>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-ClientProxiedBy: ZR0P278CA0130.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:40::9) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E74D86E575
+ for <freedreno@lists.freedesktop.org>; Mon, 11 Oct 2021 15:25:01 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1633965904; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=/Fnrpv0UZJQ/G5vlRiV4cIFXd3fhNXygriIiiQzzuUg=;
+ b=BO8Os1MpNYD1hJlvdUL8Ie8qo2Kn592QiNR2JmwLSN9nmtTEJAHfL+uSoHGrw96ZLwAW1MhL
+ cL+Zb8FNemBhoRNRZGDYNYwL7psn+rhMOG8VG2AV8HYXvMdyM81x3CFu2TI1rze+SN01jQti
+ X/13Wt2cSylnZ40ZdnptFjOWh2Q=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 6164573a03355859c8fe9363 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 11 Oct 2021 15:24:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C8F29C4360C; Mon, 11 Oct 2021 15:24:42 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8B1E5C4338F;
+ Mon, 11 Oct 2021 15:24:41 +0000 (UTC)
 MIME-Version: 1.0
-Received: from kili (62.8.83.99) by ZR0P278CA0130.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:40::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25 via Frontend
- Transport; Mon, 11 Oct 2021 12:40:15 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 69ef4a7b-e13b-454c-790d-08d98cb4484f
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2127:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR1001MB21275B853F5D201898E4C4A18EB59@MWHPR1001MB2127.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:923;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kj7syl/jIOhW9h4/3xRwFu5/YdjHTjmD8A+Gw1em1/MY5g7jkLV2ldWgTP5Gk7XVAEYzN/IBIIqikfW1NbRtz4TSxQXbWRzvlZoy5sbddcdO9vLCWBqcxu2WM7Tj9NgzRcgkU8oXdrM83pVn3q3M3GiAu6zPgDxjsrDv4QNJCCICc0rlyhfeMzi+1TSMxhYyOTgsI4xXHptxw9iMcd8x4n2Sf5fobKT2M/hfn0CITDs5yZMoCPuBNLD1uJRpMJRBhxqVt/wgxK7Xm2ETtLW8D4ic0zpkdLYiHlWzLhRx+LOmFzfxigw3t2vo6nHT9Cy1loCuCIx+QOEZCWqG072jbUXBI857FXVyixOXj5l1yjXJTio5nxd+krMhkzkBu2YXCM3Cu/WBA4rTyFaS0bEHu4DDTbkmq+Haarlb6SmArKPnXP0LRbY465+aEFU7bGrrx7tmBOdZwh092V7UPbLmLU6rZKKObt55O28/y30nJJNUjacaiC/+ls2qJqeiGN6O5ZWfM/eDKNacOTyOpd0DpwpkqoqCxafnYOKoi/5wttFVGEKQGfrmPEe+OSzXuMN5acmNDYpAAK4e5/UubEbVf4L6gHsXIK6XIZKu/NWDRwLdYt6n8kWBZJ3XXGeXxM+jNX8f5mjBDKg5CgSFmQgXF8r16y5BuYRhKJ2/pFIATvsc1gipJT95o3olHLpmgWburc8ct2vy5e5q2eTSfZtHEA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(2906002)(4744005)(9686003)(956004)(55016002)(26005)(316002)(4326008)(83380400001)(6666004)(9576002)(186003)(86362001)(66476007)(66556008)(5660300002)(66946007)(1076003)(8936002)(6496006)(52116002)(33716001)(508600001)(33656002)(54906003)(44832011)(38100700002)(38350700002)(8676002)(6916009);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ywxvtM2Wip8F/QIlFIb5slvYi/sMeC4+M/E4HRfrKmaEf11AdA8ljVdBL3tY?=
- =?us-ascii?Q?r2gEOROElzurbv/6joWvrTjy48EcEIQaStEyv2Jm6L1x6AcsCQ4PgaW2nWNs?=
- =?us-ascii?Q?yFG4adDutJhCJzBE/tjZedVl1sSE+XYBi+d3lku/baTvd7S5v3cHaKEmtTv4?=
- =?us-ascii?Q?HgyZCPO+VqHigTtO+/NO+QR48q0R6NhkZE1YnK91KpG8kxQP+pIH8+YDoTl4?=
- =?us-ascii?Q?BlAwiDHIPHYAe5B8+1ZTY5ZyRh4x9626tojkZ1u6tLhDpZWbSEI0TDgPHWcE?=
- =?us-ascii?Q?tNjuNn2jxelxmmOqPst9Xis+uSgXFSty9go53LbKqqBB8zz94rdJ3ztOVcwK?=
- =?us-ascii?Q?rdC5UtBmd1Hv+a+qoEcLO+qaMnwLm79O1f9lDu3lHnibfJGkLKgxOsaVMhtx?=
- =?us-ascii?Q?KenKHTIoEGBq0AL5mekabFQ8b1nHJUSminw8q0Cpf11JWgDpLQS2QDVMFW8B?=
- =?us-ascii?Q?d2gQkeDF2GSqSZ3TCkrRpYGuAnSSz+W4sZr7rLfuYBJAR34hz8vL2vj9X/tm?=
- =?us-ascii?Q?MD1vRd4WIvAsapiO2LOIUAOYVUAP2roDK7Y5yczCSVW6VJtscoZJJYISJdcx?=
- =?us-ascii?Q?2QFssB9PTCEySGvOU4KwnKf9QGtJijJ65STgTlfFASWdcQdOf5u+UeiQcK/1?=
- =?us-ascii?Q?KxGUjbwc1LOJXj0peUI59em94QrWCk5AuRDNOR/HheJ+au+H52t6cCv8qhq6?=
- =?us-ascii?Q?eM06M/9/F0J6ZebJ9qwY4gyc0NsZJQd6geZDucfRzmsBvIAo0lfYNAaVXvWr?=
- =?us-ascii?Q?Pj2CgEOaVZpCg+sMJFfgJgbIIl5fmbPvBH0dP7sNzwDWVVru3yBMPRdvUrpL?=
- =?us-ascii?Q?LFHfhMtLFvMY/MIEQpOuFPJCVZ6foZ/T/8RLwRA+/pi3bk1jIseVdsvBZZ8M?=
- =?us-ascii?Q?Gftfm6Ccul8E9XI84eltjpqU+nIatbYtlU82MgIa/QE299uYxeD4MVxWYYDt?=
- =?us-ascii?Q?ohOP0LReBgOV0vu7M/8CjImelpuf2OkpckXk6xuSzB624+dNZPXBuok3XZmz?=
- =?us-ascii?Q?bBJhon6HNYKwoZqweRDT72zAvUTw/dpugW9rLu/yZ40LxTFTEhvNigaTnJP3?=
- =?us-ascii?Q?KymNidsb2hE8bDi+PZQ/OVPtVleBxrvsbjkRdy0TT3bfC4PlKebecVfj8KB6?=
- =?us-ascii?Q?BSHyMZLF/5Ad3Ha37fDOpr66pKoOLh9jNUkXosNOPHelBLGyIoPKPCz0L+5J?=
- =?us-ascii?Q?wncoBAlksCQEGsM4+oaENmPcu3icmBxhWTit3E0zmzxjyVn53Dw2C6GD+3zi?=
- =?us-ascii?Q?s6a4yA4kIiaLdNoHQnSUh07QGb0fkNe9y0w2Jxdnwp+8uZeRZrz2n2SXWV9i?=
- =?us-ascii?Q?iI+YS1FACjRO018T7inZytXX?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69ef4a7b-e13b-454c-790d-08d98cb4484f
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2021 12:40:18.6094 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yXWa1d91VjmUO51qJOivvuHXEuXaOpluUpLIi6ZPP62NaKlp6mSsVhdB7AZpTIh5CCHbUMsGRozaZwJeuheruOb7lYvQzDaiT7NYZZklcLE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2127
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10133
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- phishscore=0
- suspectscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0 malwarescore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109230001 definitions=main-2110110072
-X-Proofpoint-GUID: 2KRIQUVwmY3IrlTGnfHPKktl50ZDOMbz
-X-Proofpoint-ORIG-GUID: 2KRIQUVwmY3IrlTGnfHPKktl50ZDOMbz
-Subject: [Freedreno] [PATCH] drm/msm: unlock on error in get_sched_entity()
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 11 Oct 2021 08:24:41 -0700
+From: khsieh@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar
+ <abhinavk@codeaurora.org>, Daniel Vetter <daniel@ffwll.ch>, David Airlie
+ <airlied@linux.ie>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob
+ Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sankeerth
+ Billakanti <sbillaka@codeaurora.org>
+In-Reply-To: <YWB1cXoaGRXfGau1@ripper>
+References: <CAE-0n53FC7JCCJoye_uKeqaLKrZeHXLtvObxWFedaUzjirmBaA@mail.gmail.com>
+ <a4a4980e586a70e3b7de989bc61a3e33@codeaurora.org> <YV0FlTyMEzlyNsN9@ripper>
+ <3dbe0fe48da88af9dee396a85b940e76@codeaurora.org> <YV3dddt/GOidTmlN@ripper>
+ <9dc50145fb3e9b189fd38857b20f326a@codeaurora.org> <YV9TQEKPh4SXYFF/@ripper>
+ <0c72f3fd8c49cdada09bb6ee366b53a6@codeaurora.org>
+ <CAE-0n51bvKXmHj0X_cvR2fdk4-mh4SRsrEE33H0e1Q+p=7iPxA@mail.gmail.com>
+ <ad244133bdba4570b0b45871fd136350@codeaurora.org> <YWB1cXoaGRXfGau1@ripper>
+Message-ID: <44ffcac32270a8ea72dcfc044e2b2585@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Shorten SETUP timeout
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,26 +81,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add a missing unlock on the error path if drm_sched_entity_init() fails.
+On 2021-10-08 09:44, Bjorn Andersson wrote:
+> On Fri 08 Oct 09:07 PDT 2021, khsieh@codeaurora.org wrote:
+> 
+>> On 2021-10-07 15:34, Stephen Boyd wrote:
+>> > Quoting khsieh@codeaurora.org (2021-10-07 13:28:12)
+>> > > On 2021-10-07 13:06, Bjorn Andersson wrote:
+>> > > > On Thu 07 Oct 12:51 PDT 2021, khsieh@codeaurora.org wrote:
+>> > > >
+>> > > >> On 2021-10-06 10:31, Bjorn Andersson wrote:
+>> > > >> > On Wed 06 Oct 08:37 PDT 2021, khsieh@codeaurora.org wrote:
+>> > > >> >
+>> > > >> > > On 2021-10-05 19:10, Bjorn Andersson wrote:
+>> > > >> > > > On Tue 05 Oct 16:04 PDT 2021, khsieh@codeaurora.org wrote:
+>> > > >> > > >
+>> > > >> > > > > On 2021-10-05 15:36, Stephen Boyd wrote:
+>> > > >> > > > > > Quoting Bjorn Andersson (2021-10-05 14:40:38)
+>> > > >> > > > > > > On Tue 05 Oct 11:45 PDT 2021, Stephen Boyd wrote:
+>> > > >> > > > > > >
+>> > > >> > > > > > > > Quoting Bjorn Andersson (2021-10-04 19:37:50)
+>> > > >> > > > > > > > > Found in the middle of a patch from Sankeerth was the reduction of the
+>> > > >> > > > > > > > > INIT_SETUP timeout from 10s to 100ms. Upon INIT_SETUP timeout the host
+>> > > >> > > > > > > > > is initalized and HPD interrupt start to be serviced, so in the case of
+>> > > >> > > > > > > > > eDP this reduction improves the user experience dramatically - i.e.
+>> > > >> > > > > > > > > removes 9.9s of bland screen time at boot.
+>> > > >> > > > > > > > >
+>> > > >> > > > > > > > > Suggested-by: Sankeerth Billakanti <sbillaka@codeaurora.org>
+>> > > >> > > > > > > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>> > > >> > > > > > > > > ---
+>> > > >> > > > > > > >
+>> > > >> > > > > > > > Any Fixes tag? BTW, the delay design is pretty convoluted. I had to go
+>> > > >> > > > > > > > re-read the code a couple times to understand that it's waiting 100ms
+>> > > >> > > > > > > > times the 'delay' number. Whaaaaat?
+>> > > >> > > > > > > >
+>> > > >> > > > > > >
+>> > > >> > > > > > > I assume you're happy with the current 10s delay on the current
+>> > > >> > > > > > > devices, so I don't think we should push for this to be backported.
+>> > > >> > > > > > > I have no need for it to be backported on my side at least.
+>> > > >> > > > > > >
+>> > > >> > > > > >
+>> > > >> > > > > > Sure. Fixes tag != backported to stable trees but it is close.
+>> > > >> > > > > >
+>> > > >> > > > > > > > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>> > > >> > > > > > >
+>> > > >> > > > >   dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1); <== to 100ms
+>> > > >> > > > >
+>> > > >> > > > > This patch will prevent usb3 from working due to dp driver
+>> > > >> > > > > initialize phy
+>> > > >> > > > > earlier than usb3 which cause timeout error at power up usb3 phy
+>> > > >> > > > > when both
+>> > > >> > > > > edp and dp are enabled.
+>> > > >> > > >
+>> > > >> > > > Can you please help me understand what you mean here, I use this on my
+>> > > >> > > > sc8180x with both eDP and USB-C/DP right now. What is it that doesn't
+>> > > >> > > > work? Or am I just lucky in some race condition?
+>> > > >> > > >
+>> > > >> > > > Thanks,
+>> > > >> > > > Bjorn
+>> > > >> > > >
+>> > > >> > > The problem is seen at sc7280.
+>> > > >> > > Apple dongle have both  hdmi and usb port.
+>> > > >> > > plug Apple dongle into type-c, then plug DP into apple's hdmi port
+>> > > >> > > and usb
+>> > > >> > > mouse into apple's usb port.
+>> > > >> > > If edp enabled at this time, then usb mouse will not work due to
+>> > > >> > > timeout at
+>> > > >> > > phy power up.
+>> > > >> > >
+>> > > >> >
+>> > > >> > Okay, so you're saying that if the DP driver invokes phy_power_on()
+>> > > >> > before the USB driver does, USB initialization fails (or at least USB
+>> > > >> > doesn't work)?
+>> > > >>
+>> > > >> if dp driver call qcom_qmp_phy_init() before usb3 call
+>> > > >> qcom_qmp_phy_init(),
+>> > > >> usb3 driver will timeout at readl_poll_timeout(status, val, (val &
+>> > > >> mask) ==
+>> > > >> ready, 10, PHY_INIT_COMPLETE_TIMEOUT) of qcom_qmp_phy_power_on().
+>> > > >
+>> > > > Thanks, I will try to reproduce this on my side. So the 10 seconds here
+>> > > > is strictly to give good enough time for the dwc3 driver to probe...
+>> > > >
+>> > > > Any idea why you're saying that this is specific to sc7280, what
+>> > > > changed
+>> > > > from sc7180?
+>> > >
+>> > > I did not have sc7180 with edp before so that i am not sure it will
+>> > > happen on sc7180 or not.
+>> > > The usb3 does not work when both edp and dp enabled I just seen at
+>> > > sc7280.
+>> > > Current at sc7280 EC is not boot up correctly when system power up.
+>> > > I have to manual reboot EC from linux kernel shell before DP/usb3 can
+>> > > work.
+>> > > I am not sure this contribute to this problem or not.
+>> > >
+>> >
+>> > Can you make the usb driver into a module and only load that module
+>> > later in boot after the DP driver calls qcom_qmp_phy_init()? That would
+>> > be an easy way to move usb probe after DP probe and expose this problem.
+>> 
+>> we need usb calls qcom_qmp_phy_init() before dp.
+> 
+> Why?
+I do not know the details.
+But I did see below scenario,
 
-Fixes: 68002469e571 ("drm/msm: One sched entity per process per priority")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/gpu/drm/msm/msm_submitqueue.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index b8621c6e0554..7cb158bcbcf6 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -101,6 +101,7 @@ get_sched_entity(struct msm_file_private *ctx, struct msm_ringbuffer *ring,
- 
- 		ret = drm_sched_entity_init(entity, sched_prio, &sched, 1, NULL);
- 		if (ret) {
-+			mutex_unlock(&entity_lock);
- 			kfree(entity);
- 			return ERR_PTR(ret);
- 		}
--- 
-2.20.1
-
+if dp driver call qcom_qmp_phy_init() before usb3 call
+qcom_qmp_phy_init(),
+usb3 driver will timeout at readl_poll_timeout(status, val, (val &
+mask) ==
+ready, 10, PHY_INIT_COMPLETE_TIMEOUT) of qcom_qmp_phy_power_on().
