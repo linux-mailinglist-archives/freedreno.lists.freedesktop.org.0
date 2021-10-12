@@ -2,67 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2101642A90B
-	for <lists+freedreno@lfdr.de>; Tue, 12 Oct 2021 18:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4102042AACC
+	for <lists+freedreno@lfdr.de>; Tue, 12 Oct 2021 19:30:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1DD289E8C;
-	Tue, 12 Oct 2021 16:04:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1FB96E823;
+	Tue, 12 Oct 2021 17:30:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E18B489DB7;
- Tue, 12 Oct 2021 16:04:47 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id e12so68445691wra.4;
- Tue, 12 Oct 2021 09:04:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4jeJnaeAhRKE6aZq2/elR102N3wqinTxfM30b0/qV3k=;
- b=GhfHUY7JhSAWCXb5np38aS0LUu/0YDs+OQ+lpKtKwef9mK+zdg3h6UNHL4bG/Rh4Ik
- bC287UCf/bI1g5ctwCk2YRa8GdlBoPRWhedipmEUmlRNxAM+xE61UAxfchgrLhG3RLSH
- 3qcRwSjDs2dQhnotbdxsibXg8VI5htrPi2PQxpTFGOjFr+AcVWxdabA7/HN8xgfGl7/T
- Yi0zZSAoD2XC16yoZIiStjeG7EjPjZBRgkfX3u+GCUBLx/Esv8gnRQ3WwK3o05zuaiP4
- e7V6HQtMZ9OLPpQ02xeT8ifGNAXx21gCYuEDopf9VKwZpENydNyUm00xNiRiawKhU8jg
- PuaA==
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7387E6E823
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Oct 2021 17:30:52 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ i1-20020a4ab241000000b002b7069d0e88so1825654ooo.5
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Oct 2021 10:30:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=z/0YDsWVgY8iQTsDuzbYnenwugKkL3hk/JKxgPGOGcI=;
+ b=HkxFstT0p4m1QLP90AGW9wtYHvxedTtvyniXxElQkMbozckVbZpY+ySg4/JdDB/trd
+ YmtybS62NmQKyuSF2NuUNk/j75EMhjXpkPYyXZ03J2Jfu55793aAlYSZtNV7lFbJFFi6
+ sWDSf+PNXbeErsE4e2zK60JCUsOUnmb+5L7FY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4jeJnaeAhRKE6aZq2/elR102N3wqinTxfM30b0/qV3k=;
- b=gtF4FK9TPfbKBRQaC6xHh9thcNSf3P12XBK54y4o9bC4gH+QEWBIOeL44Vtk3q8CaU
- y11ywm0jaMhb6D6SrWz7q7caETJ9zpvCD++bZAh2x0nf8Wmun72ODxGq0Frx9LDV9SeO
- XtWbbGpS75ix8xkJ1g35HivonNanvihUs42c6mIUcBjVtjURdkKjUcvXhNYBscc9l8X0
- nsuxgBm8BHwOyVjZLncD5SEAx2pMuEbyb7pBLHPmFFso+QkltO6iC+MpW0iGpRKLO7xi
- DeeSAo75xRmEQf+ZILd8ZluwovgXE8BaboRTvjl/KM3WSkKYTLVbR3u0WVCKqqVhd9SC
- nutg==
-X-Gm-Message-State: AOAM533lZiLiYWcRnOOaYzkO41kFbSyuZJ2YYfJpmMlrwSZi6TDd9wyF
- q09CNN9MZX/oiCNUF9Bs15S34wGpzSlw2uijA2Q=
-X-Google-Smtp-Source: ABdhPJwhQTxK0/41CQve4MBdhQJ38btRpZXpz3nXdt/S2R1mzAE/EUACnsT9VH9fRn6Z3s/T2kaMWOh/ft1/95wFFDY=
-X-Received: by 2002:a1c:ac03:: with SMTP id v3mr6796873wme.127.1634054685955; 
- Tue, 12 Oct 2021 09:04:45 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=z/0YDsWVgY8iQTsDuzbYnenwugKkL3hk/JKxgPGOGcI=;
+ b=nluHd22VeEqgWRCEXqsHxW4HRw6jSJXt2nN/BWYRJqQNkkBTLEdIwwSi0zNiqBq8au
+ Zhx/BfWTPysWxPDbEVrQqX9WX3voZ4q5i0jieMdt1KeyYOdwp04jYvX1ZuqOsGOEfCzL
+ tx3f5tEHdhboRrep/VTDeK8mDt93SlDndrC4CdKrKKDcBcqVhCd8/2/5Fql0zkxfXxe6
+ O65HhPcAHb2VUk2YzdppBOu33+dsANoOHbnkBZ+s+YOkEYObp6X0rL7J5bGqQMHQSXub
+ dk46E6dMyLqhnhWE92NoQCpJe9lWFuUOjhf03l7dG+ytn1J6NLnBGhbmh7rHnpPLPNnJ
+ eSWA==
+X-Gm-Message-State: AOAM530aFNgZkBD3p1Vv4iVZQBhvXvell6T27k+QRkMhTtn0CZiOuBdH
+ GonAUyvD2rWLgEB8VgHEKpq6PASw7JR4+P4kM1OXrg==
+X-Google-Smtp-Source: ABdhPJy9T8+9hT9hWwhL5IEf1cezLhdiiM+LB8rzFUvZfxvbjfDkAnsx9qGc3DeOFqc5EwvCafjQFtUNNiGGxNd26F8=
+X-Received: by 2002:a4a:e2d3:: with SMTP id l19mr24660471oot.1.1634059851594; 
+ Tue, 12 Oct 2021 10:30:51 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 12 Oct 2021 10:30:51 -0700
 MIME-Version: 1.0
-References: <75e8ba40076ad707d47e3a3670e6b23c1b8b11bc.1633874223.git.christophe.jaillet@wanadoo.fr>
-In-Reply-To: <75e8ba40076ad707d47e3a3670e6b23c1b8b11bc.1633874223.git.christophe.jaillet@wanadoo.fr>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 12 Oct 2021 09:09:23 -0700
-Message-ID: <CAF6AEGvUHmfa-A6awpPBU0yi0v47eDSZkGPyunpQwqR9WuaACQ@mail.gmail.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>,
+In-Reply-To: <20211011201642.167700-1-marijn.suijten@somainline.org>
+References: <20211011201642.167700-1-marijn.suijten@somainline.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 12 Oct 2021 10:30:51 -0700
+Message-ID: <CAE-0n52raCkcBxz0nfdtGK_kR+cQptT5dVXgDBj2fhCySQOVTQ@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
+Cc: ~postmarketos/upstreaming@lists.sr.ht, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, 
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>, 
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Pavel Dubrova <pashadubrova@gmail.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, 
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>, jyri.sarha@iki.fi,
- tomba@kernel.org, VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Zack Rusin <zackr@vmware.com>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- The etnaviv authors <etnaviv@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- kernel-janitors@vger.kernel.org
+ Daniel Vetter <daniel@ffwll.ch>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm: Remove redundant 'flush_workqueue()'
- calls
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: Use division result from
+ div_u64_rem in 7nm and 14nm PLL
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,117 +79,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Oct 10, 2021 at 7:07 AM Christophe JAILLET
-<christophe.jaillet@wanadoo.fr> wrote:
+Quoting Marijn Suijten (2021-10-11 13:16:40)
+> div_u64_rem provides the result of the division and additionally the
+> remainder; don't use this function to solely calculate the remainder
+> while calculating the division again with div_u64.
 >
-> 'destroy_workqueue()' already drains the queue before destroying it, so
-> there is no need to flush it explicitly.
+> A similar improvement was applied earlier to the 10nm pll in
+> 5c191fef4ce2 ("drm/msm/dsi_pll_10nm: Fix dividing the same numbers
+> twice").
 >
-> Remove the redundant 'flush_workqueue()' calls.
->
-> This was generated with coccinelle:
->
-> @@
-> expression E;
-> @@
-> -       flush_workqueue(E);
->         destroy_workqueue(E);
->
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-
-For drm/msm:
-
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-
+> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 > ---
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 1 -
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 1 -
->  drivers/gpu/drm/msm/edp/edp_ctrl.c    | 1 -
->  drivers/gpu/drm/msm/hdmi/hdmi.c       | 4 +---
->  drivers/gpu/drm/tilcdc/tilcdc_drv.c   | 4 +---
->  drivers/gpu/drm/vmwgfx/ttm_memory.c   | 1 -
->  6 files changed, 2 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> index 789acae37f55..06bde46df451 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> @@ -1733,7 +1733,6 @@ static void etnaviv_gpu_unbind(struct device *dev, struct device *master,
->
->         DBG("%s", dev_name(gpu->dev));
->
-> -       flush_workqueue(gpu->wq);
->         destroy_workqueue(gpu->wq);
->
->         etnaviv_sched_fini(gpu);
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index c86b5090fae6..462ea65ebf89 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1925,7 +1925,6 @@ void msm_dsi_host_destroy(struct mipi_dsi_host *host)
->         DBG("");
->         dsi_tx_buf_free(msm_host);
->         if (msm_host->workqueue) {
-> -               flush_workqueue(msm_host->workqueue);
->                 destroy_workqueue(msm_host->workqueue);
->                 msm_host->workqueue = NULL;
->         }
-> diff --git a/drivers/gpu/drm/msm/edp/edp_ctrl.c b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> index fe1366b4c49f..07129a6e5dbb 100644
-> --- a/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/edp/edp_ctrl.c
-> @@ -1190,7 +1190,6 @@ void msm_edp_ctrl_destroy(struct edp_ctrl *ctrl)
->                 return;
->
->         if (ctrl->workqueue) {
-> -               flush_workqueue(ctrl->workqueue);
->                 destroy_workqueue(ctrl->workqueue);
->                 ctrl->workqueue = NULL;
->         }
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index 737453b6e596..5ba7c8f28419 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -61,10 +61,8 @@ static void msm_hdmi_destroy(struct hdmi *hdmi)
->          * at this point, hpd has been disabled,
->          * after flush workq, it's safe to deinit hdcp
->          */
-> -       if (hdmi->workq) {
-> -               flush_workqueue(hdmi->workq);
-> +       if (hdmi->workq)
->                 destroy_workqueue(hdmi->workq);
-> -       }
->         msm_hdmi_hdcp_destroy(hdmi);
->
->         if (hdmi->phy_dev) {
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> index 6b03f89a98d4..3ddb7c710a3d 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> @@ -186,10 +186,8 @@ static void tilcdc_fini(struct drm_device *dev)
->         if (priv->mmio)
->                 iounmap(priv->mmio);
->
-> -       if (priv->wq) {
-> -               flush_workqueue(priv->wq);
-> +       if (priv->wq)
->                 destroy_workqueue(priv->wq);
-> -       }
->
->         dev->dev_private = NULL;
->
-> diff --git a/drivers/gpu/drm/vmwgfx/ttm_memory.c b/drivers/gpu/drm/vmwgfx/ttm_memory.c
-> index edd17c30d5a5..7f7fe35fc21d 100644
-> --- a/drivers/gpu/drm/vmwgfx/ttm_memory.c
-> +++ b/drivers/gpu/drm/vmwgfx/ttm_memory.c
-> @@ -468,7 +468,6 @@ void ttm_mem_global_release(struct ttm_mem_global *glob)
->         struct ttm_mem_zone *zone;
->         unsigned int i;
->
-> -       flush_workqueue(glob->swap_queue);
->         destroy_workqueue(glob->swap_queue);
->         glob->swap_queue = NULL;
->         for (i = 0; i < glob->num_zones; ++i) {
-> --
-> 2.30.2
->
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
