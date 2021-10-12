@@ -2,75 +2,143 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF744429BCB
-	for <lists+freedreno@lfdr.de>; Tue, 12 Oct 2021 05:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7EE42A197
+	for <lists+freedreno@lfdr.de>; Tue, 12 Oct 2021 12:01:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A32089F63;
-	Tue, 12 Oct 2021 03:11:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 370246E830;
+	Tue, 12 Oct 2021 10:01:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11EDC89F63
- for <freedreno@lists.freedesktop.org>; Tue, 12 Oct 2021 03:11:35 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id j21so64045032lfe.0
- for <freedreno@lists.freedesktop.org>; Mon, 11 Oct 2021 20:11:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=w2FJM5xq0hHLOwYkxQq9HjtkvFRksFK+c9CUBnhMlUA=;
- b=ECxgpBAgFN57M9Muv6HgPW+2gsbKzFTgbdkbk/wcoXHhkLozGpRLLlOMDYegVvygHN
- 2py0lXASeUR5ykVbr81UL/hPafzHt+NJHhyIvmIYcmytMQ6GdAJ8dUABYBTqcJvXUoDk
- df377gxkJR4hl2XnoHq6H5fg1PhPosrjlO+vw06vz95++L7FV4HiYbwq2J1WFfNnN/jf
- Mx2ogkRKfRgA5smJ82Ca1+NvpsHAbDGCT+LpTXs64ymH6okmPAuVxvDsTmmJO9KVLgUG
- pZxdks765lI2PhK8KGoyJxBi3yRR/GHoeDDoq3qeWcq50tyooD3LpiVGlx8t8P9OlzUu
- Hbhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=w2FJM5xq0hHLOwYkxQq9HjtkvFRksFK+c9CUBnhMlUA=;
- b=pbu+b7AIdnI1UgAaDMQ7Yw9ScVzLGhq3he/GroWPbYkYVVL8KXkBiQgBiR71JFqXyb
- ahl3Lr6uWoNzU/eWg6evulxm+8T0vPHwYj+YWbD2Ld5dUp8rBF/4YiOon77dn1/W1iEQ
- EXk1JePGMMlK11sztCJw6NwI7HIY2dLADnG4NqQiakiq4M9815cgselHxBp7wuQ3DrHm
- 5DYWRQiL/T14mGwPLElh98+REbGqRj5T3SUkmiJ84nFtx0BxCRq0jwivchNV+jT31+L1
- 7aQH2ejryAASWpjjrTXt2ZhsUK6kOQT62pM7o2COgazI78OyUtaSm2YZ597KCiUD/Lg8
- LFvA==
-X-Gm-Message-State: AOAM5318poo3wM1k1D2A9Gts7YaH9tYRNRKt33Qjvc7FIOL+0hAn9bBD
- xUHGDNB7O8SGUPxfvvRPvOlJ5WYx/rr4tNXBXfWzoA==
-X-Google-Smtp-Source: ABdhPJyrNsMKS3+CiKmx5Tie0/Y10h5OgwLQcjWxqMC9cxgYiRdOXIj2B1esdvuIxFjjlUZ3q1gGQg9rDQ/7FbCROq4=
-X-Received: by 2002:a05:651c:b21:: with SMTP id
- b33mr25766490ljr.515.1634008293091; 
- Mon, 11 Oct 2021 20:11:33 -0700 (PDT)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ABE26E830
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Oct 2021 10:01:09 +0000 (UTC)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19C9qAZN015608; 
+ Tue, 12 Oct 2021 10:01:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=fxmO2w/7NAQ5i8EleTkuRGXXpfSHLtG+0pFQAPoDT64=;
+ b=hTcKoFF5zVhoR/r7cOfD5kBgh4NJV/Ssjktdam5wGkxF2rL1op2GWydy4YySfiCRZ8tz
+ qBTBb1lsILPhXYGHZ9hQCPxhkbMmxJg/FD2tcaBxPfZoYuAGV3WL0/xV2vkTLy8yAt+F
+ kHwXu8adJx33wzQxptI7qcXTXIYQryzYDU8L7nivaL9qw43yXLyvZT1JkfjazEtbK8xW
+ GU5LQhzU2v2e5rd5URmFagjvseJ9F3Vu9YOQt0oUToPJLKIKbae9Zmm8xSGnxGETm0zy
+ wWWtk3UNvASJIyXMRgs6J8qXeGTRsXlteFe2ogh+gZ8eMu5JgTLOlDA74LBEVbc0x4fu bw== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3bmq3be3tj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Oct 2021 10:00:58 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19C9p6GV092618;
+ Tue, 12 Oct 2021 10:00:43 GMT
+Received: from nam04-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08lp2172.outbound.protection.outlook.com [104.47.73.172])
+ by userp3020.oracle.com with ESMTP id 3bkyv9v7dc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Oct 2021 10:00:43 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gXyj2NuIp7f9+9tZubEoarUDer4Ad2hzT4JCtkB3oYhupM2+mKEEAL1uO2Ru3VY8iaugliCHBkYEpFPlS76VOTIya4tZJbyI1hf3t3gp/1MQBj1OT8L12vI9rrMCwY8h6aseZZ21JQs1ahyE1LERoosp7ARm29WRm3j8OcAtHXRIMD9RnAgWII0bx9ltnctVMIt5A8TOnX3LNbOa4Ddf9JXuuP0TDAVystMP/MSX9oyRha19Nh1vXspna1WbKLeOyRKvBkaH9wJWRRc6cR8eOXt1B71TKPMdofsgOpAT2rWgpSkwqZXuCLHKVlitYik3mdQJFt2ad00t+RvNSvCTJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fxmO2w/7NAQ5i8EleTkuRGXXpfSHLtG+0pFQAPoDT64=;
+ b=MJjrcSGueYcEmypc0YRrFak4XOj9ukXcPYmvKBxmLdLf9bUzcjFIXgLFRMEl56QWS7QgPr+wRK6kAYvzWhm7cyzGQt0ObzL5bMdt6ajjecdnQpj4+7qQyMlw02W+kJ/izqVopiQk5V3aW2Olvbjwg6wL+w/bh4wM3tNepxzPn0o1gUmeM1mAkKqkklfAWsZfCfqVoHMssmTnzahPAIHj70Q4gJFZKrvFnW3dT+IU7gIIYq2jEJ5CcVYzFv2rekByop0DQmA1YYDl2CvwaxeevyQU+3rjWkoWybGIc1cdK5Z1zlTbOmmJhigYtv0XuYkxNdghh4TN+y4HMNNDxfJxHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fxmO2w/7NAQ5i8EleTkuRGXXpfSHLtG+0pFQAPoDT64=;
+ b=ovZNbIV4hU590aHhg+5P2lZlaII+Vh/wOwOLpEuJe65cNgsVxR+FdTXT3zBab5uXjrS9OLxYGC/FO0rFEaJyw75SNyb0kA9KJuNodUm8PszRMiyfK2O/NPDQIMTvfu4Gecraq7JlDmNntGVgo1oENSDutCI/8GdwEu4VxnFlHXA=
+Authentication-Results: codeaurora.org; dkim=none (message not signed)
+ header.d=none;codeaurora.org; dmarc=none action=none header.from=oracle.com;
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by MWHPR1001MB2367.namprd10.prod.outlook.com
+ (2603:10b6:301:30::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Tue, 12 Oct
+ 2021 10:00:41 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d409:11b5:5eb2:6be9]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d409:11b5:5eb2:6be9%5]) with mapi id 15.20.4587.026; Tue, 12 Oct 2021
+ 10:00:41 +0000
+Date: Tue, 12 Oct 2021 13:00:29 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: akhilpo@codeaurora.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Message-ID: <20211012100029.GA3379@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: AM0PR03CA0043.eurprd03.prod.outlook.com (2603:10a6:208::20)
+ To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-References: <20211007151010.333516-1-arnd@kernel.org>
- <20211007151010.333516-2-arnd@kernel.org>
-In-Reply-To: <20211007151010.333516-2-arnd@kernel.org>
-From: John Stultz <john.stultz@linaro.org>
-Date: Mon, 11 Oct 2021 20:11:20 -0700
-Message-ID: <CALAqxLVVEi67HQbjCSvfDPmfjeeZ4ROvqa8yfYMnRmeyi34Ddw@mail.gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: lkml <linux-kernel@vger.kernel.org>, 
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- linux-ia64@vger.kernel.org, 
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-riscv@lists.infradead.org, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>, 
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>, 
- linux-media <linux-media@vger.kernel.org>,
- linux-mmc <linux-mmc@vger.kernel.org>, 
- Network Development <netdev@vger.kernel.org>,
- ath10k <ath10k@lists.infradead.org>, linux-wireless@vger.kernel.org, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, 
- Kalle Valo <kvalo@codeaurora.org>, Alex Elder <elder@linaro.org>, 
- Amit Pundir <amit.pundir@linaro.org>,
- Caleb Connolly <caleb.connolly@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 2/2] qcom_scm: hide Kconfig symbol
+Received: from kili (2a02:6900:8208:1848::11d1) by
+ AM0PR03CA0043.eurprd03.prod.outlook.com (2603:10a6:208::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4587.25 via Frontend Transport; Tue, 12 Oct 2021 10:00:38 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d010cfd0-fae1-44d8-e2c6-08d98d672631
+X-MS-TrafficTypeDiagnostic: MWHPR1001MB2367:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR1001MB23677407C3AE18C96C300C0B8EB69@MWHPR1001MB2367.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4B+1UapUWIBcvP8pmbVZFwECsTeIbNqf4pcqk8ULY8sxeFSvTPlOAyVDNASSANDGpgwYrEilCu6UOanDAaTfMleLIDF5Uhin1sdskapUyFpXvQQqgETOERd5Lj8q/XWReEhcSr/5M2CcD88sqEjf3JtxR1bC9k/Oi4nK2c5vQdFUnNDR11Fd1S9jJIWJ0h56GAq6z5pcL7TFuM8Pw3bYEzG2KQPh8UKW75er3IfC8dTqHMl/qWA1M4dkXQM3FzlQfSSowW0tDQE90DQXm9QHLWEMnKYdZMc3VJ7zZhkGKByg9t2eryH0Smjn6R/AR96dQt50fiMCoPEgyX8w8R4AFAvbT8yFgjjMlC5He+1HgvzaqsPcb8KGqeSiLXY4ivBGxOKCCTQYDNvOTjvJ4fd1TBcfaoGgze9QaH0JqeAdxrSAYeNwyhgQe2uSTT3sJJuN2dnd5Fcb97qh784iY11Z24LZcAqy3EcTGGnDd0TUwzwfU1BxXcHefKye/5nI/DNz4Du3CvpLVcqvLRAvdVVMaLE59L2qCCMFs+likli1l9m+T0RHU5iEsEUIr9olEq5YLCuCobszlPIkHiBSWCHvu8Sz+pRERTHY7KkRfb14FhNpBRtdCzKY0uyav0idTTf1tr8N60xRfUvxOLmYkKmVLg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(33656002)(86362001)(44832011)(186003)(1076003)(8676002)(508600001)(8936002)(2906002)(33716001)(5660300002)(316002)(9686003)(4326008)(55016002)(6916009)(38100700002)(66556008)(66476007)(9576002)(6496006)(52116002)(6666004)(83380400001)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cHJPifw7hSvhl7398q7do1EciwQodLfDjJSV3IrN7EpzAvj/g5IAByJEbt5+?=
+ =?us-ascii?Q?seOvqxzZxto45prvfAASOKfiakpMMAJTcA0DpFb1wBw4k3ry/zX98ffdtux8?=
+ =?us-ascii?Q?4hF68EI47REmr4Td3K8NkXSAAAOl/7HISJ+9VKe+716Ao4nQ/rSN3IfwGG9z?=
+ =?us-ascii?Q?cRhP25NrMP8BZy8F51jH0asM6pvYkamQVplEKEwGyi7qqi5hvDZTSL09WyPJ?=
+ =?us-ascii?Q?GmpVHNDZvptdKRgIlW/OKxLZoaGQDojnyHqs/gmMn3GminvYNd1wSZWQqGyu?=
+ =?us-ascii?Q?XGhIvdwPunXoCX88D3j02bpHgJZcD8tK4J0InsViaozck88BZCjVBDn2OSNy?=
+ =?us-ascii?Q?zuboNNeFWv8o1ocp9AiNnMTr3Dh7hqIiWI5XI7TuAMRQPlp4dmc31RQBshYS?=
+ =?us-ascii?Q?SshirnCsxnpqGy5R8pvX9xt5Bb5I7t4rf9qK9gPrxZGTV8xC/oMPQFNjuxQV?=
+ =?us-ascii?Q?uvqDY/AfH8dcCl2zUcLN8itUaRg/57eNlUwZfKgUhtimXiGVT+yJbN7JVY2L?=
+ =?us-ascii?Q?4MbjPzRvF5OxSIW8OLE0gOD8OB7Y5xVxkuojpA4lDsK165nyvmvp0aGvD6DN?=
+ =?us-ascii?Q?Vy733bU+VpobNucSeC/hqYxTPyoG5cqQQYGjVvJv00U/vRBm4L9tIvXMv4Be?=
+ =?us-ascii?Q?wngzvhtGsXs4kdId7nP7ZavIa62sHKBPrg6ibGa3f48LX3KSBbI9OKd/5/bi?=
+ =?us-ascii?Q?md5qvXXrxH19TZTqQTJyVpSFK1z2ZqWukFZ5YXc4rH794pu91Dko2GulkXZA?=
+ =?us-ascii?Q?dKJ5PG4rtpHriXvNml3EUr1UgTn6T8/71UJNAciXgVOVaQ4p0QYRb0nYjHLF?=
+ =?us-ascii?Q?MEO+8L3iS3/y/2YG8CJPSHNb/uifi5GYSTnFp1oOLGVLmXUTnC2Krmn4CVMz?=
+ =?us-ascii?Q?Kpu22sz5DNIM5khz3Mf5A+ztVz2Ib032bJX+ttj0L4Xq3HkEHSEkEGJVbeGf?=
+ =?us-ascii?Q?0ANilSoaXxFpuUpB+TZVjeM7wBuu/HgfR8k0wjjRkngPk8+cCrmx9h510LTC?=
+ =?us-ascii?Q?869MjnQ6xBLAys/KpuP4/V+6wvZFsU6vl1Kxs9DyYja2UJsgJH/7Una8sRXz?=
+ =?us-ascii?Q?lhQijq7qIk0Uwe7PGAvgPcfpHjSuguzQ1+JyQzQhpsPLIBMMZ1QdVJBiwFbL?=
+ =?us-ascii?Q?q6Z51UwkOXda7KLmMlrYpD+h97+p2kzzPYwgcEGfHYrvflu2qFEI/6Ay8fwF?=
+ =?us-ascii?Q?Km4baoX63xVwKT5GtsCMBCaD+1WK67xDOEyuZ41GSrTYGbu49WoJvAQMcvyU?=
+ =?us-ascii?Q?a5FCB3nirbYuMCtVrdzEbqbd5q1Q6cI97NbQYcbBg9zYWUTbq7YPFODXcusF?=
+ =?us-ascii?Q?C903tlx15+tdbgleo2joggkr++XOkrD+xsyHv4i/6g6rdsvvA7pfcPnerUZc?=
+ =?us-ascii?Q?MK3V+JU=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d010cfd0-fae1-44d8-e2c6-08d98d672631
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2021 10:00:41.3156 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W3jYgmd9xDM4/Ot2jYDP6rWuxemCWzBLl8wbwI5nDOSxfwsrmYpX6T1da9H8bO2pLnScDmnCjfc33EPZ/4ibnZi49TesRkoXZWTizluTT4E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2367
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10134
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ adultscore=0 bulkscore=0 mlxscore=0 spamscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110120056
+X-Proofpoint-GUID: tmkKad1nw5nQbEBTSuA7W0zf-Lryx-bo
+X-Proofpoint-ORIG-GUID: tmkKad1nw5nQbEBTSuA7W0zf-Lryx-bo
+Subject: [Freedreno] [bug report] drm/msm/a6xx: Fix llcc configuration for
+ a660 gpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,95 +154,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 7, 2021 at 8:10 AM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Now that SCM can be a loadable module, we have to add another
-> dependency to avoid link failures when ipa or adreno-gpu are
-> built-in:
->
-> aarch64-linux-ld: drivers/net/ipa/ipa_main.o: in function `ipa_probe':
-> ipa_main.c:(.text+0xfc4): undefined reference to `qcom_scm_is_available'
->
-> ld.lld: error: undefined symbol: qcom_scm_is_available
-> >>> referenced by adreno_gpu.c
-> >>>               gpu/drm/msm/adreno/adreno_gpu.o:(adreno_zap_shader_load) in archive drivers/built-in.a
->
-> This can happen when CONFIG_ARCH_QCOM is disabled and we don't select
-> QCOM_MDT_LOADER, but some other module selects QCOM_SCM. Ideally we'd
-> use a similar dependency here to what we have for QCOM_RPROC_COMMON,
-> but that causes dependency loops from other things selecting QCOM_SCM.
->
-> This appears to be an endless problem, so try something different this
-> time:
->
->  - CONFIG_QCOM_SCM becomes a hidden symbol that nothing 'depends on'
->    but that is simply selected by all of its users
->
->  - All the stubs in include/linux/qcom_scm.h can go away
->
->  - arm-smccc.h needs to provide a stub for __arm_smccc_smc() to
->    allow compile-testing QCOM_SCM on all architectures.
->
->  - To avoid a circular dependency chain involving RESET_CONTROLLER
->    and PINCTRL_SUNXI, drop the 'select RESET_CONTROLLER' statement.
->    According to my testing this still builds fine, and the QCOM
->    platform selects this symbol already.
->
-> Acked-by: Kalle Valo <kvalo@codeaurora.org>
-> Acked-by: Alex Elder <elder@linaro.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> Changes in v2:
-> - fix the iommu dependencies
+Hello Akhil P Oommen,
 
-Hey Arnd,
-   Thanks again so much for working out these details. Also my
-apologies, as Bjorn asked for me to test this patch, but I wasn't able
-to get to it before it landed.  Unfortunately I've hit an issue that
-is keeping the db845c from booting with this.
+The patch a6f24383f6c0: "drm/msm/a6xx: Fix llcc configuration for
+a660 gpu" from Jul 30, 2021, leads to the following Smatch static
+checker warning:
 
-> diff --git a/drivers/iommu/arm/arm-smmu/Makefile b/drivers/iommu/arm/arm-smmu/Makefile
-> index e240a7bcf310..b0cc01aa20c9 100644
-> --- a/drivers/iommu/arm/arm-smmu/Makefile
-> +++ b/drivers/iommu/arm/arm-smmu/Makefile
-> @@ -1,4 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_QCOM_IOMMU) += qcom_iommu.o
->  obj-$(CONFIG_ARM_SMMU) += arm_smmu.o
-> -arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o arm-smmu-qcom.o
-> +arm_smmu-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-nvidia.o
-> +arm_smmu-$(CONFIG_ARM_SMMU_QCOM) += arm-smmu-qcom.o
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> index 9f465e146799..2c25cce38060 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-impl.c
-> @@ -215,7 +215,8 @@ struct arm_smmu_device *arm_smmu_impl_init(struct arm_smmu_device *smmu)
->             of_device_is_compatible(np, "nvidia,tegra186-smmu"))
->                 return nvidia_smmu_impl_init(smmu);
->
-> -       smmu = qcom_smmu_impl_init(smmu);
-> +       if (IS_ENABLED(CONFIG_ARM_SMMU_QCOM))
-> +               smmu = qcom_smmu_impl_init(smmu);
->
->         if (of_device_is_compatible(np, "marvell,ap806-smmu-500"))
->                 smmu->impl = &mrvl_mmu500_impl;
+	drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1480 a6xx_llc_activate()
+	error: uninitialized symbol 'gpu_scid'.
 
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+    1423 static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
+    1424 {
+    1425         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+    1426         struct msm_gpu *gpu = &adreno_gpu->base;
+    1427         u32 gpu_scid, cntl1_regval = 0;
+    1428 
+    1429         if (IS_ERR(a6xx_gpu->llc_mmio))
+    1430                 return;
+    1431 
+    1432         if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
+    1433                 gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
+    1434 
+    1435                 gpu_scid &= 0x1f;
+    1436                 cntl1_regval = (gpu_scid << 0) | (gpu_scid << 5) | (gpu_scid << 10) |
+    1437                                (gpu_scid << 15) | (gpu_scid << 20);
+    1438         }
 
-The problem with these two chunks is that there is currently no
-CONFIG_ARM_SMMU_QCOM option. :)
+gpu_scid not initialized on the else path.
 
-Was that something you intended to add in the patch?
+    1439 
+    1440         /*
+    1441          * For targets with a MMU500, activate the slice but don't program the
+    1442          * register.  The XBL will take care of that.
+    1443          */
+    1444         if (!llcc_slice_activate(a6xx_gpu->htw_llc_slice)) {
+    1445                 if (!a6xx_gpu->have_mmu500) {
+    1446                         u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
+    1447 
+    1448                         gpuhtw_scid &= 0x1f;
+    1449                         cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
+    1450                 }
+    1451         }
+    1452 
+    1453         if (!cntl1_regval)
+    1454                 return;
+    1455 
+    1456         /*
+    1457          * Program the slice IDs for the various GPU blocks and GPU MMU
+    1458          * pagetables
+    1459          */
+    1460         if (!a6xx_gpu->have_mmu500) {
+    1461                 a6xx_llc_write(a6xx_gpu,
+    1462                         REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
+    1463 
+    1464                 /*
+    1465                  * Program cacheability overrides to not allocate cache
+    1466                  * lines on a write miss
+    1467                  */
+    1468                 a6xx_llc_rmw(a6xx_gpu,
+    1469                         REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
+    1470                 return;
+    1471         }
+    1472 
+    1473         gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0), cntl1_regval);
+    1474 
+    1475         /* On A660, the SCID programming for UCHE traffic is done in
+    1476          * A6XX_GBIF_SCACHE_CNTL0[14:10]
+    1477          */
+    1478         if (adreno_is_a660_family(adreno_gpu))
+    1479                 gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL0, (0x1f << 10) |
+--> 1480                         (1 << 8), (gpu_scid << 10) | (1 << 8));
+                                            ^^^^^^^^^^^^^^
+Used here.
 
-I'm working up a Kconfig patch to do so, so I'll send that out in a
-second here, but let me know if you already have that somewhere (I
-suspect you implemented it and just forgot to add the change to the
-commit), as I'm sure your Kconfig help text will be better than mine.
-:)
+    1481 }
 
-Again, I'm so sorry I didn't get over to testing your patch before
-seeing this here!
-
-thanks
--john
+regards,
+dan carpenter
