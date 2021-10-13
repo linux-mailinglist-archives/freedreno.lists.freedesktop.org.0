@@ -1,44 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 849C642C6AC
-	for <lists+freedreno@lfdr.de>; Wed, 13 Oct 2021 18:45:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 691E142CA67
+	for <lists+freedreno@lfdr.de>; Wed, 13 Oct 2021 21:49:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 102D96E077;
-	Wed, 13 Oct 2021 16:45:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 217C66EA2C;
+	Wed, 13 Oct 2021 19:49:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 522D76EA8B;
- Wed, 13 Oct 2021 16:24:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
- with ESMTPSA id F2D4C1F43B79
-Received: by earth.universe (Postfix, from userid 1000)
- id 339733C0CA8; Wed, 13 Oct 2021 18:24:55 +0200 (CEST)
-Date: Wed, 13 Oct 2021 18:24:55 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Stephen Boyd <swboyd@chromium.org>,
- Linus Walleij <linus.walleij@linaro.org>
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF16B6E0A6
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Oct 2021 19:49:18 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id v77so1022909oie.1
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Oct 2021 12:49:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=51iCtJfwF5rNqKCUIND5PpXwy486y8bSNPCFCoqsvKM=;
+ b=GtN6f8PMidexfjnF/349pYjiZmXuf6rowzWXAw7EvtyJS68wcCRNFBO0ttVehwhlVh
+ il/ckZ8S2Ye4H4vbo6TOFCgaFJAN1lTCglERo0fqfglSlD0AWLI9QAJRQMmSWnVyFHpO
+ D4kmC6mAwQRLnVM1DUj8rY42VzjXPBOdS3izs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=51iCtJfwF5rNqKCUIND5PpXwy486y8bSNPCFCoqsvKM=;
+ b=YRisrD24rk9V+CWmugLd/bK7YuYkfAMGvKkeFgqwmaf/OUHYbbS2tQ5zZFXg85fXex
+ a219Q2hov/+qZj/Jy0DgEXa2A/8SoqODihfx9bobgtS80T9p9O2eo4EuAFhTE2UkqhIx
+ qF74oPzvNrK6p+y8ocQsLQE89qBfpJnbRQwC/g9EIaYTATcCC3TuZI/IrewyPkncGi5W
+ gwyAfUCVLnF1n3vqiF+TOZrsSY8d4BYGi/a96d6k5X2kknuFIfgRk0neDHE8rpJ+TNB8
+ 3ImLRUnPVwDuOYh66Rb5tawT21ZymkZc/GntfD2RtqW89yc6Lj0kObt5/sdiG2dq+Tdb
+ rEzA==
+X-Gm-Message-State: AOAM530F3L4phOGnSlBa5oAGhn19KSkTcdH0ptI2ViM/RTIC2W0vwowg
+ rYKQ9/UXwof8cEumzC1ImF0ls6l3D0I1gEIaIIvCvw==
+X-Google-Smtp-Source: ABdhPJxX7OwXr/yMPANG+HHhHuaY5istIek0XSOY4+ZivdVb8quhuZc49QWi/nEmYjVgcpXIEGjwzniAFVFFCF4sz7c=
+X-Received: by 2002:aca:3306:: with SMTP id z6mr9586177oiz.164.1634154558286; 
+ Wed, 13 Oct 2021 12:49:18 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 13 Oct 2021 14:49:17 -0500
+MIME-Version: 1.0
+In-Reply-To: <YWbPfwnbLKNZkRcB@phenom.ffwll.local>
+References: <20211006193819.2654854-1-swboyd@chromium.org>
+ <20211006193819.2654854-2-swboyd@chromium.org>
+ <YWbPfwnbLKNZkRcB@phenom.ffwll.local>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 13 Oct 2021 14:49:17 -0500
+Message-ID: <CAE-0n51FFUCb8C55bHSM0Fz16U65CvjGzVVe9CToqnFNZ6-bSQ@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-pm@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>, 
  Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Message-ID: <20211013162455.2srbgmxw6dgoplzo@earth.universe>
-References: <20211006193819.2654854-1-swboyd@chromium.org>
- <20211006193819.2654854-29-swboyd@chromium.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="5zizh2cyz6jxazcg"
-Content-Disposition: inline
-In-Reply-To: <20211006193819.2654854-29-swboyd@chromium.org>
-X-Mailman-Approved-At: Wed, 13 Oct 2021 16:45:44 +0000
-Subject: Re: [Freedreno] [PATCH v2 28/34] power: supply: ab8500: Migrate to
- aggregate driver
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 01/34] component: Introduce struct
+ aggregate_device
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,132 +75,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Daniel Vetter (2021-10-13 05:22:23)
+> On Wed, Oct 06, 2021 at 12:37:46PM -0700, Stephen Boyd wrote:
+> > Replace 'struct master' with 'struct aggregate_device' and then rename
+> > 'master' to 'adev' everywhere in the code. While we're here, put a
+> > struct device inside the aggregate device so that we can register it
+> > with a bus_type in the next patch.
+> >
+> > The diff is large but that's because this is mostly a rename, where
+> > sometimes 'master' is replaced with 'adev' and other times it is
+> > replaced with 'parent' to indicate that the struct device that was being
+> > used is actually the parent of the aggregate device and driver.
+> >
+> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> > Cc: Rob Clark <robdclark@gmail.com>
+> > Cc: Russell King <rmk+kernel@arm.linux.org.uk>
+> > Cc: Saravana Kannan <saravanak@google.com>
+> > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+>
+> This adds device model stuff, please cc Greg KH and ask him to review
+> this. Maybe also an ack from Rafael would be good whether this makes
+> sense.
 
---5zizh2cyz6jxazcg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I will explicitly Cc Greg on these component.c patches.
 
-Hi,
+>
+> Once we have that I think we can then go&collect acks/review for all the
+> driver changes and get this sorted. Thanks a lot for pushing this forward.
 
-[+cc Linus Walleij (I guess we should add a MAINTAINERS entry for
-the ab8500* power-supply drivers)]
-
-On Wed, Oct 06, 2021 at 12:38:13PM -0700, Stephen Boyd wrote:
-> Use an aggregate driver instead of component ops so that we can get
-> proper driver probe ordering of the aggregate device with respect to all
-> the component devices that make up the aggregate device.
->=20
-> Cc: Sebastian Reichel <sre@kernel.org>
-> Cc: <linux-pm@vger.kernel.org>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Russell King <rmk+kernel@arm.linux.org.uk>
-> Cc: Saravana Kannan <saravanak@google.com>
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> ---
-
-Acked-by: Sebastian Reichel <sre@kernel.org>
-
--- Sebastian
-
->  drivers/power/supply/ab8500_charger.c | 22 +++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/power/supply/ab8500_charger.c b/drivers/power/supply=
-/ab8500_charger.c
-> index 15eadaf46f14..52d4105e28f2 100644
-> --- a/drivers/power/supply/ab8500_charger.c
-> +++ b/drivers/power/supply/ab8500_charger.c
-> @@ -3312,8 +3312,9 @@ static const struct power_supply_desc ab8500_usb_ch=
-g_desc =3D {
->  	.get_property	=3D ab8500_charger_usb_get_property,
->  };
-> =20
-> -static int ab8500_charger_bind(struct device *dev)
-> +static int ab8500_charger_bind(struct aggregate_device *adev)
->  {
-> +	struct device *dev =3D adev->parent;
->  	struct ab8500_charger *di =3D dev_get_drvdata(dev);
->  	int ch_stat;
->  	int ret;
-> @@ -3354,8 +3355,9 @@ static int ab8500_charger_bind(struct device *dev)
->  	return 0;
->  }
-> =20
-> -static void ab8500_charger_unbind(struct device *dev)
-> +static void ab8500_charger_unbind(struct aggregate_device *adev)
->  {
-> +	struct device *dev =3D adev->parent;
->  	struct ab8500_charger *di =3D dev_get_drvdata(dev);
->  	int ret;
-> =20
-> @@ -3380,9 +3382,13 @@ static void ab8500_charger_unbind(struct device *d=
-ev)
->  	component_unbind_all(dev, di);
->  }
-> =20
-> -static const struct component_master_ops ab8500_charger_comp_ops =3D {
-> -	.bind =3D ab8500_charger_bind,
-> -	.unbind =3D ab8500_charger_unbind,
-> +static struct aggregate_driver ab8500_charger_aggregate_driver =3D {
-> +	.probe =3D ab8500_charger_bind,
-> +	.remove =3D ab8500_charger_unbind,
-> +	.driver =3D {
-> +		.name =3D "ab8500_charger_agg",
-> +		.owner =3D THIS_MODULE,
-> +	},
->  };
-> =20
->  static struct platform_driver *const ab8500_charger_component_drivers[] =
-=3D {
-> @@ -3663,9 +3669,7 @@ static int ab8500_charger_probe(struct platform_dev=
-ice *pdev)
->  	}
-> =20
-> =20
-> -	ret =3D component_master_add_with_match(&pdev->dev,
-> -					      &ab8500_charger_comp_ops,
-> -					      match);
-> +	ret =3D component_aggregate_register(&pdev->dev, &ab8500_charger_aggreg=
-ate_driver, match);
->  	if (ret) {
->  		dev_err(dev, "failed to add component master\n");
->  		goto free_notifier;
-> @@ -3688,7 +3692,7 @@ static int ab8500_charger_remove(struct platform_de=
-vice *pdev)
->  {
->  	struct ab8500_charger *di =3D platform_get_drvdata(pdev);
-> =20
-> -	component_master_del(&pdev->dev, &ab8500_charger_comp_ops);
-> +	component_aggregate_unregister(&pdev->dev, &ab8500_charger_aggregate_dr=
-iver);
-> =20
->  	usb_unregister_notifier(di->usb_phy, &di->nb);
->  	usb_put_phy(di->usb_phy);
-> --=20
-> https://chromeos.dev
->=20
-
---5zizh2cyz6jxazcg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmFnCFcACgkQ2O7X88g7
-+poL0g/9HRcH5yucLIwM0Y2DrOctm8HymvKJoN7B93ea2cEtO6LZKjyEhlOl5vtp
-75+K607L5FgwhV/GFgrbfZxK3vdQw5CN0srVtZRpXVB05EURul1GLGKlPQEKW1kY
-cOzqPLZx6lJtO80OnDuClJSI+uP5MpwRZzXRdjCm63BR3/+rVHM1NY8LY7SCLM9v
-Edr812kResYp7WkbtYLwy5z/ddCebtE+t+3Cv31Ber6MVbhHHuM0igQ24FiEVQI8
-SIUXFKMMAv1n7eRfWRMJf84ZBOzC7yFxFo4ZwC/saCiePvttjiE64KlG5TLcNjTA
-tPd/FWHeM6YVCU+YJ1vqfvh1tW69XpGFxv90eAX+nMIo0znaZir5pykGfDKCP1zL
-3uVSiz+KnGdCNwljg8MEBXd2E742pLSwnnr/Sckyk6O4zDbTBul7pTSY6NIy2dZW
-+4ahnTtc0qq62+RH1wfbLHsVu04WTxZTMFbpTlQI7EGQsVMzGdx/TAwqbb1cVxjS
-9hiZsgvXoP4C58VGLC/3DHcjzEm+O1U/emJRwo3MZ8M0K1bQY36bj3NWnIpDAgY+
-hf/FkBbjSesZtBqG81wT85DA/rcDc+8qoEGVTnCt7jQrdyDqmQvKtioZLEhGtB/P
-BZOx9e+yo8JHDUlGSwPCZSvl3Uk9jBNIjstThsEjuZU6U+lcx1Q=
-=A2IV
------END PGP SIGNATURE-----
-
---5zizh2cyz6jxazcg--
+I'll resend the series today. This one has some compilation problems
+that I've fixed now.
