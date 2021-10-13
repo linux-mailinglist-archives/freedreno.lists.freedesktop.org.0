@@ -2,65 +2,146 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A6842B081
-	for <lists+freedreno@lfdr.de>; Wed, 13 Oct 2021 01:45:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D63A42B9F6
+	for <lists+freedreno@lfdr.de>; Wed, 13 Oct 2021 10:11:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D40926E042;
-	Tue, 12 Oct 2021 23:44:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 379C76EA0E;
+	Wed, 13 Oct 2021 08:11:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 819336E042
- for <freedreno@lists.freedesktop.org>; Tue, 12 Oct 2021 23:44:54 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1634082296; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=mHPP5W7TjLLB2IK782/iCA79yKz/hSXYmIb0/Vv+xbI=;
- b=lNxoyM7vh7nyd/VBDDA5V6KKkX6hDWuqjgS190nFf29WY8cCn9/VUIIY5mACHY19k3PP5UmO
- eGxHDK0DE/AuRh3olJLfORqF/gE1z27jpU/Ll0DUZ2q+z7E7W1FAFCGjCHkY0NiRQOK396Kd
- R8Pton+dnIwTVM5wLT8F3GLqAIA=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 61661de6f3e5b80f1f70d402 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 12 Oct 2021 23:44:38
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 969BEC43616; Tue, 12 Oct 2021 23:44:38 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id B45DCC4338F;
- Tue, 12 Oct 2021 23:44:36 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38F116E2A3;
+ Wed, 13 Oct 2021 08:11:55 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19D70UsM013092; 
+ Wed, 13 Oct 2021 08:11:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
+ bh=S/DvPk8vP6Tg+9NoZgj6aiISxq7OBYerCNB0LC1UrkM=;
+ b=eDwZTAVbymnwpspfc9z1deumRqnJ2aCziefmGT7lmxEsTHpbVYrjpVAVrTCrXEXXBy+e
+ 3LZu7pzb7wUjj2twrsUqOOj/TiqbAzksjI+i+bjVUk3GxqAV2iSFA7FJJTCff15VcvpY
+ vbQiJK1+1L48DFzSJkNEFMgjfYUcTqo/D7+/KYT4sAdh5tYAIIZwPPlcRkc/emcyCgDY
+ qNtOq4rTcy6Eblu6uhu5Pw5fLyyY0DuOSOZnKvtKH6rHIeiqDfibBNB2Ac5EFPBzLEHJ
+ sFCnCn0tUMf3TS8hKrkbywgOD6ocecRs2IBvkvpnav57HWc0N5z9z/Iw7cbcPmaW6q91 /w== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3bnkbmt7um-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 13 Oct 2021 08:11:49 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19D86RcZ024130;
+ Wed, 13 Oct 2021 08:11:48 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2108.outbound.protection.outlook.com [104.47.70.108])
+ by aserp3030.oracle.com with ESMTP id 3bkyxt2jaf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 13 Oct 2021 08:11:48 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KLLzBz7idS9avs5W1cUdUI0gHyibAPmp0aTs+TF7Iuax42+OxK4IQ6DQFhfQpQAaJcbZfbdC6DmsKxL+/KslEbbybSwIFsudrUyE6bwgQU+4WhDVo7z2z74HNQf73bUcd5KjxUs6ZccuXyqnYBOqQS+c3OPhLtnosooZxPQptvHRQymhT0jiYxIgCIkBW5Lnv9jyHiZa8SQ9M33ZTf34R/ymXtMi+PqSj0RvMabVl23LpGMiIiGzJOoS9bdRyTM7iCf85JAYsEIsBoAVB4Ln2MZWtYqXFV/MM7yoqmuBoz4o0u1jzQlR9TLdFfMYgSXJIQ7yL6iazl5ZkDhoMms6BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S/DvPk8vP6Tg+9NoZgj6aiISxq7OBYerCNB0LC1UrkM=;
+ b=gTWSHr2tFH9LQVgCEj5/1JB6x85VgXV6ud0fFcunfowLo2EYTju37S8r5U78UpcRXkyz8vEfoP1goKJuUCWk2X8kkJ4Y3Yas926IoGdZ1NYsivmxKm4tQATSd5WWMeAoMERYLXu6fXtFPVWf+bO4M8JCyPATi27XStTKlz94HYjneBxmCANLzzlefCFFZOb1JsPoZAPE1eI34JUjbtkavdAnuJgcXRFM/KGWl3maseILt5UpoSxrUYfu17vgDhWUplbmPXro83JxDIcaZiTbr3AArTuujk9OkDsKrzbzx/C4svKCUfl95GuXBxUOh/gIzR+9HMSW3Eu/73fzZz1KZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S/DvPk8vP6Tg+9NoZgj6aiISxq7OBYerCNB0LC1UrkM=;
+ b=V86pTx9k41ZyhimG2kEitn0bKIi7inJIZVlPRLVL0Vp2dvP37g6ed+Aj2sRKlGKLjiAjYLf5Rw6/Qeoxae3ZXGYpSGwGFu8qORvrgi9qeiDDtwmruNL2cFz9JKnLOuZ3Qe8jjNqRHGVyLoId9Asg7/V3ptiRzEJB5Eo3dA5DbMY=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=oracle.com;
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by CO1PR10MB4643.namprd10.prod.outlook.com
+ (2603:10b6:303:9c::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.24; Wed, 13 Oct
+ 2021 08:11:46 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d409:11b5:5eb2:6be9]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::d409:11b5:5eb2:6be9%5]) with mapi id 15.20.4587.027; Wed, 13 Oct 2021
+ 08:11:46 +0000
+Date: Wed, 13 Oct 2021 11:11:33 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ kernel-janitors@vger.kernel.org
+Message-ID: <20211013081133.GF6010@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-ClientProxiedBy: ZR0P278CA0145.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:41::15) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 12 Oct 2021 16:44:36 -0700
-From: abhinavk@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <YWYcXxZzjU8gLNf5@ripper>
-References: <20211010030435.4000642-1-bjorn.andersson@linaro.org>
- <50925d684962690e42b2eb8ab8479835@codeaurora.org> <YWYcXxZzjU8gLNf5@ripper>
-Message-ID: <f93a4c96fc84ea1e306abf2d2210d75e@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Use the connector passed to
- dp_debug_get()
+Received: from kili (62.8.83.99) by ZR0P278CA0145.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:41::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25 via Frontend
+ Transport; Wed, 13 Oct 2021 08:11:43 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 62714bdb-a9b2-4e71-8929-08d98e2119b4
+X-MS-TrafficTypeDiagnostic: CO1PR10MB4643:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CO1PR10MB46432583F148E5A3C4FF8A0E8EB79@CO1PR10MB4643.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HJg0sl5VkLfrS+8BIPexreDHhNjYDw5P7nwCX76YIoGOsSAowkSD/I+SufZwTrIPaEfZdak5WQTMjIMYqr4jeXk7qOsoL+OWpQGaRDsulR4lAyNmMj/PslUjZPtBSQAVnTqIXUZ7gyueVhz7bGUPhRSDKQyNRZ5qNP7kkS9Plmp/hKS+Qo1OO4KZZdNLq23n7QTQiOCotBc/DtB3JA2wbSPBGdvtf2iqCeowkgflqKzI7G+ACmcuScynlxaAxU+vbihw/GAkDeukuDnYEVPP4EN8Zo9T/jxcjLkKk69HGN4m/esQGs58JROQiMhB14Ut2eVZnhOesaxWRSbp08m5Y9Ma31MARd+1jANs+uhkgT/3juvSDZFy6UeT5BWKz8zoWxcYYXNNCgrShlI1g17RjjkjCmkYciE3krcwBccViXOBseHomL4u1mN5ML9uO805zMXUqM5ELDu/ChV63OWt6/xFdW3IaEArJYJdrh3mqqvJ5qIXhLwB9z/6Ppcjo8Lqew/s3G+IIv2rUjN5VbsZuXlJhbvMsUpUuuPdf0xBLQuZpbfsPHt4yFhGGo/rFbNKASypbY8MLnS2v9RV6Uv5fjnpN5VefSesr69CTlPWY3CpO91V8MXQLcB1xdeMpKXbwEi4Jjb40JKORlTA6x2cAmxO4Vr5l6Y11fUtpkZ8/H3oy0kgYqTMGQAqzTWDIJo788W+pkcHWuSOyfn4vWtqaQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(86362001)(66946007)(4326008)(66556008)(6666004)(54906003)(2906002)(6916009)(956004)(38350700002)(33716001)(6496006)(38100700002)(66476007)(83380400001)(186003)(508600001)(33656002)(1076003)(44832011)(4744005)(8676002)(26005)(5660300002)(316002)(9686003)(8936002)(55016002)(9576002)(52116002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0NoBQZmBnC1BiE7jFwnZeALkx/c4ZmRXfEh5gp8+ORYpfTsjs0SbDcDdwSlh?=
+ =?us-ascii?Q?Wo4JknSl7MqDbHxcITCLRt6WdHAj/t3lScIEYt/kllUcqAzPoVjSRbe5jcYn?=
+ =?us-ascii?Q?M90FEvFVfH62QjIC5FzzbPYDT7HjSDxW/TOqcc0APzj/p4cKM3g6fF7jxK38?=
+ =?us-ascii?Q?TZo6WLwajDFzkAPzFW0CoaVrQLh5yoCfaDcBe0v/UwtS0Y0rnCqLiBWtaIva?=
+ =?us-ascii?Q?FuYg2+ZBQIV1mDNK29bS59lAG67xz6asacMf9u+04QGroC9R7o3r5m63pdbV?=
+ =?us-ascii?Q?SJXYZuE9VH/yOENLov70xrOgyedbNVzN6CZJ20QMX3ACiNcmE9cbLVcCBG64?=
+ =?us-ascii?Q?aQ51oBC8QzkvDj6CWaJDnbklJRs8sopsdadophAK+nvB9jC5qe9Y3UpjLWfp?=
+ =?us-ascii?Q?M73BVgXlAOikx6GCSIpRTCozH1VH7Y9kw4bmhM4ituz/oGhAuzHm2mpIQS0/?=
+ =?us-ascii?Q?ifWEDMzCmv8K61v0FeAKefp/FcockPPdeltcsSH/cwWIaX36SGLWT1SRA8Nd?=
+ =?us-ascii?Q?gbIxXL5qcMIS+UDtMKXy12EIUXbtTvH1CHVdqvAu2c6zLh+2eQBul44N1nAg?=
+ =?us-ascii?Q?dxXzZTv2eEojhqM/eBoetYzkQAQv38Vm4q3lrDSWnrhiQicq5L0M+c5CyYx1?=
+ =?us-ascii?Q?wE9nfLDfZ/sqZ6tTZj2xNEkRWuOIfSAQAfBQ1JaCnjzphL2AobrLjAyMRSfg?=
+ =?us-ascii?Q?8UVwacL9k08/Ja07enJQjYZBk4gZP8IxHYbervoFtlL8ytwwnqoFYJal1rv1?=
+ =?us-ascii?Q?WR9g0/nwsjJIV09x+s/+QwcHyVi/CoaNfqFZUhDdJaBVbrAXbPSRqFWEtb8z?=
+ =?us-ascii?Q?J6y3+zAkUoPdsPP0c+cfLDh3AsFB20OwwpafHTHVRam3TE2NGarX6PCs+xRe?=
+ =?us-ascii?Q?xzfJ5+KEVpx11gymkGS+gFjBXaK5xLk29nT8kr0wLjn0nyfm27MsWpe3zgCA?=
+ =?us-ascii?Q?/K/ztf7VqXE7zHtzU1ym7+OEaurKkOYIuGYC+BswI8brsf+wWGkN0+fcV3Bg?=
+ =?us-ascii?Q?a0Q1go+J7kBGxhstiGTAX0YI2iKCuD4cWz0yARlSN/SyTobseSZ0LsCzx/YY?=
+ =?us-ascii?Q?nBMNdlH6ki+JReni8tuu1sWszKsOK3TU/pVA8ldgVfrfvfGWoqnzqOsmurAr?=
+ =?us-ascii?Q?wwvPorT/A3P5LppslvRitvnqryN6ri5fJhJKSZLrV/WK6GjTQnDUCv6YUm19?=
+ =?us-ascii?Q?cItHToLgN8GnCvstZurSmJVa4CDdqsF/pVBt+9vWwu8b9x7nKpXIRKjM6J/H?=
+ =?us-ascii?Q?72CXe2P8eH33JOuQdtwu1qhVE8RtCWkAcP/gfIF2b4TTZ1/VHEYaqoxxd/PT?=
+ =?us-ascii?Q?6IGvZjpAtH7JrwXiDz2vRPpX?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62714bdb-a9b2-4e71-8929-08d98e2119b4
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2021 08:11:46.7222 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0H9kuJKc2+6lvsHqaJfrlPkXigJEY2CkkemeEbs+WKLw4g05+6wnqCsqcYWITxSQiA3V1bHAOy24Ex2m2Orb4LD16eCj4sDIYg0YOXSb5yE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4643
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10135
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0 suspectscore=0
+ mlxlogscore=999 mlxscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
+ definitions=main-2110130054
+X-Proofpoint-ORIG-GUID: qD8g9jWGBcyMTjtkFeEdsH_XNd0GaHHn
+X-Proofpoint-GUID: qD8g9jWGBcyMTjtkFeEdsH_XNd0GaHHn
+Subject: [Freedreno] [PATCH 1/2] drm/msm: fix potential NULL dereference in
+ cleanup
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,305 +157,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-12 16:38, Bjorn Andersson wrote:
-> On Tue 12 Oct 16:03 PDT 2021, abhinavk@codeaurora.org wrote:
-> 
->> On 2021-10-09 20:04, Bjorn Andersson wrote:
->> > The debugfs code is provided an array of a single drm_connector. Then to
->> > access the connector, the list of all connectors of the DRM device is
->> > traversed and all non-DisplayPort connectors are skipped, to find the
->> > one and only DisplayPort connector.
->> >
->> > But as we move to support multiple DisplayPort controllers this will now
->> > find multiple connectors and has no way to distinguish them.
->> >
->> > Pass the single connector to dp_debug_get() and use this in the debugfs
->> > functions instead, both to simplify the code and the support the
->> > multiple instances.
->> >
->> Change itself is fine, hence
->> Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
->> 
-> 
-> Thanks.
-> 
->> What has to be checked now is now to create multiple DP nodes for 
->> multi-DP
->> cases.
->> Today, the debug node will be created only once :
->> 
->> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c#L206
->> 
->> This also needs to be expanded for multi-DP to make the solution 
->> complete.
->> 
-> 
-> In my multi-DP support patch I end up invoking msm_dp_debugfs_init() 
-> for
-> each of the DP/eDP instances and in its current form the first one gets
-> registered and any others will fail because of the resulting name
-> collision.
-> 
-> This patch came as a byproduct of the effort of addressing that 
-> problem.
-> 
-> Regards,
-> Bjorn
+The "msm_obj->node" list needs to be initialized earlier so that the
+list_del() in msm_gem_free_object() doesn't experience a NULL pointer
+dereference.
 
-Ah, okay. Yes i see the part you are referring to in 
-https://patchwork.freedesktop.org/patch/457667/:
+Fixes: 6ed0897cd800 ("drm/msm: Fix debugfs deadlock")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/msm/msm_gem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-@@ -203,8 +204,10 @@  static int dpu_kms_debugfs_init(struct msm_kms 
-*kms, struct drm_minor *minor)
-  	dpu_debugfs_vbif_init(dpu_kms, entry);
-  	dpu_debugfs_core_irq_init(dpu_kms, entry);
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 40a9863f5951..49185d524be3 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1132,6 +1132,7 @@ static int msm_gem_new_impl(struct drm_device *dev,
+ 	msm_obj->flags = flags;
+ 	msm_obj->madv = MSM_MADV_WILLNEED;
+ 
++	INIT_LIST_HEAD(&msm_obj->node);
+ 	INIT_LIST_HEAD(&msm_obj->vmas);
+ 
+ 	*obj = &msm_obj->base;
+-- 
+2.20.1
 
--	if (priv->dp)
--		msm_dp_debugfs_init(priv->dp, minor);
-+	for (i = 0; i < ARRAY_SIZE(priv->dp); i++) {
-+		if (priv->dp[i])
-+			msm_dp_debugfs_init(priv->dp[i], minor);
-+	}
-
-That clarifies it. Thanks.
-
-> 
->> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->> > ---
->> >  drivers/gpu/drm/msm/dp/dp_debug.c   | 131 ++++++++++------------------
->> >  drivers/gpu/drm/msm/dp/dp_debug.h   |   2 +-
->> >  drivers/gpu/drm/msm/dp/dp_display.c |   2 +-
->> >  3 files changed, 46 insertions(+), 89 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c
->> > b/drivers/gpu/drm/msm/dp/dp_debug.c
->> > index af709d93bb9f..da4323556ef3 100644
->> > --- a/drivers/gpu/drm/msm/dp/dp_debug.c
->> > +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
->> > @@ -24,7 +24,7 @@ struct dp_debug_private {
->> >  	struct dp_usbpd *usbpd;
->> >  	struct dp_link *link;
->> >  	struct dp_panel *panel;
->> > -	struct drm_connector **connector;
->> > +	struct drm_connector *connector;
->> >  	struct device *dev;
->> >  	struct drm_device *drm_dev;
->> >
->> > @@ -97,59 +97,35 @@ DEFINE_SHOW_ATTRIBUTE(dp_debug);
->> >
->> >  static int dp_test_data_show(struct seq_file *m, void *data)
->> >  {
->> > -	struct drm_device *dev;
->> > -	struct dp_debug_private *debug;
->> > -	struct drm_connector *connector;
->> > -	struct drm_connector_list_iter conn_iter;
->> > +	const struct dp_debug_private *debug = m->private;
->> > +	const struct drm_connector *connector = debug->connector;
->> >  	u32 bpc;
->> >
->> > -	debug = m->private;
->> > -	dev = debug->drm_dev;
->> > -	drm_connector_list_iter_begin(dev, &conn_iter);
->> > -	drm_for_each_connector_iter(connector, &conn_iter) {
->> > -
->> > -		if (connector->connector_type !=
->> > -			DRM_MODE_CONNECTOR_DisplayPort)
->> > -			continue;
->> > -
->> > -		if (connector->status == connector_status_connected) {
->> > -			bpc = debug->link->test_video.test_bit_depth;
->> > -			seq_printf(m, "hdisplay: %d\n",
->> > -					debug->link->test_video.test_h_width);
->> > -			seq_printf(m, "vdisplay: %d\n",
->> > -					debug->link->test_video.test_v_height);
->> > -			seq_printf(m, "bpc: %u\n",
->> > -					dp_link_bit_depth_to_bpc(bpc));
->> > -		} else
->> > -			seq_puts(m, "0");
->> > +	if (connector->status == connector_status_connected) {
->> > +		bpc = debug->link->test_video.test_bit_depth;
->> > +		seq_printf(m, "hdisplay: %d\n",
->> > +				debug->link->test_video.test_h_width);
->> > +		seq_printf(m, "vdisplay: %d\n",
->> > +				debug->link->test_video.test_v_height);
->> > +		seq_printf(m, "bpc: %u\n",
->> > +				dp_link_bit_depth_to_bpc(bpc));
->> > +	} else {
->> > +		seq_puts(m, "0");
->> >  	}
->> >
->> > -	drm_connector_list_iter_end(&conn_iter);
->> > -
->> >  	return 0;
->> >  }
->> >  DEFINE_SHOW_ATTRIBUTE(dp_test_data);
->> >
->> >  static int dp_test_type_show(struct seq_file *m, void *data)
->> >  {
->> > -	struct dp_debug_private *debug = m->private;
->> > -	struct drm_device *dev = debug->drm_dev;
->> > -	struct drm_connector *connector;
->> > -	struct drm_connector_list_iter conn_iter;
->> > -
->> > -	drm_connector_list_iter_begin(dev, &conn_iter);
->> > -	drm_for_each_connector_iter(connector, &conn_iter) {
->> > -
->> > -		if (connector->connector_type !=
->> > -			DRM_MODE_CONNECTOR_DisplayPort)
->> > -			continue;
->> > +	const struct dp_debug_private *debug = m->private;
->> > +	const struct drm_connector *connector = debug->connector;
->> >
->> > -		if (connector->status == connector_status_connected)
->> > -			seq_printf(m, "%02x", DP_TEST_LINK_VIDEO_PATTERN);
->> > -		else
->> > -			seq_puts(m, "0");
->> > -	}
->> > -	drm_connector_list_iter_end(&conn_iter);
->> > +	if (connector->status == connector_status_connected)
->> > +		seq_printf(m, "%02x", DP_TEST_LINK_VIDEO_PATTERN);
->> > +	else
->> > +		seq_puts(m, "0");
->> >
->> >  	return 0;
->> >  }
->> > @@ -161,14 +137,12 @@ static ssize_t dp_test_active_write(struct file
->> > *file,
->> >  {
->> >  	char *input_buffer;
->> >  	int status = 0;
->> > -	struct dp_debug_private *debug;
->> > -	struct drm_device *dev;
->> > -	struct drm_connector *connector;
->> > -	struct drm_connector_list_iter conn_iter;
->> > +	const struct dp_debug_private *debug;
->> > +	const struct drm_connector *connector;
->> >  	int val = 0;
->> >
->> >  	debug = ((struct seq_file *)file->private_data)->private;
->> > -	dev = debug->drm_dev;
->> > +	connector = debug->connector;
->> >
->> >  	if (len == 0)
->> >  		return 0;
->> > @@ -179,30 +153,22 @@ static ssize_t dp_test_active_write(struct file
->> > *file,
->> >
->> >  	DRM_DEBUG_DRIVER("Copied %d bytes from user\n", (unsigned int)len);
->> >
->> > -	drm_connector_list_iter_begin(dev, &conn_iter);
->> > -	drm_for_each_connector_iter(connector, &conn_iter) {
->> > -		if (connector->connector_type !=
->> > -			DRM_MODE_CONNECTOR_DisplayPort)
->> > -			continue;
->> > -
->> > -		if (connector->status == connector_status_connected) {
->> > -			status = kstrtoint(input_buffer, 10, &val);
->> > -			if (status < 0)
->> > -				break;
->> > -			DRM_DEBUG_DRIVER("Got %d for test active\n", val);
->> > -			/* To prevent erroneous activation of the compliance
->> > -			 * testing code, only accept an actual value of 1 here
->> > -			 */
->> > -			if (val == 1)
->> > -				debug->panel->video_test = true;
->> > -			else
->> > -				debug->panel->video_test = false;
->> > +	if (connector->status == connector_status_connected) {
->> > +		status = kstrtoint(input_buffer, 10, &val);
->> > +		if (status < 0) {
->> > +			kfree(input_buffer);
->> > +			return status;
->> >  		}
->> > +		DRM_DEBUG_DRIVER("Got %d for test active\n", val);
->> > +		/* To prevent erroneous activation of the compliance
->> > +		 * testing code, only accept an actual value of 1 here
->> > +		 */
->> > +		if (val == 1)
->> > +			debug->panel->video_test = true;
->> > +		else
->> > +			debug->panel->video_test = false;
->> >  	}
->> > -	drm_connector_list_iter_end(&conn_iter);
->> >  	kfree(input_buffer);
->> > -	if (status < 0)
->> > -		return status;
->> >
->> >  	*offp += len;
->> >  	return len;
->> > @@ -211,25 +177,16 @@ static ssize_t dp_test_active_write(struct file
->> > *file,
->> >  static int dp_test_active_show(struct seq_file *m, void *data)
->> >  {
->> >  	struct dp_debug_private *debug = m->private;
->> > -	struct drm_device *dev = debug->drm_dev;
->> > -	struct drm_connector *connector;
->> > -	struct drm_connector_list_iter conn_iter;
->> > -
->> > -	drm_connector_list_iter_begin(dev, &conn_iter);
->> > -	drm_for_each_connector_iter(connector, &conn_iter) {
->> > -		if (connector->connector_type !=
->> > -			DRM_MODE_CONNECTOR_DisplayPort)
->> > -			continue;
->> > -
->> > -		if (connector->status == connector_status_connected) {
->> > -			if (debug->panel->video_test)
->> > -				seq_puts(m, "1");
->> > -			else
->> > -				seq_puts(m, "0");
->> > -		} else
->> > +	struct drm_connector *connector = debug->connector;
->> > +
->> > +	if (connector->status == connector_status_connected) {
->> > +		if (debug->panel->video_test)
->> > +			seq_puts(m, "1");
->> > +		else
->> >  			seq_puts(m, "0");
->> > +	} else {
->> > +		seq_puts(m, "0");
->> >  	}
->> > -	drm_connector_list_iter_end(&conn_iter);
->> >
->> >  	return 0;
->> >  }
->> > @@ -278,7 +235,7 @@ static int dp_debug_init(struct dp_debug
->> > *dp_debug, struct drm_minor *minor)
->> >
->> >  struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel
->> > *panel,
->> >  		struct dp_usbpd *usbpd, struct dp_link *link,
->> > -		struct drm_connector **connector, struct drm_minor *minor)
->> > +		struct drm_connector *connector, struct drm_minor *minor)
->> >  {
->> >  	int rc = 0;
->> >  	struct dp_debug_private *debug;
->> > diff --git a/drivers/gpu/drm/msm/dp/dp_debug.h
->> > b/drivers/gpu/drm/msm/dp/dp_debug.h
->> > index 7eaedfbb149c..3f90acfffc5a 100644
->> > --- a/drivers/gpu/drm/msm/dp/dp_debug.h
->> > +++ b/drivers/gpu/drm/msm/dp/dp_debug.h
->> > @@ -43,7 +43,7 @@ struct dp_debug {
->> >   */
->> >  struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel
->> > *panel,
->> >  		struct dp_usbpd *usbpd, struct dp_link *link,
->> > -		struct drm_connector **connector,
->> > +		struct drm_connector *connector,
->> >  		struct drm_minor *minor);
->> >
->> >  /**
->> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
->> > b/drivers/gpu/drm/msm/dp/dp_display.c
->> > index 1708b7cdc1b3..41a6f58916e6 100644
->> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> > @@ -1464,7 +1464,7 @@ void msm_dp_debugfs_init(struct msm_dp
->> > *dp_display, struct drm_minor *minor)
->> >  	dev = &dp->pdev->dev;
->> >
->> >  	dp->debug = dp_debug_get(dev, dp->panel, dp->usbpd,
->> > -					dp->link, &dp->dp_display.connector,
->> > +					dp->link, dp->dp_display.connector,
->> >  					minor);
->> >  	if (IS_ERR(dp->debug)) {
->> >  		rc = PTR_ERR(dp->debug);
