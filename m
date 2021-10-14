@@ -1,65 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59B1642D23E
-	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 08:22:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA11542DA5D
+	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 15:27:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB4036E5B2;
-	Thu, 14 Oct 2021 06:22:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 818CE6EAC1;
+	Thu, 14 Oct 2021 13:27:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F976E5B2
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 06:22:08 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1634192529; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: From: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID: Sender; bh=lTLIJG2i4OAIzGVAjEZbpCIr/J4WAHviqABtv7QEgV8=;
- b=HVQ3kLPP9EkTnvY5QvJFQ6kr9bSYecJE8rqThSwOlBD/wrbZWA4DMPMrXQB7nem6HHWw2M8Q
- xfo4LQDcNgSFCY3UpLEaI9Rvyo/XwBxFXq9n4jf0RS32JCWdciMXXOcsbcaWyYUujXiny7BH
- pHDJUaoLbzhvz+B3Dq9e7XpGxhM=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-west-2.postgun.com with SMTP id
- 6167cc89f3e5b80f1fed021b (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 14 Oct 2021 06:22:01
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 529ECC43460; Thu, 14 Oct 2021 06:22:01 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from [192.168.1.10] (unknown [117.217.235.147])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 51059C4338F;
- Thu, 14 Oct 2021 06:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 51059C4338F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-Message-ID: <b69f0e6c-3121-1b88-938b-34556a5013e6@codeaurora.org>
-Date: Thu, 14 Oct 2021 11:51:56 +0530
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7B676EAC1
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 13:27:56 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id z20so24448662edc.13
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 06:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=y2s4CtwV4h9cAS9JApc0nY1rQkilQmz/B6Blret2/cs=;
+ b=eGI4hTn3kMzcOZ/Sl1hHJuVcUTQb4suzrCd+MSMGv+9QCL6m0XZqppKcpAXNpdMxMy
+ 7Qm4kVVcYwb+wvP0seJMKSKxA5gjL2USW5rqHLpHVQHAyIFu77VwYW1lBuBTBce9xC7g
+ FQTJkrZjgIpivzJ1KNizYqkS3Kb0iXbvZ93e0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=y2s4CtwV4h9cAS9JApc0nY1rQkilQmz/B6Blret2/cs=;
+ b=UEv+owtCPOe4v5F2+kpGRpCAKzJmhEc//kCxLrGbKe5q7syxljTqhIxM1DoU7qPk6c
+ sWZzop6fomy8asKkgP1IR6Dx4MjoqDALXWnQ1V5Bm9NqyvPsc3B62Uoc29khjT2YeGZz
+ fWcCxayHArVYPLb8gJ+2s/7tI5SwpRbj5jojHBTD/HFMH+KBbR96JyF3En7NtUaNORv8
+ RFg0V5zTnb0fTbURu9UIbe9MuKAu+q17RwXp50IPAld7i3ygR75zZVfWzkQDezASIi0t
+ gL3WXCXae3sgBtu8cyCdWV4PrQ2CMWXFXqeIuNVk8/hliGOiQelopPVwNOYFRqZQQ9rF
+ N4Mg==
+X-Gm-Message-State: AOAM5306iCaqmWndx8jiGNOAxtEFHvXLtBBA3BQwc2lRWSyan19j1Vat
+ skdY7Jp82RxyoqFoBZValuK9/A==
+X-Google-Smtp-Source: ABdhPJwumLGYDY0kHwLV5V0BQOX5VMB1QAPhMACoI2uzyEYkWF+AW5GpvQ6h5sXa1kB3dnr6C/t24g==
+X-Received: by 2002:aa7:cb03:: with SMTP id s3mr8749943edt.334.1634218074167; 
+ Thu, 14 Oct 2021 06:27:54 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id t4sm2265223edc.2.2021.10.14.06.27.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Oct 2021 06:27:53 -0700 (PDT)
+Date: Thu, 14 Oct 2021 15:27:51 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Saravana Kannan <saravanak@google.com>
+Message-ID: <YWgwV3dW3Q9HQhlF@phenom.ffwll.local>
+Mail-Followup-To: Stephen Boyd <swboyd@chromium.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Saravana Kannan <saravanak@google.com>
+References: <20211006193819.2654854-1-swboyd@chromium.org>
+ <20211006193819.2654854-3-swboyd@chromium.org>
+ <YV6HpM8NlO29UjAI@kroah.com>
+ <CAE-0n51QPTT3TcgNJf2jDoXaRdxNnnyQY6--UqpNTp9ZKToqbw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-References: <20211012100029.GA3379@kili>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-In-Reply-To: <20211012100029.GA3379@kili>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [bug report] drm/msm/a6xx: Fix llcc configuration
- for a660 gpu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE-0n51QPTT3TcgNJf2jDoXaRdxNnnyQY6--UqpNTp9ZKToqbw@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH v2 02/34] component: Introduce the aggregate
+ bus_type
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,87 +88,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/12/2021 3:30 PM, Dan Carpenter wrote:
-> Hello Akhil P Oommen,
+On Thu, Oct 07, 2021 at 04:42:48PM -0400, Stephen Boyd wrote:
+> Quoting Greg Kroah-Hartman (2021-10-06 22:37:40)
+> > On Wed, Oct 06, 2021 at 12:37:47PM -0700, Stephen Boyd wrote:
+> > >
+> > > Let's make the component driver into an actual device driver that has
+> > > probe/remove/shutdown functions. The driver will only be bound to the
+> > > aggregate device once all component drivers have called component_add()
+> > > to indicate they're ready to assemble the aggregate driver. This allows
+> > > us to attach shutdown logic (and in the future runtime PM logic) to the
+> > > aggregate driver so that it runs the hooks in the correct order.
+> >
+> > Why are you creating a new bus type and not using the auxiliary bus
+> > instead?
+> >
+> > You have seen Documentation/driver-api/auxiliary_bus.rst, right?
+> >
 > 
-> The patch a6f24383f6c0: "drm/msm/a6xx: Fix llcc configuration for
-> a660 gpu" from Jul 30, 2021, leads to the following Smatch static
-> checker warning:
+> Nope, but I read it now. Thanks for the pointer.
 > 
-> 	drivers/gpu/drm/msm/adreno/a6xx_gpu.c:1480 a6xx_llc_activate()
-> 	error: uninitialized symbol 'gpu_scid'.
+> My read of it is that the auxiliary bus is a way to slice up a single IP
+> block into multiple devices and then have drivers attach to those
+> different "pieces" of the IP. It avoids polluting the platform bus with
+> devices that don't belong on the platform bus because they are sub
+> components of a larger IP block that sits on the platform bus.
 > 
-> drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->      1423 static void a6xx_llc_activate(struct a6xx_gpu *a6xx_gpu)
->      1424 {
->      1425         struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
->      1426         struct msm_gpu *gpu = &adreno_gpu->base;
->      1427         u32 gpu_scid, cntl1_regval = 0;
->      1428
->      1429         if (IS_ERR(a6xx_gpu->llc_mmio))
->      1430                 return;
->      1431
->      1432         if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
->      1433                 gpu_scid = llcc_get_slice_id(a6xx_gpu->llc_slice);
->      1434
->      1435                 gpu_scid &= 0x1f;
->      1436                 cntl1_regval = (gpu_scid << 0) | (gpu_scid << 5) | (gpu_scid << 10) |
->      1437                                (gpu_scid << 15) | (gpu_scid << 20);
->      1438         }
+> The aggregate bus is solving the reverse problem. It is rounding up a
+> collection of IP blocks that live on some bus (platform, i2c, spi,
+> whatever) and presenting them as a single aggregate device (sound card,
+> display card, whatever) whenever all the component devices call
+> component_add(). For example, we don't want to do operations on the
+> entire display pipeline until all the devices that make up the display
+> are probed and drivers are attached. I suppose the aggregate_device in
+> this patch series has a 1:1 relationship with the drm class_type that
+> makes up /sys/class/drm/cardN but there's also a couple sound users and
+> a power_supply user so I don't know the equivalent there.
 > 
-> gpu_scid not initialized on the else path.
+> Long term, maybe all of this component code could be placed directly
+> into the driver core? That's probably even more invasive of a change but
+> I imagine we could make device links with component_add() as we're
+> already doing with these patches and then have driver core call some
+> class function pointer when all the links are probed. That would
+> handle the 'bind/probe' callback for the aggregate device but it won't
+> handle the component_bind_all() path where we call bind_component() for
+> each component device that makes up the aggregate device. Maybe we can
+> add even more devices for the components and then call probe there too.
 > 
->      1439
->      1440         /*
->      1441          * For targets with a MMU500, activate the slice but don't program the
->      1442          * register.  The XBL will take care of that.
->      1443          */
->      1444         if (!llcc_slice_activate(a6xx_gpu->htw_llc_slice)) {
->      1445                 if (!a6xx_gpu->have_mmu500) {
->      1446                         u32 gpuhtw_scid = llcc_get_slice_id(a6xx_gpu->htw_llc_slice);
->      1447
->      1448                         gpuhtw_scid &= 0x1f;
->      1449                         cntl1_regval |= FIELD_PREP(GENMASK(29, 25), gpuhtw_scid);
->      1450                 }
->      1451         }
->      1452
->      1453         if (!cntl1_regval)
->      1454                 return;
->      1455
->      1456         /*
->      1457          * Program the slice IDs for the various GPU blocks and GPU MMU
->      1458          * pagetables
->      1459          */
->      1460         if (!a6xx_gpu->have_mmu500) {
->      1461                 a6xx_llc_write(a6xx_gpu,
->      1462                         REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_1, cntl1_regval);
->      1463
->      1464                 /*
->      1465                  * Program cacheability overrides to not allocate cache
->      1466                  * lines on a write miss
->      1467                  */
->      1468                 a6xx_llc_rmw(a6xx_gpu,
->      1469                         REG_A6XX_CX_MISC_SYSTEM_CACHE_CNTL_0, 0xF, 0x03);
->      1470                 return;
->      1471         }
->      1472
->      1473         gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL1, GENMASK(24, 0), cntl1_regval);
->      1474
->      1475         /* On A660, the SCID programming for UCHE traffic is done in
->      1476          * A6XX_GBIF_SCACHE_CNTL0[14:10]
->      1477          */
->      1478         if (adreno_is_a660_family(adreno_gpu))
->      1479                 gpu_rmw(gpu, REG_A6XX_GBIF_SCACHE_CNTL0, (0x1f << 10) |
-> --> 1480                         (1 << 8), (gpu_scid << 10) | (1 << 8));
->                                              ^^^^^^^^^^^^^^
-> Used here.
-> 
->      1481 }
-> 
-> regards,
-> dan carpenter
-> 
+> Sorry that's a long-winded non-answer. I don't think they're solving the
+> same problem so using the same bus type looks wrong. We'd have to take
+> two different paths depending on what type of device it is (aggregate
+> vs. auxiliary) so there's not much of anything that is shared code-wise.
 
-Thanks, Dan. I will fix this in the stack I share.
+Yeah component is the reverse of auxiliary, and right now a lot of
+subsystems have their own hand-rolled version of this. I do hope that
+component.c does become more of a standard (that's why it's in
+drivers/base/), but I guess that's a bit tricky if the device model
+maintainer hasn't seen it yet ...
 
--Akhil.
+Hopefully putting more proper device model concepts into it can fix this
+problem :-)
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
