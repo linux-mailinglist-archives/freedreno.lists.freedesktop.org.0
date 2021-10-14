@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112D742DA84
-	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 15:33:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A58A42DAA6
+	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 15:41:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75F6D6E878;
-	Thu, 14 Oct 2021 13:33:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14D266E878;
+	Thu, 14 Oct 2021 13:41:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05D456E893
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 13:33:34 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id x27so26835023lfa.9
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 06:33:34 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2411D6E878
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 13:41:54 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id y15so27239546lfk.7
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 06:41:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=DX670cS5phCvDQLx3T743whZZwRjd/in8iOIX3rB6XQ=;
- b=Z3DEwQvmJ1TfKoJ2dBFXH1mqVWhkZmcioOroxnN/POQZMZ1jel2+i+jnHUsieV1XBi
- Ud6AHfJARWt7HOOIZNC2w8anCflMmLjbZNcMFzBYqNRZyVY6DDy+MWyXCvBYh/JOedbC
- ZF+jynw26e9JFpuOcCFWgzC14ntG+7mtxwvBzAfOqBV5euyIUw43Vhr9ZrzSDEYVFQNG
- 0NuEIRRs/rxbCrplu44/WUoMDnw8XdU/Ak7X0PATcLSP3GcHP7nmiUr9dWUTL+HwRaBL
- mNp96K8Dgw0SL0gHRYNwW5YjkUwJD6VDkYNGHnywFdZYq3r4/zy6hmKNYT3l6ydyx1Yj
- qUUQ==
+ bh=2CXI/xEY/thPw45jl914tzVQCXxJgkaEiaihZoAS5NE=;
+ b=JA9o2/acP9W4J3FcprsPhCKgkj/E2UWV2pDJVHkJ4lkrWNaeoh+JRjCZbki3h+3XPd
+ DbXNtiBzwzSLL6Atqf4pFvF8umlMMAg93LCe7Z6PzewCP0XkOJIF4u+hVueTZIylzA9y
+ jZLVpurJWuIR/uHVzy1uNGx4pMJGYu880UTbeCk/74vh4+jCHLft0YGpnO72PZg3VWhU
+ cXsthfPZb25UyO6GhevPL6xzVlPMngF2KGH3AHGRajfDhOLon7WhB2RjjdNc0CQsL+tK
+ eCEnIbSBobhJzE47zLXdWSXZG2Rkdgv7WJtJsnOWkBnWSmnnUfTKqLgIA4fAJ6QDmMcU
+ CWGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=DX670cS5phCvDQLx3T743whZZwRjd/in8iOIX3rB6XQ=;
- b=GGPxs29MLVtKag51YPDJKV1EPiFce4V4NYhn9B2Elen6M+c0vGIiSL0zwctw3kKf3l
- kp11U3hruK87R+m/R4eJsdMOhFum+pB8dN7rHIyawWCnvgwVYMR2n9PeVmJg0SjflAVJ
- 3Mlp9Wn082tSgikRRtfWPK1QZ7bbq5hnSQcrl/ucvxKXbvy0WhK/7TTQ5+vyCxIrBhL0
- RS8XuiXkqB5KsbabUVzEdra50eDh+h+GiTMi8EXBBtVqu4v54j+fAPBQoXK9MtytRw4N
- 30/Bme3Phdpd4v+3zQogCSNJxCBdwXc1xkug5BufHT0wMyRLNg5oO1LzP92MjYKaYKku
- /aAw==
-X-Gm-Message-State: AOAM53189oS7PaxDzu/L3ihkyrqK5+XPCaLSxuGKazswO+ctIa7J0yYv
- vCKNw41nWRzZOPwd1rXZEIB0v9qnJirq9g==
-X-Google-Smtp-Source: ABdhPJzpDVfwZXhJGDANIIHEgLk2g2w/JDjdDth7w2YvSqUG3bjNmmV/IhBY/bheKThItFWTOUxeNg==
-X-Received: by 2002:a19:7616:: with SMTP id c22mr5030684lff.450.1634218407507; 
- Thu, 14 Oct 2021 06:33:27 -0700 (PDT)
+ bh=2CXI/xEY/thPw45jl914tzVQCXxJgkaEiaihZoAS5NE=;
+ b=LnIHmm9H/2mUEvTATKgIFeolwRGCY+QD/U/8ZDDFd8dl8BeygdRk47xj6SJjtzc7c/
+ 47BUGmuRSY5Q+4yaXv8fhar/J4nX7ChDunhtz3b/iuIIRfal3joz1ri33oSGiSyUIMvr
+ 3aQPQLvAAHlc90wH3ahPiC+Cjk62DwaFWNYi3b9bdki/IJ8Df6uhsszV8Z8A2+0+X1A9
+ N8DnwEaiFzTg5I0GSoigmrmkZhvrD0PQOUPMsRBqLRpNBwLxBczhrKuzT4LcwQgCCmKB
+ IZ+6OKK92kbj2vOg3P6VIyCF7mnH2wOIYEvPygXZrnL2HC0gdGC9f1Aw0u3ouD3S/RCp
+ 4KoA==
+X-Gm-Message-State: AOAM530Well/lL8SdX+Ug+QB6ad9GSPf38cNRb7vKzleNaPrqgCJrD/H
+ ROrmqzbyGvyw9OpnezUUmf1PHi7uB4ZmZw==
+X-Google-Smtp-Source: ABdhPJwNNzCdzIL3xC+3e0+2YM3M3EDJLzSESCYU1w2R/ttjrblskkCcmL8BpX2Fc3Y174MuzJXojw==
+X-Received: by 2002:ac2:5fea:: with SMTP id s10mr5299971lfg.652.1634218911792; 
+ Thu, 14 Oct 2021 06:41:51 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id t20sm265427ljc.40.2021.10.14.06.33.26
+ by smtp.gmail.com with ESMTPSA id i13sm231739lfb.45.2021.10.14.06.41.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Oct 2021 06:33:27 -0700 (PDT)
+ Thu, 14 Oct 2021 06:41:51 -0700 (PDT)
 To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
 Cc: linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie
@@ -55,19 +55,19 @@ Cc: linux-arm-msm@vger.kernel.org,
  Sumit Semwal <sumit.semwal@linaro.org>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
 References: <20211007070900.456044-1-vkoul@kernel.org>
- <20211007070900.456044-6-vkoul@kernel.org>
+ <20211007070900.456044-7-vkoul@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <fca3eadc-91db-c5fc-110f-423efc1638ce@linaro.org>
-Date: Thu, 14 Oct 2021 16:33:26 +0300
+Message-ID: <11becace-7b44-6141-5a8b-1bd6d0673243@linaro.org>
+Date: Thu, 14 Oct 2021 16:41:50 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20211007070900.456044-6-vkoul@kernel.org>
+In-Reply-To: <20211007070900.456044-7-vkoul@kernel.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 05/11] drm/msm/disp/dpu1: Add DSC for
- SDM845 to hw_catalog
+Subject: Re: [Freedreno] [PATCH v2 06/11] drm/msm/disp/dpu1: Don't use DSC
+ with mode_3d
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,58 +84,119 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 07/10/2021 10:08, Vinod Koul wrote:
-> This adds SDM845 DSC blocks into hw_catalog
+> We cannot enable mode_3d when we are using the DSC. So pass
+> configuration to detect DSC is enabled and not enable mode_3d
+> when we are using DSC
+> 
+> We add a helper dpu_encoder_helper_get_dsc_mode() to detect dsc
+> enabled and pass this to .setup_intf_cfg()
 > 
 > Signed-off-by: Vinod Koul <vkoul@kernel.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 > ---
 > Changes since
 > v1:
->   - Remove DSC_SDM845_MASK and use 0 as feature mask
+>   - Move this patch from 7 to 6
+>   - Update the changelog
+>   - Make dsc as int and store the DSC indices
 > 
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 20 +++++++++++++++++++
->   1 file changed, 20 insertions(+)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h     | 11 +++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  2 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c           |  5 +++--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h           |  2 ++
+>   4 files changed, 18 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index b131fd376192..6423a2fe6698 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -821,6 +821,24 @@ static const struct dpu_pingpong_cfg sc7280_pp[] = {
->   	PP_BLK("pingpong_2", PINGPONG_2, 0x6b000, 0, sc7280_pp_sblk, -1, -1),
->   	PP_BLK("pingpong_3", PINGPONG_3, 0x6c000, 0, sc7280_pp_sblk, -1, -1),
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index e7270eb6b84b..fca07ed03317 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -332,6 +332,17 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+>   	return BLEND_3D_NONE;
+>   }
+>   
+> +static inline bool dpu_encoder_helper_get_dsc_mode(struct dpu_encoder_phys *phys_enc)
+> +{
+> +	struct drm_encoder *drm_enc = phys_enc->parent;
+> +	struct msm_drm_private *priv = drm_enc->dev->dev_private;
+> +
+> +	if (priv->dsc)
+> +		return BIT(0) | BIT(1); /* Hardcoding for 2 DSC topology */
+
+Please use defined values here rater than just BIT().
+
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * dpu_encoder_helper_split_config - split display configuration helper function
+>    *	This helper function may be used by physical encoders to configure
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> index aa01698d6b25..8e5c0911734c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+> @@ -70,6 +70,8 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
+>   	intf_cfg.intf_mode_sel = DPU_CTL_MODE_SEL_CMD;
+>   	intf_cfg.stream_sel = cmd_enc->stream_sel;
+>   	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
+> +	intf_cfg.dsc = dpu_encoder_helper_get_dsc_mode(phys_enc);
+> +
+>   	ctl->ops.setup_intf_cfg(ctl, &intf_cfg);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index 64740ddb983e..3c79bd9c2fe5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -118,7 +118,7 @@ static u32 dpu_hw_ctl_get_pending_flush(struct dpu_hw_ctl *ctx)
+>   	return ctx->pending_flush_mask;
+>   }
+>   
+> -static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+> +static void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+>   {
+>   
+>   	if (ctx->pending_flush_mask & BIT(MERGE_3D_IDX))
+> @@ -519,7 +519,8 @@ static void dpu_hw_ctl_intf_cfg(struct dpu_hw_ctl *ctx,
+>   
+>   	intf_cfg |= (cfg->intf & 0xF) << 4;
+>   
+> -	if (cfg->mode_3d) {
+> +	/* In DSC we can't set merge, so check for dsc too */
+> +	if (cfg->mode_3d && !cfg->dsc) {
+
+The more I think about this hunk, the more I'm unsure about it.
+Downstream has the following topoligies defined:
+  * @SDE_RM_TOPOLOGY_DUALPIPE_3DMERGE_DSC: 2 LM, 2 PP, 3DMux, 1 DSC, 1 
+INTF/WB
+  * @SDE_RM_TOPOLOGY_QUADPIPE_3DMERGE_DSC  4 LM, 4 PP, 3DMux, 3 DSC, 2 INTF
+
+While the latter is not supported on sdm845, the former one should be 
+(by the hardware). So in the driver I think we should make sure that 
+mode_3d does not get set rather than disallowing it here.
+
+>   		intf_cfg |= BIT(19);
+>   		intf_cfg |= (cfg->mode_3d - 0x1) << 20;
+>   	}
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index 806c171e5df2..5dfac5994bd4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -39,6 +39,7 @@ struct dpu_hw_stage_cfg {
+>    * @mode_3d:               3d mux configuration
+>    * @merge_3d:              3d merge block used
+>    * @intf_mode_sel:         Interface mode, cmd / vid
+> + * @dsc:                   DSC BIT masks
+>    * @stream_sel:            Stream selection for multi-stream interfaces
+>    */
+>   struct dpu_hw_intf_cfg {
+> @@ -46,6 +47,7 @@ struct dpu_hw_intf_cfg {
+>   	enum dpu_3d_blend_mode mode_3d;
+>   	enum dpu_merge_3d merge_3d;
+>   	enum dpu_ctl_mode_sel intf_mode_sel;
+> +	unsigned int dsc;
+>   	int stream_sel;
 >   };
-> +
-> +/*************************************************************
-> + * DSC sub blocks config
-> + *************************************************************/
-> +#define DSC_BLK(_name, _id, _base) \
-> +	{\
-> +	.name = _name, .id = _id, \
-> +	.base = _base, .len = 0x140, \
-> +	.features = 0, \
-> +	}
-> +
-> +static struct dpu_dsc_cfg sdm845_dsc[] = {
-> +	DSC_BLK("dsc_0", DSC_0, 0x80000),
-> +	DSC_BLK("dsc_1", DSC_1, 0x80400),
-> +	DSC_BLK("dsc_2", DSC_2, 0x80800),
-> +	DSC_BLK("dsc_3", DSC_3, 0x80c00),
-> +};
-> +
->   /*************************************************************
->    * INTF sub blocks config
->    *************************************************************/
-> @@ -1130,6 +1148,8 @@ static void sdm845_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
->   		.mixer = sdm845_lm,
->   		.pingpong_count = ARRAY_SIZE(sdm845_pp),
->   		.pingpong = sdm845_pp,
-> +		.dsc_count = ARRAY_SIZE(sdm845_dsc),
-> +		.dsc = sdm845_dsc,
->   		.intf_count = ARRAY_SIZE(sdm845_intf),
->   		.intf = sdm845_intf,
->   		.vbif_count = ARRAY_SIZE(sdm845_vbif),
+>   
 > 
 
 
