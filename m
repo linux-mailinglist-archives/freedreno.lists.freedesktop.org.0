@@ -2,73 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 808A742DBE6
-	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 16:40:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C8542DE76
+	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 17:42:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3664E6EB3F;
-	Thu, 14 Oct 2021 14:40:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B35506E183;
+	Thu, 14 Oct 2021 15:42:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 005F96EB3F
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 14:40:51 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id u18so27415988lfd.12
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 07:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=9wbp9KOUy7rHKUYRK00W3K4pTYPodLpBmDmb0LNYv6w=;
- b=f7MXAuTx9bn2gNLP/aO38Pd2bfkSysU7A7gKPmce4ppe1+/yiSwn2cDiPV0FZYQBFJ
- Gn0FNgEvtPvflf7BheuFe6yFgNm47gHsT3vJJ8SpNBBwb86Mgr+HPki1/BT/fLTa3PEK
- ItiB7ZtD9Y5BGWkGvcual3HFwqPkUbyhuB8wKnrifNlNKG1fNQXWJd78ZcBneBRghI8F
- 1OZrNP3PXMWEAS+hoFko7a0qeTuKxi0ecvdtRQkLBpoYajDTKUwxT74PviC8L9b9TaK3
- 42wR8+U3jfaB/lWloXk/XUKzH3H56kmTxOPgZm00RbqfTjxV2+UzlMA9a+UAso9PIbYs
- 7S/w==
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6591B6E17D
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 15:42:22 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id z126so8964376oiz.12
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 08:42:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=ibfKdmBbKs8YG5Js109buSon4Qmub7UDY394dDMAH4w=;
+ b=KgheEG/UXv0HI/BNZQhaEAEJT9Z5nbSCPmo6ZGo9h0lo6G4uzkobeo3/v8zD4qCRFJ
+ Bncmx5JHh/YIxusm6Qxj3lv9L85DmKu7ugYRDBh7RUHkxSjJBFGlFnEOjie6fuoKTQ0d
+ WB2zu+ZkQe7/aRf6vvTdQvxSKgiYNmod4P5d4b8L4wG0b+/kfQS/jfcvRyfaXKOvH+rq
+ C5BtswYfDNrJo9f3tP+2CCGM0AfTCt/ZNvhS9nnHHWfst9u5eQM7mAeCNJhyKZpTU0dE
+ CgKDdEqRRbDGGRRamKiZZ6bjUDoS8TJ88LuxVlyWWvmFYGnlaKOCpxXJB3qw4OQ2PwnE
+ R/AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=9wbp9KOUy7rHKUYRK00W3K4pTYPodLpBmDmb0LNYv6w=;
- b=EW6a0L7sNrpaC8Cq+ziZAOtp6/Rud89L6w4Go1QLVbKeIc8rlQbwK3PZBA+JN5Uavq
- F3PXYUwbc8xusZGUlBWAA7himCJyOxl8OjdNG1DpVPNtNP5oisGTW3WEG4T5XMbR1HaB
- G+EWBrdJv+QYHYm3zownJCc5Nr5BzzaKMHVn6D60bdfGcD+XPcVq+IczuMg6s3zQcFxB
- z2gJ6RzjHFyM60OPiH25URa7GHN+A48WsWXICYS9AU+DZTREGVDQniL/ayXYtFZToa6H
- JamXjHvIIIavrO3hwYYl0h1yFkuqPU8ZCamz763FPN3lnpS6LhooGNABpSCocRuvR4bG
- KmzA==
-X-Gm-Message-State: AOAM530tPDJNLlW4NnDCO89L3OXUsGwMdAuYBjchnHS0mT4JQpjCVbg7
- +gngM1NYTs7xIl5iHnZceZAs4e7q7QnfIA==
-X-Google-Smtp-Source: ABdhPJybcJWcnhARDvZgxRm2W6SWKxtKCG5q9v/za/z6bPhWE6ws2lTwIVMjjNO3OR/7lY/mXXdpeQ==
-X-Received: by 2002:a05:651c:249:: with SMTP id
- x9mr6495739ljn.257.1634222440832; 
- Thu, 14 Oct 2021 07:40:40 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id s4sm241673lfs.235.2021.10.14.07.40.40
+ bh=ibfKdmBbKs8YG5Js109buSon4Qmub7UDY394dDMAH4w=;
+ b=KG4pY06yvhRP2X32UhkCFMctm8oqsAsdqEXfSPl8ZHg3B6/jDt0miieqqFrniyVM1m
+ /TXWZvUqHH+yyVbfBEODUYEospPGzMy+k+GnZbgDTlcIDRa4xxYsDeKKLfFupH55HodT
+ LonJT2vZEJs8yjeeGy+IqYxuSN4HUJoSf8uHr09cxtqZk8FoQ9Njezzeet2OVdphM3Iv
+ BDYUgs5xAJLpy1CVZTRJTtkQn/47uBB5qCid0ABFGaQfAWapNFzHvKdolFntx+VgmaVW
+ lEItJEqWF3TVRyiwu3i0Hx5ciED3M7ybvpU1B2n7TCJAbEGgQLvmyA9h1Glrn2eB0M6K
+ Uo3w==
+X-Gm-Message-State: AOAM531fSVc8pfwUnMPpwujwCgK0DKnFGU9t5kBBlaOYv9GZISZyIcqc
+ 8jOG+alMO5U964TuDYo1oeIa3A==
+X-Google-Smtp-Source: ABdhPJxI/fQjmhOiApXHpCZCw74jpPRDxZuw3p2+huSdF08a3MhSWCMRvxGCNobnB5MlHlo8kOIukg==
+X-Received: by 2002:a54:401a:: with SMTP id x26mr4514908oie.117.1634226141500; 
+ Thu, 14 Oct 2021 08:42:21 -0700 (PDT)
+Received: from [192.168.11.48] (cpe-173-173-107-246.satx.res.rr.com.
+ [173.173.107.246])
+ by smtp.gmail.com with ESMTPSA id m13sm497647oou.25.2021.10.14.08.42.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Oct 2021 07:40:40 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20211007070900.456044-1-vkoul@kernel.org>
- <20211007070900.456044-3-vkoul@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <c9c77691-f6e8-576c-7e2d-a87295b13ba7@linaro.org>
-Date: Thu, 14 Oct 2021 17:40:39 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Thu, 14 Oct 2021 08:42:21 -0700 (PDT)
+Message-ID: <298400eb-fe8d-6a92-6ff4-6188a8f3161a@kali.org>
+Date: Thu, 14 Oct 2021 10:42:19 -0500
 MIME-Version: 1.0
-In-Reply-To: <20211007070900.456044-3-vkoul@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 02/11] drm/msm/disp/dpu1: Add support for
- DSC
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Rob Herring <robh+dt@kernel.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Amit Pundir <amit.pundir@linaro.org>
+References: <20211014135410.4136412-1-dmitry.baryshkov@linaro.org>
+From: Steev Klimaszewski <steev@kali.org>
+In-Reply-To: <20211014135410.4136412-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] Revert "arm64: dts: qcom: sm8250: remove bus clock
+ from the mdss node for sm8250 target"
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,418 +85,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/10/2021 10:08, Vinod Koul wrote:
-> Display Stream Compression (DSC) is one of the hw blocks in dpu, so add
-> support by adding hw blocks for DSC
-> 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+
+On 10/14/21 8:54 AM, Dmitry Baryshkov wrote:
+> From: Amit Pundir <amit.pundir@linaro.org>
+>
+> This reverts commit 001ce9785c0674d913531345e86222c965fc8bf4.
+>
+> This upstream commit broke AOSP (post Android 12 merge) build
+> on RB5. The device either silently crashes into USB crash mode
+> after android boot animation or we see a blank blue screen
+> with following dpu errors in dmesg:
+>
+> [  T444] hw recovery is not complete for ctl:3
+> [  T444] [drm:dpu_encoder_phys_vid_prepare_for_kickoff:539] [dpu error]enc31 intf1 ctl 3 reset failure: -22
+> [  T444] [drm:dpu_encoder_phys_vid_wait_for_commit_done:513] [dpu error]vblank timeout
+> [  T444] [drm:dpu_kms_wait_for_commit_done:454] [dpu error]wait for commit done returned -110
+> [    C7] [drm:dpu_encoder_frame_done_timeout:2127] [dpu error]enc31 frame done timeout
+> [  T444] [drm:dpu_encoder_phys_vid_wait_for_commit_done:513] [dpu error]vblank timeout
+> [  T444] [drm:dpu_kms_wait_for_commit_done:454] [dpu error]wait for commit done returned -110
+>
+> Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 > ---
-> Changes since
-> v1:
->   - remove unused variable lp
->   - Update copyright year
-> RFC:
->   - Drop unused enums
-> 
->   drivers/gpu/drm/msm/Makefile                  |   1 +
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  13 ++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    | 210 ++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |  77 +++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  13 ++
->   5 files changed, 314 insertions(+)
->   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
->   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 904535eda0c4..46c05e401d04 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -60,6 +60,7 @@ msm-y := \
->   	disp/dpu1/dpu_formats.o \
->   	disp/dpu1/dpu_hw_catalog.o \
->   	disp/dpu1/dpu_hw_ctl.o \
-> +	disp/dpu1/dpu_hw_dsc.o \
->   	disp/dpu1/dpu_hw_interrupts.o \
->   	disp/dpu1/dpu_hw_intf.o \
->   	disp/dpu1/dpu_hw_lm.o \
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index d2a945a27cfa..699c378814b1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -553,6 +553,16 @@ struct dpu_merge_3d_cfg  {
->   	const struct dpu_merge_3d_sub_blks *sblk;
->   };
+>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index 8c15d9fed08f..d12e4cbfc852 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -2590,9 +2590,10 @@
+>   			power-domains = <&dispcc MDSS_GDSC>;
 >   
-> +/**
-> + * struct dpu_dsc_cfg - information of DSC blocks
-> + * @id                 enum identifying this block
-> + * @base               register offset of this block
-> + * @features           bit mask identifying sub-blocks/features
-> + */
-> +struct dpu_dsc_cfg {
-> +	DPU_HW_BLK_INFO;
-> +};
-> +
->   /**
->    * struct dpu_intf_cfg - information of timing engine blocks
->    * @id                 enum identifying this block
-> @@ -757,6 +767,9 @@ struct dpu_mdss_cfg {
->   	u32 merge_3d_count;
->   	const struct dpu_merge_3d_cfg *merge_3d;
+>   			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +				 <&gcc GCC_DISP_HF_AXI_CLK>,
+>   				 <&gcc GCC_DISP_SF_AXI_CLK>,
+>   				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> -			clock-names = "iface", "nrt_bus", "core";
+> +			clock-names = "iface", "bus", "nrt_bus", "core";
 >   
-> +	u32 dsc_count;
-> +	struct dpu_dsc_cfg *dsc;
-> +
->   	u32 intf_count;
->   	const struct dpu_intf_cfg *intf;
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> new file mode 100644
-> index 000000000000..09682c4832ba
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
-> @@ -0,0 +1,210 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2020-2021, Linaro Limited
-> + */
-> +
-> +#include "dpu_kms.h"
-> +#include "dpu_hw_catalog.h"
-> +#include "dpu_hwio.h"
-> +#include "dpu_hw_mdss.h"
-> +#include "dpu_hw_dsc.h"
-> +
-> +#define DSC_COMMON_MODE	                0x000
-> +#define DSC_ENC                         0X004
-> +#define DSC_PICTURE                     0x008
-> +#define DSC_SLICE                       0x00C
-> +#define DSC_CHUNK_SIZE                  0x010
-> +#define DSC_DELAY                       0x014
-> +#define DSC_SCALE_INITIAL               0x018
-> +#define DSC_SCALE_DEC_INTERVAL          0x01C
-> +#define DSC_SCALE_INC_INTERVAL          0x020
-> +#define DSC_FIRST_LINE_BPG_OFFSET       0x024
-> +#define DSC_BPG_OFFSET                  0x028
-> +#define DSC_DSC_OFFSET                  0x02C
-> +#define DSC_FLATNESS                    0x030
-> +#define DSC_RC_MODEL_SIZE               0x034
-> +#define DSC_RC                          0x038
-> +#define DSC_RC_BUF_THRESH               0x03C
-> +#define DSC_RANGE_MIN_QP                0x074
-> +#define DSC_RANGE_MAX_QP                0x0B0
-> +#define DSC_RANGE_BPG_OFFSET            0x0EC
-> +
-> +static void dpu_hw_dsc_disable(struct dpu_hw_dsc *dsc)
-> +{
-> +	struct dpu_hw_blk_reg_map *c = &dsc->hw;
-> +
-> +	DPU_REG_WRITE(c, DSC_COMMON_MODE, 0);
-> +}
-> +
-> +static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
-> +			      struct msm_display_dsc_config *dsc, u32 mode)
-> +{
-> +	struct dpu_hw_blk_reg_map *c = &hw_dsc->hw;
-> +	u32 data, lsb, bpp;
-> +	u32 initial_lines = dsc->initial_lines;
-> +	bool is_cmd_mode = !(mode & BIT(2));
-
-DSC_MODE_VIDEO
-
-> +
-> +	DPU_REG_WRITE(c, DSC_COMMON_MODE, mode);
-> +
-> +	if (is_cmd_mode)
-> +		initial_lines += 1;
-> +
-> +	data = (initial_lines << 20);
-> +	data |= ((dsc->slice_last_group_size - 1) << 18);
-> +	/* bpp is 6.4 format, 4 LSBs bits are for fractional part */
-> +	data |= dsc->drm->bits_per_pixel << 12;
-> +	lsb = dsc->drm->bits_per_pixel % 4;
-> +	bpp = dsc->drm->bits_per_pixel / 4;
-> +	bpp *= 4;
-> +	bpp <<= 4;
-> +	bpp |= lsb;
-> +
-> +	data |= bpp << 8;
-> +	data |= (dsc->drm->block_pred_enable << 7);
-> +	data |= (dsc->drm->line_buf_depth << 3);
-> +	data |= (dsc->drm->simple_422 << 2);
-> +	data |= (dsc->drm->convert_rgb << 1);
-> +	data |= dsc->drm->bits_per_component;
-> +
-> +	DPU_REG_WRITE(c, DSC_ENC, data);
-> +
-> +	data = dsc->drm->pic_width << 16;
-> +	data |= dsc->drm->pic_height;
-> +	DPU_REG_WRITE(c, DSC_PICTURE, data);
-> +
-> +	data = dsc->drm->slice_width << 16;
-> +	data |= dsc->drm->slice_height;
-> +	DPU_REG_WRITE(c, DSC_SLICE, data);
-> +
-> +	data = dsc->drm->slice_chunk_size << 16;
-> +	DPU_REG_WRITE(c, DSC_CHUNK_SIZE, data);
-> +
-> +	data = dsc->drm->initial_dec_delay << 16;
-> +	data |= dsc->drm->initial_xmit_delay;
-> +	DPU_REG_WRITE(c, DSC_DELAY, data);
-> +
-> +	data = dsc->drm->initial_scale_value;
-> +	DPU_REG_WRITE(c, DSC_SCALE_INITIAL, data);
-> +
-> +	data = dsc->drm->scale_decrement_interval;
-> +	DPU_REG_WRITE(c, DSC_SCALE_DEC_INTERVAL, data);
-> +
-> +	data = dsc->drm->scale_increment_interval;
-> +	DPU_REG_WRITE(c, DSC_SCALE_INC_INTERVAL, data);
-> +
-> +	data = dsc->drm->first_line_bpg_offset;
-> +	DPU_REG_WRITE(c, DSC_FIRST_LINE_BPG_OFFSET, data);
-> +
-> +	data = dsc->drm->nfl_bpg_offset << 16;
-> +	data |= dsc->drm->slice_bpg_offset;
-> +	DPU_REG_WRITE(c, DSC_BPG_OFFSET, data);
-> +
-> +	data = dsc->drm->initial_offset << 16;
-> +	data |= dsc->drm->final_offset;
-> +	DPU_REG_WRITE(c, DSC_DSC_OFFSET, data);
-> +
-> +	data = dsc->det_thresh_flatness << 10;
-> +	data |= dsc->drm->flatness_max_qp << 5;
-> +	data |= dsc->drm->flatness_min_qp;
-> +	DPU_REG_WRITE(c, DSC_FLATNESS, data);
-> +
-> +	data = dsc->drm->rc_model_size;
-> +	DPU_REG_WRITE(c, DSC_RC_MODEL_SIZE, data);
-> +
-> +	data = dsc->drm->rc_tgt_offset_low << 18;
-> +	data |= dsc->drm->rc_tgt_offset_high << 14;
-> +	data |= dsc->drm->rc_quant_incr_limit1 << 9;
-> +	data |= dsc->drm->rc_quant_incr_limit0 << 4;
-> +	data |= dsc->drm->rc_edge_factor;
-> +	DPU_REG_WRITE(c, DSC_RC, data);
-> +}
-> +
-> +static void dpu_hw_dsc_config_thresh(struct dpu_hw_dsc *hw_dsc,
-> +				     struct msm_display_dsc_config *dsc)
-
-I thought that it might make sense to pass just 
-drm_dsc_rc_range_parameters here, but it's a matter of personal 
-preference. I won't insist on doing that.
-
-> +{
-> +	struct drm_dsc_rc_range_parameters *rc = dsc->drm->rc_range_params;
-> +	struct dpu_hw_blk_reg_map *c = &hw_dsc->hw;
-> +	u32 off;
-> +	int i;
-> +
-> +	off = DSC_RC_BUF_THRESH;
-> +	for (i = 0; i < DSC_NUM_BUF_RANGES - 1 ; i++) {
-> +		DPU_REG_WRITE(c, off, dsc->drm->rc_buf_thresh[i]);
-> +		off += 4;
-> +	}
-> +
-> +	off = DSC_RANGE_MIN_QP;
-> +	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
-> +		DPU_REG_WRITE(c, off, rc[i].range_min_qp);
-> +		off += 4;
-> +	}
-> +
-> +	off = DSC_RANGE_MAX_QP;
-> +	for (i = 0; i < 15; i++) {
-> +		DPU_REG_WRITE(c, off, rc[i].range_max_qp);
-> +		off += 4;
-> +	}
-> +
-> +	off = DSC_RANGE_BPG_OFFSET;
-> +	for (i = 0; i < 15; i++) {
-> +		DPU_REG_WRITE(c, off, rc[i].range_bpg_offset);
-> +		off += 4;
-> +	}
-> +}
-> +
-> +static struct dpu_dsc_cfg *_dsc_offset(enum dpu_dsc dsc,
-> +				       struct dpu_mdss_cfg *m,
-> +				       void __iomem *addr,
-> +				       struct dpu_hw_blk_reg_map *b)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < m->dsc_count; i++) {
-> +		if (dsc == m->dsc[i].id) {
-> +			b->base_off = addr;
-> +			b->blk_off = m->dsc[i].base;
-> +			b->length = m->dsc[i].len;
-> +			b->hwversion = m->hwversion;
-> +			b->log_mask = DPU_DBG_MASK_DSC;
-> +			return &m->dsc[i];
-> +		}
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static void _setup_dsc_ops(struct dpu_hw_dsc_ops *ops,
-> +			   unsigned long cap)
-> +{
-> +	ops->dsc_disable = dpu_hw_dsc_disable;
-> +	ops->dsc_config = dpu_hw_dsc_config;
-> +	ops->dsc_config_thresh = dpu_hw_dsc_config_thresh;
-> +};
-> +
-> +struct dpu_hw_dsc *dpu_hw_dsc_init(enum dpu_dsc idx, void __iomem *addr,
-> +				   struct dpu_mdss_cfg *m)
-> +{
-> +	struct dpu_hw_dsc *c;
-> +	struct dpu_dsc_cfg *cfg;
-> +
-> +	c = kzalloc(sizeof(*c), GFP_KERNEL);
-> +	if (!c)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	cfg = _dsc_offset(idx, m, addr, &c->hw);
-> +	if (IS_ERR_OR_NULL(cfg)) {
-> +		kfree(c);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	c->idx = idx;
-> +	c->caps = cfg;
-> +	_setup_dsc_ops(&c->ops, c->caps->features);
-> +
-> +	return c;
-> +}
-> +
-> +void dpu_hw_dsc_destroy(struct dpu_hw_dsc *dsc)
-> +{
-> +	kfree(dsc);
-> +}
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
-> new file mode 100644
-> index 000000000000..648c9e4d8749
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
-> @@ -0,0 +1,77 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/* Copyright (c) 2020-2021, Linaro Limited */
-> +
-> +#ifndef _DPU_HW_DSC_H
-> +#define _DPU_HW_DSC_H
-> +
-> +#include <drm/drm_dsc.h>
-> +
-> +#define DSC_MODE_SPLIT_PANEL            BIT(0)
-> +#define DSC_MODE_MULTIPLEX              BIT(1)
-> +#define DSC_MODE_VIDEO                  BIT(2)
-> +
-> +struct dpu_hw_dsc;
-> +
-> +/**
-> + * struct dpu_hw_dsc_ops - interface to the dsc hardware driver functions
-> + * Assumption is these functions will be called after clocks are enabled
-> + */
-> +struct dpu_hw_dsc_ops {
-> +	/**
-> +	 * dsc_disable - disable dsc
-> +	 * @hw_dsc: Pointer to dsc context
-> +	 */
-> +	void (*dsc_disable)(struct dpu_hw_dsc *hw_dsc);
-> +
-> +	/**
-> +	 * dsc_config - configures dsc encoder
-> +	 * @hw_dsc: Pointer to dsc context
-> +	 * @dsc: panel dsc parameters
-> +	 * @mode: dsc topology mode to be set
-> +	 */
-> +	void (*dsc_config)(struct dpu_hw_dsc *hw_dsc,
-> +			   struct msm_display_dsc_config *dsc, u32 mode);
-> +
-> +	/**
-> +	 * dsc_config_thresh - programs panel thresholds
-> +	 * @hw_dsc: Pointer to dsc context
-> +	 * @dsc: panel dsc parameters
-> +	 */
-> +	void (*dsc_config_thresh)(struct dpu_hw_dsc *hw_dsc,
-> +				  struct msm_display_dsc_config *dsc);
-> +};
-> +
-> +struct dpu_hw_dsc {
-> +	struct dpu_hw_blk base;
-> +	struct dpu_hw_blk_reg_map hw;
-> +
-> +	/* dsc */
-> +	enum dpu_dsc idx;
-> +	const struct dpu_dsc_cfg *caps;
-> +
-> +	/* ops */
-> +	struct dpu_hw_dsc_ops ops;
-> +};
-> +
-> +/**
-> + * dpu_hw_dsc_init - initializes the dsc block for the passed dsc idx.
-> + * @idx:  DSC index for which driver object is required
-> + * @addr: Mapped register io address of MDP
-> + * @m:    Pointer to mdss catalog data
-> + * Returns: Error code or allocated dpu_hw_dsc context
-> + */
-> +struct dpu_hw_dsc *dpu_hw_dsc_init(enum dpu_dsc idx, void __iomem *addr,
-> +				   struct dpu_mdss_cfg *m);
-> +
-> +/**
-> + * dpu_hw_dsc_destroy - destroys dsc driver context
-> + * @dsc:   Pointer to dsc driver context returned by dpu_hw_dsc_init
-> + */
-> +void dpu_hw_dsc_destroy(struct dpu_hw_dsc *dsc);
-> +
-> +static inline struct dpu_hw_dsc *to_dpu_hw_dsc(struct dpu_hw_blk *hw)
-> +{
-> +	return container_of(hw, struct dpu_hw_dsc, base);
-> +}
-> +
-> +#endif /* _DPU_HW_DSC_H */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index bb9ceadeb0bb..b0ce8cb97d22 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -97,6 +97,7 @@ enum dpu_hw_blk_type {
->   	DPU_HW_BLK_WB,
->   	DPU_HW_BLK_DSPP,
->   	DPU_HW_BLK_MERGE_3D,
-> +	DPU_HW_BLK_DSC,
->   	DPU_HW_BLK_MAX,
->   };
->   
-> @@ -176,6 +177,17 @@ enum dpu_ctl {
->   	CTL_MAX
->   };
->   
-> +enum dpu_dsc {
-> +	DSC_NONE = 0,
-> +	DSC_0,
-> +	DSC_1,
-> +	DSC_2,
-> +	DSC_3,
-> +	DSC_4,
-> +	DSC_5,
-> +	DSC_MAX
-> +};
-> +
->   enum dpu_pingpong {
->   	PINGPONG_0 = 1,
->   	PINGPONG_1,
-> @@ -437,5 +449,6 @@ struct dpu_mdss_color {
->   #define DPU_DBG_MASK_VBIF     (1 << 8)
->   #define DPU_DBG_MASK_ROT      (1 << 9)
->   #define DPU_DBG_MASK_DSPP     (1 << 10)
-> +#define DPU_DBG_MASK_DSC      (1 << 11)
->   
->   #endif  /* _DPU_HW_MDSS_H */
-> 
+>   			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
+>   			assigned-clock-rates = <460000000>;
 
 
--- 
-With best wishes
-Dmitry
+Is this the correct fix for the issue?  I see those same messages on the 
+Lenovo Yoga C630 every so often as well as the blue screen, however I 
+see them on both 5.14 (which does not have the related commit to this), 
+and in 5.15-rcX, which does.  Or does this just revert it enough that it 
+doesn't occur as often?
+
