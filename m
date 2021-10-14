@@ -1,67 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D4142DAE5
-	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 15:54:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A7B42DB8B
+	for <lists+freedreno@lfdr.de>; Thu, 14 Oct 2021 16:29:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C17B56EADA;
-	Thu, 14 Oct 2021 13:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8806E9A0;
+	Thu, 14 Oct 2021 14:29:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0F26EADA
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 13:54:18 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id i24so26613628lfj.13
- for <freedreno@lists.freedesktop.org>; Thu, 14 Oct 2021 06:54:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76C706EC1C;
+ Thu, 14 Oct 2021 08:51:51 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ pf6-20020a17090b1d8600b0019fa884ab85so6395388pjb.5; 
+ Thu, 14 Oct 2021 01:51:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=X6cikJ4JX7npLghbX3IpSU36kokTCPk8W0b/girvHqE=;
- b=ZqPfRtzKM0rBjePxXwju7rbbAD39j1MRRbfxJ7Tu2ETwOruKGwNbXSuwBI050X8b9g
- GPNB5zvcZ1DL1zUFd3HVOgTKvi1AnpmgDQkjJqfYgpAkixXWX1QTsG1hfMzHDn6Z+WKW
- I/gYzrZTD5iTgqKmGPvz1FOAebtHehBnHmklDkAzIWpgOd38AoiInDDwStEt7rBHsa8v
- UZPEdlqn562iqOewx3IJgxkRxA0WWqMAQ/fcdABaW/odedtu5FTFQS+TeAYoK6Q9OFAV
- 1WW0qZtKjko8a195d28yOWN7BBvAzZgB78EyT3lLxyMRYjiEwACzswrbbQ5HojPon01e
- hK/g==
+ bh=FgQE+ym8i4wvHWS0EZRm4kYtX72BhEPEpt+mmgJQWzU=;
+ b=Xs81szH6fvLJX08xpQvV2HVvRNkf8u3FuPzmn2p0CBDrrCQroTNy8XhTl9hVDXGQy5
+ IAHOUEoId4sejVliRXRIhdhcmZHsQ8teSZflYqrXY/swUAu3xULh7EagfkRZI+hArOJc
+ XAB3RQnemN2oZBhgos3tuwpgF5wKItJjBVriyG5V3OvystJ1kR0RbRk9JSzhgN0Aj/2M
+ WZMV3WW7Q7PgoS8jL9QLd8kxv9FIAUrE1zVzjCNCzblqujSs02jVGBb8ekfnCpYAS4Ax
+ frLMHrv0i5Tb1suOsGY7Qe4F4iX6C1kSLBRPVDA+zwrhzfmfG2oLf8uaC4XbPrzui0hP
+ w66A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=X6cikJ4JX7npLghbX3IpSU36kokTCPk8W0b/girvHqE=;
- b=OeQBwHK55fGkfDOwsS4Ywk7NjpotDdRn78lWwe8FIbvoyX+3kHZv5aB5DCFO3oEPzj
- M/JbnKj+JGHnV0wPlCRZiVNcBeUrQIl1tnAqokjVv6/IZWVxTWc/gVBh1iE9O6PLJKkX
- kbJenEmcTRRdkEkHS2aj0S1ZEWkyE9A5DuzyJy5sGQFauFDHD8cfz1oAJFFss6gCh3eR
- X9+rRT/iHPlMV0DEwFbXr5VPQJr+CXNOCkHXGq/nYuRIPvawFjQUe7sImmbQphoRHjYm
- na2qxURCothzev4KEUDE/aBG2Spr6jc2+JOJ4zrF98/TNa5n46HykR3SIgiZPaHRkO2Q
- cfAg==
-X-Gm-Message-State: AOAM531XKHAz672VSQ7A5FTpMUp2QFdTQz7z5dLtCWoVtCgsf+3LVMO+
- hTRmXrDXqw1yV21GKyvm/f4px+uHO7s=
-X-Google-Smtp-Source: ABdhPJw3MTnPZ61G5M+z7XwzXDjHGnFQMA4O5Zs+/aWNq+CTwWr/BHPtD0/NQ3saH14kqILOEzwQuQ==
-X-Received: by 2002:a19:c1d2:: with SMTP id r201mr5163713lff.364.1634219651955; 
- Thu, 14 Oct 2021 06:54:11 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id p6sm233032lfs.109.2021.10.14.06.54.11
+ bh=FgQE+ym8i4wvHWS0EZRm4kYtX72BhEPEpt+mmgJQWzU=;
+ b=gD/oGWfM88JxS61UvSDhZcVkjhX4ygju1QP3xoxTzaWbAEc18UAuxbGKRf2mxmh339
+ D3gs6/GCOPOm4eHgyZy1YgB/LiFJVqp7t2kx3LbOMoTHgve4/DVDWfkvzqzlcCzXm+aC
+ WDaU1j/cM2gPKs8ssQEY8s3YfEWvwnO5PV3FUWbrwoZcOJhKDp26hs4Ci7frKkte1dru
+ E93QxarX3S2kLAMc0DfJLCNP/Xv6qamq2HPZK+Q+Bum3Dl12PScfMBP4VE3qjjayLk42
+ XtMCBmsqPo5aZSAJL32mQC0Yg+dTEC7ftTVHAbwSxbYg6OH8skwPk4kVcVr+6GiFQ2wa
+ DxUA==
+X-Gm-Message-State: AOAM530cDGviu1kaQnkqWF3aYVi2Xt3Wweh4DuVtAdrDGCBm3+CELzMZ
+ NjV9Q0qxguy+0h2isqmK8N8=
+X-Google-Smtp-Source: ABdhPJwxkwYvjtbetBrfk3EiM9oyFNUKrizOjVUXebdeDgAtZiGtoNhstxuwbMKuXEBYpxETOypi9w==
+X-Received: by 2002:a17:90b:4c0d:: with SMTP id
+ na13mr4851292pjb.232.1634201510946; 
+ Thu, 14 Oct 2021 01:51:50 -0700 (PDT)
+Received: from localhost.localdomain ([8.47.15.154])
+ by smtp.gmail.com with ESMTPSA id i2sm7968082pjt.19.2021.10.14.01.51.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Oct 2021 06:54:11 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Rob Herring <robh+dt@kernel.org>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- Amit Pundir <amit.pundir@linaro.org>
-Date: Thu, 14 Oct 2021 16:54:10 +0300
-Message-Id: <20211014135410.4136412-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.33.0
+ Thu, 14 Oct 2021 01:51:50 -0700 (PDT)
+From: Yanteng Si <siyanteng01@gmail.com>
+X-Google-Original-From: Yanteng Si <siyanteng@loongson.cn>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Cc: Yanteng Si <siyanteng@loongson.cn>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Date: Thu, 14 Oct 2021 16:51:32 +0800
+Message-Id: <cover.1634200323.git.siyanteng@loongson.cn>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] Revert "arm64: dts: qcom: sm8250: remove bus clock from
- the mdss node for sm8250 target"
+X-Mailman-Approved-At: Thu, 14 Oct 2021 14:29:30 +0000
+Subject: [Freedreno] [PATCH 0/2] drm/msm: fix build error
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,44 +74,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Amit Pundir <amit.pundir@linaro.org>
+Include linux/vmalloc.h to fix below errors:
 
-This reverts commit 001ce9785c0674d913531345e86222c965fc8bf4.
+error: implicit declaration of function 'vmap';
+error: implicit declaration of function 'register_vmap_purge_notifier'
+error: implicit declaration of function 'unregister_vmap_purge_notifier'
 
-This upstream commit broke AOSP (post Android 12 merge) build
-on RB5. The device either silently crashes into USB crash mode
-after android boot animation or we see a blank blue screen
-with following dpu errors in dmesg:
+Yanteng Si (2):
+  drm/msm: Fix missing include files in msm_gem.c
+  drm/msm: Fix missing include files in msm_gem_shrinker.c
 
-[  T444] hw recovery is not complete for ctl:3
-[  T444] [drm:dpu_encoder_phys_vid_prepare_for_kickoff:539] [dpu error]enc31 intf1 ctl 3 reset failure: -22
-[  T444] [drm:dpu_encoder_phys_vid_wait_for_commit_done:513] [dpu error]vblank timeout
-[  T444] [drm:dpu_kms_wait_for_commit_done:454] [dpu error]wait for commit done returned -110
-[    C7] [drm:dpu_encoder_frame_done_timeout:2127] [dpu error]enc31 frame done timeout
-[  T444] [drm:dpu_encoder_phys_vid_wait_for_commit_done:513] [dpu error]vblank timeout
-[  T444] [drm:dpu_kms_wait_for_commit_done:454] [dpu error]wait for commit done returned -110
+ drivers/gpu/drm/msm/msm_gem.c          | 1 +
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 ++
+ 2 files changed, 3 insertions(+)
 
-Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index 8c15d9fed08f..d12e4cbfc852 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -2590,9 +2590,10 @@
- 			power-domains = <&dispcc MDSS_GDSC>;
- 
- 			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+				 <&gcc GCC_DISP_HF_AXI_CLK>,
- 				 <&gcc GCC_DISP_SF_AXI_CLK>,
- 				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
--			clock-names = "iface", "nrt_bus", "core";
-+			clock-names = "iface", "bus", "nrt_bus", "core";
- 
- 			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
- 			assigned-clock-rates = <460000000>;
 -- 
-cgit v1.2.1
+2.27.0
 
