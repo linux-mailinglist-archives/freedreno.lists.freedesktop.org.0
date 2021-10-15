@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB6642FC6A
-	for <lists+freedreno@lfdr.de>; Fri, 15 Oct 2021 21:47:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 918D442FCED
+	for <lists+freedreno@lfdr.de>; Fri, 15 Oct 2021 22:18:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0A196EDE4;
-	Fri, 15 Oct 2021 19:47:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1256EA97;
+	Fri, 15 Oct 2021 20:18:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A13FD6EDE4;
- Fri, 15 Oct 2021 19:47:09 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10138"; a="227866926"
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="227866926"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2021 12:47:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,376,1624345200"; d="scan'208";a="461666479"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
- by orsmga002.jf.intel.com with SMTP; 15 Oct 2021 12:47:00 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 15 Oct 2021 22:46:59 +0300
-Date: Fri, 15 Oct 2021 22:46:59 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Claudio Suarez <cssk@net-c.es>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
-Message-ID: <YWnas70UYAdjZFKo@intel.com>
-References: <20211015113713.630119-1-cssk@net-c.es>
- <20211015113713.630119-2-cssk@net-c.es>
- <YWluAX6LA2DupE+E@intel.com> <YWnVVoCipTXxx8NW@gineta.localdomain>
- <YWnXierh4TSXpDMc@intel.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAD86E3DA
+ for <freedreno@lists.freedesktop.org>; Fri, 15 Oct 2021 20:18:46 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1634329126; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=ztFtYLAon4S9+RSVFvUiWbeqZf6yDNUuttsNFdoZDqs=;
+ b=XhC4YWNj2N3QC1A9OtQlNy2W2hSCqvz+gUpbBH1RKwIWzN3mVJAtD3lEEmMNe8DvkzIldKZH
+ 9lC06PZ3Nh5dwm0tPG6njLmLB5YQ76SFd/HXT90dDmAIqI+5fySyzGg3HhF6nEbBg3kGsytn
+ 9W9zpYPYffyaOMHAO18REgsC4qM=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 6169e22503355859c8bebf24 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 15 Oct 2021 20:18:45
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C3A2BC43616; Fri, 15 Oct 2021 20:18:44 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E1AC8C4338F;
+ Fri, 15 Oct 2021 20:18:43 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <YWnXierh4TSXpDMc@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH 01/15] gpu/drm: make
- drm_add_edid_modes() consistent when updating connector->display_info
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 15 Oct 2021 13:18:43 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Jonathan Marek
+ <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20211001165011.441945-1-dmitry.baryshkov@linaro.org>
+References: <20211001165011.441945-1-dmitry.baryshkov@linaro.org>
+Message-ID: <8590f18041e51860e5fc0c3a749beb26@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 0/3] drm/msm: drop old eDP support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,87 +74,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 15, 2021 at 10:33:29PM +0300, Ville Syrjälä wrote:
-> On Fri, Oct 15, 2021 at 09:24:06PM +0200, Claudio Suarez wrote:
-> > On Fri, Oct 15, 2021 at 03:03:13PM +0300, Ville Syrjälä wrote:
-> > > On Fri, Oct 15, 2021 at 01:36:59PM +0200, Claudio Suarez wrote:
-> > > > According to the documentation, drm_add_edid_modes
-> > > > "... Also fills out the &drm_display_info structure and ELD in @connector
-> > > > with any information which can be derived from the edid."
-> > > > 
-> > > > drm_add_edid_modes accepts a struct edid *edid parameter which may have a
-> > > > value or may be null. When it is not null, connector->display_info and
-> > > > connector->eld are updated according to the edid. When edid=NULL, only
-> > > > connector->eld is reset. Reset connector->display_info to be consistent
-> > > > and accurate.
-> > > > 
-> > > > Signed-off-by: Claudio Suarez <cssk@net-c.es>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_edid.c | 2 ++
-> > > >  1 file changed, 2 insertions(+)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> > > > index 6325877c5fd6..6cbe09b2357c 100644
-> > > > --- a/drivers/gpu/drm/drm_edid.c
-> > > > +++ b/drivers/gpu/drm/drm_edid.c
-> > > > @@ -5358,10 +5358,12 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
-> > > >  
-> > > >  	if (edid == NULL) {
-> > > >  		clear_eld(connector);
-> > > > +		drm_reset_display_info(connector);
-> > > >  		return 0;
-> > > >  	}
-> > > >  	if (!drm_edid_is_valid(edid)) {
-> > > >  		clear_eld(connector);
-> > > > +		drm_reset_display_info(connector);
-> > > 
-> > > Looks easier if you pull both of those out from these branches and
-> > > just call them unconditionally at the start.
-> > 
-> > After looking at the full code, I am not sure. This is the code:
-> > ==================
-> > int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
-> > {
-> >         int num_modes = 0;
-> >         u32 quirks;
-> > 
-> >         if (edid == NULL) {
-> >                 clear_eld(connector);
-> >                 drm_reset_display_info(connector); <--- added by me
-> >                 return 0;
-> >         }
-> >         if (!drm_edid_is_valid(edid)) {
-> >                 clear_eld(connector);
-> >                 drm_reset_display_info(connector); <--- added by me
-> >                 drm_warn(connector->dev, "%s: EDID invalid.\n",
-> >                          connector->name);
-> >                 return 0;
-> >         }
-> > 
-> >         drm_edid_to_eld(connector, edid);
-> > 
-> >         quirks = drm_add_display_info(connector, edid);
-> > 	etc...
-> > =================
-> > 
-> > If we move those out of these branches and edid != NULL, we are executing an
-> > unnecessary clear_eld(connector) and an unnecessary drm_reset_display_info(connector)
-> > because the fields will be set in the next drm_edid_to_eld(connector, edid) and
-> > drm_add_display_info(connector, edid)
-> > 
-> > Do we want this ?
-> 
-> Seems fine by me. And maybe we could nuke the second
-> drm_reset_display_info() from deeper inside drm_add_display_info()?
-> Not sure if drm_add_display_info() still has to be able to operate
-> standalone or not.
-> 
-> Hmm. Another option is to just move all these NULL/invalid edid
-> checks into drm_edid_to_eld() and drm_add_display_info().
+Hi Dmitry
 
-But maybe that's not so easy. Would still need to bail out
-from drm_add_edid_modes() I guess.
+No concerns from our side to drop this.
 
--- 
-Ville Syrjälä
-Intel
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org> for the series.
+
+Thanks
+
+Abhinav
+
+On 2021-10-01 09:50, Dmitry Baryshkov wrote:
+> MSM DRM driver has support for eDP block present on MSM 8x74/8x84 SoC
+> families. However since addition back in 2015 this driver received only
+> generic fixes. No actual devices with these SoCs supported upstream (or
+> by the community) seem to support eDP panels. Judging from downstream
+> kernels the eDP was present only on MSM8974 LIQUID or on APQ8084 CDP.
+> Remove this driver.
+> 
+> ----------------------------------------------------------------
+> Dmitry Baryshkov (3):
+>       drm/msm/mdp5: drop eDP support
+>       drm/msm/edp: drop old eDP support
+>       dt-bindings: display/msm: remove edp.txt
+> 
+>  .../devicetree/bindings/display/msm/edp.txt        |   56 -
+>  drivers/gpu/drm/msm/Makefile                       |    6 -
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   17 +-
+>  drivers/gpu/drm/msm/edp/edp.c                      |  198 ---
+>  drivers/gpu/drm/msm/edp/edp.h                      |   77 --
+>  drivers/gpu/drm/msm/edp/edp.xml.h                  |  388 ------
+>  drivers/gpu/drm/msm/edp/edp_aux.c                  |  265 ----
+>  drivers/gpu/drm/msm/edp/edp_bridge.c               |  111 --
+>  drivers/gpu/drm/msm/edp/edp_connector.c            |  132 --
+>  drivers/gpu/drm/msm/edp/edp_ctrl.c                 | 1375 
+> --------------------
+>  drivers/gpu/drm/msm/edp/edp_phy.c                  |   98 --
+>  drivers/gpu/drm/msm/msm_drv.c                      |    2 -
+>  drivers/gpu/drm/msm/msm_drv.h                      |   12 -
+>  13 files changed, 1 insertion(+), 2736 deletions(-)
+>  delete mode 100644 
+> Documentation/devicetree/bindings/display/msm/edp.txt
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp.c
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp.h
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp.xml.h
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp_aux.c
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp_bridge.c
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp_connector.c
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp_ctrl.c
+>  delete mode 100644 drivers/gpu/drm/msm/edp/edp_phy.c
