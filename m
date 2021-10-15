@@ -2,70 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D059542E8DE
-	for <lists+freedreno@lfdr.de>; Fri, 15 Oct 2021 08:20:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4B742F026
+	for <lists+freedreno@lfdr.de>; Fri, 15 Oct 2021 14:03:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 765F76ECD3;
-	Fri, 15 Oct 2021 06:20:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D24466ED10;
+	Fri, 15 Oct 2021 12:03:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
- [209.85.222.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B26016ECD3;
- Fri, 15 Oct 2021 06:20:46 +0000 (UTC)
-Received: by mail-ua1-f47.google.com with SMTP id q13so16003042uaq.2;
- Thu, 14 Oct 2021 23:20:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EeqGcsm7RTKlniuoQ/dGkOIPSSc1dZROADBLZSH8YyY=;
- b=jY2Asl6RBYmf3lRkbarvHAR2azLEzgCgrs1Vs58Koo8rAf8JoWeiAfhfokJaw2mv2r
- EmfX3ecG8611yhHbLwvxDwf18yjoEbC+vbryxypvJh2nicfWiBB9FPLfSzKzmoX/2h8G
- xqKTyj4UB6CXMc42jEt40UJhNQuj36VTyW3p5pKKtDTCBZYtnVHNGHBEDV8iP+a5oSUS
- xumbV7wB/tbKzwK5C26MD4NA+OYZBVmZsDBoeSVhU2JtmltrT/b8sX8/7C9BeJvAv3v3
- Xfj0EtCrItxZ5ooRhtzsDA0QIA8jDBGbrmH7jTKJqQd4Uj07jufoPvsFIB161BdF4L9M
- Bsgg==
-X-Gm-Message-State: AOAM533H2EAACdV1IrA1/Vk/z4SzM+wseIQ1HhqsNdld8HfsogxKARY1
- UaHAErWNKgxNl8flUPHWY1Y6g+qlwtNj8w==
-X-Google-Smtp-Source: ABdhPJx5dq4bAipWjm6O0nc7EJIHUZ7b9UKjsZfNlJvENuavfs7icf9Uy1C9tcFMAngpmXtBLANV1w==
-X-Received: by 2002:a05:6102:3f0f:: with SMTP id
- k15mr12132859vsv.10.1634278845340; 
- Thu, 14 Oct 2021 23:20:45 -0700 (PDT)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com.
- [209.85.222.54])
- by smtp.gmail.com with ESMTPSA id g6sm3202334vsj.12.2021.10.14.23.20.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Oct 2021 23:20:44 -0700 (PDT)
-Received: by mail-ua1-f54.google.com with SMTP id f4so15977956uad.4;
- Thu, 14 Oct 2021 23:20:43 -0700 (PDT)
-X-Received: by 2002:ab0:538a:: with SMTP id k10mr11690117uaa.14.1634278843480; 
- Thu, 14 Oct 2021 23:20:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20211013144308.2248978-1-arnd@kernel.org>
- <e88d5a3f-2c46-f891-c505-87e20bf714e9@linaro.org>
-In-Reply-To: <e88d5a3f-2c46-f891-c505-87e20bf714e9@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 Oct 2021 08:20:31 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXe74a32nkM0+yETnGL9P6TrtcpXEpHS0j__Ye8GRBKdA@mail.gmail.com>
-Message-ID: <CAMuHMdXe74a32nkM0+yETnGL9P6TrtcpXEpHS0j__Ye8GRBKdA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Arnd Bergmann <arnd@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, 
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4221A6ED0D;
+ Fri, 15 Oct 2021 12:03:23 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10137"; a="208015447"
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="208015447"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2021 05:03:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.85,375,1624345200"; d="scan'208";a="488090838"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by fmsmga007.fm.intel.com with SMTP; 15 Oct 2021 05:03:14 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 15 Oct 2021 15:03:13 +0300
+Date: Fri, 15 Oct 2021 15:03:13 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Claudio Suarez <cssk@net-c.es>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Arnd Bergmann <arnd@arndb.de>, 
- Randy Dunlap <rdunlap@infradead.org>, Alex Elder <elder@linaro.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Rajeev Nandan <rajeevny@codeaurora.org>, 
- Abhinav Kumar <abhinavk@codeaurora.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- DRI Development <dri-devel@lists.freedesktop.org>,
- freedreno@lists.freedesktop.org, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm: msm: fix building without
- CONFIG_COMMON_CLK
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
+Message-ID: <YWluAX6LA2DupE+E@intel.com>
+References: <20211015113713.630119-1-cssk@net-c.es>
+ <20211015113713.630119-2-cssk@net-c.es>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211015113713.630119-2-cssk@net-c.es>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH 01/15] gpu/drm: make drm_add_edid_modes()
+ consistent when updating connector->display_info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,42 +74,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+On Fri, Oct 15, 2021 at 01:36:59PM +0200, Claudio Suarez wrote:
+> According to the documentation, drm_add_edid_modes
+> "... Also fills out the &drm_display_info structure and ELD in @connector
+> with any information which can be derived from the edid."
+> 
+> drm_add_edid_modes accepts a struct edid *edid parameter which may have a
+> value or may be null. When it is not null, connector->display_info and
+> connector->eld are updated according to the edid. When edid=NULL, only
+> connector->eld is reset. Reset connector->display_info to be consistent
+> and accurate.
+> 
+> Signed-off-by: Claudio Suarez <cssk@net-c.es>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 6325877c5fd6..6cbe09b2357c 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -5358,10 +5358,12 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+>  
+>  	if (edid == NULL) {
+>  		clear_eld(connector);
+> +		drm_reset_display_info(connector);
+>  		return 0;
+>  	}
+>  	if (!drm_edid_is_valid(edid)) {
+>  		clear_eld(connector);
+> +		drm_reset_display_info(connector);
 
-On Fri, Oct 15, 2021 at 2:26 AM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
-> On 13/10/2021 17:42, Arnd Bergmann wrote:
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > When CONFIG_COMMON_CLOCK is disabled, the 8996 specific
-> > phy code is left out, which results in a link failure:
-> >
-> > ld: drivers/gpu/drm/msm/hdmi/hdmi_phy.o:(.rodata+0x3f0): undefined reference to `msm_hdmi_phy_8996_cfg'
-> >
-> > This was only exposed after it became possible to build
-> > test the driver without the clock interfaces.
-> >
-> > Make COMMON_CLK a hard dependency for compile testing,
-> > and simplify it a little based on that.
-> >
-> > Fixes: b3ed524f84f5 ("drm/msm: allow compile_test on !ARM")
-> > Reported-by: Randy Dunlap <rdunlap@infradead.org>
-> > Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
-> This drops dependency on CONFIG_OF. While ARM64 selects OF, pure ARM
-> does not.
+Looks easier if you pull both of those out from these branches and
+just call them unconditionally at the start.
 
-But SOC_IMX5 depends on ARCH_MULTI_V7, which depends on
-ARCH_MULTIPLATFORM, which selects USE_OF, which selects OF.
+>  		drm_warn(connector->dev, "%s: EDID invalid.\n",
+>  			 connector->name);
+>  		return 0;
+> -- 
+> 2.33.0
+> 
+> 
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-- 
+Ville Syrjälä
+Intel
