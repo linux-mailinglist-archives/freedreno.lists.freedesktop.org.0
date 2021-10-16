@@ -1,52 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D406843054E
-	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 00:17:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3272A43054A
+	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 00:17:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63A4A6E8FB;
-	Sat, 16 Oct 2021 22:17:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 359956E8F4;
+	Sat, 16 Oct 2021 22:17:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD446E8F6
- for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 22:17:01 +0000 (UTC)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- n15-20020a4ad12f000000b002b6e3e5fd5dso388078oor.1
- for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 15:17:01 -0700 (PDT)
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2796E8F4
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 22:17:02 +0000 (UTC)
+Received: by mail-ot1-x32a.google.com with SMTP id
+ l10-20020a056830154a00b00552b74d629aso769661otp.5
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 15:17:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=YCldvVc/GAW/slmnXCOBbon0kUi8IujN99j0wGc0Qok=;
- b=IczW/rI+KCJMj4UJ0xuZXt8fK4/dUd6jCLECu9YvS8izjoIBu2E54TmymUBMFMW3vi
- WcAoFcM/ewacm0E9evClgmk52nGAOX/t8HljhwY4Yuucfp6tXg9KFWeFbWWddo/y4F8K
- nd5uKet4+hVNTszkYWEfis2J1c24NdiI3TzK5kC+p+JMgJdGxrLALklYowjCFj1rrQmi
- VEm3J1/eEUbiaanf5OCaNRrMidNBBgYh6L+8rszeegK1B3ebutu9+F/vFFJun2A+ODoz
- zZF8UMA/jMHSTpnwHgR9Ys6t600eHl2jutiziHBDHwhz5gl+6HDGMJZqPRyIXSjsruN4
- Z35A==
+ bh=f3Y7Ha8qdHXB57ScuBGUf5G032rtC1aky5TYdKeHYlc=;
+ b=SMPbkoRBB/lcOrzbs9uZ+F6Va/xvb4NkR7QxSekAe6cWEZj23J6RoSS072CbhPFDxP
+ 9CNlSwRIyMQi/vCboyvGcqBGiC3bBwNUsau1uVcOYQODu1okGWl+pWWYUXDPJtR367St
+ LfZFCS6zMV+JAtOdlsVr9sWK4ePwJuC6nSW+reiwChzB7qQvx+KTC32b51nG7qqpFSG2
+ 19S5HtRqL9qAa0AYpXlHHAe8fggbFMimJWUSt2gMi8tgOd73+qv3q33/wcYAUCBmk5+7
+ tfy3NMASW2VeveqXztb3/eM5CkThQBn0jP4PJbY6IkRpe7zNfNdJIrFYyW9qaJI8vuQU
+ whqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=YCldvVc/GAW/slmnXCOBbon0kUi8IujN99j0wGc0Qok=;
- b=ER++lXlxmAqB6mkrlIQealxzaGXUfYjFsqsw6rEKG2xbzbdBNDW+4EgV9x+wjQgQ6J
- Mi48ZdapUzyW3yepMTjqgM0vPXNMP81+chZ2H0bpjJsJHlWds62oaJK+jBHOSW0hve9X
- 7oI/nO5G4tVgohRrL6j2CDHmbPHw/FnxdQiCJWmRBtCaMUBzRCcKy8uj9+MKizBRbrlN
- 4wD49IuZ09GHYa9bpY7d6fK8Artv8c2oYQhp1tEO8ddBjy8SRnZPnZHV+fyf39O9o7bL
- /a5pOAtCBv3oMQzNjsfD6xfYDccODg7B/ldmiFgxnqLFkN6m0i7q/QZcasq5voLN2gTr
- B0MA==
-X-Gm-Message-State: AOAM5337PapMCtb0ifw5lL6fgHMOCIAVWpBV6zD35fEPre/HMZawWTeT
- Q2+kyeWgRcg7A7zuxxEqNv0RDA==
-X-Google-Smtp-Source: ABdhPJw9eAziXbPqcUM3c4j08KGbMhhUyk8hEsiILchOvxT7cjtqsS0/2BYQFMDISFiJeGTW/t7Vgg==
-X-Received: by 2002:a4a:a847:: with SMTP id p7mr11089393oom.78.1634422620720; 
- Sat, 16 Oct 2021 15:17:00 -0700 (PDT)
+ bh=f3Y7Ha8qdHXB57ScuBGUf5G032rtC1aky5TYdKeHYlc=;
+ b=M1nlmFAPgPp1nRAXXOp/EXOB6UPj24oLPQrH+8nqOtjKzEld2zuAkemjaengii5yNM
+ sJ2CLKlE2d3O3Wh55i2Dc60QYkDAJXpEjededhl6LL+IGp//QOlvsCQk3HEE/E7+9LN4
+ 1cjmOW9uyAE89ZQiO2CMhJr9fm0l6l8OpfDBo5jSLTQejt5Wp4JAtT7Zgvng2vwAZb55
+ iJLzHdUMgni5c3uWCxViaP4SEln5PIRPjvO97bQza0cfkte+CQS3h/AcdoiglcdkSrRi
+ MWovTKsHI9ge5RNAi36rdkgvLL7WG0ng2VdJXiDK1gPtDl4x6AziuwVaAAb2dovYtg1E
+ Ql9w==
+X-Gm-Message-State: AOAM533RqgkMYCFLJ4OXcszJ9517hFAlqS+uagSAQ8Y0CjL7wzRMOVdN
+ qdGoK1NlYWmMGh9tYoMufxcDZg==
+X-Google-Smtp-Source: ABdhPJzbwAZ/58KHc9+pbm7OqifA8z0XA/zCUc73KhUCSVuimzfE5a7HsQuELxSbBB65p3p+C2mrBA==
+X-Received: by 2002:a9d:70c4:: with SMTP id w4mr2703584otj.170.1634422621620; 
+ Sat, 16 Oct 2021 15:17:01 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
  by smtp.gmail.com with ESMTPSA id
- d15sm1747058oic.32.2021.10.16.15.16.59
+ d15sm1747058oic.32.2021.10.16.15.17.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 Oct 2021 15:17:00 -0700 (PDT)
+ Sat, 16 Oct 2021 15:17:01 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -57,15 +57,14 @@ To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
 Cc: Rob Herring <robh+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Sat, 16 Oct 2021 15:18:42 -0700
-Message-Id: <20211016221843.2167329-7-bjorn.andersson@linaro.org>
+Date: Sat, 16 Oct 2021 15:18:43 -0700
+Message-Id: <20211016221843.2167329-8-bjorn.andersson@linaro.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20211016221843.2167329-1-bjorn.andersson@linaro.org>
 References: <20211016221843.2167329-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 6/7] dt-bindings: msm/dp: Add SC8180x
- compatibles
+Subject: [Freedreno] [PATCH v5 7/7] drm/msm/dp: Add sc8180x DP controllers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,33 +80,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Qualcomm SC8180x has 2 DP controllers and 1 eDP controller, add
-compatibles for these to the msm/dp binding.
+The sc8180x has 2 DP and 1 eDP controllers, add support for these to the
+DP driver.
 
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Link: https://lore.kernel.org/linux-arm-msm/20210725042436.3967173-7-bjorn.andersson@linaro.org/
 Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
 
 Changes since v4:
-- None
+- Use the MSM_DP_CONTROLLER_n enums
+- const the msm_dp_desc array
 
- .../devicetree/bindings/display/msm/dp-controller.yaml          | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  6 +++---
+ drivers/gpu/drm/msm/dp/dp_display.c            | 11 +++++++++++
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index 6bb424c21340..63e585f48789 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -17,6 +17,8 @@ properties:
-   compatible:
-     enum:
-       - qcom,sc7180-dp
-+      - qcom,sc8180x-dp
-+      - qcom,sc8180x-edp
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 47d5d71eb5d3..0ac6a79e8af9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -918,13 +918,13 @@ static const struct dpu_intf_cfg sc7280_intf[] = {
+ };
  
-   reg:
-     items:
+ static const struct dpu_intf_cfg sc8180x_intf[] = {
+-	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
++	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+ 	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+ 	INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+ 	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+ 	INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+-	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
+-	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
++	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
++	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, MSM_DP_CONTROLLER_2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+ };
+ 
+ /*************************************************************
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d3c9d7273354..70dcd4e6d466 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -135,8 +135,19 @@ static const struct msm_dp_config sc7180_dp_cfg = {
+ 	.num_descs = 1,
+ };
+ 
++static const struct msm_dp_config sc8180x_dp_cfg = {
++	.descs = (const struct msm_dp_desc[]) {
++		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
++		[MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
++		[MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
++	},
++	.num_descs = 3,
++};
++
+ static const struct of_device_id dp_dt_match[] = {
+ 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
++	{ .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
++	{ .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_cfg },
+ 	{}
+ };
+ 
 -- 
 2.29.2
 
