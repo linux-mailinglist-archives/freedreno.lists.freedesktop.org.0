@@ -1,59 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314584304A8
-	for <lists+freedreno@lfdr.de>; Sat, 16 Oct 2021 21:18:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B5A1430537
+	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 00:17:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBE36E4FF;
-	Sat, 16 Oct 2021 19:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 465E06E8B9;
+	Sat, 16 Oct 2021 22:16:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from msg-6.mailo.com (ip-16.mailobj.net [213.182.54.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEFD36E4F4;
- Sat, 16 Oct 2021 19:18:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634409871; bh=1/OydcnVwUBndNkWR/YOnashKy6VPirsEbA4L+EOJZ4=;
- h=X-EA-Auth:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
- References:MIME-Version:Content-Transfer-Encoding;
- b=B+raApksCV4XRqSp/CLYivelmjavkNwNTYU3glC0Wkh/vSU/vSsj1/9suEmuxRRNT
- gAyLMUD8ZKXgVUVE8NYDSHJ9eFo5ZxRyZmI2zQEc2G+5NiCQYeA7rzLA2pjNhxwetc
- PxLfzkekLTPDpFCscTAhBTojzRJaLFUIrzG6d5hE=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Sat, 16 Oct 2021 20:44:05 +0200 (CEST)
-X-EA-Auth: H/qsRidbIT3KyEA1EBIFm5A01FGasDKWzj1hSWYlxZfFW7bFlONyivG9ZdF8Eyke822OO7m3noOUPyoxCYBst0C4EfHo4iWT
-From: Claudio Suarez <cssk@net-c.es>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F280C6E8B9
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 22:16:55 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id g125so18678413oif.9
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 15:16:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9ujg6PKfSs2XOzYYHdPfFh++V/EwomxD0QVcYgfLZXo=;
+ b=bWLopzPXV0sZJ2LSwu41r+EPZMlLquM8s17awzNbFsWQAvNQP3ysIA6BjXqDaOvT07
+ FoPsOPzBGSkErL9hZs5bUhmBVFlFlw0BEXx1y6vSadNWxyp0syScVEP7xfzYUiKYUcb2
+ XMHDLAonIuvWwiVjsNMWyOc1aNN8Ew1DwZqg79F5xfAFZ5N7w7l68UJ2HoUyDsuXRDGB
+ uTwKq6tDfoTcNb69w6wKA1shhumJFyxEWUfGqJZ+QvJMa7dD5DFIHzkgVlm1sWqtPVyX
+ mDQif9GoD6HwjyWYozcLLiaQQoSKGclDteZbep0MPD7RzQaxsLgAwke+Zm1v0563lals
+ d9eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9ujg6PKfSs2XOzYYHdPfFh++V/EwomxD0QVcYgfLZXo=;
+ b=uKzLe4h/B+TttbQD/aO2bVtuwvaPI3kTQUxya1+VaZGRIELNIbMJnoIm3fWZA5a3Vy
+ 5zwsViT2h3bEExG0HhBulaWLYFeZyi+KMpJCiIjpEoqJvXMuJGmXL3+z7PkYMGF5RnoD
+ tXtFJkwPEmoRel6KAjdwjSTOayMGMJS6F6O3pDrPaSL0feib6dfQHh3SDijnf1MuIz5m
+ uJPgCjLlaXD9bNGDPbioJt/gCLHQIJFtTUHGPXgOAyga7JcLXfKctVgs4UmVrRpAFAaS
+ eI+GL1JqiFvb2ObKQQGOz4MLQNpCqA3HZTRO8J9IbY6RUvBZ0S7pf6fnxmbizBnqu1zL
+ kKBw==
+X-Gm-Message-State: AOAM531Kx+AvfJKZOCyAalDV/VafVbRzc7/SKywIqaRYXLHcHdTjX3PV
+ OGijkbyok292ck4Jwa0pDvLuWw==
+X-Google-Smtp-Source: ABdhPJx7Ixjt5pToz+8Du+Kf33f+u70q+ZoT74guovCjf5YAM7lolr8SqhxQm3rOVRMfvryCj1ruRQ==
+X-Received: by 2002:aca:5dc5:: with SMTP id
+ r188mr22884478oib.160.1634422615143; 
+ Sat, 16 Oct 2021 15:16:55 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id
+ d15sm1747058oic.32.2021.10.16.15.16.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 16 Oct 2021 15:16:54 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, ville.syrjala@linux.intel.com
-Cc: Claudio Suarez <cssk@net-c.es>
-Date: Sat, 16 Oct 2021 20:42:26 +0200
-Message-Id: <20211016184226.3862-14-cssk@net-c.es>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211016184226.3862-1-cssk@net-c.es>
-References: <20211016184226.3862-1-cssk@net-c.es>
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kalyan Thota <kalyan_t@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>
+Cc: Rob Herring <robh+dt@kernel.org>, Stephen Boyd <swboyd@chromium.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Sat, 16 Oct 2021 15:18:36 -0700
+Message-Id: <20211016221843.2167329-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 13/13] drm/i915: replace
- drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+Subject: [Freedreno] [PATCH v5 0/5] drm/msm/dp: Support multiple DP
+ instances and add sc8180x
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,48 +79,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Once EDID is parsed, the monitor HDMI support information is available
-through drm_display_info.is_hdmi. Retriving the same information with
-drm_detect_hdmi_monitor() is less efficient. Change to
-drm_display_info.is_hdmi where possible.
+The current implementation supports a single DP instance and the DPU code will
+only match it against INTF_DP instance 0. These patches extends this to allow
+multiple DP instances and support for matching against DP instances beyond 0.
 
-This is a TODO task in Documentation/gpu/todo.rst
+With that in place add SC8180x DP and eDP controllers.
 
-Signed-off-by: Claudio Suarez <cssk@net-c.es>
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+Bjorn Andersson (7):
+  drm/msm/dp: Remove global g_dp_display variable
+  drm/msm/dp: Modify prototype of encoder based API
+  drm/msm/dp: Allow specifying connector_type per controller
+  drm/msm/dp: Allow attaching a drm_panel
+  drm/msm/dp: Support up to 3 DP controllers
+  dt-bindings: msm/dp: Add SC8180x compatibles
+  drm/msm/dp: Add sc8180x DP controllers
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index b04685bb6439..008e5b0ba408 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2355,7 +2355,7 @@ intel_hdmi_set_edid(struct drm_connector *connector)
- 	to_intel_connector(connector)->detect_edid = edid;
- 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
- 		intel_hdmi->has_audio = drm_detect_monitor_audio(edid);
--		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
-+		intel_hdmi->has_hdmi_sink = connector->display_info.is_hdmi;
- 
- 		connected = true;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 6cb27599ea03..b4065e4df644 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2060,8 +2060,9 @@ intel_sdvo_tmds_sink_detect(struct drm_connector *connector)
- 		if (edid->input & DRM_EDID_INPUT_DIGITAL) {
- 			status = connector_status_connected;
- 			if (intel_sdvo_connector->is_hdmi) {
--				intel_sdvo->has_hdmi_monitor = drm_detect_hdmi_monitor(edid);
- 				intel_sdvo->has_hdmi_audio = drm_detect_monitor_audio(edid);
-+				intel_sdvo->has_hdmi_monitor =
-+							    connector->display_info.is_hdmi;
- 			}
- 		} else
- 			status = connector_status_disconnected;
+ .../bindings/display/msm/dp-controller.yaml   |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  23 +--
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |   8 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  66 ++++----
+ .../gpu/drm/msm/disp/msm_disp_snapshot_util.c |   8 +-
+ drivers/gpu/drm/msm/dp/dp_display.c           | 153 ++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_display.h           |   2 +
+ drivers/gpu/drm/msm/dp/dp_drm.c               |  13 +-
+ drivers/gpu/drm/msm/dp/dp_parser.c            |  30 +++-
+ drivers/gpu/drm/msm/dp/dp_parser.h            |   3 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   9 +-
+ 11 files changed, 205 insertions(+), 112 deletions(-)
+
 -- 
-2.33.0
-
+2.29.2
 
