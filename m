@@ -2,54 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE6C44305E3
-	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 03:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6054D4305E7
+	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 03:32:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E44A86E90F;
-	Sun, 17 Oct 2021 01:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F22B16E90F;
+	Sun, 17 Oct 2021 01:32:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94626E56D
- for <freedreno@lists.freedesktop.org>; Sun, 17 Oct 2021 01:31:54 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- e59-20020a9d01c1000000b00552c91a99f7so296631ote.6
- for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 18:31:54 -0700 (PDT)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3F366E90F
+ for <freedreno@lists.freedesktop.org>; Sun, 17 Oct 2021 01:32:23 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id o83so19116097oif.4
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Oct 2021 18:32:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=Mf0Mwk4Nvj9HUEe3bQ6ZCswhorXqyTpELHryvN43LX0=;
- b=ktf+x61/yH16k3GIVUn9Uco046qC1qV6GoQrHIzfWAt5dEvcyFOVtXj5zvIJHepK1u
- Sg1WH8QkUmDWekxPMe/PsUq59SULVXtWX3eR5H0oM9F3SOGMRG0tLQi8L8GUt3MTWL+p
- v67sCkR29toFeJxP+Xsq2HjrMpOz5ZQIWJ+0Q=
+ bh=2wy87Ngcu7gVRUKvzaxFI3AG8ttBjWS13MSfr80Tlnw=;
+ b=Yz2U+KS+8IlSi/BJ9Aa0q6OomQhz9T99n2XyNvmu8tLFnrxR7oWndK9jZGw2pvVYxd
+ zzfe0BKVkv0bWf/kocXFO8C7+cxvQq5UVc2fkF32ONIXJupUWROCG2whGlpy+K50kCXh
+ Rzjx6cBP7z48rwQlRDLo6WSsQYYRbhsSYdNp8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=Mf0Mwk4Nvj9HUEe3bQ6ZCswhorXqyTpELHryvN43LX0=;
- b=0chNlbBB7Fl95gS8pqhiDNXzUYImuU4+b48o7ZO7GoMd5q+xsoWqZsveDrXqQEUPPO
- 38jVcAxXjJ5pIrCoAG6CbN2+WTAjH5wbjBT0McCi8mfsDCbq1Kt6Zt5uuSdRkWk2LuwF
- A7ON/giyz17Ze8ExKgfw3/O8CLDuGb1ptmSbyzOX8gfFAD+GeA7IN06Nl+oyMAd4puI7
- lhIwFHGgtlU/L1WoK5Z3UAEqVdDQGFmVRRnxULY+ofRv5RaGihxXOcfbwlML3YGinurW
- 898VFKAQUTtPHCa05BOIWX0gj7Kmr2aw4JTIWvQiYsu7tJ/BMjrFBvRK1XKq55s5QOsO
- VhgQ==
-X-Gm-Message-State: AOAM530AMvVxoB+l8Ydwq4Dlzziy+qkofEPwhPoxp0AyICFYqVYMSq0X
- mQb440HzZKWVANnSeYGlBRfP0FSRnCQYMPzIDbI+Gw==
-X-Google-Smtp-Source: ABdhPJzzZYs3G7Cs5Kx0YRYBhZZYkqRuo62R0Tx74imA+M7M9wHiZ5oWBZcO2tUw6r5JwbttYUQ1DUTJaey7RPOEM34=
-X-Received: by 2002:a05:6830:1c2e:: with SMTP id
- f14mr14737706ote.159.1634434314051; 
- Sat, 16 Oct 2021 18:31:54 -0700 (PDT)
+ bh=2wy87Ngcu7gVRUKvzaxFI3AG8ttBjWS13MSfr80Tlnw=;
+ b=rflxKamWknDrRRjQiHhx1C5iRF+XsaqNdzeikQhUPYe6M03+3jNYban4yX8NkUZeJp
+ 1+WVvZCZq5AJQrNoAvjzuYFG98EkN0hCEspnKE/ue0P96nymIw8uYjxCKL273MtKvTZi
+ WwLjh50sUKHSPMoXtCVlDP7Oze4cUtUgYXCST2iQqWlfTdd0v9IjzMP0tr8UdGMehFSH
+ 7tGHsqeUETdAp+YehVRqtHA4J/24VadCGjsZtoJa4wqnvM8JeBkdnFvGLmUnjWeK7dPy
+ vp4SK77bDh9S0GFG9LtesB+kAF9ksEaNW6NKax7jBU0g4j0gqwHfyyfuVjWVVShcznUp
+ yxmw==
+X-Gm-Message-State: AOAM530wO3yt8IoPSXZ+ZVnsfIqyHxOfEIJKbTOIgtzZhiXlOsmrYm4Y
+ zo2dpvcRJTLK/Z3Ig5MxqUHfm4t9lW1DWkgey4gEOg==
+X-Google-Smtp-Source: ABdhPJy9TGOZNQrC0+Gt3LlttQmcsoNpL5AXVWWKf1RKVOfK+qDdiu0E74boUW3aoYhS7g527dvN6POC4ocGd8TjeKw=
+X-Received: by 2002:a05:6808:23c2:: with SMTP id
+ bq2mr8370296oib.32.1634434342991; 
+ Sat, 16 Oct 2021 18:32:22 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 16 Oct 2021 20:31:53 -0500
+ HTTPREST; Sat, 16 Oct 2021 20:32:22 -0500
 MIME-Version: 1.0
 In-Reply-To: <20211016221843.2167329-8-bjorn.andersson@linaro.org>
 References: <20211016221843.2167329-1-bjorn.andersson@linaro.org>
  <20211016221843.2167329-8-bjorn.andersson@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Sat, 16 Oct 2021 20:31:53 -0500
-Message-ID: <CAE-0n515j1xqZqQUky2eom_Jq9E7rHOHPastZ7Xp2zGbv0ypCQ@mail.gmail.com>
+Date: Sat, 16 Oct 2021 20:32:22 -0500
+Message-ID: <CAE-0n53R79HOoBsuLXVkVhYotFam8k4mWZqWnaiJcqcr7w522w@mail.gmail.com>
 To: Abhinav Kumar <abhinavk@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
@@ -83,7 +82,5 @@ Quoting Bjorn Andersson (2021-10-16 15:18:43)
 > DP driver.
 >
 > Link: https://lore.kernel.org/linux-arm-msm/20210725042436.3967173-7-bjorn.andersson@linaro.org/
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+BTW, was the link intentional?
