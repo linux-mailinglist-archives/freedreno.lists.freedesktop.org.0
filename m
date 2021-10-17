@@ -2,68 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7E6430AD6
-	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 18:40:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97A8430BF1
+	for <lists+freedreno@lfdr.de>; Sun, 17 Oct 2021 22:14:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBD56E7FA;
-	Sun, 17 Oct 2021 16:40:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3777B6E581;
+	Sun, 17 Oct 2021 20:14:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A2826E7FA
- for <freedreno@lists.freedesktop.org>; Sun, 17 Oct 2021 16:40:16 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- o26-20020a4abe9a000000b002b74bffdef0so1189492oop.12
- for <freedreno@lists.freedesktop.org>; Sun, 17 Oct 2021 09:40:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=S+wD9XkgSed3YnQrWeHZSeNz6phpMb5NOVyWUp1LNR8=;
- b=IqRj1TgGnkmpeqB32fjFM4JGdwwpjL3umO4j6FYp4tM0j2vnN1b+zcHFo+VVJ+Oumb
- Q838SKAo/Waru9Dnnryg7vfLZRYGdlBn2T1y+3+FL18PbTNEfX5LyQNyfU6FINvLXxbY
- YUkJozYh8elTnWdoGOBV3TkFzZLdPKkcQSfAbjv9nnD4Thwr+RYFbQcB/hHmGrIkLeTT
- H+OoXpvF5iryEE47MjaSSHqcM+DKNmqkrRr+1JwbQWn0KHLm1+ai3gzktMZ1V9Y+0voN
- qe8sTFRxqgrVfGhR0Jxl8N04zUOTi5ZKhTeEtS6WPXFo0+wPXc3zsTEs9mZTPEig46S0
- 15iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=S+wD9XkgSed3YnQrWeHZSeNz6phpMb5NOVyWUp1LNR8=;
- b=ARSuavkCz8zNQCzSWYQz7IQDh1JjqqUwIL3XRSQ0XGp7yP8FVKkGPw085hrIi2so88
- tE2xKFF0VH4iGGVkTY53ixRDa+U2iZWoZrslu1B97hmIfCU3ysY7YCgMPORXQYeSIBjX
- JBeulAHvNKv8/UMSXZv6se6rsY9c3dsTWIdXrt7DPgLpcLUSXK2lZVLPwo5UQ82AZN7W
- IrCCSLfGWF5N1NTqJw3r3bxQ7Jlvc6aCNiN9Q7M5bpcc4CYkHNucBvcB8L8WVD5SjKpB
- C0sDPDL8SW0CWn1xiQHL+hPO+NE8RkinIRVoN7niQ0biCbVz6tPPp5CZBcbLaozhwx3v
- i1Pg==
-X-Gm-Message-State: AOAM533ifWfBsdbsOpB3jPbaGzdV2VQhhhqK7qxh3SvG1v7HG+y/YqK0
- +Wt/zyXKhX71PEJ27CrR8lllNQ==
-X-Google-Smtp-Source: ABdhPJxV1Dyy+xIIE2S8LmCEwYcnn47VfSispukfh6RIemyyEc+rIhY/8swuUr7SZouT5A4LUkO+Cw==
-X-Received: by 2002:a4a:e1fd:: with SMTP id u29mr17911773ood.0.1634488815468; 
- Sun, 17 Oct 2021 09:40:15 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id t8sm2547964otc.74.2021.10.17.09.40.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Oct 2021 09:40:14 -0700 (PDT)
-Date: Sun, 17 Oct 2021 09:42:02 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: abhinavk@codeaurora.org
-Cc: Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-ID: <YWxSWlRp+log+Trz@ripper>
-References: <20211015231702.1784254-1-bjorn.andersson@linaro.org>
- <f72263e0d4c118653fff8b1341dc487b@codeaurora.org>
+X-Greylist: delayed 4198 seconds by postgrey-1.36 at gabe;
+ Sun, 17 Oct 2021 20:14:50 UTC
+Received: from ixit.cz (ixit.cz [94.230.151.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B7656E581
+ for <freedreno@lists.freedesktop.org>; Sun, 17 Oct 2021 20:14:50 +0000 (UTC)
+Received: from localhost.localdomain (ip-89-176-96-70.net.upcbroadband.cz
+ [89.176.96.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id 919B624E6A;
+ Sun, 17 Oct 2021 16:45:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1634481920;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lDR3tL8zinqjwKC77wErQTWWwi4c/sNOcyUoRUMKOlo=;
+ b=eLLhtJd1RxKZ24oYsejJ0IbQIOQEBU6fyeW+ojTrQqBOQ0THKZ/+UwtOMu5oEU6pjGoJ1m
+ xkaOw+fqZIkhSGC2BDyNU+rrJxS5qmvKJJWRUrU3N+w4DFw3jjfEZi0W+hezzAi0ffdPoz
+ wcaVKihXgHl6ltZ5VAbUeTYStNVv9Yc=
+From: David Heidelberg <david@ixit.cz>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ~okias/devicetree@lists.sr.ht,
+ ~postmarketos/upstreaming@lists.sr.ht, David Heidelberg <david@ixit.cz>
+Date: Sun, 17 Oct 2021 16:43:50 +0200
+Message-Id: <20211017144350.70295-1-david@ixit.cz>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f72263e0d4c118653fff8b1341dc487b@codeaurora.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Move debugfs files into
- subdirectory
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v6] dt-bindings: drm/msm/gpu: convert to YAML
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,117 +59,503 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 15 Oct 16:53 PDT 2021, abhinavk@codeaurora.org wrote:
+Conversion of text binding for Adreno GPU to the YAML format.
 
-> On 2021-10-15 16:17, Bjorn Andersson wrote:
-> > In the cleanup path of the MSM DP driver the DP driver's debugfs files
-> > are destroyed by invoking debugfs_remove_recursive() on debug->root,
-> > which during initialization has been set to minor->debugfs_root.
-> > 
-> > To allow cleaning up the DP driver's debugfs files either each dentry
-> > needs to be kept track of or the files needs to be put in a subdirectory
-> > which can be removed in one go.
-> > 
-> > By choosing to put the debugfs files in a subdirectory, based on the
-> > name of the associated connector this also solves the problem that these
-> > names would collide as support for multiple DP instances are introduced.
-> > 
-> > One alternative solution to the problem with colliding file names would
-> > have been to put keep track of the individual files and put them under
-> > the connector's debugfs directory. But while the drm_connector has been
-> > allocated, its associated debugfs directory has not been created at the
-> > time of initialization of the dp_debug.
-> > 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> 
-> I have been thinking about this problem ever since multi-DP has been posted
-> :)
-> Creating sub-directories seems right but at the moment it looks like IGT
-> which
-> uses these debugfs nodes doesnt check sub-directories:
-> 
-> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tools/msm_dp_compliance.c#L215
-> 
-> It looks for the DP debugfs nodes under /sys/kernel/debug/dri/*/
-> 
-> We have to fix IGT too to be able to handle multi-DP cases. I will try to
-> come up
-> with a proposal to address this.
-> 
-> Till then, can we go with the other solution to keep track of the dentries?
-> 
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+v2:
+  - added compatbile description from Rob Clark
+  - dropped reg description
+  - reg numbers increased to 3 (since we also have uncommon cx_dbgc)
+  - specified interconnect-names items range
+  - defined zap-shader as an object and added it's properties
+  - enforce 0 clocks for Andreno >= 6xx since it's defined in GMU node
 
-I'm afraid I don't see what you're proposing.
+v3:
+ - fix patterns (add backslash before dot)
+ - add additional clocks
+ - adreno@ -> gpu@
+ - add few const and change enum to anyOf
+ - added clock & clock-names placeholder in non-conditional part
+ (description)
 
-Afaict we need one set of dp_test{type,active,data} per DP controller,
-so even doing this by keeping track of the dentries requires that we
-rename the files based on some identifier (id or connector name) - which
-will cause igt to break.
+v4:
+ - clock & clock-names - true,false instead maxItems
+ - impl. #stream-id-cells, nvmem-cell-names, nvmem-cells
+ - dropped requirement on firmware-name in zap_shader
 
-As such, I think the practical path forward is that we merge the
-multi-DP series as currently proposed. This will not cause any issues on
-single-DP systems, but on multi-DP systems we will have warnings about
-duplicate debugfs entries in the kernel logs.
+v5:
+ - maxOtems -> maxItems typo fix
 
-Then you can figure out how to rework igt to deal with the multiple DP
-instances and update the dp_debug interface accordingly.
+v6:
+ - enum -> const to fix ordering
+ - opp-table is object
+ - spacing
+ - drop undocumented and unused #stream-id-cells
 
+ .../devicetree/bindings/display/msm/gpu.txt   | 157 ----------
+ .../devicetree/bindings/display/msm/gpu.yaml  | 288 ++++++++++++++++++
+ 2 files changed, 288 insertions(+), 157 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/gpu.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/gpu.yaml
 
-Which also implies that we should hold this patch back. But if we go
-that path, I think we should fix dp_debug_deinit() so that it doesn't
-remove /sys/kernel/debug/dri/128 when the DP driver is unloaded.
+diff --git a/Documentation/devicetree/bindings/display/msm/gpu.txt b/Documentation/devicetree/bindings/display/msm/gpu.txt
+deleted file mode 100644
+index 090dcb3fc34d..000000000000
+--- a/Documentation/devicetree/bindings/display/msm/gpu.txt
++++ /dev/null
+@@ -1,157 +0,0 @@
+-Qualcomm adreno/snapdragon GPU
+-
+-Required properties:
+-- compatible: "qcom,adreno-XYZ.W", "qcom,adreno" or
+-	      "amd,imageon-XYZ.W", "amd,imageon"
+-    for example: "qcom,adreno-306.0", "qcom,adreno"
+-  Note that you need to list the less specific "qcom,adreno" (since this
+-  is what the device is matched on), in addition to the more specific
+-  with the chip-id.
+-  If "amd,imageon" is used, there should be no top level msm device.
+-- reg: Physical base address and length of the controller's registers.
+-- interrupts: The interrupt signal from the gpu.
+-- clocks: device clocks (if applicable)
+-  See ../clocks/clock-bindings.txt for details.
+-- clock-names: the following clocks are required by a3xx, a4xx and a5xx
+-  cores:
+-  * "core"
+-  * "iface"
+-  * "mem_iface"
+-  For GMU attached devices the GPU clocks are not used and are not required. The
+-  following devices should not list clocks:
+-   - qcom,adreno-630.2
+-- iommus: optional phandle to an adreno iommu instance
+-- operating-points-v2: optional phandle to the OPP operating points
+-- interconnects: optional phandle to an interconnect provider.  See
+-  ../interconnect/interconnect.txt for details. Some A3xx and all A4xx platforms
+-  will have two paths; all others will have one path.
+-- interconnect-names: The names of the interconnect paths that correspond to the
+-  interconnects property. Values must be gfx-mem and ocmem.
+-- qcom,gmu: For GMU attached devices a phandle to the GMU device that will
+-  control the power for the GPU. Applicable targets:
+-    - qcom,adreno-630.2
+-- zap-shader: For a5xx and a6xx devices this node contains a memory-region that
+-  points to reserved memory to store the zap shader that can be used to help
+-  bring the GPU out of secure mode.
+-- firmware-name: optional property of the 'zap-shader' node, listing the
+-  relative path of the device specific zap firmware.
+-- sram: phandle to the On Chip Memory (OCMEM) that's present on some a3xx and
+-        a4xx Snapdragon SoCs. See
+-        Documentation/devicetree/bindings/sram/qcom,ocmem.yaml.
+-
+-Optional properties:
+-- #cooling-cells: The value must be 2. For details, please refer
+-	Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
+-
+-Example 3xx/4xx:
+-
+-/ {
+-	...
+-
+-	gpu: adreno@fdb00000 {
+-		compatible = "qcom,adreno-330.2",
+-		             "qcom,adreno";
+-		reg = <0xfdb00000 0x10000>;
+-		reg-names = "kgsl_3d0_reg_memory";
+-		interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
+-		interrupt-names = "kgsl_3d0_irq";
+-		clock-names = "core",
+-		              "iface",
+-		              "mem_iface";
+-		clocks = <&mmcc OXILI_GFX3D_CLK>,
+-		         <&mmcc OXILICX_AHB_CLK>,
+-		         <&mmcc OXILICX_AXI_CLK>;
+-		sram = <&gpu_sram>;
+-		power-domains = <&mmcc OXILICX_GDSC>;
+-		operating-points-v2 = <&gpu_opp_table>;
+-		iommus = <&gpu_iommu 0>;
+-		#cooling-cells = <2>;
+-	};
+-
+-	gpu_sram: ocmem@fdd00000 {
+-		compatible = "qcom,msm8974-ocmem";
+-
+-		reg = <0xfdd00000 0x2000>,
+-		      <0xfec00000 0x180000>;
+-		reg-names = "ctrl",
+-		            "mem";
+-
+-		clocks = <&rpmcc RPM_SMD_OCMEMGX_CLK>,
+-		         <&mmcc OCMEMCX_OCMEMNOC_CLK>;
+-		clock-names = "core",
+-		              "iface";
+-
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-
+-		gpu_sram: gpu-sram@0 {
+-			reg = <0x0 0x100000>;
+-			ranges = <0 0 0xfec00000 0x100000>;
+-		};
+-	};
+-};
+-
+-Example a6xx (with GMU):
+-
+-/ {
+-	...
+-
+-	gpu@5000000 {
+-		compatible = "qcom,adreno-630.2", "qcom,adreno";
+-		#stream-id-cells = <16>;
+-
+-		reg = <0x5000000 0x40000>, <0x509e000 0x10>;
+-		reg-names = "kgsl_3d0_reg_memory", "cx_mem";
+-
+-		#cooling-cells = <2>;
+-
+-		/*
+-		 * Look ma, no clocks! The GPU clocks and power are
+-		 * controlled entirely by the GMU
+-		 */
+-
+-		interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		iommus = <&adreno_smmu 0>;
+-
+-		operating-points-v2 = <&gpu_opp_table>;
+-
+-		interconnects = <&rsc_hlos MASTER_GFX3D &rsc_hlos SLAVE_EBI1>;
+-		interconnect-names = "gfx-mem";
+-
+-		gpu_opp_table: opp-table {
+-			compatible = "operating-points-v2";
+-
+-			opp-430000000 {
+-				opp-hz = /bits/ 64 <430000000>;
+-				opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
+-				opp-peak-kBps = <5412000>;
+-			};
+-
+-			opp-355000000 {
+-				opp-hz = /bits/ 64 <355000000>;
+-				opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
+-				opp-peak-kBps = <3072000>;
+-			};
+-
+-			opp-267000000 {
+-				opp-hz = /bits/ 64 <267000000>;
+-				opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
+-				opp-peak-kBps = <3072000>;
+-			};
+-
+-			opp-180000000 {
+-				opp-hz = /bits/ 64 <180000000>;
+-				opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
+-				opp-peak-kBps = <1804000>;
+-			};
+-		};
+-
+-		qcom,gmu = <&gmu>;
+-
+-		zap-shader {
+-			memory-region = <&zap_shader_region>;
+-			firmware-name = "qcom/LENOVO/81JL/qcdxkmsuc850.mbn"
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+new file mode 100644
+index 000000000000..99a1ba3ada56
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+@@ -0,0 +1,288 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++
++$id: "http://devicetree.org/schemas/display/msm/gpu.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: Devicetree bindings for the Adreno or Snapdragon GPUs
++
++maintainers:
++  - Rob Clark <robdclark@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - description: |
++          The driver is parsing the compat string for Adreno to
++          figure out the gpu-id and patch level.
++        items:
++          - pattern: '^qcom,adreno-[3-6][0-9][0-9]\.[0-9]$'
++          - const: qcom,adreno
++      - description: |
++          The driver is parsing the compat string for Imageon to
++          figure out the gpu-id and patch level.
++        items:
++          - pattern: '^amd,imageon-200\.[0-1]$'
++          - const: amd,imageon
++
++  clocks: true
++
++  clock-names: true
++
++  reg:
++    minItems: 1
++    maxItems: 3
++
++  reg-names:
++    minItems: 1
++    items:
++      - const: kgsl_3d0_reg_memory
++      - const: cx_mem
++      - const: cx_dbgc
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    maxItems: 1
++
++  interconnects:
++    minItems: 1
++    maxItems: 2
++
++  interconnect-names:
++    minItems: 1
++    items:
++      - const: gfx-mem
++      - const: ocmem
++
++  iommus:
++    maxItems: 1
++
++  sram:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    minItems: 1
++    maxItems: 4
++    description: |
++      phandles to one or more reserved on-chip SRAM regions.
++      phandle to the On Chip Memory (OCMEM) that's present on some a3xx and
++      a4xx Snapdragon SoCs. See
++      Documentation/devicetree/bindings/sram/qcom,ocmem.yaml
++
++  operating-points-v2: true
++  opp-table:
++    type: object
++
++  power-domains:
++    maxItems: 1
++
++  zap-shader:
++    type: object
++    description: |
++      For a5xx and a6xx devices this node contains a memory-region that
++      points to reserved memory to store the zap shader that can be used to
++      help bring the GPU out of secure mode.
++    properties:
++      memory-region:
++        $ref: /schemas/types.yaml#/definitions/phandle
++
++      firmware-name:
++        description: |
++          Default name of the firmware to load to the remote processor.
++
++  "#cooling-cells":
++    const: 2
++
++  nvmem-cell-names:
++    maxItems: 1
++
++  nvmem-cells:
++    description: efuse registers
++    maxItems: 1
++
++  qcom,gmu:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: |
++      For GMU attached devices a phandle to the GMU device that will
++      control the power for the GPU.
++
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            pattern: '^qcom,adreno-[3-5][0-9][0-9]\.[0-9]$'
++
++    then:
++      properties:
++        clocks:
++          minItems: 2
++          maxItems: 7
++
++        clock-names:
++          items:
++            anyOf:
++              - const: core
++                description: GPU Core clock
++              - const: iface
++                description: GPU Interface clock
++              - const: mem
++                description: GPU Memory clock
++              - const: mem_iface
++                description: GPU Memory Interface clock
++              - const: alt_mem_iface
++                description: GPU Alternative Memory Interface clock
++              - const: gfx3d
++                description: GPU 3D engine clock
++              - const: rbbmtimer
++                description: GPU RBBM Timer for Adreno 5xx series
++          minItems: 2
++          maxItems: 7
++
++      required:
++        - clocks
++        - clock-names
++  - if:
++      properties:
++        compatible:
++          contains:
++            pattern: '^qcom,adreno-6[0-9][0-9]\.[0-9]$'
++
++    then: # Since Adreno 6xx series clocks should be defined in GMU
++      properties:
++        clocks: false
++        clock-names: false
++
++examples:
++  - |
++
++    // Example a3xx/4xx:
++
++    #include <dt-bindings/clock/qcom,mmcc-msm8974.h>
++    #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpu: gpu@fdb00000 {
++        compatible = "qcom,adreno-330.2", "qcom,adreno";
++
++        reg = <0xfdb00000 0x10000>;
++        reg-names = "kgsl_3d0_reg_memory";
++
++        clock-names = "core", "iface", "mem_iface";
++        clocks = <&mmcc OXILI_GFX3D_CLK>,
++                 <&mmcc OXILICX_AHB_CLK>,
++                 <&mmcc OXILICX_AXI_CLK>;
++
++        interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "kgsl_3d0_irq";
++
++        sram = <&gpu_sram>;
++        power-domains = <&mmcc OXILICX_GDSC>;
++        operating-points-v2 = <&gpu_opp_table>;
++        iommus = <&gpu_iommu 0>;
++        #cooling-cells = <2>;
++    };
++
++    ocmem@fdd00000 {
++        compatible = "qcom,msm8974-ocmem";
++
++        reg = <0xfdd00000 0x2000>,
++              <0xfec00000 0x180000>;
++        reg-names = "ctrl", "mem";
++
++        clocks = <&rpmcc RPM_SMD_OCMEMGX_CLK>,
++                 <&mmcc OCMEMCX_OCMEMNOC_CLK>;
++        clock-names = "core", "iface";
++
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0 0xfec00000 0x100000>;
++
++        gpu_sram: gpu-sram@0 {
++            reg = <0x0 0x100000>;
++        };
++    };
++  - |
++
++    // Example a6xx (with GMU):
++
++    #include <dt-bindings/clock/qcom,gpucc-sdm845.h>
++    #include <dt-bindings/clock/qcom,gcc-sdm845.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interconnect/qcom,sdm845.h>
++
++    reserved-memory {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        zap_shader_region: gpu@8f200000 {
++            compatible = "shared-dma-pool";
++            reg = <0x0 0x90b00000 0x0 0xa00000>;
++            no-map;
++        };
++    };
++
++    gpu@5000000 {
++        compatible = "qcom,adreno-630.2", "qcom,adreno";
++
++        reg = <0x5000000 0x40000>, <0x509e000 0x10>;
++        reg-names = "kgsl_3d0_reg_memory", "cx_mem";
++
++        #cooling-cells = <2>;
++
++        interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH>;
++
++        iommus = <&adreno_smmu 0>;
++
++        operating-points-v2 = <&gpu_opp_table>;
++
++        interconnects = <&rsc_hlos MASTER_GFX3D &rsc_hlos SLAVE_EBI1>;
++        interconnect-names = "gfx-mem";
++
++        qcom,gmu = <&gmu>;
++
++        gpu_opp_table: opp-table {
++            compatible = "operating-points-v2";
++
++            opp-430000000 {
++                opp-hz = /bits/ 64 <430000000>;
++                opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++                opp-peak-kBps = <5412000>;
++            };
++
++            opp-355000000 {
++                opp-hz = /bits/ 64 <355000000>;
++                opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++                opp-peak-kBps = <3072000>;
++            };
++
++            opp-267000000 {
++                opp-hz = /bits/ 64 <267000000>;
++                opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++                opp-peak-kBps = <3072000>;
++            };
++
++            opp-180000000 {
++                opp-hz = /bits/ 64 <180000000>;
++                opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++                opp-peak-kBps = <1804000>;
++            };
++        };
++
++        zap-shader {
++            memory-region = <&zap_shader_region>;
++            firmware-name = "qcom/LENOVO/81JL/qcdxkmsuc850.mbn";
++        };
++    };
+-- 
+2.33.0
 
-Regards,
-Bjorn
-
-> > ---
-> > 
-> > This depends on
-> > https://lore.kernel.org/linux-arm-msm/20211010030435.4000642-1-bjorn.andersson@linaro.org/
-> > reducing the connector from a double pointer.
-> > 
-> >  drivers/gpu/drm/msm/dp/dp_debug.c | 15 +++++++++------
-> >  1 file changed, 9 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c
-> > b/drivers/gpu/drm/msm/dp/dp_debug.c
-> > index da4323556ef3..67da4c69eca1 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_debug.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
-> > @@ -210,26 +210,29 @@ static const struct file_operations
-> > test_active_fops = {
-> >  static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor
-> > *minor)
-> >  {
-> >  	int rc = 0;
-> > +	char path[64];
-> >  	struct dp_debug_private *debug = container_of(dp_debug,
-> >  			struct dp_debug_private, dp_debug);
-> > 
-> > -	debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
-> > +	snprintf(path, sizeof(path), "msm_dp-%s", debug->connector->name);
-> > +
-> > +	debug->root = debugfs_create_dir(path, minor->debugfs_root);
-> > +
-> > +	debugfs_create_file("dp_debug", 0444, debug->root,
-> >  			debug, &dp_debug_fops);
-> > 
-> >  	debugfs_create_file("msm_dp_test_active", 0444,
-> > -			minor->debugfs_root,
-> > +			debug->root,
-> >  			debug, &test_active_fops);
-> > 
-> >  	debugfs_create_file("msm_dp_test_data", 0444,
-> > -			minor->debugfs_root,
-> > +			debug->root,
-> >  			debug, &dp_test_data_fops);
-> > 
-> >  	debugfs_create_file("msm_dp_test_type", 0444,
-> > -			minor->debugfs_root,
-> > +			debug->root,
-> >  			debug, &dp_test_type_fops);
-> > 
-> > -	debug->root = minor->debugfs_root;
-> > -
-> >  	return rc;
-> >  }
