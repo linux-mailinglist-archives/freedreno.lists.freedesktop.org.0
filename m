@@ -1,74 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0642043291D
-	for <lists+freedreno@lfdr.de>; Mon, 18 Oct 2021 23:35:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 907994329FD
+	for <lists+freedreno@lfdr.de>; Tue, 19 Oct 2021 01:08:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D0236E0F0;
-	Mon, 18 Oct 2021 21:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F5856EAA5;
+	Mon, 18 Oct 2021 23:08:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD5546E0F0;
- Mon, 18 Oct 2021 21:35:09 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- a140-20020a1c7f92000000b0030d8315b593so505927wmd.5; 
- Mon, 18 Oct 2021 14:35:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4XnmvNvPxfEVQWVq8EDgUudNaRlsqBTECY97KmH3+qU=;
- b=O0zLSgwbv/mkY4bc4Kww3dE+SdAgue0GUdt7Qe7jFGrv9/CqH/cNqfg6OqtVT/iq8W
- 06tWL8aeII2Qtp82LRpcTg+VWuaJ9vTe9169Q65ifvVFpRGyJ5j9T9i+85aQ608x2eSa
- kTH+WXzreNwNVkxswqH/U43e5XlaySzrug5pAbn1uXPUkcCSowgjvIPZmcqLk7+AbnMh
- OOHr9INXUktXDJMe233LClz/YafxvJtpDz51b7bOYuG2TyMdSBDp1gjqnMky0jNEXnNz
- 61vwJswFQPPdTiEkxvMIYQzKt8BusLS26DQRkeGiIJwIx8l3/iPpUQ8E+J8lr3U3cqCF
- fe9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4XnmvNvPxfEVQWVq8EDgUudNaRlsqBTECY97KmH3+qU=;
- b=Cg+GV1uOqEd82b9qzQhT+UKxERCojh/CH/aouTjHjepXP8hTvxkcXDm4IQTRLvPCFe
- aYkZI+YE9bFZJaVQLCXZtdEGuQw9TjGh7Wxctc0+vx3ThXYiAwJmiMQOrCaG0Tet8vbB
- H2iOHI6ve9Glx/STVZifx9KFq8iKp4HjFs0b425aQyIJ7lvil2T1J/8XM0tThq9iyqY/
- SlRBFQnY31QZRcsSMe3gLG/QX/Cb2xvTtMGsW3gPswHmMl1p75cBZTxPFu6fUSKzmqXy
- DQZ2dvQqNxZqP0lr1v/YtXAEktHB1H8wC2X7RPiLQINMYC3nbFdgyewkLgtI76Po1obS
- aj7w==
-X-Gm-Message-State: AOAM532hNEhekftdkFeL5vF1nYA9ZJpK3aIjJycHhR8349bRrKTxQ4JF
- NaNJQQMoRPmp1AMj5XK898sGD/lwhIR7yp2H1gs=
-X-Google-Smtp-Source: ABdhPJzhkbwDthvcSIEV0Hy1PC5sK3geesT4m3ojkKN7yJzHPDU3Yix216y4pCnSidZYgZUwO7yn99zm1abKlrnJpco=
-X-Received: by 2002:a05:600c:4f43:: with SMTP id
- m3mr1484775wmq.151.1634592908342; 
- Mon, 18 Oct 2021 14:35:08 -0700 (PDT)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03DC66EAA3
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Oct 2021 23:07:59 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1634598479; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=CHs2EnROtj+eI2bECiXGaoryEmZF7c86X9Ki3HRSSFs=;
+ b=YWJdsUimkMycZTbmB1egH6drFJz7znPwgQHW++je8DDLr2ztV1fnm7YH9bwMhH+zz0/IdLhe
+ Rw7TxD305O1bshN8LXgBLZcwXO6rx71C/EECt1cStMOFp+3J2cUEfGVuOn+Yy5EZc3Rd0n9Y
+ mdjKoTqjGZfloZ9qVZthnTPETe0=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 616dfe4e3416c2cb702e9cc7 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 18 Oct 2021 23:07:58
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 229D6C43619; Mon, 18 Oct 2021 23:07:58 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id ECA93C4338F;
+ Mon, 18 Oct 2021 23:07:56 +0000 (UTC)
 MIME-Version: 1.0
-References: <20211018153627.2787882-1-robdclark@gmail.com>
- <CALAqxLU=O2yaJ=ZOtg0S-zX4KyirbXNx+0iF3EJ9d4=rVL6Z=Q@mail.gmail.com>
- <5c460ee3-9079-02a7-e674-a4dde5815f0d@linaro.org>
-In-Reply-To: <5c460ee3-9079-02a7-e674-a4dde5815f0d@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 18 Oct 2021 14:39:46 -0700
-Message-ID: <CAF6AEGusfFofWh6eE1fPd_6PQ2KQpZ2sU9GSxnvbqaTi5_nwtw@mail.gmail.com>
-To: Caleb Connolly <caleb.connolly@linaro.org>
-Cc: John Stultz <john.stultz@linaro.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>, 
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <akhilpo@codeaurora.org>, 
- Jonathan Marek <jonathan@marek.ca>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sharat Masetty <smasetty@codeaurora.org>, 
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, 
- Amit Pundir <amit.pundir@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/devfreq: Restrict idle clamping to
- a618 for now
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 18 Oct 2021 16:07:56 -0700
+From: abhinavk@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David
+ Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Kalyan Thota <kalyan_t@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Rob Herring <robh+dt@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20211016221843.2167329-4-bjorn.andersson@linaro.org>
+References: <20211016221843.2167329-1-bjorn.andersson@linaro.org>
+ <20211016221843.2167329-4-bjorn.andersson@linaro.org>
+Message-ID: <94c1d92263498f83c39d3383cc122a05@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v5 3/7] drm/msm/dp: Allow specifying
+ connector_type per controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,50 +77,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 18, 2021 at 10:33 AM Caleb Connolly
-<caleb.connolly@linaro.org> wrote:
->
-> Hi all,
->
-> On 18/10/2021 17:42, John Stultz wrote:
-> > On Mon, Oct 18, 2021 at 8:31 AM Rob Clark <robdclark@gmail.com> wrote:
-> >>
-> >> From: Rob Clark <robdclark@chromium.org>
-> >>
-> >> Until we better understand the stability issues caused by frequent
-> >> frequency changes, lets limit them to a618.
-> >>
-> >> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >> ---
-> >> Caleb/John, I think this should help as a workaround for the power
-> >> instability issues on a630.. could you give it a try?
-> >
-> > While I hit it fairly often, I can't reliably reproduce the crash, but
-> > in limited testing this seems ok to me.
-> > I've not hit the crash so far, nor seen any other negative side
-> > effects over 5.14.
-> >
-> > So for what that's worth:
-> > Tested-by: John Stultz <john.stultz@linaro.org>
-> >
-> > Caleb has better luck tripping this issue right away, so they can
-> > hopefully provide a more assured response.
-> This prevents the crash on the OnePlus 6 as the frequency can no longer go to zero.
->
-> I would like to find a better solution that still allows proper idling on a630, but that can wait for 5.16.
->
-> Tested-by: Caleb Connolly <caleb.connolly@linaro.org>
-
-Thanks for testing, I've sent one last -fixes pull request with this patch
-
-BR,
--R
-
-> >
-> > thanks
-> > -john
-> >
->
-> --
-> Kind Regards,
-> Caleb (they/them)
+On 2021-10-16 15:18, Bjorn Andersson wrote:
+> As the following patches introduced support for multiple DP blocks in a
+> platform and some of those block might be eDP it becomes useful to be
+> able to specify the connector type per block.
+> 
+> Although there's only a single block at this point, the array of descs
+> and the search in dp_display_get_desc() are introduced here to simplify
+> the next patch, that does introduce support for multiple DP blocks.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> ---
+> 
+> Changes since v4:
+> - const the various struct msm_dp_desc instances
+> - unsigned the connector_type
+> 
+> 
+> The references to DRM_MODE_CONNECTOR_DisplayPort in dp_debug.c, that 
+> was
+> highligted in the review of v4 has been removed in a separate patch.
+> 
+>  drivers/gpu/drm/msm/dp/dp_display.c | 43 ++++++++++++++++++++++++++++-
+>  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>  drivers/gpu/drm/msm/dp/dp_drm.c     |  2 +-
+>  3 files changed, 44 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+> b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 5d3ee5ef07c2..6913970c8cf9 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -115,8 +115,25 @@ struct dp_display_private {
+>  	struct dp_audio *audio;
+>  };
+> 
+> +struct msm_dp_desc {
+> +	phys_addr_t io_start;
+> +	unsigned int connector_type;
+> +};
+> +
+> +struct msm_dp_config {
+> +	const struct msm_dp_desc *descs;
+> +	size_t num_descs;
+> +};
+> +
+> +static const struct msm_dp_config sc7180_dp_cfg = {
+> +	.descs = (const struct msm_dp_desc[]) {
+> +		{ .io_start = 0x0ae90000, .connector_type = 
+> DRM_MODE_CONNECTOR_DisplayPort },
+> +	},
+> +	.num_descs = 1,
+> +};
+> +
+>  static const struct of_device_id dp_dt_match[] = {
+> -	{.compatible = "qcom,sc7180-dp"},
+> +	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
+>  	{}
+>  };
+> 
+> @@ -1180,10 +1197,29 @@ int dp_display_request_irq(struct msm_dp 
+> *dp_display)
+>  	return 0;
+>  }
+> 
+> +static const struct msm_dp_desc *dp_display_get_desc(struct
+> platform_device *pdev)
+> +{
+> +	const struct msm_dp_config *cfg = 
+> of_device_get_match_data(&pdev->dev);
+> +	struct resource *res;
+> +	int i;
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return NULL;
+> +
+> +	for (i = 0; i < cfg->num_descs; i++)
+> +		if (cfg->descs[i].io_start == res->start)
+> +			return &cfg->descs[i];
+> +
+> +	dev_err(&pdev->dev, "unknown displayport instance\n");
+> +	return NULL;
+> +}
+> +
+>  static int dp_display_probe(struct platform_device *pdev)
+>  {
+>  	int rc = 0;
+>  	struct dp_display_private *dp;
+> +	const struct msm_dp_desc *desc;
+> 
+>  	if (!pdev || !pdev->dev.of_node) {
+>  		DRM_ERROR("pdev not found\n");
+> @@ -1194,8 +1230,13 @@ static int dp_display_probe(struct 
+> platform_device *pdev)
+>  	if (!dp)
+>  		return -ENOMEM;
+> 
+> +	desc = dp_display_get_desc(pdev);
+> +	if (!desc)
+> +		return -EINVAL;
+> +
+>  	dp->pdev = pdev;
+>  	dp->name = "drm_dp";
+> +	dp->dp_display.connector_type = desc->connector_type;
+> 
+>  	rc = dp_init_sub_modules(dp);
+>  	if (rc) {
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h
+> b/drivers/gpu/drm/msm/dp/dp_display.h
+> index 8b47cdabb67e..75fcabcfbbdd 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+> @@ -18,6 +18,7 @@ struct msm_dp {
+>  	bool is_connected;
+>  	bool audio_enabled;
+>  	bool power_on;
+> +	unsigned int connector_type;
+> 
+>  	hdmi_codec_plugged_cb plugged_cb;
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c 
+> b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 764f4b81017e..f33e31523f56 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -147,7 +147,7 @@ struct drm_connector *dp_drm_connector_init(struct
+> msm_dp *dp_display)
+> 
+>  	ret = drm_connector_init(dp_display->drm_dev, connector,
+>  			&dp_connector_funcs,
+> -			DRM_MODE_CONNECTOR_DisplayPort);
+> +			dp_display->connector_type);
+>  	if (ret)
+>  		return ERR_PTR(ret);
