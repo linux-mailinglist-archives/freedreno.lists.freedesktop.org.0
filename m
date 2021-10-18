@@ -1,80 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B814443251E
-	for <lists+freedreno@lfdr.de>; Mon, 18 Oct 2021 19:33:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C71F043260D
+	for <lists+freedreno@lfdr.de>; Mon, 18 Oct 2021 20:07:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 572796EA22;
-	Mon, 18 Oct 2021 17:33:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6D976E0F1;
+	Mon, 18 Oct 2021 18:07:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627626EA22
- for <freedreno@lists.freedesktop.org>; Mon, 18 Oct 2021 17:33:41 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id r18so42794877wrg.6
- for <freedreno@lists.freedesktop.org>; Mon, 18 Oct 2021 10:33:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=rC/hLNrxKboWrLVaDMklS7HEEU6bUXhMqtNh39WY+UE=;
- b=ah07nRlqopbTXRyZyr14fX2esaI6ry80CfTbZPLGsNidfYq3PUrTRosgXKm/11VEqL
- Sd2wYy+zZpVerDvvz3ns2S7Y318B/E2p5paJ8rKguqMMq4ABPimTJs50hePALFHQ/zDH
- kuGsxV2aX2ayWX1J3mz1XYsEWLOIakXk0j69IsfhV9PDLr9JNFM3Kcbt7qHJBHOhCMCg
- rgH5A8hBqi0Tzz41jxRjIYc+CcEdnG9DQHFgwQDY6n12Bk7mJSLZoJV/TzEifl/nnc+w
- wqyfLz93DBjiq/88MkRYrsISeFQEWh7t1ZLu6KuuU0tQDXERBeBKuEeROeDvuCb3ZTGu
- Eo3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=rC/hLNrxKboWrLVaDMklS7HEEU6bUXhMqtNh39WY+UE=;
- b=54xz+Nm2t+AOxDulQEtEB/X7h3JRcLvmmZN1NaF4j7pNYkTemHHUNdNwv5mN+1xqAB
- M/ytFQOsL+tyhOsgRt5HknTaFFWcPh27Zb7to7TqZVral+md+8jHCv0EnAREgU1bNQGe
- X3LSv4AZ8QGxH1yHh1ue2c46TFfExiwMS9wnL2GtNL+7Qib+1WWioQEwM+Z4k8EfgLWO
- NaI2BrfGbqCARkx758JdeAifYoQ273mSMaNxsi2YFLIAg/9ycOEBfLqLG6QDgBRCiP/q
- miXU8gOv88I+vEu44Dv/YiHD9PiuZIXgqOYF6X9hil5O2UyyHdo21tEbVBI+JLsSvXYD
- Ur6Q==
-X-Gm-Message-State: AOAM533zZlotRTZ8DnhNMEZdketMbYc14+XhdEc2N0J0T5DQ9sMAMtJm
- vzytwcoNK6HqF1jyNQKVBez7HA==
-X-Google-Smtp-Source: ABdhPJzTofO8JworMFPCFBKd0dnbRO1NBjt4FTsjxc0YxtMZ2929zmD3/Ot6adQDm2boDaCVAp/n8g==
-X-Received: by 2002:a5d:4002:: with SMTP id n2mr144182wrp.420.1634578419759;
- Mon, 18 Oct 2021 10:33:39 -0700 (PDT)
-Received: from [192.168.0.30]
- (cpc78119-cwma10-2-0-cust590.7-3.cable.virginm.net. [81.96.50.79])
- by smtp.gmail.com with ESMTPSA id g25sm12989366wrc.88.2021.10.18.10.33.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Oct 2021 10:33:39 -0700 (PDT)
-Message-ID: <5c460ee3-9079-02a7-e674-a4dde5815f0d@linaro.org>
-Date: Mon, 18 Oct 2021 18:33:36 +0100
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6476E0F1
+ for <freedreno@lists.freedesktop.org>; Mon, 18 Oct 2021 18:07:38 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1634580474; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=wE6yodEiHlCyDKx6c+cRw1HegT8wlNeH4R9hFXJ+hrA=;
+ b=ZDikLWxWPzL3bYSCDAYgn65AqtHk8lm0ue301SSYJ5P9R6GJxWWpfN+lnGq/XlCUc1i/BPhE
+ +9H18um3/+Lq32f21cjStkU7iMpgSUBME0qXeJSPMZb6TRaHI3A7c1QE/cXaO2y5yarEZ6dK
+ yIg/fQF9sfHAMHZdhyhgf3rW2Nw=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 616db7d8ea41a97c246117e8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 18 Oct 2021 18:07:20
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id BA394C4360D; Mon, 18 Oct 2021 18:07:19 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 835DAC4338F;
+ Mon, 18 Oct 2021 18:07:17 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Content-Language: en-US
-To: John Stultz <john.stultz@linaro.org>, Rob Clark <robdclark@gmail.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Clark <robdclark@chromium.org>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <akhilpo@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>,
- Amit Pundir <amit.pundir@linaro.org>
-References: <20211018153627.2787882-1-robdclark@gmail.com>
- <CALAqxLU=O2yaJ=ZOtg0S-zX4KyirbXNx+0iF3EJ9d4=rVL6Z=Q@mail.gmail.com>
-From: Caleb Connolly <caleb.connolly@linaro.org>
-In-Reply-To: <CALAqxLU=O2yaJ=ZOtg0S-zX4KyirbXNx+0iF3EJ9d4=rVL6Z=Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/devfreq: Restrict idle clamping to
- a618 for now
+Date: Mon, 18 Oct 2021 11:07:17 -0700
+From: abhinavk@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <YWxSWlRp+log+Trz@ripper>
+References: <20211015231702.1784254-1-bjorn.andersson@linaro.org>
+ <f72263e0d4c118653fff8b1341dc487b@codeaurora.org> <YWxSWlRp+log+Trz@ripper>
+Message-ID: <7a77045f4069a21305e5c3614a6739f0@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Move debugfs files into
+ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,41 +75,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi all,
+Hi Bjorn
 
-On 18/10/2021 17:42, John Stultz wrote:
-> On Mon, Oct 18, 2021 at 8:31 AM Rob Clark <robdclark@gmail.com> wrote:
->>
->> From: Rob Clark <robdclark@chromium.org>
->>
->> Until we better understand the stability issues caused by frequent
->> frequency changes, lets limit them to a618.
->>
->> Signed-off-by: Rob Clark <robdclark@chromium.org>
->> ---
->> Caleb/John, I think this should help as a workaround for the power
->> instability issues on a630.. could you give it a try?
+On 2021-10-17 09:42, Bjorn Andersson wrote:
+> On Fri 15 Oct 16:53 PDT 2021, abhinavk@codeaurora.org wrote:
 > 
-> While I hit it fairly often, I can't reliably reproduce the crash, but
-> in limited testing this seems ok to me.
-> I've not hit the crash so far, nor seen any other negative side
-> effects over 5.14.
+>> On 2021-10-15 16:17, Bjorn Andersson wrote:
+>> > In the cleanup path of the MSM DP driver the DP driver's debugfs files
+>> > are destroyed by invoking debugfs_remove_recursive() on debug->root,
+>> > which during initialization has been set to minor->debugfs_root.
+>> >
+>> > To allow cleaning up the DP driver's debugfs files either each dentry
+>> > needs to be kept track of or the files needs to be put in a subdirectory
+>> > which can be removed in one go.
+>> >
+>> > By choosing to put the debugfs files in a subdirectory, based on the
+>> > name of the associated connector this also solves the problem that these
+>> > names would collide as support for multiple DP instances are introduced.
+>> >
+>> > One alternative solution to the problem with colliding file names would
+>> > have been to put keep track of the individual files and put them under
+>> > the connector's debugfs directory. But while the drm_connector has been
+>> > allocated, its associated debugfs directory has not been created at the
+>> > time of initialization of the dp_debug.
+>> >
+>> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>> 
+>> I have been thinking about this problem ever since multi-DP has been 
+>> posted
+>> :)
+>> Creating sub-directories seems right but at the moment it looks like 
+>> IGT
+>> which
+>> uses these debugfs nodes doesnt check sub-directories:
+>> 
+>> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tools/msm_dp_compliance.c#L215
+>> 
+>> It looks for the DP debugfs nodes under /sys/kernel/debug/dri/*/
+>> 
+>> We have to fix IGT too to be able to handle multi-DP cases. I will try 
+>> to
+>> come up
+>> with a proposal to address this.
+>> 
+>> Till then, can we go with the other solution to keep track of the 
+>> dentries?
+>> 
 > 
-> So for what that's worth:
-> Tested-by: John Stultz <john.stultz@linaro.org>
+> I'm afraid I don't see what you're proposing.
 > 
-> Caleb has better luck tripping this issue right away, so they can
-> hopefully provide a more assured response.
-This prevents the crash on the OnePlus 6 as the frequency can no longer go to zero.
+> Afaict we need one set of dp_test{type,active,data} per DP controller,
+> so even doing this by keeping track of the dentries requires that we
+> rename the files based on some identifier (id or connector name) - 
+> which
+> will cause igt to break.
 
-I would like to find a better solution that still allows proper idling on a630, but that can wait for 5.16.
+Yes, I also thought the same that there needs to be some identifier.
 
-Tested-by: Caleb Connolly <caleb.connolly@linaro.org>
+"To allow cleaning up the DP driver's debugfs files either each dentry
+needs to be kept track of or the files needs to be put in a subdirectory
+which can be removed in one go"
+
+I guess I misunderstood your statement in the commit text thinking that 
+you
+had some other way to keep track of the dentries as it mentioned that
+use a subdirectory OR keep track of each dentry.
+
 > 
-> thanks
-> -john
+> As such, I think the practical path forward is that we merge the
+> multi-DP series as currently proposed. This will not cause any issues 
+> on
+> single-DP systems, but on multi-DP systems we will have warnings about
+> duplicate debugfs entries in the kernel logs.
+> 
+> Then you can figure out how to rework igt to deal with the multiple DP
+> instances and update the dp_debug interface accordingly.
 > 
 
--- 
-Kind Regards,
-Caleb (they/them)
+Fine with me, I will take care of this.
+
+> 
+> Which also implies that we should hold this patch back. But if we go
+> that path, I think we should fix dp_debug_deinit() so that it doesn't
+> remove /sys/kernel/debug/dri/128 when the DP driver is unloaded.
+Yes, lets hold this patch back till I fix multi-DP for IGT.
+> 
+> Regards,
+> Bjorn
+> 
+>> > ---
+>> >
+>> > This depends on
+>> > https://lore.kernel.org/linux-arm-msm/20211010030435.4000642-1-bjorn.andersson@linaro.org/
+>> > reducing the connector from a double pointer.
+>> >
+>> >  drivers/gpu/drm/msm/dp/dp_debug.c | 15 +++++++++------
+>> >  1 file changed, 9 insertions(+), 6 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > b/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > index da4323556ef3..67da4c69eca1 100644
+>> > --- a/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > @@ -210,26 +210,29 @@ static const struct file_operations
+>> > test_active_fops = {
+>> >  static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor
+>> > *minor)
+>> >  {
+>> >  	int rc = 0;
+>> > +	char path[64];
+>> >  	struct dp_debug_private *debug = container_of(dp_debug,
+>> >  			struct dp_debug_private, dp_debug);
+>> >
+>> > -	debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
+>> > +	snprintf(path, sizeof(path), "msm_dp-%s", debug->connector->name);
+>> > +
+>> > +	debug->root = debugfs_create_dir(path, minor->debugfs_root);
+>> > +
+>> > +	debugfs_create_file("dp_debug", 0444, debug->root,
+>> >  			debug, &dp_debug_fops);
+>> >
+>> >  	debugfs_create_file("msm_dp_test_active", 0444,
+>> > -			minor->debugfs_root,
+>> > +			debug->root,
+>> >  			debug, &test_active_fops);
+>> >
+>> >  	debugfs_create_file("msm_dp_test_data", 0444,
+>> > -			minor->debugfs_root,
+>> > +			debug->root,
+>> >  			debug, &dp_test_data_fops);
+>> >
+>> >  	debugfs_create_file("msm_dp_test_type", 0444,
+>> > -			minor->debugfs_root,
+>> > +			debug->root,
+>> >  			debug, &dp_test_type_fops);
+>> >
+>> > -	debug->root = minor->debugfs_root;
+>> > -
+>> >  	return rc;
+>> >  }
