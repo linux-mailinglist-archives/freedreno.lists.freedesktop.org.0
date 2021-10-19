@@ -1,55 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 872C6433C1B
-	for <lists+freedreno@lfdr.de>; Tue, 19 Oct 2021 18:26:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D9F433E85
+	for <lists+freedreno@lfdr.de>; Tue, 19 Oct 2021 20:35:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A376C6E19A;
-	Tue, 19 Oct 2021 16:26:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA616E88C;
+	Tue, 19 Oct 2021 18:35:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D9D96E195;
- Tue, 19 Oct 2021 16:26:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9C08C61052;
- Tue, 19 Oct 2021 16:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634660764;
- bh=JTD0yxhNiwoaimOyKxDh67eqXCwBhnj/uYevNf6Vv3Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rfqMZQs6S02wfD8Lpp8XLsn1KTOo22eHxr2zRCkJ5Rx0usL24hdRRybMsoG+uo35G
- ACfcoy2t3M3NjUr35CHgJ2dhLnDVvI8KJW3Ew2w0ykiySlRrcjRcGwAdxAsO1HEN7Y
- 7/ufr5N2LivOQxB3UnL0WBKVuSLT+++WBLT62149x183uP05AXTO71mZ3mmina9P0N
- 23Vh8IX9t3poHfgli5j8e41bzbF5AHqHrd8W7hP8MCPyjbHWyBQAyLjT2i4yL4aCJD
- s22FNKlQ7QKgoM/YvdzwS8Zpw7uS8luNYqVf3YrScnBKWg8/d8ccVx72fdnoSP7kTG
- EZ6vGSIJjBzdA==
-Date: Tue, 19 Oct 2021 21:55:59 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91B586E897;
+ Tue, 19 Oct 2021 18:35:44 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10142"; a="209392535"
+X-IronPort-AV: E=Sophos;i="5.87,164,1631602800"; d="scan'208";a="209392535"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Oct 2021 11:35:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,164,1631602800"; d="scan'208";a="526760120"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.171])
+ by orsmga001.jf.intel.com with SMTP; 19 Oct 2021 11:35:09 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 19 Oct 2021 21:35:08 +0300
+Date: Tue, 19 Oct 2021 21:35:08 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Claudio Suarez <cssk@net-c.es>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Message-ID: <YW7xlyuIq1vh4Fg2@matsya>
-References: <20211007070900.456044-1-vkoul@kernel.org>
- <20211007070900.456044-5-vkoul@kernel.org>
- <d249d880-1137-d5cc-6d96-83a730f7de29@linaro.org>
- <YW7koEt85EVMcUDs@matsya>
- <CAA8EJprNTUrh66yqaOCoReWdwLcBc9LfMm=WNDi54o9nzd8RRA@mail.gmail.com>
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
+ Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
+Message-ID: <YW8P3GPGezUhoBcW@intel.com>
+References: <20211016184226.3862-1-cssk@net-c.es>
+ <20211016184226.3862-2-cssk@net-c.es>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAA8EJprNTUrh66yqaOCoReWdwLcBc9LfMm=WNDi54o9nzd8RRA@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v2 04/11] drm/msm/disp/dpu1: Add DSC support
- in RM
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211016184226.3862-2-cssk@net-c.es>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH v2 01/13] gpu/drm: make drm_add_edid_modes()
+ consistent when updating connector->display_info
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,54 +72,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19-10-21, 18:52, Dmitry Baryshkov wrote:
-> On Tue, 19 Oct 2021 at 18:30, Vinod Koul <vkoul@kernel.org> wrote:
-> >
-> > On 14-10-21, 17:11, Dmitry Baryshkov wrote:
-> > > On 07/10/2021 10:08, Vinod Koul wrote:
-> >
-> > > > +static int _dpu_rm_reserve_dsc(struct dpu_rm *rm,
-> > > > +                          struct dpu_global_state *global_state,
-> > > > +                          struct drm_encoder *enc)
-> > > > +{
-> > > > +   struct msm_drm_private *priv;
-> > > > +
-> > > > +   priv = enc->dev->dev_private;
-> > > > +
-> > > > +   if (!priv)
-> > > > +           return -EIO;
-> > > > +
-> > > > +   /* check if DSC is supported */
-> > > > +   if (!priv->dsc)
-> > > > +           return 0;
-> > > > +
-> > > > +   /* check if DSC 0 & 1 and allocated or not */
-> > > > +   if (global_state->dsc_to_enc_id[0] || global_state->dsc_to_enc_id[1]) {
-> > > > +           DPU_ERROR("DSC 0|1 is already allocated\n");
-> > > > +           return -EIO;
-> > > > +   }
-> > > > +
-> > > > +   global_state->dsc_to_enc_id[0] = enc->base.id;
-> > > > +   global_state->dsc_to_enc_id[1] = enc->base.id;
-> > >
-> > > Still hardcoding DSC_0 and DSC_1.
-> >
-> > Yes!
-> >
-> > > Could you please add num_dsc to the topology and allocate the requested
-> > > amount of DSC blocks? Otherwise this would break for the DSI + DP case.
-> >
-> > It wont as we check for dsc and dont proceed, so it cant make an impact
-> > in non dsc case.
-> >
-> > Nevertheless I agree with you, so I am making it based on dsc defined in
-> > topology. Do we need additional field for num_dsc in topology, num_enc
-> > should be it, right?
+On Sat, Oct 16, 2021 at 08:42:14PM +0200, Claudio Suarez wrote:
+> According to the documentation, drm_add_edid_modes
+> "... Also fills out the &drm_display_info structure and ELD in @connector
+> with any information which can be derived from the edid."
 > 
-> I'd vote for the separate num_dsc.
+> drm_add_edid_modes accepts a struct edid *edid parameter which may have a
+> value or may be null. When it is not null, connector->display_info and
+> connector->eld are updated according to the edid. When edid=NULL, only
+> connector->eld is reset. Reset connector->display_info to be consistent
+> and accurate.
+> 
+> Signed-off-by: Claudio Suarez <cssk@net-c.es>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 6325877c5fd6..c643db17782c 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -5356,14 +5356,13 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+>  	int num_modes = 0;
+>  	u32 quirks;
+>  
+> -	if (edid == NULL) {
+> -		clear_eld(connector);
+> -		return 0;
+> -	}
+>  	if (!drm_edid_is_valid(edid)) {
 
-Okay will update... will move up topology patch up in the order for that
-as well
+OK, so drm_edid_is_valid() will happily accept NULL and considers
+it invalid. You may want to mention that explicitly in the commit
+message.
+
+> +		/* edid == NULL or invalid here */
+>  		clear_eld(connector);
+> -		drm_warn(connector->dev, "%s: EDID invalid.\n",
+> -			 connector->name);
+> +		drm_reset_display_info(connector);
+> +		if (edid)
+> +			drm_warn(connector->dev, "%s: EDID invalid.\n",
+> +				 connector->name);
+
+Could you respin this to use the standard [CONNECTOR:%d:%s] form
+while at it? Or I guess a patch to mass convert the whole drm_edid.c
+might be another option.
+
+Patch looks good.
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+
+
+>  		return 0;
+>  	}
+>  
+> -- 
+> 2.33.0
+> 
+> 
 
 -- 
-~Vinod
+Ville Syrjälä
+Intel
