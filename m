@@ -1,39 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A083432D35
-	for <lists+freedreno@lfdr.de>; Tue, 19 Oct 2021 07:31:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8067C433808
+	for <lists+freedreno@lfdr.de>; Tue, 19 Oct 2021 16:07:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7DFE6E102;
-	Tue, 19 Oct 2021 05:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A31DB6EAC1;
+	Tue, 19 Oct 2021 14:07:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E82B6E0D9;
- Tue, 19 Oct 2021 05:30:54 +0000 (UTC)
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 18 Oct 2021 22:30:53 -0700
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 18 Oct 2021 22:30:52 -0700
-X-QCInternal: smtphost
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg01-blr.qualcomm.com with ESMTP; 19 Oct 2021 11:00:42 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id 125DB2224F; Tue, 19 Oct 2021 11:00:41 +0530 (IST)
-From: Krishna Manikandan <mkrishn@codeaurora.org>
-To: linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, kalyan_t@codeaurora.org,
- robdclark@gmail.com, swboyd@chromium.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Date: Tue, 19 Oct 2021 11:00:28 +0530
-Message-Id: <1634621428-11652-1-git-send-email-mkrishn@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v2] drm/msm: use compatible lists to find mdp
- node
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 170FD6E882;
+ Tue, 19 Oct 2021 14:07:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 244E6610A1;
+ Tue, 19 Oct 2021 14:07:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634652475;
+ bh=SLWuDyENjrttrY/yKGmL/fqA3+noRXUboMcPH0sIE94=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oM0gZvjxdIWCCSyTgbkEwXNW+yBmqzUXnDXgyeJJjaOCCn/R6Q6eA3foe5S6et5NX
+ UJszBzdPoyg/4NYkWZDhqmzKmFrr57nTVwL8CIFDxL8YXFOK+IXn13c90B2wsmknki
+ uKXjWuUnoHzxUgT7P0Edeenpbdr296O1YL8rNJCwxm8MOfDMN/rXkZUnOF86ycdREN
+ kDbI91dUD3k30j9iSl+bsl7djiew/9IHBYXi5Xd3yH8zWOI+R0QsLn4C266WrqR5Qz
+ ks7DrZZCqMb4tVV9yP1Rr8/aq1avdYa4/U73x2nLPGuY91uswYtISAwAyp4QX+mSMq
+ w7Uak4Sgc0S0A==
+Date: Tue, 19 Oct 2021 19:37:51 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Message-ID: <YW7RNz/9vd/XS0+O@matsya>
+References: <20211007070900.456044-1-vkoul@kernel.org>
+ <20211007070900.456044-3-vkoul@kernel.org>
+ <c9c77691-f6e8-576c-7e2d-a87295b13ba7@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c9c77691-f6e8-576c-7e2d-a87295b13ba7@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 02/11] drm/msm/disp/dpu1: Add support for
+ DSC
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,49 +61,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In the current implementation, substring comparison
-using device node name is used to find mdp node
-during driver probe. Use compatible string list instead
-of node name to get mdp node from the parent mdss node.
+On 14-10-21, 17:40, Dmitry Baryshkov wrote:
+> On 07/10/2021 10:08, Vinod Koul wrote:
 
-Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+> > +static void dpu_hw_dsc_config(struct dpu_hw_dsc *hw_dsc,
+> > +			      struct msm_display_dsc_config *dsc, u32 mode)
+> > +{
+> > +	struct dpu_hw_blk_reg_map *c = &hw_dsc->hw;
+> > +	u32 data, lsb, bpp;
+> > +	u32 initial_lines = dsc->initial_lines;
+> > +	bool is_cmd_mode = !(mode & BIT(2));
+> 
+> DSC_MODE_VIDEO
 
-Changes in v2:
-   - Use compatible lists instead of duplicate string
-     check (Stephen Boyd)
----
- drivers/gpu/drm/msm/msm_drv.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Updated
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 2e6fc18..451d667 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1241,9 +1241,13 @@ static int add_components_mdp(struct device *mdp_dev,
- 	return 0;
- }
- 
--static int compare_name_mdp(struct device *dev, void *data)
-+static int find_mdp_node(struct device *dev, void *data)
- {
--	return (strstr(dev_name(dev), "mdp") != NULL);
-+	if (!dev->driver)
-+		return 0;
-+
-+	return (of_match_node(dev->driver->of_match_table,
-+				dev->of_node) != NULL);
- }
- 
- static int add_display_components(struct platform_device *pdev,
-@@ -1268,7 +1272,7 @@ static int add_display_components(struct platform_device *pdev,
- 			return ret;
- 		}
- 
--		mdp_dev = device_find_child(dev, NULL, compare_name_mdp);
-+		mdp_dev = device_find_child(dev, NULL, find_mdp_node);
- 		if (!mdp_dev) {
- 			DRM_DEV_ERROR(dev, "failed to find MDSS MDP node\n");
- 			of_platform_depopulate(dev);
+> > +static void dpu_hw_dsc_config_thresh(struct dpu_hw_dsc *hw_dsc,
+> > +				     struct msm_display_dsc_config *dsc)
+> 
+> I thought that it might make sense to pass just drm_dsc_rc_range_parameters
+> here, but it's a matter of personal preference. I won't insist on doing
+> that.
+
+This is called from encoder, so prefer not to have encoder invoke
+dsc->drm->rc_range_params
+
+So will keep this.
+
 -- 
-2.7.4
-
+~Vinod
