@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44E87434219
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 01:34:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D939D434222
+	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 01:36:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1F9C6E0E9;
-	Tue, 19 Oct 2021 23:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA8B6E0E9;
+	Tue, 19 Oct 2021 23:36:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C19F6E0C9
- for <freedreno@lists.freedesktop.org>; Tue, 19 Oct 2021 23:34:05 +0000 (UTC)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 350466E0E9
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Oct 2021 23:36:11 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1634686445; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1634686572; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=qOnN/S+9RE7D3SqAFVshlOLHzL8eWKbXAxUSsArQSc4=;
- b=sa9S6AokWCpUXoPani2cSAejCpb3BU3fjmz6tEXhNyyDtBPAprDR97cfsluDMPzN27SL+NX+
- tkuXSCeyvaF2FcWag9eMuV+mGplaO5VEAVR/ujr6omlc2dHvhDCa3SpQqkvsR3xPWwbFsltw
- /gwBSZJdyGldLnx0yW3/vcXmCmM=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ MIME-Version: Sender; bh=1+u4o5BrSgJRG3IymcStczFaOcnqoI4uE+KBtlHBBVY=;
+ b=TmGWcjwDXVQXGuHQuaWrMImal28tdotWtOOdQmjgs7tc3a8PGT0QzbxPCtTmYs9QRjBAYJvN
+ 765uoL0kFjW/0sZb1kBgjNdocnjbesnd/WQtPG+qUDQqo/sDxWgpCYSyw5NXVN/VH4eTQqZ1
+ zIf4EkT8n1n/c1stgRmq/Aa0kIo=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 616f55eabc302969585ca670 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 19 Oct 2021 23:34:02
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 616f56573416c2cb706686e9 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 19 Oct 2021 23:35:51
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id AA242C43618; Tue, 19 Oct 2021 23:34:02 +0000 (UTC)
+ id A4D31C4360C; Tue, 19 Oct 2021 23:35:50 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,13 +38,13 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8E789C4338F;
- Tue, 19 Oct 2021 23:34:01 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4E15EC4338F;
+ Tue, 19 Oct 2021 23:35:49 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Tue, 19 Oct 2021 16:34:01 -0700
+Date: Tue, 19 Oct 2021 16:35:49 -0700
 From: abhinavk@codeaurora.org
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
@@ -53,13 +53,14 @@ Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
  <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-In-Reply-To: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20211006204828.1218225-2-dmitry.baryshkov@linaro.org>
 References: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
-Message-ID: <87b52292450d443fd5be678da8a7bf41@codeaurora.org>
+ <20211006204828.1218225-2-dmitry.baryshkov@linaro.org>
+Message-ID: <f7e8176759809f41dff1c41d6adb9d4a@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: untangle cphy setting from
- the src pll setting
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dsi: stop setting clock parents
+ manually
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,84 +77,166 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 2021-10-06 13:48, Dmitry Baryshkov wrote:
-> Move DPHY/CPHY setting from msm_dsi_host_set_src_pll() to new function
-> msm_dsi_host_set_phy_mode().
+> There is no reason to set clock parents manually, use device tree to
+> assign DSI/display clock parents to DSI PHY clocks. Dropping this 
+> manual
+> setup allows us to drop repeating code and to move registration of hw
+> clock providers to generic place.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Just a minor comment, can you also include the part which removes
-msm_host->cphy_mode = src_phy->cphy_mode; from msm_dsi_host_set_src_pll
-in this change itself so that its clear that you are removing from there
-and moving it into a new API?
+I believe this was reviewed previously on
 
-You can still keep my
+https://patchwork.freedesktop.org/patch/443470/
+
+Hence,
+
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 
-once you address this.
-
 > ---
->  drivers/gpu/drm/msm/dsi/dsi.h         | 2 ++
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 8 ++++++++
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 3 +++
->  3 files changed, 13 insertions(+)
+>  drivers/gpu/drm/msm/dsi/dsi.h         |  2 -
+>  drivers/gpu/drm/msm/dsi/dsi_host.c    | 53 ---------------------------
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 11 +-----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 11 ------
+>  4 files changed, 2 insertions(+), 75 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
 > b/drivers/gpu/drm/msm/dsi/dsi.h
-> index b50db91cb8a7..7dfb6d198ca9 100644
+> index 7dfb6d198ca9..c03a8d09c764 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi.h
 > +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -118,6 +118,8 @@ unsigned long msm_dsi_host_get_mode_flags(struct
-> mipi_dsi_host *host);
->  struct drm_bridge *msm_dsi_host_get_bridge(struct mipi_dsi_host 
-> *host);
->  int msm_dsi_host_register(struct mipi_dsi_host *host, bool 
-> check_defer);
->  void msm_dsi_host_unregister(struct mipi_dsi_host *host);
-> +void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
-> +			struct msm_dsi_phy *src_phy);
->  int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
->  			struct msm_dsi_phy *src_phy);
->  void msm_dsi_host_reset_phy(struct mipi_dsi_host *host);
+> @@ -173,8 +173,6 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
+>  void msm_dsi_phy_disable(struct msm_dsi_phy *phy);
+>  void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
+>  			     enum msm_dsi_phy_usecase uc);
+> -int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+> -	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
+>  void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
+>  int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
+>  void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct
+> msm_dsi_phy *phy);
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
 > b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e269df285136..1ffcd0577e99 100644
+> index 1ffcd0577e99..9600b4fa27eb 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -2224,6 +2224,14 @@ void msm_dsi_host_cmd_xfer_commit(struct
-> mipi_dsi_host *host, u32 dma_base,
->  	wmb();
+> @@ -2232,59 +2232,6 @@ void msm_dsi_host_set_phy_mode(struct
+> mipi_dsi_host *host,
+>  	msm_host->cphy_mode = src_phy->cphy_mode;
 >  }
 > 
-> +void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
-> +	struct msm_dsi_phy *src_phy)
-> +{
-> +	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-> +
-> +	msm_host->cphy_mode = src_phy->cphy_mode;
-> +}
-> +
->  int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
->  	struct msm_dsi_phy *src_phy)
+> -int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
+> -	struct msm_dsi_phy *src_phy)
+> -{
+> -	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> -	struct clk *byte_clk_provider, *pixel_clk_provider;
+> -	int ret;
+> -
+> -	msm_host->cphy_mode = src_phy->cphy_mode;
+> -
+> -	ret = msm_dsi_phy_get_clk_provider(src_phy,
+> -				&byte_clk_provider, &pixel_clk_provider);
+> -	if (ret) {
+> -		pr_info("%s: can't get provider from pll, don't set parent\n",
+> -			__func__);
+> -		return 0;
+> -	}
+> -
+> -	ret = clk_set_parent(msm_host->byte_clk_src, byte_clk_provider);
+> -	if (ret) {
+> -		pr_err("%s: can't set parent to byte_clk_src. ret=%d\n",
+> -			__func__, ret);
+> -		goto exit;
+> -	}
+> -
+> -	ret = clk_set_parent(msm_host->pixel_clk_src, pixel_clk_provider);
+> -	if (ret) {
+> -		pr_err("%s: can't set parent to pixel_clk_src. ret=%d\n",
+> -			__func__, ret);
+> -		goto exit;
+> -	}
+> -
+> -	if (msm_host->dsi_clk_src) {
+> -		ret = clk_set_parent(msm_host->dsi_clk_src, pixel_clk_provider);
+> -		if (ret) {
+> -			pr_err("%s: can't set parent to dsi_clk_src. ret=%d\n",
+> -				__func__, ret);
+> -			goto exit;
+> -		}
+> -	}
+> -
+> -	if (msm_host->esc_clk_src) {
+> -		ret = clk_set_parent(msm_host->esc_clk_src, byte_clk_provider);
+> -		if (ret) {
+> -			pr_err("%s: can't set parent to esc_clk_src. ret=%d\n",
+> -				__func__, ret);
+> -			goto exit;
+> -		}
+> -	}
+> -
+> -exit:
+> -	return ret;
+> -}
+> -
+>  void msm_dsi_host_reset_phy(struct mipi_dsi_host *host)
 >  {
+>  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
 > diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c
 > b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index c41d39f5b7cf..49a0a0841487 100644
+> index 49a0a0841487..9342a822ad20 100644
 > --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
 > +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -77,6 +77,7 @@ static int dsi_mgr_setup_components(int id)
->  			return ret;
+> @@ -78,10 +78,7 @@ static int dsi_mgr_setup_components(int id)
 > 
 >  		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
-> +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
->  		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
->  	} else if (!other_dsi) {
->  		ret = 0;
-> @@ -104,6 +105,8 @@ static int dsi_mgr_setup_components(int id)
->  					MSM_DSI_PHY_MASTER);
->  		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
+>  		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+> -		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
+> -	} else if (!other_dsi) {
+> -		ret = 0;
+> -	} else {
+> +	} else if (other_dsi) {
+>  		struct msm_dsi *master_link_dsi = IS_MASTER_DSI_LINK(id) ?
+>  							msm_dsi : other_dsi;
+>  		struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
+> @@ -107,13 +104,9 @@ static int dsi_mgr_setup_components(int id)
 >  					MSM_DSI_PHY_SLAVE);
-> +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> +		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
->  		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
->  		if (ret)
->  			return ret;
+>  		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+>  		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
+> -		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
+> -		if (ret)
+> -			return ret;
+> -		ret = msm_dsi_host_set_src_pll(other_dsi->host, 
+> clk_master_dsi->phy);
+>  	}
+> 
+> -	return ret;
+> +	return 0;
+>  }
+> 
+>  static int enable_phy(struct msm_dsi *msm_dsi,
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> index 8c65ef6968ca..8ec331e751a2 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+> @@ -890,17 +890,6 @@ bool msm_dsi_phy_set_continuous_clock(struct
+> msm_dsi_phy *phy, bool enable)
+>  	return phy->cfg->ops.set_continuous_clock(phy, enable);
+>  }
+> 
+> -int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
+> -	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
+> -{
+> -	if (byte_clk_provider)
+> -		*byte_clk_provider = 
+> phy->provided_clocks->hws[DSI_BYTE_PLL_CLK]->clk;
+> -	if (pixel_clk_provider)
+> -		*pixel_clk_provider = 
+> phy->provided_clocks->hws[DSI_PIXEL_PLL_CLK]->clk;
+> -
+> -	return 0;
+> -}
+> -
+>  void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy)
+>  {
+>  	if (phy->cfg->ops.save_pll_state) {
