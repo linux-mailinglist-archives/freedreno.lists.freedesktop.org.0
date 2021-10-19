@@ -1,60 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 473694341A6
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 00:51:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44E87434219
+	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 01:34:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6C8A6E0AD;
-	Tue, 19 Oct 2021 22:51:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F9C6E0E9;
+	Tue, 19 Oct 2021 23:34:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63236E096;
- Tue, 19 Oct 2021 22:51:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1634683884; bh=uLgAv1p7Y5vFTzwdvlZ68d33po02FUVGhb3Gh9W3kqQ=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=vns70Kl8DSbTwbUcSPaxMZF/Stw7H+QwnFRH1PNJYuA8cR8ixZgUVXeQaSHKl1/77
- x31AQ5lZmK/q5m//b8s8lqplRvmbnegfkcUhs4dyY05R+NpTLtBdtQKnDV5E3ntffb
- a2zFlybSUZkYLRF6OfBMC4Y3TVY+UzsXeOKnnhoY=
-Received: by b-5.in.mailobj.net [192.168.90.15] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Wed, 20 Oct 2021 00:51:24 +0200 (CEST)
-X-EA-Auth: ZuVWjeezfcGUIMbofDm7p16bf3OEGxFPAHSY4J1oGSl3bKR0h2C0x8lwXIpvuoo0aO/EFjSNxFlgjYSFEsj4bmMb6X5vgGBM
-Date: Wed, 20 Oct 2021 00:51:21 +0200
-From: Claudio Suarez <cssk@net-c.es>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
-Message-ID: <YW9L6d7e+RO29VJu@gineta.localdomain>
-References: <20211016184226.3862-1-cssk@net-c.es>
- <20211016184226.3862-14-cssk@net-c.es> <YW8QYsmkm3ZrBAx3@intel.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C19F6E0C9
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Oct 2021 23:34:05 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1634686445; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=qOnN/S+9RE7D3SqAFVshlOLHzL8eWKbXAxUSsArQSc4=;
+ b=sa9S6AokWCpUXoPani2cSAejCpb3BU3fjmz6tEXhNyyDtBPAprDR97cfsluDMPzN27SL+NX+
+ tkuXSCeyvaF2FcWag9eMuV+mGplaO5VEAVR/ujr6omlc2dHvhDCa3SpQqkvsR3xPWwbFsltw
+ /gwBSZJdyGldLnx0yW3/vcXmCmM=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 616f55eabc302969585ca670 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 19 Oct 2021 23:34:02
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AA242C43618; Tue, 19 Oct 2021 23:34:02 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8E789C4338F;
+ Tue, 19 Oct 2021 23:34:01 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YW8QYsmkm3ZrBAx3@intel.com>
-Subject: Re: [Freedreno] [PATCH v3 13/13] drm/i915: replace
- drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 19 Oct 2021 16:34:01 -0700
+From: abhinavk@codeaurora.org
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Jonathan Marek
+ <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
+References: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
+Message-ID: <87b52292450d443fd5be678da8a7bf41@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: untangle cphy setting from
+ the src pll setting
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,54 +75,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-drm_get_edid() internally calls to drm_connector_update_edid_property()
-and then drm_add_display_info(), which parses the EDID.
-This happens in the function intel_hdmi_set_edid() and
-intel_sdvo_tmds_sink_detect() (via intel_sdvo_get_edid()).
+On 2021-10-06 13:48, Dmitry Baryshkov wrote:
+> Move DPHY/CPHY setting from msm_dsi_host_set_src_pll() to new function
+> msm_dsi_host_set_phy_mode().
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Once EDID is parsed, the monitor HDMI support information is available
-through drm_display_info.is_hdmi. Retriving the same information with
-drm_detect_hdmi_monitor() is less efficient. Change to
-drm_display_info.is_hdmi
+Just a minor comment, can you also include the part which removes
+msm_host->cphy_mode = src_phy->cphy_mode; from msm_dsi_host_set_src_pll
+in this change itself so that its clear that you are removing from there
+and moving it into a new API?
 
-This is a TODO task in Documentation/gpu/todo.rst
+You can still keep my
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 
-Signed-off-by: Claudio Suarez <cssk@net-c.es>
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+once you address this.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index b04685bb6439..008e5b0ba408 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2355,7 +2355,7 @@ intel_hdmi_set_edid(struct drm_connector *connector)
- 	to_intel_connector(connector)->detect_edid = edid;
- 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
- 		intel_hdmi->has_audio = drm_detect_monitor_audio(edid);
--		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
-+		intel_hdmi->has_hdmi_sink = connector->display_info.is_hdmi;
- 
- 		connected = true;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 6cb27599ea03..b4065e4df644 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2060,8 +2060,9 @@ intel_sdvo_tmds_sink_detect(struct drm_connector *connector)
- 		if (edid->input & DRM_EDID_INPUT_DIGITAL) {
- 			status = connector_status_connected;
- 			if (intel_sdvo_connector->is_hdmi) {
--				intel_sdvo->has_hdmi_monitor = drm_detect_hdmi_monitor(edid);
- 				intel_sdvo->has_hdmi_audio = drm_detect_monitor_audio(edid);
-+				intel_sdvo->has_hdmi_monitor =
-+							    connector->display_info.is_hdmi;
- 			}
- 		} else
- 			status = connector_status_disconnected;
--- 
-2.33.0
-
-
-
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi.h         | 2 ++
+>  drivers/gpu/drm/msm/dsi/dsi_host.c    | 8 ++++++++
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 3 +++
+>  3 files changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
+> b/drivers/gpu/drm/msm/dsi/dsi.h
+> index b50db91cb8a7..7dfb6d198ca9 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -118,6 +118,8 @@ unsigned long msm_dsi_host_get_mode_flags(struct
+> mipi_dsi_host *host);
+>  struct drm_bridge *msm_dsi_host_get_bridge(struct mipi_dsi_host 
+> *host);
+>  int msm_dsi_host_register(struct mipi_dsi_host *host, bool 
+> check_defer);
+>  void msm_dsi_host_unregister(struct mipi_dsi_host *host);
+> +void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
+> +			struct msm_dsi_phy *src_phy);
+>  int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
+>  			struct msm_dsi_phy *src_phy);
+>  void msm_dsi_host_reset_phy(struct mipi_dsi_host *host);
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index e269df285136..1ffcd0577e99 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -2224,6 +2224,14 @@ void msm_dsi_host_cmd_xfer_commit(struct
+> mipi_dsi_host *host, u32 dma_base,
+>  	wmb();
+>  }
+> 
+> +void msm_dsi_host_set_phy_mode(struct mipi_dsi_host *host,
+> +	struct msm_dsi_phy *src_phy)
+> +{
+> +	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> +
+> +	msm_host->cphy_mode = src_phy->cphy_mode;
+> +}
+> +
+>  int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
+>  	struct msm_dsi_phy *src_phy)
+>  {
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index c41d39f5b7cf..49a0a0841487 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -77,6 +77,7 @@ static int dsi_mgr_setup_components(int id)
+>  			return ret;
+> 
+>  		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
+> +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+>  		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
+>  	} else if (!other_dsi) {
+>  		ret = 0;
+> @@ -104,6 +105,8 @@ static int dsi_mgr_setup_components(int id)
+>  					MSM_DSI_PHY_MASTER);
+>  		msm_dsi_phy_set_usecase(clk_slave_dsi->phy,
+>  					MSM_DSI_PHY_SLAVE);
+> +		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
+> +		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
+>  		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
+>  		if (ret)
+>  			return ret;
