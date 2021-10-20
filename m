@@ -1,66 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D939D434222
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 01:36:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AEABD43441E
+	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 06:23:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA8B6E0E9;
-	Tue, 19 Oct 2021 23:36:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421826E0D2;
+	Wed, 20 Oct 2021 04:23:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 350466E0E9
- for <freedreno@lists.freedesktop.org>; Tue, 19 Oct 2021 23:36:11 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1634686572; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=1+u4o5BrSgJRG3IymcStczFaOcnqoI4uE+KBtlHBBVY=;
- b=TmGWcjwDXVQXGuHQuaWrMImal28tdotWtOOdQmjgs7tc3a8PGT0QzbxPCtTmYs9QRjBAYJvN
- 765uoL0kFjW/0sZb1kBgjNdocnjbesnd/WQtPG+qUDQqo/sDxWgpCYSyw5NXVN/VH4eTQqZ1
- zIf4EkT8n1n/c1stgRmq/Aa0kIo=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 616f56573416c2cb706686e9 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 19 Oct 2021 23:35:51
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A4D31C4360C; Tue, 19 Oct 2021 23:35:50 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 4E15EC4338F;
- Tue, 19 Oct 2021 23:35:49 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4DA6E0D2
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 04:23:02 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ s18-20020a0568301e1200b0054e77a16651so6763588otr.7
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Oct 2021 21:23:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Bs3Hx7Xml+AKZzdgDE9rHnfZKTi0TD4gTNNMxvuouzw=;
+ b=hRDpLNEWqiqc9tbEifLp0DqHyPdzF9Sr5oiDPZyU8YMkJSwqlu3BKUPMQRC8AzY7Mt
+ Y1kcLVaIv+n81zA6JJTdc43VxLZdnJ4eiTf0oK27JsSx7SGc3Dj5BqZGdBV6ooNTQ9WZ
+ pnlbTJe8+nKB/kZ3FL+QgnG0c83kNRjgCn5LU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Bs3Hx7Xml+AKZzdgDE9rHnfZKTi0TD4gTNNMxvuouzw=;
+ b=R0fChM8+kuIUTL49Mqu3A2Z5kwSwMTLNh1czWRMc0N04hLls75vAS21pIEqh/35tFR
+ nxLUKtuusAWG9w9j1KtHVKtW+T++6ZdLOeFbSbv9yCutUE8ikxflUp+Pi3V6u77H81i1
+ 5HBQrJVrhkjDU71GVd6075mQCradfGi01acIcDv5Tdn/NtQXHhJyQLFV70er33In7pvU
+ pE/OcLIAkA3NdIEkmQnC+Ij4ngsjRBhhTwohCTklkic1R1GpOeFdIjMo6UhuUCJxdtY2
+ wscrxIB9RKouM6myDeTmLMpkFG2ZDupSUb6153Y5AZ0kwF1YyQzMt2wvQK18i4IXR7ZP
+ EaZg==
+X-Gm-Message-State: AOAM532Ecce92tMLTLeE3ca66hIdjvbPWSFayY6P6e6sDuCfirwkQ7eG
+ qdlutoIX+8UyZa4Nx6vJfeTsnLvhECy5BUPPeUMh0A==
+X-Google-Smtp-Source: ABdhPJyOKkL0wQNubSm3C1Hh3QCslWvDpIb6fE78XIybDX0ScYFy0By0TVmpHiOzhY9VXZRM4BxzV4E5ru6naCrkWWA=
+X-Received: by 2002:a05:6830:1c2e:: with SMTP id
+ f14mr8354158ote.159.1634703782105; 
+ Tue, 19 Oct 2021 21:23:02 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 19 Oct 2021 23:23:01 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 19 Oct 2021 16:35:49 -0700
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Jonathan Marek
- <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-In-Reply-To: <20211006204828.1218225-2-dmitry.baryshkov@linaro.org>
-References: <20211006204828.1218225-1-dmitry.baryshkov@linaro.org>
- <20211006204828.1218225-2-dmitry.baryshkov@linaro.org>
-Message-ID: <f7e8176759809f41dff1c41d6adb9d4a@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dsi: stop setting clock parents
- manually
+In-Reply-To: <1634621428-11652-1-git-send-email-mkrishn@codeaurora.org>
+References: <1634621428-11652-1-git-send-email-mkrishn@codeaurora.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Tue, 19 Oct 2021 23:23:01 -0500
+Message-ID: <CAE-0n51aKextY4CtEEM1bZo5AWTiM7Yt8uXvCbKfGT3sXvTxAA@mail.gmail.com>
+To: Krishna Manikandan <mkrishn@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: kalyan_t@codeaurora.org, robdclark@gmail.com, 
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: use compatible lists to find
+ mdp node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,167 +71,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-06 13:48, Dmitry Baryshkov wrote:
-> There is no reason to set clock parents manually, use device tree to
-> assign DSI/display clock parents to DSI PHY clocks. Dropping this 
-> manual
-> setup allows us to drop repeating code and to move registration of hw
-> clock providers to generic place.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-I believe this was reviewed previously on
-
-https://patchwork.freedesktop.org/patch/443470/
-
-Hence,
-
-Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-
+Quoting Krishna Manikandan (2021-10-18 22:30:28)
+> In the current implementation, substring comparison
+> using device node name is used to find mdp node
+> during driver probe. Use compatible string list instead
+> of node name to get mdp node from the parent mdss node.
+>
+> Signed-off-by: Krishna Manikandan <mkrishn@codeaurora.org>
+>
+> Changes in v2:
+>    - Use compatible lists instead of duplicate string
+>      check (Stephen Boyd)
 > ---
->  drivers/gpu/drm/msm/dsi/dsi.h         |  2 -
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 53 ---------------------------
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 11 +-----
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 11 ------
->  4 files changed, 2 insertions(+), 75 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h 
-> b/drivers/gpu/drm/msm/dsi/dsi.h
-> index 7dfb6d198ca9..c03a8d09c764 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -173,8 +173,6 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
->  void msm_dsi_phy_disable(struct msm_dsi_phy *phy);
->  void msm_dsi_phy_set_usecase(struct msm_dsi_phy *phy,
->  			     enum msm_dsi_phy_usecase uc);
-> -int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
-> -	struct clk **byte_clk_provider, struct clk **pixel_clk_provider);
->  void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy);
->  int msm_dsi_phy_pll_restore_state(struct msm_dsi_phy *phy);
->  void msm_dsi_phy_snapshot(struct msm_disp_state *disp_state, struct
-> msm_dsi_phy *phy);
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 1ffcd0577e99..9600b4fa27eb 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -2232,59 +2232,6 @@ void msm_dsi_host_set_phy_mode(struct
-> mipi_dsi_host *host,
->  	msm_host->cphy_mode = src_phy->cphy_mode;
+>  drivers/gpu/drm/msm/msm_drv.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 2e6fc18..451d667 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -1241,9 +1241,13 @@ static int add_components_mdp(struct device *mdp_dev,
+>         return 0;
 >  }
-> 
-> -int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
-> -	struct msm_dsi_phy *src_phy)
-> -{
-> -	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-> -	struct clk *byte_clk_provider, *pixel_clk_provider;
-> -	int ret;
-> -
-> -	msm_host->cphy_mode = src_phy->cphy_mode;
-> -
-> -	ret = msm_dsi_phy_get_clk_provider(src_phy,
-> -				&byte_clk_provider, &pixel_clk_provider);
-> -	if (ret) {
-> -		pr_info("%s: can't get provider from pll, don't set parent\n",
-> -			__func__);
-> -		return 0;
-> -	}
-> -
-> -	ret = clk_set_parent(msm_host->byte_clk_src, byte_clk_provider);
-> -	if (ret) {
-> -		pr_err("%s: can't set parent to byte_clk_src. ret=%d\n",
-> -			__func__, ret);
-> -		goto exit;
-> -	}
-> -
-> -	ret = clk_set_parent(msm_host->pixel_clk_src, pixel_clk_provider);
-> -	if (ret) {
-> -		pr_err("%s: can't set parent to pixel_clk_src. ret=%d\n",
-> -			__func__, ret);
-> -		goto exit;
-> -	}
-> -
-> -	if (msm_host->dsi_clk_src) {
-> -		ret = clk_set_parent(msm_host->dsi_clk_src, pixel_clk_provider);
-> -		if (ret) {
-> -			pr_err("%s: can't set parent to dsi_clk_src. ret=%d\n",
-> -				__func__, ret);
-> -			goto exit;
-> -		}
-> -	}
-> -
-> -	if (msm_host->esc_clk_src) {
-> -		ret = clk_set_parent(msm_host->esc_clk_src, byte_clk_provider);
-> -		if (ret) {
-> -			pr_err("%s: can't set parent to esc_clk_src. ret=%d\n",
-> -				__func__, ret);
-> -			goto exit;
-> -		}
-> -	}
-> -
-> -exit:
-> -	return ret;
-> -}
-> -
->  void msm_dsi_host_reset_phy(struct mipi_dsi_host *host)
+>
+> -static int compare_name_mdp(struct device *dev, void *data)
+> +static int find_mdp_node(struct device *dev, void *data)
 >  {
->  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index 49a0a0841487..9342a822ad20 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -78,10 +78,7 @@ static int dsi_mgr_setup_components(int id)
-> 
->  		msm_dsi_phy_set_usecase(msm_dsi->phy, MSM_DSI_PHY_STANDALONE);
->  		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
-> -		ret = msm_dsi_host_set_src_pll(msm_dsi->host, msm_dsi->phy);
-> -	} else if (!other_dsi) {
-> -		ret = 0;
-> -	} else {
-> +	} else if (other_dsi) {
->  		struct msm_dsi *master_link_dsi = IS_MASTER_DSI_LINK(id) ?
->  							msm_dsi : other_dsi;
->  		struct msm_dsi *slave_link_dsi = IS_MASTER_DSI_LINK(id) ?
-> @@ -107,13 +104,9 @@ static int dsi_mgr_setup_components(int id)
->  					MSM_DSI_PHY_SLAVE);
->  		msm_dsi_host_set_phy_mode(msm_dsi->host, msm_dsi->phy);
->  		msm_dsi_host_set_phy_mode(other_dsi->host, other_dsi->phy);
-> -		ret = msm_dsi_host_set_src_pll(msm_dsi->host, clk_master_dsi->phy);
-> -		if (ret)
-> -			return ret;
-> -		ret = msm_dsi_host_set_src_pll(other_dsi->host, 
-> clk_master_dsi->phy);
->  	}
-> 
-> -	return ret;
-> +	return 0;
+> -       return (strstr(dev_name(dev), "mdp") != NULL);
+> +       if (!dev->driver)
+
+I don't think we want to wait for the device to have an attached driver.
+That could be far later than when we're trying to add all the
+components here. Can you reference the match tables directly?
+
+
+> +               return 0;
+> +
+> +       return (of_match_node(dev->driver->of_match_table,
+> +                               dev->of_node) != NULL);
+
+Drop useless parenthesis.
+
 >  }
-> 
->  static int enable_phy(struct msm_dsi *msm_dsi,
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 8c65ef6968ca..8ec331e751a2 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -890,17 +890,6 @@ bool msm_dsi_phy_set_continuous_clock(struct
-> msm_dsi_phy *phy, bool enable)
->  	return phy->cfg->ops.set_continuous_clock(phy, enable);
->  }
-> 
-> -int msm_dsi_phy_get_clk_provider(struct msm_dsi_phy *phy,
-> -	struct clk **byte_clk_provider, struct clk **pixel_clk_provider)
-> -{
-> -	if (byte_clk_provider)
-> -		*byte_clk_provider = 
-> phy->provided_clocks->hws[DSI_BYTE_PLL_CLK]->clk;
-> -	if (pixel_clk_provider)
-> -		*pixel_clk_provider = 
-> phy->provided_clocks->hws[DSI_PIXEL_PLL_CLK]->clk;
-> -
-> -	return 0;
-> -}
-> -
->  void msm_dsi_phy_pll_save_state(struct msm_dsi_phy *phy)
->  {
->  	if (phy->cfg->ops.save_pll_state) {
+>
+>  static int add_display_components(struct platform_device *pdev,
+> @@ -1268,7 +1272,7 @@ static int add_display_components(struct platform_device *pdev,
+>                         return ret;
+>                 }
+>
+> -               mdp_dev = device_find_child(dev, NULL, compare_name_mdp);
+> +               mdp_dev = device_find_child(dev, NULL, find_mdp_node);
+>                 if (!mdp_dev) {
+>                         DRM_DEV_ERROR(dev, "failed to find MDSS MDP node\n");
+>                         of_platform_depopulate(dev);
