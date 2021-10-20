@@ -1,30 +1,30 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9842434593
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 08:57:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF20F4347C9
+	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 11:19:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5580E6E216;
-	Wed, 20 Oct 2021 06:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27AAC6E245;
+	Wed, 20 Oct 2021 09:19:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0DA6E216;
- Wed, 20 Oct 2021 06:57:48 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3918960F9E;
- Wed, 20 Oct 2021 06:57:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 663F789FEC;
+ Wed, 20 Oct 2021 09:19:31 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5CDDF61074;
+ Wed, 20 Oct 2021 09:19:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634713068;
- bh=FWddtQcYwrlzWTV77Jdm3QP9dowcs8BdUV9+ROkK/2s=;
+ s=k20201202; t=1634721571;
+ bh=lyuguw0XyKC7pblfSP/PKjf0tJ9Omz7vG2CSkCF9b/Y=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iLeD8Jr2GXRILm+s50KwHvB3JIOerCkXUihSZmvhWu3vndyEtcMQNe7qCDd26EbVu
- TJm+CNV2iOoAcbE2bEgNQl/pQGtjkvRJI68nUWnth/0uNqr+NdvyG3TzAkXL6qErlj
- H5OXv777Cjq8etnHhFCbImz9sOSyMe5FdQ4fnIOApXzAGcrRsy1hgqhH9sG7/6Z+8V
- QCA4XEsoom1UoeCFxkP+2Xu8Xqhtknfv/aoYxStQEXODWLgeYlLdkAl7IkLHoGkrbU
- cZfdGR5frPH3+2zCWOjBoNnyEmjdB7vLcp9ZnUk51OiWwXmv78xMpPJmlDjTA5MLwC
- ODvQ2l8p5GeNw==
-Date: Wed, 20 Oct 2021 12:27:43 +0530
+ b=GpfTbXlxvTLq3xEnQP+Mt5K79oLCsTz8gWGIsl0Bs3jXM1H0sbH/VBxXQmTdapqZJ
+ ss4z/dkeFrhUx+tpjQmDQvkkDQfYy0AbS/gYWN8knXneehPld6hyAW+uL5GH5gAYPR
+ ieVjo2Dz2AIa7UUy38tZOb0p8e/pLyFQ7TPcaHpkGL1NQQ2e2EHqWwZtrJNMDYZGvH
+ sabCabEJDrySLq7HUGodzbr6Mq64EC9kxPYSKTDHZp5q47eMp3pgE4IbFfuY1bkMkd
+ YuGbvZZJ9cuLbmC3ZvAHqTtddR4TDz97+VI2JqPx5+SLI4/w+jbW+fMtLRgoHrnp8B
+ pM42Dau48lQ2w==
+Date: Wed, 20 Oct 2021 14:49:26 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
@@ -36,18 +36,16 @@ Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
  Sumit Semwal <sumit.semwal@linaro.org>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Message-ID: <YW+957ZKnbf1g/89@matsya>
+Message-ID: <YW/fHkaTcCbezKMT@matsya>
 References: <20211007070900.456044-1-vkoul@kernel.org>
- <20211007070900.456044-7-vkoul@kernel.org>
- <11becace-7b44-6141-5a8b-1bd6d0673243@linaro.org>
- <35eb95c5-1c42-94d1-3f33-df029f753ab3@linaro.org>
+ <20211007070900.456044-8-vkoul@kernel.org>
+ <f5f6162c-7ed0-2964-7cf9-0bb894c8b4f5@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <35eb95c5-1c42-94d1-3f33-df029f753ab3@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 06/11] drm/msm/disp/dpu1: Don't use DSC
- with mode_3d
+In-Reply-To: <f5f6162c-7ed0-2964-7cf9-0bb894c8b4f5@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 07/11] drm/msm/disp/dpu1: Add DSC support
+ in hw_ctl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,138 +61,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14-10-21, 16:50, Dmitry Baryshkov wrote:
-> On 14/10/2021 16:41, Dmitry Baryshkov wrote:
-> > On 07/10/2021 10:08, Vinod Koul wrote:
-> > > We cannot enable mode_3d when we are using the DSC. So pass
-> > > configuration to detect DSC is enabled and not enable mode_3d
-> > > when we are using DSC
-> > > 
-> > > We add a helper dpu_encoder_helper_get_dsc_mode() to detect dsc
-> > > enabled and pass this to .setup_intf_cfg()
-> > > 
-> > > Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> > > ---
-> > > Changes since
-> > > v1:
-> > >   - Move this patch from 7 to 6
-> > >   - Update the changelog
-> > >   - Make dsc as int and store the DSC indices
-> > > 
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h     | 11 +++++++++++
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c |  2 ++
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c           |  5 +++--
-> > >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h           |  2 ++
-> > >   4 files changed, 18 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> > > index e7270eb6b84b..fca07ed03317 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-> > > @@ -332,6 +332,17 @@ static inline enum dpu_3d_blend_mode
-> > > dpu_encoder_helper_get_3d_blend_mode(
-> > >       return BLEND_3D_NONE;
-> > >   }
-> > > +static inline bool dpu_encoder_helper_get_dsc_mode(struct
-> > > dpu_encoder_phys *phys_enc)
-> > > +{
-> > > +    struct drm_encoder *drm_enc = phys_enc->parent;
-> > > +    struct msm_drm_private *priv = drm_enc->dev->dev_private;
-> > > +
-> > > +    if (priv->dsc)
-> > > +        return BIT(0) | BIT(1); /* Hardcoding for 2 DSC topology */
+On 14-10-21, 17:06, Dmitry Baryshkov wrote:
+> On 07/10/2021 10:08, Vinod Koul wrote:
+> > Later gens of hardware have DSC bits moved to hw_ctl, so configure these
+> > bits so that DSC would work there as well
 > > 
-> > Please use defined values here rater than just BIT().
+> > Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> > ---
+> > Changes since
+> > v1:
+> >   - Move this patch from 6 to 7 due to dependency on 6th one
+> >   - Use DSC indices for programming DSC registers and program only on non
+> >     null indices
+> > 
+> >   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 12 ++++++++++--
+> >   1 file changed, 10 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> > index 3c79bd9c2fe5..8ea9d8dce3f7 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> > @@ -25,6 +25,8 @@
+> >   #define   CTL_MERGE_3D_ACTIVE           0x0E4
+> >   #define   CTL_INTF_ACTIVE               0x0F4
+> >   #define   CTL_MERGE_3D_FLUSH            0x100
+> > +#define   CTL_DSC_ACTIVE                0x0E8
+> > +#define   CTL_DSC_FLUSH                0x104
+> >   #define   CTL_INTF_FLUSH                0x110
+> >   #define   CTL_INTF_MASTER               0x134
+> >   #define   CTL_FETCH_PIPE_ACTIVE         0x0FC
+> > @@ -34,6 +36,7 @@
+> >   #define DPU_REG_RESET_TIMEOUT_US        2000
+> >   #define  MERGE_3D_IDX   23
+> > +#define  DSC_IDX        22
+> >   #define  INTF_IDX       31
+> >   #define CTL_INVALID_BIT                 0xffff
+> > @@ -120,7 +123,6 @@ static u32 dpu_hw_ctl_get_pending_flush(struct dpu_hw_ctl *ctx)
+> >   static void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+> >   {
+> > -
+> >   	if (ctx->pending_flush_mask & BIT(MERGE_3D_IDX))
+> >   		DPU_REG_WRITE(&ctx->hw, CTL_MERGE_3D_FLUSH,
+> >   				ctx->pending_merge_3d_flush_mask);
+> > @@ -128,7 +130,6 @@ static void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
+> >   		DPU_REG_WRITE(&ctx->hw, CTL_INTF_FLUSH,
+> >   				ctx->pending_intf_flush_mask);
+> > -	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
 > 
-> Ah, it's a list of DSC blocks used. So the function name is misleading (as
-> it's not a mode). I think we'd better pass DSC_n names here. What about
-> using an array for cfg->dsc?
+> This would break non-DSC case.
 
-Yeah I can do better names.
+This is a mistake, I have fixed it up now..
 
+> >   }
+> >   static inline void dpu_hw_ctl_trigger_flush(struct dpu_hw_ctl *ctx)
+> > @@ -498,6 +499,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+> >   	u32 intf_active = 0;
+> >   	u32 mode_sel = 0;
+> > +	if (cfg->dsc)
+> > +		DPU_REG_WRITE(&ctx->hw, CTL_DSC_FLUSH, cfg->dsc);
+> > +
+> >   	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
+> >   		mode_sel |= BIT(17);
+> > @@ -509,6 +513,10 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+> >   	if (cfg->merge_3d)
+> >   		DPU_REG_WRITE(c, CTL_MERGE_3D_ACTIVE,
+> >   			      BIT(cfg->merge_3d - MERGE_3D_0));
+> > +	if (cfg->dsc) {
+> > +		DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask |  BIT(DSC_IDX));
 > 
-> > 
-> > > +
-> > > +    return 0;
-> > > +}
-> > > +
-> > >   /**
-> > >    * dpu_encoder_helper_split_config - split display configuration
-> > > helper function
-> > >    *    This helper function may be used by physical encoders to
-> > > configure
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > > index aa01698d6b25..8e5c0911734c 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> > > @@ -70,6 +70,8 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
-> > >       intf_cfg.intf_mode_sel = DPU_CTL_MODE_SEL_CMD;
-> > >       intf_cfg.stream_sel = cmd_enc->stream_sel;
-> > >       intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
-> > > +    intf_cfg.dsc = dpu_encoder_helper_get_dsc_mode(phys_enc);
-> > > +
-> > >       ctl->ops.setup_intf_cfg(ctl, &intf_cfg);
-> > >   }
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > index 64740ddb983e..3c79bd9c2fe5 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> > > @@ -118,7 +118,7 @@ static u32 dpu_hw_ctl_get_pending_flush(struct
-> > > dpu_hw_ctl *ctx)
-> > >       return ctx->pending_flush_mask;
-> > >   }
-> > > -static inline void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
-> > > +static void dpu_hw_ctl_trigger_flush_v1(struct dpu_hw_ctl *ctx)
-> > >   {
-> > >       if (ctx->pending_flush_mask & BIT(MERGE_3D_IDX))
-> > > @@ -519,7 +519,8 @@ static void dpu_hw_ctl_intf_cfg(struct
-> > > dpu_hw_ctl *ctx,
-> > >       intf_cfg |= (cfg->intf & 0xF) << 4;
-> > > -    if (cfg->mode_3d) {
-> > > +    /* In DSC we can't set merge, so check for dsc too */
-> > > +    if (cfg->mode_3d && !cfg->dsc) {
-> > 
-> > The more I think about this hunk, the more I'm unsure about it.
-> > Downstream has the following topoligies defined:
-> >   * @SDE_RM_TOPOLOGY_DUALPIPE_3DMERGE_DSC: 2 LM, 2 PP, 3DMux, 1 DSC, 1
-> > INTF/WB
-> >   * @SDE_RM_TOPOLOGY_QUADPIPE_3DMERGE_DSC  4 LM, 4 PP, 3DMux, 3 DSC, 2 INTF
-> > 
-> > While the latter is not supported on sdm845, the former one should be
-> > (by the hardware). So in the driver I think we should make sure that
-> > mode_3d does not get set rather than disallowing it here.
-> > 
-> > >           intf_cfg |= BIT(19);
-> > >           intf_cfg |= (cfg->mode_3d - 0x1) << 20;
-> > >       }
-> > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > index 806c171e5df2..5dfac5994bd4 100644
-> > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> > > @@ -39,6 +39,7 @@ struct dpu_hw_stage_cfg {
-> > >    * @mode_3d:               3d mux configuration
-> > >    * @merge_3d:              3d merge block used
-> > >    * @intf_mode_sel:         Interface mode, cmd / vid
-> > > + * @dsc:                   DSC BIT masks
-> > >    * @stream_sel:            Stream selection for multi-stream interfaces
-> > >    */
-> > >   struct dpu_hw_intf_cfg {
-> > > @@ -46,6 +47,7 @@ struct dpu_hw_intf_cfg {
-> > >       enum dpu_3d_blend_mode mode_3d;
-> > >       enum dpu_merge_3d merge_3d;
-> > >       enum dpu_ctl_mode_sel intf_mode_sel;
-> > > +    unsigned int dsc;
-> 
-> I think this should be:
-> enum dpu_dsc dsc[MAX_DSCS];
-> unsigned int num_dsc;
+> Why?
 
-hmmm, how do we go about getting the num_dsc value here.
-dpu_encoder_phys does not know about that..
+I have fixed it up to write only DSC_IDX
 
 -- 
 ~Vinod
