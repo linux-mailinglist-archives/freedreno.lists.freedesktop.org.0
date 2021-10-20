@@ -2,73 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C227435181
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 19:41:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 219F2435225
+	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 19:58:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6F06E3A0;
-	Wed, 20 Oct 2021 17:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1EDC6E3C4;
+	Wed, 20 Oct 2021 17:58:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61EED6E3A0
- for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 17:41:05 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id y67so25598347iof.10
- for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 10:41:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=09x1oRFaTKDmQrhlhOb9jy+N6hL8DwJNbTkF0zphjoE=;
- b=mnQOVOqgdt1WuKAT8iYksqfZizblzHqHQ0ZpeyU/Tr7i35LtYOojJ16b518ll9ZQop
- mSXIV/ojivDGtUBOWZKJAjqQpyiuL6uYQv8P1dwI4WVCWO4wf9sJhg+9F4yd4Opbq1HD
- yzO3c7Ha5/V2RuTtNP0UfuMMt6qwM6HdXnzJ0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=09x1oRFaTKDmQrhlhOb9jy+N6hL8DwJNbTkF0zphjoE=;
- b=5j6NKOx0szShUQcUwVs62ol/Gc6KoPnlbrWo3V6RH/CM7ydFXzFVH/vYe10QRQI44n
- GxjHR3smDZYfGi6tdZP5YKtyhiaSyTJFLWvzYKfnNidXfcjeyk1hp41s5vt12E049ycY
- 5aVyZRdsCn4n7H4iikGSyW+VOMV9GEisr3rYKULtBLwkBjL2Gd4EYRcXBT3FPKdBpNl1
- l1g+VCsAYnO/hDnv5qvY+8U/CM4IJ12y5lK2mCHCDVubDpRhIpG6dbpN8ObzF8vfCHfe
- Np9H9fpcZX9UkrLbAiWoGBigmQHPmNyiMDXRo/JwY8GI5jvvTYcyR3vXaj0WOsUxoqRX
- f6Hw==
-X-Gm-Message-State: AOAM530J/VplnwUWOVrEmjkYg3zIutIsXFDKWTrOiq8qIZErCnNYzGwO
- VI8aMjYrApTNyuGyNks4fqlH19NMBSjWDg==
-X-Google-Smtp-Source: ABdhPJzu33HBnPHcW8PpCkXL5Lc6LFS8vjHilLN8nC1FtmT9ttFZ2Cu/CIHT19DLSMDtQUyNnH933g==
-X-Received: by 2002:a6b:208:: with SMTP id 8mr462707ioc.46.1634751663997;
- Wed, 20 Oct 2021 10:41:03 -0700 (PDT)
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com.
- [209.85.166.46])
- by smtp.gmail.com with ESMTPSA id h26sm1368723ila.4.2021.10.20.10.41.03
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Oct 2021 10:41:03 -0700 (PDT)
-Received: by mail-io1-f46.google.com with SMTP id e144so25670513iof.3
- for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 10:41:03 -0700 (PDT)
-X-Received: by 2002:a05:6638:2510:: with SMTP id
- v16mr514672jat.68.1634751662770; 
- Wed, 20 Oct 2021 10:41:02 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2008089DA4
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 17:58:13 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1634752694; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=rvucfrK5nE/1u+GNvxQEXYHZ935RFR7Y6kOg/uu3juQ=;
+ b=LSWgn8EBz96O1QB/KIDbjpSBS9/sLzNyXJ4Y6SlLjlRqL57rRffxkmFKVNFVP1jnqsbAATyD
+ HFE4uzIhfAOPJN7hZ72K59+RXWuZg7vcNqb4dG0+1gtKm1J7+u58IX3dAQmNmZmuS0Fxq0fw
+ gnLj88rtsVgJJvhrtLbiCJS+QP8=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 617058aa321f240051b98518 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 20 Oct 2021 17:58:02
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D551BC43616; Wed, 20 Oct 2021 17:58:01 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from jesszhan-linux.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: jesszhan)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id A5CB3C4338F;
+ Wed, 20 Oct 2021 17:58:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org A5CB3C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Jessica Zhang <jesszhan@codeaurora.org>
+To: freedreno@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ dan.carpenter@oracle.com, dri-devel@lists.freedesktop.org,
+ dmitry.baryshkov@linaro.org, nganji@codeaurora.org,
+ aravindh@codeaurora.org, abhinavk@codeaurora.org, jsanka@codeaurora.org
+Date: Wed, 20 Oct 2021 10:57:33 -0700
+Message-Id: <20211020175733.3379-1-jesszhan@codeaurora.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-References: <1634732051-31282-1-git-send-email-quic_sbillaka@quicinc.com>
- <1634732051-31282-3-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1634732051-31282-3-git-send-email-quic_sbillaka@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 20 Oct 2021 10:40:51 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U9==zFpYtiU1S=n+Ygy5Qa4xfA6GFMpHJUtkpjpNfcyw@mail.gmail.com>
-Message-ID: <CAD=FV=U9==zFpYtiU1S=n+Ygy5Qa4xfA6GFMpHJUtkpjpNfcyw@mail.gmail.com>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- LKML <linux-kernel@vger.kernel.org>, 
- Sankeerth Billakanti <sbillaka@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Stephen Boyd <swboyd@chromium.org>, 
- Kalyan Thota <kalyan_t@codeaurora.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 2/2] dt-bindings: Add SC7280 compatible
- string
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Fix potential NULL dereference in DPU
+ SSPP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,29 +75,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Move initialization of sblk in _sspp_subblk_offset() after NULL check to
+avoid potential NULL pointer dereference.
 
-On Wed, Oct 20, 2021 at 5:14 AM Sankeerth Billakanti
-<quic_sbillaka@quicinc.com> wrote:
->
-> From: Sankeerth Billakanti <sbillaka@codeaurora.org>
->
-> The Qualcomm SC7280 platform supports an eDP controller, add
-> compatible string for it to dp-controller.
->
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> ---
->  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Jessica Zhang <jesszhan@codeaurora.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-I think you ignored some of the feedback that was given on v1. Perhaps
-you could go back and re-read that feedback? See the replies to:
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+index 69eed7932486..f9460672176a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+@@ -138,11 +138,13 @@ static int _sspp_subblk_offset(struct dpu_hw_pipe *ctx,
+ 		u32 *idx)
+ {
+ 	int rc = 0;
+-	const struct dpu_sspp_sub_blks *sblk = ctx->cap->sblk;
++	const struct dpu_sspp_sub_blks *sblk;
+ 
+-	if (!ctx)
++	if (!ctx || !ctx->cap || !ctx->cap->sblk)
+ 		return -EINVAL;
+ 
++	sblk = ctx->cap->sblk;
++
+ 	switch (s_id) {
+ 	case DPU_SSPP_SRC:
+ 		*idx = sblk->src_blk.base;
+@@ -419,7 +421,7 @@ static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
+ 
+ 	(void)pe;
+ 	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
+-		|| !scaler3_cfg || !ctx || !ctx->cap || !ctx->cap->sblk)
++		|| !scaler3_cfg)
+ 		return;
+ 
+ 	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-https://lore.kernel.org/r/1628726882-27841-3-git-send-email-sbillaka@codeaurora.org/
-
-For one, ${SUBJECT} needs updating. It's probably as simple as adding
-the "msm/dp" tag, like:
-
-dt-bindings: msm/dp: Add SC7280 compatible string
-
-For another, Stephen requested that you add "sc7280-dp" too.
