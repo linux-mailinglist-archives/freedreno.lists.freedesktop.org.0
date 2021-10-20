@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 219F2435225
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 19:58:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3267C4352B9
+	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 20:34:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EDC6E3C4;
-	Wed, 20 Oct 2021 17:58:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE4496E095;
+	Wed, 20 Oct 2021 18:34:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2008089DA4
- for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 17:58:13 +0000 (UTC)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D233189F85
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 18:34:53 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1634752694; h=Content-Transfer-Encoding: MIME-Version:
+ s=smtp; t=1634754893; h=Content-Transfer-Encoding: MIME-Version:
  Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=rvucfrK5nE/1u+GNvxQEXYHZ935RFR7Y6kOg/uu3juQ=;
- b=LSWgn8EBz96O1QB/KIDbjpSBS9/sLzNyXJ4Y6SlLjlRqL57rRffxkmFKVNFVP1jnqsbAATyD
- HFE4uzIhfAOPJN7hZ72K59+RXWuZg7vcNqb4dG0+1gtKm1J7+u58IX3dAQmNmZmuS0Fxq0fw
- gnLj88rtsVgJJvhrtLbiCJS+QP8=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ bh=B2TjKcLNRQ5IG8/kowOe6QFC6qfz68TcGJVbcMH4U3E=;
+ b=hSUKX+3oWOwHM5PjGDLpY/qd3pesDkobRpQ5UJdYnCiGnCO+JrRUfSz6W+xIUgKaA2yhSyMh
+ 7tHPvwkF4qUTsSKyuvZ3rTV9eT1t7DvTIrZvsBwImPd5puJln74wReJQr6L8cMXWQdeR6JAX
+ zwH62uZRbVeHor7V0T6WalrXAqA=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 617058aa321f240051b98518 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 20 Oct 2021 17:58:02
+ smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
+ 6170614d5ca800b6c1883181 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 20 Oct 2021 18:34:53
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id D551BC43616; Wed, 20 Oct 2021 17:58:01 +0000 (UTC)
+ id C3118C4360D; Wed, 20 Oct 2021 18:34:52 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -40,9 +40,9 @@ Received: from jesszhan-linux.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: jesszhan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id A5CB3C4338F;
- Wed, 20 Oct 2021 17:58:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org A5CB3C4338F
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6F87FC4338F;
+ Wed, 20 Oct 2021 18:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 6F87FC4338F
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -52,14 +52,13 @@ To: freedreno@lists.freedesktop.org
 Cc: Jessica Zhang <jesszhan@codeaurora.org>, linux-arm-msm@vger.kernel.org,
  dan.carpenter@oracle.com, dri-devel@lists.freedesktop.org,
  dmitry.baryshkov@linaro.org, nganji@codeaurora.org,
- aravindh@codeaurora.org, abhinavk@codeaurora.org, jsanka@codeaurora.org
-Date: Wed, 20 Oct 2021 10:57:33 -0700
-Message-Id: <20211020175733.3379-1-jesszhan@codeaurora.org>
+ aravindh@codeaurora.org, abhinavk@codeaurora.org, seanpaul@chromium.org
+Date: Wed, 20 Oct 2021 11:34:38 -0700
+Message-Id: <20211020183438.32263-1-jesszhan@codeaurora.org>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix potential NULL dereference in DPU
- SSPP
+Subject: [Freedreno] [PATCH] drm/msm/dsi: fix wrong type in msm_dsi_host
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,45 +74,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move initialization of sblk in _sspp_subblk_offset() after NULL check to
-avoid potential NULL pointer dereference.
+Change byte_clk_rate, pixel_clk_rate, esc_clk_rate, and src_clk_rate
+from u32 to unsigned long, since clk_get_rate() returns an unsigned long.
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Fixes: a6bcddbc2ee1 ("drm/msm: dsi: Handle dual-channel for 6G as well")
 Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
 Signed-off-by: Jessica Zhang <jesszhan@codeaurora.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-index 69eed7932486..f9460672176a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-@@ -138,11 +138,13 @@ static int _sspp_subblk_offset(struct dpu_hw_pipe *ctx,
- 		u32 *idx)
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index c86b5090fae6..20a92cb967d0 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -115,16 +115,16 @@ struct msm_dsi_host {
+ 	struct clk *pixel_clk_src;
+ 	struct clk *byte_intf_clk;
+ 
+-	u32 byte_clk_rate;
+-	u32 pixel_clk_rate;
+-	u32 esc_clk_rate;
++	unsigned long byte_clk_rate;
++	unsigned long pixel_clk_rate;
++	unsigned long esc_clk_rate;
+ 
+ 	/* DSI v2 specific clocks */
+ 	struct clk *src_clk;
+ 	struct clk *esc_clk_src;
+ 	struct clk *dsi_clk_src;
+ 
+-	u32 src_clk_rate;
++	unsigned long src_clk_rate;
+ 
+ 	struct gpio_desc *disp_en_gpio;
+ 	struct gpio_desc *te_gpio;
+@@ -498,10 +498,10 @@ int msm_dsi_runtime_resume(struct device *dev)
+ 
+ int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
  {
- 	int rc = 0;
--	const struct dpu_sspp_sub_blks *sblk = ctx->cap->sblk;
-+	const struct dpu_sspp_sub_blks *sblk;
+-	u32 byte_intf_rate;
++	unsigned long byte_intf_rate;
+ 	int ret;
  
--	if (!ctx)
-+	if (!ctx || !ctx->cap || !ctx->cap->sblk)
- 		return -EINVAL;
+-	DBG("Set clk rates: pclk=%d, byteclk=%d",
++	DBG("Set clk rates: pclk=%d, byteclk=%lu",
+ 		msm_host->mode->clock, msm_host->byte_clk_rate);
  
-+	sblk = ctx->cap->sblk;
-+
- 	switch (s_id) {
- 	case DPU_SSPP_SRC:
- 		*idx = sblk->src_blk.base;
-@@ -419,7 +421,7 @@ static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
+ 	ret = dev_pm_opp_set_rate(&msm_host->pdev->dev,
+@@ -583,7 +583,7 @@ int dsi_link_clk_set_rate_v2(struct msm_dsi_host *msm_host)
+ {
+ 	int ret;
  
- 	(void)pe;
- 	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
--		|| !scaler3_cfg || !ctx || !ctx->cap || !ctx->cap->sblk)
-+		|| !scaler3_cfg)
- 		return;
+-	DBG("Set clk rates: pclk=%d, byteclk=%d, esc_clk=%d, dsi_src_clk=%d",
++	DBG("Set clk rates: pclk=%d, byteclk=%lu, esc_clk=%lu, dsi_src_clk=%lu",
+ 		msm_host->mode->clock, msm_host->byte_clk_rate,
+ 		msm_host->esc_clk_rate, msm_host->src_clk_rate);
  
- 	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
+@@ -673,10 +673,10 @@ void dsi_link_clk_disable_v2(struct msm_dsi_host *msm_host)
+ 	clk_disable_unprepare(msm_host->byte_clk);
+ }
+ 
+-static u32 dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
++static unsigned long dsi_get_pclk_rate(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ {
+ 	struct drm_display_mode *mode = msm_host->mode;
+-	u32 pclk_rate;
++	unsigned long pclk_rate;
+ 
+ 	pclk_rate = mode->clock * 1000;
+ 
+@@ -696,7 +696,7 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ {
+ 	u8 lanes = msm_host->lanes;
+ 	u32 bpp = dsi_get_bpp(msm_host->format);
+-	u32 pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
++	unsigned long pclk_rate = dsi_get_pclk_rate(msm_host, is_bonded_dsi);
+ 	u64 pclk_bpp = (u64)pclk_rate * bpp;
+ 
+ 	if (lanes == 0) {
+@@ -713,7 +713,7 @@ static void dsi_calc_pclk(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 	msm_host->pixel_clk_rate = pclk_rate;
+ 	msm_host->byte_clk_rate = pclk_bpp;
+ 
+-	DBG("pclk=%d, bclk=%d", msm_host->pixel_clk_rate,
++	DBG("pclk=%lu, bclk=%lu", msm_host->pixel_clk_rate,
+ 				msm_host->byte_clk_rate);
+ 
+ }
+@@ -772,7 +772,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 
+ 	msm_host->esc_clk_rate = msm_host->byte_clk_rate / esc_div;
+ 
+-	DBG("esc=%d, src=%d", msm_host->esc_clk_rate,
++	DBG("esc=%lu, src=%lu", msm_host->esc_clk_rate,
+ 		msm_host->src_clk_rate);
+ 
+ 	return 0;
 -- 
 The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project
