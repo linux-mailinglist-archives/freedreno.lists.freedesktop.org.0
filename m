@@ -2,79 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2860E4367B1
-	for <lists+freedreno@lfdr.de>; Thu, 21 Oct 2021 18:26:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E63A4369EF
+	for <lists+freedreno@lfdr.de>; Thu, 21 Oct 2021 20:02:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C40376ECCC;
-	Thu, 21 Oct 2021 16:26:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A01726ECEE;
+	Thu, 21 Oct 2021 18:02:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 355CC6ECC9;
- Thu, 21 Oct 2021 16:26:02 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- g79-20020a1c2052000000b00323023159e1so302602wmg.2; 
- Thu, 21 Oct 2021 09:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MJX2i4HqBrM5vK2Tz/O1+2LEtyHzF3MISyrbDZ9H1L0=;
- b=Ei/6JKliMFXsBAo5RU5GpOOPsS7XlFzAhvK8H56I9S/O8dxSN9/RULALxLfxuRbMuj
- FLyXizJ3d75jhBhDABUjUAh3cIghGKGlS1MqR0SQQlhoBHiAx+eXzFdY+OpuKI+mr2g3
- 4Xm0/7J/FIE1xnZpo1dZUN8In7hgKaTV3xNLLuRgnc1Uh+ytshpF0U15u1Dxlup5aUz2
- vUaxKT/nsqC8Q08oa3ZNyxO0cjW1oVVoiaoj3Fy3kptW2GdfJGMJgNACrO0OsfG4Jz4m
- ucK9MQlVBQo81f8YudTvTZHNo+3bKMTNHpgm0MKAGMSXXhxMlVFo7PAU3MmjA8XJn5qD
- O10w==
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A1996ECEC
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 18:02:24 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ l24-20020a9d1c98000000b00552a5c6b23cso1393028ota.9
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 11:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Cm50m8z6CYr/VmhG+kR+5QTJjWplQ0LeVI88QEFCusg=;
+ b=AfuWmWwlkUxxnOEKSe2pZzBy5ZZbbog8kjdNi9w5d6DaWe+ypYjt98ogWhrSy6mnfp
+ kX7rZbz9IVN6K48919K9o8AYVXxYQGAkMFa5yGoOQODxTTMwNHyjCB6FzSibmICjvZT7
+ yykJrRahtY2H0/2WkssEyN36p9xUf1aKHtvgw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MJX2i4HqBrM5vK2Tz/O1+2LEtyHzF3MISyrbDZ9H1L0=;
- b=ldr+VyBZ0o6cAsfNhcQ6xuxz+Y897q0euvWypjPzAE3qwUsWZLB8stQZmsgdpC4oSq
- oSjvs12Dp7GSfbRM3ojK6H57F/5dAH2LZjH7OF1ghSCtXok2QsFv52r9J8Fw5lIBtBHs
- vYIUFlMGl8k91wR6PjCkEdig5oEPd279w1D9S9AHItlU8QHCr6t/ATbES0zZk2YWjmmt
- lBo0PuxwTDCGvkB1jyoDNqOp3cclqoPYuxOt9WViTe9TPz4VGz0Y40/YwvsaPUl8PJVF
- nr7pnAWxmTOK4KLIxQA3cjio4kKc0WggZR8F60kQ8h/STMqHJVnkZ+yc06GA9EDQJ6ek
- s71g==
-X-Gm-Message-State: AOAM530eBoW8TizCFdbHBBDYKFJ+uFrLCRdHCcuOphrgDRZJ0mxp/aLl
- Ius4KcqdNHrHa6I69KkXpZNTEr38ehAVZXRexsA=
-X-Google-Smtp-Source: ABdhPJxMMEpgJvFCUhkiPbr0GtGuVpBCjP3S4KkFi+sJX0HKzCpcukiyjXaKzSDNiLpZS2pS4vkln3p9WiZuTWqUWOs=
-X-Received: by 2002:a7b:c007:: with SMTP id c7mr22651421wmb.101.1634833560514; 
- Thu, 21 Oct 2021 09:26:00 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Cm50m8z6CYr/VmhG+kR+5QTJjWplQ0LeVI88QEFCusg=;
+ b=7gvIoP6TyWfRZcZ3DNaIzd+eMX8ECOntFvwPChLVPc3BWpcF+cXJdmmGB72MkQ31J6
+ QqZ6tGdYzP5oNcEGIy9atk74v64OVRPrntux5Yz8rmNSWyrRrCrYLdjgCZud+9CP8Qns
+ IgVQ6j88Q5qI/y1RojaLUhLldmxYKqjtAMkL7/AoCkN9gRQMZBqbHGNLyc2qY0tOK+K9
+ jRGRm5V01CtfgkuEDU9EU3PVFtWmA8Mkx9pPIJ0v/IuuuGP21w15N9UawPbrAmuXzeIF
+ kzQEa0318X+azv2ZdQVX8WygR6bgWXZTFIpZQfqySpXn1I9vUjggt0LuRqiKnUfEC/Up
+ Wvrg==
+X-Gm-Message-State: AOAM530afrcxugb0TnyXtV7GyqtbCWwH1a2kXPg4d/ldA7jlD25Ouwgm
+ tI3uDYcY8bXX+XycJ+xvEgKS29duC1fNafB5Vujfsw==
+X-Google-Smtp-Source: ABdhPJwGyQyLIYs5glLFBTJb4OJFUrX7EFm+vIUK4XYkbEDs20exbNwLWLTPgYr1QE+O4bxcm6HbdfD+S9dmGr6vVlY=
+X-Received: by 2002:a05:6830:4187:: with SMTP id
+ r7mr6060720otu.126.1634839343553; 
+ Thu, 21 Oct 2021 11:02:23 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 21 Oct 2021 11:02:22 -0700
 MIME-Version: 1.0
-References: <20211021073947.499373-1-maxime@cerno.tech>
- <20211021073947.499373-22-maxime@cerno.tech>
-In-Reply-To: <20211021073947.499373-22-maxime@cerno.tech>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 21 Oct 2021 09:30:39 -0700
-Message-ID: <CAF6AEGvQzyzNs57nCuR5ZRC14kB8CscykJ+4=gmZB6==OXCQEA@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>, 
- David Airlie <airlied@linux.ie>, Thierry Reding <thierry.reding@gmail.com>, 
- Andrzej Hajda <a.hajda@samsung.com>, Robert Foss <robert.foss@linaro.org>, 
- Neil Armstrong <narmstrong@baylibre.com>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Xinliang Liu <xinliang.liu@linaro.org>, 
- "moderated list:ARM/S5P EXYNOS AR..." <linux-samsung-soc@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Tian Tao <tiantao6@hisilicon.com>, 
- freedreno <freedreno@lists.freedesktop.org>,
- Chen Feng <puck.chen@hisilicon.com>, 
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- John Stultz <john.stultz@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
- Sean Paul <sean@poorly.run>, Inki Dae <inki.dae@samsung.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- Rob Clark <robdclark@chromium.org>, Amit Pundir <amit.pundir@linaro.org>, 
- Caleb Connolly <caleb.connolly@linaro.org>
+In-Reply-To: <1634732051-31282-2-git-send-email-quic_sbillaka@quicinc.com>
+References: <1634732051-31282-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1634732051-31282-2-git-send-email-quic_sbillaka@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 21 Oct 2021 11:02:22 -0700
+Message-ID: <CAE-0n52SjFOWNNFAciOOpKRSnPLqq3zs+qib9jukPkxf0frQTQ@mail.gmail.com>
+To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Cc: Sankeerth Billakanti <sbillaka@codeaurora.org>, robdclark@gmail.com,
+ seanpaul@chromium.org, 
+ kalyan_t@codeaurora.org, abhinavk@codeaurora.org, dianders@chromium.org, 
+ khsieh@codeaurora.org, mkrishn@codeaurora.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 21/21] drm/msm/dsi: Adjust probe order
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dp: Add support for SC7280
+ eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,220 +76,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Oct 21, 2021 at 12:41 AM Maxime Ripard <maxime@cerno.tech> wrote:
+Quoting Sankeerth Billakanti (2021-10-20 05:14:10)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 62e75dc..9fea49c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1238,9 +1240,21 @@ static int dp_ctrl_link_train(struct dp_ctrl_private *ctrl,
+>         link_info.capabilities = DP_LINK_CAP_ENHANCED_FRAMING;
 >
-> From: Rob Clark <robdclark@chromium.org>
->
-> Switch to the documented order dsi-host vs bridge probe.
->
-> Tested-by: Amit Pundir <amit.pundir@linaro.org>
-> Tested-by: Caleb Connolly <caleb.connolly@linaro.org>
-> Tested-by: John Stultz <john.stultz@linaro.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-
-I guess this should probably land together w/ the rest of the series,
-so a-b for merging thru drm-misc
-
-BR,
--R
-
-> ---
->  drivers/gpu/drm/msm/dsi/dsi.c         | 50 ++++++++++++++++-----------
->  drivers/gpu/drm/msm/dsi/dsi.h         |  2 +-
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 22 ++++--------
->  drivers/gpu/drm/msm/dsi/dsi_manager.c |  6 ++--
->  drivers/gpu/drm/msm/msm_drv.h         |  2 ++
->  5 files changed, 43 insertions(+), 39 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-> index 614dc7f26f2c..ad73ebb84b2d 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
-> @@ -112,18 +112,7 @@ static int dsi_bind(struct device *dev, struct device *master, void *data)
->  {
->         struct drm_device *drm = dev_get_drvdata(master);
->         struct msm_drm_private *priv = drm->dev_private;
-> -       struct platform_device *pdev = to_platform_device(dev);
-> -       struct msm_dsi *msm_dsi;
-> -
-> -       DBG("");
-> -       msm_dsi = dsi_init(pdev);
-> -       if (IS_ERR(msm_dsi)) {
-> -               /* Don't fail the bind if the dsi port is not connected */
-> -               if (PTR_ERR(msm_dsi) == -ENODEV)
-> -                       return 0;
-> -               else
-> -                       return PTR_ERR(msm_dsi);
-> -       }
-> +       struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
->
->         priv->dsi[msm_dsi->id] = msm_dsi;
->
-> @@ -136,12 +125,8 @@ static void dsi_unbind(struct device *dev, struct device *master,
->         struct drm_device *drm = dev_get_drvdata(master);
->         struct msm_drm_private *priv = drm->dev_private;
->         struct msm_dsi *msm_dsi = dev_get_drvdata(dev);
-> -       int id = msm_dsi->id;
->
-> -       if (priv->dsi[id]) {
-> -               dsi_destroy(msm_dsi);
-> -               priv->dsi[id] = NULL;
-> -       }
-> +       priv->dsi[msm_dsi->id] = NULL;
->  }
->
->  static const struct component_ops dsi_ops = {
-> @@ -149,15 +134,40 @@ static const struct component_ops dsi_ops = {
->         .unbind = dsi_unbind,
->  };
->
-> -static int dsi_dev_probe(struct platform_device *pdev)
-> +int dsi_dev_attach(struct platform_device *pdev)
->  {
->         return component_add(&pdev->dev, &dsi_ops);
->  }
->
-> -static int dsi_dev_remove(struct platform_device *pdev)
-> +void dsi_dev_detach(struct platform_device *pdev)
->  {
-> -       DBG("");
->         component_del(&pdev->dev, &dsi_ops);
-> +}
+>         dp_aux_link_configure(ctrl->aux, &link_info);
 > +
-> +static int dsi_dev_probe(struct platform_device *pdev)
-> +{
-> +       struct msm_dsi *msm_dsi;
-> +
-> +       DBG("");
-> +       msm_dsi = dsi_init(pdev);
-> +       if (IS_ERR(msm_dsi)) {
-> +               /* Don't fail the bind if the dsi port is not connected */
-> +               if (PTR_ERR(msm_dsi) == -ENODEV)
-> +                       return 0;
-> +               else
-> +                       return PTR_ERR(msm_dsi);
+> +       if (dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5) {
+
+Please add a static inline macro in include/drm/drm_dp_helper.h that
+makes this more readable. Something similar to drm_dp_is_branch() but
+with a human readable replacement for "is_branch". Maybe drm_dp_ssc()?
+
+> +               ssc = DP_SPREAD_AMP_0_5;
+> +               drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, &ssc, 1);
 > +       }
 > +
-> +       return 0;
-> +}
-> +
-> +static int dsi_dev_remove(struct platform_device *pdev)
-> +{
-> +       struct msm_dsi *msm_dsi = platform_get_drvdata(pdev);
-> +
-> +       DBG("");
-> +       dsi_destroy(msm_dsi);
-> +
->         return 0;
->  }
+>         drm_dp_dpcd_write(ctrl->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
+>                                 &encoding, 1);
 >
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-> index b50db91cb8a7..83787cbee419 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
-> @@ -116,7 +116,7 @@ int msm_dsi_host_set_display_mode(struct mipi_dsi_host *host,
->  struct drm_panel *msm_dsi_host_get_panel(struct mipi_dsi_host *host);
->  unsigned long msm_dsi_host_get_mode_flags(struct mipi_dsi_host *host);
->  struct drm_bridge *msm_dsi_host_get_bridge(struct mipi_dsi_host *host);
-> -int msm_dsi_host_register(struct mipi_dsi_host *host, bool check_defer);
-> +int msm_dsi_host_register(struct mipi_dsi_host *host);
->  void msm_dsi_host_unregister(struct mipi_dsi_host *host);
->  int msm_dsi_host_set_src_pll(struct mipi_dsi_host *host,
->                         struct msm_dsi_phy *src_phy);
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e269df285136..f741494b1bf6 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1624,6 +1624,10 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
->         if (ret)
->                 return ret;
->
-> +       ret = dsi_dev_attach(msm_host->pdev);
-> +       if (ret)
-> +               return ret;
+> +       if (dpcd[DP_EDP_CONFIGURATION_CAP] & DP_ALTERNATE_SCRAMBLER_RESET_CAP) {
+
+And this one already has a helper,
+drm_dp_alternate_scrambler_reset_cap().
+
+> +               assr = DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
+> +               drm_dp_dpcd_write(ctrl->aux, DP_EDP_CONFIGURATION_SET,
+> +                               &assr, 1);
+> +       }
 > +
->         DBG("id=%d", msm_host->id);
->         if (msm_host->dev)
->                 queue_work(msm_host->workqueue, &msm_host->hpd_work);
-> @@ -1636,6 +1640,8 @@ static int dsi_host_detach(struct mipi_dsi_host *host,
+>         ret = dp_ctrl_link_train_1(ctrl, training_step);
+>         if (ret) {
+>                 DRM_ERROR("link training #1 failed. ret=%d\n", ret);
+> @@ -1312,9 +1326,11 @@ static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+>         struct dp_io *dp_io = &ctrl->parser->io;
+>         struct phy *phy = dp_io->phy;
+>         struct phy_configure_opts_dp *opts_dp = &dp_io->phy_opts.dp;
+> +       const u8 *dpcd = ctrl->panel->dpcd;
+>
+>         opts_dp->lanes = ctrl->link->link_params.num_lanes;
+>         opts_dp->link_rate = ctrl->link->link_params.rate / 100;
+> +       opts_dp->ssc = dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5;
+>         dp_ctrl_set_clock_rate(ctrl, DP_CTRL_PM, "ctrl_link",
+>                                         ctrl->link->link_params.rate * 1000);
+>
+> @@ -1406,7 +1422,7 @@ void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl)
+>
+>  static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
 >  {
->         struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> -       u8 *dpcd = ctrl->panel->dpcd;
+> +       const u8 *dpcd = ctrl->panel->dpcd;
 >
-> +       dsi_dev_detach(msm_host->pdev);
+>         /*
+>          * For better interop experience, used a fixed NVID=0x8000
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index c867745..c16311b 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -144,8 +144,16 @@ static const struct msm_dp_config sc8180x_dp_cfg = {
+>         .num_descs = 3,
+>  };
+>
+> +static const struct msm_dp_config sc7280_dp_cfg = {
+> +       .descs = (struct msm_dp_desc[]) {
+
+const
+
+> +               { .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP },
+> +       },
+> +       .num_descs = 1,
+> +};
 > +
->         msm_host->device_node = NULL;
+>  static const struct of_device_id dp_dt_match[] = {
+>         { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
+> +       { .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_cfg },
+>         { .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
+>         { .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_cfg },
+>         {}
+> @@ -1440,7 +1448,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
 >
->         DBG("id=%d", msm_host->id);
-> @@ -1970,7 +1976,7 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
->         return 0;
->  }
+>         dp_hpd_event_setup(dp);
 >
-> -int msm_dsi_host_register(struct mipi_dsi_host *host, bool check_defer)
-> +int msm_dsi_host_register(struct mipi_dsi_host *host)
->  {
->         struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->         int ret;
-> @@ -1984,20 +1990,6 @@ int msm_dsi_host_register(struct mipi_dsi_host *host, bool check_defer)
->                         return ret;
->
->                 msm_host->registered = true;
-> -
-> -               /* If the panel driver has not been probed after host register,
-> -                * we should defer the host's probe.
-> -                * It makes sure panel is connected when fbcon detects
-> -                * connector status and gets the proper display mode to
-> -                * create framebuffer.
-> -                * Don't try to defer if there is nothing connected to the dsi
-> -                * output
-> -                */
-> -               if (check_defer && msm_host->device_node) {
-> -                       if (IS_ERR(of_drm_find_panel(msm_host->device_node)))
-> -                               if (!of_drm_find_bridge(msm_host->device_node))
-> -                                       return -EPROBE_DEFER;
-> -               }
->         }
->
->         return 0;
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index c41d39f5b7cf..fc949a84cef6 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -72,7 +72,7 @@ static int dsi_mgr_setup_components(int id)
->         int ret;
->
->         if (!IS_BONDED_DSI()) {
-> -               ret = msm_dsi_host_register(msm_dsi->host, true);
-> +               ret = msm_dsi_host_register(msm_dsi->host);
->                 if (ret)
->                         return ret;
->
-> @@ -92,10 +92,10 @@ static int dsi_mgr_setup_components(int id)
->                  * because only master DSI device adds the panel to global
->                  * panel list. The panel's device is the master DSI device.
->                  */
-> -               ret = msm_dsi_host_register(slave_link_dsi->host, false);
-> +               ret = msm_dsi_host_register(slave_link_dsi->host);
->                 if (ret)
->                         return ret;
-> -               ret = msm_dsi_host_register(master_link_dsi->host, true);
-> +               ret = msm_dsi_host_register(master_link_dsi->host);
->                 if (ret)
->                         return ret;
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 8b005d1ac899..31d50e98a723 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -344,6 +344,8 @@ int msm_edp_modeset_init(struct msm_edp *edp, struct drm_device *dev,
->
->  struct msm_dsi;
->  #ifdef CONFIG_DRM_MSM_DSI
-> +int dsi_dev_attach(struct platform_device *pdev);
-> +void dsi_dev_detach(struct platform_device *pdev);
->  void __init msm_dsi_register(void);
->  void __exit msm_dsi_unregister(void);
->  int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
-> --
-> 2.31.1
->
+> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1);
+
+This has no explanation. What is it?
