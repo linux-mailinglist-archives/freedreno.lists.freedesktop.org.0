@@ -2,49 +2,88 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A5244356D9
-	for <lists+freedreno@lfdr.de>; Thu, 21 Oct 2021 02:20:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D30435C55
+	for <lists+freedreno@lfdr.de>; Thu, 21 Oct 2021 09:46:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7222E6EA1D;
-	Thu, 21 Oct 2021 00:20:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30EDA6EC22;
+	Thu, 21 Oct 2021 07:46:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 840846EA1D;
- Thu, 21 Oct 2021 00:20:36 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8E1FD611CC;
- Thu, 21 Oct 2021 00:20:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634775636;
- bh=tQn2x1b7CEDjXT4xT5M21SEZ9mXIyPc8lUGX3/VUoxw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=omgS/aXzCWchH2SWGwtwEV1dpO8qtQEbLtdPo7IjknEmwEN7dixS2+DVIXY4Xe3Tp
- YVuWc6fyFWBL5IEGnoiOippy/n5dkkKuC/d4NXJbz1Drln9GHD2eLSyalR73t0Cz75
- 8WrQS87GpBd7B/JfDusiYf96Ftofh2dBYb3/Exmh+ZEydgCO1uMtw+CMi5ZfsI985X
- fcsGqfZd00GDFoAayMfQ2zkE1sZIj1Q2omnZYntcrCCiMmVQ+Zqao1TEwHe8q0pO7O
- bOJjEupVsujIAncDr+K4XX0REzUsRP7BrJXLdT1ljnnbOPSWxnx1e+ichVwmyjn1t8
- 1tTU0PU1w3FXA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
- jonathan@marek.ca, jordan@cosmicpenguin.net, eric@anholt.net,
- akhilpo@codeaurora.org, bjorn.andersson@linaro.org,
- saiprakash.ranjan@codeaurora.org, smasetty@codeaurora.org,
- dianders@chromium.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Date: Wed, 20 Oct 2021 20:19:59 -0400
-Message-Id: <20211021002023.1128949-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211021002023.1128949-1-sashal@kernel.org>
-References: <20211021002023.1128949-1-sashal@kernel.org>
+Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
+ [64.147.123.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 584AF6EC28
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 07:46:07 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.west.internal (Postfix) with ESMTP id D4BE92B012EA;
+ Thu, 21 Oct 2021 03:39:52 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 21 Oct 2021 03:39:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ from:to:cc:subject:date:message-id:content-type:mime-version
+ :content-transfer-encoding; s=fm1; bh=Ig1NvDgki9mc/elboNYuCt9K83
+ 3bzrfrL+LUGb9uXpg=; b=OGSlvN/lnYQBUsMdggz3wEVvHYB2Bn31n4plOWWkxM
+ rWRzs1wBWRYd7IFuHbQwgQcfYhPvt+y/1LLMygK+mH6OI2hOmSXlydu93E30/sOR
+ 1LEuTnj4CAURh857bNT9PxwAeookSU4Qmx5ZSPT8luTCwmMFrJIqUcepQ+S2sLV+
+ wZfpCdl/pmxVpn4B2hV+NWEO0N0dOVaMbk8TKXUHyRDpNJOiNbR7sGnXyBFg8gj4
+ uFryvZUXIfQV+tsNmzN6hLcyjtTkyQVMF88ds5Wz4YLjbdfBmitsrdaZgOaoOaJ/
+ 3IJIt81jgj+jagQY1pdvabkc4GyyYuFTuzepPnSxS4sw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Ig1NvD
+ gki9mc/elboNYuCt9K833bzrfrL+LUGb9uXpg=; b=jweG4n6R0zrCNasc0QxO8I
+ h+W74iVQQn0nFHhvtudyxSX/RSSRIzuJnzrTQGK/WDAai6DrVYIPSGF6QiP3uYMm
+ MnoBlnJH/8i9dQrJmS/H6ipPICqyVDGP+XSLcfPmKoia1TKijeFF4HQ9/rYzOa4W
+ g96ziizY0N1HpAwLiMDx/kHYZPX8arJcQdnsrotMLibbJSzUlsPZ4KdYgEerkyd8
+ 8UvK51iSjHg0sT03VhFvNC/o85bmVpTgicfIzI9IXUZZOLyC8f0G6y9DdtZ/LrJ/
+ WOPyBQMVfvE34EztJ0fjgCkYSlQxzHkEEGA/TJHICwnEYBNYCAJi3mJOzNa0Z80A
+ ==
+X-ME-Sender: <xms:RRlxYcXFvwguWd3dmZWHRQ3WjV5Oy53_r1Rd7SDRjC12y_Qnw_kbPA>
+ <xme:RRlxYQlP6HTrl9SC6uWdf5yS6npjMLwFJrpbsmTCO6ea4fwIjkHHUu_qQhlopYjyj
+ AeEtdA1LQXnjsq487Q>
+X-ME-Received: <xmr:RRlxYQYVmB9ir25rs9tGYt71BZNF4VYBjbzD3NqGcuNuNIDY3bUoNbzfSWPmhmBInHcbd3THCu-dyRV5pB5iBAVV3HujMVBgWFkOG7Sg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddvhedgudduiecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefhvffufffkofgtggfgsehtqhertdertdejnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepteeikefgffekgeekledtheduteetjefgkeeuvefhhfetgedugfektdeugeff
+ gfefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:RRlxYbXDD_GnPb0xAQgYrZ2-s_U5LgW5aB1f-iALx2cbvbwSAxuy9g>
+ <xmx:RRlxYWm2qmpQlplvdr0s0gxyTw91TUG3QLHX9wBqg5HzOD7jx8V8aQ>
+ <xmx:RRlxYQedRIIrJbFSpzTS_9N9pXBjGrxbeMkXe6D-vICqPbspx2rTJA>
+ <xmx:SBlxYU3ZFLlG9khXKHP-woEqyAQ5VoFfiOntNkv5kWRwQ1ocyNYdnUzHozY>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 21 Oct 2021 03:39:48 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>,
+ Sam Ravnborg <sam@ravnborg.org>, Daniel Vetter <daniel.vetter@intel.com>,
+ David Airlie <airlied@linux.ie>, Thierry Reding <thierry.reding@gmail.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, Robert Foss <robert.foss@linaro.org>,
+ Neil Armstrong <narmstrong@baylibre.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, linux-samsung-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Tian Tao <tiantao6@hisilicon.com>,
+ freedreno@lists.freedesktop.org, Chen Feng <puck.chen@hisilicon.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ John Stultz <john.stultz@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Inki Dae <inki.dae@samsung.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ dri-devel@lists.freedesktop.org
+Date: Thu, 21 Oct 2021 09:39:26 +0200
+Message-Id: <20211021073947.499373-1-maxime@cerno.tech>
+X-Mailer: git-send-email 2.31.1
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.14 02/26] drm/msm/a6xx: Serialize GMU
- communication
+Content-Transfer-Encoding: quoted-printable
+Subject: [Freedreno] [PATCH v5 00/21] drm/bridge: Make panel and bridge
+ probe order consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,170 +99,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
-
-[ Upstream commit f6f59072e821901d96c791864a07d57d8ec8d312 ]
-
-I've seen some crashes in our crash reporting that *look* like multiple
-threads stomping on each other while communicating with GMU.  So wrap
-all those paths in a lock.
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  6 ++++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  3 ++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 40 +++++++++++++++++++++++----
- 3 files changed, 43 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index b349692219b7..c95985792076 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -296,6 +296,8 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- 	u32 val;
- 	int request, ack;
- 
-+	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
-+
- 	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
- 		return -EINVAL;
- 
-@@ -337,6 +339,8 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
- {
- 	int bit;
- 
-+	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
-+
- 	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
- 		return;
- 
-@@ -1478,6 +1482,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
- 	if (!pdev)
- 		return -ENODEV;
- 
-+	mutex_init(&gmu->lock);
-+
- 	gmu->dev = &pdev->dev;
- 
- 	of_dma_configure(gmu->dev, node, true);
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 71dfa60070cc..19c1a0ddee7a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -44,6 +44,9 @@ struct a6xx_gmu_bo {
- struct a6xx_gmu {
- 	struct device *dev;
- 
-+	/* For serializing communication with the GMU: */
-+	struct mutex lock;
-+
- 	struct msm_gem_address_space *aspace;
- 
- 	void * __iomem mmio;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 183b9f9c1b31..64586eb8cda5 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -859,7 +859,7 @@ static int a6xx_zap_shader_init(struct msm_gpu *gpu)
- 	  A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS | \
- 	  A6XX_RBBM_INT_0_MASK_UCHE_TRAP_INTR)
- 
--static int a6xx_hw_init(struct msm_gpu *gpu)
-+static int hw_init(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-@@ -1107,6 +1107,19 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
- 	return ret;
- }
- 
-+static int a6xx_hw_init(struct msm_gpu *gpu)
-+{
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+	int ret;
-+
-+	mutex_lock(&a6xx_gpu->gmu.lock);
-+	ret = hw_init(gpu);
-+	mutex_unlock(&a6xx_gpu->gmu.lock);
-+
-+	return ret;
-+}
-+
- static void a6xx_dump(struct msm_gpu *gpu)
- {
- 	DRM_DEV_INFO(&gpu->pdev->dev, "status:   %08x\n",
-@@ -1481,7 +1494,9 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
- 
- 	trace_msm_gpu_resume(0);
- 
-+	mutex_lock(&a6xx_gpu->gmu.lock);
- 	ret = a6xx_gmu_resume(a6xx_gpu);
-+	mutex_unlock(&a6xx_gpu->gmu.lock);
- 	if (ret)
- 		return ret;
- 
-@@ -1504,7 +1519,9 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
- 
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
- 
-+	mutex_lock(&a6xx_gpu->gmu.lock);
- 	ret = a6xx_gmu_stop(a6xx_gpu);
-+	mutex_unlock(&a6xx_gpu->gmu.lock);
- 	if (ret)
- 		return ret;
- 
-@@ -1519,18 +1536,19 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
--	static DEFINE_MUTEX(perfcounter_oob);
- 
--	mutex_lock(&perfcounter_oob);
-+	mutex_lock(&a6xx_gpu->gmu.lock);
- 
- 	/* Force the GPU power on so we can read this register */
- 	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
- 
- 	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER_LO,
--		REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
-+			    REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
- 
- 	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
--	mutex_unlock(&perfcounter_oob);
-+
-+	mutex_unlock(&a6xx_gpu->gmu.lock);
-+
- 	return 0;
- }
- 
-@@ -1594,6 +1612,16 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
- 	return (unsigned long)busy_time;
- }
- 
-+void a6xx_gpu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
-+{
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+
-+	mutex_lock(&a6xx_gpu->gmu.lock);
-+	a6xx_gmu_set_freq(gpu, opp);
-+	mutex_unlock(&a6xx_gpu->gmu.lock);
-+}
-+
- static struct msm_gem_address_space *
- a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
- {
-@@ -1740,7 +1768,7 @@ static const struct adreno_gpu_funcs funcs = {
- #endif
- 		.gpu_busy = a6xx_gpu_busy,
- 		.gpu_get_freq = a6xx_gmu_get_freq,
--		.gpu_set_freq = a6xx_gmu_set_freq,
-+		.gpu_set_freq = a6xx_gpu_set_freq,
- #if defined(CONFIG_DRM_MSM_GPU_STATE)
- 		.gpu_state_get = a6xx_gpu_state_get,
- 		.gpu_state_put = a6xx_gpu_state_put,
--- 
-2.33.0
-
+Hi,=0D
+=0D
+We've encountered an issue with the RaspberryPi DSI panel that prevented th=
+e=0D
+whole display driver from probing.=0D
+=0D
+The issue is described in detail in the commit 7213246a803f ("drm/vc4: dsi:=
+=0D
+Only register our component once a DSI device is attached"), but the basic =
+idea=0D
+is that since the panel is probed through i2c, there's no synchronization=0D
+between its probe and the registration of the MIPI-DSI host it's attached t=
+o.=0D
+=0D
+We initially moved the component framework registration to the MIPI-DSI Hos=
+t=0D
+attach hook to make sure we register our component only when we have a DSI=
+=0D
+device attached to our MIPI-DSI host, and then use lookup our DSI device in=
+ our=0D
+bind hook.=0D
+=0D
+However, all the DSI bridges controlled through i2c are only registering th=
+eir=0D
+associated DSI device in their bridge attach hook, meaning with our change=
+=0D
+above, we never got that far, and therefore ended up in the same situation =
+than=0D
+the one we were trying to fix for panels.=0D
+=0D
+The best practice to avoid those issues is to register its functions only a=
+fter=0D
+all its dependencies are live. We also shouldn't wait any longer than we sh=
+ould=0D
+to play nice with the other components that are waiting for us, so in our c=
+ase=0D
+that would mean moving the DSI device registration to the bridge probe.=0D
+=0D
+This has been tested on vc4 (with sn65dsi83 and ps8640), msm (sn65dsi86,=0D
+lt9611), kirin (adv7511) and exynos.=0D
+=0D
+Let me know what you think,=0D
+Maxime=0D
+=0D
+---=0D
+=0D
+Changes from v4:=0D
+  - Rebased on current drm-misc-next=0D
+  - Collected the various tags=0D
+  - Fix for Kirin=0D
+  - Added conversion patch for msm=0D
+=0D
+Changes from v3:=0D
+  - Converted exynos and kirin=0D
+  - Converted all the affected bridge drivers=0D
+  - Reworded the documentation a bit=0D
+=0D
+Changes from v2:=0D
+  - Changed the approach as suggested by Andrzej, and aligned the bridge on=
+ the=0D
+    panel this time.=0D
+  - Fixed some typos=0D
+=0D
+Changes from v1:=0D
+  - Change the name of drm_of_get_next function to drm_of_get_bridge=0D
+  - Mention the revert of 87154ff86bf6 and squash the two patches that were=
+=0D
+    reverting that commit=0D
+  - Add some documentation=0D
+  - Make drm_panel_attach and _detach succeed when no callback is there=0D
+=0D
+Maxime Ripard (20):=0D
+  drm/bridge: adv7533: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: adv7511: Register and attach our DSI device at probe=0D
+  drm/bridge: anx7625: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: anx7625: Register and attach our DSI device at probe=0D
+  drm/bridge: lt8912b: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: lt8912b: Register and attach our DSI device at probe=0D
+  drm/bridge: lt9611: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: lt9611: Register and attach our DSI device at probe=0D
+  drm/bridge: lt9611uxc: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: lt9611uxc: Register and attach our DSI device at probe=0D
+  drm/bridge: ps8640: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: ps8640: Register and attach our DSI device at probe=0D
+  drm/bridge: sn65dsi83: Fix bridge removal=0D
+  drm/bridge: sn65dsi83: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: sn65dsi83: Register and attach our DSI device at probe=0D
+  drm/bridge: sn65dsi86: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: sn65dsi86: Register and attach our DSI device at probe=0D
+  drm/bridge: tc358775: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: tc358775: Register and attach our DSI device at probe=0D
+  drm/kirin: dsi: Adjust probe order=0D
+=0D
+Rob Clark (1):=0D
+  drm/msm/dsi: Adjust probe order=0D
+=0D
+ drivers/gpu/drm/bridge/adv7511/adv7511.h     |   1 -=0D
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c |  15 ++-=0D
+ drivers/gpu/drm/bridge/adv7511/adv7533.c     |  20 +---=0D
+ drivers/gpu/drm/bridge/analogix/anx7625.c    |  40 ++++---=0D
+ drivers/gpu/drm/bridge/lontium-lt8912b.c     |  31 ++----=0D
+ drivers/gpu/drm/bridge/lontium-lt9611.c      |  62 ++++-------=0D
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c   |  65 +++++------=0D
+ drivers/gpu/drm/bridge/parade-ps8640.c       | 107 ++++++++++---------=0D
+ drivers/gpu/drm/bridge/tc358775.c            |  50 +++++----=0D
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c        |  88 ++++++++-------=0D
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c        | 101 +++++++++--------=0D
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c |  52 +++++----=0D
+ drivers/gpu/drm/msm/dsi/dsi.c                |  50 +++++----=0D
+ drivers/gpu/drm/msm/dsi/dsi.h                |   2 +-=0D
+ drivers/gpu/drm/msm/dsi/dsi_host.c           |  22 ++--=0D
+ drivers/gpu/drm/msm/dsi/dsi_manager.c        |   6 +-=0D
+ drivers/gpu/drm/msm/msm_drv.h                |   2 +=0D
+ 17 files changed, 348 insertions(+), 366 deletions(-)=0D
+=0D
+-- =0D
+2.31.1=0D
+=0D
