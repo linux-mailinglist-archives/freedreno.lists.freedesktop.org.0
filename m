@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C941B436DA5
-	for <lists+freedreno@lfdr.de>; Fri, 22 Oct 2021 00:41:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6E6A436E2B
+	for <lists+freedreno@lfdr.de>; Fri, 22 Oct 2021 01:17:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C370A6E4EA;
-	Thu, 21 Oct 2021 22:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354DE6E4F1;
+	Thu, 21 Oct 2021 23:17:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627136E4EA
- for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 22:41:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3D96E4F1
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 23:17:12 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1634856087; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1634858232; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=UTRK+asHkVmSaVJYYfLMtmmtXWUM2tAIeK5G9Vjm9lI=;
- b=T+z4ucPpmfgjVny5wY1GA3Mi61FG+qo5mh1DlCKMojlzVweNjkO0kfXq0iXbbA4YYFHI0Qmt
- gqOMFOIecXVSz0mBxPYXTJ9zG74eKod1FLyGeggWsC2kqySEm+Z9PIAz2/ey1tHA3FU73K/n
- by0AeMI2MrQ+GcR2ltey5V123g4=
+ MIME-Version: Sender; bh=OxueeXUcJyBf4Ljs92fQitq6dCev48vrTPYs1hDXVCM=;
+ b=cwAVeYlBcP+NJkVRzdHwz3Epoc4eWo/xEd9k8uaFOvNb7HiE4c9fKtVbDa4Rq+5/juo2gPSU
+ gCDA4XBI/ElUOXRlYgjtPtz9xvcKffWALMqZq0sHRT3L6r7f5Nhvoed2v/2akh+de8GXCJb8
+ VGSiLlke66Ud9tI2pnTK12BYJIw=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 6171ec945ca800b6c185deac (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 21 Oct 2021 22:41:23
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 6171f4f43416c2cb70556751 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 21 Oct 2021 23:17:08
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C8817C4360C; Thu, 21 Oct 2021 22:41:23 +0000 (UTC)
+ id 52C68C43619; Thu, 21 Oct 2021 23:17:07 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,13 +38,13 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 72F07C4338F;
- Thu, 21 Oct 2021 22:41:22 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 0CEB4C43460;
+ Thu, 21 Oct 2021 23:17:05 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Thu, 21 Oct 2021 15:41:22 -0700
+Date: Thu, 21 Oct 2021 16:17:05 -0700
 From: abhinavk@codeaurora.org
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
@@ -53,14 +53,14 @@ Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
  <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-In-Reply-To: <20210930140002.308628-7-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210930140002.308628-8-dmitry.baryshkov@linaro.org>
 References: <20210930140002.308628-1-dmitry.baryshkov@linaro.org>
- <20210930140002.308628-7-dmitry.baryshkov@linaro.org>
-Message-ID: <d9aaf57840d9c4dd4ad9ea1020123c46@codeaurora.org>
+ <20210930140002.308628-8-dmitry.baryshkov@linaro.org>
+Message-ID: <afe17ee7977bc967ddc0b35253d4e8f0@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH 06/11] drm/msm/dpu: drop scaler config from
- plane state
+Subject: Re: [Freedreno] [PATCH 07/11] drm/msm/dpu: drop dpu_csc_cfg from
+ dpu_plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,201 +77,227 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 2021-09-30 06:59, Dmitry Baryshkov wrote:
-> Scaler and pixel_ext configuration does not contain a long living 
-> state,
-> it is used only during plane update, so remove these two fiels from
-fiels ---> fields
-> dpu_plane_state and allocate them on stack.
+> Simplify code surrounding CSC table setup by removing struct 
+> dpu_csc_cfg
+> pointer from dpu_plane and getting it directly at the CSC setup time.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-While addressing the bugs reported by the smatch tool, I saw that pe is 
-not
-being used at the moment.
-
-412 static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
-413 		struct dpu_hw_pipe_cfg *sspp,
-414 		struct dpu_hw_pixel_ext *pe,
-415 		void *scaler_cfg)
-416 {
-417 	u32 idx;
-418 	struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
-419
-420 	(void)pe;
-421 	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
-422 		|| !scaler3_cfg || !ctx || !ctx->cap || !ctx->cap->sblk)
-423 		return;
-424
-425 	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
-426 			ctx->cap->sblk->scaler_blk.version,
-427 			sspp->layout.format);
-428 }
-
-As part of this change, can you please drop this?
-
+Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 59 ++++++++++-------------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ---
->  2 files changed, 26 insertions(+), 39 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h |  2 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 96 +++++++++++----------
+>  5 files changed, 54 insertions(+), 50 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 5288b5b824f8..4259c4ecde9b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -542,14 +542,12 @@ static void _dpu_plane_setup_scaler3(struct
-> dpu_plane *pdpu,
->  		struct dpu_plane_state *pstate,
->  		uint32_t src_w, uint32_t src_h, uint32_t dst_w, uint32_t dst_h,
->  		struct dpu_hw_scaler3_cfg *scale_cfg,
-> +		struct dpu_hw_pixel_ext *pixel_ext,
->  		const struct dpu_format *fmt,
->  		uint32_t chroma_subsmpl_h, uint32_t chroma_subsmpl_v)
->  {
->  	uint32_t i;
-> 
-> -	memset(scale_cfg, 0, sizeof(*scale_cfg));
-> -	memset(&pstate->pixel_ext, 0, sizeof(struct dpu_hw_pixel_ext));
-> -
->  	scale_cfg->phase_step_x[DPU_SSPP_COMP_0] =
->  		mult_frac((1 << PHASE_STEP_SHIFT), src_w, dst_w);
->  	scale_cfg->phase_step_y[DPU_SSPP_COMP_0] =
-> @@ -588,9 +586,9 @@ static void _dpu_plane_setup_scaler3(struct 
-> dpu_plane *pdpu,
->  			scale_cfg->preload_y[i] = DPU_QSEED3_DEFAULT_PRELOAD_V;
->  		}
-> 
-> -		pstate->pixel_ext.num_ext_pxls_top[i] =
-> +		pixel_ext->num_ext_pxls_top[i] =
->  			scale_cfg->src_height[i];
-> -		pstate->pixel_ext.num_ext_pxls_left[i] =
-> +		pixel_ext->num_ext_pxls_left[i] =
->  			scale_cfg->src_width[i];
->  	}
->  	if (!(DPU_FORMAT_IS_YUV(fmt)) && (src_h == dst_h)
-> @@ -660,6 +658,11 @@ static void _dpu_plane_setup_scaler(struct 
-> dpu_plane *pdpu,
->  		struct dpu_hw_pipe_cfg *pipe_cfg)
->  {
->  	const struct drm_format_info *info = 
-> drm_format_info(fmt->base.pixel_format);
-> +	struct dpu_hw_scaler3_cfg scaler3_cfg;
-> +	struct dpu_hw_pixel_ext pixel_ext;
-> +
-> +	memset(&scaler3_cfg, 0, sizeof(scaler3_cfg));
-> +	memset(&pixel_ext, 0, sizeof(pixel_ext));
-> 
->  	/* don't chroma subsample if decimating */
->  	/* update scaler. calculate default config for QSEED3 */
-> @@ -668,8 +671,23 @@ static void _dpu_plane_setup_scaler(struct 
-> dpu_plane *pdpu,
->  			drm_rect_height(&pipe_cfg->src_rect),
->  			drm_rect_width(&pipe_cfg->dst_rect),
->  			drm_rect_height(&pipe_cfg->dst_rect),
-> -			&pstate->scaler3_cfg, fmt,
-> +			&scaler3_cfg, &pixel_ext, fmt,
->  			info->hsub, info->vsub);
-> +
-> +	if (pdpu->pipe_hw->ops.setup_pe)
-> +		pdpu->pipe_hw->ops.setup_pe(pdpu->pipe_hw,
-> +				&pixel_ext);
-> +
-> +	/**
-> +	 * when programmed in multirect mode, scalar block will be
-> +	 * bypassed. Still we need to update alpha and bitwidth
-> +	 * ONLY for RECT0
-> +	 */
-> +	if (pdpu->pipe_hw->ops.setup_scaler &&
-> +			pstate->multirect_index != DPU_SSPP_RECT_1)
-> +		pdpu->pipe_hw->ops.setup_scaler(pdpu->pipe_hw,
-> +				pipe_cfg, &pixel_ext,
-> +				&scaler3_cfg);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index cbafb61404d0..103d4bd7585b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -537,7 +537,7 @@ static void dpu_hw_sspp_setup_sourceaddress(struct
+> dpu_hw_pipe *ctx,
 >  }
 > 
->  /**
-> @@ -710,7 +728,6 @@ static int _dpu_plane_color_fill(struct dpu_plane 
-> *pdpu,
->  			drm_rect_width(&pipe_cfg.dst_rect);
->  		pipe_cfg.src_rect.y2 =
->  			drm_rect_height(&pipe_cfg.dst_rect);
-> -		_dpu_plane_setup_scaler(pdpu, pstate, fmt, true, &pipe_cfg);
+>  static void dpu_hw_sspp_setup_csc(struct dpu_hw_pipe *ctx,
+> -		struct dpu_csc_cfg *data)
+> +		const struct dpu_csc_cfg *data)
+>  {
+>  	u32 idx;
+>  	bool csc10 = false;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> index 27263bc1a1ef..e8939d7387cb 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> @@ -262,7 +262,7 @@ struct dpu_hw_sspp_ops {
+>  	 * @ctx: Pointer to pipe context
+>  	 * @data: Pointer to config structure
+>  	 */
+> -	void (*setup_csc)(struct dpu_hw_pipe *ctx, struct dpu_csc_cfg *data);
+> +	void (*setup_csc)(struct dpu_hw_pipe *ctx, const struct dpu_csc_cfg 
+> *data);
 > 
->  		if (pdpu->pipe_hw->ops.setup_format)
->  			pdpu->pipe_hw->ops.setup_format(pdpu->pipe_hw,
-> @@ -722,15 +739,7 @@ static int _dpu_plane_color_fill(struct dpu_plane 
-> *pdpu,
->  					&pipe_cfg,
->  					pstate->multirect_index);
+>  	/**
+>  	 * setup_solidfill - enable/disable colorfill
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+> index f94584c982cd..aad85116b0a0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
+> @@ -374,7 +374,7 @@ u32 dpu_hw_get_scaler3_ver(struct 
+> dpu_hw_blk_reg_map *c,
 > 
-> -		if (pdpu->pipe_hw->ops.setup_pe)
-> -			pdpu->pipe_hw->ops.setup_pe(pdpu->pipe_hw,
-> -					&pstate->pixel_ext);
+>  void dpu_hw_csc_setup(struct dpu_hw_blk_reg_map *c,
+>  		u32 csc_reg_off,
+> -		struct dpu_csc_cfg *data, bool csc10)
+> +		const struct dpu_csc_cfg *data, bool csc10)
+>  {
+>  	static const u32 matrix_shift = 7;
+>  	u32 clamp_shift = csc10 ? 16 : 8;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+> index ff3cffde84cd..bc2fdb2b8f5f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
+> @@ -321,6 +321,6 @@ u32 dpu_hw_get_scaler3_ver(struct 
+> dpu_hw_blk_reg_map *c,
+> 
+>  void dpu_hw_csc_setup(struct dpu_hw_blk_reg_map  *c,
+>  		u32 csc_reg_off,
+> -		struct dpu_csc_cfg *data, bool csc10);
+> +		const struct dpu_csc_cfg *data, bool csc10);
+> 
+>  #endif /* _DPU_HW_UTIL_H */
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 4259c4ecde9b..b8836c089863 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -90,7 +90,6 @@ enum dpu_plane_qos {
+>  /*
+>   * struct dpu_plane - local dpu plane structure
+>   * @aspace: address space pointer
+> - * @csc_ptr: Points to dpu_csc_cfg structure to use for current
+>   * @mplane_list: List of multirect planes of the same pipe
+>   * @catalog: Points to dpu catalog structure
+>   * @revalidate: force revalidation of all the plane properties
+> @@ -111,8 +110,6 @@ struct dpu_plane {
+>  	struct list_head mplane_list;
+>  	struct dpu_mdss_cfg *catalog;
+> 
+> -	struct dpu_csc_cfg *csc_ptr;
 > -
-> -		if (pdpu->pipe_hw->ops.setup_scaler &&
-> -				pstate->multirect_index != DPU_SSPP_RECT_1)
-> -			pdpu->pipe_hw->ops.setup_scaler(pdpu->pipe_hw,
-> -					&pipe_cfg, &pstate->pixel_ext,
-> -					&pstate->scaler3_cfg);
-> +		_dpu_plane_setup_scaler(pdpu, pstate, fmt, true, &pipe_cfg);
+>  	const struct dpu_sspp_sub_blks *pipe_sblk;
+> 
+>  	/* debugfs related stuff */
+> @@ -605,51 +602,59 @@ static void _dpu_plane_setup_scaler3(struct
+> dpu_plane *pdpu,
+>  	scale_cfg->enable = 1;
+>  }
+> 
+> -static void _dpu_plane_setup_csc(struct dpu_plane *pdpu)
+> -{
+> -	static const struct dpu_csc_cfg dpu_csc_YUV2RGB_601L = {
+> -		{
+> -			/* S15.16 format */
+> -			0x00012A00, 0x00000000, 0x00019880,
+> -			0x00012A00, 0xFFFF9B80, 0xFFFF3000,
+> -			0x00012A00, 0x00020480, 0x00000000,
+> +static const struct dpu_csc_cfg dpu_csc_YUV2RGB_601L = {
+> +	{
+> +		/* S15.16 format */
+> +		0x00012A00, 0x00000000, 0x00019880,
+> +		0x00012A00, 0xFFFF9B80, 0xFFFF3000,
+> +		0x00012A00, 0x00020480, 0x00000000,
+> +	},
+> +	/* signed bias */
+> +	{ 0xfff0, 0xff80, 0xff80,},
+> +	{ 0x0, 0x0, 0x0,},
+> +	/* unsigned clamp */
+> +	{ 0x10, 0xeb, 0x10, 0xf0, 0x10, 0xf0,},
+> +	{ 0x00, 0xff, 0x00, 0xff, 0x00, 0xff,},
+> +};
+> +
+> +static const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L = {
+> +	{
+> +		/* S15.16 format */
+> +		0x00012A00, 0x00000000, 0x00019880,
+> +		0x00012A00, 0xFFFF9B80, 0xFFFF3000,
+> +		0x00012A00, 0x00020480, 0x00000000,
+>  		},
+> -		/* signed bias */
+> -		{ 0xfff0, 0xff80, 0xff80,},
+> -		{ 0x0, 0x0, 0x0,},
+> -		/* unsigned clamp */
+> -		{ 0x10, 0xeb, 0x10, 0xf0, 0x10, 0xf0,},
+> -		{ 0x00, 0xff, 0x00, 0xff, 0x00, 0xff,},
+> -	};
+> -	static const struct dpu_csc_cfg dpu_csc10_YUV2RGB_601L = {
+> -		{
+> -			/* S15.16 format */
+> -			0x00012A00, 0x00000000, 0x00019880,
+> -			0x00012A00, 0xFFFF9B80, 0xFFFF3000,
+> -			0x00012A00, 0x00020480, 0x00000000,
+> -			},
+> -		/* signed bias */
+> -		{ 0xffc0, 0xfe00, 0xfe00,},
+> -		{ 0x0, 0x0, 0x0,},
+> -		/* unsigned clamp */
+> -		{ 0x40, 0x3ac, 0x40, 0x3c0, 0x40, 0x3c0,},
+> -		{ 0x00, 0x3ff, 0x00, 0x3ff, 0x00, 0x3ff,},
+> -	};
+> +	/* signed bias */
+> +	{ 0xffc0, 0xfe00, 0xfe00,},
+> +	{ 0x0, 0x0, 0x0,},
+> +	/* unsigned clamp */
+> +	{ 0x40, 0x3ac, 0x40, 0x3c0, 0x40, 0x3c0,},
+> +	{ 0x00, 0x3ff, 0x00, 0x3ff, 0x00, 0x3ff,},
+> +};
+> +
+> +static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct dpu_plane
+> *pdpu, const struct dpu_format *fmt)
+> +{
+> +	const struct dpu_csc_cfg *csc_ptr;
+> 
+>  	if (!pdpu) {
+>  		DPU_ERROR("invalid plane\n");
+> -		return;
+> +		return NULL;
 >  	}
 > 
->  	return 0;
-> @@ -1122,8 +1131,6 @@ static void dpu_plane_sspp_atomic_update(struct
+> +	if (!DPU_FORMAT_IS_YUV(fmt))
+> +		return NULL;
+> +
+>  	if (BIT(DPU_SSPP_CSC_10BIT) & pdpu->features)
+> -		pdpu->csc_ptr = (struct dpu_csc_cfg *)&dpu_csc10_YUV2RGB_601L;
+> +		csc_ptr = &dpu_csc10_YUV2RGB_601L;
+>  	else
+> -		pdpu->csc_ptr = (struct dpu_csc_cfg *)&dpu_csc_YUV2RGB_601L;
+> +		csc_ptr = &dpu_csc_YUV2RGB_601L;
+> 
+>  	DPU_DEBUG_PLANE(pdpu, "using 0x%X 0x%X 0x%X...\n",
+> -			pdpu->csc_ptr->csc_mv[0],
+> -			pdpu->csc_ptr->csc_mv[1],
+> -			pdpu->csc_ptr->csc_mv[2]);
+> +			csc_ptr->csc_mv[0],
+> +			csc_ptr->csc_mv[1],
+> +			csc_ptr->csc_mv[2]);
+> +
+> +	return csc_ptr;
+>  }
+> 
+>  static void _dpu_plane_setup_scaler(struct dpu_plane *pdpu,
+> @@ -1070,8 +1075,13 @@ void dpu_plane_flush(struct drm_plane *plane)
+>  	else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
+>  		/* force 100% alpha */
+>  		_dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
+> -	else if (pdpu->pipe_hw && pdpu->csc_ptr && 
+> pdpu->pipe_hw->ops.setup_csc)
+> -		pdpu->pipe_hw->ops.setup_csc(pdpu->pipe_hw, pdpu->csc_ptr);
+> +	else if (pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_csc) {
+> +		const struct dpu_format *fmt =
+> to_dpu_format(msm_framebuffer_format(plane->state->fb));
+> +		const struct dpu_csc_cfg *csc_ptr = _dpu_plane_get_csc(pdpu, fmt);
+> +
+> +		if (csc_ptr)
+> +			pdpu->pipe_hw->ops.setup_csc(pdpu->pipe_hw, csc_ptr);
+> +	}
+> 
+>  	/* flag h/w flush complete */
+>  	if (plane->state)
+> @@ -1187,12 +1197,6 @@ static void dpu_plane_sspp_atomic_update(struct
 > drm_plane *plane)
 > 
->  	pipe_cfg.dst_rect = state->dst;
-> 
-> -	_dpu_plane_setup_scaler(pdpu, pstate, fmt, false, &pipe_cfg);
+>  			pdpu->pipe_hw->ops.setup_cdp(pdpu->pipe_hw, cdp_cfg);
+>  		}
 > -
->  	/* override for color fill */
->  	if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG) {
->  		/* skip remaining processing on color fill */
-> @@ -1136,21 +1143,7 @@ static void dpu_plane_sspp_atomic_update(struct
-> drm_plane *plane)
->  				pstate->multirect_index);
+> -		/* update csc */
+> -		if (DPU_FORMAT_IS_YUV(fmt))
+> -			_dpu_plane_setup_csc(pdpu);
+> -		else
+> -			pdpu->csc_ptr = 0;
 >  	}
 > 
-> -	if (pdpu->pipe_hw->ops.setup_pe &&
-> -			(pstate->multirect_index != DPU_SSPP_RECT_1))
-> -		pdpu->pipe_hw->ops.setup_pe(pdpu->pipe_hw,
-> -				&pstate->pixel_ext);
-> -
-> -	/**
-> -	 * when programmed in multirect mode, scalar block will be
-> -	 * bypassed. Still we need to update alpha and bitwidth
-> -	 * ONLY for RECT0
-> -	 */
-> -	if (pdpu->pipe_hw->ops.setup_scaler &&
-> -			pstate->multirect_index != DPU_SSPP_RECT_1)
-> -		pdpu->pipe_hw->ops.setup_scaler(pdpu->pipe_hw,
-> -				&pipe_cfg, &pstate->pixel_ext,
-> -				&pstate->scaler3_cfg);
-> +	_dpu_plane_setup_scaler(pdpu, pstate, fmt, false, &pipe_cfg);
-> 
->  	if (pdpu->pipe_hw->ops.setup_multirect)
->  		pdpu->pipe_hw->ops.setup_multirect(
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> index 34e03ac05f4a..087194be3c22 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> @@ -23,8 +23,6 @@
->   * @multirect_index: index of the rectangle of SSPP
->   * @multirect_mode: parallel or time multiplex multirect mode
->   * @pending:	whether the current update is still pending
-> - * @scaler3_cfg: configuration data for scaler3
-> - * @pixel_ext: configuration data for pixel extensions
->   * @cdp_cfg:	CDP configuration
->   * @plane_fetch_bw: calculated BW per plane
->   * @plane_clk: calculated clk per plane
-> @@ -38,10 +36,6 @@ struct dpu_plane_state {
->  	uint32_t multirect_mode;
->  	bool pending;
-> 
-> -	/* scaler configuration */
-> -	struct dpu_hw_scaler3_cfg scaler3_cfg;
-> -	struct dpu_hw_pixel_ext pixel_ext;
-> -
->  	struct dpu_hw_pipe_cdp_cfg cdp_cfg;
->  	u64 plane_fetch_bw;
->  	u64 plane_clk;
+>  	_dpu_plane_set_qos_lut(plane, fb, &pipe_cfg);
