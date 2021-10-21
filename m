@@ -2,34 +2,34 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08BFE436D3C
-	for <lists+freedreno@lfdr.de>; Fri, 22 Oct 2021 00:08:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AE12436D60
+	for <lists+freedreno@lfdr.de>; Fri, 22 Oct 2021 00:22:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 707AF6E4CB;
-	Thu, 21 Oct 2021 22:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E367B6E4D4;
+	Thu, 21 Oct 2021 22:22:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9715E6E4CF
- for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 22:08:45 +0000 (UTC)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 168FF894E7
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Oct 2021 22:22:23 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1634854125; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1634854946; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=dCbsFaQy5fbSZvOhlEJxzzk8OkTpu48VEz1cEQ2GkkQ=;
- b=r6Q8IePN7QmyxXJ8vQUCr5O7e5Y1jT245EIKr5UOJHOQUKL+YRpEdWbqeHyRGGYUwezews05
- h+hjLDEhMimqtBJm/SBku7OgI+cyBRDOqg3pgVW4Hbh9LjYP7gOQ0/7W7tSTAsIth+3tg54d
- sJJOPCCbzQch0iI6RyXJ4Fi7zEU=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ MIME-Version: Sender; bh=DKdN4kS4XquW39kHKwreYKB02Rjb2DhCf+ANkMaF5Bg=;
+ b=a/O+KmpLgLHcaZFFYZHk+c0QW0ICtJBZapkjPeUQkefmawfXx1/ZqEiqXjkxJnXSGmQeibjE
+ FUUSWitT2Te7VgcibGpl8aYhbx0HbxIjGwAlv7g2hcmgzglc6xcsh0yqePS5KklMc/ZnHl6C
+ rDeRnCjeUnRHfX/tw8eWHjuPzFE=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 6171e4ebbc30296958d8969f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 21 Oct 2021 22:08:43
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 6171e8153416c2cb702cb49b (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 21 Oct 2021 22:22:13
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 94ED8C43460; Thu, 21 Oct 2021 22:08:43 +0000 (UTC)
+ id AC657C4360C; Thu, 21 Oct 2021 22:22:12 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,13 +38,13 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id F03E7C4338F;
- Thu, 21 Oct 2021 22:08:41 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 6BC42C4338F;
+ Thu, 21 Oct 2021 22:22:11 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Thu, 21 Oct 2021 15:08:41 -0700
+Date: Thu, 21 Oct 2021 15:22:11 -0700
 From: abhinavk@codeaurora.org
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
@@ -53,12 +53,14 @@ Cc: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
  <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-In-Reply-To: <20211002012715.691406-1-dmitry.baryshkov@linaro.org>
-References: <20211002012715.691406-1-dmitry.baryshkov@linaro.org>
-Message-ID: <e567c8f2b3b60f95826e7775cbf82e67@codeaurora.org>
+In-Reply-To: <20210930140002.308628-2-dmitry.baryshkov@linaro.org>
+References: <20210930140002.308628-1-dmitry.baryshkov@linaro.org>
+ <20210930140002.308628-2-dmitry.baryshkov@linaro.org>
+Message-ID: <b593436bc0024f98312a2d2157bb5a44@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: use bulk clk API
+Subject: Re: [Freedreno] [PATCH 01/11] drm/msm/dpu: move LUT levels out of
+ QOS config
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,120 +76,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-01 18:27, Dmitry Baryshkov wrote:
-> Use clk_bulk_* API instead of hand-coding them. Note, this drops 
-> support
-> for legacy clk naming (e.g. "iface_clk" instead of just "iface"),
-> however all in-kernel device trees were converted long long ago. The
-> warning is present there since 2017.
+On 2021-09-30 06:59, Dmitry Baryshkov wrote:
+> LUT levels are setup outside of setup_qos_ctrl, so remove them from the
+> struct dpu_hw_pipe_qos_cfg.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
 > ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 59 ++++++------------------------
->  1 file changed, 12 insertions(+), 47 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 15 ++++++++-------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 16 ++++++----------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 17 ++++++-----------
+>  3 files changed, 20 insertions(+), 28 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e269df285136..3b81f40bba2e 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -106,7 +106,8 @@ struct msm_dsi_host {
->  	phys_addr_t ctrl_size;
->  	struct regulator_bulk_data supplies[DSI_DEV_REGULATOR_MAX];
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index 69eed7932486..cbafb61404d0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -569,19 +569,20 @@ static void dpu_hw_sspp_setup_solidfill(struct
+> dpu_hw_pipe *ctx, u32 color, enum
+>  }
 > 
-> -	struct clk *bus_clks[DSI_BUS_CLK_MAX];
-> +	int num_bus_clks;
-> +	struct clk_bulk_data bus_clks[DSI_BUS_CLK_MAX];
+>  static void dpu_hw_sspp_setup_danger_safe_lut(struct dpu_hw_pipe *ctx,
+> -		struct dpu_hw_pipe_qos_cfg *cfg)
+> +			u32 danger_lut,
+> +			u32 safe_lut)
+>  {
+>  	u32 idx;
 > 
->  	struct clk *byte_clk;
->  	struct clk *esc_clk;
-> @@ -374,15 +375,14 @@ static int dsi_clk_init(struct msm_dsi_host 
-> *msm_host)
->  	int i, ret = 0;
+>  	if (_sspp_subblk_offset(ctx, DPU_SSPP_SRC, &idx))
+>  		return;
 > 
->  	/* get bus clocks */
-> -	for (i = 0; i < cfg->num_bus_clks; i++) {
-> -		msm_host->bus_clks[i] = msm_clk_get(pdev,
-> -						cfg->bus_clk_names[i]);
-> -		if (IS_ERR(msm_host->bus_clks[i])) {
-> -			ret = PTR_ERR(msm_host->bus_clks[i]);
-> -			pr_err("%s: Unable to get %s clock, ret = %d\n",
-> -				__func__, cfg->bus_clk_names[i], ret);
-> -			goto exit;
-> -		}
-> +	for (i = 0; i < cfg->num_bus_clks; i++)
-> +		msm_host->bus_clks[i].id = cfg->bus_clk_names[i];
-> +	msm_host->num_bus_clks = cfg->num_bus_clks;
-> +
-> +	ret = devm_clk_bulk_get(&pdev->dev, msm_host->num_bus_clks,
-> msm_host->bus_clks);
-> +	if (ret < 0) {
-> +		dev_err(&pdev->dev, "Unable to get clocks, ret = %d\n", ret);
-> +		goto exit;
+> -	DPU_REG_WRITE(&ctx->hw, SSPP_DANGER_LUT + idx, cfg->danger_lut);
+> -	DPU_REG_WRITE(&ctx->hw, SSPP_SAFE_LUT + idx, cfg->safe_lut);
+> +	DPU_REG_WRITE(&ctx->hw, SSPP_DANGER_LUT + idx, danger_lut);
+> +	DPU_REG_WRITE(&ctx->hw, SSPP_SAFE_LUT + idx, safe_lut);
+>  }
+> 
+>  static void dpu_hw_sspp_setup_creq_lut(struct dpu_hw_pipe *ctx,
+> -		struct dpu_hw_pipe_qos_cfg *cfg)
+> +			u64 creq_lut)
+>  {
+>  	u32 idx;
+> 
+> @@ -589,11 +590,11 @@ static void dpu_hw_sspp_setup_creq_lut(struct
+> dpu_hw_pipe *ctx,
+>  		return;
+> 
+>  	if (ctx->cap && test_bit(DPU_SSPP_QOS_8LVL, &ctx->cap->features)) {
+> -		DPU_REG_WRITE(&ctx->hw, SSPP_CREQ_LUT_0 + idx, cfg->creq_lut);
+> +		DPU_REG_WRITE(&ctx->hw, SSPP_CREQ_LUT_0 + idx, creq_lut);
+>  		DPU_REG_WRITE(&ctx->hw, SSPP_CREQ_LUT_1 + idx,
+> -				cfg->creq_lut >> 32);
+> +				creq_lut >> 32);
+>  	} else {
+> -		DPU_REG_WRITE(&ctx->hw, SSPP_CREQ_LUT + idx, cfg->creq_lut);
+> +		DPU_REG_WRITE(&ctx->hw, SSPP_CREQ_LUT + idx, creq_lut);
+>  	}
+>  }
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> index fdfd4b46e2c6..27263bc1a1ef 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> @@ -166,18 +166,12 @@ struct dpu_hw_pipe_cfg {
+> 
+>  /**
+>   * struct dpu_hw_pipe_qos_cfg : Source pipe QoS configuration
+> - * @danger_lut: LUT for generate danger level based on fill level
+> - * @safe_lut: LUT for generate safe level based on fill level
+> - * @creq_lut: LUT for generate creq level based on fill level
+>   * @creq_vblank: creq value generated to vbif during vertical blanking
+>   * @danger_vblank: danger value generated during vertical blanking
+>   * @vblank_en: enable creq_vblank and danger_vblank during vblank
+>   * @danger_safe_en: enable danger safe generation
+>   */
+>  struct dpu_hw_pipe_qos_cfg {
+> -	u32 danger_lut;
+> -	u32 safe_lut;
+> -	u64 creq_lut;
+>  	u32 creq_vblank;
+>  	u32 danger_vblank;
+>  	bool vblank_en;
+> @@ -302,20 +296,22 @@ struct dpu_hw_sspp_ops {
+>  	/**
+>  	 * setup_danger_safe_lut - setup danger safe LUTs
+>  	 * @ctx: Pointer to pipe context
+> -	 * @cfg: Pointer to pipe QoS configuration
+> +	 * @danger_lut: LUT for generate danger level based on fill level
+> +	 * @safe_lut: LUT for generate safe level based on fill level
+>  	 *
+>  	 */
+>  	void (*setup_danger_safe_lut)(struct dpu_hw_pipe *ctx,
+> -			struct dpu_hw_pipe_qos_cfg *cfg);
+> +			u32 danger_lut,
+> +			u32 safe_lut);
+> 
+>  	/**
+>  	 * setup_creq_lut - setup CREQ LUT
+>  	 * @ctx: Pointer to pipe context
+> -	 * @cfg: Pointer to pipe QoS configuration
+> +	 * @creq_lut: LUT for generate creq level based on fill level
+>  	 *
+>  	 */
+>  	void (*setup_creq_lut)(struct dpu_hw_pipe *ctx,
+> -			struct dpu_hw_pipe_qos_cfg *cfg);
+> +			u64 creq_lut);
+> 
+>  	/**
+>  	 * setup_qos_ctrl - setup QoS control
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index c989621209aa..5e0d06f26e53 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -348,8 +348,6 @@ static void _dpu_plane_set_qos_lut(struct drm_plane 
+> *plane,
+>  	qos_lut = _dpu_plane_get_qos_lut(
+>  			&pdpu->catalog->perf.qos_lut_tbl[lut_usage], total_fl);
+> 
+> -	pdpu->pipe_qos_cfg.creq_lut = qos_lut;
+> -
+>  	trace_dpu_perf_set_qos_luts(pdpu->pipe - SSPP_VIG0,
+>  			(fmt) ? fmt->base.pixel_format : 0,
+>  			pdpu->is_rt_pipe, total_fl, qos_lut, lut_usage);
+> @@ -359,7 +357,7 @@ static void _dpu_plane_set_qos_lut(struct drm_plane 
+> *plane,
+>  			fmt ? (char *)&fmt->base.pixel_format : NULL,
+>  			pdpu->is_rt_pipe, total_fl, qos_lut);
+> 
+> -	pdpu->pipe_hw->ops.setup_creq_lut(pdpu->pipe_hw, 
+> &pdpu->pipe_qos_cfg);
+> +	pdpu->pipe_hw->ops.setup_creq_lut(pdpu->pipe_hw, qos_lut);
+>  }
+> 
+>  /**
+> @@ -397,24 +395,21 @@ static void _dpu_plane_set_danger_lut(struct
+> drm_plane *plane,
+>  		}
 >  	}
 > 
->  	/* get link and source clocks */
-> @@ -433,41 +433,6 @@ static int dsi_clk_init(struct msm_dsi_host 
-> *msm_host)
->  	return ret;
+> -	pdpu->pipe_qos_cfg.danger_lut = danger_lut;
+> -	pdpu->pipe_qos_cfg.safe_lut = safe_lut;
+> -
+>  	trace_dpu_perf_set_danger_luts(pdpu->pipe - SSPP_VIG0,
+>  			(fmt) ? fmt->base.pixel_format : 0,
+>  			(fmt) ? fmt->fetch_mode : 0,
+> -			pdpu->pipe_qos_cfg.danger_lut,
+> -			pdpu->pipe_qos_cfg.safe_lut);
+> +			danger_lut,
+> +			safe_lut);
+> 
+>  	DPU_DEBUG_PLANE(pdpu, "pnum:%d fmt: %4.4s mode:%d luts[0x%x, 
+> 0x%x]\n",
+>  		pdpu->pipe - SSPP_VIG0,
+>  		fmt ? (char *)&fmt->base.pixel_format : NULL,
+>  		fmt ? fmt->fetch_mode : -1,
+> -		pdpu->pipe_qos_cfg.danger_lut,
+> -		pdpu->pipe_qos_cfg.safe_lut);
+> +		danger_lut,
+> +		safe_lut);
+> 
+>  	pdpu->pipe_hw->ops.setup_danger_safe_lut(pdpu->pipe_hw,
+> -			&pdpu->pipe_qos_cfg);
+> +			danger_lut, safe_lut);
 >  }
 > 
-> -static int dsi_bus_clk_enable(struct msm_dsi_host *msm_host)
-> -{
-> -	const struct msm_dsi_config *cfg = msm_host->cfg_hnd->cfg;
-> -	int i, ret;
-> -
-> -	DBG("id=%d", msm_host->id);
-> -
-> -	for (i = 0; i < cfg->num_bus_clks; i++) {
-> -		ret = clk_prepare_enable(msm_host->bus_clks[i]);
-> -		if (ret) {
-> -			pr_err("%s: failed to enable bus clock %d ret %d\n",
-> -				__func__, i, ret);
-> -			goto err;
-> -		}
-> -	}
-> -
-> -	return 0;
-> -err:
-> -	for (; i > 0; i--)
-> -		clk_disable_unprepare(msm_host->bus_clks[i]);
-> -
-> -	return ret;
-> -}
-> -
-> -static void dsi_bus_clk_disable(struct msm_dsi_host *msm_host)
-> -{
-> -	const struct msm_dsi_config *cfg = msm_host->cfg_hnd->cfg;
-> -	int i;
-> -
-> -	DBG("");
-> -
-> -	for (i = cfg->num_bus_clks - 1; i >= 0; i--)
-> -		clk_disable_unprepare(msm_host->bus_clks[i]);
-> -}
-> -
->  int msm_dsi_runtime_suspend(struct device *dev)
->  {
->  	struct platform_device *pdev = to_platform_device(dev);
-> @@ -478,7 +443,7 @@ int msm_dsi_runtime_suspend(struct device *dev)
->  	if (!msm_host->cfg_hnd)
->  		return 0;
-> 
-> -	dsi_bus_clk_disable(msm_host);
-> +	clk_bulk_disable_unprepare(msm_host->num_bus_clks, 
-> msm_host->bus_clks);
-> 
->  	return 0;
->  }
-> @@ -493,7 +458,7 @@ int msm_dsi_runtime_resume(struct device *dev)
->  	if (!msm_host->cfg_hnd)
->  		return 0;
-> 
-> -	return dsi_bus_clk_enable(msm_host);
-> +	return clk_bulk_prepare_enable(msm_host->num_bus_clks, 
-> msm_host->bus_clks);
->  }
-> 
->  int dsi_link_clk_set_rate_6g(struct msm_dsi_host *msm_host)
+>  /**
