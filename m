@@ -1,64 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DEE64352C7
-	for <lists+freedreno@lfdr.de>; Wed, 20 Oct 2021 20:39:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A5244356D9
+	for <lists+freedreno@lfdr.de>; Thu, 21 Oct 2021 02:20:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AFC76E158;
-	Wed, 20 Oct 2021 18:39:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7222E6EA1D;
+	Thu, 21 Oct 2021 00:20:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 571186E328
- for <freedreno@lists.freedesktop.org>; Wed, 20 Oct 2021 18:39:09 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1634755155; h=Content-Transfer-Encoding: MIME-Version:
- Message-Id: Date: Subject: Cc: To: From: Sender;
- bh=fMhK37NgLablZIXyn9LXXzethSwsYFf/HVVYPlJwWJA=;
- b=osUSJt71C+4GxENsnPOjZE2s1f2bbHpRIIlEdj1JgkiT8oIBSOFJvuV4xP5XwwTgoFfCOR5X
- WQgWUbJj6zIrbsvrX6Sb/iGuBbMxG/O3VwA+NgxXVUWFhR+4uQUbG75yxssGHuaA/n1zejjG
- cKE+9PIJQa2fKvPPnZTPFCqKGLM=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 61706239321f240051eaeeae (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 20 Oct 2021 18:38:49
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id BF653C43616; Wed, 20 Oct 2021 18:38:49 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from jesszhan-linux.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: jesszhan)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 777B3C4338F;
- Wed, 20 Oct 2021 18:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 777B3C4338F
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-From: Jessica Zhang <jesszhan@codeaurora.org>
-To: freedreno@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dan.carpenter@oracle.com, dri-devel@lists.freedesktop.org,
- dmitry.baryshkov@linaro.org, nganji@codeaurora.org,
- aravindh@codeaurora.org, abhinavk@codeaurora.org
-Date: Wed, 20 Oct 2021 11:38:37 -0700
-Message-Id: <20211020183837.959-1-jesszhan@codeaurora.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 840846EA1D;
+ Thu, 21 Oct 2021 00:20:36 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8E1FD611CC;
+ Thu, 21 Oct 2021 00:20:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1634775636;
+ bh=tQn2x1b7CEDjXT4xT5M21SEZ9mXIyPc8lUGX3/VUoxw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=omgS/aXzCWchH2SWGwtwEV1dpO8qtQEbLtdPo7IjknEmwEN7dixS2+DVIXY4Xe3Tp
+ YVuWc6fyFWBL5IEGnoiOippy/n5dkkKuC/d4NXJbz1Drln9GHD2eLSyalR73t0Cz75
+ 8WrQS87GpBd7B/JfDusiYf96Ftofh2dBYb3/Exmh+ZEydgCO1uMtw+CMi5ZfsI985X
+ fcsGqfZd00GDFoAayMfQ2zkE1sZIj1Q2omnZYntcrCCiMmVQ+Zqao1TEwHe8q0pO7O
+ bOJjEupVsujIAncDr+K4XX0REzUsRP7BrJXLdT1ljnnbOPSWxnx1e+ichVwmyjn1t8
+ 1tTU0PU1w3FXA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ jonathan@marek.ca, jordan@cosmicpenguin.net, eric@anholt.net,
+ akhilpo@codeaurora.org, bjorn.andersson@linaro.org,
+ saiprakash.ranjan@codeaurora.org, smasetty@codeaurora.org,
+ dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Date: Wed, 20 Oct 2021 20:19:59 -0400
+Message-Id: <20211021002023.1128949-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211021002023.1128949-1-sashal@kernel.org>
+References: <20211021002023.1128949-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix potential NULL dereference in DPU
+Subject: [Freedreno] [PATCH AUTOSEL 5.14 02/26] drm/msm/a6xx: Serialize GMU
+ communication
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,100 +60,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add NULL checks in KMS CRTC funcs to avoid potential NULL
-dereference.
+From: Rob Clark <robdclark@chromium.org>
 
-Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Jessica Zhang <jesszhan@codeaurora.org>
+[ Upstream commit f6f59072e821901d96c791864a07d57d8ec8d312 ]
+
+I've seen some crashes in our crash reporting that *look* like multiple
+threads stomping on each other while communicating with GMU.  So wrap
+all those paths in a lock.
+
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c      | 8 ++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c          | 5 +++++
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c        | 3 +++
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 3 +++
- drivers/gpu/drm/msm/msm_gpu.c                     | 3 +++
- 5 files changed, 22 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  6 ++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  3 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 40 +++++++++++++++++++++++----
+ 3 files changed, 43 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-index d2457490930b..53d80572181e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
-@@ -208,8 +208,16 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
- 	dpu_kms->irq_obj.total_irqs = dpu_kms->hw_intr->total_irqs;
- 	dpu_kms->irq_obj.irq_cb_tbl = kcalloc(dpu_kms->irq_obj.total_irqs,
- 			sizeof(struct list_head), GFP_KERNEL);
-+
-+	if (!dpu_kms->irq_obj.irq_cb_tbl)
-+		return;
-+
- 	dpu_kms->irq_obj.irq_counts = kcalloc(dpu_kms->irq_obj.total_irqs,
- 			sizeof(atomic_t), GFP_KERNEL);
-+
-+	if (!dpu_kms->irq_obj.irq_counts)
-+		return;
-+
- 	for (i = 0; i < dpu_kms->irq_obj.total_irqs; i++) {
- 		INIT_LIST_HEAD(&dpu_kms->irq_obj.irq_cb_tbl[i]);
- 		atomic_set(&dpu_kms->irq_obj.irq_counts[i], 0);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 768012243b44..0a1cad0cfcc0 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -921,6 +921,11 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index b349692219b7..c95985792076 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -296,6 +296,8 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ 	u32 val;
+ 	int request, ack;
  
- 	pstates = kzalloc(sizeof(*pstates) * DPU_STAGE_MAX * 4, GFP_KERNEL);
- 
-+	if (!pstates) {
-+		rc = -ENOMEM;
-+		goto end;
-+	}
++	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
 +
- 	if (!crtc_state->enable || !crtc_state->active) {
- 		DRM_DEBUG_ATOMIC("crtc%d -> enable %d, active %d, skip atomic_check\n",
- 				crtc->base.id, crtc_state->enable,
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index c6b69afcbac8..09751b480db5 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -92,6 +92,9 @@ static void mdp5_plane_reset(struct drm_plane *plane)
- 	kfree(to_mdp5_plane_state(plane->state));
- 	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
+ 	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
+ 		return -EINVAL;
  
-+	if (!mdp5_state)
-+		return;
+@@ -337,6 +339,8 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ {
+ 	int bit;
+ 
++	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
 +
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
- 		mdp5_state->base.zpos = STAGE_BASE;
- 	else
-diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-index cabe15190ec1..71e209d07120 100644
---- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-+++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-@@ -170,6 +170,9 @@ void msm_disp_snapshot_add_block(struct msm_disp_state *disp_state, u32 len,
+ 	if (state >= ARRAY_SIZE(a6xx_gmu_oob_bits))
+ 		return;
  
- 	new_blk = kzalloc(sizeof(struct msm_disp_state_block), GFP_KERNEL);
+@@ -1478,6 +1482,8 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 	if (!pdev)
+ 		return -ENODEV;
  
-+	if (!new_blk)
-+		return;
++	mutex_init(&gmu->lock);
 +
- 	va_start(va, fmt);
+ 	gmu->dev = &pdev->dev;
  
- 	vaf.fmt = fmt;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 8a3a592da3a4..ddd23f3a4a99 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -296,6 +296,9 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
- 		state->bos = kcalloc(nr,
- 			sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
+ 	of_dma_configure(gmu->dev, node, true);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index 71dfa60070cc..19c1a0ddee7a 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -44,6 +44,9 @@ struct a6xx_gmu_bo {
+ struct a6xx_gmu {
+ 	struct device *dev;
  
-+		if (!state->bos)
-+			return;
++	/* For serializing communication with the GMU: */
++	struct mutex lock;
 +
- 		for (i = 0; i < submit->nr_bos; i++) {
- 			if (should_dump(submit, i)) {
- 				msm_gpu_crashstate_get_bo(state, submit->bos[i].obj,
+ 	struct msm_gem_address_space *aspace;
+ 
+ 	void * __iomem mmio;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 183b9f9c1b31..64586eb8cda5 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -859,7 +859,7 @@ static int a6xx_zap_shader_init(struct msm_gpu *gpu)
+ 	  A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS | \
+ 	  A6XX_RBBM_INT_0_MASK_UCHE_TRAP_INTR)
+ 
+-static int a6xx_hw_init(struct msm_gpu *gpu)
++static int hw_init(struct msm_gpu *gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+@@ -1107,6 +1107,19 @@ static int a6xx_hw_init(struct msm_gpu *gpu)
+ 	return ret;
+ }
+ 
++static int a6xx_hw_init(struct msm_gpu *gpu)
++{
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	int ret;
++
++	mutex_lock(&a6xx_gpu->gmu.lock);
++	ret = hw_init(gpu);
++	mutex_unlock(&a6xx_gpu->gmu.lock);
++
++	return ret;
++}
++
+ static void a6xx_dump(struct msm_gpu *gpu)
+ {
+ 	DRM_DEV_INFO(&gpu->pdev->dev, "status:   %08x\n",
+@@ -1481,7 +1494,9 @@ static int a6xx_pm_resume(struct msm_gpu *gpu)
+ 
+ 	trace_msm_gpu_resume(0);
+ 
++	mutex_lock(&a6xx_gpu->gmu.lock);
+ 	ret = a6xx_gmu_resume(a6xx_gpu);
++	mutex_unlock(&a6xx_gpu->gmu.lock);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1504,7 +1519,9 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
+ 
+ 	devfreq_suspend_device(gpu->devfreq.devfreq);
+ 
++	mutex_lock(&a6xx_gpu->gmu.lock);
+ 	ret = a6xx_gmu_stop(a6xx_gpu);
++	mutex_unlock(&a6xx_gpu->gmu.lock);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1519,18 +1536,19 @@ static int a6xx_get_timestamp(struct msm_gpu *gpu, uint64_t *value)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+-	static DEFINE_MUTEX(perfcounter_oob);
+ 
+-	mutex_lock(&perfcounter_oob);
++	mutex_lock(&a6xx_gpu->gmu.lock);
+ 
+ 	/* Force the GPU power on so we can read this register */
+ 	a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+ 
+ 	*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER_LO,
+-		REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
++			    REG_A6XX_CP_ALWAYS_ON_COUNTER_HI);
+ 
+ 	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_PERFCOUNTER_SET);
+-	mutex_unlock(&perfcounter_oob);
++
++	mutex_unlock(&a6xx_gpu->gmu.lock);
++
+ 	return 0;
+ }
+ 
+@@ -1594,6 +1612,16 @@ static unsigned long a6xx_gpu_busy(struct msm_gpu *gpu)
+ 	return (unsigned long)busy_time;
+ }
+ 
++void a6xx_gpu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp)
++{
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++
++	mutex_lock(&a6xx_gpu->gmu.lock);
++	a6xx_gmu_set_freq(gpu, opp);
++	mutex_unlock(&a6xx_gpu->gmu.lock);
++}
++
+ static struct msm_gem_address_space *
+ a6xx_create_address_space(struct msm_gpu *gpu, struct platform_device *pdev)
+ {
+@@ -1740,7 +1768,7 @@ static const struct adreno_gpu_funcs funcs = {
+ #endif
+ 		.gpu_busy = a6xx_gpu_busy,
+ 		.gpu_get_freq = a6xx_gmu_get_freq,
+-		.gpu_set_freq = a6xx_gmu_set_freq,
++		.gpu_set_freq = a6xx_gpu_set_freq,
+ #if defined(CONFIG_DRM_MSM_GPU_STATE)
+ 		.gpu_state_get = a6xx_gpu_state_get,
+ 		.gpu_state_put = a6xx_gpu_state_put,
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.33.0
 
