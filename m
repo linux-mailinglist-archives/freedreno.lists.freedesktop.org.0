@@ -1,76 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D40438431
-	for <lists+freedreno@lfdr.de>; Sat, 23 Oct 2021 17:55:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27398438F5E
+	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 08:23:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 305FD6E0C8;
-	Sat, 23 Oct 2021 15:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABC089DB4;
+	Mon, 25 Oct 2021 06:23:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D98A76E0C8;
- Sat, 23 Oct 2021 15:55:32 +0000 (UTC)
-Received: by mail-pj1-x1033.google.com with SMTP id
- v1-20020a17090a088100b001a21156830bso1485888pjc.1; 
- Sat, 23 Oct 2021 08:55:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/pSiwo+cqnHDXHq5IyuMaCuGSJ1F7Qgv+xIG/gujbcY=;
- b=Lo5pB7LK4ASUpV9T0nhmFJmhsvRgF4B3M+PdM2rUpggIiWX1T4rEhaDMyeXl+hE2BX
- kftGkYKm2tnacs4oo871EiyVJvi8kLYBymnEZH1nFnOqSfS3SFgMXXITCtdpAdmFmOXW
- G9NrOOwOS/IQfVvcr+8LzU/mGBBv+8e+Kg177FnK5pNsRvLQakBhS1CgoGKudLoaAMHa
- sDpB2k6pHJOgWYfvu3EAwbCC5hEttKMFJsV/uBRpiQ17AkeQgxftgpLlasvzV+/CCf9z
- T1de4yKQYlFEV7NozJgOYibWPlzXW7xCOQlaNv46lfzsT+xc7f+ntDfCeyKlIPPJ0aEQ
- 169g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/pSiwo+cqnHDXHq5IyuMaCuGSJ1F7Qgv+xIG/gujbcY=;
- b=XWKqfgyCj3fqTtAsGcSgsHmyfM8vpU5QaQgSwyAz4cGmh2NtVVHDl/Zf7xrLdeLESp
- mrwjYafl8EYaim6Cbuj018xAtxu0qMzmEtM7qXtlwdU4FU4Usmt0x7LF9zD6D8VyTu7V
- 24o5Vj9vxhZv9P9TCl/vqCt1IWAdg0+R1BxJsdYY6+yHBb9M4oTLBdOP22fH0FXta5AE
- Pfr1kRACS7QevJMaDdQP88uOMHE+1JdJwASUvNnTJFeqlyEDqOj5jYZTVfamtDR7suGD
- 7HChUldnhOON/i/YG/0G4D1vLSh4XM9A7mdhU26rs8GVcuapEbhgsx2d+4vSDoaeuGhX
- eKPw==
-X-Gm-Message-State: AOAM533IGBvGr1HXFOUvXCLaSur/ZLymE7MUgoeLig9qT4ninzNodtLZ
- N2Y6ngwhiEPmF6BoshKXK3ijuyaOPKw=
-X-Google-Smtp-Source: ABdhPJxNTy5Vqw0d9jUVsUmEoGQNGNcpSYCHxtyx5N1R+Ctvdyrad7wp36YiAb+YNHiWwM6mI3qZ6A==
-X-Received: by 2002:a17:90b:1bc3:: with SMTP id
- oa3mr7847706pjb.75.1635004531693; 
- Sat, 23 Oct 2021 08:55:31 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- j1sm2212635pfj.155.2021.10.23.08.55.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 Oct 2021 08:55:30 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <maxime@cerno.tech>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Stephen Boyd <swboyd@chromium.org>, Kalyan Thota <kalyan_t@codeaurora.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>,
- Jessica Zhang <jesszhan@codeaurora.org>,
- Mark Yacoub <markyacoub@google.com>,
- linux-kernel@vger.kernel.org (open list)
-Date: Sat, 23 Oct 2021 09:00:13 -0700
-Message-Id: <20211023160016.3322052-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211023160016.3322052-1-robdclark@gmail.com>
-References: <20211023160016.3322052-1-robdclark@gmail.com>
+Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4F389D9A;
+ Mon, 25 Oct 2021 06:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
+ t=1635113882; bh=uw6jUOdznN5Fu1cmQxsbGLSaS5P2w7SplYgPex568YQ=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To;
+ b=kpn3YOQUKeK9qDpnf0StFTwdc4WJreIl9JR8oi4rUbw2RZC0IEtUV7NQk5CjR3JWj
+ AEBLg5lA/FkJuQmNxIv/k09YqvRAHZmzYfR2B2Hv/gSnP/O9JktEiJjGBVqLmzKzGR
+ /BmdwJXbj2xTfAUE0fjrTjyaO9MnP/V/8Ufrnq/A=
+Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
+ via ip-206.mailobj.net [213.182.55.206]
+ Mon, 25 Oct 2021 00:17:45 +0200 (CEST)
+X-EA-Auth: tM23DGE6RIEgIBepFFyFZ3U+VcDqeb1NZ+9uNCAhSimMRHbJIRvea/6qSymDwthzabP0gvaNwIR0mJ56UkO3tKDYzFIv2ik3
+Date: Mon, 25 Oct 2021 00:17:37 +0200
+From: Claudio Suarez <cssk@net-c.es>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
+ Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
+Message-ID: <YXXbgWNHts9CMJXD@gineta.localdomain>
+References: <20211016184226.3862-1-cssk@net-c.es>
+ <20211016184226.3862-14-cssk@net-c.es> <YW8QYsmkm3ZrBAx3@intel.com>
+ <YW9L6d7e+RO29VJu@gineta.localdomain> <YXFwB7rN4bvR0Z+m@intel.com>
+ <YXKRnUHWuboQKBF1@zorro.micasa> <YXKoMEF/gU98cL9n@intel.com>
+ <YXKtIUDk+f2Bnn++@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Remove dynamic allocation
- from atomic context
+In-Reply-To: <YXKtIUDk+f2Bnn++@intel.com>
+Subject: Re: [Freedreno] [Intel-gfx] [PATCH v3 13/13] drm/i915: replace
+ drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,116 +74,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Fri, Oct 22, 2021 at 03:22:57PM +0300, Ville Syrjälä wrote:
+> On Fri, Oct 22, 2021 at 03:01:52PM +0300, Ville Syrjälä wrote:
+> > On Fri, Oct 22, 2021 at 12:25:33PM +0200, Claudio Suarez wrote:
+> > > On Thu, Oct 21, 2021 at 04:49:59PM +0300, Ville Syrjälä wrote:
+> > > > On Wed, Oct 20, 2021 at 12:51:21AM +0200, Claudio Suarez wrote:
+> > > > > drm_get_edid() internally calls to drm_connector_update_edid_property()
+> > > > > and then drm_add_display_info(), which parses the EDID.
+> > > > > This happens in the function intel_hdmi_set_edid() and
+> > > > > intel_sdvo_tmds_sink_detect() (via intel_sdvo_get_edid()).
+> > > > > 
+> > > > > Once EDID is parsed, the monitor HDMI support information is available
+> > > > > through drm_display_info.is_hdmi. Retriving the same information with
+> > > > > drm_detect_hdmi_monitor() is less efficient. Change to
+> > > > > drm_display_info.is_hdmi
+> > > > 
+> > > > I meant we need to examine all call chains that can lead to
+> > > > .detect() to make sure all of them do in fact update the
+> > > > display_info beforehand.
+> > > 
+> > > Well, I studied it carefully and, yes, all call chains that can lead to
+> > > drm_display_info.is_hdmi / drm_detect_hdmi_monitor() update display_info
+> > > beforehand. In the case that this doesn't happen, the code is unchanged.
+> > > 
+> > > Do you want I explain the changes in the code here again ? Or do you want
+> > > to me change the commit message to be more clear ? In the first case, I can
+> > > write here a detailed explanation. In the second case I can make a longer commit
+> > > message.
+> > > 
+> > > Or both?
+> > 
+> > I want all those call chains explained in the commit message,
+> > otherwise I have no easy way to confirm whether the change
+> > is correct or not.
+> 
+> Hmm. OK, so I had a bit of a dig around and seems that what we do now
+> .detect()->drm_get_edid()->drm_connector_update_edid_property()->drm_add_display_info()
 
-We know the upper bound on # of mixers (ie. two), so lets just allocate
-this on the stack.
+Yes. I said before that I felt something was wrong when I read the
+documentation and then the code. To be more explicit now, I expected that
+drm_connector_update_edid_property() will be done in the
+fill_modes/get_modes phase instead of when reading the edid.
+The documentation suggests that but the code reads the edid in the
+detect phase.
+Now, since drm_connector_update_edid_property() is called in the detect
+phase, it is not necessary to keep the edid data in the private connector
+struct. It is in struct drm_connector from the beginning.
+But this is topic for another patch.
 
-Fixes:
+> Now the question is when did that start happening? Looks like it was
+> commit 4b4df570b41d ("drm: Update edid-derived drm_display_info fields
+> at edid property set [v2]") that started to call drm_add_display_info()
+> from drm_connector_update_edid_property(), and then commit 5186421cbfe2
+> ("drm: Introduce epoch counter to drm_connector") started to call
+> drm_connector_update_edid_property() from drm_get_edid(). Before both
+> of those commits were in place display_info would still contain
+> some stale garbage during .detect().
+>
+> That is the story I think we want in these commit messages since it
+> a) explains why the old code was directly parsing the edid instead
+> b) why it's now safe to change this
 
-   BUG: sleeping function called from invalid context at include/linux/sched/mm.h:201
-   in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 0, name: swapper/0
-   INFO: lockdep is turned off.
-   irq event stamp: 43642
-   hardirqs last  enabled at (43641): [<ffffffe24dd276bc>] cpuidle_enter_state+0x158/0x25c
-   hardirqs last disabled at (43642): [<ffffffe24dfff450>] enter_el1_irq_or_nmi+0x10/0x1c
-   softirqs last  enabled at (43620): [<ffffffe24d4103fc>] __do_softirq+0x1e4/0x464
-   softirqs last disabled at (43615): [<ffffffe24d48bd90>] __irq_exit_rcu+0x104/0x150
-   CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W         5.15.0-rc3-debug+ #105
-   Hardware name: Google Lazor (rev1 - 2) with LTE (DT)
-   Call trace:
-    dump_backtrace+0x0/0x18c
-    show_stack+0x24/0x30
-    dump_stack_lvl+0xa0/0xd4
-    dump_stack+0x18/0x34
-    ___might_sleep+0x1e0/0x1f0
-    __might_sleep+0x78/0x8c
-    slab_pre_alloc_hook.constprop.0+0x48/0x6c
-    __kmalloc+0xc8/0x21c
-    dpu_crtc_vblank_callback+0x158/0x1f8
-    dpu_encoder_vblank_callback+0x70/0xc4
-    dpu_encoder_phys_vid_vblank_irq+0x50/0x12c
-    dpu_core_irq+0x1bc/0x1d0
-    dpu_irq+0x1c/0x28
-    msm_irq+0x34/0x40
-    __handle_irq_event_percpu+0x15c/0x308
-    handle_irq_event_percpu+0x3c/0x90
-    handle_irq_event+0x54/0x98
-    handle_level_irq+0xa0/0xd0
-    handle_irq_desc+0x2c/0x44
-    generic_handle_domain_irq+0x28/0x34
-    dpu_mdss_irq+0x90/0xe8
-    handle_irq_desc+0x2c/0x44
-    handle_domain_irq+0x54/0x80
-    gic_handle_irq+0xd4/0x148
-    call_on_irq_stack+0x2c/0x54
-    do_interrupt_handler+0x4c/0x64
-    el1_interrupt+0x30/0xd0
-    el1h_64_irq_handler+0x18/0x24
-    el1h_64_irq+0x78/0x7c
-    arch_local_irq_enable+0xc/0x14
-    cpuidle_enter+0x44/0x5c
-    do_idle+0x248/0x268
-    cpu_startup_entry+0x30/0x48
-    rest_init+0x188/0x19c
-    arch_call_rest_init+0x1c/0x28
-    start_kernel+0x704/0x744
-    __primary_switched+0xc0/0xc8
+------------------commit-message?--------------------
 
-Fixes: 78d9b458cc21 ("drm/msm/dpu: Add CRC support for DPU")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 0ae397044310..2523e829f485 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -182,21 +182,19 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
- {
- 	struct dpu_crtc_state *crtc_state;
- 	struct dpu_crtc_mixer *m;
--	u32 *crcs;
-+	u32 crcs[CRTC_DUAL_MIXERS];
- 
- 	int i = 0;
- 	int rc = 0;
- 
- 	crtc_state = to_dpu_crtc_state(crtc->state);
--	crcs = kcalloc(crtc_state->num_mixers, sizeof(*crcs), GFP_KERNEL);
- 
--	if (!crcs)
--		return -ENOMEM;
-+	BUILD_BUG_ON(ARRAY_SIZE(crcs) != ARRAY_SIZE(crtc_state->mixers));
- 
- 	/* Skip first 2 frames in case of "uncooked" CRCs */
- 	if (crtc_state->crc_frame_skip_count < 2) {
- 		crtc_state->crc_frame_skip_count++;
--		goto cleanup;
-+		return 0;
- 	}
- 
- 	for (i = 0; i < crtc_state->num_mixers; ++i) {
-@@ -210,16 +208,12 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
- 
- 		if (rc) {
- 			DRM_DEBUG_DRIVER("MISR read failed\n");
--			goto cleanup;
-+			return rc;
- 		}
- 	}
- 
--	rc = drm_crtc_add_crc_entry(crtc, true,
-+	return drm_crtc_add_crc_entry(crtc, true,
- 			drm_crtc_accurate_vblank_count(crtc), crcs);
--
--cleanup:
--	kfree(crcs);
--	return rc;
- }
- 
- static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
--- 
-2.31.1
+Commit a92d083d08b0 created the new flag is_hdmi in drm_display_info
+which is set when sink compliant with CEA-861 (EDID) shall be treated
+as an HDMI sink.
+
+From that day, this value can be used in some cases instead of
+calling drm_detect_hdmi_monitor() and a second parse is avoided
+because drm_detect_hdmi_monitor() parses. A TODO task was
+registered in Documentation/gpu/todo.rst to perform that task in
+the future.
+
+The flag drm_display_info.is_hdmi is set in the function
+drm_add_display_info(), which is called from
+drm_connector_update_edid_property(). Since commit 5186421cbfe2,
+drm_get_edid() calls drm_connector_update_edid_property() when
+reading the edid data from an i2c adapter. Therefore, in these
+cases drm_display_info.is_hdmi is updated to its correct
+value when returning from drm_get_edid().
+
+Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+in the cases when drm_detect_hdmi_monitor() is called after a
+read from an i2c adapter using drm_get_edid() in the i915 driver.
+-----------------------------------------------
+
+> 
+> PS. connector->force handling in drm_get_edid() looks a bit busted
+> since it doesn't call drm_connector_update_edid_property() at all
+> in some cases. I think there might be some path that leads there
+> anywya if/when we change connector->force, but we should fix
+> drm_get_edid() to do the right thing regarless.
+
+In those cases, the edid isn't read and NULL is returned by drm_get_edid().
+No problem because display_info.is_hdmi is inside an if (edid != NULL).
+
+BTW, struct intel_connector is allocated with kzalloc, so the initial
+value of is_hdmi is zero. The connector isn't HDMI by default.
+
+BR.
+Claudio Suarez.
+
 
