@@ -2,72 +2,87 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6414398EE
-	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 16:44:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A5F4399D5
+	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 17:15:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36AFB6E049;
-	Mon, 25 Oct 2021 14:44:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0363F6E049;
+	Mon, 25 Oct 2021 15:15:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEFEE89EB8
- for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 14:44:35 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id j21so11962793lfe.0
- for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 07:44:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=v1mMWeJ4eN0jON4Tvhqworti70ZpkjNPMSIyXJ+VLbI=;
- b=WFcklZTVt7vJVB15GuEypjH1pAU0tMy5fdSyc/fuf/HAPm+8RfxB7+YDclQVB76xjo
- i5mBFGciMx6unYZEa5h89n2MwKT4jghiER/WpNYW5m/YynwXNbnZX4conC0mo2OfM4vT
- P1jCYpHOEbSOZB7+8KvuDJ4Hw9KucVWfpo4lxMJU18kaTULhuiMgu5rNf9YfeVPQoEME
- tX5RfIKBRZiR3+lg9yG0ehpJpNfiEP+GlXub6KELemRITQJ72IblYiUWy2L3JXu9TxAs
- cpA+UDvZLl0VYqhAEM5SeoWu54AIUc2/M/0ONmuaF2dtv0PD8xXjhNqXkAlDV1glpNlY
- Iy+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=v1mMWeJ4eN0jON4Tvhqworti70ZpkjNPMSIyXJ+VLbI=;
- b=fSwz9uv85QjZXM256spm3i6ZYnUmG1b+hHyxyMOvo4tbMbHXiELfYfdrJxciuLspYg
- mROBh8FPOWGRDUn/5VgLgSrY7Q+fS7XR3MkyTytVM8rhQ1Kj9Szye6g4kiMyH/50dw8E
- TtWGp3wziGqbXZ+53SEcDA02yO+7s8BErM+9Xu8e1QwxapJmPpSdJ6IWDMFppUESCwkk
- yZjGphdEnO3jEYIaeNUrGi/mhWak1HTc0F5nKZuXdJRfBFBYA4PJw7R5O5tUjhwWD3eC
- mEa+mOG1CoKJl5euQOPY7QQn0yssypDslENSy8vVKx59rqb8WDfGqCSs4T2Q8eCZT7n5
- ksJA==
-X-Gm-Message-State: AOAM531iVa6+hRM31VDKG8dJ/mzNUDQHZiQgMbqsLcwct8/+7CCizYpV
- uTFLJK0Nfpzj2FxqeihXxV1IXIXchUstSQ==
-X-Google-Smtp-Source: ABdhPJwBjFjyK/Nc+qQ0ZiUYPVs157D7zQLXPwUTFO95z9Mc69tejJhIgjGnWyncD7G4LX1hx4aESQ==
-X-Received: by 2002:a19:3813:: with SMTP id f19mr11095588lfa.284.1635173073947; 
- Mon, 25 Oct 2021 07:44:33 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id a19sm1742188ljb.3.2021.10.25.07.44.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Oct 2021 07:44:33 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20211007070900.456044-1-vkoul@kernel.org>
- <20211007070900.456044-9-vkoul@kernel.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <e53aee33-1fd9-cd2f-9b98-99e20d26632b@linaro.org>
-Date: Mon, 25 Oct 2021 17:44:32 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDE6C89FED;
+ Mon, 25 Oct 2021 15:15:47 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id C51E7580684;
+ Mon, 25 Oct 2021 11:15:44 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Mon, 25 Oct 2021 11:15:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ from:to:cc:subject:date:message-id:content-type:mime-version
+ :content-transfer-encoding; s=fm1; bh=diT2fj6PkuD69IpbJXNRqYXYKn
+ P5NvILTd/s9bJ0OlY=; b=VhHgFlMBiex3XRoKMVkP+MWPTu1mTWrGp4HgjCJft+
+ fHkLIUpdJGrXpdk0BZKDh0N1sigiQA3bm27LeWhFLC21sLCnDLFgfcb+Cv0SNR8U
+ tohUaqhOuqwc+1KuOXWtoe8CC/v1ugkxODW6w3gp/79FhR07P028s58b15qWqQuo
+ TW53Ucj3d+S0vfYZzHXDE/ObvS1xxnk9mYY0+qizTiINFyHnotoAgDrV3C9CbEeD
+ PLyfe9kLAShmsTe9vben4QH/GmZ2TQVQZH6rqeK++soiCr1YRvWTSASxvhfdi77s
+ TJnOsLV7v6sfOHsu1UCbobC/s2wa2tjRdFXAiAumU+OA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:message-id:mime-version:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=diT2fj
+ 6PkuD69IpbJXNRqYXYKnP5NvILTd/s9bJ0OlY=; b=gaB3S8V7nuXn3MJq7kzo6d
+ d4Fp06+GtLqaQ5KXkUBaE5WWL//ewQTFZkT7eGQabm1x7ipCRO7mAj1S++bwpKx7
+ WlPX3MZh2+FJC0osKUtI23L5JD2A27pCnl8LQP8rZrIB+1NUNhHM34zBs4pvCVfW
+ 5WwLYEkL2QzJZ4AlPdtBapgmwZlmJV9JQ31U7+lVzxIjowrW8h7O1TbSr4lVV5Ix
+ EY03X8IbPZIdmkIjems9awfdTKIoKGxBWHzJl5bTpwd/PcjA/1pjQPqZJ5EOByBO
+ Xq9pQ5WdiAYvNGKtfe2uUf3kpyHt56Q6Vt6IuMBqB2MfF1ko0PmM0Fk1qERGAUFQ
+ ==
+X-ME-Sender: <xms:G8p2YbjduyIs9HNx7cBAEAtontiOHY_jS-jmkObeZ94vetZX9eqg6w>
+ <xme:G8p2YYDTxtDtJpxDM63v_DyoGxxuDZW426cibcC6bQSOnDTLUgGd3p_JMSnScrPAP
+ P1BaCp7V2agX6reYAg>
+X-ME-Received: <xmr:G8p2YbFlDXgXfKfgO7g5j2-kTCFAp2v_8FrI3mbI1bXoVwMFnlvolDBPhz8oR_tl2upxI_ht9fmxL4co22guE-t6cz_fWHqABc4U51Qt>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdefhedgkeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffotggggfesthhqredtredtjeenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeetieekgfffkeegkeeltdehudetteejgfekueevhffhteegudfgkedtueegfffg
+ feenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
+ igihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:G8p2YYS-IKlGhVYjArQExuUKR87BklDnDhRBhhW0Wt7MdKK7geic9g>
+ <xmx:G8p2YYx6D8REvZ37THes66PRhnkNn4ws_YLk_AFPewIYJ42sz0DgJA>
+ <xmx:G8p2Ye6Rp0Sli7-vbb2yAR6hc2D382XbLOQRatF-PTTlMX7HbXZFWw>
+ <xmx:IMp2YbRN72csKs5h_Y3VhNJjZqJpThnblLDm2WRMg0A90KxxMn549Q>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 25 Oct 2021 11:15:39 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, Robert Foss <robert.foss@linaro.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Daniel Vetter <daniel.vetter@intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <maxime@cerno.tech>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Neil Armstrong <narmstrong@baylibre.com>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>, linux-arm-msm@vger.kernel.org,
+ Joonyoung Shim <jy0922.shim@samsung.com>, Rob Clark <robdclark@gmail.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ linux-samsung-soc@vger.kernel.org, Xinliang Liu <xinliang.liu@linaro.org>,
+ John Stultz <john.stultz@linaro.org>, linux-kernel@vger.kernel.org,
+ Inki Dae <inki.dae@samsung.com>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Date: Mon, 25 Oct 2021 17:15:15 +0200
+Message-Id: <20211025151536.1048186-1-maxime@cerno.tech>
+X-Mailer: git-send-email 2.31.1
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-In-Reply-To: <20211007070900.456044-9-vkoul@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 08/11] drm/msm/disp/dpu1: Add support for
- DSC in encoder
+Content-Transfer-Encoding: quoted-printable
+Subject: [Freedreno] [PATCH v6 00/21] drm/bridge: Make panel and bridge
+ probe order consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,224 +98,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/10/2021 10:08, Vinod Koul wrote:
-> We need to configure the encoder for DSC configuration and calculate DSC
-> parameters for the given timing so this patch adds that support by
-> adding dpu_encoder_prep_dsc() which is invoked when DSC is enabled.
-> 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> ---
-> Changes since
-> v1:
->   - Remove duplicate defines
->   - Update changelog
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 139 +++++++++++++++++++-
->   1 file changed, 138 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 0e9d3fa1544b..aac51c1bdf94 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -21,6 +21,7 @@
->   #include "dpu_hw_intf.h"
->   #include "dpu_hw_ctl.h"
->   #include "dpu_hw_dspp.h"
-> +#include "dpu_hw_dsc.h"
->   #include "dpu_formats.h"
->   #include "dpu_encoder_phys.h"
->   #include "dpu_crtc.h"
-> @@ -136,6 +137,7 @@ enum dpu_enc_rc_states {
->    * @cur_slave:		As above but for the slave encoder.
->    * @hw_pp:		Handle to the pingpong blocks used for the display. No.
->    *			pingpong blocks can be different than num_phys_encs.
-> + * @hw_dsc:		Handle to the DSC blocks used for the display.
->    * @intfs_swapped:	Whether or not the phys_enc interfaces have been swapped
->    *			for partial update right-only cases, such as pingpong
->    *			split where virtual pingpong does not generate IRQs
-> @@ -181,6 +183,7 @@ struct dpu_encoder_virt {
->   	struct dpu_encoder_phys *cur_master;
->   	struct dpu_encoder_phys *cur_slave;
->   	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
->   
->   	bool intfs_swapped;
->   
-> @@ -977,7 +980,8 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->   	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
->   	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
->   	struct dpu_hw_blk *hw_dspp[MAX_CHANNELS_PER_ENC] = { NULL };
-> -	int num_lm, num_ctl, num_pp;
-> +	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
-> +	int num_lm, num_ctl, num_pp, num_dsc;
->   	int i, j;
->   
->   	if (!drm_enc) {
-> @@ -1035,6 +1039,13 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
->   						: NULL;
->   
-> +	if (priv->dsc) {
-> +		num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> +			drm_enc->base.id, DPU_HW_BLK_DSC, hw_dsc, ARRAY_SIZE(hw_dsc));
-> +		for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +			dpu_enc->hw_dsc[i] = i < num_dsc ? to_dpu_hw_dsc(hw_dsc[i]) : NULL;
-> +	}
-> +
->   	cstate = to_dpu_crtc_state(drm_crtc->state);
->   
->   	for (i = 0; i < num_lm; i++) {
-> @@ -1778,10 +1789,132 @@ static void dpu_encoder_vsync_event_work_handler(struct kthread_work *work)
->   			nsecs_to_jiffies(ktime_to_ns(wakeup_time)));
->   }
->   
-> +static void
-> +dpu_encoder_dsc_pclk_param_calc(struct msm_display_dsc_config *dsc, u32 width)
-> +{
-> +	int slice_count, slice_per_intf;
-> +	int bytes_in_slice, total_bytes_per_intf;
-> +
-> +	if (!dsc || !dsc->drm->slice_width || !dsc->drm->slice_count) {
-> +		DPU_ERROR("Invalid DSC/slices\n");
-> +		return;
-> +	}
-> +
-> +	slice_count = dsc->drm->slice_count;
-> +	slice_per_intf = DIV_ROUND_UP(width, dsc->drm->slice_width);
-> +
-> +	/*
-> +	 * If slice_count is greater than slice_per_intf then default to 1.
-> +	 * This can happen during partial update.
-> +	 */
-> +	if (slice_count > slice_per_intf)
-> +		slice_count = 1;
-> +
-> +	bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
-> +				      dsc->drm->bits_per_pixel, 8);
-> +	total_bytes_per_intf = bytes_in_slice * slice_per_intf;
-> +
-> +	dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +	dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
-> +	dsc->bytes_in_slice = bytes_in_slice;
-> +	dsc->bytes_per_pkt = bytes_in_slice * slice_count;
-> +	dsc->pkt_per_line = slice_per_intf / slice_count;
-> +}
-> +
-> +static void
-> +dpu_encoder_dsc_initial_line_calc(struct msm_display_dsc_config *dsc,
-> +				  u32 enc_ip_width)
-> +{
-> +	int ssm_delay, total_pixels, soft_slice_per_enc;
-> +
-> +	soft_slice_per_enc = enc_ip_width / dsc->drm->slice_width;
-> +
-> +	/*
-> +	 * minimum number of initial line pixels is a sum of:
-> +	 * 1. sub-stream multiplexer delay (83 groups for 8bpc,
-> +	 *    91 for 10 bpc) * 3
-> +	 * 2. for two soft slice cases, add extra sub-stream multiplexer * 3
-> +	 * 3. the initial xmit delay
-> +	 * 4. total pipeline delay through the "lock step" of encoder (47)
-> +	 * 5. 6 additional pixels as the output of the rate buffer is
-> +	 *    48 bits wide
-> +	 */
-> +	ssm_delay = ((dsc->drm->bits_per_component < 10) ? 84 : 92);
-> +	total_pixels = ssm_delay * 3 + dsc->drm->initial_xmit_delay + 47;
-> +	if (soft_slice_per_enc > 1)
-> +		total_pixels += (ssm_delay * 3);
-> +	dsc->initial_lines = DIV_ROUND_UP(total_pixels, dsc->drm->slice_width);
-> +}
-> +
-> +static void dpu_encoder_dsc_pipe_cfg(struct dpu_hw_dsc *hw_dsc,
-> +				     struct dpu_hw_pingpong *hw_pp,
-> +				     struct msm_display_dsc_config *dsc,
-> +				     u32 common_mode)
-> +{
-> +	if (hw_dsc->ops.dsc_config)
-> +		hw_dsc->ops.dsc_config(hw_dsc, dsc, common_mode);
-> +
-> +	if (hw_dsc->ops.dsc_config_thresh)
-> +		hw_dsc->ops.dsc_config_thresh(hw_dsc, dsc);
-> +
-> +	if (hw_pp->ops.setup_dsc)
-> +		hw_pp->ops.setup_dsc(hw_pp);
-> +
-> +	if (hw_pp->ops.enable_dsc)
-> +		hw_pp->ops.enable_dsc(hw_pp);
-> +}
-> +
-> +static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
-> +				 struct msm_display_dsc_config *dsc)
-> +{
-> +	/* coding only for 2LM, 2enc, 1 dsc config */
-> +	struct dpu_encoder_phys *enc_master = dpu_enc->cur_master;
-> +	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
-> +	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
-> +	int this_frame_slices;
-> +	int intf_ip_w, enc_ip_w;
-> +	int dsc_common_mode;
-> +	int pic_width;
-> +	int i;
-> +
-> +	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++) {
-> +		hw_pp[i] = dpu_enc->hw_pp[i];
-> +		hw_dsc[i] = dpu_enc->hw_dsc[i];
-> +
-> +		if (!hw_pp[i] || !hw_dsc[i]) {
-> +			DPU_ERROR_ENC(dpu_enc, "invalid params for DSC\n");
-> +			return;
-> +		}
-> +	}
-> +
-> +	dsc_common_mode = 0;
-> +	pic_width = dsc->drm->pic_width;
-> +
-> +	dsc_common_mode = DSC_MODE_MULTIPLEX | DSC_MODE_SPLIT_PANEL;
-> +	if (enc_master->intf_mode == INTF_MODE_VIDEO)
-> +		dsc_common_mode |= DSC_MODE_VIDEO;
-> +
-> +	this_frame_slices = pic_width / dsc->drm->slice_width;
-> +	intf_ip_w = this_frame_slices * dsc->drm->slice_width;
-> +
-> +	dpu_encoder_dsc_pclk_param_calc(dsc, intf_ip_w);
-> +
-> +	/*
-> +	 * dsc merge case: when using 2 encoders for the same stream,
-> +	 * no. of slices need to be same on both the encoders.
-> +	 */
-> +	enc_ip_w = intf_ip_w / 2;
-> +	dpu_encoder_dsc_initial_line_calc(dsc, enc_ip_w);
-> +
-> +	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +		dpu_encoder_dsc_pipe_cfg(hw_dsc[i], hw_pp[i], dsc, dsc_common_mode);
-> +}
-> +
->   void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
->   {
->   	struct dpu_encoder_virt *dpu_enc;
->   	struct dpu_encoder_phys *phys;
-> +	struct msm_drm_private *priv;
->   	bool needs_hw_reset = false;
->   	unsigned int i;
->   
-> @@ -1809,6 +1942,10 @@ void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
->   			dpu_encoder_helper_hw_reset(dpu_enc->phys_encs[i]);
->   		}
->   	}
-> +
-> +	priv = drm_enc->dev->dev_private;
-> +	if (priv->dsc)
-> +		dpu_encoder_prep_dsc(dpu_enc, priv->dsc);
-
-Again, DP + DSI case would be broken here. We'd need to tie DSC config 
-to the encoder itself rather than having a single global DSC config.
-
->   }
->   
->   void dpu_encoder_kickoff(struct drm_encoder *drm_enc)
-> 
-
-
--- 
-With best wishes
-Dmitry
+Hi,=0D
+=0D
+We've encountered an issue with the RaspberryPi DSI panel that prevented th=
+e=0D
+whole display driver from probing.=0D
+=0D
+The issue is described in detail in the commit 7213246a803f ("drm/vc4: dsi:=
+=0D
+Only register our component once a DSI device is attached"), but the basic =
+idea=0D
+is that since the panel is probed through i2c, there's no synchronization=0D
+between its probe and the registration of the MIPI-DSI host it's attached t=
+o.=0D
+=0D
+We initially moved the component framework registration to the MIPI-DSI Hos=
+t=0D
+attach hook to make sure we register our component only when we have a DSI=
+=0D
+device attached to our MIPI-DSI host, and then use lookup our DSI device in=
+ our=0D
+bind hook.=0D
+=0D
+However, all the DSI bridges controlled through i2c are only registering th=
+eir=0D
+associated DSI device in their bridge attach hook, meaning with our change=
+=0D
+above, we never got that far, and therefore ended up in the same situation =
+than=0D
+the one we were trying to fix for panels.=0D
+=0D
+The best practice to avoid those issues is to register its functions only a=
+fter=0D
+all its dependencies are live. We also shouldn't wait any longer than we sh=
+ould=0D
+to play nice with the other components that are waiting for us, so in our c=
+ase=0D
+that would mean moving the DSI device registration to the bridge probe.=0D
+=0D
+This has been tested on vc4 (with sn65dsi83 and ps8640), msm (sn65dsi86,=0D
+lt9611), kirin (adv7511) and exynos.=0D
+=0D
+Let me know what you think,=0D
+Maxime=0D
+=0D
+---=0D
+=0D
+Changes from v5:=0D
+  - Collected more tags=0D
+  - Fixed a compilation error for ps8640=0D
+=0D
+Changes from v4:=0D
+  - Rebased on current drm-misc-next=0D
+  - Collected the various tags=0D
+  - Fix for Kirin=0D
+  - Added conversion patch for msm=0D
+=0D
+Changes from v3:=0D
+  - Converted exynos and kirin=0D
+  - Converted all the affected bridge drivers=0D
+  - Reworded the documentation a bit=0D
+=0D
+Changes from v2:=0D
+  - Changed the approach as suggested by Andrzej, and aligned the bridge on=
+ the=0D
+    panel this time.=0D
+  - Fixed some typos=0D
+=0D
+Changes from v1:=0D
+  - Change the name of drm_of_get_next function to drm_of_get_bridge=0D
+  - Mention the revert of 87154ff86bf6 and squash the two patches that were=
+=0D
+    reverting that commit=0D
+  - Add some documentation=0D
+  - Make drm_panel_attach and _detach succeed when no callback is there=0D
+=0D
+Maxime Ripard (20):=0D
+  drm/bridge: adv7533: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: adv7511: Register and attach our DSI device at probe=0D
+  drm/bridge: anx7625: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: anx7625: Register and attach our DSI device at probe=0D
+  drm/bridge: lt8912b: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: lt8912b: Register and attach our DSI device at probe=0D
+  drm/bridge: lt9611: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: lt9611: Register and attach our DSI device at probe=0D
+  drm/bridge: lt9611uxc: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: lt9611uxc: Register and attach our DSI device at probe=0D
+  drm/bridge: ps8640: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: ps8640: Register and attach our DSI device at probe=0D
+  drm/bridge: sn65dsi83: Fix bridge removal=0D
+  drm/bridge: sn65dsi83: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: sn65dsi83: Register and attach our DSI device at probe=0D
+  drm/bridge: sn65dsi86: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: sn65dsi86: Register and attach our DSI device at probe=0D
+  drm/bridge: tc358775: Switch to devm MIPI-DSI helpers=0D
+  drm/bridge: tc358775: Register and attach our DSI device at probe=0D
+  drm/kirin: dsi: Adjust probe order=0D
+=0D
+Rob Clark (1):=0D
+  drm/msm/dsi: Adjust probe order=0D
+=0D
+ drivers/gpu/drm/bridge/adv7511/adv7511.h     |   1 -=0D
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c |  15 ++-=0D
+ drivers/gpu/drm/bridge/adv7511/adv7533.c     |  20 +---=0D
+ drivers/gpu/drm/bridge/analogix/anx7625.c    |  40 ++++---=0D
+ drivers/gpu/drm/bridge/lontium-lt8912b.c     |  31 ++----=0D
+ drivers/gpu/drm/bridge/lontium-lt9611.c      |  62 ++++-------=0D
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c   |  65 +++++-------=0D
+ drivers/gpu/drm/bridge/parade-ps8640.c       | 105 ++++++++++---------=0D
+ drivers/gpu/drm/bridge/tc358775.c            |  50 +++++----=0D
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c        |  88 ++++++++--------=0D
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c        | 101 +++++++++---------=0D
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c |  52 +++++----=0D
+ drivers/gpu/drm/msm/dsi/dsi.c                |  50 +++++----=0D
+ drivers/gpu/drm/msm/dsi/dsi.h                |   2 +-=0D
+ drivers/gpu/drm/msm/dsi/dsi_host.c           |  22 ++--=0D
+ drivers/gpu/drm/msm/dsi/dsi_manager.c        |   6 +-=0D
+ drivers/gpu/drm/msm/msm_drv.h                |   2 +=0D
+ 17 files changed, 348 insertions(+), 364 deletions(-)=0D
+=0D
+-- =0D
+2.31.1=0D
+=0D
