@@ -2,93 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4715C439A20
-	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 17:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A943439B38
+	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 18:10:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6959B6E15D;
-	Mon, 25 Oct 2021 15:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE81F6E084;
+	Mon, 25 Oct 2021 16:10:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84AC06E15D;
- Mon, 25 Oct 2021 15:16:39 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.nyi.internal (Postfix) with ESMTP id C5BA45806D1;
- Mon, 25 Oct 2021 11:16:38 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 25 Oct 2021 11:16:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=D4bLfD9dgR7qDPZz1c2NJXrKeyz
- Cs/YSQzcSXsgDvWg=; b=QCOs+ZNnLFEb1BYhWJdlYJEDlasbqwKAF0qVOeziiAI
- K0Wn8u4hvJ6O9fhAwN+Vcq45oZZ3elyvAPkX9cuF1jIJu0O9zX1xknPWe7xw0klP
- y2ZFbdgYyn7WFmChP8orE01Anpw6ZxSiIa+AzuGb0enpRRpSTlkqbVJUng/pOpCP
- cvP8DIbeRzDY0g06WEOHqD0T7g8D/t+QXCUHi9BWHw+xdvrhaVPYj1pbO3FMfaWB
- qK3gRf3HO3OW349bzNZNvn+CWG4hoN+h/ppU5v1DeCs5dE0qQOV9WI2SgnTloAvg
- //adJ76SZXChxzVNid+3T1NlynwhoshxrJJsanlSTYQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=D4bLfD
- 9dgR7qDPZz1c2NJXrKeyzCs/YSQzcSXsgDvWg=; b=IP1xyiXuWxBCBd8vYnrWwC
- chI+gem54xqqu9EFECP2wgiXsZJbEvD1X9N3SfnpdFoGabdjaVm11ScRzfk/ubex
- +QVbfybZ4RUfvO9uw9UXZ5QirROap/xH+gB9xpIPgixzjF5sBLh/ybc6X0W2RqlP
- CXHec+4bLFJAzIj1GcLZkf5zwqgze0p0g3amfOjJ3a+/49X4eveo76ICyojMVngf
- YrGBIyEj4war4fnFBoeIJP1SWMWllOH4QhysvSQ+Mm3M7UH3C+g20q9Ec2BixwoX
- oJ3vEHdBtu8fTh3GpWfKpEsNEF2Olq70p/ZkpnAoxYnQGPEThYQIKfLlyOmSiJ+g
- ==
-X-ME-Sender: <xms:Vsp2YTzLI-lWf4gWFlFSIAr-KY96qgJ-fDpksW1oKYmu-oKUwWp8IA>
- <xme:Vsp2YbSMGxh6EZaxcktQBOnL4zBBq5l0IWptj0fWFCrdCw8x1GugQ7EhZrfcCrROT
- w2w0PPVUUUZPgi2P-8>
-X-ME-Received: <xmr:Vsp2YdX4dMnSvkLl-OsyXvG9gMXio7UHJG02W5wI3QYi0hOZal1mDXmsjp1HMXmajv0s3BGhSSf7vjzYs31YR3UYoAmlzQyv-G4az68N>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdefhedgheehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:Vsp2Ydi8nD0-KAhUReZShBdheQbeicblLxZVMH9F6YwnRgAGmCIshw>
- <xmx:Vsp2YVA8yrCLKfNlUsf6mtu4-xEn4QTZptHVVfDtA1adJZz56XmLYw>
- <xmx:Vsp2YWIq8nL2OQ_H_el1-60fX19AIQtgiqQe43U4nSish4LDC-H-Ag>
- <xmx:Vsp2YQUIHmoQgLTv4MjLLPVJlKELz9QKKhYwyX7xdzp_WdJ8Q4kwvA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 25 Oct 2021 11:16:37 -0400 (EDT)
-Date: Mon, 25 Oct 2021 17:16:36 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>,	David Airlie <airlied@linux.ie>,
- Thierry Reding <thierry.reding@gmail.com>,
- Andrzej Hajda <a.hajda@samsung.com>, Robert Foss <robert.foss@linaro.org>,
- Neil Armstrong <narmstrong@baylibre.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tian Tao <tiantao6@hisilicon.com>, freedreno@lists.freedesktop.org,
- Chen Feng <puck.chen@hisilicon.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- John Stultz <john.stultz@linaro.org>,	Rob Clark <robdclark@gmail.com>,
- linux-arm-msm@vger.kernel.org,	Sean Paul <sean@poorly.run>,
- Inki Dae <inki.dae@samsung.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- dri-devel@lists.freedesktop.org
-Message-ID: <20211025151636.dsc3akojm7ywoecm@gilmour>
-References: <20211021073947.499373-1-maxime@cerno.tech>
- <YXGFz4o5fWrfGnGk@ravnborg.org>
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAC086E185;
+ Mon, 25 Oct 2021 16:10:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CB37960C41;
+ Mon, 25 Oct 2021 16:10:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635178249;
+ bh=Ht5CCepW+Bus8R8OY85RyRafOK9dzOlZSwh9jF1DXGY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oo+Ms53iM3smAXsA/mnUJ+MEWY39MsSACEuPImhUxEj7ZuhVyGcyxGd7qfGjH6ffl
+ VaRDwAB+xXYptDAGgU/7/1xTwqr4FX2Gd74JhWio8hJGgCEK5heoXY++2C2ybSEfcj
+ c0Q9GiO68kysf0Tiz0wx4uGoJJ+WnY2NSdM7kXS7wbo4Daj3ke0XE+IrUphjixHJLr
+ RqtbmJ5UM/stKzoS7H7RYyPtBuWAVgjNLgL2B8QDhIYrmIUDYKphXQf4IQY8bobhbe
+ XwpG317IArwLw6PaUoLjAk7CfnqUFuRqm/CxKuX7fvVYyBi6mvWKAFI8DY2CAClf0U
+ VT3u+amfcHaRg==
+Date: Mon, 25 Oct 2021 21:40:45 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Message-ID: <YXbXBTlgDRa564Ic@matsya>
+References: <20211007070900.456044-1-vkoul@kernel.org>
+ <20211007070900.456044-7-vkoul@kernel.org>
+ <11becace-7b44-6141-5a8b-1bd6d0673243@linaro.org>
+ <35eb95c5-1c42-94d1-3f33-df029f753ab3@linaro.org>
+ <YW+957ZKnbf1g/89@matsya>
+ <e96d1368-fe7b-cf24-82c9-99783df44b0d@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="3qjpa2xa76ueomsl"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <YXGFz4o5fWrfGnGk@ravnborg.org>
-Subject: Re: [Freedreno] [PATCH v5 00/21] drm/bridge: Make panel and bridge
- probe order consistent
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e96d1368-fe7b-cf24-82c9-99783df44b0d@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 06/11] drm/msm/disp/dpu1: Don't use DSC
+ with mode_3d
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,39 +65,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 25-10-21, 17:40, Dmitry Baryshkov wrote:
+> On 20/10/2021 09:57, Vinod Koul wrote:
+> > On 14-10-21, 16:50, Dmitry Baryshkov wrote:
+> > > On 14/10/2021 16:41, Dmitry Baryshkov wrote:
+> > > > On 07/10/2021 10:08, Vinod Koul wrote:
 
---3qjpa2xa76ueomsl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > > > > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> > > > > b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> > > > > index 806c171e5df2..5dfac5994bd4 100644
+> > > > > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> > > > > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> > > > > @@ -39,6 +39,7 @@ struct dpu_hw_stage_cfg {
+> > > > >     * @mode_3d:               3d mux configuration
+> > > > >     * @merge_3d:              3d merge block used
+> > > > >     * @intf_mode_sel:         Interface mode, cmd / vid
+> > > > > + * @dsc:                   DSC BIT masks
+> > > > >     * @stream_sel:            Stream selection for multi-stream interfaces
+> > > > >     */
+> > > > >    struct dpu_hw_intf_cfg {
+> > > > > @@ -46,6 +47,7 @@ struct dpu_hw_intf_cfg {
+> > > > >        enum dpu_3d_blend_mode mode_3d;
+> > > > >        enum dpu_merge_3d merge_3d;
+> > > > >        enum dpu_ctl_mode_sel intf_mode_sel;
+> > > > > +    unsigned int dsc;
+> > > 
+> > > I think this should be:
+> > > enum dpu_dsc dsc[MAX_DSCS];
+> > > unsigned int num_dsc;
+> > 
+> > hmmm, how do we go about getting the num_dsc value here.
+> > dpu_encoder_phys does not know about that..
+> 
+> dpu_encoder_get_topology() can decide whether to use DSC or not and then set
+> num_dsc. For now it will always set 2 if we are using DSC at all, but let's
+> keep the decision in a single place rather than having it scattered all over
+> the driver.
 
-Hi Sam,
-
-On Thu, Oct 21, 2021 at 05:22:55PM +0200, Sam Ravnborg wrote:
-> Hi Maxime,
->=20
-> > Let me know what you think,
->=20
-> apply the lot to drm-misc-next. Maybe wait for an r-b or a-b on the kirin
-> patch but the rest is IMO good to go.
-
-I had a compilation error since the rebase of the v4, so I sent a new
-version. John Stultz has tested this series and given his tested-by, and
-is the kirin maintainer.
-
-I guess it's enough?
-
-Maxime
-
---3qjpa2xa76ueomsl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYXbKVAAKCRDj7w1vZxhR
-xTxXAP98t442n6HxxRUgrl5mGMNjKHZ0TTJhGYni7sAlWVGvsAEAuk3303Gnx9f9
-LeU+JY3jE8IazEwdHOzyzxzY50X/LAU=
-=hbta
------END PGP SIGNATURE-----
-
---3qjpa2xa76ueomsl--
+Yes agree, but dpu_encoder_get_topology() is private to encoder. Am not
+sure how best to propagate the info into the hw_intf_cfg?
+-- 
+~Vinod
