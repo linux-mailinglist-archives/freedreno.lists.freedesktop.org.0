@@ -2,63 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27398438F5E
-	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 08:23:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44DF44398C3
+	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 16:37:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABC089DB4;
-	Mon, 25 Oct 2021 06:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9AA68982F;
+	Mon, 25 Oct 2021 14:37:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from msg-4.mailo.com (ip-15.mailobj.net [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4F389D9A;
- Mon, 25 Oct 2021 06:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=net-c.es; s=mailo;
- t=1635113882; bh=uw6jUOdznN5Fu1cmQxsbGLSaS5P2w7SplYgPex568YQ=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To;
- b=kpn3YOQUKeK9qDpnf0StFTwdc4WJreIl9JR8oi4rUbw2RZC0IEtUV7NQk5CjR3JWj
- AEBLg5lA/FkJuQmNxIv/k09YqvRAHZmzYfR2B2Hv/gSnP/O9JktEiJjGBVqLmzKzGR
- /BmdwJXbj2xTfAUE0fjrTjyaO9MnP/V/8Ufrnq/A=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Mon, 25 Oct 2021 00:17:45 +0200 (CEST)
-X-EA-Auth: tM23DGE6RIEgIBepFFyFZ3U+VcDqeb1NZ+9uNCAhSimMRHbJIRvea/6qSymDwthzabP0gvaNwIR0mJ56UkO3tKDYzFIv2ik3
-Date: Mon, 25 Oct 2021 00:17:37 +0200
-From: Claudio Suarez <cssk@net-c.es>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org
-Message-ID: <YXXbgWNHts9CMJXD@gineta.localdomain>
-References: <20211016184226.3862-1-cssk@net-c.es>
- <20211016184226.3862-14-cssk@net-c.es> <YW8QYsmkm3ZrBAx3@intel.com>
- <YW9L6d7e+RO29VJu@gineta.localdomain> <YXFwB7rN4bvR0Z+m@intel.com>
- <YXKRnUHWuboQKBF1@zorro.micasa> <YXKoMEF/gU98cL9n@intel.com>
- <YXKtIUDk+f2Bnn++@intel.com>
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7EF8982E
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 14:37:34 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id g8so10852703ljn.4
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 07:37:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:from:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=37RgvT0lSxttAIlpSPbiWU3o8nfxLJzJwGwkROsLVrI=;
+ b=PDheW/ZXwp72+mvCVThbwpylurx7v+Cxk9afOfRVMDOUgcboyCOHD8N9w2FJBMecZ6
+ DODHV7P0yY6Jbo70Qq+smB6P/iI3dW3upMnC53iBiHe2W4iiYg/lIeLw9FSI1HJ9VpEY
+ xfTG21VYrElV69izSy1tOfYMyx+ViO1Aumh16/zmzrZtfrC4HX3A8LqO2r20t7ywASjl
+ +mTr1v7Ux2JItddXY6lh/u2RnLz19HgWHwdyBuDUrSJr9j+EsIn/ZyCjH/DvdGnd4Qsv
+ ja98WuZ+8d9se8V+KM60Lw1LYLQBiQPrlZX1i4RTreVsSQUvd2fF/UoZbEspCtW++zcY
+ Gh/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=37RgvT0lSxttAIlpSPbiWU3o8nfxLJzJwGwkROsLVrI=;
+ b=2TSouvmcMM+XhwhYshpbcZoyO0a7yx/SHxQTfAkBDJU0mjkiqxLj+j72JVG0JFs05z
+ u8wTq2xU4ubX+JA5LJpiCLnDBoI/S7lsHN3lyxz05vYQgsPx7TgloSLE6xjzUKoS4ipk
+ 5BEwqaiNkdX2jrGhMu2FoWlRVGNdyxC8hd0ek7+7qP3tl/ZZE4Dy5aA4xi79J+UxPXVE
+ zRCQZVgU7wVmAUesSvxHItnvE1EYKN5glbSlQg+svtrVwAqYJAxHtrdGaGRqn5biYqKT
+ izlJHnNySD4UrkvdArTwePCRL5U+Qb4+sZq71/q6WI8Hd5SJxQuX7c3XbLakTicfvzgc
+ DeVA==
+X-Gm-Message-State: AOAM53387VoFjCX1YQXUWzs//72r0oVrCo6j+xIUM+/0lX9iRzwBn62O
+ 0jdlYWdGF5C1POJ28lsGPb1sWhU4KkBzwg==
+X-Google-Smtp-Source: ABdhPJzF+wFEONNsTMIkjQf5jW/Xtl49NSImVljVD73HjiPKVvYXkdYFtOaCLEq0Vp+IpFuL/zjJtw==
+X-Received: by 2002:a2e:9609:: with SMTP id v9mr18279740ljh.275.1635172652250; 
+ Mon, 25 Oct 2021 07:37:32 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id m6sm89924ljp.113.2021.10.25.07.37.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Oct 2021 07:37:31 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Marek <jonathan@marek.ca>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+References: <20211007070900.456044-1-vkoul@kernel.org>
+ <20211007070900.456044-10-vkoul@kernel.org>
+ <020ab810-c975-d58b-a572-57eb3010d6c0@linaro.org>
+Message-ID: <7ba115c8-16e6-54c4-b151-e69eedcb47d2@linaro.org>
+Date: Mon, 25 Oct 2021 17:37:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <020ab810-c975-d58b-a572-57eb3010d6c0@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <YXKtIUDk+f2Bnn++@intel.com>
-Subject: Re: [Freedreno] [Intel-gfx] [PATCH v3 13/13] drm/i915: replace
- drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+Subject: Re: [Freedreno] [PATCH v2 09/11] drm/msm/disp/dpu1: Add support for
+ DSC in topology
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,108 +84,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Oct 22, 2021 at 03:22:57PM +0300, Ville Syrj�l� wrote:
-> On Fri, Oct 22, 2021 at 03:01:52PM +0300, Ville Syrj�l� wrote:
-> > On Fri, Oct 22, 2021 at 12:25:33PM +0200, Claudio Suarez wrote:
-> > > On Thu, Oct 21, 2021 at 04:49:59PM +0300, Ville Syrj�l� wrote:
-> > > > On Wed, Oct 20, 2021 at 12:51:21AM +0200, Claudio Suarez wrote:
-> > > > > drm_get_edid() internally calls to drm_connector_update_edid_property()
-> > > > > and then drm_add_display_info(), which parses the EDID.
-> > > > > This happens in the function intel_hdmi_set_edid() and
-> > > > > intel_sdvo_tmds_sink_detect() (via intel_sdvo_get_edid()).
-> > > > > 
-> > > > > Once EDID is parsed, the monitor HDMI support information is available
-> > > > > through drm_display_info.is_hdmi. Retriving the same information with
-> > > > > drm_detect_hdmi_monitor() is less efficient. Change to
-> > > > > drm_display_info.is_hdmi
-> > > > 
-> > > > I meant we need to examine all call chains that can lead to
-> > > > .detect() to make sure all of them do in fact update the
-> > > > display_info beforehand.
-> > > 
-> > > Well, I studied it carefully and, yes, all call chains that can lead to
-> > > drm_display_info.is_hdmi / drm_detect_hdmi_monitor() update display_info
-> > > beforehand. In the case that this doesn't happen, the code is unchanged.
-> > > 
-> > > Do you want I explain the changes in the code here again ? Or do you want
-> > > to me change the commit message to be more clear ? In the first case, I can
-> > > write here a detailed explanation. In the second case I can make a longer commit
-> > > message.
-> > > 
-> > > Or both?
-> > 
-> > I want all those call chains explained in the commit message,
-> > otherwise I have no easy way to confirm whether the change
-> > is correct or not.
+On 14/10/2021 17:13, Dmitry Baryshkov wrote:
+> On 07/10/2021 10:08, Vinod Koul wrote:
+>> For DSC to work we typically need a 2,2,1 configuration. This should
+>> suffice for resolutions upto 4k. For more resolutions like 8k this won't
+>> work.
+>>
+>> Also, it is better to use 2 LMs and DSC instances as half width results
+>> in lesser power consumption as compared to single LM, DSC at full width.
+>>
+>> The panel has been tested only with 2,2,1 configuration, so for
+>> now we blindly create 2,2,1 topology when DSC is enabled
+>>
+>> Co-developed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+>> Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+>> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+>> ---
+>> Changes since
+>> RFC:
+>>   - Add more details in changelog
+>>
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++++++++++++++
+>>   1 file changed, 16 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index aac51c1bdf94..70f57a071165 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -538,6 +538,8 @@ static struct msm_display_topology 
+>> dpu_encoder_get_topology(
+>>               struct drm_display_mode *mode)
+>>   {
+>>       struct msm_display_topology topology = {0};
+>> +    struct drm_encoder *drm_enc;
+>> +    struct msm_drm_private *priv;
+>>       int i, intf_count = 0;
+>>       for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
+>> @@ -572,8 +574,22 @@ static struct msm_display_topology 
+>> dpu_encoder_get_topology(
+>>       topology.num_enc = 0;
+>>       topology.num_intf = intf_count;
+>> +    drm_enc = &dpu_enc->base;
+>> +    priv = drm_enc->dev->dev_private;
+>> +    if (priv && priv->dsc) {
+>> +        /* In case of Display Stream Compression DSC, we would use
+>> +         * 2 encoders, 2 line mixers and 1 interface
+>> +         * this is power optimal and can drive upto (including) 4k
+>> +         * screens
+>> +         */
+>> +        topology.num_enc = 2;
+>> +        topology.num_intf = 1;
+>> +        topology.num_lm = 2;
 > 
-> Hmm. OK, so I had a bit of a dig around and seems that what we do now
-> .detect()->drm_get_edid()->drm_connector_update_edid_property()->drm_add_display_info()
+> So, here you'd set the topology.num_rm.
 
-Yes. I said before that I felt something was wrong when I read the
-documentation and then the code. To be more explicit now, I expected that
-drm_connector_update_edid_property() will be done in the
-fill_modes/get_modes phase instead of when reading the edid.
-The documentation suggests that but the code reads the edid in the
-detect phase.
-Now, since drm_connector_update_edid_property() is called in the detect
-phase, it is not necessary to keep the edid data in the private connector
-struct. It is in struct drm_connector from the beginning.
-But this is topic for another patch.
-
-> Now the question is when did that start happening? Looks like it was
-> commit 4b4df570b41d ("drm: Update edid-derived drm_display_info fields
-> at edid property set [v2]") that started to call drm_add_display_info()
-> from drm_connector_update_edid_property(), and then commit 5186421cbfe2
-> ("drm: Introduce epoch counter to drm_connector") started to call
-> drm_connector_update_edid_property() from drm_get_edid(). Before both
-> of those commits were in place display_info would still contain
-> some stale garbage during .detect().
->
-> That is the story I think we want in these commit messages since it
-> a) explains why the old code was directly parsing the edid instead
-> b) why it's now safe to change this
-
-------------------commit-message?--------------------
-
-drm/i915: replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-
-Commit a92d083d08b0 created the new flag is_hdmi in drm_display_info
-which is set when sink compliant with CEA-861 (EDID) shall be treated
-as an HDMI sink.
-
-From that day, this value can be used in some cases instead of
-calling drm_detect_hdmi_monitor() and a second parse is avoided
-because drm_detect_hdmi_monitor() parses. A TODO task was
-registered in Documentation/gpu/todo.rst to perform that task in
-the future.
-
-The flag drm_display_info.is_hdmi is set in the function
-drm_add_display_info(), which is called from
-drm_connector_update_edid_property(). Since commit 5186421cbfe2,
-drm_get_edid() calls drm_connector_update_edid_property() when
-reading the edid data from an i2c adapter. Therefore, in these
-cases drm_display_info.is_hdmi is updated to its correct
-value when returning from drm_get_edid().
-
-Replace drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
-in the cases when drm_detect_hdmi_monitor() is called after a
-read from an i2c adapter using drm_get_edid() in the i915 driver.
------------------------------------------------
+I meant 'num_dsc', please excuse the typo.
 
 > 
-> PS. connector->force handling in drm_get_edid() looks a bit busted
-> since it doesn't call drm_connector_update_edid_property() at all
-> in some cases. I think there might be some path that leads there
-> anywya if/when we change connector->force, but we should fix
-> drm_get_edid() to do the right thing regarless.
-
-In those cases, the edid isn't read and NULL is returned by drm_get_edid().
-No problem because display_info.is_hdmi is inside an if (edid != NULL).
-
-BTW, struct intel_connector is allocated with kzalloc, so the initial
-value of is_hdmi is zero. The connector isn't HDMI by default.
-
-BR.
-Claudio Suarez.
+>> +    }
+>> +
+>>       return topology;
+>>   }
+>> +
+>>   static int dpu_encoder_virt_atomic_check(
+>>           struct drm_encoder *drm_enc,
+>>           struct drm_crtc_state *crtc_state,
+>>
+> 
+> 
 
 
+-- 
+With best wishes
+Dmitry
