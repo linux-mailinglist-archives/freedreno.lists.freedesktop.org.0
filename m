@@ -1,53 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7050F439B3D
-	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 18:12:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 843F2439C1F
+	for <lists+freedreno@lfdr.de>; Mon, 25 Oct 2021 18:54:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 103AD6E084;
-	Mon, 25 Oct 2021 16:12:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D626E175;
+	Mon, 25 Oct 2021 16:54:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04DA289A0E;
- Mon, 25 Oct 2021 16:12:02 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 135C660EBD;
- Mon, 25 Oct 2021 16:12:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635178321;
- bh=syAB+df5IPHsjUcZpMOSy08OXq0IujFncL8KFiRTvOQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Xv0TWdNFBiGEZc6TVChr42vVbecdpKFm5RmxXTuNhOwnMLXqmxR1cqYo12ZbSwXB0
- msnNoBFZ8d8U2DpJjuGSTJ+p4I/TgpHN5u/Z6fl8l5cSlqMk2dH7VSWtCOUNDPduWn
- ck4Rha2Vu4jyMMkE2oR5GR+727+cnPyJeb5Q6xk6egjQur+wRi0VL+cvaIhqZYPCAJ
- jTVJhuAspF86jNPGq4HxLm9SdWN9URB6fqFMNVzC4SVn41v2NvRholBSapP5DCKxCe
- Sbh4UVcWxFa30kZQRgT7nKdbbuS/dLQ3YvUTFujPmGP25oDJQ55yycRYfNiaH3uhCB
- O6Lb1cZ1vkijA==
-Date: Mon, 25 Oct 2021 21:41:57 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Jonathan Marek <jonathan@marek.ca>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Message-ID: <YXbXTRZZFLKYsqnC@matsya>
-References: <20211007070900.456044-1-vkoul@kernel.org>
- <20211007070900.456044-10-vkoul@kernel.org>
- <020ab810-c975-d58b-a572-57eb3010d6c0@linaro.org>
- <7ba115c8-16e6-54c4-b151-e69eedcb47d2@linaro.org>
+Received: from mx2.smtp.larsendata.com (mx2.smtp.larsendata.com
+ [91.221.196.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6220389C84
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 16:54:42 +0000 (UTC)
+Received: from mail01.mxhotel.dk (mail01.mxhotel.dk [91.221.196.236])
+ by mx2.smtp.larsendata.com (Halon) with ESMTPS
+ id 471d6b19-35b4-11ec-ac3c-0050568cd888;
+ Mon, 25 Oct 2021 16:54:54 +0000 (UTC)
+Received: from ravnborg.org (80-162-45-141-cable.dk.customer.tdc.net
+ [80.162.45.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: sam@ravnborg.org)
+ by mail01.mxhotel.dk (Postfix) with ESMTPSA id 26E0E194B00;
+ Mon, 25 Oct 2021 18:54:36 +0200 (CEST)
+Date: Mon, 25 Oct 2021 18:54:34 +0200
+X-Report-Abuse-To: abuse@mxhotel.dk
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, Robert Foss <robert.foss@linaro.org>,
+ Neil Armstrong <narmstrong@baylibre.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tian Tao <tiantao6@hisilicon.com>, freedreno@lists.freedesktop.org,
+ Chen Feng <puck.chen@hisilicon.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ John Stultz <john.stultz@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, Inki Dae <inki.dae@samsung.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ dri-devel@lists.freedesktop.org
+Message-ID: <YXbhSjsPXk944TlF@ravnborg.org>
+References: <20211021073947.499373-1-maxime@cerno.tech>
+ <YXGFz4o5fWrfGnGk@ravnborg.org>
+ <20211025151636.dsc3akojm7ywoecm@gilmour>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7ba115c8-16e6-54c4-b151-e69eedcb47d2@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 09/11] drm/msm/disp/dpu1: Add support for
- DSC in topology
+In-Reply-To: <20211025151636.dsc3akojm7ywoecm@gilmour>
+Subject: Re: [Freedreno] [PATCH v5 00/21] drm/bridge: Make panel and bridge
+ probe order consistent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +73,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25-10-21, 17:37, Dmitry Baryshkov wrote:
-> On 14/10/2021 17:13, Dmitry Baryshkov wrote:
-> > On 07/10/2021 10:08, Vinod Koul wrote:
+Hi Maxime,
 
-> > > @@ -572,8 +574,22 @@ static struct msm_display_topology
-> > > dpu_encoder_get_topology(
-> > >       topology.num_enc = 0;
-> > >       topology.num_intf = intf_count;
-> > > +    drm_enc = &dpu_enc->base;
-> > > +    priv = drm_enc->dev->dev_private;
-> > > +    if (priv && priv->dsc) {
-> > > +        /* In case of Display Stream Compression DSC, we would use
-> > > +         * 2 encoders, 2 line mixers and 1 interface
-> > > +         * this is power optimal and can drive upto (including) 4k
-> > > +         * screens
-> > > +         */
-> > > +        topology.num_enc = 2;
-> > > +        topology.num_intf = 1;
-> > > +        topology.num_lm = 2;
-> > 
-> > So, here you'd set the topology.num_rm.
+On Mon, Oct 25, 2021 at 05:16:36PM +0200, Maxime Ripard wrote:
+> Hi Sam,
 > 
-> I meant 'num_dsc', please excuse the typo.
+> On Thu, Oct 21, 2021 at 05:22:55PM +0200, Sam Ravnborg wrote:
+> > Hi Maxime,
+> > 
+> > > Let me know what you think,
+> > 
+> > apply the lot to drm-misc-next. Maybe wait for an r-b or a-b on the kirin
+> > patch but the rest is IMO good to go.
+> 
+> I had a compilation error since the rebase of the v4, so I sent a new
+> version. John Stultz has tested this series and given his tested-by, and
+> is the kirin maintainer.
+> 
+> I guess it's enough?
 
-No worries, i had assumed such and made it num_dsc
+Yeah, go ahead and get it applied.
 
--- 
-~Vinod
+	Sam
+
+
