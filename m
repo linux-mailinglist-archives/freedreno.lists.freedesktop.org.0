@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F13B43A8A4
-	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 02:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4845D43A891
+	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 02:01:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B1296E1B4;
-	Tue, 26 Oct 2021 00:01:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD4CD6E1A8;
+	Tue, 26 Oct 2021 00:00:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E73566E17E
- for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 00:00:55 +0000 (UTC)
-Received: by mail-pg1-x532.google.com with SMTP id m21so12269808pgu.13
- for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 17:00:55 -0700 (PDT)
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 225316E198
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 00:00:56 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id l203so7756881pfd.2
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 17:00:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=tyFhWuo5Hgtey/EJ0ER9SojRROyEQ1lmEqqEKYabFj8=;
- b=SptjloWoUYaVdCtGZsYI9iL8VgxY1BnDa9M8zKaVGY7F7tWuIK4FESeSHoMsaxoOwK
- YLpNMipadYfxyCpQQRN1P+nCWjdcRRDYe0cnn6hPSh/hY0usdtT2bEKy95de/dnsn+T+
- nbJm/KaGU6iTTpq92dFA9PRP9b9pxw7fYhZrI=
+ bh=g366T6z/wDv+u0z2UhkHLqZZ67YI06zaB4um2FhnwRI=;
+ b=fOGRb7hy+LMZtHHk04IL6d3JHNETEkyug49qntjxYY2W33QNVLzwSx7s16XVmbxSWX
+ lDywpIME1qWUKVX9UtbbAI40HncKqkeCN/syijBj5ijnBXIFkcGRs7H5SNncnXMojQ0X
+ jWyXcfjYDcIVxXhg/PFaJPFIN/FjImL4Bj1tU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=tyFhWuo5Hgtey/EJ0ER9SojRROyEQ1lmEqqEKYabFj8=;
- b=vJnaNqzKvW2py9WQG1jtMMnDa21KE1rIH2uJv5Vkx5m1/jcg6wmwIuxeUV0c1K5hcn
- vSVmZaCd9CtOssLmkjpXDGyb94Ob1K4eV+CaD1/fptLn2JYTvSV76Rd0VF4J2Gip75KN
- kbLX2wWqO/zMzRBZ3URSigUlc+cMBKsHjvlCxu2mQCvT5Mf3mwXti+mDv6RYWn9wXE6V
- 06SvuBNh0Ub0aCuODE8QJoPbOKQnMKH6XeQuRmNssH5PACWNhESlUpOyYL/cxxtk4fra
- z4ky212hpEtu0Lk+dMq2vqnGMtRQvUWhvDuTgOgIkOVmLTVoKaToZreC3NJwlkJYvTm3
- QKdg==
-X-Gm-Message-State: AOAM532QeZk1AoTjNBBzjhDNuEzE/JEZRZoX/uXowgt0QjrFzGMSNrPK
- /OX2jFWze3OdxfH1EABIt+x4fg==
-X-Google-Smtp-Source: ABdhPJxQO96hdqynEtVga28Bz9tY/KeOvsMpfUI5N//2au83tbNhSwqFgXwdYcUFtlOVmEf56v7ooQ==
-X-Received: by 2002:a65:448a:: with SMTP id l10mr16169625pgq.313.1635206455327; 
- Mon, 25 Oct 2021 17:00:55 -0700 (PDT)
+ bh=g366T6z/wDv+u0z2UhkHLqZZ67YI06zaB4um2FhnwRI=;
+ b=Zsnq1ch9PpSZ76PeOFu/rqlTKmExSVvm7pSDXABPf+G8mge/fTqYTRSKJuHEPOuphX
+ dRyDxyWRc1iHNBVGpLh6tv/WKHC7EbnNlw2L5NumuXfbcQuRgZJUVXpWRmR4GNwmmVTv
+ 6A6uGTbtZRI/at5vNJnRANrZYUI6BQfBuEE/JD+f2RvvvHmT4WBO7iYCZBzmCPu8exlC
+ NsczhDiugqCU6oyfRtZysd538mC4XtC5BRa0TzqBnjhp0xHeLpGiIOv+PGSOw/ru78Nz
+ Vq3lcHzKcTn7oWPi0F4MBluQiqkV1IrcnzdsIHr1Mb6QEDBzjYK8M+KKLOlmMzGL1ILC
+ b1dQ==
+X-Gm-Message-State: AOAM532PzaDG7qqy2UJ34ibhh52Y/Iwk9C/chovEriCLLbt+HFuhHZkZ
+ ivNM8HtFxMzMrxi0nlKE0v60qw==
+X-Google-Smtp-Source: ABdhPJxejPpQsL0wvdqDwK7cZfwU9XzCp5OAD6jYhlDDiEhHfYa66EBIHe3tAHZDJxd76AzHhhLdmQ==
+X-Received: by 2002:a05:6a00:1693:b0:44c:64a3:d318 with SMTP id
+ k19-20020a056a00169300b0044c64a3d318mr22320562pfc.81.1635206456176; 
+ Mon, 25 Oct 2021 17:00:56 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:202:201:f5e3:5eb1:d5ee:6893])
- by smtp.gmail.com with ESMTPSA id b7sm9900747pfm.28.2021.10.25.17.00.54
+ by smtp.gmail.com with ESMTPSA id b7sm9900747pfm.28.2021.10.25.17.00.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Oct 2021 17:00:54 -0700 (PDT)
+ Mon, 25 Oct 2021 17:00:55 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Russell King <linux@armlinux.org.uk>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Date: Mon, 25 Oct 2021 17:00:20 -0700
-Message-Id: <20211026000044.885195-11-swboyd@chromium.org>
+Date: Mon, 25 Oct 2021 17:00:21 -0700
+Message-Id: <20211026000044.885195-12-swboyd@chromium.org>
 X-Mailer: git-send-email 2.33.0.1079.g6e70778dc9-goog
 In-Reply-To: <20211026000044.885195-1-swboyd@chromium.org>
 References: <20211026000044.885195-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 10/34] drm/malidp: Migrate to aggregate driver
+Subject: [Freedreno] [PATCH v3 11/34] drm/armada: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,77 +78,81 @@ Use an aggregate driver instead of component ops so that we can get
 proper driver probe ordering of the aggregate device with respect to all
 the component devices that make up the aggregate device.
 
-TODO: This can be updated to move the drm helper logic into the
-aggregate driver shutdown op.
-
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Russell King <linux@armlinux.org.uk>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>
-Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/arm/malidp_drv.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/armada/armada_drv.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
-index 78d15b04b105..e6ee4d1e3bb8 100644
---- a/drivers/gpu/drm/arm/malidp_drv.c
-+++ b/drivers/gpu/drm/arm/malidp_drv.c
-@@ -702,8 +702,9 @@ static int malidp_runtime_pm_resume(struct device *dev)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/armada/armada_drv.c
+index 8e3e98f13db4..b3559363ea43 100644
+--- a/drivers/gpu/drm/armada/armada_drv.c
++++ b/drivers/gpu/drm/armada/armada_drv.c
+@@ -60,8 +60,9 @@ static const struct drm_mode_config_funcs armada_drm_mode_config_funcs = {
+ 	.atomic_commit		= drm_atomic_helper_commit,
+ };
  
--static int malidp_bind(struct device *dev)
-+static int malidp_bind(struct aggregate_device *adev)
+-static int armada_drm_bind(struct device *dev)
++static int armada_drm_bind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct resource *res;
- 	struct drm_device *drm;
- 	struct malidp_drm *malidp;
-@@ -894,8 +895,9 @@ static int malidp_bind(struct device *dev)
+ 	struct armada_private *priv;
+ 	struct resource *mem = NULL;
+ 	int ret, n;
+@@ -159,8 +160,9 @@ static int armada_drm_bind(struct device *dev)
  	return ret;
  }
  
--static void malidp_unbind(struct device *dev)
-+static void malidp_unbind(struct aggregate_device *adev)
+-static void armada_drm_unbind(struct device *dev)
++static void armada_drm_unbind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
  	struct drm_device *drm = dev_get_drvdata(dev);
- 	struct malidp_drm *malidp = drm->dev_private;
- 	struct malidp_hw_device *hwdev = malidp->dev;
-@@ -921,9 +923,13 @@ static void malidp_unbind(struct device *dev)
- 	of_reserved_mem_device_release(dev);
+ 	struct armada_private *priv = drm_to_armada_dev(drm);
+ 
+@@ -202,9 +204,13 @@ static void armada_add_endpoints(struct device *dev,
+ 	}
  }
  
--static const struct component_master_ops malidp_master_ops = {
--	.bind = malidp_bind,
--	.unbind = malidp_unbind,
-+static struct aggregate_driver malidp_aggregate_driver = {
-+	.probe = malidp_bind,
-+	.remove = malidp_unbind,
+-static const struct component_master_ops armada_master_ops = {
+-	.bind = armada_drm_bind,
+-	.unbind = armada_drm_unbind,
++static struct aggregate_driver armada_aggregate_driver = {
++	.probe = armada_drm_bind,
++	.remove = armada_drm_unbind,
 +	.driver = {
-+		.name = "malidp_drm",
++		.name = "armada_drm",
 +		.owner = THIS_MODULE,
 +	},
  };
  
- static int malidp_compare_dev(struct device *dev, void *data)
-@@ -949,13 +955,12 @@ static int malidp_platform_probe(struct platform_device *pdev)
- 	drm_of_component_match_add(&pdev->dev, &match, malidp_compare_dev,
- 				   port);
- 	of_node_put(port);
--	return component_master_add_with_match(&pdev->dev, &malidp_master_ops,
+ static int armada_drm_probe(struct platform_device *pdev)
+@@ -213,7 +219,7 @@ static int armada_drm_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	int ret;
+ 
+-	ret = drm_of_component_probe(dev, compare_dev_name, &armada_master_ops);
++	ret = drm_of_aggregate_probe(dev, compare_dev_name, &armada_aggregate_driver);
+ 	if (ret != -EINVAL)
+ 		return ret;
+ 
+@@ -240,13 +246,12 @@ static int armada_drm_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	return component_master_add_with_match(&pdev->dev, &armada_master_ops,
 -					       match);
-+	return component_aggregate_register(&pdev->dev, &malidp_aggregate_driver, match);
++	return component_aggregate_register(&pdev->dev, &armada_aggregate_driver, match);
  }
  
- static int malidp_platform_remove(struct platform_device *pdev)
+ static int armada_drm_remove(struct platform_device *pdev)
  {
--	component_master_del(&pdev->dev, &malidp_master_ops);
-+	component_aggregate_unregister(&pdev->dev, &malidp_aggregate_driver);
+-	component_master_del(&pdev->dev, &armada_master_ops);
++	component_aggregate_unregister(&pdev->dev, &armada_aggregate_driver);
  	return 0;
  }
  
