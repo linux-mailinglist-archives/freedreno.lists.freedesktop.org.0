@@ -1,61 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3184A43B79F
-	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 18:53:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EFAB43BA1A
+	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 21:01:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D530689E01;
-	Tue, 26 Oct 2021 16:53:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D732B6E48C;
+	Tue, 26 Oct 2021 19:01:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E626389E01
- for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 16:53:11 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id s19so20338379wra.2
- for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 09:53:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DM+aJPjsd48FUeJElqQHCbFgsOMymWLw+lsiNqSlzXg=;
- b=WJX7nKNlKxTAaJ1K5jyrLkCetXEeMs36mDlugrjFC97UEg9FEHzPJTBavQBb70HNMV
- AFkH5K1juVFYViscnCu/1CTEnL/WR8nxZhcBmVXn2N7rBRQh8FrgV7siPVVf0oHaHiec
- /5vNHxf6bvxq6dBIPSqpRuLqPQARibnsfOQsWVAyVVNO2NwcBH9gtfyY2b1M7N2Y55xQ
- UXCLTxaH0tmkv5Mj7Viw0Dp2YBgy/lQ+b30P5QUnLZYjy2fF/u4s6OaOrdwjnN3H7Z+x
- AVpph8NVC00eG1Cx4jUbLfxpQOvnlHVd7a8QKW4IRJJMTeq7G6+vwbAkVj0Y8A/InNNT
- DATA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=DM+aJPjsd48FUeJElqQHCbFgsOMymWLw+lsiNqSlzXg=;
- b=kczhT34QwFpHT6fCU/myxE3fTiJ0O0/gUp01tsqRdOwiq2Wo1etXFPDcnQQTTt7Ljo
- 9g5KSD+yZdMbiCRb2G2xEvxH7H9e4KEDIZ/Ouz3uQAuvETNqLozIe/WSlgTlze9KCEsX
- rlLIgZd6WMpF42FDkox0ApbBFD0CvHChTnDudaVVqKuhpcupptpjqP6ZpGiWW9K3nDNT
- NUeGi1xjOGew4996Krx9nydu07Nga1Vf9GX0H25/SCxLb9YkCFdEG9NVtsLYEvg36inI
- JzaC08t95u2Ajxg0HDkhQpAIw6S6zq86C9cgaeB/PhijYA1STJ3U+CoDm0V3lDfmpZQE
- plLA==
-X-Gm-Message-State: AOAM532nP98IV9szA7cejGJp3mdmc8jMb8UTs8c3qL1YNySTQksEmxrO
- 4zqQI2MK34/2MgV2On7JomCyKoN4+kQOam1m00ncQ+HP
-X-Google-Smtp-Source: ABdhPJyv6ySr3f13pX6/rGh854q2f2e9oKVNMojw5SdliRIWOoFzd/ZKJto0acTyBgFOYHKPuhpm0VnEbXNTqB4MmcU=
-X-Received: by 2002:a5d:64c8:: with SMTP id f8mr33527882wri.398.1635267190450; 
- Tue, 26 Oct 2021 09:53:10 -0700 (PDT)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A5A6E484
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 19:01:56 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1635274916; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=vjlF/u+Qo1jfb6RLOi04YwLQEuDdY/3zfoWoV1ZisBk=;
+ b=D+kRDHJVPZzMlTZcLl4lETtzixfi+uocr0X+26xpVl8+aZNlse/yvYues7DsQpUZA9c/VS72
+ qe2F5G0FgnMJYKnYyOQSD+ZqXWgBkVp94bG3yevnmxrkYotpby7+dFKTxmw+i2JXGzpfhzNT
+ Bc6e+zeMbOomtT5pHUgHXkEpNPY=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 617850a367f107c611ae2dc8 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 26 Oct 2021 19:01:55
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 28BF4C4361A; Tue, 26 Oct 2021 19:01:55 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: sbillaka)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 2A846C4360D;
+ Tue, 26 Oct 2021 19:01:54 +0000 (UTC)
 MIME-Version: 1.0
-References: <1635204907-412-1-git-send-email-quic_abhinavk@quicinc.com>
-In-Reply-To: <1635204907-412-1-git-send-email-quic_abhinavk@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 26 Oct 2021 09:58:01 -0700
-Message-ID: <CAF6AEGvZRuhRXnMzcMyo8DvPw6ASkLyPOaAE8ufW6du37Y7Q4g@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- freedreno <freedreno@lists.freedesktop.org>,
- Greg KH <gregkh@linuxfoundation.org>, 
- Sean Paul <seanpaul@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
- nganji@codeaurora.org, 
- aravindh@codeaurora.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] MAINTAINERS: update designated reviewer entry for
- MSM DRM driver
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 27 Oct 2021 00:31:54 +0530
+From: sbillaka@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org,
+ abhinavk@codeaurora.org, dianders@chromium.org, khsieh@codeaurora.org,
+ mkrishn@codeaurora.org
+In-Reply-To: <CAE-0n52SjFOWNNFAciOOpKRSnPLqq3zs+qib9jukPkxf0frQTQ@mail.gmail.com>
+References: <1634732051-31282-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1634732051-31282-2-git-send-email-quic_sbillaka@quicinc.com>
+ <CAE-0n52SjFOWNNFAciOOpKRSnPLqq3zs+qib9jukPkxf0frQTQ@mail.gmail.com>
+Message-ID: <fc847e128d7d95991bc275bd79763440@codeaurora.org>
+X-Sender: sbillaka@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dp: Add support for SC7280
+ eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,31 +77,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 25, 2021 at 4:35 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> Adding myself as a designated reviewer to assist with the
-> code reviews for the changes coming into MSM DRM.
->
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Hi Stephen,
 
-Acked-by: Rob Clark <robdclark@gmail.com>
+On 2021-10-21 23:32, Stephen Boyd wrote:
+> Quoting Sankeerth Billakanti (2021-10-20 05:14:10)
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index 62e75dc..9fea49c 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -1238,9 +1240,21 @@ static int dp_ctrl_link_train(struct 
+>> dp_ctrl_private *ctrl,
+>>         link_info.capabilities = DP_LINK_CAP_ENHANCED_FRAMING;
+>> 
+>>         dp_aux_link_configure(ctrl->aux, &link_info);
+>> +
+>> +       if (dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5) {
+> 
+> Please add a static inline macro in include/drm/drm_dp_helper.h that
+> makes this more readable. Something similar to drm_dp_is_branch() but
+> with a human readable replacement for "is_branch". Maybe drm_dp_ssc()?
+> 
+Okay, I will add a macro, drm_dp_max_downspread (to be consistent with 
+the spec and other macros in the file) in drm_dp_helper.h file.
 
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 5b33791..503112d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -5938,6 +5938,7 @@ M:        Sean Paul <sean@poorly.run>
->  L:     linux-arm-msm@vger.kernel.org
->  L:     dri-devel@lists.freedesktop.org
->  L:     freedreno@lists.freedesktop.org
-> +R:     Abhinav Kumar <quic_abhinavk@quicinc.com>
->  S:     Maintained
->  T:     git https://gitlab.freedesktop.org/drm/msm.git
->  F:     Documentation/devicetree/bindings/display/msm/
-> --
-> 2.7.4
->
+>> +               ssc = DP_SPREAD_AMP_0_5;
+>> +               drm_dp_dpcd_write(ctrl->aux, DP_DOWNSPREAD_CTRL, &ssc, 
+>> 1);
+>> +       }
+>> +
+>>         drm_dp_dpcd_write(ctrl->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
+>>                                 &encoding, 1);
+>> 
+>> +       if (dpcd[DP_EDP_CONFIGURATION_CAP] & 
+>> DP_ALTERNATE_SCRAMBLER_RESET_CAP) {
+> 
+> And this one already has a helper,
+> drm_dp_alternate_scrambler_reset_cap().
+> 
+Okay, I will use that.
+
+>> +               assr = DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
+>> +               drm_dp_dpcd_write(ctrl->aux, DP_EDP_CONFIGURATION_SET,
+>> +                               &assr, 1);
+>> +       }
+>> +
+>>         ret = dp_ctrl_link_train_1(ctrl, training_step);
+>>         if (ret) {
+>>                 DRM_ERROR("link training #1 failed. ret=%d\n", ret);
+>> @@ -1312,9 +1326,11 @@ static int 
+>> dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+>>         struct dp_io *dp_io = &ctrl->parser->io;
+>>         struct phy *phy = dp_io->phy;
+>>         struct phy_configure_opts_dp *opts_dp = &dp_io->phy_opts.dp;
+>> +       const u8 *dpcd = ctrl->panel->dpcd;
+>> 
+>>         opts_dp->lanes = ctrl->link->link_params.num_lanes;
+>>         opts_dp->link_rate = ctrl->link->link_params.rate / 100;
+>> +       opts_dp->ssc = dpcd[DP_MAX_DOWNSPREAD] & 
+>> DP_MAX_DOWNSPREAD_0_5;
+>>         dp_ctrl_set_clock_rate(ctrl, DP_CTRL_PM, "ctrl_link",
+>>                                         ctrl->link->link_params.rate * 
+>> 1000);
+>> 
+>> @@ -1406,7 +1422,7 @@ void dp_ctrl_host_deinit(struct dp_ctrl 
+>> *dp_ctrl)
+>> 
+>>  static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
+>>  {
+>> -       u8 *dpcd = ctrl->panel->dpcd;
+>> +       const u8 *dpcd = ctrl->panel->dpcd;
+>> 
+>>         /*
+>>          * For better interop experience, used a fixed NVID=0x8000
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
+>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index c867745..c16311b 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -144,8 +144,16 @@ static const struct msm_dp_config sc8180x_dp_cfg 
+>> = {
+>>         .num_descs = 3,
+>>  };
+>> 
+>> +static const struct msm_dp_config sc7280_dp_cfg = {
+>> +       .descs = (struct msm_dp_desc[]) {
+> 
+> const
+> 
+Will add it.
+
+>> +               { .io_start = 0x0aea0000, .connector_type = 
+>> DRM_MODE_CONNECTOR_eDP },
+>> +       },
+>> +       .num_descs = 1,
+>> +};
+>> +
+>>  static const struct of_device_id dp_dt_match[] = {
+>>         { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
+>> +       { .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_cfg },
+>>         { .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
+>>         { .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_cfg },
+>>         {}
+>> @@ -1440,7 +1448,7 @@ void msm_dp_irq_postinstall(struct msm_dp 
+>> *dp_display)
+>> 
+>>         dp_hpd_event_setup(dp);
+>> 
+>> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+>> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 1);
+> 
+> This has no explanation. What is it?
+Will add explanation for it as a comment.
