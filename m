@@ -1,46 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8615E43B3EF
-	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 16:25:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3184A43B79F
+	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 18:53:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C906B6E461;
-	Tue, 26 Oct 2021 14:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D530689E01;
+	Tue, 26 Oct 2021 16:53:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07BF96E840;
- Tue, 26 Oct 2021 14:25:24 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B744F610E5;
- Tue, 26 Oct 2021 14:25:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635258323;
- bh=CCPB4RRkX6JYEDol0ilOJjnvgGwsxTWxj1m6hC9Unvg=;
- h=From:To:Cc:Subject:Date:From;
- b=FevFKkkahfcBvXUluNFV8XWL623aVtESiXqX5+x96qnnwfRJBZ/7DgzssX5MBy5VU
- SO9qRZiztot16VLlmrX5qYhPxNr9Ht2VTtI9VeA53kV3S7X3cM9NPti87IijfZzcMC
- 8Ez4VSqWyhhWYgeo+toa3SCXy80tAPh11PSplvfJjHyiPIfz0S1a4ufPdDYIEKrcVm
- xOZ8qZoLOpHrP5BI5831gMUH9WipGyRqNm7nfAMD8VreZXjAmT3q9XkNVG7OuNCRN7
- +NSc7FNZzsW+jckAoZGdPMk4lziNnka1QUQeiMDTJw48CqLL/RET09ZmK65H2wcy+E
- DDLowRuKtETnw==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Rob Clark <robdclark@gmail.com>,
-	Sean Paul <sean@poorly.run>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
- Jessica Zhang <jesszhan@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>,
- "kernelci.org bot" <bot@kernelci.org>
-Date: Tue, 26 Oct 2021 07:24:36 -0700
-Message-Id: <20211026142435.3606413-1-nathan@kernel.org>
-X-Mailer: git-send-email 2.33.1.637.gf443b226ca
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E626389E01
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 16:53:11 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id s19so20338379wra.2
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 09:53:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DM+aJPjsd48FUeJElqQHCbFgsOMymWLw+lsiNqSlzXg=;
+ b=WJX7nKNlKxTAaJ1K5jyrLkCetXEeMs36mDlugrjFC97UEg9FEHzPJTBavQBb70HNMV
+ AFkH5K1juVFYViscnCu/1CTEnL/WR8nxZhcBmVXn2N7rBRQh8FrgV7siPVVf0oHaHiec
+ /5vNHxf6bvxq6dBIPSqpRuLqPQARibnsfOQsWVAyVVNO2NwcBH9gtfyY2b1M7N2Y55xQ
+ UXCLTxaH0tmkv5Mj7Viw0Dp2YBgy/lQ+b30P5QUnLZYjy2fF/u4s6OaOrdwjnN3H7Z+x
+ AVpph8NVC00eG1Cx4jUbLfxpQOvnlHVd7a8QKW4IRJJMTeq7G6+vwbAkVj0Y8A/InNNT
+ DATA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DM+aJPjsd48FUeJElqQHCbFgsOMymWLw+lsiNqSlzXg=;
+ b=kczhT34QwFpHT6fCU/myxE3fTiJ0O0/gUp01tsqRdOwiq2Wo1etXFPDcnQQTTt7Ljo
+ 9g5KSD+yZdMbiCRb2G2xEvxH7H9e4KEDIZ/Ouz3uQAuvETNqLozIe/WSlgTlze9KCEsX
+ rlLIgZd6WMpF42FDkox0ApbBFD0CvHChTnDudaVVqKuhpcupptpjqP6ZpGiWW9K3nDNT
+ NUeGi1xjOGew4996Krx9nydu07Nga1Vf9GX0H25/SCxLb9YkCFdEG9NVtsLYEvg36inI
+ JzaC08t95u2Ajxg0HDkhQpAIw6S6zq86C9cgaeB/PhijYA1STJ3U+CoDm0V3lDfmpZQE
+ plLA==
+X-Gm-Message-State: AOAM532nP98IV9szA7cejGJp3mdmc8jMb8UTs8c3qL1YNySTQksEmxrO
+ 4zqQI2MK34/2MgV2On7JomCyKoN4+kQOam1m00ncQ+HP
+X-Google-Smtp-Source: ABdhPJyv6ySr3f13pX6/rGh854q2f2e9oKVNMojw5SdliRIWOoFzd/ZKJto0acTyBgFOYHKPuhpm0VnEbXNTqB4MmcU=
+X-Received: by 2002:a5d:64c8:: with SMTP id f8mr33527882wri.398.1635267190450; 
+ Tue, 26 Oct 2021 09:53:10 -0700 (PDT)
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Remove commit and its uses in
- dpu_crtc_set_crc_source()
+References: <1635204907-412-1-git-send-email-quic_abhinavk@quicinc.com>
+In-Reply-To: <1635204907-412-1-git-send-email-quic_abhinavk@quicinc.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 26 Oct 2021 09:58:01 -0700
+Message-ID: <CAF6AEGvZRuhRXnMzcMyo8DvPw6ASkLyPOaAE8ufW6du37Y7Q4g@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ freedreno <freedreno@lists.freedesktop.org>,
+ Greg KH <gregkh@linuxfoundation.org>, 
+ Sean Paul <seanpaul@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
+ nganji@codeaurora.org, 
+ aravindh@codeaurora.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] MAINTAINERS: update designated reviewer entry for
+ MSM DRM driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,53 +71,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Clang warns:
+On Mon, Oct 25, 2021 at 4:35 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> Adding myself as a designated reviewer to assist with the
+> code reviews for the changes coming into MSM DRM.
+>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:162:6: error: variable 'commit' is uninitialized when used here [-Werror,-Wuninitialized]
-        if (commit)
-            ^~~~~~
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:106:32: note: initialize the variable 'commit' to silence this warning
-        struct drm_crtc_commit *commit;
-                                      ^
-                                       = NULL
-1 error generated.
+Acked-by: Rob Clark <robdclark@gmail.com>
 
-The assignment and use of commit in the main body of
-dpu_crtc_set_crc_source() were removed from v1 to v2 but the call to
-drm_crtc_commit_put() at the end was not. Do that now so there is no
-more warning.
-
-Fixes: 78d9b458cc21 ("drm/msm/dpu: Add CRC support for DPU")
-Link: https://github.com/ClangBuiltLinux/linux/issues/1493
-Reported-by: "kernelci.org bot" <bot@kernelci.org>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 2523e829f485..967245b8cc02 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -103,7 +103,6 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- {
- 	enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
- 	enum dpu_crtc_crc_source current_source;
--	struct drm_crtc_commit *commit;
- 	struct dpu_crtc_state *crtc_state;
- 	struct drm_device *drm_dev = crtc->dev;
- 	struct dpu_crtc_mixer *m;
-@@ -159,8 +158,6 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 
- 
- cleanup:
--	if (commit)
--		drm_crtc_commit_put(commit);
- 	drm_modeset_unlock(&crtc->mutex);
- 
- 	return ret;
-
-base-commit: 00326bfa4e6363e4b0b8b019ecd2556fdda5ad1c
--- 
-2.33.1.637.gf443b226ca
-
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 5b33791..503112d 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5938,6 +5938,7 @@ M:        Sean Paul <sean@poorly.run>
+>  L:     linux-arm-msm@vger.kernel.org
+>  L:     dri-devel@lists.freedesktop.org
+>  L:     freedreno@lists.freedesktop.org
+> +R:     Abhinav Kumar <quic_abhinavk@quicinc.com>
+>  S:     Maintained
+>  T:     git https://gitlab.freedesktop.org/drm/msm.git
+>  F:     Documentation/devicetree/bindings/display/msm/
+> --
+> 2.7.4
+>
