@@ -2,66 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8313143A896
-	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 02:01:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9FC243A8A2
+	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 02:01:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 094726E1D7;
-	Tue, 26 Oct 2021 00:01:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DDE06E1F2;
+	Tue, 26 Oct 2021 00:01:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
- [IPv6:2607:f8b0:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE4E6E1B4
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE5766E1AA
  for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 00:00:58 +0000 (UTC)
-Received: by mail-pg1-x536.google.com with SMTP id l186so5844031pge.7
+Received: by mail-pg1-x529.google.com with SMTP id m21so12269889pgu.13
  for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 17:00:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=NsjwfsQuiDMEQ+TXne3j17pwDv7xto97Rnhld6OcLgM=;
- b=JsNKkygmeK7t9BKO6qrvtUSpxQse23oLtPi1Ud+f8iOJIEjnjJoQyjhNwQBsbe7Z9F
- M0+wkg4ZKQiVoMM8IoJFOjkU2VGe29j7CfYlRftUp21IthOYQqKKp5hC4GlQarR3MHWh
- iHXFOzHIMsAvr6cTyAlsNu12s72IGx7u09yis=
+ bh=9+fM2dIjOxE0hdJ7o5inMEoSl4k+Dtn8hCQbdOli+o8=;
+ b=WK1ox2oRHtuob3v/ROgeEhC1PVQBBzfwdp0Vcx+Dzp3pUstlggErRUG3DVNU3uE2n/
+ vRNQwS26UtVE2R4pJjjbJxrVBD1WGWrU9P20RfSOtE5t14iUTUOVyJjOi4BSBgmP69U+
+ Wx41UMi8X3CGf7P7D+FfisrIp491w2OHpPdzU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=NsjwfsQuiDMEQ+TXne3j17pwDv7xto97Rnhld6OcLgM=;
- b=Rd4mKWmj358c86WwUCKa3clrbrLegHfN7TWMvuzL9912E6Ux25NC2BiOHr9uzcCs6O
- YBId/K53Tr5KbWm3jPYVn4gJbbGscz5231XsqTJvKa/BdjTUnL4HnyvWlTdPVQ9a7bMW
- RXHj2T1MDIDlMJnxzF/Dt9I2CsirK1PkWpN0pvzwlnCENByeUUuq2ZxSCqY702JvCJZY
- fFbTx4CLKu9gB8GDfl6fSVhQ4jlq/rknvmCTVAwG3/zMp2MN6cFjwOQKczMNQblNuh2L
- p1tLgZlb3nTzKAutXf6Pfkx3cBGEcPIFzhJeJtCieFIu58k6dtC+F75iRujnMhWzN1AJ
- 2Llw==
-X-Gm-Message-State: AOAM532effAgHMAxQNLdjj6kNGzNpTIHNY9BPt1uTthy1BgqMXCQa/3F
- kOEe/J7d4Bb5Lr2ACekcsBqEHQ==
-X-Google-Smtp-Source: ABdhPJzmber7LbCziYMRWNipuyoAiMg+eV8DtfkSPeLWCTaFcNe7I0rGqreDAXhlNy+iuVwrhW/bIQ==
-X-Received: by 2002:a05:6a00:2309:b0:47c:fb3:f127 with SMTP id
- h9-20020a056a00230900b0047c0fb3f127mr859661pfh.78.1635206456941; 
- Mon, 25 Oct 2021 17:00:56 -0700 (PDT)
+ bh=9+fM2dIjOxE0hdJ7o5inMEoSl4k+Dtn8hCQbdOli+o8=;
+ b=j0gaL1mLgCyd9kytLA+DQC24VNUKtY8tDwUq/rML9RRaQiMtL4hGmo0gKL4+PAHuOv
+ VXfCqEFq6qObQB6t8YMfWUb9ErnHv3rYROrN2SEKMz37Bk1UeWStobk7YFKi+IUpEIwQ
+ /iheszpBEZzKbZL2NylySJVNT3QfrnBSbEJohyvK9MM4iOjs7ssXOm6M135RcMVUYXkL
+ 1IysKjmK1U8Qnah3HRXw0ubqDu+R/aMMV3REnQGPaFcCglAgWbCDHF5+hcFox50SIFOQ
+ /Wk4xhaZlJVfP4GVEUn7VvFxz3uS0xrlxOzpuLg3fDl2vQiQn3+li+9mreLHonEyZCoZ
+ cXQA==
+X-Gm-Message-State: AOAM533wCXEy6QTlq/YJVO0G6Yz1A8eFycgb/BxMYxdtNAZC83O5WAUl
+ A/wMz18Qg+mjR9P2VA+TeByeNg==
+X-Google-Smtp-Source: ABdhPJyAH+KqK4V7Wo1bh2UQ9/xYGJyYJ5MoNL/eKeZvWyDr56giKqwSJvUB9ld4uN59VRUEoCXXxw==
+X-Received: by 2002:a62:2944:0:b0:44d:b731:4228 with SMTP id
+ p65-20020a622944000000b0044db7314228mr21635086pfp.9.1635206457831; 
+ Mon, 25 Oct 2021 17:00:57 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:202:201:f5e3:5eb1:d5ee:6893])
- by smtp.gmail.com with ESMTPSA id b7sm9900747pfm.28.2021.10.25.17.00.56
+ by smtp.gmail.com with ESMTPSA id b7sm9900747pfm.28.2021.10.25.17.00.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Oct 2021 17:00:56 -0700 (PDT)
+ Mon, 25 Oct 2021 17:00:57 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ John Stultz <john.stultz@linaro.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Chen Feng <puck.chen@hisilicon.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Date: Mon, 25 Oct 2021 17:00:22 -0700
-Message-Id: <20211026000044.885195-13-swboyd@chromium.org>
+Date: Mon, 25 Oct 2021 17:00:23 -0700
+Message-Id: <20211026000044.885195-14-swboyd@chromium.org>
 X-Mailer: git-send-email 2.33.0.1079.g6e70778dc9-goog
 In-Reply-To: <20211026000044.885195-1-swboyd@chromium.org>
 References: <20211026000044.885195-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 12/34] drm/etnaviv: Migrate to aggregate
- driver
+Subject: [Freedreno] [PATCH v3 13/34] drm/kirin: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,76 +82,79 @@ Use an aggregate driver instead of component ops so that we can get
 proper driver probe ordering of the aggregate device with respect to all
 the component devices that make up the aggregate device.
 
-Cc: Lucas Stach <l.stach@pengutronix.de>
-Cc: Russell King <linux+etnaviv@armlinux.org.uk>
-Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Tian Tao <tiantao6@hisilicon.com>
+Cc: John Stultz <john.stultz@linaro.org>
+Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
+Cc: Chen Feng <puck.chen@hisilicon.com>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>
+Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 20 +++++++++++++-------
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   | 20 ++++++++++++-------
  1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index 7dcc6392792d..95d1e518ff13 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -494,8 +494,9 @@ static const struct drm_driver etnaviv_drm_driver = {
- /*
-  * Platform driver:
-  */
--static int etnaviv_bind(struct device *dev)
-+static int etnaviv_bind(struct aggregate_device *adev)
+diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+index 98ae9a48f3fe..00d47c784cbb 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+@@ -217,8 +217,9 @@ static int kirin_drm_kms_cleanup(struct drm_device *dev)
+ 	return 0;
+ }
+ 
+-static int kirin_drm_bind(struct device *dev)
++static int kirin_drm_bind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct etnaviv_drm_private *priv;
- 	struct drm_device *drm;
+ 	struct kirin_drm_data *driver_data;
+ 	struct drm_device *drm_dev;
  	int ret;
-@@ -552,8 +553,9 @@ static int etnaviv_bind(struct device *dev)
+@@ -253,8 +254,9 @@ static int kirin_drm_bind(struct device *dev)
  	return ret;
  }
  
--static void etnaviv_unbind(struct device *dev)
-+static void etnaviv_unbind(struct aggregate_device *adev)
+-static void kirin_drm_unbind(struct device *dev)
++static void kirin_drm_unbind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct drm_device *drm = dev_get_drvdata(dev);
- 	struct etnaviv_drm_private *priv = drm->dev_private;
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
  
-@@ -569,9 +571,13 @@ static void etnaviv_unbind(struct device *dev)
- 	drm_dev_put(drm);
+ 	drm_dev_unregister(drm_dev);
+@@ -262,9 +264,13 @@ static void kirin_drm_unbind(struct device *dev)
+ 	drm_dev_put(drm_dev);
  }
  
--static const struct component_master_ops etnaviv_master_ops = {
--	.bind = etnaviv_bind,
--	.unbind = etnaviv_unbind,
-+static struct aggregate_driver etnaviv_aggregate_driver = {
-+	.probe = etnaviv_bind,
-+	.remove = etnaviv_unbind,
+-static const struct component_master_ops kirin_drm_ops = {
+-	.bind = kirin_drm_bind,
+-	.unbind = kirin_drm_unbind,
++static struct aggregate_driver kirin_drm_aggregate_driver = {
++	.probe = kirin_drm_bind,
++	.remove = kirin_drm_unbind,
 +	.driver = {
-+		.name = "etnaviv_drm",
++		.name = "kirin_drm",
 +		.owner = THIS_MODULE,
 +	},
  };
  
- static int compare_of(struct device *dev, void *data)
-@@ -609,12 +615,12 @@ static int etnaviv_pdev_probe(struct platform_device *pdev)
- 			component_match_add(dev, &match, compare_str, names[i]);
- 	}
+ static int kirin_drm_platform_probe(struct platform_device *pdev)
+@@ -281,12 +287,12 @@ static int kirin_drm_platform_probe(struct platform_device *pdev)
+ 	drm_of_component_match_add(dev, &match, compare_of, remote);
+ 	of_node_put(remote);
  
--	return component_master_add_with_match(dev, &etnaviv_master_ops, match);
-+	return component_aggregate_register(dev, &etnaviv_aggregate_driver, match);
+-	return component_master_add_with_match(dev, &kirin_drm_ops, match);
++	return component_aggregate_register(dev, &kirin_drm_aggregate_driver, match);
  }
  
- static int etnaviv_pdev_remove(struct platform_device *pdev)
+ static int kirin_drm_platform_remove(struct platform_device *pdev)
  {
--	component_master_del(&pdev->dev, &etnaviv_master_ops);
-+	component_aggregate_unregister(&pdev->dev, &etnaviv_aggregate_driver);
- 
+-	component_master_del(&pdev->dev, &kirin_drm_ops);
++	component_aggregate_unregister(&pdev->dev, &kirin_drm_aggregate_driver);
  	return 0;
  }
+ 
 -- 
 https://chromeos.dev
 
