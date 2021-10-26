@@ -1,66 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4BA043A88F
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F02A43A88E
 	for <lists+freedreno@lfdr.de>; Tue, 26 Oct 2021 02:01:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5526E199;
-	Tue, 26 Oct 2021 00:00:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC216E19A;
+	Tue, 26 Oct 2021 00:00:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9356E18F
- for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 00:00:52 +0000 (UTC)
-Received: by mail-pg1-x535.google.com with SMTP id 83so6058835pgc.8
- for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 17:00:52 -0700 (PDT)
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 404466E0E1
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Oct 2021 00:00:53 +0000 (UTC)
+Received: by mail-pf1-x429.google.com with SMTP id x66so12447201pfx.13
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Oct 2021 17:00:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=txgUq4z88WnnvzWzs6FXSEEPpZuqTbA+AthU6UWidQU=;
- b=A9uYcNC3Y2SU5Menz6F1KUEbpXNwN+ud/4zeGvxXq2DS/2o+S7j2n3UCd54VrkmHXF
- XqOH8ZN1RGNjIq1ab1TKFRoPuzucoAv8DAm0BTCfb+kArLqN3+wU2rLBg3w1evkDD2CY
- RE5RL05zWPiNBeirxolfz7HVdHkmm3pdI5rwY=
+ bh=6Qz3MqVp4L66d3gQlwKw4vRvuaWChiqClLaMXKhYzGc=;
+ b=PJpytGBBWaPNrbxJ524Enj9tcJVEvongLfIiTnX8PdA+TukXQJQijTprv6q8XSVgWz
+ 3PpJxK8VRMCzRNHNIdPcrWiXw5gvRjVWQ3UtJgZDkeQxfBOeA4NieLqlcDnI9b/Cw0pB
+ MFQwcrjqAhn7CjG862bnO3VvoLMkgg7kofMbc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=txgUq4z88WnnvzWzs6FXSEEPpZuqTbA+AthU6UWidQU=;
- b=QITs7YaeLWy7ymW1Y0aXFicmsCBiKcss9+hB1xMvVvp6xN+qNJkpoN5/aXj+0WUXxo
- K5QzDkz6dE7dbkTv62ZK5kuvhqdCpU5rBjlm7zJczryhcJHmNNK58UtPT0DOEDQVyLqy
- TmKMC+vFiNgnLx/poEL2SVGfwpvWyOSxOliVbBDhsmQiWIg3VFsrJsDKO52+L+gIgSkG
- V9zhZYNO9LjzAunSbaK+7vh2lH4+Qg7kHzrqYbv8wGP0QmXZRhjMtF9rr3UuMD3Ez3UD
- JKYLu9btQLycNZselthv8px64tYPvBXuGeTTtxv8jjt9hmdmdQHgICKAR2HM/jh37zrj
- 7dJg==
-X-Gm-Message-State: AOAM532XIWT0epN3XBhFWkpYIAu//I0qoYyb4VDoUtHICr3ofBbMIy7T
- waTbdYKit4AUwuO8dANXMYMBtQ==
-X-Google-Smtp-Source: ABdhPJwesE/iCtpjo1NQiY2gwciS3HejroivNqF/suvA3LY/9h2IIEXf61dq55sEfuu+M5Dn+BpYlg==
-X-Received: by 2002:a62:188c:0:b0:44d:6660:212b with SMTP id
- 134-20020a62188c000000b0044d6660212bmr21989004pfy.8.1635206451988; 
- Mon, 25 Oct 2021 17:00:51 -0700 (PDT)
+ bh=6Qz3MqVp4L66d3gQlwKw4vRvuaWChiqClLaMXKhYzGc=;
+ b=E+JWrGxYCiOnqTLr4SRH1bA2y00WiBGPJLkjyqJJPU7S3dlpj/EMRnlAgJ9AFpsKqQ
+ CJOO0drj52x+wax7Fu5CNj7eqtp8Ib07IOaWb+EKRF7gAwDfnoNYGM/P76JQijaGSVC1
+ TppszSpJ8GdvzMXf/gaTfnJZ9EtJvWv4RaGpGVmj3EmkGcwINfUqmDcywUL+bazgoqtn
+ dqWFK4m8g0YFSyFxWKsdL8dZdnfcHUWcjbQhtlHyXKNB3XQzpIcWtiXTJVhaSEbRmL+G
+ dASjATbtXk5hNUWz7fI8IS9nzsRdIaxXfbgHlURYWrZ/pVsM3tzotL8UBgRGQYWK0Rvs
+ ex+g==
+X-Gm-Message-State: AOAM530UGoFvaNnlfZJWMkThhgDIkVE0K8EnB/UKM9eh3EEpZnSzNkca
+ hYhkWbA+3RS9Kv3pd0nS5Iuybg==
+X-Google-Smtp-Source: ABdhPJxx+T69d6m1CjqqN+QzAYBynQKpdi6FBHDoRQKTPhSOgf2E6gQP+fVn8cMV/qvoOWmCKAAbiw==
+X-Received: by 2002:a05:6a00:1352:b0:44d:4573:3ac2 with SMTP id
+ k18-20020a056a00135200b0044d45733ac2mr22502964pfu.12.1635206452710; 
+ Mon, 25 Oct 2021 17:00:52 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:202:201:f5e3:5eb1:d5ee:6893])
- by smtp.gmail.com with ESMTPSA id b7sm9900747pfm.28.2021.10.25.17.00.51
+ by smtp.gmail.com with ESMTPSA id b7sm9900747pfm.28.2021.10.25.17.00.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Oct 2021 17:00:51 -0700 (PDT)
+ Mon, 25 Oct 2021 17:00:52 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
  Russell King <rmk+kernel@arm.linux.org.uk>,
  Saravana Kannan <saravanak@google.com>
-Date: Mon, 25 Oct 2021 17:00:16 -0700
-Message-Id: <20211026000044.885195-7-swboyd@chromium.org>
+Date: Mon, 25 Oct 2021 17:00:17 -0700
+Message-Id: <20211026000044.885195-8-swboyd@chromium.org>
 X-Mailer: git-send-email 2.33.0.1079.g6e70778dc9-goog
 In-Reply-To: <20211026000044.885195-1-swboyd@chromium.org>
 References: <20211026000044.885195-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 06/34] drm/of: Add a drm_of_aggregate_probe()
- API
+Subject: [Freedreno] [PATCH v3 07/34] drm/msm: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,11 +74,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Similar to drm_of_component_probe() but using the new API that registers
-a driver instead of an ops struct. This allows us to migrate the users
-of drm_of_component_probe() to the new way of doing things.
+The device lists are poorly ordered when the component device code is
+used. This is because component_master_add_with_match() returns 0
+regardless of component devices calling component_add() first. It can
+really only fail if an allocation fails, in which case everything is
+going bad and we're out of memory. The driver that registers the
+aggregate driver, can succeed at probe and put the attached device on
+the DPM lists before any of the component devices are probed and put on
+the lists.
 
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Within the component device framework this usually isn't that bad
+because the real driver work is done at bind time via
+component{,master}_ops::bind(). It becomes a problem when the driver
+core, or host driver, wants to operate on the component device outside
+of the bind/unbind functions, e.g. via 'remove' or 'shutdown'. The
+driver core doesn't understand the relationship between the host device
+and the component devices and could possibly try to operate on component
+devices when they're already removed from the system or shut down.
+
+Normally, device links or probe defer would reorder the lists and put
+devices that depend on other devices in the lists at the correct
+location, but with component devices this doesn't happen because this
+information isn't expressed anywhere. Drivers simply succeed at
+registering their component or the aggregate driver with the component
+framework and wait for their bind() callback to be called once the other
+components are ready. In summary, the drivers that make up the aggregate
+driver can probe in any order.
+
+This ordering problem becomes fairly obvious when shutting down the
+device with a DSI controller connected to a DSI bridge that is
+controlled via i2c. In this case, the msm display driver wants to tear
+down the display pipeline on shutdown via msm_pdev_shutdown() by calling
+drm_atomic_helper_shutdown(), and it can't do that unless the whole
+display chain is still probed and active in the system. When a display
+bridge is on i2c, the i2c device for the bridge will be created whenever
+the i2c controller probes, which could be before or after the msm
+display driver probes. If the i2c controller probes after the display
+driver, then the i2c controller will be shutdown before the display
+controller during system wide shutdown and thus i2c transactions will
+stop working before the display pipeline is shut down. This means we'll
+have the display bridge trying to access an i2c bus that's shut down
+because drm_atomic_helper_shutdown() is trying to disable the bridge
+after the bridge is off.
+
+The solution is to make the aggregate driver into a real struct driver
+that is bound to a device when the other component devices have all
+probed. Now that the component driver code is a proper bus, we can
+simply register an aggregate driver with that bus via
+component_aggregate_register() and then attach the shutdown hook to that
+driver to be sure that the shutdown for the display pipeline is called
+before any of the component device driver shutdown hooks are called.
+
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>
@@ -88,182 +132,98 @@ Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/drm_of.c | 85 +++++++++++++++++++++++++++++++---------
- include/drm/drm_of.h     | 12 ++++++
- 2 files changed, 78 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c | 46 +++++++++++++++++++----------------
+ 1 file changed, 25 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-index 997b8827fed2..dc4b507c809d 100644
---- a/drivers/gpu/drm/drm_of.c
-+++ b/drivers/gpu/drm/drm_of.c
-@@ -99,30 +99,18 @@ void drm_of_component_match_add(struct device *master,
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 2e6fc185e54d..efbcae6e585f 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1324,19 +1324,35 @@ static int add_gpu_components(struct device *dev,
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(drm_of_component_match_add);
  
--/**
-- * drm_of_component_probe - Generic probe function for a component based master
-- * @dev: master device containing the OF node
-- * @compare_of: compare function used for matching components
-- * @m_ops: component master ops to be used
-- *
-- * Parse the platform device OF node and bind all the components associated
-- * with the master. Interface ports are added before the encoders in order to
-- * satisfy their .bind requirements
-- * See Documentation/devicetree/bindings/graph.txt for the bindings.
-- *
-- * Returns zero if successful, or one of the standard error codes if it fails.
-- */
--int drm_of_component_probe(struct device *dev,
-+static int _drm_of_component_probe(struct device *dev,
- 			   int (*compare_of)(struct device *, void *),
--			   const struct component_master_ops *m_ops)
-+			   struct component_match **matchptr)
+-static int msm_drm_bind(struct device *dev)
++static int msm_drm_bind(struct aggregate_device *adev)
  {
- 	struct device_node *ep, *port, *remote;
--	struct component_match *match = NULL;
- 	int i;
- 
- 	if (!dev->of_node)
- 		return -EINVAL;
- 
-+	*matchptr = NULL;
-+
- 	/*
- 	 * Bind the crtc's ports first, so that drm_of_find_possible_crtcs()
- 	 * called from encoder's .bind callbacks works as expected
-@@ -133,7 +121,7 @@ int drm_of_component_probe(struct device *dev,
- 			break;
- 
- 		if (of_device_is_available(port->parent))
--			drm_of_component_match_add(dev, &match, compare_of,
-+			drm_of_component_match_add(dev, matchptr, compare_of,
- 						   port);
- 
- 		of_node_put(port);
-@@ -144,7 +132,7 @@ int drm_of_component_probe(struct device *dev,
- 		return -ENODEV;
- 	}
- 
--	if (!match) {
-+	if (!*matchptr) {
- 		dev_err(dev, "no available port\n");
- 		return -ENODEV;
- 	}
-@@ -174,17 +162,76 @@ int drm_of_component_probe(struct device *dev,
- 				continue;
- 			}
- 
--			drm_of_component_match_add(dev, &match, compare_of,
-+			drm_of_component_match_add(dev, matchptr, compare_of,
- 						   remote);
- 			of_node_put(remote);
- 		}
- 		of_node_put(port);
- 	}
- 
-+	return 0;
-+}
-+
-+/**
-+ * drm_of_component_probe - Generic probe function for a component based master
-+ * @dev: master device containing the OF node
-+ * @compare_of: compare function used for matching components
-+ * @m_ops: component master ops to be used
-+ *
-+ * Parse the platform device OF node and bind all the components associated
-+ * with the master. Interface ports are added before the encoders in order to
-+ * satisfy their .bind requirements
-+ * See Documentation/devicetree/bindings/graph.txt for the bindings.
-+ *
-+ * Deprecated: Use drm_of_aggregate_probe() instead.
-+ *
-+ * Returns zero if successful, or one of the standard error codes if it fails.
-+ */
-+int drm_of_component_probe(struct device *dev,
-+			   int (*compare_of)(struct device *, void *),
-+			   const struct component_master_ops *m_ops)
-+{
-+
-+	struct component_match *match;
-+	int ret;
-+
-+	ret = _drm_of_component_probe(dev, compare_of, &match);
-+	if (ret)
-+		return ret;
-+
- 	return component_master_add_with_match(dev, m_ops, match);
+-	return msm_drm_init(dev, &msm_driver);
++	return msm_drm_init(adev->parent, &msm_driver);
  }
- EXPORT_SYMBOL(drm_of_component_probe);
  
-+
-+/**
-+ * drm_of_aggregate_probe - Generic probe function for a component based aggregate host
-+ * @dev: device containing the OF node
-+ * @compare_of: compare function used for matching components
-+ * @adrv: aggregate driver to be used
-+ *
-+ * Parse the platform device OF node and bind all the components associated
-+ * with the aggregate device. Interface ports are added before the encoders in
-+ * order to satisfy their .bind_component requirements
-+ * See Documentation/devicetree/bindings/graph.txt for the bindings.
-+ *
-+ * Returns zero if successful, or one of the standard error codes if it fails.
-+ */
-+int drm_of_aggregate_probe(struct device *dev,
-+			   int (*compare_of)(struct device *, void *),
-+			   struct aggregate_driver *adrv)
-+{
-+	struct component_match *match;
-+	int ret;
-+
-+	ret = _drm_of_component_probe(dev, compare_of, &match);
-+	if (ret)
-+		return ret;
-+
-+	return component_aggregate_register(dev, adrv, match);
+-static void msm_drm_unbind(struct device *dev)
++static void msm_drm_unbind(struct aggregate_device *adev)
+ {
+-	msm_drm_uninit(dev);
++	msm_drm_uninit(adev->parent);
 +}
-+EXPORT_SYMBOL(drm_of_aggregate_probe);
 +
++static void msm_drm_shutdown(struct aggregate_device *adev)
++{
++	struct drm_device *drm = platform_get_drvdata(to_platform_device(adev->parent));
++	struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
++
++	if (!priv || !priv->kms)
++		return;
++
++	drm_atomic_helper_shutdown(drm);
+ }
+ 
+-static const struct component_master_ops msm_drm_ops = {
+-	.bind = msm_drm_bind,
+-	.unbind = msm_drm_unbind,
++static struct aggregate_driver msm_drm_aggregate_driver = {
++	.probe = msm_drm_bind,
++	.remove = msm_drm_unbind,
++	.shutdown = msm_drm_shutdown,
++	.driver = {
++		.name	= "msm_drm",
++		.owner	= THIS_MODULE,
++	},
+ };
+ 
  /*
-  * drm_of_encoder_active_endpoint - return the active encoder endpoint
-  * @node: device tree node containing encoder input ports
-diff --git a/include/drm/drm_of.h b/include/drm/drm_of.h
-index b9b093add92e..9d35a141f888 100644
---- a/include/drm/drm_of.h
-+++ b/include/drm/drm_of.h
-@@ -7,6 +7,7 @@
- #include <drm/drm_bridge.h>
- #endif
+@@ -1365,7 +1381,7 @@ static int msm_pdev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto fail;
  
-+struct aggregate_driver;
- struct component_master_ops;
- struct component_match;
- struct device;
-@@ -40,6 +41,9 @@ void drm_of_component_match_add(struct device *master,
- int drm_of_component_probe(struct device *dev,
- 			   int (*compare_of)(struct device *, void *),
- 			   const struct component_master_ops *m_ops);
-+int drm_of_aggregate_probe(struct device *dev,
-+			   int (*compare_of)(struct device *, void *),
-+			   struct aggregate_driver *adrv);
- int drm_of_encoder_active_endpoint(struct device_node *node,
- 				   struct drm_encoder *encoder,
- 				   struct of_endpoint *endpoint);
-@@ -78,6 +82,14 @@ drm_of_component_probe(struct device *dev,
- 	return -EINVAL;
+-	ret = component_master_add_with_match(&pdev->dev, &msm_drm_ops, match);
++	ret = component_aggregate_register(&pdev->dev, &msm_drm_aggregate_driver, match);
+ 	if (ret)
+ 		goto fail;
+ 
+@@ -1378,23 +1394,12 @@ static int msm_pdev_probe(struct platform_device *pdev)
+ 
+ static int msm_pdev_remove(struct platform_device *pdev)
+ {
+-	component_master_del(&pdev->dev, &msm_drm_ops);
++	component_aggregate_unregister(&pdev->dev, &msm_drm_aggregate_driver);
+ 	of_platform_depopulate(&pdev->dev);
+ 
+ 	return 0;
  }
  
-+static inline int
-+drm_of_aggregate_probe(struct device *dev,
-+		       int (*compare_of)(struct device *, void *),
-+		       struct aggregate_driver *adrv)
-+{
-+	return -EINVAL;
-+}
-+
- static inline int drm_of_encoder_active_endpoint(struct device_node *node,
- 						 struct drm_encoder *encoder,
- 						 struct of_endpoint *endpoint)
+-static void msm_pdev_shutdown(struct platform_device *pdev)
+-{
+-	struct drm_device *drm = platform_get_drvdata(pdev);
+-	struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
+-
+-	if (!priv || !priv->kms)
+-		return;
+-
+-	drm_atomic_helper_shutdown(drm);
+-}
+-
+ static const struct of_device_id dt_match[] = {
+ 	{ .compatible = "qcom,mdp4", .data = (void *)KMS_MDP4 },
+ 	{ .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
+@@ -1410,7 +1415,6 @@ MODULE_DEVICE_TABLE(of, dt_match);
+ static struct platform_driver msm_platform_driver = {
+ 	.probe      = msm_pdev_probe,
+ 	.remove     = msm_pdev_remove,
+-	.shutdown   = msm_pdev_shutdown,
+ 	.driver     = {
+ 		.name   = "msm",
+ 		.of_match_table = dt_match,
 -- 
 https://chromeos.dev
 
