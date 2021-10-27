@@ -2,61 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5027F43CE70
-	for <lists+freedreno@lfdr.de>; Wed, 27 Oct 2021 18:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16F2343D0CE
+	for <lists+freedreno@lfdr.de>; Wed, 27 Oct 2021 20:34:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9E0889DAB;
-	Wed, 27 Oct 2021 16:13:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6425089B03;
+	Wed, 27 Oct 2021 18:34:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Wed, 27 Oct 2021 16:13:27 UTC
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479A989DAB
- for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 16:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1635351207; x=1666887207;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=3wmHPIoqwW/AtqnUK9O2SRwIiFbLXNiIfQw/yk4RMCQ=;
- b=ZU2Vf9tBhqLGb5n2hGAqrxbWJv6ttvfHyjDJ+b/oUX4mCrCz19RZcCta
- 4g8VtGyQsx1ca5RrEvX59tgJJJzrOWkuCJXbDQ2VHyEcakRGF8sskYb4C
- 7nBPtTG+9A2SHbwknbvj+SGkb3FbR7rOGoiEyeIDEAHnU+XmPZyz5dOcw U=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 27 Oct 2021 09:07:22 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2021 09:07:20 -0700
-Received: from [10.71.111.83] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; Wed, 27 Oct 2021
- 09:07:20 -0700
-Message-ID: <dd918b48-f733-7eb1-4e0e-6d360e199424@quicinc.com>
-Date: Wed, 27 Oct 2021 09:07:19 -0700
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F96989B03
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 18:34:18 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id h11so6289764ljk.1
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 11:34:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oMasC2rgckEWdCe4DVz6in+O9oEmCriK7Q/BDKT8+60=;
+ b=BU9c4Kt2klb9pGlGYSH6N2/niQ4oNqfLZ0U1NjtsaTgg7k2zPmvXxZMNe4LsT/a25Y
+ FIhGhLYGlcZIbZ5j7j/wImxQN0EpLG2rhMuMjkY2ZOZtzRN9RqqqM2Z5uaL0wHre6mWM
+ X7XRH+g6SO72fi7HbBdQdNVRGP6vVPJBwpQNB051MQ98oMp8EsGzZR8rkERWdlg/ct9o
+ ddJXJKuqCo1GoTk5cB29k6H24t/jtwCG/qx/JiEgo0fh9G2BeRlLJWBsA8+ncOvhsWK7
+ 4aJySPcTUrOnoJ4Ah5b9ngmkz6HfI8+bB1S/leVgn/9yzaNvwSOGDWeh+h8NSiDjQk22
+ DXhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oMasC2rgckEWdCe4DVz6in+O9oEmCriK7Q/BDKT8+60=;
+ b=O/oSpz+BV9DpVT62jr0Bk6RxNdgjdxYp9p4Zasd6Pta9QW3Q+qZv+WNwa07Fn6ZlGu
+ KgGo+41Oa7+0TTsaejMsH0fOQicahb6T/DU5puno05SU0M+7bYEys+77BwF2FYeiHUtN
+ GtCvH/JwBHJFlwACOFTrtTj0CqjcaQxTI5R2+gtR0Oy7+Ozww96xwCFh2eh/MwDn4nyj
+ z00HCR3NSNpiweUOrK+PPYvGIFzHTe+RMbpI2+ZTjKcXgEER7kUkJt7ZftxfpKSynX3J
+ BP7cAPbJ0QUDoz8M5Q+sfdEPOCXZHq8E3YfyTVMje592UeSGVvtpPxEM2SpbwxRRDBio
+ YQ2g==
+X-Gm-Message-State: AOAM530qS86i+QStzE5KqpQwPLRbt89dWK64bWSqpkTJeF/zvBbst6pZ
+ JQRTV4bm9avS5FLcdbLdehETOXm+YVyvmGM26hIvbA==
+X-Google-Smtp-Source: ABdhPJydr0p5R5kOrBi0cKjyUtJDjfb0NxbOwZhHcj6m+H19kxZT9BRZop/bB7yZsgjxXgCMaOYdHA2FjRV6asLzles=
+X-Received: by 2002:a05:651c:389:: with SMTP id
+ e9mr14617679ljp.61.1635359656666; 
+ Wed, 27 Oct 2021 11:34:16 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Content-Language: en-US
-To: Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-CC: Nick Desaulniers <ndesaulniers@google.com>, Jessica Zhang
- <jesszhan@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>, kernelci.org bot
- <bot@kernelci.org>
-References: <20211026142435.3606413-1-nathan@kernel.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20211026142435.3606413-1-nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove commit and its uses in
- dpu_crtc_set_crc_source()
+References: <20211025151536.1048186-1-maxime@cerno.tech>
+ <20211025151536.1048186-21-maxime@cerno.tech>
+In-Reply-To: <20211025151536.1048186-21-maxime@cerno.tech>
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 27 Oct 2021 11:34:05 -0700
+Message-ID: <CALAqxLXG5R2ZN9gfFsGTLfdY8mhNhh=o8f1w5Axo8NSw8QanAQ@mail.gmail.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, 
+ Robert Foss <robert.foss@linaro.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@linux.ie>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ linux-arm-msm@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>, 
+ Rob Clark <robdclark@gmail.com>, Tian Tao <tiantao6@hisilicon.com>, 
+ Chen Feng <puck.chen@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, linux-samsung-soc@vger.kernel.org, 
+ Xinliang Liu <xinliang.liu@linaro.org>, linux-kernel@vger.kernel.org, 
+ Inki Dae <inki.dae@samsung.com>, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6 20/21] drm/kirin: dsi: Adjust probe order
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,52 +84,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/26/2021 7:24 AM, Nathan Chancellor wrote:
-> Clang warns:
+On Mon, Oct 25, 2021 at 8:16 AM Maxime Ripard <maxime@cerno.tech> wrote:
 >
-> drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:162:6: error: variable 'commit' is uninitialized when used here [-Werror,-Wuninitialized]
->          if (commit)
->              ^~~~~~
-> drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:106:32: note: initialize the variable 'commit' to silence this warning
->          struct drm_crtc_commit *commit;
->                                        ^
->                                         = NULL
-> 1 error generated.
+> Without proper care and an agreement between how DSI hosts and devices
+> drivers register their MIPI-DSI entities and potential components, we can
+> end up in a situation where the drivers can never probe.
 >
-> The assignment and use of commit in the main body of
-> dpu_crtc_set_crc_source() were removed from v1 to v2 but the call to
-> drm_crtc_commit_put() at the end was not. Do that now so there is no
-> more warning.
+> Most drivers were taking evasive maneuvers to try to workaround this,
+> but not all of them were following the same conventions, resulting in
+> various incompatibilities between DSI hosts and devices.
 >
-> Fixes: 78d9b458cc21 ("drm/msm/dpu: Add CRC support for DPU")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1493
-> Reported-by: "kernelci.org bot" <bot@kernelci.org>
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 ---
->   1 file changed, 3 deletions(-)
+> Now that we have a sequence agreed upon and documented, let's convert
+> kirin to it.
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 2523e829f485..967245b8cc02 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -103,7 +103,6 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
->   {
->   	enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
->   	enum dpu_crtc_crc_source current_source;
-> -	struct drm_crtc_commit *commit;
->   	struct dpu_crtc_state *crtc_state;
->   	struct drm_device *drm_dev = crtc->dev;
->   	struct dpu_crtc_mixer *m;
-> @@ -159,8 +158,6 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
->   
->   
->   cleanup:
-> -	if (commit)
-> -		drm_crtc_commit_put(commit);
->   	drm_modeset_unlock(&crtc->mutex);
->   
->   	return ret;
->
-> base-commit: 00326bfa4e6363e4b0b8b019ecd2556fdda5ad1c
+> Tested-by: John Stultz <john.stultz@linaro.org>
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+
+For this patch, and any others in this series folks see fit:
+   Acked-by: John Stultz <john.stultz@linaro.org>
+
+thanks
+-john
