@@ -2,95 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D833F43C56B
-	for <lists+freedreno@lfdr.de>; Wed, 27 Oct 2021 10:45:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5027F43CE70
+	for <lists+freedreno@lfdr.de>; Wed, 27 Oct 2021 18:13:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A6289B12;
-	Wed, 27 Oct 2021 08:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9E0889DAB;
+	Wed, 27 Oct 2021 16:13:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62CB089B12;
- Wed, 27 Oct 2021 08:44:57 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 71C57580486;
- Wed, 27 Oct 2021 04:44:55 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 27 Oct 2021 04:44:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=M3eCyMtSzQvSRfpY5rVVZ9RVkh6
- FdSVbf6yAV0XO4K8=; b=NmzUZOWnydiuj2S8GXj5BmNeI6pr7rLla6OGpcy3C4x
- SL8j7TvqoSbEzq1BnX6ggFJ9W+aANfQZl2j2oQi9v/Y1m5VlmUeid+r32/oNygjM
- upk8Qq4jkUaPrI2deYOakvWggWGqh7tAdSbO6N9mvdMrVDLDIUmc5fbffoNGouNh
- MZYmu70iQwwuO+33jBTTnjaDlpwybEj6wVjaiv8aAaEMS4OMe3eo5UBCx5C4kyQ4
- amOz6taiTkfqGK39fTrH+gnmsS9doz5wve3bKXvLQgSrno6DoyVTo4WZEpLZxYlr
- DBse/nwb8rbo5KaCwCVggb670luJpaZaFc+kQZnDktg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=M3eCyM
- tSzQvSRfpY5rVVZ9RVkh6FdSVbf6yAV0XO4K8=; b=kLB2N0MuxPnehTteBVIRkX
- /FWES0DM/0mOGMwFgIC9OXlHVkiq1CuZmq/W3sxWzGNh0crFYT0d+G0VEUjA2iQk
- pa04vRIDZrh/PAvHzPbEjAS709vJwAf34g80ZGTsGDX3eelaifSfQtB8rWOuN/Yu
- iXEjjmXGEfwmbn/SUTDOzRNqbHz6BPHJLfE1vKcLwTPm3ETQQL09KS6Id93j7/jU
- um+uYClmfXLMaH86Ljyk4I0l26IQEHdyFK7KGVgDa+u+4uoOu0Y+8nGyyR+HfDQA
- tW6jd3ix17HW+ZciU5Mau1fBru7L7L1EzBE35SoIp1vqYVN6UjSihcCj1e3YxnQg
- ==
-X-ME-Sender: <xms:hBF5Yc7BzLyYRk4GGfOgPfbDwi-tlppOdcEnk6ov_Gx9a12rI5hQng>
- <xme:hBF5Yd60K--rqAYW6wQgyM38yfJDwJ75W7rCk-uOFeWk_G4ANbXKO0HQF2GRzqsFs
- wAEeethTYlTMbTHrlM>
-X-ME-Received: <xmr:hBF5YbfOI1J3dz9b8owKVh8tx87ejOgb4HxrCXD7nLcTpl3a4BWFzfyx1l2jGmgk3_CY57eC5E5-A0oKYCO7Wh2bSLCLLCDKHxMgSxJh>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegtddgtdehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:hBF5YRLajqxC-IThi0jmk6jZ-O0HSCCBD3mbj1wS6NLddJ2x3g8z4w>
- <xmx:hBF5YQLKmrGZZMo_GHH5FieCkwvCNX5HJtD2SQ7m2_j4WOcF3nXv_Q>
- <xmx:hBF5YSxrJCfl9CrpGyipV_FdO_GukTIjGidowzUsN_cGUsbkkxgyhw>
- <xmx:hxF5YbdWEcCvXgYet2d3aj7yyvMAGIwE6wZItn1hxaP9XNTHrlLpqA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 27 Oct 2021 04:43:52 -0400 (EDT)
-Date: Wed, 27 Oct 2021 10:42:45 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>,	David Airlie <airlied@linux.ie>,
- Thierry Reding <thierry.reding@gmail.com>,
- Andrzej Hajda <a.hajda@samsung.com>, Robert Foss <robert.foss@linaro.org>,
- Neil Armstrong <narmstrong@baylibre.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tian Tao <tiantao6@hisilicon.com>, freedreno@lists.freedesktop.org,
- Chen Feng <puck.chen@hisilicon.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- John Stultz <john.stultz@linaro.org>,	Rob Clark <robdclark@gmail.com>,
- linux-arm-msm@vger.kernel.org,	Sean Paul <sean@poorly.run>,
- Inki Dae <inki.dae@samsung.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- dri-devel@lists.freedesktop.org
-Message-ID: <20211027084245.6wjqk3e6fa3jw5qg@gilmour>
-References: <20211021073947.499373-1-maxime@cerno.tech>
- <YXGFz4o5fWrfGnGk@ravnborg.org>
- <20211025151636.dsc3akojm7ywoecm@gilmour>
- <YXbhSjsPXk944TlF@ravnborg.org>
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Wed, 27 Oct 2021 16:13:27 UTC
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479A989DAB
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 16:13:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1635351207; x=1666887207;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=3wmHPIoqwW/AtqnUK9O2SRwIiFbLXNiIfQw/yk4RMCQ=;
+ b=ZU2Vf9tBhqLGb5n2hGAqrxbWJv6ttvfHyjDJ+b/oUX4mCrCz19RZcCta
+ 4g8VtGyQsx1ca5RrEvX59tgJJJzrOWkuCJXbDQ2VHyEcakRGF8sskYb4C
+ 7nBPtTG+9A2SHbwknbvj+SGkb3FbR7rOGoiEyeIDEAHnU+XmPZyz5dOcw U=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 27 Oct 2021 09:07:22 -0700
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 09:07:20 -0700
+Received: from [10.71.111.83] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; Wed, 27 Oct 2021
+ 09:07:20 -0700
+Message-ID: <dd918b48-f733-7eb1-4e0e-6d360e199424@quicinc.com>
+Date: Wed, 27 Oct 2021 09:07:19 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="aobqxdixyoh4wxno"
-Content-Disposition: inline
-In-Reply-To: <YXbhSjsPXk944TlF@ravnborg.org>
-Subject: Re: [Freedreno] [PATCH v5 00/21] drm/bridge: Make panel and bridge
- probe order consistent
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Content-Language: en-US
+To: Nathan Chancellor <nathan@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+CC: Nick Desaulniers <ndesaulniers@google.com>, Jessica Zhang
+ <jesszhan@codeaurora.org>, <linux-arm-msm@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>, kernelci.org bot
+ <bot@kernelci.org>
+References: <20211026142435.3606413-1-nathan@kernel.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20211026142435.3606413-1-nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove commit and its uses in
+ dpu_crtc_set_crc_source()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,50 +72,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
---aobqxdixyoh4wxno
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Oct 25, 2021 at 06:54:34PM +0200, Sam Ravnborg wrote:
-> Hi Maxime,
->=20
-> On Mon, Oct 25, 2021 at 05:16:36PM +0200, Maxime Ripard wrote:
-> > Hi Sam,
-> >=20
-> > On Thu, Oct 21, 2021 at 05:22:55PM +0200, Sam Ravnborg wrote:
-> > > Hi Maxime,
-> > >=20
-> > > > Let me know what you think,
-> > >=20
-> > > apply the lot to drm-misc-next. Maybe wait for an r-b or a-b on the k=
-irin
-> > > patch but the rest is IMO good to go.
-> >=20
-> > I had a compilation error since the rebase of the v4, so I sent a new
-> > version. John Stultz has tested this series and given his tested-by, and
-> > is the kirin maintainer.
-> >=20
-> > I guess it's enough?
->=20
-> Yeah, go ahead and get it applied.
-
-It turns out dim is not happy with just a Tested-by :)
-
-I'll ask around for an acked-by or reviewed-by
-
-Maxime
-
---aobqxdixyoh4wxno
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYXkRBQAKCRDj7w1vZxhR
-xcX+AQDa5hm15ZvQWQkhoaM7QT0BYcG/8gBhyw2NycTLJeU50wEAsbuKE/SJt3yK
-G9CaUa4imA2133VPQCI/46bOj5VmbAs=
-=1uwT
------END PGP SIGNATURE-----
-
---aobqxdixyoh4wxno--
+On 10/26/2021 7:24 AM, Nathan Chancellor wrote:
+> Clang warns:
+>
+> drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:162:6: error: variable 'commit' is uninitialized when used here [-Werror,-Wuninitialized]
+>          if (commit)
+>              ^~~~~~
+> drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:106:32: note: initialize the variable 'commit' to silence this warning
+>          struct drm_crtc_commit *commit;
+>                                        ^
+>                                         = NULL
+> 1 error generated.
+>
+> The assignment and use of commit in the main body of
+> dpu_crtc_set_crc_source() were removed from v1 to v2 but the call to
+> drm_crtc_commit_put() at the end was not. Do that now so there is no
+> more warning.
+>
+> Fixes: 78d9b458cc21 ("drm/msm/dpu: Add CRC support for DPU")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1493
+> Reported-by: "kernelci.org bot" <bot@kernelci.org>
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 3 ---
+>   1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 2523e829f485..967245b8cc02 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -103,7 +103,6 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>   {
+>   	enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
+>   	enum dpu_crtc_crc_source current_source;
+> -	struct drm_crtc_commit *commit;
+>   	struct dpu_crtc_state *crtc_state;
+>   	struct drm_device *drm_dev = crtc->dev;
+>   	struct dpu_crtc_mixer *m;
+> @@ -159,8 +158,6 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>   
+>   
+>   cleanup:
+> -	if (commit)
+> -		drm_crtc_commit_put(commit);
+>   	drm_modeset_unlock(&crtc->mutex);
+>   
+>   	return ret;
+>
+> base-commit: 00326bfa4e6363e4b0b8b019ecd2556fdda5ad1c
