@@ -2,96 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C9F943D285
-	for <lists+freedreno@lfdr.de>; Wed, 27 Oct 2021 22:11:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C2F43D916
+	for <lists+freedreno@lfdr.de>; Thu, 28 Oct 2021 04:01:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6F56E8F7;
-	Wed, 27 Oct 2021 20:11:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB57B88249;
+	Thu, 28 Oct 2021 02:01:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB7E6E8F1;
- Wed, 27 Oct 2021 20:11:48 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id 23A3A2B0145E;
- Wed, 27 Oct 2021 16:11:45 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 27 Oct 2021 16:11:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding; s=fm1; bh=
- dEH+48NnYpdtL5JL9l0poNkvtH8Ouiwk557d7ziA8c8=; b=POTFtTRD2oeJkeVv
- PU7V4i98DA2GjMfJT+cWQ8XmRzZIy7Q2sXtwGwnvCwvNnWYjcFuE70mbaKy0+a3w
- v68hHk8j2Ra8PQuc+fWPEJTOZrkFjghL75QUX5ehdIXlV5H5P0P5YiBcu7hSUFP2
- t3DJvm6zoB+ggLtSkv6ATvlytq9S823pbEtegr845BXPXfPM0qeRUMROfdNUABrM
- axFQXUyOA2TDcLjo5c627sX6v+uS4AqxrX8PM5Jo3SMuTT9WDbDmgX6/PSWzLg7E
- Ri0F8H02d4EL0gCtuBko9MmkcTCtj2tvZZKEA8iLTvz7pTzN5AuY2E5dhs0jeL6v
- tMsh8w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=dEH+48NnYpdtL5JL9l0poNkvtH8Ouiwk557d7ziA8
- c8=; b=UQdoBvWcqo7RhGURWXmWhsf22TZlC4VVy1z9AASzM+3hUCP0flBd691R3
- V0Cj9cdxZZlIAGg741mO+pAfEAZF7tA8dSE64j8PPCgh+GdO3tEIoKP7douwduqh
- 3ENT1M2I0yAuDCB2Tt2tN2kaVRxuvretigOhY3AEHvq6WxxFiKTNFDpZRaSVM/Nz
- f7CS5MWTVGrm2GDGbcoZYrDfCDypZx8ijX0EOxoO4QAEAi33TRC6+fVZ1ujzYmN4
- LOtpuTviD2CY4r5huUEHtVZP/z8TBMaoowTnH64tAOHG2ecQV0aiJHjOaMl2KkTa
- 1HOGGOM9DGs+P8X/Qzqy+Tps1qigA==
-X-ME-Sender: <xms:gLJ5YQuf2llcJFQlx0_SuOUAtz-u_V_DeuUuhPDjkkVFY_cSFJMebg>
- <xme:gLJ5Yde1Ex0dsi0rRImbYFT9wpDuCjaV1O9Zae96a-tpnThbRF7BLKBY_MfhU3CRD
- jhp5NENnh_0pA0D_U0>
-X-ME-Received: <xmr:gLJ5YbzuVyJ0AMAnsF1nptsAVPypActnbGBxjscOHHUmVSOKMPqnxNiOgU0OrL1zWyymqF1Ae3O3RrQEMaSEtfYOmdueFeIjnVx2kYbQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegtddguddutdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefhvffufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforgig
- ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
- grthhtvghrnhepjeeugfegkeffgfeuvedtvddufffhjeffjeejvddvudduteehhfefhfef
- geeikeeknecuvehluhhsthgvrhfuihiivgepieenucfrrghrrghmpehmrghilhhfrhhomh
- epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:gLJ5YTP6IAKN5Vt2DFtee_vW5MSM2erQXYqtS3Bp9TEVdgJUMgHMSA>
- <xmx:gLJ5YQ8eHKb_o6pxCWQlAjcdtgMPN3rC4DNwtfZzDX5WtXiUoIzvYA>
- <xmx:gLJ5YbXitDXFgp0awX7jYZuY9aqMZmEzrGmU8TfiPIhs1KlT42AfPw>
- <xmx:gLJ5YVKEK0bqUDvlKIxjG9QlJ2DIAvTPQaHDQTg1zG7VqvKJJX6IusJKV2Y>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 27 Oct 2021 16:11:44 -0400 (EDT)
-From: Maxime Ripard <maxime@cerno.tech>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Robert Foss <robert.foss@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- David Airlie <airlied@linux.ie>, Maxime Ripard <maxime@cerno.tech>,
- Andrzej Hajda <a.hajda@samsung.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
- Rob Clark <robdclark@chromium.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Tian Tao <tiantao6@hisilicon.com>, Chen Feng <puck.chen@hisilicon.com>,
- Inki Dae <inki.dae@samsung.com>, linux-arm-msm@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Rob Clark <robdclark@gmail.com>, John Stultz <john.stultz@linaro.org>,
- Caleb Connolly <caleb.connolly@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Amit Pundir <amit.pundir@linaro.org>
-Date: Wed, 27 Oct 2021 22:09:52 +0200
-Message-Id: <163532324665.18245.10729198650633132372.b4-ty@cerno.tech>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211025151536.1048186-22-maxime@cerno.tech>
-References: <20211025151536.1048186-1-maxime@cerno.tech>
- <20211025151536.1048186-22-maxime@cerno.tech>
+X-Greylist: delayed 365 seconds by postgrey-1.36 at gabe;
+ Thu, 28 Oct 2021 02:01:12 UTC
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C64388249;
+ Thu, 28 Oct 2021 02:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1635386472; x=1666922472;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=a5hh0Naa28U3Lq2JXKdxUdPuy4+irXvUZAhbvn2LkY4=;
+ b=doNPV6boA09iYs7ZM0F7MaaHiPr8kKzmiLQDjdKlbRsodIWuwrnam9tq
+ QRNXlJPplMuFHwOIv5yBBKRyCsBV2dQFHUwNatT9EPsfowNdJY164+7Nl
+ ORTHQ7z/PBBmZ3iLE3dlQVi2mqTU7fHgCTz0+jD6Fg6AkqNDQRSHDn6P7 Y=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 27 Oct 2021 18:55:06 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2021 18:55:05 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; 
+ Wed, 27 Oct 2021 18:55:05 -0700
+Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; 
+ Wed, 27 Oct 2021 18:55:01 -0700
+From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: Sankeerth Billakanti <quic_sbillaka@quicinc.com>, <robdclark@gmail.com>,
+ <seanpaul@chromium.org>, <swboyd@chromium.org>, <kalyan_t@codeaurora.org>,
+ <abhinavk@codeaurora.org>, <dianders@chromium.org>, <khsieh@codeaurora.org>,
+ <mkrishn@codeaurora.org>, <sbillaka@codeaurora.org>
+Date: Thu, 28 Oct 2021 07:24:42 +0530
+Message-ID: <1635386088-18089-1-git-send-email-quic_sbillaka@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v6 21/21] drm/msm/dsi: Adjust probe
- order
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v3 0/6] Add support for eDP controller on SC7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,14 +68,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 25 Oct 2021 17:15:36 +0200, Maxime Ripard wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Switch to the documented order dsi-host vs bridge probe.
-> 
-> 
+	This series will add eDP controller support for Qualcomm SC7280
+platform. These patches are baseline changes with which we can enable
+eDP display on sc7280. The sc7280 eDP controller driver can also support
+additional features such as no_hpd detection, PSR, etc. which will be
+enabled in subsequent patch series.
 
-Applied to drm/drm-misc (drm-misc-next).
+	This is based on Bjorn's changes in the below mentioned series
+to support both eDP and DP programming through the same driver:
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=564841
 
-Thanks!
-Maxime
+Sankeerth Billakanti (6):
+  dt-bindings: msm/dp: Add DP compatible strings for sc7280
+  drm/msm/dp: Add DP controllers for sc7280
+  drm/dp: Add macro to check max_downspread capability
+  drm/msm/dp: Enable downspread for supported DP sinks
+  drm/msm/dp: Enable ASSR for supported DP sinks
+  drm/msm/dp: Remove the hpd init delay for eDP
+
+ .../bindings/display/msm/dp-controller.yaml        |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  4 ++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 23 +++++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_display.c                | 20 ++++++++++++++++++-
+ include/drm/drm_dp_helper.h                        |  6 ++++++
+ 5 files changed, 49 insertions(+), 6 deletions(-)
+
+-- 
+2.7.4
+
