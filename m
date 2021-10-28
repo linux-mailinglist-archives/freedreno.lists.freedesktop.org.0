@@ -1,53 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A429143E6AD
-	for <lists+freedreno@lfdr.de>; Thu, 28 Oct 2021 18:56:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FECF43F298
+	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 00:20:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7406E062;
-	Thu, 28 Oct 2021 16:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6EBD6E83D;
+	Thu, 28 Oct 2021 22:20:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
- Thu, 28 Oct 2021 14:11:26 UTC
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D44856E825;
- Thu, 28 Oct 2021 14:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1635430287; x=1666966287;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=/Z5PQUKKMjzWeSU9bmE98K9hFHikgVsh9PZzWEEOrx8=;
- b=jNfauG18vaDrcb4JvMU1S17HGTWmm51LBgIXd8C9Za65GQxNtrrisJoV
- oFmxDqPHF3D0GLZByCZRSAeihtMymEsNTlEz+tCVQsLUejvdP7mNNwSEc
- dmjHX1Xez0O3VMDOCUIFAqKrz9b9J6suLoX6h+hNLkyNadJsT4ajK2hmz U=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 28 Oct 2021 07:05:21 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 28 Oct 2021 07:05:20 -0700
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg02-blr.qualcomm.com with ESMTP; 28 Oct 2021 19:35:04 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 0FA084E6A; Thu, 28 Oct 2021 07:05:02 -0700 (PDT)
-From: Kalyan Thota <quic_kalyant@quicinc.com>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Cc: Kalyan Thota <kalyan_t@codeaurora.org>, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, dianders@chromium.org, mkrishn@codeaurora.org,
- swboyd@chromium.org, abhinavk@codeaurora.org,
- Kalyan Thota <quic_kalyant@quicinc.com>
-Date: Thu, 28 Oct 2021 07:05:01 -0700
-Message-Id: <1635429901-5734-1-git-send-email-quic_kalyant@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <y>
-References: <y>
-X-Mailman-Approved-At: Thu, 28 Oct 2021 16:56:46 +0000
-Subject: [Freedreno] [v1] drm/msm/disp/dpu1: set default group ID for CTL.
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64C496E83D
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Oct 2021 22:20:00 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id n11so2323502oig.6
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Oct 2021 15:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=XlHbKWd6pbbGkZIStSTxFaG7vAcQNI1eMo098oPb11U=;
+ b=RhaDuJkxg7XSpHf1uMr3Oikq4bAIm4AIWrTxFhp8J7btCs5Nftz/ce0uJkrqfybZrc
+ bNQo6d4RbqLbn4oijl8a1LKrezIg6TCLyulzp5pwHGocfyCOsHOuL2cH3DLL4oQzk6+x
+ KMcxqk/gkb95/yfIhVcLt7ii70Z/DCTgQVYUM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=XlHbKWd6pbbGkZIStSTxFaG7vAcQNI1eMo098oPb11U=;
+ b=r3JFkcN46xYLvpMjblVJnZMEszAaKWgsDxV12ltkxvzOTGwLoyS0A0KWgMl2U3JTxK
+ QpwKJc0hJ6/ik5XLjZIQ+uGruzDqdAJ6zaWDsjzMLcMU6je5/0JUjGtBeZK5yZKDd0RS
+ c5E0AemL82fYTXFb0DPEb6lKm8FRJSzOd284k85ByeN27IRpPQ6FBEFo9ieku/P8BbU+
+ HKZcucYJYMbDJ7oA9/jPPcoblwOGXdtGUFitaCledHJRjNMJZJgLZmwWqLUbStgx2Q1E
+ cnlVsH6sIgugS2GChO+8c4W0cVyliJSgfWhIOHxxkajjBDs2AXFwx1QAGTSj7TOIHwHg
+ rVYw==
+X-Gm-Message-State: AOAM530Exd5hm/jyGICJXvkxItw2phHa3jTicUgazDJBwIDMJWj2dRY4
+ ZKEmiOgeQetiPV+Sn7vkxP93a2SugGioXNdbljtnnA==
+X-Google-Smtp-Source: ABdhPJwfvxRCDnP08dCwT4fknbFntzz7glH0jJBWYvi4icewMHAZCYjPyRlLWbnJ8EuU6GfjGvnkRIw06lYY/iyvDZU=
+X-Received: by 2002:a05:6808:23c2:: with SMTP id
+ bq2mr11059063oib.32.1635459599626; 
+ Thu, 28 Oct 2021 15:19:59 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 28 Oct 2021 15:19:59 -0700
+MIME-Version: 1.0
+In-Reply-To: <1635429901-5734-1-git-send-email-quic_kalyant@quicinc.com>
+References: <y> <1635429901-5734-1-git-send-email-quic_kalyant@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 28 Oct 2021 15:19:59 -0700
+Message-ID: <CAE-0n51QgYprv+BPKWHSVgUFDhHzb0t=DRBG_g9yvXeMWyaVqg@mail.gmail.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, y@qualcomm.com
+Cc: Kalyan Thota <kalyan_t@codeaurora.org>, linux-kernel@vger.kernel.org, 
+ robdclark@gmail.com, dianders@chromium.org, mkrishn@codeaurora.org, 
+ abhinavk@codeaurora.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [v1] drm/msm/disp/dpu1: set default group ID for
+ CTL.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +72,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Kalyan Thota <kalyan_t@codeaurora.org>
+Quoting Kalyan Thota (2021-10-28 07:05:01)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> index 4ade44b..57b9be1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+> @@ -179,13 +179,16 @@ enum {
+>
+>  /**
+>   * CTL sub-blocks
+> - * @DPU_CTL_SPLIT_DISPLAY       CTL supports video mode split display
+> + * @DPU_CTL_SPLIT_DISPLAY,     CTL supports video mode split display
+> + * @DPU_CTL_FETCH_ACTIVE,      Active CTL for fetch HW (SSPPs).
+> + * @DPU_CTL_VM_CFG,            CTL supports multiple VMs.
 
-New required programming in CTL for SC7280. Group ID informs
-HW of which VM owns that CTL. Force this group ID to
-default/disabled until virtualization support is enabled in SW.
+Are those commas supposed to be colons? Also the application of the
+period/full-stop is not consistent. Please pick one. I see the double
+star so it looks like kernel-doc, but probably doesn't parse properly.
 
-Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 5 ++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 3 +++
- 3 files changed, 8 insertions(+), 2 deletions(-)
+>   * @DPU_CTL_MAX
+>   */
+>  enum {
+>         DPU_CTL_SPLIT_DISPLAY = 0x1,
+>         DPU_CTL_ACTIVE_CFG,
+>         DPU_CTL_FETCH_ACTIVE,
+> +       DPU_CTL_VM_CFG,
+>         DPU_CTL_MAX
+>  };
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index 64740ddb..455b06a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -498,6 +498,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
+>         u32 intf_active = 0;
+>         u32 mode_sel = 0;
+>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index ce6f32a..283605c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -45,7 +45,7 @@
- 	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
- 
- #define CTL_SC7280_MASK \
--	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE))
-+	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
- 
- #define MERGE_3D_SM8150_MASK (0)
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 4ade44b..57b9be1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -179,13 +179,16 @@ enum {
- 
- /**
-  * CTL sub-blocks
-- * @DPU_CTL_SPLIT_DISPLAY       CTL supports video mode split display
-+ * @DPU_CTL_SPLIT_DISPLAY,	CTL supports video mode split display
-+ * @DPU_CTL_FETCH_ACTIVE,	Active CTL for fetch HW (SSPPs).
-+ * @DPU_CTL_VM_CFG,		CTL supports multiple VMs.
-  * @DPU_CTL_MAX
-  */
- enum {
- 	DPU_CTL_SPLIT_DISPLAY = 0x1,
- 	DPU_CTL_ACTIVE_CFG,
- 	DPU_CTL_FETCH_ACTIVE,
-+	DPU_CTL_VM_CFG,
- 	DPU_CTL_MAX
- };
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-index 64740ddb..455b06a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-@@ -498,6 +498,9 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
- 	u32 intf_active = 0;
- 	u32 mode_sel = 0;
- 
-+	if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
-+		mode_sel = 0xf0000000;
-+
- 	if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
- 		mode_sel |= BIT(17);
- 
--- 
-2.7.4
+Can we get a comment here about what's happening?
 
+> +       if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
+
+Does it need to be atomic? Sort of doubt it, so probably __test_bit()
+would work just as well.
+
+> +               mode_sel = 0xf0000000;
+
+How about a define for 0xf0000000? Preferably a name that matches the
+register description for this bit pattern.
+
+> +
+>         if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
+>                 mode_sel |= BIT(17);
+>
