@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30F9C43DB32
-	for <lists+freedreno@lfdr.de>; Thu, 28 Oct 2021 08:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E87743DB49
+	for <lists+freedreno@lfdr.de>; Thu, 28 Oct 2021 08:38:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4240F6E7DD;
-	Thu, 28 Oct 2021 06:34:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9326E7DD;
+	Thu, 28 Oct 2021 06:38:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5C886E7DD
- for <freedreno@lists.freedesktop.org>; Thu, 28 Oct 2021 06:34:32 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- x16-20020a9d7050000000b00553d5d169f7so5514830otj.6
- for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 23:34:32 -0700 (PDT)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA8E6E8F3
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Oct 2021 06:38:26 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ l16-20020a9d6a90000000b0054e7ab56f27so7170410otq.12
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 23:38:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=PRgWCRCX7AtwJtD++BtDcASmdtlLCky0vNsp17MLlCo=;
- b=em7rMEP++cDD6gn1cQ27hJKr0PZKndl+gMTj5cIe4wcUsLq1UdZ258NJ827zstWX79
- EmDvUqjsQQT7BlzCpY13u6u29OM3jwkeYBAvmvdv1rvMxknpaUWbppiNXIueAmOAvjPz
- LhbvwuU3B7empW598hrp22LTfyfUFg6buyuU0=
+ bh=Q0aPYShzUHQahtTa1rDM0UEGu5hh3TXopg752neKMGg=;
+ b=KruDRqjhoLjx+sYOUpcq3sXk+XjHwJCdCH64uMmttuPc0A1Ta8HjzGKGqfQturSuV4
+ eJC8zMQU25XhO1/5qaLQ9Z4UUuhozYFk6zA47U4yYRH/7RQDkdwNLZ0B9O5Nm8wv8ldd
+ /jFaUIShVutNM8YxnxPYE1zdvlfpCnyPyxfxw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=PRgWCRCX7AtwJtD++BtDcASmdtlLCky0vNsp17MLlCo=;
- b=zhzbZnUxK+Fn8Svdj9EHpguorJSpuv8FqXneCkcV+jpG6Gr9xg5YKdNw06gfMH07RV
- fIzyRVN2wH9U3dr/eecKihhbMZH6Mucuotim7yavKcfIGitc4nm+Knt33DzMn1SMOPld
- KjNv6zK/xr4om+Ng5WsMbEnvVe1wWsUfiHQmhLUzhUc7Dd+byAVaWmh0NJA0cQxDsotb
- NGoD6L0oWVMKz7/iI8kJ6dYD3i7rWML1NEhUPnm5QjJSd3nkVXI9LIb3T4KJ1uwAaYWP
- KHSk/Mo5ALENWBz5xkD3yEihHioZ8SbFRRA9fzU7q1iilMqxUsbyJAQ0E/PGe74cSMYf
- x8uQ==
-X-Gm-Message-State: AOAM5321I3CC/6E/SoEOsxG0r3Vjag9In+Oh+7wcI7KLMJY27HzwlupF
- 95TblLU+i7yVP1ucG9UEnC30oNsLDeW09eGBYcPciPUcX40=
-X-Google-Smtp-Source: ABdhPJxWcOa3Xkk6Hw5Lr0txJqbDDMJPmnfEf8oGlsnZUqb3TVVAZTrS+4RFqV0jimxB4yUnK+VWxsK2/WZ+xbzr3qU=
-X-Received: by 2002:a9d:6e16:: with SMTP id e22mr1863400otr.77.1635402872221; 
- Wed, 27 Oct 2021 23:34:32 -0700 (PDT)
+ bh=Q0aPYShzUHQahtTa1rDM0UEGu5hh3TXopg752neKMGg=;
+ b=N6jhYmacsnF8B3DkJ5ZIdOjDRyb2FunmBv8rpIbkavj610B3irOvhwXO48iUTmTq/F
+ Ef4L6CWXWkb+CahlhTGsjJ0bs8SyJD663+Th4ByApU74U6jtbqG4HDbyzRG4TO9c5caC
+ FxTO7CNM0rwLCgsGnfzFEMH/Kg9lLmfEWQueE24kuOgYRVikp01oUHlokVZ0T9G5fJpB
+ AeT1/L8lLTN52d/EmKZCBGttprSpEZN6ayMXC1mkYUR8cfdS4Ot+ZnAPGWt4+YbA+STa
+ QsWkoH0qcHrT+3upOnZ4cM4xypDFKnFYdVdxAthBNHf6r5OsPleOFf62O0L3U8DCq3Gp
+ E2Wg==
+X-Gm-Message-State: AOAM533pYb6anKCt0hVshingC7+r4Y68BkTOu5mAHAvvaJEGEFBzKF6q
+ O0ZYgY/n9I9vXlPVlshu/wheMcX13ZnHJ+2TNVwUJA==
+X-Google-Smtp-Source: ABdhPJy5II9bUKXp0PmXN9iZD0uyK1uwYoFfurzgzrVy+zidgimkf19uyPDV0C7OcPK1KlpMppshRp1NEBWVvR6ePUk=
+X-Received: by 2002:a9d:7655:: with SMTP id o21mr1932382otl.126.1635403105338; 
+ Wed, 27 Oct 2021 23:38:25 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 27 Oct 2021 23:34:31 -0700
+ HTTPREST; Wed, 27 Oct 2021 23:38:25 -0700
 MIME-Version: 1.0
-In-Reply-To: <1635386088-18089-6-git-send-email-quic_sbillaka@quicinc.com>
+In-Reply-To: <1635386088-18089-7-git-send-email-quic_sbillaka@quicinc.com>
 References: <1635386088-18089-1-git-send-email-quic_sbillaka@quicinc.com>
- <1635386088-18089-6-git-send-email-quic_sbillaka@quicinc.com>
+ <1635386088-18089-7-git-send-email-quic_sbillaka@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Wed, 27 Oct 2021 23:34:31 -0700
-Message-ID: <CAE-0n53U0JARXjzt=Hr5kfEdEHJR5AFKYx796V7LGbn6CVnVig@mail.gmail.com>
+Date: Wed, 27 Oct 2021 23:38:24 -0700
+Message-ID: <CAE-0n50YcX6sCoTR0bUy_GrZM7=UdHPAGYNwE3Nvj6GL4iTmMg@mail.gmail.com>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
  dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
@@ -57,8 +57,8 @@ Cc: robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org,
  abhinavk@codeaurora.org, dianders@chromium.org, khsieh@codeaurora.org, 
  mkrishn@codeaurora.org, sbillaka@codeaurora.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 5/6] drm/msm/dp: Enable ASSR for
- supported DP sinks
+Subject: Re: [Freedreno] [PATCH v3 6/6] drm/msm/dp: Remove the hpd init
+ delay for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,14 +74,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Sankeerth Billakanti (2021-10-27 18:54:47)
-> The eDP sink on sc7280 supports ASSR and dp driver will
-> enable ASSR in the source hardware. The driver needs to
-> enable the ASSR field in the DPCD configuration register
-> to avoid screen corruption. This change will enable ASSR
-> if supported in the sink device.
+Quoting Sankeerth Billakanti (2021-10-27 18:54:48)
+> DP driver needs a 10 second delay before phy_init so that
+> the usb combo phy initializes and sets up the necessary
+> clocks for usb devices such as keyboard and mouse.
+>
+> eDP controller uses a standalone phy and need not wait for
+> phy initialization from any other component. This change
+> will remove the delay for eDP controller.
 >
 > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 > ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 61385d6..de6a1fd 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1438,7 +1439,15 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
+>
+>         dp_hpd_event_setup(dp);
+>
+> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP) {
+> +               /* eDP does not need any delay before phy init */
+> +               delay = 0;
+> +       } else {
+> +               /* DP needs 10 second delay to let usb combo phy initialize */
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+This seems to be a different approach to the patch Kuogee sent a week or
+two ago. Can we figure out what's wrong with the DP phy starting before
+the USB phy? I suppose this patch is OK as a temporary hack to keep
+moving with eDP, but we really need to figure out what's wrong with DP
+so this delay can be removed entirely. Has any progress been made on
+that?
+
+> +               delay = 100;
+> +       }
+> +
+> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, delay);
