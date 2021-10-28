@@ -1,64 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E87743DB49
-	for <lists+freedreno@lfdr.de>; Thu, 28 Oct 2021 08:38:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECEDE43DD48
+	for <lists+freedreno@lfdr.de>; Thu, 28 Oct 2021 10:58:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9326E7DD;
-	Thu, 28 Oct 2021 06:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6F36E939;
+	Thu, 28 Oct 2021 08:58:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA8E6E8F3
- for <freedreno@lists.freedesktop.org>; Thu, 28 Oct 2021 06:38:26 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- l16-20020a9d6a90000000b0054e7ab56f27so7170410otq.12
- for <freedreno@lists.freedesktop.org>; Wed, 27 Oct 2021 23:38:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=Q0aPYShzUHQahtTa1rDM0UEGu5hh3TXopg752neKMGg=;
- b=KruDRqjhoLjx+sYOUpcq3sXk+XjHwJCdCH64uMmttuPc0A1Ta8HjzGKGqfQturSuV4
- eJC8zMQU25XhO1/5qaLQ9Z4UUuhozYFk6zA47U4yYRH/7RQDkdwNLZ0B9O5Nm8wv8ldd
- /jFaUIShVutNM8YxnxPYE1zdvlfpCnyPyxfxw=
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3EE96E5BB;
+ Thu, 28 Oct 2021 08:58:32 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ o4-20020a1c7504000000b0032cab7473caso4258386wmc.1; 
+ Thu, 28 Oct 2021 01:58:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8pRnJQmmB+/kCdjQaACOoqogylSvktqG3v7tsX861XU=;
+ b=hQr+RlB7nQ0kBfkch66CVzLGjeTDfB3+Y0hgwSAS2sIF7Etfjcn1XcPfLlpIGUHMg2
+ ypErUzIrTp2LgbVFx1p0RhBKHqX4iSF0rouLa5lDo9WLKNJu5AZk0uauZWo/LjxYVWAW
+ aSMx3vpPwRqidL6Xl4o1ByaNIE8eaf8bv2KzlC0APlc21nIIu6d5wba1ZN3krvZY4MD1
+ gggPyRk+vDHQ5Y+S265L1eTwGOQaVUykfdsVPiEXgwTGPROcAdj3Q3kpqW4RqfMEDxcq
+ vt9x97Bck2Zw8CGbRYDnZp3YcQgWD0+At0VlfPOEj8Pjs6MGvRQUd0a3A+7SmC4qCIFU
+ DPJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=Q0aPYShzUHQahtTa1rDM0UEGu5hh3TXopg752neKMGg=;
- b=N6jhYmacsnF8B3DkJ5ZIdOjDRyb2FunmBv8rpIbkavj610B3irOvhwXO48iUTmTq/F
- Ef4L6CWXWkb+CahlhTGsjJ0bs8SyJD663+Th4ByApU74U6jtbqG4HDbyzRG4TO9c5caC
- FxTO7CNM0rwLCgsGnfzFEMH/Kg9lLmfEWQueE24kuOgYRVikp01oUHlokVZ0T9G5fJpB
- AeT1/L8lLTN52d/EmKZCBGttprSpEZN6ayMXC1mkYUR8cfdS4Ot+ZnAPGWt4+YbA+STa
- QsWkoH0qcHrT+3upOnZ4cM4xypDFKnFYdVdxAthBNHf6r5OsPleOFf62O0L3U8DCq3Gp
- E2Wg==
-X-Gm-Message-State: AOAM533pYb6anKCt0hVshingC7+r4Y68BkTOu5mAHAvvaJEGEFBzKF6q
- O0ZYgY/n9I9vXlPVlshu/wheMcX13ZnHJ+2TNVwUJA==
-X-Google-Smtp-Source: ABdhPJy5II9bUKXp0PmXN9iZD0uyK1uwYoFfurzgzrVy+zidgimkf19uyPDV0C7OcPK1KlpMppshRp1NEBWVvR6ePUk=
-X-Received: by 2002:a9d:7655:: with SMTP id o21mr1932382otl.126.1635403105338; 
- Wed, 27 Oct 2021 23:38:25 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 27 Oct 2021 23:38:25 -0700
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8pRnJQmmB+/kCdjQaACOoqogylSvktqG3v7tsX861XU=;
+ b=IMn1AiorXzJThs357Kw727fLOIg4u5ExtDzUeDB52H5cITFdQqmSEh9/TDxDEatD7b
+ QGFpq82XmeIIcislsTGy4vVEUJcg1ZNrROdszJvMejTPiWR56Y+wF6kMqVxd8zdHHEYr
+ ppPR7rU9kilQu5OkPFAnBQK2Jm05NBcOxSSOoy2SNqu0Os1QUmKMM27gCXyHH5hlS34Q
+ fzZ7UbwtpfDhWgsxwY9xALFevtbr1kgDGo0xH0Hp0HDVsyXpJrgJxzKvu/vBx7KpoO2+
+ bs6AZzukbfAEgqIsm6YdPUoI8BsXRJYWTbQ/g7AITX/Byvm4lkzBWT9+omkGHXZhvryd
+ paog==
+X-Gm-Message-State: AOAM53170Kjd2WTkg7SSRpeJPgHuKrOVSqz9kNM5JZSmNVOLcWMnM7ws
+ syAmDsKCo4g361MK64QXMwp+VcIJeEQ=
+X-Google-Smtp-Source: ABdhPJz8YhMDtgUIgGgUYWl+alCbM4WTONsbnjfCXo4Ut5lcjRZxATOVrz1OmZRT4kcVrUlDv3UamA==
+X-Received: by 2002:a7b:cd9a:: with SMTP id y26mr11110448wmj.107.1635411511382; 
+ Thu, 28 Oct 2021 01:58:31 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ k22sm2412143wrd.59.2021.10.28.01.58.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Oct 2021 01:58:30 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org
+Cc: etnaviv@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ spice-devel@lists.freedesktop.org
+Date: Thu, 28 Oct 2021 10:58:26 +0200
+Message-Id: <20211028085829.1726-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1635386088-18089-7-git-send-email-quic_sbillaka@quicinc.com>
-References: <1635386088-18089-1-git-send-email-quic_sbillaka@quicinc.com>
- <1635386088-18089-7-git-send-email-quic_sbillaka@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 27 Oct 2021 23:38:24 -0700
-Message-ID: <CAE-0n50YcX6sCoTR0bUy_GrZM7=UdHPAGYNwE3Nvj6GL4iTmMg@mail.gmail.com>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org, 
- abhinavk@codeaurora.org, dianders@chromium.org, khsieh@codeaurora.org, 
- mkrishn@codeaurora.org, sbillaka@codeaurora.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 6/6] drm/msm/dp: Remove the hpd init
- delay for eDP
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/4] dma-buf: add dma_fence_describe and
+ dma_resv_describe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,43 +78,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Sankeerth Billakanti (2021-10-27 18:54:48)
-> DP driver needs a 10 second delay before phy_init so that
-> the usb combo phy initializes and sets up the necessary
-> clocks for usb devices such as keyboard and mouse.
->
-> eDP controller uses a standalone phy and need not wait for
-> phy initialization from any other component. This change
-> will remove the delay for eDP controller.
->
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 61385d6..de6a1fd 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1438,7 +1439,15 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->
->         dp_hpd_event_setup(dp);
->
-> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
-> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +               /* eDP does not need any delay before phy init */
-> +               delay = 0;
-> +       } else {
-> +               /* DP needs 10 second delay to let usb combo phy initialize */
+Add functions to dump dma_fence and dma_resv objects into a seq_file and
+use them for printing the debugfs informations.
 
-This seems to be a different approach to the patch Kuogee sent a week or
-two ago. Can we figure out what's wrong with the DP phy starting before
-the USB phy? I suppose this patch is OK as a temporary hack to keep
-moving with eDP, but we really need to figure out what's wrong with DP
-so this delay can be removed entirely. Has any progress been made on
-that?
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+---
+ drivers/dma-buf/dma-buf.c   | 11 +----------
+ drivers/dma-buf/dma-fence.c | 16 ++++++++++++++++
+ drivers/dma-buf/dma-resv.c  | 23 +++++++++++++++++++++++
+ include/linux/dma-fence.h   |  1 +
+ include/linux/dma-resv.h    |  1 +
+ 5 files changed, 42 insertions(+), 10 deletions(-)
 
-> +               delay = 100;
-> +       }
-> +
-> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, delay);
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 7b619998f03a..1d6f6c6a0b09 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1332,8 +1332,6 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ {
+ 	struct dma_buf *buf_obj;
+ 	struct dma_buf_attachment *attach_obj;
+-	struct dma_resv_iter cursor;
+-	struct dma_fence *fence;
+ 	int count = 0, attach_count;
+ 	size_t size = 0;
+ 	int ret;
+@@ -1361,14 +1359,7 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ 				file_inode(buf_obj->file)->i_ino,
+ 				buf_obj->name ?: "");
+ 
+-		dma_resv_for_each_fence(&cursor, buf_obj->resv, true, fence) {
+-			seq_printf(s, "\t%s fence: %s %s %ssignalled\n",
+-				   dma_resv_iter_is_exclusive(&cursor) ?
+-					"Exclusive" : "Shared",
+-				   fence->ops->get_driver_name(fence),
+-				   fence->ops->get_timeline_name(fence),
+-				   dma_fence_is_signaled(fence) ? "" : "un");
+-		}
++		dma_resv_describe(buf_obj->resv, s);
+ 
+ 		seq_puts(s, "\tAttached Devices:\n");
+ 		attach_count = 0;
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index 1e82ecd443fa..5175adf58644 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -907,6 +907,22 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+ }
+ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+ 
++/**
++ * dma_fence_describe - Dump fence describtion into seq_file
++ * @fence: the 6fence to describe
++ * @seq: the seq_file to put the textual description into
++ *
++ * Dump a textual description of the fence and it's state into the seq_file.
++ */
++void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
++{
++	seq_printf(seq, "%s %s seq %llu %ssignalled\n",
++		   fence->ops->get_driver_name(fence),
++		   fence->ops->get_timeline_name(fence), fence->seqno,
++		   dma_fence_is_signaled(fence) ? "" : "un");
++}
++EXPORT_SYMBOL(dma_fence_describe);
++
+ /**
+  * dma_fence_init - Initialize a custom fence.
+  * @fence: the fence to initialize
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 9eb2baa387d4..ff3c0558b3b8 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -38,6 +38,7 @@
+ #include <linux/mm.h>
+ #include <linux/sched/mm.h>
+ #include <linux/mmu_notifier.h>
++#include <linux/seq_file.h>
+ 
+ /**
+  * DOC: Reservation Object Overview
+@@ -666,6 +667,28 @@ bool dma_resv_test_signaled(struct dma_resv *obj, bool test_all)
+ }
+ EXPORT_SYMBOL_GPL(dma_resv_test_signaled);
+ 
++/**
++ * dma_resv_describe - Dump description of the resv object into seq_file
++ * @obj: the reservation object
++ * @seq: the seq_file to dump the description into
++ *
++ * Dump a textual description of the fences inside an dma_resv object into the
++ * seq_file.
++ */
++void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq)
++{
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
++
++	dma_resv_for_each_fence(&cursor, obj, true, fence) {
++		seq_printf(seq, "\t%s fence:",
++			   dma_resv_iter_is_exclusive(&cursor) ?
++				"Exclusive" : "Shared");
++		dma_fence_describe(fence, seq);
++	}
++}
++EXPORT_SYMBOL_GPL(dma_resv_describe);
++
+ #if IS_ENABLED(CONFIG_LOCKDEP)
+ static int __init dma_resv_lockdep(void)
+ {
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index a706b7bf51d7..1ea691753bd3 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -264,6 +264,7 @@ void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 
+ void dma_fence_release(struct kref *kref);
+ void dma_fence_free(struct dma_fence *fence);
++void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
+ 
+ /**
+  * dma_fence_put - decreases refcount of the fence
+diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+index dbd235ab447f..09c6063b199a 100644
+--- a/include/linux/dma-resv.h
++++ b/include/linux/dma-resv.h
+@@ -490,5 +490,6 @@ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src);
+ long dma_resv_wait_timeout(struct dma_resv *obj, bool wait_all, bool intr,
+ 			   unsigned long timeout);
+ bool dma_resv_test_signaled(struct dma_resv *obj, bool test_all);
++void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq);
+ 
+ #endif /* _LINUX_RESERVATION_H */
+-- 
+2.25.1
+
