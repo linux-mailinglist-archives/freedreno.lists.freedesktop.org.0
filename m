@@ -2,66 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56C1A440127
-	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 19:21:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 997AE4402ED
+	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 21:10:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71686EA85;
-	Fri, 29 Oct 2021 17:21:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4786EA74;
+	Fri, 29 Oct 2021 19:10:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 244D96EA81
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 17:21:01 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1635528066; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=4HPL9sczbdymRv+oWzyjAE0VxVTQXhBhxNzHHsXiKw0=;
- b=gPkAo/tiVPoiVpvykFUlx5Ekde3cWDQxoIbFvCiMPS6k9LfJQXQcvT+HTbnKsTFI5pxp0xFy
- hSsjwQXZ/VICqma5Rq3CBJJPYtvue/PxlmTaXsgMhkNBNeX8lVJ8Uyz1B03R5wnedcZZE7jh
- uyVZ/fQMP2iSKXVD4e6xKBwwtXk=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 617c2d5e900d71ea1ee802ee (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 29 Oct 2021 17:20:30
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4FB04C43617; Fri, 29 Oct 2021 17:20:29 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 8BE25C4338F;
- Fri, 29 Oct 2021 17:20:28 +0000 (UTC)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B866EA77
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 19:10:17 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ x27-20020a9d459b000000b0055303520cc4so14888870ote.13
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 12:10:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=6E8vcYJD1fKDP3XaD/ycH8JYuUdwy86+ns+dWhU9gv0=;
+ b=RocDwXFrDGO/UvAZFqVuRg/v72xtGyOM9Lk5I2qYuyt1+h8yABESCofSInZzYjJ7g5
+ cOTtJivWVwprgwt3Q5LXiAJYIEl+sdyNTcBH1qmMMZJlh1QmB9bHBS76g/C8pElZQDuB
+ q4l3oiqhf6zDfV9HFpik4L4/j1+eP7S6z4164=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=6E8vcYJD1fKDP3XaD/ycH8JYuUdwy86+ns+dWhU9gv0=;
+ b=bPJophO21HVLqS0Jcgq9itP0JDgA5bLnwoZZWHyeYSrEEy14NAbB/waAs8jwYo/9Ym
+ AhuvxX0vTSExJm559LWBbiCRk6mxrdNsyepgNrXHXA4kbtY1GmACJLkdi9HrWTQ4HRef
+ rbniuJgOkuX+GhriKpoAqpvXr/OmauN1bJSRM+xGgluW4c2YO4K76lMxqcj+vVtwuFTB
+ i/AbB1DmDc2kbEbBU+QYum9aUDkrC8Bw0ucwHLndyemt+itM1fvSTZ2VNbFnyi5zSknC
+ LMIWJUb9Asl1Ha+Sl0lNNf/+dOnW71g6caYk4EYodPr3crz/bPmc/0ziRgt5lon8cCz1
+ SPYQ==
+X-Gm-Message-State: AOAM530JPwfGZNboDSbjUA6vcvPT3Y4+gP3ynlTy00po6Rriq9gBwX9s
+ xZCGD6GFwR4hbUDEQmLk67E7RiiXDFBR1Jkr8FFcXQ==
+X-Google-Smtp-Source: ABdhPJxCk6IMb59lyzYez87DGQZ6Gc3q17oYBRmUQDgX/ynDSJlazwQKn7ZL0Q43BMkQWirfnUQPme8eEHyOBDDqfXA=
+X-Received: by 2002:a05:6830:1290:: with SMTP id
+ z16mr2825771otp.159.1635534616693; 
+ Fri, 29 Oct 2021 12:10:16 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 29 Oct 2021 14:10:16 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Fri, 29 Oct 2021 10:20:28 -0700
-From: khsieh@codeaurora.org
-To: Stephen Boyd <swboyd@chromium.org>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org,
- abhinavk@codeaurora.org, dianders@chromium.org, mkrishn@codeaurora.org,
- sbillaka@codeaurora.org
-In-Reply-To: <CAE-0n50YcX6sCoTR0bUy_GrZM7=UdHPAGYNwE3Nvj6GL4iTmMg@mail.gmail.com>
-References: <1635386088-18089-1-git-send-email-quic_sbillaka@quicinc.com>
- <1635386088-18089-7-git-send-email-quic_sbillaka@quicinc.com>
- <CAE-0n50YcX6sCoTR0bUy_GrZM7=UdHPAGYNwE3Nvj6GL4iTmMg@mail.gmail.com>
-Message-ID: <d04f4082266e599cbba458d5e39e75e9@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v3 6/6] drm/msm/dp: Remove the hpd init
- delay for eDP
+In-Reply-To: <1635510619-6715-1-git-send-email-quic_kalyant@quicinc.com>
+References: <y> <1635510619-6715-1-git-send-email-quic_kalyant@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Fri, 29 Oct 2021 14:10:16 -0500
+Message-ID: <CAE-0n51eW3kkeW+3vJyqVTUF-R5G38SF2VjXi4SksuFbz=zcQg@mail.gmail.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, y@qualcomm.com
+Cc: linux-kernel@vger.kernel.org, robdclark@gmail.com, dianders@chromium.org, 
+ mkrishn@codeaurora.org, abhinavk@codeaurora.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [v2] drm/msm/disp/dpu1: set default group ID for
+ CTL.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,52 +72,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-27 23:38, Stephen Boyd wrote:
-> Quoting Sankeerth Billakanti (2021-10-27 18:54:48)
->> DP driver needs a 10 second delay before phy_init so that
->> the usb combo phy initializes and sets up the necessary
->> clocks for usb devices such as keyboard and mouse.
->> 
->> eDP controller uses a standalone phy and need not wait for
->> phy initialization from any other component. This change
->> will remove the delay for eDP controller.
->> 
->> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
->> ---
->>  drivers/gpu/drm/msm/dp/dp_display.c | 11 ++++++++++-
->>  1 file changed, 10 insertions(+), 1 deletion(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->> b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 61385d6..de6a1fd 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -1438,7 +1439,15 @@ void msm_dp_irq_postinstall(struct msm_dp 
->> *dp_display)
->> 
->>         dp_hpd_event_setup(dp);
->> 
->> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
->> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP) {
->> +               /* eDP does not need any delay before phy init */
->> +               delay = 0;
->> +       } else {
->> +               /* DP needs 10 second delay to let usb combo phy 
->> initialize */
-> 
-> This seems to be a different approach to the patch Kuogee sent a week 
-> or
-> two ago. Can we figure out what's wrong with the DP phy starting before
-> the USB phy? I suppose this patch is OK as a temporary hack to keep
-> moving with eDP, but we really need to figure out what's wrong with DP
-> so this delay can be removed entirely. Has any progress been made on
-> that?
-> 
-Sankeerth,
-Can you drop this patch for now.
-Let's discuss more.
+Quoting Kalyan Thota (2021-10-29 05:30:19)
+> New required programming in CTL for SC7280. Group ID informs
+> HW of which VM owns that CTL. Force this group ID to
+> default/disabled until virtualization support is enabled in SW.
+>
+> Changes in v1:
+>  - Fix documentation and add descritpion for the change (Stephen)
+>
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> ---
 
->> +               delay = 100;
->> +       }
->> +
->> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, delay);
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
