@@ -1,72 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A3D43FE5E
-	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 16:21:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56C1A440127
+	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 19:21:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB61A6EA64;
-	Fri, 29 Oct 2021 14:21:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C71686EA85;
+	Fri, 29 Oct 2021 17:21:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24CD96E0D4
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 14:21:17 +0000 (UTC)
-Received: by mail-il1-x12d.google.com with SMTP id x9so3164608ilu.6
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 07:21:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=sIUQzVNUIv7UCtk6VWOsz7d0/zFfTc744OnsuueWlvs=;
- b=DIQ887zrw4zChe9HYWt/WjLPNxc/iYt5HUHzQ4mwGE5XeORYC2UEpNsFOoZC3QwgaT
- TF48ji3W63maB8D8jK8tteg01GHEbd9pa35XXGVGX80TjCDIEKIfI58wstqA7F/JIHNv
- SWTVss33qnlUeJ2h7c6YErjgzxUafxydPSo7InFl1g0s1tf1NRKL22IHvQB/l0SZ4pnI
- XZuemEI4vmRoI3cL4HaUV/eMe/kyggaW74ioPY9b9lr/Yimb/Xq0gk6ZjeMdrKKJitsP
- 0wkFL2SlldC7C7aEe5ZYFEXuLwNAti5Wn4gvsIG9MgorOSChREQ1+9aBARDvOMZvcGRX
- ifNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=sIUQzVNUIv7UCtk6VWOsz7d0/zFfTc744OnsuueWlvs=;
- b=020d/Vyc8BIs5+sg0L4GiludMUCOGmYi7u7R//hcvjwFD3DcRubxp27aapPFmHdMbm
- pjeLWpx3fKI+LpjJ/ehSqyd3Xqr2ZmN6C9Z89f3oFuaZghriYDF7+U+i2U5pohCAgRwX
- 8j4EiuYmRTbTEP4+mYMo+eM4ah+pmf5IFCkNxDMV7mGlWBUn0cQbQUgS3Y9UsxHS+ZWm
- +KaEbqmfoynm3Zb6swOVwdTrpJ5D4jZUNIKfT5LHR8UFfJRlKfyzA/S3EfBHYDoPhpYn
- zdfQkatexh84QJ4YFAlv3ZxXUc0pIIyM6O3y1MMg3Uo0Zu8jB4/Yp9Twzzn43gk7moFt
- irag==
-X-Gm-Message-State: AOAM531fbWSuqNElXdwEcAAe/U2nuV/qm+Kz0B3fiJvKqonNcIN6HN4R
- B2gV/imoQPxqoRm6FVc2Hrw5aw==
-X-Google-Smtp-Source: ABdhPJw9vVlq7THY7kGI75S7I+MnEeKid2R/HUuZH+tEX10TwwATfB8tr2VAt0rQHhT4bIf6sFsQUQ==
-X-Received: by 2002:a05:6e02:1c08:: with SMTP id
- l8mr7574952ilh.203.1635517276430; 
- Fri, 29 Oct 2021 07:21:16 -0700 (PDT)
-Received: from localhost ([167.100.64.199])
- by smtp.gmail.com with ESMTPSA id e10sm2972754ili.53.2021.10.29.07.21.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Oct 2021 07:21:15 -0700 (PDT)
-Date: Fri, 29 Oct 2021 10:21:14 -0400
-From: Sean Paul <sean@poorly.run>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- swboyd@chromium.org, jani.nikula@linux.intel.com,
- Sean Paul <seanpaul@chromium.org>, Rob Herring <robh@kernel.org>,
- Rob Clark <robdclark@gmail.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org
-Message-ID: <20211029142114.GF10475@art_vandelay>
-References: <20211001151145.55916-1-sean@poorly.run>
- <20211001151145.55916-13-sean@poorly.run>
- <YVtc8ROAWAy1ja27@builder.lan>
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 244D96EA81
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 17:21:01 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1635528066; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=4HPL9sczbdymRv+oWzyjAE0VxVTQXhBhxNzHHsXiKw0=;
+ b=gPkAo/tiVPoiVpvykFUlx5Ekde3cWDQxoIbFvCiMPS6k9LfJQXQcvT+HTbnKsTFI5pxp0xFy
+ hSsjwQXZ/VICqma5Rq3CBJJPYtvue/PxlmTaXsgMhkNBNeX8lVJ8Uyz1B03R5wnedcZZE7jh
+ uyVZ/fQMP2iSKXVD4e6xKBwwtXk=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 617c2d5e900d71ea1ee802ee (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 29 Oct 2021 17:20:30
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 4FB04C43617; Fri, 29 Oct 2021 17:20:29 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8BE25C4338F;
+ Fri, 29 Oct 2021 17:20:28 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YVtc8ROAWAy1ja27@builder.lan>
-Subject: Re: [Freedreno] [PATCH v3 12/14] dt-bindings: msm/dp: Add bindings
- for HDCP registers
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 29 Oct 2021 10:20:28 -0700
+From: khsieh@codeaurora.org
+To: Stephen Boyd <swboyd@chromium.org>
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, seanpaul@chromium.org, kalyan_t@codeaurora.org,
+ abhinavk@codeaurora.org, dianders@chromium.org, mkrishn@codeaurora.org,
+ sbillaka@codeaurora.org
+In-Reply-To: <CAE-0n50YcX6sCoTR0bUy_GrZM7=UdHPAGYNwE3Nvj6GL4iTmMg@mail.gmail.com>
+References: <1635386088-18089-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1635386088-18089-7-git-send-email-quic_sbillaka@quicinc.com>
+ <CAE-0n50YcX6sCoTR0bUy_GrZM7=UdHPAGYNwE3Nvj6GL4iTmMg@mail.gmail.com>
+Message-ID: <d04f4082266e599cbba458d5e39e75e9@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3 6/6] drm/msm/dp: Remove the hpd init
+ delay for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,131 +77,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Oct 04, 2021 at 02:58:41PM -0500, Bjorn Andersson wrote:
-> On Fri 01 Oct 10:11 CDT 2021, Sean Paul wrote:
+On 2021-10-27 23:38, Stephen Boyd wrote:
+> Quoting Sankeerth Billakanti (2021-10-27 18:54:48)
+>> DP driver needs a 10 second delay before phy_init so that
+>> the usb combo phy initializes and sets up the necessary
+>> clocks for usb devices such as keyboard and mouse.
+>> 
+>> eDP controller uses a standalone phy and need not wait for
+>> phy initialization from any other component. This change
+>> will remove the delay for eDP controller.
+>> 
+>> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+>> ---
+>>  drivers/gpu/drm/msm/dp/dp_display.c | 11 ++++++++++-
+>>  1 file changed, 10 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
+>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 61385d6..de6a1fd 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1438,7 +1439,15 @@ void msm_dp_irq_postinstall(struct msm_dp 
+>> *dp_display)
+>> 
+>>         dp_hpd_event_setup(dp);
+>> 
+>> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+>> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP) {
+>> +               /* eDP does not need any delay before phy init */
+>> +               delay = 0;
+>> +       } else {
+>> +               /* DP needs 10 second delay to let usb combo phy 
+>> initialize */
 > 
-> > From: Sean Paul <seanpaul@chromium.org>
-> > 
-> > This patch adds the bindings for the MSM DisplayPort HDCP registers
-> > which are required to write the HDCP key into the display controller as
-> > well as the registers to enable HDCP authentication/key
-> > exchange/encryption.
-> > 
-> > We'll use a new compatible string for this since the fields are optional.
-> > 
+> This seems to be a different approach to the patch Kuogee sent a week 
+> or
+> two ago. Can we figure out what's wrong with the DP phy starting before
+> the USB phy? I suppose this patch is OK as a temporary hack to keep
+> moving with eDP, but we really need to figure out what's wrong with DP
+> so this delay can be removed entirely. Has any progress been made on
+> that?
 > 
-> I don't think you need a new compatible, in particular since I presume
-> we should use the hdcp compatible in all platforms? Or is there a reason
-> for not picking that one?
-> 
-> Instead I suggest that you simply do minItems: 1, maxItems: 3 and detect
-> which of the two cases you have in the driver.
+Sankeerth,
+Can you drop this patch for now.
+Let's discuss more.
 
-Thanks for your review, Bjorn! I had done this in v2 (see [1] & [2]), but it was
-suggested that a new compatible would be better. I'll change it back to this
-method rebased on top of your changes.
-
-Sean
-
-[1]- https://patchwork.freedesktop.org/patch/454066/?series=94712&rev=1
-[2]- https://patchwork.freedesktop.org/patch/454068/?series=94712&rev=1
-
-
-> 
-> PS. I hope to get
-> https://lore.kernel.org/linux-arm-msm/20211001174400.981707-1-bjorn.andersson@linaro.org/
-> landed before we add these new optional regions...
-> 
-> Regards,
-> Bjorn
-> 
-> > Cc: Rob Herring <robh@kernel.org>
-> > Cc: Stephen Boyd <swboyd@chromium.org>
-> > Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
-> > Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
-> > 
-> > Changes in v2:
-> > -Drop register range names (Stephen)
-> > -Fix yaml errors (Rob)
-> > Changes in v3:
-> > -Add new compatible string for dp-hdcp
-> > -Add descriptions to reg
-> > -Add minItems/maxItems to reg
-> > -Make reg depend on the new hdcp compatible string
-> > ---
-> > 
-> > Disclaimer: I really don't know if this is the right way to approach
-> > this. I tried using examples from other bindings, but feedback would be
-> > very much welcome on how I could add the optional register ranges.
-> > 
-> > 
-> >  .../bindings/display/msm/dp-controller.yaml   | 34 ++++++++++++++++---
-> >  1 file changed, 30 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > index 64d8d9e5e47a..a176f97b2f4c 100644
-> > --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> > @@ -17,9 +17,10 @@ properties:
-> >    compatible:
-> >      enum:
-> >        - qcom,sc7180-dp
-> > +      - qcom,sc7180-dp-hdcp
-> >  
-> > -  reg:
-> > -    maxItems: 1
-> > +  # See compatible-specific constraints below.
-> > +  reg: true
-> >  
-> >    interrupts:
-> >      maxItems: 1
-> > @@ -89,6 +90,29 @@ required:
-> >    - power-domains
-> >    - ports
-> >  
-> > +allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: qcom,sc7180-dp-hdcp
-> > +    then:
-> > +      properties:
-> > +        reg:
-> > +          minItems: 3
-> > +          maxItems: 3
-> > +          items:
-> > +            - description: Registers for base DP functionality
-> > +            - description: (Optional) Registers for HDCP device key injection
-> > +            - description: (Optional) Registers for HDCP TrustZone interaction
-> > +    else:
-> > +      properties:
-> > +        reg:
-> > +          minItems: 1
-> > +          maxItems: 1
-> > +          items:
-> > +            - description: Registers for base DP functionality
-> > +
-> >  additionalProperties: false
-> >  
-> >  examples:
-> > @@ -99,8 +123,10 @@ examples:
-> >      #include <dt-bindings/power/qcom-rpmpd.h>
-> >  
-> >      displayport-controller@ae90000 {
-> > -        compatible = "qcom,sc7180-dp";
-> > -        reg = <0xae90000 0x1400>;
-> > +        compatible = "qcom,sc7180-dp-hdcp";
-> > +        reg = <0 0x0ae90000 0 0x1400>,
-> > +              <0 0x0aed1000 0 0x174>,
-> > +              <0 0x0aee1000 0 0x2c>;
-> >          interrupt-parent = <&mdss>;
-> >          interrupts = <12>;
-> >          clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> > -- 
-> > Sean Paul, Software Engineer, Google / Chromium OS
-> > 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+>> +               delay = 100;
+>> +       }
+>> +
+>> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, delay);
