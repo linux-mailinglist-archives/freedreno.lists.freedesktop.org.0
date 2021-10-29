@@ -2,64 +2,71 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D9F43FD1C
-	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 15:07:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A3D43FE5E
+	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 16:21:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C99A6E11A;
-	Fri, 29 Oct 2021 13:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB61A6EA64;
+	Fri, 29 Oct 2021 14:21:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1536E10B
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 13:07:44 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id c9so5928797qvm.5
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 06:07:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RM/bmXapeBMh8+hpkmuvSolriwwEu8yH0p43JcPWCxk=;
- b=JbrJN6TZUsbo9JpQsvgIVP6KOjV8795JkEAt7GBb1EHJ1OA5nURuxMQ0K2v3Z6Vaj3
- MT1GY/SYopL87+NU20ZTwHkq8auoreegZImNaxJMuGAKvZtRBclj2VQKCcpoUeLzWtVC
- imI6YyBK5Hkpvi9BoWCu4eYU+YcigCHMY0KSLezdJrRxnRtSk2WYX5GaC+gX9/qYlPxb
- qRWqhEaZWwE5kp07fHg+z3Qe0q2LXf7L2cgDjLdbKqcmAOIV4NNCp7fffZ425HRtAPGG
- 2KBecILyimsbz3joFdek1ayqQASemWcmzBwQSoegfJP6RSTyvYdYqNAv5hpYJbF8kWft
- CA5w==
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24CD96E0D4
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 14:21:17 +0000 (UTC)
+Received: by mail-il1-x12d.google.com with SMTP id x9so3164608ilu.6
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 07:21:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=sIUQzVNUIv7UCtk6VWOsz7d0/zFfTc744OnsuueWlvs=;
+ b=DIQ887zrw4zChe9HYWt/WjLPNxc/iYt5HUHzQ4mwGE5XeORYC2UEpNsFOoZC3QwgaT
+ TF48ji3W63maB8D8jK8tteg01GHEbd9pa35XXGVGX80TjCDIEKIfI58wstqA7F/JIHNv
+ SWTVss33qnlUeJ2h7c6YErjgzxUafxydPSo7InFl1g0s1tf1NRKL22IHvQB/l0SZ4pnI
+ XZuemEI4vmRoI3cL4HaUV/eMe/kyggaW74ioPY9b9lr/Yimb/Xq0gk6ZjeMdrKKJitsP
+ 0wkFL2SlldC7C7aEe5ZYFEXuLwNAti5Wn4gvsIG9MgorOSChREQ1+9aBARDvOMZvcGRX
+ ifNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RM/bmXapeBMh8+hpkmuvSolriwwEu8yH0p43JcPWCxk=;
- b=pZ9FDy3BgRjt6rYMiI+9G7iFOVrFaQj1oCUcnRZlGjrAXSz5EJq+uVPYR2oRuJZh2Q
- qpujTb3NLj9TIwN4T2pl64CfxnwhPsuVGyo9yBI0h52C6oVQZJLc5aSoDKk8J4WCufHq
- 6OZprAhED8EubAPZ9SRFa9LNEOYJ4YNUScjm4Xi9Q8HJjXvU+00uf0Sjk+Te8e+68JYK
- k1brUMZlQxiRyP9L4cA7ocFNbc2SD+DfcFd4VcW9nEcRChb4vRJuSw7g+5WYHiWV9yN8
- 3BzEyVt7Eq1WK3fONRLE+79F3gQ1FEIZsNRw1nd9d6gKl8th+FfZRgl1r6Z33uqAukH9
- kPeQ==
-X-Gm-Message-State: AOAM532VVRri0o9205GmDcP3kLbSjkmvQJ6jwf50Ana7BIDv0+dPTgtH
- j+kVtBbBD+K0dg3g687i+qKQaEr8pBmKvC6za909Wg==
-X-Google-Smtp-Source: ABdhPJycrVL9EM1WkDbofkgiWuRPwE5CFOGucVbQDvC5kPJcPytF2VCCGVy5aLeGKxsgBVw0+jTq+rUAmjM0VVg7ak8=
-X-Received: by 2002:a05:6214:229:: with SMTP id
- j9mr10536899qvt.27.1635512863100; 
- Fri, 29 Oct 2021 06:07:43 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=sIUQzVNUIv7UCtk6VWOsz7d0/zFfTc744OnsuueWlvs=;
+ b=020d/Vyc8BIs5+sg0L4GiludMUCOGmYi7u7R//hcvjwFD3DcRubxp27aapPFmHdMbm
+ pjeLWpx3fKI+LpjJ/ehSqyd3Xqr2ZmN6C9Z89f3oFuaZghriYDF7+U+i2U5pohCAgRwX
+ 8j4EiuYmRTbTEP4+mYMo+eM4ah+pmf5IFCkNxDMV7mGlWBUn0cQbQUgS3Y9UsxHS+ZWm
+ +KaEbqmfoynm3Zb6swOVwdTrpJ5D4jZUNIKfT5LHR8UFfJRlKfyzA/S3EfBHYDoPhpYn
+ zdfQkatexh84QJ4YFAlv3ZxXUc0pIIyM6O3y1MMg3Uo0Zu8jB4/Yp9Twzzn43gk7moFt
+ irag==
+X-Gm-Message-State: AOAM531fbWSuqNElXdwEcAAe/U2nuV/qm+Kz0B3fiJvKqonNcIN6HN4R
+ B2gV/imoQPxqoRm6FVc2Hrw5aw==
+X-Google-Smtp-Source: ABdhPJw9vVlq7THY7kGI75S7I+MnEeKid2R/HUuZH+tEX10TwwATfB8tr2VAt0rQHhT4bIf6sFsQUQ==
+X-Received: by 2002:a05:6e02:1c08:: with SMTP id
+ l8mr7574952ilh.203.1635517276430; 
+ Fri, 29 Oct 2021 07:21:16 -0700 (PDT)
+Received: from localhost ([167.100.64.199])
+ by smtp.gmail.com with ESMTPSA id e10sm2972754ili.53.2021.10.29.07.21.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Oct 2021 07:21:15 -0700 (PDT)
+Date: Fri, 29 Oct 2021 10:21:14 -0400
+From: Sean Paul <sean@poorly.run>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ swboyd@chromium.org, jani.nikula@linux.intel.com,
+ Sean Paul <seanpaul@chromium.org>, Rob Herring <robh@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+Message-ID: <20211029142114.GF10475@art_vandelay>
+References: <20211001151145.55916-1-sean@poorly.run>
+ <20211001151145.55916-13-sean@poorly.run>
+ <YVtc8ROAWAy1ja27@builder.lan>
 MIME-Version: 1.0
-References: <1635510619-6715-1-git-send-email-quic_kalyant@quicinc.com>
-In-Reply-To: <1635510619-6715-1-git-send-email-quic_kalyant@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 29 Oct 2021 16:07:32 +0300
-Message-ID: <CAA8EJppXBC43=bWigTwQ-QkMsDVf829LRXokEBKcWJdHOoOezQ@mail.gmail.com>
-To: Kalyan Thota <quic_kalyant@quicinc.com>
-Cc: y@qualcomm.com, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>, 
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, 
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
- Rob Clark <robdclark@gmail.com>, Douglas Anderson <dianders@chromium.org>, 
- Krishna Manikandan <mkrishn@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v2] drm/msm/disp/dpu1: set default group ID for
- CTL.
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YVtc8ROAWAy1ja27@builder.lan>
+Subject: Re: [Freedreno] [PATCH v3 12/14] dt-bindings: msm/dp: Add bindings
+ for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,91 +82,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 29 Oct 2021 at 15:30, Kalyan Thota <quic_kalyant@quicinc.com> wrote:
->
-> New required programming in CTL for SC7280. Group ID informs
-> HW of which VM owns that CTL. Force this group ID to
-> default/disabled until virtualization support is enabled in SW.
->
-> Changes in v1:
->  - Fix documentation and add descritpion for the change (Stephen)
->
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+On Mon, Oct 04, 2021 at 02:58:41PM -0500, Bjorn Andersson wrote:
+> On Fri 01 Oct 10:11 CDT 2021, Sean Paul wrote:
+> 
+> > From: Sean Paul <seanpaul@chromium.org>
+> > 
+> > This patch adds the bindings for the MSM DisplayPort HDCP registers
+> > which are required to write the HDCP key into the display controller as
+> > well as the registers to enable HDCP authentication/key
+> > exchange/encryption.
+> > 
+> > We'll use a new compatible string for this since the fields are optional.
+> > 
+> 
+> I don't think you need a new compatible, in particular since I presume
+> we should use the hdcp compatible in all platforms? Or is there a reason
+> for not picking that one?
+> 
+> Instead I suggest that you simply do minItems: 1, maxItems: 3 and detect
+> which of the two cases you have in the driver.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Thanks for your review, Bjorn! I had done this in v2 (see [1] & [2]), but it was
+suggested that a new compatible would be better. I'll change it back to this
+method rebased on top of your changes.
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 5 ++++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c     | 8 ++++++++
->  3 files changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index ce6f32a..283605c 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -45,7 +45,7 @@
->         (PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
->
->  #define CTL_SC7280_MASK \
-> -       (BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE))
-> +       (BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
->
->  #define MERGE_3D_SM8150_MASK (0)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index 4ade44b..31af04a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -179,13 +179,16 @@ enum {
->
->  /**
->   * CTL sub-blocks
-> - * @DPU_CTL_SPLIT_DISPLAY       CTL supports video mode split display
-> + * @DPU_CTL_SPLIT_DISPLAY:     CTL supports video mode split display
-> + * @DPU_CTL_FETCH_ACTIVE:      Active CTL for fetch HW (SSPPs)
-> + * @DPU_CTL_VM_CFG:            CTL config to support multiple VMs
->   * @DPU_CTL_MAX
->   */
->  enum {
->         DPU_CTL_SPLIT_DISPLAY = 0x1,
->         DPU_CTL_ACTIVE_CFG,
->         DPU_CTL_FETCH_ACTIVE,
-> +       DPU_CTL_VM_CFG,
->         DPU_CTL_MAX
->  };
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index 64740ddb..02da9ec 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -36,6 +36,7 @@
->  #define  MERGE_3D_IDX   23
->  #define  INTF_IDX       31
->  #define CTL_INVALID_BIT                 0xffff
-> +#define CTL_DEFAULT_GROUP_ID           0xf
->
->  static const u32 fetch_tbl[SSPP_MAX] = {CTL_INVALID_BIT, 16, 17, 18, 19,
->         CTL_INVALID_BIT, CTL_INVALID_BIT, CTL_INVALID_BIT, CTL_INVALID_BIT, 0,
-> @@ -498,6 +499,13 @@ static void dpu_hw_ctl_intf_cfg_v1(struct dpu_hw_ctl *ctx,
->         u32 intf_active = 0;
->         u32 mode_sel = 0;
->
-> +       /* CTL_TOP[31:28] carries group_id to collate CTL paths
-> +        * per VM. Explicitly disable it until VM support is
-> +        * added in SW. Power on reset value is not disable.
-> +        */
-> +       if ((test_bit(DPU_CTL_VM_CFG, &ctx->caps->features)))
-> +               mode_sel = CTL_DEFAULT_GROUP_ID  << 28;
-> +
->         if (cfg->intf_mode_sel == DPU_CTL_MODE_SEL_CMD)
->                 mode_sel |= BIT(17);
->
-> --
-> 2.7.4
->
+Sean
 
+[1]- https://patchwork.freedesktop.org/patch/454066/?series=94712&rev=1
+[2]- https://patchwork.freedesktop.org/patch/454068/?series=94712&rev=1
+
+
+> 
+> PS. I hope to get
+> https://lore.kernel.org/linux-arm-msm/20211001174400.981707-1-bjorn.andersson@linaro.org/
+> landed before we add these new optional regions...
+> 
+> Regards,
+> Bjorn
+> 
+> > Cc: Rob Herring <robh@kernel.org>
+> > Cc: Stephen Boyd <swboyd@chromium.org>
+> > Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> > Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
+> > Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
+> > 
+> > Changes in v2:
+> > -Drop register range names (Stephen)
+> > -Fix yaml errors (Rob)
+> > Changes in v3:
+> > -Add new compatible string for dp-hdcp
+> > -Add descriptions to reg
+> > -Add minItems/maxItems to reg
+> > -Make reg depend on the new hdcp compatible string
+> > ---
+> > 
+> > Disclaimer: I really don't know if this is the right way to approach
+> > this. I tried using examples from other bindings, but feedback would be
+> > very much welcome on how I could add the optional register ranges.
+> > 
+> > 
+> >  .../bindings/display/msm/dp-controller.yaml   | 34 ++++++++++++++++---
+> >  1 file changed, 30 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > index 64d8d9e5e47a..a176f97b2f4c 100644
+> > --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> > @@ -17,9 +17,10 @@ properties:
+> >    compatible:
+> >      enum:
+> >        - qcom,sc7180-dp
+> > +      - qcom,sc7180-dp-hdcp
+> >  
+> > -  reg:
+> > -    maxItems: 1
+> > +  # See compatible-specific constraints below.
+> > +  reg: true
+> >  
+> >    interrupts:
+> >      maxItems: 1
+> > @@ -89,6 +90,29 @@ required:
+> >    - power-domains
+> >    - ports
+> >  
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: qcom,sc7180-dp-hdcp
+> > +    then:
+> > +      properties:
+> > +        reg:
+> > +          minItems: 3
+> > +          maxItems: 3
+> > +          items:
+> > +            - description: Registers for base DP functionality
+> > +            - description: (Optional) Registers for HDCP device key injection
+> > +            - description: (Optional) Registers for HDCP TrustZone interaction
+> > +    else:
+> > +      properties:
+> > +        reg:
+> > +          minItems: 1
+> > +          maxItems: 1
+> > +          items:
+> > +            - description: Registers for base DP functionality
+> > +
+> >  additionalProperties: false
+> >  
+> >  examples:
+> > @@ -99,8 +123,10 @@ examples:
+> >      #include <dt-bindings/power/qcom-rpmpd.h>
+> >  
+> >      displayport-controller@ae90000 {
+> > -        compatible = "qcom,sc7180-dp";
+> > -        reg = <0xae90000 0x1400>;
+> > +        compatible = "qcom,sc7180-dp-hdcp";
+> > +        reg = <0 0x0ae90000 0 0x1400>,
+> > +              <0 0x0aed1000 0 0x174>,
+> > +              <0 0x0aee1000 0 0x2c>;
+> >          interrupt-parent = <&mdss>;
+> >          interrupts = <12>;
+> >          clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> > -- 
+> > Sean Paul, Software Engineer, Google / Chromium OS
+> > 
 
 -- 
-With best wishes
-Dmitry
+Sean Paul, Software Engineer, Google / Chromium OS
