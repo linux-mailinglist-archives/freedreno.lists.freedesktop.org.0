@@ -1,62 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 997AE4402ED
-	for <lists+freedreno@lfdr.de>; Fri, 29 Oct 2021 21:10:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C590C440AC1
+	for <lists+freedreno@lfdr.de>; Sat, 30 Oct 2021 19:51:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4786EA74;
-	Fri, 29 Oct 2021 19:10:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28906E055;
+	Sat, 30 Oct 2021 17:51:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78B866EA77
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 19:10:17 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- x27-20020a9d459b000000b0055303520cc4so14888870ote.13
- for <freedreno@lists.freedesktop.org>; Fri, 29 Oct 2021 12:10:17 -0700 (PDT)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2ACA6E049
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Oct 2021 17:08:55 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id q187so13039361pgq.2
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Oct 2021 10:08:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=6E8vcYJD1fKDP3XaD/ycH8JYuUdwy86+ns+dWhU9gv0=;
- b=RocDwXFrDGO/UvAZFqVuRg/v72xtGyOM9Lk5I2qYuyt1+h8yABESCofSInZzYjJ7g5
- cOTtJivWVwprgwt3Q5LXiAJYIEl+sdyNTcBH1qmMMZJlh1QmB9bHBS76g/C8pElZQDuB
- q4l3oiqhf6zDfV9HFpik4L4/j1+eP7S6z4164=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=H+W1GMLw6C5reaVE/Y3pI1gn/PZ+dci603n52uqzIAc=;
+ b=K6IFILSEntzkjF4zAJE53lfbxpsnnRNjTX18tiLglLxJt0GORz7bgiSEoN5mAxVgsh
+ mGFKli7c6RMXqSX9ifPiVEt2g7fVDBii20SQgVDzVo4LR3co8CO0nNOsWbIk2ue/DqJO
+ qUXF3lMtss5oMddUcgBFo0PkgV8queNnOxfeg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=6E8vcYJD1fKDP3XaD/ycH8JYuUdwy86+ns+dWhU9gv0=;
- b=bPJophO21HVLqS0Jcgq9itP0JDgA5bLnwoZZWHyeYSrEEy14NAbB/waAs8jwYo/9Ym
- AhuvxX0vTSExJm559LWBbiCRk6mxrdNsyepgNrXHXA4kbtY1GmACJLkdi9HrWTQ4HRef
- rbniuJgOkuX+GhriKpoAqpvXr/OmauN1bJSRM+xGgluW4c2YO4K76lMxqcj+vVtwuFTB
- i/AbB1DmDc2kbEbBU+QYum9aUDkrC8Bw0ucwHLndyemt+itM1fvSTZ2VNbFnyi5zSknC
- LMIWJUb9Asl1Ha+Sl0lNNf/+dOnW71g6caYk4EYodPr3crz/bPmc/0ziRgt5lon8cCz1
- SPYQ==
-X-Gm-Message-State: AOAM530JPwfGZNboDSbjUA6vcvPT3Y4+gP3ynlTy00po6Rriq9gBwX9s
- xZCGD6GFwR4hbUDEQmLk67E7RiiXDFBR1Jkr8FFcXQ==
-X-Google-Smtp-Source: ABdhPJxCk6IMb59lyzYez87DGQZ6Gc3q17oYBRmUQDgX/ynDSJlazwQKn7ZL0Q43BMkQWirfnUQPme8eEHyOBDDqfXA=
-X-Received: by 2002:a05:6830:1290:: with SMTP id
- z16mr2825771otp.159.1635534616693; 
- Fri, 29 Oct 2021 12:10:16 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 29 Oct 2021 14:10:16 -0500
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=H+W1GMLw6C5reaVE/Y3pI1gn/PZ+dci603n52uqzIAc=;
+ b=XuPgNDscPbyEG8V6WzMr6oQURyCkMXA9Fbcu7fC5KQ2rvHG50hsES0zQ5S9wCm5NdZ
+ XildMdSH93huvpeiiajeHMbsBbMrQN/VKeVJNOe0L0+pRONQJCTnWEYPO5IfgN6BgFsm
+ 7rq8kujvbQry+Yc7aKRlidezZRvLwutZV1YLU34svsTaxcf6WMRiwtn06/rTRev0NJSg
+ FuhaQIGO5BpeljXgn1EeNAM1Fxky3hzj9AN2WmeWCgO4irGyWi28CnnuyWvgqxrAbSYI
+ EyA8dnmoive2V+CkrZjjU8dmqbf0a5Y/c8KzBFrIz22OTSeBg+9DhgZKMi6TaHNM3jlP
+ ypPQ==
+X-Gm-Message-State: AOAM5305R8oPDFpGxp0CgUW2PyQ3yBWIm2p/lANbM/lsvr9/57Dq6Ug1
+ rHtqWqvwkdXlgvseNLHTz6269Q==
+X-Google-Smtp-Source: ABdhPJwSmUoGp7LXb7jUr28+7PBB+QkgoTQGz8UyV8ymunRt9JTMHBCp+cX19W4PjQ1KMU+pSedPog==
+X-Received: by 2002:a63:ce0a:: with SMTP id y10mr13812030pgf.133.1635613735258; 
+ Sat, 30 Oct 2021 10:08:55 -0700 (PDT)
+Received: from philipchen.mtv.corp.google.com
+ ([2620:15c:202:201:f63c:4559:725c:b6da])
+ by smtp.gmail.com with ESMTPSA id i7sm8565390pgk.85.2021.10.30.10.08.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 30 Oct 2021 10:08:54 -0700 (PDT)
+From: Philip Chen <philipchen@chromium.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: dianders@chromium.org, swboyd@chromium.org, robdclark@chromium.org,
+ Philip Chen <philipchen@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Bernard Zhao <bernard@vivo.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Nicolas Boichat <drinkcat@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Yangtao Li <tiny.windzz@gmail.com>, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Date: Sat, 30 Oct 2021 10:08:50 -0700
+Message-Id: <20211030100812.1.I6cd9af36b723fed277d34539d3b2ba4ca233ad2d@changeid>
+X-Mailer: git-send-email 2.33.1.1089.g2158813163f-goog
 MIME-Version: 1.0
-In-Reply-To: <1635510619-6715-1-git-send-email-quic_kalyant@quicinc.com>
-References: <y> <1635510619-6715-1-git-send-email-quic_kalyant@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Fri, 29 Oct 2021 14:10:16 -0500
-Message-ID: <CAE-0n51eW3kkeW+3vJyqVTUF-R5G38SF2VjXi4SksuFbz=zcQg@mail.gmail.com>
-To: Kalyan Thota <quic_kalyant@quicinc.com>, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, y@qualcomm.com
-Cc: linux-kernel@vger.kernel.org, robdclark@gmail.com, dianders@chromium.org, 
- mkrishn@codeaurora.org, abhinavk@codeaurora.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v2] drm/msm/disp/dpu1: set default group ID for
- CTL.
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 30 Oct 2021 17:51:47 +0000
+Subject: [Freedreno] [PATCH] drm/msm/dsi: set default num_data_lanes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,15 +78,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kalyan Thota (2021-10-29 05:30:19)
-> New required programming in CTL for SC7280. Group ID informs
-> HW of which VM owns that CTL. Force this group ID to
-> default/disabled until virtualization support is enabled in SW.
->
-> Changes in v1:
->  - Fix documentation and add descritpion for the change (Stephen)
->
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> ---
+If "data_lanes" property of the dsi output endpoint is missing in
+the DT, num_data_lanes would be 0 by default, which could cause
+dsi_host_attach() to fail if dsi->lanes is set to a non-zero value
+by the bridge driver.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+According to the binding document of msm dsi controller, the
+input/output endpoint of the controller is expected to have 4 lanes.
+So let's set num_data_lanes to 4 by default.
+
+Signed-off-by: Philip Chen <philipchen@chromium.org>
+---
+
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index c86b5090fae6..a32eb33dfc14 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1696,6 +1696,8 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
+ 	if (!prop) {
+ 		DRM_DEV_DEBUG(dev,
+ 			"failed to find data lane mapping, using default\n");
++		/* Set the number of date lanes to 4 by default. */
++		msm_host->num_data_lanes = 4;
+ 		return 0;
+ 	}
+ 
+-- 
+2.33.1.1089.g2158813163f-goog
+
