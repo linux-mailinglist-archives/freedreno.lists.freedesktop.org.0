@@ -1,50 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C7AE4420E6
-	for <lists+freedreno@lfdr.de>; Mon,  1 Nov 2021 20:35:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 033F84428CF
+	for <lists+freedreno@lfdr.de>; Tue,  2 Nov 2021 08:49:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 870EF89F35;
-	Mon,  1 Nov 2021 19:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78F1F6FC3E;
+	Tue,  2 Nov 2021 07:49:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kapsi.fi (mail.kapsi.fi [IPv6:2001:67c:1be8::25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE4D89F01;
- Mon,  1 Nov 2021 19:35:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kapsi.fi;
- s=20161220; h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
- In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=p5j38nD4C6JFRNTsNhzwvjuue/W06jEH6YlXaA0bpeU=; b=jbLZtsyJxM9oj7PQePkpXtK5kb
- mdV8zpactjaZuYEv7XKtLrdyChEfIsddeHZmX+saHhtRh1zMhukiG2cGhihHIl8Z8UjnYpqazgi2j
- G3ePggflvINuBVvN2eCr9T1rW0dtWweZvQsBCe8hWVN+P6rW1XD0lrJ60kTFeQsfD+R5rmFk6AcEp
- g3XRtTlrMWsFCxgx63tAQuWvV5+01JJcrfMq6IgR2tbhufHcGwh2NpJoNFXcIDu/FwonZiE7NG6Az
- nhFopVf6K+QEVodyZG7hO5dCIitxX13/iU3mPU3o2/puUu2cS3cP7L7hutsDVf+nVy6jSZ9VYmlQL
- E0ISl+bQ==;
-Received: from webng-gw.kapsi.fi ([91.232.154.200] helo=roundcube.kapsi.fi)
- by mail.kapsi.fi with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.89) (envelope-from <jyri.sarha@iki.fi>)
- id 1mhd5b-000303-Us; Mon, 01 Nov 2021 21:35:27 +0200
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7284E6FC3D;
+ Tue,  2 Nov 2021 07:49:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1635839354; x=1667375354;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ACJNqGHt3cpapSBqik2oM0AjcgSHSZ3LqelPF8zK9+g=;
+ b=gmzidwQuXNc8xWKw2gCPorfEhj5vkbdbMxOL0lXzBC5KYc537O8GJZNV
+ I3rpcZPXPzKo5Ugbf1taU/+RpWL3Mg7cDC+6WbvGJr70oJa8caY8qutlS
+ 1h+XPycU4PV0pb14NU2VSF+69JqH9wGhRZ8j2cSWqyWqH1OquXuaTnnB8 4=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 02 Nov 2021 00:49:13 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2021 00:49:12 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; 
+ Tue, 2 Nov 2021 00:49:12 -0700
+Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; 
+ Tue, 2 Nov 2021 00:49:08 -0700
+From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Date: Tue, 2 Nov 2021 13:18:40 +0530
+Message-ID: <1635839325-401-1-git-send-email-quic_sbillaka@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Date: Mon, 01 Nov 2021 21:35:25 +0200
-From: Jyri Sarha <jyri.sarha@iki.fi>
-To: Stephen Boyd <swboyd@chromium.org>
-In-Reply-To: <20211026000044.885195-25-swboyd@chromium.org>
-References: <20211026000044.885195-1-swboyd@chromium.org>
- <20211026000044.885195-25-swboyd@chromium.org>
-Message-ID: <db784574b2cbe57ac0efbe045c9576f3@iki.fi>
-X-Sender: jyri.sarha@iki.fi
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 91.232.154.200
-X-SA-Exim-Mail-From: jyri.sarha@iki.fi
-X-SA-Exim-Scanned: No (on mail.kapsi.fi); SAEximRunCond expanded to false
-Subject: Re: [Freedreno] [PATCH v3 24/34] drm/tilcdc: Migrate to aggregate
- driver
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v4 0/5] Add support for eDP controller on SC7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,109 +59,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saravana Kannan <saravanak@google.com>, Tomi Valkeinen <tomba@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
- Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dianders@chromium.org, quic_abhinavk@quicinc.com, swboyd@chromium.org,
+ robdclark@gmail.com, seanpaul@chromium.org, quic_mkrishn@quicinc.com,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-26 3:00, Stephen Boyd wrote:
-> Use an aggregate driver instead of component ops so that we can get
-> proper driver probe ordering of the aggregate device with respect to 
-> all
-> the component devices that make up the aggregate device.
-> 
-> Cc: Jyri Sarha <jyri.sarha@iki.fi>
-> Cc: Tomi Valkeinen <tomba@kernel.org>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Russell King <rmk+kernel@arm.linux.org.uk>
-> Cc: Saravana Kannan <saravanak@google.com>
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> ---
+	This series will add eDP controller support for Qualcomm SC7280
+platform. These patches are baseline changes with which we can enable
+eDP display on sc7280. The sc7280 eDP controller driver can also support
+additional features such as no_hpd detection, PSR, etc. which will be
+enabled in subsequent patch series.
 
-Tested-by: Jyri Sarha <jyri.sarha@iki.fi>
+	This is based on Bjorn's changes in the below mentioned series
+to support both eDP and DP programming through the same driver:
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=564841
 
-Thanks,
-Jyri
+Sankeerth Billakanti (5):
+  dt-bindings: msm/dp: Add DP compatible strings for sc7280
+  drm/msm/dp: Add DP controllers for sc7280
+  drm/dp: Add macro to check max_downspread capability
+  drm/msm/dp: Enable downspread for supported DP sinks
+  drm/msm/dp: Enable ASSR for supported DP sinks
 
->  drivers/gpu/drm/tilcdc/tilcdc_drv.c | 28 ++++++++++++++++------------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> index 6b03f89a98d4..d5c6567eec8d 100644
-> --- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> +++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-> @@ -531,13 +531,16 @@ static const struct dev_pm_ops tilcdc_pm_ops = {
->  /*
->   * Platform driver:
->   */
-> -static int tilcdc_bind(struct device *dev)
-> +static int tilcdc_bind(struct aggregate_device *adev)
->  {
-> +	struct device *dev = adev->parent;
-> +
->  	return tilcdc_init(&tilcdc_driver, dev);
->  }
-> 
-> -static void tilcdc_unbind(struct device *dev)
-> +static void tilcdc_unbind(struct aggregate_device *adev)
->  {
-> +	struct device *dev = adev->parent;
->  	struct drm_device *ddev = dev_get_drvdata(dev);
-> 
->  	/* Check if a subcomponent has already triggered the unloading. */
-> @@ -547,9 +550,13 @@ static void tilcdc_unbind(struct device *dev)
->  	tilcdc_fini(dev_get_drvdata(dev));
->  }
-> 
-> -static const struct component_master_ops tilcdc_comp_ops = {
-> -	.bind = tilcdc_bind,
-> -	.unbind = tilcdc_unbind,
-> +static struct aggregate_driver tilcdc_aggregate_driver = {
-> +	.probe = tilcdc_bind,
-> +	.remove = tilcdc_unbind,
-> +	.driver = {
-> +		.name = "tilcdc_drm",
-> +		.owner = THIS_MODULE,
-> +	},
->  };
-> 
->  static int tilcdc_pdev_probe(struct platform_device *pdev)
-> @@ -566,12 +573,9 @@ static int tilcdc_pdev_probe(struct 
-> platform_device *pdev)
->  	ret = tilcdc_get_external_components(&pdev->dev, &match);
->  	if (ret < 0)
->  		return ret;
-> -	else if (ret == 0)
-> +	if (ret == 0)
->  		return tilcdc_init(&tilcdc_driver, &pdev->dev);
-> -	else
-> -		return component_master_add_with_match(&pdev->dev,
-> -						       &tilcdc_comp_ops,
-> -						       match);
-> +	return component_aggregate_register(&pdev->dev,
-> &tilcdc_aggregate_driver, match);
->  }
-> 
->  static int tilcdc_pdev_remove(struct platform_device *pdev)
-> @@ -581,10 +585,10 @@ static int tilcdc_pdev_remove(struct
-> platform_device *pdev)
->  	ret = tilcdc_get_external_components(&pdev->dev, NULL);
->  	if (ret < 0)
->  		return ret;
-> -	else if (ret == 0)
-> +	if (ret == 0)
->  		tilcdc_fini(platform_get_drvdata(pdev));
->  	else
-> -		component_master_del(&pdev->dev, &tilcdc_comp_ops);
-> +		component_aggregate_unregister(&pdev->dev, 
-> &tilcdc_aggregate_driver);
-> 
->  	return 0;
->  }
+ .../bindings/display/msm/dp-controller.yaml        |  2 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  4 ++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 23 +++++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_display.c                |  9 +++++++++
+ include/drm/drm_dp_helper.h                        |  7 +++++++
+ 5 files changed, 40 insertions(+), 5 deletions(-)
+
+-- 
+2.7.4
+
