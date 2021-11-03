@@ -1,60 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9BF3443A56
-	for <lists+freedreno@lfdr.de>; Wed,  3 Nov 2021 01:15:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 12DD8443E21
+	for <lists+freedreno@lfdr.de>; Wed,  3 Nov 2021 09:12:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 303496E852;
-	Wed,  3 Nov 2021 00:15:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C5A734BA;
+	Wed,  3 Nov 2021 08:12:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A7D73918
- for <freedreno@lists.freedesktop.org>; Tue,  2 Nov 2021 23:44:54 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1635896698; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=xxynaSB47PKFANJh0W+rTxGSzbolgH2alDmxwuNv1gs=;
- b=D+oUPq+07AhG3+KHJVCvr6XYe5+2AbXywt8Vw4yySfhvLXtM5KSbZ8YGFmNzQfVwV0bwuaVk
- 1/uuQv8qTNe0ET0coE68FRILh1GjRLHkdhMKJSxfFZPPzUhXLAX6qogV6vjx4oZxQLW24CHz
- FHAJ9cD1/GDTRDAfOhs6OZbIAmE=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 6181cd6b883b2746f728639f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 02 Nov 2021 23:44:43
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 579A4C4361A; Tue,  2 Nov 2021 23:44:42 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from khsieh-linux1.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6C64AC4360D;
- Tue,  2 Nov 2021 23:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 6C64AC4360D
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=fail (p=none dis=none) header.from=quicinc.com
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=quicinc.com
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- vkoul@kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org
-Date: Tue,  2 Nov 2021 16:44:33 -0700
-Message-Id: <1635896673-5841-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-X-Mailman-Approved-At: Wed, 03 Nov 2021 00:15:35 +0000
-Subject: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7280: Add Display Port
- node
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13E39734B6;
+ Wed,  3 Nov 2021 08:12:36 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id t30so2203357wra.10;
+ Wed, 03 Nov 2021 01:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Uh0NRCclsAKfVxkerpNkq71adkos81CcdIhWKjRw+6Y=;
+ b=mr5PnPgRO8OzuCvJMvW5hnrKT6fvInL0UAalZ989hyaB3jvVYItDW8ou3liJfIJoNr
+ hvWaf54dIpbnxdcc373Xcvqh9M6HM18knXjMfLH8s9y9SqdcLaOWvj2x7DpcCaGzVFbZ
+ lRKQhbmITsNkhjsS4nGlQr7p3Lx9KbhcIkcbZuEMqIiRnZFQq9nQAgmb7jI6kyyIYGVr
+ 8DuN2xfiamK0PB5ZXxLNCXVJmkxa0CufWXYNL8NcvGDnhKDuJsd3OrctTS27BMaV18TM
+ rng6LYJfdT4RIcJrOUvee5IGHT8G8Pg1qV1oMpUStS5iXhzHspZdxG0dOEiTdyYrycJK
+ yKSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Uh0NRCclsAKfVxkerpNkq71adkos81CcdIhWKjRw+6Y=;
+ b=HGJvOrpwED7SiLPwF7BLyqzA+9qhiptUlsz0Icl+z5M1wM6sImchOzL3SrUgMWYd2J
+ s0cSaLWBU5ZarHKuQ0U2zef6b7rqVSgxOTtXxXXcUoUzxkkjjfU4kzvM0+Eb8nNjUqMv
+ y0GiKb48ue91kiM06AiZGnykZgFABvP73QzC+j4/2VEd/4fe0vlodnchcgbJnWB2B6hc
+ +IatfmlMSY5No94nMPKxu/yC4bX0Dv1drD+/C+JGz0ehVgpFfDu7YKSEEcuF6mFjUqin
+ U6WYbxAYDmhLskR6ZIV+LcCYvn8MWSb4flZkfxpXvaGTe35mVaR2Vd4yXmNQxbRIa9DD
+ vVsw==
+X-Gm-Message-State: AOAM533RSXoEaQ+SqqKuQCKr7gAwfNhLT+ajn1v7O4o9L2YwTrhIjTJu
+ SB6OlfMKyocGmFmcpWtURqo=
+X-Google-Smtp-Source: ABdhPJw1BshvZSVxZm2e89H/8z2XLrQccFGIz7m0oW1jDggouT+C66c3Yi239msG+Ek/pKeY2cfj0A==
+X-Received: by 2002:adf:fe88:: with SMTP id l8mr33010703wrr.208.1635927154697; 
+ Wed, 03 Nov 2021 01:12:34 -0700 (PDT)
+Received: from abel.fritz.box (p5b0ea1b5.dip0.t-ipconnect.de. [91.14.161.181])
+ by smtp.gmail.com with ESMTPSA id
+ l7sm1450088wry.86.2021.11.03.01.12.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 03 Nov 2021 01:12:34 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: linux-media@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ spice-devel@lists.freedesktop.org
+Date: Wed,  3 Nov 2021 09:12:27 +0100
+Message-Id: <20211103081231.18578-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] DMA-buf debugfs cleanups
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,150 +72,17 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, quic_khsieh@quicinc.com,
- Kuogee Hsieh <khsieh@codeaurora.org>, quic_mkrishn@quicinc.com,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
- quic_kalyant@quicinc.coml, linux-kernel@vger.kernel.org
+Cc: sumit.semwal@linaro.org, daniel@ffwll.ch, l.stach@pengutronix.de
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Kuogee Hsieh <khsieh@codeaurora.org>
+Hi guys,
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
+second round for those four patches adding some simple yet useful DMA-buf helper functions for debugfs prints.
 
-Changes in v2:
--- move fixes of dp_phy reg property to other patch
+Fixed some missing includes and typos in commit messages.
 
-Changes in v3:
--- delete "qcom,sc7180-dp" from msm_dp node
+Please review and/or comment,
+Christian.
 
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 89 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 87 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index fb2f1506..4414abc 100644
---- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -2709,8 +2709,8 @@
- 				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
- 				 <&dsi_phy 0>,
- 				 <&dsi_phy 1>,
--				 <0>,
--				 <0>,
-+			  	 <&dp_phy 0>,
-+			  	 <&dp_phy 1>,
- 				 <&edp_phy 0>,
- 				 <&edp_phy 1>;
- 			clock-names = "bi_tcxo",
-@@ -2807,6 +2807,13 @@
- 							remote-endpoint = <&edp_in>;
- 						};
- 					};
-+
-+					port@2 {
-+                                                reg = <2>;
-+                                                dpu_intf0_out: endpoint {
-+                                                        remote-endpoint = <&dp_in>;
-+                                                };
-+                                        };
- 				};
- 
- 				mdp_opp_table: opp-table {
-@@ -3018,6 +3025,78 @@
- 
- 				status = "disabled";
- 			};
-+
-+			msm_dp: displayport-controller@ae90000 {
-+				status = "disabled";
-+				compatible = "qcom,sc7280-dp";
-+
-+				reg = <0 0x0ae90000 0 0x1400>;
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <12>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
-+				clock-names =	"core_iface",
-+						"core_aux",
-+						"ctrl_link",
-+						"ctrl_link_iface",
-+						"stream_pixel";
-+				#clock-cells = <1>;
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
-+				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
-+				phys = <&dp_phy>;
-+				phy-names = "dp";
-+
-+				operating-points-v2 = <&dp_opp_table>;
-+				power-domains = <&rpmhpd SC7280_CX>;
-+
-+				#sound-dai-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					port@0 {
-+						reg = <0>;
-+						dp_in: endpoint {
-+							remote-endpoint = <&dpu_intf0_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dp_out: endpoint { };
-+					};
-+				};
-+
-+				dp_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-160000000 {
-+						opp-hz = /bits/ 64 <160000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-270000000 {
-+						opp-hz = /bits/ 64 <270000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-540000000 {
-+						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-810000000 {
-+						opp-hz = /bits/ 64 <810000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
- 		};
- 
- 		pdc: interrupt-controller@b220000 {
-@@ -3120,6 +3199,12 @@
- 				bias-pull-up;
- 			};
- 
-+			dp_hot_plug_det: dp-hot-plug-det {
-+				pins = "gpio47";
-+				function = "dp_hot";
-+				bias-disable;
-+                        };
-+
- 			qspi_clk: qspi-clk {
- 				pins = "gpio14";
- 				function = "qspi_clk";
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
 
