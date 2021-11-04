@@ -2,57 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D738444AE3
-	for <lists+freedreno@lfdr.de>; Wed,  3 Nov 2021 23:31:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC3E7444CA4
+	for <lists+freedreno@lfdr.de>; Thu,  4 Nov 2021 01:34:33 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1C247ABD4;
-	Wed,  3 Nov 2021 22:31:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0B846EBA1;
+	Thu,  4 Nov 2021 00:34:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79BC97ABD3
- for <freedreno@lists.freedesktop.org>; Wed,  3 Nov 2021 22:31:27 +0000 (UTC)
-Received: by mail-pl1-x62c.google.com with SMTP id p18so3895741plf.13
- for <freedreno@lists.freedesktop.org>; Wed, 03 Nov 2021 15:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3606EBA1
+ for <freedreno@lists.freedesktop.org>; Thu,  4 Nov 2021 00:34:31 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id v23so6697929ljk.5
+ for <freedreno@lists.freedesktop.org>; Wed, 03 Nov 2021 17:34:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=wYuh1JY2j6LUOSTdqyWesZ0R/Q+mBuPiwKHvgPQt+68=;
- b=G/B3rxka7UN4c6zf8gYuxii9Qwd9no3+m+kLb94LFVc3JKwJlMEPU2wxhRRbATpHfN
- wHkjJ26kzj4Jkg7MbNuppZUX1ABhA5WkGKEptJKiiloJgl6oMSfvL2JFOJaxuoE3txIn
- pXuo6auKkl8DQCdZSVSgVrLMYdfjL6z9+o7LI=
+ bh=fkfgnJaDUY04rNIV6or1h0npcgBkYvs6ev3vQOc1YF8=;
+ b=ABG+aRHIXjpa0AddFi3FTUVOa4EtckWj5BNxOpbOmxbGBF6s7cZGz8cZhvbyxn0Fon
+ IzCmeKBxyH0DAYWJvvpYSyDI5BSu7qlrHyL94cWjM7pZXuingC2Fi9+Fz1oKVWdvb6F9
+ oD7zDZKBhlnh20m7K+7Y0eyermQoKAAf+z0G/52HQHC31sluTWwjihJE4ZJDH2wRgBRW
+ igi0VnD4l7yPp8YJKBxCamtb7iNjjN8ICx4FPFZLLZV/Rff24KbODnvc5EvebrHhzszX
+ /Wc0ZgnqWBAti81eGosrJPpX5UaYZoLC/3KC/8S9GfEOSPx3Gh0A6X9tdpbNMZiHo5nz
+ lpEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=wYuh1JY2j6LUOSTdqyWesZ0R/Q+mBuPiwKHvgPQt+68=;
- b=a2Wfmt98cols73ECd31dPx3wdl/enCKtFP8DHjxMGN5dYYc4J4KnGz2zAShhmwsmSq
- XJEKTwIye8qcDc8fzXQlel5VsE10maB5lmO9PUhTLs5IF/ufg2D+1h1SGlmAOzUrfwqM
- yp4yB1TDa1DJdQyEx4qE+1TO/ExHsg8N4IM9VII8pi0uPWt8kGCqLP1IANvSaUQpepBx
- 0/gRNGYgXsmU8ZcgZ7burAz3M/kSiGlWC4OnDh0q2sFrPEiQdMfr0NR5kIF0RKnDVTqe
- 9vHuxY3xm6ozqP0WCewkdc1UD1Lz4SZ7E2dJDhPu4LOzUsZ/RmupbAMmhHU4mUnKV53l
- ZukQ==
-X-Gm-Message-State: AOAM531A7O8zm7q9KREJ7hFL/urDGwcvey86w5WlxR6k8BF8EreC1nBe
- nh4JDRPRLAJUgg8Yyfb4WrmW8A==
-X-Google-Smtp-Source: ABdhPJwj3QFK3X8rRdGJf8MTmYNgv50bk2p3Le7VnOeB8x8pGV3kxUC0IhqOQLkuVMyU13+3e2zYSw==
-X-Received: by 2002:a17:90a:cb98:: with SMTP id
- a24mr17742425pju.153.1635978687072; 
- Wed, 03 Nov 2021 15:31:27 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:8d42:7991:8f12:2672])
- by smtp.gmail.com with ESMTPSA id f16sm3657259pfe.172.2021.11.03.15.31.26
+ bh=fkfgnJaDUY04rNIV6or1h0npcgBkYvs6ev3vQOc1YF8=;
+ b=7iKqLrwaYAVr423+sm2DFD4Bwyrvo3csqTI9nIw++n/zPkJLSmAjlq6MqbnquhfoFB
+ +G0Ts7r+bp0oV2b3nfSQ3F1qrK4VUPI3AJyKcMj/y5Ps/lrkMy5OaXnPKdU8kp3IcYGm
+ HMBQElf7/hmOEtG7LKPtsTg384RbTqnG/p5OepYkB97JuCsnzeIYbb8DtECdGOLbSJrl
+ 9mddi1BFf0PG3eChktwWzZbUURy7bDbJ0PcBr0Ak3KYue9wTLpJc6I+nEVyMZ+QKisI+
+ m6H1X5PVdIVN0UVq1Afl1hC2X+hDbdd/1XUgjVk2CyBLJLUT/4FTN49goj/AQowzsJTC
+ vDEA==
+X-Gm-Message-State: AOAM532YECHHwsDh9R4A02zcuRzE+U8eu6TGtD7F0MRzYLk594R/sxeG
+ hT+7h+NltM1HY6ckWK4LtP1q3A==
+X-Google-Smtp-Source: ABdhPJzCkR0IM+3ESKrRBralZgsMmASvHaJQoJHxxl87GrbiEH4Snc0/oybL5kI9s7tu9GjaAWf8/g==
+X-Received: by 2002:a2e:8447:: with SMTP id u7mr49489401ljh.179.1635986069265; 
+ Wed, 03 Nov 2021 17:34:29 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id f4sm312128lfr.43.2021.11.03.17.34.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Nov 2021 15:31:26 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Wed,  3 Nov 2021 15:31:08 -0700
-Message-Id: <20211103153049.1.Idfa574ccb529d17b69db3a1852e49b580132035c@changeid>
-X-Mailer: git-send-email 2.33.1.1089.g2158813163f-goog
+ Wed, 03 Nov 2021 17:34:28 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Thu,  4 Nov 2021 03:34:28 +0300
+Message-Id: <20211104003428.2205497-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Allocate enough space for GMU
- registers
+Subject: [Freedreno] [PATCH] drm/msm/mdp5: drop vdd regulator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +67,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Lee Jones <lee.jones@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In commit 142639a52a01 ("drm/msm/a6xx: fix crashstate capture for
-A650") we changed a6xx_get_gmu_registers() to read 3 sets of
-registers. Unfortunately, we didn't change the memory allocation for
-the array. That leads to a KASAN warning (this was on the chromeos-5.4
-kernel, which has the problematic commit backported to it):
+The "vdd" regulator was used by the mdp5 driver only on downstream
+kernels, where the GDSC is represented as a regulator. On all current
+kernels the MDSS_GDSC is implemented as the power domain, removing the
+need for this regulator. Remove it from the mdp5 driver.
 
-  BUG: KASAN: slab-out-of-bounds in _a6xx_get_gmu_registers+0x144/0x430
-  Write of size 8 at addr ffffff80c89432b0 by task A618-worker/209
-  CPU: 5 PID: 209 Comm: A618-worker Tainted: G        W         5.4.156-lockdep #22
-  Hardware name: Google Lazor Limozeen without Touchscreen (rev5 - rev8) (DT)
-  Call trace:
-   dump_backtrace+0x0/0x248
-   show_stack+0x20/0x2c
-   dump_stack+0x128/0x1ec
-   print_address_description+0x88/0x4a0
-   __kasan_report+0xfc/0x120
-   kasan_report+0x10/0x18
-   __asan_report_store8_noabort+0x1c/0x24
-   _a6xx_get_gmu_registers+0x144/0x430
-   a6xx_gpu_state_get+0x330/0x25d4
-   msm_gpu_crashstate_capture+0xa0/0x84c
-   recover_worker+0x328/0x838
-   kthread_worker_fn+0x32c/0x574
-   kthread+0x2dc/0x39c
-   ret_from_fork+0x10/0x18
-
-  Allocated by task 209:
-   __kasan_kmalloc+0xfc/0x1c4
-   kasan_kmalloc+0xc/0x14
-   kmem_cache_alloc_trace+0x1f0/0x2a0
-   a6xx_gpu_state_get+0x164/0x25d4
-   msm_gpu_crashstate_capture+0xa0/0x84c
-   recover_worker+0x328/0x838
-   kthread_worker_fn+0x32c/0x574
-   kthread+0x2dc/0x39c
-   ret_from_fork+0x10/0x18
-
-Fixes: 142639a52a01 ("drm/msm/a6xx: fix crashstate capture for A650")
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-I don't actually know how to trigger a GPU crash. I just happened to
-trigger one by getting "lucky" and hitting a timeout after being in
-kdb. Thus this is just compile tested. However, it looks pretty sane
-to me. ;-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c | 24 ++---------------------
+ 1 file changed, 2 insertions(+), 22 deletions(-)
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 7501849ed15d..6e90209cd543 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -777,12 +777,12 @@ static void a6xx_get_gmu_registers(struct msm_gpu *gpu,
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+index 2f4895bcb0b0..2ac8fd37c76b 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+@@ -16,8 +16,6 @@ struct mdp5_mdss {
  
- 	a6xx_state->gmu_registers = state_kcalloc(a6xx_state,
--		2, sizeof(*a6xx_state->gmu_registers));
-+		3, sizeof(*a6xx_state->gmu_registers));
+ 	void __iomem *mmio, *vbif;
  
- 	if (!a6xx_state->gmu_registers)
- 		return;
+-	struct regulator *vdd;
+-
+ 	struct clk *ahb_clk;
+ 	struct clk *axi_clk;
+ 	struct clk *vsync_clk;
+@@ -189,8 +187,6 @@ static void mdp5_mdss_destroy(struct drm_device *dev)
+ 	irq_domain_remove(mdp5_mdss->irqcontroller.domain);
+ 	mdp5_mdss->irqcontroller.domain = NULL;
  
--	a6xx_state->nr_gmu_registers = 2;
-+	a6xx_state->nr_gmu_registers = 3;
+-	regulator_disable(mdp5_mdss->vdd);
+-
+ 	pm_runtime_disable(dev->dev);
+ }
  
- 	/* Get the CX GMU registers from AHB */
- 	_a6xx_get_gmu_registers(gpu, a6xx_state, &a6xx_gmu_reglist[0],
+@@ -238,31 +234,17 @@ int mdp5_mdss_init(struct drm_device *dev)
+ 		goto fail;
+ 	}
+ 
+-	/* Regulator to enable GDSCs in downstream kernels */
+-	mdp5_mdss->vdd = devm_regulator_get(dev->dev, "vdd");
+-	if (IS_ERR(mdp5_mdss->vdd)) {
+-		ret = PTR_ERR(mdp5_mdss->vdd);
+-		goto fail;
+-	}
+-
+-	ret = regulator_enable(mdp5_mdss->vdd);
+-	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "failed to enable regulator vdd: %d\n",
+-			ret);
+-		goto fail;
+-	}
+-
+ 	ret = devm_request_irq(dev->dev, platform_get_irq(pdev, 0),
+ 			       mdss_irq, 0, "mdss_isr", mdp5_mdss);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to init irq: %d\n", ret);
+-		goto fail_irq;
++		goto fail;
+ 	}
+ 
+ 	ret = mdss_irq_domain_init(mdp5_mdss);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to init sub-block irqs: %d\n", ret);
+-		goto fail_irq;
++		goto fail;
+ 	}
+ 
+ 	mdp5_mdss->base.funcs = &mdss_funcs;
+@@ -271,8 +253,6 @@ int mdp5_mdss_init(struct drm_device *dev)
+ 	pm_runtime_enable(dev->dev);
+ 
+ 	return 0;
+-fail_irq:
+-	regulator_disable(mdp5_mdss->vdd);
+ fail:
+ 	return ret;
+ }
 -- 
-2.33.1.1089.g2158813163f-goog
+2.33.0
 
