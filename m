@@ -1,60 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC3E7444CA4
-	for <lists+freedreno@lfdr.de>; Thu,  4 Nov 2021 01:34:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AACA7445C1B
+	for <lists+freedreno@lfdr.de>; Thu,  4 Nov 2021 23:23:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0B846EBA1;
-	Thu,  4 Nov 2021 00:34:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45C87738AC;
+	Thu,  4 Nov 2021 22:23:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3606EBA1
- for <freedreno@lists.freedesktop.org>; Thu,  4 Nov 2021 00:34:31 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id v23so6697929ljk.5
- for <freedreno@lists.freedesktop.org>; Wed, 03 Nov 2021 17:34:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 276B4738AC;
+ Thu,  4 Nov 2021 22:23:48 +0000 (UTC)
+Received: by mail-pl1-x62c.google.com with SMTP id p18so9589492plf.13;
+ Thu, 04 Nov 2021 15:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=fkfgnJaDUY04rNIV6or1h0npcgBkYvs6ev3vQOc1YF8=;
- b=ABG+aRHIXjpa0AddFi3FTUVOa4EtckWj5BNxOpbOmxbGBF6s7cZGz8cZhvbyxn0Fon
- IzCmeKBxyH0DAYWJvvpYSyDI5BSu7qlrHyL94cWjM7pZXuingC2Fi9+Fz1oKVWdvb6F9
- oD7zDZKBhlnh20m7K+7Y0eyermQoKAAf+z0G/52HQHC31sluTWwjihJE4ZJDH2wRgBRW
- igi0VnD4l7yPp8YJKBxCamtb7iNjjN8ICx4FPFZLLZV/Rff24KbODnvc5EvebrHhzszX
- /Wc0ZgnqWBAti81eGosrJPpX5UaYZoLC/3KC/8S9GfEOSPx3Gh0A6X9tdpbNMZiHo5nz
- lpEQ==
+ bh=SAjJe0L8rahemkypYUehC21SFtz7mEZThWWLPiWL/ro=;
+ b=NzCVs6lNdX69wDrb2nMBBzD34Y/tsJPVI6tZWsiJCOxvoDvtDSENn/huD6z7kv+08l
+ G9iOj0TeqIBrea+YwDGMeZ6jbbr6sTnh9mgSUQMWl+dW/IdmeFiNEmCgQ8Pqt1R0hQpq
+ 3O7JgIBvUhfdd1u1H5GDMGH2lCWjEGfPO5IJ/juwztKXa1cTmKsq9t2Xi3PsbeTpQn7G
+ PBFafU3TixWAtSjq2EPHFSGH+7VcbMguCFwyUrOqDSYKOWOBKq1+Vby130DqEsBYIQZ2
+ BpFco6dKebNmDvklIAwbsYFRHGbf+QtFcJ0aNpdIKY1WTAgxy2h73o3bAx2X5ZgjbPuL
+ SZlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=fkfgnJaDUY04rNIV6or1h0npcgBkYvs6ev3vQOc1YF8=;
- b=7iKqLrwaYAVr423+sm2DFD4Bwyrvo3csqTI9nIw++n/zPkJLSmAjlq6MqbnquhfoFB
- +G0Ts7r+bp0oV2b3nfSQ3F1qrK4VUPI3AJyKcMj/y5Ps/lrkMy5OaXnPKdU8kp3IcYGm
- HMBQElf7/hmOEtG7LKPtsTg384RbTqnG/p5OepYkB97JuCsnzeIYbb8DtECdGOLbSJrl
- 9mddi1BFf0PG3eChktwWzZbUURy7bDbJ0PcBr0Ak3KYue9wTLpJc6I+nEVyMZ+QKisI+
- m6H1X5PVdIVN0UVq1Afl1hC2X+hDbdd/1XUgjVk2CyBLJLUT/4FTN49goj/AQowzsJTC
- vDEA==
-X-Gm-Message-State: AOAM532YECHHwsDh9R4A02zcuRzE+U8eu6TGtD7F0MRzYLk594R/sxeG
- hT+7h+NltM1HY6ckWK4LtP1q3A==
-X-Google-Smtp-Source: ABdhPJzCkR0IM+3ESKrRBralZgsMmASvHaJQoJHxxl87GrbiEH4Snc0/oybL5kI9s7tu9GjaAWf8/g==
-X-Received: by 2002:a2e:8447:: with SMTP id u7mr49489401ljh.179.1635986069265; 
- Wed, 03 Nov 2021 17:34:29 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id f4sm312128lfr.43.2021.11.03.17.34.28
+ bh=SAjJe0L8rahemkypYUehC21SFtz7mEZThWWLPiWL/ro=;
+ b=mYSdJOU2qiiYO70gsI2VM6De+eYKG655AWXi1Wlao+/Gp03CGLbRSTEW9/Kz2zZmQ9
+ rMIGan+Doo/iP/OCPOfyL2uwKdJFo6MDcNN3krHYWuQ8w2119GSvalOi5pLb0gwwLpdE
+ C469vzKgEahKW3B+T2N1GK4UKH0zrcpzbxC4dNOr4bdZ2/YHpc87CK4GITQORwGon793
+ aT8zznG2SBbE46KLNMsoRrkftN31YCwww8mrmFTJ081EsUu7e5XcAaKMxTbXqUVX2QXk
+ chnwhMjILePJPrRNSExQTx4Y66qI7mMAC9tJds57wP2lun99ttBJ9pIp3v8jNYhChCth
+ Ixkw==
+X-Gm-Message-State: AOAM532U9lq1hfH0QktSWxXGAYLRuFCu+1wHoX0rpe4qSkGoLOKjT6Sp
+ Ub0870Gurde84iuOQv/JVeq2MB7gIUM=
+X-Google-Smtp-Source: ABdhPJywWwxxya+abTTKcjBAKn/zhPdhspjq0C6veBnXpocuNuoJ+miPacjiMb70eXIDSP4U7I+1qA==
+X-Received: by 2002:a17:902:db01:b0:141:ea12:2176 with SMTP id
+ m1-20020a170902db0100b00141ea122176mr28246520plx.44.1636064627091; 
+ Thu, 04 Nov 2021 15:23:47 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id hg4sm8148128pjb.1.2021.11.04.15.23.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Nov 2021 17:34:28 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu,  4 Nov 2021 03:34:28 +0300
-Message-Id: <20211104003428.2205497-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.33.0
+ Thu, 04 Nov 2021 15:23:45 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu,  4 Nov 2021 15:28:40 -0700
+Message-Id: <20211104222840.781314-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/mdp5: drop vdd regulator
+Subject: [Freedreno] [PATCH] drm/msm/devfreq: Fix OPP refcnt leak
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,88 +66,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The "vdd" regulator was used by the mdp5 driver only on downstream
-kernels, where the GDSC is represented as a regulator. On all current
-kernels the MDSS_GDSC is implemented as the power domain, removing the
-need for this regulator. Remove it from the mdp5 driver.
+From: Rob Clark <robdclark@chromium.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reported-by: Douglas Anderson <dianders@chromium.org>
+Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c | 24 ++---------------------
- 1 file changed, 2 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
-index 2f4895bcb0b0..2ac8fd37c76b 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
-@@ -16,8 +16,6 @@ struct mdp5_mdss {
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index d32b729b4616..9bf8600b6eea 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -20,8 +20,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+ 	struct msm_gpu *gpu = dev_to_gpu(dev);
+ 	struct dev_pm_opp *opp;
  
- 	void __iomem *mmio, *vbif;
- 
--	struct regulator *vdd;
+-	opp = devfreq_recommended_opp(dev, freq, flags);
 -
- 	struct clk *ahb_clk;
- 	struct clk *axi_clk;
- 	struct clk *vsync_clk;
-@@ -189,8 +187,6 @@ static void mdp5_mdss_destroy(struct drm_device *dev)
- 	irq_domain_remove(mdp5_mdss->irqcontroller.domain);
- 	mdp5_mdss->irqcontroller.domain = NULL;
- 
--	regulator_disable(mdp5_mdss->vdd);
--
- 	pm_runtime_disable(dev->dev);
- }
- 
-@@ -238,31 +234,17 @@ int mdp5_mdss_init(struct drm_device *dev)
- 		goto fail;
+ 	/*
+ 	 * If the GPU is idle, devfreq is not aware, so just ignore
+ 	 * it's requests
+@@ -31,6 +29,8 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+ 		return 0;
  	}
  
--	/* Regulator to enable GDSCs in downstream kernels */
--	mdp5_mdss->vdd = devm_regulator_get(dev->dev, "vdd");
--	if (IS_ERR(mdp5_mdss->vdd)) {
--		ret = PTR_ERR(mdp5_mdss->vdd);
--		goto fail;
--	}
--
--	ret = regulator_enable(mdp5_mdss->vdd);
--	if (ret) {
--		DRM_DEV_ERROR(dev->dev, "failed to enable regulator vdd: %d\n",
--			ret);
--		goto fail;
--	}
--
- 	ret = devm_request_irq(dev->dev, platform_get_irq(pdev, 0),
- 			       mdss_irq, 0, "mdss_isr", mdp5_mdss);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev->dev, "failed to init irq: %d\n", ret);
--		goto fail_irq;
-+		goto fail;
- 	}
++	opp = devfreq_recommended_opp(dev, freq, flags);
++
+ 	if (IS_ERR(opp))
+ 		return PTR_ERR(opp);
  
- 	ret = mdss_irq_domain_init(mdp5_mdss);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev->dev, "failed to init sub-block irqs: %d\n", ret);
--		goto fail_irq;
-+		goto fail;
- 	}
- 
- 	mdp5_mdss->base.funcs = &mdss_funcs;
-@@ -271,8 +253,6 @@ int mdp5_mdss_init(struct drm_device *dev)
- 	pm_runtime_enable(dev->dev);
- 
- 	return 0;
--fail_irq:
--	regulator_disable(mdp5_mdss->vdd);
- fail:
- 	return ret;
- }
 -- 
-2.33.0
+2.31.1
 
