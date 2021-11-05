@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D883445CEF
-	for <lists+freedreno@lfdr.de>; Fri,  5 Nov 2021 01:11:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A059D445D34
+	for <lists+freedreno@lfdr.de>; Fri,  5 Nov 2021 02:13:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2CB973B27;
-	Fri,  5 Nov 2021 00:11:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4452673B43;
+	Fri,  5 Nov 2021 01:13:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A4D73B25
- for <freedreno@lists.freedesktop.org>; Fri,  5 Nov 2021 00:11:16 +0000 (UTC)
-Received: by mail-io1-xd2d.google.com with SMTP id d70so7971177iof.7
- for <freedreno@lists.freedesktop.org>; Thu, 04 Nov 2021 17:11:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4KsnJxBGTyLgNC9LQFVaGBTTSMsAvFSllk79LexRwJA=;
- b=nFhNJs/6zLfX/HDdX03yOBZsFn//RbfnTbfvj+8xfIcqZA01a8sEJdr7u7Hg2yFwIx
- UQ8Wr+wzrwqo1ljEOyT7Z0fOU4gCqarwPqUzj1f018BbkV8CPIPaNqLH+1IHHrzBv5SB
- u/PfIRUb4ABRnF3OXo6a4xpOLivk43cyxfPcY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4KsnJxBGTyLgNC9LQFVaGBTTSMsAvFSllk79LexRwJA=;
- b=v0r76OC+7H20Y7lLsZtUUUl0YPZC1gKTocpSjQXyzwvHT9c2I3ptdW31cU0/Lah0C3
- NwQMrq7tkepN9zk5Xu0T5lLl6ePi1cMzA4N8woXgWs0inwuhkkvSOlXNC+//hNUojrVN
- U0Z+qbjlC+SWTercoxvRuykYTeVPyEKZgrLemWRJsFpTK2ZVhROM7KAiRhdPxuCRwtHp
- mTFVOE+E80MGsg7IAtCzpXsKMtXaRP6cyAkA9T1Yv+jFEAEwlwyrGhulHxUl63Lqzp6M
- 5g0ojmGaD10oOG+M/TYssVjIeLvjk1Gm+pNQeBsWs4ct/rbg00YmTCQ2Qc3fUWonlm/G
- 8aww==
-X-Gm-Message-State: AOAM532DOxJdJOQR5KhV0H4Zn6zVr0TNowyv82cB4YkukqrCLPu6oC0v
- fkB58tOa5suSMiI1Yhd2H6lvK89yYJ9d1A==
-X-Google-Smtp-Source: ABdhPJzO8vZMSe/Uu19AqTK+acKJCnsuPlSmBUXIYBuBuoGEZnKo3uom2q1olKJ9aHki5HPQVnMSKA==
-X-Received: by 2002:a02:2b08:: with SMTP id h8mr6479032jaa.137.1636071074889; 
- Thu, 04 Nov 2021 17:11:14 -0700 (PDT)
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com.
- [209.85.166.179])
- by smtp.gmail.com with ESMTPSA id t10sm3305194ile.29.2021.11.04.17.11.13
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Nov 2021 17:11:14 -0700 (PDT)
-Received: by mail-il1-f179.google.com with SMTP id l19so7981546ilk.0
- for <freedreno@lists.freedesktop.org>; Thu, 04 Nov 2021 17:11:13 -0700 (PDT)
-X-Received: by 2002:a05:6e02:1a85:: with SMTP id
- k5mr18841136ilv.27.1636071073597; 
- Thu, 04 Nov 2021 17:11:13 -0700 (PDT)
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Fri, 05 Nov 2021 01:12:58 UTC
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2D5D73B43;
+ Fri,  5 Nov 2021 01:12:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1636074778; x=1667610778;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=fXUzAmtlORo9GPNRcxy7NY5/rabltRVLJSlXVeirULg=;
+ b=ldIDQNy2HLA2IXGXiUjNWHIOTNDpvaMToWhwqlu7y5pFCEbN34ujrskP
+ nxiudM6+AXGktS7VFkTL+EaHNatoki71CZbLbzZUyn8CSyZmksnQK2p8/
+ /ymg9zbLvpfAG2YMk0sl1oPAdKXb4b1qJmG2cx3jVj/jO6njIDlovIZTd E=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 04 Nov 2021 18:06:53 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Nov 2021 18:06:52 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; 
+ Thu, 4 Nov 2021 18:06:52 -0700
+Received: from [10.38.242.149] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.7; Thu, 4 Nov 2021
+ 18:06:50 -0700
+Message-ID: <4ac088d4-3e6a-c5f9-97da-85f741414281@quicinc.com>
+Date: Thu, 4 Nov 2021 18:06:48 -0700
 MIME-Version: 1.0
-References: <20211104222840.781314-1-robdclark@gmail.com>
-In-Reply-To: <20211104222840.781314-1-robdclark@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 4 Nov 2021 17:11:02 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Xfv+X+X+KBM5yiJ0CdqyAPDKfOgsoZETb_7kmaHR1ztg@mail.gmail.com>
-Message-ID: <CAD=FV=Xfv+X+X+KBM5yiJ0CdqyAPDKfOgsoZETb_7kmaHR1ztg@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/devfreq: Fix OPP refcnt leak
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <abhinavk@codeaurora.org>
+References: <20211104003428.2205497-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20211104003428.2205497-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: drop vdd regulator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,24 +68,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: Jonathan Marek <jonathan@marek.ca>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, David
+ Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Thu, Nov 4, 2021 at 3:23 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Reported-by: Douglas Anderson <dianders@chromium.org>
-> Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+
+On 11/3/2021 5:34 PM, Dmitry Baryshkov wrote:
+> The "vdd" regulator was used by the mdp5 driver only on downstream
+> kernels, where the GDSC is represented as a regulator. On all current
+> kernels the MDSS_GDSC is implemented as the power domain, removing the
+> need for this regulator. Remove it from the mdp5 driver.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c | 24 ++---------------------
+>   1 file changed, 2 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+> index 2f4895bcb0b0..2ac8fd37c76b 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+> @@ -16,8 +16,6 @@ struct mdp5_mdss {
+>   
+>   	void __iomem *mmio, *vbif;
+>   
+> -	struct regulator *vdd;
+> -
+>   	struct clk *ahb_clk;
+>   	struct clk *axi_clk;
+>   	struct clk *vsync_clk;
+> @@ -189,8 +187,6 @@ static void mdp5_mdss_destroy(struct drm_device *dev)
+>   	irq_domain_remove(mdp5_mdss->irqcontroller.domain);
+>   	mdp5_mdss->irqcontroller.domain = NULL;
+>   
+> -	regulator_disable(mdp5_mdss->vdd);
+> -
+>   	pm_runtime_disable(dev->dev);
+>   }
+>   
+> @@ -238,31 +234,17 @@ int mdp5_mdss_init(struct drm_device *dev)
+>   		goto fail;
+>   	}
+>   
+> -	/* Regulator to enable GDSCs in downstream kernels */
+> -	mdp5_mdss->vdd = devm_regulator_get(dev->dev, "vdd");
+> -	if (IS_ERR(mdp5_mdss->vdd)) {
+> -		ret = PTR_ERR(mdp5_mdss->vdd);
+> -		goto fail;
+> -	}
+> -
+> -	ret = regulator_enable(mdp5_mdss->vdd);
+> -	if (ret) {
+> -		DRM_DEV_ERROR(dev->dev, "failed to enable regulator vdd: %d\n",
+> -			ret);
+> -		goto fail;
+> -	}
+> -
+>   	ret = devm_request_irq(dev->dev, platform_get_irq(pdev, 0),
+>   			       mdss_irq, 0, "mdss_isr", mdp5_mdss);
+>   	if (ret) {
+>   		DRM_DEV_ERROR(dev->dev, "failed to init irq: %d\n", ret);
+> -		goto fail_irq;
+> +		goto fail;
+>   	}
+>   
+>   	ret = mdss_irq_domain_init(mdp5_mdss);
+>   	if (ret) {
+>   		DRM_DEV_ERROR(dev->dev, "failed to init sub-block irqs: %d\n", ret);
+> -		goto fail_irq;
+> +		goto fail;
+>   	}
+>   
+>   	mdp5_mdss->base.funcs = &mdss_funcs;
+> @@ -271,8 +253,6 @@ int mdp5_mdss_init(struct drm_device *dev)
+>   	pm_runtime_enable(dev->dev);
+>   
+>   	return 0;
+> -fail_irq:
+> -	regulator_disable(mdp5_mdss->vdd);
+>   fail:
+>   	return ret;
+>   }
+> 
