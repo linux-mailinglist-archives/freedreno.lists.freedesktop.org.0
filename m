@@ -2,64 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40936445F2C
-	for <lists+freedreno@lfdr.de>; Fri,  5 Nov 2021 05:32:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9751D4465B5
+	for <lists+freedreno@lfdr.de>; Fri,  5 Nov 2021 16:29:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D16D56E02B;
-	Fri,  5 Nov 2021 04:32:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A95B96E8C7;
+	Fri,  5 Nov 2021 15:29:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 110E86E02F
- for <freedreno@lists.freedesktop.org>; Fri,  5 Nov 2021 04:32:53 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- l7-20020a0568302b0700b0055ae988dcc8so8248543otv.12
- for <freedreno@lists.freedesktop.org>; Thu, 04 Nov 2021 21:32:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=e7wV/zXlbFEZLefjaI+cZ2mUrOMI6pJgxRuHVeGTiB0=;
- b=YnYsM26Rs+Xf8pXIQ5nENuN+3ANyFaM6dkQjCLCP7Ir99A28SjSRGrkLaVtovNqGAb
- kXGyJRInVW3Mtkd6uetRuQXo7TIlSwBojh1OY+AEL6vmyOrgBb9vuke1dNfO34Ogmk81
- 0id+xA535P1bR386wD0sBznxFSt1DRTXkNXILdHMk4eFKQtLxNuXrYU/Gx5URa3N3ORj
- ZPKDNdxwYqziFSBrkQIT7z8pXgkYc8KVAb4I/kBduklg9VRYe9wud4sT0867QFkUpFp5
- bgwRsM43YiwqfVOtFG1TWyxjHCYEGMVXLruAZgdafFefPZFR7KlQLCYVgqJjIuVkvQ0C
- Oa+g==
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBFEE6E8C2
+ for <freedreno@lists.freedesktop.org>; Fri,  5 Nov 2021 15:29:38 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id f9so10993036ioo.11
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Nov 2021 08:29:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/UkXJV0OUTVeSB3ZWIvuOW6MEyDXb/nfPaZn/YUVDEM=;
+ b=I+rltgFifRvQNsNZIVeUD++Ek0yxbA4Jl5XK/KgCoQHB3uXJ8aLeXftGBqi9z/1Kuq
+ MrjVCYOIOTp1QVbJQjt9kamQzE5JQsSUgT9ZljMvlaMnRakZuA3oNlpOPB30kGsPPok2
+ fCU4eyoVqWvjDFsRlugQxg0PBjBNFQMCQoCjU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=e7wV/zXlbFEZLefjaI+cZ2mUrOMI6pJgxRuHVeGTiB0=;
- b=FrNiWV6aLLk0DppyzSLjvR+zwIvTfFYH6b6jXeRHty+EhkpIY9CFjjjtUxtAF4y+c5
- bZImD4KzxhrLNWxut9ZISLsWC4DAUkkA0vHC7KZE9tTFIjrIW3HETm3qTM1bRoiYpm3G
- OrVn83kdxi3oYR8cSvdTWLxerNMCnss3V1sc6sW/rL1rcKx8gJgOVK0XmH3mpRS7iSVJ
- yNX+3cL2bjBd5LcJPQukZfCpQ2c54AIrYG2qHeB4YfBtZed3TLQy6fGUkXJnKwQhKc9U
- cq1T24oL/7xCWDyIaV++sIAfRztZ2Z2rZFcWBBoMO4FmvyMGT0lMD2XToT74yoOdG1ay
- 2MSg==
-X-Gm-Message-State: AOAM530EV4aX2IpN29RQ+bPgRc7VS6+ZhJ6CblWcposMibCTvIt6TdYr
- Gjz1ACx1w6WbQcoiruYU9/dFfQ==
-X-Google-Smtp-Source: ABdhPJz149yEAnlzEutepXMNcT57vxTomZmWHg5AgNejKGnvWASOFZ022mCwDSj4uZFjon3aCelt8g==
-X-Received: by 2002:a9d:7d8c:: with SMTP id j12mr34638887otn.373.1636086773005; 
- Thu, 04 Nov 2021 21:32:53 -0700 (PDT)
-Received: from [192.168.11.48] (cpe-173-173-107-246.satx.res.rr.com.
- [173.173.107.246])
- by smtp.gmail.com with ESMTPSA id w10sm1506327otk.51.2021.11.04.21.32.51
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/UkXJV0OUTVeSB3ZWIvuOW6MEyDXb/nfPaZn/YUVDEM=;
+ b=O6QyxQS7ckCaqDKuzzccSEtzaPa0HRub79G6wv+rrxIv2t7iqUeQS/a285Wlwqj3s+
+ o0FNKc+rDKgfpg8K+Xn9llEmUtxn44Y/ZCZ2xBQckQOGwESy+Xk6FsN4Tbs9OESvlKbW
+ qA5LBNH7ei9z19hjmIiMpdI4hRmxTVEgxAxuelVJwx9scnIHboQVFPj9jlsDSDOzUrU+
+ 63+etNbDSD8FTHS74FCtanOj5uV6UVVuBY8lBUV36vC7K9r4ydE0+3Fz4EHhIJDiOdq9
+ YlE/jBk//j/8fC1/bEBiSUNtL8Uv9zCx4iroyuOqarRXBzByfSJUGxIcHCuBBMcwbYVa
+ wXvw==
+X-Gm-Message-State: AOAM532pfrzvrp9cdBA9dbZN8GOXtmc+qJwNREg6wL+uJd+alt6cW15m
+ fK7t4DilEHAKBWGF7S3B/fitqLybosNDrA==
+X-Google-Smtp-Source: ABdhPJwJ6Pc4Nd94NKVORwGFsrqi6y5iVDIRCdtvAqAxzxpY1/ab9eEQLoZBgQmOfB8Hyirf2mnhkQ==
+X-Received: by 2002:a05:6602:19a:: with SMTP id
+ m26mr25059520ioo.162.1636126177394; 
+ Fri, 05 Nov 2021 08:29:37 -0700 (PDT)
+Received: from mail-io1-f44.google.com (mail-io1-f44.google.com.
+ [209.85.166.44])
+ by smtp.gmail.com with ESMTPSA id j16sm4691204iow.24.2021.11.05.08.29.35
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Nov 2021 21:32:52 -0700 (PDT)
-Message-ID: <be2222e2-8fec-84f9-bbcf-bf639a1a63bd@kali.org>
-Date: Thu, 4 Nov 2021 23:32:51 -0500
+ Fri, 05 Nov 2021 08:29:35 -0700 (PDT)
+Received: by mail-io1-f44.google.com with SMTP id f9so10992846ioo.11
+ for <freedreno@lists.freedesktop.org>; Fri, 05 Nov 2021 08:29:35 -0700 (PDT)
+X-Received: by 2002:a05:6638:c49:: with SMTP id
+ g9mr9752326jal.54.1636126175216; 
+ Fri, 05 Nov 2021 08:29:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20211104222840.781314-1-robdclark@gmail.com>
-From: Steev Klimaszewski <steev@kali.org>
-In-Reply-To: <20211104222840.781314-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <be2222e2-8fec-84f9-bbcf-bf639a1a63bd@kali.org>
+In-Reply-To: <be2222e2-8fec-84f9-bbcf-bf639a1a63bd@kali.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 5 Nov 2021 08:29:23 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WnTsdU0TzbbFhRzoYtiX6-HG+g=OHiu1LP+tODPGXZKQ@mail.gmail.com>
+Message-ID: <CAD=FV=WnTsdU0TzbbFhRzoYtiX6-HG+g=OHiu1LP+tODPGXZKQ@mail.gmail.com>
+To: Steev Klimaszewski <steev@kali.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] drm/msm/devfreq: Fix OPP refcnt leak
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,100 +72,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi,
 
-On 11/4/21 5:28 PM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On Thu, Nov 4, 2021 at 9:32 PM Steev Klimaszewski <steev@kali.org> wrote:
 >
-> Reported-by: Douglas Anderson <dianders@chromium.org>
-> Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/msm/msm_gpu_devfreq.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> index d32b729b4616..9bf8600b6eea 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> @@ -20,8 +20,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
->   	struct msm_gpu *gpu = dev_to_gpu(dev);
->   	struct dev_pm_opp *opp;
->   
-> -	opp = devfreq_recommended_opp(dev, freq, flags);
-> -
->   	/*
->   	 * If the GPU is idle, devfreq is not aware, so just ignore
->   	 * it's requests
-> @@ -31,6 +29,8 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
->   		return 0;
->   	}
->   
-> +	opp = devfreq_recommended_opp(dev, freq, flags);
-> +
->   	if (IS_ERR(opp))
->   		return PTR_ERR(opp);
->   
+> On 11/4/21 5:28 PM, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Reported-by: Douglas Anderson <dianders@chromium.org>
+> > Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >   drivers/gpu/drm/msm/msm_gpu_devfreq.c | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> > index d32b729b4616..9bf8600b6eea 100644
+> > --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> > +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> > @@ -20,8 +20,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+> >       struct msm_gpu *gpu = dev_to_gpu(dev);
+> >       struct dev_pm_opp *opp;
+> >
+> > -     opp = devfreq_recommended_opp(dev, freq, flags);
+> > -
+> >       /*
+> >        * If the GPU is idle, devfreq is not aware, so just ignore
+> >        * it's requests
+> > @@ -31,6 +29,8 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
+> >               return 0;
+> >       }
+> >
+> > +     opp = devfreq_recommended_opp(dev, freq, flags);
+> > +
+> >       if (IS_ERR(opp))
+> >               return PTR_ERR(opp);
+> >
+>
+> Testing this here on the Lenovo Yoga C630, and I'm starting to see in my
+> dmesg output
+>
+> [   36.337061] devfreq 5000000.gpu: Couldn't update frequency transition
+> information.
+> [   36.388122] devfreq 5000000.gpu: Couldn't update frequency transition
+> information.
 
-Testing this here on the Lenovo Yoga C630, and I'm starting to see in my 
-dmesg output
+Ah, I think this makes sense. We're now storing a frequency which
+might not match an actual "opp" and I suppose that we must return it
+in some cases.
 
-[   36.337061] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[   36.388122] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[   36.810941] wcd934x-codec wcd934x-codec.3.auto: Port Closed RX port 
-1, value 4
-[   36.811914] wcd934x-codec wcd934x-codec.3.auto: Port Closed RX port 
-2, value 4
-[  198.794946] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  198.845698] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  502.285421] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  502.339427] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  503.361469] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  503.412757] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  503.871480] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  503.922712] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  503.974474] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  504.025501] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  505.923563] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  505.974513] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  510.313052] usb 3-1.3: USB disconnect, device number 4
-[  519.677148] usb 3-1.3: new high-speed USB device number 5 using xhci-hcd
-[  519.793394] usb 3-1.3: New USB device found, idVendor=5986, 
-idProduct=2115, bcdDevice=54.20
-[  519.793441] usb 3-1.3: New USB device strings: Mfr=1, Product=2, 
-SerialNumber=0
-[  519.793472] usb 3-1.3: Product: Integrated Camera
-[  519.793495] usb 3-1.3: Manufacturer: SunplusIT Inc
-[  519.861020] usb 3-1.3: Found UVC 1.00 device Integrated Camera 
-(5986:2115)
-[  519.892879] input: Integrated Camera: Integrated C as 
-/devices/platform/soc@0/a8f8800.usb/a800000.dwc3/xhci-hcd.1.auto/usb3/3-1/3-1.3/3-1.3:1.0/input/input27
-[  520.283839] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
-[  520.335854] devfreq 5000000.gpu: Couldn't update frequency transition 
-information.
+I guess a simple fix is to still call devfreq_recommended_opp() in the
+idle case but just call dev_pm_opp_put() to fix the leak.
 
-
-Is this intended?
-
+-Doug
