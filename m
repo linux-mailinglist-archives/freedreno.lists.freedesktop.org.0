@@ -1,63 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEBF446EEB
-	for <lists+freedreno@lfdr.de>; Sat,  6 Nov 2021 17:25:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6282C446F50
+	for <lists+freedreno@lfdr.de>; Sat,  6 Nov 2021 18:21:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0FA6E0FF;
-	Sat,  6 Nov 2021 16:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC3B76EAC4;
+	Sat,  6 Nov 2021 17:21:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3796E0D5
- for <freedreno@lists.freedesktop.org>; Sat,  6 Nov 2021 16:25:45 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- c26-20020a9d615a000000b0055bf6efab46so9766292otk.6
- for <freedreno@lists.freedesktop.org>; Sat, 06 Nov 2021 09:25:45 -0700 (PDT)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 756356E199
+ for <freedreno@lists.freedesktop.org>; Sat,  6 Nov 2021 17:21:09 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id o83so20093326oif.4
+ for <freedreno@lists.freedesktop.org>; Sat, 06 Nov 2021 10:21:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=x+rNa3IPXWpdVlNnW4siiL01W+2g09oICiFI6B6JC2k=;
- b=pLbC5dDZ6A9/qKhOz8JDhbEjG4xI41fs3+9hrmGrRpNxfuRfGeJt0q8WtQWlyqk2g5
- ttBnk9XsZE/axtfsB0ZvDSwcWppe/KI5qbE/fU/89+qah9lKYmFDokGseloIzZFRVTYt
- jMoTwvMP6Z5FKVbk2P69iVvklTOfV31/MMwAYGlLWvod8hTborKmLNBW/gdAxHBEbIze
- Z6vwSX0rImk/fGflxDprkdrvyhoIbwc99Q2oqtwZOnQRIDhOa9iZm+5XbU5h5rL1KJTt
- sIRATt84H1it+JCxoMJYlrhQKUkDkQDUlTREUm8WxGuQx/JR7pymZLLyx+lSFSHCDDQf
- 6Rpg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vTSLEwZ2lTdgm04aqi8C+KVIKM9ISYcIdJi5xTJQmDQ=;
+ b=TM7HT/3kUvCVkyIyxqrla2bPoXwiNaUgVa/rkdmDjclsBlQ+MF4cgYeM/LlxxQn+u+
+ Upxm0KHjHAlzeiGcjmD3wX0/bO2011j3SFBKR+42KzRtu3rUHR486mXtat3EwEIQLY5O
+ xB5EJZNBvZHyQap3cH0THKAk/lKVH3CLTC/c2HSCGZBqt6vc6Dn//I+0ydBVp/BrFWgv
+ 8KpLjGyF3Ozozmncwwdp2w9H5NjqlVxTFPofh5Hfo7RiO99fV3XnkB2PN8voK5dB71ik
+ jlwRhUwFz+mvHuqzHdqZI64R6e/1wCRhpaOuvqeibUZLnmp+SQ9JSFe6+Mz0OQxOzpUU
+ 7nvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=x+rNa3IPXWpdVlNnW4siiL01W+2g09oICiFI6B6JC2k=;
- b=Q7mTNAM9pPgKo7lpVSXSlfqDhuLo8GRSDhWEie4yP/fHexDThS1Vi5acKUNOJHydlS
- iJOJMP6WeIq6K1EeC0U7UORaVo4W/b7LrcNqrSRLWG5vUVkcKmvuI1I8Y/kHVdMlFyro
- 6k6BzvU+KDguGYdNsehmmtCZZkD9skkCKJk+w5N+XqXILxF90Cd9bltTVXu2Ic7/d/Xi
- +yZ1W/pQEYOMtWJMM1zEuOhm1EuLlzQqXetLlGCyTuwAyxHlZlYyq4vTx0ILVuFOdnMe
- K6SOTuu4nssjJI4zNKpyOZ+st1wmlvb6shSrfhU/mHb0WkRbXgB93iQYY5xABUKQjCo7
- azpQ==
-X-Gm-Message-State: AOAM533p4gbcwq/ZonuqdQA6ml5yTk4K/JXZQd/4qUb7yBxS25KFuBrH
- TF7Y7AuEXNEzVe+Fz9z3R9VBNg==
-X-Google-Smtp-Source: ABdhPJwPrHULSDlK1SL9pusniKEiKnu3vqCl/BfcEXBRoR34l39y9otQEgiIwTo9ME0E06dtCK/eVQ==
-X-Received: by 2002:a05:6830:4009:: with SMTP id
- h9mr49705166ots.186.1636215944184; 
- Sat, 06 Nov 2021 09:25:44 -0700 (PDT)
-Received: from yoga (rrcs-97-77-166-58.sw.biz.rr.com. [97.77.166.58])
- by smtp.gmail.com with ESMTPSA id bg38sm574568oib.40.2021.11.06.09.25.42
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vTSLEwZ2lTdgm04aqi8C+KVIKM9ISYcIdJi5xTJQmDQ=;
+ b=dIvLCjmgCs8efiDEl7Z+yZDdCqGs9+Jz/u3MkiBstQTdU5eTCkMnpmvoy9zx9gBcTW
+ k5WNEbCukRvDstOrx5w/hJhvhR+oKEXeShVS8ci65TC317evJKjgqkZb1xpkpdUXDYZX
+ ObS5i/w86RjSzm3Xpwm2/HPUmZDrPC7SFXQvBOfHHr7LVtVkdx6ecETCLlNSVGCfYaZI
+ aEsJ0ZuB0A0YrJZl0v3PSSmfXnaz66O8diivTphvkJBnRRwcQVnM+S7GhOnC7pstpFrX
+ 2fFQYezLmq1gUru4OIGbcFBQiwE7eoNTDBf8BAJorAKW4xh39tH/1wQSrkf21kGbjrUB
+ wN6A==
+X-Gm-Message-State: AOAM531fPDSw2hIHxOyhG3Nnal0U+UBxdg5CxYNCMp4VHDRUtqzSTFyJ
+ mPxw/3xC+/2tyiKVohOijrMmdQ==
+X-Google-Smtp-Source: ABdhPJwqV+YJ+7OmqgyefLnoB9WNSGrGUryYUqJWPS8f6XLyzo2xKmxNbd/mkUmHKL02UYGvTeOrxw==
+X-Received: by 2002:a05:6808:1897:: with SMTP id
+ bi23mr6223384oib.111.1636219268707; 
+ Sat, 06 Nov 2021 10:21:08 -0700 (PDT)
+Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id 64sm3905304otm.37.2021.11.06.10.21.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Nov 2021 09:25:43 -0700 (PDT)
-Date: Sat, 6 Nov 2021 11:25:41 -0500
+ Sat, 06 Nov 2021 10:21:08 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <YYashV3N/lJmn+uW@yoga>
-References: <1636147332-11797-1-git-send-email-quic_khsieh@quicinc.com>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Date: Sat,  6 Nov 2021 10:22:46 -0700
+Message-Id: <20211106172246.2597431-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1636147332-11797-1-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: employ bridge mechanism for
- display enable and disable
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: Drop now unused hpd_high member
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,370 +68,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri 05 Nov 16:22 CDT 2021, Kuogee Hsieh wrote:
+Since '8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon
+Chipsets")' the hpd_high member of struct dp_usbpd has been write-only.
 
-> Currently the msm_dp_*** functions implement the same sequence which would
-> happen when drm_bridge is used. hence get rid of this intermediate layer
-> and align with the drm_bridge usage to avoid customized implementation.
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> 
-> Changes in v2:
-> -- revise commit text
-> -- rename dp_bridge to msm_dp_bridge
-> -- delete empty functions
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 21 -------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  7 +++
->  drivers/gpu/drm/msm/dp/dp_display.c         | 18 +++---
->  drivers/gpu/drm/msm/dp/dp_display.h         |  1 +
->  drivers/gpu/drm/msm/dp/dp_drm.c             | 91 +++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/msm_drv.h               | 16 +++--
->  6 files changed, 120 insertions(+), 34 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 31050aa..c4e08c4 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1003,9 +1003,6 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->  
->  	trace_dpu_enc_mode_set(DRMID(drm_enc));
->  
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS)
-> -		msm_dp_display_mode_set(dpu_enc->dp, drm_enc, mode, adj_mode);
-> -
->  	list_for_each_entry(conn_iter, connector_list, head)
->  		if (conn_iter->encoder == drm_enc)
->  			conn = conn_iter;
-> @@ -1181,14 +1178,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->  
->  	_dpu_encoder_virt_enable_helper(drm_enc);
->  
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
-> -		ret = msm_dp_display_enable(dpu_enc->dp, drm_enc);
-> -		if (ret) {
-> -			DPU_ERROR_ENC(dpu_enc, "dp display enable failed: %d\n",
-> -				ret);
-> -			goto out;
-> -		}
-> -	}
->  	dpu_enc->enabled = true;
->  
->  out:
-> @@ -1214,11 +1203,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->  	/* wait for idle */
->  	dpu_encoder_wait_for_event(drm_enc, MSM_ENC_TX_COMPLETE);
->  
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
-> -		if (msm_dp_display_pre_disable(dpu_enc->dp, drm_enc))
-> -			DPU_ERROR_ENC(dpu_enc, "dp display push idle failed\n");
-> -	}
-> -
->  	dpu_encoder_resource_control(drm_enc, DPU_ENC_RC_EVENT_PRE_STOP);
->  
->  	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-> @@ -1243,11 +1227,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->  
->  	DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
->  
-> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
-> -		if (msm_dp_display_disable(dpu_enc->dp, drm_enc))
-> -			DPU_ERROR_ENC(dpu_enc, "dp display disable failed\n");
-> -	}
-> -
->  	mutex_unlock(&dpu_enc->enc_lock);
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 27d98b5..d16337f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -557,6 +557,13 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
->  				  encoder->base.id, rc);
->  			return rc;
->  		}
-> +
-> +		rc = msm_dp_bridge_init(priv->dp[i], dev, encoder);
-> +		if (rc) {
-> +			DPU_ERROR("failed to setup DPU bridge %d: rc:%d\n",
-> +				encoder->base.id, rc);
-> +			return rc;
-> +		}
->  	}
->  
->  	return rc;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index e41dd40..e9ea6ed 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -569,8 +569,8 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
->  	return 0;
->  };
->  
-> -static int dp_display_enable(struct dp_display_private *dp, u32 data);
-> -static int dp_display_disable(struct dp_display_private *dp, u32 data);
-> +static int __dp_display_enable(struct dp_display_private *dp, u32 data);
-> +static int __dp_display_disable(struct dp_display_private *dp, u32 data);
+Let's clean up the code a little bit by removing the writes as well.
 
-Can you please help me understand why you're changing the name of these
-functions?
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 6 ------
+ drivers/gpu/drm/msm/dp/dp_hpd.c     | 2 --
+ drivers/gpu/drm/msm/dp/dp_hpd.h     | 2 --
+ 3 files changed, 10 deletions(-)
 
->  
->  static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
->  {
-> @@ -855,7 +855,7 @@ static int dp_display_prepare(struct msm_dp *dp_display)
->  	return 0;
->  }
->  
-> -static int dp_display_enable(struct dp_display_private *dp, u32 data)
-> +static int __dp_display_enable(struct dp_display_private *dp, u32 data)
->  {
->  	int rc = 0;
->  
-> @@ -898,7 +898,7 @@ static int dp_display_post_enable(struct msm_dp *dp_display)
->  	return 0;
->  }
->  
-> -static int dp_display_disable(struct dp_display_private *dp, u32 data)
-> +static int __dp_display_disable(struct dp_display_private *dp, u32 data)
->  {
->  	struct msm_dp *dp_display = &dp->dp_display;
->  
-> @@ -1569,12 +1569,12 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
->  	if (state == ST_DISPLAY_OFF)
->  		dp_display_host_init(dp_display, true);
->  
-> -	dp_display_enable(dp_display, 0);
-> +	__dp_display_enable(dp_display, 0);
->  
->  	rc = dp_display_post_enable(dp);
->  	if (rc) {
->  		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
-> -		dp_display_disable(dp_display, 0);
-> +		__dp_display_disable(dp_display, 0);
->  		dp_display_unprepare(dp);
->  	}
->  
-> @@ -1614,7 +1614,7 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->  	/* stop sentinel checking */
->  	dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
->  
-> -	dp_display_disable(dp_display, 0);
-> +	__dp_display_disable(dp_display, 0);
->  
->  	rc = dp_display_unprepare(dp);
->  	if (rc)
-> @@ -1633,8 +1633,8 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->  }
->  
->  void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
-> -				struct drm_display_mode *mode,
-> -				struct drm_display_mode *adjusted_mode)
-> +				const struct drm_display_mode *mode,
-> +				const struct drm_display_mode *adjusted_mode)
->  {
->  	struct dp_display_private *dp_display;
->  
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> index 76f45f9..2237e80 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> @@ -13,6 +13,7 @@
->  struct msm_dp {
->  	struct drm_device *drm_dev;
->  	struct device *codec_dev;
-> +	struct drm_bridge *bridge;
->  	struct drm_connector *connector;
->  	struct drm_encoder *encoder;
->  	struct drm_panel *drm_panel;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> index f33e315..e7bea97 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> @@ -5,12 +5,21 @@
->  
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_atomic.h>
-> +#include <drm/drm_bridge.h>
->  #include <drm/drm_crtc.h>
->  
->  #include "msm_drv.h"
->  #include "msm_kms.h"
->  #include "dp_drm.h"
->  
-> +
-> +struct msm_dp_bridge {
-> +	struct drm_bridge bridge;
-> +	struct msm_dp *dp_display;
-> +};
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index aba8aa47ed76..70177c0d6a37 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -522,11 +522,8 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	dp->hpd_state = ST_CONNECT_PENDING;
+ 
+-	hpd->hpd_high = 1;
+-
+ 	ret = dp_display_usbpd_configure_cb(&dp->pdev->dev);
+ 	if (ret) {	/* link train failed */
+-		hpd->hpd_high = 0;
+ 		dp->hpd_state = ST_DISCONNECTED;
+ 
+ 		if (ret == -ECONNRESET) { /* cable unplugged */
+@@ -603,7 +600,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 		/* triggered by irq_hdp with sink_count = 0 */
+ 		if (dp->link->sink_count == 0) {
+ 			dp_ctrl_off_phy(dp->ctrl);
+-			hpd->hpd_high = 0;
+ 			dp->core_initialized = false;
+ 		}
+ 		mutex_unlock(&dp->event_mutex);
+@@ -627,8 +623,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	/* disable HPD plug interrupts */
+ 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, false);
+ 
+-	hpd->hpd_high = 0;
+-
+ 	/*
+ 	 * We don't need separate work for disconnect as
+ 	 * connect/attention interrupts are disabled
+diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.c b/drivers/gpu/drm/msm/dp/dp_hpd.c
+index e1c90fa47411..db98a1d431eb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_hpd.c
++++ b/drivers/gpu/drm/msm/dp/dp_hpd.c
+@@ -32,8 +32,6 @@ int dp_hpd_connect(struct dp_usbpd *dp_usbpd, bool hpd)
+ 	hpd_priv = container_of(dp_usbpd, struct dp_hpd_private,
+ 					dp_usbpd);
+ 
+-	dp_usbpd->hpd_high = hpd;
+-
+ 	if (!hpd_priv->dp_cb || !hpd_priv->dp_cb->configure
+ 				|| !hpd_priv->dp_cb->disconnect) {
+ 		pr_err("hpd dp_cb not initialized\n");
+diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.h b/drivers/gpu/drm/msm/dp/dp_hpd.h
+index 5bc5bb64680f..8feec5aa5027 100644
+--- a/drivers/gpu/drm/msm/dp/dp_hpd.h
++++ b/drivers/gpu/drm/msm/dp/dp_hpd.h
+@@ -26,7 +26,6 @@ enum plug_orientation {
+  * @multi_func: multi-function preferred
+  * @usb_config_req: request to switch to usb
+  * @exit_dp_mode: request exit from displayport mode
+- * @hpd_high: Hot Plug Detect signal is high.
+  * @hpd_irq: Change in the status since last message
+  * @alt_mode_cfg_done: bool to specify alt mode status
+  * @debug_en: bool to specify debug mode
+@@ -39,7 +38,6 @@ struct dp_usbpd {
+ 	bool multi_func;
+ 	bool usb_config_req;
+ 	bool exit_dp_mode;
+-	bool hpd_high;
+ 	bool hpd_irq;
+ 	bool alt_mode_cfg_done;
+ 	bool debug_en;
+-- 
+2.33.1
 
-We do you create yet another one of these object?
-
-Can't we just set up the new bridge in msm_dp_modeset_init(), like is
-done in msm_dsi_modeset_init()?
-
-> +
-> +#define to_dp_display(x)     container_of((x), struct msm_dp_bridge, bridge)
-> +
->  struct dp_connector {
->  	struct drm_connector base;
->  	struct msm_dp *dp_display;
-> @@ -162,3 +171,85 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
->  
->  	return connector;
->  }
-> +
-> +static int dp_bridge_attach(struct drm_bridge *drm_bridge,
-> +				enum drm_bridge_attach_flags flags)
-> +{
-> +	return 0;
-> +}
-> +
-> +static void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
-> +				const struct drm_display_mode *mode,
-> +				const struct drm_display_mode *adjusted_mode)
-> +{
-> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-> +	struct msm_dp *dp_display = dp_bridge->dp_display;
-> +
-> +	msm_dp_display_mode_set(dp_display, drm_bridge->encoder, mode, adjusted_mode);
-> +}
-> +
-> +static void dp_bridge_enable(struct drm_bridge *drm_bridge)
-> +{
-> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-> +	struct msm_dp *dp_display = dp_bridge->dp_display;
-> +
-> +	msm_dp_display_enable(dp_display, drm_bridge->encoder);
-> +}
-> +
-> +static void dp_bridge_disable(struct drm_bridge *drm_bridge)
-> +{
-> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-> +	struct msm_dp *dp_display = dp_bridge->dp_display;
-> +
-> +	msm_dp_display_pre_disable(dp_display, drm_bridge->encoder);
-> +}
-> +
-> +static void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
-> +{
-> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-> +	struct msm_dp *dp_display = dp_bridge->dp_display;
-> +
-> +	msm_dp_display_disable(dp_display, drm_bridge->encoder);
-> +}
-> +
-> +static const struct drm_bridge_funcs dp_bridge_ops = {
-> +	.attach       = dp_bridge_attach,
-> +	.mode_fixup   = NULL,
-> +	.pre_enable   = NULL,
-> +	.enable       = dp_bridge_enable,
-> +	.disable      = dp_bridge_disable,
-> +	.post_disable = dp_bridge_post_disable,
-> +	.mode_set     = dp_bridge_mode_set,
-> +};
-> +
-> +int msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-> +			struct drm_encoder *encoder)
-> +{
-> +	int rc;
-> +	struct msm_drm_private *priv;
-> +	struct msm_dp_bridge *dp_bridge;
-> +	struct drm_bridge *bridge;
-> +
-> +	dp_bridge = kzalloc(sizeof(*dp_bridge), GFP_KERNEL);
-
-You're not freeing this pointer, except for the error case below. That
-said, you call this from dpu_kms_hw_init() which is full of other things
-relying on devres.
-
-So I think the appropriate way here is to use devm_kzalloc().
-
-> +	if (!dp_bridge)
-> +		return -ENOMEM;
-> +
-> +	dp_bridge->dp_display = dp_display;
-> +
-> +	bridge = &dp_bridge->bridge;
-> +	bridge->funcs = &dp_bridge_ops;
-> +	bridge->encoder = encoder;
-> +
-> +	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-
-Sorry, my understanding of the drm_bridge is limited, but how does this
-interact with the panel_bridge that we attach in
-dp_drm_connector_init()?
-
-If we represent the DP instance itself as a drm_bridge, shouldn't that
-be "previous" of the panel_bridge?
-
-> +	if (rc) {
-> +		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
-> +		kfree(dp_bridge);
-> +		return rc;
-> +	}
-> +
-> +	priv = dev->dev_private;
-> +	priv->bridges[priv->num_bridges++] = bridge;
-> +	dp_display->bridge = bridge;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index 4bb797e..9a2092f 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -388,8 +388,10 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder);
->  int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder);
->  int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder);
->  void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
-> -				struct drm_display_mode *mode,
-> -				struct drm_display_mode *adjusted_mode);
-> +				const struct drm_display_mode *mode,
-> +				const struct drm_display_mode *adjusted_mode);
-> +int msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-> +			struct drm_encoder *encoder);
->  void msm_dp_irq_postinstall(struct msm_dp *dp_display);
->  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
->  
-> @@ -426,10 +428,16 @@ static inline int msm_dp_display_pre_disable(struct msm_dp *dp,
->  }
->  static inline void msm_dp_display_mode_set(struct msm_dp *dp,
->  				struct drm_encoder *encoder,
-> -				struct drm_display_mode *mode,
-> -				struct drm_display_mode *adjusted_mode)
-> +				const struct drm_display_mode *mode,
-> +				const struct drm_display_mode *adjusted_mode)
->  {
->  }
-> +static inline int msm_dp_bridge_init(struct msm_dp *dp_display,
-> +				struct drm_device *dev,
-> +				struct drm_encoder *encoder)
-> +{
-> +	return -EINVAL;
-
-Returning an error here means that building without CONFIG_DRM_MSM_DP
-we will propagate an error up and fail the entire DPU initialization.
-
-Perhaps this problem already exists today?
-
-Regards,
-Bjorn
-
-> +}
->  
->  static inline void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->  {
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
