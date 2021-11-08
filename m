@@ -2,61 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD81449B22
-	for <lists+freedreno@lfdr.de>; Mon,  8 Nov 2021 18:55:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1A3449B2B
+	for <lists+freedreno@lfdr.de>; Mon,  8 Nov 2021 18:56:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07226E16D;
-	Mon,  8 Nov 2021 17:55:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB14389BD4;
+	Mon,  8 Nov 2021 17:56:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE906E107
- for <freedreno@lists.freedesktop.org>; Mon,  8 Nov 2021 17:55:43 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id u2so28808769oiu.12
- for <freedreno@lists.freedesktop.org>; Mon, 08 Nov 2021 09:55:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=LhWfz+5JE21inJr4S250OgcbtsWmt4NJR6DvKNs5YBk=;
- b=NLZ/NWmaut34l69Gi0IMn3FhSPoI8MJxyT511eGKct44ivuZgMwua7hT0tOyLsDZUP
- TrgDXxUaUA7ChA+L3cFnC1wxXZ9OKrp2DAiclSjd/0dAqPiEQUMxdLhwh7TJBeW62J0y
- sxa7L/gO7PUUgBqELeaWYWMpjfyrDPN5orMWbR0tgee7qH946wvFrwRkNxmCE20baibN
- k+IRalaydJaBo+7hWaDZNjCRUOsSOX8GaiuqRGVUZ8nIAxdWVmPEL4ubW46Kx7KoptLH
- NXfufoYJtTJtYYpAQh2ZV1xuOG4OC8fEO2gNDc7SVhOr6lUM1CgDwpMx+e8MVxkv1JSD
- yRuA==
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01A9D89B20;
+ Mon,  8 Nov 2021 17:56:21 +0000 (UTC)
+Received: by mail-pj1-x102a.google.com with SMTP id v23so6738817pjr.5;
+ Mon, 08 Nov 2021 09:56:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xoKlavGZxr6dec4Eua5L/nU42iXPOyi8Il8xPrpTM04=;
+ b=C1JnwVwkyS4l5aZtJE5WdEAc5jjNH5NSibAJqMBoxhQLU7W2NjzhTKxJ2aFI3l+uvo
+ PZ9o9piRrMdYmJSuVTsvMIluA07xXA0zrDSpwAXoQn83dWLskJ6qUKUAfs740sraBLRK
+ 71AkeMYIJs3nzQCYX595PZZwrp0Vio2kRkp60Kd/8hU1NcC4qreyZLxS+fXm1udH0utm
+ PIM6pI+DZnxdNw+qiZUO2L10CEoazD9ZQhcl/koaoCxcVeAM6+O2fY8F3fL72yWMzTL5
+ jCn1qh/L181V1qreeIKAtUoWQg4M3oXrSIuI9lZwI0pMtDFoS9HlbJ7d4WzimVbCv2QZ
+ yWig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=LhWfz+5JE21inJr4S250OgcbtsWmt4NJR6DvKNs5YBk=;
- b=oQNEtudvYNVtWs8aDGiCKK1Ydg0PpWH+6tqlKb7hCCsyvQUS2Eh3PwNk9+UDL0fv9u
- lMdMwUvzbXSTM2woib1lX56R3GAtNPUSeYqSZnlbCvraWgQ3syfmUaFiMPJCDPm8pZoO
- EacBQw7HwRevdoGWqZHr/R1Ft9gIoijMivs/1TQweYRtPakKLjpepJ1f7bBBlv372GJC
- Ctl76gvIVuCmpTn1X8PD3RjdJ7c/5p2ATnjruQo/b99LSf9TYnqHSZOkDNIHgu9eVbo0
- xIwZdz19z84HZjbEg/V9xjXUjCoI4tZ3N1aExy+B0kxocNJr+zsa0+fW4jyRbEqTfK0a
- FC/A==
-X-Gm-Message-State: AOAM530GPvQsFeEgspQbTiCUIT0OeqSMJ7zAGagKwOYvp5bRea/RdV/E
- A1hmxOCGGUsANU186jmc8r4hCg==
-X-Google-Smtp-Source: ABdhPJz9eQvKIrPc8ta+sw34+CJDdEJVNU0OWR59hAmfrup/u3GDs03M3CvU50HHVxV7g2TUwoHwZA==
-X-Received: by 2002:a05:6808:128d:: with SMTP id
- a13mr98463oiw.29.1636394142851; 
- Mon, 08 Nov 2021 09:55:42 -0800 (PST)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id c16sm6822645oiw.31.2021.11.08.09.55.41
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xoKlavGZxr6dec4Eua5L/nU42iXPOyi8Il8xPrpTM04=;
+ b=a3DN9GY30yqBSJhSaUnsf76zrZQeErUezbTC3PmUDlKWY2SFqtpTcdPLZBXLZCUV01
+ 47Tb814z8n2yjK/1Ww2K7VYUDtKqo5v0aE+FLQJD3IMh3oq70wXupmxFWwhnTMgwpw65
+ Mlb0UkNUxCqCwW4GAzZ7SZsXB/mUvzouNAGxU7ph4BVlgShS9L+ya79qpY9u+otigmvd
+ dLLmQ3DSaAa88W9AoHl21v4sr+IB2s4SZA5B34DLZKplDI0vIvCrOJDkOgWG/W12al7v
+ gSY/L4OepHpiwZ6WXBQuWtwoOqCp9RwJG4rMWAmHOPs02tokP1T0WoOERUJjeHjjPVIH
+ Lk6w==
+X-Gm-Message-State: AOAM532MSFLMR2ylcs0rnDmEUhlrjKsMttYqEqR/+Rno5bENL2mANgU9
+ Lam+cF5tbwBGWsQ9JHLrzwYAMAFZJxU=
+X-Google-Smtp-Source: ABdhPJzjLrMyYoznDRHV57IpXix2EYUTbgIrc9dklIedNrGBxjCwEe/OeIJy9kGFbwNJbU28cJ1aAQ==
+X-Received: by 2002:a17:903:246:b0:13f:2ff9:8b93 with SMTP id
+ j6-20020a170903024600b0013f2ff98b93mr1099932plh.54.1636394180901; 
+ Mon, 08 Nov 2021 09:56:20 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ k18sm4295941pgb.70.2021.11.08.09.56.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Nov 2021 09:55:42 -0800 (PST)
-Date: Mon, 8 Nov 2021 09:57:19 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <YYlk/2VZCzX6tokf@ripper>
-References: <20211108171724.470973-1-robdclark@gmail.com>
+ Mon, 08 Nov 2021 09:56:20 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  8 Nov 2021 10:01:22 -0800
+Message-Id: <20211108180122.487859-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211108171724.470973-1-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH] iommu/arm-smmu-qcom: Fix TTBR0 read
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Do hw_init() before capturing GPU state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,49 +67,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- open list <linux-kernel@vger.kernel.org>, Will Deacon <will@kernel.org>,
- linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
- iommu@lists.linux-foundation.org, Shawn Guo <shawn.guo@linaro.org>,
- freedreno@lists.freedesktop.org,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 08 Nov 09:17 PST 2021, Rob Clark wrote:
+From: Rob Clark <robdclark@chromium.org>
 
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> It is a 64b register, lets not lose the upper bits.
-> 
-> Fixes: ab5df7b953d8 ("iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get pagefault info")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+In particular, we need to ensure all the necessary blocks are switched
+to 64b mode (a5xx+) otherwise the high bits of the address of the BO to
+snapshot state into will be ignored, resulting in:
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+  *** gpu fault: ttbr0=0000000000000000 iova=0000000000012000 dir=READ type=TRANSLATION source=CP (0,0,0,0)
+  platform 506a000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set BOOT_SLUMBER: 0x0
 
-Regards,
-Bjorn
+Fixes: 4f776f4511c7 ("drm/msm/gpu: Convert the GPU show function to use the GPU state")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_debugfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> ---
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> index 55690af1b25d..c998960495b4 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -51,7 +51,7 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
->  	info->fsynr1 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR1);
->  	info->far = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_FAR);
->  	info->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(cfg->cbndx));
-> -	info->ttbr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
-> +	info->ttbr0 = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
->  	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
->  }
->  
-> -- 
-> 2.31.1
-> 
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index b4d1a5162d1c..956b1efc3721 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -77,6 +77,7 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
+ 		goto free_priv;
+ 
+ 	pm_runtime_get_sync(&gpu->pdev->dev);
++	msm_gpu_hw_init(gpu);
+ 	show_priv->state = gpu->funcs->gpu_state_get(gpu);
+ 	pm_runtime_put_sync(&gpu->pdev->dev);
+ 
+-- 
+2.31.1
+
