@@ -1,60 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5402449A8B
-	for <lists+freedreno@lfdr.de>; Mon,  8 Nov 2021 18:12:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AD81449B22
+	for <lists+freedreno@lfdr.de>; Mon,  8 Nov 2021 18:55:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86CCE6E0F8;
-	Mon,  8 Nov 2021 17:12:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C07226E16D;
+	Mon,  8 Nov 2021 17:55:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBCC789FF9;
- Mon,  8 Nov 2021 17:12:27 +0000 (UTC)
-Received: by mail-pf1-x42b.google.com with SMTP id y5so6386621pfb.4;
- Mon, 08 Nov 2021 09:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=hGvO+FT4c2EJbxVYCDLmWLN/y9tCrxnSNXxEMsXuwNQ=;
- b=PEXo9EJ8iyOs6JYtLc/77yuf3gv2+qmOaRxZ/t9gKovlJPftYz0nG0N+vgAMQrzQ4i
- kNkOdJBlkeE/hZ6MODTHJLLrwXgvJnT/K6EX0chnqcK2yGVtopLE3UZg2leAGvZbl3LN
- 64kttVS3G4UKARK1dMYKiUjOGmY8M4KlUB4uGdl56x8atLwBvciap3B2qM5Ve4ah0rbR
- JHeHvQRBp6QyA02S3Ok6G2ObBMX0tOjwcBU/elZbj5iChuMAeeb29F1iO9YXCuDr0WmS
- 3dA5OVsnzNLM6MuM5kv8tGGk+wI0/n1LaF7IdCi20tMea79itbKo6koYALO1VLXF6R48
- n96g==
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE906E107
+ for <freedreno@lists.freedesktop.org>; Mon,  8 Nov 2021 17:55:43 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id u2so28808769oiu.12
+ for <freedreno@lists.freedesktop.org>; Mon, 08 Nov 2021 09:55:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=LhWfz+5JE21inJr4S250OgcbtsWmt4NJR6DvKNs5YBk=;
+ b=NLZ/NWmaut34l69Gi0IMn3FhSPoI8MJxyT511eGKct44ivuZgMwua7hT0tOyLsDZUP
+ TrgDXxUaUA7ChA+L3cFnC1wxXZ9OKrp2DAiclSjd/0dAqPiEQUMxdLhwh7TJBeW62J0y
+ sxa7L/gO7PUUgBqELeaWYWMpjfyrDPN5orMWbR0tgee7qH946wvFrwRkNxmCE20baibN
+ k+IRalaydJaBo+7hWaDZNjCRUOsSOX8GaiuqRGVUZ8nIAxdWVmPEL4ubW46Kx7KoptLH
+ NXfufoYJtTJtYYpAQh2ZV1xuOG4OC8fEO2gNDc7SVhOr6lUM1CgDwpMx+e8MVxkv1JSD
+ yRuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=hGvO+FT4c2EJbxVYCDLmWLN/y9tCrxnSNXxEMsXuwNQ=;
- b=jchLJUhqQWQovf0gSbCGSRRg8PCYMzE9sAhrXso5S1ZEkapS6PGl9Zg9ba3F3SX0xK
- +g0P193lkMe1OBc3+5bu0/uqwwsXT2Y7L98Xk2pnHtNx5QBfQxBvlFUY9jyw+f0rmyMs
- DH0Szuz1QAWOUej/9VX1lbhLaLzC+lH3xXl2OsyzsUVW2qo2o79BiNyzTvuzHsECc/Qo
- Ro2S+7mY6B6B4X5oC4amxEGIUhjwLUIcl4/DM7LFUxwPPq71GmG2hxDqDnO9VrbwLuKa
- EzmufzsXVMNKPwMWpPWds0onK6tKuR+TX3CJb7XBFcxtgd2XrKpgLHHRtF1WD7lMiwnM
- SGpQ==
-X-Gm-Message-State: AOAM5323+DgyIyqcdp9RzP//XGJ7oMRfwrvg8N2WWXNqSAbS9WwT1B6F
- WrjYb2hCxjZvFEkZYgAa3sg=
-X-Google-Smtp-Source: ABdhPJzliYBpPaMk022dk/QMrNH7Vg6W2agrDSJIDzTqNmxTzHAPQJOF1S2MqpYK5Ecosi0pxfxalA==
-X-Received: by 2002:a62:5ec2:0:b0:44d:47e2:4b3b with SMTP id
- s185-20020a625ec2000000b0044d47e24b3bmr82851281pfb.38.1636391547336; 
- Mon, 08 Nov 2021 09:12:27 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- p16sm12810610pgd.78.2021.11.08.09.12.25
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LhWfz+5JE21inJr4S250OgcbtsWmt4NJR6DvKNs5YBk=;
+ b=oQNEtudvYNVtWs8aDGiCKK1Ydg0PpWH+6tqlKb7hCCsyvQUS2Eh3PwNk9+UDL0fv9u
+ lMdMwUvzbXSTM2woib1lX56R3GAtNPUSeYqSZnlbCvraWgQ3syfmUaFiMPJCDPm8pZoO
+ EacBQw7HwRevdoGWqZHr/R1Ft9gIoijMivs/1TQweYRtPakKLjpepJ1f7bBBlv372GJC
+ Ctl76gvIVuCmpTn1X8PD3RjdJ7c/5p2ATnjruQo/b99LSf9TYnqHSZOkDNIHgu9eVbo0
+ xIwZdz19z84HZjbEg/V9xjXUjCoI4tZ3N1aExy+B0kxocNJr+zsa0+fW4jyRbEqTfK0a
+ FC/A==
+X-Gm-Message-State: AOAM530GPvQsFeEgspQbTiCUIT0OeqSMJ7zAGagKwOYvp5bRea/RdV/E
+ A1hmxOCGGUsANU186jmc8r4hCg==
+X-Google-Smtp-Source: ABdhPJz9eQvKIrPc8ta+sw34+CJDdEJVNU0OWR59hAmfrup/u3GDs03M3CvU50HHVxV7g2TUwoHwZA==
+X-Received: by 2002:a05:6808:128d:: with SMTP id
+ a13mr98463oiw.29.1636394142851; 
+ Mon, 08 Nov 2021 09:55:42 -0800 (PST)
+Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id c16sm6822645oiw.31.2021.11.08.09.55.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Nov 2021 09:12:26 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: iommu@lists.linux-foundation.org
-Date: Mon,  8 Nov 2021 09:17:23 -0800
-Message-Id: <20211108171724.470973-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
+ Mon, 08 Nov 2021 09:55:42 -0800 (PST)
+Date: Mon, 8 Nov 2021 09:57:19 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YYlk/2VZCzX6tokf@ripper>
+References: <20211108171724.470973-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] iommu/arm-smmu-qcom: Fix TTBR0 read
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211108171724.470973-1-robdclark@gmail.com>
+Subject: Re: [Freedreno] [PATCH] iommu/arm-smmu-qcom: Fix TTBR0 read
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,40 +69,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+Cc: Rob Clark <robdclark@chromium.org>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Shawn Guo <shawn.guo@linaro.org>, open list <linux-kernel@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Will Deacon <will@kernel.org>,
  linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
  Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Will Deacon <will@kernel.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
+ iommu@lists.linux-foundation.org, Shawn Guo <shawn.guo@linaro.org>,
+ freedreno@lists.freedesktop.org,
  "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Mon 08 Nov 09:17 PST 2021, Rob Clark wrote:
 
-It is a 64b register, lets not lose the upper bits.
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> It is a 64b register, lets not lose the upper bits.
+> 
+> Fixes: ab5df7b953d8 ("iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get pagefault info")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-Fixes: ab5df7b953d8 ("iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get pagefault info")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index 55690af1b25d..c998960495b4 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -51,7 +51,7 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
- 	info->fsynr1 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR1);
- 	info->far = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_FAR);
- 	info->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(cfg->cbndx));
--	info->ttbr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
-+	info->ttbr0 = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
- 	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
- }
- 
--- 
-2.31.1
+Regards,
+Bjorn
 
+> ---
+>  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> index 55690af1b25d..c998960495b4 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> @@ -51,7 +51,7 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
+>  	info->fsynr1 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR1);
+>  	info->far = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_FAR);
+>  	info->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(cfg->cbndx));
+> -	info->ttbr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
+> +	info->ttbr0 = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
+>  	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
+>  }
+>  
+> -- 
+> 2.31.1
+> 
