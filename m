@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6282C446F50
-	for <lists+freedreno@lfdr.de>; Sat,  6 Nov 2021 18:21:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5402449A8B
+	for <lists+freedreno@lfdr.de>; Mon,  8 Nov 2021 18:12:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC3B76EAC4;
-	Sat,  6 Nov 2021 17:21:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86CCE6E0F8;
+	Mon,  8 Nov 2021 17:12:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 756356E199
- for <freedreno@lists.freedesktop.org>; Sat,  6 Nov 2021 17:21:09 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id o83so20093326oif.4
- for <freedreno@lists.freedesktop.org>; Sat, 06 Nov 2021 10:21:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBCC789FF9;
+ Mon,  8 Nov 2021 17:12:27 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id y5so6386621pfb.4;
+ Mon, 08 Nov 2021 09:12:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=vTSLEwZ2lTdgm04aqi8C+KVIKM9ISYcIdJi5xTJQmDQ=;
- b=TM7HT/3kUvCVkyIyxqrla2bPoXwiNaUgVa/rkdmDjclsBlQ+MF4cgYeM/LlxxQn+u+
- Upxm0KHjHAlzeiGcjmD3wX0/bO2011j3SFBKR+42KzRtu3rUHR486mXtat3EwEIQLY5O
- xB5EJZNBvZHyQap3cH0THKAk/lKVH3CLTC/c2HSCGZBqt6vc6Dn//I+0ydBVp/BrFWgv
- 8KpLjGyF3Ozozmncwwdp2w9H5NjqlVxTFPofh5Hfo7RiO99fV3XnkB2PN8voK5dB71ik
- jlwRhUwFz+mvHuqzHdqZI64R6e/1wCRhpaOuvqeibUZLnmp+SQ9JSFe6+Mz0OQxOzpUU
- 7nvQ==
+ bh=hGvO+FT4c2EJbxVYCDLmWLN/y9tCrxnSNXxEMsXuwNQ=;
+ b=PEXo9EJ8iyOs6JYtLc/77yuf3gv2+qmOaRxZ/t9gKovlJPftYz0nG0N+vgAMQrzQ4i
+ kNkOdJBlkeE/hZ6MODTHJLLrwXgvJnT/K6EX0chnqcK2yGVtopLE3UZg2leAGvZbl3LN
+ 64kttVS3G4UKARK1dMYKiUjOGmY8M4KlUB4uGdl56x8atLwBvciap3B2qM5Ve4ah0rbR
+ JHeHvQRBp6QyA02S3Ok6G2ObBMX0tOjwcBU/elZbj5iChuMAeeb29F1iO9YXCuDr0WmS
+ 3dA5OVsnzNLM6MuM5kv8tGGk+wI0/n1LaF7IdCi20tMea79itbKo6koYALO1VLXF6R48
+ n96g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=vTSLEwZ2lTdgm04aqi8C+KVIKM9ISYcIdJi5xTJQmDQ=;
- b=dIvLCjmgCs8efiDEl7Z+yZDdCqGs9+Jz/u3MkiBstQTdU5eTCkMnpmvoy9zx9gBcTW
- k5WNEbCukRvDstOrx5w/hJhvhR+oKEXeShVS8ci65TC317evJKjgqkZb1xpkpdUXDYZX
- ObS5i/w86RjSzm3Xpwm2/HPUmZDrPC7SFXQvBOfHHr7LVtVkdx6ecETCLlNSVGCfYaZI
- aEsJ0ZuB0A0YrJZl0v3PSSmfXnaz66O8diivTphvkJBnRRwcQVnM+S7GhOnC7pstpFrX
- 2fFQYezLmq1gUru4OIGbcFBQiwE7eoNTDBf8BAJorAKW4xh39tH/1wQSrkf21kGbjrUB
- wN6A==
-X-Gm-Message-State: AOAM531fPDSw2hIHxOyhG3Nnal0U+UBxdg5CxYNCMp4VHDRUtqzSTFyJ
- mPxw/3xC+/2tyiKVohOijrMmdQ==
-X-Google-Smtp-Source: ABdhPJwqV+YJ+7OmqgyefLnoB9WNSGrGUryYUqJWPS8f6XLyzo2xKmxNbd/mkUmHKL02UYGvTeOrxw==
-X-Received: by 2002:a05:6808:1897:: with SMTP id
- bi23mr6223384oib.111.1636219268707; 
- Sat, 06 Nov 2021 10:21:08 -0700 (PDT)
-Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id 64sm3905304otm.37.2021.11.06.10.21.07
+ bh=hGvO+FT4c2EJbxVYCDLmWLN/y9tCrxnSNXxEMsXuwNQ=;
+ b=jchLJUhqQWQovf0gSbCGSRRg8PCYMzE9sAhrXso5S1ZEkapS6PGl9Zg9ba3F3SX0xK
+ +g0P193lkMe1OBc3+5bu0/uqwwsXT2Y7L98Xk2pnHtNx5QBfQxBvlFUY9jyw+f0rmyMs
+ DH0Szuz1QAWOUej/9VX1lbhLaLzC+lH3xXl2OsyzsUVW2qo2o79BiNyzTvuzHsECc/Qo
+ Ro2S+7mY6B6B4X5oC4amxEGIUhjwLUIcl4/DM7LFUxwPPq71GmG2hxDqDnO9VrbwLuKa
+ EzmufzsXVMNKPwMWpPWds0onK6tKuR+TX3CJb7XBFcxtgd2XrKpgLHHRtF1WD7lMiwnM
+ SGpQ==
+X-Gm-Message-State: AOAM5323+DgyIyqcdp9RzP//XGJ7oMRfwrvg8N2WWXNqSAbS9WwT1B6F
+ WrjYb2hCxjZvFEkZYgAa3sg=
+X-Google-Smtp-Source: ABdhPJzliYBpPaMk022dk/QMrNH7Vg6W2agrDSJIDzTqNmxTzHAPQJOF1S2MqpYK5Ecosi0pxfxalA==
+X-Received: by 2002:a62:5ec2:0:b0:44d:47e2:4b3b with SMTP id
+ s185-20020a625ec2000000b0044d47e24b3bmr82851281pfb.38.1636391547336; 
+ Mon, 08 Nov 2021 09:12:27 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ p16sm12810610pgd.78.2021.11.08.09.12.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Nov 2021 10:21:08 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Date: Sat,  6 Nov 2021 10:22:46 -0700
-Message-Id: <20211106172246.2597431-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.33.1
+ Mon, 08 Nov 2021 09:12:26 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: iommu@lists.linux-foundation.org
+Date: Mon,  8 Nov 2021 09:17:23 -0800
+Message-Id: <20211108171724.470973-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: Drop now unused hpd_high member
+Subject: [Freedreno] [PATCH] iommu/arm-smmu-qcom: Fix TTBR0 read
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,92 +67,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Shawn Guo <shawn.guo@linaro.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-arm-msm@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Eric Anholt <eric@anholt.net>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Will Deacon <will@kernel.org>,
+ "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since '8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon
-Chipsets")' the hpd_high member of struct dp_usbpd has been write-only.
+From: Rob Clark <robdclark@chromium.org>
 
-Let's clean up the code a little bit by removing the writes as well.
+It is a 64b register, lets not lose the upper bits.
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Fixes: ab5df7b953d8 ("iommu/arm-smmu-qcom: Add an adreno-smmu-priv callback to get pagefault info")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 6 ------
- drivers/gpu/drm/msm/dp/dp_hpd.c     | 2 --
- drivers/gpu/drm/msm/dp/dp_hpd.h     | 2 --
- 3 files changed, 10 deletions(-)
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index aba8aa47ed76..70177c0d6a37 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -522,11 +522,8 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index 55690af1b25d..c998960495b4 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -51,7 +51,7 @@ static void qcom_adreno_smmu_get_fault_info(const void *cookie,
+ 	info->fsynr1 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_FSYNR1);
+ 	info->far = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_FAR);
+ 	info->cbfrsynra = arm_smmu_gr1_read(smmu, ARM_SMMU_GR1_CBFRSYNRA(cfg->cbndx));
+-	info->ttbr0 = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
++	info->ttbr0 = arm_smmu_cb_readq(smmu, cfg->cbndx, ARM_SMMU_CB_TTBR0);
+ 	info->contextidr = arm_smmu_cb_read(smmu, cfg->cbndx, ARM_SMMU_CB_CONTEXTIDR);
+ }
  
- 	dp->hpd_state = ST_CONNECT_PENDING;
- 
--	hpd->hpd_high = 1;
--
- 	ret = dp_display_usbpd_configure_cb(&dp->pdev->dev);
- 	if (ret) {	/* link train failed */
--		hpd->hpd_high = 0;
- 		dp->hpd_state = ST_DISCONNECTED;
- 
- 		if (ret == -ECONNRESET) { /* cable unplugged */
-@@ -603,7 +600,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
- 		/* triggered by irq_hdp with sink_count = 0 */
- 		if (dp->link->sink_count == 0) {
- 			dp_ctrl_off_phy(dp->ctrl);
--			hpd->hpd_high = 0;
- 			dp->core_initialized = false;
- 		}
- 		mutex_unlock(&dp->event_mutex);
-@@ -627,8 +623,6 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
- 	/* disable HPD plug interrupts */
- 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, false);
- 
--	hpd->hpd_high = 0;
--
- 	/*
- 	 * We don't need separate work for disconnect as
- 	 * connect/attention interrupts are disabled
-diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.c b/drivers/gpu/drm/msm/dp/dp_hpd.c
-index e1c90fa47411..db98a1d431eb 100644
---- a/drivers/gpu/drm/msm/dp/dp_hpd.c
-+++ b/drivers/gpu/drm/msm/dp/dp_hpd.c
-@@ -32,8 +32,6 @@ int dp_hpd_connect(struct dp_usbpd *dp_usbpd, bool hpd)
- 	hpd_priv = container_of(dp_usbpd, struct dp_hpd_private,
- 					dp_usbpd);
- 
--	dp_usbpd->hpd_high = hpd;
--
- 	if (!hpd_priv->dp_cb || !hpd_priv->dp_cb->configure
- 				|| !hpd_priv->dp_cb->disconnect) {
- 		pr_err("hpd dp_cb not initialized\n");
-diff --git a/drivers/gpu/drm/msm/dp/dp_hpd.h b/drivers/gpu/drm/msm/dp/dp_hpd.h
-index 5bc5bb64680f..8feec5aa5027 100644
---- a/drivers/gpu/drm/msm/dp/dp_hpd.h
-+++ b/drivers/gpu/drm/msm/dp/dp_hpd.h
-@@ -26,7 +26,6 @@ enum plug_orientation {
-  * @multi_func: multi-function preferred
-  * @usb_config_req: request to switch to usb
-  * @exit_dp_mode: request exit from displayport mode
-- * @hpd_high: Hot Plug Detect signal is high.
-  * @hpd_irq: Change in the status since last message
-  * @alt_mode_cfg_done: bool to specify alt mode status
-  * @debug_en: bool to specify debug mode
-@@ -39,7 +38,6 @@ struct dp_usbpd {
- 	bool multi_func;
- 	bool usb_config_req;
- 	bool exit_dp_mode;
--	bool hpd_high;
- 	bool hpd_irq;
- 	bool alt_mode_cfg_done;
- 	bool debug_en;
 -- 
-2.33.1
+2.31.1
 
