@@ -1,35 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B47744B3B6
-	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 21:05:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5389944B3BF
+	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 21:08:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B5C26E419;
-	Tue,  9 Nov 2021 20:05:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E53E36E18F;
+	Tue,  9 Nov 2021 20:08:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC176E419
- for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 20:05:25 +0000 (UTC)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169FE6E18F
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 20:08:17 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1636488331; h=Message-ID: References: In-Reply-To: Subject:
+ s=smtp; t=1636488500; h=Message-ID: References: In-Reply-To: Subject:
  Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=Ot9X0qCj7h9GyA8arQKHs+mukN4ItwqE8S5U3d0JvbY=;
- b=CrI8jJg8i7s3eZPjTpcRUqv4didaDc9dSaA0o769ojVn2ljT+JmyUnq4zhxHpoa1bykdrz8H
- tHJiwooY203v49Q69J5uq9lcxZ7fn/+t+kreaYPZpkvnhpSdU1/aYp9zcvZhasNymvbvptg5
- VmWwnXG8XI/qcIRqMnFtcI4GpJk=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ MIME-Version: Sender; bh=0qpZdumH7UDsW2izS6M3tyL1Qg8q84i2R13GYtwCLgw=;
+ b=C3+ZlAHHipz1Ued+Jila4jnJOPeWSyGKBTvJrOc2oojAsVsJJYh4Zo1ZNwq6WLPm/5RbzU0Y
+ 4FKV4cPp8AGeg0M9Jq3rVqfEOg7M7ZOqGEJtjToKoSFsKeDIqqCF2Jy1HwVFE+Cf8esI3cPA
+ NzzOqSIm28Hu6MquO1jdAEIGEnk=
+X-Mailgun-Sending-Ip: 198.61.254.9
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
- 618ad47663ce33d69b92bcf5 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Nov 2021 20:05:10
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 618ad4c79198e3b256440043 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Nov 2021 20:06:31
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 0C1BEC43618; Tue,  9 Nov 2021 20:05:07 +0000 (UTC)
+ id DB297C43617; Tue,  9 Nov 2021 20:06:30 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
@@ -38,23 +38,23 @@ X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
 Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id DA343C4338F;
- Tue,  9 Nov 2021 20:05:06 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 18DB2C4338F;
+ Tue,  9 Nov 2021 20:06:30 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Tue, 09 Nov 2021 12:05:06 -0800
+Date: Tue, 09 Nov 2021 12:06:30 -0800
 From: abhinavk@codeaurora.org
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210705012115.4179824-15-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20210705012115.4179824-16-dmitry.baryshkov@linaro.org>
 References: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
- <20210705012115.4179824-15-dmitry.baryshkov@linaro.org>
-Message-ID: <6de0375f60e442f301cb4e735d3ca2e6@codeaurora.org>
+ <20210705012115.4179824-16-dmitry.baryshkov@linaro.org>
+Message-ID: <5ddd16ddb7270fe81582be12540852ef@codeaurora.org>
 X-Sender: abhinavk@codeaurora.org
 User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v2 14/22] drm/msm/dpu: add list of supported
- formats to the DPU caps
+Subject: Re: [Freedreno] [PATCH v2 15/22] drm/msm/dpu: simplify DPU_SSPP
+ features checks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,96 +76,63 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 2021-07-04 18:21, Dmitry Baryshkov wrote:
-> As we are going to add virtual planes, add the list of supported 
-> formats
-> to the hw catalog entry. It will be used to setup universal planes, 
-> with
-> later selecting a pipe depending on whether the YUV format is used for
-> the framebuffer.
+> Add DPU_SSPP_CSC_ANY denoting any CSC block. As we are at it, rewrite
+> DPU_SSPP_SCALER (any scaler) to use BIT(x) instead of hand-coded
+> bitshifts.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+This can go independent of the multi-rect series, so can you please take 
+this with the
+first half of the series which was going to be taken separately?
 
-I dont see an issue with exposing the format_list in the catalog, hence
+With that,
 Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 10 ++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  4 ++++
->  2 files changed, 14 insertions(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 16 +++++++++++-----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   |  3 +--
+>  2 files changed, 12 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index d01c4c919504..b8e0fece1f0b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -195,6 +195,8 @@ static const struct dpu_caps sdm845_dpu_caps = {
->  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
->  	.max_hdeci_exp = MAX_HORZ_DECIMATION,
->  	.max_vdeci_exp = MAX_VERT_DECIMATION,
-> +	.format_list = plane_formats_yuv,
-> +	.num_formats = ARRAY_SIZE(plane_formats_yuv),
->  };
-> 
->  static const struct dpu_caps sc7180_dpu_caps = {
-> @@ -207,6 +209,8 @@ static const struct dpu_caps sc7180_dpu_caps = {
->  	.has_idle_pc = true,
->  	.max_linewidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
->  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-> +	.format_list = plane_formats_yuv,
-> +	.num_formats = ARRAY_SIZE(plane_formats_yuv),
->  };
-> 
->  static const struct dpu_caps sm8150_dpu_caps = {
-> @@ -223,6 +227,8 @@ static const struct dpu_caps sm8150_dpu_caps = {
->  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
->  	.max_hdeci_exp = MAX_HORZ_DECIMATION,
->  	.max_vdeci_exp = MAX_VERT_DECIMATION,
-> +	.format_list = plane_formats_yuv,
-> +	.num_formats = ARRAY_SIZE(plane_formats_yuv),
->  };
-> 
->  static const struct dpu_caps sm8250_dpu_caps = {
-> @@ -237,6 +243,8 @@ static const struct dpu_caps sm8250_dpu_caps = {
->  	.has_3d_merge = true,
->  	.max_linewidth = 4096,
->  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-> +	.format_list = plane_formats_yuv,
-> +	.num_formats = ARRAY_SIZE(plane_formats_yuv),
->  };
-> 
->  static const struct dpu_caps sc7280_dpu_caps = {
-> @@ -249,6 +257,8 @@ static const struct dpu_caps sc7280_dpu_caps = {
->  	.has_idle_pc = true,
->  	.max_linewidth = 2400,
->  	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
-> +	.format_list = plane_formats_yuv,
-> +	.num_formats = ARRAY_SIZE(plane_formats_yuv),
->  };
-> 
->  static const struct dpu_mdp_cfg sdm845_mdp[] = {
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index d2a945a27cfa..f3c5aa3f4b3f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -324,6 +324,8 @@ struct dpu_qos_lut_tbl {
->   * @pixel_ram_size     size of latency hiding and de-tiling buffer in 
-> bytes
->   * @max_hdeci_exp      max horizontal decimation supported (max is 
-> 2^value)
->   * @max_vdeci_exp      max vertical decimation supported (max is 
-> 2^value)
-> + * @format_list: Pointer to list of supported formats
-> + * @num_formats: Number of supported formats
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> index 264a9d0d5fca..00098e33391e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> @@ -25,11 +25,17 @@ struct dpu_hw_pipe;
+>  /**
+>   * Define all scaler feature bits in catalog
 >   */
->  struct dpu_caps {
->  	u32 max_mixer_width;
-> @@ -340,6 +342,8 @@ struct dpu_caps {
->  	u32 pixel_ram_size;
->  	u32 max_hdeci_exp;
->  	u32 max_vdeci_exp;
-> +	const u32 *format_list;
-> +	u32 num_formats;
->  };
+> -#define DPU_SSPP_SCALER ((1UL << DPU_SSPP_SCALER_RGB) | \
+> -	(1UL << DPU_SSPP_SCALER_QSEED2) | \
+> -	 (1UL << DPU_SSPP_SCALER_QSEED3) | \
+> -	 (1UL << DPU_SSPP_SCALER_QSEED3LITE) | \
+> -	  (1UL << DPU_SSPP_SCALER_QSEED4))
+> +#define DPU_SSPP_SCALER (BIT(DPU_SSPP_SCALER_RGB) | \
+> +			 BIT(DPU_SSPP_SCALER_QSEED2) | \
+> +			 BIT(DPU_SSPP_SCALER_QSEED3) | \
+> +			 BIT(DPU_SSPP_SCALER_QSEED3LITE) | \
+> +			 BIT(DPU_SSPP_SCALER_QSEED4))
+> +
+> +/*
+> + * Define all CSC feature bits in catalog
+> + */
+> +#define DPU_SSPP_CSC_ANY (BIT(DPU_SSPP_CSC) | \
+> +			  BIT(DPU_SSPP_CSC_10BIT))
 > 
 >  /**
+>   * Component indices
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 34ecd971cbbb..8ed7b8f0db69 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -983,8 +983,7 @@ static int dpu_plane_atomic_check(struct drm_plane 
+> *plane,
+> 
+>  	if (DPU_FORMAT_IS_YUV(fmt) &&
+>  		(!(pdpu->pipe_hw->cap->features & DPU_SSPP_SCALER) ||
+> -		 !(pdpu->pipe_hw->cap->features & (BIT(DPU_SSPP_CSC)
+> -		 | BIT(DPU_SSPP_CSC_10BIT))))) {
+> +		 !(pdpu->pipe_hw->cap->features & DPU_SSPP_CSC_ANY))) {
+>  		DPU_DEBUG_PLANE(pdpu,
+>  				"plane doesn't have scaler/csc for yuv\n");
+>  		return -EINVAL;
