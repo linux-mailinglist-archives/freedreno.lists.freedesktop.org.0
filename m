@@ -2,57 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22FDC44B52E
-	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 23:12:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C31644B8EF
+	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 23:46:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD72D6E88B;
-	Tue,  9 Nov 2021 22:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92B446E8BC;
+	Tue,  9 Nov 2021 22:46:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00CAF6E88B
- for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 22:12:20 +0000 (UTC)
-Received: by mail-ot1-x32f.google.com with SMTP id
- p11-20020a9d4e0b000000b0055a5741bff7so908599otf.2
- for <freedreno@lists.freedesktop.org>; Tue, 09 Nov 2021 14:12:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=q4dY+M8nyiFAt4remZo3SHhwNRe5f+ykJVrEzZX13ZY=;
- b=dUVV+iZ7gYosXBMozkc7vKB1RNOH5oYuxH+4ETASHmsxotjE4SMaeLcPuNuZo3YgLS
- VKqrYcvpOjHVanfYHo2JDTh9TG9fBjUwC/5YUeev8lYij4oN6Dvhmr9g993TWSjfRQXA
- y/Ob41ctB8Ez3blzsLaMRml0A4mz13rP97ljM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=q4dY+M8nyiFAt4remZo3SHhwNRe5f+ykJVrEzZX13ZY=;
- b=KX8H8TPuZnxPT2VbtvAYBHvIcRdF5DdsHRfjn8wMEscAiLNu4TD6HCwlAOi/ZTgYFC
- dVHP0rn2OKDHLyI+gu7oAB3C1VCizKP1fOdsECyZAYh1ZwZZ7pVyaUNS4z9itLeo2DJb
- 79jAJaqkSVwhdaGj6mmwdCRXnAj0TPVMYgaZ/akLbgYLYEv8ZFQv7AaoO5LUPUegtQ35
- nKRpFC74tRuzer9B3JH/qtd1YzOgFQqQQcpW/TpNeU/GF3XtbpD+OM2GJ+O5/SzMmU6N
- LTYBEAPi0CYYOba27MHjYOD/qUgnQ2RU3eUCyrPJIKieYLyMSzqOy1MMTq7KcdGa4986
- E1og==
-X-Gm-Message-State: AOAM532aViYcbeeeFjZR0SoARPcQKYWGhhEJlAsO5UGykIuz40PCiuhU
- 7e0NMN4pcN+7gjTgE59PwWZN6+fx575+Yy4vCRl7Ng==
-X-Google-Smtp-Source: ABdhPJzCxZIvzxfRWv/IW1ZG0J6NJo3QJ4ZuZGIuMdYHfvlxdSbDBBsE6NHiPmYbpRrVGi/S+/NGsMIcLCSrzc29ITI=
-X-Received: by 2002:a9d:2f42:: with SMTP id h60mr8342701otb.159.1636495940269; 
- Tue, 09 Nov 2021 14:12:20 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 9 Nov 2021 22:12:19 +0000
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED1F6EAAD
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 22:46:07 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1636497967; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=v9VczQnFx9xswdyxP7IiTRh0CLZMg/o04Xjcgs+tOZg=;
+ b=eOlkCxCPWn5JCgkiPkxpCly3ImHXfYjlv0Bp/168CJetAmxzTdSrQs4txF1zdrhmTS8NAAlk
+ Y4cZRDPH9U8yiXUn649/9rJAL9Q7wU3254FfBvtBdEfV7bMeRyr5mi7xfTjdrbuLCcjOLIWW
+ 7TB6qtYprjdKryvK9u87gewvtfI=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
+ 618afa2ea4b510b38fb63787 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Nov 2021 22:46:06
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5C4D9C35A2F; Tue,  9 Nov 2021 22:46:05 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id F11E3C359EE;
+ Tue,  9 Nov 2021 22:46:01 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <1636451248-18889-1-git-send-email-quic_mkrishn@quicinc.com>
-References: <1636451248-18889-1-git-send-email-quic_mkrishn@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Tue, 9 Nov 2021 22:12:19 +0000
-Message-ID: <CAE-0n50a5LWpi1JoY=BpwPokpuzYC2c3RXv86Ob_azmdCOkgyw@mail.gmail.com>
-To: Krishna Manikandan <quic_mkrishn@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3] drm/msm: use compatible lists to find
- mdp node
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 09 Nov 2021 14:46:01 -0800
+From: khsieh@codeaurora.org
+To: Douglas Anderson <dianders@chromium.org>
+In-Reply-To: <20211109100403.1.I4e23470d681f7efe37e2e7f1a6466e15e9bb1d72@changeid>
+References: <20211109100403.1.I4e23470d681f7efe37e2e7f1a6466e15e9bb1d72@changeid>
+Message-ID: <bc63c12983fd05bfb97e9a2ce00b0bd6@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Avoid unpowered AUX xfers that
+ caused crashes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,27 +66,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, robdclark@gmail.com,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Krishna Manikandan (2021-11-09 01:47:28)
-> In the current implementation, substring comparison
-> using device node name is used to find mdp node
-> during driver probe. Use compatible string list instead
-> of node name to get mdp node from the parent mdss node.
->
-> Signed-off-by: Krishna Manikandan <quic_mkrishn@quicinc.com>
->
-> Changes in v2:
->   - Use compatible lists instead of duplicate string
->     check (Stephen Boyd)
->
-> Changes in v3:
->   - Use match tables to find the mdp node (Stephen Boyd)
+On 2021-11-09 10:04, Douglas Anderson wrote:
+> If you happened to try to access `/dev/drm_dp_aux` devices provided by
+> the MSM DP AUX driver too early at bootup you could go boom. Let's
+> avoid that by only allowing AUX transfers when the controller is
+> powered up.
+> 
+> Specifically the crash that was seen (on Chrome OS 5.4 tree with
+> relevant backports):
+>   Kernel panic - not syncing: Asynchronous SError Interrupt
+>   CPU: 0 PID: 3131 Comm: fwupd Not tainted 5.4.144-16620-g28af11b73efb 
+> #1
+>   Hardware name: Google Lazor (rev3+) with KB Backlight (DT)
+>   Call trace:
+>    dump_backtrace+0x0/0x14c
+>    show_stack+0x20/0x2c
+>    dump_stack+0xac/0x124
+>    panic+0x150/0x390
+>    nmi_panic+0x80/0x94
+>    arm64_serror_panic+0x78/0x84
+>    do_serror+0x0/0x118
+>    do_serror+0xa4/0x118
+>    el1_error+0xbc/0x160
+>    dp_catalog_aux_write_data+0x1c/0x3c
+>    dp_aux_cmd_fifo_tx+0xf0/0x1b0
+>    dp_aux_transfer+0x1b0/0x2bc
+>    drm_dp_dpcd_access+0x8c/0x11c
+>    drm_dp_dpcd_read+0x64/0x10c
+>    auxdev_read_iter+0xd4/0x1c4
+> 
+> I did a little bit of tracing and found that:
+> * We register the AUX device very early at bootup.
+> * Power isn't actually turned on for my system until
+>   hpd_event_thread() -> dp_display_host_init() -> dp_power_init()
+> * You can see that dp_power_init() calls dp_aux_init() which is where
+>   we start allowing AUX channel requests to go through.
+> 
+> In general this patch is a bit of a bandaid but at least it gets us
+> out of the current state where userspace acting at the wrong time can
+> fully crash the system.
+> * I think the more proper fix (which requires quite a bit more
+>   changes) is to power stuff on while an AUX transfer is
+>   happening. This is like the solution we did for ti-sn65dsi86. This
+>   might be required for us to move to populating the panel via the
+>   DP-AUX bus.
+> * Another fix considered was to dynamically register / unregister. I
+>   tried that at <https://crrev.com/c/3169431/3> but it got
+>   ugly. Currently there's a bug where the pm_runtime() state isn't
+>   tracked properly and that causes us to just keep registering more
+>   and more.
+> 
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
 > ---
-
-With the export symbol dropped
-
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> 
+>  drivers/gpu/drm/msm/dp/dp_aux.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c 
+> b/drivers/gpu/drm/msm/dp/dp_aux.c
+> index eb40d8413bca..6d36f63c3338 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> @@ -33,6 +33,7 @@ struct dp_aux_private {
+>  	bool read;
+>  	bool no_send_addr;
+>  	bool no_send_stop;
+> +	bool initted;
+>  	u32 offset;
+>  	u32 segment;
+> 
+> @@ -331,6 +332,10 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux 
+> *dp_aux,
+>  	}
+> 
+>  	mutex_lock(&aux->mutex);
+> +	if (!aux->initted) {
+> +		ret = -EIO;
+> +		goto exit;
+> +	}
+> 
+>  	dp_aux_update_offset_and_segment(aux, msg);
+>  	dp_aux_transfer_helper(aux, msg, true);
+> @@ -380,6 +385,8 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux 
+> *dp_aux,
+>  	}
+> 
+>  	aux->cmd_busy = false;
+> +
+> +exit:
+>  	mutex_unlock(&aux->mutex);
+> 
+>  	return ret;
+> @@ -431,8 +438,13 @@ void dp_aux_init(struct drm_dp_aux *dp_aux)
+> 
+>  	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
+> 
+> +	mutex_lock(&aux->mutex);
+> +
+>  	dp_catalog_aux_enable(aux->catalog, true);
+>  	aux->retry_cnt = 0;
+> +	aux->initted = true;
+> +
+> +	mutex_unlock(&aux->mutex);
+>  }
+> 
+>  void dp_aux_deinit(struct drm_dp_aux *dp_aux)
+> @@ -441,7 +453,12 @@ void dp_aux_deinit(struct drm_dp_aux *dp_aux)
+> 
+>  	aux = container_of(dp_aux, struct dp_aux_private, dp_aux);
+> 
+> +	mutex_lock(&aux->mutex);
+> +
+> +	aux->initted = false;
+>  	dp_catalog_aux_enable(aux->catalog, false);
+> +
+> +	mutex_unlock(&aux->mutex);
+>  }
+> 
+>  int dp_aux_register(struct drm_dp_aux *dp_aux)
