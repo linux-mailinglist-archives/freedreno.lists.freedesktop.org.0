@@ -1,59 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24F244B527
-	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 23:09:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22FDC44B52E
+	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 23:12:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4087F6E4CA;
-	Tue,  9 Nov 2021 22:09:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD72D6E88B;
+	Tue,  9 Nov 2021 22:12:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06AFB6E4CA
- for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 22:09:25 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id bf8so1371670oib.6
- for <freedreno@lists.freedesktop.org>; Tue, 09 Nov 2021 14:09:24 -0800 (PST)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00CAF6E88B
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 22:12:20 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ p11-20020a9d4e0b000000b0055a5741bff7so908599otf.2
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Nov 2021 14:12:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=DPT5pWa6cT8nw3Zv9xh5xFmmq85YU9JvkFn3DJbbeno=;
- b=Eepl0E0INMovuY9E/5rpog6e/jKCyo5Mf5NMvqE+gygcSEWSSwfak8b9jRvDyxJIwV
- XbsyCcK/RVQDnUuh1ed6cRQNrYmeYfIzc4Rcw8U4qaSagdxJ5nO9ylDvR6Gpksurt6KS
- 5RZ3DEDXQvUcXuCz53c1nTjSQHHOQOSASdlQI=
+ bh=q4dY+M8nyiFAt4remZo3SHhwNRe5f+ykJVrEzZX13ZY=;
+ b=dUVV+iZ7gYosXBMozkc7vKB1RNOH5oYuxH+4ETASHmsxotjE4SMaeLcPuNuZo3YgLS
+ VKqrYcvpOjHVanfYHo2JDTh9TG9fBjUwC/5YUeev8lYij4oN6Dvhmr9g993TWSjfRQXA
+ y/Ob41ctB8Ez3blzsLaMRml0A4mz13rP97ljM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=DPT5pWa6cT8nw3Zv9xh5xFmmq85YU9JvkFn3DJbbeno=;
- b=5WMayYkY3ksx6TAzqydI/PRXng/aTRcyXghBRSbxuEoWV6c8IOwZ/eHMEJtW266h6t
- e9bMcLm4zmXQLipbrOYiylIJjfwwYovPK0Nll4lldsagcn6IZI503b4NzYsNyu5Cpllq
- OBM2eNkRPDXrAuY/2nDRvFfV7iu3Z53ymyMhD9FQfCJviw0aEAQit/6ApggYM7YWISwb
- pXNz58nDdvRycrbF+bJPXchsq8lvzGoJHLlUR7cvQP3Pz99bcEQa3x43NlJ2pCuJW5U9
- kup7znzxi2LNAYflQXjhcfOorvWBbPioYKWfVGxpCgeQS0RXhVOHresGhDCPzDFFMgzS
- RbLA==
-X-Gm-Message-State: AOAM53385Jzcn1j8G2tOdFp+1mT2uDzpzDr49gIS6J9GYmziGw/zEm+U
- db5xr1WOGJbFyFlfGKBrXwJZcp3JyGHOzmadYqW+/A==
-X-Google-Smtp-Source: ABdhPJyq+WHaMv+pQAv1iUIqLn4EAtyzQnLJaulAUyKW2RUle/i+EGbpt/SBpZiLkLkmUM3ZrpMeVk6x9TtFHDQkxCA=
-X-Received: by 2002:a05:6808:211f:: with SMTP id
- r31mr8942621oiw.64.1636495764284; 
- Tue, 09 Nov 2021 14:09:24 -0800 (PST)
+ bh=q4dY+M8nyiFAt4remZo3SHhwNRe5f+ykJVrEzZX13ZY=;
+ b=KX8H8TPuZnxPT2VbtvAYBHvIcRdF5DdsHRfjn8wMEscAiLNu4TD6HCwlAOi/ZTgYFC
+ dVHP0rn2OKDHLyI+gu7oAB3C1VCizKP1fOdsECyZAYh1ZwZZ7pVyaUNS4z9itLeo2DJb
+ 79jAJaqkSVwhdaGj6mmwdCRXnAj0TPVMYgaZ/akLbgYLYEv8ZFQv7AaoO5LUPUegtQ35
+ nKRpFC74tRuzer9B3JH/qtd1YzOgFQqQQcpW/TpNeU/GF3XtbpD+OM2GJ+O5/SzMmU6N
+ LTYBEAPi0CYYOba27MHjYOD/qUgnQ2RU3eUCyrPJIKieYLyMSzqOy1MMTq7KcdGa4986
+ E1og==
+X-Gm-Message-State: AOAM532aViYcbeeeFjZR0SoARPcQKYWGhhEJlAsO5UGykIuz40PCiuhU
+ 7e0NMN4pcN+7gjTgE59PwWZN6+fx575+Yy4vCRl7Ng==
+X-Google-Smtp-Source: ABdhPJzCxZIvzxfRWv/IW1ZG0J6NJo3QJ4ZuZGIuMdYHfvlxdSbDBBsE6NHiPmYbpRrVGi/S+/NGsMIcLCSrzc29ITI=
+X-Received: by 2002:a9d:2f42:: with SMTP id h60mr8342701otb.159.1636495940269; 
+ Tue, 09 Nov 2021 14:12:20 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 9 Nov 2021 22:09:23 +0000
+ HTTPREST; Tue, 9 Nov 2021 22:12:19 +0000
 MIME-Version: 1.0
-In-Reply-To: <20211106172246.2597431-1-bjorn.andersson@linaro.org>
-References: <20211106172246.2597431-1-bjorn.andersson@linaro.org>
+In-Reply-To: <1636451248-18889-1-git-send-email-quic_mkrishn@quicinc.com>
+References: <1636451248-18889-1-git-send-email-quic_mkrishn@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Tue, 9 Nov 2021 22:09:23 +0000
-Message-ID: <CAE-0n51evrWUseEKRbdsfx9nLHuv5YdS89OE3X5Ffs+LLN-35w@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, 
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+Date: Tue, 9 Nov 2021 22:12:19 +0000
+Message-ID: <CAE-0n50a5LWpi1JoY=BpwPokpuzYC2c3RXv86Ob_azmdCOkgyw@mail.gmail.com>
+To: Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Drop now unused hpd_high member
+Subject: Re: [Freedreno] [PATCH v3] drm/msm: use compatible lists to find
+ mdp node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,21 +65,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, robdclark@gmail.com,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Bjorn Andersson (2021-11-06 10:22:46)
-> Since '8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon
-> Chipsets")' the hpd_high member of struct dp_usbpd has been write-only.
+Quoting Krishna Manikandan (2021-11-09 01:47:28)
+> In the current implementation, substring comparison
+> using device node name is used to find mdp node
+> during driver probe. Use compatible string list instead
+> of node name to get mdp node from the parent mdss node.
 >
-> Let's clean up the code a little bit by removing the writes as well.
+> Signed-off-by: Krishna Manikandan <quic_mkrishn@quicinc.com>
 >
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Changes in v2:
+>   - Use compatible lists instead of duplicate string
+>     check (Stephen Boyd)
+>
+> Changes in v3:
+>   - Use match tables to find the mdp node (Stephen Boyd)
 > ---
+
+With the export symbol dropped
 
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
