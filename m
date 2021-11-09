@@ -2,62 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7681444B248
-	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 19:04:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3151444B258
+	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 19:06:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DDB56E892;
-	Tue,  9 Nov 2021 18:04:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A995A892FD;
+	Tue,  9 Nov 2021 18:06:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6D9D6E892;
- Tue,  9 Nov 2021 18:04:12 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id p18so22301423plf.13;
- Tue, 09 Nov 2021 10:04:12 -0800 (PST)
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9501F892FD;
+ Tue,  9 Nov 2021 18:06:15 +0000 (UTC)
+Received: by mail-pf1-x436.google.com with SMTP id x64so78874pfd.6;
+ Tue, 09 Nov 2021 10:06:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=t3qjeN7nQHDCrUu/1XJMOvEO/irEkBC8LSoLfwIe2GU=;
- b=oFQq1WULT2FUg08tYASIfdmWeq2fJ/0+fexo3IF2F2lfcZ4Zo2TMhAREDOSmvfm+8Y
- v8p2ftEDtwAJwJ4G7NvwYDamu51GjgiwbCfUo6KA9IDdcY04AUFQfBFbQrrZGIS5yOiT
- /tQBXkddbElM43ZFG+MYnHqlWGw401pzYCjz2zLt3U4veySfTilAjyAIouG7lJdqsLM/
- arVgi5dBcKLaQl9A+rS9c4vyKodRsykadue5mYC/dqMJryrmybnY+sDcoy+oOb/Rvhs8
- /ND4xuOZev3cdiqcRh4d5aOhKO7F3BYDBaPUV23W6NVImOknyjp1RTBxVTm0kysK1+er
- 37UQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ubdL9EpbHiKFQ/ensyE1OL+6p1VDVmYl0vsSWhTLLJk=;
+ b=p0ckCqL5xUa6CraKVoJJL+4JKcqnSmBpaWTXjRixdPhVKx6qzuiACq/eCbiDn3lsr3
+ 26gEdWkJSy5ZqrXASLm1kLFml3T+JPOHpwKB8R0RfLop8VB8maMH6CEL4s8r65MPhuN0
+ G1g7Er+zfMvrqQf+A5TwR2ZtIXXJkbftDCIj0KzDrCi/rFWfg8M0jCrnMjbJEywFWMs2
+ UjeTzC0wXz/Fj25sCD8etz2PE9CZTv98c62p4C1+g6GIJbZtaZ8pw5QxjRhB0yYIZVZ1
+ /dMFwnmKBbSVXPbcyFiCLYlRYiwXJr+IzfdrtayotabGJE/oRJlF2ST2tYg19v4lQjc4
+ Umyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=t3qjeN7nQHDCrUu/1XJMOvEO/irEkBC8LSoLfwIe2GU=;
- b=VO1+s2A+kamILFllLz3iOo0sM4DtVzizO1TafnaBwNIRXPpY49yaSbo1+kpBJr56w5
- tAk9qZ22zxSmyAAqcZ20x6R7Y8S0WfhOMicghLNZty6tVwRKlOswBo7OdMgdg1cD2bxk
- 2/9JE/Jyeua7oog6j2E7cN25lNzKAwckgg5uklZ5EkxxIFKph+ulXS+nmORCbGxBiw3E
- zeBsSdnb7RV+Yd4vAGEUzj+bk66DwpaKwX+1+qX74D3oak8/cVXGXW9iQ0/7pwD1QK3P
- truX7zq/wKsT3HDX/3pYXzdDasgkdtMz0XhF7K8A22rQyOYQ/CC16R5dz/H3DQwZaN0D
- lVGg==
-X-Gm-Message-State: AOAM532TCyp51wdx+M1f+QYjYzwQKAacoVFND5gm62BjK9/Vuii99U9Z
- /XuxMgYi4HrK5t3UqmQlma0l+FdSc8Y=
-X-Google-Smtp-Source: ABdhPJzragu9cT/6XjfaP2W/Xj5m7P6lwff2id7d1spWKZgh5LVSQwAntItSsLjZYZVj3h1DxIBdyw==
-X-Received: by 2002:a17:90b:1e07:: with SMTP id
- pg7mr9136713pjb.93.1636481051796; 
- Tue, 09 Nov 2021 10:04:11 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ubdL9EpbHiKFQ/ensyE1OL+6p1VDVmYl0vsSWhTLLJk=;
+ b=3MCrn7o2ISbbJ4UNW3Y/cifS2dZslDXqazbIq5hycBmEZNzeDpfCHHPqsCxONspU8g
+ 8MQx4Fm8OnMHtJ1x6BwlZqL6jp3hn3kI7OOM1RbBaDJkF13wBCKbpLsSnf44TiJ/hb5B
+ 3FxVz/+SciRDFSG0uDltQM6N7M/u4JeMkyg7OmEaA/f4VrAXRaqtdmb7uJ51hp2fng4r
+ yik+L1u/suCCe8Z8nMspwUxgS1XNv2p9lvbVLSnIH7ovUZ/BrmFGyoGxolaZL3bvHI2I
+ 5hS8zf5V+IhYwQw6H+08IxUfbcQq3DYnckuLLEHaSpeAz3+N+gETxppqMGbtg0U85VJM
+ 9jSA==
+X-Gm-Message-State: AOAM531lHopZxAPZ1ToEXjDX362BGhBFX1Z0VtmqbBSYB4wm8IF+jtHk
+ na7NP3U6n9VfePynViZlWDtUwYjXgIQ=
+X-Google-Smtp-Source: ABdhPJwLLPUvZmt5B7b+jswBMoOvniAjaKjIuCbEPUB+zZaNWf1gYTzeEKAmYtyUolGk6qUxom2XIA==
+X-Received: by 2002:a05:6a00:887:b0:474:1f41:2293 with SMTP id
+ q7-20020a056a00088700b004741f412293mr9936007pfj.44.1636481174453; 
+ Tue, 09 Nov 2021 10:06:14 -0800 (PST)
 Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
  by smtp.gmail.com with ESMTPSA id
- pi17sm3616101pjb.34.2021.11.09.10.04.10
+ c25sm19259837pfn.159.2021.11.09.10.06.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Nov 2021 10:04:10 -0800 (PST)
+ Tue, 09 Nov 2021 10:06:13 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
-To: igt-dev@lists.freedesktop.org
-Date: Tue,  9 Nov 2021 10:09:05 -0800
-Message-Id: <20211109180905.590773-4-robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  9 Nov 2021 10:11:00 -0800
+Message-Id: <20211109181117.591148-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211109180905.590773-1-robdclark@gmail.com>
-References: <20211109180905.590773-1-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH igt 3/3] msm: Add recovery tests
+Subject: [Freedreno] [PATCH 0/5] drm/msm: Cleanup and drm/sched tdr prep
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,232 +67,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Deepak R Varma <mh12gx2825@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
+ Yangtao Li <tiny.windzz@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Eric Anholt <eric@anholt.net>,
+ Iskren Chernev <iskren.chernev@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Add tests to exercise:
+This started out as conversion to using drm/sched to handle job timeout,
+recovery, and retire (and delete a bunch of code), but the latter part
+is on hold until drm/sched is fixed to properly handle job retire/
+cleanup before deciding which job triggered the fault/timeout[1].  But
+the rest is worthwhile cleanup, and the last patch is needed for an igt
+test that I'm working on to exercise timeout/fault recovery[2].
 
-1. sw hangcheck timeout
-2. gpu fault (hang) recovery
-3. iova fault recovery
+[1] https://lore.kernel.org/all/1630457207-13107-2-git-send-email-Monk.Liu@amd.com/
+[2] https://patchwork.freedesktop.org/series/96722/
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- lib/igt_msm.h        |   3 +
- tests/meson.build    |   1 +
- tests/msm_recovery.c | 172 +++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 176 insertions(+)
- create mode 100644 tests/msm_recovery.c
+Rob Clark (5):
+  drm/msm: Remove unnecessary struct_mutex
+  drm/msm: Drop priv->lastctx
+  drm/msm: Remove struct_mutex usage
+  drm/msm: Handle fence rollover
+  drm/msm: Add debugfs to disable hw err handling
 
-diff --git a/lib/igt_msm.h b/lib/igt_msm.h
-index 1a66c806..421d23ed 100644
---- a/lib/igt_msm.h
-+++ b/lib/igt_msm.h
-@@ -97,6 +97,9 @@ enum adreno_pm4_packet_type {
- 
- enum adreno_pm4_type3_packets {
- 	CP_NOP = 16,
-+	CP_WAIT_MEM_GTE = 20,
-+	CP_WAIT_REG_MEM = 60,
-+	CP_MEM_WRITE = 61,
- };
- 
- static inline unsigned
-diff --git a/tests/meson.build b/tests/meson.build
-index 0af3e03a..166e3494 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -60,6 +60,7 @@ test_progs = [
- 	'kms_vrr',
- 	'kms_writeback',
- 	'meta_test',
-+	'msm_recovery',
- 	'msm_submit',
- 	'panfrost_get_param',
- 	'panfrost_gem_new',
-diff --git a/tests/msm_recovery.c b/tests/msm_recovery.c
-new file mode 100644
-index 00000000..b71326b8
---- /dev/null
-+++ b/tests/msm_recovery.c
-@@ -0,0 +1,172 @@
-+/*
-+ * Copyright © 2021 Google, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ */
-+
-+#include <sys/poll.h>
-+
-+#include "igt.h"
-+#include "igt_msm.h"
-+
-+static struct msm_device *dev;
-+static struct msm_bo *scratch_bo;
-+static uint32_t *scratch;
-+
-+/*
-+ * Helpers for cmdstream packet building:
-+ */
-+
-+static void
-+wait_mem_gte(struct msm_cmd *cmd, uint32_t offset_dwords, uint32_t ref)
-+{
-+	msm_cmd_pkt7(cmd, CP_WAIT_MEM_GTE, 4);
-+	msm_cmd_emit(cmd, 0);                              /* RESERVED */
-+	msm_cmd_bo  (cmd, scratch_bo, offset_dwords * 4);  /* POLL_ADDR_LO/HI */
-+	msm_cmd_emit(cmd, ref);                            /* REF */
-+}
-+
-+static void
-+mem_write(struct msm_cmd *cmd, uint32_t offset_dwords, uint32_t val)
-+{
-+	msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
-+	msm_cmd_bo  (cmd, scratch_bo, offset_dwords * 4);  /* ADDR_LO/HI */
-+	msm_cmd_emit(cmd, val);                            /* VAL */
-+}
-+
-+/*
-+ * Helper to wait on a fence-fd:
-+ */
-+static void
-+wait_and_close(int fence_fd)
-+{
-+	poll(&(struct pollfd){fence_fd, POLLIN}, 1, -1);
-+	close(fence_fd);
-+}
-+
-+/*
-+ * Helper for hang tests.  Emits multiple submits, with one in the middle
-+ * that triggers a fault, and confirms that the submits before and after
-+ * the faulting one execute properly, ie. that the driver properly manages
-+ * to recover and re-queue the submits after the faulting submit;
-+ */
-+static void
-+do_hang_test(struct msm_pipe *pipe)
-+{
-+	struct msm_cmd *cmds[16];
-+	int fence_fds[ARRAY_SIZE(cmds)];
-+
-+	memset(scratch, 0, 0x1000);
-+
-+	for (unsigned i = 0; i < ARRAY_SIZE(cmds); i++) {
-+		struct msm_cmd *cmd = igt_msm_cmd_new(pipe, 0x1000);
-+
-+		cmds[i] = cmd;
-+
-+		/*
-+		 * Emit a packet to wait for scratch[0] to be >= 1
-+		 *
-+		 * This lets us force the GPU to wait until all the cmdstream is
-+		 * queued up.
-+		 */
-+		wait_mem_gte(cmd, 0, 1);
-+
-+		if (i == 10) {
-+			msm_cmd_emit(cmd, 0xdeaddead);
-+		}
-+
-+		/* Emit a packet to write scratch[1+i] = 2+i: */
-+		mem_write(cmd, 1+i, 2+i);
-+	}
-+
-+	for (unsigned i = 0; i < ARRAY_SIZE(cmds); i++) {
-+		fence_fds[i] = igt_msm_cmd_submit(cmds[i]);
-+	}
-+
-+	usleep(10000);
-+
-+	/* Let the WAIT_MEM_GTE complete: */
-+	scratch[0] = 1;
-+
-+	for (unsigned i = 0; i < ARRAY_SIZE(cmds); i++) {
-+		wait_and_close(fence_fds[i]);
-+		igt_msm_cmd_free(cmds[i]);
-+		if (i == 10)
-+			continue;
-+		igt_assert_eq(scratch[1+i], 2+i);
-+	}
-+}
-+
-+/*
-+ * Tests for drm/msm hangcheck, recovery, and fault handling
-+ */
-+
-+igt_main
-+{
-+	static struct msm_pipe *pipe = NULL;
-+
-+	igt_fixture {
-+		dev = igt_msm_dev_open();
-+		pipe = igt_msm_pipe_open(dev, 0);
-+		scratch_bo = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-+		scratch = igt_msm_bo_map(scratch_bo);
-+	}
-+
-+	igt_describe("Test sw hangcheck handling");
-+	igt_subtest("hangcheck") {
-+		igt_require(dev->gen >= 6);
-+
-+		/* Disable hw hang detection to force fallback to sw hangcheck: */
-+		igt_debugfs_write(dev->fd, "disable_err_irq", "Y");
-+
-+		do_hang_test(pipe);
-+
-+		igt_debugfs_write(dev->fd, "disable_err_irq", "N");
-+	}
-+
-+	igt_describe("Test hw fault handling");
-+	igt_subtest("gpu-fault") {
-+		igt_require(dev->gen >= 6);
-+
-+		do_hang_test(pipe);
-+	}
-+
-+	igt_describe("Test iova fault handling");
-+	igt_subtest("iova-fault") {
-+		struct msm_cmd *cmd;
-+
-+		igt_require(dev->gen >= 6);
-+
-+		cmd = igt_msm_cmd_new(pipe, 0x1000);
-+
-+		msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
-+		msm_cmd_emit(cmd, 0xdeaddead);           /* ADDR_LO */
-+		msm_cmd_emit(cmd, 0x1);                  /* ADDR_HI */
-+		msm_cmd_emit(cmd, 0x123);                /* VAL */
-+
-+		wait_and_close(igt_msm_cmd_submit(cmd));
-+	}
-+
-+	igt_fixture {
-+		igt_msm_bo_free(scratch_bo);
-+		igt_msm_pipe_close(pipe);
-+		igt_msm_dev_close(dev);
-+	}
-+}
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c      |  3 +-
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c      |  3 +-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c      |  3 +-
+ drivers/gpu/drm/msm/adreno/a5xx_debugfs.c  |  4 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 14 +++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 13 +++---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h      | 10 -----
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  4 +-
+ drivers/gpu/drm/msm/msm_debugfs.c          | 52 +++++++++-------------
+ drivers/gpu/drm/msm/msm_drv.c              |  6 ---
+ drivers/gpu/drm/msm/msm_drv.h              | 11 ++++-
+ drivers/gpu/drm/msm/msm_fbdev.c            | 13 ++----
+ drivers/gpu/drm/msm/msm_fence.h            | 12 +++++
+ drivers/gpu/drm/msm/msm_gpu.c              | 22 ++++-----
+ drivers/gpu/drm/msm/msm_gpu.h              | 33 +++++++++++---
+ drivers/gpu/drm/msm/msm_perf.c             |  9 ++--
+ drivers/gpu/drm/msm/msm_rd.c               | 16 ++++---
+ drivers/gpu/drm/msm/msm_ringbuffer.c       |  4 +-
+ 18 files changed, 125 insertions(+), 107 deletions(-)
+
 -- 
 2.31.1
 
