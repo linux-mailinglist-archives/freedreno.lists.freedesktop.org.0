@@ -2,57 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62F344B3D1
-	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 21:15:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C275244B3E0
+	for <lists+freedreno@lfdr.de>; Tue,  9 Nov 2021 21:21:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D3589856;
-	Tue,  9 Nov 2021 20:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5686E3F5;
+	Tue,  9 Nov 2021 20:21:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0601E89856
- for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 20:15:29 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1636488931; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=a09cOZWdnZMjA1kVCCnNCaZU5c3H1BpzYjmM+qEEkaU=;
- b=Vq/XQumb2/sYbojo08fUU3xudsrLKlz42fpKrDTHhRBLiQIsRVGp668qrIBQyMCfxwJwMlkH
- G/44I7mJluxfs03NzdU+p0zpGLpIs7F049WcTd1BlSCiZcz+CgIgd3Y/n1dxTDCuUX+rLMk4
- RjqPp3xTYrC2MCHg9NfNFS2tmVU=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-west-2.postgun.com with SMTP id
- 618ad6d29198e3b25650cb27 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 09 Nov 2021 20:15:14
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 38B50C43618; Tue,  9 Nov 2021 20:15:14 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 19640C4338F;
- Tue,  9 Nov 2021 20:15:13 +0000 (UTC)
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA726E0D6
+ for <freedreno@lists.freedesktop.org>; Tue,  9 Nov 2021 20:21:35 +0000 (UTC)
+Received: by mail-qk1-x729.google.com with SMTP id j2so315315qkl.7
+ for <freedreno@lists.freedesktop.org>; Tue, 09 Nov 2021 12:21:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=koMbe5cQdoL2M8hKeOCX2QG0+PW4fTs1S2rI3yitKSg=;
+ b=SkkdRpJnHAc1qzpwx2VCb0Qh3XyD5q9N5PtJZX9ApO42i/mTDOEgJMo3iJfr1Xbtv5
+ 465aoxNQxAzlbccacMD2ryImwfYujP/zS0X05LGtUZ6opNcS6aHCdk4EgsDYpEuhgxrv
+ 397+siHcO3UvqrYpVBOxyBO9v1CLfWf18aZM7xivy4QioWIjiEmoj6aG+KV5oG1aDSo5
+ /SsQ9eg6RWg2Bva4/ivsB937S3r8/PuIeAgTS8G+yqrwtR5MWoh/+w5es0xL/8o3Og7+
+ /X1ADPUuYptCRWj0wJh4reGGcgot7Ftr/MGmmVBC0acZap6omdtVtowjx/mqu6BRosTZ
+ 5EHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=koMbe5cQdoL2M8hKeOCX2QG0+PW4fTs1S2rI3yitKSg=;
+ b=PyP1bzCMZsipNWHJ+qZNgMwMoS3qwXbvX599rCbZmbKpdTk3DlTGN5ECMbGEZMEqOj
+ RvpEhY1g0TY0VGPD6uUgIt3Z/R0+t4agxV6BD52/iq1eZaJ4pi+lBloU6A2ihSS8aWA6
+ eUUbj/H6QMwNom1XW+7XrNppjUEEshJS6mIwv54CS2QR47XIdaK02/+XMFzjk0Ti5fax
+ vJCt3lv5ZjU1i7wk0yf5d/d90s1aUMK/gwy5I7xyNN4MO0MBzuW8hwu5HhMCo+ULaEnD
+ WuGSbOemdWscpFBQjjZTsbPN8hQPOWkEqlTClAw/zoGxJn+j4DbhwBdUo3jI+3F9wBp5
+ cvhQ==
+X-Gm-Message-State: AOAM531RrtF+b8ebJjd/HE2nO8FLyCtAtGrjIQ6zvvtwLaCsba0OIQTk
+ XH5qZv7knqdcwCOwjDR+DNu4mS3CIv6M2EF5OkXb4OKT7oo=
+X-Google-Smtp-Source: ABdhPJxkEYFDHFdvCi0LFtrUlgQyV5/BYKVCtZlrc+EZt+YNcBcc9bsqXLFA6YLOsvEP4AmllcJybt8MqYFUkydLM28=
+X-Received: by 2002:a05:620a:3197:: with SMTP id
+ bi23mr8132296qkb.478.1636489294644; 
+ Tue, 09 Nov 2021 12:21:34 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 09 Nov 2021 12:15:13 -0800
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210705012115.4179824-17-dmitry.baryshkov@linaro.org>
 References: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
  <20210705012115.4179824-17-dmitry.baryshkov@linaro.org>
-Message-ID: <3a48e580272ceb9d5d499455d8f35630@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
+ <3a48e580272ceb9d5d499455d8f35630@codeaurora.org>
+In-Reply-To: <3a48e580272ceb9d5d499455d8f35630@codeaurora.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 9 Nov 2021 23:21:23 +0300
+Message-ID: <CAA8EJpoKiu32oqGLpus-W8Z1ifKKVyAyOOp9kPF6NnxRLS6+fw@mail.gmail.com>
+To: abhinavk@codeaurora.org
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v2 16/22] drm/msm/dpu: do not limit the zpos
  property
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -75,73 +73,87 @@ Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-07-04 18:21, Dmitry Baryshkov wrote:
-> Stop limiting zpos property values, we use normalized_zpos anyway. And
-> nothing stops userspace from assigning several planes to a single zpos
-> (it is a userspace bug, but the kernel is forgiving about it).
+On Tue, 9 Nov 2021 at 23:15, <abhinavk@codeaurora.org> wrote:
+>
+> On 2021-07-04 18:21, Dmitry Baryshkov wrote:
+> > Stop limiting zpos property values, we use normalized_zpos anyway. And
+> > nothing stops userspace from assigning several planes to a single zpos
+> > (it is a userspace bug, but the kernel is forgiving about it).
+>
+> Userspace assigning several planes to a single zpos was intended to
+> identify
+> cases where src split can be used. Downstream does not use normalized
+> zpos,
+> hence it did not come across as a bug but mostly as a way to identify
+> when
+> usermode needs src split to be enabled based on the composition
+> strategy.
+>
+> We can talk about that more in the rest of the patches of this series.
+>
+> For this one, I only have a couple of questions:
+>
+> 1) Across different vendors, some have gone with limiting the zpos and
+> some have gone with
+> the max, so is there an issue with sticking with the max_blend_stages
+> limit?
+>
+> 2) If there is no hard reason to make this change, I think its better to
+> keep it the way it is.
 
-Userspace assigning several planes to a single zpos was intended to 
-identify
-cases where src split can be used. Downstream does not use normalized 
-zpos,
-hence it did not come across as a bug but mostly as a way to identify 
-when
-usermode needs src split to be enabled based on the composition 
-strategy.
+Short answer to both questions: we want to have more planes than the
+max_blend_stages. So we should remove the limit.
 
-We can talk about that more in the rest of the patches of this series.
+Consider this to be a unification with MDP5, which uses 255 here.
 
-For this one, I only have a couple of questions:
+>
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 11 +----------
+> >  1 file changed, 1 insertion(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > index 8ed7b8f0db69..3850f2714bf3 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> > @@ -44,7 +44,6 @@
+> >  #define DPU_NAME_SIZE  12
+> >
+> >  #define DPU_PLANE_COLOR_FILL_FLAG    BIT(31)
+> > -#define DPU_ZPOS_MAX 255
+> >
+> >  /* multirect rect index */
+> >  enum {
+> > @@ -1374,7 +1373,6 @@ struct drm_plane *dpu_plane_init(struct
+> > drm_device *dev,
+> >       struct dpu_plane *pdpu;
+> >       struct msm_drm_private *priv = dev->dev_private;
+> >       struct dpu_kms *kms = to_dpu_kms(priv->kms);
+> > -     int zpos_max = DPU_ZPOS_MAX;
+> >       uint32_t num_formats;
+> >       int ret = -EINVAL;
+> >
+> > @@ -1412,14 +1410,7 @@ struct drm_plane *dpu_plane_init(struct
+> > drm_device *dev,
+> >
+> >       pdpu->catalog = kms->catalog;
+> >
+> > -     if (kms->catalog->mixer_count &&
+> > -             kms->catalog->mixer[0].sblk->maxblendstages) {
+> > -             zpos_max = kms->catalog->mixer[0].sblk->maxblendstages - 1;
+> > -             if (zpos_max > DPU_STAGE_MAX - DPU_STAGE_0 - 1)
+> > -                     zpos_max = DPU_STAGE_MAX - DPU_STAGE_0 - 1;
+> > -     }
+> > -
+> > -     ret = drm_plane_create_zpos_property(plane, 0, 0, zpos_max);
+> > +     ret = drm_plane_create_zpos_property(plane, 0, 0, 255);
+> >       if (ret)
+> >               DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
 
-1) Across different vendors, some have gone with limiting the zpos and 
-some have gone with
-the max, so is there an issue with sticking with the max_blend_stages 
-limit?
 
-2) If there is no hard reason to make this change, I think its better to 
-keep it the way it is.
 
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 11 +----------
->  1 file changed, 1 insertion(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 8ed7b8f0db69..3850f2714bf3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -44,7 +44,6 @@
->  #define DPU_NAME_SIZE  12
-> 
->  #define DPU_PLANE_COLOR_FILL_FLAG	BIT(31)
-> -#define DPU_ZPOS_MAX 255
-> 
->  /* multirect rect index */
->  enum {
-> @@ -1374,7 +1373,6 @@ struct drm_plane *dpu_plane_init(struct 
-> drm_device *dev,
->  	struct dpu_plane *pdpu;
->  	struct msm_drm_private *priv = dev->dev_private;
->  	struct dpu_kms *kms = to_dpu_kms(priv->kms);
-> -	int zpos_max = DPU_ZPOS_MAX;
->  	uint32_t num_formats;
->  	int ret = -EINVAL;
-> 
-> @@ -1412,14 +1410,7 @@ struct drm_plane *dpu_plane_init(struct 
-> drm_device *dev,
-> 
->  	pdpu->catalog = kms->catalog;
-> 
-> -	if (kms->catalog->mixer_count &&
-> -		kms->catalog->mixer[0].sblk->maxblendstages) {
-> -		zpos_max = kms->catalog->mixer[0].sblk->maxblendstages - 1;
-> -		if (zpos_max > DPU_STAGE_MAX - DPU_STAGE_0 - 1)
-> -			zpos_max = DPU_STAGE_MAX - DPU_STAGE_0 - 1;
-> -	}
-> -
-> -	ret = drm_plane_create_zpos_property(plane, 0, 0, zpos_max);
-> +	ret = drm_plane_create_zpos_property(plane, 0, 0, 255);
->  	if (ret)
->  		DPU_ERROR("failed to install zpos property, rc = %d\n", ret);
+-- 
+With best wishes
+Dmitry
