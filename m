@@ -2,43 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE37D44BF15
-	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 11:52:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6268B44C073
+	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 13:00:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4143C6E094;
-	Wed, 10 Nov 2021 10:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25DE6E949;
+	Wed, 10 Nov 2021 11:59:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD236E027;
- Wed, 10 Nov 2021 10:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1636541526; x=1668077526;
- h=from:to:cc:subject:date:message-id;
- bh=7eOsYE5izuBmNzAggjLUvcDK8FJX7OQxEj2Tbgxn/kE=;
- b=oxk0NFbiuaUANY+OEUz8YcROfC5BK3RjcE5OZpI6aKTeyzVVWYlsaDQ3
- JZ1Qqyiq15PsXYhZujjoA+/AiBIiMFrW6diAF5F4WJMvAzd4ZpcYue0Ld
- vtmRzslAOmr/VX/wPtef6ToFhD+L94QiOdGc3zTGbMajZ6wzeMz9/oIWs o=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 10 Nov 2021 02:52:05 -0800
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 10 Nov 2021 02:52:02 -0800
-X-QCInternal: smtphost
-Received: from mkrishn-linux.qualcomm.com ([10.204.66.35])
- by ironmsg01-blr.qualcomm.com with ESMTP; 10 Nov 2021 16:21:49 +0530
-Received: by mkrishn-linux.qualcomm.com (Postfix, from userid 438394)
- id B6DAC221C5; Wed, 10 Nov 2021 16:21:48 +0530 (IST)
-From: Krishna Manikandan <quic_mkrishn@quicinc.com>
-To: linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Date: Wed, 10 Nov 2021 16:21:47 +0530
-Message-Id: <1636541507-5144-1-git-send-email-quic_mkrishn@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v4] drm/msm: use compatible lists to find mdp
- node
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F66B6E933;
+ Wed, 10 Nov 2021 11:59:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10163"; a="256346129"
+X-IronPort-AV: E=Sophos;i="5.87,223,1631602800"; d="scan'208";a="256346129"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2021 03:59:57 -0800
+X-IronPort-AV: E=Sophos;i="5.87,223,1631602800"; d="scan'208";a="602181096"
+Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.72.185])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Nov 2021 03:59:55 -0800
+Received: from platvala by thrakatuluk with local (Exim 4.94)
+ (envelope-from <petri.latvala@intel.com>)
+ id 1mkmFZ-0006OP-BJ; Wed, 10 Nov 2021 13:58:45 +0200
+Date: Wed, 10 Nov 2021 13:58:45 +0200
+From: Petri Latvala <petri.latvala@intel.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YYuz9dMFO4g/shU4@platvala-desk.ger.corp.intel.com>
+References: <20211109180905.590773-1-robdclark@gmail.com>
+ <20211109180905.590773-2-robdclark@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211109180905.590773-2-robdclark@gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [igt-dev] [PATCH igt 1/3] lib/igt_debugfs: Add
+ helper for writing debugfs files
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,103 +49,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, dmitry.baryshkov@linaro.org,
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In the current implementation, substring comparison
-using device node name is used to find mdp node
-during driver probe. Use compatible string list instead
-of node name to get mdp node from the parent mdss node.
+On Tue, Nov 09, 2021 at 10:09:03AM -0800, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  lib/igt_debugfs.c | 16 ++++++++++++++++
+>  lib/igt_debugfs.h | 12 ++++++++++++
+>  2 files changed, 28 insertions(+)
+> 
+> diff --git a/lib/igt_debugfs.c b/lib/igt_debugfs.c
+> index a5bb95ca..39431068 100644
+> --- a/lib/igt_debugfs.c
+> +++ b/lib/igt_debugfs.c
+> @@ -351,6 +351,22 @@ void __igt_debugfs_read(int fd, const char *filename, char *buf, int size)
+>  	close(dir);
+>  }
+>  
+> +/**
+> + * __igt_debugfs_write:
+> + * @filename: file name
+> + * @buf: buffer to be written to the debugfs file
+> + * @size: size of the buffer
 
-Signed-off-by: Krishna Manikandan <quic_mkrishn@quicinc.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+I see that we have this mistake in __igt_debugfs_read already but no
+reason to repeat mistakes: Also document the fd parameter.
 
-Changes in v2:
-  - Use compatible lists instead of duplicate string
-    check (Stephen Boyd)
 
-Changes in v3:
-  - Use match tables to find the mdp node (Stephen Boyd)
+> + *
+> + * This function opens the debugfs file, writes it, then closes the file.
+> + */
+> +void __igt_debugfs_write(int fd, const char *filename, const char *buf, int size)
+> +{
+> +	int dir = igt_debugfs_dir(fd);
+> +
+> +	igt_sysfs_write(dir, filename, buf, size);
+> +	close(dir);
+> +}
+> +
+>  /**
+>   * igt_debugfs_search:
+>   * @filename: file name
+> diff --git a/lib/igt_debugfs.h b/lib/igt_debugfs.h
+> index d43ba6c6..249eb56a 100644
+> --- a/lib/igt_debugfs.h
+> +++ b/lib/igt_debugfs.h
+> @@ -40,6 +40,7 @@ int igt_debugfs_pipe_dir(int device, int pipe, int mode);
+>  
+>  int igt_debugfs_open(int fd, const char *filename, int mode);
+>  void __igt_debugfs_read(int fd, const char *filename, char *buf, int size);
+> +void __igt_debugfs_write(int fd, const char *filename, const char *buf, int size);
+>  int igt_debugfs_simple_read(int dir, const char *filename, char *buf, int size);
+>  bool igt_debugfs_search(int fd, const char *filename, const char *substring);
+>  
+> @@ -54,6 +55,17 @@ bool igt_debugfs_search(int fd, const char *filename, const char *substring);
+>  #define igt_debugfs_read(fd, filename, buf) \
+>  		__igt_debugfs_read(fd, (filename), (buf), sizeof(buf))
+>  
+> +/**
+> + * igt_debugfs_write:
+> + * @filename: name of the debugfs file
+> + * @buf: buffer to be written to the debugfs file
+> + *
+> + * This is just a convenience wrapper for __igt_debugfs_read. See its
+> + * documentation.
 
-Changes in v4:
-  - Drop EXPORT_SYMBOL (Dmitry Baryshkov)
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 2 +-
- drivers/gpu/drm/msm/msm_drv.c            | 7 ++++---
- drivers/gpu/drm/msm/msm_kms.h            | 3 +++
- 4 files changed, 9 insertions(+), 5 deletions(-)
+Same here regarding the fd parameter as above. Also copypaste mistake
+with s/debugfs_read/debugfs_write/.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index ad247c0..8cbdf0d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1273,7 +1273,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
- 				pm_runtime_force_resume)
- };
- 
--static const struct of_device_id dpu_dt_match[] = {
-+const struct of_device_id dpu_dt_match[] = {
- 	{ .compatible = "qcom,sdm845-dpu", },
- 	{ .compatible = "qcom,sc7180-dpu", },
- 	{ .compatible = "qcom,sc7280-dpu", },
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 7b24224..dcbc8dc 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -1031,7 +1031,7 @@ static const struct dev_pm_ops mdp5_pm_ops = {
- 	SET_RUNTIME_PM_OPS(mdp5_runtime_suspend, mdp5_runtime_resume, NULL)
- };
- 
--static const struct of_device_id mdp5_dt_match[] = {
-+const struct of_device_id mdp5_dt_match[] = {
- 	{ .compatible = "qcom,mdp5", },
- 	/* to support downstream DT files */
- 	{ .compatible = "qcom,mdss_mdp", },
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 7936e8d..445788f 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1277,9 +1277,10 @@ static int add_components_mdp(struct device *mdp_dev,
- 	return 0;
- }
- 
--static int compare_name_mdp(struct device *dev, void *data)
-+static int find_mdp_node(struct device *dev, void *data)
- {
--	return (strstr(dev_name(dev), "mdp") != NULL);
-+	return of_match_node(dpu_dt_match, dev->of_node) ||
-+		of_match_node(mdp5_dt_match, dev->of_node);
- }
- 
- static int add_display_components(struct platform_device *pdev,
-@@ -1304,7 +1305,7 @@ static int add_display_components(struct platform_device *pdev,
- 			return ret;
- 		}
- 
--		mdp_dev = device_find_child(dev, NULL, compare_name_mdp);
-+		mdp_dev = device_find_child(dev, NULL, find_mdp_node);
- 		if (!mdp_dev) {
- 			DRM_DEV_ERROR(dev, "failed to find MDSS MDP node\n");
- 			of_platform_depopulate(dev);
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index 6a42b81..8b132c8 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -198,6 +198,9 @@ struct msm_kms *mdp4_kms_init(struct drm_device *dev);
- struct msm_kms *mdp5_kms_init(struct drm_device *dev);
- struct msm_kms *dpu_kms_init(struct drm_device *dev);
- 
-+extern const struct of_device_id dpu_dt_match[];
-+extern const struct of_device_id mdp5_dt_match[];
-+
- struct msm_mdss_funcs {
- 	int (*enable)(struct msm_mdss *mdss);
- 	int (*disable)(struct msm_mdss *mdss);
+
 -- 
-2.7.4
+Petri Latvala
 
+
+> + */
+> +#define igt_debugfs_write(fd, filename, buf) \
+> +		__igt_debugfs_write(fd, (filename), (buf), sizeof(buf))
+> +
+>  /*
+>   * Pipe CRC
+>   */
+> -- 
+> 2.31.1
+> 
