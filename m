@@ -1,60 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3748944C0BB
-	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 13:05:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F97544C460
+	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 16:28:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6686E086;
-	Wed, 10 Nov 2021 12:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB75F6E5AB;
+	Wed, 10 Nov 2021 15:28:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 194AE6E086;
- Wed, 10 Nov 2021 12:05:20 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id u17so2777362plg.9;
- Wed, 10 Nov 2021 04:05:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SmZpl8+j/iKc0sB5URMOhtFVFzKAZretNZR5phX8V54=;
- b=AaiaX03JzpUeQ855h1+dV9l4+ukSmXVfDTYDUIvRLiaosXsME3ilMxt6JVmhe3eg0D
- hEI8vZ/w0nFcav9KXmHFLiYPNUYV9Iq790h1ZUCk3NxUlH46TZhg9ttbXmTf9XQmlYya
- BKo3z3+De7+ajAo6ETVtdZjNKkdFyOauMMbR/stun+H8uoTsNuTF9JdnQG/2XrQ0wblS
- nvpjiL0Pbcbpw5iuPJFkMcBYjSRXGXqj/gV7LZO+Xe31ATHqy8NYxRjGo14yRul/841d
- dPgJWb1g9WtsHZyDJff21j+hMeiOrF77u40X6gZQpYjiZ4BKiva4FqCa4QEwFIfdmzw6
- 80jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SmZpl8+j/iKc0sB5URMOhtFVFzKAZretNZR5phX8V54=;
- b=qv/TauvlHwQVXpdYbOvS6JH2CzAJ+9Vf/nHDJncJnWE0pjiUmnyAZ+Vux9SnVcsJTh
- SF0xYHVOfPR7INOl23HxagBj0rwRaqTidq/fs8Kv0E2Ovmwj7GT65sXDl4/t3T93q728
- 0ENGUb/aeOfbWIxWAW3pxI2+ZUsYzwaqXE3RYvx2Yd29YFPHh++jmOEwC+Ixc0wFIY54
- rnZeWvpxClIDiV8szTvhfNwZ/Fh9X/U/WpsvKdseI93h6MwSfD5RcBysaOuopuysq/FF
- ar5cf0hWo49UWClqlgvooZ2g6kf6Vxwp6iPivXwbda/T0DEDqHXEU97Ay1oAAGRfCu09
- Rikg==
-X-Gm-Message-State: AOAM532bPmp+DACBW87Xp+DXaGj6dODMTKQo18dcS4IV/BOTI8/KawbI
- OfoHbTFCxnhRs8JchlGZHxU=
-X-Google-Smtp-Source: ABdhPJxp1tSXAzZDWhWtzwlC+WpFHm5YVQ6u/yn2MK4ACIYuoQeY9VzDPTcS+qoyy0lkfOpDtimAVA==
-X-Received: by 2002:a17:902:e294:b0:143:86a8:c56d with SMTP id
- o20-20020a170902e29400b0014386a8c56dmr2079842plc.22.1636545919705; 
- Wed, 10 Nov 2021 04:05:19 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id on6sm7070697pjb.47.2021.11.10.04.05.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Nov 2021 04:05:19 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: deng.changcheng@zte.com.cn
-To: robdclark@gmail.com
-Date: Wed, 10 Nov 2021 12:05:12 +0000
-Message-Id: <20211110120512.150940-1-deng.changcheng@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 471DF6E5A9
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Nov 2021 15:28:50 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1636558130; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: From: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: Sender; bh=oMeas4CJdev7rH6eOO7SATLTTz7lb/FnVSsLtDM/czY=;
+ b=ki8wTNdTjlbjwCB7hsp61kKGhwZPTPMXZ+1x0Kyan8Vo5X2R6Cc/kykcwathGoYU7XXL+tr5
+ +56M8WjmgS7Tm2pU8xV9CbaFRUEnQ9UnNLlDIz4NStADKqAqCS6JVaoi4RQv2AsvX4mCrfey
+ peQnYroYXVAWvXXcCbQAyRP2Ubg=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 618be531332b6b6db4116aa4 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 10 Nov 2021 15:28:49
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 85343C43617; Wed, 10 Nov 2021 15:28:48 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-4.6 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from [192.168.1.16] (unknown [117.210.185.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 38A5EC4338F;
+ Wed, 10 Nov 2021 15:28:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 38A5EC4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Message-ID: <e9e50cad-2341-cb25-ef84-0d61a2cb7469@codeaurora.org>
+Date: Wed, 10 Nov 2021 20:58:40 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.1
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20210728010632.2633470-1-robdclark@gmail.com>
+ <20210728010632.2633470-8-robdclark@gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+In-Reply-To: <20210728010632.2633470-8-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH linux-next] drm/msm/dp: remove unneeded variable
+Subject: Re: [Freedreno] [PATCH v4 07/13] drm/msm: Track "seqno" fences by
+ idr
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,48 +72,295 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>,
- deng.changcheng@zte.com.cn, abhinavk@codeaurora.org, swboyd@chromium.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Changcheng Deng <deng.changcheng@zte.com.cn>
+On 7/28/2021 6:36 AM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Previously the (non-fd) fence returned from submit ioctl was a raw
+> seqno, which is scoped to the ring.  But from UABI standpoint, the
+> ioctls related to seqno fences all specify a submitqueue.  We can
+> take advantage of that to replace the seqno fences with a cyclic idr
+> handle.
+> 
+> This is in preperation for moving to drm scheduler, at which point
+> the submit ioctl will return after queuing the submit job to the
+> scheduler, but before the submit is written into the ring (and
+> therefore before a ring seqno has been assigned).  Which means we
+> need to replace the dma_fence that userspace may need to wait on
+> with a scheduler fence.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Acked-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c         | 30 +++++++++++++++++--
+>   drivers/gpu/drm/msm/msm_fence.c       | 42 ---------------------------
+>   drivers/gpu/drm/msm/msm_fence.h       |  3 --
+>   drivers/gpu/drm/msm/msm_gem.h         |  1 +
+>   drivers/gpu/drm/msm/msm_gem_submit.c  | 23 ++++++++++++++-
+>   drivers/gpu/drm/msm/msm_gpu.h         |  5 ++++
+>   drivers/gpu/drm/msm/msm_submitqueue.c |  5 ++++
+>   7 files changed, 61 insertions(+), 48 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 9b8fa2ad0d84..1594ae39d54f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -911,6 +911,7 @@ static int msm_ioctl_wait_fence(struct drm_device *dev, void *data,
+>   	ktime_t timeout = to_ktime(args->timeout);
+>   	struct msm_gpu_submitqueue *queue;
+>   	struct msm_gpu *gpu = priv->gpu;
+> +	struct dma_fence *fence;
+>   	int ret;
+>   
+>   	if (args->pad) {
+> @@ -925,10 +926,35 @@ static int msm_ioctl_wait_fence(struct drm_device *dev, void *data,
+>   	if (!queue)
+>   		return -ENOENT;
+>   
+> -	ret = msm_wait_fence(gpu->rb[queue->prio]->fctx, args->fence, &timeout,
+> -		true);
+> +	/*
+> +	 * Map submitqueue scoped "seqno" (which is actually an idr key)
+> +	 * back to underlying dma-fence
+> +	 *
+> +	 * The fence is removed from the fence_idr when the submit is
+> +	 * retired, so if the fence is not found it means there is nothing
+> +	 * to wait for
+> +	 */
+> +	ret = mutex_lock_interruptible(&queue->lock);
+> +	if (ret)
+> +		return ret;
+> +	fence = idr_find(&queue->fence_idr, args->fence);
+> +	if (fence)
+> +		fence = dma_fence_get_rcu(fence);
+> +	mutex_unlock(&queue->lock);
+> +
+> +	if (!fence)
+> +		return 0;
+>   
+> +	ret = dma_fence_wait_timeout(fence, true, timeout_to_jiffies(&timeout));
+> +	if (ret == 0) {
+> +		ret = -ETIMEDOUT;
+> +	} else if (ret != -ERESTARTSYS) {
+> +		ret = 0;
+> +	}
+> +
+> +	dma_fence_put(fence);
+>   	msm_submitqueue_put(queue);
+> +
+>   	return ret;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
+> index b92a9091a1e2..f2cece542c3f 100644
+> --- a/drivers/gpu/drm/msm/msm_fence.c
+> +++ b/drivers/gpu/drm/msm/msm_fence.c
+> @@ -24,7 +24,6 @@ msm_fence_context_alloc(struct drm_device *dev, volatile uint32_t *fenceptr,
+>   	strncpy(fctx->name, name, sizeof(fctx->name));
+>   	fctx->context = dma_fence_context_alloc(1);
+>   	fctx->fenceptr = fenceptr;
+> -	init_waitqueue_head(&fctx->event);
+>   	spin_lock_init(&fctx->spinlock);
+>   
+>   	return fctx;
+> @@ -45,53 +44,12 @@ static inline bool fence_completed(struct msm_fence_context *fctx, uint32_t fenc
+>   		(int32_t)(*fctx->fenceptr - fence) >= 0;
+>   }
+>   
+> -/* legacy path for WAIT_FENCE ioctl: */
+> -int msm_wait_fence(struct msm_fence_context *fctx, uint32_t fence,
+> -		ktime_t *timeout, bool interruptible)
+> -{
+> -	int ret;
+> -
+> -	if (fence > fctx->last_fence) {
+> -		DRM_ERROR_RATELIMITED("%s: waiting on invalid fence: %u (of %u)\n",
+> -				fctx->name, fence, fctx->last_fence);
+> -		return -EINVAL;
 
-Fix the following coccicheck review:
-./drivers/gpu/drm/msm/dp/dp_debug.c: Unneeded variable
+Rob, we changed this pre-existing behaviour in this patch. Now, when 
+userspace tries to wait on a future fence, we don't return an error.
 
-Remove unneeded variable used to store return value.
+I just want to check if this was accidental or not?
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
----
- drivers/gpu/drm/msm/dp/dp_debug.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+-Akhil.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
-index 2f6247e80e9d..c5c75273d1e5 100644
---- a/drivers/gpu/drm/msm/dp/dp_debug.c
-+++ b/drivers/gpu/drm/msm/dp/dp_debug.c
-@@ -365,7 +365,6 @@ static const struct file_operations test_active_fops = {
- 
- static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
- {
--	int rc = 0;
- 	struct dp_debug_private *debug = container_of(dp_debug,
- 			struct dp_debug_private, dp_debug);
- 
-@@ -386,7 +385,7 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
- 
- 	debug->root = minor->debugfs_root;
- 
--	return rc;
-+	return 0;
- }
- 
- struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
--- 
-2.25.1
+> -	}
+> -
+> -	if (!timeout) {
+> -		/* no-wait: */
+> -		ret = fence_completed(fctx, fence) ? 0 : -EBUSY;
+> -	} else {
+> -		unsigned long remaining_jiffies = timeout_to_jiffies(timeout);
+> -
+> -		if (interruptible)
+> -			ret = wait_event_interruptible_timeout(fctx->event,
+> -				fence_completed(fctx, fence),
+> -				remaining_jiffies);
+> -		else
+> -			ret = wait_event_timeout(fctx->event,
+> -				fence_completed(fctx, fence),
+> -				remaining_jiffies);
+> -
+> -		if (ret == 0) {
+> -			DBG("timeout waiting for fence: %u (completed: %u)",
+> -					fence, fctx->completed_fence);
+> -			ret = -ETIMEDOUT;
+> -		} else if (ret != -ERESTARTSYS) {
+> -			ret = 0;
+> -		}
+> -	}
+> -
+> -	return ret;
+> -}
+> -
+>   /* called from workqueue */
+>   void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence)
+>   {
+>   	spin_lock(&fctx->spinlock);
+>   	fctx->completed_fence = max(fence, fctx->completed_fence);
+>   	spin_unlock(&fctx->spinlock);
+> -
+> -	wake_up_all(&fctx->event);
+>   }
+>   
+>   struct msm_fence {
+> diff --git a/drivers/gpu/drm/msm/msm_fence.h b/drivers/gpu/drm/msm/msm_fence.h
+> index 6ab97062ff1a..4783db528bcc 100644
+> --- a/drivers/gpu/drm/msm/msm_fence.h
+> +++ b/drivers/gpu/drm/msm/msm_fence.h
+> @@ -49,7 +49,6 @@ struct msm_fence_context {
+>   	 */
+>   	volatile uint32_t *fenceptr;
+>   
+> -	wait_queue_head_t event;
+>   	spinlock_t spinlock;
+>   };
+>   
+> @@ -57,8 +56,6 @@ struct msm_fence_context * msm_fence_context_alloc(struct drm_device *dev,
+>   		volatile uint32_t *fenceptr, const char *name);
+>   void msm_fence_context_free(struct msm_fence_context *fctx);
+>   
+> -int msm_wait_fence(struct msm_fence_context *fctx, uint32_t fence,
+> -		ktime_t *timeout, bool interruptible);
+>   void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence);
+>   
+>   struct dma_fence * msm_fence_alloc(struct msm_fence_context *fctx);
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index da3af702a6c8..e0579abda5b9 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -320,6 +320,7 @@ struct msm_gem_submit {
+>   	struct ww_acquire_ctx ticket;
+>   	uint32_t seqno;		/* Sequence number of the submit on the ring */
+>   	struct dma_fence *fence;
+> +	int fence_id;       /* key into queue->fence_idr */
+>   	struct msm_gpu_submitqueue *queue;
+>   	struct pid *pid;    /* submitting process */
+>   	bool fault_dumped;  /* Limit devcoredump dumping to one per submit */
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 4f02fa3c78f9..f6f595aae2c5 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -68,7 +68,14 @@ void __msm_gem_submit_destroy(struct kref *kref)
+>   			container_of(kref, struct msm_gem_submit, ref);
+>   	unsigned i;
+>   
+> +	if (submit->fence_id) {
+> +		mutex_lock(&submit->queue->lock);
+> +		idr_remove(&submit->queue->fence_idr, submit->fence_id);
+> +		mutex_unlock(&submit->queue->lock);
+> +	}
+> +
+>   	dma_fence_put(submit->fence);
+> +
+>   	put_pid(submit->pid);
+>   	msm_submitqueue_put(submit->queue);
+>   
+> @@ -872,6 +879,20 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>   		goto out;
+>   	}
+>   
+> +	/*
+> +	 * Allocate an id which can be used by WAIT_FENCE ioctl to map back
+> +	 * to the underlying fence.
+> +	 */
+> +	mutex_lock(&queue->lock);
+> +	submit->fence_id = idr_alloc_cyclic(&queue->fence_idr,
+> +			submit->fence, 0, INT_MAX, GFP_KERNEL);
+> +	mutex_unlock(&queue->lock);
+> +	if (submit->fence_id < 0) {
+> +		ret = submit->fence_id = 0;
+> +		submit->fence_id = 0;
+> +		goto out;
+> +	}
+> +
+>   	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
+>   		struct sync_file *sync_file = sync_file_create(submit->fence);
+>   		if (!sync_file) {
+> @@ -886,7 +907,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>   
+>   	msm_gpu_submit(gpu, submit);
+>   
+> -	args->fence = submit->fence->seqno;
+> +	args->fence = submit->fence_id;
+>   
+>   	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+>   	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 96efcb31e502..579627252540 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -263,6 +263,9 @@ struct msm_gpu_perfcntr {
+>    *             which set of pgtables do submits jobs associated with the
+>    *             submitqueue use)
+>    * @node:      node in the context's list of submitqueues
+> + * @fence_idr: maps fence-id to dma_fence for userspace visible fence
+> + *             seqno, protected by submitqueue lock
+> + * @lock:      submitqueue lock
+>    * @ref:       reference count
+>    */
+>   struct msm_gpu_submitqueue {
+> @@ -272,6 +275,8 @@ struct msm_gpu_submitqueue {
+>   	int faults;
+>   	struct msm_file_private *ctx;
+>   	struct list_head node;
+> +	struct idr fence_idr;
+> +	struct mutex lock;
+>   	struct kref ref;
+>   };
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+> index 9e9fec61d629..66f8d0fb38b0 100644
+> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+> @@ -12,6 +12,8 @@ void msm_submitqueue_destroy(struct kref *kref)
+>   	struct msm_gpu_submitqueue *queue = container_of(kref,
+>   		struct msm_gpu_submitqueue, ref);
+>   
+> +	idr_destroy(&queue->fence_idr);
+> +
+>   	msm_file_private_put(queue->ctx);
+>   
+>   	kfree(queue);
+> @@ -89,6 +91,9 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_file_private *ctx,
+>   	if (id)
+>   		*id = queue->id;
+>   
+> +	idr_init(&queue->fence_idr);
+> +	mutex_init(&queue->lock);
+> +
+>   	list_add_tail(&queue->node, &ctx->submitqueues);
+>   
+>   	write_unlock(&ctx->queuelock);
+> 
 
