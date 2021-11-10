@@ -1,59 +1,127 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1D0F44BA48
-	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 03:22:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB2F644BC1C
+	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 08:29:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76E836ECA6;
-	Wed, 10 Nov 2021 02:22:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF39E6FF84;
+	Wed, 10 Nov 2021 07:29:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 505B66ECA6
- for <freedreno@lists.freedesktop.org>; Wed, 10 Nov 2021 02:22:19 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1636510941; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=wqlJVb6kH8+VGGB/trQQ6V1sYP276yFAU+lrtmfqfq4=;
- b=mqvYn5v6BEDavOvbpheDuB3ggxw6ruwpFLEIkGNXaJ/ABJ4eM3fGDNF8lZiHj1UomOu9AkiN
- 1NvEkHsodyBxnAqY+6BUuV0Wsl9TQOg8GegcXB3/4a3F5pkAG4py8QrQqDU09sAhbbb0SfQ9
- wRXUj9JJ6TpP2+IVQ5T3q2guj5A=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 618b2ccca06361a25498db0e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 10 Nov 2021 02:22:04
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 6FCF3C4361C; Wed, 10 Nov 2021 02:22:04 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 64B54C4338F;
- Wed, 10 Nov 2021 02:22:01 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 376DD6FF21;
+ Wed, 10 Nov 2021 07:29:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IcUNZickBioDEhR8apvio7SeLw64jVN12Iebf8wNTj52qlpBjxXi30CbxpTYm0HcdZ9cIWTnLIJHnbTj2rE7N+to4/2JeSnqWGBwiZRcAvhK4T1JjkkHMT58E8TTUXz2JQ5vvNKmFiHFZ7OJa6Cu1zPiAKIlM2SP9C8aNn/3554vnAO5NBVEniSGvIf8f9YDdUOgp5Q04/j/D8a5gpkTpz5X18nSrEqobfvmvEvcxGafcITN8xvbKcPIAQPK8sj5rqrfh+Iwv+CCwTKHZpN5whAJ0kn2yGasE5i0nk/hbLi1woSE1oXDY7bXH1O544Fd7we7s4IMVWgz6nKW8jQT6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+GBBstL0DSL4sYoGnI2XxYUSrrBPDB/XHt8R6vs5dzI=;
+ b=OrQ2FTGutXqvfnFZIBb8Wnq2+0VeeyuAx1y+lfoRtQbHy1r4KWQPlOjgzoRodSuuLXuOE4IRPcgSjIdIs8oH8y17o9GI8J0YssxRltxRrdwGb9K8ZlaBMUb0gXN9YQROr/Fu2SHkTPClndpOryynLm2Ol8PQX26FXfIhhQ1l7+nw1yCByscrHUjd08QDahN//FZNrne00eSNEx30TWZaZ37PJ4LeiT9z/jLOqmZ+rfDK7m94lz+hsnSygttW+0tND+Ud2luRM34zd3ksuIh/XfIByo2kj1gA8RvtnnXa8GkfUIt5jIwNOFStJhQR1crrEAyvkxqJaHwI+una167UCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+GBBstL0DSL4sYoGnI2XxYUSrrBPDB/XHt8R6vs5dzI=;
+ b=d/qUe7B3YjgjLQAMptWRPdJkbYloJ7EhT14WRL3Vdopkygolxvg2stkAZJQ6Hvr93EQ7YEJPq2ALHjsyxXIflAuunARLnhnnPF9ouFk1DWko0K4n080dKl7HCfzwKDrAD8Sqfz0cDNjqBJpYkgoHd7KuOwjD+B1Vw5aFNUdkAII=
+Authentication-Results: codeaurora.org; dkim=none (message not signed)
+ header.d=none;codeaurora.org; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14) by MW3PR12MB4457.namprd12.prod.outlook.com
+ (2603:10b6:303:2e::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Wed, 10 Nov
+ 2021 07:29:37 +0000
+Received: from MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::2d02:26e7:a2d0:3769]) by MWHPR1201MB0192.namprd12.prod.outlook.com
+ ([fe80::2d02:26e7:a2d0:3769%5]) with mapi id 15.20.4669.016; Wed, 10 Nov 2021
+ 07:29:36 +0000
+To: Jackie Liu <liu.yun@linux.dev>, robdclark@gmail.com, sean@poorly.run,
+ airlied@linux.ie
+References: <20211110070950.3355597-1-liu.yun@linux.dev>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <7389464d-3f1e-d947-9d65-e8636510a3ed@amd.com>
+Date: Wed, 10 Nov 2021 08:29:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+In-Reply-To: <20211110070950.3355597-1-liu.yun@linux.dev>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-ClientProxiedBy: AM6PR04CA0055.eurprd04.prod.outlook.com
+ (2603:10a6:20b:f0::32) To MWHPR1201MB0192.namprd12.prod.outlook.com
+ (2603:10b6:301:5a::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 09 Nov 2021 18:22:01 -0800
-From: abhinavk@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210705012115.4179824-23-dmitry.baryshkov@linaro.org>
-References: <20210705012115.4179824-1-dmitry.baryshkov@linaro.org>
- <20210705012115.4179824-23-dmitry.baryshkov@linaro.org>
-Message-ID: <40fed7598f87a5a95e6e5b1f01df3247@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v2 22/22] drm/msm/dpu: add multirect support
+Received: from [IPv6:2a02:908:1252:fb60:fa11:45ae:fadf:6269]
+ (2a02:908:1252:fb60:fa11:45ae:fadf:6269) by
+ AM6PR04CA0055.eurprd04.prod.outlook.com (2603:10a6:20b:f0::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4669.11 via Frontend Transport; Wed, 10 Nov 2021 07:29:34 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5eae1ff1-4e88-46c5-2563-08d9a41bd937
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4457:
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4457B3E3EF1423BAB6A7160883939@MW3PR12MB4457.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sL9wdM/swi8VL55p56RotpC56ZRdeQWx/oi442PG6idqOfqffddLnJkQa3p4KlL25oS2mrY/z2e1534qQNQGXa+3LoVw+22GhkOnaesr07tfOdCOV6k6wK3rtOlk0dDQ7LAXmLA4LmcsBALaEaftZnhv9UaxGNsnbwLS8vlkxM44fD5Z1Yi2ki5eEUJUMbgwXoW8gP85OatuEF2itkIgbl+xmigjGB3MsP87i9pPNWiVKUL83d7KQSrMHsAkzLx1puJr4jHA8npAaSuNrxVRuF+NlRtDSCApsPhbESKg8tyMLqT4pqjJT43wN1EmdYRrrV+TTtjTovJVn+8ZHyYofuS5f7NQlYY786u3XLHtRfCWQ+2V7OmOkJaU9LEblpFExSurU4TBd7Gd5RbiTGfU9GhORkyJFtLeoXHWR5sVZWkkzo8dwXAG/hXr168QZy3sURfiQMEZkGKy6dno6kG4UYvQVbgccflKUJp8xvXV9NVlLCgmHb/Kf3ZJedQPRjnzMy9+WwzrbzOKy0vEQ5ML55jPT+Dhby6/oYtfy73nZI7zW1pZS2pbuRCMaprrGCG6m0IlboZPr5AaHGsqyVNjT45LWlazcGqNf90qYCOqYRDVNklYFrQTd6PmpoTMurXRp2pkqyDvf0cJiQZiuuQ9nmdZqR1ZO8X44T7MoTlNiLX+eX4KZ646tBUlax1dgnxER2PfiPe2vEBc7TzxlVXVkMJJS3KAfFDTBrY5J4VmVCiuIp1fzoWGwZotggJ1XU37
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR1201MB0192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(38100700002)(86362001)(66946007)(508600001)(66476007)(186003)(5660300002)(6486002)(66556008)(316002)(31696002)(2616005)(31686004)(8676002)(8936002)(2906002)(4326008)(36756003)(6666004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmJrNS9KbkVzY09rMXlTank0RTFkNzM1aHY3NkVrNzlKRjBOd08xMjJEY2VV?=
+ =?utf-8?B?aEdGRTdPdTFPQWg4MXVsMGhJZFBHdW4xWjFuMkdqdjB4MDNTd3dlQjRwSGkw?=
+ =?utf-8?B?TWkzaXE1RG0wMjZ4MWtGeDhVRkJHcjBVMTFHWThab0FiMEVOR2V4b1gwT1lI?=
+ =?utf-8?B?UHNNZEJqaTY3bFZwc3kyRmhlcWxRbGVkRytNU29nZFpjWkVBS3VnV1pOdVZn?=
+ =?utf-8?B?eFg0THlEVnVjNEx6U1ozQUF3REt3RU9BUGZURUlkM3QvN1FMOVp4WmE4UFUy?=
+ =?utf-8?B?UllrUHZ0YVhCVGExdGhjNkRtYkwreURmNUJ0SEdicFIxWW9rYlVQWEVRTlRB?=
+ =?utf-8?B?THRYV2Y1dHZUYUVidkRwbVpiU0JFbmhzWG50Z0lBS0JjZjA2UmVkN1pIcVR1?=
+ =?utf-8?B?ZGZQclIwZXA4cVBKRmFKcUEzL05JcjNIZHRVMzdBdHRLZmtmdnBERDU2L3lj?=
+ =?utf-8?B?UWtMaCtQYy9uVnlzMHZFdnhSSWhDUzhRSERLYUdJbndpUG90ZVJ1c2hwOVZJ?=
+ =?utf-8?B?WFp5eENHUnFacG9EbVJmZTZwRHRrMWlLMjM3WVNWVlRoYmh0eTdYLzZYektH?=
+ =?utf-8?B?WmJTdUFEYjErN0VPUFdWa2dYa213eSswenk1US9OYmY4OFZYeHJUSTRVWXlB?=
+ =?utf-8?B?TjVIMDZmdFdFcjZ2UnBVVzdMMmlPQnZLV050RnFDVjgwOTRzQWV0NkwvZkIx?=
+ =?utf-8?B?VTYwRWl1empGR1crODNMSHhxamxWcGV1NEtSM1J0SVlxc0MyS1hVYnQrSGN2?=
+ =?utf-8?B?eXEwckdqZDJ5T2c2TzZiZ20yaC9JUVh1Q0hoVXYzRXhVZzNJNmYrblVxVDJD?=
+ =?utf-8?B?dng5RFVHVVQ3VzBhVWdOYitiS3VFWFRwNCtsUTdDejMxWjBMaklRNFg3V0wy?=
+ =?utf-8?B?amJoQmtoc2VrbTZlQzV0OSszbkJGdm9RVWJEZm4rcHRPUTk5TW1MNU5WWjZN?=
+ =?utf-8?B?cVk4VEk3RExybG4waWhIUXVTOG1KbHZMdU56cnNHUXY5U2M2U2RRU2hMK3Z2?=
+ =?utf-8?B?SGlKMjcxRk1xY1JIV2krVWJuMG13czh3K3JFQjlmMVdReDZEV2cwMy8wMVVj?=
+ =?utf-8?B?WHNTemdTSm0vdGtNaVhrZTBybWQwUyswWjhDMUYyb0pzZEVWYU92WHBob2tz?=
+ =?utf-8?B?ZWwwaW5OeHFZNHBVMG9GMHpnZjIyQ1FYVkVmT2ZVWkcrYmRxc1dyV2tyU0Jw?=
+ =?utf-8?B?QUlnc3c3YW0zdkw4M1ViMEM5b0VmTER0U084RFZ4UE5tVGtZMk9HcS9tdXNB?=
+ =?utf-8?B?aDFRbFhjQVQ3eVFsaGw4c3F5aWsrM1FnVjl5TkRRQVZvblg0cTcrLzN4azNV?=
+ =?utf-8?B?RUlORG9aME1KS1NqT3Y3L3pDNVFoU3p2cnpNTjU2QklycG9iMVJjZWpRdG5W?=
+ =?utf-8?B?RENLS0NENlFLVGQ4aTNBK0hJVmFZQmxzN0F2S3ZvOFNicE5sRVF1bWNQVGdY?=
+ =?utf-8?B?cHJpVkhVYzJ3V1F2UDhNcFBjTkI0RzllbnZjV3NiZEoveVBjbllldlI0amVl?=
+ =?utf-8?B?eW04UUdmc01PQWhWZWhSemtkNllCWi9HUnEvTlZqZUJRQ2hIeE1lK3dRM1Uw?=
+ =?utf-8?B?Nm5FQk9SZjd0YXVEWnQ1NTVZb3kwVGtJQW1PaWdNUnczWk43TmJoM3g1emwx?=
+ =?utf-8?B?ekhJdjFPL3dUelZnVjVJbjZGVnhCckJMM3Bvc3AwNkdBaUlqY0dtcmlsamNM?=
+ =?utf-8?B?K29oMVIwcEp2RG9jMllsUmpGYzlYTnRzOEVlNzZXbWgvbURyaTJ1VldmTXc1?=
+ =?utf-8?B?SlgvZ1lBM1AwdTZ2Q0NReW96UGVvN2JlM0JYTTRtWUpQNEMxaWY1cDFrVVVY?=
+ =?utf-8?B?MjY1aG5kR054TWU4QXFxbFkySVo1OVExV0ZTQ2FJWG45TWxmRU5mUFAwVkR2?=
+ =?utf-8?B?QUtUbDQwWk5PRWgvQVNJSzJOUmMrVjZaSmQwbXpiMW9iMStzYWV3NEExbGds?=
+ =?utf-8?B?OFdGTmZISTVjek5lSHl6Q2JUTklvYjhwenRlMzdFL0F6M2JCd2ZyREhyNGd5?=
+ =?utf-8?B?Vy8zdmlneXZrVTJjUU9WZnlMZDJFbUFtbEwzY2M0MDlLa0JRakdLUGFnTWpo?=
+ =?utf-8?B?M29ZYWZPd0Z3aU1FWm1BdmJzWThiSFBPaGpFaG5TYzFJMDlJT1d0ZEV1Z1E1?=
+ =?utf-8?B?eXU3eHVoMkNEeVNKWkl2ZHRROXJNK294WndZK1ZyaVJ2NFhpcjdUK1FEQ0tm?=
+ =?utf-8?Q?ZTQYDktlBPzBS6x1urJd2oY=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5eae1ff1-4e88-46c5-2563-08d9a41bd937
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1201MB0192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2021 07:29:36.7047 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mqktocryNnZxANtyhWcD44yTtLzdesxBcuLtahq1lIBZNtuxe4+1+rzGBwUTgxE/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4457
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/hdmi: fix build without
+ CONFIG_COMMON_CLK
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,515 +134,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: architt@codeaurora.org, freedreno@lists.freedesktop.org,
+ chandanu@codeaurora.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-07-04 18:21, Dmitry Baryshkov wrote:
-> If SmartDMA is supported by the hardware, SSPPs allow using two RGB
-> layers per the hardware pipe (with some additional restrictions, like 
-> no
-> support for scaling, etc). Register additional planes (two per the 
-> SSPP)
-> and check if we can use multirect during atomic_check.
-> 
+Am 10.11.21 um 08:09 schrieb Jackie Liu:
+> From: Jackie Liu <liuyun01@kylinos.cn>
+>
+> HDMI 8996 PHY/PLL support need common clk. avoid like:
+>
+> [...]
+> x86_64-linux-gnu-ld: drivers/gpu/drm/msm/hdmi/hdmi_phy.o:(.rodata+0x3e0): undefined reference to `msm_hdmi_phy_8996_cfg'
+>
+> Fixes: e17afdceb4f2 ("drm/msm/hdmi: HDMI 8996 PHY/PLL support")
+> Reported-by: kernelbot <kernel-bot@kylinos.cn>
+> Signed-off-by: Jackie Liu <liuyun01@kylinos.cn>
 
-I can see you are still making use of the dpu_rm_get_sspp() function to 
-allocate SSPPs
-for the drm planes even in the case of smart dma.
+Since it is probably my fault that you stumbled over all that stuff here 
+is an "Acked-by: Christian König <christian.koenig@amd.com>" for the 
+full series.
 
-That function doesnt account for the foll considerations:
+But you certainly also need to maintainers or Dave/Daniel take a look.
 
-1) How does it guarantee plane priority while allocation? smart dma 
-planes need to be allocated
-in a priority order and that priority order decides which sspp does on 
-the left rectangle and which one
-on the right. I am not seeing how that is enforced in this 
-implementation.
+Regards,
+Christian.
 
-2) Another condition to be taken into account is that if one rectangle 
-of one SSPP is utilized for one display,
-the other rectangle of the SSPP cannot be used for another display. How 
-is this guaranteed?
-Does the RM global state account for this?
-
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  |  18 +++-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |   2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 109 +++++++++++++---------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  29 +-----
->  4 files changed, 86 insertions(+), 72 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index 49bdd5953b9f..49bd9df387b8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -892,7 +892,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc 
-> *crtc,
->  	struct dpu_global_state *global_state = 
-> dpu_kms_get_global_state(state);
-> 
->  	struct dpu_plane_state **pstates;
-> -	struct dpu_plane_state *pstate;
-> +	struct dpu_plane_state *pstate, *prev_plane_state;
-> 
->  	struct drm_plane_state *plane_state;
->  	struct drm_plane *plane;
-> @@ -962,6 +962,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc 
-> *crtc,
->  	}
-> 
->  	stage = DPU_STAGE_0;
-> +	prev_plane_state = NULL;
->  	for (i = 0; i <= max_zpos; i++) {
->  		pstate = pstates[i];
->  		if (!pstate)
-> @@ -977,8 +978,6 @@ static int dpu_crtc_atomic_check(struct drm_crtc 
-> *crtc,
-> 
->  		plane_state = &pstate->base;
-> 
-> -		dpu_plane_clear_multirect(plane_state);
-> -
->  		dst = drm_plane_state_dest(plane_state);
->  		if (!drm_rect_intersect(&dst, &crtc_rect)) {
->  			DPU_ERROR("invalid vertical/horizontal destination\n");
-> @@ -990,7 +989,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc 
-> *crtc,
->  		}
-> 
->  		plane = pstate->base.plane;
-> -		rc = dpu_plane_set_pipe(plane, pstate);
-> +		rc = dpu_plane_set_pipe(plane, pstate, prev_plane_state);
->  		if (rc) {
->  			DPU_ERROR("%s: error setting pipe for %s\n", dpu_crtc->name, 
-> plane->name);
->  			goto end;
-> @@ -1002,6 +1001,17 @@ static int dpu_crtc_atomic_check(struct drm_crtc 
-> *crtc,
->  			goto end;
->  		}
-> 
-> +		/*
-> +		 * If this plane was not selected for multirect, so we can try
-> +		 * using it together with the next pipe.  If it selected for
-> +		 * the REC1, next pipe will have to start from REC_SOLO (and
-> +		 * maybe be promoted to REC0 later.
-> +		 */
-> +		if (pstate->multirect_index == DPU_SSPP_RECT_SOLO)
-> +			prev_plane_state = pstate;
-> +		else
-> +			prev_plane_state = NULL;
-> +
->  		pstates[i]->stage = stage++;
->  		DRM_DEBUG_ATOMIC("%s: stage %d\n", dpu_crtc->name, stage);
->  	}
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 08a7e56cc98f..c3c3972627ca 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -646,7 +646,7 @@ static int _dpu_kms_create_planes_virtual(struct
-> dpu_kms *dpu_kms, int max_crtc_
->  	catalog = dpu_kms->catalog;
-> 
->  	/* Create the planes, keeping track of one primary/cursor per crtc */
-> -	for (i = 0; i < catalog->sspp_count; i++) {
-> +	for (i = 0; i < 2 * catalog->sspp_count; i++) {
->  		enum drm_plane_type type;
-> 
->  		if (primary_planes_idx < max_crtc_count)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 420cdd90e89b..77cb4f172379 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -292,10 +292,10 @@ static u64 _dpu_plane_get_qos_lut(const struct
-> dpu_qos_lut_tbl *tbl,
->   * _dpu_plane_set_qos_lut - set QoS LUT of the given plane
->   * @plane:		Pointer to drm plane
->   * @fb:			Pointer to framebuffer associated with the given plane
-> - * @pipe_cfg:		Pointer to pipe configuration
-> + * @src_width:		Plane source width (max for both multirect planes).
->   */
->  static void _dpu_plane_set_qos_lut(struct drm_plane *plane,
-> -		struct drm_framebuffer *fb, struct dpu_hw_pipe_cfg *pipe_cfg)
-> +		struct drm_framebuffer *fb, u32 src_width)
->  {
->  	struct dpu_plane *pdpu = to_dpu_plane(plane);
->  	struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
-> @@ -309,8 +309,7 @@ static void _dpu_plane_set_qos_lut(struct drm_plane 
-> *plane,
->  		fmt = dpu_get_dpu_format_ext(
->  				fb->format->format,
->  				fb->modifier);
-> -		total_fl = _dpu_plane_calc_fill_level(plane, fmt,
-> -				drm_rect_width(&pipe_cfg->src_rect));
-> +		total_fl = _dpu_plane_calc_fill_level(plane, fmt, src_width);
-> 
->  		if (fmt && DPU_FORMAT_IS_LINEAR(fmt))
->  			lut_usage = DPU_QOS_LUT_USAGE_LINEAR;
-> @@ -570,6 +569,9 @@ static void _dpu_plane_setup_scaler3(struct 
-> dpu_plane *pdpu,
->  		&& (src_w == dst_w))
->  		return;
-> 
-> +	if (pstate->multirect_index != DPU_SSPP_RECT_SOLO)
-> +		return;
-> +
->  	scale_cfg->dst_width = dst_w;
->  	scale_cfg->dst_height = dst_h;
->  	scale_cfg->y_rgb_filter_cfg = DPU_SCALE_BIL;
-> @@ -638,13 +640,16 @@ static const struct dpu_csc_cfg
-> *_dpu_plane_get_csc(struct dpu_plane *pdpu, cons
-> 
->  static void _dpu_plane_setup_scaler(struct dpu_plane *pdpu,
->  		struct dpu_plane_state *pstate,
-> -		const struct dpu_format *fmt, bool color_fill,
-> +		const struct dpu_format *fmt,
->  		struct dpu_hw_pipe_cfg *pipe_cfg)
->  {
->  	const struct drm_format_info *info = 
-> drm_format_info(fmt->base.pixel_format);
->  	struct dpu_hw_scaler3_cfg scaler3_cfg;
->  	struct dpu_hw_pixel_ext pixel_ext;
-> 
-> +	if (pstate->multirect_index == DPU_SSPP_RECT_1)
-> +		return;
-> +
->  	memset(&scaler3_cfg, 0, sizeof(scaler3_cfg));
->  	memset(&pixel_ext, 0, sizeof(pixel_ext));
-> 
-> @@ -667,8 +672,7 @@ static void _dpu_plane_setup_scaler(struct 
-> dpu_plane *pdpu,
->  	 * bypassed. Still we need to update alpha and bitwidth
->  	 * ONLY for RECT0
->  	 */
-> -	if (pstate->pipe_hw->ops.setup_scaler &&
-> -			pstate->multirect_index != DPU_SSPP_RECT_1)
-> +	if (pstate->pipe_hw->ops.setup_scaler)
->  		pstate->pipe_hw->ops.setup_scaler(pstate->pipe_hw,
->  				pipe_cfg, &pixel_ext,
->  				&scaler3_cfg);
-> @@ -723,23 +727,15 @@ static int _dpu_plane_color_fill(struct dpu_plane 
-> *pdpu,
->  					&pipe_cfg,
->  					pstate->multirect_index);
-> 
-> -		_dpu_plane_setup_scaler(pdpu, pstate, fmt, true, &pipe_cfg);
-> +		_dpu_plane_setup_scaler(pdpu, pstate, fmt, &pipe_cfg);
->  	}
-> 
->  	return 0;
->  }
-> 
-> -void dpu_plane_clear_multirect(const struct drm_plane_state 
-> *drm_state)
-> -{
-> -	struct dpu_plane_state *pstate = to_dpu_plane_state(drm_state);
-> -
-> -	pstate->multirect_index = DPU_SSPP_RECT_SOLO;
-> -	pstate->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> -}
-> -
-> -int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states 
-> *plane)
-> +static int dpu_plane_validate_multirect_v2(struct dpu_plane_state 
-> *pstate0,
-> +					   struct dpu_plane_state *pstate1)
->  {
-> -	struct dpu_plane_state *pstate[R_MAX];
->  	const struct drm_plane_state *drm_state[R_MAX];
->  	struct drm_rect src[R_MAX], dst[R_MAX];
->  	struct dpu_plane *dpu_plane[R_MAX];
-> @@ -750,9 +746,17 @@ int dpu_plane_validate_multirect_v2(struct
-> dpu_multirect_plane_states *plane)
->  	bool has_tiled_rect = false;
-> 
->  	for (i = 0; i < R_MAX; i++) {
-> +		struct dpu_plane_state *pstate;
->  		const struct msm_format *msm_fmt;
-> 
-> -		drm_state[i] = i ? plane->r1 : plane->r0;
-> +		pstate = i ? pstate1 : pstate0;
-> +		if (pstate == NULL) {
-> +			DPU_DEBUG("DPU plane state of plane id %d is NULL\n",
-> +				drm_state[i]->plane->base.id);
-> +			return -EINVAL;
-> +		}
-> +
-> +		drm_state[i] = &pstate->base;
->  		msm_fmt = msm_framebuffer_format(drm_state[i]->fb);
->  		fmt[i] = to_dpu_format(msm_fmt);
-> 
-> @@ -766,15 +770,8 @@ int dpu_plane_validate_multirect_v2(struct
-> dpu_multirect_plane_states *plane)
->  	for (i = 0; i < R_MAX; i++) {
->  		int width_threshold;
-> 
-> -		pstate[i] = to_dpu_plane_state(drm_state[i]);
->  		dpu_plane[i] = to_dpu_plane(drm_state[i]->plane);
-> 
-> -		if (pstate[i] == NULL) {
-> -			DPU_ERROR("DPU plane state of plane id %d is NULL\n",
-> -				drm_state[i]->plane->base.id);
-> -			return -EINVAL;
-> -		}
-> -
->  		src[i].x1 = drm_state[i]->src_x >> 16;
->  		src[i].y1 = drm_state[i]->src_y >> 16;
->  		src[i].x2 = src[i].x1 + (drm_state[i]->src_w >> 16);
-> @@ -784,13 +781,13 @@ int dpu_plane_validate_multirect_v2(struct
-> dpu_multirect_plane_states *plane)
-> 
->  		if (drm_rect_calc_hscale(&src[i], &dst[i], 1, 1) != 1 ||
->  		    drm_rect_calc_vscale(&src[i], &dst[i], 1, 1) != 1) {
-> -			DPU_ERROR_PLANE(dpu_plane[i],
-> +			DPU_DEBUG_PLANE(dpu_plane[i],
->  				"scaling is not supported in multirect mode\n");
->  			return -EINVAL;
->  		}
-> 
->  		if (DPU_FORMAT_IS_YUV(fmt[i])) {
-> -			DPU_ERROR_PLANE(dpu_plane[i],
-> +			DPU_DEBUG_PLANE(dpu_plane[i],
->  				"Unsupported format for multirect mode\n");
->  			return -EINVAL;
->  		}
-> @@ -816,8 +813,8 @@ int dpu_plane_validate_multirect_v2(struct
-> dpu_multirect_plane_states *plane)
-> 
->  	/* Prefer PARALLEL FETCH Mode over TIME_MX Mode */
->  	if (parallel_fetch_qualified) {
-> -		pstate[R0]->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-> -		pstate[R1]->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-> +		pstate0->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-> +		pstate1->multirect_mode = DPU_SSPP_MULTIRECT_PARALLEL;
-> 
->  		goto done;
->  	}
-> @@ -827,10 +824,10 @@ int dpu_plane_validate_multirect_v2(struct
-> dpu_multirect_plane_states *plane)
-> 
->  	if (dst[R1].y1 >= dst[R0].y2 + buffer_lines ||
->  	    dst[R0].y1 >= dst[R1].y2 + buffer_lines) {
-> -		pstate[R0]->multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
-> -		pstate[R1]->multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
-> +		pstate0->multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
-> +		pstate1->multirect_mode = DPU_SSPP_MULTIRECT_TIME_MX;
->  	} else {
-> -		DPU_ERROR(
-> +		DPU_DEBUG(
->  			"No multirect mode possible for the planes (%d - %d)\n",
->  			drm_state[R0]->plane->base.id,
->  			drm_state[R1]->plane->base.id);
-> @@ -838,13 +835,15 @@ int dpu_plane_validate_multirect_v2(struct
-> dpu_multirect_plane_states *plane)
->  	}
-> 
->  done:
-> -	pstate[R0]->multirect_index = DPU_SSPP_RECT_0;
-> -	pstate[R1]->multirect_index = DPU_SSPP_RECT_1;
-> +	pstate0->multirect_index = DPU_SSPP_RECT_0;
-> +	pstate1->multirect_index = DPU_SSPP_RECT_1;
-> +
-> +	pstate0->qos_src_w = max(pstate0->qos_src_w, pstate1->base.src_w >> 
-> 16);
-> 
->  	DPU_DEBUG_PLANE(dpu_plane[R0], "R0: %d - %d\n",
-> -		pstate[R0]->multirect_mode, pstate[R0]->multirect_index);
-> +		pstate0->multirect_mode, pstate0->multirect_index);
->  	DPU_DEBUG_PLANE(dpu_plane[R1], "R1: %d - %d\n",
-> -		pstate[R1]->multirect_mode, pstate[R1]->multirect_index);
-> +		pstate1->multirect_mode, pstate1->multirect_index);
->  	return 0;
->  }
-> 
-> @@ -928,7 +927,8 @@ static bool dpu_plane_validate_src(struct drm_rect 
-> *src,
->  		drm_rect_equals(fb_rect, src);
->  }
-> 
-> -int dpu_plane_set_pipe(struct drm_plane *plane, struct dpu_plane_state 
-> *pstate)
-> +int dpu_plane_set_pipe(struct drm_plane *plane, struct dpu_plane_state 
-> *pstate,
-> +		struct dpu_plane_state *prev_plane_state)
->  {
->  	struct dpu_kms *kms = _dpu_plane_get_kms(plane);
->  	struct dpu_plane *pdpu = to_dpu_plane(plane);
-> @@ -936,11 +936,24 @@ int dpu_plane_set_pipe(struct drm_plane *plane,
-> struct dpu_plane_state *pstate)
->  	enum dpu_sspp pipe;
->  	bool yuv, scale;
-> 
-> +	pstate->multirect_index = DPU_SSPP_RECT_SOLO;
-> +	pstate->multirect_mode = DPU_SSPP_MULTIRECT_NONE;
-> +
->  	if (pdpu->pipe != SSPP_NONE) {
->  		pipe = pdpu->pipe;
->  		goto out;
->  	}
-> 
-> +	if (prev_plane_state &&
-> +	    kms->catalog->caps->smart_dma_rev != DPU_SMART_DMA_UNSUPPORTED &&
-> +	    !dpu_plane_validate_multirect_v2(prev_plane_state, pstate)) {
-> +		/* multirect capable, use the same pipe */
-> +		DPU_DEBUG_PLANE(pdpu, "multirect, SSPP %d\n",
-> prev_plane_state->pipe_hw->idx);
-> +		pstate->pipe_hw = prev_plane_state->pipe_hw;
-> +
-> +		return 0;
-> +	}
-> +
->  	yuv = pstate->base.fb ?
-> DPU_FORMAT_IS_YUV(to_dpu_format(msm_framebuffer_format(pstate->base.fb)))
-> : false;
->  	scale = (pstate->base.src_w >> 16 != pstate->base.crtc_w) ||
->  		(pstate->base.src_h >> 16 != pstate->base.crtc_h);
-> @@ -953,6 +966,8 @@ int dpu_plane_set_pipe(struct drm_plane *plane,
-> struct dpu_plane_state *pstate)
->  	if (pipe == SSPP_NONE || pipe >= SSPP_MAX || !kms->rm.sspp_blks[pipe
-> - SSPP_NONE])
->  		return -EINVAL;
-> 
-> +	pstate->qos_src_w = pstate->base.src_w >> 16;
-> +
->  	pstate->pipe_hw = to_dpu_hw_pipe(kms->rm.sspp_blks[pipe - 
-> SSPP_NONE]);
-> 
->  	return 0;
-> @@ -988,7 +1003,7 @@ static int dpu_plane_atomic_check(struct drm_plane 
-> *plane,
-> 
->  		DRM_DEBUG_ATOMIC("PLANE %d released SSPP %d\n", plane->base.id,
-> pstate->pipe_hw->idx);
->  		dpu_rm_release_sspp(&dpu_kms->rm, global_state, plane->base.id);
-> -		pstate->pipe_hw = NULL;
-> +		/* do not clear pipe_hw here, use it in atomic_disable to cleanup
-> mutlirect */
->  	}
-> 
->  	return 0;
-> @@ -1199,7 +1214,7 @@ static void dpu_plane_sspp_atomic_update(struct
-> drm_plane *plane)
->  				pstate->multirect_index);
->  	}
-> 
-> -	_dpu_plane_setup_scaler(pdpu, pstate, fmt, false, &pipe_cfg);
-> +	_dpu_plane_setup_scaler(pdpu, pstate, fmt, &pipe_cfg);
-> 
->  	if (pstate->pipe_hw->ops.setup_multirect)
->  		pstate->pipe_hw->ops.setup_multirect(
-> @@ -1245,8 +1260,10 @@ static void dpu_plane_sspp_atomic_update(struct
-> drm_plane *plane)
->  		}
->  	}
-> 
-> -	_dpu_plane_set_qos_lut(plane, fb, &pipe_cfg);
-> -	_dpu_plane_set_danger_lut(plane, fb);
-> +	if (pstate->multirect_index != DPU_SSPP_RECT_1) {
-> +		_dpu_plane_set_qos_lut(plane, fb, pstate->qos_src_w);
-> +		_dpu_plane_set_danger_lut(plane, fb);
-> +	}
-> 
->  	if (plane->type != DRM_PLANE_TYPE_CURSOR) {
->  		_dpu_plane_set_qos_ctrl(plane, true, DPU_PLANE_QOS_PANIC_CTRL);
-> @@ -1279,7 +1296,13 @@ static void _dpu_plane_atomic_disable(struct
-> drm_plane *plane)
-> 
->  	pstate->pending = true;
-> 
-> -	pstate->pipe_hw = NULL;
-> +	if (pstate->multirect_index != DPU_SSPP_RECT_SOLO &&
-> +	    pstate->pipe_hw &&
-> +	    pstate->pipe_hw->ops.setup_multirect)
-> +		pstate->pipe_hw->ops.setup_multirect(
-> +				pstate->pipe_hw,
-> +				DPU_SSPP_RECT_SOLO,
-> +				DPU_SSPP_MULTIRECT_NONE);
->  }
-> 
->  static void dpu_plane_atomic_update(struct drm_plane *plane,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> index 0940ffbb8b28..6ec7f5edc06a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> @@ -23,6 +23,7 @@
->   * @multirect_index: index of the rectangle of SSPP
->   * @multirect_mode: parallel or time multiplex multirect mode
->   * @pending:	whether the current update is still pending
-> + * @qos_src_w: src_width used for qos_lut setup
->   * @plane_fetch_bw: calculated BW per plane
->   * @plane_clk: calculated clk per plane
->   */
-> @@ -35,22 +36,14 @@ struct dpu_plane_state {
->  	uint32_t multirect_mode;
->  	bool pending;
-> 
-> +	uint32_t qos_src_w;
-> +
->  	struct dpu_hw_pipe *pipe_hw;
-> 
->  	u64 plane_fetch_bw;
->  	u64 plane_clk;
->  };
-> 
-> -/**
-> - * struct dpu_multirect_plane_states: Defines multirect pair of drm
-> plane states
-> - * @r0: drm plane configured on rect 0
-> - * @r1: drm plane configured on rect 1
-> - */
-> -struct dpu_multirect_plane_states {
-> -	const struct drm_plane_state *r0;
-> -	const struct drm_plane_state *r1;
-> -};
-> -
->  #define to_dpu_plane_state(x) \
->  	container_of(x, struct dpu_plane_state, base)
-> 
-> @@ -78,19 +71,6 @@ struct drm_plane *dpu_plane_init(struct drm_device 
-> *dev,
->  		uint32_t pipe, enum drm_plane_type type,
->  		unsigned long possible_crtcs);
-> 
-> -/**
-> - * dpu_plane_validate_multirecti_v2 - validate the multirect planes
-> - *				      against hw limitations
-> - * @plane: drm plate states of the multirect pair
-> - */
-> -int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states 
-> *plane);
-> -
-> -/**
-> - * dpu_plane_clear_multirect - clear multirect bits for the given pipe
-> - * @drm_state: Pointer to DRM plane state
-> - */
-> -void dpu_plane_clear_multirect(const struct drm_plane_state 
-> *drm_state);
-> -
->  /**
->   * dpu_plane_color_fill - enables color fill on plane
->   * @plane:  Pointer to DRM plane object
-> @@ -107,7 +87,8 @@ void dpu_plane_danger_signal_ctrl(struct drm_plane
-> *plane, bool enable);
->  static inline void dpu_plane_danger_signal_ctrl(struct drm_plane
-> *plane, bool enable) {}
->  #endif
-> 
-> -int dpu_plane_set_pipe(struct drm_plane *plane, struct
-> dpu_plane_state *pstate);
-> +int dpu_plane_set_pipe(struct drm_plane *plane, struct dpu_plane_state 
-> *pstate,
-> +		struct dpu_plane_state *prev_plane_state);
-> 
->  int dpu_plane_real_atomic_check(struct drm_plane *plane,
->  				struct drm_atomic_state *state);
+>   drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> index 16b0e8836d27..84d7f79f1aa8 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> @@ -192,8 +192,10 @@ static const struct of_device_id msm_hdmi_phy_dt_match[] = {
+>   	  .data = &msm_hdmi_phy_8x74_cfg },
+>   	{ .compatible = "qcom,hdmi-phy-8084",
+>   	  .data = &msm_hdmi_phy_8x74_cfg },
+> +#ifdef CONFIG_COMMON_CLK
+>   	{ .compatible = "qcom,hdmi-phy-8996",
+>   	  .data = &msm_hdmi_phy_8996_cfg },
+> +#endif
+>   	{}
+>   };
+>   
+
