@@ -2,59 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABF8D44C6CE
-	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 19:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D78A844C6D2
+	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 19:37:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 499966E12A;
-	Wed, 10 Nov 2021 18:37:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 753FD6E329;
+	Wed, 10 Nov 2021 18:37:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51E806E105;
- Wed, 10 Nov 2021 18:37:10 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id r5so3816020pls.1;
- Wed, 10 Nov 2021 10:37:10 -0800 (PST)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC7B6E105;
+ Wed, 10 Nov 2021 18:37:12 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id m14so3418664pfc.9;
+ Wed, 10 Nov 2021 10:37:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fTqyXg15VQ6Usewdg3YZaLywhlttYK7TtczoWmiTCj4=;
- b=G1nZAjLdj5VAs6N6FkuhGu52Xu+4W96O2qk/fBNZO0D4l85Zr24Ir8RfkezRNW2j3U
- q4hwtLgB5bUvnKi96cMPDHzo3Cw8UboD1mPecViRFpvxXP69lQxBcoVi759sa0r5TTNX
- 5zAiLz2Ne+LgeDBnTb4eJc+lip4t5X6zN3mE9QMzcXYJkwPbbzRlUtlSLtMyPybyKA2s
- ay1DGI73wg7/kFrcUF91vVRwmMI4WiBaxdc5x7ybZeeBvt0nPhnC0CwjtyIDNAyyDjTM
- 1jLEg0wzaPZfu1LwTvFPlaPsjqbf7dt6g2EI1ShYAehv05/z0iHkSBjk4x1+ks4y9CI0
- T7sA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=EFuTiwIBCHztm/ICNdYp/ffmw2x1iWY8Pj/q3ZqCBZM=;
+ b=FGivo6Tqnq19OTCi6J7PEI12kqSlo8QrIRemI1gMcghWbwze0iw0ItylGkl+Uh1skJ
+ I6LsWhgj+Wy/kHRi7enl6TZBqBdrK2wJfS4Qf/4Lp5+JsEOaktLaHQZ1pRwid8xal1hL
+ Sx8yAX5TsH4M2U+6uVdSe1K2Bozbca4z4eZcjwI4UKCAH3i4XLX1rpmZVT6k7w/ep0yn
+ crZ6dgYKPXMy7VXFCmUrFOctM+5CN5gF7K2gXx1hioGlXMOGD0sjq0KKNSdx4RWm2DNi
+ IzP6G9Zyw93fwOJrlhDLCs6j4HAy/U45hdsBCEBkZYS/4sEXiK/Q/4ajVYEKhli4RUGy
+ 8Tfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fTqyXg15VQ6Usewdg3YZaLywhlttYK7TtczoWmiTCj4=;
- b=KlBBYm0jlfBmMCg7uNQr52NF45bejU8RKjLZxnBV8aFQ0SuNfvsQ+zwO9WqMTERzXH
- 7rmO9GPIalIlU5cMMRBDjLemMdKeUT6E6OGmHJpO+cSA2y6jGLokq1Xx9QF0eV6+fblJ
- oPJSxt99VsO5hjFbTEZ38RxWjHFFHR9+6yaj2y61s5DAyE/r8EWQtJnWBof/Loz7pSgB
- p8F2We5k2RL7IOXK4Fvw3GEydChS6gyaVmc6jNafZn2x3AHRZV5/F3quP5zutALQOMtc
- k2TomuyWWh7EIZDXrTQ06lyjU/7p9rLurKk8Lilm4gPvgxP4MKwmnN42vG+l9SIbPgi+
- iitQ==
-X-Gm-Message-State: AOAM53079e//tHdJvYJ4dvgyvfHDY3vN6e4+jyBY5nA5N/pIgW2SX7D/
- SM9YXwo+hwA24ywDvF9yyAlJGXSp3Yg=
-X-Google-Smtp-Source: ABdhPJy7ooc2BPjtBlaQOp8ySkSMhDHZ8t0r3JquEM+e95v2iYBmMLIveyhm3NKIEFAglm0BzwX3ZQ==
-X-Received: by 2002:a17:90b:4f86:: with SMTP id
- qe6mr1139272pjb.198.1636569429333; 
- Wed, 10 Nov 2021 10:37:09 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=EFuTiwIBCHztm/ICNdYp/ffmw2x1iWY8Pj/q3ZqCBZM=;
+ b=M5M4KrUFeM3K77tKOlI2JHlvrYusrIBGZmsJmEWSGNM0haj63A48cdB8z+kUvWAqbK
+ 4p/rJs8AroPelcIWXdYmTwmsCL3kniIqoHfi/b+1qUqpsuM7kJpzShogGyTZR8pEsVAi
+ utXrQFqUAY7IRdvxfQp2sZaC07nxt7lXs4GOmf2hKMYgCyet93uL/dzq1JGDd6WYPJ0z
+ mDgO9wrdlFpa4Gp7B4ySDX9awjFasSbFDy+9oxQEFoZ7FDVejampz3n4QnCqinzVUYB4
+ 6//6S90/gYRN/9XzlsiH/YCr8HHvS3oSiKJFkjmjsiHv/6ZOdG3CZvMTmqRYM3iIL8Ov
+ /29Q==
+X-Gm-Message-State: AOAM531YuNXjNtEKTpuKsuwquJaGiWzPf3BwIqTGum095MB8u059h7F4
+ IA/7zyhmpRWFrqUU/AhKgPIyJiMagbU=
+X-Google-Smtp-Source: ABdhPJzYWocd3h/ASelR6znM6p6uLLKKnS/YQA9kicOTKGCUNrQZlpHGfKO4cIpEVS9jULpqsyNLVw==
+X-Received: by 2002:a63:8a43:: with SMTP id y64mr594361pgd.113.1636569431546; 
+ Wed, 10 Nov 2021 10:37:11 -0800 (PST)
 Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
  by smtp.gmail.com with ESMTPSA id
- s2sm260067pgd.13.2021.11.10.10.37.07
+ q9sm374389pfj.88.2021.11.10.10.37.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Nov 2021 10:37:07 -0800 (PST)
+ Wed, 10 Nov 2021 10:37:10 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: igt-dev@lists.freedesktop.org
-Date: Wed, 10 Nov 2021 10:42:10 -0800
-Message-Id: <20211110184213.649787-1-robdclark@gmail.com>
+Date: Wed, 10 Nov 2021 10:42:11 -0800
+Message-Id: <20211110184213.649787-2-robdclark@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20211110184213.649787-1-robdclark@gmail.com>
+References: <20211110184213.649787-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH igt v2 0/3] msm: Add tests for gpu fault handling
+Subject: [Freedreno] [PATCH igt v2 1/3] lib/igt_debugfs: Add helper for
+ writing debugfs files
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,27 +77,73 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-The first patch adds a easy way to write debugfs files (needed to
-disable hw fault detection, so we can test the sw timeout fallback).
-The second adds some helpers for cmdstream building.  And the third
-adds the new tests.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+v2: Fix headerdoc comments
 
-v2: Fix headerdoc comments in first patch
+ lib/igt_debugfs.c | 17 +++++++++++++++++
+ lib/igt_debugfs.h | 13 +++++++++++++
+ 2 files changed, 30 insertions(+)
 
-Rob Clark (3):
-  lib/igt_debugfs: Add helper for writing debugfs files
-  msm: Add helper for cmdstream building and submission
-  msm: Add recovery tests
-
- lib/igt_debugfs.c    |  17 +++++
- lib/igt_debugfs.h    |  13 ++++
- lib/igt_msm.c        | 102 +++++++++++++++++++++++++
- lib/igt_msm.h        |  51 +++++++++++++
- tests/meson.build    |   1 +
- tests/msm_recovery.c | 172 +++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 356 insertions(+)
- create mode 100644 tests/msm_recovery.c
-
+diff --git a/lib/igt_debugfs.c b/lib/igt_debugfs.c
+index a5bb95ca..dd6f2995 100644
+--- a/lib/igt_debugfs.c
++++ b/lib/igt_debugfs.c
+@@ -351,6 +351,23 @@ void __igt_debugfs_read(int fd, const char *filename, char *buf, int size)
+ 	close(dir);
+ }
+ 
++/**
++ * __igt_debugfs_write:
++ * @fd: the drm device file fd
++ * @filename: file name
++ * @buf: buffer to be written to the debugfs file
++ * @size: size of the buffer
++ *
++ * This function opens the debugfs file, writes it, then closes the file.
++ */
++void __igt_debugfs_write(int fd, const char *filename, const char *buf, int size)
++{
++	int dir = igt_debugfs_dir(fd);
++
++	igt_sysfs_write(dir, filename, buf, size);
++	close(dir);
++}
++
+ /**
+  * igt_debugfs_search:
+  * @filename: file name
+diff --git a/lib/igt_debugfs.h b/lib/igt_debugfs.h
+index d43ba6c6..b4867681 100644
+--- a/lib/igt_debugfs.h
++++ b/lib/igt_debugfs.h
+@@ -40,6 +40,7 @@ int igt_debugfs_pipe_dir(int device, int pipe, int mode);
+ 
+ int igt_debugfs_open(int fd, const char *filename, int mode);
+ void __igt_debugfs_read(int fd, const char *filename, char *buf, int size);
++void __igt_debugfs_write(int fd, const char *filename, const char *buf, int size);
+ int igt_debugfs_simple_read(int dir, const char *filename, char *buf, int size);
+ bool igt_debugfs_search(int fd, const char *filename, const char *substring);
+ 
+@@ -54,6 +55,18 @@ bool igt_debugfs_search(int fd, const char *filename, const char *substring);
+ #define igt_debugfs_read(fd, filename, buf) \
+ 		__igt_debugfs_read(fd, (filename), (buf), sizeof(buf))
+ 
++/**
++ * igt_debugfs_write:
++ * @fd: the drm device file fd
++ * @filename: name of the debugfs file
++ * @buf: buffer to be written to the debugfs file
++ *
++ * This is just a convenience wrapper for __igt_debugfs_write. See its
++ * documentation.
++ */
++#define igt_debugfs_write(fd, filename, buf) \
++		__igt_debugfs_write(fd, (filename), (buf), sizeof(buf))
++
+ /*
+  * Pipe CRC
+  */
 -- 
 2.31.1
 
