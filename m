@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F30244C7E9
-	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 19:55:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BA2744C900
+	for <lists+freedreno@lfdr.de>; Wed, 10 Nov 2021 20:34:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 242A7891AB;
-	Wed, 10 Nov 2021 18:55:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEFBD6E0FE;
+	Wed, 10 Nov 2021 19:34:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9141891AB;
- Wed, 10 Nov 2021 18:55:45 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- d72-20020a1c1d4b000000b00331140f3dc8so2727488wmd.1; 
- Wed, 10 Nov 2021 10:55:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=tPV4NJmx7yNNZMUNac4JIpjNtAvs89vq/kypIKzi6mk=;
- b=kOOV6fzTJvc3Yiz35aw21yoO+xHJaFcL37Wq7IwwypxUJzMa7QJwTZC+BmKxhh1ECu
- A3jMtEc/KS8krv+bSFVpdifxITbW8DcmJBA4NGc4IuXRHNA8nb0WnvsR5zX/cm34B2Np
- fxH7tRPxYOKMO8sRv03Z/zB1Ej+pzY9/HUXVAzMVR5MESvbbQQa4U8tnF06L9DWjik/n
- SKq5OAtlDttfBSjuY5sf09rHoXQi3fQiU4f6+gtYOynXKIOH1rtBBklmZxeimwNa4jOc
- MpTBr9MiaJKre636hKc/UpaFXO49PtPq+7Y85uhJ81pndL1dZ0hwfaId5oDLP1sK1OYx
- nBBw==
+Received: from mail-vk1-xa32.google.com (mail-vk1-xa32.google.com
+ [IPv6:2607:f8b0:4864:20::a32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7B46E055
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Nov 2021 19:34:19 +0000 (UTC)
+Received: by mail-vk1-xa32.google.com with SMTP id f7so1979452vkf.10
+ for <freedreno@lists.freedesktop.org>; Wed, 10 Nov 2021 11:34:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rJHh7eaoz0rtcELxkvF4zn32urxXqVSFngW+4w2Rf1M=;
+ b=ggo+wNiLpDV4HHVswfBVwjZWHVRwN5LJPcalbUOFWVu2vONM7Gc4p9hUv3qjOc/k4d
+ 1JORW4pmS0ObxFh50/8lVekzBekj5VaHNWn6O2mShfZT+FJoWWrbLaIj68Mzk6YZUQIG
+ BCDQrOwq8mlrpQH2MSxaZNS2aTsk6/OnnOnU4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=tPV4NJmx7yNNZMUNac4JIpjNtAvs89vq/kypIKzi6mk=;
- b=bp4oEZ5kbN+FN+Vqpz4qku4P75EramJ0/G46pM+wO27Skyou5vet8SBwB8d+xxb/LF
- IjW71nsC6XOCdD+gYM3rF7Asvh61q6ShHuc3x0Fp05kXJO0VHEIw0jQRRd/QpuG2aXCg
- QB+dq286HuRudrJMl/VJQ6/HE3MO+g2muVUeQzqiaCCFHB4oooN3sfkGseNKOsZdgpK4
- PqclPkkeK0WVyanaORtPO5hqREApE49YXJBKNcpBonu8/v6GNT3bxm2YqXnFCdt9zpFd
- s5nJ6TtseQaBus0gBlNG40IIH/d+NEoMXQ6cX/Eg//22WNY25S/nD2Pd0zKlsMWEhbVL
- X+uQ==
-X-Gm-Message-State: AOAM533QR7dZTnMVhc6zcZYubi6/aH5m0rnpNEJbblZ8k6ZZchsnnfT/
- 3kIFdy+V6A64F0Bov5/CY9zwD+Km7Q79F9uU0JwtXDxzUx4=
-X-Google-Smtp-Source: ABdhPJy27fyaIRYObDSt0lrG8hRk7u+ySYzQ3UaZXwipXrKO78xYYqY+Xs6TVPLQzGRNqgh8Iidm9XhoRnlihGz5Qd4=
-X-Received: by 2002:a1c:790d:: with SMTP id l13mr19221239wme.101.1636570542976; 
- Wed, 10 Nov 2021 10:55:42 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rJHh7eaoz0rtcELxkvF4zn32urxXqVSFngW+4w2Rf1M=;
+ b=IltlaU9HJhjgowzXPbnCVTl9olGQXp78jrmsQ7EtvRmvxf6b2XoGscwbC0wuA4gRJ+
+ p9dW7dEe34IFtKhBVDwVoLOMH4gNZ0aWf6bC4OYznglpsjO6FURLSC1lcLL1jgjXZOYM
+ tVgw4JI+rLp824YSDTR9WIGZ6Vn6gHhsWMUG7UHM/zkmcenntzW8fBpDhDlqeCkiFXnx
+ Bjhm2+lNdz12vtPPDaLaAAIL2RwhBCNlNNks3stHRBiC6XcNy+J0k9fs7yHnOo2qCEqM
+ 3TPxiDQT0zqYj55QiJ91B+0+J3U9K8upJM9CoVwKkNmdaMPW9OZxmCdTM+rrP26oxh4l
+ 78qA==
+X-Gm-Message-State: AOAM532yYqgxGQzHx3EkuoIbNcpI9hDiK1v/pHSM+pOo3NWK4R+NMDA2
+ pJJD5Nzj5H3f/lfEUIAFsLIMYg2u3moRkdw6
+X-Google-Smtp-Source: ABdhPJzlHwHz24c2zSNl5Hhws4WdVA+lO8Bb7anT7lg2ow9nWr7ZPTW+kv06o3GES2gBTLH2T01e9Q==
+X-Received: by 2002:a17:903:408c:b0:142:45a9:672c with SMTP id
+ z12-20020a170903408c00b0014245a9672cmr1542283plc.7.1636572847553; 
+ Wed, 10 Nov 2021 11:34:07 -0800 (PST)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:6e36:1327:faf4:fa6a])
+ by smtp.gmail.com with ESMTPSA id d7sm437006pfj.91.2021.11.10.11.34.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Nov 2021 11:34:07 -0800 (PST)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Wed, 10 Nov 2021 11:33:42 -0800
+Message-Id: <20211110113334.1.I1687e716adb2df746da58b508db3f25423c40b27@changeid>
+X-Mailer: git-send-email 2.34.0.rc1.387.gb447b232ab-goog
 MIME-Version: 1.0
-References: <20211110184213.649787-1-robdclark@gmail.com>
- <20211110184213.649787-4-robdclark@gmail.com>
-In-Reply-To: <20211110184213.649787-4-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 10 Nov 2021 11:00:41 -0800
-Message-ID: <CAF6AEGsh4ow448Y5xtt2rnX=zcFCQvqk9Mf59AB_ifmw9mm0Lw@mail.gmail.com>
-To: igt-dev@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH igt v2 3/3] msm: Add recovery tests
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Fix mmap to include VM_IO and
+ VM_DONTDUMP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,264 +65,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Petri Latvala <petri.latvala@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 10, 2021 at 10:37 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Add tests to exercise:
->
-> 1. sw hangcheck timeout
-> 2. gpu fault (hang) recovery
-> 3. iova fault recovery
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  lib/igt_msm.h        |   3 +
->  tests/meson.build    |   1 +
->  tests/msm_recovery.c | 172 +++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 176 insertions(+)
->  create mode 100644 tests/msm_recovery.c
->
-> diff --git a/lib/igt_msm.h b/lib/igt_msm.h
-> index 1a66c806..421d23ed 100644
-> --- a/lib/igt_msm.h
-> +++ b/lib/igt_msm.h
-> @@ -97,6 +97,9 @@ enum adreno_pm4_packet_type {
->
->  enum adreno_pm4_type3_packets {
->         CP_NOP =3D 16,
-> +       CP_WAIT_MEM_GTE =3D 20,
-> +       CP_WAIT_REG_MEM =3D 60,
-> +       CP_MEM_WRITE =3D 61,
->  };
->
->  static inline unsigned
-> diff --git a/tests/meson.build b/tests/meson.build
-> index 0af3e03a..166e3494 100644
-> --- a/tests/meson.build
-> +++ b/tests/meson.build
-> @@ -60,6 +60,7 @@ test_progs =3D [
->         'kms_vrr',
->         'kms_writeback',
->         'meta_test',
-> +       'msm_recovery',
->         'msm_submit',
->         'panfrost_get_param',
->         'panfrost_gem_new',
-> diff --git a/tests/msm_recovery.c b/tests/msm_recovery.c
-> new file mode 100644
-> index 00000000..b71326b8
-> --- /dev/null
-> +++ b/tests/msm_recovery.c
-> @@ -0,0 +1,172 @@
-> +/*
-> + * Copyright =C2=A9 2021 Google, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice (including the =
-next
-> + * paragraph) shall be included in all copies or substantial portions of=
- the
-> + * Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
-OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISI=
-NG
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER D=
-EALINGS
-> + * IN THE SOFTWARE.
-> + */
-> +
-> +#include <sys/poll.h>
-> +
-> +#include "igt.h"
-> +#include "igt_msm.h"
-> +
-> +static struct msm_device *dev;
-> +static struct msm_bo *scratch_bo;
-> +static uint32_t *scratch;
-> +
-> +/*
-> + * Helpers for cmdstream packet building:
-> + */
-> +
-> +static void
-> +wait_mem_gte(struct msm_cmd *cmd, uint32_t offset_dwords, uint32_t ref)
-> +{
-> +       msm_cmd_pkt7(cmd, CP_WAIT_MEM_GTE, 4);
-> +       msm_cmd_emit(cmd, 0);                              /* RESERVED */
-> +       msm_cmd_bo  (cmd, scratch_bo, offset_dwords * 4);  /* POLL_ADDR_L=
-O/HI */
-> +       msm_cmd_emit(cmd, ref);                            /* REF */
-> +}
-> +
-> +static void
-> +mem_write(struct msm_cmd *cmd, uint32_t offset_dwords, uint32_t val)
-> +{
-> +       msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
-> +       msm_cmd_bo  (cmd, scratch_bo, offset_dwords * 4);  /* ADDR_LO/HI =
-*/
-> +       msm_cmd_emit(cmd, val);                            /* VAL */
-> +}
-> +
-> +/*
-> + * Helper to wait on a fence-fd:
-> + */
-> +static void
-> +wait_and_close(int fence_fd)
-> +{
-> +       poll(&(struct pollfd){fence_fd, POLLIN}, 1, -1);
-> +       close(fence_fd);
-> +}
-> +
-> +/*
-> + * Helper for hang tests.  Emits multiple submits, with one in the middl=
-e
-> + * that triggers a fault, and confirms that the submits before and after
-> + * the faulting one execute properly, ie. that the driver properly manag=
-es
-> + * to recover and re-queue the submits after the faulting submit;
-> + */
-> +static void
-> +do_hang_test(struct msm_pipe *pipe)
-> +{
-> +       struct msm_cmd *cmds[16];
-> +       int fence_fds[ARRAY_SIZE(cmds)];
-> +
-> +       memset(scratch, 0, 0x1000);
-> +
-> +       for (unsigned i =3D 0; i < ARRAY_SIZE(cmds); i++) {
-> +               struct msm_cmd *cmd =3D igt_msm_cmd_new(pipe, 0x1000);
-> +
-> +               cmds[i] =3D cmd;
-> +
-> +               /*
-> +                * Emit a packet to wait for scratch[0] to be >=3D 1
-> +                *
-> +                * This lets us force the GPU to wait until all the cmdst=
-ream is
-> +                * queued up.
-> +                */
-> +               wait_mem_gte(cmd, 0, 1);
-> +
-> +               if (i =3D=3D 10) {
-> +                       msm_cmd_emit(cmd, 0xdeaddead);
-> +               }
-> +
-> +               /* Emit a packet to write scratch[1+i] =3D 2+i: */
-> +               mem_write(cmd, 1+i, 2+i);
-> +       }
-> +
-> +       for (unsigned i =3D 0; i < ARRAY_SIZE(cmds); i++) {
-> +               fence_fds[i] =3D igt_msm_cmd_submit(cmds[i]);
-> +       }
-> +
-> +       usleep(10000);
-> +
-> +       /* Let the WAIT_MEM_GTE complete: */
-> +       scratch[0] =3D 1;
-> +
-> +       for (unsigned i =3D 0; i < ARRAY_SIZE(cmds); i++) {
-> +               wait_and_close(fence_fds[i]);
-> +               igt_msm_cmd_free(cmds[i]);
-> +               if (i =3D=3D 10)
-> +                       continue;
-> +               igt_assert_eq(scratch[1+i], 2+i);
-> +       }
-> +}
-> +
-> +/*
-> + * Tests for drm/msm hangcheck, recovery, and fault handling
-> + */
-> +
-> +igt_main
-> +{
-> +       static struct msm_pipe *pipe =3D NULL;
-> +
-> +       igt_fixture {
-> +               dev =3D igt_msm_dev_open();
-> +               pipe =3D igt_msm_pipe_open(dev, 0);
-> +               scratch_bo =3D igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
-> +               scratch =3D igt_msm_bo_map(scratch_bo);
-> +       }
-> +
-> +       igt_describe("Test sw hangcheck handling");
-> +       igt_subtest("hangcheck") {
-> +               igt_require(dev->gen >=3D 6);
-> +
-> +               /* Disable hw hang detection to force fallback to sw hang=
-check: */
-> +               igt_debugfs_write(dev->fd, "disable_err_irq", "Y");
+In commit 510410bfc034 ("drm/msm: Implement mmap as GEM object
+function") we switched to a new/cleaner method of doing things. That's
+good, but we missed a little bit.
 
-note that this depends on [1].. not sure if there is any constraint
-about landing igt tests before some debugfs they depend on lands
-upstream on the kernel side?
+Before that commit, we used to _first_ run through the
+drm_gem_mmap_obj() case where `obj->funcs->mmap()` was NULL. That meant
+that we ran:
 
-[1] https://patchwork.freedesktop.org/patch/462625/?series=3D96725&rev=3D1
+  vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP;
+  vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
+  vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
 
-BR,
--R
+...and _then_ we modified those mappings with our own. Now that
+`obj->funcs->mmap()` is no longer NULL we don't run the default
+code. It looks like the fact that the vm_flags got VM_IO / VM_DONTDUMP
+was important because we're now getting crashes on Chromebooks that
+use ARC++ while logging out. Specifically a crash that looks like this
+(this is on a 5.10 kernel w/ relevant backports but also seen on a
+5.15 kernel):
 
-> +
-> +               do_hang_test(pipe);
-> +
-> +               igt_debugfs_write(dev->fd, "disable_err_irq", "N");
-> +       }
-> +
-> +       igt_describe("Test hw fault handling");
-> +       igt_subtest("gpu-fault") {
-> +               igt_require(dev->gen >=3D 6);
-> +
-> +               do_hang_test(pipe);
-> +       }
-> +
-> +       igt_describe("Test iova fault handling");
-> +       igt_subtest("iova-fault") {
-> +               struct msm_cmd *cmd;
-> +
-> +               igt_require(dev->gen >=3D 6);
-> +
-> +               cmd =3D igt_msm_cmd_new(pipe, 0x1000);
-> +
-> +               msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
-> +               msm_cmd_emit(cmd, 0xdeaddead);           /* ADDR_LO */
-> +               msm_cmd_emit(cmd, 0x1);                  /* ADDR_HI */
-> +               msm_cmd_emit(cmd, 0x123);                /* VAL */
-> +
-> +               wait_and_close(igt_msm_cmd_submit(cmd));
-> +       }
-> +
-> +       igt_fixture {
-> +               igt_msm_bo_free(scratch_bo);
-> +               igt_msm_pipe_close(pipe);
-> +               igt_msm_dev_close(dev);
-> +       }
-> +}
-> --
-> 2.31.1
->
+  Unable to handle kernel paging request at virtual address ffffffc008000000
+  Mem abort info:
+    ESR = 0x96000006
+    EC = 0x25: DABT (current EL), IL = 32 bits
+    SET = 0, FnV = 0
+    EA = 0, S1PTW = 0
+  Data abort info:
+    ISV = 0, ISS = 0x00000006
+    CM = 0, WnR = 0
+  swapper pgtable: 4k pages, 39-bit VAs, pgdp=000000008293d000
+  [ffffffc008000000] pgd=00000001002b3003, p4d=00000001002b3003,
+                     pud=00000001002b3003, pmd=0000000000000000
+  Internal error: Oops: 96000006 [#1] PREEMPT SMP
+  [...]
+  CPU: 7 PID: 15734 Comm: crash_dump64 Tainted: G W 5.10.67 #1 [...]
+  Hardware name: Qualcomm Technologies, Inc. sc7280 IDP SKU2 platform (DT)
+  pstate: 80400009 (Nzcv daif +PAN -UAO -TCO BTYPE=--)
+  pc : __arch_copy_to_user+0xc0/0x30c
+  lr : copyout+0xac/0x14c
+  [...]
+  Call trace:
+   __arch_copy_to_user+0xc0/0x30c
+   copy_page_to_iter+0x1a0/0x294
+   process_vm_rw_core+0x240/0x408
+   process_vm_rw+0x110/0x16c
+   __arm64_sys_process_vm_readv+0x30/0x3c
+   el0_svc_common+0xf8/0x250
+   do_el0_svc+0x30/0x80
+   el0_svc+0x10/0x1c
+   el0_sync_handler+0x78/0x108
+   el0_sync+0x184/0x1c0
+  Code: f8408423 f80008c3 910020c6 36100082 (b8404423)
+
+Let's add the two flags back in.
+
+While we're at it, the fact that we aren't running the default means
+that we _don't_ need to clear out VM_PFNMAP, so remove that and save
+an instruction.
+
+NOTE: it was confirmed that VM_IO was the important flag to fix the
+problem I was seeing, but adding back VM_DONTDUMP seems like a sane
+thing to do so I'm doing that too.
+
+Fixes: 510410bfc034 ("drm/msm: Implement mmap as GEM object function")
+Reported-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
+
+ drivers/gpu/drm/msm/msm_gem.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 6b03e00cc5f2..ae18bfb22502 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1056,8 +1056,7 @@ static int msm_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+ 
+-	vma->vm_flags &= ~VM_PFNMAP;
+-	vma->vm_flags |= VM_MIXEDMAP | VM_DONTEXPAND;
++	vma->vm_flags |= VM_IO | VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP;
+ 	vma->vm_page_prot = msm_gem_pgprot(msm_obj, vm_get_page_prot(vma->vm_flags));
+ 
+ 	return 0;
+-- 
+2.34.0.rc1.387.gb447b232ab-goog
+
