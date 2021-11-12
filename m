@@ -1,61 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DE744DE02
-	for <lists+freedreno@lfdr.de>; Thu, 11 Nov 2021 23:57:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DBB544E469
+	for <lists+freedreno@lfdr.de>; Fri, 12 Nov 2021 11:12:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B48D289F73;
-	Thu, 11 Nov 2021 22:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C596EB14;
+	Fri, 12 Nov 2021 10:12:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2654B89F73;
- Thu, 11 Nov 2021 22:57:08 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id
- n15-20020a17090a160f00b001a75089daa3so5780503pja.1; 
- Thu, 11 Nov 2021 14:57:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=p0ib5mh0m9IgYQvAbwkxu2Vd7F/N58zy9lwbLSe3RPQ=;
- b=Ck7r2yklLFFbeh+El7AOfStAtNR1McHufDCIj1lNpnxb4iC9a+Zi7zIbawxSOoS0yj
- C+0TqFNmVPIP+Dn/6IcBxuRksJY/F5A+t29G27UwPUzPVxh42r4xRkQiBGH16ylT4DXP
- ev2H9WhPhuyrdVSUde1Z86pVvL3CPgdIONyzFWYHnz8LsYy6bBycCH/xS/Chn8sRp5dv
- zkizdbi4TaINVMB0Qv2qY+oB7Jy41nGT08OwT0xCohBhZUPLxdoWfB0yHpahkkk+dNcf
- 7TA9jseEAVir9Z6OsR5mnixg7vWaWwY0gzkSzXtI0RsHljCRJG+t8dvJb4MwccSPFRQD
- xy9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=p0ib5mh0m9IgYQvAbwkxu2Vd7F/N58zy9lwbLSe3RPQ=;
- b=VUqheBIWlaBjyKGfOnA5OWaFdYoTyOB9S4lW9636SyqDpKsdE6PdZiF/gJjOd3UiCH
- stdVAM/4RWO/eEy5wiANR2Aaa3JnTAePqO+/IMhsqQunwCYpF8WS8GZfxbrs2e/xZfFK
- s1IxYI9F5lIx8rE6ObJls4jiuASzm7PvpMyONfyNW+3gfLH2VufRQAI5NffLc5Y78w0H
- mdSkbNAkrSyduXZUp0igBXEfIYKYarNalweH/ehM/qfQ0r3MBNopIqAWcDLwMgkskbdd
- sArYFmdGX8WuW4vURza7bsQYBJNDd5+/Q2LWrrqNeS7DNZRtzaAJA9zccKQ+RdTH/Vzd
- ZStQ==
-X-Gm-Message-State: AOAM533MtXQLyk++wBGMUdEyjqanUv3CVdCGnfzbCF2XP4VsdPlxKfeZ
- xdjor6d1hZF1cZRc+/ocdGVRxzut8dA=
-X-Google-Smtp-Source: ABdhPJwXxuqHiQ7wn6wlrhogFUw/YurkDkkM2WprlH3tc0LxKT/qyGi84rHA8R+cDX5t11sdnb3H0g==
-X-Received: by 2002:a17:90b:3850:: with SMTP id
- nl16mr30708953pjb.10.1636671427093; 
- Thu, 11 Nov 2021 14:57:07 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- c5sm3165352pjm.52.2021.11.11.14.57.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Nov 2021 14:57:06 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 11 Nov 2021 15:02:14 -0800
-Message-Id: <20211111230214.765476-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.31.1
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42CDB6EAA3;
+ Fri, 12 Nov 2021 10:12:08 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10165"; a="231836604"
+X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="231836604"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2021 02:11:59 -0800
+X-IronPort-AV: E=Sophos;i="5.87,229,1631602800"; d="scan'208";a="492945584"
+Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.72.185])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2021 02:11:57 -0800
+Received: from platvala by thrakatuluk with local (Exim 4.94)
+ (envelope-from <petri.latvala@intel.com>)
+ id 1mlTWD-0002at-9V; Fri, 12 Nov 2021 12:10:49 +0200
+Date: Fri, 12 Nov 2021 12:10:49 +0200
+From: Petri Latvala <petri.latvala@intel.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YY49qR9ZqHCxbMSh@platvala-desk.ger.corp.intel.com>
+References: <20211110184213.649787-1-robdclark@gmail.com>
+ <20211110184213.649787-4-robdclark@gmail.com>
+ <CAF6AEGsh4ow448Y5xtt2rnX=zcFCQvqk9Mf59AB_ifmw9mm0Lw@mail.gmail.com>
+ <YY0IrRC0ZtkQvxJd@platvala-desk.ger.corp.intel.com>
+ <CAF6AEGtn+Y_nQj6GYQrhc+8RyR+NNc5778DsMUrtqPsvetanzQ@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Demote debug message
+In-Reply-To: <CAF6AEGtn+Y_nQj6GYQrhc+8RyR+NNc5778DsMUrtqPsvetanzQ@mail.gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH igt v2 3/3] msm: Add recovery tests
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,38 +52,288 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Thu, Nov 11, 2021 at 09:35:16AM -0800, Rob Clark wrote:
+> On Thu, Nov 11, 2021 at 4:13 AM Petri Latvala <petri.latvala@intel.com> wrote:
+> >
+> > On Wed, Nov 10, 2021 at 11:00:41AM -0800, Rob Clark wrote:
+> > > On Wed, Nov 10, 2021 at 10:37 AM Rob Clark <robdclark@gmail.com> wrote:
+> > > >
+> > > > From: Rob Clark <robdclark@chromium.org>
+> > > >
+> > > > Add tests to exercise:
+> > > >
+> > > > 1. sw hangcheck timeout
+> > > > 2. gpu fault (hang) recovery
+> > > > 3. iova fault recovery
+> > > >
+> > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > ---
+> > > >  lib/igt_msm.h        |   3 +
+> > > >  tests/meson.build    |   1 +
+> > > >  tests/msm_recovery.c | 172 +++++++++++++++++++++++++++++++++++++++++++
+> > > >  3 files changed, 176 insertions(+)
+> > > >  create mode 100644 tests/msm_recovery.c
+> > > >
+> > > > diff --git a/lib/igt_msm.h b/lib/igt_msm.h
+> > > > index 1a66c806..421d23ed 100644
+> > > > --- a/lib/igt_msm.h
+> > > > +++ b/lib/igt_msm.h
+> > > > @@ -97,6 +97,9 @@ enum adreno_pm4_packet_type {
+> > > >
+> > > >  enum adreno_pm4_type3_packets {
+> > > >         CP_NOP = 16,
+> > > > +       CP_WAIT_MEM_GTE = 20,
+> > > > +       CP_WAIT_REG_MEM = 60,
+> > > > +       CP_MEM_WRITE = 61,
+> > > >  };
+> > > >
+> > > >  static inline unsigned
+> > > > diff --git a/tests/meson.build b/tests/meson.build
+> > > > index 0af3e03a..166e3494 100644
+> > > > --- a/tests/meson.build
+> > > > +++ b/tests/meson.build
+> > > > @@ -60,6 +60,7 @@ test_progs = [
+> > > >         'kms_vrr',
+> > > >         'kms_writeback',
+> > > >         'meta_test',
+> > > > +       'msm_recovery',
+> > > >         'msm_submit',
+> > > >         'panfrost_get_param',
+> > > >         'panfrost_gem_new',
+> > > > diff --git a/tests/msm_recovery.c b/tests/msm_recovery.c
+> > > > new file mode 100644
+> > > > index 00000000..b71326b8
+> > > > --- /dev/null
+> > > > +++ b/tests/msm_recovery.c
+> > > > @@ -0,0 +1,172 @@
+> > > > +/*
+> > > > + * Copyright © 2021 Google, Inc.
+> > > > + *
+> > > > + * Permission is hereby granted, free of charge, to any person obtaining a
+> > > > + * copy of this software and associated documentation files (the "Software"),
+> > > > + * to deal in the Software without restriction, including without limitation
+> > > > + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> > > > + * and/or sell copies of the Software, and to permit persons to whom the
+> > > > + * Software is furnished to do so, subject to the following conditions:
+> > > > + *
+> > > > + * The above copyright notice and this permission notice (including the next
+> > > > + * paragraph) shall be included in all copies or substantial portions of the
+> > > > + * Software.
+> > > > + *
+> > > > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> > > > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> > > > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> > > > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> > > > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+> > > > + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+> > > > + * IN THE SOFTWARE.
+> > > > + */
+> > > > +
+> > > > +#include <sys/poll.h>
+> > > > +
+> > > > +#include "igt.h"
+> > > > +#include "igt_msm.h"
+> > > > +
+> > > > +static struct msm_device *dev;
+> > > > +static struct msm_bo *scratch_bo;
+> > > > +static uint32_t *scratch;
+> > > > +
+> > > > +/*
+> > > > + * Helpers for cmdstream packet building:
+> > > > + */
+> > > > +
+> > > > +static void
+> > > > +wait_mem_gte(struct msm_cmd *cmd, uint32_t offset_dwords, uint32_t ref)
+> > > > +{
+> > > > +       msm_cmd_pkt7(cmd, CP_WAIT_MEM_GTE, 4);
+> > > > +       msm_cmd_emit(cmd, 0);                              /* RESERVED */
+> > > > +       msm_cmd_bo  (cmd, scratch_bo, offset_dwords * 4);  /* POLL_ADDR_LO/HI */
+> > > > +       msm_cmd_emit(cmd, ref);                            /* REF */
+> > > > +}
+> > > > +
+> > > > +static void
+> > > > +mem_write(struct msm_cmd *cmd, uint32_t offset_dwords, uint32_t val)
+> > > > +{
+> > > > +       msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
+> > > > +       msm_cmd_bo  (cmd, scratch_bo, offset_dwords * 4);  /* ADDR_LO/HI */
+> > > > +       msm_cmd_emit(cmd, val);                            /* VAL */
+> > > > +}
+> > > > +
+> > > > +/*
+> > > > + * Helper to wait on a fence-fd:
+> > > > + */
+> > > > +static void
+> > > > +wait_and_close(int fence_fd)
+> > > > +{
+> > > > +       poll(&(struct pollfd){fence_fd, POLLIN}, 1, -1);
+> > > > +       close(fence_fd);
+> > > > +}
+> > > > +
+> > > > +/*
+> > > > + * Helper for hang tests.  Emits multiple submits, with one in the middle
+> > > > + * that triggers a fault, and confirms that the submits before and after
+> > > > + * the faulting one execute properly, ie. that the driver properly manages
+> > > > + * to recover and re-queue the submits after the faulting submit;
+> > > > + */
+> > > > +static void
+> > > > +do_hang_test(struct msm_pipe *pipe)
+> > > > +{
+> > > > +       struct msm_cmd *cmds[16];
+> > > > +       int fence_fds[ARRAY_SIZE(cmds)];
+> > > > +
+> > > > +       memset(scratch, 0, 0x1000);
+> > > > +
+> > > > +       for (unsigned i = 0; i < ARRAY_SIZE(cmds); i++) {
+> > > > +               struct msm_cmd *cmd = igt_msm_cmd_new(pipe, 0x1000);
+> > > > +
+> > > > +               cmds[i] = cmd;
+> > > > +
+> > > > +               /*
+> > > > +                * Emit a packet to wait for scratch[0] to be >= 1
+> > > > +                *
+> > > > +                * This lets us force the GPU to wait until all the cmdstream is
+> > > > +                * queued up.
+> > > > +                */
+> > > > +               wait_mem_gte(cmd, 0, 1);
+> > > > +
+> > > > +               if (i == 10) {
+> > > > +                       msm_cmd_emit(cmd, 0xdeaddead);
+> > > > +               }
+> > > > +
+> > > > +               /* Emit a packet to write scratch[1+i] = 2+i: */
+> > > > +               mem_write(cmd, 1+i, 2+i);
+> > > > +       }
+> > > > +
+> > > > +       for (unsigned i = 0; i < ARRAY_SIZE(cmds); i++) {
+> > > > +               fence_fds[i] = igt_msm_cmd_submit(cmds[i]);
+> > > > +       }
+> > > > +
+> > > > +       usleep(10000);
+> > > > +
+> > > > +       /* Let the WAIT_MEM_GTE complete: */
+> > > > +       scratch[0] = 1;
+> > > > +
+> > > > +       for (unsigned i = 0; i < ARRAY_SIZE(cmds); i++) {
+> > > > +               wait_and_close(fence_fds[i]);
+> > > > +               igt_msm_cmd_free(cmds[i]);
+> > > > +               if (i == 10)
+> > > > +                       continue;
+> > > > +               igt_assert_eq(scratch[1+i], 2+i);
+> > > > +       }
+> > > > +}
+> > > > +
+> > > > +/*
+> > > > + * Tests for drm/msm hangcheck, recovery, and fault handling
+> > > > + */
+> > > > +
+> > > > +igt_main
+> > > > +{
+> > > > +       static struct msm_pipe *pipe = NULL;
+> > > > +
+> > > > +       igt_fixture {
+> > > > +               dev = igt_msm_dev_open();
+> > > > +               pipe = igt_msm_pipe_open(dev, 0);
+> > > > +               scratch_bo = igt_msm_bo_new(dev, 0x1000, MSM_BO_WC);
+> > > > +               scratch = igt_msm_bo_map(scratch_bo);
+> > > > +       }
+> > > > +
+> > > > +       igt_describe("Test sw hangcheck handling");
+> > > > +       igt_subtest("hangcheck") {
+> > > > +               igt_require(dev->gen >= 6);
+> > > > +
+> > > > +               /* Disable hw hang detection to force fallback to sw hangcheck: */
+> > > > +               igt_debugfs_write(dev->fd, "disable_err_irq", "Y");
+> > >
+> > > note that this depends on [1].. not sure if there is any constraint
+> > > about landing igt tests before some debugfs they depend on lands
+> > > upstream on the kernel side?
+> > >
+> > > [1] https://patchwork.freedesktop.org/patch/462625/?series=96725&rev=1
+> >
+> > The usual ordering dependency of kernel vs userspace, where both sides
+> > are reviewed and ready to go before anything lands. But then the
+> > actual merging with IGT is not so strict, IGT can go in first as long
+> > as there's a consensus that the required kernel changes are going in
+> > in finite time.
+> >
+> > That said, IGT is supposed to do the right thing for kernels some time
+> > back, especially LTS kernels, so this test needs to properly handle
+> > the debugfs file missing regardless of merging order.
+> >
+> > Some kind of igt_require check for the debugfs file takes care of
+> > that.
+> >
+> 
+> Hmm, unless I'm overlooking something, I guess we need a helper to
+> check for the existence of a debugfs file?
 
-Mesa attempts to allocate a cached-coherent buffer in order to determine
-if cached-coherent is supported.  Resulting in seeing this error message
-once per process with newer mesa.  But no reason for this to be more
-than a debug msg.
+Yeah =(
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Unless the file supports reading.
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 6b03e00cc5f2..27c3ece4d146 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -1121,7 +1121,7 @@ static int msm_gem_new_impl(struct drm_device *dev,
- 			break;
- 		fallthrough;
- 	default:
--		DRM_DEV_ERROR(dev->dev, "invalid cache flag: %x\n",
-+		DRM_DEV_DEBUG(dev->dev, "invalid cache flag: %x\n",
- 				(flags & MSM_BO_CACHE_MASK));
- 		return -EINVAL;
- 	}
+
 -- 
-2.31.1
+Petri Latvala
 
+
+> 
+> BR,
+> -R
+> 
+> >
+> > --
+> > Petri Latvala
+> >
+> >
+> >
+> >
+> > >
+> > > BR,
+> > > -R
+> > >
+> > > > +
+> > > > +               do_hang_test(pipe);
+> > > > +
+> > > > +               igt_debugfs_write(dev->fd, "disable_err_irq", "N");
+> > > > +       }
+> > > > +
+> > > > +       igt_describe("Test hw fault handling");
+> > > > +       igt_subtest("gpu-fault") {
+> > > > +               igt_require(dev->gen >= 6);
+> > > > +
+> > > > +               do_hang_test(pipe);
+> > > > +       }
+> > > > +
+> > > > +       igt_describe("Test iova fault handling");
+> > > > +       igt_subtest("iova-fault") {
+> > > > +               struct msm_cmd *cmd;
+> > > > +
+> > > > +               igt_require(dev->gen >= 6);
+> > > > +
+> > > > +               cmd = igt_msm_cmd_new(pipe, 0x1000);
+> > > > +
+> > > > +               msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
+> > > > +               msm_cmd_emit(cmd, 0xdeaddead);           /* ADDR_LO */
+> > > > +               msm_cmd_emit(cmd, 0x1);                  /* ADDR_HI */
+> > > > +               msm_cmd_emit(cmd, 0x123);                /* VAL */
+> > > > +
+> > > > +               wait_and_close(igt_msm_cmd_submit(cmd));
+> > > > +       }
+> > > > +
+> > > > +       igt_fixture {
+> > > > +               igt_msm_bo_free(scratch_bo);
+> > > > +               igt_msm_pipe_close(pipe);
+> > > > +               igt_msm_dev_close(dev);
+> > > > +       }
+> > > > +}
+> > > > --
+> > > > 2.31.1
+> > > >
