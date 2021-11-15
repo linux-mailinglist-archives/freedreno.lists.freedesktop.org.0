@@ -2,57 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D3E44EFD1
-	for <lists+freedreno@lfdr.de>; Fri, 12 Nov 2021 23:56:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAB4045075F
+	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 15:44:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 811F76E0BC;
-	Fri, 12 Nov 2021 22:55:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3FD6E064;
+	Mon, 15 Nov 2021 14:43:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB186E0BC;
- Fri, 12 Nov 2021 22:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1636757757; x=1668293757;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=VpT/Mp4nbzITBrPz3FNp/OzqrQCtyKbHpWtYONVzT2U=;
- b=nb68f/82qtX3jOUmVgOgH0W65Lkg/y/rqJb7RZ51pCHtbdZLYlRbid7+
- nIEWeTMvWudfMiwSgzyNaJz7CkrelJs5qsOOpOdeWkLR4yfX2ZuWrAsVV
- NZInTIz4poGzEMtJB14OBT+OEhG7ajv9z13XkdSpsdsNnoOvxgPcwkI7X o=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 12 Nov 2021 14:55:56 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2021 14:55:55 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Fri, 12 Nov 2021 14:55:55 -0800
-Received: from [10.110.71.168] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Fri, 12 Nov
- 2021 14:55:54 -0800
-Message-ID: <f235a5cc-8a1c-8539-26e8-9db49ce2da15@quicinc.com>
-Date: Fri, 12 Nov 2021 14:55:53 -0800
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 293576E064
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Nov 2021 14:43:58 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1636987438; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: From: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: Sender; bh=7XCMV7JuJ0TbWXeHCYx30uBSDutsKDC797uPkQLu/NE=;
+ b=F4s793f+9ZSn18YXPoSp+yghXwG7/xY49GP1DzwXPHUj7P09/dsQL44YQZG5MHb/VYN4Q3AW
+ 3k8JZ30ybdz2fCIUFhil16WZiD/oR/BJr8pQOIH6Ultk2Na3jx3bGpRQnFh4BLrbWdiC9v+d
+ dcK4ZPGvIOn4vGj86aoeLgUgptk=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 6192722d4db4233966ba7b79 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 15 Nov 2021 14:43:57
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3D066C4360D; Mon, 15 Nov 2021 14:43:57 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+ version=3.4.0
+Received: from [192.168.1.5] (unknown [59.89.226.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 795E8C43460;
+ Mon, 15 Nov 2021 14:43:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 795E8C43460
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Message-ID: <36c9f669-c2d2-8a63-db96-31165caeeffb@codeaurora.org>
+Date: Mon, 15 Nov 2021 20:13:47 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
+ Thunderbird/91.1.1
 Content-Language: en-US
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <1636147332-11797-1-git-send-email-quic_khsieh@quicinc.com>
- <YYashV3N/lJmn+uW@yoga>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <YYashV3N/lJmn+uW@yoga>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20211111192457.747899-1-robdclark@gmail.com>
+ <20211111192457.747899-3-robdclark@gmail.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+In-Reply-To: <20211111192457.747899-3-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: employ bridge mechanism for
- display enable and disable
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Restore error return on
+ invalid fence
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,382 +73,89 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 11/12/2021 12:54 AM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> When converting to use an idr to map userspace fence seqno values back
+> to a dma_fence, we lost the error return when userspace passes seqno
+> that is larger than the last submitted fence.  Restore this check.
+> 
+> Reported-by: Akhil P Oommen <akhilpo@codeaurora.org>
+> Fixes: a61acbbe9cf8 ("drm/msm: Track "seqno" fences by idr")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+> Note: I will rebase "drm/msm: Handle fence rollover" on top of this,
+> to simplify backporting this patch to stable kernels
+> 
+>   drivers/gpu/drm/msm/msm_drv.c        | 6 ++++++
+>   drivers/gpu/drm/msm/msm_gem_submit.c | 1 +
+>   drivers/gpu/drm/msm/msm_gpu.h        | 3 +++
+>   3 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index cb14d997c174..56500eb5219e 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -967,6 +967,12 @@ static int wait_fence(struct msm_gpu_submitqueue *queue, uint32_t fence_id,
+>   	struct dma_fence *fence;
+>   	int ret;
+>   
+> +	if (fence_id > queue->last_fence) {
 
-On 11/6/2021 9:25 AM, Bjorn Andersson wrote:
-> On Fri 05 Nov 16:22 CDT 2021, Kuogee Hsieh wrote:
->
->> Currently the msm_dp_*** functions implement the same sequence which would
->> happen when drm_bridge is used. hence get rid of this intermediate layer
->> and align with the drm_bridge usage to avoid customized implementation.
->>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>
->> Changes in v2:
->> -- revise commit text
->> -- rename dp_bridge to msm_dp_bridge
->> -- delete empty functions
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 21 -------
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  7 +++
->>   drivers/gpu/drm/msm/dp/dp_display.c         | 18 +++---
->>   drivers/gpu/drm/msm/dp/dp_display.h         |  1 +
->>   drivers/gpu/drm/msm/dp/dp_drm.c             | 91 +++++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/msm_drv.h               | 16 +++--
->>   6 files changed, 120 insertions(+), 34 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 31050aa..c4e08c4 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -1003,9 +1003,6 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
->>   
->>   	trace_dpu_enc_mode_set(DRMID(drm_enc));
->>   
->> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS)
->> -		msm_dp_display_mode_set(dpu_enc->dp, drm_enc, mode, adj_mode);
->> -
->>   	list_for_each_entry(conn_iter, connector_list, head)
->>   		if (conn_iter->encoder == drm_enc)
->>   			conn = conn_iter;
->> @@ -1181,14 +1178,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->>   
->>   	_dpu_encoder_virt_enable_helper(drm_enc);
->>   
->> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
->> -		ret = msm_dp_display_enable(dpu_enc->dp, drm_enc);
->> -		if (ret) {
->> -			DPU_ERROR_ENC(dpu_enc, "dp display enable failed: %d\n",
->> -				ret);
->> -			goto out;
->> -		}
->> -	}
->>   	dpu_enc->enabled = true;
->>   
->>   out:
->> @@ -1214,11 +1203,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->>   	/* wait for idle */
->>   	dpu_encoder_wait_for_event(drm_enc, MSM_ENC_TX_COMPLETE);
->>   
->> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
->> -		if (msm_dp_display_pre_disable(dpu_enc->dp, drm_enc))
->> -			DPU_ERROR_ENC(dpu_enc, "dp display push idle failed\n");
->> -	}
->> -
->>   	dpu_encoder_resource_control(drm_enc, DPU_ENC_RC_EVENT_PRE_STOP);
->>   
->>   	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->> @@ -1243,11 +1227,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->>   
->>   	DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
->>   
->> -	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
->> -		if (msm_dp_display_disable(dpu_enc->dp, drm_enc))
->> -			DPU_ERROR_ENC(dpu_enc, "dp display disable failed\n");
->> -	}
->> -
->>   	mutex_unlock(&dpu_enc->enc_lock);
->>   }
->>   
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index 27d98b5..d16337f 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -557,6 +557,13 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
->>   				  encoder->base.id, rc);
->>   			return rc;
->>   		}
->> +
->> +		rc = msm_dp_bridge_init(priv->dp[i], dev, encoder);
->> +		if (rc) {
->> +			DPU_ERROR("failed to setup DPU bridge %d: rc:%d\n",
->> +				encoder->base.id, rc);
->> +			return rc;
->> +		}
->>   	}
->>   
->>   	return rc;
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index e41dd40..e9ea6ed 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -569,8 +569,8 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
->>   	return 0;
->>   };
->>   
->> -static int dp_display_enable(struct dp_display_private *dp, u32 data);
->> -static int dp_display_disable(struct dp_display_private *dp, u32 data);
->> +static int __dp_display_enable(struct dp_display_private *dp, u32 data);
->> +static int __dp_display_disable(struct dp_display_private *dp, u32 data);
-> Can you please help me understand why you're changing the name of these
-> functions?
-my mistake, will remove this change
->>   
->>   static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
->>   {
->> @@ -855,7 +855,7 @@ static int dp_display_prepare(struct msm_dp *dp_display)
->>   	return 0;
->>   }
->>   
->> -static int dp_display_enable(struct dp_display_private *dp, u32 data)
->> +static int __dp_display_enable(struct dp_display_private *dp, u32 data)
->>   {
->>   	int rc = 0;
->>   
->> @@ -898,7 +898,7 @@ static int dp_display_post_enable(struct msm_dp *dp_display)
->>   	return 0;
->>   }
->>   
->> -static int dp_display_disable(struct dp_display_private *dp, u32 data)
->> +static int __dp_display_disable(struct dp_display_private *dp, u32 data)
->>   {
->>   	struct msm_dp *dp_display = &dp->dp_display;
->>   
->> @@ -1569,12 +1569,12 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
->>   	if (state == ST_DISPLAY_OFF)
->>   		dp_display_host_init(dp_display, true);
->>   
->> -	dp_display_enable(dp_display, 0);
->> +	__dp_display_enable(dp_display, 0);
->>   
->>   	rc = dp_display_post_enable(dp);
->>   	if (rc) {
->>   		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
->> -		dp_display_disable(dp_display, 0);
->> +		__dp_display_disable(dp_display, 0);
->>   		dp_display_unprepare(dp);
->>   	}
->>   
->> @@ -1614,7 +1614,7 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->>   	/* stop sentinel checking */
->>   	dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
->>   
->> -	dp_display_disable(dp_display, 0);
->> +	__dp_display_disable(dp_display, 0);
->>   
->>   	rc = dp_display_unprepare(dp);
->>   	if (rc)
->> @@ -1633,8 +1633,8 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->>   }
->>   
->>   void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
->> -				struct drm_display_mode *mode,
->> -				struct drm_display_mode *adjusted_mode)
->> +				const struct drm_display_mode *mode,
->> +				const struct drm_display_mode *adjusted_mode)
->>   {
->>   	struct dp_display_private *dp_display;
->>   
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
->> index 76f45f9..2237e80 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
->> @@ -13,6 +13,7 @@
->>   struct msm_dp {
->>   	struct drm_device *drm_dev;
->>   	struct device *codec_dev;
->> +	struct drm_bridge *bridge;
->>   	struct drm_connector *connector;
->>   	struct drm_encoder *encoder;
->>   	struct drm_panel *drm_panel;
->> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
->> index f33e315..e7bea97 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
->> @@ -5,12 +5,21 @@
->>   
->>   #include <drm/drm_atomic_helper.h>
->>   #include <drm/drm_atomic.h>
->> +#include <drm/drm_bridge.h>
->>   #include <drm/drm_crtc.h>
->>   
->>   #include "msm_drv.h"
->>   #include "msm_kms.h"
->>   #include "dp_drm.h"
->>   
->> +
->> +struct msm_dp_bridge {
->> +	struct drm_bridge bridge;
->> +	struct msm_dp *dp_display;
->> +};
-> We do you create yet another one of these object?
->
-> Can't we just set up the new bridge in msm_dp_modeset_init(), like is
-> done in msm_dsi_modeset_init()?
+But fence_id can wrap around and then this check won't be valid.
 
-either way should work.
+-Akhil.
 
-I will try same mechanism as dsi
+> +		DRM_ERROR_RATELIMITED("waiting on invalid fence: %u (of %u)\n",
+> +				      fence_id, queue->last_fence);
+> +		return -EINVAL;
+> +	}
+> +
+>   	/*
+>   	 * Map submitqueue scoped "seqno" (which is actually an idr key)
+>   	 * back to underlying dma-fence
+> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+> index 151d19e4453c..a38f23be497d 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+> @@ -911,6 +911,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+>   	drm_sched_entity_push_job(&submit->base, queue->entity);
+>   
+>   	args->fence = submit->fence_id;
+> +	queue->last_fence = submit->fence_id;
+>   
+>   	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
+>   	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index bd4e0024033e..e73a5bb03544 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -376,6 +376,8 @@ static inline int msm_gpu_convert_priority(struct msm_gpu *gpu, int prio,
+>    * @ring_nr:   the ringbuffer used by this submitqueue, which is determined
+>    *             by the submitqueue's priority
+>    * @faults:    the number of GPU hangs associated with this submitqueue
+> + * @last_fence: the sequence number of the last allocated fence (for error
+> + *             checking)
+>    * @ctx:       the per-drm_file context associated with the submitqueue (ie.
+>    *             which set of pgtables do submits jobs associated with the
+>    *             submitqueue use)
+> @@ -391,6 +393,7 @@ struct msm_gpu_submitqueue {
+>   	u32 flags;
+>   	u32 ring_nr;
+>   	int faults;
+> +	uint32_t last_fence;
+>   	struct msm_file_private *ctx;
+>   	struct list_head node;
+>   	struct idr fence_idr;
+> 
 
->> +
->> +#define to_dp_display(x)     container_of((x), struct msm_dp_bridge, bridge)
->> +
->>   struct dp_connector {
->>   	struct drm_connector base;
->>   	struct msm_dp *dp_display;
->> @@ -162,3 +171,85 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
->>   
->>   	return connector;
->>   }
->> +
->> +static int dp_bridge_attach(struct drm_bridge *drm_bridge,
->> +				enum drm_bridge_attach_flags flags)
->> +{
->> +	return 0;
->> +}
->> +
->> +static void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
->> +				const struct drm_display_mode *mode,
->> +				const struct drm_display_mode *adjusted_mode)
->> +{
->> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
->> +	struct msm_dp *dp_display = dp_bridge->dp_display;
->> +
->> +	msm_dp_display_mode_set(dp_display, drm_bridge->encoder, mode, adjusted_mode);
->> +}
->> +
->> +static void dp_bridge_enable(struct drm_bridge *drm_bridge)
->> +{
->> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
->> +	struct msm_dp *dp_display = dp_bridge->dp_display;
->> +
->> +	msm_dp_display_enable(dp_display, drm_bridge->encoder);
->> +}
->> +
->> +static void dp_bridge_disable(struct drm_bridge *drm_bridge)
->> +{
->> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
->> +	struct msm_dp *dp_display = dp_bridge->dp_display;
->> +
->> +	msm_dp_display_pre_disable(dp_display, drm_bridge->encoder);
->> +}
->> +
->> +static void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
->> +{
->> +	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
->> +	struct msm_dp *dp_display = dp_bridge->dp_display;
->> +
->> +	msm_dp_display_disable(dp_display, drm_bridge->encoder);
->> +}
->> +
->> +static const struct drm_bridge_funcs dp_bridge_ops = {
->> +	.attach       = dp_bridge_attach,
->> +	.mode_fixup   = NULL,
->> +	.pre_enable   = NULL,
->> +	.enable       = dp_bridge_enable,
->> +	.disable      = dp_bridge_disable,
->> +	.post_disable = dp_bridge_post_disable,
->> +	.mode_set     = dp_bridge_mode_set,
->> +};
->> +
->> +int msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
->> +			struct drm_encoder *encoder)
->> +{
->> +	int rc;
->> +	struct msm_drm_private *priv;
->> +	struct msm_dp_bridge *dp_bridge;
->> +	struct drm_bridge *bridge;
->> +
->> +	dp_bridge = kzalloc(sizeof(*dp_bridge), GFP_KERNEL);
-> You're not freeing this pointer, except for the error case below. That
-> said, you call this from dpu_kms_hw_init() which is full of other things
-> relying on devres.
->
-> So I think the appropriate way here is to use devm_kzalloc().
-got it, will correct it
->> +	if (!dp_bridge)
->> +		return -ENOMEM;
->> +
->> +	dp_bridge->dp_display = dp_display;
->> +
->> +	bridge = &dp_bridge->bridge;
->> +	bridge->funcs = &dp_bridge_ops;
->> +	bridge->encoder = encoder;
->> +
->> +	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> Sorry, my understanding of the drm_bridge is limited, but how does this
-> interact with the panel_bridge that we attach in
-> dp_drm_connector_init()?
->
-> If we represent the DP instance itself as a drm_bridge, shouldn't that
-> be "previous" of the panel_bridge?
-
-I am learning on drm_bridge too.
-
-No sure why attach bridge happen at dp_drm_connector_init() since no 
-drm_bridge_funcs populated.
-
-This patch use bridge as pseudo bridge and take advantage of 
-drm_bridge_funcs provides call back functions to replace
-
-msm_dp_*** functions called directly from encoder originally.
-
-
->> +	if (rc) {
->> +		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
->> +		kfree(dp_bridge);
->> +		return rc;
->> +	}
->> +
->> +	priv = dev->dev_private;
->> +	priv->bridges[priv->num_bridges++] = bridge;
->> +	dp_display->bridge = bridge;
->> +
->> +	return 0;
->> +}
->> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
->> index 4bb797e..9a2092f 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.h
->> +++ b/drivers/gpu/drm/msm/msm_drv.h
->> @@ -388,8 +388,10 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder);
->>   int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder);
->>   int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder);
->>   void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
->> -				struct drm_display_mode *mode,
->> -				struct drm_display_mode *adjusted_mode);
->> +				const struct drm_display_mode *mode,
->> +				const struct drm_display_mode *adjusted_mode);
->> +int msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
->> +			struct drm_encoder *encoder);
->>   void msm_dp_irq_postinstall(struct msm_dp *dp_display);
->>   void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
->>   
->> @@ -426,10 +428,16 @@ static inline int msm_dp_display_pre_disable(struct msm_dp *dp,
->>   }
->>   static inline void msm_dp_display_mode_set(struct msm_dp *dp,
->>   				struct drm_encoder *encoder,
->> -				struct drm_display_mode *mode,
->> -				struct drm_display_mode *adjusted_mode)
->> +				const struct drm_display_mode *mode,
->> +				const struct drm_display_mode *adjusted_mode)
->>   {
->>   }
->> +static inline int msm_dp_bridge_init(struct msm_dp *dp_display,
->> +				struct drm_device *dev,
->> +				struct drm_encoder *encoder)
->> +{
->> +	return -EINVAL;
-> Returning an error here means that building without CONFIG_DRM_MSM_DP
-> we will propagate an error up and fail the entire DPU initialization.
->
-> Perhaps this problem already exists today?
->
-> Regards,
-> Bjorn
->
->> +}
->>   
->>   static inline void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->>   {
->> -- 
->> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
->> a Linux Foundation Collaborative Project
->>
