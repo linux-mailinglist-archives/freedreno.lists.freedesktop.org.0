@@ -2,37 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52683450DCC
-	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 19:05:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 135E7450C60
+	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 18:35:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8116E4D7;
-	Mon, 15 Nov 2021 18:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123916EE92;
+	Mon, 15 Nov 2021 17:35:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B5A86E487;
- Mon, 15 Nov 2021 18:05:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 62B84632F9;
- Mon, 15 Nov 2021 18:05:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38A906EE90;
+ Mon, 15 Nov 2021 17:35:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D34363338;
+ Mon, 15 Nov 2021 17:35:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1636999510;
- bh=XdHzq69UVsgqR64Yin1bH2sBYmYAy/ceHyhnLzd7Ng8=;
+ s=korg; t=1636997706;
+ bh=InDIuwgQh4vUsiFge5+CnfWvrotgyR5Ayivqc4GkCt4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WrFa0mcdydFuuH7wqabZrHoJ7NH8W5/pFemcUT/4mT9Qrk589asBlur/Gmw+j4zfz
- kfV9SrBiR7k0VzlTi3HO8nJCsnlNC8iQpEIUxeIVvFiaLeMy3bGJwodKf3y4X/oaVR
- ZYSvkPP1JKzQjG7UHQop1hmym6Ptq81EwItkStG8=
+ b=DiuQ5JUgwrNcoygA/Mvy2oyNTYrHy4y3xQz8HKly4EpRw9FtxFtJV1AiAmCHL/X4/
+ mF2bCyQc0hlTXOdR5h4uYr6ul5o40E/uSxGPQv+qdBshRReaa+OW23e7RGE4bkpRTd
+ EUzYXpM8KiSvQw4EquUbqnSM/jMuqFI1tffQC/WA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 15 Nov 2021 17:56:03 +0100
-Message-Id: <20211115165429.743976506@linuxfoundation.org>
+Date: Mon, 15 Nov 2021 17:59:03 +0100
+Message-Id: <20211115165351.254216719@linuxfoundation.org>
 X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211115165419.961798833@linuxfoundation.org>
-References: <20211115165419.961798833@linuxfoundation.org>
+In-Reply-To: <20211115165343.579890274@linuxfoundation.org>
+References: <20211115165343.579890274@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5.14 280/849] drm/msm: prevent NULL dereference
+Subject: [Freedreno] [PATCH 5.10 218/575] drm/msm: prevent NULL dereference
  in msm_gpu_crashstate_capture()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,10 +90,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 0ebf7bc6ad097..8236989828ba3 100644
+index 55d16489d0f3f..90c26da109026 100644
 --- a/drivers/gpu/drm/msm/msm_gpu.c
 +++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -404,7 +404,7 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
+@@ -376,7 +376,7 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
  		state->bos = kcalloc(nr,
  			sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
  
