@@ -1,55 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 978C84510A3
-	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 19:48:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FF784511AC
+	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 20:10:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6C66E575;
-	Mon, 15 Nov 2021 18:48:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C33CB6E196;
+	Mon, 15 Nov 2021 19:10:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAB086E40D;
- Mon, 15 Nov 2021 18:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1637002134; x=1668538134;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=T3m8/OwfQlRsocFHXiMSl/dQb1w8kjptz3g5xrIMTmE=;
- b=vgIdnjFO0A1eblqZGso+n7Lx37f8LKYEVKDwHpdHvGnRPibtF1EW1sxw
- z4+u4ZmBpjPaaF/xT4MkgFE1dKReXB9QdGZ3c5l4DYh//3t+zGaKdyBhN
- 9XccLTQhA6AtSrcIKO7Y4CL2GM3fZkzQWkY0OaTr66NaLKhNvUlIh8Zcw U=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Nov 2021 10:48:54 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2021 10:48:53 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Mon, 15 Nov 2021 10:48:53 -0800
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Mon, 15 Nov 2021 10:48:52 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Mon, 15 Nov 2021 10:48:43 -0800
-Message-ID: <1637002123-18682-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B84F6E196;
+ Mon, 15 Nov 2021 19:10:08 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id b13so15331160plg.2;
+ Mon, 15 Nov 2021 11:10:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wDPmToaijo7T8aT7P3r6ZMwp5FJI2KCyBAGlYq2w7rM=;
+ b=GIj9RXpkj2vA7zWzxBfBHgX2mUUcT2tHWP7cd9ldly7w/kWE3EVuQTmR4sPppk8hvr
+ ZA0yMGzW6BMQXiTqouLTjq3xDhBjBeUOeSh35Y9wWL3gNA762y6FFDg9u//0W0btd4oj
+ P9jk347dxLqAsPPpt1LAuBg7wevVo0BcGLDcoTU6ZNrwUphgopDtLcdusTp1j8wUB2z0
+ YYsbIinNv+fNrmtFfALxooXQTac7w+LFpzZs8j3wAq0jjODamZ6Qq/2G9aULQ6ol8NWY
+ CnmvF5GfqljRTjPOstArmUL22CEq4o5HS5RT4YSCDCzQlWx6PZRVKsr1BHMHUjIZYTbp
+ okyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wDPmToaijo7T8aT7P3r6ZMwp5FJI2KCyBAGlYq2w7rM=;
+ b=lPXnS4syiWdJ7WA9EJcoMXrs+LaCVd0ntz0Kef9jvffFuQ8BEBwmQeZ25vdQIQIFMK
+ RWz1a724ZN7glcAcidvmzWpdFu8Cfz96sALKldc2HgY/XMSlyYqRJSs/wf/V7J0lWlvI
+ 0ScwCF12vVTl6mWQSP/GOdBSR8uo4gyf2nRXqVCNsWwAcMVpNa+mKTabtM46OmtEP1no
+ srTF1O4rk0cL9eTbUu7+VJ2VN5GSmxeeZEuRcr58Agt5/Gdt/QWJROnZZz1VwrJ9r6Zu
+ 0iEVaNlZjdUPHS4g8UDYUNfZw6QvwXvsLKFxOCdmS2bQ8JLodqN8BzXiVrLgY7ckSP/J
+ q1yQ==
+X-Gm-Message-State: AOAM532WESAU+9XSa0eHepm4BIDKqIE4ieTQliz05bJhaYOVYyPgoxgS
+ b2cF6PIvkZjuBJ03GFQvLrwq4+35wZ8=
+X-Google-Smtp-Source: ABdhPJxkm0vEo2QPlPHnBhYa9RjtVtcJzMkuQtas1V0GtkWxUBLy59cyWKkt8W1adHeYtcjmRyK4ww==
+X-Received: by 2002:a17:90b:17cc:: with SMTP id
+ me12mr52788431pjb.141.1637003407408; 
+ Mon, 15 Nov 2021 11:10:07 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ i19sm15550492pfu.119.2021.11.15.11.10.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Nov 2021 11:10:06 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon, 15 Nov 2021 11:15:10 -0800
+Message-Id: <20211115191514.310472-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v3] drm/msm/dp: employ bridge mechanism for
- display enable and disable
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/adreno: Name the shadow buffer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,284 +67,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Yangtao Li <tiny.windzz@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Sharat Masetty <smasetty@codeaurora.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently the msm_dp_*** functions implement the same sequence which would
-happen when drm_bridge is used. hence get rid of this intermediate layer
-and align with the drm_bridge usage to avoid customized implementation.
+From: Rob Clark <robdclark@chromium.org>
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+This was the one GPU related kernel buffer which was not given a debug
+name.  Let's fix that.
 
-Changes in v2:
--- revise commit text
--- rename dp_bridge to msm_dp_bridge
--- delete empty functions
-
-Changes in 3:
--- replace kzalloc() with devm_kzalloc()
--- replace __dp_display_enable() with dp_display_enable()
--- replace __dp_display_disable() with dp_display_disable()
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 21 -------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  7 +++
- drivers/gpu/drm/msm/dp/dp_display.c         |  4 +-
- drivers/gpu/drm/msm/dp/dp_display.h         |  1 +
- drivers/gpu/drm/msm/dp/dp_drm.c             | 91 +++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_drv.h               | 16 +++--
- 6 files changed, 113 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 2 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 31050aa..c4e08c4 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1003,9 +1003,6 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index ec8e043c9d38..a95977e8ad98 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -925,6 +925,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
  
- 	trace_dpu_enc_mode_set(DRMID(drm_enc));
- 
--	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS)
--		msm_dp_display_mode_set(dpu_enc->dp, drm_enc, mode, adj_mode);
--
- 	list_for_each_entry(conn_iter, connector_list, head)
- 		if (conn_iter->encoder == drm_enc)
- 			conn = conn_iter;
-@@ -1181,14 +1178,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
- 
- 	_dpu_encoder_virt_enable_helper(drm_enc);
- 
--	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
--		ret = msm_dp_display_enable(dpu_enc->dp, drm_enc);
--		if (ret) {
--			DPU_ERROR_ENC(dpu_enc, "dp display enable failed: %d\n",
--				ret);
--			goto out;
--		}
--	}
- 	dpu_enc->enabled = true;
- 
- out:
-@@ -1214,11 +1203,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
- 	/* wait for idle */
- 	dpu_encoder_wait_for_event(drm_enc, MSM_ENC_TX_COMPLETE);
- 
--	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
--		if (msm_dp_display_pre_disable(dpu_enc->dp, drm_enc))
--			DPU_ERROR_ENC(dpu_enc, "dp display push idle failed\n");
--	}
--
- 	dpu_encoder_resource_control(drm_enc, DPU_ENC_RC_EVENT_PRE_STOP);
- 
- 	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-@@ -1243,11 +1227,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
- 
- 	DPU_DEBUG_ENC(dpu_enc, "encoder disabled\n");
- 
--	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS) {
--		if (msm_dp_display_disable(dpu_enc->dp, drm_enc))
--			DPU_ERROR_ENC(dpu_enc, "dp display disable failed\n");
--	}
--
- 	mutex_unlock(&dpu_enc->enc_lock);
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 27d98b5..d16337f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -557,6 +557,13 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- 				  encoder->base.id, rc);
- 			return rc;
+ 			if (IS_ERR(a5xx_gpu->shadow))
+ 				return PTR_ERR(a5xx_gpu->shadow);
++
++			msm_gem_object_set_name(a5xx_gpu->shadow_bo, "shadow");
  		}
-+
-+		rc = msm_dp_bridge_init(priv->dp[i], dev, encoder);
-+		if (rc) {
-+			DPU_ERROR("failed to setup DPU bridge %d: rc:%d\n",
-+				encoder->base.id, rc);
-+			return rc;
-+		}
- 	}
  
- 	return rc;
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 2f113ff..51770a4 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1674,8 +1674,8 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
- }
+ 		gpu_write64(gpu, REG_A5XX_CP_RB_RPTR_ADDR,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index dcde5eff931d..c6e7e7ca0482 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1068,6 +1068,8 @@ static int hw_init(struct msm_gpu *gpu)
  
- void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
--				struct drm_display_mode *mode,
--				struct drm_display_mode *adjusted_mode)
-+				const struct drm_display_mode *mode,
-+				const struct drm_display_mode *adjusted_mode)
- {
- 	struct dp_display_private *dp_display;
+ 			if (IS_ERR(a6xx_gpu->shadow))
+ 				return PTR_ERR(a6xx_gpu->shadow);
++
++			msm_gem_object_set_name(a6xx_gpu->shadow_bo, "shadow");
+ 		}
  
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 76f45f9..2237e80 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -13,6 +13,7 @@
- struct msm_dp {
- 	struct drm_device *drm_dev;
- 	struct device *codec_dev;
-+	struct drm_bridge *bridge;
- 	struct drm_connector *connector;
- 	struct drm_encoder *encoder;
- 	struct drm_panel *drm_panel;
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index f33e315..b341f1f 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -5,12 +5,21 @@
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic.h>
-+#include <drm/drm_bridge.h>
- #include <drm/drm_crtc.h>
- 
- #include "msm_drv.h"
- #include "msm_kms.h"
- #include "dp_drm.h"
- 
-+
-+struct msm_dp_bridge {
-+	struct drm_bridge bridge;
-+	struct msm_dp *dp_display;
-+};
-+
-+#define to_dp_display(x)     container_of((x), struct msm_dp_bridge, bridge)
-+
- struct dp_connector {
- 	struct drm_connector base;
- 	struct msm_dp *dp_display;
-@@ -162,3 +171,85 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- 
- 	return connector;
- }
-+
-+static int dp_bridge_attach(struct drm_bridge *drm_bridge,
-+				enum drm_bridge_attach_flags flags)
-+{
-+	return 0;
-+}
-+
-+static void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
-+				const struct drm_display_mode *mode,
-+				const struct drm_display_mode *adjusted_mode)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-+	struct msm_dp *dp_display = dp_bridge->dp_display;
-+
-+	msm_dp_display_mode_set(dp_display, drm_bridge->encoder, mode, adjusted_mode);
-+}
-+
-+static void dp_bridge_enable(struct drm_bridge *drm_bridge)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-+	struct msm_dp *dp_display = dp_bridge->dp_display;
-+
-+	msm_dp_display_enable(dp_display, drm_bridge->encoder);
-+}
-+
-+static void dp_bridge_disable(struct drm_bridge *drm_bridge)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-+	struct msm_dp *dp_display = dp_bridge->dp_display;
-+
-+	msm_dp_display_pre_disable(dp_display, drm_bridge->encoder);
-+}
-+
-+static void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_display(drm_bridge);
-+	struct msm_dp *dp_display = dp_bridge->dp_display;
-+
-+	msm_dp_display_disable(dp_display, drm_bridge->encoder);
-+}
-+
-+static const struct drm_bridge_funcs dp_bridge_ops = {
-+	.attach       = dp_bridge_attach,
-+	.mode_fixup   = NULL,
-+	.pre_enable   = NULL,
-+	.enable       = dp_bridge_enable,
-+	.disable      = dp_bridge_disable,
-+	.post_disable = dp_bridge_post_disable,
-+	.mode_set     = dp_bridge_mode_set,
-+};
-+
-+int msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-+			struct drm_encoder *encoder)
-+{
-+	int rc;
-+	struct msm_drm_private *priv;
-+	struct msm_dp_bridge *dp_bridge;
-+	struct drm_bridge *bridge;
-+
-+	dp_bridge = devm_kzalloc(dev->dev, sizeof(*dp_bridge), GFP_KERNEL);
-+	if (!dp_bridge)
-+		return -ENOMEM;
-+
-+	dp_bridge->dp_display = dp_display;
-+
-+	bridge = &dp_bridge->bridge;
-+	bridge->funcs = &dp_bridge_ops;
-+	bridge->encoder = encoder;
-+
-+	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (rc) {
-+		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
-+		kfree(dp_bridge);
-+		return rc;
-+	}
-+
-+	priv = dev->dev_private;
-+	priv->bridges[priv->num_bridges++] = bridge;
-+	dp_display->bridge = bridge;
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 4bb797e..9a2092f 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -388,8 +388,10 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder);
- int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder);
- int msm_dp_display_pre_disable(struct msm_dp *dp, struct drm_encoder *encoder);
- void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
--				struct drm_display_mode *mode,
--				struct drm_display_mode *adjusted_mode);
-+				const struct drm_display_mode *mode,
-+				const struct drm_display_mode *adjusted_mode);
-+int msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-+			struct drm_encoder *encoder);
- void msm_dp_irq_postinstall(struct msm_dp *dp_display);
- void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
- 
-@@ -426,10 +428,16 @@ static inline int msm_dp_display_pre_disable(struct msm_dp *dp,
- }
- static inline void msm_dp_display_mode_set(struct msm_dp *dp,
- 				struct drm_encoder *encoder,
--				struct drm_display_mode *mode,
--				struct drm_display_mode *adjusted_mode)
-+				const struct drm_display_mode *mode,
-+				const struct drm_display_mode *adjusted_mode)
- {
- }
-+static inline int msm_dp_bridge_init(struct msm_dp *dp_display,
-+				struct drm_device *dev,
-+				struct drm_encoder *encoder)
-+{
-+	return -EINVAL;
-+}
- 
- static inline void msm_dp_irq_postinstall(struct msm_dp *dp_display)
- {
+ 		gpu_write64(gpu, REG_A6XX_CP_RB_RPTR_ADDR_LO,
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.33.1
 
