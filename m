@@ -1,66 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB4045075F
-	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 15:44:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F684509BB
+	for <lists+freedreno@lfdr.de>; Mon, 15 Nov 2021 17:33:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3FD6E064;
-	Mon, 15 Nov 2021 14:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E02EF89948;
+	Mon, 15 Nov 2021 16:33:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 293576E064
- for <freedreno@lists.freedesktop.org>; Mon, 15 Nov 2021 14:43:58 +0000 (UTC)
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0FF189948
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Nov 2021 16:33:10 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1636987438; h=Content-Transfer-Encoding: Content-Type:
- In-Reply-To: From: References: Cc: To: Subject: MIME-Version: Date:
- Message-ID: Sender; bh=7XCMV7JuJ0TbWXeHCYx30uBSDutsKDC797uPkQLu/NE=;
- b=F4s793f+9ZSn18YXPoSp+yghXwG7/xY49GP1DzwXPHUj7P09/dsQL44YQZG5MHb/VYN4Q3AW
- 3k8JZ30ybdz2fCIUFhil16WZiD/oR/BJr8pQOIH6Ultk2Na3jx3bGpRQnFh4BLrbWdiC9v+d
- dcK4ZPGvIOn4vGj86aoeLgUgptk=
-X-Mailgun-Sending-Ip: 198.61.254.9
+ s=smtp; t=1636993990; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=ZYfsU0xjbXrPXTd7HBWhKtTgS/cxAjUcw8AixupPPrs=;
+ b=pNRDVq7o1zdJcS4/FU1KoYHmN9sN3I09FWv4lM6VKfiGcyaEmS1SF+2JP7zxnrx/ucGPqBUA
+ fgoZlINBbmdUHUIjkgLrwuWBD2CmSZhiADxlK7Z1Ct3mBUMMuf4YlQRdWQL9ar8w5shtrmJ9
+ xq86Ipd5cXgojDtUJLZNIJvNOyc=
+X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 6192722d4db4233966ba7b79 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 15 Nov 2021 14:43:57
+ smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
+ 61928bc5ae01ad7e2add2302 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 15 Nov 2021 16:33:09
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 3D066C4360D; Mon, 15 Nov 2021 14:43:57 +0000 (UTC)
+ id 5D27CC43618; Mon, 15 Nov 2021 16:33:08 +0000 (UTC)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  aws-us-west-2-caf-mail-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- NICE_REPLY_A,SPF_FAIL,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
- version=3.4.0
-Received: from [192.168.1.5] (unknown [59.89.226.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 795E8C43460;
- Mon, 15 Nov 2021 14:43:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 795E8C43460
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=codeaurora.org
-Message-ID: <36c9f669-c2d2-8a63-db96-31165caeeffb@codeaurora.org>
-Date: Mon, 15 Nov 2021 20:13:47 +0530
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: khsieh)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 4FC4DC4338F;
+ Mon, 15 Nov 2021 16:33:07 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20211111192457.747899-1-robdclark@gmail.com>
- <20211111192457.747899-3-robdclark@gmail.com>
-From: Akhil P Oommen <akhilpo@codeaurora.org>
-In-Reply-To: <20211111192457.747899-3-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm: Restore error return on
- invalid fence
+Date: Mon, 15 Nov 2021 08:33:07 -0800
+From: khsieh@codeaurora.org
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1635896673-5841-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1635896673-5841-1-git-send-email-quic_khsieh@quicinc.com>
+Message-ID: <473499ed0710598c59a507815ad11aa4@codeaurora.org>
+X-Sender: khsieh@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH v3] arm64: dts: qcom: sc7280: Add Display
+ Port node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,89 +66,155 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Sean Paul <sean@poorly.run>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, quic_sbillaka@quicinc.com,
+ aravindh@codeaurora.org, quic_abhinavk@quicinc.com,
+ freedreno@lists.freedesktop.org, vkoul@kernel.org, robh+dt@kernel.org,
+ bjorn.andersson@linaro.org, robdclark@gmail.com, agross@kernel.org,
+ quic_mkrishn@quicinc.com, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ sean@poorly.run, quic_kalyant@quicinc.coml, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/12/2021 12:54 AM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
+On 2021-11-02 16:44, Kuogee Hsieh wrote:
+> From: Kuogee Hsieh <khsieh@codeaurora.org>
 > 
-> When converting to use an idr to map userspace fence seqno values back
-> to a dma_fence, we lost the error return when userspace passes seqno
-> that is larger than the last submitted fence.  Restore this check.
-> 
-> Reported-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> Fixes: a61acbbe9cf8 ("drm/msm: Track "seqno" fences by idr")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
-> Note: I will rebase "drm/msm: Handle fence rollover" on top of this,
-> to simplify backporting this patch to stable kernels
+
+Anyone has comments on this patch?
+
 > 
->   drivers/gpu/drm/msm/msm_drv.c        | 6 ++++++
->   drivers/gpu/drm/msm/msm_gem_submit.c | 1 +
->   drivers/gpu/drm/msm/msm_gpu.h        | 3 +++
->   3 files changed, 10 insertions(+)
+> Changes in v2:
+> -- move fixes of dp_phy reg property to other patch
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index cb14d997c174..56500eb5219e 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -967,6 +967,12 @@ static int wait_fence(struct msm_gpu_submitqueue *queue, uint32_t fence_id,
->   	struct dma_fence *fence;
->   	int ret;
->   
-> +	if (fence_id > queue->last_fence) {
-
-But fence_id can wrap around and then this check won't be valid.
-
--Akhil.
-
-> +		DRM_ERROR_RATELIMITED("waiting on invalid fence: %u (of %u)\n",
-> +				      fence_id, queue->last_fence);
-> +		return -EINVAL;
-> +	}
+> Changes in v3:
+> -- delete "qcom,sc7180-dp" from msm_dp node
+> 
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 89 
+> +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 87 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index fb2f1506..4414abc 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2709,8 +2709,8 @@
+>  				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
+>  				 <&dsi_phy 0>,
+>  				 <&dsi_phy 1>,
+> -				 <0>,
+> -				 <0>,
+> +			  	 <&dp_phy 0>,
+> +			  	 <&dp_phy 1>,
+>  				 <&edp_phy 0>,
+>  				 <&edp_phy 1>;
+>  			clock-names = "bi_tcxo",
+> @@ -2807,6 +2807,13 @@
+>  							remote-endpoint = <&edp_in>;
+>  						};
+>  					};
 > +
->   	/*
->   	 * Map submitqueue scoped "seqno" (which is actually an idr key)
->   	 * back to underlying dma-fence
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 151d19e4453c..a38f23be497d 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -911,6 +911,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->   	drm_sched_entity_push_job(&submit->base, queue->entity);
->   
->   	args->fence = submit->fence_id;
-> +	queue->last_fence = submit->fence_id;
->   
->   	msm_reset_syncobjs(syncobjs_to_reset, args->nr_in_syncobjs);
->   	msm_process_post_deps(post_deps, args->nr_out_syncobjs,
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index bd4e0024033e..e73a5bb03544 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -376,6 +376,8 @@ static inline int msm_gpu_convert_priority(struct msm_gpu *gpu, int prio,
->    * @ring_nr:   the ringbuffer used by this submitqueue, which is determined
->    *             by the submitqueue's priority
->    * @faults:    the number of GPU hangs associated with this submitqueue
-> + * @last_fence: the sequence number of the last allocated fence (for error
-> + *             checking)
->    * @ctx:       the per-drm_file context associated with the submitqueue (ie.
->    *             which set of pgtables do submits jobs associated with the
->    *             submitqueue use)
-> @@ -391,6 +393,7 @@ struct msm_gpu_submitqueue {
->   	u32 flags;
->   	u32 ring_nr;
->   	int faults;
-> +	uint32_t last_fence;
->   	struct msm_file_private *ctx;
->   	struct list_head node;
->   	struct idr fence_idr;
+> +					port@2 {
+> +                                                reg = <2>;
+> +                                                dpu_intf0_out: 
+> endpoint {
+> +
+> remote-endpoint = <&dp_in>;
+> +                                                };
+> +                                        };
+>  				};
 > 
-
+>  				mdp_opp_table: opp-table {
+> @@ -3018,6 +3025,78 @@
+> 
+>  				status = "disabled";
+>  			};
+> +
+> +			msm_dp: displayport-controller@ae90000 {
+> +				status = "disabled";
+> +				compatible = "qcom,sc7280-dp";
+> +
+> +				reg = <0 0x0ae90000 0 0x1400>;
+> +
+> +				interrupt-parent = <&mdss>;
+> +				interrupts = <12>;
+> +
+> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK>;
+> +				clock-names =	"core_iface",
+> +						"core_aux",
+> +						"ctrl_link",
+> +						"ctrl_link_iface",
+> +						"stream_pixel";
+> +				#clock-cells = <1>;
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_DP_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_DP_PIXEL_CLK_SRC>;
+> +				assigned-clock-parents = <&dp_phy 0>, <&dp_phy 1>;
+> +				phys = <&dp_phy>;
+> +				phy-names = "dp";
+> +
+> +				operating-points-v2 = <&dp_opp_table>;
+> +				power-domains = <&rpmhpd SC7280_CX>;
+> +
+> +				#sound-dai-cells = <0>;
+> +
+> +				ports {
+> +					#address-cells = <1>;
+> +					#size-cells = <0>;
+> +					port@0 {
+> +						reg = <0>;
+> +						dp_in: endpoint {
+> +							remote-endpoint = <&dpu_intf0_out>;
+> +						};
+> +					};
+> +
+> +					port@1 {
+> +						reg = <1>;
+> +						dp_out: endpoint { };
+> +					};
+> +				};
+> +
+> +				dp_opp_table: opp-table {
+> +					compatible = "operating-points-v2";
+> +
+> +					opp-160000000 {
+> +						opp-hz = /bits/ 64 <160000000>;
+> +						required-opps = <&rpmhpd_opp_low_svs>;
+> +					};
+> +
+> +					opp-270000000 {
+> +						opp-hz = /bits/ 64 <270000000>;
+> +						required-opps = <&rpmhpd_opp_svs>;
+> +					};
+> +
+> +					opp-540000000 {
+> +						opp-hz = /bits/ 64 <540000000>;
+> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					};
+> +
+> +					opp-810000000 {
+> +						opp-hz = /bits/ 64 <810000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+> +				};
+> +			};
+>  		};
+> 
+>  		pdc: interrupt-controller@b220000 {
+> @@ -3120,6 +3199,12 @@
+>  				bias-pull-up;
+>  			};
+> 
+> +			dp_hot_plug_det: dp-hot-plug-det {
+> +				pins = "gpio47";
+> +				function = "dp_hot";
+> +				bias-disable;
+> +                        };
+> +
+>  			qspi_clk: qspi-clk {
+>  				pins = "gpio14";
+>  				function = "qspi_clk";
