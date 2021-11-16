@@ -2,56 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFCF451FAD
-	for <lists+freedreno@lfdr.de>; Tue, 16 Nov 2021 01:42:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49539451FF4
+	for <lists+freedreno@lfdr.de>; Tue, 16 Nov 2021 01:43:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BB766EC54;
-	Tue, 16 Nov 2021 00:42:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA3CF6EC74;
+	Tue, 16 Nov 2021 00:43:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5C3D6EC54
- for <freedreno@lists.freedesktop.org>; Tue, 16 Nov 2021 00:42:06 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id o4so38541333oia.10
- for <freedreno@lists.freedesktop.org>; Mon, 15 Nov 2021 16:42:06 -0800 (PST)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9AC6EC74
+ for <freedreno@lists.freedesktop.org>; Tue, 16 Nov 2021 00:43:24 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id t19so38616383oij.1
+ for <freedreno@lists.freedesktop.org>; Mon, 15 Nov 2021 16:43:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=R5eOgQLLM4QxME5CDs41GNmTwkVxPDAe8ZaxJG3cpYo=;
- b=Jw+xywDv6rQDFegmQ+p8I8vbmyAhlppO/fXJPKq30zTZ6h985lp7mIdHxHN8DIm8l4
- w2w+N4rX8MqwdPTeZzZ15zmsHaXeiBquVl2DIgssLv3Suk8647Um9ihNRaRbKXMMIEM+
- 1PiYO3AICbst90OOZW9uBGuZbyVMqlb/lKTZU=
+ bh=AR+MJXQt1hZ4ak+KffeN9j/qO8HcFtJTxsTibtq8SN0=;
+ b=OcKmfLQ8A9BF4S3di4lz4OZXJGUTA4mbSUlF7s+b0wJ+grSJIRm0i7Ca1yMgwNY2g8
+ 70uW5S/5kzyfc1VQ8Ov++7/+Wf/wwIurMBsGC3VDQ7uOz30vQJ8ca0/iDQhvQA8YU7oX
+ rWRos7i6GY4nzLNbDZkm+x0eFcNMhKjkB3BMY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=R5eOgQLLM4QxME5CDs41GNmTwkVxPDAe8ZaxJG3cpYo=;
- b=xoCzbWw9EKN3xbd677zcijPPXOBXSaMUUa0KpdVovzWwrSZGTf6UqvuUgi9l7/ChEW
- 7pX7hJXfFttQP2k1UdHwYO9GqLzkeKufbelQkc1m9jQEfzRL8Cw+oEDiLGoGOgFt8lMI
- Sq6AK1uuzNIuEPimNAynV5IMuOnlVm7CNAYF/xQ4U/DmKuzVkTzwOQnzuttuCtPkG6nV
- IvsUQ52ZVdmsifJixaQaIq3ScMcpYEf3fPCF/L53CpbQPJRkUY0rmzDnUEvJUXNsvs0u
- af4kBHZPo+7Ev5b7qni7HrBJXhUiEAWhPnIQWj9cc+USE/MAvaaAvlCCQGnnFzZ92WAe
- 5V0g==
-X-Gm-Message-State: AOAM532DRtOzL8JbM1A3KytVUZLapePbgyM1/anjKd9nfww2iZ7g20E8
- HdGmJNdgmthkzf+6GUGe5rYgGYZX+GlobfD+vPgImw==
-X-Google-Smtp-Source: ABdhPJzN6lMpvqQKlLXPZAElkaHQvyXykKQoORKEtFyKD4aeINCYFsH8oohTwEDsg6XATxYIXS1ZSzkE8GNN2oLbr6M=
-X-Received: by 2002:a05:6808:211f:: with SMTP id
- r31mr2706331oiw.64.1637023325967; 
- Mon, 15 Nov 2021 16:42:05 -0800 (PST)
+ bh=AR+MJXQt1hZ4ak+KffeN9j/qO8HcFtJTxsTibtq8SN0=;
+ b=Esxtsfv5sY0K7QyA+tkIuA5FgtrGM/yG8Y4s5GRw+pSsG9/YodzXNPG6SRiCAFez8L
+ S01l2zDBmLRrN7WzR64Gcb+8McyIFx9KjtYxomCYujN9KBDGH7u6vfmDVWItObJXdPw5
+ 4FUfc3K9EqvHNXPfwzWSChQnsZpLlvnGieKmJgfbakzCsjWfGJntzyndeIc7fFlh9kkL
+ 2N/dgcX+BF+DDUuA5zkPoqXg+EE6AagaYoZQT3SMt8D/Pt7CP/o9BWzSmJF9nSwbjFsn
+ imc4TvaMvy1yJWCVZRbPs3AkJBBHOp/s5DR6qf5fZvJ5/+mwPrD1rsYQ4d+lw88QGjJP
+ 4ppg==
+X-Gm-Message-State: AOAM5337RSIWqIZ6ghG4cxHaOOrbi+am955p/LrhBS/EcK3XGwtl74cj
+ GZBQ+Sl4Y7bZ4aOK8OkZHTVMYUxvh5YBp+IvWgvZbA==
+X-Google-Smtp-Source: ABdhPJz9z5atxroq/GjxihboHlC2x5PboGmywHnjxtnAjxqEQZyoBJQEvr8K/IKhil58m74mic8cKR+6S4n+PtT7tBE=
+X-Received: by 2002:aca:2319:: with SMTP id e25mr49152738oie.164.1637023403674; 
+ Mon, 15 Nov 2021 16:43:23 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 15 Nov 2021 16:42:05 -0800
+ HTTPREST; Mon, 15 Nov 2021 16:43:23 -0800
 MIME-Version: 1.0
-In-Reply-To: <20211110113334.1.I1687e716adb2df746da58b508db3f25423c40b27@changeid>
-References: <20211110113334.1.I1687e716adb2df746da58b508db3f25423c40b27@changeid>
+In-Reply-To: <20211110120512.150940-1-deng.changcheng@zte.com.cn>
+References: <20211110120512.150940-1-deng.changcheng@zte.com.cn>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Mon, 15 Nov 2021 16:42:05 -0800
-Message-ID: <CAE-0n52YFUmX826kPyXEP+g4avoS2FM2wsph4Uu9DFwp37swZA@mail.gmail.com>
-To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>
+Date: Mon, 15 Nov 2021 16:43:23 -0800
+Message-ID: <CAE-0n50=P06ByQrG0FixVK4cGW--Vgt6uwGsLUu792SPhqzqXQ@mail.gmail.com>
+To: cgel.zte@gmail.com, robdclark@gmail.com
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix mmap to include VM_IO and
- VM_DONTDUMP
+Subject: Re: [Freedreno] [PATCH linux-next] drm/msm/dp: remove unneeded
+ variable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,81 +63,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>,
+ deng.changcheng@zte.com.cn, abhinavk@codeaurora.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Douglas Anderson (2021-11-10 11:33:42)
-> In commit 510410bfc034 ("drm/msm: Implement mmap as GEM object
-> function") we switched to a new/cleaner method of doing things. That's
-> good, but we missed a little bit.
+Quoting cgel.zte@gmail.com (2021-11-10 04:05:12)
+> From: Changcheng Deng <deng.changcheng@zte.com.cn>
 >
-> Before that commit, we used to _first_ run through the
-> drm_gem_mmap_obj() case where `obj->funcs->mmap()` was NULL. That meant
-> that we ran:
+> Fix the following coccicheck review:
+> ./drivers/gpu/drm/msm/dp/dp_debug.c: Unneeded variable
 >
->   vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP;
->   vma->vm_page_prot = pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
->   vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
+> Remove unneeded variable used to store return value.
 >
-> ...and _then_ we modified those mappings with our own. Now that
-> `obj->funcs->mmap()` is no longer NULL we don't run the default
-> code. It looks like the fact that the vm_flags got VM_IO / VM_DONTDUMP
-> was important because we're now getting crashes on Chromebooks that
-> use ARC++ while logging out. Specifically a crash that looks like this
-> (this is on a 5.10 kernel w/ relevant backports but also seen on a
-> 5.15 kernel):
->
->   Unable to handle kernel paging request at virtual address ffffffc008000000
->   Mem abort info:
->     ESR = 0x96000006
->     EC = 0x25: DABT (current EL), IL = 32 bits
->     SET = 0, FnV = 0
->     EA = 0, S1PTW = 0
->   Data abort info:
->     ISV = 0, ISS = 0x00000006
->     CM = 0, WnR = 0
->   swapper pgtable: 4k pages, 39-bit VAs, pgdp=000000008293d000
->   [ffffffc008000000] pgd=00000001002b3003, p4d=00000001002b3003,
->                      pud=00000001002b3003, pmd=0000000000000000
->   Internal error: Oops: 96000006 [#1] PREEMPT SMP
->   [...]
->   CPU: 7 PID: 15734 Comm: crash_dump64 Tainted: G W 5.10.67 #1 [...]
->   Hardware name: Qualcomm Technologies, Inc. sc7280 IDP SKU2 platform (DT)
->   pstate: 80400009 (Nzcv daif +PAN -UAO -TCO BTYPE=--)
->   pc : __arch_copy_to_user+0xc0/0x30c
->   lr : copyout+0xac/0x14c
->   [...]
->   Call trace:
->    __arch_copy_to_user+0xc0/0x30c
->    copy_page_to_iter+0x1a0/0x294
->    process_vm_rw_core+0x240/0x408
->    process_vm_rw+0x110/0x16c
->    __arm64_sys_process_vm_readv+0x30/0x3c
->    el0_svc_common+0xf8/0x250
->    do_el0_svc+0x30/0x80
->    el0_svc+0x10/0x1c
->    el0_sync_handler+0x78/0x108
->    el0_sync+0x184/0x1c0
->   Code: f8408423 f80008c3 910020c6 36100082 (b8404423)
->
-> Let's add the two flags back in.
->
-> While we're at it, the fact that we aren't running the default means
-> that we _don't_ need to clear out VM_PFNMAP, so remove that and save
-> an instruction.
->
-> NOTE: it was confirmed that VM_IO was the important flag to fix the
-> problem I was seeing, but adding back VM_DONTDUMP seems like a sane
-> thing to do so I'm doing that too.
->
-> Fixes: 510410bfc034 ("drm/msm: Implement mmap as GEM object function")
-> Reported-by: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
 > ---
+>  drivers/gpu/drm/msm/dp/dp_debug.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+> index 2f6247e80e9d..c5c75273d1e5 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_debug.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+> @@ -365,7 +365,6 @@ static const struct file_operations test_active_fops = {
+>
+>  static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Tested-by: Stephen Boyd <swboyd@chromium.org>
+Would be nice to make it void as well and then cleanup the caller. Can
+you do that too?
+
+>  {
+> -       int rc = 0;
+>         struct dp_debug_private *debug = container_of(dp_debug,
+>                         struct dp_debug_private, dp_debug);
+>
