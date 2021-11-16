@@ -1,40 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30CDB452A99
-	for <lists+freedreno@lfdr.de>; Tue, 16 Nov 2021 07:24:22 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A049452B52
+	for <lists+freedreno@lfdr.de>; Tue, 16 Nov 2021 08:08:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53D006EDBE;
-	Tue, 16 Nov 2021 06:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C94646E15C;
+	Tue, 16 Nov 2021 07:08:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61CA06EDBF;
- Tue, 16 Nov 2021 06:24:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C1A0A614C8;
- Tue, 16 Nov 2021 06:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637043859;
- bh=9JLy3WeI3hgc2qnNfS8pLzvLY1KoU8y2UppMi4uDgCU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lIE+cuBE1w+gB4DcCAS23QNvS0s7yNtJ+xSSx7MePAr7MPgSR4PZQ+oUTpOhUr7Rn
- yI4FazZa9ZPze5BbfCFWX5swFod8ITxDnAozbdsEoMouFAt+po9AdK7TMP9CyjXlkf
- ixGlBgoHJ/IM3b/YZ7I9yg2LwDU8y4wdZi/GeDQ3a+qtS15kzl3kOR07W8DP5KIxJF
- kYlQ4rrHBjq9gS5AvdPO/6SASJtEGiIROg8Yvj6NIfrCS0MB0PfIqeOPPu8XAEp6HA
- 4PMz9oMHo4SZwQaPjkPUzhiL/zMK5JEeLf1BJey4veRdqPBUWssvZ/xKL/S56DjFAr
- xufKpabs2Eoww==
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Tue, 16 Nov 2021 11:52:56 +0530
-Message-Id: <20211116062256.2417186-14-vkoul@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211116062256.2417186-1-vkoul@kernel.org>
-References: <20211116062256.2417186-1-vkoul@kernel.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D55926E0AA;
+ Tue, 16 Nov 2021 07:08:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1637046507; x=1668582507;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=lXNfiTYEzKhCuBvK8VyZDcB21itmm3LibWSAK0g5EjY=;
+ b=ntcqjMcU61gd9lCpuxAyW85tYIiuXJQi9IB7VfqUvqfVPeQVZAnAhthZ
+ XQ2M+EJpXCr4Gd18eiTXUHJw05sr9UaDJTlKgv7iuHD4WziDIJc7l4fuE
+ yesZyMROhztECvipAXGoiXrWsHuPuFC9zl7RMJqFpk1J1wvQLjrDKi9g/ Y=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Nov 2021 23:08:26 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2021 23:08:25 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 15 Nov 2021 23:07:54 -0800
+Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 15 Nov 2021 23:07:49 -0800
+From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Date: Tue, 16 Nov 2021 12:37:35 +0530
+Message-ID: <1637046458-20607-1-git-send-email-quic_sbillaka@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 13/13] drm/msm/dsi: Pass DSC params to
- drm_panel
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v1 0/3] Add support for eDP PHY on SC7280
+ platform
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,74 +60,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dianders@chromium.org, quic_abhinavk@quicinc.com, swboyd@chromium.org,
+ robdclark@gmail.com, seanpaul@chromium.org, quic_mkrishn@quicinc.com,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When DSC is enabled, we need to pass the DSC parameters to panel driver
-as well, so add a dsc parameter in panel and set it when DSC is enabled
+This series adds support for the eDP PHY on Qualcomm SC7280 platform.
+The changes are dependent on v4 of the new eDP PHY driver introduced by Bjorn:
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=575135
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 16 +++++++++++++++-
- include/drm/drm_panel.h            |  7 +++++++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+Sankeerth Billakanti (3):
+  dt-bindings: phy: Add eDP PHY compatible for sc7280
+  phy: qcom: Add support for eDP PHY on sc7280
+  phy: qcom: Program SSC only if supported by sink
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 2c14c36f0b3d..3d5773fcf496 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2159,11 +2159,25 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
- 	struct msm_drm_private *priv;
-+	struct drm_panel *panel;
- 	int ret;
- 
- 	msm_host->dev = dev;
-+	panel = msm_dsi_host_get_panel(&msm_host->base);
- 	priv = dev->dev_private;
--	priv->dsc = msm_host->dsc;
-+
-+	if (panel && panel->dsc) {
-+		struct msm_display_dsc_config *dsc = priv->dsc;
-+
-+		if (!dsc) {
-+			dsc = kzalloc(sizeof(*dsc), GFP_KERNEL);
-+			if (!dsc)
-+				return -ENOMEM;
-+			dsc->drm = panel->dsc;
-+			priv->dsc = dsc;
-+			msm_host->dsc = dsc;
-+		}
-+	}
- 
- 	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
- 	if (ret) {
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 4602f833eb51..eb8ae9bf32ed 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -171,6 +171,13 @@ struct drm_panel {
- 	 * Panel entry in registry.
- 	 */
- 	struct list_head list;
-+
-+	/**
-+	 * @dsc:
-+	 *
-+	 * Panel DSC pps payload to be sent
-+	 */
-+	struct drm_dsc_config *dsc;
- };
- 
- void drm_panel_init(struct drm_panel *panel, struct device *dev,
+ Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 4 +++-
+ drivers/phy/qualcomm/phy-qcom-edp.c                     | 9 ++++++---
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+
 -- 
-2.31.1
+2.7.4
 
