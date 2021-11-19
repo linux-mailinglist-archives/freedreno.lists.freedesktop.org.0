@@ -2,57 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53A1D456768
-	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 02:20:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2215C456E8A
+	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 12:56:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30F476E9DD;
-	Fri, 19 Nov 2021 01:20:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC5F6ED9E;
+	Fri, 19 Nov 2021 11:56:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B56F6E9D8
- for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 01:20:18 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id bk14so18453478oib.7
- for <freedreno@lists.freedesktop.org>; Thu, 18 Nov 2021 17:20:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=+4u6zI2WbzNkx110yW93wXh++h279Kv8lQjw6fsVrvg=;
- b=cGZoDisejQaJ8p+P/87PSoJH1JRVUVt00xJ4d56gfBh0WO2C62Dnh4l0iGvqwXKYjn
- b8BRKi1vQXHXNYLWlfM6Fseenb6r8uKSHsw8dSav4HNu5dNVyNcxN43vt4rQVyirCleK
- QUcD2tndLp69InrIm4SXyHhZ49q2QhVqGBo88=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=+4u6zI2WbzNkx110yW93wXh++h279Kv8lQjw6fsVrvg=;
- b=g9hlkw5bff4n2E/pC0MeQl4wNiv3w/tiVboCQXzQL3mkg+xNKSqwf81r40v2BlxoY8
- xsIfhX/6Gfn+uwqeAzPnBc4esuMgUP9N8MylfDKnSK8+ifSmYZeZ0ugvOq6wbgAdEDhP
- HcXTNyL9pgmYHt/mx/SverXX7mhjTsvoFkCOJCi3AzswGZp4EBnSoWVuFvVOrTBRP+ON
- K6+nW9yEEA8kAttjY40ZBw1rTDfle3GjwbFVdO8LhQ+xRFRkYaawBW8UjgG1TMx0AHsM
- tyQH/8OAdyOlCSxFbs6G33XDsbpvZoaGY4630H6M83Z3If//mx9+v3w/UrmdIQGaQmDt
- Y7cg==
-X-Gm-Message-State: AOAM532OzYGvmeAktb61DwtXwYjEg/lLp/BZghbSNzSAordEpVgbqLq+
- 2CpqcfeLJ87bYOI++34lDzPMOBcj9RJUEIpChdTibw==
-X-Google-Smtp-Source: ABdhPJw/lFMRDpADbSuVq+e5zkxL2+/msM1iuh9pKofY63E+8BxMAfvDYsKcBUq8mQXD9V67bnHftwapPA2n0wvR65s=
-X-Received: by 2002:a54:4506:: with SMTP id l6mr1436004oil.32.1637284817525;
- Thu, 18 Nov 2021 17:20:17 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 19 Nov 2021 02:20:17 +0100
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C69A26ED9E;
+ Fri, 19 Nov 2021 11:56:04 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10172"; a="297818060"
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="297818060"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 03:56:04 -0800
+X-IronPort-AV: E=Sophos;i="5.87,247,1631602800"; d="scan'208";a="537081383"
+Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.72.185])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 03:56:02 -0800
+Received: from platvala by thrakatuluk with local (Exim 4.94)
+ (envelope-from <petri.latvala@intel.com>)
+ id 1mo2Ts-0002Y6-9T; Fri, 19 Nov 2021 13:55:00 +0200
+Date: Fri, 19 Nov 2021 13:55:00 +0200
+From: Petri Latvala <petri.latvala@intel.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <YZeQlGUMhb0RLiU1@platvala-desk.ger.corp.intel.com>
+References: <20211116003042.439107-1-robdclark@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1636493893-7600-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1636493893-7600-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Fri, 19 Nov 2021 02:20:17 +0100
-Message-ID: <CAE-0n505-VcS46WnVARsvuaizePP-3cYEw_rfipfq9Yj7AW=Ow@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: do not initialize phy until
- plugin interrupt received
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211116003042.439107-1-robdclark@gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH igt v3 0/4] msm: Add tests for gpu fault
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +48,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, aravindh@codeaurora.org,
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-11-09 13:38:13)
-> From: Kuogee Hsieh <khsieh@codeaurora.org>
->
-> Current DP drivers have regulators, clocks, irq and phy are grouped
-> together within a function and executed not in a symmetric manner.
-> This increase difficulty of code maintenance and limited code scalability.
-> This patch divided the driver life cycle of operation into four states,
-> resume (including booting up), dongle plugin, dongle unplugged and suspend.
-> Regulators, core clocks and irq are grouped together and enabled at resume
-> (or booting up) so that the DP controller is armed and ready to receive HPD
-> plugin interrupts. HPD plugin interrupt is generated when a dongle plugs
-> into DUT (device under test). Once HPD plugin interrupt is received, DP
-> controller will initialize phy so that dpcd read/write will function and
-> following link training can be proceeded successfully. DP phy will be
-> disabled after main link is teared down at end of unplugged HPD interrupt
-> handle triggered by dongle unplugged out of DUT. Finally regulators, code
-> clocks and irq are disabled at corresponding suspension.
->
-> Changes in V2:
-> -- removed unnecessary dp_ctrl NULL check
-> -- removed unnecessary phy init_count and power_count DRM_DEBUG_DP logs
-> -- remove flip parameter out of dp_ctrl_irq_enable()
-> -- add fixes tag
->
-> Changes in V3:
-> -- call dp_display_host_phy_init() instead of dp_ctrl_phy_init() at
->         dp_display_host_init() for eDP
->
-> Changes in V4:
-> -- rewording commit text to match this commit changes
->
-> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
+On Mon, Nov 15, 2021 at 04:30:38PM -0800, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> The first patch adds a easy way to write debugfs files (needed to
+> disable hw fault detection, so we can test the sw timeout fallback).
+> The second adds some helpers for cmdstream building.  And the third
+> adds the new tests.
+> 
+> v2: Fix headerdoc comments in first patch
+> v3: Add helper to detect debugfs files and updated last patch
+>     to skip the one sub-test that depends on new debugfs when
+>     running on older kernels
+> 
+> Rob Clark (4):
+>   lib/igt_debugfs: Add helper for writing debugfs files
+>   lib/igt_debugfs: Add helper for detecting debugfs files
+>   msm: Add helper for cmdstream building and submission
+>   msm: Add recovery tests
 
-What commit is this patch based on?
+For patches 3+4, in case you're waiting for this:
+Acked-by: Petri Latvala <petri.latvala@intel.com>
+
+For the record, msm-specific test case changes don't need to wait for
+review (see single contributor exception in CONTRIBUTING.md).
+
+
+-- 
+Petri Latvala
