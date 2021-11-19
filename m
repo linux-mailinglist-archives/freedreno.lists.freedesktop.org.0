@@ -2,57 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D341457292
-	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 17:14:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BC90457423
+	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 17:54:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 189DC6EDC6;
-	Fri, 19 Nov 2021 16:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F7AB6EB2D;
+	Fri, 19 Nov 2021 16:54:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C14E36EDC6;
- Fri, 19 Nov 2021 16:14:53 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 77-20020a1c0450000000b0033123de3425so10929927wme.0; 
- Fri, 19 Nov 2021 08:14:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UcqY3TV76OxNe1xu4n8DKFERXvuTUA0Ucfm9ueomvFM=;
- b=MHhVidxEBzBTALz/eMu3IOohwSk9E6Mdp3oIwEzXnNbjVXnitIiPqqQlBCS2/ZRFsp
- Liwgi2UtlyjggwA7g/Ev4awfC/AYqmE3DcWz+ka3uhEUn62vEr6J0lAdR952KtJz38CY
- OO0EsbPviPQVV0tFtht59BHVHC22ZHBtN8M1/BZYi00SRlB9+49NTjvoR3ogCAJy/NQx
- jzOlUXOon2WqsSTKLRCF7AT93tUIMR7XbUdZGLfqB5alQg7g1sL0qGkBMD2MGaeeME8b
- oPzljj2V1ZJKN02jj2IQwi+/H5PjyaNsxoLaZiMXnVQQtaKAKdD20e+yUd7+3EUw9/Qx
- iKTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UcqY3TV76OxNe1xu4n8DKFERXvuTUA0Ucfm9ueomvFM=;
- b=Yrjn9ht+bev7nyb0PLxgcB0c5AxTF5G1lp9r7GGOwng3TV6ot0fDhtOe7e4H521Rdw
- YGal7OypG1Sd94DqMg9lsQYE+QZwm87hhMT95XGLWPIIO7PA5x2ExmWz+9izBKrN9y3q
- B3oCyXRFNjFUXhErYgVwveIvmUHlhCLkzsxDjZ/kJHCcvuRCQKzCgG1VyN6GzR3Ds7ZC
- J3vulT+UPV0g0vg9YdHI2sxxS4QP4qHUGnnNuEiRdFHI8NCulD8TauIttkbM9Ylt6Bpr
- Y4Jby/KBECdNzQwVRboNRN/y3+z+pKlBjN4ucDcwMusICGBJGg7GbzLlJ52zLD/4g/de
- /Pkw==
-X-Gm-Message-State: AOAM532dvEZqMQECh4vpKoIIRTTyM6sIoxwmRMQx9U+dDezRzSUf0++p
- yY4MZilEPuWFpVbwWcecEac5s1ARELi8wqMZ7ak=
-X-Google-Smtp-Source: ABdhPJztRHw/IXsl/jzRJwmq6CaBP2pBkI2TX2vFR+YvDgcR5py+7U8KVWDGTo1h0iavOJPh4SuhT7zbJbHPCOJGVcQ=
-X-Received: by 2002:a05:600c:1d01:: with SMTP id
- l1mr1036483wms.44.1637338492141; 
- Fri, 19 Nov 2021 08:14:52 -0800 (PST)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD8CB6EC3C;
+ Fri, 19 Nov 2021 16:54:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1637340855; x=1668876855;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=6DEP3t+XDa5WlLRSEM3s6XOjAWqLN52Ye0b4lfzBcLs=;
+ b=Y6/KnjawI4abBc8lx0+V4O73gHRcPJuS64sMnFiipuSn/vifAZlUY+R8
+ NHL5atCW2B23/y0tkzGC4h+rrOHK3vADEkXhrr6dua0u/4TfeBrUK5kvD
+ F3rudFuReTbDnjPeOip2eYsO6qMPdoI6rPLzcqBp76m89C2O6xZOI/7r4 E=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 19 Nov 2021 08:54:15 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 08:54:14 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Fri, 19 Nov 2021 08:54:14 -0800
+Received: from [10.110.5.170] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Fri, 19 Nov
+ 2021 08:54:13 -0800
+Message-ID: <7b54e2fb-1268-9d66-8b6a-4be247ff9bc1@quicinc.com>
+Date: Fri, 19 Nov 2021 08:54:12 -0800
 MIME-Version: 1.0
-References: <20211116003042.439107-1-robdclark@gmail.com>
- <YZeQlGUMhb0RLiU1@platvala-desk.ger.corp.intel.com>
-In-Reply-To: <YZeQlGUMhb0RLiU1@platvala-desk.ger.corp.intel.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 19 Nov 2021 08:19:56 -0800
-Message-ID: <CAF6AEGsKq7g8ngyVngZpLBeZ+-XavguaCUnNNbptdv0pA3v=XQ@mail.gmail.com>
-To: Petri Latvala <petri.latvala@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH igt v3 0/4] msm: Add tests for gpu fault
- handling
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <vkoul@kernel.org>
+References: <1636493893-7600-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n505-VcS46WnVARsvuaizePP-3cYEw_rfipfq9Yj7AW=Ow@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n505-VcS46WnVARsvuaizePP-3cYEw_rfipfq9Yj7AW=Ow@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: do not initialize phy until
+ plugin interrupt received
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,46 +69,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Nov 19, 2021 at 3:56 AM Petri Latvala <petri.latvala@intel.com> wrote:
->
-> On Mon, Nov 15, 2021 at 04:30:38PM -0800, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > The first patch adds a easy way to write debugfs files (needed to
-> > disable hw fault detection, so we can test the sw timeout fallback).
-> > The second adds some helpers for cmdstream building.  And the third
-> > adds the new tests.
-> >
-> > v2: Fix headerdoc comments in first patch
-> > v3: Add helper to detect debugfs files and updated last patch
-> >     to skip the one sub-test that depends on new debugfs when
-> >     running on older kernels
-> >
-> > Rob Clark (4):
-> >   lib/igt_debugfs: Add helper for writing debugfs files
-> >   lib/igt_debugfs: Add helper for detecting debugfs files
-> >   msm: Add helper for cmdstream building and submission
-> >   msm: Add recovery tests
->
-> For patches 3+4, in case you're waiting for this:
-> Acked-by: Petri Latvala <petri.latvala@intel.com>
->
-> For the record, msm-specific test case changes don't need to wait for
-> review (see single contributor exception in CONTRIBUTING.md).
->
 
-Thanks, I was actually just waiting until I had time to start putting
-together msm-next for v5.17, and pull in the patch that added the
-debugfs which the recovery tests use (which should hopefully be in
-next few days)
+On 11/18/2021 5:20 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2021-11-09 13:38:13)
+>> From: Kuogee Hsieh <khsieh@codeaurora.org>
+>>
+>> Current DP drivers have regulators, clocks, irq and phy are grouped
+>> together within a function and executed not in a symmetric manner.
+>> This increase difficulty of code maintenance and limited code scalability.
+>> This patch divided the driver life cycle of operation into four states,
+>> resume (including booting up), dongle plugin, dongle unplugged and suspend.
+>> Regulators, core clocks and irq are grouped together and enabled at resume
+>> (or booting up) so that the DP controller is armed and ready to receive HPD
+>> plugin interrupts. HPD plugin interrupt is generated when a dongle plugs
+>> into DUT (device under test). Once HPD plugin interrupt is received, DP
+>> controller will initialize phy so that dpcd read/write will function and
+>> following link training can be proceeded successfully. DP phy will be
+>> disabled after main link is teared down at end of unplugged HPD interrupt
+>> handle triggered by dongle unplugged out of DUT. Finally regulators, code
+>> clocks and irq are disabled at corresponding suspension.
+>>
+>> Changes in V2:
+>> -- removed unnecessary dp_ctrl NULL check
+>> -- removed unnecessary phy init_count and power_count DRM_DEBUG_DP logs
+>> -- remove flip parameter out of dp_ctrl_irq_enable()
+>> -- add fixes tag
+>>
+>> Changes in V3:
+>> -- call dp_display_host_phy_init() instead of dp_ctrl_phy_init() at
+>>          dp_display_host_init() for eDP
+>>
+>> Changes in V4:
+>> -- rewording commit text to match this commit changes
+>>
+>> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+>>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+> What commit is this patch based on?
 
-BR,
--R
+It base on Bjorn's patch,
+
+https://patchwork.freedesktop.org/series/92992/
+
+
