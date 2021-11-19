@@ -2,55 +2,49 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB18445791A
-	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 23:50:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F15F7457969
+	for <lists+freedreno@lfdr.de>; Sat, 20 Nov 2021 00:15:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 437176E29D;
-	Fri, 19 Nov 2021 22:50:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE486E544;
+	Fri, 19 Nov 2021 23:15:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF19D6E448;
- Fri, 19 Nov 2021 22:50:46 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- c71-20020a1c9a4a000000b0032cdcc8cbafso8596036wme.3; 
- Fri, 19 Nov 2021 14:50:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ncGZ8xwc7OhnxGmL+ovKtcewVUckULPPfk9VsqmiXik=;
- b=RGsI07w67PD/LL56RAdYR5Ool99iRceODaj/DSvhFWl0iKYxxLeL97QWWlRI6TwA1Q
- FkdIGCtPc+2ilvmuJl0COjmYBuFXMK8i7X0AqmhiDsjJDfmPbpEufevy/G8XAcpqU/Iw
- mujJRnyNU2l1zi17orQyeh31V4KXIaTZqPhdMTOdhwEcbfWHy9PcJcLNK+8qgoUwBLZR
- b/bnC+5yQkW5khCjsdDX4Lc1vdGdBJ5SLFJwttBTRlw3dE3TyAov+iUFP+pYVUQq1Td8
- CD8uoHtEwlc/OfgetQljTejBuJpHTcOTIihO5JlONhEYhf18uavNWFJUAy/ZMDqeh3/M
- 9/Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ncGZ8xwc7OhnxGmL+ovKtcewVUckULPPfk9VsqmiXik=;
- b=Erpb+kSaNLX9jRMT9Cnb29B7W0ma5LC448RoHYlytX36VOlDv+3qvh+xUA6J84KH5t
- oWz5tahnGpl3oGkvdyBrjnrsCWOTFnD7FmlUeu4Moxbj4rwsuNMYTNjc924P7Sg9jsS5
- f9Bbd+sUcygoHA2YfOwNfCZsy03znC9z3EEQKqay/eqrdQ8B9o0xKXIMXMTylnHpC01v
- vb5/ukxKxIED169T5LLhpywn9MlzdBrJ0QrfcnFxsawc4I2xxwOGxITPXzDmeDXLWmbR
- C/LQZJzRoYiUKcMIEzBCYYOG7N3howAwRFDVuvLyhytRuB/VkdVmq5WgSeXhca8cc21u
- y0sw==
-X-Gm-Message-State: AOAM533G01pO/Uqxxk/nRTTwpmOliZ6YpnyKeYND/2TrUjrKBzfrSzkd
- UPu71ckwmVo9p4myZ2jAzmzRjFtvKq0K45bCjqeEz+gnn20=
-X-Google-Smtp-Source: ABdhPJz+xkFmybNRxJUJ0e4J55Cz/pZZLhfAEwMy6aDAom4HChI8NvpLK8bGQoWZzLwzlJABw8r74vHB218/msW/JRg=
-X-Received: by 2002:a05:600c:4f87:: with SMTP id
- n7mr4099763wmq.168.1637362244862; 
- Fri, 19 Nov 2021 14:50:44 -0800 (PST)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6481B6E544
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 23:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1637363742; x=1668899742;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=EOeE/8u2GgZp5oSglVkU0d1h/BBJ7rE0E0fhZsedy1Q=;
+ b=DuNxh7xv6uAmdXZZJbVqkgHdC3ySGAH+Q6bu0CcqJ6mb3mk91UnygqSX
+ O02ZyUjY8oAFvDBKO8lFyUI78KliBh9wtXxT6SblL4crw5QQVqvj4KANP
+ fsxfwFsbxSTyCh0j7QLIYLMLIOYDI5P/0Vf2kqwFXJc0fmPKnn9xO83vq 0=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 19 Nov 2021 15:15:41 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2021 15:15:41 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Fri, 19 Nov 2021 15:15:40 -0800
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Fri, 19 Nov 2021 15:15:40 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <linux-kernel@vger.kernel.org>
+Date: Fri, 19 Nov 2021 15:15:25 -0800
+Message-ID: <1637363725-17732-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20211119225157.984706-1-robdclark@gmail.com>
-In-Reply-To: <20211119225157.984706-1-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 19 Nov 2021 14:55:49 -0800
-Message-ID: <CAF6AEGufo9pJRrT003gcMD3d1VP8SqCjN3uSFmgQKDPojfU4QQ@mail.gmail.com>
-To: dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/gpu: Fix idle_work time
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] mailmap: add and update email addresses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,39 +57,83 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: akhilpo@codeaurora.org, gregkh@linuxfoundation.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, swboyd@chromium.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Nov 19, 2021 at 2:46 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> This was supposed to be a relative timer, not absolute.
->
+Add and also update the email addresses to prepare for
+the transition to the new ones.
 
-Fixes: 658f4c829688 ("drm/msm/devfreq: Add 1ms delay before clamping freq")
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ .mailmap | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> index 43468919df61..7285041c737e 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> @@ -228,5 +228,5 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
->         struct msm_gpu_devfreq *df = &gpu->devfreq;
->
->         msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
-> -                              HRTIMER_MODE_ABS);
-> +                              HRTIMER_MODE_REL);
->  }
-> --
-> 2.33.1
->
+diff --git a/.mailmap b/.mailmap
+index 6e84911..92f4cd7 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -10,10 +10,12 @@
+ # Please keep this list dictionary sorted.
+ #
+ Aaron Durbin <adurbin@google.com>
++Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@codeaurora.org>
+ Adam Oldham <oldhamca@gmail.com>
+ Adam Radford <aradford@gmail.com>
+ Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
+ Adrian Bunk <bunk@stusta.de>
++Akhil P Oommen <quic_akhilpo@quicinc.com> <akhilpo@codeaurora.org>
+ Alan Cox <alan@lxorguk.ukuu.org.uk>
+ Alan Cox <root@hraefn.swansea.linux.org.uk>
+ Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
+@@ -162,6 +164,7 @@ Jeff Layton <jlayton@kernel.org> <jlayton@redhat.com>
+ Jens Axboe <axboe@suse.de>
+ Jens Osterkamp <Jens.Osterkamp@de.ibm.com>
+ Jernej Skrabec <jernej.skrabec@gmail.com> <jernej.skrabec@siol.net>
++Jessica Zhang <quic_jesszhan@quicinc.com> <jesszhan@codeaurora.org>
+ Jiri Slaby <jirislaby@kernel.org> <jirislaby@gmail.com>
+ Jiri Slaby <jirislaby@kernel.org> <jslaby@novell.com>
+ Jiri Slaby <jirislaby@kernel.org> <jslaby@suse.com>
+@@ -181,6 +184,7 @@ Juha Yrjola <at solidboot.com>
+ Juha Yrjola <juha.yrjola@nokia.com>
+ Juha Yrjola <juha.yrjola@solidboot.com>
+ Julien Thierry <julien.thierry.kdev@gmail.com> <julien.thierry@arm.com>
++Kalyan Thota <quic_kalyant@quicinc.com> <kalyan_t@codeaurora.org>
+ Kay Sievers <kay.sievers@vrfy.org>
+ Kees Cook <keescook@chromium.org> <kees.cook@canonical.com>
+ Kees Cook <keescook@chromium.org> <keescook@google.com>
+@@ -192,9 +196,11 @@ Kenneth W Chen <kenneth.w.chen@intel.com>
+ Konstantin Khlebnikov <koct9i@gmail.com> <khlebnikov@yandex-team.ru>
+ Konstantin Khlebnikov <koct9i@gmail.com> <k.khlebnikov@samsung.com>
+ Koushik <raghavendra.koushik@neterion.com>
++Krishna Manikandan <quic_mkrishn@quicinc.com> <mkrishn@codeaurora.org>
+ Krzysztof Kozlowski <krzk@kernel.org> <k.kozlowski.k@gmail.com>
+ Krzysztof Kozlowski <krzk@kernel.org> <k.kozlowski@samsung.com>
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++Kuogee Hsieh <quic_khsieh@quicinc.com> <khsieh@codeaurora.org>
+ Leonardo Bras <leobras.c@gmail.com> <leonardo@linux.ibm.com>
+ Leonid I Ananiev <leonid.i.ananiev@intel.com>
+ Leon Romanovsky <leon@kernel.org> <leon@leon.nu>
+@@ -300,6 +306,7 @@ Qais Yousef <qsyousef@gmail.com> <qais.yousef@imgtec.com>
+ Quentin Monnet <quentin@isovalent.com> <quentin.monnet@netronome.com>
+ Quentin Perret <qperret@qperret.net> <quentin.perret@arm.com>
+ Rafael J. Wysocki <rjw@rjwysocki.net> <rjw@sisk.pl>
++Rajeev Nandan <quic_rajeevny@quicinc.com> <rajeevny@codeaurora.org>
+ Rajesh Shah <rajesh.shah@intel.com>
+ Ralf Baechle <ralf@linux-mips.org>
+ Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
+@@ -314,6 +321,7 @@ Rui Saraiva <rmps@joel.ist.utl.pt>
+ Sachin P Sant <ssant@in.ibm.com>
+ Sakari Ailus <sakari.ailus@linux.intel.com> <sakari.ailus@iki.fi>
+ Sam Ravnborg <sam@mars.ravnborg.org>
++Sankeerth Billakanti <quic_sbillaka@quicinc.com> <sbillaka@codeaurora.org>
+ Santosh Shilimkar <santosh.shilimkar@oracle.org>
+ Santosh Shilimkar <ssantosh@kernel.org>
+ Sarangdhar Joshi <spjoshi@codeaurora.org>
+-- 
+2.7.4
+
