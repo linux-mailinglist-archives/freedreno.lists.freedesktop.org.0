@@ -1,61 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 452F545790A
-	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 23:47:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB18445791A
+	for <lists+freedreno@lfdr.de>; Fri, 19 Nov 2021 23:50:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E6926E84A;
-	Fri, 19 Nov 2021 22:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 437176E29D;
+	Fri, 19 Nov 2021 22:50:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71C036E82D;
- Fri, 19 Nov 2021 22:47:03 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id gt5so8983080pjb.1;
- Fri, 19 Nov 2021 14:47:03 -0800 (PST)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF19D6E448;
+ Fri, 19 Nov 2021 22:50:46 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ c71-20020a1c9a4a000000b0032cdcc8cbafso8596036wme.3; 
+ Fri, 19 Nov 2021 14:50:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=twAeZpCGMlzIF/Drja25nuGjpzU60u3HE0bcTGTxQkc=;
- b=nzo2vH9tzLMozmpK5sJ7x295U707HHj8eWE6FCK4D8Wx+D6V85FBkg+FmgcQyFNcY0
- +bl/9l4f9eo7rrHmLI/1B+tauBlmquFAgLapIm+urE4nPu/8PM7AVAuBWzzc1wOOErhN
- Jiwr9RH0OqZTOQyy8O1padVS/DekGYfDMtEQAxg24AAwR5vXD2WhKxWVmt1FXFOBK4YO
- h4qbjS/iGN4wDrhCq1NK2GmNEwT6YFTLwu3iBWAS/3CCX0NipMbOEHCgHPTEW9kPDmUh
- 5/ZGTPGwQZpif7sXM6mYrw1R6z27Z3T1uih3LYCWaKhRKdrTO/KISH1QF5oURMQiQUtg
- rr6Q==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ncGZ8xwc7OhnxGmL+ovKtcewVUckULPPfk9VsqmiXik=;
+ b=RGsI07w67PD/LL56RAdYR5Ool99iRceODaj/DSvhFWl0iKYxxLeL97QWWlRI6TwA1Q
+ FkdIGCtPc+2ilvmuJl0COjmYBuFXMK8i7X0AqmhiDsjJDfmPbpEufevy/G8XAcpqU/Iw
+ mujJRnyNU2l1zi17orQyeh31V4KXIaTZqPhdMTOdhwEcbfWHy9PcJcLNK+8qgoUwBLZR
+ b/bnC+5yQkW5khCjsdDX4Lc1vdGdBJ5SLFJwttBTRlw3dE3TyAov+iUFP+pYVUQq1Td8
+ CD8uoHtEwlc/OfgetQljTejBuJpHTcOTIihO5JlONhEYhf18uavNWFJUAy/ZMDqeh3/M
+ 9/Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=twAeZpCGMlzIF/Drja25nuGjpzU60u3HE0bcTGTxQkc=;
- b=FlxHCApF4XWvmEEcwR7+xMJdOEbTEhdZmp1mxdCyos/F0jb2tPoJ6k3AGyQ9gTSqIG
- dr7JtvF54/KFn2kLC0eovrwXo1JodVGWsOwuR63VdSIZKfnsw/wCQg4tWn/xw+A4nKRI
- tuLzUySieiwRLDcqCrOXZHZ9eEASVIJt33xLEtE6Wzx+J41lqBptTajCAguh3RImq4TT
- twcM4QLAZvczFpfFoVeoEGz4rxVEuwMhBfiXJICSHX+Gn9fS8bbJvUxjaldi2ptiKaa8
- 1jDKHjSzRxGl50gQrNs+oRHbD0K6kRRYJ5clkqf9AF/Iv+YaaC1Wf2Kj66gwZLAusVYA
- iZhA==
-X-Gm-Message-State: AOAM532IPbqxTQnoJVrdprl6HrgqZVL+hwn0+HrXaVGOZSfSyPKwPoKS
- 6P8eb8JTWTTtssY29CsWShSqBr25sQE=
-X-Google-Smtp-Source: ABdhPJxQeAAh5IaDEkXwR6H8PD8Mm7hi7ZmwS7C2h2xA50THKZdMhAGvvjMOBlH/y7f24YhpGX96Cg==
-X-Received: by 2002:a17:90b:1e4f:: with SMTP id
- pi15mr3972773pjb.181.1637362022447; 
- Fri, 19 Nov 2021 14:47:02 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id k2sm687206pfc.9.2021.11.19.14.47.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Nov 2021 14:47:01 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 19 Nov 2021 14:51:57 -0800
-Message-Id: <20211119225157.984706-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211119225157.984706-1-robdclark@gmail.com>
-References: <20211119225157.984706-1-robdclark@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ncGZ8xwc7OhnxGmL+ovKtcewVUckULPPfk9VsqmiXik=;
+ b=Erpb+kSaNLX9jRMT9Cnb29B7W0ma5LC448RoHYlytX36VOlDv+3qvh+xUA6J84KH5t
+ oWz5tahnGpl3oGkvdyBrjnrsCWOTFnD7FmlUeu4Moxbj4rwsuNMYTNjc924P7Sg9jsS5
+ f9Bbd+sUcygoHA2YfOwNfCZsy03znC9z3EEQKqay/eqrdQ8B9o0xKXIMXMTylnHpC01v
+ vb5/ukxKxIED169T5LLhpywn9MlzdBrJ0QrfcnFxsawc4I2xxwOGxITPXzDmeDXLWmbR
+ C/LQZJzRoYiUKcMIEzBCYYOG7N3howAwRFDVuvLyhytRuB/VkdVmq5WgSeXhca8cc21u
+ y0sw==
+X-Gm-Message-State: AOAM533G01pO/Uqxxk/nRTTwpmOliZ6YpnyKeYND/2TrUjrKBzfrSzkd
+ UPu71ckwmVo9p4myZ2jAzmzRjFtvKq0K45bCjqeEz+gnn20=
+X-Google-Smtp-Source: ABdhPJz+xkFmybNRxJUJ0e4J55Cz/pZZLhfAEwMy6aDAom4HChI8NvpLK8bGQoWZzLwzlJABw8r74vHB218/msW/JRg=
+X-Received: by 2002:a05:600c:4f87:: with SMTP id
+ n7mr4099763wmq.168.1637362244862; 
+ Fri, 19 Nov 2021 14:50:44 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/gpu: Respect PM QoS constraints
+References: <20211119225157.984706-1-robdclark@gmail.com>
+In-Reply-To: <20211119225157.984706-1-robdclark@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 19 Nov 2021 14:55:49 -0800
+Message-ID: <CAF6AEGufo9pJRrT003gcMD3d1VP8SqCjN3uSFmgQKDPojfU4QQ@mail.gmail.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/gpu: Fix idle_work time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,277 +63,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, open list <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Fri, Nov 19, 2021 at 2:46 PM Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> This was supposed to be a relative timer, not absolute.
+>
 
-Re-work the boost and idle clamping to use PM QoS requests instead, so
-they get aggreggated with other requests (such as cooling device).
+Fixes: 658f4c829688 ("drm/msm/devfreq: Add 1ms delay before clamping freq")
 
-This does have the minor side-effect that devfreq sysfs min_freq/
-max_freq files now reflect the boost and idle clamping, as they show
-(despite what they are documented to show) the aggregated min/max freq.
-Fixing that in devfreq does not look straightforward after considering
-that OPPs can be dynamically added/removed.  However writes to the
-sysfs files still behave as expected.
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gpu.h         | 33 +++++++----
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 82 ++++++++++++++-------------
- 2 files changed, 66 insertions(+), 49 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 59cdd00b69d0..96d8d37dd5b7 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -87,6 +87,21 @@ struct msm_gpu_devfreq {
- 	/** devfreq: devfreq instance */
- 	struct devfreq *devfreq;
- 
-+	/**
-+	 * idle_constraint:
-+	 *
-+	 * A PM QoS constraint to limit max freq while the GPU is idle.
-+	 */
-+	struct dev_pm_qos_request idle_freq;
-+
-+	/**
-+	 * boost_constraint:
-+	 *
-+	 * A PM QoS constraint to boost min freq for a period of time
-+	 * until the boost expires.
-+	 */
-+	struct dev_pm_qos_request boost_freq;
-+
- 	/**
- 	 * busy_cycles:
- 	 *
-@@ -103,22 +118,19 @@ struct msm_gpu_devfreq {
- 	ktime_t idle_time;
- 
- 	/**
--	 * idle_freq:
-+	 * idle_work:
- 	 *
--	 * Shadow frequency used while the GPU is idle.  From the PoV of
--	 * the devfreq governor, we are continuing to sample busyness and
--	 * adjust frequency while the GPU is idle, but we use this shadow
--	 * value as the GPU is actually clamped to minimum frequency while
--	 * it is inactive.
-+	 * Used to delay clamping to idle freq on active->idle transition.
- 	 */
--	unsigned long idle_freq;
-+	struct msm_hrtimer_work idle_work;
- 
- 	/**
--	 * idle_work:
-+	 * boost_work:
- 	 *
--	 * Used to delay clamping to idle freq on active->idle transition.
-+	 * Used to reset the boost_constraint after the boost period has
-+	 * elapsed
- 	 */
--	struct msm_hrtimer_work idle_work;
-+	struct msm_hrtimer_work boost_work;
- };
- 
- struct msm_gpu {
-@@ -498,6 +510,7 @@ void msm_devfreq_init(struct msm_gpu *gpu);
- void msm_devfreq_cleanup(struct msm_gpu *gpu);
- void msm_devfreq_resume(struct msm_gpu *gpu);
- void msm_devfreq_suspend(struct msm_gpu *gpu);
-+void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor);
- void msm_devfreq_active(struct msm_gpu *gpu);
- void msm_devfreq_idle(struct msm_gpu *gpu);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 7285041c737e..ff668e431cee 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/devfreq.h>
- #include <linux/devfreq_cooling.h>
-+#include <linux/units.h>
- 
- /*
-  * Power Management:
-@@ -22,15 +23,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
- 
- 	opp = devfreq_recommended_opp(dev, freq, flags);
- 
--	/*
--	 * If the GPU is idle, devfreq is not aware, so just ignore
--	 * it's requests
--	 */
--	if (gpu->devfreq.idle_freq) {
--		gpu->devfreq.idle_freq = *freq;
--		return 0;
--	}
--
- 	if (IS_ERR(opp))
- 		return PTR_ERR(opp);
- 
-@@ -48,9 +40,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
- 
- static unsigned long get_freq(struct msm_gpu *gpu)
- {
--	if (gpu->devfreq.idle_freq)
--		return gpu->devfreq.idle_freq;
--
- 	if (gpu->funcs->gpu_get_freq)
- 		return gpu->funcs->gpu_get_freq(gpu);
- 
-@@ -88,6 +77,7 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
- 	.get_cur_freq = msm_devfreq_get_cur_freq,
- };
- 
-+static void msm_devfreq_boost_work(struct kthread_work *work);
- static void msm_devfreq_idle_work(struct kthread_work *work);
- 
- void msm_devfreq_init(struct msm_gpu *gpu)
-@@ -98,6 +88,12 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 	if (!gpu->funcs->gpu_busy)
- 		return;
- 
-+	dev_pm_qos_add_request(&gpu->pdev->dev, &df->idle_freq,
-+			       DEV_PM_QOS_MAX_FREQUENCY,
-+			       PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE);
-+	dev_pm_qos_add_request(&gpu->pdev->dev, &df->boost_freq,
-+			       DEV_PM_QOS_MIN_FREQUENCY, 0);
-+
- 	msm_devfreq_profile.initial_freq = gpu->fast_rate;
- 
- 	/*
-@@ -128,13 +124,19 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 		gpu->cooling = NULL;
- 	}
- 
-+	msm_hrtimer_work_init(&df->boost_work, gpu->worker, msm_devfreq_boost_work,
-+			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- 	msm_hrtimer_work_init(&df->idle_work, gpu->worker, msm_devfreq_idle_work,
- 			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- }
- 
- void msm_devfreq_cleanup(struct msm_gpu *gpu)
- {
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+
- 	devfreq_cooling_unregister(gpu->cooling);
-+	dev_pm_qos_remove_request(&df->boost_freq);
-+	dev_pm_qos_remove_request(&df->idle_freq);
- }
- 
- void msm_devfreq_resume(struct msm_gpu *gpu)
-@@ -150,12 +152,35 @@ void msm_devfreq_suspend(struct msm_gpu *gpu)
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
- }
- 
-+static void msm_devfreq_boost_work(struct kthread_work *work)
-+{
-+	struct msm_gpu_devfreq *df = container_of(work,
-+			struct msm_gpu_devfreq, boost_work.work);
-+
-+	dev_pm_qos_update_request(&df->boost_freq, 0);
-+}
-+
-+void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
-+{
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+	unsigned long freq;
-+
-+	freq = get_freq(gpu);
-+	freq *= factor;
-+	freq /= HZ_PER_KHZ;
-+
-+	dev_pm_qos_update_request(&df->boost_freq, freq);
-+
-+	msm_hrtimer_queue_work(&df->boost_work,
-+			       ms_to_ktime(msm_devfreq_profile.polling_ms),
-+			       HRTIMER_MODE_REL);
-+}
-+
- void msm_devfreq_active(struct msm_gpu *gpu)
- {
- 	struct msm_gpu_devfreq *df = &gpu->devfreq;
- 	struct devfreq_dev_status status;
- 	unsigned int idle_time;
--	unsigned long target_freq = df->idle_freq;
- 
- 	if (!df->devfreq)
- 		return;
-@@ -165,12 +190,6 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	 */
- 	hrtimer_cancel(&df->idle_work.timer);
- 
--	/*
--	 * Hold devfreq lock to synchronize with get_dev_status()/
--	 * target() callbacks
--	 */
--	mutex_lock(&df->devfreq->lock);
--
- 	idle_time = ktime_to_ms(ktime_sub(ktime_get(), df->idle_time));
- 
- 	/*
-@@ -179,20 +198,17 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	 * the governor to ramp up the freq.. so give some boost
- 	 */
- 	if (idle_time > msm_devfreq_profile.polling_ms) {
--		target_freq *= 2;
-+		msm_devfreq_boost(gpu, 2);
- 	}
- 
--	df->idle_freq = 0;
--
--	msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
-+	dev_pm_qos_update_request(&df->idle_freq,
-+				  PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE);
- 
- 	/*
- 	 * Reset the polling interval so we aren't inconsistent
- 	 * about freq vs busy/total cycles
- 	 */
- 	msm_devfreq_get_dev_status(&gpu->pdev->dev, &status);
--
--	mutex_unlock(&df->devfreq->lock);
- }
- 
- 
-@@ -201,26 +217,14 @@ static void msm_devfreq_idle_work(struct kthread_work *work)
- 	struct msm_gpu_devfreq *df = container_of(work,
- 			struct msm_gpu_devfreq, idle_work.work);
- 	struct msm_gpu *gpu = container_of(df, struct msm_gpu, devfreq);
--	unsigned long idle_freq, target_freq = 0;
- 
- 	if (!df->devfreq)
- 		return;
- 
--	/*
--	 * Hold devfreq lock to synchronize with get_dev_status()/
--	 * target() callbacks
--	 */
--	mutex_lock(&df->devfreq->lock);
--
--	idle_freq = get_freq(gpu);
--
--	if (gpu->clamp_to_idle)
--		msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
--
- 	df->idle_time = ktime_get();
--	df->idle_freq = idle_freq;
- 
--	mutex_unlock(&df->devfreq->lock);
-+	if (gpu->clamp_to_idle)
-+		dev_pm_qos_update_request(&df->idle_freq, 0);
- }
- 
- void msm_devfreq_idle(struct msm_gpu *gpu)
--- 
-2.33.1
-
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> index 43468919df61..7285041c737e 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> @@ -228,5 +228,5 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
+>         struct msm_gpu_devfreq *df = &gpu->devfreq;
+>
+>         msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
+> -                              HRTIMER_MODE_ABS);
+> +                              HRTIMER_MODE_REL);
+>  }
+> --
+> 2.33.1
+>
