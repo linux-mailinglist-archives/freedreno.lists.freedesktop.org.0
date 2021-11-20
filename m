@@ -2,62 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19FCD4579A3
-	for <lists+freedreno@lfdr.de>; Sat, 20 Nov 2021 00:38:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F313E457A1B
+	for <lists+freedreno@lfdr.de>; Sat, 20 Nov 2021 01:22:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9B56E873;
-	Fri, 19 Nov 2021 23:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6F06E821;
+	Sat, 20 Nov 2021 00:22:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B01D6E409
- for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 23:38:28 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id m5so3391755ilh.11
- for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 15:38:28 -0800 (PST)
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F9D6E5C8
+ for <freedreno@lists.freedesktop.org>; Sat, 20 Nov 2021 00:21:58 +0000 (UTC)
+Received: by mail-io1-xd2f.google.com with SMTP id z18so14947466iof.5
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 16:21:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wxVf84QwnEj8Uc7joyd4EzO/U0Oo8kpz6vj1F+hcMLk=;
- b=JoaU0znIPwQg4L/KYolJbJCVzydlY40vwNvIaoWmJqcQcJ8eG1h8jr3q4as59wc+1i
- sKIlfZ78zXnJFtr3OoqfN1viwrus/BmPq/Y6dYdUzqH6wclOo+fktpZoRnWrKKMylQ97
- 8D4ReJ3enlh7d4svPfS8hp3F0IZsEnpSYjVFw=
+ :cc; bh=8zLquZzs24iQjQC4Eaf2dLTzvdVr5K8bViakf/mMOaI=;
+ b=kv1u5ZYg776ndeEU+ERi/P4xWfao/xyifsnXNd6vd0PjjQj6YfGBG054WD5AXigBWg
+ GofqDX1eF4snfQCNUDkT9oY1Il66VX9FHDiH1xQHNoQXF4s3kaveMXx+i1Kb6crl5kOB
+ /EaOXTPzgjEUns83ux1D0Dt9A3I00EvK6vg30=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=wxVf84QwnEj8Uc7joyd4EzO/U0Oo8kpz6vj1F+hcMLk=;
- b=0oiAXefc/iSYEkdUXmC1WPy+eUUfL0Poy8yhNGSrvkemwhYKE7tlvEr3/tAq1PISOM
- GexX86LMk7I7lc33QtWe7ku9f2EQ4a6WftPcKblu7+lUkwEZpBwkpV2OP/0svBnY7JFz
- RWWXySwM8sC1d87SaO5Pw1KMVoSqosMjUjrrFh68WVznirxB3FkJkHgjrt9D9o/b/beF
- vfiJy1hHCAfyh62JDN6xT2exkKeDnjb31FgX1IrUna4K93Qq2+0sOAXOTrolZATAB8Vu
- UabwUaMCIEJQhkvMPwMFfjJgFj2/IM7/cQsE4WAh3kyeUlK9F6wiSikOqjqyjwNiDmnA
- P6sw==
-X-Gm-Message-State: AOAM533yxtuP1FHqONM6z31WzOwTYhC/goG3S3fHo/OmAArQ7GL5FRsl
- 3TdOoN/QKHlgBbkemmTxTbopw3kjVKcSfA==
-X-Google-Smtp-Source: ABdhPJw6bMGSSIrJYWgnu0yLi8TnbE63MqiJM3wNmXseT8QFXByfBPykPlB9NQ+QwbSJ7ykekM8YWA==
-X-Received: by 2002:a92:d74a:: with SMTP id e10mr7512039ilq.315.1637365106989; 
- Fri, 19 Nov 2021 15:38:26 -0800 (PST)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com.
- [209.85.166.48])
- by smtp.gmail.com with ESMTPSA id f15sm706267ila.68.2021.11.19.15.38.26
+ bh=8zLquZzs24iQjQC4Eaf2dLTzvdVr5K8bViakf/mMOaI=;
+ b=w69afalNl3FDfjj7ToRHbLIDAFyJ4UqB9Dlvj9swxq1urYdgBO+jiSVux0mQnU07KX
+ cVilDf0uS+mR2Ulx+IMjop5evFkXgzvISYqJuGO2eepv3sxLuezYfdXT5bqL7hiDqgHk
+ B1eEmNUuiIAsBcsgCCyNeNsdyt7JY2TYwMqZnml3hoFROrppQqtchOERPt8VPocXT61B
+ PYA+5VrQI9fJ2uCZeYsAlrtGzaWMRLeNOTtwCIntFnn6mS3WNdLBAYgKPBc36KQzCfB/
+ gNF2nIgL8a1cwdmwy5OITZk4mEO4A4iX5wT2NPP5sd5w/5kHh1Zd+Px6lgL/JbD1asMC
+ 74hg==
+X-Gm-Message-State: AOAM532Si/xFyxrSThIN7yrUq2HvFzExR4fKaEUSQM16aXe+kzzAwfz9
+ fQVxag2EaIJquOpJ2jEA4LKCKjW25HDUTA==
+X-Google-Smtp-Source: ABdhPJwg8FriYwNQExmXyyM6eIBvEUr8ib19Pew6iArQCksFPVhdijuEdoKuHTRK93P3M4royO+2pg==
+X-Received: by 2002:a05:6602:140d:: with SMTP id
+ t13mr8607443iov.176.1637367717160; 
+ Fri, 19 Nov 2021 16:21:57 -0800 (PST)
+Received: from mail-il1-f179.google.com (mail-il1-f179.google.com.
+ [209.85.166.179])
+ by smtp.gmail.com with ESMTPSA id g7sm855092ild.87.2021.11.19.16.21.56
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Nov 2021 15:38:26 -0800 (PST)
-Received: by mail-io1-f48.google.com with SMTP id z26so14840044iod.10
- for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 15:38:26 -0800 (PST)
-X-Received: by 2002:a05:6638:190f:: with SMTP id
- p15mr31409196jal.82.1637365106040; 
- Fri, 19 Nov 2021 15:38:26 -0800 (PST)
+ Fri, 19 Nov 2021 16:21:56 -0800 (PST)
+Received: by mail-il1-f179.google.com with SMTP id s14so11841702ilv.10
+ for <freedreno@lists.freedesktop.org>; Fri, 19 Nov 2021 16:21:56 -0800 (PST)
+X-Received: by 2002:a05:6e02:18ce:: with SMTP id
+ s14mr7289654ilu.142.1637367715969; 
+ Fri, 19 Nov 2021 16:21:55 -0800 (PST)
 MIME-Version: 1.0
 References: <20211119225157.984706-1-robdclark@gmail.com>
-In-Reply-To: <20211119225157.984706-1-robdclark@gmail.com>
+ <20211119225157.984706-2-robdclark@gmail.com>
+In-Reply-To: <20211119225157.984706-2-robdclark@gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 19 Nov 2021 15:38:14 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XiaMAeTj24zg0bPfSK5hGCjuap0ZDa6ixAKrSUQgJtVQ@mail.gmail.com>
-Message-ID: <CAD=FV=XiaMAeTj24zg0bPfSK5hGCjuap0ZDa6ixAKrSUQgJtVQ@mail.gmail.com>
+Date: Fri, 19 Nov 2021 16:21:45 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UraStftJyUDHp5=iKoh4tnCQiTgBZJBNF3-q=HDZUPZw@mail.gmail.com>
+Message-ID: <CAD=FV=UraStftJyUDHp5=iKoh4tnCQiTgBZJBNF3-q=HDZUPZw@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/gpu: Fix idle_work time
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/gpu: Respect PM QoS constraints
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,13 +83,36 @@ Hi,
 
 On Fri, Nov 19, 2021 at 2:47 PM Rob Clark <robdclark@gmail.com> wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
->
-> This was supposed to be a relative timer, not absolute.
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> +void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+> +{
+> +       struct msm_gpu_devfreq *df = &gpu->devfreq;
+> +       unsigned long freq;
+> +
+> +       freq = get_freq(gpu);
+> +       freq *= factor;
+> +       freq /= HZ_PER_KHZ;
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Should it do the divide first? I don't know for sure, but it feels
+like GPU frequency could conceivably be near-ish the u32 overflow? (~4
+GHz). Better to be safe and do the / 1000 first?
+
+
+> @@ -201,26 +217,14 @@ static void msm_devfreq_idle_work(struct kthread_work *work)
+>         struct msm_gpu_devfreq *df = container_of(work,
+>                         struct msm_gpu_devfreq, idle_work.work);
+>         struct msm_gpu *gpu = container_of(df, struct msm_gpu, devfreq);
+> -       unsigned long idle_freq, target_freq = 0;
+>
+>         if (!df->devfreq)
+>                 return;
+
+Why does the msm_devfreq_idle_work() need a check for "!df->devfreq"
+but the boost work doesn't? Maybe you don't need it anymore now that
+you're not reaching into the mutex? ...or maybe the boost work does
+need it?
+
+...and if "df->devfreq" is NULL then doesn't it mean that
+msm_hrtimer_work_init() was never called? That seems bad...
+
+
+-Doug
