@@ -2,38 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5036E457EEC
-	for <lists+freedreno@lfdr.de>; Sat, 20 Nov 2021 16:26:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A05C6457FE6
+	for <lists+freedreno@lfdr.de>; Sat, 20 Nov 2021 18:43:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9406E040;
-	Sat, 20 Nov 2021 15:26:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 525D96E0C6;
+	Sat, 20 Nov 2021 17:43:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8E6E040;
- Sat, 20 Nov 2021 15:26:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E5B5B60EB6;
- Sat, 20 Nov 2021 15:26:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 626826EC1C;
+ Sat, 20 Nov 2021 07:30:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1D79260E94;
+ Sat, 20 Nov 2021 07:30:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1637421964;
- bh=sL04+7/Tziaw15CHiE2bty/Bv6qeql7yB4oQSwHL8Rw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=N35/MX+Bk5IfQeZQiu16BeV4YuD31Ephij5WJvzDmZ2G+K+MjYa+HWqb1ahmMn5Hb
- 8nTHe95BsmdqkyFWylC9DLYJd5w68+maTSegSteQm994SJN2V2euBCo7o5awfS7MX1
- 1EqL1r1uDdGsdYVLkB0LepzAMd/DMg1DnO37cYnq/TOnx6T6gg4l1tr4VYZFrfdNBr
- fu07uKG0PLQcKTAn5J7IOkR76pmhpIN6NdZJHm5NPKAY2SAGobyGEmgVfnmJURZZPl
- Ncx/4o043Jc/OWEbZSwAM5dDl3KRkS71kl4wzNRFF/bIFRAmgFMC+aeEM6/O5rxXi9
- UVuYgRSm1FojA==
-Date: Sat, 20 Nov 2021 07:26:02 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Peter Chen <peter.chen@kernel.org>
-Message-ID: <20211120072602.22f9e722@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20211120073011.GA36650@Peter>
+ s=k20201202; t=1637393442;
+ bh=+5RvHa5Ai/YCF3S6v0KXmQzd9HmqMFiM+R60ANhXvZI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JqvOpFaZvSiSg05ffnTxgeAZVbDsDpJrweaUkeyC6+XBKPN5ci3EXmvgsoZHv9cQy
+ Fk/ZnChWBlOf77zrFwtMS1zvKe9cneahfXEkC4Qg92gPpmch5Zs3qSnRoElzZrCuB5
+ LULBq5hscr8gzsHs4OufNfI+k450KbRCVrm8YJWRjGzGCP+CuDzuyIHz1bewAcdgUU
+ 0tdJcfyL9BGIfLFU+jLaIMr3oFsMpklzeQwsrZWNVd1RclHR8HX6V5SNp3UusagnQ/
+ ZdDeyfgaarZAxmMsHQPUNsNApUNdCUnhd5Nh3dyUnrM/0s0pr6X+dnnSIOSa7T6+8d
+ KNG4buY68v6Mw==
+Date: Sat, 20 Nov 2021 15:30:11 +0800
+From: Peter Chen <peter.chen@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20211120073011.GA36650@Peter>
 References: <20211120035253.72074-1-kuba@kernel.org>
- <20211120073011.GA36650@Peter>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211120035253.72074-1-kuba@kernel.org>
+X-Mailman-Approved-At: Sat, 20 Nov 2021 17:43:35 +0000
 Subject: Re: [Freedreno] [PATCH bpf] treewide: add missing includes masked
  by cgroup -> bpf dependency
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -71,26 +71,150 @@ Cc: kw@linux.com, songliubraving@fb.com, kafai@fb.com, airlied@linux.ie,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 20 Nov 2021 15:30:11 +0800 Peter Chen wrote:
-> > diff --git a/drivers/usb/cdns3/host.c b/drivers/usb/cdns3/host.c
-> > index 84dadfa726aa..9643b905e2d8 100644
-> > --- a/drivers/usb/cdns3/host.c
-> > +++ b/drivers/usb/cdns3/host.c
-> > @@ -10,6 +10,7 @@
-> >   */
-> > =20
-> >  #include <linux/platform_device.h>
-> > +#include <linux/slab.h> =20
->=20
-> Should be "#include <linux/module.h>"?
+On 21-11-19 19:52:53, Jakub Kicinski wrote:
+> cgroup.h (therefore swap.h, therefore half of the universe)
+> includes bpf.h which in turn includes module.h and slab.h.
+> Since we're about to get rid of that dependency we need
+> to clean things up.
+> 
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> ---
+>  static inline struct inode *bdev_file_inode(struct file *file)
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 7b9f69f21f1e..bca0de92802e 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/shmem_fs.h>
+>  #include <linux/slab.h>
+>  #include <linux/vmalloc.h>
+> +#include <linux/module.h>
+>  
+>  #ifdef CONFIG_X86
+>  #include <asm/set_memory.h>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+> index 67d14afa6623..b67f620c3d93 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gtt.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/slab.h> /* fault-inject.h is not standalone! */
+>  
+>  #include <linux/fault-inject.h>
+> +#include <linux/sched/mm.h>
+>  
+>  #include "gem/i915_gem_lmem.h"
+>  #include "i915_trace.h"
+> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+> index 820a1f38b271..89cccefeea63 100644
+> --- a/drivers/gpu/drm/i915/i915_request.c
+> +++ b/drivers/gpu/drm/i915/i915_request.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/sched.h>
+>  #include <linux/sched/clock.h>
+>  #include <linux/sched/signal.h>
+> +#include <linux/sched/mm.h>
+>  
+>  #include "gem/i915_gem_context.h"
+>  #include "gt/intel_breadcrumbs.h"
+> diff --git a/drivers/gpu/drm/lima/lima_device.c b/drivers/gpu/drm/lima/lima_device.c
+> index 65fdca366e41..f74f8048af8f 100644
+> --- a/drivers/gpu/drm/lima/lima_device.c
+> +++ b/drivers/gpu/drm/lima/lima_device.c
+> @@ -4,6 +4,7 @@
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/reset.h>
+>  #include <linux/clk.h>
+> +#include <linux/slab.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/platform_device.h>
+>  
+> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> index 4a1420b05e97..086dacf2f26a 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+> @@ -5,6 +5,7 @@
+>   */
+>  
+>  #include <linux/vmalloc.h>
+> +#include <linux/sched/mm.h>
+>  
+>  #include "msm_drv.h"
+>  #include "msm_gem.h"
+> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+> index 7e83c00a3f48..79c870a3bef8 100644
+> --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+> @@ -34,6 +34,7 @@
+>  #include <linux/sched.h>
+>  #include <linux/shmem_fs.h>
+>  #include <linux/file.h>
+> +#include <linux/module.h>
+>  #include <drm/drm_cache.h>
+>  #include <drm/ttm/ttm_bo_driver.h>
+>  
+> diff --git a/drivers/net/ethernet/huawei/hinic/hinic_sriov.c b/drivers/net/ethernet/huawei/hinic/hinic_sriov.c
+> index a78c398bf5b2..01e7d3c0b68e 100644
+> --- a/drivers/net/ethernet/huawei/hinic/hinic_sriov.c
+> +++ b/drivers/net/ethernet/huawei/hinic/hinic_sriov.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/etherdevice.h>
+>  #include <linux/netdevice.h>
+> +#include <linux/module.h>
+>  
+>  #include "hinic_hw_dev.h"
+>  #include "hinic_dev.h"
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
+> index 0ef68fdd1f26..61c20907315f 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ptp.c
+> @@ -5,6 +5,8 @@
+>   *
+>   */
+>  
+> +#include <linux/module.h>
+> +
+>  #include "otx2_common.h"
+>  #include "otx2_ptp.h"
+>  
+> diff --git a/drivers/pci/controller/dwc/pci-exynos.c b/drivers/pci/controller/dwc/pci-exynos.c
+> index c24dab383654..722dacdd5a17 100644
+> --- a/drivers/pci/controller/dwc/pci-exynos.c
+> +++ b/drivers/pci/controller/dwc/pci-exynos.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/module.h>
+>  
+>  #include "pcie-designware.h"
+>  
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> index 7b17da2f9b3f..cfe66bf04c1d 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/pm_domain.h>
+>  #include <linux/regmap.h>
+>  #include <linux/reset.h>
+> +#include <linux/module.h>
+>  
+>  #include "pcie-designware.h"
+>  
+> diff --git a/drivers/usb/cdns3/host.c b/drivers/usb/cdns3/host.c
+> index 84dadfa726aa..9643b905e2d8 100644
+> --- a/drivers/usb/cdns3/host.c
+> +++ b/drivers/usb/cdns3/host.c
+> @@ -10,6 +10,7 @@
+>   */
+>  
+>  #include <linux/platform_device.h>
+> +#include <linux/slab.h>
 
-Why? Different files are missing different includes, this one needs
-slab.h:
+Should be "#include <linux/module.h>"?
 
-../drivers/usb/cdns3/host.c: In function =E2=80=98__cdns_host_init=E2=80=99:
-../drivers/usb/cdns3/host.c:86:2: error: implicit declaration of function =
-=E2=80=98kfree=E2=80=99; did you mean =E2=80=98vfree=E2=80=99? [-Werror=3Di=
-mplicit-function-declaration]
-  kfree(cdns->xhci_plat_data);
-  ^~~~~
-  vfree
+-- 
+
+Thanks,
+Peter Chen
+
