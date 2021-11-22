@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5143B45803D
-	for <lists+freedreno@lfdr.de>; Sat, 20 Nov 2021 20:56:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D1745893C
+	for <lists+freedreno@lfdr.de>; Mon, 22 Nov 2021 07:14:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA8726E245;
-	Sat, 20 Nov 2021 19:56:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F073F6E1C0;
+	Mon, 22 Nov 2021 06:13:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB3B6E239;
- Sat, 20 Nov 2021 19:56:02 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id
- cq22-20020a17090af99600b001a9550a17a5so13561809pjb.2; 
- Sat, 20 Nov 2021 11:56:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Y1dwVFSwPh1gZK9xVb840bb6p/IVMM8HN6jf7GNmsv8=;
- b=aiz3Znse4ZuHoB8Y27cqZz6Dc+xrqdlz4rmdfAbjMmrXoWPVZnTDa9qNsxcd0/UnFJ
- UDMLan7xSkiZGhoIeb8FZyj1WwsWulofWPesRO+Ms3+aCTBDPl+NMBa3MZ1wa+rc0Kg9
- kLj8GCLX5nDmgDGiEIygdMOX8ITS1p8iY0jpKlesTZAa24p0I8bE1PgCz1LfRYJuuxeI
- l8TJiHZnEIfa2uNiisjj4BaP6Dr1C84TzuIMCDitgnVzvr11jZ440mkUtg1rpQK5e/NY
- JgPf7QYygxILTrxRT6u4ljWgfFnlc6k6NflcpxT9SQUihvs60PqXXjrAMAuExKaS7Tyx
- 0Mng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Y1dwVFSwPh1gZK9xVb840bb6p/IVMM8HN6jf7GNmsv8=;
- b=MQrhyqEM8sFy85bxnLRMOdVVQ0v+y0ubF8yK+orcvdcQVLecjHfwD1Hn9MwgkcXW4f
- CI64yqv6uYKg9XHb7HDBP4uyBqJs6u5T4+ZYc4uOVeW+cBjj9GpNB6qePahDMfTDm/75
- 3rNm/KrEA3/WgpNC4CNxm2smgoTHXiRa3lsyI2hduHLqdfQOR1FgHJS2K2qz/GMPuIbA
- TSXsXySDL2dC+Zwe2rwLC3sU4OSIGIkMLrLqobVepkruHNwe4DdOYEfQm+O4L9UN/snX
- cGnWCJ1A3UyMQi495F5OKkrtM8SB0uXGRH2+VH2Vpw1QCwX9E5G+io3nzl+h7eH/Kjeu
- 2yMw==
-X-Gm-Message-State: AOAM531Ks7XAbzDTgSuRzLdLsdwFg0n+eBDZGdxYOuH48H7m5zcYfJaE
- rGqWzVmo62Pyy4qitnD7mfYBLzWg9yU=
-X-Google-Smtp-Source: ABdhPJyTUn25c2nvqG0xCnmcIBGI0u36ick202i9Hr17UaG9DR8rfq+1/Br42AhNlOriqwC9pmB9mA==
-X-Received: by 2002:a17:902:c204:b0:142:2441:aa26 with SMTP id
- 4-20020a170902c20400b001422441aa26mr89673182pll.84.1637438161752; 
- Sat, 20 Nov 2021 11:56:01 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- b19sm3960013pfv.63.2021.11.20.11.56.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Nov 2021 11:56:00 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 20 Nov 2021 12:01:03 -0800
-Message-Id: <20211120200103.1051459-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211120200103.1051459-1-robdclark@gmail.com>
-References: <20211120200103.1051459-1-robdclark@gmail.com>
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 448386E1C0
+ for <freedreno@lists.freedesktop.org>; Mon, 22 Nov 2021 06:13:59 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1637561639; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: From: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: Sender; bh=/bsLM/NBHYY06E3w1+785ylgRc2IKYk7J+lS7xVJB0E=;
+ b=UHtrUXr8kZrdIA+4Cy3q8MD65FtGf0JbYpSOwc8fcuVFIG3vQtKUb+YSWeopatRPnLd5FPvR
+ +OgCHaJOZNV8QrEsHfs8hClK8pM+sa6SX90+x6PhkpWZxkrNw6HqI82xARRq6p8HQ8X/zve6
+ EJmj8ZrfIpvhk1gEM+gD4g/yOVU=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 619b3526d8e58e6de1d27a44 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 22 Nov 2021 06:13:58
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 86495C43617; Mon, 22 Nov 2021 06:13:57 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.0 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ NICE_REPLY_A,SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from [192.168.1.5] (unknown [59.88.236.230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 83E87C4338F;
+ Mon, 22 Nov 2021 06:13:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 83E87C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+Message-ID: <4b529a1e-a138-3a0b-b3e0-1217e113c3f7@codeaurora.org>
+Date: Mon, 22 Nov 2021 11:43:46 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/gpu: Respect PM QoS constraints
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org
+References: <1637363725-17732-1-git-send-email-quic_abhinavk@quicinc.com>
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+In-Reply-To: <1637363725-17732-1-git-send-email-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] mailmap: add and update email addresses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,282 +70,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Doug Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: gregkh@linuxfoundation.org, swboyd@chromium.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, dmitry.baryshkov@linaro.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On 11/20/2021 4:45 AM, Abhinav Kumar wrote:
+> Add and also update the email addresses to prepare for
+> the transition to the new ones.
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   .mailmap | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/.mailmap b/.mailmap
+> index 6e84911..92f4cd7 100644
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -10,10 +10,12 @@
+>   # Please keep this list dictionary sorted.
+>   #
+>   Aaron Durbin <adurbin@google.com>
+> +Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@codeaurora.org>
+>   Adam Oldham <oldhamca@gmail.com>
+>   Adam Radford <aradford@gmail.com>
+>   Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
+>   Adrian Bunk <bunk@stusta.de>
+> +Akhil P Oommen <quic_akhilpo@quicinc.com> <akhilpo@codeaurora.org>
+>   Alan Cox <alan@lxorguk.ukuu.org.uk>
+>   Alan Cox <root@hraefn.swansea.linux.org.uk>
+>   Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
+> @@ -162,6 +164,7 @@ Jeff Layton <jlayton@kernel.org> <jlayton@redhat.com>
+>   Jens Axboe <axboe@suse.de>
+>   Jens Osterkamp <Jens.Osterkamp@de.ibm.com>
+>   Jernej Skrabec <jernej.skrabec@gmail.com> <jernej.skrabec@siol.net>
+> +Jessica Zhang <quic_jesszhan@quicinc.com> <jesszhan@codeaurora.org>
+>   Jiri Slaby <jirislaby@kernel.org> <jirislaby@gmail.com>
+>   Jiri Slaby <jirislaby@kernel.org> <jslaby@novell.com>
+>   Jiri Slaby <jirislaby@kernel.org> <jslaby@suse.com>
+> @@ -181,6 +184,7 @@ Juha Yrjola <at solidboot.com>
+>   Juha Yrjola <juha.yrjola@nokia.com>
+>   Juha Yrjola <juha.yrjola@solidboot.com>
+>   Julien Thierry <julien.thierry.kdev@gmail.com> <julien.thierry@arm.com>
+> +Kalyan Thota <quic_kalyant@quicinc.com> <kalyan_t@codeaurora.org>
+>   Kay Sievers <kay.sievers@vrfy.org>
+>   Kees Cook <keescook@chromium.org> <kees.cook@canonical.com>
+>   Kees Cook <keescook@chromium.org> <keescook@google.com>
+> @@ -192,9 +196,11 @@ Kenneth W Chen <kenneth.w.chen@intel.com>
+>   Konstantin Khlebnikov <koct9i@gmail.com> <khlebnikov@yandex-team.ru>
+>   Konstantin Khlebnikov <koct9i@gmail.com> <k.khlebnikov@samsung.com>
+>   Koushik <raghavendra.koushik@neterion.com>
+> +Krishna Manikandan <quic_mkrishn@quicinc.com> <mkrishn@codeaurora.org>
+>   Krzysztof Kozlowski <krzk@kernel.org> <k.kozlowski.k@gmail.com>
+>   Krzysztof Kozlowski <krzk@kernel.org> <k.kozlowski@samsung.com>
+>   Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> +Kuogee Hsieh <quic_khsieh@quicinc.com> <khsieh@codeaurora.org>
+>   Leonardo Bras <leobras.c@gmail.com> <leonardo@linux.ibm.com>
+>   Leonid I Ananiev <leonid.i.ananiev@intel.com>
+>   Leon Romanovsky <leon@kernel.org> <leon@leon.nu>
+> @@ -300,6 +306,7 @@ Qais Yousef <qsyousef@gmail.com> <qais.yousef@imgtec.com>
+>   Quentin Monnet <quentin@isovalent.com> <quentin.monnet@netronome.com>
+>   Quentin Perret <qperret@qperret.net> <quentin.perret@arm.com>
+>   Rafael J. Wysocki <rjw@rjwysocki.net> <rjw@sisk.pl>
+> +Rajeev Nandan <quic_rajeevny@quicinc.com> <rajeevny@codeaurora.org>
+>   Rajesh Shah <rajesh.shah@intel.com>
+>   Ralf Baechle <ralf@linux-mips.org>
+>   Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
+> @@ -314,6 +321,7 @@ Rui Saraiva <rmps@joel.ist.utl.pt>
+>   Sachin P Sant <ssant@in.ibm.com>
+>   Sakari Ailus <sakari.ailus@linux.intel.com> <sakari.ailus@iki.fi>
+>   Sam Ravnborg <sam@mars.ravnborg.org>
+> +Sankeerth Billakanti <quic_sbillaka@quicinc.com> <sbillaka@codeaurora.org>
+>   Santosh Shilimkar <santosh.shilimkar@oracle.org>
+>   Santosh Shilimkar <ssantosh@kernel.org>
+>   Sarangdhar Joshi <spjoshi@codeaurora.org>
+> 
 
-Re-work the boost and idle clamping to use PM QoS requests instead, so
-they get aggreggated with other requests (such as cooling device).
+Thanks, Abhinav.
 
-This does have the minor side-effect that devfreq sysfs min_freq/
-max_freq files now reflect the boost and idle clamping, as they show
-(despite what they are documented to show) the aggregated min/max freq.
-Fixing that in devfreq does not look straightforward after considering
-that OPPs can be dynamically added/removed.  However writes to the
-sysfs files still behave as expected.
+Acked-by: Akhil P Oommen <akhilpo@codeaurora.org>
 
-v2: Use 64b math to avoid potential 32b overflow
-
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gpu.h         | 33 +++++++---
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 87 +++++++++++++++------------
- 2 files changed, 71 insertions(+), 49 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 59cdd00b69d0..96d8d37dd5b7 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -87,6 +87,21 @@ struct msm_gpu_devfreq {
- 	/** devfreq: devfreq instance */
- 	struct devfreq *devfreq;
- 
-+	/**
-+	 * idle_constraint:
-+	 *
-+	 * A PM QoS constraint to limit max freq while the GPU is idle.
-+	 */
-+	struct dev_pm_qos_request idle_freq;
-+
-+	/**
-+	 * boost_constraint:
-+	 *
-+	 * A PM QoS constraint to boost min freq for a period of time
-+	 * until the boost expires.
-+	 */
-+	struct dev_pm_qos_request boost_freq;
-+
- 	/**
- 	 * busy_cycles:
- 	 *
-@@ -103,22 +118,19 @@ struct msm_gpu_devfreq {
- 	ktime_t idle_time;
- 
- 	/**
--	 * idle_freq:
-+	 * idle_work:
- 	 *
--	 * Shadow frequency used while the GPU is idle.  From the PoV of
--	 * the devfreq governor, we are continuing to sample busyness and
--	 * adjust frequency while the GPU is idle, but we use this shadow
--	 * value as the GPU is actually clamped to minimum frequency while
--	 * it is inactive.
-+	 * Used to delay clamping to idle freq on active->idle transition.
- 	 */
--	unsigned long idle_freq;
-+	struct msm_hrtimer_work idle_work;
- 
- 	/**
--	 * idle_work:
-+	 * boost_work:
- 	 *
--	 * Used to delay clamping to idle freq on active->idle transition.
-+	 * Used to reset the boost_constraint after the boost period has
-+	 * elapsed
- 	 */
--	struct msm_hrtimer_work idle_work;
-+	struct msm_hrtimer_work boost_work;
- };
- 
- struct msm_gpu {
-@@ -498,6 +510,7 @@ void msm_devfreq_init(struct msm_gpu *gpu);
- void msm_devfreq_cleanup(struct msm_gpu *gpu);
- void msm_devfreq_resume(struct msm_gpu *gpu);
- void msm_devfreq_suspend(struct msm_gpu *gpu);
-+void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor);
- void msm_devfreq_active(struct msm_gpu *gpu);
- void msm_devfreq_idle(struct msm_gpu *gpu);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 1f55242bb6a1..11be623de2ab 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/devfreq.h>
- #include <linux/devfreq_cooling.h>
-+#include <linux/units.h>
- 
- /*
-  * Power Management:
-@@ -22,15 +23,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
- 
- 	opp = devfreq_recommended_opp(dev, freq, flags);
- 
--	/*
--	 * If the GPU is idle, devfreq is not aware, so just ignore
--	 * it's requests
--	 */
--	if (gpu->devfreq.idle_freq) {
--		gpu->devfreq.idle_freq = *freq;
--		return 0;
--	}
--
- 	if (IS_ERR(opp))
- 		return PTR_ERR(opp);
- 
-@@ -48,9 +40,6 @@ static int msm_devfreq_target(struct device *dev, unsigned long *freq,
- 
- static unsigned long get_freq(struct msm_gpu *gpu)
- {
--	if (gpu->devfreq.idle_freq)
--		return gpu->devfreq.idle_freq;
--
- 	if (gpu->funcs->gpu_get_freq)
- 		return gpu->funcs->gpu_get_freq(gpu);
- 
-@@ -88,6 +77,7 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
- 	.get_cur_freq = msm_devfreq_get_cur_freq,
- };
- 
-+static void msm_devfreq_boost_work(struct kthread_work *work);
- static void msm_devfreq_idle_work(struct kthread_work *work);
- 
- void msm_devfreq_init(struct msm_gpu *gpu)
-@@ -98,6 +88,12 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 	if (!gpu->funcs->gpu_busy)
- 		return;
- 
-+	dev_pm_qos_add_request(&gpu->pdev->dev, &df->idle_freq,
-+			       DEV_PM_QOS_MAX_FREQUENCY,
-+			       PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE);
-+	dev_pm_qos_add_request(&gpu->pdev->dev, &df->boost_freq,
-+			       DEV_PM_QOS_MIN_FREQUENCY, 0);
-+
- 	msm_devfreq_profile.initial_freq = gpu->fast_rate;
- 
- 	/*
-@@ -128,13 +124,19 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 		gpu->cooling = NULL;
- 	}
- 
-+	msm_hrtimer_work_init(&df->boost_work, gpu->worker, msm_devfreq_boost_work,
-+			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- 	msm_hrtimer_work_init(&df->idle_work, gpu->worker, msm_devfreq_idle_work,
- 			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- }
- 
- void msm_devfreq_cleanup(struct msm_gpu *gpu)
- {
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+
- 	devfreq_cooling_unregister(gpu->cooling);
-+	dev_pm_qos_remove_request(&df->boost_freq);
-+	dev_pm_qos_remove_request(&df->idle_freq);
- }
- 
- void msm_devfreq_resume(struct msm_gpu *gpu)
-@@ -150,12 +152,40 @@ void msm_devfreq_suspend(struct msm_gpu *gpu)
- 	devfreq_suspend_device(gpu->devfreq.devfreq);
- }
- 
-+static void msm_devfreq_boost_work(struct kthread_work *work)
-+{
-+	struct msm_gpu_devfreq *df = container_of(work,
-+			struct msm_gpu_devfreq, boost_work.work);
-+
-+	dev_pm_qos_update_request(&df->boost_freq, 0);
-+}
-+
-+void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
-+{
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
-+	uint64_t freq;
-+
-+	freq = get_freq(gpu);
-+	freq *= factor;
-+
-+	/*
-+	 * A nice little trap is that PM QoS operates in terms of KHz,
-+	 * while devfreq operates in terms of Hz:
-+	 */
-+	do_div(freq, HZ_PER_KHZ);
-+
-+	dev_pm_qos_update_request(&df->boost_freq, freq);
-+
-+	msm_hrtimer_queue_work(&df->boost_work,
-+			       ms_to_ktime(msm_devfreq_profile.polling_ms),
-+			       HRTIMER_MODE_REL);
-+}
-+
- void msm_devfreq_active(struct msm_gpu *gpu)
- {
- 	struct msm_gpu_devfreq *df = &gpu->devfreq;
- 	struct devfreq_dev_status status;
- 	unsigned int idle_time;
--	unsigned long target_freq = df->idle_freq;
- 
- 	if (!df->devfreq)
- 		return;
-@@ -165,12 +195,6 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	 */
- 	hrtimer_cancel(&df->idle_work.timer);
- 
--	/*
--	 * Hold devfreq lock to synchronize with get_dev_status()/
--	 * target() callbacks
--	 */
--	mutex_lock(&df->devfreq->lock);
--
- 	idle_time = ktime_to_ms(ktime_sub(ktime_get(), df->idle_time));
- 
- 	/*
-@@ -179,20 +203,17 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	 * the governor to ramp up the freq.. so give some boost
- 	 */
- 	if (idle_time > msm_devfreq_profile.polling_ms) {
--		target_freq *= 2;
-+		msm_devfreq_boost(gpu, 2);
- 	}
- 
--	df->idle_freq = 0;
--
--	msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
-+	dev_pm_qos_update_request(&df->idle_freq,
-+				  PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE);
- 
- 	/*
- 	 * Reset the polling interval so we aren't inconsistent
- 	 * about freq vs busy/total cycles
- 	 */
- 	msm_devfreq_get_dev_status(&gpu->pdev->dev, &status);
--
--	mutex_unlock(&df->devfreq->lock);
- }
- 
- 
-@@ -201,23 +222,11 @@ static void msm_devfreq_idle_work(struct kthread_work *work)
- 	struct msm_gpu_devfreq *df = container_of(work,
- 			struct msm_gpu_devfreq, idle_work.work);
- 	struct msm_gpu *gpu = container_of(df, struct msm_gpu, devfreq);
--	unsigned long idle_freq, target_freq = 0;
--
--	/*
--	 * Hold devfreq lock to synchronize with get_dev_status()/
--	 * target() callbacks
--	 */
--	mutex_lock(&df->devfreq->lock);
--
--	idle_freq = get_freq(gpu);
--
--	if (gpu->clamp_to_idle)
--		msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
- 
- 	df->idle_time = ktime_get();
--	df->idle_freq = idle_freq;
- 
--	mutex_unlock(&df->devfreq->lock);
-+	if (gpu->clamp_to_idle)
-+		dev_pm_qos_update_request(&df->idle_freq, 0);
- }
- 
- void msm_devfreq_idle(struct msm_gpu *gpu)
--- 
-2.33.1
-
+-Akhil.
