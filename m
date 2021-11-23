@@ -2,53 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45EFC45A6D2
-	for <lists+freedreno@lfdr.de>; Tue, 23 Nov 2021 16:50:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13CFC45ADA6
+	for <lists+freedreno@lfdr.de>; Tue, 23 Nov 2021 21:54:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B57C86E536;
-	Tue, 23 Nov 2021 15:50:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF4E6E04E;
+	Tue, 23 Nov 2021 20:54:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13A276E170
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 15:50:48 +0000 (UTC)
-Received: by mail-pg1-x535.google.com with SMTP id 71so3240707pgb.4
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 07:50:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=p5/dnjXoJ8teDVOSqiNUzGVK+QNLdlAM4nDDCgZROWw=;
- b=SZkGjoNNQtoublRXDZq9kgD0trOc0Q3U7nJiv1jg/3HrkIypSCJMhDm2r8+yI4mlNk
- wFndxsoxTZh4EX9CjzlM8JK1ivzYhc7Sib4z0ff7ifSmOdO23HtUVAM2g1V+TL1QhNDq
- p5q8jjV7FynYOzQdmJcOyaP1OyvIqyI2wNEf9+YGWW6VwpAHNjHnURtVWJuIzu6sr+qF
- mUn7Aqm/BHrSARXaf6omS1Xina4ZDNToYiAsaS3znXEVPkbyhoRiKxOVT5NTA2/CmrCp
- Z3TuNp85RgwLUhTTvyeaJBqKu2iMIweqZRtjp7IFx6uZW2CHflreaDUWP707y/lYeuY6
- stjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=p5/dnjXoJ8teDVOSqiNUzGVK+QNLdlAM4nDDCgZROWw=;
- b=BViujap5JWREURLqCHMKWa16H0Bh56CINKF5CxrAJXtu3UzvfVsp6SJnMLHlz+GzR5
- U+19REL/cC+2arTYaJFQFKFogEygS6Gz4S3ino4OcXUOv14fM5TjMHncodV3R9uOCF3T
- +7aOJrQ+B5ir7KOa+DKJB/bykn7rtN9JmMnZxi4lirQlAuEJSKKhknq4Lni9o3A/eI4s
- YStAULT+gc7EPuzk6WsFl/DGm+atwHrXIc74CMj3YIDpjteO2BcbD7MEw1n1xBGG9a27
- u8O4+UTHR0AVUFHk7WFx306RKaPyceu1tBKwXUcq2eBL8P6kQN0dxzf5WVLXrNpPsQ72
- EktQ==
-X-Gm-Message-State: AOAM533xp0BVR1jkyayPVErhivErNkcRiQi0JG3aauIa2VYTp+XI4Z2z
- g41iZvPnTDlWZU+5AQR16GGuOfRqxbM9M1/uSM8fFFfAu0I=
-X-Google-Smtp-Source: ABdhPJx911N+Fj7qf+H5dcOu/OnmfyUkA1zkkaVVKqEAufjOTT1k6nEfn/NtxZ2mTj/uwQ0jK+uc0rkOnN6MIwSWgRU=
-X-Received: by 2002:aa7:9903:0:b0:49f:e368:4fc3 with SMTP id
- z3-20020aa79903000000b0049fe3684fc3mr6070106pff.1.1637682647615; Tue, 23 Nov
- 2021 07:50:47 -0800 (PST)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF9FA6E04E;
+ Tue, 23 Nov 2021 20:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1637700895; x=1669236895;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=77fnSIl5txLNdgIet3cL2IBEAHlYG5fyTR+1w8yCOuI=;
+ b=QsFRsb4abSkcxJfVcPdRymyvkygNvrmg5BZZOrz2taHUict7XGJe3iNF
+ bIeLHyXZm3YEO3hAsZQbF/GWbPVEUdCIGqNxCQl1gY8l24wVMkPTmnmLO
+ W78k+l60evc2ZeuUVm2zwB+kfGNvAKOf/1aRkwIkcjwczk4MCjwiQvDte E=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 23 Nov 2021 12:54:54 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2021 12:54:53 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 23 Nov 2021 12:54:53 -0800
+Received: from [10.111.161.155] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 23 Nov
+ 2021 12:54:50 -0800
+Message-ID: <d1edfe2c-87eb-ec3e-a145-8466bf0f3265@quicinc.com>
+Date: Tue, 23 Nov 2021 12:54:48 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-US
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
 References: <20211123154050.40984-1-bjorn.andersson@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 In-Reply-To: <20211123154050.40984-1-bjorn.andersson@linaro.org>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Tue, 23 Nov 2021 16:50:34 +0100
-Message-ID: <CAG3jFytT1Bvagn8hQnVvE48X-jR+pyNuQtjcgJAYmBC97=BL7g@mail.gmail.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add more of the INTF interrupt
  regions
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -63,76 +68,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Robert
+ Foss <robert.foss@linaro.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 23 Nov 2021 at 16:39, Bjorn Andersson
-<bjorn.andersson@linaro.org> wrote:
->
+Hi Bjorn
+
+On 11/23/2021 7:40 AM, Bjorn Andersson wrote:
 > In addition to the other 7xxx INTF interrupt regions, SM8350 has
 > additional INTF regions at 0x0ae37000, 0x0ae38000 and 0x0ae39000, define
 > these. The 7xxx naming scheme of the bits are kept for consistency.
->
+> 
+More than consistency, this is because both sc7280 and SM8350 use MDP's
+7x hw version.
+
+Otherwise,
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 > ---
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 18 ++++++++++++++++++
->  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  3 +++
->  2 files changed, 21 insertions(+)
->
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 18 ++++++++++++++++++
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  3 +++
+>   2 files changed, 21 insertions(+)
+> 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 > index d2b6dca487e3..a77a5eaa78ad 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 > @@ -30,6 +30,9 @@
->  #define MDP_AD4_INTR_STATUS_OFF                0x420
->  #define MDP_INTF_0_OFF_REV_7xxx             0x34000
->  #define MDP_INTF_1_OFF_REV_7xxx             0x35000
+>   #define MDP_AD4_INTR_STATUS_OFF		0x420
+>   #define MDP_INTF_0_OFF_REV_7xxx             0x34000
+>   #define MDP_INTF_1_OFF_REV_7xxx             0x35000
 > +#define MDP_INTF_2_OFF_REV_7xxx             0x36000
 > +#define MDP_INTF_3_OFF_REV_7xxx             0x37000
 > +#define MDP_INTF_4_OFF_REV_7xxx             0x38000
->  #define MDP_INTF_5_OFF_REV_7xxx             0x39000
->
->  /**
+>   #define MDP_INTF_5_OFF_REV_7xxx             0x39000
+>   
+>   /**
 > @@ -110,6 +113,21 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
->                 MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
->                 MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
->         },
-> +       {
-> +               MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> +               MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
-> +               MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
-> +       },
-> +       {
-> +               MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> +               MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
-> +               MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
-> +       },
-> +       {
-> +               MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> +               MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
-> +               MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
-> +       },
->         {
->                 MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
->                 MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
+>   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
+>   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
+>   	},
+> +	{
+> +		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
+> +		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
+> +		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
+> +	},
+> +	{
+> +		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
+> +		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
+> +		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
+> +	},
+> +	{
+> +		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
+> +		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
+> +		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
+> +	},
+>   	{
+>   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
+>   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
 > index d50e78c9f148..1ab75cccd145 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
 > @@ -26,6 +26,9 @@ enum dpu_hw_intr_reg {
->         MDP_AD4_1_INTR,
->         MDP_INTF0_7xxx_INTR,
->         MDP_INTF1_7xxx_INTR,
-> +       MDP_INTF2_7xxx_INTR,
-> +       MDP_INTF3_7xxx_INTR,
-> +       MDP_INTF4_7xxx_INTR,
->         MDP_INTF5_7xxx_INTR,
->         MDP_INTR_MAX,
->  };
-
-Reviewed-by: Robert Foss <robert.foss@linaro.org>
+>   	MDP_AD4_1_INTR,
+>   	MDP_INTF0_7xxx_INTR,
+>   	MDP_INTF1_7xxx_INTR,
+> +	MDP_INTF2_7xxx_INTR,
+> +	MDP_INTF3_7xxx_INTR,
+> +	MDP_INTF4_7xxx_INTR,
+>   	MDP_INTF5_7xxx_INTR,
+>   	MDP_INTR_MAX,
+>   };
+> 
