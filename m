@@ -2,63 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B9445AE1F
-	for <lists+freedreno@lfdr.de>; Tue, 23 Nov 2021 22:15:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7694545AE4E
+	for <lists+freedreno@lfdr.de>; Tue, 23 Nov 2021 22:21:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8987C6E069;
-	Tue, 23 Nov 2021 21:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24C0789CAD;
+	Tue, 23 Nov 2021 21:21:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13C078982E
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 21:15:30 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- n104-20020a9d2071000000b005799790cf0bso868955ota.5
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 13:15:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=3d/ATowUzU0RGedrbA1wKGLdcmsuRu2s2Mj0pamUwcQ=;
- b=CgGj9XKSU0c7O6da0yfwMd6iOFHkPkzVDAUQWXHqUVzACNQJ9NloXpdlWVjm6v+KOa
- IIV7tUdut5PCikbjvlgVKD5x9YIB5DYIvfgw5LRtrfV3vNIOplZY54V1Wn38ZFsCug1t
- +NXkriC7bPwnEy6BfSptikxv6tEvlI7cEVlsZk7egi5w1BxarFlJaZLxRt3cKT18A9rc
- N6ITt59mICXyjgpB3liD2QcB+BX7+4tLMelGpDdoJDxc/JC+1gtZ5eTF2KducigMAHAN
- 4DiXRk+CxnDbO+EzeZLyLz7n3Z+kQ/3DDmqpnztx3vMxHEXxfi/hO3ut3/Q7Otzb0tzL
- SnlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=3d/ATowUzU0RGedrbA1wKGLdcmsuRu2s2Mj0pamUwcQ=;
- b=ueb7z2N965Oy4/MlaOsx6s/GR1F9WFxPMiRhIIAXPFq3WOJNHLZMDSoIRAuju80z3o
- p1m8rSODgm1fONoZ7AZrZQyBFD4JIUILwldvJommgvF02Xb0n9Kuuk2y6+sL/5ZZb4fD
- TsusM3C4zmSTdzw6XrqcG6yYdl/dckELd5H8G357YP4Qr+vRE4FZ3hdfP5l/AVCMemZv
- DKiNl3l3tCvYlKgqa5HabEcc94G0402lT3zCEGTExN9KriakxaFYZNVuPpDjGZ8LxvQs
- a9fbU+acZ96dMKCupNDyojcmidvZMQ3181D+zHqUBRzRU7ruCpk6oVK/V/ONdCu+WhSK
- 5HBA==
-X-Gm-Message-State: AOAM530l+FCvbpvqAUUAbjocz1kQM/vfN8L37zqKw4YnqmBPUIutn+pA
- ReY8DPCCInPZAAhrW+D0YMf2QQ==
-X-Google-Smtp-Source: ABdhPJwv8DGRODI4dMmBdwYWgvLpUeoE/yWyLAmjVDluVmRYl/HHeWeud7p1VO26Opw2XEOB3P1QmA==
-X-Received: by 2002:a9d:6484:: with SMTP id g4mr7525433otl.221.1637702126592; 
- Tue, 23 Nov 2021 13:15:26 -0800 (PST)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id m3sm2429935otp.6.2021.11.23.13.15.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Nov 2021 13:15:25 -0800 (PST)
-Date: Tue, 23 Nov 2021 13:17:08 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <YZ1aVJLcoCEzV5p0@ripper>
-References: <20211123154050.40984-1-bjorn.andersson@linaro.org>
- <d1edfe2c-87eb-ec3e-a145-8466bf0f3265@quicinc.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d1edfe2c-87eb-ec3e-a145-8466bf0f3265@quicinc.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add more of the INTF interrupt
- regions
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54AC689C2C
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 21:21:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1637702505; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=Ee7jLp+Udhos/5Xwo09c+o9YrLbNOM+j1KyKzFHc2gA=;
+ b=olmh7zM4oJ66sI4Q/MAI6S/qWvZj0a5MXtHz/2IMnJlvZ5zy3sD1FF8OS8uKFLO0iAtJ5lt0
+ 4V4WjzOGJkjfb5Q9B7nLbSXon6P+kpfWasny5Hb7YvOHiOFK5jZx/m4H9ix3Gm9kJJo4894P
+ EF83KlqGkhXFpPyM7bgycC1OAxU=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
+ 619d5b57e7d68470af604fa1 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 23 Nov 2021 21:21:27
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C85FEC43619; Tue, 23 Nov 2021 21:21:26 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+Received: from hyd-lnxbld559.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 75D54C4338F;
+ Tue, 23 Nov 2021 21:21:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 75D54C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=codeaurora.org
+From: Akhil P Oommen <akhilpo@codeaurora.org>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>
+Date: Wed, 24 Nov 2021 02:47:50 +0530
+Message-Id: <20211124024436.v2.1.I2ed37cd8ad45a5a94d9de53330f973a62bd1fb29@changeid>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 1/6] drm/msm: Increase gpu boost interval
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,91 +65,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Robert Foss <robert.foss@linaro.org>
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Matthias Kaehlcke <mka@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 23 Nov 12:54 PST 2021, Abhinav Kumar wrote:
+Currently, we boost gpu freq after 25ms of inactivity. This regresses
+some of the 30 fps usecases where the workload on gpu (at 33ms internval)
+is very small which it can finish at the lowest OPP before the deadline.
+Lets increase this inactivity threshold to 50ms (same as the current
+devfreq interval) to fix this.
 
-> Hi Bjorn
-> 
-> On 11/23/2021 7:40 AM, Bjorn Andersson wrote:
-> > In addition to the other 7xxx INTF interrupt regions, SM8350 has
-> > additional INTF regions at 0x0ae37000, 0x0ae38000 and 0x0ae39000, define
-> > these. The 7xxx naming scheme of the bits are kept for consistency.
-> > 
-> More than consistency, this is because both sc7280 and SM8350 use MDP's
-> 7x hw version.
-> 
+Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
+---
 
-Aha, didn't connect the dots.
-Thank you for the clarification.
+Changes in v2:
+- Added patch (5) & (6) to this stack
 
-> Otherwise,
-> 
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Bjorn
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index 84e98c0..5028f92 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -167,7 +167,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
+ 	 * interval, then we won't meet the threshold of busyness for
+ 	 * the governor to ramp up the freq.. so give some boost
+ 	 */
+-	if (idle_time > msm_devfreq_profile.polling_ms/2) {
++	if (idle_time > msm_devfreq_profile.polling_ms) {
+ 		target_freq *= 2;
+ 	}
+ 
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
+of Code Aurora Forum, hosted by The Linux Foundation.
 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> >   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 18 ++++++++++++++++++
-> >   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  3 +++
-> >   2 files changed, 21 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> > index d2b6dca487e3..a77a5eaa78ad 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> > @@ -30,6 +30,9 @@
-> >   #define MDP_AD4_INTR_STATUS_OFF		0x420
-> >   #define MDP_INTF_0_OFF_REV_7xxx             0x34000
-> >   #define MDP_INTF_1_OFF_REV_7xxx             0x35000
-> > +#define MDP_INTF_2_OFF_REV_7xxx             0x36000
-> > +#define MDP_INTF_3_OFF_REV_7xxx             0x37000
-> > +#define MDP_INTF_4_OFF_REV_7xxx             0x38000
-> >   #define MDP_INTF_5_OFF_REV_7xxx             0x39000
-> >   /**
-> > @@ -110,6 +113,21 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
-> >   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
-> >   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
-> >   	},
-> > +	{
-> > +		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> > +		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
-> > +		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
-> > +	},
-> > +	{
-> > +		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> > +		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
-> > +		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
-> > +	},
-> > +	{
-> > +		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> > +		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
-> > +		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
-> > +	},
-> >   	{
-> >   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
-> >   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> > index d50e78c9f148..1ab75cccd145 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-> > @@ -26,6 +26,9 @@ enum dpu_hw_intr_reg {
-> >   	MDP_AD4_1_INTR,
-> >   	MDP_INTF0_7xxx_INTR,
-> >   	MDP_INTF1_7xxx_INTR,
-> > +	MDP_INTF2_7xxx_INTR,
-> > +	MDP_INTF3_7xxx_INTR,
-> > +	MDP_INTF4_7xxx_INTR,
-> >   	MDP_INTF5_7xxx_INTR,
-> >   	MDP_INTR_MAX,
-> >   };
-> > 
