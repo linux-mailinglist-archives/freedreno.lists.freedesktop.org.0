@@ -1,63 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E1345A6AB
-	for <lists+freedreno@lfdr.de>; Tue, 23 Nov 2021 16:39:10 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45EFC45A6D2
+	for <lists+freedreno@lfdr.de>; Tue, 23 Nov 2021 16:50:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE7AC6E44A;
-	Tue, 23 Nov 2021 15:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B57C86E536;
+	Tue, 23 Nov 2021 15:50:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C588F6E44D
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 15:39:06 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- b5-20020a9d60c5000000b0055c6349ff22so34288821otk.13
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 07:39:06 -0800 (PST)
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13A276E170
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 15:50:48 +0000 (UTC)
+Received: by mail-pg1-x535.google.com with SMTP id 71so3240707pgb.4
+ for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 07:50:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nLQmUNabRXXOhYysWc62nCjRSBEMKoCg9jR25zW3RSk=;
- b=RQrUKUyQzNzg7rLCG3cxzoGDG0oNzIKHOfQJ9nks5WNuVHemxSfYdsH7TY9AuPPe2F
- zRpRzme9bN39IU08LKa8cC92y1B7a7fa007Ur6kL2QhFIs3vOi/+alGazlRzepkaMClH
- fqUKV9MRxRC5tDjN5NMa8EeKTky6VTLEMkim8k2KHV2Us4zfWVmHgakV96WVg/62LMOz
- jWBVTk11If3OhcQzLT1pO7brO+kFyyGsWgDe0P+Q5zuAr4kqX/ZutjzbYuoh7fWeysEG
- 6/ZT7gucb1Uxe42OhBFhWRyv1PtMyDmTjwT22Ryus1l2WZh35y8SKJV8rj77sPmSh3XI
- jdQw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=p5/dnjXoJ8teDVOSqiNUzGVK+QNLdlAM4nDDCgZROWw=;
+ b=SZkGjoNNQtoublRXDZq9kgD0trOc0Q3U7nJiv1jg/3HrkIypSCJMhDm2r8+yI4mlNk
+ wFndxsoxTZh4EX9CjzlM8JK1ivzYhc7Sib4z0ff7ifSmOdO23HtUVAM2g1V+TL1QhNDq
+ p5q8jjV7FynYOzQdmJcOyaP1OyvIqyI2wNEf9+YGWW6VwpAHNjHnURtVWJuIzu6sr+qF
+ mUn7Aqm/BHrSARXaf6omS1Xina4ZDNToYiAsaS3znXEVPkbyhoRiKxOVT5NTA2/CmrCp
+ Z3TuNp85RgwLUhTTvyeaJBqKu2iMIweqZRtjp7IFx6uZW2CHflreaDUWP707y/lYeuY6
+ stjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nLQmUNabRXXOhYysWc62nCjRSBEMKoCg9jR25zW3RSk=;
- b=eTAGidZnV4/GvgfkU6pFhhauweziKpjUy6BNbAmpHnPPAv7zPB2RildynWW5L2Dbpy
- dLCQ2c/HqwFXkDYHMBHaJPb4u7i9hEo3b0byRn5xj430krsQ8b7ebcADvHZu7Hv7yGey
- U/eAcSBe4Zst7OuCnUT8RPSMJSyjeejLJ0jhBYDjJ7nO+YzdUWe4BpZh/mmFE/7Yn+36
- GZAU4ooL+XtJ4Vr2ODVPz+IvQYTyxU/lNXFMs8Cue8fUdxkCheSW8jQ0VF2Rrxc7mStt
- J1XffzdpWhJlNsIuTo8RXDGiwiasgAy3HJBs+pFRCyX/lblBd6d1dlNz91M/s++zwmEy
- yLhw==
-X-Gm-Message-State: AOAM530gUtikk4ZtqpEcIDgGunXEa/Pz+lRcZBX4usdaXoeNzAZW2wpZ
- +xfKH0CRpjpLoCE0IzTw7SZXNA==
-X-Google-Smtp-Source: ABdhPJwVX3je7HOSpEkEO8fGDAkLEXCFz07Dr0tLR+EQr8fiokL9uIECNqrloZM+EO2jmZUej0+uPA==
-X-Received: by 2002:a05:6830:453:: with SMTP id
- d19mr5487860otc.72.1637681945857; 
- Tue, 23 Nov 2021 07:39:05 -0800 (PST)
-Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id r22sm2571632oij.36.2021.11.23.07.39.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Nov 2021 07:39:05 -0800 (PST)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 23 Nov 2021 07:40:49 -0800
-Message-Id: <20211123154050.40984-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.33.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=p5/dnjXoJ8teDVOSqiNUzGVK+QNLdlAM4nDDCgZROWw=;
+ b=BViujap5JWREURLqCHMKWa16H0Bh56CINKF5CxrAJXtu3UzvfVsp6SJnMLHlz+GzR5
+ U+19REL/cC+2arTYaJFQFKFogEygS6Gz4S3ino4OcXUOv14fM5TjMHncodV3R9uOCF3T
+ +7aOJrQ+B5ir7KOa+DKJB/bykn7rtN9JmMnZxi4lirQlAuEJSKKhknq4Lni9o3A/eI4s
+ YStAULT+gc7EPuzk6WsFl/DGm+atwHrXIc74CMj3YIDpjteO2BcbD7MEw1n1xBGG9a27
+ u8O4+UTHR0AVUFHk7WFx306RKaPyceu1tBKwXUcq2eBL8P6kQN0dxzf5WVLXrNpPsQ72
+ EktQ==
+X-Gm-Message-State: AOAM533xp0BVR1jkyayPVErhivErNkcRiQi0JG3aauIa2VYTp+XI4Z2z
+ g41iZvPnTDlWZU+5AQR16GGuOfRqxbM9M1/uSM8fFFfAu0I=
+X-Google-Smtp-Source: ABdhPJx911N+Fj7qf+H5dcOu/OnmfyUkA1zkkaVVKqEAufjOTT1k6nEfn/NtxZ2mTj/uwQ0jK+uc0rkOnN6MIwSWgRU=
+X-Received: by 2002:aa7:9903:0:b0:49f:e368:4fc3 with SMTP id
+ z3-20020aa79903000000b0049fe3684fc3mr6070106pff.1.1637682647615; Tue, 23 Nov
+ 2021 07:50:47 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Add more of the INTF interrupt
+References: <20211123154050.40984-1-bjorn.andersson@linaro.org>
+In-Reply-To: <20211123154050.40984-1-bjorn.andersson@linaro.org>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Tue, 23 Nov 2021 16:50:34 +0100
+Message-ID: <CAG3jFytT1Bvagn8hQnVvE48X-jR+pyNuQtjcgJAYmBC97=BL7g@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Add more of the INTF interrupt
  regions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,72 +63,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Robert Foss <robert.foss@linaro.org>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In addition to the other 7xxx INTF interrupt regions, SM8350 has
-additional INTF regions at 0x0ae37000, 0x0ae38000 and 0x0ae39000, define
-these. The 7xxx naming scheme of the bits are kept for consistency.
+On Tue, 23 Nov 2021 at 16:39, Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> In addition to the other 7xxx INTF interrupt regions, SM8350 has
+> additional INTF regions at 0x0ae37000, 0x0ae38000 and 0x0ae39000, define
+> these. The 7xxx naming scheme of the bits are kept for consistency.
+>
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> ---
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 18 ++++++++++++++++++
+>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  3 +++
+>  2 files changed, 21 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> index d2b6dca487e3..a77a5eaa78ad 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> @@ -30,6 +30,9 @@
+>  #define MDP_AD4_INTR_STATUS_OFF                0x420
+>  #define MDP_INTF_0_OFF_REV_7xxx             0x34000
+>  #define MDP_INTF_1_OFF_REV_7xxx             0x35000
+> +#define MDP_INTF_2_OFF_REV_7xxx             0x36000
+> +#define MDP_INTF_3_OFF_REV_7xxx             0x37000
+> +#define MDP_INTF_4_OFF_REV_7xxx             0x38000
+>  #define MDP_INTF_5_OFF_REV_7xxx             0x39000
+>
+>  /**
+> @@ -110,6 +113,21 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
+>                 MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
+>                 MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
+>         },
+> +       {
+> +               MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
+> +               MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
+> +               MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
+> +       },
+> +       {
+> +               MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
+> +               MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
+> +               MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
+> +       },
+> +       {
+> +               MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
+> +               MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
+> +               MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
+> +       },
+>         {
+>                 MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
+>                 MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> index d50e78c9f148..1ab75cccd145 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+> @@ -26,6 +26,9 @@ enum dpu_hw_intr_reg {
+>         MDP_AD4_1_INTR,
+>         MDP_INTF0_7xxx_INTR,
+>         MDP_INTF1_7xxx_INTR,
+> +       MDP_INTF2_7xxx_INTR,
+> +       MDP_INTF3_7xxx_INTR,
+> +       MDP_INTF4_7xxx_INTR,
+>         MDP_INTF5_7xxx_INTR,
+>         MDP_INTR_MAX,
+>  };
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 18 ++++++++++++++++++
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  3 +++
- 2 files changed, 21 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index d2b6dca487e3..a77a5eaa78ad 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -30,6 +30,9 @@
- #define MDP_AD4_INTR_STATUS_OFF		0x420
- #define MDP_INTF_0_OFF_REV_7xxx             0x34000
- #define MDP_INTF_1_OFF_REV_7xxx             0x35000
-+#define MDP_INTF_2_OFF_REV_7xxx             0x36000
-+#define MDP_INTF_3_OFF_REV_7xxx             0x37000
-+#define MDP_INTF_4_OFF_REV_7xxx             0x38000
- #define MDP_INTF_5_OFF_REV_7xxx             0x39000
- 
- /**
-@@ -110,6 +113,21 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
- 		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
- 		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
- 	},
-+	{
-+		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
-+		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
-+		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
-+	},
-+	{
-+		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
-+		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
-+		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
-+	},
-+	{
-+		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
-+		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
-+		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
-+	},
- 	{
- 		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
- 		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-index d50e78c9f148..1ab75cccd145 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
-@@ -26,6 +26,9 @@ enum dpu_hw_intr_reg {
- 	MDP_AD4_1_INTR,
- 	MDP_INTF0_7xxx_INTR,
- 	MDP_INTF1_7xxx_INTR,
-+	MDP_INTF2_7xxx_INTR,
-+	MDP_INTF3_7xxx_INTR,
-+	MDP_INTF4_7xxx_INTR,
- 	MDP_INTF5_7xxx_INTR,
- 	MDP_INTR_MAX,
- };
--- 
-2.33.1
-
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
