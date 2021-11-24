@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806A245C8E2
-	for <lists+freedreno@lfdr.de>; Wed, 24 Nov 2021 16:39:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0895445C8E8
+	for <lists+freedreno@lfdr.de>; Wed, 24 Nov 2021 16:40:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C416E56D;
-	Wed, 24 Nov 2021 15:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77C016E487;
+	Wed, 24 Nov 2021 15:40:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD8F6E214
- for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 15:39:41 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id y26so8246722lfa.11
- for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 07:39:41 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55C026E487
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 15:40:35 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id r26so8309189lfn.8
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 07:40:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Crdb0M+qbVtb4o2i/dD0q1NmdK6CpzCFBaORwXwWGDg=;
- b=XjfFfyRQ8Rcv5JiMa2X3OWVW45aMoXHYpKvxSKBDiU+c+CddAdgLSx3KfYLiyaV5Qf
- YF1GdQKTeslaBtCAh7qyeaV7UBJgH8IVIZLh4YLNakYFaiNY1aMwiqNH8yDXjI4g0+81
- 6yqSZUu/jKUWhnh2CPeR8XugeV4bHkzXefZ9wNoA7Gj1LOQNl2j5n0t/o5v0rELFeutF
- MG5D3vVK/RkKk3mpoo/t6ubNCXqyLpSbzSFQpCvIAqY8O2yPzNG8KL61Li/VKnMXSK+g
- 60hy5S3WbTGMO+WoWeIaVfmAJQs7nAlIGV9RozR8u6t8vEjB/7PY+4iukGMIt6nH6M67
- l8Eg==
+ bh=MRHSK8zabRFIynpw4+uy7/MG4Xk6F7PWDEFcamsYRYU=;
+ b=TugcSYnHV39SipEpIZX0+YVXT2YzASAzsk9uWYPrM41qixYEvcCzmp12Z8+OLFznPr
+ dkNfO3y312qdyv88H0pBptv570nvbk+cekRIfAz342IShomnUqYoAwfPG+G6FJRWYKcm
+ NA26AiIcR3TOf8Jty7f3CM9fL7ar42Q9fFwww4ZnCOaoVcYFJMdue1AcWegLuNp+5GP8
+ A08ZIsnq7EGPANchlly0T+hDY2ZBgAIflrZR0cb4/BxfBW63PXDIm0g0PZ9xMu/0120w
+ 1jbwW8KFcWn1KcPq2kymAJo7cb9PxrwRFTZQoNyymOfebPw7U2qxg8dMjBnWGV+Hi5/9
+ lYKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=Crdb0M+qbVtb4o2i/dD0q1NmdK6CpzCFBaORwXwWGDg=;
- b=EqWpi+YCxjw4XzL1LAMcV3NHYPOoYmfxj0iL3L14sAtmyGjpNhX4z/ztfsDy1enrIL
- ZoKZfGhYddSqf4njgSrrGpAywyrnZ3VbJqg5D5FjnopiFalqew3vQIBq/5E0pE3lQQ2L
- 265WZtZGSUXlJO1v75n7jFCMV0KpK74751XLlcRbWcUH+txg9OJfnW0hMmm20H40p654
- z66dzsTfU7W4o9/Zh1l9Pc77K5ROOWjsr7lVLLvtKwfXk3jmJHyDEk64VCzumEWYwMc0
- xRHrP1+u1sxm2I+znmc2LU9aiptaJ9pQgKh0A/3AItUhs75/uSWreFwVcYO/aWfOFep4
- Q1IA==
-X-Gm-Message-State: AOAM5330/1TGNTSXrVBOQpLoyr+tG+5ZhL1qoQo97rf2vdkraL55ZSke
- nntUWsAmnd/wDXhLEpmo2KBe5i5p2BvD5w==
-X-Google-Smtp-Source: ABdhPJwzeiSanGN1u/Kw+0PTXpmUJyb2P0UO0Fn4wRmERNLYqOSCiBbYXqizF5j/xvh+wg0b0pM6DA==
-X-Received: by 2002:a05:6512:1115:: with SMTP id
- l21mr15100835lfg.201.1637768379346; 
- Wed, 24 Nov 2021 07:39:39 -0800 (PST)
+ bh=MRHSK8zabRFIynpw4+uy7/MG4Xk6F7PWDEFcamsYRYU=;
+ b=y5r+rqSGLtJcwUwt4iITlE3eLB5U46/xv45YfC5bgMgLs5hSo79CLE2o459ZbejEP3
+ gFnlT2Zov9r3elUM7iWDnCC04E53ADUogoMxxdQ5u0a/ZkdNFbp6oa0gi+gYjsji+zdu
+ ZLECS9sNoFS5kznIDi7xiq5oLPCj2tIr6b6SzxcV/0yCMAXaELiDWG3JeJlOOSJ8KNoL
+ ag8pb4JqvQhIo0vn6VYSKckuRr4COtJaluM8ub06bucf8fmpb3nYKAPWc4tGyGyYdhMj
+ 9yHxhUhPMulFCfnRXXE+FXuE2Uasu4bYjgjnspq8PL8E6ZFMDGnml4R7GN26fC7AWFtt
+ 9hPA==
+X-Gm-Message-State: AOAM532LZ8Q9M/rkNZjrOlX4nuIfzztwFaEtj/DrqoKaPMpwriNFrb6M
+ CUHyfGLZC+hbLKUP9lw/jDzzgrZrkixWkw==
+X-Google-Smtp-Source: ABdhPJxGGspGiIzucoi+Pl9RHLXjwi2ldVTBfma2Pqx2udv5TQOaceAH0vTSByWarlNgAddvvzt/Bw==
+X-Received: by 2002:a05:6512:33c9:: with SMTP id
+ d9mr15286457lfg.615.1637768433301; 
+ Wed, 24 Nov 2021 07:40:33 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id a7sm14357lfk.216.2021.11.24.07.39.38
+ by smtp.gmail.com with ESMTPSA id d10sm15999lfe.106.2021.11.24.07.40.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Nov 2021 07:39:38 -0800 (PST)
+ Wed, 24 Nov 2021 07:40:32 -0800 (PST)
 To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
 References: <20211116062256.2417186-1-vkoul@kernel.org>
  <20211116062256.2417186-6-vkoul@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <4ebbe41b-cf6b-23e9-3972-9f87e190b9cb@linaro.org>
-Date: Wed, 24 Nov 2021 18:39:38 +0300
+Message-ID: <20269960-a753-72d4-5a1d-430af00cf562@linaro.org>
+Date: Wed, 24 Nov 2021 18:40:32 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
@@ -114,6 +114,10 @@ On 16/11/2021 09:22, Vinod Koul wrote:
 > +
 > +	if (priv->dsc)
 > +		return priv->dsc->dsc_mask;
+
+dsc_mask doesn't exist at this point, so the patch should be moved later 
+in the series.
+
 > +
 > +	return 0;
 > +}
@@ -131,10 +135,6 @@ On 16/11/2021 09:22, Vinod Koul wrote:
 >   	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
 > +	intf_cfg.dsc = dpu_encoder_helper_get_dsc(phys_enc);
 > +
-
-I'd prefer if we disable mode_3d here, rather than ignoring it in the 
-dpu_hw_ctl_intf_cfg()
-
 >   	ctl->ops.setup_intf_cfg(ctl, &intf_cfg);
 >   }
 >   
@@ -149,10 +149,6 @@ dpu_hw_ctl_intf_cfg()
 > -	if (cfg->mode_3d) {
 > +	/* In DSC we can't set merge, so check for dsc too */
 > +	if (cfg->mode_3d && !cfg->dsc) {
-
-I think here'd better have WARN_ON(cfg->mode_3d && cfg->dsc) or similar 
-dev_warn().
-
 >   		intf_cfg |= BIT(19);
 >   		intf_cfg |= (cfg->mode_3d - 0x1) << 20;
 >   	}
