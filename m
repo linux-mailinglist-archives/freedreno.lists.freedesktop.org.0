@@ -1,64 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 403AD45AFB4
-	for <lists+freedreno@lfdr.de>; Wed, 24 Nov 2021 00:02:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9967C45B654
+	for <lists+freedreno@lfdr.de>; Wed, 24 Nov 2021 09:12:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02C2B6E096;
-	Tue, 23 Nov 2021 23:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C67256EC3C;
+	Wed, 24 Nov 2021 08:12:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 232BD6E096
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 23:02:14 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id o4so1237070oia.10
- for <freedreno@lists.freedesktop.org>; Tue, 23 Nov 2021 15:02:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=U/YfcKuWu9IBkxXAjQ9Eru9NWliiwRlAFXbf84u64iw=;
- b=Qxx/ct/QAteIczIt6u1z/ZW2GAaejZjWOiZpUGS0Yz14806PSoc0ypAeotDWKBdgB5
- iSZU6eDDsfKo6Xv9k+NJ+UZeNUhCOzSVTPBeaT01bVwgfzXUnDacnVTBxrp8kqmlwJAX
- JsfYlrhqmJJar4p39sslfer/C/XeAqD/vxcoZF7v83XdNPeSx4ugo97leYM0YHLUUQBs
- FCG+RjnM2V0FydRVSUCNRCysVR1eboOi6owXfSQxeK9dpRIto2xOS+KKE3Lkax3DmjFm
- mK2G7X+Jn0wqTuQ9H+2DRkzsHFfKbanuY+RfLuPUbZpoIq3jUGB5IwbJismA+voJbqX4
- 3Izg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=U/YfcKuWu9IBkxXAjQ9Eru9NWliiwRlAFXbf84u64iw=;
- b=bj7i1YJUoX3WekPe5EdWmutO0PHobF9arW6p3VTM+AeqVwvq7a5UHUZTXPaFl2TVkc
- U6p2pKl2iQ0e/Fr1MeJBIpGsr69ogXVeBrhsYp/MN4nRJ+B1kotOOu5Z6Ry+aZlBXqxf
- wlce7b4O/PaysjA3r+VxCxs45NL/I0pZJRZS7txBPXdRMhr2zfpET7om73NIBA0jRQx5
- imtSiXV/ZPJLdZuzXwShGIXfidTz+gyEAWj46k5qJG4I4aHR7EqGcf8/dpoNTSzOaQbW
- /2NQTluXp3JNR8mGtI7le0Fm0A6kFlqfLQp7EgDvU5AH1VeX3ojLhapXcurnHBw1jcun
- oQfw==
-X-Gm-Message-State: AOAM532WRE8ih6JFrL+M1K3BeuZP7ZFOdBkP+EUJw/SZYe5yS17yHgnP
- UrodGn2VSwxTkEjoq4kLULTTkw==
-X-Google-Smtp-Source: ABdhPJzWaRUeQLHSrascFf1GNb0zer8lw+90WeJZXU4FLvAUr8grUNKxROvP8CF72Rh4EzXkv9Bn4w==
-X-Received: by 2002:a05:6808:55:: with SMTP id
- v21mr1056533oic.174.1637708533242; 
- Tue, 23 Nov 2021 15:02:13 -0800 (PST)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id v12sm2450822ote.9.2021.11.23.15.02.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Nov 2021 15:02:12 -0800 (PST)
-Date: Tue, 23 Nov 2021 15:03:55 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Akhil P Oommen <akhilpo@codeaurora.org>
-Message-ID: <YZ1zW/9lsJNrVfqJ@ripper>
-References: <20211124024436.v2.1.I2ed37cd8ad45a5a94d9de53330f973a62bd1fb29@changeid>
- <20211124024436.v2.4.Ibb71b3c64d6f98d586131a143c27fbdb233260a1@changeid>
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C59866EC3E;
+ Wed, 24 Nov 2021 08:12:45 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10177"; a="298634779"
+X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="298634779"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2021 00:12:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,260,1631602800"; d="scan'208";a="591495451"
+Received: from lkp-server02.sh.intel.com (HELO 9e1e9f9b3bcb) ([10.239.97.151])
+ by FMSMGA003.fm.intel.com with ESMTP; 24 Nov 2021 00:12:38 -0800
+Received: from kbuild by 9e1e9f9b3bcb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1mpnOQ-0004W4-3B; Wed, 24 Nov 2021 08:12:38 +0000
+Date: Wed, 24 Nov 2021 16:12:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Akhil P Oommen <akhilpo@codeaurora.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>
+Message-ID: <202111241604.cGzD1KB0-lkp@intel.com>
+References: <20211124024436.v2.6.Ibfca354efaf274142593a6dbfbedb3de31918ff6@changeid>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211124024436.v2.4.Ibb71b3c64d6f98d586131a143c27fbdb233260a1@changeid>
-Subject: Re: [Freedreno] [PATCH v2 4/6] drm/msm/a6xx: Capture gmu log in
- devcoredump
+In-Reply-To: <20211124024436.v2.6.Ibfca354efaf274142593a6dbfbedb3de31918ff6@changeid>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v2 6/6] drm/msm/a6xx: Add a few gmu buffers
+ to coredump
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,158 +51,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>, Linux Patches Robot
- <linux-patches-robot@chromeos-missing-patches.google.com.iam.gserviceaccount.com>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- Matthias Kaehlcke <mka@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- St?phane Marchesin <marcheu@chromium.org>, Lee Jones <lee.jones@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, linux-kernel@vger.kernel.org
+Cc: kbuild-all@lists.01.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, Douglas Anderson <dianders@chromium.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Matthias Kaehlcke <mka@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 23 Nov 13:17 PST 2021, Akhil P Oommen wrote:
+Hi Akhil,
 
-> Capture gmu log in coredump to enhance debugging.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@codeaurora.org>
-> ---
-> 
-> Changes in v2:
-> - Fix kernel test robot's warning about size_t's format specifier
-> 
->  drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 41 +++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  2 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h     |  2 ++
->  3 files changed, 44 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> index e8f65cd..e6f5571 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-> @@ -42,6 +42,8 @@ struct a6xx_gpu_state {
->  	struct a6xx_gpu_state_obj *cx_debugbus;
->  	int nr_cx_debugbus;
->  
-> +	struct msm_gpu_state_bo *gmu_log;
-> +
->  	struct list_head objs;
->  };
->  
-> @@ -800,6 +802,30 @@ static void a6xx_get_gmu_registers(struct msm_gpu *gpu,
->  		&a6xx_state->gmu_registers[2], false);
->  }
->  
-> +static void a6xx_get_gmu_log(struct msm_gpu *gpu,
-> +		struct a6xx_gpu_state *a6xx_state)
-> +{
-> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-> +	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-> +	struct msm_gpu_state_bo *gmu_log;
-> +
-> +	gmu_log = state_kcalloc(a6xx_state,
-> +		1, sizeof(*a6xx_state->gmu_log));
+Thank you for the patch! Perhaps something to improve:
 
-This line isn't even 80 chars long, so I see no reason to wrap it and if
-you ran checkpatch --strict on this patch it would complain about how
-you indent that second line as well.
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-intel/for-linux-next drm-tip/drm-tip v5.16-rc2 next-20211124]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-It would also look better with sizeof(*gmu_log), even though they should
-have the same size today...
+url:    https://github.com/0day-ci/linux/commits/Akhil-P-Oommen/drm-msm-Increase-gpu-boost-interval/20211124-052303
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: xtensa-allyesconfig (https://download.01.org/0day-ci/archive/20211124/202111241604.cGzD1KB0-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/9bb31a2940567b37d0eead980d4bef5f4cef7d24
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Akhil-P-Oommen/drm-msm-Increase-gpu-boost-interval/20211124-052303
+        git checkout 9bb31a2940567b37d0eead980d4bef5f4cef7d24
+        # save the config file to linux build tree
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross ARCH=xtensa 
 
-> +	if (!gmu_log)
-> +		return;
-> +
-> +	gmu_log->iova = gmu->log.iova;
-> +	gmu_log->size = gmu->log.size;
-> +	gmu_log->data = kvzalloc(gmu_log->size, GFP_KERNEL);
-> +	if (!gmu_log->data)
-> +		return;
-> +
-> +	memcpy(gmu_log->data, gmu->log.virt, gmu->log.size);
-> +
-> +	a6xx_state->gmu_log = gmu_log;
-> +}
-> +
->  #define A6XX_GBIF_REGLIST_SIZE   1
->  static void a6xx_get_registers(struct msm_gpu *gpu,
->  		struct a6xx_gpu_state *a6xx_state,
-> @@ -937,6 +963,8 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
->  
->  	a6xx_get_gmu_registers(gpu, a6xx_state);
->  
-> +	a6xx_get_gmu_log(gpu, a6xx_state);
-> +
->  	/* If GX isn't on the rest of the data isn't going to be accessible */
->  	if (!a6xx_gmu_gx_is_on(&a6xx_gpu->gmu))
->  		return &a6xx_state->base;
-> @@ -978,6 +1006,9 @@ static void a6xx_gpu_state_destroy(struct kref *kref)
->  	struct a6xx_gpu_state *a6xx_state = container_of(state,
->  			struct a6xx_gpu_state, base);
->  
-> +	if (a6xx_state->gmu_log && a6xx_state->gmu_log->data)
-> +		kvfree(a6xx_state->gmu_log->data);
-> +
->  	list_for_each_entry_safe(obj, tmp, &a6xx_state->objs, node)
->  		kfree(obj);
->  
-> @@ -1191,6 +1222,16 @@ void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
->  
->  	adreno_show(gpu, state, p);
->  
-> +	drm_puts(p, "gmu-log:\n");
-> +	if (a6xx_state->gmu_log) {
-> +		struct msm_gpu_state_bo *gmu_log = a6xx_state->gmu_log;
-> +
-> +		drm_printf(p, "    iova: 0x%016llx\n", gmu_log->iova);
-> +		drm_printf(p, "    size: %zu\n", gmu_log->size);
-> +		adreno_show_object(p, &gmu_log->data, gmu_log->size,
-> +				&gmu_log->encoded);
-> +	}
-> +
->  	drm_puts(p, "registers:\n");
->  	for (i = 0; i < a6xx_state->nr_registers; i++) {
->  		struct a6xx_gpu_state_obj *obj = &a6xx_state->registers[i];
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> index 1539b8e..b43346e 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -638,7 +638,7 @@ static char *adreno_gpu_ascii85_encode(u32 *src, size_t len)
->  }
->  
->  /* len is expected to be in bytes */
-> -static void adreno_show_object(struct drm_printer *p, void **ptr, int len,
-> +void adreno_show_object(struct drm_printer *p, void **ptr, int len,
->  		bool *encoded)
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-Please indent your broken lines by the ( on the line before.
+All warnings (new ones prefixed by >>):
 
-Regards,
-Bjorn
+>> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:1244:6: warning: no previous prototype for 'a6xx_gmu_show' [-Wmissing-prototypes]
+    1244 | void a6xx_gmu_show(struct a6xx_gmu_state *gmu_state, struct drm_printer *p)
+         |      ^~~~~~~~~~~~~
 
->  {
->  	if (!*ptr || !len)
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> index 225c277..6762308 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -306,6 +306,8 @@ void adreno_gpu_state_destroy(struct msm_gpu_state *state);
->  
->  int adreno_gpu_state_get(struct msm_gpu *gpu, struct msm_gpu_state *state);
->  int adreno_gpu_state_put(struct msm_gpu_state *state);
-> +void adreno_show_object(struct drm_printer *p, void **ptr, int len,
-> +		bool *encoded);
->  
->  /*
->   * Common helper function to initialize the default address space for arm-smmu
-> -- 
-> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
-> of Code Aurora Forum, hosted by The Linux Foundation.
-> 
+
+vim +/a6xx_gmu_show +1244 drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+
+  1243	
+> 1244	void a6xx_gmu_show(struct a6xx_gmu_state *gmu_state, struct drm_printer *p)
+  1245	{
+  1246		int i;
+  1247	
+  1248		drm_puts(p, "gmu-log:\n");
+  1249		if (gmu_state->log_bo) {
+  1250			struct msm_gpu_state_bo *log_bo = gmu_state->log_bo;
+  1251	
+  1252			drm_printf(p, "    iova: 0x%016llx\n", log_bo->iova);
+  1253			drm_printf(p, "    size: %zu\n", log_bo->size);
+  1254			adreno_show_object(p, &log_bo->data, log_bo->size,
+  1255					&log_bo->encoded);
+  1256		}
+  1257	
+  1258		drm_puts(p, "gmu-hfi:\n");
+  1259		if (gmu_state->hfi_bo) {
+  1260			struct msm_gpu_state_bo *hfi_bo = gmu_state->hfi_bo;
+  1261	
+  1262			drm_printf(p, "    iova: 0x%016llx\n", hfi_bo->iova);
+  1263			drm_printf(p, "    size: %zu\n", hfi_bo->size);
+  1264			adreno_show_object(p, &hfi_bo->data, hfi_bo->size,
+  1265					&hfi_bo->encoded);
+  1266		}
+  1267	
+  1268		drm_puts(p, "gmu-debug:\n");
+  1269		if (gmu_state->debug_bo) {
+  1270			struct msm_gpu_state_bo *debug_bo = gmu_state->debug_bo;
+  1271	
+  1272			drm_printf(p, "    iova: 0x%016llx\n", debug_bo->iova);
+  1273			drm_printf(p, "    size: %zu\n", debug_bo->size);
+  1274			adreno_show_object(p, &debug_bo->data, debug_bo->size,
+  1275					&debug_bo->encoded);
+  1276		}
+  1277	
+  1278		drm_puts(p, "registers-gmu:\n");
+  1279		for (i = 0; i < gmu_state->nr_registers; i++) {
+  1280			struct a6xx_gpu_state_obj *obj = &gmu_state->registers[i];
+  1281			const struct a6xx_registers *regs = obj->handle;
+  1282	
+  1283			if (!obj->handle)
+  1284				continue;
+  1285	
+  1286			a6xx_show_registers(regs->registers, obj->data, regs->count, p);
+  1287		}
+  1288	}
+  1289	
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
