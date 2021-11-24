@@ -1,57 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B0E045CA07
-	for <lists+freedreno@lfdr.de>; Wed, 24 Nov 2021 17:29:05 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DCF845CA69
+	for <lists+freedreno@lfdr.de>; Wed, 24 Nov 2021 17:52:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B24AC6E8D3;
-	Wed, 24 Nov 2021 16:29:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B69D6E270;
+	Wed, 24 Nov 2021 16:52:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA06C6E8B6
- for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 16:29:02 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id z8so6615548ljz.9
- for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 08:29:02 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFEF6E321
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 16:51:59 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id bu18so9064260lfb.0
+ for <freedreno@lists.freedesktop.org>; Wed, 24 Nov 2021 08:51:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WkqjCv1H8iCs2LbCoEle2c1z/X1KWtHu9nXiw6O/b5g=;
- b=JVn20yPHefHNLdS0sfAnScX2Ily94HhVnZxOpx8gaShsFA7wkk91mbK9KF3Y95oYJs
- 6tPQwjbL0Q98iJMOwy+UdVPVzf0cFgNRWFj2Li31Yhpx+tKbGRN3AtiauSi1BsbnTp6W
- U+gvH6jpKOln5770wzOk9lXHuLhqiKMWI+rH+TRrLkzur/AbMi37KqKKyly9dA0AHtqH
- Xm9F5hjyO3hFVn+0ZFkSU7ezDtAz96+B3vzZAis4DFvRwTBnWNAeMGvQ1nLE3+GnVYdK
- WiOHtpRu1xZHVLwWOgAZVRacokcfWBRnYXcKD4XfZthW0Rk3zRfUfXzYfWgZ9eNxiZG1
- 3FrA==
+ bh=SxpT0NltrIzzR1Gn9E4hcFAfBzYhQiD+NgncBW5q7Kc=;
+ b=mI5oApmWGex/imckCGWVSEmyd75rAfp7utD8RM/u6lijs2E2bLA2V6gFRBU77DVcne
+ ifZQ6LvXKvt6UrBDCx5GDpLICiuDEcAl8wkk5kKfHLzvmsJtttB/lmOP12t17eyAuIfa
+ WK6Dfcq+vHj4JSjtNyurCRY0O9P2mcRut7rZkhUNGApEa6+Qc7bJ8VVz/mBI9zpE+1qh
+ ebADOyI3xAFqT6+y81GXvQnj/Y/rI/YEGMijWx3E9/mZ8FyVzc3FyApDR+t3IjHsXuCp
+ U1eCLhNQWMkwgXJY/bokq84cdZjE6m4w/KkqwUFB1bgtPclDuMr3bDgnzAyZN2/Jkx+J
+ lP7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=WkqjCv1H8iCs2LbCoEle2c1z/X1KWtHu9nXiw6O/b5g=;
- b=UY0Yf8hdsiu37CZoE+REFpkAfIl0+SEj2MjZM4NyWwKQCnwnj8haveTeyzyZWzsCBI
- onJ1ZaqGng2J3DIPwtC/fCV4C8bhRpTyxPxj5kQST5oGBL+KiGTq1B9LvBqoAm4Y81Zs
- 8rhq3Ni1lNzE/C+At5JMY8/KJkvZ+zPugG7kM3O/aHeqNccybYqqrn8yhJFqZfAl+D+z
- +eCgsuiwgQshPGvhmrezaTKlYsm44rpqkDLyvqXN9haInNMP4tKqDCdVJIYpYC/ShfVQ
- Y+r6QSfvP1w7mOwhyB0FxpHYsZuWJYoYmtXZfvDrzvCmhCdohi6MfjmqcUs0oCTl7282
- KOhQ==
-X-Gm-Message-State: AOAM530fBeGzWoevPLJevyBMvlMe+PeeXl2lOESyYdlpWddcgtuEeraY
- Pf2LRGhTfhILk+Tml7CLTY3hTCgCZjyYaA==
-X-Google-Smtp-Source: ABdhPJwjNWwJmQJA0UgfY6sjpYYHU3TREPGrYNesnTdKOPO3gk/rQGVuGDCUHdC4Ft8pR1Jugie9ww==
-X-Received: by 2002:a2e:8099:: with SMTP id i25mr17868323ljg.528.1637771341068; 
- Wed, 24 Nov 2021 08:29:01 -0800 (PST)
+ bh=SxpT0NltrIzzR1Gn9E4hcFAfBzYhQiD+NgncBW5q7Kc=;
+ b=IDklvKsHQJadeVsuJnghev+OqaX/zrK6f9VKcZCoA7c4CFdUjb7u9kkbCY1/0wREmR
+ 6l9VMr/ZmhaMizfvsS/LVvAgC/NGya2NrVwTVTLXxdSh8JplOJrCjbrAxGIu5jKUab8N
+ 4vlJdc/8vgOMGay+XHOh02V5OeVvpq2ePx0diog/UN9BtCFwt8nsMeU3GwKoSXYg7ZrU
+ dYAPNZM6uPf4y2f1SQkQ8PNH0HBbUNZi/YQWjotWOvtpTC1jPlGCOs81vIv0OkBBfKWG
+ b5N6HTxfpHWC+bDQlArVPaym60KHAlxxbgjEtn1ZE7EDB6IVPOeak/5OrSeDm7t7zpss
+ t7Jw==
+X-Gm-Message-State: AOAM531yJ1FO7yf1lcvgrrXH7iS0pEoAg3+KsAJqPGAF/iTOZ3/Sw+yi
+ 2WnVGaD9KC0OZO+v+d8hr96/6NUf2E6jwQ==
+X-Google-Smtp-Source: ABdhPJwHHd2b51vkL1ni+njs9obrWdIBL3HhU72Ow3NDYj5qyCvn5JW9wrg24gwf6jwKVFe1tCAchA==
+X-Received: by 2002:a19:ee01:: with SMTP id g1mr17044094lfb.44.1637772717815; 
+ Wed, 24 Nov 2021 08:51:57 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id p3sm24901lfg.273.2021.11.24.08.29.00
+ by smtp.gmail.com with ESMTPSA id i24sm39685ljm.135.2021.11.24.08.51.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Nov 2021 08:29:00 -0800 (PST)
+ Wed, 24 Nov 2021 08:51:57 -0800 (PST)
 To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
 References: <20211116062256.2417186-1-vkoul@kernel.org>
  <20211116062256.2417186-14-vkoul@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <1fecc2d3-28fa-57ee-db60-95713a84787a@linaro.org>
-Date: Wed, 24 Nov 2021 19:28:59 +0300
+Message-ID: <056650fc-b2aa-49b7-cf8d-f479c2fe5825@linaro.org>
+Date: Wed, 24 Nov 2021 19:51:56 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
@@ -85,6 +85,10 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 On 16/11/2021 09:22, Vinod Koul wrote:
 > When DSC is enabled, we need to pass the DSC parameters to panel driver
 > as well, so add a dsc parameter in panel and set it when DSC is enabled
+
+Nit: I think patch description is a bit inaccurate, since we pass DSC 
+parameters from panel to DSI host rather than other way around.
+
 > 
 > Signed-off-by: Vinod Koul <vkoul@kernel.org>
 > ---
@@ -113,12 +117,6 @@ On 16/11/2021 09:22, Vinod Koul wrote:
 > +
 > +		if (!dsc) {
 > +			dsc = kzalloc(sizeof(*dsc), GFP_KERNEL);
-
-devm_kzalloc()?
-
-Or even simpler: embed msm_display_dsc_config into struct msm_dsi_host 
-and use it only if dsc->drm is set (IOW the panel provided DSC data)?
-
 > +			if (!dsc)
 > +				return -ENOMEM;
 > +			dsc->drm = panel->dsc;
