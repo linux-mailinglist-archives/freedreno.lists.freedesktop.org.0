@@ -2,59 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C2B45E023
-	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 19:01:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C96945E306
+	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 23:39:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 988426E47E;
-	Thu, 25 Nov 2021 18:01:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB48C6E0C6;
+	Thu, 25 Nov 2021 22:39:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C0A56E47E
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 18:01:26 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id n12so18258889lfe.1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 10:01:26 -0800 (PST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2DF16E03F
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 22:39:47 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id bi37so19525177lfb.5
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 14:39:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SFDYhbUXRUnl8RVLcdnDyb/qQg3YCf4mUE9v2IePhnw=;
- b=f7j4BJ72YuuZychwEiGmKO/m7G3mDjsdgrIuuofBYW3MaP2ZjzXVQolXyqBTVnNVMQ
- u3yBOGY/VSgjC11xOb74ddG2UZcSOyIKKmPQqj+vkJv/pEOZcfAxpfIPIZEj37e67RmZ
- D4ag/PnG8s+ifpQPStx7HjYS+OCpFpqrkTnpuy1PLLx0GfUlN2yYaAlJt/4ycYrmnfRf
- NZMBwzIThYMFyNe2/J3vKU1b9Jfemf2HWSXJ9IacmckedKcR9DBXcYRGecMyPm2wzzqV
- 9Vs0AArLU8WsER4YXyqjtEgSedcih9jaCMZBTAWXnxobEdODowweYceynD6+cMLDP66E
- z/Qw==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=mJT9UmrAop50weZOiXkTq034qrYD2Z7sYhOghCoxa7U=;
+ b=ER5U62wVTM7pabOVfUgOEfM++HmPnLsIUtJJtK1duTTFNB1CUBpvMyCcuhpZMsBbEy
+ HDXuAH+TvPJQEhC+vUgaGzUkw58buUjEI2O9CCt0xxtv7vOrHYW9/YANe+yqS1ddX/TM
+ Q8P1kvdiJ39A2mU8DxDuMAR2kMMzCJqnmW7fz/HA/VhHW+MrGAy6DqNvtlbrfmgwB/zP
+ g1ZAlfbDH83u1msdS7JMtmReqJpnPPnxyBVraO1oRJmf3HMZZ7UNzNFVuqARNxon5BCc
+ yW7rfhJZTxAMcx9j3NXeT/FyPs9UpLvbzRG0LkK4fVIWdI8Yi8flY+TSl/4vPWx7NUm3
+ VcIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=SFDYhbUXRUnl8RVLcdnDyb/qQg3YCf4mUE9v2IePhnw=;
- b=ZnRZCTT0vFawF0vCOYpWcQ6ip8WUp5w1+FA/dMnCkrbZxNnUbw3LGMnY0okj7+ZWZc
- zrMw47GvtTR5gpVItAtjMu4Aa6l7g+V9G5UEOXwifMupYkBmgmx658YdBFndKLDtRHVt
- AONbv1NJlsMkCn2WIiBeQf3TJdCcjKWa0yr7twlNaDG8zIAn2Rx2bT6sudtTGY1fQKWP
- Xxhy18+LHY0BjPZcMvarDEFUEPB//De3CXBhEHqhcqGJK1G+aRnUYiItp7ywYmvg8LnY
- JB5SDBfORCvLptpHsMKkhC3u3vjWkuHwNp+5KWs4RRSo3LJKXwIBwtDSdRMYzKryKVFq
- FGHw==
-X-Gm-Message-State: AOAM5317PJMxSMpviJZnYO23Ly3O+Jly+U25Yo4gub/6Clp38nLykWbK
- 7Biz3YWRFvwaeKeo8S5dr/TxCg==
-X-Google-Smtp-Source: ABdhPJyRuckOwtMrSjq9tBl3kD1pENn39rAf7gD2GpUQfZ02pkJanj+ft+iPWuiZn0AAMy8mGdvPfA==
-X-Received: by 2002:ac2:5091:: with SMTP id f17mr25393236lfm.206.1637863284691; 
- Thu, 25 Nov 2021 10:01:24 -0800 (PST)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id t22sm286111ljg.83.2021.11.25.10.01.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Nov 2021 10:01:24 -0800 (PST)
+ bh=mJT9UmrAop50weZOiXkTq034qrYD2Z7sYhOghCoxa7U=;
+ b=Ox211RZD+jfy0QsA5QT8AYlPxoKLRPoOmRQH/puZc0s0LxGFDWY+TxNYL6mBa5DTy2
+ /BX5xQkR80LxqpdU8cxshUPMsT2jqBbT/qSzyJc8rCP1pQJEcnRKQwYX+ZZkEqHVeM5S
+ 4Zaswr5RLlbal9MkhRHZUATXVVsasbAbnaXtPiPyBWsimoWdIXkB4ZM2/pmfs3fYp6ZC
+ C+VtH4jgnXrnlhxXeyAmbDBpaIInn1WY79AaDuqZm0vLv4SsL2NlrCcGVwGVsAuupCM+
+ v7T2xH6tVmib1zNbmvWnlSrP/po9tbbTplCAeULkEDCuc258XBjDBokJzGbWiPBgsoJu
+ 3KZQ==
+X-Gm-Message-State: AOAM530ooOeM0IyZXw56Sh9XxtKriF5GgbEiHl/fwwV2d5Bi+u7IouWT
+ eZ/1SqDXWTijoRvW+QrGbRrxeg==
+X-Google-Smtp-Source: ABdhPJzYAsPi7L22JigPExXwwF0ksBTYtm1JieAuKmK3VDJBdWCxiRTSKgcCc7Gpkn2HnnVb4OLLqw==
+X-Received: by 2002:a05:6512:3053:: with SMTP id
+ b19mr26807543lfb.276.1637879985892; 
+ Thu, 25 Nov 2021 14:39:45 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id x5sm332534ljm.101.2021.11.25.14.39.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Nov 2021 14:39:45 -0800 (PST)
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ robdclark@gmail.com
+References: <20211125150947.354076-1-angelogioacchino.delregno@collabora.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu, 25 Nov 2021 21:01:23 +0300
-Message-Id: <20211125180123.561305-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.33.0
+Message-ID: <4e0147b9-6168-6eac-87f3-4d90c8404e3a@linaro.org>
+Date: Fri, 26 Nov 2021 01:39:44 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: fix exception in error path
+In-Reply-To: <20211125150947.354076-1-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize MDSS irq domain at
+ probe time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,90 +74,241 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ jami.kettunen@somainline.org, maxime@cerno.tech, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, kernel@collabora.com, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In case of DPU probe failure, prevent the following NULL pointer
-exception:
+On 25/11/2021 18:09, AngeloGioacchino Del Regno wrote:
+> Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
+> DSI host gets initialized earlier, but this caused unability to probe
+> the entire stack of components because they all depend on interrupts
+> coming from the main `mdss` node (mdp5, or dpu1).
+> 
+> To fix this issue, also anticipate probing mdp5 or dpu1 by initializing
+> them at msm_pdev_probe() time: this will make sure that we add the
+> required interrupt controller mapping before dsi and/or other components
+> try to initialize, finally satisfying the dependency.
+> 
+> While at it, also change the allocation of msm_drm_private to use the
+> devm variant of kzalloc().
+> 
+> Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-[    3.976112] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000030
-[    3.984983] Mem abort info:
-[    3.987800]   ESR = 0x96000004
-[    3.990891]   EC = 0x25: DABT (current EL), IL = 32 bits
-[    3.996251]   SET = 0, FnV = 0
-[    3.996254]   EA = 0, S1PTW = 0
-[    3.996257]   FSC = 0x04: level 0 translation fault
-[    3.996260] Data abort info:
-[    3.996262]   ISV = 0, ISS = 0x00000004
-[    4.005229]   CM = 0, WnR = 0
-[    4.028893] [0000000000000030] user address but active_mm is swapper
-[    4.035305] Internal error: Oops: 96000004 [#1] SMP
-[    4.040223] Modules linked in:
-[    4.043317] CPU: 1 PID: 50 Comm: kworker/u16:2 Not tainted 5.16.0-rc1-00036-g6d4bafcbb015-dirty #166
-[    4.052518] Hardware name: Thundercomm Dragonboard 845c (DT)
-[    4.058224] Workqueue: events_unbound deferred_probe_work_func
-[    4.064105] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[    4.071124] pc : dpu_core_irq_uninstall+0x28/0x100
-[    4.075960] lr : dpu_core_irq_uninstall+0x24/0x100
-[    4.080793] sp : ffff80001057b990
-[    4.084138] x29: ffff80001057b990 x28: ffff7653c0a41c00 x27: ffff7653c0926480
-[    4.091330] x26: ffffb90d5d262ad0 x25: ffff7653c4b2e980 x24: ffff7653c0046080
-[    4.098520] x23: ffff7653c099a810 x22: ffff7653c5a65800 x21: ffff7653c5a65080
-[    4.105711] x20: ffff7653c5a65800 x19: ffff7653c0046080 x18: 0000000000000034
-[    4.112902] x17: 0000000000000038 x16: 0000000000000005 x15: 000000000000000c
-[    4.120095] x14: 000000000000024c x13: ffff7653c2f90358 x12: 0000000000000000
-[    4.127287] x11: ffff7653c2f903b0 x10: 00000000000009c0 x9 : ffff80001057b180
-[    4.134477] x8 : ffff80001057b404 x7 : 0000000000000000 x6 : ffff7653c5a5f190
-[    4.141669] x5 : ffff80001057b890 x4 : 0000000000000000 x3 : ffff7653c5a5f0f4
-[    4.148859] x2 : ffff7653c2f50000 x1 : 0000000000000000 x0 : 0000000000000000
-[    4.156052] Call trace:
-[    4.158525]  dpu_core_irq_uninstall+0x28/0x100
-[    4.163004]  dpu_irq_uninstall+0x10/0x20
-[    4.166963]  msm_drm_uninit.isra.0+0xe0/0x1b0
-[    4.171353]  msm_drm_bind+0x278/0x5f0
-[    4.175043]  try_to_bring_up_master+0x164/0x1d0
-[    4.179610]  __component_add+0xa0/0x170
-[    4.183482]  component_add+0x14/0x20
-[    4.187086]  dsi_dev_probe+0x1c/0x30
-[    4.190691]  platform_probe+0x68/0xe0
-[    4.194382]  really_probe.part.0+0x9c/0x30c
-[    4.198601]  __driver_probe_device+0x98/0x144
-[    4.202990]  driver_probe_device+0x44/0x15c
-[    4.207208]  __device_attach_driver+0xb4/0x120
-[    4.211685]  bus_for_each_drv+0x78/0xd0
-[    4.215549]  __device_attach+0xdc/0x184
-[    4.219412]  device_initial_probe+0x14/0x20
-[    4.223630]  bus_probe_device+0x9c/0xa4
-[    4.227503]  deferred_probe_work_func+0x88/0xc0
-[    4.232075]  process_one_work+0x1e8/0x380
-[    4.236126]  worker_thread+0x280/0x520
-[    4.239902]  kthread+0x168/0x174
-[    4.243166]  ret_from_fork+0x10/0x20
-[    4.246778] Code: f9442400 91004000 940188b9 f9430660 (b9403001)
-[    4.252925] ---[ end trace b470a50cd7b5e606 ]---
+If device is not fully bound (e.g. DSI host could not bind the panel), 
+this patch causes the following oops on reboot:
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
- 1 file changed, 3 insertions(+)
+[   75.011942] Unable to handle kernel NULL pointer dereference at 
+virtual address 0000000000000030
+[   75.020974] Mem abort info:
+[   75.023859]   ESR = 0x96000006
+[   75.027013]   EC = 0x25: DABT (current EL), IL = 32 bits
+[   75.032480]   SET = 0, FnV = 0
+[   75.035627]   EA = 0, S1PTW = 0
+[   75.038861]   FSC = 0x06: level 2 translation fault
+[   75.043876] Data abort info:
+[   75.046847]   ISV = 0, ISS = 0x00000006
+[   75.050796]   CM = 0, WnR = 0
+[   75.053857] user pgtable: 4k pages, 48-bit VAs, pgdp=00000001102b3000
+[   75.060478] [0000000000000030] pgd=080000011035d003, 
+p4d=080000011035d003, pud=080000011035f003, pmd=0000000000000000
+[   75.071380] Internal error: Oops: 96000006 [#1] SMP
+[   75.076388] Modules linked in:
+[   75.079530] CPU: 0 PID: 1442 Comm: reboot Not tainted 
+5.16.0-rc1-00046-g2207fd610cf4-dirty #185
+[   75.088460] Hardware name: Qualcomm Technologies, Inc. Robotics RB5 (DT)
+[   75.095345] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[   75.102496] pc : drm_atomic_state_alloc+0x14/0x74
+[   75.107335] lr : drm_atomic_helper_disable_all+0x20/0x210
+[   75.112885] sp : ffff80001480bb70
+[   75.116298] x29: ffff80001480bb70 x28: ffff0c8753505400 x27: 
+0000000000000000
+[   75.123626] x26: ffff0c874097d890 x25: ffffaa357b610e00 x24: 
+0000000000000000
+[   75.130954] x23: ffffaa357bdaa030 x22: ffffaa357bdfd2d8 x21: 
+ffff80001480bbf8
+[   75.138282] x20: ffff0c87469bd800 x19: ffff0c87469bd800 x18: 
+ffffffffffffffff
+[   75.145608] x17: 000000000000000e x16: 0000000000000001 x15: 
+ffff80009480ba3d
+[   75.152934] x14: 0000000000000004 x13: 0000000000000000 x12: 
+ffff0c87452c1288
+[   75.160261] x11: 0000000000000003 x10: ffff0c87452c1240 x9 : 
+0000000000000001
+[   75.167588] x8 : ffff80001480bc38 x7 : 0000000000000000 x6 : 
+ffff0c874f63d300
+[   75.174914] x5 : 0000000000000000 x4 : ffffaa357b582d30 x3 : 
+0000000000000000
+[   75.182240] x2 : ffff80001480bc20 x1 : 0000000000000000 x0 : 
+ffff0c87469bd800
+[   75.189568] Call trace:
+[   75.192092]  drm_atomic_state_alloc+0x14/0x74
+[   75.196571]  drm_atomic_helper_disable_all+0x20/0x210
+[   75.201765]  drm_atomic_helper_shutdown+0x80/0x130
+[   75.206683]  msm_pdev_shutdown+0x2c/0x40
+[   75.210717]  platform_shutdown+0x28/0x40
+[   75.214751]  device_shutdown+0x15c/0x450
+[   75.218785]  __do_sys_reboot+0x218/0x2a0
+[   75.222819]  __arm64_sys_reboot+0x28/0x34
+[   75.226937]  invoke_syscall+0x48/0x114
+[   75.230794]  el0_svc_common.constprop.0+0xd4/0xfc
+[   75.235626]  do_el0_svc+0x28/0x90
+[   75.239030]  el0_svc+0x28/0x80
+[   75.242174]  el0t_64_sync_handler+0xa4/0x130
+[   75.246567]  el0t_64_sync+0x1a0/0x1a4
+[   75.250338] Code: a9be7bfd 910003fd a90153f3 f9418c01 (f9401821)
+[   75.256599] ---[ end trace d90b41486de58d22 ]---
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index d2b6dca487e3..fc1b6c47c93d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -575,6 +575,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
- {
- 	int i;
- 
-+	if (!dpu_kms->hw_intr)
-+		return;
-+
- 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
- 	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
- 		if (!list_empty(&dpu_kms->hw_intr->irq_cb_tbl[i]))
+
+The following patch fixes it:
+
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 41c6a9f9dd34..5a92417d21d0 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -1435,7 +1435,7 @@ static void msm_pdev_shutdown(struct
+         struct drm_device *drm = platform_get_drvdata(pdev);
+         struct msm_drm_private *priv = drm ? drm->dev_private : NULL;
+
+-       if (!priv || !priv->kms)
++       if (!priv || !priv->kms || !drm->mode_config.funcs)
+                 return;
+
+         drm_atomic_helper_shutdown(drm);
+
+
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c | 81 ++++++++++++++++-------------------
+>   1 file changed, 38 insertions(+), 43 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 7936e8d498dd..790acf4993c0 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -512,45 +512,12 @@ static int msm_init_vram(struct drm_device *dev)
+>   static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> -	struct drm_device *ddev;
+> -	struct msm_drm_private *priv;
+> -	struct msm_kms *kms;
+> -	struct msm_mdss *mdss;
+> +	struct drm_device *ddev = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = ddev->dev_private;
+> +	struct msm_kms *kms = priv->kms;
+> +	struct msm_mdss *mdss = priv->mdss;
+>   	int ret, i;
+>   
+> -	ddev = drm_dev_alloc(drv, dev);
+> -	if (IS_ERR(ddev)) {
+> -		DRM_DEV_ERROR(dev, "failed to allocate drm_device\n");
+> -		return PTR_ERR(ddev);
+> -	}
+> -
+> -	platform_set_drvdata(pdev, ddev);
+> -
+> -	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
+> -	if (!priv) {
+> -		ret = -ENOMEM;
+> -		goto err_put_drm_dev;
+> -	}
+> -
+> -	ddev->dev_private = priv;
+> -	priv->dev = ddev;
+> -
+> -	switch (get_mdp_ver(pdev)) {
+> -	case KMS_MDP5:
+> -		ret = mdp5_mdss_init(ddev);
+> -		break;
+> -	case KMS_DPU:
+> -		ret = dpu_mdss_init(ddev);
+> -		break;
+> -	default:
+> -		ret = 0;
+> -		break;
+> -	}
+> -	if (ret)
+> -		goto err_free_priv;
+> -
+> -	mdss = priv->mdss;
+> -
+>   	priv->wq = alloc_ordered_workqueue("msm", 0);
+>   	priv->hangcheck_period = DRM_MSM_HANGCHECK_DEFAULT_PERIOD;
+>   
+> @@ -685,11 +652,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   err_destroy_mdss:
+>   	if (mdss && mdss->funcs)
+>   		mdss->funcs->destroy(ddev);
+> -err_free_priv:
+> -	kfree(priv);
+> -err_put_drm_dev:
+> -	drm_dev_put(ddev);
+> -	platform_set_drvdata(pdev, NULL);
+>   	return ret;
+>   }
+>   
+> @@ -1382,12 +1344,42 @@ static const struct component_master_ops msm_drm_ops = {
+>   static int msm_pdev_probe(struct platform_device *pdev)
+>   {
+>   	struct component_match *match = NULL;
+> +	struct msm_drm_private *priv;
+> +	struct drm_device *ddev;
+>   	int ret;
+>   
+> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	ddev = drm_dev_alloc(&msm_driver, &pdev->dev);
+> +	if (IS_ERR(ddev)) {
+> +		DRM_DEV_ERROR(&pdev->dev, "failed to allocate drm_device\n");
+> +		return PTR_ERR(ddev);
+> +	}
+> +
+> +	platform_set_drvdata(pdev, ddev);
+> +	ddev->dev_private = priv;
+> +	priv->dev = ddev;
+> +
+> +	switch (get_mdp_ver(pdev)) {
+> +	case KMS_MDP5:
+> +		ret = mdp5_mdss_init(ddev);
+> +		break;
+> +	case KMS_DPU:
+> +		ret = dpu_mdss_init(ddev);
+> +		break;
+> +	default:
+> +		ret = 0;
+> +		break;
+> +	}
+> +	if (ret)
+> +		goto err_put_drm_dev;
+> +
+>   	if (get_mdp_ver(pdev)) {
+>   		ret = add_display_components(pdev, &match);
+>   		if (ret)
+> -			return ret;
+> +			goto fail;
+>   	}
+>   
+>   	ret = add_gpu_components(&pdev->dev, &match);
+> @@ -1409,6 +1401,9 @@ static int msm_pdev_probe(struct platform_device *pdev)
+>   
+>   fail:
+>   	of_platform_depopulate(&pdev->dev);
+> +err_put_drm_dev:
+> +	drm_dev_put(ddev);
+> +	platform_set_drvdata(pdev, NULL);
+>   	return ret;
+>   }
+>   
+> 
+
+
 -- 
-2.33.0
-
+With best wishes
+Dmitry
