@@ -1,71 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585F745DAC8
-	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 14:13:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8318345DAD2
+	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 14:18:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D294C6E911;
-	Thu, 25 Nov 2021 13:13:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B63B6E5CC;
+	Thu, 25 Nov 2021 13:18:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9365D6E93E
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 13:13:52 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id c32so16295556lfv.4
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 05:13:52 -0800 (PST)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69E306E5CC
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 13:18:37 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id 207so12414169ljf.10
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 05:18:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=cxPtdSVDRQX5bqi7JizAtmVow9MuQt/W0D86xbTHGHQ=;
- b=VHFWU0HYMzvIxYMMX3dUUCfFvp1Dj5ccaIlW85NX9C/BbApzELtGk5xLBSEWp8gRzK
- IlK0h/kr6xE0Ha4Myz889IVOFWWUa3K/Pfun2Z+m88D/UYV6wIErEHnsbRdV1LMx0QJ2
- TbxCLA1qnBrufa0NPu7FXqbgRkdfomtB/4g0vOa6k4TOMLLPgu2FxY8l4oeUrM7Ved26
- lUNgcQgpa+/iiyT2ln5Oz3DYg5p1bmuI7puKXrsn8r87aPQzK7xG38XULxjrX/dLs+XQ
- PuAdERBk0ATidB+j8eyJcf4vj4zZIN3NcAQnz4KgmNb58vEYIsqD8Nm2rXJ7wjl8Iyik
- iM4Q==
+ bh=7XBFggeh8IckItnr2Q57d0Mkoh9xBKhCLWH6EgGBPIo=;
+ b=F0/ENKSmCv+SLaHXwzi0TugpqOvK2WTxkl+OGniIMywaJRz/GiNmXQP56IjV4S4f3I
+ bUzwpfIeDw8BzrnYDfyoe/T8n5eNXqmSKeQpHz149MP2CLQzto9BOTOLAghj2IOXiJ82
+ Et2VC9w1t8/he3CJZCUp9TGPR5V2pGF2UxByJnekM+FT2N1x82oSb284g9t/xTxLJF1Q
+ /X0np7y+e5cNAcgRvcUvlzpzljsOsLkwFHcTuL/J8rtVz9SSaBu6dBww7qB/e9aYHd/z
+ 0C9cUlvfEEj4h/VujjyV3n9CXdBSCzvDHU57QwyUk1vw/jGZOPtEqoMz9dEgRrTDdxL4
+ bVVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=cxPtdSVDRQX5bqi7JizAtmVow9MuQt/W0D86xbTHGHQ=;
- b=b6cEa9uRnCOxpOUpTVXY5bdHl709dnv+mC9IsvJSvWlHK7PE0xQG53vHEIGb1CxZ85
- 5tOglInIKze8zBsyUNmG21A1B+5QgmgK2+2ee0BQrlug5iyFbLYdo0BqzsDr4I0xFOLT
- IPvGJT4QaJPZVU1HSd/B18tlyroZz3CET9GSWnLlBrg5Rsc2XP/1jhKmdJ8sJ38x9meC
- /dgtkieYUWBK3Shg2aR1e8Iboc8NX4pY0Q3Lqs5BU3fs9O1nAw0+gpZURGJ0iPdMTP2T
- OiMj54bYlzeZyqBwmW2jX5xbfoN+pb3//bsf8KQdS02O0OhvyAaK/ALMSo3Ct8jzmJ4X
- wxxQ==
-X-Gm-Message-State: AOAM530+z+MvteH827UN84idcdV46FOFFkeKxevY50pYPf2UWlHn62wa
- RHeKpN2j5oyaamXDppEy47IKa3i06wI9NA==
-X-Google-Smtp-Source: ABdhPJyCGINht0MOg86lGl3cZMWh2pafYvGATuji6Z/rHNAQ59rwn50dOf0aPTgI9Y1weyorvVWkEQ==
-X-Received: by 2002:a05:6512:104f:: with SMTP id
- c15mr23781125lfb.256.1637846030798; 
- Thu, 25 Nov 2021 05:13:50 -0800 (PST)
+ bh=7XBFggeh8IckItnr2Q57d0Mkoh9xBKhCLWH6EgGBPIo=;
+ b=SFArwGiYR02ZfXWnuNkKBlfYew42H06kGYNPGdnRTfmXQaf/Ugr+uZbzVU+PTyslcN
+ BIWw2JijT/f6dYWP9QQblqlNlWuTUAoe1K3Aq9mt+xescULOhyPxhcxgNPq1Lf6nIhi3
+ vPHPPUNTFESM7enCsW+BKKfBzAK6xXef0v6BNbDZfNGZq1/bnDuq9njUReNqPKyH9EuR
+ QIfmuxzD2880YGauajlVl25B57t6S2VzwJHFh+VvmAgOOKdHXhO6dqVxc+YEPz8QKeRT
+ b9jS53ezxt3/itl0k1e7UeG+x4FFcC4enVf0KflMIoV452B1SiCoGur/wiGeC+kJAkIZ
+ YE1g==
+X-Gm-Message-State: AOAM53125yzhnn9limBJ1OTk6ASNjwTlexZ4s1b8cJwrllRDcHzljCQf
+ UYEWPY4rmmAhppFqHJ8M0xx5KQ==
+X-Google-Smtp-Source: ABdhPJz7os6YWpibVr7fl1dw2tPzTi3TG/9iIcoH5iXzKc1nYBgzFGeZa1zp0jk73DVdpbBUf9eO7A==
+X-Received: by 2002:a05:651c:4ca:: with SMTP id
+ e10mr23996491lji.101.1637846315621; 
+ Thu, 25 Nov 2021 05:18:35 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id e11sm262053lfq.65.2021.11.25.05.13.50
+ by smtp.gmail.com with ESMTPSA id k15sm260906lfo.239.2021.11.25.05.18.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 05:13:50 -0800 (PST)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Kalyan Thota <kalyan_t@codeaurora.org>, Kuogee Hsieh <khsieh@codeaurora.org>
-References: <20211016221843.2167329-1-bjorn.andersson@linaro.org>
- <20211016221843.2167329-8-bjorn.andersson@linaro.org>
+ Thu, 25 Nov 2021 05:18:35 -0800 (PST)
+To: Jessica Zhang <jesszhan@codeaurora.org>, freedreno@lists.freedesktop.org
+References: <20211020183837.959-1-jesszhan@codeaurora.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <ce19f893-d805-1285-4bc2-445853498006@linaro.org>
-Date: Thu, 25 Nov 2021 16:13:49 +0300
+Message-ID: <c2ca794c-ae89-f018-1476-447bf4b2aba9@linaro.org>
+Date: Thu, 25 Nov 2021 16:18:34 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20211016221843.2167329-8-bjorn.andersson@linaro.org>
+In-Reply-To: <20211020183837.959-1-jesszhan@codeaurora.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 7/7] drm/msm/dp: Add sc8180x DP
- controllers
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix potential NULL dereference in
+ DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,79 +73,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Herring <robh+dt@kernel.org>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, abhinavk@codeaurora.org,
+ nganji@codeaurora.org, dri-devel@lists.freedesktop.org,
+ aravindh@codeaurora.org, dan.carpenter@oracle.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/10/2021 01:18, Bjorn Andersson wrote:
-> The sc8180x has 2 DP and 1 eDP controllers, add support for these to the
-> DP driver.
+On 20/10/2021 21:38, Jessica Zhang wrote:
+> Add NULL checks in KMS CRTC funcs to avoid potential NULL
+> dereference.
 > 
-> Link: https://lore.kernel.org/linux-arm-msm/20210725042436.3967173-7-bjorn.andersson@linaro.org/
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
 
-It seems that SC8180x DPU support was never merged (because of 
-hw_interrupt rework, because of hw_catalog TODOs and FIXMEs). Could you 
-please post new iteration of that patchset, squashing this one into it?
+I believe that single Fixes is incorrect here. For example snapshot 
+support was added later. I'd suggest to split the patch and provide 
+correct Fixes tags.
 
-
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Jessica Zhang <jesszhan@codeaurora.org>
 > ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c      | 8 ++++++++
+
+No such file.
+
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c          | 5 +++++
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c        | 3 +++
+>   drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 3 +++
+>   drivers/gpu/drm/msm/msm_gpu.c                     | 3 +++
+>   5 files changed, 22 insertions(+)
 > 
-> Changes since v4:
-> - Use the MSM_DP_CONTROLLER_n enums
-> - const the msm_dp_desc array
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  6 +++---
->   drivers/gpu/drm/msm/dp/dp_display.c            | 11 +++++++++++
->   2 files changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index 47d5d71eb5d3..0ac6a79e8af9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -918,13 +918,13 @@ static const struct dpu_intf_cfg sc7280_intf[] = {
->   };
->   
->   static const struct dpu_intf_cfg sc8180x_intf[] = {
-> -	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
-> +	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
->   	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
->   	INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
->   	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
->   	INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
-> -	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
-> -	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
-> +	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
-> +	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, MSM_DP_CONTROLLER_2, 24, INTF_SC8180X_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
->   };
->   
->   /*************************************************************
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index d3c9d7273354..70dcd4e6d466 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -135,8 +135,19 @@ static const struct msm_dp_config sc7180_dp_cfg = {
->   	.num_descs = 1,
->   };
->   
-> +static const struct msm_dp_config sc8180x_dp_cfg = {
-> +	.descs = (const struct msm_dp_desc[]) {
-> +		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +		[MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +		[MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
-> +	},
-> +	.num_descs = 3,
-> +};
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> index d2457490930b..53d80572181e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.c
+> @@ -208,8 +208,16 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
+>   	dpu_kms->irq_obj.total_irqs = dpu_kms->hw_intr->total_irqs;
+>   	dpu_kms->irq_obj.irq_cb_tbl = kcalloc(dpu_kms->irq_obj.total_irqs,
+>   			sizeof(struct list_head), GFP_KERNEL);
 > +
->   static const struct of_device_id dp_dt_match[] = {
->   	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
-> +	{ .compatible = "qcom,sc8180x-dp", .data = &sc8180x_dp_cfg },
-> +	{ .compatible = "qcom,sc8180x-edp", .data = &sc8180x_dp_cfg },
->   	{}
->   };
+> +	if (!dpu_kms->irq_obj.irq_cb_tbl)
+> +		return;
+> +
+>   	dpu_kms->irq_obj.irq_counts = kcalloc(dpu_kms->irq_obj.total_irqs,
+>   			sizeof(atomic_t), GFP_KERNEL);
+> +
+> +	if (!dpu_kms->irq_obj.irq_counts)
+> +		return;
+> +
+>   	for (i = 0; i < dpu_kms->irq_obj.total_irqs; i++) {
+>   		INIT_LIST_HEAD(&dpu_kms->irq_obj.irq_cb_tbl[i]);
+>   		atomic_set(&dpu_kms->irq_obj.irq_counts[i], 0);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 768012243b44..0a1cad0cfcc0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -921,6 +921,11 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
 >   
+>   	pstates = kzalloc(sizeof(*pstates) * DPU_STAGE_MAX * 4, GFP_KERNEL);
+>   
+> +	if (!pstates) {
+> +		rc = -ENOMEM;
+> +		goto end;
+> +	}
+> +
+>   	if (!crtc_state->enable || !crtc_state->active) {
+>   		DRM_DEBUG_ATOMIC("crtc%d -> enable %d, active %d, skip atomic_check\n",
+>   				crtc->base.id, crtc_state->enable,
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> index c6b69afcbac8..09751b480db5 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> @@ -92,6 +92,9 @@ static void mdp5_plane_reset(struct drm_plane *plane)
+>   	kfree(to_mdp5_plane_state(plane->state));
+>   	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
+>   
+> +	if (!mdp5_state)
+> +		return;
+> +
+>   	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+>   		mdp5_state->base.zpos = STAGE_BASE;
+>   	else
+> diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
+> index cabe15190ec1..71e209d07120 100644
+> --- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
+> +++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
+> @@ -170,6 +170,9 @@ void msm_disp_snapshot_add_block(struct msm_disp_state *disp_state, u32 len,
+>   
+>   	new_blk = kzalloc(sizeof(struct msm_disp_state_block), GFP_KERNEL);
+>   
+> +	if (!new_blk)
+> +		return;
+> +
+>   	va_start(va, fmt);
+>   
+>   	vaf.fmt = fmt;
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index 8a3a592da3a4..ddd23f3a4a99 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -296,6 +296,9 @@ static void msm_gpu_crashstate_capture(struct msm_gpu *gpu,
+>   		state->bos = kcalloc(nr,
+>   			sizeof(struct msm_gpu_state_bo), GFP_KERNEL);
+>   
+> +		if (!state->bos)
+> +			return;
+> +
+>   		for (i = 0; i < submit->nr_bos; i++) {
+>   			if (should_dump(submit, i)) {
+>   				msm_gpu_crashstate_get_bo(state, submit->bos[i].obj,
 > 
 
 
