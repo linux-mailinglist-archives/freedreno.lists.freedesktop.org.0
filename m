@@ -2,84 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59FC845DB10
-	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 14:26:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 424DF45DCF4
+	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 16:10:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F5CA6EE1D;
-	Thu, 25 Nov 2021 13:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5903F6E4C1;
+	Thu, 25 Nov 2021 15:10:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 376C46EE1A
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 13:26:55 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id d11so12460314ljg.8
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 05:26:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=Gxl3XvhS3jy/Vg4tNUDSLVXMW/QY1KlnmAlTBNyzUmw=;
- b=Z0idp8uhQ9AsUuYWi2RnXFNxiSFeD/SgsFtNGz10ZBJzP7SsQtNgnkZLl/0Yq6zw88
- ZtfWmpPkursnohrG1+gdmVYyX+4ItJgd/a3eYJ8N668kcslwO1r1ZELpeljaLyoGtHT3
- ONQcpMAQhkdGCAiAKUqSzvyYfmJqCUR8U2VdpKiSaK3DNepZx5z6BX2s2ozokIcJIZeR
- 9zG5NwH6IbCEJ6xEGZrbe3YkP7d9J3sLxLtwUNLhKBX2vF21orTi+1TKC0oNNfK2T4K5
- F+QSOhdkG7MyzKuaVEkIkoA83s5Na6NAXGf2NjKR90pY8sDx13MpmxC9g4RebyrmUKsy
- 5moA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Gxl3XvhS3jy/Vg4tNUDSLVXMW/QY1KlnmAlTBNyzUmw=;
- b=zaM4YWTzN/EW2WaDrhbem3HiXsSkiSiuWqpuJ9+7oHQwWnQ2Xo8vEtm1nrHGi7EDIv
- kt10YGqj+KefrkEH7VyEmbwwOrFtiz0QtvpdCX3YUnZyGPRPRdMlD5LXuVvmADqmD2CH
- 5x1jTWOrJVjkMUM70lDGL2ZiAgBOlPCQ7l0gtTiDZML8fa75ZUUDqCl+r/xNatUVxWn0
- MzrHr3DJV8tQl6PxIkC/r1Gbv8X4gET87uZV5MZj0l2knkUw0/qP/B16N2LFRPDeHizL
- 7N/ETHtgm9K+avXmm0Z6SXOBExrZ+Ljr2MtZ/ulfcO+RgthB8XmbQM2ZIUV0xDNEFGT5
- DuSg==
-X-Gm-Message-State: AOAM53049a2VOVZ844yG2dbTXo0/xbIdtGiRsgwhhmAdFnwVR92jfO3d
- VJNz9i3f/qJj/mdFSHZhJ5OLXQ==
-X-Google-Smtp-Source: ABdhPJzk0rkyZtS6FTgYDoC1LTJrxi0JVWAKHJVNqgGa3UJSxIleCmDGIlTtkxqSRMXBy9YzDuv34g==
-X-Received: by 2002:a2e:9a05:: with SMTP id o5mr24471640lji.488.1637846813476; 
- Thu, 25 Nov 2021 05:26:53 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id k14sm229478ljk.57.2021.11.25.05.26.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 05:26:53 -0800 (PST)
-To: Claudio Suarez <cssk@net-c.es>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Emma Anholt <emma@anholt.net>,
- Maxime Ripard <mripard@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Chen-Yu Tsai <wens@csie.org>,
- Sandy Huang <hjc@rock-chips.com>, heiko@sntech.de,
- Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, ville.syrjala@linux.intel.com
-References: <20211016184226.3862-1-cssk@net-c.es>
- <20211016184226.3862-8-cssk@net-c.es>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <32c14b83-c5ee-1690-525d-8cf3d02a2394@linaro.org>
-Date: Thu, 25 Nov 2021 16:26:51 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107E26E4B3;
+ Thu, 25 Nov 2021 15:10:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 069CB1F45900
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
+ t=1637852996; bh=Rv1jRLcowZm99hT/zu7+THzcYVzW6fHVM8XmlXMUXeY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=LQpcwBkI3xvrvAEDTnF5OywjJ/5S04v2FtMZ/nP1dB+EyqJMMwZEQzU698tKJ8gIG
+ 9RijVStBQR3JTbfa6GpyWK9qV/eP90PvJ5VTdpzQgG2i8UyPaMnKn+czqYa+J/rWWO
+ f4y0EAGaNwYk/Xvgd+EnH96LDpx3OYdtzWixWYneDMhvAxP61GLJt+dcxAs3URpTob
+ fWxkLy0IOYAQxSMC/TA+b8LmnYjwbK0rFHUjejd6o7afLKzUtX2p4U9llYYNbAloKp
+ 9UZ3kfRbfhIPupkNIlmejdp7hdnEQxi+2W4CXRyER2WcEiMSjyWQJYS3vgUmf+k7zW
+ KzblCYInOGydQ==
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: robdclark@gmail.com
+Date: Thu, 25 Nov 2021 16:09:47 +0100
+Message-Id: <20211125150947.354076-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-In-Reply-To: <20211016184226.3862-8-cssk@net-c.es>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 07/13] drm/msm: replace
- drm_detect_hdmi_monitor() with drm_display_info.is_hdmi
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Initialize MDSS irq domain at probe
+ time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,40 +45,154 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ jami.kettunen@somainline.org, maxime@cerno.tech, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, kernel@collabora.com, sean@poorly.run,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/10/2021 21:42, Claudio Suarez wrote:
-> Once EDID is parsed, the monitor HDMI support information is available
-> through drm_display_info.is_hdmi. Retriving the same information with
-> drm_detect_hdmi_monitor() is less efficient. Change to
-> drm_display_info.is_hdmi
-> 
-> Signed-off-by: Claudio Suarez <cssk@net-c.es>
+Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
+DSI host gets initialized earlier, but this caused unability to probe
+the entire stack of components because they all depend on interrupts
+coming from the main `mdss` node (mdp5, or dpu1).
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To fix this issue, also anticipate probing mdp5 or dpu1 by initializing
+them at msm_pdev_probe() time: this will make sure that we add the
+required interrupt controller mapping before dsi and/or other components
+try to initialize, finally satisfying the dependency.
 
-> ---
->   drivers/gpu/drm/msm/hdmi/hdmi_connector.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
-> index 58707a1f3878..07585092f919 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_connector.c
-> @@ -364,8 +364,8 @@ static int msm_hdmi_connector_get_modes(struct drm_connector *connector)
->   
->   	hdmi_write(hdmi, REG_HDMI_CTRL, hdmi_ctrl);
->   
-> -	hdmi->hdmi_mode = drm_detect_hdmi_monitor(edid);
->   	drm_connector_update_edid_property(connector, edid);
-> +	hdmi->hdmi_mode = connector->display_info.is_hdmi;
->   
->   	if (edid) {
->   		ret = drm_add_edid_modes(connector, edid);
-> 
+While at it, also change the allocation of msm_drm_private to use the
+devm variant of kzalloc().
 
+Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 81 ++++++++++++++++-------------------
+ 1 file changed, 38 insertions(+), 43 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 7936e8d498dd..790acf4993c0 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -512,45 +512,12 @@ static int msm_init_vram(struct drm_device *dev)
+ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
+-	struct drm_device *ddev;
+-	struct msm_drm_private *priv;
+-	struct msm_kms *kms;
+-	struct msm_mdss *mdss;
++	struct drm_device *ddev = platform_get_drvdata(pdev);
++	struct msm_drm_private *priv = ddev->dev_private;
++	struct msm_kms *kms = priv->kms;
++	struct msm_mdss *mdss = priv->mdss;
+ 	int ret, i;
+ 
+-	ddev = drm_dev_alloc(drv, dev);
+-	if (IS_ERR(ddev)) {
+-		DRM_DEV_ERROR(dev, "failed to allocate drm_device\n");
+-		return PTR_ERR(ddev);
+-	}
+-
+-	platform_set_drvdata(pdev, ddev);
+-
+-	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
+-	if (!priv) {
+-		ret = -ENOMEM;
+-		goto err_put_drm_dev;
+-	}
+-
+-	ddev->dev_private = priv;
+-	priv->dev = ddev;
+-
+-	switch (get_mdp_ver(pdev)) {
+-	case KMS_MDP5:
+-		ret = mdp5_mdss_init(ddev);
+-		break;
+-	case KMS_DPU:
+-		ret = dpu_mdss_init(ddev);
+-		break;
+-	default:
+-		ret = 0;
+-		break;
+-	}
+-	if (ret)
+-		goto err_free_priv;
+-
+-	mdss = priv->mdss;
+-
+ 	priv->wq = alloc_ordered_workqueue("msm", 0);
+ 	priv->hangcheck_period = DRM_MSM_HANGCHECK_DEFAULT_PERIOD;
+ 
+@@ -685,11 +652,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ err_destroy_mdss:
+ 	if (mdss && mdss->funcs)
+ 		mdss->funcs->destroy(ddev);
+-err_free_priv:
+-	kfree(priv);
+-err_put_drm_dev:
+-	drm_dev_put(ddev);
+-	platform_set_drvdata(pdev, NULL);
+ 	return ret;
+ }
+ 
+@@ -1382,12 +1344,42 @@ static const struct component_master_ops msm_drm_ops = {
+ static int msm_pdev_probe(struct platform_device *pdev)
+ {
+ 	struct component_match *match = NULL;
++	struct msm_drm_private *priv;
++	struct drm_device *ddev;
+ 	int ret;
+ 
++	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	ddev = drm_dev_alloc(&msm_driver, &pdev->dev);
++	if (IS_ERR(ddev)) {
++		DRM_DEV_ERROR(&pdev->dev, "failed to allocate drm_device\n");
++		return PTR_ERR(ddev);
++	}
++
++	platform_set_drvdata(pdev, ddev);
++	ddev->dev_private = priv;
++	priv->dev = ddev;
++
++	switch (get_mdp_ver(pdev)) {
++	case KMS_MDP5:
++		ret = mdp5_mdss_init(ddev);
++		break;
++	case KMS_DPU:
++		ret = dpu_mdss_init(ddev);
++		break;
++	default:
++		ret = 0;
++		break;
++	}
++	if (ret)
++		goto err_put_drm_dev;
++
+ 	if (get_mdp_ver(pdev)) {
+ 		ret = add_display_components(pdev, &match);
+ 		if (ret)
+-			return ret;
++			goto fail;
+ 	}
+ 
+ 	ret = add_gpu_components(&pdev->dev, &match);
+@@ -1409,6 +1401,9 @@ static int msm_pdev_probe(struct platform_device *pdev)
+ 
+ fail:
+ 	of_platform_depopulate(&pdev->dev);
++err_put_drm_dev:
++	drm_dev_put(ddev);
++	platform_set_drvdata(pdev, NULL);
+ 	return ret;
+ }
+ 
 -- 
-With best wishes
-Dmitry
+2.33.1
+
