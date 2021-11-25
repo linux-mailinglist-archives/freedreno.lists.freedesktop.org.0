@@ -2,65 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA6045D95F
-	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 12:39:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3F945D993
+	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 12:53:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2FA6E9E6;
-	Thu, 25 Nov 2021 11:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1606E949;
+	Thu, 25 Nov 2021 11:53:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
  [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6CD6E9A2
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 11:39:08 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id t26so15563197lfk.9
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 03:39:08 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49CAF6E973
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 11:53:46 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id t26so15662456lfk.9
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 03:53:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=QQHaD9Txbs+YqnVFTQVUah9dRuHXv52COwlrZP0qSXA=;
- b=Q9MZsBn9M6sfe4zNLAumUeRG31c3T58WM1qgrRkMxZvPi0HVLMHruCd+DUVxA2YRMn
- A1c7q6QRGSvPLhVNUr+zLWFJ263bLNEYVeSwI2p1p8EjDixpgR3zbmaS02sIL6q6FAP9
- Ns3qFlU6iAlhPcDSrqpJmneiqw+wsbfud3qleFDBGVfTVX+cQfK5cx9J4/GxspqJMFLt
- RVG8R1ySmvyy3LRTlLHajNm4jIoBQher3c5JOJt1wTGWS1W7qWbdgF8ojX86sbO1jXF0
- +O081hT3yldBAavYUtzp5WCwGjUW/g+jqlh49G8ADgFf5b++U3nQmzIILHhj/GjH8gDW
- +zMA==
+ bh=6lxqjduOQsYJ4wgkh2NWvC8MrkYVQVCzgFR0CAGA8Ww=;
+ b=sUGZIk9K0mM1wk5DOXHNsUlYXDpofTH1LP1GKIheRdkDgaVf83g6av3Ac84p0o4ujT
+ rRrvUUt44GLZX3qs8T1eeLJuI0R1J70X5XJxf3PdEDmEtvRBhjmUkz1Ke5/Uv+hd5mBD
+ waYXhJ2+R+JIHyamskFUcUU/nHujaEtAzHo2fc3uIufdiI4vjvKlkvfxal7dTlzDdza2
+ E8jL16sJksSHNw+hE2nDNIFwZmScZgX5f+QOkrkI5Ib2k0BnXospPoLiJYazM0pnPpKw
+ ossadcE0kNb9JmWjoze4+bOH9MnOAR1wFiAmAWvNQ7j05u5/Y6u/HZly9PVz97NVgQa6
+ gLEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=QQHaD9Txbs+YqnVFTQVUah9dRuHXv52COwlrZP0qSXA=;
- b=xjRmMeHxtjFed+t2OAMZXB1Y5WsdoMulwhJ+mJbIKNQY71l9N652fewiIuGh0tfB5h
- xED81rAuRpe7PWxa3H4n/SYZ2ofNm07fYKflK6xNHf0DH0fq2zDGUS4YpUUWeG4cHiQL
- EXLyvIILCuUM4YAzsgxzPwNACJ+pJeH/DfhrQTiqcYo9aoHwPRQjKySBDywfQTp9iJnE
- ZY2bLjdO7wf6i0mhsubFv2xIFjB0ksmZ0In7vzHVjgUIUrjYiZOaTVwd7CeWh9cOMvMy
- 6XCHnZGTUid6IpkNy8fMiNO2bkdKi8mhM1mr/66ne2rIiH/wyTeptiF5yfFnlEo3vOTD
- DvtA==
-X-Gm-Message-State: AOAM533t4zJOcSBHukOjCBY/tSgUAW2TZVWEvjk+PIqUxFqIm4GHS3rM
- 5G697rtFp86oz/rkm4gpmRZwZg==
-X-Google-Smtp-Source: ABdhPJzlG30kK4JbRdw/TaSOXXDqNQj9vIewf6GaWsy2uQD/hxhmzBejbbNG+maY/xnuolKOKq+1qw==
-X-Received: by 2002:ac2:4aca:: with SMTP id m10mr23035513lfp.437.1637840346426; 
- Thu, 25 Nov 2021 03:39:06 -0800 (PST)
+ bh=6lxqjduOQsYJ4wgkh2NWvC8MrkYVQVCzgFR0CAGA8Ww=;
+ b=DPmgYO5WY+QQcVtAlZyzrUhLuI8VSQwnPCcxpnxt2YVg7GpZgBhjStc5YML4gunCNd
+ yB1tY2+n8cCNv4xjSdvQzMm85igp1+TWL4fcjrNYGbB0nCtsmA1llUKVua7BDOxBzCXd
+ YrYw31XianBapFsoJDEUfmx+3yoTFDORJfeKQUGzJ1hMeKP18LpkI6ihvPIsb210NFE2
+ ADRDYvYkiJc1ykjp2XvlRuVHeGi6xPgvyfjltOMmnEoFqqCIsX8NmZHKA+O2v3y2j5gA
+ XGxzeqqADUF4wdc86g+7tgYSap0chmgKpbGeq+AlYqVQ+NNn+g4wabjmp3QrlYi34AQ6
+ i5xQ==
+X-Gm-Message-State: AOAM532BcodrVo4CvMcHWrNVV8cmxVwC+DTRg7qwVvWHXdiU8zrgDqRc
+ JZc77JY+Z6snRQyr4YHRFmAo1g==
+X-Google-Smtp-Source: ABdhPJzymMghDkNOoD4FkGfhSdZUue3ZBbWuy26eOuzMCx56yiodyEaYBxQMs6t3+CqcVM8TjEaC0Q==
+X-Received: by 2002:a05:6512:3a8d:: with SMTP id
+ q13mr21969447lfu.73.1637841224624; 
+ Thu, 25 Nov 2021 03:53:44 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id h20sm241601lfv.248.2021.11.25.03.39.05
+ by smtp.gmail.com with ESMTPSA id u23sm219901lji.56.2021.11.25.03.53.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 03:39:06 -0800 (PST)
-To: Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org
-References: <1628699407-28358-1-git-send-email-khsieh@codeaurora.org>
+ Thu, 25 Nov 2021 03:53:44 -0800 (PST)
+To: Rob Herring <robh@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+References: <20210901181138.1052653-1-angelogioacchino.delregno@somainline.org>
+ <20210901181138.1052653-3-angelogioacchino.delregno@somainline.org>
+ <YTexaJuQSNazh9sn@robh.at.kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <efe700b3-9e08-10fa-405f-bc608f617407@linaro.org>
-Date: Thu, 25 Nov 2021 14:39:05 +0300
+Message-ID: <d9ad36f5-1913-2cb3-d4be-125ed2d29041@linaro.org>
+Date: Thu, 25 Nov 2021 14:53:43 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <1628699407-28358-1-git-send-email-khsieh@codeaurora.org>
+In-Reply-To: <YTexaJuQSNazh9sn@robh.at.kernel.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 0/6] add fixes to pass DP Link Layer
- compliance test cases
+Subject: Re: [Freedreno] [PATCH 3/3] dt-bindings: display: msm: Add binding
+ for msm8998 dpu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,34 +76,263 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- abhinavk@codeaurora.org, daniel@ffwll.ch, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ paul.bouchara@somainline.org, robdclark@gmail.com, martin.botka@somainline.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, phone-devel@vger.kernel.org, sean@poorly.run,
+ ~postmarketos/upstreaming@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/08/2021 19:30, Kuogee Hsieh wrote:
-> drm/msm/dp: add fixes to pass DP Link Layer compliance test cases
+On 07/09/2021 21:37, Rob Herring wrote:
+> On Wed, Sep 01, 2021 at 08:11:38PM +0200, AngeloGioacchino Del Regno wrote:
+>> Add yaml binding for msm8998 dpu1 support.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+>> ---
+>>   .../bindings/display/msm/dpu-msm8998.yaml     | 220 ++++++++++++++++++
+>>   1 file changed, 220 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+>> new file mode 100644
+>> index 000000000000..db435342ecbf
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+>> @@ -0,0 +1,220 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only or BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/dpu-msm8998.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Display DPU dt properties for MSM8998 target
+>> +
+>> +maintainers:
+>> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+>> +
+>> +description: |
+>> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
+>> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
+>> +  bindings of MDSS and DPU are mentioned for MSM8998 target.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: qcom,msm8998-mdss
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  reg-names:
+>> +    const: mdss
+>> +
+>> +  power-domains:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: Display AHB clock
+>> +      - description: Display AXI clock
+>> +      - description: Display core clock
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: iface
+>> +      - const: bus
+>> +      - const: core
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  interrupt-controller: true
+>> +
+>> +  "#address-cells": true
+>> +
+>> +  "#size-cells": true
+>> +
+>> +  "#interrupt-cells":
+>> +    const: 1
+>> +
+>> +  iommus:
+>> +    items:
+>> +      - description: Phandle to apps_smmu node with SID mask for Hard-Fail port0
+>> +
+>> +  ranges: true
+>> +
+>> +patternProperties:
+>> +  "^display-controller@[0-9a-f]+$":
+>> +    type: object
+>> +    description: Node containing the properties of DPU.
+>> +
+>> +    properties:
+>> +      compatible:
+>> +        items:
+>> +          - const: qcom,msm8998-dpu
+>> +
+>> +      reg:
+>> +        items:
+>> +          - description: Address offset and size for mdp register set
+>> +          - description: Address offset and size for regdma register set
+>> +          - description: Address offset and size for vbif register set
+>> +          - description: Address offset and size for non-realtime vbif register set
+>> +
+>> +      reg-names:
+>> +        items:
+>> +          - const: mdp
+>> +          - const: regdma
+>> +          - const: vbif
+>> +          - const: vbif_nrt
+>> +
+>> +      clocks:
+>> +        items:
+>> +          - description: Display ahb clock
+>> +          - description: Display axi clock
+>> +          - description: Display mem-noc clock
+>> +          - description: Display core clock
+>> +          - description: Display vsync clock
+>> +
+>> +      clock-names:
+>> +        items:
+>> +          - const: iface
+>> +          - const: bus
+>> +          - const: mnoc
+>> +          - const: core
+>> +          - const: vsync
+>> +
+>> +      interrupts:
+>> +        maxItems: 1
+>> +
+>> +      power-domains:
+>> +        maxItems: 1
+>> +
+>> +      operating-points-v2: true
+>> +      ports:
+>> +        $ref: /schemas/graph.yaml#/properties/ports
+>> +        description: |
+>> +          Contains the list of output ports from DPU device. These ports
+>> +          connect to interfaces that are external to the DPU hardware,
+>> +          such as DSI, DP etc. Each output port contains an endpoint that
+>> +          describes how it is connected to an external interface.
+>> +
+>> +        properties:
+>> +          port@0:
+>> +            $ref: /schemas/graph.yaml#/properties/port
+>> +            description: DPU_INTF1 (DSI1)
+>> +
+>> +          port@1:
+>> +            $ref: /schemas/graph.yaml#/properties/port
+>> +            description: DPU_INTF2 (DSI2)
+>> +
+>> +        required:
+>> +          - port@0
+>> +          - port@1
+>> +
+>> +    required:
+>> +      - compatible
+>> +      - reg
+>> +      - reg-names
+>> +      - clocks
+>> +      - interrupts
+>> +      - power-domains
+>> +      - operating-points-v2
+>> +      - ports
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - reg-names
+>> +  - power-domains
+>> +  - clocks
+>> +  - interrupts
+>> +  - interrupt-controller
+>> +  - iommus
+>> +  - ranges
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/qcom,mmcc-msm8998.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/power/qcom-rpmpd.h>
+>> +
+>> +    display-subsystem@c900000 {
+>> +        compatible = "qcom,msm8998-mdss";
+>> +        reg = <0x0c900000 0x1000>;
+>> +        reg-names = "mdss";
+>> +
+>> +        clocks = <&mmcc MDSS_AHB_CLK>,
+>> +                 <&mmcc MDSS_AXI_CLK>,
+>> +                 <&mmcc MDSS_MDP_CLK>;
+>> +        clock-names = "iface", "bus", "core";
+>> +
+>> +        #address-cells = <1>;
+>> +        #interrupt-cells = <1>;
+>> +        #size-cells = <1>;
+>> +
+>> +        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+>> +        interrupt-controller;
+>> +        iommus = <&mmss_smmu 0>;
+>> +
+>> +        power-domains = <&mmcc MDSS_GDSC>;
+>> +        ranges;
+>> +        status = "disabled";
 > 
-> Kuogee Hsieh (6):
->    drm/msm/dp: use dp_ctrl_off_link_stream during PHY compliance test run
->    drm/msm/dp: reduce link rate if failed at link training 1
->    drm/msm/dp: reset aux controller after dp_aux_cmd_fifo_tx() failed.
->    drm/msm/dp: replug event is converted into an unplug followed by an
->      plug events
->    drm/msm/dp: return correct edid checksum after corrupted edid checksum
->      read
->    drm/msm/dp: do not end dp link training until video is ready
-> 
->   drivers/gpu/drm/msm/dp/dp_aux.c     |   3 +
->   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 137 +++++++++++++++++++++++-------------
->   drivers/gpu/drm/msm/dp/dp_display.c |  14 ++--
->   drivers/gpu/drm/msm/dp/dp_panel.c   |   9 ++-
->   4 files changed, 102 insertions(+), 61 deletions(-)
+> Drop. Why disable an example?
 
-Previous version of this patchset is already merged. If there are any 
-changes on top of it, please submit the incremental diff/fixup.
+AngeloGioacchino, could you please update and repost this patch series? 
+I'd like to get it merged.
+
+> 
+>> +
+>> +        display-controller@c901000 {
+>> +            compatible = "qcom,msm8998-dpu";
+>> +            reg = <0x0c901000 0x8f000>,
+>> +                  <0x0c9a8e00 0xf0>,
+>> +                  <0x0c9b0000 0x2008>,
+>> +                  <0x0c9b8000 0x1040>;
+>> +            reg-names = "mdp", "regdma", "vbif", "vbif_nrt";
+>> +
+>> +            clocks = <&mmcc MDSS_AHB_CLK>,
+>> +                     <&mmcc MDSS_AXI_CLK>,
+>> +                     <&mmcc MNOC_AHB_CLK>,
+>> +                     <&mmcc MDSS_MDP_CLK>,
+>> +                     <&mmcc MDSS_VSYNC_CLK>;
+>> +            clock-names = "iface", "bus", "mnoc", "core", "vsync";
+>> +
+>> +            interrupt-parent = <&mdss>;
+>> +            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
+>> +            operating-points-v2 = <&mdp_opp_table>;
+>> +            power-domains = <&rpmpd MSM8998_VDDMX>;
+>> +
+>> +            ports {
+>> +                #address-cells = <1>;
+>> +                #size-cells = <0>;
+>> +
+>> +                port@0 {
+>> +                    reg = <0>;
+>> +                    dpu_intf1_out: endpoint {
+>> +                        remote-endpoint = <&dsi0_in>;
+>> +                    };
+>> +                };
+>> +
+>> +                port@1 {
+>> +                    reg = <1>;
+>> +                    dpu_intf2_out: endpoint {
+>> +                        remote-endpoint = <&dsi1_in>;
+>> +                    };
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> +...
+>> -- 
+>> 2.32.0
+>>
+>>
 
 
 -- 
