@@ -1,53 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC8CA45DF72
-	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 18:15:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B522745E021
+	for <lists+freedreno@lfdr.de>; Thu, 25 Nov 2021 19:01:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CAC16E4F1;
-	Thu, 25 Nov 2021 17:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B56CD6E42C;
+	Thu, 25 Nov 2021 18:01:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
- [IPv6:2607:f8b0:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07EC86E5C1
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 17:15:52 +0000 (UTC)
-Received: by mail-il1-x134.google.com with SMTP id t8so6483561ilu.8
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 09:15:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/uYJR7BpBUZnQlATvrNBpAhoCNJC2VJDDuo/0Wdks2I=;
- b=U1wy3xNctEYKtUSbQx4rQXWxWtAp3C6P5JqLjhqLydfu/j7qzEy22qOVSYZ8CT4Q0E
- KVf41IlVtfIa4dkrSkmRdOr7Mqn9KxanQNNnwy3jx2/d4CNhit0+YKJ3rmErXoNkDT9h
- EPVq9/nY4i12LhSgQ+wt8DA6NbflF6T7isKlU=
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E0806E42C
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 18:01:18 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id i63so14003050lji.3
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 10:01:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ynwG4NbHg4X5JMdO8pH96G9Wv988uerBIA+nf4r1wKk=;
+ b=Lf9RQccj7htjEysn7T/OVOaVJzbpsW5S+bTEFkAP0QG/9NWtATiBqZrMDO/IiR015F
+ 9i0miGLPORiRxK99o9gKSdN0im3lgDvA9hQ3kGBEblbqVFCWpi9w+jDdO22YRbpCMosf
+ OTixRIJi6ToshrNj1rvzy1hSXJpxD9wSIadcjsInu2GTW8U4zDwRFQNtAFGcRMCD9jx4
+ ZffKjpWyHfPcNmtX2WzNT+f8DRpuSzwyoeLc0yq0ioZCrllK5V9+1MK7HG8CJ0mzxShU
+ O2F/4pHshsN46wIgpjuJT3Wya0Wzc+OzaorXI6FnlQhZIsR081WQwhppgmC5AcZ9vMMD
+ 89ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/uYJR7BpBUZnQlATvrNBpAhoCNJC2VJDDuo/0Wdks2I=;
- b=z3jZFK6MMQovGqhDEYkEpzuHRcndSVeGyN1DrFdkDILo6VbI3TkzNBRM3LdazT1G8l
- UyD7MZIkIf65jj791Gtb+SEaG/EIquaq4Ks/vJzWoBBWbtgK9tHLPUB0JnWa8Q/vlIIh
- ryIWo+P/bWzPhtQWwNMxIx8C2JuhE/8/uOwPI3j1z5oRY7hn+0z0GIgm+7pPFZq+sjRQ
- QYZDuObBAyPbOsdsripxIwDTyIcnDAIXtmJtb2Z0BOKxjsOErGG53g2c0NceFDf/UXCU
- V3nkXke2pppXNSmqHgv4+2pyXgPLfv0cdI2ZIz4M1CUIPdGvCvHZmYZIwTEGhLcUD2cX
- 3DsQ==
-X-Gm-Message-State: AOAM533ECicF72X7dRna+At6a0olldfTGHiXmx5fend7irxdLCWehVeD
- bT2JtJIl+NOe8YV/mA4ya4tFlGfbw9LgPC0wkKZqiA==
-X-Google-Smtp-Source: ABdhPJwllgvWyk4LNbY/PtxJGQlD+gEgV7b5sp6fqyvfUdRDRSzNrnZLFjdBH7EIEcEybhBkeEKxek8U1YU0hnor4HU=
-X-Received: by 2002:a92:c54d:: with SMTP id a13mr23882839ilj.143.1637860551141; 
- Thu, 25 Nov 2021 09:15:51 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ynwG4NbHg4X5JMdO8pH96G9Wv988uerBIA+nf4r1wKk=;
+ b=7ZqiYv3pdov6FqJ38LgCrJYi3nstjnPjyLMOru0FVZThKzugPkIYMiRuTSMrNhO/K1
+ WNM8ZUHSYHLySfX4KCqv0rvvegOreP4m0X7evm24G2OJnVzpla7Yu1wne/N8YF7+vQxM
+ 4hQDcMz8HfRs4DS5IYObwo/9GR6EeGx3bGMO5YKfRKFzIrwiRhff+ji8wAorAwi07/Re
+ Spw9KZ5936OIfAnHeVuaUCRgX5iF2CggC38XpZwb4tJtwepr4djOqVM75uXQkw+RuvZ8
+ 1NpNsijQdUj2EZFdCMCL2LoHP0YW9b0mRlrGGnETE2A5eZviXvipShSSpiJU3OJMMAT/
+ e9Ug==
+X-Gm-Message-State: AOAM530kh9uZtnk3y9Kayy4h57K5KTq96qAfCYimKu81OFL22kcyqgem
+ O5UMdxy0C/fWcpaR5zOj4i2OKw==
+X-Google-Smtp-Source: ABdhPJw33JWXItJy2u8lGIRYrValQuMuKOHbanYZyU2Kqt/vDbH8kCiuWvbT+NbEk54d3pP73ShV0Q==
+X-Received: by 2002:a2e:9b4f:: with SMTP id o15mr17933127ljj.105.1637863276829; 
+ Thu, 25 Nov 2021 10:01:16 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id l20sm318194lfj.36.2021.11.25.10.01.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Nov 2021 10:01:16 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Thu, 25 Nov 2021 21:01:14 +0300
+Message-Id: <20211125180114.561278-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-References: <20210428193654.1498482-1-robdclark@gmail.com>
- <20210428193654.1498482-2-robdclark@gmail.com>
- <e6f04ed5-100d-6ef9-c272-1a1370e45579@linaro.org>
-In-Reply-To: <e6f04ed5-100d-6ef9-c272-1a1370e45579@linaro.org>
-From: Rob Clark <robdclark@chromium.org>
-Date: Thu, 25 Nov 2021 09:20:57 -0800
-Message-ID: <CAJs_Fx6cJSkU=+C7Fh14=xojn0n-ad9_qNFXuimFFm_X3WfUOg@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Handle ringbuffer overflow
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dsi: fix initialization in the bonded
+ DSI case
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,259 +68,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <emma@anholt.net>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
- Dave Airlie <airlied@redhat.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Nov 24, 2021 at 11:36 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 28/04/2021 22:36, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Currently if userspace manages to fill up the ring faster than the GPU
-> > can consume we (a) spin for up to 1sec, and then (b) overwrite the
-> > ringbuffer contents from previous submits that the GPU is still busy
-> > executing.  Which predictably goes rather badly.
-> >
-> > Instead, just skip flushing (updating WPTR) and reset ring->next back to
-> > where it was before we tried writing the submit into the ringbuffer, and
-> > return an error to userspace (which can then try again).
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
->
-> Rob, you've posted this patch, but never merged it. Should it be merged
-> at some point?
+Commit 739b4e7756d3 ("drm/msm/dsi: Fix an error code in
+msm_dsi_modeset_init()") changed msm_dsi_modeset_init() to return an
+error code in case msm_dsi_manager_validate_current_config() returns
+false. However this is not an error case, but a slave DSI of the bonded
+DSI link. In this case msm_dsi_modeset_init() should return 0, but just
+skip connector and bridge initialization.
 
-I think it is a bit less needed now, since drm/sched will limit the #
-of in-flight submits (when I sent that patch, it was before conversion
-to use drm/sched)
+To reduce possible confusion, drop the
+msm_dsi_manager_validate_current_config() function, and specif 'bonded
+&& !master' condition directly in the msm_dsi_modeset_init().
 
-With a bit more locking re-work we could do something more clever like
-just blocking until there is space in the ringbuffer.. but aren't
-there quite yet.
+Fixes: 739b4e7756d3 ("drm/msm/dsi: Fix an error code in msm_dsi_modeset_init()")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi.c         | 10 +++++++---
+ drivers/gpu/drm/msm/dsi/dsi.h         |  1 -
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 17 -----------------
+ 3 files changed, 7 insertions(+), 21 deletions(-)
 
-BR,
--R
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+index 75ae3008b68f..fc280cc43494 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.c
++++ b/drivers/gpu/drm/msm/dsi/dsi.c
+@@ -215,9 +215,13 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+ 		goto fail;
+ 	}
+ 
+-	if (!msm_dsi_manager_validate_current_config(msm_dsi->id)) {
+-		ret = -EINVAL;
+-		goto fail;
++	if (msm_dsi_is_bonded_dsi(msm_dsi) &&
++	    !msm_dsi_is_master_dsi(msm_dsi)) {
++		/*
++		 * Do not return an eror here,
++		 * Just skip creating encoder/connector for the slave-DSI.
++		 */
++		return 0;
+ 	}
+ 
+ 	msm_dsi->encoder = encoder;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 66443dc98500..ef8212990254 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -82,7 +82,6 @@ int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg);
+ bool msm_dsi_manager_cmd_xfer_trigger(int id, u32 dma_base, u32 len);
+ int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
+ void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
+-bool msm_dsi_manager_validate_current_config(u8 id);
+ void msm_dsi_manager_tpg_enable(void);
+ 
+ /* msm dsi */
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index a152dbf63038..a73cfeb93e90 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -645,23 +645,6 @@ struct drm_connector *msm_dsi_manager_connector_init(u8 id)
+ 	return ERR_PTR(ret);
+ }
+ 
+-bool msm_dsi_manager_validate_current_config(u8 id)
+-{
+-	bool is_bonded_dsi = IS_BONDED_DSI();
+-
+-	/*
+-	 * For bonded DSI, we only have one drm panel. For this
+-	 * use case, we register only one bridge/connector.
+-	 * Skip bridge/connector initialisation if it is
+-	 * slave-DSI for bonded DSI configuration.
+-	 */
+-	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id)) {
+-		DBG("Skip bridge registration for slave DSI->id: %d\n", id);
+-		return false;
+-	}
+-	return true;
+-}
+-
+ /* initialize bridge */
+ struct drm_bridge *msm_dsi_manager_bridge_init(u8 id)
+ {
+-- 
+2.33.0
 
->
-> > ---
-> >   drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  3 +++
-> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |  3 +++
-> >   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 24 +++++++++++++++++-
-> >   drivers/gpu/drm/msm/msm_gem_submit.c    |  7 +++++-
-> >   drivers/gpu/drm/msm/msm_gpu.c           | 33 +++++++++++++++++++++++--
-> >   drivers/gpu/drm/msm/msm_gpu.h           |  2 +-
-> >   drivers/gpu/drm/msm/msm_ringbuffer.h    |  5 ++++
-> >   7 files changed, 72 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> > index ce13d49e615b..0c8faad3b328 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-> > @@ -36,6 +36,9 @@ void a5xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
-> >               OUT_RING(ring, upper_32_bits(shadowptr(a5xx_gpu, ring)));
-> >       }
-> >
-> > +     if (unlikely(ring->overflow))
-> > +             return;
-> > +
-> >       spin_lock_irqsave(&ring->preempt_lock, flags);
-> >
-> >       /* Copy the shadow to the actual register */
-> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > index d553f62f4eeb..4a4728a774c0 100644
-> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > @@ -68,6 +68,9 @@ static void a6xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-> >               OUT_RING(ring, upper_32_bits(shadowptr(a6xx_gpu, ring)));
-> >       }
-> >
-> > +     if (unlikely(ring->overflow))
-> > +             return;
-> > +
-> >       spin_lock_irqsave(&ring->preempt_lock, flags);
-> >
-> >       /* Copy the shadow to the actual register */
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > index 0f184c3dd9d9..a658777e07b1 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > @@ -467,6 +467,9 @@ void adreno_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring, u32 reg)
-> >   {
-> >       uint32_t wptr;
-> >
-> > +     if (unlikely(ring->overflow))
-> > +             return;
-> > +
-> >       /* Copy the shadow to the actual register */
-> >       ring->cur = ring->next;
-> >
-> > @@ -788,12 +791,31 @@ static uint32_t ring_freewords(struct msm_ringbuffer *ring)
-> >       return (rptr + (size - 1) - wptr) % size;
-> >   }
-> >
-> > +static bool space_avail(struct msm_ringbuffer *ring, uint32_t ndwords)
-> > +{
-> > +     if (ring_freewords(ring) >= ndwords)
-> > +             return true;
-> > +
-> > +     /* We don't have a good way to know in general when the RPTR has
-> > +      * advanced.. newer things that use CP_WHERE_AM_I to update the
-> > +      * shadow rptr could possibly insert a packet to generate an irq.
-> > +      * But that doesn't cover older GPUs.  But if the ringbuffer is
-> > +      * full, it could take a while before it is empty again, so just
-> > +      * insert a blind sleep to avoid a busy loop.
-> > +      */
-> > +     msleep(1);
-> > +
-> > +     return false;
-> > +}
-> > +
-> >   void adreno_wait_ring(struct msm_ringbuffer *ring, uint32_t ndwords)
-> >   {
-> > -     if (spin_until(ring_freewords(ring) >= ndwords))
-> > +     if (spin_until(space_avail(ring, ndwords))) {
-> >               DRM_DEV_ERROR(ring->gpu->dev->dev,
-> >                       "timeout waiting for space in ringbuffer %d\n",
-> >                       ring->id);
-> > +             ring->overflow = true;
-> > +     }
-> >   }
-> >
-> >   /* Get legacy powerlevels from qcom,gpu-pwrlevels and populate the opp table */
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > index 5480852bdeda..4bc669460fda 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -683,6 +683,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
-> >       submitid = atomic_inc_return(&ident) - 1;
-> >
-> >       ring = gpu->rb[queue->prio];
-> > +
-> > +     GEM_WARN_ON(ring->overflow);
-> > +
-> >       trace_msm_gpu_submit(pid_nr(pid), ring->id, submitid,
-> >               args->nr_bos, args->nr_cmds);
-> >
-> > @@ -829,7 +832,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
-> >               }
-> >       }
-> >
-> > -     msm_gpu_submit(gpu, submit);
-> > +     ret = msm_gpu_submit(gpu, submit);
-> > +     if (ret)
-> > +             goto out;
-> >
-> >       args->fence = submit->fence->seqno;
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> > index ab7c167b0623..7655ad9108c8 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> > @@ -787,7 +787,7 @@ void msm_gpu_retire(struct msm_gpu *gpu)
-> >   }
-> >
-> >   /* add bo's to gpu's ring, and kick gpu: */
-> > -void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-> > +int msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-> >   {
-> >       struct drm_device *dev = gpu->dev;
-> >       struct msm_drm_private *priv = dev->dev_private;
-> > @@ -834,9 +834,38 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-> >       spin_unlock(&ring->submit_lock);
-> >
-> >       gpu->funcs->submit(gpu, submit);
-> > -     priv->lastctx = submit->queue->ctx;
-> >
-> >       hangcheck_timer_reset(gpu);
-> > +
-> > +     if (unlikely(ring->overflow)) {
-> > +             /*
-> > +              * Reset the ptr back to before the submit, so the GPU
-> > +              * doesn't see a partial submit:
-> > +              */
-> > +             ring->next = ring->cur;
-> > +
-> > +             /*
-> > +              * Clear the overflow flag, hopefully the next submit on
-> > +              * the ring actually fits
-> > +              */
-> > +             ring->overflow = false;
-> > +
-> > +             /*
-> > +              * One might be tempted to remove the submit from the
-> > +              * submits list, and drop it's reference (and drop the
-> > +              * active reference for all the bos).  But we can't
-> > +              * really signal the fence attached to obj->resv without
-> > +              * disturbing other fences on the timeline.  So instead
-> > +              * just leave it and let it retire normally when a
-> > +              * later submit completes.
-> > +              */
-> > +
-> > +             return -ENOSPC;
-> > +     }
-> > +
-> > +     priv->lastctx = submit->queue->ctx;
-> > +
-> > +     return 0;
-> >   }
-> >
-> >   /*
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> > index d7cd02cd2109..2dd2ef1f8328 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > @@ -302,7 +302,7 @@ int msm_gpu_perfcntr_sample(struct msm_gpu *gpu, uint32_t *activetime,
-> >               uint32_t *totaltime, uint32_t ncntrs, uint32_t *cntrs);
-> >
-> >   void msm_gpu_retire(struct msm_gpu *gpu);
-> > -void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit);
-> > +int msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit);
-> >
-> >   int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
-> >               struct msm_gpu *gpu, const struct msm_gpu_funcs *funcs,
-> > diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
-> > index fe55d4a1aa16..d8ad9818c389 100644
-> > --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
-> > +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
-> > @@ -40,6 +40,8 @@ struct msm_ringbuffer {
-> >       struct drm_gem_object *bo;
-> >       uint32_t *start, *end, *cur, *next;
-> >
-> > +     bool overflow;
-> > +
-> >       /*
-> >        * List of in-flight submits on this ring.  Protected by submit_lock.
-> >        */
-> > @@ -69,6 +71,9 @@ void msm_ringbuffer_destroy(struct msm_ringbuffer *ring);
-> >   static inline void
-> >   OUT_RING(struct msm_ringbuffer *ring, uint32_t data)
-> >   {
-> > +     if (ring->overflow)
-> > +             return;
-> > +
-> >       /*
-> >        * ring->next points to the current command being written - it won't be
-> >        * committed as ring->cur until the flush
-> >
->
->
-> --
-> With best wishes
-> Dmitry
