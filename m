@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2BF045E44C
-	for <lists+freedreno@lfdr.de>; Fri, 26 Nov 2021 03:18:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C0345E467
+	for <lists+freedreno@lfdr.de>; Fri, 26 Nov 2021 03:26:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 839B26E420;
-	Fri, 26 Nov 2021 02:18:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDBB96E43F;
+	Fri, 26 Nov 2021 02:26:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5303D6E420
- for <freedreno@lists.freedesktop.org>; Fri, 26 Nov 2021 02:18:12 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id z8so15757089ljz.9
- for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 18:18:12 -0800 (PST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7898E6E43F
+ for <freedreno@lists.freedesktop.org>; Fri, 26 Nov 2021 02:26:46 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id v15so15921531ljc.0
+ for <freedreno@lists.freedesktop.org>; Thu, 25 Nov 2021 18:26:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=tHEwG0qG7vB9UywDg04WwYzX7P8+cxitGw10PyMAi7k=;
- b=ZUrY8t93oTCikn0xyY4SWKf6EjCcZwpndHggSv5miijtdDnE8SfbFPisKwTmhrR0q/
- 0qEEYcB2Xwt6py7qHSJTmeVCjxJQ55zaWhDFIY4qLT8ZK6GXvZQPxVuyqk1hKiZ7pez3
- kcl9GkL10k4RmWLlZ0MilyIiYvh8DPNcvUlhpSUfdyj4fgLUc+RyeyoufSuIYD6EEU4s
- f3DHNmoRzy01Rjwd55vj9SrGfXiIDD/fyak+/r1/DUwFFO0or23ad3xxpMmQUbF1mm/2
- gDuSiCSPwBVJAoWaf+VbqyDfNO1p9GiL5TPwqelF33olwPqv6vjtjr036Txb+t7lFu4b
- dWpA==
+ bh=DQF2Q4CByYkmE+9PKH/2TGs700NnX/meUb70h19yGEw=;
+ b=C2J0hJQpmmy8M6PjZ9Tyq50TwtTglJhSGIOrDUjhG1Qft6pkxIa505quo8iDNu+QQk
+ jZ31N5V49AF52v1HS4pBLaP5XcPr5qoM1K8qEjYd5ed5+x+cBIFiJaIYxPxPoY37UGpk
+ Hj6oWjPR+Zu2gUIN06d75FBpNCbahIwtRT9BBFza8KbHpXThRLsVEXRd45Zae/+1A8ru
+ tW/LQ+2QKZNLuPlTW1cSG3Rjww5dlsmVOYvACRgQrsJ1GtKKpN9uZOp/5xr0loSSARzX
+ xt8xIKmvtWezmr0xMT7udS+ALNtuo8OYjMymJ/avB11drUlQ+WdospJDSJnpyh8OrKe2
+ QdEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=tHEwG0qG7vB9UywDg04WwYzX7P8+cxitGw10PyMAi7k=;
- b=uGX23SqM4L0kfrZU00VF9uqQ9RwEkqJZd1Y4u+HNfpgfItXi4y9yUStuz1xJJvV1Gv
- fmQGRsNHKqvbgDu7srfxtmrCq6ywVNLea8fUTO3qvyuWuXd5Dx1/5AFTeoKePtJI2U6i
- VS6FOPZ3nlcLcdeH0uQMj4Wk1TIgerpqZ8kfKSVft/PV6kN3UDw39AADioyP1aGBK2Sx
- T1KwDPrYdXzcgGAGMv1dvLuYvHFxpB/Dz/NaEyw+UUodTitnsc60CIQWslJf+1haoPj5
- c97fAn/q4/t/nX25lXD6K8g1z5V3EzywIhMoatH28SAJGQ+mdxqAf5faQ+Mv0Yfh7XMq
- VfeA==
-X-Gm-Message-State: AOAM533tZo7kENEMhFX97xDVUccdiRZZ7QFN6CwGLmgHG/mnuMYb4s4t
- kyvUiEf0JUM12vCon2wYKPVNjw==
-X-Google-Smtp-Source: ABdhPJxmVX1f6xs25hGh7kKe133Tu3aEyrOaCWmuCC4eCcLYhDSdFp7QP3qP46qwo/krRgWw7l0zvg==
-X-Received: by 2002:a2e:b01a:: with SMTP id y26mr27560359ljk.317.1637893090667; 
- Thu, 25 Nov 2021 18:18:10 -0800 (PST)
+ bh=DQF2Q4CByYkmE+9PKH/2TGs700NnX/meUb70h19yGEw=;
+ b=YTmZhlva70ZM+C39MmST8oLYvY4GHJuE3623V3QsxzorBeN3UgkBt19MrxkFxhwmD6
+ 10cC5NZT2BS/gbE+8QYkYyKBnAyVyPrlYPq1ViFWo9RtGh7MwHRsFZanDfzhFQMUB2LM
+ zc287TXNpV+hU3ceoxBh9mAcTuKAYsYo1zJ8cl3bCN7nVVBbl2HdzM96nkww9N08pW/k
+ 7NdNQVuXNOrdUOLfFukpgk3/QQ9us9gFTceWRsmumovBI12OqBMzwnbzwlDpkWOMVhzN
+ raITg8zHd6+kW/U3RRGgZyNRqxiqe3uUb+75ltgL8CcgMqXgA4VEJotxiB0ulHomgJMw
+ qwCw==
+X-Gm-Message-State: AOAM530kvkdTm+JG/uVqj5dBha1rdOgIpyYWJr076N+t98iRDk8RoEbi
+ jo7Mtw/OSBOQLxRQu77Qhbaf4ICeKxij8A==
+X-Google-Smtp-Source: ABdhPJwRKHBvg4FtsXtNF85arqrAWVrg6oah6JGnIyZ5Sgl3niE4/VFYBKWJrWZp+CWaruu2sRaSBg==
+X-Received: by 2002:a05:651c:324:: with SMTP id
+ b4mr28123306ljp.188.1637893604814; 
+ Thu, 25 Nov 2021 18:26:44 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g6sm387328lfu.275.2021.11.25.18.18.09
+ by smtp.gmail.com with ESMTPSA id x6sm388764lff.125.2021.11.25.18.26.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Nov 2021 18:18:10 -0800 (PST)
+ Thu, 25 Nov 2021 18:26:44 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Fri, 26 Nov 2021 05:18:09 +0300
-Message-Id: <20211126021809.1105535-1-dmitry.baryshkov@linaro.org>
+Date: Fri, 26 Nov 2021 05:26:39 +0300
+Message-Id: <20211126022642.1105979-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: remove extra wrappers around
- dpu_core_irq
+Subject: [Freedreno] [PATCH v3 0/3] drm/msm/dpu: simplify RM code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,141 +74,48 @@ Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Remove extra dpu_irq_* wrappers from dpu_kms.c, merge them directly into
-dpu_core_irq_* functions.
+INTF blocks are not really handled by resource manager, they are
+assigned at dpu_encoder_setup_display using dpu_encoder_get_intf().
+Then this allocation is passed to RM and then returned to then
+dpu_encoder. So allocate them outside of RM and use them directly.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h  | 12 ++++-----
- .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  9 ++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 27 +++----------------
- 3 files changed, 15 insertions(+), 33 deletions(-)
+While we are at fix, drop the lm_max_width from the RM and fix the
+indexing of VBIF in the dpu_kms.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
-index 90ae6c9ccc95..7023ccb79814 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
-@@ -10,24 +10,24 @@
- 
- /**
-  * dpu_core_irq_preinstall - perform pre-installation of core IRQ handler
-- * @dpu_kms:		DPU handle
-+ * @kms:		MSM KMS handle
-  * @return:		none
-  */
--void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms);
-+void dpu_core_irq_preinstall(struct msm_kms *kms);
- 
- /**
-  * dpu_core_irq_uninstall - uninstall core IRQ handler
-- * @dpu_kms:		DPU handle
-+ * @kms:		MSM KMS handle
-  * @return:		none
-  */
--void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms);
-+void dpu_core_irq_uninstall(struct msm_kms *kms);
- 
- /**
-  * dpu_core_irq - core IRQ handler
-- * @dpu_kms:		DPU handle
-+ * @kms:		MSM KMS handle
-  * @return:		interrupt handling status
-  */
--irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms);
-+irqreturn_t dpu_core_irq(struct msm_kms *kms);
- 
- /**
-  * dpu_core_irq_read - IRQ helper function for reading IRQ status
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index fc1b6c47c93d..d76edf55693a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -144,8 +144,9 @@ static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, int irq_idx)
- 			cb->func(cb->arg, irq_idx);
- }
- 
--irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
-+irqreturn_t dpu_core_irq(struct msm_kms *kms)
- {
-+	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
- 	struct dpu_hw_intr *intr = dpu_kms->hw_intr;
- 	int reg_idx;
- 	int irq_idx;
-@@ -551,8 +552,9 @@ void dpu_debugfs_core_irq_init(struct dpu_kms *dpu_kms,
- }
- #endif
- 
--void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
-+void dpu_core_irq_preinstall(struct msm_kms *kms)
- {
-+	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
- 	int i;
- 
- 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
-@@ -571,8 +573,9 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
- 	}
- }
- 
--void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
-+void dpu_core_irq_uninstall(struct msm_kms *kms)
- {
-+	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
- 	int i;
- 
- 	if (!dpu_kms->hw_intr)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index a15b26428280..704474c4d655 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -784,20 +784,6 @@ static void dpu_kms_destroy(struct msm_kms *kms)
- 	msm_kms_destroy(&dpu_kms->base);
- }
- 
--static irqreturn_t dpu_irq(struct msm_kms *kms)
--{
--	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
--
--	return dpu_core_irq(dpu_kms);
--}
--
--static void dpu_irq_preinstall(struct msm_kms *kms)
--{
--	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
--
--	dpu_core_irq_preinstall(dpu_kms);
--}
--
- static int dpu_irq_postinstall(struct msm_kms *kms)
- {
- 	struct msm_drm_private *priv;
-@@ -817,13 +803,6 @@ static int dpu_irq_postinstall(struct msm_kms *kms)
- 	return 0;
- }
- 
--static void dpu_irq_uninstall(struct msm_kms *kms)
--{
--	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
--
--	dpu_core_irq_uninstall(dpu_kms);
--}
--
- static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_kms *kms)
- {
- 	int i;
-@@ -871,10 +850,10 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
- 
- static const struct msm_kms_funcs kms_funcs = {
- 	.hw_init         = dpu_kms_hw_init,
--	.irq_preinstall  = dpu_irq_preinstall,
-+	.irq_preinstall  = dpu_core_irq_preinstall,
- 	.irq_postinstall = dpu_irq_postinstall,
--	.irq_uninstall   = dpu_irq_uninstall,
--	.irq             = dpu_irq,
-+	.irq_uninstall   = dpu_core_irq_uninstall,
-+	.irq             = dpu_core_irq,
- 	.enable_commit   = dpu_kms_enable_commit,
- 	.disable_commit  = dpu_kms_disable_commit,
- 	.vsync_time      = dpu_kms_vsync_time,
--- 
-2.33.0
+Changes since v2:
+ - Dropped DSPP, PP and MERGE_3D patches for now.
+
+Changes since v1:
+ - Split into separate patch series to ease review.
+
+The following changes since commit e4840d537c2c6b1189d4de16ee0f4820e069dcea:
+
+  drm/msm: Do hw_init() before capturing GPU state (2021-11-22 10:45:55 -0800)
+
+are available in the Git repository at:
+
+  https://git.linaro.org/people/dmitry.baryshkov/kernel.git dpu-rm-clean-3
+
+for you to fetch changes up to 3ad9c16d1c1e010abe72ff943f8de25b64968789:
+
+  drm/msm/dpu: drop unused lm_max_width from RM (2021-11-25 11:47:40 +0300)
+
+----------------------------------------------------------------
+Dmitry Baryshkov (3):
+      drm/msm/dpu: consistently index dpu_kms->hw_vbif
+      drm/msm/dpu: get INTF blocks directly rather than through RM
+      drm/msm/dpu: drop unused lm_max_width from RM
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  36 +------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  16 ----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   5 -
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   8 --
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   8 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  26 +++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             | 104 ---------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |   6 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |   8 +-
+ 10 files changed, 32 insertions(+), 187 deletions(-)
+
 
