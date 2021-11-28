@@ -1,69 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D233C45F62A
-	for <lists+freedreno@lfdr.de>; Fri, 26 Nov 2021 22:12:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 724424607EC
+	for <lists+freedreno@lfdr.de>; Sun, 28 Nov 2021 18:14:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B1BF6E03D;
-	Fri, 26 Nov 2021 21:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67A536E10B;
+	Sun, 28 Nov 2021 17:14:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD9D66E02B
- for <freedreno@lists.freedesktop.org>; Fri, 26 Nov 2021 21:12:41 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id n12so27119067lfe.1
- for <freedreno@lists.freedesktop.org>; Fri, 26 Nov 2021 13:12:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=glFbJYk/OCRB+Myc+eRLL5T3IffkyOcS0fXVl203dm8=;
- b=N7Qzeum3GzIzB+2gQBBBYm8GjTuEmBHS86g6z2VQDOsK24uRFwnn26Fbu0srLERVjr
- kRR+qlTs90e0bB/lDsSGPfFYvi7tQT/Gl4yF2oSpiM2P1UlLPTuCbLNby6TkkZt0qHdM
- qmPX6wMGUgba7eQ2J9XuwL0+AB6KYaOAs4z+Fb4d9U2xvdi//7ezJ8q7myBe2y8Sp/lo
- ApZgHb5OPgjmGVdV784vFAQFBU3O7C5GsLDRwURMrvB0XdAJy/J49TmdEbp/5QaASum3
- b/6Ay9i3tbYfQtQ3mthBVPWH8kkVUGZ6SV3PthQEJohRk/e7Pd9hsgQAFqtBANsLwKuD
- kuPA==
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8A866E0B6;
+ Sun, 28 Nov 2021 17:14:23 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ n33-20020a05600c502100b0032fb900951eso14927703wmr.4; 
+ Sun, 28 Nov 2021 09:14:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=SDo6kRceja4bdqr/aJr2wU4CsUC6M9nZSYXWVouzbwE=;
+ b=F/NmXpX3uv7MWq9O5UxSiaH/JBFcZLGL4OH6YgnkfbhUp4SipPdMcYmZRzDlCdminC
+ xlSF6DiMKMdG63+cL6np+Oth1It/B2z8Ofqb5Fp3QNUcgxHNZ+oh0LUHVpkkAZeDgS0w
+ HttH36osJfgL30ItwP1IhCah+OUHLPraKakntibxJ5Vv0EPpWr/pPCIr+E7tttOfjcAT
+ Nyp/iXqTJRJzELYfmWZUEi0+rLrpxUut8xdh6hD09Pi8IhMgXie/Sv4ut3s8IEVnaAH2
+ LU7YGpe9Ax4oc69ywd97K1UeKOVYO/gX/DTDIF4vvhXV9ciPnj1ocS2lyybLeTqnBYZz
+ +xUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=glFbJYk/OCRB+Myc+eRLL5T3IffkyOcS0fXVl203dm8=;
- b=vZabr1iksXHPC+TMEPc4eoktI0GsiPtORYcowKul/lCBWyiiFK4BvBN+0UBQ8Z/bC3
- hDb4la31qB9hC3ZdOe5U5nJoXiECTRfaCw9wwX3xcMHgG2ZnZACoF87bOMuYV12H17HT
- gvcflgwOSCOvqKUcvnPxda8a29WWUNgd0/BY6Q4F1+dLOoN24djKO6OYrxKBvGRzL8J5
- MUQnxAxbc/V0dgSU2Wpo1qKpow4Va7qQON415PM1kdMJVTumQMRuJjmZE6h8cF0ooCNq
- SeBGxcmTXTpHjUAG/uQ6bMQt7VR/Od0jPfbjvNybiMMp3t2Ge+m0OvchbIMHyObN29SV
- pGsg==
-X-Gm-Message-State: AOAM5330hwUw7fqZ2B8msAAT8dCFWmFrS4AxHgsUO7QEALEWXeWraS5/
- Jqyp/cf4VpEXMn+KY9iuIFuZiA==
-X-Google-Smtp-Source: ABdhPJw3D1SD/ptuYpCjS2LX7StqIYZZl5g1Pk5sJdNW2SKParlto1oi5itKdQdBmwPOtIhpGYCM9w==
-X-Received: by 2002:a05:6512:10c4:: with SMTP id
- k4mr32023546lfg.373.1637961160062; 
- Fri, 26 Nov 2021 13:12:40 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id br24sm586210lfb.104.2021.11.26.13.12.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Nov 2021 13:12:39 -0800 (PST)
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- robdclark@gmail.com
-References: <20211125150947.354076-1-angelogioacchino.delregno@collabora.com>
- <32cdade5-1487-9182-e939-4d93f8a27ad6@linaro.org>
- <2b37dfd3-c3be-2640-56d0-25c9971c4f50@collabora.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <04bec750-33e2-c747-dc54-d304296831fa@linaro.org>
-Date: Sat, 27 Nov 2021 00:12:38 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=SDo6kRceja4bdqr/aJr2wU4CsUC6M9nZSYXWVouzbwE=;
+ b=hkM7ALtc0BDh6FMDm9CEU2ygHgK0dJf01twS1aXg4DtEoDa0CX/e5uleBbZwsGFxV9
+ 0zriV9agfATmnHOS3dPJGe4792bWJ8V7HM7EQUPSTpZB1XaPaVTdNzS5IBdgrCjZQT3b
+ ECQyP/NX7CvNf4K/tCRuTdkFRgoG+wk0xwzDy2UQsdhh/279j4fgNjhWgtqDjS1vgEQp
+ OAMkw+vtqn8h/tPmRhZXlmpsNq1KbguFhTiaKpT0uBZyPoiHr6ZQMfvv/lLB+x1UepiT
+ 5B6+vkjz63nOfn2orILXnRqgvWhwMqP6L6ALQH1ZY5ucIcVzJ7lfYXOTUSBw8HMzTN5Z
+ CBoQ==
+X-Gm-Message-State: AOAM530wFcTWN9geP6itqBJXTynJBELAGNKXt/01suaaBTrbpOWmMIax
+ Qw/7VcxzgzE+joL1Hs7dLwsqD1MuI4STbdrYU5Y=
+X-Google-Smtp-Source: ABdhPJxaaZtHilcyBMs1TRuEdRW9798Kp2P7IZq1VCjZ9JEIdYP52GYC8OD+scy4zDM9DZxJd0GASFByQbXg6ciEzcU=
+X-Received: by 2002:a1c:790d:: with SMTP id l13mr31744121wme.101.1638119662245; 
+ Sun, 28 Nov 2021 09:14:22 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <2b37dfd3-c3be-2640-56d0-25c9971c4f50@collabora.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize MDSS irq domain at
- probe time
+From: Rob Clark <robdclark@gmail.com>
+Date: Sun, 28 Nov 2021 09:19:34 -0800
+Message-ID: <CAF6AEGsV-ntO_u323XMKuD6bgbgvXporwi1sbyXwNDAuA52Afw@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-11-28 for v5.16
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +59,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- jami.kettunen@somainline.org, maxime@cerno.tech, daniel@ffwll.ch,
- marijn.suijten@somainline.org, kernel@collabora.com, sean@poorly.run
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/11/2021 12:26, AngeloGioacchino Del Regno wrote:
-> Il 26/11/21 01:06, Dmitry Baryshkov ha scritto:
->> On 25/11/2021 18:09, AngeloGioacchino Del Regno wrote:
->>> Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
->>> DSI host gets initialized earlier, but this caused unability to probe
->>> the entire stack of components because they all depend on interrupts
->>> coming from the main `mdss` node (mdp5, or dpu1).
->>>
->>> To fix this issue, also anticipate probing mdp5 or dpu1 by initializing
->>> them at msm_pdev_probe() time: this will make sure that we add the
->>> required interrupt controller mapping before dsi and/or other components
->>> try to initialize, finally satisfying the dependency.
->>>
->>> While at it, also change the allocation of msm_drm_private to use the
->>> devm variant of kzalloc().
->>>
->>> Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
->>> Signed-off-by: AngeloGioacchino Del Regno 
->>> <angelogioacchino.delregno@collabora.com>
->>
->> Another issue (or a pack of issues):
->> Now the msm_drm_init() is unbalanced with msm_drm_uninit(). Bits of 
->> code (putting the drm dev, removing the IRQ domain, etc) have to be 
->> called now from the msm_pdev_remove() function rather than from the 
->> unbind path.
->>
->> The following changes fix the observed issues here, however additional 
->> care should be taken.
->>
-> 
-> 
-> Hello Dmitry,
-> 
-> thanks for the thorough review (and solutions!).
-> Are you going to push your changes on top, or should I send a V2?
+Hi Dave & Daniel,
 
-Please send a v2. As you see, my suggestions have to be validated too 
-(and they were based on crashes/issues observed locally).
+A few fixes for v5.16.
 
+The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
 
--- 
-With best wishes
-Dmitry
+  Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-11-28
+
+for you to fetch changes up to afece15a68dc83b438cc4c3a64634e48a5735573:
+
+  drm: msm: fix building without CONFIG_COMMON_CLK (2021-11-26 08:58:57 -0800)
+
+----------------------------------------------------------------
+Akhil P Oommen (2):
+      drm/msm: Fix null ptr access msm_ioctl_gem_submit()
+      drm/msm/a6xx: Fix uinitialized use of gpu_scid
+
+Arnd Bergmann (1):
+      drm: msm: fix building without CONFIG_COMMON_CLK
+
+Douglas Anderson (3):
+      drm/msm/a6xx: Allocate enough space for GMU registers
+      drm/msm: Fix mmap to include VM_IO and VM_DONTDUMP
+      drm/msm/dp: Avoid unpowered AUX xfers that caused crashes
+
+Philip Chen (1):
+      drm/msm/dsi: set default num_data_lanes
+
+Rob Clark (8):
+      drm/msm/devfreq: Fix OPP refcnt leak
+      drm/msm: Fix wait_fence submitqueue leak
+      drm/msm: Restore error return on invalid fence
+      drm/msm: Make a6xx_gpu_set_freq() static
+      drm/msm: Demote debug message
+      drm/msm/gpu: Fix idle_work time
+      drm/msm/gpu: Fix check for devices without devfreq
+      drm/msm: Do hw_init() before capturing GPU state
+
+ drivers/gpu/drm/msm/Kconfig                 |  2 +-
+ drivers/gpu/drm/msm/Makefile                |  6 ++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 20 ++++++------
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  4 +--
+ drivers/gpu/drm/msm/dp/dp_aux.c             | 17 ++++++++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c          |  2 ++
+ drivers/gpu/drm/msm/msm_debugfs.c           |  1 +
+ drivers/gpu/drm/msm/msm_drv.c               | 49 +++++++++++++++++++----------
+ drivers/gpu/drm/msm/msm_gem.c               |  5 ++-
+ drivers/gpu/drm/msm/msm_gem_submit.c        |  2 ++
+ drivers/gpu/drm/msm/msm_gpu.h               |  3 ++
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c       | 13 +++++---
+ 12 files changed, 84 insertions(+), 40 deletions(-)
