@@ -1,52 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724424607EC
-	for <lists+freedreno@lfdr.de>; Sun, 28 Nov 2021 18:14:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D87C460C9A
+	for <lists+freedreno@lfdr.de>; Mon, 29 Nov 2021 03:20:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A536E10B;
-	Sun, 28 Nov 2021 17:14:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3A36E090;
+	Mon, 29 Nov 2021 02:20:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8A866E0B6;
- Sun, 28 Nov 2021 17:14:23 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- n33-20020a05600c502100b0032fb900951eso14927703wmr.4; 
- Sun, 28 Nov 2021 09:14:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=SDo6kRceja4bdqr/aJr2wU4CsUC6M9nZSYXWVouzbwE=;
- b=F/NmXpX3uv7MWq9O5UxSiaH/JBFcZLGL4OH6YgnkfbhUp4SipPdMcYmZRzDlCdminC
- xlSF6DiMKMdG63+cL6np+Oth1It/B2z8Ofqb5Fp3QNUcgxHNZ+oh0LUHVpkkAZeDgS0w
- HttH36osJfgL30ItwP1IhCah+OUHLPraKakntibxJ5Vv0EPpWr/pPCIr+E7tttOfjcAT
- Nyp/iXqTJRJzELYfmWZUEi0+rLrpxUut8xdh6hD09Pi8IhMgXie/Sv4ut3s8IEVnaAH2
- LU7YGpe9Ax4oc69ywd97K1UeKOVYO/gX/DTDIF4vvhXV9ciPnj1ocS2lyybLeTqnBYZz
- +xUw==
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 560636E090
+ for <freedreno@lists.freedesktop.org>; Mon, 29 Nov 2021 02:20:16 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id bi37so40473678lfb.5
+ for <freedreno@lists.freedesktop.org>; Sun, 28 Nov 2021 18:20:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=gbXpy3X0fAtXtWiERTMiFnq4YzMw3Gn4MO7+9HVk0zs=;
+ b=riAko6cxL5ZRupe3kDzYS9nBBKhba4A6hHLKSoFDDF+P8MBGCyx6NPjh403sXAhz6o
+ KCqji0QzueFYRrss2xQVIuIHaQoKMSCTnzAQtWtNdncRyYy9x76We7lAYt4rFhIGsP0i
+ KAYIumBQ5ylYOnEq83R1VUC/NSk2DerWqfBtbNE3Xx9kpJNvRFxCSQI6Pujlj30B3Mna
+ zy2xFYiwyJgA7IowgAklqEDDYVJ1shDXTjbjXn7QLSkpvqir9jOz68W2ksxMWAxuNLsx
+ 16ozAdUWv/iNS3A70mahCg593ikXS+uwSURxQ9vGzRT6T2A5wuts7oBqcgLfEgbRA2EC
+ wMqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=SDo6kRceja4bdqr/aJr2wU4CsUC6M9nZSYXWVouzbwE=;
- b=hkM7ALtc0BDh6FMDm9CEU2ygHgK0dJf01twS1aXg4DtEoDa0CX/e5uleBbZwsGFxV9
- 0zriV9agfATmnHOS3dPJGe4792bWJ8V7HM7EQUPSTpZB1XaPaVTdNzS5IBdgrCjZQT3b
- ECQyP/NX7CvNf4K/tCRuTdkFRgoG+wk0xwzDy2UQsdhh/279j4fgNjhWgtqDjS1vgEQp
- OAMkw+vtqn8h/tPmRhZXlmpsNq1KbguFhTiaKpT0uBZyPoiHr6ZQMfvv/lLB+x1UepiT
- 5B6+vkjz63nOfn2orILXnRqgvWhwMqP6L6ALQH1ZY5ucIcVzJ7lfYXOTUSBw8HMzTN5Z
- CBoQ==
-X-Gm-Message-State: AOAM530wFcTWN9geP6itqBJXTynJBELAGNKXt/01suaaBTrbpOWmMIax
- Qw/7VcxzgzE+joL1Hs7dLwsqD1MuI4STbdrYU5Y=
-X-Google-Smtp-Source: ABdhPJxaaZtHilcyBMs1TRuEdRW9798Kp2P7IZq1VCjZ9JEIdYP52GYC8OD+scy4zDM9DZxJd0GASFByQbXg6ciEzcU=
-X-Received: by 2002:a1c:790d:: with SMTP id l13mr31744121wme.101.1638119662245; 
- Sun, 28 Nov 2021 09:14:22 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=gbXpy3X0fAtXtWiERTMiFnq4YzMw3Gn4MO7+9HVk0zs=;
+ b=wT4JxrqWFH33z1fThVogXITXM+G/9fJs8z/DiLTnmAob/YOstA7nC9dIJIg29yf5sE
+ QYAxZJeiMOByMM/5FreACUZr+BEY78J5gTWTjmxwsqMUedpp+GRxXzx1ErrZNa6NlTpj
+ rZXb3O378zGOEIR3sCFa2Ldo2PJy3GeQXsV/er+jKxAe6wkhrTwWQ1EN9ygeFnRefMPC
+ NzCXnAHen9fnua0Y2PPIQFAGZvd62WOoxZ05coEuY8IzNE0dToQhpY9VjSne5cHz9eFM
+ B8DJ4llHKXRn/dLrdY3VdASWRpR8TUW0sPUPlpMaq6g5qGOeFVAcBCanYbr9e7U2NLbU
+ sidg==
+X-Gm-Message-State: AOAM532qRK7k2sFSVpCVa112FXERgIFW8/h3C+/5uqWm2wurb7IX8fkM
+ 1Witjr2IN8nHI2KJxHNUO2uEag==
+X-Google-Smtp-Source: ABdhPJxIwWo/bewpFBzWHTwOtHdrqRrm9GQlZeon4gRuwO5aydkPs6ToAAYp/JHEnm84xRrVcMGrBw==
+X-Received: by 2002:a05:6512:3251:: with SMTP id
+ c17mr43171055lfr.440.1638152414615; 
+ Sun, 28 Nov 2021 18:20:14 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id d18sm1336482lfl.30.2021.11.28.18.20.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 28 Nov 2021 18:20:14 -0800 (PST)
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ robdclark@gmail.com
+References: <20211125150947.354076-1-angelogioacchino.delregno@collabora.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <bf1540f1-4a9f-a9d6-d487-929107c487fd@linaro.org>
+Date: Mon, 29 Nov 2021 05:20:13 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Sun, 28 Nov 2021 09:19:34 -0800
-Message-ID: <CAF6AEGsV-ntO_u323XMKuD6bgbgvXporwi1sbyXwNDAuA52Afw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2021-11-28 for v5.16
+In-Reply-To: <20211125150947.354076-1-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm: Initialize MDSS irq domain at
+ probe time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +74,180 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ jami.kettunen@somainline.org, maxime@cerno.tech, daniel@ffwll.ch,
+ marijn.suijten@somainline.org, kernel@collabora.com, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Hi,
 
-A few fixes for v5.16.
+On 25/11/2021 18:09, AngeloGioacchino Del Regno wrote:
+> Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
+> DSI host gets initialized earlier, but this caused unability to probe
+> the entire stack of components because they all depend on interrupts
+> coming from the main `mdss` node (mdp5, or dpu1).
+> 
+> To fix this issue, also anticipate probing mdp5 or dpu1 by initializing
+> them at msm_pdev_probe() time: this will make sure that we add the
+> required interrupt controller mapping before dsi and/or other components
+> try to initialize, finally satisfying the dependency.
+> 
+> While at it, also change the allocation of msm_drm_private to use the
+> devm variant of kzalloc().
+> 
+> Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-The following changes since commit fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf:
+I have been thinking about this. I do not feel that this is the correct 
+approach. Currently DRM device exists only when all components are 
+bound. If any of the subdevices is removed, corresponding component is 
+delteted (and thus all components are unbound), the DRM device is taken 
+down. This results in the state cleanup, userspace notifications, etc.
 
-  Linux 5.16-rc1 (2021-11-14 13:56:52 -0800)
+With your changes, DRM device will continue to exist even after one of 
+subdevices is removed. This is not an expected behaviour, since 
+subdrivers do not perform full cleanup, delegating that to DRM device 
+takedown.
 
-are available in the Git repository at:
+I suppose that proper solution would be to split msm_drv.c into into:
+- generic components & drm code to be called from mdp4/mdp5/dpu driver 
+(making mdp4, mdp5 or dpu1 the components master)
 
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2021-11-28
+- bare mdss driver, taking care only about IRQs, OF devices population - 
+calling proper mdss_init/mdss_destroy functions. Most probably we can 
+drop this part altogether and just make md5_mdss.c/dpu_mdss.c proper 
+platform drivers.
 
-for you to fetch changes up to afece15a68dc83b438cc4c3a64634e48a5735573:
+> ---
+>   drivers/gpu/drm/msm/msm_drv.c | 81 ++++++++++++++++-------------------
+>   1 file changed, 38 insertions(+), 43 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 7936e8d498dd..790acf4993c0 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -512,45 +512,12 @@ static int msm_init_vram(struct drm_device *dev)
+>   static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+> -	struct drm_device *ddev;
+> -	struct msm_drm_private *priv;
+> -	struct msm_kms *kms;
+> -	struct msm_mdss *mdss;
+> +	struct drm_device *ddev = platform_get_drvdata(pdev);
+> +	struct msm_drm_private *priv = ddev->dev_private;
+> +	struct msm_kms *kms = priv->kms;
+> +	struct msm_mdss *mdss = priv->mdss;
+>   	int ret, i;
+>   
+> -	ddev = drm_dev_alloc(drv, dev);
+> -	if (IS_ERR(ddev)) {
+> -		DRM_DEV_ERROR(dev, "failed to allocate drm_device\n");
+> -		return PTR_ERR(ddev);
+> -	}
+> -
+> -	platform_set_drvdata(pdev, ddev);
+> -
+> -	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
+> -	if (!priv) {
+> -		ret = -ENOMEM;
+> -		goto err_put_drm_dev;
+> -	}
+> -
+> -	ddev->dev_private = priv;
+> -	priv->dev = ddev;
+> -
+> -	switch (get_mdp_ver(pdev)) {
+> -	case KMS_MDP5:
+> -		ret = mdp5_mdss_init(ddev);
+> -		break;
+> -	case KMS_DPU:
+> -		ret = dpu_mdss_init(ddev);
+> -		break;
+> -	default:
+> -		ret = 0;
+> -		break;
+> -	}
+> -	if (ret)
+> -		goto err_free_priv;
+> -
+> -	mdss = priv->mdss;
+> -
+>   	priv->wq = alloc_ordered_workqueue("msm", 0);
+>   	priv->hangcheck_period = DRM_MSM_HANGCHECK_DEFAULT_PERIOD;
+>   
+> @@ -685,11 +652,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   err_destroy_mdss:
+>   	if (mdss && mdss->funcs)
+>   		mdss->funcs->destroy(ddev);
+> -err_free_priv:
+> -	kfree(priv);
+> -err_put_drm_dev:
+> -	drm_dev_put(ddev);
+> -	platform_set_drvdata(pdev, NULL);
+>   	return ret;
+>   }
+>   
+> @@ -1382,12 +1344,42 @@ static const struct component_master_ops msm_drm_ops = {
+>   static int msm_pdev_probe(struct platform_device *pdev)
+>   {
+>   	struct component_match *match = NULL;
+> +	struct msm_drm_private *priv;
+> +	struct drm_device *ddev;
+>   	int ret;
+>   
+> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	ddev = drm_dev_alloc(&msm_driver, &pdev->dev);
+> +	if (IS_ERR(ddev)) {
+> +		DRM_DEV_ERROR(&pdev->dev, "failed to allocate drm_device\n");
+> +		return PTR_ERR(ddev);
+> +	}
+> +
+> +	platform_set_drvdata(pdev, ddev);
+> +	ddev->dev_private = priv;
+> +	priv->dev = ddev;
+> +
+> +	switch (get_mdp_ver(pdev)) {
+> +	case KMS_MDP5:
+> +		ret = mdp5_mdss_init(ddev);
+> +		break;
+> +	case KMS_DPU:
+> +		ret = dpu_mdss_init(ddev);
+> +		break;
+> +	default:
+> +		ret = 0;
+> +		break;
+> +	}
+> +	if (ret)
+> +		goto err_put_drm_dev;
+> +
+>   	if (get_mdp_ver(pdev)) {
+>   		ret = add_display_components(pdev, &match);
+>   		if (ret)
+> -			return ret;
+> +			goto fail;
+>   	}
+>   
+>   	ret = add_gpu_components(&pdev->dev, &match);
+> @@ -1409,6 +1401,9 @@ static int msm_pdev_probe(struct platform_device *pdev)
+>   
+>   fail:
+>   	of_platform_depopulate(&pdev->dev);
+> +err_put_drm_dev:
+> +	drm_dev_put(ddev);
+> +	platform_set_drvdata(pdev, NULL);
+>   	return ret;
+>   }
+>   
+> 
 
-  drm: msm: fix building without CONFIG_COMMON_CLK (2021-11-26 08:58:57 -0800)
 
-----------------------------------------------------------------
-Akhil P Oommen (2):
-      drm/msm: Fix null ptr access msm_ioctl_gem_submit()
-      drm/msm/a6xx: Fix uinitialized use of gpu_scid
-
-Arnd Bergmann (1):
-      drm: msm: fix building without CONFIG_COMMON_CLK
-
-Douglas Anderson (3):
-      drm/msm/a6xx: Allocate enough space for GMU registers
-      drm/msm: Fix mmap to include VM_IO and VM_DONTDUMP
-      drm/msm/dp: Avoid unpowered AUX xfers that caused crashes
-
-Philip Chen (1):
-      drm/msm/dsi: set default num_data_lanes
-
-Rob Clark (8):
-      drm/msm/devfreq: Fix OPP refcnt leak
-      drm/msm: Fix wait_fence submitqueue leak
-      drm/msm: Restore error return on invalid fence
-      drm/msm: Make a6xx_gpu_set_freq() static
-      drm/msm: Demote debug message
-      drm/msm/gpu: Fix idle_work time
-      drm/msm/gpu: Fix check for devices without devfreq
-      drm/msm: Do hw_init() before capturing GPU state
-
- drivers/gpu/drm/msm/Kconfig                 |  2 +-
- drivers/gpu/drm/msm/Makefile                |  6 ++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c       | 20 ++++++------
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c |  4 +--
- drivers/gpu/drm/msm/dp/dp_aux.c             | 17 ++++++++++
- drivers/gpu/drm/msm/dsi/dsi_host.c          |  2 ++
- drivers/gpu/drm/msm/msm_debugfs.c           |  1 +
- drivers/gpu/drm/msm/msm_drv.c               | 49 +++++++++++++++++++----------
- drivers/gpu/drm/msm/msm_gem.c               |  5 ++-
- drivers/gpu/drm/msm/msm_gem_submit.c        |  2 ++
- drivers/gpu/drm/msm/msm_gpu.h               |  3 ++
- drivers/gpu/drm/msm/msm_gpu_devfreq.c       | 13 +++++---
- 12 files changed, 84 insertions(+), 40 deletions(-)
+-- 
+With best wishes
+Dmitry
