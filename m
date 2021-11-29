@@ -2,53 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3894646229C
-	for <lists+freedreno@lfdr.de>; Mon, 29 Nov 2021 21:56:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8204623EB
+	for <lists+freedreno@lfdr.de>; Mon, 29 Nov 2021 23:03:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0DC26E17C;
-	Mon, 29 Nov 2021 20:56:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA196E2EF;
+	Mon, 29 Nov 2021 22:03:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C2116E17C;
- Mon, 29 Nov 2021 20:56:56 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id a9so39622112wrr.8;
- Mon, 29 Nov 2021 12:56:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ql+suTnFvydSezbeHxVyPeDhtZlxR55/pcfoLfrc7+k=;
- b=Ens7ubDTOxqILotmtNmGg8U+4zE7BrADm8c85OPM9xJDZ/hgVyIKJZjoV+78BP7c7k
- /42TkHcAidV1uMsYtQMyGrV1m46QqeIWB61TSLpW4zNiUKOLWvUdPvCHt6tFReeOyvkj
- ohe4+m5f4e3OgOcc7zYxKRjV2MHoZGYlBLqmAftUa3pwuorsO8l/oHwYsC2bgaftikab
- hecr4tOEXJJAYjQ0mhefuLilKbAr95aBIF2o8Hj/FkBh6r+CAD7AtoWA7Ynw3C9yUmIm
- +/ggRVfCsqiUMEwKZp2FlaERAsIBfSkbyxqR16melEVlK/TkaFlefutwni+FeVH85os8
- 5ZcQ==
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 544C06E048;
+ Mon, 29 Nov 2021 22:03:45 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id t23so37331065oiw.3;
+ Mon, 29 Nov 2021 14:03:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ql+suTnFvydSezbeHxVyPeDhtZlxR55/pcfoLfrc7+k=;
- b=iQgLiNkIq6P9dvjJjz/rLLXjoewvCPbkV24SythMSQdo6eXamq9UJ8sJ0Pib6AL2r/
- b1E2jD7IYuKOoqubtWcSk6dY3nUUGG8Ye/kei75TLHW1vCSs1eTp0GOPBV7VfcIsnDT6
- F1ZeO3dRWtiV/5QqKImc4svl+o7vwZ/g0r4Sxk9ndiLdAlEwB8ioKujFkBDcel8V2Of9
- HKvUso8YbQEDQGz470G4z9PT5DU+57nF73cFMw/qaJPKwVl0gkzOhip3Fcie5oXQ3zb6
- 5hmk7VhPq8dc/jI96LlGZtQK2nr0lbPn2lKNu0vkFowANdFzf2Rg6mgOuKjcn4CpBhPu
- v2TQ==
-X-Gm-Message-State: AOAM532NjGRYSgNAbfwMU6n1F0iURUoFUPkCPnckWC5CUgsiBtWchc20
- 1PJ73AGySidagSa85+1VjKqo3l+l6CA1KdTM1mEiRzOtNUk=
-X-Google-Smtp-Source: ABdhPJyrJ30OAXdBPr/U7cQs7gHEQbhx9D9YurENX81bSHU6lw8F1FvL1j+nliIEMNEguTJT6UDhj1LZLQ4tblRLOcg=
-X-Received: by 2002:adf:e904:: with SMTP id f4mr35829349wrm.245.1638219414380; 
- Mon, 29 Nov 2021 12:56:54 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=wL2j/zhnCBNuLmFuTXzTlUDE4xxt9w3i13nGa7X0Qrc=;
+ b=ube9yw6PPe4DJU5gbdpiJU73lbF5UDWcBprF/rP5nuGtmwHsCwyq4l2Nfn6EsAX1cI
+ GPmLrDvEx+HsBU7NxM6cQTeMBeR6Phyof8CrYxMuVL47C51o7bjdVg4EoCukzmj+/AH5
+ stBWpfDBYex0kVMyaSltQc983Krrlwkul5mNEM1tSxoNa2B0OJPha1z2EP6Hrx3XibAz
+ +UsnSTmnMO+mYjPvWiPn1vAoQGWqqiIDCJHQ3ny5BXWFPw4Ye5seyy2oNVzFAsGa7LLB
+ +9lECShfOgGs7XTUX+z8z+nXCtySUPHcGtm4zB1kh2YOu7rBpTbCckhQAp1OExJbkXAL
+ iHWw==
+X-Gm-Message-State: AOAM532Cmvf+W1iZNGunNggP5o0bqehU6SjoqK+5UnDEPlOprWMgJ8kI
+ JW5l8tnGKaEpIuHKblBRrQ==
+X-Google-Smtp-Source: ABdhPJyRltEG100ztU/F/vjH3VbBNGkp77YNJmZqqf5Mb0uG7mYLeNCPrngtXJ+IzOzkeDGFqvrfsw==
+X-Received: by 2002:a05:6808:199c:: with SMTP id
+ bj28mr721992oib.98.1638223424595; 
+ Mon, 29 Nov 2021 14:03:44 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id m2sm2484366oop.12.2021.11.29.14.03.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Nov 2021 14:03:44 -0800 (PST)
+Received: (nullmailer pid 690738 invoked by uid 1000);
+ Mon, 29 Nov 2021 22:03:43 -0000
+Date: Mon, 29 Nov 2021 16:03:43 -0600
+From: Rob Herring <robh@kernel.org>
+To: Sean Paul <sean@poorly.run>
+Message-ID: <YaVOPwmWinSJ6z2m@robh.at.kernel.org>
+References: <YY7lb9k2UArZf7I/@robh.at.kernel.org>
+ <20211115202153.117244-1-sean@poorly.run>
 MIME-Version: 1.0
-References: <20211129182344.292609-1-robdclark@gmail.com>
-In-Reply-To: <20211129182344.292609-1-robdclark@gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 29 Nov 2021 13:02:05 -0800
-Message-ID: <CAF6AEGtLoT7XE-KoASfn=FjMvPmSijmjUYSyd_dFgubnjio3zw@mail.gmail.com>
-To: dri-devel <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Don't allow zero fence_id
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211115202153.117244-1-sean@poorly.run>
+Subject: Re: [Freedreno] [PATCH v4.5 12/14] dt-bindings: msm/dp: Add
+ bindings for HDCP registers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,47 +63,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, jani.nikula@intel.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ abhinavk@codeaurora.org, swboyd@chromium.org, khsieh@codeaurora.org,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ robh+dt@kernel.org, seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, bjorn.andersson@linaro.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 29, 2021 at 10:18 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Elsewhere we treat zero as "no fence" and __msm_gem_submit_destroy()
-> skips removal from fence_idr.  We could alternately change this to use
-> negative values for "no fence" but I think it is more clear to not allow
-> zero as a valid fence_id.
->
-
-probably should have added:
-
-Fixes: a61acbbe9cf8 ("drm/msm: Track "seqno" fences by idr")
-
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+On Mon, 15 Nov 2021 20:21:48 +0000, Sean Paul wrote:
+> From: Sean Paul <seanpaul@chromium.org>
+> 
+> This patch adds the bindings for the MSM DisplayPort HDCP registers
+> which are required to write the HDCP key into the display controller as
+> well as the registers to enable HDCP authentication/key
+> exchange/encryption.
+> 
+> We'll use a new compatible string for this since the fields are optional.
+> 
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Stephen Boyd <swboyd@chromium.org>
+> Signed-off-by: Sean Paul <seanpaul@chromium.org>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
+> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
+> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-13-sean@poorly.run #v3
+> Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-13-sean@poorly.run #v4
+> 
+> Changes in v2:
+> -Drop register range names (Stephen)
+> -Fix yaml errors (Rob)
+> Changes in v3:
+> -Add new compatible string for dp-hdcp
+> -Add descriptions to reg
+> -Add minItems/maxItems to reg
+> -Make reg depend on the new hdcp compatible string
+> Changes in v4:
+> -Rebase on Bjorn's multi-dp patchset
+> Changes in v4.5:
+> -Remove maxItems from reg (Rob)
+> -Remove leading zeros in example (Rob)
 > ---
->  drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-> index 282628d6b72c..6cfa984dee6a 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -881,7 +881,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->          * to the underlying fence.
->          */
->         submit->fence_id = idr_alloc_cyclic(&queue->fence_idr,
-> -                       submit->user_fence, 0, INT_MAX, GFP_KERNEL);
-> +                       submit->user_fence, 1, INT_MAX, GFP_KERNEL);
->         if (submit->fence_id < 0) {
->                 ret = submit->fence_id = 0;
->                 submit->fence_id = 0;
-> --
-> 2.33.1
->
+>  .../devicetree/bindings/display/msm/dp-controller.yaml     | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
