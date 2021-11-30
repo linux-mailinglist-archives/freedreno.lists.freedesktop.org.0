@@ -2,63 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB5B462935
-	for <lists+freedreno@lfdr.de>; Tue, 30 Nov 2021 01:38:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A896D462981
+	for <lists+freedreno@lfdr.de>; Tue, 30 Nov 2021 02:15:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 287A889CAC;
-	Tue, 30 Nov 2021 00:38:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658CE6E217;
+	Tue, 30 Nov 2021 01:14:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D9989C86;
- Tue, 30 Nov 2021 00:38:10 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id o4so18701898pfp.13;
- Mon, 29 Nov 2021 16:38:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ex6ryLecuMDauByS2PdeOAXHhvBq1BOC5LZy2MNA2Ic=;
- b=XPWMIbM3cOCTJ9sTEyL1OokAi2Zweg4jC7iaxnJW92rjwu5rP9A1a3TN8Nb3GPgW/I
- 0nufm21K1VMnxkPZNnMdBopNHamNeEKbh42PlHl/pjFWMke8RmDfr/beHr/O4Ea9YiLI
- qZOg3bVNrSeBeqZrqHZM3I9BVDNO4nAhu7hxoQ1eMfaMcaYd2SKu846D0uMtzdu2CnBX
- aY3XGN/8j/gYcelDl/+7vCv8hlUczXI9Z/WYFvlj7f3GaNMzWMiAnRiXoJH+5nlVkUep
- o4oNZTF9/+7LA5jk9TKTaX94FROdPi/tKZbx22FH4qMax9PN7pJc+CEdiOCUy0ZASpL9
- PSHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ex6ryLecuMDauByS2PdeOAXHhvBq1BOC5LZy2MNA2Ic=;
- b=UpeC5ktMMsvlPtqByS629hHq9MfzNs+EFjl7be0KKQqmg59Qaa/+uyIyd6zQTMz1h9
- YCKEyaDD6vYtyTab2uY5Qo4L/fTncr5rF9EpZ651ksk3bvt80IXWjpk1vn96IYJzzTj3
- l7vYpnwwLtORV2CaJhqsxxKFEXv1UopujlcCpsr2Vg+msCcvPlR1ErQ5L5tkCABRNQ3V
- AdAt/7KCLjw75yz5DPfCLjstBgOvOhPQrpH2Tk63wmOrHTuLS5PNfCbjmJSUUbVUqmkF
- xp+Ze8k8O5J54/ZWt++MdGFdtlzcjzNPs0vn9Jn6AQVEx9sZvC6BLAOsQoHG5pZzCUw7
- 9fow==
-X-Gm-Message-State: AOAM533VaeFHPD8OZKtYg/z9V3Nk45/CkaPg9vTxWCU/rbIJB8Ety/+a
- slM32YhIUCCqi/f6roBAmIb2mAZyHe8=
-X-Google-Smtp-Source: ABdhPJz0tiefMms9tdhNkJTLfBlJ4ZEUw4ve61k38995XSR4/gvHW8CbeWsYg/UsiNeCPJrVtycMAw==
-X-Received: by 2002:a05:6a00:2af:b0:4a2:a6f0:8eec with SMTP id
- q15-20020a056a0002af00b004a2a6f08eecmr41902452pfs.23.1638232689507; 
- Mon, 29 Nov 2021 16:38:09 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- m15sm19244575pfk.186.2021.11.29.16.38.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Nov 2021 16:38:08 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: igt-dev@lists.freedesktop.org
-Date: Mon, 29 Nov 2021 16:43:24 -0800
-Message-Id: <20211130004324.337399-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211130004324.337399-1-robdclark@gmail.com>
-References: <20211130004324.337399-1-robdclark@gmail.com>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BE746E20F;
+ Tue, 30 Nov 2021 01:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1638234896; x=1669770896;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=A0M/OkbgjDDEzxJJd7thNaREyyEELCRZKsECK+0kPX4=;
+ b=j4FwP+2O6w5FqXV9iuB2RMcPd3tdcEWCk1XfFvo9PSFLktg8HLDl08Em
+ szy2FndswfkiMS47WPw5T82ZxnrPfDoXsCtuJKVoaLzxCl3ZylxkY7Niz
+ s4Y6nSVIRpcCwhFaWhw57AKYL8DUB/Hs318Tlhvmn0SohUOk+syc5YXFK k=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 29 Nov 2021 17:14:55 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2021 17:14:54 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 29 Nov 2021 17:14:53 -0800
+Received: from [10.38.245.83] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Mon, 29 Nov
+ 2021 17:14:50 -0800
+Message-ID: <e898e0c3-2831-1e84-bf9e-7e812cf9c813@quicinc.com>
+Date: Mon, 29 Nov 2021 17:14:48 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH igt 2/2] msm: Add test for kernel buffer
- permissions
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+References: <20211116062256.2417186-1-vkoul@kernel.org>
+ <20211116062256.2417186-2-vkoul@kernel.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20211116062256.2417186-2-vkoul@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v3 01/13] drm/msm/dsi: add support for dsc
+ data
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,312 +66,251 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Abhinav
+ Kumar <abhinavk@codeaurora.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ dri-devel@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi Vinod
 
-Tests that reads and/or writes to kernel managed buffers which should be
-inaccessible to userspace controlled cmdstream, are indeed inaccessible.
+On 11/15/2021 10:22 PM, Vinod Koul wrote:
+> Display Stream Compression (DSC) parameters need to be calculated. Add
+> helpers and struct msm_display_dsc_config in msm_drv for this
+> msm_display_dsc_config uses drm_dsc_config for DSC parameters.
+> 
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> ---
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 132 +++++++++++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_drv.h      |  20 +++++
+>   2 files changed, 152 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index f69a125f9559..30c1e299aa52 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -31,6 +31,8 @@
+>   
+>   #define DSI_RESET_TOGGLE_DELAY_MS 20
+>   
+> +static int dsi_populate_dsc_params(struct msm_display_dsc_config *dsc);
+> +
+>   static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
+>   {
+>   	u32 ver;
+> @@ -157,6 +159,7 @@ struct msm_dsi_host {
+>   	struct regmap *sfpb;
+>   
+>   	struct drm_display_mode *mode;
+> +	struct msm_display_dsc_config *dsc;
+>   
+>   	/* connected device info */
+>   	struct device_node *device_node;
+> @@ -1710,6 +1713,135 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
+>   	return -EINVAL;
+>   }
+>   
+> +static u32 dsi_dsc_rc_buf_thresh[DSC_NUM_BUF_RANGES - 1] = {
+> +	0x0e, 0x1c, 0x2a, 0x38, 0x46, 0x54, 0x62,
+> +	0x69, 0x70, 0x77, 0x79, 0x7b, 0x7d, 0x7e
+> +};
+> +
+> +/* only 8bpc, 8bpp added */
+> +static char min_qp[DSC_NUM_BUF_RANGES] = {
+> +	0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 7, 13
+> +};
+> +
+> +static char max_qp[DSC_NUM_BUF_RANGES] = {
+> +	4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 11, 12, 13, 13, 15
+> +};
+> +
+> +static char bpg_offset[DSC_NUM_BUF_RANGES] = {
+> +	2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
+> +};
+> +
+> +static int dsi_populate_dsc_params(struct msm_display_dsc_config *dsc)
+> +{
+> +	int mux_words_size;
+> +	int groups_per_line, groups_total;
+> +	int min_rate_buffer_size;
+> +	int hrd_delay;
+> +	int pre_num_extra_mux_bits, num_extra_mux_bits;
+> +	int slice_bits;
+> +	int target_bpp_x16;
+> +	int data;
+> +	int final_value, final_scale;
+> +	int i;
+> +
+> +	dsc->drm->rc_model_size = 8192;
+> +	dsc->drm->first_line_bpg_offset = 12;
+> +	dsc->drm->rc_edge_factor = 6;
+> +	dsc->drm->rc_tgt_offset_high = 3;
+> +	dsc->drm->rc_tgt_offset_low = 3;
+> +	dsc->drm->simple_422 = 0;
+> +	dsc->drm->convert_rgb = 1;
+> +	dsc->drm->vbr_enable = 0;
+> +
+> +	/* handle only bpp = bpc = 8 */
+> +	for (i = 0; i < DSC_NUM_BUF_RANGES - 1 ; i++)
+> +		dsc->drm->rc_buf_thresh[i] = dsi_dsc_rc_buf_thresh[i];
+> +
+> +	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
+> +		dsc->drm->rc_range_params[i].range_min_qp = min_qp[i];
+> +		dsc->drm->rc_range_params[i].range_max_qp = max_qp[i];
+> +		dsc->drm->rc_range_params[i].range_bpg_offset = bpg_offset[i];
+> +	}
+> +
+> +	dsc->drm->initial_offset = 6144; /* Not bpp 12 */
+> +	if (dsc->drm->bits_per_pixel != 8)
+> +		dsc->drm->initial_offset = 2048;	/* bpp = 12 */
+> +
+> +	mux_words_size = 48;		/* bpc == 8/10 */
+> +	if (dsc->drm->bits_per_component == 12)
+> +		mux_words_size = 64;
+> +
+> +	dsc->drm->initial_xmit_delay = 512;
+> +	dsc->drm->initial_scale_value = 32;
+> +	dsc->drm->first_line_bpg_offset = 12;
+> +	dsc->drm->line_buf_depth = dsc->drm->bits_per_component + 1;
+> +
+> +	/* bpc 8 */
+> +	dsc->drm->flatness_min_qp = 3;
+> +	dsc->drm->flatness_max_qp = 12;
+> +	dsc->det_thresh_flatness = 7 + 2 * (dsc->drm->bits_per_component - 8);
+> +	dsc->drm->rc_quant_incr_limit0 = 11;
+> +	dsc->drm->rc_quant_incr_limit1 = 11;
+> +	dsc->drm->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
+> +
+> +	/* FIXME: need to call drm_dsc_compute_rc_parameters() so that rest of
+> +	 * params are calculated
+> +	 */
+since its been a while on this, before moving ahead with a FIXME 
+comment, I wanted to know if you had a chance to check what is the 
+discrepancy between this and drm_dsc_compute_rc_parameters().
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- lib/igt_msm.h       |   1 +
- tests/meson.build   |   1 +
- tests/msm_mapping.c | 257 ++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 259 insertions(+)
- create mode 100644 tests/msm_mapping.c
+The LOC saved can be quite a bit if we move to
+drm_dsc_compute_rc_parameters(). Last time we synced, I think only one 
+parameter was mismatching. The code-churn to avoid one mismatch seems a 
+lot. If there are more conflicting parameters than one or two, we can go 
+ahead with this custom calculation with your FIXME.
 
-diff --git a/lib/igt_msm.h b/lib/igt_msm.h
-index 421d23ed..6008020b 100644
---- a/lib/igt_msm.h
-+++ b/lib/igt_msm.h
-@@ -100,6 +100,7 @@ enum adreno_pm4_type3_packets {
- 	CP_WAIT_MEM_GTE = 20,
- 	CP_WAIT_REG_MEM = 60,
- 	CP_MEM_WRITE = 61,
-+	CP_MEM_TO_MEM = 115,
- };
- 
- static inline unsigned
-diff --git a/tests/meson.build b/tests/meson.build
-index 7b7d6bf8..c14acf99 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -60,6 +60,7 @@ test_progs = [
- 	'kms_vrr',
- 	'kms_writeback',
- 	'meta_test',
-+	'msm_mapping',
- 	'msm_recovery',
- 	'msm_submit',
- 	'panfrost_get_param',
-diff --git a/tests/msm_mapping.c b/tests/msm_mapping.c
-new file mode 100644
-index 00000000..e1474f9f
---- /dev/null
-+++ b/tests/msm_mapping.c
-@@ -0,0 +1,257 @@
-+/*
-+ * Copyright © 2021 Google, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ */
-+
-+#include <ctype.h>
-+#include <fcntl.h>
-+#include <glob.h>
-+#include <string.h>
-+#include <sys/poll.h>
-+#include <sys/stat.h>
-+
-+#include "igt.h"
-+#include "igt_msm.h"
-+#include "igt_io.h"
-+
-+/*
-+ * Tests to ensure various kernel controlled buffers are mapped with the
-+ * appropriate permissions (either read-only or not-accessible to userspace
-+ * controlled cmdstream)
-+ */
-+
-+/*
-+ * Helper to get and clear devcore dumps
-+ */
-+
-+static char *
-+get_and_clear_devcore(void)
-+{
-+	glob_t glob_buf = {0};
-+	char *buf = NULL;
-+	int ret, fd;
-+
-+	ret = glob("/sys/class/devcoredump/devcd*/data", GLOB_NOSORT, NULL, &glob_buf);
-+	if ((ret == GLOB_NOMATCH) || !glob_buf.gl_pathc)
-+		return NULL;
-+
-+	fd = open(glob_buf.gl_pathv[0], O_RDWR);
-+
-+	if (fd >= 0) {
-+		/* We don't need to read the entire devcore, the first bit is
-+		 * sufficient for our purposes:
-+		 */
-+		buf = calloc(1, 0x1000);
-+		igt_readn(fd, buf, 0x1000);
-+
-+		/* Clear the devcore: */
-+		igt_writen(fd, "1", 1);
-+	}
-+
-+	globfree(&glob_buf);
-+
-+	return buf;
-+}
-+
-+/*
-+ * Helper to find named buffer address
-+ */
-+
-+static const char *
-+get_line(char **buf)
-+{
-+	char *ret, *eol;
-+
-+	ret = *buf;
-+	eol = strstr(*buf, "\n");
-+
-+	if (!eol) {
-+		/* could be last line in file: */
-+		*buf = NULL;
-+		return ret;
-+	}
-+
-+	*eol = '\0';
-+	*buf += 1 + strlen(ret);
-+
-+	return ret;
-+}
-+
-+static bool
-+endswith(const char *str, const char *end)
-+{
-+	char *p = strstr(str, end);
-+
-+	/* Trim trailing whitespace: */
-+	if (p) {
-+		char *c = p;
-+		while (c) {
-+			if (isspace(*c)) {
-+				*c = '\0';
-+				break;
-+			}
-+			c++;
-+		}
-+	}
-+
-+	return p && (strlen(p) == strlen(end));
-+}
-+
-+static uint64_t
-+get_bo_addr(int drm_fd, const char *name)
-+{
-+	char buf[0x4000];
-+	char *p = buf;
-+
-+	igt_debugfs_read(drm_fd, "gem", buf);
-+
-+	/* NOTE: the contents of the debugfs file look like:
-+	 *
-+	 *    flags       id ref  offset   kaddr            size     madv      name
-+	 *    00040000: I  0 ( 1) 00000000 ffffffc0104b9000 00004096           memptrs
-+	 *       vmas: [gpu: aspace=ffffff808bf03e00, 1000000000000,mapped,inuse=1]
-+	 *    00020002: I  0 ( 1) 00000000 ffffffc012001000 00032768           ring0
-+	 *       vmas: [gpu: aspace=ffffff808bf03e00, 1000000001000,mapped,inuse=1]
-+	 *
-+	 * There can be potentially multiple vma's per bo, listed on the lines
-+	 * following the line for the buffer (which ends in the buffer name),
-+	 * but this should not be the case for any kernel controlled buffers.
-+	 */
-+
-+	while (*p) {
-+		const char *line = get_line(&p);
-+
-+		if (endswith(line, name)) {
-+			uint64_t addr, dummy;
-+			int ret;
-+
-+			line = get_line(&p);
-+
-+			igt_fail_on(!line);
-+
-+			ret = sscanf(line, "      vmas: [gpu: aspace=%"PRIx64", %"PRIx64",mapped,inuse=1]",
-+					&dummy, &addr);
-+			igt_fail_on(ret != 2);
-+
-+			return addr;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Helper for testing access to the named buffer
-+ */
-+static void
-+do_mapping_test(struct msm_pipe *pipe, const char *buffername, bool write)
-+{
-+	struct msm_bo *scratch_bo = NULL;
-+	struct msm_cmd *cmd;
-+	char *devcore, *s;
-+	uint64_t addr, fault_addr;
-+	int fence_fd, ret;
-+
-+	/* Clear any existing devcore's: */
-+	while ((devcore = get_and_clear_devcore())) {
-+		free(devcore);
-+	}
-+
-+	addr = get_bo_addr(pipe->dev->fd, buffername);
-+	igt_skip_on(addr == 0);
-+
-+	cmd = igt_msm_cmd_new(pipe, 0x1000);
-+
-+	if (write) {
-+		msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
-+		msm_cmd_emit(cmd, lower_32_bits(addr));  /* ADDR_LO */
-+		msm_cmd_emit(cmd, upper_32_bits(addr));  /* ADDR_HI */
-+		msm_cmd_emit(cmd, 0x123);                /* VAL */
-+	} else {
-+		scratch_bo = igt_msm_bo_new(pipe->dev, 0x1000, MSM_BO_WC);
-+		msm_cmd_pkt7(cmd, CP_MEM_TO_MEM, 5);
-+		msm_cmd_emit(cmd, 0);
-+		msm_cmd_bo  (cmd, scratch_bo, 0);        /* DEST_ADDR_LO/HI */
-+		msm_cmd_emit(cmd, lower_32_bits(addr));  /* SRC_A_ADDR_LO */
-+		msm_cmd_emit(cmd, upper_32_bits(addr));  /* SRC_A_ADDR_HI */
-+	}
-+
-+	fence_fd = igt_msm_cmd_submit(cmd);
-+
-+	/* Wait for submit to complete: */
-+	poll(&(struct pollfd){fence_fd, POLLIN}, 1, -1);
-+	close(fence_fd);
-+
-+	igt_msm_bo_free(scratch_bo);
-+
-+	/* And now we should have gotten a devcore from the iova fault
-+	 * triggered by the read or write:
-+	 */
-+	devcore = get_and_clear_devcore();
-+	igt_fail_on(!devcore);
-+
-+	/* Make sure the devcore is from iova fault: */
-+	igt_fail_on(!strstr(devcore, "fault-info"));
-+
-+	s = strstr(devcore, "  - far: ");
-+	igt_fail_on(!s);
-+
-+	ret = sscanf(s, "  - far: %"PRIx64, &fault_addr);
-+	igt_fail_on(ret != 1);
-+	igt_fail_on(addr != fault_addr);
-+}
-+
-+/*
-+ * Tests for drm/msm hangcheck, recovery, and fault handling
-+ */
-+
-+igt_main
-+{
-+	struct msm_device *dev = NULL;
-+	struct msm_pipe *pipe = NULL;
-+
-+	igt_fixture {
-+		dev = igt_msm_dev_open();
-+		pipe = igt_msm_pipe_open(dev, 0);
-+	}
-+
-+	igt_describe("Test ringbuffer mapping, should be read-only");
-+	igt_subtest("ring") {
-+		do_mapping_test(pipe, "ring0", true);
-+	}
-+
-+	igt_describe("Test sqefw mapping, should be read-only");
-+	igt_subtest("sqefw") {
-+		igt_require(dev->gen >= 6);
-+		do_mapping_test(pipe, "sqefw", true);
-+	}
-+
-+	igt_describe("Test shadow mapping, should be inaccessible");
-+	igt_subtest("shadow") {
-+		do_mapping_test(pipe, "shadow", true);
-+		do_mapping_test(pipe, "shadow", false);
-+	}
-+
-+	igt_fixture {
-+		igt_msm_pipe_close(pipe);
-+		igt_msm_dev_close(dev);
-+	}
-+}
--- 
-2.33.1
 
+> +	dsc->slice_last_group_size = 3 - (dsc->drm->slice_width % 3);
+> +	groups_per_line = DIV_ROUND_UP(dsc->drm->slice_width, 3);
+> +	dsc->drm->slice_chunk_size = dsc->drm->slice_width * dsc->drm->bits_per_pixel / 8;
+> +	if ((dsc->drm->slice_width * dsc->drm->bits_per_pixel) % 8)
+> +		dsc->drm->slice_chunk_size++;
+> +
+> +	/* rbs-min */
+> +	min_rate_buffer_size =  dsc->drm->rc_model_size - dsc->drm->initial_offset +
+> +				dsc->drm->initial_xmit_delay * dsc->drm->bits_per_pixel +
+> +				groups_per_line * dsc->drm->first_line_bpg_offset;
+> +
+> +	hrd_delay = DIV_ROUND_UP(min_rate_buffer_size, dsc->drm->bits_per_pixel);
+> +
+> +	dsc->drm->initial_dec_delay = hrd_delay - dsc->drm->initial_xmit_delay;
+> +
+> +	dsc->drm->initial_scale_value = 8 * dsc->drm->rc_model_size /
+> +				       (dsc->drm->rc_model_size - dsc->drm->initial_offset);
+> +
+> +	slice_bits = 8 * dsc->drm->slice_chunk_size * dsc->drm->slice_height;
+> +
+> +	groups_total = groups_per_line * dsc->drm->slice_height;
+> +
+> +	data = dsc->drm->first_line_bpg_offset * 2048;
+> +
+> +	dsc->drm->nfl_bpg_offset = DIV_ROUND_UP(data, (dsc->drm->slice_height - 1));
+> +
+> +	pre_num_extra_mux_bits = 3 * (mux_words_size + (4 * dsc->drm->bits_per_component + 4) - 2);
+> +
+> +	num_extra_mux_bits = pre_num_extra_mux_bits - (mux_words_size -
+> +			     ((slice_bits - pre_num_extra_mux_bits) % mux_words_size));
+> +
+> +	data = 2048 * (dsc->drm->rc_model_size - dsc->drm->initial_offset + num_extra_mux_bits);
+> +	dsc->drm->slice_bpg_offset = DIV_ROUND_UP(data, groups_total);
+> +
+> +	/* bpp * 16 + 0.5 */
+> +	data = dsc->drm->bits_per_pixel * 16;
+> +	data *= 2;
+> +	data++;
+> +	data /= 2;
+> +	target_bpp_x16 = data;
+> +
+> +	data = (dsc->drm->initial_xmit_delay * target_bpp_x16) / 16;
+> +	final_value =  dsc->drm->rc_model_size - data + num_extra_mux_bits;
+> +	dsc->drm->final_offset = final_value;
+> +
+> +	final_scale = 8 * dsc->drm->rc_model_size / (dsc->drm->rc_model_size - final_value);
+> +
+> +	data = (final_scale - 9) * (dsc->drm->nfl_bpg_offset + dsc->drm->slice_bpg_offset);
+> +	dsc->drm->scale_increment_interval = (2048 * dsc->drm->final_offset) / data;
+> +
+> +	dsc->drm->scale_decrement_interval = groups_per_line / (dsc->drm->initial_scale_value - 8);
+> +
+> +	return 0;
+> +}
+> +
+>   static int dsi_host_parse_dt(struct msm_dsi_host *msm_host)
+>   {
+>   	struct device *dev = &msm_host->pdev->dev;
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 69952b239384..de7cb65bfc52 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -30,6 +30,7 @@
+>   #include <drm/drm_plane_helper.h>
+>   #include <drm/drm_probe_helper.h>
+>   #include <drm/drm_fb_helper.h>
+> +#include <drm/drm_dsc.h>
+>   #include <drm/msm_drm.h>
+>   #include <drm/drm_gem.h>
+>   
+> @@ -134,6 +135,22 @@ struct msm_drm_thread {
+>   	struct kthread_worker *worker;
+>   };
+>   
+> +/* DSC config */
+> +struct msm_display_dsc_config {
+> +	struct drm_dsc_config *drm;
+> +
+> +	u32 initial_lines;
+> +	u32 pkt_per_line;
+> +	u32 bytes_in_slice;
+> +	u32 bytes_per_pkt;
+> +	u32 eol_byte_num;
+> +	u32 pclk_per_line;
+> +	u32 slice_last_group_size;
+> +	u32 det_thresh_flatness;
+> +
+> +	unsigned int dsc_mask;
+> +};
+> +
+>   struct msm_drm_private {
+>   
+>   	struct drm_device *dev;
+> @@ -228,6 +245,9 @@ struct msm_drm_private {
+>   	/* Properties */
+>   	struct drm_property *plane_property[PLANE_PROP_MAX_NUM];
+>   
+> +	/* DSC configuration */
+> +	struct msm_display_dsc_config *dsc;
+I agree with Dmitry, that we need a closer binding of dsc_config with 
+which display its getting associated with. Having it in the private 
+object is too generic.
+
+https://patchwork.freedesktop.org/patch/463255/?series=90413&rev=4
+
+How about moving this to struct dpu_encoder_virt.
+That way, it will be associated with the correct encoder.
+
+Yes, I dont see the usage for dsc_mask too.
+
+> +
+>   	/* VRAM carveout, used when no IOMMU: */
+>   	struct {
+>   		unsigned long size;
+> 
