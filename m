@@ -1,63 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3BB462933
-	for <lists+freedreno@lfdr.de>; Tue, 30 Nov 2021 01:38:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB5B462935
+	for <lists+freedreno@lfdr.de>; Tue, 30 Nov 2021 01:38:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFC389C25;
-	Tue, 30 Nov 2021 00:38:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287A889CAC;
+	Tue, 30 Nov 2021 00:38:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95CA489C25;
- Tue, 30 Nov 2021 00:38:08 +0000 (UTC)
-Received: by mail-pj1-x1035.google.com with SMTP id gt5so14000416pjb.1;
- Mon, 29 Nov 2021 16:38:08 -0800 (PST)
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84D9989C86;
+ Tue, 30 Nov 2021 00:38:10 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id o4so18701898pfp.13;
+ Mon, 29 Nov 2021 16:38:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=yBxqouLHSw03Wm/j4mFMHFYB+Faz71VBDFEeCcJ7oik=;
- b=Bhry2P1i5cl22yQAyiX4JIQEpEgtGXhcvcBUw3FyF/HWiu6JqEdOkJP/KsfT7uiZnx
- IL8v6s/7VD5InGnW5tz/ebXzHBazbS8RpDNGNivec5yY5NKY6d89mYs9iZqZS4zs6vqg
- SfIsZu1rZpF9TGv283K30w9QBbGI6HYeKtzLsQOHtx/qM7heWg+Trdl18tWJSG/FeBz6
- O4sJrw5uD3o3K8yFD81WXVWxzMYAWbuQJ0DdLO8sSQ4DG54vaJe3Z47/gUIjgtCUVkCO
- y8t9qnCGDYrgEc7cN2mBfOELKpkQm2OgZNRyAg4pFEBVSXZ1pGUmBBNqsJo1ANrR8JKc
- ZR9g==
+ bh=ex6ryLecuMDauByS2PdeOAXHhvBq1BOC5LZy2MNA2Ic=;
+ b=XPWMIbM3cOCTJ9sTEyL1OokAi2Zweg4jC7iaxnJW92rjwu5rP9A1a3TN8Nb3GPgW/I
+ 0nufm21K1VMnxkPZNnMdBopNHamNeEKbh42PlHl/pjFWMke8RmDfr/beHr/O4Ea9YiLI
+ qZOg3bVNrSeBeqZrqHZM3I9BVDNO4nAhu7hxoQ1eMfaMcaYd2SKu846D0uMtzdu2CnBX
+ aY3XGN/8j/gYcelDl/+7vCv8hlUczXI9Z/WYFvlj7f3GaNMzWMiAnRiXoJH+5nlVkUep
+ o4oNZTF9/+7LA5jk9TKTaX94FROdPi/tKZbx22FH4qMax9PN7pJc+CEdiOCUy0ZASpL9
+ PSHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=yBxqouLHSw03Wm/j4mFMHFYB+Faz71VBDFEeCcJ7oik=;
- b=3gWF48hv26/0sh/2StvABxmBWh65LyK6tAlLzgKb76axYb6pmEDDJG5Ygm7ufVPtng
- /Xr/4AawaHvTfy5TM987dnTSPUyJPHItipjckikC/dBCnqdfNf+6EmiLJ+lCcsnkz47D
- 65tZyJqGnFbw+yizgjBaYVpbZzSWTXbDfSLaHKirLxFXEqWyc0UaaYySov7s8yS6gZYI
- E9vnLN+6afizCyHJrbF9bIy2SSGxFdMaUgIiDZmCXK5KNBtk7NttPiQb3FNTrcznGEcy
- 89hhZn96yFdeqf7hRGuHBiS4yUOpIHfMHjmeROewgHUwPLn3yaNh5jexMjjU4GDi1IWv
- ncxA==
-X-Gm-Message-State: AOAM531yaKXuPkdBCxE2PqfXZRUGolOYWW6vhrN6i6MYo/m69C96klDg
- wq43EZ4VG1SwFa4+rjZHyBjsX/Czpow=
-X-Google-Smtp-Source: ABdhPJwJ8MPxiZ7hB2ZI+qy6D6qNM33db6d/AwYx2hSaefk+ZMK2cSHVVxbbWB5G8PZqQ9dJoNOOoQ==
-X-Received: by 2002:a17:902:c745:b0:143:d220:9196 with SMTP id
- q5-20020a170902c74500b00143d2209196mr64380877plq.74.1638232687443; 
- Mon, 29 Nov 2021 16:38:07 -0800 (PST)
+ bh=ex6ryLecuMDauByS2PdeOAXHhvBq1BOC5LZy2MNA2Ic=;
+ b=UpeC5ktMMsvlPtqByS629hHq9MfzNs+EFjl7be0KKQqmg59Qaa/+uyIyd6zQTMz1h9
+ YCKEyaDD6vYtyTab2uY5Qo4L/fTncr5rF9EpZ651ksk3bvt80IXWjpk1vn96IYJzzTj3
+ l7vYpnwwLtORV2CaJhqsxxKFEXv1UopujlcCpsr2Vg+msCcvPlR1ErQ5L5tkCABRNQ3V
+ AdAt/7KCLjw75yz5DPfCLjstBgOvOhPQrpH2Tk63wmOrHTuLS5PNfCbjmJSUUbVUqmkF
+ xp+Ze8k8O5J54/ZWt++MdGFdtlzcjzNPs0vn9Jn6AQVEx9sZvC6BLAOsQoHG5pZzCUw7
+ 9fow==
+X-Gm-Message-State: AOAM533VaeFHPD8OZKtYg/z9V3Nk45/CkaPg9vTxWCU/rbIJB8Ety/+a
+ slM32YhIUCCqi/f6roBAmIb2mAZyHe8=
+X-Google-Smtp-Source: ABdhPJz0tiefMms9tdhNkJTLfBlJ4ZEUw4ve61k38995XSR4/gvHW8CbeWsYg/UsiNeCPJrVtycMAw==
+X-Received: by 2002:a05:6a00:2af:b0:4a2:a6f0:8eec with SMTP id
+ q15-20020a056a0002af00b004a2a6f08eecmr41902452pfs.23.1638232689507; 
+ Mon, 29 Nov 2021 16:38:09 -0800 (PST)
 Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
  by smtp.gmail.com with ESMTPSA id
- p2sm431554pja.55.2021.11.29.16.38.06
+ m15sm19244575pfk.186.2021.11.29.16.38.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Nov 2021 16:38:06 -0800 (PST)
+ Mon, 29 Nov 2021 16:38:08 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: igt-dev@lists.freedesktop.org
-Date: Mon, 29 Nov 2021 16:43:23 -0800
-Message-Id: <20211130004324.337399-2-robdclark@gmail.com>
+Date: Mon, 29 Nov 2021 16:43:24 -0800
+Message-Id: <20211130004324.337399-3-robdclark@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211130004324.337399-1-robdclark@gmail.com>
 References: <20211130004324.337399-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH igt 1/2] igt: Split out I/O helpers
+Subject: [Freedreno] [PATCH igt 2/2] msm: Add test for kernel buffer
+ permissions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,27 +79,49 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Split the readN()/writeN() helpers out into an igt_io module, so they
-can be re-used by tests.
+Tests that reads and/or writes to kernel managed buffers which should be
+inaccessible to userspace controlled cmdstream, are indeed inaccessible.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- lib/igt_io.c    | 96 +++++++++++++++++++++++++++++++++++++++++++++++++
- lib/igt_io.h    | 33 +++++++++++++++++
- lib/igt_sysfs.c | 45 +++--------------------
- lib/meson.build |  1 +
- 4 files changed, 135 insertions(+), 40 deletions(-)
- create mode 100644 lib/igt_io.c
- create mode 100644 lib/igt_io.h
+ lib/igt_msm.h       |   1 +
+ tests/meson.build   |   1 +
+ tests/msm_mapping.c | 257 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 259 insertions(+)
+ create mode 100644 tests/msm_mapping.c
 
-diff --git a/lib/igt_io.c b/lib/igt_io.c
+diff --git a/lib/igt_msm.h b/lib/igt_msm.h
+index 421d23ed..6008020b 100644
+--- a/lib/igt_msm.h
++++ b/lib/igt_msm.h
+@@ -100,6 +100,7 @@ enum adreno_pm4_type3_packets {
+ 	CP_WAIT_MEM_GTE = 20,
+ 	CP_WAIT_REG_MEM = 60,
+ 	CP_MEM_WRITE = 61,
++	CP_MEM_TO_MEM = 115,
+ };
+ 
+ static inline unsigned
+diff --git a/tests/meson.build b/tests/meson.build
+index 7b7d6bf8..c14acf99 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -60,6 +60,7 @@ test_progs = [
+ 	'kms_vrr',
+ 	'kms_writeback',
+ 	'meta_test',
++	'msm_mapping',
+ 	'msm_recovery',
+ 	'msm_submit',
+ 	'panfrost_get_param',
+diff --git a/tests/msm_mapping.c b/tests/msm_mapping.c
 new file mode 100644
-index 00000000..ad54cbe5
+index 00000000..e1474f9f
 --- /dev/null
-+++ b/lib/igt_io.c
-@@ -0,0 +1,96 @@
++++ b/tests/msm_mapping.c
+@@ -0,0 +1,257 @@
 +/*
-+ * Copyright © 2016 Intel Corporation
++ * Copyright © 2021 Google, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -118,223 +141,242 @@ index 00000000..ad54cbe5
 + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 + * IN THE SOFTWARE.
-+ *
 + */
 +
-+#include <errno.h>
-+#include <stdlib.h>
-+#include <unistd.h>
++#include <ctype.h>
++#include <fcntl.h>
++#include <glob.h>
++#include <string.h>
++#include <sys/poll.h>
++#include <sys/stat.h>
 +
++#include "igt.h"
++#include "igt_msm.h"
 +#include "igt_io.h"
 +
-+/**
-+ * SECTION:igt_io
-+ * @short_description: Helpers for file I/O
-+ * @title: io
-+ * @include: igt_io.h
-+ *
-+ * This library provides helpers for file I/O
-+ */
-+
-+/**
-+ * igt_readn:
-+ * @fd: the file descriptor
-+ * @buf: buffer where the contents will be stored, allocated by the caller
-+ * @size: size of the buffer
-+ *
-+ * Read from fd into provided buffer until the buffer is full or EOF
-+ *
-+ * Returns:
-+ * -errorno on failure or bytes read on success
-+ */
-+ssize_t igt_readn(int fd, char *buf, size_t len)
-+{
-+	ssize_t ret;
-+	size_t total = 0;
-+
-+	do {
-+		ret = read(fd, buf + total, len - total);
-+		if (ret < 0)
-+			ret = -errno;
-+		if (ret == -EINTR || ret == -EAGAIN)
-+			continue;
-+		if (ret <= 0)
-+			break;
-+		total += ret;
-+	} while (total != len);
-+	return total ?: ret;
-+}
-+
-+/**
-+ * igt_writen:
-+ * @fd: the file descriptor
-+ * @buf: the block with the contents to write
-+ * @len: the length to write
-+ *
-+ * This writes @len bytes from @data to the sysfs file.
-+ *
-+ * Returns:
-+ * -errorno on failure or bytes read on success
-+ */
-+ssize_t igt_writen(int fd, const char *buf, size_t len)
-+{
-+	ssize_t ret;
-+	size_t total = 0;
-+
-+	do {
-+		ret = write(fd, buf + total, len - total);
-+		if (ret < 0)
-+			ret = -errno;
-+		if (ret == -EINTR || ret == -EAGAIN)
-+			continue;
-+		if (ret <= 0)
-+			break;
-+		total += ret;
-+	} while (total != len);
-+	return total ?: ret;
-+}
-diff --git a/lib/igt_io.h b/lib/igt_io.h
-new file mode 100644
-index 00000000..eb9ffee1
---- /dev/null
-+++ b/lib/igt_io.h
-@@ -0,0 +1,33 @@
 +/*
-+ * Copyright © 2016 Intel Corporation
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice (including the next
-+ * paragraph) shall be included in all copies or substantial portions of the
-+ * Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-+ * IN THE SOFTWARE.
-+ *
++ * Tests to ensure various kernel controlled buffers are mapped with the
++ * appropriate permissions (either read-only or not-accessible to userspace
++ * controlled cmdstream)
 + */
 +
-+#ifndef __IGT_IO_H__
-+#define __IGT_IO_H__
++/*
++ * Helper to get and clear devcore dumps
++ */
 +
-+#include <stdio.h>
++static char *
++get_and_clear_devcore(void)
++{
++	glob_t glob_buf = {0};
++	char *buf = NULL;
++	int ret, fd;
 +
-+ssize_t igt_readn(int fd, char *buf, size_t len);
-+ssize_t igt_writen(int fd, const char *buf, size_t len);
++	ret = glob("/sys/class/devcoredump/devcd*/data", GLOB_NOSORT, NULL, &glob_buf);
++	if ((ret == GLOB_NOMATCH) || !glob_buf.gl_pathc)
++		return NULL;
 +
-+#endif /* __IGT_IO_H__ */
-diff --git a/lib/igt_sysfs.c b/lib/igt_sysfs.c
-index ee75e3ef..f8ef23e2 100644
---- a/lib/igt_sysfs.c
-+++ b/lib/igt_sysfs.c
-@@ -42,6 +42,7 @@
- #include "igt_core.h"
- #include "igt_sysfs.h"
- #include "igt_device.h"
-+#include "igt_io.h"
- 
- /**
-  * SECTION:igt_sysfs
-@@ -53,42 +54,6 @@
-  * provides basic support for like igt_sysfs_open().
-  */
- 
--static ssize_t readN(int fd, char *buf, size_t len)
--{
--	ssize_t ret;
--	size_t total = 0;
--
--	do {
--		ret = read(fd, buf + total, len - total);
--		if (ret < 0)
--			ret = -errno;
--		if (ret == -EINTR || ret == -EAGAIN)
--			continue;
--		if (ret <= 0)
--			break;
--		total += ret;
--	} while (total != len);
--	return total ?: ret;
--}
--
--static ssize_t writeN(int fd, const char *buf, size_t len)
--{
--	ssize_t ret;
--	size_t total = 0;
--
--	do {
--		ret = write(fd, buf + total, len - total);
--		if (ret < 0)
--			ret = -errno;
--		if (ret == -EINTR || ret == -EAGAIN)
--			continue;
--		if (ret <= 0)
--			break;
--		total += ret;
--	} while (total != len);
--	return total ?: ret;
--}
--
- /**
-  * igt_sysfs_path:
-  * @device: fd of the device
-@@ -159,7 +124,7 @@ int igt_sysfs_write(int dir, const char *attr, const void *data, int len)
- 	if (igt_debug_on(fd < 0))
- 		return -errno;
- 
--	len = writeN(fd, data, len);
-+	len = igt_writen(fd, data, len);
- 	close(fd);
- 
- 	return len;
-@@ -185,7 +150,7 @@ int igt_sysfs_read(int dir, const char *attr, void *data, int len)
- 	if (igt_debug_on(fd < 0))
- 		return -errno;
- 
--	len = readN(fd, data, len);
-+	len = igt_readn(fd, data, len);
- 	close(fd);
- 
- 	return len;
-@@ -237,7 +202,7 @@ char *igt_sysfs_get(int dir, const char *attr)
- 	if (igt_debug_on(!buf))
- 		goto out;
- 
--	while ((ret = readN(fd, buf + offset, rem)) == rem) {
-+	while ((ret = igt_readn(fd, buf + offset, rem)) == rem) {
- 		char *newbuf;
- 
- 		newbuf = realloc(buf, 2*len);
-@@ -330,7 +295,7 @@ int igt_sysfs_vprintf(int dir, const char *attr, const char *fmt, va_list ap)
- 		}
- 	}
- 
--	ret = writeN(fd, buf, ret);
-+	ret = igt_writen(fd, buf, ret);
- 
- 	close(fd);
- 	if (buf != stack)
-diff --git a/lib/meson.build b/lib/meson.build
-index 297b0ad2..b9568a71 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -19,6 +19,7 @@ lib_sources = [
- 	'igt_aux.c',
- 	'igt_gt.c',
- 	'igt_halffloat.c',
-+	'igt_io.c',
- 	'igt_matrix.c',
- 	'igt_params.c',
- 	'igt_perf.c',
++	fd = open(glob_buf.gl_pathv[0], O_RDWR);
++
++	if (fd >= 0) {
++		/* We don't need to read the entire devcore, the first bit is
++		 * sufficient for our purposes:
++		 */
++		buf = calloc(1, 0x1000);
++		igt_readn(fd, buf, 0x1000);
++
++		/* Clear the devcore: */
++		igt_writen(fd, "1", 1);
++	}
++
++	globfree(&glob_buf);
++
++	return buf;
++}
++
++/*
++ * Helper to find named buffer address
++ */
++
++static const char *
++get_line(char **buf)
++{
++	char *ret, *eol;
++
++	ret = *buf;
++	eol = strstr(*buf, "\n");
++
++	if (!eol) {
++		/* could be last line in file: */
++		*buf = NULL;
++		return ret;
++	}
++
++	*eol = '\0';
++	*buf += 1 + strlen(ret);
++
++	return ret;
++}
++
++static bool
++endswith(const char *str, const char *end)
++{
++	char *p = strstr(str, end);
++
++	/* Trim trailing whitespace: */
++	if (p) {
++		char *c = p;
++		while (c) {
++			if (isspace(*c)) {
++				*c = '\0';
++				break;
++			}
++			c++;
++		}
++	}
++
++	return p && (strlen(p) == strlen(end));
++}
++
++static uint64_t
++get_bo_addr(int drm_fd, const char *name)
++{
++	char buf[0x4000];
++	char *p = buf;
++
++	igt_debugfs_read(drm_fd, "gem", buf);
++
++	/* NOTE: the contents of the debugfs file look like:
++	 *
++	 *    flags       id ref  offset   kaddr            size     madv      name
++	 *    00040000: I  0 ( 1) 00000000 ffffffc0104b9000 00004096           memptrs
++	 *       vmas: [gpu: aspace=ffffff808bf03e00, 1000000000000,mapped,inuse=1]
++	 *    00020002: I  0 ( 1) 00000000 ffffffc012001000 00032768           ring0
++	 *       vmas: [gpu: aspace=ffffff808bf03e00, 1000000001000,mapped,inuse=1]
++	 *
++	 * There can be potentially multiple vma's per bo, listed on the lines
++	 * following the line for the buffer (which ends in the buffer name),
++	 * but this should not be the case for any kernel controlled buffers.
++	 */
++
++	while (*p) {
++		const char *line = get_line(&p);
++
++		if (endswith(line, name)) {
++			uint64_t addr, dummy;
++			int ret;
++
++			line = get_line(&p);
++
++			igt_fail_on(!line);
++
++			ret = sscanf(line, "      vmas: [gpu: aspace=%"PRIx64", %"PRIx64",mapped,inuse=1]",
++					&dummy, &addr);
++			igt_fail_on(ret != 2);
++
++			return addr;
++		}
++	}
++
++	return 0;
++}
++
++/*
++ * Helper for testing access to the named buffer
++ */
++static void
++do_mapping_test(struct msm_pipe *pipe, const char *buffername, bool write)
++{
++	struct msm_bo *scratch_bo = NULL;
++	struct msm_cmd *cmd;
++	char *devcore, *s;
++	uint64_t addr, fault_addr;
++	int fence_fd, ret;
++
++	/* Clear any existing devcore's: */
++	while ((devcore = get_and_clear_devcore())) {
++		free(devcore);
++	}
++
++	addr = get_bo_addr(pipe->dev->fd, buffername);
++	igt_skip_on(addr == 0);
++
++	cmd = igt_msm_cmd_new(pipe, 0x1000);
++
++	if (write) {
++		msm_cmd_pkt7(cmd, CP_MEM_WRITE, 3);
++		msm_cmd_emit(cmd, lower_32_bits(addr));  /* ADDR_LO */
++		msm_cmd_emit(cmd, upper_32_bits(addr));  /* ADDR_HI */
++		msm_cmd_emit(cmd, 0x123);                /* VAL */
++	} else {
++		scratch_bo = igt_msm_bo_new(pipe->dev, 0x1000, MSM_BO_WC);
++		msm_cmd_pkt7(cmd, CP_MEM_TO_MEM, 5);
++		msm_cmd_emit(cmd, 0);
++		msm_cmd_bo  (cmd, scratch_bo, 0);        /* DEST_ADDR_LO/HI */
++		msm_cmd_emit(cmd, lower_32_bits(addr));  /* SRC_A_ADDR_LO */
++		msm_cmd_emit(cmd, upper_32_bits(addr));  /* SRC_A_ADDR_HI */
++	}
++
++	fence_fd = igt_msm_cmd_submit(cmd);
++
++	/* Wait for submit to complete: */
++	poll(&(struct pollfd){fence_fd, POLLIN}, 1, -1);
++	close(fence_fd);
++
++	igt_msm_bo_free(scratch_bo);
++
++	/* And now we should have gotten a devcore from the iova fault
++	 * triggered by the read or write:
++	 */
++	devcore = get_and_clear_devcore();
++	igt_fail_on(!devcore);
++
++	/* Make sure the devcore is from iova fault: */
++	igt_fail_on(!strstr(devcore, "fault-info"));
++
++	s = strstr(devcore, "  - far: ");
++	igt_fail_on(!s);
++
++	ret = sscanf(s, "  - far: %"PRIx64, &fault_addr);
++	igt_fail_on(ret != 1);
++	igt_fail_on(addr != fault_addr);
++}
++
++/*
++ * Tests for drm/msm hangcheck, recovery, and fault handling
++ */
++
++igt_main
++{
++	struct msm_device *dev = NULL;
++	struct msm_pipe *pipe = NULL;
++
++	igt_fixture {
++		dev = igt_msm_dev_open();
++		pipe = igt_msm_pipe_open(dev, 0);
++	}
++
++	igt_describe("Test ringbuffer mapping, should be read-only");
++	igt_subtest("ring") {
++		do_mapping_test(pipe, "ring0", true);
++	}
++
++	igt_describe("Test sqefw mapping, should be read-only");
++	igt_subtest("sqefw") {
++		igt_require(dev->gen >= 6);
++		do_mapping_test(pipe, "sqefw", true);
++	}
++
++	igt_describe("Test shadow mapping, should be inaccessible");
++	igt_subtest("shadow") {
++		do_mapping_test(pipe, "shadow", true);
++		do_mapping_test(pipe, "shadow", false);
++	}
++
++	igt_fixture {
++		igt_msm_pipe_close(pipe);
++		igt_msm_dev_close(dev);
++	}
++}
 -- 
 2.33.1
 
