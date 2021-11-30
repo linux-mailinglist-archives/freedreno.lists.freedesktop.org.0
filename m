@@ -2,55 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D8204623EB
-	for <lists+freedreno@lfdr.de>; Mon, 29 Nov 2021 23:03:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE275462930
+	for <lists+freedreno@lfdr.de>; Tue, 30 Nov 2021 01:38:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA196E2EF;
-	Mon, 29 Nov 2021 22:03:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4FE89C16;
+	Tue, 30 Nov 2021 00:38:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 544C06E048;
- Mon, 29 Nov 2021 22:03:45 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id t23so37331065oiw.3;
- Mon, 29 Nov 2021 14:03:45 -0800 (PST)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E32289BF8;
+ Tue, 30 Nov 2021 00:38:06 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id q17so13521030plr.11;
+ Mon, 29 Nov 2021 16:38:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=M6jA8oMIw0WKWHCuk49iV8tiF/OHiCn1/finUYhXsR0=;
+ b=KVhdnnVCAHFsnPWTe8VbiVosUJrhlRWbOSYmJClKVCe+VaZ9aA4E3msky0yZkhPOge
+ TzupGUhq4ZPtg7ADrwgLDGYCASQFORJMqNvPVcoQs0utulSImhgQObjvRJlGbjlb/Xy9
+ oh9o2Hux8wQWaM56+sppx19SGsuIv3LV0xyvEq8ZzZdGO1OpomzqAoBZXjJBryYy4lEJ
+ rFrmxptwAQTL1N0GMrjc11yDF0VH5UscoTYWSvRAVdlxaFM9oOMyanCoxCrQnNvnsYxk
+ dCRk6JroPiKlcHOB+w1d6HyZ5tXZ5dTQu6kbz78D3XjFPneDl3YC4yx1o3FSWrtx6LR9
+ 2nsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=wL2j/zhnCBNuLmFuTXzTlUDE4xxt9w3i13nGa7X0Qrc=;
- b=ube9yw6PPe4DJU5gbdpiJU73lbF5UDWcBprF/rP5nuGtmwHsCwyq4l2Nfn6EsAX1cI
- GPmLrDvEx+HsBU7NxM6cQTeMBeR6Phyof8CrYxMuVL47C51o7bjdVg4EoCukzmj+/AH5
- stBWpfDBYex0kVMyaSltQc983Krrlwkul5mNEM1tSxoNa2B0OJPha1z2EP6Hrx3XibAz
- +UsnSTmnMO+mYjPvWiPn1vAoQGWqqiIDCJHQ3ny5BXWFPw4Ye5seyy2oNVzFAsGa7LLB
- +9lECShfOgGs7XTUX+z8z+nXCtySUPHcGtm4zB1kh2YOu7rBpTbCckhQAp1OExJbkXAL
- iHWw==
-X-Gm-Message-State: AOAM532Cmvf+W1iZNGunNggP5o0bqehU6SjoqK+5UnDEPlOprWMgJ8kI
- JW5l8tnGKaEpIuHKblBRrQ==
-X-Google-Smtp-Source: ABdhPJyRltEG100ztU/F/vjH3VbBNGkp77YNJmZqqf5Mb0uG7mYLeNCPrngtXJ+IzOzkeDGFqvrfsw==
-X-Received: by 2002:a05:6808:199c:: with SMTP id
- bj28mr721992oib.98.1638223424595; 
- Mon, 29 Nov 2021 14:03:44 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id m2sm2484366oop.12.2021.11.29.14.03.43
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=M6jA8oMIw0WKWHCuk49iV8tiF/OHiCn1/finUYhXsR0=;
+ b=L2DxylL77ab3uZIzN9jXKDEf0Wn0a2sJaKv1/67Txb2AailsPuowLaoYLMffJPQLjf
+ pJJjBF9KAh2w5fiRvp4Hch/h/gemEAbxb9DeRGumxIadw0ImUobcHxCF4IFW3odVffig
+ MkUxqyxedW1xnJmy5L0RumlmC1rN8c7483DXMzbkbbz912e5uAmoI4TCkokGrnLDgNlx
+ kqyhjuyaW8kfVkzQQlU0DhnBlERTuJVgaNoSatss8+yZV+wh9p94xtwRwXgwkPjKS6xW
+ 5QrkGmFZbEimg/KsbxbXSCrmg9tZ6KqoU0Wu3qS14CfVJwgEpKhwkGG63iL49BkKDcXt
+ b7/w==
+X-Gm-Message-State: AOAM530kP3jg+aFnsppIZQ/bYbY+1l2R/O2rQHx4nUp4frN8ybzul845
+ rSJzj4bW21a0r6dnB+9e7rcaR6AHd80=
+X-Google-Smtp-Source: ABdhPJxr4vcGGEbi0ZQCjgz2Otn7VtmY0sJgzJyqo2TQplX3iJXsHGDpQ/KAc6UTGYi8vxdBYnqJZA==
+X-Received: by 2002:a17:903:22c6:b0:141:fac1:b722 with SMTP id
+ y6-20020a17090322c600b00141fac1b722mr64866311plg.23.1638232685180; 
+ Mon, 29 Nov 2021 16:38:05 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ c18sm19028535pfl.201.2021.11.29.16.38.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Nov 2021 14:03:44 -0800 (PST)
-Received: (nullmailer pid 690738 invoked by uid 1000);
- Mon, 29 Nov 2021 22:03:43 -0000
-Date: Mon, 29 Nov 2021 16:03:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Sean Paul <sean@poorly.run>
-Message-ID: <YaVOPwmWinSJ6z2m@robh.at.kernel.org>
-References: <YY7lb9k2UArZf7I/@robh.at.kernel.org>
- <20211115202153.117244-1-sean@poorly.run>
+ Mon, 29 Nov 2021 16:38:03 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: igt-dev@lists.freedesktop.org
+Date: Mon, 29 Nov 2021 16:43:22 -0800
+Message-Id: <20211130004324.337399-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211115202153.117244-1-sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH v4.5 12/14] dt-bindings: msm/dp: Add
- bindings for HDCP registers
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH igt 0/2] msm+lib: Add test for buffer mapping
+ permissions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +68,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, jani.nikula@intel.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- abhinavk@codeaurora.org, swboyd@chromium.org, khsieh@codeaurora.org,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- robh+dt@kernel.org, seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, bjorn.andersson@linaro.org,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 15 Nov 2021 20:21:48 +0000, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> This patch adds the bindings for the MSM DisplayPort HDCP registers
-> which are required to write the HDCP key into the display controller as
-> well as the registers to enable HDCP authentication/key
-> exchange/encryption.
-> 
-> We'll use a new compatible string for this since the fields are optional.
-> 
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
-> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-13-sean@poorly.run #v3
-> Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-13-sean@poorly.run #v4
-> 
-> Changes in v2:
-> -Drop register range names (Stephen)
-> -Fix yaml errors (Rob)
-> Changes in v3:
-> -Add new compatible string for dp-hdcp
-> -Add descriptions to reg
-> -Add minItems/maxItems to reg
-> -Make reg depend on the new hdcp compatible string
-> Changes in v4:
-> -Rebase on Bjorn's multi-dp patchset
-> Changes in v4.5:
-> -Remove maxItems from reg (Rob)
-> -Remove leading zeros in example (Rob)
-> ---
->  .../devicetree/bindings/display/msm/dp-controller.yaml     | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
+From: Rob Clark <robdclark@chromium.org>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+First patch just splits out a couple of helpers from igt_sysfs so they
+can be re-used.  Second patch adds a test which locates the address of
+a given buffer, and verifies (depending on expected permissions) that
+writes and/or reads trigger an iova fault rather than succeeding.
+
+Rob Clark (2):
+  igt: Split out I/O helpers
+  msm: Add test for kernel buffer permissions
+
+ lib/igt_io.c        |  96 +++++++++++++++++
+ lib/igt_io.h        |  33 ++++++
+ lib/igt_msm.h       |   1 +
+ lib/igt_sysfs.c     |  45 +-------
+ lib/meson.build     |   1 +
+ tests/meson.build   |   1 +
+ tests/msm_mapping.c | 257 ++++++++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 394 insertions(+), 40 deletions(-)
+ create mode 100644 lib/igt_io.c
+ create mode 100644 lib/igt_io.h
+ create mode 100644 tests/msm_mapping.c
+
+-- 
+2.33.1
+
