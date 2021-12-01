@@ -1,63 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F016A4651BA
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 16:32:01 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E31D4465702
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 21:20:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5A06EE77;
-	Wed,  1 Dec 2021 15:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC136E3EB;
+	Wed,  1 Dec 2021 20:20:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE7B6EE6C
- for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 15:31:59 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id t19so49268877oij.1
- for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 07:31:59 -0800 (PST)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095F96E3EB
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 20:20:27 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id b40so65922577lfv.10
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 12:20:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=uFMUhbGSve6XOXG4hT9U3q9GImUbsSFy9Vah1OZisDI=;
- b=VEqQ4qm73WYGNDTAMVaJv66zUxxEcw1I76eSBm6a3yxe4VglM1A8bd3AWGyIbSITsG
- L15cql+Aqb1LKY7WuUgdhnqVjOUvVvUYgw+iOUVzlqdv6g9JpLdLgFZJrdGc/qfem8Ic
- SmD6x7TfGe+WVqdeR9eLomzxti3j9u6g8H2Q+TruWVTvhxgGH/EbFn2BmHIKE77dcYPQ
- AVdAk4ha5MiNJ/fABaqxzubfxrrIAJ9KPPFfBnbxEAcMPPf7nSif221xhhqJDC0ethkY
- AdCVXauvs3kwFIM18EZC0A7yrJt/3j+OBqkcd047bVeqxiwyuaUmU+7dmprGUqcue6tA
- Pcfw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=9eziqWmH/0sYjYUZm8mEiRFfXUO2KooRO+C0X18Kx2U=;
+ b=I7Gf5/r15x7wY0kT0QOOWrbv2R/uZogi3dHph5lJMgaJRQOgpfJYNfLnnjxlXwbgzD
+ Aj+LZgzXzvtkOFQjiGwkWOfmtEU2brrceVyiUhq6ahDJ6xoPbxADUmRUQQeGNZhywTS4
+ gY6bK5CqcSray10hbRSVBaknbt5F1Oeg3zKYlC2y6keLIgFPFWaFI3XxOsfSHlow4V9C
+ gZdAVyT/zZZ9wotZjPgvEvc5dg7MyXGICRyEvTNNZ75z1r+iF/AyLLfdU4SjwmEO/HWO
+ F9YDBtPRanOsu+nDZefmZbMsInXJMHTuC3Mkzpnc9H46gLicAmsUG954PIWzV/50cvQy
+ 0szQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=uFMUhbGSve6XOXG4hT9U3q9GImUbsSFy9Vah1OZisDI=;
- b=rpsqxlVdxWGUhEgk4v4SDeOjrD5NWb9zrYbVAIiYSFR/VducG8yzG3jPzqcl/1rTxK
- JoHYjAS8nv5bQ8bR2GxeTYYRTEMc8vS14VI7gCPuRqduKyrCCZ9goigZN1Wvs0gKoyGo
- D8/AcZ6mGIjz41AxCeR16OKR0C05k7QjRIL/z+jXH1MY+5uoLHbL6Zsdt1Sj6ht2eF2H
- SnQnkeTZsyby65yrU1uZUVDa9JDCmxcv/eQ7bGQGAi1BMJoB1v54OU1EnQA9JNpwDYN8
- HKvNVp17pSXtzeH95SgtIvc+Ap0k6tt8dbe/Xz9C2wZPEtWu1co7awq0fQxSwI4/zrea
- 80vA==
-X-Gm-Message-State: AOAM53052Pe9KZRewj9iaLvNTbAwI9wmL3rFpHGmDNxnzUu8i1XaL7tX
- nbExQT+mck9YTT228EX7YnIX9w==
-X-Google-Smtp-Source: ABdhPJwnqbKqj2jV7StOM44pZVUXOOt1pFckEfKefaxTyLXR8Nzec8O4l7stJ4JSVQj5U2bon04vgw==
-X-Received: by 2002:aca:1204:: with SMTP id 4mr6800261ois.136.1638372718608;
- Wed, 01 Dec 2021 07:31:58 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id m2sm7954oop.12.2021.12.01.07.31.57
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=9eziqWmH/0sYjYUZm8mEiRFfXUO2KooRO+C0X18Kx2U=;
+ b=0vFF2hxhN8Ln7l+TQGmsQwkB0tvUo1sbwA9DEQWkEGC7clNgUuHqjgYv8zJQaM+VZ5
+ VsLMaORRD6JiSlomZivzpb8nmIld/HAIJ14aYE+XDaT/XDnO8nqzvoWyLV+XEub58VjU
+ 5PutBHUvT8ArC0PfO322XXyuKxSUxe/TMN/4GYeYga2A6boEgaCy1vazDn4xoYdsfduU
+ X3gjBKcPrs3lgLaa8X9dQr9yQamDRrlKyEYhuJziXQxQpB3sSmnn9N+MynFs8mLf1WaI
+ Ss/QrW57K3T9sfCdNMvZ0nseUGIyQXmlOBMvPXdyFvjjTvQgfEHhNkbc+O6AbA0tpmDQ
+ wtWg==
+X-Gm-Message-State: AOAM530F+/ASUPd/YKdsyLnbnAMzj3uYmWczhNeUpEeKJJO4goSEcXv4
+ vlEY4LyoCBA6GwchGkOQfhjMDg==
+X-Google-Smtp-Source: ABdhPJzxilRqazp2oHgj/58Sq40QysSwe1300GaIqyK8Whzos1jiaplqsQ6SUxKNEnO7lUqiIQXQKQ==
+X-Received: by 2002:a05:6512:3991:: with SMTP id
+ j17mr7954368lfu.545.1638390025047; 
+ Wed, 01 Dec 2021 12:20:25 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id b4sm88538lfq.128.2021.12.01.12.20.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Dec 2021 07:31:58 -0800 (PST)
-Date: Wed, 1 Dec 2021 09:31:53 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Message-ID: <YaeVaTtP4g6mchDr@builder.lan>
-References: <1637580369-876-1-git-send-email-quic_sbillaka@quicinc.com>
- <1637580369-876-3-git-send-email-quic_sbillaka@quicinc.com>
+ Wed, 01 Dec 2021 12:20:24 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Wed,  1 Dec 2021 23:20:23 +0300
+Message-Id: <20211201202023.2313971-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211201105210.24970-3-angelogioacchino.delregno@collabora.com>
+References: <20211201105210.24970-3-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1637580369-876-3-git-send-email-quic_sbillaka@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 3/4] arm64: dts: qcom: sc7280: add edp
- display dt nodes
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Initialize MDSS irq domain at probe
+ time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,190 +71,381 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org, dianders@chromium.org,
- quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robh+dt@kernel.org, robdclark@gmail.com,
- agross@kernel.org, seanpaul@chromium.org, quic_mkrishn@quicinc.com,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 22 Nov 05:26 CST 2021, Sankeerth Billakanti wrote:
+Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
+DSI host gets initialized earlier, but this caused unability to probe
+the entire stack of components because they all depend on interrupts
+coming from the main `mdss` node (mdp5, or dpu1).
 
-> Add edp controller and phy DT nodes for sc7280.
-> 
-> Signed-off-by: Krishna Manikandan <quic_mkrishn@quicinc.com>
+To fix this issue, move mdss device initialization (which include irq
+domain setup) to msm_mdev_probe() time, as to make sure that the
+interrupt controller is available before dsi and/or other components try
+to initialize, finally satisfying the dependency.
 
-If Krishna authored the patch (he certified its origin first), then he
-should be From: as well.
+Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
+Co-Developed-By: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> ---
-> 
-> Changes in v4:
->     None
-> 
-> Changes in v3:
->     - Add one clock cell per line (Stephen Boyd)
->     - Unit address should match first reg property (Stephen Boyd)
->     - Remove new line (Stephen Boyd)
->     - Add the dsi_phy clocks in dispcc (Kuogee Hsieh)
-> 
-> Changes in v2:
->     - Move regulator definitions to board file (Matthias Kaehlcke)
->     - Move the gpio definitions to board file (Matthias Kaehlcke)
->     - Move the pinconf to board file (Matthias Kaehlcke)
->     - Move status property (Stephen Boyd)
->     - Drop flags from interrupts (Stephen Boyd)
->     - Add clock names one per line for readability (Stephen Boyd)
->     - Rename edp-opp-table (Stephen Boyd)
-> 
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 107 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 105 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index 12c4d32..5ad500e 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -2695,8 +2695,8 @@
->  				 <&dsi_phy 1>,
->  				 <0>,
->  				 <0>,
-> -				 <0>,
-> -				 <0>;
-> +				 <&edp_phy 0>,
-> +				 <&edp_phy 1>;
->  			clock-names = "bi_tcxo",
->  				      "gcc_disp_gpll0_clk",
->  				      "dsi0_phy_pll_out_byteclk",
-> @@ -2784,6 +2784,13 @@
->  							remote-endpoint = <&dsi0_in>;
->  						};
->  					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dpu_intf5_out: endpoint {
-> +							remote-endpoint = <&edp_in>;
-> +						};
-> +					};
->  				};
->  
->  				mdp_opp_table: opp-table {
-> @@ -2899,6 +2906,102 @@
->  
->  				status = "disabled";
->  			};
-> +
-> +			msm_edp: edp@aea0000 {
+When checking your patch, I noticed that IRQ domain is created before
+respective MDSS clocks are enabled. This does not look like causing any
+issues at this time, but it did not look good. So I started moving
+clocks parsing to early_init() callbacks. And at some point it looked
+like we can drop the init()/destroy() callbacks in favour of
+early_init() and remove(). Which promted me to move init()/destroy() in
+place of early_init()/remove() with few minor fixes here and there.
 
-mdss_edp:
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c  | 25 +++++-----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c | 32 ++++++-------
+ drivers/gpu/drm/msm/msm_drv.c             | 56 ++++++++++++-----------
+ drivers/gpu/drm/msm/msm_kms.h             |  8 ++--
+ 4 files changed, 59 insertions(+), 62 deletions(-)
 
-> +				compatible = "qcom,sc7280-edp";
-> +
-> +				reg = <0 0xaea0000 0 0x200>,
-> +				      <0 0xaea0200 0 0x200>,
-> +				      <0 0xaea0400 0 0xc00>,
-> +				      <0 0xaea1000 0 0x400>;
-> +
-> +				interrupt-parent = <&mdss>;
-> +				interrupts = <14>;
-> +
-> +				clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +					 <&gcc GCC_EDP_CLKREF_EN>,
-> +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_AUX_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_LINK_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_LINK_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK>;
-> +				clock-names = "core_xo",
-> +					      "core_ref",
-> +					      "core_iface",
-> +					      "core_aux",
-> +					      "ctrl_link",
-> +					      "ctrl_link_iface",
-> +					      "stream_pixel";
-> +				#clock-cells = <1>;
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
-> +						  <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
-> +				assigned-clock-parents = <&edp_phy 0>, <&edp_phy 1>;
-> +
-> +				phys = <&edp_phy>;
-> +				phy-names = "dp";
-> +
-> +				operating-points-v2 = <&edp_opp_table>;
-> +				power-domains = <&rpmhpd SC7280_CX>;
-> +
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				status = "disabled";
-> +
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
-> +					port@0 {
-> +						reg = <0>;
-> +						edp_in: endpoint {
-> +							remote-endpoint = <&dpu_intf5_out>;
-> +						};
-> +					};
-> +				};
-> +
-> +				edp_opp_table: opp-table {
-> +					compatible = "operating-points-v2";
-> +
-> +					opp-160000000 {
-> +						opp-hz = /bits/ 64 <160000000>;
-> +						required-opps = <&rpmhpd_opp_low_svs>;
-> +					};
-> +
-> +					opp-270000000 {
-> +						opp-hz = /bits/ 64 <270000000>;
-> +						required-opps = <&rpmhpd_opp_svs>;
-> +					};
-> +
-> +					opp-540000000 {
-> +						opp-hz = /bits/ 64 <540000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +
-> +					opp-810000000 {
-> +						opp-hz = /bits/ 64 <810000000>;
-> +						required-opps = <&rpmhpd_opp_nom>;
-> +					};
-> +				};
-> +			};
-> +
-> +			edp_phy: phy@aec2a00 {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+index b466784d9822..131c1f1a869c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+@@ -111,7 +111,7 @@ static int _dpu_mdss_irq_domain_add(struct dpu_mdss *dpu_mdss)
+ 	struct device *dev;
+ 	struct irq_domain *domain;
+ 
+-	dev = dpu_mdss->base.dev->dev;
++	dev = dpu_mdss->base.dev;
+ 
+ 	domain = irq_domain_add_linear(dev->of_node, 32,
+ 			&dpu_mdss_irqdomain_ops, dpu_mdss);
+@@ -184,16 +184,15 @@ static int dpu_mdss_disable(struct msm_mdss *mdss)
+ 	return ret;
+ }
+ 
+-static void dpu_mdss_destroy(struct drm_device *dev)
++static void dpu_mdss_destroy(struct msm_mdss *mdss)
+ {
+-	struct platform_device *pdev = to_platform_device(dev->dev);
+-	struct msm_drm_private *priv = dev->dev_private;
+-	struct dpu_mdss *dpu_mdss = to_dpu_mdss(priv->mdss);
++	struct platform_device *pdev = to_platform_device(mdss->dev);
++	struct dpu_mdss *dpu_mdss = to_dpu_mdss(mdss);
+ 	struct dss_module_power *mp = &dpu_mdss->mp;
+ 	int irq;
+ 
+-	pm_runtime_suspend(dev->dev);
+-	pm_runtime_disable(dev->dev);
++	pm_runtime_suspend(mdss->dev);
++	pm_runtime_disable(mdss->dev);
+ 	_dpu_mdss_irq_domain_fini(dpu_mdss);
+ 	irq = platform_get_irq(pdev, 0);
+ 	irq_set_chained_handler_and_data(irq, NULL, NULL);
+@@ -203,7 +202,6 @@ static void dpu_mdss_destroy(struct drm_device *dev)
+ 	if (dpu_mdss->mmio)
+ 		devm_iounmap(&pdev->dev, dpu_mdss->mmio);
+ 	dpu_mdss->mmio = NULL;
+-	priv->mdss = NULL;
+ }
+ 
+ static const struct msm_mdss_funcs mdss_funcs = {
+@@ -212,16 +210,15 @@ static const struct msm_mdss_funcs mdss_funcs = {
+ 	.destroy = dpu_mdss_destroy,
+ };
+ 
+-int dpu_mdss_init(struct drm_device *dev)
++int dpu_mdss_init(struct platform_device *pdev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev->dev);
+-	struct msm_drm_private *priv = dev->dev_private;
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 	struct dpu_mdss *dpu_mdss;
+ 	struct dss_module_power *mp;
+ 	int ret;
+ 	int irq;
+ 
+-	dpu_mdss = devm_kzalloc(dev->dev, sizeof(*dpu_mdss), GFP_KERNEL);
++	dpu_mdss = devm_kzalloc(&pdev->dev, sizeof(*dpu_mdss), GFP_KERNEL);
+ 	if (!dpu_mdss)
+ 		return -ENOMEM;
+ 
+@@ -238,7 +235,7 @@ int dpu_mdss_init(struct drm_device *dev)
+ 		goto clk_parse_err;
+ 	}
+ 
+-	dpu_mdss->base.dev = dev;
++	dpu_mdss->base.dev = &pdev->dev;
+ 	dpu_mdss->base.funcs = &mdss_funcs;
+ 
+ 	ret = _dpu_mdss_irq_domain_add(dpu_mdss);
+@@ -256,7 +253,7 @@ int dpu_mdss_init(struct drm_device *dev)
+ 
+ 	priv->mdss = &dpu_mdss->base;
+ 
+-	pm_runtime_enable(dev->dev);
++	pm_runtime_enable(&pdev->dev);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+index c34760d981b8..b3f79c2277e9 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+@@ -112,7 +112,7 @@ static const struct irq_domain_ops mdss_hw_irqdomain_ops = {
+ 
+ static int mdss_irq_domain_init(struct mdp5_mdss *mdp5_mdss)
+ {
+-	struct device *dev = mdp5_mdss->base.dev->dev;
++	struct device *dev = mdp5_mdss->base.dev;
+ 	struct irq_domain *d;
+ 
+ 	d = irq_domain_add_linear(dev->of_node, 32, &mdss_hw_irqdomain_ops,
+@@ -155,7 +155,7 @@ static int mdp5_mdss_disable(struct msm_mdss *mdss)
+ static int msm_mdss_get_clocks(struct mdp5_mdss *mdp5_mdss)
+ {
+ 	struct platform_device *pdev =
+-			to_platform_device(mdp5_mdss->base.dev->dev);
++			to_platform_device(mdp5_mdss->base.dev);
+ 
+ 	mdp5_mdss->ahb_clk = msm_clk_get(pdev, "iface");
+ 	if (IS_ERR(mdp5_mdss->ahb_clk))
+@@ -172,10 +172,9 @@ static int msm_mdss_get_clocks(struct mdp5_mdss *mdp5_mdss)
+ 	return 0;
+ }
+ 
+-static void mdp5_mdss_destroy(struct drm_device *dev)
++static void mdp5_mdss_destroy(struct msm_mdss *mdss)
+ {
+-	struct msm_drm_private *priv = dev->dev_private;
+-	struct mdp5_mdss *mdp5_mdss = to_mdp5_mdss(priv->mdss);
++	struct mdp5_mdss *mdp5_mdss = to_mdp5_mdss(mdss);
+ 
+ 	if (!mdp5_mdss)
+ 		return;
+@@ -183,7 +182,7 @@ static void mdp5_mdss_destroy(struct drm_device *dev)
+ 	irq_domain_remove(mdp5_mdss->irqcontroller.domain);
+ 	mdp5_mdss->irqcontroller.domain = NULL;
+ 
+-	pm_runtime_disable(dev->dev);
++	pm_runtime_disable(mdss->dev);
+ }
+ 
+ static const struct msm_mdss_funcs mdss_funcs = {
+@@ -192,25 +191,24 @@ static const struct msm_mdss_funcs mdss_funcs = {
+ 	.destroy = mdp5_mdss_destroy,
+ };
+ 
+-int mdp5_mdss_init(struct drm_device *dev)
++int mdp5_mdss_init(struct platform_device *pdev)
+ {
+-	struct platform_device *pdev = to_platform_device(dev->dev);
+-	struct msm_drm_private *priv = dev->dev_private;
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 	struct mdp5_mdss *mdp5_mdss;
+ 	int ret;
+ 
+ 	DBG("");
+ 
+-	if (!of_device_is_compatible(dev->dev->of_node, "qcom,mdss"))
++	if (!of_device_is_compatible(pdev->dev.of_node, "qcom,mdss"))
+ 		return 0;
+ 
+-	mdp5_mdss = devm_kzalloc(dev->dev, sizeof(*mdp5_mdss), GFP_KERNEL);
++	mdp5_mdss = devm_kzalloc(&pdev->dev, sizeof(*mdp5_mdss), GFP_KERNEL);
+ 	if (!mdp5_mdss) {
+ 		ret = -ENOMEM;
+ 		goto fail;
+ 	}
+ 
+-	mdp5_mdss->base.dev = dev;
++	mdp5_mdss->base.dev = &pdev->dev;
+ 
+ 	mdp5_mdss->mmio = msm_ioremap(pdev, "mdss_phys", "MDSS");
+ 	if (IS_ERR(mdp5_mdss->mmio)) {
+@@ -226,27 +224,27 @@ int mdp5_mdss_init(struct drm_device *dev)
+ 
+ 	ret = msm_mdss_get_clocks(mdp5_mdss);
+ 	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "failed to get clocks: %d\n", ret);
++		DRM_DEV_ERROR(&pdev->dev, "failed to get clocks: %d\n", ret);
+ 		goto fail;
+ 	}
+ 
+-	ret = devm_request_irq(dev->dev, platform_get_irq(pdev, 0),
++	ret = devm_request_irq(&pdev->dev, platform_get_irq(pdev, 0),
+ 			       mdss_irq, 0, "mdss_isr", mdp5_mdss);
+ 	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "failed to init irq: %d\n", ret);
++		DRM_DEV_ERROR(&pdev->dev, "failed to init irq: %d\n", ret);
+ 		goto fail;
+ 	}
+ 
+ 	ret = mdss_irq_domain_init(mdp5_mdss);
+ 	if (ret) {
+-		DRM_DEV_ERROR(dev->dev, "failed to init sub-block irqs: %d\n", ret);
++		DRM_DEV_ERROR(&pdev->dev, "failed to init sub-block irqs: %d\n", ret);
+ 		goto fail;
+ 	}
+ 
+ 	mdp5_mdss->base.funcs = &mdss_funcs;
+ 	priv->mdss = &mdp5_mdss->base;
+ 
+-	pm_runtime_enable(dev->dev);
++	pm_runtime_enable(&pdev->dev);
+ 
+ 	return 0;
+ fail:
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index f5596efd3819..ad35a5d94053 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -342,7 +342,6 @@ static int msm_drm_uninit(struct device *dev)
+ 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 	struct drm_device *ddev = priv->dev;
+ 	struct msm_kms *kms = priv->kms;
+-	struct msm_mdss *mdss = priv->mdss;
+ 	int i;
+ 
+ 	/*
+@@ -402,9 +401,6 @@ static int msm_drm_uninit(struct device *dev)
+ 
+ 	component_unbind_all(dev, ddev);
+ 
+-	if (mdss && mdss->funcs)
+-		mdss->funcs->destroy(ddev);
+-
+ 	ddev->dev_private = NULL;
+ 	drm_dev_put(ddev);
+ 
+@@ -525,20 +521,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 	ddev->dev_private = priv;
+ 	priv->dev = ddev;
+ 
+-	switch (get_mdp_ver(pdev)) {
+-	case KMS_MDP5:
+-		ret = mdp5_mdss_init(ddev);
+-		break;
+-	case KMS_DPU:
+-		ret = dpu_mdss_init(ddev);
+-		break;
+-	default:
+-		ret = 0;
+-		break;
+-	}
+-	if (ret)
+-		goto err_put_drm_dev;
+-
+ 	mdss = priv->mdss;
+ 
+ 	priv->wq = alloc_ordered_workqueue("msm", 0);
+@@ -561,12 +543,12 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ 
+ 	ret = msm_init_vram(ddev);
+ 	if (ret)
+-		goto err_destroy_mdss;
++		return ret;
+ 
+ 	/* Bind all our sub-components: */
+ 	ret = component_bind_all(dev, ddev);
+ 	if (ret)
+-		goto err_destroy_mdss;
++		return ret;
+ 
+ 	dma_set_max_seg_size(dev, UINT_MAX);
+ 
+@@ -672,12 +654,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+ err_msm_uninit:
+ 	msm_drm_uninit(dev);
+ 	return ret;
+-err_destroy_mdss:
+-	if (mdss && mdss->funcs)
+-		mdss->funcs->destroy(ddev);
+-err_put_drm_dev:
+-	drm_dev_put(ddev);
+-	return ret;
+ }
+ 
+ /*
+@@ -1386,10 +1362,26 @@ static int msm_pdev_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, priv);
+ 
++	switch (get_mdp_ver(pdev)) {
++	case KMS_MDP5:
++		ret = mdp5_mdss_init(pdev);
++		break;
++	case KMS_DPU:
++		ret = dpu_mdss_init(pdev);
++		break;
++	default:
++		ret = 0;
++		break;
++	}
++	if (ret) {
++		platform_set_drvdata(pdev, NULL);
++		return ret;
++	}
++
+ 	if (get_mdp_ver(pdev)) {
+ 		ret = add_display_components(pdev, &match);
+ 		if (ret)
+-			return ret;
++			goto fail;
+ 	}
+ 
+ 	ret = add_gpu_components(&pdev->dev, &match);
+@@ -1411,14 +1403,24 @@ static int msm_pdev_probe(struct platform_device *pdev)
+ 
+ fail:
+ 	of_platform_depopulate(&pdev->dev);
++
++	if (priv->mdss && priv->mdss->funcs)
++		priv->mdss->funcs->destroy(priv->mdss);
++
+ 	return ret;
+ }
+ 
+ static int msm_pdev_remove(struct platform_device *pdev)
+ {
++	struct msm_drm_private *priv = platform_get_drvdata(pdev);
++	struct msm_mdss *mdss = priv->mdss;
++
+ 	component_master_del(&pdev->dev, &msm_drm_ops);
+ 	of_platform_depopulate(&pdev->dev);
+ 
++	if (mdss && mdss->funcs)
++		mdss->funcs->destroy(mdss);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
+index 8b132c8b1513..2a4f0526cb98 100644
+--- a/drivers/gpu/drm/msm/msm_kms.h
++++ b/drivers/gpu/drm/msm/msm_kms.h
+@@ -204,16 +204,16 @@ extern const struct of_device_id mdp5_dt_match[];
+ struct msm_mdss_funcs {
+ 	int (*enable)(struct msm_mdss *mdss);
+ 	int (*disable)(struct msm_mdss *mdss);
+-	void (*destroy)(struct drm_device *dev);
++	void (*destroy)(struct msm_mdss *mdss);
+ };
+ 
+ struct msm_mdss {
+-	struct drm_device *dev;
++	struct device *dev;
+ 	const struct msm_mdss_funcs *funcs;
+ };
+ 
+-int mdp5_mdss_init(struct drm_device *dev);
+-int dpu_mdss_init(struct drm_device *dev);
++int mdp5_mdss_init(struct platform_device *dev);
++int dpu_mdss_init(struct platform_device *dev);
+ 
+ #define for_each_crtc_mask(dev, crtc, crtc_mask) \
+ 	drm_for_each_crtc(crtc, dev) \
+-- 
+2.33.0
 
-mdss_edp_phy
-
-Thanks,
-Bjorn
-
-> +				compatible = "qcom,sc7280-edp-phy";
-> +
-> +				reg = <0 0xaec2a00 0 0x19c>,
-> +				      <0 0xaec2200 0 0xa0>,
-> +				      <0 0xaec2600 0 0xa0>,
-> +				      <0 0xaec2000 0 0x1c0>;
-> +
-> +				clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +					 <&gcc GCC_EDP_CLKREF_EN>;
-> +				clock-names = "aux",
-> +					      "cfg_ahb";
-> +
-> +				#clock-cells = <1>;
-> +				#phy-cells = <0>;
-> +
-> +				status = "disabled";
-> +			};
->  		};
->  
->  		pdc: interrupt-controller@b220000 {
-> -- 
-> 2.7.4
-> 
