@@ -2,63 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA9C4651AD
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 16:29:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F016A4651BA
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 16:32:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B6736EB92;
-	Wed,  1 Dec 2021 15:29:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5A06EE77;
+	Wed,  1 Dec 2021 15:32:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 041FE6EA15
- for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 15:29:44 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id r26so49188536oiw.5
- for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 07:29:44 -0800 (PST)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FE7B6EE6C
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 15:31:59 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id t19so49268877oij.1
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 07:31:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=HW0KKojhY1Kh9mSOPQm06pc8UeAfRw3x4seWBtg9Yyc=;
- b=jil87KB3ztPe3RD20gVEDKLq6HEAxx1FWdQSjmPdbsZZ7VxF75hQIREL7Hd98hZmAK
- /gngHrctIWE4T8kEPNPvMOCGxqENqN3kAUlhEKBhDbPRxi6IsL9X1UJx3PcVbAasxKkO
- 3ij+ehtxLc/olhAdHEjFL38HHjwl3G01dgdQLNsJ1Cz7audkWyJFgxweLNtVQeAtIm/D
- Dg5P8gbPKoLNEig8b+51kJA5ucmYik9vLa8ID96b4ZKRT2bN+CD5zMU6fQuoCojjMIvk
- dBaqmxvh4yZZp53f5tnQr2g8CXzT2CWEMJB3w6U283/KnDaAMW9CknfX06/DP3VlnYCA
- 5l+g==
+ bh=uFMUhbGSve6XOXG4hT9U3q9GImUbsSFy9Vah1OZisDI=;
+ b=VEqQ4qm73WYGNDTAMVaJv66zUxxEcw1I76eSBm6a3yxe4VglM1A8bd3AWGyIbSITsG
+ L15cql+Aqb1LKY7WuUgdhnqVjOUvVvUYgw+iOUVzlqdv6g9JpLdLgFZJrdGc/qfem8Ic
+ SmD6x7TfGe+WVqdeR9eLomzxti3j9u6g8H2Q+TruWVTvhxgGH/EbFn2BmHIKE77dcYPQ
+ AVdAk4ha5MiNJ/fABaqxzubfxrrIAJ9KPPFfBnbxEAcMPPf7nSif221xhhqJDC0ethkY
+ AdCVXauvs3kwFIM18EZC0A7yrJt/3j+OBqkcd047bVeqxiwyuaUmU+7dmprGUqcue6tA
+ Pcfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=HW0KKojhY1Kh9mSOPQm06pc8UeAfRw3x4seWBtg9Yyc=;
- b=cABHVjDzA8S56yqPUpzTtHCY96QgUTgTyxY4ZcnzKIiWQZMXH8J8DYp5TwY8/j1E3Y
- HOXrwnKbsydhyua/MlbVtIJwg9u21qXQwwQsiT+O8J79jv7lULUCi7w39OcNfar8PeTW
- /g6Nd4Q1ZehK90nRWEasTAVBabb1x15uQZQRde5k9wAhagyL2H8/y71VxAO414IzYMaY
- 8mOsc9tL6zn1+o3AS3GREH9VXe2s65L1LWWiZngm37LvQuDmmK2wNwg6GX5NbAHsc5eq
- PC9+Uspsyon4/UHT7s6A384kN2GMkhqoJ2owCKXQEkFIPgb/IZtGzKjXPV6CpTzFdtce
- vFIg==
-X-Gm-Message-State: AOAM533FwlyTusPUNGXmKgSpseRNVd4/jp9jOYn/ZLTeBbkYsr5likS0
- Dv5Lr15/Zf3IkS66kTt72voe9w==
-X-Google-Smtp-Source: ABdhPJyNbK4vliEu8UiFcOQx8Ncv2S0Tcetj0f5Wisnf7Oi+/bfLsG5CWbTguBIApW/MMkZzrh0vBQ==
-X-Received: by 2002:a05:6808:20a5:: with SMTP id
- s37mr6596269oiw.127.1638372584240; 
- Wed, 01 Dec 2021 07:29:44 -0800 (PST)
+ bh=uFMUhbGSve6XOXG4hT9U3q9GImUbsSFy9Vah1OZisDI=;
+ b=rpsqxlVdxWGUhEgk4v4SDeOjrD5NWb9zrYbVAIiYSFR/VducG8yzG3jPzqcl/1rTxK
+ JoHYjAS8nv5bQ8bR2GxeTYYRTEMc8vS14VI7gCPuRqduKyrCCZ9goigZN1Wvs0gKoyGo
+ D8/AcZ6mGIjz41AxCeR16OKR0C05k7QjRIL/z+jXH1MY+5uoLHbL6Zsdt1Sj6ht2eF2H
+ SnQnkeTZsyby65yrU1uZUVDa9JDCmxcv/eQ7bGQGAi1BMJoB1v54OU1EnQA9JNpwDYN8
+ HKvNVp17pSXtzeH95SgtIvc+Ap0k6tt8dbe/Xz9C2wZPEtWu1co7awq0fQxSwI4/zrea
+ 80vA==
+X-Gm-Message-State: AOAM53052Pe9KZRewj9iaLvNTbAwI9wmL3rFpHGmDNxnzUu8i1XaL7tX
+ nbExQT+mck9YTT228EX7YnIX9w==
+X-Google-Smtp-Source: ABdhPJwnqbKqj2jV7StOM44pZVUXOOt1pFckEfKefaxTyLXR8Nzec8O4l7stJ4JSVQj5U2bon04vgw==
+X-Received: by 2002:aca:1204:: with SMTP id 4mr6800261ois.136.1638372718608;
+ Wed, 01 Dec 2021 07:31:58 -0800 (PST)
 Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
  [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id t5sm5595ool.10.2021.12.01.07.29.43
+ by smtp.gmail.com with ESMTPSA id m2sm7954oop.12.2021.12.01.07.31.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Dec 2021 07:29:43 -0800 (PST)
-Date: Wed, 1 Dec 2021 09:29:38 -0600
+ Wed, 01 Dec 2021 07:31:58 -0800 (PST)
+Date: Wed, 1 Dec 2021 09:31:53 -0600
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Message-ID: <YaeU4oG6WX9LouFd@builder.lan>
+Message-ID: <YaeVaTtP4g6mchDr@builder.lan>
 References: <1637580369-876-1-git-send-email-quic_sbillaka@quicinc.com>
- <1637580369-876-2-git-send-email-quic_sbillaka@quicinc.com>
+ <1637580369-876-3-git-send-email-quic_sbillaka@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1637580369-876-2-git-send-email-quic_sbillaka@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 2/4] arm64: dts: qcom: sc7280: Add DSI
- display nodes
+In-Reply-To: <1637580369-876-3-git-send-email-quic_sbillaka@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v4 3/4] arm64: dts: qcom: sc7280: add edp
+ display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,21 +74,20 @@ Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org, dianders@chromium.org,
  quic_abhinavk@quicinc.com, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  swboyd@chromium.org, robh+dt@kernel.org, robdclark@gmail.com,
- agross@kernel.org, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Rajeev Nandan <quic_rajeevny@quicinc.com>, seanpaul@chromium.org,
+ agross@kernel.org, seanpaul@chromium.org, quic_mkrishn@quicinc.com,
  quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Mon 22 Nov 05:26 CST 2021, Sankeerth Billakanti wrote:
 
-> From: Krishna Manikandan <quic_mkrishn@quicinc.com>
+> Add edp controller and phy DT nodes for sc7280.
 > 
-> Add DSI controller and PHY nodes for sc7280.
-> 
-> Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
 > Signed-off-by: Krishna Manikandan <quic_mkrishn@quicinc.com>
-> Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+
+If Krishna authored the patch (he certified its origin first), then he
+should be From: as well.
+
 > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 > ---
@@ -98,93 +96,95 @@ On Mon 22 Nov 05:26 CST 2021, Sankeerth Billakanti wrote:
 >     None
 > 
 > Changes in v3:
->     - Add the dsi_phy clocks (Kuogee Hsieh)
->     - One clock cell per line (Stephen Boyd)
+>     - Add one clock cell per line (Stephen Boyd)
+>     - Unit address should match first reg property (Stephen Boyd)
+>     - Remove new line (Stephen Boyd)
+>     - Add the dsi_phy clocks in dispcc (Kuogee Hsieh)
 > 
 > Changes in v2:
+>     - Move regulator definitions to board file (Matthias Kaehlcke)
+>     - Move the gpio definitions to board file (Matthias Kaehlcke)
+>     - Move the pinconf to board file (Matthias Kaehlcke)
+>     - Move status property (Stephen Boyd)
 >     - Drop flags from interrupts (Stephen Boyd)
->     - Rename dsi-opp-table (Stephen Boyd)
->     - Rename dsi phy  node (Stephen Boyd)
+>     - Add clock names one per line for readability (Stephen Boyd)
+>     - Rename edp-opp-table (Stephen Boyd)
 > 
-> 
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 111 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 109 insertions(+), 2 deletions(-)
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 107 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 105 insertions(+), 2 deletions(-)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index a4536b6..12c4d32 100644
+> index 12c4d32..5ad500e 100644
 > --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
 > +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -2691,8 +2691,14 @@
->  			reg = <0 0xaf00000 0 0x20000>;
->  			clocks = <&rpmhcc RPMH_CXO_CLK>,
->  				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
-> -				 <0>, <0>, <0>, <0>, <0>, <0>;
-> -			clock-names = "bi_tcxo", "gcc_disp_gpll0_clk",
-> +				 <&dsi_phy 0>,
-> +				 <&dsi_phy 1>,
-> +				 <0>,
-> +				 <0>,
-> +				 <0>,
-> +				 <0>;
-> +			clock-names = "bi_tcxo",
-> +				      "gcc_disp_gpll0_clk",
+> @@ -2695,8 +2695,8 @@
+>  				 <&dsi_phy 1>,
+>  				 <0>,
+>  				 <0>,
+> -				 <0>,
+> -				 <0>;
+> +				 <&edp_phy 0>,
+> +				 <&edp_phy 1>;
+>  			clock-names = "bi_tcxo",
+>  				      "gcc_disp_gpll0_clk",
 >  				      "dsi0_phy_pll_out_byteclk",
->  				      "dsi0_phy_pll_out_dsiclk",
->  				      "dp_phy_pll_link_clk",
-> @@ -2768,6 +2774,18 @@
->  
->  				status = "disabled";
->  
-> +				ports {
-> +					#address-cells = <1>;
-> +					#size-cells = <0>;
+> @@ -2784,6 +2784,13 @@
+>  							remote-endpoint = <&dsi0_in>;
+>  						};
+>  					};
 > +
-> +					port@0 {
-> +						reg = <0>;
-> +						dpu_intf1_out: endpoint {
-> +							remote-endpoint = <&dsi0_in>;
+> +					port@1 {
+> +						reg = <1>;
+> +						dpu_intf5_out: endpoint {
+> +							remote-endpoint = <&edp_in>;
 > +						};
 > +					};
-> +				};
-> +
->  				mdp_opp_table: opp-table {
->  					compatible = "operating-points-v2";
->  
-> @@ -2792,6 +2810,95 @@
->  					};
 >  				};
+>  
+>  				mdp_opp_table: opp-table {
+> @@ -2899,6 +2906,102 @@
+>  
+>  				status = "disabled";
 >  			};
 > +
-> +			dsi0: dsi@ae94000 {
+> +			msm_edp: edp@aea0000 {
 
-Please label this mdss_dsi0, to make it group nicely when sorted in the
-dts.
+mdss_edp:
 
-> +				compatible = "qcom,mdss-dsi-ctrl";
-> +				reg = <0 0x0ae94000 0 0x400>;
-> +				reg-names = "dsi_ctrl";
+> +				compatible = "qcom,sc7280-edp";
+> +
+> +				reg = <0 0xaea0000 0 0x200>,
+> +				      <0 0xaea0200 0 0x200>,
+> +				      <0 0xaea0400 0 0xc00>,
+> +				      <0 0xaea1000 0 0x400>;
 > +
 > +				interrupt-parent = <&mdss>;
-> +				interrupts = <4>;
+> +				interrupts = <14>;
 > +
-> +				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-> +					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
+> +				clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +					 <&gcc GCC_EDP_CLKREF_EN>,
 > +					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +				clock-names = "byte",
-> +					      "byte_intf",
-> +					      "pixel",
-> +					      "core",
-> +					      "iface",
-> +					      "bus";
+> +					 <&dispcc DISP_CC_MDSS_EDP_AUX_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_EDP_LINK_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_EDP_LINK_INTF_CLK>,
+> +					 <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK>;
+> +				clock-names = "core_xo",
+> +					      "core_ref",
+> +					      "core_iface",
+> +					      "core_aux",
+> +					      "ctrl_link",
+> +					      "ctrl_link_iface",
+> +					      "stream_pixel";
+> +				#clock-cells = <1>;
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
+> +						  <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
+> +				assigned-clock-parents = <&edp_phy 0>, <&edp_phy 1>;
 > +
-> +				operating-points-v2 = <&dsi_opp_table>;
+> +				phys = <&edp_phy>;
+> +				phy-names = "dp";
+> +
+> +				operating-points-v2 = <&edp_opp_table>;
 > +				power-domains = <&rpmhpd SC7280_CX>;
-> +
-> +				phys = <&dsi_phy>;
-> +				phy-names = "dsi";
 > +
 > +				#address-cells = <1>;
 > +				#size-cells = <0>;
@@ -194,64 +194,60 @@ dts.
 > +				ports {
 > +					#address-cells = <1>;
 > +					#size-cells = <0>;
-> +
 > +					port@0 {
 > +						reg = <0>;
-> +						dsi0_in: endpoint {
-> +							remote-endpoint = <&dpu_intf1_out>;
-> +						};
-> +					};
-> +
-> +					port@1 {
-> +						reg = <1>;
-> +						dsi0_out: endpoint {
+> +						edp_in: endpoint {
+> +							remote-endpoint = <&dpu_intf5_out>;
 > +						};
 > +					};
 > +				};
 > +
-> +				dsi_opp_table: opp-table {
+> +				edp_opp_table: opp-table {
 > +					compatible = "operating-points-v2";
 > +
-> +					opp-187500000 {
-> +						opp-hz = /bits/ 64 <187500000>;
+> +					opp-160000000 {
+> +						opp-hz = /bits/ 64 <160000000>;
 > +						required-opps = <&rpmhpd_opp_low_svs>;
 > +					};
 > +
-> +					opp-300000000 {
-> +						opp-hz = /bits/ 64 <300000000>;
+> +					opp-270000000 {
+> +						opp-hz = /bits/ 64 <270000000>;
 > +						required-opps = <&rpmhpd_opp_svs>;
 > +					};
 > +
-> +					opp-358000000 {
-> +						opp-hz = /bits/ 64 <358000000>;
-> +						required-opps = <&rpmhpd_opp_svs_l1>;
+> +					opp-540000000 {
+> +						opp-hz = /bits/ 64 <540000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
+> +					};
+> +
+> +					opp-810000000 {
+> +						opp-hz = /bits/ 64 <810000000>;
+> +						required-opps = <&rpmhpd_opp_nom>;
 > +					};
 > +				};
 > +			};
 > +
-> +			dsi_phy: phy@ae94400 {
+> +			edp_phy: phy@aec2a00 {
 
-Why is above "dsi0" when this is "dsi_phy", drop the 0 on dsi0?
-
-Also, please label this mdss_dsi_phy.
+mdss_edp_phy
 
 Thanks,
 Bjorn
 
-> +				compatible = "qcom,sc7280-dsi-phy-7nm";
-> +				reg = <0 0x0ae94400 0 0x200>,
-> +				      <0 0x0ae94600 0 0x280>,
-> +				      <0 0x0ae94900 0 0x280>;
-> +				reg-names = "dsi_phy",
-> +					    "dsi_phy_lane",
-> +					    "dsi_pll";
+> +				compatible = "qcom,sc7280-edp-phy";
+> +
+> +				reg = <0 0xaec2a00 0 0x19c>,
+> +				      <0 0xaec2200 0 0xa0>,
+> +				      <0 0xaec2600 0 0xa0>,
+> +				      <0 0xaec2000 0 0x1c0>;
+> +
+> +				clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +					 <&gcc GCC_EDP_CLKREF_EN>;
+> +				clock-names = "aux",
+> +					      "cfg_ahb";
 > +
 > +				#clock-cells = <1>;
 > +				#phy-cells = <0>;
-> +
-> +				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-> +					 <&rpmhcc RPMH_CXO_CLK>;
-> +				clock-names = "iface", "ref";
 > +
 > +				status = "disabled";
 > +			};
