@@ -1,62 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C64E6465762
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 21:48:15 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C3A3465824
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 22:06:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 030566E8F6;
-	Wed,  1 Dec 2021 20:48:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 603F66E911;
+	Wed,  1 Dec 2021 21:06:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D307A6E8C3
- for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 20:48:10 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1638391690; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=jO7cVrwya6wNaphwskO5dhPvuOsaBbOE/EeWdg/kFsc=;
- b=Q5kUF6bl8WgvDvU3Jqc0x7wJ7MeQV2xnV1TwzAA8RrXR5hglqWjVyoTVe6FX+WJlxQ/Mc/7g
- CO4pmu7yCBzhoHYzLZJD0DKMmtKk/ZSmarfkoAH8Y8ePcoTXq83cetqRfgMMBvExwyI2cRGy
- 1SZr1u7GnXUudgQJuPbat+vyHcw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
- 61a7df89135a8a9d0ec7d116 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 01 Dec 2021 20:48:09
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 54AA5C43638; Wed,  1 Dec 2021 20:48:08 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: khsieh)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 3EDAEC4338F;
- Wed,  1 Dec 2021 20:48:07 +0000 (UTC)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0302B6E90D;
+ Wed,  1 Dec 2021 21:06:53 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id s13so55194567wrb.3;
+ Wed, 01 Dec 2021 13:06:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=RtdWsCBsliPnNDNZn5f2NubECexJaGsJxOP0Bpv1OKY=;
+ b=Ii4Af+s+GOqhBaysiVVGFdaakjXx771tNa4Av1um1v8FmaPSuX0lMlVzULowrYTdGq
+ zpwTqgdA4mFgc6DGbVk9XYXiwQCUn8cGwaGmlVgT0175HLSJmJ9F3N+1G9j3pgxeylnj
+ y3pKZzbeCXJAq/FFVYtdH+GyKIfzkCKGVWK90HQhWDkXs0wG8OlE7Vi3QLgtGP4+MsoE
+ 4G7TnR3MuTheDk2WGKImFIuXCoiAlMlI2Mq4dUAUf/fj4AVMdllz96Nsz+ZpFAUVKy7n
+ fdi2/K6gkccbX2Xg1f8VLmxq7wfdCcZP1qfOxSBNV022MgLdUxAYW2dt+A9+FJabjlIv
+ /PWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=RtdWsCBsliPnNDNZn5f2NubECexJaGsJxOP0Bpv1OKY=;
+ b=Npm3yKyTj0TtAcRJlgio46fGqOdbBTP9KlT0jF8Y1unILDx5Ecn6r1Pm00BMhlyS3c
+ S1WhtqSMzywJG1b1tBhmrBm+gWwTmQI/Fnizx0RWCcY4ESA/p3A+KHNJFLqzdiZKHyWh
+ F+Wmsdb0vkiT8gCMkgFF7OibB6hAXfuTF0wpCiV5jgNBi+cCpfbYiimhrYEgLXIk84pD
+ QQePUKB69ow7TJXIc2WpypBxiqXIgY2wZHxsk23SGO8sfSEm5rLNtRC6RbnB5fvEPiZ0
+ knrCJZMDrMq13vis2A4B6yZAhzbeRzuJYviRDlGEhA7wLcZposTXAT8blHc4CbPxvEhX
+ Rfrg==
+X-Gm-Message-State: AOAM533MG6QKyQJ63Ju/9bGCQ37vSuq9ov5rRcPKVRbEILHfdnpUwjql
+ WvA61no3BPSD2UsjTx7qLzpVkZBooolJdX2LR8gNz+AP
+X-Google-Smtp-Source: ABdhPJzNdOH9H02HqXVPwQ7TTJUP1vhkHn+2KgbhkBCl5Ra5WkUYjeWWb+KUQAvaGgUVZEs2EalEzn4BMO6GuzALumA=
+X-Received: by 2002:adf:e904:: with SMTP id f4mr9266679wrm.245.1638392812496; 
+ Wed, 01 Dec 2021 13:06:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Wed, 01 Dec 2021 12:48:07 -0800
-From: khsieh@codeaurora.org
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <ff384e41-cc86-8028-fc81-b0b41140dcd2@linaro.org>
-References: <1619048258-8717-1-git-send-email-khsieh@codeaurora.org>
- <1619048258-8717-5-git-send-email-khsieh@codeaurora.org>
- <CAE-0n519sFBeLsNF8=Ci1y_xfY4dRuPRNHnJ++ZXHgj6Z6LhQA@mail.gmail.com>
- <ff384e41-cc86-8028-fc81-b0b41140dcd2@linaro.org>
-Message-ID: <c01b4d952b7df2daae276aef4cf3ae13@codeaurora.org>
-X-Sender: khsieh@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v4 4/4] drm/msm/dp:
- dp_link_parse_sink_count() return immediately if aux read failed
+References: <20211130004324.337399-1-robdclark@gmail.com>
+ <20211130004324.337399-2-robdclark@gmail.com>
+ <Yac0i2wEZbH32lbL@platvala-desk.ger.corp.intel.com>
+In-Reply-To: <Yac0i2wEZbH32lbL@platvala-desk.ger.corp.intel.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 1 Dec 2021 13:12:04 -0800
+Message-ID: <CAF6AEGtU1KSc70wndMFn6R2QTnuP3pRCb-G7RLc8iwjW0=y=0w@mail.gmail.com>
+To: Petri Latvala <petri.latvala@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [igt-dev] [PATCH igt 1/2] igt: Split out I/O helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,42 +65,117 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, Stephen Boyd <swboyd@chromium.org>,
- robdclark@gmail.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- aravindh@codeaurora.org, sean@poorly.run
+Cc: Rob Clark <robdclark@chromium.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-11-24 23:32, Dmitry Baryshkov wrote:
-> On 04/05/2021 07:35, Stephen Boyd wrote:
->> Quoting Kuogee Hsieh (2021-04-21 16:37:38)
->>> Add checking aux read/write status at both dp_link_parse_sink_count()
->>> and dp_link_parse_sink_status_filed() to avoid long timeout delay if
->> 
->> s/filed/field/
->> 
->>> dp aux read/write failed at timeout due to cable unplugged.
->>> 
->>> Changes in V4:
->>> -- split this patch as stand alone patch
->>> 
->>> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
->> 
->> Can this patch come before the one previously? And then some fixes tag
->> be added? Otherwise looks good to me.
->> 
->> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
->> Tested-by: Stephen Boyd <swboyd@chromium.org>
-> 
-> Is this something that we still need to pursue/merge?
-> 
-> There were changes requested for this and for the previous patch, but
-> no new versions were posted.
+On Wed, Dec 1, 2021 at 12:39 AM Petri Latvala <petri.latvala@intel.com> wro=
+te:
+>
+> On Mon, Nov 29, 2021 at 04:43:23PM -0800, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Split the readN()/writeN() helpers out into an igt_io module, so they
+> > can be re-used by tests.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  lib/igt_io.c    | 96 +++++++++++++++++++++++++++++++++++++++++++++++++
+> >  lib/igt_io.h    | 33 +++++++++++++++++
+> >  lib/igt_sysfs.c | 45 +++--------------------
+> >  lib/meson.build |  1 +
+> >  4 files changed, 135 insertions(+), 40 deletions(-)
+> >  create mode 100644 lib/igt_io.c
+> >  create mode 100644 lib/igt_io.h
+> >
+> > diff --git a/lib/igt_io.c b/lib/igt_io.c
+> > new file mode 100644
+> > index 00000000..ad54cbe5
+> > --- /dev/null
+> > +++ b/lib/igt_io.c
+> > @@ -0,0 +1,96 @@
+> > +/*
+> > + * Copyright =C2=A9 2016 Intel Corporation
+> > + *
+> > + * Permission is hereby granted, free of charge, to any person obtaini=
+ng a
+> > + * copy of this software and associated documentation files (the "Soft=
+ware"),
+> > + * to deal in the Software without restriction, including without limi=
+tation
+> > + * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,
+> > + * and/or sell copies of the Software, and to permit persons to whom t=
+he
+> > + * Software is furnished to do so, subject to the following conditions=
+:
+> > + *
+> > + * The above copyright notice and this permission notice (including th=
+e next
+> > + * paragraph) shall be included in all copies or substantial portions =
+of the
+> > + * Software.
+> > + *
+> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
+RESS OR
+> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
+LITY,
+> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
+SHALL
+> > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES O=
+R OTHER
+> > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARI=
+SING
+> > + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER=
+ DEALINGS
+> > + * IN THE SOFTWARE.
+> > + *
+> > + */
+> > +
+> > +#include <errno.h>
+> > +#include <stdlib.h>
+> > +#include <unistd.h>
+> > +
+> > +#include "igt_io.h"
+> > +
+> > +/**
+> > + * SECTION:igt_io
+> > + * @short_description: Helpers for file I/O
+> > + * @title: io
+> > + * @include: igt_io.h
+> > + *
+> > + * This library provides helpers for file I/O
+> > + */
+> > +
+>
+> This new section needs to be explicitly included in the docs. Squash this=
+ in:
+>
+> diff --git a/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml b/docs/r=
+eference/igt-gpu-tools/igt-gpu-tools-docs.xml
+> index 189597c6..0dc5a0b7 100644
+> --- a/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
+> +++ b/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
+> @@ -30,6 +30,7 @@
+>      <xi:include href=3D"xml/igt_fb.xml"/>
+>      <xi:include href=3D"xml/igt_frame.xml"/>
+>      <xi:include href=3D"xml/igt_gt.xml"/>
+> +    <xi:include href=3D"xml/igt_io.xml"/>
+>      <xi:include href=3D"xml/igt_kmod.xml"/>
+>      <xi:include href=3D"xml/igt_kms.xml"/>
+>      <xi:include href=3D"xml/igt_list.xml"/>
+>
+>
 
-It is my fault to miss this one.
-The first two patches of this serial are merged.
-I will rebase and re submit this one to V5.10.
+Oh, right.. I've squashed that in locally.. lmk if you want me to resend
 
+BR,
+-R
 
+>
+> --
+> Petri Latvala
