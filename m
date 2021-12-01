@@ -2,62 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACAA0465932
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 23:26:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDC1B465934
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 23:26:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEE8A6E94E;
-	Wed,  1 Dec 2021 22:26:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF2A96E933;
+	Wed,  1 Dec 2021 22:26:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
  [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C43756E8DA
- for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 22:26:41 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id 207so51020487ljf.10
- for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 14:26:41 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A5626E5A1
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 22:26:42 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id m12so12933251ljj.6
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 14:26:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=IPVLDgnWhiffGg+ltlm6jFDDP7VKjhpJAJFiDVdO8N0=;
- b=ffxswi7e6qVsGwiUetlg2L9vL1KHpzBwwSPSnXcaqR0F41NLuoj5+MLMxsYH137iwu
- 3k8xqvbXPdWJQ8PFyzOYbJCJlYh7SowrTTwNYar2gKU0n6dAyms1UvLqmLhT3gmpx9iV
- gHqDa9L28bygXdk0YVphcmvvFrHgtVGRELM61CsjhwjaBu+Ht1AtJymz0E2Gyev57xgu
- romX3Q6yJu6sGu08xTeu4qDo1L4OfvS7bA5X3uSmfSlnJu0L4wNz814JQWpazv7mxM0J
- MsLCAp3/HB9+X86Jj4suguB9WlIS4zqZXFrpPWzvF5BwZBL4Z/tv3jGNcJSGZZ64bH5x
- uhCA==
+ bh=TJdNyjaCPbt0SX5JXfaq3vc4wNX+Lqbrq4BbSv0o6ck=;
+ b=gRsXariZ+vA4q+zfrI7GwlR5hsOVobuQjJde3sOr+LExlL97lCDlsMjqtPDLpQr4V1
+ IZpV7cO55ckE5qQKTfZd7I+t9zZEKxHx8P11+L8w3vu+UvYCF/i6oNgO4ghlr9KupX4d
+ CnjG1ZAd0YNqHI6pW8M17W8Jqv2F7wqZ7b557/5tkNasuQf8mE/6AtrQzWQpD77GzZHV
+ aqFWrB/W8APB4DEDUp2VY6PWmadSFuT4x2skWtVkF4kjCuxN8sw3LJiYGxjnxGpyMtxw
+ rP828lszpIPbT/mYGxbCYK/cBOU90LFbxbSkA66lJ1ZrxzOD+Y8/LDuMw+ZzTBD7Dl48
+ 6uNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=IPVLDgnWhiffGg+ltlm6jFDDP7VKjhpJAJFiDVdO8N0=;
- b=AaEnaYsor699IP13X93m3VnkGJYhwNxFOnPDFH803hCHW8fKA0y+v2N6J53xItdYXx
- 1JMeJlxS/59tugOXOZ4WVXn5f5/V7GMYGS7FcewXkJaLQwUgt9U5ngbZOoCzAj11/SNm
- waqdNKQI6sc8IuSrc7CVYReyyh99Dcnc6bgOG5f7828NnfhhF2Gu0il2/ffWSy0yh4HA
- 7JS+AMfxGTXBrVvXDXCusethw3VbRqrcP/S9OiYJw57nlFhK1kuJ+Yn/GxIj41B4XZjP
- CQANPsv1YcwwozvoMCGPALNMcCtRf8Ty+nejKBKhtnxYI2V8ASkZ+rHm8kDi036dtUem
- azDw==
-X-Gm-Message-State: AOAM5335TUhdLs314T3RTUa/0IDB/arvcrZjOkkTevxqYpOlFVOgPwFT
- AsLNtBKRNubaGc/vOY2P5g1nlA==
-X-Google-Smtp-Source: ABdhPJzBozT03glC0cSzbckwkIGAr0LRXKjsB6uYW6kKFalJ9YpUhJ4sE2AHDJXNYRvYE/eH5mFhqQ==
-X-Received: by 2002:a2e:b8cf:: with SMTP id s15mr8225808ljp.364.1638397600114; 
+ bh=TJdNyjaCPbt0SX5JXfaq3vc4wNX+Lqbrq4BbSv0o6ck=;
+ b=bsmYRMBe5WAje9w4xcISpH1skN9+dX6rntB5e47GZSO24CgNU2M7qPRVzXdv9oTIVW
+ Qqg+WcmrbWPES0WBG3Wr43hWP0ZW9+ISx2MZGP2OMbC4tboBTc8A7e0NR7YtZ2rhdEFH
+ qGvoHAiA+Lc16tZP9tjtPnoB7023KQhJqRY/+ZScW4MhiWOaNw8GeqTm+SjDBbKX80zA
+ 41yDm2ZGJzRQpytpOymf6p0aB02s4Z8/gYxEdf6rFEW6txB7N5g+4swRvrd+fA9YLRju
+ 7oNEgGsNyWJ3x9OKJ/X9tWZ6gZtLyj2G9nF3EieceZZTL9jXAIGt3chqpErChmxcyzOZ
+ oG1Q==
+X-Gm-Message-State: AOAM5336eJ48VEBQnfI1qGaebaDGzHd8ZkrJ5YYvRUXSTpoNlvjN8YZz
+ Ek6coASDa5DH1IxkqVTlzEuHFQ==
+X-Google-Smtp-Source: ABdhPJys5yzDwH0LJnm7duSIbsZsGK4mv5NuOVsCs78pmcT4r7e6K8kelf5WuhyuHVoGPHW+hHMgJw==
+X-Received: by 2002:a05:651c:11cf:: with SMTP id
+ z15mr7974458ljo.30.1638397600784; 
  Wed, 01 Dec 2021 14:26:40 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u7sm117004lfs.144.2021.12.01.14.26.39
+ by smtp.gmail.com with ESMTPSA id u7sm117004lfs.144.2021.12.01.14.26.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Dec 2021 14:26:39 -0800 (PST)
+ Wed, 01 Dec 2021 14:26:40 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu,  2 Dec 2021 01:26:30 +0300
-Message-Id: <20211201222633.2476780-6-dmitry.baryshkov@linaro.org>
+Date: Thu,  2 Dec 2021 01:26:31 +0300
+Message-Id: <20211201222633.2476780-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
 References: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 5/8] drm/msm/dpu: stop manually removing
- debugfs files for the DPU plane
+Subject: [Freedreno] [PATCH v1 6/8] drm/msm/dpu: stop manually removing
+ debugfs files for the DPU CRTC
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,115 +77,82 @@ Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-DRM code handles removing all debugfs recursively. Drop plane-specific
+DRM code handles removing all debugfs recursively. Drop CRTC-specific
 code to perform that.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 28 ++++++++---------------
- 1 file changed, 10 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 15 ++++-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  3 ---
+ 2 files changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index f80ee3ba9a8a..d3176f58708e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -110,7 +110,6 @@ struct dpu_plane {
- 	struct dpu_mdss_cfg *catalog;
- 
- 	/* debugfs related stuff */
--	struct dentry *debugfs_root;
- 	struct dpu_debugfs_regset32 debugfs_src;
- 	struct dpu_debugfs_regset32 debugfs_scaler;
- 	struct dpu_debugfs_regset32 debugfs_csc;
-@@ -1368,15 +1367,16 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
- 	struct dpu_kms *kms = _dpu_plane_get_kms(plane);
- 	const struct dpu_sspp_cfg *cfg = pdpu->pipe_hw->cap;
- 	const struct dpu_sspp_sub_blks *sblk = cfg->sblk;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index d290809d59bd..9899f7424131 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1424,15 +1424,16 @@ DEFINE_SHOW_ATTRIBUTE(dpu_crtc_debugfs_state);
+ static int _dpu_crtc_init_debugfs(struct drm_crtc *crtc)
+ {
+ 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
 +	struct dentry *debugfs_root;
  
- 	/* create overall sub-directory for the pipe */
--	pdpu->debugfs_root =
-+	debugfs_root =
- 		debugfs_create_dir(plane->name,
- 				plane->dev->primary->debugfs_root);
+-	dpu_crtc->debugfs_root = debugfs_create_dir(dpu_crtc->name,
++	debugfs_root = debugfs_create_dir(dpu_crtc->name,
+ 			crtc->dev->primary->debugfs_root);
  
- 	/* don't error check these */
- 	debugfs_create_xul("features", 0600,
--			pdpu->debugfs_root, (unsigned long *)&pdpu->pipe_hw->cap->features);
-+			debugfs_root, (unsigned long *)&pdpu->pipe_hw->cap->features);
- 
- 	/* add register dump support */
- 	dpu_debugfs_setup_regset32(&pdpu->debugfs_src,
-@@ -1384,7 +1384,7 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
- 			sblk->src_blk.len,
- 			kms);
- 	dpu_debugfs_create_regset32("src_blk", 0400,
--			pdpu->debugfs_root, &pdpu->debugfs_src);
-+			debugfs_root, &pdpu->debugfs_src);
- 
- 	if (cfg->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
- 			cfg->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
-@@ -1395,7 +1395,7 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
- 				sblk->scaler_blk.len,
- 				kms);
- 		dpu_debugfs_create_regset32("scaler_blk", 0400,
--				pdpu->debugfs_root,
-+				debugfs_root,
- 				&pdpu->debugfs_scaler);
- 	}
- 
-@@ -1406,24 +1406,24 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
- 				sblk->csc_blk.len,
- 				kms);
- 		dpu_debugfs_create_regset32("csc_blk", 0400,
--				pdpu->debugfs_root, &pdpu->debugfs_csc);
-+				debugfs_root, &pdpu->debugfs_csc);
- 	}
- 
- 	debugfs_create_u32("xin_id",
- 			0400,
--			pdpu->debugfs_root,
+ 	debugfs_create_file("status", 0400,
+-			dpu_crtc->debugfs_root,
 +			debugfs_root,
- 			(u32 *) &cfg->xin_id);
- 	debugfs_create_u32("clk_ctrl",
- 			0400,
--			pdpu->debugfs_root,
+ 			dpu_crtc, &_dpu_debugfs_status_fops);
+ 	debugfs_create_file("state", 0600,
+-			dpu_crtc->debugfs_root,
 +			debugfs_root,
- 			(u32 *) &cfg->clk_ctrl);
- 	debugfs_create_x32("creq_vblank",
- 			0600,
--			pdpu->debugfs_root,
-+			debugfs_root,
- 			(u32 *) &sblk->creq_vblank);
- 	debugfs_create_x32("danger_vblank",
- 			0600,
--			pdpu->debugfs_root,
-+			debugfs_root,
- 			(u32 *) &sblk->danger_vblank);
+ 			&dpu_crtc->base,
+ 			&dpu_crtc_debugfs_state_fops);
  
- 	return 0;
-@@ -1440,13 +1440,6 @@ static int dpu_plane_late_register(struct drm_plane *plane)
- 	return _dpu_plane_init_debugfs(plane);
+@@ -1450,13 +1451,6 @@ static int dpu_crtc_late_register(struct drm_crtc *crtc)
+ 	return _dpu_crtc_init_debugfs(crtc);
  }
  
--static void dpu_plane_early_unregister(struct drm_plane *plane)
+-static void dpu_crtc_early_unregister(struct drm_crtc *crtc)
 -{
--	struct dpu_plane *pdpu = to_dpu_plane(plane);
+-	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
 -
--	debugfs_remove_recursive(pdpu->debugfs_root);
+-	debugfs_remove_recursive(dpu_crtc->debugfs_root);
 -}
 -
- static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
- 		uint32_t format, uint64_t modifier)
- {
-@@ -1472,7 +1465,6 @@ static const struct drm_plane_funcs dpu_plane_funcs = {
- 		.atomic_duplicate_state = dpu_plane_duplicate_state,
- 		.atomic_destroy_state = dpu_plane_destroy_state,
- 		.late_register = dpu_plane_late_register,
--		.early_unregister = dpu_plane_early_unregister,
- 		.format_mod_supported = dpu_plane_format_mod_supported,
- };
+ static const struct drm_crtc_funcs dpu_crtc_funcs = {
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.destroy = dpu_crtc_destroy,
+@@ -1465,7 +1459,6 @@ static const struct drm_crtc_funcs dpu_crtc_funcs = {
+ 	.atomic_duplicate_state = dpu_crtc_duplicate_state,
+ 	.atomic_destroy_state = dpu_crtc_destroy_state,
+ 	.late_register = dpu_crtc_late_register,
+-	.early_unregister = dpu_crtc_early_unregister,
+ 	.verify_crc_source = dpu_crtc_verify_crc_source,
+ 	.set_crc_source = dpu_crtc_set_crc_source,
+ 	.enable_vblank  = msm_crtc_enable_vblank,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+index 4328e133d71c..b8785c394fcc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+@@ -129,7 +129,6 @@ struct dpu_crtc_frame_event {
+  * @drm_requested_vblank : Whether vblanks have been enabled in the encoder
+  * @property_info : Opaque structure for generic property support
+  * @property_defaults : Array of default values for generic property support
+- * @debugfs_root  : Parent of debugfs node
+  * @vblank_cb_count : count of vblank callback since last reset
+  * @play_count    : frame count between crtc enable and disable
+  * @vblank_cb_time  : ktime at vblank count reset
+@@ -160,8 +159,6 @@ struct dpu_crtc {
+ 	struct drm_pending_vblank_event *event;
+ 	u32 vsync_count;
  
+-	struct dentry *debugfs_root;
+-
+ 	u32 vblank_cb_count;
+ 	u64 play_count;
+ 	ktime_t vblank_cb_time;
 -- 
 2.33.0
 
