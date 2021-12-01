@@ -1,42 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 368B84649DF
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 09:39:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3479C464C05
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 11:52:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC98F6F5AF;
-	Wed,  1 Dec 2021 08:39:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 898F86FA17;
+	Wed,  1 Dec 2021 10:52:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0F126F5AF;
- Wed,  1 Dec 2021 08:39:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="260388658"
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="260388658"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 00:39:28 -0800
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="596159000"
-Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.72.185])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 00:39:26 -0800
-Received: from platvala by thrakatuluk with local (Exim 4.94)
- (envelope-from <petri.latvala@intel.com>)
- id 1msL8N-0003rL-Gt; Wed, 01 Dec 2021 10:38:35 +0200
-Date: Wed, 1 Dec 2021 10:38:35 +0200
-From: Petri Latvala <petri.latvala@intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Yac0i2wEZbH32lbL@platvala-desk.ger.corp.intel.com>
-References: <20211130004324.337399-1-robdclark@gmail.com>
- <20211130004324.337399-2-robdclark@gmail.com>
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4AB6FA15;
+ Wed,  1 Dec 2021 10:52:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 25E361F45385
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
+ t=1638355937; bh=EY4sWQI8YaK1I+xHKw6QTEgLgpqi7ZZNgbuHl0f7UJc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=cS/Gx7Xkf/0e52vQIasiWKUTCS2/RlzKs5M+nChWnusCk8pyAon8pe8CSZKmzo6vz
+ ltnRx5yxs5X0a5ydNGmBii5HvwG6jxPYMvYZhoBoypzpOA8rhTAFgWpSPEXY1c/Edr
+ BfU80fCpI114g0/xB7NvkgQE3IlADjoQX0WeULEm+b8wY2Ksx38yx6p2GMvOWByHWA
+ gSyu9ETNlLho1P5S01xGmdGSLR9v8Wcc1Z6trI7uOrmNGeZ5n3dnwTwS5puKPb3uTQ
+ MzFaAKA6izQbMrOw2qcoX3ep7CIExszdkOoHuZDvTbWuzc3+kSTkfcMa2LPNSg4oiV
+ UYHAQkJadBsqQ==
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: robdclark@gmail.com
+Date: Wed,  1 Dec 2021 11:52:08 +0100
+Message-Id: <20211201105210.24970-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211130004324.337399-2-robdclark@gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [igt-dev] [PATCH igt 1/2] igt: Split out I/O helpers
+Subject: [Freedreno] [PATCH v3 0/2] drm/msm: Fix dsi/bridge probe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,91 +43,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ jami.kettunen@somainline.org, martin.botka@somainline.org, maxime@cerno.tech,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org,
+ kernel@collabora.com, sean@poorly.run,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Nov 29, 2021 at 04:43:23PM -0800, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Split the readN()/writeN() helpers out into an igt_io module, so they
-> can be re-used by tests.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  lib/igt_io.c    | 96 +++++++++++++++++++++++++++++++++++++++++++++++++
->  lib/igt_io.h    | 33 +++++++++++++++++
->  lib/igt_sysfs.c | 45 +++--------------------
->  lib/meson.build |  1 +
->  4 files changed, 135 insertions(+), 40 deletions(-)
->  create mode 100644 lib/igt_io.c
->  create mode 100644 lib/igt_io.h
-> 
-> diff --git a/lib/igt_io.c b/lib/igt_io.c
-> new file mode 100644
-> index 00000000..ad54cbe5
-> --- /dev/null
-> +++ b/lib/igt_io.c
-> @@ -0,0 +1,96 @@
-> +/*
-> + * Copyright © 2016 Intel Corporation
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice (including the next
-> + * paragraph) shall be included in all copies or substantial portions of the
-> + * Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-> + * IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <errno.h>
-> +#include <stdlib.h>
-> +#include <unistd.h>
-> +
-> +#include "igt_io.h"
-> +
-> +/**
-> + * SECTION:igt_io
-> + * @short_description: Helpers for file I/O
-> + * @title: io
-> + * @include: igt_io.h
-> + *
-> + * This library provides helpers for file I/O
-> + */
-> +
+Context, from patch 2/2:
+Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
+DSI host gets initialized earlier, but this caused unability to probe
+the entire stack of components because they all depend on interrupts
+coming from the main `mdss` node (mdp5, or dpu1).
 
-This new section needs to be explicitly included in the docs. Squash this in:
+Changes in v3:
+- Removed a forgotten (and wrong) kfree() call.
 
-diff --git a/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml b/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
-index 189597c6..0dc5a0b7 100644
---- a/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
-+++ b/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
-@@ -30,6 +30,7 @@
-     <xi:include href="xml/igt_fb.xml"/>
-     <xi:include href="xml/igt_frame.xml"/>
-     <xi:include href="xml/igt_gt.xml"/>
-+    <xi:include href="xml/igt_io.xml"/>
-     <xi:include href="xml/igt_kmod.xml"/>
-     <xi:include href="xml/igt_kms.xml"/>
-     <xi:include href="xml/igt_list.xml"/>
+Series v2:
+After a very nice conversation with Dmitry, it turned out that my first
+approach to solve this issue wasn't great: even though it appeared to
+actually work, it was introducing a number of issues, one of which was
+critical as it was not removing down the DRM device when it's supposed to.
+
+Instead of actually fixing that patch, I went for "simplifying" the
+approach by not initializing the entire MDSS, but just the interrupt
+controller, which still untangles the infinite probe deferrals, but
+actually doesn't even touch most of the already present logic in place.
 
 
+AngeloGioacchino Del Regno (2):
+  drm/msm: Allocate msm_drm_private early and pass it as driver data
+  drm/msm: Initialize MDSS irq domain at probe time
+
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 16 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c    |  4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c   | 50 ++++++++++------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c   |  3 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c  | 58 ++++++++++++------
+ drivers/gpu/drm/msm/dp/dp_display.c        | 10 +---
+ drivers/gpu/drm/msm/dsi/dsi.c              |  6 +-
+ drivers/gpu/drm/msm/edp/edp.c              |  6 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.c            |  7 +--
+ drivers/gpu/drm/msm/msm_drv.c              | 68 +++++++++++++---------
+ drivers/gpu/drm/msm/msm_kms.h              |  3 +
+ 11 files changed, 133 insertions(+), 98 deletions(-)
 
 -- 
-Petri Latvala
+2.33.1
+
