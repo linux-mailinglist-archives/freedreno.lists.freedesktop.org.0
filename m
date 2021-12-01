@@ -1,42 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B094646FD
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 07:05:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 368B84649DF
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 09:39:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49EAC6EC69;
-	Wed,  1 Dec 2021 06:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC98F6F5AF;
+	Wed,  1 Dec 2021 08:39:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 336996EC68;
- Wed,  1 Dec 2021 06:05:11 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="236621114"
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="236621114"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2021 22:05:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="459130103"
-Received: from lkp-server02.sh.intel.com (HELO 9e1e9f9b3bcb) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 30 Nov 2021 22:05:07 -0800
-Received: from kbuild by 9e1e9f9b3bcb with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1msIjq-000EL8-J5; Wed, 01 Dec 2021 06:05:06 +0000
-Date: Wed, 1 Dec 2021 14:04:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- robdclark@gmail.com
-Message-ID: <202112011405.Wn79h7q3-lkp@intel.com>
-References: <20211130141048.294246-2-angelogioacchino.delregno@collabora.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0F126F5AF;
+ Wed,  1 Dec 2021 08:39:28 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10184"; a="260388658"
+X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="260388658"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 00:39:28 -0800
+X-IronPort-AV: E=Sophos;i="5.87,278,1631602800"; d="scan'208";a="596159000"
+Received: from thrakatuluk.fi.intel.com (HELO thrakatuluk) ([10.237.72.185])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Dec 2021 00:39:26 -0800
+Received: from platvala by thrakatuluk with local (Exim 4.94)
+ (envelope-from <petri.latvala@intel.com>)
+ id 1msL8N-0003rL-Gt; Wed, 01 Dec 2021 10:38:35 +0200
+Date: Wed, 1 Dec 2021 10:38:35 +0200
+From: Petri Latvala <petri.latvala@intel.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <Yac0i2wEZbH32lbL@platvala-desk.ger.corp.intel.com>
+References: <20211130004324.337399-1-robdclark@gmail.com>
+ <20211130004324.337399-2-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20211130141048.294246-2-angelogioacchino.delregno@collabora.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm: Allocate msm_drm_private
- early and pass it as driver data
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211130004324.337399-2-robdclark@gmail.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [igt-dev] [PATCH igt 1/2] igt: Split out I/O helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,72 +49,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kbuild-all@lists.01.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, maxime@cerno.tech, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, sean@poorly.run
+Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, igt-dev@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi AngeloGioacchino,
+On Mon, Nov 29, 2021 at 04:43:23PM -0800, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Split the readN()/writeN() helpers out into an igt_io module, so they
+> can be re-used by tests.
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  lib/igt_io.c    | 96 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  lib/igt_io.h    | 33 +++++++++++++++++
+>  lib/igt_sysfs.c | 45 +++--------------------
+>  lib/meson.build |  1 +
+>  4 files changed, 135 insertions(+), 40 deletions(-)
+>  create mode 100644 lib/igt_io.c
+>  create mode 100644 lib/igt_io.h
+> 
+> diff --git a/lib/igt_io.c b/lib/igt_io.c
+> new file mode 100644
+> index 00000000..ad54cbe5
+> --- /dev/null
+> +++ b/lib/igt_io.c
+> @@ -0,0 +1,96 @@
+> +/*
+> + * Copyright © 2016 Intel Corporation
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice (including the next
+> + * paragraph) shall be included in all copies or substantial portions of the
+> + * Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+> + * IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include <errno.h>
+> +#include <stdlib.h>
+> +#include <unistd.h>
+> +
+> +#include "igt_io.h"
+> +
+> +/**
+> + * SECTION:igt_io
+> + * @short_description: Helpers for file I/O
+> + * @title: io
+> + * @include: igt_io.h
+> + *
+> + * This library provides helpers for file I/O
+> + */
+> +
 
-Thank you for the patch! Perhaps something to improve:
+This new section needs to be explicitly included in the docs. Squash this in:
 
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on next-20211130]
-[cannot apply to v5.16-rc3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/0day-ci/linux/commits/AngeloGioacchino-Del-Regno/drm-msm-Fix-dsi-bridge-probe/20211130-221304
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: csky-randconfig-c004-20211128 (https://download.01.org/0day-ci/archive/20211201/202112011405.Wn79h7q3-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 11.2.0
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+diff --git a/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml b/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
+index 189597c6..0dc5a0b7 100644
+--- a/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
++++ b/docs/reference/igt-gpu-tools/igt-gpu-tools-docs.xml
+@@ -30,6 +30,7 @@
+     <xi:include href="xml/igt_fb.xml"/>
+     <xi:include href="xml/igt_frame.xml"/>
+     <xi:include href="xml/igt_gt.xml"/>
++    <xi:include href="xml/igt_io.xml"/>
+     <xi:include href="xml/igt_kmod.xml"/>
+     <xi:include href="xml/igt_kms.xml"/>
+     <xi:include href="xml/igt_list.xml"/>
 
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/msm/msm_drv.c:412:1-6: WARNING: invalid free of devm_ allocated data
 
-vim +412 drivers/gpu/drm/msm/msm_drv.c
-
-2aa31767259722 Sean Paul           2019-05-24  384  
-98659487b845c0 Abhinav Kumar       2021-04-16  385  	msm_disp_snapshot_destroy(ddev);
-98659487b845c0 Abhinav Kumar       2021-04-16  386  
-2b669875332fbd Archit Taneja       2016-05-02  387  	drm_mode_config_cleanup(ddev);
-c8afe684c95cd1 Rob Clark           2013-06-26  388  
-2b669875332fbd Archit Taneja       2016-05-02  389  	pm_runtime_get_sync(dev);
-f026e431cf8611 Thomas Zimmermann   2021-08-03  390  	msm_irq_uninstall(ddev);
-2b669875332fbd Archit Taneja       2016-05-02  391  	pm_runtime_put_sync(dev);
-c8afe684c95cd1 Rob Clark           2013-06-26  392  
-16976085a114ae Archit Taneja       2016-11-03  393  	if (kms && kms->funcs)
-c8afe684c95cd1 Rob Clark           2013-06-26  394  		kms->funcs->destroy(kms);
-c8afe684c95cd1 Rob Clark           2013-06-26  395  
-871d812aa43e63 Rob Clark           2013-11-16  396  	if (priv->vram.paddr) {
-00085f1efa387a Krzysztof Kozlowski 2016-08-03  397  		unsigned long attrs = DMA_ATTR_NO_KERNEL_MAPPING;
-871d812aa43e63 Rob Clark           2013-11-16  398  		drm_mm_takedown(&priv->vram.mm);
-2b669875332fbd Archit Taneja       2016-05-02  399  		dma_free_attrs(dev, priv->vram.size, NULL,
-00085f1efa387a Krzysztof Kozlowski 2016-08-03  400  			       priv->vram.paddr, attrs);
-871d812aa43e63 Rob Clark           2013-11-16  401  	}
-871d812aa43e63 Rob Clark           2013-11-16  402  
-2b669875332fbd Archit Taneja       2016-05-02  403  	component_unbind_all(dev, ddev);
-060530f1ea6740 Rob Clark           2014-03-03  404  
-bc3220be22577e Rajesh Yadav        2018-06-21  405  	if (mdss && mdss->funcs)
-bc3220be22577e Rajesh Yadav        2018-06-21  406  		mdss->funcs->destroy(ddev);
-0a6030d224d3a4 Archit Taneja       2016-05-08  407  
-2b669875332fbd Archit Taneja       2016-05-02  408  	ddev->dev_private = NULL;
-4d8dc2dfae2c48 Thomas Zimmermann   2018-09-26  409  	drm_dev_put(ddev);
-c8afe684c95cd1 Rob Clark           2013-06-26  410  
-2aa31767259722 Sean Paul           2019-05-24  411  	destroy_workqueue(priv->wq);
-c8afe684c95cd1 Rob Clark           2013-06-26 @412  	kfree(priv);
-c8afe684c95cd1 Rob Clark           2013-06-26  413  
-c8afe684c95cd1 Rob Clark           2013-06-26  414  	return 0;
-c8afe684c95cd1 Rob Clark           2013-06-26  415  }
-c8afe684c95cd1 Rob Clark           2013-06-26  416  
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+-- 
+Petri Latvala
