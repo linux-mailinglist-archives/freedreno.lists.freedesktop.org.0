@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A5D846592F
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 23:26:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACAA0465932
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 23:26:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E96276E8DA;
-	Wed,  1 Dec 2021 22:26:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEE8A6E94E;
+	Wed,  1 Dec 2021 22:26:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA146E89D
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C43756E8DA
  for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 22:26:41 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id p8so37573593ljo.5
- for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 14:26:40 -0800 (PST)
+Received: by mail-lj1-x235.google.com with SMTP id 207so51020487ljf.10
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 14:26:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=F6F3WPxfyMvxOGFVFzP69ATi4vGo49QVFI+qg3mn8Wg=;
- b=o7ErKwOInkuJ/TeFfq8CxMf8JeSlpaYibVC+EzB6kuYi1h5PjYv/+Yrrqmv/VC2Phz
- odHWNsKT6hMpfLMc+RUuoabaabA5QlUU/iOgucmBLoZ7KEAPz0TTkHtlFfhJN+dXZsG8
- YHKv4KeSD+tFlotOpoZhRwKoGiLoNPJ/TTekUHIyluUyyLXyXs5msB/Af0QFwp3dUh+g
- sJPKv0+uBpAhLzPUx960lGn3KJEzkjLzGt9UwxcSRyL2ET4gb4MYEiJIsYpGY+6PGI6z
- IAuPsfaIsHQruW0pjAH0x/bOr/TDE1llmDiVNrZRLTR8jfYNuq3GN6Lrt6oN+63jxLge
- plvA==
+ bh=IPVLDgnWhiffGg+ltlm6jFDDP7VKjhpJAJFiDVdO8N0=;
+ b=ffxswi7e6qVsGwiUetlg2L9vL1KHpzBwwSPSnXcaqR0F41NLuoj5+MLMxsYH137iwu
+ 3k8xqvbXPdWJQ8PFyzOYbJCJlYh7SowrTTwNYar2gKU0n6dAyms1UvLqmLhT3gmpx9iV
+ gHqDa9L28bygXdk0YVphcmvvFrHgtVGRELM61CsjhwjaBu+Ht1AtJymz0E2Gyev57xgu
+ romX3Q6yJu6sGu08xTeu4qDo1L4OfvS7bA5X3uSmfSlnJu0L4wNz814JQWpazv7mxM0J
+ MsLCAp3/HB9+X86Jj4suguB9WlIS4zqZXFrpPWzvF5BwZBL4Z/tv3jGNcJSGZZ64bH5x
+ uhCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=F6F3WPxfyMvxOGFVFzP69ATi4vGo49QVFI+qg3mn8Wg=;
- b=2/aKN0UzSpJLXCWmUFCtiHu5ghFAAV1sbtFuLnzqXi3LcgqGxka5yY9Pqgq3EK8nbm
- mohPhBDrkBaFLcvOCnyETd9b/bbAsO4EVVnIiaDcPAQUkC7rlGjqm+qx6QbgLEZF0jxA
- 9gI6cDn8GNfIEFQEIqPs0zDMNliJVBgapf7C/jcjiVP3qZiEQ4K5E1KXxqlGcemeqRcl
- B/RZnHiOO3gRZB/m0g1Zvchvavezupiqk+GlwLxMdbi5Sojs/r69YBrxfWebkbQ390Lz
- bxuiD3cOI/w/mSWWykit5vWWo54LjicgVdsfr/muyruku+Dk+lHmipWI2R5bK9VSh6K+
- +HXA==
-X-Gm-Message-State: AOAM533y03lidmq+jeyX+d69ZG6jHrSgEZoMfoDiKpgmBbUiGg1kULXS
- X81uArLOTJnJeNAeeVYKQKA0G1LigEOv9A==
-X-Google-Smtp-Source: ABdhPJzaqWQVe9yEJqQno/GA6ULFW+0oG9KsRBzz6NDmEuN/UoAvkV7RdkxlLyqlf+MDd7EVPTyYKw==
-X-Received: by 2002:a2e:b751:: with SMTP id k17mr7950866ljo.467.1638397599403; 
- Wed, 01 Dec 2021 14:26:39 -0800 (PST)
+ bh=IPVLDgnWhiffGg+ltlm6jFDDP7VKjhpJAJFiDVdO8N0=;
+ b=AaEnaYsor699IP13X93m3VnkGJYhwNxFOnPDFH803hCHW8fKA0y+v2N6J53xItdYXx
+ 1JMeJlxS/59tugOXOZ4WVXn5f5/V7GMYGS7FcewXkJaLQwUgt9U5ngbZOoCzAj11/SNm
+ waqdNKQI6sc8IuSrc7CVYReyyh99Dcnc6bgOG5f7828NnfhhF2Gu0il2/ffWSy0yh4HA
+ 7JS+AMfxGTXBrVvXDXCusethw3VbRqrcP/S9OiYJw57nlFhK1kuJ+Yn/GxIj41B4XZjP
+ CQANPsv1YcwwozvoMCGPALNMcCtRf8Ty+nejKBKhtnxYI2V8ASkZ+rHm8kDi036dtUem
+ azDw==
+X-Gm-Message-State: AOAM5335TUhdLs314T3RTUa/0IDB/arvcrZjOkkTevxqYpOlFVOgPwFT
+ AsLNtBKRNubaGc/vOY2P5g1nlA==
+X-Google-Smtp-Source: ABdhPJzBozT03glC0cSzbckwkIGAr0LRXKjsB6uYW6kKFalJ9YpUhJ4sE2AHDJXNYRvYE/eH5mFhqQ==
+X-Received: by 2002:a2e:b8cf:: with SMTP id s15mr8225808ljp.364.1638397600114; 
+ Wed, 01 Dec 2021 14:26:40 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u7sm117004lfs.144.2021.12.01.14.26.38
+ by smtp.gmail.com with ESMTPSA id u7sm117004lfs.144.2021.12.01.14.26.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 01 Dec 2021 14:26:39 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu,  2 Dec 2021 01:26:29 +0300
-Message-Id: <20211201222633.2476780-5-dmitry.baryshkov@linaro.org>
+Date: Thu,  2 Dec 2021 01:26:30 +0300
+Message-Id: <20211201222633.2476780-6-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
 References: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 4/8] drm/msm/dpu: drop plane's
- default_scaling debugfs file
+Subject: [Freedreno] [PATCH v1 5/8] drm/msm/dpu: stop manually removing
+ debugfs files for the DPU plane
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,37 +76,115 @@ Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Proper support for the 'default_scaling' debugfs file was removed during
-DPU driver pre-merge cleanup. Remove leftover file.
+DRM code handles removing all debugfs recursively. Drop plane-specific
+code to perform that.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 28 ++++++++---------------
+ 1 file changed, 10 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 6ea4db061c9f..f80ee3ba9a8a 100644
+index f80ee3ba9a8a..d3176f58708e 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -114,7 +114,6 @@ struct dpu_plane {
+@@ -110,7 +110,6 @@ struct dpu_plane {
+ 	struct dpu_mdss_cfg *catalog;
+ 
+ 	/* debugfs related stuff */
+-	struct dentry *debugfs_root;
  	struct dpu_debugfs_regset32 debugfs_src;
  	struct dpu_debugfs_regset32 debugfs_scaler;
  	struct dpu_debugfs_regset32 debugfs_csc;
--	bool debugfs_default_scale;
- };
+@@ -1368,15 +1367,16 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ 	struct dpu_kms *kms = _dpu_plane_get_kms(plane);
+ 	const struct dpu_sspp_cfg *cfg = pdpu->pipe_hw->cap;
+ 	const struct dpu_sspp_sub_blks *sblk = cfg->sblk;
++	struct dentry *debugfs_root;
  
- static const uint64_t supported_format_modifiers[] = {
-@@ -1398,10 +1397,6 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ 	/* create overall sub-directory for the pipe */
+-	pdpu->debugfs_root =
++	debugfs_root =
+ 		debugfs_create_dir(plane->name,
+ 				plane->dev->primary->debugfs_root);
+ 
+ 	/* don't error check these */
+ 	debugfs_create_xul("features", 0600,
+-			pdpu->debugfs_root, (unsigned long *)&pdpu->pipe_hw->cap->features);
++			debugfs_root, (unsigned long *)&pdpu->pipe_hw->cap->features);
+ 
+ 	/* add register dump support */
+ 	dpu_debugfs_setup_regset32(&pdpu->debugfs_src,
+@@ -1384,7 +1384,7 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ 			sblk->src_blk.len,
+ 			kms);
+ 	dpu_debugfs_create_regset32("src_blk", 0400,
+-			pdpu->debugfs_root, &pdpu->debugfs_src);
++			debugfs_root, &pdpu->debugfs_src);
+ 
+ 	if (cfg->features & BIT(DPU_SSPP_SCALER_QSEED3) ||
+ 			cfg->features & BIT(DPU_SSPP_SCALER_QSEED3LITE) ||
+@@ -1395,7 +1395,7 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ 				sblk->scaler_blk.len,
+ 				kms);
  		dpu_debugfs_create_regset32("scaler_blk", 0400,
- 				pdpu->debugfs_root,
- 				&pdpu->debugfs_scaler);
--		debugfs_create_bool("default_scaling",
--				0600,
 -				pdpu->debugfs_root,
--				&pdpu->debugfs_default_scale);
++				debugfs_root,
+ 				&pdpu->debugfs_scaler);
  	}
  
- 	if (cfg->features & BIT(DPU_SSPP_CSC) ||
+@@ -1406,24 +1406,24 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ 				sblk->csc_blk.len,
+ 				kms);
+ 		dpu_debugfs_create_regset32("csc_blk", 0400,
+-				pdpu->debugfs_root, &pdpu->debugfs_csc);
++				debugfs_root, &pdpu->debugfs_csc);
+ 	}
+ 
+ 	debugfs_create_u32("xin_id",
+ 			0400,
+-			pdpu->debugfs_root,
++			debugfs_root,
+ 			(u32 *) &cfg->xin_id);
+ 	debugfs_create_u32("clk_ctrl",
+ 			0400,
+-			pdpu->debugfs_root,
++			debugfs_root,
+ 			(u32 *) &cfg->clk_ctrl);
+ 	debugfs_create_x32("creq_vblank",
+ 			0600,
+-			pdpu->debugfs_root,
++			debugfs_root,
+ 			(u32 *) &sblk->creq_vblank);
+ 	debugfs_create_x32("danger_vblank",
+ 			0600,
+-			pdpu->debugfs_root,
++			debugfs_root,
+ 			(u32 *) &sblk->danger_vblank);
+ 
+ 	return 0;
+@@ -1440,13 +1440,6 @@ static int dpu_plane_late_register(struct drm_plane *plane)
+ 	return _dpu_plane_init_debugfs(plane);
+ }
+ 
+-static void dpu_plane_early_unregister(struct drm_plane *plane)
+-{
+-	struct dpu_plane *pdpu = to_dpu_plane(plane);
+-
+-	debugfs_remove_recursive(pdpu->debugfs_root);
+-}
+-
+ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
+ 		uint32_t format, uint64_t modifier)
+ {
+@@ -1472,7 +1465,6 @@ static const struct drm_plane_funcs dpu_plane_funcs = {
+ 		.atomic_duplicate_state = dpu_plane_duplicate_state,
+ 		.atomic_destroy_state = dpu_plane_destroy_state,
+ 		.late_register = dpu_plane_late_register,
+-		.early_unregister = dpu_plane_early_unregister,
+ 		.format_mod_supported = dpu_plane_format_mod_supported,
+ };
+ 
 -- 
 2.33.0
 
