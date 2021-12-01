@@ -2,60 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30EB9465923
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 23:26:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0175465924
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 23:26:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA7966E169;
-	Wed,  1 Dec 2021 22:26:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0AF6E804;
+	Wed,  1 Dec 2021 22:26:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 889946E0F8
- for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 22:26:38 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id d11so51080973ljg.8
- for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 14:26:38 -0800 (PST)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 301136E5A1
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 22:26:39 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id z8so51100494ljz.9
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 14:26:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Ip6tH66sFwIRDGZQfJf5IUaV/Ay1mM2dMBRUgzosl4s=;
- b=m7/LQOEZ4csiLqP0tqpbP513BSPbaS/eh60yVhmxkLrs5czkcff8uLUhOACWasMHWm
- MXV0rwCwzVrXLL/OhYAPiXvZ4IVm6sm8HE6iaXGCVakhKjL5NBVBWDGGQv0gpZCtz0Yx
- bJ8wie8hPqPuEsNVoWoRAkR1V0asKkKKO4apVdpnbWCPk2PBnJ8YnHcDYorTS88zzTEk
- 8j9bkouamGROaQ9rwsfGsUEc9nL30tK4OyIoohEE3OqFVQ57xbDMKLuPewkufPuwzB+D
- mJUIY40nRr9dWMwcjouSPF8pI20AnMxUaLTOxCvCt7O9cbzgiWmsUG8rGKkU9+c+LHqh
- NQuA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=0qHFC39MMQLTtRc5sw1zcOnT/8/n0zap/VYN85e7NQY=;
+ b=xQyZ/T3V3d+B4MyJooZjnOvbi3IkbJ/m6Tdy99ST4t37kGSiJQ7wVmPxPLQvfKg9q3
+ aXAZZvwuAJ7VKVNgBRmx8U4eIgcT7h7+rYRM5UrzZLcmfun4Po+6yWdA6qGFhb91rQsA
+ MnwmrXVmBqlIeYp+uBhTOpmArpG9mOsLO4+LD0IFB2l8JJ4s2TZ1ukvCNRTx3MxfkzYM
+ QTvDNI2CAwzxeMU/sCJZHzzR3RBQKUTdzDtqIwAt3ZFDfdjp++DY40LKCpRhq0fduTPh
+ DgK37yjhoFA/sm5WasiLNDwWkWNUPOHukhxrkN81g/3LYwxuDtr3+1sulGZfPA1VTRHm
+ QCpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Ip6tH66sFwIRDGZQfJf5IUaV/Ay1mM2dMBRUgzosl4s=;
- b=Xux+oORdIhCgArVmj6/qB8gPyWRjaiuHF9FBiv+HOP7rUxqk0R4Tq2gRm6BTwZZ1Hk
- vxkmcUSpXIlzqOYkDWA/iKQrZUfqWS5RQlXKIPL5q7k5AMatF8xURSFJJtZHfpQdt/M+
- cnCTYfgm8WXVN6jko/3EjPN3niY6wwTatLgnbd2jPV4iCJ+hrzlQ/TmYN0IDlZiH3e68
- Tv+p4Chx0OiMz4N+PgCnQSWxMEcb1LVacVdKi7nzoTbsbCL1grHKvej038bgNyZJFp3G
- OxHGQEL5U+zTdAPBFqOhPJURE33n/11fY4OVv9c632WtKE7jpuNVOUHqPFkI0mZOBUaD
- 0uqw==
-X-Gm-Message-State: AOAM53180tLThDISjzfZMp4ekVGC2x2TE72ZzuvLcGIDxUf5ky5lRStp
- VLWg9ZNSP9xNObyfV0GxvmoXIA==
-X-Google-Smtp-Source: ABdhPJyB/JcM5PIieYhXG5Bk5ecm0Xiqx+28uaEqhgVdULrxrin2+DrjYzG+mZPUySXvml0nHL2ruA==
-X-Received: by 2002:a05:651c:323:: with SMTP id
- b3mr8209730ljp.316.1638397596773; 
- Wed, 01 Dec 2021 14:26:36 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=0qHFC39MMQLTtRc5sw1zcOnT/8/n0zap/VYN85e7NQY=;
+ b=cgsp80Qzkd+2m9mAvIGN6OjTzo3uqEbPzP0LibIMD5Iq7hUdmOq70AuGaOpKJWPgml
+ USOtrhOimspJeaVQiyNyrp/6VP1Y3snW7xr9V18TetoJ58I8C6kIrBigpPe6ddbEL9on
+ ShB1Em1tZKwWoCgvfKDrk9TGn+tyVOOOyKPr7TDw4nN8uuMno3HPV/JcvVWOT1HSwHSV
+ qrkqtSeqmlM9pdOJ+WjHMwXs4kbwce/Qbk9JEkgIsaTUkPZcrqX2uCGKn6PmaYQOt+42
+ yh24IbT9Q72y1mf/5tNH+BxbMog00ineWyJPwE/THNZ5tU/jEqkhZxKVLzOWY7AOVuQO
+ Ga2A==
+X-Gm-Message-State: AOAM5326hlsoAabz6RS0N7U7llAOTiwloGNp2zXx225Lp675EptoD0D4
+ VGCurwsqGs783dTlM6XeFToVtA==
+X-Google-Smtp-Source: ABdhPJxRporPuQZC9x+/lx6gh6sO0xKVQU1VPaO1NPOEFoAiAZmNsAxMzFa9ABdlZ6VliIsYF2zr8A==
+X-Received: by 2002:a2e:3304:: with SMTP id d4mr8026724ljc.377.1638397597359; 
+ Wed, 01 Dec 2021 14:26:37 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id u7sm117004lfs.144.2021.12.01.14.26.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Dec 2021 14:26:36 -0800 (PST)
+ Wed, 01 Dec 2021 14:26:37 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <abhinavk@codeaurora.org>
-Date: Thu,  2 Dec 2021 01:26:25 +0300
-Message-Id: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
+Date: Thu,  2 Dec 2021 01:26:26 +0300
+Message-Id: <20211201222633.2476780-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
+References: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 0/8] drm/msm/dpu: cleanup debugfs code
+Subject: [Freedreno] [PATCH v1 1/8] drm/msm/dpu: move disable_danger out of
+ plane subdir
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,44 +76,220 @@ Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This patchset provides a partial rework/cleanup/fixup of debugfs code in
-DPU driver. It started as a single patch removing (and then just moving)
-SSPP debugfs code from the plane (as planes are going to be less
-connected with SSPP blocks soon). However the more I touched this code,
-the more patches were generated as more and more issues arrive on the
-surface.
+The disable_danger debugfs file is not related to a single plane.
+Instead it is used by all registered planes. Move it from plane subtree
+to the global subtree next to danger_status and safe_status files,
+so that the new file supplements them.
 
-The following changes since commit fee32807633395e666f0951d6b7b6546e9b76c3d:
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   | 70 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 74 +----------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ++
+ 3 files changed, 77 insertions(+), 73 deletions(-)
 
-  mailmap: add and update email addresses (2021-11-29 16:19:58 -0800)
-
-are available in the Git repository at:
-
-  https://git.linaro.org/people/dmitry.baryshkov/kernel.git dpu-cleanup-debugfs
-
-for you to fetch changes up to 7f3598ee9ea525920cd6fa65b498604a9ff8b36a:
-
-  drm/msm/dpu: move SSPP debugfs support from plane to SSPP code (2021-12-02 01:03:49 +0300)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (8):
-      drm/msm/dpu: move disable_danger out of plane subdir
-      drm/msm/dpu: fix safe status debugfs file
-      drm/msm/dpu: make danger_status/safe_status readable
-      drm/msm/dpu: drop plane's default_scaling debugfs file
-      drm/msm/dpu: stop manually removing debugfs files for the DPU plane
-      drm/msm/dpu: stop manually removing debugfs files for the DPU CRTC
-      drm/msm/dpu: simplify DPU's regset32 code
-      drm/msm/dpu: move SSPP debugfs support from plane to SSPP code
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  15 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |   3 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c |  67 +++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |   4 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 109 +++++++++++++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  38 +-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 172 ++--------------------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   |   6 +
- 8 files changed, 189 insertions(+), 225 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 6c457c419412..259d438bc6e8 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -101,6 +101,73 @@ static int dpu_debugfs_safe_stats_show(struct seq_file *s, void *v)
+ }
+ DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_safe_stats);
+ 
++static ssize_t _dpu_plane_danger_read(struct file *file,
++			char __user *buff, size_t count, loff_t *ppos)
++{
++	struct dpu_kms *kms = file->private_data;
++	int len;
++	char buf[40];
++
++	len = scnprintf(buf, sizeof(buf), "%d\n", !kms->has_danger_ctrl);
++
++	return simple_read_from_buffer(buff, count, ppos, buf, len);
++}
++
++static void _dpu_plane_set_danger_state(struct dpu_kms *kms, bool enable)
++{
++	struct drm_plane *plane;
++
++	drm_for_each_plane(plane, kms->dev) {
++		if (plane->fb && plane->state) {
++			dpu_plane_danger_signal_ctrl(plane, enable);
++			DPU_DEBUG("plane:%d img:%dx%d ",
++				plane->base.id, plane->fb->width,
++				plane->fb->height);
++			DPU_DEBUG("src[%d,%d,%d,%d] dst[%d,%d,%d,%d]\n",
++				plane->state->src_x >> 16,
++				plane->state->src_y >> 16,
++				plane->state->src_w >> 16,
++				plane->state->src_h >> 16,
++				plane->state->crtc_x, plane->state->crtc_y,
++				plane->state->crtc_w, plane->state->crtc_h);
++		} else {
++			DPU_DEBUG("Inactive plane:%d\n", plane->base.id);
++		}
++	}
++}
++
++static ssize_t _dpu_plane_danger_write(struct file *file,
++		    const char __user *user_buf, size_t count, loff_t *ppos)
++{
++	struct dpu_kms *kms = file->private_data;
++	int disable_panic;
++	int ret;
++
++	ret = kstrtouint_from_user(user_buf, count, 0, &disable_panic);
++	if (ret)
++		return ret;
++
++	if (disable_panic) {
++		/* Disable panic signal for all active pipes */
++		DPU_DEBUG("Disabling danger:\n");
++		_dpu_plane_set_danger_state(kms, false);
++		kms->has_danger_ctrl = false;
++	} else {
++		/* Enable panic signal for all active pipes */
++		DPU_DEBUG("Enabling danger:\n");
++		kms->has_danger_ctrl = true;
++		_dpu_plane_set_danger_state(kms, true);
++	}
++
++	return count;
++}
++
++static const struct file_operations dpu_plane_danger_enable = {
++	.open = simple_open,
++	.read = _dpu_plane_danger_read,
++	.write = _dpu_plane_danger_write,
++};
++
+ static void dpu_debugfs_danger_init(struct dpu_kms *dpu_kms,
+ 		struct dentry *parent)
+ {
+@@ -110,6 +177,9 @@ static void dpu_debugfs_danger_init(struct dpu_kms *dpu_kms,
+ 			dpu_kms, &dpu_debugfs_danger_stats_fops);
+ 	debugfs_create_file("safe_status", 0600, entry,
+ 			dpu_kms, &dpu_debugfs_safe_stats_fops);
++	debugfs_create_file("disable_danger", 0600, entry,
++			dpu_kms, &dpu_plane_danger_enable);
++
+ }
+ 
+ static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index ca190d92f0d5..6ea4db061c9f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -1350,7 +1350,7 @@ static void dpu_plane_reset(struct drm_plane *plane)
+ }
+ 
+ #ifdef CONFIG_DEBUG_FS
+-static void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
++void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+ {
+ 	struct dpu_plane *pdpu = to_dpu_plane(plane);
+ 	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+@@ -1363,73 +1363,6 @@ static void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+ 	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+ }
+ 
+-static ssize_t _dpu_plane_danger_read(struct file *file,
+-			char __user *buff, size_t count, loff_t *ppos)
+-{
+-	struct dpu_kms *kms = file->private_data;
+-	int len;
+-	char buf[40];
+-
+-	len = scnprintf(buf, sizeof(buf), "%d\n", !kms->has_danger_ctrl);
+-
+-	return simple_read_from_buffer(buff, count, ppos, buf, len);
+-}
+-
+-static void _dpu_plane_set_danger_state(struct dpu_kms *kms, bool enable)
+-{
+-	struct drm_plane *plane;
+-
+-	drm_for_each_plane(plane, kms->dev) {
+-		if (plane->fb && plane->state) {
+-			dpu_plane_danger_signal_ctrl(plane, enable);
+-			DPU_DEBUG("plane:%d img:%dx%d ",
+-				plane->base.id, plane->fb->width,
+-				plane->fb->height);
+-			DPU_DEBUG("src[%d,%d,%d,%d] dst[%d,%d,%d,%d]\n",
+-				plane->state->src_x >> 16,
+-				plane->state->src_y >> 16,
+-				plane->state->src_w >> 16,
+-				plane->state->src_h >> 16,
+-				plane->state->crtc_x, plane->state->crtc_y,
+-				plane->state->crtc_w, plane->state->crtc_h);
+-		} else {
+-			DPU_DEBUG("Inactive plane:%d\n", plane->base.id);
+-		}
+-	}
+-}
+-
+-static ssize_t _dpu_plane_danger_write(struct file *file,
+-		    const char __user *user_buf, size_t count, loff_t *ppos)
+-{
+-	struct dpu_kms *kms = file->private_data;
+-	int disable_panic;
+-	int ret;
+-
+-	ret = kstrtouint_from_user(user_buf, count, 0, &disable_panic);
+-	if (ret)
+-		return ret;
+-
+-	if (disable_panic) {
+-		/* Disable panic signal for all active pipes */
+-		DPU_DEBUG("Disabling danger:\n");
+-		_dpu_plane_set_danger_state(kms, false);
+-		kms->has_danger_ctrl = false;
+-	} else {
+-		/* Enable panic signal for all active pipes */
+-		DPU_DEBUG("Enabling danger:\n");
+-		kms->has_danger_ctrl = true;
+-		_dpu_plane_set_danger_state(kms, true);
+-	}
+-
+-	return count;
+-}
+-
+-static const struct file_operations dpu_plane_danger_enable = {
+-	.open = simple_open,
+-	.read = _dpu_plane_danger_read,
+-	.write = _dpu_plane_danger_write,
+-};
+-
+ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ {
+ 	struct dpu_plane *pdpu = to_dpu_plane(plane);
+@@ -1498,11 +1431,6 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+ 			pdpu->debugfs_root,
+ 			(u32 *) &sblk->danger_vblank);
+ 
+-	debugfs_create_file("disable_danger",
+-			0600,
+-			pdpu->debugfs_root,
+-			kms, &dpu_plane_danger_enable);
+-
+ 	return 0;
+ }
+ #else
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+index 52792526e904..7667b1f81bd4 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+@@ -132,4 +132,10 @@ void dpu_plane_clear_multirect(const struct drm_plane_state *drm_state);
+ int dpu_plane_color_fill(struct drm_plane *plane,
+ 		uint32_t color, uint32_t alpha);
+ 
++#ifdef CONFIG_DEBUG_FS
++void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable);
++#else
++static inline void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable) {}
++#endif
++
+ #endif /* _DPU_PLANE_H_ */
+-- 
+2.33.0
 
