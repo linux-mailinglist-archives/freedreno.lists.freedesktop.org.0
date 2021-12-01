@@ -2,38 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B0B464C0B
-	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 11:52:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25AE9464DB9
+	for <lists+freedreno@lfdr.de>; Wed,  1 Dec 2021 13:13:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 520FA6FA1E;
-	Wed,  1 Dec 2021 10:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C395F6E870;
+	Wed,  1 Dec 2021 12:13:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F33976FA18;
- Wed,  1 Dec 2021 10:52:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id 06D9D1F45630
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
- t=1638355938; bh=rL9Yo0VP8rvWWbfN9374jnoFbEFvxR/1usMNsyxgNhg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GhOvmzRBH6ydmh3oDb3Ju4hTU4S7ptZWIgytadzTT3xEd1H438JXLGqOQVMRr5Lw6
- NOHiJO9s7S1tI6fWuRt24Ue8mbPAuRCpmN6rVxu/znMNrG1rvrGoa8wAyl66Bi9eo+
- lypT5RYbnoxyNjGG4a+ieSyBzCIu9GN76OtKWc3kt+LABz/ZnpuFpAHrifJoDgdE7z
- s0NbFq373f6jwQ2+d3gNuYuAtHCgP4X5YyRC4re3w5Dnvt56RB7w7VNoXaFraXZB07
- vMBa9KhYI2So5VKuY7pWzm0QOQGP1XCUb9JhYeJv/UdMEs+zU6H/9lh25JdsQAkS8J
- CjHKA7xxSODAA==
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: robdclark@gmail.com
-Date: Wed,  1 Dec 2021 11:52:10 +0100
-Message-Id: <20211201105210.24970-3-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211201105210.24970-1-angelogioacchino.delregno@collabora.com>
-References: <20211201105210.24970-1-angelogioacchino.delregno@collabora.com>
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE7AD6E870
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Dec 2021 12:13:39 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id m12so9561737ljj.6
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Dec 2021 04:13:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Rn2GcnJWYG6N/6B+6c9uNF9P+OpEp/vxjAjKeyHyOMY=;
+ b=ZjuZ9wEf1KnNKYWLpDcpLdinTZcWMuMKfc0DzZLALA3t4jnljmaSXZfabLbdp9LTmZ
+ rlJwdpoYQ2DrMebE0fblWRuYjycuKiKEUBH/bqJiUkcUNY5lLDExubn+TCKGUweRFwhM
+ IroU7TU5WKZMoii092qJTmsRddiQI/MvKdbRl1jUWK+wwnMeNLEJhj3RZU/Q6DyOHX3u
+ tAKsTdEF/lXJZaAJudfExikHm4WrZE/GoKyG8M5FifO/yrGWY00kdsqCVkibzvTvuY0P
+ R3OyJXyx80E1MEiTDquwlhRLnwbtarS7vzDluHsWiz2hUhvGc4ApDg0eFunb8O1USvHK
+ pUfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Rn2GcnJWYG6N/6B+6c9uNF9P+OpEp/vxjAjKeyHyOMY=;
+ b=ZUK9DkILekipPaefz7Y8L54k7MEjN74y8u2gd7HY7pgBP+YnY6pV5gUBBx5iHvYe8B
+ 80KfB06jqj4p7VOixDMx9DHrkRguqojNteBuf4kepkEfz+gX8dBzMDZNnkuX61YYfIHN
+ 98K4dLrFRZKZ0WsQczYZ3QNIyGmqlpl9b/T3PWNvUdwB36PGebVVD5Ra8fKxvtGElB1f
+ f7QnKJXs/Aj95MJvFSStp4/efr7Lw/BYCj0YiF33izZ390kub/v39UqO6s5tsE7WLy+5
+ QFos0/XtupQRdr6eZMFvvwrkkPE+/NiJsF16xAlGH/X0muMz29Zj6bg64PcaiHjyHde9
+ cPzg==
+X-Gm-Message-State: AOAM533CadxmYxGy/nwT5XtHRqQ28c223uz4QNWfLG4UWq2S0dFedC4K
+ eF3vvgcGj3qO1Mm2PewV49xqxwRddY+DRA==
+X-Google-Smtp-Source: ABdhPJzmZCm30Wy2X++Apslesp0dRIBcxTHXeT1lGkFQHM7ZY5s4xetkFSVQoi5dZUz4+/Uj8pmNCQ==
+X-Received: by 2002:a2e:9e43:: with SMTP id g3mr5114729ljk.291.1638360817768; 
+ Wed, 01 Dec 2021 04:13:37 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id p13sm2347049lfu.130.2021.12.01.04.13.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Dec 2021 04:13:37 -0800 (PST)
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20211125180123.561305-1-dmitry.baryshkov@linaro.org>
+ <Yabjv2pnC1KlQGhS@builder.lan>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <01e5c31b-a0e2-01fe-9669-a98ceed3b77e@linaro.org>
+Date: Wed, 1 Dec 2021 15:13:36 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 2/2] drm/msm: Initialize MDSS irq domain at
- probe time
+In-Reply-To: <Yabjv2pnC1KlQGhS@builder.lan>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix exception in error path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,325 +72,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- jami.kettunen@somainline.org, martin.botka@somainline.org, maxime@cerno.tech,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, marijn.suijten@somainline.org,
- kernel@collabora.com, sean@poorly.run,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: freedreno@lists.freedesktop.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since commit 8f59ee9a570c ("drm/msm/dsi: Adjust probe order"), the
-DSI host gets initialized earlier, but this caused unability to probe
-the entire stack of components because they all depend on interrupts
-coming from the main `mdss` node (mdp5, or dpu1).
+On 01/12/2021 05:53, Bjorn Andersson wrote:
+> On Thu 25 Nov 12:01 CST 2021, Dmitry Baryshkov wrote:
+> 
+>> In case of DPU probe failure, prevent the following NULL pointer
+>> exception:
+>>
+>> [    3.976112] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000030
+>> [    3.984983] Mem abort info:
+>> [    3.987800]   ESR = 0x96000004
+>> [    3.990891]   EC = 0x25: DABT (current EL), IL = 32 bits
+>> [    3.996251]   SET = 0, FnV = 0
+>> [    3.996254]   EA = 0, S1PTW = 0
+>> [    3.996257]   FSC = 0x04: level 0 translation fault
+>> [    3.996260] Data abort info:
+>> [    3.996262]   ISV = 0, ISS = 0x00000004
+>> [    4.005229]   CM = 0, WnR = 0
+>> [    4.028893] [0000000000000030] user address but active_mm is swapper
+>> [    4.035305] Internal error: Oops: 96000004 [#1] SMP
+>> [    4.040223] Modules linked in:
+>> [    4.043317] CPU: 1 PID: 50 Comm: kworker/u16:2 Not tainted 5.16.0-rc1-00036-g6d4bafcbb015-dirty #166
+>> [    4.052518] Hardware name: Thundercomm Dragonboard 845c (DT)
+>> [    4.058224] Workqueue: events_unbound deferred_probe_work_func
+>> [    4.064105] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>> [    4.071124] pc : dpu_core_irq_uninstall+0x28/0x100
+>> [    4.075960] lr : dpu_core_irq_uninstall+0x24/0x100
+>> [    4.080793] sp : ffff80001057b990
+>> [    4.084138] x29: ffff80001057b990 x28: ffff7653c0a41c00 x27: ffff7653c0926480
+>> [    4.091330] x26: ffffb90d5d262ad0 x25: ffff7653c4b2e980 x24: ffff7653c0046080
+>> [    4.098520] x23: ffff7653c099a810 x22: ffff7653c5a65800 x21: ffff7653c5a65080
+>> [    4.105711] x20: ffff7653c5a65800 x19: ffff7653c0046080 x18: 0000000000000034
+>> [    4.112902] x17: 0000000000000038 x16: 0000000000000005 x15: 000000000000000c
+>> [    4.120095] x14: 000000000000024c x13: ffff7653c2f90358 x12: 0000000000000000
+>> [    4.127287] x11: ffff7653c2f903b0 x10: 00000000000009c0 x9 : ffff80001057b180
+>> [    4.134477] x8 : ffff80001057b404 x7 : 0000000000000000 x6 : ffff7653c5a5f190
+>> [    4.141669] x5 : ffff80001057b890 x4 : 0000000000000000 x3 : ffff7653c5a5f0f4
+>> [    4.148859] x2 : ffff7653c2f50000 x1 : 0000000000000000 x0 : 0000000000000000
+>> [    4.156052] Call trace:
+>> [    4.158525]  dpu_core_irq_uninstall+0x28/0x100
+>> [    4.163004]  dpu_irq_uninstall+0x10/0x20
+>> [    4.166963]  msm_drm_uninit.isra.0+0xe0/0x1b0
+>> [    4.171353]  msm_drm_bind+0x278/0x5f0
+>> [    4.175043]  try_to_bring_up_master+0x164/0x1d0
+>> [    4.179610]  __component_add+0xa0/0x170
+>> [    4.183482]  component_add+0x14/0x20
+>> [    4.187086]  dsi_dev_probe+0x1c/0x30
+>> [    4.190691]  platform_probe+0x68/0xe0
+>> [    4.194382]  really_probe.part.0+0x9c/0x30c
+>> [    4.198601]  __driver_probe_device+0x98/0x144
+>> [    4.202990]  driver_probe_device+0x44/0x15c
+>> [    4.207208]  __device_attach_driver+0xb4/0x120
+>> [    4.211685]  bus_for_each_drv+0x78/0xd0
+>> [    4.215549]  __device_attach+0xdc/0x184
+>> [    4.219412]  device_initial_probe+0x14/0x20
+>> [    4.223630]  bus_probe_device+0x9c/0xa4
+>> [    4.227503]  deferred_probe_work_func+0x88/0xc0
+>> [    4.232075]  process_one_work+0x1e8/0x380
+>> [    4.236126]  worker_thread+0x280/0x520
+>> [    4.239902]  kthread+0x168/0x174
+>> [    4.243166]  ret_from_fork+0x10/0x20
+>> [    4.246778] Code: f9442400 91004000 940188b9 f9430660 (b9403001)
+>> [    4.252925] ---[ end trace b470a50cd7b5e606 ]---
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+>> index d2b6dca487e3..fc1b6c47c93d 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+>> @@ -575,6 +575,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
+>>   {
+>>   	int i;
+>>   
+>> +	if (!dpu_kms->hw_intr)
+>> +		return;
+> 
+> I would rather see that we fix msm_drm_init() to nicely unroll things in
+> a more granular fashion instead of handle all types of errors with the
+> big hammer that msm_drm_uninit() provides.
 
-To fix this issue, anticipate registering the irq domain from mdp5/dpu1
-at msm_mdev_probe() time, as to make sure that the interrupt controller
-is available before dsi and/or other components try to initialize,
-finally satisfying the dependency.
+It well might be that this issue happened because of earlier version of 
+Angelo's patch (which had other issues too). So I'm dropping this for now.
 
-Moreover, to balance this operation while avoiding to always check if
-the irq domain is registered everytime we call bind() on msm_pdev, add
-a new *remove function pointer to msm_mdss_funcs, used to remove the
-irq domain only at msm_pdev_remove() time.
+> 
+> Regards,
+> Bjorn
+> 
+>> +
+>>   	pm_runtime_get_sync(&dpu_kms->pdev->dev);
+>>   	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
+>>   		if (!list_empty(&dpu_kms->hw_intr->irq_cb_tbl[i]))
+>> -- 
+>> 2.33.0
+>>
 
-Fixes: 8f59ee9a570c ("drm/msm/dsi: Adjust probe order")
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c  | 50 ++++++++++++-------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c | 58 +++++++++++++++--------
- drivers/gpu/drm/msm/msm_drv.c             | 22 ++++++++-
- drivers/gpu/drm/msm/msm_kms.h             |  3 ++
- 4 files changed, 95 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-index b466784d9822..6c2569175633 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
-@@ -106,13 +106,10 @@ static const struct irq_domain_ops dpu_mdss_irqdomain_ops = {
- 	.xlate = irq_domain_xlate_onecell,
- };
- 
--static int _dpu_mdss_irq_domain_add(struct dpu_mdss *dpu_mdss)
-+static int _dpu_mdss_irq_domain_add(struct device *dev, struct dpu_mdss *dpu_mdss)
- {
--	struct device *dev;
- 	struct irq_domain *domain;
- 
--	dev = dpu_mdss->base.dev->dev;
--
- 	domain = irq_domain_add_linear(dev->of_node, 32,
- 			&dpu_mdss_irqdomain_ops, dpu_mdss);
- 	if (!domain) {
-@@ -194,7 +191,6 @@ static void dpu_mdss_destroy(struct drm_device *dev)
- 
- 	pm_runtime_suspend(dev->dev);
- 	pm_runtime_disable(dev->dev);
--	_dpu_mdss_irq_domain_fini(dpu_mdss);
- 	irq = platform_get_irq(pdev, 0);
- 	irq_set_chained_handler_and_data(irq, NULL, NULL);
- 	msm_dss_put_clk(mp->clk_config, mp->num_clk);
-@@ -203,15 +199,43 @@ static void dpu_mdss_destroy(struct drm_device *dev)
- 	if (dpu_mdss->mmio)
- 		devm_iounmap(&pdev->dev, dpu_mdss->mmio);
- 	dpu_mdss->mmio = NULL;
--	priv->mdss = NULL;
-+}
-+
-+static void dpu_mdss_remove(struct msm_mdss *mdss)
-+{
-+	_dpu_mdss_irq_domain_fini(to_dpu_mdss(mdss));
- }
- 
- static const struct msm_mdss_funcs mdss_funcs = {
- 	.enable	= dpu_mdss_enable,
- 	.disable = dpu_mdss_disable,
- 	.destroy = dpu_mdss_destroy,
-+	.remove = dpu_mdss_remove,
- };
- 
-+int dpu_mdss_early_init(struct device *dev, struct msm_drm_private *priv)
-+{
-+	struct dpu_mdss *dpu_mdss;
-+	int ret;
-+
-+	dpu_mdss = devm_kzalloc(dev, sizeof(*dpu_mdss), GFP_KERNEL);
-+	if (!dpu_mdss)
-+		return -ENOMEM;
-+
-+	ret = _dpu_mdss_irq_domain_add(dev, dpu_mdss);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Here we have no drm_device yet, but still do the assignment
-+	 * so that we can retrieve our struct dpu_mdss from the main
-+	 * init function, since we allocate it here.
-+	 */
-+	priv->mdss = &dpu_mdss->base;
-+
-+	return 0;
-+}
-+
- int dpu_mdss_init(struct drm_device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev->dev);
-@@ -221,9 +245,9 @@ int dpu_mdss_init(struct drm_device *dev)
- 	int ret;
- 	int irq;
- 
--	dpu_mdss = devm_kzalloc(dev->dev, sizeof(*dpu_mdss), GFP_KERNEL);
-+	dpu_mdss = to_dpu_mdss(priv->mdss);
- 	if (!dpu_mdss)
--		return -ENOMEM;
-+		return -ENODATA;
- 
- 	dpu_mdss->mmio = msm_ioremap(pdev, "mdss", "mdss");
- 	if (IS_ERR(dpu_mdss->mmio))
-@@ -241,10 +265,6 @@ int dpu_mdss_init(struct drm_device *dev)
- 	dpu_mdss->base.dev = dev;
- 	dpu_mdss->base.funcs = &mdss_funcs;
- 
--	ret = _dpu_mdss_irq_domain_add(dpu_mdss);
--	if (ret)
--		goto irq_domain_error;
--
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		ret = irq;
-@@ -253,16 +273,10 @@ int dpu_mdss_init(struct drm_device *dev)
- 
- 	irq_set_chained_handler_and_data(irq, dpu_mdss_irq,
- 					 dpu_mdss);
--
--	priv->mdss = &dpu_mdss->base;
--
- 	pm_runtime_enable(dev->dev);
--
- 	return 0;
- 
- irq_error:
--	_dpu_mdss_irq_domain_fini(dpu_mdss);
--irq_domain_error:
- 	msm_dss_put_clk(mp->clk_config, mp->num_clk);
- clk_parse_err:
- 	devm_kfree(&pdev->dev, mp->clk_config);
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
-index 0ea53420bc40..a99538ae4182 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
-@@ -112,9 +112,8 @@ static const struct irq_domain_ops mdss_hw_irqdomain_ops = {
- };
- 
- 
--static int mdss_irq_domain_init(struct mdp5_mdss *mdp5_mdss)
-+static int mdss_irq_domain_init(struct device *dev, struct mdp5_mdss *mdp5_mdss)
- {
--	struct device *dev = mdp5_mdss->base.dev->dev;
- 	struct irq_domain *d;
- 
- 	d = irq_domain_add_linear(dev->of_node, 32, &mdss_hw_irqdomain_ops,
-@@ -182,20 +181,52 @@ static void mdp5_mdss_destroy(struct drm_device *dev)
- 	if (!mdp5_mdss)
- 		return;
- 
--	irq_domain_remove(mdp5_mdss->irqcontroller.domain);
--	mdp5_mdss->irqcontroller.domain = NULL;
--
- 	regulator_disable(mdp5_mdss->vdd);
- 
- 	pm_runtime_disable(dev->dev);
- }
- 
-+static void mdp5_mdss_remove(struct msm_mdss *mdss)
-+{
-+	struct mdp5_mdss *mdp5_mdss = to_mdp5_mdss(mdss);
-+
-+	irq_domain_remove(mdp5_mdss->irqcontroller.domain);
-+	mdp5_mdss->irqcontroller.domain = NULL;
-+}
-+
- static const struct msm_mdss_funcs mdss_funcs = {
- 	.enable	= mdp5_mdss_enable,
- 	.disable = mdp5_mdss_disable,
- 	.destroy = mdp5_mdss_destroy,
-+	.remove = mdp5_mdss_remove,
- };
- 
-+int mdp5_mdss_early_init(struct device *dev, struct msm_drm_private *priv)
-+{
-+	struct mdp5_mdss *mdp5_mdss;
-+	int ret;
-+
-+	if (!of_device_is_compatible(dev->of_node, "qcom,mdss"))
-+		return 0;
-+
-+	mdp5_mdss = devm_kzalloc(dev, sizeof(*mdp5_mdss), GFP_KERNEL);
-+	if (!mdp5_mdss)
-+		return -ENOMEM;
-+
-+	ret = mdss_irq_domain_init(dev, mdp5_mdss);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Here we have no drm_device yet, but still do the assignment
-+	 * so that we can retrieve our struct mdp5_mdss from the main
-+	 * init function, since we allocate it here.
-+	 */
-+	priv->mdss = &mdp5_mdss->base;
-+
-+	return 0;
-+}
-+
- int mdp5_mdss_init(struct drm_device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev->dev);
-@@ -208,11 +239,9 @@ int mdp5_mdss_init(struct drm_device *dev)
- 	if (!of_device_is_compatible(dev->dev->of_node, "qcom,mdss"))
- 		return 0;
- 
--	mdp5_mdss = devm_kzalloc(dev->dev, sizeof(*mdp5_mdss), GFP_KERNEL);
--	if (!mdp5_mdss) {
--		ret = -ENOMEM;
--		goto fail;
--	}
-+	mdp5_mdss = to_mdp5_mdss(priv->mdss);
-+	if (!mdp5_mdss)
-+		return -ENODATA;
- 
- 	mdp5_mdss->base.dev = dev;
- 
-@@ -255,17 +284,8 @@ int mdp5_mdss_init(struct drm_device *dev)
- 		goto fail_irq;
- 	}
- 
--	ret = mdss_irq_domain_init(mdp5_mdss);
--	if (ret) {
--		DRM_DEV_ERROR(dev->dev, "failed to init sub-block irqs: %d\n", ret);
--		goto fail_irq;
--	}
--
- 	mdp5_mdss->base.funcs = &mdss_funcs;
--	priv->mdss = &mdp5_mdss->base;
--
- 	pm_runtime_enable(dev->dev);
--
- 	return 0;
- fail_irq:
- 	regulator_disable(mdp5_mdss->vdd);
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 64230e473a34..ded4f4d6545f 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1389,6 +1389,20 @@ static int msm_pdev_probe(struct platform_device *pdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	switch (get_mdp_ver(pdev)) {
-+	case KMS_MDP5:
-+		ret = mdp5_mdss_early_init(&pdev->dev, priv);
-+		break;
-+	case KMS_DPU:
-+		ret = dpu_mdss_early_init(&pdev->dev, priv);
-+		break;
-+	default:
-+		ret = 0;
-+		break;
-+	}
-+	if (ret)
-+		return ret;
-+
- 	platform_set_drvdata(pdev, priv);
- 
- 	if (get_mdp_ver(pdev)) {
-@@ -1421,6 +1435,12 @@ static int msm_pdev_probe(struct platform_device *pdev)
- 
- static int msm_pdev_remove(struct platform_device *pdev)
- {
-+	struct msm_drm_private *priv = platform_get_drvdata(pdev);
-+
-+	if (priv->mdss && priv->mdss->funcs)
-+		priv->mdss->funcs->remove(priv->mdss);
-+
-+	priv->mdss = NULL;
- 	component_master_del(&pdev->dev, &msm_drm_ops);
- 	of_platform_depopulate(&pdev->dev);
- 
-@@ -1432,7 +1452,7 @@ static void msm_pdev_shutdown(struct platform_device *pdev)
- 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
- 	struct drm_device *drm = priv ? priv->dev : NULL;
- 
--	if (!priv || !priv->kms)
-+	if (!priv || !priv->kms || !drm->mode_config.funcs)
- 		return;
- 
- 	drm_atomic_helper_shutdown(drm);
-diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-index 6a42b819abc4..2c539a228156 100644
---- a/drivers/gpu/drm/msm/msm_kms.h
-+++ b/drivers/gpu/drm/msm/msm_kms.h
-@@ -202,6 +202,7 @@ struct msm_mdss_funcs {
- 	int (*enable)(struct msm_mdss *mdss);
- 	int (*disable)(struct msm_mdss *mdss);
- 	void (*destroy)(struct drm_device *dev);
-+	void (*remove)(struct msm_mdss *mdss);
- };
- 
- struct msm_mdss {
-@@ -209,7 +210,9 @@ struct msm_mdss {
- 	const struct msm_mdss_funcs *funcs;
- };
- 
-+int mdp5_mdss_early_init(struct device *dev, struct msm_drm_private *priv);
- int mdp5_mdss_init(struct drm_device *dev);
-+int dpu_mdss_early_init(struct device *dev, struct msm_drm_private *priv);
- int dpu_mdss_init(struct drm_device *dev);
- 
- #define for_each_crtc_mask(dev, crtc, crtc_mask) \
 -- 
-2.33.1
-
+With best wishes
+Dmitry
