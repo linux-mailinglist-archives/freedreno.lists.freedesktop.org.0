@@ -2,56 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE15466C79
-	for <lists+freedreno@lfdr.de>; Thu,  2 Dec 2021 23:28:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AAE466C75
+	for <lists+freedreno@lfdr.de>; Thu,  2 Dec 2021 23:28:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C526FC5F;
-	Thu,  2 Dec 2021 22:28:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682146FC77;
+	Thu,  2 Dec 2021 22:28:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF726FBD0
- for <freedreno@lists.freedesktop.org>; Thu,  2 Dec 2021 22:27:55 +0000 (UTC)
-Received: by mail-pf1-x436.google.com with SMTP id x5so1005327pfr.0
- for <freedreno@lists.freedesktop.org>; Thu, 02 Dec 2021 14:27:55 -0800 (PST)
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAB356FC55
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Dec 2021 22:27:56 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id
+ w33-20020a17090a6ba400b001a722a06212so3953110pjj.0
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Dec 2021 14:27:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=qrvKBJr+DUbrISc8WyZICnsdtffozhNCQiB3CMiYO5U=;
- b=DuUYdGjfuiZBR1ya+iPMu+Sdj6HN/HJ08JUma9wc/4Lv3gy0ePurYjL7t/73NeUuAq
- Q64+6CKAFwPkeFLGdygcG+gv17qHsi0b1+edKa4FKi2dyoZNvb992X0lgxv89pR3O67d
- czo3LRlHOcJy3IGu6WOnt1cvXkO5nl2UJqFRs=
+ bh=wlRODoqLGygqE0LYiWEnBFh9kz/XzAvDsSAOOxu5peY=;
+ b=aYALRHsFn0lNW8BmuMj4+kHCOs9s7+R3OgAv3OJiR95IZOKFQZ+w9qea1ICG/SodJ/
+ +igOzUmHyzEw8aAwsBgJXPFpnzUsIWHpzkXGRs6MiCl/xNqRK4S7e4JncJDKrp9lxp5C
+ rfQZhyDKl2Hmvyfaujv6SVjj5DXjOOdZ9ekBc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=qrvKBJr+DUbrISc8WyZICnsdtffozhNCQiB3CMiYO5U=;
- b=c9Gw3EqtZfZ1wo5+iKc4O69a3WRsNvVNUhQ8f5bRpFDxoDP+IU/UkBVxzR5K94AyvF
- m2m1fflKtiBOf4lNofq6/gWABVaR6tgVwlMo9j02Ybxmb5KrY0KA2nguu9Wqi3MsLBIN
- LrYIJfrinqFJIVQlIJssodO5Mt5ts9+WhbNxk/OFANPcRHwnfjHpXOHItUNb+WJrshIh
- TqQE5mE+0RoGhLNPA8ePcXwY1ooyaSvHaGCvSvvv/gCXRiMweQPWaGD/EgGdP+NcnEAI
- Ib/acTIKxJvtFo8WmjHZ01Q4bk8I9SVyJIs5qFhNaNgET0sR79ip9Okw1Q4j9m5X4URh
- FJQg==
-X-Gm-Message-State: AOAM530dV1Jg6MCErTzXMhLndZX8H5grhGjUezVrphMij34n98J97PTr
- neIRgXxQ/ULOb2/YpBiEJUMhGg==
-X-Google-Smtp-Source: ABdhPJwyV6A1W8Nb048fK/AxET3ZKPbCUPvFdhVy84ThrAAhIMdBm6o5JXluuljHIlgP9I1HrnwIfA==
-X-Received: by 2002:a63:66c7:: with SMTP id a190mr1546381pgc.463.1638484075311; 
- Thu, 02 Dec 2021 14:27:55 -0800 (PST)
+ bh=wlRODoqLGygqE0LYiWEnBFh9kz/XzAvDsSAOOxu5peY=;
+ b=4A6tgkj4XYONQKSI3ISOVGR+oafYiNuDhxQjd47TGOZR+cKhE59HawxA847MH4u1LJ
+ THJmijM7BPrLe1s2w2ytrx4K7UTz6vjMqVKkyp7E03zL4tGczcUS9XYY4x2D12p8/FHI
+ C5vyIpMqOhTyTtU722oWlBX+qIGCCw8/m89zAB7txEW0kL5a0bN2E6NCyE0iILuO0mrJ
+ B0m2B+gp+aND8kvnng/DGVXpGnktvtJos2O8e5nTN4yurKsqgAPmB1u/ZgG1Qb3wtVG1
+ pjtKQ0He4Thspd8kMg8dekd5Iq6g83sf6ikTMIxKoSf37AC4vPmhuc/+eye72ouRzehN
+ w6lA==
+X-Gm-Message-State: AOAM532yF7qGF9JeMMV/mS/bsB7hXIkgqBBaE6G9kVagnCPZ/fj6Eqnm
+ ASmaVRGJLy6cQHvDkSsgrDtR6w==
+X-Google-Smtp-Source: ABdhPJxUiQZ6cWHUZ7HxSKVla2/DNt2mW2yGwcM3YSXCD3G009K29EH1KFvgM4SvxeeeA68bDxoOhA==
+X-Received: by 2002:a17:90b:4b03:: with SMTP id
+ lx3mr9200581pjb.18.1638484076151; 
+ Thu, 02 Dec 2021 14:27:56 -0800 (PST)
 Received: from smtp.gmail.com ([2620:15c:202:201:f4f2:1b7e:5aea:bf3c])
- by smtp.gmail.com with ESMTPSA id q9sm836934pfj.9.2021.12.02.14.27.54
+ by smtp.gmail.com with ESMTPSA id q9sm836934pfj.9.2021.12.02.14.27.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 02 Dec 2021 14:27:55 -0800 (PST)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Thu,  2 Dec 2021 14:27:21 -0800
-Message-Id: <20211202222732.2453851-24-swboyd@chromium.org>
+Date: Thu,  2 Dec 2021 14:27:22 -0800
+Message-Id: <20211202222732.2453851-25-swboyd@chromium.org>
 X-Mailer: git-send-email 2.34.0.384.gca35af8252-goog
 In-Reply-To: <20211202222732.2453851-1-swboyd@chromium.org>
 References: <20211202222732.2453851-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 23/34] drm/sun4i: Migrate to aggregate driver
+Subject: [Freedreno] [PATCH v4 24/34] drm/tilcdc: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,12 +66,12 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@gmail.com>, Saravana Kannan <saravanak@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, dri-devel@lists.freedesktop.org,
+Cc: freedreno@lists.freedesktop.org, Saravana Kannan <saravanak@google.com>,
+ Tomi Valkeinen <tomba@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
- Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
+ Russell King <rmk+kernel@arm.linux.org.uk>, Jyri Sarha <jyri.sarha@iki.fi>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
@@ -77,8 +79,8 @@ Use an aggregate driver instead of component ops so that we can get
 proper driver probe ordering of the aggregate device with respect to all
 the component devices that make up the aggregate device.
 
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Chen-Yu Tsai <wens@csie.org>
+Tested-by: Jyri Sarha <jyri.sarha@iki.fi>
+Cc: Tomi Valkeinen <tomba@kernel.org>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Rob Clark <robdclark@gmail.com>
@@ -86,70 +88,74 @@ Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/sun4i/sun4i_drv.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
-index 54dd562e294c..700f5e32eaf7 100644
---- a/drivers/gpu/drm/sun4i/sun4i_drv.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
-@@ -56,8 +56,9 @@ static const struct drm_driver sun4i_drv_driver = {
- 	DRM_GEM_CMA_DRIVER_OPS_VMAP_WITH_DUMB_CREATE(drm_sun4i_gem_dumb_create),
- };
- 
--static int sun4i_drv_bind(struct device *dev)
-+static int sun4i_drv_bind(struct aggregate_device *adev)
+diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+index 3ddb7c710a3d..92ff516fb6de 100644
+--- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
++++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+@@ -529,13 +529,16 @@ static const struct dev_pm_ops tilcdc_pm_ops = {
+ /*
+  * Platform driver:
+  */
+-static int tilcdc_bind(struct device *dev)
++static int tilcdc_bind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct drm_device *drm;
- 	struct sun4i_drv *drv;
- 	int ret;
-@@ -125,8 +126,9 @@ static int sun4i_drv_bind(struct device *dev)
- 	return ret;
++
+ 	return tilcdc_init(&tilcdc_driver, dev);
  }
  
--static void sun4i_drv_unbind(struct device *dev)
-+static void sun4i_drv_unbind(struct aggregate_device *adev)
+-static void tilcdc_unbind(struct device *dev)
++static void tilcdc_unbind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
- 	struct drm_device *drm = dev_get_drvdata(dev);
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
  
- 	drm_dev_unregister(drm);
-@@ -140,9 +142,13 @@ static void sun4i_drv_unbind(struct device *dev)
- 	drm_dev_put(drm);
+ 	/* Check if a subcomponent has already triggered the unloading. */
+@@ -545,9 +548,13 @@ static void tilcdc_unbind(struct device *dev)
+ 	tilcdc_fini(dev_get_drvdata(dev));
  }
  
--static const struct component_master_ops sun4i_drv_master_ops = {
--	.bind	= sun4i_drv_bind,
--	.unbind	= sun4i_drv_unbind,
-+static struct aggregate_driver sun4i_aggregate_driver = {
-+	.probe	= sun4i_drv_bind,
-+	.remove	= sun4i_drv_unbind,
+-static const struct component_master_ops tilcdc_comp_ops = {
+-	.bind = tilcdc_bind,
+-	.unbind = tilcdc_unbind,
++static struct aggregate_driver tilcdc_aggregate_driver = {
++	.probe = tilcdc_bind,
++	.remove = tilcdc_unbind,
 +	.driver = {
-+		.name = "sun4i_drm",
++		.name = "tilcdc_drm",
 +		.owner = THIS_MODULE,
 +	},
  };
  
- static bool sun4i_drv_node_is_connector(struct device_node *node)
-@@ -398,16 +404,14 @@ static int sun4i_drv_probe(struct platform_device *pdev)
- 	}
- 
- 	if (count)
--		return component_master_add_with_match(&pdev->dev,
--						       &sun4i_drv_master_ops,
--						       match);
+ static int tilcdc_pdev_probe(struct platform_device *pdev)
+@@ -564,12 +571,9 @@ static int tilcdc_pdev_probe(struct platform_device *pdev)
+ 	ret = tilcdc_get_external_components(&pdev->dev, &match);
+ 	if (ret < 0)
+ 		return ret;
+-	else if (ret == 0)
++	if (ret == 0)
+ 		return tilcdc_init(&tilcdc_driver, &pdev->dev);
 -	else
--		return 0;
-+		return component_aggregate_register(&pdev->dev, &sun4i_aggregate_driver, match);
-+
-+	return 0;
+-		return component_master_add_with_match(&pdev->dev,
+-						       &tilcdc_comp_ops,
+-						       match);
++	return component_aggregate_register(&pdev->dev, &tilcdc_aggregate_driver, match);
  }
  
- static int sun4i_drv_remove(struct platform_device *pdev)
- {
--	component_master_del(&pdev->dev, &sun4i_drv_master_ops);
-+	component_aggregate_unregister(&pdev->dev, &sun4i_aggregate_driver);
+ static int tilcdc_pdev_remove(struct platform_device *pdev)
+@@ -579,10 +583,10 @@ static int tilcdc_pdev_remove(struct platform_device *pdev)
+ 	ret = tilcdc_get_external_components(&pdev->dev, NULL);
+ 	if (ret < 0)
+ 		return ret;
+-	else if (ret == 0)
++	if (ret == 0)
+ 		tilcdc_fini(platform_get_drvdata(pdev));
+ 	else
+-		component_master_del(&pdev->dev, &tilcdc_comp_ops);
++		component_aggregate_unregister(&pdev->dev, &tilcdc_aggregate_driver);
  
  	return 0;
  }
