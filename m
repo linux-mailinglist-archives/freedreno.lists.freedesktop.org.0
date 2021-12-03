@@ -2,65 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11C7A467D0D
-	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 19:15:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E587467D13
+	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 19:17:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0147AC40;
-	Fri,  3 Dec 2021 18:15:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E22217B2C4;
+	Fri,  3 Dec 2021 18:17:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFED27AC40
- for <freedreno@lists.freedesktop.org>; Fri,  3 Dec 2021 18:15:55 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id p8so7816576ljo.5
- for <freedreno@lists.freedesktop.org>; Fri, 03 Dec 2021 10:15:55 -0800 (PST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB3337B2C4
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Dec 2021 18:17:09 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id l22so8469838lfg.7
+ for <freedreno@lists.freedesktop.org>; Fri, 03 Dec 2021 10:17:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=XETtVR3trVk3mJEQkxCtSey9MCpDGt0zZTF/ap46FO4=;
- b=iE+jSRpvnSte9JQZsPdsAtZykCqnIKnwliWjcBkac6g9S8TiM0IYmlI6EKWy4QNEZw
- Ym3r0jYJScGyrC9KBtisi3lUBkl/rYPfU04BF+xB3kNL69x9DH6Fl8dVFaQChzDdLdLK
- GCu8Y5mmIDGC0OFY8sGn9SON0zMzwp0FulyeVBQFONB4YuX9OkFW176Nr9AWp4uRa1a8
- EOeuK2q9zE7/HA0RzIC7Qig8z2XBsldCOqnR3mZVWIvUDwfJMc5DowTlXKHAoCBcCX1a
- OWpFBAL4COxKVUBuciWVNH81t1oax2Y06D/jq5GGu4tD17gb9fKIr6UL514OBKFT94rg
- Symg==
+ bh=Pvwka+nQK0UfHFY3XxiSjtliqkg8sD5ZuyxOIxv5Cbs=;
+ b=eIZxsWUwapXBrA560XcorJL8NqT1ntAWDUua+GJsnFNktaz/q6rhH2kj69fPiKJfme
+ wdsA+qXnTzMm73W0MJytDuUILbe1cjL926x4EcZmvL7yWKyZYQq6X2XgBubpBwvmTmjq
+ XNQ0A+Q+kK2S2rYPr91qC1zcozFLyrCVPLSWYZNotxJailRpu2aPFze12TNVTibkvJ2F
+ 6euQtrTzFj7X0k3n9vBCk9eH4vuWcdd/bhb0kUh6y0INWm/+A8HsB2wPi62MFi6kt7Pr
+ j7gbIqKfj/j9qHACc9kMVWUpfReJcdcF8KuMZFF9dw+zyzoL4gPAjZQ+6avWwqM6O+tA
+ xkMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=XETtVR3trVk3mJEQkxCtSey9MCpDGt0zZTF/ap46FO4=;
- b=RNS6pbAwyG9uMFtW9/Ye4cfSsTyqLoNYp+NQmsdoB9+E7XCPQ6fSvmbpLAUI5p/HmD
- FFQFRluEzpYg4Pp1iD+VtmJkR/yOMaeFPBch8xXEmenfQUEiKT8joOPfVHkYdzNfKnsJ
- 9pyzX7MzTaucKNOh8vOs20Gsb1fg1msKR8qUJBVTkSIkw+3QIWYGqbgCNdDKMFqcJ4iV
- KkIxXgAVjMby+W6PKfEyCMDjDueFxb1jobhZGyptbfEx4vr6jgso+udOYcnT95f3atjW
- yz01ClW8l+/IZxIS2fs+Dv/CaZz0P5ZS2XAQrdnpLwktv+BHWhAwTzI5Q/bEmq3ggaaT
- S7XQ==
-X-Gm-Message-State: AOAM5338q2I2P5VjW+J4Dh8WmH/mA01Fd6Y4D4IuI+Ik01UmqN5rIy0+
- FngFDbkx+POO9tjfEQ4Qauhbxw==
-X-Google-Smtp-Source: ABdhPJxILDGn/88i8VPm+vst3qYWiNJp3eau+aa1yVIcKUDIXOvNW/S0cGXGWtSkxE7P8RkvkOYe0Q==
-X-Received: by 2002:a05:651c:50c:: with SMTP id
- o12mr20110619ljp.438.1638555354010; 
- Fri, 03 Dec 2021 10:15:54 -0800 (PST)
+ bh=Pvwka+nQK0UfHFY3XxiSjtliqkg8sD5ZuyxOIxv5Cbs=;
+ b=2cc4BcCy4Li2qIV6IfGFuiT/AefCzRL+/C5TGgTZ+oa4XvuArx1/S154U3vffDVGjm
+ nHDlydSWTMnbpUj0sG+kLJVOizr/qqpA+4YOEFYtdaC2jBxEMCLnhF0yxjk1QTITeAND
+ rWObgaVLp3wv3UFat+rMPqGNF1teJZMi5c0TOwY+I9xzNSjwQd4NcXSU2njIz6VuylLC
+ sphZZwtEBFMIJ2pj3KgywhCvdzyP1IzThfobjLTnwlc8oFXmkE8nH6L6cS9U9fW3vua/
+ W2bOuFzWqKgfVwgDlC9U2KwvBiJSkzLa1RBMOZwsl4fN+3W6fqLKkXaDtX/Aw1vjVGGu
+ eI9A==
+X-Gm-Message-State: AOAM530IZOqjjl8C+0GHN8hDwMhS0v4+n8PV5N58pv0qAeYgNSj5Glnz
+ OGV6cbnmxF0d34xhi73x2YCpQg==
+X-Google-Smtp-Source: ABdhPJyKiAVCfe8d7jmNoqLFibh1Ce2dZGkb1WnECK82kC0o6EOkx6AYO0XZDzDfXVAgjTPEvo0Njg==
+X-Received: by 2002:a19:7408:: with SMTP id v8mr18384090lfe.392.1638555428078; 
+ Fri, 03 Dec 2021 10:17:08 -0800 (PST)
 Received: from [192.168.1.8] ([185.24.52.156])
- by smtp.gmail.com with ESMTPSA id l20sm453938lfj.36.2021.12.03.10.15.52
+ by smtp.gmail.com with ESMTPSA id p3sm456437lfh.124.2021.12.03.10.17.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Dec 2021 10:15:53 -0800 (PST)
-Message-ID: <ffdf9007-d2cc-2437-684c-66c00bb0ceda@linaro.org>
-Date: Fri, 3 Dec 2021 21:15:51 +0300
+ Fri, 03 Dec 2021 10:17:07 -0800 (PST)
+Message-ID: <93020f22-0048-e0e7-5df5-144c3e705b84@linaro.org>
+Date: Fri, 3 Dec 2021 21:17:06 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
 Content-Language: en-GB
-To: Ameer Hamza <amhamza.mgc@gmail.com>, robdclark@gmail.com,
- sean@poorly.run, quic_abhinavk@quicinc.com, airlied@linux.ie, daniel@ffwll.ch
-References: <20211203161846.37720-1-amhamza.mgc@gmail.com>
+To: Yang Li <yang.lee@linux.alibaba.com>, robdclark@gmail.com
+References: <1638502612-113708-1-git-send-email-yang.lee@linux.alibaba.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20211203161846.37720-1-amhamza.mgc@gmail.com>
+In-Reply-To: <1638502612-113708-1-git-send-email-yang.lee@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: removed logically dead code
+Subject: Re: [Freedreno] [PATCH -next] drm: remove node from list before
+ freeing the node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,36 +72,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/12/2021 19:18, Ameer Hamza wrote:
-> Fixed coverity warning by removing the dead code
+On 03/12/2021 06:36, Yang Li wrote:
+> fix the following smatch warning:
+> drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:1675 dpu_plane_init() warn:
+> '&pdpu->mplane_list' not removed from list
 > 
-> Addresses-Coverity: 1494147 ("Logically dead code")
-> 
-> Signed-off-by: Ameer Hamza <amhamza.mgc@gmail.com>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
-While the patch is correct, remove the 'fail' part completely by moving 
-DPU_ERROR and return statement in place of corresponding goto statements.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 2 --
->   1 file changed, 2 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> index 185379b18572..75f0c0cee661 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-> @@ -751,8 +751,6 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
->   
->   fail:
->   	DPU_ERROR("failed to create encoder\n");
-> -	if (phys_enc)
-> -		dpu_encoder_phys_vid_destroy(phys_enc);
->   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ca190d9..aad238b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1672,6 +1672,7 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>   	if (pdpu && pdpu->pipe_hw)
+>   		dpu_hw_sspp_destroy(pdpu->pipe_hw);
+>   clean_plane:
+> +	list_del(&pdpu->mplane_list);
+>   	kfree(pdpu);
 >   	return ERR_PTR(ret);
 >   }
 > 
