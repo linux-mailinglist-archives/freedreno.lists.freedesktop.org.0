@@ -1,66 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5EB5467D82
-	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 19:51:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 498BE467DFF
+	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 20:18:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F5F7B6B3;
-	Fri,  3 Dec 2021 18:51:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED0AB7AE66;
+	Fri,  3 Dec 2021 19:18:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 037377B6B5
- for <freedreno@lists.freedesktop.org>; Fri,  3 Dec 2021 18:51:14 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id b1so8594038lfs.13
- for <freedreno@lists.freedesktop.org>; Fri, 03 Dec 2021 10:51:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=AoGWj/bWqwFWdFDfAGCiZt2+Rrs0vhzQ2O7jMvIrWTE=;
- b=i7hnxehXR4Qq6dr9FYM+t6kwmA5qmPA39SksNpMT3nrmhOGSEp0jngHnpulMw5gXXb
- c+vskdcXt2UBcrbrvhsUNkWEIHIPFuVeBkFZmzot8MboOly04tZW5IK9Ex30bQYbYIFG
- hHp8w43Fhec4OCyS0j5tlitqI9VhnlZXT3VRk+LlTfHxItKgMqvHBFstf4FzVH3fmSz4
- 5eSJ0v8ygAj24QW8Gp8v8JAW8GnU4VCOLeiKPBZo7FJsWbsNzpFbdSeApsYFHBWbeHjc
- lpGJEBgwU9yn9FvkYpUN9XfL7eLmwuNYYHWGaxAZ+JPdAZ2RYeGwtsAxVwKDxx4sBJmY
- IAjw==
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40EDA7B923;
+ Fri,  3 Dec 2021 19:09:25 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id p18so2729944plf.13;
+ Fri, 03 Dec 2021 11:09:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=IoBuVhCiR9BrSiQMh75XUsvklE4yOFaQXUkrNsUI+/Y=;
+ b=o+MayrhIXhy6Tn8p5jFoe3c6UEGzOvhNMOZ3TtvQekj4JCNjdsawVl2u3l5SENbfof
+ TNfIHy73jO38Cwwn82y0/O0BIKnFHjyLPXQJDzy7qycQOBmCsMlzDh1Q2DR/dDfUPV+T
+ r18zoZXJa+kuffykx6WxpgSUqIrRhMh+5seYzmBeIdQgodapeD3BgFIao8z0z3xul5DI
+ zzfBS7ojv+CsTNBmtiL+bcj2r2Be0KmQr05NMIrnRPld2usPWmwa7QKmH4TJixqKzBoT
+ zvPWSf1nPvABpim+20Hg6l+G/t1o5CzzG1XTTa95NmXosfCoW+SB7in29LfUrsF96+Pj
+ 5kKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=AoGWj/bWqwFWdFDfAGCiZt2+Rrs0vhzQ2O7jMvIrWTE=;
- b=YrmRvv9WlQl6vCy3kZNO502xSmjSiow97xJ90ffCS+EdKjit9Dr/BgfGUbeopBCEa3
- SPFrXstGgHHLnTUh++vIiE8mB9KX60BpmytYaTQ2wqx9PF4g0QKgrWU9aw8dSfRPIwOA
- zptr/fb59ievxtqfFXsjm7RRzfwSvXi/EcQ1s+1benBUjCViS9nORnhOgqU2D8HL5fMQ
- uSRqpDz0mgJKBLZNMnaaBwB2eWobGCmi6ZVtVC/OmTB9peN5+p1w6AuNqOvst+n3koHs
- I/0Fbj3adF6BaMgBZCR9A3puwxeV8RfPJbmHTCjAaMAaI/WMc5t8QNdAMaaAcv4s76+s
- JvlQ==
-X-Gm-Message-State: AOAM530KkMdkOb5UV2zgW6ZOyNrUJUiJxfLuojBQV4dopn4AIX2MObQD
- 4Oa6SBuIf61blembMOQa6tu/DA==
-X-Google-Smtp-Source: ABdhPJx3oNQ/pRiEn2+/u0ktbVPcBmU8snjmPDRzgL+8t9ORKohqKzHYrihygwoe+ybgKC2OUge75Q==
-X-Received: by 2002:ac2:55a6:: with SMTP id y6mr18888149lfg.406.1638557473337; 
- Fri, 03 Dec 2021 10:51:13 -0800 (PST)
-Received: from [192.168.1.8] ([185.24.52.156])
- by smtp.gmail.com with ESMTPSA id c15sm465158lfb.154.2021.12.03.10.51.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Dec 2021 10:51:12 -0800 (PST)
-Message-ID: <8ee2b4d4-44f3-6d03-b674-613b5b04a754@linaro.org>
-Date: Fri, 3 Dec 2021 21:51:10 +0300
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=IoBuVhCiR9BrSiQMh75XUsvklE4yOFaQXUkrNsUI+/Y=;
+ b=zfix/1jPHIPkjrmyrMRbfanjMQgwZf4HvJLFOEx8Crya8X9/IMYD+g1a9B7NUHZF8v
+ 62RTLbXHqFTfbkaKBsRs69XILSGXDoN5F6Vjnkjg/I3FMb1UjGw5vpEeIugbcGYJUAQi
+ jz2GyT5PTCSPKz9bKfFu+SNGXIvfS7l30aotQ07IKGKViDNb+He8gSYb9+iiiX3HqAf7
+ a9axpZ9xH5xFot2WPuv20OsUeFlsw1Ws0M+aGOJ39GVbRBn5lHgV0pEs1dUJy96h8zoD
+ 13fJRe7RTYXx+SeIbn4/1TcLDqQ9BZcSrs0svmmtf2kRUhUHZmXjM85a9EzcnwyQfa/G
+ HC4g==
+X-Gm-Message-State: AOAM5300ayAwCIrqAYgsOgRVyknyIlywgfHV0uD2SdltkAQ30YcDESK0
+ ebp9z5vshY16/bwfYeC9xzguzs46F8V/j8InZE8=
+X-Google-Smtp-Source: ABdhPJxZJvNEr3MwGMO10MxWXmKiW1dA8s8jvQruDvE9ccjiUSFfbFTenWOarBOh/3TPJbQ4+kPRDOmSReFhkMMc+GI=
+X-Received: by 2002:a17:90a:17a5:: with SMTP id
+ q34mr15942710pja.122.1638558564703; 
+ Fri, 03 Dec 2021 11:09:24 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>
-References: <20211022114349.102552-1-vladimir.lypak@gmail.com>
- <YXL16V17upehvUwt@ripper>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <YXL16V17upehvUwt@ripper>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/a5xx: Add support for Adreno 506 GPU
+References: <20211202203400.1208663-1-kuba@kernel.org>
+ <YanDM7hD9KucIRq6@kroah.com>
+In-Reply-To: <YanDM7hD9KucIRq6@kroah.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Fri, 3 Dec 2021 11:09:13 -0800
+Message-ID: <CAADnVQJXSksytrk5aLGQzgzaoGB9xFWqXWSTj0AmkEWiEs2jWg@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 03 Dec 2021 19:18:26 +0000
+Subject: Re: [Freedreno] [PATCH bpf v2] treewide: add missing includes
+ masked by cgroup -> bpf dependency
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,82 +67,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Iskren Chernev <iskren.chernev@gmail.com>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- "Kristian H. Kristensen" <hoegsberg@google.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+ Song Liu <songliubraving@fb.com>, Martin KaFai Lau <kafai@fb.com>,
+ David Airlie <airlied@linux.ie>, Yonghong Song <yhs@fb.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Alexei Starovoitov <ast@kernel.org>, dri-devel@lists.freedesktop.org,
+ Andrii Nakryiko <andrii@kernel.org>, a-govindraju@ti.com, ray.huang@amd.com,
+ sbhatta@marvell.com, robh@kernel.org, lorenzo.pieralisi@arm.com,
+ Daniel Borkmann <daniel@iogearbox.net>, krzysztof.kozlowski@canonical.com,
+ John Fastabend <john.fastabend@gmail.com>, hkelam@marvell.com,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Matthew Auld <matthew.auld@intel.com>, linux-pci@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Sunil Goutham <sgoutham@marvell.com>,
+ thomas.hellstrom@linux.intel.com, pawell@cadence.com, tzimmermann@suse.de,
+ mani@kernel.org, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ KP Singh <kpsingh@kernel.org>, rogerq@kernel.org,
+ linux-samsung-soc@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, bhelgaas@google.com, sean@poorly.run,
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ SeongJae Park <sj@kernel.org>, lima@lists.freedesktop.org,
+ linux-mm <linux-mm@kvack.org>, jingoohan1@gmail.com,
+ Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
+ christian.koenig@amd.com, robdclark@gmail.com, yuq825@gmail.com,
+ daniel@ffwll.ch, bpf <bpf@vger.kernel.org>, colin.king@intel.com,
+ freedreno@lists.freedesktop.org, gakula@marvell.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/10/2021 20:33, Bjorn Andersson wrote:
-> On Fri 22 Oct 04:43 PDT 2021, Vladimir Lypak wrote:
-> 
->> This GPU is found on SoCs such as MSM8953(650MHz), SDM450(600MHz),
->> SDM632(725MHz).
->>
->> Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
->> ---
->>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c      | 34 ++++++++++++++--------
->>   drivers/gpu/drm/msm/adreno/adreno_device.c | 18 ++++++++++++
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  5 ++++
->>   3 files changed, 45 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->> index 5e2750eb3810..249a0d8bc673 100644
->> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->> @@ -441,7 +441,7 @@ void a5xx_set_hwcg(struct msm_gpu *gpu, bool state)
->>   	const struct adreno_five_hwcg_regs *regs;
->>   	unsigned int i, sz;
->>   
->> -	if (adreno_is_a508(adreno_gpu)) {
->> +	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu)) {
->>   		regs = a50x_hwcg;
->>   		sz = ARRAY_SIZE(a50x_hwcg);
->>   	} else if (adreno_is_a509(adreno_gpu) || adreno_is_a512(adreno_gpu)) {
->> @@ -485,7 +485,7 @@ static int a5xx_me_init(struct msm_gpu *gpu)
->>   	OUT_RING(ring, 0x00000000);
->>   
->>   	/* Specify workarounds for various microcode issues */
->> -	if (adreno_is_a530(adreno_gpu)) {
->> +	if (adreno_is_a506(adreno_gpu) || adreno_is_a530(adreno_gpu)) {
->>   		/* Workaround for token end syncs
->>   		 * Force a WFI after every direct-render 3D mode draw and every
->>   		 * 2D mode 3 draw
->> @@ -620,8 +620,17 @@ static int a5xx_ucode_init(struct msm_gpu *gpu)
->>   
->>   static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
->>   {
->> +	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>   	int ret;
->>   
->> +	/*
->> +	 * Adreno 506,508,512 have CPZ Retention feature and
->> +	 * don't need to resume zap shader
->> +	 */
->> +	if (adreno_is_a506(adreno_gpu) || adreno_is_a508(adreno_gpu) ||
->> +	    adreno_is_a512(adreno_gpu))
->> +		return 0;
-> 
-> Afaict all other changes in the patch adds a506 support, but this hunk
-> changes a508 and a512 behavior.
-> 
-> I'm not saying that the change is wrong, but this hunk deserves to be in
-> it's own patch - so that if there's any impact on those other versions
-> it can be tracked down to that specific patch.
+On Thu, Dec 2, 2021 at 11:11 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+>
+> On Thu, Dec 02, 2021 at 12:34:00PM -0800, Jakub Kicinski wrote:
+> > cgroup.h (therefore swap.h, therefore half of the universe)
+> > includes bpf.h which in turn includes module.h and slab.h.
+> > Since we're about to get rid of that dependency we need
+> > to clean things up.
+> >
+> > v2: drop the cpu.h include from cacheinfo.h, it's not necessary
+> > and it makes riscv sensitive to ordering of include files.
+> >
+> > Link: https://lore.kernel.org/all/20211120035253.72074-1-kuba@kernel.or=
+g/  # v1
+> > Link: https://lore.kernel.org/all/20211120165528.197359-1-kuba@kernel.o=
+rg/ # cacheinfo discussion
+> > Acked-by: Krzysztof Wilczy=C5=84ski <kw@linux.com>
+> > Acked-by: Peter Chen <peter.chen@kernel.org>
+> > Acked-by: SeongJae Park <sj@kernel.org>
+> > Acked-by: Jani Nikula <jani.nikula@intel.com>
+> > Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+>
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Vladimir, any plans to submit v2? This comment requests splitting the 
-patch in two.
-
-
--- 
-With best wishes
-Dmitry
+I'm not sure how to test that it helps to reduce build deps,
+but it builds and passes tests, so applied to bpf tree.
+Jakub, you'll soon get it back via bpf tree PR :)
