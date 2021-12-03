@@ -2,49 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 890B4467DFE
-	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 20:18:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 897F4467E41
+	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 20:33:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 473827ABEE;
-	Fri,  3 Dec 2021 19:18:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC837BA0B;
+	Fri,  3 Dec 2021 19:33:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B47527B960;
- Fri,  3 Dec 2021 19:10:12 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E95E1B826A6;
- Fri,  3 Dec 2021 19:10:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9A3E2C53FCE;
- Fri,  3 Dec 2021 19:10:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638558609;
- bh=60mi6p08U2wbwvB97Xgf4RVXwcC9c+P0q4JsuFDiPOI=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=uQZ/0KBBwOlmv3heoNYQUyaiMcNeBzGSS7RGwLrUa1wvnnZZQ6T1aiotEpZc9+H1z
- suTSmGKxpgS0c6XVGVxaalBJmrlSSeOStYBqFjdMzEM6uEaV7mDiaiERaCljh6lClu
- y4ZeXl8bU86S0Tlh1qM71hMLRLoJ42fEBPac2QnYi8LwMmxeQwBlOG69sUpBZ0dwu6
- xIWcpHtOouVmuoukYE96Ve65pWnv8OAvBZnBZ7lis61qy71Izg3SQMHOwLTAYKOLk2
- iFIkS8YvN30sqDOF+sQImtsnqnMxvHc1VQ8rHRM/6ZRUBTOBloBH7A1DsAO4wP+3JL
- fMwQadF7d2iGQ==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 76F2C60A95;
- Fri,  3 Dec 2021 19:10:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C50656E09A;
+ Fri,  3 Dec 2021 19:33:11 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id a9so7774186wrr.8;
+ Fri, 03 Dec 2021 11:33:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=KkMqjzOv91kbEWcmfuXNAzPB98rsPnz33Du8jXmQo/4=;
+ b=DcmSX6dV1UHFCCY4ITz0D8zPXxmPFsUvlxPe6iW6SIA514KGHV5HhGZj+Eno5vldj2
+ 7zefU34oP+H57TIKPBUoqNJOruzEoEDTlsxKPkUu5PQj/XhPbpLvqK6Rx6RPHNwvloVW
+ O/0ZuqWN5JG0qtzhgjlPD6TVGJbE+0kWVI22BMzPnjno2IVrQ7g0nZCy+iVJJzbr45vp
+ pGb8w3izUT+HzEyRBiT7OPBOaeWWzvr4V43d+3YtPMFC5FrLieJFZ1ZISwRyUNjD8ULL
+ Jzy+XjE5NPeRlTbLgYCLYz8BqVoxGQgDhjVrQlX99lQbS4WYmZ9yhUsRMZabT/22Koqj
+ wOpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=KkMqjzOv91kbEWcmfuXNAzPB98rsPnz33Du8jXmQo/4=;
+ b=noSuV45SekSjjin5IRXojivV5iqGU/o/+L9DGXZNOmWZ07ed+bAODlgblk+C9Phmui
+ 73HSJbCMflB5f2Dw+dNIMvqujWLDUKnMBvXywsNBei6ftNXfszYLscb8mgXpeIPGoiBx
+ stpCDSNUNgqLAvxp+RObQc+MgZ7i4gQcO0ceSiEgiMWB5B7TSP9BAU7h95z6KxIVnnyl
+ SPuhfXY8fjlJHB9KUqWogLbi3wHH3P7xnUF3WHDemQVES8jR5FNei7a0u+zRBiDXgXAw
+ MTZIEw2EZpRL1MDb8QjnM71+RZSmv9p39fmBejmvDTSmNv/qwTC+/ncm+nGL0uznFtgl
+ Hp6Q==
+X-Gm-Message-State: AOAM532n67VrsCCSwlg4pWdkggBJ/SkCpIvutPZMleMeNJjp68DLPGgO
+ Bhg0w4xCnbBKv8jgSkFdUzA=
+X-Google-Smtp-Source: ABdhPJwHkNocAxLPzcMPDuZ0QZvaPbQ/NHuFjMokG9Q5PoIIqWCWDfe347YQd6kuqYE2q3PRf3CMPg==
+X-Received: by 2002:a5d:4ac5:: with SMTP id y5mr23415302wrs.581.1638559990224; 
+ Fri, 03 Dec 2021 11:33:10 -0800 (PST)
+Received: from localhost.localdomain ([39.48.194.133])
+ by smtp.gmail.com with ESMTPSA id l5sm4815155wrs.59.2021.12.03.11.33.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Dec 2021 11:33:09 -0800 (PST)
+From: Ameer Hamza <amhamza.mgc@gmail.com>
+To: robdclark@gmail.com, sean@poorly.run, quic_abhinavk@quicinc.com,
+ airlied@linux.ie, daniel@ffwll.ch
+Date: Sat,  4 Dec 2021 00:32:53 +0500
+Message-Id: <20211203193253.108813-1-amhamza.mgc@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <ffdf9007-d2cc-2437-684c-66c00bb0ceda@linaro.org>
+References: <ffdf9007-d2cc-2437-684c-66c00bb0ceda@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163855860948.24022.9001786774413649159.git-patchwork-notify@kernel.org>
-Date: Fri, 03 Dec 2021 19:10:09 +0000
-References: <20211202203400.1208663-1-kuba@kernel.org>
-In-Reply-To: <20211202203400.1208663-1-kuba@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-X-Mailman-Approved-At: Fri, 03 Dec 2021 19:18:26 +0000
-Subject: Re: [Freedreno] [PATCH bpf v2] treewide: add missing includes
- masked by cgroup -> bpf dependency
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: removed logically dead code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,53 +68,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kw@linux.com, songliubraving@fb.com, kafai@fb.com, airlied@linux.ie,
- linux-pci@vger.kernel.org, joonas.lahtinen@linux.intel.com, ast@kernel.org,
- dri-devel@lists.freedesktop.org, andrii@kernel.org, a-govindraju@ti.com,
- ray.huang@amd.com, sbhatta@marvell.com, robh@kernel.org,
- lorenzo.pieralisi@arm.com, daniel@iogearbox.net,
- krzysztof.kozlowski@canonical.com, john.fastabend@gmail.com,
- hkelam@marvell.com, geert@linux-m68k.org, matthew.auld@intel.com, yhs@fb.com,
- sgoutham@marvell.com, thomas.hellstrom@linux.intel.com, pawell@cadence.com,
- tzimmermann@suse.de, mani@kernel.org, jani.nikula@intel.com,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, kpsingh@kernel.org,
- rogerq@kernel.org, linux-samsung-soc@vger.kernel.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, bhelgaas@google.com,
- sean@poorly.run, akpm@linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, axboe@kernel.dk,
- linux-block@vger.kernel.org, sj@kernel.org, lima@lists.freedesktop.org,
- linux-mm@kvack.org, jingoohan1@gmail.com, peter.chen@kernel.org,
- linux-usb@vger.kernel.org, christian.koenig@amd.com, robdclark@gmail.com,
- yuq825@gmail.com, daniel@ffwll.ch, gregkh@linuxfoundation.org,
- bpf@vger.kernel.org, colin.king@intel.com, freedreno@lists.freedesktop.org,
- gakula@marvell.com
+Cc: amhamza.mgc@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello:
+Fixed coverity warning by removing the dead code
 
-This patch was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+Addresses-Coverity: 1494147 ("Logically dead code")
 
-On Thu,  2 Dec 2021 12:34:00 -0800 you wrote:
-> cgroup.h (therefore swap.h, therefore half of the universe)
-> includes bpf.h which in turn includes module.h and slab.h.
-> Since we're about to get rid of that dependency we need
-> to clean things up.
-> 
-> v2: drop the cpu.h include from cacheinfo.h, it's not necessary
-> and it makes riscv sensitive to ordering of include files.
-> 
-> [...]
+Signed-off-by: Ameer Hamza <amhamza.mgc@gmail.com>
 
-Here is the summary with links:
-  - [bpf,v2] treewide: add missing includes masked by cgroup -> bpf dependency
-    https://git.kernel.org/bpf/bpf/c/8581fd402a0c
+---
+Changes in v2:
+removed the 'fail' part completely by moving DPU_ERROR and return statement in place of corresponding goto statements.
+---
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-You are awesome, thank you!
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index 185379b18572..ddd9d89cd456 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -698,17 +698,17 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
+ {
+ 	struct dpu_encoder_phys *phys_enc = NULL;
+ 	struct dpu_encoder_irq *irq;
+-	int i, ret = 0;
++	int i;
+ 
+ 	if (!p) {
+-		ret = -EINVAL;
+-		goto fail;
++		DPU_ERROR("failed to create encoder due to invalid parameter\n");
++		return ERR_PTR(-EINVAL);
+ 	}
+ 
+ 	phys_enc = kzalloc(sizeof(*phys_enc), GFP_KERNEL);
+ 	if (!phys_enc) {
+-		ret = -ENOMEM;
+-		goto fail;
++		DPU_ERROR("failed to create encoder due to memory allocation error\n");
++		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+ 	phys_enc->hw_mdptop = p->dpu_kms->hw_mdp;
+@@ -748,11 +748,4 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
+ 	DPU_DEBUG_VIDENC(phys_enc, "created intf idx:%d\n", p->intf_idx);
+ 
+ 	return phys_enc;
+-
+-fail:
+-	DPU_ERROR("failed to create encoder\n");
+-	if (phys_enc)
+-		dpu_encoder_phys_vid_destroy(phys_enc);
+-
+-	return ERR_PTR(ret);
+ }
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
