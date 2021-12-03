@@ -2,55 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057BD466F53
-	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 02:51:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD5846701C
+	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 03:41:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85D946E0CF;
-	Fri,  3 Dec 2021 01:51:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41BB06E0C4;
+	Fri,  3 Dec 2021 02:41:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D6FD6E0CF
- for <freedreno@lists.freedesktop.org>; Fri,  3 Dec 2021 01:51:50 +0000 (UTC)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- g11-20020a4a754b000000b002c679a02b18so527218oof.3
- for <freedreno@lists.freedesktop.org>; Thu, 02 Dec 2021 17:51:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+aU1FZVep5hNwcFj6bmAba50FjRI/ltWIZ16DYNnIGA=;
- b=N7OF2583fEDmizbOmvRYnkpfZT93YEBncq9hnq85jlidjhoMePMAp06+j5M69LuaPh
- qsId6+csYsMtmOeURg6xkLIAjj5OBVfhBZu7FArYKUzlsBWl1xx+GkYLXIQcD07l3yNI
- gz4oeJfAAB/rn6T3EuqRD8KkfgLb9n9d+uw80SM5mg3iGlJdouJpirSJ3r74iti2rkSJ
- Q/TOfHzhFo2SAEjlDox/So7yxUh8use4aDmV4kGPgMha3TvLysEWDHRNxIWnyKUZS/hl
- YKnlXCJQj28b9plcwHfb0UkriKD+Qdvi1/2ALKZSAiEnMkQNUiSuFxIZi6tso2o5ezPm
- hCBg==
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAAD6E0EE
+ for <freedreno@lists.freedesktop.org>; Fri,  3 Dec 2021 02:41:09 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ n17-20020a9d64d1000000b00579cf677301so2241857otl.8
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Dec 2021 18:41:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=dixTX2RrlnwesW8iIjzk4nhy820PBObo86K/cFmNqMQ=;
+ b=iM/D/ZJUqYaSokRA0yjzflf+/4LODWsu5gwGloRuNyTjAQEtTgoPcoOdA2I6kQ5lN2
+ K5Ns7XaunKfXiHrNPHm+Dou+ZnKfnG3rzDHEE3TmxPiPcUrYMxYuh5Ad2c2DC4F+yclD
+ hMNsUsZDl4ZPf68T1jHhUt9r91mbOjoLEGcTI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+aU1FZVep5hNwcFj6bmAba50FjRI/ltWIZ16DYNnIGA=;
- b=Lep9IwuGXfKVOQSpMUs9mEZt2rgJvqFfeJSKdnqAabGb9V1VSfev+OJAYDSGlU+hCo
- nBMYfurJ9Yba+E+gOLOF+37UnGGUWLY2KqEm2ZNvXKtr5kRlFJPvUmg3UT4xqqNIv9qD
- ot3hlZYLAAt2cAhadwxD4SDmYc4uW4NI3HnRYD59m4BYWA7Z/jNihUWkrBUuOuohhxkj
- dYaHfWwtrAZFSivMFZhSX8O/4TrYSax2cQRya49wo9DoUBHJA3t4XjsznQpMs3bFY2Q3
- f+m19g5qqtHI5lmasZeae3qm3BZP5HNIFQHCSIRP85yC+uLxPgyE5g25cEm664xxKarc
- k88w==
-X-Gm-Message-State: AOAM5306wTuNIhHf+rgwS5Ihp3J430PZg0WzVcXkBXKCmKtZdS+D/6sB
- TeT1VgsFJZ8WkoeyasjrDUeHefJuL289kIzKXn4QhQ==
-X-Google-Smtp-Source: ABdhPJy+E2enGXW2BZTWyy52ObOiGXworrn7TaAu700osVmrszldA1sRllG22o2QwrneHsnoXpIe0ViKVme+U9Asy2A=
-X-Received: by 2002:a4a:e155:: with SMTP id p21mr10809521oot.84.1638496309854; 
- Thu, 02 Dec 2021 17:51:49 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=dixTX2RrlnwesW8iIjzk4nhy820PBObo86K/cFmNqMQ=;
+ b=JjmmgqP46hbKi93kh4xvJLR1mrmKOm1ZAmEHYmpf4dHKnBres0ZyFgISEsSmSI66sW
+ 0Y3d6mJgnmmYK3mOsXBUNZlNGjcBAR41TyIkQrLfjSss+nS1EqbhpkEKzwTsauM2CXwt
+ MstT/DC8e9/Y+1MBc68GDPCHAGmVtZnmFKrhT5Pi663WW5LdGLJZ/TgZrMwzM7KhzzWh
+ fu1KB6uUPTnCs3qAbUiHriVOpFqylu0MsEs7XAq2XXn/Znt/GSvx1Yl5D9jpC291MRkg
+ K6JGgwBrda+au/LRw6rlSnPGCYN5fZS/uT47nCLR60h23GkjzQ4EC4cmadLZo8IMEoOs
+ pxHQ==
+X-Gm-Message-State: AOAM530W0G7TWyRkWWeyYzdGT46eTYhv+B5MgczxYiI0GtWCNJpM7L9U
+ zBvDWBQOC+L3Ti6uMPFziKScR4CsaZonZeKr1NQliA==
+X-Google-Smtp-Source: ABdhPJyK/ETlxs8XkQxa+hn+epgPr+mfELlA+cPMYqrCB6QQHK9j+S0/zfXRebJ/od3mAwIQuxUU5KO7z684Wem2OaU=
+X-Received: by 2002:a9d:2243:: with SMTP id o61mr14174984ota.126.1638499268424; 
+ Thu, 02 Dec 2021 18:41:08 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 2 Dec 2021 18:41:08 -0800
 MIME-Version: 1.0
-References: <20211202222732.2453851-1-swboyd@chromium.org>
-In-Reply-To: <20211202222732.2453851-1-swboyd@chromium.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 3 Dec 2021 02:51:38 +0100
-Message-ID: <CACRpkdbDNYroj=RvxRhffiGLKSHD=1+LNUGpxf7bxt2rzXrMkw@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <1636493893-7600-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1636493893-7600-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 2 Dec 2021 18:41:07 -0800
+Message-ID: <CAE-0n51-=qTWfBVPFEmpEb7md6cg5O__bhydXTUb+=8dRqCuqg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 00/34] component: Make into an aggregate
- bus
+Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: do not initialize phy until
+ plugin interrupt received
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +66,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Liviu Dudau <Liviu.Dudau@arm.com>, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>, Paul Cercueil <paul@crapouillou.net>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Rob Clark <robdclark@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Will Deacon <will@kernel.org>,
- Vitaly Lubart <vitaly.lubart@intel.com>,
- Joonyoung Shim <jy0922.shim@samsung.com>,
- Saravana Kannan <saravanak@google.com>, Joerg Roedel <joro@8bytes.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Jyri Sarha <jyri.sarha@iki.fi>,
- Chen-Yu Tsai <wens@csie.org>, Sandy Huang <hjc@rock-chips.com>,
- James Qian Wang <james.qian.wang@arm.com>, Chen Feng <puck.chen@hisilicon.com>,
- Russell King <rmk+kernel@arm.linux.org.uk>,
- Tomas Winkler <tomas.winkler@intel.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Mark Brown <broonie@kernel.org>, John Stultz <john.stultz@linaro.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Takashi Iwai <tiwai@suse.com>,
- linux-omap@vger.kernel.org, Yong Wu <yong.wu@mediatek.com>,
- Tomi Valkeinen <tomba@kernel.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>,
- Tian Tao <tiantao6@hisilicon.com>, freedreno@lists.freedesktop.org,
- Lucas Stach <l.stach@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 2, 2021 at 11:27 PM Stephen Boyd <swboyd@chromium.org> wrote:
+Quoting Kuogee Hsieh (2021-11-09 13:38:13)
+> From: Kuogee Hsieh <khsieh@codeaurora.org>
+>
+> Current DP drivers have regulators, clocks, irq and phy are grouped
+> together within a function and executed not in a symmetric manner.
+> This increase difficulty of code maintenance and limited code scalability.
+> This patch divided the driver life cycle of operation into four states,
+> resume (including booting up), dongle plugin, dongle unplugged and suspend.
+> Regulators, core clocks and irq are grouped together and enabled at resume
+> (or booting up) so that the DP controller is armed and ready to receive HPD
+> plugin interrupts. HPD plugin interrupt is generated when a dongle plugs
+> into DUT (device under test). Once HPD plugin interrupt is received, DP
+> controller will initialize phy so that dpcd read/write will function and
+> following link training can be proceeded successfully. DP phy will be
+> disabled after main link is teared down at end of unplugged HPD interrupt
+> handle triggered by dongle unplugged out of DUT. Finally regulators, code
+> clocks and irq are disabled at corresponding suspension.
+>
+> Changes in V2:
+> -- removed unnecessary dp_ctrl NULL check
+> -- removed unnecessary phy init_count and power_count DRM_DEBUG_DP logs
+> -- remove flip parameter out of dp_ctrl_irq_enable()
+> -- add fixes tag
+>
+> Changes in V3:
+> -- call dp_display_host_phy_init() instead of dp_ctrl_phy_init() at
+>         dp_display_host_init() for eDP
+>
+> Changes in V4:
+> -- rewording commit text to match this commit changes
+>
+> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
 
->   drm/mcde: Migrate to aggregate driver
+Can you please resend this based on the msm-next branch[1]? It doesn't
+apply now that other patches have been applied.
 
-This also works fine after the patch series.
-Tested-by: Linus Walleij <linus.walleij@linaro.org>
+[1] https://gitlab.freedesktop.org/drm/msm.git msm-next
 
-Yours,
-Linus Walleij
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 87 ++++++++++++++++---------------------
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  9 ++--
+>  drivers/gpu/drm/msm/dp/dp_display.c | 83 ++++++++++++++++++++++++++---------
+>  3 files changed, 105 insertions(+), 74 deletions(-)
+>
