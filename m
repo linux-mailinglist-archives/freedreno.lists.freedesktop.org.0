@@ -2,61 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CC4468009
-	for <lists+freedreno@lfdr.de>; Fri,  3 Dec 2021 23:54:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA94C469390
+	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 11:24:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61F5EAA36C;
-	Fri,  3 Dec 2021 22:54:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 108897A43A;
+	Mon,  6 Dec 2021 10:20:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04D7CAA367;
- Fri,  3 Dec 2021 22:54:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1638572042; x=1670108042;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=e4qZ64tdPXRrTX21Jx7vS5boXNuRbN7XPdFg7iiO9O4=;
- b=Uu1pLx3XUFqqMi5b8KgtB6oQXMTcCWt1wHOOzTjHzdlW2DZmOxp0HJHH
- fWhEVBox8FisyII77DJ5WdlSFAepLGH7FSkSOV/XwMqB4CQrP1GzW3zjY
- 7MQx1VZ+3HxIXtp6N04P+4AGxOdVXKV/F1hJvNszlBlRU4cZeu0SIki34 c=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 03 Dec 2021 14:54:02 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Dec 2021 14:54:01 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Fri, 3 Dec 2021 14:54:01 -0800
-Received: from [10.110.99.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Fri, 3 Dec 2021
- 14:54:00 -0800
-Message-ID: <7c686adc-4288-f29a-c82a-5decab8db703@quicinc.com>
-Date: Fri, 3 Dec 2021 14:53:59 -0800
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F57D6FC0B
+ for <freedreno@lists.freedesktop.org>; Sun,  5 Dec 2021 00:04:54 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id c32so15864011lfv.4
+ for <freedreno@lists.freedesktop.org>; Sat, 04 Dec 2021 16:04:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=QHHT00VDKbwiouuYvA1Na4+bMK2mwHXPvhFSQ6VIIAQ=;
+ b=SwRQubzrVU07x/VktGwMithEDwR0OtcUO9ZRFHzLW29oKvJBZZrIj3BQgW4J1XqokR
+ rp2LCfezWTiENH43r57iXD7DQ5kMd/og8uEKihoNgjX9GfRuBouLkTgq5DNIASWEVZ5l
+ sah5gLr05evGtVIBNyJwZn3dmNmHwTD9luKmqnv7wSFkPyEnIc8XJ36qmg+DPYe6wEnQ
+ iH72RIuchoJnPUgGR6qo2f/CrIKy3SsJv7o69ZvmNc5qakkyvpo7/6s0buqpjodOXWhb
+ fnx13/BsnQtUKnwKlUaXH8m6oM3j8KTnEOnJTULiFm2WXKCS/AutviM7TzmrK5HXtVyO
+ ciDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=QHHT00VDKbwiouuYvA1Na4+bMK2mwHXPvhFSQ6VIIAQ=;
+ b=IZkzJBnwXxDS/Kek6cjBS4iBC+jTv9AbPm0jvDWl/i+2AHkqDQ1DVm6zij1sC9/+6P
+ 24fezWmqSRi5CIIKh1broOyJcKA+qsDb5iZNbVc/NPqK/EMwM7y0r6GSEuapEh+w14bg
+ UK1MGWvMVsr81V5sauaEpd3IumQut/nl8BSVhnMBW7TezMhNHjzVLvVEPp/VscN03fY5
+ Q7FtW3I1JjMw5Z6bciUujC1r5tEzQqAjtsVHdpKid/B/NDGifo1sAtSdC0pghdoU4ac4
+ FiAdzxzG5V0nGHy7uWmRaqhqJIr2xSMs40twV4/OtSlD76hLAch87Bvlor3kRxoRlpsE
+ lm5A==
+X-Gm-Message-State: AOAM533Sh9f6mxheWJdveIxDc4Y91YPWvUMHXBJoDDnjTW0/z+CnZgla
+ y1CISoEwyRe1BUokXwwNIvPn/w==
+X-Google-Smtp-Source: ABdhPJyf0aWmyyXdQuK9tcW9hG+AZg5FYjzqR1EZHhkn86w8R8hWq3kojn/veWvo4kuYm0XtzbmClg==
+X-Received: by 2002:a05:6512:3f0c:: with SMTP id
+ y12mr18196895lfa.579.1638662692680; 
+ Sat, 04 Dec 2021 16:04:52 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id x6sm910322lff.125.2021.12.04.16.04.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Dec 2021 16:04:52 -0800 (PST)
+Message-ID: <9ef59b63-fb05-5a4b-4327-479eb48cf618@linaro.org>
+Date: Sun, 5 Dec 2021 03:04:51 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
- <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, <sean@poorly.run>,
- <vkoul@kernel.org>
-References: <1636493893-7600-1-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n51-=qTWfBVPFEmpEb7md6cg5O__bhydXTUb+=8dRqCuqg@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n51-=qTWfBVPFEmpEb7md6cg5O__bhydXTUb+=8dRqCuqg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: do not initialize phy until
- plugin interrupt received
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
+ airlied@linux.ie, agross@kernel.org, bjorn.andersson@linaro.org
+References: <1638568959-7564-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1638568959-7564-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add "qcom,
+ sc7280-dp" to support display port.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,64 +75,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kuogee Hsieh <khsieh@codeaurora.org>, aravindh@codeaurora.org,
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 04/12/2021 01:02, Kuogee Hsieh wrote:
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
-On 12/2/2021 6:41 PM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2021-11-09 13:38:13)
->> From: Kuogee Hsieh <khsieh@codeaurora.org>
->>
->> Current DP drivers have regulators, clocks, irq and phy are grouped
->> together within a function and executed not in a symmetric manner.
->> This increase difficulty of code maintenance and limited code scalability.
->> This patch divided the driver life cycle of operation into four states,
->> resume (including booting up), dongle plugin, dongle unplugged and suspend.
->> Regulators, core clocks and irq are grouped together and enabled at resume
->> (or booting up) so that the DP controller is armed and ready to receive HPD
->> plugin interrupts. HPD plugin interrupt is generated when a dongle plugs
->> into DUT (device under test). Once HPD plugin interrupt is received, DP
->> controller will initialize phy so that dpcd read/write will function and
->> following link training can be proceeded successfully. DP phy will be
->> disabled after main link is teared down at end of unplugged HPD interrupt
->> handle triggered by dongle unplugged out of DUT. Finally regulators, code
->> clocks and irq are disabled at corresponding suspension.
->>
->> Changes in V2:
->> -- removed unnecessary dp_ctrl NULL check
->> -- removed unnecessary phy init_count and power_count DRM_DEBUG_DP logs
->> -- remove flip parameter out of dp_ctrl_irq_enable()
->> -- add fixes tag
->>
->> Changes in V3:
->> -- call dp_display_host_phy_init() instead of dp_ctrl_phy_init() at
->>          dp_display_host_init() for eDP
->>
->> Changes in V4:
->> -- rewording commit text to match this commit changes
->>
->> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
->>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
-> Can you please resend this based on the msm-next branch[1]? It doesn't
-> apply now that other patches have been applied.
->
-> [1] https://gitlab.freedesktop.org/drm/msm.git msm-next
+Reviewed by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Stephen, below patches  missed at msm-next branch. Are there merged soon?
-
-1) WIP: drm/msm/dp: Detect the connector type based on reg property
-
-2) WIP: handle no-hpd property in DP driver
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index d44f18b..91582d3 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -146,6 +146,7 @@ static const struct msm_dp_config sc7280_dp_cfg = {
+>   static const struct of_device_id dp_dt_match[] = {
+>   	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
+>   	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_cfg },
+> +	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_cfg },
+>   	{}
+>   };
+>   
+> 
 
 
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 87 ++++++++++++++++---------------------
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  9 ++--
->>   drivers/gpu/drm/msm/dp/dp_display.c | 83 ++++++++++++++++++++++++++---------
->>   3 files changed, 105 insertions(+), 74 deletions(-)
->>
+-- 
+With best wishes
+Dmitry
