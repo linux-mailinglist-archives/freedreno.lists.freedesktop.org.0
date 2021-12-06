@@ -2,57 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57BC1469385
-	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 11:23:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 198F846A1DA
+	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 17:57:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 845A673F7A;
-	Mon,  6 Dec 2021 10:20:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88F176FB84;
+	Mon,  6 Dec 2021 16:57:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E02E6E323
- for <freedreno@lists.freedesktop.org>; Sun,  5 Dec 2021 04:05:28 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- x3-20020a05683000c300b0057a5318c517so8980618oto.13
- for <freedreno@lists.freedesktop.org>; Sat, 04 Dec 2021 20:05:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=AXzcZCKOBu/msJYDlg3Y+fzM95FhQ9eIvXKzuLg8CYs=;
- b=AmuNcydbQKjrjST36znuG6aIEps8lr+NEoZm8GTsEJRrucyjgTzlxRG5CWPEAF5zLI
- jQzT0P+RXN+fZz1zyegaxKmqkaob+q9Qx7NFgGzwYqMNNvPNLIv10p44avHxK1L5LOi3
- bygNpdX9oJMohTtI3RY5UtfKzoaa+WypyAjpg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=AXzcZCKOBu/msJYDlg3Y+fzM95FhQ9eIvXKzuLg8CYs=;
- b=e6xk5Tcup2wd1uwwZWKzN6AjkVIZlv87pkK5NYQbUWoIZiI8Q7byQWZQSJzjt3j8ce
- OnTP4wh611TMksvspA2wPDeVQDLHiM0JX0+kOVch6i/aE8/M0VrGQj1+Yb46TL5k7vTu
- e9mcRXajzoyHMhco4LM4gqS/VHQZETnuDoFeCpLSEf1QfD5/se21cXBliNIQBUw03hfA
- 5aMFqIpewKhe7BgcJDiXIFmJnmgR4BbznjPjK06OUoMSzAOLbEw3BDpV7lhpruAsKdDx
- /kXMsjIOh7qvxpBvDBzTqkHLkVYTMCtdIQdGO8WEDBPDd3TP9nluUPaHnEGtyTbzZS8X
- B3Lg==
-X-Gm-Message-State: AOAM5327feESmpJgM5hXBMcrKsJlM1lqrRhydO0h8OX4kAx6V8DcU01N
- 17e01NERQY3bVOougHAvZZEdxOrAJQoxykKk1je9vg==
-X-Google-Smtp-Source: ABdhPJxWcPtz+q1YJarR+oJWSUf3FTjY0xDPDQPv8K4vpWyix5KmjKghi6TmOgkMKNZ83F0NU4bIZDFmxzAfdegAiwA=
-X-Received: by 2002:a9d:2243:: with SMTP id o61mr23402340ota.126.1638677127497; 
- Sat, 04 Dec 2021 20:05:27 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 4 Dec 2021 20:05:27 -0800
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB1016FB03;
+ Mon,  6 Dec 2021 16:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1638809857; x=1670345857;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=V7rTUqojNdaNsDSKb6IQlmWwFfl/NXbnE5+C4ogte7Y=;
+ b=CQqH3o/9fxG0rirmtOPLQMT1PYPkC/K+Mo79gSRdrS8wklPelT5YRwbX
+ a3F7w6H0ZJ5KIly45uVI7JmvCrvt1zMcy+l/cmPmEh69CEOHH1cY+1TDS
+ kN/gefKRFXW2HoElTT2ahUEs8DiWiN6EZzrq7W0mru/+HIXAi0TSOQ0VJ I=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 06 Dec 2021 08:57:36 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 08:57:35 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 6 Dec 2021 08:57:35 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 6 Dec 2021 08:57:34 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 6 Dec 2021 08:57:26 -0800
+Message-ID: <1638809846-31950-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1638568959-7564-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1638568959-7564-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Sat, 4 Dec 2021 20:05:26 -0800
-Message-ID: <CAE-0n51TZG9SjjOaNmNJPhzOZmQLsywcAT7_Vf4uz4VPga5xhw@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add "qcom,
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: Add "qcom,
  sc7280-dp" to support display port.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,31 +64,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
  quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+ quic_khsieh@quicinc.com, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-12-03 14:02:39)
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 1 +
->  1 file changed, 1 insertion(+)
+Changes in v2:
+-- move "qcom,sc7280-dp" before "qcom,sc7280-edp"
 
-One nit
-
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 1 +
+ 1 file changed, 1 insertion(+)
 
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index d44f18b..91582d3 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -146,6 +146,7 @@ static const struct msm_dp_config sc7280_dp_cfg = {
->  static const struct of_device_id dp_dt_match[] = {
->         { .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
->         { .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_cfg },
-> +       { .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_cfg },
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d44f18b..505114a 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -145,6 +145,7 @@ static const struct msm_dp_config sc7280_dp_cfg = {
+ 
+ static const struct of_device_id dp_dt_match[] = {
+ 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
++	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_cfg },
+ 	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_cfg },
+ 	{}
+ };
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-The letter d comes before e so it would be better to sort this
-alphanumerically and avoid conflicts later.
