@@ -1,45 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 178A146A99E
-	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 22:15:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 866F246A9E4
+	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 22:17:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F86A72DED;
-	Mon,  6 Dec 2021 21:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CFAC733E2;
+	Mon,  6 Dec 2021 21:17:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E60772F2A
- for <freedreno@lists.freedesktop.org>; Mon,  6 Dec 2021 21:15:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33F19733E2;
+ Mon,  6 Dec 2021 21:17:50 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D8B06B810D5;
- Mon,  6 Dec 2021 21:15:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4619CC341C6;
- Mon,  6 Dec 2021 21:15:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id F303FB81235;
+ Mon,  6 Dec 2021 21:17:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27ED0C341C6;
+ Mon,  6 Dec 2021 21:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638825330;
- bh=Sa+KGCq2/sHFHnova0dYBBp7RPzJf/V7LKGoUhjeFd0=;
+ s=k20201202; t=1638825468;
+ bh=GQokSa4i+2CGdyoT/xYJ7/ZpQkkuAmTHc9GaFqI9gjM=;
  h=From:To:Cc:Subject:Date:From;
- b=X1LIr+6hycVxaRBH2OTHNbb4VIEbr1hOXOXeBWkFtKq5RC1nrkfeOLMiUieKVbrW+
- Xz9lImeGp7aai3340OS4dWtOmpni56Vvc8aMxEXsRXxqFZPJC2xJvduY0zH1PUeA6S
- ldkyCyWSSU3dPPw7SGVPLi6/FThChYyHpAyiOUjsQ+synEPsDkHlfzapOzb62B3QER
- vM0cVGjfQGJ5gbJydrBTRm7fw1GrM/oV0CjEUfVCdfQ8DUVUltEPDUXRHcM046rJnc
- NyyqnnUGmiRAwUw86JP30z6pwOcAb+BiB7J0mLRcypwo7UgC7lYpD6uQ+Tu1Wi1gra
- RztVXPOkDLI8g==
+ b=hw0h4XJcMRZiMZvesxmxZjkplsz/TwU3qvxVzy40IMSPYWUExb5TgW1qCDsCNzImA
+ FFNVZa211SYV+AraTxGyNghzQNRBwMuhmv6J68gLqYOPNeZq+uwFcXjWLpk68sRGXd
+ nZGBPjrUcbqFNIKWoDpK5cu1fyYjiwgmc0W4UNUZDLAS0/R20sP/XjZwRD7Uq5WhMR
+ 3VHuLhQVAc1C1+MiaJB3JwIyLWyNkSPHksMdRDv4lw4ODb80Xjp8eS7Mx9gNV3/57A
+ gxJ9NEQpYQMpdDpHi7v7DRq+zGdtrcrRcG6ovn8t9b9UmEC1g0TZD0oL1xZZX6BrFr
+ 3pE9ZYWvCJeYw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  6 Dec 2021 16:15:01 -0500
-Message-Id: <20211206211520.1660478-1-sashal@kernel.org>
+Date: Mon,  6 Dec 2021 16:17:20 -0500
+Message-Id: <20211206211738.1661003-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.10 01/15] drm/msm/dsi: set default
+Subject: [Freedreno] [PATCH AUTOSEL 5.4 01/10] drm/msm/dsi: set default
  num_data_lanes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,10 +88,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 96b5dcf8e4540..64454a63bbacf 100644
+index 5613234823f7d..423c4ae2be10d 100644
 --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
 +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1692,6 +1692,8 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
+@@ -1669,6 +1669,8 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
  	if (!prop) {
  		DRM_DEV_DEBUG(dev,
  			"failed to find data lane mapping, using default\n");
