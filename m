@@ -1,47 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0384146AA25
-	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 22:20:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3782C46AC03
+	for <lists+freedreno@lfdr.de>; Mon,  6 Dec 2021 23:30:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98AE96F9CC;
-	Mon,  6 Dec 2021 21:20:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 490536E17C;
+	Mon,  6 Dec 2021 22:30:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D9C6F9CC;
- Mon,  6 Dec 2021 21:20:15 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id E2C2ACE1867;
- Mon,  6 Dec 2021 21:20:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48FCC341C6;
- Mon,  6 Dec 2021 21:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638825609;
- bh=kC4FYwH8HJL7NPCMtXt+PJlk2zaVV6UEKAoqaCUMYyU=;
- h=From:To:Cc:Subject:Date:From;
- b=dE7ePROwJIlHNsiD8UbKkJWg8p5CF47/3y2d+N72MHwzsYQ14UzF/2P7oZtCjaHpH
- b3mEQl8hVIoLISfqMMjCmh8pFhJc+6bqqYGqILoggUu6Memc4VyxRr/02KEi8sJVFV
- Fef2aOhFgmXr5PboROQw0KfhkGh8ieWuIlI0TYibO5E24qX76W9tcb++gqhI/8lOE8
- 5GOam5LN8bOSZstM4+xDir0EAMCzko9ei3a44Zf6ruHRm+HoS6ZNx8bi0MiXXJ3+R4
- vr9ElJKQgbsL17jT4aNFq0gc4WRYY9UQL/rT1Z8eVSsERbzKZ9Gd577k3NydaRzGSU
- vqdKmcS0C2rWw==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Mon,  6 Dec 2021 16:19:57 -0500
-Message-Id: <20211206212004.1661417-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0F036E17C
+ for <freedreno@lists.freedesktop.org>; Mon,  6 Dec 2021 22:30:13 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ 47-20020a9d0332000000b005798ac20d72so15524799otv.9
+ for <freedreno@lists.freedesktop.org>; Mon, 06 Dec 2021 14:30:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=CAVwfz79yxFN2Zk0PuDTv4duedCcEHp7DsaCS0xQ+pg=;
+ b=cylFgKGs8JTtZhUXod/RUHTI1lDPe2mC/w0AiRtgMLPOimB3h4/G63R66IzxlwhQiL
+ LT/RcvC0cnJdfhL2dzo8q5traVgXhuRBDBUxl1h+pmZV0+uaLtwSK16fPdhSDItJZUc+
+ HVXH8Z5RzmiFySF0gB70R/sz7Rji8XbSA3R0+ddTcjP0qXF/vNk77DvxFdQe/oTs+5e3
+ IU0ks9vQ291kAIEywt81qqdfPmpDjYgV+TgxpYAONHZVjnsUOfSeAnT0J6S2AYM2bkh5
+ yxcYCHP293ScqYlC+0l+LXnckkZnSIKqpu/Sd67Eewm7qy3dTT6JGy7GasYe5OPBv9Aa
+ Jb9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=CAVwfz79yxFN2Zk0PuDTv4duedCcEHp7DsaCS0xQ+pg=;
+ b=JRZdXd9qHSYuwXICMd5aM8GQ5hnRD8Ei/hnYDC6iJo/Gg4+/90R2KBnq3LMsQOpI13
+ nxVgDrirHaCP6c4JSRxx+PEPI1q2vVg7SgbgMlsaZPGjxzg+7UGQNwlQkcZKvOYvxxf6
+ 744qGQCwnZgivCzhdw9wJ7Pqutkq/Atvyi+B7j8lJg94yk5+oeAcACd0uhxeiSx5bnwL
+ Ta5RGGUDpTXPzYl/Jrx3ruh7rDCr+fav/XCO69zGEwz4xvHOGPZJ01/x6ZJUDD+0u9FT
+ X01jKDJDxYi1R1bi3J0B//oXk0aatdtexfJXwYeDgb/7jW16J8rQLq1ILgGdg6ZWGLDV
+ nbTw==
+X-Gm-Message-State: AOAM533FskfY3PoXRC55unYQe2zz+ukJJae/w/BVQ0jlrmwDnE9RpYU/
+ a17I7hKa3WyAusy902lyp5Aw4Q==
+X-Google-Smtp-Source: ABdhPJwJoHiYQW5ssIUBVBMkso32IzKsSY64OY0b75kyPHvg1HEXXLecizsZ4zwpDefzzbDVmVjchw==
+X-Received: by 2002:a9d:7a8c:: with SMTP id l12mr31262381otn.84.1638829812821; 
+ Mon, 06 Dec 2021 14:30:12 -0800 (PST)
+Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id y17sm2510204ote.48.2021.12.06.14.30.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Dec 2021 14:30:12 -0800 (PST)
+Date: Mon, 6 Dec 2021 14:31:40 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Message-ID: <Ya6PTGN4zaZ8RD9K@ripper>
+References: <YVd3YdfgFVc0Br5T@ripper>
+ <CAD=FV=U=xVLuKOYHbGPTkLjGa8_U+F1ZtEvJt4LGaRuR5SsKFw@mail.gmail.com>
+ <YVumL1lHLqtb/HKS@ripper>
+ <CAD=FV=W9uKq00wXn4H1ax0u2D=R8Wn3J-Je43uxcPyDtk7AK7Q@mail.gmail.com>
+ <YVyMwsvLl6XalJxB@ripper>
+ <CAD=FV=WY+g38p7--QKZCaQnSqx7VvdwC36jH-VKnrEWoxK=XHQ@mail.gmail.com>
+ <YV0KBWxVtKgOp2Cj@ripper>
+ <CAD=FV=X5JFE3u9BtxxocaUrYNSpYXJN90UJ8HOvXZE6oYiVsDQ@mail.gmail.com>
+ <CACeCKac4b_ej87cQD692TNwpsoFsmBwDcSeLy5fp+pvLX1si7g@mail.gmail.com>
+ <YV7JNH9QvI4cBz5s@kuha.fi.intel.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 4.14 1/6] drm/msm/dsi: set default
- num_data_lanes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YV7JNH9QvI4cBz5s@kuha.fi.intel.com>
+Subject: Re: [Freedreno] [RFC] drm/msm/dp: Allow attaching a drm_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,53 +78,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
- Philip Chen <philipchen@chromium.org>, dri-devel@lists.freedesktop.org,
- jonathan@marek.ca, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- jesszhan@codeaurora.org, freedreno@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, abhinavk@codeaurora.org,
- Stephen Boyd <swboyd@chromium.org>, tiny.windzz@gmail.com, robdclark@gmail.com,
- vulab@iscas.ac.cn, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- bjorn.andersson@linaro.org, sean@poorly.run
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Benson Leung <bleung@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Doug Anderson <dianders@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
+ LKML <linux-kernel@vger.kernel.org>, Kuogee Hsieh <khsieh@codeaurora.org>,
+ Rob Clark <robdclark@gmail.com>, Prashant Malani <pmalani@chromium.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Vara Reddy <varar@codeaurora.org>, Stephen Boyd <swboyd@chromium.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Philip Chen <philipchen@chromium.org>
+On Thu 07 Oct 03:17 PDT 2021, Heikki Krogerus wrote:
+> On Wed, Oct 06, 2021 at 01:26:35PM -0700, Prashant Malani wrote:
+> > (CC+ Heikki)
+[..]
+> > On Wed, Oct 6, 2021 at 8:19 AM Doug Anderson <dianders@chromium.org> wrote:
+[..]
+>         void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode);
+> 
+> If your USB Type-C controller/port driver does not yet register the DP
+> alt mode, the it's responsible of handling HPD separately by calling
+> drm_connector_oob_hotplug_event() on its own.
+> 
 
-[ Upstream commit cd92cc187c053ab010a1570e2d61d68394a5c725 ]
+Finally found my way back to this topic and it doesn't look like I can
+reuse the existing altmode code with the firmware interface provided by
+Qualcomm, so  I just hacked something up that invokes
+drm_connector_oob_hotplug_event().
 
-If "data_lanes" property of the dsi output endpoint is missing in
-the DT, num_data_lanes would be 0 by default, which could cause
-dsi_host_attach() to fail if dsi->lanes is set to a non-zero value
-by the bridge driver.
+But I'm not able to make sense of what the expected usage is. Reading
+altmode/displayport.c, it seems that I should only invoke
+drm_connector_oob_hotplug_event() as HPD state toggles.
 
-According to the binding document of msm dsi controller, the
-input/output endpoint of the controller is expected to have 4 lanes.
-So let's set num_data_lanes to 4 by default.
+I made a trial implementation of this, where my firmware interface
+driver calls drm_connector_oob_hotplug_event() every time HPD state
+changes and then in my oob_hotplug_event callback I flip the DP
+controller between on and off.
 
-Signed-off-by: Philip Chen <philipchen@chromium.org>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Link: https://lore.kernel.org/r/20211030100812.1.I6cd9af36b723fed277d34539d3b2ba4ca233ad2d@changeid
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
- 1 file changed, 2 insertions(+)
+Unfortunately when I then connect my HDMI dongle, I get HPD state HIGH,
+call the oob_hotplug_event, the DP driver powers up and concludes that
+there's nothing connected to the dongle and goes to idle. I then connect
+the HDMI cable to the dongle, the firmware sends me another message with
+HPD irq and state HIGH, which I ignore because it's not a change in
+state.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index ef4e81d774464..d49f177481195 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1563,6 +1563,8 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
- 	if (!prop) {
- 		dev_dbg(dev,
- 			"failed to find data lane mapping, using default\n");
-+		/* Set the number of date lanes to 4 by default. */
-+		msm_host->num_data_lanes = 4;
- 		return 0;
- 	}
- 
--- 
-2.33.0
+In the end I hacked up drm_connector_oob_hotplug_event() to allow me to
+pass the HPD state and this solves my problem. I can now distinguish
+between connect, disconnect and attention.
 
+Can you please help shed some light on what I might be missing?
+
+Thanks,
+Bjorn
