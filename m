@@ -2,63 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AD8E46DBC7
-	for <lists+freedreno@lfdr.de>; Wed,  8 Dec 2021 20:05:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8298346DD35
+	for <lists+freedreno@lfdr.de>; Wed,  8 Dec 2021 21:36:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F2F6E0CC;
-	Wed,  8 Dec 2021 19:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A67EF6E8F0;
+	Wed,  8 Dec 2021 20:36:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C57A76E0CC
- for <freedreno@lists.freedesktop.org>; Wed,  8 Dec 2021 19:05:20 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- m37-20020a4a9528000000b002b83955f771so1114315ooi.7
- for <freedreno@lists.freedesktop.org>; Wed, 08 Dec 2021 11:05:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=lejPiRmctEuRtvKndUl9vo6YCr6nisYO8cpGX4786Xo=;
- b=oXjvGT+/kdQqKfxBuxWRqddSJIIg53qYCsGC+KzaqoPHoxvYHLXaOCKqIVxlK+bTCg
- zRhArvuTU0L3Rt4d+OihgDQ2EPwy7V1baQ0OX2FFwzzMyT164tj56N08j5mtzps15Hkd
- b4i9Ui0+p7ZG2roOgtyOo6H1eCDADEHR5ZbbaUByXTkYn9p3Vql/Rcu74gH+1oebh3AB
- zR1aH+39eGUZi6nxq5v54kGGJggkzpiLRFXv13BPThagp8HClb88/bxFEB8LF51jkdi0
- XWZSW6cWgudSDZ1uRSeafGZJRfnopOoWVgfVzMXCI8B+04PwxXxEoEF+EdWg1AXTwEY7
- xxWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=lejPiRmctEuRtvKndUl9vo6YCr6nisYO8cpGX4786Xo=;
- b=FP0gdLkiq1fPKDoTnFRNLtcddLcFrkegrcD8QG2ZYfMTb0v5X047LH9ouuAZWGevz9
- bbT6v6oSYuVeXmMI1Qhrl0bdtpx8YwCxq89C5UBDeLYZKhtz9tvJuN53AC3dbA6NYaa1
- iWDUiMC7Z4SpTUcYKuJzhMX8SYjtNBearICuYNmMvE9UqZW27omAhRS/5YlqaTEWfahM
- Y3nv8uMthZWfjcn4q6oNOOPjCBbqQVemIfZunGCmkFhtWpcMTmK2RMwoztCOD/S7/KbP
- /z3rCgaJvu4/IqSime4J8/Y5N2AUGj6GBOrAQTelP5pdN1HM4fSkKA60T+nwKNt4rsUw
- QkEg==
-X-Gm-Message-State: AOAM531s3+zK9vtxkFn12WaEKvEE3vbs1FU+gBU8ozkMuuZoJ+UWCIaF
- Ch8h/WeGDhbt4dylwyIUSSOdpA==
-X-Google-Smtp-Source: ABdhPJzoyz3xGrdj1XsVFRJ1ci38GsnWeT2T4CNca/I92joR/HrFEGypSkxVBr/jJYscMUSRSsNwqQ==
-X-Received: by 2002:a05:6870:1601:b0:a8:8536:cc4a with SMTP id
- 586e51a60fabf-a88536daa8mr196057fac.151.1638990318788; 
- Wed, 08 Dec 2021 11:05:18 -0800 (PST)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id f9sm592136oto.56.2021.12.08.11.05.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Dec 2021 11:05:18 -0800 (PST)
-Date: Wed, 8 Dec 2021 11:06:42 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <YbECQsLeSojjO9ZY@ripper>
-References: <1638989431-24811-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B7F56E215;
+ Wed,  8 Dec 2021 20:36:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1638995796; x=1670531796;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=IphjiUcjl+nYzuUyIdfjMagLQjcGH9ZSdL5t0YUX+ZM=;
+ b=pluocpqw8ty61QYTU/waGXc7kU6A+o27T7BGoeNyZkBYK3OgJL6QpWgX
+ VRkfcm/QURzcJQKmWAUP1aFFNQZ2pD/kYKJYG2bLk604nyZ3mGyfk3Enw
+ 890+zknsBoMpe7rw0lFoWl0mCNJyZ3AWtUdoSquySLuJDDP+MhGaXiN2p w=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Dec 2021 12:36:35 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 12:36:35 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 8 Dec 2021 12:36:34 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 8 Dec 2021 12:36:33 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 8 Dec 2021 12:36:24 -0800
+Message-ID: <1638995784-30187-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1638989431-24811-1-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v5] phy: qcom-qmp: add support for display
- port voltage and pre-emphasis swing
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v6] drm/msm/dp: do not initialize phy until
+ plugin interrupt received
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,236 +62,421 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, quic_abhinavk@quicinc.com, kishon@ti.com,
- freedreno@lists.freedesktop.org, vkoul@kernel.org, robh+dt@kernel.org,
- swboyd@chromium.org, Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com,
- agross@kernel.org, p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org,
- aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed 08 Dec 10:50 PST 2021, Kuogee Hsieh wrote:
+Current DP drivers have regulators, clocks, irq and phy are grouped
+together within a function and executed not in a symmetric manner.
+This increase difficulty of code maintenance and limited code scalability.
+This patch divided the driver life cycle of operation into four states,
+resume (including booting up), dongle plugin, dongle unplugged and suspend.
+Regulators, core clocks and irq are grouped together and enabled at resume
+(or booting up) so that the DP controller is armed and ready to receive HPD
+plugin interrupts. HPD plugin interrupt is generated when a dongle plugs
+into DUT (device under test). Once HPD plugin interrupt is received, DP
+controller will initialize phy so that dpcd read/write will function and
+following link training can be proceeded successfully. DP phy will be
+disabled after main link is teared down at end of unplugged HPD interrupt
+handle triggered by dongle unplugged out of DUT. Finally regulators, code
+clocks and irq are disabled at corresponding suspension.
 
-> From: Kuogee Hsieh <khsieh@codeaurora.org>
-> 
-> Both voltage and pre-emphasis swing level are set during link training
-> negotiation between host and sink. There are totally four tables added.
-> A voltage swing table for both hbr and hbr1, a voltage table for both
-> hbr2 and hbr3, a pre-emphasis table for both hbr and hbr1 and a pre-emphasis
-> table for both hbr2 and hbr3. In addition, write 0x0a to TX_TX_POL_INV is
-> added to complete the sequence of configure dp phy base on HPG.
-> 
+Changes in V2:
+-- removed unnecessary dp_ctrl NULL check
+-- removed unnecessary phy init_count and power_count DRM_DEBUG_DP logs
+-- remove flip parameter out of dp_ctrl_irq_enable()
+-- add fixes tag
 
-Let me repeat my feedback on v4:
-https://lore.kernel.org/all/YalSS1C4%2FXUzz62q@ripper/
+Changes in V3:
+-- call dp_display_host_phy_init() instead of dp_ctrl_phy_init() at
+        dp_display_host_init() for eDP
 
+Changes in V4:
+-- rewording commit text to match this commit changes
 
-$subject and the commit test tells a story about you adding support for
-voltage and pre-emphasis swing tables. But the driver already has that!
+Changes in V5:
+-- rebase on top of msm-next branch
 
-What your change does is add support for having separate tables for each
-version and define the v4 tables.
+Changes in V6:
+-- delete flip variable
 
-> Chnages in v2:
-> -- revise commit test
-> -- add Fixes tag
-> -- replaced voltage_swing_cfg with voltage
-> -- replaced pre_emphasis_cfg with emphasis
-> -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_v4_phy_configure_dp_swing()
-> -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_phy_configure_dp_swing()
-> 
-> Changes in V3:
-> -- add __qcom_qmp_phy_configure_dp_swing() to commit swing/pre-emphasis level
-> 
-> Changes in V4:
-> -- pass 2D array to __qcom_qmp_phy_configure_dp_swing()
-> 
-> Changes in V5:
-> -- rebase on msm-next
+Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
 
-Listing the changelog within the commit message is something done in
-drivers/gpu/, the rest of the kernel doesn't do this. So please move it
-below the '---' line.
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 87 ++++++++++++++++---------------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  9 ++--
+ drivers/gpu/drm/msm/dp/dp_display.c | 81 ++++++++++++++++++++++++----------
+ 3 files changed, 102 insertions(+), 75 deletions(-)
 
-> 
-> Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index c724cb0..7f0d647 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1365,60 +1365,54 @@ static int dp_ctrl_enable_stream_clocks(struct dp_ctrl_private *ctrl)
+ 	return ret;
+ }
+ 
+-int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset)
++void dp_ctrl_irq_enable(struct dp_ctrl *dp_ctrl)
++{
++	struct dp_ctrl_private *ctrl;
++
++	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
++
++	dp_catalog_ctrl_reset(ctrl->catalog);
++
++	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
++}
++
++void dp_ctrl_irq_disable(struct dp_ctrl *dp_ctrl)
++{
++	struct dp_ctrl_private *ctrl;
++
++	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
++
++	dp_catalog_ctrl_reset(ctrl->catalog);
++
++	dp_catalog_ctrl_enable_irq(ctrl->catalog, false);
++}
++
++void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
+ {
+ 	struct dp_ctrl_private *ctrl;
+ 	struct dp_io *dp_io;
+ 	struct phy *phy;
+ 
+-	if (!dp_ctrl) {
+-		DRM_ERROR("Invalid input data\n");
+-		return -EINVAL;
+-	}
+-
+ 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+ 	dp_io = &ctrl->parser->io;
+ 	phy = dp_io->phy;
+ 
+-	ctrl->dp_ctrl.orientation = flip;
+-
+-	if (reset)
+-		dp_catalog_ctrl_reset(ctrl->catalog);
+-
+-	DRM_DEBUG_DP("flip=%d\n", flip);
+ 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_init(phy);
+-	dp_catalog_ctrl_enable_irq(ctrl->catalog, true);
+-
+-	return 0;
+ }
+ 
+-/**
+- * dp_ctrl_host_deinit() - Uninitialize DP controller
+- * @dp_ctrl: Display Port Driver data
+- *
+- * Perform required steps to uninitialize DP controller
+- * and its resources.
+- */
+-void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl)
++void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl)
+ {
+ 	struct dp_ctrl_private *ctrl;
+ 	struct dp_io *dp_io;
+ 	struct phy *phy;
+ 
+-	if (!dp_ctrl) {
+-		DRM_ERROR("Invalid input data\n");
+-		return;
+-	}
+-
+ 	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+ 	dp_io = &ctrl->parser->io;
+ 	phy = dp_io->phy;
+ 
+-	dp_catalog_ctrl_enable_irq(ctrl->catalog, false);
++	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_exit(phy);
+-
+-	DRM_DEBUG_DP("Host deinitialized successfully\n");
+ }
+ 
+ static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
+@@ -1893,8 +1887,14 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 		return ret;
+ 	}
+ 
++	DRM_DEBUG_DP("Before, phy=%x init_count=%d power_on=%d\n",
++		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
++
+ 	phy_power_off(phy);
+ 
++	DRM_DEBUG_DP("After, phy=%x init_count=%d power_on=%d\n",
++		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
++
+ 	/* aux channel down, reinit phy */
+ 	phy_exit(phy);
+ 	phy_init(phy);
+@@ -1903,23 +1903,6 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 	return ret;
+ }
+ 
+-void dp_ctrl_off_phy(struct dp_ctrl *dp_ctrl)
+-{
+-	struct dp_ctrl_private *ctrl;
+-	struct dp_io *dp_io;
+-	struct phy *phy;
+-
+-	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+-	dp_io = &ctrl->parser->io;
+-	phy = dp_io->phy;
+-
+-	dp_catalog_ctrl_reset(ctrl->catalog);
+-
+-	phy_exit(phy);
+-
+-	DRM_DEBUG_DP("DP off phy done\n");
+-}
+-
+ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+ {
+ 	struct dp_ctrl_private *ctrl;
+@@ -1947,10 +1930,14 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+ 		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+ 	}
+ 
++	DRM_DEBUG_DP("Before, phy=%x init_count=%d power_on=%d\n",
++		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
++
+ 	phy_power_off(phy);
+-	phy_exit(phy);
+ 
+-	DRM_DEBUG_DP("DP off done\n");
++	DRM_DEBUG_DP("After, phy=%x init_count=%d power_on=%d\n",
++		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 2363a2d..30f9414 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -19,12 +19,9 @@ struct dp_ctrl {
+ 	u32 pixel_rate;
+ };
+ 
+-int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset);
+-void dp_ctrl_host_deinit(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
+-void dp_ctrl_off_phy(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
+ void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl);
+ void dp_ctrl_isr(struct dp_ctrl *dp_ctrl);
+@@ -34,4 +31,10 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
+ 			struct dp_power *power, struct dp_catalog *catalog,
+ 			struct dp_parser *parser);
+ 
++void dp_ctrl_irq_enable(struct dp_ctrl *dp_ctrl);
++void dp_ctrl_irq_disable(struct dp_ctrl *dp_ctrl);
++void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl);
++void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl);
++void dp_ctrl_irq_phy_exit(struct dp_ctrl *dp_ctrl);
++
+ #endif /* _DP_CTRL_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index d44f18b..0a53066 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -83,6 +83,7 @@ struct dp_display_private {
+ 
+ 	/* state variables */
+ 	bool core_initialized;
++	bool phy_initialized;
+ 	bool hpd_irq_on;
+ 	bool audio_supported;
+ 
+@@ -375,21 +376,46 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+ 	return rc;
+ }
+ 
+-static void dp_display_host_init(struct dp_display_private *dp, int reset)
++static void dp_display_host_phy_init(struct dp_display_private *dp)
+ {
+-	bool flip = false;
++	DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
++			dp->core_initialized, dp->phy_initialized);
+ 
++	if (!dp->phy_initialized) {
++		dp_ctrl_phy_init(dp->ctrl);
++		dp->phy_initialized = true;
++	}
++}
++
++static void dp_display_host_phy_exit(struct dp_display_private *dp)
++{
++	DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
++			dp->core_initialized, dp->phy_initialized);
++
++	if (dp->phy_initialized) {
++		dp_ctrl_phy_exit(dp->ctrl);
++		dp->phy_initialized = false;
++	}
++}
++
++static void dp_display_host_init(struct dp_display_private *dp)
++{
+ 	DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
+ 	if (dp->core_initialized) {
+ 		DRM_DEBUG_DP("DP core already initialized\n");
+ 		return;
+ 	}
+ 
+-	if (dp->usbpd->orientation == ORIENTATION_CC2)
+-		flip = true;
++	dp_power_init(dp->power, false);
++	dp_ctrl_irq_enable(dp->ctrl);
++
++	/*
++	 * eDP is the embedded primary display and has its own phy
++	 * initialize phy immediately
++	 */
++	if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP)
++		dp_display_host_phy_init(dp);
+ 
+-	dp_power_init(dp->power, flip);
+-	dp_ctrl_host_init(dp->ctrl, flip, reset);
+ 	dp_aux_init(dp->aux);
+ 	dp->core_initialized = true;
+ }
+@@ -401,7 +427,7 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
+ 		return;
+ 	}
+ 
+-	dp_ctrl_host_deinit(dp->ctrl);
++	dp_ctrl_irq_disable(dp->ctrl);
+ 	dp_aux_deinit(dp->aux);
+ 	dp_power_deinit(dp->power);
+ 
+@@ -412,7 +438,7 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
+ {
+ 	struct dp_display_private *dp = dev_get_dp_display_private(dev);
+ 
+-	dp_display_host_init(dp, false);
++	dp_display_host_phy_init(dp);
+ 
+ 	return dp_display_process_hpd_high(dp);
+ }
+@@ -536,7 +562,7 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 		dp->hpd_state = ST_DISCONNECTED;
+ 
+ 		if (ret == -ECONNRESET) { /* cable unplugged */
+-			dp->core_initialized = false;
++			dp->phy_initialized = false;
+ 		}
+ 
+ 	} else {
+@@ -608,8 +634,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	if (state == ST_DISCONNECTED) {
+ 		/* triggered by irq_hdp with sink_count = 0 */
+ 		if (dp->link->sink_count == 0) {
+-			dp_ctrl_off_phy(dp->ctrl);
+-			dp->core_initialized = false;
++			dp_display_host_phy_exit(dp);
+ 		}
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -698,7 +723,7 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
+ 	if (ret == -ECONNRESET) { /* cable unplugged */
+-		dp->core_initialized = false;
++		dp->phy_initialized = false;
+ 	}
+ 	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 
+@@ -890,12 +915,19 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display->audio_enabled = false;
+ 
+-	/* triggered by irq_hpd with sink_count = 0 */
+ 	if (dp->link->sink_count == 0) {
++		/*
++		 * irq_hpd with sink_count = 0
++		 * hdmi unplugged out of dongle
++		 */
+ 		dp_ctrl_off_link_stream(dp->ctrl);
+ 	} else {
++		/*
++		 * unplugged interrupt
++		 * dongle unplugged out of DUT
++		 */
+ 		dp_ctrl_off(dp->ctrl);
+-		dp->core_initialized = false;
++		dp_display_host_phy_exit(dp);
+ 	}
+ 
+ 	dp_display->power_on = false;
+@@ -1025,7 +1057,7 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
+ static void dp_display_config_hpd(struct dp_display_private *dp)
+ {
+ 
+-	dp_display_host_init(dp, true);
++	dp_display_host_init(dp);
+ 	dp_catalog_ctrl_hpd_config(dp->catalog);
+ 
+ 	/* Enable interrupt first time
+@@ -1304,20 +1336,23 @@ static int dp_pm_resume(struct device *dev)
+ 	dp->hpd_state = ST_DISCONNECTED;
+ 
+ 	/* turn on dp ctrl/phy */
+-	dp_display_host_init(dp, true);
++	dp_display_host_init(dp);
+ 
+ 	dp_catalog_ctrl_hpd_config(dp->catalog);
+ 
+-	/*
+-	 * set sink to normal operation mode -- D0
+-	 * before dpcd read
+-	 */
+-	dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+ 
+ 	if (dp_catalog_link_is_connected(dp->catalog)) {
++		/*
++		 * set sink to normal operation mode -- D0
++		 * before dpcd read
++		 */
++		dp_display_host_phy_init(dp);
++		dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+ 		sink_count = drm_dp_read_sink_count(dp->aux);
+ 		if (sink_count < 0)
+ 			sink_count = 0;
++
++		dp_display_host_phy_exit(dp);
+ 	}
+ 
+ 	dp->link->sink_count = sink_count;
+@@ -1364,6 +1399,8 @@ static int dp_pm_suspend(struct device *dev)
+ 		dp_display_host_deinit(dp);
+ 	}
+ 
++	dp_display_host_phy_exit(dp);
++
+ 	dp->hpd_state = ST_SUSPENDED;
+ 
+ 	/* host_init will be called at pm_resume */
+@@ -1521,7 +1558,7 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+ 	state =  dp_display->hpd_state;
+ 
+ 	if (state == ST_DISPLAY_OFF)
+-		dp_display_host_init(dp_display, true);
++		dp_display_host_phy_init(dp_display);
+ 
+ 	dp_display_enable(dp_display, 0);
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-So you're saying that the tables added in this commit are wrong? If so
-please state so in the commit message.
-
-Regards,
-Bjorn
-
-> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp.c | 97 +++++++++++++++++++++++++------------
->  1 file changed, 66 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> index 456a59d..1f3585d 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> @@ -4283,12 +4283,17 @@ static const u8 qmp_dp_v3_voltage_swing_hbr_rbr[4][4] = {
->  	{ 0x1f, 0xff, 0xff, 0xff }
->  };
->  
-> -static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
-> -		unsigned int drv_lvl_reg, unsigned int emp_post_reg)
-> +static int __qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
-> +				unsigned int drv_lvl_reg,
-> +				unsigned int emp_post_reg,
-> +				const u8 voltage_swing_hbr_rbr[4][4],
-> +				const u8 pre_emphasis_hbr_rbr[4][4],
-> +				const u8 voltage_swing_hbr3_hbr2[4][4],
-> +				const u8 pre_emphasis_hbr3_hbr2[4][4])
->  {
->  	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
->  	unsigned int v_level = 0, p_level = 0;
-> -	u8 voltage_swing_cfg, pre_emphasis_cfg;
-> +	u8 voltage, emphasis;
->  	int i;
->  
->  	for (i = 0; i < dp_opts->lanes; i++) {
-> @@ -4297,26 +4302,25 @@ static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
->  	}
->  
->  	if (dp_opts->link_rate <= 2700) {
-> -		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
-> -		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
-> +		voltage = voltage_swing_hbr_rbr[v_level][p_level];
-> +		emphasis = pre_emphasis_hbr_rbr[v_level][p_level];
->  	} else {
-> -		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
-> -		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
-> +		voltage = voltage_swing_hbr3_hbr2[v_level][p_level];
-> +		emphasis = pre_emphasis_hbr3_hbr2[v_level][p_level];
->  	}
->  
->  	/* TODO: Move check to config check */
-> -	if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
-> +	if (voltage == 0xFF && emphasis == 0xFF)
->  		return -EINVAL;
->  
->  	/* Enable MUX to use Cursor values from these registers */
-> -	voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
-> -	pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
-> -
-> -	writel(voltage_swing_cfg, qphy->tx + drv_lvl_reg);
-> -	writel(pre_emphasis_cfg, qphy->tx + emp_post_reg);
-> -	writel(voltage_swing_cfg, qphy->tx2 + drv_lvl_reg);
-> -	writel(pre_emphasis_cfg, qphy->tx2 + emp_post_reg);
-> +	voltage |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
-> +	emphasis |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
->  
-> +	writel(voltage, qphy->tx + drv_lvl_reg);
-> +	writel(emphasis, qphy->tx + emp_post_reg);
-> +	writel(voltage, qphy->tx2 + drv_lvl_reg);
-> +	writel(emphasis, qphy->tx2 + emp_post_reg);
->  	return 0;
->  }
->  
-> @@ -4325,9 +4329,13 @@ static void qcom_qmp_v3_phy_configure_dp_tx(struct qmp_phy *qphy)
->  	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
->  	u32 bias_en, drvr_en;
->  
-> -	if (qcom_qmp_phy_configure_dp_swing(qphy,
-> -				QSERDES_V3_TX_TX_DRV_LVL,
-> -				QSERDES_V3_TX_TX_EMP_POST1_LVL) < 0)
-> +	if (__qcom_qmp_phy_configure_dp_swing(qphy,
-> +			QSERDES_V3_TX_TX_DRV_LVL,
-> +			QSERDES_V3_TX_TX_EMP_POST1_LVL,
-> +			qmp_dp_v3_voltage_swing_hbr_rbr,
-> +			qmp_dp_v3_pre_emphasis_hbr_rbr,
-> +			qmp_dp_v3_voltage_swing_hbr3_hbr2,
-> +			qmp_dp_v3_pre_emphasis_hbr3_hbr2) < 0)
->  		return;
->  
->  	if (dp_opts->lanes == 1) {
-> @@ -4465,6 +4473,35 @@ static int qcom_qmp_v3_dp_phy_calibrate(struct qmp_phy *qphy)
->  	return 0;
->  }
->  
-> +/* The values in these tables are given without MUX_EN (0x20) bit set */
-> +static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
-> +	{ 0x00, 0x0c, 0x15, 0x1b },
-> +	{ 0x02, 0x0e, 0x16, 0xff },
-> +	{ 0x02, 0x11, 0xff, 0xff },
-> +	{ 0x04, 0xff, 0xff, 0xff }
-> +};
-> +
-> +static const u8 qmp_dp_v4_voltage_swing_hbr3_hbr2[4][4] = {
-> +	{ 0x02, 0x12, 0x16, 0x1a },
-> +	{ 0x09, 0x19, 0x1f, 0xff },
-> +	{ 0x10, 0x1f, 0xff, 0xff },
-> +	{ 0x1f, 0xff, 0xff, 0xff }
-> +};
-> +
-> +static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
-> +	{ 0x00, 0x0e, 0x15, 0x1b },
-> +	{ 0x00, 0x0e, 0x15, 0xff },
-> +	{ 0x00, 0x0e, 0xff, 0xff },
-> +	{ 0x04, 0xff, 0xff, 0xff }
-> +};
-> +
-> +static const u8 qmp_dp_v4_voltage_swing_hbr_rbr[4][4] = {
-> +	{ 0x08, 0x0f, 0x16, 0x1f },
-> +	{ 0x11, 0x1e, 0x1f, 0xff },
-> +	{ 0x16, 0x1f, 0xff, 0xff },
-> +	{ 0x1f, 0xff, 0xff, 0xff }
-> +};
-> +
->  static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
->  {
->  	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_PSR_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
-> @@ -4494,16 +4531,13 @@ static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
->  
->  static void qcom_qmp_v4_phy_configure_dp_tx(struct qmp_phy *qphy)
->  {
-> -	/* Program default values before writing proper values */
-> -	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
-> -	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
-> -
-> -	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
-> -	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
-> -
-> -	qcom_qmp_phy_configure_dp_swing(qphy,
-> +	__qcom_qmp_phy_configure_dp_swing(qphy,
->  			QSERDES_V4_TX_TX_DRV_LVL,
-> -			QSERDES_V4_TX_TX_EMP_POST1_LVL);
-> +			QSERDES_V4_TX_TX_EMP_POST1_LVL,
-> +			qmp_dp_v4_voltage_swing_hbr_rbr,
-> +			qmp_dp_v4_pre_emphasis_hbr_rbr,
-> +			qmp_dp_v4_voltage_swing_hbr3_hbr2,
-> +			qmp_dp_v4_pre_emphasis_hbr3_hbr2);
->  }
->  
->  static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
-> @@ -4622,6 +4656,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
->  	writel(drvr1_en, qphy->tx2 + QSERDES_V4_TX_HIGHZ_DRVR_EN);
->  	writel(bias1_en, qphy->tx2 + QSERDES_V4_TX_TRANSCEIVER_BIAS_EN);
->  
-> +	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
-> +	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
-> +
->  	writel(0x18, qphy->pcs + QSERDES_DP_PHY_CFG);
->  	udelay(2000);
->  	writel(0x19, qphy->pcs + QSERDES_DP_PHY_CFG);
-> @@ -4633,11 +4670,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
->  			10000))
->  		return -ETIMEDOUT;
->  
-> -	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
-> -	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
->  
-> -	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
-> -	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
-> +	writel(0x22, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
-> +	writel(0x22, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
->  
->  	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
->  	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
