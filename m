@@ -1,55 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4711946DD4E
-	for <lists+freedreno@lfdr.de>; Wed,  8 Dec 2021 21:56:33 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA66E46DD91
+	for <lists+freedreno@lfdr.de>; Wed,  8 Dec 2021 22:22:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED4916E927;
-	Wed,  8 Dec 2021 20:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8127A6E09C;
+	Wed,  8 Dec 2021 21:22:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D904F6E8F1;
- Wed,  8 Dec 2021 20:56:08 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id c4so6212458wrd.9;
- Wed, 08 Dec 2021 12:56:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CJdDQMhYJ6d11BQ4V6PS5aK//Lt1I9eil0VryL8BiHs=;
- b=diNzzL/bmu6IXSKa7EYhlc/sF1RDPca+QHs2fCuSpNWquM4myOiXaUkrcLpBYWAp9y
- BVQwpo5fn++KRgB3/uyVYa6XimL+VzNa0yEw3+3UyCQKE1J/nBi0RUaIXV/R0HD+rU2H
- b6xLu3pLUU3+gdW5NTVSzFbMhFy2CFGll4e7nejfHZN+q8c55k1tDGm1iO1sSyCtVmux
- SgMHuADJE+1q42YofxSmJY7je0MaUX78Gi6xCUrhLn8kPj+TzgD/sdNtSu+WyxuLmOvV
- GvD3gYFcKYWVvvJn+vdrvWEbZW/X3JyyNBeG+Yqlq1TnTDfUEyJvsZYJIxKj6SPWcvM4
- nOqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CJdDQMhYJ6d11BQ4V6PS5aK//Lt1I9eil0VryL8BiHs=;
- b=0JKCtrdBMBnsrfDCCXuJsn24cvdz/dQ2TeFwDJK26nqJnOjvjvOhbUqWIOhbT97YII
- kuWVWTcvnRni4FZ4cUyibljy1pTvfbl6IU14b+NX57lOAjsbR1yE1EKWjm3qXgmpEJum
- GhQ/onfW6PV6cxZbXxZH5SLCm8stVgMyC2yVQ5JOShfBAF+RxI+GOuO9wnY6DlZC2UkV
- PuPJMRl0zmSsw6fD/BTLfa6Bw5cu5Dt/0dVKYICR+B2nm7XPo+vQ2zYvolMto2R8idhk
- qzMCB2R7JocHZlG3BrA6Rlup339MR+rlv2kNiS7tJSz0+VLvOtJgeQNJ5jCUHUvH+XXY
- 2Neg==
-X-Gm-Message-State: AOAM530w2BO90G0BlRMtOhdl2ldn8xP4VsrwplYLGZUpGEFaFBHXLUqm
- Gbo0jANaeYCKkM+JM7Y38ipAlbvyx96Sh2Q14m8=
-X-Google-Smtp-Source: ABdhPJzwjXwlVKvdHYUQ/foo40aFsu61uxV259oMyWxrLZWwYlB3cBMpPDHb9TMbXrKHbUTXb1qj1ssgIBWeDk/LOAE=
-X-Received: by 2002:a5d:6a46:: with SMTP id t6mr1196355wrw.141.1638996967126; 
- Wed, 08 Dec 2021 12:56:07 -0800 (PST)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3756E09C
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Dec 2021 21:22:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1638998570; x=1670534570;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=hqpydbPnhf4XmZ6nW5JaL1/4pn7jf3q2e68Be7I46M4=;
+ b=bLsoCbu4SRtHhGeBFS9QPauJZ8z2y0aRYyQ0BXCSvScJPOXw73iquQKq
+ hWCtEGesARN78AaMoMGb9Z50ITt26jBGh/w2tCe+c1crqHI4oS6WcI9xZ
+ JZENn9YNkvryYeospZv03RJlpJJ+CHO8PI+mtqd4ahX0PERbhO/3cZwu2 8=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 08 Dec 2021 13:22:49 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2021 13:22:49 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 8 Dec 2021 13:22:32 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 8 Dec 2021 13:22:31 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <agross@kernel.org>, <bjorn.andersson@linaro.org>,
+ <robh+dt@kernel.org>, <devicetree@vger.kernel.org>
+Date: Wed, 8 Dec 2021 13:22:13 -0800
+Message-ID: <1638998533-3729-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20211105030434.2828845-1-sean@poorly.run>
-In-Reply-To: <20211105030434.2828845-1-sean@poorly.run>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 8 Dec 2021 12:55:55 -0800
-Message-ID: <CAF6AEGvD-2gtqhbWCUMmbJYsOBYKk9DUxzX5+tE7O+Z-BQfghQ@mail.gmail.com>
-To: Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 00/14] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v6] phy: qcom-qmp: add display port v4 voltage
+ and pre-emphasis swing tables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,106 +60,218 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <seanpaul@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: kishon@ti.com, linux-arm-msm@vger.kernel.org, quic_khsieh@quicinc.com,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, p.zabel@pengutronix.de,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 4, 2021 at 8:04 PM Sean Paul <sean@poorly.run> wrote:
->
-> From: Sean Paul <seanpaul@chromium.org>
->
-> Just me with another revision of HDCP support for msm.
->
-> This v4 patch series is mostly a retread of v3 with the following
-> changes:
-> - rebased on Bjorn's displayport-controller register refactor
-> - another change to the dt bindings to remove the compatible string added in v3
-> - updated review tags
->
-> I'm missing reviews on the core, i915 patches, and the final patch. It would be
-> fantastic to get some feedback on these before the set once again drifts too far
-> from -tip and I need a painful rebase :-)
->
-> Thank you to the reviewers for their feedback thus far!
->
-> Please take a look,
+From: Kuogee Hsieh <khsieh@codeaurora.org>
 
-It looks like all but the last two (msm specific) patches have at
-least a-b or r-b.. I'll try and get someone to look at those last two
+"add support for sm8250-usb3-dp phy" patch added functions to support V4
+phy. But it did not update voltage and pre-emphasis tables accordingly.
+This patch add v4 voltage and pre-emphasis swing tables to complete v4
+phy implementation. Both voltage and pre-emphasis swing level are set
+during link training negotiation between host and sink. There are totally
+four tables added.  A voltage swing table for both hbr and hbr1, a voltage
+table for both hbr2 and hbr3, a pre-emphasis table for both hbr and hbr1
+and a pre-emphasis table for both hbr2 and hbr3. In addition, write 0x0a
+to TX_TX_POL_INV is added to complete the sequence of configure dp phy
+base on HPG.
 
-Any thoughts about preferred way to land this.  I currently have a few
-of the msm patches which don't depend on core patches in
-msm-next-staging, but I can drop those before it gets pushed to
-msm-next.  Maybe we want a topic branch that both msm and i915 can
-pull into their -next branches?
+Chnages in v2:
+-- revise commit test
+-- add Fixes tag
+-- replaced voltage_swing_cfg with voltage
+-- replaced pre_emphasis_cfg with emphasis
+-- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_v4_phy_configure_dp_swing()
+-- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_phy_configure_dp_swing()
 
-BR,
--R
+Changes in V3:
+-- add __qcom_qmp_phy_configure_dp_swing() to commit swing/pre-emphasis level
 
->
-> Sean
->
-> Link: https://patchwork.freedesktop.org/series/94623/ #v1
-> Link: https://patchwork.freedesktop.org/series/94713/ #v2
-> Link: https://patchwork.freedesktop.org/series/94712/ #v3
->
-> Sean Paul (14):
->   drm/hdcp: Add drm_hdcp_atomic_check()
->   drm/hdcp: Avoid changing crtc state in hdcp atomic check
->   drm/hdcp: Update property value on content type and user changes
->   drm/hdcp: Expand HDCP helper library for enable/disable/check
->   drm/i915/hdcp: Consolidate HDCP setup/state cache
->   drm/i915/hdcp: Retain hdcp_capable return codes
->   drm/i915/hdcp: Use HDCP helpers for i915
->   drm/msm/dpu_kms: Re-order dpu includes
->   drm/msm/dpu: Remove useless checks in dpu_encoder
->   drm/msm/dpu: Remove encoder->enable() hack
->   drm/msm/dp: Re-order dp_audio_put in deinit_sub_modules
->   dt-bindings: msm/dp: Add bindings for HDCP registers
->   arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
->   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
->
->  .../bindings/display/msm/dp-controller.yaml   |    8 +-
->  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    8 +-
->  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
->  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
->  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
->  .../drm/i915/display/intel_display_types.h    |   58 +-
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
->  drivers/gpu/drm/i915/display/intel_hdcp.h     |   36 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
->  drivers/gpu/drm/msm/Makefile                  |    1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   17 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   30 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |    2 -
->  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |    4 -
->  drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
->  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
->  drivers/gpu/drm/msm/dp/dp_display.c           |   48 +-
->  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
->  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
->  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
->  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  462 +++++++
->  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
->  drivers/gpu/drm/msm/dp/dp_parser.c            |   20 +-
->  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
->  drivers/gpu/drm/msm/dp/dp_reg.h               |   32 +-
->  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
->  include/drm/drm_hdcp.h                        |  194 +++
->  30 files changed, 2592 insertions(+), 1377 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
->
-> --
-> Sean Paul, Software Engineer, Google / Chromium OS
->
+Changes in V4:
+-- pass 2D array to __qcom_qmp_phy_configure_dp_swing()
+
+Changes in V5:
+-- rebase on msm-next
+
+Changes in V6:
+-- change commit text title
+-- re wording commit text
+
+Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
+Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp.c | 97 +++++++++++++++++++++++++------------
+ 1 file changed, 66 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+index 456a59d..1f3585d 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+@@ -4283,12 +4283,17 @@ static const u8 qmp_dp_v3_voltage_swing_hbr_rbr[4][4] = {
+ 	{ 0x1f, 0xff, 0xff, 0xff }
+ };
+ 
+-static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+-		unsigned int drv_lvl_reg, unsigned int emp_post_reg)
++static int __qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
++				unsigned int drv_lvl_reg,
++				unsigned int emp_post_reg,
++				const u8 voltage_swing_hbr_rbr[4][4],
++				const u8 pre_emphasis_hbr_rbr[4][4],
++				const u8 voltage_swing_hbr3_hbr2[4][4],
++				const u8 pre_emphasis_hbr3_hbr2[4][4])
+ {
+ 	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+ 	unsigned int v_level = 0, p_level = 0;
+-	u8 voltage_swing_cfg, pre_emphasis_cfg;
++	u8 voltage, emphasis;
+ 	int i;
+ 
+ 	for (i = 0; i < dp_opts->lanes; i++) {
+@@ -4297,26 +4302,25 @@ static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+ 	}
+ 
+ 	if (dp_opts->link_rate <= 2700) {
+-		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
+-		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
++		voltage = voltage_swing_hbr_rbr[v_level][p_level];
++		emphasis = pre_emphasis_hbr_rbr[v_level][p_level];
+ 	} else {
+-		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
+-		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
++		voltage = voltage_swing_hbr3_hbr2[v_level][p_level];
++		emphasis = pre_emphasis_hbr3_hbr2[v_level][p_level];
+ 	}
+ 
+ 	/* TODO: Move check to config check */
+-	if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
++	if (voltage == 0xFF && emphasis == 0xFF)
+ 		return -EINVAL;
+ 
+ 	/* Enable MUX to use Cursor values from these registers */
+-	voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
+-	pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+-
+-	writel(voltage_swing_cfg, qphy->tx + drv_lvl_reg);
+-	writel(pre_emphasis_cfg, qphy->tx + emp_post_reg);
+-	writel(voltage_swing_cfg, qphy->tx2 + drv_lvl_reg);
+-	writel(pre_emphasis_cfg, qphy->tx2 + emp_post_reg);
++	voltage |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
++	emphasis |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+ 
++	writel(voltage, qphy->tx + drv_lvl_reg);
++	writel(emphasis, qphy->tx + emp_post_reg);
++	writel(voltage, qphy->tx2 + drv_lvl_reg);
++	writel(emphasis, qphy->tx2 + emp_post_reg);
+ 	return 0;
+ }
+ 
+@@ -4325,9 +4329,13 @@ static void qcom_qmp_v3_phy_configure_dp_tx(struct qmp_phy *qphy)
+ 	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+ 	u32 bias_en, drvr_en;
+ 
+-	if (qcom_qmp_phy_configure_dp_swing(qphy,
+-				QSERDES_V3_TX_TX_DRV_LVL,
+-				QSERDES_V3_TX_TX_EMP_POST1_LVL) < 0)
++	if (__qcom_qmp_phy_configure_dp_swing(qphy,
++			QSERDES_V3_TX_TX_DRV_LVL,
++			QSERDES_V3_TX_TX_EMP_POST1_LVL,
++			qmp_dp_v3_voltage_swing_hbr_rbr,
++			qmp_dp_v3_pre_emphasis_hbr_rbr,
++			qmp_dp_v3_voltage_swing_hbr3_hbr2,
++			qmp_dp_v3_pre_emphasis_hbr3_hbr2) < 0)
+ 		return;
+ 
+ 	if (dp_opts->lanes == 1) {
+@@ -4465,6 +4473,35 @@ static int qcom_qmp_v3_dp_phy_calibrate(struct qmp_phy *qphy)
+ 	return 0;
+ }
+ 
++/* The values in these tables are given without MUX_EN (0x20) bit set */
++static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
++	{ 0x00, 0x0c, 0x15, 0x1b },
++	{ 0x02, 0x0e, 0x16, 0xff },
++	{ 0x02, 0x11, 0xff, 0xff },
++	{ 0x04, 0xff, 0xff, 0xff }
++};
++
++static const u8 qmp_dp_v4_voltage_swing_hbr3_hbr2[4][4] = {
++	{ 0x02, 0x12, 0x16, 0x1a },
++	{ 0x09, 0x19, 0x1f, 0xff },
++	{ 0x10, 0x1f, 0xff, 0xff },
++	{ 0x1f, 0xff, 0xff, 0xff }
++};
++
++static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
++	{ 0x00, 0x0e, 0x15, 0x1b },
++	{ 0x00, 0x0e, 0x15, 0xff },
++	{ 0x00, 0x0e, 0xff, 0xff },
++	{ 0x04, 0xff, 0xff, 0xff }
++};
++
++static const u8 qmp_dp_v4_voltage_swing_hbr_rbr[4][4] = {
++	{ 0x08, 0x0f, 0x16, 0x1f },
++	{ 0x11, 0x1e, 0x1f, 0xff },
++	{ 0x16, 0x1f, 0xff, 0xff },
++	{ 0x1f, 0xff, 0xff, 0xff }
++};
++
+ static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+ {
+ 	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_PSR_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+@@ -4494,16 +4531,13 @@ static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+ 
+ static void qcom_qmp_v4_phy_configure_dp_tx(struct qmp_phy *qphy)
+ {
+-	/* Program default values before writing proper values */
+-	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+-	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+-
+-	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+-	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+-
+-	qcom_qmp_phy_configure_dp_swing(qphy,
++	__qcom_qmp_phy_configure_dp_swing(qphy,
+ 			QSERDES_V4_TX_TX_DRV_LVL,
+-			QSERDES_V4_TX_TX_EMP_POST1_LVL);
++			QSERDES_V4_TX_TX_EMP_POST1_LVL,
++			qmp_dp_v4_voltage_swing_hbr_rbr,
++			qmp_dp_v4_pre_emphasis_hbr_rbr,
++			qmp_dp_v4_voltage_swing_hbr3_hbr2,
++			qmp_dp_v4_pre_emphasis_hbr3_hbr2);
+ }
+ 
+ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+@@ -4622,6 +4656,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+ 	writel(drvr1_en, qphy->tx2 + QSERDES_V4_TX_HIGHZ_DRVR_EN);
+ 	writel(bias1_en, qphy->tx2 + QSERDES_V4_TX_TRANSCEIVER_BIAS_EN);
+ 
++	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
++	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
++
+ 	writel(0x18, qphy->pcs + QSERDES_DP_PHY_CFG);
+ 	udelay(2000);
+ 	writel(0x19, qphy->pcs + QSERDES_DP_PHY_CFG);
+@@ -4633,11 +4670,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+ 			10000))
+ 		return -ETIMEDOUT;
+ 
+-	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
+-	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
+ 
+-	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+-	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
++	writel(0x22, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
++	writel(0x22, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+ 
+ 	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+ 	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
