@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB1946DDF1
-	for <lists+freedreno@lfdr.de>; Wed,  8 Dec 2021 23:01:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9833146EE3A
+	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 17:55:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6E3A6E08E;
-	Wed,  8 Dec 2021 22:01:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6512510E299;
+	Thu,  9 Dec 2021 16:53:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 483956E08E;
- Wed,  8 Dec 2021 22:01:28 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- n33-20020a05600c502100b0032fb900951eso5206348wmr.4; 
- Wed, 08 Dec 2021 14:01:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=78Ifs23TtoxatfN7VFvq9AEVPiNcwkeZ+FD9JLKmw8c=;
- b=eoOfS+6CmChrGqIET8UbG2Mcyt7PpnxNsqQBcTKKvvFva2oPLikaLax+o6UFRiitOo
- F75w0TsDGEYb+iHtNj/MgluUFT8K+9sdMVBYHdnKn5GGTM4IuGFSYqfLbj6lKsZVw3cG
- jkY6YDhnrUB/XZ8F7VksJaZbQUZWqAPSCh/CTY1a+j5/SNACoVhI16F5r8rjuQ+8b68t
- RlDrDjlTixZBpkLzx/KRMVrwiNoSvRbJdoOr7k33A/FURILhHfRcEoENHTDBQoChozph
- 8NGQBK13gFNv9z3teV47WwN0Voj2yeN7eK9RoFG8b2QlNdIn6hIX4dOGfm0uf5tiwJKZ
- w2Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=78Ifs23TtoxatfN7VFvq9AEVPiNcwkeZ+FD9JLKmw8c=;
- b=F9qSfnqUZYPCZkUrGtdLhhIB63LjwQqD1yFaBXuEg16YvzX+ZmJg6dn9fygNiz1TDx
- xEoHlCbNgshE6Qa250claoqh2QVxKEUOyRIOJVGa70JSlYuuNg/OxyzwU/a1N+wReqn+
- EIilM72RPqsZ6D23DcIRjLs2fJx9Bj3M5XHwQ2SeShXN/TVNVzM7+Hff0Zt1NDyLk3at
- XAI6Ww5LuxY6K1hS63cUyUUAw+I4d5+oXHISB4iklGp4f87PBvKkj/y9Zm9hN4ONvRVn
- e/Hw4mOkb4Xz3E/d9Dyp5wywhrvjk7GEKY46C3T/6auheyD7Jsgx8qgsP8hWmcsU5W+c
- ftZA==
-X-Gm-Message-State: AOAM532cnl98UNITc/KTs1O1mhRPqlTpPp65niMiaN9po6CRYsTsZwwn
- 5ImiAeeINa6T635g5yveTmIOJ7PVNKLbXqXRip8=
-X-Google-Smtp-Source: ABdhPJx4+51IKWNFMWdRf7kFk0fQGiVNH4ObQU0Pt5G58JOq7C+3hI5cdOhoebAHEgcFR4QJtJpoZ99D+N6A9Eu9azc=
-X-Received: by 2002:a05:600c:4f4b:: with SMTP id
- m11mr1665243wmq.151.1639000886773; 
- Wed, 08 Dec 2021 14:01:26 -0800 (PST)
+Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5AB889F31
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Dec 2021 07:49:27 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1639036167; h=Message-ID: References: In-Reply-To: Subject:
+ Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: Sender; bh=u15F77aBFCZJ0MAZoaaY1dZuTLowi9SVkhbrAQjxT1U=;
+ b=JG/o30myVe6tEniDJrkfI+wyKT8KvD1V9LKDiJQPK42YMDNe2VA2XPIfKJkW74IJJZj7lLL2
+ QTLsTOvKxqgYCX1QV4QCLLXY8esbocSos23QezllKzTmMA83pJqCHfB0h66HTUkNT8KLh8/I
+ /WRBhJViv0S+Dk049qH/mt9gREI=
+X-Mailgun-Sending-Ip: 198.61.254.9
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 61b145ab465c4a723b18d65c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Dec 2021 23:54:19
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id A692CC43617; Wed,  8 Dec 2021 23:54:19 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
+ autolearn=unavailable autolearn_force=no version=3.4.0
+Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested) (Authenticated sender: abhinavk)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3C257C4338F;
+ Wed,  8 Dec 2021 23:54:18 +0000 (UTC)
 MIME-Version: 1.0
-References: <20211105030434.2828845-1-sean@poorly.run>
- <20211105030434.2828845-14-sean@poorly.run>
-In-Reply-To: <20211105030434.2828845-14-sean@poorly.run>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 8 Dec 2021 14:06:43 -0800
-Message-ID: <CAF6AEGv9ghHcd1zhWiBQ40pwx1uMeJ=Y_T5EVo2EV5gTRTtAew@mail.gmail.com>
-To: Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 13/14] arm64: dts: qcom: sc7180: Add
- support for HDCP in dp-controller
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 08 Dec 2021 15:54:18 -0800
+From: abhinavk@codeaurora.org
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+In-Reply-To: <YW2+oPIaVPO7QsqK@ripper>
+References: <20211015231702.1784254-1-bjorn.andersson@linaro.org>
+ <f72263e0d4c118653fff8b1341dc487b@codeaurora.org> <YWxSWlRp+log+Trz@ripper>
+ <7a77045f4069a21305e5c3614a6739f0@codeaurora.org> <YW2+oPIaVPO7QsqK@ripper>
+Message-ID: <8fa353a5fd6e37f570f3a9d4812158a2@codeaurora.org>
+X-Sender: abhinavk@codeaurora.org
+User-Agent: Roundcube Webmail/1.3.9
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Move debugfs files into
+ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,71 +68,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Andy Gross <agross@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Sean Paul <seanpaul@chromium.org>, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Nov 4, 2021 at 8:05 PM Sean Paul <sean@poorly.run> wrote:
->
-> From: Sean Paul <seanpaul@chromium.org>
->
-> This patch adds the register ranges required for HDCP key injection and
-> HDCP TrustZone interaction as described in the dt-bindings for the
-> sc7180 dp controller. Now that these are supported, change the
-> compatible string to "dp-hdcp".
->
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
-> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-14-sean@poorly.run #v3
->
-> Changes in v3:
-> -Split off into a new patch containing just the dts change (Stephen)
-> -Add hdcp compatible string (Stephen)
-> Changes in v4:
-> -Rebase on Bjorn's multi-dp patchset
-> ---
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180.dtsi b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> index c8921e2d6480..838270f70b62 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180.dtsi
-> @@ -3088,7 +3088,13 @@ mdss_dp: displayport-controller@ae90000 {
->                                 compatible = "qcom,sc7180-dp";
->                                 status = "disabled";
->
-> -                               reg = <0 0x0ae90000 0 0x1400>;
-> +                               reg = <0 0x0ae90000 0 0x200>,
-> +                                     <0 0x0ae90200 0 0x200>,
-> +                                     <0 0x0ae90400 0 0xc00>,
-> +                                     <0 0x0ae91000 0 0x400>,
-> +                                     <0 0x0ae91400 0 0x400>,
-> +                                     <0 0x0aed1000 0 0x175>,
-> +                                     <0 0x0aee1000 0 0x2c>;
+On 2021-10-18 11:36, Bjorn Andersson wrote:
+> On Mon 18 Oct 11:07 PDT 2021, abhinavk@codeaurora.org wrote:
+> 
+>> Hi Bjorn
+>> 
+>> On 2021-10-17 09:42, Bjorn Andersson wrote:
+>> > On Fri 15 Oct 16:53 PDT 2021, abhinavk@codeaurora.org wrote:
+>> >
+>> > > On 2021-10-15 16:17, Bjorn Andersson wrote:
+>> > > > In the cleanup path of the MSM DP driver the DP driver's debugfs files
+>> > > > are destroyed by invoking debugfs_remove_recursive() on debug->root,
+>> > > > which during initialization has been set to minor->debugfs_root.
+>> > > >
+>> > > > To allow cleaning up the DP driver's debugfs files either each dentry
+>> > > > needs to be kept track of or the files needs to be put in a subdirectory
+>> > > > which can be removed in one go.
+>> > > >
+>> > > > By choosing to put the debugfs files in a subdirectory, based on the
+>> > > > name of the associated connector this also solves the problem that these
+>> > > > names would collide as support for multiple DP instances are introduced.
+>> > > >
+>> > > > One alternative solution to the problem with colliding file names would
+>> > > > have been to put keep track of the individual files and put them under
+>> > > > the connector's debugfs directory. But while the drm_connector has been
+>> > > > allocated, its associated debugfs directory has not been created at the
+>> > > > time of initialization of the dp_debug.
+>> > > >
+>> > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>> > >
+>> > > I have been thinking about this problem ever since multi-DP has been
+>> > > posted
+>> > > :)
+>> > > Creating sub-directories seems right but at the moment it looks like
+>> > > IGT
+>> > > which
+>> > > uses these debugfs nodes doesnt check sub-directories:
+>> > >
+>> > > https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tools/msm_dp_compliance.c#L215
+>> > >
+>> > > It looks for the DP debugfs nodes under /sys/kernel/debug/dri/*/
+>> > >
+>> > > We have to fix IGT too to be able to handle multi-DP cases. I will
+>> > > try to
+>> > > come up
+>> > > with a proposal to address this.
+>> > >
+>> > > Till then, can we go with the other solution to keep track of the
+>> > > dentries?
+>> > >
+>> >
+>> > I'm afraid I don't see what you're proposing.
+>> >
+>> > Afaict we need one set of dp_test{type,active,data} per DP controller,
+>> > so even doing this by keeping track of the dentries requires that we
+>> > rename the files based on some identifier (id or connector name) - which
+>> > will cause igt to break.
+>> 
+>> Yes, I also thought the same that there needs to be some identifier.
+>> 
+>> "To allow cleaning up the DP driver's debugfs files either each dentry
+>> needs to be kept track of or the files needs to be put in a 
+>> subdirectory
+>> which can be removed in one go"
+>> 
+>> I guess I misunderstood your statement in the commit text thinking 
+>> that you
+>> had some other way to keep track of the dentries as it mentioned that
+>> use a subdirectory OR keep track of each dentry.
+>> 
+> 
+> No, I did write that code as well and then ditched it.
+> 
+> Unfortunately I don't think it would help you, because we still need to
+> add some identifier to the file names and preferably we should add that
+> to the single case as well to make things consistent.
+> 
+>> >
+>> > As such, I think the practical path forward is that we merge the
+>> > multi-DP series as currently proposed. This will not cause any issues on
+>> > single-DP systems, but on multi-DP systems we will have warnings about
+>> > duplicate debugfs entries in the kernel logs.
+>> >
+>> > Then you can figure out how to rework igt to deal with the multiple DP
+>> > instances and update the dp_debug interface accordingly.
+>> >
+>> 
+>> Fine with me, I will take care of this.
+>> 
+> 
+> Cool, thanks.
+> 
+> Regards,
+> Bjorn
+> 
+Following up on this, Rob has posted the igt change today which i acked.
+https://patchwork.freedesktop.org/patch/465930/
+With this in place, we can actually go ahead with this change.
 
-So one small issue, if someone tries to get linux running on a sc7180
-windows laptop (which uses qcom's tz instead of the CrOS tz), things
-will go BOOM!
+Hence,
 
-We might want instead to move this somewhere chromebook specific,
-maybe sc7180-trogdor.dtsi?
-
-BR,
--R
-
->
->                                 interrupt-parent = <&mdss>;
->                                 interrupts = <12>;
-> --
-> Sean Paul, Software Engineer, Google / Chromium OS
->
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> >
+>> > Which also implies that we should hold this patch back. But if we go
+>> > that path, I think we should fix dp_debug_deinit() so that it doesn't
+>> > remove /sys/kernel/debug/dri/128 when the DP driver is unloaded.
+>> Yes, lets hold this patch back till I fix multi-DP for IGT.
+>> >
+>> > Regards,
+>> > Bjorn
+>> >
+>> > > > ---
+>> > > >
+>> > > > This depends on
+>> > > > https://lore.kernel.org/linux-arm-msm/20211010030435.4000642-1-bjorn.andersson@linaro.org/
+>> > > > reducing the connector from a double pointer.
+>> > > >
+>> > > >  drivers/gpu/drm/msm/dp/dp_debug.c | 15 +++++++++------
+>> > > >  1 file changed, 9 insertions(+), 6 deletions(-)
+>> > > >
+>> > > > diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > > > b/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > > > index da4323556ef3..67da4c69eca1 100644
+>> > > > --- a/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > > > +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+>> > > > @@ -210,26 +210,29 @@ static const struct file_operations
+>> > > > test_active_fops = {
+>> > > >  static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor
+>> > > > *minor)
+>> > > >  {
+>> > > >  	int rc = 0;
+>> > > > +	char path[64];
+>> > > >  	struct dp_debug_private *debug = container_of(dp_debug,
+>> > > >  			struct dp_debug_private, dp_debug);
+>> > > >
+>> > > > -	debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
+>> > > > +	snprintf(path, sizeof(path), "msm_dp-%s", debug->connector->name);
+>> > > > +
+>> > > > +	debug->root = debugfs_create_dir(path, minor->debugfs_root);
+>> > > > +
+>> > > > +	debugfs_create_file("dp_debug", 0444, debug->root,
+>> > > >  			debug, &dp_debug_fops);
+>> > > >
+>> > > >  	debugfs_create_file("msm_dp_test_active", 0444,
+>> > > > -			minor->debugfs_root,
+>> > > > +			debug->root,
+>> > > >  			debug, &test_active_fops);
+>> > > >
+>> > > >  	debugfs_create_file("msm_dp_test_data", 0444,
+>> > > > -			minor->debugfs_root,
+>> > > > +			debug->root,
+>> > > >  			debug, &dp_test_data_fops);
+>> > > >
+>> > > >  	debugfs_create_file("msm_dp_test_type", 0444,
+>> > > > -			minor->debugfs_root,
+>> > > > +			debug->root,
+>> > > >  			debug, &dp_test_type_fops);
+>> > > >
+>> > > > -	debug->root = minor->debugfs_root;
+>> > > > -
+>> > > >  	return rc;
+>> > > >  }
