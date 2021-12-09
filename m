@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E545E46F3E6
-	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 20:26:04 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A646C46F599
+	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 22:10:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B369F10E275;
-	Thu,  9 Dec 2021 19:26:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB5610E355;
+	Thu,  9 Dec 2021 21:10:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4AE10E270;
- Thu,  9 Dec 2021 19:26:00 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id q16so5943559pgq.10;
- Thu, 09 Dec 2021 11:26:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AkH8G74nuWliFsm56RBshmsnPHnGtaW2iQYxsG6KvQw=;
- b=Q4FTRkOslqkiYzs3+L+pSSEDFqt2hwbAbCHgGrusaS25Te/F1xLyzKgOHvu5ZGUFtl
- D+VxfsGK/ZOTstV5sEeTmwNjppmlfAbdvX+BrDm3GqG8OK0vAdVTgt2KM/73Lilk3hBb
- MaHdU8aTPgunUuzcdCFWU96rZP6ujD4iORQZidXzkZ6L3thNwT9MDq53i2M9QGMAWd5y
- SdTHPge5DyFSSdJXFZx/UY6fX29pgV1Ar4FlDQEtwPdxgexgBbN5bCOqB7Yj9PUvJK4Z
- UD666kuGXIh8aM2aTO88ErtQ+p2v4pFt03NMJxANn5VWD7kntlrD+hpi7fDw7fXlkTSL
- lDtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AkH8G74nuWliFsm56RBshmsnPHnGtaW2iQYxsG6KvQw=;
- b=GxEPn5jOFMrRXmpV7m7l+7aFNLFGWJO/FEA+Yk236JQmm98eUTyelLgAqKJoUcL2DF
- 1P1IIbZ3Xnl5WKnTKTj1+mVAbtwfYlV3m1YWNnDFJ2C9CJte8zOqDIMFVN6+Tow5pnp2
- iX140RJrHvpvGZOx1ALZGuuP4UuwYYRoPq0Dz4Nayq3vl0leNf60f3mBMJZ0IjZr0VS7
- mjDDx57aBL3k67H0iE6pqWIJfJrbUpBrKooqqLcYSOl7ROvaALPyG/EO8CNdjlXy0ZnO
- XCnCqgltGf6Tkd4WkYGYX224ViEFZcICCnP0AjlhXgb3EGfFDnyQj/HamnQQNkLKolR/
- PP7Q==
-X-Gm-Message-State: AOAM531d5wGKh8vWTPuTIjrsdfrQbjbWv0lWvCk9X5vQsSx8iiUngl0O
- D1aQFcxxl6yi71/5wL1BDYetafBkSAM=
-X-Google-Smtp-Source: ABdhPJydqKflGOi1hge6N+O2b3mSxiXuASG9UA2XUCgDxjYLtu6lIBMKfmCnDSSHCzjQQZ+uk1Qx9A==
-X-Received: by 2002:a63:4f42:: with SMTP id p2mr36200370pgl.381.1639077959882; 
- Thu, 09 Dec 2021 11:25:59 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- pc1sm11107656pjb.5.2021.12.09.11.25.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Dec 2021 11:25:58 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu,  9 Dec 2021 11:31:13 -0800
-Message-Id: <20211209193118.1163248-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.33.1
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD33310E2F9;
+ Thu,  9 Dec 2021 21:10:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1639084201; x=1670620201;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=rcug5uSlXbopzbAcjZO7NNHIVRfMktSazlLTvwyab+E=;
+ b=fVw12caEryVTBpu8XOlh3DRxTmYQhlpdRgPTr9lbLKxKxFcomMSGbff+
+ EEoj58Jar5sfhoMTGXvaflS+SUJBmwzX7NfTSEwrd8KenBUWj3WI2wpEp
+ yRTOksZc7+mYJf9Oa0rgQm6af4goHeSVtwMW7n1QFArBMcORpJ5rpu4tF 0=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 09 Dec 2021 13:10:00 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2021 13:09:59 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Thu, 9 Dec 2021 13:09:50 -0800
+Received: from [10.111.171.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Thu, 9 Dec 2021
+ 13:09:47 -0800
+Message-ID: <2e24295c-d595-ad65-5fa8-db27ef86a5e4@quicinc.com>
+Date: Thu, 9 Dec 2021 13:09:45 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Skip crashdumper state if GPU
- needs_hw_init
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <abhinavk@codeaurora.org>
+References: <20211201222633.2476780-1-dmitry.baryshkov@linaro.org>
+ <20211201222633.2476780-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20211201222633.2476780-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v1 1/8] drm/msm/dpu: move disable_danger out
+ of plane subdir
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,98 +67,235 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Yangtao Li <tiny.windzz@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Daniel
+ Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-I am seeing some crash logs which imply that we are trying to use
-crashdumper hw to read back GPU state when the GPU isn't initialized.
-This doesn't go well (for example, GPU could be in 32b address mode
-and ignoring the upper bits of buffer that it is trying to dump state
-to).
 
-I'm not *quite* sure how we get into this state in the first place,
-but lets not make a bad situation worse by triggering iova fault
-crashes.
+On 12/1/2021 2:26 PM, Dmitry Baryshkov wrote:
+> The disable_danger debugfs file is not related to a single plane.
+> Instead it is used by all registered planes. Move it from plane subtree
+> to the global subtree next to danger_status and safe_status files,
+> so that the new file supplements them.
+> 
+the danger_safe itself is a per-plane feature as each SSPP can be 
+controlled individually.
 
-While we're at it, also add the information about whether the GPU is
-initialized to the devcore dump to make this easier to see in the
-logs (which makes the WARN_ON() redundant and even harmful because
-it fills up the small bit of dmesg we get with the crash report).
+In todays code, yes we do it for all the active planes together.
+Since this is the same behavior
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 9 ++++++++-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c     | 1 -
- 2 files changed, 8 insertions(+), 2 deletions(-)
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index bdd0059a81ff..55f443328d8e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -49,6 +49,8 @@ struct a6xx_gpu_state {
- 	s32 hfi_queue_history[2][HFI_HISTORY_SZ];
- 
- 	struct list_head objs;
-+
-+	bool gpu_initialized;
- };
- 
- static inline int CRASHDUMP_WRITE(u64 *in, u32 reg, u32 val)
-@@ -1001,7 +1003,8 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
- 	 * write out GPU state, so we need to skip this when the SMMU is
- 	 * stalled in response to an iova fault
- 	 */
--	if (!stalled && !a6xx_crashdumper_init(gpu, &_dumper)) {
-+	if (!stalled && !gpu->needs_hw_init &&
-+	    !a6xx_crashdumper_init(gpu, &_dumper)) {
- 		dumper = &_dumper;
- 	}
- 
-@@ -1018,6 +1021,8 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
- 	if (snapshot_debugbus)
- 		a6xx_get_debugbus(gpu, a6xx_state);
- 
-+	a6xx_state->gpu_initialized = !gpu->needs_hw_init;
-+
- 	return  &a6xx_state->base;
- }
- 
-@@ -1246,6 +1251,8 @@ void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
- 	if (IS_ERR_OR_NULL(state))
- 		return;
- 
-+	drm_printf(p, "gpu-initialized: %d\n", a6xx_state->gpu_initialized);
-+
- 	adreno_show(gpu, state, p);
- 
- 	drm_puts(p, "gmu-log:\n");
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 47cb40bdbd43..f33cfa4ef1c8 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -504,7 +504,6 @@ int adreno_gpu_state_get(struct msm_gpu *gpu, struct msm_gpu_state *state)
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	int i, count = 0;
- 
--	WARN_ON(gpu->needs_hw_init);
- 	WARN_ON(!mutex_is_locked(&gpu->lock));
- 
- 	kref_init(&state->ref);
--- 
-2.33.1
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   | 70 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 74 +----------------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  6 ++
+>   3 files changed, 77 insertions(+), 73 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 6c457c419412..259d438bc6e8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -101,6 +101,73 @@ static int dpu_debugfs_safe_stats_show(struct seq_file *s, void *v)
+>   }
+>   DEFINE_SHOW_ATTRIBUTE(dpu_debugfs_safe_stats);
+>   
+> +static ssize_t _dpu_plane_danger_read(struct file *file,
+> +			char __user *buff, size_t count, loff_t *ppos)
+> +{
+> +	struct dpu_kms *kms = file->private_data;
+> +	int len;
+> +	char buf[40];
+> +
+> +	len = scnprintf(buf, sizeof(buf), "%d\n", !kms->has_danger_ctrl);
+> +
+> +	return simple_read_from_buffer(buff, count, ppos, buf, len);
+> +}
+> +
+> +static void _dpu_plane_set_danger_state(struct dpu_kms *kms, bool enable)
+> +{
+> +	struct drm_plane *plane;
+> +
+> +	drm_for_each_plane(plane, kms->dev) {
+> +		if (plane->fb && plane->state) {
+> +			dpu_plane_danger_signal_ctrl(plane, enable);
+> +			DPU_DEBUG("plane:%d img:%dx%d ",
+> +				plane->base.id, plane->fb->width,
+> +				plane->fb->height);
+> +			DPU_DEBUG("src[%d,%d,%d,%d] dst[%d,%d,%d,%d]\n",
+> +				plane->state->src_x >> 16,
+> +				plane->state->src_y >> 16,
+> +				plane->state->src_w >> 16,
+> +				plane->state->src_h >> 16,
+> +				plane->state->crtc_x, plane->state->crtc_y,
+> +				plane->state->crtc_w, plane->state->crtc_h);
+> +		} else {
+> +			DPU_DEBUG("Inactive plane:%d\n", plane->base.id);
+> +		}
+> +	}
+> +}
+> +
+> +static ssize_t _dpu_plane_danger_write(struct file *file,
+> +		    const char __user *user_buf, size_t count, loff_t *ppos)
+> +{
+> +	struct dpu_kms *kms = file->private_data;
+> +	int disable_panic;
+> +	int ret;
+> +
+> +	ret = kstrtouint_from_user(user_buf, count, 0, &disable_panic);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (disable_panic) {
+> +		/* Disable panic signal for all active pipes */
+> +		DPU_DEBUG("Disabling danger:\n");
+> +		_dpu_plane_set_danger_state(kms, false);
+> +		kms->has_danger_ctrl = false;
+> +	} else {
+> +		/* Enable panic signal for all active pipes */
+> +		DPU_DEBUG("Enabling danger:\n");
+> +		kms->has_danger_ctrl = true;
+> +		_dpu_plane_set_danger_state(kms, true);
+> +	}
+> +
+> +	return count;
+> +}
+> +
+> +static const struct file_operations dpu_plane_danger_enable = {
+> +	.open = simple_open,
+> +	.read = _dpu_plane_danger_read,
+> +	.write = _dpu_plane_danger_write,
+> +};
+> +
+>   static void dpu_debugfs_danger_init(struct dpu_kms *dpu_kms,
+>   		struct dentry *parent)
+>   {
+> @@ -110,6 +177,9 @@ static void dpu_debugfs_danger_init(struct dpu_kms *dpu_kms,
+>   			dpu_kms, &dpu_debugfs_danger_stats_fops);
+>   	debugfs_create_file("safe_status", 0600, entry,
+>   			dpu_kms, &dpu_debugfs_safe_stats_fops);
+> +	debugfs_create_file("disable_danger", 0600, entry,
+> +			dpu_kms, &dpu_plane_danger_enable);
+> +
+>   }
+>   
+>   static int _dpu_debugfs_show_regset32(struct seq_file *s, void *data)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ca190d92f0d5..6ea4db061c9f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1350,7 +1350,7 @@ static void dpu_plane_reset(struct drm_plane *plane)
+>   }
+>   
+>   #ifdef CONFIG_DEBUG_FS
+> -static void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+> +void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+>   {
+>   	struct dpu_plane *pdpu = to_dpu_plane(plane);
+>   	struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
+> @@ -1363,73 +1363,6 @@ static void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+>   	pm_runtime_put_sync(&dpu_kms->pdev->dev);
+>   }
+>   
+> -static ssize_t _dpu_plane_danger_read(struct file *file,
+> -			char __user *buff, size_t count, loff_t *ppos)
+> -{
+> -	struct dpu_kms *kms = file->private_data;
+> -	int len;
+> -	char buf[40];
+> -
+> -	len = scnprintf(buf, sizeof(buf), "%d\n", !kms->has_danger_ctrl);
+> -
+> -	return simple_read_from_buffer(buff, count, ppos, buf, len);
+> -}
+> -
+> -static void _dpu_plane_set_danger_state(struct dpu_kms *kms, bool enable)
+> -{
+> -	struct drm_plane *plane;
+> -
+> -	drm_for_each_plane(plane, kms->dev) {
+> -		if (plane->fb && plane->state) {
+> -			dpu_plane_danger_signal_ctrl(plane, enable);
+> -			DPU_DEBUG("plane:%d img:%dx%d ",
+> -				plane->base.id, plane->fb->width,
+> -				plane->fb->height);
+> -			DPU_DEBUG("src[%d,%d,%d,%d] dst[%d,%d,%d,%d]\n",
+> -				plane->state->src_x >> 16,
+> -				plane->state->src_y >> 16,
+> -				plane->state->src_w >> 16,
+> -				plane->state->src_h >> 16,
+> -				plane->state->crtc_x, plane->state->crtc_y,
+> -				plane->state->crtc_w, plane->state->crtc_h);
+> -		} else {
+> -			DPU_DEBUG("Inactive plane:%d\n", plane->base.id);
+> -		}
+> -	}
+> -}
+> -
+> -static ssize_t _dpu_plane_danger_write(struct file *file,
+> -		    const char __user *user_buf, size_t count, loff_t *ppos)
+> -{
+> -	struct dpu_kms *kms = file->private_data;
+> -	int disable_panic;
+> -	int ret;
+> -
+> -	ret = kstrtouint_from_user(user_buf, count, 0, &disable_panic);
+> -	if (ret)
+> -		return ret;
+> -
+> -	if (disable_panic) {
+> -		/* Disable panic signal for all active pipes */
+> -		DPU_DEBUG("Disabling danger:\n");
+> -		_dpu_plane_set_danger_state(kms, false);
+> -		kms->has_danger_ctrl = false;
+> -	} else {
+> -		/* Enable panic signal for all active pipes */
+> -		DPU_DEBUG("Enabling danger:\n");
+> -		kms->has_danger_ctrl = true;
+> -		_dpu_plane_set_danger_state(kms, true);
+> -	}
+> -
+> -	return count;
+> -}
+> -
+> -static const struct file_operations dpu_plane_danger_enable = {
+> -	.open = simple_open,
+> -	.read = _dpu_plane_danger_read,
+> -	.write = _dpu_plane_danger_write,
+> -};
+> -
+>   static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+>   {
+>   	struct dpu_plane *pdpu = to_dpu_plane(plane);
+> @@ -1498,11 +1431,6 @@ static int _dpu_plane_init_debugfs(struct drm_plane *plane)
+>   			pdpu->debugfs_root,
+>   			(u32 *) &sblk->danger_vblank);
+>   
+> -	debugfs_create_file("disable_danger",
+> -			0600,
+> -			pdpu->debugfs_root,
+> -			kms, &dpu_plane_danger_enable);
+> -
+>   	return 0;
+>   }
+>   #else
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> index 52792526e904..7667b1f81bd4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> @@ -132,4 +132,10 @@ void dpu_plane_clear_multirect(const struct drm_plane_state *drm_state);
+>   int dpu_plane_color_fill(struct drm_plane *plane,
+>   		uint32_t color, uint32_t alpha);
+>   
+> +#ifdef CONFIG_DEBUG_FS
+> +void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable);
+> +#else
+> +static inline void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable) {}
+> +#endif
+> +
+>   #endif /* _DPU_PLANE_H_ */
+> 
