@@ -1,61 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9833146EE3A
-	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 17:55:46 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4599B46EDDE
+	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 17:54:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6512510E299;
-	Thu,  9 Dec 2021 16:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3D810E45C;
+	Thu,  9 Dec 2021 16:52:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from so254-9.mailgun.net (so254-9.mailgun.net [198.61.254.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5AB889F31
- for <freedreno@lists.freedesktop.org>; Thu,  9 Dec 2021 07:49:27 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1639036167; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=u15F77aBFCZJ0MAZoaaY1dZuTLowi9SVkhbrAQjxT1U=;
- b=JG/o30myVe6tEniDJrkfI+wyKT8KvD1V9LKDiJQPK42YMDNe2VA2XPIfKJkW74IJJZj7lLL2
- QTLsTOvKxqgYCX1QV4QCLLXY8esbocSos23QezllKzTmMA83pJqCHfB0h66HTUkNT8KLh8/I
- /WRBhJViv0S+Dk049qH/mt9gREI=
-X-Mailgun-Sending-Ip: 198.61.254.9
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 61b145ab465c4a723b18d65c (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 08 Dec 2021 23:54:19
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id A692CC43617; Wed,  8 Dec 2021 23:54:19 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 3C257C4338F;
- Wed,  8 Dec 2021 23:54:18 +0000 (UTC)
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1409789ABE
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Dec 2021 05:59:34 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id q74so11144932ybq.11
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Dec 2021 21:59:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=ySPyFFqtdyuBIHLLUyShef42vTuQW5UVEw4YMSFTCGs=;
+ b=fcOFBaKN8igGFkv5Hq4B7LT8hZS+vXtlE7scQQo7aB4iwIcYau2OHRYW5Hr8XJtXdY
+ FPxqyzqqLvqLUKNKzo55KbG2bwgwxVsHz5NfdwiuH2UTcoA//BK4vw2rotjNxRBdIYjS
+ tXawiWlofuozRlbcisqruXLxzXU4PeKNd8N7Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=ySPyFFqtdyuBIHLLUyShef42vTuQW5UVEw4YMSFTCGs=;
+ b=hIes/sLwSsn6eMPXTfS8NX40mafH3bLaPcopYRXDThx/5T79i3WfnLVkqNeF45n6G5
+ +to4Xgw1EXGrp0DV4A9HxN2chbNwmYexn0DtA3lvfAhLbb8Qgv4KF+OM7wYvu5/HUYrd
+ YL25vbnaNdlfD9dXacXonuL1/kNh/yH29DjGEpO5R6igX0pCJmulPWqJAhtYD6hiwinr
+ vUtekHp2/tzRWL+WnYxMZFkbQCaUVqHxmHGOv1sXqw963M/cuvv7lmt5cdDuCNDBSKl9
+ IwJoRAinMkcN6aLlXyJ9c56hlVpRZB/uMPHKATSmKtW7bu++FLejZTNJo6r/YmrC/XJY
+ QuYw==
+X-Gm-Message-State: AOAM532bbRsOXHPrI4yzuQGZ14HcEklHd+icVwxO0LVNREPRyfjt8Wl9
+ Q8LX66+OhJbsJtcZ+N0FfvZQxzLzg9aWzVhnlhwpnEpb3yU=
+X-Google-Smtp-Source: ABdhPJzfm1mjganFNfDgL21KPQZnDL2HCeKKT5S1lwgHg6taD+gRMfe1My60dFjkJru25ZQx0pTSz4jer+PE/I2RKY0=
+X-Received: by 2002:a4a:cf12:: with SMTP id l18mr2340150oos.25.1639018897050; 
+ Wed, 08 Dec 2021 19:01:37 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 8 Dec 2021 19:01:36 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Wed, 08 Dec 2021 15:54:18 -0800
-From: abhinavk@codeaurora.org
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <YW2+oPIaVPO7QsqK@ripper>
-References: <20211015231702.1784254-1-bjorn.andersson@linaro.org>
- <f72263e0d4c118653fff8b1341dc487b@codeaurora.org> <YWxSWlRp+log+Trz@ripper>
- <7a77045f4069a21305e5c3614a6739f0@codeaurora.org> <YW2+oPIaVPO7QsqK@ripper>
-Message-ID: <8fa353a5fd6e37f570f3a9d4812158a2@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Move debugfs files into
- subdirectory
+In-Reply-To: <1638985262-2072-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1638985262-2072-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 8 Dec 2021 19:01:36 -0800
+Message-ID: <CAE-0n51FCOwPeWz=SFaRY58J3=yGnKdE5aHMCGx-tzK_CVEUQQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: dp_link_parse_sink_count()
+ return immediately if aux read failed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,172 +65,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2021-10-18 11:36, Bjorn Andersson wrote:
-> On Mon 18 Oct 11:07 PDT 2021, abhinavk@codeaurora.org wrote:
-> 
->> Hi Bjorn
->> 
->> On 2021-10-17 09:42, Bjorn Andersson wrote:
->> > On Fri 15 Oct 16:53 PDT 2021, abhinavk@codeaurora.org wrote:
->> >
->> > > On 2021-10-15 16:17, Bjorn Andersson wrote:
->> > > > In the cleanup path of the MSM DP driver the DP driver's debugfs files
->> > > > are destroyed by invoking debugfs_remove_recursive() on debug->root,
->> > > > which during initialization has been set to minor->debugfs_root.
->> > > >
->> > > > To allow cleaning up the DP driver's debugfs files either each dentry
->> > > > needs to be kept track of or the files needs to be put in a subdirectory
->> > > > which can be removed in one go.
->> > > >
->> > > > By choosing to put the debugfs files in a subdirectory, based on the
->> > > > name of the associated connector this also solves the problem that these
->> > > > names would collide as support for multiple DP instances are introduced.
->> > > >
->> > > > One alternative solution to the problem with colliding file names would
->> > > > have been to put keep track of the individual files and put them under
->> > > > the connector's debugfs directory. But while the drm_connector has been
->> > > > allocated, its associated debugfs directory has not been created at the
->> > > > time of initialization of the dp_debug.
->> > > >
->> > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->> > >
->> > > I have been thinking about this problem ever since multi-DP has been
->> > > posted
->> > > :)
->> > > Creating sub-directories seems right but at the moment it looks like
->> > > IGT
->> > > which
->> > > uses these debugfs nodes doesnt check sub-directories:
->> > >
->> > > https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tools/msm_dp_compliance.c#L215
->> > >
->> > > It looks for the DP debugfs nodes under /sys/kernel/debug/dri/*/
->> > >
->> > > We have to fix IGT too to be able to handle multi-DP cases. I will
->> > > try to
->> > > come up
->> > > with a proposal to address this.
->> > >
->> > > Till then, can we go with the other solution to keep track of the
->> > > dentries?
->> > >
->> >
->> > I'm afraid I don't see what you're proposing.
->> >
->> > Afaict we need one set of dp_test{type,active,data} per DP controller,
->> > so even doing this by keeping track of the dentries requires that we
->> > rename the files based on some identifier (id or connector name) - which
->> > will cause igt to break.
->> 
->> Yes, I also thought the same that there needs to be some identifier.
->> 
->> "To allow cleaning up the DP driver's debugfs files either each dentry
->> needs to be kept track of or the files needs to be put in a 
->> subdirectory
->> which can be removed in one go"
->> 
->> I guess I misunderstood your statement in the commit text thinking 
->> that you
->> had some other way to keep track of the dentries as it mentioned that
->> use a subdirectory OR keep track of each dentry.
->> 
-> 
-> No, I did write that code as well and then ditched it.
-> 
-> Unfortunately I don't think it would help you, because we still need to
-> add some identifier to the file names and preferably we should add that
-> to the single case as well to make things consistent.
-> 
->> >
->> > As such, I think the practical path forward is that we merge the
->> > multi-DP series as currently proposed. This will not cause any issues on
->> > single-DP systems, but on multi-DP systems we will have warnings about
->> > duplicate debugfs entries in the kernel logs.
->> >
->> > Then you can figure out how to rework igt to deal with the multiple DP
->> > instances and update the dp_debug interface accordingly.
->> >
->> 
->> Fine with me, I will take care of this.
->> 
-> 
-> Cool, thanks.
-> 
-> Regards,
-> Bjorn
-> 
-Following up on this, Rob has posted the igt change today which i acked.
-https://patchwork.freedesktop.org/patch/465930/
-With this in place, we can actually go ahead with this change.
+Quoting Kuogee Hsieh (2021-12-08 09:41:02)
+> Add checking aux read/write status at both dp_link_parse_sink_count()
+> and dp_link_parse_sink_status_filed() to avoid long timeout delay if
+> dp aux read/write failed at timeout due to cable unplugged.
+>
+> Changes in V4:
+> -- split this patch as stand alone patch
+>
+> Changes in v5:
+> -- rebase on msm-next branch
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>
 
-Hence,
+Remove this newline please.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> >
->> > Which also implies that we should hold this patch back. But if we go
->> > that path, I think we should fix dp_debug_deinit() so that it doesn't
->> > remove /sys/kernel/debug/dri/128 when the DP driver is unloaded.
->> Yes, lets hold this patch back till I fix multi-DP for IGT.
->> >
->> > Regards,
->> > Bjorn
->> >
->> > > > ---
->> > > >
->> > > > This depends on
->> > > > https://lore.kernel.org/linux-arm-msm/20211010030435.4000642-1-bjorn.andersson@linaro.org/
->> > > > reducing the connector from a double pointer.
->> > > >
->> > > >  drivers/gpu/drm/msm/dp/dp_debug.c | 15 +++++++++------
->> > > >  1 file changed, 9 insertions(+), 6 deletions(-)
->> > > >
->> > > > diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c
->> > > > b/drivers/gpu/drm/msm/dp/dp_debug.c
->> > > > index da4323556ef3..67da4c69eca1 100644
->> > > > --- a/drivers/gpu/drm/msm/dp/dp_debug.c
->> > > > +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
->> > > > @@ -210,26 +210,29 @@ static const struct file_operations
->> > > > test_active_fops = {
->> > > >  static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor
->> > > > *minor)
->> > > >  {
->> > > >  	int rc = 0;
->> > > > +	char path[64];
->> > > >  	struct dp_debug_private *debug = container_of(dp_debug,
->> > > >  			struct dp_debug_private, dp_debug);
->> > > >
->> > > > -	debugfs_create_file("dp_debug", 0444, minor->debugfs_root,
->> > > > +	snprintf(path, sizeof(path), "msm_dp-%s", debug->connector->name);
->> > > > +
->> > > > +	debug->root = debugfs_create_dir(path, minor->debugfs_root);
->> > > > +
->> > > > +	debugfs_create_file("dp_debug", 0444, debug->root,
->> > > >  			debug, &dp_debug_fops);
->> > > >
->> > > >  	debugfs_create_file("msm_dp_test_active", 0444,
->> > > > -			minor->debugfs_root,
->> > > > +			debug->root,
->> > > >  			debug, &test_active_fops);
->> > > >
->> > > >  	debugfs_create_file("msm_dp_test_data", 0444,
->> > > > -			minor->debugfs_root,
->> > > > +			debug->root,
->> > > >  			debug, &dp_test_data_fops);
->> > > >
->> > > >  	debugfs_create_file("msm_dp_test_type", 0444,
->> > > > -			minor->debugfs_root,
->> > > > +			debug->root,
->> > > >  			debug, &dp_test_type_fops);
->> > > >
->> > > > -	debug->root = minor->debugfs_root;
->> > > > -
->> > > >  	return rc;
->> > > >  }
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Tested-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 12 +++++++++---
+>  drivers/gpu/drm/msm/dp/dp_link.c    | 19 ++++++++++++++-----
+>  2 files changed, 23 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 3d61459..0766752 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -692,9 +692,15 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+>                 return 0;
+>         }
+>
+> -       ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
+> -       if (ret == -ECONNRESET) { /* cable unplugged */
+> -               dp->core_initialized = false;
+> +       /*
+> +        * dp core (ahb/aux clks) must be initialized before
+> +        * irq_hpd be handled
+> +        */
+> +       if (dp->core_initialized) {
+
+This part of the commit isn't described in the commit text. Can you add
+some more details in the commit text about this?
+
+> +               ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
+> +               if (ret == -ECONNRESET) { /* cable unplugged */
+> +                       dp->core_initialized = false;
+> +               }
+>         }
+>         DRM_DEBUG_DP("hpd_state=%d\n", state);
+>
