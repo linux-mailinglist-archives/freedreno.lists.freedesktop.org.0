@@ -2,57 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0080B46EDEE
-	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 17:54:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87E0E46EEEB
+	for <lists+freedreno@lfdr.de>; Thu,  9 Dec 2021 17:59:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA5E10E5AD;
-	Thu,  9 Dec 2021 16:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 980E110EA23;
+	Thu,  9 Dec 2021 16:53:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A980F10E116
- for <freedreno@lists.freedesktop.org>; Thu,  9 Dec 2021 06:30:41 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id q25so7496034oiw.0
- for <freedreno@lists.freedesktop.org>; Wed, 08 Dec 2021 22:30:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=4RvTOElFtjC6K+YtTFs0DQWYPsT5j+ievJDMuHacLoY=;
- b=gTDcbQcQviVXwGHqelMkl3tznVzOOD5dAldIOXwUNq+Wb1juxj6sy9VNnuyEWs/YxX
- tz3IyuWVcGMGCogH+EVFDY1oAMYdGobKJ8y3qO7McBYMVIakK40oIYrJP0Nf36vN1PVC
- r6kBOj5+1or6IhEa/Gd8Z9Anz82J5FcBxWq9k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=4RvTOElFtjC6K+YtTFs0DQWYPsT5j+ievJDMuHacLoY=;
- b=qkGy+CIno/hwDeNKAifV9NqbH98PFL1Gc8VirPAlku6ukwkPL96IR7x93apoU8v5b2
- mSMRhZWZxZ2abHdIWb0PZsmiZ7onMnvbu0go99oYcOP1J9E0jnBOhyBtNBgAm0b3e6d9
- E9b05ilrElXV0KVRjFtv0sPZ0W36rpCb2kkIhwjPsOsc3KonZEHjT1hDZwu4gtwDHfvf
- m+2LMdCVt3GVtaPKS/RoSXjIXO8itgsErDBt0QLI4vog+dJ8FuVHxk6LyvOUUH38Jd/I
- 9trUDdk43LVPXaOadsD9g4h46Q4Gr3cV3LgBFXgkvb0ihL5bof96LALNLrpwel6rD/27
- Kz1w==
-X-Gm-Message-State: AOAM531N1qI1xhekVbxz/96UMcEbYoKm0ttMrb4krQQkldQeJAjTn1zX
- 0Eho4/x2c2Rn+sI0LJG7esw75C4DbxnBHS2jnbfd+c950zU=
-X-Google-Smtp-Source: ABdhPJw8baMKy/6HPjiu44S1WLMWj6mF5r6iglZK7qkpnBQ5pEqKEVCpHcUPy2GTKqgvmEhssF1HWgZQSw1p/Flt/rI=
-X-Received: by 2002:aca:2319:: with SMTP id e25mr3730698oie.164.1639020663186; 
- Wed, 08 Dec 2021 19:31:03 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Dec 2021 19:31:02 -0800
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED3B489CF7
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Dec 2021 12:01:01 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 85452CE245E;
+ Thu,  9 Dec 2021 12:00:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C2DC341C3;
+ Thu,  9 Dec 2021 12:00:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639051257;
+ bh=8QD6AkgrDFXlpR7Wdbpg4FEqgHitOmvi0QXT4VXdgSw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=B+khb2bQq65/RssMNvsAUOj1z4jfuC5YJsD9MOFZxPEnNF3Sqaj1tghTXDwSdDvt6
+ aP5BFH9GYDMQcoh+wG9sKvwLqcljyFLfEWkcVYUMrg/Z4rLqx/dtkUO/W56MNDj4o7
+ 1ctCDZdM1aZujLfF0N/eZTxb+WGJaWJQLhysZLeQM+G1imaZKw0JsJWjosTCsmWjNj
+ +9nDS4ysp67cFC4/LLYO0mGFoNX/dXMhSrqXJB2Ev8EMU1OyL8zX0vN+RsLDfzqp0r
+ n4M/7UNeNClXDKz2/6mK6xGSX9RcX+X2uI0hOGxlpR6ZSDDOOuYjgZDnnsoEhtiFwj
+ ePE6VRsMY3R7w==
+Date: Thu, 9 Dec 2021 17:30:53 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <YbHv9Xv04iEHuaMB@matsya>
+References: <1638998533-3729-1-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-In-Reply-To: <20211105030434.2828845-15-sean@poorly.run>
-References: <20211105030434.2828845-1-sean@poorly.run>
- <20211105030434.2828845-15-sean@poorly.run>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 8 Dec 2021 19:31:02 -0800
-Message-ID: <CAE-0n511nL2iwNztf=4900sYa-+W8V09c6G5uN=fo+Lr1Ws3HA@mail.gmail.com>
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 14/14] drm/msm: Implement HDCP 1.x using
- the new drm HDCP helpers
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1638998533-3729-1-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v6] phy: qcom-qmp: add display port v4
+ voltage and pre-emphasis swing tables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,112 +53,241 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, linux-arm-msm@vger.kernel.org,
- abhinavk@codeaurora.org, bjorn.andersson@linaro.org,
- David Airlie <airlied@linux.ie>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>
+Cc: devicetree@vger.kernel.org, aravindh@codeaurora.org,
+ quic_abhinavk@quicinc.com, kishon@ti.com, freedreno@lists.freedesktop.org,
+ agross@kernel.org, bjorn.andersson@linaro.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, robh+dt@kernel.org,
+ p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Sean Paul (2021-11-04 20:04:31)
-> From: Sean Paul <seanpaul@chromium.org>
->
-> This patch adds HDCP 1.x support to msm DP connectors using the new HDCP
+On 08-12-21, 13:22, Kuogee Hsieh wrote:
+> From: Kuogee Hsieh <khsieh@codeaurora.org>
+> 
+> "add support for sm8250-usb3-dp phy" patch added functions to support V4
+  ^^
+why this leading quote here?
 
- $ git grep "This patch" -- Documentation/process/
+> phy. But it did not update voltage and pre-emphasis tables accordingly.
+> This patch add v4 voltage and pre-emphasis swing tables to complete v4
+> phy implementation. Both voltage and pre-emphasis swing level are set
+> during link training negotiation between host and sink. There are totally
+> four tables added.  A voltage swing table for both hbr and hbr1, a voltage
+> table for both hbr2 and hbr3, a pre-emphasis table for both hbr and hbr1
+> and a pre-emphasis table for both hbr2 and hbr3. In addition, write 0x0a
+> to TX_TX_POL_INV is added to complete the sequence of configure dp phy
+> base on HPG.
+> 
+> Chnages in v2:
 
-> helpers.
->
-> Cc: Stephen Boyd <swboyd@chromium.org>
-> Cc: Abhinav Kumar <abhinavk@codeaurora.org>
-> Signed-off-by: Sean Paul <seanpaul@chromium.org>
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-15-sean@poorly.run #v1
-> Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-14-sean@poorly.run #v2
-> Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-15-sean@poorly.run #v3
->
-> Changes in v2:
-> -Squash [1] into this patch with the following changes (Stephen)
->   -Update the sc7180 dtsi file
->   -Remove resource names and just use index (Stephen)
-> Changes in v3:
-> -Split out the dtsi change from v2 (Stephen)
-> -Fix set-but-unused warning identified by 0-day
-> -Fix up a couple of style nits (Stephen)
-> -Store HDCP key directly in dp_hdcp struct (Stephen)
-> -Remove wmb in HDCP key initialization, move an_seed (Stephen)
-> -Use FIELD_PREP for bstatus/bcaps (Stephen)
-> -#define read_poll_timeout values (Stephen)
-> -Remove unnecessary parentheses in dp_hdcp_store_ksv_fifo (Stephen)
-> -Add compatible string for hdcp (Stephen)
-> -Rename dp_hdcp_write_* functions (Abhinav)
-> -Add 1us delay between An reads (Abhinav)
-> -Delete unused dp_hdcp_read_* functions
-> Changes in v4:
-> -Rebase on Bjorn's multi-dp patchset
->
-> [1] https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-14-sean@poorly.run
+There is a typo :), as Bjorn said please drop this from non drm code, we
+dont need changelog in phy patches
 
-Looks mostly ok to me. One nit below but otherwise you can have my
+> -- revise commit test
+> -- add Fixes tag
+> -- replaced voltage_swing_cfg with voltage
+> -- replaced pre_emphasis_cfg with emphasis
+> -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_v4_phy_configure_dp_swing()
+> -- delete drv_lvl_reg and emp_post_reg parameters from qcom_qmp_phy_configure_dp_swing()
+> 
+> Changes in V3:
+> -- add __qcom_qmp_phy_configure_dp_swing() to commit swing/pre-emphasis level
+> 
+> Changes in V4:
+> -- pass 2D array to __qcom_qmp_phy_configure_dp_swing()
+> 
+> Changes in V5:
+> -- rebase on msm-next
+> 
+> Changes in V6:
+> -- change commit text title
+> -- re wording commit text
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
-> index da4323556ef3..c16fce17d096 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_debug.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_debug.c
-> @@ -198,6 +201,35 @@ static int dp_test_active_open(struct inode *inode,
->                         inode->i_private);
+> 
+> Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
+> Signed-off-by: Kuogee Hsieh <khsieh@codeaurora.org>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp.c | 97 +++++++++++++++++++++++++------------
+>  1 file changed, 66 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> index 456a59d..1f3585d 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> @@ -4283,12 +4283,17 @@ static const u8 qmp_dp_v3_voltage_swing_hbr_rbr[4][4] = {
+>  	{ 0x1f, 0xff, 0xff, 0xff }
+>  };
+>  
+> -static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+> -		unsigned int drv_lvl_reg, unsigned int emp_post_reg)
+> +static int __qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+> +				unsigned int drv_lvl_reg,
+> +				unsigned int emp_post_reg,
+> +				const u8 voltage_swing_hbr_rbr[4][4],
+> +				const u8 pre_emphasis_hbr_rbr[4][4],
+> +				const u8 voltage_swing_hbr3_hbr2[4][4],
+> +				const u8 pre_emphasis_hbr3_hbr2[4][4])
+
+Pls align these to opening brances (hint checkpatch with --strict should
+give you a warning)
+
+Second I see that we are hardcoding the 4 here and all over the driver.
+I guess it would make sense to define it and use it here and
+everywhere..?
+
+
+>  {
+>  	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+>  	unsigned int v_level = 0, p_level = 0;
+> -	u8 voltage_swing_cfg, pre_emphasis_cfg;
+> +	u8 voltage, emphasis;
+>  	int i;
+>  
+>  	for (i = 0; i < dp_opts->lanes; i++) {
+> @@ -4297,26 +4302,25 @@ static int qcom_qmp_phy_configure_dp_swing(struct qmp_phy *qphy,
+>  	}
+>  
+>  	if (dp_opts->link_rate <= 2700) {
+> -		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr_rbr[v_level][p_level];
+> -		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr_rbr[v_level][p_level];
+> +		voltage = voltage_swing_hbr_rbr[v_level][p_level];
+> +		emphasis = pre_emphasis_hbr_rbr[v_level][p_level];
+>  	} else {
+> -		voltage_swing_cfg = qmp_dp_v3_voltage_swing_hbr3_hbr2[v_level][p_level];
+> -		pre_emphasis_cfg = qmp_dp_v3_pre_emphasis_hbr3_hbr2[v_level][p_level];
+> +		voltage = voltage_swing_hbr3_hbr2[v_level][p_level];
+> +		emphasis = pre_emphasis_hbr3_hbr2[v_level][p_level];
+>  	}
+>  
+>  	/* TODO: Move check to config check */
+> -	if (voltage_swing_cfg == 0xFF && pre_emphasis_cfg == 0xFF)
+> +	if (voltage == 0xFF && emphasis == 0xFF)
+>  		return -EINVAL;
+>  
+>  	/* Enable MUX to use Cursor values from these registers */
+> -	voltage_swing_cfg |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
+> -	pre_emphasis_cfg |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+> -
+> -	writel(voltage_swing_cfg, qphy->tx + drv_lvl_reg);
+> -	writel(pre_emphasis_cfg, qphy->tx + emp_post_reg);
+> -	writel(voltage_swing_cfg, qphy->tx2 + drv_lvl_reg);
+> -	writel(pre_emphasis_cfg, qphy->tx2 + emp_post_reg);
+> +	voltage |= DP_PHY_TXn_TX_DRV_LVL_MUX_EN;
+> +	emphasis |= DP_PHY_TXn_TX_EMP_POST1_LVL_MUX_EN;
+>  
+> +	writel(voltage, qphy->tx + drv_lvl_reg);
+> +	writel(emphasis, qphy->tx + emp_post_reg);
+> +	writel(voltage, qphy->tx2 + drv_lvl_reg);
+> +	writel(emphasis, qphy->tx2 + emp_post_reg);
+>  	return 0;
 >  }
->
-> +static ssize_t dp_hdcp_key_write(struct file *file, const char __user *ubuf,
-> +                                size_t len, loff_t *offp)
-
-I deem this API through debugfs no good, but I can see that opening the
-can of worms that is programming the key other ways is worse, so alright.
-
-> +{
-> +       char *input_buffer;
-> +       int ret;
-> +       struct dp_debug_private *debug = file->private_data;
+>  
+> @@ -4325,9 +4329,13 @@ static void qcom_qmp_v3_phy_configure_dp_tx(struct qmp_phy *qphy)
+>  	const struct phy_configure_opts_dp *dp_opts = &qphy->dp_opts;
+>  	u32 bias_en, drvr_en;
+>  
+> -	if (qcom_qmp_phy_configure_dp_swing(qphy,
+> -				QSERDES_V3_TX_TX_DRV_LVL,
+> -				QSERDES_V3_TX_TX_EMP_POST1_LVL) < 0)
+> +	if (__qcom_qmp_phy_configure_dp_swing(qphy,
+> +			QSERDES_V3_TX_TX_DRV_LVL,
+> +			QSERDES_V3_TX_TX_EMP_POST1_LVL,
+> +			qmp_dp_v3_voltage_swing_hbr_rbr,
+> +			qmp_dp_v3_pre_emphasis_hbr_rbr,
+> +			qmp_dp_v3_voltage_swing_hbr3_hbr2,
+> +			qmp_dp_v3_pre_emphasis_hbr3_hbr2) < 0)
+>  		return;
+>  
+>  	if (dp_opts->lanes == 1) {
+> @@ -4465,6 +4473,35 @@ static int qcom_qmp_v3_dp_phy_calibrate(struct qmp_phy *qphy)
+>  	return 0;
+>  }
+>  
+> +/* The values in these tables are given without MUX_EN (0x20) bit set */
+> +static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
+> +	{ 0x00, 0x0c, 0x15, 0x1b },
+> +	{ 0x02, 0x0e, 0x16, 0xff },
+> +	{ 0x02, 0x11, 0xff, 0xff },
+> +	{ 0x04, 0xff, 0xff, 0xff }
+> +};
 > +
-> +       if (len != (DRM_HDCP_KSV_LEN + DP_HDCP_NUM_KEYS * DP_HDCP_KEY_LEN))
-> +               return -EINVAL;
+> +static const u8 qmp_dp_v4_voltage_swing_hbr3_hbr2[4][4] = {
+> +	{ 0x02, 0x12, 0x16, 0x1a },
+> +	{ 0x09, 0x19, 0x1f, 0xff },
+> +	{ 0x10, 0x1f, 0xff, 0xff },
+> +	{ 0x1f, 0xff, 0xff, 0xff }
+> +};
 > +
-[....]
-> diff --git a/drivers/gpu/drm/msm/dp/dp_hdcp.c b/drivers/gpu/drm/msm/dp/dp_hdcp.c
-> new file mode 100644
-> index 000000000000..03ea3a974576
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dp/dp_hdcp.c
-> @@ -0,0 +1,462 @@
-[...]
+> +static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
+> +	{ 0x00, 0x0e, 0x15, 0x1b },
+> +	{ 0x00, 0x0e, 0x15, 0xff },
+> +	{ 0x00, 0x0e, 0xff, 0xff },
+> +	{ 0x04, 0xff, 0xff, 0xff }
+> +};
 > +
-> +int dp_hdcp_attach(struct dp_hdcp *hdcp, struct drm_connector *connector)
-> +{
-> +       struct drm_device *dev = connector->dev;
-> +       struct drm_hdcp_helper_data *helper_data;
-> +       int ret;
+> +static const u8 qmp_dp_v4_voltage_swing_hbr_rbr[4][4] = {
+> +	{ 0x08, 0x0f, 0x16, 0x1f },
+> +	{ 0x11, 0x1e, 0x1f, 0xff },
+> +	{ 0x16, 0x1f, 0xff, 0xff },
+> +	{ 0x1f, 0xff, 0xff, 0xff }
+> +};
 > +
-> +       /* HDCP is not configured for this device */
-> +       if (!hdcp->parser->io.dp_controller.hdcp_key.base)
-> +               return 0;
+>  static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+>  {
+>  	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_PSR_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+> @@ -4494,16 +4531,13 @@ static void qcom_qmp_v4_phy_dp_aux_init(struct qmp_phy *qphy)
+>  
+>  static void qcom_qmp_v4_phy_configure_dp_tx(struct qmp_phy *qphy)
+>  {
+> -	/* Program default values before writing proper values */
+> -	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+> -	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+> -
+> -	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+> -	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+> -
+> -	qcom_qmp_phy_configure_dp_swing(qphy,
+> +	__qcom_qmp_phy_configure_dp_swing(qphy,
+>  			QSERDES_V4_TX_TX_DRV_LVL,
+> -			QSERDES_V4_TX_TX_EMP_POST1_LVL);
+> +			QSERDES_V4_TX_TX_EMP_POST1_LVL,
+> +			qmp_dp_v4_voltage_swing_hbr_rbr,
+> +			qmp_dp_v4_pre_emphasis_hbr_rbr,
+> +			qmp_dp_v4_voltage_swing_hbr3_hbr2,
+> +			qmp_dp_v4_pre_emphasis_hbr3_hbr2);
+>  }
+>  
+>  static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+> @@ -4622,6 +4656,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+>  	writel(drvr1_en, qphy->tx2 + QSERDES_V4_TX_HIGHZ_DRVR_EN);
+>  	writel(bias1_en, qphy->tx2 + QSERDES_V4_TX_TRANSCEIVER_BIAS_EN);
+>  
+> +	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
+> +	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
 > +
-> +       helper_data = drm_hdcp_helper_initialize_dp(connector, hdcp->aux,
-> +                                                   &dp_hdcp_funcs, false);
-> +       if (IS_ERR_OR_NULL(helper_data))
+>  	writel(0x18, qphy->pcs + QSERDES_DP_PHY_CFG);
+>  	udelay(2000);
+>  	writel(0x19, qphy->pcs + QSERDES_DP_PHY_CFG);
+> @@ -4633,11 +4670,9 @@ static int qcom_qmp_v4_phy_configure_dp_phy(struct qmp_phy *qphy)
+>  			10000))
+>  		return -ETIMEDOUT;
+>  
+> -	writel(0x0a, qphy->tx + QSERDES_V4_TX_TX_POL_INV);
+> -	writel(0x0a, qphy->tx2 + QSERDES_V4_TX_TX_POL_INV);
+>  
+> -	writel(0x27, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+> -	writel(0x27, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+> +	writel(0x22, qphy->tx + QSERDES_V4_TX_TX_DRV_LVL);
+> +	writel(0x22, qphy->tx2 + QSERDES_V4_TX_TX_DRV_LVL);
+>  
+>  	writel(0x20, qphy->tx + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+>  	writel(0x20, qphy->tx2 + QSERDES_V4_TX_TX_EMP_POST1_LVL);
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
 
-Just IS_ERR()?
-
-> +               return PTR_ERR(helper_data);
-
-Because PTR_ERR() on NULL is zero. Maybe return PTR_ERR_OR_ZERO() is
-supposed to be here? Or I don't understand why
-drm_hdcp_helper_initialize_dp() would return NULL.
-
-> +
-> +       ret = drm_connector_attach_content_protection_property(connector, false);
-> +       if (ret) {
-> +               drm_hdcp_helper_destroy(helper_data);
-> +               drm_err(dev, "Failed to attach content protection prop %d\n", ret);
-> +               return ret;
-> +       }
+-- 
+~Vinod
