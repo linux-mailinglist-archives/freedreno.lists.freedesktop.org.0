@@ -1,37 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60E0470F25
-	for <lists+freedreno@lfdr.de>; Sat, 11 Dec 2021 01:03:32 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F30D4716C3
+	for <lists+freedreno@lfdr.de>; Sat, 11 Dec 2021 22:35:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 037FB10E2B1;
-	Sat, 11 Dec 2021 00:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D513C10E60E;
+	Sat, 11 Dec 2021 21:35:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEEF10E2B1
- for <freedreno@lists.freedesktop.org>; Sat, 11 Dec 2021 00:03:28 +0000 (UTC)
+X-Greylist: delayed 77526 seconds by postgrey-1.36 at gabe;
+ Sat, 11 Dec 2021 21:35:32 UTC
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEA810E753
+ for <freedreno@lists.freedesktop.org>; Sat, 11 Dec 2021 21:35:32 +0000 (UTC)
 Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
  [94.209.165.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id E9DC43EEF3;
- Sat, 11 Dec 2021 01:03:22 +0100 (CET)
-Date: Sat, 11 Dec 2021 01:03:15 +0100
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 1BA26202F2;
+ Sat, 11 Dec 2021 22:35:30 +0100 (CET)
+Date: Sat, 11 Dec 2021 22:35:28 +0100
 From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20211211000315.pavmcc7cc73ilb6l@SoMainline.org>
-References: <20211116062256.2417186-1-vkoul@kernel.org>
- <20211116062256.2417186-13-vkoul@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Message-ID: <20211211213528.uroqfdksvokspbxf@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, robdclark@gmail.com,
+ sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch,
+ abhinavk@codeaurora.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, konrad.dybcio@somainline.org,
+ martin.botka@somainline.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org, paul.bouchara@somainline.org
+References: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
+ <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
+ <b325fc8d-e06b-36de-b40a-b5ffbcebb1c5@linaro.org>
+ <94bedea3-0e5f-5ae8-79d1-ceb17ccdea23@somainline.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211116062256.2417186-13-vkoul@kernel.org>
-Subject: Re: [Freedreno] [PATCH v3 12/13] drm/msm/dsi: Add support for DSC
- configuration
+In-Reply-To: <94bedea3-0e5f-5ae8-79d1-ceb17ccdea23@somainline.org>
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Fix timeout issues on
+ command mode panels
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,256 +56,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
+ linux-kernel@vger.kernel.org, abhinavk@codeaurora.org,
+ paul.bouchara@somainline.org, robdclark@gmail.com, martin.botka@somainline.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, phone-devel@vger.kernel.org,
+ sean@poorly.run, ~postmarketos/upstreaming@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Vinod,
-
-On 2021-11-16 11:52:55, Vinod Koul wrote:
-> When DSC is enabled, we need to configure DSI registers accordingly and
-> configure the respective stream compression registers.
+On 2021-12-09 18:02:40, AngeloGioacchino Del Regno wrote:
+> Il 02/10/21 00:33, Dmitry Baryshkov ha scritto:
+> > On 11/09/2021 19:39, AngeloGioacchino Del Regno wrote:
+> >> [..]
+> > I've compared this with the MDP5 driver, where we always wait for PP_DONE 
+> > interrupt. Would it be enough to always wait for it (= always call 
+> > dpu_encoder_phys_cmd_wait_for_tx_complete())?
+> > 
 > 
-> Add support to calculate the register setting based on DSC params and
-> timing information and configure these registers.
-> 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi.xml.h  |  10 +++
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 113 ++++++++++++++++++++++++++++-
->  2 files changed, 122 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> index 49b551ad1bff..c1c85df58c4b 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> @@ -706,4 +706,14 @@ static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
->  #define REG_DSI_CPHY_MODE_CTRL					0x000002d4
->  
->  
-> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL			0x0000029c
-> +
-> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL2			0x000002a0
-> +
-> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL			0x000002a4
-> +
-> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2			0x000002a8
-> +
-> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL3			0x000002ac
+> Jokes apart, yes it would make sense to do that, it's something that works
+> at least... but we should verify that such a thing doesn't break new platforms
+> (like sm8150 and newer).
 
-I presume you are aware that these files are autogenerated, but there
-does not seem to be any link to patches adding these registers to the
-XML files in either envytools to mesa, nor could I find any merge/pull
-requests on the matter.  Would you mind posting those?  Before doing so
-though, consider the comment below about register mapping.
+On sm6125 (keeping in mind that we're on llvmpipe, will bring up the GPU
+later) none of this hurts the display:
 
-> +
->  #endif /* DSI_XML */
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 31d385d8d834..2c14c36f0b3d 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -908,6 +908,20 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
->  		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
->  }
->  
-> +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
-> +				  int pic_width, int pic_height)
+- Without this patch, so only checking for wait_for_ctl_start;
+- With this patch, checking for idle if it was already started;
+- With this patch altered to only ever call wait_for_tx_complete (wait
+  for idle), in place of wait_for_ctl_start.
 
-This function - adopted from downstream - does not seem to perform a
-whole lot, especially without the modulo checks against the slice size.
-Perhaps it can be inlined?
+Working in the sense that glxgears, which actually reports a framerate
+of approx 170 despite being on llvmpipe on an SoC that is still in
+snail-mode, seems to update (commit) the panel smoothly on every
+occasion.
 
-> +{
-> +	if (!dsc || !pic_width || !pic_height) {
-> +		pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n", pic_width, pic_height);
-> +		return -EINVAL;
-> +	}
-> +
-> +	dsc->drm->pic_width = pic_width;
-> +	dsc->drm->pic_height = pic_height;
-> +
-> +	return 0;
-> +}
-> +
->  static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  {
->  	struct drm_display_mode *mode = msm_host->mode;
-> @@ -940,7 +954,68 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  		hdisplay /= 2;
->  	}
->  
-> +	if (msm_host->dsc) {
-> +		struct msm_display_dsc_config *dsc = msm_host->dsc;
-> +
-> +		/* update dsc params with timing params */
-> +		dsi_dsc_update_pic_dim(dsc, mode->hdisplay, mode->vdisplay);
-> +		DBG("Mode Width- %d x Height %d\n", dsc->drm->pic_width, dsc->drm->pic_height);
-
-This seems to be pretty non-standard and perhaps unnecessary debug code,
-with a stray dash in there.  Is is needed here, and if so how about
-using %dx%d\n to format width and height?
-
-> +
-> +		/* we do the calculations for dsc parameters here so that
-> +		 * panel can use these parameters
-> +		 */
-> +		dsi_populate_dsc_params(dsc);
-> +
-> +		/* Divide the display by 3 but keep back/font porch and
-> +		 * pulse width same
-> +		 */
-
-A more general nit on the comments in this patch series: it is
-appreciated if comments explain the rationale rather than - or in
-addition to - merely paraphrasing the code that follows.
-
-> +		h_total -= hdisplay;
-> +		hdisplay /= 3;
-> +		h_total += hdisplay;
-> +		ha_end = ha_start + hdisplay;
-> +	}
-> +
->  	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
-> +		if (msm_host->dsc) {
-> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
-> +			u32 reg, intf_width, slice_per_intf;
-> +			u32 total_bytes_per_intf;
-> +
-> +			/* first calculate dsc parameters and then program
-> +			 * compress mode registers
-> +			 */
-> +			intf_width = hdisplay;
-> +			slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
-> +
-> +			dsc->drm->slice_count = 1;
-> +			dsc->bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * 8, 8);
-
-If I am not mistaken this is the same value as dsc->drm->slice_width,
-since a multiple of 8 is inherently "a multiple of 8" and hence needs no
-rounding when divided by 8 again.
-
-Also note that the cmdmode variant below uses bits_per_pixel here; is
-that discrepancy intended?
-
-> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
-> +
-> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +			dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
-> +			dsc->bytes_per_pkt = dsc->bytes_in_slice * dsc->drm->slice_count;
-> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-> +
-> +			reg = dsc->bytes_per_pkt << 16;
-> +			reg |= (0x0b << 8);    /* dtype of compressed image */
-> +
-> +			/* pkt_per_line:
-> +			 * 0 == 1 pkt
-> +			 * 1 == 2 pkt
-> +			 * 2 == 4 pkt
-> +			 * 3 pkt is not supported
-> +			 * above translates to ffs() - 1
-> +			 */
-> +			reg |= (ffs(dsc->pkt_per_line) - 1) << 6;
-> +
-> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
-
-This was already calculated and assigned just a couple lines above.
-
-> +			reg |= dsc->eol_byte_num << 4;
-> +			reg |= 1;
-
-Note that the XML register file exists to map out the layout of these
-registers, including bit offset, size, and (enum) constant values.  It
-is appreciated if you can replace all these magical shifts and magic
-flags/bits with the appropriate enum constants and constructor
-functions, after mapping them out in the XML file.
-
-> +
-> +			dsi_write(msm_host,
-> +				  REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
-> +		}
-> +
->  		dsi_write(msm_host, REG_DSI_ACTIVE_H,
->  			DSI_ACTIVE_H_START(ha_start) |
->  			DSI_ACTIVE_H_END(ha_end));
-> @@ -959,8 +1034,40 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
->  			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
->  	} else {		/* command mode */
-> +		if (msm_host->dsc) {
-> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
-> +			u32 reg, reg_ctrl, reg_ctrl2;
-> +			u32 slice_per_intf, bytes_in_slice, total_bytes_per_intf;
-> +
-> +			reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
-> +			reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
-
-Shouldn't old values be masked out first, before writing new bits or
-values below?  The video-mode variant doesn't read back old register
-values.
-
-> +
-> +			slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
-> +			bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
-> +						      dsc->drm->bits_per_pixel, 8);
-> +			dsc->drm->slice_chunk_size = bytes_in_slice;
-> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
-> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-> +
-> +			reg = 0x39 << 8;
-
-Same comment about moving magic constants and shifts into the XML file.
-
-> +			reg |= ffs(dsc->pkt_per_line) << 6;
-
-Doesn't the calculation need -1 here just like video mode?
-
-Thanks!
+On this note, does it perhaps make more sense to call the "internal"
+_dpu_encoder_phys_cmd_wait_for_idle function directly, instead of going
+through the "public" dpu_encoder_phys_cmd_wait_for_tx_complete which
+seems solely intended to handle the wait_for_tx_complete callback?
 
 - Marijn
-
-> +
-> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +			reg |= dsc->eol_byte_num << 4;
-> +			reg |= 1;
-> +
-> +			reg_ctrl |= reg;
-> +			reg_ctrl2 |= bytes_in_slice;
-> +
-> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
-> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
-> +		}
-> +
->  		/* image data and 1 byte write_memory_start cmd */
-> -		wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-> +		if (!msm_host->dsc)
-> +			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-> +		else
-> +			wc = mode->hdisplay / 2 + 1;
->  
->  		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
->  			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
-> @@ -2051,9 +2158,13 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
->  {
->  	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->  	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
-> +	struct msm_drm_private *priv;
->  	int ret;
->  
->  	msm_host->dev = dev;
-> +	priv = dev->dev_private;
-> +	priv->dsc = msm_host->dsc;
-> +
->  	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
->  	if (ret) {
->  		pr_err("%s: alloc tx gem obj failed, %d\n", __func__, ret);
-> -- 
-> 2.31.1
-> 
