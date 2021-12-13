@@ -2,64 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFDB472DE2
-	for <lists+freedreno@lfdr.de>; Mon, 13 Dec 2021 14:51:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E01A34736A2
+	for <lists+freedreno@lfdr.de>; Mon, 13 Dec 2021 22:43:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D03410E80F;
-	Mon, 13 Dec 2021 13:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F7E10E9DE;
+	Mon, 13 Dec 2021 21:43:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73B1010E7CE;
- Mon, 13 Dec 2021 13:51:13 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1C632212B6;
- Mon, 13 Dec 2021 13:51:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639403472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3pbPGUydyhh3UOGI/DKu1/UXH5BGZJalpxxCmIrkR4A=;
- b=BCVhQ2evX5ANkYcI7wTxdKLQflZOUvTsBBQts9UCbV/9fl0Bt8miDo965wV8vno8yAOzSC
- abtG0JI8yU63CAQPPn3XvFVaIYnYZqCclRs/TpcfLYOsi+bl94UM26V2D2ESj1k65BJAL6
- skT0avAgWwA0USl3ecnuAOLVq4AZZpc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639403472;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3pbPGUydyhh3UOGI/DKu1/UXH5BGZJalpxxCmIrkR4A=;
- b=IgN/KYzwiLXuwz8uXiYC+yyAUbgKd9iazcuZF6RAYxHs22CpZUA6P8WSh8aNKyXXUwRNPx
- ioUWTUxf74Ehk0AQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D138713D90;
- Mon, 13 Dec 2021 13:51:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XQEOMs9Pt2HRGgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 13 Dec 2021 13:51:11 +0000
-Message-ID: <83ab4452-3744-20fe-e3ba-5bd4b48622e3@suse.de>
-Date: Mon, 13 Dec 2021 14:51:11 +0100
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D06DA10E9DE
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Dec 2021 21:43:20 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id t19so24982868oij.1
+ for <freedreno@lists.freedesktop.org>; Mon, 13 Dec 2021 13:43:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=TmGwTxtk1ApFzRT5JcuqotjuO1Eq6SC3X6wTg4aSOGc=;
+ b=eNaZByPA3A9BMSPWspOZQZYK28rssM3XgZvdRx5XCTDo+TI+Z8nG1+mtIgUfxDnjCQ
+ bTEdUbOAJjsIjMzHXemYzUBdwPs2m2wTR//V0+o7cw+D60ALBLxTHVQuUEx5jmat3Cjs
+ p1UaXu+fZVvCxOFZfcOs4V3KjhAoTqrodl634=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=TmGwTxtk1ApFzRT5JcuqotjuO1Eq6SC3X6wTg4aSOGc=;
+ b=YXlRE9I48zcBQv8j23Pape7izwFruCQBkxKAFxUg9DIZHIXw9y74mHeasDWiCAPYOz
+ /VBbdIPgTcK96uKw1FnJizFQ9M4dQyzvmZ/LKgPdtgukHexSQTWyzEs6/JgATATtoUsL
+ gcftl6VHlEA+msEkatgRvd5N0kisRQ4g2BATvkhwoWT3TA2p/wN71/wQ5LHNNqEJHXR7
+ Toku83xD36/tLuxjDqPOo8KHAvgEDCIsR6zDj1N95nVEZfYVdeEeHM/HxLDs8zDx0M71
+ wibNyidAp/kbMe/8mtVJWNTNV/Lcdptj0FxfTTLG/pavjIeUcatqqJbW1N+s5PQZ3OGS
+ 5PpA==
+X-Gm-Message-State: AOAM532VilRzfLdfDVdXNf68snyspufWik/lL5m8j5cQ2g86MmMOp8E+
+ nCbA4Cx/JVQvw2v+ruV/Wc79K+uhUq504+VWHhmU9g==
+X-Google-Smtp-Source: ABdhPJwBmJUtITTggfiBEHtxlPNAqOaF12KYEh1ljweCao7w72Js/U/c7J5QINoBhIaZJpcXb7QiXAChzLKfd0d+7y0=
+X-Received: by 2002:a05:6808:211f:: with SMTP id
+ r31mr1129616oiw.64.1639431800144; 
+ Mon, 13 Dec 2021 13:43:20 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Dec 2021 13:43:19 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, airlied@linux.ie, daniel@ffwll.ch
-References: <20211213093650.19598-1-tzimmermann@suse.de>
- <87lf0o7hnv.fsf@intel.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <87lf0o7hnv.fsf@intel.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Sx5n4XU3nlxLAa0gCfsogVHd"
-Subject: Re: [Freedreno] [PATCH 0/3] drm/dp: Move DisplayPort helpers into
- own module
+In-Reply-To: <Ya+mV/zuRVVIGVy1@phenom.ffwll.local>
+References: <20211202222732.2453851-1-swboyd@chromium.org>
+ <Ya+mV/zuRVVIGVy1@phenom.ffwll.local>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Mon, 13 Dec 2021 13:43:19 -0800
+Message-ID: <CAE-0n53dnsAdjBUVmDMbcvrSJEE=RPu7PGX_zaWCZ_ZBUAythA@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v4 00/34] component: Make into an aggregate
+ bus
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,114 +66,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: linux-fbdev@vger.kernel.org,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Linus Walleij <linus.walleij@linaro.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Will Deacon <will@kernel.org>,
+ Vitaly Lubart <vitaly.lubart@intel.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>,
+ Saravana Kannan <saravanak@google.com>, Joerg Roedel <joro@8bytes.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Sandy Huang <hjc@rock-chips.com>,
+ James Qian Wang <james.qian.wang@arm.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Tomas Winkler <tomas.winkler@intel.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Mark Brown <broonie@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-omap@vger.kernel.org, Yong Wu <yong.wu@mediatek.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>,
+ Tian Tao <tiantao6@hisilicon.com>, freedreno@lists.freedesktop.org,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Sx5n4XU3nlxLAa0gCfsogVHd
-Content-Type: multipart/mixed; boundary="------------LAoMFDIye50DiRbbkDojKm0B";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Jani Nikula <jani.nikula@linux.intel.com>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
-Message-ID: <83ab4452-3744-20fe-e3ba-5bd4b48622e3@suse.de>
-Subject: Re: [PATCH 0/3] drm/dp: Move DisplayPort helpers into own module
-References: <20211213093650.19598-1-tzimmermann@suse.de>
- <87lf0o7hnv.fsf@intel.com>
-In-Reply-To: <87lf0o7hnv.fsf@intel.com>
+Quoting Daniel Vetter (2021-12-07 10:22:15)
+> On Thu, Dec 02, 2021 at 02:26:58PM -0800, Stephen Boyd wrote:
+> > This series is from discussion we had on reordering the device lists for
+> > drm shutdown paths[1]. I've introduced an 'aggregate' bus that we put
+> > the aggregate device onto and then we probe the aggregate device once
+> > all the components are probed and call component_add(). The probe/remove
+> > hooks are where the bind/unbind calls go, and then a shutdown hook is
+> > added that can be used to shutdown the drm display pipeline at the right
+> > time.
+> >
+> > This works for me on my sc7180 board. I no longer get a warning from i2c
+> > at shutdown that we're trying to make an i2c transaction after the i2c
+> > bus has been shutdown. There's more work to do on the msm drm driver to
+> > extract component device resources like clks, regulators, etc. out of
+> > the component bind function into the driver probe but I wanted to move
+> > everything over now in other component drivers before tackling that
+> > problem.
+> >
+> > Tested-by tags would be appreciated, and Acked-by/Reviewed-by tags too.
+>
+> Thanks for pushing this forward. Unfortunately I'm completely burried and
+> it's just not improving, so merge plan:
+>
+> - please get Greg KH to ack the bus/driver core stuff
+>
+> - please get one of the drm-misc committers we have from Google's Chromeos
+>   team (there should be a few by now) to review&push this.
 
---------------LAoMFDIye50DiRbbkDojKm0B
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Sounds like a plan. Thanks!
 
-SGkNCg0KQW0gMTMuMTIuMjEgdW0gMTQ6MzQgc2NocmllYiBKYW5pIE5pa3VsYToNCj4gT24g
-TW9uLCAxMyBEZWMgMjAyMSwgVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2Uu
-ZGU+IHdyb3RlOg0KPj4gU3BsaXQtb2ZmIERpc3BsYXlQb3J0IGZ1bmN0aW9ucyBmcm9tIEtN
-UyBoZWxwZXIgbGlicmFyeSBhbmQgbW92ZSB0aGVtDQo+PiBpbnRvIHRoZWlyIG93biBtb2R1
-bGUuIFJlZHVjZXMgdGhlIHNpemUgb2YgZHJtX2ttc19oZWxwZXIua28gYnkgfjUwJS4NCj4+
-DQo+PiBUaGlzIHBhdGNoc2V0IGlzIHBhcnQgb2YgYW4gb24tZ29pbmcgZWZmb3J0IHRvIHJl
-ZHVjZSB0aGUgbWluaW11bQ0KPj4gYmluYXJ5IHNpemUgb2YgdGhlIERSTSBjb3JlIGFuZCBo
-ZWxwZXJzLiBJdCdzIGhlbHBmdWwgZm9yIHN5c3RlbXMgd2l0aA0KPj4gZWFybHktYm9vdCBE
-Uk0gZ3JhcGhpY3MsIHdoaWNoIHJlcXVpcmVzIERSTSB0byBiZSBsaW5rZWQgaW50byB0aGUN
-Cj4+IGtlcm5lbCBpbWFnZS4NCj4gDQo+IFdvdWxkIGl0IGJlIHRpbWUgdG8gYWRkIGEgc3Vi
-ZGlyZWN0b3J5IGZvciBlYWNoIG5vbi1kcml2ZXIsIG5vbi1jb3JlIGRybQ0KPiBtb2R1bGU/
-IFdlJ3ZlIHRvdWNoZWQgdGhpcyB0b3BpYyBiZWZvcmUuIEkgZmluZCBpdCBpbmNyZWFzaW5n
-bHkgaGFyZCB0bw0KPiByZW1lbWJlciB3aGljaCBmaWxlcyBhcmUgcGFydCBvZiBoZWxwZXJz
-LiBUaGlzIHdvdWxkIGFsc28gaGVscCB3aXRoIHRoZQ0KPiBhcmJpdHJhcnkgZHJtX2RwX2hl
-bHBlcl9tb2QuYyBuYW1pbmcuDQo+IA0KPiBQZXJoYXBzIGRyaXZlcnMvZ3B1L2RybS9kcm1f
-ZHAvPw0KDQpJdCdzIHByb2JhYmx5IHdvcnRoIGl0LCBidXQgSSdkIHByZWZlciBhIHNlcGFy
-YXRlIHBhdGNoc2V0IGFuZCANCmRpc2N1c3Npb24gb3ZlciB0aGlzLiBJdCBhZmZlY3RzIHNl
-dmVyYWwgbW9kdWxlcy4NCg0KSWYgYWRkaW5nIGRybV9kcF9oZWxwZXJfbW9kLmMgaXMgb3Zl
-cmtpbGwsIHRoYXQgbW9kdWxlIGNvZGUgY2FuIGFsc28gYmUgDQphZGRlZCB0byBkcm1fZHAu
-YyBmb3Igbm93Lg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0KPiBCUiwNCj4gSmFu
-aS4NCj4gDQo+IA0KPiANCj4+DQo+PiBUaG9tYXMgWmltbWVybWFubiAoMyk6DQo+PiAgICBk
-cm0vZHBfbXN0OiBSZW1vdmUgdHJhaWxpbmcgd2hpdGVzcGFjZS4NCj4+ICAgIGRybS9kcDog
-TW92ZSBEUCBkZWNsYXJhdGlvbnMgaW50byBzZXBhcmF0ZSBoZWFkZXIgZmlsZQ0KPj4gICAg
-ZHJtL2RwOiBNb3ZlIERpc3BsYXlQb3J0IGhlbHBlcnMgaW50byBzZXBhcmF0ZSBoZWxwZXIg
-bW9kdWxlDQo+Pg0KPj4gICBkcml2ZXJzL2dwdS9kcm0vS2NvbmZpZyAgICAgICAgICAgICAg
-ICAgICAgICAgfCAgOCArKysrKysNCj4+ICAgZHJpdmVycy9ncHUvZHJtL01ha2VmaWxlICAg
-ICAgICAgICAgICAgICAgICAgIHwgMTQgKysrKysrLS0tLQ0KPj4gICBkcml2ZXJzL2dwdS9k
-cm0vYnJpZGdlL0tjb25maWcgICAgICAgICAgICAgICAgfCAgNCArKysNCj4+ICAgZHJpdmVy
-cy9ncHUvZHJtL2JyaWRnZS9hbmFsb2dpeC9LY29uZmlnICAgICAgIHwgIDIgKysNCj4+ICAg
-ZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9jYWRlbmNlL0tjb25maWcgICAgICAgIHwgIDEgKw0K
-Pj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2NydGNfaGVscGVyX2ludGVybmFsLmggICAgfCAy
-NyAtLS0tLS0tLS0tLS0tLS0tLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL3tkcm1fZHBfaGVs
-cGVyLmMgPT4gZHJtX2RwLmN9IHwgIDIgKy0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9k
-cF9hdXhfZGV2LmMgICAgICAgICAgICAgIHwgIDIgKy0NCj4+ICAgZHJpdmVycy9ncHUvZHJt
-L2RybV9kcF9oZWxwZXJfaW50ZXJuYWwuaCAgICAgIHwgMjggKysrKysrKysrKysrKysrKysr
-Kw0KPj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX2hlbHBlcl9tb2QuYyAgICAgICAgICAg
-fCAyMiArKysrKysrKysrKysrKysNCj4+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3Rf
-dG9wb2xvZ3kuYyAgICAgICAgIHwgIDQgKy0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1f
-a21zX2hlbHBlcl9jb21tb24uYyAgICAgICB8IDE0IC0tLS0tLS0tLS0NCj4+ICAgZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvS2NvbmZpZyAgICAgICAgICAgICAgICAgIHwgIDEgKw0KPj4gICBk
-cml2ZXJzL2dwdS9kcm0vbXNtL0tjb25maWcgICAgICAgICAgICAgICAgICAgfCAgMSArDQo+
-PiAgIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L0tjb25maWcgICAgICAgICAgICAgICB8ICAx
-ICsNCj4+ICAgZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcgICAgICAgICAgICAg
-IHwgIDEgKw0KPj4gICBkcml2ZXJzL2dwdS9kcm0vdGVncmEvS2NvbmZpZyAgICAgICAgICAg
-ICAgICAgfCAgMSArDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS94bG54L0tjb25maWcgICAgICAg
-ICAgICAgICAgICB8ICAxICsNCj4+ICAgMTggZmlsZXMgY2hhbmdlZCwgODMgaW5zZXJ0aW9u
-cygrKSwgNTEgZGVsZXRpb25zKC0pDQo+PiAgIHJlbmFtZSBkcml2ZXJzL2dwdS9kcm0ve2Ry
-bV9kcF9oZWxwZXIuYyA9PiBkcm1fZHAuY30gKDk5JSkNCj4+ICAgY3JlYXRlIG1vZGUgMTAw
-NjQ0IGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfaGVscGVyX2ludGVybmFsLmgNCj4+ICAgY3Jl
-YXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfaGVscGVyX21vZC5jDQo+
-Pg0KPj4NCj4+IGJhc2UtY29tbWl0OiAzZjQyMjgyODIyMWQ5Y2VlZmNkZGVmMGJlMzM1NjFi
-MTY0NmExY2JlDQo+PiBwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IGMyYjJmMDhmMGVjY2M5ZjVk
-ZjBjMGRhNDlmYTFkMzYyNjdkZWIxMWQNCj4+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogYzY3
-ZTVkODg2YTQ3YjdkMDI2NmQ4MTEwMDgzNzU1N2ZkYTM0Y2IyNA0KPj4gLS0NCj4+IDIuMzQu
-MQ0KPj4NCj4gDQoNCi0tIA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERyaXZlciBE
-ZXZlbG9wZXINClNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0KTWF4ZmVs
-ZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBBRyBOw7xy
-bmJlcmcpDQpHZXNjaMOkZnRzZsO8aHJlcjogSXZvIFRvdGV2DQo=
-
---------------LAoMFDIye50DiRbbkDojKm0B--
-
---------------Sx5n4XU3nlxLAa0gCfsogVHd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmG3T88FAwAAAAAACgkQlh/E3EQov+Bz
-FQ/9HqIxcguCQf8aqbHkJ6mtF97KK0U0NSUTx3DJFKTQ+2G1hYqxb9ppDhpR4EwKojU5lo44cj8G
-7IBTc+FaDUl3/7qn406FW0BELJKUvy9863kX6yYzB99lROIfYfkAVJt8Wm4ahbdBVYq8Wzu5UsZr
-2dInmA9TrCz6g+yhBUPvUC/zIgaCTVsKV7fSV1GQwgb3lcHTNQ6bfEBR6mnDU2C/pDJOFY/U4p4m
-NWD0j+O8UHugJ+tNO3O8IaqlCc+2RADZUMY6YMTrR9/tJkyqcbOE88m9RJR3dLOIFtoL+99LDZLd
-Ac0z/dvDzn2Ni3PEfwwxMv7pEmzHYT+Eh++xFal5XsG00EIfrwatre8EB277IzCLc9oHmmPwPihu
-QVbJhcJnrV7c7fgjL7wIrQDM0oOAoTeBRjgxG6FjpAGThRdPPsSkjOBCSme5V0Kjqvp13egOs/sE
-YonoYvYaVF57b1Tinv9/m7VTNYfUceeAnpxfyvdgtsBOlbsioHayxO6a5cvHyaN0MU79Khq0qsUk
-DfoBzzXK1+5OBkufOZN8X6TMJl21hO4fWgt83KGmZ9GGZvdqsIicpZZYhjX/YPv242gu48EWT1PR
-AQYHkWRRG/7OecpNC3inhi9zDTTIcq5BokW4wgePEeeg8/hGO7THg3qsOhj/4dZP1WvWIoXnEXh9
-78A=
-=j7+c
------END PGP SIGNATURE-----
-
---------------Sx5n4XU3nlxLAa0gCfsogVHd--
+>
+> Otherwise I fear this might get stuck and I'd really like to avoid that.
+>
