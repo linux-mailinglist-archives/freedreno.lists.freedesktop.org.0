@@ -2,62 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C61471B9F
-	for <lists+freedreno@lfdr.de>; Sun, 12 Dec 2021 17:40:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E4447247F
+	for <lists+freedreno@lfdr.de>; Mon, 13 Dec 2021 10:37:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 399EE10E87A;
-	Sun, 12 Dec 2021 16:40:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2245310E711;
+	Mon, 13 Dec 2021 09:36:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7226D10E862;
- Sun, 12 Dec 2021 16:40:04 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id m6so14996392lfu.1;
- Sun, 12 Dec 2021 08:40:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=cnedO9b6vjLZxKJM/wEKxKhqHm2FwahC7goP3pJJhNw=;
- b=V5oJ3i+5pWNV6Tlck110K9NB214XryU6AzpHIegPkXHZ5EiBItZnD9NflSGyGPf7a8
- c2C5IKpPHAUmGij+o7h8RKJ8H2CkmJzWZl4dmiHtRKCZf2qgqil5+thx5wrWXUW6Gkqs
- cMty2xGJpRbRowBIHaUNcsxVfVivDizL037Xt8yjPQT9Ilm6FUxHgjstH+asxYGAU6/o
- BVE8nIZmucjNUqNgkMDlx0lU5nv5lAp91b4xXn6vrd/TNL9fQUYQJB2O+jKG7/UtKN4l
- uwYYKFQ38Y+X3wYGEMlVLbCvd/lEvn0Q7TwFhOvy4+CZGNJxss8uqEXzlutEjpHI/Spp
- z1IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=cnedO9b6vjLZxKJM/wEKxKhqHm2FwahC7goP3pJJhNw=;
- b=4YYU56V7Orb13vjwP7vnZ0ogJJGKlqoJK+ufR2n5VI7/mQxMvh+bGuKQY/f3PfsS4+
- xam9U01VwbyN0oOMk6BsGP3pIsu6RL4xih+FK2Cbcy8OotJ2eJB31tDFFa0NDW29TueV
- pVguVmHDrYtoRp4xCyWtE+NIHu2toi+PMKqyBcwnVdeGu00wKp54k/hlOkGjPTvPUVjr
- 69yi4QLWYtACZZpAZmhnyV6ezJrLQZK63xVh9F0cTUoX386yhxvyinzF3p+nK4+YQdGJ
- kNLeU/etwLgKxul5yMSdOetw/UMNu3r/LyRcfCV65dTmrqDXr/61CZZD5rdRb62gylnv
- TlKA==
-X-Gm-Message-State: AOAM532cv83lfixdZAR/Qso3rWQQg+qAUZvgjI+XBAD12lOUqOr61l7Y
- Krk6aNcefGlbq5ge9EgSfPA=
-X-Google-Smtp-Source: ABdhPJzbzHHtaprJmbFJWQm+Zl/A3sbrNT7y1KqWq84qcIZgutxfbO8KaGojTHfKuutQJMs79ryaKg==
-X-Received: by 2002:a05:6512:2289:: with SMTP id
- f9mr24013249lfu.619.1639327202731; 
- Sun, 12 Dec 2021 08:40:02 -0800 (PST)
-Received: from localhost.localdomain (public-nat-10.vpngate.v4.open.ad.jp.
- [219.100.37.242])
- by smtp.gmail.com with ESMTPSA id u7sm1110936lja.58.2021.12.12.08.39.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Dec 2021 08:40:02 -0800 (PST)
-From: Vladimir Lypak <vladimir.lypak@gmail.com>
-To: Vladimir Lypak <vladimir.lypak@gmail.com>
-Date: Sun, 12 Dec 2021 16:03:17 +0000
-Message-Id: <20211212160333.980343-2-vladimir.lypak@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211212160333.980343-1-vladimir.lypak@gmail.com>
-References: <20211212160333.980343-1-vladimir.lypak@gmail.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 764C310E712;
+ Mon, 13 Dec 2021 09:36:55 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 22C4B210DB;
+ Mon, 13 Dec 2021 09:36:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1639388214; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/zRZkx8PjhgmeuS4SLLQwqHLtqLPK1ATN5cfwzP7njM=;
+ b=eNBIPLjSHtRtDSCiX6eQ6wrYSbf22O+r1BSjToSx/C+TZmLd7inQA7WAE0Im9NLV2ig4Gr
+ foPoUjCEK6OS6QKzbsTDMQ4K1O6ZN6j4L4gCgQQYR9aAdvueImBbdBOnGtJmwbYhW2HKV6
+ m4xT+3dH2czYlKFwqbt5hRZq/iOIW64=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1639388214;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/zRZkx8PjhgmeuS4SLLQwqHLtqLPK1ATN5cfwzP7njM=;
+ b=ata7Up89xhbqS9ln84M8o269HDt/H1zncNbkRD4IE4k6iy8HkpMpxF6MYDz7oxzit6Q5O2
+ mFr4NBkPeJyeigAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CFD9F13CCB;
+ Mon, 13 Dec 2021 09:36:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ToPSMTUUt2E+JwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 13 Dec 2021 09:36:53 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@linux.ie,
+ daniel@ffwll.ch
+Date: Mon, 13 Dec 2021 10:36:47 +0100
+Message-Id: <20211213093650.19598-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/a5xx: Fix missing CP_PROTECT for
- SMMU on A540
+Subject: [Freedreno] [PATCH 0/3] drm/dp: Move DisplayPort helpers into own
+ module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,52 +63,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@somainline.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- Iskren Chernev <iskren.chernev@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-A CP_PROTECT entry for SMMU registers is missing for A540. According to
-downstream sources its length is same as on A530 - 0x20000 bytes.
+Split-off DisplayPort functions from KMS helper library and move them
+into their own module. Reduces the size of drm_kms_helper.ko by ~50%.
 
-On all other revisions SMMU region length is 0x10000 bytes. Despite
-this, we setup region of length 0x20000 on all revisions. This doesn't
-cause any issues on those GPUs. As for preventing accesses to the region
-from protected mode it was tested to work the same.
+This patchset is part of an on-going effort to reduce the minimum
+binary size of the DRM core and helpers. It's helpful for systems with
+early-boot DRM graphics, which requires DRM to be linked into the
+kernel image.
 
-This patch drops the "if" condition in setup of CP_PROTECT entry because
-it already includes all supported revisions except A540.
+Thomas Zimmermann (3):
+  drm/dp_mst: Remove trailing whitespace.
+  drm/dp: Move DP declarations into separate header file
+  drm/dp: Move DisplayPort helpers into separate helper module
 
-Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/Kconfig                       |  8 ++++++
+ drivers/gpu/drm/Makefile                      | 14 ++++++----
+ drivers/gpu/drm/bridge/Kconfig                |  4 +++
+ drivers/gpu/drm/bridge/analogix/Kconfig       |  2 ++
+ drivers/gpu/drm/bridge/cadence/Kconfig        |  1 +
+ drivers/gpu/drm/drm_crtc_helper_internal.h    | 27 ------------------
+ drivers/gpu/drm/{drm_dp_helper.c => drm_dp.c} |  2 +-
+ drivers/gpu/drm/drm_dp_aux_dev.c              |  2 +-
+ drivers/gpu/drm/drm_dp_helper_internal.h      | 28 +++++++++++++++++++
+ drivers/gpu/drm/drm_dp_helper_mod.c           | 22 +++++++++++++++
+ drivers/gpu/drm/drm_dp_mst_topology.c         |  4 +--
+ drivers/gpu/drm/drm_kms_helper_common.c       | 14 ----------
+ drivers/gpu/drm/i915/Kconfig                  |  1 +
+ drivers/gpu/drm/msm/Kconfig                   |  1 +
+ drivers/gpu/drm/nouveau/Kconfig               |  1 +
+ drivers/gpu/drm/rockchip/Kconfig              |  1 +
+ drivers/gpu/drm/tegra/Kconfig                 |  1 +
+ drivers/gpu/drm/xlnx/Kconfig                  |  1 +
+ 18 files changed, 83 insertions(+), 51 deletions(-)
+ rename drivers/gpu/drm/{drm_dp_helper.c => drm_dp.c} (99%)
+ create mode 100644 drivers/gpu/drm/drm_dp_helper_internal.h
+ create mode 100644 drivers/gpu/drm/drm_dp_helper_mod.c
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 894881d273b8..fea632c789a0 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -860,10 +860,8 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
- 	/* UCHE */
- 	gpu_write(gpu, REG_A5XX_CP_PROTECT(16), ADRENO_PROTECT_RW(0xE80, 16));
- 
--	if (adreno_is_a506(adreno_gou) || adreno_is_a508(adreno_gpu) ||
--	    adreno_is_a509(adreno_gpu) || adreno_is_a510(adreno_gpu) ||
--	    adreno_is_a512(adreno_gpu) || adreno_is_a530(adreno_gpu))
--		gpu_write(gpu, REG_A5XX_CP_PROTECT(17),
-+	/* SMMU */
-+	gpu_write(gpu, REG_A5XX_CP_PROTECT(17),
- 			ADRENO_PROTECT_RW(0x10000, 0x8000));
- 
- 	gpu_write(gpu, REG_A5XX_RBBM_SECVID_TSB_CNTL, 0);
--- 
-2.33.1
+
+base-commit: 3f422828221d9ceefcddef0be33561b1646a1cbe
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+--
+2.34.1
 
