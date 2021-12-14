@@ -1,48 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0856D474691
-	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 16:37:37 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 97C93474979
+	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 18:33:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7A610E552;
-	Tue, 14 Dec 2021 15:37:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4448789D2F;
+	Tue, 14 Dec 2021 17:33:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8CF10E552;
- Tue, 14 Dec 2021 15:37:34 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 9744ACE18EA;
- Tue, 14 Dec 2021 15:37:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45E90C34604;
- Tue, 14 Dec 2021 15:37:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639496248;
- bh=RsqIxw7l181YP8CsMrHMkGZWM3eQKUjSOlAiEt1c9Z0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X/ot4IoekuSM4yLL1UUyI+1dPtb3HVfplV1+ex5sYgFnpg32AlhbJlga1P+xLbvRB
- m68qNKuZ0AjmmhiJZT80bpwuuFy3AhoW2kYTAeLe+9/UFMSnWFIKMbxsZodICte8FW
- 7XCRckyPKHOkLhvc4o88hxVaXQWuC59eCg/5EW6gD9HEvBkBWP/3dGn2y21pPtux5D
- A4C7V58JkeE1IwGQmIlg3uQfLyN622kMzdUasowwlnVUEJoD8i0b7vCvkakk3H+3FP
- lJXIM99ArskFYH4zq1+vL0RZHhT3rVdoZqInX8B0qR/1ISuFT+vbKfeDmLEHN1nZe+
- /0dSqFlT8MTSA==
-Date: Tue, 14 Dec 2021 15:37:22 +0000
-From: Will Deacon <will@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20211214153722.GA15416@willie-the-truck>
-References: <20211005151633.1738878-1-robdclark@gmail.com>
- <20211005151633.1738878-2-robdclark@gmail.com>
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
+ [IPv6:2607:f8b0:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F34210E244;
+ Tue, 14 Dec 2021 17:33:55 +0000 (UTC)
+Received: by mail-pg1-x52f.google.com with SMTP id l10so6912781pgm.7;
+ Tue, 14 Dec 2021 09:33:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=aiq9nNSvlZRUirau9B4I1N3QBcTBVS4NyHnI1Y/cwlI=;
+ b=mZkyLk6P3Fp0rIPqxiycuhn3j5MLBRUp2miZAgxJhL0SIlwWwjdR6y+PuFOQi9pg1z
+ f0vJkHft1DfFaFyxh6nB/BI4Gs1M0f+ceJtVSg7dkI+oSnL3GdC/wf7mVgx2w1BuHacQ
+ xvAW3TzawJRnN2JZdJvyzSIZiM4F7cN4CGmQmv6cUvVUr929Uu+KQwSHu6iYWMUttB1M
+ LUBk/9EjVuw/g8bSyY2jiYlfmONM/IGUNnI3qYluzJfcTSdAb8c1e35D6beJPwcROSdO
+ /h41ViHPDrk9Fu4pH8fdaQuHdLBhSwiAhmAtfDwe02wAAmTUqVbTCtyeIMlBDaTybmrX
+ Xnvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=aiq9nNSvlZRUirau9B4I1N3QBcTBVS4NyHnI1Y/cwlI=;
+ b=QRew2CROTFyvGg6llGyhQamkvYojckB2Wwtb2NPlZgvVIw5q2J8VsTvyBcCsx5tHBl
+ LQ0/YfzdA1Z3246bE2b102VMU1RRl9QIOVRWJ6wbOQj7DRqcfqBrOcXfDsoz35yrddv9
+ lgUpWkCqnh43CYgn7uawXu8Reu9STxIuKbRJVnDGTxeuZyqhpVeJNgiuB5pmuAt+qerB
+ qphdzdSxoJE5O+bR8kTkyQamNceG9K8+pSbO20h7KGfBNlaLmxyRqONl5oyfHHNO0x3C
+ nqeVK+QsqxWw1Rf4FgQ+UaznLFXCaRK83bNBvjdx1nWOV6Qm5mOMiVSTldyEfLgEJf89
+ umOA==
+X-Gm-Message-State: AOAM531KTOITH36FzfbYF86hwd6KZ0+3fZXB8GURq1WpmRwvNwOx/sXr
+ QjUtIft+6F4FHOKzlxk9dWXcwLcfNfc=
+X-Google-Smtp-Source: ABdhPJxQRcmEWi0VOIERaMxn3AGDNXnCT28ghoDG1tX8uXegK9zrHvboi8MntbRDd9WYTe1yrWhwCA==
+X-Received: by 2002:a05:6a00:809:b0:4b1:33bd:82f5 with SMTP id
+ m9-20020a056a00080900b004b133bd82f5mr5350689pfk.71.1639503234457; 
+ Tue, 14 Dec 2021 09:33:54 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ l13sm438617pfu.149.2021.12.14.09.33.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Dec 2021 09:33:53 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 14 Dec 2021 09:38:58 -0800
+Message-Id: <20211214173917.1496290-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211005151633.1738878-2-robdclark@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v2 1/3] iommu/io-pgtable-arm: Add way to
- debug pgtable walk
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/3] drm/msm: Add display snapshot debugfs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,138 +68,35 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Sven Peter <sven@svenpeter.dev>, freedreno@lists.freedesktop.org,
- Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
- "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Yong Wu <yong.wu@mediatek.com>, Robin Murphy <robin.murphy@arm.com>,
- linux-arm-kernel@lists.infradead.org
+ open list <linux-kernel@vger.kernel.org>, Guo Zhengkui <guozhengkui@vivo.com>,
+ linux-arm-msm@vger.kernel.org, Masahiro Yamada <masahiroy@kernel.org>,
+ Doug Anderson <dianders@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <seanpaul@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org, Alexey Dobriyan <adobriyan@gmail.com>,
+ Fernando Ramos <greenfoo@u92.eu>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Oct 05, 2021 at 08:16:25AM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Add an io-pgtable method to retrieve the raw PTEs that would be
-> traversed for a given iova access.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/iommu/io-pgtable-arm.c | 40 +++++++++++++++++++++++++++-------
->  include/linux/io-pgtable.h     |  9 ++++++++
->  2 files changed, 41 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-> index dd9e47189d0d..c470fc0b3c2b 100644
-> --- a/drivers/iommu/io-pgtable-arm.c
-> +++ b/drivers/iommu/io-pgtable-arm.c
-> @@ -700,38 +700,61 @@ static size_t arm_lpae_unmap(struct io_pgtable_ops *ops, unsigned long iova,
->  	return arm_lpae_unmap_pages(ops, iova, size, 1, gather);
->  }
->  
-> -static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
-> -					 unsigned long iova)
-> +static int arm_lpae_pgtable_walk(struct io_pgtable_ops *ops, unsigned long iova,
-> +				 void *_ptes, int *num_ptes)
->  {
->  	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
->  	arm_lpae_iopte pte, *ptep = data->pgd;
-> +	arm_lpae_iopte *ptes = _ptes;
-> +	int max_ptes = *num_ptes;
->  	int lvl = data->start_level;
->  
-> +	*num_ptes = 0;
-> +
->  	do {
-> +		if (*num_ptes >= max_ptes)
-> +			return -ENOSPC;
-> +
->  		/* Valid IOPTE pointer? */
->  		if (!ptep)
-> -			return 0;
-> +			return -EFAULT;
->  
->  		/* Grab the IOPTE we're interested in */
->  		ptep += ARM_LPAE_LVL_IDX(iova, lvl, data);
->  		pte = READ_ONCE(*ptep);
->  
-> +		ptes[(*num_ptes)++] = pte;
-> +
->  		/* Valid entry? */
->  		if (!pte)
-> -			return 0;
-> +			return -EFAULT;
->  
->  		/* Leaf entry? */
->  		if (iopte_leaf(pte, lvl, data->iop.fmt))
-> -			goto found_translation;
-> +			return 0;
->  
->  		/* Take it to the next level */
->  		ptep = iopte_deref(pte, data);
->  	} while (++lvl < ARM_LPAE_MAX_LEVELS);
->  
-> -	/* Ran out of page tables to walk */
-> -	return 0;
-> +	return -EFAULT;
-> +}
-> +
-> +static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
-> +					 unsigned long iova)
-> +{
-> +	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
-> +	arm_lpae_iopte pte, ptes[ARM_LPAE_MAX_LEVELS];
-> +	int lvl, num_ptes = ARM_LPAE_MAX_LEVELS;
-> +	int ret;
-> +
-> +	ret = arm_lpae_pgtable_walk(ops, iova, ptes, &num_ptes);
-> +	if (ret)
-> +		return 0;
-> +
-> +	pte = ptes[num_ptes - 1];
-> +	lvl = num_ptes - 1 + data->start_level;
->  
-> -found_translation:
->  	iova &= (ARM_LPAE_BLOCK_SIZE(lvl, data) - 1);
->  	return iopte_to_paddr(pte, data) | iova;
->  }
-> @@ -816,6 +839,7 @@ arm_lpae_alloc_pgtable(struct io_pgtable_cfg *cfg)
->  		.unmap		= arm_lpae_unmap,
->  		.unmap_pages	= arm_lpae_unmap_pages,
->  		.iova_to_phys	= arm_lpae_iova_to_phys,
-> +		.pgtable_walk	= arm_lpae_pgtable_walk,
->  	};
->  
->  	return data;
-> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
-> index 86af6f0a00a2..501f362a929c 100644
-> --- a/include/linux/io-pgtable.h
-> +++ b/include/linux/io-pgtable.h
-> @@ -148,6 +148,13 @@ struct io_pgtable_cfg {
->   * @unmap:        Unmap a physically contiguous memory region.
->   * @unmap_pages:  Unmap a range of virtually contiguous pages of the same size.
->   * @iova_to_phys: Translate iova to physical address.
-> + * @pgtable_walk: Return details of a page table walk for a given iova.
-> + *                This returns the array of PTEs in a format that is
-> + *                specific to the page table format.  The number of
-> + *                PTEs can be format specific.  The num_ptes parameter
-> + *                on input specifies the size of the ptes array, and
-> + *                on output the number of PTEs filled in (which depends
-> + *                on the number of PTEs walked to resolve the iova)
+From: Rob Clark <robdclark@chromium.org>
 
-I think this would be a fair bit cleaner if the interface instead took a
-callback function to invoke at each page-table level. It would be invoked
-with the pte value and the level. Depending on its return value the walk
-could be terminated early. That would also potentially scale to walking
-ranges of iovas as well if we ever need it and it may be more readily
-implementable by other formats too.
+This series adds a "kms" debugfs file to dump display register + atomic
+state, which is useful for debugging issues that don't trigger a display
+error irq (such as dsi phy misconfiguration).
 
->   *
->   * These functions map directly onto the iommu_ops member functions with
->   * the same names.
+Rob Clark (3):
+  drm/msm/disp: Tweak display snapshot to match gpu snapshot
+  drm/msm/disp: Export helper for capturing snapshot
+  drm/msm/debugfs: Add display/kms state snapshot
 
-This bit of the comment is no longer true with your change.
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.c  | 28 ++++--
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot.h  | 14 ++-
+ .../gpu/drm/msm/disp/msm_disp_snapshot_util.c |  9 +-
+ drivers/gpu/drm/msm/msm_debugfs.c             | 90 +++++++++++++++++++
+ 4 files changed, 129 insertions(+), 12 deletions(-)
 
-Will
+-- 
+2.33.1
+
