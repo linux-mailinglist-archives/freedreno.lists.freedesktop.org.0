@@ -2,56 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693D0474B74
-	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 20:03:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C85F474C41
+	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 20:47:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEA928903B;
-	Tue, 14 Dec 2021 19:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAD3C10E139;
+	Tue, 14 Dec 2021 19:47:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0146B10E12D
- for <freedreno@lists.freedesktop.org>; Tue, 14 Dec 2021 19:03:34 +0000 (UTC)
-Received: by mail-qt1-x831.google.com with SMTP id z9so19362042qtj.9
- for <freedreno@lists.freedesktop.org>; Tue, 14 Dec 2021 11:03:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mPut++DE9oSDA7Chd0SjdQdqRXfrEo4dk9mIHr0IEwI=;
- b=kmpqKRnXneoYfsEoIjy2oU4gKiI3YIyrYivpL88Ce7gsi6vwsJWmiAM6ovLZgU14QL
- AWE8I3rlIbmWVDIt2WAsh6rnlRbqJ8yNvF+9CpYvVbjnFg9DFimIJ/CR6spR9kYPcEts
- k/RJYsmNVVlkYMBmLW2w5dJ7/2QY3zdO0Od6+mtG9mo4Ycl6Zz7QvNugwNLkcyib8nQD
- kdhm9AhH4HZ8EpHMYoy9Y9IQE3584FpiwovBTlmGIUNB9s/It8xRpfLRkH0R7ZhNP4VO
- krwitEO0V0hVyz/znayeGuu6H3HBfpwxRZIYLKn71ovidZ/HECUkZPJMz7zbyav9HkxJ
- jp0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mPut++DE9oSDA7Chd0SjdQdqRXfrEo4dk9mIHr0IEwI=;
- b=03f7Cz2FFIa3obspBS/vrrUtqqPevmFbWjfGpyv31e6mrfqJMyyL/Bs6IoeaQ2BrMX
- P17y++Kh268dE97zgY8OUSZXGrLs1qeHz2oaaUtcCTCJ5Zm7eKmePfo3vIGFGOWQLGM+
- 1LO1Scbyr87OED7O/wUPGX0Gy/ZtxuONa2HjYyOB75mdZwZXjs/qeu57G71ew+zG1hLe
- 1YcWq8/xSaJmAYRxzeShMjQc4nwW8W9zKUKiYdEokY2JasgQl3oZNxcwI+x5TdEAQKlB
- CQmjltDLYceGqQskvFw9PFcIDkYs74YQEw7ePdv6LJcPFAkUzIf95w1jhTfoaJruWRnA
- 9EfA==
-X-Gm-Message-State: AOAM5314DXJfE/GXZ7BdKeZP2JkGKidKYaF/h8DBePj1k6T3Rn3AKYVI
- pbqNWWWjNksLsn6pTsNBrDIcbao7fVKxjlIckmjJCQ==
-X-Google-Smtp-Source: ABdhPJzyRs/SkZa7rM8wtTsEOtQ+XLrgBbLZgqv/9SuBSu3jfTTmtv87+/mDKeEDQ/0sgKqI7jAue3Wsf24yk+u2F5w=
-X-Received: by 2002:a05:622a:40d:: with SMTP id
- n13mr8112713qtx.511.1639508612966; 
- Tue, 14 Dec 2021 11:03:32 -0800 (PST)
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5E8C10E139
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Dec 2021 19:47:01 +0000 (UTC)
+Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id CD3993F3BC;
+ Tue, 14 Dec 2021 20:46:57 +0100 (CET)
+Date: Tue, 14 Dec 2021 20:46:56 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@chromium.org>
+Message-ID: <20211214194656.mayiy4xhcshjluwf@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@chromium.org>, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20210911131922.387964-1-marijn.suijten@somainline.org>
+ <163165584152.763609.4056232270079096475@swboyd.mtv.corp.google.com>
+ <20210918144038.6q352hzqopx7vvdu@SoMainline.org>
 MIME-Version: 1.0
-References: <20211214173917.1496290-1-robdclark@gmail.com>
- <20211214173917.1496290-4-robdclark@gmail.com>
-In-Reply-To: <20211214173917.1496290-4-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 14 Dec 2021 22:03:22 +0300
-Message-ID: <CAA8EJpo2ng0mVk0Hsqmg5yTi3Wm0nUp8Lx8+CGF=RBeuYPmviQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/debugfs: Add display/kms state
- snapshot
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210918144038.6q352hzqopx7vvdu@SoMainline.org>
+Subject: Re: [Freedreno] [PATCH v3 0/2] Use "ref" clocks from firmware for
+ DSI PLL VCO parent
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,149 +67,52 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Doug Anderson <dianders@chromium.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, Andy Gross <agross@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 14 Dec 2021 at 20:34, Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_debugfs.c | 90 +++++++++++++++++++++++++++++++
->  1 file changed, 90 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-> index 956b1efc3721..088f1160c892 100644
-> --- a/drivers/gpu/drm/msm/msm_debugfs.c
-> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
-> @@ -15,6 +15,11 @@
->  #include "msm_gpu.h"
->  #include "msm_kms.h"
->  #include "msm_debugfs.h"
-> +#include "disp/msm_disp_snapshot.h"
-> +
-> +/*
-> + * GPU Snapshot:
-> + */
->
->  struct msm_gpu_show_priv {
->         struct msm_gpu_state *state;
-> @@ -109,6 +114,88 @@ static const struct file_operations msm_gpu_fops = {
->         .release = msm_gpu_release,
->  };
->
-> +/*
-> + * Display Snapshot:
-> + */
-> +
-> +struct msm_kms_show_priv {
-> +       struct msm_disp_state *state;
-> +       struct drm_device *dev;
+Hi all,
 
-I don't see ->dev being used outside of _open() callback. So, I'd
-suggest removing it and using struct msm_disp_state instead of struct
-msm_kms_show_priv.
+On 2021-09-18 16:40:38, Marijn Suijten wrote:
+> On 2021-09-14 14:44:01, Stephen Boyd wrote:
+> > Quoting Marijn Suijten (2021-09-11 06:19:19)
+> > > All DSI PHY/PLL drivers were referencing their VCO parent clock by a
+> > > global name, most of which don't exist or have been renamed.  These
+> > > clock drivers seem to function fine without that except the 14nm driver
+> > > for sdm6xx [1].
+> > > 
+> > > At the same time all DTs provide a "ref" clock as per the requirements
+> > > of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
+> > > that clock to use without relying on a global clock name, so that all
+> > > dependencies are explicitly defined in DT (the firmware) in the end.
+> > 
+> > I can take this through clk tree if it helps avoid conflicts. There are
+> > some other patches to sdm660.c in the clk tree already.
+> 
+> Might be useful to maintain proper ordering of these dependent patches
+> but it's up to Dmitry and Rob to decide, whom I'm sending this mail
+> directly to so that they can chime in.
 
-> +};
-> +
-> +static int msm_kms_show(struct seq_file *m, void *arg)
-> +{
-> +       struct drm_printer p = drm_seq_file_printer(m);
-> +       struct msm_kms_show_priv *show_priv = m->private;
-> +
-> +       msm_disp_state_print(show_priv->state, &p);
-> +
-> +       return 0;
-> +}
-> +
-> +static int msm_kms_release(struct inode *inode, struct file *file)
-> +{
-> +       struct seq_file *m = file->private_data;
-> +       struct msm_kms_show_priv *show_priv = m->private;
-> +
-> +       msm_disp_state_free(show_priv->state);
-> +       kfree(show_priv);
-> +
-> +       return single_release(inode, file);
-> +}
-> +
-> +static int msm_kms_open(struct inode *inode, struct file *file)
-> +{
-> +       struct drm_device *dev = inode->i_private;
-> +       struct msm_drm_private *priv = dev->dev_private;
-> +       struct msm_kms_show_priv *show_priv;
-> +       int ret;
-> +
-> +       if (!priv->kms)
-> +               return -ENODEV;
-> +
-> +       show_priv = kmalloc(sizeof(*show_priv), GFP_KERNEL);
-> +       if (!show_priv)
-> +               return -ENOMEM;
-> +
-> +       ret = mutex_lock_interruptible(&priv->kms->dump_mutex);
-> +       if (ret)
-> +               goto free_priv;
-> +
-> +       show_priv->state = msm_disp_snapshot_state_sync(priv->kms);
-> +
-> +       mutex_unlock(&priv->kms->dump_mutex);
-> +
-> +       if (IS_ERR(show_priv->state)) {
-> +               ret = PTR_ERR(show_priv->state);
-> +               goto free_priv;
-> +       }
-> +
-> +       show_priv->dev = dev;
-> +
-> +       ret = single_open(file, msm_kms_show, show_priv);
-> +       if (ret)
-> +               goto free_priv;
-> +
-> +       return 0;
-> +
-> +free_priv:
-> +       kfree(show_priv);
-> +       return ret;
-> +}
-> +
-> +static const struct file_operations msm_kms_fops = {
-> +       .owner = THIS_MODULE,
-> +       .open = msm_kms_open,
-> +       .read = seq_read,
-> +       .llseek = seq_lseek,
-> +       .release = msm_kms_release,
-> +};
-> +
-> +/*
-> + * Other debugfs:
-> + */
-> +
->  static unsigned long last_shrink_freed;
->
->  static int
-> @@ -239,6 +326,9 @@ void msm_debugfs_init(struct drm_minor *minor)
->         debugfs_create_file("gpu", S_IRUSR, minor->debugfs_root,
->                 dev, &msm_gpu_fops);
->
-> +       debugfs_create_file("kms", S_IRUSR, minor->debugfs_root,
-> +               dev, &msm_kms_fops);
-> +
->         debugfs_create_u32("hangcheck_period_ms", 0600, minor->debugfs_root,
->                 &priv->hangcheck_period);
->
-> --
-> 2.33.1
->
+Dependent patch [3] landed in 5.15 and [2] made it into 5.16 rc's - is
+it time to pick this series up and if so through what tree?
 
+Repeating the links from patch 1/2:
+[2]: https://lore.kernel.org/linux-arm-msm/20210830175739.143401-1-marijn.suijten@somainline.org/
+[3]: https://lore.kernel.org/linux-arm-msm/20210829203027.276143-2-marijn.suijten@somainline.org/
 
--- 
-With best wishes
-Dmitry
+Thanks!
+
+- marijn
