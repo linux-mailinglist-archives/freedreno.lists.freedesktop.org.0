@@ -2,45 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C29F447463B
-	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 16:18:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0856D474691
+	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 16:37:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA0E10E552;
-	Tue, 14 Dec 2021 15:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7A610E552;
+	Tue, 14 Dec 2021 15:37:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C96210E552;
- Tue, 14 Dec 2021 15:18:40 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8CF10E552;
+ Tue, 14 Dec 2021 15:37:34 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 236DDB81A76;
- Tue, 14 Dec 2021 15:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9D8C3460A;
- Tue, 14 Dec 2021 15:18:34 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 9744ACE18EA;
+ Tue, 14 Dec 2021 15:37:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45E90C34604;
+ Tue, 14 Dec 2021 15:37:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639495117;
- bh=xA4qErAYFfQZoMVAgqmgJanxkAG/Pa06aExW8DKib+g=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YdAF4vm+BGbwsTBNyD1SZIwyVqUjVeVO51lj2mafBgIGLDN5Gt+cqE5gxxaI+AZ0A
- JKGOfQsR73R+3MzpwP0IKcA0ztSfXU03oUS+66zUeKSU4A/BFTjaHKXxH5BvHO/xBG
- m/Rh6zc67ghxl5e+1lm+JV5HTNA11O/ed+dONdV9EnEvcKK2AC9apEUf9g9BP8/L7E
- cfBBU9Jm0quW8ILPZaaCJVh2JJt4Kaa0r9PHUpSydBMvcUmW47hN+Q2S72HKZJ/KKx
- JHQplMxt/v/U7mGqO/W6eXnC5vred/UOIfkvQHBa/CDhrsacV05TM1GdkwcaXx4fmu
- g/V5wU0WWTgEA==
+ s=k20201202; t=1639496248;
+ bh=RsqIxw7l181YP8CsMrHMkGZWM3eQKUjSOlAiEt1c9Z0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=X/ot4IoekuSM4yLL1UUyI+1dPtb3HVfplV1+ex5sYgFnpg32AlhbJlga1P+xLbvRB
+ m68qNKuZ0AjmmhiJZT80bpwuuFy3AhoW2kYTAeLe+9/UFMSnWFIKMbxsZodICte8FW
+ 7XCRckyPKHOkLhvc4o88hxVaXQWuC59eCg/5EW6gD9HEvBkBWP/3dGn2y21pPtux5D
+ A4C7V58JkeE1IwGQmIlg3uQfLyN622kMzdUasowwlnVUEJoD8i0b7vCvkakk3H+3FP
+ lJXIM99ArskFYH4zq1+vL0RZHhT3rVdoZqInX8B0qR/1ISuFT+vbKfeDmLEHN1nZe+
+ /0dSqFlT8MTSA==
+Date: Tue, 14 Dec 2021 15:37:22 +0000
 From: Will Deacon <will@kernel.org>
-To: Rob Clark <robdclark@gmail.com>,
-	iommu@lists.linux-foundation.org
-Date: Tue, 14 Dec 2021 15:18:15 +0000
-Message-Id: <163949295159.2865133.14830318061014713865.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211108171724.470973-1-robdclark@gmail.com>
-References: <20211108171724.470973-1-robdclark@gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <20211214153722.GA15416@willie-the-truck>
+References: <20211005151633.1738878-1-robdclark@gmail.com>
+ <20211005151633.1738878-2-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] iommu/arm-smmu-qcom: Fix TTBR0 read
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211005151633.1738878-2-robdclark@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v2 1/3] iommu/io-pgtable-arm: Add way to
+ debug pgtable walk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,34 +55,139 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+Cc: Rob Clark <robdclark@chromium.org>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
  Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Will Deacon <will@kernel.org>, catalin.marinas@arm.com,
- Joerg Roedel <joro@8bytes.org>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Eric Anholt <eric@anholt.net>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-arm-msm@vger.kernel.org,
- Shawn Guo <shawn.guo@linaro.org>, kernel-team@android.com,
- "moderated list:ARM SMMU DRIVERS" <linux-arm-kernel@lists.infradead.org>
+ Sven Peter <sven@svenpeter.dev>, freedreno@lists.freedesktop.org,
+ Joerg Roedel <joro@8bytes.org>, open list <linux-kernel@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, Jordan Crouse <jordan@cosmicpenguin.net>,
+ "open list:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Yong Wu <yong.wu@mediatek.com>, Robin Murphy <robin.murphy@arm.com>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 8 Nov 2021 09:17:23 -0800, Rob Clark wrote:
+On Tue, Oct 05, 2021 at 08:16:25AM -0700, Rob Clark wrote:
 > From: Rob Clark <robdclark@chromium.org>
 > 
-> It is a 64b register, lets not lose the upper bits.
+> Add an io-pgtable method to retrieve the raw PTEs that would be
+> traversed for a given iova access.
 > 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/iommu/io-pgtable-arm.c | 40 +++++++++++++++++++++++++++-------
+>  include/linux/io-pgtable.h     |  9 ++++++++
+>  2 files changed, 41 insertions(+), 8 deletions(-)
 > 
+> diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
+> index dd9e47189d0d..c470fc0b3c2b 100644
+> --- a/drivers/iommu/io-pgtable-arm.c
+> +++ b/drivers/iommu/io-pgtable-arm.c
+> @@ -700,38 +700,61 @@ static size_t arm_lpae_unmap(struct io_pgtable_ops *ops, unsigned long iova,
+>  	return arm_lpae_unmap_pages(ops, iova, size, 1, gather);
+>  }
+>  
+> -static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
+> -					 unsigned long iova)
+> +static int arm_lpae_pgtable_walk(struct io_pgtable_ops *ops, unsigned long iova,
+> +				 void *_ptes, int *num_ptes)
+>  {
+>  	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
+>  	arm_lpae_iopte pte, *ptep = data->pgd;
+> +	arm_lpae_iopte *ptes = _ptes;
+> +	int max_ptes = *num_ptes;
+>  	int lvl = data->start_level;
+>  
+> +	*num_ptes = 0;
+> +
+>  	do {
+> +		if (*num_ptes >= max_ptes)
+> +			return -ENOSPC;
+> +
+>  		/* Valid IOPTE pointer? */
+>  		if (!ptep)
+> -			return 0;
+> +			return -EFAULT;
+>  
+>  		/* Grab the IOPTE we're interested in */
+>  		ptep += ARM_LPAE_LVL_IDX(iova, lvl, data);
+>  		pte = READ_ONCE(*ptep);
+>  
+> +		ptes[(*num_ptes)++] = pte;
+> +
+>  		/* Valid entry? */
+>  		if (!pte)
+> -			return 0;
+> +			return -EFAULT;
+>  
+>  		/* Leaf entry? */
+>  		if (iopte_leaf(pte, lvl, data->iop.fmt))
+> -			goto found_translation;
+> +			return 0;
+>  
+>  		/* Take it to the next level */
+>  		ptep = iopte_deref(pte, data);
+>  	} while (++lvl < ARM_LPAE_MAX_LEVELS);
+>  
+> -	/* Ran out of page tables to walk */
+> -	return 0;
+> +	return -EFAULT;
+> +}
+> +
+> +static phys_addr_t arm_lpae_iova_to_phys(struct io_pgtable_ops *ops,
+> +					 unsigned long iova)
+> +{
+> +	struct arm_lpae_io_pgtable *data = io_pgtable_ops_to_data(ops);
+> +	arm_lpae_iopte pte, ptes[ARM_LPAE_MAX_LEVELS];
+> +	int lvl, num_ptes = ARM_LPAE_MAX_LEVELS;
+> +	int ret;
+> +
+> +	ret = arm_lpae_pgtable_walk(ops, iova, ptes, &num_ptes);
+> +	if (ret)
+> +		return 0;
+> +
+> +	pte = ptes[num_ptes - 1];
+> +	lvl = num_ptes - 1 + data->start_level;
+>  
+> -found_translation:
+>  	iova &= (ARM_LPAE_BLOCK_SIZE(lvl, data) - 1);
+>  	return iopte_to_paddr(pte, data) | iova;
+>  }
+> @@ -816,6 +839,7 @@ arm_lpae_alloc_pgtable(struct io_pgtable_cfg *cfg)
+>  		.unmap		= arm_lpae_unmap,
+>  		.unmap_pages	= arm_lpae_unmap_pages,
+>  		.iova_to_phys	= arm_lpae_iova_to_phys,
+> +		.pgtable_walk	= arm_lpae_pgtable_walk,
+>  	};
+>  
+>  	return data;
+> diff --git a/include/linux/io-pgtable.h b/include/linux/io-pgtable.h
+> index 86af6f0a00a2..501f362a929c 100644
+> --- a/include/linux/io-pgtable.h
+> +++ b/include/linux/io-pgtable.h
+> @@ -148,6 +148,13 @@ struct io_pgtable_cfg {
+>   * @unmap:        Unmap a physically contiguous memory region.
+>   * @unmap_pages:  Unmap a range of virtually contiguous pages of the same size.
+>   * @iova_to_phys: Translate iova to physical address.
+> + * @pgtable_walk: Return details of a page table walk for a given iova.
+> + *                This returns the array of PTEs in a format that is
+> + *                specific to the page table format.  The number of
+> + *                PTEs can be format specific.  The num_ptes parameter
+> + *                on input specifies the size of the ptes array, and
+> + *                on output the number of PTEs filled in (which depends
+> + *                on the number of PTEs walked to resolve the iova)
 
-Applied to will (for-joerg/arm-smmu/updates), thanks!
+I think this would be a fair bit cleaner if the interface instead took a
+callback function to invoke at each page-table level. It would be invoked
+with the pte value and the level. Depending on its return value the walk
+could be terminated early. That would also potentially scale to walking
+ranges of iovas as well if we ever need it and it may be more readily
+implementable by other formats too.
 
-[1/1] iommu/arm-smmu-qcom: Fix TTBR0 read
-      https://git.kernel.org/will/c/c31112fbd407
+>   *
+>   * These functions map directly onto the iommu_ops member functions with
+>   * the same names.
 
-Cheers,
--- 
+This bit of the comment is no longer true with your change.
+
 Will
-
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
