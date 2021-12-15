@@ -1,63 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAFA4475FCA
-	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 18:49:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35167475FF3
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 18:55:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6D010F5AD;
-	Wed, 15 Dec 2021 17:49:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5AB010F612;
+	Wed, 15 Dec 2021 17:55:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BDC10F5A8;
- Wed, 15 Dec 2021 17:49:35 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id v16so4910046pjn.1;
- Wed, 15 Dec 2021 09:49:35 -0800 (PST)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03CE610F612;
+ Wed, 15 Dec 2021 17:55:55 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id r5so20765866pgi.6;
+ Wed, 15 Dec 2021 09:55:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=EcfVA2uBNe/X9h6wuhZ5EuU1xWQlNWZCg+pNTH+2meY=;
- b=kIp4kYBkdDDru9e4HJrZZx1Mqq/lPJBOIQxaWAsqiDdm5RVCVoj8s/WNVOAt2apkEx
- ehoLvfo0+fBHvEsFhC0tCoKyHUtmWXT/Ecsn1nSwftN1qUFJmUuEAQZ1jKtM3Xd3WTwa
- cnM8BMDTbbYcRQt61uaFQrp/TA68fpZv5INyMdhWf5322Jf/2TfxfXaTvCdmk4gU0Jpv
- ljXrNLt8ooqMdRZS95G+BM7KKfsmaGofA29Yl+FKKidVMQNBD7a7NtwUD1ePxcgFqOm2
- 0EHLFM7xvi/1la+RR5HsxUEyIY+XvK32s/BtNI7ijOH5ufs2fpUvG8OntcmSw9UURLuy
- V9iQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QZ3LpjtL0YwyX+2dJ2ef+7lZVvlqJTjbm/p+yQNc6As=;
+ b=ln+w3Wmc1irEPAgq4GSqmPmrFaT74X8U/B0ctUo+WElfqKyG7EbYw6e0Ij2mAFl+mN
+ cSMgK6H0EGR/Hcbzo82ViMs6m2V9JUC3n94U+bqPi9OT24jgKu5JnIBFXVBjf84Zi6B9
+ u9HkSFArVI6eBh4mTgCjGY62ulMTVx2kRczh39eVZZHmKP62Z5eQIuoqlUuMsVro+vtD
+ WRFCPF3e3CGo4Z7XJh4vpg6/JNxRY/ZvECW4BBl0z/lxZiLLkKJR+9VQKfJ9sFRVUf1i
+ fgI1HoEpOOIwbV1zfqE3RAU3oubbG2iAhm7IF4LoVG9GDGeXR5GEzRnjl9n6pmHg3XxB
+ IDwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=EcfVA2uBNe/X9h6wuhZ5EuU1xWQlNWZCg+pNTH+2meY=;
- b=kdnvKr47MJOwAyCfSPL26olKHqcqJkKgkleo/gbka+td4h/QlkT4pm6wHaNcgrLJWX
- hhI5+27fI0OysHBW8+U+rMdJsrCG/Qaq/78/aTq0QzT9ZfLYQOYLnItwymXNXSRQvxGa
- FlQ+Ta+DSd/aHFlvqfsHxbBTTaJywm3jAX5e57t8XH0/zEJ0NWxM2NLoYpldQ2S91MWV
- 0jxEIqNtYuFmssLxeQRAPa0iG0thxgBZ+L6hxA+KwYgXyTn6To+DYP3z5bRztgeC9Sb5
- fLP2FmnQVFgaXUBmJoSGycu5ZEVAPGtlDl4EXH1ro1Fekqpp3Ixm3iUXABdcSZNEPZdm
- I/AQ==
-X-Gm-Message-State: AOAM530leZmq3m34Zfhl4KWkMSscofZtOBHPCAR4ke39zbDMXWLnVNz0
- ttLrJQ0V9ovEf30+JIgJVJ7KdL8cOm4=
-X-Google-Smtp-Source: ABdhPJx1Bx8yaUPuKlzM1Tz2ZDpWlyHvRiqC3BiqYmeoSCToMSDaurYg6b8JjJUEdJA2daCWrJD6wQ==
-X-Received: by 2002:a17:902:e54d:b0:148:a2e8:278a with SMTP id
- n13-20020a170902e54d00b00148a2e8278amr5386218plf.145.1639590574740; 
- Wed, 15 Dec 2021 09:49:34 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QZ3LpjtL0YwyX+2dJ2ef+7lZVvlqJTjbm/p+yQNc6As=;
+ b=758zqNGFeMKwS4GX83SFdl+rY/sDsbr2a5au03e25WRaIY+6fHzEX8eH2b6N+zKTsz
+ qjo7qx7epthcLO4kPqnodqw76JsXGPM4kFkrXg4SLizaIQHvRALmw/kIaK1cymR4zJl1
+ fdE+QohdwVgua/9wDMBN1MzCfmFJE3KFo7r5TKSAQkPeYx9aCJVieupAitbz+kIJDRRE
+ jOlL1iMNCitr84YGAFYJVtvsvTTtP6c/S21rrrnio9eazQlAcafm0sGUFVhQebR660Wc
+ RlqOhhajQjh/EEbokWcR9MZ4MubD5avR8zpHWH+ChLmDHBSq0c5Yd4EqZ/gFXMjhrz++
+ XRTA==
+X-Gm-Message-State: AOAM531uyo6Kz4uI2ZiBsgmvG/gx132wAXw0Z8zEApr+epoCtj9jdb3S
+ Tf7cYjptcZ/5f9P+BbD++ScR7ykAfqg=
+X-Google-Smtp-Source: ABdhPJxDFJaT/pQWOIsDrLIBG60oATcp+dgTrUx2Pl/YVvoNcVC6KPYi9NxgjPfjNu8ZRmlkuK5yPw==
+X-Received: by 2002:a63:5c64:: with SMTP id n36mr8707927pgm.61.1639590954046; 
+ Wed, 15 Dec 2021 09:55:54 -0800 (PST)
 Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
  by smtp.gmail.com with ESMTPSA id
- n3sm2976279pgc.76.2021.12.15.09.49.33
+ t8sm3041723pgk.66.2021.12.15.09.55.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Dec 2021 09:49:33 -0800 (PST)
+ Wed, 15 Dec 2021 09:55:52 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Wed, 15 Dec 2021 09:45:08 -0800
-Message-Id: <20211215174524.1742389-4-robdclark@gmail.com>
+Date: Wed, 15 Dec 2021 09:59:02 -0800
+Message-Id: <20211215175910.1744151-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211215174524.1742389-1-robdclark@gmail.com>
-References: <20211215174524.1742389-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/debugfs: Add display/kms state
- snapshot
+Subject: [Freedreno] [PATCH] drm/msm: Don't use autosuspend for display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,125 +66,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Doug Anderson <dianders@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
  freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
+No functional change, as we only actually enable autosuspend for the GPU
+device.  But lets not encourage thinking that autosuspend is a good idea
+for anything display related.
+
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
-v2: Drop unneeded msm_kms_show_priv [Dmitry B]
+ drivers/gpu/drm/msm/dsi/dsi_host.c     | 8 ++++----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c  | 2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c    | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
- drivers/gpu/drm/msm/msm_debugfs.c | 75 +++++++++++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
-index 956b1efc3721..0804c31e8962 100644
---- a/drivers/gpu/drm/msm/msm_debugfs.c
-+++ b/drivers/gpu/drm/msm/msm_debugfs.c
-@@ -15,6 +15,11 @@
- #include "msm_gpu.h"
- #include "msm_kms.h"
- #include "msm_debugfs.h"
-+#include "disp/msm_disp_snapshot.h"
-+
-+/*
-+ * GPU Snapshot:
-+ */
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 5b4bb722f750..6b3ced4aaaf5 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -2020,7 +2020,7 @@ void msm_dsi_host_xfer_restore(struct mipi_dsi_host *host,
+ 	/* TODO: unvote for bus bandwidth */
  
- struct msm_gpu_show_priv {
- 	struct msm_gpu_state *state;
-@@ -109,6 +114,73 @@ static const struct file_operations msm_gpu_fops = {
- 	.release = msm_gpu_release,
- };
+ 	cfg_hnd->ops->link_clk_disable(msm_host);
+-	pm_runtime_put_autosuspend(&msm_host->pdev->dev);
++	pm_runtime_put(&msm_host->pdev->dev);
+ }
  
-+/*
-+ * Display Snapshot:
-+ */
-+
-+static int msm_kms_show(struct seq_file *m, void *arg)
-+{
-+	struct drm_printer p = drm_seq_file_printer(m);
-+	struct msm_disp_state *state = m->private;
-+
-+	msm_disp_state_print(state, &p);
-+
-+	return 0;
-+}
-+
-+static int msm_kms_release(struct inode *inode, struct file *file)
-+{
-+	struct seq_file *m = file->private_data;
-+	struct msm_disp_state *state = m->private;
-+
-+	msm_disp_state_free(state);
-+
-+	return single_release(inode, file);
-+}
-+
-+static int msm_kms_open(struct inode *inode, struct file *file)
-+{
-+	struct drm_device *dev = inode->i_private;
-+	struct msm_drm_private *priv = dev->dev_private;
-+	struct msm_disp_state *state;
-+	int ret;
-+
-+	if (!priv->kms)
-+		return -ENODEV;
-+
-+	ret = mutex_lock_interruptible(&priv->kms->dump_mutex);
-+	if (ret)
-+		return ret;
-+
-+	state = msm_disp_snapshot_state_sync(priv->kms);
-+
-+	mutex_unlock(&priv->kms->dump_mutex);
-+
-+	if (IS_ERR(state)) {
-+		return PTR_ERR(state);
-+	}
-+
-+	ret = single_open(file, msm_kms_show, state);
-+	if (ret) {
-+		msm_disp_state_free(state);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct file_operations msm_kms_fops = {
-+	.owner = THIS_MODULE,
-+	.open = msm_kms_open,
-+	.read = seq_read,
-+	.llseek = seq_lseek,
-+	.release = msm_kms_release,
-+};
-+
-+/*
-+ * Other debugfs:
-+ */
-+
- static unsigned long last_shrink_freed;
+ int msm_dsi_host_cmd_tx(struct mipi_dsi_host *host,
+@@ -2252,7 +2252,7 @@ int msm_dsi_host_enable(struct mipi_dsi_host *host)
+ 	 */
+ 	/* if (msm_panel->mode == MSM_DSI_CMD_MODE) {
+ 	 *	dsi_link_clk_disable(msm_host);
+-	 *	pm_runtime_put_autosuspend(&msm_host->pdev->dev);
++	 *	pm_runtime_put(&msm_host->pdev->dev);
+ 	 * }
+ 	 */
+ 	msm_host->enabled = true;
+@@ -2344,7 +2344,7 @@ int msm_dsi_host_power_on(struct mipi_dsi_host *host,
  
- static int
-@@ -239,6 +311,9 @@ void msm_debugfs_init(struct drm_minor *minor)
- 	debugfs_create_file("gpu", S_IRUSR, minor->debugfs_root,
- 		dev, &msm_gpu_fops);
+ fail_disable_clk:
+ 	cfg_hnd->ops->link_clk_disable(msm_host);
+-	pm_runtime_put_autosuspend(&msm_host->pdev->dev);
++	pm_runtime_put(&msm_host->pdev->dev);
+ fail_disable_reg:
+ 	dsi_host_regulator_disable(msm_host);
+ unlock_ret:
+@@ -2371,7 +2371,7 @@ int msm_dsi_host_power_off(struct mipi_dsi_host *host)
+ 	pinctrl_pm_select_sleep_state(&msm_host->pdev->dev);
  
-+	debugfs_create_file("kms", S_IRUSR, minor->debugfs_root,
-+		dev, &msm_kms_fops);
-+
- 	debugfs_create_u32("hangcheck_period_ms", 0600, minor->debugfs_root,
- 		&priv->hangcheck_period);
+ 	cfg_hnd->ops->link_clk_disable(msm_host);
+-	pm_runtime_put_autosuspend(&msm_host->pdev->dev);
++	pm_runtime_put(&msm_host->pdev->dev);
  
+ 	dsi_host_regulator_disable(msm_host);
+ 
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index 0b2ae5c15240..c2ed177717c7 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -602,7 +602,7 @@ static int dsi_phy_enable_resource(struct msm_dsi_phy *phy)
+ static void dsi_phy_disable_resource(struct msm_dsi_phy *phy)
+ {
+ 	clk_disable_unprepare(phy->ahb_clk);
+-	pm_runtime_put_autosuspend(&phy->pdev->dev);
++	pm_runtime_put(&phy->pdev->dev);
+ }
+ 
+ static const struct of_device_id dsi_phy_dt_match[] = {
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 211b73dddf65..68fba4bf7212 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -69,7 +69,7 @@ static void power_off(struct drm_bridge *bridge)
+ 	if (ret)
+ 		DRM_DEV_ERROR(dev->dev, "failed to disable pwr regulator: %d\n", ret);
+ 
+-	pm_runtime_put_autosuspend(&hdmi->pdev->dev);
++	pm_runtime_put(&hdmi->pdev->dev);
+ }
+ 
+ #define AVI_IFRAME_LINE_NUMBER 1
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
+index 1cda7bf23b3b..75605ddac7c4 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_hpd.c
+@@ -205,7 +205,7 @@ void msm_hdmi_hpd_disable(struct hdmi_bridge *hdmi_bridge)
+ 	msm_hdmi_set_mode(hdmi, false);
+ 
+ 	enable_hpd_clocks(hdmi, false);
+-	pm_runtime_put_autosuspend(dev);
++	pm_runtime_put(dev);
+ 
+ 	ret = gpio_config(hdmi, false);
+ 	if (ret)
+@@ -260,7 +260,7 @@ static enum drm_connector_status detect_reg(struct hdmi *hdmi)
+ 	hpd_int_status = hdmi_read(hdmi, REG_HDMI_HPD_INT_STATUS);
+ 
+ 	enable_hpd_clocks(hdmi, false);
+-	pm_runtime_put_autosuspend(&hdmi->pdev->dev);
++	pm_runtime_put(&hdmi->pdev->dev);
+ 
+ 	return (hpd_int_status & HDMI_HPD_INT_STATUS_CABLE_DETECTED) ?
+ 			connector_status_connected : connector_status_disconnected;
 -- 
 2.33.1
 
