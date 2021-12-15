@@ -2,58 +2,38 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5020E4754B5
-	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 09:56:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35F3475635
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 11:24:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E944410EE7F;
-	Wed, 15 Dec 2021 08:56:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F354910E479;
+	Wed, 15 Dec 2021 10:24:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C3C610EE7F;
- Wed, 15 Dec 2021 08:56:03 +0000 (UTC)
-Received: by mail-qt1-x82d.google.com with SMTP id o17so21122376qtk.1;
- Wed, 15 Dec 2021 00:56:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dbfkGjADP1JP/ccn6Y79dw0BB+q77R8upChfhWhpbLY=;
- b=QXkOpqLoRDDSGEf+AKDxWv1QFdCmuMqUjVA8i/659rKFxt5MDdmYGq1Va3+xt4xFWn
- IbmRS6G79/ayBNeyvLsUXJa5B25V31ewyeG6mriDRl05OyLYuonJjzZkz5/gzgRBWwSY
- FujwC5lJEo49cYy1CCLMPqhWg1fIqquQ7F1PsTfqC4edm3O6I6OqqjsYmkCkDIDcqBBv
- 3K+E9Jov4WP9Src1YIj53P5sSLYU2RgOjKiQd6tqUUrMgPwb85qooPV4q/htvnGcJiOz
- 04fzUV19TQL/zQhrxkcxDCBiCQrFo0YchSj5plkEyKKSN4KMhRsV/KI0kBjbP2e75lo7
- ovsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dbfkGjADP1JP/ccn6Y79dw0BB+q77R8upChfhWhpbLY=;
- b=MZLa/q4VCmeuyDg6jRKxrRf+Ijd7P7y8DRHMWaULKU4djO+8fkCw1gTZPLGSCQBeIb
- yHjPMNJjvHrPoET6HsbdMgTxkSHAGatXUFbgQvaQJCT3qrA4qaVs009cjdRs/hKuLvfL
- EhIpkkyp5Thdc/9B+/7geKmCV/FewgecL2o5+EzmmfglZY5JN7f8NFx0vpFdPv4Q8BJF
- SgoYeS0RAHL3JxiK6gAmI6aYvLoC2tAWqavGpr84tTspp1RuuAlsYxs8FzS9P+oMRFQd
- Y0PMwH1w3e27kf+tBx0E5Iwf/L9evaCcf02LK0vVRhGfrDyrZIa3jIKPyamdBv4rVJ+s
- uKOQ==
-X-Gm-Message-State: AOAM533JkN8UmBKyIQs2vXMlEj/bHFpZsjE623h3CJeYXzEcFLd9jcUP
- jJ4tmstR8DWn6Jw3yoWvJJE=
-X-Google-Smtp-Source: ABdhPJzLfQfHP7IxlGx7vxk8z92ch8kS1M5ARNToa0yOaFgzRN1nbpR8d1Z4m+rwQRnrr/BsDfzCQw==
-X-Received: by 2002:ac8:5949:: with SMTP id 9mr10885179qtz.522.1639558562394; 
- Wed, 15 Dec 2021 00:56:02 -0800 (PST)
-Received: from localhost.localdomain ([193.203.214.57])
- by smtp.gmail.com with ESMTPSA id q185sm696876qke.64.2021.12.15.00.55.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Dec 2021 00:56:01 -0800 (PST)
-From: cgel.zte@gmail.com
-X-Google-Original-From: deng.changcheng@zte.com.cn
-To: robdclark@gmail.com
-Date: Wed, 15 Dec 2021 08:55:54 +0000
-Message-Id: <20211215085554.444351-1-deng.changcheng@zte.com.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76D7110E46F;
+ Wed, 15 Dec 2021 10:24:35 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10198"; a="299974349"
+X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="299974349"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2021 02:24:35 -0800
+X-IronPort-AV: E=Sophos;i="5.88,207,1635231600"; d="scan'208";a="614655687"
+Received: from adalyx-mobl1.ger.corp.intel.com (HELO localhost) ([10.252.7.70])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2021 02:24:30 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, airlied@linux.ie, daniel@ffwll.ch
+In-Reply-To: <83ab4452-3744-20fe-e3ba-5bd4b48622e3@suse.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20211213093650.19598-1-tzimmermann@suse.de>
+ <87lf0o7hnv.fsf@intel.com> <83ab4452-3744-20fe-e3ba-5bd4b48622e3@suse.de>
+Date: Wed, 15 Dec 2021 12:24:22 +0200
+Message-ID: <87sfuu4149.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: remove unneeded variable
+Content-Type: text/plain
+Subject: Re: [Freedreno] [PATCH 0/3] drm/dp: Move DisplayPort helpers into
+ own module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,44 +46,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- Zeal Robot <zealci@zte.com.cn>, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- Changcheng Deng <deng.changcheng@zte.com.cn>, swboyd@chromium.org,
- sean@poorly.run, linux@roeck-us.net
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Changcheng Deng <deng.changcheng@zte.com.cn>
+On Mon, 13 Dec 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Hi
+>
+> Am 13.12.21 um 14:34 schrieb Jani Nikula:
+>> On Mon, 13 Dec 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>> Split-off DisplayPort functions from KMS helper library and move them
+>>> into their own module. Reduces the size of drm_kms_helper.ko by ~50%.
+>>>
+>>> This patchset is part of an on-going effort to reduce the minimum
+>>> binary size of the DRM core and helpers. It's helpful for systems with
+>>> early-boot DRM graphics, which requires DRM to be linked into the
+>>> kernel image.
+>> 
+>> Would it be time to add a subdirectory for each non-driver, non-core drm
+>> module? We've touched this topic before. I find it increasingly hard to
+>> remember which files are part of helpers. This would also help with the
+>> arbitrary drm_dp_helper_mod.c naming.
+>> 
+>> Perhaps drivers/gpu/drm/drm_dp/?
+>
+> It's probably worth it, but I'd prefer a separate patchset and 
+> discussion over this. It affects several modules.
 
-Remove unneeded variable used to store return value.
+I guess the only thing here that we need to get right from the start is
+the new module name, everything else is relatively easy to change
+later. drm_dp_helper.ko seems fine by me.
 
-Reported-by: Zeal Robot <zealci@zte.com.cn>
-Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Note that this will also affect the drm_kms_helper.ko module parameters
+dp_aux_i2c_speed_khz, dp_aux_i2c_transfer_size and
+drm_dp_cec_unregister_delay, which will move to drm_dp_helper.ko.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 8d9c19dbf33e..7cc4d21f2091 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -416,12 +416,11 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
- 
- static int dp_display_usbpd_disconnect_cb(struct device *dev)
- {
--	int rc = 0;
- 	struct dp_display_private *dp = dev_get_dp_display_private(dev);
- 
- 	dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
- 
--	return rc;
-+	return 0;
- }
- 
- static void dp_display_handle_video_request(struct dp_display_private *dp)
+See the monstrosity near the top of drm_kms_helper_common.c I had to add
+for backward compatibility when I moved drm_edid_load.c from
+drm_kms_helper.ko to drm.ko. That was perhaps different, as these seem
+more like debug knobs, but at a minimum this needs to be mentioned in
+the commit message, and certainly needs acks from Dave and/or Daniel.
+
+
+BR,
+Jani.
+
+
+
 -- 
-2.25.1
-
+Jani Nikula, Intel Open Source Graphics Center
