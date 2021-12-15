@@ -2,59 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C85F474C41
-	for <lists+freedreno@lfdr.de>; Tue, 14 Dec 2021 20:47:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52F747509A
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 02:50:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAD3C10E139;
-	Tue, 14 Dec 2021 19:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A834710E1AE;
+	Wed, 15 Dec 2021 01:50:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5E8C10E139
- for <freedreno@lists.freedesktop.org>; Tue, 14 Dec 2021 19:47:01 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id CD3993F3BC;
- Tue, 14 Dec 2021 20:46:57 +0100 (CET)
-Date: Tue, 14 Dec 2021 20:46:56 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Stephen Boyd <sboyd@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@chromium.org>
-Message-ID: <20211214194656.mayiy4xhcshjluwf@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <sboyd@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@chromium.org>, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20210911131922.387964-1-marijn.suijten@somainline.org>
- <163165584152.763609.4056232270079096475@swboyd.mtv.corp.google.com>
- <20210918144038.6q352hzqopx7vvdu@SoMainline.org>
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA4010E1D1
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 01:50:52 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ r10-20020a056830080a00b0055c8fd2cebdso23033780ots.6
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Dec 2021 17:50:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=X8BNLsBux2AXya8Toe9pz3z2hfhJJ8ODRuIPLURO8n4=;
+ b=hxOuAmS0GH3gTmzxlY2ckaN2Zd1HLGwM5os8kOAmtBFXwBpB0KORzQTVfduGvFW2M6
+ R7Tmh4lmfXbJdpFEoW5Yt1rlLuMK6Z7/DlcgVNZ8EWUbyQxwMcVAhsz5c0nZtXtjSNXh
+ V0jc3gzeOuIUg8h1NLBAb12d2BQqYXVg7o35s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=X8BNLsBux2AXya8Toe9pz3z2hfhJJ8ODRuIPLURO8n4=;
+ b=HwX/pvrdpTtkiuD8vtf4Tc2VxMWCj3r+pDX60bsv1M9qx+ItY6u9WBZJqeInSeLHVs
+ I5xw3I1vZObercEETimBHx8ICc2sw1cp0ndatiFzIiJf0wcw7byfCCsaRvEk/BZx23Iu
+ lHuwtiwOKuknM2ciomM8jXr4LeRe2xcjx01fqhyLDvGkDSXE81ONKoQU+ilaMhwESuIj
+ 7684xwOFYcb1YZJqUluLeA+4yOpgVYHjMJmdjoTIpVq3qNnkjwDpczkpw+ArmXP+0tcE
+ EdE9h/gHkBdgLGlCYj0OTKdcDxVRRBQXfXBoIx+aZSBaMiQHovKFMOUgdD1U0zpIxPWA
+ VEPA==
+X-Gm-Message-State: AOAM532x1Wrkm+OvyRptbimnBfQOBtTH1in1Qet8E9zc0s5d7WsweWSY
+ 7n8nr9+MBfAWk555GCMW89SPkUeCPpuFyY9Zjp9/zQ==
+X-Google-Smtp-Source: ABdhPJyXpuhWZ5m+m/2N9Y1iXuZP8AcuSjzJuNVAOm4SuBQtVSqPmW2e+rAaYwOg+X0ba7Sj5Ceq5UPVHtUml/aSv3c=
+X-Received: by 2002:a9d:70ce:: with SMTP id w14mr6924071otj.77.1639533051758; 
+ Tue, 14 Dec 2021 17:50:51 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Dec 2021 02:50:51 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210918144038.6q352hzqopx7vvdu@SoMainline.org>
-Subject: Re: [Freedreno] [PATCH v3 0/2] Use "ref" clocks from firmware for
- DSI PLL VCO parent
+In-Reply-To: <1639085707-27845-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1639085707-27845-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 15 Dec 2021 02:50:51 +0100
+Message-ID: <CAE-0n51pbf3GqwA-wtTe5+rRvA_KMmb8kd6fqqDtZRX+X_3qiA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v7 2/2] drm/msm/dp: do not initialize phy
+ until plugin interrupt received
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,52 +66,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, Andy Gross <agross@kernel.org>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Matthias Kaehlcke <mka@chromium.org>, Douglas Anderson <dianders@chromium.org>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi all,
+Quoting Kuogee Hsieh (2021-12-09 13:35:07)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 0766752..cfbc5e4 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -83,6 +83,7 @@ struct dp_display_private {
+>
+>         /* state variables */
+>         bool core_initialized;
+> +       bool phy_initialized;
+>         bool hpd_irq_on;
+>         bool audio_supported;
+>
+> @@ -371,21 +372,46 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+>         return rc;
+>  }
+>
+> -static void dp_display_host_init(struct dp_display_private *dp, int reset)
+> +static void dp_display_host_phy_init(struct dp_display_private *dp)
+>  {
+> -       bool flip = false;
+> +       DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
+> +                       dp->core_initialized, dp->phy_initialized);
+>
+> +       if (!dp->phy_initialized) {
 
-On 2021-09-18 16:40:38, Marijn Suijten wrote:
-> On 2021-09-14 14:44:01, Stephen Boyd wrote:
-> > Quoting Marijn Suijten (2021-09-11 06:19:19)
-> > > All DSI PHY/PLL drivers were referencing their VCO parent clock by a
-> > > global name, most of which don't exist or have been renamed.  These
-> > > clock drivers seem to function fine without that except the 14nm driver
-> > > for sdm6xx [1].
-> > > 
-> > > At the same time all DTs provide a "ref" clock as per the requirements
-> > > of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
-> > > that clock to use without relying on a global clock name, so that all
-> > > dependencies are explicitly defined in DT (the firmware) in the end.
-> > 
-> > I can take this through clk tree if it helps avoid conflicts. There are
-> > some other patches to sdm660.c in the clk tree already.
-> 
-> Might be useful to maintain proper ordering of these dependent patches
-> but it's up to Dmitry and Rob to decide, whom I'm sending this mail
-> directly to so that they can chime in.
+Is this check only here because we don't know when this function is
+getting called? I see in the DP case we get here from
+dp_display_usbpd_configure_cb() but in the eDP case we get here from
+dp_display_host_init() and presumably again from
+dp_display_usbpd_configure_cb() called by dp_hpd_plug_handle().
 
-Dependent patch [3] landed in 5.15 and [2] made it into 5.16 rc's - is
-it time to pick this series up and if so through what tree?
+If at all possible, I'd prefer to not have another tracking variable and
+call dp_display_host_phy_init() from the same place regardless of DP or
+eDP. Doing that would make it symmetric, per the commit text.
 
-Repeating the links from patch 1/2:
-[2]: https://lore.kernel.org/linux-arm-msm/20210830175739.143401-1-marijn.suijten@somainline.org/
-[3]: https://lore.kernel.org/linux-arm-msm/20210829203027.276143-2-marijn.suijten@somainline.org/
+> +               dp_ctrl_phy_init(dp->ctrl);
+> +               dp->phy_initialized = true;
+> +       }
+> +}
+> +
+> +static void dp_display_host_phy_exit(struct dp_display_private *dp)
+> +{
+> +       DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
+> +                       dp->core_initialized, dp->phy_initialized);
+> +
+> +       if (dp->phy_initialized) {
+> +               dp_ctrl_phy_exit(dp->ctrl);
+> +               dp->phy_initialized = false;
+> +       }
+> +}
+> +
+> +static void dp_display_host_init(struct dp_display_private *dp)
+> +{
+>         DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
+>         if (dp->core_initialized) {
+>                 DRM_DEBUG_DP("DP core already initialized\n");
+>                 return;
+>         }
+>
+> -       if (dp->usbpd->orientation == ORIENTATION_CC2)
+> -               flip = true;
+> +       dp_power_init(dp->power, false);
+> +       dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
+> +
+> +       /*
+> +        * eDP is the embedded primary display and has its own phy
+> +        * initialize phy immediately
 
-Thanks!
+Can we get some more details here? Why is it better to initialize the
+phy here vs. when HPD goes high on the panel? The comment says what the
+code is doing but it isn't telling us why that's OK.
 
-- marijn
+> +        */
+> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP)
+> +               dp_display_host_phy_init(dp);
+>
+> -       dp_power_init(dp->power, flip);
+> -       dp_ctrl_host_init(dp->ctrl, flip, reset);
+>         dp_aux_init(dp->aux);
+>         dp->core_initialized = true;
+>  }
