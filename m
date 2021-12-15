@@ -1,83 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1851547628C
-	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 21:02:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D944762A0
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 21:08:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785FE10EC8E;
-	Wed, 15 Dec 2021 20:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0537810E582;
+	Wed, 15 Dec 2021 20:08:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E8710EC27
- for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 20:02:48 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id m6so33481612lfu.1
- for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 12:02:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :references:from:in-reply-to:content-transfer-encoding;
- bh=om/HCVC0CxSoU09KzvT/xb3Xt+kGoC0IjivC7aVdsOU=;
- b=s8n8voY+G80iDGHzEN0iDm28Pjz+I27p2XDrzK3tqtodBaWLC4IKzkbZvcZIN4vqEK
- 79k6DEND/LHkoSxewVx1C9wBFz+NXUFG3zUg7gMa+WfNCmJ9OzoXXAArgjpU3k/QucfX
- GCN2pifirNrUBtX1ncbrfFNnNPBk6l8ElsOOmmTEFZ9xvrVOJKTsMhtYO2wijsFmmzTe
- VpRgoH8WTi8ThTPNu/u5GsH/vYPOw8aRh03f2AvrAhnHo8tlKHFkQlyOB8F20pcJhype
- ozJ4WzWLNQFb9jNsnwU/A1PyAlhGnauorBFcJ1nFBQFyd5SQHpY7gYHVAUlGez5nRIwO
- OY0g==
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E5C10E66F;
+ Wed, 15 Dec 2021 20:08:33 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id o13so40091437wrs.12;
+ Wed, 15 Dec 2021 12:08:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3w4bLnhbXz+gy4SSpVMo/9wv7aCJ9iSr/1jbBUNhCaU=;
+ b=ATdR/dyVoQdaZhzVXDf29nzCxot+WfN8B5xJ5jG/FBPbFWGWJL839oattpLc20+WTL
+ ps4AtKHyz3T0ot0009a+eTOiax5HNoybFydP6fHKZ/s4duQBZ+pGmTri8MS44+TTD0sr
+ GqDvBWRokjMBZpxYDx7UEPltGDcUDq8TRnwXzW6WwD/qma3ZvsyVjpRLkOd77stfF/gW
+ s+TZPOIZbHPeIvpVRhjMlJRXgJrZjkA/o6KVVx98ewUoD0GCHgutzioMPOa9yjN6CG+S
+ NG0P1pLPsf2fHuj4+ImCnhItud7ra/q/NKaV2BPlM8iCy6dNKSmuTwZTv2RzSVtysBS2
+ o7Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:references:from:in-reply-to
- :content-transfer-encoding;
- bh=om/HCVC0CxSoU09KzvT/xb3Xt+kGoC0IjivC7aVdsOU=;
- b=me1dSgq8lG4ESuXToMAcSRBGCWKnrVhEvXjymVCmztc01grC1ENJ2tSoCfn5lumf0+
- 0y2Vt0VKVpbcf4gFd7WTwd8tnK4RPcobvph7UKhExMzRPMTmew/49deoZoIQay/48Imy
- R0sH18hQE0VeRZny4f6cd3e8Cniy8brJRURo4rbGBfWBK74Gq9obbNCq1fQAIlxGV2U5
- c09aDYig+Kz++K3iPCEJjJOnTbF68Ob/Z9cih5I/RaKWSwCmi3B6vWP4JoZeTHrH8VT1
- H7rJJVNkIsKxry6IcUU43s5H7RfLOz3cPdjT51Zf8g54yprZXZ6VEVkt2W4403hVmjbH
- +TEw==
-X-Gm-Message-State: AOAM531hQFmRY+jqFx4UOjfJhlCFzv1BxvHludPxezHQymECdrxMlqCz
- I90OKVsX02WclZ2k5mSkZ5esuQ==
-X-Google-Smtp-Source: ABdhPJxKvLhKMJ67E0hXe0d5fyzxvqCglgRRlF00/Qa9W98zBCmYEUfHy4a8/tNcYKNvPFcLR29PMw==
-X-Received: by 2002:ac2:5f0e:: with SMTP id 14mr11833186lfq.625.1639598566321; 
- Wed, 15 Dec 2021 12:02:46 -0800 (PST)
-Received: from ?IPV6:2001:470:dd84:abc0::8a5? ([2001:470:dd84:abc0::8a5])
- by smtp.gmail.com with ESMTPSA id e10sm472204lfr.213.2021.12.15.12.02.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Dec 2021 12:02:45 -0800 (PST)
-Message-ID: <69e44191-201f-8714-8a83-1a65a7026b54@linaro.org>
-Date: Wed, 15 Dec 2021 23:02:37 +0300
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3w4bLnhbXz+gy4SSpVMo/9wv7aCJ9iSr/1jbBUNhCaU=;
+ b=o5xAfbCmgW3yOzgmN3sBhXfRtJuOqaHcEZytRZXzOUoNk5uyNXmZXKrn60jS0nGFbk
+ OYvLmw1onFnVglo4NP1qF5IQyKIfAa9gksrgv/KhiriCfvI2jmlvwEj9J5UwBwsAVL35
+ h1MY0CeyjC6ZSppnYbTwXZ1RhHggJVrT4P+1U/puJnAnD2JjnnydCFmG0zzi/1Gv0Z41
+ wcoRcZHzEP5+zqMhEQWvHw/OVwURGUF39Az17RqvN9JU6lx8eC0PjeEJ3i2vs8ME+AN8
+ V2PPIr6NJhMlyjBlqoZDXwo3/8jftuO2R+SZuzUKj33B+MOHE+SgO8C4UcnPviXjSPOY
+ gOxA==
+X-Gm-Message-State: AOAM533BW9OmrbWfg4j3P9X55M+EsGu3+lHPoKBJkASujuLwyeNVScRG
+ Q3mv1vnJ3lQeARktUCs4eNYFBNbZbX7YTQpViIE=
+X-Google-Smtp-Source: ABdhPJwK7KInIW25AHd0uB7Kp/T+/V2CIAVdobV+Z7fppew3Fl124A1Bw4BeAJs0FQtE816PMicxsU+qug0RS1Ov6Vo=
+X-Received: by 2002:a5d:5986:: with SMTP id n6mr6090673wri.297.1639598911879; 
+ Wed, 15 Dec 2021 12:08:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <sboyd@kernel.org>, Rob Clark <robdclark@chromium.org>,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Abhinav Kumar <abhinavk@codeaurora.org>, Jonathan Marek <jonathan@marek.ca>,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20210911131922.387964-1-marijn.suijten@somainline.org>
- <163165584152.763609.4056232270079096475@swboyd.mtv.corp.google.com>
- <20210918144038.6q352hzqopx7vvdu@SoMainline.org>
- <20211214194656.mayiy4xhcshjluwf@SoMainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20211214194656.mayiy4xhcshjluwf@SoMainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 0/2] Use "ref" clocks from firmware for
- DSI PLL VCO parent
+References: <20211215175910.1744151-1-robdclark@gmail.com>
+ <CAE-0n52CHwYAEwAC0Hthgbamjj2x4K3B2w=kTRw_AFLzVgDF-Q@mail.gmail.com>
+In-Reply-To: <CAE-0n52CHwYAEwAC0Hthgbamjj2x4K3B2w=kTRw_AFLzVgDF-Q@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 15 Dec 2021 12:13:52 -0800
+Message-ID: <CAF6AEGsrCssqo3v3uw00C0YmGAXd6DpqeCRpioqxKRkXeN27gg@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm: Don't use autosuspend for display
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,46 +62,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/12/2021 22:46, Marijn Suijten wrote:
-> Hi all,
-> 
-> On 2021-09-18 16:40:38, Marijn Suijten wrote:
->> On 2021-09-14 14:44:01, Stephen Boyd wrote:
->>> Quoting Marijn Suijten (2021-09-11 06:19:19)
->>>> All DSI PHY/PLL drivers were referencing their VCO parent clock by a
->>>> global name, most of which don't exist or have been renamed.  These
->>>> clock drivers seem to function fine without that except the 14nm driver
->>>> for sdm6xx [1].
->>>>
->>>> At the same time all DTs provide a "ref" clock as per the requirements
->>>> of dsi-phy-common.yaml, but the clock is never used.  This patchset puts
->>>> that clock to use without relying on a global clock name, so that all
->>>> dependencies are explicitly defined in DT (the firmware) in the end.
->>>
->>> I can take this through clk tree if it helps avoid conflicts. There are
->>> some other patches to sdm660.c in the clk tree already.
->>
->> Might be useful to maintain proper ordering of these dependent patches
->> but it's up to Dmitry and Rob to decide, whom I'm sending this mail
->> directly to so that they can chime in.
-> 
-> Dependent patch [3] landed in 5.15 and [2] made it into 5.16 rc's - is
-> it time to pick this series up and if so through what tree?
+On Wed, Dec 15, 2021 at 11:10 AM Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Rob Clark (2021-12-15 09:59:02)
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > No functional change, as we only actually enable autosuspend for the GPU
+> > device.  But lets not encourage thinking that autosuspend is a good idea
+> > for anything display related.
+>
+> I'd prefer to see a small blurb about why it's not a good idea to use
+> autosuspend for display things. Then this commit can be dug out of the
+> history and someone new can quickly understand the reasoning behind it.
+> Just saying it's not a good idea doesn't really help.
 
-I'd also second the idea of merging these two patches into 5.17.
-Most probably it'd be easier to merge both of them through the clk tree. 
-Or we can take the first patch into drm-msm (but then we'd have a 
-dependency between msm-next and clk-qcom-next).
+The issue is that we have multiple different devices at play, and
+potentially specific requirements about power sequencing when lighting
+up or shutting down the display.. autosuspend would just turn that
+into a giant race condition.  I'll squash something about this into
+the commit msg
 
-Bjorn, Stephen?
+BR,
+-R
 
-> 
-> Repeating the links from patch 1/2:
-> [2]: https://lore.kernel.org/linux-arm-msm/20210830175739.143401-1-marijn.suijten@somainline.org/
-> [3]: https://lore.kernel.org/linux-arm-msm/20210829203027.276143-2-marijn.suijten@somainline.org/
--- 
-With best wishes
-Dmitry
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
