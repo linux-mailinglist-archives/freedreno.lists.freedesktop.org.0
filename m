@@ -2,54 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D944762A0
-	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 21:08:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 941944762B6
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 21:10:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0537810E582;
-	Wed, 15 Dec 2021 20:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D894410EAD0;
+	Wed, 15 Dec 2021 20:10:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73E5C10E66F;
- Wed, 15 Dec 2021 20:08:33 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id o13so40091437wrs.12;
- Wed, 15 Dec 2021 12:08:33 -0800 (PST)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35FAA10E66F;
+ Wed, 15 Dec 2021 20:10:00 +0000 (UTC)
+Received: by mail-wr1-x432.google.com with SMTP id c4so40152505wrd.9;
+ Wed, 15 Dec 2021 12:10:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3w4bLnhbXz+gy4SSpVMo/9wv7aCJ9iSr/1jbBUNhCaU=;
- b=ATdR/dyVoQdaZhzVXDf29nzCxot+WfN8B5xJ5jG/FBPbFWGWJL839oattpLc20+WTL
- ps4AtKHyz3T0ot0009a+eTOiax5HNoybFydP6fHKZ/s4duQBZ+pGmTri8MS44+TTD0sr
- GqDvBWRokjMBZpxYDx7UEPltGDcUDq8TRnwXzW6WwD/qma3ZvsyVjpRLkOd77stfF/gW
- s+TZPOIZbHPeIvpVRhjMlJRXgJrZjkA/o6KVVx98ewUoD0GCHgutzioMPOa9yjN6CG+S
- NG0P1pLPsf2fHuj4+ImCnhItud7ra/q/NKaV2BPlM8iCy6dNKSmuTwZTv2RzSVtysBS2
- o7Cw==
+ :cc; bh=9fwJJay5x47r2hBghamMydvV9fq4hGtlRRKE3PJ0IAc=;
+ b=BKaQzk9NyxAqLkWnM4c8toF7n05vdSF75w7lD8VPAskRuFElT7GXRdHro2MkTBM9Uj
+ GFmEO8rsZVEMLm7A/IxB49zMs0kAum00uKlXE6KculfLdpdeZ0VIOpUmhAEy1Djw8Pm6
+ 9xR8XagaGFUffrcB8IXViHAv6jQe232mySn3WfyJ1PvkqEBj+FFF1+z9xFayw4hBGpxv
+ pWV4uGyXFw00ujRNkcOS4zDuT0z7O5bA7Mm/BEvlMZttF6YB7V+f/7MdMNMTN2E5V3O6
+ kEtP1rEwsAFj5sOUSByAz+e+uVyOq7q6SsKdm1uUe6ZF2ajHEyJuJrAWlpnIzoAtVnfb
+ lXcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3w4bLnhbXz+gy4SSpVMo/9wv7aCJ9iSr/1jbBUNhCaU=;
- b=o5xAfbCmgW3yOzgmN3sBhXfRtJuOqaHcEZytRZXzOUoNk5uyNXmZXKrn60jS0nGFbk
- OYvLmw1onFnVglo4NP1qF5IQyKIfAa9gksrgv/KhiriCfvI2jmlvwEj9J5UwBwsAVL35
- h1MY0CeyjC6ZSppnYbTwXZ1RhHggJVrT4P+1U/puJnAnD2JjnnydCFmG0zzi/1Gv0Z41
- wcoRcZHzEP5+zqMhEQWvHw/OVwURGUF39Az17RqvN9JU6lx8eC0PjeEJ3i2vs8ME+AN8
- V2PPIr6NJhMlyjBlqoZDXwo3/8jftuO2R+SZuzUKj33B+MOHE+SgO8C4UcnPviXjSPOY
- gOxA==
-X-Gm-Message-State: AOAM533BW9OmrbWfg4j3P9X55M+EsGu3+lHPoKBJkASujuLwyeNVScRG
- Q3mv1vnJ3lQeARktUCs4eNYFBNbZbX7YTQpViIE=
-X-Google-Smtp-Source: ABdhPJwK7KInIW25AHd0uB7Kp/T+/V2CIAVdobV+Z7fppew3Fl124A1Bw4BeAJs0FQtE816PMicxsU+qug0RS1Ov6Vo=
-X-Received: by 2002:a5d:5986:: with SMTP id n6mr6090673wri.297.1639598911879; 
- Wed, 15 Dec 2021 12:08:31 -0800 (PST)
+ bh=9fwJJay5x47r2hBghamMydvV9fq4hGtlRRKE3PJ0IAc=;
+ b=0WcaRbGXdEe6ca0pg82k+AcKHW5pqg5RED/xznCLy56Gaj6NcI3p8/LJsZIqwCJ9Jf
+ 6654wjUMmUlKcduWWVJluVyEEh/Ec9i/AviLp3wP4a4jjCGxtCToeSHt4SX834xtWsZO
+ BrcfC7AEG4tKHFVU/UN+TrCmvjqGdHa0PC03tXMaVxlUQQQD5BBTt3ZiZ7rVA+S4MgdJ
+ dqvCvJe3I7Ns9xXcDrexHwYC/p/61HBD3+ksw5G9ylKgVob/bVpJ6AS41VmE0WkDmD+e
+ GS7CQOy/ArXu5QsPRQiqOJsZzdRXj2y0So0uzrMJLOcytcwnjIdyFcyxZM4Tpx9+gi9y
+ RgIQ==
+X-Gm-Message-State: AOAM532U5IiMgC6G5GNyVKuKbvPvGyzLRuvx4fp71c3NfWCybGPk/FFm
+ aU7KJj3R4+2puqgdccqkta2pxfb9cyhyPAXGwPw=
+X-Google-Smtp-Source: ABdhPJwkv3UG4cKShRx3f7/OeRZlRq4dZYeasRuU92iCRfO52EWo3lhGFGjRnkGj59tcU5Y7uA3xvAUmayT0BTzg338=
+X-Received: by 2002:adf:eac8:: with SMTP id o8mr4889507wrn.93.1639598998659;
+ Wed, 15 Dec 2021 12:09:58 -0800 (PST)
 MIME-Version: 1.0
-References: <20211215175910.1744151-1-robdclark@gmail.com>
- <CAE-0n52CHwYAEwAC0Hthgbamjj2x4K3B2w=kTRw_AFLzVgDF-Q@mail.gmail.com>
-In-Reply-To: <CAE-0n52CHwYAEwAC0Hthgbamjj2x4K3B2w=kTRw_AFLzVgDF-Q@mail.gmail.com>
+References: <20211215174524.1742389-1-robdclark@gmail.com>
+ <20211215174524.1742389-2-robdclark@gmail.com>
+ <CAA8EJpri+3AjazR2saJaa3Uo05BhC_2gEsRXHJ5wJ81zs5AUTw@mail.gmail.com>
+In-Reply-To: <CAA8EJpri+3AjazR2saJaa3Uo05BhC_2gEsRXHJ5wJ81zs5AUTw@mail.gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 15 Dec 2021 12:13:52 -0800
-Message-ID: <CAF6AEGsrCssqo3v3uw00C0YmGAXd6DpqeCRpioqxKRkXeN27gg@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
+Date: Wed, 15 Dec 2021 12:15:18 -0800
+Message-ID: <CAF6AEGsZmQR8FvAN5GrDT9psBsNwFL5mWRZq+i0rFcC8Zf09fQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Don't use autosuspend for display
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/disp: Tweak display snapshot
+ to match gpu snapshot
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +65,45 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Guo Zhengkui <guozhengkui@vivo.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Doug Anderson <dianders@chromium.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Rajeev Nandan <quic_rajeevny@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Alexey Dobriyan <adobriyan@gmail.com>, Fernando Ramos <greenfoo@u92.eu>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 15, 2021 at 11:10 AM Stephen Boyd <swboyd@chromium.org> wrote:
+On Wed, Dec 15, 2021 at 11:17 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> Quoting Rob Clark (2021-12-15 09:59:02)
+> On Wed, 15 Dec 2021 at 20:49, Rob Clark <robdclark@gmail.com> wrote:
+> >
 > > From: Rob Clark <robdclark@chromium.org>
 > >
-> > No functional change, as we only actually enable autosuspend for the GPU
-> > device.  But lets not encourage thinking that autosuspend is a good idea
-> > for anything display related.
+> > Add UTS_RELEASE and show timestamp the same way for consistency.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
 >
-> I'd prefer to see a small blurb about why it's not a good idea to use
-> autosuspend for display things. Then this commit can be dug out of the
-> history and someone new can quickly understand the reasoning behind it.
-> Just saying it's not a good idea doesn't really help.
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>
+> > ---
+> >  drivers/gpu/drm/msm/disp/msm_disp_snapshot.h      | 4 ++--
+> >  drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 9 ++++++---
+> >  2 files changed, 8 insertions(+), 5 deletions(-)
+>
+> We should pull this out of disp/, it's no longer disp-specific.
 
-The issue is that we have multiple different devices at play, and
-potentially specific requirements about power sequencing when lighting
-up or shutting down the display.. autosuspend would just turn that
-into a giant race condition.  I'll squash something about this into
-the commit msg
+Or possibly just move dsi/etc into disp?  It is disp specific in the
+sense that dumping GPU state works quite differently..
 
 BR,
 -R
 
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
 >
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> --
+> With best wishes
+> Dmitry
