@@ -2,66 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5CBC475DBF
-	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 17:45:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97043475DED
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 17:56:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8359710E4C2;
-	Wed, 15 Dec 2021 16:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A1D10F051;
+	Wed, 15 Dec 2021 16:56:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FAA110E4CE
- for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 16:45:46 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id e24so18554903lfc.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 08:45:45 -0800 (PST)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D69510F04D
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 16:56:16 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id u22so34224475lju.7
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 08:56:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=GhV1VAa56OywLgG0LIPkWSLGbkAhI7ZJkeOkIoUETcY=;
- b=LUA+uITu25Aau8vnAbz3oJBAcHjMCRAkMCSY9yN/jPyff48EAfrAh38XZieWJdPxKk
- DunXHhpei2KIupJHXhc9B2KM+9H6ICuvhbVHzw+DU2D+4IowHisR2Cu2ExTiels7G0Ue
- 9IAFpfhzc1JvoHY0wBrRitt+xcNNxN6Mh8yQUKcW47P2bzxMoXMsxuBSJP3L6d59Glp9
- MEwReTIgcgKhynPX4THkhvVjq0tmE6c4l3n7cozfqW+SoRMEMehztl0D2kde07qpWix7
- LTXQgemK5VFgHJ6I96tnM3Ej1PhHS127UohNj6/Hl5eYKCwq3K8GomniCrvp5ZOy2bmf
- iaaQ==
+ bh=/mM+TtN7QigfV8F9BSaGaHszde8U6/Lni1GFCo1emVk=;
+ b=dF6HpHPFiz7ifldwyihr5zXt1+h5MHmIv9Cm6jHNIH41piiiJWR0Kcf9gKAOGyiBBq
+ vHACI8SjJCg/LcKAxtj5FkQXlgaz1BGK9X9usL/XZv0BH59KCm6bpWEHc+ZVlKWWAVri
+ ndSOhrvG5OXK+mfw0MAcUtufp7WlyGlgtZoPyEczgyPecrOYRFGN8YWykNVL6v3iqJ9S
+ WCFlq5rhTDbYjcYca4pCSiQXZ1LX7upCHqjflKi7nRxya4FTVT7wN3XxJ6UHgfN5THaZ
+ Tjx/A4LFyEYjnij+NpJnefMS0sKCqYWPvVjoI74jYl8rC9/q/LEPXc3ZHD7Tzr8vw9Vi
+ g+WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=GhV1VAa56OywLgG0LIPkWSLGbkAhI7ZJkeOkIoUETcY=;
- b=3JG41+s/Axhdu9KUdALV/jQKLU9JabBZJDW7OY2afdm2XpVrlDwtpQbeYS3eaypV6i
- 1DyLGLLkKazKy244W8F8eRdIzQLkSpjQHQEJiyvKF0+90PxQgrjWWsMw8UqDrdznpap0
- df/wNBn02Sd9BtVi07pKJSOJy7+qC/kfcaCtSJ5eju+6VuugNPi88+jQG4NcYEYSaUik
- n9Cs3CNe6UWKCRvjD6BTI2MjcLzRWvMghtX0rwCplDYKpXb9PyPC4J2LwcEyA2qVoFVQ
- 2DZX2kHNkiTb8bWtN7ZlFObh0Uo9LEfpUM69M1XhUHDjiCLuJU9ExVHS8/TaZ5WHG48v
- 1GfA==
-X-Gm-Message-State: AOAM532iQnRdjSN0XHbuVEy+84pLAlLGm5o6ReKvsZSi+jNY+cYXcGoc
- tMN5GBTW52sGacQuGatrqC6EhA==
-X-Google-Smtp-Source: ABdhPJzaRxWI9rBN1b38wNVioPeGQkoMLHwccHYRIpfowrTAHl67DLDT/hFcv4/HbIjjZSvN3KYeNQ==
-X-Received: by 2002:a05:6512:1192:: with SMTP id
- g18mr10731386lfr.40.1639586744076; 
- Wed, 15 Dec 2021 08:45:44 -0800 (PST)
+ bh=/mM+TtN7QigfV8F9BSaGaHszde8U6/Lni1GFCo1emVk=;
+ b=vz8xE53Oj6VUVIExD7KRqiCrm9AUD28jmKAo5kKQLwaPhNd8/xY7XDQQlE9J0DIqRw
+ xex3Lz2Z8cXOsLxmF0l2cF+EM0YoBbBrqfGAR4wOhn/xKXEPkv4w6xcKXsGZ7HdQ4raO
+ fwMgps4cMSgYGevlcb9Ton78hX3gFqTncXJTJcMrN87RwZ1x18THMgSWPy7TrUGnWdUa
+ 60noh2gqkJZ7ZbQPzWKyRgcboLFNSRPt6buXx9gQMo/rkMrsBXqcpmP0maZfPEI3tSae
+ XkTfiBHzLLnmQe1YLe7vf3GKrhOMN3lZZ+jgryMOASSYrIm1Zg+UGA/c/VElrKuEKU5v
+ SdCw==
+X-Gm-Message-State: AOAM533SB1BprHj7msuwfcGpWm3NQFuaBOPNefxITxJ9p4TNZNj0xTj0
+ NV3bUqQA+EGI9WZwa71XHJq1Vg==
+X-Google-Smtp-Source: ABdhPJxxxdf7tgICe77qXKsLRA6dZuxeJOxmfJaSbnj2PKfJJ2ko+kcJ9hGwJfYGy/h6bpf9qOqtjg==
+X-Received: by 2002:a2e:6e0d:: with SMTP id j13mr10688343ljc.124.1639587373419; 
+ Wed, 15 Dec 2021 08:56:13 -0800 (PST)
 Received: from ?IPV6:2001:470:dd84:abc0::8a5? ([2001:470:dd84:abc0::8a5])
- by smtp.gmail.com with ESMTPSA id l20sm399476lfj.36.2021.12.15.08.45.42
+ by smtp.gmail.com with ESMTPSA id m14sm550392ljg.2.2021.12.15.08.56.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Dec 2021 08:45:43 -0800 (PST)
-Message-ID: <60cf61fa-a6c1-4f7d-ba3c-793c8f4025e4@linaro.org>
-Date: Wed, 15 Dec 2021 19:45:39 +0300
+ Wed, 15 Dec 2021 08:56:12 -0800 (PST)
+Message-ID: <ec877733-7e1e-7ba8-0df9-8a7542dd0377@linaro.org>
+Date: Wed, 15 Dec 2021 19:56:11 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
 Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>
-References: <20211208180101.1337300-1-dmitry.baryshkov@linaro.org>
- <CAF6AEGuX0UHrC+c4+0GUywL7oDuVaJS4H19=ksKYNgC+Bbu12w@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Rob Clark
+ <robdclark@gmail.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>
+References: <20211215114900.GD14552@kili>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAF6AEGuX0UHrC+c4+0GUywL7oDuVaJS4H19=ksKYNgC+Bbu12w@mail.gmail.com>
+In-Reply-To: <20211215114900.GD14552@kili>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: drop dbgname argument from
- msm_ioremap*()
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Fix double free on error in
+ msm_dp_bridge_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,393 +73,40 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 09/12/2021 00:23, Rob Clark wrote:
-> On Wed, Dec 8, 2021 at 10:01 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> msm_ioremap() functions take additional argument dbgname used to output
->> single debug line telling IO range. Drop that extra argument, use
->> resource name instead.
+On 15/12/2021 14:49, Dan Carpenter wrote:
+> The "dp_bridge" pointer is allocated with devm_kzalloc() so it will be
+> freed automatically.  Kfreeing it here will only lead to a double free.
 > 
-> For some history, the dbgname traces were used by an older tool that
-> could decode the register read/write reglog traces based on the xml
-> register definitions.. so the dbgname matched up to domain names in
-> the xml.  I had hacked up the downstream fbdev(ish) driver to generate
-> similar traces, so I could compare sequences of programming and values
-> (which was kind of easier that finding my way around the downstream
-> code).
+> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-I suspected something like this, as the dbgname is only used for the reglog.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+> ---
+>   drivers/gpu/drm/msm/dp/dp_drm.c | 1 -
+>   1 file changed, 1 deletion(-)
 > 
-> That said, the tooling was never updated to deal with mdp5 and later,
-> with various different sub-blocks having their own base addresses.
-> And it looks like I dropped the demsm.c tool when importing the other
-> freedreno tools + xml into mesa.  So probably no great loss to drop
-> this and the reglog stuff.
-
-Is this an ack? Or would you prefer to drop reglog altogether? This 
-would allow us to move msm_readl/writel/rmw into msm_drv.h as static 
-inlines.
-
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 188e77c59885..d4d360d19eba 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -243,7 +243,6 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
+>   	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>   	if (rc) {
+>   		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
+> -		kfree(dp_bridge);
+>   		return ERR_PTR(rc);
+>   	}
+>   
 > 
-> BR,
-> -R
-> 
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |  2 +-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |  8 ++++----
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c  |  2 +-
->>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c  |  2 +-
->>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  |  2 +-
->>   drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c |  4 ++--
->>   drivers/gpu/drm/msm/dsi/dsi_host.c        |  2 +-
->>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  8 ++++----
->>   drivers/gpu/drm/msm/hdmi/hdmi.c           |  5 ++---
->>   drivers/gpu/drm/msm/hdmi/hdmi_phy.c       |  2 +-
->>   drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c  |  7 +++----
->>   drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c  |  2 +-
->>   drivers/gpu/drm/msm/msm_drv.c             | 18 ++++++++----------
->>   drivers/gpu/drm/msm/msm_drv.h             |  8 +++-----
->>   drivers/gpu/drm/msm/msm_gpu.c             |  2 +-
->>   15 files changed, 34 insertions(+), 40 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> index 51b83776951b..5750a3af126d 100644
->> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->> @@ -1506,7 +1506,7 @@ static void a6xx_llc_slices_init(struct platform_device *pdev,
->>          if (a6xx_gpu->have_mmu500)
->>                  a6xx_gpu->llc_mmio = NULL;
->>          else
->> -               a6xx_gpu->llc_mmio = msm_ioremap(pdev, "cx_mem", "gpu_cx");
->> +               a6xx_gpu->llc_mmio = msm_ioremap(pdev, "cx_mem");
->>
->>          a6xx_gpu->llc_slice = llcc_slice_getd(LLCC_GPU);
->>          a6xx_gpu->htw_llc_slice = llcc_slice_getd(LLCC_GPUHTW);
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index 2bd258eaf334..f86419cb2b4b 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -959,7 +959,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>
->>          atomic_set(&dpu_kms->bandwidth_ref, 0);
->>
->> -       dpu_kms->mmio = msm_ioremap(dpu_kms->pdev, "mdp", "mdp");
->> +       dpu_kms->mmio = msm_ioremap(dpu_kms->pdev, "mdp");
->>          if (IS_ERR(dpu_kms->mmio)) {
->>                  rc = PTR_ERR(dpu_kms->mmio);
->>                  DPU_ERROR("mdp register memory map failed: %d\n", rc);
->> @@ -968,20 +968,20 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->>          }
->>          DRM_DEBUG("mapped dpu address space @%pK\n", dpu_kms->mmio);
->>
->> -       dpu_kms->vbif[VBIF_RT] = msm_ioremap(dpu_kms->pdev, "vbif", "vbif");
->> +       dpu_kms->vbif[VBIF_RT] = msm_ioremap(dpu_kms->pdev, "vbif");
->>          if (IS_ERR(dpu_kms->vbif[VBIF_RT])) {
->>                  rc = PTR_ERR(dpu_kms->vbif[VBIF_RT]);
->>                  DPU_ERROR("vbif register memory map failed: %d\n", rc);
->>                  dpu_kms->vbif[VBIF_RT] = NULL;
->>                  goto error;
->>          }
->> -       dpu_kms->vbif[VBIF_NRT] = msm_ioremap_quiet(dpu_kms->pdev, "vbif_nrt", "vbif_nrt");
->> +       dpu_kms->vbif[VBIF_NRT] = msm_ioremap_quiet(dpu_kms->pdev, "vbif_nrt");
->>          if (IS_ERR(dpu_kms->vbif[VBIF_NRT])) {
->>                  dpu_kms->vbif[VBIF_NRT] = NULL;
->>                  DPU_DEBUG("VBIF NRT is not defined");
->>          }
->>
->> -       dpu_kms->reg_dma = msm_ioremap_quiet(dpu_kms->pdev, "regdma", "regdma");
->> +       dpu_kms->reg_dma = msm_ioremap_quiet(dpu_kms->pdev, "regdma");
->>          if (IS_ERR(dpu_kms->reg_dma)) {
->>                  dpu_kms->reg_dma = NULL;
->>                  DPU_DEBUG("REG_DMA is not defined");
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
->> index 131c1f1a869c..5bdb1504035c 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
->> @@ -222,7 +222,7 @@ int dpu_mdss_init(struct platform_device *pdev)
->>          if (!dpu_mdss)
->>                  return -ENOMEM;
->>
->> -       dpu_mdss->mmio = msm_ioremap(pdev, "mdss", "mdss");
->> +       dpu_mdss->mmio = msm_ioremap(pdev, "mdss");
->>          if (IS_ERR(dpu_mdss->mmio))
->>                  return PTR_ERR(dpu_mdss->mmio);
->>
->> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> index 5a33bb148e9e..3cf476c55158 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> @@ -418,7 +418,7 @@ struct msm_kms *mdp4_kms_init(struct drm_device *dev)
->>
->>          mdp4_kms->dev = dev;
->>
->> -       mdp4_kms->mmio = msm_ioremap(pdev, NULL, "MDP4");
->> +       mdp4_kms->mmio = msm_ioremap(pdev, NULL);
->>          if (IS_ERR(mdp4_kms->mmio)) {
->>                  ret = PTR_ERR(mdp4_kms->mmio);
->>                  goto fail;
->> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> index 12a5f81e402b..81bd434980cf 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> @@ -827,7 +827,7 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->>          if (ret)
->>                  goto fail;
->>
->> -       mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys", "MDP5");
->> +       mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
->>          if (IS_ERR(mdp5_kms->mmio)) {
->>                  ret = PTR_ERR(mdp5_kms->mmio);
->>                  goto fail;
->> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
->> index b3f79c2277e9..049c6784a531 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
->> @@ -210,13 +210,13 @@ int mdp5_mdss_init(struct platform_device *pdev)
->>
->>          mdp5_mdss->base.dev = &pdev->dev;
->>
->> -       mdp5_mdss->mmio = msm_ioremap(pdev, "mdss_phys", "MDSS");
->> +       mdp5_mdss->mmio = msm_ioremap(pdev, "mdss_phys");
->>          if (IS_ERR(mdp5_mdss->mmio)) {
->>                  ret = PTR_ERR(mdp5_mdss->mmio);
->>                  goto fail;
->>          }
->>
->> -       mdp5_mdss->vbif = msm_ioremap(pdev, "vbif_phys", "VBIF");
->> +       mdp5_mdss->vbif = msm_ioremap(pdev, "vbif_phys");
->>          if (IS_ERR(mdp5_mdss->vbif)) {
->>                  ret = PTR_ERR(mdp5_mdss->vbif);
->>                  goto fail;
->> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> index 5b4bb722f750..4e2dfc53ca28 100644
->> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
->> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
->> @@ -1813,7 +1813,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->>                  goto fail;
->>          }
->>
->> -       msm_host->ctrl_base = msm_ioremap_size(pdev, "dsi_ctrl", "DSI CTRL", &msm_host->ctrl_size);
->> +       msm_host->ctrl_base = msm_ioremap_size(pdev, "dsi_ctrl", &msm_host->ctrl_size);
->>          if (IS_ERR(msm_host->ctrl_base)) {
->>                  pr_err("%s: unable to map Dsi ctrl base\n", __func__);
->>                  ret = PTR_ERR(msm_host->ctrl_base);
->> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
->> index 0b2ae5c15240..6425b6c34f4c 100644
->> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
->> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
->> @@ -709,14 +709,14 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
->>          if (!of_property_read_u32(dev->of_node, "phy-type", &phy_type))
->>                  phy->cphy_mode = (phy_type == PHY_TYPE_CPHY);
->>
->> -       phy->base = msm_ioremap_size(pdev, "dsi_phy", "DSI_PHY", &phy->base_size);
->> +       phy->base = msm_ioremap_size(pdev, "dsi_phy", &phy->base_size);
->>          if (IS_ERR(phy->base)) {
->>                  DRM_DEV_ERROR(dev, "%s: failed to map phy base\n", __func__);
->>                  ret = -ENOMEM;
->>                  goto fail;
->>          }
->>
->> -       phy->pll_base = msm_ioremap_size(pdev, "dsi_pll", "DSI_PLL", &phy->pll_size);
->> +       phy->pll_base = msm_ioremap_size(pdev, "dsi_pll", &phy->pll_size);
->>          if (IS_ERR(phy->pll_base)) {
->>                  DRM_DEV_ERROR(&pdev->dev, "%s: failed to map pll base\n", __func__);
->>                  ret = -ENOMEM;
->> @@ -724,7 +724,7 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
->>          }
->>
->>          if (phy->cfg->has_phy_lane) {
->> -               phy->lane_base = msm_ioremap_size(pdev, "dsi_phy_lane", "DSI_PHY_LANE", &phy->lane_size);
->> +               phy->lane_base = msm_ioremap_size(pdev, "dsi_phy_lane", &phy->lane_size);
->>                  if (IS_ERR(phy->lane_base)) {
->>                          DRM_DEV_ERROR(&pdev->dev, "%s: failed to map phy lane base\n", __func__);
->>                          ret = -ENOMEM;
->> @@ -733,7 +733,7 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
->>          }
->>
->>          if (phy->cfg->has_phy_regulator) {
->> -               phy->reg_base = msm_ioremap_size(pdev, "dsi_phy_regulator", "DSI_PHY_REG", &phy->reg_size);
->> +               phy->reg_base = msm_ioremap_size(pdev, "dsi_phy_regulator", &phy->reg_size);
->>                  if (IS_ERR(phy->reg_base)) {
->>                          DRM_DEV_ERROR(&pdev->dev, "%s: failed to map phy regulator base\n", __func__);
->>                          ret = -ENOMEM;
->> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
->> index 3acdeae25caf..3eb45cde0330 100644
->> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
->> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
->> @@ -128,7 +128,7 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
->>          hdmi->config = config;
->>          spin_lock_init(&hdmi->reg_lock);
->>
->> -       hdmi->mmio = msm_ioremap(pdev, config->mmio_name, "HDMI");
->> +       hdmi->mmio = msm_ioremap(pdev, config->mmio_name);
->>          if (IS_ERR(hdmi->mmio)) {
->>                  ret = PTR_ERR(hdmi->mmio);
->>                  goto fail;
->> @@ -139,8 +139,7 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
->>                  config->mmio_name);
->>          hdmi->mmio_phy_addr = res->start;
->>
->> -       hdmi->qfprom_mmio = msm_ioremap(pdev,
->> -               config->qfprom_mmio_name, "HDMI_QFPROM");
->> +       hdmi->qfprom_mmio = msm_ioremap(pdev, config->qfprom_mmio_name);
->>          if (IS_ERR(hdmi->qfprom_mmio)) {
->>                  DRM_DEV_INFO(&pdev->dev, "can't find qfprom resource\n");
->>                  hdmi->qfprom_mmio = NULL;
->> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
->> index 16b0e8836d27..9780107e1cc9 100644
->> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
->> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
->> @@ -144,7 +144,7 @@ static int msm_hdmi_phy_probe(struct platform_device *pdev)
->>          if (!phy->cfg)
->>                  return -ENODEV;
->>
->> -       phy->mmio = msm_ioremap(pdev, "hdmi_phy", "HDMI_PHY");
->> +       phy->mmio = msm_ioremap(pdev, "hdmi_phy");
->>          if (IS_ERR(phy->mmio)) {
->>                  DRM_DEV_ERROR(dev, "%s: failed to map phy base\n", __func__);
->>                  return -ENOMEM;
->> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
->> index 99c7853353fd..b06d9d25a189 100644
->> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
->> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c
->> @@ -716,19 +716,18 @@ int msm_hdmi_pll_8996_init(struct platform_device *pdev)
->>
->>          pll->pdev = pdev;
->>
->> -       pll->mmio_qserdes_com = msm_ioremap(pdev, "hdmi_pll", "HDMI_PLL");
->> +       pll->mmio_qserdes_com = msm_ioremap(pdev, "hdmi_pll");
->>          if (IS_ERR(pll->mmio_qserdes_com)) {
->>                  DRM_DEV_ERROR(dev, "failed to map pll base\n");
->>                  return -ENOMEM;
->>          }
->>
->>          for (i = 0; i < HDMI_NUM_TX_CHANNEL; i++) {
->> -               char name[32], label[32];
->> +               char name[32];
->>
->>                  snprintf(name, sizeof(name), "hdmi_tx_l%d", i);
->> -               snprintf(label, sizeof(label), "HDMI_TX_L%d", i);
->>
->> -               pll->mmio_qserdes_tx[i] = msm_ioremap(pdev, name, label);
->> +               pll->mmio_qserdes_tx[i] = msm_ioremap(pdev, name);
->>                  if (IS_ERR(pll->mmio_qserdes_tx[i])) {
->>                          DRM_DEV_ERROR(dev, "failed to map pll base\n");
->>                          return -ENOMEM;
->> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c b/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
->> index 562dfac67792..be4b0b67e797 100644
->> --- a/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
->> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c
->> @@ -434,7 +434,7 @@ int msm_hdmi_pll_8960_init(struct platform_device *pdev)
->>          if (!pll)
->>                  return -ENOMEM;
->>
->> -       pll->mmio = msm_ioremap(pdev, "hdmi_pll", "HDMI_PLL");
->> +       pll->mmio = msm_ioremap(pdev, "hdmi_pll");
->>          if (IS_ERR(pll->mmio)) {
->>                  DRM_DEV_ERROR(dev, "failed to map pll base\n");
->>                  return -ENOMEM;
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index ad35a5d94053..d593c5d7dbc7 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -124,7 +124,7 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
->>   }
->>
->>   static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
->> -                                 const char *dbgname, bool quiet, phys_addr_t *psize)
->> +                                 bool quiet, phys_addr_t *psize)
->>   {
->>          struct resource *res;
->>          unsigned long size;
->> @@ -151,7 +151,7 @@ static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name
->>          }
->>
->>          if (reglog)
->> -               printk(KERN_DEBUG "IO:region %s %p %08lx\n", dbgname, ptr, size);
->> +               printk(KERN_DEBUG "IO:region %s %p %08lx\n", name, ptr, size);
->>
->>          if (psize)
->>                  *psize = size;
->> @@ -159,22 +159,20 @@ static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name
->>          return ptr;
->>   }
->>
->> -void __iomem *msm_ioremap(struct platform_device *pdev, const char *name,
->> -                         const char *dbgname)
->> +void __iomem *msm_ioremap(struct platform_device *pdev, const char *name)
->>   {
->> -       return _msm_ioremap(pdev, name, dbgname, false, NULL);
->> +       return _msm_ioremap(pdev, name, false, NULL);
->>   }
->>
->> -void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name,
->> -                               const char *dbgname)
->> +void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name)
->>   {
->> -       return _msm_ioremap(pdev, name, dbgname, true, NULL);
->> +       return _msm_ioremap(pdev, name, true, NULL);
->>   }
->>
->>   void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
->> -                         const char *dbgname, phys_addr_t *psize)
->> +                         phys_addr_t *psize)
->>   {
->> -       return _msm_ioremap(pdev, name, dbgname, false, psize);
->> +       return _msm_ioremap(pdev, name, false, psize);
->>   }
->>
->>   void msm_writel(u32 data, void __iomem *addr)
->> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
->> index d7574e6bd4e4..56d1242efcc1 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.h
->> +++ b/drivers/gpu/drm/msm/msm_drv.h
->> @@ -480,12 +480,10 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name);
->>
->>   struct clk *msm_clk_bulk_get_clock(struct clk_bulk_data *bulk, int count,
->>          const char *name);
->> -void __iomem *msm_ioremap(struct platform_device *pdev, const char *name,
->> -               const char *dbgname);
->> +void __iomem *msm_ioremap(struct platform_device *pdev, const char *name);
->>   void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
->> -               const char *dbgname, phys_addr_t *size);
->> -void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name,
->> -               const char *dbgname);
->> +               phys_addr_t *size);
->> +void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name);
->>   void msm_writel(u32 data, void __iomem *addr);
->>   u32 msm_readl(const void __iomem *addr);
->>   void msm_rmw(void __iomem *addr, u32 mask, u32 or);
->> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
->> index 0f78c2615272..c4debc8ea3ba 100644
->> --- a/drivers/gpu/drm/msm/msm_gpu.c
->> +++ b/drivers/gpu/drm/msm/msm_gpu.c
->> @@ -858,7 +858,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>
->>
->>          /* Map registers: */
->> -       gpu->mmio = msm_ioremap(pdev, config->ioname, name);
->> +       gpu->mmio = msm_ioremap(pdev, config->ioname);
->>          if (IS_ERR(gpu->mmio)) {
->>                  ret = PTR_ERR(gpu->mmio);
->>                  goto fail;
->> --
->> 2.33.0
->>
 
 
 -- 
