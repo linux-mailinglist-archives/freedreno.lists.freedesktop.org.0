@@ -1,57 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CFFA476176
-	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 20:18:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 518E14761BB
+	for <lists+freedreno@lfdr.de>; Wed, 15 Dec 2021 20:31:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD06B10F8E2;
-	Wed, 15 Dec 2021 19:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E04BE10F875;
+	Wed, 15 Dec 2021 19:31:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A00EE10F8E4
- for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 19:18:25 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id d2so21044909qki.12
- for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 11:18:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Lupv2Y8caxWSPo/yUIpJfaEyopRdwsl8zpftq2TZo8c=;
- b=JeUquh9xs0mAhV646mX1fPpTfEWDBFm4VpV2DzQrI7hCt0URfzBNzPsqmp+Xcqga0n
- +MLIN75Prpx1MOT0sRYpZ1ckgt2UIU9Uly3dvMbUd+LgfWr+nu6ndecT3/1r9wmeg8p8
- sVaeU9BJcpoaRYpkyKjQcsfqQfakqh3Le8i/34X9IKrCmTEqU88aNYXxQcQAROakjvV0
- 2pue5P3G7sATp3CiU51ut2qCjCvKB0u2H0um0qcQ26PDbW5o8hr55KWust5VfocLUuLJ
- x1sSIItAq9vS/jenmboVqsQ64XvKvwW4MvWXZxtLxKI7owqbjC6RuCuDWYNAMHinWcvI
- HPXA==
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7170010F875
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 19:31:09 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id q25so33217533oiw.0
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Dec 2021 11:31:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=2ZodyLNR3AXODJSiSUnQA1XAEq2LWEq3gAH7UHv0FmE=;
+ b=JOgQ1hKYSjobD9XN44Skgc0yrw4uB4WDyWKYpR+cfnVbcLB7xxQ1Vk0Njkm7gPnZfg
+ 1ZOqm6PSfkaWZ+r40masd5HF3+8zJqSCJm9gmQ5rcyfNHfwLSLwQobmlHxd16hUrnBS/
+ rVk/WNHjDBB/2KVFdfBp83ZFCn+w00TFFqnu8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Lupv2Y8caxWSPo/yUIpJfaEyopRdwsl8zpftq2TZo8c=;
- b=lXpHx1TYgM02T8HJvy2O3/1oOKqVSsbLfB/e4Ab2W5xGOrwV61YzahigLZ7MSApLkR
- GtBsi4VMrv2yyz8S7XCfaZo/+2vsEsEyx9ANUMXyBzpwQ/DdYnrGXffxdVP8tY61f8Fj
- Jy6r4JZrvoLbFbFG1plPCV9dBbPP8M4JdFmqq4r+NttgXEgRwZEWTvKz0VlL9XQMhHBr
- YzsZnK4CUZ1W8iwOulNPjTGN2yhD2pYvK19kAeFh8aqdKTHX62i5/RrZQAH5QpwteeIr
- 0AB0f3si/jf216hjVdWQ12hZrbHUBakhCoCSmfGIA127RyPc8Z1qzOwSxQpkdz3SpmSJ
- gcLg==
-X-Gm-Message-State: AOAM531n7UrVeXGXwch/5yyJb70/EE6tzuxR45B+nEWd/0UYqwW/b3Pn
- LOnJ4agM4ShQyYMMXQK8PmrHuryq8htJjXbyPttAZQ==
-X-Google-Smtp-Source: ABdhPJzmCzYw51IcVPfPmlbc4eeB5qwnEMYGJDj12g7Z7Wts0i2C3Tw6O2uiNZd87jJ7F7AWfQ2H8EeM1UL3meIYKTU=
-X-Received: by 2002:a05:620a:13ea:: with SMTP id
- h10mr9971617qkl.30.1639595904803; 
- Wed, 15 Dec 2021 11:18:24 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=2ZodyLNR3AXODJSiSUnQA1XAEq2LWEq3gAH7UHv0FmE=;
+ b=jgcm+TaaSUEdquygbH06z81O77OOxr+tCD2CSTEA8ROZkx5ODxSV9wXHt8JFQ89LWj
+ DAz8t1yVKJQ5vK79pk5cIUaJLe3XDQjVbiMzqyabDiM6Bp7icOMIoJTaw3udLCNc+vOs
+ wxD4kvQYwHVdym4KxwUvMrkdoWxQwZgfDI9adEakoNA+mZYJVDlG4ipmZaY1+CttVpqm
+ FY44zd1uBGeGXAtWBHZO/+INkHvoGxYuArgF0JnhtJikO0o/XyNawADJJNT8okGaaWrU
+ 9+9Laas5eo4Aa59F0Ufh1SsQ+aSuQpGh9ynmhzAAKrKaIMEmHR5WE/+CvEHoPNd9alTK
+ tYGg==
+X-Gm-Message-State: AOAM533sPKcL6UoiTv8RJowNUboO8q/sraW3Uf3yiBb34sVLCs1WIMO8
+ CMgbJjNi9zALJtiL+1jZHuMRNMnILyyEp5G6Ecb4VQ==
+X-Google-Smtp-Source: ABdhPJyXZNnE5c8O7dbxT7JNkZV6Q00UZJ68loclZIwbBnVr9byLL22dVIE/Z3sucZEOUL4pwTLMeSwvlikFYoroAuE=
+X-Received: by 2002:a05:6808:211f:: with SMTP id
+ r31mr1309975oiw.64.1639596668771; 
+ Wed, 15 Dec 2021 11:31:08 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Dec 2021 11:31:08 -0800
 MIME-Version: 1.0
-References: <20211215174524.1742389-1-robdclark@gmail.com>
- <20211215174524.1742389-3-robdclark@gmail.com>
-In-Reply-To: <20211215174524.1742389-3-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 15 Dec 2021 22:18:14 +0300
-Message-ID: <CAA8EJpruB5kiynfJU93RzrmEiEZLYUyw+qEJoNgfcu4HK+7xFA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+In-Reply-To: <20211215160912.2715956-1-dmitry.baryshkov@linaro.org>
+References: <20211215160912.2715956-1-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 15 Dec 2021 11:31:08 -0800
+Message-ID: <CAE-0n51fs0q-6eStuTrxfCUbHrA=7YsiO1GR254j3_SV=V8meQ@mail.gmail.com>
+To: Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 2/3] drm/msm/disp: Export helper for
- capturing snapshot
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: add
+ dpu_crtc_atomic_print_state
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,34 +67,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Guo Zhengkui <guozhengkui@vivo.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Masahiro Yamada <masahiroy@kernel.org>, Doug Anderson <dianders@chromium.org>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Alexey Dobriyan <adobriyan@gmail.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 15 Dec 2021 at 20:49, Rob Clark <robdclark@gmail.com> wrote:
+Quoting Dmitry Baryshkov (2021-12-15 08:09:11)
+> Implement CRTC's atomic_print_state() callback, printing DPU-specific
+> CRTC state (LM, CTL and DSPP ids).
 >
-> From: Rob Clark <robdclark@chromium.org>
->
-> We'll re-use this for debugfs.
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->  drivers/gpu/drm/msm/disp/msm_disp_snapshot.c | 28 +++++++++++++++-----
->  drivers/gpu/drm/msm/disp/msm_disp_snapshot.h | 10 +++++++
->  2 files changed, 31 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 >
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 59b1bcfbe8c0..df128a680697 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -924,6 +924,20 @@ static struct drm_crtc_state *dpu_crtc_duplicate_state(struct drm_crtc *crtc)
+>         return &cstate->base;
+>  }
+>
+> +static void dpu_crtc_atomic_print_state(struct drm_printer *p,
+> +                                       const struct drm_crtc_state *state)
+> +{
+> +       struct dpu_crtc_state *cstate = to_dpu_crtc_state(state);
 
+const? Then we know at a glance that this isn't changing the state.
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
