@@ -1,47 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55CD47B32D
-	for <lists+freedreno@lfdr.de>; Mon, 20 Dec 2021 19:48:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8706547B3F7
+	for <lists+freedreno@lfdr.de>; Mon, 20 Dec 2021 20:51:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65371113A64;
-	Mon, 20 Dec 2021 18:48:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9028A10E414;
+	Mon, 20 Dec 2021 19:51:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
- Mon, 20 Dec 2021 18:48:42 UTC
-Received: from ixit.cz (ixit.cz [94.230.151.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B593B113A64
- for <freedreno@lists.freedesktop.org>; Mon, 20 Dec 2021 18:48:42 +0000 (UTC)
-Received: from localhost.localdomain (ip-89-176-96-70.net.upcbroadband.cz
- [89.176.96.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 3B95C24CB8;
- Mon, 20 Dec 2021 19:42:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1640025744;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=8lLaEbe6zO/dNVFXETC3vvS91flMZIkSgtxhlgijaBI=;
- b=O/nTMXOh0L4yVt/ba+OTySWFCswCAWyMwcQiTsXiuiSwtHUCMCvKbEIPq0RpfUY6+wiluB
- FNhhU7d37vVrmYSG9aYvR7Yx5750HAHxgf8BSzPaBNe+xP46z6VMLqIlYOyiQXBGXX/aAx
- 45YnzSIb1qRgb8+JAv3TAe0V0Kqs8b4=
-From: David Heidelberg <david@ixit.cz>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>
-Date: Mon, 20 Dec 2021 19:42:20 +0100
-Message-Id: <20211220184220.86328-1-david@ixit.cz>
-X-Mailer: git-send-email 2.34.1
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBD1610E414;
+ Mon, 20 Dec 2021 19:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1640029900; x=1671565900;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=SWkrRsfh5wkH/U4hnyc7GU2xLX7B1JNAMj60e3Mc2UA=;
+ b=ZEc+aK0tAh/uSmowd9kDCXtmMn/YVX0u33QWU3MDlGrDSFyxGP7HJTv8
+ rs8uuFCHB+EYIYDk9JR2H4kQW5kM+7Ivc6ZkBhB+cVPBLatje/3bxs7gS
+ mMkMSdokIsQxbDRCT+MltWhSKhu3go8Qn8MuLrElFMyApwPNjghw09ezu 4=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 20 Dec 2021 11:51:39 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2021 11:51:38 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 20 Dec 2021 11:51:38 -0800
+Received: from [10.111.163.90] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Mon, 20 Dec
+ 2021 11:51:36 -0800
+Message-ID: <f9521a5f-13cd-a379-3502-5590fd9c331c@quicinc.com>
+Date: Mon, 20 Dec 2021 11:51:34 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] dt-bindings: msm: disp: remove bus from dpu
- bindings
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-US
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20211217002026.2304973-1-bjorn.andersson@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20211217002026.2304973-1-bjorn.andersson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: Only create debugfs for
+ PRIMARY minor
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,57 +66,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Heidelberg <david@ixit.cz>, freedreno@lists.freedesktop.org,
- ~okias/devicetree@lists.sr.ht
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel
+ Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Driver and dts has been already adjusted and bus moved out of dpu, let's
-update also dt-bindings.
 
-Fixes warnings as:
-arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dt.yaml: mdss
-@ae00000: clock-names: ['iface', 'core'] is too short
-        From schema: Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
 
-Ref: https://lore.kernel.org/all/20210803101657.1072358-1-dmitry.baryshkov@linaro.org/
+On 12/16/2021 4:20 PM, Bjorn Andersson wrote:
+> dpu_kms_debugfs_init() is invoked for each minor being registered. Most
+> of the files created are unrelated to the minor, so there's no reason to
+> present them per minor.
+> The exception to this is the DisplayPort code, which ends up invoking
+> dp_debug_get() for each minor, each time associate the allocated object
+> with dp->debug.
+> 
+> As such dp_debug will create debugfs files in both the PRIMARY and the
+> RENDER minor's debugfs directory, but only the last reference will be
+> remembered.
+> 
+> The only use of this reference today is in the cleanup path in
+> dp_display_deinit_sub_modules() and the dp_debug_private object does
+> outlive the debugfs entries in either case, so there doesn't seem to be
+> any adverse effects of this, but per the code the current behavior is
+> unexpected, so change it to only create debugfs files for the PRIMARY
+> minor.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> ---
+> 
+> Changes since v1:
+> - Moved the check up from msm_dp_debugfs_init() to dpu_kms_debugfs_init()
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 2ee70072a1b4..a54f7d373f14 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -193,6 +193,10 @@ static int dpu_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
+>   	if (!p)
+>   		return -EINVAL;
+>   
+> +	/* Only create one set of debugfs per DP instance */
+I would change this to DPU now instead of DP, but apart from that,
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- .../devicetree/bindings/display/msm/dpu-sdm845.yaml          | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-index b4ea7c92fb3d..0dca4b3d66e4 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-@@ -31,13 +31,11 @@ properties:
-   clocks:
-     items:
-       - description: Display AHB clock from gcc
--      - description: Display AXI clock
-       - description: Display core clock
- 
-   clock-names:
-     items:
-       - const: iface
--      - const: bus
-       - const: core
- 
-   interrupts:
-@@ -160,9 +158,8 @@ examples:
-           power-domains = <&dispcc MDSS_GDSC>;
- 
-           clocks = <&gcc GCC_DISP_AHB_CLK>,
--                   <&gcc GCC_DISP_AXI_CLK>,
-                    <&dispcc DISP_CC_MDSS_MDP_CLK>;
--          clock-names = "iface", "bus", "core";
-+          clock-names = "iface", "core";
- 
-           interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-           interrupt-controller;
--- 
-2.34.1
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> +	if (minor->type != DRM_MINOR_PRIMARY)
+> +		return 0;
+> +
+>   	dev = dpu_kms->dev;
+>   	priv = dev->dev_private;
+>   
