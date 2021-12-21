@@ -1,55 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49AB547B652
-	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 00:54:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47B8247B65F
+	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 01:01:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2C5F10F3B2;
-	Mon, 20 Dec 2021 23:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDBE710E3C6;
+	Tue, 21 Dec 2021 00:01:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 730C910F3B2
- for <freedreno@lists.freedesktop.org>; Mon, 20 Dec 2021 23:54:08 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id 193so10944125qkh.10
- for <freedreno@lists.freedesktop.org>; Mon, 20 Dec 2021 15:54:08 -0800 (PST)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72F8B10E3C6
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Dec 2021 00:01:23 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ v15-20020a9d604f000000b0056cdb373b82so14562710otj.7
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Dec 2021 16:01:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ICTB8V4n+9cmca6+x37Ql0fa5KJvA8Kd4xGMSs77tp4=;
- b=GOa3Py2rvoHFE1zmqG4g4VsKavd6FCbMcxB66Q0UHthvWMGSZ4qkosE2WTkfXY5jLj
- GJEsJls1Q8hoJJe0Hz8joPOiyGiwn/He61O6Dpe3Y2sQ6iVAEfduAgGVtDQ3aKJHE+Cf
- CNf42oqdHuyZxsnhBOfuuJuEy0uOszNUBOUyIrrH612CftS0o0hXP8a1a35t3HoCwHAK
- 55EDgjLU7QWhMfPUQ3lxpDHgZqZIXdT/wc+PVWVZOt2vshCjWC9xUCTJ6B7WFwZ0dwS9
- TlLRGrJ22LePnO+EgLB9+yPEVV/ZwtWz52I92Hh881azKDNEYhSvkBO35edcz4Ii6Hvs
- dOdA==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=PRRlE08tRQGUC/ML6AzImHY04yPHs+qeigbIK6/ghCA=;
+ b=WTin9bf+zQCthKwRftbe7mXH1Hwkj0/++A2ImlNyEdbKrQyYcw7vxaOSmoo3yhQTYB
+ 8xus/V01oDtDh/8outB78i7WyWUyy2yHdZAahe1edvGG7m/Pm69awBYMJboaizx89H3H
+ TySg4EtqKrNEYuEE4Q4R0OqqygxISuJbOAKbu80bTIDm7yKlpB/HMYXa1z94jjfhHSk7
+ DfdTZ/CV+1TIYTyrPNVOAAGiqu207MBdjUqyhP3wWXVU8NaOfYZFdsI77fTCVihYsS9b
+ ZslrJ3NsLR1SnC6wfdADYXanvW/E7ZUcqEbmT9QSZ8HX9kWfqZYoAtFQuRmEA5A11uId
+ gdyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ICTB8V4n+9cmca6+x37Ql0fa5KJvA8Kd4xGMSs77tp4=;
- b=6OInYxz8shJ88rS0suWiUBJYHXz9B8nn6WWAPszdlW2RPCvermudCncbHXn0WXmiOA
- k/JutrJQTWy2DBwdM5uBV9zvhms2UuFqBVrw6d+OFuZSfhHgmNUQjuwYRhgDekJFfMH7
- NFwcjsMqyJmTbKTXNlhCh7UfbN8Oh42OZTNXatPMBMIOTNqhmifD5EDQ+NPJvnXCM+Oe
- SvM9bTuZbAfhG45FE66Ia9+7UsVxzu7B0YVwTrtKbdRzkubNkNi4fSiRs581XAX9ZnWx
- ygxeM6f4B7nTysw8+p5ftkcZbXDTT5y9Jt8umFvQ91hDxhgcMnzRQqZbU6d3fZ5QXIYp
- +t2Q==
-X-Gm-Message-State: AOAM5330bOodn3dHhZWzcAXCTsXFsZ8IQI/WRgajL7PJbn4T8l/WM1GV
- Uhxe8BZQv7bFIRMzILWbk4UjbXq6tZS96MBiXlaFhw==
-X-Google-Smtp-Source: ABdhPJzCxuuI7T69jGLo8Z9p5gSwkmCeAciC0CgBmGa3lxd+isswddNujRi13+rwrqy40MTb27glmY8K2mKYuRI17Ng=
-X-Received: by 2002:ae9:e641:: with SMTP id x1mr432352qkl.59.1640044447562;
- Mon, 20 Dec 2021 15:54:07 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=PRRlE08tRQGUC/ML6AzImHY04yPHs+qeigbIK6/ghCA=;
+ b=MY7QFLADdX3nyLbyoRE2cRIStA3BSbwnBv1RwlXqEpWFJIQGt8/vxSjXFu43sMNsZM
+ bnK9r9cTgMgs/VFYiEGyBYhnB+5gtXs/KyKeVExYQ0SBvlXwEcbPBB5ZaM65Ry+s5cst
+ jilsDuHKoQR1snrRSWbUHHTBR3xGFbCK4n0XYvJA25gdO3LcANCfChPMcw/L2aruTv3B
+ XHq+bezzjUO9PMg/+1poNNwss+NnfJbajFiRdV/C0dgEQ5tWlMaPhiZx0HicOm1Oxmty
+ 2VhxPppO7WiEMNMgEPcaqjGAy0MjVCfJZ1DFFeVUlqPAWlkLCspWXblD9sT4WtrY2/Fn
+ 9BDQ==
+X-Gm-Message-State: AOAM533y8tiVMnFYr6v3BxayYjXTR11005FhXbRXhY13sK9/z0EQLyzH
+ 60fU5vj+U6dpQ5AIR0Q80JrTgg==
+X-Google-Smtp-Source: ABdhPJxLH6ATKCV5pwDXNkHsZfhkl8m3cSUMOoFFfS0pKDKjPYh+aUzBCxMsy2pZgtNiipr6geA0jQ==
+X-Received: by 2002:a05:6830:8:: with SMTP id c8mr407528otp.115.1640044881961; 
+ Mon, 20 Dec 2021 16:01:21 -0800 (PST)
+Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id x16sm2181504otq.47.2021.12.20.16.01.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Dec 2021 16:01:21 -0800 (PST)
+Date: Mon, 20 Dec 2021 16:02:30 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YcEZljENYJQAk9We@ripper>
+References: <20211217002026.2304973-1-bjorn.andersson@linaro.org>
+ <CAA8EJpoYJFfB5qfFMoc3-QsmYZzO16C28MOrPyokANQyPBhdyg@mail.gmail.com>
 MIME-Version: 1.0
-References: <20211220184220.86328-1-david@ixit.cz>
-In-Reply-To: <20211220184220.86328-1-david@ixit.cz>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 21 Dec 2021 02:53:56 +0300
-Message-ID: <CAA8EJprqBELsZUCVqppAsNVBzsW3FxQbUCQ=zy_tAVY0SeTPwQ@mail.gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm: disp: remove bus from dpu
- bindings
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA8EJpoYJFfB5qfFMoc3-QsmYZzO16C28MOrPyokANQyPBhdyg@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: Only create debugfs for
+ PRIMARY minor
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,70 +71,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- ~okias/devicetree@lists.sr.ht
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 20 Dec 2021 at 21:42, David Heidelberg <david@ixit.cz> wrote:
->
-> Driver and dts has been already adjusted and bus moved out of dpu, let's
-> update also dt-bindings.
->
-> Fixes warnings as:
-> arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dt.yaml: mdss
-> @ae00000: clock-names: ['iface', 'core'] is too short
->         From schema: Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
->
-> Ref: https://lore.kernel.org/all/20210803101657.1072358-1-dmitry.baryshkov@linaro.org/
->
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+On Mon 20 Dec 15:53 PST 2021, Dmitry Baryshkov wrote:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> On Fri, 17 Dec 2021 at 03:19, Bjorn Andersson
+> <bjorn.andersson@linaro.org> wrote:
+> >
+> > dpu_kms_debugfs_init() is invoked for each minor being registered. Most
+> > of the files created are unrelated to the minor, so there's no reason to
+> > present them per minor.
+> > The exception to this is the DisplayPort code, which ends up invoking
+> > dp_debug_get() for each minor, each time associate the allocated object
+> > with dp->debug.
+> >
+> > As such dp_debug will create debugfs files in both the PRIMARY and the
+> > RENDER minor's debugfs directory, but only the last reference will be
+> > remembered.
+> >
+> > The only use of this reference today is in the cleanup path in
+> > dp_display_deinit_sub_modules() and the dp_debug_private object does
+> > outlive the debugfs entries in either case, so there doesn't seem to be
+> > any adverse effects of this, but per the code the current behavior is
+> > unexpected, so change it to only create debugfs files for the PRIMARY
+> > minor.
+> >
+> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > ---
+> >
+> > Changes since v1:
+> > - Moved the check up from msm_dp_debugfs_init() to dpu_kms_debugfs_init()
+> >
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > index 2ee70072a1b4..a54f7d373f14 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> > @@ -193,6 +193,10 @@ static int dpu_kms_debugfs_init(struct msm_kms *kms, struct drm_minor *minor)
+> >         if (!p)
+> >                 return -EINVAL;
+> >
+> > +       /* Only create one set of debugfs per DP instance */
+> 
+> The comment is misleading. Could you please fix it?
+> 
 
-> ---
->  .../devicetree/bindings/display/msm/dpu-sdm845.yaml          | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> index b4ea7c92fb3d..0dca4b3d66e4 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> @@ -31,13 +31,11 @@ properties:
->    clocks:
->      items:
->        - description: Display AHB clock from gcc
-> -      - description: Display AXI clock
->        - description: Display core clock
->
->    clock-names:
->      items:
->        - const: iface
-> -      - const: bus
->        - const: core
->
->    interrupts:
-> @@ -160,9 +158,8 @@ examples:
->            power-domains = <&dispcc MDSS_GDSC>;
->
->            clocks = <&gcc GCC_DISP_AHB_CLK>,
-> -                   <&gcc GCC_DISP_AXI_CLK>,
->                     <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> -          clock-names = "iface", "bus", "core";
-> +          clock-names = "iface", "core";
->
->            interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
->            interrupt-controller;
-> --
-> 2.34.1
->
+I agree, and as Abhinav pointed out I didn't update $subject fully
+either.
 
+Will resubmit.
 
--- 
-With best wishes
-Dmitry
+Regards,
+Bjorn
+
+> > +       if (minor->type != DRM_MINOR_PRIMARY)
+> > +               return 0;
+> > +
+> >         dev = dpu_kms->dev;
+> >         priv = dev->dev_private;
+> >
+> > --
+> > 2.33.1
+> >
+> 
+> 
+> -- 
+> With best wishes
+> Dmitry
