@@ -2,60 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C142C47C61F
-	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 19:16:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 003F247C6A8
+	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 19:33:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 599FC10F13B;
-	Tue, 21 Dec 2021 18:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F69E11A18C;
+	Tue, 21 Dec 2021 18:32:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8203910F13B;
- Tue, 21 Dec 2021 18:16:14 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDEC711A18C;
+ Tue, 21 Dec 2021 18:32:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1640110575; x=1671646575;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=87wmM1aAjQ9JXZUAKdF+CTr0EM6APa+CfM0DbP+Bdgc=;
- b=QfufDVry2hfK0wnCoQ0sBb/nyKTaYRAHFAtsYIOzaPhCcPUgrb8msH3r
- IgoJKJAlwdreKzxrjcVpQX+01n9gbyqrNFBOwv6MAc/G8H4+cZ5+ePKtB
- ZO20SFjC8VnCvEax6B5CmbD9Ruv/f+ATcfB/ZvLQ2TRcCw1BiC6BAND9R Q=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 21 Dec 2021 10:16:14 -0800
+ t=1640111578; x=1671647578;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ZsgLJndpLvwXmWTrpAtIHRV7ZxELnn8+rKqh9Mjotck=;
+ b=tjIjwY112esO45WbSS9eYHwxlzhuiJipzNTTzAqt7bLWVWCB7ZfHqQiO
+ 2GTL0uXc7iGgCRzgkJmuUyolMpdXlvAlsUNpwgvjKCcDEhRUHRJr240+q
+ AwuzCLdbRuTxhG62IKVquBCf7ZeRg8gQ9hhWPdQxiDucG3wyH4hvwbwBx s=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 21 Dec 2021 10:32:58 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2021 10:16:13 -0800
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2021 10:32:56 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 21 Dec 2021 10:16:12 -0800
-Received: from [10.110.121.136] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 21 Dec
- 2021 10:16:11 -0800
-Message-ID: <cb935a39-3b15-19fe-983c-dce326b2bf06@quicinc.com>
-Date: Tue, 21 Dec 2021 10:16:09 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
- <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, <sean@poorly.run>,
- <vkoul@kernel.org>
-References: <1639085707-27845-1-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n51pbf3GqwA-wtTe5+rRvA_KMmb8kd6fqqDtZRX+X_3qiA@mail.gmail.com>
+ 15.2.922.19; Tue, 21 Dec 2021 10:32:55 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 21 Dec 2021 10:32:54 -0800
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n51pbf3GqwA-wtTe5+rRvA_KMmb8kd6fqqDtZRX+X_3qiA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Tue, 21 Dec 2021 10:32:47 -0800
+Message-ID: <1640111567-30157-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v7 2/2] drm/msm/dp: do not initialize phy
- until plugin interrupt received
+Subject: [Freedreno] [PATCH v8 1/2] drm/msm/dp: dp_link_parse_sink_count()
+ return immediately if aux read failed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,103 +64,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
  quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+ quic_khsieh@quicinc.com, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add checking aux read/write status at both dp_link_parse_sink_count()
+and dp_link_parse_sink_status_filed() to avoid long timeout delay if
+dp aux read/write failed at timeout due to cable unplugged. Also make
+sure dp controller had been initialized before start dpcd read and write.
 
-On 12/14/2021 5:50 PM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2021-12-09 13:35:07)
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 0766752..cfbc5e4 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -83,6 +83,7 @@ struct dp_display_private {
->>
->>          /* state variables */
->>          bool core_initialized;
->> +       bool phy_initialized;
->>          bool hpd_irq_on;
->>          bool audio_supported;
->>
->> @@ -371,21 +372,46 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
->>          return rc;
->>   }
->>
->> -static void dp_display_host_init(struct dp_display_private *dp, int reset)
->> +static void dp_display_host_phy_init(struct dp_display_private *dp)
->>   {
->> -       bool flip = false;
->> +       DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
->> +                       dp->core_initialized, dp->phy_initialized);
->>
->> +       if (!dp->phy_initialized) {
-> Is this check only here because we don't know when this function is
-> getting called? I see in the DP case we get here from
-> dp_display_usbpd_configure_cb() but in the eDP case we get here from
-> dp_display_host_init() and presumably again from
-> dp_display_usbpd_configure_cb() called by dp_hpd_plug_handle().
->
-> If at all possible, I'd prefer to not have another tracking variable and
-> call dp_display_host_phy_init() from the same place regardless of DP or
-> eDP. Doing that would make it symmetric, per the commit text.
+Changes in V4:
+-- split this patch as stand alone patch
 
-Agree, but  dp->phy_initialized variable used to track some other 
-conditions.
+Changes in v5:
+-- rebase on msm-next branch
 
-For example, phy required to be re inited if dpcd read failed due to 
-cable unplugged.
+Changes in v6:
+-- add more details commit text
 
-other dpcd read failed will not required to re inited.
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 12 +++++++++---
+ drivers/gpu/drm/msm/dp/dp_link.c    | 19 ++++++++++++++-----
+ 2 files changed, 23 insertions(+), 8 deletions(-)
 
-Therefore I think dp->phy_initialized variable is still required.
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3d61459..0766752 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -692,9 +692,15 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
+ 
+-	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
+-	if (ret == -ECONNRESET) { /* cable unplugged */
+-		dp->core_initialized = false;
++	/*
++	 * dp core (ahb/aux clks) must be initialized before
++	 * irq_hpd be handled
++	 */
++	if (dp->core_initialized) {
++		ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
++		if (ret == -ECONNRESET) { /* cable unplugged */
++			dp->core_initialized = false;
++		}
+ 	}
+ 	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index a5bdfc5..d4d31e5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -737,18 +737,25 @@ static int dp_link_parse_sink_count(struct dp_link *dp_link)
+ 	return 0;
+ }
+ 
+-static void dp_link_parse_sink_status_field(struct dp_link_private *link)
++static int dp_link_parse_sink_status_field(struct dp_link_private *link)
+ {
+ 	int len = 0;
+ 
+ 	link->prev_sink_count = link->dp_link.sink_count;
+-	dp_link_parse_sink_count(&link->dp_link);
++	len = dp_link_parse_sink_count(&link->dp_link);
++	if (len < 0) {
++		DRM_ERROR("DP parse sink count failed\n");
++		return len;
++	}
+ 
+ 	len = drm_dp_dpcd_read_link_status(link->aux,
+ 		link->link_status);
+-	if (len < DP_LINK_STATUS_SIZE)
++	if (len < DP_LINK_STATUS_SIZE) {
+ 		DRM_ERROR("DP link status read failed\n");
+-	dp_link_parse_request(link);
++		return len;
++	}
++
++	return dp_link_parse_request(link);
+ }
+ 
+ /**
+@@ -1023,7 +1030,9 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ 	dp_link_reset_data(link);
+ 
+-	dp_link_parse_sink_status_field(link);
++	ret = dp_link_parse_sink_status_field(link);
++	if (ret)
++		return ret;
+ 
+ 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
+ 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
->> +               dp_ctrl_phy_init(dp->ctrl);
->> +               dp->phy_initialized = true;
->> +       }
->> +}
->> +
->> +static void dp_display_host_phy_exit(struct dp_display_private *dp)
->> +{
->> +       DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
->> +                       dp->core_initialized, dp->phy_initialized);
->> +
->> +       if (dp->phy_initialized) {
->> +               dp_ctrl_phy_exit(dp->ctrl);
->> +               dp->phy_initialized = false;
->> +       }
->> +}
->> +
->> +static void dp_display_host_init(struct dp_display_private *dp)
->> +{
->>          DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
->>          if (dp->core_initialized) {
->>                  DRM_DEBUG_DP("DP core already initialized\n");
->>                  return;
->>          }
->>
->> -       if (dp->usbpd->orientation == ORIENTATION_CC2)
->> -               flip = true;
->> +       dp_power_init(dp->power, false);
->> +       dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
->> +
->> +       /*
->> +        * eDP is the embedded primary display and has its own phy
->> +        * initialize phy immediately
-> Can we get some more details here? Why is it better to initialize the
-> phy here vs. when HPD goes high on the panel? The comment says what the
-> code is doing but it isn't telling us why that's OK.
-
-Will do.
-
->
->> +        */
->> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP)
->> +               dp_display_host_phy_init(dp);
->>
->> -       dp_power_init(dp->power, flip);
->> -       dp_ctrl_host_init(dp->ctrl, flip, reset);
->>          dp_aux_init(dp->aux);
->>          dp->core_initialized = true;
->>   }
