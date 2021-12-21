@@ -1,62 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B1D47C1D6
-	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 15:48:26 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E2BD47C1BA
+	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 15:42:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77F10113DE1;
-	Tue, 21 Dec 2021 14:48:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73660113969;
+	Tue, 21 Dec 2021 14:42:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F56810F1C8;
- Tue, 21 Dec 2021 10:13:32 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id s1so20443830wra.6;
- Tue, 21 Dec 2021 02:13:32 -0800 (PST)
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14A6113962;
+ Tue, 21 Dec 2021 14:42:41 +0000 (UTC)
+Received: by mail-qt1-x832.google.com with SMTP id v22so12979105qtx.8;
+ Tue, 21 Dec 2021 06:42:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=DEyc+NVxVKi+L8yckVOHzJw2NoQPHaqK818Sh5CD0II=;
- b=lxMPKYkdr/tQQ5EF9glUhX8o6TAPzZHvOOcoty8aNGCRmqkX67V5uOWbfJu2le08B+
- k5Vb67u4Hj9e6ds5NQVE1QBG2BLEftP90TQPLF5pUYHG9RBeIIV3aZxipCeyzGSFDIBP
- Gw/UzNTUcXDmfnIC5nii9VhaJ7ubVO//u+xpHk8ftoqOnGirhOFZaEW/W3pNAnfUzgaH
- vBvxWdEUh9havG6ympZQiTKQCMg/xhVwAIWo6ByxJ3Hw6jIcSMsMdm3yZWtBmx/IZj5E
- iyrYtaF263Fe4tH/Dz1A2sKmma4e/WamHVQeGJYLWfMOBNEG1vzkzYQAZ5eJHzbdooWx
- C6yg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=D31zelEVktxk1zVBP/e569ZOieN3IU0DvIddUF6p1ZM=;
+ b=eiwe50TFlZDlaDlCkbz6L0i7iHgSm249T64gND2w03zqTyS2mJCA70hsfEf/pH+W0u
+ OD9kBLd1flhOakQJrfkZHHhVur8gnqkAPZGL/CKfLQFi6proAqbGYcaRp37eb4s0K+Qg
+ qW8ALuwdGcJ5fdocA9zAJG65LBi5mlEYo9AFgwyDxsciX78ksoV0C2dg1gdjJ7uEUpoY
+ fBGew3DkTgoaMcBQzfKFKlSZ9uLESHVKbmR2rsQ1PgYu/GGuKCUutYo3/f3PUPYLh1ud
+ plaOJ4TuyEOx3FvxzD96C3388WT+yT3EW2fh+O4eqmCmlIwqGXvGCnShOSmWHPY7AdZS
+ TS1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=DEyc+NVxVKi+L8yckVOHzJw2NoQPHaqK818Sh5CD0II=;
- b=jld9V1fxzmvkq4wUdeMPoH1pr/9hgcPHDYnVfmsL22Rzk+8gVLOdTOgzLXhA/UnUFl
- duOB3BMTh+1zStiDoFEloeqbRo+RFd4Bg68Ji5SXY9rO3VK7+HhD6D8IRtOlfkFzwn9e
- 94Wd44kLhKKDN9aqzP6aT5AzGk5pmptj6wvPUn2AiTMiCqi3hIaaNjdMa30EnWsyGpUu
- d8yGGt6/WvOwyq7XgFz/k2n/MZ8hgUl6tda1JDgaD8am1BNNfQs0LIZbsse50atoq0yB
- dboTD/9T+w3sQDn7BgzSRKZTjwv5IIIslNnyI5/LFWcMNCe7bahJyaiaFCHJqF9ClOUG
- Awgw==
-X-Gm-Message-State: AOAM533aZ8l1Jx+E4UCJ6PLSIpM71c+USOTmcCdTuF3iFg/F+cSaxffi
- Ef4KgbhEqj33J7UI+WmnV8Q=
-X-Google-Smtp-Source: ABdhPJwlXh9Hinn/Wk7ysQCkWYtXKp4CzjPNtpjWfGGw6aNsx8L9xFEr+Qk++VuuE6LFwzWkgksbVQ==
-X-Received: by 2002:adf:fdc9:: with SMTP id i9mr2018666wrs.660.1640081611007; 
- Tue, 21 Dec 2021 02:13:31 -0800 (PST)
-Received: from localhost.localdomain ([217.113.240.86])
- by smtp.gmail.com with ESMTPSA id m21sm18012267wrb.2.2021.12.21.02.13.29
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=D31zelEVktxk1zVBP/e569ZOieN3IU0DvIddUF6p1ZM=;
+ b=fut0Vc1pXzAI5n+N7thiNBGp4aMEEcQ2ipp+jBIU49ly4v46UO7UGLSI+vFzzsMgFn
+ eHNg8BkhTOumg/A6DPmY9mH25Y8I2PFJC9Suoj6QDJkMuZJ6Fh7WNoY/NcUoPmk6k0Qm
+ yQPnMFVE6feX8RFUOhAhtjDTKARuCHYmVJr8XIvEVBtODquINdcZcGewGmsUtgcEPLNw
+ vaWu8MTP0zSM2hwd73wBN0G0ryY3MGiRG7c+mFlyCdFcieGCLKhj5fS8eOOJKe84GVdG
+ Q0N+NUhe0/cHbP5yCOT7YIAB+hDxC2oIyntmKwVkSnPPI35W5TvEBqxiYTWXMebTpief
+ R4kw==
+X-Gm-Message-State: AOAM531JTSKReWqxJ/jzZC6FH30D8DmuJ5M58UGhwDClRwi7+IR0A7XM
+ i/uwBkFcyaWQV71PNZV2b4w=
+X-Google-Smtp-Source: ABdhPJyAwIC+hNgSxPfn11Ky2iXQXAmqJxFVzzNjAb5C2gvg6ijvzxuCuNZ8rvQFcyt6gcSDkXyfSA==
+X-Received: by 2002:a05:622a:28b:: with SMTP id
+ z11mr2443070qtw.242.1640097761140; 
+ Tue, 21 Dec 2021 06:42:41 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id v4sm14130108qkp.118.2021.12.21.06.42.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Dec 2021 02:13:30 -0800 (PST)
-From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+ Tue, 21 Dec 2021 06:42:40 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: deng.changcheng@zte.com.cn
 To: robdclark@gmail.com
-Date: Tue, 21 Dec 2021 11:13:19 +0100
-Message-Id: <20211221101319.7980-4-jose.exposito89@gmail.com>
+Date: Tue, 21 Dec 2021 14:42:34 +0000
+Message-Id: <20211221144234.480618-1-deng.changcheng@zte.com.cn>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211221101319.7980-1-jose.exposito89@gmail.com>
-References: <20211221101319.7980-1-jose.exposito89@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 21 Dec 2021 14:48:24 +0000
-Subject: [Freedreno] [PATCH 3/3] drm/sun4i: Add format_mod_supported function
+Subject: [Freedreno] [PATCH] drm/msm: replace DEFINE_SIMPLE_ATTRIBUTE with
+ DEFINE_DEBUGFS_ATTRIBUTE
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +68,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, jernej.skrabec@gmail.com, daniel@ffwll.ch,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- linux-kernel@vger.kernel.org, mripard@kernel.org, wens@csie.org,
- maxime@cerno.tech, tzimmermann@suse.de,
- =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
- sean@poorly.run, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, Zeal Robot <zealci@zte.com.cn>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ Changcheng Deng <deng.changcheng@zte.com.cn>, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Implement the missing "drm_plane_funcs.format_mod_supported" function
-to avoid exposing an invalid IN_FORMATS blob with modifiers but no
-formats.
+From: Changcheng Deng <deng.changcheng@zte.com.cn>
 
-Signed-off-by: José Expósito <jose.exposito89@gmail.com>
+Fix the following coccicheck warning:
+./drivers/gpu/drm/msm/msm_debugfs.c: 132: 0-23: WARNING: shrink_fops
+should be defined with DEFINE_DEBUGFS_ATTRIBUTE
+
+Use DEFINE_DEBUGFS_ATTRIBUTE rather than DEFINE_SIMPLE_ATTRIBUTE for
+debugfs files.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Changcheng Deng <deng.changcheng@zte.com.cn>
 ---
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 7 +++++++
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 7 +++++++
- 2 files changed, 14 insertions(+)
+ drivers/gpu/drm/msm/msm_debugfs.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-index 7845c2a53a7f..728563f23cd6 100644
---- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-@@ -331,6 +331,12 @@ static void sun8i_ui_layer_atomic_update(struct drm_plane *plane,
- 			      true, zpos, old_zpos);
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index 956b1efc3721..91fb0c83b600 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -129,9 +129,9 @@ shrink_set(void *data, u64 val)
+ 	return 0;
  }
  
-+static bool sun8i_ui_layer_format_mod_supported(struct drm_plane *plane,
-+						u32 format, u64 modifier)
-+{
-+	return (modifier == DRM_FORMAT_MOD_LINEAR);
-+}
-+
- static const struct drm_plane_helper_funcs sun8i_ui_layer_helper_funcs = {
- 	.atomic_check	= sun8i_ui_layer_atomic_check,
- 	.atomic_disable	= sun8i_ui_layer_atomic_disable,
-@@ -344,6 +350,7 @@ static const struct drm_plane_funcs sun8i_ui_layer_funcs = {
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.reset			= drm_atomic_helper_plane_reset,
- 	.update_plane		= drm_atomic_helper_update_plane,
-+	.format_mod_supported	= sun8i_ui_layer_format_mod_supported,
- };
+-DEFINE_SIMPLE_ATTRIBUTE(shrink_fops,
+-			shrink_get, shrink_set,
+-			"0x%08llx\n");
++DEFINE_DEBUGFS_ATTRIBUTE(shrink_fops,
++			 shrink_get, shrink_set,
++			 "0x%08llx\n");
  
- static const u32 sun8i_ui_layer_formats[] = {
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index bb7c43036dfa..d17813a7cac3 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -435,6 +435,12 @@ static void sun8i_vi_layer_atomic_update(struct drm_plane *plane,
- 			      true, zpos, old_zpos);
- }
  
-+static bool sun8i_vi_layer_format_mod_supported(struct drm_plane *plane,
-+						u32 format, u64 modifier)
-+{
-+	return (modifier == DRM_FORMAT_MOD_LINEAR);
-+}
-+
- static const struct drm_plane_helper_funcs sun8i_vi_layer_helper_funcs = {
- 	.atomic_check	= sun8i_vi_layer_atomic_check,
- 	.atomic_disable	= sun8i_vi_layer_atomic_disable,
-@@ -448,6 +454,7 @@ static const struct drm_plane_funcs sun8i_vi_layer_funcs = {
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.reset			= drm_atomic_helper_plane_reset,
- 	.update_plane		= drm_atomic_helper_update_plane,
-+	.format_mod_supported	= sun8i_vi_layer_format_mod_supported,
- };
- 
- /*
+ static int msm_gem_show(struct seq_file *m, void *arg)
 -- 
 2.25.1
 
