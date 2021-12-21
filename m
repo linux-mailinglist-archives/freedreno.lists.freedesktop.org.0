@@ -1,43 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1964147BCE0
-	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 10:30:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3828147BE2B
+	for <lists+freedreno@lfdr.de>; Tue, 21 Dec 2021 11:33:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9249110F453;
-	Tue, 21 Dec 2021 09:30:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFD210FCFD;
+	Tue, 21 Dec 2021 10:33:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CA710F453;
- Tue, 21 Dec 2021 09:30:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E32C3B81217;
- Tue, 21 Dec 2021 09:30:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FBBC36AE2;
- Tue, 21 Dec 2021 09:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1640079001;
- bh=t9uG/PUzJfJCt5vq7qOvzQiuQHsRYBb+5hBgWJjQF8c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MMrMbGrsqXDDJawxnYTgl5OlqV29ks8dDbYtGt+9DN7vpqfD5awhcaVrfIphjkLhR
- eCRBU9SysvivSe0EOauQNT2dECjbHZrp5OFoLLZrHfj5oxihlfsbp1jTAEj+M4zMa2
- qN4tkQlXtDx9JJihAZOgHkEn4Qjac7ihVzHqkY94=
-Date: Tue, 21 Dec 2021 10:29:59 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Stephen Boyd <swboyd@chromium.org>
-Message-ID: <YcGel9PtOgqWH6l3@kroah.com>
-References: <20211202222732.2453851-1-swboyd@chromium.org>
- <20211202222732.2453851-2-swboyd@chromium.org>
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C41910FCF9
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Dec 2021 10:33:05 +0000 (UTC)
+Date: Tue, 21 Dec 2021 10:33:01 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1640082782;
+ bh=pXB8OtEXG/jGofY2Qa9yUBavX37a5hZrYWvWrLa5VZU=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:From:To:Cc;
+ b=xBoRwSPd+6DJPTYCvqswpH6Dq8sR6EItvUj6RLNR6dgugH8pxKLemZgoR1PEzbSM1
+ I/ByCdUHEYd6KlydLypN7g4JoZWdmIvg53M7d5ViyoqBbNvjszgAtd+fQ8OW/AwgMr
+ o8OgNADy0hDEoD1i8jlo6Sf9/FPzOqyWcLzHt4rlxyvTygBp5y3unVsLXSPTWuhIQ3
+ HQvctBehocbc9XKtTTQ3MXb8lk4EsMo3ey2R5SP3NDzEF6hs6PUz2NzlcXemS42Vpf
+ n+aX9BhuyA9OnpIpxbOQsVi/b9EPOEURm2Lr2vgHXMxGFc14vjTE7Y0NB1374cJHle
+ rqxXkFL6adAow==
+To: =?utf-8?Q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+From: Simon Ser <contact@emersion.fr>
+Message-ID: <goOOXRPhPVm7JnHxD3xB6AeyPfmtyR9whCUnuDXyKv1uhyy1cAUJimC-ITTEFI2m8AUuINYGRViCjFVavsXEKy4PILOJiGM_0031fi900tw=@emersion.fr>
+In-Reply-To: <20211221101319.7980-2-jose.exposito89@gmail.com>
+References: <20211221101319.7980-1-jose.exposito89@gmail.com>
+ <20211221101319.7980-2-jose.exposito89@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211202222732.2453851-2-swboyd@chromium.org>
-Subject: Re: [Freedreno] [PATCH v4 01/34] component: Introduce struct
- aggregate_device
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+ mailout.protonmail.ch
+Subject: Re: [Freedreno] [PATCH 1/3] drm/plane: Mention format_mod_supported
+ in IN_FORMATS docs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,108 +52,15 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saravana Kannan <saravanak@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
+Reply-To: Simon Ser <contact@emersion.fr>
+Cc: sean@poorly.run, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
+ robdclark@gmail.com, jernej.skrabec@gmail.com, tzimmermann@suse.de,
+ wens@csie.org, freedreno@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, maxime@cerno.tech
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Dec 02, 2021 at 02:26:59PM -0800, Stephen Boyd wrote:
-> Replace 'struct master' with 'struct aggregate_device' and then rename
-> 'master' to 'adev' everywhere in the code. While we're here, put a
-> struct device inside the aggregate device so that we can register it
-> with a bus_type in the next patch.
-> 
-> The diff is large but that's because this is mostly a rename, where
-> sometimes 'master' is replaced with 'adev' and other times it is
-> replaced with 'parent' to indicate that the struct device that was being
-> used is actually the parent of the aggregate device and driver.
-> 
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Russell King <rmk+kernel@arm.linux.org.uk>
-> Cc: Saravana Kannan <saravanak@google.com>
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->  drivers/base/component.c | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/base/component.c b/drivers/base/component.c
-> index 2d25a6416587..d25048d04b70 100644
-> --- a/drivers/base/component.c
-> +++ b/drivers/base/component.c
-> @@ -9,6 +9,7 @@
->   */
->  #include <linux/component.h>
->  #include <linux/device.h>
-> +#include <linux/idr.h>
->  #include <linux/list.h>
->  #include <linux/mutex.h>
->  #include <linux/slab.h>
-> @@ -63,7 +64,10 @@ struct master {
->  
->  	const struct component_master_ops *ops;
->  	struct device *parent;
-> +	struct device dev;
+Reviewed-by: Simon Ser <contact@emersion.fr>
 
-Who initializes this new structure?
-
->  	struct component_match *match;
-> +
-> +	int id;
->  };
->  
->  struct component {
-> @@ -79,6 +83,7 @@ struct component {
->  static DEFINE_MUTEX(component_mutex);
->  static LIST_HEAD(component_list);
->  static LIST_HEAD(masters);
-> +static DEFINE_IDA(aggregate_ida);
->  
->  #ifdef CONFIG_DEBUG_FS
->  
-> @@ -440,6 +445,7 @@ static void free_master(struct master *master)
->  		}
->  	}
->  
-> +	ida_free(&aggregate_ida, master->id);
->  	kfree(master);
->  }
->  
-> @@ -460,7 +466,7 @@ int component_master_add_with_match(struct device *parent,
->  	struct component_match *match)
->  {
->  	struct master *master;
-> -	int ret;
-> +	int ret, id;
->  
->  	/* Reallocate the match array for its true size */
->  	ret = component_match_realloc(match, match->num);
-> @@ -471,9 +477,17 @@ int component_master_add_with_match(struct device *parent,
->  	if (!master)
->  		return -ENOMEM;
->  
-> +	id = ida_alloc(&aggregate_ida, GFP_KERNEL);
-> +	if (id < 0) {
-> +		kfree(master);
-> +		return id;
-> +	}
-> +
-> +	master->id = id;
->  	master->parent = parent;
->  	master->ops = ops;
->  	master->match = match;
-> +	dev_set_name(&master->dev, "aggregate%d", id);
-
-You set the name yet the device is not "real"?
-
-I don't understand this patch at all, sorry.
-
-greg k-h
+Please ping me in a week or so if nobody objected and this isn't merged.
