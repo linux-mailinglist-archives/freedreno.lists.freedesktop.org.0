@@ -1,54 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62E147D63E
-	for <lists+freedreno@lfdr.de>; Wed, 22 Dec 2021 19:07:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B69F447D7C9
+	for <lists+freedreno@lfdr.de>; Wed, 22 Dec 2021 20:33:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E0D110E1BC;
-	Wed, 22 Dec 2021 18:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B57810E1A7;
+	Wed, 22 Dec 2021 19:33:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E1B10E149;
- Wed, 22 Dec 2021 18:07:45 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id de30so3165904qkb.0;
- Wed, 22 Dec 2021 10:07:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PZT+442yryoIyAnTgfkKE3INejgOanJ0gZBKWAWh5S0=;
- b=qogANROEU8BXBJwBnZzCidYcVMHzKXTMzHdiEruRrPQhcmJBVmbFyQ2WBeGLAEkFLP
- mQEey/ZoQ5IcbzcpiN6sxK0Gd3vVUu30NHuSQk2wrZfEC9E9qoLjNN07UEAEpyJloFA4
- 5ClvsCOJ0JPtqhNJZyTmOEHrcBpYEuKq510XGZeSP8HUnczS+d9/PO4k+Wy0NFElx9C3
- 16uP7nwkAB7FnbkX1SsnfILTnr5LR3N7b7FkYhSaUZd9FvNiNy8rFhKnw1vI5UGqzghj
- Ojt1yg99nkAMm2PSHCPSRaAyMyiu29nRP0gilrwAdc00YkVDAu6UhkhaWja5sJeAgV9x
- X+dg==
-X-Gm-Message-State: AOAM531bQPUDvgB8dzcdggca78qs/3CKEiOFVFc9ZNX26T3epUpagB6X
- wAY/QjiU5TiGy2PwkQimwQ==
-X-Google-Smtp-Source: ABdhPJyJC96os9VsgB6XT66xXHqKpdFgHISt8Maa/ibE4MzoOiNuO46peBDi0wJyk+XRb+grY1slKA==
-X-Received: by 2002:a05:620a:f0e:: with SMTP id
- v14mr2825574qkl.365.1640196464048; 
- Wed, 22 Dec 2021 10:07:44 -0800 (PST)
-Received: from robh.at.kernel.org ([24.55.105.145])
- by smtp.gmail.com with ESMTPSA id de13sm2455085qkb.81.2021.12.22.10.07.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Dec 2021 10:07:43 -0800 (PST)
-Received: (nullmailer pid 2429602 invoked by uid 1000);
- Wed, 22 Dec 2021 18:07:41 -0000
-Date: Wed, 22 Dec 2021 14:07:41 -0400
-From: Rob Herring <robh@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Message-ID: <YcNpbeN2Hjs+ipWv@robh.at.kernel.org>
-References: <20211220184220.86328-1-david@ixit.cz>
+Received: from smtp.smtpout.orange.fr (smtp09.smtpout.orange.fr
+ [80.12.242.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46E1510E1A7
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Dec 2021 19:33:53 +0000 (UTC)
+Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
+ id 07MznESxgf6fn07MznJHFa; Wed, 22 Dec 2021 20:33:51 +0100
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Wed, 22 Dec 2021 20:33:51 +0100
+X-ME-IP: 86.243.171.122
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: robdclark@gmail.com, sean@poorly.run, quic_abhinavk@quicinc.com,
+ airlied@linux.ie, daniel@ffwll.ch, swboyd@chromium.org,
+ bjorn.andersson@linaro.org
+Date: Wed, 22 Dec 2021 20:33:47 +0100
+Message-Id: <dc2d6f535379dd38a5e3f9ba502f1f2b3d1f56b7.1640201523.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211220184220.86328-1-david@ixit.cz>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm: disp: remove bus from dpu
- bindings
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: Simplify dp_debug_init() and
+ dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +42,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Krishna Manikandan <mkrishn@codeaurora.org>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- ~okias/devicetree@lists.sr.ht
+Cc: linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 20 Dec 2021 19:42:20 +0100, David Heidelberg wrote:
-> Driver and dts has been already adjusted and bus moved out of dpu, let's
-> update also dt-bindings.
-> 
-> Fixes warnings as:
-> arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dt.yaml: mdss
-> @ae00000: clock-names: ['iface', 'core'] is too short
->         From schema: Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
-> 
-> Ref: https://lore.kernel.org/all/20210803101657.1072358-1-dmitry.baryshkov@linaro.org/
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../devicetree/bindings/display/msm/dpu-sdm845.yaml          | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
-> 
+dp_debug_init() always returns 0. So, make it a void function and simplify
+the only caller accordingly.
 
-Applied, thanks!
+While at it remove a useless 'rc' initialization in dp_debug_get()
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/gpu/drm/msm/dp/dp_debug.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
+index da4323556ef3..338f1f9c4d14 100644
+--- a/drivers/gpu/drm/msm/dp/dp_debug.c
++++ b/drivers/gpu/drm/msm/dp/dp_debug.c
+@@ -207,9 +207,8 @@ static const struct file_operations test_active_fops = {
+ 	.write = dp_test_active_write
+ };
+ 
+-static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
++static void dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
+ {
+-	int rc = 0;
+ 	struct dp_debug_private *debug = container_of(dp_debug,
+ 			struct dp_debug_private, dp_debug);
+ 
+@@ -229,17 +228,15 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
+ 			debug, &dp_test_type_fops);
+ 
+ 	debug->root = minor->debugfs_root;
+-
+-	return rc;
+ }
+ 
+ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
+ 		struct dp_usbpd *usbpd, struct dp_link *link,
+ 		struct drm_connector *connector, struct drm_minor *minor)
+ {
+-	int rc = 0;
+ 	struct dp_debug_private *debug;
+ 	struct dp_debug *dp_debug;
++	int rc;
+ 
+ 	if (!dev || !panel || !usbpd || !link) {
+ 		DRM_ERROR("invalid input\n");
+@@ -266,11 +263,7 @@ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
+ 	dp_debug->hdisplay = 0;
+ 	dp_debug->vrefresh = 0;
+ 
+-	rc = dp_debug_init(dp_debug, minor);
+-	if (rc) {
+-		devm_kfree(dev, debug);
+-		goto error;
+-	}
++	dp_debug_init(dp_debug, minor);
+ 
+ 	return dp_debug;
+  error:
+-- 
+2.32.0
+
