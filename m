@@ -2,33 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E1847D058
-	for <lists+freedreno@lfdr.de>; Wed, 22 Dec 2021 11:55:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25CE147D0F9
+	for <lists+freedreno@lfdr.de>; Wed, 22 Dec 2021 12:28:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9347A10E1A3;
-	Wed, 22 Dec 2021 10:55:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC24610E167;
+	Wed, 22 Dec 2021 11:28:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A207E10E192;
- Wed, 22 Dec 2021 10:55:24 +0000 (UTC)
-Received: from Marijn-Arch-PC.localdomain
- (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F9110E167
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Dec 2021 11:28:55 +0000 (UTC)
+Received: from IcarusMOD.eternityproject.eu (unknown [2.237.20.237])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id B7BB520045;
- Wed, 22 Dec 2021 11:55:21 +0100 (CET)
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: phone-devel@vger.kernel.org
-Date: Wed, 22 Dec 2021 11:55:12 +0100
-Message-Id: <20211222105513.44860-1-marijn.suijten@somainline.org>
-X-Mailer: git-send-email 2.34.1
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 2492120220;
+ Wed, 22 Dec 2021 12:28:53 +0100 (CET)
+To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, robdclark@gmail.com,
+ sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch, abhinavk@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ konrad.dybcio@somainline.org, martin.botka@somainline.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ paul.bouchara@somainline.org
+References: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
+ <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
+ <b325fc8d-e06b-36de-b40a-b5ffbcebb1c5@linaro.org>
+ <94bedea3-0e5f-5ae8-79d1-ceb17ccdea23@somainline.org>
+ <20211211213528.uroqfdksvokspbxf@SoMainline.org>
+ <CAA8EJprT5gcWOsS5jJk8egUpxutBpUdW2Pnh-8FFXhgOd3hr=A@mail.gmail.com>
+ <20211211215718.pe675o5wvculxavc@SoMainline.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+Message-ID: <33d44631-f0d7-83cc-569d-d6d6f82d6808@somainline.org>
+Date: Wed, 22 Dec 2021 12:28:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Bind pingpong block to intf on
- active ctls in cmd encoder
+In-Reply-To: <20211211215718.pe675o5wvculxavc@SoMainline.org>
+Content-Type: text/plain; charset=iso-8859-15; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Fix timeout issues on
+ command mode panels
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,95 +58,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Pavel Dubrova <pashadubrova@gmail.com>,
- Jami Kettunen <jami.kettunen@somainline.org>, Bernard <bernard@vivo.com>,
- linux-arm-msm@vger.kernel.org, Zhen Lei <thunder.leizhen@huawei.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As per the specification of DPU_CTL_ACTIVE_CFG the configuration of
-active blocks should be proactively specified, and the pingpong block is
-no different.
+Il 11/12/21 22:57, Marijn Suijten ha scritto:
+> On 2021-12-12 00:49:09, Dmitry Baryshkov wrote:
+>> On Sun, 12 Dec 2021 at 00:35, Marijn Suijten
+>> <marijn.suijten@somainline.org> wrote:
+>>> [..]
+>>> On this note, does it perhaps make more sense to call the "internal"
+>>> _dpu_encoder_phys_cmd_wait_for_idle function directly, instead of going
+>>> through the "public" dpu_encoder_phys_cmd_wait_for_tx_complete which
+>>> seems solely intended to handle the wait_for_tx_complete callback?
+>>
+>> Either one would work. The main difference is the error message. Do
+>> you want to see it here if the wait times out or not?
+> 
+> I prefer calling _dpu_encoder_phys_cmd_wait_for_idle directly and
+> optionally adding our own error message.  IIRC DRM_ERROR prints source
+> information such as the function this originated from, and that makes it
+> impossible to distinguish between the wait_for_tx_complete callback or
+> the invocation through dpu_encoder_phys_cmd_wait_for_commit_done anyway.
+> 
+> - Marijn
+> 
 
-The downstream display driver [1] confirms this by also calling
-bind_pingpong_blk on CTL_ACTIVE_CFG.  Note that this else-if is always
-entered, as setup_intf_cfg - unlike this mainline dpu driver that
-combines both behind the same function pointer - is left NULL in favour
-of using setup_intf_cfg_v1 when CTL_ACTIVE_CFG is set.
+I wouldn't be happy to find myself in a situation in which I get strange
+display slowness without any print to help me; for this reason, I find
+having the print in place useful for debugging of both perf and fault.
 
-This solves continuous timeouts on at least the Qualcomm sm6125 SoC:
-
-    [drm:dpu_encoder_frame_done_timeout:2091] [dpu error]enc31 frame done timeout
-    [drm:_dpu_encoder_phys_cmd_handle_ppdone_timeout.isra.0] *ERROR* id:31 pp:0 kickoff timeout 0 cnt 1 koff_cnt 1
-    [drm:dpu_encoder_phys_cmd_prepare_for_kickoff] *ERROR* failed wait_for_idle: id:31 ret:-110 pp:0
-
-In the same way this pingpong block should also be unbound followed by
-an interface flush when the encoder is disabled, according to the
-downstream display driver [2].
-
-[1]: https://source.codeaurora.org/quic/la/platform/vendor/opensource/display-drivers/tree/msm/sde/sde_encoder_phys_cmd.c?h=LA.UM.9.16.r1-08500-MANNAR.0#n167
-[2]: https://source.codeaurora.org/quic/la/platform/vendor/opensource/display-drivers/tree/msm/sde/sde_encoder.c?h=LA.UM.9.16.r1-08500-MANNAR.0#n2986
-
-Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
----
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 8e433af7aea4..e0e08a874f07 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -71,6 +71,13 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
- 	intf_cfg.stream_sel = cmd_enc->stream_sel;
- 	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
- 	ctl->ops.setup_intf_cfg(ctl, &intf_cfg);
-+
-+	/* setup which pp blk will connect to this intf */
-+	if (test_bit(DPU_CTL_ACTIVE_CFG, &ctl->caps->features) && phys_enc->hw_intf->ops.bind_pingpong_blk)
-+		phys_enc->hw_intf->ops.bind_pingpong_blk(
-+				phys_enc->hw_intf,
-+				true,
-+				phys_enc->hw_pp->idx);
- }
- 
- static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int irq_idx)
-@@ -507,6 +514,7 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
- {
- 	struct dpu_encoder_phys_cmd *cmd_enc =
- 		to_dpu_encoder_phys_cmd(phys_enc);
-+	struct dpu_hw_ctl *ctl;
- 
- 	if (!phys_enc->hw_pp) {
- 		DPU_ERROR("invalid encoder\n");
-@@ -523,6 +531,19 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
- 
- 	if (phys_enc->hw_pp->ops.enable_tearcheck)
- 		phys_enc->hw_pp->ops.enable_tearcheck(phys_enc->hw_pp, false);
-+
-+	if (dpu_encoder_phys_cmd_is_master(phys_enc)) {
-+		if (phys_enc->hw_intf->ops.bind_pingpong_blk) {
-+			phys_enc->hw_intf->ops.bind_pingpong_blk(
-+					phys_enc->hw_intf,
-+					false,
-+					phys_enc->hw_pp->idx);
-+
-+			ctl = phys_enc->hw_ctl;
-+			ctl->ops.update_pending_flush_intf(ctl, phys_enc->intf_idx);
-+		}
-+	}
-+
- 	phys_enc->enable_state = DPU_ENC_DISABLED;
- }
- 
--- 
-2.34.1
-
+Cheers,
+- Angelo
