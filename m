@@ -1,35 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B69F447D7C9
-	for <lists+freedreno@lfdr.de>; Wed, 22 Dec 2021 20:33:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2BD447DC64
+	for <lists+freedreno@lfdr.de>; Thu, 23 Dec 2021 01:54:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B57810E1A7;
-	Wed, 22 Dec 2021 19:33:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF70610E227;
+	Thu, 23 Dec 2021 00:53:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp.smtpout.orange.fr (smtp09.smtpout.orange.fr
- [80.12.242.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46E1510E1A7
- for <freedreno@lists.freedesktop.org>; Wed, 22 Dec 2021 19:33:53 +0000 (UTC)
-Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
- id 07MznESxgf6fn07MznJHFa; Wed, 22 Dec 2021 20:33:51 +0100
-X-ME-Helo: pop-os.home
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Wed, 22 Dec 2021 20:33:51 +0100
-X-ME-IP: 86.243.171.122
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: robdclark@gmail.com, sean@poorly.run, quic_abhinavk@quicinc.com,
- airlied@linux.ie, daniel@ffwll.ch, swboyd@chromium.org,
- bjorn.andersson@linaro.org
-Date: Wed, 22 Dec 2021 20:33:47 +0100
-Message-Id: <dc2d6f535379dd38a5e3f9ba502f1f2b3d1f56b7.1640201523.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.32.0
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B57010E21C;
+ Thu, 23 Dec 2021 00:53:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1640220836; x=1671756836;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ZsgLJndpLvwXmWTrpAtIHRV7ZxELnn8+rKqh9Mjotck=;
+ b=LmxV4VhyN03+n6d4J5IUxqi4b1mMyfuezZOaAx+GbubEQ97qFB32Da+t
+ TWoQ0D9sKfM3Od1z1Nvc/HNkeK6rClGjF3HwWstfWOHmz1U3ErbCsFcy+
+ sTNrQPKKQvL4bFYpTcrdLiPU//v+/ugD+Ok79XTcXxArYYYIa7Of+7VFA M=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 22 Dec 2021 16:53:55 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2021 16:53:55 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 22 Dec 2021 16:53:54 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 22 Dec 2021 16:53:53 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 22 Dec 2021 16:53:45 -0800
+Message-ID: <1640220825-25223-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: Simplify dp_debug_init() and
- dp_debug_get()
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v9 1/2] drm/msm/dp: dp_link_parse_sink_count()
+ return immediately if aux read failed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,70 +61,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dp_debug_init() always returns 0. So, make it a void function and simplify
-the only caller accordingly.
+Add checking aux read/write status at both dp_link_parse_sink_count()
+and dp_link_parse_sink_status_filed() to avoid long timeout delay if
+dp aux read/write failed at timeout due to cable unplugged. Also make
+sure dp controller had been initialized before start dpcd read and write.
 
-While at it remove a useless 'rc' initialization in dp_debug_get()
+Changes in V4:
+-- split this patch as stand alone patch
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Changes in v5:
+-- rebase on msm-next branch
+
+Changes in v6:
+-- add more details commit text
+
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Tested-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_debug.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 12 +++++++++---
+ drivers/gpu/drm/msm/dp/dp_link.c    | 19 ++++++++++++++-----
+ 2 files changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
-index da4323556ef3..338f1f9c4d14 100644
---- a/drivers/gpu/drm/msm/dp/dp_debug.c
-+++ b/drivers/gpu/drm/msm/dp/dp_debug.c
-@@ -207,9 +207,8 @@ static const struct file_operations test_active_fops = {
- 	.write = dp_test_active_write
- };
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3d61459..0766752 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -692,9 +692,15 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
  
--static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
-+static void dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
- {
--	int rc = 0;
- 	struct dp_debug_private *debug = container_of(dp_debug,
- 			struct dp_debug_private, dp_debug);
+-	ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
+-	if (ret == -ECONNRESET) { /* cable unplugged */
+-		dp->core_initialized = false;
++	/*
++	 * dp core (ahb/aux clks) must be initialized before
++	 * irq_hpd be handled
++	 */
++	if (dp->core_initialized) {
++		ret = dp_display_usbpd_attention_cb(&dp->pdev->dev);
++		if (ret == -ECONNRESET) { /* cable unplugged */
++			dp->core_initialized = false;
++		}
+ 	}
+ 	DRM_DEBUG_DP("hpd_state=%d\n", state);
  
-@@ -229,17 +228,15 @@ static int dp_debug_init(struct dp_debug *dp_debug, struct drm_minor *minor)
- 			debug, &dp_test_type_fops);
- 
- 	debug->root = minor->debugfs_root;
--
--	return rc;
+diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+index a5bdfc5..d4d31e5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_link.c
++++ b/drivers/gpu/drm/msm/dp/dp_link.c
+@@ -737,18 +737,25 @@ static int dp_link_parse_sink_count(struct dp_link *dp_link)
+ 	return 0;
  }
  
- struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
- 		struct dp_usbpd *usbpd, struct dp_link *link,
- 		struct drm_connector *connector, struct drm_minor *minor)
+-static void dp_link_parse_sink_status_field(struct dp_link_private *link)
++static int dp_link_parse_sink_status_field(struct dp_link_private *link)
  {
--	int rc = 0;
- 	struct dp_debug_private *debug;
- 	struct dp_debug *dp_debug;
-+	int rc;
+ 	int len = 0;
  
- 	if (!dev || !panel || !usbpd || !link) {
- 		DRM_ERROR("invalid input\n");
-@@ -266,11 +263,7 @@ struct dp_debug *dp_debug_get(struct device *dev, struct dp_panel *panel,
- 	dp_debug->hdisplay = 0;
- 	dp_debug->vrefresh = 0;
+ 	link->prev_sink_count = link->dp_link.sink_count;
+-	dp_link_parse_sink_count(&link->dp_link);
++	len = dp_link_parse_sink_count(&link->dp_link);
++	if (len < 0) {
++		DRM_ERROR("DP parse sink count failed\n");
++		return len;
++	}
  
--	rc = dp_debug_init(dp_debug, minor);
--	if (rc) {
--		devm_kfree(dev, debug);
--		goto error;
--	}
-+	dp_debug_init(dp_debug, minor);
+ 	len = drm_dp_dpcd_read_link_status(link->aux,
+ 		link->link_status);
+-	if (len < DP_LINK_STATUS_SIZE)
++	if (len < DP_LINK_STATUS_SIZE) {
+ 		DRM_ERROR("DP link status read failed\n");
+-	dp_link_parse_request(link);
++		return len;
++	}
++
++	return dp_link_parse_request(link);
+ }
  
- 	return dp_debug;
-  error:
+ /**
+@@ -1023,7 +1030,9 @@ int dp_link_process_request(struct dp_link *dp_link)
+ 
+ 	dp_link_reset_data(link);
+ 
+-	dp_link_parse_sink_status_field(link);
++	ret = dp_link_parse_sink_status_field(link);
++	if (ret)
++		return ret;
+ 
+ 	if (link->request.test_requested == DP_TEST_LINK_EDID_READ) {
+ 		dp_link->sink_request |= DP_TEST_LINK_EDID_READ;
 -- 
-2.32.0
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
