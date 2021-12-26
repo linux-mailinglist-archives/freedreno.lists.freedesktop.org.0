@@ -1,56 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD6C747F4B4
-	for <lists+freedreno@lfdr.de>; Sun, 26 Dec 2021 00:34:23 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B964847F763
+	for <lists+freedreno@lfdr.de>; Sun, 26 Dec 2021 16:14:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F6310E17B;
-	Sat, 25 Dec 2021 23:34:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21F7689F0A;
+	Sun, 26 Dec 2021 15:14:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B57C010E17C
- for <freedreno@lists.freedesktop.org>; Sat, 25 Dec 2021 23:34:20 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id b85so11252615qkc.1
- for <freedreno@lists.freedesktop.org>; Sat, 25 Dec 2021 15:34:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hKmiJe9CRNgJf7UKsyNMbeFwV2C9Zr81lTDn8hmzix0=;
- b=Q28iL1AYg7u1wgTeD88BO76yK/PvAg1JIx36hv5AeDOftSk4C7vX5+x+5QS1SwieAI
- NvS341MRKNZGbrh0IiT7H9JPT2EWO6agyxWdOHoON+E0SEu+mL7GEHl0FIq3DLgEKnhI
- vl56SmnmhpxPn94uYVCXUDMyb7OkwkrqlHR49xnoinLoUcMXi7PRR3xzBOFMYkBiQfFD
- ak7lQWyG5eC9GjS5kxSS8RxZGL6qb8pN/VpspvQXtb8JS6KQd5OQsVQfNl0joVzjHnK3
- F2JsDFNDUoQXUtnJ05RoRnRHrgLZmbqdD7lLn1xC5M3EBxPHrDfuC5A+hMMLKFqFfiPd
- JdEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hKmiJe9CRNgJf7UKsyNMbeFwV2C9Zr81lTDn8hmzix0=;
- b=6MXHkT8XDu2u+GHALj4cHyk+PpYsR1Vsr7qtu/n46W7mE46m5pRvg0SmPnzoLobB2E
- BKWjXzcZhbjTfybRIeOTD417H1aRY6xo7KyibJR1KcNom5GpBI4JaGSqv0AUBZB17XIz
- 3vPUcpqTJpsTDsA8LZYgVv6/wALMSEAlQLpab1iXAHPubVM793f9dqmOi2IC+dKGHCLH
- lrJKczTRHwlwuk0+koMLfLSHGNvfEqpJ5DAq47htjxN/kYT+lRneIFLyfnvCv2oIBrXy
- 68gwPOjhQYJubKx1z6Poq/3dnn9lGkolcflKyIgHPflEvfGR+fxcUfpMr8eP/leB8Lb2
- qZZQ==
-X-Gm-Message-State: AOAM530/6rXMBnvbM9IRL/7141JsRSFLdU/JUQexD+EYEOSOCgjaeiHQ
- 71MhIoUiZXE3C0+iRlcT9YQ8bF+7mATaKhEKmbT7kw==
-X-Google-Smtp-Source: ABdhPJycrFxGBnGfEcnR2q0JIRn89NOokVvBiwqZGL7sWhIfpdXaSUXQlfcv2oQSwG3HlxQE75zgkhzz7s2ETGg2eMQ=
-X-Received: by 2002:a05:620a:797:: with SMTP id
- 23mr8425912qka.30.1640475259623; 
- Sat, 25 Dec 2021 15:34:19 -0800 (PST)
+Received: from smtp.smtpout.orange.fr (smtp01.smtpout.orange.fr
+ [80.12.242.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD7389F92
+ for <freedreno@lists.freedesktop.org>; Sun, 26 Dec 2021 15:14:13 +0000 (UTC)
+Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
+ id 1VDpnig8t1UGB1VDqnOSgw; Sun, 26 Dec 2021 16:14:11 +0100
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Sun, 26 Dec 2021 16:14:11 +0100
+X-ME-IP: 86.243.171.122
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: robdclark@gmail.com, sean@poorly.run, quic_abhinavk@quicinc.com,
+ airlied@linux.ie, daniel@ffwll.ch, bjorn.andersson@linaro.org,
+ swboyd@chromium.org, quic_khsieh@quicinc.com
+Date: Sun, 26 Dec 2021 16:14:05 +0100
+Message-Id: <6fd20c8779d6b03a5b54509af25b478049482087.1640531508.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <20211225205352.76827-1-david@ixit.cz>
-In-Reply-To: <20211225205352.76827-1-david@ixit.cz>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 26 Dec 2021 02:34:08 +0300
-Message-ID: <CAA8EJpoVuNDS2uD2g8W_40XVO2jS=6GtRQFxAnyPpd_QuHim8g@mail.gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] Discussion: dt-bindings: display: msm:
- dsi-controller-main: fix the binding
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: Fix a potential double free in an
+ error handling path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,142 +42,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- ~okias/devicetree@lists.sr.ht
+Cc: linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+'dp_bridge' is devm_alloc'ed, so there is no need to free it explicitly or
+there will be a double free().
 
-On Sat, 25 Dec 2021 at 23:54, David Heidelberg <david@ixit.cz> wrote:
->
-> This binding is not much validating the old DSI v2.
->
-> Currently we don't differentiate old v2 from new versions,
-> so we need to figure out how to validate them.
->
-> I propose specific compatible depending on mdss version, but I would be
-> glad, if someone with deeper knowledge proposed the names.
->
-> I'm willing to implement it then and back from autodetection.
+Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/gpu/drm/msm/dp/dp_drm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-I'd suggest to use hardware-specific compatible for apq8064 (and maybe
-other v2 hosts if somebody adds support). For example
-"qcom,apq8064-dsi-ctrl" or "qcom,dsi-ctrl-apq8064" (no strong
-preference here).
-For 6G hosts it will probably make sense to use IP versions instead
-("qcom-dsi-ctrl-6g-v2.4.1").
-
->
-> David
-> ---
->  .../display/msm/dsi-controller-main.yaml      | 53 ++++++++++++-------
->  1 file changed, 35 insertions(+), 18 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 35426fde8610..6688ddcd7526 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -27,22 +27,34 @@ properties:
->      maxItems: 1
->
->    clocks:
-> -    items:
-> -      - description: Display byte clock
-> -      - description: Display byte interface clock
-> -      - description: Display pixel clock
-> -      - description: Display escape clock
-> -      - description: Display AHB clock
-> -      - description: Display AXI clock
-> +    oneOf:
-> +      - minItems: 7 # APQ8064
-> +        maxItems: 7
-> +      - items:
-> +          - description: Display byte clock
-> +          - description: Display byte interface clock
-> +          - description: Display pixel clock
-> +          - description: Display escape clock
-> +          - description: Display AHB clock
-> +          - description: Display AXI clock
->
->    clock-names:
-> -    items:
-> -      - const: byte
-> -      - const: byte_intf
-> -      - const: pixel
-> -      - const: core
-> -      - const: iface
-> -      - const: bus
-> +    oneOf:
-> +      - items: # DSI v2 (APQ8064)
-> +          - const: iface # from dsi_v2_bus_clk_names
-> +          - const: bus
-> +          - const: core_mmss
-> +          - const: src # from dsi_clk_init_v2
-> +          - const: byte # from dsi_clk_init
-> +          - const: pixel
-> +          - const: core
-> +      - items:
-> +          - const: byte
-> +          - const: byte_intf
-> +          - const: pixel
-> +          - const: core
-> +          - const: iface
-> +          - const: bus
->
->    phys:
->      maxItems: 1
-> @@ -66,15 +78,17 @@ properties:
->
->    assigned-clocks:
->      minItems: 2
-> -    maxItems: 2
-> +    maxItems: 4
->      description: |
->        Parents of "byte" and "pixel" for the given platform.
-> +      For older v2, "byte", "esc", "src" and "pixel".
->
->    assigned-clock-parents:
->      minItems: 2
-> -    maxItems: 2
-> +    maxItems: 4
->      description: |
->        The Byte clock and Pixel clock PLL outputs provided by a DSI PHY block.
-> +      For older v2, Byte, Escape, Source and Pixel clock PLL outputs.
->
->    power-domains:
->      maxItems: 1
-> @@ -124,6 +138,9 @@ properties:
->        - port@0
->        - port@1
->
-> +patternProperties:
-> +  '^(avdd|vdd|vdda)-supply$': true # FIXME only APQ8064 supplies
-> +
->  required:
->    - compatible
->    - reg
-> @@ -135,8 +152,8 @@ required:
->    - phy-names
->    - assigned-clocks
->    - assigned-clock-parents
-> -  - power-domains
-> -  - operating-points-v2
-> +  # - power-domains # v2 doesn't seems to need it?
-> +  # - operating-points-v2 # v2 doesn't have opp implemented yet
->    - ports
->
->  additionalProperties: false
-> --
-> 2.34.1
->
-
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index 188e77c59885..d4d360d19eba 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -243,7 +243,6 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
+ 	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (rc) {
+ 		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
+-		kfree(dp_bridge);
+ 		return ERR_PTR(rc);
+ 	}
+ 
 -- 
-With best wishes
-Dmitry
+2.32.0
+
