@@ -2,52 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A521480CA6
-	for <lists+freedreno@lfdr.de>; Tue, 28 Dec 2021 19:51:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27498480DDE
+	for <lists+freedreno@lfdr.de>; Wed, 29 Dec 2021 00:11:32 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F8E611231F;
-	Tue, 28 Dec 2021 18:51:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59A1310E12A;
+	Tue, 28 Dec 2021 23:11:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7576189C88;
- Tue, 28 Dec 2021 18:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1640717498; x=1672253498;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=5Joo2qg1o4pOEw6JsCdFnvpGchiUe4q9GhRjGQU+liw=;
- b=UHqwtfYc0bMAq55Ht6SB7j1we47kklyk8r6i4BE6KgRnaoM9YE7gizmf
- a8Wg98igebuPDzNYnEAWYm/Da+XZ9F3/1olD9cY2zy/0duS6qFaJc2ozw
- ysFj28BjO71cadjFtXVZ+mBVwiiD/3s73tW//ASsDGcXTMFFlfgOcnvT+ I=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 28 Dec 2021 10:51:38 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Dec 2021 10:51:37 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 28 Dec 2021 10:51:37 -0800
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 28 Dec 2021 10:51:36 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Tue, 28 Dec 2021 10:51:29 -0800
-Message-ID: <1640717489-7366-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAA1510E11A
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Dec 2021 23:11:27 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ r10-20020a056830080a00b0055c8fd2cebdso26127042ots.6
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Dec 2021 15:11:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=QJatUqtrqh2u+VQ/YEVsxnrHJlj+/BrTRHbzfVft99w=;
+ b=lqkilty6YJQ1GjHtPQzpLJtQ3DiUkzKB4wNlcIoixTL8Bi1PYowZY6V0KjQh60SlXi
+ NWIzka+giCnGfLHgBA12GV0CMRk48HAlTIPHP4viQV8K8lfwWYZ3hwpWTKf1ZE5TYzX/
+ 2pikMyyMySkKvU+eG9JFxmYMKaw/phzBKQ46NU0QWPGB4HK8B30lVgIoa7JgUMHCFZot
+ F6e7/7uRG9Z9SA6v4ztKE6RHQOs2t4icWTZ7fAgHrAWfzXK9oRvS42wfdXHImPgLdRWc
+ UOYpr8PFxM81Yz6fXQLh3bfd0zOjOt3ZQcj8EoODoMt/GUjboz6SD1tLcoNTRttnIqdL
+ NwBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=QJatUqtrqh2u+VQ/YEVsxnrHJlj+/BrTRHbzfVft99w=;
+ b=yrm2WbcNoqwsJ3o2GAWdfJ4qMY6y455e+BKNZh74tCTxn+0uLtowhUn5ayjTXVt43Z
+ cTCbfHyELmGTE3WjXpV3JpQksCs18gvsG8Q0zHfPmzYjTWSp0r/obNQcH2omJMSkyDZI
+ LII36UxCMySdmn8UT7Thm3ICYEIzQiE9kNh0lTrtgzJDOfpGlNJMei2hzmYUETsSFYhU
+ 2o73jhVAb5xgoOMLXHDYoUaXiIC4NNAE4YFrBMjW+4yzYMeGv94nmgaCYSdlKZ+XcQDM
+ NDy/7BjQGAsgPFMiWeyIdM7eh9nTStzH37u1Cebfdak2wvaOuEspRXjxK240BGpydnux
+ zvMA==
+X-Gm-Message-State: AOAM532WoVwu+//7spwyGSA1P9m3OS5+IIagL2Lf2fQhkMAN6ji/zyDZ
+ CJatwri7o5vmFhqKLtOgf4GN4g==
+X-Google-Smtp-Source: ABdhPJwH8iu/90QsiUNBVr78Y45xQO15a26mtV1pK6pLYmCJ5Ecawo2PscMep3kzBxC6RJzSDRQwdA==
+X-Received: by 2002:a9d:200f:: with SMTP id n15mr16820098ota.66.1640733087117; 
+ Tue, 28 Dec 2021 15:11:27 -0800 (PST)
+Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id a6sm4198301oil.6.2021.12.28.15.11.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Dec 2021 15:11:26 -0800 (PST)
+Date: Tue, 28 Dec 2021 15:12:27 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <YcuZ29QV+hfJprSl@ripper>
+References: <1640717489-7366-1-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH] drm/msm/dp: add support of tps4 (training
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1640717489-7366-1-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: add support of tps4 (training
  pattern 4) for HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,63 +70,77 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, Kuogee Hsieh <khsieh@codeaurora.org>,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ Kuogee Hsieh <khsieh@codeaurora.org>, robdclark@gmail.com, agross@kernel.org,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ aravindh@codeaurora.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Kuogee Hsieh <khsieh@codeaurora.org>
+On Tue 28 Dec 10:51 PST 2021, Kuogee Hsieh wrote:
 
-Some DP sinkers prefer to use tps4 instead of tps3 during training #2.
-This patch will use tps4 to perform link training #2 if sinker's DPCD
-supports it.
+> From: Kuogee Hsieh <khsieh@codeaurora.org>
+> 
+> Some DP sinkers prefer to use tps4 instead of tps3 during training #2.
+> This patch will use tps4 to perform link training #2 if sinker's DPCD
+> supports it.
+> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 39558a2..c7b0657 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1181,7 +1181,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>  			int *training_step)
+>  {
+>  	int tries = 0, ret = 0;
+> -	char pattern;
+> +	char pattern, state_ctrl_bit;
+>  	int const maximum_retries = 5;
+>  	u8 link_status[DP_LINK_STATUS_SIZE];
+>  
+> @@ -1189,12 +1189,20 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>  
+>  	*training_step = DP_TRAINING_2;
+>  
+> -	if (drm_dp_tps3_supported(ctrl->panel->dpcd))
+> +	if (drm_dp_tps4_supported(ctrl->panel->dpcd)) {
+> +		pattern = DP_TRAINING_PATTERN_4;
+> +		state_ctrl_bit = 4;
+> +	}
+> +	else if (drm_dp_tps3_supported(ctrl->panel->dpcd)) {
+>  		pattern = DP_TRAINING_PATTERN_3;
+> -	else
+> +		state_ctrl_bit = 3;
+> +	}
+> +	else {
+>  		pattern = DP_TRAINING_PATTERN_2;
+> +		state_ctrl_bit = 2;
+> +	}
+>  
+> -	ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, pattern);
+> +	ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, state_ctrl_bit);
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+The patch looks good, but as the state_ctrl_bit is no longer equal to
+DP_PATTERN_n the function and argument names are misleading.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 39558a2..c7b0657 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1181,7 +1181,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
- 			int *training_step)
- {
- 	int tries = 0, ret = 0;
--	char pattern;
-+	char pattern, state_ctrl_bit;
- 	int const maximum_retries = 5;
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 
-@@ -1189,12 +1189,20 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
- 
- 	*training_step = DP_TRAINING_2;
- 
--	if (drm_dp_tps3_supported(ctrl->panel->dpcd))
-+	if (drm_dp_tps4_supported(ctrl->panel->dpcd)) {
-+		pattern = DP_TRAINING_PATTERN_4;
-+		state_ctrl_bit = 4;
-+	}
-+	else if (drm_dp_tps3_supported(ctrl->panel->dpcd)) {
- 		pattern = DP_TRAINING_PATTERN_3;
--	else
-+		state_ctrl_bit = 3;
-+	}
-+	else {
- 		pattern = DP_TRAINING_PATTERN_2;
-+		state_ctrl_bit = 2;
-+	}
- 
--	ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, pattern);
-+	ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, state_ctrl_bit);
- 	if (ret)
- 		return ret;
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+Please rename it to something like
+"dp_catalog_ctrl_set_pattern_state_bit()" and the "pattern" argument
+within that function to "state_bit".
 
+Thanks,
+Bjorn
+
+>  	if (ret)
+>  		return ret;
+>  
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+> 
