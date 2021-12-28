@@ -2,62 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7282048062A
-	for <lists+freedreno@lfdr.de>; Tue, 28 Dec 2021 05:58:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B89E2480C21
+	for <lists+freedreno@lfdr.de>; Tue, 28 Dec 2021 18:36:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7289A10E164;
-	Tue, 28 Dec 2021 04:58:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6BA89D63;
+	Tue, 28 Dec 2021 17:36:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1D4010E162
- for <freedreno@lists.freedesktop.org>; Tue, 28 Dec 2021 04:58:34 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id j185so28284990oif.8
- for <freedreno@lists.freedesktop.org>; Mon, 27 Dec 2021 20:58:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=98szpQBZjtZvNYlpyX/l6mXnydiaf9Cz3PXEMmMi7WI=;
- b=RkAse5a++wcvwXouZbSPgrz1WAGLQRgomwBlTuBF+n11/dsDnSAFBiJ5IZO71tXwWQ
- oG3FDo764vE2UDNwyhMV8XKQTjJ2EVfvXYrhWV84Nz2dPQRNRJGhvSbzCQ6Kvi9wletK
- IyNqaEnQOApQTc2sh/uEynNLXrOozmRDI3YVa8JTHsf6CQfPaoW2BqoLiBD6q7HpYBym
- GGI4CQXhGZAhFOrBfxmUFmGYOMxRPQbYcKDIqFbWJ6LsKOZRGv7c4YGCan52dlHN0SIX
- HnKaSdR0XXsFutjqissD5fp8Rsn/LZoyqDuI87U5H+YAlIFzeZaPKnRGVzD1+U4SDi1I
- OfrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=98szpQBZjtZvNYlpyX/l6mXnydiaf9Cz3PXEMmMi7WI=;
- b=fCMWl5HaWmh70pm5Ro/xOmKAZ3KBfSttIJ/0OiMNGvUPI4/hhoziz5uQ3i1+dm9hXe
- 54jssHXWKpSZHK1E7iPqWMi9aLgnKqZ9e7Lu18A/t38rXOf5rpTLU1w2t1vw9tlw9qhG
- WH2GZ6h8dI8yaGj2zqsr9BzBc0no1haI2W5ZxMM4I/Kj3/K76wTMStAdo90Z1OGyLad6
- z2+weZasA/qVEADpvTBv8s7OG6I+PMkQoyxazCvJAUqLnQOv7/vNFjG6TVSc6NQA6OaG
- TdTZbBJmJDRap9oi7ynjC/OFaW3vhJpZ0x1XADclVbqY1NrJBx0ptCacl2jRzPLKchtC
- n3IQ==
-X-Gm-Message-State: AOAM531UlZcOl4pt13+HCYeL0BLfEV3GE2/b26Dsmdr257HQx6Wj8wUT
- ZU4wgKSBtx0Ir5UIxjKtdkuadQ==
-X-Google-Smtp-Source: ABdhPJw0LCJVxHQQ9QCWqtmjXSIikXnypZw3Qfu/0FsEFSTp1ESZgDOl8PKo+a6h8HMAc8zWhQBM9g==
-X-Received: by 2002:a05:6808:aa7:: with SMTP id
- r7mr15681459oij.120.1640667514163; 
- Mon, 27 Dec 2021 20:58:34 -0800 (PST)
-Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id n18sm3004786ooj.30.2021.12.27.20.58.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Dec 2021 20:58:33 -0800 (PST)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 27 Dec 2021 20:59:34 -0800
-Message-Id: <20211228045934.1524865-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.33.1
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFF4E893D5;
+ Tue, 28 Dec 2021 17:36:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1640712996; x=1672248996;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=4OYDghXVhKB7oG2GEWMd9vQDKAFwA7xtNF7C6sQ+okg=;
+ b=UwwTknU+ztYX2eNtwfesey2dzAVqcayrRIhVTCw7CyO3Pe5Cuv7nm8Ra
+ 9gGE+fjX/n+NXk6HVCzuUtvoPFSUDxvrZ2VHwWGwJyzfztkjyICY8C9kW
+ nI1oh+cjSDXvXpv7dYgfkN4fn6gUHwNa6QZWo0zX6YAAb3AHp9FRU7KLG g=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 28 Dec 2021 09:36:35 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Dec 2021 09:36:34 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 28 Dec 2021 09:36:34 -0800
+Received: from [10.110.91.229] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 28 Dec
+ 2021 09:36:33 -0800
+Message-ID: <1a8dc2f2-b058-7243-f3dd-2defbca50e3d@quicinc.com>
+Date: Tue, 28 Dec 2021 09:36:32 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: Add DisplayPort controller for
- SM8350
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-US
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, <robdclark@gmail.com>, 
+ <sean@poorly.run>, <quic_abhinavk@quicinc.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <bjorn.andersson@linaro.org>, <swboyd@chromium.org>
+References: <6fd20c8779d6b03a5b54509af25b478049482087.1640531508.git.christophe.jaillet@wanadoo.fr>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <6fd20c8779d6b03a5b54509af25b478049482087.1640531508.git.christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Fix a potential double free in
+ an error handling path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,57 +67,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Qualcomm SM8350 platform comes with a single DisplayPort controller,
-add support for this in the DisplayPort driver.
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
- .../devicetree/bindings/display/msm/dp-controller.yaml    | 1 +
- drivers/gpu/drm/msm/dp/dp_display.c                       | 8 ++++++++
- 2 files changed, 9 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-index 5457612ab136..cd05cfd76536 100644
---- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-@@ -21,6 +21,7 @@ properties:
-       - qcom,sc7280-edp
-       - qcom,sc8180x-dp
-       - qcom,sc8180x-edp
-+      - qcom,sm8350-dp
- 
-   reg:
-     items:
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 8d9c19dbf33e..fd0fd03f8fed 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -143,10 +143,18 @@ static const struct msm_dp_config sc7280_dp_cfg = {
- 	.num_descs = 2,
- };
- 
-+static const struct msm_dp_config sm8350_dp_cfg = {
-+	.descs = (const struct msm_dp_desc[]) {
-+		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-+	},
-+	.num_descs = 1,
-+};
-+
- static const struct of_device_id dp_dt_match[] = {
- 	{ .compatible = "qcom,sc7180-dp", .data = &sc7180_dp_cfg },
- 	{ .compatible = "qcom,sc7280-dp", .data = &sc7280_dp_cfg },
- 	{ .compatible = "qcom,sc7280-edp", .data = &sc7280_dp_cfg },
-+	{ .compatible = "qcom,sm8350-dp", .data = &sm8350_dp_cfg },
- 	{}
- };
- 
--- 
-2.33.1
-
+On 12/26/2021 7:14 AM, Christophe JAILLET wrote:
+> 'dp_bridge' is devm_alloc'ed, so there is no need to free it explicitly or
+> there will be a double free().
+>
+> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_drm.c | 1 -
+>   1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 188e77c59885..d4d360d19eba 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -243,7 +243,6 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
+>   	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>   	if (rc) {
+>   		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
+> -		kfree(dp_bridge);
+>   		return ERR_PTR(rc);
+>   	}
+>   
