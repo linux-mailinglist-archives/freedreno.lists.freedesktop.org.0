@@ -2,64 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F136B480F7D
-	for <lists+freedreno@lfdr.de>; Wed, 29 Dec 2021 05:12:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0AF481602
+	for <lists+freedreno@lfdr.de>; Wed, 29 Dec 2021 19:16:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE1510E2D8;
-	Wed, 29 Dec 2021 04:12:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1628E10E24A;
+	Wed, 29 Dec 2021 18:16:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88F5E10E2D8
- for <freedreno@lists.freedesktop.org>; Wed, 29 Dec 2021 04:12:27 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- o3-20020a9d4043000000b0058f31f4312fso24626820oti.1
- for <freedreno@lists.freedesktop.org>; Tue, 28 Dec 2021 20:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=v7CDjeE5jW+B6WRS62ZS6O0dpHSvARE91qFSq23R+iE=;
- b=Pf25Toy3VhEVKDPSTCMJoIaMlmz3tplb+C/JM803ZEwbK0XSdyZVaI81VxbOu1oO5z
- KdgIb3E+lKWTqZMq4QtkDgnhwuy+5NJsgL5aftD4+trvketP3SPzyU4vCZxqv2EccNt5
- sApmDwXMjdzfvg4cZ0e7eIkYrLCaFQRTkbhQ4s70Rk3bBs6s50f8QARLaI6WHVKqtH+7
- Ht4Hp0nx7+HXpDXvDf+AuIMxzcV1DUB+3fgXcCIn1s1KHSewi/JOqMQrk5cEq7cBEprs
- l8O4dyhuZSPAS/8OHCpoaAH9HpECc/qBWKLpx7o4KKHKwqyBkyFz73WBzH3qBdbUX34a
- jjcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=v7CDjeE5jW+B6WRS62ZS6O0dpHSvARE91qFSq23R+iE=;
- b=RUCrf3HxoDrnKu0jPp9a85TcOGBIAz2o3hZTZE6uWRCkm4BOZ+mBFR0vz5w0noEn8w
- HJJHSP0MgGfUcxTDQoNjLuAEu3T0O6LNAdX0bJXmDUuEXfZxIp+OkiV2H+T0ISeQpZ9c
- APww7OX9uWaj2TBZvkN4l225X1QOzQuC4IJJ1KH8xYkk9nHXN0KQHhaBCN0yNfMj10gv
- e1zVlcb4UOCeLbL31AUKkKLm1dTRKQXWZVrerSHiLkjRzqhe8YsNpWy6TGR30dR4OjwD
- 4AgDqQVJTgYKYD8hykc0+U9SNR34ToiLClZp+ZfHXvczNABAORdVuaktRHgmZAbIUS1V
- u8LA==
-X-Gm-Message-State: AOAM533DK+NZVJC5rN2LLtJJq5Ha3AO0qYWlIAeqgm1E6JoqXwFUeaU/
- tVJsW0SioAwypWqazO9h5EgWfg==
-X-Google-Smtp-Source: ABdhPJyv4OCTP83HxuEyvA+CllD1b+sDZ3yjheAk30RxpzMAoDVZphL4t6bE6SkxiM7ahXfkKv8jug==
-X-Received: by 2002:a05:6830:1285:: with SMTP id
- z5mr18176183otp.180.1640751146731; 
- Tue, 28 Dec 2021 20:12:26 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id b24sm3754202oic.16.2021.12.28.20.12.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Dec 2021 20:12:26 -0800 (PST)
-Date: Tue, 28 Dec 2021 22:12:21 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YcvgJcxWDfaSMVVg@builder.lan>
-References: <20211126023516.1108411-1-dmitry.baryshkov@linaro.org>
- <20211126023516.1108411-3-dmitry.baryshkov@linaro.org>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4373710E24A;
+ Wed, 29 Dec 2021 18:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1640801770; x=1672337770;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=nKCGZC1i14SkhxDK6T+Y972E1r0o8n/KfzGBlXfse4M=;
+ b=siL/IO1KGGglqIFcU5079w4aG4g9MZgdqLH9IF4zAEA13nl8RXSPVLvi
+ Lxe/YRLiK5oYwICjZOJAzHkGxBveUc/oAfog0zZW+gKSlHkPcPvloFAjX
+ cUre66K5hQh54cOVK3BX5lS26xfDnsqDYYShi6j8R+vRJlQ+PwlolKyI9 8=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 29 Dec 2021 10:16:09 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Dec 2021 10:15:53 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 29 Dec 2021 10:15:53 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 29 Dec 2021 10:15:52 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 29 Dec 2021 10:15:45 -0800
+Message-ID: <1640801745-16234-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211126023516.1108411-3-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dp: rewrite dss_module_power
- to use bulk clock functions
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: add support of tps4 (training
+ pattern 4) for HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,72 +61,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Kuogee Hsieh <khsieh@codeaurora.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, Kuogee Hsieh <khsieh@codeaurora.org>,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 25 Nov 20:35 CST 2021, Dmitry Baryshkov wrote:
+From: Kuogee Hsieh <khsieh@codeaurora.org>
 
-> In order to simplify DP code, drop hand-coded loops over clock arrays,
-> replacing them with clk_bulk_* functions.
-> 
+Some DP sinkers prefer to use tps4 instead of tps3 during training #2.
+This patch will use tps4 to perform link training #2 if sinker's DPCD
+supports it.
 
-I've yet to debug this, but applying the two patches and attaching an
-HDMI cable to my USB dongle results in the follwing splat on the 8350
-HDK.
+Changes in V2:
+-- replace  dp_catalog_ctrl_set_pattern() with  dp_catalog_ctrl_set_pattern_state_bit()
 
-[   39.658840] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-[   39.667883] Mem abort info:
-[   39.670774]   ESR = 0x96000006
-[   39.673940]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   39.679417]   SET = 0, FnV = 0
-[   39.682582]   EA = 0, S1PTW = 0
-[   39.685825]   FSC = 0x06: level 2 translation fault
-[   39.690851] Data abort info:
-[   39.693838]   ISV = 0, ISS = 0x00000006
-[   39.697797]   CM = 0, WnR = 0
-[   39.700864] user pgtable: 4k pages, 48-bit VAs, pgdp=000000010eb8d000
-[   39.707501] [0000000000000000] pgd=080000010f097003, p4d=080000010f097003, pud=080000010ba58003, pmd=0000000000000000
-[   39.718425] Internal error: Oops: 96000006 [#1] PREEMPT SMP
-[   39.724169] Modules linked in: pmic_glink_altmode qcom_pmic_glink_power cfg80211 rfkill 8021q garp mrp stp llc microchip lan78xx snd_soc_hdmi_codec pmic_glink pdr_interface rpmsg_char qrtr_smd qrtr fsa4480 qcom_q6v5_pas qcom_pil_info i2c_qcom_geni qcom_q6v5 msm qcom_sysmon qcom_stats gpu_sched crct10dif_ce drm_kms_helper qcom_common qcom_glink_smem gpucc_sm8350 phy_qcom_qmp mdt_loader typec ufs_qcom qmi_helpers qcom_rng socinfo qnoc_sm8350 rmtfs_mem fuse drm ipv6
-[   39.766330] CPU: 0 PID: 85 Comm: kworker/0:3 Not tainted 5.16.0-rc5-next-20211215-00046-g2f90133452d9 #280
-[   39.776256] Hardware name: Qualcomm Technologies, Inc. SM8350 HDK (DT)
-[   39.782969] Workqueue: events pmic_glink_altmode_worker [pmic_glink_altmode]
-[   39.790235] pstate: 40400005 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[   39.797393] pc : __pi_strcmp+0x1c/0xf0
-[   39.801271] lr : dp_ctrl_set_clock_rate+0x8c/0xf0 [msm]
-[   39.806737] sp : ffff800008adbbc0
-[   39.810153] x29: ffff800008adbbc0 x28: 0000000000000000 x27: 0000000000000000
-[   39.817501] x26: ffffb60107f74270 x25: ffff297a49b33c80 x24: 00000000202fbf00
-[   39.824846] x23: 0000000000000001 x22: ffff297a4b400580 x21: 0000000000000020
-[   39.832188] x20: ffffb600e3d78068 x19: 0000000000000000 x18: ffffffffffffffff
-[   39.839541] x17: 6b6c63206e6f2030 x16: ffffb601063476c0 x15: 0720072007200720
-[   39.846893] x14: 0720072007200720 x13: ffffb60107c622c8 x12: 0000000000000765
-[   39.854229] x11: 0000000000000277 x10: 0101010101010101 x9 : ffffb60107c622c8
-[   39.861565] x8 : 00000000ffffefff x7 : 0000000000000000 x6 : ffffb60107cba2c8
-[   39.868902] x5 : 0000000000000000 x4 : ffff297cbe8619d8 x3 : 0000000000000000
-[   39.876240] x2 : 0000000000000000 x1 : ffffb600e3d78068 x0 : 0000000000000000
-[   39.883594] Call trace:
-[   39.886124]  __pi_strcmp+0x1c/0xf0
-[   39.889638]  dp_ctrl_enable_mainlink_clocks+0x98/0x110 [msm]
-[   39.895537]  dp_ctrl_on_link+0x98/0x3f0 [msm]
-[   39.900096]  dp_display_process_hpd_high+0xa8/0x100 [msm]
-[   39.905731]  dp_display_usbpd_attention_cb+0x164/0x1a4 [msm]
-[   39.911629]  dp_hpd_oob_event+0x74/0xa4 [msm]
-[   39.916195]  dp_display_oob_hotplug_event+0x1c/0x2c [msm]
-[   39.921831]  dp_oob_hotplug_event+0x18/0x24 [msm]
-[   39.926756]  drm_connector_oob_hotplug_event+0x40/0x60 [drm]
-[   39.932686]  pmic_glink_altmode_worker+0x7c/0x194 [pmic_glink_altmode]
-[   39.939398]  process_one_work+0x1d0/0x350
-[   39.943526]  worker_thread+0x13c/0x460
-[   39.947390]  kthread+0x17c/0x190
-[   39.950722]  ret_from_fork+0x10/0x20
-[   39.954416] Code: f24008ff 540003e1 f2400807 54000241 (f8408402)
-[   39.960684] ---[ end trace 0000000000000000 ]---
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 12 ++++++------
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 19 ++++++++++++++-----
+ 3 files changed, 21 insertions(+), 12 deletions(-)
 
-Regards,
-Bjorn
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+index 6ae9b29..64f0b26 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.c
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+@@ -456,19 +456,19 @@ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog,
+ 	dp_write_p0(catalog, MMSS_DP_DSC_DTO, 0x0);
+ }
+ 
+-int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog,
+-					u32 pattern)
++int dp_catalog_ctrl_set_pattern_state_bit(struct dp_catalog *dp_catalog,
++					u32 state_bit)
+ {
+ 	int bit, ret;
+ 	u32 data;
+ 	struct dp_catalog_private *catalog = container_of(dp_catalog,
+ 				struct dp_catalog_private, dp_catalog);
+ 
+-	bit = BIT(pattern - 1);
+-	DRM_DEBUG_DP("hw: bit=%d train=%d\n", bit, pattern);
++	bit = BIT(state_bit - 1);
++	DRM_DEBUG_DP("hw: bit=%d train=%d\n", bit, state_bit);
+ 	dp_catalog_ctrl_state_ctrl(dp_catalog, bit);
+ 
+-	bit = BIT(pattern - 1) << DP_MAINLINK_READY_LINK_TRAINING_SHIFT;
++	bit = BIT(state_bit - 1) << DP_MAINLINK_READY_LINK_TRAINING_SHIFT;
+ 
+ 	/* Poll for mainlink ready status */
+ 	ret = readx_poll_timeout(readl, catalog->io->dp_controller.link.base +
+@@ -476,7 +476,7 @@ int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog,
+ 					data, data & bit,
+ 					POLLING_SLEEP_US, POLLING_TIMEOUT_US);
+ 	if (ret < 0) {
+-		DRM_ERROR("set pattern for link_train=%d failed\n", pattern);
++		DRM_ERROR("set state_bit for link_train=%d failed\n", state_bit);
+ 		return ret;
+ 	}
+ 	return 0;
+diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.h b/drivers/gpu/drm/msm/dp/dp_catalog.h
+index 6965afa..7dea101 100644
+--- a/drivers/gpu/drm/msm/dp/dp_catalog.h
++++ b/drivers/gpu/drm/msm/dp/dp_catalog.h
+@@ -94,7 +94,7 @@ void dp_catalog_ctrl_mainlink_ctrl(struct dp_catalog *dp_catalog, bool enable);
+ void dp_catalog_ctrl_config_misc(struct dp_catalog *dp_catalog, u32 cc, u32 tb);
+ void dp_catalog_ctrl_config_msa(struct dp_catalog *dp_catalog, u32 rate,
+ 				u32 stream_rate_khz, bool fixed_nvid);
+-int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog, u32 pattern);
++int dp_catalog_ctrl_set_pattern_state_bit(struct dp_catalog *dp_catalog, u32 pattern);
+ void dp_catalog_ctrl_reset(struct dp_catalog *dp_catalog);
+ bool dp_catalog_ctrl_mainlink_ready(struct dp_catalog *dp_catalog);
+ void dp_catalog_ctrl_enable_irq(struct dp_catalog *dp_catalog, bool enable);
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 39558a2..da6c083 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1078,12 +1078,13 @@ static int dp_ctrl_link_train_1(struct dp_ctrl_private *ctrl,
+ 	int tries, old_v_level, ret = 0;
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 	int const maximum_retries = 4;
++	char state_ctrl_bit = 1;
+ 
+ 	dp_catalog_ctrl_state_ctrl(ctrl->catalog, 0);
+ 
+ 	*training_step = DP_TRAINING_1;
+ 
+-	ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, DP_TRAINING_PATTERN_1);
++	ret = dp_catalog_ctrl_set_pattern_state_bit(ctrl->catalog, state_ctrl_bit);
+ 	if (ret)
+ 		return ret;
+ 	dp_ctrl_train_pattern_set(ctrl, DP_TRAINING_PATTERN_1 |
+@@ -1181,7 +1182,7 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+ 			int *training_step)
+ {
+ 	int tries = 0, ret = 0;
+-	char pattern;
++	char pattern, state_ctrl_bit;
+ 	int const maximum_retries = 5;
+ 	u8 link_status[DP_LINK_STATUS_SIZE];
+ 
+@@ -1189,12 +1190,20 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+ 
+ 	*training_step = DP_TRAINING_2;
+ 
+-	if (drm_dp_tps3_supported(ctrl->panel->dpcd))
++	if (drm_dp_tps4_supported(ctrl->panel->dpcd)) {
++		pattern = DP_TRAINING_PATTERN_4;
++		state_ctrl_bit = 4;
++	}
++	else if (drm_dp_tps3_supported(ctrl->panel->dpcd)) {
+ 		pattern = DP_TRAINING_PATTERN_3;
+-	else
++		state_ctrl_bit = 3;
++	}
++	else {
+ 		pattern = DP_TRAINING_PATTERN_2;
++		state_ctrl_bit = 2;
++	}
+ 
+-	ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, pattern);
++	ret = dp_catalog_ctrl_set_pattern_state_bit(ctrl->catalog, state_ctrl_bit);
+ 	if (ret)
+ 		return ret;
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
