@@ -1,57 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F354820DF
-	for <lists+freedreno@lfdr.de>; Fri, 31 Dec 2021 00:32:06 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA2404820DC
+	for <lists+freedreno@lfdr.de>; Fri, 31 Dec 2021 00:32:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4B2D10EBBD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64F4410E87C;
 	Thu, 30 Dec 2021 23:32:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF8AA10E13C;
- Thu, 30 Dec 2021 07:09:50 +0000 (UTC)
-Received: by mail-pl1-x635.google.com with SMTP id w24so17631196ply.12;
- Wed, 29 Dec 2021 23:09:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F44810E338;
+ Thu, 30 Dec 2021 09:25:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1640856321; x=1672392321;
  h=from:to:cc:subject:date:message-id;
- bh=ZDP2T3kEdA2Z/HSfJU3quwQVcpsj6OKL669wXFyJOLM=;
- b=ewFBGrrBkM1b1Tm+9/Tfx0/jdnhhjHUmqN2gPCUfoaIQiudnZP/aHzudqr0wsCP8aQ
- rormtM95j8BEp56u+2L+GF4D3FjPjcn1CSbQzU9UcbEXBZ/Po2MLBtH8STz9EiTk6vmn
- ozXz9s1afuD1u/5C9jV+0eiG5+aqTim261vL0eh2HAdfDULaO5th6A6024sSxM6o97Aa
- LJbiRLmRMETO6TQMR7imF/w7tgASINZQOXVtJ2VMQHjHafd+HpGPLT93RdWgc04k1udX
- sL53h+kRamfZtJ9pSSKuzzzCa2P96TKD/393I4LXYaULqtE6RGMpE44hI8TGAmxNkuS+
- Kh4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=ZDP2T3kEdA2Z/HSfJU3quwQVcpsj6OKL669wXFyJOLM=;
- b=J9uiLoxwld9Fxmor0WZEOgadKa3SlGwTuBa0G7Ngni/O5MeMLsc6DO5CdY+5XkGIxD
- d5epgWa35TpFvFPMnvrPByXNoOsW6Hoi1Ysry49f3oEKtPfB8yU5UsMYf29hcqOBNlP+
- mrIH+I4Y3mqnlh8QUkcFlv0SooAl/pvjviR38IQfuJ0QWuk8iqFJO0mJs31tXf78YWg3
- /LFFcMPo3uV20IstRoK1+Br52tmcQAtdJRraAih+2c1T0G+q4AFVJfEBUUnJZ0uztHbQ
- efjEzHlWvF1fEXYhhsOc9ejmIoDBEZ/tmRXGa/OHEQtGh4VIMCqoWoqiVg6IS5DtJnKB
- c9vg==
-X-Gm-Message-State: AOAM531asI9NMg2uj0qW/i0BTg0tt7D2z3zqC/AlAtuFsS/JIOLm41YU
- jWTITzA1iNLwbBokxkgsTa4=
-X-Google-Smtp-Source: ABdhPJx3W4rYV1Sq+P6R0r+0aSLlg1TI58NlfVsAeHyTkdba/dBdZqLjrK02fPkqUSdPeo9VzcuRNA==
-X-Received: by 2002:a17:902:c94f:b0:148:d23a:c88e with SMTP id
- i15-20020a170902c94f00b00148d23ac88emr31023765pla.26.1640848190523; 
- Wed, 29 Dec 2021 23:09:50 -0800 (PST)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id x2sm21640486pgo.2.2021.12.29.23.09.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Dec 2021 23:09:50 -0800 (PST)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: 
-Date: Thu, 30 Dec 2021 07:09:40 +0000
-Message-Id: <20211230070943.18116-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.17.1
+ bh=BpEobsZ/b/K/3YVxXHJaiZChYj2QRS7Lv13kRYuC46o=;
+ b=LHC9J6/Wr+ndAwbDI8+2Z8UKYDt/RyW4Evog94+yMT/K/Vcdw9j5RMxl
+ BWSyKNlLN9Vr2YCxIvQlO4oCjiq3Alw6b5vm+chbkWg44hTScC+dA206R
+ 6z8hgg9eqHu3moJm/53qnL/k1SnDLBWvrRyOOfAK/sqIi5H5A2V27S+Wo k=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 30 Dec 2021 01:25:21 -0800
+X-QCInternal: smtphost
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 30 Dec 2021 01:25:19 -0800
+X-QCInternal: smtphost
+Received: from rajeevny-linux.qualcomm.com ([10.204.66.121])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 30 Dec 2021 14:54:56 +0530
+Received: by rajeevny-linux.qualcomm.com (Postfix, from userid 2363605)
+ id B7F3B21A28; Thu, 30 Dec 2021 14:54:54 +0530 (IST)
+From: Rajeev Nandan <quic_rajeevny@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Thu, 30 Dec 2021 14:54:34 +0530
+Message-Id: <1640856276-14697-1-git-send-email-quic_rajeevny@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 X-Mailman-Approved-At: Thu, 30 Dec 2021 23:32:03 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dsi: Fix missing put_device() call in
- dsi_get_phy
+Subject: [Freedreno] [v1 0/2] drm/msm/dsi: Add 10nm dsi phy tuning
+ configuration support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,45 +52,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linmq006@gmail.com,
- David Airlie <airlied@linux.ie>, Hai Li <hali@codeaurora.org>,
- linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: quic_kalyant@quicinc.com, robh@kernel.org, jonathan@marek.ca,
+ airlied@linux.ie, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, robdclark@gmail.com,
+ robh+dt@kernel.org, quic_mkrishn@quicinc.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, swboyd@chromium.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If of_find_device_by_node() succeeds, dsi_get_phy() doesn't
-a corresponding put_device(). Thus add put_device() to fix the exception
-handling.
+This series is to add DSI PHY tuning support in Qualcomm Snapdragon
+SoCs with 10nm DSI PHY e.g. SC7180
 
-Fixes: ec31abf ("drm/msm/dsi: Separate PHY to another platform device")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
----
- drivers/gpu/drm/msm/dsi/dsi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+In most cases the default values of DSI PHY tuning registers
+should be sufficient as they are fully optimized. However, in
+some cases (for example, where extreme board parasitics cause
+the eye shape to degrade), the override bits can be used to
+improve the signal quality.
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
-index 75ae3008b68f..35be526e907a 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi.c
-@@ -40,7 +40,12 @@ static int dsi_get_phy(struct msm_dsi *msm_dsi)
- 
- 	of_node_put(phy_node);
- 
--	if (!phy_pdev || !msm_dsi->phy) {
-+	if (!phy_pdev) {
-+		DRM_DEV_ERROR(&pdev->dev, "%s: phy driver is not ready\n", __func__);
-+		return -EPROBE_DEFER;
-+	}
-+	if (!msm_dsi->phy) {
-+		put_device(&phy_pdev->dev);
- 		DRM_DEV_ERROR(&pdev->dev, "%s: phy driver is not ready\n", __func__);
- 		return -EPROBE_DEFER;
- 	}
+As per the MSM DSI PHY (10nm) tuning guideline, the drive strength
+can be adjusted using DSIPHY_RESCODE_OFFSET_TOP & DSIPHY_RESCODE_OFFSET_BOT
+registers, and the drive level can be adjusted using DSIPHY_CMN_VREG_CTRL
+register.
+
+Add DSI PHY tuning support for 10nm PHY. This can be extended to other
+DSI PHY versions if needed. Number of registers to configure the PHY
+tuning per lane can be different for different versions of the DSI PHY.
+I tried to make it generic so that it can be extended to other versions.
+
+Rajeev Nandan (2):
+  dt-bindings: msm/dsi: Add 10nm dsi phy tuning properties
+  drm/msm/dsi: Add 10nm dsi phy tuning configuration support
+
+ .../bindings/display/msm/dsi-phy-10nm.yaml         | 19 ++++++++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c              | 55 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h              | 23 +++++++++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c         | 31 +++++++++---
+ 4 files changed, 122 insertions(+), 6 deletions(-)
+
 -- 
-2.17.1
+2.7.4
 
