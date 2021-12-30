@@ -2,52 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AC33481CB3
-	for <lists+freedreno@lfdr.de>; Thu, 30 Dec 2021 15:01:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8085F481CE6
+	for <lists+freedreno@lfdr.de>; Thu, 30 Dec 2021 15:14:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2817D10E4A1;
-	Thu, 30 Dec 2021 14:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 207B610E79E;
+	Thu, 30 Dec 2021 14:14:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0358D10E4A1
- for <freedreno@lists.freedesktop.org>; Thu, 30 Dec 2021 14:01:01 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id q3so22137608qvc.7
- for <freedreno@lists.freedesktop.org>; Thu, 30 Dec 2021 06:01:01 -0800 (PST)
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1E7410E79C
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Dec 2021 14:14:45 +0000 (UTC)
+Received: by mail-qk1-x72a.google.com with SMTP id b85so22758287qkc.1
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Dec 2021 06:14:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DARIRUyKixjDrkgi6thwAX0I/tkeXzUp7pYBAMvHcik=;
- b=o+4Ko9dlc80surFGX5vVwGzb5c0ETDQSkrNniT1RhUajJtbke5ejdnEQdrpYRC2aih
- VWkRLiWRv9geVnd/zJTopRXySrnbVMRrlTYvdgaZH7t93PLF9Rbx8xtjaTfjXv594UbL
- b7zNCmyRS0OzMiCVTL/0r03bd4toCRyvgXvdOerFJretUUJkg9UeZ7ET5Wn4xVrrtdOI
- pLYqPJEgU8XsxsfOB+Mra2infcJhM/cQY8/pJKqp6FbSq7IMjsVA8SkY6/zkDzJATRKo
- 9OdzEvSbw9TO/yiYrJ9PI8ogruGMkPYuCnmejWNy299fPZQSylEnBcAg0jQWZo3jeI92
- xIEw==
+ :cc; bh=QIiHEJXmhVq0VBafG1mogzpPwrmMW4FruUD/NmecsX4=;
+ b=v2hIyW3mD6FmJ8nkeft+cv6KuVC1JDxtGiR2QFqmE90D7SaoYnF5CB/FKe3h9JwOyq
+ /I6mAjM/ssDxFxSSX7wxbUTseuVA4Zuj4iwEoAV7cdbqCjzZJfa+MvYLfMn2myxyq+cZ
+ Cp3qJdFlJth6krKQcCtQLgt17jme53BYOgvsoN5KAyfbvcafNi4bj5ejB3w2TFeyZPMH
+ Lgiw4wQZ7QipW3UrHtkF1Sq7x/beho5bu9SjSXqX+s1aAhPJ0ELi3+zd5n7TPHeVHe+N
+ 4AE4Qlbew+zsjT60mRIGyW2N1jNoGoP8csJbdLLCzlfLR3tEC7SS3GVGbKNYHkZKHHMN
+ H03w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=DARIRUyKixjDrkgi6thwAX0I/tkeXzUp7pYBAMvHcik=;
- b=umwhPHqgec+Bd3k6ACNyHgTst9V0WJ088S9HlC3y6XTR1IR/QBXxFa+Npg4/kzmaXe
- LJfgOmnGUc+EOa70YcY57VkWVWqv5I4V61YdBVOHO+4hz7F0RagBehRVNwffKLqqKKq5
- y5emEJAEfEbcMFNY5f/6JFK+4tkO2edDTDQGHTPwZ4MXhoJ+tY8bcdZkjEkdlTC75QdH
- pPhUcft2MLQ3vuudT4dbAokngYXPgkfSM49NJORToQQZWci+kFDkLCtPEjKcc1/CjTyG
- yPZbcTdhhr7tNwYVPj3gFj311Rc31Cp5+s0mMyr7GM4QBn2eVOjbNflmUH5/T4knxHFH
- gZRw==
-X-Gm-Message-State: AOAM533Gw4dW3EYFkpTw92CWbzdwO1cBqYmlPIq+E3jQbBgJbjnMYzm8
- 20O5WR8GVgoqRM9zAp1FfPb1AlbxKo3B55HIOFL3mA==
-X-Google-Smtp-Source: ABdhPJzI5hJNYB9BiClkHNkpWJpsy0r+CCHtNuPM3lBUlcbQsrm/hksxpm6NB1KIf4ASty1FzjWa3Th+WWHhWw7Y8XA=
-X-Received: by 2002:a05:6214:260b:: with SMTP id
- gu11mr27691426qvb.55.1640872860787; 
- Thu, 30 Dec 2021 06:01:00 -0800 (PST)
+ bh=QIiHEJXmhVq0VBafG1mogzpPwrmMW4FruUD/NmecsX4=;
+ b=XDW+K4JJb3xbXcjEBHX66lbE37nkvtlYh83E9H+4lmDzo6IqDTQHTAWnImaktHExEs
+ YmlPjEqCNTaxF0wj7goWsyq/BniIWkhHDnJRdEFCLX0QhpJu0LPQvv8qf2VC8TDCZmZK
+ rZg5WpBTw0Bq0AyKxYgYi43yJOKvFM8q7IxMDaFU/QheIQW5hleJc4uYwQXZzZH7te5Q
+ uQR1GMVDpYFUYbKtbG6aHCqGOlbNSPf5re0ukvpfgpD8VvTuKGo2b5Gez7s3MVp6fmg3
+ EVyC74Hvinq/LoQQaZaMhtBRqDIccSlWYGMWrVOYmj0UVkASlHT4LFJgc3tz6Aje5EL2
+ wraQ==
+X-Gm-Message-State: AOAM532KfsDtHTUZivvKhd/oth07orIWrpuzzrfn9AD0AU3LHXw+umHy
+ LsVbydYfzaRO3CN0ColwDYy/RpufIpONxMk17wo/Sg==
+X-Google-Smtp-Source: ABdhPJwiPhF1WQpKvdE8hOeE3MBy5zy9jvFyDBDOF14ZRUSR7yDBFMcY79AZCN5Dj2E2nbfMQHBa9NJGEFhbiHTXthI=
+X-Received: by 2002:a37:b8b:: with SMTP id 133mr19734621qkl.59.1640873684877; 
+ Thu, 30 Dec 2021 06:14:44 -0800 (PST)
 MIME-Version: 1.0
 References: <1640856276-14697-1-git-send-email-quic_rajeevny@quicinc.com>
  <1640856276-14697-2-git-send-email-quic_rajeevny@quicinc.com>
 In-Reply-To: <1640856276-14697-2-git-send-email-quic_rajeevny@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 30 Dec 2021 17:00:49 +0300
-Message-ID: <CAA8EJpptEvS6Y+MEX=VxmUSf1=GAp_oV5PWCCGUzMYP13_QsRg@mail.gmail.com>
+Date: Thu, 30 Dec 2021 17:14:34 +0300
+Message-ID: <CAA8EJppoe8ebU-yNKF6fbuDK4nf=09eNzVvaq_wQ+qKdjWEf4w@mail.gmail.com>
 To: Rajeev Nandan <quic_rajeevny@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [v1 1/2] dt-bindings: msm/dsi: Add 10nm dsi phy
@@ -102,10 +101,6 @@ On Thu, 30 Dec 2021 at 12:25, Rajeev Nandan <quic_rajeevny@quicinc.com> wrote:
 > +    description:
 > +      Register values of DSIPHY_RESCODE_OFFSET_TOP for all five lanes to adjust
 > +      phy drive level/amplitude.
-
-
-Description is incorrect, it's not the RESCODE_OFFSET_TOP register.
-
 > +
 >  required:
 >    - compatible
@@ -122,15 +117,11 @@ Description is incorrect, it's not the RESCODE_OFFSET_TOP register.
 > +                                   00 00];
 > +         phy-drive-level-cfg = [59 59 59 59 59];
 
-You are writing this value into the PHY_CMN_VREG_CTRL register. So
-specifying 5 values here does not make sense.
-
->       };
->  ...
-> --
-> 2.7.4
->
-
+And second notice. This interface seems to be too register-centric.
+You provide register values without any actual way to interpret them.
+I'd prefer to have something closer to pinctrl. Specify strength and
+level in some logical way and then in the driver interpret that into
+register values.
 
 -- 
 With best wishes
