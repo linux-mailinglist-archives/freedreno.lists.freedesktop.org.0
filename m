@@ -2,46 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F37D34820DD
-	for <lists+freedreno@lfdr.de>; Fri, 31 Dec 2021 00:32:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCEE3482204
+	for <lists+freedreno@lfdr.de>; Fri, 31 Dec 2021 05:48:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B1FD10E87E;
-	Thu, 30 Dec 2021 23:32:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A7010E262;
+	Fri, 31 Dec 2021 04:48:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0660810E338;
- Thu, 30 Dec 2021 09:25:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1640856320; x=1672392320;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=cJT0mRgNSm3r1hN5CeIpBXvKOVR2ymfeBG+t0V3+HQA=;
- b=GKkxkytsA4mCNUNstVWPLtQh3SBCbyaWQHCd8UjOyeKxuUKP7YP/3maB
- YjvOU+YiVJJ31Pd7KuzVoRLEwgdmyQ3kWzcNn7LpkeEF/jOD4cAlNTViR
- Eox3RREjfSarYOWpIuoCdo7e2QPw7U3jK4E1/EmeEOwuj/3Wa6W+V5Xoz g=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 30 Dec 2021 01:25:20 -0800
-X-QCInternal: smtphost
-Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 30 Dec 2021 01:25:18 -0800
-X-QCInternal: smtphost
-Received: from rajeevny-linux.qualcomm.com ([10.204.66.121])
- by ironmsg01-blr.qualcomm.com with ESMTP; 30 Dec 2021 14:55:11 +0530
-Received: by rajeevny-linux.qualcomm.com (Postfix, from userid 2363605)
- id CDBA921A28; Thu, 30 Dec 2021 14:55:09 +0530 (IST)
-From: Rajeev Nandan <quic_rajeevny@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Thu, 30 Dec 2021 14:54:36 +0530
-Message-Id: <1640856276-14697-3-git-send-email-quic_rajeevny@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1640856276-14697-1-git-send-email-quic_rajeevny@quicinc.com>
-References: <1640856276-14697-1-git-send-email-quic_rajeevny@quicinc.com>
-X-Mailman-Approved-At: Thu, 30 Dec 2021 23:32:03 +0000
-Subject: [Freedreno] [v1 2/2] drm/msm/dsi: Add 10nm dsi phy tuning
- configuration support
+Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com
+ [IPv6:2607:f8b0:4864:20::f29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9103310E262
+ for <freedreno@lists.freedesktop.org>; Fri, 31 Dec 2021 04:48:23 +0000 (UTC)
+Received: by mail-qv1-xf29.google.com with SMTP id ke6so23925944qvb.1
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Dec 2021 20:48:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=R53maEe/jvwfVpnz6cg55bUPaUGQxEAtSlPRSaJ2X7w=;
+ b=R1yOXnIb4oliBKplgIaPGCmFfYmxfboQaJjmuYQZFquNG/rHO7k31hJ6Q4zZwHz5Fu
+ LkUDe5vXTjp0eXRXRBE9A2MXZF1zCfKh74XyGGQedKrC5QQh/oMgbuldlrpKE412FfWL
+ fY0JSDFERCvca8fkM1f7C71Vij/5kN+09wAHfluuJzk3kJGO2LxX30T8Gq3J8nVFayx8
+ XGLrfBlWEoZUJKUDsbhx4RnSaW+Tl6u9KO0s2bRAWS8kzAZH7W4oGwNRWgYVY0PqdvH1
+ dpAyO3r8wkDFZ7EE9qv87n8TstRiHiixsgElt1SRsxVwK/LWdV8C9Uc6SIYe1z5D2s3F
+ rWYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=R53maEe/jvwfVpnz6cg55bUPaUGQxEAtSlPRSaJ2X7w=;
+ b=SsdkPkqAdUeb+cS6KMtQAg/ey1OjJAIRz5aj5Zx4N+9M+HJ6Lgq/6ggp0eRfn+lrRp
+ GF0kSTXyaSM+6JSikxMDDcecojVVQvcCnN7H+lUb+Y3T/4LhFkRuO74aD2VVd9mdBBi4
+ y28UdqncfzH/vARlF/vFY2M9scxCyLJtatokyeX/WWA1NniqshFis2S7ICAd/NVneNmX
+ 992lnxv45QqOtN83A8EiGMu/XNlA/Zz5RVuC0etVUiV/23ei826mGifPeWChdasKXggc
+ vy2wKjslUnieI+9vT9UNUFiG1a6UQ3DcbqKjYiXNx+0GE2Ta/l9WliS09+lcnXPTmYx8
+ ViWA==
+X-Gm-Message-State: AOAM532/ZsU9mm65HD7PDlH/eQ9+8IzuXd9WujAxiCgGDP+RVM7+AgAa
+ EfdbzomsdA6nYqaR5DpSPEBndyeO0ojf2fsd9GfDJw==
+X-Google-Smtp-Source: ABdhPJw/EAiKiAXVcoRgkADJaLo/ew/8Ebw2meWTvaPQZnDXNRdQsY1jw9rc/OfqCuwE3dX/djM+8OgVD3yQJBPRAsM=
+X-Received: by 2002:a05:6214:27cc:: with SMTP id
+ ge12mr30123774qvb.122.1640926102469; 
+ Thu, 30 Dec 2021 20:48:22 -0800 (PST)
+MIME-Version: 1.0
+References: <20211126023516.1108411-1-dmitry.baryshkov@linaro.org>
+ <20211126023516.1108411-3-dmitry.baryshkov@linaro.org>
+ <YcvgJcxWDfaSMVVg@builder.lan>
+In-Reply-To: <YcvgJcxWDfaSMVVg@builder.lan>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 31 Dec 2021 07:48:11 +0300
+Message-ID: <CAA8EJpqQrGFhD3+SCLZg5E2zzV_62v9=abcqK7LkOWDKYZo5Xg@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dp: rewrite dss_module_power
+ to use bulk clock functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,221 +67,114 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, robh@kernel.org, jonathan@marek.ca,
- airlied@linux.ie, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com, robdclark@gmail.com,
- robh+dt@kernel.org, quic_mkrishn@quicinc.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, swboyd@chromium.org, sean@poorly.run
+Cc: freedreno@lists.freedesktop.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In most cases the default values of DSI PHY tuning registers
-should be sufficient as they are fully optimized. However, in
-some cases (for example, where extreme board parasitics cause
-the eye shape to degrade), the override bits can be used to
-improve the signal quality.
+HI,
 
-As per the MSM DSI PHY (10nm) tuning guideline, the drive strength
-can be adjusted using DSIPHY_RESCODE_OFFSET_TOP & DSIPHY_RESCODE_OFFSET_BOT
-registers, and the drive level can be adjusted using DSIPHY_CMN_VREG_CTRL
-register.
+On Wed, 29 Dec 2021 at 07:12, Bjorn Andersson
+<bjorn.andersson@linaro.org> wrote:
+>
+> On Thu 25 Nov 20:35 CST 2021, Dmitry Baryshkov wrote:
+>
+> > In order to simplify DP code, drop hand-coded loops over clock arrays,
+> > replacing them with clk_bulk_* functions.
+> >
+>
+> I've yet to debug this, but applying the two patches and attaching an
+> HDMI cable to my USB dongle results in the follwing splat on the 8350
+> HDK.
 
-Add DSI PHY tuning support for 10nm PHY. This can be extended to other
-DSI PHY versions if needed.
+Intersesting. The only major difference between original code and the
+patches code in this function is the removal of `if (clk_arry[i].clk)`
+condition in that function. Could yyou please check whether clocks are
+properly parsed at the time you receive the hpd event?
 
-Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c      | 55 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.h      | 23 +++++++++++++
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 31 +++++++++++++----
- 3 files changed, 103 insertions(+), 6 deletions(-)
+If  we can not debug this issue,  I'd then propose to merge first
+patch and let somebody else rewrite dp_clk_util to use clk_bulk_data.
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 8c65ef6..bf630b7 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -669,10 +669,42 @@ static int dsi_phy_get_id(struct msm_dsi_phy *phy)
- 	return -EINVAL;
- }
- 
-+static int dsi_phy_parse_dt_per_lane_cfgs(struct platform_device *pdev,
-+					  struct dsi_phy_per_lane_cfgs *cfg,
-+					  char *property)
-+{
-+	int i = 0, j = 0;
-+	const u8 *data;
-+	u32 len = 0;
-+
-+	data = of_get_property(pdev->dev.of_node, property, &len);
-+	if (!data) {
-+		DRM_DEV_ERROR(&pdev->dev, "couldn't find %s property\n", property);
-+		return -EINVAL;
-+	}
-+
-+	if (len != DSI_LANE_MAX * cfg->count_per_lane) {
-+		DRM_DEV_ERROR(&pdev->dev, "incorrect phy %s settings, exp=%d, act=%d\n",
-+		       property, (DSI_LANE_MAX * cfg->count_per_lane), len);
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < DSI_LANE_MAX; i++) {
-+		for (j = 0; j < cfg->count_per_lane; j++) {
-+			cfg->val[i][j] = *data;
-+			data++;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int dsi_phy_driver_probe(struct platform_device *pdev)
- {
- 	struct msm_dsi_phy *phy;
- 	struct device *dev = &pdev->dev;
-+	struct dsi_phy_per_lane_cfgs *strength;
-+	struct dsi_phy_per_lane_cfgs *level;
- 	u32 phy_type;
- 	int ret;
- 
-@@ -707,6 +739,29 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
- 	if (!of_property_read_u32(dev->of_node, "phy-type", &phy_type))
- 		phy->cphy_mode = (phy_type == PHY_TYPE_CPHY);
- 
-+	/* dsi phy tuning configurations */
-+	if (phy->cfg->drive_strength_cfg_count) {
-+		strength = &phy->tuning_cfg.drive_strength;
-+		strength->count_per_lane = phy->cfg->drive_strength_cfg_count;
-+		ret = dsi_phy_parse_dt_per_lane_cfgs(pdev, strength,
-+						"phy-drive-strength-cfg");
-+		if (ret) {
-+			DRM_DEV_ERROR(dev, "failed to parse PHY drive strength cfg, %d\n", ret);
-+			goto fail;
-+		}
-+	}
-+
-+	if (phy->cfg->drive_level_cfg_count) {
-+		level = &phy->tuning_cfg.drive_level;
-+		level->count_per_lane = phy->cfg->drive_level_cfg_count;
-+		ret = dsi_phy_parse_dt_per_lane_cfgs(pdev, level,
-+						"phy-drive-level-cfg");
-+		if (ret) {
-+			DRM_DEV_ERROR(dev, "failed to parse PHY drive level cfg, %d\n", ret);
-+			goto fail;
-+		}
-+	}
-+
- 	phy->base = msm_ioremap_size(pdev, "dsi_phy", "DSI_PHY", &phy->base_size);
- 	if (IS_ERR(phy->base)) {
- 		DRM_DEV_ERROR(dev, "%s: failed to map phy base\n", __func__);
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-index b91303a..9ff733a 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-@@ -39,6 +39,10 @@ struct msm_dsi_phy_cfg {
- 	const int quirks;
- 	bool has_phy_regulator;
- 	bool has_phy_lane;
-+
-+	/* phy tuning config counts per lane */
-+	u32 drive_strength_cfg_count;
-+	u32 drive_level_cfg_count;
- };
- 
- extern const struct msm_dsi_phy_cfg dsi_phy_28nm_hpm_cfgs;
-@@ -81,6 +85,24 @@ struct msm_dsi_dphy_timing {
- #define DSI_PIXEL_PLL_CLK		1
- #define NUM_PROVIDED_CLKS		2
- 
-+#define DSI_LANE_MAX			5
-+#define DSI_MAX_SETTINGS		8
-+
-+/**
-+ * struct dsi_phy_per_lane_cfgs - Holds register values for PHY parameters
-+ * @val: Register values for all lanes
-+ * @count_per_lane: Number of values per lane.
-+ */
-+struct dsi_phy_per_lane_cfgs {
-+	u8 val[DSI_LANE_MAX][DSI_MAX_SETTINGS];
-+	u32 count_per_lane;
-+};
-+
-+struct msm_dsi_phy_tuning_cfg {
-+	struct dsi_phy_per_lane_cfgs drive_strength;
-+	struct dsi_phy_per_lane_cfgs drive_level;
-+};
-+
- struct msm_dsi_phy {
- 	struct platform_device *pdev;
- 	void __iomem *base;
-@@ -98,6 +120,7 @@ struct msm_dsi_phy {
- 
- 	struct msm_dsi_dphy_timing timing;
- 	const struct msm_dsi_phy_cfg *cfg;
-+	struct msm_dsi_phy_tuning_cfg tuning_cfg;
- 
- 	enum msm_dsi_phy_usecase usecase;
- 	bool regulator_ldo_mode;
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-index d8128f5..ac974c06 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-@@ -775,10 +775,20 @@ static void dsi_phy_hw_v3_0_lane_settings(struct msm_dsi_phy *phy)
- 		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_CFG2(i), 0x0);
- 		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_CFG3(i),
- 			      i == 4 ? 0x80 : 0x0);
--		dsi_phy_write(lane_base +
--			      REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i), 0x0);
--		dsi_phy_write(lane_base +
--			      REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i), 0x0);
-+
-+		/* platform specific dsi phy drive strength adjustment */
-+		if (phy->cfg->drive_strength_cfg_count) {
-+			dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i),
-+				phy->tuning_cfg.drive_strength.val[i][0]);
-+			dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i),
-+				phy->tuning_cfg.drive_strength.val[i][1]);
-+		} else {
-+			dsi_phy_write(lane_base +
-+				      REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i), 0x0);
-+			dsi_phy_write(lane_base +
-+				      REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i), 0x0);
-+		}
-+
- 		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_TX_DCTRL(i),
- 			      tx_dctrl[i]);
- 	}
-@@ -834,8 +844,13 @@ static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy,
- 	/* Select MS1 byte-clk */
- 	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_GLBL_CTRL, 0x10);
- 
--	/* Enable LDO */
--	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL, 0x59);
-+	/* Enable LDO with platform specific drive level/amplitude adjustment */
-+	if (phy->cfg->drive_level_cfg_count) {
-+		dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL,
-+			phy->tuning_cfg.drive_level.val[0][0]);
-+	} else {
-+		dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL, 0x59);
-+	}
- 
- 	/* Configure PHY lane swap (TODO: we need to calculate this) */
- 	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_LANE_CFG0, 0x21);
-@@ -941,6 +956,8 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
- 	.max_pll_rate = 3500000000UL,
- 	.io_start = { 0xae94400, 0xae96400 },
- 	.num_dsi_phy = 2,
-+	.drive_strength_cfg_count = 2,
-+	.drive_level_cfg_count = 1,
- };
- 
- const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs = {
-@@ -963,4 +980,6 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs = {
- 	.io_start = { 0xc994400, 0xc996400 },
- 	.num_dsi_phy = 2,
- 	.quirks = DSI_PHY_10NM_QUIRK_OLD_TIMINGS,
-+	.drive_strength_cfg_count = 2,
-+	.drive_level_cfg_count = 1,
- };
--- 
-2.7.4
+>
+> [   39.658840] Unable to handle kernel NULL pointer dereference at virtua=
+l address 0000000000000000
+> [   39.667883] Mem abort info:
+> [   39.670774]   ESR =3D 0x96000006
+> [   39.673940]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+> [   39.679417]   SET =3D 0, FnV =3D 0
+> [   39.682582]   EA =3D 0, S1PTW =3D 0
+> [   39.685825]   FSC =3D 0x06: level 2 translation fault
+> [   39.690851] Data abort info:
+> [   39.693838]   ISV =3D 0, ISS =3D 0x00000006
+> [   39.697797]   CM =3D 0, WnR =3D 0
+> [   39.700864] user pgtable: 4k pages, 48-bit VAs, pgdp=3D000000010eb8d00=
+0
+> [   39.707501] [0000000000000000] pgd=3D080000010f097003, p4d=3D080000010=
+f097003, pud=3D080000010ba58003, pmd=3D0000000000000000
+> [   39.718425] Internal error: Oops: 96000006 [#1] PREEMPT SMP
+> [   39.724169] Modules linked in: pmic_glink_altmode qcom_pmic_glink_powe=
+r cfg80211 rfkill 8021q garp mrp stp llc microchip lan78xx snd_soc_hdmi_cod=
+ec pmic_glink pdr_interface rpmsg_char qrtr_smd qrtr fsa4480 qcom_q6v5_pas =
+qcom_pil_info i2c_qcom_geni qcom_q6v5 msm qcom_sysmon qcom_stats gpu_sched =
+crct10dif_ce drm_kms_helper qcom_common qcom_glink_smem gpucc_sm8350 phy_qc=
+om_qmp mdt_loader typec ufs_qcom qmi_helpers qcom_rng socinfo qnoc_sm8350 r=
+mtfs_mem fuse drm ipv6
+> [   39.766330] CPU: 0 PID: 85 Comm: kworker/0:3 Not tainted 5.16.0-rc5-ne=
+xt-20211215-00046-g2f90133452d9 #280
+> [   39.776256] Hardware name: Qualcomm Technologies, Inc. SM8350 HDK (DT)
+> [   39.782969] Workqueue: events pmic_glink_altmode_worker [pmic_glink_al=
+tmode]
+> [   39.790235] pstate: 40400005 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYP=
+E=3D--)
+> [   39.797393] pc : __pi_strcmp+0x1c/0xf0
+> [   39.801271] lr : dp_ctrl_set_clock_rate+0x8c/0xf0 [msm]
+> [   39.806737] sp : ffff800008adbbc0
+> [   39.810153] x29: ffff800008adbbc0 x28: 0000000000000000 x27: 000000000=
+0000000
+> [   39.817501] x26: ffffb60107f74270 x25: ffff297a49b33c80 x24: 000000002=
+02fbf00
+> [   39.824846] x23: 0000000000000001 x22: ffff297a4b400580 x21: 000000000=
+0000020
+> [   39.832188] x20: ffffb600e3d78068 x19: 0000000000000000 x18: fffffffff=
+fffffff
+> [   39.839541] x17: 6b6c63206e6f2030 x16: ffffb601063476c0 x15: 072007200=
+7200720
+> [   39.846893] x14: 0720072007200720 x13: ffffb60107c622c8 x12: 000000000=
+0000765
+> [   39.854229] x11: 0000000000000277 x10: 0101010101010101 x9 : ffffb6010=
+7c622c8
+> [   39.861565] x8 : 00000000ffffefff x7 : 0000000000000000 x6 : ffffb6010=
+7cba2c8
+> [   39.868902] x5 : 0000000000000000 x4 : ffff297cbe8619d8 x3 : 000000000=
+0000000
+> [   39.876240] x2 : 0000000000000000 x1 : ffffb600e3d78068 x0 : 000000000=
+0000000
+> [   39.883594] Call trace:
+> [   39.886124]  __pi_strcmp+0x1c/0xf0
+> [   39.889638]  dp_ctrl_enable_mainlink_clocks+0x98/0x110 [msm]
+> [   39.895537]  dp_ctrl_on_link+0x98/0x3f0 [msm]
+> [   39.900096]  dp_display_process_hpd_high+0xa8/0x100 [msm]
+> [   39.905731]  dp_display_usbpd_attention_cb+0x164/0x1a4 [msm]
+> [   39.911629]  dp_hpd_oob_event+0x74/0xa4 [msm]
+> [   39.916195]  dp_display_oob_hotplug_event+0x1c/0x2c [msm]
+> [   39.921831]  dp_oob_hotplug_event+0x18/0x24 [msm]
+> [   39.926756]  drm_connector_oob_hotplug_event+0x40/0x60 [drm]
+> [   39.932686]  pmic_glink_altmode_worker+0x7c/0x194 [pmic_glink_altmode]
+> [   39.939398]  process_one_work+0x1d0/0x350
+> [   39.943526]  worker_thread+0x13c/0x460
+> [   39.947390]  kthread+0x17c/0x190
+> [   39.950722]  ret_from_fork+0x10/0x20
+> [   39.954416] Code: f24008ff 540003e1 f2400807 54000241 (f8408402)
+> [   39.960684] ---[ end trace 0000000000000000 ]---
+>
+> Regards,
+> Bjorn
 
+
+
+--=20
+With best wishes
+Dmitry
