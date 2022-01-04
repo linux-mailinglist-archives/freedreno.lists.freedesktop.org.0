@@ -1,56 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8165484AB1
-	for <lists+freedreno@lfdr.de>; Tue,  4 Jan 2022 23:26:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B6AC484B61
+	for <lists+freedreno@lfdr.de>; Wed,  5 Jan 2022 00:53:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7CF10E4DE;
-	Tue,  4 Jan 2022 22:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A5D10E488;
+	Tue,  4 Jan 2022 23:53:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28B2B10E4DE;
- Tue,  4 Jan 2022 22:26:07 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id s73so61608682oie.5;
- Tue, 04 Jan 2022 14:26:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=JnOadLKUCLxTeQKKTc3saQOhwTodIVbhHkqdpkUyL30=;
- b=nwnBBuXaiiMGt9U5auscaNEAgp2g6A6/1IVb5KTXRfBNLQ2tY/neG6qfBTx6pADkl5
- Noyn2nlmuz4gSLYq1PNlGaU0rt4ZMUIhO93MmewDgFXQStVhfBo91W2R2L1n8NH4tryy
- dQSnk98RuVknwllLbfjZE3hPG9MqxXXVhx3pIcPw1qMSf5ngu8em/19pydvXCj3zGxJc
- gfaXyhQ6sIHifmSRPI6nJnpFCXCrJgdvjOlHDfESCphhrZ0vyk05ImhfYmqLKV0xcO9k
- /CttrZn8tzdsNfw/vViMzneZAI9uKYQxeEroQU0NEy+HYCnBDxalH9ZQEKJit8pEsP9c
- +oTw==
-X-Gm-Message-State: AOAM5319tHlMcu4aNXVJ52tMqBsg5i+M017JmQGwj7IzjQRg54RBmGKv
- BuSSbpWDmxBBAJUv30owVA==
-X-Google-Smtp-Source: ABdhPJxfmZnICaR0AFOGdWsnbelA0aJZsRc1Kgnndk6DcVeWC0CYljTp86RqQf43B5yP69zwu5wQGg==
-X-Received: by 2002:a05:6808:10d1:: with SMTP id
- s17mr395747ois.26.1641335166437; 
- Tue, 04 Jan 2022 14:26:06 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id c139sm7472227oob.31.2022.01.04.14.26.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Jan 2022 14:26:05 -0800 (PST)
-Received: (nullmailer pid 1557364 invoked by uid 1000);
- Tue, 04 Jan 2022 22:26:04 -0000
-Date: Tue, 4 Jan 2022 16:26:04 -0600
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YdTJfMXYXjavr8cZ@robh.at.kernel.org>
-References: <20211225205352.76827-1-david@ixit.cz>
- <CAA8EJpoVuNDS2uD2g8W_40XVO2jS=6GtRQFxAnyPpd_QuHim8g@mail.gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E40D910E534;
+ Tue,  4 Jan 2022 23:53:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1641340387; x=1672876387;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=fLCcdxocKH85HQ3jCk4LCX/EcUSahJ0COmlko2j8PsA=;
+ b=Tl4VIx8grIQPIHahsrBOZNR7Y3el4x/LODLp9bHEZKkFU9zs2JpjimSu
+ VquCNZv6giJKwvx7g/kulsKPe0xTuwqyt5Owl+l7gfs52Id3B09t4GtSh
+ CgQvMMOJj1byvMDfuCN5lkgUR9WBu73aGU7XGYS6E3Cxsd5ORuMgf8ENY A=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 04 Jan 2022 15:53:06 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2022 15:52:35 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 4 Jan 2022 15:52:15 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 4 Jan 2022 15:52:14 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Tue, 4 Jan 2022 15:52:07 -0800
+Message-ID: <1641340327-2261-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJpoVuNDS2uD2g8W_40XVO2jS=6GtRQFxAnyPpd_QuHim8g@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH] Discussion: dt-bindings: display: msm:
- dsi-controller-main: fix the binding
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH] drm/msm/dp: stop link training after link
+ training 2 failed
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,44 +61,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Heidelberg <david@ixit.cz>,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- ~okias/devicetree@lists.sr.ht
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, Dec 26, 2021 at 02:34:08AM +0300, Dmitry Baryshkov wrote:
-> Hi,
-> 
-> On Sat, 25 Dec 2021 at 23:54, David Heidelberg <david@ixit.cz> wrote:
-> >
-> > This binding is not much validating the old DSI v2.
-> >
-> > Currently we don't differentiate old v2 from new versions,
-> > so we need to figure out how to validate them.
-> >
-> > I propose specific compatible depending on mdss version, but I would be
-> > glad, if someone with deeper knowledge proposed the names.
-> >
-> > I'm willing to implement it then and back from autodetection.
-> 
-> I'd suggest to use hardware-specific compatible for apq8064 (and maybe
-> other v2 hosts if somebody adds support). For example
-> "qcom,apq8064-dsi-ctrl" or "qcom,dsi-ctrl-apq8064" (no strong
-> preference here).
+Each DP link training contains link training 1 followed by link
+training 2.  There is maximum of 5 retries of DP link training
+before declared link training failed. It is required to stop link
+training at end of link training 2 if it is failed so that next
+link training 1 can start freshly. This patch fixes link compliance
+test  case 4.3.1.13 (Source Device Link Training EQ Fallback Test).
 
-The former.
+Fixes: 2e0adc765d88 ("drm/msm/dp: do not end dp link training until video is ready")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> For 6G hosts it will probably make sense to use IP versions instead
-> ("qcom-dsi-ctrl-6g-v2.4.1").
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 39558a2..3e4b3d9 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1745,6 +1745,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+ 				/* end with failure */
+ 				break; /* lane == 1 already */
+ 			}
++
++			/* stop link training before start re training  */
++			dp_ctrl_clear_training_pattern(ctrl);
+ 		}
+ 	}
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-Humm, we went down the path of version numbers for QCom blocks, but the 
-result was not much reuse of same version on more than 2-3 parts if 
-that. So stick with SoCs for naming unless there's a strong case that 
-version numbers to SoC parts is 1 to many.
-
-Rob
