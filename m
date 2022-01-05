@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63491485AC3
-	for <lists+freedreno@lfdr.de>; Wed,  5 Jan 2022 22:34:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5160B485C0A
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 00:06:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 080DD10E1DC;
-	Wed,  5 Jan 2022 21:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8686B89C97;
+	Wed,  5 Jan 2022 23:06:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8B2A10E1DC
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jan 2022 21:34:48 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id s73so912671oie.5
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 13:34:48 -0800 (PST)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15E4A89C9A
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Jan 2022 23:06:46 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id v6so1142860oib.13
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 15:06:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=aikMCKgudfdNFplAVHd5dZZXnejy0/EJjuSG/0Dh+Qk=;
- b=nojXfc3QeDa4iaP71sncYrCB3wu7bLLyOe3E6RLAx+SoyIv3/xzrXSplCVbTaqycvs
- jNlEcorkEg3VtM6xmPuL5OnmRIjchtMFOWw/kWuJQ3rJQGIkvo/eqxUo5B7jMsgSX/mw
- xLLXbTEalgpY7wNm4bRtUSyYCxO6JUWHZyDZE=
+ bh=lU9azqMMeh6DbnZbcl2lSC5dKYwkqe50hupc+vf9d2A=;
+ b=Z9FbV6j7G6xEZbBAvkwVyHKg5BQt5GXvM0+SeRVFiYv6O2H9oIk4aB0sqpDVrsPbiH
+ ypCSlfEsuA1No8hWDK464tQClc9ZqdceuvmvlX6LwjBNeSHUhvWTknpTJyCoO1TTvOtN
+ gAnMT1s1Pwz7ZjXMu+PARjQiTN0MHm17V1YjU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=aikMCKgudfdNFplAVHd5dZZXnejy0/EJjuSG/0Dh+Qk=;
- b=OJ4RDI+vDuhaP7LOi4EFxCBspJSep+FQyfipwxNodDQ/OikhiAvlwhd/koVbdMDdty
- 6Lus/51d+F/eIGyaATK7rZnGCecRu+ky2rAITE5lBtXXr4xqf0RHrsYUIgoPPLgUlLD3
- ZLi6JtdM5u7K9VyftPmeMTdxk59A24MPerdjQ9raDCqb59ZVy5BnNFFDZbbkJrzvJ08P
- jO1sw9vsEAWm8QsTzuB3XOLet7AocvT0Uh1qZ3XtZDxkpJ0dKuzW+uuWUR6vic3sgOiG
- tS+BLeiTh826ZDBfJons1DWDbnVbJtiOKn2pIMxDWM77Zoj+QSVjj+5TyfQ0IFJQsJ2v
- Ahcw==
-X-Gm-Message-State: AOAM533oB2wnAvF3/vWUkjIhwd7wubJUBRadVe2r2PYxdNsFhcHBzH6J
- k2mGxb8UnQX9PwlryJfssnNTY7VdU2cJpZyhTg+ytA==
-X-Google-Smtp-Source: ABdhPJz8SSN2Fj+FwJmMI6TRwdHCqoAnptzNFxaptsVJlo0Hr4xuSL1iBnb3nFWwft46rigEC0UuSxDvQnlNciU7W5Q=
-X-Received: by 2002:a54:4710:: with SMTP id k16mr4028697oik.32.1641418488161; 
- Wed, 05 Jan 2022 13:34:48 -0800 (PST)
+ bh=lU9azqMMeh6DbnZbcl2lSC5dKYwkqe50hupc+vf9d2A=;
+ b=xyeROe8i3vvVSXoZ+3Ael6Y8YqMa2g73lajzxmo8NMS6yLRwt4Okfwkn6/IIpnr71Z
+ 3TsUCpfmo+R8N9lbgPHFrpQFyLCNhzSeWq+9S686vAGGdny+57oKIQcb70mjtoSXxOGo
+ g0oruWJIRlBBKoAtBwq1p7wr8LNu+jOw0XBqOXFlhxfoX3SUu+8zjU5EhYrNXeSsViOx
+ zzv60rLy+M2EENMeJhXFDItHuBGEqeaRVqlgKZ4rHTeXIs2tUi9NJry7DdrIHiQtD87l
+ RqgnJCfxbiBceK6+aFU/Ej60gdLcWiaQ72uF/NMPZpSJgVJAx6PYTsRXxmREhe8zLIaX
+ hSIw==
+X-Gm-Message-State: AOAM533Gs0x1jNyhx2vDRgXraa3Sgjw4qdVPFWyw1+1uW8y+f+HOzWda
+ FLX4NwgPqgvF3X1jOqzptBiGi4BHoYePZqFroIiJ5Q==
+X-Google-Smtp-Source: ABdhPJzAcJpvSF5lMXKo34QRJSTgW30u7+pLOgzDBuej/puQhjouq1bVASLz+ltH62MKR1xkor5WM7U9YV0dxZ5iFqU=
+X-Received: by 2002:aca:a953:: with SMTP id s80mr4308576oie.164.1641424005319; 
+ Wed, 05 Jan 2022 15:06:45 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 5 Jan 2022 13:34:47 -0800
+ HTTPREST; Wed, 5 Jan 2022 15:06:44 -0800
 MIME-Version: 1.0
-In-Reply-To: <1640805422-21904-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1640805422-21904-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <dc2d6f535379dd38a5e3f9ba502f1f2b3d1f56b7.1640201523.git.christophe.jaillet@wanadoo.fr>
+References: <dc2d6f535379dd38a5e3f9ba502f1f2b3d1f56b7.1640201523.git.christophe.jaillet@wanadoo.fr>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Wed, 5 Jan 2022 13:34:47 -0800
-Message-ID: <CAE-0n50Bi2v3D1B8Ee1ckdUWLhpyNrCEVqikbuS8wMfT0+2VnA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Date: Wed, 5 Jan 2022 15:06:44 -0800
+Message-ID: <CAE-0n53Rcs+BGgwFy-yB2zT+s=WoK94cZJ6yHYE_od=6K6zbzg@mail.gmail.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, airlied@linux.ie, 
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, quic_abhinavk@quicinc.com, 
+ robdclark@gmail.com, sean@poorly.run
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: populate connector of struct
- dp_panel
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Simplify dp_debug_init() and
+ dp_debug_get()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,128 +65,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2021-12-29 11:17:02)
-> There is kernel crashed due to unable to handle kernel NULL
-> pointer dereference of dp_panel->connector while running DP link
-> layer compliance test case 4.2.2.6 (EDID Corruption Detection).
-
-Can you explain how we get into that situation? Like
-
-"We never assign struct dp_panel::connector, instead the connector is
-stored in struct msm_dp::connector. When we run compliance testing test
-case 4.2.2.6 dp_panel_handle_sink_request() won't have a valid edid set
-in struct dp_panel::edid so we'll try to use the connectors
-real_edid_checksum and hit a NULL pointer deref error because the
-connector pointer is never assigned."
-
-> This patch fixes this problem by populating connector of dp_panel.
+Quoting Christophe JAILLET (2021-12-22 11:33:47)
+> dp_debug_init() always returns 0. So, make it a void function and simplify
+> the only caller accordingly.
 >
-> [drm:dp_panel_read_sink_caps] *ERROR* panel edid read failed
-> Unable to handle kernel NULL pointer dereference at virtual address 00000000000006e1
-> Mem abort info:
->   ESR = 0x96000006
->   EC = 0x25: DABT (current EL), IL = 32 bits
->   SET = 0, FnV = 0
->   EA = 0, S1PTW = 0
-> Data abort info:
->   ISV = 0, ISS = 0x00000006
->   CM = 0, WnR = 0
-> user pgtable: 4k pages, 39-bit VAs, pgdp=0000000115f25000
-> [00000000000006e1] pgd=00000001174fe003, p4d=00000001174fe003, pud=00000001174fe003, pmd=0000000000000000
-> Internal error: Oops: 96000006 [#1] PREEMPT SMP
-
-This sort of stuff isn't really useful because it takes quite a few
-lines to say "We hit a NULL pointer deref" which was already stated. I'd
-rather have a clear description of what goes wrong and how setting the
-pointer in msm_dp_modeset_init() fixes it.
-
-> {...]
+> While at it remove a useless 'rc' initialization in dp_debug_get()
 >
-> Changes in V2:
-> -- populate panel connector at msm_dp_modeset_init() instead of at dp_panel_read_sink_caps()
->
-> Fixes: 7948fe12d47 ("drm/msm/dp: return correct edid checksum after corrupted edid checksum read")
-> Signee-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++----------
->  1 file changed, 15 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 3449d3f..c282bbf 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1495,36 +1495,41 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
->         }
->  }
->
-> -int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
-> +int msm_dp_modeset_init(struct msm_dp *dp, struct drm_device *dev,
->                         struct drm_encoder *encoder)
->  {
->         struct msm_drm_private *priv;
-> +       struct dp_display_private *dp_display;
->         int ret;
->
-> -       if (WARN_ON(!encoder) || WARN_ON(!dp_display) || WARN_ON(!dev))
-> +       if (WARN_ON(!encoder) || WARN_ON(!dp) || WARN_ON(!dev))
->                 return -EINVAL;
->
->         priv = dev->dev_private;
-> -       dp_display->drm_dev = dev;
-> +       dp->drm_dev = dev;
-> +
-> +       dp_display = container_of(dp, struct dp_display_private, dp_display);
->
-> -       ret = dp_display_request_irq(dp_display);
-> +       ret = dp_display_request_irq(dp);
->         if (ret) {
->                 DRM_ERROR("request_irq failed, ret=%d\n", ret);
->                 return ret;
->         }
->
-> -       dp_display->encoder = encoder;
-> +       dp->encoder = encoder;
->
-> -       dp_display->connector = dp_drm_connector_init(dp_display);
-> -       if (IS_ERR(dp_display->connector)) {
-> -               ret = PTR_ERR(dp_display->connector);
-> +       dp->connector = dp_drm_connector_init(dp);
-> +       if (IS_ERR(dp->connector)) {
-> +               ret = PTR_ERR(dp->connector);
->                 DRM_DEV_ERROR(dev->dev,
->                         "failed to create dp connector: %d\n", ret);
-> -               dp_display->connector = NULL;
-> +               dp->connector = NULL;
->                 return ret;
->         }
->
-> -       priv->connectors[priv->num_connectors++] = dp_display->connector;
-> +       dp_display->panel->connector = dp->connector;
 
-This is the one line that matters I think? Can we reach the connector
-for the dp device without going through the panel in
-dp_panel_handle_sink_request()? That would reduce the number of struct
-elements if possible.
-
-> +
-> +       priv->connectors[priv->num_connectors++] = dp->connector;
-
-Can we not rename all the local variables in this patch and do it later
-or never? Reading this patch takes a long time because we have to make
-sure nothing has actually changed with the rename of 'dp_display' to
-'dp'.
-
->         return 0;
->  }
->
-> --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
