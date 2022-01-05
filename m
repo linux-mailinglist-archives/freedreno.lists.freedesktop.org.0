@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5160B485C0A
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 00:06:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C171485C10
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 00:10:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8686B89C97;
-	Wed,  5 Jan 2022 23:06:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2A010E1FC;
+	Wed,  5 Jan 2022 23:10:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15E4A89C9A
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jan 2022 23:06:46 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id v6so1142860oib.13
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 15:06:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=lU9azqMMeh6DbnZbcl2lSC5dKYwkqe50hupc+vf9d2A=;
- b=Z9FbV6j7G6xEZbBAvkwVyHKg5BQt5GXvM0+SeRVFiYv6O2H9oIk4aB0sqpDVrsPbiH
- ypCSlfEsuA1No8hWDK464tQClc9ZqdceuvmvlX6LwjBNeSHUhvWTknpTJyCoO1TTvOtN
- gAnMT1s1Pwz7ZjXMu+PARjQiTN0MHm17V1YjU=
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91F610E1F6
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Jan 2022 23:10:36 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id bp20so1210501lfb.6
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 15:10:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2uWRi1Tnw19DQjCxNI71vGa0f/fnv4e8mcQMQAjEwh0=;
+ b=pBkxwEEIb7kjBcYtaBtNrvxzgx8gTZANcdZiH48pWJLG1nEjEpXwJb4UQzk7HooewW
+ AuKabkDRCjLZsnav+g+U703MjrYyol3FKpxey/EboUpzAVfG24iEgQzV+z4CHXDzigRx
+ fHB5STWyo/u3MTCjmcpZ5iwVGsEwWQFvWB1JUmUCh1uLvUSPNXwQHprS3Oz4LNDpDSlO
+ xwxGiiZONoWCQ1iG3O2TXI2wHiSPfLqkj1QdC6Hu4GQ1TyctcaaybxfzjoagELIDIEhy
+ lHmplvN8IQCncmKDeCm/j9FSOoFTclGhk8EQNHVVpugLbysDmdjim07o+AoR2srdiRDO
+ Z2jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=lU9azqMMeh6DbnZbcl2lSC5dKYwkqe50hupc+vf9d2A=;
- b=xyeROe8i3vvVSXoZ+3Ael6Y8YqMa2g73lajzxmo8NMS6yLRwt4Okfwkn6/IIpnr71Z
- 3TsUCpfmo+R8N9lbgPHFrpQFyLCNhzSeWq+9S686vAGGdny+57oKIQcb70mjtoSXxOGo
- g0oruWJIRlBBKoAtBwq1p7wr8LNu+jOw0XBqOXFlhxfoX3SUu+8zjU5EhYrNXeSsViOx
- zzv60rLy+M2EENMeJhXFDItHuBGEqeaRVqlgKZ4rHTeXIs2tUi9NJry7DdrIHiQtD87l
- RqgnJCfxbiBceK6+aFU/Ej60gdLcWiaQ72uF/NMPZpSJgVJAx6PYTsRXxmREhe8zLIaX
- hSIw==
-X-Gm-Message-State: AOAM533Gs0x1jNyhx2vDRgXraa3Sgjw4qdVPFWyw1+1uW8y+f+HOzWda
- FLX4NwgPqgvF3X1jOqzptBiGi4BHoYePZqFroIiJ5Q==
-X-Google-Smtp-Source: ABdhPJzAcJpvSF5lMXKo34QRJSTgW30u7+pLOgzDBuej/puQhjouq1bVASLz+ltH62MKR1xkor5WM7U9YV0dxZ5iFqU=
-X-Received: by 2002:aca:a953:: with SMTP id s80mr4308576oie.164.1641424005319; 
- Wed, 05 Jan 2022 15:06:45 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 5 Jan 2022 15:06:44 -0800
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2uWRi1Tnw19DQjCxNI71vGa0f/fnv4e8mcQMQAjEwh0=;
+ b=LWpjwqiREHSMNk0dWo4+3OdwaWFoHfHits4gDvh0y18A1RugS5DtrVLp3DvSiYjon/
+ 7stNESn07J78hDfYNnAnokxVBCgR6+H2fEMTBQhnkD/Kk+uMW8Tz3I9cXYqvJLmfPqEx
+ Ae7/aGqUz+LCNDQ1Nobf4pKV0UFERtZbrO6lq4+NJmXWZePWAR/61kA9Xvo15AqiJiPg
+ v3TFfZPLHtdbYJYAFgFW7Yc8O2v/hBLnwwwzQY0s/7pKESSH3V6XDTlRCrqLrjB6Ui8J
+ kbHOHvwwCaWNYbwlSRPvukiu4o8azECz+KOA/f6jnPYOrK6PDI/2gt7cjq3xFa5xgWqh
+ Y/mw==
+X-Gm-Message-State: AOAM531bblB57cO2yloDbzGJ6poCosMe40WK4TZZVgFEXGnnhsv8CVzd
+ fTOEsJGqiOfKNzRRGMus6sNNfg==
+X-Google-Smtp-Source: ABdhPJzUAouje0ZYdH8MMRI5RVJTtFdrsuKPKFELQlJz/gxYPZFAnVM27oQmGIgXasThy4AgVtx6Rg==
+X-Received: by 2002:a05:6512:31d0:: with SMTP id
+ j16mr43103115lfe.448.1641424234974; 
+ Wed, 05 Jan 2022 15:10:34 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id a13sm27187lff.104.2022.01.05.15.10.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Jan 2022 15:10:34 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinavk@codeaurora.org>
+Date: Thu,  6 Jan 2022 02:10:26 +0300
+Message-Id: <20220105231031.436020-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <dc2d6f535379dd38a5e3f9ba502f1f2b3d1f56b7.1640201523.git.christophe.jaillet@wanadoo.fr>
-References: <dc2d6f535379dd38a5e3f9ba502f1f2b3d1f56b7.1640201523.git.christophe.jaillet@wanadoo.fr>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 5 Jan 2022 15:06:44 -0800
-Message-ID: <CAE-0n53Rcs+BGgwFy-yB2zT+s=WoK94cZJ6yHYE_od=6K6zbzg@mail.gmail.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, airlied@linux.ie, 
- bjorn.andersson@linaro.org, daniel@ffwll.ch, quic_abhinavk@quicinc.com, 
- robdclark@gmail.com, sean@poorly.run
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Simplify dp_debug_init() and
- dp_debug_get()
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 0/5] drm/msm/dpu: simplify RM code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,19 +68,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, kernel-janitors@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Christophe JAILLET (2021-12-22 11:33:47)
-> dp_debug_init() always returns 0. So, make it a void function and simplify
-> the only caller accordingly.
->
-> While at it remove a useless 'rc' initialization in dp_debug_get()
->
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
+INTF blocks are not really handled by resource manager, they are
+assigned at dpu_encoder_setup_display using dpu_encoder_get_intf().
+Then this allocation is passed to RM and then returned to then
+dpu_encoder. So allocate them outside of RM and use them directly.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+While we are at it, drop the lm_max_width from the RM and simplify VBIF
+handling (move creation/destruction to the RM too). Once this and SSPP
+handling patches are merged, the RM would handle lifetime of all
+dpu_hw_* objects.
+
+Changes since v3:
+ - Add missing DSPP blocks teardown
+ - Remove dpu_hw_blk from dpu_hw_intf
+ - move dpu_hw_vbif creation/destruction to the RM
+
+Changes since v2:
+ - Dropped DSPP, PP and MERGE_3D patches for now.
+
+Changes since v1:
+ - Split into separate patch series to ease review.
+
+The following changes since commit 6ed95285382d6f90a3c3a11d5806a5eb7db715c3:
+
+  drm/msm/a5xx: Fix missing CP_PROTECT for SMMU on A540 (2021-12-17 15:09:46 -0800)
+
+are available in the Git repository at:
+
+  https://git.linaro.org/people/dmitry.baryshkov/kernel.git dpu-rm-clean-4
+
+for you to fetch changes up to 95f32a88ae0dd366700e2ebf98d793b41c53aeeb:
+
+  drm/msm/dpu: move VBIF blocks handling to dpu_rm (2021-12-27 03:41:20 +0300)
+
+----------------------------------------------------------------
+Dmitry Baryshkov (5):
+      drm/msm/dpu: drop unused lm_max_width from RM
+      drm/msm/dpu: add DSPP blocks teardown
+      drm/msm/dpu: get INTF blocks directly rather than through RM
+      drm/msm/dpu: stop embedding dpu_hw_blk into dpu_hw_intf
+      drm/msm/dpu: move VBIF blocks handling to dpu_rm
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  36 +------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  16 ---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   5 -
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   |   8 --
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |   8 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  11 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h        |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  28 +----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |   2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             | 116 ++++++---------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |  31 ++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c           |  26 ++---
+ 12 files changed, 70 insertions(+), 218 deletions(-)
+
+
