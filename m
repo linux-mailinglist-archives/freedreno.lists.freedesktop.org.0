@@ -1,63 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A08F0485C40
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 00:27:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A31C485C5D
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 00:41:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6BD10E490;
-	Wed,  5 Jan 2022 23:27:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC4DC10E43C;
+	Wed,  5 Jan 2022 23:41:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0878310E425
- for <freedreno@lists.freedesktop.org>; Wed,  5 Jan 2022 23:27:05 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id t14so1290581ljh.8
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 15:27:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=58QAv1zSqapbnHsZYOklL7IQDyaDq+jkAqsKjvZ/E/Y=;
- b=Kjo4mVSxgdH4TDW8ccNVmTg4lD4jQFmHJ5XOzqcVYOLjEKC6Zeflsn9RzSmdr90VEn
- 8lM/BK9c3lWY5TXLjoMjZf1kKCw7bVUFnUGFk02Q/jQ7glLeBjO0fdf9rl0ydOfdCKh0
- FkEZja32ca5ytgYGMOOJKMu8Cn0FPrTT5asw+7//viYk/mWoBJNxooRn9WyzId59uVNZ
- JMQJJb5Ktw9s07kp45mknpnTh5e9cXkfPZE6w3KGsxs1u2leE97FqznK3oJWpn85duzg
- vhhWQ4U7jLFuHC0HeU0lS+bKEg6opDmwxHC3yGZW5WlAzDbhdC2APq/OE5Zf3lopuRDy
- t0+w==
+Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
+ [IPv6:2607:f8b0:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45B3E10E48A
+ for <freedreno@lists.freedesktop.org>; Wed,  5 Jan 2022 23:41:56 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id
+ h5-20020a9d6a45000000b005908066fa64so294262otn.7
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 15:41:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Hstj2R8ZmDxCXTF3eKwARX+HoUFN/nENk0GAyIL5MUk=;
+ b=R1bNiB2DVLPtk0pC+nYr0JETj8iD7Na0JRRE7r3kga+8WkotyJaQPtwWSLJVQxO1f7
+ 8Uyo38opmG91aKbTd2xzMWir+ZtyLgYiSutKosW7rWM80bgdKx1sjxsIyoCmSBjha1kX
+ mB3g6wq5D75vojqUUajcNA/TtGt++GHEsD/qc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=58QAv1zSqapbnHsZYOklL7IQDyaDq+jkAqsKjvZ/E/Y=;
- b=UEX1E1Cox4H063cQdE3zYp2H8cp1xWyAiEVyJyx58GTOXCspsBi6rhvGMrKQ1Hkby3
- 7m49FZ1bI1MwrbczPLbtyBHla7BD2dfM9DEV2nkB6pjXskTyCT5qOa40owtt506NvIOq
- E7PHLWZ+syD15/ATycCilyd9C11d6i8sS2bQ54iws00FdoYtT4hi0gd0FW44jS2W8eZB
- F48PUE0q0mIRVbcwwphEUGnvm28bxtoPHm4Nufq5coNx1xAZeoTd8SYRQBoFq6qNGTUh
- J+p226GZyRJpORxFE26nz1/6E3d5jEnzJJkbMDZ6UIrJQNRlpYXtEA4Sj7cGseVuSFlL
- zDng==
-X-Gm-Message-State: AOAM533cSTdRe5ve4Sqvngm8KIalVle2RDd9p62KQXNslkIzhh0PBql2
- 2rYz+50oL1cvMNn7FIE9rYmiG1Ux4m0LUA==
-X-Google-Smtp-Source: ABdhPJziercrKqupFX3QrWF1vReHcy6CB453wpr9RX8j0Y62WoVYu/2gv3rWq/bjtVw2J/jkCoLfNQ==
-X-Received: by 2002:a2e:9e81:: with SMTP id f1mr45680361ljk.469.1641425223435; 
- Wed, 05 Jan 2022 15:27:03 -0800 (PST)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id b29sm28730lfv.187.2022.01.05.15.27.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Jan 2022 15:27:02 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinavk@quicinc.com>
-Date: Thu,  6 Jan 2022 02:27:00 +0300
-Message-Id: <20220105232700.444170-3-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Hstj2R8ZmDxCXTF3eKwARX+HoUFN/nENk0GAyIL5MUk=;
+ b=RceULTXxBKAkXDcFk/tP2gMwwJsO2N5A67tnSrXMJ+PzwRhb2eUnCKJ5UIEVT0qbMG
+ cAZYmFlSelN3SXh5fbHDKPOBn9ujKzKYjMNX1tLvrEHPEra5xvPjenF8R5R367pj3OYJ
+ tJBCh+yiq2RI1qDhcLrUD70K33XgiTLvtiqUT+D0XtMrJdt0Zq1aF4cSdjZ9Y7yt8h1v
+ YoGcdNa2k4vnyKaiZwnMfjVDEObOLASNvRnghmS+ZWNPBodKaKs0xICV5RH8f2ZoNPl+
+ TmshVeQShXRSEdxXuQr4iKgAZ1bUTn1d2YqiVZ8F0+kWqhmP9B6jLAn/DY52kFV6Su+L
+ /snQ==
+X-Gm-Message-State: AOAM530c+UqRXP2IA0uoMHv4STaUzVPo8+s2OD1DuJLAAdUTyGnK1tW/
+ tvBAt7ji8apvucnF327x69E23lfrCeASAlIlZckWmg==
+X-Google-Smtp-Source: ABdhPJyOYuLpjO8gx43wP3pSJEOgxI2mVBjPwuzV0elz1fKfcWpdtbXdmFtiv+OxpNlVj7M6KhNt8ts3ZTRl21NiPQE=
+X-Received: by 2002:a9d:1a6:: with SMTP id e35mr482422ote.77.1641426115544;
+ Wed, 05 Jan 2022 15:41:55 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 5 Jan 2022 15:41:55 -0800
+MIME-Version: 1.0
 In-Reply-To: <20220105232700.444170-1-dmitry.baryshkov@linaro.org>
 References: <20220105232700.444170-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm: move msm_readl/_writel to
- msm_drv.h
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 5 Jan 2022 15:41:55 -0800
+Message-ID: <CAE-0n52df=QXPkiQG5W1E51sOHb5kX0+J0qLpPN9NKV36TmN6w@mail.gmail.com>
+To: Abhinav Kumar <abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm: drop register logging
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,77 +68,19 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-With the reglog removal, msm_readl/_writel became single line wrappers
-around readl/writel. Move those two wrappers and msm_rmw to msm_drv.h to
-remove need for extra function calls when doing register writes.
+Quoting Dmitry Baryshkov (2022-01-05 15:26:58)
+> Register logging was used during early stages of msm driver development
+> to compare upstream and downstream register traces. However the tool was
+> never updated to work with mdp5 hardware. Later it was dropped
+> completely when Rob imported freedreno tools into mesa. All this makes
+> DRM_MSM_REGISTER_LOGGING irrelevant now, so it can be dropped.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_drv.c | 20 --------------------
- drivers/gpu/drm/msm/msm_drv.h | 14 +++++++++++---
- 2 files changed, 11 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 73757b7dc935..fd62a4da14a1 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -164,26 +164,6 @@ void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
- 	return _msm_ioremap(pdev, name, false, psize);
- }
- 
--void msm_writel(u32 data, void __iomem *addr)
--{
--	writel(data, addr);
--}
--
--u32 msm_readl(const void __iomem *addr)
--{
--	u32 val = readl(addr);
--
--	return val;
--}
--
--void msm_rmw(void __iomem *addr, u32 mask, u32 or)
--{
--	u32 val = msm_readl(addr);
--
--	val &= ~mask;
--	msm_writel(val | or, addr);
--}
--
- static enum hrtimer_restart msm_hrtimer_worktimer(struct hrtimer *t)
- {
- 	struct msm_hrtimer_work *work = container_of(t,
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 56d1242efcc1..3ab19775a5c3 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -484,9 +484,17 @@ void __iomem *msm_ioremap(struct platform_device *pdev, const char *name);
- void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
- 		phys_addr_t *size);
- void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name);
--void msm_writel(u32 data, void __iomem *addr);
--u32 msm_readl(const void __iomem *addr);
--void msm_rmw(void __iomem *addr, u32 mask, u32 or);
-+
-+#define msm_writel(data, addr) writel((data), (addr))
-+#define msm_readl(addr) readl((addr))
-+
-+static inline void msm_rmw(void __iomem *addr, u32 mask, u32 or)
-+{
-+	u32 val = msm_readl(addr);
-+
-+	val &= ~mask;
-+	msm_writel(val | or, addr);
-+}
- 
- /**
-  * struct msm_hrtimer_work - a helper to combine an hrtimer with kthread_work
--- 
-2.34.1
-
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
