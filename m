@@ -1,61 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0722448698F
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 19:15:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F37FE486B61
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 21:46:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 593C910E7F7;
-	Thu,  6 Jan 2022 18:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3561710E3F1;
+	Thu,  6 Jan 2022 20:46:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3951410E7F7;
- Thu,  6 Jan 2022 18:15:11 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id m1so3179165pfk.8;
- Thu, 06 Jan 2022 10:15:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=NpENl1wlwqcfbBT73rctGeiDbGEPDlZ8miqyZA+HW/A=;
- b=F09yhVw/miHkBPbi4ZUlYr4v+8jysbgt9gi1ewGjNnREmk2R3F7tVzYoSF1tvXfNWH
- unH8PPBeS0TlZp1ZTjWad/PIvqEPdCPWEcvhtXCGPZOzzqwfVq6OXC+LJa1xWijbJPqz
- rwunzxgZsmSP7FEWW9+2s4ldMauj+40newsjGyEzwiHXWbbFYVBBcTBlyI4d5W88lA6D
- O/cIXoglEpASRbpBcm4M6576cHGNv7JcqSXq/WwRYI8n1nEXxwXa/2cFUxB0AHSDKHkj
- 8OQIf89HIKCwH+u34JrNSIRCUv+m+DNeFxN2/N4xh6yOSUMzPK1uCcV3EnM+uD35I59y
- b+pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=NpENl1wlwqcfbBT73rctGeiDbGEPDlZ8miqyZA+HW/A=;
- b=jUsTp547c0UC4xJ1R5QYfxnalYHi0iFWmOVQ9w7mVCYAbCwhvLZsY8ACv5pk+tH3e5
- oWVNjgA1Yp6OX7b5n0ffRlqsCZVW7NwdEJZbS/scRBalRjC6Ho3Y/QzCbr727nkdQkqu
- sGrqVhogM4Lk1ikqQAgaHwYFvQR7aLXKJSAXr1+UmxqziuH3W+RAZT73TsQvt4uxBtbf
- /7Xf4DP5o/qhUpM8r1P/oI+CrVvmiL6a3FhRWU7m4IcmTLJxPqVTODuqWboG10Ixzvq+
- r5t/GNfyHUWEYRp0vjIBc/BSlaX2iAwE4U7EyQ35Z1kA7DomX2qlGZ8t8pwGf9aXQYQT
- tdMQ==
-X-Gm-Message-State: AOAM531WCmbEX6qxF0pDxhkUMsJnnX8lvLeTgYd7xScdK5XCjBnm10PV
- 80+M+yV2DmSvxPCaWGf8DCMy7a5Crtg=
-X-Google-Smtp-Source: ABdhPJwv7sVVNoZY8rfrc22AsxIsf7vwBPn1hePxXkzE5xqw9FRXjuAwrmj4inJU3E0t7U24/NgRsA==
-X-Received: by 2002:a65:4c81:: with SMTP id m1mr54128291pgt.427.1641492910079; 
- Thu, 06 Jan 2022 10:15:10 -0800 (PST)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id c11sm3359333pfv.85.2022.01.06.10.15.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 10:15:09 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu,  6 Jan 2022 10:14:47 -0800
-Message-Id: <20220106181449.696988-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20220106181449.696988-1-robdclark@gmail.com>
-References: <20220106181449.696988-1-robdclark@gmail.com>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA0D10E5DE;
+ Thu,  6 Jan 2022 20:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1641502007; x=1673038007;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=OVjfgTPsU90JleNOuXTplCawmPMZLSFg76Is1FvE+d4=;
+ b=qwtKUPgDN3kxSH+KzlK6g0rPBHKOb7bVneEurqSV7FmE6yiBK6YuGbXt
+ UfMALIvhuQirkUBPt0MwRgeaQg9AFig7Ey15Mr/8Ziw6g2EHbnsV+Fbg8
+ YphCZTVW+FLOVg5LpzN3eQPotUssDXbC7no01nP6DssHnTwDbiKb8+eI5 s=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 06 Jan 2022 12:46:47 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2022 12:46:45 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Thu, 6 Jan 2022 12:46:45 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Thu, 6 Jan 2022 12:44:32 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Thu, 6 Jan 2022 12:44:22 -0800
+Message-ID: <1641501862-17499-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/gpu: Cancel idle/boost work on
- suspend
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v4] drm/msm/dp: populate connector of struct
+ dp_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,72 +62,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+DP CTS test case 4.2.2.6 has valid edid with bad checksum on purpose
+and expect DP source return correct checksum. During drm edid read,
+correct edid checksum is calculated and stored at
+connector::real_edid_checksum.
 
-With system suspend using pm_runtime_force_suspend() we can't rely on
-the pm_runtime_get_if_in_use() trick to deal with devfreq callbacks
-after (or racing with) suspend.  So flush any pending idle or boost
-work in the suspend path.
+The problem is struct dp_panel::connector never be assigned, instead the
+connector is stored in struct msm_dp::connector. When we run compliance
+testing test case 4.2.2.6 dp_panel_handle_sink_request() won't have a valid
+edid set in struct dp_panel::edid so we'll try to use the connectors
+real_edid_checksum and hit a NULL pointer dereference error because the
+connector pointer is never assigned.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+Changes in V2:
+-- populate panel connector at msm_dp_modeset_init() instead of at dp_panel_read_sink_caps()
+
+Changes in V3:
+-- remove unhelpful kernel crash trace commit text
+-- remove renaming dp_display parameter to dp
+
+Changes in V4:
+-- add more details to commit text
+
+Fixes: 7948fe12d47 ("drm/msm/dp: return correct edid checksum after corrupted edid checksum read")
+Signee-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 ---
- drivers/gpu/drm/msm/msm_gpu_devfreq.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-index 62405e980925..9bf319be11f6 100644
---- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-+++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-@@ -133,6 +133,18 @@ void msm_devfreq_init(struct msm_gpu *gpu)
- 			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- }
- 
-+static void cancel_idle_work(struct msm_gpu_devfreq *df)
-+{
-+	hrtimer_cancel(&df->idle_work.timer);
-+	kthread_cancel_work_sync(&df->idle_work.work);
-+}
-+
-+static void cancel_boost_work(struct msm_gpu_devfreq *df)
-+{
-+	hrtimer_cancel(&df->boost_work.timer);
-+	kthread_cancel_work_sync(&df->boost_work.work);
-+}
-+
- void msm_devfreq_cleanup(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 3449d3f..40a059d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1499,6 +1499,7 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 			struct drm_encoder *encoder)
  {
- 	struct msm_gpu_devfreq *df = &gpu->devfreq;
-@@ -152,7 +164,12 @@ void msm_devfreq_resume(struct msm_gpu *gpu)
+ 	struct msm_drm_private *priv;
++	struct dp_display_private *dp_priv;
+ 	int ret;
  
- void msm_devfreq_suspend(struct msm_gpu *gpu)
- {
--	devfreq_suspend_device(gpu->devfreq.devfreq);
-+	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 	if (WARN_ON(!encoder) || WARN_ON(!dp_display) || WARN_ON(!dev))
+@@ -1507,6 +1508,8 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 	priv = dev->dev_private;
+ 	dp_display->drm_dev = dev;
+ 
++	dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
 +
-+	devfreq_suspend_device(df->devfreq);
+ 	ret = dp_display_request_irq(dp_display);
+ 	if (ret) {
+ 		DRM_ERROR("request_irq failed, ret=%d\n", ret);
+@@ -1524,6 +1527,8 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 		return ret;
+ 	}
+ 
++	dp_priv->panel->connector = dp_display->connector;
 +
-+	cancel_idle_work(df);
-+	cancel_boost_work(df);
+ 	priv->connectors[priv->num_connectors++] = dp_display->connector;
+ 	return 0;
  }
- 
- static void msm_devfreq_boost_work(struct kthread_work *work)
-@@ -196,7 +213,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
- 	/*
- 	 * Cancel any pending transition to idle frequency:
- 	 */
--	hrtimer_cancel(&df->idle_work.timer);
-+	cancel_idle_work(df);
- 
- 	idle_time = ktime_to_ms(ktime_sub(ktime_get(), df->idle_time));
- 
 -- 
-2.33.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
