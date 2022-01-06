@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C98D4860DD
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 08:07:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DFD8C486830
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 18:13:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13B26112B9E;
-	Thu,  6 Jan 2022 07:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC6410E5DE;
+	Thu,  6 Jan 2022 17:13:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4C01112B9E
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 07:06:59 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id h21so2702749ljh.3
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 23:06:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SeZITS2hbPgnRPSasq0/v8/l0kJaM5t3PVHYhFxDOLU=;
- b=kZi73krNgb+uFyic1z9Zmf5+OVrkW75BfSF0YR8TeWelZlInutyrqhzQo3E9TGGDGQ
- nXi/hq2nc8tUWl/oPDflCCXoKMr+WUhcr8NxY3SdN82fBbasCnxmQ0BAMpBR1HcaUTkC
- CI20BRGmrGTZBYWcsIFy/oLBy0ien9GEpzVMcDWCVjH6ACyDYpzlAOme7k8rOex0SIGa
- fYzruSr/nWxQmnfQ9Rknedl1TWEtG98H50+b5oEsRpLMC27S3b101Elgjx7m9XIaN1Ag
- EmMUZiVxY4rLVndw2wNFjfv9FmDN8H1JNL1xFWRFdF6kGNG+F/HlF9tOcg1FnSgsfYUj
- gYnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SeZITS2hbPgnRPSasq0/v8/l0kJaM5t3PVHYhFxDOLU=;
- b=B2AXta/GMTLjUtL0XmzRN8RKhV43Kq3U5I1zisy1fMN0IHLXOdkrrq/qvrISdL8xc+
- Gt/rDq8XW1RycqHWOA3YHBulRNSJdgUrxQ7mZRhaZ+iZXVclcljcjNPv0jQO9+QbLRsX
- bd0JGksyOez065xyxSDPoesbQpRQ0fPWl37VGSmF4f6ADPjVXLwZHo31P9M5j01C8cXa
- AvlCpFVBZRBHZggxlisXJ8FW3crmnrL6RavJ8mKe5OMaJsG7L3WIklczfPqry/w0w7TF
- d/PuCO8novD03kDsNxAXvgYp3OXIzgltRUfNBG13FqaMupKfF85Qp3ZaEkfInbx6IOPw
- SBCg==
-X-Gm-Message-State: AOAM532AkHYGS9mZcGekUjPAPFu7aLDT6uMvgGKBiKgHK45Fhi63nXU1
- Jc8JMhRluq/wSa5f106GYtGtyg==
-X-Google-Smtp-Source: ABdhPJwlxzfS87+2bRBS2ruQE5ZSDCpELJcogn4BR3LwqrrkwsLWFE5cge8Nd9bz+4Bsd0Pz9OOxFg==
-X-Received: by 2002:a2e:a816:: with SMTP id l22mr9917936ljq.119.1641452817974; 
- Wed, 05 Jan 2022 23:06:57 -0800 (PST)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id k24sm99814lji.27.2022.01.05.23.06.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Jan 2022 23:06:57 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu,  6 Jan 2022 10:06:56 +0300
-Message-Id: <20220106070656.482882-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.34.1
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B2EA10E5DE;
+ Thu,  6 Jan 2022 17:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1641489229; x=1673025229;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=SWAmITqjsYu6xDYGpHA7fp1gPjfRndTao20EuIkpURA=;
+ b=b4DcgF09pxOiQ47i15i1++G8DSC6zWEJiIB0bPsKOc/LOfOsZyTxEzr6
+ I5yDk4AQOc3IQ4oi4xNHDBQVUXeswmszmj2uML7xA4p7/lCI3vPDZC75c
+ 5HNWF4KzoSebFxACo6KncniTU2Lhk7MiJJO8Nf+QO05zetBghJyZkT6JR c=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 06 Jan 2022 09:13:48 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jan 2022 09:13:48 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Thu, 6 Jan 2022 09:13:47 -0800
+Received: from [10.110.24.66] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Thu, 6 Jan 2022
+ 09:13:46 -0800
+Message-ID: <63bae3ec-2bbf-f4f7-b54a-73a921f8f438@quicinc.com>
+Date: Thu, 6 Jan 2022 09:13:45 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm: reduce usage of round_pixclk
- callback
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <vkoul@kernel.org>
+References: <1640805422-21904-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n50Bi2v3D1B8Ee1ckdUWLhpyNrCEVqikbuS8wMfT0+2VnA@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n50Bi2v3D1B8Ee1ckdUWLhpyNrCEVqikbuS8wMfT0+2VnA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: populate connector of struct
+ dp_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,146 +68,127 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The round_pixclk() callback returns different rate only on MDP4 in HDMI
-(DTV) case. Stop using this callback in other cases to simplify
-mode_valid callbacks.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
-Changes since v1:
- - Rebased on top of HDMI changes
- - Dropped eDP part, driver got removed
-
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  7 -------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  7 -------
- drivers/gpu/drm/msm/dsi/dsi_manager.c    | 22 ----------------------
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c   | 11 +++++++----
- 4 files changed, 7 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 47fe11a84a77..ebbee5f103e1 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -774,12 +774,6 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 	return ret;
- }
- 
--static long dpu_kms_round_pixclk(struct msm_kms *kms, unsigned long rate,
--		struct drm_encoder *encoder)
--{
--	return rate;
--}
--
- static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
- {
- 	int i;
-@@ -948,7 +942,6 @@ static const struct msm_kms_funcs kms_funcs = {
- 	.disable_vblank  = dpu_kms_disable_vblank,
- 	.check_modified_format = dpu_format_check_modified_format,
- 	.get_format      = dpu_get_msm_format,
--	.round_pixclk    = dpu_kms_round_pixclk,
- 	.destroy         = dpu_kms_destroy,
- 	.snapshot        = dpu_kms_mdp_snapshot,
- #ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 12a5f81e402b..20859fd7af4a 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -190,12 +190,6 @@ static void mdp5_complete_commit(struct msm_kms *kms, unsigned crtc_mask)
- 		mdp5_smp_complete_commit(mdp5_kms->smp, &global_state->smp);
- }
- 
--static long mdp5_round_pixclk(struct msm_kms *kms, unsigned long rate,
--		struct drm_encoder *encoder)
--{
--	return rate;
--}
--
- static int mdp5_set_split_display(struct msm_kms *kms,
- 		struct drm_encoder *encoder,
- 		struct drm_encoder *slave_encoder,
-@@ -278,7 +272,6 @@ static const struct mdp_kms_funcs kms_funcs = {
- 		.wait_flush      = mdp5_wait_flush,
- 		.complete_commit = mdp5_complete_commit,
- 		.get_format      = mdp_get_format,
--		.round_pixclk    = mdp5_round_pixclk,
- 		.set_split_display = mdp5_set_split_display,
- 		.destroy         = mdp5_kms_destroy,
- #ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index f19bae475c96..1dbbfca163d9 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -305,27 +305,6 @@ static int dsi_mgr_connector_get_modes(struct drm_connector *connector)
- 	return num;
- }
- 
--static enum drm_mode_status dsi_mgr_connector_mode_valid(struct drm_connector *connector,
--				struct drm_display_mode *mode)
--{
--	int id = dsi_mgr_connector_get_id(connector);
--	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
--	struct drm_encoder *encoder = msm_dsi_get_encoder(msm_dsi);
--	struct msm_drm_private *priv = connector->dev->dev_private;
--	struct msm_kms *kms = priv->kms;
--	long actual, requested;
--
--	DBG("");
--	requested = 1000 * mode->clock;
--	actual = kms->funcs->round_pixclk(kms, requested, encoder);
--
--	DBG("requested=%ld, actual=%ld", requested, actual);
--	if (actual != requested)
--		return MODE_CLOCK_RANGE;
--
--	return MODE_OK;
--}
--
- static struct drm_encoder *
- dsi_mgr_connector_best_encoder(struct drm_connector *connector)
- {
-@@ -586,7 +565,6 @@ static const struct drm_connector_funcs dsi_mgr_connector_funcs = {
- 
- static const struct drm_connector_helper_funcs dsi_mgr_conn_helper_funcs = {
- 	.get_modes = dsi_mgr_connector_get_modes,
--	.mode_valid = dsi_mgr_connector_mode_valid,
- 	.best_encoder = dsi_mgr_connector_best_encoder,
- };
- 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 68fba4bf7212..10ebe2089cb6 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -282,15 +282,18 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
- 	long actual, requested;
- 
- 	requested = 1000 * mode->clock;
--	actual = kms->funcs->round_pixclk(kms,
--			requested, hdmi_bridge->hdmi->encoder);
- 
- 	/* for mdp5/apq8074, we manage our own pixel clk (as opposed to
- 	 * mdp4/dtv stuff where pixel clk is assigned to mdp/encoder
- 	 * instead):
- 	 */
--	if (config->pwr_clk_cnt > 0)
--		actual = clk_round_rate(hdmi->pwr_clks[0], actual);
-+	if (kms->funcs->round_pixclk)
-+		actual = kms->funcs->round_pixclk(kms,
-+			requested, hdmi_bridge->hdmi->encoder);
-+	else if (config->pwr_clk_cnt > 0)
-+		actual = clk_round_rate(hdmi->pwr_clks[0], requested);
-+	else
-+		actual = requested;
- 
- 	DBG("requested=%ld, actual=%ld", requested, actual);
- 
--- 
-2.34.1
-
+On 1/5/2022 1:34 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2021-12-29 11:17:02)
+>> There is kernel crashed due to unable to handle kernel NULL
+>> pointer dereference of dp_panel->connector while running DP link
+>> layer compliance test case 4.2.2.6 (EDID Corruption Detection).
+> Can you explain how we get into that situation? Like
+>
+> "We never assign struct dp_panel::connector, instead the connector is
+> stored in struct msm_dp::connector. When we run compliance testing test
+> case 4.2.2.6 dp_panel_handle_sink_request() won't have a valid edid set
+> in struct dp_panel::edid so we'll try to use the connectors
+> real_edid_checksum and hit a NULL pointer deref error because the
+> connector pointer is never assigned."
+>
+>> This patch fixes this problem by populating connector of dp_panel.
+>>
+>> [drm:dp_panel_read_sink_caps] *ERROR* panel edid read failed
+>> Unable to handle kernel NULL pointer dereference at virtual address 00000000000006e1
+>> Mem abort info:
+>>    ESR = 0x96000006
+>>    EC = 0x25: DABT (current EL), IL = 32 bits
+>>    SET = 0, FnV = 0
+>>    EA = 0, S1PTW = 0
+>> Data abort info:
+>>    ISV = 0, ISS = 0x00000006
+>>    CM = 0, WnR = 0
+>> user pgtable: 4k pages, 39-bit VAs, pgdp=0000000115f25000
+>> [00000000000006e1] pgd=00000001174fe003, p4d=00000001174fe003, pud=00000001174fe003, pmd=0000000000000000
+>> Internal error: Oops: 96000006 [#1] PREEMPT SMP
+> This sort of stuff isn't really useful because it takes quite a few
+> lines to say "We hit a NULL pointer deref" which was already stated. I'd
+> rather have a clear description of what goes wrong and how setting the
+> pointer in msm_dp_modeset_init() fixes it.
+>
+>> {...]
+>>
+>> Changes in V2:
+>> -- populate panel connector at msm_dp_modeset_init() instead of at dp_panel_read_sink_caps()
+>>
+>> Fixes: 7948fe12d47 ("drm/msm/dp: return correct edid checksum after corrupted edid checksum read")
+>> Signee-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 25 +++++++++++++++----------
+>>   1 file changed, 15 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 3449d3f..c282bbf 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1495,36 +1495,41 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
+>>          }
+>>   }
+>>
+>> -int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+>> +int msm_dp_modeset_init(struct msm_dp *dp, struct drm_device *dev,
+>>                          struct drm_encoder *encoder)
+>>   {
+>>          struct msm_drm_private *priv;
+>> +       struct dp_display_private *dp_display;
+>>          int ret;
+>>
+>> -       if (WARN_ON(!encoder) || WARN_ON(!dp_display) || WARN_ON(!dev))
+>> +       if (WARN_ON(!encoder) || WARN_ON(!dp) || WARN_ON(!dev))
+>>                  return -EINVAL;
+>>
+>>          priv = dev->dev_private;
+>> -       dp_display->drm_dev = dev;
+>> +       dp->drm_dev = dev;
+>> +
+>> +       dp_display = container_of(dp, struct dp_display_private, dp_display);
+>>
+>> -       ret = dp_display_request_irq(dp_display);
+>> +       ret = dp_display_request_irq(dp);
+>>          if (ret) {
+>>                  DRM_ERROR("request_irq failed, ret=%d\n", ret);
+>>                  return ret;
+>>          }
+>>
+>> -       dp_display->encoder = encoder;
+>> +       dp->encoder = encoder;
+>>
+>> -       dp_display->connector = dp_drm_connector_init(dp_display);
+>> -       if (IS_ERR(dp_display->connector)) {
+>> -               ret = PTR_ERR(dp_display->connector);
+>> +       dp->connector = dp_drm_connector_init(dp);
+>> +       if (IS_ERR(dp->connector)) {
+>> +               ret = PTR_ERR(dp->connector);
+>>                  DRM_DEV_ERROR(dev->dev,
+>>                          "failed to create dp connector: %d\n", ret);
+>> -               dp_display->connector = NULL;
+>> +               dp->connector = NULL;
+>>                  return ret;
+>>          }
+>>
+>> -       priv->connectors[priv->num_connectors++] = dp_display->connector;
+>> +       dp_display->panel->connector = dp->connector;
+> This is the one line that matters I think? Can we reach the connector
+> for the dp device without going through the panel in
+> dp_panel_handle_sink_request()? That would reduce the number of struct
+> elements if possible.
+I tried, but very difficulty. It will take more text section space.
+>
+>> +
+>> +       priv->connectors[priv->num_connectors++] = dp->connector;
+> Can we not rename all the local variables in this patch and do it later
+> or never? Reading this patch takes a long time because we have to make
+> sure nothing has actually changed with the rename of 'dp_display' to
+> 'dp'.
+>
+>>          return 0;
+>>   }
+>>
+>> --
+>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+>> a Linux Foundation Collaborative Project
+>>
