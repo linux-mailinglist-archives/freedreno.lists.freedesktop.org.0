@@ -2,58 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5AD486C35
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 22:46:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84780486C36
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 22:46:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E887410EE86;
-	Thu,  6 Jan 2022 21:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2296E10EE9D;
+	Thu,  6 Jan 2022 21:46:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50EDA10EE86
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 21:46:10 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id g22so3746877pgn.1
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 13:46:10 -0800 (PST)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 937D410EE8B
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 21:46:11 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ d10-20020a17090a498a00b001b33bc40d01so1729015pjh.1
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 13:46:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=udX8aXVKtCgorZpoo7KBRMV9fl84l0zJ44mq5nPYnXQ=;
- b=Ya34FDKNKfvN1GQNsIj3/YHoOtnFnJomMP0x3sM6wb4AAXA5x9zxx14WIoBs2wHRpl
- 5mmvuYveL7LaSK9Yk07qPV6mwXvVreJp+RooagLKp0wjaY/HM5JCJP3uneRREyTMpbKx
- FmHW9pECA68YpJ3Xkz0I+ztn1d48xxPPPMBZs=
+ bh=tyFhWuo5Hgtey/EJ0ER9SojRROyEQ1lmEqqEKYabFj8=;
+ b=LLJLmS+EadBgDQ+Aos6iptCIFgGQZC4BhHifui4nHYr+soQbQCsuRZf8eUfhEXakUF
+ dCR3ZG3GODKgQD6iIPo9rc4CpzlKlxMLQQeuKOmYu2NLvK1RZzv62Y8acfrUkVf786px
+ 6GNKOfhOa4RrRJZPK8de4dHA9uZuSsO3EcRSE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=udX8aXVKtCgorZpoo7KBRMV9fl84l0zJ44mq5nPYnXQ=;
- b=K8Hqs1gO+RszB0KEDqYjYUlN9EpPWOtvMSadj7de/H83UEsD+A3yf0ArvJ6t0cfVYe
- TSgmU3HTmm16k1NY7dqjzvx1A1252S9M65BuTyOHzL07PRc7yw8Ob7HheRWdWhHH1jLD
- N7xs1vuSxKI1h2eXvdGBBtmdtovWjHP1cAjKQN+vgjMzWVuKYNa1Rm+wS+D/b0Wkli5U
- koFy80TtQh6BF+ydXBIuc0C+SefvoloQzrhpRVh+LGamCQSApKavJmBwWs638ULpo9QC
- xSlyD5MkqZP6tOa1kEftonzxfXkerdVqsBPtEAttprRVh78TPm/2hpKieQ5s/vR5W921
- cG3A==
-X-Gm-Message-State: AOAM533rpoZ33030v9p8c1GgY9ANxLfpF3uZRzJvxaGsrDwK3xQzvf7Y
- ZGxi5WQP5yOTrZ18zP9glZfP6w==
-X-Google-Smtp-Source: ABdhPJwqM87G59xgRPi2C4DOO/wTX46XQXKwKNWtQf+08DlJeYiicq+R6L9sPwm8+CM6PygK176Kkw==
-X-Received: by 2002:a63:b20f:: with SMTP id x15mr16095753pge.82.1641505569883; 
- Thu, 06 Jan 2022 13:46:09 -0800 (PST)
+ bh=tyFhWuo5Hgtey/EJ0ER9SojRROyEQ1lmEqqEKYabFj8=;
+ b=O20YYn0OlUa3thq1wre/WJifXyYCUx7tdj5FIYQz42IKlACGEVUdloESumR4B4tAor
+ ZuJHUsp5/lgaR6C0XY/Gmn0/b0Ssd1i3qmyqPv+nK2CJDKW8Rs8B0mn6RDkomZpE3561
+ hPf5HtM2yMUgTjM8D2wKWdCWMn6pe6MN06SEvvvKV8bBGm/lXOmXJTgTNWjkKM3eYHxF
+ krMDuAfQTnYMQhgOhzlEhvuECIeG22KBmBTn/OZzz6Gzg7KmRk9lfDIm6z6MHYWwb001
+ BVru0pbqGjOQp6/qGQNLfqzoOX6WvdgLZfW+Cbv4Uu2SSaE0zGYEASDJFRclG7UXgFy0
+ ohCg==
+X-Gm-Message-State: AOAM5314JbXg+sUiem9W0MSaFgxwb75hn76tuwN3a1ZIqfQZcs9/ftWz
+ YUwkUoKkXdLHcyRTcmrvcUYOFg==
+X-Google-Smtp-Source: ABdhPJyyF7cPL+yI9hyzDjsYLKeK8/7opWbfS9Q9aFqPjk9CLzLHOaxee/DCuNvQMK+M3j2T3mtM3A==
+X-Received: by 2002:a17:90b:3143:: with SMTP id
+ ip3mr12288271pjb.58.1641505571119; 
+ Thu, 06 Jan 2022 13:46:11 -0800 (PST)
 Received: from smtp.gmail.com ([2620:15c:202:201:1ebe:a8fd:f9b0:7e85])
- by smtp.gmail.com with ESMTPSA id 10sm3539960pfm.56.2022.01.06.13.46.08
+ by smtp.gmail.com with ESMTPSA id 10sm3539960pfm.56.2022.01.06.13.46.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 13:46:09 -0800 (PST)
+ Thu, 06 Jan 2022 13:46:10 -0800 (PST)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Douglas Anderson <dianders@chromium.org>
-Date: Thu,  6 Jan 2022 13:45:31 -0800
-Message-Id: <20220106214556.2461363-9-swboyd@chromium.org>
+Date: Thu,  6 Jan 2022 13:45:32 -0800
+Message-Id: <20220106214556.2461363-10-swboyd@chromium.org>
 X-Mailer: git-send-email 2.34.1.448.ga2b2bfdf31-goog
 In-Reply-To: <20220106214556.2461363-1-swboyd@chromium.org>
 References: <20220106214556.2461363-1-swboyd@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 08/32] drm/arm/hdlcd: Migrate to aggregate
- driver
+Subject: [Freedreno] [PATCH v5 09/32] drm/malidp: Migrate to aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,6 +71,7 @@ Cc: Saravana Kannan <saravanak@google.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
  Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
@@ -79,6 +81,10 @@ Use an aggregate driver instead of component ops so that we can get
 proper driver probe ordering of the aggregate device with respect to all
 the component devices that make up the aggregate device.
 
+TODO: This can be updated to move the drm helper logic into the
+aggregate driver shutdown op.
+
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Cc: Liviu Dudau <liviu.dudau@arm.com>
 Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>
@@ -87,65 +93,65 @@ Cc: Russell King <rmk+kernel@arm.linux.org.uk>
 Cc: Saravana Kannan <saravanak@google.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- drivers/gpu/drm/arm/hdlcd_drv.c | 21 +++++++++++++--------
+ drivers/gpu/drm/arm/malidp_drv.c | 21 +++++++++++++--------
  1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-index 479c2422a2e0..5c03eb98d814 100644
---- a/drivers/gpu/drm/arm/hdlcd_drv.c
-+++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-@@ -270,8 +270,9 @@ static const struct drm_driver hdlcd_driver = {
- 	.minor = 0,
- };
+diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
+index 78d15b04b105..e6ee4d1e3bb8 100644
+--- a/drivers/gpu/drm/arm/malidp_drv.c
++++ b/drivers/gpu/drm/arm/malidp_drv.c
+@@ -702,8 +702,9 @@ static int malidp_runtime_pm_resume(struct device *dev)
+ 	return 0;
+ }
  
--static int hdlcd_drm_bind(struct device *dev)
-+static int hdlcd_drm_bind(struct aggregate_device *adev)
+-static int malidp_bind(struct device *dev)
++static int malidp_bind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
+ 	struct resource *res;
  	struct drm_device *drm;
- 	struct hdlcd_drm_private *hdlcd;
- 	int ret;
-@@ -344,8 +345,9 @@ static int hdlcd_drm_bind(struct device *dev)
+ 	struct malidp_drm *malidp;
+@@ -894,8 +895,9 @@ static int malidp_bind(struct device *dev)
  	return ret;
  }
  
--static void hdlcd_drm_unbind(struct device *dev)
-+static void hdlcd_drm_unbind(struct aggregate_device *adev)
+-static void malidp_unbind(struct device *dev)
++static void malidp_unbind(struct aggregate_device *adev)
  {
 +	struct device *dev = adev->parent;
  	struct drm_device *drm = dev_get_drvdata(dev);
- 	struct hdlcd_drm_private *hdlcd = drm->dev_private;
- 
-@@ -367,9 +369,13 @@ static void hdlcd_drm_unbind(struct device *dev)
- 	drm_dev_put(drm);
+ 	struct malidp_drm *malidp = drm->dev_private;
+ 	struct malidp_hw_device *hwdev = malidp->dev;
+@@ -921,9 +923,13 @@ static void malidp_unbind(struct device *dev)
+ 	of_reserved_mem_device_release(dev);
  }
  
--static const struct component_master_ops hdlcd_master_ops = {
--	.bind		= hdlcd_drm_bind,
--	.unbind		= hdlcd_drm_unbind,
-+static struct aggregate_driver hdlcd_aggregate_driver = {
-+	.probe		= hdlcd_drm_bind,
-+	.remove		= hdlcd_drm_unbind,
-+	.driver		= {
-+		.name	= "hdlcd_drm",
-+		.owner	= THIS_MODULE,
+-static const struct component_master_ops malidp_master_ops = {
+-	.bind = malidp_bind,
+-	.unbind = malidp_unbind,
++static struct aggregate_driver malidp_aggregate_driver = {
++	.probe = malidp_bind,
++	.remove = malidp_unbind,
++	.driver = {
++		.name = "malidp_drm",
++		.owner = THIS_MODULE,
 +	},
  };
  
- static int compare_dev(struct device *dev, void *data)
-@@ -390,13 +396,12 @@ static int hdlcd_probe(struct platform_device *pdev)
- 	drm_of_component_match_add(&pdev->dev, &match, compare_dev, port);
+ static int malidp_compare_dev(struct device *dev, void *data)
+@@ -949,13 +955,12 @@ static int malidp_platform_probe(struct platform_device *pdev)
+ 	drm_of_component_match_add(&pdev->dev, &match, malidp_compare_dev,
+ 				   port);
  	of_node_put(port);
- 
--	return component_master_add_with_match(&pdev->dev, &hdlcd_master_ops,
+-	return component_master_add_with_match(&pdev->dev, &malidp_master_ops,
 -					       match);
-+	return component_aggregate_register(&pdev->dev, &hdlcd_aggregate_driver, match);
++	return component_aggregate_register(&pdev->dev, &malidp_aggregate_driver, match);
  }
  
- static int hdlcd_remove(struct platform_device *pdev)
+ static int malidp_platform_remove(struct platform_device *pdev)
  {
--	component_master_del(&pdev->dev, &hdlcd_master_ops);
-+	component_aggregate_unregister(&pdev->dev, &hdlcd_aggregate_driver);
+-	component_master_del(&pdev->dev, &malidp_master_ops);
++	component_aggregate_unregister(&pdev->dev, &malidp_aggregate_driver);
  	return 0;
  }
  
