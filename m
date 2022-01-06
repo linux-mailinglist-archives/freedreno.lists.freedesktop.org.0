@@ -2,61 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 509E848693B
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 18:55:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 939B4486989
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 19:15:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACC2710EA7C;
-	Thu,  6 Jan 2022 17:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14B1310E7EC;
+	Thu,  6 Jan 2022 18:15:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7963B10EA7C
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 17:55:25 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id a129so3736755oif.6
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 09:55:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=o/foTQodVBgucFBn3ZXK6eaXM/2HEpmwpEOS38R0Rek=;
- b=hSPPXlxyyC2hbirInmbjImCpaolGvJHLT9KFRGDIBcFrz3Y80wKjpkaTPBHchK9EIk
- PSckyZlYigING79StXqVL/Ouu92/C21UyDwwG+ll4MJIWxZU1NYAqESwjMJEusctC7ou
- ZEURei8f7xz/4Eo3e9J99cANW/ooDYTMt+p3WmHpHTw5pcXX8CQIt28e5cS/sXxjvnrz
- 5fcXJAK5q7Z+40rj/jPt3LZtvrtjDmGCyypPlAZcrg+mxzoQgHNqcZ+AyO9Q62148Yuq
- 2gjBZIldTpKVLD1bLmPpazjsJdQcFZjRO7Ns955K+ipsxALI9xpXpNPmXwkBCjFmjX5x
- uU7g==
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B99510E7D5;
+ Thu,  6 Jan 2022 18:15:05 +0000 (UTC)
+Received: by mail-pg1-x533.google.com with SMTP id f8so3286749pgf.8;
+ Thu, 06 Jan 2022 10:15:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZPOLEXfdQzQQdTmG9MNU+kg5OfcKlLIQc8Wvo+ywGFg=;
+ b=dVcl5oZbRlN9CXKs1WzqWZjjyIYlqPwIv+8Zd+7ZjQI1W4gX5Di+KBMAbW8NZQmGSr
+ FcWDIFkpSCXS7SiUQns/ZBTJpBDL3RV54+4chi0JqwuCrhjkxJO7Mnj+4PYTGZjnUeMI
+ 7yqr1J+jKmdvnhzptaLLBB0UtrnrxcljEnzeWhdLuZOj3vrpMP7jUgst12+MTml7bX6f
+ p9IdkPDqDQI5VuWjvHXsanYE7tTaeT33NXEcpNfMn6h7zaqmdKXCzrJJWuEeM2LUftTC
+ gkPD1lUl05d89MYW9rQFeDHbNn9fmhrlbHMOIEagXzbsuealBPdSZF5G/mX48uUFLjlt
+ mVGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=o/foTQodVBgucFBn3ZXK6eaXM/2HEpmwpEOS38R0Rek=;
- b=yW+Mt5zjENzNmEvvHhAo73SWpAccg4Ai0J0nMRH2L5B9/AGj6zJPIlHxlzmITm95mG
- iAnVdPGQEZsiMZdZz9W+A+PfysiGxCSQpIsavxb3fTi41/C7+EzPNnFQuYXT48xudEMU
- ZicFltf9wpETPydSewPwrZ4WMwwNcnGuDJgJXGsQbJJpWlUYRWw6AB7M8Vd/K0Oe8qno
- X+zC24PHz9jjfiEYqPZClu6VULCJxHk7/jYF2KCqk6mmDiCQeEcMgahWxr1cCuafxumD
- N3mGQVwOowdjDysock9O5ku/ZWG9eATvNp40ZzJHVMUerz7/yrtbmLOgEoEomikq1mDV
- Ky6Q==
-X-Gm-Message-State: AOAM533JZdHzN1YlMBdEoIgKmF9d6mW3jkx0YeEND9WXTbZwvS10aiBd
- /Z1rq5OVBFZQZkX8LuhDHI83cg==
-X-Google-Smtp-Source: ABdhPJwfDQwmg+hs7VU/d33Ah9U7qOEmt0rKxDrLc243J4pADglOmvW5+20L18kjkmYeFF1HelWKSA==
-X-Received: by 2002:a54:4014:: with SMTP id x20mr7154337oie.129.1641491724590; 
- Thu, 06 Jan 2022 09:55:24 -0800 (PST)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id z24sm463628otk.20.2022.01.06.09.55.23
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZPOLEXfdQzQQdTmG9MNU+kg5OfcKlLIQc8Wvo+ywGFg=;
+ b=1CuhKJHQaq+tmJwsMFyToHF3cFBoYOqiLUEZKxpFkb+bIXOtaiFHoNDH8yv/El3RYn
+ 8qHRW9nVd9w7iHWMjAY/BGafPrnOAlbGFw6eZZvkEIdWmjT7ODoo+n9HrUtSR7T5SHhv
+ eecqzmvFm5/qN5xzaYssEbKxkiFWBGCBzj5sMAyFBc+jX257Lw9czrx1v1+2QffnXXRM
+ CAWg0s2sZ45kpftjaJuVx+eZNNyawqy4crSRM8LrYAhL5oU8cfGYHWTQCHptsm4LKK9Y
+ wZiP/ApFaSWOt/aTgE2qE3gpsR9j9FmXC4yUjnI08gIp1zIsTBBwt6+SqdLOiCE1XJWo
+ UEuw==
+X-Gm-Message-State: AOAM532uoIrDEFrRJlkzPYkZIawejjWTUp+VwZ+KaA/oouakM5ONQLTq
+ Mo17svfV8N/9UXRs2frbtqalyNqIbj4=
+X-Google-Smtp-Source: ABdhPJwGGsFV6PbXXGJkrzuiRrJR4ChU60O5/We5mhbGApzUnSXKi9JYqmb2ZJvzGlaYBbeJdU9EbQ==
+X-Received: by 2002:a05:6a00:d6f:b0:4bc:df41:d0d4 with SMTP id
+ n47-20020a056a000d6f00b004bcdf41d0d4mr8880838pfv.74.1641492904144; 
+ Thu, 06 Jan 2022 10:15:04 -0800 (PST)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id g7sm3118015pfu.2.2022.01.06.10.15.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 09:55:24 -0800 (PST)
-Date: Thu, 6 Jan 2022 09:56:11 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <YdctO7wMbTLVpJKn@ripper>
-References: <1641489335-20975-1-git-send-email-quic_khsieh@quicinc.com>
+ Thu, 06 Jan 2022 10:15:03 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu,  6 Jan 2022 10:14:45 -0800
+Message-Id: <20220106181449.696988-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1641489335-20975-1-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: populate connector of struct
- dp_panel
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/2] drm/msm/gpu: System suspend fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,84 +66,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Iskren Chernev <iskren.chernev@gmail.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 06 Jan 09:15 PST 2022, Kuogee Hsieh wrote:
+From: Rob Clark <robdclark@chromium.org>
 
-> We never assign struct dp_panel::connector, instead the connector is
-> stored in struct msm_dp::connector. When we run compliance testing test
-> case 4.2.2.6 dp_panel_handle_sink_request() won't have a valid edid set
+Because system suspend uses pm_runtime_force_suspend() we can't rely
+runpm refcnt's to protect us if the GPU is active, etc.  Fortunately
+*usually* the GPU is idle when system suspend is triggered.  But that
+isn't quite good enough.
 
-I unfortunately have no idea what test 4.2.2.6 is or how it ends up in
-dp_panel_handle_sink_request() with panel->connector being NULL.
+The first patch attempts to block for a modest amount of time until GPU
+is idle (and failing that, returns -EBUSY).  We could have taken a
+slightly easier approach and just returned -EBUSY if GPU is not idle,
+but that would cause system suspend to fail.  And no one likes pulling
+a hot laptop out of their backpack.
 
-Your new commit message is much better, but I still would like to have
-something describing why this particular test case triggers this bug,
-how does it differ from normal execution, is it a race, does the test
-involve failing edid reads???
+The second patch avoids getting devfreq callbacks after suspend, since
+pm_runtime_force_suspend() breaks the pm_runtime_get_if_in_use() tricks
+used to deal with devfreq callbacks while suspended.
 
-> in struct dp_panel::edid so we'll try to use the connectors
-> real_edid_checksum and hit a NULL pointer dereference error because the
-> connector pointer is never assigned.
-> 
-> Changes in V2:
-> -- populate panel connector at msm_dp_modeset_init() instead of at dp_panel_read_sink_caps()
-> 
-> Changes in V3:
-> -- remove unhelpful kernel crash trace commit text
-> -- remove renaming dp_display parameter to dp
-> 
-> Fixes: 7948fe12d47 ("drm/msm/dp: return correct edid checksum after corrupted edid checksum read")
-> Signee-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 3449d3f..40a059d 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1499,6 +1499,7 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->  			struct drm_encoder *encoder)
->  {
->  	struct msm_drm_private *priv;
-> +	struct dp_display_private *dp_priv;
->  	int ret;
->  
->  	if (WARN_ON(!encoder) || WARN_ON(!dp_display) || WARN_ON(!dev))
-> @@ -1507,6 +1508,8 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->  	priv = dev->dev_private;
->  	dp_display->drm_dev = dev;
->  
-> +	dp_priv = container_of(dp_display, struct dp_display_private, dp_display);
-> +
->  	ret = dp_display_request_irq(dp_display);
->  	if (ret) {
->  		DRM_ERROR("request_irq failed, ret=%d\n", ret);
-> @@ -1524,6 +1527,8 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->  		return ret;
->  	}
->  
-> +	dp_priv->panel->connector = dp_display->connector;
+Rob Clark (2):
+  drm/msm/gpu: Wait for idle before suspending
+  drm/msm/gpu: Cancel idle/boost work on suspend
 
-The placement of this assignment in msm_dp_modeset_init() makes much
-more sense than what you had in v1, so I think this looks good.
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  9 +++++++++
+ drivers/gpu/drm/msm/msm_gpu.c              |  3 +++
+ drivers/gpu/drm/msm/msm_gpu.h              |  3 +++
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c      | 21 +++++++++++++++++++--
+ 4 files changed, 34 insertions(+), 2 deletions(-)
 
-Thanks,
-Bjorn
+-- 
+2.33.1
 
-> +
->  	priv->connectors[priv->num_connectors++] = dp_display->connector;
->  	return 0;
->  }
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
