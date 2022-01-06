@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5876D485E80
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 03:17:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C98D4860DD
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 08:07:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B1310E579;
-	Thu,  6 Jan 2022 02:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13B26112B9E;
+	Thu,  6 Jan 2022 07:07:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E60E10E579
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 02:17:54 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id a129so689683oif.6
- for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 18:17:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=3AqXmqq/fvbOxqwSsHR7wVrpv5IIhXUtH49b4LPOTWI=;
- b=iS7/hV/IXv3fGbOyIo3DxFq5LwX+yNVjDMVRBSweVFwpCyyZTPKA24PenSTX69xA/i
- OuDCHNlFBOa4gVHOPRVu34iAgxyQp+F7IAqYNajp4XaNH8p+ohYFmq9bM3aYpSXZKQDU
- oaJROehE/SR2d9RGiS+dRzOOJ2oOSF4snbOh0=
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C01112B9E
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 07:06:59 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id h21so2702749ljh.3
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 23:06:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SeZITS2hbPgnRPSasq0/v8/l0kJaM5t3PVHYhFxDOLU=;
+ b=kZi73krNgb+uFyic1z9Zmf5+OVrkW75BfSF0YR8TeWelZlInutyrqhzQo3E9TGGDGQ
+ nXi/hq2nc8tUWl/oPDflCCXoKMr+WUhcr8NxY3SdN82fBbasCnxmQ0BAMpBR1HcaUTkC
+ CI20BRGmrGTZBYWcsIFy/oLBy0ien9GEpzVMcDWCVjH6ACyDYpzlAOme7k8rOex0SIGa
+ fYzruSr/nWxQmnfQ9Rknedl1TWEtG98H50+b5oEsRpLMC27S3b101Elgjx7m9XIaN1Ag
+ EmMUZiVxY4rLVndw2wNFjfv9FmDN8H1JNL1xFWRFdF6kGNG+F/HlF9tOcg1FnSgsfYUj
+ gYnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=3AqXmqq/fvbOxqwSsHR7wVrpv5IIhXUtH49b4LPOTWI=;
- b=NPWi5mLXicYzrQNPfHuD7SKsDfNj9i49GoMD+Y2xamnZmBrrBEahL8O8UWS8S74daC
- zFxzBXMJv02AIZvXvQNuEJgm4Sd39f0UbeRcGpLO/68HkuOHnu3rlAPijLECdsdcrtWz
- 7FAzr0BiQkYtikiow9wz+GziKFjL7ZeJ9GPHcqxiq71djh0vfR4+lP4HmOkf6521KDBG
- yrRFh+ezXMXArV9P3hj/w5HP2ZmFE17UeGk1qK3lDME9pBG5XlxtzYg2mpv+97jaZc4a
- CU4xcJVxsO78kpl7+B58G4u3NCcSvUqWpQWASroEjYRVzBNCMYSkmvRaDoMhRVhbqSY1
- 1uoA==
-X-Gm-Message-State: AOAM533UCQwhG+Vi39AHFBTe8tGpf9JTVPgyaYUz3eS/yP01/EF0g5iL
- UQnuNYhB3X8xn43buex3T8NSaPSgpLcX7qvtlhig0w==
-X-Google-Smtp-Source: ABdhPJxVckkTPHg9kSdLRZHjaIGQnCN/oUiOy+mbGbuwVgV7+6FQORY/VTnh4Y+bCHsmoHzUw0n87Qpp99riuTZQHtQ=
-X-Received: by 2002:aca:4382:: with SMTP id q124mr4659737oia.64.1641435473794; 
- Wed, 05 Jan 2022 18:17:53 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 5 Jan 2022 18:17:53 -0800
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SeZITS2hbPgnRPSasq0/v8/l0kJaM5t3PVHYhFxDOLU=;
+ b=B2AXta/GMTLjUtL0XmzRN8RKhV43Kq3U5I1zisy1fMN0IHLXOdkrrq/qvrISdL8xc+
+ Gt/rDq8XW1RycqHWOA3YHBulRNSJdgUrxQ7mZRhaZ+iZXVclcljcjNPv0jQO9+QbLRsX
+ bd0JGksyOez065xyxSDPoesbQpRQ0fPWl37VGSmF4f6ADPjVXLwZHo31P9M5j01C8cXa
+ AvlCpFVBZRBHZggxlisXJ8FW3crmnrL6RavJ8mKe5OMaJsG7L3WIklczfPqry/w0w7TF
+ d/PuCO8novD03kDsNxAXvgYp3OXIzgltRUfNBG13FqaMupKfF85Qp3ZaEkfInbx6IOPw
+ SBCg==
+X-Gm-Message-State: AOAM532AkHYGS9mZcGekUjPAPFu7aLDT6uMvgGKBiKgHK45Fhi63nXU1
+ Jc8JMhRluq/wSa5f106GYtGtyg==
+X-Google-Smtp-Source: ABdhPJwlxzfS87+2bRBS2ruQE5ZSDCpELJcogn4BR3LwqrrkwsLWFE5cge8Nd9bz+4Bsd0Pz9OOxFg==
+X-Received: by 2002:a2e:a816:: with SMTP id l22mr9917936ljq.119.1641452817974; 
+ Wed, 05 Jan 2022 23:06:57 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id k24sm99814lji.27.2022.01.05.23.06.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Jan 2022 23:06:57 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu,  6 Jan 2022 10:06:56 +0300
+Message-Id: <20220106070656.482882-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <YcGel9PtOgqWH6l3@kroah.com>
-References: <20211202222732.2453851-1-swboyd@chromium.org>
- <20211202222732.2453851-2-swboyd@chromium.org>
- <YcGel9PtOgqWH6l3@kroah.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Wed, 5 Jan 2022 18:17:53 -0800
-Message-ID: <CAE-0n53WuAZZQzEsidz-N9Nat=qAJ10Mn4O4syurW11rTuEEMw@mail.gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 01/34] component: Introduce struct
- aggregate_device
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm: reduce usage of round_pixclk
+ callback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,38 +68,146 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saravana Kannan <saravanak@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Greg Kroah-Hartman (2021-12-21 01:29:59)
-> > @@ -471,9 +477,17 @@ int component_master_add_with_match(struct device *parent,
-> >       if (!master)
-> >               return -ENOMEM;
-> >
-> > +     id = ida_alloc(&aggregate_ida, GFP_KERNEL);
-> > +     if (id < 0) {
-> > +             kfree(master);
-> > +             return id;
-> > +     }
-> > +
-> > +     master->id = id;
-> >       master->parent = parent;
-> >       master->ops = ops;
-> >       master->match = match;
-> > +     dev_set_name(&master->dev, "aggregate%d", id);
->
-> You set the name yet the device is not "real"?
->
-> I don't understand this patch at all, sorry.
+The round_pixclk() callback returns different rate only on MDP4 in HDMI
+(DTV) case. Stop using this callback in other cases to simplify
+mode_valid callbacks.
 
-The device is registered in the third patch. I'll squash this patch with
-that one and move the rename patch to be the first patch in the series.
-Then it should be clear why a struct device is introduced along with the
-bus type it's associated with.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+Changes since v1:
+ - Rebased on top of HDMI changes
+ - Dropped eDP part, driver got removed
+
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  7 -------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  7 -------
+ drivers/gpu/drm/msm/dsi/dsi_manager.c    | 22 ----------------------
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c   | 11 +++++++----
+ 4 files changed, 7 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 47fe11a84a77..ebbee5f103e1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -774,12 +774,6 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+ 	return ret;
+ }
+ 
+-static long dpu_kms_round_pixclk(struct msm_kms *kms, unsigned long rate,
+-		struct drm_encoder *encoder)
+-{
+-	return rate;
+-}
+-
+ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+ {
+ 	int i;
+@@ -948,7 +942,6 @@ static const struct msm_kms_funcs kms_funcs = {
+ 	.disable_vblank  = dpu_kms_disable_vblank,
+ 	.check_modified_format = dpu_format_check_modified_format,
+ 	.get_format      = dpu_get_msm_format,
+-	.round_pixclk    = dpu_kms_round_pixclk,
+ 	.destroy         = dpu_kms_destroy,
+ 	.snapshot        = dpu_kms_mdp_snapshot,
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 12a5f81e402b..20859fd7af4a 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -190,12 +190,6 @@ static void mdp5_complete_commit(struct msm_kms *kms, unsigned crtc_mask)
+ 		mdp5_smp_complete_commit(mdp5_kms->smp, &global_state->smp);
+ }
+ 
+-static long mdp5_round_pixclk(struct msm_kms *kms, unsigned long rate,
+-		struct drm_encoder *encoder)
+-{
+-	return rate;
+-}
+-
+ static int mdp5_set_split_display(struct msm_kms *kms,
+ 		struct drm_encoder *encoder,
+ 		struct drm_encoder *slave_encoder,
+@@ -278,7 +272,6 @@ static const struct mdp_kms_funcs kms_funcs = {
+ 		.wait_flush      = mdp5_wait_flush,
+ 		.complete_commit = mdp5_complete_commit,
+ 		.get_format      = mdp_get_format,
+-		.round_pixclk    = mdp5_round_pixclk,
+ 		.set_split_display = mdp5_set_split_display,
+ 		.destroy         = mdp5_kms_destroy,
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index f19bae475c96..1dbbfca163d9 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -305,27 +305,6 @@ static int dsi_mgr_connector_get_modes(struct drm_connector *connector)
+ 	return num;
+ }
+ 
+-static enum drm_mode_status dsi_mgr_connector_mode_valid(struct drm_connector *connector,
+-				struct drm_display_mode *mode)
+-{
+-	int id = dsi_mgr_connector_get_id(connector);
+-	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+-	struct drm_encoder *encoder = msm_dsi_get_encoder(msm_dsi);
+-	struct msm_drm_private *priv = connector->dev->dev_private;
+-	struct msm_kms *kms = priv->kms;
+-	long actual, requested;
+-
+-	DBG("");
+-	requested = 1000 * mode->clock;
+-	actual = kms->funcs->round_pixclk(kms, requested, encoder);
+-
+-	DBG("requested=%ld, actual=%ld", requested, actual);
+-	if (actual != requested)
+-		return MODE_CLOCK_RANGE;
+-
+-	return MODE_OK;
+-}
+-
+ static struct drm_encoder *
+ dsi_mgr_connector_best_encoder(struct drm_connector *connector)
+ {
+@@ -586,7 +565,6 @@ static const struct drm_connector_funcs dsi_mgr_connector_funcs = {
+ 
+ static const struct drm_connector_helper_funcs dsi_mgr_conn_helper_funcs = {
+ 	.get_modes = dsi_mgr_connector_get_modes,
+-	.mode_valid = dsi_mgr_connector_mode_valid,
+ 	.best_encoder = dsi_mgr_connector_best_encoder,
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 68fba4bf7212..10ebe2089cb6 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -282,15 +282,18 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
+ 	long actual, requested;
+ 
+ 	requested = 1000 * mode->clock;
+-	actual = kms->funcs->round_pixclk(kms,
+-			requested, hdmi_bridge->hdmi->encoder);
+ 
+ 	/* for mdp5/apq8074, we manage our own pixel clk (as opposed to
+ 	 * mdp4/dtv stuff where pixel clk is assigned to mdp/encoder
+ 	 * instead):
+ 	 */
+-	if (config->pwr_clk_cnt > 0)
+-		actual = clk_round_rate(hdmi->pwr_clks[0], actual);
++	if (kms->funcs->round_pixclk)
++		actual = kms->funcs->round_pixclk(kms,
++			requested, hdmi_bridge->hdmi->encoder);
++	else if (config->pwr_clk_cnt > 0)
++		actual = clk_round_rate(hdmi->pwr_clks[0], requested);
++	else
++		actual = requested;
+ 
+ 	DBG("requested=%ld, actual=%ld", requested, actual);
+ 
+-- 
+2.34.1
+
