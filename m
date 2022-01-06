@@ -2,59 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9CB1485D91
-	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 01:50:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7BC485E6B
+	for <lists+freedreno@lfdr.de>; Thu,  6 Jan 2022 03:07:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44DDA10E5C8;
-	Thu,  6 Jan 2022 00:50:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D331A10E56F;
+	Thu,  6 Jan 2022 02:07:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A89C10E5C8;
- Thu,  6 Jan 2022 00:50:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1641430201; x=1672966201;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=3mDDWkL02Un8LANUcOp+p+y4tof1LZKh/RxWNRCnb18=;
- b=EZ7vHSvLihffwts88tmnQqhebOuptgBd8YOSjDzrw+OTzdKtVVRkl2lb
- glcZRYFOEecgy3mGWGbtMwXTx1Y/68IzUC7clQuKTyn3TgC89bQT8shKs
- n7MExIH/PL54eFEFlxpd1Ukpy/vGOS92xima3KVd6r3MrBh4AunN5B+hm I=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 05 Jan 2022 16:50:00 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jan 2022 16:49:59 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Wed, 5 Jan 2022 16:49:59 -0800
-Received: from [10.111.171.132] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Wed, 5 Jan 2022
- 16:49:57 -0800
-Message-ID: <a395313b-5bc8-b980-3b06-c380c0476a87@quicinc.com>
-Date: Wed, 5 Jan 2022 16:45:54 -0800
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92A7B10E56E
+ for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 02:07:12 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id v6so1651618oib.13
+ for <freedreno@lists.freedesktop.org>; Wed, 05 Jan 2022 18:07:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=N8EyGGSmrvvI6zU1aQmKy8o54cZnNfEr69UiGzAV5Xg=;
+ b=NxFVhNfzmEq5RCDmuy44ry2eINp5RIBA/UI9lnUXVtNeRh1g4inZSBQgJsaOiHkpuZ
+ M8H0h59pBbxHadQ2QoWie5KzIFcXOp4pq8Fe+9w4RMK8jtEGvk+ZQ+f64XTDbv5wcr+Q
+ op3ubfY18FPsSkmWAWki/KrbF3BFhxuvFOAu0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=N8EyGGSmrvvI6zU1aQmKy8o54cZnNfEr69UiGzAV5Xg=;
+ b=EKCDlX3htaDE9g6W/0LdIK72C6lI15XA2ydzT5gjY3LkW24x4OebSLjrCpCV0819/V
+ XiFR4W1oj9YCXVfwOqE2qunqI5Q9FkL6fOplQP+GTFqMW9PtuImfeAXWSJddxa8qTB1H
+ o/Bof1i0AC5ZMQ8Q3fAuJW01FxN/eZyUJzEGSMIqMUNks+96cPsOiA3+oiNrJ4Ea7iw8
+ +no/26nuH2pe7p68vPlEqh/DWw2WedHtZ7fwD1cC6YCyH8l9ZZYWkvCpMnBMvGR/Wo+D
+ 0JAf86OzJUM6nVGbjMz6jO7bpL3z/CT5+T/0GKDpGhGEVS8iVScYFuB7p2UOMZEcpJYH
+ ne1A==
+X-Gm-Message-State: AOAM530aPijG3fIO17xKLgqwI2noY296G+DBk+zZYTA/8bwyiUdsrS/Q
+ ED32yPcPO0MWMzBrchoRaak5cVV2xldNKDi0QLyvCQ==
+X-Google-Smtp-Source: ABdhPJwMibIsFOJg1O7S6ixK9lYcwLkrgBiGvGU8C/v/R7joI0S4Kl3kddaxfXVhULAlQHivvDuZi7OlcYqOesAmHjQ=
+X-Received: by 2002:aca:a953:: with SMTP id s80mr4711191oie.164.1641434831728; 
+ Wed, 05 Jan 2022 18:07:11 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 5 Jan 2022 18:07:11 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, Abhinav Kumar <abhinavk@codeaurora.org>
-References: <20211126021809.1105535-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20211126021809.1105535-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: remove extra wrappers around
- dpu_core_irq
+In-Reply-To: <1640856276-14697-2-git-send-email-quic_rajeevny@quicinc.com>
+References: <1640856276-14697-1-git-send-email-quic_rajeevny@quicinc.com>
+ <1640856276-14697-2-git-send-email-quic_rajeevny@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Wed, 5 Jan 2022 18:07:11 -0800
+Message-ID: <CAE-0n52xCvmFe4O9LfoHe7zSaWGH2dF2GGhROr60tb-DV=V8Sg@mail.gmail.com>
+To: Rajeev Nandan <quic_rajeevny@quicinc.com>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [v1 1/2] dt-bindings: msm/dsi: Add 10nm dsi phy
+ tuning properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,148 +66,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Daniel
- Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, robh@kernel.org, jonathan@marek.ca,
+ airlied@linux.ie, linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com,
+ robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Rajeev Nandan (2021-12-30 01:24:35)
+> Add 10nm dsi phy tuning properties for phy drive strength and
+> phy drive level adjustemnt.
 
+s/adjustemnt/adjustment/
 
-On 11/25/2021 6:18 PM, Dmitry Baryshkov wrote:
-> Remove extra dpu_irq_* wrappers from dpu_kms.c, merge them directly into
-> dpu_core_irq_* functions.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Please add the details about parasitics and eye shape tuning to this
+commit text.
+
+>
+> Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h  | 12 ++++-----
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |  9 ++++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 27 +++----------------
->   3 files changed, 15 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
-> index 90ae6c9ccc95..7023ccb79814 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
-> @@ -10,24 +10,24 @@
->   
->   /**
->    * dpu_core_irq_preinstall - perform pre-installation of core IRQ handler
-> - * @dpu_kms:		DPU handle
-> + * @kms:		MSM KMS handle
->    * @return:		none
->    */
-> -void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms);
-> +void dpu_core_irq_preinstall(struct msm_kms *kms);
->   
->   /**
->    * dpu_core_irq_uninstall - uninstall core IRQ handler
-> - * @dpu_kms:		DPU handle
-> + * @kms:		MSM KMS handle
->    * @return:		none
->    */
-> -void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms);
-> +void dpu_core_irq_uninstall(struct msm_kms *kms);
->   
->   /**
->    * dpu_core_irq - core IRQ handler
-> - * @dpu_kms:		DPU handle
-> + * @kms:		MSM KMS handle
->    * @return:		interrupt handling status
->    */
-> -irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms);
-> +irqreturn_t dpu_core_irq(struct msm_kms *kms);
->   
->   /**
->    * dpu_core_irq_read - IRQ helper function for reading IRQ status
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index fc1b6c47c93d..d76edf55693a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -144,8 +144,9 @@ static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, int irq_idx)
->   			cb->func(cb->arg, irq_idx);
->   }
->   
-> -irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
-> +irqreturn_t dpu_core_irq(struct msm_kms *kms)
->   {
-> +	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
->   	struct dpu_hw_intr *intr = dpu_kms->hw_intr;
->   	int reg_idx;
->   	int irq_idx;
-> @@ -551,8 +552,9 @@ void dpu_debugfs_core_irq_init(struct dpu_kms *dpu_kms,
->   }
->   #endif
->   
-> -void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
-> +void dpu_core_irq_preinstall(struct msm_kms *kms)
->   {
-> +	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
->   	int i;
->   
->   	pm_runtime_get_sync(&dpu_kms->pdev->dev);
-> @@ -571,8 +573,9 @@ void dpu_core_irq_preinstall(struct dpu_kms *dpu_kms)
->   	}
->   }
->   
-> -void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
-> +void dpu_core_irq_uninstall(struct msm_kms *kms)
->   {
-> +	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
->   	int i;
->   
->   	if (!dpu_kms->hw_intr)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index a15b26428280..704474c4d655 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -784,20 +784,6 @@ static void dpu_kms_destroy(struct msm_kms *kms)
->   	msm_kms_destroy(&dpu_kms->base);
->   }
->   
-> -static irqreturn_t dpu_irq(struct msm_kms *kms)
-> -{
-> -	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-> -
-> -	return dpu_core_irq(dpu_kms);
-> -}
-> -
-> -static void dpu_irq_preinstall(struct msm_kms *kms)
-> -{
-> -	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-> -
-> -	dpu_core_irq_preinstall(dpu_kms);
-> -}
-> -
->   static int dpu_irq_postinstall(struct msm_kms *kms)
->   {
->   	struct msm_drm_private *priv;
-> @@ -817,13 +803,6 @@ static int dpu_irq_postinstall(struct msm_kms *kms)
->   	return 0;
->   }
->   
-> -static void dpu_irq_uninstall(struct msm_kms *kms)
-> -{
-> -	struct dpu_kms *dpu_kms = to_dpu_kms(kms);
-> -
-> -	dpu_core_irq_uninstall(dpu_kms);
-> -}
-> -
->   static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_kms *kms)
->   {
->   	int i;
-> @@ -871,10 +850,10 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
->   
->   static const struct msm_kms_funcs kms_funcs = {
->   	.hw_init         = dpu_kms_hw_init,
-> -	.irq_preinstall  = dpu_irq_preinstall,
-> +	.irq_preinstall  = dpu_core_irq_preinstall,
->   	.irq_postinstall = dpu_irq_postinstall,
-> -	.irq_uninstall   = dpu_irq_uninstall,
-> -	.irq             = dpu_irq,
-> +	.irq_uninstall   = dpu_core_irq_uninstall,
-> +	.irq             = dpu_core_irq,
->   	.enable_commit   = dpu_kms_enable_commit,
->   	.disable_commit  = dpu_kms_disable_commit,
->   	.vsync_time      = dpu_kms_vsync_time,
+>  .../devicetree/bindings/display/msm/dsi-phy-10nm.yaml | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> index 4399715..9406982 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> @@ -35,6 +35,18 @@ properties:
+>        Connected to DSI0_MIPI_DSI_PLL_VDDA0P9 pin for sc7180 target and
+>        connected to VDDA_MIPI_DSI_0_PLL_0P9 pin for sdm845 target
+>
+> +  phy-drive-strength-cfg:
+> +    type: array
+> +    description:
+> +      Register values of DSIPHY_RESCODE_OFFSET_TOP and DSIPHY_RESCODE_OFFSET_BOT
+> +      for all five lanes to adjust the phy drive strength.
+> +
+> +  phy-drive-level-cfg:
+> +    type: array
+> +    description:
+> +      Register values of DSIPHY_RESCODE_OFFSET_TOP for all five lanes to adjust
+> +      phy drive level/amplitude.
+
+It would be better to put human understandable values into DT here. This
+looks like a black box to anyone outside of qcom, so they won't know how
+to tune or set these register values.
+
+At least for phy-drive-level-cfg it sounds like it could be some sort of
+property that is a u32 array of 5 elements for each lane indicating some
+sort of amplitude, i.e.
+
+	phy-max-amplitudes = <0 1 2 3 4>;
+	phy-min-amplitudes = <0 1 2 3 4>;
+
+where each index corresponds to a particular lane. Then the driver can
+parse the amplitude and convert it into some sort of register value.
