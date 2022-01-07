@@ -1,64 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5A2486DB1
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 00:25:03 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CDFAB486E7D
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 01:15:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1B3610E1A1;
-	Thu,  6 Jan 2022 23:25:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79D9810E3EC;
+	Fri,  7 Jan 2022 00:15:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38EED10E1A1
- for <freedreno@lists.freedesktop.org>; Thu,  6 Jan 2022 23:25:01 +0000 (UTC)
-Received: by mail-oo1-xc34.google.com with SMTP id
- n3-20020a4a3443000000b002dad63979b8so1059079oof.4
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 15:25:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=YT91JSmjzJ2hfMRgmVGOHVorjfPKR1pnZsxBO5R/GuI=;
- b=D/2AfUta7+flczHy8ibrXSRE5JZwr1mvaDAm0fn6GyepCsgG/s0a25xiiu8Bs1JPsW
- EV4tRZIEE8yPe/4ReG4UssI53IzIFhO4hBIpP3vqlVkRFrGA1q9NMhl3GedN8/IdYJiH
- O01JgwzEhicYXwzzPCsaY8WyvhE0Gta03dtVTlZpyoIe66Cwwbku0vvfxlf43li7OY4G
- PRhovW1OJLNVoNy6ngs6xb5Yf6BjeeF2nYrbpbKW8OUsv0pjzqItxGItlHP1vj//7SLN
- l4YtUMm4YTsggUax4nX8OZaWRA3zZN8HSEbQxfB7AmMAEde3HTegsxkdpCokgVtbX35L
- OceQ==
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81A9E10E3EC
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 00:15:40 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ c18-20020a4a3812000000b002da81004c1cso1065617ooa.13
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 16:15:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=MNyeIISDwaP906Fyw5+wTJ1iyG5+6D9QgHbtTef0zTw=;
+ b=BHQjzeDcGe24UGKrK3UHuDDHKFKMvuivbXPMLeOhY99kwMH3AIcd1LKmxfOODHcyiq
+ 5B1odz88ZZTiyANh5C6KoAmhuDFrsgl/xmOu6PLS16p/dCPi/uUzL9f/j5qVlDptWI5d
+ zRrWvzQIMMtfHn+Rmtzz8xDS94tEc2ancboUw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=YT91JSmjzJ2hfMRgmVGOHVorjfPKR1pnZsxBO5R/GuI=;
- b=x0kkhJcffUheYmeU35Tzp8CgzU5kmKilBi5mn2YiZ47jv/8KdzmxzfvKk8rn1JXObl
- oDJ+xDyEXnqOBMIn1zzz3lrjIvsw5GaMMjricA5u+rQbgoDMV7OuIls6JbccYmAHhYYE
- lI4sx/FBt4+bidnJNCKR7uPjbidnDFZE19aOJ1aDDLnofpijreMuH0tLn7bGAadncp/J
- HIo2AAITOF1LhfqWKjy5AmeEw7E2yqLjZpS8Y0Iv14hZyxxDlZdeFDaf/7GLEE73GIRb
- D+Mutah7vI/wvpfesFJnD5BDFbzKWK2MQjXozaGDOLAyS8+N1II7QNUHPt4RwEB7Zz67
- Kb5g==
-X-Gm-Message-State: AOAM530dRUq+3hurLiq7JD54lUMUjqCj/sSr5Y5Fu9la3LC7nQrYZ4D5
- ODiSHA+5qZN70WMhJM0MZCDE+A==
-X-Google-Smtp-Source: ABdhPJx4FLN2qFyGyHmApIrjJ+Hi7f0aIkSdtjulk3KuErND+7d/W8dEBalySybtcEntfx775c97rw==
-X-Received: by 2002:a4a:8746:: with SMTP id a6mr37663438ooi.93.1641511500390; 
- Thu, 06 Jan 2022 15:25:00 -0800 (PST)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id v5sm636158oic.11.2022.01.06.15.24.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 15:25:00 -0800 (PST)
-Date: Thu, 6 Jan 2022 15:25:49 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Ydd6fSI/fYDGveja@ripper>
-References: <20220106181449.696988-1-robdclark@gmail.com>
- <20220106181449.696988-2-robdclark@gmail.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=MNyeIISDwaP906Fyw5+wTJ1iyG5+6D9QgHbtTef0zTw=;
+ b=fyy5Ukbf5Hlj/TLdjsXD59ADPnSnknb6HGMjdasGcJAnGvfYhb+JuT25eZ2BIJB+l4
+ EPj8dABfZKBKFlc3P23SQO4VAnVJUv/tbPbvJieoBU+V2JxFsJIfTvXHEHeJ7Ygp3xVW
+ c4e4ZZu6dgCxeLM3zSXtwFo0SP4LG7x3d2FNlSkswZdKQUCp5nfsggQNNDSluhwwbkCK
+ pfj1U2TT+Y1RrSLhj8QcHOTCd+iTKoswZXqCNrYF7olGBJFF6IpO0S4ob6i+NnKDHlw3
+ KLMG5OXJPAJzJD7ssQYGL1R3q/0S8SH8jxMPFriasE+5nUhGfmRigvlfHmChjGtf/vHC
+ 8V2w==
+X-Gm-Message-State: AOAM533NJ7uNIP3mRjb27Vkx0BTsbl5I+/5L99oVzBWcJOd6F1ydznMM
+ 7wMJ63iUqv9OmVUKWxt277lTdV/3rVTuTRrMW+/wEA==
+X-Google-Smtp-Source: ABdhPJxxe43QBYYTykv4Vu5bViFJ1xZXLwGzxWBx1KASqdAqJuwtKQfJVr38VaAl71Ec9QZCp7/GqF3T3K/7IgcSk8U=
+X-Received: by 2002:a4a:dd08:: with SMTP id m8mr38057741oou.25.1641514539834; 
+ Thu, 06 Jan 2022 16:15:39 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 6 Jan 2022 16:15:39 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220106181449.696988-2-robdclark@gmail.com>
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/gpu: Wait for idle before
- suspending
+In-Reply-To: <1641489296-16215-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1641489296-16215-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 6 Jan 2022 16:15:39 -0800
+Message-ID: <CAE-0n52uRJiY2f_u-Kh+8YZ_Ns=OOb3r02UG45oU8PiaMo2XrA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: add support of tps4
+ (training pattern 4) for HBR3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,97 +66,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Kuogee Hsieh <khsieh@codeaurora.org>,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 06 Jan 10:14 PST 2022, Rob Clark wrote:
+Quoting Kuogee Hsieh (2022-01-06 09:14:56)
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 39558a2..ba70387 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1189,12 +1190,20 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+>
+>         *training_step = DP_TRAINING_2;
+>
+> -       if (drm_dp_tps3_supported(ctrl->panel->dpcd))
+> +       if (drm_dp_tps4_supported(ctrl->panel->dpcd)) {
+> +               pattern = DP_TRAINING_PATTERN_4;
+> +               state_ctrl_bit = 4;
+> +       }
+> +       else if (drm_dp_tps3_supported(ctrl->panel->dpcd)) {
+>                 pattern = DP_TRAINING_PATTERN_3;
+> -       else
+> +               state_ctrl_bit = 3;
+> +       }
+> +       else {
 
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> System suspend uses pm_runtime_force_suspend(), which cheekily bypasses
-> the runpm reference counts.  This doesn't actually work so well when the
-> GPU is active.  So add a reasonable delay waiting for the GPU to become
-> idle.
-> 
-> Alternatively we could just return -EBUSY in this case, but that has the
-> disadvantage of causing system suspend to fail.
-> 
+This should be
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+	} else {
 
-Regards,
-Bjorn
+>                 pattern = DP_TRAINING_PATTERN_2;
+> +               state_ctrl_bit = 2;
+> +       }
+>
+> -       ret = dp_catalog_ctrl_set_pattern(ctrl->catalog, pattern);
+> +       ret = dp_catalog_ctrl_set_pattern_state_bit(ctrl->catalog, state_ctrl_bit);
+>         if (ret)
+>                 return ret;
+>
 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 9 +++++++++
->  drivers/gpu/drm/msm/msm_gpu.c              | 3 +++
->  drivers/gpu/drm/msm/msm_gpu.h              | 3 +++
->  3 files changed, 15 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> index 93005839b5da..b677ca3fd75e 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -611,6 +611,15 @@ static int adreno_resume(struct device *dev)
->  static int adreno_suspend(struct device *dev)
->  {
->  	struct msm_gpu *gpu = dev_to_gpu(dev);
-> +	int ret = 0;
-> +
-> +	ret = wait_event_timeout(gpu->retire_event,
-> +				 !msm_gpu_active(gpu),
-> +				 msecs_to_jiffies(1000));
-> +	if (ret == 0) {
-> +		dev_err(dev, "Timeout waiting for GPU to suspend\n");
-> +		return -EBUSY;
-> +	}
->  
->  	return gpu->funcs->pm_suspend(gpu);
->  }
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 0f78c2615272..2c1049c0ea14 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -703,6 +703,8 @@ static void retire_submits(struct msm_gpu *gpu)
->  			}
->  		}
->  	}
-> +
-> +	wake_up_all(&gpu->retire_event);
->  }
->  
->  static void retire_worker(struct kthread_work *work)
-> @@ -848,6 +850,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->  	INIT_LIST_HEAD(&gpu->active_list);
->  	mutex_init(&gpu->active_lock);
->  	mutex_init(&gpu->lock);
-> +	init_waitqueue_head(&gpu->retire_event);
->  	kthread_init_work(&gpu->retire_work, retire_worker);
->  	kthread_init_work(&gpu->recover_work, recover_worker);
->  	kthread_init_work(&gpu->fault_work, fault_worker);
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 445c6bfd4b6b..92aa1e9196c6 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -230,6 +230,9 @@ struct msm_gpu {
->  	/* work for handling GPU recovery: */
->  	struct kthread_work recover_work;
->  
-> +	/** retire_event: notified when submits are retired: */
-> +	wait_queue_head_t retire_event;
-> +
->  	/* work for handling active-list retiring: */
->  	struct kthread_work retire_work;
->  
-> -- 
-> 2.33.1
-> 
+With that fixed
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
