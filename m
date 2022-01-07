@@ -2,71 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85E2E487243
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 06:26:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 953F0487445
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 09:50:36 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EDFF1131D4;
-	Fri,  7 Jan 2022 05:26:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 260AE11AE8C;
+	Fri,  7 Jan 2022 08:50:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65CA61131D4
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 05:26:33 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id bp20so11631264lfb.6
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 21:26:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=a74v7f2Hv+IdP7z/eazwaJeILmDVIwPUMnvFevEv50o=;
- b=h/3VkUo9knDx+Rc/FxFMShrZTCS4vYa/9S1YN3FvnyogzeWCn9b/X4/RRr6UyHZ3LD
- YB7yaCkQoFw+/zg0cTpEqRro8Yr9i+9CoZEAp9yyYuobFi5/gTJ/y84mJyJ2lDtp9xfS
- y5FwyGMqQJkvrjCRqngOxvZr86JUgFVwHHcVbYNWoxZd+MUIUsF1AC1aXe/J0NW0OVpQ
- 8u/XncJbdsgaLZTCRwFCKjJ6KKAWx9WYZJmRJnJGv9vIpewSDojvcw9QYtlH7Zc6D+ZA
- pgsusL51TOgIXaI7WVjYzD7kkPgLLrTitybrBffGfZke9rnwCpn7koF9GbL+AZezAT4U
- s6rg==
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [IPv6:2607:f8b0:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837CC11AE8C;
+ Fri,  7 Jan 2022 08:50:33 +0000 (UTC)
+Received: by mail-pg1-x532.google.com with SMTP id 200so4943041pgg.3;
+ Fri, 07 Jan 2022 00:50:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=IQS4J/qtHwJGGOnAQs0o0rtK4NFNyvH92Ln82XpYq1E=;
+ b=BR9uftG+cCtV8P36GOU+YlObjfqGNjV8mIZYTwYw5+DCzL+BOwdPwVbM3W2Gruavzu
+ 32qKXVL3Pm05dggOZeyGMYvmCVPqcnm644blBcdbV+bKenZmugHuv991x8t0KfqfwIQV
+ 72D0fgW9hmUTsgWjbgKZS4YCyBQ6kgfjpKzcwJtq1bvHQx4X4zTIOnNbJAxtClRLGJZi
+ 1zSj3Oy67PRKgvBwhkJl8UPb6juw9oepXa+8aF6xLEm5RXNB/y3goROq2NB66Nv9KWMr
+ AfoSW1ItYV32P/T0irVa6Bw4SK9lVifs8P2m69RBE0IXafbaxoNuzUp8px1kY9ZYE5wB
+ Mxhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=a74v7f2Hv+IdP7z/eazwaJeILmDVIwPUMnvFevEv50o=;
- b=MT250Neglxsud86UbIvyU0hGzqXISBlY0/xgYK+d1xFtdIA76FMQebFPoasyVTox3E
- OfwOV1ecGR8RL1jR2xaiXxc926hSD+AAZEkZUnhI1/MfuiYkOggxXuYhOREfvgGhfq6g
- U5uHSB8TCSkAhsZI7mG2CKV5E8MCsjtsRu80Fhh0HGuqFoZ85BN4qph/Hw4U8fF55oKd
- y2NqFE2mqu132ZjzcWqqYXoGjAwHrzQe3VVzjztGVMJiahq9rxrswc9vcA157+ZcsRnx
- IgTgM2VoqJqOvFcKVyNXB5Li9bCu/a7FB4QX0oUVgA0STCnII4PINAyJycEEu/tBj7W0
- n/Yw==
-X-Gm-Message-State: AOAM5331rMz51tE3kvgaAZgoXf3ykyH+SZkTruKepXUPzb4FccMsb+GK
- 3AhvnmHxcsVMqNIqrDdJYi3M1Q==
-X-Google-Smtp-Source: ABdhPJzZ8pnVj1Q3UCYFQ8g4E+bQPTlPKB7qjdHEzzD5Cp6cloL6Q6CSqnGQB4vIirxvKUvj4pym7g==
-X-Received: by 2002:a05:6512:33ca:: with SMTP id
- d10mr53900180lfg.431.1641533191684; 
- Thu, 06 Jan 2022 21:26:31 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g5sm439133lfj.33.2022.01.06.21.26.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jan 2022 21:26:31 -0800 (PST)
-Message-ID: <a97cec56-5a8d-2b92-2850-af2a6d3fbf09@linaro.org>
-Date: Fri, 7 Jan 2022 08:26:30 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-References: <20220107020132.587811-1-dmitry.baryshkov@linaro.org>
- <20220107020132.587811-3-dmitry.baryshkov@linaro.org>
- <CAE-0n51XaV1+rh4CZKz7gMZBPkpq+wHcbNbgHFxoC1ikoDLkhQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n51XaV1+rh4CZKz7gMZBPkpq+wHcbNbgHFxoC1ikoDLkhQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 2/7] drm/msm/dp: support attaching
- bridges to the DP encoder
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=IQS4J/qtHwJGGOnAQs0o0rtK4NFNyvH92Ln82XpYq1E=;
+ b=wf5CI8VPM6bHoHRtBEPOx0AQIf0XhosqVc3BNma0qxRRoDEkyq568gIbLY+TVsfPX+
+ VnwgyJV7LH9WxNO2iXDprMhyMj49G5cRuE4XMwCuQ3mo1+G0g0+c5xP+94D+QDUHE0ML
+ DTb1IzQGcF1XquRIkcej7IsaIPx7PsLmj1q3Vy15YxrlispkD6m4uC/3zPXC73r7JiWr
+ 9kFNZwSgWjv0mIkmzNrGPRFrHHJ/gXBiVCvRxVYuSAe/Gk22ZephOj8xGQlEMAxAhLjm
+ 2C8JbnHRxwvgRovDf0f5Ottg04g3e+XUY2XmpBuEaA/NrbvCixBRpEqfiCJ9FDl7KPr5
+ fOMw==
+X-Gm-Message-State: AOAM5314XTJzVeCNOlIDkrUaBI0qwlvbOcfbD5Ov2dsnRnvSj7EUSv7k
+ SSuJVsIIzrO1r86M4t99h0g=
+X-Google-Smtp-Source: ABdhPJzrezcJmoyT8I5bb9IzMr0GwT31Qhm2NI7Dx6C7H3w2cx5/PuMuN/+otYHv28cEYnq5kQUd5w==
+X-Received: by 2002:a63:8149:: with SMTP id t70mr55367147pgd.71.1641545433164; 
+ Fri, 07 Jan 2022 00:50:33 -0800 (PST)
+Received: from localhost.localdomain ([159.226.95.43])
+ by smtp.googlemail.com with ESMTPSA id f20sm5167583pfe.166.2022.01.07.00.50.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Jan 2022 00:50:32 -0800 (PST)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: 
+Date: Fri,  7 Jan 2022 08:50:22 +0000
+Message-Id: <20220107085026.23831-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Freedreno] [PATCH] drm/msm/hdmi: Fix missing put_device() call in
+ msm_hdmi_get_phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,79 +62,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: freedreno@lists.freedesktop.org, linmq006@gmail.com,
+ David Airlie <airlied@linux.ie>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Archit Taneja <architt@codeaurora.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/01/2022 06:42, Stephen Boyd wrote:
-> Quoting Dmitry Baryshkov (2022-01-06 18:01:27)
->> Currently DP driver will allocate panel bridge for eDP panels.
->> Simplify this code to just check if there is any next bridge in the
->> chain (be it a panel bridge or regular bridge). Rename panel_bridge
->> field to next_bridge accordingly.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c |  2 +-
->>   drivers/gpu/drm/msm/dp/dp_display.h |  2 +-
->>   drivers/gpu/drm/msm/dp/dp_drm.c     |  4 ++--
->>   drivers/gpu/drm/msm/dp/dp_parser.c  | 26 ++++++++------------------
->>   drivers/gpu/drm/msm/dp/dp_parser.h  |  2 +-
->>   5 files changed, 13 insertions(+), 23 deletions(-)
-> 
-> I like this one, it certainly makes it easier to understand.
-> 
->> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
->> index a7acc23f742b..5de21f3d0812 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
->> @@ -307,11 +299,9 @@ static int dp_parser_parse(struct dp_parser *parser, int connector_type)
->>          if (rc)
->>                  return rc;
->>
->> -       if (connector_type == DRM_MODE_CONNECTOR_eDP) {
-> 
-> It feels like this is on purpose, but I don't see any comment so I have
-> no idea. I think qcom folks are concerned about changing how not eDP
-> works. I'll have to test it out locally.
+The reference taken by 'of_find_device_by_node()' must be released when
+not needed anymore.
+Add the corresponding 'put_device()' in the error handling path.
 
-Ah, another thing that should go into the commit message.
+Fixes: e00012b256d4 ("drm/msm/hdmi: Make HDMI core get its PHY")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Current situation:
-- DP: no external bridges supported.
-- eDP: only a drm_panel wrapped into the panel bridge
-
-After this patch:
-- both DP and eDP support any chain of bridges attached.
-
-
-While the change means nothing for the DP (IIUC, it will not have any 
-bridges), it simplifies the code path, lowering the amount of checks.
-
-And for eDP this means that we can attach any eDP-to-something bridges 
-(e.g. NXP PTN3460).
-
-
-Well... After re-checking the source code for 
-devm_drm_of_get_bridge/drm_of_find_panel_or_bridge I should probably 
-revert removal of the check. The function will return -ENODEV if neither 
-bridge nor panel are specified.
-
-> 
->> -               rc = dp_parser_find_panel(parser);
->> -               if (rc)
->> -                       return rc;
->> -       }
->> +       rc = dp_parser_find_next_bridge(parser);
->> +       if (rc)
->> +               return rc;
->>
->>          /* Map the corresponding regulator information according to
->>           * version. Currently, since we only have one supported platform,
-
-
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 75b64e6ae035..a439794a32e8 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -95,10 +95,15 @@ static int msm_hdmi_get_phy(struct hdmi *hdmi)
+ 
+ 	of_node_put(phy_node);
+ 
+-	if (!phy_pdev || !hdmi->phy) {
++	if (!phy_pdev) {
+ 		DRM_DEV_ERROR(&pdev->dev, "phy driver is not ready\n");
+ 		return -EPROBE_DEFER;
+ 	}
++	if (!hdmi->phy) {
++		DRM_DEV_ERROR(&pdev->dev, "phy driver is not ready\n");
++		put_device(&phy_pdev->dev);
++		return -EPROBE_DEFER;
++	}
+ 
+ 	hdmi->phy_dev = get_device(&phy_pdev->dev);
+ 
 -- 
-With best wishes
-Dmitry
+2.17.1
+
