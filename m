@@ -1,62 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEA8148714F
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 04:42:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AFAC4871FE
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 06:10:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E61D10FBE4;
-	Fri,  7 Jan 2022 03:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E42311306A;
+	Fri,  7 Jan 2022 05:10:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84C8510FBE4
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 03:42:49 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- p8-20020a9d7448000000b005907304d0c5so5330310otk.6
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 19:42:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=NWwd6X+cONdHPrAA1ssFoRdo6O/Kd5Hv3y1+Epowixk=;
- b=A4vFqWQX/ciKAiD3rBShIXkWQ6We8v4r2Eq9/XAa+FPBuF3IeORe3y2KvbSOTCPnjw
- iAGFljIBOl02LecccSX5kLGEEvuzOT6EpaOm1G18YR1Vmq5Ln/HKIE4UjgNB3yshm7V0
- KZ9ATLayI5c35/38nQyFWM/g3/XMRBmWUHfPY=
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA7A113064
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 05:10:54 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id i31so11444757lfv.10
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 21:10:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=0yKFhRVY+tmgEn1pnh2jXYO28tsu8Fn3zCjKHC19tG8=;
+ b=LM0sBgoiXVAKVgYQ7hvH4qn4ssRopfXMNhWLdwSG93358RsmXHTyImGboqD8IcX2yZ
+ XsuwL+phqMqClkbLW8JgbRRSAcvDGKX4LDZClZlqdJAJ7QCctHNWOwEyu0FTWWADbnVS
+ G9P2iuSHEuWX8dSL4vQSRNZySy6NMAWL+iqqMCzHCKGepTut/fVYAoUxwnpbJ7ZW2sCq
+ SiiZDOqZJBl20lZ8ai9g5+aCnmbrNWadJHgusUtHVOOy8LgihZNZeKXfgPJWBnxEk+ts
+ 44Pwrfq40iKeadDW7xd1GolnM9r0onIm6TpRyvuyIpK0FS7KDVUMb/FaOhDRBbQe7Lbl
+ X2Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=NWwd6X+cONdHPrAA1ssFoRdo6O/Kd5Hv3y1+Epowixk=;
- b=ZCMpCJwxiS8UF4cdga/X6p1HbFKI4bGfFeajFwz2uAd6zzxWiqwcMJ2omS1BadYQQR
- cWBm8i/T+ssbRAjBTxF/Hz683iU4yfB4A/dE38zX4Ie7iBWsJjHmd0bL+lf+OdaqvJCn
- ebqix8gurouXo8LCVjgJK5PdbbWknIdsvMHZi8pbdOnwHkOqGYfIr7yU06Mo8U3s5uTy
- fv3HboJjEA1rkpmTKKUUHPqH6jN6u0hpIT/lnMJUPWzzo8XDijfLYqAE5cRS8S5iqQ/g
- P9ZLq+3LAVrdgLG/0eBpXMAEpcwFV0yt0AzpnRJ4nbKTRYej8hu3pn0i1sMsVayAcsgJ
- cf6g==
-X-Gm-Message-State: AOAM533QdKVgP51Czuagd3vSHcTPExZ6xKSkukjVckH4LwW/67YLxQWv
- rNBmH6lh7aTGLedno8IXOUXyhhZdkPMAaYXvrEEjTg==
-X-Google-Smtp-Source: ABdhPJzf0n9XHktPj8J7s6+dZI2ZyKcsrJQi3oL20SOcD4s8ZaFysAcZ4/L+0HgoBgdkZi/UIdAlzTNykWoLYPJTt/k=
-X-Received: by 2002:a9d:1a6:: with SMTP id e35mr4225674ote.77.1641526968813;
- Thu, 06 Jan 2022 19:42:48 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 6 Jan 2022 19:42:48 -0800
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=0yKFhRVY+tmgEn1pnh2jXYO28tsu8Fn3zCjKHC19tG8=;
+ b=yk+/t1RtlH5/UQPenpIwtmnEJrU9mEgjBLRiDcD0dw7tULoX5YqBSGvckDNjClab1U
+ ehGODHQBdKnpC5IjP61FNNdNcUzUGjUsM5UzB+t2M0P4P1DtTZJtGQ+1Z+KaqPvOY8fu
+ TaOo5QCSJ5bzp0kHX0NugbLw7UG6wrKf/PqBt04VoFufN8XPloeaJqbWyMDCS6UqPHE9
+ /gipKidxrhlZbM9PRDgFsQDBhqcAL+F2kBOB0hK46b5zB/08hI0he+zPABX+Fz0okReb
+ vpZ6q6M7qJ3W1FzoVU+Qu42izPxOx1575TzDoc9Ta/swQlqrcnRwXqGILLKWZbjccaZe
+ rXcg==
+X-Gm-Message-State: AOAM531lGDIlA+DAWBwMa3bl8BwGv2Rxyyata73KVhAi2Q7tRK06YI+f
+ 29o9auZJCXkq0K/R4Vu3bQ55TQ==
+X-Google-Smtp-Source: ABdhPJyDg1mIC7X2483Y3Ph4N0x5XTKoCpdyLSZUkspnNO0POxxLCuN5JpcD+sVxqaZCVr+5JN7Y0w==
+X-Received: by 2002:ac2:4f02:: with SMTP id k2mr54882293lfr.421.1641532252898; 
+ Thu, 06 Jan 2022 21:10:52 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id p20sm431865lfu.270.2022.01.06.21.10.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Jan 2022 21:10:52 -0800 (PST)
+Message-ID: <0c63a37b-4db9-678b-38a5-c6470bbd0565@linaro.org>
+Date: Fri, 7 Jan 2022 08:10:51 +0300
 MIME-Version: 1.0
-In-Reply-To: <20220107020132.587811-3-dmitry.baryshkov@linaro.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Content-Language: en-GB
+To: Stephen Boyd <swboyd@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
 References: <20220107020132.587811-1-dmitry.baryshkov@linaro.org>
- <20220107020132.587811-3-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.9.1
-Date: Thu, 6 Jan 2022 19:42:48 -0800
-Message-ID: <CAE-0n51XaV1+rh4CZKz7gMZBPkpq+wHcbNbgHFxoC1ikoDLkhQ@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH 2/7] drm/msm/dp: support attaching
- bridges to the DP encoder
+ <20220107020132.587811-2-dmitry.baryshkov@linaro.org>
+ <CAE-0n52vvqW7ba5zw_jrqpW=ky_Pas=binMe-nYbr=8OQZs_jQ@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAE-0n52vvqW7ba5zw_jrqpW=ky_Pas=binMe-nYbr=8OQZs_jQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC PATCH 1/7] drm/msm/dp: fix panel bridge
+ attachment
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,44 +84,26 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-01-06 18:01:27)
-> Currently DP driver will allocate panel bridge for eDP panels.
-> Simplify this code to just check if there is any next bridge in the
-> chain (be it a panel bridge or regular bridge). Rename panel_bridge
-> field to next_bridge accordingly.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c |  2 +-
->  drivers/gpu/drm/msm/dp/dp_display.h |  2 +-
->  drivers/gpu/drm/msm/dp/dp_drm.c     |  4 ++--
->  drivers/gpu/drm/msm/dp/dp_parser.c  | 26 ++++++++------------------
->  drivers/gpu/drm/msm/dp/dp_parser.h  |  2 +-
->  5 files changed, 13 insertions(+), 23 deletions(-)
+On 07/01/2022 06:37, Stephen Boyd wrote:
+> Quoting Dmitry Baryshkov (2022-01-06 18:01:26)
+>> In commit 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display
+>> enable and disable") the DP driver received a drm_bridge instance, which
+>> is always attached to the encoder as a root bridge. However it conflicts
+>> with the panel_bridge support for eDP panels.
+> 
+> Can you elaborate here? How does it conflict? Could be as simple as "it
+> attaches before the panel bridge can attach to the root" or something
+> like that.
 
-I like this one, it certainly makes it easier to understand.
+Actually it would be the other way around: panel bridge attaching before 
+the "dp" one. But yes, you got the idea. I'll extend the patch's 
+description.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-> index a7acc23f742b..5de21f3d0812 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-> @@ -307,11 +299,9 @@ static int dp_parser_parse(struct dp_parser *parser, int connector_type)
->         if (rc)
->                 return rc;
->
-> -       if (connector_type == DRM_MODE_CONNECTOR_eDP) {
+>> Change panel_bridge
+>> attachment to come after dp_bridge attachment.
+>>
 
-It feels like this is on purpose, but I don't see any comment so I have
-no idea. I think qcom folks are concerned about changing how not eDP
-works. I'll have to test it out locally.
 
-> -               rc = dp_parser_find_panel(parser);
-> -               if (rc)
-> -                       return rc;
-> -       }
-> +       rc = dp_parser_find_next_bridge(parser);
-> +       if (rc)
-> +               return rc;
->
->         /* Map the corresponding regulator information according to
->          * version. Currently, since we only have one supported platform,
+-- 
+With best wishes
+Dmitry
