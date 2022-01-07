@@ -2,70 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E80684870FE
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 04:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93363487146
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 04:37:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F39F10ED31;
-	Fri,  7 Jan 2022 03:06:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26AC610FA68;
+	Fri,  7 Jan 2022 03:37:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 528C010ED69
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 03:06:16 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id k21so10774795lfu.0
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 19:06:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Le5b+gfm8kEhoQGFgPM2eB+8FLoC7vz8a2SlJRnSDGQ=;
- b=Zo5y9ZH8M2cqtZIKViHJ4SXxuJPxDlI+tHz1eH40NGNhxEvrKF6WfuwCYBX1/1kyv/
- 5rvBgW/eDCw99yCXUEGbMl/A4XRIdPmwEUlYSO6CR8XX4XOz20SkyYpdxdm0j08RcB9w
- WrKL9T8vV7GqQBFcXHmo29oGlYmzXYDCdtcKYmG6ektDwfdEGXizKI4lddsS6Z/gQ2VX
- v65AidI2OA2sBKAhKMQFnkxNFOGB2CAIfues3B+4ZkaMIZgLSMO+S4koUAEUHvEck6gs
- QNAZxvvM+eeTQhLNo6oB+yLF212K27/+wIMWrY9eJpf+oVppOwloU3hTUDKrNWMkkE02
- Egwg==
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1F710FA62
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 03:37:02 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ j97-20020a9d17ea000000b0059069215e85so5254861otj.13
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 19:37:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=V9mvsC6DGuIKmVWqSZ8Hh/LgnzR2ZGlGS22EsE3aa5c=;
+ b=gSpK8J4n7dxUsqwALzCNvN8wJ70GBoGsNjlrkbbYhD6WU2pNysbn/qal1NnPO+NrFM
+ dj8t9ARs4nKO0fUdROf18x6bcu2KIZdRw/sU8s2RfNKQ8xpYwtJtmpSEuRvmrD4yTf8x
+ O9P2bBGAeDrkzbCwSyidZj3iKWyTSeh2rjVcg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Le5b+gfm8kEhoQGFgPM2eB+8FLoC7vz8a2SlJRnSDGQ=;
- b=2tKVTyIIc/7ddjENfx4rAvfKG+G4N9ZhLEo55/LtjcOkln5XiujGyihJHBogb7jGZ6
- EY0QDSSWP0m8NxC+eOr9NqDZd9mukotJjqiN2J1kMOFrOlumGbgEvmPLgcLpTlGmX4Zw
- kFz5xt9HHEnzdd7U1oujFIwkXhpxanj8cp56qqrirVdfMg6g7NXGqRkG7lbYmupe2Hum
- gm7B0O4HualG++mYp2tU4NVUuG3GdzkpnXcAzK+aVAH3eMrzTuFZEU8h74RINKw6s9lU
- q5mbf+fe/mJCzgZ21/E7SvL80YMTi6+QhLfzRM1R46lTolNIfXkFhw+xQ9emlD0VReq5
- eXFA==
-X-Gm-Message-State: AOAM532UV+2VnU20OHHNE7H6DLNPkt/mZgS0+EZCejpawNjnY6CRH+Tp
- MsUtjVDz9bUIigEmHQSkh56byA==
-X-Google-Smtp-Source: ABdhPJyuJrIFR231OR4pS4P0aMgoBzgDhxyRUxHpUfwtWAajfQcCZXRWZgHwytL4KPjF7en/yVrAxg==
-X-Received: by 2002:a05:6512:1155:: with SMTP id
- m21mr54717647lfg.188.1641524774613; 
- Thu, 06 Jan 2022 19:06:14 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id n10sm400669lfk.246.2022.01.06.19.06.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Jan 2022 19:06:14 -0800 (PST)
-Message-ID: <63e0e911-6a01-0853-47eb-0f4e9cfb261b@linaro.org>
-Date: Fri, 7 Jan 2022 06:06:13 +0300
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=V9mvsC6DGuIKmVWqSZ8Hh/LgnzR2ZGlGS22EsE3aa5c=;
+ b=oyi2K2gcfwVPerPOuBdotYbMkGw+1yt01wG8Sl42WggoKAgAxcWJmuLR+F6CME+gyT
+ Iu+rB+9Wm+LGUd53a3e4waJqKbYuuKAyd2v2YgbbMLt6ornYK9diLl1vJzgz/LpDwxZd
+ rbX2pj5V00gRUIk+C6G7XsHMrrn6f2qFtu8ezzD7FbmOW2wy9oftrQ422ebtlU+9/WXw
+ mbk38yBgNw81qZzkAhIlBwg14A/P9kTwEpPP3gvdxb55BjBWtzLz741ZTx5Dxy9illOP
+ qWSdn0wctXVRt1m9yt7BwRLcbbHXqfXJBa+9WE53sF7op2QqNqMf6GRERgYYBLXgNyUa
+ MoAg==
+X-Gm-Message-State: AOAM5310mMOU/aoj9g2Cexd7b1Pa+5AuBC7fRVMAHLbOZi7Om/zQ2WnW
+ IoJ/RZUYUCAzTPboPg1jSh/v6Reu9jDw15spw/wnxA==
+X-Google-Smtp-Source: ABdhPJyU0TGUnomL9oIu+YtgauKLIsxl0/No+gbVlEzQt9cSRx7b2g8hXaUYCjWvRTpSAEFsVO2YQWTDsqh0nBzcZyY=
+X-Received: by 2002:a9d:7451:: with SMTP id p17mr1037416otk.159.1641526621309; 
+ Thu, 06 Jan 2022 19:37:01 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 6 Jan 2022 19:37:00 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+In-Reply-To: <20220107020132.587811-2-dmitry.baryshkov@linaro.org>
 References: <20220107020132.587811-1-dmitry.baryshkov@linaro.org>
- <CAE-0n52Si84XZxURUZ6ONKOCsyCDGF=AXHrStOoMPC67xRiVfQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n52Si84XZxURUZ6ONKOCsyCDGF=AXHrStOoMPC67xRiVfQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [RFC PATCH 0/7] Simplify and correct msm/dp bridge
- implementation
+ <20220107020132.587811-2-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.9.1
+Date: Thu, 6 Jan 2022 19:37:00 -0800
+Message-ID: <CAE-0n52vvqW7ba5zw_jrqpW=ky_Pas=binMe-nYbr=8OQZs_jQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC PATCH 1/7] drm/msm/dp: fix panel bridge
+ attachment
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,80 +75,16 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/01/2022 05:16, Stephen Boyd wrote:
-> Quoting Dmitry Baryshkov (2022-01-06 18:01:25)
->> I noticed that commit 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display
->> enable and disable") conflicts with the panel-edp (panel bridge)
->> support. Both bridges will try to attach directly to the drm encoder
->> itself. I started writing lengthy letter describing what is broken and
->> how it should be fixed. Then at some point I stopped and quickly coded
->> this RFC (which is compile-tested only).
->>
->> Comments and tests (on both DP and eDP setups) are more than welcome.
-> 
-> There are some DP patches dribbling in every day or so and it's really
-> hard to follow along. I asked Kuogee to resend all outstanding patches
-> as a single series but that hasn't happened. I'm not super interested in
-> reviewing/testing out these patches until the outstanding patches for DP
-> on the list are reviewed and landed. Have you looked at those patches?
+Quoting Dmitry Baryshkov (2022-01-06 18:01:26)
+> In commit 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display
+> enable and disable") the DP driver received a drm_bridge instance, which
+> is always attached to the encoder as a root bridge. However it conflicts
+> with the panel_bridge support for eDP panels.
 
-I haven't been following the DP patches. Well, in fact I was mostly 
-stopping myself from looking onto the DP driver and getting elbow deep 
-in it. Partially because some of the patches circulating on the list 
-were clear hacks (e.g. PHY timeouts). Some would be too complex to 
-review them without deep diving into DP. Most of my attention (and spare 
-time) goes to the DPU/DSI/MDP5 (and to lesser extent MDP4/HDMI) drives.
+Can you elaborate here? How does it conflict? Could be as simple as "it
+attaches before the panel bridge can attach to the root" or something
+like that.
 
-With regards to this patch series, the patch 1 is probably most 
-important (and might warrant sending it separately), as it should fix 
-eDP support for Bjorn.
-
-So, initially I wrote just patch 1. And then the surrounding code 
-immediately prompted me to update the rest of the drm glue code. Elbow 
-deep, as I said. Patch 7 might be a bit advantageous (and maybe I should 
-remove it in future),
-
-> See [1] for an example.
-
-I think most of the patches circulating through the list are irrelevant 
-to this patch series, as they do not touch the drm glue code.
-
->> The following changes since commit 6ed95285382d6f90a3c3a11d5806a5eb7db715c3:
->>
->>    drm/msm/a5xx: Fix missing CP_PROTECT for SMMU on A540 (2021-12-17 15:09:46 -0800)
->>
->> are available in the Git repository at:
->>
->>    https://git.linaro.org/people/dmitry.baryshkov/kernel.git msm-dp-bridges
->>
->> for you to fetch changes up to 7eff304d50ba520e9193a293a8e42bbd9d7aa0e1:
->>
->>    drm/msm/dp: stop carying about the connector type (2022-01-07 04:56:06 +0300)
->>
->> ----------------------------------------------------------------
->> Dmitry Baryshkov (7):
->>        drm/msm/dp: fix panel bridge attachment
->>        drm/msm/dp: support attaching bridges to the DP encoder
->>        drm/msm/dp: replace dp_connector with drm_bridge_connector
->>        drm/msm/dp: remove extra wrappers and public functions
->>        drm/msm/dp: remove unused stubs
->>        drm/msm/dp: remove dp_display_en/disable prototypes and data argument
->>        drm/msm/dp: stop carying about the connector type
->>
->>   drivers/gpu/drm/msm/Makefile        |   1 -
->>   drivers/gpu/drm/msm/dp/dp_display.c | 263 ++++++++++++++++++++++++++----------
->>   drivers/gpu/drm/msm/dp/dp_display.h |   5 +-
->>   drivers/gpu/drm/msm/dp/dp_drm.c     | 250 ----------------------------------
->>   drivers/gpu/drm/msm/dp/dp_parser.c  |  28 ++--
->>   drivers/gpu/drm/msm/dp/dp_parser.h  |   4 +-
->>   drivers/gpu/drm/msm/msm_drv.h       |  32 +----
->>   7 files changed, 203 insertions(+), 380 deletions(-)
->>   delete mode 100644 drivers/gpu/drm/msm/dp/dp_drm.c
->>
-> 
-> [1] https://lore.kernel.org/r/1640220845-25266-1-git-send-email-quic_khsieh@quicinc.com
-
-
--- 
-With best wishes
-Dmitry
+> Change panel_bridge
+> attachment to come after dp_bridge attachment.
+>
