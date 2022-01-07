@@ -1,58 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F2E6486E81
-	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 01:16:11 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5A0486E86
+	for <lists+freedreno@lfdr.de>; Fri,  7 Jan 2022 01:16:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0D5610E683;
-	Fri,  7 Jan 2022 00:16:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D932710E6D6;
+	Fri,  7 Jan 2022 00:16:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07B1410E3EC
- for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 00:16:09 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id t23so6080337oiw.3
- for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 16:16:08 -0800 (PST)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3839E10E6D7
+ for <freedreno@lists.freedesktop.org>; Fri,  7 Jan 2022 00:16:38 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id w80so6035168oie.9
+ for <freedreno@lists.freedesktop.org>; Thu, 06 Jan 2022 16:16:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=mE1P4O+5lb7Aj+m/u0inLsIsF4f3Obpma9YFsBVI+mk=;
- b=R+c4v+KB6lM8fqhf7qCx4POmsHZ85uFetKficsf+q36Un+SUnj9mAYdkTsUDRSUEum
- 3ileYQjfrtriixrocxGrjGqEiu4uGATHnNupNBiTJoL0O/xhscZlTHbAyUz5ryn23sC8
- TDxs9J8GCQtY1X4V4fVgCPSWDG3oMtNcHwmRE=
+ bh=AhAOsZ/7jHs5SUsagnpCXuv8mziNMy8lNAe5OxNHwRI=;
+ b=jtu0UCzsfvv7r/9Ui35y3wcCDJ3CTyXCC8ChvPsXCS9J3W37m6SMoBTQbsj+ErtfE9
+ pe0aHLL5ZWI9rFnxE5JXD20lz7HQ5hXDUeTh2khVn4BFwqA6b1gU7t/PkpRjvVqM6VpH
+ u3uv0WnE20bi241CKaAwLaQZj5rAyiY2wkRUw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=mE1P4O+5lb7Aj+m/u0inLsIsF4f3Obpma9YFsBVI+mk=;
- b=Gk9H/zGGVUWRRXs0VxFAig8B2OcT1K2qaFxAO9WmJW1b6bnBJIbBY0UbHzx0hGb/wG
- 3bk/uX9CW7Ltu+qC3oxzqWfsFO80ihRCdZE/FR9lcVqvmpG3JIRsyyMAr7KHD3vNILmn
- qR5f4iaDObhs7E9YPNQTCOpI5CaQ+lnDvAi7fJVfMZLt480gJTDILK93snm0Xo6JERNo
- DCJT/TzuUzD7MQ7vy+0ECbGNUMZyQ/tNjy71CK4ypxrtrmJu9OVc0fCdNPAQ/TcTu1jQ
- e9aN6/2yTB9E0hZ3bw2G+fZpqtqTsGiC8YBSPZbFRx4Qx1Wg4PL5xxVNHq/V/LxlBLc8
- 8HfA==
-X-Gm-Message-State: AOAM532k1/KYMSmaamNY9Z+uGYQf7PLSSxi62IqV0iBrNxk4xCUfoE4p
- lSNkY6lvFAICH4JhS3yQla1UiIIgv4qVWmUdNBuVMQ==
-X-Google-Smtp-Source: ABdhPJxYOfr7WP2LZzJN/EUDtSmVISjJlgmRyG+L1riCyACt9jPXB4g4etKquIwp2+r5rnPWy0RDAAxc2R9ayyc2n28=
-X-Received: by 2002:aca:4382:: with SMTP id q124mr8016650oia.64.1641514568306; 
- Thu, 06 Jan 2022 16:16:08 -0800 (PST)
+ bh=AhAOsZ/7jHs5SUsagnpCXuv8mziNMy8lNAe5OxNHwRI=;
+ b=Dyh7zqoC4N5q6k7mtdtitMBBoCJ3zTjazElMJmMxc8Qeg+3YeRyNVLQFsk3UL75fIA
+ JBL74CQMDqW+gYYLvXrul/HQ63ENAEF9GQT6i72kAhCnXmmHorBP9jk+9zD+rTIQDsc1
+ caAMHkx/j9rtXBSWm4q9dXj3Nk/+5JK3DoUso7VG0ZE7lZor46yiK5VICJZn2is7b/fe
+ M3pMKlEM6SVBHC4nWztnGDTVDJUnpFcfoiJiDMgOLYpz+HhQg563Ql5F5VWYdOLeZhKS
+ P6mhBSINORgyW4Cuexbk2xTkazMTNltlwve0NCPffEDA1LtzfuSoDVIuukh/tIV+RPx2
+ 9muw==
+X-Gm-Message-State: AOAM530A+sNS58GigsZczvasPH4tvgzQEhNAistrDa5iU5qUj2pmCw7e
+ 8PaJl16N1bHunSGwQ6f8RzOUTAFLp3uF2MKvno1vZA==
+X-Google-Smtp-Source: ABdhPJzdnu0U3lCEWw7wwT5P+wBqtXsBtwXolcxsJQLEGILR/MbyPZuk7wEfhLzqqaqCXLmimPsFv6cKTyObVMLoGMs=
+X-Received: by 2002:a54:4710:: with SMTP id k16mr7970018oik.32.1641514597511; 
+ Thu, 06 Jan 2022 16:16:37 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 6 Jan 2022 16:16:07 -0800
+ HTTPREST; Thu, 6 Jan 2022 16:16:37 -0800
 MIME-Version: 1.0
-In-Reply-To: <1641489296-16215-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1641489296-16215-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1641501894-17563-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1641501894-17563-1-git-send-email-quic_khsieh@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.9.1
-Date: Thu, 6 Jan 2022 16:16:07 -0800
-Message-ID: <CAE-0n52-SL6jPVtn_wEPtY1FQ4EUZ2PhiQ=agXcnA0AHPV9TQQ@mail.gmail.com>
+Date: Thu, 6 Jan 2022 16:16:37 -0800
+Message-ID: <CAE-0n51WQMSeChCyMKCHOGSqhGKf4=TamDinndrF8iVFrmrZ7A@mail.gmail.com>
 To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
  bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
  robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: add support of tps4
- (training pattern 4) for HBR3
+Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: populate connector of struct
+ dp_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +67,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
  quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Kuogee Hsieh <khsieh@codeaurora.org>,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+ linux-kernel@vger.kernel.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-01-06 09:14:56)
-> @@ -1189,12 +1190,20 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
+Quoting Kuogee Hsieh (2022-01-06 12:44:54)
+> DP CTS test case 4.2.2.6 has valid edid with bad checksum on purpose
+> and expect DP source return correct checksum. During drm edid read,
+> correct edid checksum is calculated and stored at
+> connector::real_edid_checksum.
 >
->         *training_step = DP_TRAINING_2;
+> The problem is struct dp_panel::connector never be assigned, instead the
+> connector is stored in struct msm_dp::connector. When we run compliance
+> testing test case 4.2.2.6 dp_panel_handle_sink_request() won't have a valid
+> edid set in struct dp_panel::edid so we'll try to use the connectors
+> real_edid_checksum and hit a NULL pointer dereference error because the
+> connector pointer is never assigned.
 >
-> -       if (drm_dp_tps3_supported(ctrl->panel->dpcd))
-> +       if (drm_dp_tps4_supported(ctrl->panel->dpcd)) {
-> +               pattern = DP_TRAINING_PATTERN_4;
-> +               state_ctrl_bit = 4;
-> +       }
-> +       else if (drm_dp_tps3_supported(ctrl->panel->dpcd)) {
+> Changes in V2:
+> -- populate panel connector at msm_dp_modeset_init() instead of at dp_panel_read_sink_caps()
+>
+> Changes in V3:
+> -- remove unhelpful kernel crash trace commit text
+> -- remove renaming dp_display parameter to dp
+>
+> Changes in V4:
+> -- add more details to commit text
+>
+> Fixes: 7948fe12d47 ("drm/msm/dp: return correct edid checksum after corrupted edid checksum read")
+> Signee-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
 
-also
-
-	} else if (...) {
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
