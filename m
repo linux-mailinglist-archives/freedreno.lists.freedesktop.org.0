@@ -2,43 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64D6488AE3
-	for <lists+freedreno@lfdr.de>; Sun,  9 Jan 2022 18:18:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75C1488C03
+	for <lists+freedreno@lfdr.de>; Sun,  9 Jan 2022 20:24:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03C0010FAC5;
-	Sun,  9 Jan 2022 17:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6837A10E50B;
+	Sun,  9 Jan 2022 19:24:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ixit.cz (ixit.cz [94.230.151.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB7D10FAC4;
- Sun,  9 Jan 2022 17:18:24 +0000 (UTC)
-Received: from localhost.localdomain (ip-89-176-96-70.net.upcbroadband.cz
- [89.176.96.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 8D7BB2243C;
- Sun,  9 Jan 2022 18:18:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1641748701;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=1neQMH4UzNAqauJdDad8SbWmvmqaMSnRi7ODRmIgqZc=;
- b=KAglRMact6mEBZWDewf3xQaQpwdkkMxOVw13HBLKw9vI6q/b4XFb5aUPMhcdMchTSvVwDz
- P7fTe4IlW22Of8Eu5Waq3f7QPYlpPEFQI20EPOvwXkAY/t5IaAaJS8/3jxwiHETMzboNyV
- eqsrh1RMGSLp1NWgf1wK8hYBBspHNsA=
-From: David Heidelberg <david@ixit.cz>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>
-Date: Sun,  9 Jan 2022 18:18:13 +0100
-Message-Id: <20220109171814.16103-1-david@ixit.cz>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E5510E24C;
+ Sun,  9 Jan 2022 19:24:43 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ p1-20020a1c7401000000b00345c2d068bdso8497355wmc.3; 
+ Sun, 09 Jan 2022 11:24:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/7KLjfPHsWfXinvdT9x6SwzVroZgq92QvU7YFU5ZeWM=;
+ b=eJ2muUDWeSDar4I1sLFaTGZhcHvqAdSpGMogP4fuj4m5J2xdYuZQPEszkuQHAbE08C
+ fy20TVvX4eSaHLy986Oe8RMqcP62rOxSFOpaAvq+SGNKos5U2QTn73e8xJXEUK5TugXp
+ BPztQRIxS3ET5kmCq2F8hSY/4zEwfidL2fwngro2M2GsXgGYLa8R10h4tC67IALi9dcJ
+ rmvEvIoTD879fADNyXMYKP7xX6rO92qnN5sCdzgfjWVswCg5pOHTbCeuufsZKAoTqrut
+ CSQp8CU2czG+ZiucpIEDGWIbeFiWI1xFyhUJvfD9ILlY+6e3Za2UTPxwutRpLTZFFw8y
+ ly3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/7KLjfPHsWfXinvdT9x6SwzVroZgq92QvU7YFU5ZeWM=;
+ b=Ex0R7gHKOYKYIMNCioSJY6wR4+OgqSYRwWmvr6cCzXJSac6icE+dOD7Dke6VNo1p9V
+ WMegEG+SUALuOlFmWWbCC40zGxmzU4Vm3fF1wyH01AEazlFzlFkacl8gogJ5XlBGRh8o
+ z/NtPsNX026Gb64/f622tQ3q+8vZT57UZ5GzuyCf1mZaimO1Qg9VIByYU1+VSTBt1EdT
+ UAgQlEjXLLSpECmDrxXSasNNvt6ioaI3+rxGCR/avEAvX7GRNYywn6OR7lcirYv61dSa
+ ewlP5gnd+TA7ynsNeslCtrq1Sd/krGfKj+UJtoj41mc9Nj5DGOe4+r6/MT0hvymUYqNC
+ WDCA==
+X-Gm-Message-State: AOAM533kpNPGwN9O32BKqQXTCnJtmEQS7TjJZRoI2LVcC1dP/nhnU67u
+ t12ioJXGCSj7gKo5jAeZP+4=
+X-Google-Smtp-Source: ABdhPJxob2kx7PZCoFwkFA0s/AKSHeLZcHwTJ8YZObT7NHoX+c9068fofT99Quzq/1i0wvnVcFJNFQ==
+X-Received: by 2002:a7b:c0cf:: with SMTP id s15mr1712753wmh.95.1641756281658; 
+ Sun, 09 Jan 2022 11:24:41 -0800 (PST)
+Received: from localhost.localdomain ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id w17sm5403831wmc.14.2022.01.09.11.24.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Jan 2022 11:24:41 -0800 (PST)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: kalyan_t@codeaurora.org
+Date: Sun,  9 Jan 2022 20:24:31 +0100
+Message-Id: <20220109192431.135949-1-jose.exposito89@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam: Yes
-Subject: [Freedreno] [PATCH] dt-bindings: msm/mdp4: convert to yaml format
+Subject: [Freedreno] [PATCH] drm/msm/dpu: invalid parameter check in
+ dpu_setup_dspp_pcc
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,273 +68,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Heidelberg <david@ixit.cz>, freedreno@lists.freedesktop.org,
- ~okias/devicetree@lists.sr.ht
+Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Convert mdp4 binding into yaml format.
+The function performs a check on the "ctx" input parameter, however, it
+is used before the check.
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Initialize the "base" variable after the sanity check to avoid a
+possible NULL pointer dereference.
+
+Fixes: 4259ff7ae509e ("drm/msm/dpu: add support for pcc color block in dpu driver")
+Addresses-Coverity-ID: 1493866 ("Null pointer dereference")
+Signed-off-by: José Expósito <jose.exposito89@gmail.com>
 ---
- .../devicetree/bindings/display/msm/mdp4.txt  | 114 ----------------
- .../devicetree/bindings/display/msm/mdp4.yaml | 124 ++++++++++++++++++
- 2 files changed, 124 insertions(+), 114 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp4.txt
- create mode 100644 Documentation/devicetree/bindings/display/msm/mdp4.yaml
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/mdp4.txt b/Documentation/devicetree/bindings/display/msm/mdp4.txt
-deleted file mode 100644
-index b07eeb38f709..000000000000
---- a/Documentation/devicetree/bindings/display/msm/mdp4.txt
-+++ /dev/null
-@@ -1,114 +0,0 @@
--Qualcomm adreno/snapdragon MDP4 display controller
--
--Description:
--
--This is the bindings documentation for the MDP4 display controller found in
--SoCs like MSM8960, APQ8064 and MSM8660.
--
--Required properties:
--- compatible:
--  * "qcom,mdp4" - mdp4
--- reg: Physical base address and length of the controller's registers.
--- interrupts: The interrupt signal from the display controller.
--- clocks: device clocks
--  See ../clocks/clock-bindings.txt for details.
--- clock-names: the following clocks are required.
--  * "core_clk"
--  * "iface_clk"
--  * "bus_clk"
--  * "lut_clk"
--  * "hdmi_clk"
--  * "tv_clk"
--- ports: contains the list of output ports from MDP. These connect to interfaces
--  that are external to the MDP hardware, such as HDMI, DSI, EDP etc (LVDS is a
--  special case since it is a part of the MDP block itself).
--
--  Each output port contains an endpoint that describes how it is connected to an
--  external interface. These are described by the standard properties documented
--  here:
--	Documentation/devicetree/bindings/graph.txt
--	Documentation/devicetree/bindings/media/video-interfaces.txt
--
--  The output port mappings are:
--	Port 0 -> LCDC/LVDS
--	Port 1 -> DSI1 Cmd/Video
--	Port 2 -> DSI2 Cmd/Video
--	Port 3 -> DTV
--
--Optional properties:
--- clock-names: the following clocks are optional:
--  * "lut_clk"
--- qcom,lcdc-align-lsb: Boolean value indicating that LSB alignment should be
--  used for LCDC. This is only valid for 18bpp panels.
--
--Example:
--
--/ {
--	...
--
--	hdmi: hdmi@4a00000 {
--		...
--		ports {
--			...
--			port@0 {
--				reg = <0>;
--				hdmi_in: endpoint {
--					remote-endpoint = <&mdp_dtv_out>;
--				};
--			};
--			...
--		};
--		...
--	};
--
--	...
--
--	mdp: mdp@5100000 {
--		compatible = "qcom,mdp4";
--		reg = <0x05100000 0xf0000>;
--		interrupts = <GIC_SPI 75 0>;
--		clock-names =
--		    "core_clk",
--		    "iface_clk",
--		    "lut_clk",
--		    "hdmi_clk",
--		    "tv_clk";
--		clocks =
--		    <&mmcc MDP_CLK>,
--		    <&mmcc MDP_AHB_CLK>,
--		    <&mmcc MDP_AXI_CLK>,
--		    <&mmcc MDP_LUT_CLK>,
--		    <&mmcc HDMI_TV_CLK>,
--		    <&mmcc MDP_TV_CLK>;
--
--		ports {
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					mdp_lvds_out: endpoint {
--					};
--				};
--
--				port@1 {
--					reg = <1>;
--					mdp_dsi1_out: endpoint {
--					};
--				};
--
--				port@2 {
--					reg = <2>;
--					mdp_dsi2_out: endpoint {
--					};
--				};
--
--				port@3 {
--					reg = <3>;
--					mdp_dtv_out: endpoint {
--						remote-endpoint = <&hdmi_in>;
--					};
--				};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/msm/mdp4.yaml b/Documentation/devicetree/bindings/display/msm/mdp4.yaml
-new file mode 100644
-index 000000000000..f63f60fea27c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/mdp4.yaml
-@@ -0,0 +1,124 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: "http://devicetree.org/schemas/display/msm/mdp4.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+index a98e964c3b6f..355894a3b48c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
+@@ -26,9 +26,16 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
+ 		struct dpu_hw_pcc_cfg *cfg)
+ {
+ 
+-	u32 base = ctx->cap->sblk->pcc.base;
++	u32 base;
+ 
+-	if (!ctx || !base) {
++	if (!ctx) {
++		DRM_ERROR("invalid ctx %pK\n", ctx);
++		return;
++	}
 +
-+title: Qualcomm Adreno/Snapdragon MDP4 display controller
++	base = ctx->cap->sblk->pcc.base;
 +
-+description: >
-+  MDP4 display controller found in SoCs like MSM8960, APQ8064 and MSM8660.
-+
-+maintainers:
-+  - Rob Clark <robdclark@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: qcom,mdp4
-+
-+  clocks:
-+    minItems: 6
-+    maxItems: 6
-+
-+  clock-names:
-+    items:
-+      - const: core_clk
-+      - const: iface_clk
-+      - const: bus_clk
-+      - const: lut_clk
-+      - const: hdmi_clk
-+      - const: tv_clk
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  iommus:
-+    maxItems: 1
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: LCDC/LVDS
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: DSI1 Cmd / Video
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: DSI2 Cmd / Video
-+
-+      port@3:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Digital TV
-+
-+  qcom,lcdc-align-lsb:
-+    type: boolean
-+    description: >
-+      Indication that LSB alignment should be used for LCDC.
-+      This is only valid for 18bpp panels.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    mdp: mdp@5100000 {
-+        compatible = "qcom,mdp4";
-+        reg = <0x05100000 0xf0000>;
-+        interrupts = <0 75 0>;
-+        clock-names =
-+            "core_clk",
-+            "iface_clk",
-+            "bus_clk",
-+            "lut_clk",
-+            "hdmi_clk",
-+            "tv_clk";
-+        clocks =
-+            <&mmcc 77>,
-+            <&mmcc 86>,
-+            <&mmcc 102>,
-+            <&mmcc 75>,
-+            <&mmcc 97>,
-+            <&mmcc 12>;
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+                mdp_lvds_out: endpoint {
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+                mdp_dsi1_out: endpoint {
-+                };
-+            };
-+
-+            port@2 {
-+                reg = <2>;
-+                mdp_dsi2_out: endpoint {
-+                };
-+            };
-+
-+            port@3 {
-+                reg = <3>;
-+                mdp_dtv_out: endpoint {
-+                    remote-endpoint = <&hdmi_in>;
-+                };
-+            };
-+        };
-+    };
++	if (!base) {
+ 		DRM_ERROR("invalid ctx %pK pcc base 0x%x\n", ctx, base);
+ 		return;
+ 	}
 -- 
-2.34.1
+2.25.1
 
