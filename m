@@ -2,51 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE017489DD9
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 17:49:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76EAB489E5C
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 18:28:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D30410EBEC;
-	Mon, 10 Jan 2022 16:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83BD5112B86;
+	Mon, 10 Jan 2022 17:28:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
- [209.85.210.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F91210EDC2;
- Mon, 10 Jan 2022 16:49:05 +0000 (UTC)
-Received: by mail-ot1-f53.google.com with SMTP id
- c3-20020a9d6c83000000b00590b9c8819aso6140835otr.6; 
- Mon, 10 Jan 2022 08:49:05 -0800 (PST)
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
+ [209.85.167.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B92B11299F;
+ Mon, 10 Jan 2022 17:28:49 +0000 (UTC)
+Received: by mail-oi1-f179.google.com with SMTP id w200so4339250oiw.3;
+ Mon, 10 Jan 2022 09:28:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=qDRfQflqgI0j3IFv1YfAD/jfGjPzZE2xk/OYXfhH8io=;
- b=pf0+2RwKuiTkVjyBi5o1pgrvlmagN9W96mXO2GOA01bo82jOSjawH4stsp3iluevqv
- G20JXj9WN40HzzuumUUKRFONd7lSbz3wOtgNK9AkTneg7AwzWXK4nWzQcSPOUE9S4CJL
- baY3auLkkm9MyobdpN+HiEXqUfe+p327UcfhGyFTFXZSYBvE9PYdHTc17n0bUwEnc77K
- 0NGgPAYxjGtIbkFWKLBN9TtLq7XfzytaSU77YUSaCeJY947kzKaq0ylc7mjupEqRJyOI
- cyDArfrFjK6q7RGQOtCRk2BZyse4BRIZJX+SKmihL622qApbAI4q4h8Ubcl0rD/p1jwc
- o2NA==
-X-Gm-Message-State: AOAM53349mTACvZrFKDc3GLM6P5k7J8iOaoA2dVCp/5HBiVN3EKl4YVa
- PYMSMQcfsX73omRwTNCvdQ==
-X-Google-Smtp-Source: ABdhPJyJeiZuCm18RR/zHJ1xaf3Vi0nrJE1jDK4z8CB/A8DygQapHCXq1kD5ADgN/3pUP5MHSBZHgQ==
-X-Received: by 2002:a05:6830:1bfc:: with SMTP id
- k28mr478325otb.39.1641833344450; 
- Mon, 10 Jan 2022 08:49:04 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=ZsxrSJKAlL12zoGr617hjEfztTw9El7OEQAesnFjPV8=;
+ b=NIRaBnAcy0KoletFoCXDA18XzrO9XWzVndyhMdcj2b7aBpr25okFhd1OPbIcOvpSYd
+ It5y7iZIwxALh+XCc2tx27PnOe96SHZ9WBUgEsHkNV02TgNDhgkP7d5pwc6FvvdO5r/A
+ VSvzO1mFNLfXoA22W/knsdmmkuGiTK5CFvDAnBnYecEtTKM+3R262cMxDqBIQpXft0oh
+ GFnUIOU0U+DGNXVSubrRT8vaQc175qslzYARHc4QIhGJqcYaDR8y3Mcuwm/YOSSfGbEZ
+ ACh2rGRX4Fs+bmkZlfF9bI6EAIN1ECOO1eUO65GtHBO0E7NgyHgT9+sCUguWnAEKER0J
+ YvvQ==
+X-Gm-Message-State: AOAM530ZZoyARxDOx7+JNvYC0SY9okhEv8FqBCqOBNJqaOew06GFJRZ5
+ /sjKTE4inR73CGX6MZbEpw==
+X-Google-Smtp-Source: ABdhPJzUnBjoClx0LWUB/b4sUdkJ3H7i9huwtIYYvV+Ne/HFhaTqEu0dY9davPLBP0VtCD2hQZWX/w==
+X-Received: by 2002:a05:6808:228e:: with SMTP id
+ bo14mr8728255oib.55.1641835729226; 
+ Mon, 10 Jan 2022 09:28:49 -0800 (PST)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id z30sm1533929otj.1.2022.01.10.08.49.03
+ by smtp.gmail.com with ESMTPSA id n19sm1573634otq.11.2022.01.10.09.28.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jan 2022 08:49:03 -0800 (PST)
-Received: (nullmailer pid 1067456 invoked by uid 1000);
- Mon, 10 Jan 2022 16:48:59 -0000
+ Mon, 10 Jan 2022 09:28:48 -0800 (PST)
+Received: (nullmailer pid 1122976 invoked by uid 1000);
+ Mon, 10 Jan 2022 17:28:47 -0000
+Date: Mon, 10 Jan 2022 11:28:47 -0600
 From: Rob Herring <robh@kernel.org>
-To: Rajeev Nandan <quic_rajeevny@quicinc.com>
-In-Reply-To: <1641819337-17037-2-git-send-email-quic_rajeevny@quicinc.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <Ydxsz+XSreBKFNcr@robh.at.kernel.org>
 References: <1641819337-17037-1-git-send-email-quic_rajeevny@quicinc.com>
  <1641819337-17037-2-git-send-email-quic_rajeevny@quicinc.com>
-Date: Mon, 10 Jan 2022 10:48:59 -0600
-Message-Id: <1641833339.702532.1067455.nullmailer@robh.at.kernel.org>
+ <CAA8EJprrRZK+ocW9zDY_eyeo_m_xbu+KmfWf8QmTYscAh5SxLw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAA8EJprrRZK+ocW9zDY_eyeo_m_xbu+KmfWf8QmTYscAh5SxLw@mail.gmail.com>
 Subject: Re: [Freedreno] [v2 1/3] dt-bindings: msm/dsi: Add 10nm dsi phy
  tuning properties
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -61,91 +66,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org, jonathan@marek.ca,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sean@poorly.run,
- robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, swboyd@chromium.org,
+Cc: sean@poorly.run, devicetree@vger.kernel.org, quic_kalyant@quicinc.com,
+ jonathan@marek.ca, airlied@linux.ie, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ quic_abhinavk@quicinc.com, robdclark@gmail.com, quic_mkrishn@quicinc.com,
+ daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 10 Jan 2022 18:25:35 +0530, Rajeev Nandan wrote:
-> In most cases, the default values of DSI PHY tuning registers should be
-> sufficient as they are fully optimized. However, in some cases where
-> extreme board parasitics cause the eye shape to degrade, the override
-> bits can be used to improve the signal quality.
+On Mon, Jan 10, 2022 at 05:06:03PM +0300, Dmitry Baryshkov wrote:
+> On Mon, 10 Jan 2022 at 15:56, Rajeev Nandan <quic_rajeevny@quicinc.com> wrote:
+> >
+> > In most cases, the default values of DSI PHY tuning registers should be
+> > sufficient as they are fully optimized. However, in some cases where
+> > extreme board parasitics cause the eye shape to degrade, the override
+> > bits can be used to improve the signal quality.
+> >
+> > The general guidelines for DSI PHY tuning include:
+> > - High and moderate data rates may benefit from the drive strength and
+> >   drive level tuning.
+> > - Drive strength tuning will affect the output impedance and may be used
+> >   for matching optimization.
+> > - Drive level tuning will affect the output levels without affecting the
+> >   impedance.
+> >
+> > The clock and data lanes have a calibration circuitry feature. The drive
+> > strength tuning can be done by adjusting rescode offset for hstop/hsbot,
+> > and the drive level tuning can be done by adjusting the LDO output level
+> > for the HSTX drive.
+> >
+> > Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
+> > ---
+> >
+> > Changes in v2:
+> >  - More details in the commit text (Stephen Boyd)
+> >  - Use human understandable values (Stephen Boyd, Dmitry Baryshkov)
+> >  - Do not take values that are going to be unused (Dmitry Baryshkov)
+> >
+> >  .../bindings/display/msm/dsi-phy-10nm.yaml         | 33 ++++++++++++++++++++++
+> >  1 file changed, 33 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> > index 4399715..d0eb8f6 100644
+> > --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> > +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
+> > @@ -35,6 +35,35 @@ properties:
+> >        Connected to DSI0_MIPI_DSI_PLL_VDDA0P9 pin for sc7180 target and
+> >        connected to VDDA_MIPI_DSI_0_PLL_0P9 pin for sdm845 target
 > 
-> The general guidelines for DSI PHY tuning include:
-> - High and moderate data rates may benefit from the drive strength and
->   drive level tuning.
-> - Drive strength tuning will affect the output impedance and may be used
->   for matching optimization.
-> - Drive level tuning will affect the output levels without affecting the
->   impedance.
+> Generic note:
+> I think these properties should be prefixed with "qcom," prefix.
 > 
-> The clock and data lanes have a calibration circuitry feature. The drive
-> strength tuning can be done by adjusting rescode offset for hstop/hsbot,
-> and the drive level tuning can be done by adjusting the LDO output level
-> for the HSTX drive.
+> >
+> > +  phy-rescode-offset-top:
+> > +    $ref: /schemas/types.yaml#/definitions/uint8-array
+> > +    minItems: 5
+> > +    maxItems: 5
+> > +    description:
+> > +      Integer array of offset for pull-up legs rescode for all five lanes.
+> > +      To offset the drive strength from the calibrated value in an increasing
+> > +      or decreasing manner, use 6 bit two’s complement values.
 > 
-> Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
-> ---
-> 
-> Changes in v2:
->  - More details in the commit text (Stephen Boyd)
->  - Use human understandable values (Stephen Boyd, Dmitry Baryshkov)
->  - Do not take values that are going to be unused (Dmitry Baryshkov)
-> 
->  .../bindings/display/msm/dsi-phy-10nm.yaml         | 33 ++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
-> 
+> dtc should support negative values, google hints that <(-2)> should work.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Yes, but the schema checks don't check negative values correctly yet. So 
+you can use 'int8-array', but just don't use negative values in the 
+examples. I'm working on changes that will fix this issue.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml:63:54: [error] syntax error: mapping values are not allowed here (syntax)
+What does 6-bit mean? 0x3f is negative? Just sign extend the values and 
+specify the valid range instead:
 
-dtschema/dtc warnings/errors:
-./Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml:  mapping values are not allowed in this context
-  in "<unicode string>", line 63, column 54
-make[1]: *** Deleting file 'Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.example.dts'
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-extract-example", line 46, in <module>
-    binding = yaml.load(open(args.yamlfile, encoding='utf-8').read())
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/main.py", line 434, in load
-    return constructor.get_single_data()
-  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 119, in get_single_data
-    node = self.composer.get_single_node()
-  File "_ruamel_yaml.pyx", line 706, in _ruamel_yaml.CParser.get_single_node
-  File "_ruamel_yaml.pyx", line 724, in _ruamel_yaml.CParser._compose_document
-  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
-  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
-  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
-  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
-  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
-  File "_ruamel_yaml.pyx", line 891, in _ruamel_yaml.CParser._compose_mapping_node
-  File "_ruamel_yaml.pyx", line 904, in _ruamel_yaml.CParser._parse_next_event
-ruamel.yaml.scanner.ScannerError: mapping values are not allowed in this context
-  in "<unicode string>", line 63, column 54
-make[1]: *** [Documentation/devicetree/bindings/Makefile:25: Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.example.dts] Error 1
-make[1]: *** Waiting for unfinished jobs....
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml: ignoring, error parsing file
-make: *** [Makefile:1413: dt_binding_check] Error 2
+minimum: -32
+maximum: 31
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/patch/1577891
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+Rob
