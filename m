@@ -1,56 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65106489EC2
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 19:03:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA8648A138
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 21:56:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD09C112EA5;
-	Mon, 10 Jan 2022 18:03:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0D0210E5A6;
+	Mon, 10 Jan 2022 20:56:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB79B112CB4;
- Mon, 10 Jan 2022 18:03:09 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- h5-20020a9d6a45000000b005908066fa64so14995059otn.7; 
- Mon, 10 Jan 2022 10:03:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=wHOge8f285bUwWiwcIOK5mGtXreVJpH3JR+WmddSG+w=;
- b=hpFqpKjmTgOI0e5i73Nz59V02BhxIvTM3aiC29d1/9bRkuy3mFUzrWaJvr77XO85kw
- IaJ/77ExY+Hzm+lVwyViJHqQuXdrhYuUiEiLTO3MVbsWf7zVtrESPT6PWpT4L1Z+NjSM
- /rG7nmafMnzY/02i3qm/Ied6RZUrvadtFk3Uyt/oUibSHktJPYpE61Ju4D+wLea4Lzm9
- CVue310YRJkDRiTMum4+sgcrOGDxXKlOBvJvniTW6xBaws2QcYDSClqrvw7KTFmZkjVJ
- 41/9T944xff6Zs7G5vDW2GXI8Le9h3h8SksF03On+ZTokvMapByJWlCq+77j/sSMsoPK
- 4PxQ==
-X-Gm-Message-State: AOAM531IQgfW2mSDjwpFfTRppYIur9CBexA8xkZbUwFi9SzvU2iZygvG
- O8M+kdn32EBZvDEyNSD0dA==
-X-Google-Smtp-Source: ABdhPJy2eemZljd8HGQlyZW1LQmzSFvk96tev44J/1OoHkgOIWYMFcYNSrMUsQxaE0C/3FNF0Xh2Kg==
-X-Received: by 2002:a05:6830:3110:: with SMTP id
- b16mr705116ots.367.1641837788966; 
- Mon, 10 Jan 2022 10:03:08 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id 23sm1563517oty.6.2022.01.10.10.03.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jan 2022 10:03:08 -0800 (PST)
-Received: (nullmailer pid 1197339 invoked by uid 1000);
- Mon, 10 Jan 2022 18:03:07 -0000
-Date: Mon, 10 Jan 2022 12:03:07 -0600
-From: Rob Herring <robh@kernel.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Message-ID: <Ydx028kx9H4skxUu@robh.at.kernel.org>
-References: <20211228045934.1524865-1-bjorn.andersson@linaro.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27F6A10E5A6;
+ Mon, 10 Jan 2022 20:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1641848160; x=1673384160;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=QFi1/F+vvFifG3T4nfiL7puKPut5CaPTAfnm01s61QY=;
+ b=d08+8pTytCfxen/QYAQ5NfWLNh3JuHpP3qpzTO5mhj4WLxyNO/SwRDP8
+ MoU4c4gwihgzFMsyuYZM3MmivHBypbC1t/CYC4nh7q7/YTd6iXTCCKZNt
+ a02V0iEk6WCDqWnKK1bZ3th3QeGucxCoiIyDUXQ9ujdrS4FgpbkyjCoiX c=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 10 Jan 2022 12:55:59 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2022 12:55:58 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 10 Jan 2022 12:55:57 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 10 Jan 2022 12:55:57 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <vkoul@kernel.org>,
+ <daniel@ffwll.ch>, <airlied@linux.ie>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <bjorn.andersson@linaro.org>
+Date: Mon, 10 Jan 2022 12:55:39 -0800
+Message-ID: <1641848144-25147-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211228045934.1524865-1-bjorn.andersson@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add DisplayPort controller for
- SM8350
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v10 0/5] group dp driver related patches into
+ one series
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,25 +62,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 27 Dec 2021 20:59:34 -0800, Bjorn Andersson wrote:
-> The Qualcomm SM8350 platform comes with a single DisplayPort controller,
-> add support for this in the DisplayPort driver.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
->  .../devicetree/bindings/display/msm/dp-controller.yaml    | 1 +
->  drivers/gpu/drm/msm/dp/dp_display.c                       | 8 ++++++++
->  2 files changed, 9 insertions(+)
-> 
+Group below 5 dp driver related patches into one series.
 
-Acked-by: Rob Herring <robh@kernel.org>
+Kuogee Hsieh (5):
+  drm/msm/dp: dp_link_parse_sink_count() return immediately if aux read
+    failed
+  drm/msm/dp: do not initialize phy until plugin interrupt received
+  drm/msm/dp:  populate connector of struct  dp_panel
+  drm/msm/dp: add support of tps4 (training pattern 4) for HBR3
+  drm/msm/dp: stop link training after link training 2 failed
+
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  12 ++---
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 100 ++++++++++++++++--------------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   8 +--
+ drivers/gpu/drm/msm/dp/dp_display.c |  98 ++++++++++++++++++++++++-----------
+ drivers/gpu/drm/msm/dp/dp_link.c    |  19 +++++--
+ 6 files changed, 140 insertions(+), 99 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
