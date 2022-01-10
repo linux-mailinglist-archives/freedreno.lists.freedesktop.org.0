@@ -2,58 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76EAB489E5C
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 18:28:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65106489EC2
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 19:03:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83BD5112B86;
-	Mon, 10 Jan 2022 17:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD09C112EA5;
+	Mon, 10 Jan 2022 18:03:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B92B11299F;
- Mon, 10 Jan 2022 17:28:49 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id w200so4339250oiw.3;
- Mon, 10 Jan 2022 09:28:49 -0800 (PST)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB79B112CB4;
+ Mon, 10 Jan 2022 18:03:09 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ h5-20020a9d6a45000000b005908066fa64so14995059otn.7; 
+ Mon, 10 Jan 2022 10:03:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=ZsxrSJKAlL12zoGr617hjEfztTw9El7OEQAesnFjPV8=;
- b=NIRaBnAcy0KoletFoCXDA18XzrO9XWzVndyhMdcj2b7aBpr25okFhd1OPbIcOvpSYd
- It5y7iZIwxALh+XCc2tx27PnOe96SHZ9WBUgEsHkNV02TgNDhgkP7d5pwc6FvvdO5r/A
- VSvzO1mFNLfXoA22W/knsdmmkuGiTK5CFvDAnBnYecEtTKM+3R262cMxDqBIQpXft0oh
- GFnUIOU0U+DGNXVSubrRT8vaQc175qslzYARHc4QIhGJqcYaDR8y3Mcuwm/YOSSfGbEZ
- ACh2rGRX4Fs+bmkZlfF9bI6EAIN1ECOO1eUO65GtHBO0E7NgyHgT9+sCUguWnAEKER0J
- YvvQ==
-X-Gm-Message-State: AOAM530ZZoyARxDOx7+JNvYC0SY9okhEv8FqBCqOBNJqaOew06GFJRZ5
- /sjKTE4inR73CGX6MZbEpw==
-X-Google-Smtp-Source: ABdhPJzUnBjoClx0LWUB/b4sUdkJ3H7i9huwtIYYvV+Ne/HFhaTqEu0dY9davPLBP0VtCD2hQZWX/w==
-X-Received: by 2002:a05:6808:228e:: with SMTP id
- bo14mr8728255oib.55.1641835729226; 
- Mon, 10 Jan 2022 09:28:49 -0800 (PST)
+ :mime-version:content-disposition:in-reply-to;
+ bh=wHOge8f285bUwWiwcIOK5mGtXreVJpH3JR+WmddSG+w=;
+ b=hpFqpKjmTgOI0e5i73Nz59V02BhxIvTM3aiC29d1/9bRkuy3mFUzrWaJvr77XO85kw
+ IaJ/77ExY+Hzm+lVwyViJHqQuXdrhYuUiEiLTO3MVbsWf7zVtrESPT6PWpT4L1Z+NjSM
+ /rG7nmafMnzY/02i3qm/Ied6RZUrvadtFk3Uyt/oUibSHktJPYpE61Ju4D+wLea4Lzm9
+ CVue310YRJkDRiTMum4+sgcrOGDxXKlOBvJvniTW6xBaws2QcYDSClqrvw7KTFmZkjVJ
+ 41/9T944xff6Zs7G5vDW2GXI8Le9h3h8SksF03On+ZTokvMapByJWlCq+77j/sSMsoPK
+ 4PxQ==
+X-Gm-Message-State: AOAM531IQgfW2mSDjwpFfTRppYIur9CBexA8xkZbUwFi9SzvU2iZygvG
+ O8M+kdn32EBZvDEyNSD0dA==
+X-Google-Smtp-Source: ABdhPJy2eemZljd8HGQlyZW1LQmzSFvk96tev44J/1OoHkgOIWYMFcYNSrMUsQxaE0C/3FNF0Xh2Kg==
+X-Received: by 2002:a05:6830:3110:: with SMTP id
+ b16mr705116ots.367.1641837788966; 
+ Mon, 10 Jan 2022 10:03:08 -0800 (PST)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id n19sm1573634otq.11.2022.01.10.09.28.48
+ by smtp.gmail.com with ESMTPSA id 23sm1563517oty.6.2022.01.10.10.03.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jan 2022 09:28:48 -0800 (PST)
-Received: (nullmailer pid 1122976 invoked by uid 1000);
- Mon, 10 Jan 2022 17:28:47 -0000
-Date: Mon, 10 Jan 2022 11:28:47 -0600
+ Mon, 10 Jan 2022 10:03:08 -0800 (PST)
+Received: (nullmailer pid 1197339 invoked by uid 1000);
+ Mon, 10 Jan 2022 18:03:07 -0000
+Date: Mon, 10 Jan 2022 12:03:07 -0600
 From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Ydxsz+XSreBKFNcr@robh.at.kernel.org>
-References: <1641819337-17037-1-git-send-email-quic_rajeevny@quicinc.com>
- <1641819337-17037-2-git-send-email-quic_rajeevny@quicinc.com>
- <CAA8EJprrRZK+ocW9zDY_eyeo_m_xbu+KmfWf8QmTYscAh5SxLw@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Message-ID: <Ydx028kx9H4skxUu@robh.at.kernel.org>
+References: <20211228045934.1524865-1-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAA8EJprrRZK+ocW9zDY_eyeo_m_xbu+KmfWf8QmTYscAh5SxLw@mail.gmail.com>
-Subject: Re: [Freedreno] [v2 1/3] dt-bindings: msm/dsi: Add 10nm dsi phy
- tuning properties
+In-Reply-To: <20211228045934.1524865-1-bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Add DisplayPort controller for
+ SM8350
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,78 +63,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, devicetree@vger.kernel.org, quic_kalyant@quicinc.com,
- jonathan@marek.ca, airlied@linux.ie, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- quic_abhinavk@quicinc.com, robdclark@gmail.com, quic_mkrishn@quicinc.com,
- daniel@ffwll.ch, linux-arm-msm@vger.kernel.org, swboyd@chromium.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 10, 2022 at 05:06:03PM +0300, Dmitry Baryshkov wrote:
-> On Mon, 10 Jan 2022 at 15:56, Rajeev Nandan <quic_rajeevny@quicinc.com> wrote:
-> >
-> > In most cases, the default values of DSI PHY tuning registers should be
-> > sufficient as they are fully optimized. However, in some cases where
-> > extreme board parasitics cause the eye shape to degrade, the override
-> > bits can be used to improve the signal quality.
-> >
-> > The general guidelines for DSI PHY tuning include:
-> > - High and moderate data rates may benefit from the drive strength and
-> >   drive level tuning.
-> > - Drive strength tuning will affect the output impedance and may be used
-> >   for matching optimization.
-> > - Drive level tuning will affect the output levels without affecting the
-> >   impedance.
-> >
-> > The clock and data lanes have a calibration circuitry feature. The drive
-> > strength tuning can be done by adjusting rescode offset for hstop/hsbot,
-> > and the drive level tuning can be done by adjusting the LDO output level
-> > for the HSTX drive.
-> >
-> > Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
-> > ---
-> >
-> > Changes in v2:
-> >  - More details in the commit text (Stephen Boyd)
-> >  - Use human understandable values (Stephen Boyd, Dmitry Baryshkov)
-> >  - Do not take values that are going to be unused (Dmitry Baryshkov)
-> >
-> >  .../bindings/display/msm/dsi-phy-10nm.yaml         | 33 ++++++++++++++++++++++
-> >  1 file changed, 33 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
-> > index 4399715..d0eb8f6 100644
-> > --- a/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
-> > +++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml
-> > @@ -35,6 +35,35 @@ properties:
-> >        Connected to DSI0_MIPI_DSI_PLL_VDDA0P9 pin for sc7180 target and
-> >        connected to VDDA_MIPI_DSI_0_PLL_0P9 pin for sdm845 target
+On Mon, 27 Dec 2021 20:59:34 -0800, Bjorn Andersson wrote:
+> The Qualcomm SM8350 platform comes with a single DisplayPort controller,
+> add support for this in the DisplayPort driver.
 > 
-> Generic note:
-> I think these properties should be prefixed with "qcom," prefix.
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> ---
+>  .../devicetree/bindings/display/msm/dp-controller.yaml    | 1 +
+>  drivers/gpu/drm/msm/dp/dp_display.c                       | 8 ++++++++
+>  2 files changed, 9 insertions(+)
 > 
-> >
-> > +  phy-rescode-offset-top:
-> > +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> > +    minItems: 5
-> > +    maxItems: 5
-> > +    description:
-> > +      Integer array of offset for pull-up legs rescode for all five lanes.
-> > +      To offset the drive strength from the calibrated value in an increasing
-> > +      or decreasing manner, use 6 bit two’s complement values.
-> 
-> dtc should support negative values, google hints that <(-2)> should work.
 
-Yes, but the schema checks don't check negative values correctly yet. So 
-you can use 'int8-array', but just don't use negative values in the 
-examples. I'm working on changes that will fix this issue.
-
-What does 6-bit mean? 0x3f is negative? Just sign extend the values and 
-specify the valid range instead:
-
-minimum: -32
-maximum: 31
-
-Rob
+Acked-by: Rob Herring <robh@kernel.org>
