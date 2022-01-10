@@ -2,56 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A9E489B17
-	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 15:12:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE017489DD9
+	for <lists+freedreno@lfdr.de>; Mon, 10 Jan 2022 17:49:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667E91139DB;
-	Mon, 10 Jan 2022 14:12:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D30410EBEC;
+	Mon, 10 Jan 2022 16:49:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1670D1139AC
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jan 2022 14:12:29 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id r139so14875108qke.9
- for <freedreno@lists.freedesktop.org>; Mon, 10 Jan 2022 06:12:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4DQvnQ3Cgyp1i2b8VzPQ4ffSeU79jX0QQNrlOvytV+k=;
- b=OUoKQA5Bq99RZPfc/HvGf3IC0D0ABjqCwC4nhlM5NAzpqqcuigYGd2HXdBYHHsC9sG
- iK9MHGCKPpDTicEzbuKas1BW+7NlK5CttyrOGXV2O9hE/9CmP780h/Qr8WZzGY6m29xf
- xBQjrx7OzvS/2SMa3KpRiXvuJ+eZlhfnwAKEcFGlBG1kdSJ/M4S/oqatBIdq9C6ufCfp
- OMhkMCm7mM5YPt2QFK0gXY6mfj9JU1atLPNdpibcHx75wcKvggfl2hj1u17ww/f7nXDG
- 1ZfE/83az1RzrQI1DH4o5qquWTFw0CRNkEA2MjWyVMuliSpZ0Mtr3VyUjIiX7mrJhYUq
- ZXOw==
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F91210EDC2;
+ Mon, 10 Jan 2022 16:49:05 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ c3-20020a9d6c83000000b00590b9c8819aso6140835otr.6; 
+ Mon, 10 Jan 2022 08:49:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4DQvnQ3Cgyp1i2b8VzPQ4ffSeU79jX0QQNrlOvytV+k=;
- b=lGgOtFDSZPWGtMfLw39/ZhxBjK5Abge6wydrE7W4R2ifphVeal2mzOixejzfhY8W5j
- f/bER7fce1U2KV40LUaSUVQAkUUkfz9962gYvupMX7Ys9IbB9r2XjZbJGm8bYibI/niu
- inC+VqvU+n30JleT2bQQcNyDhxkKlaYn7JRwQrPAj/rZWIWsMYCM4U6ZiYGkJpyI2WuF
- j/jJOWVH9/UTY+g326CswJyMFKRYFpQfYA8CX9OgxBqT1ZM2cKMUGeHWZ0dPfPZCAXqy
- G4rtJXZCEiXqf8C71czflh8/3s4TwIJSzhZJlhlCRU9HZcQgYaeKawjBjI6PXs97zWZq
- r4zg==
-X-Gm-Message-State: AOAM531YsrUuAyVKEplrt/PuGgEXfJgyIKZKw+/oFw81l3xZldSlaaie
- skJ3YFr1kW29md9yLSeNn4UFm1Ho/MAkIGPS3L0Xmw==
-X-Google-Smtp-Source: ABdhPJwc8URm7uyLRQ1JKPTzT8ft0eFiJWdpt88+kIZ845z3s0s9BABfuWZHZDyFD3Yj2xexfrVnVs0bMA5zP14V0ow=
-X-Received: by 2002:a05:620a:1e1:: with SMTP id
- x1mr11386078qkn.363.1641823948169; 
- Mon, 10 Jan 2022 06:12:28 -0800 (PST)
-MIME-Version: 1.0
-References: <1641819337-17037-1-git-send-email-quic_rajeevny@quicinc.com>
- <1641819337-17037-3-git-send-email-quic_rajeevny@quicinc.com>
-In-Reply-To: <1641819337-17037-3-git-send-email-quic_rajeevny@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 10 Jan 2022 17:12:17 +0300
-Message-ID: <CAA8EJpr_iEvv3oM-KteT7or3HyMk45Z8mzWyKwZ=rnASm-hNXA@mail.gmail.com>
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=qDRfQflqgI0j3IFv1YfAD/jfGjPzZE2xk/OYXfhH8io=;
+ b=pf0+2RwKuiTkVjyBi5o1pgrvlmagN9W96mXO2GOA01bo82jOSjawH4stsp3iluevqv
+ G20JXj9WN40HzzuumUUKRFONd7lSbz3wOtgNK9AkTneg7AwzWXK4nWzQcSPOUE9S4CJL
+ baY3auLkkm9MyobdpN+HiEXqUfe+p327UcfhGyFTFXZSYBvE9PYdHTc17n0bUwEnc77K
+ 0NGgPAYxjGtIbkFWKLBN9TtLq7XfzytaSU77YUSaCeJY947kzKaq0ylc7mjupEqRJyOI
+ cyDArfrFjK6q7RGQOtCRk2BZyse4BRIZJX+SKmihL622qApbAI4q4h8Ubcl0rD/p1jwc
+ o2NA==
+X-Gm-Message-State: AOAM53349mTACvZrFKDc3GLM6P5k7J8iOaoA2dVCp/5HBiVN3EKl4YVa
+ PYMSMQcfsX73omRwTNCvdQ==
+X-Google-Smtp-Source: ABdhPJyJeiZuCm18RR/zHJ1xaf3Vi0nrJE1jDK4z8CB/A8DygQapHCXq1kD5ADgN/3pUP5MHSBZHgQ==
+X-Received: by 2002:a05:6830:1bfc:: with SMTP id
+ k28mr478325otb.39.1641833344450; 
+ Mon, 10 Jan 2022 08:49:04 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id z30sm1533929otj.1.2022.01.10.08.49.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Jan 2022 08:49:03 -0800 (PST)
+Received: (nullmailer pid 1067456 invoked by uid 1000);
+ Mon, 10 Jan 2022 16:48:59 -0000
+From: Rob Herring <robh@kernel.org>
 To: Rajeev Nandan <quic_rajeevny@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v2 2/3] drm/msm/dsi: Add dsi phy tuning
- configuration support
+In-Reply-To: <1641819337-17037-2-git-send-email-quic_rajeevny@quicinc.com>
+References: <1641819337-17037-1-git-send-email-quic_rajeevny@quicinc.com>
+ <1641819337-17037-2-git-send-email-quic_rajeevny@quicinc.com>
+Date: Mon, 10 Jan 2022 10:48:59 -0600
+Message-Id: <1641833339.702532.1067455.nullmailer@robh.at.kernel.org>
+Subject: Re: [Freedreno] [v2 1/3] dt-bindings: msm/dsi: Add 10nm dsi phy
+ tuning properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,100 +61,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, freedreno@lists.freedesktop.org,
- jonathan@marek.ca, devicetree@vger.kernel.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org, jonathan@marek.ca,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sean@poorly.run,
  robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
- daniel@ffwll.ch, swboyd@chromium.org, sean@poorly.run, robh@kernel.org
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 10 Jan 2022 at 15:56, Rajeev Nandan <quic_rajeevny@quicinc.com> wrote:
->
-> Add support for MSM DSI PHY tuning configuration. Current design is
-> to support drive strength and drive level/amplitude tuning for
-> 10nm PHY version, but this can be extended to other PHY versions.
->
+On Mon, 10 Jan 2022 18:25:35 +0530, Rajeev Nandan wrote:
+> In most cases, the default values of DSI PHY tuning registers should be
+> sufficient as they are fully optimized. However, in some cases where
+> extreme board parasitics cause the eye shape to degrade, the override
+> bits can be used to improve the signal quality.
+> 
+> The general guidelines for DSI PHY tuning include:
+> - High and moderate data rates may benefit from the drive strength and
+>   drive level tuning.
+> - Drive strength tuning will affect the output impedance and may be used
+>   for matching optimization.
+> - Drive level tuning will affect the output levels without affecting the
+>   impedance.
+> 
+> The clock and data lanes have a calibration circuitry feature. The drive
+> strength tuning can be done by adjusting rescode offset for hstop/hsbot,
+> and the drive level tuning can be done by adjusting the LDO output level
+> for the HSTX drive.
+> 
 > Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
 > ---
->
+> 
 > Changes in v2:
->  - New.
->  - Split into generic code and 10nm-specific part (Dmitry Baryshkov)
->
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.c |  3 +++
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy.h | 16 ++++++++++++++++
->  2 files changed, 19 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 8c65ef6..ee3739d 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -739,6 +739,9 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
->                 }
->         }
->
-> +       if (phy->cfg->ops.tuning_cfg_init)
-> +               phy->cfg->ops.tuning_cfg_init(phy);
+>  - More details in the commit text (Stephen Boyd)
+>  - Use human understandable values (Stephen Boyd, Dmitry Baryshkov)
+>  - Do not take values that are going to be unused (Dmitry Baryshkov)
+> 
+>  .../bindings/display/msm/dsi-phy-10nm.yaml         | 33 ++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+> 
 
-Please rename to parse_dt_properties() or something like that.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-> +
->         ret = dsi_phy_regulator_init(phy);
->         if (ret)
->                 goto fail;
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> index b91303a..b559a2b 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> @@ -25,6 +25,7 @@ struct msm_dsi_phy_ops {
->         void (*save_pll_state)(struct msm_dsi_phy *phy);
->         int (*restore_pll_state)(struct msm_dsi_phy *phy);
->         bool (*set_continuous_clock)(struct msm_dsi_phy *phy, bool enable);
-> +       void (*tuning_cfg_init)(struct msm_dsi_phy *phy);
->  };
->
->  struct msm_dsi_phy_cfg {
-> @@ -81,6 +82,20 @@ struct msm_dsi_dphy_timing {
->  #define DSI_PIXEL_PLL_CLK              1
->  #define NUM_PROVIDED_CLKS              2
->
-> +#define DSI_LANE_MAX                   5
-> +
-> +/**
-> + * struct msm_dsi_phy_tuning_cfg - Holds PHY tuning config parameters.
-> + * @rescode_offset_top: Offset for pull-up legs rescode.
-> + * @rescode_offset_bot: Offset for pull-down legs rescode.
-> + * @vreg_ctrl: vreg ctrl to drive LDO level
-> + */
-> +struct msm_dsi_phy_tuning_cfg {
-> +       u8 rescode_offset_top[DSI_LANE_MAX];
-> +       u8 rescode_offset_bot[DSI_LANE_MAX];
-> +       u8 vreg_ctrl;
-> +};
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml:63:54: [error] syntax error: mapping values are not allowed here (syntax)
 
-How generic is this? In other words, you are adding a struct with the
-generic name to the generic structure. I'd expect that it would be
-common to several PHY generations.
+dtschema/dtc warnings/errors:
+./Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml:  mapping values are not allowed in this context
+  in "<unicode string>", line 63, column 54
+make[1]: *** Deleting file 'Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.example.dts'
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-extract-example", line 46, in <module>
+    binding = yaml.load(open(args.yamlfile, encoding='utf-8').read())
+  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/main.py", line 434, in load
+    return constructor.get_single_data()
+  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 119, in get_single_data
+    node = self.composer.get_single_node()
+  File "_ruamel_yaml.pyx", line 706, in _ruamel_yaml.CParser.get_single_node
+  File "_ruamel_yaml.pyx", line 724, in _ruamel_yaml.CParser._compose_document
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 891, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 904, in _ruamel_yaml.CParser._parse_next_event
+ruamel.yaml.scanner.ScannerError: mapping values are not allowed in this context
+  in "<unicode string>", line 63, column 54
+make[1]: *** [Documentation/devicetree/bindings/Makefile:25: Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.example.dts] Error 1
+make[1]: *** Waiting for unfinished jobs....
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml: ignoring, error parsing file
+make: *** [Makefile:1413: dt_binding_check] Error 2
 
-> +
->  struct msm_dsi_phy {
->         struct platform_device *pdev;
->         void __iomem *base;
-> @@ -98,6 +113,7 @@ struct msm_dsi_phy {
->
->         struct msm_dsi_dphy_timing timing;
->         const struct msm_dsi_phy_cfg *cfg;
-> +       struct msm_dsi_phy_tuning_cfg tuning_cfg;
->
->         enum msm_dsi_phy_usecase usecase;
->         bool regulator_ldo_mode;
-> --
-> 2.7.4
->
+doc reference errors (make refcheckdocs):
 
+See https://patchwork.ozlabs.org/patch/1577891
 
--- 
-With best wishes
-Dmitry
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+
