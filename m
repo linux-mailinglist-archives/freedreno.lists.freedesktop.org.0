@@ -1,60 +1,45 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BA0F48B202
-	for <lists+freedreno@lfdr.de>; Tue, 11 Jan 2022 17:23:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ED0848B201
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jan 2022 17:23:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8602310EC2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7227810EB88;
 	Tue, 11 Jan 2022 16:23:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [IPv6:2607:f8b0:4864:20::82b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36F0E10E8D6
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jan 2022 10:21:37 +0000 (UTC)
-Received: by mail-qt1-x82b.google.com with SMTP id s19so17998779qtc.5
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jan 2022 02:21:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dowhile0-org.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sYa1AOMbwuEU5EoeFlC3BWCMkWWYeKQ6MzYHnQnQ7eE=;
- b=ADWJF9NlN1riYAttU3zhO5neGE8WbLaCIvok+V9lSGE0piCV0prLf7+bn5z3SMJ+K2
- IHjlTQb93qCePszMBjx5pEpzCajoEv+8wY/FNe7qfccpCPzTFxdbklOP+qumxiq3L1VW
- uvvuDmP/W53sjpnR37YNLy9ZrfEewxiMn66a6GIGHegB21ctGhTK2tDmxwbGvnmSw9/v
- 8alfe6uTMOwU9BspizOMNMgQf2OJTzu3cSUTcyfUoMNWfA1+iF3KtNcaFy7lt9GhxsvP
- 0j9w3a1jnioAk8FlLcANFsacbWLO6Rmskg7IDKIptjcHfyUiLwVI0B+zdeGDR7Qjk+8b
- poWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sYa1AOMbwuEU5EoeFlC3BWCMkWWYeKQ6MzYHnQnQ7eE=;
- b=iUsKoOpHvYBtDlcseOKppQ7zXjL4NrQi8D5X8IP2R4/Ea9c57sU7fPkmrazqUrwfE3
- 8nHB+hDkWlVIT8mcU3O2lQzD3IQG62FzZBX568OXE2O6KJ3zDb1rCJcjuab0MBlnmi4L
- NgeEl/gT3yJABoqR60ZKiQ8+zZ1gEgb5ZDBf2Wb42Tgjin1KJ1Yo6rDxNhFSJaSzvxt3
- yM5elKbqaJ4ripvGkLs5SM22jJBQJS1DWZtF0VndD6Kk/moha+Bb1d0M/MQ8g9Ih+6cE
- W6VHxY/75+ksLQcaSPNiPWhjLIpIW8g/zbAHpBEZdlecwuOQ47kGNNttFcpKjrPS2jcZ
- YAHw==
-X-Gm-Message-State: AOAM532795ccqTVpMKlxFQ5ldg5qW/OAV1m2NpH2NSYMnNI7ESLDBrc/
- cHk4sL4HYWSm5Ifs2NgmdCUT4GJDtwDzaxKRq8Oj6g==
-X-Google-Smtp-Source: ABdhPJzbbUNfgyjXmi4t4BA1QOJPl5KiyFfbLF2N8k+Y03nyY+75s+ZulSA2IoVUQkNdry1B9vDzlMJWaMglFWDoSCo=
-X-Received: by 2002:a05:622a:5d2:: with SMTP id
- d18mr3059764qtb.154.1641896496162; 
- Tue, 11 Jan 2022 02:21:36 -0800 (PST)
-MIME-Version: 1.0
-References: <20211215104318.18866-1-tzimmermann@suse.de>
- <20211215104318.18866-4-tzimmermann@suse.de>
- <87pmpy3za7.fsf@intel.com> <2165cfb8-c9c6-1aca-b492-587a8e07eb9f@suse.de>
-In-Reply-To: <2165cfb8-c9c6-1aca-b492-587a8e07eb9f@suse.de>
-From: Javier Martinez Canillas <javier@dowhile0.org>
-Date: Tue, 11 Jan 2022 11:21:25 +0100
-Message-ID: <CABxcv=nnyfULvog9z=nMduDK0iT1ZwkxYhdKs3xW88St6C00pw@mail.gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E43A110E54E;
+ Tue, 11 Jan 2022 12:22:29 +0000 (UTC)
+X-UUID: ae5f11dfdfb24d4cb1b29dc2ab997c75-20220111
+X-UUID: ae5f11dfdfb24d4cb1b29dc2ab997c75-20220111
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <yong.wu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 534519960; Tue, 11 Jan 2022 20:22:25 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Tue, 11 Jan 2022 20:22:24 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 11 Jan 2022 20:22:23 +0800
+Message-ID: <1a3b368eb891ca55c33265397cffab0b9f128737.camel@mediatek.com>
+From: Yong Wu <yong.wu@mediatek.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Date: Tue, 11 Jan 2022 20:22:23 +0800
+In-Reply-To: <20220106214556.2461363-26-swboyd@chromium.org>
+References: <20220106214556.2461363-1-swboyd@chromium.org>
+ <20220106214556.2461363-26-swboyd@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-MTK: N
 X-Mailman-Approved-At: Tue, 11 Jan 2022 16:23:14 +0000
-Subject: Re: [Freedreno] [PATCH v2 3/5] drm/dp: Move DisplayPort helpers
- into separate helper module
+Subject: Re: [Freedreno] [PATCH v5 25/32] iommu/mtk: Migrate to aggregate
+ driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,53 +52,185 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: Saravana Kannan <saravanak@google.com>, Will
+ Deacon <will@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Joerg Roedel <joro@8bytes.org>, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Rob Clark <robdclark@gmail.com>,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ Russell King <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Dec 15, 2021 at 12:12 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->
-> Hi
->
-> Am 15.12.21 um 12:04 schrieb Jani Nikula:
-> > On Wed, 15 Dec 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> >>      * move DP helper code into dp/ (Jani)
-> >
-> > I suggested adding the subdirectory, but I'm going to bikeshed the name,
-> > which I didn't suggest.
-> >
-> > $ find drivers/gpu/drm -mindepth 1 -maxdepth 1 -type d | wc -l
-> > 68
-> >
-> > Assuming we move more of the drm modules to subdirectories, how are they
-> > going to stand out from drivers?
-> >
-> > I suggested drm_dp, which I understand results in tautology, but hey,
-> > all the filenames under drm/ also have drm_*.[ch]. And I find that very
-> > useful for git greps and other code archeology. With just the dp name,
-> > you'd have to know and list all the drm subdirectories when looking up
-> > stuff that's part of drm but not drivers.
->
-> I think we have enough filename prefixes already. drm/drm_dp/drm_dp_ is
-> just ridiculous.
->
+Hi Stephen,
 
-Maybe what can be done is to just add a drivers/gpu/drm/core
-subdirectory that would contain all the DRM core code ?
+Thanks for helping update here.
 
-Then the dp helpers could be moved to drivers/gpu/drm/core/dp/drm_dp.c
-for example. This would also make easy to differentiate the drm
-modules from the drivers with just:
+On Thu, 2022-01-06 at 13:45 -0800, Stephen Boyd wrote:
+> Use an aggregate driver instead of component ops so that we can get
+> proper driver probe ordering of the aggregate device with respect to
+> all
+> the component devices that make up the aggregate device.
+> 
+> Cc: Yong Wu <yong.wu@mediatek.com>
+> Cc: Joerg Roedel <joro@8bytes.org>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Russell King <rmk+kernel@arm.linux.org.uk>
+> Cc: Saravana Kannan <saravanak@google.com>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 
-$ find drivers/gpu/drm -mindepth 1 -maxdepth 1 -type d -not -name core
+When I test this on mt8195 which have two IOMMU HWs(calling
+component_aggregate_regsiter twice), it will abort like this. Then what
+should we do if we have two instances?
+Thanks.
 
-Best regards,
-Javier
+[    2.652424] Error: Driver 'mtk_iommu_agg' is already registered,
+aborting...
+[    2.654033] mtk-iommu: probe of 1c01f000.iommu failed with error -16
+[    2.662034] Unable to handle kernel NULL pointer dereference at
+virtual address 0000000000000020
+...
+[    2.672413] pc : aggregate_device_match+0xa8/0x1c8
+[    2.673027] lr : aggregate_device_match+0x68/0x1c8
+...
+[    2.683091] Call trace:
+[    2.683403]  aggregate_device_match+0xa8/0x1c8
+[    2.683970]  __device_attach_driver+0x38/0xd0
+[    2.684526]  bus_for_each_drv+0x68/0xd0
+[    2.685015]  __device_attach+0xec/0x148
+[    2.685503]  device_attach+0x14/0x20
+[    2.685960]  bus_rescan_devices_helper+0x50/0x90
+[    2.686545]  bus_for_each_dev+0x7c/0xd8
+[    2.687033]  bus_rescan_devices+0x20/0x30
+[    2.687542]  __component_add+0x7c/0xa0
+[    2.688022]  component_add+0x14/0x20
+[    2.688479]  mtk_smi_larb_probe+0xe0/0x120
+
+
+> ---
+>  drivers/iommu/mtk_iommu.c    | 14 +++++++++-----
+>  drivers/iommu/mtk_iommu.h    |  6 ++++--
+>  drivers/iommu/mtk_iommu_v1.c | 14 +++++++++-----
+>  3 files changed, 22 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/iommu/mtk_iommu.c b/drivers/iommu/mtk_iommu.c
+> index 25b834104790..8e722898cbe2 100644
+> --- a/drivers/iommu/mtk_iommu.c
+> +++ b/drivers/iommu/mtk_iommu.c
+> @@ -752,9 +752,13 @@ static int mtk_iommu_hw_init(const struct
+> mtk_iommu_data *data)
+>  	return 0;
+>  }
+>  
+> -static const struct component_master_ops mtk_iommu_com_ops = {
+> -	.bind		= mtk_iommu_bind,
+> -	.unbind		= mtk_iommu_unbind,
+> +static struct aggregate_driver mtk_iommu_aggregate_driver = {
+> +	.probe		= mtk_iommu_bind,
+> +	.remove		= mtk_iommu_unbind,
+> +	.driver		= {
+> +		.name	= "mtk_iommu_agg",
+> +		.owner	= THIS_MODULE,
+> +	},
+>  };
+>  
+>  static int mtk_iommu_probe(struct platform_device *pdev)
+> @@ -895,7 +899,7 @@ static int mtk_iommu_probe(struct platform_device
+> *pdev)
+>  			goto out_list_del;
+>  	}
+>  
+> -	ret = component_master_add_with_match(dev, &mtk_iommu_com_ops,
+> match);
+> +	ret = component_aggregate_register(dev,
+> &mtk_iommu_aggregate_driver, match);
+>  	if (ret)
+>  		goto out_bus_set_null;
+>  	return ret;
+> @@ -928,7 +932,7 @@ static int mtk_iommu_remove(struct
+> platform_device *pdev)
+>  	device_link_remove(data->smicomm_dev, &pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+>  	devm_free_irq(&pdev->dev, data->irq, data);
+> -	component_master_del(&pdev->dev, &mtk_iommu_com_ops);
+> +	component_aggregate_unregister(&pdev->dev,
+> &mtk_iommu_aggregate_driver);
+>  	return 0;
+>  }
+>  
+> diff --git a/drivers/iommu/mtk_iommu.h b/drivers/iommu/mtk_iommu.h
+> index f81fa8862ed0..064fd4f4eade 100644
+> --- a/drivers/iommu/mtk_iommu.h
+> +++ b/drivers/iommu/mtk_iommu.h
+> @@ -94,15 +94,17 @@ static inline void release_of(struct device *dev,
+> void *data)
+>  	of_node_put(data);
+>  }
+>  
+> -static inline int mtk_iommu_bind(struct device *dev)
+> +static inline int mtk_iommu_bind(struct aggregate_device *adev)
+>  {
+> +	struct device *dev = adev->parent;
+>  	struct mtk_iommu_data *data = dev_get_drvdata(dev);
+>  
+>  	return component_bind_all(dev, &data->larb_imu);
+>  }
+>  
+> -static inline void mtk_iommu_unbind(struct device *dev)
+> +static inline void mtk_iommu_unbind(struct aggregate_device *adev)
+>  {
+> +	struct device *dev = adev->parent;
+>  	struct mtk_iommu_data *data = dev_get_drvdata(dev);
+>  
+>  	component_unbind_all(dev, &data->larb_imu);
+> diff --git a/drivers/iommu/mtk_iommu_v1.c
+> b/drivers/iommu/mtk_iommu_v1.c
+> index be22fcf988ce..5fb29058a165 100644
+> --- a/drivers/iommu/mtk_iommu_v1.c
+> +++ b/drivers/iommu/mtk_iommu_v1.c
+> @@ -534,9 +534,13 @@ static const struct of_device_id
+> mtk_iommu_of_ids[] = {
+>  	{}
+>  };
+>  
+> -static const struct component_master_ops mtk_iommu_com_ops = {
+> -	.bind		= mtk_iommu_bind,
+> -	.unbind		= mtk_iommu_unbind,
+> +static struct aggregate_driver mtk_iommu_aggregate_driver = {
+> +	.probe		= mtk_iommu_bind,
+> +	.remove		= mtk_iommu_unbind,
+> +	.driver		= {
+> +		.name	= "mtk_iommu_agg",
+> +		.owner	= THIS_MODULE,
+> +	},
+>  };
+>  
+>  static int mtk_iommu_probe(struct platform_device *pdev)
+> @@ -624,7 +628,7 @@ static int mtk_iommu_probe(struct platform_device
+> *pdev)
+>  			goto out_dev_unreg;
+>  	}
+>  
+> -	ret = component_master_add_with_match(dev, &mtk_iommu_com_ops,
+> match);
+> +	ret = component_aggregate_register(dev,
+> &mtk_iommu_aggregate_driver, match);
+>  	if (ret)
+>  		goto out_bus_set_null;
+>  	return ret;
+> @@ -650,7 +654,7 @@ static int mtk_iommu_remove(struct
+> platform_device *pdev)
+>  
+>  	clk_disable_unprepare(data->bclk);
+>  	devm_free_irq(&pdev->dev, data->irq, data);
+> -	component_master_del(&pdev->dev, &mtk_iommu_com_ops);
+> +	component_aggregate_unregister(&pdev->dev,
+> &mtk_iommu_aggregate_driver);
+>  	return 0;
+>  }
+>  
+
