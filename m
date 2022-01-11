@@ -1,69 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 290EF48AA73
-	for <lists+freedreno@lfdr.de>; Tue, 11 Jan 2022 10:25:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA0F48B202
+	for <lists+freedreno@lfdr.de>; Tue, 11 Jan 2022 17:23:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A577B11A4A5;
-	Tue, 11 Jan 2022 09:25:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8602310EC2B;
+	Tue, 11 Jan 2022 16:23:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91384113AA8
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jan 2022 09:25:20 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id o15so930194lfo.11
- for <freedreno@lists.freedesktop.org>; Tue, 11 Jan 2022 01:25:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Y8mwq/91wKR30uOg3+FsI/MTSBZvRcJrn+c6MHJw1YI=;
- b=EnShUE9NSE50KzW659GLBONwodhP7P5Rdwsc/b+JyCl7eScuxmTRJ4kLmLvHV3xdEU
- zVbDDA61j/Hr0RaoTAc0vAcAcZ38+U1dfibNxdk4rGG3yEd5X0dnwJ2JkVOjQQhicB9h
- iIBhG8k5Lq8hQtT81rymDsMRKLH6TkUtIsevClsUR1Lmrnk1akv4C9PNL0p38Ko7JnNJ
- VPtt8jkhCNHTucJXwM6/Iawr/oKP/dQiVbHq319wj82XGoRd7xlO90HDdaoLLUk0wLxa
- rs/4fpXTJruzSvmIvxIhs5tibBTbKzY4WkFgx3MZfhDK65w3T/kvM3syCGZzoGiTYqgV
- xutw==
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
+ [IPv6:2607:f8b0:4864:20::82b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36F0E10E8D6
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jan 2022 10:21:37 +0000 (UTC)
+Received: by mail-qt1-x82b.google.com with SMTP id s19so17998779qtc.5
+ for <freedreno@lists.freedesktop.org>; Tue, 11 Jan 2022 02:21:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=dowhile0-org.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=sYa1AOMbwuEU5EoeFlC3BWCMkWWYeKQ6MzYHnQnQ7eE=;
+ b=ADWJF9NlN1riYAttU3zhO5neGE8WbLaCIvok+V9lSGE0piCV0prLf7+bn5z3SMJ+K2
+ IHjlTQb93qCePszMBjx5pEpzCajoEv+8wY/FNe7qfccpCPzTFxdbklOP+qumxiq3L1VW
+ uvvuDmP/W53sjpnR37YNLy9ZrfEewxiMn66a6GIGHegB21ctGhTK2tDmxwbGvnmSw9/v
+ 8alfe6uTMOwU9BspizOMNMgQf2OJTzu3cSUTcyfUoMNWfA1+iF3KtNcaFy7lt9GhxsvP
+ 0j9w3a1jnioAk8FlLcANFsacbWLO6Rmskg7IDKIptjcHfyUiLwVI0B+zdeGDR7Qjk+8b
+ poWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Y8mwq/91wKR30uOg3+FsI/MTSBZvRcJrn+c6MHJw1YI=;
- b=LxBTR9+58hf2UlmBh6/Q2A2gkWsrnZaI+2uy8JFbOKPWKex1t2jZzDovGR3cUzD28d
- mgBDk/JSPD7Iaeukk5SoOnR1F1yyNtKg5S+apeanhWs9U44yF+daeKkj94DFzAHAOF3w
- Kzf+4DcyeRBHHWfMCmCwOhvPri5MWhRL/dGUpznklFyNmNm+uhlh2ii+7lpkc+FBad5K
- k2nAWUa0L97sdwc1F7qYatwoPui09nbyvP3cDmmRDvo5S+bb4n6voNJaEZxKRAR3X1tO
- c0lBMY1fA2jPWKOiehkeKM93ojTCvvY0hhxK1e75iOaJV/Zft3gVC/z4ofMiMEdXsaeK
- Efpw==
-X-Gm-Message-State: AOAM530mMwocw4qYuc+QO1+g5B2/LEzudb0G4v7ys2c04mks+Dfj3u/5
- 8o8DVdw1yDrDutPKsQ93EchfsA==
-X-Google-Smtp-Source: ABdhPJzbbt03hC5JHFQCN3xoXCSkCExpSRmhV0MK/iIxT3xmLrp0hbKOc3el+1npZ+njNmYfug6eJQ==
-X-Received: by 2002:a05:6512:448:: with SMTP id
- y8mr137177lfk.652.1641893118929; 
- Tue, 11 Jan 2022 01:25:18 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u11sm1277914lfs.21.2022.01.11.01.25.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jan 2022 01:25:18 -0800 (PST)
-Message-ID: <b889b926-425b-dfe7-3a0d-edf2ef947ebb@linaro.org>
-Date: Tue, 11 Jan 2022 12:25:17 +0300
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=sYa1AOMbwuEU5EoeFlC3BWCMkWWYeKQ6MzYHnQnQ7eE=;
+ b=iUsKoOpHvYBtDlcseOKppQ7zXjL4NrQi8D5X8IP2R4/Ea9c57sU7fPkmrazqUrwfE3
+ 8nHB+hDkWlVIT8mcU3O2lQzD3IQG62FzZBX568OXE2O6KJ3zDb1rCJcjuab0MBlnmi4L
+ NgeEl/gT3yJABoqR60ZKiQ8+zZ1gEgb5ZDBf2Wb42Tgjin1KJ1Yo6rDxNhFSJaSzvxt3
+ yM5elKbqaJ4ripvGkLs5SM22jJBQJS1DWZtF0VndD6Kk/moha+Bb1d0M/MQ8g9Ih+6cE
+ W6VHxY/75+ksLQcaSPNiPWhjLIpIW8g/zbAHpBEZdlecwuOQ47kGNNttFcpKjrPS2jcZ
+ YAHw==
+X-Gm-Message-State: AOAM532795ccqTVpMKlxFQ5ldg5qW/OAV1m2NpH2NSYMnNI7ESLDBrc/
+ cHk4sL4HYWSm5Ifs2NgmdCUT4GJDtwDzaxKRq8Oj6g==
+X-Google-Smtp-Source: ABdhPJzbbUNfgyjXmi4t4BA1QOJPl5KiyFfbLF2N8k+Y03nyY+75s+ZulSA2IoVUQkNdry1B9vDzlMJWaMglFWDoSCo=
+X-Received: by 2002:a05:622a:5d2:: with SMTP id
+ d18mr3059764qtb.154.1641896496162; 
+ Tue, 11 Jan 2022 02:21:36 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org, vkoul@kernel.org,
- daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-References: <1641848144-25147-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1641848144-25147-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v10 0/5] group dp driver related patches
- into one series
+References: <20211215104318.18866-1-tzimmermann@suse.de>
+ <20211215104318.18866-4-tzimmermann@suse.de>
+ <87pmpy3za7.fsf@intel.com> <2165cfb8-c9c6-1aca-b492-587a8e07eb9f@suse.de>
+In-Reply-To: <2165cfb8-c9c6-1aca-b492-587a8e07eb9f@suse.de>
+From: Javier Martinez Canillas <javier@dowhile0.org>
+Date: Tue, 11 Jan 2022 11:21:25 +0100
+Message-ID: <CABxcv=nnyfULvog9z=nMduDK0iT1ZwkxYhdKs3xW88St6C00pw@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 11 Jan 2022 16:23:14 +0000
+Subject: Re: [Freedreno] [PATCH v2 3/5] drm/dp: Move DisplayPort helpers
+ into separate helper module
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,44 +67,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/01/2022 23:55, Kuogee Hsieh wrote:
-> Group below 5 dp driver related patches into one series.
+On Wed, Dec 15, 2021 at 12:12 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> Hi
+>
+> Am 15.12.21 um 12:04 schrieb Jani Nikula:
+> > On Wed, 15 Dec 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> >>      * move DP helper code into dp/ (Jani)
+> >
+> > I suggested adding the subdirectory, but I'm going to bikeshed the name,
+> > which I didn't suggest.
+> >
+> > $ find drivers/gpu/drm -mindepth 1 -maxdepth 1 -type d | wc -l
+> > 68
+> >
+> > Assuming we move more of the drm modules to subdirectories, how are they
+> > going to stand out from drivers?
+> >
+> > I suggested drm_dp, which I understand results in tautology, but hey,
+> > all the filenames under drm/ also have drm_*.[ch]. And I find that very
+> > useful for git greps and other code archeology. With just the dp name,
+> > you'd have to know and list all the drm subdirectories when looking up
+> > stuff that's part of drm but not drivers.
+>
+> I think we have enough filename prefixes already. drm/drm_dp/drm_dp_ is
+> just ridiculous.
+>
 
-Could you please rebase this on top of msm-next?
+Maybe what can be done is to just add a drivers/gpu/drm/core
+subdirectory that would contain all the DRM core code ?
 
-> 
-> Kuogee Hsieh (5):
->    drm/msm/dp: dp_link_parse_sink_count() return immediately if aux read
->      failed
+Then the dp helpers could be moved to drivers/gpu/drm/core/dp/drm_dp.c
+for example. This would also make easy to differentiate the drm
+modules from the drivers with just:
 
-This patch is already a part of the tree.
+$ find drivers/gpu/drm -mindepth 1 -maxdepth 1 -type d -not -name core
 
->    drm/msm/dp: do not initialize phy until plugin interrupt received
->    drm/msm/dp:  populate connector of struct  dp_panel
-
-This one does not apply because of your dp-bridge patch. The conflict is 
-more or less obvious to fix, but it would be nice to have the proper 
-version from you.
-
->    drm/msm/dp: add support of tps4 (training pattern 4) for HBR3
->    drm/msm/dp: stop link training after link training 2 failed
-> 
->   drivers/gpu/drm/msm/dp/dp_catalog.c |  12 ++---
->   drivers/gpu/drm/msm/dp/dp_catalog.h |   2 +-
->   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 100 ++++++++++++++++--------------------
->   drivers/gpu/drm/msm/dp/dp_ctrl.h    |   8 +--
->   drivers/gpu/drm/msm/dp/dp_display.c |  98 ++++++++++++++++++++++++-----------
->   drivers/gpu/drm/msm/dp/dp_link.c    |  19 +++++--
->   6 files changed, 140 insertions(+), 99 deletions(-)
-> 
-
-
--- 
-With best wishes
-Dmitry
+Best regards,
+Javier
