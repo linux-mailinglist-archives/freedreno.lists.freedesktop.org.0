@@ -2,58 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB6F48C913
-	for <lists+freedreno@lfdr.de>; Wed, 12 Jan 2022 18:08:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C64748C9FA
+	for <lists+freedreno@lfdr.de>; Wed, 12 Jan 2022 18:41:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE93710EB85;
-	Wed, 12 Jan 2022 17:08:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 829F010E6E0;
+	Wed, 12 Jan 2022 17:41:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [IPv6:2607:f8b0:4864:20::f36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC9CE10EE21
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jan 2022 17:08:23 +0000 (UTC)
-Received: by mail-qv1-xf36.google.com with SMTP id r6so3555449qvr.13
- for <freedreno@lists.freedesktop.org>; Wed, 12 Jan 2022 09:08:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=g2r8zDaYEYO7JZzEvLRafkjVzXVbOIdjMODi9DYi7oM=;
- b=pcl455766GGKJIZFYn04i9FUJCfW2GO3Xmf3oujv9PplioZn00+KmCY+eNiGNSIz8L
- JbfEeFNoDL/e5tZc7pKNsY4pTnOp1fW6byXxLwSUHRObnNE2Hi5PczASCFJKNOOG2o+t
- l9SlrIT077C3Lhq+66244UsOQLeNfuwt6LWsu+KRHl/lCnhY6IyGq+choJ9aE19eeaEQ
- g2yTI+wdnHV2nRPFkHWA0YlWhWv+w7ZgAjysx9pYCtk8G49RZcuzTCEGRBJn1cYmTOFa
- 199KZNVJuznrJEGatnpi42djyi83fGpiyqtB3eQSOMXYqAnDooW04oHUloXrDz2VBAhn
- wBWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=g2r8zDaYEYO7JZzEvLRafkjVzXVbOIdjMODi9DYi7oM=;
- b=o8QFBuSt4TLhb/vU2eF2Bu9agoBMd9JR53TpSyEs+xFg2ubRIUC2mcq4cHWg9832Ng
- eAdhTdWCiiEJx43pnTBr0qhC2Xeku/9kdEQB+TD/arIXl3+ctGYdTAZc8Bfac4eY6Afw
- Zr0s5tJVVV2zd4WPyJjjI2QSoaBB9PyIB+2WbTatZxC4/e/TpwGiXQ5vk/kAjTFjAdRW
- lVwXaHFgJt1wesL4MLjcI/7Pnqw2t4GL3GXtCUV3t0ue4x/ZMRuYEt8ZOTwtI405efC6
- ZtbdxXBiWKD1QhwcxXq8EbLr0vR4oygO3WUYXzsCQlI2DoEOYqi8f79OaFMvPptaN9W8
- uMmg==
-X-Gm-Message-State: AOAM532YcFqx26XdatbjobbbavE0SGnPCaXpbEvWbUxbMU5NVpwTxeqh
- cCzzswtQQeN4GRiiGbvFXFZCMlbsuh2tP3E4SPulHYcxG1o=
-X-Google-Smtp-Source: ABdhPJzuydkdLlBEqhT2Ingy9JfQSKSOyMicJqfQgOWz6bBtPSJmKMoL5u/fbWZ94Y9IO9CPi05xx2f7tr4W3Dhlg7Y=
-X-Received: by 2002:a05:6214:27cc:: with SMTP id
- ge12mr664250qvb.122.1642007302831; 
- Wed, 12 Jan 2022 09:08:22 -0800 (PST)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15A8410E6E0;
+ Wed, 12 Jan 2022 17:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1642009265; x=1673545265;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=9wwX9W3Y2aINXITJTwNgPpfrXjM13u7PMM/QdJMZF6M=;
+ b=etwbaCG2fvusM61PBl2ObZuIwCWrdz4sI5ly5AUjnvr1cv4NNq3VwcBk
+ P7KumnN/K9cTldA7XK94HscrowdOJlELES+sfHyFWGHYT2Y5LRGNw3fbW
+ O81UGPmS4NV0AJ8KhEf8YoKHh2xTYUcTy/7g2WGmJLEAVUYkbQXqtY9nR s=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 12 Jan 2022 09:41:03 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2022 09:41:03 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Wed, 12 Jan 2022 09:41:03 -0800
+Received: from [10.110.25.55] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Wed, 12 Jan
+ 2022 09:41:02 -0800
+Message-ID: <383271c1-d815-e26c-02f1-2a8d722166d3@quicinc.com>
+Date: Wed, 12 Jan 2022 09:41:01 -0800
 MIME-Version: 1.0
-References: <1641819337-17037-1-git-send-email-quic_rajeevny@quicinc.com>
- <1641819337-17037-3-git-send-email-quic_rajeevny@quicinc.com>
- <CAA8EJpr_iEvv3oM-KteT7or3HyMk45Z8mzWyKwZ=rnASm-hNXA@mail.gmail.com>
- <MW2PR02MB3820E98516A4F484A3ECF25FEA529@MW2PR02MB3820.namprd02.prod.outlook.com>
-In-Reply-To: <MW2PR02MB3820E98516A4F484A3ECF25FEA529@MW2PR02MB3820.namprd02.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 12 Jan 2022 20:08:11 +0300
-Message-ID: <CAA8EJpqdrmnhDFd7kYyt1E+8U5sUjiR+oR1DoMX72iZjAE5QXw@mail.gmail.com>
-To: Rajeev Nandan <rajeevny@qti.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v2 2/3] drm/msm/dsi: Add dsi phy tuning
- configuration support
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20220107020132.587811-1-dmitry.baryshkov@linaro.org>
+ <20220107020132.587811-2-dmitry.baryshkov@linaro.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <20220107020132.587811-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [RFC PATCH 1/7] drm/msm/dp: fix panel bridge
+ attachment
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,151 +68,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "sean@poorly.run" <sean@poorly.run>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- quic_kalyant <quic_kalyant@quicinc.com>,
- "jonathan@marek.ca" <jonathan@marek.ca>, "robh@kernel.org" <robh@kernel.org>,
- "airlied@linux.ie" <airlied@linux.ie>,
- quic_rajeevny <quic_rajeevny@quicinc.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- quic_mkrishn <quic_mkrishn@quicinc.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "swboyd@chromium.org" <swboyd@chromium.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 12 Jan 2022 at 19:09, Rajeev Nandan <RAJEEVNY@qti.qualcomm.com> wrote:
+
+On 1/6/2022 6:01 PM, Dmitry Baryshkov wrote:
+> In commit 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display
+> enable and disable") the DP driver received a drm_bridge instance, which
+> is always attached to the encoder as a root bridge. However it conflicts
+> with the panel_bridge support for eDP panels. Change panel_bridge
+> attachment to come after dp_bridge attachment.
 >
-> Hi Dmitry,
+> Fixes: 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display enable and disable")
+> Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_drm.c | 21 +++++++++++----------
+>   1 file changed, 11 insertions(+), 10 deletions(-)
 >
-> > >
-> > > +       if (phy->cfg->ops.tuning_cfg_init)
-> > > +               phy->cfg->ops.tuning_cfg_init(phy);
-> >
-> > Please rename to parse_dt_properties() or something like that.
-> Sure. I didn't understand your comment in v1 to use config_dt() hook. I think, now I understood.
-> This function can be used to parse PHY version (nm) specific DT properties, currently we will be using it for PHY tuning parameters, and later some other properties can be added.
-> I will use parse_dt_properties() in next post. Please correct me if I still didn't get it.
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index d4d360d19eba..26ef41a4c1b6 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -169,16 +169,6 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
+>   
+>   	drm_connector_attach_encoder(connector, dp_display->encoder);
+>   
+> -	if (dp_display->panel_bridge) {
+> -		ret = drm_bridge_attach(dp_display->encoder,
+> -					dp_display->panel_bridge, NULL,
+> -					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> -		if (ret < 0) {
+> -			DRM_ERROR("failed to attach panel bridge: %d\n", ret);
+> -			return ERR_PTR(ret);
+> -		}
+> -	}
+> -
+>   	return connector;
+>   }
+>   
+> @@ -246,5 +236,16 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
+>   		return ERR_PTR(rc);
+>   	}
+>   
 
-You understanding follows my proposal, thank you.
+can check connector_type here and if connector_type == 
+DRM_MODE_CONNECTOR_eDP then no drm_bridge  add to eDP?  So that eDP only 
+has panel_bridge and DP only has drm_bridge?
 
->
-> >
-> > > +
-> > >         ret = dsi_phy_regulator_init(phy);
-> > >         if (ret)
-> > >                 goto fail;
-> > > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > index b91303a..b559a2b 100644
-> > > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> > > @@ -25,6 +25,7 @@ struct msm_dsi_phy_ops {
-> > >         void (*save_pll_state)(struct msm_dsi_phy *phy);
-> > >         int (*restore_pll_state)(struct msm_dsi_phy *phy);
-> > >         bool (*set_continuous_clock)(struct msm_dsi_phy *phy, bool
-> > > enable);
-> > > +       void (*tuning_cfg_init)(struct msm_dsi_phy *phy);
-> > >  };
-> > >
-> > >  struct msm_dsi_phy_cfg {
-> > > @@ -81,6 +82,20 @@ struct msm_dsi_dphy_timing {
-> > >  #define DSI_PIXEL_PLL_CLK              1
-> > >  #define NUM_PROVIDED_CLKS              2
-> > >
-> > > +#define DSI_LANE_MAX                   5
-> > > +
-> > > +/**
-> > > + * struct msm_dsi_phy_tuning_cfg - Holds PHY tuning config parameters.
-> > > + * @rescode_offset_top: Offset for pull-up legs rescode.
-> > > + * @rescode_offset_bot: Offset for pull-down legs rescode.
-> > > + * @vreg_ctrl: vreg ctrl to drive LDO level  */ struct
-> > > +msm_dsi_phy_tuning_cfg {
-> > > +       u8 rescode_offset_top[DSI_LANE_MAX];
-> > > +       u8 rescode_offset_bot[DSI_LANE_MAX];
-> > > +       u8 vreg_ctrl;
-> > > +};
-> >
-> > How generic is this? In other words, you are adding a struct with the generic
-> > name to the generic structure. I'd expect that it would be common to several
-> > PHY generations.
->
-> The 10nm is PHY v3.x, and the PHY tuning register configuration is same across DSI PHY v3.x devices.
-> Similarly the PHY v4.x devices have same register configuration to adjust PHY tuning parameters.
-
-What about 14nm (v2.x, sdm660)? Or even 0.0-lpm (apq8016)?
-
->
-> The v4.x has few changes as compared to v3.x :
-> - rescode_offset_top:
->   In v4.x, the value is not per lane, register is moved from PHY_LN_ block to PHY_CMN_ block. One value needed to configure all the lanes.
->   Whereas in v3.x, configuration for each lane can be different.
->   In case of v4.x, we can use rescode_offset_top[0] and ignore rest values.
-
-Ugh.
-
->
-> - rescode_offset_bot:
->    same as rescode_offset_top comments given above.
->
-> - vreg_ctrl:
->    v4.x has two registers to adjust drive level, REG_DSI_7nm_PHY_CMN_VREG_CTRL_0 and REG_DSI_7nm_PHY_CMN_VREG_CTRL_1
->    The first one is the same for v3 and v4, only name is changed (_0 suffix)
->    The second one REG_DSI_7nm_PHY_CMN_VREG_CTRL_1 is added to adjust mid-level amplitudes (C-PHY mode only)
->    We can add a new member vreg_ctrl_1 in the "struct msm_dsi_phy_tuning_cfg" while adding PHY tuning support for V4.x
->
-> Apart from the existing members, the v4.x has a few more register config options for drive strength adjustment and De-emphasis.
-> We can add new members to address them for v4.x PHY tuning.
-
-I do not like the idea of pushing each and every possible option into
-generic structure.
-I see two possible solutions:
- - Add opaque void pointer to struct msm_dsi_phy. Allow each driver to
-specify it on it's own.
-
-Or:
-
-- add a union of per-nm structures.
-
-From these two options I'm biassed towards the first one. It
-encapsulates the data structure with the using code.
+is this fix all your concerns?
 
 
->
-> The PHY v4.x is the latest PHY version, and most of the new devices are coming with v4.x. So, I can say that the structure member is going to remain the same for some time.
-> (Things may/may not change in v5, but I never heard of it coming)
->
-> Thanks,
-> Rajeev
-> >
-> > > +
-> > >  struct msm_dsi_phy {
-> > >         struct platform_device *pdev;
-> > >         void __iomem *base;
-> > > @@ -98,6 +113,7 @@ struct msm_dsi_phy {
-> > >
-> > >         struct msm_dsi_dphy_timing timing;
-> > >         const struct msm_dsi_phy_cfg *cfg;
-> > > +       struct msm_dsi_phy_tuning_cfg tuning_cfg;
-> > >
-> > >         enum msm_dsi_phy_usecase usecase;
-> > >         bool regulator_ldo_mode;
-> > > --
-> > > 2.7.4
-> > >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
-
-
-
--- 
-With best wishes
-Dmitry
+> +	if (dp_display->panel_bridge) {
+> +		rc = drm_bridge_attach(dp_display->encoder,
+> +					dp_display->panel_bridge, bridge,
+> +					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +		if (rc < 0) {
+> +			DRM_ERROR("failed to attach panel bridge: %d\n", rc);
+> +			drm_bridge_remove(bridge);
+> +			return ERR_PTR(rc);
+> +		}
+> +	}
+> +
+>   	return bridge;
+>   }
