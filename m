@@ -2,59 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598DB48DBD4
-	for <lists+freedreno@lfdr.de>; Thu, 13 Jan 2022 17:32:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D3F48DD2D
+	for <lists+freedreno@lfdr.de>; Thu, 13 Jan 2022 18:51:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7225D10E2C6;
-	Thu, 13 Jan 2022 16:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35D2B10E4E3;
+	Thu, 13 Jan 2022 17:51:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [IPv6:2607:f8b0:4864:20::1035])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD18110E274;
- Thu, 13 Jan 2022 16:32:14 +0000 (UTC)
-Received: by mail-pj1-x1035.google.com with SMTP id hv15so11150785pjb.5;
- Thu, 13 Jan 2022 08:32:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+3q5GmFbYNyEJgrrlP1Ic3dY/1SWaaTPA9VEhYfsQJU=;
- b=d2Xxijoqk1QxRW3U9287LjfQMlQt+Zec3Aq3Nchqnw2EWG+HksVI/vEUzpHE/dfibA
- UZER/wPc+2d3Xj+o6c6iamOXGQAZIs+YtR4EBaekNegFq4Mko78lNZzwRda2/s5YeeaZ
- 7xHycysmT01PaDS+tM43VLDWaUUO/epZW9nen5LXHCIWPFrxAqkvBXaIthJ4gxDv7lh5
- Kgn5MmaGRKqqwLvokqAskJ/lyShZLolLBISSnVHJKWZ6Hza0HU3Ne4CoFzucpfdqijK1
- y0/Ob77r/LjPOdqB9gun5GShbWxLXj3Nixw5KVs2XXGDfkfyUi1FB9KChHfeiCP0KX+h
- 2tgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+3q5GmFbYNyEJgrrlP1Ic3dY/1SWaaTPA9VEhYfsQJU=;
- b=kP5Kt+H4SguJGBp3AwmElQT6JcmNJYcXbayyzcb7AO6gQ0tJMxSP8/LY4ivCnfi7Gd
- LtrPYmF7AeOvb1Qsn+WcVUlwIeX2m2cXeELDHi+GBNHnS8mss1Fw0BulFd13KcTV426Z
- g4zgsXj3aDDr8Ada+p/f4ymh3XRs8CpMYTyPMImvxogdDo2yS5wLEjQRx9z+Jx5UBkj6
- Du5FziGcfwhdOmCvcSht92zmkv6q1MggCjRPAt45PJ6z2PAlnDJinqchM163qOl8ViCA
- IaEOxGD0L9Dmz71rLbqFbNTh+/zfOhqGbIcKp7syvwyN/hZtTq7iAWZ6/eHTRJB2UIIN
- rVnQ==
-X-Gm-Message-State: AOAM5328gbIle0lSF3c2DOXhA4v/DvlYMbyoOY+bu5NhYzlz6E0kqBcd
- BCKmmoImyNzT98Q5MpAFWEwVI898OPU=
-X-Google-Smtp-Source: ABdhPJyJl32B4r9KsE63UDv2Xaa30wFKuy2pT+8hjSFdNf9DEJ1Gz6eszjXC7Cb2AJywPnufEKWtBA==
-X-Received: by 2002:a17:90a:458d:: with SMTP id
- v13mr14966962pjg.202.1642091533656; 
- Thu, 13 Jan 2022 08:32:13 -0800 (PST)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id j18sm2661612pgi.78.2022.01.13.08.32.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jan 2022 08:32:12 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 13 Jan 2022 08:32:13 -0800
-Message-Id: <20220113163215.215367-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1702A10E4E3;
+ Thu, 13 Jan 2022 17:51:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1642096306; x=1673632306;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=jwq8d5kK+K/ab3JvF5IReXEIv5LYfB8y1+rqInWBWOA=;
+ b=XbqXuUeQFSS4U8So5TX01FEMZcGpw9kiYJsQoQaUrRZQg7RO7Yg1qCt+
+ c/E17EacmHi+rcBDQfC8uTiFUNVj5c3gkas0T927ECVH4tx4fbhtY1EaF
+ 4+6r5Wm0oaCCcZ4jrH8orJqCm4X+O/x48GYP1V6Y56HQgzZPltO11oySS I=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 13 Jan 2022 09:51:45 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2022 09:51:45 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Thu, 13 Jan 2022 09:51:44 -0800
+Received: from [10.110.125.36] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Thu, 13 Jan
+ 2022 09:51:43 -0800
+Message-ID: <338ae657-e8ed-e620-0aa7-4ad05df18ad1@quicinc.com>
+Date: Thu, 13 Jan 2022 09:51:42 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <dri-devel@lists.freedesktop.org>,
+ <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
+References: <1641926606-1012-1-git-send-email-quic_khsieh@quicinc.com>
+ <1641926606-1012-2-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n53hrPYR3ThwxM_+fzyRSB+6W1drFymW5n_RKmg_gf8z-w@mail.gmail.com>
+ <84ee17f9-2597-86b6-1517-2358d443f65b@quicinc.com>
+ <CAE-0n5134H0puMicozjdfTY+zXVUZyrebjv7Hto3EWcQAELO4A@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n5134H0puMicozjdfTY+zXVUZyrebjv7Hto3EWcQAELO4A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Add missing suspend_count
- increment
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v11 1/4] drm/msm/dp: do not initialize phy
+ until plugin interrupt received
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +72,394 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Douglas Anderson <dianders@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Danylo Piliaiev <dpiliaiev@igalia.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, freedreno@lists.freedesktop.org,
- Eric Anholt <eric@anholt.net>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-Reported-by: Danylo Piliaiev <dpiliaiev@igalia.com>
-Fixes: 3ab1c5cc3939 ("drm/msm: Add param for userspace to query suspend count")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 1/12/2022 8:13 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-01-12 14:17:54)
+>> On 1/12/2022 12:00 PM, Stephen Boyd wrote:
+>>> Quoting Kuogee Hsieh (2022-01-11 10:43:23)
+>>>> Current DP drivers have regulators, clocks, irq and phy are grouped
+>>>> together within a function and executed not in a symmetric manner.
+>>>> This increase difficulty of code maintenance and limited code scalability.
+>>>> This patch divides the driver life cycle of operation into four states,
+>>>> resume (including booting up), dongle plugin, dongle unplugged and suspend.
+>>>> Regulators, core clocks and irq are grouped together and enabled at resume
+>>>> (or booting up) so that the DP controller is armed and ready to receive HPD
+>>>> plugin interrupts. HPD plugin interrupt is generated when a dongle plugs
+>>>> into DUT (device under test). Once HPD plugin interrupt is received, DP
+>>>> controller will initialize phy so that dpcd read/write will function and
+>>>> following link training can be proceeded successfully. DP phy will be
+>>>> disabled after main link is teared down at end of unplugged HPD interrupt
+>>>> handle triggered by dongle unplugged out of DUT. Finally regulators, code
+>>>> clocks and irq are disabled at corresponding suspension.
+>> 0) Please note that  dongles are behavior differently.
+>>
+>> 1) Apple dongle will generate plug-in interrupt only if no hdmi monitor
+>> atatched to dongle. it will generate irq-hpd interrupt once hdmi monitor
+>> connect to dongle later.
+>>
+>> 2) Apple dongle will generate plugged-in interrupt followed by irq-hpd
+>> interrupt if dongle has hdmi monitor attached when connects to DUT.
+>>
+>> 3) other dongle will not generate plug-in interrupt unless dongle has
+>> hdmi monitor attached when connects to DUT. It only generate plug-in
+>> interrupt only and no irq-hpd interrupt  generated on this case.
+> Ok. The test scenarios can be reworded in terms of plugin irq and
+> irq-hpd if that makes it easier.
+>
+>> 4) Note: phy_initialized only associated with plugged-in interrupt
+>>
+>> 5) irq-hpd interrupt must happen after plugged-in interrupt and before
+>> unplugged interrupt
+> More precisely it's that plugged-in interrupt must be handled before
+> irq-hpd but plugged-in and irq-hpd can both be pending at the device
+> concurrently unless they're masked and unmasked in some particular
+> order. I thought the driver ensures that only irq-hpd is unmasked once
+> the plugged in irq is handled. Can you confirm? Similarly, unplugged irq
+> is unmasked after plugged in irq is handled, but irq-hpd and unplugged
+> can both be pending if the irq handler is delayed?
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 51b83776951b..17cfad6424db 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1560,6 +1560,8 @@ static int a6xx_pm_suspend(struct msm_gpu *gpu)
- 		for (i = 0; i < gpu->nr_rings; i++)
- 			a6xx_gpu->shadow[i] = 0;
- 
-+	gpu->suspend_count++;
-+
- 	return 0;
- }
- 
--- 
-2.34.1
+we went through this before,
 
+1) plugin_handler ==> do plug staffs + unmask irq_hpd at end of handler
+
+2) unplug_handler ==> mask both plugin and irq_hpd  + do unplug staffs + 
+unmask plugin irq at end of handler
+
+3) priority order of handling irq when multiple irqs pending ==> plugin 
+-> irq_hpd -> unplug
+
+>
+>> I will fill up below question with Apple dongle case with the order of
+>> event happen timing.
+>>
+>>> I'll write out the various scenarios
+>>>
+>>> #1
+>>>        dongle plugged in with HDMI cable attached
+>>>        driver probe
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) generate plugged-in interrupt triggers handler
+>> 4) dp_display_phy_init() ==> phy_initialized = true;
+>>
+>>>
+>>> #2
+>>>        dongle unplugged
+>>>        driver probe
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>>
+>>
+>>> #3
+>>>        dongle plugged in without HDMI cable attached
+>>>        driver probe
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) generate plug-in interrupt triggers handler
+>> 4) dp_display_phy_init() ==> phy_initialized = true;
+>>
+>> Note: same as case #1
+>>> #4
+>>>        driver probe
+>>>        dongle plugged in without HDMI cable attached
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) dongle plugged in
+>> 4) generate plug-in interrupt triggers handler
+>> 5) dp_display_phy_init() ==> phy_initialized = true;
+>>
+>>>
+>>> #5
+>>>        driver probe
+>>>        dongle plugged in with HDMI cable attached
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) dongle plugged in
+>> 4) generate plug-in interrupt trigger handler
+>> 5) dp_display_phy_init() ==> phy_initialized = true;
+>>
+>> Note: same as case #4
+>>
+>>> #6
+>>>        driver probe
+>>>        dongle plugged in
+>>>        suspend
+>>>        resume
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) dongle plug in
+>> 4) generate plug-in interrupt triggers handler
+>> 5) dp_display_phy_init() ==> phy_initialized = true;
+>> 6) suspend
+>> 7) dp_display_host_deinit() ==> core_initialized = false;
+>> 8) dp_display_host_phy_exit() ==> phy_initialize = false;
+>> 9) resume
+>> 10) dp_display_host_init() ==> core_initialized = true;
+>> 11) generate plug-in interrupt
+>> 12) dp_display_phy_init() ==> phy_initialize = true;
+>>
+>>> #7
+>>>        driver probe
+>>>        dongle plugged in
+>>>        suspend
+>>>        dongle unplugged
+>>>        resume
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) dongle plugged in
+>> 4) generate plug-in interrupt triggers handler
+>> 5) dp_display_phy_init() ==> phy_initialized = true;
+>> 6) suspend
+>> 7) dp_display_host_deinit() ==> core_initialized = false;
+>> 8) dp_display_host_phy_exit() ==> phy_initialize = false;
+> Why is the order of operations swapped? During probe core_initialized
+> is done first and then phy_initialized but then on suspend
+> core_initialized is done first again before phy_initialized. That's
+> asymmetric.
+ok, will fix this
+>
+>> 9) dongle unplugged
+>> 10) resume
+>> 11) dp_display_host_init() ==> core_initialized = true;
+>>
+>> #8
+>>          driver probe
+>>          dongle plugged in without HDMI cable attached
+>>          suspend
+>>          resume
+>>
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) dongle plug in
+>> 4) generate plug-in interrupt triggers handler
+>> 5) dp_display_phy_init() ==> phy_initialized = true;
+>> 6) suspend
+>> 7) dp_display_host_deinit() ==> core_initialized = false;
+>> 8) dp_display_host_phy_exit() ==> phy_initialize = false;
+>> 9) resume
+>> 10) dp_display_host_init() ==> core_initialized = true;
+>> 11) generate plug-in interrupt
+>> 12) dp_display_phy_init() ==> phy_initialize = true;
+>>
+>>
+>> NOTE: same case #6
+>>
+>> #9
+>>          driver probe
+>>          dongle plugged in without HDMI cable attached
+>>          suspend
+>>          HDMI cable attached during suspend
+>>          resume
+>>
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) dongle plugged in
+>> 4) generate plug-in interrupt triggers handler
+>> 5) dp_display_phy_init() ==> phy_initialized = true;
+>> 6) suspend
+>> 7) dp_display_host_deinit() ==> core_initialized = false;
+>> 8) dp_display_host_phy_exit() ==> phy_initialize = false;
+>> 9) HDMI cable attached
+>> 10) resume
+>> 11) dp_display_host_init() ==> core_initialized = true;
+>> 12) generate plug-in interrupt
+>> 13) dp_display_phy_init() ==> phy_initialize = true;
+>>
+>>
+>> What's the state of the phy and core initialized variable at the end of
+>> each of these scenarios? Please fill out the truth table.
+>>
+>>                    +-----------------+------------------------
+>>                     |    false        |       true            |
+>>                    +-----------------+------------------------
+>>    phy_initialized  |                 |                       |
+>>                    +-----------------+------------------------
+>>    core_initialized |                 | #1,                   |
+>>                    +-----------------+------------------------
+>>
+>> I guess we also need eDP scenarios, but that's probably simpler
+>>
+>> #10
+>>          eDP panel connected
+>>          driver probe
+>>
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) generate plug-in interrupt triggers handler
+> I think this is more like "dp_display_config_hpd() is called by hpd
+> kthread"?
+
+yes, correct as below (eDP will call phy_init immediately
+
+1) driver probe ==> core_initialized = false;    phy_initialized = false;
+2) dp_display_config_hpd()
+3) dp_display_host_init() ==> core_initialized = true;
+4) dp_display_host_phy_init() ==> phy_initialize = true
+5) generate plug-in interrupt triggers handler
+
+>
+>> 4) dp_display_phy_init() ==> phy_initialized = true;
+>>
+>>
+>>
+>> #11
+>>          eDP panel disconnected
+>>          driver probe
+>>
+>> NOTE: eDP panel can not be disconnected
+> The panel can certainly be disconnected in the sense that the ribbon
+> cable to the panel is busted or not working properly. That's what this
+> scenario is for.
+
+1) driver probe ==> core_initialized = false;    phy_initialized = false;
+2) dp_display_config_hpd()
+3) dp_display_host_init() ==> core_initialized = true;
+4) dp_display_host_phy_init() ==> phy_initialize = true
+
+1) driver probe ==> core_initialized = false; phy_initialized = false;
+>> #12
+>>          eDP panel disconnected
+>>          driver probe
+>>          suspend
+>>          resume
+>>
+>> NOTE: assume edp panel connected
+>> 1) driver probe ==> core_initialized = false;    phy_initialized = false;
+>> 2) dp_display_host_init() ==> core_initialized = true;
+>> 3) generate plug-in interrupt triggers handler
+>> 4) dp_display_phy_init() ==> phy_initialized = true;
+>> 5) suspend
+>> 6) dp_display_host_deinit() ==> core_initialized = false;
+>> 7) dp_display_host_phy_exit() ==> phy_initialize = false;
+>> 8) resume
+>> 9) dp_display_host_init() ==> core_initialized = true;
+>> 10) generate plug-in interrupt
+>> 11) dp_display_phy_init() ==> phy_initialize = true;
+
+1) driver probe ==> core_initialized = false;    phy_initialized = false;
+2) dp_display_config_hpd()
+3) dp_display_host_init() ==> core_initialized = true;
+4) dp_display_host_phy_init() ==> phy_initialize = true
+5) generate plug-in interrupt triggers handler
+6) dp_display_phy_init() ==> phy_initialized = true;
+7) suspend
+8) dp_display_host_deinit() ==> core_initialized = false;
+9) dp_display_host_phy_exit() ==> phy_initialize = false;
+10) resume
+11) dp_display_host_init() ==> core_initialized = true;
+11) dp_display_phy_init() ==> phy_initialize = true;
+12) generate plug-in interrupt triggers handler
+
+> Thanks. It really helps to see the various scenarios.
+>
+>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> index 7cc4d21..f6bb4bc 100644
+>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> @@ -83,6 +83,7 @@ struct dp_display_private {
+>>>>
+>>>>           /* state variables */
+>>>>           bool core_initialized;
+>>>> +       bool phy_initialized;
+>>>>           bool hpd_irq_on;
+>>>>           bool audio_supported;
+>>>>
+>>>> @@ -372,21 +373,46 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+>>>>           return rc;
+>>>>    }
+>>>>
+>>>> -static void dp_display_host_init(struct dp_display_private *dp, int reset)
+>>>> +static void dp_display_host_phy_init(struct dp_display_private *dp)
+>>>>    {
+>>>> -       bool flip = false;
+>>>> +       DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
+>>>> +                       dp->core_initialized, dp->phy_initialized);
+>>>>
+>>>> +       if (!dp->phy_initialized) {
+>>>> +               dp_ctrl_phy_init(dp->ctrl);
+>>>> +               dp->phy_initialized = true;
+>>>> +       }
+>>>> +}
+>>>> +
+>>>> +static void dp_display_host_phy_exit(struct dp_display_private *dp)
+>>>> +{
+>>>> +       DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
+>>>> +                       dp->core_initialized, dp->phy_initialized);
+>>>> +
+>>>> +       if (dp->phy_initialized) {
+>>>> +               dp_ctrl_phy_exit(dp->ctrl);
+>>>> +               dp->phy_initialized = false;
+>>>> +       }
+>>>> +}
+>>>> +
+>>>> +static void dp_display_host_init(struct dp_display_private *dp)
+>>>> +{
+>>>>           DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
+>>>>           if (dp->core_initialized) {
+>>>>                   DRM_DEBUG_DP("DP core already initialized\n");
+>>>>                   return;
+>>>>           }
+>>>>
+>>>> -       if (dp->usbpd->orientation == ORIENTATION_CC2)
+>>>> -               flip = true;
+>>>> +       dp_power_init(dp->power, false);
+>>>> +       dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
+>>>> +
+>>>> +       /*
+>>>> +        * eDP is the embedded primary display and has its own phy
+>>>> +        * initialize phy immediately
+>>> Question still stands why we can't wait for hpd high from the eDP panel.
+>>> Also, I think "has its own phy" means that it's not part of a combo
+>>> USB+DP phy? Can you please clarify?
+>>>
+>>>> +        */
+>>>> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_eDP)
+>>>> +               dp_display_host_phy_init(dp);
+>>>>
+>>>> -       dp_power_init(dp->power, flip);
+>>>> -       dp_ctrl_host_init(dp->ctrl, flip, reset);
+>>>>           dp_aux_init(dp->aux);
+>>>>           dp->core_initialized = true;
+>>>>    }
+>>>> @@ -1306,20 +1330,23 @@ static int dp_pm_resume(struct device *dev)
+>>>>           dp->hpd_state = ST_DISCONNECTED;
+>>>>
+>>>>           /* turn on dp ctrl/phy */
+>>>> -       dp_display_host_init(dp, true);
+>>>> +       dp_display_host_init(dp);
+>>>>
+>>>>           dp_catalog_ctrl_hpd_config(dp->catalog);
+>>>>
+>>>> -       /*
+>>>> -        * set sink to normal operation mode -- D0
+>>>> -        * before dpcd read
+>>>> -        */
+>>>> -       dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+>>>>
+>>>>           if (dp_catalog_link_is_connected(dp->catalog)) {
+>>>> +               /*
+>>>> +                * set sink to normal operation mode -- D0
+>>>> +                * before dpcd read
+>>>> +                */
+>>>> +               dp_display_host_phy_init(dp);
+>>>> +               dp_link_psm_config(dp->link, &dp->panel->link_info, false);
+>>>>                   sink_count = drm_dp_read_sink_count(dp->aux);
+>>>>                   if (sink_count < 0)
+>>>>                           sink_count = 0;
+>>>> +
+>>>> +               dp_display_host_phy_exit(dp);
+>>> Why is the phy exited on resume when the link is still connected? Is
+>>> this supposed to be done only when the sink_count is 0? And how does
+>>> this interact with eDP where the phy is initialized by the call to
+>>> dp_display_host_init() earlier in this function.
+>>>
+>>>>           }
+>>>>
+>>>>           dp->link->sink_count = sink_count;
+> Any response to the above two comments?
