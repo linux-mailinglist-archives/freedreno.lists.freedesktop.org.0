@@ -1,57 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBAEB48EF6C
-	for <lists+freedreno@lfdr.de>; Fri, 14 Jan 2022 18:55:08 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76DFD48F03B
+	for <lists+freedreno@lfdr.de>; Fri, 14 Jan 2022 19:57:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC7E10E695;
-	Fri, 14 Jan 2022 17:55:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF6E310E1AF;
+	Fri, 14 Jan 2022 18:57:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7401110E6AD;
- Fri, 14 Jan 2022 17:55:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1642182905; x=1673718905;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=z+JIuWKxJODjguXs3yWrhfZnFZJClraM9Lc/R80g5pc=;
- b=P9M5TP2Mx1iGJiNFo7fvPY2TrnoPJmJhnStLqUurOhH5+CGvPxH/2Lad
- xCIoZ0gfE7bAns99P9BmZBlPfDRTm4GenxyOaeW2+6Ww74bJyoClfAwJ4
- /zgDgduHapOzaeYXUk6wh7rPAFQixQUqavJrvC6bvsvcmro/lbB844HOl k=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 14 Jan 2022 09:55:05 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2022 09:55:04 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Fri, 14 Jan 2022 09:54:51 -0800
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Fri, 14 Jan 2022 09:54:50 -0800
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <vkoul@kernel.org>,
- <daniel@ffwll.ch>, <airlied@linux.ie>, <agross@kernel.org>,
- <dmitry.baryshkov@linaro.org>, <bjorn.andersson@linaro.org>
-Date: Fri, 14 Jan 2022 09:54:34 -0800
-Message-ID: <1642182874-27296-5-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1642182874-27296-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1642182874-27296-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E2D10E196;
+ Fri, 14 Jan 2022 18:57:37 +0000 (UTC)
+Received: by mail-pg1-x535.google.com with SMTP id h23so3468502pgk.11;
+ Fri, 14 Jan 2022 10:57:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SfsWlZ8NFWx1uU7iqNfomSH4aDVoXB8WLZulfHDXbiU=;
+ b=AxXYGXioXE1+f7CtBSW0vuFQGuUAd3neKR96VsJGT+uTkETY8PP4fDNvWZiatTjGrd
+ Bq2zK8rBoROD5kYZADr0RiaMTWBi+CZYxAbEDFZ4rjDEfuR79bZm1QiZLu2YZaHTi2PJ
+ 9jWykAN+I7uOxZWAIuO5DL35ySbJ7mzH0T5k6EoiLJ5Sge8i7VmhisQkzlPAAFjysAGm
+ ztTre6fsBXmne6SQYtwPeZON1kgUVcYqE5kscE8w+RXo945r62emwYRq9gUjqwt+N0Rg
+ orv+dNzGhbY4KoBzAQL7Lt38OsjUF/s+PHElWbl/4k5MHOf4q0FB/34dv5LY2fNReqnm
+ iCfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SfsWlZ8NFWx1uU7iqNfomSH4aDVoXB8WLZulfHDXbiU=;
+ b=Kg3/u1AfNhTYojk1hfAogTaD/o/jyH4AFSrzdUJKNK9AUdrPA1W9cSI7LrLuzFA3xp
+ b5YlfGq4RVRYSQyzHzeOsyiM9FOo+2Riakqy054io/sLFi5s2rYznLvbcPUzjVUVlKBq
+ Vq0xOPxQYZ5QPu5YtOVRYQCJL80vicgAv68KrWt47nOAJ6aMr5rOu46zomFL8kB7lETF
+ SAXjQ+ZHRRvGJDlRQ4QswVaRiRKWekhtDOoMqMPz3HtXkVVU+iqgg+IBMtrdhGRNoyAw
+ Kq15UF/f7+791UdIY2VsixgjHU7Hj8qo7iWj4U2PRHGXLlhj0m7/Hm7SyEBke8vyNvUX
+ 2xIw==
+X-Gm-Message-State: AOAM5313IO6OeIhkR02hv+U8RLkdf7LOv02L9of8lSFIu7WLTvMaLBST
+ 3o1ZVNkK+utxp8B4yj29TtvLUxlLQfM=
+X-Google-Smtp-Source: ABdhPJyQgrBlfjf4WxO3o5H3yNyytTGW/UpG9pHb6wp7ZenQY6PoaUUorCVedNy4OVKwvZCYXZSMZw==
+X-Received: by 2002:a62:3893:0:b0:4ba:7246:4830 with SMTP id
+ f141-20020a623893000000b004ba72464830mr10421883pfa.30.1642186656908; 
+ Fri, 14 Jan 2022 10:57:36 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ h15sm7017170pfc.89.2022.01.14.10.57.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Jan 2022 10:57:35 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 14 Jan 2022 10:57:42 -0800
+Message-Id: <20220114185742.283539-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v14 4/4] drm/msm/dp: stop link training after
- link training 2 failed
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/rd: Add chip-id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,48 +67,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Each DP link training contains link training 1 followed by link
-training 2.  There is maximum of 5 retries of DP link training
-before declared link training failed. It is required to stop link
-training at end of link training 2 if it is failed so that next
-link training 1 can start freshly. This patch fixes link compliance
-test  case 4.3.1.13 (Source Device Link Training EQ Fallback Test).
+From: Rob Clark <robdclark@chromium.org>
 
-Changes in v10:
---  group into one series
+For newer devices which deprecate gpu-id and do matching based on
+chip-id, we need this information in cmdstream dumps so that the
+decoding tools know how to decode them.
 
-Changes in v11:
--- drop drm/msm/dp: dp_link_parse_sink_count() return immediately if aux read
-
-Fixes: 2e0adc765d88 ("drm/msm/dp: do not end dp link training until video is ready")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/msm_rd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index f98df93..245e1b9 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1755,6 +1755,9 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
- 				/* end with failure */
- 				break; /* lane == 1 already */
- 			}
-+
-+			/* stop link training before start re training  */
-+			dp_ctrl_clear_training_pattern(ctrl);
- 		}
- 	}
+diff --git a/drivers/gpu/drm/msm/msm_rd.c b/drivers/gpu/drm/msm/msm_rd.c
+index 81432ec07012..7e4d6460719e 100644
+--- a/drivers/gpu/drm/msm/msm_rd.c
++++ b/drivers/gpu/drm/msm/msm_rd.c
+@@ -62,6 +62,7 @@ enum rd_sect_type {
+ 	RD_FRAG_SHADER,
+ 	RD_BUFFER_CONTENTS,
+ 	RD_GPU_ID,
++	RD_CHIP_ID,
+ };
  
+ #define BUF_SZ 512  /* should be power of 2 */
+@@ -202,6 +203,9 @@ static int rd_open(struct inode *inode, struct file *file)
+ 
+ 	rd_write_section(rd, RD_GPU_ID, &gpu_id, sizeof(gpu_id));
+ 
++	gpu->funcs->get_param(gpu, MSM_PARAM_CHIP_ID, &val);
++	rd_write_section(rd, RD_CHIP_ID, &val, sizeof(val));
++
+ out:
+ 	mutex_unlock(&gpu->lock);
+ 	return ret;
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.34.1
 
