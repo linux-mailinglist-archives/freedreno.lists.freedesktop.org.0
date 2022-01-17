@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B898448FE6A
-	for <lists+freedreno@lfdr.de>; Sun, 16 Jan 2022 19:18:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05E7B490A9F
+	for <lists+freedreno@lfdr.de>; Mon, 17 Jan 2022 15:38:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 596E410E55E;
-	Sun, 16 Jan 2022 18:18:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96BED10E2F6;
+	Mon, 17 Jan 2022 14:38:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C1110E267;
- Sun, 16 Jan 2022 18:18:51 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- q141-20020a1ca793000000b00347b48dfb53so17596804wme.0; 
- Sun, 16 Jan 2022 10:18:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=OLj2L5VWyVdOGJLMSf56SLM7Vb7QMt0sfGUe7E+PMH4=;
- b=jRakOnSgyncQcbqCpsBMCzFRPbyC5q5F1x1gV+Fz1VCWtNW6s7Dk28Ndtpv4j0pnH5
- WFI+1JfDG3ZlWK88iMvyrPh0iB5NqtC8pKw3wQNv4eFCrr82rVltFwYPu7lMiTRbi6+a
- MOQ9fB29u1KOMm6vjpEUURATLxjS0tJrmK4HcB/zxXa+h5HoQS0qG2aSuJRA28IpNLLq
- FaNduFspAXsEYfpP47Xx/XOlwItZk6EkWyFxbKdTlb7nU88B+x0z5R7psZLTEDazouSN
- zniT8VDufVCLzm6Rv0i+xUCFaN6j8lKCfh78NTwJ35fpfurbYgV9h/ReGO6yRkFCEXIR
- C2cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=OLj2L5VWyVdOGJLMSf56SLM7Vb7QMt0sfGUe7E+PMH4=;
- b=WGU/tVyJrIiYrmZHduCk8km6UzrPHmv+Ks0ui94fqDzdolXsaN/x167GCeTvPfnpKR
- TKQrOgX5xFLXW5JvgBwBGyuItKTgxZHIUhHgj9Xw4wD0sU83pGKzlh+7uJLlzvzDjGrQ
- cHm7JmcExQbjXqhIHmPq87jEduyac9yIXt6Cv2WH/babGMGj2SjvaBYJ7MfDXIvX7cpM
- x9Zk4Gh4cThhiupqa4VlR036PmTiuL0P5rjx6nbteSyFid4cq6sP/4s9k8PS9zHZMy7M
- MnaamVPbyrHIDTajJ3CNhd3OEoFkjtpLUKhi0N7XIOGiQ2hR0YPSuh9HZuKM1Te5WcVN
- 0glg==
-X-Gm-Message-State: AOAM533TXXyo8Oa44hkbHlH1u94Vzb262/C5qypn42UaMRQxChqNdE4I
- gm9j+7JVpMByFN5Z646tcxk=
-X-Google-Smtp-Source: ABdhPJzTfTrZbeYRdTwd3jGkTbjCInOqQZojBFH9tyRmM+gfinOFNR3IHyqEGi7J4eRXBbu1zN/+XA==
-X-Received: by 2002:a5d:47ad:: with SMTP id 13mr16163005wrb.664.1642357130069; 
- Sun, 16 Jan 2022 10:18:50 -0800 (PST)
-Received: from localhost.localdomain ([94.73.33.246])
- by smtp.gmail.com with ESMTPSA id g12sm11603839wrm.109.2022.01.16.10.18.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Jan 2022 10:18:49 -0800 (PST)
-From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
-To: hali@codeaurora.org
-Date: Sun, 16 Jan 2022 19:18:44 +0100
-Message-Id: <20220116181844.7400-1-jose.exposito89@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC60D10E2F6;
+ Mon, 17 Jan 2022 14:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1642430307; x=1673966307;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/wDgTOF9nD7qJTc2/BsA6bElbpP6tW+QytfeDJS27YY=;
+ b=pCooqTNrVTL4+NWSmBiDaUyaUWXJ7i2UlvVhE3Qkoe5DMsqrEAkOANBL
+ yYaNX+2Ablbj4/kuAK3lkk+RYYDvf13FmLhdvRozSID30e5btfyaccq+f
+ VA9Yj7INu2y5ZJG0yOtSLOS6bVBckE62SZ021acJaTQ+LbMeLteeCvlHp 0=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 17 Jan 2022 06:38:27 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2022 06:38:26 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 17 Jan 2022 06:38:25 -0800
+Received: from [10.216.12.7] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Mon, 17 Jan
+ 2022 06:38:19 -0800
+Message-ID: <bd284863-3643-4a8e-beb6-f47cc60ea1b5@quicinc.com>
+Date: Mon, 17 Jan 2022 20:08:15 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dsi: invalid parameter check in
- msm_dsi_phy_enable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>
+References: <20220112030115.1.Ibac66e1e0e565313bc28f192e6c94cb508f205eb@changeid>
+ <20220112030115.3.I86c32730e08cba9e5c83f02ec17885124d45fa56@changeid>
+ <CAF6AEGuJxdrYM5XXt6sUGmjossqZTRzwQ6Y8qYsnfCYDvGQurw@mail.gmail.com>
+ <CAA8EJpokgiUbqj9BOF52a9QjJK53PinNHfxy_6nbNq53JnO2Og@mail.gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAA8EJpokgiUbqj9BOF52a9QjJK53PinNHfxy_6nbNq53JnO2Og@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 3/4] drm/msm/adreno: Expose speedbin to
+ userspace
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,48 +68,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, rajeevny@codeaurora.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
- sean@poorly.run
+Cc: Sean Paul <sean@poorly.run>, OPEN FIRMWARE AND FLATTENED DEVICE TREE
+ BINDINGS <devicetree@vger.kernel.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The function performs a check on the "phy" input parameter, however, it
-is used before the check.
+On 1/13/2022 12:43 PM, Dmitry Baryshkov wrote:
+> On Thu, 13 Jan 2022 at 00:19, Rob Clark <robdclark@gmail.com> wrote:
+>> On Tue, Jan 11, 2022 at 1:31 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>>> Expose speedbin through MSM_PARAM_CHIP_ID parameter to help userspace
+>>> identify the sku.
+>>>
+>>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+>>> ---
+>>>
+>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 9 +++++----
+>>>   1 file changed, 5 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>> index f33cfa4..e970e6a 100644
+>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+>>> @@ -242,10 +242,11 @@ int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value)
+>>>                  *value = !adreno_is_a650_family(adreno_gpu) ? 0x100000 : 0;
+>>>                  return 0;
+>>>          case MSM_PARAM_CHIP_ID:
+>>> -               *value = adreno_gpu->rev.patchid |
+>>> -                               (adreno_gpu->rev.minor << 8) |
+>>> -                               (adreno_gpu->rev.major << 16) |
+>>> -                               (adreno_gpu->rev.core << 24);
+>>> +               *value = (uint64_t) adreno_gpu->rev.patchid |
+>>> +                               (uint64_t) (adreno_gpu->rev.minor << 8) |
+>>> +                               (uint64_t) (adreno_gpu->rev.major << 16) |
+>>> +                               (uint64_t) (adreno_gpu->rev.core << 24) |
+>>> +                               (((uint64_t) adreno_gpu->rev.sku) << 32);
+>> How about this instead, so we are only changing the behavior for
+>> new/unreleased devices:
 
-Initialize the "dev" variable after the sanity check to avoid a possible
-NULL pointer dereference.
+I thought this property was only used for new devices whereas the 
+existing devices rely on REVN.
 
-Fixes: 5c8290284402b ("drm/msm/dsi: Split PHY drivers to separate files")
-Addresses-Coverity-ID: 1493860 ("Null pointer dereference")
-Signed-off-by: José Expósito <jose.exposito89@gmail.com>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+-Akhil.
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-index 9842e04b5858..baa6af0c3bcc 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-@@ -808,12 +808,14 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
- 			struct msm_dsi_phy_clk_request *clk_req,
- 			struct msm_dsi_phy_shared_timings *shared_timings)
- {
--	struct device *dev = &phy->pdev->dev;
-+	struct device *dev;
- 	int ret;
- 
- 	if (!phy || !phy->cfg->ops.enable)
- 		return -EINVAL;
- 
-+	dev = &phy->pdev->dev;
-+
- 	ret = dsi_phy_enable_resource(phy);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev, "%s: resource enable failed, %d\n",
--- 
-2.25.1
+>>
+>> *value = adreno_gpu->rev.patchid |
+>> (adreno_gpu->rev.minor << 8) |
+>> (adreno_gpu->rev.major << 16) |
+>> (adreno_gpu->rev.core << 24);
+>> if (!adreno_gpu->info->revn)
+>> *value |= (((uint64_t) adreno_gpu->rev.sku) << 32);
+>>
+>> (sorry about the butchered indentation.. somehow gmail has become
+>> antagonistic about pasting code)
+> I assume that you would like to keep userspace compat for older chips.
+> thus the if.
+> Maybe we should introduce MSM_PARAM_CHIP_ID_SKU instead (and gradually
+> make userspace switch to it)?
+>
+>> BR,
+>> -R
+>>
+>>>                  return 0;
+>>>          case MSM_PARAM_MAX_FREQ:
+>>>                  *value = adreno_gpu->base.fast_rate;
+>>> --
+>>> 2.7.4
+>>>
+>
+>
 
