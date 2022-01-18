@@ -2,59 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70F28491077
-	for <lists+freedreno@lfdr.de>; Mon, 17 Jan 2022 19:52:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0256A492DB4
+	for <lists+freedreno@lfdr.de>; Tue, 18 Jan 2022 19:47:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6592010F898;
-	Mon, 17 Jan 2022 18:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A598A10E244;
+	Tue, 18 Jan 2022 18:47:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8006E10F895;
- Mon, 17 Jan 2022 18:52:12 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- d187-20020a1c1dc4000000b003474b4b7ebcso1610334wmd.5; 
- Mon, 17 Jan 2022 10:52:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Llyi63UWOQi3BXtk58lidq6ltne401ehGOiS/+yI99c=;
- b=E0SkFJ1eNBMo/BXshOmkTPChBIgiyyVlVk0gPGk8QVDDy8UyhCmsqtCHoZoCQaVEQx
- Yb58PaMtXHJVBJCjqhGQOYYVRLNm1yJkccLfJeS4ZcrGOGajs/K0w1TYlVLI/AmKZhRB
- fe6dC6vlN7i6TZBjk4XACc/fnUn5h4x7xC/oHEpyn0/nMwqXNHZzCKXzH+y93UyMAnX5
- eQviF1wxkhT72AKqxmeYxLzTL/pcImh7vlU/GhZfJSxitgRa/HCQtG2It+18vtBtWppx
- /H8OM87IZVViaQZgl4IwD4XbF02ov9rDIT9Vpwr+N7lASCCowUWCpV9Cp0ToXyuz+fqH
- R3mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Llyi63UWOQi3BXtk58lidq6ltne401ehGOiS/+yI99c=;
- b=LOOzc5jJGNeUQxlDqqTaVqa1ohCVv1ATcbPuvy02Mj0i8yHmd+sege1Bt6eHZEC/tW
- e6ApGY7hW6w95pon5R4adaTuqf0XFH2E3/d8XuICpSjsIUEzwGPO2xuB3mW/v7bSRASk
- +iXO1igOIGmvVi3fB6Zl02SD/9vPinANK0gCuATnf42js2wfN/c4mgUNsG8AgkqDF7HF
- AIQ6XWWwEpoTgCVssK0znaEJA6xt3xP9ysx6u3g7G8RZLjSHO6EO3BRWjcGiMoM7oHiD
- OiaMRDAvj5WVFlK7HQdECpggTSQV6hgWw8Rfy11Zyg7XRqjFLzqp6gBntbg+zryCbzAg
- Jujw==
-X-Gm-Message-State: AOAM5337PvbEYkFisOEVl2peDwWNBN0hTMLi6b3B7d8ITYIWeU3bJBC+
- ah/Wf74BqVjDt7gJsKPldzHizFKiOcemB4uxNME=
-X-Google-Smtp-Source: ABdhPJxQ0pUqRD8MmoQwaA9vNqyssG6WNxyHraaqHL2nlDWnmgYgF9OQPX1Wec8GNSQSV0jOQD8w+lH1oChYwZaIrBY=
-X-Received: by 2002:a7b:ce08:: with SMTP id m8mr22116860wmc.127.1642445530931; 
- Mon, 17 Jan 2022 10:52:10 -0800 (PST)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4EF810E233;
+ Tue, 18 Jan 2022 18:47:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1642531663; x=1674067663;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=LmCJQZH2grvqeHDN4RYFay6rviTPDGALX/f1SgKOvLs=;
+ b=s46DyFq8DQGYaZT+ARkmigU5iYhZyqV/kg8dPxqGJlEQMzsOfCRuftfL
+ 0mT+xincX/V+1tW2EUtXm9acHRlw3w6wz4HAF6XHAUUZtQDlrs+SbnMer
+ eL4T4R21ph2PgKDOk3aDECgowL/O8sa0Nth5r9zZfySiIJjJBmvDPMm+L Y=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 18 Jan 2022 10:47:42 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2022 10:47:41 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 18 Jan 2022 10:47:41 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Tue, 18 Jan 2022 10:47:40 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <vkoul@kernel.org>,
+ <daniel@ffwll.ch>, <airlied@linux.ie>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <bjorn.andersson@linaro.org>
+Date: Tue, 18 Jan 2022 10:47:24 -0800
+Message-ID: <1642531648-8448-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20220112030115.1.Ibac66e1e0e565313bc28f192e6c94cb508f205eb@changeid>
- <20220112030115.3.I86c32730e08cba9e5c83f02ec17885124d45fa56@changeid>
- <CAF6AEGuJxdrYM5XXt6sUGmjossqZTRzwQ6Y8qYsnfCYDvGQurw@mail.gmail.com>
- <CAA8EJpokgiUbqj9BOF52a9QjJK53PinNHfxy_6nbNq53JnO2Og@mail.gmail.com>
- <bd284863-3643-4a8e-beb6-f47cc60ea1b5@quicinc.com>
-In-Reply-To: <bd284863-3643-4a8e-beb6-f47cc60ea1b5@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 17 Jan 2022 10:52:07 -0800
-Message-ID: <CAF6AEGsBNafYjfC-05XBG2QT+vxU-jB=wTmu9gOVe-wLTXFgzQ@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/4] drm/msm/adreno: Expose speedbin to
- userspace
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v18 0/4] group dp driver related patches into
+ one series
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,85 +61,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS
- <devicetree@vger.kernel.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 17, 2022 at 6:38 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->
-> On 1/13/2022 12:43 PM, Dmitry Baryshkov wrote:
-> > On Thu, 13 Jan 2022 at 00:19, Rob Clark <robdclark@gmail.com> wrote:
-> >> On Tue, Jan 11, 2022 at 1:31 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
-> >>> Expose speedbin through MSM_PARAM_CHIP_ID parameter to help userspace
-> >>> identify the sku.
-> >>>
-> >>> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> >>> ---
-> >>>
-> >>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 9 +++++----
-> >>>   1 file changed, 5 insertions(+), 4 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >>> index f33cfa4..e970e6a 100644
-> >>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> >>> @@ -242,10 +242,11 @@ int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value)
-> >>>                  *value = !adreno_is_a650_family(adreno_gpu) ? 0x100000 : 0;
-> >>>                  return 0;
-> >>>          case MSM_PARAM_CHIP_ID:
-> >>> -               *value = adreno_gpu->rev.patchid |
-> >>> -                               (adreno_gpu->rev.minor << 8) |
-> >>> -                               (adreno_gpu->rev.major << 16) |
-> >>> -                               (adreno_gpu->rev.core << 24);
-> >>> +               *value = (uint64_t) adreno_gpu->rev.patchid |
-> >>> +                               (uint64_t) (adreno_gpu->rev.minor << 8) |
-> >>> +                               (uint64_t) (adreno_gpu->rev.major << 16) |
-> >>> +                               (uint64_t) (adreno_gpu->rev.core << 24) |
-> >>> +                               (((uint64_t) adreno_gpu->rev.sku) << 32);
-> >> How about this instead, so we are only changing the behavior for
-> >> new/unreleased devices:
->
-> I thought this property was only used for new devices whereas the
-> existing devices rely on REVN.
->
-> -Akhil.
->
-> >>
-> >> *value = adreno_gpu->rev.patchid |
-> >> (adreno_gpu->rev.minor << 8) |
-> >> (adreno_gpu->rev.major << 16) |
-> >> (adreno_gpu->rev.core << 24);
-> >> if (!adreno_gpu->info->revn)
-> >> *value |= (((uint64_t) adreno_gpu->rev.sku) << 32);
-> >>
-> >> (sorry about the butchered indentation.. somehow gmail has become
-> >> antagonistic about pasting code)
-> > I assume that you would like to keep userspace compat for older chips.
-> > thus the if.
-> > Maybe we should introduce MSM_PARAM_CHIP_ID_SKU instead (and gradually
-> > make userspace switch to it)?
-> >
+Group below 4 dp driver related patches into one series.
 
-Existing userspace tools do query CHIP_ID, but match based on GPU_ID
-(falling back to CHIP_ID only if GPU_ID==0).. still, out of an
-abundance of caution, we should probably not change the behavior for
-existing GPUs.  But so far the only thing with GPU_ID==0 does not
-exist in the wild yet, so I think we can get away without having to
-introduce a new param if we only set the upper bits of CHIP_ID when
-GPU_ID==0.
+Kuogee Hsieh (4):
+  drm/msm/dp: do not initialize phy until plugin interrupt received
+  drm/msm/dp: populate connector of struct dp_panel
+  drm/msm/dp: add support of tps4 (training pattern 4) for HBR3
+  drm/msm/dp: stop link training after link training 2 failed
 
-BR,
--R
+ drivers/gpu/drm/msm/dp/dp_catalog.c |  12 ++--
+ drivers/gpu/drm/msm/dp/dp_catalog.h |   2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 100 ++++++++++++++-----------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   8 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c | 116 +++++++++++++++++++-----------------
+ 5 files changed, 119 insertions(+), 119 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
