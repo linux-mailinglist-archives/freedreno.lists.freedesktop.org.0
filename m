@@ -1,61 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6529D49319F
-	for <lists+freedreno@lfdr.de>; Wed, 19 Jan 2022 01:10:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFA1493305
+	for <lists+freedreno@lfdr.de>; Wed, 19 Jan 2022 03:38:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E872810E39F;
-	Wed, 19 Jan 2022 00:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A50010E6E8;
+	Wed, 19 Jan 2022 02:38:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F034610E4B6
- for <freedreno@lists.freedesktop.org>; Wed, 19 Jan 2022 00:10:15 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1642551016; h=Message-ID: References: In-Reply-To: Subject:
- Cc: To: From: Date: Content-Transfer-Encoding: Content-Type:
- MIME-Version: Sender; bh=3v4MLMJ0PtPhQaAOptVOgLCgXBqYFtdDG3qsBq6uVME=;
- b=XNP9kcWQjWNRFbHDbjqJk58pBR72vkeEtCl7zkqS7sftYeneVQ3gIP1l/miHbI6DWrPkVUiP
- CUqiALfZvMhbRxD3Dh18N3FFA/K/7Yhc/cP9K92lhcRP8qLSqM9d5Pl87hlFuI77ATzc9HEV
- lHC0rPGEuwM7IB/tdIuHtlkgH+4=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-west-2.postgun.com with SMTP id
- 61e756e51b960c38b7cfd848 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 19 Jan 2022 00:10:13
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id AD5D8C4361A; Wed, 19 Jan 2022 00:10:13 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from mail.codeaurora.org (localhost.localdomain [127.0.0.1])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested) (Authenticated sender: abhinavk)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 83150C4360D;
- Wed, 19 Jan 2022 00:10:10 +0000 (UTC)
+X-Greylist: delayed 363 seconds by postgrey-1.36 at gabe;
+ Wed, 19 Jan 2022 02:38:55 UTC
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB1210E6DE;
+ Wed, 19 Jan 2022 02:38:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1642559935; x=1674095935;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Vl+b7drMZ5+KHqYRoUNQ+S6TqzW7BKVlOKBy6IG4qnA=;
+ b=NsV9pvZya0hzh4Z1vyjEEipLGTXGJ946M2+xkqVWWc6iA/Hx2QN2NUxx
+ S+2UXqVIZCRXXAY0nvm/tiRxDq9kMOMI85/p7hN9KP5mNPhVf8OCIJY6R
+ hF8ObKtanUMOPngEVmVgdwNguQ+PPkuq5UT+fKdmIYF7OTOI735Q1OERC c=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Jan 2022 18:32:51 -0800
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2022 18:32:51 -0800
+Received: from [10.71.111.172] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 18 Jan
+ 2022 18:32:50 -0800
+Message-ID: <645728c0-05be-0784-0c7f-5535095ced00@quicinc.com>
+Date: Tue, 18 Jan 2022 18:32:50 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 18 Jan 2022 16:10:10 -0800
-From: abhinavk@codeaurora.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <94b676d85f52bcc1cdb051d4fff7af8a@codeaurora.org>
-References: <20210617222029.463045-1-dmitry.baryshkov@linaro.org>
- <20210617222029.463045-5-dmitry.baryshkov@linaro.org>
- <94b676d85f52bcc1cdb051d4fff7af8a@codeaurora.org>
-Message-ID: <1f3348715857390ea95e4c84ec383504@codeaurora.org>
-X-Sender: abhinavk@codeaurora.org
-User-Agent: Roundcube Webmail/1.3.9
-Subject: Re: [Freedreno] [PATCH v2 4/7] drm/msm/dpu: allow just single IRQ
- callback
+References: <20211126023516.1108411-1-dmitry.baryshkov@linaro.org>
+ <20211126023516.1108411-2-dmitry.baryshkov@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20211126023516.1108411-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: simplify clocks handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,608 +63,610 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Kuogee Hsieh <khsieh@codeaurora.org>, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-<replying from my older email as i couldnt find this thread on my new 
-one>
-
-On 2021-08-17 20:30, abhinavk@codeaurora.org wrote:
-> On 2021-06-17 15:20, Dmitry Baryshkov wrote:
->> DPU interrupts code allows multiple callbacks per interrut. In reality
-> /interrupt
->> none of the interrupts is shared between blocks (and will probably 
->> never
->> be). Drop support for registering multiple callbacks per interrupt to
->> simplify interrupt handling code.
->> 
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 11/25/2021 6:35 PM, Dmitry Baryshkov wrote:
+> DPU driver contains code to parse clock items from device tree into
+> special data struct and then enable/disable/set rate for the clocks
+> using that data struct. However the DPU driver itself uses only parsing
+> and enabling/disabling part (the rate setting is used by DP driver).
 > 
-> I need to check on why we had this design originally and we still do.
-> the idx with which we are registering today can generate only one hw 
-> interrupt.
-> But i am not sure if something for planned for future use. Will update
-> in a day or two.
+> Move this implementation to the DP driver (which actually uses rate
+> setting) and replace hand-coded enable/disable/get loops in the DPU
+> with the respective clk_bulk operations. Put operation is removed
+> completely because, it is handled using devres instead.
 > 
-> meanwhile some comments and questions below.
-
-I did check internally on the original design of this and yes the plan 
-was for other
-sub-modules to register for callbacks and that callback goes into the 
-callback list.
-
-For example, lets say for some reason some other modules like the DSI 
-want to register
-for the VSYNC interrupt, it can register for a callback and that will 
-get added to the
-callback list.
-
-But, this never got used that way and even now there is only one 
-callback per interrupt.
-We dont have a concrete use-case where we will need this in the future 
-but like many other things,
-we cannot tell for certain.
-
-Since there is no concrete use-case where we might need this, if you 
-would like to go ahead
-with this, please do.
-
-Once you address the other comments on this, I can ack this.
-
+> DP implementation is unchanged for now.
 > 
->> ---
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h  |  18 +--
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   6 +-
->>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |   2 +-
->>  .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  10 +-
->>  .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   6 +-
->>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 144 
->> +++++++-----------
->>  .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |  12 +-
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  12 --
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |  10 +-
->>  9 files changed, 86 insertions(+), 134 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
->> index 90ae6c9ccc95..44ab97fb2964 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h
->> @@ -46,10 +46,8 @@ u32 dpu_core_irq_read(
->>   *                             interrupt
->>   * @dpu_kms:		DPU handle
->>   * @irq_idx:		irq index
->> - * @irq_cb:		IRQ callback structure, containing callback function
->> - *			and argument. Passing NULL for irq_cb will unregister
->> - *			the callback for the given irq_idx
->> - *			This must exist until un-registration.
->> + * @irq_cb:		IRQ callback funcion.
->> + * @irq_arg:		IRQ callback argument.
->>   * @return:		0 for success registering callback, otherwise failure
->>   *
->>   * This function supports registration of multiple callbacks for each
->> interrupt.
->> @@ -57,17 +55,16 @@ u32 dpu_core_irq_read(
->>  int dpu_core_irq_register_callback(
->>  		struct dpu_kms *dpu_kms,
->>  		int irq_idx,
->> -		struct dpu_irq_callback *irq_cb);
->> +		void (*irq_cb)(void *arg, int irq_idx),
->> +		void *irq_arg);
->> 
->>  /**
->>   * dpu_core_irq_unregister_callback - For unregistering callback
->> function on IRQ
->>   *                             interrupt
->>   * @dpu_kms:		DPU handle
->>   * @irq_idx:		irq index
->> - * @irq_cb:		IRQ callback structure, containing callback function
->> - *			and argument. Passing NULL for irq_cb will unregister
->> - *			the callback for the given irq_idx
->> - *			This must match with registration.
->> + * @irq_cb:		IRQ callback funcion.
-> /function
-> this typo is there in multiple places
->> + * @irq_arg:		IRQ callback argument.
->>   * @return:		0 for success registering callback, otherwise failure
->>   *
->>   * This function supports registration of multiple callbacks for each
->> interrupt.
->> @@ -75,7 +72,8 @@ int dpu_core_irq_register_callback(
->>  int dpu_core_irq_unregister_callback(
->>  		struct dpu_kms *dpu_kms,
->>  		int irq_idx,
->> -		struct dpu_irq_callback *irq_cb);
->> +		void (*irq_cb)(void *arg, int irq_idx),
->> +		void *irq_arg);
->> 
->>  /**
->>   * dpu_debugfs_core_irq_init - register core irq debugfs
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 1c04b7cce43e..d3557b0f4db9 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -310,7 +310,7 @@ int dpu_encoder_helper_wait_for_irq(struct
->> dpu_encoder_phys *phys_enc,
->>  				      phys_enc->hw_pp->idx - PINGPONG_0,
->>  				      atomic_read(wait_info->atomic_cnt));
->>  			local_irq_save(flags);
->> -			irq->cb.func(phys_enc, irq->irq_idx);
->> +			irq->func(phys_enc, irq->irq_idx);
->>  			local_irq_restore(flags);
->>  			ret = 0;
->>  		} else {
->> @@ -352,7 +352,7 @@ int dpu_encoder_helper_register_irq(struct
->> dpu_encoder_phys *phys_enc,
->>  	}
->> 
->>  	ret = dpu_core_irq_register_callback(phys_enc->dpu_kms, 
->> irq->irq_idx,
->> -			&irq->cb);
->> +			irq->func, phys_enc);
->>  	if (ret) {
->>  		DPU_ERROR_PHYS(phys_enc,
->>  			"failed to register IRQ callback for %s\n",
->> @@ -384,7 +384,7 @@ int dpu_encoder_helper_unregister_irq(struct
->> dpu_encoder_phys *phys_enc,
->>  	}
->> 
->>  	ret = dpu_core_irq_unregister_callback(phys_enc->dpu_kms, 
->> irq->irq_idx,
->> -			&irq->cb);
->> +			irq->func, phys_enc);
->>  	if (ret) {
->>  		DRM_ERROR("unreg cb fail id=%u, intr=%d, irq=%d ret=%d",
->>  			  DRMID(phys_enc->parent), intr_idx,
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> index e7270eb6b84b..80d87871fd94 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->> @@ -174,7 +174,7 @@ struct dpu_encoder_irq {
->>  	const char *name;
->>  	enum dpu_intr_idx intr_idx;
->>  	int irq_idx;
->> -	struct dpu_irq_callback cb;
->> +	void (*func)(void *arg, int irq_idx);
->>  };
->> 
->>  /**
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->> index aa01698d6b25..f921a5c99456 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
->> @@ -782,30 +782,28 @@ struct dpu_encoder_phys 
->> *dpu_encoder_phys_cmd_init(
->>  	phys_enc->enable_state = DPU_ENC_DISABLED;
->>  	for (i = 0; i < INTR_IDX_MAX; i++) {
->>  		irq = &phys_enc->irq[i];
->> -		INIT_LIST_HEAD(&irq->cb.list);
->>  		irq->irq_idx = -EINVAL;
->> -		irq->cb.arg = phys_enc;
->>  	}
->> 
->>  	irq = &phys_enc->irq[INTR_IDX_CTL_START];
->>  	irq->name = "ctl_start";
->>  	irq->intr_idx = INTR_IDX_CTL_START;
->> -	irq->cb.func = dpu_encoder_phys_cmd_ctl_start_irq;
->> +	irq->func = dpu_encoder_phys_cmd_ctl_start_irq;
->> 
->>  	irq = &phys_enc->irq[INTR_IDX_PINGPONG];
->>  	irq->name = "pp_done";
->>  	irq->intr_idx = INTR_IDX_PINGPONG;
->> -	irq->cb.func = dpu_encoder_phys_cmd_pp_tx_done_irq;
->> +	irq->func = dpu_encoder_phys_cmd_pp_tx_done_irq;
->> 
->>  	irq = &phys_enc->irq[INTR_IDX_RDPTR];
->>  	irq->name = "pp_rd_ptr";
->>  	irq->intr_idx = INTR_IDX_RDPTR;
->> -	irq->cb.func = dpu_encoder_phys_cmd_pp_rd_ptr_irq;
->> +	irq->func = dpu_encoder_phys_cmd_pp_rd_ptr_irq;
->> 
->>  	irq = &phys_enc->irq[INTR_IDX_UNDERRUN];
->>  	irq->name = "underrun";
->>  	irq->intr_idx = INTR_IDX_UNDERRUN;
->> -	irq->cb.func = dpu_encoder_phys_cmd_underrun_irq;
->> +	irq->func = dpu_encoder_phys_cmd_underrun_irq;
->> 
->>  	atomic_set(&phys_enc->vblank_refcount, 0);
->>  	atomic_set(&phys_enc->pending_kickoff_cnt, 0);
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> index 185379b18572..437af231d6a4 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
->> @@ -725,20 +725,18 @@ struct dpu_encoder_phys 
->> *dpu_encoder_phys_vid_init(
->>  	phys_enc->enc_spinlock = p->enc_spinlock;
->>  	for (i = 0; i < INTR_IDX_MAX; i++) {
->>  		irq = &phys_enc->irq[i];
->> -		INIT_LIST_HEAD(&irq->cb.list);
->>  		irq->irq_idx = -EINVAL;
->> -		irq->cb.arg = phys_enc;
->>  	}
->> 
->>  	irq = &phys_enc->irq[INTR_IDX_VSYNC];
->>  	irq->name = "vsync_irq";
->>  	irq->intr_idx = INTR_IDX_VSYNC;
->> -	irq->cb.func = dpu_encoder_phys_vid_vblank_irq;
->> +	irq->func = dpu_encoder_phys_vid_vblank_irq;
->> 
->>  	irq = &phys_enc->irq[INTR_IDX_UNDERRUN];
->>  	irq->name = "underrun";
->>  	irq->intr_idx = INTR_IDX_UNDERRUN;
->> -	irq->cb.func = dpu_encoder_phys_vid_underrun_irq;
->> +	irq->func = dpu_encoder_phys_vid_underrun_irq;
->> 
->>  	atomic_set(&phys_enc->vblank_refcount, 0);
->>  	atomic_set(&phys_enc->pending_kickoff_cnt, 0);
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> index d2b6dca487e3..7062e7f0e860 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> @@ -127,21 +127,17 @@ static const struct dpu_intr_reg dpu_intr_set[] 
->> = {
->>   */
->>  static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, 
->> int irq_idx)
->>  {
->> -	struct dpu_irq_callback *cb;
->> -
->>  	VERB("irq_idx=%d\n", irq_idx);
->> 
->> -	if (list_empty(&dpu_kms->hw_intr->irq_cb_tbl[irq_idx]))
->> +	if (!dpu_kms->hw_intr->irq_tbl[irq_idx].cb)
->>  		DRM_ERROR("no registered cb, idx:%d\n", irq_idx);
->> 
->> -	atomic_inc(&dpu_kms->hw_intr->irq_counts[irq_idx]);
->> +	atomic_inc(&dpu_kms->hw_intr->irq_tbl[irq_idx].count);
->> 
->>  	/*
->>  	 * Perform registered function callback
->>  	 */
->> -	list_for_each_entry(cb, &dpu_kms->hw_intr->irq_cb_tbl[irq_idx], 
->> list)
->> -		if (cb->func)
->> -			cb->func(cb->arg, irq_idx);
->> +	dpu_kms->hw_intr->irq_tbl[irq_idx].cb(dpu_kms->hw_intr->irq_tbl[irq_idx].arg,
->> irq_idx);
->>  }
->> 
->>  irqreturn_t dpu_core_irq(struct dpu_kms *dpu_kms)
->> @@ -389,24 +385,18 @@ struct dpu_hw_intr *dpu_hw_intr_init(void 
->> __iomem *addr,
->>  		struct dpu_mdss_cfg *m)
->>  {
->>  	struct dpu_hw_intr *intr;
->> +	int nirq = MDP_INTR_MAX * 32;
->> 
->>  	if (!addr || !m)
->>  		return ERR_PTR(-EINVAL);
->> 
->> -	intr = kzalloc(sizeof(*intr), GFP_KERNEL);
->> +	intr = kzalloc(struct_size(intr, irq_tbl, nirq), GFP_KERNEL);
->>  	if (!intr)
->>  		return ERR_PTR(-ENOMEM);
->> 
->>  	__intr_offset(m, addr, &intr->hw);
->> 
->> -	intr->total_irqs = ARRAY_SIZE(dpu_intr_set) * 32;
->> -
->> -	intr->cache_irq_mask = kcalloc(ARRAY_SIZE(dpu_intr_set), 
->> sizeof(u32),
->> -			GFP_KERNEL);
->> -	if (intr->cache_irq_mask == NULL) {
->> -		kfree(intr);
->> -		return ERR_PTR(-ENOMEM);
->> -	}
->> +	intr->total_irqs = nirq;
->> 
->>  	intr->irq_mask = m->mdss_irqs;
->> 
->> @@ -417,31 +407,19 @@ struct dpu_hw_intr *dpu_hw_intr_init(void 
->> __iomem *addr,
->> 
->>  void dpu_hw_intr_destroy(struct dpu_hw_intr *intr)
->>  {
->> -	if (intr) {
->> -		kfree(intr->cache_irq_mask);
->> -
->> -		kfree(intr->irq_cb_tbl);
->> -		kfree(intr->irq_counts);
->> -
->> +	if (intr)
->>  		kfree(intr);
->> -	}
->>  }
->> 
->>  int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int 
->> irq_idx,
->> -		struct dpu_irq_callback *register_irq_cb)
->> +		void (*irq_cb)(void *arg, int irq_idx),
->> +		void *irq_arg)
->>  {
->>  	unsigned long irq_flags;
->> +	int ret;
->> 
->> -	if (!dpu_kms->hw_intr->irq_cb_tbl) {
->> -		DPU_ERROR("invalid params\n");
->> -		return -EINVAL;
->> -	}
->> -
->> -	if (!register_irq_cb || !register_irq_cb->func) {
->> -		DPU_ERROR("invalid irq_cb:%d func:%d\n",
->> -				register_irq_cb != NULL,
->> -				register_irq_cb ?
->> -					register_irq_cb->func != NULL : -1);
->> +	if (!irq_cb) {
->> +		DPU_ERROR("invalid ird_idx:%d irq_cb:%ps\n", irq_idx, irq_cb);
->>  		return -EINVAL;
->>  	}
->> 
->> @@ -453,39 +431,37 @@ int dpu_core_irq_register_callback(struct
->> dpu_kms *dpu_kms, int irq_idx,
->>  	VERB("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
->> 
->>  	spin_lock_irqsave(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> -	trace_dpu_core_irq_register_callback(irq_idx, register_irq_cb);
->> -	list_del_init(&register_irq_cb->list);
->> -	list_add_tail(&register_irq_cb->list,
->> -			&dpu_kms->hw_intr->irq_cb_tbl[irq_idx]);
->> -	if (list_is_first(&register_irq_cb->list,
->> -			&dpu_kms->hw_intr->irq_cb_tbl[irq_idx])) {
->> -		int ret = dpu_hw_intr_enable_irq_locked(
->> +
->> +	if (dpu_kms->hw_intr->irq_tbl[irq_idx].cb) {
->> +		spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> +
->> +		return -EBUSY;
->> +	}
-> Why is this check present? Ideally there should be only one callback 
-> registered.
->> +
->> +	trace_dpu_core_irq_register_callback(irq_idx, irq_cb);
->> +	dpu_kms->hw_intr->irq_tbl[irq_idx].arg = irq_arg;
->> +	dpu_kms->hw_intr->irq_tbl[irq_idx].cb = irq_cb;
->> +
->> +	ret = dpu_hw_intr_enable_irq_locked(
->>  				dpu_kms->hw_intr,
->>  				irq_idx);
->> -		if (ret)
->> -			DPU_ERROR("Fail to enable IRQ for irq_idx:%d\n",
->> +	if (ret)
->> +		DPU_ERROR("Fail to enable IRQ for irq_idx:%d\n",
->>  					irq_idx);
->> -	}
->>  	spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> 
->>  	return 0;
->>  }
->> 
->>  int dpu_core_irq_unregister_callback(struct dpu_kms *dpu_kms, int 
->> irq_idx,
->> -		struct dpu_irq_callback *register_irq_cb)
->> +		void (*irq_cb)(void *arg, int irq_idx),
->> +		void *irq_arg)
->>  {
->>  	unsigned long irq_flags;
->> +	int ret;
->> 
->> -	if (!dpu_kms->hw_intr->irq_cb_tbl) {
->> -		DPU_ERROR("invalid params\n");
->> -		return -EINVAL;
->> -	}
->> -
->> -	if (!register_irq_cb || !register_irq_cb->func) {
->> -		DPU_ERROR("invalid irq_cb:%d func:%d\n",
->> -				register_irq_cb != NULL,
->> -				register_irq_cb ?
->> -					register_irq_cb->func != NULL : -1);
->> +	if (!irq_cb) {
->> +		DPU_ERROR("invalid ird_idx:%d irq_cb:%ps\n", irq_idx, irq_cb);
->>  		return -EINVAL;
->>  	}
->> 
->> @@ -497,18 +473,23 @@ int dpu_core_irq_unregister_callback(struct
->> dpu_kms *dpu_kms, int irq_idx,
->>  	VERB("[%pS] irq_idx=%d\n", __builtin_return_address(0), irq_idx);
->> 
->>  	spin_lock_irqsave(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> -	trace_dpu_core_irq_unregister_callback(irq_idx, register_irq_cb);
->> -	list_del_init(&register_irq_cb->list);
->> -	/* empty callback list but interrupt is still enabled */
->> -	if (list_empty(&dpu_kms->hw_intr->irq_cb_tbl[irq_idx])) {
->> -		int ret = dpu_hw_intr_disable_irq_locked(
->> -				dpu_kms->hw_intr,
->> -				irq_idx);
->> -		if (ret)
->> -			DPU_ERROR("Fail to disable IRQ for irq_idx:%d\n",
->> -					irq_idx);
->> -		VERB("irq_idx=%d ret=%d\n", irq_idx, ret);
->> +	trace_dpu_core_irq_unregister_callback(irq_idx, irq_cb);
->> +
->> +	if (WARN_ON(dpu_kms->hw_intr->irq_tbl[irq_idx].cb != irq_cb ||
->> +		    dpu_kms->hw_intr->irq_tbl[irq_idx].arg != irq_arg)) {
->> +		spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> +
->> +		return -EINVAL;
->>  	}
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/Makefile                  |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 24 ++-----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |  6 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 46 +++----------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |  4 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c      | 26 +++----
+>   .../dpu1/dpu_io_util.c => dp/dp_clk_util.c}   | 69 +------------------
+>   .../dpu1/dpu_io_util.h => dp/dp_clk_util.h}   |  2 -
+>   drivers/gpu/drm/msm/dp/dp_parser.h            |  2 +-
+>   drivers/gpu/drm/msm/msm_drv.c                 | 49 +++++++++++++
+>   drivers/gpu/drm/msm/msm_drv.h                 |  1 +
+>   11 files changed, 84 insertions(+), 147 deletions(-)
+>   rename drivers/gpu/drm/msm/{disp/dpu1/dpu_io_util.c => dp/dp_clk_util.c} (61%)
+>   rename drivers/gpu/drm/msm/{disp/dpu1/dpu_io_util.h => dp/dp_clk_util.h} (92%)
 > 
-> Why do we need this check too? Any condition where this wont match?
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 40577f8856d8..b6637da219b0 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -69,7 +69,6 @@ msm-y := \
+>   	disp/dpu1/dpu_hw_top.o \
+>   	disp/dpu1/dpu_hw_util.o \
+>   	disp/dpu1/dpu_hw_vbif.o \
+> -	disp/dpu1/dpu_io_util.o \
+>   	disp/dpu1/dpu_kms.o \
+>   	disp/dpu1/dpu_mdss.o \
+>   	disp/dpu1/dpu_plane.o \
+> @@ -105,6 +104,7 @@ msm-$(CONFIG_DRM_MSM_GPU_STATE)	+= adreno/a6xx_gpu_state.o
+>   
+>   msm-$(CONFIG_DRM_MSM_DP)+= dp/dp_aux.o \
+>   	dp/dp_catalog.o \
+> +	dp/dp_clk_util.o \
+>   	dp/dp_ctrl.o \
+>   	dp/dp_display.o \
+>   	dp/dp_drm.o \
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> index 60fe06018581..4d184122d63e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> @@ -284,17 +284,6 @@ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc)
+>   	}
+>   }
+>   
+> -static int _dpu_core_perf_set_core_clk_rate(struct dpu_kms *kms, u64 rate)
+> -{
+> -	struct dss_clk *core_clk = kms->perf.core_clk;
+> -
+> -	if (core_clk->max_rate && (rate > core_clk->max_rate))
+> -		rate = core_clk->max_rate;
+> -
+> -	core_clk->rate = rate;
+> -	return dev_pm_opp_set_rate(&kms->pdev->dev, core_clk->rate);
+> -}
+> -
+>   static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+>   {
+>   	u64 clk_rate = kms->perf.perf_tune.min_core_clk;
+> @@ -306,7 +295,7 @@ static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
+>   			dpu_cstate = to_dpu_crtc_state(crtc->state);
+>   			clk_rate = max(dpu_cstate->new_perf.core_clk_rate,
+>   							clk_rate);
+> -			clk_rate = clk_round_rate(kms->perf.core_clk->clk,
+> +			clk_rate = clk_round_rate(kms->perf.core_clk,
+>   					clk_rate);
+>   		}
+>   	}
+> @@ -405,10 +394,11 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+>   
+>   		trace_dpu_core_perf_update_clk(kms->dev, stop_req, clk_rate);
+>   
+> -		ret = _dpu_core_perf_set_core_clk_rate(kms, clk_rate);
+> +		if (clk_rate > kms->perf.max_core_clk_rate)
+> +			clk_rate = kms->perf.max_core_clk_rate;
+> +		ret = dev_pm_opp_set_rate(&kms->pdev->dev, clk_rate);
+>   		if (ret) {
+> -			DPU_ERROR("failed to set %s clock rate %llu\n",
+> -					kms->perf.core_clk->clk_name, clk_rate);
+> +			DPU_ERROR("failed to set core clock rate %llu\n", clk_rate);
+>   			return ret;
+>   		}
+>   
+> @@ -529,13 +519,13 @@ void dpu_core_perf_destroy(struct dpu_core_perf *perf)
+>   int dpu_core_perf_init(struct dpu_core_perf *perf,
+>   		struct drm_device *dev,
+>   		struct dpu_mdss_cfg *catalog,
+> -		struct dss_clk *core_clk)
+> +		struct clk *core_clk)
+>   {
+>   	perf->dev = dev;
+>   	perf->catalog = catalog;
+>   	perf->core_clk = core_clk;
+>   
+> -	perf->max_core_clk_rate = core_clk->max_rate;
+> +	perf->max_core_clk_rate = clk_get_rate(core_clk);
+>   	if (!perf->max_core_clk_rate) {
+>   		DPU_DEBUG("optional max core clk rate, use default\n");
+>   		perf->max_core_clk_rate = DPU_PERF_DEFAULT_MAX_CORE_CLK_RATE;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> index cf4b9b5964c6..8dfcc6db7176 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+> @@ -56,7 +56,7 @@ struct dpu_core_perf_tune {
+>    * @dev: Pointer to drm device
+>    * @debugfs_root: top level debug folder
+>    * @catalog: Pointer to catalog configuration
+> - * @core_clk: Pointer to core clock structure
+> + * @core_clk: Pointer to the core clock
+>    * @core_clk_rate: current core clock rate
+>    * @max_core_clk_rate: maximum allowable core clock rate
+>    * @perf_tune: debug control for performance tuning
+> @@ -69,7 +69,7 @@ struct dpu_core_perf {
+>   	struct drm_device *dev;
+>   	struct dentry *debugfs_root;
+>   	struct dpu_mdss_cfg *catalog;
+> -	struct dss_clk *core_clk;
+> +	struct clk *core_clk;
+>   	u64 core_clk_rate;
+>   	u64 max_core_clk_rate;
+>   	struct dpu_core_perf_tune perf_tune;
+> @@ -120,7 +120,7 @@ void dpu_core_perf_destroy(struct dpu_core_perf *perf);
+>   int dpu_core_perf_init(struct dpu_core_perf *perf,
+>   		struct drm_device *dev,
+>   		struct dpu_mdss_cfg *catalog,
+> -		struct dss_clk *core_clk);
+> +		struct clk *core_clk);
+>   
+>   struct dpu_kms;
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index a15b26428280..655cbd912309 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -936,29 +936,15 @@ static int _dpu_kms_mmu_init(struct dpu_kms *dpu_kms)
+>   	return 0;
+>   }
+>   
+> -static struct dss_clk *_dpu_kms_get_clk(struct dpu_kms *dpu_kms,
+> -		char *clock_name)
+> -{
+> -	struct dss_module_power *mp = &dpu_kms->mp;
+> -	int i;
+> -
+> -	for (i = 0; i < mp->num_clk; i++) {
+> -		if (!strcmp(mp->clk_config[i].clk_name, clock_name))
+> -			return &mp->clk_config[i];
+> -	}
+> -
+> -	return NULL;
+> -}
+> -
+>   u64 dpu_kms_get_clk_rate(struct dpu_kms *dpu_kms, char *clock_name)
+>   {
+> -	struct dss_clk *clk;
+> +	struct clk *clk;
+>   
+> -	clk = _dpu_kms_get_clk(dpu_kms, clock_name);
+> +	clk = msm_clk_bulk_get_clock(dpu_kms->clocks, dpu_kms->num_clocks, clock_name);
+>   	if (!clk)
+>   		return -EINVAL;
+>   
+> -	return clk_get_rate(clk->clk);
+> +	return clk_get_rate(clk);
+>   }
+>   
+>   static int dpu_kms_hw_init(struct msm_kms *kms)
+> @@ -1070,7 +1056,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>   	}
+>   
+>   	rc = dpu_core_perf_init(&dpu_kms->perf, dev, dpu_kms->catalog,
+> -			_dpu_kms_get_clk(dpu_kms, "core"));
+> +			msm_clk_bulk_get_clock(dpu_kms->clocks, dpu_kms->num_clocks, "core"));
+>   	if (rc) {
+>   		DPU_ERROR("failed to init perf %d\n", rc);
+>   		goto perf_err;
+> @@ -1157,7 +1143,6 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
+>   	struct platform_device *pdev = to_platform_device(dev);
+>   	struct msm_drm_private *priv = ddev->dev_private;
+>   	struct dpu_kms *dpu_kms;
+> -	struct dss_module_power *mp;
+>   	int ret = 0;
+>   
+>   	dpu_kms = devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
+> @@ -1174,12 +1159,12 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
+>   		return ret;
+>   	}
+>   
+> -	mp = &dpu_kms->mp;
+> -	ret = msm_dss_parse_clock(pdev, mp);
+> -	if (ret) {
+> +	ret = msm_parse_clock(pdev, &dpu_kms->clocks);
+> +	if (ret < 0) {
+>   		DPU_ERROR("failed to parse clocks, ret=%d\n", ret);
+>   		return ret;
+>   	}
+> +	dpu_kms->num_clocks = ret;
+>   
+>   	platform_set_drvdata(pdev, dpu_kms);
+>   
+> @@ -1203,11 +1188,6 @@ static void dpu_unbind(struct device *dev, struct device *master, void *data)
+>   {
+>   	struct platform_device *pdev = to_platform_device(dev);
+>   	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
+> -	struct dss_module_power *mp = &dpu_kms->mp;
+> -
+> -	msm_dss_put_clk(mp->clk_config, mp->num_clk);
+> -	devm_kfree(&pdev->dev, mp->clk_config);
+> -	mp->num_clk = 0;
+>   
+>   	if (dpu_kms->rpm_enabled)
+>   		pm_runtime_disable(&pdev->dev);
+> @@ -1231,21 +1211,18 @@ static int dpu_dev_remove(struct platform_device *pdev)
+>   
+>   static int __maybe_unused dpu_runtime_suspend(struct device *dev)
+>   {
+> -	int i, rc = -1;
+> +	int i;
+>   	struct platform_device *pdev = to_platform_device(dev);
+>   	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
+> -	struct dss_module_power *mp = &dpu_kms->mp;
+>   
+>   	/* Drop the performance state vote */
+>   	dev_pm_opp_set_rate(dev, 0);
+> -	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, false);
+> -	if (rc)
+> -		DPU_ERROR("clock disable failed rc:%d\n", rc);
+> +	clk_bulk_disable_unprepare(dpu_kms->num_clocks, dpu_kms->clocks);
+>   
+>   	for (i = 0; i < dpu_kms->num_paths; i++)
+>   		icc_set_bw(dpu_kms->path[i], 0, 0);
+>   
+> -	return rc;
+> +	return 0;
+>   }
+>   
+>   static int __maybe_unused dpu_runtime_resume(struct device *dev)
+> @@ -1255,7 +1232,6 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
+>   	struct dpu_kms *dpu_kms = platform_get_drvdata(pdev);
+>   	struct drm_encoder *encoder;
+>   	struct drm_device *ddev;
+> -	struct dss_module_power *mp = &dpu_kms->mp;
+>   	int i;
+>   
+>   	ddev = dpu_kms->dev;
+> @@ -1265,7 +1241,7 @@ static int __maybe_unused dpu_runtime_resume(struct device *dev)
+>   	for (i = 0; i < dpu_kms->num_paths; i++)
+>   		icc_set_bw(dpu_kms->path[i], 0, Bps_to_icc(MIN_IB_BW));
+>   
+> -	rc = msm_dss_enable_clk(mp->clk_config, mp->num_clk, true);
+> +	rc = clk_bulk_prepare_enable(dpu_kms->num_clocks, dpu_kms->clocks);
+>   	if (rc) {
+>   		DPU_ERROR("clock enable failed rc:%d\n", rc);
+>   		return rc;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> index 775bcbda860f..d366aa359d38 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+> @@ -21,7 +21,6 @@
+>   #include "dpu_hw_lm.h"
+>   #include "dpu_hw_interrupts.h"
+>   #include "dpu_hw_top.h"
+> -#include "dpu_io_util.h"
+>   #include "dpu_rm.h"
+>   #include "dpu_core_perf.h"
+>   
+> @@ -113,7 +112,8 @@ struct dpu_kms {
+>   	struct platform_device *pdev;
+>   	bool rpm_enabled;
+>   
+> -	struct dss_module_power mp;
+> +	struct clk_bulk_data *clocks;
+> +	int num_clocks;
+>   
+>   	/* reference count bandwidth requests, so we know when we can
+>   	 * release bandwidth.  Each atomic update increments, and frame-
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+> index b466784d9822..d7faf11a5456 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+> @@ -29,7 +29,8 @@ struct dpu_irq_controller {
+>   struct dpu_mdss {
+>   	struct msm_mdss base;
+>   	void __iomem *mmio;
+> -	struct dss_module_power mp;
+> +	struct clk_bulk_data *clocks;
+> +	int num_clocks;
+>   	struct dpu_irq_controller irq_controller;
+>   };
+>   
+> @@ -136,10 +137,9 @@ static void _dpu_mdss_irq_domain_fini(struct dpu_mdss *dpu_mdss)
+>   static int dpu_mdss_enable(struct msm_mdss *mdss)
+>   {
+>   	struct dpu_mdss *dpu_mdss = to_dpu_mdss(mdss);
+> -	struct dss_module_power *mp = &dpu_mdss->mp;
+>   	int ret;
+>   
+> -	ret = msm_dss_enable_clk(mp->clk_config, mp->num_clk, true);
+> +	ret = clk_bulk_prepare_enable(dpu_mdss->num_clocks, dpu_mdss->clocks);
+>   	if (ret) {
+>   		DPU_ERROR("clock enable failed, ret:%d\n", ret);
+>   		return ret;
+> @@ -174,14 +174,10 @@ static int dpu_mdss_enable(struct msm_mdss *mdss)
+>   static int dpu_mdss_disable(struct msm_mdss *mdss)
+>   {
+>   	struct dpu_mdss *dpu_mdss = to_dpu_mdss(mdss);
+> -	struct dss_module_power *mp = &dpu_mdss->mp;
+> -	int ret;
+>   
+> -	ret = msm_dss_enable_clk(mp->clk_config, mp->num_clk, false);
+> -	if (ret)
+> -		DPU_ERROR("clock disable failed, ret:%d\n", ret);
+> +	clk_bulk_disable_unprepare(dpu_mdss->num_clocks, dpu_mdss->clocks);
+>   
+> -	return ret;
+> +	return 0;
+>   }
+>   
+>   static void dpu_mdss_destroy(struct drm_device *dev)
+
+Hi Dmitry,
+
+Looks like this is based on some outdated code:
+2027e5b3 (drm/msm: Initialize MDSS irq domain at probe time) changes 
+`*dev` to `*mdss`
+
+I want to test this patch on some boards (namely RB3 and RB5). Can you 
+release a version with your changes rebased on top of the tip of msm-next?
+
+> @@ -189,7 +185,6 @@ static void dpu_mdss_destroy(struct drm_device *dev)
+>   	struct platform_device *pdev = to_platform_device(dev->dev);
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct dpu_mdss *dpu_mdss = to_dpu_mdss(priv->mdss);
+> -	struct dss_module_power *mp = &dpu_mdss->mp;
+>   	int irq;
+>   
+>   	pm_runtime_suspend(dev->dev);
+> @@ -197,8 +192,6 @@ static void dpu_mdss_destroy(struct drm_device *dev)
+>   	_dpu_mdss_irq_domain_fini(dpu_mdss);
+>   	irq = platform_get_irq(pdev, 0);
+>   	irq_set_chained_handler_and_data(irq, NULL, NULL);
+> -	msm_dss_put_clk(mp->clk_config, mp->num_clk);
+> -	devm_kfree(&pdev->dev, mp->clk_config);
+>   
+>   	if (dpu_mdss->mmio)
+>   		devm_iounmap(&pdev->dev, dpu_mdss->mmio);
+> @@ -217,7 +210,6 @@ int dpu_mdss_init(struct drm_device *dev)
+>   	struct platform_device *pdev = to_platform_device(dev->dev);
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct dpu_mdss *dpu_mdss;
+> -	struct dss_module_power *mp;
+>   	int ret;
+>   	int irq;
+>   
+> @@ -231,12 +223,12 @@ int dpu_mdss_init(struct drm_device *dev)
+>   
+>   	DRM_DEBUG("mapped mdss address space @%pK\n", dpu_mdss->mmio);
+>   
+> -	mp = &dpu_mdss->mp;
+> -	ret = msm_dss_parse_clock(pdev, mp);
+> -	if (ret) {
+> +	ret = msm_parse_clock(pdev, &dpu_mdss->clocks);
+> +	if (ret < 0) {
+>   		DPU_ERROR("failed to parse clocks, ret=%d\n", ret);
+>   		goto clk_parse_err;
+>   	}
+> +	dpu_mdss->num_clocks = ret;
+>   
+>   	dpu_mdss->base.dev = dev;
+>   	dpu_mdss->base.funcs = &mdss_funcs;
+> @@ -263,9 +255,7 @@ int dpu_mdss_init(struct drm_device *dev)
+>   irq_error:
+>   	_dpu_mdss_irq_domain_fini(dpu_mdss);
+>   irq_domain_error:
+> -	msm_dss_put_clk(mp->clk_config, mp->num_clk);
+>   clk_parse_err:
+> -	devm_kfree(&pdev->dev, mp->clk_config);
+>   	if (dpu_mdss->mmio)
+>   		devm_iounmap(&pdev->dev, dpu_mdss->mmio);
+>   	dpu_mdss->mmio = NULL;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c b/drivers/gpu/drm/msm/dp/dp_clk_util.c
+> similarity index 61%
+> rename from drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c
+> rename to drivers/gpu/drm/msm/dp/dp_clk_util.c
+> index 078afc5f5882..44a4fc59ff31 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_clk_util.c
+> @@ -11,7 +11,7 @@
+>   
+>   #include <drm/drm_print.h>
+>   
+> -#include "dpu_io_util.h"
+> +#include "dp_clk_util.h"
+>   
+>   void msm_dss_put_clk(struct dss_clk *clk_arry, int num_clk)
+>   {
+> @@ -118,70 +118,3 @@ int msm_dss_enable_clk(struct dss_clk *clk_arry, int num_clk, int enable)
+>   
+>   	return rc;
+>   }
+> -
+> -int msm_dss_parse_clock(struct platform_device *pdev,
+> -			struct dss_module_power *mp)
+> -{
+> -	u32 i, rc = 0;
+> -	const char *clock_name;
+> -	int num_clk = 0;
+> -
+> -	if (!pdev || !mp)
+> -		return -EINVAL;
+> -
+> -	mp->num_clk = 0;
+> -	num_clk = of_property_count_strings(pdev->dev.of_node, "clock-names");
+> -	if (num_clk <= 0) {
+> -		pr_debug("clocks are not defined\n");
+> -		return 0;
+> -	}
+> -
+> -	mp->clk_config = devm_kcalloc(&pdev->dev,
+> -				      num_clk, sizeof(struct dss_clk),
+> -				      GFP_KERNEL);
+> -	if (!mp->clk_config)
+> -		return -ENOMEM;
+> -
+> -	for (i = 0; i < num_clk; i++) {
+> -		rc = of_property_read_string_index(pdev->dev.of_node,
+> -						   "clock-names", i,
+> -						   &clock_name);
+> -		if (rc) {
+> -			DRM_DEV_ERROR(&pdev->dev, "Failed to get clock name for %d\n",
+> -				i);
+> -			break;
+> -		}
+> -		strlcpy(mp->clk_config[i].clk_name, clock_name,
+> -			sizeof(mp->clk_config[i].clk_name));
+> -
+> -		mp->clk_config[i].type = DSS_CLK_AHB;
+> -	}
+> -
+> -	rc = msm_dss_get_clk(&pdev->dev, mp->clk_config, num_clk);
+> -	if (rc) {
+> -		DRM_DEV_ERROR(&pdev->dev, "Failed to get clock refs %d\n", rc);
+> -		goto err;
+> -	}
+> -
+> -	rc = of_clk_set_defaults(pdev->dev.of_node, false);
+> -	if (rc) {
+> -		DRM_DEV_ERROR(&pdev->dev, "Failed to set clock defaults %d\n", rc);
+> -		goto err;
+> -	}
+> -
+> -	for (i = 0; i < num_clk; i++) {
+> -		u32 rate = clk_get_rate(mp->clk_config[i].clk);
+> -		if (!rate)
+> -			continue;
+> -		mp->clk_config[i].rate = rate;
+> -		mp->clk_config[i].type = DSS_CLK_PCLK;
+> -		mp->clk_config[i].max_rate = rate;
+> -	}
+> -
+> -	mp->num_clk = num_clk;
+> -	return 0;
+> -
+> -err:
+> -	msm_dss_put_clk(mp->clk_config, num_clk);
+> -	return rc;
+> -}
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.h b/drivers/gpu/drm/msm/dp/dp_clk_util.h
+> similarity index 92%
+> rename from drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.h
+> rename to drivers/gpu/drm/msm/dp/dp_clk_util.h
+> index e6b5c772fa3b..6288a2833a58 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_clk_util.h
+> @@ -35,6 +35,4 @@ int msm_dss_get_clk(struct device *dev, struct dss_clk *clk_arry, int num_clk);
+>   void msm_dss_put_clk(struct dss_clk *clk_arry, int num_clk);
+>   int msm_dss_clk_set_rate(struct dss_clk *clk_arry, int num_clk);
+>   int msm_dss_enable_clk(struct dss_clk *clk_arry, int num_clk, int enable);
+> -int msm_dss_parse_clock(struct platform_device *pdev,
+> -		struct dss_module_power *mp);
+>   #endif /* __DPU_IO_UTIL_H__ */
+> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
+> index 3172da089421..094b39bfed8c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
+> @@ -10,7 +10,7 @@
+>   #include <linux/phy/phy.h>
+>   #include <linux/phy/phy-dp.h>
+>   
+> -#include "dpu_io_util.h"
+> +#include "dp_clk_util.h"
+>   #include "msm_drv.h"
+>   
+>   #define DP_LABEL "MDSS DP DISPLAY"
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 892c04365239..3e90fca33581 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -5,6 +5,7 @@
+>    * Author: Rob Clark <robdclark@gmail.com>
+>    */
+>   
+> +#include <linux/clk/clk-conf.h>
+>   #include <linux/dma-mapping.h>
+>   #include <linux/kthread.h>
+>   #include <linux/sched/mm.h>
+> @@ -123,6 +124,54 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
+>   	return clk;
+>   }
+>   
+> +int msm_parse_clock(struct platform_device *pdev, struct clk_bulk_data **clocks)
+
+Can you also move msm_parse_clock and other io helper methods (like 
+_msm_ioremap) into a separate msm_io_utils file instead? That would help 
+avoid file bloat.
+
+Thanks,
+
+Jessica Zhang
+
+> +{
+> +	u32 i, rc = 0;
+> +	const char *clock_name;
+> +	struct clk_bulk_data *bulk;
+> +	int num_clk = 0;
+> +
+> +	if (!pdev)
+> +		return -EINVAL;
+> +
+> +	num_clk = of_property_count_strings(pdev->dev.of_node, "clock-names");
+> +	if (num_clk <= 0) {
+> +		pr_debug("clocks are not defined\n");
+> +		return 0;
+> +	}
+> +
+> +	bulk = devm_kcalloc(&pdev->dev, num_clk, sizeof(struct clk_bulk_data), GFP_KERNEL);
+> +	if (!bulk)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < num_clk; i++) {
+> +		rc = of_property_read_string_index(pdev->dev.of_node,
+> +						   "clock-names", i,
+> +						   &clock_name);
+> +		if (rc) {
+> +			DRM_DEV_ERROR(&pdev->dev, "Failed to get clock name for %d\n", i);
+> +			return rc;
+> +		}
+> +		bulk[i].id = devm_kstrdup(&pdev->dev, clock_name, GFP_KERNEL);
+> +	}
+> +
+> +	rc = devm_clk_bulk_get(&pdev->dev, num_clk, bulk);
+> +	if (rc) {
+> +		DRM_DEV_ERROR(&pdev->dev, "Failed to get clock refs %d\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	rc = of_clk_set_defaults(pdev->dev.of_node, false);
+> +	if (rc) {
+> +		DRM_DEV_ERROR(&pdev->dev, "Failed to set clock defaults %d\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	*clocks = bulk;
+> +
+> +	return num_clk;
+> +}
+> +
+>   static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
+>   				  const char *dbgname, bool quiet, phys_addr_t *psize)
+>   {
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 69952b239384..cfede901056d 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -477,6 +477,7 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name);
+>   
+>   struct clk *msm_clk_bulk_get_clock(struct clk_bulk_data *bulk, int count,
+>   	const char *name);
+> +int msm_parse_clock(struct platform_device *pdev, struct clk_bulk_data **clocks);
+>   void __iomem *msm_ioremap(struct platform_device *pdev, const char *name,
+>   		const char *dbgname);
+>   void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
+> -- 
+> 2.33.0
 > 
->> +
->> +	ret = dpu_hw_intr_disable_irq_locked(dpu_kms->hw_intr, irq_idx);
->> +	if (ret)
->> +		DPU_ERROR("Fail to disable IRQ for irq_idx:%d: %d\n",
->> +					irq_idx, ret);
->> +
->> +	dpu_kms->hw_intr->irq_tbl[irq_idx].cb = NULL;
->> +	dpu_kms->hw_intr->irq_tbl[irq_idx].arg = NULL;
->> +
->>  	spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> 
->>  	return 0;
->> @@ -518,24 +499,18 @@ int dpu_core_irq_unregister_callback(struct
->> dpu_kms *dpu_kms, int irq_idx,
->>  static int dpu_debugfs_core_irq_show(struct seq_file *s, void *v)
->>  {
->>  	struct dpu_kms *dpu_kms = s->private;
->> -	struct dpu_irq_callback *cb;
->>  	unsigned long irq_flags;
->> -	int i, irq_count, cb_count;
->> -
->> -	if (WARN_ON(!dpu_kms->hw_intr->irq_cb_tbl))
->> -		return 0;
->> +	int i, irq_count;
->> +	void *cb;
->> 
->>  	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++) {
->>  		spin_lock_irqsave(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> -		cb_count = 0;
->> -		irq_count = atomic_read(&dpu_kms->hw_intr->irq_counts[i]);
->> -		list_for_each_entry(cb, &dpu_kms->hw_intr->irq_cb_tbl[i], list)
->> -			cb_count++;
->> +		irq_count = atomic_read(&dpu_kms->hw_intr->irq_tbl[i].count);
->> +		cb = dpu_kms->hw_intr->irq_tbl[i].cb;
->>  		spin_unlock_irqrestore(&dpu_kms->hw_intr->irq_lock, irq_flags);
->> 
->> -		if (irq_count || cb_count)
->> -			seq_printf(s, "idx:%d irq:%d cb:%d\n",
->> -					i, irq_count, cb_count);
->> +		if (irq_count || cb)
->> +			seq_printf(s, "idx:%d irq:%d cb:%ps\n", i, irq_count, cb);
->>  	}
->> 
->>  	return 0;
->> @@ -560,15 +535,8 @@ void dpu_core_irq_preinstall(struct dpu_kms 
->> *dpu_kms)
->>  	dpu_disable_all_irqs(dpu_kms);
->>  	pm_runtime_put_sync(&dpu_kms->pdev->dev);
->> 
->> -	/* Create irq callbacks for all possible irq_idx */
->> -	dpu_kms->hw_intr->irq_cb_tbl = kcalloc(dpu_kms->hw_intr->total_irqs,
->> -			sizeof(struct list_head), GFP_KERNEL);
->> -	dpu_kms->hw_intr->irq_counts = kcalloc(dpu_kms->hw_intr->total_irqs,
->> -			sizeof(atomic_t), GFP_KERNEL);
->> -	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++) {
->> -		INIT_LIST_HEAD(&dpu_kms->hw_intr->irq_cb_tbl[i]);
->> -		atomic_set(&dpu_kms->hw_intr->irq_counts[i], 0);
->> -	}
->> +	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
->> +		atomic_set(&dpu_kms->hw_intr->irq_tbl[i].count, 0);
->>  }
->> 
->>  void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
->> @@ -577,7 +545,7 @@ void dpu_core_irq_uninstall(struct dpu_kms 
->> *dpu_kms)
->> 
->>  	pm_runtime_get_sync(&dpu_kms->pdev->dev);
->>  	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
->> -		if (!list_empty(&dpu_kms->hw_intr->irq_cb_tbl[i]))
->> +		if (dpu_kms->hw_intr->irq_tbl[i].cb)
->>  			DPU_ERROR("irq_idx=%d still enabled/registered\n", i);
->> 
->>  	dpu_clear_irqs(dpu_kms);
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
->> index d50e78c9f148..9855e176b173 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
->> @@ -40,19 +40,21 @@ enum dpu_hw_intr_reg {
->>   * @save_irq_status:  array of IRQ status reg storage created during 
->> init
->>   * @total_irqs: total number of irq_idx mapped in the hw_interrupts
->>   * @irq_lock:         spinlock for accessing IRQ resources
->> - * @irq_cb_tbl:       array of IRQ callbacks lists
->> - * @irq_counts:       array of IRQ counts
->> + * @irq_cb_tbl:       array of IRQ callbacks
->>   */
->>  struct dpu_hw_intr {
->>  	struct dpu_hw_blk_reg_map hw;
->> -	u32 *cache_irq_mask;
->> +	u32 cache_irq_mask[MDP_INTR_MAX];
->>  	u32 *save_irq_status;
->>  	u32 total_irqs;
->>  	spinlock_t irq_lock;
->>  	unsigned long irq_mask;
->> 
->> -	struct list_head *irq_cb_tbl;
->> -	atomic_t *irq_counts;
->> +	struct {
->> +		void (*cb)(void *arg, int irq_idx);
->> +		void *arg;
->> +		atomic_t count;
->> +	} irq_tbl[];
->>  };
->> 
->>  /**
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->> index 775bcbda860f..d24dcd852d2e 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
->> @@ -66,18 +66,6 @@
->> 
->>  #define DPU_NAME_SIZE  12
->> 
->> -/*
->> - * struct dpu_irq_callback - IRQ callback handlers
->> - * @list: list to callback
->> - * @func: intr handler
->> - * @arg: argument for the handler
->> - */
->> -struct dpu_irq_callback {
->> -	struct list_head list;
->> -	void (*func)(void *arg, int irq_idx);
->> -	void *arg;
->> -};
->> -
->>  struct dpu_kms {
->>  	struct msm_kms base;
->>  	struct drm_device *dev;
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> index 37bba57675a8..1e2619556f93 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> @@ -876,25 +876,25 @@ TRACE_EVENT(dpu_pp_connect_ext_te,
->>  );
->> 
->>  DECLARE_EVENT_CLASS(dpu_core_irq_callback_template,
->> -	TP_PROTO(int irq_idx, struct dpu_irq_callback *callback),
->> +	TP_PROTO(int irq_idx, void *callback),
->>  	TP_ARGS(irq_idx, callback),
->>  	TP_STRUCT__entry(
->>  		__field(	int,				irq_idx	)
->> -		__field(	struct dpu_irq_callback *,	callback)
->> +		__field(	void *,				callback)
->>  	),
->>  	TP_fast_assign(
->>  		__entry->irq_idx = irq_idx;
->>  		__entry->callback = callback;
->>  	),
->> -	TP_printk("irq_idx:%d callback:%pK", __entry->irq_idx,
->> +	TP_printk("irq_idx:%d callback:%ps", __entry->irq_idx,
->>  		  __entry->callback)
->>  );
->>  DEFINE_EVENT(dpu_core_irq_callback_template, 
->> dpu_core_irq_register_callback,
->> -	TP_PROTO(int irq_idx, struct dpu_irq_callback *callback),
->> +	TP_PROTO(int irq_idx, void *callback),
->>  	TP_ARGS(irq_idx, callback)
->>  );
->>  DEFINE_EVENT(dpu_core_irq_callback_template, 
->> dpu_core_irq_unregister_callback,
->> -	TP_PROTO(int irq_idx, struct dpu_irq_callback *callback),
->> +	TP_PROTO(int irq_idx, void *callback),
->>  	TP_ARGS(irq_idx, callback)
->>  );
