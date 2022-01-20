@@ -2,64 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A37A4943C4
-	for <lists+freedreno@lfdr.de>; Thu, 20 Jan 2022 00:16:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B0B4945C0
+	for <lists+freedreno@lfdr.de>; Thu, 20 Jan 2022 03:17:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CAF210E2DC;
-	Wed, 19 Jan 2022 23:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF2B10F4ED;
+	Thu, 20 Jan 2022 02:17:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FBA510E2BA
- for <freedreno@lists.freedesktop.org>; Wed, 19 Jan 2022 23:16:38 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id p27so14578180lfa.1
- for <freedreno@lists.freedesktop.org>; Wed, 19 Jan 2022 15:16:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=4frs59YJlPKUn4ECIxS4w+UO9vELx/wX9L+HYGD0PPU=;
- b=kaXFa7BU8V7n0wYiOXe2T9/reNlqGfjeXzP039cx3hxNLazSCKozFUK9BE5fyMQ0dl
- OSja1kfX+A4kjBk1KKJhJkDqece5eBg9fzndnGgXTGdGJPIL8F/lu2H/pH4XC/lfSnIh
- PWcxSW0D8IIWERHvwEbmTW3FoO4urZnQs1qrAYYcCdcSInl8yvO/gfAwZVYuC2BAlG7V
- +JaARezbrGsrTjGa8g5WDQSMCcHlo6d72+tL2ehABfolCUR5VA4elB4lPo+uB+heu1YO
- AaDLVjX2PkJqjiJpRDHOtO7eUzEB8FByqX1eO9vcE1LtU2K+mMZggpq3qzc0CQm5F1g3
- RKsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=4frs59YJlPKUn4ECIxS4w+UO9vELx/wX9L+HYGD0PPU=;
- b=U51S2Dhm6s5pjTEN4WnsV143cJrM+S5YlNZzypPx02GLjPCOB4aiIJ5Roob8OTdMbN
- u3Gq/UyPOG4Or4kkr7wmgkx9O8Ke6cLfGgZmIg5mhhINRgZd04Dpm/BoSA/ZKethGFP5
- nMspAOYmLl+YIhSApIji86mhsn1jHDF7cFlyNuJJqJXyrCLre4KzdSGmtQlWtZ4jgXju
- ztwjrt2H0wWAjV0y+r3087SSgxC0tJ0SS81nfI7GAxMDopt7RoauIuButoAJf2+tz/42
- 8z1aiaLOz5UYh0uI8XYaU6EYzUwB/6VLS6NDf28B/HQpbo6W9H2CrSXi/8B/OC3yuGnp
- /xxQ==
-X-Gm-Message-State: AOAM5328euRMoKRQ0x1Hd9gPeo5VTjt1VbGd36SKhfkgWPFsso841l9F
- QyZG8eMKkRo3LqftCnT1/A+7nw==
-X-Google-Smtp-Source: ABdhPJzBN1gta2RG1WiG9bwGJXAws9yfXg5qJWQC6wtU3f13U+qPjvj0TL8vz4P8MaEzRyRe6yD7gQ==
-X-Received: by 2002:ac2:4e0b:: with SMTP id e11mr16126235lfr.296.1642634196566; 
- Wed, 19 Jan 2022 15:16:36 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u15sm106159lfo.194.2022.01.19.15.16.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Jan 2022 15:16:35 -0800 (PST)
-Message-ID: <8042df9c-5dba-a857-e62f-3ea66c2cd218@linaro.org>
-Date: Thu, 20 Jan 2022 02:16:35 +0300
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 662C710F4ED;
+ Thu, 20 Jan 2022 02:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1642645053; x=1674181053;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=n9B3OZZYXrUobwS6/6oXjyZOzv1XIJzd2Yny6GbWnVk=;
+ b=TDwnqSqS/ffrENaXnEQCfs1DBhq5GIWbKY0JBJ72G9jARnuBTGRc1IH0
+ 9OfvEuU+GXGQ0CPakNSIplH7QueWfVcLgAI1QswsXpeARguiWTuKSs7L0
+ pZGxh3j8OyNp4GAHi+OWGn2oNwzrAE8MOnkqzJRvzt9X/JvQdmQOiphvr Y=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 19 Jan 2022 18:17:32 -0800
+X-QCInternal: smtphost
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2022 18:17:32 -0800
+Received: from [10.71.111.172] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Wed, 19 Jan
+ 2022 18:17:32 -0800
+Message-ID: <cc54a962-253b-c764-8439-60ba08159e9a@quicinc.com>
+Date: Wed, 19 Jan 2022 18:17:31 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Content-Language: en-GB
-To: Miaoqian Lin <linmq006@gmail.com>
-References: <20220107085026.23831-1-linmq006@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220107085026.23831-1-linmq006@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20220119221616.3089119-1-dmitry.baryshkov@linaro.org>
+ <20220119221616.3089119-2-dmitry.baryshkov@linaro.org>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
+In-Reply-To: <20220119221616.3089119-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/hdmi: Fix missing put_device() call
- in msm_hdmi_get_phy
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
+Subject: Re: [Freedreno] [PATCH v3 1/3] drm/msm: move utility functions from
+ msm_drv.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,53 +64,304 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Archit Taneja <architt@codeaurora.org>,
- David Airlie <airlied@linux.ie>, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Rob Clark <robdclark@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Jyri Sarha <jyri.sarha@iki.fi>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/01/2022 11:50, Miaoqian Lin wrote:
-> The reference taken by 'of_find_device_by_node()' must be released when
-> not needed anymore.
-> Add the corresponding 'put_device()' in the error handling path.
-> 
-> Fixes: e00012b256d4 ("drm/msm/hdmi: Make HDMI core get its PHY")
-> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+On 1/19/2022 2:16 PM, Dmitry Baryshkov wrote:
+> Move clock/IO/hrtimer utility functions from msm_drv.c to new
+> msm_io_utils.c file.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Tested on: Qualcomm RB3 (debian, sdm845), Qualcomm RB5 (debian, qrb5165)
+
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 
 > ---
->   drivers/gpu/drm/msm/hdmi/hdmi.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/Makefile       |   1 +
+>   drivers/gpu/drm/msm/msm_drv.c      | 118 ---------------------------
+>   drivers/gpu/drm/msm/msm_io_utils.c | 126 +++++++++++++++++++++++++++++
+>   3 files changed, 127 insertions(+), 118 deletions(-)
+>   create mode 100644 drivers/gpu/drm/msm/msm_io_utils.c
 > 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index 75b64e6ae035..a439794a32e8 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -95,10 +95,15 @@ static int msm_hdmi_get_phy(struct hdmi *hdmi)
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 03ab55c37beb..5b6e37477079 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -87,6 +87,7 @@ msm-y := \
+>   	msm_gem_vma.o \
+>   	msm_gpu.o \
+>   	msm_gpu_devfreq.o \
+> +	msm_io_utils.o \
+>   	msm_iommu.o \
+>   	msm_perf.o \
+>   	msm_rd.o \
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index fd62a4da14a1..30c44c395a24 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -75,124 +75,6 @@ static bool modeset = true;
+>   MODULE_PARM_DESC(modeset, "Use kernel modesetting [KMS] (1=on (default), 0=disable)");
+>   module_param(modeset, bool, 0600);
 >   
->   	of_node_put(phy_node);
->   
-> -	if (!phy_pdev || !hdmi->phy) {
-> +	if (!phy_pdev) {
->   		DRM_DEV_ERROR(&pdev->dev, "phy driver is not ready\n");
->   		return -EPROBE_DEFER;
->   	}
-> +	if (!hdmi->phy) {
-> +		DRM_DEV_ERROR(&pdev->dev, "phy driver is not ready\n");
-> +		put_device(&phy_pdev->dev);
-> +		return -EPROBE_DEFER;
+> -/*
+> - * Util/helpers:
+> - */
+> -
+> -struct clk *msm_clk_bulk_get_clock(struct clk_bulk_data *bulk, int count,
+> -		const char *name)
+> -{
+> -	int i;
+> -	char n[32];
+> -
+> -	snprintf(n, sizeof(n), "%s_clk", name);
+> -
+> -	for (i = 0; bulk && i < count; i++) {
+> -		if (!strcmp(bulk[i].id, name) || !strcmp(bulk[i].id, n))
+> -			return bulk[i].clk;
+> -	}
+> -
+> -
+> -	return NULL;
+> -}
+> -
+> -struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
+> -{
+> -	struct clk *clk;
+> -	char name2[32];
+> -
+> -	clk = devm_clk_get(&pdev->dev, name);
+> -	if (!IS_ERR(clk) || PTR_ERR(clk) == -EPROBE_DEFER)
+> -		return clk;
+> -
+> -	snprintf(name2, sizeof(name2), "%s_clk", name);
+> -
+> -	clk = devm_clk_get(&pdev->dev, name2);
+> -	if (!IS_ERR(clk))
+> -		dev_warn(&pdev->dev, "Using legacy clk name binding.  Use "
+> -				"\"%s\" instead of \"%s\"\n", name, name2);
+> -
+> -	return clk;
+> -}
+> -
+> -static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
+> -				  bool quiet, phys_addr_t *psize)
+> -{
+> -	struct resource *res;
+> -	unsigned long size;
+> -	void __iomem *ptr;
+> -
+> -	if (name)
+> -		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
+> -	else
+> -		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> -
+> -	if (!res) {
+> -		if (!quiet)
+> -			DRM_DEV_ERROR(&pdev->dev, "failed to get memory resource: %s\n", name);
+> -		return ERR_PTR(-EINVAL);
+> -	}
+> -
+> -	size = resource_size(res);
+> -
+> -	ptr = devm_ioremap(&pdev->dev, res->start, size);
+> -	if (!ptr) {
+> -		if (!quiet)
+> -			DRM_DEV_ERROR(&pdev->dev, "failed to ioremap: %s\n", name);
+> -		return ERR_PTR(-ENOMEM);
+> -	}
+> -
+> -	if (psize)
+> -		*psize = size;
+> -
+> -	return ptr;
+> -}
+> -
+> -void __iomem *msm_ioremap(struct platform_device *pdev, const char *name)
+> -{
+> -	return _msm_ioremap(pdev, name, false, NULL);
+> -}
+> -
+> -void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name)
+> -{
+> -	return _msm_ioremap(pdev, name, true, NULL);
+> -}
+> -
+> -void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
+> -			  phys_addr_t *psize)
+> -{
+> -	return _msm_ioremap(pdev, name, false, psize);
+> -}
+> -
+> -static enum hrtimer_restart msm_hrtimer_worktimer(struct hrtimer *t)
+> -{
+> -	struct msm_hrtimer_work *work = container_of(t,
+> -			struct msm_hrtimer_work, timer);
+> -
+> -	kthread_queue_work(work->worker, &work->work);
+> -
+> -	return HRTIMER_NORESTART;
+> -}
+> -
+> -void msm_hrtimer_queue_work(struct msm_hrtimer_work *work,
+> -			    ktime_t wakeup_time,
+> -			    enum hrtimer_mode mode)
+> -{
+> -	hrtimer_start(&work->timer, wakeup_time, mode);
+> -}
+> -
+> -void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
+> -			   struct kthread_worker *worker,
+> -			   kthread_work_func_t fn,
+> -			   clockid_t clock_id,
+> -			   enum hrtimer_mode mode)
+> -{
+> -	hrtimer_init(&work->timer, clock_id, mode);
+> -	work->timer.function = msm_hrtimer_worktimer;
+> -	work->worker = worker;
+> -	kthread_init_work(&work->work, fn);
+> -}
+> -
+>   static irqreturn_t msm_irq(int irq, void *arg)
+>   {
+>   	struct drm_device *dev = arg;
+> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+> new file mode 100644
+> index 000000000000..7b504617833a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
+> @@ -0,0 +1,126 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2016-2018, 2020-2021 The Linux Foundation. All rights reserved.
+> + * Copyright (C) 2013 Red Hat
+> + * Author: Rob Clark <robdclark@gmail.com>
+> + */
+> +
+> +#include "msm_drv.h"
+> +
+> +/*
+> + * Util/helpers:
+> + */
+> +
+> +struct clk *msm_clk_bulk_get_clock(struct clk_bulk_data *bulk, int count,
+> +		const char *name)
+> +{
+> +	int i;
+> +	char n[32];
+> +
+> +	snprintf(n, sizeof(n), "%s_clk", name);
+> +
+> +	for (i = 0; bulk && i < count; i++) {
+> +		if (!strcmp(bulk[i].id, name) || !strcmp(bulk[i].id, n))
+> +			return bulk[i].clk;
 > +	}
->   
->   	hdmi->phy_dev = get_device(&phy_pdev->dev);
->   
-
-
--- 
-With best wishes
-Dmitry
+> +
+> +
+> +	return NULL;
+> +}
+> +
+> +struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
+> +{
+> +	struct clk *clk;
+> +	char name2[32];
+> +
+> +	clk = devm_clk_get(&pdev->dev, name);
+> +	if (!IS_ERR(clk) || PTR_ERR(clk) == -EPROBE_DEFER)
+> +		return clk;
+> +
+> +	snprintf(name2, sizeof(name2), "%s_clk", name);
+> +
+> +	clk = devm_clk_get(&pdev->dev, name2);
+> +	if (!IS_ERR(clk))
+> +		dev_warn(&pdev->dev, "Using legacy clk name binding.  Use "
+> +				"\"%s\" instead of \"%s\"\n", name, name2);
+> +
+> +	return clk;
+> +}
+> +
+> +static void __iomem *_msm_ioremap(struct platform_device *pdev, const char *name,
+> +				  bool quiet, phys_addr_t *psize)
+> +{
+> +	struct resource *res;
+> +	unsigned long size;
+> +	void __iomem *ptr;
+> +
+> +	if (name)
+> +		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
+> +	else
+> +		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +
+> +	if (!res) {
+> +		if (!quiet)
+> +			DRM_DEV_ERROR(&pdev->dev, "failed to get memory resource: %s\n", name);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	size = resource_size(res);
+> +
+> +	ptr = devm_ioremap(&pdev->dev, res->start, size);
+> +	if (!ptr) {
+> +		if (!quiet)
+> +			DRM_DEV_ERROR(&pdev->dev, "failed to ioremap: %s\n", name);
+> +		return ERR_PTR(-ENOMEM);
+> +	}
+> +
+> +	if (psize)
+> +		*psize = size;
+> +
+> +	return ptr;
+> +}
+> +
+> +void __iomem *msm_ioremap(struct platform_device *pdev, const char *name)
+> +{
+> +	return _msm_ioremap(pdev, name, false, NULL);
+> +}
+> +
+> +void __iomem *msm_ioremap_quiet(struct platform_device *pdev, const char *name)
+> +{
+> +	return _msm_ioremap(pdev, name, true, NULL);
+> +}
+> +
+> +void __iomem *msm_ioremap_size(struct platform_device *pdev, const char *name,
+> +			  phys_addr_t *psize)
+> +{
+> +	return _msm_ioremap(pdev, name, false, psize);
+> +}
+> +
+> +static enum hrtimer_restart msm_hrtimer_worktimer(struct hrtimer *t)
+> +{
+> +	struct msm_hrtimer_work *work = container_of(t,
+> +			struct msm_hrtimer_work, timer);
+> +
+> +	kthread_queue_work(work->worker, &work->work);
+> +
+> +	return HRTIMER_NORESTART;
+> +}
+> +
+> +void msm_hrtimer_queue_work(struct msm_hrtimer_work *work,
+> +			    ktime_t wakeup_time,
+> +			    enum hrtimer_mode mode)
+> +{
+> +	hrtimer_start(&work->timer, wakeup_time, mode);
+> +}
+> +
+> +void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
+> +			   struct kthread_worker *worker,
+> +			   kthread_work_func_t fn,
+> +			   clockid_t clock_id,
+> +			   enum hrtimer_mode mode)
+> +{
+> +	hrtimer_init(&work->timer, clock_id, mode);
+> +	work->timer.function = msm_hrtimer_worktimer;
+> +	work->worker = worker;
+> +	kthread_init_work(&work->work, fn);
+> +}
+> -- 
+> 2.34.1
+> 
