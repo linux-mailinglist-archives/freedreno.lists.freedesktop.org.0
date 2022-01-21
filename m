@@ -2,69 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A52364966B4
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 22:01:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523CE4966FF
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 22:06:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA4DE10E612;
-	Fri, 21 Jan 2022 21:01:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 666F010E69D;
+	Fri, 21 Jan 2022 21:06:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAFE410E4D5
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 21:01:05 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id n23so1913321ljg.1
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 13:01:05 -0800 (PST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26DD10E647
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 21:06:21 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id a28so6213203lfl.7
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 13:06:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/cvB4LBHX1iUJJ6pMjFmq8Rc+tQVwfrFHdlbMQKEsso=;
- b=BWC2Q+BfElXXHALjANaUBA//Ajbzl30dpQ/P9nJzurdRxwYJDtnXUcy/4Zqt0JKpZB
- LSKZQxlHftfN3y5zO5ybxEocTATbsQIcvzfAppBkDv/6nawtw+ekNLST++AX8f5ZxeN8
- lao9IqEHcGcDGVFNWaVB9pnSyBOgKgu2ed0zggce8tWwy7xEROaNjH01CcP7b9ZSybZT
- UkYHp9llW0in9CziOj8jEOXl4cgTxRADvGEAQ+8eFAXed9iSZn2EC1UYO/T1OtZDqNV9
- dKPMXZjcmUupPAp2igICm3uOEMSaazB38nhU6o6k/Z3Jrqfm+oNCo9f673TpO850J+gY
- NXvw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0vJ8DhwvnCQdnTeYuE3CkWRZJOO1ip2uJNFoaTJPamw=;
+ b=rtY6myzx7rzb+2+xk/btRkYOxuVjnX/xNvgZHq4099bqiiGiiF3worWSzctzRLrHSh
+ xan4nUgoHFhnpKtmeqC/5lPJNPFdrDJVAL0gW182Ccy7xGvaA33xIg2xrRTzA7Gzxyy8
+ 3x/eJODRgjvZpcP0AeqzmFw56uouUWtxeR93sxLLleYHds4pyWjgyT9ruygbdOPcIC25
+ iizrN3zHKw77Sr/Cb64at+NdiW2U0A6GgN+qFXSKgR1rBlUg4qRe/EVdzOCULABzX3Si
+ iYhHoJHrVjyGwdHQbOAT7oONNM29pY+Prncp9mIQDJGHYPZh8oIsfPf3hANiUZC3UUeS
+ 0D0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=/cvB4LBHX1iUJJ6pMjFmq8Rc+tQVwfrFHdlbMQKEsso=;
- b=BiwqgLhGVE7FHmUsAqkTKRFJBcAd3T6ltHPYZ2lygEbC3kf+MUj+Ls7Su8sZGSVbDy
- UP2gwEPBIU+qL4Y5Uk7D84NJUTa+ki6aMItoji03k0wmYNEVdTX06QRFpBVCTtXTFCFX
- PUnZ2VEI6gAgl1lssegwzXlmexRwRyDudS8/+HulE7wPftrP1D9zgX2AVK6umPA0qt2A
- ATzl1EjqJTe1kcUXeRcKWahiEyzZuYSb0kLJO9hCVXknQZIbdQoQ4Yp2LuIykWjT1t9q
- c4G6VT8YfSVc71FID1oedEuanE/Bm4VXBBUcIFfsgeB0TXWUzSDC0WAI7qoF+h9wg2+H
- 4Puw==
-X-Gm-Message-State: AOAM532ldb1bgyPXXExyFPk4RVEECwSrL7PEVN6b7J2oTOpyosd7RjJo
- NlgzDhJcvorN11zpVJuIQ7Cr2A==
-X-Google-Smtp-Source: ABdhPJzefh4KvJdPjvl6eIx/C+c9ZTyTfgIk/ah3mCBoW0ccOQof0uRnH+MWsi0s4hff7v8bVPiz2A==
-X-Received: by 2002:a2e:95cf:: with SMTP id y15mr4365824ljh.132.1642798863862; 
- Fri, 21 Jan 2022 13:01:03 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id m17sm364405lfc.130.2022.01.21.13.01.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Jan 2022 13:01:03 -0800 (PST)
-Message-ID: <a6e5fb27-8a0f-44bf-c4d3-0619d8fc834f@linaro.org>
-Date: Sat, 22 Jan 2022 00:01:02 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220105231031.436020-1-dmitry.baryshkov@linaro.org>
- <20220105231031.436020-6-dmitry.baryshkov@linaro.org>
- <CAE-0n505KAiLvza2WTRfk8w9qcAH-Z2W6kLMtrOxTNRbUnSJig@mail.gmail.com>
+ bh=0vJ8DhwvnCQdnTeYuE3CkWRZJOO1ip2uJNFoaTJPamw=;
+ b=h9yscDBD44rLw/nGgl4nG4ZbbAYavz5CtsffyqCyMH2KLX2hvf8rKFNyQVEx7mSzuw
+ Pxg9ZzC1WUpooA3+OWPsfkLwYfRn96oD+sEtdrTIvUoD5eXSn4CrvuBur57d+f1d1sbx
+ Cu6MIel7mI5Xc6WAiiHNon/CLk/bNZdVvDwMeAijADZLssrqM9NFEobIMwrZaVOirkQh
+ MszFMU56aqEtIf6fORyuhmdYH41yhVRgzMT3LiMDInuy0emtgbqSZ3HTMaxt8UqvBQ1d
+ AGMx4fL1ubQHI0lPbjpzLkdsGC82nVn1Rqii6mhotlEw6NUXKY55p4kLsKmtXOpgEm2x
+ Uzdg==
+X-Gm-Message-State: AOAM53216m8ZuX+6C14DKMlukx/0MbQmz+orrpaxeawYJPlI2nUWqo0S
+ b2EAXqN8RZdyhaPYXnvMoM0PtA==
+X-Google-Smtp-Source: ABdhPJx49jz1SijSo8MyJjMx8hgsEJ6kEQlaDTIQslCRxiPxXAZdmi0yppHMtgeEBo8iwtFlG2h8zw==
+X-Received: by 2002:a05:6512:c2a:: with SMTP id
+ z42mr4974720lfu.329.1642799180056; 
+ Fri, 21 Jan 2022 13:06:20 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id v10sm279125ljk.44.2022.01.21.13.06.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Jan 2022 13:06:19 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n505KAiLvza2WTRfk8w9qcAH-Z2W6kLMtrOxTNRbUnSJig@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 5/5] drm/msm/dpu: move VBIF blocks
- handling to dpu_rm
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 22 Jan 2022 00:06:12 +0300
+Message-Id: <20220121210618.3482550-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v5 0/6] drm/msm/dpu: simplify RM code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,69 +69,59 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/01/2022 04:27, Stephen Boyd wrote:
-> Quoting Dmitry Baryshkov (2022-01-05 15:10:31)
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> index bf4d72356a12..2301ac114920 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> @@ -78,6 +78,10 @@ int dpu_rm_destroy(struct dpu_rm *rm)
->>                  if (rm->hw_intf[i])
->>                          dpu_hw_intf_destroy(rm->hw_intf[i]);
->>          }
->> +       for (i = 0; i < ARRAY_SIZE(rm->hw_vbif); i++) {
->> +               if (rm->hw_vbif[i])
->> +                       dpu_hw_vbif_destroy(rm->hw_vbif[i]);
-> 
-> Maybe drop this check and pass NULL to dpu_hw_vbif_destroy() sometimes?
-> Then the check can be omitted and the braces dropped
+INTF blocks are not really handled by resource manager, they are
+assigned at dpu_encoder_setup_display using dpu_encoder_get_intf().
+Then this allocation is passed to RM and then returned to then
+dpu_encoder. So allocate them outside of RM and use them directly.
 
-Nice idea. This also applies to dpu_hw_intf_destroy, so I'm going to 
-apply it to the previous patch.
+While we are at it, drop the lm_max_width from the RM and simplify VBIF
+handling (move creation/destruction to the RM too). Once this and SSPP
+handling patches are merged, the RM would handle lifetime of all
+dpu_hw_* objects.
 
-> 
->> +       }
->>
->>          return 0;
->>   }
->> @@ -212,6 +216,23 @@ int dpu_rm_init(struct dpu_rm *rm,
->>                  rm->dspp_blks[dspp->id - DSPP_0] = &hw->base;
->>          }
->>
->> +       for (i = 0; i < cat->vbif_count; i++) {
->> +               struct dpu_hw_vbif *hw;
->> +               const struct dpu_vbif_cfg *vbif = &cat->vbif[i];
->> +
->> +               if (vbif->id < VBIF_0 || vbif->id >= VBIF_MAX) {
->> +                       DPU_ERROR("skip vbif %d with invalid id\n", vbif->id);
->> +                       continue;
->> +               }
->> +               hw = dpu_hw_vbif_init(vbif->id, mmio, cat);
->> +               if (IS_ERR_OR_NULL(hw)) {
->> +                       rc = PTR_ERR(hw);
->> +                       DPU_ERROR("failed vbif object creation: err %d\n", rc);
->> +                       goto fail;
-> 
-> If it's NULL then rc will be 0 and fail will return 0. Is that
-> intentional?
+Changes since v4:
+ - Changes IS_ERR_OR_NULL() to IS_ERR() in dpu_rm_init()
+ - Removed if(!null) conditions when calling dpu_hw_intf_destroy() and
+   dpu_hw_vbif_destroy()
 
-Actually no. And init functions can not return NULL. So let's fix it too.
+Changes since v3:
+ - Add missing DSPP blocks teardown
+ - Remove dpu_hw_blk from dpu_hw_intf
+ - move dpu_hw_vbif creation/destruction to the RM
 
-> 
->> +               }
->> +               rm->hw_vbif[vbif->id - VBIF_0] = hw;
->> +       }
->> +
->>          return 0;
->>
->>   fail:
+Changes since v2:
+ - Dropped DSPP, PP and MERGE_3D patches for now.
 
+Changes since v1:
+ - Split into separate patch series to ease review.
+
+Dmitry Baryshkov (6):
+  drm/msm/dpu: drop unused lm_max_width from RM
+  drm/msm/dpu: add DSPP blocks teardown
+  drm/msm/dpu: get INTF blocks directly rather than through RM
+  drm/msm/dpu: stop embedding dpu_hw_blk into dpu_hw_intf
+  drm/msm/dpu: fix error handling in dpu_rm_init
+  drm/msm/dpu: move VBIF blocks handling to dpu_rm
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |  36 +----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |  16 ---
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |   5 -
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |   8 --
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |   8 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h   |  11 --
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h   |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  28 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        | 126 +++++-------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |  31 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c      |  26 +---
+ 12 files changed, 73 insertions(+), 225 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.34.1
+
