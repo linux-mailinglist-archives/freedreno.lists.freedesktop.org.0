@@ -2,58 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A727496686
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 21:44:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A52364966B4
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 22:01:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A00710E43F;
-	Fri, 21 Jan 2022 20:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA4DE10E612;
+	Fri, 21 Jan 2022 21:01:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A0910E428
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 20:44:54 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id s22so15212278oie.10
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 12:44:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=nNz54uRGsVGq1YmuK1HNWWa+LTEnTSopROjQ2zq4zm0=;
- b=m1s4c2vAOxuTO6Lu0LPAgPXMbmvG4gd3tc9bw2TM7FE1U0bPUh6bhXhmEHwvv+fZCl
- z8Z3w303cT/YXM52NPJsTMCWCLGbrmzpF9ha986eX6m7fhkNLbIyDgGxrs92a+Bx8fND
- 7aLwNyV2nnstJzfLFfJEZeC31paYHI71CeT5o=
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAFE410E4D5
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 21:01:05 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id n23so1913321ljg.1
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 13:01:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=/cvB4LBHX1iUJJ6pMjFmq8Rc+tQVwfrFHdlbMQKEsso=;
+ b=BWC2Q+BfElXXHALjANaUBA//Ajbzl30dpQ/P9nJzurdRxwYJDtnXUcy/4Zqt0JKpZB
+ LSKZQxlHftfN3y5zO5ybxEocTATbsQIcvzfAppBkDv/6nawtw+ekNLST++AX8f5ZxeN8
+ lao9IqEHcGcDGVFNWaVB9pnSyBOgKgu2ed0zggce8tWwy7xEROaNjH01CcP7b9ZSybZT
+ UkYHp9llW0in9CziOj8jEOXl4cgTxRADvGEAQ+8eFAXed9iSZn2EC1UYO/T1OtZDqNV9
+ dKPMXZjcmUupPAp2igICm3uOEMSaazB38nhU6o6k/Z3Jrqfm+oNCo9f673TpO850J+gY
+ NXvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=nNz54uRGsVGq1YmuK1HNWWa+LTEnTSopROjQ2zq4zm0=;
- b=wvX4R4C2C8xnqH4T2kNV5XM1paGdwzlzANqJnsjetkBTnHP3THjksfsMEXUYno79DO
- 2maBodRhZlip24f8pUDhct88o0SM/Y7BroOJssRcUyB1eBdQ2weubeuhmHYqH5Pbu8fp
- t5SVoXfOMz/vL9XxTzu1m32N7qAiN7EEqSKk8f7Ldcp8igBLyYds8VfgWcIMHnmjne7a
- B7O/TYnVeHERULpjheUdl8KpktCdHb7c8JZAKKkXcWlEivVWWUKWmB88nxBHGk12Y5WI
- QHxQd7UbbWs+bmlrHeSdVdaIoRIH/aVfnFXljx3XKX2lcepquaLiZYYeh3O1lPLx9W1/
- O8Ig==
-X-Gm-Message-State: AOAM533MeDB9vpU9ZIcpFzgHdocoxROH5Sa6gXs+2WucFqITLjigJ/8v
- UZmZX4VL1tEP3vDzTv5OIh6Y/59FT5P+2L4ORotybA==
-X-Google-Smtp-Source: ABdhPJzDcldej/njJqo9IkYjzGOwjYvA2xC1t1LUcIdHN8PEmwRwA+T0bX98AEPzf48OgQoQSBKj/6v9PKUCO5XIZlI=
-X-Received: by 2002:a05:6808:cc:: with SMTP id
- t12mr2046276oic.32.1642797894159; 
- Fri, 21 Jan 2022 12:44:54 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 21 Jan 2022 12:44:53 -0800
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=/cvB4LBHX1iUJJ6pMjFmq8Rc+tQVwfrFHdlbMQKEsso=;
+ b=BiwqgLhGVE7FHmUsAqkTKRFJBcAd3T6ltHPYZ2lygEbC3kf+MUj+Ls7Su8sZGSVbDy
+ UP2gwEPBIU+qL4Y5Uk7D84NJUTa+ki6aMItoji03k0wmYNEVdTX06QRFpBVCTtXTFCFX
+ PUnZ2VEI6gAgl1lssegwzXlmexRwRyDudS8/+HulE7wPftrP1D9zgX2AVK6umPA0qt2A
+ ATzl1EjqJTe1kcUXeRcKWahiEyzZuYSb0kLJO9hCVXknQZIbdQoQ4Yp2LuIykWjT1t9q
+ c4G6VT8YfSVc71FID1oedEuanE/Bm4VXBBUcIFfsgeB0TXWUzSDC0WAI7qoF+h9wg2+H
+ 4Puw==
+X-Gm-Message-State: AOAM532ldb1bgyPXXExyFPk4RVEECwSrL7PEVN6b7J2oTOpyosd7RjJo
+ NlgzDhJcvorN11zpVJuIQ7Cr2A==
+X-Google-Smtp-Source: ABdhPJzefh4KvJdPjvl6eIx/C+c9ZTyTfgIk/ah3mCBoW0ccOQof0uRnH+MWsi0s4hff7v8bVPiz2A==
+X-Received: by 2002:a2e:95cf:: with SMTP id y15mr4365824ljh.132.1642798863862; 
+ Fri, 21 Jan 2022 13:01:03 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id m17sm364405lfc.130.2022.01.21.13.01.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Jan 2022 13:01:03 -0800 (PST)
+Message-ID: <a6e5fb27-8a0f-44bf-c4d3-0619d8fc834f@linaro.org>
+Date: Sat, 22 Jan 2022 00:01:02 +0300
 MIME-Version: 1.0
-In-Reply-To: <CAA8EJprSTDhox33q0d37NQVKrkdhh+Ubq5_8wXqgstFkr_EtaQ@mail.gmail.com>
-References: <20220119221616.3089119-1-dmitry.baryshkov@linaro.org>
- <20220119221616.3089119-3-dmitry.baryshkov@linaro.org>
- <CAE-0n53=vj53a_u-5rUmrhV79_-c=F5gtjbejoVs+=PR=hc1Nw@mail.gmail.com>
- <CAA8EJprSTDhox33q0d37NQVKrkdhh+Ubq5_8wXqgstFkr_EtaQ@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Fri, 21 Jan 2022 12:44:53 -0800
-Message-ID: <CAE-0n53i6yCdFZpgZqyybP1eJEKmrry1LpPxt410fCQ_LGmJ-w@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 2/3] drm/msm/dpu: simplify clocks handling
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-GB
+To: Stephen Boyd <swboyd@chromium.org>,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220105231031.436020-1-dmitry.baryshkov@linaro.org>
+ <20220105231031.436020-6-dmitry.baryshkov@linaro.org>
+ <CAE-0n505KAiLvza2WTRfk8w9qcAH-Z2W6kLMtrOxTNRbUnSJig@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAE-0n505KAiLvza2WTRfk8w9qcAH-Z2W6kLMtrOxTNRbUnSJig@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 5/5] drm/msm/dpu: move VBIF blocks
+ handling to dpu_rm
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,52 +77,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-01-20 23:37:45)
-> On Fri, 21 Jan 2022 at 07:30, Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Dmitry Baryshkov (2022-01-19 14:16:15)
-> > > diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
-> > > index 7b504617833a..5533c87c7158 100644
-> > > --- a/drivers/gpu/drm/msm/msm_io_utils.c
-> > > +++ b/drivers/gpu/drm/msm/msm_io_utils.c
->
-> >
-> > > +       if (rc) {
-> > > +               DRM_DEV_ERROR(&pdev->dev, "Failed to get clock refs %d\n", rc);
-> > > +               return rc;
-> > > +       }
-> > > +
-> > > +       rc = of_clk_set_defaults(pdev->dev.of_node, false);
-> >
-> > Why is this needed?
->
-> Both mdss and mdp devices use assigned-clocks properties, while not
-> being a clock provider (or a child of it).
-> So I assumed it should call the of_clk_set_defaults(node, false)
+On 07/01/2022 04:27, Stephen Boyd wrote:
+> Quoting Dmitry Baryshkov (2022-01-05 15:10:31)
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+>> index bf4d72356a12..2301ac114920 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+>> @@ -78,6 +78,10 @@ int dpu_rm_destroy(struct dpu_rm *rm)
+>>                  if (rm->hw_intf[i])
+>>                          dpu_hw_intf_destroy(rm->hw_intf[i]);
+>>          }
+>> +       for (i = 0; i < ARRAY_SIZE(rm->hw_vbif); i++) {
+>> +               if (rm->hw_vbif[i])
+>> +                       dpu_hw_vbif_destroy(rm->hw_vbif[i]);
+> 
+> Maybe drop this check and pass NULL to dpu_hw_vbif_destroy() sometimes?
+> Then the check can be omitted and the braces dropped
 
-A device node doesn't need to be a clk provider to call
-of_clk_set_defaults(). Does the call to of_clk_set_defaults() in
-drivers/base/platform.c cover this?
+Nice idea. This also applies to dpu_hw_intf_destroy, so I'm going to 
+apply it to the previous patch.
 
-> Not to mention that this call exists in the msm_dss_parse_clock(),
-> which is being refactored/replaced.
->
+> 
+>> +       }
+>>
+>>          return 0;
+>>   }
+>> @@ -212,6 +216,23 @@ int dpu_rm_init(struct dpu_rm *rm,
+>>                  rm->dspp_blks[dspp->id - DSPP_0] = &hw->base;
+>>          }
+>>
+>> +       for (i = 0; i < cat->vbif_count; i++) {
+>> +               struct dpu_hw_vbif *hw;
+>> +               const struct dpu_vbif_cfg *vbif = &cat->vbif[i];
+>> +
+>> +               if (vbif->id < VBIF_0 || vbif->id >= VBIF_MAX) {
+>> +                       DPU_ERROR("skip vbif %d with invalid id\n", vbif->id);
+>> +                       continue;
+>> +               }
+>> +               hw = dpu_hw_vbif_init(vbif->id, mmio, cat);
+>> +               if (IS_ERR_OR_NULL(hw)) {
+>> +                       rc = PTR_ERR(hw);
+>> +                       DPU_ERROR("failed vbif object creation: err %d\n", rc);
+>> +                       goto fail;
+> 
+> If it's NULL then rc will be 0 and fail will return 0. Is that
+> intentional?
 
-Indeed it's already in the code.
+Actually no. And init functions can not return NULL. So let's fix it too.
 
-> >
-> > > +       if (rc) {
-> > > +               DRM_DEV_ERROR(&pdev->dev, "Failed to set clock defaults %d\n", rc);
-> > > +               return rc;
-> > > +       }
-> > > +
-> > > +       *clocks = bulk;
-> > > +
+> 
+>> +               }
+>> +               rm->hw_vbif[vbif->id - VBIF_0] = hw;
+>> +       }
+>> +
+>>          return 0;
+>>
+>>   fail:
+
+
+-- 
+With best wishes
+Dmitry
