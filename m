@@ -2,62 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2207B49670F
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 22:06:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59D9C496777
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 22:41:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF6BF10E6DD;
-	Fri, 21 Jan 2022 21:06:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A50E110E4B8;
+	Fri, 21 Jan 2022 21:41:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D12310E6D8
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 21:06:27 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id y15so28079488lfa.9
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 13:06:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=vmgkqgqoCtzPCMYYy+6eXohS4KrBEXGt/+AgN0mFU54=;
- b=KkJJX6rvY92HGXZa1gEH0yJTDAr6y4LGcQw8W92bvi2Fxtc2MEjkOzkZFUiSuvUHtR
- 3MaHJbDErfMmP6VFLMvpD55zUGaeEw2vU2+9ACuPRB4+LGZaj9hAzb8ar0qMNblkMYG6
- o2uGX3DJbNQn0xIM3vlRmLqswI092HXmYRuHmRwwoJAhfMPiEekRiLFaH6kAxsEUcDhG
- IXQ2kxSs8do5T5DjwtsYMJV1g8cytL6XtIBOmLZMsB3b5jcK9qps850gLxS9m31NIJp4
- kXqeIEWKVgmUrIXlvJDr2cpOg8PYVK5MgiHEaiiiP4VCk6ErbydhJAxW5XlH6NwFHoLI
- b1Xw==
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
+ [209.85.167.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1705C10E4D6;
+ Fri, 21 Jan 2022 21:41:55 +0000 (UTC)
+Received: by mail-oi1-f179.google.com with SMTP id e81so15451366oia.6;
+ Fri, 21 Jan 2022 13:41:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=vmgkqgqoCtzPCMYYy+6eXohS4KrBEXGt/+AgN0mFU54=;
- b=iLDUm4v/IC5DjYFrJWXnm6hWUQfGpuwHbdAy4+gxGEW6TtUNuXK1o5KnLF5HjtVcfC
- uCoruM4GBHNw8jb7s3hXH1yVhxDvFA7KgMiFZCB7nvgcV01fV/aYYUY09hS+O9NfmpmV
- /4jn53WvBjVNB5+E2o4HtXPDUvAQoFzZrWmSbxV1KfZqDNj7dgzBRkyvZ1BO2KgU/wLA
- CXg5ZvYeRHcuRF9nfFFUi6/i+saAKklBgYpp5gNWok1mK63MwV6nKeHrvG/LlYK5EujN
- MB9RI5p4+40Q609pymAzSY5IEGOGwJbQmhjuoFXZUqepIoahmiLPBase8Qlekk+bogkG
- vAdA==
-X-Gm-Message-State: AOAM533E+S5wB/JrBcU2yk5uDmZQydEyToFL9RQcnBn1zLcDx2xw35LZ
- GV5HaT69jTVAZK0nc3wjYjRrtw==
-X-Google-Smtp-Source: ABdhPJyNaSD7oF4wGEVnZprFLw7hRhmF+yzcqW88z8cjwacN7j2106+xdesnb1Z36+84Hu4eBzWp2Q==
-X-Received: by 2002:ac2:5f0f:: with SMTP id 15mr4995057lfq.462.1642799185849; 
- Fri, 21 Jan 2022 13:06:25 -0800 (PST)
-Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id v10sm279125ljk.44.2022.01.21.13.06.24
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=lF4HMuqkp4VWT3w6r4KvVzp/kzCK6RItYXFgLAX6eAw=;
+ b=TiXsaZsgqefnUJovv/IdIKHwRcehkt+j8PDqC/KrfTykcPhdtrNyegbEesYLmCgCQX
+ v+oibXh3ltSdLgtTCuGXBFnbNI3Q14CvsY70nOQ4a5IRcsHmiDyznG2p2Q/L7B3JAgNx
+ 57nplDvflH8Pc4GioSKhcg2GJG5mcmeY2sRb4ad1+SxGXtxpG2EWsvOBOZsbRlDHGwEh
+ 1Y1boJ7NpIUJFXW8aZVRsjuISdZpR8AM9yBTp+4eSCPIjkxyQc/DpPZm0cyffDKvSfpr
+ GGfys/kmRuYG63MI6eE+fr0iKnvbxcnl/9TSXt9K8KcGDzk4hoPvPqhqH3LoAiVxAU8P
+ Hl2Q==
+X-Gm-Message-State: AOAM531aILkyuLLpQLTfHXXN7Fl6By7uCPBf612RiNByjtr6LTVhYi6S
+ l9cFVdFTZ9imB4wQodgqAA==
+X-Google-Smtp-Source: ABdhPJwne2XmMOP72QVvxpy/tQX5tuU1+CZHAFmA7X4krgdi7zq0qlm6dht+yhHpDDCx9ZvZomIEsw==
+X-Received: by 2002:a05:6808:607:: with SMTP id
+ y7mr2157878oih.131.1642801314203; 
+ Fri, 21 Jan 2022 13:41:54 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id 124sm1743747oif.7.2022.01.21.13.41.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Jan 2022 13:06:25 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat, 22 Jan 2022 00:06:18 +0300
-Message-Id: <20220121210618.3482550-7-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220121210618.3482550-1-dmitry.baryshkov@linaro.org>
-References: <20220121210618.3482550-1-dmitry.baryshkov@linaro.org>
+ Fri, 21 Jan 2022 13:41:53 -0800 (PST)
+Received: (nullmailer pid 1638609 invoked by uid 1000);
+ Fri, 21 Jan 2022 21:41:52 -0000
+Date: Fri, 21 Jan 2022 15:41:52 -0600
+From: Rob Herring <robh@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Message-ID: <YesooIWKcypvtBbi@robh.at.kernel.org>
+References: <20220108190059.72583-1-david@ixit.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 6/6] drm/msm/dpu: move VBIF blocks handling
- to dpu_rm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220108190059.72583-1-david@ixit.cz>
+Subject: Re: [Freedreno] [WIP PATCH] dt-bindings: display: msm:
+ dsi-controller-main: distinguish DSI versions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,245 +62,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, ~okias/devicetree@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move handling of VBIF blocks into dpu_rm. This serves the purpose of
-unification of handling of all hardware blocks inside the DPU driver.
-This removes hand-coded loops in dpu_vbif (which look for necessary VBIF
-instance by looping through the dpu_kms->hw_vbif and comparing
-vbif_idx).
+On Sat, Jan 08, 2022 at 08:00:58PM +0100, David Heidelberg wrote:
+> Update documentation compatible and checking to comprehend
+> both V2 and 6G version bindings.
+> 
+> Following this commit, there will be update for
+> compatible string in chipsets dtsi.
+> 
+> Additional changes:
+>  - switch to unevaluatedProperties
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+> Rob, I know you mentioned using rather chipset names, but since
+> meanwhile I coded this, I'll let you decide if should make sense to
+> change it or keep it this way.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 28 +--------------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 -
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 19 ++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      | 12 +++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c    | 26 ++++++-------------
- 6 files changed, 40 insertions(+), 47 deletions(-)
+It all depends on how many chips per version. I'm guessing only 1 or 2 
+given how many QCom SoCs I'm aware of.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h
-index 6417aa28d32c..895e86dabcb6 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h
-@@ -8,6 +8,7 @@
- #include "dpu_hw_catalog.h"
- #include "dpu_hw_mdss.h"
- #include "dpu_hw_util.h"
-+#include "dpu_hw_blk.h"
- 
- struct dpu_hw_vbif;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 47fe11a84a77..4a1983d8561b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -782,8 +782,6 @@ static long dpu_kms_round_pixclk(struct msm_kms *kms, unsigned long rate,
- 
- static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
- {
--	int i;
--
- 	if (dpu_kms->hw_intr)
- 		dpu_hw_intr_destroy(dpu_kms->hw_intr);
- 	dpu_kms->hw_intr = NULL;
-@@ -791,15 +789,6 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
- 	/* safe to call these more than once during shutdown */
- 	_dpu_kms_mmu_destroy(dpu_kms);
- 
--	if (dpu_kms->catalog) {
--		for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
--			u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
--
--			if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx])
--				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[vbif_idx]);
--		}
--	}
--
- 	if (dpu_kms->rm_init)
- 		dpu_rm_destroy(&dpu_kms->rm);
- 	dpu_kms->rm_init = false;
-@@ -1027,7 +1016,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- {
- 	struct dpu_kms *dpu_kms;
- 	struct drm_device *dev;
--	int i, rc = -EINVAL;
-+	int rc = -EINVAL;
- 
- 	if (!kms) {
- 		DPU_ERROR("invalid kms\n");
-@@ -1116,21 +1105,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
- 		goto power_error;
- 	}
- 
--	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
--		u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
--
--		dpu_kms->hw_vbif[i] = dpu_hw_vbif_init(vbif_idx,
--				dpu_kms->vbif[vbif_idx], dpu_kms->catalog);
--		if (IS_ERR_OR_NULL(dpu_kms->hw_vbif[vbif_idx])) {
--			rc = PTR_ERR(dpu_kms->hw_vbif[vbif_idx]);
--			if (!dpu_kms->hw_vbif[vbif_idx])
--				rc = -EINVAL;
--			DPU_ERROR("failed to init vbif %d: %d\n", vbif_idx, rc);
--			dpu_kms->hw_vbif[vbif_idx] = NULL;
--			goto power_error;
--		}
--	}
--
- 	rc = dpu_core_perf_init(&dpu_kms->perf, dev, dpu_kms->catalog,
- 			_dpu_kms_get_clk(dpu_kms, "core"));
- 	if (rc) {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index 3f518c809e33..b96c901483ae 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -105,7 +105,6 @@ struct dpu_kms {
- 	struct dpu_rm rm;
- 	bool rm_init;
- 
--	struct dpu_hw_vbif *hw_vbif[VBIF_MAX];
- 	struct dpu_hw_mdp *hw_mdp;
- 
- 	bool has_danger_ctrl;
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-index 7497538adae1..6d49666c4e77 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-@@ -76,6 +76,8 @@ int dpu_rm_destroy(struct dpu_rm *rm)
- 	}
- 	for (i = 0; i < ARRAY_SIZE(rm->hw_intf); i++)
- 		dpu_hw_intf_destroy(rm->hw_intf[i]);
-+	for (i = 0; i < ARRAY_SIZE(rm->hw_vbif); i++)
-+		dpu_hw_vbif_destroy(rm->hw_vbif[i]);
- 
- 	return 0;
- }
-@@ -210,6 +212,23 @@ int dpu_rm_init(struct dpu_rm *rm,
- 		rm->dspp_blks[dspp->id - DSPP_0] = &hw->base;
- 	}
- 
-+	for (i = 0; i < cat->vbif_count; i++) {
-+		struct dpu_hw_vbif *hw;
-+		const struct dpu_vbif_cfg *vbif = &cat->vbif[i];
-+
-+		if (vbif->id < VBIF_0 || vbif->id >= VBIF_MAX) {
-+			DPU_ERROR("skip vbif %d with invalid id\n", vbif->id);
-+			continue;
-+		}
-+		hw = dpu_hw_vbif_init(vbif->id, mmio, cat);
-+		if (IS_ERR(hw)) {
-+			rc = PTR_ERR(hw);
-+			DPU_ERROR("failed vbif object creation: err %d\n", rc);
-+			goto fail;
-+		}
-+		rm->hw_vbif[vbif->id - VBIF_0] = hw;
-+	}
-+
- 	return 0;
- 
- fail:
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-index 9b13200a050a..a15977bdceeb 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-@@ -20,6 +20,7 @@ struct dpu_global_state;
-  * @ctl_blks: array of ctl hardware resources
-  * @hw_intf: array of intf hardware resources
-  * @dspp_blks: array of dspp hardware resources
-+ * @hw_vbif: array of vbif hardware resources
-  */
- struct dpu_rm {
- 	struct dpu_hw_blk *pingpong_blks[PINGPONG_MAX - PINGPONG_0];
-@@ -28,6 +29,7 @@ struct dpu_rm {
- 	struct dpu_hw_intf *hw_intf[INTF_MAX - INTF_0];
- 	struct dpu_hw_blk *dspp_blks[DSPP_MAX - DSPP_0];
- 	struct dpu_hw_blk *merge_3d_blks[MERGE_3D_MAX - MERGE_3D_0];
-+	struct dpu_hw_vbif *hw_vbif[VBIF_MAX - VBIF_0];
- };
- 
- /**
-@@ -95,5 +97,15 @@ static inline struct dpu_hw_intf *dpu_rm_get_intf(struct dpu_rm *rm, enum dpu_in
- 	return rm->hw_intf[intf_idx - INTF_0];
- }
- 
-+/**
-+ * dpu_rm_get_vbif - Return a struct dpu_hw_vbif instance given it's index.
-+ * @rm: DPU Resource Manager handle
-+ * @vbif_idx: VBIF's index
-+ */
-+static inline struct dpu_hw_vbif *dpu_rm_get_vbif(struct dpu_rm *rm, enum dpu_vbif vbif_idx)
-+{
-+	return rm->hw_vbif[vbif_idx - VBIF_0];
-+}
-+
- #endif /* __DPU_RM_H__ */
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-index 21d20373eb8b..00ac2aa81651 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-@@ -152,15 +152,10 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
- 	struct dpu_hw_mdp *mdp;
- 	bool forced_on = false;
- 	u32 ot_lim;
--	int ret, i;
-+	int ret;
- 
- 	mdp = dpu_kms->hw_mdp;
--
--	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
--		if (dpu_kms->hw_vbif[i] &&
--				dpu_kms->hw_vbif[i]->idx == params->vbif_idx)
--			vbif = dpu_kms->hw_vbif[i];
--	}
-+	vbif = dpu_rm_get_vbif(&dpu_kms->rm, params->vbif_idx);
- 
- 	if (!vbif || !mdp) {
- 		DRM_DEBUG_ATOMIC("invalid arguments vbif %d mdp %d\n",
-@@ -216,14 +211,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
- 	}
- 	mdp = dpu_kms->hw_mdp;
- 
--	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
--		if (dpu_kms->hw_vbif[i] &&
--				dpu_kms->hw_vbif[i]->idx == params->vbif_idx) {
--			vbif = dpu_kms->hw_vbif[i];
--			break;
--		}
--	}
--
-+	vbif = dpu_rm_get_vbif(&dpu_kms->rm, params->vbif_idx);
- 	if (!vbif || !vbif->cap) {
- 		DPU_ERROR("invalid vbif %d\n", params->vbif_idx);
- 		return;
-@@ -261,8 +249,8 @@ void dpu_vbif_clear_errors(struct dpu_kms *dpu_kms)
- 	struct dpu_hw_vbif *vbif;
- 	u32 i, pnd, src;
- 
--	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
--		vbif = dpu_kms->hw_vbif[i];
-+	for (i = VBIF_0; i < VBIF_MAX; i++) {
-+		vbif = dpu_rm_get_vbif(&dpu_kms->rm, i);
- 		if (vbif && vbif->ops.clear_errors) {
- 			vbif->ops.clear_errors(vbif, &pnd, &src);
- 			if (pnd || src) {
-@@ -278,8 +266,8 @@ void dpu_vbif_init_memtypes(struct dpu_kms *dpu_kms)
- 	struct dpu_hw_vbif *vbif;
- 	int i, j;
- 
--	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
--		vbif = dpu_kms->hw_vbif[i];
-+	for (i = VBIF_0; i < VBIF_MAX; i++) {
-+		vbif = dpu_rm_get_vbif(&dpu_kms->rm, i);
- 		if (vbif && vbif->cap && vbif->ops.set_mem_type) {
- 			for (j = 0; j < vbif->cap->memtype_count; j++)
- 				vbif->ops.set_mem_type(
--- 
-2.34.1
+I think this should probably be split to 2 docs for the v2 and 6g 
+versions.
 
+Rob
