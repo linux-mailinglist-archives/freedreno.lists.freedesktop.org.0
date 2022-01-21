@@ -2,57 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B3FD49589D
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 04:45:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AC6F4958E9
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 05:30:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD43810E5CE;
-	Fri, 21 Jan 2022 03:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4EFA10E383;
+	Fri, 21 Jan 2022 04:30:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33F8710E5C3;
- Fri, 21 Jan 2022 03:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1642736737; x=1674272737;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=OZFYwFviT7nGE0W3AQLERAg4K4gUI7SOGuYUPR9qDP0=;
- b=ccJvuK9RpIuR121jX+sHbI2spDhRp5IsJ+4uO0rtRFAY1isGO3+yHPZX
- pykWBOxRRK9fVTTAsuAGQXaDcZD/PZbk4XzHp5XF3+CiYAuCndyBuoDGT
- TyYUzc5miS3dl6K7CNUWlELoSNivfStEkvS+9ONL1NcGNJhCbVLf/lTg+ A=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 20 Jan 2022 19:45:36 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2022 19:45:35 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Thu, 20 Jan 2022 19:45:35 -0800
-Received: from [10.111.160.59] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Thu, 20 Jan
- 2022 19:45:32 -0800
-Message-ID: <ed76272d-91cb-9118-2bda-808cd43e408a@quicinc.com>
-Date: Thu, 20 Jan 2022 19:45:30 -0800
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD64A10E383
+ for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 04:30:24 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id s22so11978624oie.10
+ for <freedreno@lists.freedesktop.org>; Thu, 20 Jan 2022 20:30:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=LYTEoc7rHyCXH1oH9BtjH0WArodUqZMGF/Aa2JALJcg=;
+ b=jAuD4Q4d0AYZ/PEDXtbz04htFL1EN6grlsqGnAIkDVE2E4pO7M/1oqZYiMPi2SvG5v
+ iJPsX46rPq+RVPYyPhX9ofHmWWtOugLIVyRKnZeGldfGzx3X5m4HMzbXt/xHEpYRzKei
+ USuN1Cw0SThUY1CAkZK+oIWKE/6I7c9tJPnkE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=LYTEoc7rHyCXH1oH9BtjH0WArodUqZMGF/Aa2JALJcg=;
+ b=WX/QCmdcszC2ClLCv3jrUqb3lackk8GpGmGEXAErEZJd2lvsJqtmQAaIDj4Uzkvvi4
+ 9IiFjd0cC+/MAMAvKvdwgAqlEDLnNeyMCYuJNzVRa38MC9Mrh337ewHcKWmdzoXn04VH
+ zJgMeCOeFov01Jm37DrvO+PN5LhxjKCGL4TtVh47T+Z8cChZwu3Iq5HdTwPbUafcCXWE
+ NShUpkhi39z+AsKiC93AoQTL0tNSdayyShgTZbSXt1DI0x4kFXGc9vDAviINZh2cVLIU
+ 8NI/kp2C7KktcG9iBtqoCifjR2WskKTc4La3y4emmvoki7JC5dn8izXfjWQG8+hoNXFA
+ iJhQ==
+X-Gm-Message-State: AOAM532unbP6GIgTsQy7BkScVS87w/V3qmh7XS+FPlfzBQYeJPx22JTd
+ eUp6eb+5HfNtSfaqFCklbTz8scXn8Rb33sOmco075w==
+X-Google-Smtp-Source: ABdhPJy29RK3pnK83q6mbJuyMkA8rNx2S0loo1Mj2IuzvYlvMss7+Mu29C5GZPkKe7ElF4wm5ZCKgzQaRd232lKC8xU=
+X-Received: by 2002:a05:6808:cc:: with SMTP id
+ t12mr10524563oic.32.1642739423002; 
+ Thu, 20 Jan 2022 20:30:23 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 20 Jan 2022 20:30:22 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <1642732195-25349-1-git-send-email-quic_abhinavk@quicinc.com>
- <YeodzTsHmejDm9M6@pendragon.ideasonboard.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <YeodzTsHmejDm9M6@pendragon.ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [RFC PATCH] drm: allow passing a real encoder
- object for wb connector
+In-Reply-To: <20220119221616.3089119-3-dmitry.baryshkov@linaro.org>
+References: <20220119221616.3089119-1-dmitry.baryshkov@linaro.org>
+ <20220119221616.3089119-3-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 20 Jan 2022 20:30:22 -0800
+Message-ID: <CAE-0n53=vj53a_u-5rUmrhV79_-c=F5gtjbejoVs+=PR=hc1Nw@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v3 2/3] drm/msm/dpu: simplify clocks handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,118 +67,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Laurent
+Quoting Dmitry Baryshkov (2022-01-19 14:16:15)
+> diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
+> index 7b504617833a..5533c87c7158 100644
+> --- a/drivers/gpu/drm/msm/msm_io_utils.c
+> +++ b/drivers/gpu/drm/msm/msm_io_utils.c
+> @@ -5,6 +5,8 @@
+>   * Author: Rob Clark <robdclark@gmail.com>
+>   */
+>
+> +#include <linux/clk/clk-conf.h>
+> +
+>  #include "msm_drv.h"
+>
+>  /*
+> @@ -47,6 +49,54 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
+>         return clk;
+>  }
+>
+> +int msm_parse_clock(struct platform_device *pdev, struct clk_bulk_data **clocks)
+> +{
+> +       u32 i, rc = 0;
+> +       const char *clock_name;
+> +       struct clk_bulk_data *bulk;
+> +       int num_clk = 0;
 
-Thanks for the response.
+No need to assign and then reassign before testing. Same goes for 'rc'.
 
-On 1/20/2022 6:43 PM, Laurent Pinchart wrote:
-> Hi Abhinav,
-> 
-> Thank you for the patch.
-> 
-> On Thu, Jan 20, 2022 at 06:29:55PM -0800, Abhinav Kumar wrote:
->> Instead of creating an internal encoder for the writeback
->> connector to satisfy DRM requirements, allow the clients
->> to pass a real encoder to it by changing the drm_writeback's
->> encoder to a pointer.
->>
->> If a real encoder is not passed, drm_writeback_connector_init
->> will internally allocate one.
->>
->> This will help the clients to manage the real encoder states
->> better as they will allocate and maintain the encoder.
-> 
-> A writeback connector is a bit of a hack. It was implemented that way to
-> minimize the extensions to the KMS userspace API for writeback support.
-> There's no "encoder" there, as there's no real "connector" either. The
-> only reason we register a drm_encoder in the writeback implementation is
-> because encoders are exposed to userspace and are thus required (this is
-> considered a historical mistake that we can't fix anymore). Why do you
-> thus need to create a "real encoder" ?
+> +
+> +       if (!pdev)
+> +               return -EINVAL;
+> +
+> +       num_clk = of_property_count_strings(pdev->dev.of_node, "clock-names");
+> +       if (num_clk <= 0) {
+> +               pr_debug("clocks are not defined\n");
+> +               return 0;
+> +       }
+> +
+> +       bulk = devm_kcalloc(&pdev->dev, num_clk, sizeof(struct clk_bulk_data), GFP_KERNEL);
+> +       if (!bulk)
+> +               return -ENOMEM;
+> +
+> +       for (i = 0; i < num_clk; i++) {
+> +               rc = of_property_read_string_index(pdev->dev.of_node,
+> +                                                  "clock-names", i,
+> +                                                  &clock_name);
+> +               if (rc) {
+> +                       DRM_DEV_ERROR(&pdev->dev, "Failed to get clock name for %d\n", i);
+> +                       return rc;
+> +               }
+> +               bulk[i].id = devm_kstrdup(&pdev->dev, clock_name, GFP_KERNEL);
+> +       }
+> +
+> +       rc = devm_clk_bulk_get(&pdev->dev, num_clk, bulk);
 
-On some hardware, it is possible that the writeback encoder is shared.
-That is, in terms of hardware resources, we can only mutually drive 
-either the physical interface or the writeback one.
+Use devm_clk_bulk_get_all()?
 
-In that case, it would be better that drm_writeback accepts the real 
-encoder that is being used instead of allocating a dummy one internally.
+> +       if (rc) {
+> +               DRM_DEV_ERROR(&pdev->dev, "Failed to get clock refs %d\n", rc);
+> +               return rc;
+> +       }
+> +
+> +       rc = of_clk_set_defaults(pdev->dev.of_node, false);
 
-Moreover, the drm_writeback_connector_init() does already accept passing 
-our own enc_helper_funcs to perform necessary checks on the internal 
-encoder.
+Why is this needed?
 
-These hooks are provided to perform various operations on the encoder to
-fit the respective needs.
-
-In that case why shouldnt the writeback have its own real encoder?
-
-Thanks
-
-Abhinav
-
-
-> 
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/drm_writeback.c | 11 +++++++----
->>   include/drm/drm_writeback.h     |  2 +-
->>   2 files changed, 8 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
->> index dccf4504..fdb7381 100644
->> --- a/drivers/gpu/drm/drm_writeback.c
->> +++ b/drivers/gpu/drm/drm_writeback.c
->> @@ -189,8 +189,11 @@ int drm_writeback_connector_init(struct drm_device *dev,
->>   	if (IS_ERR(blob))
->>   		return PTR_ERR(blob);
->>   
->> -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
->> -	ret = drm_encoder_init(dev, &wb_connector->encoder,
->> +	/* allocate the internal drm encoder if a real one wasnt passed */
->> +	if (!wb_connector->encoder)
->> +		wb_connector->encoder = devm_kzalloc(dev->dev, sizeof(struct drm_encoder), GFP_KERNEL);
->> +	drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
->> +	ret = drm_encoder_init(dev, wb_connector->encoder,
->>   			       &drm_writeback_encoder_funcs,
->>   			       DRM_MODE_ENCODER_VIRTUAL, NULL);
->>   	if (ret)
->> @@ -204,7 +207,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
->>   		goto connector_fail;
->>   
->>   	ret = drm_connector_attach_encoder(connector,
->> -						&wb_connector->encoder);
->> +						wb_connector->encoder);
->>   	if (ret)
->>   		goto attach_fail;
->>   
->> @@ -233,7 +236,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
->>   attach_fail:
->>   	drm_connector_cleanup(connector);
->>   connector_fail:
->> -	drm_encoder_cleanup(&wb_connector->encoder);
->> +	drm_encoder_cleanup(wb_connector->encoder);
->>   fail:
->>   	drm_property_blob_put(blob);
->>   	return ret;
->> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
->> index 9697d27..f0d8147 100644
->> --- a/include/drm/drm_writeback.h
->> +++ b/include/drm/drm_writeback.h
->> @@ -31,7 +31,7 @@ struct drm_writeback_connector {
->>   	 * by passing the @enc_funcs parameter to drm_writeback_connector_init()
->>   	 * function.
->>   	 */
->> -	struct drm_encoder encoder;
->> +	struct drm_encoder *encoder;
->>   
->>   	/**
->>   	 * @pixel_formats_blob_ptr:
-> 
+> +       if (rc) {
+> +               DRM_DEV_ERROR(&pdev->dev, "Failed to set clock defaults %d\n", rc);
+> +               return rc;
+> +       }
+> +
+> +       *clocks = bulk;
+> +
+> +       return num_clk;
