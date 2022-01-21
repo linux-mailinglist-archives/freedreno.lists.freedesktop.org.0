@@ -1,56 +1,50 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFE3495AEE
-	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 08:38:00 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C055495CA2
+	for <lists+freedreno@lfdr.de>; Fri, 21 Jan 2022 10:17:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D867210E914;
-	Fri, 21 Jan 2022 07:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD7C110E9A7;
+	Fri, 21 Jan 2022 09:17:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E3F210E914
- for <freedreno@lists.freedesktop.org>; Fri, 21 Jan 2022 07:37:57 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id c190so8998030qkg.9
- for <freedreno@lists.freedesktop.org>; Thu, 20 Jan 2022 23:37:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/NsTFmbJRFMqEPN6TQaECc+hiLY0/v9eV3DVPhW44GY=;
- b=PuWCb9iH9vKdzPSOA+cnzoC5jXVWy1AxxiEArf+ovVTKyq6Rs8b9hRdqqysFgZO3RH
- 6HR5CHUYtgLvFzY41BzyTZnhtdVBI2dlVkadACZfkbJeiCHh8hOkTRlnPN/l9GmSI+Id
- mQu8TpqBpn8pYss2p8mm2Ylw68LDjOSh/YPOoMT5GrYBX3FVUnHxnSWIv6AHbc9CKyFq
- pRXqz33+o2U+kCAOOqq+fJMR9aPYxAqjwLWxTsOR8seSgKB1lER2TEf8VRXONBQKR7Ee
- zKn4EwFBihlTG3TooPkxvtIHW9a0KRVMGmir3ujmoCXdA3mwiVVcMurDL3u1o7Oh92lF
- /mBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/NsTFmbJRFMqEPN6TQaECc+hiLY0/v9eV3DVPhW44GY=;
- b=Ha7CJNSrC5R40X/dUw/WjzdHhpO51M7aAlxq1kGqSPprTZ+X9GXs4dg1nY8FWU61RX
- vYXuSt1AmWsjd//QgZ134w3TpnDa9csjrn8hIkI2MAue87+T/hhubLSAc3X987O/LABF
- wr3Z/GZITwWQBwA7ok1wxiiOPHxred7APLOrmODapWyqlD7l3HyVqQsa3ruCw7IVGTxw
- P5HrfWqjWo24oji4qzBtrV8GlEikI9QsCR7upZ5Pny4k8aD8Qd0I/aAoVvpTNwBbzQoI
- Se4rVynwzGdSyQINdVLGFFF5q1zY2KWus2akLfXQcrRoSvyz8tcG9uGnuCG0CaLdPON8
- SX+A==
-X-Gm-Message-State: AOAM531YCq3qyD7Du0qbbANH/Fx++sgdN8RPpy1Taw2IB0J8ZHDd8l6R
- YN9SlMPTm/paIEh36KnfMgfk/hrrXmD31IEuxztwYQ==
-X-Google-Smtp-Source: ABdhPJw9OZfOWatupIhHHWLCFkKsSFA5JB0Def6mqorRivdXWOXbcfFf1iqBjl+UybZDdM37TVcPw1r6mgO0fI/hWGM=
-X-Received: by 2002:a37:a211:: with SMTP id l17mr1812465qke.593.1642750676511; 
- Thu, 20 Jan 2022 23:37:56 -0800 (PST)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5EB910E9A2;
+ Fri, 21 Jan 2022 09:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1642756639; x=1674292639;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=+vKN7iTjxod+Fyp3Notbf7x2rCsKmuFBBQG0spUXmBM=;
+ b=KJ96fiYT2zQM45gJyaWTJrwRjMn0TeSnZ7ESmpHDH2P1V+bz7tLq6VY1
+ qGaFWo0qfQgKVfGSS/KFkRuoi7PFFP9PfR4OEMX9vjHEJFIYYOf4H4TP0
+ AzzTOlzRTw8dItZt+k7bHvGJ85zebXErgLJBxO7PeVGdp4uWg4m+w2RZW
+ s09zbLJgOkIZKwelfXVOGSrF/9XI7EOEukruUcoQct6Bba+WcmoLUiVIt
+ bp5xYAP4Ehyu8HktVXJRw6oulOxH9lFKWaBUSP8i1Ifu/a5If8zPg5de5
+ ncBQmcHVZuJ0zwOXlQ7lSGiUQFMUtFcel/T4fsxP155VsCX6SqyYAry8f A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10233"; a="331961046"
+X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="331961046"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2022 01:17:19 -0800
+X-IronPort-AV: E=Sophos;i="5.88,304,1635231600"; d="scan'208";a="533200849"
+Received: from chandra2-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.48.104])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2022 01:17:14 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <1642732195-25349-1-git-send-email-quic_abhinavk@quicinc.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <1642732195-25349-1-git-send-email-quic_abhinavk@quicinc.com>
+Date: Fri, 21 Jan 2022 11:17:07 +0200
+Message-ID: <87bl054fe4.fsf@intel.com>
 MIME-Version: 1.0
-References: <20220119221616.3089119-1-dmitry.baryshkov@linaro.org>
- <20220119221616.3089119-3-dmitry.baryshkov@linaro.org>
- <CAE-0n53=vj53a_u-5rUmrhV79_-c=F5gtjbejoVs+=PR=hc1Nw@mail.gmail.com>
-In-Reply-To: <CAE-0n53=vj53a_u-5rUmrhV79_-c=F5gtjbejoVs+=PR=hc1Nw@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 21 Jan 2022 10:37:45 +0300
-Message-ID: <CAA8EJprSTDhox33q0d37NQVKrkdhh+Ubq5_8wXqgstFkr_EtaQ@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 2/3] drm/msm/dpu: simplify clocks handling
+Content-Type: text/plain
+Subject: Re: [Freedreno] [RFC PATCH] drm: allow passing a real encoder
+ object for wb connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,104 +57,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: suraj.kandpal@intel.com, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, swboyd@chromium.org,
+ khsieh@codeaurora.org, nganji@codeaurora.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, dmitry.baryshkov@linaro.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 21 Jan 2022 at 07:30, Stephen Boyd <swboyd@chromium.org> wrote:
+On Thu, 20 Jan 2022, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> Instead of creating an internal encoder for the writeback
+> connector to satisfy DRM requirements, allow the clients
+> to pass a real encoder to it by changing the drm_writeback's
+> encoder to a pointer.
 >
-> Quoting Dmitry Baryshkov (2022-01-19 14:16:15)
-> > diff --git a/drivers/gpu/drm/msm/msm_io_utils.c b/drivers/gpu/drm/msm/msm_io_utils.c
-> > index 7b504617833a..5533c87c7158 100644
-> > --- a/drivers/gpu/drm/msm/msm_io_utils.c
-> > +++ b/drivers/gpu/drm/msm/msm_io_utils.c
-> > @@ -5,6 +5,8 @@
-> >   * Author: Rob Clark <robdclark@gmail.com>
-> >   */
-> >
-> > +#include <linux/clk/clk-conf.h>
-> > +
-> >  #include "msm_drv.h"
-> >
-> >  /*
-> > @@ -47,6 +49,54 @@ struct clk *msm_clk_get(struct platform_device *pdev, const char *name)
-> >         return clk;
-> >  }
-> >
-> > +int msm_parse_clock(struct platform_device *pdev, struct clk_bulk_data **clocks)
-> > +{
-> > +       u32 i, rc = 0;
-> > +       const char *clock_name;
-> > +       struct clk_bulk_data *bulk;
-> > +       int num_clk = 0;
+> If a real encoder is not passed, drm_writeback_connector_init
+> will internally allocate one.
 >
-> No need to assign and then reassign before testing. Same goes for 'rc'.
+> This will help the clients to manage the real encoder states
+> better as they will allocate and maintain the encoder.
 
-Ack
+See also the thread starting at [1], and please try to coordinate.
+
+I don't know what the end result should be like, I'm just saying please
+collaborate instead of racing to get one set of changes in.
+
+BR,
+Jani.
+
+
+[1] https://patchwork.freedesktop.org/patch/msgid/20220111101801.28310-1-suraj.kandpal@intel.com
 
 >
-> > +
-> > +       if (!pdev)
-> > +               return -EINVAL;
-> > +
-> > +       num_clk = of_property_count_strings(pdev->dev.of_node, "clock-names");
-> > +       if (num_clk <= 0) {
-> > +               pr_debug("clocks are not defined\n");
-> > +               return 0;
-> > +       }
-> > +
-> > +       bulk = devm_kcalloc(&pdev->dev, num_clk, sizeof(struct clk_bulk_data), GFP_KERNEL);
-> > +       if (!bulk)
-> > +               return -ENOMEM;
-> > +
-> > +       for (i = 0; i < num_clk; i++) {
-> > +               rc = of_property_read_string_index(pdev->dev.of_node,
-> > +                                                  "clock-names", i,
-> > +                                                  &clock_name);
-> > +               if (rc) {
-> > +                       DRM_DEV_ERROR(&pdev->dev, "Failed to get clock name for %d\n", i);
-> > +                       return rc;
-> > +               }
-> > +               bulk[i].id = devm_kstrdup(&pdev->dev, clock_name, GFP_KERNEL);
-> > +       }
-> > +
-> > +       rc = devm_clk_bulk_get(&pdev->dev, num_clk, bulk);
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  drivers/gpu/drm/drm_writeback.c | 11 +++++++----
+>  include/drm/drm_writeback.h     |  2 +-
+>  2 files changed, 8 insertions(+), 5 deletions(-)
 >
-> Use devm_clk_bulk_get_all()?
-
-Oh, wow. I missed this API. Then this function becomes unnecessary.
-
->
-> > +       if (rc) {
-> > +               DRM_DEV_ERROR(&pdev->dev, "Failed to get clock refs %d\n", rc);
-> > +               return rc;
-> > +       }
-> > +
-> > +       rc = of_clk_set_defaults(pdev->dev.of_node, false);
->
-> Why is this needed?
-
-Both mdss and mdp devices use assigned-clocks properties, while not
-being a clock provider (or a child of it).
-So I assumed it should call the of_clk_set_defaults(node, false)
-Not to mention that this call exists in the msm_dss_parse_clock(),
-which is being refactored/replaced.
-
->
-> > +       if (rc) {
-> > +               DRM_DEV_ERROR(&pdev->dev, "Failed to set clock defaults %d\n", rc);
-> > +               return rc;
-> > +       }
-> > +
-> > +       *clocks = bulk;
-> > +
-> > +       return num_clk;
-
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index dccf4504..fdb7381 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -189,8 +189,11 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  	if (IS_ERR(blob))
+>  		return PTR_ERR(blob);
+>  
+> -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> -	ret = drm_encoder_init(dev, &wb_connector->encoder,
+> +	/* allocate the internal drm encoder if a real one wasnt passed */
+> +	if (!wb_connector->encoder)
+> +		wb_connector->encoder = devm_kzalloc(dev->dev, sizeof(struct drm_encoder), GFP_KERNEL);
+> +	drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
+> +	ret = drm_encoder_init(dev, wb_connector->encoder,
+>  			       &drm_writeback_encoder_funcs,
+>  			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+>  	if (ret)
+> @@ -204,7 +207,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  		goto connector_fail;
+>  
+>  	ret = drm_connector_attach_encoder(connector,
+> -						&wb_connector->encoder);
+> +						wb_connector->encoder);
+>  	if (ret)
+>  		goto attach_fail;
+>  
+> @@ -233,7 +236,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  attach_fail:
+>  	drm_connector_cleanup(connector);
+>  connector_fail:
+> -	drm_encoder_cleanup(&wb_connector->encoder);
+> +	drm_encoder_cleanup(wb_connector->encoder);
+>  fail:
+>  	drm_property_blob_put(blob);
+>  	return ret;
+> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> index 9697d27..f0d8147 100644
+> --- a/include/drm/drm_writeback.h
+> +++ b/include/drm/drm_writeback.h
+> @@ -31,7 +31,7 @@ struct drm_writeback_connector {
+>  	 * by passing the @enc_funcs parameter to drm_writeback_connector_init()
+>  	 * function.
+>  	 */
+> -	struct drm_encoder encoder;
+> +	struct drm_encoder *encoder;
+>  
+>  	/**
+>  	 * @pixel_formats_blob_ptr:
 
 -- 
-With best wishes
-Dmitry
+Jani Nikula, Intel Open Source Graphics Center
