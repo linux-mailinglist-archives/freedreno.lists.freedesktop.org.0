@@ -1,55 +1,78 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC1F2496810
-	for <lists+freedreno@lfdr.de>; Sat, 22 Jan 2022 00:05:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A30214974D2
+	for <lists+freedreno@lfdr.de>; Sun, 23 Jan 2022 19:50:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7006D10E4E0;
-	Fri, 21 Jan 2022 23:05:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421A810E1A6;
+	Sun, 23 Jan 2022 18:50:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B4B10E4E0;
- Fri, 21 Jan 2022 23:05:48 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id s22so15663681oie.10;
- Fri, 21 Jan 2022 15:05:48 -0800 (PST)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8649C10E889;
+ Sun, 23 Jan 2022 18:40:11 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id j10so1012984pgc.6;
+ Sun, 23 Jan 2022 10:40:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=5dgQylvVki0nkzDnS/+Po4tisaRNHjVIflYn4fyQ95A=;
+ b=NPOFz183ei2daEpofKHSZlIolbNFGvjJd0bvuAgxnQXa1mbuzsB8hvhkTyioW5ltoS
+ y5sMMuWjyvc6kDKU9Jy9RUasJPQQydggdGhHkwIb35VXWo1CaSQ0zCd9mdEPpwTnH9lE
+ TQqSWzrtUY0GJOlgUr5T7TRU7USi2tfNg0iPTHfbRBNkqvnNmL37z4Z3nE/duk/GdyQ5
+ cmvTi8PRmdLMbpY5nfSMCDbv/xdK/q2iKEIs8W5TKJvzZ6qlATNv/wm7uCbiAn1dPBU1
+ +aM82cX+6IPqeayXYKuA7LfBX8rP3SzfEyhASY6EF68X1T6Es8PNFrBgcehKUkL4wkcD
+ DEnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=RN1PlPeJHCI4F7ORlXAuoTAl+I+ftCy1+niCC1rlCkY=;
- b=pfJPT3EGTVSEv4DOMZ1GU4TBJlDtbKcOL12KvnlrIHtxJeRB3pGoYlTuJsGnS7pD3L
- 33IQ8NwJP1ef4Dy3+YBFZHI4RMedDLtea/9qm3DI4RrcObVIeJtvqkNJBv+GXcHewI9k
- Iu49L9v6u2+bCl9XDz8jyrPZZobEL5NqivfrtRNdoahJZsk0qT2u+CoHUHwsNFHwQiFl
- HEKPzYsXpHkaRE9GM91uhOABHTCptnD5PTNW0MEXdaq2jduelAsdtDzF1jBrCy+rkNU7
- ToljjbYO00J/47LE3U1mqcPoei+ssGKRDdXWewg0rFjepACM1bX0JB3ENUCe0TG5Iu9D
- dITw==
-X-Gm-Message-State: AOAM533jiZYgrqu67mZNPT1hsW+zppeYp3TIMvgI/zfLpCfXR0qamBif
- axnQgLuMe90ybp44sbbtcA==
-X-Google-Smtp-Source: ABdhPJxg+kJTfrdEMoJ2RPhH4/awPHWoZgmR50vnrKMk9V6UVZeKVUfwcfBU0Ncf2zWIBlgjnHORJA==
-X-Received: by 2002:a05:6808:158e:: with SMTP id
- t14mr2315268oiw.31.1642806348159; 
- Fri, 21 Jan 2022 15:05:48 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bo13sm1605874oib.43.2022.01.21.15.05.46
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=5dgQylvVki0nkzDnS/+Po4tisaRNHjVIflYn4fyQ95A=;
+ b=AYkugjrNz8TiBaHH22me4/uU1G7+2cW/+Sq+DlAMiS9mluXOSwZIH67UIjlJaoQ3Wf
+ /0R8PQfrRraDaYm/oU7WL0Dv0wORSaaLUkJfidg6ATg37kDYb5xP5RxsybojSax1+c++
+ 8eYa+kW1pnPr0NeT/YWZKXizAdsGAxii0yj4GsKXkMpXoL0p73TDqXsE68CaNfj0Gch3
+ ZkKx6mP0F3w9Y0BpLwqyTYkodyaD8gclJKWGo7HRNoicbAsIcq+6CsR/wEmyLwGBysN7
+ KY24CebedmiTly16ukU+tm+1FFuKwbv9N2iWp2KZ0eet3C0iH6+EQ7+nsMm7pErhHbz4
+ XtMA==
+X-Gm-Message-State: AOAM531Uf/ZkewXVR2j3knVJ/DYeMQIW9Z0lAFr7I35Vi3GKqkqtK2Ro
+ H9mnDxSUvrp3uOmrid5xI6o=
+X-Google-Smtp-Source: ABdhPJzsBbCwcI8UQ9QtXW6uxvo0U0RHWhtm06Iz8OLFP8vkslwU6MYNdswa+/Z1sC5DBYGMC9d39A==
+X-Received: by 2002:a05:6a00:23cc:b0:4c6:d3b8:29ea with SMTP id
+ g12-20020a056a0023cc00b004c6d3b829eamr11191897pfc.78.1642963211024; 
+ Sun, 23 Jan 2022 10:40:11 -0800 (PST)
+Received: from localhost (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id a3sm10460879pfk.73.2022.01.23.10.40.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Jan 2022 15:05:47 -0800 (PST)
-Received: (nullmailer pid 1775815 invoked by uid 1000);
- Fri, 21 Jan 2022 23:05:46 -0000
-Date: Fri, 21 Jan 2022 17:05:46 -0600
-From: Rob Herring <robh@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Message-ID: <Yes8SiV9SBF+S3OH@robh.at.kernel.org>
-References: <20220109171814.16103-1-david@ixit.cz>
+ Sun, 23 Jan 2022 10:40:10 -0800 (PST)
+From: Yury Norov <yury.norov@gmail.com>
+To: Yury Norov <yury.norov@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ David Laight <David.Laight@aculab.com>, Joe Perches <joe@perches.com>,
+ Dennis Zhou <dennis@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Alexey Klimov <aklimov@redhat.com>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Date: Sun, 23 Jan 2022 10:38:38 -0800
+Message-Id: <20220123183925.1052919-8-yury.norov@gmail.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220123183925.1052919-1-yury.norov@gmail.com>
+References: <20220123183925.1052919-1-yury.norov@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220109171814.16103-1-david@ixit.cz>
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm/mdp4: convert to yaml
- format
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 23 Jan 2022 18:50:56 +0000
+Subject: [Freedreno] [PATCH 07/54] gpu: drm: replace bitmap_weight with
+ bitmap_empty where appropriate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,25 +85,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, ~okias/devicetree@lists.sr.ht
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, 09 Jan 2022 18:18:13 +0100, David Heidelberg wrote:
-> Convert mdp4 binding into yaml format.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../devicetree/bindings/display/msm/mdp4.txt  | 114 ----------------
->  .../devicetree/bindings/display/msm/mdp4.yaml | 124 ++++++++++++++++++
->  2 files changed, 124 insertions(+), 114 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/msm/mdp4.txt
->  create mode 100644 Documentation/devicetree/bindings/display/msm/mdp4.yaml
-> 
+smp_request_block() in drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c calls
+bitmap_weight() to check if any bit of a given bitmap is set. It's
+better to use bitmap_empty() in that case because bitmap_empty() stops
+traversing the bitmap as soon as it finds first set bit, while
+bitmap_weight() counts all bits unconditionally.
 
-Applied, thanks!
+Signed-off-by: Yury Norov <yury.norov@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+index d7fa2c49e741..56a3063545ec 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+@@ -68,7 +68,7 @@ static int smp_request_block(struct mdp5_smp *smp,
+ 	uint8_t reserved;
+ 
+ 	/* we shouldn't be requesting blocks for an in-use client: */
+-	WARN_ON(bitmap_weight(cs, cnt) > 0);
++	WARN_ON(!bitmap_empty(cs, cnt));
+ 
+ 	reserved = smp->reserved[cid];
+ 
+-- 
+2.30.2
+
