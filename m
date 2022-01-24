@@ -1,61 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CA2E499C44
-	for <lists+freedreno@lfdr.de>; Mon, 24 Jan 2022 23:07:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6273499D40
+	for <lists+freedreno@lfdr.de>; Mon, 24 Jan 2022 23:45:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C491010E191;
-	Mon, 24 Jan 2022 22:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C6210E278;
+	Mon, 24 Jan 2022 22:45:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E584F10E192
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jan 2022 22:07:24 +0000 (UTC)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- r2-20020a4ae5c2000000b002e94fa48b69so1023992oov.9
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jan 2022 14:07:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=/aLnHFuStZ5orf+mOt/+JIQklpQVMq3vUHjZ6F6RUME=;
- b=oVOpoQrs7lAhfFdYwpI0Rbzn4piuzf9e5etUCLba1zcBTLVJXNv0oO+H7iWuBfLpPF
- ASNNSRyIUHiyAlE1wrc8sjhJTg7yluaGRdSE38M+06TBKdyjDXmPU4bzAnn+0kwjb55o
- Xh651eHtRdmJG65PfUKKbclnQeEXW8CKWcSjs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=/aLnHFuStZ5orf+mOt/+JIQklpQVMq3vUHjZ6F6RUME=;
- b=wI4RqIS4Ph5uQEnmj7qxnONwao+yv3RMkKIUPOcLaLUsD4n18QWmNNGULkWBTsK4g1
- QVBSKMe3kkkIbk1AQ4YGtN5dYZxnzkw8pykSsHF9XBIt3egi36nKVlySNlGQWze26mtq
- G93jKRwaw9b4j/QK60C7Ux/5kJHnylMiVtu9wkSYPixmutebBjm1Qa3cepMO68rDkbZx
- J1iMF2TKmqVU9L/oKSRRvDzPIushfKmWLeLumx73vDPN6wdcmmWra561Tc1uTw6goI7c
- 2ToqSpQdq/UjmXxj0R5f8H8o1s0wIdU88qxrlos2HAPgR0VdBdiobwLt/6uG3+FWqwEe
- KlIQ==
-X-Gm-Message-State: AOAM532okRaye4GSJyQNekdVFOlGEzbk8ANAJ1KzYZ1N1qlifGJ0O5k1
- QB5ohq0HYUkMdyjgyZPNMMBr35UWrkf6hLbbmyrEEQ==
-X-Google-Smtp-Source: ABdhPJyc/dz2yM6w+iD9kilsMJPwY0RIbV00zr4BPr32NKAK/72Bw+/QQmFbTMkH7urzwVaB7eMehwTkn+zmuRw96G8=
-X-Received: by 2002:a4a:d51a:: with SMTP id m26mr4897764oos.1.1643062044068;
- Mon, 24 Jan 2022 14:07:24 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 24 Jan 2022 14:07:23 -0800
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A95B710E236;
+ Mon, 24 Jan 2022 22:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1643064304; x=1674600304;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=6FDMbkNmGDQKhNRRKaO6JLOLagoRuuR/+xN6iL73AhI=;
+ b=oW2wYk7FP0nGaX+mUkrcymttl0EU7JbzlREWU1KpuZtFlBTrYlRtQ9AZ
+ jBctfp/uNO8eLI9NJa335113wROaaU8+Z80uhPTgJGdF+SlrFzgaXZyj7
+ z4z0ht06yh8gW8D96pCBIsYhZ8+VkIOGLX0xA8sD3f44aX9tq61/WYJLH Q=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 24 Jan 2022 14:45:03 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2022 14:45:02 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 24 Jan 2022 14:45:01 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Mon, 24 Jan 2022 14:45:01 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 24 Jan 2022 14:44:52 -0800
+Message-ID: <1643064292-6965-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <28734c1c-a30c-d47f-3fc1-95035adcd33d@quicinc.com>
-References: <1643057170-10413-1-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n53nFcMzuKfqVRac6PRTkoPrftXL+uVK56ZQsHVWHmivkQ@mail.gmail.com>
- <28734c1c-a30c-d47f-3fc1-95035adcd33d@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Mon, 24 Jan 2022 14:07:23 -0800
-Message-ID: <CAE-0n51wjxd+6azct0ENNBZuE7oVSH6tXfSfEUhT4LRX6kesdw@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: always add fail-safe mode into
- connector mode list
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH] drm/msm/dp: add connector type to enhance debug
+ messages
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +63,291 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-01-24 13:24:25)
->
-> On 1/24/2022 1:04 PM, Stephen Boyd wrote:
-> > Quoting Kuogee Hsieh (2022-01-24 12:46:10)
-> >> Some of DP link compliant test expects to return fail-safe mode
-> >> if prefer detailed timing mode can not be supported by mainlink's
-> >> lane and rate after link training. Therefore add fail-safe mode
-> >> into connector mode list as backup mode. This patch fixes test
-> >> case 4.2.2.1.
-> >>
-> >> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> > Any Fixes tag? I also wonder why this isn't pushed into the DP core code
-> > somehow. Wouldn't every device need to add a 640x480 mode by default?
->
-> Original test case 4.2.2.1 always passed until we did firmware upgrade
-> of our compliance test tester (Unigraph) recently.
+DP driver is a generic driver which supports both eDP and DP.
+For debugging purpose it is required to have capabilities to
+differentiate message are generated from eDP or DP. This patch
+add connector type into debug messages for this purpose.
 
-Ok. So the Fixes tag should be the introduction of the driver or at
-least whenever compliance testing support was added.
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 20 +++++------
+ drivers/gpu/drm/msm/dp/dp_display.c | 71 ++++++++++++++++++++++++++-----------
+ 2 files changed, 60 insertions(+), 31 deletions(-)
 
->
-> The new firmware of tester use newer edid contains 1080p with 145.7 mhz
-> which can not be supported by 2 lanes with 1.6G rate. Hence we failed
-> this test case.
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 245e1b9..dcd0126 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1396,6 +1396,8 @@ void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
+ 
+ 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_init(phy);
++	DRM_DEBUG_DP("phy=%p init=%d power_on=%d\n",
++			phy, phy->init_count, phy->power_count);
+ }
+ 
+ void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl)
+@@ -1410,6 +1412,8 @@ void dp_ctrl_phy_exit(struct dp_ctrl *dp_ctrl)
+ 
+ 	dp_catalog_ctrl_phy_reset(ctrl->catalog);
+ 	phy_exit(phy);
++	DRM_DEBUG_DP("phy=%p init=%d power_on=%d\n",
++			phy, phy->init_count, phy->power_count);
+ }
+ 
+ static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
+@@ -1484,6 +1488,8 @@ static int dp_ctrl_deinitialize_mainlink(struct dp_ctrl_private *ctrl)
+ 	phy_exit(phy);
+ 	phy_init(phy);
+ 
++	DRM_DEBUG_DP("phy=%p init=%d power_on=%d\n",
++			phy, phy->init_count, phy->power_count);
+ 	return 0;
+ }
+ 
+@@ -1895,14 +1901,12 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
+ 
+ 	phy_power_off(phy);
+ 
+-	DRM_DEBUG_DP("After, phy=%x init_count=%d power_on=%d\n",
+-		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
+-
+ 	/* aux channel down, reinit phy */
+ 	phy_exit(phy);
+ 	phy_init(phy);
+ 
+-	DRM_DEBUG_DP("DP off link/stream done\n");
++	DRM_DEBUG_DP("phy=%p init=%d power_on=%d\n",
++			phy, phy->init_count, phy->power_count);
+ 	return ret;
+ }
+ 
+@@ -1933,13 +1937,9 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+ 		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+ 	}
+ 
+-	DRM_DEBUG_DP("Before, phy=%x init_count=%d power_on=%d\n",
+-		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
+-
+ 	phy_power_off(phy);
+-
+-	DRM_DEBUG_DP("After, phy=%x init_count=%d power_on=%d\n",
+-		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
++	DRM_DEBUG_DP("phy=%p init=%d power_on=%d\n",
++			phy, phy->init_count, phy->power_count);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index e89556ad..0476032 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -376,8 +376,9 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
+ 
+ static void dp_display_host_phy_init(struct dp_display_private *dp)
+ {
+-	DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
+-			dp->core_initialized, dp->phy_initialized);
++	DRM_DEBUG_DP("type=%d core_init=%d phy_init=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized);
+ 
+ 	if (!dp->phy_initialized) {
+ 		dp_ctrl_phy_init(dp->ctrl);
+@@ -387,8 +388,9 @@ static void dp_display_host_phy_init(struct dp_display_private *dp)
+ 
+ static void dp_display_host_phy_exit(struct dp_display_private *dp)
+ {
+-	DRM_DEBUG_DP("core_init=%d phy_init=%d\n",
+-			dp->core_initialized, dp->phy_initialized);
++	DRM_DEBUG_DP("type=%d core_init=%d phy_init=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized);
+ 
+ 	if (dp->phy_initialized) {
+ 		dp_ctrl_phy_exit(dp->ctrl);
+@@ -398,7 +400,9 @@ static void dp_display_host_phy_exit(struct dp_display_private *dp)
+ 
+ static void dp_display_host_init(struct dp_display_private *dp)
+ {
+-	DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
++	DRM_DEBUG_DP("type=%d core_init=%d phy_init=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized);
+ 
+ 	dp_power_init(dp->power, false);
+ 	dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
+@@ -408,7 +412,9 @@ static void dp_display_host_init(struct dp_display_private *dp)
+ 
+ static void dp_display_host_deinit(struct dp_display_private *dp)
+ {
+-	DRM_DEBUG_DP("core_initialized=%d\n", dp->core_initialized);
++	DRM_DEBUG_DP("type=%d core_init=%d phy_init=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized);
+ 
+ 	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
+ 	dp_aux_deinit(dp->aux);
+@@ -519,7 +525,9 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state =  dp->hpd_state;
+-	DRM_DEBUG_DP("hpd_state=%d\n", state);
++	DRM_DEBUG_DP("Before, type=%d hpd_state=%d\n",
++			dp->dp_display.connector_type, state);
++
+ 	if (state == ST_DISPLAY_OFF || state == ST_SUSPENDED) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -551,6 +559,8 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 	dp_catalog_hpd_config_intr(dp->catalog,
+ 		DP_DP_IRQ_HPD_INT_MASK | DP_DP_HPD_REPLUG_INT_MASK, true);
+ 
++	DRM_DEBUG_DP("After, type=%d hpd_state=%d\n",
++			dp->dp_display.connector_type, state);
+ 	mutex_unlock(&dp->event_mutex);
+ 
+ 	/* uevent will complete connection part */
+@@ -567,8 +577,10 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state = dp->hpd_state;
+-	if (state == ST_CONNECT_PENDING)
++	if (state == ST_CONNECT_PENDING) {
+ 		dp->hpd_state = ST_CONNECTED;
++		DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
++	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -601,6 +613,9 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	state = dp->hpd_state;
+ 
++	DRM_DEBUG_DP("Before, type=%d hpd_state=%d\n",
++			dp->dp_display.connector_type, state);
++
+ 	/* disable irq_hpd/replug interrupts */
+ 	dp_catalog_hpd_config_intr(dp->catalog,
+ 		DP_DP_IRQ_HPD_INT_MASK | DP_DP_HPD_REPLUG_INT_MASK, false);
+@@ -643,13 +658,15 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+ 	/* start sentinel checking in case of missing uevent */
+ 	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+ 
+-	DRM_DEBUG_DP("hpd_state=%d\n", state);
+ 	/* signal the disconnect event early to ensure proper teardown */
+ 	dp_display_handle_plugged_change(&dp->dp_display, false);
+ 
+ 	/* enable HDP plug interrupt to prepare for next plugin */
+ 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, true);
+ 
++	DRM_DEBUG_DP("After, type=%d hpd_state=%d\n",
++			dp->dp_display.connector_type, state);
++
+ 	/* uevent will complete disconnection part */
+ 	mutex_unlock(&dp->event_mutex);
+ 	return 0;
+@@ -662,8 +679,10 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
+ 	mutex_lock(&dp->event_mutex);
+ 
+ 	state =  dp->hpd_state;
+-	if (state == ST_DISCONNECT_PENDING)
++	if (state == ST_DISCONNECT_PENDING) {
+ 		dp->hpd_state = ST_DISCONNECTED;
++		DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
++	}
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -678,6 +697,9 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	/* irq_hpd can happen at either connected or disconnected state */
+ 	state =  dp->hpd_state;
++	DRM_DEBUG_DP("Before, type=%d hpd_state=%d\n",
++			dp->dp_display.connector_type, state);
++
+ 	if (state == ST_DISPLAY_OFF || state == ST_SUSPENDED) {
+ 		mutex_unlock(&dp->event_mutex);
+ 		return 0;
+@@ -699,7 +721,8 @@ static int dp_irq_hpd_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	dp_display_usbpd_attention_cb(&dp->pdev->dev);
+ 
+-	DRM_DEBUG_DP("hpd_state=%d\n", state);
++	DRM_DEBUG_DP("After, type=%d hpd_state=%d\n",
++			dp->dp_display.connector_type, state);
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -1152,8 +1175,9 @@ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+ 
+ 	hpd_isr_status = dp_catalog_hpd_get_intr_status(dp->catalog);
+ 
+-	DRM_DEBUG_DP("hpd isr status=%#x\n", hpd_isr_status);
+ 	if (hpd_isr_status & 0x0F) {
++		DRM_DEBUG_DP("type=%d isr=0x%x\n",
++			dp->dp_display.connector_type, hpd_isr_status);
+ 		/* hpd related interrupts */
+ 		if (hpd_isr_status & DP_DP_HPD_PLUG_INT_MASK)
+ 			dp_add_event(dp, EV_HPD_PLUG_INT, 0, 0);
+@@ -1306,8 +1330,9 @@ static int dp_pm_resume(struct device *dev)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	DRM_DEBUG_DP("Before, core_inited=%d power_on=%d\n",
+-			dp->core_initialized, dp_display->power_on);
++	DRM_DEBUG_DP("Before, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized, dp_display->power_on);
+ 
+ 	/* start from disconnected state */
+ 	dp->hpd_state = ST_DISCONNECTED;
+@@ -1345,9 +1370,11 @@ static int dp_pm_resume(struct device *dev)
+ 		dp_display_handle_plugged_change(dp_display, false);
+ 	}
+ 
+-	DRM_DEBUG_DP("After, sink_count=%d is_connected=%d core_inited=%d power_on=%d\n",
+-			dp->link->sink_count, dp->dp_display.is_connected,
+-			dp->core_initialized, dp_display->power_on);
++	DRM_DEBUG_DP("After, type=%d sink_count=%d is_connected=%d \
++			core_inited=%d phy_inited=%d power_on=%d\n",
++		dp->dp_display.connector_type, dp->link->sink_count,
++		dp->dp_display.is_connected, dp->core_initialized,
++		dp->phy_initialized, dp_display->power_on);
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+@@ -1364,8 +1391,9 @@ static int dp_pm_suspend(struct device *dev)
+ 
+ 	mutex_lock(&dp->event_mutex);
+ 
+-	DRM_DEBUG_DP("Before, core_inited=%d power_on=%d\n",
+-			dp->core_initialized, dp_display->power_on);
++	DRM_DEBUG_DP("Before, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized, dp_display->power_on);
+ 
+ 	/* mainlink enabled */
+ 	if (dp_power_clk_status(dp->power, DP_CTRL_PM))
+@@ -1378,8 +1406,9 @@ static int dp_pm_suspend(struct device *dev)
+ 
+ 	dp->hpd_state = ST_SUSPENDED;
+ 
+-	DRM_DEBUG_DP("After, core_inited=%d power_on=%d\n",
+-			dp->core_initialized, dp_display->power_on);
++	DRM_DEBUG_DP("After, type=%d core_inited=%d phy_inited=%d power_on=%d\n",
++		dp->dp_display.connector_type, dp->core_initialized,
++		dp->phy_initialized, dp_display->power_on);
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-Interesting. So the test case wouldn't fail unless the number of lanes
-were limited by the hardware? Seems that the test isn't thorough.
-
->
-> After discuss with Vendor, they claims we have to return fail-safe mode
-> if prefer detailed timing mode can not be supported.
->
-> I think would be good to add fail-safe mode into connector mode list.
->
->
->
->
-> > we just run into this problem recently.
-
-
-Sure I'm not saying it's incorrect, just wondering why a connector
-that's DP wouldn't have the 640x480 resolution by default somewhere in
-the drm core.
