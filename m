@@ -2,67 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B761B49A233
-	for <lists+freedreno@lfdr.de>; Tue, 25 Jan 2022 02:56:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DE3349A286
+	for <lists+freedreno@lfdr.de>; Tue, 25 Jan 2022 03:00:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 560BB10E8AA;
-	Tue, 25 Jan 2022 01:56:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F009C10E8AA;
+	Tue, 25 Jan 2022 02:00:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E281210E8B1
- for <freedreno@lists.freedesktop.org>; Tue, 25 Jan 2022 01:56:50 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id t14so13031818ljh.8
- for <freedreno@lists.freedesktop.org>; Mon, 24 Jan 2022 17:56:50 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0564D10E8DC
+ for <freedreno@lists.freedesktop.org>; Tue, 25 Jan 2022 02:00:20 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id y15so45518550lfa.9
+ for <freedreno@lists.freedesktop.org>; Mon, 24 Jan 2022 18:00:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Vl7zRt7CzWsP5dsK8jjPyozz1f+nDjiiAEcQBupI+gg=;
- b=n9wQmxV93FBjl1p6UWAnsR/Rp4I78wtTrlfGHx2HeDJvo28sEJ3Ui/yv/jSLo4OkTG
- itA+Z96FdTg7IqxtkVMyEUrAn80XGgC428mPsYkUzqOljwTg6O8NJ+iyMdieCWRi1nu9
- sh4JrOqePDuMC+5iw0mOkb2LuYDCSJgzjiQllRYSTB5bk8coihMSwkqQibGyeJm5h8C6
- 5E0nkFOjRLe3vSC+lKGnA98V0sj51CEJ7yFiI9AqYgG50MwMhT7TrGZhHHRuAkswRbv+
- 0TSMJAnk9PBntohIujBiATwlDwISz5tX0ggyfMVBmcFHJW0zFNrq4djqIjZZ5fb9dI1+
- Mydw==
+ bh=z9cFZ1E2s24LcCxX+TonvupwH3rhf/yXaLQUkB9G9lg=;
+ b=e6YoBi5Li5l3ffqcYqv7m1pmWSKUtt1XgNdBzvlqTUzMdC5cVbwWAQ/yrma7sE63Bg
+ 7d+GNgWbQCJ8laMN+M+a6IJLgkT1VnAkApTSaQKqLFr+3NzTS1GUTCrKQ4EaLJBDc7GW
+ DBwVNT6T+2mOd9Gq8TnUkWVWF9kRBzVFktg2ReG/qrOMXl2nkDo11KqKff0fLWCuuF7F
+ xSIGdrywlb5w5o6eUm3jMlRzG1KFGz0g9DvzOukLPZjC0qGdadsGnJnGSgnjGI8dB61f
+ PWyfvAv/RBvOb4EKD+xTCzKaVZHieZ8bdvgMPepihXo9zfBD4z1cLCwYwCIFqMLhgfLT
+ 1PHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=Vl7zRt7CzWsP5dsK8jjPyozz1f+nDjiiAEcQBupI+gg=;
- b=unQQfdwSQNcFZCzxakNMKgpu7hFwbW9GCA6wvZGIWAM7pJ1aRptr0ethZt++T2TyZ8
- 75MhcwsfPebI1ZI8Yyb2HsZzPvKnnRW2EHaH+H7y3+c0QbgCuhOz2YtR7GnMSLlBZfX0
- s0663t16AKK+ZY0HkWcz0IDWYDh77GR5mGJj22r7JePSifk/9mV9u9LVSySSe3KWhDYP
- +694ARwimDEm2bM5tYhBg3VhWXvSbC21QKw+xDNt4P/vUpqRX7/Xwy10s8pM6kxVXTne
- lIvggl/BY5gtXEhbv6YzearEFP3b7BLNi1fkYq9uYAr4CRzAWQjlbQ8Q+KTv2yxu7MBO
- eVVg==
-X-Gm-Message-State: AOAM530YnjomJn6ouSNnNB4Hi1Ntp5r2c9vYIyIYkBTEOrxKM3al2v9w
- KPQPNWNvqYSggD/1PWUMna0X9w==
-X-Google-Smtp-Source: ABdhPJyGoLMRs00RgcJNojAwWsrQUnnYJ9BDZG0uXkgal8iXcUoDVBKfNsOhG8xLGfNq7k8uCISjgw==
-X-Received: by 2002:a2e:8551:: with SMTP id u17mr3356586ljj.35.1643075809221; 
- Mon, 24 Jan 2022 17:56:49 -0800 (PST)
+ bh=z9cFZ1E2s24LcCxX+TonvupwH3rhf/yXaLQUkB9G9lg=;
+ b=UWww2LlNof0rIMRkD1SiRaFBUgb5VlHbLuXsc17mbROx6D6NeYZ7GJtOJ6oCJCYpX5
+ ppCcoJ7ZVP9zwqQoL0BjdByhI/yegf0mofdJhpBltagxfChZJDcHOMg6FvplT2hjsn6i
+ JHJt1BR0CeZ+dM0hADkbYDqRw3iR7tq9dD5a2HWufzOO3yFWJENoFWpuK01u3738z6Mc
+ DxjJxUEGPDEhOim8bzQ4kOJWScdBAS/E9xWmQctAN/ucQhv5gwYCzLvHupA2x8hmXG4e
+ evXvCoYMB5aUyvNEY7wSQzcnekqJTkzep4zz3Fq2P/EkpI3rCFFirKtP3cEmNubG3Wcd
+ 4E/Q==
+X-Gm-Message-State: AOAM533wrDPNupZbg+L0T3X5K/YKCsE+FCDbFQB2FopImY152yuoYFVz
+ dWvanpLdrHVaGxxZAyoN2a+ZUw==
+X-Google-Smtp-Source: ABdhPJzR7Nty4CWBcIaaTsrQRiQiwDCL0FqPuoLJsr1Uu+KP4cnVI3Y3KVI80EIbpDT5tyLNEnKLQw==
+X-Received: by 2002:a05:6512:114f:: with SMTP id
+ m15mr4955248lfg.678.1643076019122; 
+ Mon, 24 Jan 2022 18:00:19 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id w16sm474939ljg.14.2022.01.24.17.56.48
+ by smtp.gmail.com with ESMTPSA id 8sm22197lfq.200.2022.01.24.18.00.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jan 2022 17:56:48 -0800 (PST)
-Message-ID: <e3ef9c30-ffc2-b7c1-a361-09a6d35da03d@linaro.org>
-Date: Tue, 25 Jan 2022 04:56:47 +0300
+ Mon, 24 Jan 2022 18:00:18 -0800 (PST)
+Message-ID: <d60f663a-c986-4076-736b-05d50e4aefc0@linaro.org>
+Date: Tue, 25 Jan 2022 05:00:18 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Content-Language: en-GB
-To: Rajeev Nandan <quic_rajeevny@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <1642538320-1127-1-git-send-email-quic_rajeevny@quicinc.com>
- <1642538320-1127-3-git-send-email-quic_rajeevny@quicinc.com>
+To: =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>,
+ hali@codeaurora.org
+References: <20220116181844.7400-1-jose.exposito89@gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1642538320-1127-3-git-send-email-quic_rajeevny@quicinc.com>
+In-Reply-To: <20220116181844.7400-1-jose.exposito89@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [v3 2/3] drm/msm/dsi: Add dsi phy tuning
- configuration support
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: invalid parameter check in
+ msm_dsi_phy_enable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,84 +74,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, robh@kernel.org, jonathan@marek.ca,
- airlied@linux.ie, linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com,
- robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
- daniel@ffwll.ch, swboyd@chromium.org, sean@poorly.run
+Cc: freedreno@lists.freedesktop.org, rajeevny@codeaurora.org, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ abhinavk@codeaurora.org, robdclark@gmail.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18/01/2022 23:38, Rajeev Nandan wrote:
-> Add support for MSM DSI PHY tuning configuration. Current design is
-> to support drive strength and drive level/amplitude tuning for
-> 10nm PHY version, but this can be extended to other PHY versions.
+On 16/01/2022 21:18, José Expósito wrote:
+> The function performs a check on the "phy" input parameter, however, it
+> is used before the check.
 > 
-> Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
+> Initialize the "dev" variable after the sanity check to avoid a possible
+> NULL pointer dereference.
+> 
+> Fixes: 5c8290284402b ("drm/msm/dsi: Split PHY drivers to separate files")
+> Addresses-Coverity-ID: 1493860 ("Null pointer dereference")
+> Signed-off-by: José Expósito <jose.exposito89@gmail.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
-> 
-> Changes in v2:
->   - New.
->   - Split into generic code and 10nm-specific part (Dmitry Baryshkov)
-> 
-> Changes in v3:
->   - s/ops.tuning_cfg_init/ops.parse_dt_properties
->     To parse phy version specific DT properties (Dmitry Baryshkov)
->   - Address comments for phy tuning data structure (Dmitry Baryshkov)
-> 
-> 
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 6 ++++++
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy.h | 4 ++++
->   2 files changed, 10 insertions(+)
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> index 8c65ef6..fcbca76 100644
+> index 9842e04b5858..baa6af0c3bcc 100644
 > --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
 > +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
-> @@ -739,6 +739,12 @@ static int dsi_phy_driver_probe(struct platform_device *pdev)
->   		}
->   	}
+> @@ -808,12 +808,14 @@ int msm_dsi_phy_enable(struct msm_dsi_phy *phy,
+>   			struct msm_dsi_phy_clk_request *clk_req,
+>   			struct msm_dsi_phy_shared_timings *shared_timings)
+>   {
+> -	struct device *dev = &phy->pdev->dev;
+> +	struct device *dev;
+>   	int ret;
 >   
-> +	if (phy->cfg->ops.parse_dt_properties) {
-> +		ret = phy->cfg->ops.parse_dt_properties(phy);
-> +		if (ret)
-> +			goto fail;
-> +	}
+>   	if (!phy || !phy->cfg->ops.enable)
+>   		return -EINVAL;
+>   
+> +	dev = &phy->pdev->dev;
 > +
->   	ret = dsi_phy_regulator_init(phy);
->   	if (ret)
->   		goto fail;
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> index b91303a..9e08081 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
-> @@ -25,6 +25,7 @@ struct msm_dsi_phy_ops {
->   	void (*save_pll_state)(struct msm_dsi_phy *phy);
->   	int (*restore_pll_state)(struct msm_dsi_phy *phy);
->   	bool (*set_continuous_clock)(struct msm_dsi_phy *phy, bool enable);
-> +	int (*parse_dt_properties)(struct msm_dsi_phy *phy);
->   };
->   
->   struct msm_dsi_phy_cfg {
-> @@ -81,6 +82,8 @@ struct msm_dsi_dphy_timing {
->   #define DSI_PIXEL_PLL_CLK		1
->   #define NUM_PROVIDED_CLKS		2
->   
-> +#define DSI_LANE_MAX			5
-> +
->   struct msm_dsi_phy {
->   	struct platform_device *pdev;
->   	void __iomem *base;
-> @@ -98,6 +101,7 @@ struct msm_dsi_phy {
->   
->   	struct msm_dsi_dphy_timing timing;
->   	const struct msm_dsi_phy_cfg *cfg;
-> +	void *tuning_cfg;
->   
->   	enum msm_dsi_phy_usecase usecase;
->   	bool regulator_ldo_mode;
+>   	ret = dsi_phy_enable_resource(phy);
+>   	if (ret) {
+>   		DRM_DEV_ERROR(dev, "%s: resource enable failed, %d\n",
 
 
 -- 
