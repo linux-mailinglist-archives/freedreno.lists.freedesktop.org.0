@@ -2,62 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27BB749E852
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jan 2022 18:04:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B709149E878
+	for <lists+freedreno@lfdr.de>; Thu, 27 Jan 2022 18:10:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B877D10E11F;
-	Thu, 27 Jan 2022 17:04:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58DBA10E1A7;
+	Thu, 27 Jan 2022 17:10:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74DC110E121
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jan 2022 17:04:21 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- o1-20020a1c4d01000000b0034d95625e1fso6370231wmh.4
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jan 2022 09:04:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED53910E19A;
+ Thu, 27 Jan 2022 17:10:41 +0000 (UTC)
+Received: by mail-pg1-x534.google.com with SMTP id t32so2771506pgm.7;
+ Thu, 27 Jan 2022 09:10:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=Xq5JSeGAWZi1OsdDMQABwbOnDerwbPa8wE4vgOTW8/Y=;
- b=zcjytRgZhKk0UVB7sTJ2tWYadwRdtz8tU5dbL4itdSgdGa+Vfi1ivXb0DOX0wFJnF+
- jCTR+jwLKPiSOZAKRpM2zaK0baqKzuM5lWOZLUdDtKR3vP11Hlv8hQflCJkcyq/suMp/
- AxQ45gYnkkKnBGDvIN/sZ+HoA8TZhod5ouV9IHOJBGuU2m5JJMgoATDywhudRYjGpBJ9
- zdnW/Z8ZeWGS8QML+ZprPfhrzpxL8QTqPzqoszoFH1RaF/15uSsx0BRE/LhZ6UtlmPD9
- rz9A0ZscZRDDQsqNh1Ni9CxtrlmHzWAgfpbaBPX4WaTRRbLvOQ7TVyvEifxwMsr4j/oA
- Ey4A==
+ bh=6CDYV/P4O/r3dgztPFLJV9lZu9zFEjn3L3fRfL7MbBg=;
+ b=Hk2vLuMBhTwAlb4KfBdcApLjWnZDozauE3TjJ4sb/iJXaqrO1FrsL4c3Ws4Qg/zHQa
+ mhdSVaD+Ic9IGShFa+PSVgTzSHCFmYgn+1hEO/JunIX/mqEWJ9Ao2zlTJIiia4kgw8AP
+ +2Os0rxdyQcQay1394o5TuMIfMnf+CFkhpyudSbLhk6Wn72mz+cGXyE9fkzSqUMi9j3Z
+ p9GTZQFq3QSoI0tJEUjB7AMybt2cxsEbFExufpG2VwoLRJoSuJR4bOzZ7eBquYvhfqTn
+ LSF2GpnxOyxXe2vqrrwi4uBA6bHJwmFWhFYQs9ak2ljg/SblZiV2ssf7F62H9TiYTwLt
+ zD5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=Xq5JSeGAWZi1OsdDMQABwbOnDerwbPa8wE4vgOTW8/Y=;
- b=GXpxOSPlmAAtOQHt7gjsxdCzxAoE5Ed4ogzjEx7BD7w0nTy89UiXR+k8tHIQsIuMW9
- 5Q7XjcHZe85HMcZ6ROacA05OIaVZTxQAt6lueWElez34VLEK6f9CGX6OfWWOuTPFr3iQ
- cEBpT2eEVBCqleszDZJhyZ25pHzEDLcr6Po+k6nF4uTwzONZyBry+MCTNcPmYVMf/MAB
- zRCLEi3k5V//hFuBDaJF6GP8K3Unrd3Yx+NgruueO8YrgnsdhWNXbfYJ9sy9L4JuC4PT
- Dn9uJjYwO2QxVnFMK8XJ/C/lrmbcg6nccr3ikm6ajmVJfBhtAAJDF/HaA6RPi3pRKbjh
- yOkA==
-X-Gm-Message-State: AOAM530QsgSPNw7LV6QUtfYMcPEtc/e5x/cd1aSGGzTyI/C2gSUTojR9
- m9r5D7oLOPIrQ3WjYzALnz/n1Q==
-X-Google-Smtp-Source: ABdhPJyBI5EHJ0MpglMjqGADM1SO/QEfD2Zy/mqKdhdp8dhVZB6esmP/S8cjIf8hsX6ZeIdl6n6hjg==
-X-Received: by 2002:a05:600c:3ac5:: with SMTP id
- d5mr3902521wms.107.1643303059880; 
- Thu, 27 Jan 2022 09:04:19 -0800 (PST)
-Received: from maple.lan (cpc141216-aztw34-2-0-cust174.18-1.cable.virginm.net.
- [80.7.220.175])
- by smtp.gmail.com with ESMTPSA id t18sm2677495wri.34.2022.01.27.09.04.18
+ bh=6CDYV/P4O/r3dgztPFLJV9lZu9zFEjn3L3fRfL7MbBg=;
+ b=nMNfRS0hKPavartfSgv8SsTjp1ogyMPsAl6SMyI9tZXTv4AtK89yBITIL8LYpgOULc
+ GbOA09TSSKchoB3FkMhsH0P+eaLyAnuRfUFjVhnMna/VQV6YnsI9z4akYgpoJeH3jXvw
+ YdzcrlQ3/hi0Iy8bJcvK+xRPCiVSriQS57YHYuH16vc+RIdYjsUxxNOU2T+06WhfmYn0
+ B0eoTi2CcgS9cr8s/X9uCkezK2EZP/m7iRmA823p001F6MY2Y7QFUs4ksIfqCyomSJ3a
+ pggyiPc/aGyNXs1KHrKDljcSC3AhhCk2nUmT0ymq7D9CHKK1aKx/CWntYIikbFCWa7Yp
+ wicQ==
+X-Gm-Message-State: AOAM533ZYJeWYvIp6hbE7H8iKjmygzhCKm7I11DKQD6CfNiIrbic+tXp
+ 14nAVF6pG8tMlmHNQb7BXKBkf85e/SM=
+X-Google-Smtp-Source: ABdhPJzn1vEhu3bWNINfrUH4IlHRDhOyZTM5Rr6/CueuFg55HYzFq/5BYJocgMN50qBBIF+3eEgakw==
+X-Received: by 2002:a05:6a00:15d0:: with SMTP id
+ o16mr3722269pfu.19.1643303440786; 
+ Thu, 27 Jan 2022 09:10:40 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ 84sm5779217pgd.66.2022.01.27.09.10.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jan 2022 09:04:19 -0800 (PST)
-From: Daniel Thompson <daniel.thompson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 27 Jan 2022 17:04:05 +0000
-Message-Id: <20220127170405.155710-1-daniel.thompson@linaro.org>
+ Thu, 27 Jan 2022 09:10:39 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 27 Jan 2022 09:10:37 -0800
+Message-Id: <20220127171045.541341-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Remove spurious IRQF_ONESHOT flags
- from dsi & hdmi
+Subject: [Freedreno] [PATCH 0/2] drm/msm: Add tracking for faults associated
+ with an address space
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,67 +68,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Thompson <daniel.thompson@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Yangtao Li <tiny.windzz@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting the header comments, IRQF_ONESHOT is "Used by threaded interrupts
-which need to keep the irq line disabled until the threaded handler has
-been run.". When applied to an interrupt that doesn't request a threaded
-irq then IRQF_ONESHOT has a lesser known (undocumented?) side effect,
-which it to disable the forced threading of irqs (and for "normal" kernels
-it is a nop). In this case I can find no evidence that suppressing forced
-threading is intentional. Had it been intentional then a driver must adopt
-the raw_spinlock API in order to avoid deadlocks on PREEMPT_RT kernels
-(and avoid calling any kernel API that uses regular spinlocks).
+From: Rob Clark <robdclark@chromium.org>
 
-Fix this by removing the spurious additional flag.
+Currently, for GL_EXT_robustness userspace uses the global and per-
+submitqueue fault counters to determine GUILTY_CONTEXT_RESET_EXT vs
+INNOCENT_CONTEXT_RESET_EXT.  But that is a bit overly paranoid, in
+that a fault in a different process's context (when it has it's own
+isolated address space) should not hurt anything.
 
-This change is required for my Snapdragon 7cx Gen2 tablet to boot-to-GUI
-with PREEMPT_RT enabled.
+This is particularly annoying with CrOS and chrome's exit_on_context_lost quirk,
+while running deqp in the android container, as the deqp-egl suite has
+tests that intentionally trigger gpu hangs (for the purpose of testing
+the robustness extension), which triggers chrome to restart, which
+restarts the android container!
 
-Signed-off-by: Daniel Thompson <daniel.thompson@linaro.org>
----
+This new param gives userspace a way to ignore faults triggered by other
+processes.
 
-Notes:
-    Just in case anybody asks, yes! I did use coccinelle to do a quick scan
-    for similar issues. I didn't find any other instances in drivers/drm/ .
+Applies on top of https://patchwork.freedesktop.org/series/98907/
 
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
- drivers/gpu/drm/msm/hdmi/hdmi.c    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Rob Clark (2):
+  drm/msm/gpu: Add ctx to get_param()
+  drm/msm/gpu: Add param to get address space faults
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 6b3ced4aaaf5d..3a3f53f0c8ae1 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1877,7 +1877,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 6 +++++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h | 3 ++-
+ drivers/gpu/drm/msm/msm_drv.c           | 4 +++-
+ drivers/gpu/drm/msm/msm_gem.h           | 3 +++
+ drivers/gpu/drm/msm/msm_gpu.c           | 1 +
+ drivers/gpu/drm/msm/msm_gpu.h           | 3 ++-
+ drivers/gpu/drm/msm/msm_rd.c            | 6 ++++--
+ include/uapi/drm/msm_drm.h              | 3 ++-
+ 8 files changed, 22 insertions(+), 7 deletions(-)
 
- 	/* do not autoenable, will be enabled later */
- 	ret = devm_request_irq(&pdev->dev, msm_host->irq, dsi_host_irq,
--			IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+			IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
- 			"dsi_isr", msm_host);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "failed to request IRQ%u: %d\n",
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 3acdeae25caf0..a1bfbc4c74bf7 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -301,7 +301,7 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
- 	}
-
- 	ret = devm_request_irq(&pdev->dev, hdmi->irq,
--			msm_hdmi_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-+			msm_hdmi_irq, IRQF_TRIGGER_HIGH,
- 			"hdmi_isr", hdmi);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(dev->dev, "failed to request IRQ%u: %d\n",
-
-base-commit: e783362eb54cd99b2cac8b3a9aeac942e6f6ac07
---
+-- 
 2.34.1
 
