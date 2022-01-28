@@ -2,54 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F9B49EC1E
-	for <lists+freedreno@lfdr.de>; Thu, 27 Jan 2022 21:04:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3B749FD83
+	for <lists+freedreno@lfdr.de>; Fri, 28 Jan 2022 17:02:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3808510E271;
-	Thu, 27 Jan 2022 20:04:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F0610F263;
+	Fri, 28 Jan 2022 16:02:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C573A10E306
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jan 2022 20:04:56 +0000 (UTC)
-Received: by mail-qt1-x836.google.com with SMTP id w6so3470691qtk.4
- for <freedreno@lists.freedesktop.org>; Thu, 27 Jan 2022 12:04:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=411z1vQK/uyJWyTA0mh5NoWT3UN44dWhOArvuxGcycY=;
- b=oqRkdvd05f1e+XOO+JL4So5nZNRq09NGBnqQML56y2IHYB2M7bFhId/11Tca1Aj5S4
- ED4cp4aEOW88tsIH707iF2iLcRhJeLhqc7G8uPFq36JBhPk2QtQE7vet9vRYJP9Nw38j
- zHY0sGW1Wuk9tkBp1drE/8KJRmGr2HtC5EH/XYpvvFJD265ufrr4ID11f0Kf5l7jbiU8
- YKFAjQ8McWwDhnsO1sMqI/2TbNwJrryEDi4imukFHLSLdr7G6cz76YxV5XdZyBW0RDkW
- wiQRqKcD0QWK71lJkas0XCt2Pk3oc1TKjQ5OY/+nL3QJtb+CxYKJygokfdonUOL/rliM
- N32Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=411z1vQK/uyJWyTA0mh5NoWT3UN44dWhOArvuxGcycY=;
- b=tovufm1RV4Gd6XG7dyOO5IRN/uCw15Zj6VHCPkkt8b0yAQ12wYJGuk8HJckE0YcygQ
- T7l4iUMAyYDbjQ+xmcnt8Tc+Jt9zN+GoDdSX3VTVUCqKbBr9fgmGuRyZteXlhjgHt8Ga
- 8vbctiEVX3XUe2dLgQ/PfSOHoQAcesKLeF079GFNmdIhxqAhgqw29/1phJ1ad238cGdo
- qWAuZs7oonyPcJlwKLEX6y7XvabQFLGInBlNdR6bRkpGnZdBs0OlRK8m/LQCJNLlg7iu
- HWzvplW8IHIlknrMe3Gd2Tiw4YJNUq1dPP4qJr9wXwp7u6He3gud5TI7aNj3Kbe9+5Qn
- vkmw==
-X-Gm-Message-State: AOAM532NT4vIomzTt8RgcjhDeYoRgTtW8tPVxHgM/UlfJlDTyD/mKKrg
- CmhP3lObOGsQqXa1Hv9Zxl/9CnJ8LegGN2aspQHomA==
-X-Google-Smtp-Source: ABdhPJxePmdXDwHCxiW5q8xf/FWoojenXjiwrAx6L9NdYYB7Ajr4VQCV3G0OxdGpcxK9NDBSGfbx39EpN+TiZyB9H08=
-X-Received: by 2002:ac8:7fca:: with SMTP id b10mr4156416qtk.62.1643313895857; 
- Thu, 27 Jan 2022 12:04:55 -0800 (PST)
+X-Greylist: delayed 1337 seconds by postgrey-1.36 at gabe;
+ Fri, 28 Jan 2022 15:54:06 UTC
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE19D10EEA0;
+ Fri, 28 Jan 2022 15:54:06 +0000 (UTC)
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20SAlQGQ004181;
+ Fri, 28 Jan 2022 09:31:26 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ references : in-reply-to : subject : date : message-id : mime-version :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=wL0zJBiKIWod4uzVo58UrUjP2I3Psupby3Ex3AeWzPQ=;
+ b=Mcq8z9yB9JWAcj/MHgRaOFISzsoLZgyA1Bs4Dxm6yBQlWxHLwvPLFgXWINFPhFp06Jiv
+ efD+NVFGDKjekxesvNZ4DQdRZ0lJSabTYzPm9R4UkoUisHBD6rjtUbtNMbFf1y2FsBPO
+ psMe2WdnL+5Qn25G5kwaph14y0YNNQFF/52aWoJfMxlIBsN6Bw0b3Bw1s0HSrl0ePFof
+ BJSfG6mmdDBn0GiBa8QRH9b5EYtx3LyxSw5DFEWJTpGh2AShjVQpgwNeCKTtPR4cRBIz
+ bX0h8lNsAcFeQXHlIUY7bgWxBrVyrEvI7YZqIrwoE0SHlKqwlW8ncgIdHd1eB7iu0KWM MQ== 
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3dv90rrhu4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 28 Jan 2022 09:31:26 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Fri, 28 Jan
+ 2022 15:31:24 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.2375.18 via
+ Frontend Transport; Fri, 28 Jan 2022 15:31:24 +0000
+Received: from LONN2DGDQ73 (unknown [198.90.238.118])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5A1E52A9;
+ Fri, 28 Jan 2022 15:31:24 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: 'Stephen Boyd' <swboyd@chromium.org>, 'Greg Kroah-Hartman'
+ <gregkh@linuxfoundation.org>, 'Douglas Anderson' <dianders@chromium.org>
+References: <20220127200141.1295328-1-swboyd@chromium.org>
+ <20220127200141.1295328-34-swboyd@chromium.org>
+In-Reply-To: <20220127200141.1295328-34-swboyd@chromium.org>
+Date: Fri, 28 Jan 2022 15:31:24 +0000
+Message-ID: <003d01d8145c$1bfc83b0$53f58b10$@opensource.cirrus.com>
 MIME-Version: 1.0
-References: <20220127170405.155710-1-daniel.thompson@linaro.org>
-In-Reply-To: <20220127170405.155710-1-daniel.thompson@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 27 Jan 2022 23:04:44 +0300
-Message-ID: <CAA8EJppWF27As46rRvYgHuqX=dwna2CQGZ79WXdrfqFbAK53uw@mail.gmail.com>
-To: Daniel Thompson <daniel.thompson@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Remove spurious IRQF_ONESHOT flags
- from dsi & hdmi
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQKTHzAglPObqNN3HmQB0+j3AO7d5wDuIK/MqvsC3oA=
+Content-Language: en-gb
+X-Proofpoint-ORIG-GUID: K_LOQM8TjPJrzG6NLbyR90eIF2EODU3A
+X-Proofpoint-GUID: K_LOQM8TjPJrzG6NLbyR90eIF2EODU3A
+X-Proofpoint-Spam-Reason: safe
+X-Mailman-Approved-At: Fri, 28 Jan 2022 16:02:28 +0000
+Subject: Re: [Freedreno] [PATCH v6 33/35] ALSA: hda/realtek: Migrate to
+ aggregate driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,79 +74,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: 'Saravana Kannan' <saravanak@google.com>,
+ 'Lucas Tanure' <tanureal@opensource.cirrus.com>,
+ "'Rafael J. Wysocki'" <rafael@kernel.org>, 'Takashi Iwai' <tiwai@suse.de>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 'Rob Clark' <robdclark@gmail.com>,
+ 'Daniel Vetter' <daniel.vetter@ffwll.ch>,
+ 'Russell King' <rmk+kernel@arm.linux.org.uk>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 27 Jan 2022 at 20:04, Daniel Thompson
-<daniel.thompson@linaro.org> wrote:
->
-> Quoting the header comments, IRQF_ONESHOT is "Used by threaded interrupts
-> which need to keep the irq line disabled until the threaded handler has
-> been run.". When applied to an interrupt that doesn't request a threaded
-> irq then IRQF_ONESHOT has a lesser known (undocumented?) side effect,
-> which it to disable the forced threading of irqs (and for "normal" kernels
-> it is a nop). In this case I can find no evidence that suppressing forced
-> threading is intentional. Had it been intentional then a driver must adopt
-> the raw_spinlock API in order to avoid deadlocks on PREEMPT_RT kernels
-> (and avoid calling any kernel API that uses regular spinlocks).
->
-> Fix this by removing the spurious additional flag.
->
-> This change is required for my Snapdragon 7cx Gen2 tablet to boot-to-GUI
-> with PREEMPT_RT enabled.
->
-> Signed-off-by: Daniel Thompson <daniel.thompson@linaro.org>
 
-Could you please split it into two parts: separate DSI and HDMI patches
 
+> -----Original Message-----
+> From: Stephen Boyd <swboyd@chromium.org>
+> Sent: 27 January 2022 20:02
+> To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>; Douglas Anderson
+> <dianders@chromium.org>
+> Cc: linux-kernel@vger.kernel.org; linux-arm-msm@vger.kernel.org; dri-
+> devel@lists.freedesktop.org; freedreno@lists.freedesktop.org; Stefan
+> Binding <sbinding@opensource.cirrus.com>; Lucas Tanure
+> <tanureal@opensource.cirrus.com>; Takashi Iwai <tiwai@suse.de>; Daniel
+> Vetter <daniel.vetter@ffwll.ch>; Rafael J. Wysocki <rafael@kernel.org>;
+Rob
+> Clark <robdclark@gmail.com>; Russell King <rmk+kernel@arm.linux.org.uk>;
+> Saravana Kannan <saravanak@google.com>
+> Subject: [PATCH v6 33/35] ALSA: hda/realtek: Migrate to aggregate driver
+> 
+> Use an aggregate driver instead of component ops so that we can get
+> proper driver probe ordering of the aggregate device with respect to all
+> the component devices that make up the aggregate device.
+> 
+> Cc: Stefan Binding <sbinding@opensource.cirrus.com>
+> Cc: Lucas Tanure <tanureal@opensource.cirrus.com>
+> Cc: Takashi Iwai <tiwai@suse.de>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Russell King <rmk+kernel@arm.linux.org.uk>
+> Cc: Saravana Kannan <saravanak@google.com>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 > ---
->
-> Notes:
->     Just in case anybody asks, yes! I did use coccinelle to do a quick scan
->     for similar issues. I didn't find any other instances in drivers/drm/ .
->
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
->  drivers/gpu/drm/msm/hdmi/hdmi.c    | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 6b3ced4aaaf5d..3a3f53f0c8ae1 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1877,7 +1877,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
->
->         /* do not autoenable, will be enabled later */
->         ret = devm_request_irq(&pdev->dev, msm_host->irq, dsi_host_irq,
-> -                       IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +                       IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
->                         "dsi_isr", msm_host);
->         if (ret < 0) {
->                 dev_err(&pdev->dev, "failed to request IRQ%u: %d\n",
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> index 3acdeae25caf0..a1bfbc4c74bf7 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-> @@ -301,7 +301,7 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
->         }
->
->         ret = devm_request_irq(&pdev->dev, hdmi->irq,
-> -                       msm_hdmi_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-> +                       msm_hdmi_irq, IRQF_TRIGGER_HIGH,
->                         "hdmi_isr", hdmi);
->         if (ret < 0) {
->                 DRM_DEV_ERROR(dev->dev, "failed to request IRQ%u: %d\n",
->
-> base-commit: e783362eb54cd99b2cac8b3a9aeac942e6f6ac07
+>  sound/pci/hda/patch_realtek.c | 20 +++++++++++++-------
+>  1 file changed, 13 insertions(+), 7 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 668274e52674..80a2164c99b6 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -6547,25 +6547,31 @@ static int find_comp_by_dev_name(struct
+> alc_spec *spec, const char *name)
+>  	return -ENODEV;
+>  }
+> 
+> -static int comp_bind(struct device *dev)
+> +static int realtek_aggregate_probe(struct aggregate_device *adev)
+>  {
+> +	struct device *dev = aggregate_device_parent(adev);
+>  	struct hda_codec *cdc = dev_to_hda_codec(dev);
+>  	struct alc_spec *spec = cdc->spec;
+> 
+>  	return component_bind_all(dev, spec->comps);
+>  }
+> 
+> -static void comp_unbind(struct device *dev)
+> +static void realtek_aggregate_remove(struct aggregate_device *adev)
+>  {
+> +	struct device *dev = aggregate_device_parent(adev);
+>  	struct hda_codec *cdc = dev_to_hda_codec(dev);
+>  	struct alc_spec *spec = cdc->spec;
+> 
+>  	component_unbind_all(dev, spec->comps);
+>  }
+> 
+> -static const struct component_master_ops comp_master_ops = {
+> -	.bind = comp_bind,
+> -	.unbind = comp_unbind,
+> +static struct aggregate_driver realtek_aggregate_driver = {
+> +	.probe = realtek_aggregate_probe,
+> +	.remove = realtek_aggregate_remove,
+> +	.driver = {
+> +		.name = "realtek_aggregate",
+> +		.owner = THIS_MODULE,
+> +	},
+>  };
+> 
+>  static void comp_generic_playback_hook(struct hda_pcm_stream *hinfo,
+> struct hda_codec *cdc,
+> @@ -6597,7 +6603,7 @@ static void cs35l41_generic_fixup(struct hda_codec
+> *cdc, int action, const char
+>  				return;
+>  			component_match_add(dev, &spec->match,
+> comp_match_dev_name, name);
+>  		}
+> -		ret = component_master_add_with_match(dev,
+> &comp_master_ops, spec->match);
+> +		ret = component_aggregate_register(dev,
+> &realtek_aggregate_driver, spec->match);
+>  		if (ret)
+>  			codec_err(cdc, "Fail to register component
+> aggregator %d\n", ret);
+>  		else
+> @@ -6648,7 +6654,7 @@ static void
+> alc287_fixup_legion_16achg6_speakers(struct hda_codec *cdc, const st
+>  				    "i2c-CLSA0100:00-cs35l41-hda.0");
+>  		component_match_add(dev, &spec->match,
+> comp_match_dev_name,
+>  				    "i2c-CLSA0100:00-cs35l41-hda.1");
+> -		ret = component_master_add_with_match(dev,
+> &comp_master_ops, spec->match);
+> +		ret = component_aggregate_register(dev,
+> &realtek_aggregate_driver, spec->match);
+>  		if (ret)
+>  			codec_err(cdc, "Fail to register component
+> aggregator %d\n", ret);
+>  		else
 > --
-> 2.34.1
->
+> https://chromeos.dev
+
+Tested locally, and no issues found.
+Tested-by: Stefan Binding <sbinding@opensource.cirrus.com>
+
+Thanks,
+Stefan
 
 
--- 
-With best wishes
-Dmitry
