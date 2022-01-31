@@ -1,45 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D96B4A4C38
-	for <lists+freedreno@lfdr.de>; Mon, 31 Jan 2022 17:34:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B7B4A4CC0
+	for <lists+freedreno@lfdr.de>; Mon, 31 Jan 2022 18:08:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA94310E501;
-	Mon, 31 Jan 2022 16:34:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8C310E146;
+	Mon, 31 Jan 2022 17:08:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC9C10E501;
- Mon, 31 Jan 2022 16:34:31 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3A7D8B82B88;
- Mon, 31 Jan 2022 16:34:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D037C340EE;
- Mon, 31 Jan 2022 16:34:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1643646869;
- bh=iUPEf5V4PpA5R8OvwYP58mWshnJmeklBvgOMRATEx9o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wva8EIbvnpW8cJPrNOPi+vyyASSZjyTjskajx/dF10/n8F3bIGaVKIiaGLS/dIiVF
- +NaVLElqlW7pXYo3Ml8/CRm6lErj2lAS3OtI+fZvRHOPpRpT3Wrsf5ZADohL28FVfC
- avygLh9k4T1iLF5gEuyiIxxPiYLP4KEFI8RADcoo=
-Date: Mon, 31 Jan 2022 17:34:26 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <YfgPkliOLorgXwVE@kroah.com>
-References: <20220127200141.1295328-1-swboyd@chromium.org>
- <20220127200141.1295328-3-swboyd@chromium.org>
- <YffoqgmeUdxZ56zB@kroah.com>
- <CAKMK7uFYyQ9siB5ENHku+yVPWWM1H=TEn-NZofEKqpJnuEvMmw@mail.gmail.com>
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D630110E146
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jan 2022 17:08:08 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id e9so20358243ljq.1
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jan 2022 09:08:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=/EaEyhzCIbFmfpodVJ7dpacp2ypf7n4AgPuvkTEGOOY=;
+ b=tUT4f9kYXLCkyG9XMROhPCHEj/blRGVVztFd+cV7Mx2DGtlcl8PBHZslsSYiO6TwmQ
+ e4D7YIygY66wgIphUWZBHxKmZs6LURwhSHNGVWYIHWSMasjL5bUGfInGWWPQhKPY9W6z
+ tQUJBeM+P3Yju8UJEvN5XiSZhNRXjccyLleTpYn0ipKdIXeORBzaExfcb0PgoVef2+om
+ KGVNrAo6flepE1iE0JgLQw0l9CXpjUdLUMzV0/wfilFsqhvjOi/OeHjnzljdIhfaDlO2
+ EPTgGcZOmoc9tsKYwqzYJTeMnyIDifwgAlN9JQQ7MbU9Zx66FuKRi1T6swFVOOzoi0gc
+ 482g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=/EaEyhzCIbFmfpodVJ7dpacp2ypf7n4AgPuvkTEGOOY=;
+ b=eTM/VoMMb5B9k8nt41n5jKv2u5qHXc2qGI/URBz4UVsKnNibmtffm5ifPRCbk6xlVs
+ +KNyKuJp6wG+jOloEjzT/DynK21E7WdTJzqFSInLYlfkFcUVxtOb3S6EFElgRjsEhLBt
+ MYSLYaVBdUANJ53hPCy8CfjsHiDKnxKuUF4yhTKc6Jgz8hdKaJFAknifCGahpj3ldPaQ
+ ynlJWiASGcjkDiXJNv0bSxpGteyZnAyo+hAnLQwsbiT6b6hvuRfXGtZ56GrT/vGUF+Wg
+ IhworAGMugrMNlcCAqb4CUEXwAvTVI11p3ynwKiFxU+w0Y+kTmFcDRmwPurQ2eoK5SvR
+ 7UqA==
+X-Gm-Message-State: AOAM531fe+UxRKFHKJhCV7D5SB0yBGrgpQFJv02ENmuV+x9ufVpT9VVD
+ plSuZ2egQblCJPeAiBkL2R90Vg==
+X-Google-Smtp-Source: ABdhPJzmrb4zy6Nh2fq3C0Gxf2HNJj9/nitZcM9OhiZ9fF07QxAg1rXwYAgYRfxqDdzLQA/Cxlb48g==
+X-Received: by 2002:a2e:3509:: with SMTP id z9mr14239807ljz.488.1643648887038; 
+ Mon, 31 Jan 2022 09:08:07 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id f11sm2799798lfg.132.2022.01.31.09.08.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Jan 2022 09:08:06 -0800 (PST)
+Message-ID: <29240a62-c498-0fe6-221f-64177750ac35@linaro.org>
+Date: Mon, 31 Jan 2022 20:08:05 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uFYyQ9siB5ENHku+yVPWWM1H=TEn-NZofEKqpJnuEvMmw@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v6 02/35] component: Introduce the aggregate
- bus_type
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-GB
+To: Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <1643573719-32095-1-git-send-email-quic_rajeevny@quicinc.com>
+ <1643573719-32095-4-git-send-email-quic_rajeevny@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1643573719-32095-4-git-send-email-quic_rajeevny@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [v5 3/3] drm/msm/dsi: Add 10nm dsi phy tuning
+ configuration support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,99 +75,225 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saravana Kannan <saravanak@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Russell King <rmk+kernel@arm.linux.org.uk>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, robh@kernel.org, jonathan@marek.ca,
+ airlied@linux.ie, linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com,
+ robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
+ daniel@ffwll.ch, swboyd@chromium.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Jan 31, 2022 at 04:15:09PM +0100, Daniel Vetter wrote:
-> On Mon, Jan 31, 2022 at 2:48 PM Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Thu, Jan 27, 2022 at 12:01:08PM -0800, Stephen Boyd wrote:
-> > > The component framework only provides 'bind' and 'unbind' callbacks to
-> > > tell the host driver that it is time to assemble the aggregate driver
-> > > now that all the components have probed. The component framework doesn't
-> > > attempt to resolve runtime PM or suspend/resume ordering, and explicitly
-> > > mentions this in the code. This lack of support leads to some pretty
-> > > gnarly usages of the 'prepare' and 'complete' power management hooks in
-> > > drivers that host the aggregate device, and it fully breaks down when
-> > > faced with ordering shutdown between the various components, the
-> > > aggregate driver, and the host driver that registers the whole thing.
-> > >
-> > > In a concrete example, the MSM display driver at drivers/gpu/drm/msm is
-> > > using 'prepare' and 'complete' to call the drm helpers
-> > > drm_mode_config_helper_suspend() and drm_mode_config_helper_resume()
-> > > respectively, so that it can move the aggregate driver suspend/resume
-> > > callbacks to be before and after the components that make up the drm
-> > > device call any suspend/resume hooks they have. This only works as long
-> > > as the component devices don't do anything in their own 'prepare' and
-> > > 'complete' callbacks. If they did, then the ordering would be incorrect
-> > > and we would be doing something in the component drivers before the
-> > > aggregate driver could do anything. Yuck!
-> > >
-> > > Similarly, when trying to add shutdown support to the MSM driver we run
-> > > across a problem where we're trying to shutdown the drm device via
-> > > drm_atomic_helper_shutdown(), but some of the devices in the encoder
-> > > chain have already been shutdown. This time, the component devices
-> > > aren't the problem (although they could be if they did anything in their
-> > > shutdown callbacks), but there's a DSI to eDP bridge in the encoder
-> > > chain that has already been shutdown before the driver hosting the
-> > > aggregate device runs shutdown. The ordering of driver probe is like
-> > > this:
-> > >
-> > >  1. msm_pdev_probe() (host driver)
-> > >  2. DSI bridge
-> > >  3. aggregate bind
-> > >
-> > > When it comes to shutdown we have this order:
-> > >
-> > >  1. DSI bridge
-> > >  2. msm_pdev_shutdown() (host driver)
-> > >
-> > > and so the bridge is already off, but we want to communicate to it to
-> > > turn things off on the display during msm_pdev_shutdown(). Double yuck!
-> > > Unfortunately, this time we can't split shutdown into multiple phases
-> > > and swap msm_pdev_shutdown() with the DSI bridge.
-> > >
-> > > Let's make the component_master_ops into an actual device driver that has
-> > > probe/remove/shutdown functions. The driver will only be bound to the
-> > > aggregate device once all component drivers have called component_add()
-> > > to indicate they're ready to assemble the aggregate driver. This allows
-> > > us to attach shutdown logic (and in the future runtime PM logic) to the
-> > > aggregate driver so that it runs the hooks in the correct order.
-> >
-> > I know I asked before, but I can not remember the answer.
-> >
-> > This really looks like it is turning into the aux bus code.  Why can't
-> > you just use that instead here for this type of thing?  You are creating
-> > another bus and drivers for that bus that are "fake" which is great, but
-> > that's what the aux bus code was supposed to help out with, so we
-> > wouldn't have to write more of these.
-> >
-> > So, if this really is different, can you document it here so I remember
-> > next time you resend this patch series?
+On 30/01/2022 23:15, Rajeev Nandan wrote:
+> The clock and data lanes of the DSI PHY have a calibration circuitry
+> feature. As per the MSM DSI PHY tuning guidelines, the drive strength
+> tuning can be done by adjusting rescode offset for hstop/hsbot, and
+> the drive level tuning can be done by adjusting the LDO output level
+> for the HSTX drive.
 > 
-> aux takes a device and splits it into a lot of sub-devices, each with
-> their own driver.
+> Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+> ---
 > 
-> This takes a pile of devices, and turns it into a single logical
-> device with a single driver.
+> Changes in v2:
+>   - Split into generic code and 10nm-specific part (Dmitry Baryshkov)
+>   - Fix the backward compatibility (Dmitry Baryshkov)
 > 
-> So aux is 1:N, component is N:1.
+> Changes in v3:
+>   - Address comments for phy tuning data structure (Dmitry Baryshkov)
+>   - Make changes as per updated dt-bindings
 > 
-> And yes you asked this already, I typed this up already :-)
+> Changes in v4:
+>   - Return error in case of out of range values (Dmitry Baryshkov)
+>   - Return error if dt property is present but parsing is failing
+> 
+> Changes in v5:
+>   - Added missing printk arg ldo_level
+> 
+> 
+>   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 118 +++++++++++++++++++++++++++--
+>   1 file changed, 112 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> index d8128f5..86a6954 100644
+> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
+> @@ -83,6 +83,18 @@ struct dsi_pll_10nm {
+>   
+>   #define to_pll_10nm(x)	container_of(x, struct dsi_pll_10nm, clk_hw)
+>   
+> +/**
+> + * struct dsi_phy_10nm_tuning_cfg - Holds 10nm PHY tuning config parameters.
+> + * @rescode_offset_top: Offset for pull-up legs rescode.
+> + * @rescode_offset_bot: Offset for pull-down legs rescode.
+> + * @vreg_ctrl: vreg ctrl to drive LDO level
+> + */
+> +struct dsi_phy_10nm_tuning_cfg {
+> +	u8 rescode_offset_top[DSI_LANE_MAX];
+> +	u8 rescode_offset_bot[DSI_LANE_MAX];
+> +	u8 vreg_ctrl;
+> +};
+> +
+>   /*
+>    * Global list of private DSI PLL struct pointers. We need this for bonded DSI
+>    * mode, where the master PLL's clk_ops needs access the slave's private data
+> @@ -747,6 +759,7 @@ static void dsi_phy_hw_v3_0_lane_settings(struct msm_dsi_phy *phy)
+>   	int i;
+>   	u8 tx_dctrl[] = { 0x00, 0x00, 0x00, 0x04, 0x01 };
+>   	void __iomem *lane_base = phy->lane_base;
+> +	struct dsi_phy_10nm_tuning_cfg *tuning_cfg = phy->tuning_cfg;
+>   
+>   	if (phy->cfg->quirks & DSI_PHY_10NM_QUIRK_OLD_TIMINGS)
+>   		tx_dctrl[3] = 0x02;
+> @@ -775,10 +788,13 @@ static void dsi_phy_hw_v3_0_lane_settings(struct msm_dsi_phy *phy)
+>   		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_CFG2(i), 0x0);
+>   		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_CFG3(i),
+>   			      i == 4 ? 0x80 : 0x0);
+> -		dsi_phy_write(lane_base +
+> -			      REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i), 0x0);
+> -		dsi_phy_write(lane_base +
+> -			      REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i), 0x0);
+> +
+> +		/* platform specific dsi phy drive strength adjustment */
+> +		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i),
+> +				tuning_cfg->rescode_offset_top[i]);
+> +		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i),
+> +				tuning_cfg->rescode_offset_bot[i]);
+> +
+>   		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_TX_DCTRL(i),
+>   			      tx_dctrl[i]);
+>   	}
+> @@ -799,6 +815,7 @@ static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy,
+>   	u32 const timeout_us = 1000;
+>   	struct msm_dsi_dphy_timing *timing = &phy->timing;
+>   	void __iomem *base = phy->base;
+> +	struct dsi_phy_10nm_tuning_cfg *tuning_cfg = phy->tuning_cfg;
+>   	u32 data;
+>   
+>   	DBG("");
+> @@ -834,8 +851,9 @@ static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy,
+>   	/* Select MS1 byte-clk */
+>   	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_GLBL_CTRL, 0x10);
+>   
+> -	/* Enable LDO */
+> -	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL, 0x59);
+> +	/* Enable LDO with platform specific drive level/amplitude adjustment */
+> +	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL,
+> +		      tuning_cfg->vreg_ctrl);
+>   
+>   	/* Configure PHY lane swap (TODO: we need to calculate this) */
+>   	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_LANE_CFG0, 0x21);
+> @@ -922,6 +940,92 @@ static void dsi_10nm_phy_disable(struct msm_dsi_phy *phy)
+>   	DBG("DSI%d PHY disabled", phy->id);
+>   }
+>   
+> +static int dsi_10nm_phy_parse_dt(struct msm_dsi_phy *phy)
+> +{
+> +	struct device *dev = &phy->pdev->dev;
+> +	struct dsi_phy_10nm_tuning_cfg *tuning_cfg;
+> +	s8 offset_top[DSI_LANE_MAX] = { 0 }; /* No offset */
+> +	s8 offset_bot[DSI_LANE_MAX] = { 0 }; /* No offset */
+> +	u32 ldo_level = 400; /* 400mV */
+> +	u8 level;
+> +	int ret, i;
+> +
+> +	tuning_cfg = devm_kzalloc(dev, sizeof(*tuning_cfg), GFP_KERNEL);
+> +	if (!tuning_cfg)
+> +		return -ENOMEM;
+> +
+> +	/* Drive strength adjustment parameters */
+> +	ret = of_property_read_u8_array(dev->of_node, "qcom,phy-rescode-offset-top",
+> +					offset_top, DSI_LANE_MAX);
+> +	if (ret && ret != -EINVAL) {
+> +		DRM_DEV_ERROR(dev, "failed to parse qcom,phy-rescode-offset-top, %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	for (i = 0; i < DSI_LANE_MAX; i++) {
+> +		if (offset_top[i] < -32 || offset_top[i] > 31) {
+> +			DRM_DEV_ERROR(dev,
+> +				"qcom,phy-rescode-offset-top value %d is not in range [-32..31]\n",
+> +				offset_top[i]);
+> +			return -EINVAL;
+> +		}
+> +		tuning_cfg->rescode_offset_top[i] = 0x3f & offset_top[i];
+> +	}
+> +
+> +	ret = of_property_read_u8_array(dev->of_node, "qcom,phy-rescode-offset-bot",
+> +					offset_bot, DSI_LANE_MAX);
+> +	if (ret && ret != -EINVAL) {
+> +		DRM_DEV_ERROR(dev, "failed to parse qcom,phy-rescode-offset-bot, %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	for (i = 0; i < DSI_LANE_MAX; i++) {
+> +		if (offset_bot[i] < -32 || offset_bot[i] > 31) {
+> +			DRM_DEV_ERROR(dev,
+> +				"qcom,phy-rescode-offset-bot value %d is not in range [-32..31]\n",
+> +				offset_bot[i]);
+> +			return -EINVAL;
+> +		}
+> +		tuning_cfg->rescode_offset_bot[i] = 0x3f & offset_bot[i];
+> +	}
+> +
+> +	/* Drive level/amplitude adjustment parameters */
+> +	ret = of_property_read_u32(dev->of_node, "qcom,phy-drive-ldo-level", &ldo_level);
+> +	if (ret && ret != -EINVAL) {
+> +		DRM_DEV_ERROR(dev, "failed to parse qcom,phy-drive-ldo-level, %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	switch (ldo_level) {
+> +	case 375:
+> +		level = 0;
+> +		break;
+> +	case 400:
+> +		level = 1;
+> +		break;
+> +	case 425:
+> +		level = 2;
+> +		break;
+> +	case 450:
+> +		level = 3;
+> +		break;
+> +	case 475:
+> +		level = 4;
+> +		break;
+> +	case 500:
+> +		level = 5;
+> +		break;
+> +	default:
+> +		DRM_DEV_ERROR(dev, "qcom,phy-drive-ldo-level %d is not supported\n", ldo_level);
+> +		return -EINVAL;
+> +	}
+> +	tuning_cfg->vreg_ctrl = 0x58 | (0x7 & level);
+> +
+> +	phy->tuning_cfg = tuning_cfg;
+> +
+> +	return 0;
+> +}
+> +
+>   const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
+>   	.has_phy_lane = true,
+>   	.reg_cfg = {
+> @@ -936,6 +1040,7 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
+>   		.pll_init = dsi_pll_10nm_init,
+>   		.save_pll_state = dsi_10nm_pll_save_state,
+>   		.restore_pll_state = dsi_10nm_pll_restore_state,
+> +		.parse_dt_properties = dsi_10nm_phy_parse_dt,
+>   	},
+>   	.min_pll_rate = 1000000000UL,
+>   	.max_pll_rate = 3500000000UL,
+> @@ -957,6 +1062,7 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs = {
+>   		.pll_init = dsi_pll_10nm_init,
+>   		.save_pll_state = dsi_10nm_pll_save_state,
+>   		.restore_pll_state = dsi_10nm_pll_restore_state,
+> +		.parse_dt_properties = dsi_10nm_phy_parse_dt,
+>   	},
+>   	.min_pll_rate = 1000000000UL,
+>   	.max_pll_rate = 3500000000UL,
 
-Ok, thanks.  But then why is a bus needed if there's a single driver?
-I guess a bus for that driver?  So one bus, one driver, and one device?
 
-I think we need better documentation here...
-
-thanks,
-
-greg k-h
+-- 
+With best wishes
+Dmitry
