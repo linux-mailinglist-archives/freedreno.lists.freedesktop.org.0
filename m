@@ -2,38 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6953C4A4AA1
-	for <lists+freedreno@lfdr.de>; Mon, 31 Jan 2022 16:33:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D96B4A4C38
+	for <lists+freedreno@lfdr.de>; Mon, 31 Jan 2022 17:34:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC24310E4B2;
-	Mon, 31 Jan 2022 15:33:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA94310E501;
+	Mon, 31 Jan 2022 16:34:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30CA310E4B0;
- Mon, 31 Jan 2022 15:33:15 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 03CE21447;
- Mon, 31 Jan 2022 16:33:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1643643193;
- bh=eMAheiDAIWDxrcMKCOAT+TMinkKp+mNuDD2YkGykmEA=;
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC9C10E501;
+ Mon, 31 Jan 2022 16:34:31 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3A7D8B82B88;
+ Mon, 31 Jan 2022 16:34:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D037C340EE;
+ Mon, 31 Jan 2022 16:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1643646869;
+ bh=iUPEf5V4PpA5R8OvwYP58mWshnJmeklBvgOMRATEx9o=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PBaZx92jmIQ7yqnZiQLYizdQiTlGCn6AdWkP7elcXV9pe4j8FFi5kNz8+n1pBi7vU
- XLeOlunA+ixdDCKWBcEy7jaGXPvuRXBnFtOcdBOx2zkkgDsKwGRuPO7LH+b9z0EnTd
- 4Z5dMSOvUrQmHhP7JAcOU1e+ArXmA64MvoNyUFH0=
-Date: Mon, 31 Jan 2022 17:32:50 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ b=wva8EIbvnpW8cJPrNOPi+vyyASSZjyTjskajx/dF10/n8F3bIGaVKIiaGLS/dIiVF
+ +NaVLElqlW7pXYo3Ml8/CRm6lErj2lAS3OtI+fZvRHOPpRpT3Wrsf5ZADohL28FVfC
+ avygLh9k4T1iLF5gEuyiIxxPiYLP4KEFI8RADcoo=
+Date: Mon, 31 Jan 2022 17:34:26 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <YfgBIgqbCVSNGjfv@pendragon.ideasonboard.com>
+Message-ID: <YfgPkliOLorgXwVE@kroah.com>
 References: <20220127200141.1295328-1-swboyd@chromium.org>
  <20220127200141.1295328-3-swboyd@chromium.org>
  <YffoqgmeUdxZ56zB@kroah.com>
  <CAKMK7uFYyQ9siB5ENHku+yVPWWM1H=TEn-NZofEKqpJnuEvMmw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <CAKMK7uFYyQ9siB5ENHku+yVPWWM1H=TEn-NZofEKqpJnuEvMmw@mail.gmail.com>
 Subject: Re: [Freedreno] [PATCH v6 02/35] component: Introduce the aggregate
@@ -51,19 +53,19 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Saravana Kannan <saravanak@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- linux-arm-msm@vger.kernel.org, Russell King <rmk+kernel@arm.linux.org.uk>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Daniel,
-
 On Mon, Jan 31, 2022 at 04:15:09PM +0100, Daniel Vetter wrote:
-> On Mon, Jan 31, 2022 at 2:48 PM Greg Kroah-Hartman wrote:
+> On Mon, Jan 31, 2022 at 2:48 PM Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> wrote:
+> >
 > > On Thu, Jan 27, 2022 at 12:01:08PM -0800, Stephen Boyd wrote:
 > > > The component framework only provides 'bind' and 'unbind' callbacks to
 > > > tell the host driver that it is time to assemble the aggregate driver
@@ -138,15 +140,11 @@ On Mon, Jan 31, 2022 at 04:15:09PM +0100, Daniel Vetter wrote:
 > 
 > And yes you asked this already, I typed this up already :-)
 
-That's clear, but I'm still not sure why we need a bus for this :-) I'm
-not very enthousiastic about that. Some of our problems come from the
-fact we need to coordinate many devices, adding new ones hardly seem to
-be a solution to that. Granted, the components framework doesn't work
-nicely, and is in dire need of love (and documentation), or possibly
-better a complete replacement. I'll try to review the series this week
-and see if alternatives would be possible.
+Ok, thanks.  But then why is a bus needed if there's a single driver?
+I guess a bus for that driver?  So one bus, one driver, and one device?
 
--- 
-Regards,
+I think we need better documentation here...
 
-Laurent Pinchart
+thanks,
+
+greg k-h
