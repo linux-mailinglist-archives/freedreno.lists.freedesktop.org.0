@@ -1,68 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B7B4A4CC0
-	for <lists+freedreno@lfdr.de>; Mon, 31 Jan 2022 18:08:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC62D4A4DFB
+	for <lists+freedreno@lfdr.de>; Mon, 31 Jan 2022 19:24:40 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8C310E146;
-	Mon, 31 Jan 2022 17:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43EDA10E22C;
+	Mon, 31 Jan 2022 18:24:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D630110E146
- for <freedreno@lists.freedesktop.org>; Mon, 31 Jan 2022 17:08:08 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id e9so20358243ljq.1
- for <freedreno@lists.freedesktop.org>; Mon, 31 Jan 2022 09:08:08 -0800 (PST)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D8B10E22C
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jan 2022 18:24:38 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ b12-20020a9d754c000000b0059eb935359eso13839299otl.8
+ for <freedreno@lists.freedesktop.org>; Mon, 31 Jan 2022 10:24:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/EaEyhzCIbFmfpodVJ7dpacp2ypf7n4AgPuvkTEGOOY=;
- b=tUT4f9kYXLCkyG9XMROhPCHEj/blRGVVztFd+cV7Mx2DGtlcl8PBHZslsSYiO6TwmQ
- e4D7YIygY66wgIphUWZBHxKmZs6LURwhSHNGVWYIHWSMasjL5bUGfInGWWPQhKPY9W6z
- tQUJBeM+P3Yju8UJEvN5XiSZhNRXjccyLleTpYn0ipKdIXeORBzaExfcb0PgoVef2+om
- KGVNrAo6flepE1iE0JgLQw0l9CXpjUdLUMzV0/wfilFsqhvjOi/OeHjnzljdIhfaDlO2
- EPTgGcZOmoc9tsKYwqzYJTeMnyIDifwgAlN9JQQ7MbU9Zx66FuKRi1T6swFVOOzoi0gc
- 482g==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=ASaMitgkrmjvWUALYvAmhPqFdUVqEq221GRVmLCMeTE=;
+ b=rqsuJkGoTMqn8mFbQYyZwrLCcvhJUqSnNfCp4U3fwGRFtz9JLNTLwsE1uydNzvyUSM
+ isdT9xZQYAtg4or5rWFfGYqxH3n6p103IT0NkgD26NordbifY0CYtyFcr17pTq+jAKkm
+ 3F+tphZsX2ObGSnuXwjv870IQj0jpVBjfZQMEO+Eo/OrXqTmuoAYy1j6bJFKc3x1ksQz
+ sqPUqZOSJIbWMhNvzIW+EBtX7h/LVLVSW25oJvvWUdRO00niabFHoCsV9GkONfeAKr7x
+ Si6KxBjod6x7neUpuc3vi2Eo7WtnSoXOn0HiCrYM0JssDdzGY6MGE80iNlzi7T9XKbKd
+ ILhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/EaEyhzCIbFmfpodVJ7dpacp2ypf7n4AgPuvkTEGOOY=;
- b=eTM/VoMMb5B9k8nt41n5jKv2u5qHXc2qGI/URBz4UVsKnNibmtffm5ifPRCbk6xlVs
- +KNyKuJp6wG+jOloEjzT/DynK21E7WdTJzqFSInLYlfkFcUVxtOb3S6EFElgRjsEhLBt
- MYSLYaVBdUANJ53hPCy8CfjsHiDKnxKuUF4yhTKc6Jgz8hdKaJFAknifCGahpj3ldPaQ
- ynlJWiASGcjkDiXJNv0bSxpGteyZnAyo+hAnLQwsbiT6b6hvuRfXGtZ56GrT/vGUF+Wg
- IhworAGMugrMNlcCAqb4CUEXwAvTVI11p3ynwKiFxU+w0Y+kTmFcDRmwPurQ2eoK5SvR
- 7UqA==
-X-Gm-Message-State: AOAM531fe+UxRKFHKJhCV7D5SB0yBGrgpQFJv02ENmuV+x9ufVpT9VVD
- plSuZ2egQblCJPeAiBkL2R90Vg==
-X-Google-Smtp-Source: ABdhPJzmrb4zy6Nh2fq3C0Gxf2HNJj9/nitZcM9OhiZ9fF07QxAg1rXwYAgYRfxqDdzLQA/Cxlb48g==
-X-Received: by 2002:a2e:3509:: with SMTP id z9mr14239807ljz.488.1643648887038; 
- Mon, 31 Jan 2022 09:08:07 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id f11sm2799798lfg.132.2022.01.31.09.08.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Jan 2022 09:08:06 -0800 (PST)
-Message-ID: <29240a62-c498-0fe6-221f-64177750ac35@linaro.org>
-Date: Mon, 31 Jan 2022 20:08:05 +0300
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ASaMitgkrmjvWUALYvAmhPqFdUVqEq221GRVmLCMeTE=;
+ b=zAvsyQRhH1pfnj8vUDAjx0R3DSe1mXw+sTGeL73dPmSltuKuVro7LlLzTGLtAEvu8z
+ cpcqZ94u4QpiyJKYgFECosO+7bzl2jtU/8UPx6o3NgEeksz1GMWJTwT1mfh5nqnmFySV
+ 9ikFhulRVI1Fbs3U1zx0HvC5L/zxnIWcMziBN3ZWOtj0SAtPaDEV5csWCtPCIwHZ/a0J
+ DvEPFwVJdSHPNfyGKaE0/F/0/EpZeeb0wDxtQty0a54BUfxOIAoWgaGJaKGc3SdeJMgJ
+ N2h9oX3HZVNdWMrlSQpx92+mdW2/4et5YPa2Qg2QRhoxDFs9uGZOwVrNSQi2GiMXTtJ4
+ f3uQ==
+X-Gm-Message-State: AOAM532zb81JOlwjG/yMxaj7ASwLg19oIiEfQCJzFcrNo0bh+09MKMSQ
+ YGrSrwTCcCfWU1caG17JnHMSOg==
+X-Google-Smtp-Source: ABdhPJxgjyy80Q85q0aqiH2ROnY9l3ptaA8QRaWNJ6IMhnV4OxQaFvhJtYAM0/1o4A6hsHWQw7QnDg==
+X-Received: by 2002:a9d:3661:: with SMTP id w88mr12285764otb.245.1643653477318; 
+ Mon, 31 Jan 2022 10:24:37 -0800 (PST)
+Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
+ by smtp.gmail.com with ESMTPSA id y19sm3273722oti.49.2022.01.31.10.24.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Jan 2022 10:24:36 -0800 (PST)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ agross@kernel.org, linux-kernel@vger.kernel.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, robh+dt@kernel.org
+Date: Mon, 31 Jan 2022 12:24:25 -0600
+Message-Id: <164365345128.3009281.4776568093879192722.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <1637580369-876-1-git-send-email-quic_sbillaka@quicinc.com>
+References: <1637580369-876-1-git-send-email-quic_sbillaka@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-GB
-To: Rajeev Nandan <quic_rajeevny@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <1643573719-32095-1-git-send-email-quic_rajeevny@quicinc.com>
- <1643573719-32095-4-git-send-email-quic_rajeevny@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1643573719-32095-4-git-send-email-quic_rajeevny@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [v5 3/3] drm/msm/dsi: Add 10nm dsi phy tuning
- configuration support
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH v4 1/4] arm64: dts: qcom: sc7280: add
+ display dt nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,225 +73,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, robh@kernel.org, jonathan@marek.ca,
- airlied@linux.ie, linux-kernel@vger.kernel.org, quic_abhinavk@quicinc.com,
- robdclark@gmail.com, robh+dt@kernel.org, quic_mkrishn@quicinc.com,
- daniel@ffwll.ch, swboyd@chromium.org, sean@poorly.run
+Cc: quic_kalyant@quicinc.com, dianders@chromium.org, quic_abhinavk@quicinc.com,
+ swboyd@chromium.org, robdclark@gmail.com,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, seanpaul@chromium.org,
+ quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/01/2022 23:15, Rajeev Nandan wrote:
-> The clock and data lanes of the DSI PHY have a calibration circuitry
-> feature. As per the MSM DSI PHY tuning guidelines, the drive strength
-> tuning can be done by adjusting rescode offset for hstop/hsbot, and
-> the drive level tuning can be done by adjusting the LDO output level
-> for the HSTX drive.
+On Mon, 22 Nov 2021 16:56:06 +0530, Sankeerth Billakanti wrote:
+> From: Krishna Manikandan <quic_mkrishn@quicinc.com>
 > 
-> Signed-off-by: Rajeev Nandan <quic_rajeevny@quicinc.com>
+> Add mdss and mdp DT nodes for sc7280.
+> 
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Applied, thanks!
 
-> ---
-> 
-> Changes in v2:
->   - Split into generic code and 10nm-specific part (Dmitry Baryshkov)
->   - Fix the backward compatibility (Dmitry Baryshkov)
-> 
-> Changes in v3:
->   - Address comments for phy tuning data structure (Dmitry Baryshkov)
->   - Make changes as per updated dt-bindings
-> 
-> Changes in v4:
->   - Return error in case of out of range values (Dmitry Baryshkov)
->   - Return error if dt property is present but parsing is failing
-> 
-> Changes in v5:
->   - Added missing printk arg ldo_level
-> 
-> 
->   drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c | 118 +++++++++++++++++++++++++++--
->   1 file changed, 112 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> index d8128f5..86a6954 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c
-> @@ -83,6 +83,18 @@ struct dsi_pll_10nm {
->   
->   #define to_pll_10nm(x)	container_of(x, struct dsi_pll_10nm, clk_hw)
->   
-> +/**
-> + * struct dsi_phy_10nm_tuning_cfg - Holds 10nm PHY tuning config parameters.
-> + * @rescode_offset_top: Offset for pull-up legs rescode.
-> + * @rescode_offset_bot: Offset for pull-down legs rescode.
-> + * @vreg_ctrl: vreg ctrl to drive LDO level
-> + */
-> +struct dsi_phy_10nm_tuning_cfg {
-> +	u8 rescode_offset_top[DSI_LANE_MAX];
-> +	u8 rescode_offset_bot[DSI_LANE_MAX];
-> +	u8 vreg_ctrl;
-> +};
-> +
->   /*
->    * Global list of private DSI PLL struct pointers. We need this for bonded DSI
->    * mode, where the master PLL's clk_ops needs access the slave's private data
-> @@ -747,6 +759,7 @@ static void dsi_phy_hw_v3_0_lane_settings(struct msm_dsi_phy *phy)
->   	int i;
->   	u8 tx_dctrl[] = { 0x00, 0x00, 0x00, 0x04, 0x01 };
->   	void __iomem *lane_base = phy->lane_base;
-> +	struct dsi_phy_10nm_tuning_cfg *tuning_cfg = phy->tuning_cfg;
->   
->   	if (phy->cfg->quirks & DSI_PHY_10NM_QUIRK_OLD_TIMINGS)
->   		tx_dctrl[3] = 0x02;
-> @@ -775,10 +788,13 @@ static void dsi_phy_hw_v3_0_lane_settings(struct msm_dsi_phy *phy)
->   		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_CFG2(i), 0x0);
->   		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_CFG3(i),
->   			      i == 4 ? 0x80 : 0x0);
-> -		dsi_phy_write(lane_base +
-> -			      REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i), 0x0);
-> -		dsi_phy_write(lane_base +
-> -			      REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i), 0x0);
-> +
-> +		/* platform specific dsi phy drive strength adjustment */
-> +		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_OFFSET_TOP_CTRL(i),
-> +				tuning_cfg->rescode_offset_top[i]);
-> +		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_OFFSET_BOT_CTRL(i),
-> +				tuning_cfg->rescode_offset_bot[i]);
-> +
->   		dsi_phy_write(lane_base + REG_DSI_10nm_PHY_LN_TX_DCTRL(i),
->   			      tx_dctrl[i]);
->   	}
-> @@ -799,6 +815,7 @@ static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy,
->   	u32 const timeout_us = 1000;
->   	struct msm_dsi_dphy_timing *timing = &phy->timing;
->   	void __iomem *base = phy->base;
-> +	struct dsi_phy_10nm_tuning_cfg *tuning_cfg = phy->tuning_cfg;
->   	u32 data;
->   
->   	DBG("");
-> @@ -834,8 +851,9 @@ static int dsi_10nm_phy_enable(struct msm_dsi_phy *phy,
->   	/* Select MS1 byte-clk */
->   	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_GLBL_CTRL, 0x10);
->   
-> -	/* Enable LDO */
-> -	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL, 0x59);
-> +	/* Enable LDO with platform specific drive level/amplitude adjustment */
-> +	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_VREG_CTRL,
-> +		      tuning_cfg->vreg_ctrl);
->   
->   	/* Configure PHY lane swap (TODO: we need to calculate this) */
->   	dsi_phy_write(base + REG_DSI_10nm_PHY_CMN_LANE_CFG0, 0x21);
-> @@ -922,6 +940,92 @@ static void dsi_10nm_phy_disable(struct msm_dsi_phy *phy)
->   	DBG("DSI%d PHY disabled", phy->id);
->   }
->   
-> +static int dsi_10nm_phy_parse_dt(struct msm_dsi_phy *phy)
-> +{
-> +	struct device *dev = &phy->pdev->dev;
-> +	struct dsi_phy_10nm_tuning_cfg *tuning_cfg;
-> +	s8 offset_top[DSI_LANE_MAX] = { 0 }; /* No offset */
-> +	s8 offset_bot[DSI_LANE_MAX] = { 0 }; /* No offset */
-> +	u32 ldo_level = 400; /* 400mV */
-> +	u8 level;
-> +	int ret, i;
-> +
-> +	tuning_cfg = devm_kzalloc(dev, sizeof(*tuning_cfg), GFP_KERNEL);
-> +	if (!tuning_cfg)
-> +		return -ENOMEM;
-> +
-> +	/* Drive strength adjustment parameters */
-> +	ret = of_property_read_u8_array(dev->of_node, "qcom,phy-rescode-offset-top",
-> +					offset_top, DSI_LANE_MAX);
-> +	if (ret && ret != -EINVAL) {
-> +		DRM_DEV_ERROR(dev, "failed to parse qcom,phy-rescode-offset-top, %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	for (i = 0; i < DSI_LANE_MAX; i++) {
-> +		if (offset_top[i] < -32 || offset_top[i] > 31) {
-> +			DRM_DEV_ERROR(dev,
-> +				"qcom,phy-rescode-offset-top value %d is not in range [-32..31]\n",
-> +				offset_top[i]);
-> +			return -EINVAL;
-> +		}
-> +		tuning_cfg->rescode_offset_top[i] = 0x3f & offset_top[i];
-> +	}
-> +
-> +	ret = of_property_read_u8_array(dev->of_node, "qcom,phy-rescode-offset-bot",
-> +					offset_bot, DSI_LANE_MAX);
-> +	if (ret && ret != -EINVAL) {
-> +		DRM_DEV_ERROR(dev, "failed to parse qcom,phy-rescode-offset-bot, %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	for (i = 0; i < DSI_LANE_MAX; i++) {
-> +		if (offset_bot[i] < -32 || offset_bot[i] > 31) {
-> +			DRM_DEV_ERROR(dev,
-> +				"qcom,phy-rescode-offset-bot value %d is not in range [-32..31]\n",
-> +				offset_bot[i]);
-> +			return -EINVAL;
-> +		}
-> +		tuning_cfg->rescode_offset_bot[i] = 0x3f & offset_bot[i];
-> +	}
-> +
-> +	/* Drive level/amplitude adjustment parameters */
-> +	ret = of_property_read_u32(dev->of_node, "qcom,phy-drive-ldo-level", &ldo_level);
-> +	if (ret && ret != -EINVAL) {
-> +		DRM_DEV_ERROR(dev, "failed to parse qcom,phy-drive-ldo-level, %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	switch (ldo_level) {
-> +	case 375:
-> +		level = 0;
-> +		break;
-> +	case 400:
-> +		level = 1;
-> +		break;
-> +	case 425:
-> +		level = 2;
-> +		break;
-> +	case 450:
-> +		level = 3;
-> +		break;
-> +	case 475:
-> +		level = 4;
-> +		break;
-> +	case 500:
-> +		level = 5;
-> +		break;
-> +	default:
-> +		DRM_DEV_ERROR(dev, "qcom,phy-drive-ldo-level %d is not supported\n", ldo_level);
-> +		return -EINVAL;
-> +	}
-> +	tuning_cfg->vreg_ctrl = 0x58 | (0x7 & level);
-> +
-> +	phy->tuning_cfg = tuning_cfg;
-> +
-> +	return 0;
-> +}
-> +
->   const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
->   	.has_phy_lane = true,
->   	.reg_cfg = {
-> @@ -936,6 +1040,7 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_cfgs = {
->   		.pll_init = dsi_pll_10nm_init,
->   		.save_pll_state = dsi_10nm_pll_save_state,
->   		.restore_pll_state = dsi_10nm_pll_restore_state,
-> +		.parse_dt_properties = dsi_10nm_phy_parse_dt,
->   	},
->   	.min_pll_rate = 1000000000UL,
->   	.max_pll_rate = 3500000000UL,
-> @@ -957,6 +1062,7 @@ const struct msm_dsi_phy_cfg dsi_phy_10nm_8998_cfgs = {
->   		.pll_init = dsi_pll_10nm_init,
->   		.save_pll_state = dsi_10nm_pll_save_state,
->   		.restore_pll_state = dsi_10nm_pll_restore_state,
-> +		.parse_dt_properties = dsi_10nm_phy_parse_dt,
->   	},
->   	.min_pll_rate = 1000000000UL,
->   	.max_pll_rate = 3500000000UL,
+[1/4] arm64: dts: qcom: sc7280: add display dt nodes
+      commit: fcb68dfda5cbd816d27ac50c287833848874f61c
+[2/4] arm64: dts: qcom: sc7280: Add DSI display nodes
+      commit: 43137272f0bc5e05e4c4c6f7bfce017bfb9e16b5
+[3/4] arm64: dts: qcom: sc7280: add edp display dt nodes
+      commit: 25940788d170251373d8975d359706350818fa0f
 
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Bjorn Andersson <bjorn.andersson@linaro.org>
