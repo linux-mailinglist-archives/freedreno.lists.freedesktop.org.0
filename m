@@ -2,63 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8384A612D
-	for <lists+freedreno@lfdr.de>; Tue,  1 Feb 2022 17:16:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 356CB4A62D9
+	for <lists+freedreno@lfdr.de>; Tue,  1 Feb 2022 18:47:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5626410E6D7;
-	Tue,  1 Feb 2022 16:16:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC52210E47F;
+	Tue,  1 Feb 2022 17:47:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2195310E6D5;
- Tue,  1 Feb 2022 16:16:19 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- s2-20020a17090ad48200b001b501977b23so3521896pju.2; 
- Tue, 01 Feb 2022 08:16:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=soKMugPn64vQ/cfc9qI0s3Cw/G/MYetWeT20PxsquF4=;
- b=h3bPV0//plQxMZfuT+9RNiWxNYKrtEB83JukyF6bReF1l/KWFtaNff26CfLlGcSqce
- UO12LUvG5IKcYpA6gZyImS7dHlz97uDuPbonID3vUo9yKEnvATNCX8VKuxO5Whrm7no+
- r+Unjy0evx78N2PGYxUkJIWg6WQFtbLgVF5UqTGbh6ZoRVrbBAtbhJL6gJM7SVwBfBT5
- 9fg6IkCw3xYyTAjTGGtOxZ7K0pkg2su87bDZTkpNRHiqcPOe5R4eUI+ONpLliHYaj6E9
- bHLL6ktgqGvCuZzomRPWFbEQc4qwJqPh02kxb58YRDlTD6VwaWaYr0LBGS812pwAL+pc
- Nj0w==
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 287A410E1D3
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Feb 2022 17:47:48 +0000 (UTC)
+Received: by mail-wr1-x42b.google.com with SMTP id m14so33288233wrg.12
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Feb 2022 09:47:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=US/OKgVIq7RQTvUVVDRe6xDQAKQFvgSJ0bC4ZgbJ/HE=;
+ b=MYlzl6pGX5ozr5W0N8tzLgaoBaN7ZxAxMZrYHi1p9AMu45EI6sVmQjAh5LOzqZMZGn
+ A26oIIkNc9Hb3em44A15yWRmAxlv2YJy/wSzcMI+TRimEmqiTu7jV4xSM5H9Xdruqn8W
+ I41sDYM0ZJhdV+fycMWw99ORNq4UzOQwWJLFUhDisj7MSPt7hJooGByquusV3D78x5Lv
+ nf3S3iJ50zUvejLNPg5C7KJ7o3a02xx6vbYwHZT4Ab8GxX0OzLyOZP+SswKKtbk+2zJT
+ fwsVZD0lBkcVxYKQede0BS5A/ZoP3vVBaQB6HQsgBWpIAZdYk6JtrMWBXqVHjnXYYQOh
+ L3ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=soKMugPn64vQ/cfc9qI0s3Cw/G/MYetWeT20PxsquF4=;
- b=ZeitIu/QJvYJRVadwyFhIOYOC2HPCLsbLKdiGckLwe+V4NwARnheE9vUt1b/jE9I/W
- zLat9Wp/z0GGulYaX+oLC13EAkHMRV1hL8qCtIj9BnYABRNtGNcTRHy6UW36m6wC849c
- rOgJx7eGz/QgT0w0YBhwigDmHZNyAIlmVo4+T/8EMOytxn+FiL+PF4U7xjDcqYMkhXP+
- A21yqx3ezALailqhpXKW3kYR2Hdr02VrZ/EecjH6z6mUTNP+dPJA83qNLPMChEUFePXl
- jQ/a1VmELkoZcgMn3X6PxDefmnWijvfpTLUrhwvjU+eFGA3JwlXr2rdoApurOzbwcr4v
- 0K/w==
-X-Gm-Message-State: AOAM533gR3uc1xz12+hcAnEpTaYCuvHX0oddZtaU4bydzxowGqjBvhZX
- NnSfuwdTCxY+t2O083xEkbNhq6hA+1o=
-X-Google-Smtp-Source: ABdhPJyxK0MpVj2a1YNiDWbtzm8rzXl8lp2pT9v7xwVfV932u5By8bLQxW4ej3tKDuokrBkV4OGciA==
-X-Received: by 2002:a17:902:bf01:: with SMTP id
- bi1mr26784360plb.87.1643732177929; 
- Tue, 01 Feb 2022 08:16:17 -0800 (PST)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- d22sm15617930pfl.71.2022.02.01.08.16.16
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=US/OKgVIq7RQTvUVVDRe6xDQAKQFvgSJ0bC4ZgbJ/HE=;
+ b=E+WnkPGjXLef8kTRCmuIP/hNW86/2U85vxwmvJbUsQK0Zp6wJvRxfkJBMxa5DDik0u
+ qwkI/bb0LTRAJrkgWmqB4Wa4EuHakHer56RVvrfrPLlLxauvXQOkCr0HlzGPe3eE+Wej
+ +7SBjA98VSmb9NQc3cZyHn6ch17eDe0Qs37Y2lBAEWxPYjj7BExWig0nFbkJuxK0ALlS
+ THDObT6sxVxQgtT334BRkYe/Khb5NgxVgp7Dt348LUqIa1B4rwk8QXblEmQLwZEo5GkF
+ dHMtn/UPx2Q9UP9MU4+QDAfoqnH7ZmJM1ZsMZOP+b+UxAf2Gc4X2MWehDF97brbQaZx5
+ uznQ==
+X-Gm-Message-State: AOAM531XUOpJj19m9d9nupcenM8SkH1x2tdXeAsiya0XlFlnZu7yMyL3
+ yHA5JnqqIjN/7JAhiv8EYiw+IQ==
+X-Google-Smtp-Source: ABdhPJyv91uAdSZ2+/CfoH19SZ7LhCK1uLFNm/z3HHrAL22Qmg4Ltwk+rufuf/oFeWKR6aywDtXvFA==
+X-Received: by 2002:adf:e386:: with SMTP id e6mr2424961wrm.542.1643737666682; 
+ Tue, 01 Feb 2022 09:47:46 -0800 (PST)
+Received: from maple.lan (cpc141216-aztw34-2-0-cust174.18-1.cable.virginm.net.
+ [80.7.220.175])
+ by smtp.gmail.com with ESMTPSA id r2sm3392332wmq.24.2022.02.01.09.47.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Feb 2022 08:16:16 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  1 Feb 2022 08:16:12 -0800
-Message-Id: <20220201161618.778455-3-robdclark@gmail.com>
+ Tue, 01 Feb 2022 09:47:46 -0800 (PST)
+From: Daniel Thompson <daniel.thompson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Tue,  1 Feb 2022 17:47:31 +0000
+Message-Id: <20220201174734.196718-1-daniel.thompson@linaro.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220201161618.778455-1-robdclark@gmail.com>
-References: <20220201161618.778455-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/gpu: Track global faults per
- address-space
+Subject: [Freedreno] [PATCH v2 0/2] drm/msm: Remove spurious IRQF_ONESHOT
+ flags from dsi & hdmi
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,111 +68,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+Cc: Daniel Thompson <daniel.thompson@linaro.org>,
  David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Yangtao Li <tiny.windzz@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Yiwei Zhang <zzyiwei@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+This series corrects incorrect calls to
+request_irq(..., IRQF_ONESHOT, ...). These anomalies are harmless on
+regular kernels but cause odd behaviour on threadirq kernels and
+break entirely on PREEMPT_RT kernels
 
-Other processes don't need to know about faults that they are isolated
-from by virtue of address space isolation.  They are only interested in
-whether some of their state might have been corrupted.
+I'm pretty certain these problems would also provoke lockdep splats on
+kernels with CONFIG_PROVE_RAW_LOCK_NESTING enabled (because that is
+intended to find code that breaks entirely on PREEMPT_RT kernels ;-) ).
 
-But to be safe, also track unattributed faults.  This case should really
-never happen unless there is a kernel bug (and that would never happen,
-right?)
+Finally, and just in case anybody asks, yes! I did use coccinelle to do
+a quick scan for similar issues. I didn't find any other instances in
+drivers/drm/ .
 
-v2: Instead of adding a new param, just change the behavior of the
-    existing param to match what userspace actually wants [anholt]
+Changes in v2:
+ - Split into separate patches (Dmitry B)
 
-Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/5934
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 2 +-
- drivers/gpu/drm/msm/msm_gem.h           | 3 +++
- drivers/gpu/drm/msm/msm_gpu.c           | 8 +++++++-
- drivers/gpu/drm/msm/msm_gpu.h           | 5 ++++-
- 4 files changed, 15 insertions(+), 3 deletions(-)
+Daniel Thompson (2):
+  drm/msm/dsi: Remove spurious IRQF_ONESHOT flag
+  drm/msm/hdmi: Remove spurious IRQF_ONESHOT flag
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index caa9076197de..58dfb23cf2af 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -269,7 +269,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		*value = 0;
- 		return 0;
- 	case MSM_PARAM_FAULTS:
--		*value = gpu->global_faults;
-+		*value = gpu->global_faults + ctx->aspace->faults;
- 		return 0;
- 	case MSM_PARAM_SUSPENDS:
- 		*value = gpu->suspend_count;
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index 54ca0817d807..af612add5264 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -35,6 +35,9 @@ struct msm_gem_address_space {
- 	 * will be non-NULL:
- 	 */
- 	struct pid *pid;
-+
-+	/* @faults: the number of GPU hangs associated with this address space */
-+	int faults;
- };
- 
- struct msm_gem_vma {
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 2c1049c0ea14..942bf41403ff 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -370,8 +370,8 @@ static void recover_worker(struct kthread_work *work)
- 		struct task_struct *task;
- 
- 		/* Increment the fault counts */
--		gpu->global_faults++;
- 		submit->queue->faults++;
-+		submit->aspace->faults++;
- 
- 		task = get_pid_task(submit->pid, PIDTYPE_PID);
- 		if (task) {
-@@ -389,6 +389,12 @@ static void recover_worker(struct kthread_work *work)
- 		} else {
- 			msm_rd_dump_submit(priv->hangrd, submit, NULL);
- 		}
-+	} else {
-+		/*
-+		 * We couldn't attribute this fault to any particular context,
-+		 * so increment the global fault count instead.
-+		 */
-+		gpu->global_faults++;
- 	}
- 
- 	/* Record the crash state */
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index ba8407231340..c99627fc99dd 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -200,7 +200,10 @@ struct msm_gpu {
- 	/* does gpu need hw_init? */
- 	bool needs_hw_init;
- 
--	/* number of GPU hangs (for all contexts) */
-+	/**
-+	 * global_faults: number of GPU hangs not attributed to a particular
-+	 * address space
-+	 */
- 	int global_faults;
- 
- 	void __iomem *mmio;
--- 
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+
+base-commit: 26291c54e111ff6ba87a164d85d4a4e134b7315c
+--
 2.34.1
 
