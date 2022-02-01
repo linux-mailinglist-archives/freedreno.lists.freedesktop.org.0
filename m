@@ -1,61 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 356CB4A62D9
-	for <lists+freedreno@lfdr.de>; Tue,  1 Feb 2022 18:47:51 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35F8C4A62DA
+	for <lists+freedreno@lfdr.de>; Tue,  1 Feb 2022 18:47:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC52210E47F;
-	Tue,  1 Feb 2022 17:47:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A08AE10E1B7;
+	Tue,  1 Feb 2022 17:47:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 287A410E1D3
- for <freedreno@lists.freedesktop.org>; Tue,  1 Feb 2022 17:47:48 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id m14so33288233wrg.12
- for <freedreno@lists.freedesktop.org>; Tue, 01 Feb 2022 09:47:48 -0800 (PST)
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 228EC10E4E0
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Feb 2022 17:47:49 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id a13so33526847wrh.9
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Feb 2022 09:47:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=US/OKgVIq7RQTvUVVDRe6xDQAKQFvgSJ0bC4ZgbJ/HE=;
- b=MYlzl6pGX5ozr5W0N8tzLgaoBaN7ZxAxMZrYHi1p9AMu45EI6sVmQjAh5LOzqZMZGn
- A26oIIkNc9Hb3em44A15yWRmAxlv2YJy/wSzcMI+TRimEmqiTu7jV4xSM5H9Xdruqn8W
- I41sDYM0ZJhdV+fycMWw99ORNq4UzOQwWJLFUhDisj7MSPt7hJooGByquusV3D78x5Lv
- nf3S3iJ50zUvejLNPg5C7KJ7o3a02xx6vbYwHZT4Ab8GxX0OzLyOZP+SswKKtbk+2zJT
- fwsVZD0lBkcVxYKQede0BS5A/ZoP3vVBaQB6HQsgBWpIAZdYk6JtrMWBXqVHjnXYYQOh
- L3ng==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=R75JAp3M1abKRfmniOJ5Fuzudqh5/VKktmnzYEpT+SA=;
+ b=oc9p+IVnBHLB7LZf1r+Ni3OD5gI1bzBxGsS5LT4cHBQaWFBb8jmm09tcie0gM8UUXm
+ ibm81fKzJqBSY+FMLvG73EWI84K2BM1YX13xch+ZfGy/lkyDQmUlKPdd5ATMe4tP2qAY
+ q2LLC47PesQHEdn+4fhjytGJiJ8lZaxKwWYKNVKC7mTuna62YxR4MvheG0z2k8wcTm5P
+ y4irdy/vhh7Ze/iNid4lRN7TC6PRVv/3sRnZvxcMK59xmIrHUgLW9gCH7CvxL5r6bJsZ
+ 846qFCxExqndxRykCeG3S3C3H6tO3V8aBmYYve9TYbeFxWYiQ4I32VVGSXqXVIdVuoOC
+ Tc3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=US/OKgVIq7RQTvUVVDRe6xDQAKQFvgSJ0bC4ZgbJ/HE=;
- b=E+WnkPGjXLef8kTRCmuIP/hNW86/2U85vxwmvJbUsQK0Zp6wJvRxfkJBMxa5DDik0u
- qwkI/bb0LTRAJrkgWmqB4Wa4EuHakHer56RVvrfrPLlLxauvXQOkCr0HlzGPe3eE+Wej
- +7SBjA98VSmb9NQc3cZyHn6ch17eDe0Qs37Y2lBAEWxPYjj7BExWig0nFbkJuxK0ALlS
- THDObT6sxVxQgtT334BRkYe/Khb5NgxVgp7Dt348LUqIa1B4rwk8QXblEmQLwZEo5GkF
- dHMtn/UPx2Q9UP9MU4+QDAfoqnH7ZmJM1ZsMZOP+b+UxAf2Gc4X2MWehDF97brbQaZx5
- uznQ==
-X-Gm-Message-State: AOAM531XUOpJj19m9d9nupcenM8SkH1x2tdXeAsiya0XlFlnZu7yMyL3
- yHA5JnqqIjN/7JAhiv8EYiw+IQ==
-X-Google-Smtp-Source: ABdhPJyv91uAdSZ2+/CfoH19SZ7LhCK1uLFNm/z3HHrAL22Qmg4Ltwk+rufuf/oFeWKR6aywDtXvFA==
-X-Received: by 2002:adf:e386:: with SMTP id e6mr2424961wrm.542.1643737666682; 
- Tue, 01 Feb 2022 09:47:46 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=R75JAp3M1abKRfmniOJ5Fuzudqh5/VKktmnzYEpT+SA=;
+ b=bZhhhxRTdAkAF0eZnuRSgqgvSR2+OpmXxwKz0ArMAws+Adyjj9GGKrU6Fqs7jN67WM
+ ei3UZAHLcOkKlGOKpPf+mcMuAOwaJb4U41TV7zBx0kiAsHiSNfvTGL0pBm7NtO1PaIC8
+ sRGJWXZaQtd1e20G+FHSP69OQWsvzkoZ8ikK7Ia7VlYV45lrYYKASGZBhElj0phXk2lM
+ OzjS0HedJnEtB3aB2gBsShBda4agUbdIntTJMBI3Hp7kiaYPNN7+ZxFT/lCtk3Iqf5+R
+ Vh6YeMaXYcB4N+qJ1TRoCgTBbh3nGNjqsssaGN/xuZXbwZBE3CBhOhFO5VbI/Gpzzwy1
+ LB1A==
+X-Gm-Message-State: AOAM531+LTBcYTGCqLkeoJ5SSpwSahpq7/JllBP238UVXft94Zgt7gow
+ PCukhmIiBtolXO3SKU5ih3dbyw==
+X-Google-Smtp-Source: ABdhPJz+0uF1t9U/iG6eoJW1NBuaJp+mrqnVdnHAzVxmlbZS8+iIV8r1hEW+Y3SrEIxDg2ACIbSF1Q==
+X-Received: by 2002:adf:f141:: with SMTP id y1mr22073899wro.104.1643737667624; 
+ Tue, 01 Feb 2022 09:47:47 -0800 (PST)
 Received: from maple.lan (cpc141216-aztw34-2-0-cust174.18-1.cable.virginm.net.
  [80.7.220.175])
- by smtp.gmail.com with ESMTPSA id r2sm3392332wmq.24.2022.02.01.09.47.45
+ by smtp.gmail.com with ESMTPSA id r2sm3392332wmq.24.2022.02.01.09.47.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Feb 2022 09:47:46 -0800 (PST)
+ Tue, 01 Feb 2022 09:47:47 -0800 (PST)
 From: Daniel Thompson <daniel.thompson@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue,  1 Feb 2022 17:47:31 +0000
-Message-Id: <20220201174734.196718-1-daniel.thompson@linaro.org>
+Date: Tue,  1 Feb 2022 17:47:32 +0000
+Message-Id: <20220201174734.196718-2-daniel.thompson@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220201174734.196718-1-daniel.thompson@linaro.org>
+References: <20220201174734.196718-1-daniel.thompson@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/2] drm/msm: Remove spurious IRQF_ONESHOT
- flags from dsi & hdmi
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm/dsi: Remove spurious
+ IRQF_ONESHOT flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,32 +77,39 @@ Cc: Daniel Thompson <daniel.thompson@linaro.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series corrects incorrect calls to
-request_irq(..., IRQF_ONESHOT, ...). These anomalies are harmless on
-regular kernels but cause odd behaviour on threadirq kernels and
-break entirely on PREEMPT_RT kernels
+Quoting the header comments, IRQF_ONESHOT is "Used by threaded interrupts
+which need to keep the irq line disabled until the threaded handler has
+been run.". When applied to an interrupt that doesn't request a threaded
+irq then IRQF_ONESHOT has a lesser known (undocumented?) side effect,
+which it to disable the forced threading of irqs (and for "normal" kernels
+it is a nop). In this case I can find no evidence that suppressing forced
+threading is intentional. Had it been intentional then a driver must adopt
+the raw_spinlock API in order to avoid deadlocks on PREEMPT_RT kernels
+(and avoid calling any kernel API that uses regular spinlocks).
 
-I'm pretty certain these problems would also provoke lockdep splats on
-kernels with CONFIG_PROVE_RAW_LOCK_NESTING enabled (because that is
-intended to find code that breaks entirely on PREEMPT_RT kernels ;-) ).
+Fix this by removing the spurious additional flag.
 
-Finally, and just in case anybody asks, yes! I did use coccinelle to do
-a quick scan for similar issues. I didn't find any other instances in
-drivers/drm/ .
+This change is required for my Snapdragon 7cx Gen2 tablet to boot-to-GUI
+with PREEMPT_RT enabled.
 
-Changes in v2:
- - Split into separate patches (Dmitry B)
-
-Daniel Thompson (2):
-  drm/msm/dsi: Remove spurious IRQF_ONESHOT flag
-  drm/msm/hdmi: Remove spurious IRQF_ONESHOT flag
-
+Signed-off-by: Daniel Thompson <daniel.thompson@linaro.org>
+---
  drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
- drivers/gpu/drm/msm/hdmi/hdmi.c    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-base-commit: 26291c54e111ff6ba87a164d85d4a4e134b7315c
---
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 6b3ced4aaaf5d..3a3f53f0c8ae1 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1877,7 +1877,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
+ 
+ 	/* do not autoenable, will be enabled later */
+ 	ret = devm_request_irq(&pdev->dev, msm_host->irq, dsi_host_irq,
+-			IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
++			IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
+ 			"dsi_isr", msm_host);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "failed to request IRQ%u: %d\n",
+-- 
 2.34.1
 
