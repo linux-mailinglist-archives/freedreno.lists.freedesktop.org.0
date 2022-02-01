@@ -1,64 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16BBC4A62DF
-	for <lists+freedreno@lfdr.de>; Tue,  1 Feb 2022 18:47:55 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 720164A6799
+	for <lists+freedreno@lfdr.de>; Tue,  1 Feb 2022 23:14:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C15710E1D3;
-	Tue,  1 Feb 2022 17:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1F6289D1D;
+	Tue,  1 Feb 2022 22:14:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30CC210E4E0
- for <freedreno@lists.freedesktop.org>; Tue,  1 Feb 2022 17:47:50 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id h7so1742763wrc.5
- for <freedreno@lists.freedesktop.org>; Tue, 01 Feb 2022 09:47:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=7TPcuWXxFU6hWv6NeLAOie1udRWkhLJ1DWe5t2FsQ+M=;
- b=NuDwlgu6ILp+04FQNgBAsUPzgY4AJ4bWp5fA+81vgbrR5oDX2XCAO6zFTyz1N6KBkU
- 1kdQkH85xpE2ggU6G7YOsyHHkTToqT8hEBjk5z4lr12RD7yj4VqBh0sdrZL5PnVifknW
- 4Yd8p3bHKpvTFcIiHl+wEjbshC1kHaYl4TwJhUINoU5P7+NT6/c0K3F2jcQT7LSNe9yy
- FaXvEgb0ZLMnKx8Bk9pyEz77Z7+wYBdKtsrkqcuuKGXhgjKJySsryv8ltvb/6sadloTy
- UzkbJtcaH9lrLMA/LhpmdFsKm7icqg8TsZuhhQDF0expi5wKdSPQ3x9ySEnfmKNh7Pkn
- ccBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=7TPcuWXxFU6hWv6NeLAOie1udRWkhLJ1DWe5t2FsQ+M=;
- b=TNkjsRvWfuczmYXdiDhH+bFILR3FwI4QhUfhr71oozdUf8+nw/i8N4lnFyLsEK2BrE
- vktgkxU1mSzA1el5Pa5kdAq5V96UsOB7KZ/8+XqaFCfDS9r0oC1MFKkxeotZCeceMvP7
- YZ/GB0tpfhSt0tF2+VEoas0LdmzttG2/D7PM9JgVNEbUfPBKawhlVuTRGaZJHTODmgCx
- 8jzE2xbWa0V1jHtVeDJlrWFSp6rHnRJ/VPX/4VQ8Rw0bQvcw3DDwjHKNyZaPqVQKRfxV
- vNIPu9EgBRJ61IR3EcUCRNWF3V/H5IcopJ+pbb2fAOpIPzKWz7Z9AKdKEe5SLWK9KOWg
- gmgw==
-X-Gm-Message-State: AOAM531XZ3hDFA1235m3nBc4ipmMoIvnh09CZkIv3OiqgWDz4C/9rgPZ
- wVfPaJWvQ8CPRphB1jqpdzYsGw==
-X-Google-Smtp-Source: ABdhPJwDJNj1YVlHWPoJ293olzLjFEIQcMbpGy6i0JMKcmYgnDUgr1EqX8iuwkgOa1W/rpbnq/zJPg==
-X-Received: by 2002:a05:6000:1548:: with SMTP id
- 8mr21586066wry.504.1643737668657; 
- Tue, 01 Feb 2022 09:47:48 -0800 (PST)
-Received: from maple.lan (cpc141216-aztw34-2-0-cust174.18-1.cable.virginm.net.
- [80.7.220.175])
- by smtp.gmail.com with ESMTPSA id r2sm3392332wmq.24.2022.02.01.09.47.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Feb 2022 09:47:48 -0800 (PST)
-From: Daniel Thompson <daniel.thompson@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAE9689D1D;
+ Tue,  1 Feb 2022 22:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1643753656; x=1675289656;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=7N3Q5Ni1DLk6hYg7jdM2Dvd7SeaAS+/pg1uZRQJ6UzI=;
+ b=d138JRgPSEOpTCyj1FCNlDtSURdfcHgYKfi1nqLebrwhpTUWUV2vObSv
+ fXrQxEv/TH7iVBLDC09F7jaDUKd5EIFQdC6sYsQvw9ybgdjLZrr1A1fcQ
+ OaJd10JeD2lrFSJ3KlozoMrmwhylrEJXYVchpfLqgfzWCsp2/jbiDeaqF
+ 8fy68LQLrC4xhO89vMQjDyubsnaEYiB2qv1bprnKUDbZjxzSe9of+xyr+
+ Y43i7zWqRH34y22FejrgAkC7CzVnaWblDawnoQLpU7sA/XtYDamLIwkaK
+ BSnb+zbt36wddvsphSBgqIvkQIX52OW1y1wXnBf5pq2wATdFF5LEQJ9+Y g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10245"; a="228463718"
+X-IronPort-AV: E=Sophos;i="5.88,335,1635231600"; d="scan'208";a="228463718"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Feb 2022 14:14:15 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,335,1635231600"; d="scan'208";a="698576797"
+Received: from lkp-server01.sh.intel.com (HELO 276f1b88eecb) ([10.239.97.150])
+ by orsmga005.jf.intel.com with ESMTP; 01 Feb 2022 14:14:12 -0800
+Received: from kbuild by 276f1b88eecb with local (Exim 4.92)
+ (envelope-from <lkp@intel.com>)
+ id 1nF1Pf-000TlW-TL; Tue, 01 Feb 2022 22:14:11 +0000
+Date: Wed, 2 Feb 2022 06:14:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue,  1 Feb 2022 17:47:33 +0000
-Message-Id: <20220201174734.196718-3-daniel.thompson@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220201174734.196718-1-daniel.thompson@linaro.org>
-References: <20220201174734.196718-1-daniel.thompson@linaro.org>
+Message-ID: <202202020613.VjszN4M6-lkp@intel.com>
+References: <20220201151056.2480055-4-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm/hdmi: Remove spurious
- IRQF_ONESHOT flag
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220201151056.2480055-4-dmitry.baryshkov@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH 3/6] drm/msm/dpu: allow just single IRQ
+ callback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,46 +63,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Thompson <daniel.thompson@linaro.org>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting the header comments, IRQF_ONESHOT is "Used by threaded interrupts
-which need to keep the irq line disabled until the threaded handler has
-been run.". When applied to an interrupt that doesn't request a threaded
-irq then IRQF_ONESHOT has a lesser known (undocumented?) side effect,
-which it to disable the forced threading of irqs. For "normal" kernels
-if there is no thread_fn then IRQF_ONESHOT is a nop.
+Hi Dmitry,
 
-In this case disabling forced threading is not appropriate because the
-driver calls wake_up_all() (via msm_hdmi_i2c_irq) and also directly uses
-the regular spinlock API for locking (in msm_hdmi_hdcp_irq() ). Neither
-of these APIs can be called from no-thread interrupt handlers on
-PREEMPT_RT systems.
+Thank you for the patch! Yet something to improve:
 
-Fix this by removing IRQF_ONESHOT.
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on v5.17-rc2 next-20220201]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-Signed-off-by: Daniel Thompson <daniel.thompson@linaro.org>
+url:    https://github.com/0day-ci/linux/commits/Dmitry-Baryshkov/drm-msm-dpu-simplify-IRQ-helpers/20220201-231430
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: s390-randconfig-r044-20220130 (https://download.01.org/0day-ci/archive/20220202/202202020613.VjszN4M6-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/0day-ci/linux/commit/c3da64f5022acf9d942f497a3e3cff092648d6c3
+        git remote add linux-review https://github.com/0day-ci/linux
+        git fetch --no-tags linux-review Dmitry-Baryshkov/drm-msm-dpu-simplify-IRQ-helpers/20220201-231430
+        git checkout c3da64f5022acf9d942f497a3e3cff092648d6c3
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=s390 SHELL=/bin/bash drivers/gpu/drm/msm/
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/trace/define_trace.h:102,
+                    from drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h:973,
+                    from drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:34:
+   drivers/gpu/drm/msm/disp/dpu1/./dpu_trace.h: In function 'ftrace_test_probe_dpu_core_irq_unregister_callback':
+   include/trace/trace_events.h:870:42: error: passing argument 1 of 'check_trace_callback_type_dpu_core_irq_unregister_callback' from incompatible pointer type [-Werror=incompatible-pointer-types]
+     870 |         check_trace_callback_type_##call(trace_event_raw_event_##template); \
+         |                                          ^~~~~~~~~~~~~~~~~~~~~~
+         |                                          |
+         |                                          void (*)(void *, int,  void *)
+   drivers/gpu/drm/msm/disp/dpu1/./dpu_trace.h:892:1: note: in expansion of macro 'DEFINE_EVENT'
+     892 | DEFINE_EVENT(dpu_core_irq_callback_template, dpu_core_irq_unregister_callback,
+         | ^~~~~~~~~~~~
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h:10,
+                    from drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:34:
+   include/linux/tracepoint.h:279:49: note: expected 'void (*)(void *, int)' but argument is of type 'void (*)(void *, int,  void *)'
+     279 |         check_trace_callback_type_##name(void (*cb)(data_proto))        \
+         |                                          ~~~~~~~^~~~~~~~~~~~~~~
+   include/linux/tracepoint.h:419:9: note: in expansion of macro '__DECLARE_TRACE'
+     419 |         __DECLARE_TRACE(name, PARAMS(proto), PARAMS(args),              \
+         |         ^~~~~~~~~~~~~~~
+   include/linux/tracepoint.h:542:9: note: in expansion of macro 'DECLARE_TRACE'
+     542 |         DECLARE_TRACE(name, PARAMS(proto), PARAMS(args))
+         |         ^~~~~~~~~~~~~
+   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h:892:1: note: in expansion of macro 'DEFINE_EVENT'
+     892 | DEFINE_EVENT(dpu_core_irq_callback_template, dpu_core_irq_unregister_callback,
+         | ^~~~~~~~~~~~
+   In file included from include/trace/define_trace.h:103,
+                    from drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h:973,
+                    from drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:34:
+   drivers/gpu/drm/msm/disp/dpu1/./dpu_trace.h: In function 'perf_test_probe_dpu_core_irq_unregister_callback':
+>> include/trace/perf.h:99:42: error: passing argument 1 of 'check_trace_callback_type_dpu_core_irq_unregister_callback' from incompatible pointer type [-Werror=incompatible-pointer-types]
+      99 |         check_trace_callback_type_##call(perf_trace_##template);        \
+         |                                          ^~~~~~~~~~~
+         |                                          |
+         |                                          void (*)(void *, int,  void *)
+   drivers/gpu/drm/msm/disp/dpu1/./dpu_trace.h:892:1: note: in expansion of macro 'DEFINE_EVENT'
+     892 | DEFINE_EVENT(dpu_core_irq_callback_template, dpu_core_irq_unregister_callback,
+         | ^~~~~~~~~~~~
+   In file included from drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h:10,
+                    from drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:34:
+   include/linux/tracepoint.h:279:49: note: expected 'void (*)(void *, int)' but argument is of type 'void (*)(void *, int,  void *)'
+     279 |         check_trace_callback_type_##name(void (*cb)(data_proto))        \
+         |                                          ~~~~~~~^~~~~~~~~~~~~~~
+   include/linux/tracepoint.h:419:9: note: in expansion of macro '__DECLARE_TRACE'
+     419 |         __DECLARE_TRACE(name, PARAMS(proto), PARAMS(args),              \
+         |         ^~~~~~~~~~~~~~~
+   include/linux/tracepoint.h:542:9: note: in expansion of macro 'DECLARE_TRACE'
+     542 |         DECLARE_TRACE(name, PARAMS(proto), PARAMS(args))
+         |         ^~~~~~~~~~~~~
+   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h:892:1: note: in expansion of macro 'DEFINE_EVENT'
+     892 | DEFINE_EVENT(dpu_core_irq_callback_template, dpu_core_irq_unregister_callback,
+         | ^~~~~~~~~~~~
+   cc1: some warnings being treated as errors
+
+
+vim +/check_trace_callback_type_dpu_core_irq_unregister_callback +99 include/trace/perf.h
+
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   89) 
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   90) /*
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   91)  * This part is compiled out, it is only here as a build time check
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   92)  * to make sure that if the tracepoint handling changes, the
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   93)  * perf probe will fail to compile unless it too is updated.
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   94)  */
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   95) #undef DEFINE_EVENT
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   96) #define DEFINE_EVENT(template, call, proto, args)			\
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   97) static inline void perf_test_probe_##call(void)				\
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29   98) {									\
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29  @99) 	check_trace_callback_type_##call(perf_trace_##template);	\
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29  100) }
+ee53bbd172571c Steven Rostedt (Red Hat  2015-04-29  101) 
+
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 719720709e9e7..e167817b42958 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -306,7 +306,7 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
- 	}
- 
- 	ret = devm_request_irq(&pdev->dev, hdmi->irq,
--			msm_hdmi_irq, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-+			msm_hdmi_irq, IRQF_TRIGGER_HIGH,
- 			"hdmi_isr", hdmi);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(dev->dev, "failed to request IRQ%u: %d\n",
--- 
-2.34.1
-
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
