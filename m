@@ -1,79 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9421E4A9DD1
-	for <lists+freedreno@lfdr.de>; Fri,  4 Feb 2022 18:40:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3664A9F36
+	for <lists+freedreno@lfdr.de>; Fri,  4 Feb 2022 19:36:56 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F0610E485;
-	Fri,  4 Feb 2022 17:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88A2F10E63D;
+	Fri,  4 Feb 2022 18:36:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B7010E439
- for <freedreno@lists.freedesktop.org>; Fri,  4 Feb 2022 17:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1643996411;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=+Fgk2tPp8Iez8ffo3teobZs6lfET8NrmEOulKtLL6l8=;
- b=hgu4N+S2gNdG1xMhXdat5E6BCLq/KTAMIgvMNi0eK4csndApUPlZp0/k0dlKHe6jbeZJdm
- Ade/UI/wsT6mi0oG5a5pqi1KLVLaexIvOr1LzNja1AKUhUofqDKluRX+tBetqc/l0phA5P
- 1h/vBToWtlExXnm1DgcDuSjqS9KBhk0=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-479-J1rRc5MqPVe2xX7kNOXg7w-1; Fri, 04 Feb 2022 12:40:08 -0500
-X-MC-Unique: J1rRc5MqPVe2xX7kNOXg7w-1
-Received: by mail-qt1-f198.google.com with SMTP id
- e14-20020ac84b4e000000b002cfbbdf8206so5189568qts.10
- for <freedreno@lists.freedesktop.org>; Fri, 04 Feb 2022 09:40:08 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:date:organization
- :user-agent:mime-version:content-transfer-encoding;
- bh=+Fgk2tPp8Iez8ffo3teobZs6lfET8NrmEOulKtLL6l8=;
- b=c5tkW8itV76jU5nZsr0xdH44XWC6S3/nq3SysycwjJFaoLesvqtfedKy6XKQpIi8A/
- /RsmLvjQK9Vc5mHvSUtq7hYOWwdoKHOGmOM8bzeoMeq08ooUEyy50ORDQK+KtzucL/+y
- h/hYW9qNdzdXXAnAPUxXgM7LEC/qEunlmFnXdy1Pgfslg1/xJQeVM5iZEDK1Yt8rDOx2
- WUFc4zAgh9R/X+02K5HhlKsQ0kNSYcfH/0ehjNTX9wIPghZpYvkpjD+dCtffo3uJCWfa
- yCB7cB5g+dQioyzeiIvK2wt2HGpmNp+4Qc7rFNxWatGvaHRUWaDsE9j5ZxzldqSm5+DT
- xdZw==
-X-Gm-Message-State: AOAM530AiaSHqU5DjkWfRqhHvQJUDK4e8+LabGlOHI/IS4TwyXGZp78/
- o+tqDZ4u++WuGXNKguq46yNYPnBNmup51QS0ZhgZRyP8rpmLhjlgX0usBv2YuXYucHt9fAOMLSD
- NDEvBUpQi2rr6j/180WuoQ6gVMj9L
-X-Received: by 2002:ac8:578a:: with SMTP id v10mr76197qta.148.1643996408382;
- Fri, 04 Feb 2022 09:40:08 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxKdGHijSYkEZ0PZ6zI7XULxLGuuiXeTX+kTLZtxdulDdoNZ2sUxc4s+6mCyl5zpu6dwwjJCg==
-X-Received: by 2002:ac8:578a:: with SMTP id v10mr76176qta.148.1643996408156;
- Fri, 04 Feb 2022 09:40:08 -0800 (PST)
-Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
- [96.230.100.15])
- by smtp.gmail.com with ESMTPSA id w22sm1599186qtk.7.2022.02.04.09.40.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Feb 2022 09:40:07 -0800 (PST)
-Message-ID: <8db37efd8113f33107175b353f1f996523db7b9c.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org
-Date: Fri, 04 Feb 2022 12:40:05 -0500
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.3 (3.42.3-1.fc35)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6F9710E773;
+ Fri,  4 Feb 2022 18:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1643999813; x=1675535813;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=mk7BEok8/VhlRqkWI4IQkDfecA7DKdES0Z/Ryz5SbOc=;
+ b=t3KndcZV4woy3JK6maHVOCABcqrvcPZxje9pnNyRoYOzlRuu7ceX4nah
+ 7Tkj3Xz3nBEoO4gbzsP2C9CuQfUttsrZUW/5piyl4ZGf98ygWPHrJrnsc
+ eAg2SEJx4YmGwvfefQlQfvD+kY3HKd9FOZ2S6rRcm1expzNEOw3ACh34E Y=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 04 Feb 2022 10:36:52 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2022 10:36:51 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Fri, 4 Feb 2022 10:36:51 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.922.19; Fri, 4 Feb 2022 10:36:50 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <vkoul@kernel.org>,
+ <daniel@ffwll.ch>, <airlied@linux.ie>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <bjorn.andersson@linaro.org>
+Date: Fri, 4 Feb 2022 10:36:38 -0800
+Message-ID: <1643999801-20359-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [Important!] 2022 X.Org Foundation Membership deadline
- for voting in the election
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v3 0/3] enable widebus feature base on chip
+ hardware revision
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,27 +62,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The 2022 X.Org Foundation elections are rapidly approaching. We will be
-forwarding instructions on the nomination process to membership in the
-near future.
+split into 3 patches
+1) widebus timing engine programming
+2) dsc timing engine
+3) enable widebus feature base on chip hardware revision
 
-Please note that only current members can vote in the upcoming election,
-and that the deadline for new memberships or renewals to vote in the
-upcoming election is March 17th 2022 at 23:59 UTC.
 
-If you are interested in joining the X.Org Foundation or in renewing
-your membership, please visit the membership system site at:
+Kuogee Hsieh (3):
+  drm/msm/dp:  revise timing engine programming to support widebus
+    feature
+  drm/msm/dp: revise timing engine programming to support compression
+    (DSC)
+  drm/msm/dp: enable widebus feature for display port
 
-https://members.x.org/
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  14 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |   2 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  14 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 107 +++++++++++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |   5 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  36 ++++++-
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   3 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  13 ++-
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   1 +
+ drivers/gpu/drm/msm/dp/dp_display.c                |  30 ++++++
+ drivers/gpu/drm/msm/dp/dp_display.h                |   2 +
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |   4 +-
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |   2 +-
+ drivers/gpu/drm/msm/msm_drv.h                      |   6 ++
+ 14 files changed, 197 insertions(+), 42 deletions(-)
 
-You can find the current election schedule here:
-
-https://www.x.org/wiki/BoardOfDirectors/Elections/2022/
-
-        Lyude Paul,
-        On behalf of the X.Org elections committee
-
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
