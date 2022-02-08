@@ -2,60 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BBB74ADC54
-	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 16:19:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1043F4AE268
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 20:44:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8BD310E189;
-	Tue,  8 Feb 2022 15:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D3AC10E125;
+	Tue,  8 Feb 2022 19:44:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
  [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E549010E189;
- Tue,  8 Feb 2022 15:19:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1DF110E125;
+ Tue,  8 Feb 2022 19:44:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644333577; x=1675869577;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=ZLy+VydtbyF6fTJrG/RozIsN85Y7hFPmu++UBQG8hPc=;
- b=g9IpMg1yAqX54bmG/KLlfwgYiBKsKgFJWefoNEc41w7R2h4kaLXsBUId
- R1LqSwHMlBKK6gFPQ0+TVCv9ndWGgCeHsgxZh0P0InHx/TC4SITaZJb9q
- 9dLn67E2sm70STpTW95F5Ae5hp+OtsigCfKut+YREO4z8cWgB+nfugxe/ g=;
+ t=1644349486; x=1675885486;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=B0beRUcpy6mm/IC1BcwaxatHK/JKj1WU47oyT+N03mg=;
+ b=YzCTLMOPfIVhIbXDZTkBKZ8zDNCBZRaBIwd+1M1g1CESN5lqhSCQ4HIu
+ r4NYNXzLD+xJ7Fan2NB+XsD+H6wYN2zjcj58I+Z2l9iT3Is4lkLcB+ngc
+ hKIq5oEJM6NX4HJN55nLJqJMCnvM+kDPylNNv93LkyFY0UXpKt0ELxpDr 4=;
 Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Feb 2022 07:19:37 -0800
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Feb 2022 11:44:44 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
  by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 07:19:36 -0800
+ 08 Feb 2022 11:44:43 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 8 Feb 2022 07:19:36 -0800
-Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
+ 15.2.922.19; Tue, 8 Feb 2022 11:44:43 -0800
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 8 Feb 2022 07:19:30 -0800
-From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <agross@kernel.org>,
- <bjorn.andersson@linaro.org>, <robh+dt@kernel.org>, <robdclark@gmail.com>,
- <seanpaul@chromium.org>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <krzysztof.kozlowski@canonical.com>, <thierry.reding@gmail.com>,
- <sam@ravnborg.org>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Date: Tue, 8 Feb 2022 20:48:45 +0530
-Message-ID: <1644333525-30920-5-git-send-email-quic_sbillaka@quicinc.com>
+ 15.2.922.19; Tue, 8 Feb 2022 11:44:42 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <johannes@sipsolutions.net>, <linux-kernel@vger.kernel.org>
+Date: Tue, 8 Feb 2022 11:44:32 -0800
+Message-ID: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644333525-30920-1-git-send-email-quic_sbillaka@quicinc.com>
-References: <1644333525-30920-1-git-send-email-quic_sbillaka@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/dp: Add driver support to
- utilize drm panel
+Subject: [Freedreno] [PATCH] devcoredump: increase the device delete timeout
+ to 10 mins
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,156 +59,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- quic_mkrishn@quicinc.com, quic_abhinavk@quicinc.com, quic_khsieh@quicinc.com
+Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ gregkh@linuxfoundation.org, dmitry.baryshkov@linaro.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support in the DP driver to utilize the custom eDP panels
-from drm/panels.
+There are cases where depending on the size of the devcoredump and the speed
+at which the usermode reads the dump, it can take longer than the current 5 mins
+timeout.
 
-An eDP panel is always connected to the platform. So, the eDP
-connector can be reported as always connected. The display mode
-will be sourced from the panel. The panel mode will be set after
-the link training is completed.
+This can lead to incomplete dumps as the device is deleted once the timeout expires.
 
-The eDP driver needs to register for IRQ_HPD only.
-This support will be added later.
+One example is below where it took 6 mins for the devcoredump to be completely read.
 
-Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+04:22:24.668 23916 23994 I HWDeviceDRM::DumpDebugData: Opening /sys/class/devcoredump/devcd6/data
+04:28:35.377 23916 23994 W HWDeviceDRM::DumpDebugData: Freeing devcoredump node
+
+Increase the timeout to 10 mins to accommodate system delays and large coredump
+sizes.
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c |  8 ++++++
- drivers/gpu/drm/msm/dp/dp_drm.c     | 54 +++++++++++++++++++++++++++++++++----
- drivers/gpu/drm/msm/dp/dp_parser.h  |  3 +++
- 3 files changed, 60 insertions(+), 5 deletions(-)
+ drivers/base/devcoredump.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 7cc4d21..410fda4 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1513,6 +1513,10 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
- 		return -EINVAL;
- 	}
+diff --git a/drivers/base/devcoredump.c b/drivers/base/devcoredump.c
+index f4d794d..6b83ae5 100644
+--- a/drivers/base/devcoredump.c
++++ b/drivers/base/devcoredump.c
+@@ -18,8 +18,8 @@ static struct class devcd_class;
+ /* global disable flag, for security purposes */
+ static bool devcd_disabled;
  
-+	/* handle eDP on */
-+	if (dp->connector_type == DRM_MODE_CONNECTOR_eDP)
-+		dp_hpd_plug_handle(dp_display, 0);
-+
- 	mutex_lock(&dp_display->event_mutex);
+-/* if data isn't read by userspace after 5 minutes then delete it */
+-#define DEVCD_TIMEOUT	(HZ * 60 * 5)
++/* if data isn't read by userspace after 10 minutes then delete it */
++#define DEVCD_TIMEOUT	(HZ * 60 * 10)
  
- 	/* stop sentinel checking */
-@@ -1577,6 +1581,10 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
- 
- 	dp_display = container_of(dp, struct dp_display_private, dp_display);
- 
-+	/* handle edp off */
-+	if (dp->connector_type == DRM_MODE_CONNECTOR_eDP)
-+		dp_hpd_unplug_handle(dp_display, 0);
-+
- 	mutex_lock(&dp_display->event_mutex);
- 
- 	/* stop sentinel checking */
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index d4d360d..12fa8c1 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -39,6 +39,10 @@ static enum drm_connector_status dp_connector_detect(struct drm_connector *conn,
- 
- 	dp = to_dp_connector(conn)->dp_display;
- 
-+	/* eDP is always  connected */
-+	if (dp->connector_type == DRM_MODE_CONNECTOR_eDP)
-+		return connector_status_connected;
-+
- 	DRM_DEBUG_DP("is_connected = %s\n",
- 		(dp->is_connected) ? "true" : "false");
- 
-@@ -123,6 +127,35 @@ static enum drm_mode_status dp_connector_mode_valid(
- 	return dp_display_validate_mode(dp_disp, mode->clock);
- }
- 
-+static int edp_connector_get_modes(struct drm_connector *connector)
-+{
-+	struct msm_dp *dp;
-+
-+	if (!connector)
-+		return 0;
-+
-+	dp = to_dp_connector(connector)->dp_display;
-+
-+	return drm_bridge_get_modes(dp->panel_bridge, connector);
-+}
-+
-+static enum drm_mode_status edp_connector_mode_valid(
-+		struct drm_connector *connector,
-+		struct drm_display_mode *mode)
-+{
-+	struct msm_dp *dp;
-+
-+	if (!connector)
-+		return 0;
-+
-+	dp = to_dp_connector(connector)->dp_display;
-+
-+	if (mode->clock > EDP_MAX_PIXEL_CLK_KHZ)
-+		return MODE_BAD;
-+
-+	return MODE_OK;
-+}
-+
- static const struct drm_connector_funcs dp_connector_funcs = {
- 	.detect = dp_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
-@@ -137,6 +170,12 @@ static const struct drm_connector_helper_funcs dp_connector_helper_funcs = {
- 	.mode_valid = dp_connector_mode_valid,
- };
- 
-+static const struct drm_connector_helper_funcs edp_connector_helper_funcs = {
-+	.get_modes = edp_connector_get_modes,
-+	.mode_valid = edp_connector_mode_valid,
-+
-+};
-+
- /* connector initialization */
- struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- {
-@@ -160,12 +199,17 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	drm_connector_helper_add(connector, &dp_connector_helper_funcs);
-+	if (dp_display->connector_type == DRM_MODE_CONNECTOR_eDP) {
-+		drm_connector_helper_add(connector,
-+				&edp_connector_helper_funcs);
-+	} else {
-+		drm_connector_helper_add(connector, &dp_connector_helper_funcs);
- 
--	/*
--	 * Enable HPD to let hpd event is handled when cable is connected.
--	 */
--	connector->polled = DRM_CONNECTOR_POLL_HPD;
-+		/*
-+		 * Enable HPD to let hpd event is handled when cable is connected.
-+		 */
-+		connector->polled = DRM_CONNECTOR_POLL_HPD;
-+	}
- 
- 	drm_connector_attach_encoder(connector, dp_display->encoder);
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 3172da0..58c4f27 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -17,6 +17,9 @@
- #define DP_MAX_PIXEL_CLK_KHZ	675000
- #define DP_MAX_NUM_DP_LANES	4
- 
-+/* Maximum validated clock */
-+#define EDP_MAX_PIXEL_CLK_KHZ	285550
-+
- enum dp_pm_type {
- 	DP_CORE_PM,
- 	DP_CTRL_PM,
+ struct devcd_entry {
+ 	struct device devcd_dev;
 -- 
 2.7.4
 
