@@ -1,52 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1043F4AE268
-	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 20:44:48 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F0E4AE51E
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 23:59:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D3AC10E125;
-	Tue,  8 Feb 2022 19:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB95510E29D;
+	Tue,  8 Feb 2022 22:59:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1DF110E125;
- Tue,  8 Feb 2022 19:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644349486; x=1675885486;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=B0beRUcpy6mm/IC1BcwaxatHK/JKj1WU47oyT+N03mg=;
- b=YzCTLMOPfIVhIbXDZTkBKZ8zDNCBZRaBIwd+1M1g1CESN5lqhSCQ4HIu
- r4NYNXzLD+xJ7Fan2NB+XsD+H6wYN2zjcj58I+Z2l9iT3Is4lkLcB+ngc
- hKIq5oEJM6NX4HJN55nLJqJMCnvM+kDPylNNv93LkyFY0UXpKt0ELxpDr 4=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 08 Feb 2022 11:44:44 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 11:44:43 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 8 Feb 2022 11:44:43 -0800
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 8 Feb 2022 11:44:42 -0800
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <johannes@sipsolutions.net>, <linux-kernel@vger.kernel.org>
-Date: Tue, 8 Feb 2022 11:44:32 -0800
-Message-ID: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+X-Greylist: delayed 1948 seconds by postgrey-1.36 at gabe;
+ Tue, 08 Feb 2022 21:07:51 UTC
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F237310E21C;
+ Tue,  8 Feb 2022 21:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=jFMUOxkl3kB2j+Wo2GSKdxNzPGRMQ7XpF5gBMuNYOTk=; 
+ t=1644354471; x=1645564071; b=fBdFWbFpgZ9GRkbaXJVYBWZHzLRG/10dbETiZ9c9rvvKBk7
+ 0VP3LBcpjeKF0cMnwrOfxbhxum/s2XovdGOPu2cPktXdvubq+CmBiLoeixQj3bvCVRkp8tga+00AX
+ 5naSh+uSQzg9fM9i18xAK2McRMKykQUVWq9MBYNAV+2ihAj3SZewAuM6/vSukZUxq0Dr8m1vY9kb3
+ IFEoCG23b1os3q1NnmINrFpZqpL9h8uApReK1QH0igFVm023NM8kFDG3o03J9Dbj1WKZADu6XhK2K
+ 9TV99bmwBcUQ3BH1L7uUOmomCzqA/hAtB6F1frL3ZvEGegyRy1c0RmnH+gb53adw==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
+ id 1nHXCj-00GB3n-Oo; Tue, 08 Feb 2022 21:35:13 +0100
+Message-ID: <8d67484c7e4b9fb4560d2eca1f71c75fde8bae0d.camel@sipsolutions.net>
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org
+Date: Tue, 08 Feb 2022 21:35:11 +0100
+In-Reply-To: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
+References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.3 (3.42.3-1.fc35) 
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH] devcoredump: increase the device delete timeout
- to 10 mins
+Content-Transfer-Encoding: 7bit
+X-malware-bazaar: not-scanned
+X-Mailman-Approved-At: Tue, 08 Feb 2022 22:59:13 +0000
+Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
+ timeout to 10 mins
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,48 +56,34 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
- gregkh@linuxfoundation.org, dmitry.baryshkov@linaro.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, khsieh@codeaurora.org,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ daniel@ffwll.ch, gregkh@linuxfoundation.org, dmitry.baryshkov@linaro.org,
  aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There are cases where depending on the size of the devcoredump and the speed
-at which the usermode reads the dump, it can take longer than the current 5 mins
-timeout.
+On Tue, 2022-02-08 at 11:44 -0800, Abhinav Kumar wrote:
+> There are cases where depending on the size of the devcoredump and the speed
+> at which the usermode reads the dump, it can take longer than the current 5 mins
+> timeout.
+> 
+> This can lead to incomplete dumps as the device is deleted once the timeout expires.
+> 
+> One example is below where it took 6 mins for the devcoredump to be completely read.
+> 
+> 04:22:24.668 23916 23994 I HWDeviceDRM::DumpDebugData: Opening /sys/class/devcoredump/devcd6/data
+> 04:28:35.377 23916 23994 W HWDeviceDRM::DumpDebugData: Freeing devcoredump node
+> 
+> Increase the timeout to 10 mins to accommodate system delays and large coredump
+> sizes.
+> 
 
-This can lead to incomplete dumps as the device is deleted once the timeout expires.
+No real objection, I guess, but can the data actually disappear *while*
+the sysfs file is open?!
 
-One example is below where it took 6 mins for the devcoredump to be completely read.
+Or did it take 5 minutes to open the file?
 
-04:22:24.668 23916 23994 I HWDeviceDRM::DumpDebugData: Opening /sys/class/devcoredump/devcd6/data
-04:28:35.377 23916 23994 W HWDeviceDRM::DumpDebugData: Freeing devcoredump node
+If the former, maybe we should fix that too (or instead)?
 
-Increase the timeout to 10 mins to accommodate system delays and large coredump
-sizes.
-
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/base/devcoredump.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/base/devcoredump.c b/drivers/base/devcoredump.c
-index f4d794d..6b83ae5 100644
---- a/drivers/base/devcoredump.c
-+++ b/drivers/base/devcoredump.c
-@@ -18,8 +18,8 @@ static struct class devcd_class;
- /* global disable flag, for security purposes */
- static bool devcd_disabled;
- 
--/* if data isn't read by userspace after 5 minutes then delete it */
--#define DEVCD_TIMEOUT	(HZ * 60 * 5)
-+/* if data isn't read by userspace after 10 minutes then delete it */
-+#define DEVCD_TIMEOUT	(HZ * 60 * 10)
- 
- struct devcd_entry {
- 	struct device devcd_dev;
--- 
-2.7.4
-
+johannes
