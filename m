@@ -2,55 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 273264AE2C5
-	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 22:05:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212054AE51F
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 23:59:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C458A10E37E;
-	Tue,  8 Feb 2022 21:05:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B12CB10E33B;
+	Tue,  8 Feb 2022 22:59:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0985B10E27D;
- Tue,  8 Feb 2022 21:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644354312; x=1675890312;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=o7oYewk50pS0qCdX2y8F9493WNWazaE0j+QKGL2KdZo=;
- b=N0dJ4ymf7X5pCOmEM15GPJYWSDBAabXvgFl8m6/9LCBE4lTD2dvYnju6
- QtmH54JTuvHL3MM5HOFDxXdHe8B3+83gXM87+bG0ZFumKbCJ8JxlRNDsk
- Hnso6gav4nVFarN13peDkQYVUAwG/p9ghrSmpwsmoQ/XpYNqZ2+ILS8go I=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 08 Feb 2022 13:05:11 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 13:05:10 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Tue, 8 Feb 2022 13:04:48 -0800
-Received: from [10.111.162.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 8 Feb 2022
- 13:04:45 -0800
-Message-ID: <ebd340e4-2a02-d484-2ed0-9ee738d5b5c5@quicinc.com>
-Date: Tue, 8 Feb 2022 13:04:43 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Johannes Berg <johannes@sipsolutions.net>, <linux-kernel@vger.kernel.org>
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 646BC10E4A1;
+ Tue,  8 Feb 2022 21:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=Ka1YRMzeVRg7rN1gJ2YpEkVn/wWTU+NPmgwt1bGNWtA=; 
+ t=1644354768; x=1645564368; b=SZ7Tcfpq7yYxcF8TZzgdG5YU795suz0G38P1OSKPzsTGuox
+ vtcuhU8AEiJaPFEedkUD3l5uvpDBbp7ZRad3tPJ1AWss5WW0m3vR52cL0TW18iYXX79wcjECTeXnS
+ wM7suTDBtoiEsKUz1Ozn0mbbZfCq3p+JmKWbeby+/7nlLDgYX4cShfEuvUOROBgF2mjkJocJmj7R0
+ rTHR0rJso8ytegFHRCRVdOOL+lWpvQOI7h0rfsZrLL27SvuNuEzWmbGov+zd8fHJ8lE/aZlQbfq9B
+ ofUu2+JIWk9H85Xyfz3iUtjZM35FbYp3cg3mvZFXtyfLcPCdKxiH6/NBKBFnx5tQ==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
+ id 1nHXn0-00GCMS-QC; Tue, 08 Feb 2022 22:12:42 +0100
+Message-ID: <c59bc1af9974484075091333a3c98a2088251321.camel@sipsolutions.net>
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org
+Date: Tue, 08 Feb 2022 22:12:41 +0100
+In-Reply-To: <ebd340e4-2a02-d484-2ed0-9ee738d5b5c5@quicinc.com>
 References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
  <8d67484c7e4b9fb4560d2eca1f71c75fde8bae0d.camel@sipsolutions.net>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <8d67484c7e4b9fb4560d2eca1f71c75fde8bae0d.camel@sipsolutions.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ <ebd340e4-2a02-d484-2ed0-9ee738d5b5c5@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.3 (3.42.3-1.fc35) 
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+X-malware-bazaar: not-scanned
+X-Mailman-Approved-At: Tue, 08 Feb 2022 22:59:13 +0000
 Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
  timeout to 10 mins
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -73,68 +63,24 @@ Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Johannes
-
-Thanks for the response.
-
-On 2/8/2022 12:35 PM, Johannes Berg wrote:
-> On Tue, 2022-02-08 at 11:44 -0800, Abhinav Kumar wrote:
->> There are cases where depending on the size of the devcoredump and the speed
->> at which the usermode reads the dump, it can take longer than the current 5 mins
->> timeout.
->>
->> This can lead to incomplete dumps as the device is deleted once the timeout expires.
->>
->> One example is below where it took 6 mins for the devcoredump to be completely read.
->>
->> 04:22:24.668 23916 23994 I HWDeviceDRM::DumpDebugData: Opening /sys/class/devcoredump/devcd6/data
->> 04:28:35.377 23916 23994 W HWDeviceDRM::DumpDebugData: Freeing devcoredump node
->>
->> Increase the timeout to 10 mins to accommodate system delays and large coredump
->> sizes.
->>
+On Tue, 2022-02-08 at 13:04 -0800, Abhinav Kumar wrote:
 > 
-> No real objection, I guess, but can the data actually disappear *while*
-> the sysfs file is open?!
+> It opened the file rightaway but could not finish reading.
 > 
-> Or did it take 5 minutes to open the file?
-> 
-> If the former, maybe we should fix that too (or instead)?
-> 
-> johannes
+> The device gets deleted so the corresponding /data will disappear too ( 
+> as the data node is under devcd*/data)
 
-It opened the file rightaway but could not finish reading.
+Yeah but even if the file disappears, the open file descriptor is still
+there, no? Does sysfs somehow make those disappear? I know debugfs does
+(now, to some extent, it didn't always), but I thought sysfs was
+refcounting things and didn't do that?
 
-The device gets deleted so the corresponding /data will disappear too ( 
-as the data node is under devcd*/data)
+What did the userspace actually see? read() returned 0 so EOF?
 
-60 static void devcd_del(struct work_struct *wk)
-61 {
-62 	struct devcd_entry *devcd;
-63
-64 	devcd = container_of(wk, struct devcd_entry, del_wk.work);
-65
-66 	device_del(&devcd->devcd_dev);
-67 	put_device(&devcd->devcd_dev);
-68 }
+(I guess I could test it, but it's getting late)
 
-Are you suggesting we implement a logic like :
+Your other questions are related - you need to consider the file in
+sysfs and the open file descriptor separately.
 
-a) if the usermode has started reading the data but has not finished yet 
-( we can detect the former with something like devcd->data_read_ongoing 
-= 1 and we know it has finished when it acks and we can clear this flag 
-then), in the timeout del_wk then we can delay the the delete timer by 
-another TIMEOUT amount of time to give usermode time to finish the data?
+johannes
 
-b) If usermode acks, we will clear both the flag and delete the device 
-as usual
-
-But there is a corner case here:
-
-c) If usermode starts the read, but then for some reason crashes, the 
-timer will timeout and try to delete the device but will detect that 
-usermode is still reading and will keep the device. How do we detect 
-this case?
-
-Thats why i thought maybe the easier way right now is to try increasing 
-the timeout.
