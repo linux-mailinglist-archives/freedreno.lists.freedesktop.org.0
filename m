@@ -1,50 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257DD4AE51D
-	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 23:59:16 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ABFF4AE389
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 23:23:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C176610E1E6;
-	Tue,  8 Feb 2022 22:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A4410E4BC;
+	Tue,  8 Feb 2022 22:23:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sipsolutions.net (s3.sipsolutions.net
- [IPv6:2a01:4f8:191:4433::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3F810E2F8;
- Tue,  8 Feb 2022 21:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=A+S/j9icHeYwdxH49eBPZ83QO48LwLkJGGxnQOH8gC8=; 
- t=1644357283; x=1645566883; b=IxW0iB075aM0Zh09nOp2hqJvG5mpBjCibnB8Vy9w4U7dK5U
- heyd9kAbsRRb0o5zSFENUPLq8Cpd3bH5yJAT/fl8ds37N3B+sWWeQ3MWdUa0ikqOYcLS1V4RvPFPS
- Ucg+38xnDDbs2QoTFt0O6WFjuYAvz8BQGFkYLTqEQgF5vbksyhs3zNmudehdLdsLyXTFXACc3f75H
- jDD6WG0MMSdwzDrxJWMdmP/ax6ThI6QXo/HnbxZNf1qxoci04SSGwhtWaJnACVfE9TGGcMr3WXl6h
- 9R1xJt9N6L53zHHPGBScEvgQOUyBacVsPI0QYLunN/+A8+dimPiKR/yOl+H5zf5A==;
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
- id 1nHYRX-00GDjC-9O; Tue, 08 Feb 2022 22:54:35 +0100
-Message-ID: <c2a6e29063793eecc5c65d32af9d826544404ecc.camel@sipsolutions.net>
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org
-Date: Tue, 08 Feb 2022 22:54:34 +0100
-In-Reply-To: <a280fec2-754a-88ec-acc7-337e069e9148@quicinc.com>
-References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
- <8d67484c7e4b9fb4560d2eca1f71c75fde8bae0d.camel@sipsolutions.net>
- <ebd340e4-2a02-d484-2ed0-9ee738d5b5c5@quicinc.com>
- <c59bc1af9974484075091333a3c98a2088251321.camel@sipsolutions.net>
- <a280fec2-754a-88ec-acc7-337e069e9148@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.42.3 (3.42.3-1.fc35) 
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3852D10E4AC
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Feb 2022 22:23:46 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ r64-20020a17090a43c600b001b8854e682eso441688pjg.0
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Feb 2022 14:23:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=vMaF5jT9/UaEWAfDk+2t6KL6ikIYvAUy+840Rteop/E=;
+ b=j7gQSdsIWiZdmU//a2QwO46EbQ5SIOH5fWGlAvhnBWPyFq4bLW/fWbmZlxZwzUEr4f
+ 8jomGnNxVxG+1yeClJtxG+wNefH84zBQj8X1Q+/CXgcqGY0ThDT1+d0SNl+SrNbcDLGZ
+ 9bNGdlRDRHEbDB/cx8WWmOR4hrIdnDY9Pb6jo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=vMaF5jT9/UaEWAfDk+2t6KL6ikIYvAUy+840Rteop/E=;
+ b=zkNmPT/jc15qmWPDwyTWGDP6FuuCntLtlhis/GrQLzMsDhV/t050aVh8xswHjtZE8I
+ scyFkH4rrcKs8SBDo7EijG/igkyPwOGbtIAkMNo4LD1VemNp3Z83iBsioUZXdLN/OoEB
+ w0lp6uAULnytDU/QpnqZLEPDklBzhsFJV5P7ySc3jgfs/qIPB31zzufnffiB7+anizgb
+ i5iaHl+4M6LzV6xf1YxF4xU/YWI0b0V/MIBv/HfQwRC6kubs7aiCa7N9VEyjpdxPSOYI
+ xrhQSZzB2M+iQUm1yF87Apj9Wv+QjZYFyncEtWMkHx8R5Y2/VhaYKDkTcsZ79/d2LCir
+ DVag==
+X-Gm-Message-State: AOAM53191b/1L9VJ7mUeKmNWbQ/PXDP0CjQ11aPX1xMQS0cM3VU0Egiz
+ t59XXmtcu0vZG9TG4VP3YcXb2w==
+X-Google-Smtp-Source: ABdhPJxcJ61KROyKtZBAr6c9l+ods/Vf3fMBBg9aC+tckxuWCgMKjcQOdpiGoKC76Uo39dfbYIvJFQ==
+X-Received: by 2002:a17:90a:4811:: with SMTP id
+ a17mr99117pjh.159.1644359025755; 
+ Tue, 08 Feb 2022 14:23:45 -0800 (PST)
+Received: from localhost ([2620:15c:202:201:23dc:d215:b887:777d])
+ by smtp.gmail.com with UTF8SMTPSA id q2sm3684055pjj.32.2022.02.08.14.23.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Feb 2022 14:23:45 -0800 (PST)
+Date: Tue, 8 Feb 2022 14:23:43 -0800
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+Message-ID: <YgLtb8NCGKDi2uh4@google.com>
+References: <1644333525-30920-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1644333525-30920-3-git-send-email-quic_sbillaka@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-malware-bazaar: not-scanned
-X-Mailman-Approved-At: Tue, 08 Feb 2022 22:59:13 +0000
-Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
- timeout to 10 mins
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1644333525-30920-3-git-send-email-quic_sbillaka@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v2 2/4] arm64: dts: qcom: sc7280: Add
+ support for eDP panel on CRD
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,36 +68,216 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, khsieh@codeaurora.org,
- nganji@codeaurora.org, seanpaul@chromium.org, gregkh@linuxfoundation.org,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org, dianders@chromium.org,
+ sam@ravnborg.org, krzysztof.kozlowski@canonical.com, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, quic_khsieh@quicinc.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ bjorn.andersson@linaro.org, quic_abhinavk@quicinc.com, robh+dt@kernel.org,
+ robdclark@gmail.com, agross@kernel.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ thierry.reding@gmail.com, swboyd@chromium.org, freedreno@lists.freedesktop.org,
+ quic_mkrishn@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 2022-02-08 at 13:40 -0800, Abhinav Kumar wrote:
-> > 
-> I am checking what usermode sees and will get back ( I didnt see an 
-> error do most likely it was EOF ). I didnt follow the second part.
-
-I think probably it got -ENODEV, looking at kernfs_file_read_iter().
-
-> If the file descriptor read returns EOF, even if we consider them 
-> separate how will it resolve this issue?
+On Tue, Feb 08, 2022 at 08:48:43PM +0530, Sankeerth Billakanti wrote:
+> Enable the eDP display panel support without HPD on sc7280 platform.
 > 
-> My earlier questions were related to fixing it in devcoredump to detect
-> and fix it there. Are you suggesting to fix in usermode instead? How?
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> ---
 > 
+> Changes in v2:
+>   - sort node references alphabetically
+>   - improve readability
+>   - move the pwm pinctrl to pwm node
+>   - move the regulators to root
+>   - define backlight power
+>   - remove dummy regulator node
+>   - cleanup pinctrl definitions
+> 
+>  arch/arm64/boot/dts/qcom/sc7280-crd.dts | 122 ++++++++++++++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi    |   2 -
+>  2 files changed, 122 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280-crd.dts b/arch/arm64/boot/dts/qcom/sc7280-crd.dts
+> index e2efbdd..bff2707 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280-crd.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc7280-crd.dts
+> @@ -21,6 +21,34 @@
+>  	chosen {
+>  		stdout-path = "serial0:115200n8";
+>  	};
+> +
+> +	backlight_power: backlight-power {
 
-Yeah, no, you cannot fix it in userspace.
+nit: the other fixed regulator in sc7280-idp.dtsi is called
+'nvme_3v3_regulator', if you wanted to be consistent you
+could call this backlight_3v3_regulator.
 
-But I just followed the rabbit hole down kernfs and all, and it looks
-like indeed the read would be cut short with -ENODEV, sorry.
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "backlight_power";
+> +
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <1800000>;
+> +
+> +		gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&edp_bl_power>;
+> +	};
+> +
+> +	edp_power: edp-power {
 
-It doesn't look like there's good API for this, but it seems at least
-from the underlying kernfs POV it should be possible to get_device() in
-open and put_device() in release, so that the device sticks around while
-somebody has the file open? It's entirely virtual, so this should be OK?
+nit: see above
 
-johannes
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "edp_power";
+> +
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 80 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&edp_panel_power>;
+> +	};
+>  };
+>  
+>  &apps_rsc {
+> @@ -76,6 +104,42 @@ ap_ts_pen_1v8: &i2c13 {
+>  	};
+>  };
+>  
+> +&edp_out {
+> +	remote-endpoint = <&edp_panel_in>;
+> +};
+> +
+> +&mdss {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_edp {
+> +	status = "okay";
+> +
+> +	vdda-1p2-supply = <&vreg_l6b_1p2>;
+> +	vdda-0p9-supply = <&vreg_l10c_0p8>;
+> +};
+> +
+> +&mdss_edp_phy {
+> +	status = "okay";
+> +
+> +	vdda-1p2-supply = <&vreg_l6b_1p2>;
+> +	vdda-0p9-supply = <&vreg_l10c_0p8>;
+> +};
+> +
+> +&mdss_dp {
+
+should be before 'mdss_edp'.
+
+> +	status = "okay";
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&dp_hot_plug_det>;
+> +	data-lanes = <0 1>;
+> +	vdda-1p2-supply = <&vreg_l6b_1p2>;
+> +	vdda-0p9-supply = <&vreg_l1b_0p8>;
+> +};
+> +
+> +&mdss_mdp {
+> +	status = "okay";
+> +};
+> +
+>  &nvme_3v3_regulator {
+>  	gpio = <&tlmm 51 GPIO_ACTIVE_HIGH>;
+>  };
+> @@ -84,7 +148,65 @@ ap_ts_pen_1v8: &i2c13 {
+>  	pins = "gpio51";
+>  };
+>  
+> +&pm8350c_pwm {
+> +	status = "okay";
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&edp_bl_pwm>;
+> +};
+> +
+> +&pm8350c_gpios {
+
+should be before 'pm8350c_pwm'
+
+> +	edp_bl_power: edp-bl-power {
+> +		pins = "gpio7";
+> +		function = "normal";
+> +		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+> +		bias-disable;
+> +		output-low;
+> +	};
+> +
+> +	edp_bl_pwm: edp-bl-pwm {
+> +		pins = "gpio8";
+> +		function = "func1";
+> +		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+> +		bias-disable;
+> +		output-low;
+> +	};
+> +};
+> +
+> +&soc {
+> +	edp_backlight: edp-backlight {
+> +		compatible = "pwm-backlight";
+> +
+> +		power-supply = <&backlight_power>;
+> +		pwms = <&pm8350c_pwm 3 65535>;
+> +	};
+> +
+> +	edp_panel: edp_panel {
+
+in difference to labels node names should use dashes as separator, not
+underscores (i.e. 'edp-panel')
+
+> +		compatible = "sharp,lq140m1jw46";
+> +
+> +		power-supply = <&edp_power>;
+> +		backlight = <&edp_backlight>;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			port@0 {
+> +				reg = <0>;
+> +				edp_panel_in: endpoint {
+> +					remote-endpoint = <&edp_out>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+>  &tlmm {
+> +	edp_panel_power: edp-panel-power {
+> +		pins = "gpio80";
+> +		function = "gpio";
+> +		bias-pull-down;
+> +	};
+> +
+>  	tp_int_odl: tp-int-odl {
+>  		pins = "gpio7";
+>  		function = "gpio";
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 3572399..f8fa716 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -3012,8 +3012,6 @@
+>  
+>  			mdss_edp: edp@aea0000 {
+>  				compatible = "qcom,sc7280-edp";
+> -				pinctrl-names = "default";
+> -				pinctrl-0 = <&edp_hot_plug_det>;
+
+This was just added a few days ago by commit 118cd3b8ec0d ("arm64: dts: qcom:
+sc7280: Add edp_out port and HPD lines"). The patch assumes that the 'Hot
+Plug Detect line (which functions as "panel ready" in eDP) is highly likely
+to be used by boards.'. If that is indeed the case and the CRD is the
+exception then it seems that deleting the two properties from the CRD DT
+would be a better solution.
