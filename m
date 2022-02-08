@@ -1,57 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DB054AC97B
-	for <lists+freedreno@lfdr.de>; Mon,  7 Feb 2022 20:27:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2CDF4ACCBC
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 01:18:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD0BA10F8ED;
-	Mon,  7 Feb 2022 19:27:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D60210E2E6;
+	Tue,  8 Feb 2022 00:18:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07A4C10F8EE
- for <freedreno@lists.freedesktop.org>; Mon,  7 Feb 2022 19:27:36 +0000 (UTC)
-Received: by mail-qv1-xf2e.google.com with SMTP id k4so12201806qvt.6
- for <freedreno@lists.freedesktop.org>; Mon, 07 Feb 2022 11:27:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
+ [IPv6:2607:f8b0:4864:20::d2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB0510E2E6
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Feb 2022 00:18:57 +0000 (UTC)
+Received: by mail-io1-xd2d.google.com with SMTP id 9so19204396iou.2
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Feb 2022 16:18:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hm57uy/Nd677bwlIul9LMmgkSXxusznQLNZIk/zF7mk=;
- b=Z8P8BogEuGYrnQOsoaZo4FqgmKwU03E+LSzGVgvZsuwmIyb1YH+mOPncQpb3blKUe1
- 49RwxUTTFVJo0yuIMg/Ff1ptJq36fP9L/y6CqnF6CBtJcTvxfeg1ubcKT4W3n0uJqrma
- IEiQCNi1EyxjkPRyxIQnI5IsV4/Nd2eCj7FI2bDfqa5LrPnXMKpFVI/IlDpMVukkOW5O
- Srt15QSykptppwxuXGyZ3jBhFQs5Ihe5DgRuQRG8MTqs5IB8LqYc6+OpP5x6ej9c7Azq
- HZMrwp3JP4c9F6CH+K3aevsTagwybc7h5z+xm/rT4/B+Z91JxflKgDnjbUFw8+5RZYYl
- Tx2Q==
+ :cc; bh=vScBC3jkunPuKV71bwmpHxOhrGxKlBbuYe/cqBu7qF8=;
+ b=TV/KEXy0SdalYrBG9vcyQo4ANXKRqQZpfsevkQCRvDDS3QkNqsAVFK3CiXgrn7BhEC
+ lQZP1zue6xcSxErPJDsPnbnJ7NzZaPCUltMJoeN9SGtNIMM3tb2qVUWD6hCx2/5gvyQb
+ 4WVzprlonmdeJ8JUjSQiAOvjj5o67UrS7+Dfc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=hm57uy/Nd677bwlIul9LMmgkSXxusznQLNZIk/zF7mk=;
- b=fN/NfCnNIk1jjKQR/JOCuBCtHZx9Sb4LQuj8/OFx3wTRAhf9+CCIOzhxP+mrbCZAMW
- qq9iWPOGcQN8hUlP2FsKMFuM/wXmLtNc62eI8oe6XM3xAiy8JiZWn8mj3NUaCQysReNx
- kG0Yv/p5/ohmCO7GFEM16s3uwf449DF1gs+xwQPyzgGKw+rEjEGy9z2MqT3hNPqFcD8H
- pUmjLAihUiglAcu8nVSSRvmc1OCnUse89ipVpZKuF8vFNSzGeUuSk2kiMqMWFgwh+Bqf
- CjGDxqyS2BxJppYEoq5OLdH71FY2BrQ/nxaazsvhqL8tT9M6ICBIpaJuDIj4xHe0zVvE
- xk3w==
-X-Gm-Message-State: AOAM530acgZSNqRXErGxz6PTuMFirNvzPSJ5ZdQ4GcV3br1ebz6DAi7y
- 0jzAWuhVF5od9iq4iq6HFSQ/LO5kwF2xXAXkEYcbUg==
-X-Google-Smtp-Source: ABdhPJw2jSbMKuGGtQ/seo/5L11q90dX9vNtXHOrb1VOFzLLm2Y/rcbvKe0P0chACfB+SmYR9F3t5NoLBi8xnBja5os=
-X-Received: by 2002:a05:6214:2aa2:: with SMTP id
- js2mr828371qvb.55.1644262055133; 
- Mon, 07 Feb 2022 11:27:35 -0800 (PST)
+ bh=vScBC3jkunPuKV71bwmpHxOhrGxKlBbuYe/cqBu7qF8=;
+ b=g5SxbBFAH0c15sbLB1EDYMQdGaIdz2jsuGPCmYNrnARbkT1EROZpp7U43ChTwKbcqf
+ FJ9v5aYJH4L20YrnbHijmumEA1CK6p0T82faa8j6nUxVuYgXjlROr3i+BU2M2MsVY9As
+ 0b8WKICA09c6F6J2EZfC7Jjvop2HUL38X6f+a5wMI69Q9klXZ+bPH8biBliwF8aaG1rf
+ ls1B+kTzhzDKf52EtzDPU1kMPqkfa+31STxxTQH5WAlbxIdQ8bmQEVmNRqOjd7bUf8AH
+ oM7xnGgVtP53eKvU5/bWs4Pi4X9F0hua1VsOfi/DsxOKMBgGuwnm+kKPGL0UfeE+WigS
+ OUvg==
+X-Gm-Message-State: AOAM532WIr1V10/6lpdZ2lGK9x5gCDrm61nGj1ejg4dRR9eqvvPd209B
+ F6eoXNYPYP5h979OS+Z0D/s/J3FRQM9uyw==
+X-Google-Smtp-Source: ABdhPJzVRdhcO/7DD170ZT8WUCb2Oq0IBziSJw2ttbIcgwMKKUiZnrwO1pONPqiwPIb6mByKEfG+Ww==
+X-Received: by 2002:a02:6988:: with SMTP id e130mr989141jac.120.1644279536068; 
+ Mon, 07 Feb 2022 16:18:56 -0800 (PST)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com.
+ [209.85.166.47])
+ by smtp.gmail.com with ESMTPSA id s12sm6658685ilv.40.2022.02.07.16.18.54
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Feb 2022 16:18:54 -0800 (PST)
+Received: by mail-io1-f47.google.com with SMTP id m185so10882656iof.10
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Feb 2022 16:18:54 -0800 (PST)
+X-Received: by 2002:a05:6638:168d:: with SMTP id
+ f13mr980261jat.44.1644279533953; 
+ Mon, 07 Feb 2022 16:18:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20220207163515.1038648-1-maxime@cerno.tech>
- <20220207163515.1038648-5-maxime@cerno.tech>
-In-Reply-To: <20220207163515.1038648-5-maxime@cerno.tech>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 7 Feb 2022 22:27:24 +0300
-Message-ID: <CAA8EJpr-dx5So=w+NvdtSeB4KBVMySc+KT54bMX9p_0ZV52jAg@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
+References: <1637046458-20607-1-git-send-email-quic_sbillaka@quicinc.com>
+ <CAE-0n50sONq+URcWwvDH=UPshgy6+XZEB3sK_4n+5jNktHsEhg@mail.gmail.com>
+In-Reply-To: <CAE-0n50sONq+URcWwvDH=UPshgy6+XZEB3sK_4n+5jNktHsEhg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 7 Feb 2022 16:18:40 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VwrO9fpOtpjrsbjkmucvL6NbHMc3jLtjsiRJD6aG0Hkg@mail.gmail.com>
+Message-ID: <CAD=FV=VwrO9fpOtpjrsbjkmucvL6NbHMc3jLtjsiRJD6aG0Hkg@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 04/23] drm/msm/mdp5: Fix zpos initial value
- mismatch
+Subject: Re: [Freedreno] [PATCH v1 0/3] Add support for eDP PHY on SC7280
+ platform
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,80 +72,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Dom Cobley <dom@raspberrypi.com>,
- Tim Gover <tim.gover@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>, freedreno@lists.freedesktop.org,
- Phil Elwell <phil@raspberrypi.com>
+Cc: quic_kalyant@quicinc.com, Rob Clark <robdclark@gmail.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, quic_abhinavk@quicinc.com,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>,
+ Sean Paul <seanpaul@chromium.org>, linux-phy@lists.infradead.org,
+ quic_mkrishn@quicinc.com, quic_khsieh@quicinc.com,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 7 Feb 2022 at 19:56, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> While the mdp5_plane_install_properties() function calls
-> drm_plane_create_zpos_property() with an initial value of 1,
-> mdp5_plane_reset() will force it to another value depending on the plane
-> type.
->
-> Fix the discrepancy by setting the initial zpos value to the same value
-> in the drm_plane_create_zpos_property() call.
+Hi,
 
-Could you please squash two msm/mdp5 patches into a single patch,
-making it clear that the code is moved.
-
-Also please add:
-Fixes: 7d36db0be3b9 ("drm/msm/mdp5: switch to standard zpos property")
-
-With that in place:
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+On Wed, Feb 2, 2022 at 1:54 PM Stephen Boyd <swboyd@chromium.org> wrote:
 >
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Cc: Rob Clark <robdclark@gmail.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> ---
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+> Quoting Sankeerth Billakanti (2021-11-15 23:07:35)
+> > This series adds support for the eDP PHY on Qualcomm SC7280 platform.
+> > The changes are dependent on v4 of the new eDP PHY driver introduced by Bjorn:
+> > https://patchwork.kernel.org/project/linux-arm-msm/list/?series=575135
+> >
+> > Sankeerth Billakanti (3):
+> >   dt-bindings: phy: Add eDP PHY compatible for sc7280
+> >   phy: qcom: Add support for eDP PHY on sc7280
+> >   phy: qcom: Program SSC only if supported by sink
 >
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> index c6b69afcbac8..d60982f4bd11 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> @@ -48,6 +48,8 @@ static void mdp5_plane_destroy(struct drm_plane *plane)
->  static void mdp5_plane_install_properties(struct drm_plane *plane,
->                 struct drm_mode_object *obj)
->  {
-> +       unsigned int zpos;
-> +
->         drm_plane_create_rotation_property(plane,
->                                            DRM_MODE_ROTATE_0,
->                                            DRM_MODE_ROTATE_0 |
-> @@ -59,7 +61,12 @@ static void mdp5_plane_install_properties(struct drm_plane *plane,
->                         BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->                         BIT(DRM_MODE_BLEND_PREMULTI) |
->                         BIT(DRM_MODE_BLEND_COVERAGE));
-> -       drm_plane_create_zpos_property(plane, 1, 1, 255);
-> +
-> +       if (plane->type == DRM_PLANE_TYPE_PRIMARY)
-> +               zpos = STAGE_BASE;
-> +       else
-> +               zpos = STAGE0 + drm_plane_index(plane);
-> +       drm_plane_create_zpos_property(plane, zpos, 1, 255);
->  }
->
->  static void
-> --
-> 2.34.1
->
+> This series was sent to the wrong maintainers. It's in the phy
+> framework, not the drm framework. Please use scripts/get_maintainers.pl
+> to find the right email addresses and send this series again.
 
+To help out, I've re-posted this myself, hopefully getting all the
+correct maintainers.
 
--- 
-With best wishes
-Dmitry
+https://lore.kernel.org/r/20220208001704.367069-1-dianders@chromium.org
