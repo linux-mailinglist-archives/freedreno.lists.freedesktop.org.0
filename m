@@ -1,43 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F3684AD25D
-	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 08:40:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8FB4AD58B
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 11:39:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F26B710E56B;
-	Tue,  8 Feb 2022 07:40:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2CA10E48F;
+	Tue,  8 Feb 2022 10:39:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40AA910E56B;
- Tue,  8 Feb 2022 07:40:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 481F210E12F;
+ Tue,  8 Feb 2022 10:39:09 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AB8E4B80D8B;
- Tue,  8 Feb 2022 07:40:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38174C004E1;
- Tue,  8 Feb 2022 07:40:38 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0E72CB80E8C;
+ Tue,  8 Feb 2022 10:39:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3ADC340ED;
+ Tue,  8 Feb 2022 10:39:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1644306039;
- bh=hCaoJ9viHY+9jSGZzSXxNK60/DZEM/xN7vZj/9sKfXA=;
+ s=korg; t=1644316746;
+ bh=DhYrhVV0rhkeYgs8i86fDL5i6IUbr00I2qxJJPVyviw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QjPNGi2j2Y6pYYNZq4wFMBTpYumZsgXxoGwPppPNbtjBXUorM+gdM6Djm98W4TjHr
- uLW9XzYBtWFjHrwFaLIybU8f7Fx+fnzbIjUsSRSvgZN9yuyWKyidGhLdZcaG/FXlIb
- u9lvxCXvzTTR6lJIoE07Hjd3xDeKhOIi6qa+ROO0=
-Date: Tue, 8 Feb 2022 08:40:35 +0100
+ b=hDHEA2k1rtgqThwWijxMFT+gR1N3I11PmBaK4CzVCM9QgSAyBycnB/xSLTnvwxRM7
+ +PH+wQH8aI66O9q+KH+0GTVOao9THoISx2Q3lU8MlugrCLK5lQBkE+j52HuGsdxSSy
+ 5+Plqq3c09303KWWgOzFm6kX77XadIqVnsiKIh20=
+Date: Tue, 8 Feb 2022 11:39:04 +0100
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Message-ID: <YgIecy+W/lGzL6ac@kroah.com>
+Message-ID: <YgJISIIacBnFyTLq@kroah.com>
 References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
- <20220208044328.588860-2-bjorn.andersson@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220208044328.588860-2-bjorn.andersson@linaro.org>
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dp: Implement
- oob_hotplug_event()
+In-Reply-To: <20220208044328.588860-1-bjorn.andersson@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/2] drm: Add HPD state to
+ drm_connector_oob_hotplug_event()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,77 +66,154 @@ Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 07, 2022 at 08:43:28PM -0800, Bjorn Andersson wrote:
-> The Qualcomm DisplayPort driver contains traces of the necessary
-> plumbing to hook up USB HPD, in the form of the dp_hpd module and the
-> dp_usbpd_cb struct. Use this as basis for implementing the
-> oob_hotplug_event() callback, by amending the dp_hpd module with the
-> missing logic.
+On Mon, Feb 07, 2022 at 08:43:27PM -0800, Bjorn Andersson wrote:
+> In some implementations, such as the Qualcomm platforms, the display
+> driver has no way to query the current HPD state and as such it's
+> impossible to distinguish between disconnect and attention events.
 > 
-> Overall the solution is similar to what's done downstream, but upstream
-> all the code to disect the HPD notification lives on the calling side of
-> drm_connector_oob_hotplug_event().
+> Add a parameter to drm_connector_oob_hotplug_event() to pass the HPD
+> state.
 > 
-> drm_connector_oob_hotplug_event() performs the lookup of the
-> drm_connector based on fwnode, hence the need to assign the fwnode in
-> dp_drm_connector_init().
+> Also push the test for unchanged state in the displayport altmode driver
+> into the i915 driver, to allow other drivers to act upon each update.
 > 
 > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 > ---
->  drivers/gpu/drm/msm/dp/dp_display.c |  8 ++++++++
->  drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
->  drivers/gpu/drm/msm/dp/dp_drm.c     | 10 ++++++++++
->  drivers/gpu/drm/msm/dp/dp_hpd.c     | 19 +++++++++++++++++++
->  drivers/gpu/drm/msm/dp/dp_hpd.h     |  4 ++++
->  5 files changed, 43 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 7cc4d21f2091..124a2f794382 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -414,6 +414,13 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
->  	return dp_display_process_hpd_high(dp);
+> Note that the Intel driver has only been compile tested with this patch.
+> 
+>  drivers/gpu/drm/drm_connector.c          |  6 ++++--
+>  drivers/gpu/drm/i915/display/intel_dp.c  | 14 +++++++++++---
+>  drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+>  drivers/usb/typec/altmodes/displayport.c |  9 ++-------
+>  include/drm/drm_connector.h              |  5 +++--
+>  5 files changed, 23 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index a50c82bc2b2f..ad7295597c0f 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -2825,6 +2825,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+>  /**
+>   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
+>   * @connector_fwnode: fwnode_handle to report the event on
+> + * @hpd_state: number of data lanes available
+
+"number"?
+
+>   *
+>   * On some hardware a hotplug event notification may come from outside the display
+>   * driver / device. An example of this is some USB Type-C setups where the hardware
+> @@ -2834,7 +2835,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+>   * This function can be used to report these out-of-band events after obtaining
+>   * a drm_connector reference through calling drm_connector_find_by_fwnode().
+>   */
+> -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
+> +void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+> +				     bool hpd_state)
+
+This is a boolean, how can it be a number?
+
+And having a "flag" like this is a pain, how do you know what the
+parameter really means?
+
+>  {
+>  	struct drm_connector *connector;
+>  
+> @@ -2843,7 +2845,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
+>  		return;
+>  
+>  	if (connector->funcs->oob_hotplug_event)
+> -		connector->funcs->oob_hotplug_event(connector);
+> +		connector->funcs->oob_hotplug_event(connector, hpd_state);
+>  
+>  	drm_connector_put(connector);
+>  }
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 146b83916005..00520867d37b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4816,15 +4816,23 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
+>  	return intel_modeset_synced_crtcs(state, conn);
 >  }
 >  
-> +void dp_display_oob_hotplug_event(struct msm_dp *dp_display, bool hpd_state)
-> +{
-> +	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
-> +
-> +	dp->usbpd->oob_event(dp->usbpd, hpd_state);
-> +}
-> +
->  static int dp_display_usbpd_disconnect_cb(struct device *dev)
+> -static void intel_dp_oob_hotplug_event(struct drm_connector *connector)
+> +static void intel_dp_oob_hotplug_event(struct drm_connector *connector, bool hpd_state)
 >  {
->  	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> @@ -1251,6 +1258,7 @@ static int dp_display_probe(struct platform_device *pdev)
->  	dp->pdev = pdev;
->  	dp->name = "drm_dp";
->  	dp->dp_display.connector_type = desc->connector_type;
-> +	dp->dp_display.dev = &pdev->dev;
-
-You did not properly reference count this pointer you just saved.  What
-is to keep that pointer from going away without you knowing about it?
-
-And you already have a pointer to pdev, why save another one here?
-
+>  	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
+>  	struct drm_i915_private *i915 = to_i915(connector->dev);
+> +	bool need_work = false;
 >  
->  	rc = dp_init_sub_modules(dp);
->  	if (rc) {
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> index e3adcd578a90..1f856b3bca79 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> @@ -11,6 +11,7 @@
->  #include "disp/msm_disp_snapshot.h"
+>  	spin_lock_irq(&i915->irq_lock);
+> -	i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
+> +	if (hpd_state != i915->hotplug.oob_hotplug_state) {
+> +		i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
+> +
+> +		i915->hotplug.oob_hotplug_state = hpd_state;
+> +		need_work = true;
+> +	}
+>  	spin_unlock_irq(&i915->irq_lock);
+> -	queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
+> +
+> +	if (need_work)
+> +		queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
+>  }
 >  
->  struct msm_dp {
-> +	struct device *dev;
->  	struct drm_device *drm_dev;
->  	struct device *codec_dev;
+>  static const struct drm_connector_funcs intel_dp_connector_funcs = {
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index 8c1706fd81f9..543ebf1cfcf4 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -149,6 +149,9 @@ struct i915_hotplug {
+>  	/* Whether or not to count short HPD IRQs in HPD storms */
+>  	u8 hpd_short_storm_enabled;
+>  
+> +	/* Last state reported by oob_hotplug_event */
+> +	bool oob_hotplug_state;
+> +
+>  	/*
+>  	 * if we get a HPD irq from DP and a HPD irq from non-DP
+>  	 * the non-DP HPD could block the workqueue on a mode config
+> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
+> index c1d8c23baa39..a4596be4d34a 100644
+> --- a/drivers/usb/typec/altmodes/displayport.c
+> +++ b/drivers/usb/typec/altmodes/displayport.c
+> @@ -59,7 +59,6 @@ struct dp_altmode {
+>  	struct typec_displayport_data data;
+>  
+>  	enum dp_state state;
+> -	bool hpd;
+>  
+>  	struct mutex lock; /* device lock */
+>  	struct work_struct work;
+> @@ -143,10 +142,7 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
+>  		if (!ret)
+>  			dp->state = DP_STATE_CONFIGURE;
+>  	} else {
+> -		if (dp->hpd != hpd) {
+> -			drm_connector_oob_hotplug_event(dp->connector_fwnode);
+> -			dp->hpd = hpd;
+> -		}
+> +		drm_connector_oob_hotplug_event(dp->connector_fwnode, hpd);
+>  	}
+>  
+>  	return ret;
+> @@ -573,8 +569,7 @@ void dp_altmode_remove(struct typec_altmode *alt)
+>  	cancel_work_sync(&dp->work);
+>  
+>  	if (dp->connector_fwnode) {
+> -		if (dp->hpd)
+> -			drm_connector_oob_hotplug_event(dp->connector_fwnode);
+> +		drm_connector_oob_hotplug_event(dp->connector_fwnode, false);
 
-So you now have pointers to 3 different devices here?  What does 'dev'
-point to that the other ones do not?  This needs to be documented really
-well here.
+See, what does "false" here mean?
+
+Name the function for what it does, do not have random flags as
+parameters, that makes it impossible to understand what the code is
+doing when you are reading it, without having to jump around and figure
+out what the flags are saying.
+
+And here they just don't even seem to be right :(
 
 thanks,
 
