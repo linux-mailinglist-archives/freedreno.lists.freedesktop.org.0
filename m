@@ -1,42 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A8FB4AD58B
-	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 11:39:18 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8710E4AD876
+	for <lists+freedreno@lfdr.de>; Tue,  8 Feb 2022 13:54:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2CA10E48F;
-	Tue,  8 Feb 2022 10:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF9F10E13E;
+	Tue,  8 Feb 2022 12:54:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 481F210E12F;
- Tue,  8 Feb 2022 10:39:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0E72CB80E8C;
- Tue,  8 Feb 2022 10:39:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3ADC340ED;
- Tue,  8 Feb 2022 10:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1644316746;
- bh=DhYrhVV0rhkeYgs8i86fDL5i6IUbr00I2qxJJPVyviw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hDHEA2k1rtgqThwWijxMFT+gR1N3I11PmBaK4CzVCM9QgSAyBycnB/xSLTnvwxRM7
- +PH+wQH8aI66O9q+KH+0GTVOao9THoISx2Q3lU8MlugrCLK5lQBkE+j52HuGsdxSSy
- 5+Plqq3c09303KWWgOzFm6kX77XadIqVnsiKIh20=
-Date: Tue, 8 Feb 2022 11:39:04 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Message-ID: <YgJISIIacBnFyTLq@kroah.com>
-References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBD410E141
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Feb 2022 12:54:04 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id k25so51545358ejp.5
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Feb 2022 04:54:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=EdOABUNENMY5hYtYPGRPZmVz5tXWbGx6V9rHvVTwsTo=;
+ b=KgFzVhnS+WwfF4ySk8R2/5G/qaN9zSc7f1Btrik8l3ywATzIA1H3npms8IV/EEj2KI
+ IEWyrGEr/Q+oBaB+rZIL/nu2xrfklQucAehi0E2n5WYRj0scoAYhI4cerIdykx1YxOFA
+ bOMwE/D9+192GSVfQxod36C2LT3HZ1niWajoU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=EdOABUNENMY5hYtYPGRPZmVz5tXWbGx6V9rHvVTwsTo=;
+ b=3iA3gVMLxiXW9G4He8u08uXdfKdzt5peGvgbbIbU8IYUO/dWRLt0KgjnH/BqV+nBw0
+ vzMsvKu0PF/ECzJ2FP+JDF/gGB/rxn19gvhb6fpm5+6fitmiKZPXvG5NVvCdgkAQzqHX
+ /lRUMNh/0eZA8oqoYBGK/c976rhWwzE5ftCFb/XpEfYMSB+P3AfaRbRi228c7Wpbbvit
+ xMAlSU+EJdD8pKlnSLazS+ERNs5fwUzzVIrRte1kghhCyWdJeyIuaxGcZktn2T8dlPTI
+ hQUm6Qda844WouvkuE99JpkjzKdGkLjvUC0AZgh+Auhnd0EKS35skxJBMeWvDJ/KqC6w
+ Q5yA==
+X-Gm-Message-State: AOAM53218IZQbZRwV5zdcn+GRoCxwf+RQdNS2NCYdfuVM/fl60VA+OYS
+ eKzGExvo1zJGsBc0CE5P2wDMRw==
+X-Google-Smtp-Source: ABdhPJyjoXx7TZnQW6xw4xjBqA0XWuDhxN1WRj0W2ugU65gZDBqDw0EPp6tl28mczrKVDEoZQx+16g==
+X-Received: by 2002:a17:906:94e:: with SMTP id
+ j14mr3514523ejd.369.1644324842613; 
+ Tue, 08 Feb 2022 04:54:02 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id d18sm4740261ejd.95.2022.02.08.04.54.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Feb 2022 04:54:01 -0800 (PST)
+Date: Tue, 8 Feb 2022 13:53:59 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <YgJn57s8u2OsBGnW@phenom.ffwll.local>
+Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Russell King <rmk+kernel@arm.linux.org.uk>,
+ Saravana Kannan <saravanak@google.com>
+References: <20220127200141.1295328-1-swboyd@chromium.org>
+ <20220127200141.1295328-3-swboyd@chromium.org>
+ <YffoqgmeUdxZ56zB@kroah.com>
+ <CAKMK7uFYyQ9siB5ENHku+yVPWWM1H=TEn-NZofEKqpJnuEvMmw@mail.gmail.com>
+ <YfgPkliOLorgXwVE@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220208044328.588860-1-bjorn.andersson@linaro.org>
-Subject: Re: [Freedreno] [PATCH 1/2] drm: Add HPD state to
- drm_connector_oob_hotplug_event()
+In-Reply-To: <YfgPkliOLorgXwVE@kroah.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH v6 02/35] component: Introduce the aggregate
+ bus_type
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,172 +82,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, linux-usb@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: Saravana Kannan <saravanak@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-arm-msm@vger.kernel.org, Russell King <rmk+kernel@arm.linux.org.uk>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 07, 2022 at 08:43:27PM -0800, Bjorn Andersson wrote:
-> In some implementations, such as the Qualcomm platforms, the display
-> driver has no way to query the current HPD state and as such it's
-> impossible to distinguish between disconnect and attention events.
+On Mon, Jan 31, 2022 at 05:34:26PM +0100, Greg Kroah-Hartman wrote:
+> On Mon, Jan 31, 2022 at 04:15:09PM +0100, Daniel Vetter wrote:
+> > On Mon, Jan 31, 2022 at 2:48 PM Greg Kroah-Hartman
+> > <gregkh@linuxfoundation.org> wrote:
+> > >
+> > > On Thu, Jan 27, 2022 at 12:01:08PM -0800, Stephen Boyd wrote:
+> > > > The component framework only provides 'bind' and 'unbind' callbacks to
+> > > > tell the host driver that it is time to assemble the aggregate driver
+> > > > now that all the components have probed. The component framework doesn't
+> > > > attempt to resolve runtime PM or suspend/resume ordering, and explicitly
+> > > > mentions this in the code. This lack of support leads to some pretty
+> > > > gnarly usages of the 'prepare' and 'complete' power management hooks in
+> > > > drivers that host the aggregate device, and it fully breaks down when
+> > > > faced with ordering shutdown between the various components, the
+> > > > aggregate driver, and the host driver that registers the whole thing.
+> > > >
+> > > > In a concrete example, the MSM display driver at drivers/gpu/drm/msm is
+> > > > using 'prepare' and 'complete' to call the drm helpers
+> > > > drm_mode_config_helper_suspend() and drm_mode_config_helper_resume()
+> > > > respectively, so that it can move the aggregate driver suspend/resume
+> > > > callbacks to be before and after the components that make up the drm
+> > > > device call any suspend/resume hooks they have. This only works as long
+> > > > as the component devices don't do anything in their own 'prepare' and
+> > > > 'complete' callbacks. If they did, then the ordering would be incorrect
+> > > > and we would be doing something in the component drivers before the
+> > > > aggregate driver could do anything. Yuck!
+> > > >
+> > > > Similarly, when trying to add shutdown support to the MSM driver we run
+> > > > across a problem where we're trying to shutdown the drm device via
+> > > > drm_atomic_helper_shutdown(), but some of the devices in the encoder
+> > > > chain have already been shutdown. This time, the component devices
+> > > > aren't the problem (although they could be if they did anything in their
+> > > > shutdown callbacks), but there's a DSI to eDP bridge in the encoder
+> > > > chain that has already been shutdown before the driver hosting the
+> > > > aggregate device runs shutdown. The ordering of driver probe is like
+> > > > this:
+> > > >
+> > > >  1. msm_pdev_probe() (host driver)
+> > > >  2. DSI bridge
+> > > >  3. aggregate bind
+> > > >
+> > > > When it comes to shutdown we have this order:
+> > > >
+> > > >  1. DSI bridge
+> > > >  2. msm_pdev_shutdown() (host driver)
+> > > >
+> > > > and so the bridge is already off, but we want to communicate to it to
+> > > > turn things off on the display during msm_pdev_shutdown(). Double yuck!
+> > > > Unfortunately, this time we can't split shutdown into multiple phases
+> > > > and swap msm_pdev_shutdown() with the DSI bridge.
+> > > >
+> > > > Let's make the component_master_ops into an actual device driver that has
+> > > > probe/remove/shutdown functions. The driver will only be bound to the
+> > > > aggregate device once all component drivers have called component_add()
+> > > > to indicate they're ready to assemble the aggregate driver. This allows
+> > > > us to attach shutdown logic (and in the future runtime PM logic) to the
+> > > > aggregate driver so that it runs the hooks in the correct order.
+> > >
+> > > I know I asked before, but I can not remember the answer.
+> > >
+> > > This really looks like it is turning into the aux bus code.  Why can't
+> > > you just use that instead here for this type of thing?  You are creating
+> > > another bus and drivers for that bus that are "fake" which is great, but
+> > > that's what the aux bus code was supposed to help out with, so we
+> > > wouldn't have to write more of these.
+> > >
+> > > So, if this really is different, can you document it here so I remember
+> > > next time you resend this patch series?
+> > 
+> > aux takes a device and splits it into a lot of sub-devices, each with
+> > their own driver.
+> > 
+> > This takes a pile of devices, and turns it into a single logical
+> > device with a single driver.
+> > 
+> > So aux is 1:N, component is N:1.
+> > 
+> > And yes you asked this already, I typed this up already :-)
 > 
-> Add a parameter to drm_connector_oob_hotplug_event() to pass the HPD
-> state.
+> Ok, thanks.  But then why is a bus needed if there's a single driver?
+> I guess a bus for that driver?  So one bus, one driver, and one device?
+
+Maybe? I have honestly no idea how this should be best modelled in the
+linux device model.
+
+> I think we need better documentation here...
+
+https://dri.freedesktop.org/docs/drm/driver-api/component.html?highlight=component_del#component-helper-for-aggregate-drivers
+
+There's a kerneldoc overview for component, but it's for driver authors
+that want to use component to glue different hw pieces into a logical
+driver, so it skips over these internals.
+
+And I'm honestly not sure how we want to leak implementation internals
+like the bus/driver/device structure ot users of component.c.
+-Daniel
+
 > 
-> Also push the test for unchanged state in the displayport altmode driver
-> into the i915 driver, to allow other drivers to act upon each update.
+> thanks,
 > 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
-> 
-> Note that the Intel driver has only been compile tested with this patch.
-> 
->  drivers/gpu/drm/drm_connector.c          |  6 ++++--
->  drivers/gpu/drm/i915/display/intel_dp.c  | 14 +++++++++++---
->  drivers/gpu/drm/i915/i915_drv.h          |  3 +++
->  drivers/usb/typec/altmodes/displayport.c |  9 ++-------
->  include/drm/drm_connector.h              |  5 +++--
->  5 files changed, 23 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index a50c82bc2b2f..ad7295597c0f 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2825,6 +2825,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
->  /**
->   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
->   * @connector_fwnode: fwnode_handle to report the event on
-> + * @hpd_state: number of data lanes available
+> greg k-h
 
-"number"?
-
->   *
->   * On some hardware a hotplug event notification may come from outside the display
->   * driver / device. An example of this is some USB Type-C setups where the hardware
-> @@ -2834,7 +2835,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
->   * This function can be used to report these out-of-band events after obtaining
->   * a drm_connector reference through calling drm_connector_find_by_fwnode().
->   */
-> -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
-> +void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
-> +				     bool hpd_state)
-
-This is a boolean, how can it be a number?
-
-And having a "flag" like this is a pain, how do you know what the
-parameter really means?
-
->  {
->  	struct drm_connector *connector;
->  
-> @@ -2843,7 +2845,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
->  		return;
->  
->  	if (connector->funcs->oob_hotplug_event)
-> -		connector->funcs->oob_hotplug_event(connector);
-> +		connector->funcs->oob_hotplug_event(connector, hpd_state);
->  
->  	drm_connector_put(connector);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 146b83916005..00520867d37b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4816,15 +4816,23 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
->  	return intel_modeset_synced_crtcs(state, conn);
->  }
->  
-> -static void intel_dp_oob_hotplug_event(struct drm_connector *connector)
-> +static void intel_dp_oob_hotplug_event(struct drm_connector *connector, bool hpd_state)
->  {
->  	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
->  	struct drm_i915_private *i915 = to_i915(connector->dev);
-> +	bool need_work = false;
->  
->  	spin_lock_irq(&i915->irq_lock);
-> -	i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
-> +	if (hpd_state != i915->hotplug.oob_hotplug_state) {
-> +		i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
-> +
-> +		i915->hotplug.oob_hotplug_state = hpd_state;
-> +		need_work = true;
-> +	}
->  	spin_unlock_irq(&i915->irq_lock);
-> -	queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
-> +
-> +	if (need_work)
-> +		queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
->  }
->  
->  static const struct drm_connector_funcs intel_dp_connector_funcs = {
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index 8c1706fd81f9..543ebf1cfcf4 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -149,6 +149,9 @@ struct i915_hotplug {
->  	/* Whether or not to count short HPD IRQs in HPD storms */
->  	u8 hpd_short_storm_enabled;
->  
-> +	/* Last state reported by oob_hotplug_event */
-> +	bool oob_hotplug_state;
-> +
->  	/*
->  	 * if we get a HPD irq from DP and a HPD irq from non-DP
->  	 * the non-DP HPD could block the workqueue on a mode config
-> diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
-> index c1d8c23baa39..a4596be4d34a 100644
-> --- a/drivers/usb/typec/altmodes/displayport.c
-> +++ b/drivers/usb/typec/altmodes/displayport.c
-> @@ -59,7 +59,6 @@ struct dp_altmode {
->  	struct typec_displayport_data data;
->  
->  	enum dp_state state;
-> -	bool hpd;
->  
->  	struct mutex lock; /* device lock */
->  	struct work_struct work;
-> @@ -143,10 +142,7 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
->  		if (!ret)
->  			dp->state = DP_STATE_CONFIGURE;
->  	} else {
-> -		if (dp->hpd != hpd) {
-> -			drm_connector_oob_hotplug_event(dp->connector_fwnode);
-> -			dp->hpd = hpd;
-> -		}
-> +		drm_connector_oob_hotplug_event(dp->connector_fwnode, hpd);
->  	}
->  
->  	return ret;
-> @@ -573,8 +569,7 @@ void dp_altmode_remove(struct typec_altmode *alt)
->  	cancel_work_sync(&dp->work);
->  
->  	if (dp->connector_fwnode) {
-> -		if (dp->hpd)
-> -			drm_connector_oob_hotplug_event(dp->connector_fwnode);
-> +		drm_connector_oob_hotplug_event(dp->connector_fwnode, false);
-
-See, what does "false" here mean?
-
-Name the function for what it does, do not have random flags as
-parameters, that makes it impossible to understand what the code is
-doing when you are reading it, without having to jump around and figure
-out what the flags are saying.
-
-And here they just don't even seem to be right :(
-
-thanks,
-
-greg k-h
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
