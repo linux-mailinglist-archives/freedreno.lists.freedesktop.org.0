@@ -1,65 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CBFC4AF6AC
-	for <lists+freedreno@lfdr.de>; Wed,  9 Feb 2022 17:30:03 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 729A94AF805
+	for <lists+freedreno@lfdr.de>; Wed,  9 Feb 2022 18:25:26 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCBFA10E350;
-	Wed,  9 Feb 2022 16:30:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0329389A34;
+	Wed,  9 Feb 2022 17:25:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B15110E33D;
- Wed,  9 Feb 2022 16:30:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644424200; x=1675960200;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=3K3kwcm0v2sEPmr5KNseEzwNQ4I1DuBKAWIfngEmkfM=;
- b=fCVqXnmMLvS595nu4bMJSxsI22OW9U4TieeVpfHKDK277kwJ6hDNeT/H
- p+Er7SFDtk0ggVw2yFj5+1YW1Ct0r/HyGdqOEn7YEaMxusLnC8vCloigB
- QaPrxa1azOlmsC/gk0jwSMaLyEwOieKM/zz7mCZgi01UuN6nFxQxH3TSw s=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 09 Feb 2022 08:29:58 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2022 08:29:58 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Wed, 9 Feb 2022 08:29:57 -0800
-Received: from [10.111.162.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Wed, 9 Feb 2022
- 08:29:55 -0800
-Message-ID: <21477063-bbc7-8af8-f613-e1fe014f6515@quicinc.com>
-Date: Wed, 9 Feb 2022 08:29:52 -0800
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2031089A34
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Feb 2022 17:25:24 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id o2so5607826lfd.1
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Feb 2022 09:25:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6QoNkw201jmWYI2ZvFOwA35KwNfMMnBn8u5YRCFPRuo=;
+ b=lekhbXiwBQhRlgUOFnQGhFF2kovB0evdrZ1prOnNfCG93Uplho9arDXFUwEwD8QK5+
+ CL8ASVgUHtY7q97MaI/im2nZiNIIdSs1J8RS2gFLTmdrbAVOqthhla0K74B3FZ5+xPZ+
+ 4LjBDtIfK90r2gjzi6qpi5fKnft2Lxn6pPRkJsibAFxZ+xv4Y+sLsJeM9ubKSAU8WChw
+ DkhfNOXtnG1G0N1EJjRBhT9BCD4L1EQg/IUjhqqjwyWmH7QQgaQKVk9UIsO58pKBIfaX
+ JCwwZ/y88m+VRoWn589Zpm3A94Ad91AzgkQ9a/JPD/wO+TFTCDqTQfj8Gj5fkW2eZRDh
+ 67cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6QoNkw201jmWYI2ZvFOwA35KwNfMMnBn8u5YRCFPRuo=;
+ b=0nrYkV23WGfdEIYf/lBVyVUCiXApx9rIgmW0oP5F4QtA4/SHjE0uztHcpzDPxwyPPG
+ J3hZ3mTklxELymIN69cCyYvJahiNxsRjNEfKQiqiDELXRiqOg0CjephGTFbXlRwN/aO6
+ h8fWKTZUeCsyCeshYasBXR2K1iMJlpY9IRbay5t1LZt6UxASe2f0yQvr88u2NHXTAats
+ jmfp65SIT85aQnfCp3FOx5s9d73SjRa7DTE4XUosEcLss3L3t+AMw8ptwNxJ8buBVY/0
+ E8q2Pyhgz8ggCuUC0pJ6vouI5mlKQTO5g9iM2fcUId06udztnsHv2m+ZhgLyYxp7WGhX
+ ZeAA==
+X-Gm-Message-State: AOAM530pa3LRGtwIt5GZ57tyvox51NgjZfu+1hkPFE0O3e7TdZeYPG5t
+ UX8/CmsCk7oVQ9AAgdtJM77ZAw==
+X-Google-Smtp-Source: ABdhPJzspwOL8tBkHWxdZzBiE7r2qRpMZRD1XKC34zQnA/D9jM2b8gDJpfLQEj5hRBo5pZZdjjXNFw==
+X-Received: by 2002:a05:6512:3d17:: with SMTP id
+ d23mr2261513lfv.76.1644427522431; 
+ Wed, 09 Feb 2022 09:25:22 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id u14sm2560055lji.40.2022.02.09.09.25.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Feb 2022 09:25:21 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed,  9 Feb 2022 20:24:55 +0300
+Message-Id: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Johannes Berg <johannes@sipsolutions.net>, <linux-kernel@vger.kernel.org>
-References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
- <8d67484c7e4b9fb4560d2eca1f71c75fde8bae0d.camel@sipsolutions.net>
- <ebd340e4-2a02-d484-2ed0-9ee738d5b5c5@quicinc.com>
- <c59bc1af9974484075091333a3c98a2088251321.camel@sipsolutions.net>
- <a280fec2-754a-88ec-acc7-337e069e9148@quicinc.com>
- <c2a6e29063793eecc5c65d32af9d826544404ecc.camel@sipsolutions.net>
- <b60d30cf-e435-49c4-a251-b910bc2e94ae@quicinc.com>
- <2d71a9c0d2cd0b0c82a627b0585040c81a4523fa.camel@sipsolutions.net>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <2d71a9c0d2cd0b0c82a627b0585040c81a4523fa.camel@sipsolutions.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
- timeout to 10 mins
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 00/25] drm/msm/dpu: wide planes support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,37 +68,65 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, khsieh@codeaurora.org,
- nganji@codeaurora.org, seanpaul@chromium.org, gregkh@linuxfoundation.org,
- dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
- freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Johannes
+It took me a way longer to finish than I expected. And more patches that
+I initially hoped. This patchset brings in multirect usage to support
+using two SSPP rectangles for a single plane. Virtual planes support is
+omitted from this pull request, it will come later.
 
-On 2/8/2022 11:50 PM, Johannes Berg wrote:
-> On Tue, 2022-02-08 at 17:55 -0800, Abhinav Kumar wrote:
->>
->> Are you suggesting something like below?
->>
->> diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
->> index 42dcf96..14203d0 100644
->> --- a/fs/sysfs/file.c
->>
-> 
-> No, for sure not, but I guess from the looks of this patch there's no
-> way to do something like that for just an individual attribute...
-> 
-> Oh well.
-> 
-> johannes
+Dmitry Baryshkov (25):
+  drm/msm/dpu: rip out master planes support
+  drm/msm/dpu: do not limit the zpos property
+  drm/msm/dpu: add support for SSPP allocation to RM
+  drm/msm/dpu: move SSPP debugfs creation to dpu_kms.c
+  drm/msm/dpu: move pipe_hw to dpu_plane_state
+  drm/msm/dpu: inline dpu_plane_get_ctl_flush
+  drm/msm/dpu: drop dpu_plane_pipe function
+  drm/msm/dpu: get rid of cached flush_mask
+  drm/msm/dpu: dpu_crtc_blend_setup: split mixer and ctl logic
+  drm/msm/dpu: introduce struct dpu_sw_pipe
+  drm/msm/dpu: use dpu_sw_pipe for dpu_hw_sspp callbacks
+  drm/msm/dpu: inline _dpu_plane_set_scanout
+  drm/msm/dpu: pass dpu_format to _dpu_hw_sspp_setup_scaler3()
+  drm/msm/dpu: move stride programming to
+    dpu_hw_sspp_setup_sourceaddress
+  drm/msm/dpu: remove dpu_hw_fmt_layout from struct dpu_hw_pipe_cfg
+  drm/msm/dpu: drop EAGAIN check from dpu_format_populate_layout
+  drm/msm/dpu: drop src_split and multirect check from
+    dpu_crtc_atomic_check
+  drm/msm/dpu: move the rest of plane checks to dpu_plane_atomic_check()
+  drm/msm/dpu: don't use unsupported blend stages
+  drm/msm/dpu: add dpu_hw_pipe_cfg to dpu_plane_state
+  drm/msm/dpu: simplify dpu_plane_validate_src()
+  drm/msm/dpu: rewrite plane's QoS-related functions to take dpu_sw_pipe
+    and dpu_format
+  drm/msm/dpu: rework dpu_plane_atomic_check() and
+    dpu_plane_sspp_atomic_update()
+  drm/msm/dpu: populate SmartDMA features in hw catalog
+  drm/msm/dpu: add support for wide planes
 
-In that case, I was not clear on the previous solution you suggested.
-Are you suggesting then we can go ahead with the timeout increase?
-If so, can I please get your ack?
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 355 +++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h      |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |   4 -
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  78 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |  35 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 136 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  88 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  21 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 813 +++++++++---------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h     |  42 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  81 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   6 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |  19 +-
+ 15 files changed, 827 insertions(+), 863 deletions(-)
 
-Thanks
+-- 
+2.34.1
 
-Abhinav
