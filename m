@@ -2,62 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F904AF82F
-	for <lists+freedreno@lfdr.de>; Wed,  9 Feb 2022 18:26:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3CA74AF823
+	for <lists+freedreno@lfdr.de>; Wed,  9 Feb 2022 18:25:58 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB92610E4DA;
-	Wed,  9 Feb 2022 17:25:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2156D89A34;
+	Wed,  9 Feb 2022 17:25:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E565410E407
- for <freedreno@lists.freedesktop.org>; Wed,  9 Feb 2022 17:25:34 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id m18so5558295lfq.4
- for <freedreno@lists.freedesktop.org>; Wed, 09 Feb 2022 09:25:34 -0800 (PST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEF1D10E441
+ for <freedreno@lists.freedesktop.org>; Wed,  9 Feb 2022 17:25:35 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id m18so5558382lfq.4
+ for <freedreno@lists.freedesktop.org>; Wed, 09 Feb 2022 09:25:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=MG3zuJRQr0/11wQ3yzupBhlp7+IP6nsyDfHf4irQxtY=;
- b=u5qfYP9TDVSTY4earvH1yPKWmkiPqVvTc49fKYcLElCuaeeEa5+4i4BeQ5HWjhyK7J
- Dgh+bG0HhXimVWD+hufvDQLsxUG22MPfk4yPF+BtgZFn+EyliSvMaf2cycyH7qNBifVr
- z9phkN3FawAzNkDcpdTkfw6U+ImxQTr1Stfoq6sNPqhgsonNwkVZukcAseHoExVKx3EH
- FjbvEuAD6DdN3yXWtUiFRvhZM6cVnzU0TlvWAw4WRD40gYIOdMRqFHAF8KKeyQdKKdWy
- lyJeWTVbY4Hd9gWNXDaM4wNsg/26xjy2uJvpt3mz1uaMdMsG5kZ9i8DUsuLIV0rkUu/W
- CyMA==
+ bh=dEJPfPx0nYAq+fkrBMQ8Y9lHlDnWeG3gMpqCP1BAOBY=;
+ b=SuLKaj6Bw1efVxvbR7EBnT6VDupFpsmXnt7irI0/AFj7KorqK4P+qXyaQf/R9hPJ6s
+ uIm926kW60swva4kr9H3klMQpEbyWmzlssWyfATZYe92L93YDYcm2fOvallJL5CqV3XB
+ W1nkhTaIBnaw/JRhHAMG+ByZy/JvaQd9PC7EraBr3LcDD3I+HfbSpGOicsvh86k85YNd
+ wRY/ksW+GH7kqzqhZ1yShE64FzDpyM5oTk/PNgXLzwbkxS4WG6+g1y0phEoQkbtOXYvp
+ CtDwzQVCCT638tZJbWLSeXg5bcKmWGZLAhmGlo++6UjFuXgv6sN8fNkH/zq9c3aPlqTf
+ HExA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=MG3zuJRQr0/11wQ3yzupBhlp7+IP6nsyDfHf4irQxtY=;
- b=8DY+FNegsv91Ny8Um/cHapO+CqhjilrwvejMyhk6+q0bZNrMGl7sRlA30sIOxBA2TS
- 18Nh8LtdDyVrLJzuMm7xGLA6GF6FPNNdnvH7WslM0qXAzefDwiFPny29jMy1DLXBmeeT
- btrVk71B4jy/FjXlqE4s0WICccArAETd75kNyGkjtoDWrOR0OVe3+4yAnbEt+f0ov35O
- y6Sxl6GbMhRXsVdixqEWDiClNIUVoVxpYOb9wJNCEdZNihJr+7mTKaCSD1AXd2qJk/F5
- RnTOnsXmWC+rrPzNOzBh/fkFtBHZKI7bjE0oIYnqeWyckioJSIHUnV9YToXUEZtRaylt
- eJDQ==
-X-Gm-Message-State: AOAM532YSe/k2ac0KUmaDkvVKHL7y925mmMfyv2JNh7YqjkZmkyS7Pfi
- lP6mWlJ0gEwNlomw/K13CWRYtQ==
-X-Google-Smtp-Source: ABdhPJzkspnpj0RHn32D7wkua/6ALOhuUR/7ZzYarqohURMzFEL3aURJi+Dzg6eCk+O3QN1IBBJPpg==
-X-Received: by 2002:a05:6512:114d:: with SMTP id
- m13mr2197256lfg.450.1644427533287; 
- Wed, 09 Feb 2022 09:25:33 -0800 (PST)
+ bh=dEJPfPx0nYAq+fkrBMQ8Y9lHlDnWeG3gMpqCP1BAOBY=;
+ b=lcAZ2ChOwXI6mWJ4z4fy3Xlvt4yrfYZYsM407WAo9iLum7RokePSo70HKUcu4+bKgk
+ T7e4y2z6mMZB2R8uUM6Q9VRE3Oqpw3dHK79gm64NtaTX0don0Su6yugfnw7iznuurTLW
+ +LDv9DdL5BapMTxPs/TJ0Jqu9aiJkn+N6eTyXCHl91BTA/4v43A35TxdPUQH4L9xpNo1
+ 8z/W1BS2n00SHnkZMOiFSx3W+Q6n3QwJpl4z2SQuEoxZTDETpG+uLhnYMP4Acw+wVYru
+ /+tKoUwCBKQdvmBE9IIwgWfe52RNS5bKKBBQD1ldGTA+HLthrOmoFDP0bbuenR47sw96
+ D0VA==
+X-Gm-Message-State: AOAM533Q2yFavxsRtbxEXZOztzLGxvhPPtDndLMksFhq/f02AbnBrKCJ
+ J528EGXpDRiDaRtgUz+qkZ1fPg==
+X-Google-Smtp-Source: ABdhPJzklp3OMmnXSVsNAdGMPJUqnRf1QM921ImCr8NYuUOHdUKPC2BBlYKLgcuLIcLvFpWMPyssiQ==
+X-Received: by 2002:a05:6512:3d8a:: with SMTP id
+ k10mr2246953lfv.141.1644427534236; 
+ Wed, 09 Feb 2022 09:25:34 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u14sm2560055lji.40.2022.02.09.09.25.32
+ by smtp.gmail.com with ESMTPSA id u14sm2560055lji.40.2022.02.09.09.25.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Feb 2022 09:25:32 -0800 (PST)
+ Wed, 09 Feb 2022 09:25:33 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed,  9 Feb 2022 20:25:07 +0300
-Message-Id: <20220209172520.3719906-13-dmitry.baryshkov@linaro.org>
+Date: Wed,  9 Feb 2022 20:25:08 +0300
+Message-Id: <20220209172520.3719906-14-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
 References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 12/25] drm/msm/dpu: inline _dpu_plane_set_scanout
+Subject: [Freedreno] [PATCH 13/25] drm/msm/dpu: pass dpu_format to
+ _dpu_hw_sspp_setup_scaler3()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,76 +77,80 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In preparation to reworking dpu_plane_sspp_atomic_update() inline the
-_dpu_plane_set_scanout() function.
+There is no need to pass full dpu_hw_pipe_cfg instance to
+_dpu_hw_sspp_setup_scaler3, pass just struct dpu_format pointer.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 41 ++++++++++-------------
- 1 file changed, 18 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 9 ++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 7 +++----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 4 ++--
+ 3 files changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index d029ce806039..3ce7dcc285e2 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -490,28 +490,6 @@ static void _dpu_plane_set_qos_remap(struct drm_plane *plane)
- 	dpu_vbif_set_qos_remap(dpu_kms, &qos_params);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+index d8120168f974..7194c14f87bc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+@@ -415,19 +415,18 @@ static void dpu_hw_sspp_setup_pe_config(struct dpu_hw_pipe *ctx,
  }
  
--static void _dpu_plane_set_scanout(struct drm_plane *plane,
--		struct dpu_plane_state *pstate,
+ static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
+-		struct dpu_hw_pipe_cfg *sspp,
+-		void *scaler_cfg)
++		struct dpu_hw_scaler3_cfg *scaler3_cfg,
++		const struct dpu_format *format)
+ {
+ 	u32 idx;
+-	struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
+ 
+-	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
++	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
+ 		|| !scaler3_cfg)
+ 		return;
+ 
+ 	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
+ 			ctx->cap->sblk->scaler_blk.version,
+-			sspp->layout.format);
++			format);
+ }
+ 
+ static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_pipe *ctx)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+index 74171fb4e585..eee8501ea80d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+@@ -334,13 +334,12 @@ struct dpu_hw_sspp_ops {
+ 
+ 	/**
+ 	 * setup_scaler - setup scaler
+-	 * @ctx: Pointer to pipe context
+-	 * @pipe_cfg: Pointer to pipe configuration
+ 	 * @scaler_cfg: Pointer to scaler configuration
++	 * @format: pixel format parameters
+ 	 */
+ 	void (*setup_scaler)(struct dpu_hw_pipe *ctx,
 -		struct dpu_hw_pipe_cfg *pipe_cfg,
--		struct drm_framebuffer *fb)
--{
--	struct dpu_plane *pdpu = to_dpu_plane(plane);
--	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
--	struct msm_gem_address_space *aspace = kms->base.aspace;
--	int ret;
--
--	ret = dpu_format_populate_layout(aspace, fb, &pipe_cfg->layout);
--	if (ret == -EAGAIN)
--		DPU_DEBUG_PLANE(pdpu, "not updating same src addrs\n");
--	else if (ret)
--		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
--	else if (pstate->pipe.sspp->ops.setup_sourceaddress) {
--		trace_dpu_plane_set_scanout(&pstate->pipe,
--					    &pipe_cfg->layout);
--		pstate->pipe.sspp->ops.setup_sourceaddress(&pstate->pipe, pipe_cfg);
--	}
--}
--
- static void _dpu_plane_setup_scaler3(struct dpu_hw_pipe *pipe_hw,
- 		uint32_t src_w, uint32_t src_h, uint32_t dst_w, uint32_t dst_h,
- 		struct dpu_hw_scaler3_cfg *scale_cfg,
-@@ -1074,10 +1052,27 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
- 	const struct dpu_format *fmt =
- 		to_dpu_format(msm_framebuffer_format(fb));
- 	struct dpu_hw_pipe_cfg pipe_cfg;
-+	struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
-+	struct msm_gem_address_space *aspace = kms->base.aspace;
-+	bool update_src_addr = true;
-+	int ret;
+-		void *scaler_cfg);
++		struct dpu_hw_scaler3_cfg *scaler3_cfg,
++		const struct dpu_format *format);
  
- 	memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
+ 	/**
+ 	 * get_scaler_ver - get scaler h/w version
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 3ce7dcc285e2..e9421fa2fb2e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -646,8 +646,8 @@ static void _dpu_plane_setup_scaler(struct dpu_sw_pipe *pipe,
+ 	if (pipe_hw->ops.setup_scaler &&
+ 			pipe->multirect_index != DPU_SSPP_RECT_1)
+ 		pipe_hw->ops.setup_scaler(pipe_hw,
+-				pipe_cfg,
+-				&scaler3_cfg);
++				&scaler3_cfg,
++				fmt);
+ }
  
--	_dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
-+	ret = dpu_format_populate_layout(aspace, fb, &pipe_cfg.layout);
-+	if (ret == -EAGAIN) {
-+		DPU_DEBUG_PLANE(pdpu, "not updating same src addrs\n");
-+		update_src_addr = false;
-+	} else if (ret) {
-+		DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
-+		update_src_addr = false;
-+	}
-+
-+	if (update_src_addr &&
-+	    pipe->sspp->ops.setup_sourceaddress) {
-+		trace_dpu_plane_set_scanout(pipe, &pipe_cfg.layout);
-+		pipe->sspp->ops.setup_sourceaddress(pipe, &pipe_cfg);
-+	}
- 
- 	pstate->pending = true;
- 
+ /**
 -- 
 2.34.1
 
