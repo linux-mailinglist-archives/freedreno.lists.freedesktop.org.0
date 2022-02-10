@@ -2,44 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7E94B0ACE
-	for <lists+freedreno@lfdr.de>; Thu, 10 Feb 2022 11:35:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC5A4B0B06
+	for <lists+freedreno@lfdr.de>; Thu, 10 Feb 2022 11:39:51 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA1610E7E3;
-	Thu, 10 Feb 2022 10:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98C9210E7DC;
+	Thu, 10 Feb 2022 10:39:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 283BC10E7EE;
- Thu, 10 Feb 2022 10:35:28 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 753D261B95;
- Thu, 10 Feb 2022 10:35:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E33C340ED;
- Thu, 10 Feb 2022 10:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644489327;
- bh=V51Yokz4/nkM1sMfLkFe6kYA28/O+8VdwI6w+UCjRAE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YuvRJ/S5/gM9RYyhZlZDo4wB6utxyms2LUhvWKrcUCQBpYwZWk/9JAVZQ6Zn9gwop
- Ix/p3cdy2s0fxMMAognN4PJTrYov+rd+GXN6Q6Ok54widzxyDNVSRCFcAnBhcFSe1x
- HlzSq57BHclhTc4ED0XPOp1u+HPA4B7Qwh2/SZoVVmM+MEhCdSlSu1CIQwuKPgwtTQ
- Wq8EhUMK5G4rKYL8mmAmY5qenvJmLVtLhUsCM6I3Ps1eWb9oCgmvNMqBGHIDYZm3FL
- JXHjsvkyivJIFsRMTdkHjm+8bPBH6roYbc2eFtNqMlDN8zqu8VgZh9vaPeeMz1PL8V
- S7FD6Nq4Q22Tw==
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Thu, 10 Feb 2022 16:04:23 +0530
-Message-Id: <20220210103423.271016-14-vkoul@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220210103423.271016-1-vkoul@kernel.org>
-References: <20220210103423.271016-1-vkoul@kernel.org>
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCFA610E7EF
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 10:39:48 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id bx31so7403134ljb.0
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 02:39:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=uV6ErWvRHqjgOJVJNqpy2N27QhZ/SkH6lhneV2eezQE=;
+ b=nKbcz2Gdq39piyfbPiMit7TrOu1sDICMWcR+0EmABFsSkx77n2YjUmhr9Oadftelnl
+ nzyFf1sLKC1AWxptKuKsXPV9p1RmG+D6jQyD31hPB1kGkeMvwGndSrj/dfuJGfmhzuDY
+ x7S9su9VVRlprEq876OXVw4utyS2H0wqlon8AG1vz+iAvf48UQJTXuAFcdGIJBA5on0Z
+ DIGzgHX/3Kl+0fAUOe+dqph4GRG5mxn4T/P0Wca67iJEh4fWjf/jZ7MKOc/6LKZqW2UX
+ NSqzOhzbWmjRiq5SG4CHSX1xrfFFVHM8mAgo+Tqxdx4SNMrAzC6Yv6jiXtWS1NgpyGsp
+ OlAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=uV6ErWvRHqjgOJVJNqpy2N27QhZ/SkH6lhneV2eezQE=;
+ b=PyX8+m8WwC23hxuIDR+xznqcaxEr36WINbu5mHJfzOT9chwLXxL60fg8y9Y3vCORDd
+ s+ARmL25Fr3X+bDY/prZpg4nR80OXxVXI6QsQPlT0lqlcMQ4dreaYyAsZeBz2ef0f/CX
+ KTuEEhtmaTCFqgvvcR4f0gPiCPf0VMpOH3R20RnQqgK8RhJvTUidtnmaiIae/4tzp8EL
+ 0hM2kGaT1t+Rj4h8s/mw8zwUfmYQui2VZxbmyOFnlj8cjbcpQlyG+upLysfBxuDcuRVO
+ ZsEWUqO5P4TV9x+2m8W1o3Tvc/i4FYeLsoJL8Oml+a9vWh+ierBC9D7y8xAV22/MdKcg
+ Cwsw==
+X-Gm-Message-State: AOAM5336rI2LR/rUwoIdkc42Ht87Hu1ok+Xu6d5ygUj3gLhCr5BK+ji0
+ 7gHk+sSx5aMu1d5mcCDpZE6qog==
+X-Google-Smtp-Source: ABdhPJzWQaQGUC9tOFhfWQgRhHoC89SI5cdC7nImJz2CXY8dRllDB4UDR090ZDdk+eOaZKSH3cgx9g==
+X-Received: by 2002:a05:651c:54a:: with SMTP id
+ q10mr4541444ljp.441.1644489586976; 
+ Thu, 10 Feb 2022 02:39:46 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id z22sm2754597lji.63.2022.02.10.02.39.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Feb 2022 02:39:46 -0800 (PST)
+Message-ID: <88925781-ccca-b180-4d68-dbc689bd5184@linaro.org>
+Date: Thu, 10 Feb 2022 13:39:46 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [REPOST PATCH v4 13/13] drm/msm/dsi: Add support for
- DSC configuration
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-GB
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+References: <20220210103423.271016-1-vkoul@kernel.org>
+ <20220210103423.271016-10-vkoul@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220210103423.271016-10-vkoul@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [REPOST PATCH v4 09/13] drm/msm: Add missing
+ structure documentation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,181 +77,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ Bjorn Andersson <bjorn.andersson@linaro.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When DSC is enabled, we need to configure DSI registers accordingly and
-configure the respective stream compression registers.
+On 10/02/2022 13:34, Vinod Koul wrote:
+> Somehow documentation for dspp was missed, so add that
+> 
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
-Add support to calculate the register setting based on DSC params and
-timing information and configure these registers.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
----
- drivers/gpu/drm/msm/dsi/dsi.xml.h  |  10 +++
- drivers/gpu/drm/msm/dsi/dsi_host.c | 109 ++++++++++++++++++++++++++++-
- 2 files changed, 118 insertions(+), 1 deletion(-)
+> ---
+>   drivers/gpu/drm/msm/msm_drv.h | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index e7a312edfe67..6425a42e997c 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -102,6 +102,7 @@ enum msm_event_wait {
+>    * @num_lm:       number of layer mixers used
+>    * @num_enc:      number of compression encoder blocks used
+>    * @num_intf:     number of interfaces the panel is mounted on
+> + * @num_dspp:     number of dspp blocks used
+>    */
+>   struct msm_display_topology {
+>   	u32 num_lm;
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-index 49b551ad1bff..c1c85df58c4b 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-@@ -706,4 +706,14 @@ static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
- #define REG_DSI_CPHY_MODE_CTRL					0x000002d4
- 
- 
-+#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL			0x0000029c
-+
-+#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL2			0x000002a0
-+
-+#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL			0x000002a4
-+
-+#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2			0x000002a8
-+
-+#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL3			0x000002ac
-+
- #endif /* DSI_XML */
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 438c80750682..3d8d5a1daaa3 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -908,6 +908,20 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
- 		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
- }
- 
-+static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
-+				  int pic_width, int pic_height)
-+{
-+	if (!dsc || !pic_width || !pic_height) {
-+		pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n", pic_width, pic_height);
-+		return -EINVAL;
-+	}
-+
-+	dsc->drm->pic_width = pic_width;
-+	dsc->drm->pic_height = pic_height;
-+
-+	return 0;
-+}
-+
- static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- {
- 	struct drm_display_mode *mode = msm_host->mode;
-@@ -940,7 +954,68 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		hdisplay /= 2;
- 	}
- 
-+	if (msm_host->dsc) {
-+		struct msm_display_dsc_config *dsc = msm_host->dsc;
-+
-+		/* update dsc params with timing params */
-+		dsi_dsc_update_pic_dim(dsc, mode->hdisplay, mode->vdisplay);
-+		DBG("Mode Width- %d x Height %d\n", dsc->drm->pic_width, dsc->drm->pic_height);
-+
-+		/* we do the calculations for dsc parameters here so that
-+		 * panel can use these parameters
-+		 */
-+		dsi_populate_dsc_params(dsc);
-+
-+		/* Divide the display by 3 but keep back/font porch and
-+		 * pulse width same
-+		 */
-+		h_total -= hdisplay;
-+		hdisplay /= 3;
-+		h_total += hdisplay;
-+		ha_end = ha_start + hdisplay;
-+	}
-+
- 	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
-+		if (msm_host->dsc) {
-+			struct msm_display_dsc_config *dsc = msm_host->dsc;
-+			u32 reg, intf_width, slice_per_intf;
-+			u32 total_bytes_per_intf;
-+
-+			/* first calculate dsc parameters and then program
-+			 * compress mode registers
-+			 */
-+			intf_width = hdisplay;
-+			slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
-+
-+			dsc->drm->slice_count = 1;
-+			dsc->bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * 8, 8);
-+			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
-+
-+			dsc->eol_byte_num = total_bytes_per_intf % 3;
-+			dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
-+			dsc->bytes_per_pkt = dsc->bytes_in_slice * dsc->drm->slice_count;
-+			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-+
-+			reg = dsc->bytes_per_pkt << 16;
-+			reg |= (0x0b << 8);    /* dtype of compressed image */
-+
-+			/* pkt_per_line:
-+			 * 0 == 1 pkt
-+			 * 1 == 2 pkt
-+			 * 2 == 4 pkt
-+			 * 3 pkt is not supported
-+			 * above translates to ffs() - 1
-+			 */
-+			reg |= (ffs(dsc->pkt_per_line) - 1) << 6;
-+
-+			dsc->eol_byte_num = total_bytes_per_intf % 3;
-+			reg |= dsc->eol_byte_num << 4;
-+			reg |= 1;
-+
-+			dsi_write(msm_host,
-+				  REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
-+		}
-+
- 		dsi_write(msm_host, REG_DSI_ACTIVE_H,
- 			DSI_ACTIVE_H_START(ha_start) |
- 			DSI_ACTIVE_H_END(ha_end));
-@@ -959,8 +1034,40 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
- 			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
- 	} else {		/* command mode */
-+		if (msm_host->dsc) {
-+			struct msm_display_dsc_config *dsc = msm_host->dsc;
-+			u32 reg, reg_ctrl, reg_ctrl2;
-+			u32 slice_per_intf, bytes_in_slice, total_bytes_per_intf;
-+
-+			reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
-+			reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
-+
-+			slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
-+			bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
-+						      dsc->drm->bits_per_pixel, 8);
-+			dsc->drm->slice_chunk_size = bytes_in_slice;
-+			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
-+			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-+
-+			reg = 0x39 << 8;
-+			reg |= ffs(dsc->pkt_per_line) << 6;
-+
-+			dsc->eol_byte_num = total_bytes_per_intf % 3;
-+			reg |= dsc->eol_byte_num << 4;
-+			reg |= 1;
-+
-+			reg_ctrl |= reg;
-+			reg_ctrl2 |= bytes_in_slice;
-+
-+			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
-+			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
-+		}
-+
- 		/* image data and 1 byte write_memory_start cmd */
--		wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-+		if (!msm_host->dsc)
-+			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-+		else
-+			wc = mode->hdisplay / 2 + 1;
- 
- 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
- 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+
 -- 
-2.31.1
-
+With best wishes
+Dmitry
