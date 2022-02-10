@@ -1,65 +1,77 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 003394B1832
-	for <lists+freedreno@lfdr.de>; Thu, 10 Feb 2022 23:32:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C94AA4B1911
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 00:09:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 894A410E969;
-	Thu, 10 Feb 2022 22:32:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66BDE10E1AA;
+	Thu, 10 Feb 2022 23:09:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 308F610E96F
- for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 22:32:17 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- b12-20020a9d754c000000b0059eb935359eso4790738otl.8
- for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 14:32:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=JrHddR19ZD1tkokZWOCBaXxsomwE9JN1w01NkG4YDyU=;
- b=AOxrl24mI7dYWR6YtN6FZh7Gl8Pj9u1/oljFksQs78r7CJZJVslHGJgUXkU3T118zO
- 5MabSKCGeA7XPcl6ZBXZ+ckDl4624CJhaTRZIvaYdMPWDswR7kRx2BnBROovCkRS5KAb
- v/dNvZSkxZ4eOyeO8ieSlwckmJ6DsV2Mu0bqephhV80yiUd6PiAibe/CXd0OUMBlSJXl
- fW0se2KH0qWF/80+Qhj3bCRSE2mHsyNIUsnlRC3kFbXUCRtMo/svqx2QM8V09K1Th68f
- qgJgmdXGbHyRfqqNF6jgkASk6+VHUf9/+aNcb/aceiaWgrrgUtF4wgFrBn6OXZl9Ohpv
- Tedw==
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBD010E1A1;
+ Thu, 10 Feb 2022 23:09:32 +0000 (UTC)
+Received: by mail-qt1-x832.google.com with SMTP id t1so7141185qtq.13;
+ Thu, 10 Feb 2022 15:09:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=Il/njuSffEOrDW4E6Z5WwCggqy6XxgY6UGpPrL0AIR4=;
+ b=JHJhNoUxh9ZuIiGYQov/FCIzAnjDxw6DqtVPkL1Zy1CLrsVwmf/L1YO0+GvOXbDRZ1
+ pqP9mY9GzQYWTgjathqD6S833i3Jn5LhtxZir6zDdzPkcq0f+VaqtHxlBS6ulo5m01Uc
+ 5DJQwrfoKFPrAReQX/OlzhfusR6gY3jUDmZ2vXh/MK0XJxvb+JBDrj+24HC4sMqKBH2x
+ kal6x+3q2ykI4/TCu98o6Mozggc8N7XorGZWzB7iKSz5i9wIizC8TdU+Cz+wzu1nNQay
+ JFJ9W+P6+SkdtD9v9e2pIYBVGBN0oQwzdYpdb3O/UPoDayEfqa2+ziM7S0gFtv3xwP3k
+ JINw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=JrHddR19ZD1tkokZWOCBaXxsomwE9JN1w01NkG4YDyU=;
- b=070q1i6sh+8wWXuIOvytpIds255k6t9p0qgxEtJbWyXmIYUSwm5FGPtJRD244bbU0n
- ee6Mat8/KfQ3RfSTX01x3J7/o+nQFx8QGWuJtxSHEecnSxa+EvPT+oMdmnVgzo8KnO1t
- kNWPwSklqwevDSedEHOqjUQovvRkzI0zv1VEWmfZet2Aa21ev4pYzjoOmrubFx/R7DtO
- VMX+tb1qJYP3ji1jKO0z4ACiBbIPVKXQihrgK7wXPfIo/Bbn6CNHZiCQrTieG5/ReBFQ
- J9hCvMWN3BznkZGQ2N4VSGZ5KWYe4++iS1aCRdKA7U2AUFq/ru7HTDBzKKEfDdIPzt2e
- h+eQ==
-X-Gm-Message-State: AOAM533KXJxH/3HwmjRqSQgcJdhROZC25F9D0fQQ3RrpzZ/I2rS35Wn8
- cafXu2WwodnkjT7Z1pH3YUISnw==
-X-Google-Smtp-Source: ABdhPJxJ7/q4RbdB3oTSoXedG6ikpzgyv4pQn6CfOszGopvOcDpzuPeg37Y9NWvFxF93GL7eMhYPBg==
-X-Received: by 2002:a05:6830:92a:: with SMTP id
- v42mr3756586ott.48.1644532336413; 
- Thu, 10 Feb 2022 14:32:16 -0800 (PST)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id 6sm8819888oig.29.2022.02.10.14.32.15
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Il/njuSffEOrDW4E6Z5WwCggqy6XxgY6UGpPrL0AIR4=;
+ b=VCMhyiz53HcWPa12qZdBd7NM2OL3Z7DhCa0VHTYzkUp0wRdg3xmzefayZShNXwFK2I
+ nDCwZBDlFFFO8io4Du3i36kMeCTsgzKW1QvxEx2dLm/arqZMdqQGTAy/kvuWQs+aGRsJ
+ UnqhKf6lMQOsPFwZ71hwCz7fjWIzrocRLlLTAP6jiYiaO7/gUrhYdDeWCpEZ2K0QhGIV
+ sW/uaM1BbmcuTF704V/TMQTEKuc13ypP1s6Y97Dwf7yMKL/QiS9vj0vNiwJ30G74guWI
+ /0tfVg+4hs5GHv5I9vGwZ1zIgpIs01PVrZ0NQe8MFa35+yb8ViyjCBeUk/b02FuFCnll
+ b3oQ==
+X-Gm-Message-State: AOAM532Xh8dGFo0MYMciEhP/JAqqWG97lIvobn1aAiAMI3dlbuiIEDyq
+ vG/Vk4YEKNaptrKz7hCJtDI=
+X-Google-Smtp-Source: ABdhPJyv7MT5wCGfdlfCLRk0wYTBM2q1x++ztUAm4XQN4J6MUGrqRSzzk5Brej8rnmEAO7fi58Ap6g==
+X-Received: by 2002:a05:622a:1304:: with SMTP id
+ v4mr6649618qtk.359.1644534571568; 
+ Thu, 10 Feb 2022 15:09:31 -0800 (PST)
+Received: from localhost ([12.28.44.171])
+ by smtp.gmail.com with ESMTPSA id s6sm11824113qtw.18.2022.02.10.15.09.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 14:32:15 -0800 (PST)
-Date: Thu, 10 Feb 2022 14:34:30 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <YgWS9iZ+1uJBd9Lj@ripper>
-References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
- <20220208044328.588860-2-bjorn.andersson@linaro.org>
- <YgIecy+W/lGzL6ac@kroah.com>
+ Thu, 10 Feb 2022 15:09:31 -0800 (PST)
+From: Yury Norov <yury.norov@gmail.com>
+To: Yury Norov <yury.norov@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ David Laight <David.Laight@aculab.com>, Joe Perches <joe@perches.com>,
+ Dennis Zhou <dennis@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Alexey Klimov <aklimov@redhat.com>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Date: Thu, 10 Feb 2022 14:48:52 -0800
+Message-Id: <20220210224933.379149-9-yury.norov@gmail.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220210224933.379149-1-yury.norov@gmail.com>
+References: <20220210224933.379149-1-yury.norov@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YgIecy+W/lGzL6ac@kroah.com>
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dp: Implement
- oob_hotplug_event()
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 08/49] drm: replace bitmap_weight with
+ bitmap_empty where appropriate
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,93 +84,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, linux-usb@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 07 Feb 23:40 PST 2022, Greg Kroah-Hartman wrote:
+smp_request_block() in drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c calls
+bitmap_weight() to check if any bit of a given bitmap is set. It's
+better to use bitmap_empty() in that case because bitmap_empty() stops
+traversing the bitmap as soon as it finds first set bit, while
+bitmap_weight() counts all bits unconditionally.
 
-> On Mon, Feb 07, 2022 at 08:43:28PM -0800, Bjorn Andersson wrote:
-> > The Qualcomm DisplayPort driver contains traces of the necessary
-> > plumbing to hook up USB HPD, in the form of the dp_hpd module and the
-> > dp_usbpd_cb struct. Use this as basis for implementing the
-> > oob_hotplug_event() callback, by amending the dp_hpd module with the
-> > missing logic.
-> > 
-> > Overall the solution is similar to what's done downstream, but upstream
-> > all the code to disect the HPD notification lives on the calling side of
-> > drm_connector_oob_hotplug_event().
-> > 
-> > drm_connector_oob_hotplug_event() performs the lookup of the
-> > drm_connector based on fwnode, hence the need to assign the fwnode in
-> > dp_drm_connector_init().
-> > 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/dp/dp_display.c |  8 ++++++++
-> >  drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
-> >  drivers/gpu/drm/msm/dp/dp_drm.c     | 10 ++++++++++
-> >  drivers/gpu/drm/msm/dp/dp_hpd.c     | 19 +++++++++++++++++++
-> >  drivers/gpu/drm/msm/dp/dp_hpd.h     |  4 ++++
-> >  5 files changed, 43 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> > index 7cc4d21f2091..124a2f794382 100644
-> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> > @@ -414,6 +414,13 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
-> >  	return dp_display_process_hpd_high(dp);
-> >  }
-> >  
-> > +void dp_display_oob_hotplug_event(struct msm_dp *dp_display, bool hpd_state)
-> > +{
-> > +	struct dp_display_private *dp = container_of(dp_display, struct dp_display_private, dp_display);
-> > +
-> > +	dp->usbpd->oob_event(dp->usbpd, hpd_state);
-> > +}
-> > +
-> >  static int dp_display_usbpd_disconnect_cb(struct device *dev)
-> >  {
-> >  	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> > @@ -1251,6 +1258,7 @@ static int dp_display_probe(struct platform_device *pdev)
-> >  	dp->pdev = pdev;
-> >  	dp->name = "drm_dp";
-> >  	dp->dp_display.connector_type = desc->connector_type;
-> > +	dp->dp_display.dev = &pdev->dev;
-> 
-> You did not properly reference count this pointer you just saved.  What
-> is to keep that pointer from going away without you knowing about it?
-> 
+Signed-off-by: Yury Norov <yury.norov@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The "dp" object only lives while &pdev->dev is alive, both logically and
-as its devres allocated on &pdev-dev. So for this reference I don't see
-that we should refcount it.
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+index d7fa2c49e741..56a3063545ec 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+@@ -68,7 +68,7 @@ static int smp_request_block(struct mdp5_smp *smp,
+ 	uint8_t reserved;
+ 
+ 	/* we shouldn't be requesting blocks for an in-use client: */
+-	WARN_ON(bitmap_weight(cs, cnt) > 0);
++	WARN_ON(!bitmap_empty(cs, cnt));
+ 
+ 	reserved = smp->reserved[cid];
+ 
+-- 
+2.32.0
 
-> And you already have a pointer to pdev, why save another one here?
-> 
-
-The Qualcomm DisplayPort driver has per-c-file private context structs
-and "dp" is one such object. So I simply can't dereference it and get to
-pdev from the other c-file in the same driver...
-
-But I only need it in dp_drm.c to during initialization to get a
-reference to the associated fwnode, so it seems that I can rework this
-and pass the pointer as a parameter to dp_drm_connector_init().
-
-That looks to be cleaner as well.
-
-Thanks,
-Bjorn
