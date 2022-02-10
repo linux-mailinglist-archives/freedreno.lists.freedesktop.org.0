@@ -1,77 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94AA4B1911
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 00:09:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8E04B195D
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 00:22:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66BDE10E1AA;
-	Thu, 10 Feb 2022 23:09:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A3010E97D;
+	Thu, 10 Feb 2022 23:22:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBD010E1A1;
- Thu, 10 Feb 2022 23:09:32 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id t1so7141185qtq.13;
- Thu, 10 Feb 2022 15:09:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=Il/njuSffEOrDW4E6Z5WwCggqy6XxgY6UGpPrL0AIR4=;
- b=JHJhNoUxh9ZuIiGYQov/FCIzAnjDxw6DqtVPkL1Zy1CLrsVwmf/L1YO0+GvOXbDRZ1
- pqP9mY9GzQYWTgjathqD6S833i3Jn5LhtxZir6zDdzPkcq0f+VaqtHxlBS6ulo5m01Uc
- 5DJQwrfoKFPrAReQX/OlzhfusR6gY3jUDmZ2vXh/MK0XJxvb+JBDrj+24HC4sMqKBH2x
- kal6x+3q2ykI4/TCu98o6Mozggc8N7XorGZWzB7iKSz5i9wIizC8TdU+Cz+wzu1nNQay
- JFJ9W+P6+SkdtD9v9e2pIYBVGBN0oQwzdYpdb3O/UPoDayEfqa2+ziM7S0gFtv3xwP3k
- JINw==
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC5010E97D
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 23:22:37 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ f11-20020a4abb0b000000b002e9abf6bcbcso8351569oop.0
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 15:22:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=VWcjiP0aJllSyLu5U7SuD3WWUkksQFBkkd2fOLl4Q3g=;
+ b=DQkeyAZAViLmDFiSaddRDOcrKfXdLrLVdNU6dUqr4gmx3UcugdllIp0uoMgmIJNl7C
+ R9Q5w4bmcYoN1zMGB3Z3oDaGVqS9OFoPJ5GoUNpNLi/detKsVXtwGKgc+zGrz7xICbhB
+ GaVbpw4SGsyFeaf71CGt74oSc0hXwm+c62TRcU2MTAXpDogpMY+6Dg2x2JbNUq3fJYPg
+ csv7YWwUBSNCQ+mEBwFBK//hqNw1g6lGazliwGgV6Ufdwg/+R5bQrP8r2SjXEy0c/BYn
+ muoGUegKH/dEB3MCiZ2PYFjXb3h3LvchHVy4MF06pKHqKPLyadW9IEcbjbbQaQu6o1R6
+ Y+1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Il/njuSffEOrDW4E6Z5WwCggqy6XxgY6UGpPrL0AIR4=;
- b=VCMhyiz53HcWPa12qZdBd7NM2OL3Z7DhCa0VHTYzkUp0wRdg3xmzefayZShNXwFK2I
- nDCwZBDlFFFO8io4Du3i36kMeCTsgzKW1QvxEx2dLm/arqZMdqQGTAy/kvuWQs+aGRsJ
- UnqhKf6lMQOsPFwZ71hwCz7fjWIzrocRLlLTAP6jiYiaO7/gUrhYdDeWCpEZ2K0QhGIV
- sW/uaM1BbmcuTF704V/TMQTEKuc13ypP1s6Y97Dwf7yMKL/QiS9vj0vNiwJ30G74guWI
- /0tfVg+4hs5GHv5I9vGwZ1zIgpIs01PVrZ0NQe8MFa35+yb8ViyjCBeUk/b02FuFCnll
- b3oQ==
-X-Gm-Message-State: AOAM532Xh8dGFo0MYMciEhP/JAqqWG97lIvobn1aAiAMI3dlbuiIEDyq
- vG/Vk4YEKNaptrKz7hCJtDI=
-X-Google-Smtp-Source: ABdhPJyv7MT5wCGfdlfCLRk0wYTBM2q1x++ztUAm4XQN4J6MUGrqRSzzk5Brej8rnmEAO7fi58Ap6g==
-X-Received: by 2002:a05:622a:1304:: with SMTP id
- v4mr6649618qtk.359.1644534571568; 
- Thu, 10 Feb 2022 15:09:31 -0800 (PST)
-Received: from localhost ([12.28.44.171])
- by smtp.gmail.com with ESMTPSA id s6sm11824113qtw.18.2022.02.10.15.09.30
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=VWcjiP0aJllSyLu5U7SuD3WWUkksQFBkkd2fOLl4Q3g=;
+ b=4NY0wdHushnTmN9jIWkwrZkk60mZ2n6DrmtGcs0T2t1Ihr8kHSLtswNZ+GcYx8WkUj
+ ncKMtneZhTM17d7rK+YBOCUNyDNmKf2Mbc5HLAhQyvGUVCfX1g8AUzkTUljUgPbuI445
+ ryaDGgRwwgxHXMTOxsm9JNUCDDH+ask8V8oiKXC4QXemwvSiFbIlpmEVRsJnWETbzvzZ
+ 0D2+pGc7EygTIbQEAr88/j0xwT8Yet83Y7WbtBxR1fIzYPI0KmxqwX0NSp6rEIJ/FKX3
+ YDy+2jpI2qu8p7cnrHJ7esQ1nKdQGQEoWwzyIk/jeWyAbfFUPgB2QUt50I3xncb1Pid4
+ flig==
+X-Gm-Message-State: AOAM530dkK8TgY+6DL7C5FYxfmD6P6fAtk/VjSDiiBmmFtSQxZtBS+We
+ 4EheFpWB5IVkdrS33oQaOBukEQ==
+X-Google-Smtp-Source: ABdhPJzGHTz/lbwaYjTzQQN0oGwFuY/HWnLxlow29evo1zJed7Y64duTC98MM2AHDncWWIysYjlhOw==
+X-Received: by 2002:a05:6870:a3c2:: with SMTP id
+ h2mr1522821oak.152.1644535356674; 
+ Thu, 10 Feb 2022 15:22:36 -0800 (PST)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id b32sm3163784oaq.43.2022.02.10.15.22.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 15:09:31 -0800 (PST)
-From: Yury Norov <yury.norov@gmail.com>
-To: Yury Norov <yury.norov@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Andrew Morton <akpm@linux-foundation.org>,
- =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Zijlstra <peterz@infradead.org>,
- David Laight <David.Laight@aculab.com>, Joe Perches <joe@perches.com>,
- Dennis Zhou <dennis@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Nicholas Piggin <npiggin@gmail.com>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Alexey Klimov <aklimov@redhat.com>, linux-kernel@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Date: Thu, 10 Feb 2022 14:48:52 -0800
-Message-Id: <20220210224933.379149-9-yury.norov@gmail.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220210224933.379149-1-yury.norov@gmail.com>
-References: <20220210224933.379149-1-yury.norov@gmail.com>
+ Thu, 10 Feb 2022 15:22:36 -0800 (PST)
+Date: Thu, 10 Feb 2022 15:24:51 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YgWewzgtHM7B6KUI@ripper>
+References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
+ <YgJISIIacBnFyTLq@kroah.com> <YgV8GyK9G0gbWAaq@ripper>
+ <CAA8EJppkZTRApQbuEUACw=r2kBH+321_f1ZqRf_-veEuwB56zg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 08/49] drm: replace bitmap_weight with
- bitmap_empty where appropriate
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA8EJppkZTRApQbuEUACw=r2kBH+321_f1ZqRf_-veEuwB56zg@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH 1/2] drm: Add HPD state to
+ drm_connector_oob_hotplug_event()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,33 +72,222 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-msm@vger.kernel.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, linux-usb@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-smp_request_block() in drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c calls
-bitmap_weight() to check if any bit of a given bitmap is set. It's
-better to use bitmap_empty() in that case because bitmap_empty() stops
-traversing the bitmap as soon as it finds first set bit, while
-bitmap_weight() counts all bits unconditionally.
+On Thu 10 Feb 13:12 PST 2022, Dmitry Baryshkov wrote:
 
-Signed-off-by: Yury Norov <yury.norov@gmail.com>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On Thu, 10 Feb 2022 at 23:54, Bjorn Andersson
+> <bjorn.andersson@linaro.org> wrote:
+> >
+> > On Tue 08 Feb 02:39 PST 2022, Greg Kroah-Hartman wrote:
+> >
+> > > On Mon, Feb 07, 2022 at 08:43:27PM -0800, Bjorn Andersson wrote:
+> > > > In some implementations, such as the Qualcomm platforms, the display
+> > > > driver has no way to query the current HPD state and as such it's
+> > > > impossible to distinguish between disconnect and attention events.
+> > > >
+> > > > Add a parameter to drm_connector_oob_hotplug_event() to pass the HPD
+> > > > state.
+> > > >
+> > > > Also push the test for unchanged state in the displayport altmode driver
+> > > > into the i915 driver, to allow other drivers to act upon each update.
+> > > >
+> > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> > > > ---
+> > > >
+> > > > Note that the Intel driver has only been compile tested with this patch.
+> > > >
+> > > >  drivers/gpu/drm/drm_connector.c          |  6 ++++--
+> > > >  drivers/gpu/drm/i915/display/intel_dp.c  | 14 +++++++++++---
+> > > >  drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+> > > >  drivers/usb/typec/altmodes/displayport.c |  9 ++-------
+> > > >  include/drm/drm_connector.h              |  5 +++--
+> > > >  5 files changed, 23 insertions(+), 14 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> > > > index a50c82bc2b2f..ad7295597c0f 100644
+> > > > --- a/drivers/gpu/drm/drm_connector.c
+> > > > +++ b/drivers/gpu/drm/drm_connector.c
+> > > > @@ -2825,6 +2825,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+> > > >  /**
+> > > >   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
+> > > >   * @connector_fwnode: fwnode_handle to report the event on
+> > > > + * @hpd_state: number of data lanes available
+> > >
+> > > "number"?
+> > >
+> > > >   *
+> > > >   * On some hardware a hotplug event notification may come from outside the display
+> > > >   * driver / device. An example of this is some USB Type-C setups where the hardware
+> > > > @@ -2834,7 +2835,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+> > > >   * This function can be used to report these out-of-band events after obtaining
+> > > >   * a drm_connector reference through calling drm_connector_find_by_fwnode().
+> > > >   */
+> > > > -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
+> > > > +void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+> > > > +                                bool hpd_state)
+> > >
+> > > This is a boolean, how can it be a number?
+> > >
+> >
+> > The kerneldoc wasn't appropriately updated as this went from being
+> > "number of data lanes" to "the hot plug detect (hpd) state".
+> >
+> > > And having a "flag" like this is a pain, how do you know what the
+> > > parameter really means?
+> > >
+> >
+> > You're right, "state" isn't a boolean property, let's rename it
+> > "hpd_high" to clarify it.
+> 
+> "connected" ?
+> 
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
-index d7fa2c49e741..56a3063545ec 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
-@@ -68,7 +68,7 @@ static int smp_request_block(struct mdp5_smp *smp,
- 	uint8_t reserved;
- 
- 	/* we shouldn't be requesting blocks for an in-use client: */
--	WARN_ON(bitmap_weight(cs, cnt) > 0);
-+	WARN_ON(!bitmap_empty(cs, cnt));
- 
- 	reserved = smp->reserved[cid];
- 
--- 
-2.32.0
+I've been trying to find some references to point to, but my
+understanding is that in a DisplayPort or HDMI connector/cable you have
+a dedicated HPD pin, which when high denotes the sink is alive _and_
+EDID can be read.
 
+So in a situation where you have a multifunction USB & DP/HDMI hub where
+you connect a display, you might have the USB hub connected to the host
+and you might even have your sink connected, but HPD could still be low
+until the display is ready to talk to you. So physically everything is
+connected, but this property will still be "not connected".
+
+As such I don't think it's appropriate to name it "connected".
+
+Regards,
+Bjorn
+
+> >
+> > > >  {
+> > > >     struct drm_connector *connector;
+> > > >
+> > > > @@ -2843,7 +2845,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
+> > > >             return;
+> > > >
+> > > >     if (connector->funcs->oob_hotplug_event)
+> > > > -           connector->funcs->oob_hotplug_event(connector);
+> > > > +           connector->funcs->oob_hotplug_event(connector, hpd_state);
+> > > >
+> > > >     drm_connector_put(connector);
+> > > >  }
+> > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > > index 146b83916005..00520867d37b 100644
+> > > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > > @@ -4816,15 +4816,23 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
+> > > >     return intel_modeset_synced_crtcs(state, conn);
+> > > >  }
+> > > >
+> > > > -static void intel_dp_oob_hotplug_event(struct drm_connector *connector)
+> > > > +static void intel_dp_oob_hotplug_event(struct drm_connector *connector, bool hpd_state)
+> > > >  {
+> > > >     struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
+> > > >     struct drm_i915_private *i915 = to_i915(connector->dev);
+> > > > +   bool need_work = false;
+> > > >
+> > > >     spin_lock_irq(&i915->irq_lock);
+> > > > -   i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
+> > > > +   if (hpd_state != i915->hotplug.oob_hotplug_state) {
+> > > > +           i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
+> > > > +
+> > > > +           i915->hotplug.oob_hotplug_state = hpd_state;
+> > > > +           need_work = true;
+> > > > +   }
+> > > >     spin_unlock_irq(&i915->irq_lock);
+> > > > -   queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
+> > > > +
+> > > > +   if (need_work)
+> > > > +           queue_delayed_work(system_wq, &i915->hotplug.hotplug_work, 0);
+> > > >  }
+> > > >
+> > > >  static const struct drm_connector_funcs intel_dp_connector_funcs = {
+> > > > diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> > > > index 8c1706fd81f9..543ebf1cfcf4 100644
+> > > > --- a/drivers/gpu/drm/i915/i915_drv.h
+> > > > +++ b/drivers/gpu/drm/i915/i915_drv.h
+> > > > @@ -149,6 +149,9 @@ struct i915_hotplug {
+> > > >     /* Whether or not to count short HPD IRQs in HPD storms */
+> > > >     u8 hpd_short_storm_enabled;
+> > > >
+> > > > +   /* Last state reported by oob_hotplug_event */
+> > > > +   bool oob_hotplug_state;
+> > > > +
+> > > >     /*
+> > > >      * if we get a HPD irq from DP and a HPD irq from non-DP
+> > > >      * the non-DP HPD could block the workqueue on a mode config
+> > > > diff --git a/drivers/usb/typec/altmodes/displayport.c b/drivers/usb/typec/altmodes/displayport.c
+> > > > index c1d8c23baa39..a4596be4d34a 100644
+> > > > --- a/drivers/usb/typec/altmodes/displayport.c
+> > > > +++ b/drivers/usb/typec/altmodes/displayport.c
+> > > > @@ -59,7 +59,6 @@ struct dp_altmode {
+> > > >     struct typec_displayport_data data;
+> > > >
+> > > >     enum dp_state state;
+> > > > -   bool hpd;
+> > > >
+> > > >     struct mutex lock; /* device lock */
+> > > >     struct work_struct work;
+> > > > @@ -143,10 +142,7 @@ static int dp_altmode_status_update(struct dp_altmode *dp)
+> > > >             if (!ret)
+> > > >                     dp->state = DP_STATE_CONFIGURE;
+> > > >     } else {
+> > > > -           if (dp->hpd != hpd) {
+> > > > -                   drm_connector_oob_hotplug_event(dp->connector_fwnode);
+> > > > -                   dp->hpd = hpd;
+> > > > -           }
+> > > > +           drm_connector_oob_hotplug_event(dp->connector_fwnode, hpd);
+> > > >     }
+> > > >
+> > > >     return ret;
+> > > > @@ -573,8 +569,7 @@ void dp_altmode_remove(struct typec_altmode *alt)
+> > > >     cancel_work_sync(&dp->work);
+> > > >
+> > > >     if (dp->connector_fwnode) {
+> > > > -           if (dp->hpd)
+> > > > -                   drm_connector_oob_hotplug_event(dp->connector_fwnode);
+> > > > +           drm_connector_oob_hotplug_event(dp->connector_fwnode, false);
+> > >
+> > > See, what does "false" here mean?
+> > >
+> > > Name the function for what it does, do not have random flags as
+> > > parameters, that makes it impossible to understand what the code is
+> > > doing when you are reading it, without having to jump around and figure
+> > > out what the flags are saying.
+> > >
+> > > And here they just don't even seem to be right :(
+> > >
+> >
+> > Both the old and new code will signal to the DRM driver that the cable
+> > was removed, the change is that we're carrying the level in the call
+> > rather than just indicating that the state has changed.
+> >
+> > We could introduce some HPD_HIGH/HPD_LOW defines to make it easier to
+> > read. But the various places I'm looking at just represented the hpd
+> > state as a bool.
+> >
+> > Regards,
+> > Bjorn
+> 
+> 
+> 
+> -- 
+> With best wishes
+> Dmitry
