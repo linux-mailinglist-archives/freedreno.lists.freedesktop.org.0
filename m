@@ -1,60 +1,74 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9864B0CF3
-	for <lists+freedreno@lfdr.de>; Thu, 10 Feb 2022 12:58:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16A934B0D88
+	for <lists+freedreno@lfdr.de>; Thu, 10 Feb 2022 13:25:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB23810E82F;
-	Thu, 10 Feb 2022 11:58:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF87710E836;
+	Thu, 10 Feb 2022 12:25:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 270FA10E82F;
- Thu, 10 Feb 2022 11:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644494316; x=1676030316;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=zRIri8zqgjHIXhwXyup9g2V7q3Zva4+VTQrkKNHh2HY=;
- b=PzUE7r5mRG/cdCb0Kkk+/4z93k0HWuuGfvNkcerRyBxy/NjQSu06is5g
- uh86BOBNu4YpZ/7Bum8Oe3wNnD+aKU1FkMtUsPb7g0Olkoxj5I2aM93z+
- VEuJNp08yrIAKhlAxQl6IW318dyyJvY8gMk5q7yKyYe+ydGDpGdA0NU88 c=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 10 Feb 2022 03:58:35 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 03:58:34 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Thu, 10 Feb 2022 03:58:34 -0800
-Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Thu, 10 Feb 2022 03:58:27 -0800
-From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <agross@kernel.org>,
- <bjorn.andersson@linaro.org>, <robh+dt@kernel.org>, <robdclark@gmail.com>,
- <seanpaul@chromium.org>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <krzysztof.kozlowski@canonical.com>, <thierry.reding@gmail.com>,
- <sam@ravnborg.org>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Date: Thu, 10 Feb 2022 17:27:35 +0530
-Message-ID: <1644494255-6632-6-git-send-email-quic_sbillaka@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644494255-6632-1-git-send-email-quic_sbillaka@quicinc.com>
-References: <1644494255-6632-1-git-send-email-quic_sbillaka@quicinc.com>
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14F7610E333
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 12:25:29 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id f23so10103193lfe.5
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 04:25:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=O4VNG/Up45qwhiOzHf3sf/AW6zbqebmgwvUUBdlvIRY=;
+ b=t4iAQUmzzIZ4nWhbIv7yV/jH8WTb4wTlTajvT6ktaaAoXd5mkaWOeTanf006NbN7Pz
+ 6ntCpCjr0/WJG9rBKL43oG7GL3auqVW/oHrM1tH2Hj3xQrMzgix7Xu2xTOK2IlTrealo
+ QUhIKvQ+Y8LBtfP4JxhzlztebsCXPYVuHIXEx37qKb6k2kqev3TdvkXR457Jb3c+zOwo
+ SSknw85NZ2dpGxJqUsG6Bz+vwig1Q7sXlu4UC1J32HssiyKRPE9zwhpb4586LGF1HkvZ
+ jfMVN84Fy/RzuBCTFDKmd9+05bYSngG9wpu+aa2kxqYhPxYDZiUJbYFv/MXd25OTgkku
+ enAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=O4VNG/Up45qwhiOzHf3sf/AW6zbqebmgwvUUBdlvIRY=;
+ b=E2MSGXdhX1ssDLM5JG+HkpWBq27Hgbwm6FrzbDA82vYTzVVeubGsGPa7H/3OFuW/9C
+ kglSqAMCkOk2RCWvS6NZpc/HcpcOZfFlDe8Iz71/EioPaSfi4pVzUPu87gF0yIR4p/y6
+ C544lr6C6gsYqJci30L69ait+GGygp9fSaYR727oqECtOZ+noZ+tHk6RVLPpHm27CP+i
+ WXXu/HDeqY+DbxmzjiDDY4KMBsq1kPtLzQqQ4bLHayxRcsPkNm+msqQdVTEdkk3gCd+O
+ yrN/jhtpxW9Ss4WesGbJdO/M8ykSMbXWGfvehc9Nk92By4W3Sg4QVnaMqIDbQK7bv3cF
+ 26Iw==
+X-Gm-Message-State: AOAM53298jQA3mhezflNjlxYiABj7QFWf6becCi+xjaD5Ox2xr2r9vS2
+ f42exBnVwspzXW4p6G/8u8ozQg==
+X-Google-Smtp-Source: ABdhPJxK86barz0NVPBX19n7F1+rZNGle/QgGipkfT+1rpX8fZHByOsef/Y8lbcNGRTXKvz0k+BqTw==
+X-Received: by 2002:a05:6512:4012:: with SMTP id
+ br18mr4801599lfb.533.1644495927370; 
+ Thu, 10 Feb 2022 04:25:27 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id h6sm500455lfj.178.2022.02.10.04.25.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Feb 2022 04:25:26 -0800 (PST)
+Message-ID: <00e9ade6-1830-f19c-4dd8-0673809166b2@linaro.org>
+Date: Thu, 10 Feb 2022 15:25:26 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v4 5/5] drm/msm/dp: Add driver support to
- utilize drm panel
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-GB
+To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
+ robh+dt@kernel.org, robdclark@gmail.com, seanpaul@chromium.org,
+ swboyd@chromium.org, dianders@chromium.org,
+ krzysztof.kozlowski@canonical.com, thierry.reding@gmail.com,
+ sam@ravnborg.org, airlied@linux.ie, daniel@ffwll.ch
+References: <1644396932-17932-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1644396932-17932-4-git-send-email-quic_sbillaka@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1644396932-17932-4-git-send-email-quic_sbillaka@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 3/4] drm/panel-edp: Add eDP sharp panel
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,168 +81,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- quic_vproddut@quicinc.com, quic_abhinavk@quicinc.com, quic_khsieh@quicinc.com,
- quic_mkrishn@quicinc.com
+Cc: quic_kalyant@quicinc.com, quic_vproddut@quicinc.com,
+ quic_mkrishn@quicinc.com, quic_abhinavk@quicinc.com, quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support in the DP driver to utilize the custom eDP panels
-from drm/panels.
+On 09/02/2022 11:55, Sankeerth Billakanti wrote:
+> Add support for the 14" sharp,lq140m1jw46 eDP panel.
+> 
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 
-An eDP panel is always connected to the platform. So, the eDP
-connector can be reported as always connected. The display mode
-will be sourced from the panel. The panel mode will be set after
-the link training is completed.
+Please excuse my ignorance, is there any reason, why we can't use 
+generic panel-edp here?
 
-Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
----
+> ---
+> 
+> Changes in v3:
+>    None
+> 
+>   drivers/gpu/drm/panel/panel-edp.c | 31 +++++++++++++++++++++++++++++++
+>   1 file changed, 31 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+> index a394a15..5d13ccc 100644
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -1605,6 +1605,34 @@ static const struct panel_desc sharp_lq123p1jx31 = {
+>   	},
+>   };
+>   
+> +static const struct drm_display_mode sharp_lq140m1jw46_mode = {
+> +	.clock = 144370,
+> +	.hdisplay = 1920,
+> +	.hsync_start = 1920 + 48,
+> +	.hsync_end = 1920 + 48 + 32,
+> +	.htotal = 1920 + 48 + 32 + 80,
+> +	.vdisplay = 1080,
+> +	.vsync_start = 1080 + 3,
+> +	.vsync_end = 1080 + 3 + 5,
+> +	.vtotal = 1080 + 3 + 5 + 69,
+> +	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
+> +};
+> +
+> +static const struct panel_desc sharp_lq140m1jw46 = {
+> +	.modes = &sharp_lq140m1jw46_mode,
+> +	.num_modes = 1,
+> +	.bpc = 8,
+> +	.size = {
+> +		.width = 309,
+> +		.height = 174,
+> +	},
+> +	.delay = {
+> +		.hpd_absent = 80,
+> +		.enable = 50,
+> +		.unprepare = 500,
+> +	},
+> +};
+> +
+>   static const struct drm_display_mode starry_kr122ea0sra_mode = {
+>   	.clock = 147000,
+>   	.hdisplay = 1920,
+> @@ -1719,6 +1747,9 @@ static const struct of_device_id platform_of_match[] = {
+>   		.compatible = "sharp,lq123p1jx31",
+>   		.data = &sharp_lq123p1jx31,
+>   	}, {
+> +		.compatible = "sharp,lq140m1jw46",
+> +		.data = &sharp_lq140m1jw46,
+> +	}, {
+>   		.compatible = "starry,kr122ea0sra",
+>   		.data = &starry_kr122ea0sra,
+>   	}, {
 
-Changes in v4:
-  - Remove obvious comments
-  - Define separate connector_ops for eDP
-  - Remove unnecessary checks
 
-Changes in v3:
-  None
-
- drivers/gpu/drm/msm/dp/dp_display.c |  6 ++++
- drivers/gpu/drm/msm/dp/dp_drm.c     | 62 +++++++++++++++++++++++++++++++------
- drivers/gpu/drm/msm/dp/dp_parser.h  |  3 ++
- 3 files changed, 61 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 7cc4d21..5d314e6 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1513,6 +1513,9 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
- 		return -EINVAL;
- 	}
- 
-+	if (dp->connector_type == DRM_MODE_CONNECTOR_eDP)
-+		dp_hpd_plug_handle(dp_display, 0);
-+
- 	mutex_lock(&dp_display->event_mutex);
- 
- 	/* stop sentinel checking */
-@@ -1577,6 +1580,9 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
- 
- 	dp_display = container_of(dp, struct dp_display_private, dp_display);
- 
-+	if (dp->connector_type == DRM_MODE_CONNECTOR_eDP)
-+		dp_hpd_unplug_handle(dp_display, 0);
-+
- 	mutex_lock(&dp_display->event_mutex);
- 
- 	/* stop sentinel checking */
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index d4d360d..2436329 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -123,6 +123,25 @@ static enum drm_mode_status dp_connector_mode_valid(
- 	return dp_display_validate_mode(dp_disp, mode->clock);
- }
- 
-+static int edp_connector_get_modes(struct drm_connector *connector)
-+{
-+	struct msm_dp *dp;
-+
-+	dp = to_dp_connector(connector)->dp_display;
-+
-+	return drm_bridge_get_modes(dp->panel_bridge, connector);
-+}
-+
-+static enum drm_mode_status edp_connector_mode_valid(
-+		struct drm_connector *connector,
-+		struct drm_display_mode *mode)
-+{
-+	if (mode->clock > EDP_MAX_PIXEL_CLK_KHZ)
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
- static const struct drm_connector_funcs dp_connector_funcs = {
- 	.detect = dp_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
-@@ -132,11 +151,24 @@ static const struct drm_connector_funcs dp_connector_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
- 
-+static const struct drm_connector_funcs edp_connector_funcs = {
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.destroy = drm_connector_cleanup,
-+	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+};
-+
- static const struct drm_connector_helper_funcs dp_connector_helper_funcs = {
- 	.get_modes = dp_connector_get_modes,
- 	.mode_valid = dp_connector_mode_valid,
- };
- 
-+static const struct drm_connector_helper_funcs edp_connector_helper_funcs = {
-+	.get_modes = edp_connector_get_modes,
-+	.mode_valid = edp_connector_mode_valid,
-+};
-+
- /* connector initialization */
- struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- {
-@@ -154,18 +186,28 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- 
- 	connector = &dp_connector->base;
- 
--	ret = drm_connector_init(dp_display->drm_dev, connector,
--			&dp_connector_funcs,
--			dp_display->connector_type);
--	if (ret)
--		return ERR_PTR(ret);
-+	if (dp_display->connector_type == DRM_MODE_CONNECTOR_eDP) {
-+		ret = drm_connector_init(dp_display->drm_dev, connector,
-+				&edp_connector_funcs, DRM_MODE_CONNECTOR_eDP);
-+		if (ret)
-+			return ERR_PTR(ret);
-+
-+		drm_connector_helper_add(connector,
-+				&edp_connector_helper_funcs);
-+	} else {
-+		ret = drm_connector_init(dp_display->drm_dev, connector,
-+				&dp_connector_funcs,
-+				DRM_MODE_CONNECTOR_DisplayPort);
-+		if (ret)
-+			return ERR_PTR(ret);
- 
--	drm_connector_helper_add(connector, &dp_connector_helper_funcs);
-+		drm_connector_helper_add(connector, &dp_connector_helper_funcs);
- 
--	/*
--	 * Enable HPD to let hpd event is handled when cable is connected.
--	 */
--	connector->polled = DRM_CONNECTOR_POLL_HPD;
-+		/*
-+		 * Enable HPD to let hpd event is handled when cable is connected.
-+		 */
-+		connector->polled = DRM_CONNECTOR_POLL_HPD;
-+	}
- 
- 	drm_connector_attach_encoder(connector, dp_display->encoder);
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 3172da0..58c4f27 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -17,6 +17,9 @@
- #define DP_MAX_PIXEL_CLK_KHZ	675000
- #define DP_MAX_NUM_DP_LANES	4
- 
-+/* Maximum validated clock */
-+#define EDP_MAX_PIXEL_CLK_KHZ	285550
-+
- enum dp_pm_type {
- 	DP_CORE_PM,
- 	DP_CTRL_PM,
 -- 
-2.7.4
-
+With best wishes
+Dmitry
