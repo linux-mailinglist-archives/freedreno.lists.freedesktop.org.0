@@ -2,57 +2,41 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C0344B1C2E
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 03:26:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249ED4B23F6
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 12:09:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE86610E9BC;
-	Fri, 11 Feb 2022 02:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFC3D10EAB9;
+	Fri, 11 Feb 2022 11:09:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B523F10E9BD;
- Fri, 11 Feb 2022 02:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644546387; x=1676082387;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=gPqCmztRkjWq1aj/0t4iHE11Dy8U2EJdueHDddtYRQs=;
- b=CPpNNmCBUnttjqRz+q+RoVmBJcgTXnjUhcHico4oHQJKWgvPQ33rhLx+
- 5ph7Krtz/ydgCEMl/sJ7lhiDkh5yb5KGAA6nm4zH8YrX8IXGXK6quX3Jw
- otMes9O+xn/J9H55+rY0ps1C9ByNv6CcrmVq48Xkp8yGjDXAqt2Xo2S1q 4=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 10 Feb 2022 18:26:26 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 18:26:27 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Thu, 10 Feb 2022 18:26:25 -0800
-Received: from [10.111.162.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Thu, 10 Feb
- 2022 18:26:22 -0800
-Message-ID: <9e36946d-523f-9650-4de8-8695b4cf0284@quicinc.com>
-Date: Thu, 10 Feb 2022 18:26:20 -0800
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5365E10EA70;
+ Fri, 11 Feb 2022 11:09:42 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7418761702;
+ Fri, 11 Feb 2022 11:09:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1D5C340E9;
+ Fri, 11 Feb 2022 11:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1644577781;
+ bh=fnV1JTSj7tqGi4Eic+pZ2ccHQtO2wG65Y0Fp6p/nPm0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=wLgUCTd9qga4DEj1Uyx+cjGgDG2HkGvRysMby6Jyn8DHEIJQrsFW7gShEMemqd+IE
+ jzwPBAbT/CS2LEwLfdN6ZDZ8pZwDOSps+yW/8jaiZq3UUcNyHgHsWAW28C0iD/1UHb
+ Z8tr1+ULXhHqsdwEhUBtHG56v/NpTDPwDRIFXvJ0=
+Date: Fri, 11 Feb 2022 12:09:38 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <YgZD8vPqB7ISpRpZ@kroah.com>
+References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
-References: <20220210114106.290669-1-vkoul@kernel.org>
- <20220210114106.290669-3-vkoul@kernel.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220210114106.290669-3-vkoul@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: Update function parameter
- documentation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
+Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
+ timeout to 10 mins
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,45 +49,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org, Kuogee
- Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Guenter Roeck <linux@roeck-us.net>, Mark Yacoub <markyacoub@google.com>
+Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, Feb 08, 2022 at 11:44:32AM -0800, Abhinav Kumar wrote:
+> There are cases where depending on the size of the devcoredump and the speed
+> at which the usermode reads the dump, it can take longer than the current 5 mins
+> timeout.
+> 
+> This can lead to incomplete dumps as the device is deleted once the timeout expires.
+> 
+> One example is below where it took 6 mins for the devcoredump to be completely read.
+> 
+> 04:22:24.668 23916 23994 I HWDeviceDRM::DumpDebugData: Opening /sys/class/devcoredump/devcd6/data
+> 04:28:35.377 23916 23994 W HWDeviceDRM::DumpDebugData: Freeing devcoredump node
 
+What makes this so slow?  Reading from the kernel shouldn't be the
+limit, is it where the data is being sent to?
 
-On 2/10/2022 3:41 AM, Vinod Koul wrote:
-> dpu_core_irq_callback_handler() function comments seem to have become
-> stale and emit a warning:
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:147:
-> warning: Function parameter or member 'dpu_kms' not described in 'dpu_core_irq_callback_handler'
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:147:
-> warning: Excess function parameter 'arg' description in 'dpu_core_irq_callback_handler'
-> 
-> Fix by updating the documentation
-> 
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index 9341c88a336f..27073fd49fee 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -140,7 +140,7 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
->   
->   /**
->    * dpu_core_irq_callback_handler - dispatch core interrupts
-> - * @arg:		private data of callback handler
-> + * @dpu_kms:		Pointer to DPU's KMS structure
->    * @irq_idx:		interrupt index
->    */
->   static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, int irq_idx)
+> Increase the timeout to 10 mins to accommodate system delays and large coredump
+> sizes.
+
+Nit, please wrap your changelog texts at 72 columns.
+
+And what is "large"?
+
+thanks,
+
+greg k-h
