@@ -2,58 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB294B2D39
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 19:59:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 612464B2DCE
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 20:38:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1019710EAFB;
-	Fri, 11 Feb 2022 18:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F037510EB23;
+	Fri, 11 Feb 2022 19:37:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC7110EAF7;
- Fri, 11 Feb 2022 18:59:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644605987; x=1676141987;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=10MNTyWKrFElxhMmkbbRa8eHQjuoljFrhQU1QJPnd58=;
- b=pBoZcBIYrPz0oDlspynry8juVYDswgbzQaMO+aUwhXHJ3AYE2kM3IYEq
- 2t0PFm9cZX633vTWARvVNBGs5YEPZyQd943sPTQwsobY0wLVL0l/q6kbf
- hxKH7XQgPq3xNxO73VlH6l8BISP4L7gyCQKBxwrCxGWJiNLGJC4Q8GE2T 4=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 11 Feb 2022 10:59:46 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 10:59:44 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Fri, 11 Feb 2022 10:59:44 -0800
-Received: from [10.38.246.233] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Fri, 11 Feb
- 2022 10:59:41 -0800
-Message-ID: <654d620b-9e14-c47f-b48c-762dc0bd32a1@quicinc.com>
-Date: Fri, 11 Feb 2022 10:59:39 -0800
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90A1810EB23
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 19:37:57 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id bu29so13286707lfb.0
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 11:37:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language
+ :from:to:cc:references:in-reply-to:content-transfer-encoding;
+ bh=sSx8Paqu3ASvbjQPUlnYKKI4cx7QprSE/iXv4ANFEu4=;
+ b=swvsTENNZju97vEixJSQtcO5KNE1iXnnSC/vj7XjHeIGPkW7BS7rKBUg/XaUiC/z7h
+ lVUUw9VsFgIORqxaHtjDNwNdahuXfjgXpoNDyels9L1rHPaQi4bzRKzq0Sp58Yd7pnid
+ deQv832Rtc9ZH5uqGGs6/sHobyeWb6Ae6jzHMs77LXuBUurfb06OZ85Jd8mVgyoA+CjE
+ 4niHkWEV0Vk2/Z08SP0PYis54EP5lB/eO8E3WIEXWcy0GmMt/elIXWbQMfzqQS5yBjAl
+ HYNOtOxc76pWIUwU83qhmxbfvT3TligFl+9D1Rr5K83WcnvBG86o1EpENeLNO4+e67pS
+ holw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:from:to:cc:references:in-reply-to
+ :content-transfer-encoding;
+ bh=sSx8Paqu3ASvbjQPUlnYKKI4cx7QprSE/iXv4ANFEu4=;
+ b=qSblNV2Gz1JEYArsZTfiAYFRYJI5hOs9PuO3b22bhW6PGqsKSJ7LEge5SD39dBy245
+ 03A0iG5E/QyAmcgLqn7iaDcO7J/K3KR5E9Peyq9xAaAvBK7jUmFhilzVXsRbnfEb85X8
+ YxKuUNUuDo9aem6Yz0YvZvuFPWcE7XktyV03NrRpUz/Mkaq7CCLHrUwlyttj6sKD1xJP
+ sfrKsBU6jWcCgKjVLXKkKnEhYL6456lX6pRuTel33RI8yLdfka8y7yik7z83hsVC34Um
+ RXZjnSBf7QvcS8EzWe6Y9XF3Zs/JGI4RTV6zrN1gKLY7oVeO2mxm5BrReLWUQ8WzZ12a
+ 5oWg==
+X-Gm-Message-State: AOAM531xVn3r5NmdEbAhucfAfeUOF0H/k0bqOj4c/4fUmaCQjEXFhxUb
+ ge6IGU7uIpYNzcNIt+OQldk6lg==
+X-Google-Smtp-Source: ABdhPJxN/S/6+pDOdwmvMpW/KnsSgE/aQtO96RAZErkrt+Ug0YDjxVElnFHKfH3n4d/fC1CAk32q9A==
+X-Received: by 2002:ac2:5dcb:: with SMTP id x11mr2225351lfq.160.1644608275561; 
+ Fri, 11 Feb 2022 11:37:55 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id q7sm1151702lfm.113.2022.02.11.11.37.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 11 Feb 2022 11:37:54 -0800 (PST)
+Message-ID: <b3338d40-5f54-2577-60a9-afa3a34173f1@linaro.org>
+Date: Fri, 11 Feb 2022 22:37:53 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
-Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
- <YgZD8vPqB7ISpRpZ@kroah.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <YgZD8vPqB7ISpRpZ@kroah.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20211207222901.988484-1-dmitry.baryshkov@linaro.org>
+ <20211207222901.988484-2-dmitry.baryshkov@linaro.org>
+ <9fc8d452-7541-cbc5-57ca-96d1e480150c@quicinc.com>
+ <CAA8EJpp_re=UYYpuY90FiFJjARcFr+sZoR_WtJ9ETU40Dc_wig@mail.gmail.com>
+In-Reply-To: <CAA8EJpp_re=UYYpuY90FiFJjARcFr+sZoR_WtJ9ETU40Dc_wig@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
- timeout to 10 mins
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: move DSI host powerup to
+ modeset time
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,60 +75,157 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, khsieh@codeaurora.org, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
- aravindh@codeaurora.org, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Greg
-
-Thanks for the response.
-
-On 2/11/2022 3:09 AM, Greg KH wrote:
-> On Tue, Feb 08, 2022 at 11:44:32AM -0800, Abhinav Kumar wrote:
->> There are cases where depending on the size of the devcoredump and the speed
->> at which the usermode reads the dump, it can take longer than the current 5 mins
->> timeout.
+On 18/01/2022 23:03, Dmitry Baryshkov wrote:
+> On Tue, 18 Jan 2022 at 22:29, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >>
->> This can lead to incomplete dumps as the device is deleted once the timeout expires.
 >>
->> One example is below where it took 6 mins for the devcoredump to be completely read.
 >>
->> 04:22:24.668 23916 23994 I HWDeviceDRM::DumpDebugData: Opening /sys/class/devcoredump/devcd6/data
->> 04:28:35.377 23916 23994 W HWDeviceDRM::DumpDebugData: Freeing devcoredump node
+>> On 12/7/2021 2:29 PM, Dmitry Baryshkov wrote:
+>>> The DSI subsystem does not fully fall into the pre-enable/enable system
+>>> of callbacks, since typically DSI device bridge drivers expect to be
+>>> able to communicate with DSI devices at the pre-enable() callback. The
+>>> reason is that for some DSI hosts enabling the video stream would
+>>> prevent other drivers from sending DSI commands. For example see the
+>>> panel-bridge driver, which does drm_panel_prepare() from the
+>>> pre_enable() callback (which would be called before our pre_enable()
+>>> callback, resulting in panel preparation failures as the link is not yet
+>>> ready).
+>>>
+>>> Therewere several attempts to solve this issue, but currently the best
+>>> approach is to power up the DSI link from the mode_set() callback,
+>>> allowing next bridge/panel to use DSI transfers in the pre_enable()
+>>> time. Follow this approach.
+>>>
+>> Change looks okay. As per the programming guideline, we should set the
+>> VIDEO_MODE_EN register in the DSI controller followed by enabling the
+>> timing engine which will still happen even now because we will do it in
+>> modeset instead of the pre_enable().
+>> But, this can potentially increase the delay between VIDEO_MODE_EN
+>> and TIMING_ENGINE_EN. I dont see anything in the programming guide
+>> against this but since this is a change from the original flow, I would
+>> like to do one test before acking this. Can you please try adding a huge
+>> delay like 200-300ms between VIDEO_MODE_EN and timing engine enable to
+>> make sure there are no issues? You can do that here:
 > 
-> What makes this so slow?  Reading from the kernel shouldn't be the
-> limit, is it where the data is being sent to?
+> 
+> Fine, I'll do the test as the time permits.
 
-We are still checking this. We are seeing better read times when we bump 
-up the thread priority of the thread which was reading this.
-We are also trying to check if bumping up CPU speed is helping.
-But, results have not been consistently good enough. So we thought we 
-should also increase the timeout to be safe.
+I did the tests, the display pipeline works as expected.
 
+Let's get this in, it allows using other DSI-controlled bridges.
 
 > 
->> Increase the timeout to 10 mins to accommodate system delays and large coredump
->> sizes.
+>>
+>> int msm_dsi_host_enable(struct mipi_dsi_host *host)
+>> {
+>>       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>>
+>>       dsi_op_mode_config(msm_host,
+>>           !!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO), true);
+>>
+>>       msleep(300);
+>> }
+>>
+>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/dsi/dsi_manager.c | 43 +++++++++++++++++++--------
+>>>    1 file changed, 31 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+>>> index 681ca74fe410..497719efb9e9 100644
+>>> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+>>> @@ -336,13 +336,12 @@ dsi_mgr_connector_best_encoder(struct drm_connector *connector)
+>>>        return msm_dsi_get_encoder(msm_dsi);
+>>>    }
+>>>
+>>> -static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+>>> +static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
+>>>    {
+>>>        int id = dsi_mgr_bridge_get_id(bridge);
+>>>        struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>>>        struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+>>>        struct mipi_dsi_host *host = msm_dsi->host;
+>>> -     struct drm_panel *panel = msm_dsi->panel;
+>>>        struct msm_dsi_phy_shared_timings phy_shared_timings[DSI_MAX];
+>>>        bool is_bonded_dsi = IS_BONDED_DSI();
+>>>        int ret;
+>>> @@ -383,6 +382,34 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+>>>        if (is_bonded_dsi && msm_dsi1)
+>>>                msm_dsi_host_enable_irq(msm_dsi1->host);
+>>>
+>>> +     return;
+>>> +
+>>> +host1_on_fail:
+>>> +     msm_dsi_host_power_off(host);
+>>> +host_on_fail:
+>>> +     dsi_mgr_phy_disable(id);
+>>> +phy_en_fail:
+>>> +     return;
+>>> +}
+>>> +
+>>> +static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+>>> +{
+>>> +     int id = dsi_mgr_bridge_get_id(bridge);
+>>> +     struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+>>> +     struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+>>> +     struct mipi_dsi_host *host = msm_dsi->host;
+>>> +     struct drm_panel *panel = msm_dsi->panel;
+>>> +     bool is_bonded_dsi = IS_BONDED_DSI();
+>>> +     int ret;
+>>> +
+>>> +     DBG("id=%d", id);
+>>> +     if (!msm_dsi_device_connected(msm_dsi))
+>>> +             return;
+>>> +
+>>> +     /* Do nothing with the host if it is slave-DSI in case of bonded DSI */
+>>> +     if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+>>> +             return;
+>>> +
+>>>        /* Always call panel functions once, because even for dual panels,
+>>>         * there is only one drm_panel instance.
+>>>         */
+>>> @@ -417,17 +444,7 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+>>>        if (panel)
+>>>                drm_panel_unprepare(panel);
+>>>    panel_prep_fail:
+>>> -     msm_dsi_host_disable_irq(host);
+>>> -     if (is_bonded_dsi && msm_dsi1)
+>>> -             msm_dsi_host_disable_irq(msm_dsi1->host);
+>>>
+>>> -     if (is_bonded_dsi && msm_dsi1)
+>>> -             msm_dsi_host_power_off(msm_dsi1->host);
+>>> -host1_on_fail:
+>>> -     msm_dsi_host_power_off(host);
+>>> -host_on_fail:
+>>> -     dsi_mgr_phy_disable(id);
+>>> -phy_en_fail:
+>>>        return;
+>>>    }
+>>>
+>>> @@ -573,6 +590,8 @@ static void dsi_mgr_bridge_mode_set(struct drm_bridge *bridge,
+>>>        msm_dsi_host_set_display_mode(host, adjusted_mode);
+>>>        if (is_bonded_dsi && other_dsi)
+>>>                msm_dsi_host_set_display_mode(other_dsi->host, adjusted_mode);
+>>> +
+>>> +     dsi_mgr_bridge_power_on(bridge);
+>>>    }
+>>>
+>>>    static const struct drm_connector_funcs dsi_mgr_connector_funcs = {
 > 
-> Nit, please wrap your changelog texts at 72 columns.
 > 
-Yes, i will fix this when I re-post.
-
-> And what is "large"?
-
-We are seeing devcoredumps in the range of 2.5MB-3MB. I can also mention 
-this in the commit text in the next post.
-
-Thanks
-
-Abhinav
-
 > 
-> thanks,
-> 
-> greg k-h
+
+
+-- 
+With best wishes
+Dmitry
