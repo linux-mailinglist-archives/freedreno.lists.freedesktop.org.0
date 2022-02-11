@@ -2,59 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 973134B1A26
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 01:11:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0978B4B1BB4
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 02:58:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2690310E994;
-	Fri, 11 Feb 2022 00:10:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C8710E99E;
+	Fri, 11 Feb 2022 01:58:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8263310E993;
- Fri, 11 Feb 2022 00:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644538258; x=1676074258;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=TXtiuweZkQZeXry8a7znX/b1/4DHIP+ypOqTEw/jN2c=;
- b=hPdjLA76vPbKWxtiIiRzK5QGFJzIkeiG2UMckRTPf52313bG3kvDGa+1
- Gdn8AwV0wLkFFrdPPAPiXOtC46BjyfB3/uJsdkc8A9vVVEPryq0EtoaYP
- rEou+Jp5YAvG71RDwL/AouRt1KeFCG31yTUvlba/rTyAQ/h2AcUiQlzJg k=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 10 Feb 2022 16:10:57 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2022 16:10:57 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.922.19; Thu, 10 Feb 2022 16:10:56 -0800
-Received: from [10.111.162.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Thu, 10 Feb
- 2022 16:10:54 -0800
-Message-ID: <334b4d31-8665-a844-f5dc-a5fa19494f85@quicinc.com>
-Date: Thu, 10 Feb 2022 16:10:51 -0800
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4287610E99E
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 01:58:12 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id m18so13757486lfq.4
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 17:58:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=gamHH2XRTylhvnpesSgZb4MLgHOJXtNvgSBoVlaZkEI=;
+ b=axTit6MZ8JevfejidD0uuSMhoc6TK0NFsQLJ0jrYJvdvFiGqCFO8wqcQiomHy1yhzh
+ xTdbz8AvRF/U6lD92A0I2bWKuEKexGffBNam4Xsu8sh5OAlMVqgG0OY/YN9OjxYXJIra
+ FYwOlLO8xVSyXZaYbLLN40HfOzX8/8L5nmZfKqsy+/2Q/aDxRNAgoGM1Vv8qdlRqp1VR
+ IvhvnDGqBy6ytxSrGECCOX18B4KCVqLYEmh5o8zA10Ivj4xEA775Oyv4EQVfCEPn03Bf
+ af5wDQcXoEI5STOF7rv1MF6gwZERigtsexXX2J2aOCFdHaKPktTsiD8S71NzmH9TgWym
+ HYoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=gamHH2XRTylhvnpesSgZb4MLgHOJXtNvgSBoVlaZkEI=;
+ b=p+7Ip380qIf+xrTcM1RBAi9oPntrhr4mVFUQTa7uKsev5g6e3BeX4qUufKkXT3ltOy
+ e1sEXtnb4/aOuv0lTuePanaIYrE1Fm3T4Cr/PBCM+CLnBBp30EeTey8G9TxnR4btxnnL
+ 1IYAfffvz6r9rsM8MJWdf6UwMCdt/WyQ1+FYWvd3eiuhsmWV9Zs0oLGvHHmvmd96Gsi0
+ 6L7d1X5kzwYgXiUgLCt9pYD8gHb2/gDWgYm4vJAvsK6GtRCEH8h6aU7mzhRW5PSGyP6P
+ mHR4VfGBKT18bHU1diTH8zspWj5EXkmqU4P4TdePm+G8pf5UJZfCtPT5kYJLFU5tMkIl
+ cuFg==
+X-Gm-Message-State: AOAM531+z/ZzeBoMCSJiZ+Bu86pDWkez2VGlsidvu3VJCx12qzTl4XmQ
+ vZ1/uaLb9uUS2eBXniEUblr9sQ==
+X-Google-Smtp-Source: ABdhPJyNVF6EHpX/FJ4wtTo5mfa3zXeG+RA9WaRc4cptEen5cejv2SgQ4zqhUXKN8rip2gX3CTeGqw==
+X-Received: by 2002:a05:6512:158a:: with SMTP id
+ bp10mr6949684lfb.407.1644544690570; 
+ Thu, 10 Feb 2022 17:58:10 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id bt2sm1206999lfb.93.2022.02.10.17.58.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Feb 2022 17:58:10 -0800 (PST)
+Message-ID: <16278118-e33b-44f6-e815-fdcab44641bd@linaro.org>
+Date: Fri, 11 Feb 2022 04:58:09 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>
-References: <20220203082611.2654810-1-dmitry.baryshkov@linaro.org>
- <20220203082611.2654810-2-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220203082611.2654810-2-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 1/7] drm/msm: move struct msm_display_info
- to dpu driver
+Content-Language: en-GB
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+References: <20220210114106.290669-1-vkoul@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220210114106.290669-1-vkoul@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Remove set but unused
+ variables
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,84 +73,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Guenter Roeck <linux@roeck-us.net>, Mark Yacoub <markyacoub@google.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 2/3/2022 12:26 AM, Dmitry Baryshkov wrote:
-> The msm_display_info structure is not used by the rest of msm driver, so
-> move it into the dpu1 (dpu_encoder.h to be precise).
+On 10/02/2022 14:41, Vinod Koul wrote:
+> We get warning:
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> In function ‘dpu_encoder_virt_enable’: drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1145:33:
+> warning: variable ‘priv’ set but not used [-Wunused-but-set-variable]
+>   1145 |         struct msm_drm_private *priv;
+> 
+> In function ‘dpu_encoder_virt_disable’: drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1182:33:
+> warning: variable ‘priv’ set but not used [-Wunused-but-set-variable]
+>   1182 |         struct msm_drm_private *priv;
+> 
+> Remove these unused but set variables
+> 
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
-Yes, this is true. Its not used by rest of msm driver.
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 18 ++++++++++++++++++
->   drivers/gpu/drm/msm/msm_drv.h               | 18 ------------------
->   2 files changed, 18 insertions(+), 18 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 -----
+>   1 file changed, 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> index e241914a9677..ebe3944355bb 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> @@ -34,6 +34,24 @@ struct dpu_encoder_hw_resources {
->   void dpu_encoder_get_hw_resources(struct drm_encoder *encoder,
->   				  struct dpu_encoder_hw_resources *hw_res);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 1e648db439f9..132844801e92 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1142,14 +1142,12 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
+>   {
+>   	struct dpu_encoder_virt *dpu_enc = NULL;
+>   	int ret = 0;
+> -	struct msm_drm_private *priv;
+>   	struct drm_display_mode *cur_mode = NULL;
 >   
-> +/**
-> + * struct msm_display_info - defines display properties
-> + * @intf_type:          DRM_MODE_ENCODER_ type
-> + * @capabilities:       Bitmask of display flags
-> + * @num_of_h_tiles:     Number of horizontal tiles in case of split interface
-> + * @h_tile_instance:    Controller instance used per tile. Number of elements is
-> + *                      based on num_of_h_tiles
-> + * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
-> + *				 used instead of panel TE in cmd mode panels
-> + */
-> +struct msm_display_info {
-> +	int intf_type;
-> +	uint32_t capabilities;
-> +	uint32_t num_of_h_tiles;
-> +	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
-> +	bool is_te_using_watchdog_timer;
-> +};
-> +
->   /**
->    * dpu_encoder_assign_crtc - Link the encoder to the crtc it's assigned to
->    * @encoder:	encoder pointer
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index d7574e6bd4e4..16f9e25ee19e 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -109,24 +109,6 @@ struct msm_display_topology {
->   	u32 num_dspp;
->   };
+>   	dpu_enc = to_dpu_encoder_virt(drm_enc);
 >   
-> -/**
-> - * struct msm_display_info - defines display properties
-> - * @intf_type:          DRM_MODE_ENCODER_ type
-> - * @capabilities:       Bitmask of display flags
-> - * @num_of_h_tiles:     Number of horizontal tiles in case of split interface
-> - * @h_tile_instance:    Controller instance used per tile. Number of elements is
-> - *                      based on num_of_h_tiles
-> - * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
-> - *				 used instead of panel TE in cmd mode panels
-> - */
-> -struct msm_display_info {
-> -	int intf_type;
-> -	uint32_t capabilities;
-> -	uint32_t num_of_h_tiles;
-> -	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
-> -	bool is_te_using_watchdog_timer;
-> -};
+>   	mutex_lock(&dpu_enc->enc_lock);
+>   	cur_mode = &dpu_enc->base.crtc->state->adjusted_mode;
+> -	priv = drm_enc->dev->dev_private;
+>   
+>   	trace_dpu_enc_enable(DRMID(drm_enc), cur_mode->hdisplay,
+>   			     cur_mode->vdisplay);
+> @@ -1179,7 +1177,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
+>   static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>   {
+>   	struct dpu_encoder_virt *dpu_enc = NULL;
+> -	struct msm_drm_private *priv;
+>   	int i = 0;
+>   
+>   	dpu_enc = to_dpu_encoder_virt(drm_enc);
+> @@ -1188,8 +1185,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>   	mutex_lock(&dpu_enc->enc_lock);
+>   	dpu_enc->enabled = false;
+>   
+> -	priv = drm_enc->dev->dev_private;
 > -
->   /* Commit/Event thread specific structure */
->   struct msm_drm_thread {
->   	struct drm_device *dev;
+>   	trace_dpu_enc_disable(DRMID(drm_enc));
+>   
+>   	/* wait for idle */
+
+
+-- 
+With best wishes
+Dmitry
