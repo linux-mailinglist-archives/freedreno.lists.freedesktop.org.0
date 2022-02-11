@@ -2,61 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B1D74B2E43
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 21:13:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 696F74B30D3
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 23:40:13 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3E9910EB5B;
-	Fri, 11 Feb 2022 20:13:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81E8610EBA7;
+	Fri, 11 Feb 2022 22:40:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFEF10EB5B;
- Fri, 11 Feb 2022 20:13:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644610410; x=1676146410;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=X6Kr/4OZO4ERbvN7+C8TVcR8Fvw6LASOBv5GjLwTfg4=;
- b=TKtU7AdSYsUAO1YoOEXDTSvwo3HFFM2l74ptbAUIjJpB/1/ntkoRqS+Q
- uLeZ9Xm0dJLMRrIMqvE/5aklJi3NH7dzIhHCOayIwEaMaP04xGIOBin1f
- amKTEbk4ZhscjrEynsYHZWasWBsV8MBy8I75BfoNpI7oguqE58roudRXb w=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 11 Feb 2022 12:13:29 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2022 12:13:29 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Fri, 11 Feb 2022 12:13:29 -0800
-Received: from [10.38.246.233] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Fri, 11 Feb
- 2022 12:13:26 -0800
-Message-ID: <d4f50a93-2d6d-f940-6871-236226a30893@quicinc.com>
-Date: Fri, 11 Feb 2022 12:13:24 -0800
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCB7710EBAB
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 22:40:09 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id f10so19191472lfu.8
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 14:40:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mqrGjJky4QHW+nCXoO2D5B1Is7dfhEvVRFup6JlSelo=;
+ b=tBIBK61QKzeRfYGXURoiPtSrXZUamLlmdY4J4hdjLaFSdkYAnb4XXKW2ZGhTZyEYku
+ 0FGQPpnxi0W0yUxDJba61130RA56BuDBBEFvGUAcxLHq3z5WCsliwSkR4RVHjhuivYfl
+ r3iKJObj5Pw/ftV7cM2aHbvNl+rE8mNTqWU4FFfKEyrdnOUikYqROnfOZYKLLFGZd8mP
+ wIPOP2MTmiH1ZHMFrmH7TuDJa2WvcvwApHMNjXa+otZnZVeDPdDULuXztPYAJfH4GAez
+ NSH/sE+b0BaQhdoS/EZBenzTs/F8lYaszOLG/QrtZjglzy39FlrTuDT1zF6iw+PfNEhT
+ lijg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mqrGjJky4QHW+nCXoO2D5B1Is7dfhEvVRFup6JlSelo=;
+ b=LM9Ic5SFtUQWXozlrt05pPSUraN1FTba3xBX2YHnsUAnm93pIlCsG6yOSTwR33iPar
+ xJTZyKNSLyMhYGXJ+FCBBWEoYe3Io456zLyoJP2JgdxTm1Jr/5gnckCMJ5k2E4bdVhq3
+ sbRL3FZn+zBGN8Gc8CDM36wVIyd6ccGuRP+1bfqrgZFmKMNz9jMK0c0aqIX3gMT/lqQF
+ L3CPYAwFy0+im2M09IN2Ws2m96/k+D2qPs5fQYBVLChozJsY2KatqTK+K3fayK69uplh
+ BFBhw00rdywH5784+u94uKs58Gx6rOFbTh0xO7tdG+Z2qz9R1pc7k5dkYB7pE8tvA47j
+ Aqhw==
+X-Gm-Message-State: AOAM533q2UyyRZFzpcwmBl69CPg3nnQlJiXX/VYCaQY8pvJ6vTTOsSQm
+ zO9NT2qghbq3HviQK9XPuxETKA==
+X-Google-Smtp-Source: ABdhPJxkNJ1LnV/L9NG6QflGexprn9zjVcmWDTASNxV9z8sUfjJcdg6L8KDp08gHHq+orYxFSMJBfQ==
+X-Received: by 2002:a05:6512:e8c:: with SMTP id
+ bi12mr2687360lfb.612.1644619207381; 
+ Fri, 11 Feb 2022 14:40:07 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id a6sm3319983ljb.93.2022.02.11.14.40.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Feb 2022 14:40:06 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Date: Sat, 12 Feb 2022 01:40:01 +0300
+Message-Id: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20211207222901.988484-1-dmitry.baryshkov@linaro.org>
- <20211207222901.988484-2-dmitry.baryshkov@linaro.org>
- <9fc8d452-7541-cbc5-57ca-96d1e480150c@quicinc.com>
- <CAA8EJpp_re=UYYpuY90FiFJjARcFr+sZoR_WtJ9ETU40Dc_wig@mail.gmail.com>
- <b3338d40-5f54-2577-60a9-afa3a34173f1@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <b3338d40-5f54-2577-60a9-afa3a34173f1@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: move DSI host powerup to
- modeset time
+Subject: [Freedreno] [RFC PATCH v2 0/5] Simplify and correct msm/dp bridge
+ implementation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,172 +71,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
  Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+I noticed that commit 8a3b4c17f863 ("drm/msm/dp: employ bridge mechanism for display
+enable and disable") conflicts with the panel-edp (panel bridge)
+support. Both bridges will try to attach directly to the drm encoder
+itself without forming a proper bridge chain.
+
+Initially I started writing lengthy letter describing what is broken and
+how it should be fixed. Then at some point I stopped and quickly coded
+this RFC (which is compile-tested only).
+
+Comments and tests (on both DP and eDP setups) are more than welcome.
+
+Changes since RFC v1:
+ - Expanded commit messages to reference possible setups
+   Added details about possible bridges, usage, etc
+ - Changed handling of errors for devm_drm_of_get_bridge(). Made the
+   -ENODEV fatal for the eDP connectors only, all other errors should be
+   fatal for both eDP and DP.
+
+Dmitry Baryshkov (5):
+  drm/msm/dp: fix panel bridge attachment
+  drm/msm/dp: support attaching bridges to the DP encoder
+  drm/msm/dp: support finding next bridge even for DP interfaces
+  drm/msm/dp: replace dp_connector with drm_bridge_connector
+  drm/msm/dp: remove extra wrappers and public functions
+
+ drivers/gpu/drm/msm/dp/dp_display.c |  76 +++++++-----
+ drivers/gpu/drm/msm/dp/dp_display.h |   3 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c     | 186 +++++++---------------------
+ drivers/gpu/drm/msm/dp/dp_drm.h     |  22 +++-
+ drivers/gpu/drm/msm/dp/dp_parser.c  |  38 +++---
+ drivers/gpu/drm/msm/dp/dp_parser.h  |   2 +-
+ drivers/gpu/drm/msm/msm_drv.h       |  31 -----
+ 7 files changed, 137 insertions(+), 221 deletions(-)
 
 
-On 2/11/2022 11:37 AM, Dmitry Baryshkov wrote:
-> On 18/01/2022 23:03, Dmitry Baryshkov wrote:
->> On Tue, 18 Jan 2022 at 22:29, Abhinav Kumar 
->> <quic_abhinavk@quicinc.com> wrote:
->>>
->>>
->>>
->>> On 12/7/2021 2:29 PM, Dmitry Baryshkov wrote:
->>>> The DSI subsystem does not fully fall into the pre-enable/enable system
->>>> of callbacks, since typically DSI device bridge drivers expect to be
->>>> able to communicate with DSI devices at the pre-enable() callback. The
->>>> reason is that for some DSI hosts enabling the video stream would
->>>> prevent other drivers from sending DSI commands. For example see the
->>>> panel-bridge driver, which does drm_panel_prepare() from the
->>>> pre_enable() callback (which would be called before our pre_enable()
->>>> callback, resulting in panel preparation failures as the link is not 
->>>> yet
->>>> ready).
->>>>
->>>> Therewere several attempts to solve this issue, but currently the best
->>>> approach is to power up the DSI link from the mode_set() callback,
->>>> allowing next bridge/panel to use DSI transfers in the pre_enable()
->>>> time. Follow this approach.
->>>>
->>> Change looks okay. As per the programming guideline, we should set the
->>> VIDEO_MODE_EN register in the DSI controller followed by enabling the
->>> timing engine which will still happen even now because we will do it in
->>> modeset instead of the pre_enable().
->>> But, this can potentially increase the delay between VIDEO_MODE_EN
->>> and TIMING_ENGINE_EN. I dont see anything in the programming guide
->>> against this but since this is a change from the original flow, I would
->>> like to do one test before acking this. Can you please try adding a huge
->>> delay like 200-300ms between VIDEO_MODE_EN and timing engine enable to
->>> make sure there are no issues? You can do that here:
->>
->>
->> Fine, I'll do the test as the time permits.
-> 
-> I did the tests, the display pipeline works as expected.
-> 
-> Let's get this in, it allows using other DSI-controlled bridges.
+base-commit: 6aa89ae1fb049614b7e03e24485bbfb96754a02b
+prerequisite-patch-id: 89e012b5b7da1a90cc243cc4c305400a4fafdf0b
+prerequisite-patch-id: 0de618d54d5fea5b48c2b540c8731a1a7e2f4c15
+prerequisite-patch-id: a9b1a27e9800626cc0ebc73291d65c2790670583
+prerequisite-patch-id: 2067135baa2995fbcbfd6793b61e39027e6b7516
+prerequisite-patch-id: 0591114f3c59f9376ba25e77e7a48daf90cf7aa6
+prerequisite-patch-id: 684cf6c7a177cb7c6c9d83a859eec0acef5c132c
+prerequisite-patch-id: 083313bc9b19fcf7fed78f63a3cb0752f54cec4f
+prerequisite-patch-id: 6e46e24cd7471ba38679b3d6f99a1132fa1154b3
+-- 
+2.34.1
 
-Alright, sounds good,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
->>
->>>
->>> int msm_dsi_host_enable(struct mipi_dsi_host *host)
->>> {
->>>       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
->>>
->>>       dsi_op_mode_config(msm_host,
->>>           !!(msm_host->mode_flags & MIPI_DSI_MODE_VIDEO), true);
->>>
->>>       msleep(300);
->>> }
->>>
->>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>>    drivers/gpu/drm/msm/dsi/dsi_manager.c | 43 
->>>> +++++++++++++++++++--------
->>>>    1 file changed, 31 insertions(+), 12 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c 
->>>> b/drivers/gpu/drm/msm/dsi/dsi_manager.c
->>>> index 681ca74fe410..497719efb9e9 100644
->>>> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
->>>> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
->>>> @@ -336,13 +336,12 @@ dsi_mgr_connector_best_encoder(struct 
->>>> drm_connector *connector)
->>>>        return msm_dsi_get_encoder(msm_dsi);
->>>>    }
->>>>
->>>> -static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
->>>> +static void dsi_mgr_bridge_power_on(struct drm_bridge *bridge)
->>>>    {
->>>>        int id = dsi_mgr_bridge_get_id(bridge);
->>>>        struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
->>>>        struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
->>>>        struct mipi_dsi_host *host = msm_dsi->host;
->>>> -     struct drm_panel *panel = msm_dsi->panel;
->>>>        struct msm_dsi_phy_shared_timings phy_shared_timings[DSI_MAX];
->>>>        bool is_bonded_dsi = IS_BONDED_DSI();
->>>>        int ret;
->>>> @@ -383,6 +382,34 @@ static void dsi_mgr_bridge_pre_enable(struct 
->>>> drm_bridge *bridge)
->>>>        if (is_bonded_dsi && msm_dsi1)
->>>>                msm_dsi_host_enable_irq(msm_dsi1->host);
->>>>
->>>> +     return;
->>>> +
->>>> +host1_on_fail:
->>>> +     msm_dsi_host_power_off(host);
->>>> +host_on_fail:
->>>> +     dsi_mgr_phy_disable(id);
->>>> +phy_en_fail:
->>>> +     return;
->>>> +}
->>>> +
->>>> +static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
->>>> +{
->>>> +     int id = dsi_mgr_bridge_get_id(bridge);
->>>> +     struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
->>>> +     struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
->>>> +     struct mipi_dsi_host *host = msm_dsi->host;
->>>> +     struct drm_panel *panel = msm_dsi->panel;
->>>> +     bool is_bonded_dsi = IS_BONDED_DSI();
->>>> +     int ret;
->>>> +
->>>> +     DBG("id=%d", id);
->>>> +     if (!msm_dsi_device_connected(msm_dsi))
->>>> +             return;
->>>> +
->>>> +     /* Do nothing with the host if it is slave-DSI in case of 
->>>> bonded DSI */
->>>> +     if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
->>>> +             return;
->>>> +
->>>>        /* Always call panel functions once, because even for dual 
->>>> panels,
->>>>         * there is only one drm_panel instance.
->>>>         */
->>>> @@ -417,17 +444,7 @@ static void dsi_mgr_bridge_pre_enable(struct 
->>>> drm_bridge *bridge)
->>>>        if (panel)
->>>>                drm_panel_unprepare(panel);
->>>>    panel_prep_fail:
->>>> -     msm_dsi_host_disable_irq(host);
->>>> -     if (is_bonded_dsi && msm_dsi1)
->>>> -             msm_dsi_host_disable_irq(msm_dsi1->host);
->>>>
->>>> -     if (is_bonded_dsi && msm_dsi1)
->>>> -             msm_dsi_host_power_off(msm_dsi1->host);
->>>> -host1_on_fail:
->>>> -     msm_dsi_host_power_off(host);
->>>> -host_on_fail:
->>>> -     dsi_mgr_phy_disable(id);
->>>> -phy_en_fail:
->>>>        return;
->>>>    }
->>>>
->>>> @@ -573,6 +590,8 @@ static void dsi_mgr_bridge_mode_set(struct 
->>>> drm_bridge *bridge,
->>>>        msm_dsi_host_set_display_mode(host, adjusted_mode);
->>>>        if (is_bonded_dsi && other_dsi)
->>>>                msm_dsi_host_set_display_mode(other_dsi->host, 
->>>> adjusted_mode);
->>>> +
->>>> +     dsi_mgr_bridge_power_on(bridge);
->>>>    }
->>>>
->>>>    static const struct drm_connector_funcs dsi_mgr_connector_funcs = {
->>
->>
->>
-> 
-> 
