@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0978B4B1BB4
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 02:58:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED634B1BB6
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 02:58:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C8710E99E;
-	Fri, 11 Feb 2022 01:58:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3714C10E99F;
+	Fri, 11 Feb 2022 01:58:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4287610E99E
- for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 01:58:12 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id m18so13757486lfq.4
- for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 17:58:12 -0800 (PST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2734410E99F
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 01:58:20 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id m18so13757896lfq.4
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 17:58:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=gamHH2XRTylhvnpesSgZb4MLgHOJXtNvgSBoVlaZkEI=;
- b=axTit6MZ8JevfejidD0uuSMhoc6TK0NFsQLJ0jrYJvdvFiGqCFO8wqcQiomHy1yhzh
- xTdbz8AvRF/U6lD92A0I2bWKuEKexGffBNam4Xsu8sh5OAlMVqgG0OY/YN9OjxYXJIra
- FYwOlLO8xVSyXZaYbLLN40HfOzX8/8L5nmZfKqsy+/2Q/aDxRNAgoGM1Vv8qdlRqp1VR
- IvhvnDGqBy6ytxSrGECCOX18B4KCVqLYEmh5o8zA10Ivj4xEA775Oyv4EQVfCEPn03Bf
- af5wDQcXoEI5STOF7rv1MF6gwZERigtsexXX2J2aOCFdHaKPktTsiD8S71NzmH9TgWym
- HYoQ==
+ bh=ZC1uqgrvXsIBWCW6+/3AKBzj42cmqBCOtVTeIFF9gQ8=;
+ b=usHybndeVb5TLwmLHBrShLJ3L1mMv30/AbKTRRK0Ad6jZV65pXh9Q31cjz2Cro9LSk
+ t6g3qVrJg+S6Sh5Ecifk8Yc6UnujpCzAR+fuM1WxKz6MAxYR1LX6EIGRstOl6sAj3PWV
+ u20BxdMOhz4lP/eSyY6lSVZwhejtrjhWu7otHFsokV0pX5bogNboJJSznGEjRdLyLe1B
+ 4F552vHRBffa1K5SyUr+9s5tPaS8DkpddoYfeuPZIhiBJ/nbU6F5fYgAAP7QSRvnb+LG
+ kVFKHUi1UveP7f+29emKd3/O6tmwoUnSbBtijITh2oPwZ/MPd+jsHQ1L7d9CsEBIk4sI
+ XScQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=gamHH2XRTylhvnpesSgZb4MLgHOJXtNvgSBoVlaZkEI=;
- b=p+7Ip380qIf+xrTcM1RBAi9oPntrhr4mVFUQTa7uKsev5g6e3BeX4qUufKkXT3ltOy
- e1sEXtnb4/aOuv0lTuePanaIYrE1Fm3T4Cr/PBCM+CLnBBp30EeTey8G9TxnR4btxnnL
- 1IYAfffvz6r9rsM8MJWdf6UwMCdt/WyQ1+FYWvd3eiuhsmWV9Zs0oLGvHHmvmd96Gsi0
- 6L7d1X5kzwYgXiUgLCt9pYD8gHb2/gDWgYm4vJAvsK6GtRCEH8h6aU7mzhRW5PSGyP6P
- mHR4VfGBKT18bHU1diTH8zspWj5EXkmqU4P4TdePm+G8pf5UJZfCtPT5kYJLFU5tMkIl
- cuFg==
-X-Gm-Message-State: AOAM531+z/ZzeBoMCSJiZ+Bu86pDWkez2VGlsidvu3VJCx12qzTl4XmQ
- vZ1/uaLb9uUS2eBXniEUblr9sQ==
-X-Google-Smtp-Source: ABdhPJyNVF6EHpX/FJ4wtTo5mfa3zXeG+RA9WaRc4cptEen5cejv2SgQ4zqhUXKN8rip2gX3CTeGqw==
-X-Received: by 2002:a05:6512:158a:: with SMTP id
- bp10mr6949684lfb.407.1644544690570; 
- Thu, 10 Feb 2022 17:58:10 -0800 (PST)
+ bh=ZC1uqgrvXsIBWCW6+/3AKBzj42cmqBCOtVTeIFF9gQ8=;
+ b=nh0IUa/e7nZIMG784rvpMVCErU6rTZEUiD/Yuk2fNh64L0GHZnQN9xnCyhyEjHYmAK
+ GztGfPROAWc9Y4O5hmJ54DB1KppGfKu9/FM15CIl3xAG0xofezBZ+17t51qrRZBEhaMM
+ sOq3n5YGAUCYn3XTW9HJONG40uDC9cAzAV14n4G2PjCPVDNbM6fKlB3BFg0vYLqy0QaU
+ 0CY00W197TTZQc8jo/m4KX3f/rlT77mGozZDiunwPEAtEM8k3YDdWSO11B1a8EbpkZ/J
+ d7jVhBhMDz7gWJ96N6Fo+Ee5hiBV2ttRp4F3tz35Z7OEBd6xck6u0NDgNZz1+64M4AK6
+ zZkA==
+X-Gm-Message-State: AOAM533JqFYo0l7Yti7WBwWMu3HvpcIjmtO9OAc5WbL5bjOfy+cR4jLv
+ a8V3Afnf53iP7ViU2D5x9VzhDSfqM0TKLg==
+X-Google-Smtp-Source: ABdhPJxZobwbFRhHRkhxhuImyV2J0FBbZMpweM4eIPj6Ttm7k/ck8K4S97TAzRwglr9idQtgDZfXdw==
+X-Received: by 2002:a05:6512:1191:: with SMTP id
+ g17mr7068991lfr.55.1644544698491; 
+ Thu, 10 Feb 2022 17:58:18 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id bt2sm1206999lfb.93.2022.02.10.17.58.09
+ by smtp.gmail.com with ESMTPSA id f22sm2956990lfc.149.2022.02.10.17.58.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Feb 2022 17:58:10 -0800 (PST)
-Message-ID: <16278118-e33b-44f6-e815-fdcab44641bd@linaro.org>
-Date: Fri, 11 Feb 2022 04:58:09 +0300
+ Thu, 10 Feb 2022 17:58:18 -0800 (PST)
+Message-ID: <cff9e31c-4564-1219-2b12-709f3f140f70@linaro.org>
+Date: Fri, 11 Feb 2022 04:58:17 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
 Content-Language: en-GB
 To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
 References: <20220210114106.290669-1-vkoul@kernel.org>
+ <20220210114106.290669-2-vkoul@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220210114106.290669-1-vkoul@kernel.org>
+In-Reply-To: <20220210114106.290669-2-vkoul@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: Remove set but unused
- variables
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Update the comment style
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,8 +74,8 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
  Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
@@ -84,62 +84,36 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10/02/2022 14:41, Vinod Koul wrote:
-> We get warning:
+> The multi line comment style is wrongly used as kernel-doc comment. This
+> gives a warning:
 > 
-> In function ‘dpu_encoder_virt_enable’: drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1145:33:
-> warning: variable ‘priv’ set but not used [-Wunused-but-set-variable]
->   1145 |         struct msm_drm_private *priv;
+> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:17:
+> warning: This comment starts with '/**', but isn't a kernel-doc comment.
+> Refer Documentation/doc-guide/kernel-doc.rst
 > 
-> In function ‘dpu_encoder_virt_disable’: drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:1182:33:
-> warning: variable ‘priv’ set but not used [-Wunused-but-set-variable]
->   1182 |         struct msm_drm_private *priv;
-> 
-> Remove these unused but set variables
+> Update the style to fix this.
 > 
 > Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 -----
->   1 file changed, 5 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1e648db439f9..132844801e92 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1142,14 +1142,12 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->   {
->   	struct dpu_encoder_virt *dpu_enc = NULL;
->   	int ret = 0;
-> -	struct msm_drm_private *priv;
->   	struct drm_display_mode *cur_mode = NULL;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> index a77a5eaa78ad..9341c88a336f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> @@ -13,7 +13,7 @@
+>   #include "dpu_hw_mdss.h"
+>   #include "dpu_trace.h"
 >   
->   	dpu_enc = to_dpu_encoder_virt(drm_enc);
->   
->   	mutex_lock(&dpu_enc->enc_lock);
->   	cur_mode = &dpu_enc->base.crtc->state->adjusted_mode;
-> -	priv = drm_enc->dev->dev_private;
->   
->   	trace_dpu_enc_enable(DRMID(drm_enc), cur_mode->hdisplay,
->   			     cur_mode->vdisplay);
-> @@ -1179,7 +1177,6 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->   static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->   {
->   	struct dpu_encoder_virt *dpu_enc = NULL;
-> -	struct msm_drm_private *priv;
->   	int i = 0;
->   
->   	dpu_enc = to_dpu_encoder_virt(drm_enc);
-> @@ -1188,8 +1185,6 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
->   	mutex_lock(&dpu_enc->enc_lock);
->   	dpu_enc->enabled = false;
->   
-> -	priv = drm_enc->dev->dev_private;
-> -
->   	trace_dpu_enc_disable(DRMID(drm_enc));
->   
->   	/* wait for idle */
+> -/**
+> +/*
+>    * Register offsets in MDSS register file for the interrupt registers
+>    * w.r.t. to the MDP base
+>    */
 
 
 -- 
