@@ -1,63 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F060E4B1A04
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 01:04:25 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30B2E4B1A18
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 01:08:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 924BD10E995;
-	Fri, 11 Feb 2022 00:04:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE04310E993;
+	Fri, 11 Feb 2022 00:08:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C13E10E994
- for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 00:04:23 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id u3so7773382oiv.12
- for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 16:04:23 -0800 (PST)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E640D10E993
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 00:08:42 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ p3-20020a0568301d4300b005a7a702f921so4919532oth.9
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 16:08:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=TwE69elyD4RG12W7mdlzgoVEhbd5xJqzNauxvjHyiNE=;
- b=cg275d3E6S8mO6+ZdkUje5MUQaTGjjyQaBaMou+1IT3/4XYCTOR5IFO+ZxjiLpLRl9
- 6W4lfmL9WayudmVV4/CtAn5Kl9wfoycTigVNSb4Rcpi/IRLUw9osTB93hyAfQmQI65Aa
- z6IfvGsBd0OviXwNOr6e6gajfGJZvhxS0OBVCQ6zKct1zfeXhiztjtStMoRH1gLssmQO
- CnJqUEBX6EHPdjn1MMi8eJ+GHKBzry8QyljnOV44VUuyo2RdMQntFT2BsvaN9S+0TXRY
- n9raDTixEJ6mDCvxXexc9gz0F+VDIIW78Zi5WysbQFyBAi0uqhl03TCINBitvov3w1Ho
- sS7Q==
+ bh=fcC0SEpVltFRTxoXkp53F9HT6U0x1VaT4hIpMkDokFA=;
+ b=ugzulgstXhccLImdFMnJdEshlBhA4kJzeZIOEEsVkSKwCmvbAEVmq9bssZqIMdw/7t
+ bTWC6ml41kJn1oCAn6eBY97CZ0QuM5fnjIPwluI94Hx65W+4UaM6WIigKUTtyuNkxqQK
+ g5nmVhkg0RZTXJXFPstX5Z4veqfI3PCJYQDOeLaac3BmdHdimTQbZNkGDx0+X+WtkTjo
+ Ez5wHKFG+FgMekmSFNCcYi9uFr6rfJCiD+RY86Fh/qrPO3rFLBVU8M1TLPpJmH765buY
+ UdBIZeLbWu4RdJo4dxTbFyRTQmlPIOiIIFZ71VobbhcBb8MJQ3JRsww/J/IDZLppRQ71
+ c6tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=TwE69elyD4RG12W7mdlzgoVEhbd5xJqzNauxvjHyiNE=;
- b=hl3VgvasKqGvdVIsRSjvvOFRn3EsDGZYbnn+0p3kS6Ft5HFvtHUYSN7gHqG922c5DJ
- b33utIN03LN9i8zRQIMbNlYji79Rs2DvoPPurwKK84KfagVk4HrqqKmD6W0qLWrsSUdj
- HMUuDe5Nun4++yhtF6tCBeRRDJkT7Tuz6z8WSOpPUuyfqIQNyrKWbLZgGM7dC4vnL9Bh
- lc1OUHjrL50eCny16Bqcq5UVoH93WgxHpmZAguGsTX3WOu6BQSwfE9maXBkXJj1vRgqf
- eLlQhujh7v+RkymMHphSposQgL5gfzIecnKQkYI2fIMv7Yin9bnt5IWHEGyjU514pIGY
- I/RA==
-X-Gm-Message-State: AOAM531Qzja278K3QX4oK3ymiDQhvGFFkmZU2w7usOc4QKXrQuUFNWjA
- EHkp8vm4HYPvF7XsrwkswufuDg==
-X-Google-Smtp-Source: ABdhPJyK+1GIBtIPdHFYFYU2Kft/qVPJKO/aZBLeGW9q8XWjsUecOAvHnc1eaK93qKlp8hxSaflzEQ==
-X-Received: by 2002:a05:6808:1309:: with SMTP id
- y9mr2246137oiv.261.1644537862165; 
- Thu, 10 Feb 2022 16:04:22 -0800 (PST)
+ bh=fcC0SEpVltFRTxoXkp53F9HT6U0x1VaT4hIpMkDokFA=;
+ b=QFabiX0TaSoZ2b3jApnJqQcJEvyjfHW1C8WDetHHZ9Lh0nw7Zew44M1f15Np53s/T1
+ oXJKMaveP7Jczd7OS7UiPD8WqA4+PJPGGEVQ9TSufmC4pRU0N6OYP2ppCBmNC9Ti8mM/
+ 7jmTgxHd5/8qWVW4iSPYD1EO67kWOzj71HxDtMiZnBdCYEBwjjxFOPs/Ktxc4DTaw15M
+ BvsI7YeaFi6BLPKSluai2iifSfliBK8sGC/BU27Fu5BxNOjAJgeYyl1mwCIlzezBpL8y
+ vbmutdGhUHGhVi9fY2H54wKlBDVvQBXdSupv3PTYYh4RmNrPFoipZN9XMksEB4GllMls
+ wE/Q==
+X-Gm-Message-State: AOAM530z+gvwnDXSMqY6L6VR/hQkeX1oNp2PffbYLKOPp54NdSYmInn4
+ zwPio1u6CYkG1epDjlwbnOnDqw==
+X-Google-Smtp-Source: ABdhPJzHWAm1wwa3ofVjl2ssMnyXrqm4FEc3LXrZHVFMkRd2t4i2qVF3LIT3WQAJ/lod7ClR9v4NOQ==
+X-Received: by 2002:a05:6830:19f7:: with SMTP id
+ t23mr2021359ott.256.1644538122230; 
+ Thu, 10 Feb 2022 16:08:42 -0800 (PST)
 Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
- by smtp.gmail.com with ESMTPSA id s3sm9183005ois.19.2022.02.10.16.04.21
+ by smtp.gmail.com with ESMTPSA id bg34sm9133324oob.14.2022.02.10.16.08.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 16:04:21 -0800 (PST)
-Date: Thu, 10 Feb 2022 18:04:19 -0600
+ Thu, 10 Feb 2022 16:08:41 -0800 (PST)
+Date: Thu, 10 Feb 2022 18:08:39 -0600
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Message-ID: <YgWoAwdH/AqJUshh@builder.lan>
+Message-ID: <YgWpB6dwDP0XeLaj@builder.lan>
 References: <1644494255-6632-1-git-send-email-quic_sbillaka@quicinc.com>
- <1644494255-6632-3-git-send-email-quic_sbillaka@quicinc.com>
+ <1644494255-6632-4-git-send-email-quic_sbillaka@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1644494255-6632-3-git-send-email-quic_sbillaka@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 2/5] arm64: dts: qcom: sc7280: Add
- support for eDP panel on CRD
+In-Reply-To: <1644494255-6632-4-git-send-email-quic_sbillaka@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v4 3/5] arm64: dts: qcom: sc7280: rename
+ edp_out label to mdss_edp_out
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,204 +84,74 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Thu 10 Feb 05:57 CST 2022, Sankeerth Billakanti wrote:
 
-> Enable the eDP display panel support without HPD on sc7280 platform.
+> Rename the edp_out label in the sc7280 platform to mdss_edp_out.
+
+Next week, or in the next product, it might not be obvious why we did
+this change. So please continue this sentence with something like "so
+that the nodes are grouped together when sorted in the dts".
+
 > 
 > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 > ---
-> 
-> Changes in v4:
->   - Create new patch for name changes
->   - Remove output-low
-> 
-> Changes in v3:
->   - Sort the nodes alphabetically
->   - Use - instead of _ as node names
->   - Place the backlight and panel nodes under root
->   - Change the name of edp_out to mdss_edp_out
->   - Change the names of regulator nodes
->   - Delete unused properties in the board file
-> 
-> 
-> Changes in v2:
->   - Sort node references alphabetically
->   - Improve readability
->   - Move the pwm pinctrl to pwm node
->   - Move the regulators to root
->   - Define backlight power
->   - Remove dummy regulator node
->   - Cleanup pinctrl definitions
-> 
->  arch/arm64/boot/dts/qcom/sc7280-crd.dts | 120 ++++++++++++++++++++++++++++++++
->  1 file changed, 120 insertions(+)
+>  arch/arm64/boot/dts/qcom/sc7280-crd.dts | 10 +++++-----
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi    |  2 +-
+>  2 files changed, 6 insertions(+), 6 deletions(-)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/sc7280-crd.dts b/arch/arm64/boot/dts/qcom/sc7280-crd.dts
-> index e2efbdd..6dba5ac 100644
+> index 6dba5ac..af40e14 100644
 > --- a/arch/arm64/boot/dts/qcom/sc7280-crd.dts
 > +++ b/arch/arm64/boot/dts/qcom/sc7280-crd.dts
-> @@ -21,6 +21,59 @@
->  	chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
-> +
-> +	backlight_3v3_regulator: backlight-3v3-regulator {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "backlight_3v3_regulator";
-> +
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +
-> +		gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&edp_bl_power>;
-> +	};
-> +
-> +	edp_3v3_regulator: edp-3v3-regulator {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "edp_3v3_regulator";
-> +
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +
-> +		gpio = <&tlmm 80 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&edp_panel_power>;
-> +	};
-> +
-> +	edp_backlight: edp-backlight {
-> +		compatible = "pwm-backlight";
-> +
-> +		power-supply = <&backlight_3v3_regulator>;
-> +		pwms = <&pm8350c_pwm 3 65535>;
-> +	};
-> +
-> +	edp_panel: edp-panel {
-> +		compatible = "sharp,lq140m1jw46";
-> +
-> +		power-supply = <&edp_3v3_regulator>;
-> +		backlight = <&edp_backlight>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			port@0 {
-> +				reg = <0>;
-> +				edp_panel_in: endpoint {
-> +					remote-endpoint = <&edp_out>;
-> +				};
-> +			};
-> +		};
-> +	};
->  };
->  
->  &apps_rsc {
-> @@ -76,6 +129,44 @@ ap_ts_pen_1v8: &i2c13 {
+> @@ -69,7 +69,7 @@
+>  			port@0 {
+>  				reg = <0>;
+>  				edp_panel_in: endpoint {
+> -					remote-endpoint = <&edp_out>;
+> +					remote-endpoint = <&mdss_edp_out>;
+>  				};
+>  			};
+>  		};
+> @@ -129,10 +129,6 @@ ap_ts_pen_1v8: &i2c13 {
 >  	};
 >  };
 >  
-> +&edp_out {
-> +	remote-endpoint = <&edp_panel_in>;
-> +};
-> +
-> +&mdss {
-> +	status = "okay";
-> +};
-> +
-> +&mdss_dp {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&dp_hot_plug_det>;
-> +	data-lanes = <0 1>;
-> +	vdda-1p2-supply = <&vreg_l6b_1p2>;
-> +	vdda-0p9-supply = <&vreg_l1b_0p8>;
-> +};
-> +
-> +&mdss_edp {
-> +	status = "okay";
-> +
-> +	vdda-1p2-supply = <&vreg_l6b_1p2>;
-> +	vdda-0p9-supply = <&vreg_l10c_0p8>;
-> +	/delete-property/ pinctrl-names;
-> +	/delete-property/ pinctrl-0;
+> -&edp_out {
 
-If the first device to enable &mdss_edp overwrites pinctrl-{names,0} in
-&mdss_dp and removes the properties in &mdss_edp, I think that's a sign
-that they should not be in the .dtsi in the first place.
-
-> +};
-> +
-> +&mdss_edp_phy {
-> +	status = "okay";
-> +
-> +	vdda-1p2-supply = <&vreg_l6b_1p2>;
-> +	vdda-0p9-supply = <&vreg_l10c_0p8>;
-> +};
-> +
-> +&mdss_mdp {
-> +	status = "okay";
-> +};
-> +
->  &nvme_3v3_regulator {
->  	gpio = <&tlmm 51 GPIO_ACTIVE_HIGH>;
->  };
-> @@ -84,7 +175,36 @@ ap_ts_pen_1v8: &i2c13 {
->  	pins = "gpio51";
->  };
->  
-> +&pm8350c_gpios {
-> +	edp_bl_power: edp-bl-power {
-> +		pins = "gpio7";
-> +		function = "normal";
-> +		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-> +		bias-pull-down;
-
-Why do you pull down these two pins? They are both outputs.
-
-> +	};
-> +
-> +	edp_bl_pwm: edp-bl-pwm {
-> +		pins = "gpio8";
-> +		function = "func1";
-> +		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-> +		bias-pull-down;
-> +	};
-> +};
-> +
-> +&pm8350c_pwm {
-
-As stated previously, this will prevent me from merging this patch until
-the LPG/PWM support has been accepted.
-
-As such I would recommend that you drop the backlight parts of this
-patch until that has landed - so we can merge the rest of this in the
-meantime.
-
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&edp_bl_pwm>;
-> +};
-> +
->  &tlmm {
-> +	edp_panel_power: edp-panel-power {
-> +		pins = "gpio80";
-> +		function = "gpio";
-> +		bias-pull-down;
-
-Same here, why is this pulled down?
+You just added this node in patch 2 and now you change it immediately.
+If you reorder the two patches the history will be cleaner.
 
 Thanks,
 Bjorn
 
-> +	};
+> -	remote-endpoint = <&edp_panel_in>;
+> -};
+> -
+>  &mdss {
+>  	status = "okay";
+>  };
+> @@ -156,6 +152,10 @@ ap_ts_pen_1v8: &i2c13 {
+>  	/delete-property/ pinctrl-0;
+>  };
+>  
+> +&mdss_edp_out {
+> +	remote-endpoint = <&edp_panel_in>;
+> +};
 > +
->  	tp_int_odl: tp-int-odl {
->  		pins = "gpio7";
->  		function = "gpio";
+>  &mdss_edp_phy {
+>  	status = "okay";
+>  
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index 3572399..eca403a 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -3066,7 +3066,7 @@
+>  
+>  					port@1 {
+>  						reg = <1>;
+> -						edp_out: endpoint { };
+> +						mdss_edp_out: endpoint { };
+>  					};
+>  				};
+>  
 > -- 
 > 2.7.4
 > 
