@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED634B1BB6
-	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 02:58:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 508E54B1BB9
+	for <lists+freedreno@lfdr.de>; Fri, 11 Feb 2022 02:58:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3714C10E99F;
-	Fri, 11 Feb 2022 01:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C420B10E9B0;
+	Fri, 11 Feb 2022 01:58:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2734410E99F
- for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 01:58:20 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id m18so13757896lfq.4
- for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 17:58:20 -0800 (PST)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 152D610E9B0
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Feb 2022 01:58:38 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id f10so13741739lfu.8
+ for <freedreno@lists.freedesktop.org>; Thu, 10 Feb 2022 17:58:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ZC1uqgrvXsIBWCW6+/3AKBzj42cmqBCOtVTeIFF9gQ8=;
- b=usHybndeVb5TLwmLHBrShLJ3L1mMv30/AbKTRRK0Ad6jZV65pXh9Q31cjz2Cro9LSk
- t6g3qVrJg+S6Sh5Ecifk8Yc6UnujpCzAR+fuM1WxKz6MAxYR1LX6EIGRstOl6sAj3PWV
- u20BxdMOhz4lP/eSyY6lSVZwhejtrjhWu7otHFsokV0pX5bogNboJJSznGEjRdLyLe1B
- 4F552vHRBffa1K5SyUr+9s5tPaS8DkpddoYfeuPZIhiBJ/nbU6F5fYgAAP7QSRvnb+LG
- kVFKHUi1UveP7f+29emKd3/O6tmwoUnSbBtijITh2oPwZ/MPd+jsHQ1L7d9CsEBIk4sI
- XScQ==
+ bh=OzrUthCxh0bIlSOqitw37R5B8Fdq3tCLDbK6Qh2/C8Q=;
+ b=ZQDr0ay1Wz19gMKtrpBi307SVX9tV4tAToNV2JFRDOf5evKqf4+ez4ZTLARzAPCNfO
+ z19mj+yT6Zjwnm6oqlIX7sjaWin1aZfrAcsxQhK5kyeouoO0R3iKAhgFWHk8Ve4Mwq94
+ Q05NPqR5am5p9ofPF2yOzQPcRThfEEPUra3CuKZ1fJHYkVNwtTYcwztjDxV5GxHMT0Bv
+ tvVqBEsa9A8gdH5zjBvbZmKoyXrPss4MRKIzdnmDOunb+f+VK/pHOiUjBhCG768x4KaO
+ cgTpTvBq22FeyVqCMmkZLRdlNQAU7f2K8f7XGRY1XchKqvWL1aDU3YY6M14N4x2xlN2h
+ EC9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=ZC1uqgrvXsIBWCW6+/3AKBzj42cmqBCOtVTeIFF9gQ8=;
- b=nh0IUa/e7nZIMG784rvpMVCErU6rTZEUiD/Yuk2fNh64L0GHZnQN9xnCyhyEjHYmAK
- GztGfPROAWc9Y4O5hmJ54DB1KppGfKu9/FM15CIl3xAG0xofezBZ+17t51qrRZBEhaMM
- sOq3n5YGAUCYn3XTW9HJONG40uDC9cAzAV14n4G2PjCPVDNbM6fKlB3BFg0vYLqy0QaU
- 0CY00W197TTZQc8jo/m4KX3f/rlT77mGozZDiunwPEAtEM8k3YDdWSO11B1a8EbpkZ/J
- d7jVhBhMDz7gWJ96N6Fo+Ee5hiBV2ttRp4F3tz35Z7OEBd6xck6u0NDgNZz1+64M4AK6
- zZkA==
-X-Gm-Message-State: AOAM533JqFYo0l7Yti7WBwWMu3HvpcIjmtO9OAc5WbL5bjOfy+cR4jLv
- a8V3Afnf53iP7ViU2D5x9VzhDSfqM0TKLg==
-X-Google-Smtp-Source: ABdhPJxZobwbFRhHRkhxhuImyV2J0FBbZMpweM4eIPj6Ttm7k/ck8K4S97TAzRwglr9idQtgDZfXdw==
-X-Received: by 2002:a05:6512:1191:: with SMTP id
- g17mr7068991lfr.55.1644544698491; 
- Thu, 10 Feb 2022 17:58:18 -0800 (PST)
+ bh=OzrUthCxh0bIlSOqitw37R5B8Fdq3tCLDbK6Qh2/C8Q=;
+ b=SPClw4ilo+rN5bDUII+2AWyUVivcRalNy3apb4qNfDiZ93lu9bTF9+UkYpvmh4gB6/
+ YFMeWbbidYDJ60lXmpeLMOrRdhTqYuPmZppfvQKYsIBWEoz/rOdz4DmPeOYQ3NNX2btt
+ 3p5XkXrJ8MnGY1YYhdAo/VN1U1LPHAwxOI98bTw3iSDwitZv6nKK7EjRav5OnXKldJDm
+ /syYvLlnFo7lSWfoDa/iiKFpJL7TvX79siIhXeNRt27TttT3iji/mjTqCXQJedwW2EW3
+ kSA8kud2qVSqmIG1gr5wvyzAayAH7LykQ7qQOvEqMk9+59geNQK2l0KRzi0VJHF8DJg0
+ q8tA==
+X-Gm-Message-State: AOAM530xSd82TKjRUZbPx/LrKRrGlxE0as320Z/FSeXbOP/hpPCFSMw3
+ er9jIoHl8a4DJzPIoR2Kp4Hh1A==
+X-Google-Smtp-Source: ABdhPJzT3QRQC9YOW3Jed/SZIBeEBkFTLrX5UNG9bL1oszO0iPRP2KY/T0Vd4bq6K0zrpZWMmc6Y8A==
+X-Received: by 2002:a05:6512:3c94:: with SMTP id
+ h20mr7009357lfv.480.1644544716355; 
+ Thu, 10 Feb 2022 17:58:36 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id f22sm2956990lfc.149.2022.02.10.17.58.17
+ by smtp.gmail.com with ESMTPSA id t19sm2958070lfl.123.2022.02.10.17.58.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Feb 2022 17:58:18 -0800 (PST)
-Message-ID: <cff9e31c-4564-1219-2b12-709f3f140f70@linaro.org>
-Date: Fri, 11 Feb 2022 04:58:17 +0300
+ Thu, 10 Feb 2022 17:58:35 -0800 (PST)
+Message-ID: <ccbd30f2-7627-f44f-6a0f-e6ef4736270f@linaro.org>
+Date: Fri, 11 Feb 2022 04:58:35 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
 Content-Language: en-GB
 To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
 References: <20220210114106.290669-1-vkoul@kernel.org>
- <20220210114106.290669-2-vkoul@kernel.org>
+ <20220210114106.290669-3-vkoul@kernel.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220210114106.290669-2-vkoul@kernel.org>
+In-Reply-To: <20220210114106.290669-3-vkoul@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dpu: Update the comment style
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: Update function parameter
+ documentation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,14 +85,15 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 10/02/2022 14:41, Vinod Koul wrote:
-> The multi line comment style is wrongly used as kernel-doc comment. This
-> gives a warning:
+> dpu_core_irq_callback_handler() function comments seem to have become
+> stale and emit a warning:
 > 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:17:
-> warning: This comment starts with '/**', but isn't a kernel-doc comment.
-> Refer Documentation/doc-guide/kernel-doc.rst
+> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:147:
+> warning: Function parameter or member 'dpu_kms' not described in 'dpu_core_irq_callback_handler'
+> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c:147:
+> warning: Excess function parameter 'arg' description in 'dpu_core_irq_callback_handler'
 > 
-> Update the style to fix this.
+> Fix by updating the documentation
 > 
 > Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
@@ -102,18 +104,18 @@ Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index a77a5eaa78ad..9341c88a336f 100644
+> index 9341c88a336f..27073fd49fee 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -13,7 +13,7 @@
->   #include "dpu_hw_mdss.h"
->   #include "dpu_trace.h"
+> @@ -140,7 +140,7 @@ static const struct dpu_intr_reg dpu_intr_set[] = {
 >   
-> -/**
-> +/*
->    * Register offsets in MDSS register file for the interrupt registers
->    * w.r.t. to the MDP base
+>   /**
+>    * dpu_core_irq_callback_handler - dispatch core interrupts
+> - * @arg:		private data of callback handler
+> + * @dpu_kms:		Pointer to DPU's KMS structure
+>    * @irq_idx:		interrupt index
 >    */
+>   static void dpu_core_irq_callback_handler(struct dpu_kms *dpu_kms, int irq_idx)
 
 
 -- 
