@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA644B5501
-	for <lists+freedreno@lfdr.de>; Mon, 14 Feb 2022 16:39:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8728D4B5732
+	for <lists+freedreno@lfdr.de>; Mon, 14 Feb 2022 17:41:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7845A10E1D0;
-	Mon, 14 Feb 2022 15:39:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5C310E13F;
+	Mon, 14 Feb 2022 16:41:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A7D610E147
- for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 15:37:48 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id s10so13979822wrb.1
- for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 07:37:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=aijvcWsy9YtZiV+n1WapUIg4+6ntUJUoIxFuyguMb7g=;
- b=d2smxsP4lY8EQU1zErCDeEd9cyKWYZkCDUktgBcZ/37aIGxUVMJloxXmmMGDuI1aNY
- XM7mbLgPCEpq3H4LSR4gD2zckDXLiKmzBw/rf96aiVcoHu7FmcnK+n1u5Gbt4oV+977F
- laGYHR4xHhM9E2Z048+Ww+9KIu3CBm08UxTvnyGz/iPAljcYepLLyAzah/4G9X+XZp/e
- 886JNhKnUWCsb7vcSKDnXGGCEWQzXZnbh29alvExLBA0R4xGqiPRhybIZBNt1mXbun8N
- L1rfIQuhlzaQyxW6lPsuzJXQsiKZD71xStkMe5GS1sHEEV8vCGl+zswNmgzadtUA/mt6
- 6DKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=aijvcWsy9YtZiV+n1WapUIg4+6ntUJUoIxFuyguMb7g=;
- b=zcisUfrXB3ZsJGP3w87pi5TKZQQZmrzP7ap19AQwiss69WJtHBCDIcCkmY+qBgDKhp
- EKelD5PpJi2tUSav6O/py7nxiUmygT4KJlJPKMrbe/PM+JYX2nhrghCeGSVii/M1u5eJ
- pvjHvySHKBO0EFXAyj7X9C0sqid1OlUrwizpKgBpx7EVHTWNMImi3K4LDQlDyUzllh7C
- tB89b5sRVgsIfSPSEVfaWhYHSxVzYeEGdpepipuE211a+1R/d7QCAu5xDhe2wcOOwzNg
- ZOZs/HSHLL1++BcJJ6vqrYIoTrcTrkIUpQx+Nq1BxClqGiy95zWwjj6erApFWALpsvxH
- uJCg==
-X-Gm-Message-State: AOAM531hgFb8n2IWi87324+kdnJibj+bBCqiz3YXAZ/IG7YqBviPh4v7
- IfS6yYpmyI5Q8W7M8mBwddJAPw==
-X-Google-Smtp-Source: ABdhPJy1jNaE/Z+WGRu0Cij1dahEbDE8D710Pc2g3XwPeNMUzaKum51xN0xAPyB7Gve6/2IpMXoqEg==
-X-Received: by 2002:a5d:53cd:: with SMTP id a13mr155713wrw.712.1644853066487; 
- Mon, 14 Feb 2022 07:37:46 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:82c:5f0:682b:4712:4b40:6814])
- by smtp.gmail.com with ESMTPSA id
- l26sm12935850wms.24.2022.02.14.07.37.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 14 Feb 2022 07:37:45 -0800 (PST)
-From: Loic Poulain <loic.poulain@linaro.org>
-To: dmitry.baryshkov@linaro.org,
-	robdclark@gmail.com,
-	robh+dt@kernel.org
-Date: Mon, 14 Feb 2022 16:37:40 +0100
-Message-Id: <1644853060-12222-3-git-send-email-loic.poulain@linaro.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644853060-12222-1-git-send-email-loic.poulain@linaro.org>
-References: <1644853060-12222-1-git-send-email-loic.poulain@linaro.org>
-X-Mailman-Approved-At: Mon, 14 Feb 2022 15:39:46 +0000
-Subject: [Freedreno] [PATCH v2 3/3] dt-bindings: msm/dsi: Add qcm2290 dsi
- controller binding
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1CDC10E13F;
+ Mon, 14 Feb 2022 16:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1644856895; x=1676392895;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=+CymjWSyTM2WBMyL/3aJhWzerfakuKzZr1vwvSFvdxU=;
+ b=MmpMAVastdv9b31xy93WokFuompa0wW6SoZA+33WhZA+nCa+M6ZkHFcA
+ KvGgh/vt2L6E9aNtQPnBg5KvRg3N+ZxXnEgZZ6OBb6SRDx1auGdLH5ODH
+ oKPjA2f2Lpl+3/5I15mmHlpZjzQgD4vY5WPK6entEDv4STJGIcbcAVoNF 4=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 14 Feb 2022 08:41:34 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2022 08:41:34 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Mon, 14 Feb 2022 08:41:33 -0800
+Received: from [10.110.63.253] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Mon, 14 Feb
+ 2022 08:41:32 -0800
+Message-ID: <bc21d3d2-78fb-cb3e-43e7-71b37804139d@quicinc.com>
+Date: Mon, 14 Feb 2022 08:41:31 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+References: <1643066274-25814-1-git-send-email-quic_khsieh@quicinc.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1643066274-25814-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: always add fail-safe mode
+ into connector mode list
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,38 +68,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, bjorn.andersson@linaro.org,
- freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
- devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ aravindh@codeaurora.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add DSI block specific qcm2290 compatible string as valid
-Qualcomm DSI controller.
+Hi Stephen,
 
-Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
----
- v2: no change
+Are you have more comments?
 
- .../devicetree/bindings/display/msm/dsi-controller-main.yaml         | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index 35426fd..7095ec3c8 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -14,8 +14,9 @@ allOf:
- 
- properties:
-   compatible:
--    items:
--      - const: qcom,mdss-dsi-ctrl
-+    enum:
-+      - qcom,mdss-dsi-ctrl
-+      - qcom,dsi-ctrl-6g-qcm2290
- 
-   reg:
-     maxItems: 1
--- 
-2.7.4
-
+On 1/24/2022 3:17 PM, Kuogee Hsieh wrote:
+> Some of DP link compliant test expects to return fail-safe mode
+> if prefer detailed timing mode can not be supported by mainlink's
+> lane and rate after link training. Therefore add fail-safe mode
+> into connector mode list as backup mode. This patch fixes test
+> case 4.2.2.1.
+>
+> Changes in v2:
+> -- add Fixes text string
+>
+> Fixes: 4b85d405cfe9 ( "drm/msm/dp: reduce link rate if failed at link training 1")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_panel.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+> index 71db10c..f141872 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_panel.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+> @@ -212,6 +212,11 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
+>   		if (drm_add_modes_noedid(connector, 640, 480))
+>   			drm_set_preferred_mode(connector, 640, 480);
+>   		mutex_unlock(&connector->dev->mode_config.mutex);
+> +	} else {
+> +		/* always add fail-safe mode as backup mode */
+> +		mutex_lock(&connector->dev->mode_config.mutex);
+> +		drm_add_modes_noedid(connector, 640, 480);
+> +		mutex_unlock(&connector->dev->mode_config.mutex);
+>   	}
+>   
+>   	if (panel->aux_cfg_update_done) {
