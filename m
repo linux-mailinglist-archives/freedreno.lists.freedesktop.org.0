@@ -1,44 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9395E4B41A5
-	for <lists+freedreno@lfdr.de>; Mon, 14 Feb 2022 07:10:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54C914B54FD
+	for <lists+freedreno@lfdr.de>; Mon, 14 Feb 2022 16:39:48 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F23510E482;
-	Mon, 14 Feb 2022 06:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1DC988549;
+	Mon, 14 Feb 2022 15:39:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2449310E475;
- Mon, 14 Feb 2022 06:10:25 +0000 (UTC)
-X-UUID: 862b7b1f808d4b5a84f85ecfb3e4bcde-20220214
-X-UUID: 862b7b1f808d4b5a84f85ecfb3e4bcde-20220214
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com (envelope-from <yong.wu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 853127056; Mon, 14 Feb 2022 14:10:22 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Mon, 14 Feb 2022 14:10:21 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 14 Feb 2022 14:10:19 +0800
-From: Yong Wu <yong.wu@mediatek.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- <dri-devel@lists.freedesktop.org>
-Date: Mon, 14 Feb 2022 14:08:05 +0800
-Message-ID: <20220214060819.7334-10-yong.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220214060819.7334-1-yong.wu@mediatek.com>
-References: <20220214060819.7334-1-yong.wu@mediatek.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Subject: [Freedreno] [PATCH 09/23] drm/msm: Make use of the helper
- component_compare_of
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64E5710E14C
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 15:29:12 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id k41so8713938wms.0
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 07:29:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=EU3EVcL3i6EuBgEevxd+C2l4B+f7g1W1v+mpET3Ya+M=;
+ b=k3IdoWo02lCCCv8BpwlTFholGTwSIJIW84Otc2WkjBALpT78d7wNHJ6ZN0IWY2Ekev
+ TdX4M5TaefrHWtHP+4V08A45gL46+EQP7+GEfobhQAJemyC7IddjsQIqC+DrmJCexvUz
+ Q+W7Bt4EjPBJQmyrjXmTBdTVmtuWbr35s+/nYga6eMHhw25GUNh/prUa/TnGYVP5y7T9
+ ICRp0/82Ivq9Ee9O6Wtc2yCz1ZrCgd3qfZSvJPf19mIHtPNj4SmW/T5zQHoRokXiSaHg
+ orKwCfPo1aHrpU5JkFvNoK8aeDM30I8McC6o1xJmC1IO5La9HF2zpHN0s7Lfff1dGTtY
+ svBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=EU3EVcL3i6EuBgEevxd+C2l4B+f7g1W1v+mpET3Ya+M=;
+ b=EAQ2/FCQY3YFVZCZPaDmMVg5HmQEWCujnLlIuRY7IQR4/iKmoBup5JfXhgV4JQxC5Q
+ WDj+DWdM5OD6wehJ+2Ooa1TbMCgQCRS8ggWuPQ2OlkCy8oah2E8xEykYuEwGxYnthtEl
+ LnoIa3tGeDUI5wHZ89Fzel6zFeGsVdE1PyqoGG5pomiQXRofK7gcIHkk22hqEw3zLS8t
+ uYuber4M5FDnurRq8AmKdtcCXagTvR0gyRsMGlT9C78r7maZT6AVLyi+NDX0DKGlo/To
+ vVbB7vaM3qLOQPmk/rpDybAon3jACZqGdI6yRUVnItnurjeg1bJuLA2hl+KmSe8FjI14
+ CXtQ==
+X-Gm-Message-State: AOAM533a/Km32agv3doLD84HJEvjkpIXlOaUaMXco+r8ChzcZT/4MXx4
+ sPbIoYXmuRzVjbDLC8Kaf7oMSFeIU42+hA==
+X-Google-Smtp-Source: ABdhPJylmbefb1kAQEiTyM7H0rYnEr7E1WdlbBR9UhMN+kEz5rIDoSnp7sTsHeidp2YXfww/witA8w==
+X-Received: by 2002:a05:600c:1da4:: with SMTP id
+ p36mr11552807wms.98.1644852550826; 
+ Mon, 14 Feb 2022 07:29:10 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:82c:5f0:682b:4712:4b40:6814])
+ by smtp.gmail.com with ESMTPSA id
+ w3sm30657229wra.67.2022.02.14.07.29.09
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 14 Feb 2022 07:29:10 -0800 (PST)
+From: Loic Poulain <loic.poulain@linaro.org>
+To: dmitry.baryshkov@linaro.org,
+	robdclark@gmail.com,
+	robh+dt@kernel.org
+Date: Mon, 14 Feb 2022 16:29:06 +0100
+Message-Id: <1644852547-10067-1-git-send-email-loic.poulain@linaro.org>
+X-Mailer: git-send-email 2.7.4
+X-Mailman-Approved-At: Mon, 14 Feb 2022 15:39:46 +0000
+Subject: [Freedreno] [PATCH v3 1/2] drm/msm: add support for QCM2290 MDSS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,85 +66,311 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Will Deacon <will@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, Joerg
- Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
- James Wang <james.qian.wang@arm.com>, Yong Wu <yong.wu@mediatek.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-mediatek@lists.infradead.org, Hsin-Yi Wang <hsinyi@chromium.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Sean Paul <sean@poorly.run>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- srv_heupstream@mediatek.com, Stephen
- Boyd <sboyd@kernel.org>, freedreno@lists.freedesktop.org,
- Sebastian Reichel <sre@kernel.org>, Tomasz Figa <tfiga@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Robin Murphy <robin.murphy@arm.com>
+Cc: linux-arm-msm@vger.kernel.org, bjorn.andersson@linaro.org,
+ freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Use the common compare helper from component.
+Add compatibility for QCM2290 display subsystem, including
+required entries in DPU hw catalog.
 
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Signed-off-by: Yong Wu <yong.wu@mediatek.com>
+Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+ v2: - Add BIT(DPU_SSPP_QOS_8LVL) to qcm2290 vig mask
+     - drop qseed_type from dpu caps as there is no scaler
+     - rename _QCM2290_VIG_SBLK to _VIG_SBLK_NOSCALE
+     - Use sm8150_dspp_sblk instead of cloning it
+     - Use sdm845_pp_sblk instead of cloning it
+     - Use sdm845_vbif
+ v3: no change (resent with reviewed-by + freedreno list)
 
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 148 +++++++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c        |   1 +
+ drivers/gpu/drm/msm/msm_drv.c                  |   1 +
+ 4 files changed, 151 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index aa75991..12392d0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -25,6 +25,8 @@
+ #define VIG_SM8250_MASK \
+ 	(VIG_MASK | BIT(DPU_SSPP_QOS_8LVL) | BIT(DPU_SSPP_SCALER_QSEED3LITE))
+ 
++#define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
++
+ #define DMA_SDM845_MASK \
+ 	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
+ 	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
+@@ -251,6 +253,17 @@ static const struct dpu_caps sc7280_dpu_caps = {
+ 	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+ };
+ 
++static const struct dpu_caps qcm2290_dpu_caps = {
++	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
++	.max_mixer_blendstages = 0x4,
++	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2,
++	.ubwc_version = DPU_HW_UBWC_VER_20,
++	.has_dim_layer = true,
++	.has_idle_pc = true,
++	.max_linewidth = 2160,
++	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
++};
++
+ static const struct dpu_mdp_cfg sdm845_mdp[] = {
+ 	{
+ 	.name = "top_0", .id = MDP_TOP,
+@@ -336,6 +349,19 @@ static const struct dpu_mdp_cfg sc7280_mdp[] = {
+ 	},
+ };
+ 
++static const struct dpu_mdp_cfg qcm2290_mdp[] = {
++	{
++	.name = "top_0", .id = MDP_TOP,
++	.base = 0x0, .len = 0x494,
++	.features = 0,
++	.highest_bank_bit = 0x2,
++	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
++		.reg_off = 0x2AC, .bit_off = 0},
++	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
++		.reg_off = 0x2AC, .bit_off = 8},
++	},
++};
++
+ /*************************************************************
+  * CTL sub blocks config
+  *************************************************************/
+@@ -459,6 +485,15 @@ static const struct dpu_ctl_cfg sc7280_ctl[] = {
+ 	},
+ };
+ 
++static const struct dpu_ctl_cfg qcm2290_ctl[] = {
++	{
++	.name = "ctl_0", .id = CTL_0,
++	.base = 0x1000, .len = 0x1dc,
++	.features = BIT(DPU_CTL_ACTIVE_CFG),
++	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
++	},
++};
++
+ /*************************************************************
+  * SSPP sub blocks config
+  *************************************************************/
+@@ -595,6 +630,30 @@ static const struct dpu_sspp_cfg sc7280_sspp[] = {
+ 		sdm845_dma_sblk_2, 9, SSPP_TYPE_DMA, DPU_CLK_CTRL_CURSOR1),
+ };
+ 
++
++#define _VIG_SBLK_NOSCALE(num, sdma_pri) \
++	{ \
++	.maxdwnscale = SSPP_UNITY_SCALE, \
++	.maxupscale = SSPP_UNITY_SCALE, \
++	.smart_dma_priority = sdma_pri, \
++	.src_blk = {.name = STRCAT("sspp_src_", num), \
++		.id = DPU_SSPP_SRC, .base = 0x00, .len = 0x150,}, \
++	.format_list = plane_formats_yuv, \
++	.num_formats = ARRAY_SIZE(plane_formats_yuv), \
++	.virt_format_list = plane_formats, \
++	.virt_num_formats = ARRAY_SIZE(plane_formats), \
++	}
++
++static const struct dpu_sspp_sub_blks qcm2290_vig_sblk_0 = _VIG_SBLK_NOSCALE("0", 2);
++static const struct dpu_sspp_sub_blks qcm2290_dma_sblk_0 = _DMA_SBLK("8", 1);
++
++static const struct dpu_sspp_cfg qcm2290_sspp[] = {
++	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_QCM2290_MASK,
++		 qcm2290_vig_sblk_0, 0, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
++	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
++		 qcm2290_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
++};
++
+ /*************************************************************
+  * MIXER sub blocks config
+  *************************************************************/
+@@ -679,6 +738,21 @@ static const struct dpu_lm_cfg sc7280_lm[] = {
+ 		&sc7180_lm_sblk, PINGPONG_3, LM_2, 0),
+ };
+ 
++/* QCM2290 */
++
++static const struct dpu_lm_sub_blks qcm2290_lm_sblk = {
++	.maxwidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
++	.maxblendstages = 4, /* excluding base layer */
++	.blendstage_base = { /* offsets relative to mixer base */
++		0x20, 0x38, 0x50, 0x68
++	},
++};
++
++static const struct dpu_lm_cfg qcm2290_lm[] = {
++	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
++		&qcm2290_lm_sblk, PINGPONG_0, 0, DSPP_0),
++};
++
+ /*************************************************************
+  * DSPP sub blocks config
+  *************************************************************/
+@@ -716,6 +790,11 @@ static const struct dpu_dspp_cfg sm8150_dspp[] = {
+ 		 &sm8150_dspp_sblk),
+ };
+ 
++static const struct dpu_dspp_cfg qcm2290_dspp[] = {
++	DSPP_BLK("dspp_0", DSPP_0, 0x54000, DSPP_SC7180_MASK,
++		 &sm8150_dspp_sblk),
++};
++
+ /*************************************************************
+  * PINGPONG sub blocks config
+  *************************************************************/
+@@ -798,6 +877,12 @@ static const struct dpu_pingpong_cfg sm8150_pp[] = {
+ 			-1),
+ };
+ 
++static struct dpu_pingpong_cfg qcm2290_pp[] = {
++	PP_BLK("pingpong_0", PINGPONG_0, 0x70000, 0, sdm845_pp_sblk,
++		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
++		DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 12)),
++};
++
+ /*************************************************************
+  * MERGE_3D sub blocks config
+  *************************************************************/
+@@ -861,6 +946,11 @@ static const struct dpu_intf_cfg sc7280_intf[] = {
+ 	INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+ };
+ 
++static const struct dpu_intf_cfg qcm2290_intf[] = {
++	INTF_BLK("intf_0", INTF_0, 0x00000, INTF_NONE, 0, 0, 0, 0, 0, 0),
++	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
++};
++
+ /*************************************************************
+  * VBIF sub blocks config
+  *************************************************************/
+@@ -931,6 +1021,10 @@ static const struct dpu_qos_lut_entry sm8150_qos_linear[] = {
+ 	{.fl = 0, .lut = 0x0011222222223357 },
+ };
+ 
++static const struct dpu_qos_lut_entry qcm2290_qos_linear[] = {
++	{.fl = 0, .lut = 0x0011222222335777},
++};
++
+ static const struct dpu_qos_lut_entry sdm845_qos_macrotile[] = {
+ 	{.fl = 10, .lut = 0x344556677},
+ 	{.fl = 11, .lut = 0x3344556677},
+@@ -1102,6 +1196,27 @@ static const struct dpu_perf_cfg sc7280_perf_data = {
+ 	.bw_inefficiency_factor = 120,
+ };
+ 
++static const struct dpu_perf_cfg qcm2290_perf_data = {
++	.max_bw_low = 2700000,
++	.max_bw_high = 2700000,
++	.min_core_ib = 1300000,
++	.min_llcc_ib = 0,
++	.min_dram_ib = 1600000,
++	.min_prefill_lines = 24,
++	.danger_lut_tbl = {0xff, 0x0, 0x0},
++	.safe_lut_tbl = {0xfff0, 0x0, 0x0},
++	.qos_lut_tbl = {
++		{.nentry = ARRAY_SIZE(qcm2290_qos_linear),
++		.entries = qcm2290_qos_linear
++		},
++	},
++	.cdp_cfg = {
++		{.rd_enable = 1, .wr_enable = 1},
++		{.rd_enable = 1, .wr_enable = 0}
++	},
++	.clk_inefficiency_factor = 105,
++	.bw_inefficiency_factor = 120,
++};
+ /*************************************************************
+  * Hardware catalog init
+  *************************************************************/
+@@ -1255,6 +1370,38 @@ static void sc7280_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
+ 	};
+ }
+ 
++
++/*
++ * qcm2290_cfg_init(): populate qcm2290 dpu sub-blocks reg offsets
++ * and instance counts.
++ */
++static void qcm2290_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
++{
++	*dpu_cfg = (struct dpu_mdss_cfg){
++		.caps = &qcm2290_dpu_caps,
++		.mdp_count = ARRAY_SIZE(qcm2290_mdp),
++		.mdp = qcm2290_mdp,
++		.ctl_count = ARRAY_SIZE(qcm2290_ctl),
++		.ctl = qcm2290_ctl,
++		.sspp_count = ARRAY_SIZE(qcm2290_sspp),
++		.sspp = qcm2290_sspp,
++		.mixer_count = ARRAY_SIZE(qcm2290_lm),
++		.mixer = qcm2290_lm,
++		.dspp_count = ARRAY_SIZE(qcm2290_dspp),
++		.dspp = qcm2290_dspp,
++		.pingpong_count = ARRAY_SIZE(qcm2290_pp),
++		.pingpong = qcm2290_pp,
++		.intf_count = ARRAY_SIZE(qcm2290_intf),
++		.intf = qcm2290_intf,
++		.vbif_count = ARRAY_SIZE(sdm845_vbif),
++		.vbif = sdm845_vbif,
++		.reg_dma_count = 1,
++		.dma_cfg = sdm845_regdma,
++		.perf = qcm2290_perf_data,
++		.mdss_irqs = IRQ_SC7180_MASK,
++	};
++}
++
+ static const struct dpu_mdss_hw_cfg_handler cfg_handler[] = {
+ 	{ .hw_rev = DPU_HW_VER_400, .cfg_init = sdm845_cfg_init},
+ 	{ .hw_rev = DPU_HW_VER_401, .cfg_init = sdm845_cfg_init},
+@@ -1262,6 +1409,7 @@ static const struct dpu_mdss_hw_cfg_handler cfg_handler[] = {
+ 	{ .hw_rev = DPU_HW_VER_501, .cfg_init = sm8150_cfg_init},
+ 	{ .hw_rev = DPU_HW_VER_600, .cfg_init = sm8250_cfg_init},
+ 	{ .hw_rev = DPU_HW_VER_620, .cfg_init = sc7180_cfg_init},
++	{ .hw_rev = DPU_HW_VER_650, .cfg_init = qcm2290_cfg_init},
+ 	{ .hw_rev = DPU_HW_VER_720, .cfg_init = sc7280_cfg_init},
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index 31af04a..5b31392 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -41,6 +41,7 @@
+ #define DPU_HW_VER_501	DPU_HW_VER(5, 0, 1) /* sm8150 v2.0 */
+ #define DPU_HW_VER_600	DPU_HW_VER(6, 0, 0) /* sm8250 */
+ #define DPU_HW_VER_620	DPU_HW_VER(6, 2, 0) /* sc7180 v1.0 */
++#define DPU_HW_VER_650	DPU_HW_VER(6, 5, 0) /* qcm2290|sm4125 */
+ #define DPU_HW_VER_720	DPU_HW_VER(7, 2, 0) /* sc7280 */
+ 
+ #define IS_MSM8996_TARGET(rev) IS_DPU_MAJOR_MINOR_SAME((rev), DPU_HW_VER_170)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 47fe11a..b816a50 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1348,6 +1348,7 @@ static const struct dev_pm_ops dpu_pm_ops = {
+ };
+ 
+ const struct of_device_id dpu_dt_match[] = {
++	{ .compatible = "qcom,qcm2290-dpu", },
+ 	{ .compatible = "qcom,sdm845-dpu", },
+ 	{ .compatible = "qcom,sc7180-dpu", },
+ 	{ .compatible = "qcom,sc7280-dpu", },
 diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index ad35a5d94053..50e5a6ff6487 100644
+index ad35a5d..c8ab6eb 100644
 --- a/drivers/gpu/drm/msm/msm_drv.c
 +++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1173,15 +1173,6 @@ static const struct dev_pm_ops msm_pm_ops = {
-  * Componentized driver support:
-  */
- 
--/*
-- * NOTE: duplication of the same code as exynos or imx (or probably any other).
-- * so probably some room for some helpers
-- */
--static int compare_of(struct device *dev, void *data)
--{
--	return dev->of_node == data;
--}
--
- /*
-  * Identify what components need to be added by parsing what remote-endpoints
-  * our MDP output ports are connected to. In the case of LVDS on MDP4, there
-@@ -1239,7 +1230,7 @@ static int add_components_mdp(struct device *mdp_dev,
- 
- 		if (of_device_is_available(intf))
- 			drm_of_component_match_add(master_dev, matchptr,
--						   compare_of, intf);
-+						   component_compare_of, intf);
- 
- 		of_node_put(intf);
- 	}
-@@ -1285,7 +1276,7 @@ static int add_display_components(struct platform_device *pdev,
- 		put_device(mdp_dev);
- 
- 		/* add the MDP component itself */
--		drm_of_component_match_add(dev, matchptr, compare_of,
-+		drm_of_component_match_add(dev, matchptr, component_compare_of,
- 					   mdp_dev->of_node);
- 		break;
- 	case KMS_MDP4:
-@@ -1324,7 +1315,7 @@ static int add_gpu_components(struct device *dev,
- 		return 0;
- 
- 	if (of_device_is_available(np))
--		drm_of_component_match_add(dev, matchptr, compare_of, np);
-+		drm_of_component_match_add(dev, matchptr, component_compare_of, np);
- 
- 	of_node_put(np);
- 
+@@ -1438,6 +1438,7 @@ static void msm_pdev_shutdown(struct platform_device *pdev)
+ static const struct of_device_id dt_match[] = {
+ 	{ .compatible = "qcom,mdp4", .data = (void *)KMS_MDP4 },
+ 	{ .compatible = "qcom,mdss", .data = (void *)KMS_MDP5 },
++	{ .compatible = "qcom,qcm2290-mdss", .data = (void *)KMS_DPU },
+ 	{ .compatible = "qcom,sdm845-mdss", .data = (void *)KMS_DPU },
+ 	{ .compatible = "qcom,sc7180-mdss", .data = (void *)KMS_DPU },
+ 	{ .compatible = "qcom,sc7280-mdss", .data = (void *)KMS_DPU },
 -- 
-2.18.0
+2.7.4
 
