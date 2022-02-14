@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8468A4B5B22
-	for <lists+freedreno@lfdr.de>; Mon, 14 Feb 2022 21:43:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8194B5B7E
+	for <lists+freedreno@lfdr.de>; Mon, 14 Feb 2022 21:56:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5762210E2DC;
-	Mon, 14 Feb 2022 20:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3427E10E2E2;
+	Mon, 14 Feb 2022 20:56:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BFAB10E2D8
- for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 20:43:53 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id j7so15639380lfu.6
- for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 12:43:52 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 843C910E2E2
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 20:56:31 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id o2so33090500lfd.1
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 12:56:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=2X3kZbX+r2skgh31n7jW6xhk6e9XDlkUbEJcNaWJ+ok=;
- b=nJ/iv1ylRHCewgW3kX7nTwKriL4gG+aGFWMVjaQkCuEvYHFRquxbkW2FHqWayJTraJ
- rXODxi1LPc1lt/tleCav4RDJZ1IiqPhrQq5wMGZfkzqYQddNGLh148eIcLU1ff9YnsNV
- dJaf16l/WN0J5zA26yxW3t5XV0YodiR75nIzuRvhuxn51tTuKLSY+/S2+1GlwVinpXlq
- wnI9Ppd5HrvirRU/otTSRZGpydlUhIg9RzJKCM4Pj2zit3R9e9hURW+DnsdlUBx2MX7Y
- 0h3qdcDDp5Nm7Tay33zdzHurJeXNjUpEYsiAiilMEDV08D5T3hXBEA9HkBPfzcFnzjF5
- cynA==
+ bh=iNZh6xnB7l14QUqU5trI8BnrpGfuxSthdRw84AlqgkU=;
+ b=ldAUpDTmph7xPLv0/qpYuDX5I3N+UiNvVr0J3LU9Rg/kmv56bvGeIIbNL6UOEtRWbh
+ p6XODCm8lVjw1GvaIeZPE60WBE5dKLcjijQNtQg32DmsV3BZYsvfzi0CP/JNO2nmYyxL
+ ceHgC7wKWC7JBH/VjddtZlHuBeapDfFowqgJsKbF7d1M99paxK5pf6P29gWIJLkUTAgQ
+ 3+LI8ficbq038SJTisS7Oc7rJJ+TjixcyXHjoYP3WLOgW+96YJn257zGTbw0Ga7m5hyM
+ S8269iYNbST5bY7Ax2CA8I4w1c4Xe52m7wwD8zyuio9zYe39VMIpl5aGNeOSfczHnEcJ
+ UnpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=2X3kZbX+r2skgh31n7jW6xhk6e9XDlkUbEJcNaWJ+ok=;
- b=Bmlokj1b1FafI7nEbxhCxgmeOooZMHijjB0PDcwRQ1TcOO3MsbeX64g1YiEfErBQ3i
- jJKTlWLQSJo1obetcesdcUml7s78gy7U3PacddFMVl96PirkvZjo8zZBAc/qxASuLRO0
- BllwmVtk3nv3U5UKMj27EJJoOIvvaBKt8SUzmQ5eoSQUqzCJT3jFV0zrTsPjc5mtR264
- Pw90pckIH9K4HNxiPosPo8NdlzkFdOudGhMIiL43dPRh7b68g+U2KdPfyxQl/CpAY5Ii
- qaMNJluZe/GpPRO47YtmI64hWvY0Ol90aLwK8zmbC2SEEYtt5Kxcp8mapHQGqc1TWsDF
- JAPQ==
-X-Gm-Message-State: AOAM533sIhtodDlbn7TUpAT7RbsUdLM4jAV9M05rfYzYymDPGERTRg3y
- 6WdXnHjB7APFueudriJkc4WSsg==
-X-Google-Smtp-Source: ABdhPJzmq2rehfCSH3NsOJEjg3U/3L/c1dDAYZBLrw88w45OYI6UpA8++OFJu8ymh3U5ryuFxjDPxg==
-X-Received: by 2002:a05:6512:ea8:: with SMTP id
- bi40mr628876lfb.258.1644871431323; 
- Mon, 14 Feb 2022 12:43:51 -0800 (PST)
+ bh=iNZh6xnB7l14QUqU5trI8BnrpGfuxSthdRw84AlqgkU=;
+ b=xANf/3fFNciQmbUskUCPierCmku7k/RX9NJ4Ok9S+K0MH+uLnpTkzmzBcMve+cNzpE
+ DAwhnhUfFm/osmpoAzftguYg7Pmj67hEZrz2uyjfw1Xjuw6XvGy01x7XhQ9/Cy2CBqnN
+ G1j/un6dRlHwFQZkB9Dd2+m6Tli1BK6UooOmj6PTAuDWXS5VGHsDvcpCsUx+Ra40wglR
+ XvD+EaaMYDhBGKcVlwg8NTP+qMedf3p12PPeykAUUNjbaM+lHUmLcvakxlck72iKBvdM
+ w45bN7SZaKrdsHDVGTsEvb+DcfhP2JorY4V+F86APxiGoU9vDWfnstf214x5np79IuOf
+ Ie0A==
+X-Gm-Message-State: AOAM531VLjail26XmGXxZR/x3o3Ts8LfnldnPDRcIbZ55zybwwRCNWTh
+ Dsb/4Y1q65qb5Ki0UHURPm5s/w==
+X-Google-Smtp-Source: ABdhPJzA7oyrxM6PsaDAnSp5InAwY+OJ47gij3qH8rbVoHtbuh+fs9qe5LSRchKkEycF3FLghzVMbQ==
+X-Received: by 2002:a05:6512:2207:: with SMTP id
+ h7mr622666lfu.605.1644872189733; 
+ Mon, 14 Feb 2022 12:56:29 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id bi1sm4246363lfb.87.2022.02.14.12.43.50
+ by smtp.gmail.com with ESMTPSA id s14sm664251lfs.54.2022.02.14.12.56.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Feb 2022 12:43:50 -0800 (PST)
-Message-ID: <2246d195-c3dc-e093-f456-55c00fe23c71@linaro.org>
-Date: Mon, 14 Feb 2022 23:43:49 +0300
+ Mon, 14 Feb 2022 12:56:29 -0800 (PST)
+Message-ID: <a2c001ee-c257-5d25-e0a9-dda7d1dcdead@linaro.org>
+Date: Mon, 14 Feb 2022 23:56:28 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
@@ -57,14 +57,14 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
 References: <20220121210618.3482550-1-dmitry.baryshkov@linaro.org>
- <20220121210618.3482550-6-dmitry.baryshkov@linaro.org>
- <5b517150-ae78-98c6-b9a8-d84905f38f56@quicinc.com>
+ <20220121210618.3482550-7-dmitry.baryshkov@linaro.org>
+ <e38947b6-461b-ac26-a3f2-d72b439330d4@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <5b517150-ae78-98c6-b9a8-d84905f38f56@quicinc.com>
+In-Reply-To: <e38947b6-461b-ac26-a3f2-d72b439330d4@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v5 5/6] drm/msm/dpu: fix error handling in
- dpu_rm_init
+Subject: Re: [Freedreno] [PATCH v5 6/6] drm/msm/dpu: move VBIF blocks
+ handling to dpu_rm
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,97 +83,323 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 14/02/2022 22:15, Abhinav Kumar wrote:
+On 14/02/2022 22:53, Abhinav Kumar wrote:
 > 
 > 
 > On 1/21/2022 1:06 PM, Dmitry Baryshkov wrote:
->> Using IS_ERR_OR_NULL() together with PTR_ERR() is a typical mistake. If
->> the value is NULL, then the function will return 0 instead of a proper
->> return code. Moreover none of dpu_hw_*_init() functions can return NULL.
->> So, replace all dpu_rm_init()'s IS_ERR_OR_NULL() calls with IS_ERR().
+>> Move handling of VBIF blocks into dpu_rm. This serves the purpose of
+>> unification of handling of all hardware blocks inside the DPU driver.
+>> This removes hand-coded loops in dpu_vbif (which look for necessary VBIF
+>> instance by looping through the dpu_kms->hw_vbif and comparing
+>> vbif_idx).
 >>
-> Can you please give an example of a case where dpu_hw_*_init() can 
-> return NULL?
-> 
-> All dpu_hw_*_init() functions are only called if the corresponding
-> hw*_counts are valid. So I would like to understand this.
-> 
-> Now, if NULL is treated as a non-error case, should we atleast print
-> a message indicating so?
-
-- No dpu_hw_*init() can return NULL
-
-- If at some point any of these functions returns NULL, it will cause a 
-premature dpu_rm_init() termination with the success (=0) status, 
-leaving parts of RM uninitialized.
-
-Thus I'm replacing IS_ERR_OR_NULL with IS_ERR()
-
-> 
 >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> I have a slightly different idea about this. Let me know what you think.
+>  
+> VBIF is a bus interface for the dpu to fetch from. I am not sure if 
+> pulling it in the RM is right because its not a dedicated HW block like
+> the others in the RM.
+
+It's not a hardware block, but a it's still a hardware resource 
+(hardware instance). It is described in the hw catalog. Thus I suggested 
+moving it to dpu_rm.
+
+As you have seen, from my previous iterations of this patchset, I tried 
+  to move things out of dpu_rm. After some hacking, I saw that having 
+alloc/free loops in several places seems like a worse idea. So I moved 
+dpu_hw_intf back to dpu_rm and then moved dpu_hw_vbif to dpu_rm too.
+
+> 
+> But, I agree with your problem statement of hand-coded loops.
+> 
+> So instead, why dont you just have a helper in the dpu_vbif.c to get
+> you the vbif hw for the passed index like, maybe something like this?
+> 
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> @@ -11,6 +11,19 @@
+>   #include "dpu_hw_vbif.h"
+>   #include "dpu_trace.h"
+> 
+> +static dpu_hw_vbif *dpu_vbif_get_hw(struct dpu_kms *dpu_kms, u32 vbif_idx)
+> +{
+> +       int i;
+> +
+> +       for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> +               if (dpu_kms->hw_vbif[i] &&
+> +                               dpu_kms->hw_vbif[i]->idx == vbif_idx)
+> +                       vbif = dpu_kms->hw_vbif[i];
+> +       }
+> +
+> +       return vbif;
+> +}
+> +
+
+You see, this code still bears an idea of looping through hw_vbif 
+entries looking for the correct one (we can directly access hw_vbif[idx 
+- VBIF_0] instead).
+
+And also the alloc/destroy loops are very similar to rm ones, but are 
+working against the array in dpu_kms.
+
+One of the previous iterations had neearly the same idea as yours patch 
+proposes, but I later abandoned this idea.
+
+I'm trying to place common code nearby, so that there is a less chance 
+of an error.
+
+>   /**
+>    * _dpu_vbif_wait_for_xin_halt - wait for the xin to halt
+>    * @vbif:      Pointer to hardware vbif driver
+> @@ -156,11 +169,7 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+> 
+>          mdp = dpu_kms->hw_mdp;
+> 
+> -       for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> -               if (dpu_kms->hw_vbif[i] &&
+> -                               dpu_kms->hw_vbif[i]->idx == 
+> params->vbif_idx)
+> -                       vbif = dpu_kms->hw_vbif[i];
+> -       }
+> +       vbif = dpu_vbif_get_hw(dpu_kms, params->vbif_idx);
+> 
+>          if (!vbif || !mdp) {
+>                  DRM_DEBUG_ATOMIC("invalid arguments vbif %d mdp %d\n",
+> @@ -216,13 +225,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+>          }
+>          mdp = dpu_kms->hw_mdp;
+> 
+> -       for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> -               if (dpu_kms->hw_vbif[i] &&
+> -                               dpu_kms->hw_vbif[i]->idx == 
+> params->vbif_idx) {
+> -                       vbif = dpu_kms->hw_vbif[i];
+> -                       break;
+> -               }
+> -       }
+> +       vbif = dpu_vbif_get_hw(params->vbif_idx);
+> 
+> 
+> 
 >> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c | 12 ++++++------
->>   1 file changed, 6 insertions(+), 6 deletions(-)
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h |  1 +
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 28 +--------------------
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 19 ++++++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      | 12 +++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c    | 26 ++++++-------------
+>>   6 files changed, 40 insertions(+), 47 deletions(-)
 >>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h
+>> index 6417aa28d32c..895e86dabcb6 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.h
+>> @@ -8,6 +8,7 @@
+>>   #include "dpu_hw_catalog.h"
+>>   #include "dpu_hw_mdss.h"
+>>   #include "dpu_hw_util.h"
+>> +#include "dpu_hw_blk.h"
+>>   struct dpu_hw_vbif;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> index 47fe11a84a77..4a1983d8561b 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+>> @@ -782,8 +782,6 @@ static long dpu_kms_round_pixclk(struct msm_kms 
+>> *kms, unsigned long rate,
+>>   static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+>>   {
+>> -    int i;
+>> -
+>>       if (dpu_kms->hw_intr)
+>>           dpu_hw_intr_destroy(dpu_kms->hw_intr);
+>>       dpu_kms->hw_intr = NULL;
+>> @@ -791,15 +789,6 @@ static void _dpu_kms_hw_destroy(struct dpu_kms 
+>> *dpu_kms)
+>>       /* safe to call these more than once during shutdown */
+>>       _dpu_kms_mmu_destroy(dpu_kms);
+>> -    if (dpu_kms->catalog) {
+>> -        for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+>> -            u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+>> -
+>> -            if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx])
+>> -                dpu_hw_vbif_destroy(dpu_kms->hw_vbif[vbif_idx]);
+>> -        }
+>> -    }
+>> -
+>>       if (dpu_kms->rm_init)
+>>           dpu_rm_destroy(&dpu_kms->rm);
+>>       dpu_kms->rm_init = false;
+>> @@ -1027,7 +1016,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>   {
+>>       struct dpu_kms *dpu_kms;
+>>       struct drm_device *dev;
+>> -    int i, rc = -EINVAL;
+>> +    int rc = -EINVAL;
+>>       if (!kms) {
+>>           DPU_ERROR("invalid kms\n");
+>> @@ -1116,21 +1105,6 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>>           goto power_error;
+>>       }
+>> -    for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+>> -        u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+>> -
+>> -        dpu_kms->hw_vbif[i] = dpu_hw_vbif_init(vbif_idx,
+>> -                dpu_kms->vbif[vbif_idx], dpu_kms->catalog);
+>> -        if (IS_ERR_OR_NULL(dpu_kms->hw_vbif[vbif_idx])) {
+>> -            rc = PTR_ERR(dpu_kms->hw_vbif[vbif_idx]);
+>> -            if (!dpu_kms->hw_vbif[vbif_idx])
+>> -                rc = -EINVAL;
+>> -            DPU_ERROR("failed to init vbif %d: %d\n", vbif_idx, rc);
+>> -            dpu_kms->hw_vbif[vbif_idx] = NULL;
+>> -            goto power_error;
+>> -        }
+>> -    }
+>> -
+>>       rc = dpu_core_perf_init(&dpu_kms->perf, dev, dpu_kms->catalog,
+>>               _dpu_kms_get_clk(dpu_kms, "core"));
+>>       if (rc) {
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> index 3f518c809e33..b96c901483ae 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+>> @@ -105,7 +105,6 @@ struct dpu_kms {
+>>       struct dpu_rm rm;
+>>       bool rm_init;
+>> -    struct dpu_hw_vbif *hw_vbif[VBIF_MAX];
+>>       struct dpu_hw_mdp *hw_mdp;
+>>       bool has_danger_ctrl;
 >> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c 
 >> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> index 96554e962e38..7497538adae1 100644
+>> index 7497538adae1..6d49666c4e77 100644
 >> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
 >> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
->> @@ -109,7 +109,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>               continue;
->>           }
->>           hw = dpu_hw_lm_init(lm->id, mmio, cat);
->> -        if (IS_ERR_OR_NULL(hw)) {
+>> @@ -76,6 +76,8 @@ int dpu_rm_destroy(struct dpu_rm *rm)
+>>       }
+>>       for (i = 0; i < ARRAY_SIZE(rm->hw_intf); i++)
+>>           dpu_hw_intf_destroy(rm->hw_intf[i]);
+>> +    for (i = 0; i < ARRAY_SIZE(rm->hw_vbif); i++)
+>> +        dpu_hw_vbif_destroy(rm->hw_vbif[i]);
+>>       return 0;
+>>   }
+>> @@ -210,6 +212,23 @@ int dpu_rm_init(struct dpu_rm *rm,
+>>           rm->dspp_blks[dspp->id - DSPP_0] = &hw->base;
+>>       }
+>> +    for (i = 0; i < cat->vbif_count; i++) {
+>> +        struct dpu_hw_vbif *hw;
+>> +        const struct dpu_vbif_cfg *vbif = &cat->vbif[i];
+>> +
+>> +        if (vbif->id < VBIF_0 || vbif->id >= VBIF_MAX) {
+>> +            DPU_ERROR("skip vbif %d with invalid id\n", vbif->id);
+>> +            continue;
+>> +        }
+>> +        hw = dpu_hw_vbif_init(vbif->id, mmio, cat);
 >> +        if (IS_ERR(hw)) {
->>               rc = PTR_ERR(hw);
->>               DPU_ERROR("failed lm object creation: err %d\n", rc);
->>               goto fail;
->> @@ -126,7 +126,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>               continue;
->>           }
->>           hw = dpu_hw_merge_3d_init(merge_3d->id, mmio, cat);
->> -        if (IS_ERR_OR_NULL(hw)) {
->> +        if (IS_ERR(hw)) {
->>               rc = PTR_ERR(hw);
->>               DPU_ERROR("failed merge_3d object creation: err %d\n",
->>                   rc);
->> @@ -144,7 +144,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>               continue;
->>           }
->>           hw = dpu_hw_pingpong_init(pp->id, mmio, cat);
->> -        if (IS_ERR_OR_NULL(hw)) {
->> +        if (IS_ERR(hw)) {
->>               rc = PTR_ERR(hw);
->>               DPU_ERROR("failed pingpong object creation: err %d\n",
->>                   rc);
->> @@ -168,7 +168,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>               continue;
->>           }
->>           hw = dpu_hw_intf_init(intf->id, mmio, cat);
->> -        if (IS_ERR_OR_NULL(hw)) {
->> +        if (IS_ERR(hw)) {
->>               rc = PTR_ERR(hw);
->>               DPU_ERROR("failed intf object creation: err %d\n", rc);
->>               goto fail;
->> @@ -185,7 +185,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>               continue;
->>           }
->>           hw = dpu_hw_ctl_init(ctl->id, mmio, cat);
->> -        if (IS_ERR_OR_NULL(hw)) {
->> +        if (IS_ERR(hw)) {
->>               rc = PTR_ERR(hw);
->>               DPU_ERROR("failed ctl object creation: err %d\n", rc);
->>               goto fail;
->> @@ -202,7 +202,7 @@ int dpu_rm_init(struct dpu_rm *rm,
->>               continue;
->>           }
->>           hw = dpu_hw_dspp_init(dspp->id, mmio, cat);
->> -        if (IS_ERR_OR_NULL(hw)) {
->> +        if (IS_ERR(hw)) {
->>               rc = PTR_ERR(hw);
->>               DPU_ERROR("failed dspp object creation: err %d\n", rc);
->>               goto fail;
+>> +            rc = PTR_ERR(hw);
+>> +            DPU_ERROR("failed vbif object creation: err %d\n", rc);
+>> +            goto fail;
+>> +        }
+>> +        rm->hw_vbif[vbif->id - VBIF_0] = hw;
+>> +    }
+>> +
+>>       return 0;
+>>   fail:
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+>> index 9b13200a050a..a15977bdceeb 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+>> @@ -20,6 +20,7 @@ struct dpu_global_state;
+>>    * @ctl_blks: array of ctl hardware resources
+>>    * @hw_intf: array of intf hardware resources
+>>    * @dspp_blks: array of dspp hardware resources
+>> + * @hw_vbif: array of vbif hardware resources
+>>    */
+>>   struct dpu_rm {
+>>       struct dpu_hw_blk *pingpong_blks[PINGPONG_MAX - PINGPONG_0];
+>> @@ -28,6 +29,7 @@ struct dpu_rm {
+>>       struct dpu_hw_intf *hw_intf[INTF_MAX - INTF_0];
+>>       struct dpu_hw_blk *dspp_blks[DSPP_MAX - DSPP_0];
+>>       struct dpu_hw_blk *merge_3d_blks[MERGE_3D_MAX - MERGE_3D_0];
+>> +    struct dpu_hw_vbif *hw_vbif[VBIF_MAX - VBIF_0];
+>>   };
+>>   /**
+>> @@ -95,5 +97,15 @@ static inline struct dpu_hw_intf 
+>> *dpu_rm_get_intf(struct dpu_rm *rm, enum dpu_in
+>>       return rm->hw_intf[intf_idx - INTF_0];
+>>   }
+>> +/**
+>> + * dpu_rm_get_vbif - Return a struct dpu_hw_vbif instance given it's 
+>> index.
+>> + * @rm: DPU Resource Manager handle
+>> + * @vbif_idx: VBIF's index
+>> + */
+>> +static inline struct dpu_hw_vbif *dpu_rm_get_vbif(struct dpu_rm *rm, 
+>> enum dpu_vbif vbif_idx)
+>> +{
+>> +    return rm->hw_vbif[vbif_idx - VBIF_0];
+>> +}
+>> +
+>>   #endif /* __DPU_RM_H__ */
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+>> index 21d20373eb8b..00ac2aa81651 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+>> @@ -152,15 +152,10 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+>>       struct dpu_hw_mdp *mdp;
+>>       bool forced_on = false;
+>>       u32 ot_lim;
+>> -    int ret, i;
+>> +    int ret;
+>>       mdp = dpu_kms->hw_mdp;
+>> -
+>> -    for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+>> -        if (dpu_kms->hw_vbif[i] &&
+>> -                dpu_kms->hw_vbif[i]->idx == params->vbif_idx)
+>> -            vbif = dpu_kms->hw_vbif[i];
+>> -    }
+>> +    vbif = dpu_rm_get_vbif(&dpu_kms->rm, params->vbif_idx);
+>>       if (!vbif || !mdp) {
+>>           DRM_DEBUG_ATOMIC("invalid arguments vbif %d mdp %d\n",
+>> @@ -216,14 +211,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+>>       }
+>>       mdp = dpu_kms->hw_mdp;
+>> -    for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+>> -        if (dpu_kms->hw_vbif[i] &&
+>> -                dpu_kms->hw_vbif[i]->idx == params->vbif_idx) {
+>> -            vbif = dpu_kms->hw_vbif[i];
+>> -            break;
+>> -        }
+>> -    }
+>> -
+>> +    vbif = dpu_rm_get_vbif(&dpu_kms->rm, params->vbif_idx);
+>>       if (!vbif || !vbif->cap) {
+>>           DPU_ERROR("invalid vbif %d\n", params->vbif_idx);
+>>           return;
+>> @@ -261,8 +249,8 @@ void dpu_vbif_clear_errors(struct dpu_kms *dpu_kms)
+>>       struct dpu_hw_vbif *vbif;
+>>       u32 i, pnd, src;
+>> -    for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+>> -        vbif = dpu_kms->hw_vbif[i];
+>> +    for (i = VBIF_0; i < VBIF_MAX; i++) {
+>> +        vbif = dpu_rm_get_vbif(&dpu_kms->rm, i);
+>>           if (vbif && vbif->ops.clear_errors) {
+>>               vbif->ops.clear_errors(vbif, &pnd, &src);
+>>               if (pnd || src) {
+>> @@ -278,8 +266,8 @@ void dpu_vbif_init_memtypes(struct dpu_kms *dpu_kms)
+>>       struct dpu_hw_vbif *vbif;
+>>       int i, j;
+>> -    for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+>> -        vbif = dpu_kms->hw_vbif[i];
+>> +    for (i = VBIF_0; i < VBIF_MAX; i++) {
+>> +        vbif = dpu_rm_get_vbif(&dpu_kms->rm, i);
+>>           if (vbif && vbif->cap && vbif->ops.set_mem_type) {
+>>               for (j = 0; j < vbif->cap->memtype_count; j++)
+>>                   vbif->ops.set_mem_type(
 
 
 -- 
