@@ -1,61 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C07144B6F99
-	for <lists+freedreno@lfdr.de>; Tue, 15 Feb 2022 16:16:42 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7164B6FD7
+	for <lists+freedreno@lfdr.de>; Tue, 15 Feb 2022 16:37:42 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A96E10E464;
-	Tue, 15 Feb 2022 15:16:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F95710E62C;
+	Tue, 15 Feb 2022 15:37:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE0A10E464
- for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 15:16:39 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- c7-20020a4ad207000000b002e7ab4185d2so23539277oos.6
- for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 07:16:39 -0800 (PST)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5831110E632
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 15:37:40 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ i10-20020a4aab0a000000b002fccf890d5fso23632199oon.5
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 07:37:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=1ts+DysZBP3Fk9YvZ0HkFKUTlIrINUUB+qMVi+XB4xg=;
- b=ElJfexzG+s95N7RLESkvdDA0n8ZKZ8AXW7mszPN/VbW7YxdYaXwiLdi+X02TZJ2auL
- dO4zAtvAdBA0QyGCZv8HXijxnfmMQki9AklqFffIJxHJudkIMJ5MzrnhdInWp36503v4
- dblADlPE5En0kiHKxwTlKzeDSAMum4ZNHSSx27vgCaj2W+Xg97fo78VZl9T32RdFqbLl
- OB5ipmu5NA+d/PzTB1vpaY7yISkO/cNzmecvey2C6kH/tZ/Ge0t04ODAldv1RR65o6Vq
- tlE8fho5wOicehOlI3NLKqEKp99HHj13NWPx75LLArY59rLYgimAu5DLwXnB+9xFU6Rj
- uT9w==
+ bh=/RGLD8nwzu2VhuFoIMV+jbsfE56tgO0QtQZcVsmbSeg=;
+ b=l6fAXQm8Wcu/W89W5Bq27vFP7GjHxqydLmmOHkiwoIcJ5mOuVMXHyvROhRRg5u5a0c
+ 7BjNXoiLUfV1nrjmUKiPnbXoWXbOpl1wODxwPb7Y4zWa86tC3ZvMeakI+b+Zaim6YptS
+ CMl6kvWf8GkgRqem5iMddRtOT4fuuRF9rNCnkkga9+nMemDSXeVOZQi5ThxDyehk+l13
+ DXWiGZ1apMEofA/mqweXCHhuYRcjpMEn1yuQ/dZzPPhODZSoj5ucfAxb+y/M+s0xD6a9
+ qIwrgQbPg6F0SBP2goXQuxJZ9NMMlnKDEjDOgoQTGypS6w8LVst+mE4/tthr00fdXrOq
+ P5gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=1ts+DysZBP3Fk9YvZ0HkFKUTlIrINUUB+qMVi+XB4xg=;
- b=PcniOW3z7RPBgj07LX6+zsVV/JhHb5bdVXXvS3x14JBK5jQDgDs4GPgdUXHxRYfm8P
- U/3j1KOXoM0M0tgYZq6f2fo+k3pXa1B6sb9SH1i4pdnsbAx4xcVWHRuG7L4v9gRRIBVE
- m3BNW6OR/4WQW/AWcHiX+xwVyhpkXAmbTL/l9qYPSN6XsiYCVWpPhLuLShTtpu26BXyT
- /IAwKamnMDNUzNzmBhqBxGM1AX4CJIZYlr5xyHewGUQNr0zrVQ/UJzJ/z8gBPuY+XAO4
- 1trfNpigw/V6HZGxs5vKeF61XBFu6qbHdjtN6i0aipvzJIdiF+EFD9v6p+76WpbLT5s7
- 1tzg==
-X-Gm-Message-State: AOAM5337bKI+TKjOULywkIZj0zzXP3b9mo5L5gbHmPDXMsa9OlLEzlR5
- LoVkoit05YGzWwThKt4nO0jv5g==
-X-Google-Smtp-Source: ABdhPJwJfcwzqWijJtAs5kf1G4teVCQGSMOsW6WhptZhd7xMf9U1KQ0Qy7qSAZ1tX3OK5oGg/XkF1w==
-X-Received: by 2002:a4a:d622:: with SMTP id n2mr1391443oon.19.1644938198461;
- Tue, 15 Feb 2022 07:16:38 -0800 (PST)
+ bh=/RGLD8nwzu2VhuFoIMV+jbsfE56tgO0QtQZcVsmbSeg=;
+ b=rbODog8Batdo34fZsLl4Tetmc0GBv5mHGYVm+F+3CQzZM4Q7XDaH++RZ4H1tbutJrZ
+ KhzWxBl3Elh/OXziT0cWzF1ZB7BTkWm/l2asiehtNexuPL/2ySWf/Jae97bI8TTYYJGh
+ Tni+bjcKKjAi8VhDYEOXbLi9otqAhCZsmYhAjlv7/j/IpGOzD4K/cCVTWBWURP9DS1p1
+ ndu+1t9Qc2FjVbkfdfGCUAk/2uKRfdT3a+5j1RBlnCcLIUHp16bGWXSyLE4Vt4E8CUz6
+ XPcBSPKi5qwk88AO4faPTSStDu41A9JDj2uUBbBAh41lFoygS1eBVjLVWRdMnwADKxFd
+ okyA==
+X-Gm-Message-State: AOAM532hJ6ooBUy3UMP14N9vImgKmSd3EJ1JeN5nbx1N7aIUQ0kdxsSy
+ BkaRbBHdQFBvyQRqFSAl0FO9SA==
+X-Google-Smtp-Source: ABdhPJyweGcF6YG2GJE+SrOC7EUNHhPllRZZN6Fn7aiHfQp4+viH4TuuPxXPv6Gg6s2fCnuNRok5QQ==
+X-Received: by 2002:a05:6870:5ba5:b0:d1:9c2d:975f with SMTP id
+ em37-20020a0568705ba500b000d19c2d975fmr1613502oab.325.1644939459658; 
+ Tue, 15 Feb 2022 07:37:39 -0800 (PST)
 Received: from yoga ([2600:1700:a0:3dc8:5c39:baff:fe03:898d])
- by smtp.gmail.com with ESMTPSA id f16sm3086611oae.6.2022.02.15.07.16.37
+ by smtp.gmail.com with ESMTPSA id t22sm14343175oiw.2.2022.02.15.07.37.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Feb 2022 07:16:37 -0800 (PST)
-Date: Tue, 15 Feb 2022 09:16:35 -0600
+ Tue, 15 Feb 2022 07:37:39 -0800 (PST)
+Date: Tue, 15 Feb 2022 09:37:36 -0600
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YgvD08auVa5Pbpgm@yoga>
-References: <20220215145306.3470924-1-dmitry.baryshkov@linaro.org>
+Message-ID: <YgvIwLa8dGx/JqIR@yoga>
+References: <20220215141643.3444941-1-dmitry.baryshkov@linaro.org>
+ <20220215141643.3444941-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220215145306.3470924-1-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: drop unused access macros
+In-Reply-To: <20220215141643.3444941-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/8] drm/msm/dpu: fix dp audio condition
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,45 +78,34 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 15 Feb 08:53 CST 2022, Dmitry Baryshkov wrote:
+On Tue 15 Feb 08:16 CST 2022, Dmitry Baryshkov wrote:
 
-> The access macros BLK_foo are not used by the code, drop them.
+> DP audio enablement code which is comparing intf_type,
+> DRM_MODE_ENCODER_TMDS (= 2) with DRM_MODE_CONNECTOR_DisplayPort (= 10).
+> Which would never succeed. Fix it to check for DRM_MODE_ENCODER_TMDS.
 > 
+> Fixes: d13e36d7d222 ("drm/msm/dp: add audio support for Display Port on MSM")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 16 ----------------
->  1 file changed, 16 deletions(-)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index cac0298aeb52..975ff3a4ae3d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -778,22 +778,6 @@ struct dpu_mdss_cfg {
->  	unsigned long mdss_irqs;
->  };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 132844801e92..c59976deb1cb 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1099,7 +1099,7 @@ static void _dpu_encoder_virt_enable_helper(struct drm_encoder *drm_enc)
+>  	}
 >  
-> -/*
-> - * Access Macros
-> - */
-> -#define BLK_MDP(s) ((s)->mdp)
-> -#define BLK_CTL(s) ((s)->ctl)
-> -#define BLK_VIG(s) ((s)->vig)
-> -#define BLK_RGB(s) ((s)->rgb)
-> -#define BLK_DMA(s) ((s)->dma)
-> -#define BLK_CURSOR(s) ((s)->cursor)
-> -#define BLK_MIXER(s) ((s)->mixer)
-> -#define BLK_PINGPONG(s) ((s)->pingpong)
-> -#define BLK_INTF(s) ((s)->intf)
-> -#define BLK_AD(s) ((s)->ad)
-> -#define BLK_DSPP(s) ((s)->dspp)
-> -#define BLK_MERGE3d(s) ((s)->merge_3d)
-> -
->  /**
->   * dpu_hw_catalog_init - dpu hardware catalog init API retrieves
->   * hardcoded target specific catalog information in config structure
+>  
+> -	if (dpu_enc->disp_info.intf_type == DRM_MODE_CONNECTOR_DisplayPort &&
+> +	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_TMDS &&
+>  		dpu_enc->cur_master->hw_mdptop &&
+>  		dpu_enc->cur_master->hw_mdptop->ops.intf_audio_select)
+>  		dpu_enc->cur_master->hw_mdptop->ops.intf_audio_select(
 > -- 
 > 2.34.1
 > 
