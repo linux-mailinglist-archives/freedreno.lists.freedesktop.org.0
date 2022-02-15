@@ -2,62 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1FF84B5E64
-	for <lists+freedreno@lfdr.de>; Tue, 15 Feb 2022 00:45:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 766234B61F7
+	for <lists+freedreno@lfdr.de>; Tue, 15 Feb 2022 05:12:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F45E10E120;
-	Mon, 14 Feb 2022 23:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0154610E18B;
+	Tue, 15 Feb 2022 04:12:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A522710E345
- for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 23:45:40 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id r27so19154672oiw.4
- for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 15:45:40 -0800 (PST)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E44A10E1BB
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 04:12:44 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ x52-20020a05683040b400b0059ea92202daso12982356ott.7
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Feb 2022 20:12:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=nfkpfrdZAC9ghbfxseXAYQsgB3vdZOFr69e3ZKi13c4=;
- b=kcVU4KcsIwWEakkJ4QgJhDkta9FeYTTYt2h1CHNWCqpC2RAIclfeNBea9HfXg8SYyb
- RboH0P8Zp89ol7ajti2fAJ2pEoNuqBe7UpSjGEhzz0MrcrTJEiKvMX2Z3ndR/cL89Xdq
- b5bcsENSxzX7NRsM5TUx0AXygT/DdAGeG6N9/FLXt6yDZPgVSWd8cNlEnJN0+6QZYrqQ
- yZXHa/EGMHRLNTdJnP+v9pNZGr7sY2aPTn0SWDLxnnUjb9Pj8ZucXMMeAB8JaKXuj4p/
- Qb2pbFmtWfpzshJVpq0W8G7s0UZs/Xs8eO/ESHCq0Z+a64c99E19h3GhVie8U1oHe+Zw
- XVAg==
+ bh=QHBlAe1imB9wB10ptbc1elqgvyeO+rwXBHar9R5XADk=;
+ b=EonIx2iIoiubRkWH7QB1h3f8w8B4hkUF2P+mFr3NycUcTHfTF6QIILMgWOP7QugdbS
+ StwdAChLQhnLdS+XyOhFJhfeYgacHmkqdaADo2AGMUfQyQImtpQdiAhrP9cyGUPsCk3r
+ c0ClTYHlIewOoHg5WzKFY8K3qV/TSN7EOjR4jWePl0G+ydZLInzV+vw3YhxnziyCnCwS
+ +WDq3Rp84SP6k9AOYciXSahesmnqehou65MIXhLCbh5wOQY0yxO+jStBheom1pFCy6WV
+ S2hMNEo530EDTs28n5F4sGzA/T6nOjInxyGMETnQbGn7YlkX1hBeDWRO4j5r84gLosTK
+ 9lYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=nfkpfrdZAC9ghbfxseXAYQsgB3vdZOFr69e3ZKi13c4=;
- b=unDeclpgc5IwxPP4QsGmoqrwnbv8W7aFyGR7zUuJH1uwG/pA2bVgBRfcGtJ+X978IH
- 3AoQNaPRZdkFTkUOiKLNlZwMrf5LutggUAQ6Y8Y1zrSLlq8wRGxfQYM1zdDRttf9mys0
- rPN+qq5VfskZVUHfEHD7Nhh2Biot+iwK78+NbUrYMHhGlK97tHBwQbNMDs6D9yuM3v6Q
- glwjaftVgvOIyIn/Z4nWSIMSI/lg/mYP5bxQanlQmXRRF0ArQTAcjUlt6YCuUwWhpmwL
- NSMNEvG2vjfOsbcbMA6RdvXLSb4nG4AuuwixW6BJefII1EB6YtyEZs3eENnidmB/NIip
- 58zw==
-X-Gm-Message-State: AOAM5333P579UUFXAkRlfE44aXk0lEDszU1+3IVFvvxP3Pf0+7sOY2wQ
- TatD7/tytgVGimSSUta7hi5VSg==
-X-Google-Smtp-Source: ABdhPJz3yU4E+ybCVsol7Wn304FwHzzIReMzm5hg9IcI2Z0QH3avCApLTbKhHMGhbYBfsICiMMbu/g==
-X-Received: by 2002:aca:5e0b:0:b0:2d0:e2c:9968 with SMTP id
- s11-20020aca5e0b000000b002d00e2c9968mr561613oib.206.1644882339654; 
- Mon, 14 Feb 2022 15:45:39 -0800 (PST)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id e192sm13623894oob.11.2022.02.14.15.45.38
+ bh=QHBlAe1imB9wB10ptbc1elqgvyeO+rwXBHar9R5XADk=;
+ b=gLrYZR8flhjHfXSWHsWgdBuDzuY49bp8foWoCs73G+FNX9V6SXh9aQnUM7f1uCMjEs
+ qguhNboRiacCEAm8oC53OMUOzASiG9SYgHJAvs6B2sdnouv+xBi9tLPhAiys8frdFPwc
+ qINUaeknZuZr9q12ovPa58YJs3liTDYQ3z9u3RtxKO1btFtgb99YSzda7RnHIlP7BmsD
+ gPFwX+wruklvHnzUhRiR0SPDlsyUtzKdeJzsujGTemUj9semmIv7eqEr5BiETfpCBMuo
+ CIP//Bhi8O4TAMfM/HHWYSQOWmNcwoPKIDFley3Ph7uLMhmi0oWyObI1z4Q9XMOQDkiw
+ NJZQ==
+X-Gm-Message-State: AOAM533w7MsY5mIHf5RbCTUPhH0rn/4JhhtTBVadrhmUWC98iaBkEuG4
+ rqQ5tcCrRBSXq19oVy0qBrjaIw==
+X-Google-Smtp-Source: ABdhPJzlNzV/ez8v3xTrbWZkPBvX158/9VDJYu18ragNQGlZ9CrYxrAF3y/k/r1DMPzf9GD6FAqwMQ==
+X-Received: by 2002:a05:6830:2aa1:: with SMTP id
+ s33mr746579otu.117.1644898363519; 
+ Mon, 14 Feb 2022 20:12:43 -0800 (PST)
+Received: from yoga ([2600:1700:a0:3dc8:5c39:baff:fe03:898d])
+ by smtp.gmail.com with ESMTPSA id ek4sm15333559oab.23.2022.02.14.20.12.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Feb 2022 15:45:39 -0800 (PST)
-Date: Mon, 14 Feb 2022 15:47:49 -0800
+ Mon, 14 Feb 2022 20:12:42 -0800 (PST)
+Date: Mon, 14 Feb 2022 22:12:40 -0600
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <YgrqJS6gsQJYqWQg@ripper>
-References: <20220208044328.588860-1-bjorn.andersson@linaro.org>
- <20220214175927.GA594729@ideak-desk.fi.intel.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <YgsoOP3DegHz9zA8@yoga>
+References: <1644878346-28511-1-git-send-email-quic_khsieh@quicinc.com>
+ <1644878346-28511-2-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220214175927.GA594729@ideak-desk.fi.intel.com>
-Subject: Re: [Freedreno] [PATCH 1/2] drm: Add HPD state to
- drm_connector_oob_hotplug_event()
+In-Reply-To: <1644878346-28511-2-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v4 1/2] drm/msm/dp: revise timing engine
+ programming to support widebus feature
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,103 +71,321 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, linux-usb@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon 14 Feb 09:59 PST 2022, Imre Deak wrote:
+On Mon 14 Feb 16:39 CST 2022, Kuogee Hsieh wrote:
 
-> On Mon, Feb 07, 2022 at 08:43:27PM -0800, Bjorn Andersson wrote:
-> > In some implementations, such as the Qualcomm platforms, the display
-> > driver has no way to query the current HPD state and as such it's
-> > impossible to distinguish between disconnect and attention events.
-> > 
-> > Add a parameter to drm_connector_oob_hotplug_event() to pass the HPD
-> > state.
-> > 
-> > Also push the test for unchanged state in the displayport altmode driver
-> > into the i915 driver, to allow other drivers to act upon each update.
-> > 
-> > Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> > ---
-> > 
-> > Note that the Intel driver has only been compile tested with this patch.
-> > 
-> >  drivers/gpu/drm/drm_connector.c          |  6 ++++--
-> >  drivers/gpu/drm/i915/display/intel_dp.c  | 14 +++++++++++---
-> >  drivers/gpu/drm/i915/i915_drv.h          |  3 +++
-> >  drivers/usb/typec/altmodes/displayport.c |  9 ++-------
-> >  include/drm/drm_connector.h              |  5 +++--
-> >  5 files changed, 23 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> > index a50c82bc2b2f..ad7295597c0f 100644
-> > --- a/drivers/gpu/drm/drm_connector.c
-> > +++ b/drivers/gpu/drm/drm_connector.c
-> > @@ -2825,6 +2825,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
-> >  /**
-> >   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
-> >   * @connector_fwnode: fwnode_handle to report the event on
-> > + * @hpd_state: number of data lanes available
-> >   *
-> >   * On some hardware a hotplug event notification may come from outside the display
-> >   * driver / device. An example of this is some USB Type-C setups where the hardware
-> > @@ -2834,7 +2835,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
-> >   * This function can be used to report these out-of-band events after obtaining
-> >   * a drm_connector reference through calling drm_connector_find_by_fwnode().
-> >   */
-> > -void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
-> > +void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
-> > +				     bool hpd_state)
-> >  {
-> >  	struct drm_connector *connector;
-> >  
-> > @@ -2843,7 +2845,7 @@ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode)
-> >  		return;
-> >  
-> >  	if (connector->funcs->oob_hotplug_event)
-> > -		connector->funcs->oob_hotplug_event(connector);
-> > +		connector->funcs->oob_hotplug_event(connector, hpd_state);
-> >  
-> >  	drm_connector_put(connector);
-> >  }
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> > index 146b83916005..00520867d37b 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -4816,15 +4816,23 @@ static int intel_dp_connector_atomic_check(struct drm_connector *conn,
-> >  	return intel_modeset_synced_crtcs(state, conn);
-> >  }
-> >  
-> > -static void intel_dp_oob_hotplug_event(struct drm_connector *connector)
-> > +static void intel_dp_oob_hotplug_event(struct drm_connector *connector, bool hpd_state)
-> >  {
-> >  	struct intel_encoder *encoder = intel_attached_encoder(to_intel_connector(connector));
-> >  	struct drm_i915_private *i915 = to_i915(connector->dev);
-> > +	bool need_work = false;
-> >  
-> >  	spin_lock_irq(&i915->irq_lock);
-> > -	i915->hotplug.event_bits |= BIT(encoder->hpd_pin);
-> > +	if (hpd_state != i915->hotplug.oob_hotplug_state) {
+> Widebus feature will transmit two pixel data per pixel clock to interface.
+> Timing engine provides driving force for this purpose. This patch base
+> on HPG (Hardware Programming Guide) to revise timing engine register
+> setting to accommodate both widebus and non widebus application. Also
+> horizontal width parameters need to be reduced by half since two pixel
+> data are clocked out per pixel clock when widebus feature enabled.
 > 
-> hpd_state is speific to the encoder (pin) so similarly to event_bits
-> oob_hotplug_state should be a bitmask as well.
+> Widebus can be enabled individually at DP. However at DSI, widebus have
+> to be enabled along with DSC enabled to achieve pixel clock rate be
+> scaled down with same ratio as compression ratio when 10 bits per source
+> component. Therefore this patch have both widebus and compression covered
+> together so tat less efforts will be required when DSC enabled later.
+> 
+> Changes in v2:
+> -- remove compression related code from timing
+> -- remove op_info from  struct msm_drm_private
+> -- remove unnecessary wide_bus_en variables
+> -- pass wide_bus_en into timing configuration by struct msm_dp
+> 
+> Changes in v3:
+> -- split patch into 3 patches
+> 
+> Changes in v4:
+> -- rework timing engine to not interfere with dsi/hdmi
+> -- cover both widebus and compression
 > 
 
-That makes sense, thanks for point it out!
+Even though the change relates to DP, I think it would be appropriate to
+change the $subject prefix to "drm/msm/dpu".
 
-Regards,
+When booting sc8180x the bootloader leaves widebus enabled in the eDP
+controller, and the two patches takes care of this problem for me. I
+also checked the DP still works.
+
+Tested-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+
+Thanks,
 Bjorn
+
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 10 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  2 +
+>  .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 14 +++
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 99 ++++++++++++++++++----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  6 ++
+>  5 files changed, 115 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 0d315b4..0c22839 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -208,6 +208,8 @@ struct dpu_encoder_virt {
+>  
+>  	u32 idle_timeout;
+>  
+> +	bool wide_bus_en;
+> +
+>  	struct msm_dp *dp;
+>  };
+>  
+> @@ -217,6 +219,14 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+>  	15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+>  };
+>  
+> +
+> +bool dpu_encoder_is_widebus_enabled(struct drm_encoder *drm_enc)
+> +{
+> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +
+> +	return dpu_enc->wide_bus_en;
+> +}
+> +
+>  static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp, unsigned bpc)
+>  {
+>  	struct dpu_hw_dither_cfg dither_cfg = { 0 };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> index 99a5d73..893d74d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> @@ -168,4 +168,6 @@ int dpu_encoder_get_linecount(struct drm_encoder *drm_enc);
+>   */
+>  int dpu_encoder_get_frame_count(struct drm_encoder *drm_enc);
+>  
+> +bool dpu_encoder_is_widebus_enabled(struct drm_encoder *drm_enc);
+> +
+>  #endif /* __DPU_ENCODER_H__ */
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> index 185379b..2af2bb7 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+> @@ -110,6 +110,20 @@ static void drm_mode_to_intf_timing_params(
+>  		timing->v_back_porch += timing->v_front_porch;
+>  		timing->v_front_porch = 0;
+>  	}
+> +
+> +	timing->wide_bus_en = dpu_encoder_is_widebus_enabled(phys_enc->parent);
+> +
+> +	/*
+> +	 * for DP, divide the horizonal parameters by 2 when
+> +	 * widebus is enabled
+> +	 */
+> +	if (phys_enc->hw_intf->cap->type == INTF_DP && timing->wide_bus_en) {
+> +		timing->width = timing->width >> 1;
+> +		timing->xres = timing->xres >> 1;
+> +		timing->h_back_porch = timing->h_back_porch >> 1;
+> +		timing->h_front_porch = timing->h_front_porch >> 1;
+> +		timing->hsync_pulse_width = timing->hsync_pulse_width >> 1;
+> +	}
+>  }
+>  
+>  static u32 get_horizontal_total(const struct intf_timing_params *timing)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> index 116e2b5..3b9273e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> @@ -33,6 +33,7 @@
+>  #define INTF_TP_COLOR1                  0x05C
+>  #define INTF_CONFIG2                    0x060
+>  #define INTF_DISPLAY_DATA_HCTL          0x064
+> +#define INTF_ACTIVE_DATA_HCTL           0x068
+>  #define INTF_FRAME_LINE_COUNT_EN        0x0A8
+>  #define INTF_FRAME_COUNT                0x0AC
+>  #define   INTF_LINE_COUNT               0x0B0
+> @@ -60,6 +61,14 @@
+>  
+>  #define   INTF_MUX                      0x25C
+>  
+> +#define BIT_INTF_CFG_ACTIVE_H_EN	BIT(29)
+> +#define BIT_INTF_CFG_ACTIVE_V_EN	BIT(30)
+> +
+> +#define BIT_INTF_CFG2_DATABUS_WIDEN	BIT(0)
+> +#define BIT_INTF_CFG2_DATA_HCTL_EN	BIT(4)
+> +#define BIT_INTF_CFG2_DCE_DATA_COMPRESS	BIT(12)
+> +
+> +
+>  static const struct dpu_intf_cfg *_intf_offset(enum dpu_intf intf,
+>  		const struct dpu_mdss_cfg *m,
+>  		void __iomem *addr,
+> @@ -90,15 +99,23 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>  	u32 hsync_period, vsync_period;
+>  	u32 display_v_start, display_v_end;
+>  	u32 hsync_start_x, hsync_end_x;
+> +	u32 hsync_data_start_x, hsync_data_end_x;
+>  	u32 active_h_start, active_h_end;
+>  	u32 active_v_start, active_v_end;
+>  	u32 active_hctl, display_hctl, hsync_ctl;
+>  	u32 polarity_ctl, den_polarity, hsync_polarity, vsync_polarity;
+>  	u32 panel_format;
+> -	u32 intf_cfg, intf_cfg2 = 0, display_data_hctl = 0;
+> +	u32 intf_cfg, intf_cfg2 = 0;
+> +	u32 display_data_hctl = 0, active_data_hctl = 0;
+> +	u32 data_width;
+> +	bool dp_intf = false;
+>  
+>  	/* read interface_cfg */
+>  	intf_cfg = DPU_REG_READ(c, INTF_CONFIG);
+> +
+> +	if (ctx->cap->type == INTF_EDP || ctx->cap->type == INTF_DP)
+> +		dp_intf = true;
+> +
+>  	hsync_period = p->hsync_pulse_width + p->h_back_porch + p->width +
+>  	p->h_front_porch;
+>  	vsync_period = p->vsync_pulse_width + p->v_back_porch + p->height +
+> @@ -112,7 +129,10 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>  	hsync_start_x = p->h_back_porch + p->hsync_pulse_width;
+>  	hsync_end_x = hsync_period - p->h_front_porch - 1;
+>  
+> -	if (p->width != p->xres) {
+> +	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
+> +	display_hctl = (hsync_end_x << 16) | hsync_start_x;
+> +
+> +	if (p->width != p->xres) { /* border fill added */
+>  		active_h_start = hsync_start_x;
+>  		active_h_end = active_h_start + p->xres - 1;
+>  	} else {
+> @@ -130,27 +150,78 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>  
+>  	if (active_h_end) {
+>  		active_hctl = (active_h_end << 16) | active_h_start;
+> -		intf_cfg |= BIT(29);	/* ACTIVE_H_ENABLE */
+> +		intf_cfg |= BIT_INTF_CFG_ACTIVE_H_EN;
+>  	} else {
+>  		active_hctl = 0;
+>  	}
+>  
+>  	if (active_v_end)
+> -		intf_cfg |= BIT(30); /* ACTIVE_V_ENABLE */
+> +		intf_cfg |= BIT_INTF_CFG_ACTIVE_V_EN;
+>  
+> -	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
+> -	display_hctl = (hsync_end_x << 16) | hsync_start_x;
+> +	/*
+> +	 * DATA_HCTL_EN controls data timing which can be different from
+> +	 * video timing. It is recommended to enable it for all cases, except
+> +	 * if compression is enabled in 1 pixel per clock mode
+> +	 */
+> +	if (!p->compression_en || p->wide_bus_en)
+> +		intf_cfg2 |= BIT_INTF_CFG2_DATA_HCTL_EN;
+> +
+> +	if (p->wide_bus_en)
+> +		intf_cfg2 |=  BIT_INTF_CFG2_DATABUS_WIDEN;
+> +
+> +	/*
+> +	 * If widebus is disabled:
+> +	 * For uncompressed stream, the data is valid for the entire active
+> +	 * window period.
+> +	 * For compressed stream, data is valid for a shorter time period
+> +	 * inside the active window depending on the compression ratio.
+> +	 *
+> +	 * If widebus is enabled:
+> +	 * For uncompressed stream, data is valid for only half the active
+> +	 * window, since the data rate is doubled in this mode.
+> +	 * p->width holds the adjusted width for DP but unadjusted width for DSI
+> +	 * For compressed stream, data validity window needs to be adjusted for
+> +	 * compression ratio and then further halved.
+> +	 */
+> +	data_width = p->width;
+> +
+> +	if (p->compression_en) {
+> +		data_width = DIV_ROUND_UP(p->dce_bytes_per_line, 3);
+> +
+> +		if (p->wide_bus_en)
+> +			data_width >>= 1;
+> +	} else if (!dp_intf && p->wide_bus_en) {
+> +		data_width = p->width >> 1;
+> +	}
+> +
+> +	hsync_data_start_x = hsync_start_x;
+> +	hsync_data_end_x =  hsync_start_x + data_width - 1;
+> +
+> +	display_data_hctl = (hsync_data_end_x << 16) | hsync_data_start_x;
+> +
+> +	if (dp_intf) {
+> +		/* DP timing adjustment */
+> +		display_v_start += p->hsync_pulse_width + p->h_back_porch;
+> +		display_v_end   -= p->h_front_porch;
+>  
+> -	if (ctx->cap->type == INTF_EDP || ctx->cap->type == INTF_DP) {
+>  		active_h_start = hsync_start_x;
+>  		active_h_end = active_h_start + p->xres - 1;
+>  		active_v_start = display_v_start;
+>  		active_v_end = active_v_start + (p->yres * hsync_period) - 1;
+>  
+> -		display_v_start += p->hsync_pulse_width + p->h_back_porch;
+> -
+>  		active_hctl = (active_h_end << 16) | active_h_start;
+>  		display_hctl = active_hctl;
+> +
+> +		intf_cfg |= BIT_INTF_CFG_ACTIVE_H_EN;
+> +		intf_cfg |= BIT_INTF_CFG_ACTIVE_V_EN;
+> +
+> +		if (p->compression_en) {
+> +			active_data_hctl = (hsync_start_x +
+> +					p->extra_dto_cycles) << 16;
+> +			active_data_hctl += hsync_start_x;
+> +
+> +			display_data_hctl = active_data_hctl;
+> +		}
+>  	}
+>  
+>  	den_polarity = 0;
+> @@ -180,13 +251,6 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>  				(COLOR_8BIT << 4) |
+>  				(0x21 << 8));
+>  
+> -	if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
+> -		intf_cfg2 |= BIT(4);
+> -		display_data_hctl = display_hctl;
+> -		DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
+> -		DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL, display_data_hctl);
+> -	}
+> -
+>  	DPU_REG_WRITE(c, INTF_HSYNC_CTL, hsync_ctl);
+>  	DPU_REG_WRITE(c, INTF_VSYNC_PERIOD_F0, vsync_period * hsync_period);
+>  	DPU_REG_WRITE(c, INTF_VSYNC_PULSE_WIDTH_F0,
+> @@ -204,6 +268,9 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>  	DPU_REG_WRITE(c, INTF_FRAME_LINE_COUNT_EN, 0x3);
+>  	DPU_REG_WRITE(c, INTF_CONFIG, intf_cfg);
+>  	DPU_REG_WRITE(c, INTF_PANEL_FORMAT, panel_format);
+> +	DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
+> +	DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL, display_data_hctl);
+> +	DPU_REG_WRITE(c, INTF_ACTIVE_DATA_HCTL, active_data_hctl);
+>  }
+>  
+>  static void dpu_hw_intf_enable_timing_engine(
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+> index 3568be8..299c9c1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
+> @@ -30,6 +30,12 @@ struct intf_timing_params {
+>  	u32 border_clr;
+>  	u32 underflow_clr;
+>  	u32 hsync_skew;
+> +
+> +	bool wide_bus_en;
+> +	bool compression_en;
+> +	u32 extra_dto_cycles;   /* for DP only */
+> +	bool dsc_4hs_merge;     /* DSC 4HS merge */
+> +	u32 dce_bytes_per_line;
+>  };
+>  
+>  struct intf_prog_fetch {
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+> 
