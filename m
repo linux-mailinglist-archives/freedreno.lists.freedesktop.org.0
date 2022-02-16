@@ -1,61 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03DDD4B7D1E
-	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:20:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64EB54B7D6F
+	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:22:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58EF110E60B;
-	Wed, 16 Feb 2022 02:20:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DED5E10E609;
+	Wed, 16 Feb 2022 02:22:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 336E510E609
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 02:20:10 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id o23so1005453oie.10
- for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 18:20:10 -0800 (PST)
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D91E10E60B
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 02:22:28 +0000 (UTC)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ d134-20020a4a528c000000b00319244f4b04so890292oob.8
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 18:22:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=XAfwp7j7WHoPgTggKUVHhjFZruqxqm2zyO1xWp3l9wk=;
- b=a/efTqnqJvKpAM+8MzMGUZIgMNN3UU2Xkp6YQHELWkg3ORnsO/0ZSYogApRAXnopbX
- iS7HSbQLbddTq9dUa6yHmNSWHpTSRX3fxTM9FXrGo339L8URZstD06L2Q3OwV7zctTgf
- 28B56I0HpqR4HR4lc8WThUn/1obYmxpncCJ3Q=
+ bh=fK8Mmhno7fLan6TDKNBId+rzPxNl521LefBZ7ENEERM=;
+ b=Tu1Au4lnq1UJyXBeqnsLeFbw8EaG4GbmxIUlt7svJCU5uTPzGtBJlwFoJJrtt7yrtO
+ 9VA4f5mOw1mNlqn4q2kDkG/yRstq7Zfiru3dRcBqygJD6BeE6kioElcckVEu6+F8rtBL
+ 1toixeet31wCEU5P9kJzO5SIS7RtAEADHB+s8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=XAfwp7j7WHoPgTggKUVHhjFZruqxqm2zyO1xWp3l9wk=;
- b=wP/p3Cr10XQIUvhUi/SxvOaKl55wWi9CwAgGWgJlcHm+y49RayFxCscYzfL38P/YBr
- CyG7SKmUHELKiE5gknOp2DnXmsJ8WtRgYyw4Nl99ineJ1QQdOy9yroleZuSmBQKb1ywb
- NmNG4TCcupH1S6NfaUjITniDCpffj4SbZZSZoKjfj/9DItDdRHpHlH0j9dzb6LEt2M0A
- 1fI8PeP/VsYTIJkGnNsGgXPLfmBvweGPi5RZQ998CMJNx1s24gUlekPbFezFVkVD5549
- 5CSTzVnbQyCBYsmIHWpku7NqjmewARmiiFdojS7X05u9KVl0zym5578hP/jC4utpeHUo
- 01OQ==
-X-Gm-Message-State: AOAM5316Ws+i2KPtKEIpq8OCMScokV3EhGCukahW2pgeVH7GqWQ/4z1z
- aG6hiS+bjtYIhUflt9XC/kPkvSc7cxXOWOGJkkeJCw==
-X-Google-Smtp-Source: ABdhPJyxPyJO6OqJE+BDPaGZkFjijQe/mgb97dL7c6jiU3sz1MQvlSq/GF3c8TGS3LIMqD2nycVdiz9/0kfTz/Jv2ik=
-X-Received: by 2002:aca:df44:0:b0:2ce:285f:cb99 with SMTP id
- w65-20020acadf44000000b002ce285fcb99mr2976794oig.40.1644978009506; Tue, 15
- Feb 2022 18:20:09 -0800 (PST)
+ bh=fK8Mmhno7fLan6TDKNBId+rzPxNl521LefBZ7ENEERM=;
+ b=x1NX/3kE8LIBQzhSC8VMC/qQyBvpqXgVMai6sLdudFPpyGTvAJz8HDNWahLSSRplfv
+ DwdhyCRXGhWg/xDEdycYA515jmkfv4CXU6G6gnn3+qj7K7puNohFt23OM0YoseIO2jcH
+ rn1AM8s8k8TQ0BfepFW24NpuZHltuUMYVjk6oImlN8IsvRb42f7CqUypeuXAMjwzhwG5
+ SjluqnU8DUCO7HL+zPcPmhYn6mqmI7WpKtQVj6RMaI7vGZg3Hh+bXDwPfh+zdDpRKr8g
+ nevUPHd0IMS/gOmsnAxCawLLsdH5eCIgNRT04JHId2nLhX4/i8mWASpwhG9PaKygb6cm
+ vEUQ==
+X-Gm-Message-State: AOAM531hy/0AxF1hCGHMmpduupAR8qpy4pa+3n6QSFKsBn3WFoaKInc4
+ VGOFRPz931MObH2Kwh/r8nb2cUH2qnKcz1DZdi02yQ==
+X-Google-Smtp-Source: ABdhPJyjTYdIHsZuJ13hWO4CixvXg+H94za0iiOclD6oXF5Mh6GJpUPdUk1fk5or2G1mP8ewQeY5KV6BrvCV3C/kh+o=
+X-Received: by 2002:a05:6870:631a:b0:d1:7d97:806 with SMTP id
+ s26-20020a056870631a00b000d17d970806mr289535oao.8.1644978147558; Tue, 15 Feb
+ 2022 18:22:27 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Feb 2022 18:20:09 -0800
+ HTTPREST; Tue, 15 Feb 2022 18:22:27 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220201151056.2480055-5-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220201151056.2480055-6-dmitry.baryshkov@linaro.org>
 References: <20220201151056.2480055-1-dmitry.baryshkov@linaro.org>
- <20220201151056.2480055-5-dmitry.baryshkov@linaro.org>
+ <20220201151056.2480055-6-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Tue, 15 Feb 2022 18:20:09 -0800
-Message-ID: <CAE-0n51xcCdHjjq_S4h_4HhF88czSDDqi4qk=3LrLxchC0MY5A@mail.gmail.com>
+Date: Tue, 15 Feb 2022 18:22:27 -0800
+Message-ID: <CAE-0n50p7nxqger_9i22TnWACNM4SM5OP+f9mS7wUZwi1dP1Ag@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 4/6] drm/msm/dpu: get rid of
- dpu_encoder_helper_(un)register_irq
+Subject: Re: [Freedreno] [PATCH 5/6] drm/msm/dpu: remove struct
+ dpu_encoder_irq
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,18 +70,48 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <abhinavk@codeaurora.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-01 07:10:54)
-> Get rid of dpu_encoder_helper_register_irq/unregister_irq helpers, call
-> dpu_core_register/unregister_callback directly, without surrounding them
-> with helpers.
+Quoting Dmitry Baryshkov (2022-02-01 07:10:55)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index ff2218155b44..803fd6f25da1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -231,7 +216,7 @@ struct dpu_encoder_phys {
+>         atomic_t pending_ctlstart_cnt;
+>         atomic_t pending_kickoff_cnt;
+>         wait_queue_head_t pending_kickoff_wq;
+> -       struct dpu_encoder_irq irq[INTR_IDX_MAX];
+> +       int irq[INTR_IDX_MAX];
+>  };
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Abhinav Kumar <abhinavk@codeaurora.org>
-> ---
+>  static inline int dpu_encoder_phys_inc_pending(struct dpu_encoder_phys *phys)
+> @@ -729,20 +727,8 @@ struct dpu_encoder_phys *dpu_encoder_phys_vid_init(
+>         phys_enc->split_role = p->split_role;
+>         phys_enc->intf_mode = INTF_MODE_VIDEO;
+>         phys_enc->enc_spinlock = p->enc_spinlock;
+> -       for (i = 0; i < INTR_IDX_MAX; i++) {
+> -               irq = &phys_enc->irq[i];
+> -               irq->irq_idx = -EINVAL;
+> -       }
+> -
+> -       irq = &phys_enc->irq[INTR_IDX_VSYNC];
+> -       irq->name = "vsync_irq";
+> -       irq->intr_idx = INTR_IDX_VSYNC;
+> -       irq->func = dpu_encoder_phys_vid_vblank_irq;
+> -
+> -       irq = &phys_enc->irq[INTR_IDX_UNDERRUN];
+> -       irq->name = "underrun";
+> -       irq->intr_idx = INTR_IDX_UNDERRUN;
+> -       irq->func = dpu_encoder_phys_vid_underrun_irq;
+> +       for (i = 0; i < INTR_IDX_MAX; i++)
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Can this use ARRAY_SIZE(phys_enc->irq)? Safer that way.
+
+> +               phys_enc->irq[i] = -EINVAL;
+>
+>         atomic_set(&phys_enc->vblank_refcount, 0);
+>         atomic_set(&phys_enc->pending_kickoff_cnt, 0);
