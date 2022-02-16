@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF2F14B7D17
-	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:17:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 628D14B7D1A
+	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:18:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4CE10E609;
-	Wed, 16 Feb 2022 02:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F131010E609;
+	Wed, 16 Feb 2022 02:18:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C44AC10E608
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 02:17:42 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- f11-20020a4abb0b000000b002e9abf6bcbcso958371oop.0
- for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 18:17:42 -0800 (PST)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37BBC10E60B
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 02:18:25 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ u47-20020a4a9732000000b00316d0257de0so892189ooi.7
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 18:18:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=LaRMq8ZhRCaHC8armaDs2spovSgD/IU1miVPMO3NaCs=;
- b=ZDc5CxFeekOyijQZ4h5KQniJAMH2o9I8ZvmGzmDO2zfxpGeolNEDVpyCqlaJ6Jw/EQ
- QuU7c7QyhcC4G7d6LTLkWesxBvXqAasTUO0w3txbmOToQ1In7mmICQr/j74fGbfcbcgn
- 3d1VpCLWuT6leZVSTFVtv6qbZmN8YgfHr4/jo=
+ bh=rKj/83OeNdCA+dbfZ2qmOiBrnBwHoQueKWn2gnvfSB0=;
+ b=ieAe3Bw7+svdP7k1Mjdz401VBfKR3/7YLZCGmTm8EmDpk7J4l9MOw3KEHCRW73SRch
+ a3RNuwSe6ZVBG3FlSJ+1mYWZyJoCfEXlQxCXtPxOxkztXiquD2aYfJ/zgeRUzz6JEYDQ
+ EjPLPISATbExLjLKZ63Bz4qlX5KZAWyCW9pnk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=LaRMq8ZhRCaHC8armaDs2spovSgD/IU1miVPMO3NaCs=;
- b=mrrDBZTiiUD91kUHxnFtC37xoY8ogSiw6uZ/J4Jkvtw6FRh217/voGtJ/mrxyzCINk
- /ZSXZ7EtYWCg3MIkf0TffYS/odj12kKyB9L7kEv48SNGMmUk5gtZXGHqh/owlQKfkj5m
- CAAFM7QGLDxTyAF0ucKcag1jN14PF8AXbHthPzIoxK7oKL8RRbi4wVYtMMjGicIpx6WF
- NrS41CQTEf6QgyzHEOWpgVIBajF6R36aLCMtofUHgb5EMZixLmwyd6++ASh6fXRvooE1
- ZskVZk59VD1TZ7vMM2JsU0o+K3KK/f2mpYet6ginF/Z4Pls/jokzO23IwttzC85OwOqV
- 5z3A==
-X-Gm-Message-State: AOAM533ilaIwADnDIjhOXmlVg4LlZNow7U/tjPEGXWUUjnHF9UCbSqXT
- Kxd+ZqGOMNmwqnPlMIkqM9n7pfFrAy8fBvWvZ1fQyw==
-X-Google-Smtp-Source: ABdhPJyw8QdTeLdPkaSbn9MW+CqLKQfUvO/jujNN3XsSr4MZgwU3uIvJJqRAk/vug505l/EEco7tmML/hPNkhCH+j40=
-X-Received: by 2002:a4a:d58b:0:b0:319:8746:ac3e with SMTP id
- z11-20020a4ad58b000000b003198746ac3emr223719oos.1.1644977862132; Tue, 15 Feb
- 2022 18:17:42 -0800 (PST)
+ bh=rKj/83OeNdCA+dbfZ2qmOiBrnBwHoQueKWn2gnvfSB0=;
+ b=F2/fR+UPpNq7J405JLlv9fqfSXNMy2Jc1ZTpS8EM+plE98keT8LjdholmqYVPN+2oP
+ ghpclZU/TepaJWZFOII+XmYcm72CR19h+MWnDJAOZul+U7JwmRwY7+7SvpjKtPBWzXnx
+ 0yQtLUqr/vhhJdQ11Ka4s03kyDzCbg2eMh8jIPFe84kDXoIbL2QN9VgRzGMfxjY6G8pE
+ hCo+lg3Ri/rnLlHMLajKqmyJgNWLKzd4JkfhleUCaYC/SoPpL+vSFUtn3tTbduDudSIj
+ Av0tzoYytEQfXzTenRPxdv4rTKexDDzLE3fQaY//Z0LA9lQyDpOEDv9BqPyUOXPiErMx
+ Dong==
+X-Gm-Message-State: AOAM531RlUHGtVpHsv7NukPW7zNcSEfIazYme3Gi/AniByDukzlsjv7/
+ DoWpd8NB1y/Js5rJd3NA5i3efqCyHPD9/O/oa7gH/Q==
+X-Google-Smtp-Source: ABdhPJw5Yk430/3/87e3yVE4qWHJlRhItY1gx4i906WPQT9Xp//a9PTHnqUQU02bFgspQY9SZ4ux9MZ5XkOnesX7ZOQ=
+X-Received: by 2002:a05:6870:631a:b0:d1:7d97:806 with SMTP id
+ s26-20020a056870631a00b000d17d970806mr285417oao.8.1644977904573; Tue, 15 Feb
+ 2022 18:18:24 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Feb 2022 18:17:41 -0800
+ HTTPREST; Tue, 15 Feb 2022 18:18:24 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220201151056.2480055-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220201151056.2480055-3-dmitry.baryshkov@linaro.org>
 References: <20220201151056.2480055-1-dmitry.baryshkov@linaro.org>
- <20220201151056.2480055-2-dmitry.baryshkov@linaro.org>
+ <20220201151056.2480055-3-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Tue, 15 Feb 2022 18:17:41 -0800
-Message-ID: <CAE-0n52hXz0tptXxip4vJdPPfXa+Vk738+F49j66swAhTgSBXA@mail.gmail.com>
+Date: Tue, 15 Feb 2022 18:18:24 -0800
+Message-ID: <CAE-0n50-asrL6FcpsteqfBWAVMXVShFWW+yMSMvzzJOr7d0KCw@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/6] drm/msm/dpu: remove extra wrappers
- around dpu_core_irq
+Subject: Re: [Freedreno] [PATCH 2/6] drm/msm/dpu: remove always-true
+ argument of dpu_core_irq_read()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,12 +75,11 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-01 07:10:51)
-> Remove extra dpu_irq_* wrappers from dpu_kms.c, merge them directly into
-> dpu_core_irq_* functions.
+Quoting Dmitry Baryshkov (2022-02-01 07:10:52)
+> The argument clear of the function dpu_core_irq_read() is always true.
+> Remove it.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
 
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
