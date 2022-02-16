@@ -1,67 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B993A4B7D12
-	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:16:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7B9A4B7D15
+	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:17:04 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 125B810E603;
-	Wed, 16 Feb 2022 02:16:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CDD510E609;
+	Wed, 16 Feb 2022 02:17:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA05F10E603;
- Wed, 16 Feb 2022 02:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1644977810; x=1676513810;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Nf4w5alxBcN8IhONDyerdZKXyOFUjVM7GbSWZYsTNBk=;
- b=nXKXip3jAsfLyNW3FGt+5mOPybeoGQNDA0x3HY5yP6DK+CPkAAK4ihYt
- Dkyh9vZksjGyn/78c7hrilhApIhd+VkjyeDXKQeoMtKZDh3PZWkqSWtzW
- OGZP38rKIn1NMd1C+2HrUr8nPjSvLeNfTt8tzutLfN8QK7U/3JiwXxmgL E=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 15 Feb 2022 18:16:50 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2022 18:16:50 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Tue, 15 Feb 2022 18:16:49 -0800
-Received: from [10.111.168.21] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 15 Feb
- 2022 18:16:48 -0800
-Message-ID: <7b33c826-b141-c6a2-b0eb-18b99ceeda24@quicinc.com>
-Date: Tue, 15 Feb 2022 18:16:45 -0800
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4A010E607
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 02:17:02 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id ay7so1013736oib.8
+ for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 18:17:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=kde7/XTU2PafoBmMQBQwevj0YqOlB5phYkdEBWwVR9A=;
+ b=bvqlVe6XuOA3ar+rEW2dBP1EAEFbjSwGHM1QVbj8l7WMsI/iU/k4xTYgJWnYJvLZlO
+ eMnu/BfVID/vb78QwtAg6U8CX4y5yUWrd59H8cb0/7MJOFWn/JwYBS+bOLpfDV1NKx7G
+ 3KnxWbAq5bPPlJtKKbe4JRMaZUXK4I7zXLQQg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=kde7/XTU2PafoBmMQBQwevj0YqOlB5phYkdEBWwVR9A=;
+ b=dCKt01iUXiJiXKeNsDzdzcIqayjMJvnN1FiNJWXNNoLyZYDCZOtMyn1JNMOXkmGg+s
+ ZVsnAo5x+tEz/YidG+o+7zQGI3rzBwZEOAQC9Z638wWXZKSv/EDePVqVni9EHI59ObWN
+ tfonnw17+oqBu9wnT2mt1xVans/FtNBvlienNUioik379xIuDhTXVDRrlft1Z9whmjAd
+ tLGXTnMKTQ5cX9cjFWJXcqFAGCmplqXEvfDmiTQwsPnH1NR7m/6Aaq/Hfz1OatoLjVVt
+ qByki3PmgM+1HEJo0PhSDwJQD/cgjRHok2Z7GbRpIRpw3tKyyup3sKCWYAVqa+JdwmVX
+ QrUw==
+X-Gm-Message-State: AOAM53192lXPhiLc7ko4+m7DStDQF98Rv3MhYDPrqCWHKE4WepNjG4uJ
+ hrofDPuqrcS0puueKeZn8T+Ytgkjk1XU53HIaAjkeA==
+X-Google-Smtp-Source: ABdhPJz6zcCH239EpdIWwsMam/u/vKcry0Zx2rcbSzYb05td5YLCxSpA8S8OJpW9NYeWmOdrWRrJ1BdfylJkNqL5eMw=
+X-Received: by 2002:aca:df44:0:b0:2ce:285f:cb99 with SMTP id
+ w65-20020acadf44000000b002ce285fcb99mr2972963oig.40.1644977821830; Tue, 15
+ Feb 2022 18:17:01 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 15 Feb 2022 18:17:01 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20220215043353.1256754-1-bjorn.andersson@linaro.org>
- <20220215043353.1256754-2-bjorn.andersson@linaro.org>
- <be397e2e-05ab-5c18-8e2d-16c443f0a6d1@quicinc.com>
- <Ygvisfhi0SY6XdAz@builder.lan>
- <6a3ef247-b26b-d505-cd85-92fb277163dd@quicinc.com>
- <CAA8EJprCaiPW=Kk0B69RNNwAk0xcqaxQA031sfR0ky+BfzcWKQ@mail.gmail.com>
- <ceb861e5-b1c8-d33e-c0b0-bea0b4cc0b66@quicinc.com>
- <CAA8EJppj+OBPVUgvefO38zp1RHpJw5pL0-4DCkgn3iAcPH-ptA@mail.gmail.com>
- <d0cac12e-7c03-2ba3-fb8d-aee09b72a1b1@quicinc.com>
- <YgxbYnpbBeOIkGWi@builder.lan>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <YgxbYnpbBeOIkGWi@builder.lan>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Add SC8180x to hw
- catalog
+In-Reply-To: <CAA8EJpqhKdYBisj9qEExKX20zPLpBnCs12FAYYSTo89hcXa48Q@mail.gmail.com>
+References: <20220215141643.3444941-1-dmitry.baryshkov@linaro.org>
+ <20220215141643.3444941-8-dmitry.baryshkov@linaro.org>
+ <CAE-0n53y6x+4aqQMjwgQ=W-m2v5BjaFQptLB+D8dh0R8n-pzhQ@mail.gmail.com>
+ <CAA8EJpqhKdYBisj9qEExKX20zPLpBnCs12FAYYSTo89hcXa48Q@mail.gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 15 Feb 2022 18:17:01 -0800
+Message-ID: <CAE-0n52whdW5XZ0LuemRkGv9nEZcV9wutUVmpNCZn3sYtJ3xsA@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 7/8] drm/msm/dpu: pull connector from
+ dpu_encoder_phys to dpu_encoder_virt
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,109 +67,27 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Dmitry Baryshkov (2022-02-15 18:13:09)
+> On Wed, 16 Feb 2022 at 05:00, Stephen Boyd <swboyd@chromium.org> wrote:
+> >
+> > Quoting Dmitry Baryshkov (2022-02-15 06:16:42)
+> > > All physical encoders used by virtual encoder share the same connector,
+> > > so pull the connector field from dpu_encoder_phys into dpu_encoder_virt
+> > > structure.
+> >
+> > What is the benefit? Less code? Clearer association?
+>
+> Clearer association. Otherwise code suggests that different phys_encs
+> can have different connectors.
 
+Got it. With that info added to the commit text
 
-On 2/15/2022 6:03 PM, Bjorn Andersson wrote:
-> On Tue 15 Feb 19:34 CST 2022, Abhinav Kumar wrote:
-> 
->>
->>
->> On 2/15/2022 4:20 PM, Dmitry Baryshkov wrote:
->>> On Tue, 15 Feb 2022 at 23:21, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>> On 2/15/2022 10:42 AM, Dmitry Baryshkov wrote:
->>>>> On Tue, 15 Feb 2022 at 20:42, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>>> On 2/15/2022 9:28 AM, Bjorn Andersson wrote:
->>>>>>> On Tue 15 Feb 11:14 CST 2022, Abhinav Kumar wrote:
->>>>>>>> On 2/14/2022 8:33 PM, Bjorn Andersson wrote:
->>>>>>>>> From: Rob Clark <robdclark@chromium.org>
-> [..]
->>>>> (thus leading us to cases when someone would forget to add INTF_EDP
->>>>> next to INTF_DP)
->>>>>
->>>>> Also, if we are switching from INTF_DP to INTF_EDP, should we stop
->>>>> using end-to-end numbering (like MSM_DP_CONTROLLER_2 for INTF_5) and
->>>>> add a separate numbering scheme for INTF_EDP?
->>>>>
->>>> We should change the controller ID to match what it actually is.
->>>>
->>>> Now that you pointed this out, this looks even more confusing to me to
->>>> say that  MSM_DP_CONTROLLER_2 is actually a EDP controller because
->>>> fundamentally and even hardware block wise they are different.
->>>
->>> So, do we split msm_priv->dp too? It's indexed using
->>> MSM_DP_CONTROLLER_n entries.
->>> Do we want to teach drm/msm/dp code that there are priv->dp[] and
->>> priv->edp arrays?
->>
->> ok so now priv->dp and priv->edp arrays are also in the picture here :)
->>
->> Actually all these questions should have probably come when we were figuring
->> out how best to re-use eDP and DP driver.
->>
->> Either way atleast, its good we are documenting all these questions on this
->> thread so that anyone can refer this to know what all was missed out :)
->>
->> priv->dp is of type msm_dp. When re-using DP driver for eDP and since
->> struct msm_dp is the shared struct between dpu and the msm/dp, I get your
->> point of re-using MSM_DP_CONTROLLER_* as thats being use to index.
->>
->> So MSM_DP_CONTROLLER_* is more of an index into the DP driver and not really
->> a hardware indexing scheme.
->>
->> If we split into two arrays, we need more changes to dpu_encoder too.
->>
->> Too instrusive a change at this point, even though probably correct.
->>
-> 
-> I'm sorry, but performing such a split would create a whole bunch of
-> duplication and I don't see the reasons yet. Can you please give me an
-> example of when the DPU _code_ would benefit from being specifically
-> written for EDP vs DP?
-> 
-> Things where it doesn't make sense to enable certain features in
-> runtime - but really have different implementation for the two interface
-> types.
-> 
-
-Like I have mentioned in my previous comment, this would be a big change 
-and I am also not in favor of this big change.
-
->> But are you seeing more changes required even if we just change INTF_DP to
->> INTF_eDP for the eDP entries? What are the challenges there?
->>
-> 
-> What are the benefits?
-
-In terms of current code, again like I said before in my previous 
-comments several times I do not have an example.
-
-I was keeping the separation in case in future for some features we do 
-need to differentiate eDP and DP.
-
-Somehow I also feel this change and below are interlinked that way.
-
-https://patchwork.freedesktop.org/patch/473871/
-
-The only reason we need this change is because both eDP and DP use 
-DRM_MODE_ENCODER_TMDS and specifying the intf_type directly will clear 
-the confusion because DRM_MODE_ENCODER_DSI means DSI and 
-DRM_MODE_ENCODER_VIRTUAL means Writeback but DRM_MODE_ENCODER_TMDS can 
-mean DP OR eDP interface.
-
-The ambiguity was always for eDP and DP.
-
-That led to the discussion about the INTF_* we are specifying in the 
-dpu_hw_catalog only to find the discrepancy.
-
-So now by clearing that ambiguity that change makes sense. That 
-discussion trickled into this one.
-
-> 
-> Regards,
-> Bjorn
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
