@@ -2,60 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD2E14B7D84
-	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:35:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 103D64B7D89
+	for <lists+freedreno@lfdr.de>; Wed, 16 Feb 2022 03:38:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5901B10E612;
-	Wed, 16 Feb 2022 02:35:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9391810E610;
+	Wed, 16 Feb 2022 02:38:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E933A10E610
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 02:35:06 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id i5so1081914oih.1
- for <freedreno@lists.freedesktop.org>; Tue, 15 Feb 2022 18:35:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=PlgslkolwKT8ECeonpQQtcOPkDq0gdHQS+7KK4BVmgk=;
- b=a2haUXr+v2kALve20JSLzgExCWHPXTKUFI8Xjo+aP0WlPIFoRb/cvpg7x4rK6eAGBk
- sflk7cjEnHyIWrhoDXOjZONiEyOSSbmuhGLzSi+E30KGbs8u1+vF0//Jap/c1NAB0aRe
- V7I3S0YRtHvqJhLK3/u1Id+ydO5aptVl0KK+I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=PlgslkolwKT8ECeonpQQtcOPkDq0gdHQS+7KK4BVmgk=;
- b=qJj9qpaVlMuwpgsRZ86og8ar8gTevu/Ry+4VMIrotiHy/UnbzX/3VcnQydEBP/5GuQ
- useRVG3kCcqp7f9pXRzLLIvUxC4ofqIS6Pv2oU8tKWWFXHfiFGgziissDgnwkpsJi2TN
- OPbv+Aiy7yS9MsGALAM/nyhzKY4lcrPx+xYYGXUrfIMx4mSPj/Ts5qFTUEuq1xjNrmwd
- R6DME0GmSV8hwuXW8RApgqOWHewX4VD/zH2AOuVAQch8/IXdBuicfQ8zKxrnAuKCAYdZ
- Io5pEebFK6dy5afdigWS3ZFjbOn7LaPsNnZ9TJ0ZTzkDZOcT8zuIYSCOI50L5w+AXoTD
- pLpg==
-X-Gm-Message-State: AOAM531FT2La7xPmz9c7fJy1JY3JZfTEEarHtCfTEctfo5pRtWJv/LOg
- 9EmMrsCOLpCBAEgYgEd38Hmp5Y9VrFwYgcwhtQt+Aw==
-X-Google-Smtp-Source: ABdhPJwOtjytPL+xYhnUaf+oMOlWs4QPLJh7SxbeMP0me9/HgOnownxFWMVw/manmzPwSdPltpwpaFklezhTdlNw3oI=
-X-Received: by 2002:a05:6808:b2f:b0:2cf:9af3:1687 with SMTP id
- t15-20020a0568080b2f00b002cf9af31687mr341027oij.112.1644978906051; Tue, 15
- Feb 2022 18:35:06 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Feb 2022 18:35:05 -0800
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E390910E610;
+ Wed, 16 Feb 2022 02:38:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1644979101; x=1676515101;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=FQ+uP+zkl5dcZCZu/CtemCgpgsFeZ2X8cIcyXL+RTDI=;
+ b=VtF0Te4IQertrawInKrC77ki6EFX0GZNC8JmJY7dwegjf1oddNxiI5i1
+ b5KACRhYRgA0q9HHWY9CVgwJ/o9xb3iy6YDBFOVmj4SsL4436N3bkn/ZU
+ BlUgQhi7UjLCnlGFHFnzFvmsytdyyFDIk8w757Dk7rnnssvbhZK/9yW1B I=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 15 Feb 2022 18:38:20 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Feb 2022 18:38:20 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Tue, 15 Feb 2022 18:38:19 -0800
+Received: from [10.111.168.21] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.922.19; Tue, 15 Feb
+ 2022 18:38:17 -0800
+Message-ID: <51675806-641d-c57e-ada7-a044e37ad808@quicinc.com>
+Date: Tue, 15 Feb 2022 18:38:15 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220131210513.2177652-3-dmitry.baryshkov@linaro.org>
-References: <20220131210513.2177652-1-dmitry.baryshkov@linaro.org>
- <20220131210513.2177652-3-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 15 Feb 2022 18:35:05 -0800
-Message-ID: <CAE-0n52Z3fX1Q=Hi0zFp6U7+gQd_A4t_KhtmrVQ9GBN2Oxj5ZQ@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 2/2] drm/msm/dp: rewrite dss_module_power
- to use bulk clock functions
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20220215043353.1256754-1-bjorn.andersson@linaro.org>
+ <20220215043353.1256754-2-bjorn.andersson@linaro.org>
+ <be397e2e-05ab-5c18-8e2d-16c443f0a6d1@quicinc.com>
+ <Ygvisfhi0SY6XdAz@builder.lan>
+ <6a3ef247-b26b-d505-cd85-92fb277163dd@quicinc.com>
+ <YgxeCHi5AsYPTmeZ@builder.lan>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <YgxeCHi5AsYPTmeZ@builder.lan>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Add SC8180x to hw
+ catalog
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,178 +69,171 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-01-31 13:05:13)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-> index 094b39bfed8c..f16072f33cdb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_parser.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-> @@ -10,7 +10,6 @@
->  #include <linux/phy/phy.h>
->  #include <linux/phy/phy-dp.h>
->
-> -#include "dp_clk_util.h"
->  #include "msm_drv.h"
->
->  #define DP_LABEL "MDSS DP DISPLAY"
-> @@ -106,6 +105,22 @@ struct dp_regulator_cfg {
->         struct dp_reg_entry regs[DP_DEV_REGULATOR_MAX];
->  };
->
-> +enum dss_clk_type {
-> +       DSS_CLK_AHB, /* no set rate. rate controlled through rpm */
-> +       DSS_CLK_PCLK,
-> +};
-> +
-> +struct dss_clk {
-> +       enum dss_clk_type type;
-> +       unsigned long rate;
-> +};
-> +
-> +struct dss_module_power {
-> +       unsigned int num_clk;
-> +       struct clk_bulk_data *clocks;
-> +       struct dss_clk *clk_config;
-> +};
-> +
->  /**
->   * struct dp_parser - DP parser's data exposed to clients
->   *
-> diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-> index b48b45e92bfa..318e1f8629cb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_power.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_power.c
-> @@ -105,59 +105,40 @@ static int dp_power_clk_init(struct dp_power_private *power)
->         ctrl = &power->parser->mp[DP_CTRL_PM];
->         stream = &power->parser->mp[DP_STREAM_PM];
->
-> -       rc = msm_dss_get_clk(dev, core->clk_config, core->num_clk);
-> +       rc = devm_clk_bulk_get(dev, core->num_clk, core->clocks);
 
-Could we go further and devm_clk_bulk_get_all() and then either have
-some new clk API that goes through the bulk list and finds the one named
-something and hands over a pointer to it, think "clk_get() on top of
-clk_bulk_data", or just get the clk again that you want to set a rate on
-and have two pointers but otherwise it's a don't care. Then we wouldn't
-need to do much at all here to store the rate settable clk and find it
-in a loop.
 
->         if (rc) {
->                 DRM_ERROR("failed to get %s clk. err=%d\n",
->                         dp_parser_pm_name(DP_CORE_PM), rc);
->                 return rc;
->         }
->
-> -       rc = msm_dss_get_clk(dev, ctrl->clk_config, ctrl->num_clk);
-> +       rc = devm_clk_bulk_get(dev, ctrl->num_clk, ctrl->clocks);
->         if (rc) {
->                 DRM_ERROR("failed to get %s clk. err=%d\n",
->                         dp_parser_pm_name(DP_CTRL_PM), rc);
-> -               msm_dss_put_clk(core->clk_config, core->num_clk);
->                 return -ENODEV;
->         }
->
-> -       rc = msm_dss_get_clk(dev, stream->clk_config, stream->num_clk);
-> +       rc = devm_clk_bulk_get(dev, stream->num_clk, stream->clocks);
->         if (rc) {
->                 DRM_ERROR("failed to get %s clk. err=%d\n",
->                         dp_parser_pm_name(DP_CTRL_PM), rc);
-> -               msm_dss_put_clk(core->clk_config, core->num_clk);
->                 return -ENODEV;
->         }
->
->         return 0;
->  }
->
-> -static int dp_power_clk_deinit(struct dp_power_private *power)
-> -{
-> -       struct dss_module_power *core, *ctrl, *stream;
-> -
-> -       core = &power->parser->mp[DP_CORE_PM];
-> -       ctrl = &power->parser->mp[DP_CTRL_PM];
-> -       stream = &power->parser->mp[DP_STREAM_PM];
-> -
-> -       if (!core || !ctrl || !stream) {
-> -               DRM_ERROR("invalid power_data\n");
-> -               return -EINVAL;
-> -       }
-> -
-> -       msm_dss_put_clk(ctrl->clk_config, ctrl->num_clk);
-> -       msm_dss_put_clk(core->clk_config, core->num_clk);
-> -       msm_dss_put_clk(stream->clk_config, stream->num_clk);
-> -       return 0;
-> -}
-> -
->  static int dp_power_clk_set_link_rate(struct dp_power_private *power,
-> -                       struct dss_clk *clk_arry, int num_clk, int enable)
-> +                       struct dss_module_power *mp, int enable)
->  {
-> +       struct dss_clk *clk_arry = mp->clk_config;
-> +       int num_clk = mp->num_clk;
->         u32 rate;
->         int i, rc = 0;
->
->         for (i = 0; i < num_clk; i++) {
-> -               if (clk_arry[i].clk) {
-> +               if (mp->clocks[i].clk) {
->                         if (clk_arry[i].type == DSS_CLK_PCLK) {
->                                 if (enable)
->                                         rate = clk_arry[i].rate;
-> @@ -168,9 +149,49 @@ static int dp_power_clk_set_link_rate(struct dp_power_private *power,
->                                 if (rc)
->                                         break;
->                         }
-> +               } else {
-> +                       DRM_ERROR("%pS->%s: '%s' is not available\n",
-> +                               __builtin_return_address(0), __func__,
-> +                               mp->clocks[i].id);
-> +                       rc = -EPERM;
-> +                       break;
-> +               }
-> +       }
-> +       return rc;
-> +}
-> +
-> +static int dp_clk_set_rate(struct dss_module_power *mp)
-> +{
-> +       struct dss_clk *clk_arry = mp->clk_config;
-> +       int num_clk = mp->num_clk;
-> +       int i, rc = 0;
->
-> +       for (i = 0; i < num_clk; i++) {
-> +               if (mp->clocks[i].clk) {
-> +                       if (clk_arry[i].type != DSS_CLK_AHB) {
+On 2/15/2022 6:14 PM, Bjorn Andersson wrote:
+> On Tue 15 Feb 11:42 CST 2022, Abhinav Kumar wrote:
+> 
+>>
+>>
+>> On 2/15/2022 9:28 AM, Bjorn Andersson wrote:
+>>> On Tue 15 Feb 11:14 CST 2022, Abhinav Kumar wrote:
+>>>
+>>>>
+>>>>
+>>>> On 2/14/2022 8:33 PM, Bjorn Andersson wrote:
+>>>>> From: Rob Clark <robdclark@chromium.org>
+>>>>>
+>>>>> Add SC8180x to the hardware catalog, for initial support for the
+>>>>> platform. Due to limitations in the DP driver only one of the four DP
+>>>>> interfaces is left enabled.
+>>>>>
+>>>>> The SC8180x platform supports the newly added DPU_INTF_WIDEBUS flag and
+>>>>> the Windows-on-Snapdragon bootloader leaves the widebus bit set, so this
+>>>>> is flagged appropriately to ensure widebus is disabled - for now.
+>>>>>
+>>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>>>> [bjorn: Reworked intf and irq definitions]
+>>>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+>>>>> ---
+>>>>>
+>>>>> Changes since v1:
+>>>>> - Dropped widebus flag
+>>>>>
+>>>>>     .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 129 ++++++++++++++++++
+>>>>>     .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |   1 +
+>>>>>     drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>>>>>     drivers/gpu/drm/msm/msm_drv.c                 |   1 +
+>>>>>     4 files changed, 132 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> index aa75991903a6..7ac0fe32df49 100644
+>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+>>>>> @@ -90,6 +90,17 @@
+>>>>>     			 BIT(MDP_INTF3_INTR) | \
+>>>>>     			 BIT(MDP_INTF4_INTR))
+>>>>> +#define IRQ_SC8180X_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+>>>>> +			  BIT(MDP_SSPP_TOP0_INTR2) | \
+>>>>> +			  BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+>>>>> +			  BIT(MDP_INTF0_INTR) | \
+>>>>> +			  BIT(MDP_INTF1_INTR) | \
+>>>>> +			  BIT(MDP_INTF2_INTR) | \
+>>>>> +			  BIT(MDP_INTF3_INTR) | \
+>>>>> +			  BIT(MDP_INTF4_INTR) | \
+>>>>> +			  BIT(MDP_INTF5_INTR) | \
+>>>>> +			  BIT(MDP_AD4_0_INTR) | \
+>>>>> +			  BIT(MDP_AD4_1_INTR))
+>>>>>     #define DEFAULT_PIXEL_RAM_SIZE		(50 * 1024)
+>>>>>     #define DEFAULT_DPU_LINE_WIDTH		2048
+>>>>> @@ -225,6 +236,22 @@ static const struct dpu_caps sm8150_dpu_caps = {
+>>>>>     	.max_vdeci_exp = MAX_VERT_DECIMATION,
+>>>>>     };
+>>>>> +static const struct dpu_caps sc8180x_dpu_caps = {
+>>>>> +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>>>>> +	.max_mixer_blendstages = 0xb,
+>>>>> +	.qseed_type = DPU_SSPP_SCALER_QSEED3,
+>>>>> +	.smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
+>>>>> +	.ubwc_version = DPU_HW_UBWC_VER_30,
+>>>>> +	.has_src_split = true,
+>>>>> +	.has_dim_layer = true,
+>>>>> +	.has_idle_pc = true,
+>>>>> +	.has_3d_merge = true,
+>>>>> +	.max_linewidth = 4096,
+>>>>> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+>>>>> +	.max_hdeci_exp = MAX_HORZ_DECIMATION,
+>>>>> +	.max_vdeci_exp = MAX_VERT_DECIMATION,
+>>>>> +};
+>>>>> +
+>>>>>     static const struct dpu_caps sm8250_dpu_caps = {
+>>>>>     	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>>>>>     	.max_mixer_blendstages = 0xb,
+>>>>> @@ -293,6 +320,31 @@ static const struct dpu_mdp_cfg sc7180_mdp[] = {
+>>>>>     	},
+>>>>>     };
+>>>>> +static const struct dpu_mdp_cfg sc8180x_mdp[] = {
+>>>>> +	{
+>>>>> +	.name = "top_0", .id = MDP_TOP,
+>>>>> +	.base = 0x0, .len = 0x45C,
+>>>>> +	.features = 0,
+>>>>> +	.highest_bank_bit = 0x3,
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+>>>>> +			.reg_off = 0x2AC, .bit_off = 0},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+>>>>> +			.reg_off = 0x2B4, .bit_off = 0},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_VIG2] = {
+>>>>> +			.reg_off = 0x2BC, .bit_off = 0},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_VIG3] = {
+>>>>> +			.reg_off = 0x2C4, .bit_off = 0},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
+>>>>> +			.reg_off = 0x2AC, .bit_off = 8},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = {
+>>>>> +			.reg_off = 0x2B4, .bit_off = 8},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
+>>>>> +			.reg_off = 0x2BC, .bit_off = 8},
+>>>>> +	.clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
+>>>>> +			.reg_off = 0x2C4, .bit_off = 8},
+>>>>> +	},
+>>>>> +};
+>>>>> +
+>>>>>     static const struct dpu_mdp_cfg sm8250_mdp[] = {
+>>>>>     	{
+>>>>>     	.name = "top_0", .id = MDP_TOP,
+>>>>> @@ -861,6 +913,16 @@ static const struct dpu_intf_cfg sc7280_intf[] = {
+>>>>>     	INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+>>>>>     };
+>>>>> +static const struct dpu_intf_cfg sc8180x_intf[] = {
+>>>>> +	INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, MSM_DP_CONTROLLER_0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 24, 25),
+>>>>> +	INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
+>>>>> +	INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
+>>>>> +	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this is supported */
+>>>>> +	INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
+>>>>> +	INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, MSM_DP_CONTROLLER_1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 20, 21),
+>>>>> +	INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, MSM_DP_CONTROLLER_2, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 22, 23),
+>>>>
+>>>> This is a continued discussion from
+>>>> https://patchwork.freedesktop.org/patch/474179/.
+>>>>
+>>>> Shouldnt INTF_5 be marked as INTF_eDP?
+>>>>
+>>>
+>>> Might be, I didn't even know we had an INTF_EDP define...
+>>>
+>>> Is there any reason to distinguish DP and EDP in the DPU?  I see sc7280
+>>> doesn't distinguish the DP and EDP interfaces.
+>>>
+>>> Regards,
+>>> Bjorn
+>>>
+>>
+>> Like I have mentioned in the other patch, I think we have enough confusion
+>> between eDP and DP with the common driver. Since DPU does have separate
+>> interfaces I think we should fix that.
+>>
+>> Regarding sc7280 using INTF_DP, I synced up with Sankeerth. He referred to
+>> your change
+>> https://patchwork.freedesktop.org/patch/457776/?series=92992&rev=5 as it was
+>> posted earlier and ended up using the same INTF_DP macro. So its turning out
+>> to be a cyclical error.
+>>
+> 
+> That made me take a second look at the HPG, and sure enough INTF_5 on
+> SC7280 is connected to a eDP/DP Combo PHY. We have the same setup in
+> SC8280XP.
+> 
+> In SC8180X, INTF_5 is documented as being connected to a eDP (only) PHY,
+> so perhaps it makes sense to do it there, but for the others its wrong.
+> 
 
-This loops is gross.
+Here you are specifying the controller in the catalog. So independent of 
+the PHY thats being used, shouldnt this remain INTF_eDP?
 
-> +                               DRM_DEBUG("%pS->%s: '%s' rate %ld\n",
-> +                                       __builtin_return_address(0), __func__,
-> +                                       mp->clocks[i].id,
-> +                                       clk_arry[i].rate);
-> +                               rc = clk_set_rate(mp->clocks[i].clk,
-> +                                       clk_arry[i].rate);
-> +                               if (rc) {
-> +                                       DRM_ERROR("%pS->%s: %s failed. rc=%d\n",
-> +                                               __builtin_return_address(0),
-> +                                               __func__,
-> +                                               mp->clocks[i].id, rc);
-> +                                       break;
-> +                               }
-> +                       }
-> +               } else {
-> +                       DRM_ERROR("%pS->%s: '%s' is not available\n",
-> +                               __builtin_return_address(0), __func__,
-> +                               mp->clocks[i].id);
-> +                       rc = -EPERM;
-> +                       break;
->                 }
->         }
-> +
->         return rc;
->  }
->
+> Regards,
+> Bjorn
