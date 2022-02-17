@@ -2,68 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30A44B99A7
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 08:12:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618904B9BFC
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 10:27:15 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F76710E935;
-	Thu, 17 Feb 2022 07:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E35A910EDFD;
+	Thu, 17 Feb 2022 09:27:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1FF10E935
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 07:12:23 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id p22so8215658lfu.5
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 23:12:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=cEr9ceiXSBzxtl9pW55l2PGta6KX4196ZTMOQFJarqY=;
- b=np3fgCu6l1VhZUSWIXrd8VY48YtoJal3smJlQs93fg9Ywg5XRZoejvZRhulbNkpQ/y
- AWSXr4LWhVvagLBB1oN24NnacWGTzlzQNmftkwb7dl1IWGJ1kEUSvyMZPSY3unTbKUeF
- d4RZiITdFXae8qr2GVo/nv2HOIKnpJ36bi5eqVN4MdYQUAghyEmivM1CJeyHpdppOtYh
- 9vraOypWdpLsv86N+130sPdZ68X1MZFrh8XGqAQe5AIxxdGIF1R0W5PPaI/mwwQKiAxO
- 2Ek8GPxa/ERfzESvdXEsopRODe82vRI2Dp4WKd+4VhwaIkCGjuk5+Ie99kRmrtK9wt5+
- n2ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=cEr9ceiXSBzxtl9pW55l2PGta6KX4196ZTMOQFJarqY=;
- b=kYwQzCdPRx5QM2jQQPplFRSVdPBZECb5fsZJ3FQxdq2zWciQq3DsGpKtplXc2fPfJj
- BspV3V3/vzVnpWNajiqYEukZHzFTbEGaw9LHHVPsn60sVgcCspuIEFt/o9Xqq59/nBnw
- wlHg/01oPQ+opO5sVShMblWu47XfPfK45qWWEpbyFlBAMidRVeiEZ5ix5nrE19KSpOUI
- rWy+fgg09YfPig3UXNlOI077nMj/rlOPDmE8IznfUkp3OVyFe3psAIK0FcgDtb2h7Z/4
- EF3ixVk/0XzMpTkq/1PXeMsOY1DLikoDyCOO3gRNchWtpxaVxo8bnd/AnISxHlwMS6pY
- 37pg==
-X-Gm-Message-State: AOAM531bUm7rXKJxtVm6UHwqQsMrepeUXuW43qL06UQCas/dzsuww52E
- UeqtBgf2WXKnm+2BW4bJNyiU+Q==
-X-Google-Smtp-Source: ABdhPJyUzt65C5f6ESKZs6SoN+X8J1YfJ+9Ofv8uW/Qw02VVoWXM/VHkeoOw1AcbxBoh2tXXohpYPA==
-X-Received: by 2002:ac2:58d8:0:b0:442:bc4b:afb7 with SMTP id
- u24-20020ac258d8000000b00442bc4bafb7mr1116916lfo.99.1645081941762; 
- Wed, 16 Feb 2022 23:12:21 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id o18sm3276467lfk.17.2022.02.16.23.12.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Feb 2022 23:12:21 -0800 (PST)
-Message-ID: <acf0a2a2-f2e5-906a-3c51-525abd18ee6f@linaro.org>
-Date: Thu, 17 Feb 2022 10:12:19 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>
+Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D42410EDFD
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 09:27:12 +0000 (UTC)
+Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 8E4B13F758;
+ Thu, 17 Feb 2022 10:27:09 +0100 (CET)
+Date: Thu, 17 Feb 2022 10:27:07 +0100
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Vinod Koul <vkoul@kernel.org>
+Message-ID: <20220217092707.2bfzga74xyicl4kb@SoMainline.org>
 References: <20220210103423.271016-1-vkoul@kernel.org>
- <20220210103423.271016-9-vkoul@kernel.org>
- <67006cc4-3385-fe03-bb4d-58623729a8a8@quicinc.com> <Yg3mvEvqYs89dJWI@matsya>
- <4b89f5fe-0752-3c6a-3fb0-192f1f2e7b9e@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <4b89f5fe-0752-3c6a-3fb0-192f1f2e7b9e@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [REPOST PATCH v4 08/13] drm/msm/disp/dpu1: Don't
- use DSC with mode_3d
+ <20220210103423.271016-14-vkoul@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220210103423.271016-14-vkoul@kernel.org>
+Subject: Re: [Freedreno] [REPOST PATCH v4 13/13] drm/msm/dsi: Add support
+ for DSC configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,96 +49,198 @@ Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
  Abhinav Kumar <abhinavk@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2022 09:33, Abhinav Kumar wrote:
-> 
-> 
-> On 2/16/2022 10:10 PM, Vinod Koul wrote:
->> On 16-02-22, 19:11, Abhinav Kumar wrote:
->>>
->>>
->>> On 2/10/2022 2:34 AM, Vinod Koul wrote:
->>>> We cannot enable mode_3d when we are using the DSC. So pass
->>>> configuration to detect DSC is enabled and not enable mode_3d
->>>> when we are using DSC
->>>>
->>>> We add a helper dpu_encoder_helper_get_dsc() to detect dsc
->>>> enabled and pass this to .setup_intf_cfg()
->>>>
->>>> Signed-off-by: Vinod Koul <vkoul@kernel.org>
->>>
->>> We should not use 3D mux only when we use DSC merge topology.
->>> I agree that today we use only 2-2-1 topology for DSC which means its 
->>> using
->>> DSC merge.
->>>
->>> But generalizing that 3D mux should not be used for DSC is not right.
->>>
->>> You can detect DSC merge by checking if there are two encoders and one
->>> interface in the topology and if so, you can disable 3D mux.
->>
->> Right now with DSC we disable that as suggested by Dmitry last time.
->> Whenever we introduce merge we should revisit this, for now this should
->> suffice
->>
-> 
-> Sorry I didnt follow.
-> 
-> The topology which you are supporting today IS DSC merge 2-2-1. I didnt 
-> get what you mean by "whenever we introduce".
-> 
-> I didnt follow Dmitry's comment either.
-> 
-> "anybody adding support for SDE_RM_TOPOLOGY_DUALPIPE_3DMERGE_DSC handle 
-> this."
-> 
-> 3D mux shouldnt be used when DSC merge is used.
-> 
-> The topology Dmitry is referring to will not use DSC merge but you are 
-> using it here and thats why you had to make this patch in the first 
-> place. So I am not sure why would someone who uses 3D merge topology 
-> worry about DSC merge. Your patch is the one which deals with the 
-> topology in question.
-> 
-> What I am suggesting is a small but necessary improvement to this patch.
+Vinod,
 
-It seems that we can replace this patch by changing 
-dpu_encoder_helper_get_3d_blend_mode() to contain the following 
-condition (instead of the one present there). Does the following seem 
-correct to you:
-
-static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
-                 struct dpu_encoder_phys *phys_enc)
-{
-         struct dpu_crtc_state *dpu_cstate;
-
-         if (!phys_enc || phys_enc->enable_state == DPU_ENC_DISABLING)
-                 return BLEND_3D_NONE;
-
-         dpu_cstate = to_dpu_crtc_state(phys_enc->parent->crtc->state);
-
-+	/* Use merge_3d unless DSCMERGE topology is used */
-         if (phys_enc->split_role == ENC_ROLE_SOLO &&
-+           hweight(dpu_encoder_helper_get_dsc(phys_enc)) != 1 &&
-             dpu_cstate->num_mixers == CRTC_DUAL_MIXERS)
-                 return BLEND_3D_H_ROW_INT;
-
-         return BLEND_3D_NONE;
-}
-
-
+On 2022-02-10 16:04:23, Vinod Koul wrote:
+> When DSC is enabled, we need to configure DSI registers accordingly and
+> configure the respective stream compression registers.
 > 
-> All that you have to do is in query whether DSC merge is used from the 
-> topology. You can do it in multiple ways:
+> Add support to calculate the register setting based on DSC params and
+> timing information and configure these registers.
 > 
-> 1) Either query this from the encoder
-> 2) Store a bool "dsc_merge" in the intf_cfg
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+
+I supplied a rather extensive - yet merely scratching the surface -
+review of this patch in:
+
+    https://lore.kernel.org/linux-arm-msm/20211211000315.pavmcc7cc73ilb6l@SoMainline.org/
+
+It seems none of those points have been addressed, bar creating a mesa
+MR to update dsi.xml with a subpar description of the registers (offsets
+only).
+
+For every point that is intentionally ignored, please at least supply a
+justification of why you think this is the right thing to do.
+
+Thanks,
+- Marijn
+
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi.xml.h  |  10 +++
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 109 ++++++++++++++++++++++++++++-
+>  2 files changed, 118 insertions(+), 1 deletion(-)
 > 
-
-
--- 
-With best wishes
-Dmitry
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> index 49b551ad1bff..c1c85df58c4b 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
+> @@ -706,4 +706,14 @@ static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
+>  #define REG_DSI_CPHY_MODE_CTRL					0x000002d4
+>  
+>  
+> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL			0x0000029c
+> +
+> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL2			0x000002a0
+> +
+> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL			0x000002a4
+> +
+> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2			0x000002a8
+> +
+> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL3			0x000002ac
+> +
+>  #endif /* DSI_XML */
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 438c80750682..3d8d5a1daaa3 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -908,6 +908,20 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
+>  		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
+>  }
+>  
+> +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
+> +				  int pic_width, int pic_height)
+> +{
+> +	if (!dsc || !pic_width || !pic_height) {
+> +		pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n", pic_width, pic_height);
+> +		return -EINVAL;
+> +	}
+> +
+> +	dsc->drm->pic_width = pic_width;
+> +	dsc->drm->pic_height = pic_height;
+> +
+> +	return 0;
+> +}
+> +
+>  static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  {
+>  	struct drm_display_mode *mode = msm_host->mode;
+> @@ -940,7 +954,68 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  		hdisplay /= 2;
+>  	}
+>  
+> +	if (msm_host->dsc) {
+> +		struct msm_display_dsc_config *dsc = msm_host->dsc;
+> +
+> +		/* update dsc params with timing params */
+> +		dsi_dsc_update_pic_dim(dsc, mode->hdisplay, mode->vdisplay);
+> +		DBG("Mode Width- %d x Height %d\n", dsc->drm->pic_width, dsc->drm->pic_height);
+> +
+> +		/* we do the calculations for dsc parameters here so that
+> +		 * panel can use these parameters
+> +		 */
+> +		dsi_populate_dsc_params(dsc);
+> +
+> +		/* Divide the display by 3 but keep back/font porch and
+> +		 * pulse width same
+> +		 */
+> +		h_total -= hdisplay;
+> +		hdisplay /= 3;
+> +		h_total += hdisplay;
+> +		ha_end = ha_start + hdisplay;
+> +	}
+> +
+>  	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
+> +		if (msm_host->dsc) {
+> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
+> +			u32 reg, intf_width, slice_per_intf;
+> +			u32 total_bytes_per_intf;
+> +
+> +			/* first calculate dsc parameters and then program
+> +			 * compress mode registers
+> +			 */
+> +			intf_width = hdisplay;
+> +			slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
+> +
+> +			dsc->drm->slice_count = 1;
+> +			dsc->bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * 8, 8);
+> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
+> +
+> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
+> +			dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
+> +			dsc->bytes_per_pkt = dsc->bytes_in_slice * dsc->drm->slice_count;
+> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
+> +
+> +			reg = dsc->bytes_per_pkt << 16;
+> +			reg |= (0x0b << 8);    /* dtype of compressed image */
+> +
+> +			/* pkt_per_line:
+> +			 * 0 == 1 pkt
+> +			 * 1 == 2 pkt
+> +			 * 2 == 4 pkt
+> +			 * 3 pkt is not supported
+> +			 * above translates to ffs() - 1
+> +			 */
+> +			reg |= (ffs(dsc->pkt_per_line) - 1) << 6;
+> +
+> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
+> +			reg |= dsc->eol_byte_num << 4;
+> +			reg |= 1;
+> +
+> +			dsi_write(msm_host,
+> +				  REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
+> +		}
+> +
+>  		dsi_write(msm_host, REG_DSI_ACTIVE_H,
+>  			DSI_ACTIVE_H_START(ha_start) |
+>  			DSI_ACTIVE_H_END(ha_end));
+> @@ -959,8 +1034,40 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>  			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
+>  			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
+>  	} else {		/* command mode */
+> +		if (msm_host->dsc) {
+> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
+> +			u32 reg, reg_ctrl, reg_ctrl2;
+> +			u32 slice_per_intf, bytes_in_slice, total_bytes_per_intf;
+> +
+> +			reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+> +			reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
+> +
+> +			slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
+> +			bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
+> +						      dsc->drm->bits_per_pixel, 8);
+> +			dsc->drm->slice_chunk_size = bytes_in_slice;
+> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
+> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
+> +
+> +			reg = 0x39 << 8;
+> +			reg |= ffs(dsc->pkt_per_line) << 6;
+> +
+> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
+> +			reg |= dsc->eol_byte_num << 4;
+> +			reg |= 1;
+> +
+> +			reg_ctrl |= reg;
+> +			reg_ctrl2 |= bytes_in_slice;
+> +
+> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
+> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+> +		}
+> +
+>  		/* image data and 1 byte write_memory_start cmd */
+> -		wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
+> +		if (!msm_host->dsc)
+> +			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
+> +		else
+> +			wc = mode->hdisplay / 2 + 1;
+>  
+>  		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
+>  			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+> -- 
+> 2.31.1
+> 
