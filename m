@@ -1,64 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D825F4B97C0
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 05:32:04 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1274B9879
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 06:55:35 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73B6710E838;
-	Thu, 17 Feb 2022 04:31:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98D6E10E6FF;
+	Thu, 17 Feb 2022 05:55:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5055310E825
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 04:31:56 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id u20so7707191lff.2
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 20:31:56 -0800 (PST)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2EBD10E6F8
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 05:55:32 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id d23so7887331lfv.13
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 21:55:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=JSqX7u3LubRxGSWxyg4lAeG2HvIGpcdBGF8VpC9iRlY=;
- b=sqynsZoXAZ4jASk2csYD+Q9QmyZHHDCRuEq76GVaUgMBeAPB8JBeTwK+DdLmuV7+hb
- ScOING8RniR2NeaEXD+ckJSab3OXSlLuowkfs+SccVkKyMflaT1dXcPB4Id4NtoCWcPP
- mnNQ8A59A8IhBG882L81tx3M2lqKzRoZXH+WhM5a4iNx1+uQ9AhCpYY3BV44HzAtVp67
- CUOEwB4eIYpEciGJkPfRsAbWo+5ski6lOIGLOSoaEtk4ruhI3yX6ZK92MezC2JBa5DiB
- BVMH9tk0G1sIBDQrkHiG7My7rrWrVryeqfuExH1EN0jqBgzT6N7dE7OE8/ip1JUzosen
- IVKA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/0CR4bg/aP+HYLaxgruFj36yg6CA19rL8bNRs6En6EY=;
+ b=Pmt47riEYW0RnTKnLKfpZ9wNNpw8xDqXNVZSeeR56zhnZ/pS8uhfwEePar4mneJanK
+ KW9qulmsVBHGditbxVswz6KGfXGDReNfoibGEr2+eHaaUlkOkOhjrP8n/6UJg2kRDTp9
+ /Gmv97l1SX/f8hLNSaRZSUmuJfW88xAjsBmrP7DRFIh88SaXKuDaUlQJf0c5CfUC8T1s
+ 76Ieits0v0zlePNU7SWz/i48TJnTMj7H+wNtxty0QyX9XyHqUVYmhqHLg3C1De4mJWup
+ yobSJmm3ZTlnnKRGQaPdNBmHl4vjsrMoUSP9nZ4wIE3Svi53hkCd/6uytWqgyInksfNH
+ E07A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=JSqX7u3LubRxGSWxyg4lAeG2HvIGpcdBGF8VpC9iRlY=;
- b=EpMK4iX2FVBSHq4pXso3VF8Jq8KPRl3vIjff1XwRUDA/hUxn8ogaJCLgZEII3ceveE
- N6ts3YH6FPo9lNCHFWvJqHvwvsHwsdvoFViggpq0bYjWZygelm7/Il4dwlV398UAlVTz
- udGer4UojFV8gOxFuPy9j2BVkER8WQiCs0YEVuIs6ZGtnUZXkwqKZqQC5WIL9P9V8+oI
- 6IOgQQ5TitkODZLWGnBIWz7IB6r3Apjvy577v9sViJcui1e8NKD3QwWVwJepsdDSnx1I
- gN5sIDWLFJjUU2Ht+ggu1fg4XD84J2wK4MfQqgjhwVl9HvsYGPqpBgZ6pdhorAbnNIxw
- RpGA==
-X-Gm-Message-State: AOAM532FCRYBE5LjGSfbWjvExUH97naLAeS5YpFMgdIVlzlTj53By7jQ
- lp4fW4JoYF2GxvvaztbkX20qVw==
-X-Google-Smtp-Source: ABdhPJyMGy0+1a9kXqznzO9yqTCefcHN/VuiYNR6qwMB2knLqvDTQUwYU+zgldPUss54rBTpAJDzyQ==
-X-Received: by 2002:a05:6512:4021:b0:443:150e:6984 with SMTP id
- br33-20020a056512402100b00443150e6984mr843984lfb.423.1645072314497; 
- Wed, 16 Feb 2022 20:31:54 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/0CR4bg/aP+HYLaxgruFj36yg6CA19rL8bNRs6En6EY=;
+ b=Ok7Tm38m+Vn9SvGKZdBxh1B4SXpkqb5PpnkjI8SHtQuv2LWdK4fM6rQ66kfw32htwf
+ kDhLy1KHp+GGJcpuEDVVDUVgrSwj81xZY7ZpHiIPL3rthGDRsGoai9TCjSit6oR7X2Ld
+ H0I1zLS3FqNvPLiP+ZV2t8/3YlFzve5a8QIZiNMh8sZhwxrClSHRb9TGOXHRgFMPocOf
+ IUcP0vNlCSNBGiy6bhsx2kBsl4vgo5zuIoApbRZyhBE3cNg8LwYAdIVt6vQ/G0jhkE73
+ rc3tfAfIr3BdYYzy2kWFNZzlrhK+pNbTvPAp3X7rAr5fz79NbLtszMmmQUOeMAGvmg59
+ jnFg==
+X-Gm-Message-State: AOAM531dXyM8NR1lOSFUpdz0jIXRvmCp2iW/UXiwQ8wX6MG9Ax6MUnB+
+ +3QWx01UgAEpVUOgbNhEqU4A9A==
+X-Google-Smtp-Source: ABdhPJyCqRQFL/8kW2qka2z7yQ2e41iQFhz/oVM7tj5ddheolaV0OojmGa7YZrgNoSsrXFrq5WWMUw==
+X-Received: by 2002:a05:6512:696:b0:443:7fb9:1ae3 with SMTP id
+ t22-20020a056512069600b004437fb91ae3mr1078435lfe.249.1645077330914; 
+ Wed, 16 Feb 2022 21:55:30 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id l8sm1463391ljb.140.2022.02.16.20.31.53
+ by smtp.gmail.com with ESMTPSA id u13sm5015998lfs.260.2022.02.16.21.55.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 20:31:53 -0800 (PST)
+ Wed, 16 Feb 2022 21:55:30 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 17 Feb 2022 07:31:48 +0300
-Message-Id: <20220217043148.480898-7-dmitry.baryshkov@linaro.org>
+Date: Thu, 17 Feb 2022 08:55:24 +0300
+Message-Id: <20220217055529.499829-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220217043148.480898-1-dmitry.baryshkov@linaro.org>
-References: <20220217043148.480898-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 6/6] drm/msm/dpu: pass irq to
- dpu_encoder_helper_wait_for_irq()
+Subject: [Freedreno] [PATCH v5 0/5] drm/msm: rework clock handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,205 +74,57 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Pass IRQ number directly rather than passing an index in the dpu_encoder's irq table.
+msm_dss_clk_*() functions significantly duplicate clk_bulk_* family of
+functions. Drop custom code and use bulk clocks directly. This also
+removes dependency of DP driver on the DPU driver internals.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 29 +++++++++----------
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  4 +--
- .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  9 ++++--
- .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  3 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     | 12 ++++----
- 5 files changed, 29 insertions(+), 28 deletions(-)
+Note that DP changes were compile-only tested.
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 83b6715820fa..4c9e7c4fa14b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -260,38 +260,35 @@ static int dpu_encoder_helper_wait_event_timeout(int32_t drm_id,
- 		u32 irq_idx, struct dpu_encoder_wait_info *info);
- 
- int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
--		enum dpu_intr_idx intr_idx,
-+		int irq,
- 		void (*func)(void *arg, int irq_idx),
- 		struct dpu_encoder_wait_info *wait_info)
- {
--	int irq;
- 	u32 irq_status;
- 	int ret;
- 
--	if (!wait_info || intr_idx >= INTR_IDX_MAX) {
-+	if (!wait_info) {
- 		DPU_ERROR("invalid params\n");
- 		return -EINVAL;
- 	}
--	irq = phys_enc->irq[intr_idx];
--
- 	/* note: do master / slave checking outside */
- 
- 	/* return EWOULDBLOCK since we know the wait isn't necessary */
- 	if (phys_enc->enable_state == DPU_ENC_DISABLED) {
--		DRM_ERROR("encoder is disabled id=%u, intr=%d, irq=%d\n",
--			  DRMID(phys_enc->parent), intr_idx,
-+		DRM_ERROR("encoder is disabled id=%u, callback=%ps, irq=%d\n",
-+			  DRMID(phys_enc->parent), func,
- 			  irq);
- 		return -EWOULDBLOCK;
- 	}
- 
- 	if (irq < 0) {
--		DRM_DEBUG_KMS("skip irq wait id=%u, intr=%d\n",
--			      DRMID(phys_enc->parent), intr_idx);
-+		DRM_DEBUG_KMS("skip irq wait id=%u, callback=%ps\n",
-+			      DRMID(phys_enc->parent), func);
- 		return 0;
- 	}
- 
--	DRM_DEBUG_KMS("id=%u, intr=%d, irq=%d, pp=%d, pending_cnt=%d\n",
--		      DRMID(phys_enc->parent), intr_idx,
-+	DRM_DEBUG_KMS("id=%u, callback=%ps, irq=%d, pp=%d, pending_cnt=%d\n",
-+		      DRMID(phys_enc->parent), func,
- 		      irq, phys_enc->hw_pp->idx - PINGPONG_0,
- 		      atomic_read(wait_info->atomic_cnt));
- 
-@@ -305,8 +302,8 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
- 		if (irq_status) {
- 			unsigned long flags;
- 
--			DRM_DEBUG_KMS("irq not triggered id=%u, intr=%d, irq=%d, pp=%d, atomic_cnt=%d\n",
--				      DRMID(phys_enc->parent), intr_idx,
-+			DRM_DEBUG_KMS("irq not triggered id=%u, callback=%ps, irq=%d, pp=%d, atomic_cnt=%d\n",
-+				      DRMID(phys_enc->parent), func,
- 				      irq,
- 				      phys_enc->hw_pp->idx - PINGPONG_0,
- 				      atomic_read(wait_info->atomic_cnt));
-@@ -316,8 +313,8 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
- 			ret = 0;
- 		} else {
- 			ret = -ETIMEDOUT;
--			DRM_DEBUG_KMS("irq timeout id=%u, intr=%d, irq=%d, pp=%d, atomic_cnt=%d\n",
--				      DRMID(phys_enc->parent), intr_idx,
-+			DRM_DEBUG_KMS("irq timeout id=%u, callback=%ps, irq=%d, pp=%d, atomic_cnt=%d\n",
-+				      DRMID(phys_enc->parent), func,
- 				      irq,
- 				      phys_enc->hw_pp->idx - PINGPONG_0,
- 				      atomic_read(wait_info->atomic_cnt));
-@@ -325,7 +322,7 @@ int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
- 	} else {
- 		ret = 0;
- 		trace_dpu_enc_irq_wait_success(DRMID(phys_enc->parent),
--			intr_idx, irq,
-+			func, irq,
- 			phys_enc->hw_pp->idx - PINGPONG_0,
- 			atomic_read(wait_info->atomic_cnt));
- 	}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-index 803fd6f25da1..9843acdc33bd 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
-@@ -341,13 +341,13 @@ void dpu_encoder_helper_report_irq_timeout(struct dpu_encoder_phys *phys_enc,
-  * dpu_encoder_helper_wait_for_irq - utility to wait on an irq.
-  *	note: will call dpu_encoder_helper_wait_for_irq on timeout
-  * @phys_enc: Pointer to physical encoder structure
-- * @intr_idx: encoder interrupt index
-+ * @irq: IRQ index
-  * @func: IRQ callback to be called in case of timeout
-  * @wait_info: wait info struct
-  * @Return: 0 or -ERROR
-  */
- int dpu_encoder_helper_wait_for_irq(struct dpu_encoder_phys *phys_enc,
--		enum dpu_intr_idx intr_idx,
-+		int irq,
- 		void (*func)(void *arg, int irq_idx),
- 		struct dpu_encoder_wait_info *wait_info);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 7f5b7f0fff2e..8bc3fdbe4821 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -234,7 +234,8 @@ static int _dpu_encoder_phys_cmd_wait_for_idle(
- 	wait_info.atomic_cnt = &phys_enc->pending_kickoff_cnt;
- 	wait_info.timeout_ms = KICKOFF_TIMEOUT_MS;
- 
--	ret = dpu_encoder_helper_wait_for_irq(phys_enc, INTR_IDX_PINGPONG,
-+	ret = dpu_encoder_helper_wait_for_irq(phys_enc,
-+			phys_enc->irq[INTR_IDX_PINGPONG],
- 			dpu_encoder_phys_cmd_pp_tx_done_irq,
- 			&wait_info);
- 	if (ret == -ETIMEDOUT)
-@@ -659,7 +660,8 @@ static int _dpu_encoder_phys_cmd_wait_for_ctl_start(
- 	wait_info.atomic_cnt = &phys_enc->pending_ctlstart_cnt;
- 	wait_info.timeout_ms = KICKOFF_TIMEOUT_MS;
- 
--	ret = dpu_encoder_helper_wait_for_irq(phys_enc, INTR_IDX_CTL_START,
-+	ret = dpu_encoder_helper_wait_for_irq(phys_enc,
-+			phys_enc->irq[INTR_IDX_CTL_START],
- 			dpu_encoder_phys_cmd_ctl_start_irq,
- 			&wait_info);
- 	if (ret == -ETIMEDOUT) {
-@@ -715,7 +717,8 @@ static int dpu_encoder_phys_cmd_wait_for_vblank(
- 
- 	atomic_inc(&cmd_enc->pending_vblank_cnt);
- 
--	rc = dpu_encoder_helper_wait_for_irq(phys_enc, INTR_IDX_RDPTR,
-+	rc = dpu_encoder_helper_wait_for_irq(phys_enc,
-+			phys_enc->irq[INTR_IDX_RDPTR],
- 			dpu_encoder_phys_cmd_pp_rd_ptr_irq,
- 			&wait_info);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-index 1a319d56c879..f262e59d5f5c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
-@@ -486,7 +486,8 @@ static int dpu_encoder_phys_vid_wait_for_vblank(
- 	}
- 
- 	/* Wait for kickoff to complete */
--	ret = dpu_encoder_helper_wait_for_irq(phys_enc, INTR_IDX_VSYNC,
-+	ret = dpu_encoder_helper_wait_for_irq(phys_enc,
-+			phys_enc->irq[INTR_IDX_VSYNC],
- 			dpu_encoder_phys_vid_vblank_irq,
- 			&wait_info);
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
-index 60f63a15a894..58b411fea7d7 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
-@@ -188,25 +188,25 @@ DEFINE_EVENT(dpu_irq_template, dpu_irq_unregister_success,
- );
- 
- TRACE_EVENT(dpu_enc_irq_wait_success,
--	TP_PROTO(uint32_t drm_id, enum dpu_intr_idx intr_idx,
-+	TP_PROTO(uint32_t drm_id, void *func,
- 		 int irq_idx, enum dpu_pingpong pp_idx, int atomic_cnt),
--	TP_ARGS(drm_id, intr_idx, irq_idx, pp_idx, atomic_cnt),
-+	TP_ARGS(drm_id, func, irq_idx, pp_idx, atomic_cnt),
- 	TP_STRUCT__entry(
- 		__field(	uint32_t,		drm_id		)
--		__field(	enum dpu_intr_idx,	intr_idx	)
-+		__field(	void *,			func		)
- 		__field(	int,			irq_idx		)
- 		__field(	enum dpu_pingpong,	pp_idx		)
- 		__field(	int,			atomic_cnt	)
- 	),
- 	TP_fast_assign(
- 		__entry->drm_id = drm_id;
--		__entry->intr_idx = intr_idx;
-+		__entry->func = func;
- 		__entry->irq_idx = irq_idx;
- 		__entry->pp_idx = pp_idx;
- 		__entry->atomic_cnt = atomic_cnt;
- 	),
--	TP_printk("id=%u, intr=%d, irq=%d, pp=%d, atomic_cnt=%d",
--		  __entry->drm_id, __entry->intr_idx,
-+	TP_printk("id=%u, callback=%ps, irq=%d, pp=%d, atomic_cnt=%d",
-+		  __entry->drm_id, __entry->func,
- 		  __entry->irq_idx, __entry->pp_idx, __entry->atomic_cnt)
- );
- 
+Changes since v4:
+ - Use size_t for num_clocks in dpu_kms/dpu_mdss
+ - Use min() in dpu_core_perf_crtc_update()
+ - Drop overcomplicated clock rate setting wrappers inside DP code.
+   We were setting the opp for one clock and setting a rate for a single
+   clock! Call dev_pm_opp_set_rate() and clk_set_rate() directly.
+
+Changes since v3:
+ - Switched to devm_clk_bulk_get_all() per Stephen's suggestion.
+ - Removed a call to of_clk_set_defaults() (per Stephen's suggestion
+   again). It duplicates a call in platform_probe().
+ - Split the first patch (moving helpers to msm_io_utils.c), it's unused
+   now.
+
+Changes since v2:
+ - Retain conditional code/prints in DP code to ease debugging
+ - Rebase on top of msm-next and [1]
+ - Split helper functions to msm_io_utils.c as suggested by Jessica
+
+Changes since v1:
+ - Rebase on top of current tree to fix conflicts
+
+Dmitry Baryshkov (5):
+  drm/msm/dpu: simplify clocks handling
+  drm/msm/dp: "inline" dp_ctrl_set_clock_rate("ctrl_link")
+  drm/msm/dp: set stream_pixel rate directly
+  drm/msm/dp: inline dp_power_clk_set_rate()
+  drm/msm/dp: rewrite dss_module_power to use bulk clock functions
+
+ drivers/gpu/drm/msm/Makefile                  |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |  23 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c   | 187 ------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.h   |  40 ----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  46 ++---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c      |  26 +--
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              |  13 +-
+ drivers/gpu/drm/msm/dp/dp_parser.c            |  43 ++--
+ drivers/gpu/drm/msm/dp/dp_parser.h            |   6 +-
+ drivers/gpu/drm/msm/dp/dp_power.c             | 105 ++--------
+ 12 files changed, 74 insertions(+), 426 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.h
+
 -- 
 2.34.1
 
