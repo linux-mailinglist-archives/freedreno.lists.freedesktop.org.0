@@ -2,34 +2,45 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618904B9BFC
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 10:27:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B2F4B9D93
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 11:51:44 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E35A910EDFD;
-	Thu, 17 Feb 2022 09:27:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 533B610E956;
+	Thu, 17 Feb 2022 10:51:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D42410EDFD
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 09:27:12 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 8E4B13F758;
- Thu, 17 Feb 2022 10:27:09 +0100 (CET)
-Date: Thu, 17 Feb 2022 10:27:07 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20220217092707.2bfzga74xyicl4kb@SoMainline.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F194010EBBF;
+ Thu, 17 Feb 2022 10:51:41 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4A4BD61DFF;
+ Thu, 17 Feb 2022 10:51:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8392BC340E8;
+ Thu, 17 Feb 2022 10:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1645095100;
+ bh=cBpyatwdFGvOfC6HlRDqaMPvmaC9LzMnO4rFf5lGpwk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XCgHma6Qc2q/bG0IQaHPXUfhaCrXd6Z9p4kXNM4saS+TvkwbBevv1mdEI2GHPw9B+
+ Ke5rn1yIrWk5IXJK3z9OokRkCPhbpn74QVX3pCPNtVK5hXVbhwkxDnl2sZEg5PkXrG
+ T5Afg9Y2oDd0mjCs/4Eal+5iAGm+f0zZQbjB9RDG1zNdXJLw2SZDp+qxnkvtdjKgsw
+ /cJVuAp7HNe4RhdahVNSnHpTS1kicI/V8YttEY0KNZn2AQy7jpUG6FzP1V6jewchcI
+ nLMoYv9HzFkKLoSWJHdAdi9/9zChOA5aVOyEtgFWOT6dX8wbbeTJs0DpqCTJ6BjAII
+ cQYHgGbb+Mu5w==
+Date: Thu, 17 Feb 2022 16:21:35 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <Yg4otzVk3HlA8rlE@matsya>
 References: <20220210103423.271016-1-vkoul@kernel.org>
  <20220210103423.271016-14-vkoul@kernel.org>
+ <20220217092707.2bfzga74xyicl4kb@SoMainline.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220210103423.271016-14-vkoul@kernel.org>
+In-Reply-To: <20220217092707.2bfzga74xyicl4kb@SoMainline.org>
 Subject: Re: [Freedreno] [REPOST PATCH v4 13/13] drm/msm/dsi: Add support
  for DSC configuration
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -54,193 +65,38 @@ Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Vinod,
+Hi Marijn,
 
-On 2022-02-10 16:04:23, Vinod Koul wrote:
-> When DSC is enabled, we need to configure DSI registers accordingly and
-> configure the respective stream compression registers.
+On 17-02-22, 10:27, Marijn Suijten wrote:
+> Vinod,
 > 
-> Add support to calculate the register setting based on DSC params and
-> timing information and configure these registers.
+> On 2022-02-10 16:04:23, Vinod Koul wrote:
+> > When DSC is enabled, we need to configure DSI registers accordingly and
+> > configure the respective stream compression registers.
+> > 
+> > Add support to calculate the register setting based on DSC params and
+> > timing information and configure these registers.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Vinod Koul <vkoul@kernel.org>
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-
-I supplied a rather extensive - yet merely scratching the surface -
-review of this patch in:
-
-    https://lore.kernel.org/linux-arm-msm/20211211000315.pavmcc7cc73ilb6l@SoMainline.org/
-
-It seems none of those points have been addressed, bar creating a mesa
-MR to update dsi.xml with a subpar description of the registers (offsets
-only).
-
-For every point that is intentionally ignored, please at least supply a
-justification of why you think this is the right thing to do.
-
-Thanks,
-- Marijn
-
-> ---
->  drivers/gpu/drm/msm/dsi/dsi.xml.h  |  10 +++
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 109 ++++++++++++++++++++++++++++-
->  2 files changed, 118 insertions(+), 1 deletion(-)
+> I supplied a rather extensive - yet merely scratching the surface -
+> review of this patch in:
 > 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi.xml.h b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> index 49b551ad1bff..c1c85df58c4b 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> +++ b/drivers/gpu/drm/msm/dsi/dsi.xml.h
-> @@ -706,4 +706,14 @@ static inline uint32_t DSI_VERSION_MAJOR(uint32_t val)
->  #define REG_DSI_CPHY_MODE_CTRL					0x000002d4
->  
->  
-> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL			0x0000029c
-> +
-> +#define REG_DSI_VIDEO_COMPRESSION_MODE_CTRL2			0x000002a0
-> +
-> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL			0x000002a4
-> +
-> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2			0x000002a8
-> +
-> +#define REG_DSI_COMMAND_COMPRESSION_MODE_CTRL3			0x000002ac
-> +
->  #endif /* DSI_XML */
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index 438c80750682..3d8d5a1daaa3 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -908,6 +908,20 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
->  		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
->  }
->  
-> +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
-> +				  int pic_width, int pic_height)
-> +{
-> +	if (!dsc || !pic_width || !pic_height) {
-> +		pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n", pic_width, pic_height);
-> +		return -EINVAL;
-> +	}
-> +
-> +	dsc->drm->pic_width = pic_width;
-> +	dsc->drm->pic_height = pic_height;
-> +
-> +	return 0;
-> +}
-> +
->  static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  {
->  	struct drm_display_mode *mode = msm_host->mode;
-> @@ -940,7 +954,68 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  		hdisplay /= 2;
->  	}
->  
-> +	if (msm_host->dsc) {
-> +		struct msm_display_dsc_config *dsc = msm_host->dsc;
-> +
-> +		/* update dsc params with timing params */
-> +		dsi_dsc_update_pic_dim(dsc, mode->hdisplay, mode->vdisplay);
-> +		DBG("Mode Width- %d x Height %d\n", dsc->drm->pic_width, dsc->drm->pic_height);
-> +
-> +		/* we do the calculations for dsc parameters here so that
-> +		 * panel can use these parameters
-> +		 */
-> +		dsi_populate_dsc_params(dsc);
-> +
-> +		/* Divide the display by 3 but keep back/font porch and
-> +		 * pulse width same
-> +		 */
-> +		h_total -= hdisplay;
-> +		hdisplay /= 3;
-> +		h_total += hdisplay;
-> +		ha_end = ha_start + hdisplay;
-> +	}
-> +
->  	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
-> +		if (msm_host->dsc) {
-> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
-> +			u32 reg, intf_width, slice_per_intf;
-> +			u32 total_bytes_per_intf;
-> +
-> +			/* first calculate dsc parameters and then program
-> +			 * compress mode registers
-> +			 */
-> +			intf_width = hdisplay;
-> +			slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
-> +
-> +			dsc->drm->slice_count = 1;
-> +			dsc->bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * 8, 8);
-> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
-> +
-> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +			dsc->pclk_per_line =  DIV_ROUND_UP(total_bytes_per_intf, 3);
-> +			dsc->bytes_per_pkt = dsc->bytes_in_slice * dsc->drm->slice_count;
-> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-> +
-> +			reg = dsc->bytes_per_pkt << 16;
-> +			reg |= (0x0b << 8);    /* dtype of compressed image */
-> +
-> +			/* pkt_per_line:
-> +			 * 0 == 1 pkt
-> +			 * 1 == 2 pkt
-> +			 * 2 == 4 pkt
-> +			 * 3 pkt is not supported
-> +			 * above translates to ffs() - 1
-> +			 */
-> +			reg |= (ffs(dsc->pkt_per_line) - 1) << 6;
-> +
-> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +			reg |= dsc->eol_byte_num << 4;
-> +			reg |= 1;
-> +
-> +			dsi_write(msm_host,
-> +				  REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
-> +		}
-> +
->  		dsi_write(msm_host, REG_DSI_ACTIVE_H,
->  			DSI_ACTIVE_H_START(ha_start) |
->  			DSI_ACTIVE_H_END(ha_end));
-> @@ -959,8 +1034,40 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
->  			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
->  	} else {		/* command mode */
-> +		if (msm_host->dsc) {
-> +			struct msm_display_dsc_config *dsc = msm_host->dsc;
-> +			u32 reg, reg_ctrl, reg_ctrl2;
-> +			u32 slice_per_intf, bytes_in_slice, total_bytes_per_intf;
-> +
-> +			reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
-> +			reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
-> +
-> +			slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
-> +			bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width *
-> +						      dsc->drm->bits_per_pixel, 8);
-> +			dsc->drm->slice_chunk_size = bytes_in_slice;
-> +			total_bytes_per_intf = dsc->bytes_in_slice * slice_per_intf;
-> +			dsc->pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-> +
-> +			reg = 0x39 << 8;
-> +			reg |= ffs(dsc->pkt_per_line) << 6;
-> +
-> +			dsc->eol_byte_num = total_bytes_per_intf % 3;
-> +			reg |= dsc->eol_byte_num << 4;
-> +			reg |= 1;
-> +
-> +			reg_ctrl |= reg;
-> +			reg_ctrl2 |= bytes_in_slice;
-> +
-> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
-> +			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
-> +		}
-> +
->  		/* image data and 1 byte write_memory_start cmd */
-> -		wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-> +		if (!msm_host->dsc)
-> +			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-> +		else
-> +			wc = mode->hdisplay / 2 + 1;
->  
->  		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
->  			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
-> -- 
-> 2.31.1
+>     https://lore.kernel.org/linux-arm-msm/20211211000315.pavmcc7cc73ilb6l@SoMainline.org/
+
+Sorry somehow I seem to have overlooked this one.
 > 
+> It seems none of those points have been addressed, bar creating a mesa
+> MR to update dsi.xml with a subpar description of the registers (offsets
+> only).
+
+Mesa MR was planned as we get more closer to having reviews.
+
+> For every point that is intentionally ignored, please at least supply a
+> justification of why you think this is the right thing to do.
+
+Ofcourse, i will reply to these now and address as required.
+
+-- 
+~Vinod
