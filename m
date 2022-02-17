@@ -1,62 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC7E44B94AE
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 00:46:47 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 793834B94D0
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 01:08:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 203C110E643;
-	Wed, 16 Feb 2022 23:46:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D54F410E672;
+	Thu, 17 Feb 2022 00:08:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC4310E628
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 23:46:45 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- v6-20020a05683024a600b005ac1754342fso2560400ots.5
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 15:46:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=Kwpt2sUL3NJ3srh/WboVkkXpszIC4Q/LDD+d6HlrRIY=;
- b=AUTTrQBHC7mixxUEkiAyUTrlGDju362Lne/nNGvQKLuIbcK//xaWuktOnM1G7jEe0r
- fZflm5jVwEUnMm07DDH+FGTzbyAGA3lnCdUkx3Bve7SskIoGdOV5qqbZAjFrm0xrJWZG
- ScOC3Qo1++xQahNQgIO3enbM/sharIUzhMepw=
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE6C10E651
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 00:08:41 +0000 (UTC)
+Received: by mail-lj1-x235.google.com with SMTP id o9so5814439ljq.4
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 16:08:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cJ+5mbwD/7lPCQPyt9Z7JoknhxYPPxgDVRd9pXODZ5o=;
+ b=vC3CA/0YHRFW4zBqC0DeMPM5gDVicSFaSDXd1UK11xJBi8q+szSDcaAv33hiWrgkj4
+ EL26NvtOIjV1cQWedrxXJuGCDYKAYK14sVCzugaPkkdrCHWzDJDITQ1aVWcReqPd0R8j
+ E5Iy5vHe2r8W+Fi6hP/VgoGwjKCO17p0Ma3win19afh4VMLQN7RvgbVe+Sui+M/q0Ukc
+ q/R3yQ8MCJfox1DA4wXjPJxHlcknj3AllFDXIHC6/ySzK0bhmoNhbewwQ68tuwIO1MvZ
+ 7n9idR0HtuLK6VNP8/OKunOf4lAA8XWw/zeTlq3jT28tT675wPvlX3yl+N6gSgTaDDlO
+ pyIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=Kwpt2sUL3NJ3srh/WboVkkXpszIC4Q/LDD+d6HlrRIY=;
- b=Rt4FjgAK6DOafgblNsvIe8Hj+khUI2ppiYFPkTsSL0LWcCdaefRlbesxmfNqSjC4V6
- pd7DQWThbcpR4vMLXhhjk1XnNrVMVRLzGeUF5F7yyXOaZ+XhVg82b7ZN8nNBit/xy17m
- Wl2So/qdVOTAGnh0YMPl3lvsHvDWCEyQKOd/UivOz+yPnN/6JXtmdOPdsBqSNU9yI+2p
- tvd4brbiljalpONqpnvVXYJAJp1NaRGa0TPjNz50TNEp8Ul3r/RH1QLRYFPBHWtPpWMh
- vHn5OVFO5QPmvcVaF6iWFfy4ESox08Ka356ET9qIeiiXQuZRgSAm6gUCHP0E8xnB+P3z
- W/KA==
-X-Gm-Message-State: AOAM533AIDt9DE2w8XSqTFp2y2Etulk9blN2lmZDOBBdU1ylCUrcESxK
- LbwEsCXfeaQEfCF4w3adp+qIIMlevxifBZlZbPk5wA==
-X-Google-Smtp-Source: ABdhPJzvDBotbDuvYSRUTv7F8cbOMwR37rDKbNepWqplPiPt+4QJBmOCl44hw7yykOd5pe0TK555IzBledo4gwXDL1M=
-X-Received: by 2002:a9d:7687:0:b0:59e:da8c:5d32 with SMTP id
- j7-20020a9d7687000000b0059eda8c5d32mr114110otl.77.1645055204515; Wed, 16 Feb
- 2022 15:46:44 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Feb 2022 15:46:44 -0800
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cJ+5mbwD/7lPCQPyt9Z7JoknhxYPPxgDVRd9pXODZ5o=;
+ b=An5HMIGClljT5j83SA0yK3sHus2TBGM7Bej1gnzkm84mP46Gz4/59UhrFRFI6CqBdU
+ o0MS7FqoECnUpPDUy6/SyC+w5dJaMUXvM62kGCRFRblCKN16NRaS29XeQg61iuNmlfKa
+ FoGjggHYTRq1yTmkD253w9ZTKd3ZapoeHRfJ6ev2j91KHlhYCqyNi2/An4nVi75HiBTj
+ aEV1JeuUCDkf1TCzVxPeuTmsmxr6o3elnPiyQSiIruBVsLwmGVox8XGkWbWw+Gwbojj9
+ SyyiCMULSK1ht7AbX+OT3KwNlBWHZd6OMKfF+gRuB3tBcTSF1RkZnvoTBjde0d4tNPMs
+ XRZg==
+X-Gm-Message-State: AOAM530tmberippkpfGKVN7GZBIlIMyDD2DNq0b8qmvcGvR3J3hyvcit
+ xnzH6mFBa6AkY+8X7GY7fpe8SQ==
+X-Google-Smtp-Source: ABdhPJyNCL64USD67u1GLsNkk0UPMfyzMabfTjAIsduxOUYQMuJVlRYXMbUVQS/fcJg7SwvRnyLHAA==
+X-Received: by 2002:a05:651c:307:b0:244:dc4c:c2f2 with SMTP id
+ a7-20020a05651c030700b00244dc4cc2f2mr331058ljp.531.1645056519081; 
+ Wed, 16 Feb 2022 16:08:39 -0800 (PST)
+Received: from eriador.lan ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id x3sm740845lfr.283.2022.02.16.16.08.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Feb 2022 16:08:38 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 17 Feb 2022 03:08:37 +0300
+Message-Id: <20220217000837.435340-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <1643828199-8564-4-git-send-email-quic_khsieh@quicinc.com>
-References: <1643828199-8564-1-git-send-email-quic_khsieh@quicinc.com>
- <1643828199-8564-4-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 16 Feb 2022 15:46:44 -0800
-Message-ID: <CAE-0n534MH7ih4nKbjY5EewcZ0J73Zp_A=Q-CJ0M_z3nWoVaVQ@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 3/3] drm/msm/dp: replace DRM_DEBUG_DP
- marco with drm_dbg_dp
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dsi/phy: fix 7nm v4.0 settings for
+ C-PHY mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,39 +69,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-02-02 10:56:39)
+The dsi_7nm_phy_enable() disagrees with downstream for
+glbl_str_swi_cal_sel_ctrl and glbl_hstx_str_ctrl_0 values. Update
+programmed settings to match downstream driver. To remove the
+possibility for such errors in future drop less_than_1500_mhz
+assignment and specify settings explicitly.
 
-Please add some commit text
+Fixes: 5ac178381d26 ("drm/msm/dsi: support CPHY mode for 7nm pll/phy")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_audio.c   |  49 +++++++++++------
->  drivers/gpu/drm/msm/dp/dp_catalog.c |  34 +++++++-----
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 106 +++++++++++++++++++-----------------
->  drivers/gpu/drm/msm/dp/dp_display.c |  68 +++++++++++++----------
->  drivers/gpu/drm/msm/dp/dp_drm.c     |   4 +-
->  drivers/gpu/drm/msm/dp/dp_link.c    |  99 +++++++++++++++++++--------------
->  drivers/gpu/drm/msm/dp/dp_panel.c   |  43 +++++++++------
->  drivers/gpu/drm/msm/dp/dp_parser.c  |   2 +-
->  drivers/gpu/drm/msm/dp/dp_power.c   |  20 ++++---
->  9 files changed, 246 insertions(+), 179 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
-> index d7e4a39..4fbbe0a 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-> @@ -136,7 +136,8 @@ static void dp_audio_stream_sdp(struct dp_audio_private *audio)
->         parity_byte = dp_audio_calculate_parity(new_value);
->         value |= ((new_value << HEADER_BYTE_1_BIT)
->                         | (parity_byte << PARITY_BYTE_1_BIT));
-> -       DRM_DEBUG_DP("Header Byte 1: value = 0x%x, parity_byte = 0x%x\n",
-> +       drm_dbg_dp((struct drm_device *)NULL,
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index 36eb6109cb88..6e506feb111f 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -864,20 +864,26 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 	/* Alter PHY configurations if data rate less than 1.5GHZ*/
+ 	less_than_1500_mhz = (clk_req->bitclk_rate <= 1500000000);
+ 
+-	/* For C-PHY, no low power settings for lower clk rate */
+-	if (phy->cphy_mode)
+-		less_than_1500_mhz = false;
+-
+ 	if (phy->cfg->quirks & DSI_PHY_7NM_QUIRK_V4_1) {
+ 		vreg_ctrl_0 = less_than_1500_mhz ? 0x53 : 0x52;
+-		glbl_rescode_top_ctrl = less_than_1500_mhz ? 0x3d :  0x00;
+-		glbl_rescode_bot_ctrl = less_than_1500_mhz ? 0x39 :  0x3c;
++		if (phy->cphy_mode) {
++			glbl_rescode_top_ctrl = 0x00;
++			glbl_rescode_bot_ctrl = 0x3c;
++		} else {
++			glbl_rescode_top_ctrl = less_than_1500_mhz ? 0x3d :  0x00;
++			glbl_rescode_bot_ctrl = less_than_1500_mhz ? 0x39 :  0x3c;
++		}
+ 		glbl_str_swi_cal_sel_ctrl = 0x00;
+ 		glbl_hstx_str_ctrl_0 = 0x88;
+ 	} else {
+ 		vreg_ctrl_0 = less_than_1500_mhz ? 0x5B : 0x59;
+-		glbl_str_swi_cal_sel_ctrl = less_than_1500_mhz ? 0x03 : 0x00;
+-		glbl_hstx_str_ctrl_0 = less_than_1500_mhz ? 0x66 : 0x88;
++		if (phy->cphy_mode) {
++			glbl_str_swi_cal_sel_ctrl = 0x03;
++			glbl_hstx_str_ctrl_0 = 0x66;
++		} else {
++			glbl_str_swi_cal_sel_ctrl = less_than_1500_mhz ? 0x03 : 0x00;
++			glbl_hstx_str_ctrl_0 = less_than_1500_mhz ? 0x66 : 0x88;
++		}
+ 		glbl_rescode_top_ctrl = 0x03;
+ 		glbl_rescode_bot_ctrl = 0x3c;
+ 	}
+-- 
+2.34.1
 
-Why can't we pass the platform device pointer? Surely the cast is not
-necessary and in fact harmful.
