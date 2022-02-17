@@ -2,69 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 253F34B996B
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 07:46:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D30A44B99A7
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 08:12:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4827910E93B;
-	Thu, 17 Feb 2022 06:46:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F76710E935;
+	Thu, 17 Feb 2022 07:12:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048BD10E945
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 06:46:16 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id u20so8137418lff.2
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 22:46:15 -0800 (PST)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1FF10E935
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 07:12:23 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id p22so8215658lfu.5
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 23:12:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=aWFKmjSTHV/1Uy7sHNTLFB57odwAHYMJXSbwkdw6WT4=;
- b=YIa0i4ieE1eaH5m5gYuX+zksrscCOi3t4ujD/UWVuUJpVu7gPr+XmKBMepc7/Z0UFD
- gn4GgBcpHyPN2+lYhDgMRyc5r9nI22Qp8koxghYZj8o37kg8plt5LL5IpAcLbwCQw13G
- XtCHQ4FfaXTY0HnXTCuIomu98rE1YBUGqW3KrXMmew0S7BC92M6wjeea/vJCoqEYoSOx
- aSp7xdnkKm0F24W34p9nnkmdSU1l1JKh4D8gAgGDcPN7d0NF3l4CXuSEUWl3oyZJeSra
- rdrsyJqRf0qE/Uj8k511E19EF2ARa0FgDoJwAukjhiw4k2FRGokMglDtHJL3Ke+x7Mwp
- gUEQ==
+ bh=cEr9ceiXSBzxtl9pW55l2PGta6KX4196ZTMOQFJarqY=;
+ b=np3fgCu6l1VhZUSWIXrd8VY48YtoJal3smJlQs93fg9Ywg5XRZoejvZRhulbNkpQ/y
+ AWSXr4LWhVvagLBB1oN24NnacWGTzlzQNmftkwb7dl1IWGJ1kEUSvyMZPSY3unTbKUeF
+ d4RZiITdFXae8qr2GVo/nv2HOIKnpJ36bi5eqVN4MdYQUAghyEmivM1CJeyHpdppOtYh
+ 9vraOypWdpLsv86N+130sPdZ68X1MZFrh8XGqAQe5AIxxdGIF1R0W5PPaI/mwwQKiAxO
+ 2Ek8GPxa/ERfzESvdXEsopRODe82vRI2Dp4WKd+4VhwaIkCGjuk5+Ie99kRmrtK9wt5+
+ n2ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=aWFKmjSTHV/1Uy7sHNTLFB57odwAHYMJXSbwkdw6WT4=;
- b=qV7RBkJP0eUT7+k03G/LMsR9w9Bhi1fmy8Nmd2A76uOmZjLvbn3VzfgUETsEJinJl6
- CABZojM6w2j5mF+dAQ7dJa/5dI0djcmCiStnMH8GdCrMSb3Ei06j9UoC6HehDNZFvIqZ
- SIoSmX+aHrAz/8W3PCSXvvmIToH+8LEll64tlguCio2d+wGqsRKBpxH7yx7XTTPxXtvy
- PPK7E48XC9sRQgb9Jxa95VgiAYU17YSQMm4WeTWrWiG9m+ELsjMu/UP6i/yZl25N8Ca3
- 9jEHXCX8tXDDRW6NltWs7IS3s/TKG/PyCrI7wHcYQn8EcQP3OucXaVpBzVeeR2JxjkNe
- Bc1Q==
-X-Gm-Message-State: AOAM531Rw+uIjJq9JeXnwbgwiHTe0lBo/9R5fEms5h/BG9sGoJjF1nyS
- cLi3k7PjhMT3XqagNL8VEejJsQ==
-X-Google-Smtp-Source: ABdhPJwTmA8+bpvfuxQXEMcZ9qVRfdTf7xH/IPQHvG+6uIqEFJP3XicNP9Reesg25IqAybbsMTVmyg==
-X-Received: by 2002:a05:6512:224b:b0:443:ac94:3de3 with SMTP id
- i11-20020a056512224b00b00443ac943de3mr148169lfu.60.1645080374335; 
- Wed, 16 Feb 2022 22:46:14 -0800 (PST)
+ bh=cEr9ceiXSBzxtl9pW55l2PGta6KX4196ZTMOQFJarqY=;
+ b=kYwQzCdPRx5QM2jQQPplFRSVdPBZECb5fsZJ3FQxdq2zWciQq3DsGpKtplXc2fPfJj
+ BspV3V3/vzVnpWNajiqYEukZHzFTbEGaw9LHHVPsn60sVgcCspuIEFt/o9Xqq59/nBnw
+ wlHg/01oPQ+opO5sVShMblWu47XfPfK45qWWEpbyFlBAMidRVeiEZ5ix5nrE19KSpOUI
+ rWy+fgg09YfPig3UXNlOI077nMj/rlOPDmE8IznfUkp3OVyFe3psAIK0FcgDtb2h7Z/4
+ EF3ixVk/0XzMpTkq/1PXeMsOY1DLikoDyCOO3gRNchWtpxaVxo8bnd/AnISxHlwMS6pY
+ 37pg==
+X-Gm-Message-State: AOAM531bUm7rXKJxtVm6UHwqQsMrepeUXuW43qL06UQCas/dzsuww52E
+ UeqtBgf2WXKnm+2BW4bJNyiU+Q==
+X-Google-Smtp-Source: ABdhPJyUzt65C5f6ESKZs6SoN+X8J1YfJ+9Ofv8uW/Qw02VVoWXM/VHkeoOw1AcbxBoh2tXXohpYPA==
+X-Received: by 2002:ac2:58d8:0:b0:442:bc4b:afb7 with SMTP id
+ u24-20020ac258d8000000b00442bc4bafb7mr1116916lfo.99.1645081941762; 
+ Wed, 16 Feb 2022 23:12:21 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id g20sm1872269lja.50.2022.02.16.22.46.13
+ by smtp.gmail.com with ESMTPSA id o18sm3276467lfk.17.2022.02.16.23.12.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Feb 2022 22:46:13 -0800 (PST)
-Message-ID: <82707bbf-5005-9765-292b-1f883a32946c@linaro.org>
-Date: Thu, 17 Feb 2022 09:46:13 +0300
+ Wed, 16 Feb 2022 23:12:21 -0800 (PST)
+Message-ID: <acf0a2a2-f2e5-906a-3c51-525abd18ee6f@linaro.org>
+Date: Thu, 17 Feb 2022 10:12:19 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org, vkoul@kernel.org,
- daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-References: <1645049106-30481-1-git-send-email-quic_khsieh@quicinc.com>
- <1645049106-30481-4-git-send-email-quic_khsieh@quicinc.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Vinod Koul <vkoul@kernel.org>
+References: <20220210103423.271016-1-vkoul@kernel.org>
+ <20220210103423.271016-9-vkoul@kernel.org>
+ <67006cc4-3385-fe03-bb4d-58623729a8a8@quicinc.com> <Yg3mvEvqYs89dJWI@matsya>
+ <4b89f5fe-0752-3c6a-3fb0-192f1f2e7b9e@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1645049106-30481-4-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <4b89f5fe-0752-3c6a-3fb0-192f1f2e7b9e@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v7 3/4] drm/msm/dpu: replace BIT(x) with
- correspond marco define string
+Subject: Re: [Freedreno] [REPOST PATCH v4 08/13] drm/msm/disp/dpu1: Don't
+ use DSC with mode_3d
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,77 +76,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 17/02/2022 01:05, Kuogee Hsieh wrote:
-> To improve code readability, this patch replace BIT(x) with
-> correspond register bit define string
+On 17/02/2022 09:33, Abhinav Kumar wrote:
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-
-This patch should come first.
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 16 +++++++++++-----
->   1 file changed, 11 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> index b68e696..8f10aab 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -61,6 +61,12 @@
->   
->   #define   INTF_MUX                      0x25C
->   
-> +#define INTF_CFG_ACTIVE_H_EN    BIT(29)
-> +#define INTF_CFG_ACTIVE_V_EN    BIT(30)
-> +
-> +#define INTF_CFG2_DATABUS_WIDEN BIT(0)
-> +#define INTF_CFG2_DATA_HCTL_EN  BIT(4)
-> +
->   static const struct dpu_intf_cfg *_intf_offset(enum dpu_intf intf,
->   		const struct dpu_mdss_cfg *m,
->   		void __iomem *addr,
-> @@ -139,13 +145,13 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->   
->   	if (active_h_end) {
->   		active_hctl = (active_h_end << 16) | active_h_start;
-> -		intf_cfg |= BIT(29);
-> +		intf_cfg |= INTF_CFG_ACTIVE_H_EN;
->   	} else {
->   		active_hctl = 0;
->   	}
->   
->   	if (active_v_end)
-> -		intf_cfg |= BIT(30);
-> +		intf_cfg |= INTF_CFG_ACTIVE_V_EN;
->   
->   	hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
->   	display_hctl = (hsync_end_x << 16) | hsync_start_x;
-> @@ -156,7 +162,7 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->   	 * if compression is enabled in 1 pixel per clock mode
->   	 */
->   	if (p->wide_bus_en)
-> -		intf_cfg2 |=  (BIT(0) | BIT(4));
-> +		intf_cfg2 |= (INTF_CFG2_DATABUS_WIDEN | INTF_CFG2_DATA_HCTL_EN);
->   
->   	data_width = p->width;
->   
-> @@ -178,8 +184,8 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
->   		active_hctl = (active_h_end << 16) | active_h_start;
->   		display_hctl = active_hctl;
->   
-> -		intf_cfg |= BIT(29);
-> -		intf_cfg |= BIT(30);
-> +		intf_cfg |= INTF_CFG_ACTIVE_H_EN;
-> +		intf_cfg |= INTF_CFG_ACTIVE_V_EN;
->   	}
->   
->   	den_polarity = 0;
+> On 2/16/2022 10:10 PM, Vinod Koul wrote:
+>> On 16-02-22, 19:11, Abhinav Kumar wrote:
+>>>
+>>>
+>>> On 2/10/2022 2:34 AM, Vinod Koul wrote:
+>>>> We cannot enable mode_3d when we are using the DSC. So pass
+>>>> configuration to detect DSC is enabled and not enable mode_3d
+>>>> when we are using DSC
+>>>>
+>>>> We add a helper dpu_encoder_helper_get_dsc() to detect dsc
+>>>> enabled and pass this to .setup_intf_cfg()
+>>>>
+>>>> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+>>>
+>>> We should not use 3D mux only when we use DSC merge topology.
+>>> I agree that today we use only 2-2-1 topology for DSC which means its 
+>>> using
+>>> DSC merge.
+>>>
+>>> But generalizing that 3D mux should not be used for DSC is not right.
+>>>
+>>> You can detect DSC merge by checking if there are two encoders and one
+>>> interface in the topology and if so, you can disable 3D mux.
+>>
+>> Right now with DSC we disable that as suggested by Dmitry last time.
+>> Whenever we introduce merge we should revisit this, for now this should
+>> suffice
+>>
+> 
+> Sorry I didnt follow.
+> 
+> The topology which you are supporting today IS DSC merge 2-2-1. I didnt 
+> get what you mean by "whenever we introduce".
+> 
+> I didnt follow Dmitry's comment either.
+> 
+> "anybody adding support for SDE_RM_TOPOLOGY_DUALPIPE_3DMERGE_DSC handle 
+> this."
+> 
+> 3D mux shouldnt be used when DSC merge is used.
+> 
+> The topology Dmitry is referring to will not use DSC merge but you are 
+> using it here and thats why you had to make this patch in the first 
+> place. So I am not sure why would someone who uses 3D merge topology 
+> worry about DSC merge. Your patch is the one which deals with the 
+> topology in question.
+> 
+> What I am suggesting is a small but necessary improvement to this patch.
+
+It seems that we can replace this patch by changing 
+dpu_encoder_helper_get_3d_blend_mode() to contain the following 
+condition (instead of the one present there). Does the following seem 
+correct to you:
+
+static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+                 struct dpu_encoder_phys *phys_enc)
+{
+         struct dpu_crtc_state *dpu_cstate;
+
+         if (!phys_enc || phys_enc->enable_state == DPU_ENC_DISABLING)
+                 return BLEND_3D_NONE;
+
+         dpu_cstate = to_dpu_crtc_state(phys_enc->parent->crtc->state);
+
++	/* Use merge_3d unless DSCMERGE topology is used */
+         if (phys_enc->split_role == ENC_ROLE_SOLO &&
++           hweight(dpu_encoder_helper_get_dsc(phys_enc)) != 1 &&
+             dpu_cstate->num_mixers == CRTC_DUAL_MIXERS)
+                 return BLEND_3D_H_ROW_INT;
+
+         return BLEND_3D_NONE;
+}
+
+
+> 
+> All that you have to do is in query whether DSC merge is used from the 
+> topology. You can do it in multiple ways:
+> 
+> 1) Either query this from the encoder
+> 2) Store a bool "dsc_merge" in the intf_cfg
+> 
 
 
 -- 
