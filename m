@@ -2,58 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA55E4BABF4
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 22:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41A354BABFA
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 22:44:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A902D10E854;
-	Thu, 17 Feb 2022 21:44:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF31510E856;
+	Thu, 17 Feb 2022 21:44:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [IPv6:2607:f8b0:4864:20::f30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54E0010E842
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 21:44:08 +0000 (UTC)
-Received: by mail-qv1-xf30.google.com with SMTP id h9so11020877qvm.0
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 13:44:08 -0800 (PST)
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F89710E85A
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 21:44:26 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id de39so6056900qkb.13
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 13:44:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=6R8qn+rbL8OvPipxuVgINO0b1lTKNrdKLs//Tzx1/Vg=;
- b=OUIGVb3AgkfYqWJ/jpUcEbfG8cQNrWOf8W2dm9Aqt3J2zie173GvWoJ6AE1eFBXLC+
- BSrfwVz9fk/DeGoOPMaaLOco12vCxmYrdThUp0Oa9hS/3sFO6UnQIqVcOO4F2xKxh+PS
- KxCRQL7yuVFQ8uZvzWDrWsR0S/qmvs3ZYwPY2d2PLEzOwj61ELQhYX+B1P1CQWUgQ3AI
- ZxF2302qHhiCMNBL+mmWhLle2wsG0oQerm4BN3OG3PPiqrNpxvWA/AyXeef6nJeL8ksP
- FrqLcsYjKGcHLtKtfpcvyAxnuIyMEMepLLNdQ1yYlz2Ado2t2Fueu8AP/0v5WbaBpg5o
- +kWQ==
+ :cc; bh=5Rr98hn7oiLwb3sXhDwP8hg9nXg3EcyZrzHqqe01vCc=;
+ b=wDX+ftq8p+8jCvPhoDUIKpyHez2FGPXGflM+13rCN6II1W7Twta88jBt9Vh6AXzA9+
+ lB3wcNhgtT25fEv1/4LUmh46Qkgt8dPgIAPXH39QFtsWAV08PeWR70fJGDszVZKpmy8N
+ bBT9z3/p568CaqdB40b6uiGxrCA0IW5m5paj/kEqIrvzoMOcJxZwPumgOfzdZSyNED1a
+ VOTfeQPdXgU1qwv6PGPRQOLuwypQpqDNq2U7R+Si/701OldJ2QSkvJNpQj2opO1n3rc1
+ 97r9oMOdjUASWzGt3K+fw9hY/icpqFoOvdqa1rePx3SEU5ABhPICmxpLYKFPzntDIJNo
+ 4myw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=6R8qn+rbL8OvPipxuVgINO0b1lTKNrdKLs//Tzx1/Vg=;
- b=yNMaO1nGc9G6v1TzJcYO+d8kla90IQP7mU694uBKRqUo0YvoPCiIU00ccAbggtZBsN
- zmOcR7i3FupJesEKGg/T9BCv0VLsmM+brqeysY91+SxULvSwEP2qznj1p3r+06ffxeee
- +LkclGvbrvZk9PfWrE3YaV7woHL1Uv8gIW1re95W48f+iNHumNceI0qX9CMF32oV+0AM
- 2J3GIyD/0Lh5ij0C1Fu1oWRBvGt5oTUpFN+wkF8y2mCadDzljRdpzYwWPa3uiRLDEzth
- hpNd+V56wuJ+26VLLBHaVZ5y8MCZx+7EPd0aCCUQmD+87xzQHFwe2SXl8prHK2ig2jEw
- j3Tg==
-X-Gm-Message-State: AOAM533rXUjZjUkNKr8LE4fBqsyJvTFlEB5ENq2nCZb5aOMrOZvzMHux
- bIZkQH26jj5qA9W0p2qG6fw2BuWs1og7sMrQnABbAQ==
-X-Google-Smtp-Source: ABdhPJy1qvJVD1rgLNeWV3GUhnlxwMyxzExFz2q3A1g24QsHgiswLGR3hNBpdmvyvE2dyuEWTwWn6PzdWBJHOiiKd4Y=
-X-Received: by 2002:ac8:584c:0:b0:2dd:89dc:8000 with SMTP id
- h12-20020ac8584c000000b002dd89dc8000mr1907274qth.370.1645134247505; Thu, 17
- Feb 2022 13:44:07 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=5Rr98hn7oiLwb3sXhDwP8hg9nXg3EcyZrzHqqe01vCc=;
+ b=0LHXpRGb+dEGpcHAaevCqOgooSO1OyuwvqzK/MIndRbYUZmyMNpDoZfF4ecMUafwiA
+ 7/nlSXzu3ibZtRZZxip2wWPZkpBkrPSPEs99WFZwd6GxX6N5iA7fL26FP8efO2lvXywc
+ bsMZS2D4G4hVEm63sg3ZvSoTAL/tMA8Oxo8S1y6DJljMaABiZe6lvGp7IpNVqeBkm3AA
+ 73/4rG3g40dgvvEPCSuF2rezVejHovVHb9MNAYBWxM4glJD0qlDDF2VvK9I8+vGkDW2t
+ jsb8ou4yZ1gj7T48vXxR30vPGU47yNmIelK1At4nsgKphGiWUqTNZrujiVzPjwtCg8x3
+ UBAQ==
+X-Gm-Message-State: AOAM533kA1+vH+jSUSugieN33EII2Zb1U6ICZgm67V64MK9yMz3MlOES
+ q4bItl+rMh5tZWmytPgmvSLqM3CCKUT8o6XItf+9nA==
+X-Google-Smtp-Source: ABdhPJwLUI59eFj6lZZDKPgP4ChCLwHjm29xnX5XQmsVjKzi21hEk4rXhMhPTrxHPZZGxIDxkpvEgBRHkaYoHyLrbm0=
+X-Received: by 2002:a05:620a:4307:b0:507:d5b1:f65e with SMTP id
+ u7-20020a05620a430700b00507d5b1f65emr2849018qko.363.1645134265492; Thu, 17
+ Feb 2022 13:44:25 -0800 (PST)
 MIME-Version: 1.0
 References: <1645133788-5057-1-git-send-email-quic_khsieh@quicinc.com>
- <1645133788-5057-2-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1645133788-5057-2-git-send-email-quic_khsieh@quicinc.com>
+ <1645133788-5057-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1645133788-5057-3-git-send-email-quic_khsieh@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 18 Feb 2022 00:43:56 +0300
-Message-ID: <CAA8EJpqu2VsYkACe+FL+Z0J=j7Pp-w69_YNyBWn_7Ah1GoW23Q@mail.gmail.com>
+Date: Fri, 18 Feb 2022 00:44:14 +0300
+Message-ID: <CAA8EJposi1jVw+N7AsuHX8An44K-MiwpsOauY7FHRj5wnBBKMw@mail.gmail.com>
 To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v8 1/4] drm/msm/dpu: adjust display_v_end
- for eDP and DP
+Subject: Re: [Freedreno] [PATCH v8 2/4] drm/msm/dpu: replace BIT(x) with
+ correspond marco define string
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +64,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, Jonathan Marek <jonathan@marek.ca>,
- quic_abhinavk@quicinc.com, airlied@linux.ie, freedreno@lists.freedesktop.org,
- vkoul@kernel.org, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, quic_aravindh@quicinc.com,
- bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ quic_aravindh@quicinc.com, bjorn.andersson@linaro.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Fri, 18 Feb 2022 at 00:36, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
 >
-> The =E2=80=9CDP timing=E2=80=9D requires the active region to be defined =
-in the
-> bottom-right corner of the frame dimensions which is different
-> with DSI. Therefore both display_h_end and display_v_end need
-> to be adjusted accordingly. However current implementation has
-> only display_h_end adjusted.
+> To improve code readability, this patch replace BIT(x) with
+> correspond register bit define string
 >
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
-Fixes: fc3a69ec68d3 ("drm/msm/dpu: intf timing path for displayport")
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_hw_intf.c
-> index 116e2b5..284f561 100644
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
+> index 284f561..c2cd185 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-> @@ -148,6 +148,7 @@ static void dpu_hw_intf_setup_timing_engine(struct dp=
-u_hw_intf *ctx,
->                 active_v_end =3D active_v_start + (p->yres * hsync_period=
-) - 1;
+> @@ -60,6 +60,12 @@
 >
->                 display_v_start +=3D p->hsync_pulse_width + p->h_back_por=
-ch;
-> +               display_v_end   -=3D p->h_front_porch;
+>  #define   INTF_MUX                      0x25C
 >
->                 active_hctl =3D (active_h_end << 16) | active_h_start;
->                 display_hctl =3D active_hctl;
+> +#define INTF_CFG_ACTIVE_H_EN   BIT(29)
+> +#define INTF_CFG_ACTIVE_V_EN   BIT(30)
+> +
+> +#define INTF_CFG2_DATABUS_WIDEN        BIT(0)
+> +#define INTF_CFG2_DATA_HCTL_EN BIT(4)
+> +
+>  static const struct dpu_intf_cfg *_intf_offset(enum dpu_intf intf,
+>                 const struct dpu_mdss_cfg *m,
+>                 void __iomem *addr,
+> @@ -130,13 +136,13 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>
+>         if (active_h_end) {
+>                 active_hctl = (active_h_end << 16) | active_h_start;
+> -               intf_cfg |= BIT(29);    /* ACTIVE_H_ENABLE */
+> +               intf_cfg |= INTF_CFG_ACTIVE_H_EN;
+>         } else {
+>                 active_hctl = 0;
+>         }
+>
+>         if (active_v_end)
+> -               intf_cfg |= BIT(30); /* ACTIVE_V_ENABLE */
+> +               intf_cfg |= INTF_CFG_ACTIVE_V_EN;
+>
+>         hsync_ctl = (hsync_period << 16) | p->hsync_pulse_width;
+>         display_hctl = (hsync_end_x << 16) | hsync_start_x;
+> @@ -182,7 +188,7 @@ static void dpu_hw_intf_setup_timing_engine(struct dpu_hw_intf *ctx,
+>                                 (0x21 << 8));
+>
+>         if (ctx->cap->features & BIT(DPU_DATA_HCTL_EN)) {
+> -               intf_cfg2 |= BIT(4);
+> +               intf_cfg2 |= INTF_CFG2_DATA_HCTL_EN;
+>                 display_data_hctl = display_hctl;
+>                 DPU_REG_WRITE(c, INTF_CONFIG2, intf_cfg2);
+>                 DPU_REG_WRITE(c, INTF_DISPLAY_DATA_HCTL, display_data_hctl);
 > --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum=
-,
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 > a Linux Foundation Collaborative Project
 >
 
 
---=20
+-- 
 With best wishes
 Dmitry
