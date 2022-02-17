@@ -1,64 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83F6F4B9746
-	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 04:54:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF3C4B974C
+	for <lists+freedreno@lfdr.de>; Thu, 17 Feb 2022 04:54:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B9E10E75F;
-	Thu, 17 Feb 2022 03:54:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A58710E7A8;
+	Thu, 17 Feb 2022 03:54:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A191310E75F
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 03:54:05 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id m14so7576830lfu.4
- for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 19:54:05 -0800 (PST)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC7710E75F
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 03:54:06 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id b20so6358139ljf.7
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Feb 2022 19:54:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TB5gV/5sjwk2KpDc6LqRsCf8QAe1Jc0ZykwfWMWBIy0=;
- b=NEkeyH1AK3AiRscVBVwxQydnYnI103BFdWInRv0N2AdXNqA53V2TwmqG+DjWxmhPX2
- Zfy/AoF9vLVRDP0HvY/qXu/290VDBdfr+EO7pHabrNOFgotcQyBL48Bf3QXhpJ17aJOe
- EcDJY14VgmbnP42HhxA6GxR05FAm4A3ETm7EnxvkUIEGAS8BEN6SL3LHQ3ns101W6lqq
- oYZmIvxLJV0zDlRwH/EqnS+7dzmPp/uc0g4KMzGRUISQ/KSiKrsz6QRTbaCKBDENztZd
- 1umaFB6p2lkohTyg9PSGAyh7UfjLkpQGhgV1jLU8f/pYiKWQlm+dNtUBNocLmpIH+uXx
- AhOw==
+ bh=LeHMkFoNMl5wbtqitgFOACM/7bfBhWBbMxRXA4GQO3c=;
+ b=xDioYM+nRwpRvXfxQySDt5SdFQTGBo0mhX+hMfNRSjFUlxmIcFJBgc06uCvTNgCaG5
+ B3h66Uou9fIGxPMo7HyCPbgblIcWQMQaF19lmzr7KatsujdAqHOSehyAcilrOPbqfMy1
+ uA/I/5OPtdD5JY144Q9zebvyzW8GIOUQ12LIWttCDAzBmPMLXKiF1qumTDbOqVMbNg6/
+ 2At+UEGHcGbGQoFUYYaXoO61WBxO4tmmFePEl58tWdgAPXEU1VRDWLh/5r1Ni3SBGH8A
+ OFjmUZPfKdRYBSO7qOPJYk5C44Mf9FPHMk1meyjqbcfWIwwK743Jn9HqW0cXUWnUq/wA
+ 59pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TB5gV/5sjwk2KpDc6LqRsCf8QAe1Jc0ZykwfWMWBIy0=;
- b=xgRzq13jkYksUxW0J73UC013wYgGVFOOfvS+OEitRKlt8jriF/Nnt/OW97WQTWNLDr
- u10iSD/QR09aToHFAJkr7dWzr72ds5PhGMnbBXv207RLrZR5bjhCbfInWgmu0Day+NFQ
- RHyOzmczJ/YfsPTCI1ZQkOsnyptZBcRgjiXn4XO2Sh3Ab/ca92xIG8EvTRJA96U3qu/d
- x1zZlxkdNmKDw7eBlqBHOzTv/ZMsGnk3tm6xarFqkilwIC3rqsSC83uZBjRHrD67H1jC
- 68EbUQXmZ9p7p6ZUXKMln4YrdePRteSXhRVA0UF2EGNbh/QVnFRoL4LG337TOttWPbrr
- qeIQ==
-X-Gm-Message-State: AOAM531ALJaKdaEifhASXj7u5PZWkAjFyiu9oNAef3RuTwQreoCkTx5l
- 5fFqhY88OOCLBRE3DSOjzcR0QQ==
-X-Google-Smtp-Source: ABdhPJwtyA5gG/LksjFEdbfLRT1Nr6ZbF8L/cuqKCgPctlNiAUIq77doptloSxqL2BIN5sNaqxExIA==
-X-Received: by 2002:a05:6512:31cf:b0:443:7eb6:3440 with SMTP id
- j15-20020a05651231cf00b004437eb63440mr772193lfe.367.1645070043961; 
- Wed, 16 Feb 2022 19:54:03 -0800 (PST)
+ bh=LeHMkFoNMl5wbtqitgFOACM/7bfBhWBbMxRXA4GQO3c=;
+ b=fuRTKOWOqVLRPlQvXT/Gs8yqHOq3viECjDSprW1Vok6eLnojbkP2mvD9g3GLgviAfT
+ AXu7mfCYZNpCHK9tRG0GoeISY8b4QEaHWCJM8ObHhHMGzdd2UQN8DvLGqill6V24wOHQ
+ htwRwoLKz3KmhFqldpD3rbw9uoC14uZ9U5bQHsFxoAhSg46YG+1bIddYZKWacrO2V9Kr
+ r93ePAjv+R3sJDA7fVZaqJSqUQF1gp4JSObYbvz3PpOb/Vcp1Z8Q0sovAO+lR9HvlecU
+ xEuVmp2SXgzdzNekkTFzliFnEnbsMstl3DmKLVpg7qsfvFgoHwiJK5OJEfEid+UJXqqV
+ XvzA==
+X-Gm-Message-State: AOAM533gbf1OvGQj9brYTQIF/1W23KQIFqg2R3XhC77YlORACtFcDWNf
+ fMlwVmDoKa4yxRWbjJjcR8Aeww==
+X-Google-Smtp-Source: ABdhPJz+PKWLqFzChp7jfA7jBHOX8xftiL3eCkcqveRWvqbvaS4l2FiOK0ZSwpn+PFkSIlveg2cc0A==
+X-Received: by 2002:a2e:3c04:0:b0:238:eb48:5fc8 with SMTP id
+ j4-20020a2e3c04000000b00238eb485fc8mr895475lja.148.1645070044755; 
+ Wed, 16 Feb 2022 19:54:04 -0800 (PST)
 Received: from eriador.lan ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id h9sm1575454ljb.77.2022.02.16.19.54.03
+ by smtp.gmail.com with ESMTPSA id h9sm1575454ljb.77.2022.02.16.19.54.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 19:54:03 -0800 (PST)
+ Wed, 16 Feb 2022 19:54:04 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 17 Feb 2022 06:53:55 +0300
-Message-Id: <20220217035358.465904-5-dmitry.baryshkov@linaro.org>
+Date: Thu, 17 Feb 2022 06:53:56 +0300
+Message-Id: <20220217035358.465904-6-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220217035358.465904-1-dmitry.baryshkov@linaro.org>
 References: <20220217035358.465904-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 4/7] drm/msm/dpu: drop bus_scaling_client
- field
+Subject: [Freedreno] [PATCH v2 5/7] drm/msm/dpu: encoder: drop unused
+ mode_fixup callback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,37 +77,117 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We do not use MSM bus client, so drop bus_scaling_client field from
-dpu_encoder_virt.
+Both cmd and vid backends provide useless mode_fixup() callback. Drop
+it.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  4 ----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  4 ----
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   | 10 ----------
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 14 --------------
+ 4 files changed, 32 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 16ae0cccbbb1..f5bc15b2e56e 100644
+index f5bc15b2e56e..5b2eeea37d54 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -127,7 +127,6 @@ enum dpu_enc_rc_states {
-  *	Virtual encoder registers itself with the DRM Framework as the encoder.
-  * @base:		drm_encoder base class for registration with DRM
-  * @enc_spinlock:	Virtual-Encoder-Wide Spin Lock for IRQ purposes
-- * @bus_scaling_client:	Client handle to the bus scaling interface
-  * @enabled:		True if the encoder is active, protected by enc_lock
-  * @num_phys_encs:	Actual number of physical encoders contained.
-  * @phys_encs:		Container of physical encoders managed.
-@@ -172,7 +171,6 @@ enum dpu_enc_rc_states {
- struct dpu_encoder_virt {
- 	struct drm_encoder base;
- 	spinlock_t enc_spinlock;
--	uint32_t bus_scaling_client;
+@@ -602,10 +602,6 @@ static int dpu_encoder_virt_atomic_check(
+ 		if (phys->ops.atomic_check)
+ 			ret = phys->ops.atomic_check(phys, crtc_state,
+ 					conn_state);
+-		else if (phys->ops.mode_fixup)
+-			if (!phys->ops.mode_fixup(phys, mode, adj_mode))
+-				ret = -EINVAL;
+-
+ 		if (ret) {
+ 			DPU_ERROR_ENC(dpu_enc,
+ 					"mode unsupported, phys idx %d\n", i);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+index e7270eb6b84b..7b14948c4c87 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+@@ -84,7 +84,6 @@ struct dpu_encoder_virt_ops {
+  * @is_master:			Whether this phys_enc is the current master
+  *				encoder. Can be switched at enable time. Based
+  *				on split_role and current mode (CMD/VID).
+- * @mode_fixup:			DRM Call. Fixup a DRM mode.
+  * @mode_set:			DRM Call. Set a DRM mode.
+  *				This likely caches the mode, for use at enable.
+  * @enable:			DRM Call. Enable a DRM mode.
+@@ -117,9 +116,6 @@ struct dpu_encoder_phys_ops {
+ 			struct dentry *debugfs_root);
+ 	void (*prepare_commit)(struct dpu_encoder_phys *encoder);
+ 	bool (*is_master)(struct dpu_encoder_phys *encoder);
+-	bool (*mode_fixup)(struct dpu_encoder_phys *encoder,
+-			const struct drm_display_mode *mode,
+-			struct drm_display_mode *adjusted_mode);
+ 	void (*mode_set)(struct dpu_encoder_phys *encoder,
+ 			struct drm_display_mode *mode,
+ 			struct drm_display_mode *adjusted_mode);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index 34a6940d12c5..45fe97fb612d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -45,15 +45,6 @@ static bool dpu_encoder_phys_cmd_is_master(struct dpu_encoder_phys *phys_enc)
+ 	return (phys_enc->split_role != ENC_ROLE_SLAVE);
+ }
  
- 	bool enabled;
+-static bool dpu_encoder_phys_cmd_mode_fixup(
+-		struct dpu_encoder_phys *phys_enc,
+-		const struct drm_display_mode *mode,
+-		struct drm_display_mode *adj_mode)
+-{
+-	DPU_DEBUG_CMDENC(to_dpu_encoder_phys_cmd(phys_enc), "\n");
+-	return true;
+-}
+-
+ static void _dpu_encoder_phys_cmd_update_intf_cfg(
+ 		struct dpu_encoder_phys *phys_enc)
+ {
+@@ -732,7 +723,6 @@ static void dpu_encoder_phys_cmd_init_ops(
+ 	ops->prepare_commit = dpu_encoder_phys_cmd_prepare_commit;
+ 	ops->is_master = dpu_encoder_phys_cmd_is_master;
+ 	ops->mode_set = dpu_encoder_phys_cmd_mode_set;
+-	ops->mode_fixup = dpu_encoder_phys_cmd_mode_fixup;
+ 	ops->enable = dpu_encoder_phys_cmd_enable;
+ 	ops->disable = dpu_encoder_phys_cmd_disable;
+ 	ops->destroy = dpu_encoder_phys_cmd_destroy;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index ddd9d89cd456..1831fe37c88c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -225,19 +225,6 @@ static void programmable_fetch_config(struct dpu_encoder_phys *phys_enc,
+ 	spin_unlock_irqrestore(phys_enc->enc_spinlock, lock_flags);
+ }
  
+-static bool dpu_encoder_phys_vid_mode_fixup(
+-		struct dpu_encoder_phys *phys_enc,
+-		const struct drm_display_mode *mode,
+-		struct drm_display_mode *adj_mode)
+-{
+-	DPU_DEBUG_VIDENC(phys_enc, "\n");
+-
+-	/*
+-	 * Modifying mode has consequences when the mode comes back to us
+-	 */
+-	return true;
+-}
+-
+ static void dpu_encoder_phys_vid_setup_timing_engine(
+ 		struct dpu_encoder_phys *phys_enc)
+ {
+@@ -676,7 +663,6 @@ static void dpu_encoder_phys_vid_init_ops(struct dpu_encoder_phys_ops *ops)
+ {
+ 	ops->is_master = dpu_encoder_phys_vid_is_master;
+ 	ops->mode_set = dpu_encoder_phys_vid_mode_set;
+-	ops->mode_fixup = dpu_encoder_phys_vid_mode_fixup;
+ 	ops->enable = dpu_encoder_phys_vid_enable;
+ 	ops->disable = dpu_encoder_phys_vid_disable;
+ 	ops->destroy = dpu_encoder_phys_vid_destroy;
 -- 
 2.34.1
 
