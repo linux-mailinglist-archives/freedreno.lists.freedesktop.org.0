@@ -1,67 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7B04BC041
-	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 20:27:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6294BC159
+	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 21:46:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD3010E862;
-	Fri, 18 Feb 2022 19:27:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D39EE10E4C8;
+	Fri, 18 Feb 2022 20:46:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCFC10E862
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 19:27:49 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id f37so7255429lfv.8
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 11:27:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=dSkwxdtJ7mPWSSSM389YG6BGKFFrs7uF7NULsF3otKQ=;
- b=rX2f5T3QqmsMYZfX/LAdi8UDeY7DIzLQyz0GkVZRF5WdMfHmrS3F3EZvx2qXh+ldT0
- +xIaMI+FmPPDSqzPOdP4uijPQoMwMpbHqLSw9YFRUyqpghlr07ZcHjnlzLNlUFjV7DIC
- X+sY/SLWuYwcXw35FWTNRYk4dKoryU6ArrWUi6YpieoANnHtbPxYH7OOQr6j/k1G023m
- Ghcvttr8vhg8iccO6dhZXRoFdBt2Z1s+gbIrdRtoXYuf9M4UoqtSfYMqJlkVjIegq1qw
- IRnr8vPrNMJ4ZMgPrfT/JWO76TpHHl8phi5uDlRQF86z4Tya6gUfZGzGnPd0h6pn5iX3
- 1YVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=dSkwxdtJ7mPWSSSM389YG6BGKFFrs7uF7NULsF3otKQ=;
- b=WZpsjfTXiYnS0Z4drn+n4YAefYnSXzqaWC0CdG/6QLoRCw7Upxr9ado2uQyUgNdvYl
- CM2ccgNBJmUuuxZhX2TrZ8/hcfGeNEpUJGxNJpXpuVqVAvQsDutIwK1HRmzK24d+DLeQ
- E7yjf88g2kdxoQAWgvJ9CEy8CeVd7PaI+GJU8JAKZAztGZc658d5hIcexbg3SEB/eMTV
- wsZDVVGX8PHw/ctj3d1jDee195MSbGT6DQ64MKWI6zytZFjh3AdQQeDX76mtHM7xcNYN
- RGnKIOENw203gM92Eucgbcx2ZsAFRI2uqZv1TFH6gSJynMdrtCg6pWsuQJb9HR8v8hUw
- 7NDw==
-X-Gm-Message-State: AOAM531FEl7M5eMbZuJO5v0ASnk933p/Ywl1x5PW3zldwZJrMjpgC0gb
- SWuztzkMmp97CdJ6znZ3JZg4f2epE96k7Q==
-X-Google-Smtp-Source: ABdhPJwe2iQk4YzsedccWeQbQQtrgZLiKdtan5bdBm+/i0gHBWiHPdzFRwWX6ZegZ9BKKTwgYatdcA==
-X-Received: by 2002:a05:6512:338c:b0:443:b61e:60d0 with SMTP id
- h12-20020a056512338c00b00443b61e60d0mr3128828lfg.124.1645212467720; 
- Fri, 18 Feb 2022 11:27:47 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id u17sm411376ljd.137.2022.02.18.11.27.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 11:27:46 -0800 (PST)
-Message-ID: <9e2c9151-d460-14d6-46f7-bc32b60ec4ca@linaro.org>
-Date: Fri, 18 Feb 2022 22:27:45 +0300
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A39210E4C8;
+ Fri, 18 Feb 2022 20:46:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645217176; x=1676753176;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=XugFhl1wiMuFiF3bnszfWL3zaFWaY1W+76hbSOxZQ2I=;
+ b=b5nJJ6A5OA/ANFkFvk0YSnoIGQRDSrTRmwynJaHKagooByr7sIkvNaJF
+ Fm1v0VaQ8MI3Uni+Nv3pfrH/xDE+k5h3R9pX3/dA1S5S/5meS+UZm9y3z
+ ccIhPc3JXJ0vbUnHH6kAFqtNAzufpR7TrxQt7i9CcTHeTnh4LTHaz4Rv/ I=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 18 Feb 2022 12:46:15 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 12:46:14 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Fri, 18 Feb 2022 12:46:14 -0800
+Received: from [10.111.174.92] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Fri, 18 Feb
+ 2022 12:46:08 -0800
+Message-ID: <a38432a8-7920-e26d-7391-a49bebbc57f9@quicinc.com>
+Date: Fri, 18 Feb 2022 12:46:06 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-GB
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- robdclark@gmail.com
-References: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: Add a function to
- retrieve the current CTL status
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>
+References: <20220210103423.271016-1-vkoul@kernel.org>
+ <20220210103423.271016-9-vkoul@kernel.org>
+ <67006cc4-3385-fe03-bb4d-58623729a8a8@quicinc.com> <Yg3mvEvqYs89dJWI@matsya>
+ <4b89f5fe-0752-3c6a-3fb0-192f1f2e7b9e@quicinc.com>
+ <acf0a2a2-f2e5-906a-3c51-525abd18ee6f@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <acf0a2a2-f2e5-906a-3c51-525abd18ee6f@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [REPOST PATCH v4 08/13] drm/msm/disp/dpu1: Don't
+ use DSC with mode_3d
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,73 +70,125 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, konrad.dybcio@somainline.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- paul.bouchara@somainline.org, martin.botka@somainline.org,
- abhinavk@codeaurora.org, daniel@ffwll.ch, marijn.suijten@somainline.org,
- phone-devel@vger.kernel.org, sean@poorly.run,
- ~postmarketos/upstreaming@lists.sr.ht
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, Abhinav
+ Kumar <abhinavk@codeaurora.org>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/09/2021 19:39, AngeloGioacchino Del Regno wrote:
-> Add a function that returns whether the requested CTL is active or not:
-> this will be used in a later commit to fix command mode panel issues.
+
+
+On 2/16/2022 11:12 PM, Dmitry Baryshkov wrote:
+> On 17/02/2022 09:33, Abhinav Kumar wrote:
+>>
+>>
+>> On 2/16/2022 10:10 PM, Vinod Koul wrote:
+>>> On 16-02-22, 19:11, Abhinav Kumar wrote:
+>>>>
+>>>>
+>>>> On 2/10/2022 2:34 AM, Vinod Koul wrote:
+>>>>> We cannot enable mode_3d when we are using the DSC. So pass
+>>>>> configuration to detect DSC is enabled and not enable mode_3d
+>>>>> when we are using DSC
+>>>>>
+>>>>> We add a helper dpu_encoder_helper_get_dsc() to detect dsc
+>>>>> enabled and pass this to .setup_intf_cfg()
+>>>>>
+>>>>> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+>>>>
+>>>> We should not use 3D mux only when we use DSC merge topology.
+>>>> I agree that today we use only 2-2-1 topology for DSC which means 
+>>>> its using
+>>>> DSC merge.
+>>>>
+>>>> But generalizing that 3D mux should not be used for DSC is not right.
+>>>>
+>>>> You can detect DSC merge by checking if there are two encoders and one
+>>>> interface in the topology and if so, you can disable 3D mux.
+>>>
+>>> Right now with DSC we disable that as suggested by Dmitry last time.
+>>> Whenever we introduce merge we should revisit this, for now this should
+>>> suffice
+>>>
+>>
+>> Sorry I didnt follow.
+>>
+>> The topology which you are supporting today IS DSC merge 2-2-1. I 
+>> didnt get what you mean by "whenever we introduce".
+>>
+>> I didnt follow Dmitry's comment either.
+>>
+>> "anybody adding support for SDE_RM_TOPOLOGY_DUALPIPE_3DMERGE_DSC 
+>> handle this."
+>>
+>> 3D mux shouldnt be used when DSC merge is used.
+>>
+>> The topology Dmitry is referring to will not use DSC merge but you are 
+>> using it here and thats why you had to make this patch in the first 
+>> place. So I am not sure why would someone who uses 3D merge topology 
+>> worry about DSC merge. Your patch is the one which deals with the 
+>> topology in question.
+>>
+>> What I am suggesting is a small but necessary improvement to this patch.
 > 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 6 ++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h | 7 +++++++
->   2 files changed, 13 insertions(+)
+> It seems that we can replace this patch by changing 
+> dpu_encoder_helper_get_3d_blend_mode() to contain the following 
+> condition (instead of the one present there). Does the following seem 
+> correct to you:
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> index 64740ddb983e..3b6fd73eb3a8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
-> @@ -91,6 +91,11 @@ static inline void dpu_hw_ctl_trigger_start(struct dpu_hw_ctl *ctx)
->   	DPU_REG_WRITE(&ctx->hw, CTL_START, 0x1);
->   }
->   
-> +static inline bool dpu_hw_ctl_is_started(struct dpu_hw_ctl *ctx)
-> +{
-> +	return !!(DPU_REG_READ(&ctx->hw, CTL_START) & BIT(0));
-> +}
-> +
->   static inline void dpu_hw_ctl_trigger_pending(struct dpu_hw_ctl *ctx)
->   {
->   	trace_dpu_hw_ctl_trigger_prepare(ctx->pending_flush_mask,
-> @@ -579,6 +584,7 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
->   	ops->get_pending_flush = dpu_hw_ctl_get_pending_flush;
->   	ops->get_flush_register = dpu_hw_ctl_get_flush_register;
->   	ops->trigger_start = dpu_hw_ctl_trigger_start;
-> +	ops->is_started = dpu_hw_ctl_is_started;
->   	ops->trigger_pending = dpu_hw_ctl_trigger_pending;
->   	ops->reset = dpu_hw_ctl_reset_control;
->   	ops->wait_reset_status = dpu_hw_ctl_wait_reset_status;
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> index 806c171e5df2..ac1544474022 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
-> @@ -61,6 +61,13 @@ struct dpu_hw_ctl_ops {
->   	 */
->   	void (*trigger_start)(struct dpu_hw_ctl *ctx);
->   
-> +	/**
-> +	 * check if the ctl is started
-> +	 * @ctx       : ctl path ctx pointer
-> +	 * @Return: true if started, false if stopped
-> +	 */
-> +	bool (*is_started)(struct dpu_hw_ctl *ctx);
-> +
->   	/**
->   	 * kickoff prepare is in progress hw operation for sw
->   	 * controlled interfaces: DSI cmd mode and WB interface
+> static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+>                  struct dpu_encoder_phys *phys_enc)
+> {
+>          struct dpu_crtc_state *dpu_cstate;
+> 
+>          if (!phys_enc || phys_enc->enable_state == DPU_ENC_DISABLING)
+>                  return BLEND_3D_NONE;
+> 
+>          dpu_cstate = to_dpu_crtc_state(phys_enc->parent->crtc->state);
+> 
+> +    /* Use merge_3d unless DSCMERGE topology is used */
+>          if (phys_enc->split_role == ENC_ROLE_SOLO &&
+> +           hweight(dpu_encoder_helper_get_dsc(phys_enc)) != 1 &&
+>              dpu_cstate->num_mixers == CRTC_DUAL_MIXERS)
+>                  return BLEND_3D_H_ROW_INT;
+> 
+>          return BLEND_3D_NONE;
+> }
 
+This will not be enough. To detect whether DSC merge is enabled you need 
+to query the topology. The above condition only checks if DSC is enabled 
+not DSC merge.
 
--- 
-With best wishes
-Dmitry
+So the above function can be modified to use a helper like below instead 
+of the hweight.
+
+bool dpu_encoder_get_dsc_merge_info(struct dpu_encoder_virt *dpu_enc)
+{
+     struct msm_display_topology topology = {0};
+
+     topology = dpu_encoder_get_topology(...);
+
+     if (topology.num_dsc > topology.num_intf)
+         return true;
+     else
+         return false;
+}
+
+if (!dpu_encoder_get_dsc_merge_info() && other conditions listed above)
+	return BLEND_3D_H_ROW_INT;
+else
+	BLEND_3D_NONE;
+> 
+> 
+>>
+>> All that you have to do is in query whether DSC merge is used from the 
+>> topology. You can do it in multiple ways:
+>>
+>> 1) Either query this from the encoder
+>> 2) Store a bool "dsc_merge" in the intf_cfg
+>>
+> 
+> 
