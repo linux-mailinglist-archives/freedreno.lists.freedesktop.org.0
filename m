@@ -2,53 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B8794BC256
-	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 22:52:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1989C4BC299
+	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 23:32:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF8610EA6F;
-	Fri, 18 Feb 2022 21:52:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA1210EEA8;
+	Fri, 18 Feb 2022 22:32:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2538310EA6F
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 21:52:40 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id s21so6214520ljp.2
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 13:52:40 -0800 (PST)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89DB10EEA8
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 22:32:56 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id c10so6294202ljr.9
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 14:32:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=O4CsnBjYy03NrYURxvtz1s+vFa+ZGHorTAV/ULTGx+o=;
- b=yts1Vje/3ZqmS8WRYE1+0krC4ok8bChd+aSKmoTLV1pUUCUG2CQILVwTBjNgZU5DaU
- EzbLBHg/Cm0/e9CwdCsLx4fbhTzts+1Jk2Egi0DZjRv4csNR8xZH6WPMoA7BkyQBpfT8
- 5zOpWpyFcuxiLE97AcwIAQ5E6th49sX0JaHZ3KnMRAo3GJZSJ+eMELkOc8n284zBaXIg
- WuwcHqspo8en6PF8KG3D8Bybiy16H5DXXclXIubOEiPL0Blwy7jDHE3pJpWrUZVmlw92
- q+gaXClXQ0fXaVjePXONxQiXADwuq4H6JIyo3R1UZF8ZLZJ5BY4HlOvF3NJzgJRBFNu7
- bpHw==
+ bh=EmbZ+Rs0DCCaaiAlhr8hnJNWT7G3P69JhJhCoYAgkyI=;
+ b=lgDmZYH5oDnn3u94HVyLPuaezlpg5OtCTcfDmaDnbgSf75cqELOA+SzUY4iECFi9fI
+ PEqrL73l6GDWCZcoaDs0YhUamvyfzKd6M+U5bHhdP6UZ4cpH5FI5NckuqQum6FfI8Gyi
+ YnlEA/T1IytaeKeAwKAbCBscRsLaUJCBGfBEzO1c5JDkbUm0ifiVCH36JnfelR4xpTBy
+ 5KqKjx8+PZswPbsQn46J42Q09hf0XkF7DmaZLjbWwugorJAEZeufIAuKvs9Df6pe/s7Y
+ 2pRkjEdtXc00quRYaWhiWkOXwQ5e+umtJ1XlOfGm47AhqQLPCx9RYc2NMeo/PuGDy4pp
+ v3Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=O4CsnBjYy03NrYURxvtz1s+vFa+ZGHorTAV/ULTGx+o=;
- b=1wDgpKyTZKazlNuW1MdMZ9WRcH+8zPsKC5uBZ64IJ57z/eK/lD750sHOJiD+ColxVz
- +90DZ57Oc2F6Ra1aPSefF33W7YRVlfWGlUMxI9sKPBtch8q3AJht9Xv9jV53oDJT7JU4
- rScl7gbsRsn3ZNznanNQF7s272zZFkfnn2EEggUVpCTfX+FFvk6qDzjHtE+jvImZr4Xs
- o4tPrv/YFadQ7UdxMU0XRYg81/X4v92mvNNSP2TYSBvYagsTpY8bTYh+t46/z/nBtzi1
- nXYak6KXbiKyWrzk71vMSuo6j6NuxuD9J8TkYW3/ezAt2WUl9Ov1JB870zhM1zjwNIDP
- hmRA==
-X-Gm-Message-State: AOAM530XiwZIZ1UDRslMCNGjWRGK+dkr6E7I2xXA4eB8jAZDzr666Vv1
- Wv4jkCXwna92EdmpZivg5U1tXg==
-X-Google-Smtp-Source: ABdhPJyE66f/SQndtIl1uuz70XtwABe9awB7k+cnZicYMWXjL4GOkIiAAav9AwDKGw7n86qQ2feJVw==
-X-Received: by 2002:a2e:3013:0:b0:246:2ca9:365e with SMTP id
- w19-20020a2e3013000000b002462ca9365emr1229795ljw.291.1645221158445; 
- Fri, 18 Feb 2022 13:52:38 -0800 (PST)
+ bh=EmbZ+Rs0DCCaaiAlhr8hnJNWT7G3P69JhJhCoYAgkyI=;
+ b=HC+mKiVWJSDjnYPjjrVKXlW8+dkRRKYcVGonE5yOn1nNNllX3iftiajzoZ4Pgk3HK4
+ MmQX0wEqDkZhqHjJ8ObbBiL+QzfFHFRnSWpHsZO/RuLG6JSj40CIEEkvxGviS/eysdkL
+ vm2MaoweycRXpWzW4Ucxy/RUhBcxH62GtYJkUxdB2QB1t4hulw/6NZSm5rpZC5pf4Fte
+ 75jpz5585/N80MPjwcc80mM4HA7TW0BOWBOZgSIpH1PGcrMdUV+XAJMjt/8eezgktotj
+ hlEGyCvtV+gyhNJ/Lk0/gscbhiQNaigPmSzsTsaQB66o2j6gB96wan0jC2oBdL345JOe
+ 1SKw==
+X-Gm-Message-State: AOAM530p2kyzTyRfQFdiYqq8qFV+SgYSpXoMtPJuAdvoI8ozpJf8qj+E
+ J1rYryeBheDWklarB30tYzka1g==
+X-Google-Smtp-Source: ABdhPJxXJfznG7eTeQS4X2nWtTN4ctoIdPjwRRirntuU8kEYIG5c3G3gt+3Cb65jn+sWGLZQpxByng==
+X-Received: by 2002:a2e:8198:0:b0:246:e7d:45d2 with SMTP id
+ e24-20020a2e8198000000b002460e7d45d2mr6871560ljg.495.1645223574954; 
+ Fri, 18 Feb 2022 14:32:54 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id c25sm380996lfs.213.2022.02.18.13.52.37
+ by smtp.gmail.com with ESMTPSA id c1sm392401lfc.49.2022.02.18.14.32.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 13:52:37 -0800 (PST)
-Message-ID: <091d8484-b7a7-05da-65df-f99d0a9be3c5@linaro.org>
-Date: Sat, 19 Feb 2022 00:52:37 +0300
+ Fri, 18 Feb 2022 14:32:54 -0800 (PST)
+Message-ID: <b25d422e-cdd8-bcb9-1815-1d89f170d421@linaro.org>
+Date: Sat, 19 Feb 2022 01:32:53 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.0
@@ -106,9 +106,15 @@ On 19/02/2022 00:31, Kuogee Hsieh wrote:
 > [   40.593709] panel-edp soc@0:edp_panel: No display modes
 > [   40.600285] panel-edp soc@0:edp_panel: No display modes
 
-Thanks for testing this series!
+So, before the patch the drm core was getting modes from the 
+drm_connector (which means, modes from drm driver itself). With this 
+patch the panel-edp tries to get modes.
 
-Could you please post the result of `modetest -c` after this patch?
+Could you please check, why panel_edp_get_modes() fails? Assuming that 
+you use platform panel-edp binding (rather than 'edp-panel') could you 
+please check you have either of the following:
+- ddc bus for EDID?
+- either num_timing or num_modes in your panel desc.
 
 
 > 
