@@ -2,64 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 986074BB1BB
-	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 07:01:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA0F54BB61D
+	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 11:04:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F2B110EC51;
-	Fri, 18 Feb 2022 06:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B2E310EA11;
+	Fri, 18 Feb 2022 10:04:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [IPv6:2607:f8b0:4864:20::c2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C30DA10EC51
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 06:00:58 +0000 (UTC)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- u25-20020a4ad0d9000000b002e8d4370689so2332169oor.12
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 22:00:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=vC5rr9/FFwl108xT94dxdS0audFET9/KpZypiZZFFo0=;
- b=UYyjQv6/7mpgSZOWGk2/ust+6hOD4YjQAmr5tQ5iB2PeMarCwuNe5WoWL/dGHhgvg9
- UAbaXSrf5MWippiTC8ws2jSkTlePYQ6tehyZjxPtBc5uAmU3g1bRYXAyb6bXqgS0ouAd
- Ua6Oxx4UzemOIaFN3q8Rccy9D9rGc8UNh4b4nhxyvOnJZheCXdFW+q70UZr5+9A+Lu0U
- aT2kyp7Y+5vOn+OyNyYW6NFy0CTpObikM5/eUuI+JFi0loqXNagB0UJbmFodqmIdR1e5
- T40vkrs+IfV8K3ekT33j48RnBGf6dLsD/v9gpBw7hX7kE1CYVtkzpglin6tJQe5bFrqz
- 5mJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=vC5rr9/FFwl108xT94dxdS0audFET9/KpZypiZZFFo0=;
- b=Km1THy0hauwE383mv3bXGMYLflGtzbAJ9yQRZAq8741+BqAL6nznyzMAczBZN4tV/u
- rCnP9xrwg3ilL2wASLxceLXuBNJVRi2mdEyME6rGE3c2cqbu105YRfj/OpjD027/TBef
- le/I1AltbIC9gl92ona60FPvIEs6kXeQZPHTtaB3KV2GExxbAhrdszSq0+2EQWv4AsB2
- JCcQwM1wFncrUfr3zuPf58S6vs0yn4zifr+cOhVf8JMW/EkWhqfnUpASqnLhaQbsIrM/
- E4kFGBvr+5LsoscY5FiFUNcCUuF6QNle3pF1E00T77nrdfY3dx4I+2OTay6QCJcpVl2A
- h05w==
-X-Gm-Message-State: AOAM531L2c2GIjrvFWGcfZfDIqKG1xI0d5iFdVtmrjUH/ZwzBT9osv7D
- JKkjo+MA2bHj8I/+atQI7mhnLQ==
-X-Google-Smtp-Source: ABdhPJwMUgPMYZgFc7a9CJBSMUtuUqp+3FcdwropR0b3xxEM7qtpwzSq3DvZN9WJm2f428LBq/Z1TQ==
-X-Received: by 2002:a05:6870:d24f:b0:cc:f65f:68e4 with SMTP id
- h15-20020a056870d24f00b000ccf65f68e4mr2408028oac.167.1645164057943; 
- Thu, 17 Feb 2022 22:00:57 -0800 (PST)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id bc36sm948918oob.45.2022.02.17.22.00.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Feb 2022 22:00:57 -0800 (PST)
-Date: Thu, 17 Feb 2022 22:03:03 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <Yg82lyRCi3XJHCU2@ripper>
-References: <1644494255-6632-1-git-send-email-quic_sbillaka@quicinc.com>
- <1644494255-6632-3-git-send-email-quic_sbillaka@quicinc.com>
- <CAD=FV=VVvcn1VpLXjd+X9Xe50sS_vY5ukKJE8i=eAZf1Phofuw@mail.gmail.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE1810E240;
+ Fri, 18 Feb 2022 10:04:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1645178655; x=1676714655;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=stdZieqOPeTYM4fZPShDTH9sPVJsu1F9iRmFq4q1S1Y=;
+ b=ERItGS3XBf24mNxbdZlRIbJ3IolkUHm7Ct3H7JPXP4hWNgE+zmsEW/mZ
+ l0LwUJ2MvSvtyGcjjVU5I4k+eXKoI6ogNu524OgsKxvMyUqEXfaZI5h8G
+ bvX01G21pl6z42lyGvFZ7RcikHub69HkjmlnsBipZX34Rew/7T3YHu+d1
+ UY5sQFxEWyYnmvCQQr8b6NGFmM5B0ckqBA08vGjb9tMGyY1lYO/HQxHIa
+ OSlK12hNM0JgKaNUGlRUdb++YGxUY5YMRcMjOBVcqSHpKs9SxGtK81G7y
+ AuYzDR+uFFpw7OcepcPKZMVZN6+V+85Glh4hmN6qII1tYYt3ja+khGnMe A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10261"; a="250853355"
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="250853355"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2022 02:04:14 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,378,1635231600"; d="scan'208";a="682442318"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
+ by fmsmga001.fm.intel.com with SMTP; 18 Feb 2022 02:04:04 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 18 Feb 2022 12:04:03 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 18 Feb 2022 12:03:41 +0200
+Message-Id: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=VVvcn1VpLXjd+X9Xe50sS_vY5ukKJE8i=eAZf1Phofuw@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v4 2/5] arm64: dts: qcom: sc7280: Add
- support for eDP panel on CRD
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 00/22] drm: Review of mode copies
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,76 +56,145 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- quic_vproddut@quicinc.com, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, quic_abhinavk@quicinc.com,
- Rob Herring <robh+dt@kernel.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, Thierry Reding <thierry.reding@gmail.com>,
- quic_khsieh@quicinc.com, freedreno <freedreno@lists.freedesktop.org>,
- quic_mkrishn@quicinc.com
+Cc: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Chen Feng <puck.chen@hisilicon.com>, Alain Volmat <alain.volmat@foss.st.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Maxime Ripard <mripard@kernel.org>, Nikola Cornij <nikola.cornij@amd.com>,
+ John Stultz <john.stultz@linaro.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org, Tomi Valkeinen <tomba@kernel.org>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Sandy Huang <hjc@rock-chips.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
+ freedreno@lists.freedesktop.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu 17 Feb 17:03 PST 2022, Doug Anderson wrote:
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-> Hi,
-> 
-> On Thu, Feb 10, 2022 at 3:58 AM Sankeerth Billakanti
-> <quic_sbillaka@quicinc.com> wrote:
-> >
-> > +       backlight_3v3_regulator: backlight-3v3-regulator {
-> > +               compatible = "regulator-fixed";
-> > +               regulator-name = "backlight_3v3_regulator";
-> > +
-> > +               regulator-min-microvolt = <3300000>;
-> > +               regulator-max-microvolt = <3300000>;
-> > +
-> > +               gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
-> > +               enable-active-high;
-> > +
-> > +               pinctrl-names = "default";
-> > +               pinctrl-0 = <&edp_bl_power>;
-> > +       };
-> 
-> So I'm pretty sure that this is wrong and what you had on a previous
-> patch was more correct. Specifically the PMIC's GPIO 7 truly _is_ an
-> enable pin for the backlight. In the schematics I see it's named as
-> "PMIC_EDP_BL_EN" and is essentially the same net as "EDP_BL_EN". This
-> is distinct from the backlight _regulator_ that is named VREG_EDP_BP.
-> I believe the VREG_EDP_BP is essentially sourced directly from
-> PPVAR_SYS. That's how it works on herobrine and I believe that CRD is
-> the same. You currently don't model ppvar_sys, but it's basically just
-> a variable-voltage rail that could be provided somewhat directly from
-> the battery or could be provided from Type C components. I believe
-> that the panel backlight is designed to handle this fairly wide
-> voltage range and it's done this way to get the best efficiency.
-> 
-> So personally I'd prefer if you do something like herobrine and model
-> PPVAR_SYS. Then the backlight can use ppvar_sys as its regulator and
-> you can go back to providing this as an "enable" pin for the
-> backlight.
-> 
-> I know, technically it doesn't _really_ matter, but it's nice to model
-> it more correctly.
+I might be taking this a bit too far, but the lack of
+consistency in our methods to copy drm_display_mode
+structs around is bugging me.
 
-While I've not seen your schematics, the proposal does look similar to
-what I have on sc8180x, where there's a power rail, the BL_EN and a pwm
-signal.
+The main worry is the embedded list head, which if
+clobbered could lead to list corruption. I'd also
+prefer to make sure even the valid list heads don't
+propagate between copies since that makes no sense.
 
-If that's the case I think representing BL_EN using the enable-gpios
-property directly in the pwm-backlight node seems more appropriate (with
-power-supply being the actual thing that powers the backlight).
+While going through some of the code I also spotted
+some very weird on stack copies being made for no
+reason at all. I elimininated a few of them here,
+but there could certainly be more lurking in the
+shadows.
 
-If however gpio 7 is wired to something like the enable-pin on an actual
-LDO the proposal here seems reasonable, but it seems unlikely that the
-output of that would be named "backlight_3v3_regulator"?
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Chen Feng <puck.chen@hisilicon.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Emma Anholt <emma@anholt.net>
+Cc: freedreno@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: John Stultz <john.stultz@linaro.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jyri Sarha <jyri.sarha@iki.fi>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>
+Cc: Nikola Cornij <nikola.cornij@amd.com>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Robert Foss <robert.foss@linaro.org>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Tian Tao <tiantao6@hisilicon.com>
+Cc: Tomi Valkeinen <tomba@kernel.org>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>
+Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
 
-Regards,
-Bjorn
+Ville Syrjälä (22):
+  drm: Add drm_mode_init()
+  drm/amdgpu: Remove pointless on stack mode copies
+  drm/amdgpu: Use drm_mode_init() for on-stack modes
+  drm/amdgpu: Use drm_mode_copy()
+  drm/radeon: Use drm_mode_copy()
+  drm/bridge: Use drm_mode_copy()
+  drm/gma500: Use drm_mode_copy()
+  drm/hisilicon: Use drm_mode_init() for on-stack modes
+  drm/imx: Use drm_mode_duplicate()
+  drm/msm: Nuke weird on stack mode copy
+  drm/msm: Use drm_mode_init() for on-stack modes
+  drm/msm: Use drm_mode_copy()
+  drm/mtk: Use drm_mode_init() for on-stack modes
+  drm/rockchip: Use drm_mode_copy()
+  drm/sti: Use drm_mode_copy()
+  drm/tilcdc: Use drm_mode_copy()
+  drm/vc4: Use drm_mode_copy()
+  drm/i915: Use drm_mode_init() for on-stack modes
+  drm/i915: Use drm_mode_copy()
+  drm/panel: Use drm_mode_duplicate()
+  drm: Use drm_mode_init() for on-stack modes
+  drm: Use drm_mode_copy()
+
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |  4 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 ++++++++++---------
+ drivers/gpu/drm/bridge/nwl-dsi.c              |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  2 +-
+ drivers/gpu/drm/bridge/tc358767.c             |  2 +-
+ drivers/gpu/drm/drm_crtc_helper.c             | 12 +++---
+ drivers/gpu/drm/drm_edid.c                    |  8 +++-
+ drivers/gpu/drm/drm_modes.c                   | 21 +++++++++-
+ drivers/gpu/drm/drm_vblank.c                  |  2 +-
+ drivers/gpu/drm/gma500/oaktrail_crtc.c        |  8 +---
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.c  | 20 +++++----
+ drivers/gpu/drm/imx/imx-ldb.c                 |  3 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |  2 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  |  2 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_vid.c  |  9 ++--
+ drivers/gpu/drm/msm/dp/dp_display.c           |  2 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c               | 10 ++---
+ drivers/gpu/drm/panel/panel-truly-nt35597.c   |  3 +-
+ .../gpu/drm/panel/panel-visionox-rm69299.c    |  4 +-
+ drivers/gpu/drm/radeon/radeon_connectors.c    |  4 +-
+ drivers/gpu/drm/rockchip/cdn-dp-core.c        |  2 +-
+ drivers/gpu/drm/rockchip/inno_hdmi.c          |  2 +-
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c        |  2 +-
+ drivers/gpu/drm/sti/sti_dvo.c                 |  2 +-
+ drivers/gpu/drm/sti/sti_hda.c                 |  2 +-
+ drivers/gpu/drm/sti/sti_hdmi.c                |  2 +-
+ drivers/gpu/drm/tilcdc/tilcdc_crtc.c          |  2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                |  5 +--
+ include/drm/drm_modes.h                       |  2 +
+ 30 files changed, 105 insertions(+), 79 deletions(-)
+
+-- 
+2.34.1
+
