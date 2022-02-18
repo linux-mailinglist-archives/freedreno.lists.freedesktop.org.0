@@ -1,70 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58ECE4BADD1
-	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 01:05:29 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 085644BAE03
+	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 01:13:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D894E10E8CD;
-	Fri, 18 Feb 2022 00:05:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 943AE10E83D;
+	Fri, 18 Feb 2022 00:13:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480DB10E8CD
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 00:05:26 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id s21so1872843ljp.2
- for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 16:05:26 -0800 (PST)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A40B10E83D
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 00:13:07 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id j15so2223211lfe.11
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Feb 2022 16:13:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=yAlw04hcfTCv74ddGK4J1voPhYuq0nzDrCLwVV1ZFXw=;
- b=wGYpKAA+7kcYyR/wALeOORxH8B+LAgUYGC9uOGzPJeLcVH0nUJ/hdipy350Jiia0hP
- 6iatEddX+g/2M/9gJTk5djQpy0jDnX3STG3GU4zF+JBRi95D5Sf9nc4FAS5T0tX778PP
- /4AMMN+GJ0ZVRj1U7xKzegcSNWFcqwW988SvCZ7VkW8Xq59b5ReE6u5gvM4MfU9X91Uk
- ai0PADQrXSuCA0NC0ci921cAe6hbtZCbF4qgKQlOAmjNpB/HFfdaEArlHFHX/gzDLLWq
- cL0cq5+p7vut9dSddCwBk98CE49XE5vd0AhdRoPANh+Sp2bfaXI6aF1xWR7Wuo/4boPp
- K75Q==
+ bh=OP5QK+CcrWBVeRF/jSxS+WC/kWaYTAIsiPiOXeHxvRk=;
+ b=nEa3AFKSSUtqCtrcCJ1xMGF5xOWTsu2Nk3FsOCdEaSALGalQkqZl0eQveyfDqxpqMs
+ HgXvOzQTcBfksSsivZ7nTg33m3/zavkeQaQSy1mc+hwCwzTvjQ4ryWMW9BG286zs9Fuh
+ vEomEfhJOT4d0VkQcAg31d0cEqnDIs7OqCv2+0N/Q3Unu1EKskkwoEYNMlFxQ+wpcCXP
+ yujPmy+vJG7C3lQkCrhMF7kL0J640u/2iRbeJ0Xbs8MI9P0B2ZEOIcEfyEQSNcoCWIbU
+ ibp0IF89KGg5SEz7JG3dglsRuW+oFIPtiV/LHep5v5sUQ1iY4Mz8NGoglU2spOMnutYY
+ d05g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=yAlw04hcfTCv74ddGK4J1voPhYuq0nzDrCLwVV1ZFXw=;
- b=f8MlKz5UT/P6Lw5bhuqH28Z9rturihM27VYRtiSLXp2Ip8c/XOUiN33xt+yb1EmBQB
- K1/+egC/z1jp+sGSn0OztMxBHtFktLjN542XBgKTYpizPLtgjfuTraOxHyNtCMdWZiQL
- rd6AHrj9aAr3QkIyrfL7dR7OeMkVvpiG5MAPIe5xtYFrWCAjpQI6iXTUAvyEB/d5oKlb
- 6qxLg00jtWMnvL1Y34TTwi1q9LgTXBfFSqNmqruz7IESuQOziD861O4kBoOmpGBxcuAp
- 10Mb75C09HsLz/qEdPbth7vDCsLzIQPPn2Ia83FYy7mL9m0thqMY/tGaM2WjEMsKld9B
- p1FA==
-X-Gm-Message-State: AOAM531yiyeEuegmjrUXJZhrWmqJJVRsO2M/dizAv1vvSrAdenL5cgZn
- 5EgntsNzcTeF/NayKaqck7LhHQ==
-X-Google-Smtp-Source: ABdhPJzpsDxT2uKXBPZy9xVI4sLVS1/xh/OMZWVDxzVPL5uSrtaZ6l16nlsyD5pHIQD/j3gmeN1M7Q==
-X-Received: by 2002:a2e:9048:0:b0:246:1988:3105 with SMTP id
- n8-20020a2e9048000000b0024619883105mr2969195ljg.404.1645142724339; 
- Thu, 17 Feb 2022 16:05:24 -0800 (PST)
+ bh=OP5QK+CcrWBVeRF/jSxS+WC/kWaYTAIsiPiOXeHxvRk=;
+ b=bqoCjwQYm/TCthc51PayWjBNF/afng/8suoMLKqcHOL7NxvaZG+b4UyzhsdGkdN1Ng
+ AqPgyImNTcC/rAnD2qwMseE+FrWUuhFIPVtshm1e0rZnqZPlgfhJ/KViKztdyqV785cy
+ QgnO+A4rCOkxG1Pvy/YjuG9FYRcDQVyI9uwCyWH1i0zx+DdUcCWG/ueSPP9rPGQwoBmY
+ 8qR1XL/5mjLxKNYTgDFo2/YGwvgYiUTg/udT8KDCXGZ0jR4uNdsfvZ/i5J6CBc0mOlfw
+ +lSlzQvOzQcLicFt28BULYrdHKa6BkW99qYsMp4RvfkKcsQOUba3s6NKL/3XsURA0Hy0
+ Hd2Q==
+X-Gm-Message-State: AOAM533Mdqddko8nic6gicpCuEbpSv1Q3VN9u6EWxvUj+9eGakVgMpFC
+ hERQZfpIcLhoW93E2rMf9q9mLQ==
+X-Google-Smtp-Source: ABdhPJwIwVUM8NHjVSRJYbPdyQyNlD/oM0bEd7VesWIW4JJWuC6XwHWeRi4rE95xYsEjV4TqcaYqmQ==
+X-Received: by 2002:a05:6512:4017:b0:443:b9ee:2a3d with SMTP id
+ br23-20020a056512401700b00443b9ee2a3dmr311042lfb.593.1645143185318; 
+ Thu, 17 Feb 2022 16:13:05 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id m1sm94217lfg.308.2022.02.17.16.05.23
+ by smtp.gmail.com with ESMTPSA id t30sm96285lfp.222.2022.02.17.16.13.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Feb 2022 16:05:23 -0800 (PST)
-Message-ID: <be01dccd-d558-08bb-3faf-eca3fd342b83@linaro.org>
-Date: Fri, 18 Feb 2022 03:05:22 +0300
+ Thu, 17 Feb 2022 16:13:04 -0800 (PST)
+Message-ID: <9c010dcf-94e4-247b-3233-27320a646812@linaro.org>
+Date: Fri, 18 Feb 2022 03:13:04 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
 Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20220215043353.1256754-1-bjorn.andersson@linaro.org>
  <20220215043353.1256754-2-bjorn.andersson@linaro.org>
  <be397e2e-05ab-5c18-8e2d-16c443f0a6d1@quicinc.com>
  <Ygvisfhi0SY6XdAz@builder.lan>
  <6a3ef247-b26b-d505-cd85-92fb277163dd@quicinc.com>
- <YgxeCHi5AsYPTmeZ@builder.lan>
- <51675806-641d-c57e-ada7-a044e37ad808@quicinc.com> <YgyIPnc/sZLE0ABn@yoga>
- <fcf676d0-1e25-aeda-ce6f-f051d34e0bbe@quicinc.com>
+ <CAA8EJprCaiPW=Kk0B69RNNwAk0xcqaxQA031sfR0ky+BfzcWKQ@mail.gmail.com>
+ <ceb861e5-b1c8-d33e-c0b0-bea0b4cc0b66@quicinc.com>
+ <CAA8EJppj+OBPVUgvefO38zp1RHpJw5pL0-4DCkgn3iAcPH-ptA@mail.gmail.com>
+ <d0cac12e-7c03-2ba3-fb8d-aee09b72a1b1@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <fcf676d0-1e25-aeda-ce6f-f051d34e0bbe@quicinc.com>
+In-Reply-To: <d0cac12e-7c03-2ba3-fb8d-aee09b72a1b1@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Add SC8180x to hw
@@ -81,25 +81,21 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/02/2022 10:19, Abhinav Kumar wrote:
+On 16/02/2022 04:34, Abhinav Kumar wrote:
 > 
 > 
-> On 2/15/2022 9:14 PM, Bjorn Andersson wrote:
->> On Tue 15 Feb 20:38 CST 2022, Abhinav Kumar wrote:
->>
->>>
->>>
->>> On 2/15/2022 6:14 PM, Bjorn Andersson wrote:
->>>> On Tue 15 Feb 11:42 CST 2022, Abhinav Kumar wrote:
->>>>
->>>>>
->>>>>
+> On 2/15/2022 4:20 PM, Dmitry Baryshkov wrote:
+>> On Tue, 15 Feb 2022 at 23:21, Abhinav Kumar 
+>> <quic_abhinavk@quicinc.com> wrote:
+>>> On 2/15/2022 10:42 AM, Dmitry Baryshkov wrote:
+>>>> On Tue, 15 Feb 2022 at 20:42, Abhinav Kumar 
+>>>> <quic_abhinavk@quicinc.com> wrote:
 >>>>> On 2/15/2022 9:28 AM, Bjorn Andersson wrote:
 >>>>>> On Tue 15 Feb 11:14 CST 2022, Abhinav Kumar wrote:
 >>>>>>
@@ -140,98 +136,98 @@ On 16/02/2022 10:19, Abhinav Kumar wrote:
 >>>>>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 >>>>>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 >>>>>>>> @@ -90,6 +90,17 @@
->>>>>>>>                   BIT(MDP_INTF3_INTR) | \
->>>>>>>>                   BIT(MDP_INTF4_INTR))
+>>>>>>>>                        BIT(MDP_INTF3_INTR) | \
+>>>>>>>>                        BIT(MDP_INTF4_INTR))
 >>>>>>>> +#define IRQ_SC8180X_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
->>>>>>>> +              BIT(MDP_SSPP_TOP0_INTR2) | \
->>>>>>>> +              BIT(MDP_SSPP_TOP0_HIST_INTR) | \
->>>>>>>> +              BIT(MDP_INTF0_INTR) | \
->>>>>>>> +              BIT(MDP_INTF1_INTR) | \
->>>>>>>> +              BIT(MDP_INTF2_INTR) | \
->>>>>>>> +              BIT(MDP_INTF3_INTR) | \
->>>>>>>> +              BIT(MDP_INTF4_INTR) | \
->>>>>>>> +              BIT(MDP_INTF5_INTR) | \
->>>>>>>> +              BIT(MDP_AD4_0_INTR) | \
->>>>>>>> +              BIT(MDP_AD4_1_INTR))
->>>>>>>>      #define DEFAULT_PIXEL_RAM_SIZE        (50 * 1024)
->>>>>>>>      #define DEFAULT_DPU_LINE_WIDTH        2048
+>>>>>>>> +                     BIT(MDP_SSPP_TOP0_INTR2) | \
+>>>>>>>> +                     BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+>>>>>>>> +                     BIT(MDP_INTF0_INTR) | \
+>>>>>>>> +                     BIT(MDP_INTF1_INTR) | \
+>>>>>>>> +                     BIT(MDP_INTF2_INTR) | \
+>>>>>>>> +                     BIT(MDP_INTF3_INTR) | \
+>>>>>>>> +                     BIT(MDP_INTF4_INTR) | \
+>>>>>>>> +                     BIT(MDP_INTF5_INTR) | \
+>>>>>>>> +                     BIT(MDP_AD4_0_INTR) | \
+>>>>>>>> +                     BIT(MDP_AD4_1_INTR))
+>>>>>>>>      #define DEFAULT_PIXEL_RAM_SIZE           (50 * 1024)
+>>>>>>>>      #define DEFAULT_DPU_LINE_WIDTH           2048
 >>>>>>>> @@ -225,6 +236,22 @@ static const struct dpu_caps 
 >>>>>>>> sm8150_dpu_caps = {
->>>>>>>>          .max_vdeci_exp = MAX_VERT_DECIMATION,
+>>>>>>>>       .max_vdeci_exp = MAX_VERT_DECIMATION,
 >>>>>>>>      };
 >>>>>>>> +static const struct dpu_caps sc8180x_dpu_caps = {
->>>>>>>> +    .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
->>>>>>>> +    .max_mixer_blendstages = 0xb,
->>>>>>>> +    .qseed_type = DPU_SSPP_SCALER_QSEED3,
->>>>>>>> +    .smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
->>>>>>>> +    .ubwc_version = DPU_HW_UBWC_VER_30,
->>>>>>>> +    .has_src_split = true,
->>>>>>>> +    .has_dim_layer = true,
->>>>>>>> +    .has_idle_pc = true,
->>>>>>>> +    .has_3d_merge = true,
->>>>>>>> +    .max_linewidth = 4096,
->>>>>>>> +    .pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
->>>>>>>> +    .max_hdeci_exp = MAX_HORZ_DECIMATION,
->>>>>>>> +    .max_vdeci_exp = MAX_VERT_DECIMATION,
+>>>>>>>> +   .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>>>>>>>> +   .max_mixer_blendstages = 0xb,
+>>>>>>>> +   .qseed_type = DPU_SSPP_SCALER_QSEED3,
+>>>>>>>> +   .smart_dma_rev = DPU_SSPP_SMART_DMA_V2, /* TODO: v2.5 */
+>>>>>>>> +   .ubwc_version = DPU_HW_UBWC_VER_30,
+>>>>>>>> +   .has_src_split = true,
+>>>>>>>> +   .has_dim_layer = true,
+>>>>>>>> +   .has_idle_pc = true,
+>>>>>>>> +   .has_3d_merge = true,
+>>>>>>>> +   .max_linewidth = 4096,
+>>>>>>>> +   .pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+>>>>>>>> +   .max_hdeci_exp = MAX_HORZ_DECIMATION,
+>>>>>>>> +   .max_vdeci_exp = MAX_VERT_DECIMATION,
 >>>>>>>> +};
 >>>>>>>> +
 >>>>>>>>      static const struct dpu_caps sm8250_dpu_caps = {
->>>>>>>>          .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
->>>>>>>>          .max_mixer_blendstages = 0xb,
+>>>>>>>>       .max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>>>>>>>>       .max_mixer_blendstages = 0xb,
 >>>>>>>> @@ -293,6 +320,31 @@ static const struct dpu_mdp_cfg 
 >>>>>>>> sc7180_mdp[] = {
->>>>>>>>          },
+>>>>>>>>       },
 >>>>>>>>      };
 >>>>>>>> +static const struct dpu_mdp_cfg sc8180x_mdp[] = {
->>>>>>>> +    {
->>>>>>>> +    .name = "top_0", .id = MDP_TOP,
->>>>>>>> +    .base = 0x0, .len = 0x45C,
->>>>>>>> +    .features = 0,
->>>>>>>> +    .highest_bank_bit = 0x3,
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_VIG0] = {
->>>>>>>> +            .reg_off = 0x2AC, .bit_off = 0},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_VIG1] = {
->>>>>>>> +            .reg_off = 0x2B4, .bit_off = 0},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_VIG2] = {
->>>>>>>> +            .reg_off = 0x2BC, .bit_off = 0},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_VIG3] = {
->>>>>>>> +            .reg_off = 0x2C4, .bit_off = 0},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_DMA0] = {
->>>>>>>> +            .reg_off = 0x2AC, .bit_off = 8},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_DMA1] = {
->>>>>>>> +            .reg_off = 0x2B4, .bit_off = 8},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
->>>>>>>> +            .reg_off = 0x2BC, .bit_off = 8},
->>>>>>>> +    .clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
->>>>>>>> +            .reg_off = 0x2C4, .bit_off = 8},
->>>>>>>> +    },
+>>>>>>>> +   {
+>>>>>>>> +   .name = "top_0", .id = MDP_TOP,
+>>>>>>>> +   .base = 0x0, .len = 0x45C,
+>>>>>>>> +   .features = 0,
+>>>>>>>> +   .highest_bank_bit = 0x3,
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+>>>>>>>> +                   .reg_off = 0x2AC, .bit_off = 0},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+>>>>>>>> +                   .reg_off = 0x2B4, .bit_off = 0},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_VIG2] = {
+>>>>>>>> +                   .reg_off = 0x2BC, .bit_off = 0},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_VIG3] = {
+>>>>>>>> +                   .reg_off = 0x2C4, .bit_off = 0},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_DMA0] = {
+>>>>>>>> +                   .reg_off = 0x2AC, .bit_off = 8},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_DMA1] = {
+>>>>>>>> +                   .reg_off = 0x2B4, .bit_off = 8},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_CURSOR0] = {
+>>>>>>>> +                   .reg_off = 0x2BC, .bit_off = 8},
+>>>>>>>> +   .clk_ctrls[DPU_CLK_CTRL_CURSOR1] = {
+>>>>>>>> +                   .reg_off = 0x2C4, .bit_off = 8},
+>>>>>>>> +   },
 >>>>>>>> +};
 >>>>>>>> +
 >>>>>>>>      static const struct dpu_mdp_cfg sm8250_mdp[] = {
->>>>>>>>          {
->>>>>>>>          .name = "top_0", .id = MDP_TOP,
+>>>>>>>>       {
+>>>>>>>>       .name = "top_0", .id = MDP_TOP,
 >>>>>>>> @@ -861,6 +913,16 @@ static const struct dpu_intf_cfg 
 >>>>>>>> sc7280_intf[] = {
->>>>>>>>          INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, 
+>>>>>>>>       INTF_BLK("intf_5", INTF_5, 0x39000, INTF_DP, 
 >>>>>>>> MSM_DP_CONTROLLER_1, 24, INTF_SC7280_MASK, MDP_SSPP_TOP0_INTR, 
 >>>>>>>> 22, 23),
 >>>>>>>>      };
 >>>>>>>> +static const struct dpu_intf_cfg sc8180x_intf[] = {
->>>>>>>> +    INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 
+>>>>>>>> +   INTF_BLK("intf_0", INTF_0, 0x6A000, INTF_DP, 
 >>>>>>>> MSM_DP_CONTROLLER_0, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 
 >>>>>>>> 24, 25),
->>>>>>>> +    INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, 
+>>>>>>>> +   INTF_BLK("intf_1", INTF_1, 0x6A800, INTF_DSI, 0, 24, 
 >>>>>>>> INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 26, 27),
->>>>>>>> +    INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, 
+>>>>>>>> +   INTF_BLK("intf_2", INTF_2, 0x6B000, INTF_DSI, 1, 24, 
 >>>>>>>> INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 28, 29),
->>>>>>>> +    /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy 
+>>>>>>>> +   /* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy 
 >>>>>>>> index until this is supported */
->>>>>>>> +    INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, 
+>>>>>>>> +   INTF_BLK("intf_3", INTF_3, 0x6B800, INTF_DP, 999, 24, 
 >>>>>>>> INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 30, 31),
->>>>>>>> +    INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 
+>>>>>>>> +   INTF_BLK("intf_4", INTF_4, 0x6C000, INTF_DP, 
 >>>>>>>> MSM_DP_CONTROLLER_1, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 
 >>>>>>>> 20, 21),
->>>>>>>> +    INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 
+>>>>>>>> +   INTF_BLK("intf_5", INTF_5, 0x6C800, INTF_DP, 
 >>>>>>>> MSM_DP_CONTROLLER_2, 24, INTF_SC7180_MASK, MDP_SSPP_TOP0_INTR, 
 >>>>>>>> 22, 23),
 >>>>>>>
@@ -251,77 +247,129 @@ On 16/02/2022 10:19, Abhinav Kumar wrote:
 >>>>>> Bjorn
 >>>>>>
 >>>>>
->>>>> Like I have mentioned in the other patch, I think we have enough 
->>>>> confusion
->>>>> between eDP and DP with the common driver. Since DPU does have 
->>>>> separate
->>>>> interfaces I think we should fix that.
+>>>>> Like I have mentioned in the other patch, I think we have enough
+>>>>> confusion between eDP and DP with the common driver. Since DPU does 
+>>>>> have
+>>>>> separate interfaces I think we should fix that.
 >>>>>
 >>>>> Regarding sc7280 using INTF_DP, I synced up with Sankeerth. He 
->>>>> referred to
->>>>> your change
+>>>>> referred
+>>>>> to your change
 >>>>> https://patchwork.freedesktop.org/patch/457776/?series=92992&rev=5 
->>>>> as it was
->>>>> posted earlier and ended up using the same INTF_DP macro. So its 
->>>>> turning out
->>>>> to be a cyclical error.
+>>>>> as it
+>>>>> was posted earlier and ended up using the same INTF_DP macro. So its
+>>>>> turning out to be a cyclical error.
 >>>>>
+>>>>> I think we should fix both.
 >>>>
->>>> That made me take a second look at the HPG, and sure enough INTF_5 on
->>>> SC7280 is connected to a eDP/DP Combo PHY. We have the same setup in
->>>> SC8280XP.
->>>>
->>>> In SC8180X, INTF_5 is documented as being connected to a eDP (only) 
->>>> PHY,
->>>> so perhaps it makes sense to do it there, but for the others its wrong.
->>>>
+>>>> So, what is the value for DPU to distinguish between eDP and DP 
+>>>> interfaces?
+>>>> Would we get anything except the (intf_type == INTF_EDP || intf_type
+>>>> == INTF_DP) instead of (intf_type == INTF_DP) in all the cases where
+>>>> the type is checked?
 >>>
->>> Here you are specifying the controller in the catalog.
->>
->> No, I'm specifying the type of the INTF. We then use the type of the
->> intf and the index to match that to a particular DP TX block.
->>
->>> So independent of the PHY thats being used, shouldnt this remain
->>> INTF_eDP?
+>>> There are only two places currently where I am seeing this OR condition
+>>> between INTF_DP and INTF_eDP. I do not have an example to give you today
+>>> of where we would need to distinguish eDP and DP but I cannot guarantee
+>>> we will not have such a case.
 >>>
+>>>> (thus leading us to cases when someone would forget to add INTF_EDP
+>>>> next to INTF_DP)
+>>>>
+>>>> Also, if we are switching from INTF_DP to INTF_EDP, should we stop
+>>>> using end-to-end numbering (like MSM_DP_CONTROLLER_2 for INTF_5) and
+>>>> add a separate numbering scheme for INTF_EDP?
+>>>>
+>>> We should change the controller ID to match what it actually is.
+>>>
+>>> Now that you pointed this out, this looks even more confusing to me to
+>>> say that  MSM_DP_CONTROLLER_2 is actually a EDP controller because
+>>> fundamentally and even hardware block wise they are different.
 >>
->> I don't think it's going to help anyone to say that an interface
->> connected to a PHY that can be either DP or EDP, should be INTF_EDP.
->>
->> People are going to make assumptions in the code such as INTF_EDP does
->> not have audio and then someone designs a board based on SC7280 with DP
->> output where they expect audio. Or assumptions about HPD, panel etc...
-
-Well, eDP links can embed audio streams (like DP links do).
-
->>
->> I'm not saying that we have all the details figured out on how that's
->> going to be controlled, but until there's a reason to distinguish
->> INTF_DP from INTF_EDP I think we should not make one up. And I don't see
->> that those differences should be hard coded in the DPU driver.
->>
->>
->> If it's confusing to people that DP might be driving an EDP output, then
->> perhaps we can just name it TMDS again? ;)
+>> So, do we split msm_priv->dp too? It's indexed using
+>> MSM_DP_CONTROLLER_n entries.
+>> Do we want to teach drm/msm/dp code that there are priv->dp[] and
+>> priv->edp arrays?
 > 
-> If you prefer to have TMDS, then like I commented earlier we dont really 
-> need this change https://patchwork.freedesktop.org/patch/474271/ :)
+> ok so now priv->dp and priv->edp arrays are also in the picture here :)
 > 
-> Whats the benefit of making that change? DRM_ENCODER_TMDS_* can be eDP 
-> and DP . Then there is no confusion or guess work in the encoder.
+> Actually all these questions should have probably come when we were 
+> figuring out how best to re-use eDP and DP driver.
 > 
-> DRM_ENCODER_DSI - INTF_DSI
-> DRM_ENCODER_VIRTUAL - INTF_WB
-> DRM_ENCODER_TMDS - INTF_DP OR INTF_eDP ( doesnt matter )
-
-The benefit for me was in the cleaness that we are asking for the 
-INTF_DP with index #3 or INTF_DSI idx 1. The less knowledge he have 
-behind the scenes the better is the code.
-
+> Either way atleast, its good we are documenting all these questions on 
+> this thread so that anyone can refer this to know what all was missed 
+> out :)
+> 
+> priv->dp is of type msm_dp. When re-using DP driver for eDP and since
+> struct msm_dp is the shared struct between dpu and the msm/dp, I get 
+> your point of re-using MSM_DP_CONTROLLER_* as thats being use to index.
+> 
+> So MSM_DP_CONTROLLER_* is more of an index into the DP driver and not 
+> really a hardware indexing scheme.
+> 
+> If we split into two arrays, we need more changes to dpu_encoder too.
+> 
+> Too instrusive a change at this point, even though probably correct.
+> 
+> But are you seeing more changes required even if we just change INTF_DP 
+> to INTF_eDP for the eDP entries? What are the challenges there?
 > 
 >>
->> Regards,
->> Bjorn
+>>> Why do we want to keep building something on top of this confusing
+>>> terminology knowing that it can be corrected when its fairly in the
+>>> development stage rather than realizing later it will break.
+>>>
+>>> We have only been discussing that eDP and DP are treated equally in the
+>>> DPU code and hence why do we need to distinguish.
+>>>
+>>> As per current code yes, but I cannot and probably noone else can
+>>> guarantee that in future there can be cases were we want to distinguish
+>>> the two for something.
+>>
+>> Me too. For now I see INTF_DP as a useful abstraction for 'the
+>> interface that's handled by drm/msm/dp and shares common timing
+>> requirements'.
+> 
+> struct msm_dp is the useful abstraction already for drm/msm/dp.
+> Not INTF_DP.
+> 
+>>
+>> At this moment I estimate that splitting it properly into INTF_DP and
+>> INTF_EDP can bring more troubles than possible future cases.
+> 
+> Can you please elaborate why changing INTF_DP to INTF_eDP is more 
+> trouble if we leave the MSM_DP_CONTROLLER_* intact?
+> 
+>> If at some point we were to distinguish DP and eDP usecases of
+>> INTF_DP, I would suggest adding is_embedded property rather than
+>> splitting away INTF_EDP.
+>>
+> 
+> Can you please elaborate on this is_embedded idea?
+
+If we need to distinguish DP and eDP behind the INTF_DP we can 
+explicitly ask msm_dp_is_embedded_dp().
+
+> 
+>> It's good to think about future cases and expansions.
+>> But it's too easy to create a monstruosos constructs supporting all
+>> possible features that no one can understand, grok and maintain.
+>> Been there, created several of them, refactored others.
+>>
+>> Let me throw in yet-another-possible-if: if at some point the hardware
+>> supported iDP using the same DP block, would you split INTF_iDP? >
+>>> Thats the overally consensus within our team.
+>>>
+>>> So if this going to work smoothly by just fixing two entries in the hw
+>>> catalog I would rather do that now rather than realizing this down the
+>>> line again just to save usage of one more enum.
+>>>
+>>>> With all that in mind I'd suggest to:
+>>>> - use INTF_DP for both DP and new eDP interfaces
+>>>> - remove INTF_EDP usage from the dpu1 driver
+>>>> - add a note that INTF_EDP corresponds to older eDP blocks (found on 
+>>>> 8x74/8x84)
+
 
 
 -- 
