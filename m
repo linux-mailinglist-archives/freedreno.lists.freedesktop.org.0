@@ -1,54 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C80F4BBE55
-	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 18:26:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7B04BC041
+	for <lists+freedreno@lfdr.de>; Fri, 18 Feb 2022 20:27:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3717510E1D1;
-	Fri, 18 Feb 2022 17:26:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD3010E862;
+	Fri, 18 Feb 2022 19:27:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8487E10E1D1
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 17:26:42 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id bn33so5311925ljb.6
- for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 09:26:42 -0800 (PST)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCFC10E862
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 19:27:49 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id f37so7255429lfv.8
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Feb 2022 11:27:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ZYe2t/FMZ93x2Kic1ao1JKybApih1A56RL1y9i2FhLE=;
- b=gOzR/3gjf7/yY5lV5TZ57e/x1QHxbFE+SzLfqHEUg96Sgohxk75AEOBey92ZQc0yen
- 4aThrlFgnRNf9Z68Q3QFatelLW9CVGwuBcW36NUiY4xO1gMmIPMkP+kho7g8aOG8ifL/
- yJkCIbLgpPXbQ3o35h4BggnBXVBhURaMExrK8uukcO82l+LdThbMAp/h+DKVZ+grqSh9
- s8l9HHb/JNFM5ttGIW9a1vz10ButIC84JkWcSsHyr2BEA40yNmf/Ig37ndCdp5XWrs2N
- JzB4n7vom3dKNRvlqiuYWluuxWMgOykrBmx9eq8BE49uM0RSwVgS8NQdOUpMzkpuCBi1
- PNzQ==
+ bh=dSkwxdtJ7mPWSSSM389YG6BGKFFrs7uF7NULsF3otKQ=;
+ b=rX2f5T3QqmsMYZfX/LAdi8UDeY7DIzLQyz0GkVZRF5WdMfHmrS3F3EZvx2qXh+ldT0
+ +xIaMI+FmPPDSqzPOdP4uijPQoMwMpbHqLSw9YFRUyqpghlr07ZcHjnlzLNlUFjV7DIC
+ X+sY/SLWuYwcXw35FWTNRYk4dKoryU6ArrWUi6YpieoANnHtbPxYH7OOQr6j/k1G023m
+ Ghcvttr8vhg8iccO6dhZXRoFdBt2Z1s+gbIrdRtoXYuf9M4UoqtSfYMqJlkVjIegq1qw
+ IRnr8vPrNMJ4ZMgPrfT/JWO76TpHHl8phi5uDlRQF86z4Tya6gUfZGzGnPd0h6pn5iX3
+ 1YVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=ZYe2t/FMZ93x2Kic1ao1JKybApih1A56RL1y9i2FhLE=;
- b=1rgtUk3MVNs8XHqqny0bnCjVaQY4SDpbioxxgtOnDyO9CSOfoh3AAlD3CqP/+uhvC5
- 7iNwbGq2AzDDmfGvaENFEsNcP9LTXsrMXlxHbc3drPpy2G18NuPGnenUfTeXvuWDv/el
- Q2E6UISmYsu+A4lOLxmayKAz8V9+QATx71x7qIXqQN4MqeSkV8CHQ7w1BAIlA7Ov9i3Y
- qBZek32BNwLqCafLXODnKKRdl4PV6ZP+CAee97mweBxGgxMRFCf6JKZrTQlaGE/y1OMM
- QSvaUM95tYKBtgfMCP+UZUqquhHm6RJxH0GZZqzcdZRnvFt8INPAwIlHBWmY0GHwdfhx
- 0V3g==
-X-Gm-Message-State: AOAM533Izs63mj/L4HZ2KobkpkEYxvzXUotEP5OK3PY193d9+aKs6mev
- TXXCk+mJX0J8p6xPr7RIsDFhdQ==
-X-Google-Smtp-Source: ABdhPJzF6KsEJtgTA6aUDgNsa2gJAo/6KzTixWf4JHc5zKVLW0gmtaXhNhMuSUe6ZlrOXZsTogAVWQ==
-X-Received: by 2002:a2e:99d1:0:b0:244:bad9:4ab7 with SMTP id
- l17-20020a2e99d1000000b00244bad94ab7mr6398922ljj.269.1645205200824; 
- Fri, 18 Feb 2022 09:26:40 -0800 (PST)
+ bh=dSkwxdtJ7mPWSSSM389YG6BGKFFrs7uF7NULsF3otKQ=;
+ b=WZpsjfTXiYnS0Z4drn+n4YAefYnSXzqaWC0CdG/6QLoRCw7Upxr9ado2uQyUgNdvYl
+ CM2ccgNBJmUuuxZhX2TrZ8/hcfGeNEpUJGxNJpXpuVqVAvQsDutIwK1HRmzK24d+DLeQ
+ E7yjf88g2kdxoQAWgvJ9CEy8CeVd7PaI+GJU8JAKZAztGZc658d5hIcexbg3SEB/eMTV
+ wsZDVVGX8PHw/ctj3d1jDee195MSbGT6DQ64MKWI6zytZFjh3AdQQeDX76mtHM7xcNYN
+ RGnKIOENw203gM92Eucgbcx2ZsAFRI2uqZv1TFH6gSJynMdrtCg6pWsuQJb9HR8v8hUw
+ 7NDw==
+X-Gm-Message-State: AOAM531FEl7M5eMbZuJO5v0ASnk933p/Ywl1x5PW3zldwZJrMjpgC0gb
+ SWuztzkMmp97CdJ6znZ3JZg4f2epE96k7Q==
+X-Google-Smtp-Source: ABdhPJwe2iQk4YzsedccWeQbQQtrgZLiKdtan5bdBm+/i0gHBWiHPdzFRwWX6ZegZ9BKKTwgYatdcA==
+X-Received: by 2002:a05:6512:338c:b0:443:b61e:60d0 with SMTP id
+ h12-20020a056512338c00b00443b61e60d0mr3128828lfg.124.1645212467720; 
+ Fri, 18 Feb 2022 11:27:47 -0800 (PST)
 Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id r3sm272173lfi.260.2022.02.18.09.26.39
+ by smtp.gmail.com with ESMTPSA id u17sm411376ljd.137.2022.02.18.11.27.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 09:26:40 -0800 (PST)
-Message-ID: <fab2ccb6-9c00-90cb-5986-8e1544c14596@linaro.org>
-Date: Fri, 18 Feb 2022 20:26:39 +0300
+ Fri, 18 Feb 2022 11:27:46 -0800 (PST)
+Message-ID: <9e2c9151-d460-14d6-46f7-bc32b60ec4ca@linaro.org>
+Date: Fri, 18 Feb 2022 22:27:45 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.0
@@ -56,13 +56,12 @@ Content-Language: en-GB
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
  robdclark@gmail.com
 References: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
- <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20210911163919.47173-2-angelogioacchino.delregno@somainline.org>
+In-Reply-To: <20210911163919.47173-1-angelogioacchino.delregno@somainline.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm/dpu: Fix timeout issues on
- command mode panels
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/dpu: Add a function to
+ retrieve the current CTL status
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,43 +85,60 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 11/09/2021 19:39, AngeloGioacchino Del Regno wrote:
-> In function dpu_encoder_phys_cmd_wait_for_commit_done we are always
-> checking if the relative CTL is started by waiting for an interrupt
-> to fire: it is fine to do that, but then sometimes we call this
-> function while the CTL is up and has never been put down, but that
-> interrupt gets raised only when the CTL gets a state change from
-> 0 to 1 (disabled to enabled), so we're going to wait for something
-> that will never happen on its own.
-> 
-> Solving this while avoiding to restart the CTL is actually possible
-> and can be done by just checking if it is already up and running
-> when the wait_for_commit_done function is called: in this case, so,
-> if the CTL was already running, we can say that the commit is done
-> if the command transmission is complete (in other terms, if the
-> interface has been flushed).
+> Add a function that returns whether the requested CTL is active or not:
+> this will be used in a later commit to fix command mode panel issues.
 > 
 > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 3 +++
->   1 file changed, 3 insertions(+)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 6 ++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h | 7 +++++++
+>   2 files changed, 13 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> index aa01698d6b25..aa5d3b3cef15 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-> @@ -682,6 +682,9 @@ static int dpu_encoder_phys_cmd_wait_for_commit_done(
->   	if (!dpu_encoder_phys_cmd_is_master(phys_enc))
->   		return 0;
->   
-> +	if (phys_enc->hw_ctl->ops.is_started(phys_enc->hw_ctl))
-> +		return dpu_encoder_phys_cmd_wait_for_tx_complete(phys_enc);
-> +
->   	return _dpu_encoder_phys_cmd_wait_for_ctl_start(phys_enc);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index 64740ddb983e..3b6fd73eb3a8 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -91,6 +91,11 @@ static inline void dpu_hw_ctl_trigger_start(struct dpu_hw_ctl *ctx)
+>   	DPU_REG_WRITE(&ctx->hw, CTL_START, 0x1);
 >   }
 >   
+> +static inline bool dpu_hw_ctl_is_started(struct dpu_hw_ctl *ctx)
+> +{
+> +	return !!(DPU_REG_READ(&ctx->hw, CTL_START) & BIT(0));
+> +}
+> +
+>   static inline void dpu_hw_ctl_trigger_pending(struct dpu_hw_ctl *ctx)
+>   {
+>   	trace_dpu_hw_ctl_trigger_prepare(ctx->pending_flush_mask,
+> @@ -579,6 +584,7 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
+>   	ops->get_pending_flush = dpu_hw_ctl_get_pending_flush;
+>   	ops->get_flush_register = dpu_hw_ctl_get_flush_register;
+>   	ops->trigger_start = dpu_hw_ctl_trigger_start;
+> +	ops->is_started = dpu_hw_ctl_is_started;
+>   	ops->trigger_pending = dpu_hw_ctl_trigger_pending;
+>   	ops->reset = dpu_hw_ctl_reset_control;
+>   	ops->wait_reset_status = dpu_hw_ctl_wait_reset_status;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index 806c171e5df2..ac1544474022 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -61,6 +61,13 @@ struct dpu_hw_ctl_ops {
+>   	 */
+>   	void (*trigger_start)(struct dpu_hw_ctl *ctx);
+>   
+> +	/**
+> +	 * check if the ctl is started
+> +	 * @ctx       : ctl path ctx pointer
+> +	 * @Return: true if started, false if stopped
+> +	 */
+> +	bool (*is_started)(struct dpu_hw_ctl *ctx);
+> +
+>   	/**
+>   	 * kickoff prepare is in progress hw operation for sw
+>   	 * controlled interfaces: DSI cmd mode and WB interface
 
 
 -- 
