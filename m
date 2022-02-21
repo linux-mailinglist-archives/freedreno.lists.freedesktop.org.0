@@ -1,60 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CE534BD6D0
-	for <lists+freedreno@lfdr.de>; Mon, 21 Feb 2022 08:34:13 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 832D94BD86C
+	for <lists+freedreno@lfdr.de>; Mon, 21 Feb 2022 10:06:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFA210F974;
-	Mon, 21 Feb 2022 07:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E591128FA;
+	Mon, 21 Feb 2022 09:06:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 903F310F8B2;
- Mon, 21 Feb 2022 07:34:10 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id u1so25394329wrg.11;
- Sun, 20 Feb 2022 23:34:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=R+qoR05yyHcZH4vSpMFd8zmkj+IJ0A8LVRiydiNyLQE=;
- b=bfJ5+9lJe1regsuOgOS62d6ohx+ewAGRCfg62qzUyvYZ+eec9jm0xpboi7mUJnHtRv
- b81hAbPB3zc1/p3GtZnBfH5tb7iVphRT8k0sM1SUj/jymWXJOxMc+o3E8aRz24F9Qgbt
- oQES8SLZ7qCM/r0yZHgLqC4AxDNlB8kFFZDMskAc36MeaGYxUDuqJqJkjZ1Yy8hHwxZj
- JOYxBcGX0LlyvJUGOmRPN0lHOojK1SeGpCeoE5u8FSU19yXr4CDHEL28OV7ApyphpHzU
- m/XuzUzdkLylwL8QK8qfXcgfIMIDEBt4xE83umKA13INLGHzsXmpMvThU1wPS76KJel0
- ndhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=R+qoR05yyHcZH4vSpMFd8zmkj+IJ0A8LVRiydiNyLQE=;
- b=jruxTP37kqHnr8xKnbXP+12NgT6HOprZaipFCRXiZgdaFrgVgDy1ki2cUmVUpx18lg
- MAAjbTrY++jgHtfJrTbAqj3ERWHzgPChUa39vKocm6KKEU4Ps6M1FlZ5VJSmVdGhuyfl
- wLFc3o99oIxcyIBQEm0V8K38Q7o/pR3rbWQti8CsPxToM/OuZGxAtH3y5kpnqKnCTuTg
- /c6PN7Hoe8ax/xAGEKyijUqnHbtwhelcwPsILlZ8McYuNkHgc0ExclwoANTTNxnKo7sh
- tqCNM97AQpYy7t+NVfxLxxKki3dYi4xDCaQOiVSpa0YyuI+0POjDxT6G2Hc7joldiM75
- 8HmQ==
-X-Gm-Message-State: AOAM533pUrL6k1GnGeJkkFX0WSGbA0L6imjniJZUyWyImUIZX9LMC5ig
- NXxQ8oHDoSys6y3dKSY7HWA=
-X-Google-Smtp-Source: ABdhPJx0lw3Y5VqBWVHfEPeyySbm9dv8MgG72DRRcySxMXil771gs/YOCQimQJH9Iw+6HqFyEOkkeQ==
-X-Received: by 2002:adf:e7cd:0:b0:1e3:31a4:4b55 with SMTP id
- e13-20020adfe7cd000000b001e331a44b55mr13981624wrn.650.1645428849129; 
- Sun, 20 Feb 2022 23:34:09 -0800 (PST)
-Received: from localhost.localdomain ([94.73.33.246])
- by smtp.gmail.com with ESMTPSA id f13sm29876580wri.82.2022.02.20.23.34.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 20 Feb 2022 23:34:08 -0800 (PST)
-From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
-To: robdclark@gmail.com
-Date: Mon, 21 Feb 2022 08:33:39 +0100
-Message-Id: <20220221073339.10742-1-jose.exposito89@gmail.com>
-X-Mailer: git-send-email 2.25.1
+X-Greylist: delayed 624 seconds by postgrey-1.36 at gabe;
+ Mon, 21 Feb 2022 09:06:01 UTC
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+ [66.111.4.224])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C9F1128B9
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Feb 2022 09:06:01 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 870DC580229;
+ Mon, 21 Feb 2022 03:55:36 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Mon, 21 Feb 2022 03:55:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; bh=zcdXYKD7AIGXfsVFdjjk2+yAJ6zsZ8B0f4omWG
+ U4udk=; b=LVxkjzRmQ4i/fCDy8Ek6wbLyQWNE22E401IzR2k13N3Ew037DuZLmi
+ 90/AdOlQQhkoKP0QzB4gbeJGr18LbcLmBzV8ka9qsNurIaBsjLYunuxvmyZG8Xi2
+ hLcPwTKTqhs5iEj1cbAVJhKsmISL69uUAPmvZnzjLsfXCwUTHeJOaNyswUWg6WJ+
+ miYx1ovsB7VqI0r55amRpSaRiZL0Ak7+bHM/EtrmlX+kUJi9Jkyj/DC+hxwrjDuV
+ 7myTB+f8OwKY8/BErNQMSfa2Kuc2iJ4o5mLqbiQHcliVzv64PfEWmE5hrnhfaH0m
+ zs0da30wSrcgNKNjdJvOW/JA8pFGRJJg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=zcdXYKD7AIGXfsVFd
+ jjk2+yAJ6zsZ8B0f4omWGU4udk=; b=Q26jmJCQeassQD8bDmdKizI0QTqNcla26
+ Z/sXnrDLuGaL9HqS/i8YzFk2xmSMg5qT/kGsVZyoLqSTwsIyBqXyq8RkY1BwuSFt
+ QliDhtgjgX+f//x2hHtBd0x9iJ/e9wbClQ53Vq8ySt2L5I5z1MsYD9spxcgoRscu
+ QaDu5sly+LhYn7wj37qZFFT4P56NisZ7DFvxHeADJ2Yo3eCcecgr07VYmoM8WjSm
+ ivXsSrxXOySf62FF2HZLDdgb+1ARoSIGDx5b2+B8HLOZurpInf8VZT3E4HoqDgSz
+ I5T2YtcS/CmqQ8PBVPs8UiGfEjktjTOzHthV6fN+nwMwzPlzufzyw==
+X-ME-Sender: <xms:iFMTYkhhyhwq3q1gNDcLdP3q8C2Gcn0xGoGTIFTl5cf-mLt7sYkBUw>
+ <xme:iFMTYtA36Hu-MfKjDgBkfzvgPIo3849S-J6pti4CJExQLCHTJVSCWNEU_UEJ7qt-V
+ q_DIkav7joDmQTtBy4>
+X-ME-Received: <xmr:iFMTYsH7JC_CWS-AKr917Bjxwqh6SbbwsRdMCucyfFiuWAetY7p88YlWByv5qdFb009yJNgva4gF729RxR0r-7ZfzvNueqUeOdzPO1o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrkeehgdduvddvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepuddvudfhkeekhefgffetffelgffftdehffduffegveetffehueeivddvjedv
+ gfevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:iFMTYlQDvgXohLsYkaWvn1BTfIex5vySL60NfMqFYxzkcJyz8UNl_Q>
+ <xmx:iFMTYhynmE5168aSv0qT-xR_Dqtkvj78qdTou6E4xuMW1lj21zzrFg>
+ <xmx:iFMTYj7r2HOg3-c1NHjZOOf6MpAPn-q2NINtiX1xYM_81dmCIx7vEA>
+ <xmx:iFMTYmo4J-9O2AlAD-UW1T9vmr3i44wDDqBByzDzzOKwQaNNj9QSMg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 21 Feb 2022 03:55:35 -0500 (EST)
+Date: Mon, 21 Feb 2022 09:55:34 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>
+Message-ID: <20220221085534.qw2x6mge42uo4fl6@houat>
+References: <20220221073339.10742-1-jose.exposito89@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: switch to devm_drm_of_get_bridge
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="kcae224eyodkfp6e"
+Content-Disposition: inline
+In-Reply-To: <20220221073339.10742-1-jose.exposito89@gmail.com>
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: switch to devm_drm_of_get_bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +84,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org, maxime@cerno.tech,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
+ robdclark@gmail.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
  swboyd@chromium.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The function "drm_of_find_panel_or_bridge" has been deprecated in
-favor of "devm_drm_of_get_bridge".
 
-Switch to the new function and reduce boilerplate.
+--kcae224eyodkfp6e
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: José Expósito <jose.exposito89@gmail.com>
----
- drivers/gpu/drm/msm/dp/dp_parser.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+On Mon, Feb 21, 2022 at 08:33:39AM +0100, Jos=E9 Exp=F3sito wrote:
+> The function "drm_of_find_panel_or_bridge" has been deprecated in
+> favor of "devm_drm_of_get_bridge".
+>=20
+> Switch to the new function and reduce boilerplate.
+>=20
+> Signed-off-by: Jos=E9 Exp=F3sito <jose.exposito89@gmail.com>
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index a7acc23f742b..0951752e2d98 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -268,16 +268,8 @@ static int dp_parser_clock(struct dp_parser *parser)
- static int dp_parser_find_panel(struct dp_parser *parser)
- {
- 	struct device *dev = &parser->pdev->dev;
--	struct drm_panel *panel;
--	int rc;
- 
--	rc = drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, NULL);
--	if (rc) {
--		DRM_ERROR("failed to acquire DRM panel: %d\n", rc);
--		return rc;
--	}
--
--	parser->panel_bridge = devm_drm_panel_bridge_add(dev, panel);
-+	parser->panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
- 	if (IS_ERR(parser->panel_bridge)) {
- 		DRM_ERROR("failed to create panel bridge\n");
- 		return PTR_ERR(parser->panel_bridge);
--- 
-2.25.1
+Reviewed-by: Maxime Ripard <maxime@cerno.tech>
 
+Maxime
+
+--kcae224eyodkfp6e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYhNThgAKCRDj7w1vZxhR
+xQ/3AQDoqp/3uuiqU47wvaKsMT4OkQ8oU6uBZBmILyZXiEmPlAD8C7QMIh6RfG/2
+cMb7pXNT5FUCHu/NDIb0I9E7Cig+gw4=
+=WH80
+-----END PGP SIGNATURE-----
+
+--kcae224eyodkfp6e--
