@@ -1,75 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109554BD8CF
-	for <lists+freedreno@lfdr.de>; Mon, 21 Feb 2022 10:59:54 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3454BD9B2
+	for <lists+freedreno@lfdr.de>; Mon, 21 Feb 2022 13:37:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9DF10E73E;
-	Mon, 21 Feb 2022 09:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F1B710E2FF;
+	Mon, 21 Feb 2022 12:37:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 631EE10E5E0;
- Mon, 21 Feb 2022 09:59:50 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id BE27B58025D;
- Mon, 21 Feb 2022 04:59:49 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Mon, 21 Feb 2022 04:59:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm2; bh=IFVgN74my049bXBhIl0zeRDWJiwGrn
- qHIa/jttdk6C8=; b=mjP/vzgr7CkR825BFfYTstyO3TNWupa759b0oxo9ddH1+S
- 8Hi3LX4JzduGBi6Ej2f7ilLpCIv/K3jZX2VJpH43sfHqHYdBQ1RqMzw9r2aASeFn
- CFYAQ3f6hNSpTr8IvwcO2lNfE6+Y4ZegoFikCopYoPbAkTg0c+55JyA041Qc+C+B
- I5LPCV3yPlyIAx7qTNb2ZElBXECgfSEcwt/ZYhM4pqV+3LO5MG/lGdB0KbjSDgh7
- cyRRZ7sDqI5p58ELfyUj2N7lmYGFuj0zSt4/JoywS/jf3z9Z2VKkZnzJiEbZIEQz
- 16pcvLfO1rfDVcfJHTYkS/Y8LdP6oa19f5Blfcuw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=IFVgN7
- 4my049bXBhIl0zeRDWJiwGrnqHIa/jttdk6C8=; b=HlkaHMw5S+3ZAiomMF1kss
- XXNYo0UhUcdR/p8BeUvRbw5Zubkikn+MZQBRr6/xKEd8T4XFJ6UAVqxaUiTNJzR1
- gaboinynA8fFNDRJv+7ORd0RoNkvkXtsnp28EgD9WAsoOFcJmq938vP6E1xylwR2
- rWNcqRy0v6VSNJ/EOZF543F3bC/Ygn948QgTMUOHKYntvYiWRfk95RwzIeoTSEtB
- OhQsdSs5A4R3R5OTlUsXRrDhIaro8hl/RwVefxD3diYSZRVn/UFk4S2cUpKmwf62
- LSzBdN0Xt1gg3lWYkcq80mLVny+kzR+PLbeYv8hdbnuyjgD9jEJAb/bCRg04rTBA
- ==
-X-ME-Sender: <xms:lWITYv6FRw1d3IQ8xC0-xm-pZCayZaqjIS3TIMtmN8dgOq88KnKGRQ>
- <xme:lWITYk5d9PsF9dwnkWmhh8OcjAeSQcgCosO9OSWKBDcO7wKaBWrxzHPP1SvEfqLPl
- kYNZMgNOYSR2ADs_LA>
-X-ME-Received: <xmr:lWITYmcmKHLtOef4-8ZCz0FjZbseHrdZGHXizmvkA7NI8M9FXLKj_IQ0lzMjgIb27T2Z3DMkDCKyA4LzzGqFpuBVFbrt-HkXPH5zR5o>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrkeeigddutdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvffufffkofgjfhgggfestdekredtredttdenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpedvkeelveefffekjefhffeuleetleefudeifeehuddugffghffhffehveevheeh
- vdenucevlhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
- igihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:lWITYgJQcKsPWICaPaU5dvZ8q8gEPOgDlulqa5y_VoDXQPMKYRKFaQ>
- <xmx:lWITYjKhz6AlcD88sdF5Q-JAJ12w0rEQudFhP8u8jF6SyV5ncBo5lQ>
- <xmx:lWITYpwqOXoKrdC39BujsezgdOiHFTXJjmzjh5rOn1KR2-kX8xPr6Q>
- <xmx:lWITYljHZRb61TPci2afQlOMwPE6h3zGN1uzIhSmuFG7aNsXjwbVNQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 21 Feb 2022 04:59:49 -0500 (EST)
-From: Maxime Ripard <maxime@cerno.tech>
-To: Daniel Vetter <daniel.vetter@intel.com>,
-	David Airlie <airlied@linux.ie>
-Date: Mon, 21 Feb 2022 10:59:08 +0100
-Message-Id: <20220221095918.18763-13-maxime@cerno.tech>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220221095918.18763-1-maxime@cerno.tech>
-References: <20220221095918.18763-1-maxime@cerno.tech>
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A562610E2E0
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Feb 2022 12:37:42 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id b9so18362030lfv.7
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Feb 2022 04:37:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=BHEt1T1Dr3DMzmTO8EpeENJekq7BZDfUi5pPH/ucie4=;
+ b=jzURkuBSvHGgkr8DytLLtBFQyDU8KDb9QvoXlkOKbodgYF96qgkxGv8j2VkH2xwe5E
+ TmgUSyTl05rmW/lBk046nkv6Cbqi/WvnYc92O3rzu0Kqmj4bl97OmqiP1pb/fZ59VRJt
+ AugWLr0Cqe5VMTBzxr3nobHHLZcn+h8fXr7wC/M8pOdFTSxtF0YBgrSdm2SBMFppPAT5
+ fHi7Xnly/ynVuieYMsJBRZb/jrnqphfaGvDQjVO/ckrDYH8uYK2n7yIfxMgVkEpxAvVb
+ +d+iN0j0ln4hB9ixaJt/AQEfFEmO1FneoY0AalYlRE8sLVQp6EjbiPtOVN4JRb3MPxMC
+ fAMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=BHEt1T1Dr3DMzmTO8EpeENJekq7BZDfUi5pPH/ucie4=;
+ b=QTg8SJcvE1ahWKh7Gsg9i3xlHfQxFyR1YjOk7U9CIPbEh8v0Y4gMIQKiZhGnxNZS0L
+ MfUBv6qHEyMy/NNkWBukuLALJZUR8g9F50OxeRYJHM1QZTXJzWvyePbltUhXpielkMfl
+ DmqieLlxFHJoDQhIbAwDsg8Sa/YkfeB2S/biTH5A3JaQ8Ubsd/dYXTm4Zo1S3fAeZAje
+ fWJtUh1Qg9Za3zGJ469RnwKWz92G+0/OEGPZMHbkBRduXBMEQkXUvYf7dhrWBqJ90Cop
+ tdn+5XJew499EgNcscwt6AcYrlWHwTM/NX7RLO8f72DLohtyFFbso1fdH/893Yirp4e8
+ pfSQ==
+X-Gm-Message-State: AOAM531lEQZzT6Yyzcp7WLrwieJFPMpkDqIMeCQ9JKikiqjzdqibWycb
+ xkQoVIVhuuHBdMg0rgHyrRg3IQ==
+X-Google-Smtp-Source: ABdhPJwXmsvWi5N5+zEcG0VMEdEgWaH9TLXdnqHBzhYOfPatDGiICbASsGOZ8oIPL2zeVWJjeFAnwg==
+X-Received: by 2002:a05:6512:952:b0:443:7f74:1418 with SMTP id
+ u18-20020a056512095200b004437f741418mr14397020lft.36.1645447060761; 
+ Mon, 21 Feb 2022 04:37:40 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id d16sm1107988lfs.63.2022.02.21.04.37.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Feb 2022 04:37:40 -0800 (PST)
+Message-ID: <813297ce-c0fa-e805-eec9-1dbc31860f8f@linaro.org>
+Date: Mon, 21 Feb 2022 15:37:37 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 12/22] drm/msm/mdp5: Remove redundant zpos
- initialisation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Content-Language: en-GB
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+References: <20220210103423.271016-1-vkoul@kernel.org>
+ <20220210103423.271016-3-vkoul@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220210103423.271016-3-vkoul@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [REPOST PATCH v4 02/13] drm/msm/dsi: Pass DSC
+ params to drm_panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,77 +74,198 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Dom Cobley <dom@raspberrypi.com>,
- Tim Gover <tim.gover@raspberrypi.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Maxime Ripard <maxime@cerno.tech>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Phil Elwell <phil@raspberrypi.com>
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The mdp KMS driver will call drm_plane_create_zpos_property() with an
-init value depending on the plane purpose.
+On 10/02/2022 13:34, Vinod Koul wrote:
+> When DSC is enabled, we need to pass the DSC parameters to panel driver
+> as well, so add a dsc parameter in panel and set it when DSC is enabled
+> 
+> Also, fetch and pass DSC configuration for DSI panels to DPU encoder,
+> which will enable and configure DSC hardware blocks accordingly.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  2 ++
+>   drivers/gpu/drm/msm/dsi/dsi.c           |  5 +++++
+>   drivers/gpu/drm/msm/dsi/dsi.h           |  1 +
+>   drivers/gpu/drm/msm/dsi/dsi_host.c      | 22 ++++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_drv.h           |  8 ++++++++
+>   include/drm/drm_panel.h                 |  7 +++++++
+>   6 files changed, 45 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 47fe11a84a77..ef6ddac22767 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -578,6 +578,8 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+>   			MSM_DISPLAY_CAP_CMD_MODE :
+>   			MSM_DISPLAY_CAP_VID_MODE;
+>   
+> +		info.dsc = msm_dsi_get_dsc_config(priv->dsi[i]);
+> +
+>   		if (msm_dsi_is_bonded_dsi(priv->dsi[i]) && priv->dsi[other]) {
+>   			rc = msm_dsi_modeset_init(priv->dsi[other], dev, encoder);
+>   			if (rc) {
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+> index 052548883d27..3aeac15e7421 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.c
+> @@ -20,6 +20,11 @@ bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi)
+>   	return !(host_flags & MIPI_DSI_MODE_VIDEO);
+>   }
+>   
+> +struct msm_display_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+> +{
+> +	return msm_dsi_host_get_dsc_config(msm_dsi->host);
+> +}
+> +
+>   static int dsi_get_phy(struct msm_dsi *msm_dsi)
+>   {
+>   	struct platform_device *pdev = msm_dsi->pdev;
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+> index c8dedc95428c..16cd9b2fce86 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi.h
+> +++ b/drivers/gpu/drm/msm/dsi/dsi.h
+> @@ -152,6 +152,7 @@ int dsi_calc_clk_rate_v2(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+>   int dsi_calc_clk_rate_6g(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
+>   void msm_dsi_host_snapshot(struct msm_disp_state *disp_state, struct mipi_dsi_host *host);
+>   void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host);
+> +struct msm_display_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host);
+>   
+>   /* dsi phy */
+>   struct msm_dsi_phy;
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index 27553194f9fa..7e9913eff724 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -2059,9 +2059,24 @@ int msm_dsi_host_modeset_init(struct mipi_dsi_host *host,
+>   {
+>   	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+>   	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+> +	struct drm_panel *panel;
+>   	int ret;
+>   
+>   	msm_host->dev = dev;
+> +	panel = msm_dsi_host_get_panel(&msm_host->base);
+> +
+> +	if (panel && panel->dsc) {
+> +		struct msm_display_dsc_config *dsc = msm_host->dsc;
+> +
+> +		if (!dsc) {
+> +			dsc = devm_kzalloc(&msm_host->pdev->dev, sizeof(*dsc), GFP_KERNEL);
+> +			if (!dsc)
+> +				return -ENOMEM;
+> +			dsc->drm = panel->dsc;
+> +			msm_host->dsc = dsc;
+> +		}
+> +	}
+> +
+>   	ret = cfg_hnd->ops->tx_buf_alloc(msm_host, SZ_4K);
+>   	if (ret) {
+>   		pr_err("%s: alloc tx gem obj failed, %d\n", __func__, ret);
+> @@ -2626,3 +2641,10 @@ void msm_dsi_host_test_pattern_en(struct mipi_dsi_host *host)
+>   		dsi_write(msm_host, REG_DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER,
+>   				DSI_TEST_PATTERN_GEN_CMD_STREAM0_TRIGGER_SW_TRIGGER);
+>   }
+> +
+> +struct msm_display_dsc_config *msm_dsi_host_get_dsc_config(struct mipi_dsi_host *host)
+> +{
+> +	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> +
+> +	return msm_host->dsc;
+> +}
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index 384f9bad4760..e7a312edfe67 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -119,6 +119,7 @@ struct msm_display_topology {
+>    *                      based on num_of_h_tiles
+>    * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
+>    *				 used instead of panel TE in cmd mode panels
+> + * @dsc:		DSC configuration data for DSC-enabled displays
+>    */
+>   struct msm_display_info {
+>   	int intf_type;
+> @@ -126,6 +127,7 @@ struct msm_display_info {
+>   	uint32_t num_of_h_tiles;
+>   	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
+>   	bool is_te_using_watchdog_timer;
+> +	struct msm_display_dsc_config *dsc;
+>   };
+>   
+>   /* Commit/Event thread specific structure */
+> @@ -365,6 +367,7 @@ void msm_dsi_snapshot(struct msm_disp_state *disp_state, struct msm_dsi *msm_dsi
+>   bool msm_dsi_is_cmd_mode(struct msm_dsi *msm_dsi);
+>   bool msm_dsi_is_bonded_dsi(struct msm_dsi *msm_dsi);
+>   bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi);
+> +struct msm_display_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi);
+>   #else
+>   static inline void __init msm_dsi_register(void)
+>   {
+> @@ -393,6 +396,11 @@ static inline bool msm_dsi_is_master_dsi(struct msm_dsi *msm_dsi)
+>   {
+>   	return false;
+>   }
+> +
+> +static inline struct msm_display_dsc_config *msm_dsi_get_dsc_config(struct msm_dsi *msm_dsi)
+> +{
+> +	return NULL;
+> +}
+>   #endif
+>   
+>   #ifdef CONFIG_DRM_MSM_DP
+> diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+> index 4602f833eb51..eb8ae9bf32ed 100644
+> --- a/include/drm/drm_panel.h
+> +++ b/include/drm/drm_panel.h
+> @@ -171,6 +171,13 @@ struct drm_panel {
+>   	 * Panel entry in registry.
+>   	 */
+>   	struct list_head list;
+> +
+> +	/**
+> +	 * @dsc:
+> +	 *
+> +	 * Panel DSC pps payload to be sent
+> +	 */
+> +	struct drm_dsc_config *dsc;
 
-Since the initial value wasn't carried over in the state, the driver had
-to set it again in mdp5_plane_reset(). However, the helpers have been
-adjusted to set it properly at reset, so this is not needed anymore.
+This is not a blocker or a request for a change, just a kind of thought:
 
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Maxime Ripard <maxime@cerno.tech>
----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+I've been looking onto this change for a while from the following point 
+of view. I'd like to switch DSI driver to use panel 
+bridge/drm_bridge_connector(). This simplifies handling of DRM bridge 
+chains.
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index c6b69afcbac8..5d8ac84c510b 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -48,6 +48,8 @@ static void mdp5_plane_destroy(struct drm_plane *plane)
- static void mdp5_plane_install_properties(struct drm_plane *plane,
- 		struct drm_mode_object *obj)
- {
-+	unsigned int zpos;
-+
- 	drm_plane_create_rotation_property(plane,
- 					   DRM_MODE_ROTATE_0,
- 					   DRM_MODE_ROTATE_0 |
-@@ -59,7 +61,12 @@ static void mdp5_plane_install_properties(struct drm_plane *plane,
- 			BIT(DRM_MODE_BLEND_PIXEL_NONE) |
- 			BIT(DRM_MODE_BLEND_PREMULTI) |
- 			BIT(DRM_MODE_BLEND_COVERAGE));
--	drm_plane_create_zpos_property(plane, 1, 1, 255);
-+
-+	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
-+		zpos = STAGE_BASE;
-+	else
-+		zpos = STAGE0 + drm_plane_index(plane);
-+	drm_plane_create_zpos_property(plane, zpos, 1, 255);
- }
- 
- static void
-@@ -91,13 +98,6 @@ static void mdp5_plane_reset(struct drm_plane *plane)
- 
- 	kfree(to_mdp5_plane_state(plane->state));
- 	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
--
--	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
--		mdp5_state->base.zpos = STAGE_BASE;
--	else
--		mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
--	mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
--
- 	__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
- }
- 
+Also since DSC can be consumed not by the panel itself, but by the next 
+bridge in chain (e.g. it's supported on the DSI input by the ANX7625 
+bridge), using drm_panel doesn't look completely correct.
+
+So, I have been looking for a better way to pass DSC configuration.
+
+For DSI we can use struct mipi_dsi_device (together with the rest of 
+data we are passing from DSI device driver to DSI host). This would 
+allow both DSI panels and DSI bridges to pass the DSC config to the 
+previous deivce in chain (DSI host).
+
+Any comments/thoughs?
+
+Note, for DP this problem doesn't exist. The DSC config is a part of 
+DPDC, so it will be parsed by the msm/dp driver in a natural way.
+
+
+>   };
+>   
+>   void drm_panel_init(struct drm_panel *panel, struct device *dev,
+
+
 -- 
-2.35.1
-
+With best wishes
+Dmitry
