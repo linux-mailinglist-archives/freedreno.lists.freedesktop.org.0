@@ -2,80 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80BEF4BEEF7
-	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 02:46:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D49F4BEFC5
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 04:12:08 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A71310E366;
-	Tue, 22 Feb 2022 01:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57B0610E5C6;
+	Tue, 22 Feb 2022 03:12:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6275E10E366
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 01:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645494368;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=96JzHwNa1B2QXjUWnZ374iz4+U14qI3CRmOmAH0GIUs=;
- b=Xc4roBB8D2fGwn4ZMxj6JqZi0T5nUrireTjP+YZwFY8kCZ5oJXHKDtfaxuAa0ifbD5mhnU
- zuMizmAiXEYR9mgPF2QYbFlg+A2U82RlqKwhBFVGrd4vAWbQLKT6L3moQMZ8CaZv0d4iSJ
- WqAessbw8OaGH56YfV4NU4YsWyHRn1g=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-614-is9lOO1lO0aIUyGMeARQxw-1; Mon, 21 Feb 2022 20:46:01 -0500
-X-MC-Unique: is9lOO1lO0aIUyGMeARQxw-1
-Received: by mail-qk1-f199.google.com with SMTP id
- r20-20020a37a814000000b00648f4cddf6bso3262241qke.5
- for <freedreno@lists.freedesktop.org>; Mon, 21 Feb 2022 17:46:01 -0800 (PST)
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4080B10E5C4
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 03:12:05 +0000 (UTC)
+Received: by mail-qv1-xf2b.google.com with SMTP id a19so37624516qvm.4
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Feb 2022 19:12:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qFJMqR0Uyd2kPZ5TICCuCWl+NAqTGxv/k2Ys7IDjf1s=;
+ b=eyN6+87FrkdQPVOr02hchsIoth9vEfXRogzh61Xd1oI5aXdVT2uFWCEPPJYTrRv/Oq
+ VCXMlqOIk0eiOge3ouDVg2be5IvzO2TyduP2cS0nh9yWZttszDJZi6DFD3FF6ziAIufA
+ NygeTb8+dUkED6jzSHG85PAHSaXfRwqG1s/I7LyzCJbCtP/Aobb08J9aGGLTYB7QEmLM
+ JdIIRgC58FkZtiXfZ07Cl92oz2NQvr2rct3+QCxxbEG2JUZkZgx5EeeaLOHw6rbKBbcp
+ 7ZF2OoukMgUCAkU6dyrbi04NWD/T1lz6Wt7AE3oDyjdLdd3MvkPV6Ig9D4LpPcy6s5iW
+ sIKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:date:organization
- :user-agent:mime-version:content-transfer-encoding;
- bh=96JzHwNa1B2QXjUWnZ374iz4+U14qI3CRmOmAH0GIUs=;
- b=TcY9mocK77r4g3shgLJnV+khv5fdyMpRkV2yUFbV+UNcglHfV4UAKk645zZKH09d88
- BiqBqTLWPz3p52WeEz3fH/M3R8NhxBRBSJA14SrowAz0Z4/cnijfpJ+tjOcNcrJvM8C1
- YCw5V0RU/NH6TcVTBC/vGc5glWv15nF/lzlwgaHTJcsMa3+zdZ9RPUf4CjZ2QafZ6v+T
- 9XJVKMwToybrnyELFsoPDZQrwwtndhunNh3B2EdM6PU+Uh/b/oE38q/27lgaotwLrU/q
- DqZNnAS/+1NpSbBf7LqRxXodLxObgImdjMK+AAE7ScJgSc0WXWsOqAlSJc12A/AQcf1y
- UY/Q==
-X-Gm-Message-State: AOAM531hRapHQjZ07bICmdRQX7VwHqlqJ/pRO6RNNg+43kLADbs7rk3N
- fvQegvaEyktUbYJ1SyvLUTv6hpAtju3UEP1an1V7U3ZkAgK3MbMs4aEGrgDwAEpBHotIBYLJDGw
- VYxYY83QAPjit+1aAzgjekHbI9OxK
-X-Received: by 2002:a0c:bec2:0:b0:42d:7a97:7c50 with SMTP id
- f2-20020a0cbec2000000b0042d7a977c50mr17596030qvj.64.1645494360785; 
- Mon, 21 Feb 2022 17:46:00 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyRyX/nST1Psi3yWzhSr7BZIQG7ecyOcllTfLzjLqbPHMXIvAV7C+vXZhS0bg1zhOmNbnqosg==
-X-Received: by 2002:a0c:bec2:0:b0:42d:7a97:7c50 with SMTP id
- f2-20020a0cbec2000000b0042d7a977c50mr17596017qvj.64.1645494360574; 
- Mon, 21 Feb 2022 17:46:00 -0800 (PST)
-Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
- [96.230.100.15])
- by smtp.gmail.com with ESMTPSA id j128sm6512810qkd.61.2022.02.21.17.45.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Feb 2022 17:46:00 -0800 (PST)
-Message-ID: <e93170406e5ea46e95f44d4e33f0c86a78c0623a.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org
-Date: Mon, 21 Feb 2022 20:45:58 -0500
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.3 (3.42.3-1.fc35)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qFJMqR0Uyd2kPZ5TICCuCWl+NAqTGxv/k2Ys7IDjf1s=;
+ b=yGHB6e+SHXpTWcdMw2TDoh2sgtgv4eRtYrMmuryQTk+n+FJRQRKAZknkcBNXV1Sc91
+ KNDzMJBfhjViqUvgfnzGzwA1vYc6XOGwRKNVNLJ4SEt9Lo1XPmVbB4B7h8RsKeI8/fn1
+ dOahiw1ifp26xy/cIbp5vcMluX2iJeszPi/h5JzQvRllbgKQ/BvsR4e//ZyZGTkKUsmg
+ NI8ml+bAP/j8l6cauJuxsNNx8k4YBros22+uQY1a0yYnbevDTK11apgPRXYgnb0MAyYZ
+ jsO4zF719nlZAbNAGEVN9VkgOfosES9C4WdvdCkF9JOf7XIjN7PAM3xHtnL9O6Zi2BUi
+ S2wA==
+X-Gm-Message-State: AOAM5317o5X86MJfQZoYdowafQusVovXpsFC0pKoOTOPrlBVUlKwe/j2
+ bKuxBPFmVYpniamCemJXEYOmLykSb44Z+Q83RSei8g==
+X-Google-Smtp-Source: ABdhPJzuBSQDu4totjZ87w+DOzd95iK77ndN1yjJvntgthnFEFwtdZKse38DWkEDhFKlI/9NC/pR/5/P6bLR2axIZn4=
+X-Received: by 2002:ac8:5b88:0:b0:2de:23e3:62c0 with SMTP id
+ a8-20020ac85b88000000b002de23e362c0mr7377707qta.62.1645499524196; Mon, 21 Feb
+ 2022 19:12:04 -0800 (PST)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+References: <20220222012638.6650-1-konrad.dybcio@somainline.org>
+In-Reply-To: <20220222012638.6650-1-konrad.dybcio@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 22 Feb 2022 05:26:03 +0300
+Message-ID: <CAA8EJppM=3R-h0Yai4JTSfc3j-nvV_oCgK+t5Vz_8X6A_AfO=Q@mail.gmail.com>
+To: Konrad Dybcio <konrad.dybcio@somainline.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] 2022 X.Org Board of Directors Elections Nomination
- period is NOW
+Subject: Re: [Freedreno] [RFC PATCH] drm/msm/dpu1: Add a common DPU1
+ compatible
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,49 +63,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, jamipkettunen@somainline.org,
+ Stephen Boyd <swboyd@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, martin.botka@somainline.org,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ angelogioacchino.delregno@somainline.org, marijn.suijten@somainline.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We are seeking nominations for candidates for election to the X.Org Foundation
-Board of Directors. All X.Org Foundation members are eligible for election to
-the board.
+Hi,
 
-Nominations for the 2022 election are now open and will remain open until
-23:59 UTC on 06 March 2022.
+On Tue, 22 Feb 2022 at 04:26, Konrad Dybcio
+<konrad.dybcio@somainline.org> wrote:
+>
+> There is *almost no reason* to keep separate compatibles for different
+> SoCs utilizing the DPU1 driver, as it checks the HW version at runtime.
+>
+> Introduce a common compatible, while not removing the old ones to keep
+> old DT compatibility.
 
-The Board consists of directors elected from the membership. Each year, an
-election is held to bring the total number of directors to eight. The four
-members receiving the highest vote totals will serve as directors for two year
-terms.
+I don't quite like this idea. Specifying more or less exact
+compatibility string gives us more flexibility.
+Few recent usecases to mention:
+- qcom,mdp5 compatibility. If we had soc-specific compatibilities, we
+would be able to switch the drivers w/o changing the dts. With a
+single compatibility we would have to change the dts if we were to
+change one of the boards form mdp5 to dpu1.
+- qcom,mdss-dsi-ctrl vs qcm2290. We have to add special compat string
+to account for the different io addresses. If we were using
+soc-specific compats, it would be one from many, not one vs many
+usage.
 
-The directors who received two year terms starting in 2021 were Lyude Paul,
-Samuel Iglesias Gonsálvez, Manasi D Navare and Daniel Vetter. They will
-continue to serve until their term ends in 2023. Current directors whose term
-expires in 2022 are Emma Anholt, Keith Packard, Harry Wentland and Mark
-Filion.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
+> ---
+> Bar some very very very unlikely edge cases (such as need for some random
+> quick being applied to one SoC from a family that shares DPU hw rev, but
+> not the others, there is little to no reason to keep adding compatibles
+> that don't mean anything.
+>
+> If this change is cool, then the question about what to do with
+> dt-bindings arises...
+>
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 47fe11a84a77..335018542a3a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1348,6 +1348,9 @@ static const struct dev_pm_ops dpu_pm_ops = {
+>  };
+>
+>  const struct of_device_id dpu_dt_match[] = {
+> +       { .compatible = "qcom,dpu1" },
+> +
+> +       /* Legacy compatibles for old DTs */
+>         { .compatible = "qcom,sdm845-dpu", },
+>         { .compatible = "qcom,sc7180-dpu", },
+>         { .compatible = "qcom,sc7280-dpu", },
+> --
+> 2.35.1
+>
 
-A director is expected to participate in the fortnightly IRC meeting to
-discuss current business and to attend the annual meeting of the X.Org
-Foundation, which will be held at a location determined in advance by the
-Board of Directors.
 
-A member may nominate themselves or any other member they feel is qualified.
-Nominations should be sent to the Election Committee at elections at x.org.
-
-Nominees shall be required to be current members of the X.Org Foundation, and
-submit a personal statement of up to 200 words that will be provided to
-prospective voters. The collected statements, along with the statement of
-contribution to the X.Org Foundation in the member's account page on
-http://members.x.org, will be made available to all voters to help them make
-their voting decisions.
-
-Nominations, membership applications or renewals and completed personal
-statements must be received no later than 23:59 UTC on 6th March 2022.
-
-The slate of candidates will be published 14 March 2022 and candidate Q&A will
-begin then. The deadline for Xorg membership applications and renewals is 17
-March 2022.
-
-Cheers, Lyude Paul, on behalf of the X.Org BoD
-
-
+-- 
+With best wishes
+Dmitry
