@@ -2,67 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 237E34C0419
-	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 22:50:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A414C0421
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 22:52:57 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A267510E7AF;
-	Tue, 22 Feb 2022 21:50:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F0B910E7DD;
+	Tue, 22 Feb 2022 21:52:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB67910E7AF
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 21:50:07 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id p9so47013546ejd.6
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:50:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MDe1/XbZZwpMzP4Bd4iYW6ooJa1SuvyIIVKBTpf5jUo=;
- b=JIbNmgkRgP4fmF8fqKDxZPoO3hitMDXsTDRzZdAS3R1lGW5Qw/2Pfw8K2nfHxZpCxZ
- CMraYxwZL0nqKfhrIzAlWOz+jA4Q6lyHsTp9H2qhakiBhCRJmo2r7cSThBodJyHwFBhC
- 9sy0CGhOAlttN6NzFmMpVWtPN3xc3gm7AOi00=
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A57610E7DD
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 21:52:54 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id o6so21766540ljp.3
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:52:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=DnQVyyMn8RG++Vgl/Pa8NzULdHKj/pUJucwQb5cYs+g=;
+ b=s8yuX9EfwrdMsKsJdaHldrNLwhygAeMsozgvqodkSh6UwTSPwjMUpMOItZE4zbbICi
+ nyl66PhI3+bsqrWnNUMc6Abr3kUid1/cO5/95pY2eC38/+MW60dZx8HuMsrxViYNlK1z
+ CCg4K6PsA+CEt+2ArTHWYJe6w5N8liXkDk5JT0TouKwhyd5/0EOWN2S60MmjbAOFs9wm
+ Jf2WD0lNSpxfxmZp4dFydIGaqJcJot9b1o/LnQZNWNf8zLyb5zpObJgNCOAOnzf7w/RY
+ TuKd9zHJ7sUkv1A8uCo3PLTCG0HtMGHxaFRX8h6MRG1StVcPS0WcthPy2ykUREpUZO+i
+ KEdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MDe1/XbZZwpMzP4Bd4iYW6ooJa1SuvyIIVKBTpf5jUo=;
- b=Mjiz0LRSZ3gr776BucSEUe8tI0UshPn1+Y9WBNnxEG6kM3u6c7xtPOXJsieu1cJ6nl
- Em56ZwKLAqjTg6aPgQp2SfeWzZgJ6L5LDANEnl3c9wgpANzgRg+iQ0051Acj+5b+Quo5
- cBj44sMHvl5EtfCAhJCN15Eb05UHqS+nzzQkaSSij0g+ZNiKazDg5E9ficDW0+B5SPni
- vZOHBgsqQrseAf5nsvnmMTS79BE6gTJpAA4D1DPmLinL7iAg3hPQ0mOL2w3R1+oa+iz9
- 8BqT7+W01Y1XWxDwKMwtGyfHCLmjr1vxskAEICOuLEq1oogBeUxUUy+Pknko5lSHcCSm
- 9xyw==
-X-Gm-Message-State: AOAM530azi1cCCmFTayinkksbxWZ1Bu7Mkv3gIFymW6DypMRdGegHXw1
- aaaZp5kXnGQd+jwnbg3qlrz/bno8IyhoeOFryXI=
-X-Google-Smtp-Source: ABdhPJzr/EAsT8+s+LQAhBHsqoBzLdrRVd/TuHFiHc0ThNC0CIGp09zFlMEHQh6OrHGRP00UfafCtw==
-X-Received: by 2002:a17:906:2b4c:b0:6cf:740f:7719 with SMTP id
- b12-20020a1709062b4c00b006cf740f7719mr20822987ejg.569.1645566606013; 
- Tue, 22 Feb 2022 13:50:06 -0800 (PST)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com.
- [209.85.221.54])
- by smtp.gmail.com with ESMTPSA id bn15sm6745576ejb.93.2022.02.22.13.50.04
- for <freedreno@lists.freedesktop.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=DnQVyyMn8RG++Vgl/Pa8NzULdHKj/pUJucwQb5cYs+g=;
+ b=0bdPQvQDiwMsgcCJAdnxIXmGgpgqObNZimEsGdP9uznwtWuo9fAexn84co3JZRjias
+ EDkCYtdVzakDOLf5/Qw2fjleNaoAjyBkwYEri+07IjxShZjt2cz/S4OkZVkxcAlL0pT9
+ lHdwcLBLblM6YJsjPtMTIsL2l6JazKMQtTy1bsU1Ss9Z9huh9ZGO5LRuCCs1rzuPy5LQ
+ GGBagZo0pH9ljMOWbv7FSH2cc56ltrEAHJh31sBh0J0kyAaYhCK1nKL3+1IDcZGry2zI
+ ey8H1lHjQ+43toEVCWZkHm0cOkKhE85Lq8pLwPRm98orWfd+Zs6qSsaZ971YKN0Jirhx
+ fN4A==
+X-Gm-Message-State: AOAM530KszJAKjPz0L/ZGVuajFx3D1Hxc73PtPzseIdJ0y3R3/k/t/MV
+ dRdaOKwhIOnmcWn3ZRQfXQQbqA==
+X-Google-Smtp-Source: ABdhPJxpf7TacdvKOq8G88nEdBuaCHZdQKLsTEYszp+u/DF9UoUbIm7a2znK9UJSTxFT+YEjSMKjKw==
+X-Received: by 2002:a05:651c:12c5:b0:23e:1f55:35b4 with SMTP id
+ 5-20020a05651c12c500b0023e1f5535b4mr18221737lje.58.1645566772827; 
+ Tue, 22 Feb 2022 13:52:52 -0800 (PST)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id a7sm1485675lfr.12.2022.02.22.13.52.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Feb 2022 13:50:04 -0800 (PST)
-Received: by mail-wr1-f54.google.com with SMTP id d3so20349932wrf.1
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:50:04 -0800 (PST)
-X-Received: by 2002:a5d:64ea:0:b0:1ea:8148:6b97 with SMTP id
- g10-20020a5d64ea000000b001ea81486b97mr4692080wri.679.1645566604132; Tue, 22
- Feb 2022 13:50:04 -0800 (PST)
+ Tue, 22 Feb 2022 13:52:52 -0800 (PST)
+Message-ID: <490deb0b-aecb-c4a8-ea02-2c687a8da57b@linaro.org>
+Date: Wed, 23 Feb 2022 00:52:50 +0300
 MIME-Version: 1.0
-References: <1645449126-17718-1-git-send-email-quic_vpolimer@quicinc.com>
- <CAE-0n507XcYRz4=Uw-K37kPsLRqi_gN2L9y1wcu_X-UJP+6ySg@mail.gmail.com>
- <CAD=FV=WvstZkDJcHJPAT0aez3X=uSKzDX0paQRHYD4DEktkMEQ@mail.gmail.com>
- <CAE-0n51V+bfDUb_heV_DVkS+KOzDcjYzxpU=E8cCGFESrUwpeg@mail.gmail.com>
-In-Reply-To: <CAE-0n51V+bfDUb_heV_DVkS+KOzDcjYzxpU=E8cCGFESrUwpeg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 22 Feb 2022 13:49:51 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XAvq5LuhZua3FU39RRsicC2dzGAZkG4NHYx8QaP7ov4A@mail.gmail.com>
-Message-ID: <CAD=FV=XAvq5LuhZua3FU39RRsicC2dzGAZkG4NHYx8QaP7ov4A@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v1] arm64/dts/qcom/sc7280: update mdp clk to max
- supported value to support higher refresh rates
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Content-Language: en-GB
+To: Doug Anderson <dianders@chromium.org>
+References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1645455086-9359-2-git-send-email-quic_vpolimer@quicinc.com>
+ <CAA8EJppRUZ5OHSMS1NdFXDDvRXJFNsdoJDWgU7ZPUoAW9OD+eQ@mail.gmail.com>
+ <CAD=FV=W2wi47egKmWDS+BZGSy85K+A8jX0gvi6CYhmFgoBBRmw@mail.gmail.com>
+ <c388d91c-ea00-8fa8-3fcf-4ce754edb1b4@linaro.org>
+ <CAD=FV=WJdcVEmnUvFfkJY3V2eWF2t4xkfCKNwaFHY+FwORg4VA@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAD=FV=WJdcVEmnUvFfkJY3V2eWF2t4xkfCKNwaFHY+FwORg4VA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/4] drm/msm/dp: Add basic PSR support
+ for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,80 +80,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_kalyant@quicinc.com,
  "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, quic_vproddut@quicinc.com,
  LKML <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 23/02/2022 00:32, Doug Anderson wrote:
+> Hi,
+> 
+> On Tue, Feb 22, 2022 at 1:23 PM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+>>
+>> On 22/02/2022 22:25, Doug Anderson wrote:
+>>> Hi,
+>>>
+>>> On Mon, Feb 21, 2022 at 7:12 PM Dmitry Baryshkov
+>>> <dmitry.baryshkov@linaro.org> wrote:
+>>>>
+>>>>> +static int dp_link_psr_status(struct dp_link_private *link)
+>>>>> +{
+>>>>> +       u8 status[2];
+>>>>> +
+>>>>> +       drm_dp_dpcd_read(link->aux, DP_PSR_ERROR_STATUS, status, 2);
+>>>>> +
+>>>>> +       if (status[0] & DP_PSR_LINK_CRC_ERROR)
+>>>>> +               DRM_ERROR("PSR LINK CRC ERROR\n");
+>>>>> +       else if (status[0] & DP_PSR_RFB_STORAGE_ERROR)
+>>>>> +               DRM_ERROR("PSR RFB STORAGE ERROR\n");
+>>>>> +       else if (status[0] & DP_PSR_VSC_SDP_UNCORRECTABLE_ERROR)
+>>>>> +               DRM_ERROR("PSR VSC SDP UNCORRECTABLE ERROR\n");
+>>>>> +       else if (status[1] & DP_PSR_CAPS_CHANGE)
+>>>>> +               DRM_INFO("PSR Capability Change\n");
+>>>>
+>>>> DRM_DEBUG_DP
+>>>
+>>> Not sure I'll have time to go back and review the series, but one
+>>> thing that caught my eye as this flashed through my inbox is that I
+>>> think all of these "shouting" are deprecated. It's even officially
+>>> documented now as of commit d2f0a8afc1be ("UPSTREAM: drm/print: Add
+>>> deprecation notes to DRM_...() functions").
+>>
+>> Agreed. But not the DRM_INFO too.
+> 
+> You're saying that DRM_INFO _isn't_ deprecated? I was pretty sure that
+> it was, too. If not, can you please submit a patch to `drm_print.h`
+> clarifying since my patch (which folks Acked) marked it as deprecated:
 
-On Tue, Feb 22, 2022 at 1:46 PM Stephen Boyd <swboyd@chromium.org> wrote:
->
-> Quoting Doug Anderson (2022-02-22 13:25:05)
-> > Hi,
-> >
-> > On Tue, Feb 22, 2022 at 12:58 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> > >
-> > > Quoting Vinod Polimera (2022-02-21 05:12:06)
-> > > > Panels with higher refresh rate will need mdp clk above 300Mhz.
-> > > > Select max frequency for mdp clock during bootup, dpu driver will
-> > > > scale down the clock as per usecase when first update from the framework is received.
-> > > >
-> > > > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> > >
-> > > Please add a Fixes tag.
-> > >
-> > > > ---
-> > > >  arch/arm64/boot/dts/qcom/sc7280.dtsi | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> > > > index baf1653..7af96fc 100644
-> > > > --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> > > > +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> > > > @@ -2895,7 +2895,7 @@
-> > > >                                 assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> > > >                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-> > > >                                                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
-> > > > -                               assigned-clock-rates = <300000000>,
-> > > > +                               assigned-clock-rates = <506666667>,
-> > >
-> > > Why not simply remove the clock assignment and set the rate based on the
-> > > OPP when the driver probes?
-> >
-> > I was curious so I dug. It turns out that it _is_ using the OPP. It's
-> > just that the kernel driver currently assumes that the initial rate is
-> > the max rate. :-P You can actually see in msm_dss_parse_clock() that
-> > it walks through each of its clocks at boot and records the boot rate
-> > and stashes it as the "max_rate". That's not a scheme I've seen done
-> > commonly, so if nothing else it deserves a comment in the commit
-> > message.
->
-> That sounds like a scheme to detect the max frequency of the clk before
-> an OPP table is written. It would be better to convert that code to use
-> OPP tables if available and then drop this assigned clock property from
-> the DT (in both places).
+It is deprecated
 
-Ah, good point! You could just check what the max OPP table rate is.
-Then you don't need to worry about specifying the same clock rate
-twice.
+> My understanding (also in the description of my patch) was that
+> DRM_INFO() by itself didn't add much so we should just use the
+> standard pr_info(). If pr_info() wasn't to your liking then it was
+> better to do drm_info(drmdev, ...) or drm_info(NULL, ...);
 
+I don't think we should get this message at all, unless debugging is 
+enabled. Thus I asked to change DRM_INFO to DEBUG.
 
-> > One other note is that I think there are _two_ places in the dtsi that
-> > are setting this same clock rate, right? The parent node `mdss`, which
-> > you're not touching, and the child `mdss_mdp`, which you are touching.
-> > Seems like you should just do it in one place. If it needs to be done
-> > by the parent then the child could just assume that the clock has
-> > already been set by the parent.
-> >
->
-> I see that it's this way on sc7180 too, which is sad but it seems nobody
-> noticed.
+Regarding your point, I'm fine with either of them. Hopefully when 
+Kuogee's patches are in, we can use drm_dbg_db w/o any issues.
 
-Never too late to fix it! :-)
-
--Doug
+-- 
+With best wishes
+Dmitry
