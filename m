@@ -2,50 +2,29 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54DB24BDA60
-	for <lists+freedreno@lfdr.de>; Mon, 21 Feb 2022 15:52:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C00EA4BEEEC
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 02:31:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D58EE10E5F4;
-	Mon, 21 Feb 2022 14:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2374810E5AF;
+	Tue, 22 Feb 2022 01:30:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC6C710E3B8;
- Mon, 21 Feb 2022 14:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645455124; x=1676991124;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=H3+DEJkpDEMljnyOr4RtnL4RrB1E5lIn4hbGJmNSw+U=;
- b=UM08SldUvC8zIdrvmlS+0vzbfIAEkqHbgKUypqZNtMy2azltR35cjpnH
- 7sC30sVau4ZLYU38TNTIqPvvjKkTPQoACH9wsaMnLXR8uY6GHFYD/2VpN
- s/qyXq3UgmptVk1CDw6Z58xQFyFtizz7Go/vb1CSvlt66h3+00fMT2XRb Q=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 21 Feb 2022 06:52:04 -0800
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 21 Feb 2022 06:52:02 -0800
-X-QCInternal: smtphost
-Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
- by ironmsg02-blr.qualcomm.com with ESMTP; 21 Feb 2022 20:21:43 +0530
-Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
- id F14D05392; Mon, 21 Feb 2022 20:21:41 +0530 (IST)
-From: Vinod Polimera <quic_vpolimer@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
- robh+dt@kernel.org, robdclark@gmail.com, seanpaul@chromium.org,
- swboyd@chromium.org, dianders@chromium.org,
- krzysztof.kozlowski@canonical.com, thierry.reding@gmail.com,
- sam@ravnborg.org, airlied@linux.ie, daniel@ffwll.ch
-Date: Mon, 21 Feb 2022 20:21:26 +0530
-Message-Id: <1645455086-9359-5-git-send-email-quic_vpolimer@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
-References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
-Subject: [Freedreno] [PATCH v2 4/4] drm/msm/disp/dpu1: add PSR support for
- eDP interface in dpu driver
+X-Greylist: delayed 469 seconds by postgrey-1.36 at gabe;
+ Tue, 22 Feb 2022 01:30:55 UTC
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it [5.144.164.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF0310E5A4;
+ Tue, 22 Feb 2022 01:30:55 +0000 (UTC)
+Received: from localhost.localdomain (abxh33.neoplus.adsl.tpnet.pl [83.9.1.33])
+ by m-r2.th.seeweb.it (Postfix) with ESMTPA id 10D0F3F3FA;
+ Tue, 22 Feb 2022 02:23:00 +0100 (CET)
+From: Konrad Dybcio <konrad.dybcio@somainline.org>
+To: ~postmarketos/upstreaming@lists.sr.ht
+Date: Tue, 22 Feb 2022 02:22:46 +0100
+Message-Id: <20220222012252.6373-1-konrad.dybcio@somainline.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/3] drm/msm/adreno: Add A619 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,184 +37,330 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
- quic_vproddut@quicinc.com, Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: David Airlie <airlied@linux.ie>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ angelogioacchino.delregno@somainline.org, marijn.suijten@somainline.org,
+ Jonathan Marek <jonathan@marek.ca>, Yangtao Li <tiny.windzz@gmail.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ jamipkettunen@somainline.org, martin.botka@somainline.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Enable PSR on eDP interface using drm self-refresh librabry.
-This patch uses a trigger from self-refresh library to enter/exit
-into PSR, when there are no updates from framework.
+Add support for the Adreno 619 GPU, as found in Snapdragon 690 (SM6350),
+480 (SM4350) and 750G (SM7225).
 
-Changes in V2:
-- Move dp functions to bridge code.
-- As per Dmitry review suggestions.
-
-Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 31 +++++++++++++++++++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 30 +++++++++++++++++++++++++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
- 3 files changed, 57 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 11 ++--
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 70 +++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c      | 66 +++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 14 +++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 13 +++-
+ 5 files changed, 166 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index e7c9fe1..ba3240c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -18,6 +18,7 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_rect.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_self_refresh_helper.h>
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 3e325e2a2b1b..e8d4cca6cd46 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -527,6 +527,8 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 		pdc_in_aop = true;
+ 	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640_family(adreno_gpu))
+ 		pdc_address_offset = 0x30090;
++	else if (adreno_is_a619(adreno_gpu))
++		pdc_address_offset = 0x300a0;
+ 	else
+ 		pdc_address_offset = 0x30080;
  
- #include "dpu_kms.h"
- #include "dpu_hw_lm.h"
-@@ -951,6 +952,14 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+@@ -601,7 +603,8 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
  
- 	DRM_DEBUG_KMS("crtc%d\n", crtc->base.id);
- 
-+	if (old_crtc_state->self_refresh_active) {
-+		drm_for_each_encoder_mask(encoder, crtc->dev,
-+				 old_crtc_state->encoder_mask) {
-+			dpu_encoder_assign_crtc(encoder, NULL);
-+		}
-+		return;
-+	}
-+
- 	/* Disable/save vblank irq handling */
- 	drm_crtc_vblank_off(crtc);
- 
-@@ -962,7 +971,12 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
- 		 */
- 		if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_VIDEO)
- 			release_bandwidth = true;
--		dpu_encoder_assign_crtc(encoder, NULL);
-+		/* If disable is triggered during psr active(e.g: screen dim in PSR),
-+		 * we will need encoder->crtc connection to process the device sleep &
-+		 * preserve it during psr sequence.
-+		 */
-+		if (!crtc->state->self_refresh_active)
-+			dpu_encoder_assign_crtc(encoder, NULL);
- 	}
- 
- 	/* wait for frame_event_done completion */
-@@ -1010,6 +1024,8 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
- 	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
- 	struct drm_encoder *encoder;
- 	bool request_bandwidth = false;
-+	struct drm_crtc_state *old_crtc_state =
-+		drm_atomic_get_old_crtc_state(state, crtc);
- 
- 	pm_runtime_get_sync(crtc->dev->dev);
- 
-@@ -1032,8 +1048,10 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
- 	trace_dpu_crtc_enable(DRMID(crtc), true, dpu_crtc);
- 	dpu_crtc->enabled = true;
- 
--	drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
--		dpu_encoder_assign_crtc(encoder, crtc);
-+	if (!old_crtc_state->self_refresh_active) {
-+		drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
-+			dpu_encoder_assign_crtc(encoder, crtc);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 4, 0x10108);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, 0x30000);
+-	if (adreno_is_a618(adreno_gpu) || adreno_is_a650_family(adreno_gpu))
++	if (adreno_is_a618(adreno_gpu) || adreno_is_a619(adreno_gpu) ||
++			adreno_is_a650_family(adreno_gpu))
+ 		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 0x2);
+ 	else
+ 		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 0x3);
+@@ -1537,7 +1540,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 			SZ_16M - SZ_16K, 0x04000, "icache");
+ 		if (ret)
+ 			goto err_memory;
+-	} else if (adreno_is_a640_family(adreno_gpu)) {
++	} else {
+ 		ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
+ 			SZ_256K - SZ_16K, 0x04000, "icache");
+ 		if (ret)
+@@ -1547,9 +1550,9 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 			SZ_256K - SZ_16K, 0x44000, "dcache");
+ 		if (ret)
+ 			goto err_memory;
+-	} else {
+-		BUG_ON(adreno_is_a660_family(adreno_gpu));
 +	}
  
- 	/* Enable/restore vblank irq handling */
- 	drm_crtc_vblank_on(crtc);
-@@ -1497,7 +1515,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- {
- 	struct drm_crtc *crtc = NULL;
- 	struct dpu_crtc *dpu_crtc = NULL;
--	int i;
-+	int i, ret;
++	if (adreno_is_a630(adreno_gpu) || adreno_is_a615_family(adreno_gpu)) {
+ 		/* HFI v1, has sptprac */
+ 		gmu->legacy = true;
  
- 	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
- 	if (!dpu_crtc)
-@@ -1534,6 +1552,11 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 	/* initialize event handling */
- 	spin_lock_init(&dpu_crtc->event_lock);
- 
-+	ret = drm_self_refresh_helper_init(crtc);
-+	if (ret)
-+		DPU_ERROR("Failed to initialize %s with SR helpers %d\n",
-+			crtc->name, ret);
-+
- 	DRM_DEBUG_KMS("%s: successfully initialized crtc\n", dpu_crtc->name);
- 	return crtc;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 17cfad6424db..ed9abb2d5e5c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -224,6 +224,74 @@ static void a6xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+ 	a6xx_flush(gpu, ring);
  }
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 6eac417..ba9d8ea 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -217,6 +217,14 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
- 	15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
- };
  
-+static inline bool is_self_refresh_active(struct drm_crtc_state *state)
-+{
-+	if (state && state->self_refresh_active)
-+		return true;
++/* For a615 family (a615, a616, a618 and a619) */
++const struct adreno_reglist a615_hwcg[] = {
++	{REG_A6XX_RBBM_CLOCK_CNTL_SP0,  0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
++	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
++	{REG_A6XX_RBBM_CLOCK_HYST_SP0,  0x0000F3CF},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TP0,  0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TP1,  0x02222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_TP1, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL3_TP1, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
++	{REG_A6XX_RBBM_CLOCK_CNTL4_TP1, 0x00022222},
++	{REG_A6XX_RBBM_CLOCK_HYST_TP0,  0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST_TP1,  0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST2_TP1, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST3_TP1, 0x77777777},
++	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
++	{REG_A6XX_RBBM_CLOCK_HYST4_TP1, 0x00077777},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TP1, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY2_TP1, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY3_TP1, 0x11111111},
++	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
++	{REG_A6XX_RBBM_CLOCK_DELAY4_TP1, 0x00011111},
++	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE,  0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_UCHE, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL3_UCHE, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL4_UCHE, 0x00222222},
++	{REG_A6XX_RBBM_CLOCK_HYST_UCHE,  0x00000004},
++	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002020},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU1, 0x00002220},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU2, 0x00002220},
++	{REG_A6XX_RBBM_CLOCK_CNTL_CCU3, 0x00002220},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU1, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU2, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU3, 0x00040F00},
++	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x05022022},
++	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
++	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
++	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
++	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
++	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
++	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
++	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
++	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
++	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
++	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
++	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
++	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
++	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
++	{},
++};
 +
-+	return false;
+ const struct adreno_reglist a630_hwcg[] = {
+ 	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
+ 	{REG_A6XX_RBBM_CLOCK_CNTL_SP1, 0x22222222},
+@@ -527,7 +595,7 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
+ 	gpu_write(gpu, REG_A6XX_RBBM_CLOCK_CNTL, state ? clock_cntl_on : 0);
+ }
+ 
+-/* For a615, a616, a618, A619, a630, a640 and a680 */
++/* For a615, a616, a618, a619, a630, a640 and a680 */
+ static const u32 a6xx_protect[] = {
+ 	A6XX_PROTECT_RDONLY(0x00000, 0x04ff),
+ 	A6XX_PROTECT_RDONLY(0x00501, 0x0005),
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index d73fce5fdf1f..db88fa6122d2 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -205,8 +205,8 @@ static int a6xx_hfi_get_fw_version(struct a6xx_gmu *gmu, u32 *version)
+ {
+ 	struct a6xx_hfi_msg_fw_version msg = { 0 };
+ 
+-	/* Currently supporting version 1.1 */
+-	msg.supported_version = (1 << 28) | (1 << 16);
++	/* Currently supporting version 1.10 */
++	msg.supported_version = (1 << 28) | (1 << 19) | (1 << 17);
+ 
+ 	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_FW_VERSION, &msg, sizeof(msg),
+ 		version, sizeof(*version));
+@@ -285,6 +285,66 @@ static void a618_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
+ 	msg->cnoc_cmds_data[1][0] =  0x60000001;
+ }
+ 
++static void a619_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
++{
++	msg->bw_level_num = 13;
++
++	msg->ddr_cmds_num = 1;
++	msg->ddr_wait_bitmask = 0x0;
++
++	msg->ddr_cmds_addrs[0] = 0x50000;
++	msg->ddr_cmds_addrs[1] = 0x50004;
++	msg->ddr_cmds_addrs[2] = 0x50080;
++
++	msg->ddr_cmds_data[0][0]  = 0x40000000;
++	msg->ddr_cmds_data[0][1]  = 0x40000000;
++	msg->ddr_cmds_data[0][2]  = 0x40000000;
++	msg->ddr_cmds_data[1][0]  = 0x6000030c;
++	msg->ddr_cmds_data[1][1]  = 0x600000db;
++	msg->ddr_cmds_data[1][2]  = 0x60000008;
++	msg->ddr_cmds_data[2][0]  = 0x60000618;
++	msg->ddr_cmds_data[2][1]  = 0x600001b6;
++	msg->ddr_cmds_data[2][2]  = 0x60000008;
++	msg->ddr_cmds_data[3][0]  = 0x60000925;
++	msg->ddr_cmds_data[3][1]  = 0x60000291;
++	msg->ddr_cmds_data[3][2]  = 0x60000008;
++	msg->ddr_cmds_data[4][0]  = 0x60000dc1;
++	msg->ddr_cmds_data[4][1]  = 0x600003dc;
++	msg->ddr_cmds_data[4][2]  = 0x60000008;
++	msg->ddr_cmds_data[5][0]  = 0x600010ad;
++	msg->ddr_cmds_data[5][1]  = 0x600004ae;
++	msg->ddr_cmds_data[5][2]  = 0x60000008;
++	msg->ddr_cmds_data[6][0]  = 0x600014c3;
++	msg->ddr_cmds_data[6][1]  = 0x600005d4;
++	msg->ddr_cmds_data[6][2]  = 0x60000008;
++	msg->ddr_cmds_data[7][0]  = 0x6000176a;
++	msg->ddr_cmds_data[7][1]  = 0x60000693;
++	msg->ddr_cmds_data[7][2]  = 0x60000008;
++	msg->ddr_cmds_data[8][0]  = 0x60001f01;
++	msg->ddr_cmds_data[8][1]  = 0x600008b5;
++	msg->ddr_cmds_data[8][2]  = 0x60000008;
++	msg->ddr_cmds_data[9][0]  = 0x60002940;
++	msg->ddr_cmds_data[9][1]  = 0x60000b95;
++	msg->ddr_cmds_data[9][2]  = 0x60000008;
++	msg->ddr_cmds_data[10][0] = 0x60002f68;
++	msg->ddr_cmds_data[10][1] = 0x60000d50;
++	msg->ddr_cmds_data[10][2] = 0x60000008;
++	msg->ddr_cmds_data[11][0] = 0x60003700;
++	msg->ddr_cmds_data[11][1] = 0x60000f71;
++	msg->ddr_cmds_data[11][2] = 0x60000008;
++	msg->ddr_cmds_data[12][0] = 0x60003fce;
++	msg->ddr_cmds_data[12][1] = 0x600011ea;
++	msg->ddr_cmds_data[12][2] = 0x60000008;
++
++	msg->cnoc_cmds_num = 3;
++	msg->cnoc_wait_bitmask = 0x0;
++
++	msg->cnoc_cmds_addrs[0] = 0x50054;
++
++	msg->cnoc_cmds_data[0][0] =  0x40000000;
++	msg->cnoc_cmds_data[1][0] =  0x60000001;
 +}
 +
- static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp, unsigned bpc)
+ static void a640_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
  {
- 	struct dpu_hw_dither_cfg dither_cfg = { 0 };
-@@ -629,7 +637,8 @@ static int dpu_encoder_virt_atomic_check(
- 		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
- 			dpu_rm_release(global_state, drm_enc);
+ 	/*
+@@ -462,6 +522,8 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
  
--			if (!crtc_state->active_changed || crtc_state->active)
-+			if (!crtc_state->active_changed || crtc_state->active ||
-+					crtc_state->self_refresh_active)
- 				ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
- 						drm_enc, crtc_state, topology);
- 		}
-@@ -1182,11 +1191,30 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc,
+ 	if (adreno_is_a618(adreno_gpu))
+ 		a618_build_bw_table(&msg);
++	else if (adreno_is_a619(adreno_gpu))
++		a619_build_bw_table(&msg);
+ 	else if (adreno_is_a640_family(adreno_gpu))
+ 		a640_build_bw_table(&msg);
+ 	else if (adreno_is_a650(adreno_gpu))
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index fb261930ad1c..4dc6801ad5d9 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -264,6 +264,19 @@ static const struct adreno_info gpulist[] = {
+ 		.gmem = SZ_512K,
+ 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+ 		.init = a6xx_gpu_init,
++	}, {
++		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
++		.revn = 619,
++		.name = "A619",
++		.fw = {
++			[ADRENO_FW_SQE] = "a630_sqe.fw",
++			[ADRENO_FW_GMU] = "a619_gmu.bin",
++		},
++		.gmem = SZ_512K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.init = a6xx_gpu_init,
++		.zapfw = "a615_zap.mdt",
++		.hwcg = a615_hwcg,
+ 	}, {
+ 		.rev = ADRENO_REV(6, 3, 0, ANY_ID),
+ 		.revn = 630,
+@@ -356,6 +369,7 @@ MODULE_FIRMWARE("qcom/a530_zap.mdt");
+ MODULE_FIRMWARE("qcom/a530_zap.b00");
+ MODULE_FIRMWARE("qcom/a530_zap.b01");
+ MODULE_FIRMWARE("qcom/a530_zap.b02");
++MODULE_FIRMWARE("qcom/a619_gmu.bin");
+ MODULE_FIRMWARE("qcom/a630_sqe.fw");
+ MODULE_FIRMWARE("qcom/a630_gmu.bin");
+ MODULE_FIRMWARE("qcom/a630_zap.mbn");
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index cffabe7d33c1..9e3b4ea7f9bc 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -57,7 +57,7 @@ struct adreno_reglist {
+ 	u32 value;
+ };
+ 
+-extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[], a660_hwcg[];
++extern const struct adreno_reglist a615_hwcg[], a630_hwcg[], a640_hwcg[], a650_hwcg[], a660_hwcg[];
+ 
+ struct adreno_info {
+ 	struct adreno_rev rev;
+@@ -241,6 +241,11 @@ static inline int adreno_is_a618(struct adreno_gpu *gpu)
+        return gpu->revn == 618;
+ }
+ 
++static inline int adreno_is_a619(struct adreno_gpu *gpu)
++{
++	return gpu->revn == 619;
++}
++
+ static inline int adreno_is_a630(struct adreno_gpu *gpu)
  {
- 	struct dpu_encoder_virt *dpu_enc = NULL;
- 	struct msm_drm_private *priv;
-+	struct drm_crtc *crtc;
-+	struct drm_crtc_state *old_state;
- 	int i = 0;
+        return gpu->revn == 630;
+@@ -267,6 +272,12 @@ static inline int adreno_is_a660(struct adreno_gpu *gpu)
+        return gpu->revn == 660;
+ }
  
- 	dpu_enc = to_dpu_encoder_virt(drm_enc);
- 	DPU_DEBUG_ENC(dpu_enc, "\n");
- 
-+	if (!drm_enc) {
-+		DPU_ERROR("invalid encoder\n");
-+		return;
-+	}
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
++/* check for a615, a616, a618, a619 or any derivatives */
++static inline int adreno_is_a615_family(struct adreno_gpu *gpu)
++{
++	return gpu->revn == 615 || gpu->revn == 616 || gpu->revn == 618 || gpu->revn == 619;
++}
 +
-+	crtc = dpu_enc->crtc;
-+
-+	old_state = drm_atomic_get_old_crtc_state(state, crtc);
-+
-+	/*
-+	 * The encoder turn off already occurred when self refresh mode
-+	 * was set earlier, in the old_state for the corresponding crtc.
-+	 */
-+	if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && is_self_refresh_active(old_state))
-+		return;
-+
- 	mutex_lock(&dpu_enc->enc_lock);
- 	dpu_enc->enabled = false;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 47fe11a..d550f90 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -495,7 +495,7 @@ static void dpu_kms_wait_for_commit_done(struct msm_kms *kms,
- 		return;
- 	}
- 
--	if (!crtc->state->active) {
-+	if (!drm_atomic_crtc_effectively_active(crtc->state)) {
- 		DPU_DEBUG("[crtc:%d] not active\n", crtc->base.id);
- 		return;
- 	}
+ static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
+ {
+        return adreno_is_a660(gpu) || adreno_is_7c3(gpu);
 -- 
-2.7.4
+2.35.1
 
