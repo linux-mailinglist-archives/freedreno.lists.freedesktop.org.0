@@ -1,66 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 742F84C03BB
-	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 22:25:25 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A2F84C03D7
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 22:29:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03F2210E749;
-	Tue, 22 Feb 2022 21:25:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA72810E74B;
+	Tue, 22 Feb 2022 21:29:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6AE010E25D
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 21:25:22 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id x5so39987757edd.11
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:25:22 -0800 (PST)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6B710E310
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 21:29:17 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ j7-20020a4ad6c7000000b0031c690e4123so10416401oot.11
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:29:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ncH9c7SiYmN6itdECS9f8vr7OT3dx9aRl+ruQf7+yUg=;
- b=bie/EqstQq7cMH+SvIyYScs9hMbdl5FmT1j31NstckurYsN72clBvZSAs4si7yh9wD
- r/miD7WgoTgKOsFCyHBeU2c8gQTdgqSJy1y26X892UgDwNWsMNYp9/ub7c2lCI6GZ3co
- KlMSphSYJYjvpWZcfeXWn0GgJ+1a1Y3QNMTE0=
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=+DdLQYhSVowvrvUvwIQHQ/jS7fQBlZEdC1qdY+ozB14=;
+ b=Rsk1TlpY40oUYm8qLz6rSs4XgoVG1cDlLPSjZeqiErRUwqIsKAEgvWhgJYlUmS8r4j
+ DjiVcbfh+svMwjhb3wL0JouOTW6bqgZa/kAhgPYAn6Dh9SYQGBWMXuycEGaHAY6+3gA8
+ FOW3og2f8W0/duBSTidtHZlk49iwwwQQn5u2s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ncH9c7SiYmN6itdECS9f8vr7OT3dx9aRl+ruQf7+yUg=;
- b=FOQKhuKwz0oIV3FnhGvk5QltMpFsptnwTYF1cOud9SeA/q2KLwqF4UmI9Kh8e/eiOE
- IMgaojoyAlaQqdRocnfbX6fdBUmsbzjl4P3JpH82jKS1Zt4p7rbGrM77D2iOmvVfshxR
- cPqimhZW+HiF4UPscuUqPwJN5W79kGBziakHBo2oQ5THaWedoelFjp89ixo2KuS3Ymge
- p6RczsoQV8Yf77O3Y2h2bIHc1egfgOSxJGGhQRJE4TuqpbxQmluzAgIZTjtt9CljcTsD
- e30f3wnTQplpxoUeABsSj9WgZ+9jnqFRbPDzOE6ciXmZyp4rfJTGjTCccU12zROGhWa8
- bIvw==
-X-Gm-Message-State: AOAM533fYdLq7yj0+d0ELgDxhIWvfyUx8pMSVpWvh+0+GzoW4xc1zn3g
- MlybNWJva0q1TI/pngU7HMX6cGZQKNYQeXgr9LY=
-X-Google-Smtp-Source: ABdhPJzT86wv1mqMe58bFmF7CHXbpF7+KDWesbhP17Lgj3pojW9yiNR5Cgp8CYIpTOommrZdPIHUBg==
-X-Received: by 2002:a50:cc89:0:b0:400:8f82:99e8 with SMTP id
- q9-20020a50cc89000000b004008f8299e8mr27697647edi.7.1645565121159; 
- Tue, 22 Feb 2022 13:25:21 -0800 (PST)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com.
- [209.85.128.45])
- by smtp.gmail.com with ESMTPSA id e4sm6665033ejm.116.2022.02.22.13.25.19
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Feb 2022 13:25:20 -0800 (PST)
-Received: by mail-wm1-f45.google.com with SMTP id i20so2056266wmc.3
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:25:19 -0800 (PST)
-X-Received: by 2002:a05:600c:228e:b0:37c:2eef:7bf with SMTP id
- 14-20020a05600c228e00b0037c2eef07bfmr4792688wmf.73.1645565118969; Tue, 22 Feb
- 2022 13:25:18 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=+DdLQYhSVowvrvUvwIQHQ/jS7fQBlZEdC1qdY+ozB14=;
+ b=B5fPglD5FkB+QVN7jsUIpJgjqQwEF/dKXlKHk73x+bpej+hkgYdu5sNfY4oJMR4yLm
+ XNpHs0ykLgqPmkqxydb0T/WxcKBD+EZfigrw5+U4RVc9Ustx4822+UpVTb54wzcgiISN
+ 1iQ46y89pU4NUU6R397Ak5PX2RvpALwUNQKRZi2hIOrHU5ShNAHmeB0KJ5YYj3qyZ1No
+ S33nJO5A2UzioS4IY248q44QdPC8rFZUcRCxG4QRFBuB1349e+ij+ozKiE5sLYX/NP3u
+ B6at2dJdm8HxwKVeoXJpaHmBCYNIP4Bl/wvF6Ew1a4zOIO1tIH/+IkuLoveX431W2R9Q
+ XSJQ==
+X-Gm-Message-State: AOAM5308M3YPbx3blP27MxpokzUgxn6qTVsTogXwB/vzQPhmvDSpXW5w
+ 75q5LYqvdHtFO1tEpAoGl9UORLmEsavpchaoMuAmQw==
+X-Google-Smtp-Source: ABdhPJwO0OjVyqoI0wHs16t1k/y/Gcj/QLmaofaVi0N6xYQGEKIvtIgjAOzkMZeCBU2B35BgAheofP2PYe1GQzcZFU0=
+X-Received: by 2002:a05:6870:5829:b0:c8:9f42:f919 with SMTP id
+ r41-20020a056870582900b000c89f42f919mr2755947oap.54.1645565356781; Tue, 22
+ Feb 2022 13:29:16 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Feb 2022 21:29:16 +0000
 MIME-Version: 1.0
-References: <1645449126-17718-1-git-send-email-quic_vpolimer@quicinc.com>
- <CAE-0n507XcYRz4=Uw-K37kPsLRqi_gN2L9y1wcu_X-UJP+6ySg@mail.gmail.com>
-In-Reply-To: <CAE-0n507XcYRz4=Uw-K37kPsLRqi_gN2L9y1wcu_X-UJP+6ySg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 22 Feb 2022 13:25:05 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WvstZkDJcHJPAT0aez3X=uSKzDX0paQRHYD4DEktkMEQ@mail.gmail.com>
-Message-ID: <CAD=FV=WvstZkDJcHJPAT0aez3X=uSKzDX0paQRHYD4DEktkMEQ@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
+In-Reply-To: <1645455086-9359-5-git-send-email-quic_vpolimer@quicinc.com>
+References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1645455086-9359-5-git-send-email-quic_vpolimer@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 22 Feb 2022 21:29:16 +0000
+Message-ID: <CAE-0n523rt_ThJSr=NTrjb2ASpb_4nnwNo9bTw8fZcz-yH9opQ@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>, agross@kernel.org,
+ airlied@linux.ie, 
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, devicetree@vger.kernel.org, 
+ dianders@chromium.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, krzysztof.kozlowski@canonical.com, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ robdclark@gmail.com, robh+dt@kernel.org, sam@ravnborg.org, 
+ seanpaul@chromium.org, thierry.reding@gmail.com
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [v1] arm64/dts/qcom/sc7280: update mdp clk to max
- supported value to support higher refresh rates
+Subject: Re: [Freedreno] [PATCH v2 4/4] drm/msm/disp/dpu1: add PSR support
+ for eDP interface in dpu driver
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +73,203 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
+ quic_vproddut@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, Feb 22, 2022 at 12:58 PM Stephen Boyd <swboyd@chromium.org> wrote:
+Quoting Vinod Polimera (2022-02-21 06:51:26)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index e7c9fe1..ba3240c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -951,6 +952,14 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
 >
-> Quoting Vinod Polimera (2022-02-21 05:12:06)
-> > Panels with higher refresh rate will need mdp clk above 300Mhz.
-> > Select max frequency for mdp clock during bootup, dpu driver will
-> > scale down the clock as per usecase when first update from the framework is received.
-> >
-> > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+>         DRM_DEBUG_KMS("crtc%d\n", crtc->base.id);
 >
-> Please add a Fixes tag.
+> +       if (old_crtc_state->self_refresh_active) {
+> +               drm_for_each_encoder_mask(encoder, crtc->dev,
+> +                                old_crtc_state->encoder_mask) {
+> +                       dpu_encoder_assign_crtc(encoder, NULL);
+> +               }
+> +               return;
+> +       }
+> +
+>         /* Disable/save vblank irq handling */
+>         drm_crtc_vblank_off(crtc);
 >
-> > ---
-> >  arch/arm64/boot/dts/qcom/sc7280.dtsi | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> > index baf1653..7af96fc 100644
-> > --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> > @@ -2895,7 +2895,7 @@
-> >                                 assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> >                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-> >                                                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
-> > -                               assigned-clock-rates = <300000000>,
-> > +                               assigned-clock-rates = <506666667>,
+> @@ -962,7 +971,12 @@ static void dpu_crtc_disable(struct drm_crtc *crtc,
+>                  */
+>                 if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_VIDEO)
+>                         release_bandwidth = true;
+> -               dpu_encoder_assign_crtc(encoder, NULL);
+> +               /* If disable is triggered during psr active(e.g: screen dim in PSR),
+
+Multiline comments start with /* on a line by itself
+
+		/*
+		 * If disable is triggered ...
+
+> +                * we will need encoder->crtc connection to process the device sleep &
+> +                * preserve it during psr sequence.
+> +                */
+> +               if (!crtc->state->self_refresh_active)
+> +                       dpu_encoder_assign_crtc(encoder, NULL);
+>         }
 >
-> Why not simply remove the clock assignment and set the rate based on the
-> OPP when the driver probes?
+>         /* wait for frame_event_done completion */
+> @@ -1010,6 +1024,8 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+>         struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+>         struct drm_encoder *encoder;
+>         bool request_bandwidth = false;
+> +       struct drm_crtc_state *old_crtc_state =
+> +               drm_atomic_get_old_crtc_state(state, crtc);
 
-I was curious so I dug. It turns out that it _is_ using the OPP. It's
-just that the kernel driver currently assumes that the initial rate is
-the max rate. :-P You can actually see in msm_dss_parse_clock() that
-it walks through each of its clocks at boot and records the boot rate
-and stashes it as the "max_rate". That's not a scheme I've seen done
-commonly, so if nothing else it deserves a comment in the commit
-message.
+Use two lines
 
-One other note is that I think there are _two_ places in the dtsi that
-are setting this same clock rate, right? The parent node `mdss`, which
-you're not touching, and the child `mdss_mdp`, which you are touching.
-Seems like you should just do it in one place. If it needs to be done
-by the parent then the child could just assume that the clock has
-already been set by the parent.
+	struct drm_crtc_state *old_crtc_state;
 
--Doug
+	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
+
+>
+>         pm_runtime_get_sync(crtc->dev->dev);
+>
+> @@ -1032,8 +1048,10 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+>         trace_dpu_crtc_enable(DRMID(crtc), true, dpu_crtc);
+>         dpu_crtc->enabled = true;
+>
+> -       drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
+> -               dpu_encoder_assign_crtc(encoder, crtc);
+> +       if (!old_crtc_state->self_refresh_active) {
+> +               drm_for_each_encoder_mask(encoder, crtc->dev, crtc->state->encoder_mask)
+> +                       dpu_encoder_assign_crtc(encoder, crtc);
+
+Make these two lines above into a function with a meaningful name?
+dpu_encoder_assign_crtcs()? And then push the encoder mask iteration
+into the loop by passing the mask as a function argument. I see
+dpu_encoder_assign_crtc() takes a spinlock, so we could probably take
+that lock out too and push it into this new function to avoid grabbing
+and dropping the spinlock multiple times.
+
+> +       }
+>
+>         /* Enable/restore vblank irq handling */
+>         drm_crtc_vblank_on(crtc);
+> @@ -1497,7 +1515,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+>  {
+>         struct drm_crtc *crtc = NULL;
+>         struct dpu_crtc *dpu_crtc = NULL;
+> -       int i;
+> +       int i, ret;
+>
+>         dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
+>         if (!dpu_crtc)
+> @@ -1534,6 +1552,11 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+>         /* initialize event handling */
+>         spin_lock_init(&dpu_crtc->event_lock);
+>
+> +       ret = drm_self_refresh_helper_init(crtc);
+> +       if (ret)
+> +               DPU_ERROR("Failed to initialize %s with SR helpers %d\n",
+
+What is SR? Write self-refresh?
+
+> +                       crtc->name, ret);
+> +
+>         DRM_DEBUG_KMS("%s: successfully initialized crtc\n", dpu_crtc->name);
+>         return crtc;
+>  }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 6eac417..ba9d8ea 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -217,6 +217,14 @@ static u32 dither_matrix[DITHER_MATRIX_SZ] = {
+>         15, 7, 13, 5, 3, 11, 1, 9, 12, 4, 14, 6, 0, 8, 2, 10
+>  };
+>
+> +static inline bool is_self_refresh_active(struct drm_crtc_state *state)
+
+const drm_crtc_state?
+
+> +{
+> +       if (state && state->self_refresh_active)
+> +               return true;
+> +
+> +       return false;
+
+	return state && state->self_refresh_active;
+
+> +}
+> +
+>  static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp, unsigned bpc)
+>  {
+>         struct dpu_hw_dither_cfg dither_cfg = { 0 };
+> @@ -629,7 +637,8 @@ static int dpu_encoder_virt_atomic_check(
+>                 if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+>                         dpu_rm_release(global_state, drm_enc);
+>
+> -                       if (!crtc_state->active_changed || crtc_state->active)
+> +                       if (!crtc_state->active_changed || crtc_state->active ||
+> +                                       crtc_state->self_refresh_active)
+>                                 ret = dpu_rm_reserve(&dpu_kms->rm, global_state,
+>                                                 drm_enc, crtc_state, topology);
+>                 }
+> @@ -1182,11 +1191,30 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc,
+>  {
+>         struct dpu_encoder_virt *dpu_enc = NULL;
+>         struct msm_drm_private *priv;
+> +       struct drm_crtc *crtc;
+> +       struct drm_crtc_state *old_state;
+>         int i = 0;
+>
+>         dpu_enc = to_dpu_encoder_virt(drm_enc);
+>         DPU_DEBUG_ENC(dpu_enc, "\n");
+
+Presumably this print wants a valid 'dpu_enc' pointer.
+
+>
+> +       if (!drm_enc) {
+
+So this check for !drm_enc is impossible? Please remove it.
+
+> +               DPU_ERROR("invalid encoder\n");
+> +               return;
+> +       }
+> +       dpu_enc = to_dpu_encoder_virt(drm_enc);
+
+We got it again?
+
+> +
+> +       crtc = dpu_enc->crtc;
+> +
+> +       old_state = drm_atomic_get_old_crtc_state(state, crtc);
+> +
+> +       /*
+> +        * The encoder turn off already occurred when self refresh mode
+
+s/turn off/disable/
+
+> +        * was set earlier, in the old_state for the corresponding crtc.
+> +        */
+> +       if (drm_enc->encoder_type == DRM_MODE_ENCODER_TMDS && is_self_refresh_active(old_state))
+> +               return;
+> +
+>         mutex_lock(&dpu_enc->enc_lock);
+>         dpu_enc->enabled = false;
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 47fe11a..d550f90 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -495,7 +495,7 @@ static void dpu_kms_wait_for_commit_done(struct msm_kms *kms,
+>                 return;
+>         }
+>
+> -       if (!crtc->state->active) {
+> +       if (!drm_atomic_crtc_effectively_active(crtc->state)) {
+>                 DPU_DEBUG("[crtc:%d] not active\n", crtc->base.id);
+>                 return;
+>         }
+> --
+> 2.7.4
+>
