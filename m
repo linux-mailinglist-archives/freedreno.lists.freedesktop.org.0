@@ -2,66 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 403DB4C01FC
-	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 20:25:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDB9A4C0374
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 21:58:10 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C772510E39C;
-	Tue, 22 Feb 2022 19:25:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D90210E66F;
+	Tue, 22 Feb 2022 20:58:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C144810E339
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 19:25:53 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id a23so45837117eju.3
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 11:25:53 -0800 (PST)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A739410E67C
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 20:58:07 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id k2so12216814oia.2
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 12:58:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sxPYkxQ6mY3MfEsJx+8iE64/URTY/HAr2HMcmjeViMQ=;
- b=V83V6RXAXvourhNVZvf2jgxzgWgbvwcqNI4r4pat82eR93ldTr1f7UnyLwwf2qycr7
- a0xsJu4B7LJ0a8fb9YtI8NKspnKLSg3ZkC5edbZCl0z9GiEPzizCh1VTsL6b55uhFAT8
- 5XLvUxqQKyaIUvk9UTZ0CbvKc9mBw+5pp329s=
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=NynQNF0vX996pWM8oXRiHAyv1zn8urGitpw21EUF3Ig=;
+ b=L/8fx6WNUMxviiyfdvx+MGczbT7qrRWXltvUI3yYAlhX786QC8OveavbrQQljj6iAB
+ XSYVJXmNJhCpKFngP93KQCqgOXuVJ8JuEiIX2Pa3TYI46TQVRX7lavz7/HA9pcZ/GRwr
+ Pazm7NAEKcHpghc7LdbcTZgvieufT8c5NUjQc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sxPYkxQ6mY3MfEsJx+8iE64/URTY/HAr2HMcmjeViMQ=;
- b=Z4s3iAcivnzxkDPUcIogcODLxzigo17j5mohUz4YF6kw3svx1BjCNzfA2RAvPBmYmg
- TL2iBVRJu5QyaqJ3USJNDVpL7zaGT6l06mB7Hn86fFEVZXZ6UphJ+KGfELgQnTcLt8DY
- 4/Ii/bhnx/X7SCPVbMG0HYjKm8Dxwaf6UtPRsDioH1Vhfe99+pr0CJwz+QpdSepUVjsg
- YCtnFJBjj7BGondjJ1e9OGzumT2GH/d/pq29gWvfZGtKTPktlVbIuWMa1voG2JA4A2kz
- WA8vtqqz83rNOJlr4qCdWwY8BlnZqgvfQinQaoBImHhDOvSQ9dY2riaR0yLRJX+2NAoM
- 9YXQ==
-X-Gm-Message-State: AOAM531LC42Ke78vd0Ks4tgxX34WfC8/ThA85I639dfc/1mMaRu9XRHS
- WRjXu5PXBLe+ryYOfRlMWZGaiHn0fi/mUR1p
-X-Google-Smtp-Source: ABdhPJxSMxKS7FcnJgSeVkz4CZ8sG2Pyd/0kWV7uqDv8OeOxIjTbMyeIJ8y0uQyfuCmtPvsZnQu5gg==
-X-Received: by 2002:a17:906:3708:b0:6cf:bb34:9d2e with SMTP id
- d8-20020a170906370800b006cfbb349d2emr20042306ejc.665.1645557952134; 
- Tue, 22 Feb 2022 11:25:52 -0800 (PST)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
- [209.85.221.46])
- by smtp.gmail.com with ESMTPSA id gb37sm1012484ejc.223.2022.02.22.11.25.51
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Feb 2022 11:25:51 -0800 (PST)
-Received: by mail-wr1-f46.google.com with SMTP id x15so972344wrg.8
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 11:25:51 -0800 (PST)
-X-Received: by 2002:adf:e4c2:0:b0:1e3:3e5d:bd65 with SMTP id
- v2-20020adfe4c2000000b001e33e5dbd65mr21065461wrm.422.1645557950867; Tue, 22
- Feb 2022 11:25:50 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=NynQNF0vX996pWM8oXRiHAyv1zn8urGitpw21EUF3Ig=;
+ b=busmi7ZbZ7PljrX4XObkM4yPbwOWXeRr3s9WQ8NSq1GdsmzxPv41FLZ6tCBKp6wAm9
+ prZ6PmFB9yQUYZBQEeqBGwLrTPe5TWXaTmPlR16TmKNYqk6jDsslkBYwT61p6qUYwq5P
+ xbIh9rz7uVhCA6IqgQdohD8yQ5aDqsjKFn3Del7mbb0GeGDtovSD3jSzhVOPPXp7LSqc
+ HtW5vloKDWgpFSPniQ1UofnyFMbRyck87PE5a0eOeKDeldaafpudpVhvE5e4DZsMWZxj
+ CjePw55A4gMN3e5snK+5PXiEhbYO5l5eFzaN5iK6z+6/6JDpSPKKgxr00id1rSOgyfFX
+ 9BcA==
+X-Gm-Message-State: AOAM530kH8wEHYAoCWbUyEbyE7ax62fbMU2piD46VMsIYM9dt3uEq7i9
+ O/rnPLjQDglhgaPxV7i0uwz1hCAUbZLIEU7paaVd7g==
+X-Google-Smtp-Source: ABdhPJx6fQYRY7rvcoUFumSJbC7mrI8sA642kTB5r6LSvTKI5ctWF6uGfP0c5mRHN4PAc2LCLE3717+B+ntjiMevFFI=
+X-Received: by 2002:a05:6808:f88:b0:2d4:c8c2:b898 with SMTP id
+ o8-20020a0568080f8800b002d4c8c2b898mr2943846oiw.112.1645563486853; Tue, 22
+ Feb 2022 12:58:06 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Feb 2022 20:58:06 +0000
 MIME-Version: 1.0
-References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
- <1645455086-9359-2-git-send-email-quic_vpolimer@quicinc.com>
- <CAA8EJppRUZ5OHSMS1NdFXDDvRXJFNsdoJDWgU7ZPUoAW9OD+eQ@mail.gmail.com>
-In-Reply-To: <CAA8EJppRUZ5OHSMS1NdFXDDvRXJFNsdoJDWgU7ZPUoAW9OD+eQ@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 22 Feb 2022 11:25:37 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=W2wi47egKmWDS+BZGSy85K+A8jX0gvi6CYhmFgoBBRmw@mail.gmail.com>
-Message-ID: <CAD=FV=W2wi47egKmWDS+BZGSy85K+A8jX0gvi6CYhmFgoBBRmw@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1645449126-17718-1-git-send-email-quic_vpolimer@quicinc.com>
+References: <1645449126-17718-1-git-send-email-quic_vpolimer@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 22 Feb 2022 20:58:06 +0000
+Message-ID: <CAE-0n507XcYRz4=Uw-K37kPsLRqi_gN2L9y1wcu_X-UJP+6ySg@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/4] drm/msm/dp: Add basic PSR support
- for eDP
+Subject: Re: [Freedreno] [v1] arm64/dts/qcom/sc7280: update mdp clk to max
+ supported value to support higher refresh rates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,50 +66,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, quic_vproddut@quicinc.com,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Thierry Reding <thierry.reding@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: dmitry.baryshkov@linaro.org, quic_kalyant@quicinc.com, robdclark@gmail.com,
+ linux-kernel@vger.kernel.org, dianders@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Mon, Feb 21, 2022 at 7:12 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+Quoting Vinod Polimera (2022-02-21 05:12:06)
+> Panels with higher refresh rate will need mdp clk above 300Mhz.
+> Select max frequency for mdp clock during bootup, dpu driver will
+> scale down the clock as per usecase when first update from the framework is received.
 >
-> > +static int dp_link_psr_status(struct dp_link_private *link)
-> > +{
-> > +       u8 status[2];
-> > +
-> > +       drm_dp_dpcd_read(link->aux, DP_PSR_ERROR_STATUS, status, 2);
-> > +
-> > +       if (status[0] & DP_PSR_LINK_CRC_ERROR)
-> > +               DRM_ERROR("PSR LINK CRC ERROR\n");
-> > +       else if (status[0] & DP_PSR_RFB_STORAGE_ERROR)
-> > +               DRM_ERROR("PSR RFB STORAGE ERROR\n");
-> > +       else if (status[0] & DP_PSR_VSC_SDP_UNCORRECTABLE_ERROR)
-> > +               DRM_ERROR("PSR VSC SDP UNCORRECTABLE ERROR\n");
-> > +       else if (status[1] & DP_PSR_CAPS_CHANGE)
-> > +               DRM_INFO("PSR Capability Change\n");
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+
+Please add a Fixes tag.
+
+> ---
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> DRM_DEBUG_DP
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index baf1653..7af96fc 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2895,7 +2895,7 @@
+>                                 assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
+>                                                 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
+>                                                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
+> -                               assigned-clock-rates = <300000000>,
+> +                               assigned-clock-rates = <506666667>,
 
-Not sure I'll have time to go back and review the series, but one
-thing that caught my eye as this flashed through my inbox is that I
-think all of these "shouting" are deprecated. It's even officially
-documented now as of commit d2f0a8afc1be ("UPSTREAM: drm/print: Add
-deprecation notes to DRM_...() functions").
+Why not simply remove the clock assignment and set the rate based on the
+OPP when the driver probes?
 
--Doug
+>                                                         <19200000>,
+>                                                         <19200000>;
+>                                 operating-points-v2 = <&mdp_opp_table>;
