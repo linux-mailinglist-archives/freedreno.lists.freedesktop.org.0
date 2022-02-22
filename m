@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB39E4BEFC6
-	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 04:12:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE3794BEFC7
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 04:12:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3D1210E5C9;
-	Tue, 22 Feb 2022 03:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6388110E5C4;
+	Tue, 22 Feb 2022 03:12:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
  [IPv6:2607:f8b0:4864:20::f32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 420C210E5C4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0E7D10E5C4
  for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 03:12:06 +0000 (UTC)
-Received: by mail-qv1-xf32.google.com with SMTP id bu6so1039353qvb.10
+Received: by mail-qv1-xf32.google.com with SMTP id x3so37571388qvd.8
  for <freedreno@lists.freedesktop.org>; Mon, 21 Feb 2022 19:12:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gQ7tL9yE1YjTlYy7IejJ8wI93X2uR0MQXXmiDoUIMcA=;
- b=widGmEJ6an//elEa8rev0M6RF+QC8ehjwvQe1U0C2Wrcne672GyJ+RJLdDOwhjuhNI
- UcpbRuelVUJcEQeRZNccQxmvsGXx0/Fd3M75o3+Q/PjT9dNMDogeWaeKTngkwiAbahkI
- rO7hqsUL8KQDoja4dZt9RRb0eEnAic9/jYh1S02Cahb1RbwmEw2SjyTAB0VfHf45i4rV
- +rQ33Q+YIHM9JvYOzg6C8lIkwoqps9FfRTuQ4F/Ek+WEwIluRTJZxNWyHfZ4nEgJ8RW3
- tZBgXSK+dkrG5cGAASx4asZ4ILaDTwUozxHNINhLjAk5cJvAHfBa8yU+VPwsOSdfVQZz
- lH8g==
+ :cc; bh=zkwjd5lOCa4cW4bL7/bpFQz6lcs6TRUmGFz5ovEfIkI=;
+ b=c44ekn4/IgS3rUVu5zK97aGkGy/pVUY15T9fOLA2rQRooU1G8n1E4RfFT9KviA/a9Z
+ BMaDNrEo5/d9hev7YZOvWU2YIc2gQKdhu04+tQRv7akPW4Qfmj6jmZM+OeaMIYYe171Q
+ pbzAwyM+OxVnxJm/JMWDog3eD9MOFbACk7UgoVgVpFMTGFltpq3LNc0bW/EEYNHDCnjH
+ hM2j2+uxTXg+LezEZctFxp0hpxQ+9amsQxofAhOTrqJ33VFO2wKOAb2vb5kZNWq8a6re
+ KLB4vWnO0UdIDrDumARfsMkrlPyX8NPqqupnsfMVkrnNPM6yUlguk3qPHWlE5lGne05X
+ CHEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=gQ7tL9yE1YjTlYy7IejJ8wI93X2uR0MQXXmiDoUIMcA=;
- b=DgRVX/C0sbuISafiY2FSJducZ8bJW/k77vvc4JF7h9/iu0q3g8e5JsGHDOVL5vo5xX
- KmmEeXp7bSlWZIu4xWKo11JU23x55/pRMPx2QKXOt7Ruq0O9m1LNAMStREEeIK2iCkBS
- MA7/KipbWVHBOYJQ75HWgPY3lGh8ZH+5ZWfaoWjEH8or6+f7rNe53K47nZLxZPLjiij0
- TS3fTXmdLFcrz20gjGRVbt4vx6s4na7S//Mtz0Bqb1d2NifgLgb1Weq11srB3GC6Dv1U
- QGniCuvSf1DWxpjRZrernR8192jp6IWmd+2q/5ZxLqu/yczsfHhbhp/HZE9yjf41C5gP
- gfzA==
-X-Gm-Message-State: AOAM531qk0GfB6eUJWm0KcbImrMNd4fbBMHwxpQqmnvc17Creoei3aMR
- kF+s3W2PJY0ktudSRIFkqHieTOjjACQDvpyzb2wLjg==
-X-Google-Smtp-Source: ABdhPJw7BO2C1PYECTEtc3I5iKBeb2Gxkis1DlKuq3jNu0GdzNbF3pLixIt7A3UygUGnJxqtVPwf14/05FmYSwMt0Qs=
-X-Received: by 2002:a05:6214:400a:b0:431:7f6c:98fc with SMTP id
- kd10-20020a056214400a00b004317f6c98fcmr8728971qvb.122.1645499525424; Mon, 21
- Feb 2022 19:12:05 -0800 (PST)
+ bh=zkwjd5lOCa4cW4bL7/bpFQz6lcs6TRUmGFz5ovEfIkI=;
+ b=QDjWEvLtEYfHgVXtPVk2vaT4zu9sbVPcqCIYVVP3W639f+OkDr+NXVjE4yHFMmiQtB
+ MEnyGGwj2Vb9duouMN57zm1PjgR2+Q45OXtzY1ynlPPSTs2dlI5fQV3/MSQ5sBVr0Aby
+ 5xeXZu5S/il2BTlwvNgYs+QV6eYMfB5LDY7/NhaW3HWeSqyn6NHP9/Zp3GgoiIVFO8p+
+ X4ICZVwBSqPdvD4WLUwuiQFBny8oghdc2cSkWvUi8TZUqf8RCA7HkC3NQSCU0gu6xkHv
+ jLQaQaTlWHFATibsz08A3JjXYQKcTOu86U7D6/ftphAUXe2uSd4AiPyxWmu3wdGHyV8N
+ GYkA==
+X-Gm-Message-State: AOAM530fAl5fhWuveN4t8U3pHctJo3snN5T+S7O9KlT/Ss/7E5dMgdbu
+ iK/ikq22TpgAzKrpJhwKwc7hUJv4nSh3lc86TJXVbg==
+X-Google-Smtp-Source: ABdhPJyjC+COba0GIMgHjLcHMfAyx/gfy3+7irT0YpwmwmMnNHRZfZTBV+dv/U3nym3tu8mCf25jghBTIbNbh8K66Wg=
+X-Received: by 2002:ac8:5ccf:0:b0:2dd:a371:68f4 with SMTP id
+ s15-20020ac85ccf000000b002dda37168f4mr16140333qta.370.1645499526032; Mon, 21
+ Feb 2022 19:12:06 -0800 (PST)
 MIME-Version: 1.0
 References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
- <1645455086-9359-4-git-send-email-quic_vpolimer@quicinc.com>
-In-Reply-To: <1645455086-9359-4-git-send-email-quic_vpolimer@quicinc.com>
+ <1645455086-9359-3-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1645455086-9359-3-git-send-email-quic_vpolimer@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 22 Feb 2022 05:26:42 +0300
-Message-ID: <CAA8EJpq1U6ZdZu42vg0qpMUxJao+s58ZJfcNh_F-4SBH_E=MJg@mail.gmail.com>
+Date: Tue, 22 Feb 2022 05:30:30 +0300
+Message-ID: <CAA8EJpo8AnGhskdHPSxeN4Z1+KCKhrwprNF1x27Kr9qOG3CT8A@mail.gmail.com>
 To: Vinod Polimera <quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm/disp/dpu1: use atomic
- enable/disable callbacks for encoder functions
+Subject: Re: [Freedreno] [PATCH v2 2/4] drm/bridge: use atomic
+ enable/disable for bridge callbacks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,57 +77,177 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Mon, 21 Feb 2022 at 17:52, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
 >
-> Use atomic variants for encoder callback functions such that
-> certain states like self-refresh can be accessed as part of
-> enable/disable sequence.
+> Use atomic enable/disable for bridge callbacks to access certain
+> states like self-refresh.
 >
+> This change avoids panel prepare/unprepare based on self-refresh
+> state.
+
+Please split this into two patches:
+- change to atomic_* callbacks
+- introduction of PSR support.
+
+>
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 > Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
 > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 >
-> Changes in v2:
+> Changes in V2:
 > - As per review suggestion by Dmitry.
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/bridge/panel.c | 102 +++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 94 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1e648db..6eac417 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1138,7 +1138,8 @@ void dpu_encoder_virt_runtime_resume(struct drm_encoder *drm_enc)
->         mutex_unlock(&dpu_enc->enc_lock);
+> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+> index b32295a..5c7dc82 100644
+> --- a/drivers/gpu/drm/bridge/panel.c
+> +++ b/drivers/gpu/drm/bridge/panel.c
+> @@ -41,6 +41,40 @@ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
+>         return drm_panel_get_modes(panel_bridge->panel, connector);
 >  }
 >
-> -static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
-> +static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc,
-> +                               struct drm_atomic_state *state)
->  {
->         struct dpu_encoder_virt *dpu_enc = NULL;
->         int ret = 0;
-> @@ -1176,7 +1177,8 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->         mutex_unlock(&dpu_enc->enc_lock);
+> +static struct drm_crtc *bridge_drm_get_old_connector_crtc(struct drm_encoder *encoder,
+> +                                               struct drm_atomic_state *state)
+> +{
+> +       struct drm_connector *connector;
+> +       struct drm_connector_state *conn_state;
+> +
+> +       connector = drm_atomic_get_old_connector_for_encoder(state, encoder);
+> +       if (!connector)
+> +               return NULL;
+> +
+> +       conn_state = drm_atomic_get_old_connector_state(state, connector);
+> +       if (!conn_state)
+> +               return NULL;
+> +
+> +       return conn_state->crtc;
+> +}
+> +
+> +static struct drm_crtc *bridge_drm_get_new_connector_crtc(struct drm_encoder *encoder,
+> +                                               struct drm_atomic_state *state)
+> +{
+> +       struct drm_connector *connector;
+> +       struct drm_connector_state *conn_state;
+> +
+> +       connector = drm_atomic_get_new_connector_for_encoder(state, encoder);
+> +       if (!connector)
+> +               return NULL;
+> +
+> +       conn_state = drm_atomic_get_new_connector_state(state, connector);
+> +       if (!conn_state)
+> +               return NULL;
+> +
+> +       return conn_state->crtc;
+> +}
+> +
+>  static const struct drm_connector_helper_funcs
+>  panel_bridge_connector_helper_funcs = {
+>         .get_modes = panel_bridge_connector_get_modes,
+> @@ -102,30 +136,82 @@ static void panel_bridge_detach(struct drm_bridge *bridge)
+>                 drm_connector_cleanup(connector);
 >  }
 >
-> -static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
-> +static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc,
-> +                               struct drm_atomic_state *state)
+> -static void panel_bridge_pre_enable(struct drm_bridge *bridge)
+> +static void panel_bridge_pre_enable(struct drm_bridge *bridge,
+> +               struct drm_bridge_state *old_bridge_state)
 >  {
->         struct dpu_encoder_virt *dpu_enc = NULL;
->         struct msm_drm_private *priv;
-> @@ -2094,8 +2096,8 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
+>         struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +       struct drm_atomic_state *old_state = old_bridge_state->base.state;
+> +       struct drm_encoder *encoder = bridge->encoder;
+> +       struct drm_crtc *crtc;
+> +       struct drm_crtc_state *old_crtc_state;
+> +
+> +       crtc = bridge_drm_get_new_connector_crtc(encoder, old_state);
+> +       if (!crtc)
+> +               return;
+> +
+> +       old_crtc_state = drm_atomic_get_old_crtc_state(old_state, crtc);
+> +       if (old_crtc_state && old_crtc_state->self_refresh_active)
+> +               return;
 >
->  static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
->         .mode_set = dpu_encoder_virt_mode_set,
-> -       .disable = dpu_encoder_virt_disable,
-> -       .enable = dpu_encoder_virt_enable,
-> +       .atomic_disable = dpu_encoder_virt_disable,
-> +       .atomic_enable = dpu_encoder_virt_enable,
->         .atomic_check = dpu_encoder_virt_atomic_check,
->  };
+>         drm_panel_prepare(panel_bridge->panel);
+>  }
 >
+> -static void panel_bridge_enable(struct drm_bridge *bridge)
+> +static void panel_bridge_enable(struct drm_bridge *bridge,
+> +               struct drm_bridge_state *old_bridge_state)
+>  {
+>         struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +       struct drm_atomic_state *old_state = old_bridge_state->base.state;
+> +       struct drm_encoder *encoder = bridge->encoder;
+> +       struct drm_crtc *crtc;
+> +       struct drm_crtc_state *old_crtc_state;
+> +
+> +       crtc = bridge_drm_get_new_connector_crtc(encoder, old_state);
+> +       if (!crtc)
+> +               return;
+> +
+> +       old_crtc_state = drm_atomic_get_old_crtc_state(old_state, crtc);
+> +       if (old_crtc_state && old_crtc_state->self_refresh_active)
+> +               return;
+>
+>         drm_panel_enable(panel_bridge->panel);
+>  }
+>
+> -static void panel_bridge_disable(struct drm_bridge *bridge)
+> +static void panel_bridge_disable(struct drm_bridge *bridge,
+> +               struct drm_bridge_state *old_bridge_state)
+>  {
+>         struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +       struct drm_atomic_state *old_state = old_bridge_state->base.state;
+> +       struct drm_encoder *encoder = bridge->encoder;
+> +       struct drm_crtc *crtc;
+> +       struct drm_crtc_state *new_crtc_state;
+> +
+> +       crtc = bridge_drm_get_old_connector_crtc(encoder, old_state);
+> +       if (!crtc)
+> +               return;
+> +
+> +       new_crtc_state = drm_atomic_get_new_crtc_state(old_state, crtc);
+> +       if (new_crtc_state && new_crtc_state->self_refresh_active)
+> +               return;
+>
+>         drm_panel_disable(panel_bridge->panel);
+>  }
+>
+> -static void panel_bridge_post_disable(struct drm_bridge *bridge)
+> +static void panel_bridge_post_disable(struct drm_bridge *bridge,
+> +               struct drm_bridge_state *old_bridge_state)
+>  {
+>         struct panel_bridge *panel_bridge = drm_bridge_to_panel_bridge(bridge);
+> +       struct drm_atomic_state *old_state = old_bridge_state->base.state;
+> +       struct drm_encoder *encoder = bridge->encoder;
+> +       struct drm_crtc *crtc;
+> +       struct drm_crtc_state *new_crtc_state;
+> +
+> +       crtc = bridge_drm_get_old_connector_crtc(encoder, old_state);
+> +       if (!crtc)
+> +               return;
+> +
+> +       new_crtc_state = drm_atomic_get_new_crtc_state(old_state, crtc);
+> +       if (new_crtc_state && new_crtc_state->self_refresh_active)
+> +               return;
+>
+>         drm_panel_unprepare(panel_bridge->panel);
+>  }
+> @@ -141,10 +227,10 @@ static int panel_bridge_get_modes(struct drm_bridge *bridge,
+>  static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+>         .attach = panel_bridge_attach,
+>         .detach = panel_bridge_detach,
+> -       .pre_enable = panel_bridge_pre_enable,
+> -       .enable = panel_bridge_enable,
+> -       .disable = panel_bridge_disable,
+> -       .post_disable = panel_bridge_post_disable,
+> +       .atomic_pre_enable = panel_bridge_pre_enable,
+> +       .atomic_enable = panel_bridge_enable,
+> +       .atomic_disable = panel_bridge_disable,
+> +       .atomic_post_disable = panel_bridge_post_disable,
+
+Please change callback names to reflect that we are using atomic_ interfaces.
+
+>         .get_modes = panel_bridge_get_modes,
+>         .atomic_reset = drm_atomic_helper_bridge_reset,
+>         .atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
 > --
 > 2.7.4
 >
