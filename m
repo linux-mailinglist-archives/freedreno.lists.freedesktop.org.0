@@ -1,71 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00A414C0421
-	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 22:52:57 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8C34C042A
+	for <lists+freedreno@lfdr.de>; Tue, 22 Feb 2022 22:54:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F0B910E7DD;
-	Tue, 22 Feb 2022 21:52:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F7010E671;
+	Tue, 22 Feb 2022 21:54:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A57610E7DD
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 21:52:54 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id o6so21766540ljp.3
- for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:52:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=DnQVyyMn8RG++Vgl/Pa8NzULdHKj/pUJucwQb5cYs+g=;
- b=s8yuX9EfwrdMsKsJdaHldrNLwhygAeMsozgvqodkSh6UwTSPwjMUpMOItZE4zbbICi
- nyl66PhI3+bsqrWnNUMc6Abr3kUid1/cO5/95pY2eC38/+MW60dZx8HuMsrxViYNlK1z
- CCg4K6PsA+CEt+2ArTHWYJe6w5N8liXkDk5JT0TouKwhyd5/0EOWN2S60MmjbAOFs9wm
- Jf2WD0lNSpxfxmZp4dFydIGaqJcJot9b1o/LnQZNWNf8zLyb5zpObJgNCOAOnzf7w/RY
- TuKd9zHJ7sUkv1A8uCo3PLTCG0HtMGHxaFRX8h6MRG1StVcPS0WcthPy2ykUREpUZO+i
- KEdg==
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
+ [209.85.161.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8017A10E671
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 21:54:19 +0000 (UTC)
+Received: by mail-oo1-f41.google.com with SMTP id
+ p206-20020a4a2fd7000000b0031bfec11983so19556527oop.13
+ for <freedreno@lists.freedesktop.org>; Tue, 22 Feb 2022 13:54:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=DnQVyyMn8RG++Vgl/Pa8NzULdHKj/pUJucwQb5cYs+g=;
- b=0bdPQvQDiwMsgcCJAdnxIXmGgpgqObNZimEsGdP9uznwtWuo9fAexn84co3JZRjias
- EDkCYtdVzakDOLf5/Qw2fjleNaoAjyBkwYEri+07IjxShZjt2cz/S4OkZVkxcAlL0pT9
- lHdwcLBLblM6YJsjPtMTIsL2l6JazKMQtTy1bsU1Ss9Z9huh9ZGO5LRuCCs1rzuPy5LQ
- GGBagZo0pH9ljMOWbv7FSH2cc56ltrEAHJh31sBh0J0kyAaYhCK1nKL3+1IDcZGry2zI
- ey8H1lHjQ+43toEVCWZkHm0cOkKhE85Lq8pLwPRm98orWfd+Zs6qSsaZ971YKN0Jirhx
- fN4A==
-X-Gm-Message-State: AOAM530KszJAKjPz0L/ZGVuajFx3D1Hxc73PtPzseIdJ0y3R3/k/t/MV
- dRdaOKwhIOnmcWn3ZRQfXQQbqA==
-X-Google-Smtp-Source: ABdhPJxpf7TacdvKOq8G88nEdBuaCHZdQKLsTEYszp+u/DF9UoUbIm7a2znK9UJSTxFT+YEjSMKjKw==
-X-Received: by 2002:a05:651c:12c5:b0:23e:1f55:35b4 with SMTP id
- 5-20020a05651c12c500b0023e1f5535b4mr18221737lje.58.1645566772827; 
- Tue, 22 Feb 2022 13:52:52 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id a7sm1485675lfr.12.2022.02.22.13.52.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Feb 2022 13:52:52 -0800 (PST)
-Message-ID: <490deb0b-aecb-c4a8-ea02-2c687a8da57b@linaro.org>
-Date: Wed, 23 Feb 2022 00:52:50 +0300
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=g/fswJzUEDkCYZUBest3dcpOg2Q5z120D3pTqYi+RKE=;
+ b=T9pAZyLo2RYUndAy209rF696MnmmtCkSD/gA717CtAFmw1zjG16K7u/ED//siNQIOO
+ qf9bbWfYkG5eFt6brJQ61T+3fRDv5TlfJ9VG9tzUKmC9UsbfXQ9/5AQ5SYeTRe2hJ1Ro
+ 7YA7sesxkBoke4RL/ggsP1lu1iJ6XMTcr1Q1VqD7aKNC7yzxi0bfqGnUt1bGugfpsmT+
+ fXaF06vQvvNwUypCMfRIIdwWbapjWes6Fc70amSyqJO5uZ2UTGeILHp9aLX3I/mdHn91
+ eIjCq6QhbV50Ac4LYKaa1m4cJNpL1A5bwlAz3vDliR8u9o6wgk6L9tS0BGjwk1z/kkQP
+ HR9A==
+X-Gm-Message-State: AOAM530GEMyobkl41ASL9WkpGpOJ9WSQzJDWOufnF+zjj5fnU2Et9asY
+ rco16Vr6QwneflYwKz3LGQ==
+X-Google-Smtp-Source: ABdhPJzn+fP7rFhHV2awMmAZS6Y/PbNN9AVIOEBNbdAYP4d8fs58Cc9AtHpwNE+aGYlGkIX1kjq/kQ==
+X-Received: by 2002:a05:6820:827:b0:31c:923f:bced with SMTP id
+ bg39-20020a056820082700b0031c923fbcedmr2713380oob.79.1645566858755; 
+ Tue, 22 Feb 2022 13:54:18 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id n18sm7888084otr.48.2022.02.22.13.54.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Feb 2022 13:54:18 -0800 (PST)
+Received: (nullmailer pid 3655791 invoked by uid 1000);
+ Tue, 22 Feb 2022 21:54:17 -0000
+Date: Tue, 22 Feb 2022 15:54:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Loic Poulain <loic.poulain@linaro.org>
+Message-ID: <YhVbidYOF2n4aqjl@robh.at.kernel.org>
+References: <1644853060-12222-1-git-send-email-loic.poulain@linaro.org>
+ <1644853060-12222-3-git-send-email-loic.poulain@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-GB
-To: Doug Anderson <dianders@chromium.org>
-References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
- <1645455086-9359-2-git-send-email-quic_vpolimer@quicinc.com>
- <CAA8EJppRUZ5OHSMS1NdFXDDvRXJFNsdoJDWgU7ZPUoAW9OD+eQ@mail.gmail.com>
- <CAD=FV=W2wi47egKmWDS+BZGSy85K+A8jX0gvi6CYhmFgoBBRmw@mail.gmail.com>
- <c388d91c-ea00-8fa8-3fcf-4ce754edb1b4@linaro.org>
- <CAD=FV=WJdcVEmnUvFfkJY3V2eWF2t4xkfCKNwaFHY+FwORg4VA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAD=FV=WJdcVEmnUvFfkJY3V2eWF2t4xkfCKNwaFHY+FwORg4VA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/4] drm/msm/dp: Add basic PSR support
- for eDP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1644853060-12222-3-git-send-email-loic.poulain@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 3/3] dt-bindings: msm/dsi: Add qcm2290
+ dsi controller binding
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,78 +64,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, quic_vproddut@quicinc.com,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Sean Paul <seanpaul@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Thierry Reding <thierry.reding@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ bjorn.andersson@linaro.org, robdclark@gmail.com, robh+dt@kernel.org,
+ dmitry.baryshkov@linaro.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 23/02/2022 00:32, Doug Anderson wrote:
-> Hi,
+On Mon, 14 Feb 2022 16:37:40 +0100, Loic Poulain wrote:
+> Add DSI block specific qcm2290 compatible string as valid
+> Qualcomm DSI controller.
 > 
-> On Tue, Feb 22, 2022 at 1:23 PM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> On 22/02/2022 22:25, Doug Anderson wrote:
->>> Hi,
->>>
->>> On Mon, Feb 21, 2022 at 7:12 PM Dmitry Baryshkov
->>> <dmitry.baryshkov@linaro.org> wrote:
->>>>
->>>>> +static int dp_link_psr_status(struct dp_link_private *link)
->>>>> +{
->>>>> +       u8 status[2];
->>>>> +
->>>>> +       drm_dp_dpcd_read(link->aux, DP_PSR_ERROR_STATUS, status, 2);
->>>>> +
->>>>> +       if (status[0] & DP_PSR_LINK_CRC_ERROR)
->>>>> +               DRM_ERROR("PSR LINK CRC ERROR\n");
->>>>> +       else if (status[0] & DP_PSR_RFB_STORAGE_ERROR)
->>>>> +               DRM_ERROR("PSR RFB STORAGE ERROR\n");
->>>>> +       else if (status[0] & DP_PSR_VSC_SDP_UNCORRECTABLE_ERROR)
->>>>> +               DRM_ERROR("PSR VSC SDP UNCORRECTABLE ERROR\n");
->>>>> +       else if (status[1] & DP_PSR_CAPS_CHANGE)
->>>>> +               DRM_INFO("PSR Capability Change\n");
->>>>
->>>> DRM_DEBUG_DP
->>>
->>> Not sure I'll have time to go back and review the series, but one
->>> thing that caught my eye as this flashed through my inbox is that I
->>> think all of these "shouting" are deprecated. It's even officially
->>> documented now as of commit d2f0a8afc1be ("UPSTREAM: drm/print: Add
->>> deprecation notes to DRM_...() functions").
->>
->> Agreed. But not the DRM_INFO too.
+> Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
+> ---
+>  v2: no change
 > 
-> You're saying that DRM_INFO _isn't_ deprecated? I was pretty sure that
-> it was, too. If not, can you please submit a patch to `drm_print.h`
-> clarifying since my patch (which folks Acked) marked it as deprecated:
+>  .../devicetree/bindings/display/msm/dsi-controller-main.yaml         | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
 
-It is deprecated
-
-> My understanding (also in the description of my patch) was that
-> DRM_INFO() by itself didn't add much so we should just use the
-> standard pr_info(). If pr_info() wasn't to your liking then it was
-> better to do drm_info(drmdev, ...) or drm_info(NULL, ...);
-
-I don't think we should get this message at all, unless debugging is 
-enabled. Thus I asked to change DRM_INFO to DEBUG.
-
-Regarding your point, I'm fine with either of them. Hopefully when 
-Kuogee's patches are in, we can use drm_dbg_db w/o any issues.
-
--- 
-With best wishes
-Dmitry
+Acked-by: Rob Herring <robh@kernel.org>
