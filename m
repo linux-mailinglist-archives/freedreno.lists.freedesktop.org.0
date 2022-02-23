@@ -2,62 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 829D24C0657
-	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 01:45:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038634C0681
+	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 01:58:41 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9B410E1F7;
-	Wed, 23 Feb 2022 00:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD8A10E282;
+	Wed, 23 Feb 2022 00:58:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E98E810E1F7;
- Wed, 23 Feb 2022 00:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645577100; x=1677113100;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=wLMsv+JcAldif9svir+fY4dS2h8/Q7WoGMTuYUjEQ5I=;
- b=C3UiKKQyZqOTCDYKNTPJ3mFEKFegA0Q9Ap/dnBYs0ZzX+cALPRL+Xt5F
- 3jlX14hLFoC2o1KfB4KK41hBYteZygpS2eX42cwqqr7iLZbRT0SX2quhy
- jHK4uooagLw1pSG7ynroj31DAaEDwefEIrA7NFBF7fJ8KRmAgGAzBpiZ3 c=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 22 Feb 2022 16:44:59 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2022 16:44:58 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Tue, 22 Feb 2022 16:44:58 -0800
-Received: from [10.110.64.217] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Tue, 22 Feb
- 2022 16:44:56 -0800
-Message-ID: <e95984d9-7952-2b0a-4682-2761db51ab53@quicinc.com>
-Date: Tue, 22 Feb 2022 16:44:56 -0800
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12B5010E282;
+ Wed, 23 Feb 2022 00:58:39 +0000 (UTC)
+Received: by mail-wr1-x429.google.com with SMTP id s13so8140615wrb.6;
+ Tue, 22 Feb 2022 16:58:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yyPaBl5xkEft4MC1ElCsdVx+YIi4gPbjLrN+4aUtU3I=;
+ b=lFocHm1ll8kbn256FMHTLkXa/aUbph/pSMXOho9y1i63M6UMe3mLCVD8E1ISilUUxh
+ JEKRDjItmJrQy7u/Cyx0QR2BPGSHKk4y3R9JUQCIbnwWoF7fO2ON5vrboOPLUMb3aqEt
+ c879lK7D3joD4EQm8Xvbk0TKiwRDtueL0VjCaQL38S4avuAzwo0fpLpiUVcKM8Cgg/mC
+ rHqsuFlDc447Ik4MbGV6ys1fxiV9QoGv5V2MIpwonh7k0KQIkbMKUqPRfdrumANqjupd
+ 7UP7Tyq6qnt0vmzeuI0H3kEoVV7oPbcev+A9uoUBkBGAzS6SBVIsfR9sWbLPYSiZlu9r
+ 3e7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yyPaBl5xkEft4MC1ElCsdVx+YIi4gPbjLrN+4aUtU3I=;
+ b=j5eVWDo2jb7gbQcLHQrn4rUM9R9XeoWMhcATyaIMYDNRJwks4vWbEazgWxV75agi0z
+ CdHoSA8s74sP4gFwtMSuWmOWHt3w/wWh9YsrR8elX/3RBEBfHu6/RrKUsgY9LmmRqWUQ
+ db5sZfA9DzDSsEisIC8ddhL3Tv74tJRTMzqEIA9tQbWD7GSSXdqmSIhjIUy18U9+9deV
+ lgHuQOsS8SkoSjDNk2vffKmXOMVeeCLRX6w5g1NWrqs2t9YOpXgZU1wH4KNuT/oBz4Qk
+ h7zndBFM2nlipgoIIxXech268K3K1rnD3V1ImmBnRFesucN7xGEGeoaa1mWgHq8N+9AX
+ N0UA==
+X-Gm-Message-State: AOAM532IZi+Wb+ZjZ2/no1L3RYqpBTX6bFtIIQaOmzJxZvKpv3Q7Q3WY
+ ApnsatbQW9ogcRoi42gifPyZubAXyxjOyRapPh0=
+X-Google-Smtp-Source: ABdhPJwJ3XDhDTwhrKJ8MvO+0QY+LlMY8p4dDQtV3Sq9hef5slGj+W0Wl7psN4DOKKetT0K5SdSycUY/8I1NpJIWgCE=
+X-Received: by 2002:adf:f68d:0:b0:1e1:db49:a721 with SMTP id
+ v13-20020adff68d000000b001e1db49a721mr21586110wrp.297.1645577917576; Tue, 22
+ Feb 2022 16:58:37 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
- <dmitry.baryshkov@linaro.org>, <dri-devel@lists.freedesktop.org>,
- <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
-References: <1645133788-5057-1-git-send-email-quic_khsieh@quicinc.com>
- <1645133788-5057-2-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n529EvPSqGt+XgZipOcSNpyHc6FunuQk_W841hYxWdH2og@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n529EvPSqGt+XgZipOcSNpyHc6FunuQk_W841hYxWdH2og@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v8 1/4] drm/msm/dpu: adjust display_v_end
- for eDP and DP
+References: <1645454462-27867-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220221201039.2.I9436e0e300f76b2e6c34136a0b902e8cfd73e0d6@changeid>
+In-Reply-To: <20220221201039.2.I9436e0e300f76b2e6c34136a0b902e8cfd73e0d6@changeid>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 22 Feb 2022 16:58:56 -0800
+Message-ID: <CAF6AEGuVZaOdUUf8ccokTQdAXMdW3oVYNx3ae9ShBoh8ibXVOw@mail.gmail.com>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/adreno: Generate name from
+ chipid for 7c3
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,28 +64,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>,
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS
+ <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Yangtao Li <tiny.windzz@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, Feb 21, 2022 at 6:41 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>
+> Use a gpu name which is sprintf'ed from the chipid for 7c3 gpu instead of
+> hardcoding one. This helps to avoid code churn in case of a gpu rename.
+>
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+>
+>  drivers/gpu/drm/msm/adreno/adreno_device.c |  1 -
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 14 ++++++++++++--
+>  2 files changed, 12 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index fb26193..89cfd84 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -318,7 +318,6 @@ static const struct adreno_info gpulist[] = {
+>                 .hwcg = a660_hwcg,
+>         }, {
+>                 .rev = ADRENO_REV(6, 3, 5, ANY_ID),
+> -               .name = "Adreno 7c Gen 3",
+>                 .fw = {
+>                         [ADRENO_FW_SQE] = "a660_sqe.fw",
+>                         [ADRENO_FW_GMU] = "a660_gmu.bin",
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index f33cfa4..158bbf7 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -929,12 +929,22 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>         struct adreno_platform_config *config = dev->platform_data;
+>         struct msm_gpu_config adreno_gpu_config  = { 0 };
+>         struct msm_gpu *gpu = &adreno_gpu->base;
+> +       struct adreno_rev *rev = &config->rev;
+> +       const char *gpu_name;
+> +       static char name[8];
 
-On 2/18/2022 6:48 PM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2022-02-17 13:36:25)
->> The “DP timing” requires the active region to be defined in the
->> bottom-right corner of the frame dimensions which is different
->> with DSI. Therefore both display_h_end and display_v_end need
->> to be adjusted accordingly. However current implementation has
->> only display_h_end adjusted.
->>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->> ---
-> Is this not a problem for me because this is set already to something
-> correct in the hardware?
+I think 8 is not always enough.. but maybe just use devm_kasprintf()
+to keep it simpler?
 
-There will have some pixels step into front porch area.
+BR,
+-R
 
-It should not cause any visual problem.
-
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>
+>         adreno_gpu->funcs = funcs;
+>         adreno_gpu->info = adreno_info(config->rev);
+>         adreno_gpu->gmem = adreno_gpu->info->gmem;
+>         adreno_gpu->revn = adreno_gpu->info->revn;
+> -       adreno_gpu->rev = config->rev;
+> +       adreno_gpu->rev = *rev;
+> +
+> +       gpu_name = adreno_gpu->info->name;
+> +       if (!gpu_name) {
+> +               sprintf(name, "%d.%d.%d.%d", rev->core, rev->major, rev->minor,
+> +                               rev->patchid);
+> +               gpu_name = name;
+> +       }
+>
+>         adreno_gpu_config.ioname = "kgsl_3d0_reg_memory";
+>
+> @@ -948,7 +958,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>         pm_runtime_enable(dev);
+>
+>         return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
+> -                       adreno_gpu->info->name, &adreno_gpu_config);
+> +                       gpu_name, &adreno_gpu_config);
+>  }
+>
+>  void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+> --
+> 2.7.4
+>
