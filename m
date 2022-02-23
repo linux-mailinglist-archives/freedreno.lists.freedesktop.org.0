@@ -1,66 +1,33 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF294C0FB7
-	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 11:00:20 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B5EF4C117D
+	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 12:40:18 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F34010EBFF;
-	Wed, 23 Feb 2022 10:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 265B610E78A;
+	Wed, 23 Feb 2022 11:40:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A0010F010
- for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 10:00:16 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id t14so23766188ljh.8
- for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 02:00:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=KjRNk806df2NZEel6HR0OBFdyY3J+pUWSPWymkVLPFs=;
- b=L/bY7Hd1l+NE0lFKNPvrvbtKA+XRH/B1g+zl0CBMHf/q7KNnSoiuYRVL+GdIdRu1IU
- jrVFSmUItFlCIugoop31cLAIbtcFbVdtB2BvYqtNBNr7apVUmRt9Cc37Htgd3rUuPH3B
- g4MQqif+5yZMCyEKGfvZe7wXepuSL+tw9pRz1zdE3p13WM9nef9ZGDsiHm+eA5KXGMFU
- sWQJ3/39FchyTtEDvkg1YqK0CDXAxVRIUBNZFZQb+78j35FjxGXDUpuDGKQj0rPwgqQD
- huufR2YpUHPecD21q9oD/HXSt0tVK6cfsMl0V/NbX75r7eDLf6Dmo3VQ4bFkydRu1cnw
- +bnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=KjRNk806df2NZEel6HR0OBFdyY3J+pUWSPWymkVLPFs=;
- b=okYHxA1E6kgkK5zGNKR75EqQ2Qg/LxyUolzMBB0TENGLAeVMXfwgUx9YQPY033PWQZ
- 5agupxXWMHMT1RQpCaX7ayqJNKlpUogClTNoTY8AUtCYJ6iaaQkImBt8PaB9ycoIer3Q
- orsyPlY7GMemfNvnn/pSURdmURo4P6F3Vh09m8tqN7PrWW8uY8nFDQGlr3Q7n0iLWI+E
- vpV62mMDS3+wQNatbDxymColmY3DAWspepokQ8LGEqcvIpUbrGnikQph7FAJYFAuS/eC
- QC4kQKIZge01VR/clOiSXOeWx8a0930+5XeRQsaz5sKeA7n++4gIDL6g1dzrJ2+Qq3OB
- bmag==
-X-Gm-Message-State: AOAM53219P61rmQQHiekHFvQSBmh5m3smWlTDFHj1g1wlzvaL5lVWNS7
- Y4uLm9H513waAoYvVZ8u6C2law==
-X-Google-Smtp-Source: ABdhPJxxwkBk1LLX9rUTnnMEKW4AA0UWWQGeRBmkSIs6AjPNN93uUfCEPcR6QiXqHXV3t9MDtNakAQ==
-X-Received: by 2002:a2e:9048:0:b0:246:1988:3105 with SMTP id
- n8-20020a2e9048000000b0024619883105mr19507617ljg.404.1645610414892; 
- Wed, 23 Feb 2022 02:00:14 -0800 (PST)
-Received: from [192.168.43.7] ([94.25.228.217])
- by smtp.gmail.com with ESMTPSA id s5sm1618518lfr.55.2022.02.23.02.00.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Feb 2022 02:00:14 -0800 (PST)
-Message-ID: <a065a843-e7c3-a75b-aa8e-d4b264146df0@linaro.org>
-Date: Wed, 23 Feb 2022 13:00:12 +0300
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E301410E8F1
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 11:40:15 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 8C2B33F78B;
+ Wed, 23 Feb 2022 12:40:12 +0100 (CET)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org
+Date: Wed, 23 Feb 2022 12:40:10 +0100
+Message-Id: <20220223114011.219044-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-GB
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20220219193957.577054-1-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220219193957.577054-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: Avoid dirtyfb stalls on video mode
- displays
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Bind pingpong block to intf on
+ active ctls in cmd encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,165 +40,102 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Heidelberg <david@ixit.cz>,
- Stephen Boyd <swboyd@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Xu Wang <vulab@iscas.ac.cn>,
- Daniel Vetter <daniel@ffwll.ch>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>, Mark Yacoub <markyacoub@google.com>
+Cc: freedreno@lists.freedesktop.org, Pavel Dubrova <pashadubrova@gmail.com>,
+ Jami Kettunen <jami.kettunen@somainline.org>, Bernard <bernard@vivo.com>,
+ linux-arm-msm@vger.kernel.org, Zhen Lei <thunder.leizhen@huawei.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/02/2022 22:39, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Someone on IRC once asked an innocent enough sounding question:  Why
-> with xf86-video-modesetting is es2gears limited at 120fps.
-> 
-> So I broke out the perfetto tracing mesa MR and took a look.  It turns
-> out the problem was drm_atomic_helper_dirtyfb(), which would end up
-> waiting for vblank.. es2gears would rapidly push two frames to Xorg,
-> which would blit them to screen and in idle hook (I assume) call the
-> DIRTYFB ioctl.  Which in turn would do an atomic update to flush the
-> dirty rects, which would stall until the next vblank.  And then the
-> whole process would repeat.
-> 
-> But this is a bit silly, we only need dirtyfb for command mode DSI
-> panels.  So lets just skip it otherwise.
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 13 +++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |  9 ++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |  1 +
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c |  9 ++++
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c  |  1 +
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h  |  1 +
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c |  8 +++
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  |  1 +
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h  |  1 +
->   drivers/gpu/drm/msm/msm_fb.c              | 64 ++++++++++++++++++++++-
->   drivers/gpu/drm/msm/msm_kms.h             |  2 +
->   11 files changed, 109 insertions(+), 1 deletion(-)
-> 
+As per the specification of DPU_CTL_ACTIVE_CFG the configuration of
+active blocks should be proactively specified, and the pingpong block is
+no different.
 
-I have checked your previous dirtyfb patch (and corresponding discussion).
+The downstream display driver [1] confirms this by also calling
+bind_pingpong_blk on CTL_ACTIVE_CFG.  Note that this else-if is always
+entered, as setup_intf_cfg - unlike this mainline dpu driver that
+combines both behind the same function pointer - is left NULL in favour
+of using setup_intf_cfg_v1 when CTL_ACTIVE_CFG is set.
 
-I'm not fond of the idea of acquiring locks, computing the value, then 
-releasing the locks and reacquiring the locks again. I understand the 
-original needs_dirtyfb approach was frowned upon. Do we have a chance of 
-introducing drm_atomic_helper_dirtyfb_unlocked()? Which would perform 
-all the steps of the orignal helper, but without locks acquirement (and 
-state allocation/freeing)?
+This solves continuous timeouts on at least the Qualcomm sm6125 SoC:
 
-[skipped]
+    [drm:dpu_encoder_frame_done_timeout:2091] [dpu error]enc31 frame done timeout
+    [drm:_dpu_encoder_phys_cmd_handle_ppdone_timeout.isra.0] *ERROR* id:31 pp:0 kickoff timeout 0 cnt 1 koff_cnt 1
+    [drm:dpu_encoder_phys_cmd_prepare_for_kickoff] *ERROR* failed wait_for_idle: id:31 ret:-110 pp:0
 
-> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-> index 4d34df5354e0..1b0648baeae2 100644
-> --- a/drivers/gpu/drm/msm/msm_fb.c
-> +++ b/drivers/gpu/drm/msm/msm_fb.c
-> @@ -24,10 +24,72 @@ struct msm_framebuffer {
->   static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
->   		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos);
->   
-> +static int msm_framebuffer_dirtyfb(struct drm_framebuffer *fb,
-> +				   struct drm_file *file_priv, unsigned int flags,
-> +				   unsigned int color, struct drm_clip_rect *clips,
-> +				   unsigned int num_clips)
-> +{
-> +	struct msm_drm_private *priv = fb->dev->dev_private;
-> +	struct drm_modeset_acquire_ctx ctx;
-> +	struct drm_plane *plane;
-> +	bool needs_flush = false;
-> +	int ret = 0;
-> +
-> +	/*
-> +	 * When called from ioctl, we are interruptible, but not when called
-> +	 * internally (ie. defio worker)
-> +	 */
-> +	drm_modeset_acquire_init(&ctx,
-> +		file_priv ? DRM_MODESET_ACQUIRE_INTERRUPTIBLE : 0);
-> +
-> +retry:
-> +	drm_for_each_plane(plane, fb->dev) {
-> +		struct drm_plane_state *plane_state;
-> +		struct drm_crtc *crtc;
-> +
-> +		ret = drm_modeset_lock(&plane->mutex, &ctx);
-> +		if (ret)
-> +			goto out;
-> +
-> +		if (plane->state->fb != fb) {
-> +			drm_modeset_unlock(&plane->mutex);
-> +			continue;
-> +		}
-> +
-> +		crtc = plane->state->crtc;
-> +
-> +		ret = drm_modeset_lock(&crtc->mutex, &ctx);
-> +		if (ret)
-> +			goto out;
-> +
-> +		if (priv->kms->funcs->needs_dirtyfb(crtc)) {
-> +			needs_flush = true;
-> +			break;
-> +		}
-> +	}
-> +
-> +out:
-> +	if (ret == -EDEADLK) {
-> +		ret = drm_modeset_backoff(&ctx);
-> +		if (!ret)
-> +			goto retry;
-> +	}
-> +
-> +	drm_modeset_drop_locks(&ctx);
-> +	drm_modeset_acquire_fini(&ctx);
-> +
-> +	if (needs_flush) {
+In the same way this pingpong block should also be unbound followed by
+an interface flush when the encoder is disabled, according to the
+downstream display driver [2].
 
-This bit triggers my paranoia. The driver computes the value with the 
-locks being held and then performs some action depending on the computed 
-value after releasing the locks.
+[1]: https://source.codeaurora.org/quic/la/platform/vendor/opensource/display-drivers/tree/msm/sde/sde_encoder_phys_cmd.c?h=LA.UM.9.16.r1-08500-MANNAR.0#n167
+[2]: https://source.codeaurora.org/quic/la/platform/vendor/opensource/display-drivers/tree/msm/sde/sde_encoder.c?h=LA.UM.9.16.r1-08500-MANNAR.0#n2986
 
-I'd prefer to acquire modesetting locks for all the planes (and allocate 
-atomic state), check if the dirtyfb processing is needed, then call 
-drm_atomic_helper_dirtyfb_unlocked() withith the same locks section.
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
+---
 
-> +		ret = drm_atomic_helper_dirtyfb(fb, file_priv, flags,
-> +						color, clips, num_clips);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->   static const struct drm_framebuffer_funcs msm_framebuffer_funcs = {
->   	.create_handle = drm_gem_fb_create_handle,
->   	.destroy = drm_gem_fb_destroy,
-> -	.dirty = drm_atomic_helper_dirtyfb,
-> +	.dirty = msm_framebuffer_dirtyfb,
->   };
->   
->   #ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/msm/msm_kms.h b/drivers/gpu/drm/msm/msm_kms.h
-> index 2a4f0526cb98..eb870d499d1e 100644
-> --- a/drivers/gpu/drm/msm/msm_kms.h
-> +++ b/drivers/gpu/drm/msm/msm_kms.h
-> @@ -117,6 +117,8 @@ struct msm_kms_funcs {
->   			struct drm_encoder *encoder,
->   			struct drm_encoder *slave_encoder,
->   			bool is_cmd_mode);
-> +	bool (*needs_dirtyfb)(struct drm_crtc *crtc);
-> +
->   	/* cleanup: */
->   	void (*destroy)(struct msm_kms *kms);
->   
+Changes since v1:
+- Always unbind the pingpong block in dpu_encoder_phys_cmd_disable,
+  instead of only if this encoder is the master.
 
+v1: https://lore.kernel.org/lkml/20211222105513.44860-1-marijn.suijten@somainline.org/
 
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c  | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+index 8e433af7aea4..1be01cbd960e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
+@@ -71,6 +71,13 @@ static void _dpu_encoder_phys_cmd_update_intf_cfg(
+ 	intf_cfg.stream_sel = cmd_enc->stream_sel;
+ 	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
+ 	ctl->ops.setup_intf_cfg(ctl, &intf_cfg);
++
++	/* setup which pp blk will connect to this intf */
++	if (test_bit(DPU_CTL_ACTIVE_CFG, &ctl->caps->features) && phys_enc->hw_intf->ops.bind_pingpong_blk)
++		phys_enc->hw_intf->ops.bind_pingpong_blk(
++				phys_enc->hw_intf,
++				true,
++				phys_enc->hw_pp->idx);
+ }
+ 
+ static void dpu_encoder_phys_cmd_pp_tx_done_irq(void *arg, int irq_idx)
+@@ -507,6 +514,7 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
+ {
+ 	struct dpu_encoder_phys_cmd *cmd_enc =
+ 		to_dpu_encoder_phys_cmd(phys_enc);
++	struct dpu_hw_ctl *ctl;
+ 
+ 	if (!phys_enc->hw_pp) {
+ 		DPU_ERROR("invalid encoder\n");
+@@ -523,6 +531,17 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
+ 
+ 	if (phys_enc->hw_pp->ops.enable_tearcheck)
+ 		phys_enc->hw_pp->ops.enable_tearcheck(phys_enc->hw_pp, false);
++
++	if (phys_enc->hw_intf->ops.bind_pingpong_blk) {
++		phys_enc->hw_intf->ops.bind_pingpong_blk(
++				phys_enc->hw_intf,
++				false,
++				phys_enc->hw_pp->idx);
++
++		ctl = phys_enc->hw_ctl;
++		ctl->ops.update_pending_flush_intf(ctl, phys_enc->intf_idx);
++	}
++
+ 	phys_enc->enable_state = DPU_ENC_DISABLED;
+ }
+ 
+
+base-commit: 3c30cf91b5ecc7272b3d2942ae0505dd8320b81c
 -- 
-With best wishes
-Dmitry
+2.35.1
+
