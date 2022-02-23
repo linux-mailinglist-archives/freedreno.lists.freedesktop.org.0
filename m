@@ -2,63 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17494C1B1A
-	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 19:45:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95B24C1B85
+	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 20:11:05 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720E110EA58;
-	Wed, 23 Feb 2022 18:45:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD7FD10E39B;
+	Wed, 23 Feb 2022 19:11:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE4D910EA4C
- for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 18:45:35 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id b13so5151821qkj.12
- for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 10:45:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=s6yhcp+GZiPXzdt9dwKlHoyUQc5iMei4Re0YZLcoMBw=;
- b=q9VFzVPsKMOV+Cw8hSAIk/zuD+tDrzP3bqaSckx1zcMEFr00z7fptn1JmbeYS0asW0
- g/fF7ZgfwiSfXx7DkEYebdSFDClKmcRTXopL9rIrtnmYgp8UJvOc26YbOQl7TPV5Pp0N
- dBSIaB9k7oPbrpBF7JFxCBD2HVTs3pDvqy9fxf8KifOG00V3cWlgW1FtWaCRwx8K1nwy
- OzB2tB3H9HiYLisPKbiK/RvLae/++Zeu/4dpPvs69L1kctD07jWvNxw3wQKzGf7z5/FD
- gWLeGPBePI3QcJ5K9Sj+t1JNm7M4sRhwB+FoLpCKY6rb4OHZ+nvpzaeM3tYX0OXqGTM4
- /4zQ==
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9566910E19A;
+ Wed, 23 Feb 2022 19:11:01 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id g1so16288823pfv.1;
+ Wed, 23 Feb 2022 11:11:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=U7778EYWKPetxG2p6JCpYoeLlj8Df0ot/0i2d64XmHA=;
+ b=Mklz/50+LgHT2n/Cq/zcsO52+OU6HOGtfMa/WK+nkD4Q4vV5LzK5Y3WprWx/H6eJ3o
+ JwY0WDx9UwOb9Ox73WhrjgoO6vM6vZXc6hViev10rIs8S8NmmpxKn59ROPy4PxIO45/e
+ HxO0IHvoIq3z9mVgVPezKKqHY8/sE3buULpJ8/Smoq/nOHKUIiI4dqPctzTo3Rfv7ibc
+ FmY4atfX7FVU1IqEAUqSW/ceQboy15FNS98pKgKuolGtY2sIXN+qEBlnnTxKpIar83RY
+ i37bWwKLGVmoTUlXYlYcsW5+0vSeogkZSR1zyRAAc8DgOuCAfxzUmlRcwqyYytVt5OF4
+ G4Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=s6yhcp+GZiPXzdt9dwKlHoyUQc5iMei4Re0YZLcoMBw=;
- b=SGCIbZGvLF8pHySsO6IW01znedbf4feVhgHoCLTpOxJUINAWoO7EwFcdqERDIiMJca
- q2GYw/f7pLihyAh/HTN9Cf4RKSMs4SZYvdNwiRPadP9NxDOGd6getV8sTb4ALQ1rrXu6
- zMgV0WrNP8sEqdGL1Qbdf5Oma4X6l/5sByF0HJ6Vr93tl3LAYX2Ol78H+QX38mTJBYTh
- fcNQy41IZBNbk/1l//N0m0drS+B3RMvNoFLsWNuoG8v94tJ90N0lJvlQNONpECXGNlyr
- m28pugXYln/vy8kKF2bPx0k4LFnTBlURg2wa6F7SgY8JhUkn6bwGs1LngSs1XfgqDrzX
- plOw==
-X-Gm-Message-State: AOAM532/GetWDCcwaxwxG5B/ULTCdHZCl1M9kX59DmaxnX6zWx9yvRUT
- cZcBi8y8EPQJakZVo147zcJUAt4GgWfoCKUniISzQw==
-X-Google-Smtp-Source: ABdhPJwFpopC7JHoylRo7J0E0xpUMdf1qHbszWLe4lL6F3ldGUi7WPabQbZB59cVWnptTeD7HGcwUfkyXO58JeN9y+4=
-X-Received: by 2002:a05:620a:4307:b0:507:d5b1:f65e with SMTP id
- u7-20020a05620a430700b00507d5b1f65emr699516qko.363.1645641934844; Wed, 23 Feb
- 2022 10:45:34 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=U7778EYWKPetxG2p6JCpYoeLlj8Df0ot/0i2d64XmHA=;
+ b=Wr70z24HRwV84MKJ+l1vRf8+UCkx1VTZRZScyXAaicp4+2f328mh4/Pfs14ibwu4kx
+ fmDqXcpeV5aFXdcV4qMK88wDX+d/ycadEZTTOl5rAZ3dNXRXWhqF6T/tbCAidimLZJuA
+ U0C7K47Wrc10Wm51wBGJYmnO76qr2KV7s7kp4mVTgEP/6K0Q34PYH6zJ5jvIR2NrP4Ta
+ n76kFq4kDdbb/oYXDvJdsDu47KUeOiOFIP+z2WydLhXXG65q9qQ8itL1PKjd5I/O9JVm
+ bQR9bHs1OO1ugnW8CN8h4bnsfya949obp+131ZDtQ07qiFJ0jp5y1s+PKmYBp9u5Wpv1
+ tl/A==
+X-Gm-Message-State: AOAM533TLp86x/UBDQNk7I7ki0gOhXqQ2338Yf+lPdDfldBqh8T89iJJ
+ pElSxiXVhGaSEQSnQOHOoos4iba1YT8=
+X-Google-Smtp-Source: ABdhPJx7+cG9abaFNeKqgPL6c4soagBjgECe4/mCOgVRsMPwE23LfjVvurfNhX75ABG1rBjlsJzsyg==
+X-Received: by 2002:a63:a545:0:b0:34c:9ba5:6125 with SMTP id
+ r5-20020a63a545000000b0034c9ba56125mr819656pgu.392.1645643460134; 
+ Wed, 23 Feb 2022 11:11:00 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ n85sm265896pfd.142.2022.02.23.11.10.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Feb 2022 11:10:59 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 23 Feb 2022 11:11:08 -0800
+Message-Id: <20220223191118.881321-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
- <20220211224006.1797846-5-dmitry.baryshkov@linaro.org>
- <572c0402-55da-077b-1809-3d1caf7ce743@quicinc.com>
- <b25d422e-cdd8-bcb9-1815-1d89f170d421@linaro.org>
- <CAE-0n51afuHURLHaZBa77H_n+cm4Tj1Du-rpLH-HsrkY5xQVJA@mail.gmail.com>
- <CAA8EJpobtpc5mB48g6K=+KaZQ-o8m_QTZr-dQvwz-9cEwiJ_Kg@mail.gmail.com>
- <7f9e2181-bb1a-c734-2e90-c5922952acb4@quicinc.com>
- <493749c1-6305-1a94-4e05-519c825e9d4d@linaro.org>
- <a803c7a9-de4c-8fe5-d80d-56366df78611@quicinc.com>
-In-Reply-To: <a803c7a9-de4c-8fe5-d80d-56366df78611@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 23 Feb 2022 21:45:23 +0300
-Message-ID: <CAA8EJpp+fPrpUkv-b19DvL-tcyKQ6jh-jLDUW6dRFNesSCVHfQ@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RFC PATCH v2 4/5] drm/msm/dp: replace dp_connector
- with drm_bridge_connector
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Avoid dirtyfb stalls on video mode
+ displays (v2)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,234 +68,451 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+Cc: Rob Clark <robdclark@chromium.org>, Kalyan Thota <quic_kalyant@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 23 Feb 2022 at 21:27, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
->
-> On 2/23/2022 10:22 AM, Dmitry Baryshkov wrote:
-> > On 23/02/2022 20:21, Kuogee Hsieh wrote:
-> >>
-> >> On 2/18/2022 6:22 PM, Dmitry Baryshkov wrote:
-> >>> On Sat, 19 Feb 2022 at 03:55, Stephen Boyd <swboyd@chromium.org> wrote:
-> >>>> Quoting Dmitry Baryshkov (2022-02-18 14:32:53)
-> >>>>> On 19/02/2022 00:31, Kuogee Hsieh wrote:
-> >>>>>> On 2/11/2022 2:40 PM, Dmitry Baryshkov wrote:
-> >>>>>>> There is little point in having both connector and root bridge
-> >>>>>>> implementation in the same driver. Move connector's
-> >>>>>>> functionality to the
-> >>>>>>> bridge to let next bridge in chain to override it.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>>> This patch break primary (edp) display
-> >>>>>>
-> >>>>>> -- right half of screen garbled
-> >>>>>>
-> >>>>>> -- screen shift vertically
-> >>>>>>
-> >>>>>> below are error messages seen --
-> >>>>>>
-> >>>>>> [   36.679216] panel-edp soc@0:edp_panel: No display modes
-> >>>>>> [   36.687272] panel-edp soc@0:edp_panel: No display modes
-> >>>>>> [   40.593709] panel-edp soc@0:edp_panel: No display modes
-> >>>>>> [   40.600285] panel-edp soc@0:edp_panel: No display modes
-> >>>>> So, before the patch the drm core was getting modes from the
-> >>>>> drm_connector (which means, modes from drm driver itself). With this
-> >>>>> patch the panel-edp tries to get modes.
-> >>>>>
-> >>>>> Could you please check, why panel_edp_get_modes() fails? Assuming
-> >>>>> that
-> >>>>> you use platform panel-edp binding (rather than 'edp-panel') could
-> >>>>> you
-> >>>>> please check you have either of the following:
-> >>>>> - ddc bus for EDID?
-> >>>> I don't see anywhere where the ddc pointer is set for the dp bridge in
-> >>>> msm_dp_bridge_init(). Is that required though? I'd think simple
-> >>>> panel is
-> >>>> still being used here so reading EDID isn't required.
-> >>> I meant the 'ddc-i2c-bus' property for the corresponding eDP panel.
-> >>>
-> >>>>> - either num_timing or num_modes in your panel desc.
-> >>> After reading the panel-edp's code I don't have another cause for
-> >>> panel_edp_get_modes(). It should either have a DDC bus specified using
-> >>> the mentioned device tree property, or it should have specified the
-> >>> timings.
-> >>>
-> >>> Kuogee, which platform were you using when testing this patch? Could
-> >>> you please share the dts fragment?
-> >>
-> >> I cherry-picked your patches on top of our internal release which is
-> >> usually have some (or many) patches behind msm-next.
-> >>
-> >> where is "ddc-i2c-bus" located?
-> >
-> > In the panel device node.
-> >
-> > Can you please share it too?
->
->
-> &soc {
->          edp_power_supply: edp_power {
->                  compatible = "regulator-fixed";
->                  regulator-name = "edp_backlight_power";
->
->                  regulator-always-on;
->                  regulator-boot-on;
->          };
->
->          edp_backlight: edp_backlight {
->                  compatible = "pwm-backlight";
->
->                  pwms = <&pm8350c_pwm 3 65535>;
->                  power-supply = <&edp_power_supply>;
->                  enable-gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
->
->                  pinctrl-names = "default";
->                  pinctrl-0 = <&backlight_pwm_default>;
->          };
->
->          edp_panel: edp_panel {
->                  compatible = "sharp_lq140m1jw46";
+From: Rob Clark <robdclark@chromium.org>
 
-I'd assume that the panel is supported by the patch
-https://patchwork.kernel.org/project/linux-arm-msm/patch/1644494255-6632-5-git-send-email-quic_sbillaka@quicinc.com/
-and the compatible value is just an old value.
-Provided that the panel description defines modes, I'd ask for some
-debug from the panel_edp_get_modes(). At least let's see why
-panel_edp_get_non_edid_modes() / panel_edp_get_display_modes() returns
-no modes.
+Someone on IRC once asked an innocent enough sounding question:  Why
+with xf86-video-modesetting is es2gears limited at 120fps.
 
-Regarding the ddc bus, if you have separate i2c bus connected to this
-panel, the ddc-i2c-bus = <&i2c_N>; property should go to this device
-node.
+So I broke out the perfetto tracing mesa MR and took a look.  It turns
+out the problem was drm_atomic_helper_dirtyfb(), which would end up
+waiting for vblank.. es2gears would rapidly push two frames to Xorg,
+which would blit them to screen and in idle hook (I assume) call the
+DIRTYFB ioctl.  Which in turn would do an atomic update to flush the
+dirty rects, which would stall until the next vblank.  And then the
+whole process would repeat.
 
->                  pinctrl-names = "default";
->                  pinctrl-0 = <&edp_hot_plug_det>,
-> <&edp_panel_power_default>;
->
->                  power-supply = <&edp_power_supply>;
->                  backlight = <&edp_backlight>;
->
->                  ports {
->                          #address-cells = <1>;
->                          #size-cells = <0>;
->                          port@0 {
->                                  reg = <0>;
->                                  edp_panel_in: endpoint {
->                                          remote-endpoint = <&edp_out>;
->                                  };
->                          };
->                  };
->          };
-> };
->
->
-> >
-> >>
-> >>                          msm_edp: edp@aea0000 {
-> >>                                  compatible = "qcom,sc7280-edp";
-> >>
-> >>                                  reg = <0 0xaea0000 0 0x200>,
-> >>                                        <0 0xaea0200 0 0x200>,
-> >>                                        <0 0xaea0400 0 0xc00>,
-> >>                                        <0 0xaea1000 0 0x400>;
-> >>
-> >>                                  interrupt-parent = <&mdss>;
-> >>                                  interrupts = <14>;
-> >>
-> >>                                  clocks = <&rpmhcc RPMH_CXO_CLK>,
-> >>                                           <&gcc GCC_EDP_CLKREF_EN>,
-> >>                                           <&dispcc
-> >> DISP_CC_MDSS_AHB_CLK>,
-> >>                                           <&dispcc
-> >> DISP_CC_MDSS_EDP_AUX_CLK>,
-> >>                                           <&dispcc
-> >> DISP_CC_MDSS_EDP_LINK_CLK>,
-> >>                                           <&dispcc
-> >> DISP_CC_MDSS_EDP_LINK_INTF_CLK>,
-> >>                                           <&dispcc
-> >> DISP_CC_MDSS_EDP_PIXEL_CLK>;
-> >>                                  clock-names = "core_xo",
-> >>                                                "core_ref",
-> >>                                                "core_iface",
-> >>                                                "core_aux",
-> >>                                                "ctrl_link",
-> >> "ctrl_link_iface",
-> >>                                                "stream_pixel";
-> >>                                  #clock-cells = <1>;
-> >>                                  assigned-clocks = <&dispcc
-> >> DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
-> >> <&dispcc DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
-> >>                                  assigned-clock-parents = <&edp_phy
-> >> 0>, <&edp_phy 1>;
-> >>
-> >>                                  phys = <&edp_phy>;
-> >>                                  phy-names = "dp";
-> >>
-> >>                                  operating-points-v2 = <&edp_opp_table>;
-> >>                                  power-domains = <&rpmhpd SC7280_CX>;
-> >>
-> >>                                  #address-cells = <1>;
-> >>                                  #size-cells = <0>;
-> >>
-> >>                                  status = "disabled";
-> >>
-> >>                                  ports {
-> >>                                          #address-cells = <1>;
-> >>                                          #size-cells = <0>;
-> >>                                          port@0 {
-> >>                                                  reg = <0>;
-> >>                                                  edp_in: endpoint {
-> >> remote-endpoint = <&dpu_intf5_out>;
-> >>                                                  };
-> >>                                          };
-> >>                                  };
-> >>
-> >>                              edp_opp_table: opp-table {
-> >>                                          compatible =
-> >> "operating-points-v2";
-> >>
-> >>                                          opp-160000000 {
-> >>                                                  opp-hz = /bits/ 64
-> >> <160000000>;
-> >>                                                  required-opps =
-> >> <&rpmhpd_opp_low_svs>;
-> >>                                          };
-> >>
-> >>                                          opp-270000000 {
-> >>                                                  opp-hz = /bits/ 64
-> >> <270000000>;
-> >>                                                  required-opps =
-> >> <&rpmhpd_opp_svs>;
-> >>                                          };
-> >>
-> >>                                          opp-540000000 {
-> >>                                                  opp-hz = /bits/ 64
-> >> <540000000>;
-> >>                                                  required-opps =
-> >> <&rpmhpd_opp_nom>;
-> >>                                          };
-> >>
-> >>                                          opp-810000000 {
-> >>                                                  opp-hz = /bits/ 64
-> >> <810000000>;
-> >>                                                  required-opps =
-> >> <&rpmhpd_opp_nom>;
-> >>                                          };
-> >>                                  };
-> >>                          };
-> >>
-> >
-> >
+But this is a bit silly, we only need dirtyfb for command mode DSI
+panels.  So track in plane state whether dirtyfb is required, and
+track in the fb how many attached planes require dirtyfb so that we
+can skip it when not required.  (Note, mdp4 does not actually have
+cmd mode support.)
 
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c   | 20 ++++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c  |  5 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h  |  3 ++
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c | 19 ++++++++--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c  |  8 +++++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h   |  5 +++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 21 +++++++++--
+ drivers/gpu/drm/msm/msm_atomic.c           | 15 --------
+ drivers/gpu/drm/msm/msm_drv.h              |  6 ++--
+ drivers/gpu/drm/msm/msm_fb.c               | 41 ++++++++++++++++++----
+ 10 files changed, 110 insertions(+), 33 deletions(-)
 
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 662b7bc9c219..7763558ef566 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1046,6 +1046,20 @@ struct plane_state {
+ 	u32 pipe_id;
+ };
+ 
++static bool dpu_crtc_needs_dirtyfb(struct drm_crtc_state *cstate)
++{
++	struct drm_crtc *crtc = cstate->crtc;
++	struct drm_encoder *encoder;
++
++	drm_for_each_encoder_mask (encoder, crtc->dev, cstate->encoder_mask) {
++		if (dpu_encoder_get_intf_mode(encoder) == INTF_MODE_CMD) {
++			return true;
++		}
++	}
++
++	return false;
++}
++
+ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 		struct drm_atomic_state *state)
+ {
+@@ -1066,6 +1080,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 	const struct drm_plane_state *pipe_staged[SSPP_MAX];
+ 	int left_zpos_cnt = 0, right_zpos_cnt = 0;
+ 	struct drm_rect crtc_rect = { 0 };
++	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
+ 
+ 	pstates = kzalloc(sizeof(*pstates) * DPU_STAGE_MAX * 4, GFP_KERNEL);
+ 
+@@ -1097,6 +1112,7 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 
+ 	 /* get plane state for all drm planes associated with crtc state */
+ 	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
++		struct dpu_plane_state *dpu_pstate = to_dpu_plane_state(pstate);
+ 		struct drm_rect dst, clip = crtc_rect;
+ 
+ 		if (IS_ERR_OR_NULL(pstate)) {
+@@ -1108,11 +1124,13 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 		if (cnt >= DPU_STAGE_MAX * 4)
+ 			continue;
+ 
+-		pstates[cnt].dpu_pstate = to_dpu_plane_state(pstate);
++		pstates[cnt].dpu_pstate = dpu_pstate;
+ 		pstates[cnt].drm_pstate = pstate;
+ 		pstates[cnt].stage = pstate->normalized_zpos;
+ 		pstates[cnt].pipe_id = dpu_plane_pipe(plane);
+ 
++		dpu_pstate->needs_dirtyfb = needs_dirtyfb;
++
+ 		if (pipe_staged[pstates[cnt].pipe_id]) {
+ 			multirect_plane[multirect_count].r0 =
+ 				pipe_staged[pstates[cnt].pipe_id];
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index ca75089c9d61..6565682fe227 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -902,7 +902,7 @@ static int dpu_plane_prepare_fb(struct drm_plane *plane,
+ 
+ 	if (pstate->aspace) {
+ 		ret = msm_framebuffer_prepare(new_state->fb,
+-				pstate->aspace);
++				pstate->aspace, pstate->needs_dirtyfb);
+ 		if (ret) {
+ 			DPU_ERROR("failed to prepare framebuffer\n");
+ 			return ret;
+@@ -933,7 +933,8 @@ static void dpu_plane_cleanup_fb(struct drm_plane *plane,
+ 
+ 	DPU_DEBUG_PLANE(pdpu, "FB[%u]\n", old_state->fb->base.id);
+ 
+-	msm_framebuffer_cleanup(old_state->fb, old_pstate->aspace);
++	msm_framebuffer_cleanup(old_state->fb, old_pstate->aspace,
++				old_pstate->needs_dirtyfb);
+ }
+ 
+ static bool dpu_plane_validate_src(struct drm_rect *src,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+index 9d51dad5c6a5..50781e2d3577 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+@@ -25,6 +25,7 @@
+  * @pending:	whether the current update is still pending
+  * @plane_fetch_bw: calculated BW per plane
+  * @plane_clk: calculated clk per plane
++ * @needs_dirtyfb: whether attached CRTC needs pixel data explicitly flushed
+  */
+ struct dpu_plane_state {
+ 	struct drm_plane_state base;
+@@ -37,6 +38,8 @@ struct dpu_plane_state {
+ 
+ 	u64 plane_fetch_bw;
+ 	u64 plane_clk;
++
++	bool needs_dirtyfb;
+ };
+ 
+ /**
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
+index 49bdabea8ed5..3e20f72d75ef 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c
+@@ -7,6 +7,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_gem_atomic_helper.h>
+ 
+ #include "mdp4_kms.h"
+ 
+@@ -90,6 +91,20 @@ static const struct drm_plane_funcs mdp4_plane_funcs = {
+ 		.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ };
+ 
++static int mdp4_plane_prepare_fb(struct drm_plane *plane,
++				 struct drm_plane_state *new_state)
++{
++	struct msm_drm_private *priv = plane->dev->dev_private;
++	struct msm_kms *kms = priv->kms;
++
++	if (!new_state->fb)
++		return 0;
++
++	drm_gem_plane_helper_prepare_fb(plane, new_state);
++
++	return msm_framebuffer_prepare(new_state->fb, kms->aspace, false);
++}
++
+ static void mdp4_plane_cleanup_fb(struct drm_plane *plane,
+ 				  struct drm_plane_state *old_state)
+ {
+@@ -102,7 +117,7 @@ static void mdp4_plane_cleanup_fb(struct drm_plane *plane,
+ 		return;
+ 
+ 	DBG("%s: cleanup: FB[%u]", mdp4_plane->name, fb->base.id);
+-	msm_framebuffer_cleanup(fb, kms->aspace);
++	msm_framebuffer_cleanup(fb, kms->aspace, false);
+ }
+ 
+ 
+@@ -130,7 +145,7 @@ static void mdp4_plane_atomic_update(struct drm_plane *plane,
+ }
+ 
+ static const struct drm_plane_helper_funcs mdp4_plane_helper_funcs = {
+-		.prepare_fb = msm_atomic_prepare_fb,
++		.prepare_fb = mdp4_plane_prepare_fb,
+ 		.cleanup_fb = mdp4_plane_cleanup_fb,
+ 		.atomic_check = mdp4_plane_atomic_check,
+ 		.atomic_update = mdp4_plane_atomic_update,
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+index bb7d066618e6..b966cd69f99d 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+@@ -690,6 +690,8 @@ static int mdp5_crtc_atomic_check(struct drm_crtc *crtc,
+ {
+ 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
+ 									  crtc);
++	struct mdp5_crtc_state *mdp5_cstate = to_mdp5_crtc_state(crtc_state);
++	struct mdp5_interface *intf = mdp5_cstate->pipeline.intf;
+ 	struct mdp5_kms *mdp5_kms = get_kms(crtc);
+ 	struct drm_plane *plane;
+ 	struct drm_device *dev = crtc->dev;
+@@ -706,12 +708,18 @@ static int mdp5_crtc_atomic_check(struct drm_crtc *crtc,
+ 	DBG("%s: check", crtc->name);
+ 
+ 	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
++		struct mdp5_plane_state *mdp5_pstate =
++				to_mdp5_plane_state(pstate);
++
+ 		if (!pstate->visible)
+ 			continue;
+ 
+ 		pstates[cnt].plane = plane;
+ 		pstates[cnt].state = to_mdp5_plane_state(pstate);
+ 
++		mdp5_pstate->needs_dirtyfb =
++			intf->mode == MDP5_INTF_DSI_MODE_COMMAND;
++
+ 		/*
+ 		 * if any plane on this crtc uses 2 hwpipes, then we need
+ 		 * the crtc to have a right hwmixer.
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+index ac269a6802df..29bf11f08601 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
+@@ -100,6 +100,11 @@ struct mdp5_plane_state {
+ 
+ 	/* assigned by crtc blender */
+ 	enum mdp_mixer_stage_id stage;
++
++	/* whether attached CRTC needs pixel data explicitly flushed to
++	 * display (ex. DSI command mode display)
++	 */
++	bool needs_dirtyfb;
+ };
+ #define to_mdp5_plane_state(x) \
+ 		container_of(x, struct mdp5_plane_state, base)
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+index c6b69afcbac8..b176338ab59b 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_print.h>
+ 
+ #include "mdp5_kms.h"
+@@ -140,18 +141,34 @@ static const struct drm_plane_funcs mdp5_plane_funcs = {
+ 		.atomic_print_state = mdp5_plane_atomic_print_state,
+ };
+ 
++static int mdp5_plane_prepare_fb(struct drm_plane *plane,
++				 struct drm_plane_state *new_state)
++{
++	struct msm_drm_private *priv = plane->dev->dev_private;
++	struct msm_kms *kms = priv->kms;
++	bool needs_dirtyfb = to_mdp5_plane_state(new_state)->needs_dirtyfb;
++
++	if (!new_state->fb)
++		return 0;
++
++	drm_gem_plane_helper_prepare_fb(plane, new_state);
++
++	return msm_framebuffer_prepare(new_state->fb, kms->aspace, needs_dirtyfb);
++}
++
+ static void mdp5_plane_cleanup_fb(struct drm_plane *plane,
+ 				  struct drm_plane_state *old_state)
+ {
+ 	struct mdp5_kms *mdp5_kms = get_kms(plane);
+ 	struct msm_kms *kms = &mdp5_kms->base.base;
+ 	struct drm_framebuffer *fb = old_state->fb;
++	bool needed_dirtyfb = to_mdp5_plane_state(old_state)->needs_dirtyfb;
+ 
+ 	if (!fb)
+ 		return;
+ 
+ 	DBG("%s: cleanup: FB[%u]", plane->name, fb->base.id);
+-	msm_framebuffer_cleanup(fb, kms->aspace);
++	msm_framebuffer_cleanup(fb, kms->aspace, needed_dirtyfb);
+ }
+ 
+ static int mdp5_plane_atomic_check_with_state(struct drm_crtc_state *crtc_state,
+@@ -437,7 +454,7 @@ static void mdp5_plane_atomic_async_update(struct drm_plane *plane,
+ }
+ 
+ static const struct drm_plane_helper_funcs mdp5_plane_helper_funcs = {
+-		.prepare_fb = msm_atomic_prepare_fb,
++		.prepare_fb = mdp5_plane_prepare_fb,
+ 		.cleanup_fb = mdp5_plane_cleanup_fb,
+ 		.atomic_check = mdp5_plane_atomic_check,
+ 		.atomic_update = mdp5_plane_atomic_update,
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index 27c9ae563f2f..1686fbb611fd 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -5,7 +5,6 @@
+  */
+ 
+ #include <drm/drm_atomic_uapi.h>
+-#include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_vblank.h>
+ 
+ #include "msm_atomic_trace.h"
+@@ -13,20 +12,6 @@
+ #include "msm_gem.h"
+ #include "msm_kms.h"
+ 
+-int msm_atomic_prepare_fb(struct drm_plane *plane,
+-			  struct drm_plane_state *new_state)
+-{
+-	struct msm_drm_private *priv = plane->dev->dev_private;
+-	struct msm_kms *kms = priv->kms;
+-
+-	if (!new_state->fb)
+-		return 0;
+-
+-	drm_gem_plane_helper_prepare_fb(plane, new_state);
+-
+-	return msm_framebuffer_prepare(new_state->fb, kms->aspace);
+-}
+-
+ /*
+  * Helpers to control vblanks while we flush.. basically just to ensure
+  * that vblank accounting is switched on, so we get valid seqn/timestamp
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 57b0cd6f917e..9f68aa685ed7 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -239,8 +239,6 @@ struct msm_format {
+ 
+ struct msm_pending_timer;
+ 
+-int msm_atomic_prepare_fb(struct drm_plane *plane,
+-			  struct drm_plane_state *new_state);
+ int msm_atomic_init_pending_timer(struct msm_pending_timer *timer,
+ 		struct msm_kms *kms, int crtc_idx);
+ void msm_atomic_destroy_pending_timer(struct msm_pending_timer *timer);
+@@ -299,9 +297,9 @@ int msm_gem_prime_pin(struct drm_gem_object *obj);
+ void msm_gem_prime_unpin(struct drm_gem_object *obj);
+ 
+ int msm_framebuffer_prepare(struct drm_framebuffer *fb,
+-		struct msm_gem_address_space *aspace);
++		struct msm_gem_address_space *aspace, bool needs_dirtyfb);
+ void msm_framebuffer_cleanup(struct drm_framebuffer *fb,
+-		struct msm_gem_address_space *aspace);
++		struct msm_gem_address_space *aspace, bool needed_dirtyfb);
+ uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb,
+ 		struct msm_gem_address_space *aspace, int plane);
+ struct drm_gem_object *msm_framebuffer_bo(struct drm_framebuffer *fb, int plane);
+diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+index 4d34df5354e0..96b379a08327 100644
+--- a/drivers/gpu/drm/msm/msm_fb.c
++++ b/drivers/gpu/drm/msm/msm_fb.c
+@@ -18,16 +18,36 @@
+ struct msm_framebuffer {
+ 	struct drm_framebuffer base;
+ 	const struct msm_format *format;
++
++	/* Count of # of attached planes which need dirtyfb: */
++	refcount_t dirtyfb;
+ };
+ #define to_msm_framebuffer(x) container_of(x, struct msm_framebuffer, base)
+ 
+ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos);
+ 
++static int msm_framebuffer_dirtyfb(struct drm_framebuffer *fb,
++				   struct drm_file *file_priv, unsigned int flags,
++				   unsigned int color, struct drm_clip_rect *clips,
++				   unsigned int num_clips)
++{
++	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
++
++	/* If this fb is not used on any display requiring pixel data to be
++	 * flushed, then skip dirtyfb
++	 */
++	if (refcount_read(&msm_fb->dirtyfb) == 0)
++		return 0;
++
++	return drm_atomic_helper_dirtyfb(fb, file_priv, flags, color,
++					 clips, num_clips);
++}
++
+ static const struct drm_framebuffer_funcs msm_framebuffer_funcs = {
+ 	.create_handle = drm_gem_fb_create_handle,
+ 	.destroy = drm_gem_fb_destroy,
+-	.dirty = drm_atomic_helper_dirtyfb,
++	.dirty = msm_framebuffer_dirtyfb,
+ };
+ 
+ #ifdef CONFIG_DEBUG_FS
+@@ -48,17 +68,19 @@ void msm_framebuffer_describe(struct drm_framebuffer *fb, struct seq_file *m)
+ }
+ #endif
+ 
+-/* prepare/pin all the fb's bo's for scanout.  Note that it is not valid
+- * to prepare an fb more multiple different initiator 'id's.  But that
+- * should be fine, since only the scanout (mdpN) side of things needs
+- * this, the gpu doesn't care about fb's.
++/* prepare/pin all the fb's bo's for scanout.
+  */
+ int msm_framebuffer_prepare(struct drm_framebuffer *fb,
+-		struct msm_gem_address_space *aspace)
++		struct msm_gem_address_space *aspace,
++		bool needs_dirtyfb)
+ {
++	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
+ 	int ret, i, n = fb->format->num_planes;
+ 	uint64_t iova;
+ 
++	if (needs_dirtyfb)
++		refcount_inc(&msm_fb->dirtyfb);
++
+ 	for (i = 0; i < n; i++) {
+ 		ret = msm_gem_get_and_pin_iova(fb->obj[i], aspace, &iova);
+ 		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)", fb->base.id, i, iova, ret);
+@@ -70,10 +92,15 @@ int msm_framebuffer_prepare(struct drm_framebuffer *fb,
+ }
+ 
+ void msm_framebuffer_cleanup(struct drm_framebuffer *fb,
+-		struct msm_gem_address_space *aspace)
++		struct msm_gem_address_space *aspace,
++		bool needed_dirtyfb)
+ {
++	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
+ 	int i, n = fb->format->num_planes;
+ 
++	if (needed_dirtyfb)
++		refcount_dec(&msm_fb->dirtyfb);
++
+ 	for (i = 0; i < n; i++)
+ 		msm_gem_unpin_iova(fb->obj[i], aspace);
+ }
 -- 
-With best wishes
-Dmitry
+2.34.1
+
