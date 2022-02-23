@@ -2,59 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60064C1CDB
-	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 21:08:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FD0B4C1DCF
+	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 22:33:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D5F010EA67;
-	Wed, 23 Feb 2022 20:08:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBEA410F09D;
+	Wed, 23 Feb 2022 21:33:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A12C610EA67;
- Wed, 23 Feb 2022 20:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645646923; x=1677182923;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=+MGvrogjK3hBuwIOknzKUrzQSja4adIWRodFkkTu2kk=;
- b=qAu3HWwEtw6P/h3mKJP5QzYTHoGNQNbzHClMR3xvT211kdvjO6BZfWcA
- xRSkXlgxJbpTQugwZpKvC9pP3K0FHhDFmpboCywcu9hiDPwFefW3G3seQ
- +c2UtidQmDkzt1WQTbQjuBapTau7x+1T9cjoJl9l6fhvGJgYoocEHVl07 A=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 23 Feb 2022 12:08:43 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2022 12:08:42 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 23 Feb 2022 12:08:42 -0800
-Received: from [10.216.14.166] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Wed, 23 Feb
- 2022 12:08:36 -0800
-Message-ID: <d70cf11a-1a23-e240-3565-9966a6f4bfaa@quicinc.com>
-Date: Thu, 24 Feb 2022 01:38:33 +0530
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8901510F09D
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 21:33:34 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id s5so399138oic.10
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 13:33:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=QeXjVrsBd2xyaX1fRJaTjrZFWoYw6M95k9VES1X7evg=;
+ b=F8GR4eOAQdUqj8xaPWZ5qOSFdkWgvYEYKqpoEZk+xnLsYM5YSI168fW9lNpJQ3I6eg
+ xGQbFIIR0qKbCZCZ7r5ZTROq59hxodBtBtt/NZyGXrBB10nuHyNFaS1Y8KkKuC5A88L/
+ LeK2D+4fvQtxKD3HWSnwj13iqsyZj8cd6rKf0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=QeXjVrsBd2xyaX1fRJaTjrZFWoYw6M95k9VES1X7evg=;
+ b=ej7sg8Z0mfOR50EYPULuLiIFREVtkX2Zbb+TpckfNC52lqeFiESzxQKUVsHgkE/CRF
+ Vx4VXprDrETjcHOF5J2rwRWDAgiE6Px8DZjaowya5AuSe68FlJsTCS3YBqvZlxncAIcU
+ 2h6caAZ05oEo4mjnd9LrTwUfIcOmRfyXUCkGwBChVzb8z69/rFgeRk2PQW+KNZnN9ioF
+ yf4xCJdgISDPJ8UE+1cKx42DfFtcdgXVkCO/IBxhKR+K2ekPTCgTaLLXUalbzU3jrOLC
+ eY0vYE0aF2+bUKn2hkv6gA8vYLHqpV92YtlgdC6RAB3l9BhnPoXkh50kMunHp1I/8Aew
+ mVmQ==
+X-Gm-Message-State: AOAM530tINv00Vl6SIlwntLYl+OhBUU1oMSoogR6mtJzbjVlvcXrVPeH
+ ILudScfSz7iwQ7PEgmUEWnpNJx19X+inh8RC1L3cjg==
+X-Google-Smtp-Source: ABdhPJwMsBuwNLFN0DBErvCeoCglDEp1SX7tXlUppHD/4h1YVd2LnidJwPJVI5P14E867PxLF7abnNOt8Xa11rmPXQ4=
+X-Received: by 2002:a05:6808:f88:b0:2d4:c8c2:b898 with SMTP id
+ o8-20020a0568080f8800b002d4c8c2b898mr946625oiw.112.1645652013614; Wed, 23 Feb
+ 2022 13:33:33 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Feb 2022 21:33:33 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <1645454462-27867-1-git-send-email-quic_akhilpo@quicinc.com>
- <20220221201039.2.I9436e0e300f76b2e6c34136a0b902e8cfd73e0d6@changeid>
- <CAF6AEGuVZaOdUUf8ccokTQdAXMdW3oVYNx3ae9ShBoh8ibXVOw@mail.gmail.com>
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-In-Reply-To: <CAF6AEGuVZaOdUUf8ccokTQdAXMdW3oVYNx3ae9ShBoh8ibXVOw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/adreno: Generate name from
- chipid for 7c3
+In-Reply-To: <a803c7a9-de4c-8fe5-d80d-56366df78611@quicinc.com>
+References: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
+ <20220211224006.1797846-5-dmitry.baryshkov@linaro.org>
+ <572c0402-55da-077b-1809-3d1caf7ce743@quicinc.com>
+ <b25d422e-cdd8-bcb9-1815-1d89f170d421@linaro.org>
+ <CAE-0n51afuHURLHaZBa77H_n+cm4Tj1Du-rpLH-HsrkY5xQVJA@mail.gmail.com>
+ <CAA8EJpobtpc5mB48g6K=+KaZQ-o8m_QTZr-dQvwz-9cEwiJ_Kg@mail.gmail.com>
+ <7f9e2181-bb1a-c734-2e90-c5922952acb4@quicinc.com>
+ <493749c1-6305-1a94-4e05-519c825e9d4d@linaro.org>
+ <a803c7a9-de4c-8fe5-d80d-56366df78611@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 23 Feb 2022 21:33:33 +0000
+Message-ID: <CAE-0n50VWH9Mum_W9e+6X1vjxvS3KWDqBtPfKHL-weA7S+_3Hg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Subject: Re: [Freedreno] [RFC PATCH v2 4/5] drm/msm/dp: replace dp_connector
+ with drm_bridge_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,92 +74,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, OPEN FIRMWARE AND FLATTENED DEVICE TREE
- BINDINGS <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Yangtao Li <tiny.windzz@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2/23/2022 6:28 AM, Rob Clark wrote:
-> On Mon, Feb 21, 2022 at 6:41 AM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
->> Use a gpu name which is sprintf'ed from the chipid for 7c3 gpu instead of
->> hardcoding one. This helps to avoid code churn in case of a gpu rename.
->>
->> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
->> ---
->>
->>   drivers/gpu/drm/msm/adreno/adreno_device.c |  1 -
->>   drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 14 ++++++++++++--
->>   2 files changed, 12 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> index fb26193..89cfd84 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> @@ -318,7 +318,6 @@ static const struct adreno_info gpulist[] = {
->>                  .hwcg = a660_hwcg,
->>          }, {
->>                  .rev = ADRENO_REV(6, 3, 5, ANY_ID),
->> -               .name = "Adreno 7c Gen 3",
->>                  .fw = {
->>                          [ADRENO_FW_SQE] = "a660_sqe.fw",
->>                          [ADRENO_FW_GMU] = "a660_gmu.bin",
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> index f33cfa4..158bbf7 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->> @@ -929,12 +929,22 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>          struct adreno_platform_config *config = dev->platform_data;
->>          struct msm_gpu_config adreno_gpu_config  = { 0 };
->>          struct msm_gpu *gpu = &adreno_gpu->base;
->> +       struct adreno_rev *rev = &config->rev;
->> +       const char *gpu_name;
->> +       static char name[8];
-> I think 8 is not always enough.. but maybe just use devm_kasprintf()
-> to keep it simpler?
->
-> BR,
-> -R
-Sounds good. Will update this patch.
-
--Akhil.
->>          adreno_gpu->funcs = funcs;
->>          adreno_gpu->info = adreno_info(config->rev);
->>          adreno_gpu->gmem = adreno_gpu->info->gmem;
->>          adreno_gpu->revn = adreno_gpu->info->revn;
->> -       adreno_gpu->rev = config->rev;
->> +       adreno_gpu->rev = *rev;
->> +
->> +       gpu_name = adreno_gpu->info->name;
->> +       if (!gpu_name) {
->> +               sprintf(name, "%d.%d.%d.%d", rev->core, rev->major, rev->minor,
->> +                               rev->patchid);
->> +               gpu_name = name;
->> +       }
->>
->>          adreno_gpu_config.ioname = "kgsl_3d0_reg_memory";
->>
->> @@ -948,7 +958,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
->>          pm_runtime_enable(dev);
->>
->>          return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
->> -                       adreno_gpu->info->name, &adreno_gpu_config);
->> +                       gpu_name, &adreno_gpu_config);
->>   }
->>
->>   void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
->> --
->> 2.7.4
->>
-
+UXVvdGluZyBLdW9nZWUgSHNpZWggKDIwMjItMDItMjMgMTA6Mjc6MjYpDQo+DQo+IE9uIDIvMjMv
+MjAyMiAxMDoyMiBBTSwgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToNCj4gPiBPbiAyMy8wMi8yMDIy
+IDIwOjIxLCBLdW9nZWUgSHNpZWggd3JvdGU6DQo+ID4NCj4gPiBJbiB0aGUgcGFuZWwgZGV2aWNl
+IG5vZGUuDQo+ID4NCj4gPiBDYW4geW91IHBsZWFzZSBzaGFyZSBpdCB0b28/DQo+DQo+DQo+ICZz
+b2Mgew0KPiAgwqDCoMKgwqDCoMKgwqAgZWRwX3Bvd2VyX3N1cHBseTogZWRwX3Bvd2VyIHsNCj4g
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInJlZ3VsYXRvci1m
+aXhlZCI7DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVndWxhdG9yLW5hbWUg
+PSAiZWRwX2JhY2tsaWdodF9wb3dlciI7DQo+DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgcmVndWxhdG9yLWFsd2F5cy1vbjsNCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCByZWd1bGF0b3ItYm9vdC1vbjsNCj4gIMKgwqDCoMKgwqDCoMKgIH07DQo+DQo+ICDCoMKg
+wqDCoMKgwqDCoCBlZHBfYmFja2xpZ2h0OiBlZHBfYmFja2xpZ2h0IHsNCj4gIMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInB3bS1iYWNrbGlnaHQiOw0KPg0KPiAg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHB3bXMgPSA8JnBtODM1MGNfcHdtIDMgNjU1
+MzU+Ow0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvd2VyLXN1cHBseSA9IDwm
+ZWRwX3Bvd2VyX3N1cHBseT47DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZW5h
+YmxlLWdwaW8gPSA8JnBtODM1MGNfZ3Bpb3MgNyBHUElPX0FDVElWRV9ISUdIPjsNCj4NCj4gIMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0K
+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBpbmN0cmwtMCA9IDwmYmFja2xpZ2h0
+X3B3bV9kZWZhdWx0PjsNCj4gIMKgwqDCoMKgwqDCoMKgIH07DQo+DQo+ICDCoMKgwqDCoMKgwqDC
+oCBlZHBfcGFuZWw6IGVkcF9wYW5lbCB7DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgY29tcGF0aWJsZSA9ICJzaGFycF9scTE0MG0xanc0NiI7DQoNCklzIHRoYXQgc3VwcG9zZWQg
+dG8gYmUgc2hhcnAsbHExNDBtMWp3NDYgd2l0aCBhIGNvbW1hIGluc3RlYWQgb2YgYW4NCnVuZGVy
+c2NvcmU/DQo=
