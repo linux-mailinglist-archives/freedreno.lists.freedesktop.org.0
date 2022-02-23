@@ -2,56 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E64844C185D
-	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 17:18:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A1CD4C19D1
+	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 18:21:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3644A10EE77;
-	Wed, 23 Feb 2022 16:18:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD0B10F35B;
+	Wed, 23 Feb 2022 17:21:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B58B710EE6F;
- Wed, 23 Feb 2022 16:18:38 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id f17so15638424wrh.7;
- Wed, 23 Feb 2022 08:18:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vu8Twnocn3vA4ricnLle2PUL2O6gazUeaL13927N0Bw=;
- b=dU+Uq1hgyWoO4vVyQn1ujrktF0A2z0Zg7WmMjPHYBcM7m32p0tLKDSKQUVOjkCMPLd
- NQHbsrDFQJ+vyYL92d2dYicS/odftSePDJWQl66P3pkpro62ARe5Evkii3sEAMhedGz/
- VFdy0DKVRaEzQRiD/Gvgek/8tfHZlcsqxdoTTboE1sZ6EDbkjpUblB+t7bYdi29J4ezG
- kiAJa5BditVgo5ThrGJQRtTECHC3i0GaVzlOEyfeeg0Hn67Nc3paqFSnSd+LK2M61yQa
- Spy4a7vFsxx5Q9z8kV6/13pMYxzPbFFunOBddsseJsE5vcaC5Sdu4ypUcXOJMIql03aX
- XVXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vu8Twnocn3vA4ricnLle2PUL2O6gazUeaL13927N0Bw=;
- b=zoZbXJn0K5QU432ve8QvhXTHxKGCcCtkOZIUcQxowSbhH/3LuzPlK1WylOnuGM7MN+
- 4akodoAmk0Qhh8QYTr33IB9zpl6YeurLm3V55jCtb9/2p09tI8SU7jQVaWhPjyRlhFba
- CeWtQtnRy1kTWLez3avx1vxrl/DM/1w6z8s/ngMrIki3zgGfXr90ns9/SjiYwpfZfHn4
- 3KUwkLwMr5R+VeA/q7KmIzHhmM9+NptpcZ5zV7ZSXvb6pXtwhei1kHttd5TcM0fr2Hjz
- hapZ1+/VBQC2jIz+M6YrVzxfEdfI/jIG1koKQ69OV4tfDwi7dFss8kB0XL3pWF5LQzMG
- cw+w==
-X-Gm-Message-State: AOAM530e/BAHeWsHFMZIHuybEIXRAIq9s9eVF4w72hnjR4mf9FSXA4pg
- BNIPrBl/JVU7kQpWJPXKZAD42IcEL6i0DT+Duzl7YMRoOPs=
-X-Google-Smtp-Source: ABdhPJxUxsUu4B6LPuO8RFWw7Yn5lu+ezbPGrbFjXiTTcZQRl7UW8msM5NNY5SAhTMaB4e82kLY55STtgN9hvzTG0J0=
-X-Received: by 2002:a05:6000:1202:b0:1ed:b03e:69a0 with SMTP id
- e2-20020a056000120200b001edb03e69a0mr275388wrx.93.1645633117146; Wed, 23 Feb
- 2022 08:18:37 -0800 (PST)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63DE310F35B;
+ Wed, 23 Feb 2022 17:21:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645636895; x=1677172895;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=5EKhfuk/coV4wXHsSnx1QP6vOM5XWSxtlOIzzZeCWkA=;
+ b=pbI0u3edXPCHwb7h12YxV9xy0JpkcDuTFZmAMu1Tsk+yd8TMv+3xvfC5
+ 4EX8TxDV3LI2cQZRB1UiFoLs41VozAZyK5ZEwOkhT3Nw08vLviSZKqMDV
+ /n+XbUoviGbCtUvQ5P1bSrtN/4w/ALXd022bkOPvU69ZWhmR9qwGgP5+s w=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 23 Feb 2022 09:21:34 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 09:21:34 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Wed, 23 Feb 2022 09:21:33 -0800
+Received: from [10.110.64.217] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Wed, 23 Feb
+ 2022 09:21:32 -0800
+Message-ID: <7f9e2181-bb1a-c734-2e90-c5922952acb4@quicinc.com>
+Date: Wed, 23 Feb 2022 09:21:32 -0800
 MIME-Version: 1.0
-References: <20220219193957.577054-1-robdclark@gmail.com>
- <a065a843-e7c3-a75b-aa8e-d4b264146df0@linaro.org>
-In-Reply-To: <a065a843-e7c3-a75b-aa8e-d4b264146df0@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 23 Feb 2022 08:18:56 -0800
-Message-ID: <CAF6AEGuAq_OT_bFon+WvGr+kU1wA_u=bRirC8BjN=5eYNopiOA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Avoid dirtyfb stalls on video mode
- displays
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Stephen Boyd
+ <swboyd@chromium.org>
+References: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
+ <20220211224006.1797846-5-dmitry.baryshkov@linaro.org>
+ <572c0402-55da-077b-1809-3d1caf7ce743@quicinc.com>
+ <b25d422e-cdd8-bcb9-1815-1d89f170d421@linaro.org>
+ <CAE-0n51afuHURLHaZBa77H_n+cm4Tj1Du-rpLH-HsrkY5xQVJA@mail.gmail.com>
+ <CAA8EJpobtpc5mB48g6K=+KaZQ-o8m_QTZr-dQvwz-9cEwiJ_Kg@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAA8EJpobtpc5mB48g6K=+KaZQ-o8m_QTZr-dQvwz-9cEwiJ_Kg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [RFC PATCH v2 4/5] drm/msm/dp: replace dp_connector
+ with drm_bridge_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,79 +71,153 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, Xu Wang <vulab@iscas.ac.cn>,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- David Heidelberg <david@ixit.cz>, Daniel Vetter <daniel@ffwll.ch>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- open list <linux-kernel@vger.kernel.org>, Mark Yacoub <markyacoub@google.com>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Feb 23, 2022 at 2:00 AM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 19/02/2022 22:39, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Someone on IRC once asked an innocent enough sounding question:  Why
-> > with xf86-video-modesetting is es2gears limited at 120fps.
-> >
-> > So I broke out the perfetto tracing mesa MR and took a look.  It turns
-> > out the problem was drm_atomic_helper_dirtyfb(), which would end up
-> > waiting for vblank.. es2gears would rapidly push two frames to Xorg,
-> > which would blit them to screen and in idle hook (I assume) call the
-> > DIRTYFB ioctl.  Which in turn would do an atomic update to flush the
-> > dirty rects, which would stall until the next vblank.  And then the
-> > whole process would repeat.
-> >
-> > But this is a bit silly, we only need dirtyfb for command mode DSI
-> > panels.  So lets just skip it otherwise.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 13 +++++
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h  |  9 ++++
-> >   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c   |  1 +
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c |  9 ++++
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c  |  1 +
-> >   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h  |  1 +
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c |  8 +++
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c  |  1 +
-> >   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h  |  1 +
-> >   drivers/gpu/drm/msm/msm_fb.c              | 64 ++++++++++++++++++++++-
-> >   drivers/gpu/drm/msm/msm_kms.h             |  2 +
-> >   11 files changed, 109 insertions(+), 1 deletion(-)
-> >
->
-> I have checked your previous dirtyfb patch (and corresponding discussion).
->
-> I'm not fond of the idea of acquiring locks, computing the value, then
-> releasing the locks and reacquiring the locks again. I understand the
-> original needs_dirtyfb approach was frowned upon. Do we have a chance of
-> introducing drm_atomic_helper_dirtyfb_unlocked()? Which would perform
-> all the steps of the orignal helper, but without locks acquirement (and
-> state allocation/freeing)?
->
 
-The locking is really more just to avoid racing state access with
-state being free'd.  The sort of race you could have is perhaps
-dirtyfb racing with attaching the fb to a cmd mode
-plane->crtc->encoder chain.  I think this is relatively harmless since
-that act would flush the fb anyways.
+On 2/18/2022 6:22 PM, Dmitry Baryshkov wrote:
+> On Sat, 19 Feb 2022 at 03:55, Stephen Boyd <swboyd@chromium.org> wrote:
+>> Quoting Dmitry Baryshkov (2022-02-18 14:32:53)
+>>> On 19/02/2022 00:31, Kuogee Hsieh wrote:
+>>>> On 2/11/2022 2:40 PM, Dmitry Baryshkov wrote:
+>>>>> There is little point in having both connector and root bridge
+>>>>> implementation in the same driver. Move connector's functionality to the
+>>>>> bridge to let next bridge in chain to override it.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> This patch break primary (edp) display
+>>>>
+>>>> -- right half of screen garbled
+>>>>
+>>>> -- screen shift vertically
+>>>>
+>>>> below are error messages seen --
+>>>>
+>>>> [   36.679216] panel-edp soc@0:edp_panel: No display modes
+>>>> [   36.687272] panel-edp soc@0:edp_panel: No display modes
+>>>> [   40.593709] panel-edp soc@0:edp_panel: No display modes
+>>>> [   40.600285] panel-edp soc@0:edp_panel: No display modes
+>>> So, before the patch the drm core was getting modes from the
+>>> drm_connector (which means, modes from drm driver itself). With this
+>>> patch the panel-edp tries to get modes.
+>>>
+>>> Could you please check, why panel_edp_get_modes() fails? Assuming that
+>>> you use platform panel-edp binding (rather than 'edp-panel') could you
+>>> please check you have either of the following:
+>>> - ddc bus for EDID?
+>> I don't see anywhere where the ddc pointer is set for the dp bridge in
+>> msm_dp_bridge_init(). Is that required though? I'd think simple panel is
+>> still being used here so reading EDID isn't required.
+> I meant the 'ddc-i2c-bus' property for the corresponding eDP panel.
+>
+>>> - either num_timing or num_modes in your panel desc.
+> After reading the panel-edp's code I don't have another cause for
+> panel_edp_get_modes(). It should either have a DDC bus specified using
+> the mentioned device tree property, or it should have specified the
+> timings.
+>
+> Kuogee, which platform were you using when testing this patch? Could
+> you please share the dts fragment?
 
-But it did give me an idea for a possibly simpler approach.. we might
-be able to just keep a refcnt of cmd mode panels the fb is indirectly
-attached to, and then msm_framebuffer_dirtyfb() simply has to check if
-that count is greater than zero.  If we increment/decrement the count
-in fb->prepare()/cleanup() that should also solve the race.
+I cherry-picked your patches on top of our internal release which is 
+usually have some (or many) patches behind msm-next.
 
-BR,
--R
+where is "ddc-i2c-bus" located?
+
+                         msm_edp: edp@aea0000 {
+                                 compatible = "qcom,sc7280-edp";
+
+                                 reg = <0 0xaea0000 0 0x200>,
+                                       <0 0xaea0200 0 0x200>,
+                                       <0 0xaea0400 0 0xc00>,
+                                       <0 0xaea1000 0 0x400>;
+
+                                 interrupt-parent = <&mdss>;
+                                 interrupts = <14>;
+
+                                 clocks = <&rpmhcc RPMH_CXO_CLK>,
+                                          <&gcc GCC_EDP_CLKREF_EN>,
+                                          <&dispcc DISP_CC_MDSS_AHB_CLK>,
+                                          <&dispcc 
+DISP_CC_MDSS_EDP_AUX_CLK>,
+                                          <&dispcc 
+DISP_CC_MDSS_EDP_LINK_CLK>,
+                                          <&dispcc 
+DISP_CC_MDSS_EDP_LINK_INTF_CLK>,
+                                          <&dispcc 
+DISP_CC_MDSS_EDP_PIXEL_CLK>;
+                                 clock-names = "core_xo",
+                                               "core_ref",
+                                               "core_iface",
+                                               "core_aux",
+                                               "ctrl_link",
+                                               "ctrl_link_iface",
+                                               "stream_pixel";
+                                 #clock-cells = <1>;
+                                 assigned-clocks = <&dispcc 
+DISP_CC_MDSS_EDP_LINK_CLK_SRC>,
+                                                   <&dispcc 
+DISP_CC_MDSS_EDP_PIXEL_CLK_SRC>;
+                                 assigned-clock-parents = <&edp_phy 0>, 
+<&edp_phy 1>;
+
+                                 phys = <&edp_phy>;
+                                 phy-names = "dp";
+
+                                 operating-points-v2 = <&edp_opp_table>;
+                                 power-domains = <&rpmhpd SC7280_CX>;
+
+                                 #address-cells = <1>;
+                                 #size-cells = <0>;
+
+                                 status = "disabled";
+
+                                 ports {
+                                         #address-cells = <1>;
+                                         #size-cells = <0>;
+                                         port@0 {
+                                                 reg = <0>;
+                                                 edp_in: endpoint {
+remote-endpoint = <&dpu_intf5_out>;
+                                                 };
+                                         };
+                                 };
+
+                             edp_opp_table: opp-table {
+                                         compatible = "operating-points-v2";
+
+                                         opp-160000000 {
+                                                 opp-hz = /bits/ 64 
+<160000000>;
+                                                 required-opps = 
+<&rpmhpd_opp_low_svs>;
+                                         };
+
+                                         opp-270000000 {
+                                                 opp-hz = /bits/ 64 
+<270000000>;
+                                                 required-opps = 
+<&rpmhpd_opp_svs>;
+                                         };
+
+                                         opp-540000000 {
+                                                 opp-hz = /bits/ 64 
+<540000000>;
+                                                 required-opps = 
+<&rpmhpd_opp_nom>;
+                                         };
+
+                                         opp-810000000 {
+                                                 opp-hz = /bits/ 64 
+<810000000>;
+                                                 required-opps = 
+<&rpmhpd_opp_nom>;
+                                         };
+                                 };
+                         };
+
