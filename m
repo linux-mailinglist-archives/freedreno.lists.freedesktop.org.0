@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 995114C3774
-	for <lists+freedreno@lfdr.de>; Thu, 24 Feb 2022 22:09:40 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3329D4C38AD
+	for <lists+freedreno@lfdr.de>; Thu, 24 Feb 2022 23:22:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F1910E6EE;
-	Thu, 24 Feb 2022 21:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C67FC10E1AF;
+	Thu, 24 Feb 2022 22:22:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09D210E6DB;
- Thu, 24 Feb 2022 21:09:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1645736976; x=1677272976;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=qCWHlj5Yr9/IX6SAOZyDrYU7VrfN9egjcUHPe4yI2js=;
- b=vHfo+oHIxKzN0VL1cWMY3NcGHjHbJ9MjIoo1wzvAQQsrR/YIuIweMAHy
- P1y1CCvUsR2EURdmk6YgtJatul0oPq9oU6N+i6GDF7fPFpRtyHzKXo2qE
- YTCEAGbFbrwUOAjiwfgoSFgrT+SYfmQMt/vy8XawSZtKWVrI1B371wJGA w=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 24 Feb 2022 13:09:36 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 13:09:35 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Thu, 24 Feb 2022 13:09:35 -0800
-Received: from [10.110.44.69] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Thu, 24 Feb
- 2022 13:09:34 -0800
-Message-ID: <06f7d17b-3614-d3bb-87db-611e6a4c4ba5@quicinc.com>
-Date: Thu, 24 Feb 2022 13:09:34 -0800
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C40910E1AF;
+ Thu, 24 Feb 2022 22:22:50 +0000 (UTC)
+Received: by mail-pl1-x633.google.com with SMTP id n15so863187plf.4;
+ Thu, 24 Feb 2022 14:22:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KC38Q9auprSBL2KXS5vTL8BZyOlr0l+99ezAwIh0Alk=;
+ b=Fl47mfGKhSwRhjWAN2q9gQAHA0ODonroy6a5ZTZuMuaIbiVEFaorM/YC1NB1o70+3F
+ Nmfkh6rpxVY3nJmSSuGu3QTtuOfdxjizbCfXh60POt+T8vuZMfVojdoC6yYJnG6Ziwby
+ WZmED/nJSmEEeHY5EU9iUcP8xw5qoqR5fLhPuL/Z6ceS39ui35QcI79ee1VRuw3cxy9I
+ HatF/gUOA9mPpnJjlvGy5mit4GCMY07rBwrfrIDWNHB29eTYaD29IFqNvErH4Vc3SuVZ
+ rOhnPoREDEt0hmj5JoX+9/G3o3ZG5kj67W4GooYQhZSie0glAHTRnm3D7+ifOETj+wuJ
+ //6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KC38Q9auprSBL2KXS5vTL8BZyOlr0l+99ezAwIh0Alk=;
+ b=34KFZNxilaVlHjSFgka/fss8SMjF2xBHOOOmf9lTgpbHYzl+aP/IAJnLJsCqtEvUln
+ Gx9IRFk/8jp3WP8JeHPWwa/HUzC8b1JYOEE4tGi6bxyWaeB6a9aQVzv7xoB8BYm5Iuvq
+ 1MEVEkisf4yQrUJ6tsL5mGnVfIkGTIEf+VJGhuLniRFpyaUiLVyEeLRcLj/NyAN29zHP
+ 1tV7WbiJJ7+KMvWIo4LhdTk+56ntx+yMOLUSkCrI2BV+kNQxZ9usUJ+3Bbhn5aAgSrId
+ KipT5HNTBYcP64ZE19bvpCIMVJa522/M/nRI+HEhZQY4NN47LnWJB6RA4DKzAJ1Xd4wY
+ Or+w==
+X-Gm-Message-State: AOAM531D5g+dRA8KNigUb2jSlUy/1yCR53/+3G9fluLT00KJ/BeOj6Ce
+ jqrYd3cDUpEBEXO38lHj0VeIelys2Tw=
+X-Google-Smtp-Source: ABdhPJzallEYPS+l4SgLT9ah/U3MzuX2cTvZpiM9CTLd8ytUd2EJAFjf/cxgotvtqPmkd2n+G8lKSg==
+X-Received: by 2002:a17:90b:4ac4:b0:1ba:3b4:d3c with SMTP id
+ mh4-20020a17090b4ac400b001ba03b40d3cmr202228pjb.201.1645741369032; 
+ Thu, 24 Feb 2022 14:22:49 -0800 (PST)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id
+ m6-20020a056a00080600b004e1bb196743sm561169pfk.5.2022.02.24.14.22.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Feb 2022 14:22:48 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 24 Feb 2022 14:23:21 -0800
+Message-Id: <20220224222321.60653-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
- <20220211224006.1797846-4-dmitry.baryshkov@linaro.org>
- <9348028b-a898-428e-a855-9df18e577328@quicinc.com>
- <CAA8EJpo0C1vtiZAeBDU0G0rg5CEHwc5fmdkeKRiEyOvfPxNm-Q@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAA8EJpo0C1vtiZAeBDU0G0rg5CEHwc5fmdkeKRiEyOvfPxNm-Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [RFC PATCH v2 3/5] drm/msm/dp: support finding next
- bridge even for DP interfaces
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Add MSM_SUBMIT_FENCE_SN_IN
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,100 +67,135 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+Add a way for userspace to specify the sequence number fence used to
+track completion of the submit.  As the seqno fence is simply an
+incrementing counter which is local to the submitqueue, it is easy for
+userspace to know the next value.
 
-On 2/24/2022 12:49 PM, Dmitry Baryshkov wrote:
-> On Thu, 24 Feb 2022 at 23:13, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->>
->>
->> On 2/11/2022 2:40 PM, Dmitry Baryshkov wrote:
->>> It is possible to supply display-connector (bridge) to the DP interface,
->>> add support for parsing it too.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/dp/dp_parser.c | 19 ++++++++++++-------
->>>    1 file changed, 12 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
->>> index 901d7967370f..1056b8d5755b 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_parser.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_parser.c
->>> @@ -301,17 +301,22 @@ static int dp_parser_parse(struct dp_parser *parser, int connector_type)
->>>                return rc;
->>>
->>>        /*
->>> -      * Currently we support external bridges only for eDP connectors.
->>> +      * External bridges are mandatory for eDP interfaces: one has to
->>> +      * provide at least an eDP panel (which gets wrapped into panel-bridge).
->>>         *
->>> -      * No external bridges are expected for the DisplayPort connector,
->>> -      * it is physically present in a form of a DP or USB-C connector.
->>> +      * For DisplayPort interfaces external bridges are optional, so
->>> +      * silently ignore an error if one is not present (-ENODEV).
->>>         */
->>> -     if (connector_type == DRM_MODE_CONNECTOR_eDP) {
->>> -             rc = dp_parser_find_next_bridge(parser);
->>> -             if (rc) {
->>> -                     DRM_ERROR("DP: failed to find next bridge\n");
->>> +     rc = dp_parser_find_next_bridge(parser);
->>> +     if (rc == -ENODEV) {
->>> +             if (connector_type == DRM_MODE_CONNECTOR_eDP) {
->>> +                     DRM_ERROR("eDP: next bridge is not present\n");
->>>                        return rc;
->>>                }
->>> +     } else if (rc) {
->>> +             if (rc != -EPROBE_DEFER)
->>> +                     DRM_ERROR("DP: error parsing next bridge: %d\n", rc);
->>> +             return rc;
->>>        }
->>
->> How is this silently ignoring?
->>
->> static int dp_display_bind(struct device *dev, struct device *master,
->>                  void *data)
->> {
->>       int rc = 0;
->>       struct dp_display_private *dp = dev_get_dp_display_private(dev);
->>       struct msm_drm_private *priv = dev_get_drvdata(master);
->>       struct drm_device *drm = priv->dev;
->>
->>       dp->dp_display.drm_dev = drm;
->>       priv->dp[dp->id] = &dp->dp_display;
->>
->>       rc = dp->parser->parse(dp->parser, dp->dp_display.connector_type);
->>       if (rc) {
->>           DRM_ERROR("device tree parsing failed\n");
->>           goto end;
->>       }
->>
->> dp_display_bind will still fail if a bridge is not found.
->>
->> If supplying a bridge is optional even this should succeed right?
-> 
-> It will succeed as dp_parser_parse() will not return -ENODEV if the
-> connector is not eDP.
-> To rephrase the comment:
-> For the dp_parser_find_next_bridge() result:
-> - for eDP the driver passes all errors to the calling function.
-> - for DP the driver ignores -ENODEV (no external bridge is supplied),
-> but passes all other errors (which can mean e.g. that the bridge is
-> not properly declared or that it did hasn't been probed yet).
-> 
+This is useful for native userspace drivers in a vm guest, as the guest
+to host roundtrip can have high latency.  Assigning the fence seqno in
+the guest userspace allows the guest to continue without waiting for
+response from the host.
 
-Ah okay, I just noticed that dp_parser_parse() returns 0 by default and 
-not rc.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c        |  3 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c | 42 ++++++++++++++++++++++++----
+ include/uapi/drm/msm_drm.h           |  4 ++-
+ 3 files changed, 41 insertions(+), 8 deletions(-)
 
-So in this case it will still return 0.
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 30fd18ca88c4..16f37f3d9061 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -41,9 +41,10 @@
+  * - 1.6.0 - Syncobj support
+  * - 1.7.0 - Add MSM_PARAM_SUSPENDS to access suspend count
+  * - 1.8.0 - Add MSM_BO_CACHED_COHERENT for supported GPUs (a6xx)
++ * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
+  */
+ #define MSM_VERSION_MAJOR	1
+-#define MSM_VERSION_MINOR	8
++#define MSM_VERSION_MINOR	9
+ #define MSM_VERSION_PATCHLEVEL	0
+ 
+ static const struct drm_mode_config_funcs mode_config_funcs = {
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 6cfa984dee6a..c6d60c8d286d 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -872,16 +872,46 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 
+ 	submit->nr_cmds = i;
+ 
++	/*
++	 * If using userspace provided seqno fence, validate that the id
++	 * is available before arming sched job.  Since access to fence_idr
++	 * is serialized on the queue lock, the slot should be still avail
++	 * after the job is armed
++	 */
++	if ((args->flags & MSM_SUBMIT_FENCE_SN_IN) &&
++			idr_find(&queue->fence_idr, args->fence)) {
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	drm_sched_job_arm(&submit->base);
+ 
+ 	submit->user_fence = dma_fence_get(&submit->base.s_fence->finished);
+ 
+-	/*
+-	 * Allocate an id which can be used by WAIT_FENCE ioctl to map back
+-	 * to the underlying fence.
+-	 */
+-	submit->fence_id = idr_alloc_cyclic(&queue->fence_idr,
+-			submit->user_fence, 1, INT_MAX, GFP_KERNEL);
++	if (args->flags & MSM_SUBMIT_FENCE_SN_IN) {
++		/*
++		 * Userspace has assigned the seqno fence that it wants
++		 * us to use.  It is an error to pick a fence sequence
++		 * number that is not available.
++		 */
++		submit->fence_id = args->fence;
++		ret = idr_alloc_u32(&queue->fence_idr, submit->user_fence,
++				    &submit->fence_id, submit->fence_id,
++				    GFP_KERNEL);
++		/*
++		 * We've already validated that the fence_id slot is valid,
++		 * so if idr_alloc_u32 failed, it is a kernel bug
++		 */
++		WARN_ON(ret);
++	} else {
++		/*
++		 * Allocate an id which can be used by WAIT_FENCE ioctl to map
++		 * back to the underlying fence.
++		 */
++		submit->fence_id = idr_alloc_cyclic(&queue->fence_idr,
++						    submit->user_fence, 1,
++						    INT_MAX, GFP_KERNEL);
++	}
+ 	if (submit->fence_id < 0) {
+ 		ret = submit->fence_id = 0;
+ 		submit->fence_id = 0;
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 6b8fffc28a50..6cd45a7f6947 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -227,6 +227,7 @@ struct drm_msm_gem_submit_bo {
+ #define MSM_SUBMIT_SUDO          0x10000000 /* run submitted cmds from RB */
+ #define MSM_SUBMIT_SYNCOBJ_IN    0x08000000 /* enable input syncobj */
+ #define MSM_SUBMIT_SYNCOBJ_OUT   0x04000000 /* enable output syncobj */
++#define MSM_SUBMIT_FENCE_SN_IN   0x02000000 /* userspace passes in seqno fence */
+ #define MSM_SUBMIT_FLAGS                ( \
+ 		MSM_SUBMIT_NO_IMPLICIT   | \
+ 		MSM_SUBMIT_FENCE_FD_IN   | \
+@@ -234,6 +235,7 @@ struct drm_msm_gem_submit_bo {
+ 		MSM_SUBMIT_SUDO          | \
+ 		MSM_SUBMIT_SYNCOBJ_IN    | \
+ 		MSM_SUBMIT_SYNCOBJ_OUT   | \
++		MSM_SUBMIT_FENCE_SN_IN   | \
+ 		0)
+ 
+ #define MSM_SUBMIT_SYNCOBJ_RESET 0x00000001 /* Reset syncobj after wait. */
+@@ -253,7 +255,7 @@ struct drm_msm_gem_submit_syncobj {
+  */
+ struct drm_msm_gem_submit {
+ 	__u32 flags;          /* MSM_PIPE_x | MSM_SUBMIT_x */
+-	__u32 fence;          /* out */
++	__u32 fence;          /* out (or in with MSM_SUBMIT_FENCE_SN_IN flag) */
+ 	__u32 nr_bos;         /* in, number of submit_bo's */
+ 	__u32 nr_cmds;        /* in, number of submit_cmd's */
+ 	__u64 bos;            /* in, ptr to array of submit_bo's */
+-- 
+2.35.1
 
-Hence this change LGTM,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
