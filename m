@@ -2,47 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FD0B4C1DCF
-	for <lists+freedreno@lfdr.de>; Wed, 23 Feb 2022 22:33:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA114C20BC
+	for <lists+freedreno@lfdr.de>; Thu, 24 Feb 2022 01:41:02 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBEA410F09D;
-	Wed, 23 Feb 2022 21:33:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 012FB10E17B;
+	Thu, 24 Feb 2022 00:41:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8901510F09D
- for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 21:33:34 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id s5so399138oic.10
- for <freedreno@lists.freedesktop.org>; Wed, 23 Feb 2022 13:33:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=QeXjVrsBd2xyaX1fRJaTjrZFWoYw6M95k9VES1X7evg=;
- b=F8GR4eOAQdUqj8xaPWZ5qOSFdkWgvYEYKqpoEZk+xnLsYM5YSI168fW9lNpJQ3I6eg
- xGQbFIIR0qKbCZCZ7r5ZTROq59hxodBtBtt/NZyGXrBB10nuHyNFaS1Y8KkKuC5A88L/
- LeK2D+4fvQtxKD3HWSnwj13iqsyZj8cd6rKf0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc:content-transfer-encoding;
- bh=QeXjVrsBd2xyaX1fRJaTjrZFWoYw6M95k9VES1X7evg=;
- b=ej7sg8Z0mfOR50EYPULuLiIFREVtkX2Zbb+TpckfNC52lqeFiESzxQKUVsHgkE/CRF
- Vx4VXprDrETjcHOF5J2rwRWDAgiE6Px8DZjaowya5AuSe68FlJsTCS3YBqvZlxncAIcU
- 2h6caAZ05oEo4mjnd9LrTwUfIcOmRfyXUCkGwBChVzb8z69/rFgeRk2PQW+KNZnN9ioF
- yf4xCJdgISDPJ8UE+1cKx42DfFtcdgXVkCO/IBxhKR+K2ekPTCgTaLLXUalbzU3jrOLC
- eY0vYE0aF2+bUKn2hkv6gA8vYLHqpV92YtlgdC6RAB3l9BhnPoXkh50kMunHp1I/8Aew
- mVmQ==
-X-Gm-Message-State: AOAM530tINv00Vl6SIlwntLYl+OhBUU1oMSoogR6mtJzbjVlvcXrVPeH
- ILudScfSz7iwQ7PEgmUEWnpNJx19X+inh8RC1L3cjg==
-X-Google-Smtp-Source: ABdhPJwMsBuwNLFN0DBErvCeoCglDEp1SX7tXlUppHD/4h1YVd2LnidJwPJVI5P14E867PxLF7abnNOt8Xa11rmPXQ4=
-X-Received: by 2002:a05:6808:f88:b0:2d4:c8c2:b898 with SMTP id
- o8-20020a0568080f8800b002d4c8c2b898mr946625oiw.112.1645652013614; Wed, 23 Feb
- 2022 13:33:33 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Feb 2022 21:33:33 +0000
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAB1310E175;
+ Thu, 24 Feb 2022 00:40:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645663259; x=1677199259;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=T1BsiMbxSIkgWGJ3lFZKEyZTI31MdLBkfQ8ytEFnx0A=;
+ b=XBudpUCe17DQh4F493v5dhTbm7+sahD+375rqzhoBTPodwqeIcfTSZ5v
+ Yc9o5yZPBHW7nCCSr1k4iiFbghXV9rLAkhKZKyhy/IFP17ZgN0zCZEDf/
+ 8vvZNVE3S/9iuk460ktcCvI3Eyqy8KZeX745DXa8+iSQ0Jtrz7CzsruSp w=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 23 Feb 2022 16:40:59 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2022 16:40:58 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Wed, 23 Feb 2022 16:40:58 -0800
+Received: from [10.110.6.143] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Wed, 23 Feb
+ 2022 16:40:57 -0800
+Message-ID: <552d9809-0499-23b5-e437-a77c893b96c2@quicinc.com>
+Date: Wed, 23 Feb 2022 16:40:56 -0800
 MIME-Version: 1.0
-In-Reply-To: <a803c7a9-de4c-8fe5-d80d-56366df78611@quicinc.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
 References: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
  <20220211224006.1797846-5-dmitry.baryshkov@linaro.org>
  <572c0402-55da-077b-1809-3d1caf7ce743@quicinc.com>
@@ -52,14 +53,14 @@ References: <20220211224006.1797846-1-dmitry.baryshkov@linaro.org>
  <7f9e2181-bb1a-c734-2e90-c5922952acb4@quicinc.com>
  <493749c1-6305-1a94-4e05-519c825e9d4d@linaro.org>
  <a803c7a9-de4c-8fe5-d80d-56366df78611@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 23 Feb 2022 21:33:33 +0000
-Message-ID: <CAE-0n50VWH9Mum_W9e+6X1vjxvS3KWDqBtPfKHL-weA7S+_3Hg@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+ <CAE-0n50VWH9Mum_W9e+6X1vjxvS3KWDqBtPfKHL-weA7S+_3Hg@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n50VWH9Mum_W9e+6X1vjxvS3KWDqBtPfKHL-weA7S+_3Hg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 Subject: Re: [Freedreno] [RFC PATCH v2 4/5] drm/msm/dp: replace dp_connector
  with drm_bridge_connector
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -82,26 +83,45 @@ Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBLdW9nZWUgSHNpZWggKDIwMjItMDItMjMgMTA6Mjc6MjYpDQo+DQo+IE9uIDIvMjMv
-MjAyMiAxMDoyMiBBTSwgRG1pdHJ5IEJhcnlzaGtvdiB3cm90ZToNCj4gPiBPbiAyMy8wMi8yMDIy
-IDIwOjIxLCBLdW9nZWUgSHNpZWggd3JvdGU6DQo+ID4NCj4gPiBJbiB0aGUgcGFuZWwgZGV2aWNl
-IG5vZGUuDQo+ID4NCj4gPiBDYW4geW91IHBsZWFzZSBzaGFyZSBpdCB0b28/DQo+DQo+DQo+ICZz
-b2Mgew0KPiAgwqDCoMKgwqDCoMKgwqAgZWRwX3Bvd2VyX3N1cHBseTogZWRwX3Bvd2VyIHsNCj4g
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInJlZ3VsYXRvci1m
-aXhlZCI7DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVndWxhdG9yLW5hbWUg
-PSAiZWRwX2JhY2tsaWdodF9wb3dlciI7DQo+DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgcmVndWxhdG9yLWFsd2F5cy1vbjsNCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCByZWd1bGF0b3ItYm9vdC1vbjsNCj4gIMKgwqDCoMKgwqDCoMKgIH07DQo+DQo+ICDCoMKg
-wqDCoMKgwqDCoCBlZHBfYmFja2xpZ2h0OiBlZHBfYmFja2xpZ2h0IHsNCj4gIMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInB3bS1iYWNrbGlnaHQiOw0KPg0KPiAg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHB3bXMgPSA8JnBtODM1MGNfcHdtIDMgNjU1
-MzU+Ow0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvd2VyLXN1cHBseSA9IDwm
-ZWRwX3Bvd2VyX3N1cHBseT47DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZW5h
-YmxlLWdwaW8gPSA8JnBtODM1MGNfZ3Bpb3MgNyBHUElPX0FDVElWRV9ISUdIPjsNCj4NCj4gIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0K
-PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBpbmN0cmwtMCA9IDwmYmFja2xpZ2h0
-X3B3bV9kZWZhdWx0PjsNCj4gIMKgwqDCoMKgwqDCoMKgIH07DQo+DQo+ICDCoMKgwqDCoMKgwqDC
-oCBlZHBfcGFuZWw6IGVkcF9wYW5lbCB7DQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgY29tcGF0aWJsZSA9ICJzaGFycF9scTE0MG0xanc0NiI7DQoNCklzIHRoYXQgc3VwcG9zZWQg
-dG8gYmUgc2hhcnAsbHExNDBtMWp3NDYgd2l0aCBhIGNvbW1hIGluc3RlYWQgb2YgYW4NCnVuZGVy
-c2NvcmU/DQo=
+
+On 2/23/2022 1:33 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-02-23 10:27:26)
+>> On 2/23/2022 10:22 AM, Dmitry Baryshkov wrote:
+>>> On 23/02/2022 20:21, Kuogee Hsieh wrote:
+>>>
+>>> In the panel device node.
+>>>
+>>> Can you please share it too?
+>>
+>> &soc {
+>>           edp_power_supply: edp_power {
+>>                   compatible = "regulator-fixed";
+>>                   regulator-name = "edp_backlight_power";
+>>
+>>                   regulator-always-on;
+>>                   regulator-boot-on;
+>>           };
+>>
+>>           edp_backlight: edp_backlight {
+>>                   compatible = "pwm-backlight";
+>>
+>>                   pwms = <&pm8350c_pwm 3 65535>;
+>>                   power-supply = <&edp_power_supply>;
+>>                   enable-gpio = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
+>>
+>>                   pinctrl-names = "default";
+>>                   pinctrl-0 = <&backlight_pwm_default>;
+>>           };
+>>
+>>           edp_panel: edp_panel {
+>>                   compatible = "sharp_lq140m1jw46";
+> Is that supposed to be sharp,lq140m1jw46 with a comma instead of an
+> underscore?
+
+Stephen,
+
+This is our internal branch which does not have patches up to date yet.
+
+I will cherry-pick newer edp related patches which are under review now 
+to re test it.
+
