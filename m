@@ -1,65 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 846404C4E9C
-	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 20:22:19 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 647E84C4F99
+	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 21:25:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 226F710E931;
-	Fri, 25 Feb 2022 19:22:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F046410E931;
+	Fri, 25 Feb 2022 20:25:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F08810E931
- for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 19:22:16 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1645816936; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=cCBg/D6SOxICZ8bzSkUecbzVhRVyvFsZfNOMBfa81yQ=;
- b=Pg9P+OoEZB+S5sVznNaXcPC//gou69GLCXg5bVAV5nVNLVBjgZLMIKvHjWLqmCvEHFjASxJ5
- wTl16isTRA81JKFuVC135TgZEbu3Jjkkmq/P4+scFCFaulzeReb1BgoJnYEKvga9+0fIpjRS
- N6qOu+ujG/CxYGBtqeYgPd/fCUw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 62192c66e1c212bb9c4b449e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 25 Feb 2022 19:22:14
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 1E5EFC4361B; Fri, 25 Feb 2022 19:22:14 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.0
-Received: from hyd-lnxbld559.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: akhilpo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 7CD9CC43638;
- Fri, 25 Feb 2022 19:22:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 7CD9CC43638
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=fail (p=none dis=none) header.from=quicinc.com
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=quicinc.com
-From: Akhil P Oommen <quic_akhilpo@quicinc.com>
-To: freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>,
- OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Sat, 26 Feb 2022 00:51:32 +0530
-Message-Id: <20220226005021.v2.5.I4c2cb95f06f0c37038c80cc1ad20563fdf0618e2@changeid>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1645816893-22815-1-git-send-email-quic_akhilpo@quicinc.com>
-References: <1645816893-22815-1-git-send-email-quic_akhilpo@quicinc.com>
-Subject: [Freedreno] [PATCH v2 5/5] arm64: dts: qcom: sc7280: Support gpu
- speedbin
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D786210E7D4;
+ Fri, 25 Feb 2022 20:25:39 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id q11so5719456pln.11;
+ Fri, 25 Feb 2022 12:25:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BvDoeq2u/2/duKShEemTMjq5MiVNSY0a+G2ydC7I2To=;
+ b=o1OzQU49xzdYXAIsISiigma1Fn1Py86Q0QNyrGPPa0fv+WsPYfNfXr1B1+bxBehh14
+ s0qbzbLhDuZvMkoj6/IVcPxbkTVZDTOdaxhMm6kyhQJwTjhMffNp20HpAf9iKwWiNdXv
+ /2N0LtfkO1twBvlK3a7WAavAY5YFq3yfwdmhw246OSen3fLSUyyh9xbIEmV/u9SMJKIx
+ DkQ5dQfIvMX040iewmWXjUyH34DDlYnG2NKoA2ySHhLZhARVAo+0XxXXWm1K7W03u4nn
+ t0eUtmYJEgm9lOgtb0AZ8HJX60KtMwgTEmBK78I7a0kfIu+IsRV9N051e62+xc+9SzG1
+ hmEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BvDoeq2u/2/duKShEemTMjq5MiVNSY0a+G2ydC7I2To=;
+ b=oStrWChSATAXVvGk5hXPT5LKOniu7lpX3S5EILG5ztf5lVcf8GzZxw//qFvhwWYI9Y
+ lS8dcrq2hHWRd+7iZJnlsCb/+S/OKg2c9GmnoQ3ppD8k3xWo9b+4HmuMhZRtWXvsfq9Q
+ c0NKp3bdls1HWgW1fd21q0bdCnLgbm1zqocysV/bREJyyWpRSSgnbMPq6iwoiOcDV8la
+ vz8yWY+RBFgia6WZnqVvbMcNrEx/ZcskU5FPLqHQ9ByCYEmIZ8JbjOgQbR4Q2m6ccEJV
+ 0gX/hGdkLZXVVX5HHBQcC81p1YGhBhOX0g+iiPiBEHzJTTzz/qSIuKw6yBRNdt+qgk3O
+ pj0g==
+X-Gm-Message-State: AOAM532tugszaDZGQyLkbNIGqlxg5hZvRFti8OJZlqaclb9PDqsACjbY
+ DrVeJxnc1fUNkEASDZuIHPRcOritQVE=
+X-Google-Smtp-Source: ABdhPJx1OEwFFgxKLCQGCjpGEvJKL0DuprEa4VCYsCHFLhVId9kxLr0Y7/KAYE9GBz6ewotnoJPTCg==
+X-Received: by 2002:a17:90a:c6:b0:1bc:c0be:4696 with SMTP id
+ v6-20020a17090a00c600b001bcc0be4696mr4856224pjd.7.1645820738785; 
+ Fri, 25 Feb 2022 12:25:38 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ q3-20020a634303000000b00374da8cb24fsm3319914pga.50.2022.02.25.12.25.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Feb 2022 12:25:37 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 25 Feb 2022 12:26:12 -0800
+Message-Id: <20220225202614.225197-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/3] drm: Extend DEFINE_DRM_GEM_FOPS() for
+ optional fops
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,104 +68,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add speedbin fuse and additional OPPs for gpu to support sc7280 SKUs.
+From: Rob Clark <robdclark@chromium.org>
 
-Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Extend the helper macro so we don't have to throw it away if driver adds
+support for optional fops, like show_fdinfo().
+
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
+ include/drm/drm_gem.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-(no changes since v1)
-
- arch/arm64/boot/dts/qcom/sc7280.dtsi | 46 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-index 365a2e0..f8fc8b8 100644
---- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-@@ -605,6 +605,11 @@
- 			power-domains = <&rpmhpd SC7280_MX>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
-+
-+			gpu_speed_bin: gpu_speed_bin@1e9 {
-+				reg = <0x1e9 0x2>;
-+				bits = <5 8>;
-+			};
- 		};
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 35e7f44c2a75..987e78b18244 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -327,7 +327,7 @@ struct drm_gem_object {
+  * non-static version of this you're probably doing it wrong and will break the
+  * THIS_MODULE reference by accident.
+  */
+-#define DEFINE_DRM_GEM_FOPS(name) \
++#define DEFINE_DRM_GEM_FOPS(name, ...) \
+ 	static const struct file_operations name = {\
+ 		.owner		= THIS_MODULE,\
+ 		.open		= drm_open,\
+@@ -338,6 +338,7 @@ struct drm_gem_object {
+ 		.read		= drm_read,\
+ 		.llseek		= noop_llseek,\
+ 		.mmap		= drm_gem_mmap,\
++		##__VA_ARGS__\
+ 	}
  
- 		sdhc_1: sdhci@7c4000 {
-@@ -1762,6 +1767,9 @@
- 			interconnect-names = "gfx-mem";
- 			#cooling-cells = <2>;
- 
-+			nvmem-cells = <&gpu_speed_bin>;
-+			nvmem-cell-names = "speed_bin";
-+
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
-@@ -1769,18 +1777,56 @@
- 					opp-hz = /bits/ 64 <315000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
- 					opp-peak-kBps = <1804000>;
-+					opp-supported-hw = <0x03>;
- 				};
- 
- 				opp-450000000 {
- 					opp-hz = /bits/ 64 <450000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
- 					opp-peak-kBps = <4068000>;
-+					opp-supported-hw = <0x03>;
- 				};
- 
- 				opp-550000000 {
- 					opp-hz = /bits/ 64 <550000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
- 					opp-peak-kBps = <6832000>;
-+					opp-supported-hw = <0x03>;
-+				};
-+
-+				opp-608000000 {
-+					opp-hz = /bits/ 64 <608000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+					opp-peak-kBps = <8368000>;
-+					opp-supported-hw = <0x02>;
-+				};
-+
-+				opp-700000000 {
-+					opp-hz = /bits/ 64 <700000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
-+					opp-peak-kBps = <8532000>;
-+					opp-supported-hw = <0x02>;
-+				};
-+
-+				opp-812000000 {
-+					opp-hz = /bits/ 64 <812000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+					opp-peak-kBps = <8532000>;
-+					opp-supported-hw = <0x02>;
-+				};
-+
-+				opp-840000000 {
-+					opp-hz = /bits/ 64 <840000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
-+					opp-peak-kBps = <8532000>;
-+					opp-supported-hw = <0x02>;
-+				};
-+
-+				opp-900000000 {
-+					opp-hz = /bits/ 64 <900000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+					opp-peak-kBps = <8532000>;
-+					opp-supported-hw = <0x02>;
- 				};
- 			};
- 		};
+ void drm_gem_object_release(struct drm_gem_object *obj);
 -- 
-2.7.4
+2.35.1
 
