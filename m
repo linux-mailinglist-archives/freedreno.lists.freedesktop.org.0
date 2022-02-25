@@ -2,33 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29DF64C4267
-	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 11:35:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4B704C49D5
+	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 16:58:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFCD710E88F;
-	Fri, 25 Feb 2022 10:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 279DA10E4B8;
+	Fri, 25 Feb 2022 15:58:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338B510E88E
- for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 10:35:36 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id AF8B93F6C8;
- Fri, 25 Feb 2022 11:35:32 +0100 (CET)
-Date: Fri, 25 Feb 2022 11:35:31 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220225103531.sczny6wtlgomvdxd@SoMainline.org>
-References: <20220222031948.228727-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220222031948.228727-1-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: wire up MSM8998's DSPP blocks
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACE0310E48A;
+ Fri, 25 Feb 2022 15:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645804705; x=1677340705;
+ h=from:to:cc:subject:date:message-id;
+ bh=E4XxBpQBXLuj4MbZ3LD7ymC2c81X3fk/VbDiDUlgP90=;
+ b=dTLS5suPdi8g5/69qf++VvUkf8V9qwM4R4J9A7sWlXGbqNJDM1M7coSK
+ ytjfZuCSv41gV/VCUf8o43//aQ02oPVEWkExOtCq+fwjMbuAWd4naAxMb
+ Fn8LqcTHy+KRHNB/9sgju6rsjaXYMiBTGj7KgchQgnD1exUyAXxdC4QGy Q=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 25 Feb 2022 07:58:24 -0800
+X-QCInternal: smtphost
+Received: from ironmsg01-blr.qualcomm.com ([10.86.208.130])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 25 Feb 2022 07:58:22 -0800
+X-QCInternal: smtphost
+Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
+ by ironmsg01-blr.qualcomm.com with ESMTP; 25 Feb 2022 21:28:10 +0530
+Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
+ id 3FD9D53E9; Fri, 25 Feb 2022 21:28:09 +0530 (IST)
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Fri, 25 Feb 2022 21:27:48 +0530
+Message-Id: <1645804670-21898-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 0/2] Update mdp clk to max supported value to
+ support higher refresh rates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,52 +51,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>,
- Jami Kettunen <jami.kettunen@somainline.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: quic_kalyant@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, swboyd@chromium.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-02-22 06:19:48, Dmitry Baryshkov wrote:
-> The commit adding msm8998 support didn't added msm8998's DSPP blocks
+*** BLURB HERE ***
 
-You might have meant: [did*] add(ed) msm8998's DSPP blocks configuration
-[to the source /code file], but did not...
+Vinod Polimera (2):
+  arm64/dts/qcom/sc7280: remove assigned-clock-rate property for mdp clk
+  drm/msm/disp/dpu1: set mdp clk to the maximum frequency in opp table
 
-Or however you wish to word this :)
+ arch/arm64/boot/dts/qcom/sc7280.dtsi    | 9 ++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
-- Marijn
+-- 
+2.7.4
 
-> configuration, but did not use them in msm8998_cfg_init(). Wire them up
-> to be used for display post processing.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Fixes: 94391a14fc27 ("drm/msm/dpu1: Add MSM8998 to hw catalog")
-> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>
-> Cc: Jami Kettunen <jami.kettunen@somainline.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index aa4d20762ccb..f74bc7acd901 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -1496,6 +1496,8 @@ static void msm8998_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
->  		.sspp = msm8998_sspp,
->  		.mixer_count = ARRAY_SIZE(msm8998_lm),
->  		.mixer = msm8998_lm,
-> +		.dspp_count = ARRAY_SIZE(msm8998_dspp),
-> +		.dspp = msm8998_dspp,
->  		.pingpong_count = ARRAY_SIZE(sdm845_pp),
->  		.pingpong = sdm845_pp,
->  		.intf_count = ARRAY_SIZE(msm8998_intf),
-> -- 
-> 2.34.1
-> 
