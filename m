@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8C194C4D7A
-	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 19:17:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF4A44C4E88
+	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 20:21:53 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0727110E7A0;
-	Fri, 25 Feb 2022 18:17:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 245AB10E82C;
+	Fri, 25 Feb 2022 19:21:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B34D10E7A0
- for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 18:17:51 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- d134-20020a4a528c000000b00319244f4b04so7348014oob.8
- for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 10:17:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=wxzgaXVTKy5EES1TRJ7ejkTF/2tYnEDDcA0Li/fS4aE=;
- b=mYVpuGrtEWbchzTcq8SzisB3Dmr81a3xOW3aHe6d4yX24JJ3Vr+Th2CqS0G1Je67B1
- Iu19HV1xT6cHIE8Z0VjU74wriirnietFRbihvYJrPGUzbgXHhiHBz+A9qP0pELuWp5RB
- bRnr+UhecER3aTJWhtvbTKocdkStd3ogbRpzs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=wxzgaXVTKy5EES1TRJ7ejkTF/2tYnEDDcA0Li/fS4aE=;
- b=eBGJS7MqSMXMuXQuCd18W0DKBBwFN1spAQYCI4HfSlvNj3r3ExuL4abckmXCSheEkl
- PJFsZH9zhA8zRThskykKj4MD8aVT1pXQi85VduN7JeCI3TCtwAWTl7WAnKgQ1AOHmHu1
- puWrwvEyVZ2daOsEi8vBaZ+AGLUFVWbvabRqXu60JPFhGRqdQ5u3iYr3mJ25y28olXv4
- +WyXT2OFuxgNowclitkZLCVraP9mWszX2l3dkmcD9Z+pAw25iahnUqRF5SZxX7Wj90L/
- ec3ECF7qmzvOM5Kn3UynDgWoeo25zAylosp2CgMgoM2mmEyNP4sgCWECd7DbDKDUNjSW
- PtSg==
-X-Gm-Message-State: AOAM533CMaUkU8nPZHVcP06mKA3XQIGb941k+8ipZDIppwQMweJe3tEg
- 0eyYiCHP5hyLW6pHphcGkNDeALco1bkhdYMyz5nFyA==
-X-Google-Smtp-Source: ABdhPJwfMBN5RkiK03guTIfAYSQ9o6xUbKeaGtFGCKz0ZfpXn/qVV5a+Aj+7sZkaSz+fl2A+/TOH2UtDw3hJRPtW/Dw=
-X-Received: by 2002:a05:6870:631a:b0:d1:7d97:806 with SMTP id
- s26-20020a056870631a00b000d17d970806mr1859018oao.8.1645813070807; Fri, 25 Feb
- 2022 10:17:50 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 25 Feb 2022 10:17:50 -0800
-MIME-Version: 1.0
-In-Reply-To: <1645576060-3046-5-git-send-email-quic_khsieh@quicinc.com>
-References: <1645576060-3046-1-git-send-email-quic_khsieh@quicinc.com>
- <1645576060-3046-5-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Fri, 25 Feb 2022 10:17:50 -0800
-Message-ID: <CAE-0n53Vcvw+mjbKByWE2PqRAiqHuJWVngiH-8AbJAVrc3Ph4w@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v10 4/4] drm/msm/dp: enable widebus feature
- for display port
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5646A10E82C
+ for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 19:21:50 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1645816910; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=tZD1ax3jsnPy6TzQA2DQRsI4QX4jijvlAnNWj4gYHnE=;
+ b=PfseZ/NVU5EaCzhS/CaFUXRQNR6zN5y9wL/uLVV4OQSnuTFeeIx8FPu9yGc3A+/BE+aCkJ27
+ m2gT3WS48UGUHhNyJMcIQvODn8AndVQPNBYkYesSftRjb5QJdyXbvIBjTnFtE6eKLAipRTry
+ U0ljzlPa0/5IhEP+UG0Htx7rkwc=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI3ZjZmNCIsICJmcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
+ 62192c4c0f85aa2ea3daeaba (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 25 Feb 2022 19:21:48
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id EACF6C43639; Fri, 25 Feb 2022 19:21:47 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL, 
+ T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.0
+Received: from hyd-lnxbld559.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: akhilpo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 152C0C4338F;
+ Fri, 25 Feb 2022 19:21:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 smtp.codeaurora.org 152C0C4338F
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=fail (p=none dis=none) header.from=quicinc.com
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=quicinc.com
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+To: freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>,
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS <devicetree@vger.kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Sat, 26 Feb 2022 00:51:27 +0530
+Message-Id: <1645816893-22815-1-git-send-email-quic_akhilpo@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2 0/5] Support 7c3 gpu SKUs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,153 +68,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Douglas Anderson <dianders@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-02-22 16:27:40)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> index 6ae9b29..c789f4e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> @@ -483,6 +485,22 @@ int dp_catalog_ctrl_set_pattern(struct dp_catalog *dp_catalog,
->  }
->
->  /**
-> + * dp_catalog_hw_revision() - retrieve DP hw revision
-> + *
-> + * @dp_catalog: DP catalog structure
-> + *
-> + * Return: DP controller hw revision
-> + *
-> + */
-> +u32 dp_catalog_hw_revision(struct dp_catalog *dp_catalog)
+This series supercedes [1]. Major change in this series is that it is now
+optional to include a gpu name in the gpu-list. This helps to avoid the
+confusion when we have different SKUs with different gpu names. And also
+I am pretty happy that the overall changes are smaller now.
 
-Could be const
+[1] https://patchwork.freedesktop.org/series/99048/
 
-> +{
-> +       struct dp_catalog_private *catalog = container_of(dp_catalog,
-> +                               struct dp_catalog_private, dp_catalog);
-> +
-> +       return dp_read_ahb(catalog, REG_DP_HW_VERSION);
+Changes in v2:
+- use devm_kasprintf() to generate gpu name (Rob)
 
-If dp_read_ahb() took a const catalog, which it could.
+Akhil P Oommen (5):
+  drm/msm: Use generic name for gpu resources
+  drm/msm/adreno: Generate name from chipid for 7c3
+  drm/msm/a6xx: Add support for 7c3 SKUs
+  drm/msm/adreno: Expose speedbin to userspace
+  arm64: dts: qcom: sc7280: Support gpu speedbin
 
-> +}
-> +
-> +/**
->   * dp_catalog_ctrl_reset() - reset DP controller
->   *
->   * @dp_catalog: DP catalog structure
-> @@ -743,6 +761,7 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
->  {
->         struct dp_catalog_private *catalog = container_of(dp_catalog,
->                                 struct dp_catalog_private, dp_catalog);
-> +       u32 reg;
->
->         dp_write_link(catalog, REG_DP_TOTAL_HOR_VER,
->                                 dp_catalog->total);
-> @@ -751,7 +770,18 @@ int dp_catalog_panel_timing_cfg(struct dp_catalog *dp_catalog)
->         dp_write_link(catalog, REG_DP_HSYNC_VSYNC_WIDTH_POLARITY,
->                                 dp_catalog->width_blanking);
->         dp_write_link(catalog, REG_DP_ACTIVE_HOR_VER, dp_catalog->dp_active);
-> -       dp_write_p0(catalog, MMSS_DP_INTF_CONFIG, 0);
-> +
-> +       reg = dp_read_p0(catalog, MMSS_DP_INTF_CONFIG);
-> +
-> +       if (dp_catalog->wide_bus_en)
-> +               reg |= DP_INTF_CONFIG_DATABUS_WIDEN;
-> +       else
-> +               reg &= ~DP_INTF_CONFIG_DATABUS_WIDEN;
-> +
-> +
-> +       DRM_DEBUG_DP("wide_bus_en=%d reg=%x\n", dp_catalog->wide_bus_en, reg);
+ arch/arm64/boot/dts/qcom/sc7280.dtsi       | 46 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 18 ++++++++++--
+ drivers/gpu/drm/msm/adreno/adreno_device.c |  1 -
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 36 +++++++++++++++++++----
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h    |  3 ++
+ drivers/gpu/drm/msm/msm_gpu.c              |  4 +--
+ 6 files changed, 97 insertions(+), 11 deletions(-)
 
-Use %#x to get 0x prefix on the hex please.
+-- 
+2.7.4
 
-> +
-> +       dp_write_p0(catalog, MMSS_DP_INTF_CONFIG, reg);
->         return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> index 2363a2d..a0a5fbb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-> @@ -17,6 +17,7 @@ struct dp_ctrl {
->         bool orientation;
->         atomic_t aborted;
->         u32 pixel_rate;
-> +       bool wide_bus_en;
->  };
->
->  int dp_ctrl_host_init(struct dp_ctrl *dp_ctrl, bool flip, bool reset);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 7cc4d21..ba76358 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1437,6 +1445,15 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->         dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
->  }
->
-> +bool msm_dp_wide_bus_available(struct msm_dp *dp_display)
-
-const?
-
-> +{
-> +       struct dp_display_private *dp;
-> +
-> +       dp = container_of(dp_display, struct dp_display_private, dp_display);
-> +
-> +       return dp->wide_bus_en;
-> +}
-> +
->  void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
->  {
->         struct dp_display_private *dp;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-> index e3adcd5..b718cc9 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
-> @@ -24,6 +24,8 @@ struct msm_dp {
->
->         hdmi_codec_plugged_cb plugged_cb;
->
-> +       bool wide_bus_en;
-> +
->         u32 max_pclk_khz;
->
->         u32 max_dp_lanes;
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index d7574e6..d413deb 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -399,6 +399,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display);
->  void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp_display);
->
->  void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor);
-> +bool msm_dp_wide_bus_available(struct msm_dp *dp_display);
->
->  #else
->  static inline int __init msm_dp_register(void)
-> @@ -449,6 +450,11 @@ static inline void msm_dp_debugfs_init(struct msm_dp *dp_display,
->  {
->  }
->
-> +static inline bool msm_dp_wide_bus_available(struct msm_dp *dp_display)
-
-const?
-
-> +{
-> +       return false;
-> +}
-> +
->  #endif
->
->  void __init msm_mdp_register(void);
-> --
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
