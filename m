@@ -2,52 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 872F14C4FBA
-	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 21:36:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73D34C4FE9
+	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 21:46:20 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6018C10E932;
-	Fri, 25 Feb 2022 20:36:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B945D10E96B;
+	Fri, 25 Feb 2022 20:46:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9781210E931;
- Fri, 25 Feb 2022 20:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645821407; x=1677357407;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Um3Ri3Z5tNczvjbg/Kqd4t82aFPTJQvoXqKHvporKMY=;
- b=HVRk5hM3NGY6TTZh6huaP57h3qzYUAMkJ3CRwfYx+m32FY70S/XpfoJK
- V/6zaYd/toKf8INPqtfOdiPdUP7dgb0qsFg7Dicc8VVTLtY72YM48rr4M
- SE7SqGRcxbMf7thkZcUdkqJWhiuNldkRSGEXbTSSxV1oWNSpiYpAADi+a
- gQQBTFdJ5h+gk98Sc3qFoCBODCG5wKTPlHAKD6V5GH302M1sqMFQViw8M
- 0pNaRW742paCw7CPtyvm1TecL4TKhY0BVCwGFlvd9ZqCLIt2cxZjDMFEQ
- 0HNM39YpFW/oB6vsZ3XgERN3+N3gBB7lPh0QxgW9ilp1MsArP545GfO46 A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10269"; a="315790735"
-X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="315790735"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2022 12:36:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,137,1643702400"; d="scan'208";a="638353417"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.151])
- by fmsmga002.fm.intel.com with SMTP; 25 Feb 2022 12:36:41 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 25 Feb 2022 22:36:41 +0200
-Date: Fri, 25 Feb 2022 22:36:41 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Yhk92RwhBqAAHcuT@intel.com>
-References: <20220225202614.225197-1-robdclark@gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A70B10E969;
+ Fri, 25 Feb 2022 20:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1645821975; x=1677357975;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4IFJBQRvvOxPLua3cn47AyBwu7FyY/fugGnla56bsGw=;
+ b=dyLOiOxNfyzurmatO4a+0wuIO3vB2klzdB6a/HjCoNJ69NSTZVMbYb19
+ UYKhCZCJev25LcdsS6c+Fr2T7jjOPOKEUU5B/3Dr47JnCqY9YGNkYE4RC
+ XfznmyVGk3mc+9fjQY0ageZUJ153iLzTwRiR18asJHLjurgDvtXL9dZBZ M=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 25 Feb 2022 12:46:15 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2022 12:46:14 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Fri, 25 Feb 2022 12:46:13 -0800
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Fri, 25 Feb 2022 12:46:13 -0800
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <vkoul@kernel.org>,
+ <daniel@ffwll.ch>, <airlied@linux.ie>, <agross@kernel.org>,
+ <dmitry.baryshkov@linaro.org>, <bjorn.andersson@linaro.org>
+Date: Fri, 25 Feb 2022 12:45:52 -0800
+Message-ID: <1645821957-22633-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220225202614.225197-1-robdclark@gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH 1/3] drm: Extend DEFINE_DRM_GEM_FOPS() for
- optional fops
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v11 0/4] drm/msm/dpu: enable widebus feature
+ base on chip hardware revision
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,58 +63,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Feb 25, 2022 at 12:26:12PM -0800, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Extend the helper macro so we don't have to throw it away if driver adds
-> support for optional fops, like show_fdinfo().
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  include/drm/drm_gem.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 35e7f44c2a75..987e78b18244 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -327,7 +327,7 @@ struct drm_gem_object {
->   * non-static version of this you're probably doing it wrong and will break the
->   * THIS_MODULE reference by accident.
->   */
-> -#define DEFINE_DRM_GEM_FOPS(name) \
-> +#define DEFINE_DRM_GEM_FOPS(name, ...) \
->  	static const struct file_operations name = {\
->  		.owner		= THIS_MODULE,\
->  		.open		= drm_open,\
-> @@ -338,6 +338,7 @@ struct drm_gem_object {
->  		.read		= drm_read,\
->  		.llseek		= noop_llseek,\
->  		.mmap		= drm_gem_mmap,\
-> +		##__VA_ARGS__\
->  	}
+revise widebus timing engine programming and enable widebus feature base on chip
 
-Would it not be less convoluted to make the macro only provide
-the initializers? So you'd get something like:
+Kuogee Hsieh (4):
+  drm/msm/dpu: adjust display_v_end for eDP and DP
+  drm/msm/dpu: replace BIT(x) with correspond marco define string
+  drm/msm/dpu:  revise timing engine programming to support widebus
+    feature
+  drm/msm/dp: enable widebus feature for display port
 
-static const struct file_operations foo = {
-	DRM_GEM_FOPS,
-	.my_stuff = whatever,
-};
-
->  
->  void drm_gem_object_release(struct drm_gem_object *obj);
-> -- 
-> 2.35.1
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 14 ++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  2 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 14 +++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        | 62 ++++++++++++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |  2 +
+ drivers/gpu/drm/msm/dp/dp_catalog.c                | 34 +++++++++++-
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |  2 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   |  7 ++-
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |  1 +
+ drivers/gpu/drm/msm/dp/dp_display.c                | 21 +++++++-
+ drivers/gpu/drm/msm/dp/dp_display.h                |  2 +
+ drivers/gpu/drm/msm/msm_drv.h                      |  6 +++
+ 12 files changed, 146 insertions(+), 21 deletions(-)
 
 -- 
-Ville Syrjälä
-Intel
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
