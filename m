@@ -1,61 +1,34 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74194C5164
-	for <lists+freedreno@lfdr.de>; Fri, 25 Feb 2022 23:17:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B97584C57DD
+	for <lists+freedreno@lfdr.de>; Sat, 26 Feb 2022 20:46:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44E4B10EB21;
-	Fri, 25 Feb 2022 22:17:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8CD10E347;
+	Sat, 26 Feb 2022 19:46:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F15910EB20
- for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 22:17:42 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id j24so8643431oii.11
- for <freedreno@lists.freedesktop.org>; Fri, 25 Feb 2022 14:17:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=dXvo0FUwxGOK+PzYKSVnOxYz4S+No09K3o4P0/XBEQY=;
- b=Zka9dxzwevyuRP7bh7bB+2VLzJcEohGN+IkaQhrqR9tqMLIIhFDAdgjwyUobMemgHG
- HxbUt/MRrIU5ANvMryCf/IOd5w5VhcWy+QIBZrpdrCO4tJhHOIU/JKKO4sbYy5isTFRF
- SvjEbvOQ88lMyrUNYjFcACdeObaqTYceEfTfc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=dXvo0FUwxGOK+PzYKSVnOxYz4S+No09K3o4P0/XBEQY=;
- b=o2OnJYE0sAGX7ZyH9VFr1OGOdQklPmwGcDbvyzrJbBej/H3MiB6gkW8ZN0mW3PVvsl
- 4SoTKhphBw8WfiXO7KThWOT93InqGDu517a/v3DAnyqusn0maGdD2K9eSPpe65QcFL86
- +uNX3tE06ySpH4Gy9l1sZeqyPPyWx2h0d1LFdmbIugUiHB0u75tbyo4aLDWxaczYY8wG
- BlZoRmcvx5+v8sw8EvCeEMBi1Jrn0sK+bn4EqrkMvLSN8+TQP9TOuJhUhFNr2FDMnd5w
- Lv9CkZHI9IzGloVctXtSDkHkPfsr27VXgJ6u/H/6MugtwN9vg2MnijtG2eQGyKte+I84
- j25A==
-X-Gm-Message-State: AOAM531qLpSdEnDhGcvm9M3abrKGspulYolJdd7GWFNTTOMOoaFKHIBM
- b41N3g+Y9UlXh06w6lOzvQ90TTraLDM5wNjpKeuaHQ==
-X-Google-Smtp-Source: ABdhPJwZkpsXKtTOoOCmoxhBmLUBoDoC7bnujscOdTuslS997FSPo3U4IMVbsNIzko5zK+fYiQ4P/xGtoL+aut7gVPs=
-X-Received: by 2002:a05:6808:1a28:b0:2d7:3c61:e0d6 with SMTP id
- bk40-20020a0568081a2800b002d73c61e0d6mr3055013oib.32.1645827461436; Fri, 25
- Feb 2022 14:17:41 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 25 Feb 2022 14:17:41 -0800
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9790710E329
+ for <freedreno@lists.freedesktop.org>; Sat, 26 Feb 2022 19:46:49 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 648BE3F40D;
+ Sat, 26 Feb 2022 20:46:46 +0100 (CET)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org
+Date: Sat, 26 Feb 2022 20:46:32 +0100
+Message-Id: <20220226194633.204501-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-In-Reply-To: <1645824192-29670-5-git-send-email-quic_khsieh@quicinc.com>
-References: <1645824192-29670-1-git-send-email-quic_khsieh@quicinc.com>
- <1645824192-29670-5-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Fri, 25 Feb 2022 14:17:40 -0800
-Message-ID: <CAE-0n53s11KHrj-rzRkjV4q775XCoxzZCLK-HRCt=H1++DR-YQ@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- dri-devel@lists.freedesktop.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v12 4/4] drm/msm/dp: enable widebus feature
- for display port
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Use indexed array initializer to
+ prevent mismatches
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,55 +41,145 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
+ Pavel Dubrova <pashadubrova@gmail.com>,
+ Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-02-25 13:23:12)
-> Widebus feature will transmit two pixel data per pixel clock to interface.
-> This feature now is required to be enabled to easy migrant to higher
-> resolution applications in future. However since some legacy chipsets
-> does not support this feature, this feature is enabled by setting
-> wide_bus_en flag to true within msm_dp_desc struct.
->
-> changes in v2:
-> -- remove compression related code from timing
-> -- remove op_info from  struct msm_drm_private
-> -- remove unnecessary wide_bus_en variables
-> -- pass wide_bus_en into timing configuration by struct msm_dp
->
-> Changes in v3:
-> -- split patch into 3 patches
-> -- enable widebus feature base on chip hardware revision
->
-> Changes in v5:
-> -- DP_INTF_CONFIG_DATABUS_WIDEN
->
-> Changes in v6:
-> -- static inline bool msm_dp_wide_bus_enable() in msm_drv.h
->
-> Changes in v7:
-> -- add Tested-by
->
-> Changes in v9:
-> -- add wide_bus_en to msm_dp_desc
->
-> Changes in v10:
-> -- add wide_bus_en boolean to dp_catalog struc to avoid passing it as parameter
->
-> Changes in v11:
-> -- add const to dp_catalog_hw_revision()
-> -- add const to msm_dp_wide_bus_available()
->
-> Changes in v12:
-> -- dp_catalog_hw_revision(const struct dp_catalog *dp_catalog)
-> -- msm_dp_wide_bus_available(const struct msm_dp *dp_display)
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Tested-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> ---
+While there's a comment pointing from dpu_intr_set to dpu_hw_intr_reg
+and vice-versa, an array initializer using indices makes it so that the
+indices between the enum and array cannot possibly get out of sync even
+if they're accidentially ordered wrongly.  It is still useful to keep
+the comment to be made aware where the register offset mapping resides
+while looking at dpu_hw_intr_reg.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
+---
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 34 +++++++++----------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+index c515b7cf922c..c61b5b283f08 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+@@ -54,87 +54,87 @@ struct dpu_intr_reg {
+  * When making changes be sure to sync with dpu_hw_intr_reg
+  */
+ static const struct dpu_intr_reg dpu_intr_set[] = {
+-	{
++	[MDP_SSPP_TOP0_INTR] = {
+ 		MDP_SSPP_TOP0_OFF+INTR_CLEAR,
+ 		MDP_SSPP_TOP0_OFF+INTR_EN,
+ 		MDP_SSPP_TOP0_OFF+INTR_STATUS
+ 	},
+-	{
++	[MDP_SSPP_TOP0_INTR2] = {
+ 		MDP_SSPP_TOP0_OFF+INTR2_CLEAR,
+ 		MDP_SSPP_TOP0_OFF+INTR2_EN,
+ 		MDP_SSPP_TOP0_OFF+INTR2_STATUS
+ 	},
+-	{
++	[MDP_SSPP_TOP0_HIST_INTR] = {
+ 		MDP_SSPP_TOP0_OFF+HIST_INTR_CLEAR,
+ 		MDP_SSPP_TOP0_OFF+HIST_INTR_EN,
+ 		MDP_SSPP_TOP0_OFF+HIST_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF0_INTR] = {
+ 		MDP_INTF_0_OFF+INTF_INTR_CLEAR,
+ 		MDP_INTF_0_OFF+INTF_INTR_EN,
+ 		MDP_INTF_0_OFF+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF1_INTR] = {
+ 		MDP_INTF_1_OFF+INTF_INTR_CLEAR,
+ 		MDP_INTF_1_OFF+INTF_INTR_EN,
+ 		MDP_INTF_1_OFF+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF2_INTR] = {
+ 		MDP_INTF_2_OFF+INTF_INTR_CLEAR,
+ 		MDP_INTF_2_OFF+INTF_INTR_EN,
+ 		MDP_INTF_2_OFF+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF3_INTR] = {
+ 		MDP_INTF_3_OFF+INTF_INTR_CLEAR,
+ 		MDP_INTF_3_OFF+INTF_INTR_EN,
+ 		MDP_INTF_3_OFF+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF4_INTR] = {
+ 		MDP_INTF_4_OFF+INTF_INTR_CLEAR,
+ 		MDP_INTF_4_OFF+INTF_INTR_EN,
+ 		MDP_INTF_4_OFF+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF5_INTR] = {
+ 		MDP_INTF_5_OFF+INTF_INTR_CLEAR,
+ 		MDP_INTF_5_OFF+INTF_INTR_EN,
+ 		MDP_INTF_5_OFF+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_AD4_0_INTR] = {
+ 		MDP_AD4_0_OFF + MDP_AD4_INTR_CLEAR_OFF,
+ 		MDP_AD4_0_OFF + MDP_AD4_INTR_EN_OFF,
+ 		MDP_AD4_0_OFF + MDP_AD4_INTR_STATUS_OFF,
+ 	},
+-	{
++	[MDP_AD4_1_INTR] = {
+ 		MDP_AD4_1_OFF + MDP_AD4_INTR_CLEAR_OFF,
+ 		MDP_AD4_1_OFF + MDP_AD4_INTR_EN_OFF,
+ 		MDP_AD4_1_OFF + MDP_AD4_INTR_STATUS_OFF,
+ 	},
+-	{
++	[MDP_INTF0_7xxx_INTR] = {
+ 		MDP_INTF_0_OFF_REV_7xxx+INTF_INTR_CLEAR,
+ 		MDP_INTF_0_OFF_REV_7xxx+INTF_INTR_EN,
+ 		MDP_INTF_0_OFF_REV_7xxx+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF1_7xxx_INTR] = {
+ 		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_CLEAR,
+ 		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
+ 		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF2_7xxx_INTR] = {
+ 		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
+ 		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
+ 		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF3_7xxx_INTR] = {
+ 		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
+ 		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
+ 		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF4_7xxx_INTR] = {
+ 		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
+ 		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
+ 		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
+ 	},
+-	{
++	[MDP_INTF5_7xxx_INTR] = {
+ 		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
+ 		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
+ 		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_STATUS
+
+base-commit: 06aeb1495c39c86ccfaf1adadc1d2200179f16eb
+-- 
+2.35.1
+
