@@ -2,66 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 104AE4C58AE
-	for <lists+freedreno@lfdr.de>; Sun, 27 Feb 2022 00:32:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8F54C6F92
+	for <lists+freedreno@lfdr.de>; Mon, 28 Feb 2022 15:33:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529FB10E177;
-	Sat, 26 Feb 2022 23:32:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF6A10E443;
+	Mon, 28 Feb 2022 14:33:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1798910E177
- for <freedreno@lists.freedesktop.org>; Sat, 26 Feb 2022 23:32:03 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id d23so15354980lfv.13
- for <freedreno@lists.freedesktop.org>; Sat, 26 Feb 2022 15:32:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=uAAifAuUillXLfQ7S+jdv/GEcpCcdBCKNAMWe6JBNCQ=;
- b=kl11QDr19mfELOll6E4duE12IWzb1KZJnezNEUMeKbnT52BQWSU2on3w5bbUe3b3EW
- rW3t8Br5tZpLcivUEk/wgLUs9+lOCoXY7uTd4WNNnXoGGA306Jvu0z30aTwIYWAfpOwz
- S79pIYJEmp+GFERuOgiC4x7JSTRcQ/8v05gtvfBYOdpvRHb4l+XWw9hddfR5NZsIZ88j
- 4WLwfONr7lUMjEwRSNIQhLHHF1KNW7axMExyPQ89luM9cykWc+2wpJLp/WqDQ+kJjOvm
- t0ddBSdC/QeY+k5sC7iHqI4e9CRE9i2eRETY734XLUgur6PTpPk9rjYmKl4sTiDjCWoS
- fkpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=uAAifAuUillXLfQ7S+jdv/GEcpCcdBCKNAMWe6JBNCQ=;
- b=2ulLZznHm7WxrxXVFhsWRd0oz5Mx0uRiFHHJ5uzMp4AzNO6ImVE2sT7L3JD81rm/qO
- 8PZN15UjW1jjECuOx15HXjxE350cKp0Yl7Xddosmehh2GPwIZ8nwTyauYv1RlZcMYJbl
- x8m4OIq5iAUxXAHDlQQ4veQS/LmPqXc/5rqRDRxEyIrBBv86P6+QzKmPJJbSSoYJkfH3
- 7W92jCQfGp8scZ/85hO/8lD8Dt22e0ZnUQKJE+b42H6ZtWZE+HjiAsze8g8X2blKh15C
- XYEfS5df5dH+JudWTy3fhoJ9tRpz9bRBk2S9ZrfhSfFHZmbvBXlNN/cSeK/XHp6jpRYH
- +Pxg==
-X-Gm-Message-State: AOAM531dZt+iU4hayMdjBzKoY0ooz5oxSkxOWefsFUjWFsWEPVORmv6P
- sBikiObAkJc+shvoSYTgd9cdQA==
-X-Google-Smtp-Source: ABdhPJyfWldaoFQncybaXzOhjS2bFagYJ2D6zN/7PsPqDmUkKFn53ZIxnFc/UfVapBieoSk7IZEt8Q==
-X-Received: by 2002:ac2:5c09:0:b0:443:7ae5:c341 with SMTP id
- r9-20020ac25c09000000b004437ae5c341mr8956054lfp.623.1645918321159; 
- Sat, 26 Feb 2022 15:32:01 -0800 (PST)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- a11-20020ac2520b000000b0044363e18b34sm548911lfl.148.2022.02.26.15.32.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 26 Feb 2022 15:32:00 -0800 (PST)
-Message-ID: <33aac1d8-acea-215c-0a76-05f992831f87@linaro.org>
-Date: Sun, 27 Feb 2022 02:31:59 +0300
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 426C010E432;
+ Mon, 28 Feb 2022 14:33:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646058828; x=1677594828;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ucZ5anih82JGSYnw7NJxPpFc3x0RvGFm0k0UeSwKr+Y=;
+ b=NFFJvMTGZwy5/3kIqB7f2W6QSKExrXauwWv6YE9Y/SDWlC2PFaQpR4V7
+ /Mxg2sM0CZbXsGg2rumJT5Okq4j+tvmNX++faveJAtH6oo+fY/MyShLjH
+ npx/i6TIasrpdpp9/tiyAEeEwCtogLFg/P2q5mLJfzIngS5QcaIu7vd/G
+ SmG+ZPzn0Zwy2hspbfmJtcodRv9+WGawCm2vWW8EwVw9Ss8OjSZWWxejc
+ NbW6F1GwOJsLDw5lIv70s+iHKMJtRj0gokUHqLjTozEYix79reIwxIU1+
+ v2UJxcUKwmkypXMtzdQn+ipGgCdZ0gI9b4+72I4MrACCXuMLdEdWKJHOe w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10271"; a="233514140"
+X-IronPort-AV: E=Sophos;i="5.90,142,1643702400"; d="scan'208";a="233514140"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2022 06:33:47 -0800
+X-IronPort-AV: E=Sophos;i="5.90,142,1643702400"; d="scan'208";a="708659832"
+Received: from jpdecker-mobl3.ger.corp.intel.com (HELO [10.213.235.138])
+ ([10.213.235.138])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2022 06:33:44 -0800
+Message-ID: <f460b115-6ff6-7f69-8b0d-174c4defc771@linux.intel.com>
+Date: Mon, 28 Feb 2022 14:33:41 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Content-Language: en-GB
-To: Marijn Suijten <marijn.suijten@somainline.org>, phone-devel@vger.kernel.org
-References: <20220226194633.204501-1-marijn.suijten@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220226194633.204501-1-marijn.suijten@somainline.org>
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+References: <20220225202614.225197-1-robdclark@gmail.com>
+ <20220225202614.225197-3-robdclark@gmail.com>
+ <CAF6AEGvXs9etrtBUP5fAx7z6pLMV76a-FEXrdk2gY8npDHrFnA@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <CAF6AEGvXs9etrtBUP5fAx7z6pLMV76a-FEXrdk2gY8npDHrFnA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Use indexed array initializer
- to prevent mismatches
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: Expose client engine
+ utilization via fdinfo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,148 +64,192 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>, Pavel Dubrova <pashadubrova@gmail.com>,
- Jami Kettunen <jami.kettunen@somainline.org>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>, freedreno@lists.freedesktop.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/02/2022 22:46, Marijn Suijten wrote:
-> While there's a comment pointing from dpu_intr_set to dpu_hw_intr_reg
-> and vice-versa, an array initializer using indices makes it so that the
-> indices between the enum and array cannot possibly get out of sync even
-> if they're accidentially ordered wrongly.  It is still useful to keep
-> the comment to be made aware where the register offset mapping resides
-> while looking at dpu_hw_intr_reg.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 25/02/2022 22:14, Rob Clark wrote:
+> On Fri, Feb 25, 2022 at 12:25 PM Rob Clark <robdclark@gmail.com> wrote:
+>>
+>> From: Rob Clark <robdclark@chromium.org>
+>>
+>> Similar to AMD commit
+>> 874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
+>> infrastructure added in previous patches, we add basic client info
+>> and GPU engine utilisation for msm.
+>>
+>> Example output:
+>>
+>>          # cat /proc/`pgrep glmark2`/fdinfo/6
+>>          pos:    0
+>>          flags:  02400002
+>>          mnt_id: 21
+>>          ino:    162
+>>          drm-driver:     msm
+>>          drm-client-id:  7
+>>          drm-engine-gpu: 1734371319 ns
+>>          drm-cycles-gpu: 1153645024
 
+Nice, so my vendor agnostic actually worked (with that single fixup of 
+accounting for the fact pdev tag is optional)?
+
+> Note that it might be useful to have a standardized way to report # of
+> cycles and max freq, so userspace tool can derive %utilization in
+> addition to just %busy
+
+How do you define %utilisation vs %busy - I don't exactly follow since I 
+see the two as same?
+
+Looking at your patch I guess I don't understand the difference between 
+'elapsed' and 'cycles' inside your retire_submit(). Both are scoped to a 
+single context and are not global? If 'elapsed' is time context has 
+spent on the GPU, cycles isn't the same just in a different unit?
+
+Regards,
+
+Tvrtko
+
+> BR,
+> -R
 > 
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 34 +++++++++----------
->   1 file changed, 17 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index c515b7cf922c..c61b5b283f08 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -54,87 +54,87 @@ struct dpu_intr_reg {
->    * When making changes be sure to sync with dpu_hw_intr_reg
->    */
->   static const struct dpu_intr_reg dpu_intr_set[] = {
-> -	{
-> +	[MDP_SSPP_TOP0_INTR] = {
->   		MDP_SSPP_TOP0_OFF+INTR_CLEAR,
->   		MDP_SSPP_TOP0_OFF+INTR_EN,
->   		MDP_SSPP_TOP0_OFF+INTR_STATUS
->   	},
-> -	{
-> +	[MDP_SSPP_TOP0_INTR2] = {
->   		MDP_SSPP_TOP0_OFF+INTR2_CLEAR,
->   		MDP_SSPP_TOP0_OFF+INTR2_EN,
->   		MDP_SSPP_TOP0_OFF+INTR2_STATUS
->   	},
-> -	{
-> +	[MDP_SSPP_TOP0_HIST_INTR] = {
->   		MDP_SSPP_TOP0_OFF+HIST_INTR_CLEAR,
->   		MDP_SSPP_TOP0_OFF+HIST_INTR_EN,
->   		MDP_SSPP_TOP0_OFF+HIST_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF0_INTR] = {
->   		MDP_INTF_0_OFF+INTF_INTR_CLEAR,
->   		MDP_INTF_0_OFF+INTF_INTR_EN,
->   		MDP_INTF_0_OFF+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF1_INTR] = {
->   		MDP_INTF_1_OFF+INTF_INTR_CLEAR,
->   		MDP_INTF_1_OFF+INTF_INTR_EN,
->   		MDP_INTF_1_OFF+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF2_INTR] = {
->   		MDP_INTF_2_OFF+INTF_INTR_CLEAR,
->   		MDP_INTF_2_OFF+INTF_INTR_EN,
->   		MDP_INTF_2_OFF+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF3_INTR] = {
->   		MDP_INTF_3_OFF+INTF_INTR_CLEAR,
->   		MDP_INTF_3_OFF+INTF_INTR_EN,
->   		MDP_INTF_3_OFF+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF4_INTR] = {
->   		MDP_INTF_4_OFF+INTF_INTR_CLEAR,
->   		MDP_INTF_4_OFF+INTF_INTR_EN,
->   		MDP_INTF_4_OFF+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF5_INTR] = {
->   		MDP_INTF_5_OFF+INTF_INTR_CLEAR,
->   		MDP_INTF_5_OFF+INTF_INTR_EN,
->   		MDP_INTF_5_OFF+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_AD4_0_INTR] = {
->   		MDP_AD4_0_OFF + MDP_AD4_INTR_CLEAR_OFF,
->   		MDP_AD4_0_OFF + MDP_AD4_INTR_EN_OFF,
->   		MDP_AD4_0_OFF + MDP_AD4_INTR_STATUS_OFF,
->   	},
-> -	{
-> +	[MDP_AD4_1_INTR] = {
->   		MDP_AD4_1_OFF + MDP_AD4_INTR_CLEAR_OFF,
->   		MDP_AD4_1_OFF + MDP_AD4_INTR_EN_OFF,
->   		MDP_AD4_1_OFF + MDP_AD4_INTR_STATUS_OFF,
->   	},
-> -	{
-> +	[MDP_INTF0_7xxx_INTR] = {
->   		MDP_INTF_0_OFF_REV_7xxx+INTF_INTR_CLEAR,
->   		MDP_INTF_0_OFF_REV_7xxx+INTF_INTR_EN,
->   		MDP_INTF_0_OFF_REV_7xxx+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF1_7xxx_INTR] = {
->   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_CLEAR,
->   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_EN,
->   		MDP_INTF_1_OFF_REV_7xxx+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF2_7xxx_INTR] = {
->   		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_CLEAR,
->   		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_EN,
->   		MDP_INTF_2_OFF_REV_7xxx+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF3_7xxx_INTR] = {
->   		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_CLEAR,
->   		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_EN,
->   		MDP_INTF_3_OFF_REV_7xxx+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF4_7xxx_INTR] = {
->   		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_CLEAR,
->   		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_EN,
->   		MDP_INTF_4_OFF_REV_7xxx+INTF_INTR_STATUS
->   	},
-> -	{
-> +	[MDP_INTF5_7xxx_INTR] = {
->   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_CLEAR,
->   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_EN,
->   		MDP_INTF_5_OFF_REV_7xxx+INTF_INTR_STATUS
-> 
-> base-commit: 06aeb1495c39c86ccfaf1adadc1d2200179f16eb
-
-
--- 
-With best wishes
-Dmitry
+>>
+>> See also: https://patchwork.freedesktop.org/patch/468505/
+>>
+>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>> ---
+>>   drivers/gpu/drm/msm/msm_drv.c | 17 ++++++++++++++++-
+>>   drivers/gpu/drm/msm/msm_gpu.c | 20 ++++++++++++++++++--
+>>   drivers/gpu/drm/msm/msm_gpu.h | 19 +++++++++++++++++++
+>>   3 files changed, 53 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+>> index 16f37f3d9061..fdf401e6f09e 100644
+>> --- a/drivers/gpu/drm/msm/msm_drv.c
+>> +++ b/drivers/gpu/drm/msm/msm_drv.c
+>> @@ -911,7 +911,22 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+>>          DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+>>   };
+>>
+>> -DEFINE_DRM_GEM_FOPS(fops);
+>> +static void msm_fop_show_fdinfo(struct seq_file *m, struct file *f)
+>> +{
+>> +       struct drm_file *file = f->private_data;
+>> +       struct drm_device *dev = file->minor->dev;
+>> +       struct msm_drm_private *priv = dev->dev_private;
+>> +       struct drm_printer p = drm_seq_file_printer(m);
+>> +
+>> +       if (!priv->gpu)
+>> +               return;
+>> +
+>> +       msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, &p);
+>> +}
+>> +
+>> +DEFINE_DRM_GEM_FOPS(fops,
+>> +       .show_fdinfo = msm_fop_show_fdinfo,
+>> +);
+>>
+>>   static const struct drm_driver msm_driver = {
+>>          .driver_features    = DRIVER_GEM |
+>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+>> index 173ebd449f2f..6302f3fe564b 100644
+>> --- a/drivers/gpu/drm/msm/msm_gpu.c
+>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+>> @@ -4,6 +4,8 @@
+>>    * Author: Rob Clark <robdclark@gmail.com>
+>>    */
+>>
+>> +#include "drm/drm_drv.h"
+>> +
+>>   #include "msm_gpu.h"
+>>   #include "msm_gem.h"
+>>   #include "msm_mmu.h"
+>> @@ -146,6 +148,15 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
+>>          return 0;
+>>   }
+>>
+>> +void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
+>> +                        struct drm_printer *p)
+>> +{
+>> +       drm_printf(p, "drm-driver:\t%s\n", gpu->dev->driver->name);
+>> +       drm_printf(p, "drm-client-id:\t%u\n", ctx->seqno);
+>> +       drm_printf(p, "drm-engine-gpu:\t%llu ns\n", ctx->elapsed_ns);
+>> +       drm_printf(p, "drm-cycles-gpu:\t%llu\n", ctx->cycles);
+>> +}
+>> +
+>>   int msm_gpu_hw_init(struct msm_gpu *gpu)
+>>   {
+>>          int ret;
+>> @@ -643,7 +654,7 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>>   {
+>>          int index = submit->seqno % MSM_GPU_SUBMIT_STATS_COUNT;
+>>          volatile struct msm_gpu_submit_stats *stats;
+>> -       u64 elapsed, clock = 0;
+>> +       u64 elapsed, clock = 0, cycles;
+>>          unsigned long flags;
+>>
+>>          stats = &ring->memptrs->stats[index];
+>> @@ -651,12 +662,17 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>>          elapsed = (stats->alwayson_end - stats->alwayson_start) * 10000;
+>>          do_div(elapsed, 192);
+>>
+>> +       cycles = stats->cpcycles_end - stats->cpcycles_start;
+>> +
+>>          /* Calculate the clock frequency from the number of CP cycles */
+>>          if (elapsed) {
+>> -               clock = (stats->cpcycles_end - stats->cpcycles_start) * 1000;
+>> +               clock = cycles * 1000;
+>>                  do_div(clock, elapsed);
+>>          }
+>>
+>> +       submit->queue->ctx->elapsed_ns += elapsed;
+>> +       submit->queue->ctx->cycles     += cycles;
+>> +
+>>          trace_msm_gpu_submit_retired(submit, elapsed, clock,
+>>                  stats->alwayson_start, stats->alwayson_end);
+>>
+>> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+>> index 696e2ed8a236..ad4fe05dee03 100644
+>> --- a/drivers/gpu/drm/msm/msm_gpu.h
+>> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+>> @@ -328,6 +328,22 @@ struct msm_file_private {
+>>          struct kref ref;
+>>          int seqno;
+>>
+>> +       /**
+>> +        * elapsed:
+>> +        *
+>> +        * The total (cumulative) elapsed time GPU was busy with rendering
+>> +        * from this context in ns.
+>> +        */
+>> +       uint64_t elapsed_ns;
+>> +
+>> +       /**
+>> +        * cycles:
+>> +        *
+>> +        * The total (cumulative) GPU cycles elapsed attributed to this
+>> +        * context.
+>> +        */
+>> +       uint64_t cycles;
+>> +
+>>          /**
+>>           * entities:
+>>           *
+>> @@ -511,6 +527,9 @@ static inline void gpu_write64(struct msm_gpu *gpu, u32 lo, u32 hi, u64 val)
+>>   int msm_gpu_pm_suspend(struct msm_gpu *gpu);
+>>   int msm_gpu_pm_resume(struct msm_gpu *gpu);
+>>
+>> +void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
+>> +                        struct drm_printer *p);
+>> +
+>>   int msm_submitqueue_init(struct drm_device *drm, struct msm_file_private *ctx);
+>>   struct msm_gpu_submitqueue *msm_submitqueue_get(struct msm_file_private *ctx,
+>>                  u32 id);
+>> --
+>> 2.35.1
+>>
