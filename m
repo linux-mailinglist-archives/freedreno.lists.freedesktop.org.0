@@ -2,54 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA8F54C6F92
-	for <lists+freedreno@lfdr.de>; Mon, 28 Feb 2022 15:33:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 125C34C7121
+	for <lists+freedreno@lfdr.de>; Mon, 28 Feb 2022 17:01:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF6A10E443;
-	Mon, 28 Feb 2022 14:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABB9D10E141;
+	Mon, 28 Feb 2022 16:01:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 426C010E432;
- Mon, 28 Feb 2022 14:33:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646058828; x=1677594828;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=ucZ5anih82JGSYnw7NJxPpFc3x0RvGFm0k0UeSwKr+Y=;
- b=NFFJvMTGZwy5/3kIqB7f2W6QSKExrXauwWv6YE9Y/SDWlC2PFaQpR4V7
- /Mxg2sM0CZbXsGg2rumJT5Okq4j+tvmNX++faveJAtH6oo+fY/MyShLjH
- npx/i6TIasrpdpp9/tiyAEeEwCtogLFg/P2q5mLJfzIngS5QcaIu7vd/G
- SmG+ZPzn0Zwy2hspbfmJtcodRv9+WGawCm2vWW8EwVw9Ss8OjSZWWxejc
- NbW6F1GwOJsLDw5lIv70s+iHKMJtRj0gokUHqLjTozEYix79reIwxIU1+
- v2UJxcUKwmkypXMtzdQn+ipGgCdZ0gI9b4+72I4MrACCXuMLdEdWKJHOe w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10271"; a="233514140"
-X-IronPort-AV: E=Sophos;i="5.90,142,1643702400"; d="scan'208";a="233514140"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 06:33:47 -0800
-X-IronPort-AV: E=Sophos;i="5.90,142,1643702400"; d="scan'208";a="708659832"
-Received: from jpdecker-mobl3.ger.corp.intel.com (HELO [10.213.235.138])
- ([10.213.235.138])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 06:33:44 -0800
-Message-ID: <f460b115-6ff6-7f69-8b0d-174c4defc771@linux.intel.com>
-Date: Mon, 28 Feb 2022 14:33:41 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 383D610E464;
+ Mon, 28 Feb 2022 16:01:05 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id 206so67594wmc.5;
+ Mon, 28 Feb 2022 08:01:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aizF1/4lDI+yEy/WBxd8YVF7MFTOczvWHCG6YamD9nM=;
+ b=blm/2RrpCx2TsR/aMRP+1EJLebTjElVVfw8i40QiGlQMN6Wi4MltaOd+UtUI+4NfFD
+ OvIwLBmq5XdskxKXmbGsJfayfiwvCeecqgTkJnMpwimuFXPulAUNE5iV9YhTJHFU95qd
+ n8Ndhugd5pEd90a++PIz8mlF56J1Vx6yIEFPX+C6J9mqn75oWffmgBOskCPhEa/qDNwj
+ ZlMyqEqVWCIDC3l31oKWlahqUm6m8aW6WF/ezxGwyoiXUJpvyrkNusfWFeucWTq4hyqF
+ NmcFd8Opv10P0TT05CAnQEmiN4DKlzGYCa/ykxZRnKFOiNgFKfuA0gi+i9kuNYXp58M1
+ 1Pzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aizF1/4lDI+yEy/WBxd8YVF7MFTOczvWHCG6YamD9nM=;
+ b=kHNn2KYu7r0K39dCjg2ybAr2ToiFooQMYJMTu+jeuJnRPuHMo6u6JXUanrmUl8o/B8
+ tO5K4tAXeiQm5J/6CpsiwUVnfJSUayqFzzhiqAwnbKPSdeoFVGp2BfY0VunVfINQ1e1Q
+ 5VofE/W1udJ08uKeU9W0o2vY27kFxivGtd4M4CnUTQjW7deUOXLm9S1hZkW2Bsq0l6tk
+ ZhRuT8gpgjc53EX0UkdR13y/xrfIh6ji+BbAzm8SEXrGobdusphr/VEwDL95OUjYbpfb
+ h4p5d51UZ2WcxXjJplSrTejs74hCGFsRtrcWxWA/wo9y/C0HYz61hwyYiJW5Vgtz9r34
+ qttg==
+X-Gm-Message-State: AOAM532exjmASHrNnawSUg8aneHO7nNP6T6Gs2lkSlk3/dscW9Ehabc/
+ PAsNsJVn81GpCu2i0gYwkna5vEBlR7J+KW6CDF4=
+X-Google-Smtp-Source: ABdhPJzF+Eh23FRqoZaEV8ax1NSHQUu83RaAE2w3foKNDynSteZKOLsVwgh4y2QhxxN5kXgYFvHjBSOQuJyfTdpPugo=
+X-Received: by 2002:a05:600c:25cd:b0:381:4f09:a4b6 with SMTP id
+ 13-20020a05600c25cd00b003814f09a4b6mr8198514wml.44.1646064063544; Mon, 28 Feb
+ 2022 08:01:03 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
 References: <20220225202614.225197-1-robdclark@gmail.com>
  <20220225202614.225197-3-robdclark@gmail.com>
  <CAF6AEGvXs9etrtBUP5fAx7z6pLMV76a-FEXrdk2gY8npDHrFnA@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CAF6AEGvXs9etrtBUP5fAx7z6pLMV76a-FEXrdk2gY8npDHrFnA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <f460b115-6ff6-7f69-8b0d-174c4defc771@linux.intel.com>
+In-Reply-To: <f460b115-6ff6-7f69-8b0d-174c4defc771@linux.intel.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 28 Feb 2022 08:01:34 -0800
+Message-ID: <CAF6AEGsNHkODt4oOgAhLdrik1Jt-cfcyjk+nGzDhSMNfFMEWsA@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: Expose client engine
  utilization via fdinfo
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -68,188 +70,67 @@ Cc: Rob Clark <robdclark@chromium.org>,
  freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, Feb 28, 2022 at 6:33 AM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+>
+> On 25/02/2022 22:14, Rob Clark wrote:
+> > On Fri, Feb 25, 2022 at 12:25 PM Rob Clark <robdclark@gmail.com> wrote:
+> >>
+> >> From: Rob Clark <robdclark@chromium.org>
+> >>
+> >> Similar to AMD commit
+> >> 874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
+> >> infrastructure added in previous patches, we add basic client info
+> >> and GPU engine utilisation for msm.
+> >>
+> >> Example output:
+> >>
+> >>          # cat /proc/`pgrep glmark2`/fdinfo/6
+> >>          pos:    0
+> >>          flags:  02400002
+> >>          mnt_id: 21
+> >>          ino:    162
+> >>          drm-driver:     msm
+> >>          drm-client-id:  7
+> >>          drm-engine-gpu: 1734371319 ns
+> >>          drm-cycles-gpu: 1153645024
+>
+> Nice, so my vendor agnostic actually worked (with that single fixup of
+> accounting for the fact pdev tag is optional)?
+>
+> > Note that it might be useful to have a standardized way to report # of
+> > cycles and max freq, so userspace tool can derive %utilization in
+> > addition to just %busy
+>
+> How do you define %utilisation vs %busy - I don't exactly follow since I
+> see the two as same?
 
-On 25/02/2022 22:14, Rob Clark wrote:
-> On Fri, Feb 25, 2022 at 12:25 PM Rob Clark <robdclark@gmail.com> wrote:
->>
->> From: Rob Clark <robdclark@chromium.org>
->>
->> Similar to AMD commit
->> 874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
->> infrastructure added in previous patches, we add basic client info
->> and GPU engine utilisation for msm.
->>
->> Example output:
->>
->>          # cat /proc/`pgrep glmark2`/fdinfo/6
->>          pos:    0
->>          flags:  02400002
->>          mnt_id: 21
->>          ino:    162
->>          drm-driver:     msm
->>          drm-client-id:  7
->>          drm-engine-gpu: 1734371319 ns
->>          drm-cycles-gpu: 1153645024
+so, say you are running at 50% of max clk, and gpu is busy 70% of the
+time.  The utilization is only 35% because the gpu could scale up the
+clk to get more work done.
 
-Nice, so my vendor agnostic actually worked (with that single fixup of 
-accounting for the fact pdev tag is optional)?
+> Looking at your patch I guess I don't understand the difference between
+> 'elapsed' and 'cycles' inside your retire_submit(). Both are scoped to a
+> single context and are not global? If 'elapsed' is time context has
+> spent on the GPU, cycles isn't the same just in a different unit?
 
-> Note that it might be useful to have a standardized way to report # of
-> cycles and max freq, so userspace tool can derive %utilization in
-> addition to just %busy
+Correct, we capture (from GPU cmdstream) two counters both before and
+after a submit (aka execbuf) runs, one is a fixed-rate counter, which
+gives us elapsed time.  The second is a counter that increments every
+clk cycle, which gives us the # of cycles.  With the two values, we
+can calculate GPU frequency.
 
-How do you define %utilisation vs %busy - I don't exactly follow since I 
-see the two as same?
+BR,
+-R
 
-Looking at your patch I guess I don't understand the difference between 
-'elapsed' and 'cycles' inside your retire_submit(). Both are scoped to a 
-single context and are not global? If 'elapsed' is time context has 
-spent on the GPU, cycles isn't the same just in a different unit?
-
-Regards,
-
-Tvrtko
-
-> BR,
-> -R
-> 
->>
->> See also: https://patchwork.freedesktop.org/patch/468505/
->>
->> Signed-off-by: Rob Clark <robdclark@chromium.org>
->> ---
->>   drivers/gpu/drm/msm/msm_drv.c | 17 ++++++++++++++++-
->>   drivers/gpu/drm/msm/msm_gpu.c | 20 ++++++++++++++++++--
->>   drivers/gpu/drm/msm/msm_gpu.h | 19 +++++++++++++++++++
->>   3 files changed, 53 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index 16f37f3d9061..fdf401e6f09e 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -911,7 +911,22 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
->>          DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
->>   };
->>
->> -DEFINE_DRM_GEM_FOPS(fops);
->> +static void msm_fop_show_fdinfo(struct seq_file *m, struct file *f)
->> +{
->> +       struct drm_file *file = f->private_data;
->> +       struct drm_device *dev = file->minor->dev;
->> +       struct msm_drm_private *priv = dev->dev_private;
->> +       struct drm_printer p = drm_seq_file_printer(m);
->> +
->> +       if (!priv->gpu)
->> +               return;
->> +
->> +       msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, &p);
->> +}
->> +
->> +DEFINE_DRM_GEM_FOPS(fops,
->> +       .show_fdinfo = msm_fop_show_fdinfo,
->> +);
->>
->>   static const struct drm_driver msm_driver = {
->>          .driver_features    = DRIVER_GEM |
->> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
->> index 173ebd449f2f..6302f3fe564b 100644
->> --- a/drivers/gpu/drm/msm/msm_gpu.c
->> +++ b/drivers/gpu/drm/msm/msm_gpu.c
->> @@ -4,6 +4,8 @@
->>    * Author: Rob Clark <robdclark@gmail.com>
->>    */
->>
->> +#include "drm/drm_drv.h"
->> +
->>   #include "msm_gpu.h"
->>   #include "msm_gem.h"
->>   #include "msm_mmu.h"
->> @@ -146,6 +148,15 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
->>          return 0;
->>   }
->>
->> +void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
->> +                        struct drm_printer *p)
->> +{
->> +       drm_printf(p, "drm-driver:\t%s\n", gpu->dev->driver->name);
->> +       drm_printf(p, "drm-client-id:\t%u\n", ctx->seqno);
->> +       drm_printf(p, "drm-engine-gpu:\t%llu ns\n", ctx->elapsed_ns);
->> +       drm_printf(p, "drm-cycles-gpu:\t%llu\n", ctx->cycles);
->> +}
->> +
->>   int msm_gpu_hw_init(struct msm_gpu *gpu)
->>   {
->>          int ret;
->> @@ -643,7 +654,7 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
->>   {
->>          int index = submit->seqno % MSM_GPU_SUBMIT_STATS_COUNT;
->>          volatile struct msm_gpu_submit_stats *stats;
->> -       u64 elapsed, clock = 0;
->> +       u64 elapsed, clock = 0, cycles;
->>          unsigned long flags;
->>
->>          stats = &ring->memptrs->stats[index];
->> @@ -651,12 +662,17 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
->>          elapsed = (stats->alwayson_end - stats->alwayson_start) * 10000;
->>          do_div(elapsed, 192);
->>
->> +       cycles = stats->cpcycles_end - stats->cpcycles_start;
->> +
->>          /* Calculate the clock frequency from the number of CP cycles */
->>          if (elapsed) {
->> -               clock = (stats->cpcycles_end - stats->cpcycles_start) * 1000;
->> +               clock = cycles * 1000;
->>                  do_div(clock, elapsed);
->>          }
->>
->> +       submit->queue->ctx->elapsed_ns += elapsed;
->> +       submit->queue->ctx->cycles     += cycles;
->> +
->>          trace_msm_gpu_submit_retired(submit, elapsed, clock,
->>                  stats->alwayson_start, stats->alwayson_end);
->>
->> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
->> index 696e2ed8a236..ad4fe05dee03 100644
->> --- a/drivers/gpu/drm/msm/msm_gpu.h
->> +++ b/drivers/gpu/drm/msm/msm_gpu.h
->> @@ -328,6 +328,22 @@ struct msm_file_private {
->>          struct kref ref;
->>          int seqno;
->>
->> +       /**
->> +        * elapsed:
->> +        *
->> +        * The total (cumulative) elapsed time GPU was busy with rendering
->> +        * from this context in ns.
->> +        */
->> +       uint64_t elapsed_ns;
->> +
->> +       /**
->> +        * cycles:
->> +        *
->> +        * The total (cumulative) GPU cycles elapsed attributed to this
->> +        * context.
->> +        */
->> +       uint64_t cycles;
->> +
->>          /**
->>           * entities:
->>           *
->> @@ -511,6 +527,9 @@ static inline void gpu_write64(struct msm_gpu *gpu, u32 lo, u32 hi, u64 val)
->>   int msm_gpu_pm_suspend(struct msm_gpu *gpu);
->>   int msm_gpu_pm_resume(struct msm_gpu *gpu);
->>
->> +void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
->> +                        struct drm_printer *p);
->> +
->>   int msm_submitqueue_init(struct drm_device *drm, struct msm_file_private *ctx);
->>   struct msm_gpu_submitqueue *msm_submitqueue_get(struct msm_file_private *ctx,
->>                  u32 id);
->> --
->> 2.35.1
->>
+> Regards,
+>
+> Tvrtko
+>
