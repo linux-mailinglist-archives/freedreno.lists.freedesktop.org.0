@@ -2,63 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7D0F4C763E
-	for <lists+freedreno@lfdr.de>; Mon, 28 Feb 2022 19:01:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBEFD4C7C2F
+	for <lists+freedreno@lfdr.de>; Mon, 28 Feb 2022 22:38:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7847210E228;
-	Mon, 28 Feb 2022 18:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9111810E91C;
+	Mon, 28 Feb 2022 21:38:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9DD510E37D;
- Mon, 28 Feb 2022 18:01:25 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id n14so16720818wrq.7;
- Mon, 28 Feb 2022 10:01:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=OuGGTGuRIE8usjIvuhTwZdZ+bQXhsBG1NshUB/XmMvQ=;
- b=BIr7I+Ke1z/B1XyFd1SZEZAA7IpEwziRbFuLK8crUxYaPxl3NmzbrTbajm8wsBVGhL
- xEcI9VSLUpkOwaJVnG9cNKyseBq40pGrC30v01hoZ6J0VveiKbWWrWcme+jubwft3tVw
- g2bbTmpq7tuX7rOB2JlIGFZvH1NKf2z/93iwyvdXAhkTf9Haw+VUGNmYv119pgBrN/q5
- YGdDFcEWZuRHtbzfjNNXNu7PKqiarFPoat28khSj0ECaay4di7NbXbVyLt6IVTNsTZlw
- 67W/msTLzig3DvBSkK8gPJGtaCykJxXyd6Gsmu1TgQ85df56Zyu/9geTESD87bm3X0Ob
- vi3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=OuGGTGuRIE8usjIvuhTwZdZ+bQXhsBG1NshUB/XmMvQ=;
- b=XN84PLe0Bza/nVsOfABT8jBbSgMWxnXI6vd9K0di3VNhmGvajHDxE50W833J8OtwcN
- gOH8Zz/CRFrqL4MT4OtsDroC85LwXWH/ZNQ2qdCjWSx2UDf8dY4cuR6blwdo5e6R97h1
- FyzTwbnRqSee1uvypL7cep9rmHjYDnvZ0lhKmTgXA5D5UxKYAAOfVwwERkvZutKmSggZ
- ZtMYcwZnmYsGkk2Va++HY2X2pGv6plWoL1TqziQtnxurDdpFzutMHuKq6ur0+YzMre4D
- e/BaP0teUpNxcfO2Oc2DcYCFb9CQRDaAgDWapRlrnoJawP5Q7i3F9fsu6YGws2GWMLHZ
- bGyQ==
-X-Gm-Message-State: AOAM531PttoXAuSAr6P7AY7xC16+ZKL51IxqZmW1YeSU6szKwfNlPwpL
- Bb4YdTmmkNK/nb+28iwBrFM=
-X-Google-Smtp-Source: ABdhPJz/JSS05A/Hdl3RiJ9ixIT19NUl8QYWHKPwe98s181rWLVJTVQPr7RrIAjjcwMeeazx20oIKg==
-X-Received: by 2002:a05:6000:156a:b0:1ed:ab73:e248 with SMTP id
- 10-20020a056000156a00b001edab73e248mr16829738wrz.292.1646071284032; 
- Mon, 28 Feb 2022 10:01:24 -0800 (PST)
-Received: from elementary ([94.73.33.246]) by smtp.gmail.com with ESMTPSA id
- o12-20020adfa10c000000b001efb97fae48sm5354362wro.80.2022.02.28.10.01.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Feb 2022 10:01:23 -0800 (PST)
-Date: Mon, 28 Feb 2022 19:01:21 +0100
-From: =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Message-ID: <20220228180121.GA14354@elementary>
-References: <20220221073339.10742-1-jose.exposito89@gmail.com>
- <CAE-0n50cW4-xzabNjb0mHLCgUYj+Mcp3_XxYrYf9AVuZO_9qKg@mail.gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6D6410E914;
+ Mon, 28 Feb 2022 21:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1646084295; x=1677620295;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=02khD1UH3gk3g4iZl8hD8XjUacS8YbwUJwVKQCapads=;
+ b=JVXNrZWx1YfQCEl3SOzv/hOj/hsoZWnHvFnwRUKQ9BtftdZgpDRy6Pv8
+ yCmPt1UEXfr0MksR5lzxM0fRdxhsxFTiIseaNTFEoClh6Z0Ck3NMXK1sp
+ ddaqlocCnPHx3U6kDWVR2RuMQhreWHYsUpIy5imQowsOy3KIyzP6EL4Hj Y=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 28 Feb 2022 13:38:14 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2022 13:38:14 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Mon, 28 Feb 2022 13:38:13 -0800
+Received: from [10.110.107.103] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Mon, 28 Feb
+ 2022 13:38:12 -0800
+Message-ID: <989efb15-cc5e-8f6d-c313-118f01498e33@quicinc.com>
+Date: Mon, 28 Feb 2022 13:38:12 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAE-0n50cW4-xzabNjb0mHLCgUYj+Mcp3_XxYrYf9AVuZO_9qKg@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: switch to devm_drm_of_get_bridge
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Greg KH
+ <gregkh@linuxfoundation.org>
+References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
+ <YgZD8vPqB7ISpRpZ@kroah.com>
+ <654d620b-9e14-c47f-b48c-762dc0bd32a1@quicinc.com>
+ <Ygdb63FrorUsX/Hg@kroah.com>
+ <b9156bde-137c-2fac-19e0-b205ab4d6016@quicinc.com>
+ <7db7d01fcf5a3edce61161769c0e6eb1541237bf.camel@sipsolutions.net>
+ <2add9ba7-7bc8-bd1d-1963-61e8154b0e3c@quicinc.com>
+In-Reply-To: <2add9ba7-7bc8-bd1d-1963-61e8154b0e3c@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
+ timeout to 10 mins
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,30 +71,104 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- robdclark@gmail.com, maxime@cerno.tech, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, sean@poorly.run
+Cc: rafael@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, khsieh@codeaurora.org, nganji@codeaurora.org,
+ seanpaul@chromium.org, dmitry.baryshkov@linaro.org, aravindh@codeaurora.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Feb 22, 2022 at 09:07:49PM +0000, Stephen Boyd wrote:
-> Quoting José Expósito (2022-02-20 23:33:39)
-> > The function "drm_of_find_panel_or_bridge" has been deprecated in
-> > favor of "devm_drm_of_get_bridge".
-> >
-> > Switch to the new function and reduce boilerplate.
-> >
-> > Signed-off-by: José Expósito <jose.exposito89@gmail.com>
-> > ---
+Hi Johannes and Greg
+
+On 2/12/2022 12:35 AM, Abhinav Kumar wrote:
+> Hi Johannes
 > 
-> Dmitry is rewriting this code in a larger series. This patch is
-> superseded by that work.
+> On 2/12/2022 12:24 AM, Johannes Berg wrote:
+>> On Fri, 2022-02-11 at 23:52 -0800, Abhinav Kumar wrote:
+>>>
+>>> The thread is writing the data to a file in local storage. From our
+>>> profiling, the read is the one taking the time not the write.
+>>>
+>>
+>> That seems kind of hard to believe, let's say it's a 4/3 split (4
+>> minutes reading, 3 minutes writing, to make read > write as you say),
+>> and 3MiB size, that'd mean you get 12.8KiB/sec? That seems implausibly
+>> low, unless you're reading with really tiny buffers?
+>>
+>> Can you strace this somehow? (with timestamp info)
+>>
+> 
+> Yes, like I have already mentioned in earlier comments, we continue to 
+> check whats taking that long.
+> 
+> Once we find something from our analysis and also have the trace, will 
+> update the thread.
+> 
+>>> Just doubling what we have currently. I am not sure how the current 5
+>>> mins timeout came from.
+>>>
+>>
+>> To be honest it came out of thin air, and wasn't really meant as a limit
+>> on how fast you can read (feels like even if it's tens of MiB you should
+>> read it in milliseconds into userspace), but more of a maximum time that
+>> we're willing to waste kernel memory if nobody is around to read the
+>> data.
+>>
+>> I thought it'd be better if we could somehow pin it while the userspace
+>> is reading it, but OTOH maybe that's actually bad, since that means
+>> userspace (though suitably privileged) could pin this kernel memory
+>> indefinitely.
+>>
+>> johannes
 
-Thanks for the heads up Stephen, it is indeed superseded by [0].
+So, we were able to narrow down the bottle-neck further. The tiny 
+buffers which Johannes was referring to is coming from the sysfs method 
+below.
 
-And thanks for the review Maxime.
+It defaults to a PAGE_SIZE worth of data which results in taking a lot 
+of time due to many number of reads.
 
-[0] https://lore.kernel.org/dri-devel/20220211224006.1797846-3-dmitry.baryshkov@linaro.org/
+If we increase the length to match the size of our data like below we 
+are able to finish the read in almost no-time.
 
+--- a/fs/kernfs/file.c
++++ b/fs/kernfs/file.c
+@@ -184,10 +184,11 @@ static const struct seq_operations kernfs_seq_ops = {
+  static ssize_t kernfs_file_read_iter(struct kiocb *iocb, struct 
+iov_iter *iter)
+  {
+         struct kernfs_open_file *of = kernfs_of(iocb->ki_filp);
+-       ssize_t len = min_t(size_t, iov_iter_count(iter), PAGE_SIZE);
++       ssize_t len = min_t(size_t, iov_iter_count(iter), (PAGE_SIZE * 
+768));
+         const struct kernfs_ops *ops;
+         char *buf;
+
++       pr_err("[hbc debug] %s, len:%d\n", __func__, len);
+         buf = of->prealloc_buf;
+         if (buf)
+                 mutex_lock(&of->prealloc_mutex);
+
+( 768 because the size of our dump was ~3MB so that would be ~ 768 * 4kB 
+block sizes )
+
+We also did some profiling around how much increasing the block size 
+helps and here is the data:
+
+Block size	cost
+
+4KB	        229s
+8KB	         86s
+3MB	          2s
+
+So looks like 2 * block size OR 4 * block size can help quite a bit.
+
+Hence, while we are exploring some options like reducing the size of the 
+dump etc, I wanted to also check if increasing the block size to like 4 
+* 4Kb could be a solution because it will bring down the read times 
+drastically based on our profiling.
+
+Thanks
+
+Abhinav
