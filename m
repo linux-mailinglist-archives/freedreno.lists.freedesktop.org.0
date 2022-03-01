@@ -1,56 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B98F4C9907
-	for <lists+freedreno@lfdr.de>; Wed,  2 Mar 2022 00:16:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 190B14C9943
+	for <lists+freedreno@lfdr.de>; Wed,  2 Mar 2022 00:24:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBED10E828;
-	Tue,  1 Mar 2022 23:16:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B923310E7D2;
+	Tue,  1 Mar 2022 23:24:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3662E10E833
- for <freedreno@lists.freedesktop.org>; Tue,  1 Mar 2022 23:16:50 +0000 (UTC)
-Received: by mail-qv1-xf2c.google.com with SMTP id gm1so197930qvb.7
- for <freedreno@lists.freedesktop.org>; Tue, 01 Mar 2022 15:16:50 -0800 (PST)
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB56210E7D2
+ for <freedreno@lists.freedesktop.org>; Tue,  1 Mar 2022 23:24:06 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id w7so227445qvr.3
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Mar 2022 15:24:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6LEQhSD9kPhUFJhdm4QVnYBLxI6Q1dvUYGGtcoYTPY4=;
- b=JXjc6V1oUSYysMCD8ROsxbutKaDtrNzAIhjxm/BHI8OwiUW+CLPoK75FJu0mlozoot
- NoSY+sBH/f7W6JjAZWt4Ls19FaRwx56UEzv4i9tHRXLIgdg+ZTSdGcbgWPZiwt4QX2uW
- ZMaZnOhbkHEziQvmynDZeAIyV7mWo5c4F0ujFx03MqmHCZoT55jQKVZkqIK2y+WuawiX
- jMUGu0j8N/DZ5AnxsGH7Q9gTImSMm6zNogRE/4rozZgs26fUtTNksXyneSU/sb0TlyOi
- MCaRZy8CVa8xIkjHl/l/4TcjyzGk8gizZl/hPKvZ6EeC2GIq5+GbKhWU5fsDveHnfSDr
- j6Aw==
+ :cc; bh=OSsBX21NVNiSwRS2p6EfLvoeuH1E+LW1LIdRNsY4vkU=;
+ b=Ip5F3z+EsQE2X2jhyvGPCg0qooxL0cLhLEUtWQuSVJHNZhjaSf3bznFF9q1y7urVuO
+ ZqXiiVS2BCbCEpQ1PvYzPaP/grTWYp3cJrz2ltZy2W8SYhbAeqCmwTfinzoy0u75vCgR
+ qo+psCbS9smznMQRHHGdHfAguKcFpH9uwGbgzrMGM3H/Y6xblVNU51dMvy0I0cmnQlMe
+ V6m0y1F+dRZ8g+Gulcg+fuouJy7bsdp78c+wCa1NJULbnhwaIJr41/XSVDDz0VRByegz
+ GPuwFYf5q4VbocMB+uX6slZmOa2AB/ceQ+MxV21JKC3Uhg3e8Zer8PTXc9RZAdBl3dIy
+ KpaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=6LEQhSD9kPhUFJhdm4QVnYBLxI6Q1dvUYGGtcoYTPY4=;
- b=HWupfZBDvDOQeVij6rrnGtUTKNgx2xWP8E5sTBB0k4ciLmN4C0HGfrud3tNXfko2Ib
- vd9ZvunpQBnMibvn/USfib3RcO5C7d/RLStw7TKQ3G4S/sbkjtav6FsZPV85HOBzYq82
- 3g3vgDWmxJveeotLJPSveNFlSJWkKRsstH72hJJMC0CnmSayHr7gLF89apfeFuTl7YFb
- fZHvNHBSjs+wCR/9IrZLRpnxsnJz1iuKjX74hG9NKaTpx7kh6hnOYWYDIXln8SSxa7b/
- Cu7moPT6SIFMIQ7Aw3hlUaGnR8YXFfiC3rx3zanZnDHpRu/DfZMLZ5m2tG+Ob2xuKWQh
- MGmQ==
-X-Gm-Message-State: AOAM531Ahhsa8WmQ6GKU9OymQNOgulkrQfH1B1s0YBAEGEHJXhx60IHE
- xLuJhXHRYFAt3zjSxRjL/QeirEuEIrzY1R5/5/Dp2Q==
-X-Google-Smtp-Source: ABdhPJw25ridC2MDvo8XWVUeik7An6TOGY6ncUYKZQlZ5z1Gz2h5pIoUJpn/RtQ4xXAqZMGXxlEmL+3fbfu3FTJE3AU=
+ bh=OSsBX21NVNiSwRS2p6EfLvoeuH1E+LW1LIdRNsY4vkU=;
+ b=Zleh3zxXxI08zLhQy/6ipA5uofZYALpcK8IuPZCt0nD2K2XglOPTmEWmWn3oT61uYg
+ +GgkmgAtWpfGhMTMrKcPXpW7L5YBb44lqvV20spwHLvYItfwDnILNPdfcsQi7OmSatA2
+ noCBsdrs0QLs/o5WWUj8DWO0zDzam2RtuItENJOrZBVMW3w77EowvMCq9jfx8GJt7Lyi
+ Jd3jE0Xp/UQeQS3lD8yeyU5NXFhAUU5DtA2YVWgMt6UqCQk+/hyqQy0L6V9oJaiXJMI7
+ H4BJLu8vc1fAXOkYFfQJtD76RssA0ugstrAOLrVNSoxD/7Wtv1gz+aL2zOueAsTn5usH
+ fHeg==
+X-Gm-Message-State: AOAM533Y03QHD0qzvsOIGU/PPenHmzC3g6k1lxd3v9Zp2akbPhTe7tQE
+ QIb66UD0YE/pq5SfLGJRbzLJHAQZjFa+XqEPkjvHCQ==
+X-Google-Smtp-Source: ABdhPJxo6UiX3Xn1XQ6J/2PJeWZvf7DQmneQL+F9WZaIYeAoXL24XAGZpq5ExpvtMoKAaF7w482xqTsYXr7VK3rTP1A=
 X-Received: by 2002:ad4:53a4:0:b0:430:1d8c:18ea with SMTP id
- j4-20020ad453a4000000b004301d8c18eamr18928372qvv.115.1646176609345; Tue, 01
- Mar 2022 15:16:49 -0800 (PST)
+ j4-20020ad453a4000000b004301d8c18eamr18944909qvv.115.1646177045898; Tue, 01
+ Mar 2022 15:24:05 -0800 (PST)
 MIME-Version: 1.0
-References: <20220301210513.1855076-1-robh@kernel.org>
-In-Reply-To: <20220301210513.1855076-1-robh@kernel.org>
+References: <1644852547-10067-1-git-send-email-loic.poulain@linaro.org>
+ <1644852547-10067-2-git-send-email-loic.poulain@linaro.org>
+ <CAL_JsqKg06h818-kMDrtROzHn8zPcjwgzWAE_q=egXPJHmg=-w@mail.gmail.com>
+In-Reply-To: <CAL_JsqKg06h818-kMDrtROzHn8zPcjwgzWAE_q=egXPJHmg=-w@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 2 Mar 2022 02:16:38 +0300
-Message-ID: <CAA8EJppACmfoz1dgRXbrG2zw_Wa1oJf0zGRCB8utPDXNhLZftg@mail.gmail.com>
+Date: Wed, 2 Mar 2022 02:23:54 +0300
+Message-ID: <CAA8EJprnALcK8HObkNqkgW6t4gpLHf9LuS1-mEHJJqt6va=zxQ@mail.gmail.com>
 To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: Drop bogus
- interrupt flags cell on MDSS nodes
+Subject: Re: [Freedreno] [PATCH v3 2/2] dt-bindings: msm: disp: add yaml
+ schemas for QCM2290 DPU bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,69 +65,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Loic Poulain <loic.poulain@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Del Regno <angelogioacchino.delregno@somainline.org>,
- Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 2 Mar 2022 at 00:05, Rob Herring <robh@kernel.org> wrote:
+On Tue, 1 Mar 2022 at 20:35, Rob Herring <robh@kernel.org> wrote:
 >
-> The MDSS interrupt provider is a single cell, so specifying interrupt flags
-> on the consumers is incorrect.
+> On Mon, Feb 14, 2022 at 9:29 AM Loic Poulain <loic.poulain@linaro.org> wrote:
+> >
+> > QCM2290 MSM Mobile Display Subsystem (MDSS) encapsulates sub-blocks
+> > like DPU display controller, DSI etc. Add YAML schema for DPU device
+> > tree bindings
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@linaro.org>
+> > ---
+> >  v2: no change
+> >  v3: no change (resent with reviewed-by + freedreno list)
+> >
+> >  .../bindings/display/msm/dpu-qcm2290.yaml          | 214 +++++++++++++++++++++
+> >  1 file changed, 214 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
 >
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> This is now failing in linux-next. Please fix or revert:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I can not reproduce it here, with the linux-next from 20220301 and
+dtschema 2022.1
 
-> ---
->  .../devicetree/bindings/display/msm/dpu-msm8998.yaml          | 4 ++--
->  .../devicetree/bindings/display/msm/dpu-qcm2290.yaml          | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
 >
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
-> index 167bc48748d7..2df64afb76e6 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
-> @@ -155,7 +155,7 @@ examples:
->      #include <dt-bindings/interrupt-controller/arm-gic.h>
->      #include <dt-bindings/power/qcom-rpmpd.h>
+> Error: Documentation/devicetree/bindings/display/msm/dpu-qcm2290.example.dts:81.3-82.1
+> syntax error
+> FATAL ERROR: Unable to parse input tree
+> make[1]: *** [scripts/Makefile.lib:386:
+> Documentation/devicetree/bindings/display/msm/dpu-qcm2290.example.dt.yaml]
+> Error 1
 >
-> -    display-subsystem@c900000 {
-> +    mdss: display-subsystem@c900000 {
->          compatible = "qcom,msm8998-mdss";
->          reg = <0x0c900000 0x1000>;
->          reg-names = "mdss";
-> @@ -192,7 +192,7 @@ examples:
->              clock-names = "iface", "bus", "mnoc", "core", "vsync";
->
->              interrupt-parent = <&mdss>;
-> -            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupts = <0>;
->              operating-points-v2 = <&mdp_opp_table>;
->              power-domains = <&rpmpd MSM8998_VDDMX>;
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-> index 8766b13f0c46..28617bc1d2ff 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-> @@ -197,7 +197,7 @@ examples:
->                  power-domains = <&rpmpd QCM2290_VDDCX>;
->
->                  interrupt-parent = <&mdss>;
-> -                interrupts = <0 IRQ_TYPE_NONE>;
-> +                interrupts = <0>;
->
->                  ports {
->                          #address-cells = <1>;
-> --
-> 2.32.0
->
+> Rob
+
 
 
 -- 
