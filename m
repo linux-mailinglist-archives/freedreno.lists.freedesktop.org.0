@@ -1,64 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A34B44C847A
-	for <lists+freedreno@lfdr.de>; Tue,  1 Mar 2022 08:00:12 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EAEB4C8DFC
+	for <lists+freedreno@lfdr.de>; Tue,  1 Mar 2022 15:39:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B74F10E375;
-	Tue,  1 Mar 2022 07:00:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C63A310E4C8;
+	Tue,  1 Mar 2022 14:39:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
- Tue, 01 Mar 2022 06:55:04 UTC
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1E9310E398
- for <freedreno@lists.freedesktop.org>; Tue,  1 Mar 2022 06:55:04 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-122-WdwIAktFNf2mPBI1Zr5aEQ-1; Tue, 01 Mar 2022 06:48:50 +0000
-X-MC-Unique: WdwIAktFNf2mPBI1Zr5aEQ-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.28; Tue, 1 Mar 2022 06:48:49 +0000
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.028; Tue, 1 Mar 2022 06:48:49 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Abhinav Kumar' <quic_abhinavk@quicinc.com>, Johannes Berg
- <johannes@sipsolutions.net>, Greg KH <gregkh@linuxfoundation.org>
-Thread-Topic: [PATCH] devcoredump: increase the device delete timeout to 10
- mins
-Thread-Index: AQHYLOuC8GeBLyfvf0C5oMN+SX9icKyqFqUw
-Date: Tue, 1 Mar 2022 06:48:49 +0000
-Message-ID: <8fa2f879e33e4e42b76e21c6fbdcb023@AcuMS.aculab.com>
-References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
- <YgZD8vPqB7ISpRpZ@kroah.com>
- <654d620b-9e14-c47f-b48c-762dc0bd32a1@quicinc.com>
- <Ygdb63FrorUsX/Hg@kroah.com>
- <b9156bde-137c-2fac-19e0-b205ab4d6016@quicinc.com>
- <7db7d01fcf5a3edce61161769c0e6eb1541237bf.camel@sipsolutions.net>
- <2add9ba7-7bc8-bd1d-1963-61e8154b0e3c@quicinc.com>
- <989efb15-cc5e-8f6d-c313-118f01498e33@quicinc.com>
-In-Reply-To: <989efb15-cc5e-8f6d-c313-118f01498e33@quicinc.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E3EB10E4C8;
+ Tue,  1 Mar 2022 14:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646145568; x=1677681568;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=DRmNmAo5LxqGAA9xWA1po2CgEZAaq3Bwkeuu4aOIzQw=;
+ b=XbY8LbEEIW8VeiKOzcnUaqrPstvw18WdbjWEQiEKBuSQpsZOrAC2+xsn
+ ilZRSMeMtRQpE48AXfEl9BzE949h9UK/IyRAaMceDEvNyP49CmBNB+ldT
+ bbyqLTP+qa9xv+7YWeZ4cn4nzD3HbDWFO3r+tJ053GKvKumCkWoDY27rj
+ 8qStFSKuK4fFW8+fvciduF/cs6lqdziRu8sQOfI2uatNdy6oz+XdFCqae
+ EVc2z43RIiOKltdcHYycCT+loh0ZwE/cGb0fv0gnfQ3ktXyby8apDhuIn
+ RXLhaiQxLtyVVK0zAOEVk/PE9PJL3J9p246mq1XhuaxRrbiyXR2qaAvSi w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="313862123"
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="313862123"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 06:39:27 -0800
+X-IronPort-AV: E=Sophos;i="5.90,146,1643702400"; d="scan'208";a="510532163"
+Received: from ssahani-mobl.amr.corp.intel.com (HELO [10.212.127.177])
+ ([10.212.127.177])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Mar 2022 06:39:25 -0800
+Message-ID: <559c9698-f182-fa93-d6a7-009aadfd8c66@linux.intel.com>
+Date: Tue, 1 Mar 2022 14:39:23 +0000
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-Mailman-Approved-At: Tue, 01 Mar 2022 07:00:10 +0000
-Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
- timeout to 10 mins
+To: Rob Clark <robdclark@gmail.com>
+References: <20220225202614.225197-1-robdclark@gmail.com>
+ <20220225202614.225197-3-robdclark@gmail.com>
+ <CAF6AEGvXs9etrtBUP5fAx7z6pLMV76a-FEXrdk2gY8npDHrFnA@mail.gmail.com>
+ <f460b115-6ff6-7f69-8b0d-174c4defc771@linux.intel.com>
+ <CAF6AEGsNHkODt4oOgAhLdrik1Jt-cfcyjk+nGzDhSMNfFMEWsA@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <CAF6AEGsNHkODt4oOgAhLdrik1Jt-cfcyjk+nGzDhSMNfFMEWsA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: Expose client engine
+ utilization via fdinfo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,26 +65,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "rafael@kernel.org" <rafael@kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "swboyd@chromium.org" <swboyd@chromium.org>,
- "khsieh@codeaurora.org" <khsieh@codeaurora.org>,
- "nganji@codeaurora.org" <nganji@codeaurora.org>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "aravindh@codeaurora.org" <aravindh@codeaurora.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-RnJvbTogQWJoaW5hdiBLdW1hcg0KPiBTZW50OiAyOCBGZWJydWFyeSAyMDIyIDIxOjM4DQouLi4N
-Cj4gV2UgYWxzbyBkaWQgc29tZSBwcm9maWxpbmcgYXJvdW5kIGhvdyBtdWNoIGluY3JlYXNpbmcg
-dGhlIGJsb2NrIHNpemUNCj4gaGVscHMgYW5kIGhlcmUgaXMgdGhlIGRhdGE6DQo+IA0KPiBCbG9j
-ayBzaXplCWNvc3QNCj4gDQo+IDRLQgkgICAgICAgIDIyOXMNCj4gOEtCCSAgICAgICAgIDg2cw0K
-DQpZb3UgbXVzdCBoYXZlIGFuIE8obl4yKSBvcGVyYXRpb24gaW4gdGhlcmUgLSBmaW5kIGl0Lg0K
-DQoJRGF2aWQNCg0KLQ0KUmVnaXN0ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQs
-IE1vdW50IEZhcm0sIE1pbHRvbiBLZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86
-IDEzOTczODYgKFdhbGVzKQ0K
 
+On 28/02/2022 16:01, Rob Clark wrote:
+> On Mon, Feb 28, 2022 at 6:33 AM Tvrtko Ursulin
+> <tvrtko.ursulin@linux.intel.com> wrote:
+>>
+>>
+>> On 25/02/2022 22:14, Rob Clark wrote:
+>>> On Fri, Feb 25, 2022 at 12:25 PM Rob Clark <robdclark@gmail.com> wrote:
+>>>>
+>>>> From: Rob Clark <robdclark@chromium.org>
+>>>>
+>>>> Similar to AMD commit
+>>>> 874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
+>>>> infrastructure added in previous patches, we add basic client info
+>>>> and GPU engine utilisation for msm.
+>>>>
+>>>> Example output:
+>>>>
+>>>>           # cat /proc/`pgrep glmark2`/fdinfo/6
+>>>>           pos:    0
+>>>>           flags:  02400002
+>>>>           mnt_id: 21
+>>>>           ino:    162
+>>>>           drm-driver:     msm
+>>>>           drm-client-id:  7
+>>>>           drm-engine-gpu: 1734371319 ns
+>>>>           drm-cycles-gpu: 1153645024
+>>
+>> Nice, so my vendor agnostic actually worked (with that single fixup of
+>> accounting for the fact pdev tag is optional)?
+>>
+>>> Note that it might be useful to have a standardized way to report # of
+>>> cycles and max freq, so userspace tool can derive %utilization in
+>>> addition to just %busy
+>>
+>> How do you define %utilisation vs %busy - I don't exactly follow since I
+>> see the two as same?
+> 
+> so, say you are running at 50% of max clk, and gpu is busy 70% of the
+> time.  The utilization is only 35% because the gpu could scale up the
+> clk to get more work done.
+
+Got it, thanks. I don't think we have the equivalent on the i915 side 
+(we do have global frequency reporting via perf/PMU). In general things 
+like these I imagined would be defined as driver specific tags. If you 
+look at the drm-usage-stats.rst in my series, there is a "Driver 
+specific implementations" section in there which links to the i915 doc 
+section.
+
+I've also put a "big fat" comment into the i915 fdinfo fops vfunc 
+pointing back to drm-usage-stats.rst which I think is useful when large 
+teams work on a driver. Not sure if that applies to msm so just mentioning.
+
+Since this all works for you, would you mind applying your ack against 
+20220222140422.1121163-9-tvrtko.ursulin@linux.intel.com?
+
+I need to get some updates r-b's for my series and then I submit it 
+again to Dave and Daniel for final acks.
+
+After that, for a 2nd/follow-up phase, I plan to re-surrect the amdgpu 
+patch I had to make it compliant to common format, plus document the 
+option of engine utilisation tag being in percentage units as exposed 
+from that driver. And extending gputop to support that as well.
+
+Regards,
+
+Tvrtko
+
+>> Looking at your patch I guess I don't understand the difference between
+>> 'elapsed' and 'cycles' inside your retire_submit(). Both are scoped to a
+>> single context and are not global? If 'elapsed' is time context has
+>> spent on the GPU, cycles isn't the same just in a different unit?
+> 
+> Correct, we capture (from GPU cmdstream) two counters both before and
+> after a submit (aka execbuf) runs, one is a fixed-rate counter, which
+> gives us elapsed time.  The second is a counter that increments every
+> clk cycle, which gives us the # of cycles.  With the two values, we
+> can calculate GPU frequency.
+> 
+> BR,
+> -R
+> 
+>> Regards,
+>>
+>> Tvrtko
+>>
