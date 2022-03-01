@@ -2,63 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 884F84C921F
-	for <lists+freedreno@lfdr.de>; Tue,  1 Mar 2022 18:45:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFD864C977F
+	for <lists+freedreno@lfdr.de>; Tue,  1 Mar 2022 22:05:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 082D110E5A6;
-	Tue,  1 Mar 2022 17:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44BAC10E1F0;
+	Tue,  1 Mar 2022 21:05:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F27510E5A6;
- Tue,  1 Mar 2022 17:45:11 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id ay10so3878979wrb.6;
- Tue, 01 Mar 2022 09:45:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LCKZuqBaQrqVvcLu/EUZDoUvEFQ31pI7qQ+wygT5714=;
- b=GgdmWlO6xVaLOUNuLj+YvNsSoAlTqMq+dOrCyEjLKS+ZFbI2FQbSkpU2ikDfOzkS63
- fgIHsSAFVJRTiXxioBvPS3Fj5Spj2nIxhcf2L7R24GTdQHbeGQvQjtZgzBZ/HE+QNYJA
- iHjXoDqknYBPfOULvIzlb2BeMyItKLFDk0d9hVXJe3mtde2171/FtAcKiIgiAURpFuOU
- /epZze29QyzrVoZGY1GgRHXmkgHyQuzsLFB/cP1oufq80EOxPWTAQ7xwZD4ElrD/Ck99
- ptIoFxorgkey4MAKh+JiiQMTS+K3YJlcQf+6XnCZcc8xtgx2W05S2wMssyHlyn/TMk7/
- DN6Q==
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
+ [209.85.161.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D5C10E13B;
+ Tue,  1 Mar 2022 21:05:29 +0000 (UTC)
+Received: by mail-oo1-f54.google.com with SMTP id
+ i10-20020a4aab0a000000b002fccf890d5fso23883919oon.5; 
+ Tue, 01 Mar 2022 13:05:29 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LCKZuqBaQrqVvcLu/EUZDoUvEFQ31pI7qQ+wygT5714=;
- b=4jiHEIiHiuG3h9QUgINlxWIk3oplB1MKgpBP6JBa9JB8IqQiZyK6njoy0Y1UgForyJ
- 5JJ8y4sbMFQj+BduZlgxkXCI6Z+IoJh2h42zfW5dzSVxdUS8oJGi8w3X1eUTWd/3We5X
- lWsxY/K70x/2NJd4BOT4tN8Yvdczl0YOQz1/AJzpw1wSygLQLyS8SHNeiDvwlxnEBCBb
- 8X+s4i4rxtppHYGh/XisCc6BCFf2zsHx04evgJaXpMKhM0on5T+DvdiASn/doCSNes2n
- NUs7wEGWZA9k0WNTfB21aEXdU4+BPeEolQdk4OiVDVt60FZchMIukIGiMbx6FWsy9U4e
- Ua3Q==
-X-Gm-Message-State: AOAM5316o19Pxej4XZtaiG8/2nc0RlO3qCA5rESRvEH8j2C0fCGiBJ7v
- 2ONs9E1kaoVTbKemI8rkOT+nLBLABUYb2CtoHB8=
-X-Google-Smtp-Source: ABdhPJwQNgpFjfl73NGhoHP4atwM/20R77juX1EAsRkGpJfhZO7TsJePIDQE5ElT3fRCwE7agOirdL04RUfznC8bUXE=
-X-Received: by 2002:a5d:44c7:0:b0:1ed:e11c:9b73 with SMTP id
- z7-20020a5d44c7000000b001ede11c9b73mr19967467wrr.574.1646156709718; Tue, 01
- Mar 2022 09:45:09 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LA63EIWpIZ22OioRlWHUUutV4ScbviS709H8bVJmJVw=;
+ b=vasxbcCCDiloJH5X3b7vgzr5sQMh2U0c7FzcIRCX0cCQi+Ouwi1b/pWtcpr0ZWmNTP
+ N1PI7Hfp36DY8SLstHEB2Uw9L8s4xuzQsBMWKS0yFUw0CjTzF/pWgcQu9S/i5Gkf1fVu
+ qdl4K8TPKtC9lzUCiIDNOT+TS7qz7J20xKJOLbHJf2B/qzxz6EWcWCn6384vjrrR0/NZ
+ vYbAYmyBFgaXFQa7SAlIKC4XwKGd6HD9O2yh4l/xPIDnomjN6vPumrIzeqWKoYnniQEL
+ w15iAUM6GcWBBlFSGQE9Hpm1V8Zaqm3gSf2vz1CRsOnVckpL95iSxBiTd+NwDxog2JqN
+ 4bpA==
+X-Gm-Message-State: AOAM533hfZqiX5YoZ4wgjQDspwmmQSZuUn8GJ4H5aaIf0JJIXXcaI2Xd
+ 2ST/76rXb7K072GcjTXvJg==
+X-Google-Smtp-Source: ABdhPJyfiQHVEpQyGjJIrnx0etDK7qNmr6LLYws42hGF8QBlc1/VXskb0M4ja4dcze527igdCgI0Hw==
+X-Received: by 2002:a05:6870:63a7:b0:d9:9e33:c9d4 with SMTP id
+ t39-20020a05687063a700b000d99e33c9d4mr98939oap.69.1646168728216; 
+ Tue, 01 Mar 2022 13:05:28 -0800 (PST)
+Received: from xps15.herring.priv (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213]) by smtp.googlemail.com with ESMTPSA id
+ t7-20020a9d5907000000b005afa4058a4csm7125244oth.1.2022.03.01.13.05.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Mar 2022 13:05:27 -0800 (PST)
+From: Rob Herring <robh@kernel.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Del Regno <angelogioacchino.delregno@somainline.org>,
+ Loic Poulain <loic.poulain@linaro.org>
+Date: Tue,  1 Mar 2022 15:05:13 -0600
+Message-Id: <20220301210513.1855076-1-robh@kernel.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
- <YgZD8vPqB7ISpRpZ@kroah.com>
- <654d620b-9e14-c47f-b48c-762dc0bd32a1@quicinc.com>
- <Ygdb63FrorUsX/Hg@kroah.com>
- <b9156bde-137c-2fac-19e0-b205ab4d6016@quicinc.com>
- <7db7d01fcf5a3edce61161769c0e6eb1541237bf.camel@sipsolutions.net>
- <2add9ba7-7bc8-bd1d-1963-61e8154b0e3c@quicinc.com>
- <989efb15-cc5e-8f6d-c313-118f01498e33@quicinc.com>
- <8fa2f879e33e4e42b76e21c6fbdcb023@AcuMS.aculab.com>
-In-Reply-To: <8fa2f879e33e4e42b76e21c6fbdcb023@AcuMS.aculab.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 1 Mar 2022 09:45:39 -0800
-Message-ID: <CAF6AEGtNGJanJ9f2pkjst50yPSWGJPo5nDkcZZgq=BkRWMq4yg@mail.gmail.com>
-To: David Laight <David.Laight@aculab.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
- timeout to 10 mins
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] dt-bindings: display/msm: Drop bogus interrupt
+ flags cell on MDSS nodes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,50 +64,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "aravindh@codeaurora.org" <aravindh@codeaurora.org>,
- "rafael@kernel.org" <rafael@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "khsieh@codeaurora.org" <khsieh@codeaurora.org>,
- "nganji@codeaurora.org" <nganji@codeaurora.org>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- Johannes Berg <johannes@sipsolutions.net>,
- "swboyd@chromium.org" <swboyd@chromium.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Feb 28, 2022 at 10:49 PM David Laight <David.Laight@aculab.com> wrote:
->
-> From: Abhinav Kumar
-> > Sent: 28 February 2022 21:38
-> ...
-> > We also did some profiling around how much increasing the block size
-> > helps and here is the data:
-> >
-> > Block size    cost
-> >
-> > 4KB           229s
-> > 8KB            86s
->
-> You must have an O(n^2) operation in there - find it.
+The MDSS interrupt provider is a single cell, so specifying interrupt flags
+on the consumers is incorrect.
 
-The problem is how the devcoredump/sysfs interface works, which
-results in "re-rendering" the output for each block.. it's fine for
-moderate size sysfs files, but scales quite badly once you get into
-couple MB size sysfs files.
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/display/msm/dpu-msm8998.yaml          | 4 ++--
+ .../devicetree/bindings/display/msm/dpu-qcm2290.yaml          | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-It could be fixed by having some way to keep state across successive
-read callbacks.
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+index 167bc48748d7..2df64afb76e6 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-msm8998.yaml
+@@ -155,7 +155,7 @@ examples:
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+     #include <dt-bindings/power/qcom-rpmpd.h>
+ 
+-    display-subsystem@c900000 {
++    mdss: display-subsystem@c900000 {
+         compatible = "qcom,msm8998-mdss";
+         reg = <0x0c900000 0x1000>;
+         reg-names = "mdss";
+@@ -192,7 +192,7 @@ examples:
+             clock-names = "iface", "bus", "mnoc", "core", "vsync";
+ 
+             interrupt-parent = <&mdss>;
+-            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
++            interrupts = <0>;
+             operating-points-v2 = <&mdp_opp_table>;
+             power-domains = <&rpmpd MSM8998_VDDMX>;
+ 
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+index 8766b13f0c46..28617bc1d2ff 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+@@ -197,7 +197,7 @@ examples:
+                 power-domains = <&rpmpd QCM2290_VDDCX>;
+ 
+                 interrupt-parent = <&mdss>;
+-                interrupts = <0 IRQ_TYPE_NONE>;
++                interrupts = <0>;
+ 
+                 ports {
+                         #address-cells = <1>;
+-- 
+2.32.0
 
-BR,
--R
-
->         David
->
-> -
-> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
-> Registration No: 1397386 (Wales)
