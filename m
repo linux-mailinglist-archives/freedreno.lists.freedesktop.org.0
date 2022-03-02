@@ -2,65 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2D4D4CB29A
-	for <lists+freedreno@lfdr.de>; Wed,  2 Mar 2022 23:54:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9DF4CB2C7
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 00:47:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5C110E7AA;
-	Wed,  2 Mar 2022 22:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D0810E87E;
+	Wed,  2 Mar 2022 23:47:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A09D110E7AA
- for <freedreno@lists.freedesktop.org>; Wed,  2 Mar 2022 22:54:21 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id 5so3389712lfz.9
- for <freedreno@lists.freedesktop.org>; Wed, 02 Mar 2022 14:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=I/L0yu6xWoay6PlawGPpd06J/A2WPkL2s2cqdaEK+Ks=;
- b=b94OIzWbOWEGzrng+NGPHaIrx/8QeINkda6Ml263QN1J+oQbqRkOIt79judywV36nB
- EBELVRi8yLkxbmFX9xDQBOzTD82Z8GHuMPr9QqAmkk/8aX4gGfrJMhf7vN/QEESU7Rja
- 5wGREPlwRjZtPgCOwYPgqYrpeFszqOv4ZyaMCnIwKmhVGQQJb7BWnoY/gYwyplXQ7cJ7
- pDtSBof5k3cxKJQjQauif9RtTCMu7hwoSPUTNCH4yZsGSr4m0EQRl7un2VYmVI4Nj5zU
- wB397Lrqu67l0iW2rxkW3I01a82yBW9G2DcU8LVMVAdxTf3Gs4KQUBGUjlefnJ5Q7eJB
- INRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=I/L0yu6xWoay6PlawGPpd06J/A2WPkL2s2cqdaEK+Ks=;
- b=vTM1xExwRjxZtb6YR5mjkdDo0xaOKoxOLIPLwApbXwu76MDazqWb7BZUL2RxmBlGtp
- +RMUWwqy/BwuFfUPmavGvSouzhRskdLwqbM62mVdAfN2A3cAV+GoG+VkTVjc3T6ABYvK
- IunFkxflYmJfmmHXmdBO21OO7nzV2m7sFhZjUWgB7x2RSjpwyHByCaZos6Xpogjf3BIo
- 5JJ9A5S06y5EWXyiPaTNcD0RnFoYncrX9VH+vThWoPskegwS7B7iZGpJhkCabrSQt1eu
- SVN9NlaZbvQEB8RfP+wrug8fslmfyg2MgnQgLsd41TLgIkvLtSVFtiT/Fk5Tqa1mtJyQ
- oEQQ==
-X-Gm-Message-State: AOAM532K5afuWpyxCDbqklzfLgKiCoozHsX3TN+L3zUNw/W4bviDvEOq
- LS2CDTRHotnSEeTy7axZ1lbX3Q==
-X-Google-Smtp-Source: ABdhPJwwvQR0vD9FZ299QAiPm1IxiWVuAajuPYm5A9TWGw/1UDW6EZnSZpLduvd6UfFyY/mSiEZLoA==
-X-Received: by 2002:a05:6512:ba6:b0:42a:84ee:d9d9 with SMTP id
- b38-20020a0565120ba600b0042a84eed9d9mr20848149lfv.353.1646261659976; 
- Wed, 02 Mar 2022 14:54:19 -0800 (PST)
-Received: from eriador.lan ([2001:470:dd84:abc0::8a5])
- by smtp.gmail.com with ESMTPSA id
- x26-20020a05651c105a00b00246585ccd53sm54236ljm.75.2022.03.02.14.54.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Mar 2022 14:54:19 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Herring <robh+dt@kernel.org>
-Date: Thu,  3 Mar 2022 01:54:11 +0300
-Message-Id: <20220302225411.2456001-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
-References: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39AF110E881
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Mar 2022 23:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1646264846; x=1677800846;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=KwJmzLMc/dS9fM65kAwlsOu7mLCuAExYDF3cN1aB5fM=;
+ b=uFYyYCLMS+HWnTe1OOp5JlMBkFIXEMPvzRM/igfYi7LxziGCduhhAHq8
+ 5Bp2BdFlZtx3njofac6OkPZ0CEm6dzrx/lPLc6Z1jfNj+hTGtxMR5MpTP
+ gEtkKHUDbjvmIPR75O8WqScn8pSaCHrzJCwkNXCVxDTRLXeLg9KX8VJFm w=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 02 Mar 2022 15:47:25 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2022 15:47:25 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Wed, 2 Mar 2022 15:47:24 -0800
+Received: from [10.110.107.103] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Wed, 2 Mar 2022
+ 15:47:24 -0800
+Message-ID: <2cd02c8b-9c1b-e87b-a90c-6e591b3a21a4@quicinc.com>
+Date: Wed, 2 Mar 2022 15:47:23 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 6/6] arm: dts: qcom-msm8974: Drop flags for
- mdss irqs
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Rob Herring
+ <robh+dt@kernel.org>
+References: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 1/6] arm64: dts: qcom: msm8996: Drop
+ flags for mdss irqs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,38 +73,50 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The number of interrupt cells for the mdss interrupt controller is 1,
-meaning there should only be one cell for the interrupt number, not two.
-Drop the second cell containing (unused) irq flags.
 
-Fixes: 5a9fc531f6ec ("ARM: dts: msm8974: add display support")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm/boot/dts/qcom-msm8974.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom-msm8974.dtsi
-index 412d94736c35..3b9af5e24907 100644
---- a/arch/arm/boot/dts/qcom-msm8974.dtsi
-+++ b/arch/arm/boot/dts/qcom-msm8974.dtsi
-@@ -1495,7 +1495,7 @@ mdp: mdp@fd900000 {
- 				reg-names = "mdp_phys";
- 
- 				interrupt-parent = <&mdss>;
--				interrupts = <0 0>;
-+				interrupts = <0>;
- 
- 				clocks = <&mmcc MDSS_AHB_CLK>,
- 					 <&mmcc MDSS_AXI_CLK>,
-@@ -1530,7 +1530,7 @@ dsi0: dsi@fd922800 {
- 				reg-names = "dsi_ctrl";
- 
- 				interrupt-parent = <&mdss>;
--				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <4>;
- 
- 				assigned-clocks = <&mmcc BYTE0_CLK_SRC>,
- 				                  <&mmcc PCLK0_CLK_SRC>;
--- 
-2.34.1
-
+On 3/2/2022 2:54 PM, Dmitry Baryshkov wrote:
+> The number of interrupt cells for the mdss interrupt controller is 1,
+> meaning there should only be one cell for the interrupt number, not two.
+> Drop the second cell containing (unused) irq flags.
+> 
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Fixes: 12d540375736 ("arm64: dts: qcom: msm8996: Add DSI0 nodes")
+> Fixes: 3a4547c1fc2f ("arm64: qcom: msm8996.dtsi: Add Display nodes")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   arch/arm64/boot/dts/qcom/msm8996.dtsi | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+> index f0f81c23c16f..0597d865a4a6 100644
+> --- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+> @@ -788,7 +788,7 @@ mdp: mdp@901000 {
+>   				reg-names = "mdp_phys";
+>   
+>   				interrupt-parent = <&mdss>;
+> -				interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
+> +				interrupts = <0>;
+>   
+>   				clocks = <&mmcc MDSS_AHB_CLK>,
+>   					 <&mmcc MDSS_AXI_CLK>,
+> @@ -834,7 +834,7 @@ dsi0: dsi@994000 {
+>   				reg-names = "dsi_ctrl";
+>   
+>   				interrupt-parent = <&mdss>;
+> -				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
+> +				interrupts = <4>;
+>   
+>   				clocks = <&mmcc MDSS_MDP_CLK>,
+>   					 <&mmcc MDSS_BYTE0_CLK>,
+> @@ -904,7 +904,7 @@ hdmi: hdmi-tx@9a0000 {
+>   					    "hdcp_physical";
+>   
+>   				interrupt-parent = <&mdss>;
+> -				interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+> +				interrupts = <8>;
+>   
+>   				clocks = <&mmcc MDSS_MDP_CLK>,
+>   					 <&mmcc MDSS_AHB_CLK>,
