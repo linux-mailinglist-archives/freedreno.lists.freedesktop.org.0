@@ -1,43 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D096A4CB2C8
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 00:48:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F184CB2CA
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 00:48:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74ED310E884;
-	Wed,  2 Mar 2022 23:48:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2841E10E881;
+	Wed,  2 Mar 2022 23:48:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C079410E87E
- for <freedreno@lists.freedesktop.org>; Wed,  2 Mar 2022 23:48:06 +0000 (UTC)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3472110E881
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Mar 2022 23:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1646264886; x=1677800886;
+ t=1646264915; x=1677800915;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=ePGEAQEiXFqvztXXwX7CVXcMlSsk/5spLo6n3yeErdw=;
- b=YNVWYYv55MbyylRtA7ODUcJ/qMz9C83ErANw73JYl/alfT5N74VSilBt
- 8GqoOQvO7qfNpVffSX+6RmvjYoqrar4ehLdQe0uJ9JnY4Iptb/dzxPXEB
- o1bhvvwNHJk3wRjhFMlhV0kgVD2AUtNHBMPOxRawM6ewYDc5v86Lw7/Fc A=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 02 Mar 2022 15:48:06 -0800
+ bh=0DAvJOiBdWFmSA3GJybrRhevNmWhbEx6OwmcLmcJAw4=;
+ b=iuSBnINQk2nvW2UmzwYwXsLGpLmTCwbFXTZtQ+a8OG5/Rg3Yet6dlZAb
+ E08mlxgiKvyfFSkFmcXV1xyAhuQZsbEoSw5vl8NSvqoghZcm+bZ9DQC4l
+ o5zCUp7ryvMKuj0cyY6lccjBPgjN8XY+yME8MsPMJkVxb5aX5HRqejEJK E=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 02 Mar 2022 15:48:34 -0800
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2022 15:48:05 -0800
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2022 15:48:19 -0800
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Wed, 2 Mar 2022 15:48:05 -0800
+ 15.2.986.15; Wed, 2 Mar 2022 15:48:18 -0800
 Received: from [10.110.107.103] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Wed, 2 Mar 2022
- 15:48:04 -0800
-Message-ID: <283d65cc-5785-4d17-f998-44a6bf8e1c3d@quicinc.com>
-Date: Wed, 2 Mar 2022 15:48:04 -0800
+ 15:48:18 -0800
+Message-ID: <7ffb5f73-4694-9a7f-8130-765c7b7d71e9@quicinc.com>
+Date: Wed, 2 Mar 2022 15:48:17 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.1
@@ -47,15 +46,15 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Andy Gross
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Rob Herring
  <robh+dt@kernel.org>
 References: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
- <20220302225411.2456001-2-dmitry.baryshkov@linaro.org>
+ <20220302225411.2456001-3-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220302225411.2456001-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220302225411.2456001-3-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 2/6] arm64: dts: qcom: sdm630: Drop flags
+Subject: Re: [Freedreno] [PATCH v2 3/6] arm64: dts: qcom: sdm660: Drop flags
  for mdss irqs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,32 +81,23 @@ On 3/2/2022 2:54 PM, Dmitry Baryshkov wrote:
 > Drop the second cell containing (unused) irq flags.
 > 
 > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Fixes: b52555d590d1 ("arm64: dts: qcom: sdm630: Add MDSS nodes")
+> Fixes: ab290284398d ("arm64: dts: qcom: sdm660: Add required nodes for DSI1")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   arch/arm64/boot/dts/qcom/sdm630.dtsi | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+>   arch/arm64/boot/dts/qcom/sdm660.dtsi | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-> index 240293592ef9..7f875bf9390a 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-> @@ -1453,7 +1453,7 @@ mdp: mdp@c901000 {
->   				reg-names = "mdp_phys";
+> diff --git a/arch/arm64/boot/dts/qcom/sdm660.dtsi b/arch/arm64/boot/dts/qcom/sdm660.dtsi
+> index eccf6fde16b4..1d748c5305f4 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm660.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm660.dtsi
+> @@ -163,7 +163,7 @@ dsi1: dsi@c996000 {
+>   		power-domains = <&rpmpd SDM660_VDDCX>;
 >   
->   				interrupt-parent = <&mdss>;
-> -				interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
-> +				interrupts = <0>;
+>   		interrupt-parent = <&mdss>;
+> -		interrupts = <5 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupts = <5>;
 >   
->   				assigned-clocks = <&mmcc MDSS_MDP_CLK>,
->   						  <&mmcc MDSS_VSYNC_CLK>;
-> @@ -1530,7 +1530,7 @@ dsi0: dsi@c994000 {
->   				power-domains = <&rpmpd SDM660_VDDCX>;
->   
->   				interrupt-parent = <&mdss>;
-> -				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-> +				interrupts = <4>;
->   
->   				assigned-clocks = <&mmcc BYTE0_CLK_SRC>,
->   						  <&mmcc PCLK0_CLK_SRC>;
+>   		assigned-clocks = <&mmcc BYTE1_CLK_SRC>,
+>   					<&mmcc PCLK1_CLK_SRC>;
