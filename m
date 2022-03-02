@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C6B4C9A2B
-	for <lists+freedreno@lfdr.de>; Wed,  2 Mar 2022 01:52:30 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50DB64C9A5F
+	for <lists+freedreno@lfdr.de>; Wed,  2 Mar 2022 02:27:46 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6589410E944;
-	Wed,  2 Mar 2022 00:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FDCC10E93C;
+	Wed,  2 Mar 2022 01:27:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B51010E927
- for <freedreno@lists.freedesktop.org>; Wed,  2 Mar 2022 00:52:19 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id e8so158437ljj.2
- for <freedreno@lists.freedesktop.org>; Tue, 01 Mar 2022 16:52:19 -0800 (PST)
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D063B10E642
+ for <freedreno@lists.freedesktop.org>; Wed,  2 Mar 2022 01:27:39 +0000 (UTC)
+Received: by mail-oo1-xc31.google.com with SMTP id
+ k13-20020a4a948d000000b003172f2f6bdfso312516ooi.1
+ for <freedreno@lists.freedesktop.org>; Tue, 01 Mar 2022 17:27:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=mdO1kFafRmQB1ylhJ2FjgGW8EzDUwR+K8t4/Xs4kq9Q=;
- b=Fxtmo3aMycl7xk+Lul0LSWm5TG/mfwTVTqYPa+KjBqw5rC0QwR7Ao0sUfevGtF5LD4
- k64tX8Oo4Lji0Neh2ivP2XcbTNozVjQZ02oR1Nq42hy8yNDHgzFbvVup1KAMGd/AUj4z
- J5bd2yGF/yd/cXGRy8M0E6h1bI/X2QcQUDBFaSpPSmogfHEwn3hhkFEkxYGOVvU0fhVW
- uEVLgFXq+9blz33lpJTojXDydraVexwlMs0VZ/Ra4aQG66KwSwbME0Ze4wWQuv4GjwkD
- SnEsJAQw7eFWZc2JRZ+m931di+scS7Ohj+zfIR4887/m6dwmD/D6YZCL7mvTovY+c/w7
- +zNw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=knKff9m1SSa1i2Jf9YTF9j12Lvs6C0dJTe/yY9EehIE=;
+ b=JKVAG8VNOqbdpBasGXOclZzoF4HHztXmyufblKs9S+8MzQg09t2La3l2aemOnatttM
+ ruvsh9OD9Bwj47/d4GLD9VfqIsP0KKYBXYxHratz3WFOQvAykgAmjJ6n3LbzCe2l/Vi8
+ LOVoXWBi7WWLZ9aijWHyAFr4j4WMbW9wn1AfT47EE+F1VKLmZSgx9+XT1nwx/Jec6JHv
+ TNq+SebN8j6GNN9ySAHPQaz49P1d7sasEmZ/Jui5lKR/TummVcZioNFU92cL4j3hZCdI
+ uBQAYZ9tEw76VPgUW6/UD1O7SWwy2BZfJOFS90YcMu03FR1XBhZHysMAqLcBnbzP9mSW
+ 98dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=mdO1kFafRmQB1ylhJ2FjgGW8EzDUwR+K8t4/Xs4kq9Q=;
- b=ACmOwI9VcqWXxNePWVAq29El+ZrJcj5aiSSwU9aRktlU5QLWR/bDsi5G/Me8qGSFua
- RCWnBlDpwRZ17JjF9XKeQLgQYSmOqT4NMvfpphhDr0OqMm9NKr9RQXFao0nZ6nzHWxu7
- N6ZS9siabqmEs3efaKoSj9z9DL3aZhQbBOMQl9ZCGI8HEqJsjQ0qrqcbEBOoaI0VTzhh
- rRUp1TqALLgHO0w/qsdz1dGnr7ovWHV+zyiDhNCSNboSiPoQajngtQxjsKKYIdHvturC
- raUEnmw6YRO82+/JFK4DpnnuQ5WwFKrqKE7kU9uu8l2xVJ/Iqa4P/fSlwjvHpLTalJVq
- TAqg==
-X-Gm-Message-State: AOAM530v3uRf7o5l/Z89ldhAw6O583ZApUsco0c1x2NBfwXXYEbp3DeL
- g+7kxNkA/C5vidWoHgHWj71gJg==
-X-Google-Smtp-Source: ABdhPJxpIAoiAGbopIhIpyPpAucdmEDZ21agCkEkSvjzXqvdU+rcmpCfmeynxX6N0Hks9plHTf6bhQ==
-X-Received: by 2002:a05:651c:1209:b0:22e:353c:76c0 with SMTP id
- i9-20020a05651c120900b0022e353c76c0mr18589141lja.139.1646182337477; 
- Tue, 01 Mar 2022 16:52:17 -0800 (PST)
-Received: from eriador.lan ([2001:470:dd84:abc0:5258:5528:7624:3edd])
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=knKff9m1SSa1i2Jf9YTF9j12Lvs6C0dJTe/yY9EehIE=;
+ b=ctOrpk5Jz71LKyphfgi5KP/2gaYJ/7bNz4rMaE8LfLBYZbuQRMM0huGmRM79JLUQZw
+ gP5oHal+ptfHcCxBtdH+915ZupRrlvbJWqK0z9V30kOsAtRNPkrpM1w9uNkJ4XbHqEXX
+ yxKFVi10/YjQRE4q9zJz5FTw3GclF3uPGSupEnfkgwWGN1cVZ5y95m9rgdX+fooh9eP5
+ KoTUANkVMkeU/Sf3GmsHeolSH9SgrNa0mUejvhupJPbdqP6mIGEsjYftqEPsNYiKpn5s
+ KJj43Tx39DpKJWcTN+ixuy7wyqS/+xR0lYyfYGIta8IRLw5Nse5IicfP8IKQH5BIzAui
+ MjuQ==
+X-Gm-Message-State: AOAM531v1WVa2pobQceYvRrWDffIRR8pEx0WLQcKU/A1FhcDi1M2P6mq
+ 7x+32rKSLCCiASxoZo/KRz/jOw==
+X-Google-Smtp-Source: ABdhPJxixOFh3lm/h04oBLu7zQ0+6NPTfLFIsCxfmBOqi2YYi85+e8re5ihk2kbh5qJLy2J+D+JM8Q==
+X-Received: by 2002:a05:6870:9a29:b0:d6:bba7:970f with SMTP id
+ fo41-20020a0568709a2900b000d6bba7970fmr13678368oab.166.1646184459005; 
+ Tue, 01 Mar 2022 17:27:39 -0800 (PST)
+Received: from ripper.. ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
  by smtp.gmail.com with ESMTPSA id
- n23-20020a19ef17000000b00445b8db3c42sm198171lfh.172.2022.03.01.16.52.16
+ t9-20020a056871054900b000c53354f98esm6728948oal.13.2022.03.01.17.27.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Mar 2022 16:52:17 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Tue, 01 Mar 2022 17:27:38 -0800 (PST)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Date: Wed,  2 Mar 2022 03:52:10 +0300
-Message-Id: <20220302005210.2267725-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220302005210.2267725-1-dmitry.baryshkov@linaro.org>
-References: <20220302005210.2267725-1-dmitry.baryshkov@linaro.org>
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Loic Poulain <loic.poulain@linaro.org>
+Date: Tue,  1 Mar 2022 17:29:30 -0800
+Message-Id: <20220302012931.4107196-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] arm64: dts: qcom: sm8250: Drop flags for
- mdss irqs
+Subject: [Freedreno] [PATCH v2 1/2] dt-bindings: display: msm: Add optional
+ resets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,53 +74,87 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The number of interrupt cells for the mdss interrupt controller is 1,
-meaning there should only be one cell for the interrupt number, not two.
-Drop the second cell containing (unused) irq flags.
+Add an optional reference to the MDSS_CORE reset, which when specified
+can be used by the implementation to reset the hardware blocks.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index fdaf303ba047..956848068871 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -3200,7 +3200,7 @@ mdss_mdp: mdp@ae01000 {
- 				power-domains = <&rpmhpd SM8250_MMCX>;
+Changes since v1:
+- New approach/patch
+
+ .../devicetree/bindings/display/msm/dpu-qcm2290.yaml          | 4 ++++
+ Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml | 4 ++++
+ Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml | 4 ++++
+ Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml | 4 ++++
+ 4 files changed, 16 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+index 8766b13f0c46..965027fe205c 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+@@ -66,6 +66,10 @@ properties:
+   interconnect-names:
+     const: mdp0-mem
  
- 				interrupt-parent = <&mdss>;
--				interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <0>;
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+index 12a86b1ec1bc..b41991eaa454 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+@@ -65,6 +65,10 @@ properties:
+   interconnect-names:
+     const: mdp0-mem
  
- 				ports {
- 					#address-cells = <1>;
-@@ -3252,7 +3252,7 @@ dsi0: dsi@ae94000 {
- 				reg-names = "dsi_ctrl";
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+index fbeb931a026e..6e417d06fc79 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+@@ -64,6 +64,10 @@ properties:
+   interconnect-names:
+     const: mdp0-mem
  
- 				interrupt-parent = <&mdss>;
--				interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <4>;
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+index 0dca4b3d66e4..1a42491efdbc 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+@@ -57,6 +57,10 @@ properties:
  
- 				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
- 					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-@@ -3325,7 +3325,7 @@ dsi1: dsi@ae96000 {
- 				reg-names = "dsi_ctrl";
+   ranges: true
  
- 				interrupt-parent = <&mdss>;
--				interrupts = <5 IRQ_TYPE_LEVEL_HIGH>;
-+				interrupts = <5>;
- 
- 				clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
- 					 <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
 -- 
-2.34.1
+2.33.1
 
