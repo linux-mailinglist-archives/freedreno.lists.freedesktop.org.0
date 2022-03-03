@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E094CC8D1
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:25:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC674CC8F5
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:32:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C161310E34A;
-	Thu,  3 Mar 2022 22:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4B710E367;
+	Thu,  3 Mar 2022 22:32:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5323910E34A
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:25:37 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- k9-20020a056830242900b005ad25f8ebfdso5868147ots.7
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:25:37 -0800 (PST)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E0B10E367
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:32:13 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ w3-20020a4ac183000000b0031d806bbd7eso7412944oop.13
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:32:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=W6b+sDlQ6fUC15y02viB9CBBs238nvSYgTbrXnSADxI=;
- b=i2VfhCwlYGuVKKwL2On8iEbyuLJyjQn2RZoPEiUYjw6HvvOnr1qNcHvsCi6NwL3w+Y
- oau/hrdWaWQwCpLO3mcfsYYwxfC4AXGtI8JB3sTnm8lZsoE7z3uI2oXik9/GeHNZW4GQ
- KBU77p6PVW4i8EQ+/ue+Mj1ZHXAesYbfQbVW8=
+ bh=aqHukTgau4IAvFi00RDl1B7HiBWVDHFl56OK28PMHW0=;
+ b=IVmxY43aCeIX1Sbf2joZSulhij/7ZJfOsfW2ct8zFCjANbR9ljRuZIFKVy5W9n1ycu
+ cZPe+i2/RpGClp2hAwhQ6i4nJ66ijPtZf4fDH12JPPUWIrIelgejMh2ieJ64xE8FZlMu
+ 0KgrAIWNyVggchJz8CU8kNPEMwijbzgnTzazk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=W6b+sDlQ6fUC15y02viB9CBBs238nvSYgTbrXnSADxI=;
- b=OjtVUIhvZKVRRjuPngC9ifGcl7vVgvdI4fVSjigvnFMpuNRRoIJHm2OPORzgjMEGka
- ZbkpbABzvEpyATZ62ldzHU0plgqChs/+2RirkZALilLed3kwc8M34szwKQZJnc5kRMGg
- bhhE0Y0LdVSpCvhFZ11NMx+zZo6IQopiLA9ry7JN1i30vLK7+BXFlADHwhKRLQI1OFUv
- yXiBEj0HnUBnv4ikb8ro8UT09ki05Y6c5IXiKv7GshmAtsRiAWvdUQFAciU38KD8RQL8
- dOKdGTJjbP50FeZFhSI2c+oANWlj9t/vCNgLj2KqpAd2Fm+TqfEQlnToChAQgpnXR14O
- UzHw==
-X-Gm-Message-State: AOAM5317P+3zEKsIFaNOoWTsrkWycIdZiaIef3H3PCe7xB+d1LTVDohr
- Q3FwId2Q7MNhI0XMtB3+aRvUVM9bD052w0FVdH11aQ==
-X-Google-Smtp-Source: ABdhPJySDSyjRk7hKcrQxOwP82H8qzkkTjbRnV9lItUMyzxYwnq8G8pll8AB/Htj0HsykplhTrDx4gVGSByQP9iDe0k=
-X-Received: by 2002:a9d:22e9:0:b0:5ac:1754:342c with SMTP id
- y96-20020a9d22e9000000b005ac1754342cmr20039488ota.159.1646346336645; Thu, 03
- Mar 2022 14:25:36 -0800 (PST)
+ bh=aqHukTgau4IAvFi00RDl1B7HiBWVDHFl56OK28PMHW0=;
+ b=rUBn9rxd9+SEJeAs+9GXSrYJYxIiX87VcpnnJ9GS12TT3djN04FDg2vvgYazgvIfnK
+ oiqFg5NnIgMwdDdN/CmwtNglYjYj83E5kU7j+e8MwHVLHmbGz12Nh9zr/jYsHbaBKTBT
+ AuGj2TNm2l6bjlVCB0ENQZldicsa9505xEWE7qO8/Cigspif1+KMQ7FxUCJo+vxaOhxU
+ LUP0MFuAFgPMYuYC7DediwqLGTHdGT4VDcoivo6FOcmFE36zM7/l3fPA35Rp86Uxe2JG
+ qPfkvTb9x8S/hxX3rEcLM2NBC75HKi8X+7ik3EuVYscVmij+U1Tha84ZMXYq61eznux5
+ d6/w==
+X-Gm-Message-State: AOAM532VHKH3ohY6BfZFk2Qiw6rGHY2EACulZhmQrREDT3iS5GxpDu7k
+ Hu4XLyqbiyU9+BzLkCfka8ruPHxtP+2BDcgWarbn0A==
+X-Google-Smtp-Source: ABdhPJwMvqlFwnhs+sdOU8vYBeqkpQAJFIeV5g0NI9aFagfB5z15TsHZXR/x+aDGr8bjw4w7sdXlVyOqMAx/7wBdwfQ=
+X-Received: by 2002:a4a:9821:0:b0:320:52bb:3806 with SMTP id
+ y30-20020a4a9821000000b0032052bb3806mr6929333ooi.1.1646346733194; Thu, 03 Mar
+ 2022 14:32:13 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Mar 2022 14:25:36 -0800
+ HTTPREST; Thu, 3 Mar 2022 14:32:12 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220217055529.499829-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220217055529.499829-4-dmitry.baryshkov@linaro.org>
 References: <20220217055529.499829-1-dmitry.baryshkov@linaro.org>
- <20220217055529.499829-3-dmitry.baryshkov@linaro.org>
+ <20220217055529.499829-4-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 3 Mar 2022 14:25:36 -0800
-Message-ID: <CAE-0n53Zy3BV3Z0A55Fo2vefndAKayPdUBfQy1i0BFj0cNMnzw@mail.gmail.com>
+Date: Thu, 3 Mar 2022 14:32:12 -0800
+Message-ID: <CAE-0n529mx1ke89iw8xXZEDcs0z84hA09B31cWeVQSTU9RAAYg@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 2/5] drm/msm/dp: "inline"
- dp_ctrl_set_clock_rate("ctrl_link")
+Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm/dp: set stream_pixel rate
+ directly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,13 +75,41 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-16 21:55:26)
-> "ctrl_link" is the clock from DP_CTRL_PM module. The result of setting
-> the rate for it would be a call to dev_pm_opp_set_rate(). Instead of
-> saving the rate inside struct dss_module_power, call the
-> devm_pm_opp_set_rate() directly.
+Quoting Dmitry Baryshkov (2022-02-16 21:55:27)
+> The only clock for which we set the rate is the "stream_pixel". Rather
+> than storing the rate and then setting it by looping over all the
+> clocks, set the clock rate directly.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+[...]
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 07f6bf7e1acb..8e6361dedd77 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1315,7 +1315,7 @@ static void dp_ctrl_set_clock_rate(struct dp_ctrl_private *ctrl,
+>         DRM_DEBUG_DP("setting rate=%lu on clk=%s\n", rate, name);
+>
+>         if (num)
+> -               cfg->rate = rate;
+> +               clk_set_rate(cfg->clk, rate);
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+This looks bad. From what I can tell we set the rate of the pixel clk
+after enabling the phy and configuring it. See the order of operations
+in dp_ctrl_enable_mainlink_clocks() and note how dp_power_clk_enable()
+is the one that eventually sets a rate through dp_power_clk_set_rate()
+
+        dp_ctrl_set_clock_rate(ctrl, DP_CTRL_PM, "ctrl_link",
+                                        ctrl->link->link_params.rate * 1000);
+
+        phy_configure(phy, &dp_io->phy_opts);
+        phy_power_on(phy);
+
+        ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, true);	
+
+and I vaguely recall that the DP phy needs to be configured for some
+frequency so that the pixel clk can use it when determining the rate to
+set.
+
+>         else
+>                 DRM_ERROR("%s clock doesn't exit to set rate %lu\n",
+>                                 name, rate);
