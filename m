@@ -2,62 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A8B4CB3E4
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 01:50:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 762294CB76D
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 08:06:39 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A91A810E7E2;
-	Thu,  3 Mar 2022 00:50:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16ADB10EF13;
+	Thu,  3 Mar 2022 07:06:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B7E10E7E2
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 00:50:28 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- 6-20020a4a0906000000b0031d7eb98d31so4045655ooa.10
- for <freedreno@lists.freedesktop.org>; Wed, 02 Mar 2022 16:50:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=/2EC8zNvMiYjPaYg70TgRdx3fCegP4HpnaEb1DNrlZA=;
- b=OBFuGz0Ovh0fRb/PVgoG+6iRhtp4Lo5PnJTLPVBDsK3SbG51eTCV9I4bToYGWzzQwQ
- uLhWFAuGVtEUu6Ssk8Uzo1ocqlJ05rCzZpWp6izZ5LzLEP1Ww01xvVoGmkOtrQ219h/u
- wCjoAYhfJqyZV9e8VwkWp+RUhZkYyr03XT89c=
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0CFD10EF14
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 07:06:37 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id j5so3413411qvs.13
+ for <freedreno@lists.freedesktop.org>; Wed, 02 Mar 2022 23:06:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8HcPSO5J8NY98uQ2bWJs7uIQP8jHLYwpTbsEfnFQ6Kc=;
+ b=gTke+FKomJbgtcblPcwsyJWe1O1L6dpL9xC4RB6BmIQnJe61/Dn8IPPfiaiEFr3pzf
+ cwte0nVrO20l0utome+glbq+FWdU8ecw/C9Y7YDd4Wkdq9iKIGbFinT2OC/yS8LFpBu9
+ 7L/5SFrcap2IzLDmsBnp4TI+7PXWQM34ZWKhdG/ZPSdSyJLh/cGYduiAwJG8qtjSIPyk
+ Ur3JoeO5XqWfcJbtg6nqKuuahdnRmHZZPuPcPeQl/MYyuK66DakMDDQMVcvmxbPUOpL8
+ ToNc5/wke8v8P7RhoZym3z027YVlaIZIb+Rf3qNOZPX2zKW66lgI8mxh+SI1XK4NXyqZ
+ 0qWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=/2EC8zNvMiYjPaYg70TgRdx3fCegP4HpnaEb1DNrlZA=;
- b=3e8sm0KjljAR5NfgGG0R8fNQbMTbSRzNAFjcqOxYBjLDeHpROn8rB5imDYEOZOzzpC
- N15NrfVwNNzRU/+PGewSVIOdO5RgIhf9cMxD5raeJ9GdJLketvFaKHb1e9AlEQHEERWS
- 1tjAIZljBitpQ6OU1m+md5VFOxCnGYMWBiXDkF89bwHYqcx/pWlioIczT95oSd0sMZbP
- lYsdlIOQRHWS7mSEgPzGU5MzYx1bpFV8NRchdb/lqKaSZiYjroo+YpKKW2qBwZl94141
- pbt0EEyhTVb2kb5hQT2n7dh2p8nm9EXOsq1aD+nNmxREnHWdSXLBu1J9gHdrZj6fylbi
- lFBA==
-X-Gm-Message-State: AOAM530nj8Y0vh7+Nmbn6SZBPsgoansmTYKru2jNpU4K04/V5p18Q6cQ
- A5a7t53oIlcteg+seCMYIviMPCe4W2f35Z+nP3s0bg==
-X-Google-Smtp-Source: ABdhPJymMjnJcBkJ90VOhI42XO7hU17YKFFFlRx1RXjtrukwo8gQVLyOc3QdIvx9eR+49WHllUiLCYVPLyMyMvHI2gg=
-X-Received: by 2002:a05:6870:14cf:b0:d9:a9ce:92a9 with SMTP id
- l15-20020a05687014cf00b000d9a9ce92a9mr2104667oab.64.1646268627242; Wed, 02
- Mar 2022 16:50:27 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Mar 2022 16:50:26 -0800
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8HcPSO5J8NY98uQ2bWJs7uIQP8jHLYwpTbsEfnFQ6Kc=;
+ b=AbrhYwjyVBD7+3baD3NHLi4n0TYQFW3zVr6R1gQzoM+Knj1VN8SOfwDzZZNHM78r7v
+ nckaHwHqcWM3K57XWWu6v7MfU+r6JslUbU1Jv2+DcUvCea12nZ6c15d7E2IHePT+FkCG
+ C7SB3QX2U/WsSk92to+B0NDLJKfn0hhk43qvGtmdUpjunN2jtnfItesen5BY9bCK+Y3z
+ fT8mPpNE0Qml40uG3rigOJlYyJsCg6CyMN+MHqldHRGEwzK4RDiQL/svR6NsOrw5K7oQ
+ McUNEHkw0hZJo1xXcPQJs2+aY07vqagbWDXauM9mkPhC4zzB+niHFLjUVwhB7X033uwY
+ 02Qw==
+X-Gm-Message-State: AOAM531Efk/GMvrYJsIj8rOhAsNQV0ufXMUBO1SYw9WZi+kuyTmgIdCo
+ Pi79XX8OhybTmI9OY/zM/EockYBnnkTD0Mx4883Ytg==
+X-Google-Smtp-Source: ABdhPJxgEHrGjaehZwVCMpI1VHaONVhbr10R7pT9rBRPyCyU3TXHNAzER80GICpogrsLdSBT1uwAn0te9XkwhuBPnWU=
+X-Received: by 2002:ad4:5883:0:b0:432:b007:962b with SMTP id
+ dz3-20020ad45883000000b00432b007962bmr22084284qvb.55.1646291196714; Wed, 02
+ Mar 2022 23:06:36 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20220302225411.2456001-6-dmitry.baryshkov@linaro.org>
-References: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
- <20220302225411.2456001-6-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 2 Mar 2022 16:50:26 -0800
-Message-ID: <CAE-0n52WNiinbFSaKJKQ7sPwD6SNH_o9tyyw5ig-m0v8svsumg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Sean Paul <sean@poorly.run>
+References: <20220219183310.557435-1-robdclark@gmail.com>
+ <6f1225ea-d889-9cf8-3a3d-181e319bd453@linaro.org>
+ <CAF6AEGut-75ri+U=B2eBtNeYQu5ECKPmk51b2_pCgu91uKy1ow@mail.gmail.com>
+In-Reply-To: <CAF6AEGut-75ri+U=B2eBtNeYQu5ECKPmk51b2_pCgu91uKy1ow@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 3 Mar 2022 10:06:25 +0300
+Message-ID: <CAA8EJpoAnPDefJ9rc6fjF+6oS5EVA7JCbZs7Ui7KDE+dfEbMEA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 6/6] arm: dts: qcom-msm8974: Drop flags
- for mdss irqs
+Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
+ devfreq support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,21 +65,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Anders Roxell <anders.roxell@linaro.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Maybe the subject should say "mdp" because there isn't an "mdss" but
-this isn't a big deal.
-
-Quoting Dmitry Baryshkov (2022-03-02 14:54:11)
-> The number of interrupt cells for the mdss interrupt controller is 1,
-> meaning there should only be one cell for the interrupt number, not two.
-> Drop the second cell containing (unused) irq flags.
+On Wed, 23 Feb 2022 at 18:46, Rob Clark <robdclark@gmail.com> wrote:
 >
-> Fixes: 5a9fc531f6ec ("ARM: dts: msm8974: add display support")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> On Tue, Feb 22, 2022 at 7:11 PM Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+> >
+> > On 19/02/2022 21:33, Rob Clark wrote:
+> > > From: Rob Clark <robdclark@chromium.org>
+> > >
+> > > Avoid going down devfreq paths on devices where devfreq is not
+> > > initialized.
+> > >
+> > > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> > > Reported-by: Anders Roxell <anders.roxell@linaro.org>
+> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > ---
+> > >   drivers/gpu/drm/msm/msm_gpu_devfreq.c | 31 +++++++++++++++++++++------
+> > >   1 file changed, 25 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> > > index 9bf319be11f6..26a3669a97b3 100644
+> > > --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> > > +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> > > @@ -83,12 +83,17 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
+> > >   static void msm_devfreq_boost_work(struct kthread_work *work);
+> > >   static void msm_devfreq_idle_work(struct kthread_work *work);
+> > >
+> > > +static bool has_devfreq(struct msm_gpu *gpu)
+> > > +{
+> > > +     return !!gpu->funcs->gpu_busy;
+> >
+> > I see that devfreq init will be skipped if gpu_busy is NULL.
+> > Can we use gpu->devfreq instead of this condition?
+>
+> We could, but then we couldn't also use the same has_devfreq() helper
+> in msm_devfreq_init().  I thought it was clearer to use the same
+> helper everywhere.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Well... It is not clear at first glance how gpu_busy is related to
+devfreq. On the other hand, if gpu->devfreq is NULL, it's obvious that
+devfreq is not initialized.
+
+I'd propose to use if (gpu->funcs->gpu_busy) to check if we can init
+devfreq and after that to check (gpu->devfreq) as a way to know
+whether the devfreq is available.
+
+>
+> > I noticed that you have replaced some of gpu->devfreq checks with
+> > has_devreq() calls. Is there any difference?
+>
+> It amounts to the same thing because if you don't have gpu_busy, then
+> devfreq is never initialized.  I just thought it clearer to use the
+> same check in all places.
+
+See my comment above.
+
+>
+> BR,
+> -R
+>
+> > > +}
+> > > +
+> > >   void msm_devfreq_init(struct msm_gpu *gpu)
+> > >   {
+> > >       struct msm_gpu_devfreq *df = &gpu->devfreq;
+> > >
+> > >       /* We need target support to do devfreq */
+> > > -     if (!gpu->funcs->gpu_busy)
+> > > +     if (!has_devfreq(gpu))
+> > >               return;
+> > >
+> > >       dev_pm_qos_add_request(&gpu->pdev->dev, &df->idle_freq,
+> > > @@ -149,6 +154,9 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
+> > >   {
+> > >       struct msm_gpu_devfreq *df = &gpu->devfreq;
+> > >
+> > > +     if (!has_devfreq(gpu))
+> > > +             return;
+> > > +
+> > >       devfreq_cooling_unregister(gpu->cooling);
+> > >       dev_pm_qos_remove_request(&df->boost_freq);
+> > >       dev_pm_qos_remove_request(&df->idle_freq);
+> > > @@ -156,16 +164,24 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
+> > >
+> > >   void msm_devfreq_resume(struct msm_gpu *gpu)
+> > >   {
+> > > -     gpu->devfreq.busy_cycles = 0;
+> > > -     gpu->devfreq.time = ktime_get();
+> > > +     struct msm_gpu_devfreq *df = &gpu->devfreq;
+> > >
+> > > -     devfreq_resume_device(gpu->devfreq.devfreq);
+> > > +     if (!has_devfreq(gpu))
+> > > +             return;
+> > > +
+> > > +     df->busy_cycles = 0;
+> > > +     df->time = ktime_get();
+> > > +
+> > > +     devfreq_resume_device(df->devfreq);
+> > >   }
+> > >
+> > >   void msm_devfreq_suspend(struct msm_gpu *gpu)
+> > >   {
+> > >       struct msm_gpu_devfreq *df = &gpu->devfreq;
+> > >
+> > > +     if (!has_devfreq(gpu))
+> > > +             return;
+> > > +
+> > >       devfreq_suspend_device(df->devfreq);
+> > >
+> > >       cancel_idle_work(df);
+> > > @@ -185,6 +201,9 @@ void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+> > >       struct msm_gpu_devfreq *df = &gpu->devfreq;
+> > >       uint64_t freq;
+> > >
+> > > +     if (!has_devfreq(gpu))
+> > > +             return;
+> > > +
+> > >       freq = get_freq(gpu);
+> > >       freq *= factor;
+> > >
+> > > @@ -207,7 +226,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
+> > >       struct devfreq_dev_status status;
+> > >       unsigned int idle_time;
+> > >
+> > > -     if (!df->devfreq)
+> > > +     if (!has_devfreq(gpu))
+> > >               return;
+> > >
+> > >       /*
+> > > @@ -253,7 +272,7 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
+> > >   {
+> > >       struct msm_gpu_devfreq *df = &gpu->devfreq;
+> > >
+> > > -     if (!df->devfreq)
+> > > +     if (!has_devfreq(gpu))
+> > >               return;
+> > >
+> > >       msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
+> >
+> >
+> > --
+> > With best wishes
+> > Dmitry
+
+
+
+-- 
+With best wishes
+Dmitry
