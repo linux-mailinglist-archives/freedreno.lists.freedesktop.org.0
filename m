@@ -1,60 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21E174CC921
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:36:21 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92DA04CC937
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:38:19 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC93610E38E;
-	Thu,  3 Mar 2022 22:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2307010E3BC;
+	Thu,  3 Mar 2022 22:38:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D54010E2BA
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:36:18 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id 12so6176392oix.12
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:36:18 -0800 (PST)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84A8810E3B8
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:38:16 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id g20so8506820edw.6
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:38:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=+IxH+v4af7VzrKdvTOvKB5ZMTKZ+t8ui6EDkfQqlJ0s=;
- b=PJEWLzqqseHPPRxvwZuM6uOTCWfL7xJ4o5KBWyKiuf78oArICZi8oBY5JN41+D6+U4
- 1V9U45UN69k8kRFLyAd9as/9FWGo1nF+iiwSB/r4fL96T8nXvfeocBGPnibJfvM2El6W
- 4MoTqRyW2rvnGjSsyvxThTWme7V1vFH2sns3U=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ST9Fc76g6pvjQi4fhR+noZ4Seq3datbHBQS0X9jUxZ8=;
+ b=FrOz5ub3zWjEQK22ZLwg3u+vEvcmxk5pcWahe3+zoJFfvsvs0UQBjv/AElEkUlyAw9
+ EePN55pYYRl4RbnXJxniWi54yJRwLRFnUpNNgmipiWdmEHy76MIi5bA6dIIROOGw5+9j
+ DlrsvRRt7Ab5hlgGMIvKwZMS89rVmz14yqa6Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=+IxH+v4af7VzrKdvTOvKB5ZMTKZ+t8ui6EDkfQqlJ0s=;
- b=FaCUOhGgBc8/X+cX8n6v7wwL53ScM6e4k78iRK7ysd6ALM+vzdJcCbujcXHQOTfr/t
- 8yksGphX6mAHSGFmFh5oVzS1ygvL9m0U49zN8pYi2wcH4sz5MzULWXCBaVa0iSfWteID
- Pck5jpDBkL1+sHYhyaqCfKCozzVIqZWX7i5r+YjzbpfuAC0L1bdTM/cXp9kN8q5Qc4qK
- 7aclz+xCsV5dFXZHwapT4cFvnMaPMFR/MA23nwi6MmQxf/dIcWyagfr+jCsM1Mo8CoUA
- /WQ3olNbjhK6M4FtkAWtebpiO58hLRxvj9iEk8h/oxHIB1ynIxgs7tj3hs+Jl72iQdN9
- rW6w==
-X-Gm-Message-State: AOAM5318f7ECHxm2jz+V/CSOHov242G5WVkOD+ajuJhFnqpy9YRXij6E
- O8Il/tQVVrkpjaCPoP/ImnQvr/uKOiSghQoKqL9y6w==
-X-Google-Smtp-Source: ABdhPJwzE9l5wF1WBh0ZzcfsjbubuW7clbOvgM6f0zoFQo0kH1jqpjN6+RqUObMiyusKhqmjRdcZskOhtJ9BSyNvUUE=
-X-Received: by 2002:aca:3346:0:b0:2d9:91f9:a7f2 with SMTP id
- z67-20020aca3346000000b002d991f9a7f2mr922767oiz.32.1646346977864; Thu, 03 Mar
- 2022 14:36:17 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Mar 2022 14:36:17 -0800
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ST9Fc76g6pvjQi4fhR+noZ4Seq3datbHBQS0X9jUxZ8=;
+ b=Asr/4wKCFelv5GjfD1HXgzPjO6hLJl/7tx3a27ktZzNIjnXTHuSz4VKCYzoXlrSlm4
+ K4lxSu8QoIkWDeSz3gyBMGe0pdNvL1vH5VJjCvS2AHDCTdDxLrTDWnO7o3e+jtyzcode
+ cOxJrD9k1RrWAv7U0w94QGskc03b8gS3oJZABaiigTI//ckxGdONdesuPHcts1KiiqfW
+ ztO7xn6/qI2eqwU9KsvnNIHQ0CQZ+J27bGY3JkpBg6xI4LqjYAgzPDQML4lBrAJ5HfX1
+ 45cQqHsxasJrRt/p4xVtHsuSNnnxDpX8MYJM/vW1+1LALDr2JPPEqU2LPFSdmH2Z+Wuc
+ S+Gg==
+X-Gm-Message-State: AOAM5313wwfaiNdf2Sok17bcWWRTTvv5xPCd2g0f+sbZV0xU12dDowkB
+ DMnMHqmxI2RLb7Cwh+zKAplhiZYJI9/RDQ==
+X-Google-Smtp-Source: ABdhPJxXI0jfo3W1oz8oQpDwjcAJaql5NxvgnOFunWrQILmXdjfV3fRF266KYtuyj3tlMyrtFN8NFw==
+X-Received: by 2002:a50:cfc4:0:b0:413:b19d:d9c0 with SMTP id
+ i4-20020a50cfc4000000b00413b19dd9c0mr23144544edk.384.1646347094801; 
+ Thu, 03 Mar 2022 14:38:14 -0800 (PST)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com.
+ [209.85.128.48]) by smtp.gmail.com with ESMTPSA id
+ c6-20020a05640227c600b00415e926bbe1sm987630ede.89.2022.03.03.14.38.13
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Mar 2022 14:38:13 -0800 (PST)
+Received: by mail-wm1-f48.google.com with SMTP id
+ l2-20020a7bc342000000b0037fa585de26so4564450wmj.1
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:38:13 -0800 (PST)
+X-Received: by 2002:a7b:c381:0:b0:37b:e01f:c1c0 with SMTP id
+ s1-20020a7bc381000000b0037be01fc1c0mr5453850wmj.98.1646347092922; Thu, 03 Mar
+ 2022 14:38:12 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAF6AEGuaYEC2rYxi1uU0S_Hkx-DbjT6wO4zz6sKSRON=eX10ng@mail.gmail.com>
-References: <20220303194758.710358-1-robdclark@gmail.com>
- <20220303194758.710358-4-robdclark@gmail.com>
- <CAE-0n532ZX=qXTBKSFyRYAmkqFN7oqKyPvJHBuVMmr2eHY+O4A@mail.gmail.com>
- <CAF6AEGstzPaLFf-9z9Gf+S4G8n6twxExLvKaqLZk9ML2tUWiLw@mail.gmail.com>
- <CAF6AEGuaYEC2rYxi1uU0S_Hkx-DbjT6wO4zz6sKSRON=eX10ng@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 3 Mar 2022 14:36:17 -0800
-Message-ID: <CAE-0n52xXJG3kohetn3sDBmsBpMqL5zvS2yRzP+sPdq5+7vHgQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+References: <1646300401-9063-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1646300401-9063-2-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1646300401-9063-2-git-send-email-quic_vpolimer@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 3 Mar 2022 14:38:00 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VHBn0H6Oz0F3vHrXZzSSo8y+QbLc-xn+CVVSQkommsHw@mail.gmail.com>
+Message-ID: <CAD=FV=VHBn0H6Oz0F3vHrXZzSSo8y+QbLc-xn+CVVSQkommsHw@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/4] drm/msm: Add SYSPROF param
+Subject: Re: [Freedreno] [PATCH v4 1/4] arm64/dts/qcom/sc7280: remove
+ assigned-clock-rate property for mdp clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +74,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
- Emma Anholt <emma@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+Cc: quic_kalyant@quicinc.com,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Rob Clark (2022-03-03 13:47:14)
-> On Thu, Mar 3, 2022 at 1:17 PM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > On Thu, Mar 3, 2022 at 12:47 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> > >
-> > > Quoting Rob Clark (2022-03-03 11:46:47)
-> > > > +
-> > > > +       /* then apply new value: */
-> > >
-> > > It would be safer to swap this. Otherwise a set when the values are at
-> > > "1" would drop to "zero" here and potentially trigger some glitch,
-> > > whereas incrementing one more time and then dropping the previous state
-> > > would avoid that short blip.
-> > >
-> > > > +       switch (sysprof) {
-> > > > +       default:
-> > > > +               return -EINVAL;
-> > >
-> > > This will become more complicated though.
-> >
-> > Right, that is why I took the "unwind first and then re-apply"
-> > approach.. in practice I expect userspace to set the value before it
-> > starts sampling counter values, so I wasn't too concerned about this
-> > racing with a submit and clearing the counters.  (Plus any glitch if
-> > userspace did decide to change it dynamically would just be transient
-> > and not really a big deal.)
->
-> Actually I could just swap the two switch's.. the result would be that
-> an EINVAL would not change the state instead of dropping the state to
-> zero.  Maybe that is better anyways
->
+Hi,
 
-Yeah it isn't clear to me what should happen if the new state is
-invalid. Outright rejection is probably better than replacing the
-previous state with an invalid state.
+On Thu, Mar 3, 2022 at 1:40 AM Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
+>
+> Kernel clock driver assumes that initial rate is the
+> max rate for that clock and was not allowing it to scale
+> beyond the assigned clock value.
+>
+> Drop the assigned clock rate property and vote on the mdp clock as per
+> calculated value during the usecase.
+
+I see the "Drop the assigned clock rate property" part, but where is
+the "and vote on the mdp clock" part? Did it already land or
+something? I definitely see that commit 5752c921d267 ("drm/msm/dpu:
+simplify clocks handling") changed a bunch of this but it looks like
+dpu_core_perf_init() still sets "max_core_clk_rate" to whatever the
+clock was at bootup. I assume you need to modify that function to call
+into the OPP layer to find the max frequency?
+
+
+> Changes in v2:
+> - Remove assigned-clock-rate property and set mdp clk during resume sequence.
+> - Add fixes tag.
+>
+> Changes in v3:
+> - Remove extra line after fixes tag.(Stephen Boyd)
+>
+> Fixes: 62fbdce91("arm64: dts: qcom: sc7280: add display dt nodes")
+
+Having a "Fixes" is good, but presumably you need a code change along
+with this, right? Otherwise if someone picks this back to stable then
+they'll end up breaking, right? We need to tag / note that _somehow_.
