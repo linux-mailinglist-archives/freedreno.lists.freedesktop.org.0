@@ -2,34 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37924CBE5E
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 14:01:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 924CE4CBE66
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 14:03:27 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63BC510E292;
-	Thu,  3 Mar 2022 13:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F71E10E292;
+	Thu,  3 Mar 2022 13:03:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from m-r2.th.seeweb.it (m-r2.th.seeweb.it [5.144.164.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76D3810E292
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 13:01:56 +0000 (UTC)
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60C3610E292
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 13:03:24 +0000 (UTC)
 Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
  [94.209.165.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 587923F94F;
- Thu,  3 Mar 2022 14:01:54 +0100 (CET)
-Date: Thu, 3 Mar 2022 14:01:53 +0100
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id B04903F949;
+ Thu,  3 Mar 2022 14:03:22 +0100 (CET)
+Date: Thu, 3 Mar 2022 14:03:21 +0100
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220303130153.fwg3vfz5ofvd5ary@SoMainline.org>
+Message-ID: <20220303130321.ezbe5w7rp4m25643@SoMainline.org>
 References: <20220302225411.2456001-1-dmitry.baryshkov@linaro.org>
- <20220302225411.2456001-4-dmitry.baryshkov@linaro.org>
+ <20220302225411.2456001-5-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220302225411.2456001-4-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v2 4/6] arm64: dts: qcom: sdm845: Drop flags
+In-Reply-To: <20220302225411.2456001-5-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 5/6] arm64: dts: qcom: sm8250: Drop flags
  for mdss irqs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,13 +52,13 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-03-03 01:54:09, Dmitry Baryshkov wrote:
+On 2022-03-03 01:54:10, Dmitry Baryshkov wrote:
 > The number of interrupt cells for the mdss interrupt controller is 1,
 > meaning there should only be one cell for the interrupt number, not two.
 > Drop the second cell containing (unused) irq flags.
 > 
 > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> Fixes: 08c2a076d18f ("arm64: dts: qcom: sdm845: Add dpu to sdm845 dts file")
+> Fixes: 7c1dffd471b1 ("arm64: dts: qcom: sm8250.dtsi: add display system nodes")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 Thanks for adding the Fixes: tag.
@@ -65,15 +66,15 @@ Thanks for adding the Fixes: tag.
 Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 
 > ---
->  arch/arm64/boot/dts/qcom/sdm845.dtsi | 6 +++---
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi | 6 +++---
 >  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> index 41f4e46e1f85..95e6a97c2170 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-> @@ -4281,7 +4281,7 @@ mdss_mdp: mdp@ae01000 {
->  				power-domains = <&rpmhpd SDM845_CX>;
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index fdaf303ba047..956848068871 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -3200,7 +3200,7 @@ mdss_mdp: mdp@ae01000 {
+>  				power-domains = <&rpmhpd SM8250_MMCX>;
 >  
 >  				interrupt-parent = <&mdss>;
 > -				interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
@@ -81,7 +82,7 @@ Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 >  
 >  				ports {
 >  					#address-cells = <1>;
-> @@ -4333,7 +4333,7 @@ dsi0: dsi@ae94000 {
+> @@ -3252,7 +3252,7 @@ dsi0: dsi@ae94000 {
 >  				reg-names = "dsi_ctrl";
 >  
 >  				interrupt-parent = <&mdss>;
@@ -90,7 +91,7 @@ Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
 >  
 >  				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
 >  					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-> @@ -4405,7 +4405,7 @@ dsi1: dsi@ae96000 {
+> @@ -3325,7 +3325,7 @@ dsi1: dsi@ae96000 {
 >  				reg-names = "dsi_ctrl";
 >  
 >  				interrupt-parent = <&mdss>;
