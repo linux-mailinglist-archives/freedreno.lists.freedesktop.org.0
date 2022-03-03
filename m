@@ -1,61 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E6B4CC90F
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:33:59 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 21E174CC921
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:36:21 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8BE910E367;
-	Thu,  3 Mar 2022 22:33:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC93610E38E;
+	Thu,  3 Mar 2022 22:36:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3B610E367
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:33:57 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id j24so6161010oii.11
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:33:57 -0800 (PST)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D54010E2BA
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:36:18 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id 12so6176392oix.12
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:36:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=lF0Dtfm5tuXnG8vTMCkjXhHNJyKSmMyJEFbODIk9Ay8=;
- b=hP54rWK9695Xv6Ax4gxz/Z0LyxkVeLS1cVuj+Db7e++0rVJLFrPRykRPG8sBya9xWB
- QVDQc9kZGQ/hBdMAZZcyqteJ2EWRSG2oiUOkVL0f38FyPYqTqDFbIIgwvcY6TjCpfmyT
- 2Y3vLXbzh8+57i5lLQyGXbNpXCHzl1FVrx9oo=
+ bh=+IxH+v4af7VzrKdvTOvKB5ZMTKZ+t8ui6EDkfQqlJ0s=;
+ b=PJEWLzqqseHPPRxvwZuM6uOTCWfL7xJ4o5KBWyKiuf78oArICZi8oBY5JN41+D6+U4
+ 1V9U45UN69k8kRFLyAd9as/9FWGo1nF+iiwSB/r4fL96T8nXvfeocBGPnibJfvM2El6W
+ 4MoTqRyW2rvnGjSsyvxThTWme7V1vFH2sns3U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=lF0Dtfm5tuXnG8vTMCkjXhHNJyKSmMyJEFbODIk9Ay8=;
- b=gkZ5f//ApEU63/GGoX+e2Ie4ZUjfHjpME8/LO2fO+fKuxVYjrwRDg7SVaSbIjSS8Fu
- pdi9MKFfzW6vx1peJEaF2yr+dhtNg74HCy4G7oFo9yccrLPH66dss7NRS/pS8ICrFs8p
- 9YbOh+5lqbzCl28JuJ5UwNS6lMHSd3ok1Tz3udc5a4SCUjK1FvHBXKyJKQlfx+iVzZ4S
- +kAo7a8KvZ9grRtpFVSdf5+RAPHr1DKIVjRJtbzcLP+uzCxbp1L7UOLU3TtYh8akbcy5
- LlWocagMQ1RTGKMnYjhXdb6HXVVArajIrlczM0ZEI0cmRIRD5RRo6EiK2kTT3fED29SD
- rcoQ==
-X-Gm-Message-State: AOAM533m6BKDrlwiDhDINApCquyJvscohb4xBPx4DLnG3yo81hFMB1Jb
- M0w3qCtUn3hsBhnvFhNlfwKaGqRu9S0AbSsHeTi+RzpdVE0=
-X-Google-Smtp-Source: ABdhPJzgOEQ4DnlS7qHir2txR1YyHGHvpGpOujLYaX4vwlMWe2204uMruSrw8Lxh9lr5F/i7YbKW6Tr1Gwe+2d24nNM=
-X-Received: by 2002:a05:6808:20a7:b0:2d4:d2f1:9edc with SMTP id
- s39-20020a05680820a700b002d4d2f19edcmr6674548oiw.64.1646346836818; Thu, 03
- Mar 2022 14:33:56 -0800 (PST)
+ bh=+IxH+v4af7VzrKdvTOvKB5ZMTKZ+t8ui6EDkfQqlJ0s=;
+ b=FaCUOhGgBc8/X+cX8n6v7wwL53ScM6e4k78iRK7ysd6ALM+vzdJcCbujcXHQOTfr/t
+ 8yksGphX6mAHSGFmFh5oVzS1ygvL9m0U49zN8pYi2wcH4sz5MzULWXCBaVa0iSfWteID
+ Pck5jpDBkL1+sHYhyaqCfKCozzVIqZWX7i5r+YjzbpfuAC0L1bdTM/cXp9kN8q5Qc4qK
+ 7aclz+xCsV5dFXZHwapT4cFvnMaPMFR/MA23nwi6MmQxf/dIcWyagfr+jCsM1Mo8CoUA
+ /WQ3olNbjhK6M4FtkAWtebpiO58hLRxvj9iEk8h/oxHIB1ynIxgs7tj3hs+Jl72iQdN9
+ rW6w==
+X-Gm-Message-State: AOAM5318f7ECHxm2jz+V/CSOHov242G5WVkOD+ajuJhFnqpy9YRXij6E
+ O8Il/tQVVrkpjaCPoP/ImnQvr/uKOiSghQoKqL9y6w==
+X-Google-Smtp-Source: ABdhPJwzE9l5wF1WBh0ZzcfsjbubuW7clbOvgM6f0zoFQo0kH1jqpjN6+RqUObMiyusKhqmjRdcZskOhtJ9BSyNvUUE=
+X-Received: by 2002:aca:3346:0:b0:2d9:91f9:a7f2 with SMTP id
+ z67-20020aca3346000000b002d991f9a7f2mr922767oiz.32.1646346977864; Thu, 03 Mar
+ 2022 14:36:17 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Mar 2022 14:33:56 -0800
+ HTTPREST; Thu, 3 Mar 2022 14:36:17 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220217055529.499829-6-dmitry.baryshkov@linaro.org>
-References: <20220217055529.499829-1-dmitry.baryshkov@linaro.org>
- <20220217055529.499829-6-dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAF6AEGuaYEC2rYxi1uU0S_Hkx-DbjT6wO4zz6sKSRON=eX10ng@mail.gmail.com>
+References: <20220303194758.710358-1-robdclark@gmail.com>
+ <20220303194758.710358-4-robdclark@gmail.com>
+ <CAE-0n532ZX=qXTBKSFyRYAmkqFN7oqKyPvJHBuVMmr2eHY+O4A@mail.gmail.com>
+ <CAF6AEGstzPaLFf-9z9Gf+S4G8n6twxExLvKaqLZk9ML2tUWiLw@mail.gmail.com>
+ <CAF6AEGuaYEC2rYxi1uU0S_Hkx-DbjT6wO4zz6sKSRON=eX10ng@mail.gmail.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 3 Mar 2022 14:33:56 -0800
-Message-ID: <CAE-0n53fxr=-jT2LvbNsyTMqT4B9t9q=OzzmdMSdf7U0QJLNuw@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+Date: Thu, 3 Mar 2022 14:36:17 -0800
+Message-ID: <CAE-0n52xXJG3kohetn3sDBmsBpMqL5zvS2yRzP+sPdq5+7vHgQ@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 5/5] drm/msm/dp: rewrite dss_module_power
- to use bulk clock functions
+Subject: Re: [Freedreno] [PATCH 3/4] drm/msm: Add SYSPROF param
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,17 +67,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
+ Emma Anholt <emma@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-16 21:55:29)
-> In order to simplify DP code, drop hand-coded loops over clock arrays,
-> replacing them with clk_bulk_* functions.
+Quoting Rob Clark (2022-03-03 13:47:14)
+> On Thu, Mar 3, 2022 at 1:17 PM Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > On Thu, Mar 3, 2022 at 12:47 PM Stephen Boyd <swboyd@chromium.org> wrote:
+> > >
+> > > Quoting Rob Clark (2022-03-03 11:46:47)
+> > > > +
+> > > > +       /* then apply new value: */
+> > >
+> > > It would be safer to swap this. Otherwise a set when the values are at
+> > > "1" would drop to "zero" here and potentially trigger some glitch,
+> > > whereas incrementing one more time and then dropping the previous state
+> > > would avoid that short blip.
+> > >
+> > > > +       switch (sysprof) {
+> > > > +       default:
+> > > > +               return -EINVAL;
+> > >
+> > > This will become more complicated though.
+> >
+> > Right, that is why I took the "unwind first and then re-apply"
+> > approach.. in practice I expect userspace to set the value before it
+> > starts sampling counter values, so I wasn't too concerned about this
+> > racing with a submit and clearing the counters.  (Plus any glitch if
+> > userspace did decide to change it dynamically would just be transient
+> > and not really a big deal.)
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> Actually I could just swap the two switch's.. the result would be that
+> an EINVAL would not change the state instead of dropping the state to
+> zero.  Maybe that is better anyways
+>
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Yeah it isn't clear to me what should happen if the new state is
+invalid. Outright rejection is probably better than replacing the
+previous state with an invalid state.
