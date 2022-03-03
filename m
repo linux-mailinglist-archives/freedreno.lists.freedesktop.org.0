@@ -2,58 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E2214CC855
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 22:47:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B09284CC84F
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 22:45:52 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35AAE10E9A6;
-	Thu,  3 Mar 2022 21:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 605B310E17C;
+	Thu,  3 Mar 2022 21:45:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A00E310E9A6;
- Thu,  3 Mar 2022 21:47:28 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- bi14-20020a05600c3d8e00b00386f2897400so354243wmb.5; 
- Thu, 03 Mar 2022 13:47:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XY3rEMgnaHo7kvIwqwRgN3QxydUq02k88+0c5ZSrCNI=;
- b=qTU8k58q4Oxz+S1GlKmr+UZf0k57Rmc2UWQTTJowUvKPv28CY8skoOIvw55GfUqvGk
- zg4DZtHFs4I+Z5owPyK/q3U0wVF5x+2FpOxaVanwt3k3BRXovLqNgEAJBoaE8k3QNkOJ
- OfO1JeMOhFvCSTVeeaWErSrakxpVBUtuji3W6y8PwZ1ZVIcO+opE5P8NRxDn6AOZRP0B
- Ofz0e2UaFGQMauBj7XJROWpOA/z4PGb6BbWE9Sh6jeaZwxbPzJVwbC+o7B1D5C6lq1rf
- 5GazNKcUTsLKGURYh1RAKhvmBPXEr/K/tMrOBqkIcq5e89o/q5rTW7670WCE0yB4wSg8
- Fc8Q==
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8005F10E7AF
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 21:45:50 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ w3-20020a056830060300b005ad10e3becaso5783433oti.3
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 13:45:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=+D9KZ+TZBc5mJAc5ZBrKXdGjjaQ+oV8E1MHR11bjfGA=;
+ b=aHSIQO3gotT4d2PpILUEdU0BlfMPsE64+4FBQZTvhbuHXzA/PE8no/nyZDE5dJmeZB
+ yxIm+6s7NrD70OFZ/CUSCAx+1fE4dQoUOCFJ58Uy0DvCbKBPAYG7Iq/EK5v8dz2rjWxA
+ lKkxjyo5UqbV6PCtouphV8t8jfY9fnISZd2bf5icms8GL7MEZqvtSgRaseo6yqbcl2Ng
+ WnmCRAR1lbHkUvSjDjWCV7EjnitYX54dATUWAz5PHBbERYfnDBWgJlVGjqvhul+TxQ6Q
+ Gk8ggxAsj+T3IfL/HerbcxR4DCuKPXsbMJZjMGWGTar46vqfG/K/rwxBsKzj/ywvMwye
+ jvXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XY3rEMgnaHo7kvIwqwRgN3QxydUq02k88+0c5ZSrCNI=;
- b=XLjcrA9fUKWB6ML6pRafX7n5h5eWH3/mVmd8QrKKPOjEVSyCu4Q2PfVQyX80ap73HQ
- D1pthdGs4amy5UjpIlIfYtNG5qP9HHUgAYkpVTvsPuM2k+diRU6n5EvUkSQdB2SyJL2N
- IFRIcpXiOQSmtkirDkA9ZC1KMKm4hEssu9K5lNSodJRPz/45uFOJlTyK6luA0tlAsPOP
- tTYgSkn3dKAzoLUz3rmG+MgNh/bPTX+q7WIrsscxfjbKC1bg2KendV8P+8uUCXKeJYyG
- FDrMz+vOcnzaKn5tCYNxNFnLWSudcjj5jF9joRzrh9X4dxV4d9aSKPEgRhBfxPREGttg
- Niqg==
-X-Gm-Message-State: AOAM532d7KseXcuqDUV3A97Zl54YmJ/jkqsw7NbJdknA7AhoX7aGQGHa
- gB17pk9u4BH/AzFIaZPiKwG6vJ7Vbcr+rn3O4VI=
-X-Google-Smtp-Source: ABdhPJyjiLusxqxe19OkyKf3cnF+lFS2omHJmBV1wzLbSnMFtR61PhGiM2IabT8BUEIcrcD5a//etCtAJehiSxHBpV0=
-X-Received: by 2002:a05:600c:25cd:b0:381:4f09:a4b6 with SMTP id
- 13-20020a05600c25cd00b003814f09a4b6mr5405089wml.44.1646344047011; Thu, 03 Mar
- 2022 13:47:27 -0800 (PST)
-MIME-Version: 1.0
-References: <20220303194758.710358-1-robdclark@gmail.com>
- <20220303194758.710358-4-robdclark@gmail.com>
- <CAE-0n532ZX=qXTBKSFyRYAmkqFN7oqKyPvJHBuVMmr2eHY+O4A@mail.gmail.com>
- <CAF6AEGstzPaLFf-9z9Gf+S4G8n6twxExLvKaqLZk9ML2tUWiLw@mail.gmail.com>
-In-Reply-To: <CAF6AEGstzPaLFf-9z9Gf+S4G8n6twxExLvKaqLZk9ML2tUWiLw@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 3 Mar 2022 13:47:14 -0800
-Message-ID: <CAF6AEGuaYEC2rYxi1uU0S_Hkx-DbjT6wO4zz6sKSRON=eX10ng@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=+D9KZ+TZBc5mJAc5ZBrKXdGjjaQ+oV8E1MHR11bjfGA=;
+ b=Ot0cZzrIolstxCPAOie7CvKpmHsVApcZt9bJZ/uXoPJEmNrDNID3qrbPe+BL9pqRYW
+ NC72VK5EYcV+0Gvl2zTzX/F3YI5ql9DE5pmfeLD/l2T98hzaYNJFuvBOCKiLqDwID/+O
+ 57UCiWulejbjlkfWrUmdb36DTfaO4kVukKsipGienR4tE/csUuPeV/05+5kc4aFNGHuR
+ qXoPB6S+1/NU21h4OoF7fvdi0BG25GldPLueQDparqs8Yxm4P5+uqZlHfLN2wgH1TdQk
+ s9GDfpcpoGkAiliy5JDtgdcaVVHPHtCEtbqzVM8FeJDa1WYjQwsXkpRqC+/XCpEhYq94
+ bbQg==
+X-Gm-Message-State: AOAM530MOnvA+aj94tTLXIS+n7BROk+dZ07FQpXVdnx93dIrrLjrAEos
+ wt2K3HT7SpPJ0ixfvGKhk+EOOg==
+X-Google-Smtp-Source: ABdhPJzo82QXMbB5D2MSX2V622d9vJLKLZ2JgZW9JJZBk9T6Ti9H7CWqa4bozUVh5GJ3dUMXWFTG5A==
+X-Received: by 2002:a9d:6a43:0:b0:5af:6595:458c with SMTP id
+ h3-20020a9d6a43000000b005af6595458cmr20511219otn.241.1646343949729; 
+ Thu, 03 Mar 2022 13:45:49 -0800 (PST)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id
+ r4-20020a9d5cc4000000b005af6f4ff5e2sm1526906oti.61.2022.03.03.13.45.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Mar 2022 13:45:49 -0800 (PST)
+Date: Thu, 3 Mar 2022 13:47:38 -0800
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/4] drm/msm: Add SYSPROF param
+Message-ID: <YiE3eqkUCLSFMUOv@ripper>
+References: <20220217043148.480898-1-dmitry.baryshkov@linaro.org>
+ <CAE-0n50+s_FSgV5q21DduC4=QFWhsO6WPqENJyM7xF218ec7Cw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE-0n50+s_FSgV5q21DduC4=QFWhsO6WPqENJyM7xF218ec7Cw@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH v3 0/6] drm/msm/dpu: simplify IRQ helpers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,122 +71,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
- Emma Anholt <emma@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 3, 2022 at 1:17 PM Rob Clark <robdclark@gmail.com> wrote:
->
-> On Thu, Mar 3, 2022 at 12:47 PM Stephen Boyd <swboyd@chromium.org> wrote:
-> >
-> > Quoting Rob Clark (2022-03-03 11:46:47)
-> > > diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> > > index fde9a29f884e..0ba1dbd4e50f 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > > +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > > @@ -330,6 +337,24 @@ struct msm_file_private {
-> > >         struct kref ref;
-> > >         int seqno;
-> > >
-> > > +       /**
-> > > +        * sysprof:
-> > > +        *
-> > > +        * The value of MSM_PARAM_SYSPROF set by userspace.  This is
-> > > +        * intended to be used by system profiling tools like Mesa's
-> > > +        * pps-producer (perfetto), and restricted to CAP_SYS_ADMIN.
-> > > +        *
-> > > +        * Setting a value of 1 will preserve performance counters across
-> > > +        * context switches.  Setting a value of 2 will in addition
-> > > +        * suppress suspend.  (Performance counters loose  state across
-> >
-> > s/loose  /lose/
->
-> fixed locally
->
-> > > +        * power collapse, which is undesirable for profiling in some
-> > > +        * cases.)
-> > > +        *
-> > > +        * The value automatically reverts to zero when the drm device
-> > > +        * file is closed.
-> > > +        */
-> > > +       int sysprof;
-> > > +
-> > >         /**
-> > >          * elapsed:
-> > >          *
-> > > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > index 7cb158bcbcf6..4179db54ac93 100644
-> > > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > > @@ -7,6 +7,40 @@
-> > >
-> > >  #include "msm_gpu.h"
-> > >
-> > > +int msm_file_private_set_sysprof(struct msm_file_private *ctx,
-> > > +                                struct msm_gpu *gpu, int sysprof)
-> > > +{
-> > > +       /* unwind old value first: */
-> > > +       switch (ctx->sysprof) {
-> > > +       case 2:
-> > > +               pm_runtime_put_autosuspend(&gpu->pdev->dev);
-> > > +               fallthrough;
-> > > +       case 1:
-> > > +               refcount_dec(&gpu->sysprof_active);
-> > > +               fallthrough;
-> > > +       case 0:
-> > > +               break;
-> > > +       }
-> > > +
-> > > +       /* then apply new value: */
-> >
-> > It would be safer to swap this. Otherwise a set when the values are at
-> > "1" would drop to "zero" here and potentially trigger some glitch,
-> > whereas incrementing one more time and then dropping the previous state
-> > would avoid that short blip.
-> >
-> > > +       switch (sysprof) {
-> > > +       default:
-> > > +               return -EINVAL;
-> >
-> > This will become more complicated though.
->
-> Right, that is why I took the "unwind first and then re-apply"
-> approach.. in practice I expect userspace to set the value before it
-> starts sampling counter values, so I wasn't too concerned about this
-> racing with a submit and clearing the counters.  (Plus any glitch if
-> userspace did decide to change it dynamically would just be transient
-> and not really a big deal.)
+On Thu 03 Mar 13:22 PST 2022, Stephen Boyd wrote:
 
-Actually I could just swap the two switch's.. the result would be that
-an EINVAL would not change the state instead of dropping the state to
-zero.  Maybe that is better anyways
+> Quoting Dmitry Baryshkov (2022-02-16 20:31:42)
+> > This is the second part of
+> > https://patchwork.freedesktop.org/series/91631/ reworked and cleaned up.
+> >
+> > Changes since v1:
+> 
+> v2?
+> 
+> >  - Fix warning ins dpu_trace.h related to
+> >    dpu_core_irq_unregister_callback event
+> 
+> Any plans to migrate to hierarchical irqchip in here?
 
-BR,
--R
+I like this idea, since it would give us some more visibility, both in
+form of /proc/interrupts and the standard irq tracepoints.
 
-
-> BR,
-> -R
->
-> > > +       case 2:
-> > > +               pm_runtime_get_sync(&gpu->pdev->dev);
-> > > +               fallthrough;
-> > > +       case 1:
-> > > +               refcount_inc(&gpu->sysprof_active);
-> > > +               fallthrough;
-> > > +       case 0:
-> > > +               break;
-> > > +       }
-> > > +
-> > > +       ctx->sysprof = sysprof;
-> > > +
-> > > +       return 0;
-> > > +}
+Regards,
+Bjorn
