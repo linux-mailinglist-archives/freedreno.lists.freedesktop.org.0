@@ -1,62 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A8F14CC7DF
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 22:21:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 541064CC7E5
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 22:21:59 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBADA10E2D9;
-	Thu,  3 Mar 2022 21:21:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFEC010EDF2;
+	Thu,  3 Mar 2022 21:21:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B65D10E2D9
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 21:20:59 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- j8-20020a056830014800b005ad00ef6d5dso5778431otp.0
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 13:20:59 -0800 (PST)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9271E10E2D9
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 21:21:56 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id y7so6023974oih.5
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 13:21:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=Hwl7I4m0IAvH1IB5uiBYfdzL/5feDwEgsR7JKnlSjLc=;
- b=EAD636OXNSgrT0qYQwzcqOKBCCy5FKrDC+5Mqd/5OU2KBWeJSLDS8cpBaQq+Ah6bdP
- AdNMyTuBY30ce0lGFZbNQuEaQkG1qxqmLXUUsz2TWfRbuv7dFi1jsu8zhp/Kx3zAZTjZ
- xwPVNzDymKn5yvoqPzCnyC2DOIZl0LZ/wk3eo=
+ bh=u8F7qO2DIewFITLJ93GigBGQGuhxjcSS8uNlVM/WrZs=;
+ b=FUNxvrjnrB/d5xJL+6gNtstATnjL7b0e2NggjjbefEJ2uWZiCg+QS3pnOOPOMhkuAt
+ u4ZbCA6xXBRekcwZnyDYzBM+OFvnC4Mcwpokhm99mZvSb1/tUVuZ/DOU5o+Uu5nz7wte
+ Hwq+wW6v8LTK8i0F3URgjHOH+2T3Fh47ZKLX0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=Hwl7I4m0IAvH1IB5uiBYfdzL/5feDwEgsR7JKnlSjLc=;
- b=pXM1i/nC/jIgL7LVZegd+RbFkR+03SLLy9kRJRHcAfA8IZHeV/31JjVTPkx+hEpD3y
- 5HQFRDYlAbZa4QLj0zDP0RDEmsLfKJsMAvU931020SlN/mqBUqGDbvdwgVEMWX/ASotq
- lN7Mz7W6uq47zxkvcIUz/pzLHe/a+31UmuFrjYk8fG0x8oNb5mUWarlbjRiDw101oXvh
- wrBIF3FE503xLntIDldNVfwfhD8N3J/1odN9p+zEBCaCB0VFf8iTIuFP87nmyKR8Ak4h
- 18WNuPCWPHKKm/ifsyQrRw/SvcQXNqT4pVeCf6FhAvhry7ARpbKV9g2t4NCa9kLB678H
- MpeQ==
-X-Gm-Message-State: AOAM531UotmbfosZoBhMlTbIq9tDy2cYhkDRIbrD5QGrxHX6k1x1vy1/
- aesGyR9zascCXSTtDxaRO7cOx8g04Oy1VW3oyL5+dw==
-X-Google-Smtp-Source: ABdhPJw56B13uigu/hY5MG0oWkkMDqQ9qp7zzpqRCMOe29550tcjSwDProBE8u06q7bGyfbwjnolaU+cUTWXk6a4eOM=
-X-Received: by 2002:a9d:7687:0:b0:59e:da8c:5d32 with SMTP id
- j7-20020a9d7687000000b0059eda8c5d32mr20539994otl.77.1646342458677; Thu, 03
- Mar 2022 13:20:58 -0800 (PST)
+ bh=u8F7qO2DIewFITLJ93GigBGQGuhxjcSS8uNlVM/WrZs=;
+ b=KF/wVJzXyRuCf4+IesbP5L3/kVjY9ImVy1ProHcJvAX6KE4rxrBcQ3zOPzxa1NaxMN
+ YtM92sj4Gs6IkHlBDD10d1RC+l4XaUlmfAKrQybQi4H5QXLwZfpenqTb4uGbI/RKOwtL
+ sqnOrqFYvqnptugmGzqeB3WXn0qOu2lo/u9NaCjaYZZU83wbOGlS5iph9WN7fMCj8ojG
+ UF5GEzCEihpTZ+wJK4vEDFhcPecvvnXR2dPqgIsQiVtyQmoGhDVR0XZSoshE/x3Peahk
+ 3h54aUbggfE9bbrCcuxYVhVNFu1hRuPHIYEqX6abzaK+KiciHmYYpOmTh2WtiQpm6f1V
+ U5wA==
+X-Gm-Message-State: AOAM531QbttDl9B+9q52wPkuttzFLBQI+tRfVNCdf5SCMuVPFMxRi+1O
+ VsjXtImq+IBjp2AOFFeUNsHY4O39aObX/dnN8JaP/A==
+X-Google-Smtp-Source: ABdhPJwQh/TsFdMQ8Nq+spfvb0hS7u3P5GakHbvhwCHrbUQ5jdokEhzF89sm7Ev5fs56EJT352zNf0RJeA6y30qu2AY=
+X-Received: by 2002:aca:3346:0:b0:2d9:91f9:a7f2 with SMTP id
+ z67-20020aca3346000000b002d991f9a7f2mr649700oiz.32.1646342515877; Thu, 03 Mar
+ 2022 13:21:55 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Mar 2022 13:20:58 -0800
+ HTTPREST; Thu, 3 Mar 2022 13:21:55 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220217043148.480898-4-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220217043148.480898-6-dmitry.baryshkov@linaro.org>
 References: <20220217043148.480898-1-dmitry.baryshkov@linaro.org>
- <20220217043148.480898-4-dmitry.baryshkov@linaro.org>
+ <20220217043148.480898-6-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 3 Mar 2022 13:20:58 -0800
-Message-ID: <CAE-0n53q2BKcZPUwsesPxx6KktTsakpbjnJQzUceE+fFzWfe8g@mail.gmail.com>
+Date: Thu, 3 Mar 2022 13:21:55 -0800
+Message-ID: <CAE-0n50CABTnqjTw_SdHOrLK3C8-YtQAeicYU844cJAMHWa4iQ@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 3/6] drm/msm/dpu: allow just single IRQ
- callback
+Subject: Re: [Freedreno] [PATCH v3 5/6] drm/msm/dpu: remove struct
+ dpu_encoder_irq
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,19 +68,18 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-16 20:31:45)
-> DPU interrupts code allows multiple callbacks per interrut. In reality
-> none of the interrupts is shared between blocks (and will probably never
-> be). Drop support for registering multiple callbacks per interrupt to
-> simplify interrupt handling code.
+Quoting Dmitry Baryshkov (2022-02-16 20:31:47)
+> Remove additional indirection: specify IRQ callbacks and IRQ indices
+> directly rather than through the pointer in the irq structure. For each
+> IRQ we have a constant IRQ callback. This change simplifies code review
+> as the reader no longer needs to remember which function is called.
 >
-> Reported-by: kernel test robot <lkp@intel.com>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
 
