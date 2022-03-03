@@ -1,59 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52E8D4CC87E
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:05:45 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4CC4CC881
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 23:06:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E118B10E322;
-	Thu,  3 Mar 2022 22:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B65F10E326;
+	Thu,  3 Mar 2022 22:06:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27CEC10E2CF
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:05:41 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id 12so6110344oix.12
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:05:41 -0800 (PST)
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A505610E322
+ for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 22:06:13 +0000 (UTC)
+Received: by mail-ot1-x333.google.com with SMTP id
+ p12-20020a05683019cc00b005af1442c9e9so5798241otp.13
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 14:06:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=PKohUg2qG/pCEPlXibG2AgUnEJqrXhfRLiwdaT8RtZw=;
- b=D7YSxbf9YXlA/4GXf6hdHT3HLvlA58JNPLh26N+ob5BKmSnH4xtDfs1DKlG+a90Rv4
- ZO6EG+FZRdzqxbfeZimjrs6Kb+2JcEXIB0O+cBLy7GH5s4NOT7pSYnmyW3G8ySdnTQDh
- zZfjkPYBJYi+jjdSHrHTw0Oz/FOmDKscxJib4=
+ bh=pdvZcd1dCzTos36AEvo2XuYW96g/JSyyd6Ju386HZBA=;
+ b=GU/VicsmSZRw1d2LkDZ6wzydbTYT4L8dB1zCnJwjzA08Es/V8nusp7J1acftodaTq0
+ 5HH7HAouRm088ujftN55DNIdMBENIQKdJvGbxCq+X2n4YuPls/MdNaItK8W+zOfxKnv/
+ O+Fxmy7cnSFBcug80vgAZtRq7kEgQVZE07yfY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=PKohUg2qG/pCEPlXibG2AgUnEJqrXhfRLiwdaT8RtZw=;
- b=cZATs49eitdiXXvQ7MPNe7XlLrwbywlexoXEeA36FG/F6O7qfvdGqsdbpqefJeoGO9
- Ab3AsXKJQDS3q8gVFb2OgWWR/3A2ZT2nhjsn0LD1XpwSYdImpSZ+xSW0hIhS1dJO+3w1
- N1JGgIvUm7quD2cqFrAXJqiz8mhpRDHjZauDBLyjs1O0h4leMPEfNaR2ZksvA+oNqNuL
- 8E2+wyteRU6UKXAivI9S6y5YEVCERIfn1kpWV+0/7RBFFh3MrFW5RT+rzN54Q2yAVymZ
- USqlzd+nHsxQ/F/SnENdCR5mUo3VpvJwcN/G4qW6jwUOvXjnLvzq/xM8pj0hPtAo8JqJ
- oakA==
-X-Gm-Message-State: AOAM533jQ/D+I+USUG8y74nLajCq/d8sH+x2FvJRYWjYKmb/Rjy3Xq54
- p7Rm+y+PcrlOlUb3zFF6YSUqALorXLlxcfhki+VNqQ==
-X-Google-Smtp-Source: ABdhPJy47x1D2qJGCMALwvxUqjRjAF8d7zyb8QVQXnlC6qzKxDZbC7qJi/ar2Vw+nacHvEUEoLG1Gb9z04TrKcGKOvM=
-X-Received: by 2002:a05:6808:20a7:b0:2d4:d2f1:9edc with SMTP id
- s39-20020a05680820a700b002d4d2f19edcmr6563793oiw.64.1646345140349; Thu, 03
- Mar 2022 14:05:40 -0800 (PST)
+ bh=pdvZcd1dCzTos36AEvo2XuYW96g/JSyyd6Ju386HZBA=;
+ b=pTOD4xVGhXRuW6soUTRH8QfazhlDX3CnxUPVSORBRAHixAKOb0hh2YNTxyqY5YyF2K
+ q8EwaSIEL0JxL2FbmvDn1YN6aHbLbLjR/XWH/F4FPbVwHr6eD85ELTpf7OX/I0a9BD6K
+ gbBDDSWXaWSbkoUYjEpdJ6VMuE6MjYw9wfYzCPX57BwA0RvNIaiKELIxddymWhrOzumD
+ t3h2EkiixAInWQ6zSqD7I8JpPxgAy8ZCEG66gQitb7/4jEm4Rhjf4z1jM2n8q24O0nXl
+ cfvcBY7oAFKZeOeFkY8XBecQoptlSHljLm/jraj23t+wp+XVZw19YJCmY6rax6RIxbWm
+ oy6w==
+X-Gm-Message-State: AOAM531mZa6nuvPMphP4fkthbrTHfY6jU9+xAW/84LNJYHxtWZGcC6i9
+ aN0BzNHqFq3cgTy/tnh+BEqzmuAMoUe29YKdv2la4Q==
+X-Google-Smtp-Source: ABdhPJzIsZYjGMPB9mIKaz9We4al2KijnAO/aGSWVSgdvkGTTn/LV94gdLX1B1Wq6BQq3wFmiUQFljUdJvXq2KeLZYw=
+X-Received: by 2002:a9d:22e9:0:b0:5ac:1754:342c with SMTP id
+ y96-20020a9d22e9000000b005ac1754342cmr19987839ota.159.1646345172996; Thu, 03
+ Mar 2022 14:06:12 -0800 (PST)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Mar 2022 14:05:39 -0800
+ HTTPREST; Thu, 3 Mar 2022 14:06:12 -0800
 MIME-Version: 1.0
-In-Reply-To: <1646300401-9063-2-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1646300401-9063-3-git-send-email-quic_vpolimer@quicinc.com>
 References: <1646300401-9063-1-git-send-email-quic_vpolimer@quicinc.com>
- <1646300401-9063-2-git-send-email-quic_vpolimer@quicinc.com>
+ <1646300401-9063-3-git-send-email-quic_vpolimer@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 3 Mar 2022 14:05:39 -0800
-Message-ID: <CAE-0n53FVc_JNN-gkXeaQjt810e7_nV6kCireqgPfPsE7rq4Bw@mail.gmail.com>
+Date: Thu, 3 Mar 2022 14:06:12 -0800
+Message-ID: <CAE-0n539U9OzNRoaAG28TG7UJBUdiBYdJ-PKzGyF++ihK0Xo1A@mail.gmail.com>
 To: Vinod Polimera <quic_vpolimer@quicinc.com>, devicetree@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 1/4] arm64/dts/qcom/sc7280: remove
+Subject: Re: [Freedreno] [PATCH v4 2/4] arm64/dts/qcom/sc7180: remove
  assigned-clock-rate property for mdp clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,7 +73,7 @@ Cc: quic_kalyant@quicinc.com, robdclark@gmail.com, linux-kernel@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Vinod Polimera (2022-03-03 01:39:58)
+Quoting Vinod Polimera (2022-03-03 01:39:59)
 > Kernel clock driver assumes that initial rate is the
 > max rate for that clock and was not allowing it to scale
 > beyond the assigned clock value.
@@ -80,17 +81,7 @@ Quoting Vinod Polimera (2022-03-03 01:39:58)
 > Drop the assigned clock rate property and vote on the mdp clock as per
 > calculated value during the usecase.
 >
-> Changes in v2:
-> - Remove assigned-clock-rate property and set mdp clk during resume sequence.
-> - Add fixes tag.
->
-> Changes in v3:
-> - Remove extra line after fixes tag.(Stephen Boyd)
->
-
-This changelog goes below triple dash when they aren't intended for drm.
-
-> Fixes: 62fbdce91("arm64: dts: qcom: sc7280: add display dt nodes")
+> Fixes: a3db7ad1af("arm64: dts: qcom: sc7180: add display dt nodes")
 > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
 > ---
 
