@@ -2,55 +2,48 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B6254CB892
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 09:19:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6247D4CBA0F
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 10:21:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B07F110EA73;
-	Thu,  3 Mar 2022 08:19:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 976FC10EE8B;
+	Thu,  3 Mar 2022 09:21:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C711B10EA73
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 08:19:48 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id s15so3947729qtk.10
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 00:19:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eBbghWmyN77JF7RUpoIN9lkaA23tcjbHORN7ZoYwWzA=;
- b=O33UcScGamI/CbJS2qdYJFMnkoGyvajYHAEDnA1q32GaQGdYlOFF7E/Wu4I2A6awOB
- 8kHS3FMUK2LE41rzxdVjPjRD9UKIjJgcB730BEVO9EFbgrwPgXVRpI2j0WITQtJrjn4v
- cVeafQ/DY+JzVcs8qekyK+4EZn/xF0kAVhJNY0eX56zgfPsIpB3vQ92roJgu8daAvomr
- fL6PV8jZKzTYn+t2bn9N/tWswi4bxc71DF6zMvRz50BOSDS/whVmIdG4MoA4nBKNmwEI
- ENNeJnXecQxETQlmR0yjeMH6vWpP18HnOa30Jt3D8T1DHzWE5IQIAuA4+FGcjHqlBSxf
- zAXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eBbghWmyN77JF7RUpoIN9lkaA23tcjbHORN7ZoYwWzA=;
- b=7eFxOrF/+hkSR3+cY00o61AGqmBlyM/cGJWq9MzZXQnxkAAgIjJUE+LOYV9l6mNyqB
- SSHvn0l+BfSKGwyYeCUSHL3xChbd9889HbgHHuYOwUguGuxBirH2GqcGHCGogZuUkXtE
- LgXAJhqcijp1iYyWI7c4ACVUfZe9elxcftlb57mdUhhdVl156KpFGbZMvCcLsX2Ck5Vy
- XuhVlCKhlkDiMe135FhuTkqQPt/atDOoe5Zbh09Iec3vUJKyGMwfOtgNwLnqqM1jyvAy
- vnhBUSAmekH4bNLQfLTT/Db9Py7TSmPAlfYmAhOP0yxhJ8t3wJLhOuCQrQx0ViIMYCxU
- EyxA==
-X-Gm-Message-State: AOAM530l6svRtRTvoPairWTv2iBF+zrvziQKtWabHbDNZNUQl1ru8FuN
- vtopPKp8X/mkEg+dWuhkShl1YETIBX1EOvZu290mPQ==
-X-Google-Smtp-Source: ABdhPJzwybpbRKv/JsGwbbxWqXiPUR4uibbx0YjX5VRLF4ZSmc8ArqQjtlAMg4s/pfikPz32DA/3T3dwuz1Doz+bPUQ=
-X-Received: by 2002:ac8:5713:0:b0:2de:4e16:5b25 with SMTP id
- 19-20020ac85713000000b002de4e165b25mr26214309qtw.682.1646295587875; Thu, 03
- Mar 2022 00:19:47 -0800 (PST)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F2EB10EE7C;
+ Thu,  3 Mar 2022 09:21:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id D15781F4537A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1646299309;
+ bh=Oe2pV1nTwtl1ZAeBq7ptzCBBqpUgYg8U9OQ8spRg7k0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=kxwvKdJAr8t3ibeUYyY3yZwFjajIrc8P7Izj4oGXdVD8DepEDb8cHlC6SQHcUe1+6
+ P5wGoTx1r7580zSAScrN+FoSMg4nK1kc+Fgmz3YnDKHYHFW5erqwKkfCNF4U0af5ai
+ 69xDhPXEgIYTW4uFXwOIqY0Ef1Jr8KYiRT/Fjfdm1216hApVM0PU+0TKPWSzNfDtKq
+ DyslyhiFTfwRe/3qTRGRB++2ApHP5qAZkP21+hqNqdmz+euw1ZlrArm5QJNTRwXiY2
+ wqhx33a2wZqYobw/xwc/InZYoztSn7aOsMLZ3nhANidG5f9l2kcEM0jwDOTjF3Xujm
+ QGKio3vllwnFw==
+Message-ID: <373491a2-0fa5-0326-29cd-1650f86202d4@collabora.com>
+Date: Thu, 3 Mar 2022 10:21:46 +0100
 MIME-Version: 1.0
-References: <1646294904-4753-1-git-send-email-quic_vpolimer@quicinc.com>
-In-Reply-To: <1646294904-4753-1-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 3 Mar 2022 11:19:36 +0300
-Message-ID: <CAA8EJppbk+yCmVgRbUNBn+BO09xDZe93RXK_cUxbX9HZM9ZXmw@mail.gmail.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 0/3] Update mdp clk to max supported
- value to support higher refresh rates
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <1646242056-2456-1-git-send-email-quic_akhilpo@quicinc.com>
+ <20220302225551.v1.7.I55e39e28375b64455d1605f67453d5e91b0c2710@changeid>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20220302225551.v1.7.I55e39e28375b64455d1605f67453d5e91b0c2710@changeid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 07/10] drm/msm/adreno: Retry on gpu
+ resume failure
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +56,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
- swboyd@chromium.org, freedreno@lists.freedesktop.org
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-kernel@vger.kernel.org,
+ Martin Botka <martin.botka@somainline.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 3 Mar 2022 at 11:08, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
->
-> *** BLURB HERE ***
+Il 02/03/22 18:27, Akhil P Oommen ha scritto:
+> Retry infinitely on resume failure because there is nothing much we can
+> do if GPU is not ON. Also, this helps us to avoid checking for the
+> return value of pm_runtime_get() to see if GPU is ON.
+> 
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
+> ---
+> 
+>   drivers/gpu/drm/msm/adreno/adreno_device.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> index 89cfd84..abcc553 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -603,8 +603,16 @@ static const struct of_device_id dt_match[] = {
+>   static int adreno_resume(struct device *dev)
+>   {
+>   	struct msm_gpu *gpu = dev_to_gpu(dev);
+> +	int ret;
+> +
+> +	/* What hope do we have for the future if we can't turn ON gpu */
 
-Description, dependencies, etc?
+Hello Akhil,
 
->
-> Vinod Polimera (3):
->   arm64/dts/qcom/sc7280: remove assigned-clock-rate property for mdp clk
->   arm64/dts/qcom/sc7180: remove assigned-clock-rate property for mdp clk
->   arm64/dts/qcom/sdm845: remove assigned-clock-rate property for mdp clk
+the hope for the future would be to at least not lock up everything with
+an infinite loop, so, please change this to have a limited amount of retries.
 
-sm8250.dtsi is missing
+My guess would be that a maximum of 10 is already a lot of retries, but
+feel free to choose an appropriate number.
 
->
->  arch/arm64/boot/dts/qcom/sc7180.dtsi | 9 ++-------
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 9 ++-------
->  arch/arm64/boot/dts/qcom/sdm845.dtsi | 9 ++-------
->  3 files changed, 6 insertions(+), 21 deletions(-)
->
-> --
-> 2.7.4
->
+Regards,
+Angelo
+
+> +	while (true) {
+> +		ret = gpu->funcs->pm_resume(gpu);
+> +		if (!ret)
+> +			break;
+> +	}
+>   
+> -	return gpu->funcs->pm_resume(gpu);
+> +	return 0;
+>   }
+>   
+>   static int active_submits(struct msm_gpu *gpu)
 
 
--- 
-With best wishes
-Dmitry
