@@ -2,58 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1134CC7EF
-	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 22:23:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CBCE4CC808
+	for <lists+freedreno@lfdr.de>; Thu,  3 Mar 2022 22:29:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E8E10EDFF;
-	Thu,  3 Mar 2022 21:23:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39B0A10EDEA;
+	Thu,  3 Mar 2022 21:29:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ua1-x932.google.com (mail-ua1-x932.google.com
- [IPv6:2607:f8b0:4864:20::932])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DE210EDF5
- for <freedreno@lists.freedesktop.org>; Thu,  3 Mar 2022 21:23:09 +0000 (UTC)
-Received: by mail-ua1-x932.google.com with SMTP id y44so2724604uac.11
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 13:23:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=7SgYE66lSNBfbXKtYfPMd2eJnZt2Qn9IBmBY69OkvEA=;
- b=c52FFpOC3IxjlPN+Nc7NzY/iyzvsZNDOgW787F/Z/O1kbfR1FINg/yN3D3g9pSTbn1
- Z1WmCOZw0/B0jL501VnE78SO4m/3NAkK5Sf7tfJwh+fUBxvsu6k4sDzrzklX/73lba+A
- 5O7cTjy06XwKfomgibRsaCoG8vXusZ+PyNcuQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=7SgYE66lSNBfbXKtYfPMd2eJnZt2Qn9IBmBY69OkvEA=;
- b=Z7eY1HosmIDBR+cRh7CkaQHYs+I09WMv/i/XsDFs7h+CR4nsPkA7dV9f5eQrDdMh7K
- G6dgF2Lrt8FVvh0cewyMUjRruszg9EkDn4YpXNO4Y+35AhluvozHfo2+bZ1gPwIdmLjc
- 6nwqzkKfyg1WRCMq8XCNvvv+Z1TB0va58DTbDDxRyGuGhC2Pzyio6/uX6hIzCRiBA1GD
- 3awciqqwifQQRJE/j6NVLPOoBpBKo+pX3A4Btn7kkAz0StF/vh0wkpPYpUI7Dn2Nih0G
- TA4zMRyZy44Co+Cm1YdfvsIMzWOPgkINTiEZXdH4farwl8myiGfUGubHzE8xguhjUpqo
- MEKg==
-X-Gm-Message-State: AOAM532lGq40y5HEgiQI5Knakmm5xn8hDEutpEY/EfFibf+WVaSleOGr
- 6RanHJMJtV2Ki+kAb2lhAA9ToVBMHxV5Q8WYIJmr9JMTgyM=
-X-Google-Smtp-Source: ABdhPJzKDqUE8CMsgi/yYVdb41bUuclCz1cIqjPcyZGDL4j77+L3k0NvYP8fE3Y23DScOxA2sEpMU/dHPZTeU3/V3IE=
-X-Received: by 2002:a4a:a9cf:0:b0:2e9:5c75:e242 with SMTP id
- h15-20020a4aa9cf000000b002e95c75e242mr19679471oon.25.1646342577179; Thu, 03
- Mar 2022 13:22:57 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Mar 2022 13:22:56 -0800
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31A5510EDEA;
+ Thu,  3 Mar 2022 21:29:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1646342944; x=1677878944;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Ckxo5KMFl5D59oj/82MB4tIlU7merfl+4EsTXJtn2dk=;
+ b=PAMd/qcQA45B1ldzLbFUwN3oDaltgxzYsLKy2LqWfTts9v07wImMHuGk
+ yTnohnqH9hlTU1f8SnP6mejrPHsGfh0O4cUpQF/qPtsW7CkTp1/jAXIIj
+ e+DoF2bUHqYkmZs6tqm/OgeHPEYtAb1BiLiyS/eD149nbGQM2gwDK1+kB A=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 03 Mar 2022 13:29:03 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2022 13:29:03 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Thu, 3 Mar 2022 13:29:02 -0800
+Received: from [10.110.60.142] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Thu, 3 Mar 2022
+ 13:29:02 -0800
+Message-ID: <5a66e759-260a-a742-cb71-a523f7711682@quicinc.com>
+Date: Thu, 3 Mar 2022 13:29:01 -0800
 MIME-Version: 1.0
-In-Reply-To: <20220217043148.480898-1-dmitry.baryshkov@linaro.org>
-References: <20220217043148.480898-1-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 3 Mar 2022 13:22:56 -0800
-Message-ID: <CAE-0n50+s_FSgV5q21DduC4=QFWhsO6WPqENJyM7xF218ec7Cw@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 0/6] drm/msm/dpu: simplify IRQ helpers
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220222062246.242577-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220222062246.242577-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 0/4] drm/msm/dpu: clearly document INTF_DP
+ vs INTF_EDP difference
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,20 +68,61 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-16 20:31:42)
-> This is the second part of
-> https://patchwork.freedesktop.org/series/91631/ reworked and cleaned up.
->
-> Changes since v1:
 
-v2?
 
->  - Fix warning ins dpu_trace.h related to
->    dpu_core_irq_unregister_callback event
+On 2/21/2022 10:22 PM, Dmitry Baryshkov wrote:
+> Recent dicussion on the mailing list [1], [2] outlined a need to document
+> which intf type is used for DP and which one is used for eDP interfaces.
+> 
+> This series implements my proposal [3]:
+> 
+> - Keep INTF_EDP reserved for 8x74/8x84
+> - Use INTF_DP for all contemporary DP and eDP ports
+> - Documet this in dpu_hw_mdss.h
+> - Remove INTF_EDP usage in dpu1 driver.
+> 
+> Main reasons behind this proposal:
+> - It's not always possible to separate eDP and DP. For example INTF_5 on
+>    sc7280 is connected to combo eDP/DP PHY.
+> - Using INTF_EDP would require us to split too many pieces, ending up
+>    with a singnificant amount of code duplication...
+> - ... for nothing. From the DPU point of view there is no difference
+>    between DP and eDP interfaces as found on current SoC generations.
+> 
+> [1]: https://lore.kernel.org/linux-arm-msm/0dac8ffa-89a6-d972-bdc1-3f7755c5169d@linaro.org/
+> [2]: https://lore.kernel.org/linux-arm-msm/be397e2e-05ab-5c18-8e2d-16c443f0a6d1@quicinc.com/
+> [3]: https://lore.kernel.org/linux-arm-msm/e2fab93e-82a6-4837-4ee5-ee1b16caa84d@linaro.org/
+> 
 
-Any plans to migrate to hierarchical irqchip in here?
+I have notified the team about the change and we have discussed the 
+potential implications of this with both upstream and downstream drivers 
+in mind. Overall, even though some members wanted to retain INTF_eDP for 
+clarity, some members were fine removing its usage.
+
+Going with the majority and I have checked all the changes in this series,
+
+Hence:
+
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+For the entire series.
+
+
+
+> Dmitry Baryshkov (4):
+>    drm/msm/dpu: document INTF_EDP/INTF_DP difference
+>    drm/msm/dpu: drop INTF_TYPE_MAX symbol
+>    drm/msm/dpu: drop obsolete INTF_EDP comment
+>    drm/msm/dpu: drop INTF_EDP from interface type conditions
+> 
+>   .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   | 14 +-------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |  9 ++++++++-
+>   3 files changed, 10 insertions(+), 15 deletions(-)
+> 
