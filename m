@@ -1,65 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C585C4CCC39
-	for <lists+freedreno@lfdr.de>; Fri,  4 Mar 2022 04:21:27 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11C514CCC85
+	for <lists+freedreno@lfdr.de>; Fri,  4 Mar 2022 05:23:24 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E359910E444;
-	Fri,  4 Mar 2022 03:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFB5F10E444;
+	Fri,  4 Mar 2022 04:23:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD7010E440
- for <freedreno@lists.freedesktop.org>; Fri,  4 Mar 2022 03:21:18 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id u20so11901644lff.2
- for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 19:21:18 -0800 (PST)
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D241610E407
+ for <freedreno@lists.freedesktop.org>; Fri,  4 Mar 2022 04:23:18 +0000 (UTC)
+Received: by mail-qt1-x82d.google.com with SMTP id bc10so6497123qtb.5
+ for <freedreno@lists.freedesktop.org>; Thu, 03 Mar 2022 20:23:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=XYDpL3FGrD5kOQ20oFsHVga2uc75+kr2TdhDwBKMo4A=;
- b=zGo30lMhW4Tq21S0ZpxxK2UrvHVPhPYgruPeu3V3pSAu3JECr0k4aWhBeNc1Q2usDE
- 9ong26pdLWpUAWjsaOQIrSaY9sbsrsnGNpHnPhVOxQ5a/uAXmJhY0m6ajeYxpnyuGAk1
- HAj99n7LR18WOrAbZbpR4ZiSN8XXTVnouRRHXuhjclaqYpreEBAI78qQBVrOQVwoc4bd
- T4vDON/5jDz+BvUBBq+VbWxUETwoThLBPFl0nQYXd4WnQ0M0ByUdMe4y9TbtlAItj/he
- Tre++q6Q+kVmNIcbkzOp3BZWkdfmHMpfqAi8em4rBOadW8ToEDnev1jew3uI3RyGCyfD
- 0HRw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nsDOb5W4kO2pCN7e4bMOr2XwyKC2uG4Nui8/giIgSNQ=;
+ b=m5Yc0RyCI7mI1MlnkM1Oafg7bBKegJFMtTwz3Ty0ouBFdfngkF9DFgZWyJJC5su10X
+ 96VnRyyLJBey9+Fnz5l1HjmlzZx0QZxr+j4odF8gvhLHQeP7pf6uIeXndb2rvHu9Obc9
+ iPR/0+d/C9qs4bAzqKIFXE0n9BFhMm4tslS3jRmL4RhzsxAE9zEOd7a/7/LRaMgcphkC
+ zjXPIhLI1WbAyVtW6VeFBkDHNsnqUtpHcyzJdrfg3r0CBfP8IX6kGm7Z8z+Yus8Sk2c5
+ cWLoqqaRyUNb1FNksSXShVGh/OXDbT0IiGNw5I0DdC2XzKx/F3XZaWRTNU6w61/dSAfB
+ 8pBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=XYDpL3FGrD5kOQ20oFsHVga2uc75+kr2TdhDwBKMo4A=;
- b=F7nXPPqwFCpfukvWYu+rtowzGUbk3XCRgwiraEZpdUCNWvH2MAL6QRry1KRg6CFAZE
- FT/l4w5lf0+uQcQ+Zl4HbBSSZvai7HREkK/ekowl3ZLRTQ8jbWRZ2LntlZ7j5EtCK+69
- 6Vt1Mm/XbfAK/hNGuHkhG/b6P6SWzTzL2S5iaA4sl8s2gwT3OPEhlCIB9iduRToXY2mM
- fpyzuHTqcjSLZOd2P23OOzU+gmGjS3fd8pS0sTHj0AjZlrF9+FY3a4S2KqhnE/piCq07
- 1wLkATClOo98iXYfWO816LpwSwcw/opSYumWgQrKphTAyZMydEex4f7Cu21nxwAPxmqo
- agog==
-X-Gm-Message-State: AOAM532kt0nzyQMbkBgJogqt6uYUb5iTPFBWZQDw1HaUivCRh8Iykkta
- gDpUh6u4PrgXgaKMblZTUvpX9Q==
-X-Google-Smtp-Source: ABdhPJzQvYTEFE8bFbtU83h8+57zD+YzuBEW7lPuQaBjKC93rXm55iwhVSZDsfw0HBnicEGJL2UiIg==
-X-Received: by 2002:a05:6512:16a7:b0:445:862e:a1ba with SMTP id
- bu39-20020a05651216a700b00445862ea1bamr18817776lfb.85.1646364076339; 
- Thu, 03 Mar 2022 19:21:16 -0800 (PST)
-Received: from eriador.lan ([2001:470:dd84:abc0::8a5])
- by smtp.gmail.com with ESMTPSA id
- w24-20020ac254b8000000b00445b7d115efsm772079lfk.301.2022.03.03.19.21.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 19:21:15 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri,  4 Mar 2022 06:21:06 +0300
-Message-Id: <20220304032106.2866043-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220304032106.2866043-1-dmitry.baryshkov@linaro.org>
-References: <20220304032106.2866043-1-dmitry.baryshkov@linaro.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nsDOb5W4kO2pCN7e4bMOr2XwyKC2uG4Nui8/giIgSNQ=;
+ b=LSoJfUvmv1aqQ7/POXPkgYo42tIMtc2+FAhdklv2uh5m1ERznURaSVjYEdchakdncA
+ WiCrT5+Ay5Qga/M7Ie5j3BVYd1Yr+pEkfRi7a0bk+hpICZHgu8xfUxBMStdXr7it9BY6
+ SbNSutVjC7Ko7uAGyA9cmk2Ib0q9qCXwBYE4zvNuJH8jVSUwccBtphVJJ/IjnOOvpL8Z
+ Bx2xm9bZp6uQ8904cUXMLziW66R5DO9e/gLa5Z5VOKZFE+mrXqCSPY2dtcOdujEjJOdH
+ gOYPsPHLcvS+TrBluAyxKqoTJaSSX47LjA4sQ5u79yDJPW6hnV5X7fUVujIyNLLDaike
+ Qy3Q==
+X-Gm-Message-State: AOAM531ppRzT1UhYOzCVfN47j5NsmK6nbFXm/iMcp2/H4AIeHqzGKzuz
+ cskNYd9NC3uRklGzzeLXNLM272bprYHg54Akcb8jjg==
+X-Google-Smtp-Source: ABdhPJw4wxEbildbq7sVeR+eNwjQkYAVA22pw3J8WfvviBTFny8uWbj3UqZfX96fC8ABiY9RoSl0kH8G/ieeIOvV1V0=
+X-Received: by 2002:ac8:5713:0:b0:2de:4e16:5b25 with SMTP id
+ 19-20020ac85713000000b002de4e165b25mr29662425qtw.682.1646367797855; Thu, 03
+ Mar 2022 20:23:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 5/5] drm/msm: allow compile time selection of
- driver components
+References: <20220217055529.499829-1-dmitry.baryshkov@linaro.org>
+ <20220217055529.499829-4-dmitry.baryshkov@linaro.org>
+ <CAE-0n529mx1ke89iw8xXZEDcs0z84hA09B31cWeVQSTU9RAAYg@mail.gmail.com>
+In-Reply-To: <CAE-0n529mx1ke89iw8xXZEDcs0z84hA09B31cWeVQSTU9RAAYg@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 4 Mar 2022 07:23:06 +0300
+Message-ID: <CAA8EJpq4fXHH6GEJO=m3Ckw0A2p7B_X0D3SiXi1xnJ=4VZOC=g@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm/dp: set stream_pixel rate
+ directly
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,244 +65,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-MSM DRM driver already allows one to compile out the DP or DSI support.
-Add support for disabling other features like MDP4/MDP5/DPU drivers or
-direct HDMI output support.
+On Fri, 4 Mar 2022 at 01:32, Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Dmitry Baryshkov (2022-02-16 21:55:27)
+> > The only clock for which we set the rate is the "stream_pixel". Rather
+> > than storing the rate and then setting it by looping over all the
+> > clocks, set the clock rate directly.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> [...]
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> > index 07f6bf7e1acb..8e6361dedd77 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> > @@ -1315,7 +1315,7 @@ static void dp_ctrl_set_clock_rate(struct dp_ctrl_private *ctrl,
+> >         DRM_DEBUG_DP("setting rate=%lu on clk=%s\n", rate, name);
+> >
+> >         if (num)
+> > -               cfg->rate = rate;
+> > +               clk_set_rate(cfg->clk, rate);
+>
+> This looks bad. From what I can tell we set the rate of the pixel clk
+> after enabling the phy and configuring it. See the order of operations
+> in dp_ctrl_enable_mainlink_clocks() and note how dp_power_clk_enable()
+> is the one that eventually sets a rate through dp_power_clk_set_rate()
+>
+>         dp_ctrl_set_clock_rate(ctrl, DP_CTRL_PM, "ctrl_link",
+>                                         ctrl->link->link_params.rate * 1000);
+>
+>         phy_configure(phy, &dp_io->phy_opts);
+>         phy_power_on(phy);
+>
+>         ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, true);
 
-Suggested-by: Stephen Boyd <swboyd@chromium.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/Kconfig    | 50 ++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/msm/Makefile   | 18 ++++++++++--
- drivers/gpu/drm/msm/msm_drv.h  | 33 ++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_mdss.c | 13 +++++++--
- 4 files changed, 106 insertions(+), 8 deletions(-)
+This code has been changed in the previous patch.
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 9b019598e042..3735fd41eb3b 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -46,12 +46,39 @@ config DRM_MSM_GPU_SUDO
- 	  Only use this if you are a driver developer.  This should *not*
- 	  be enabled for production kernels.  If unsure, say N.
- 
--config DRM_MSM_HDMI_HDCP
--	bool "Enable HDMI HDCP support in MSM DRM driver"
-+config DRM_MSM_MDSS
-+	bool
-+	depends on DRM_MSM
-+	default n
-+
-+config DRM_MSM_MDP4
-+	bool "Enable MDP4 support in MSM DRM driver"
- 	depends on DRM_MSM
- 	default y
- 	help
--	  Choose this option to enable HDCP state machine
-+	  Compile in support for the Mobile Display Processor v4 (MDP4) in
-+	  the MSM DRM driver. It is the older display controller found in
-+	  devices using APQ8064/MSM8960/MSM8x60 platforms.
-+
-+config DRM_MSM_MDP5
-+	bool "Enable MDP5 support in MSM DRM driver"
-+	depends on DRM_MSM
-+	select DRM_MSM_MDSS
-+	default y
-+	help
-+	  Compile in support for the Mobile Display Processor v5 (MDP4) in
-+	  the MSM DRM driver. It is the display controller found in devices
-+	  using e.g. APQ8016/MSM8916/APQ8096/MSM8996/MSM8974/SDM6x0 platforms.
-+
-+config DRM_MSM_DPU
-+	bool "Enable DPU support in MSM DRM driver"
-+	depends on DRM_MSM
-+	select DRM_MSM_MDSS
-+	default y
-+	help
-+	  Compile in support for the Display Processing Unit in
-+	  the MSM DRM driver. It is the display controller found in devices
-+	  using e.g. SDM845 and newer platforms.
- 
- config DRM_MSM_DP
- 	bool "Enable DisplayPort support in MSM DRM driver"
-@@ -116,3 +143,20 @@ config DRM_MSM_DSI_7NM_PHY
- 	help
- 	  Choose this option if DSI PHY on SM8150/SM8250/SC7280 is used on
- 	  the platform.
-+
-+config DRM_MSM_HDMI
-+	bool "Enable HDMI support in MSM DRM driver"
-+	depends on DRM_MSM
-+	default y
-+	help
-+	  Compile in support for the HDMI output MSM DRM driver. It can
-+	  be a primary or a secondary display on device. Note that this is used
-+	  only for the direct HDMI output. If the device outputs HDMI data
-+	  throught some kind of DSI-to-HDMI bridge, this option can be disabled.
-+
-+config DRM_MSM_HDMI_HDCP
-+	bool "Enable HDMI HDCP support in MSM DRM driver"
-+	depends on DRM_MSM && DRM_MSM_HDMI
-+	default y
-+	help
-+	  Choose this option to enable HDCP state machine
-diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index e76927b42033..5fe9c20ab9ee 100644
---- a/drivers/gpu/drm/msm/Makefile
-+++ b/drivers/gpu/drm/msm/Makefile
-@@ -16,6 +16,8 @@ msm-y := \
- 	adreno/a6xx_gpu.o \
- 	adreno/a6xx_gmu.o \
- 	adreno/a6xx_hfi.o \
-+
-+msm-$(CONFIG_DRM_MSM_HDMI) += \
- 	hdmi/hdmi.o \
- 	hdmi/hdmi_audio.o \
- 	hdmi/hdmi_bridge.o \
-@@ -27,8 +29,8 @@ msm-y := \
- 	hdmi/hdmi_phy_8x60.o \
- 	hdmi/hdmi_phy_8x74.o \
- 	hdmi/hdmi_pll_8960.o \
--	disp/mdp_format.o \
--	disp/mdp_kms.o \
-+
-+msm-$(CONFIG_DRM_MSM_MDP4) += \
- 	disp/mdp4/mdp4_crtc.o \
- 	disp/mdp4/mdp4_dtv_encoder.o \
- 	disp/mdp4/mdp4_lcdc_encoder.o \
-@@ -37,6 +39,8 @@ msm-y := \
- 	disp/mdp4/mdp4_irq.o \
- 	disp/mdp4/mdp4_kms.o \
- 	disp/mdp4/mdp4_plane.o \
-+
-+msm-$(CONFIG_DRM_MSM_MDP5) += \
- 	disp/mdp5/mdp5_cfg.o \
- 	disp/mdp5/mdp5_ctl.o \
- 	disp/mdp5/mdp5_crtc.o \
-@@ -47,6 +51,8 @@ msm-y := \
- 	disp/mdp5/mdp5_mixer.o \
- 	disp/mdp5/mdp5_plane.o \
- 	disp/mdp5/mdp5_smp.o \
-+
-+msm-$(CONFIG_DRM_MSM_DPU) += \
- 	disp/dpu1/dpu_core_perf.o \
- 	disp/dpu1/dpu_crtc.o \
- 	disp/dpu1/dpu_encoder.o \
-@@ -69,6 +75,13 @@ msm-y := \
- 	disp/dpu1/dpu_plane.o \
- 	disp/dpu1/dpu_rm.o \
- 	disp/dpu1/dpu_vbif.o \
-+
-+msm-$(CONFIG_DRM_MSM_MDSS) += \
-+	msm_mdss.o \
-+
-+msm-y += \
-+	disp/mdp_format.o \
-+	disp/mdp_kms.o \
- 	disp/msm_disp_snapshot.o \
- 	disp/msm_disp_snapshot_util.o \
- 	msm_atomic.o \
-@@ -86,7 +99,6 @@ msm-y := \
- 	msm_gpu_devfreq.o \
- 	msm_io_utils.o \
- 	msm_iommu.o \
--	msm_mdss.o \
- 	msm_perf.o \
- 	msm_rd.o \
- 	msm_ringbuffer.o \
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index c1aaadfbea34..6bad7e7b479d 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -314,10 +314,20 @@ struct drm_fb_helper *msm_fbdev_init(struct drm_device *dev);
- void msm_fbdev_free(struct drm_device *dev);
- 
- struct hdmi;
-+#ifdef CONFIG_DRM_MSM_HDMI
- int msm_hdmi_modeset_init(struct hdmi *hdmi, struct drm_device *dev,
- 		struct drm_encoder *encoder);
- void __init msm_hdmi_register(void);
- void __exit msm_hdmi_unregister(void);
-+#else
-+static inline int msm_hdmi_modeset_init(struct hdmi *hdmi, struct drm_device *dev,
-+		struct drm_encoder *encoder)
-+{
-+	return -EINVAL;
-+}
-+static inline void __init msm_hdmi_register(void) {}
-+static inline void __exit msm_hdmi_unregister(void) {}
-+#endif
- 
- struct msm_dsi;
- #ifdef CONFIG_DRM_MSM_DSI
-@@ -432,14 +442,37 @@ static inline void msm_dp_debugfs_init(struct msm_dp *dp_display,
- 
- #endif
- 
-+#ifdef CONFIG_DRM_MSM_MDP4
- void msm_mdp4_register(void);
- void msm_mdp4_unregister(void);
-+#else
-+static inline void msm_mdp4_register(void) {}
-+static inline void msm_mdp4_unregister(void) {}
-+#endif
-+
-+#ifdef CONFIG_DRM_MSM_MDP5
- void msm_mdp_register(void);
- void msm_mdp_unregister(void);
-+#else
-+static inline void msm_mdp_register(void) {}
-+static inline void msm_mdp_unregister(void) {}
-+#endif
-+
-+#ifdef CONFIG_DRM_MSM_DPU
- void msm_dpu_register(void);
- void msm_dpu_unregister(void);
-+#else
-+static inline void msm_dpu_register(void) {}
-+static inline void msm_dpu_unregister(void) {}
-+#endif
-+
-+#ifdef CONFIG_DRM_MSM_MDSS
- void msm_mdss_register(void);
- void msm_mdss_unregister(void);
-+#else
-+static inline void msm_mdss_register(void) {}
-+static inline void msm_mdss_unregister(void) {}
-+#endif
- 
- #ifdef CONFIG_DEBUG_FS
- void msm_framebuffer_describe(struct drm_framebuffer *fb, struct seq_file *m);
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 4d25d8955301..66714b356762 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -303,8 +303,17 @@ static const struct dev_pm_ops mdss_pm_ops = {
- 
- static int find_mdp_node(struct device *dev, void *data)
- {
--	return of_match_node(dpu_dt_match, dev->of_node) ||
--		of_match_node(mdp5_dt_match, dev->of_node);
-+#ifdef CONFIG_DRM_MSM_DPU
-+	if (of_match_node(dpu_dt_match, dev->of_node))
-+		return true;
-+#endif
-+
-+#ifdef CONFIG_DRM_MSM_MDP5
-+	if (of_match_node(mdp5_dt_match, dev->of_node))
-+		return true;
-+#endif
-+
-+	return false;
- }
- 
- static int mdss_probe(struct platform_device *pdev)
+Let's get back a bit.
+Currently dp_ctrl_set_clock_rate() doesn't change the clock rate. It
+just stores the rate in the config so that later the sequence of
+dp_power_clk_enable() -> dp_power_clk_set_rate() ->
+[dp_power_clk_set_link_rate() -> dev_pm_opp_set_rate() or
+msm_dss_clk_set_rate() -> clk_set_rate()] will use that.
+
+There are only two users of dp_ctrl_set_clock_rate():
+- dp_ctrl_enable_mainlink_clocks(), which you have quoted above.
+  This case is handled in the patch 1 from this series. It makes
+dp_ctrl_enable_mainlink_clocks() call dev_pm_opp_set_rate() directly
+without storing (!) the rate in the config, calling
+phy_configure()/phy_power_on() and then setting the opp via the
+sequence of calls specified above
+
+- dp_ctrl_enable_stream_clocks(), which calls dp_power_clk_enable()
+immediately afterwards. This call would set the stream_pixel rate
+while enabling stream clocks. As far as I can see, the stream_pixel is
+the only stream clock. So this patch sets the clock rate without
+storing in the interim configuration data.
+
+Could you please clarify, what exactly looks bad to you?
+
+> and I vaguely recall that the DP phy needs to be configured for some
+> frequency so that the pixel clk can use it when determining the rate to
+> set.
+>
+> >         else
+> >                 DRM_ERROR("%s clock doesn't exit to set rate %lu\n",
+> >                                 name, rate);
+
+
+
 -- 
-2.34.1
-
+With best wishes
+Dmitry
