@@ -2,69 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D774CDFEB
-	for <lists+freedreno@lfdr.de>; Fri,  4 Mar 2022 22:49:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DECA54CDFF9
+	for <lists+freedreno@lfdr.de>; Fri,  4 Mar 2022 22:57:45 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC22113AA6;
-	Fri,  4 Mar 2022 21:49:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86A06113B7B;
+	Fri,  4 Mar 2022 21:57:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1DC7113AA5
- for <freedreno@lists.freedesktop.org>; Fri,  4 Mar 2022 21:49:44 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id a8so20067480ejc.8
- for <freedreno@lists.freedesktop.org>; Fri, 04 Mar 2022 13:49:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE949113B7B;
+ Fri,  4 Mar 2022 21:57:43 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ o18-20020a05600c4fd200b003826701f847so7340785wmq.4; 
+ Fri, 04 Mar 2022 13:57:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gorolFJ2WIFQvAsoxOSrO8YEN0k5n1TryFpMGW1zZQQ=;
- b=LzsQ5rUYvvNub8x9l9kvDaWf7K77rlY+iRkn5dlD+82ZPl7ZCGrmcqBTtvNe+X0bPW
- MXRTMoQCl8ndHSQ6jy2WO/qD7mm7dVBag6oQqBnicr4/Dj55BzR195+oqLqUf8RbLZob
- PzkGqmSuP2Iou/Cr3Jb7zTgkEP2cvx8IU6iZs=
+ :cc; bh=D7TkAsAlGjYObu7TdoSPfW2GLOJ6vTkBbos7TJsttN0=;
+ b=BqLiIbJ2zBK8K4Mx2Wc69vkqiE6eSWCmhXdOWjGffvI1NnSyh+d/WjNITwq2v6V6IG
+ 9CF1Vd1ELchUlXHCi2qtVEPvMP67rMnevW/VefZ/rTFRxHteb7EduhgXZHP8+kgJqJpA
+ j8P97CDzjtcfDnIPMBSDzoFJQwggj+2TH2BsAnWLschCKYYWEnUT1KLDCQPcs2JFkpxB
+ vIseJhijpjiEb/6de+dXVHR0sC5UDep93zYf6N/8tHJ18wtCD/Am0L6A3LOWCm3b+iDO
+ sSg1K1JMQNULPZIbQ/NVL/aHK4rGD14lMcuCjqLBQGblRQS7zCnKEIVqFpYDwh9rVRdZ
+ EJsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=gorolFJ2WIFQvAsoxOSrO8YEN0k5n1TryFpMGW1zZQQ=;
- b=xdBaD9N/kE9ZaIgXRTfH4dmJZbp3dxoqP3AmAkyf4MNQoItBdjAKnFxeptPDIqOC6V
- GuFipaf1FvmTVW5NtF+s1p4KbfMo43U6CD4EBfPNpCA2bs84ym7Md6DKbGNEtBeVBoDf
- AFaWEb5yuxtgN9pHgRjUgjyX4CA2gO/bHGBsHzBmQ5+KjXDYUuW4Wkisx9caewLEZF9s
- 9q7UNDKYKyxqK8iDlhPXQGuSwkYmjLkoxOq+ruy/tAY/YEZKa8vzPCmtTdBYAuaBeW7i
- d9c2NrhkV1bu3jvV8k6xpRn8cSN78/bf/gyzuIcE6/41PooYAgyo+G6gAo1R/wwHpSjz
- K7XQ==
-X-Gm-Message-State: AOAM531gPZheUVl2OQvoU7CNR+johOdT7TwcMf0tiSRL8SNMtK23wUbf
- Kxv6d374jETzEDe1YPB6EsshJ1Zi9riQd/zY
-X-Google-Smtp-Source: ABdhPJw7DaGJZ2FuML9hTv86Z1qN83QBVUpQizsbZZ6JIBiAqiPy0evogMnpa1X7sreG/JBBOhWt0Q==
-X-Received: by 2002:a17:906:2403:b0:6d1:ca2:4da7 with SMTP id
- z3-20020a170906240300b006d10ca24da7mr597483eja.533.1646430582501; 
- Fri, 04 Mar 2022 13:49:42 -0800 (PST)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com.
- [209.85.128.48]) by smtp.gmail.com with ESMTPSA id
- da23-20020a056402177700b0041394d8173csm2584021edb.31.2022.03.04.13.49.40
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Mar 2022 13:49:40 -0800 (PST)
-Received: by mail-wm1-f48.google.com with SMTP id
- q7-20020a7bce87000000b00382255f4ca9so7407277wmj.2
- for <freedreno@lists.freedesktop.org>; Fri, 04 Mar 2022 13:49:40 -0800 (PST)
-X-Received: by 2002:a05:600c:1d08:b0:381:6eda:67d1 with SMTP id
- l8-20020a05600c1d0800b003816eda67d1mr9758221wms.88.1646430579829; Fri, 04 Mar
- 2022 13:49:39 -0800 (PST)
+ bh=D7TkAsAlGjYObu7TdoSPfW2GLOJ6vTkBbos7TJsttN0=;
+ b=zIIaDIjHL53Ck8P8kHKNcZzTjP0gnH53r7IcFGhfyJk5JhIky522IufbpwhASHgCtx
+ rdGHdosIzEmlmS+Nsdf9LgiuRvfj7/YlmFZcHfdVdVA2JNMTM7SCg2BZu8LSuND3RVdY
+ bJCeTJeVZoqdEgD2Z9fxp8HxyOfoR7QoRC7wQ/bptofrs7FKonnoZmZiHaYgJBIMAO5u
+ yV38Vy6fuEQtCKbnExwPjlesRQq/PM5drSBa2hUt51KsHErKgpFO1R8FFh6KREdzGp7b
+ 5BRCdzFSARjchfgwj03OmMnJNMgu+9tKWRENS+7Vl8HkJyA2kc1Ai8hhmRJ3rFbia6e1
+ GoKQ==
+X-Gm-Message-State: AOAM533g1+XWy0Jl2PcKjRid71PX5kGW7C/HY6QtD+u7QxL+u3+iIpXE
+ topIfvvnDwIBKl5cmsmsEBmCaidYWpg64jG0owk=
+X-Google-Smtp-Source: ABdhPJwO/bkqOVAmUnFtqrqafLEOzfVIo5UA/cHC4Nov19WqzYp+G1wTFEVO22Hl3ZTxVFCeC3Tccb4ArfhCXkYSmTI=
+X-Received: by 2002:a7b:cf23:0:b0:385:17a6:9b9f with SMTP id
+ m3-20020a7bcf23000000b0038517a69b9fmr298717wmg.151.1646431062329; Fri, 04 Mar
+ 2022 13:57:42 -0800 (PST)
 MIME-Version: 1.0
-References: <1646300401-9063-1-git-send-email-quic_vpolimer@quicinc.com>
- <1646300401-9063-5-git-send-email-quic_vpolimer@quicinc.com>
- <CAA8EJpqkK8q7g8q56rfiOO22ykxgycJTpSJKHuhcqGk05nsVzA@mail.gmail.com>
- <CAE-0n53jGQcn=NThrrW92NL-cry8yrFErdSYTHHEHWW48b3xbg@mail.gmail.com>
- <CAA8EJpoEpn2RPByeDkaGPUX+OC7tvbEw4k78Gd+RKs02jpzG1w@mail.gmail.com>
-In-Reply-To: <CAA8EJpoEpn2RPByeDkaGPUX+OC7tvbEw4k78Gd+RKs02jpzG1w@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 4 Mar 2022 13:49:27 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WZUSuNa0Ei_0ByjHRdsJ7smhD+uVghs28NzNGvGp0LwQ@mail.gmail.com>
-Message-ID: <CAD=FV=WZUSuNa0Ei_0ByjHRdsJ7smhD+uVghs28NzNGvGp0LwQ@mail.gmail.com>
+References: <20220304202406.846485-1-robdclark@gmail.com>
+ <CAA8EJprik57F+t0KicoYaRm=oDOgcQHyHSBjJKbekBKjO_-=0A@mail.gmail.com>
+In-Reply-To: <CAA8EJprik57F+t0KicoYaRm=oDOgcQHyHSBjJKbekBKjO_-=0A@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 4 Mar 2022 13:58:11 -0800
+Message-ID: <CAF6AEGtM+Jhye7ahW3uFg-8PFHH257-T7Qudo=XMU5-AU2LvcA@mail.gmail.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 4/4] arm64/dts/qcom/sm8250: remove
- assigned-clock-rate property for mdp clk
+Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Fix missing ARRAY_SIZE() check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,64 +64,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Thu, Mar 3, 2022 at 4:16 PM Dmitry Baryshkov
+On Fri, Mar 4, 2022 at 1:47 PM Dmitry Baryshkov
 <dmitry.baryshkov@linaro.org> wrote:
 >
-> On Fri, 4 Mar 2022 at 02:56, Stephen Boyd <swboyd@chromium.org> wrote:
+> On Fri, 4 Mar 2022 at 23:23, Rob Clark <robdclark@gmail.com> wrote:
 > >
-> > Quoting Dmitry Baryshkov (2022-03-03 15:50:50)
-> > > On Thu, 3 Mar 2022 at 12:40, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
-> > > >
-> > > > Kernel clock driver assumes that initial rate is the
-> > > > max rate for that clock and was not allowing it to scale
-> > > > beyond the assigned clock value.
-> > > >
-> > > > Drop the assigned clock rate property and vote on the mdp clock as per
-> > > > calculated value during the usecase.
-> > > >
-> > > > Fixes: 7c1dffd471("arm64: dts: qcom: sm8250.dtsi: add display system nodes")
-> > >
-> > > Please remove the Fixes tags from all commits. Otherwise the patches
-> > > might be picked up into earlier kernels, which do not have a patch
-> > > adding a vote on the MDP clock.
+> > From: Rob Clark <robdclark@chromium.org>
 > >
-> > What patch is that? The Fixes tag could point to that commit.
+> > Fixes: f6d62d091cfd ("drm/msm/a6xx: add support for Adreno 660 GPU")
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
 >
-> Please correct me if I'm wrong.
-> Currently the dtsi enforces bumping the MDP clock when the mdss device
-> is being probed and when the dpu device is being probed.
-> Later during the DPU lifetime the core_perf would change the clock's
-> rate as it sees fit according to the CRTC requirements.
-
-"Currently" means _before_ ${SUBJECT} patch lands, right? Since
-${SUBJECT} patch is removing the bump to max.
-
-
-> However it would happen only when the during the
-> dpu_crtc_atomic_flush(), before we call this function, the MDP clock
-> is left in the undetermined state. The power rails controlled by the
-> opp table are left in the undetermined state.
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> However see the comment below.
 >
-> I suppose that during the dpu_bind we should bump the clock to the max
-> possible freq and let dpu_core_perf handle it afterwards.
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > index 02b47977b5c3..6406d8c3411a 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> > @@ -687,6 +687,7 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+> >
+> >         BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
+> >         BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
+> > +       BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
+>
+> The magic number 32 and 48 are repeated through this code. I'd suggest
+> to define them and use defined names.
+> It can come up as a separate commit.
+>
 
-Definitely feels like seeing the clock to something predictable during
-the initial probe makes sense. If it's just for the initial probe then
-setting it to max (based on the opp table) seems fine. I think an
-earlier version of this series set it to max every time we did runtime
-resume. We'd have to have a good reason to do that.
+Or perhaps instead:
+----
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 6406d8c3411a..58c371930fb4 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -683,20 +683,23 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+ {
+        struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+        const u32 *regs = a6xx_protect;
+-       unsigned i, count = ARRAY_SIZE(a6xx_protect), count_max = 32;
+-
+-       BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
+-       BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
+-       BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
++       unsigned i, count, count_max;
 
--Doug
+        if (adreno_is_a650(adreno_gpu)) {
+                regs = a650_protect;
+                count = ARRAY_SIZE(a650_protect);
+                count_max = 48;
++               BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
+        } else if (adreno_is_a660_family(adreno_gpu)) {
+                regs = a660_protect;
+                count = ARRAY_SIZE(a660_protect);
+                count_max = 48;
++               BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
++       } else {
++               regs = a6xx_protect;
++               count = ARRAY_SIZE(a6xx_protect);
++               count_max = 32;
++               BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
+        }
+
+        /*
+----
+
+that moves each of the two uses of constant together..  adding three
+#defines each used only twice seems a bit silly, IMHO
+
+BR,
+-R
