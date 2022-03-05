@@ -1,57 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E374CE43D
-	for <lists+freedreno@lfdr.de>; Sat,  5 Mar 2022 11:38:08 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BB84CE63E
+	for <lists+freedreno@lfdr.de>; Sat,  5 Mar 2022 18:33:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8F0610E275;
-	Sat,  5 Mar 2022 10:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 442AE10E1EF;
+	Sat,  5 Mar 2022 17:33:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [IPv6:2607:f8b0:4864:20::72e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7057B10E26C
- for <freedreno@lists.freedesktop.org>; Sat,  5 Mar 2022 10:38:04 +0000 (UTC)
-Received: by mail-qk1-x72e.google.com with SMTP id 185so8375780qkh.1
- for <freedreno@lists.freedesktop.org>; Sat, 05 Mar 2022 02:38:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lz9u63IzQ1ny8p1MWQPaj5qIKrAWncsqwglKvPt7b18=;
- b=ureuxwwCPGYZzOPqWphv5EaO1kY1yEOA+OfcMXKh++Ta5PzP3Vqj41pK77KeSt1CKr
- oHiDbgZS3JHbshLxXF+pEYWSLCyWKXK/3lNXWTjopaR9vPXmmPkmu1OeG56DQVBJKixm
- r1cZRZJw0aXAtNVTrDkVjGhEATMpLEMgHw1s67JnIwIUkOTer5TKItbrALbdsagJRkso
- 1vze8yvTmfCCdTYPrB4FmzaUBlrchxOnMSc8i6PM4to8Avv9Su3Z1nVYOaYiJ32b+cLI
- BpP5eGR4IFMfuig3q+aDiYLkT8Xi41yIKswVkI2IOnKqaxrgZyqMnvFpr7tWsXugSDJ6
- ri2w==
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFEF10E1EF;
+ Sat,  5 Mar 2022 17:33:31 +0000 (UTC)
+Received: by mail-pf1-x42e.google.com with SMTP id a5so10239627pfv.9;
+ Sat, 05 Mar 2022 09:33:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=12jc84zVACmPZitAQSCb3aE5VlqyZHrB+UXDuxQbIOc=;
+ b=OJKGYJts4lLE8sv13wBz+01+qJke1kaef4oTLqY+k4PRzNLU9gIOW/2YYRAMR5Is19
+ YWW/6bQLg21aOiZ2U9RzSZS0io6k2XgufBQU7fsgymUBtvEkOVJbio6mUTZOPHjZv5mk
+ yWnvftE8JsLQG1Vcu1UNu5e1PhWmQvmtCHzbc8nXGTmzj910ZIVMK1lkz5Jf0CQrlA0G
+ RQ6ie8vDIYEDONm2VGnBSrDHpKWhaq+tMz87ZVoQnQK0I9vEJnM6nT2jEyfUBedFw6z9
+ O1wea9/NgpRcO+0/QKorOYL5InhT1hFEWGF2Nnunn2xYpqH6xClZ9LyRpM17ALe1KNTk
+ 5LlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lz9u63IzQ1ny8p1MWQPaj5qIKrAWncsqwglKvPt7b18=;
- b=TR0VplaLIvYLjWYP58SZZLl5EokEAwPurdCxobYMSeH0L7furP8O7LdF6s0eB9uW4p
- 6mwtAhLobzpuaLYiwkZjF0fFGN/cOFSEAt6Ks1dzT2ArYxruJ93mSplYMVbSgeMrkaxZ
- iJcKnaf6uTACjA5nyfFVkWA9uxZQ4GEAKZ3W0f7peRtyOhfCiN+0pGdfsgHdm9mgqnYO
- yssLrHAtu22HK3n0EVgb/qnzfb5WANXRjEMuNahLhG7W3sf0UJrN3pjOMG2ec1s50QEA
- EZFBwM1m0uSuBfAmxTPSqgtvm7UdqSRn/JRuds2SJKmXwxS+y/zAmtyYQnge0nhJp0w4
- tagA==
-X-Gm-Message-State: AOAM532S8c2BWj3S/r5Z9WHfPbMaD5RBjlwcHBp5Ti9mGQz5gvB/v7V4
- 1piFePmVgpuxIn0uUmRSzxelDskpvdGBMe9EKbc2lQ==
-X-Google-Smtp-Source: ABdhPJwhxXcWrkTJz60CRz6vpb74RSpT9uPgyqmT08HWXkR+SLRk4QdjvtxL/93LY0auGa7N0SvwegppCk4zzWi/9Z4=
-X-Received: by 2002:a05:620a:1392:b0:60d:d76a:5073 with SMTP id
- k18-20020a05620a139200b0060dd76a5073mr1620167qki.59.1646476683364; Sat, 05
- Mar 2022 02:38:03 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=12jc84zVACmPZitAQSCb3aE5VlqyZHrB+UXDuxQbIOc=;
+ b=CPmfDs07FjwEK1MzcvO+YHIWJmKbHHzoBKSaVXry6JTTDoC9fmtq7kcYeCjdhZ4Se7
+ 5lN/cL45omMbka3pOK3GFxsLebUeIHGABTi86zNKE8HDWTtGpHnJiBTc7UdUW6FnLAoM
+ WURC9GygR521YMKUM3+UEIIgEwGHlZ6OKDgNYFgxepA1INanSk9Rb6Iw03nMHeXEJknL
+ HOXzEE60saqMaFca+DPnQ76sMkFd8ZVUJRZ3AKWKfEU0WcThAOWp1jQwTMOOPsu8aHkG
+ a7rUETtHci0DVEVBPAAScMectc5NkCHgtnsg+K1Wqh/H84MgSl+45ABIb8n5Zulk7j9k
+ v9XA==
+X-Gm-Message-State: AOAM532cAJlsqKoC/FOTEC6H8FoHMlxbdWYY8GaZ5eECEooMvx7oYpC7
+ Sgqhqgh5Cpt89e56+yTG3GVIqJGozxM=
+X-Google-Smtp-Source: ABdhPJwUZoMD1qdQmW7sKJkY/P0Jf8kaI1M3DCVgtmJsxT5spI6VebPuV35teZIfIPfgdje/kVVyDw==
+X-Received: by 2002:a05:6a00:180d:b0:4f6:d697:7df9 with SMTP id
+ y13-20020a056a00180d00b004f6d6977df9mr3302231pfa.71.1646501610505; 
+ Sat, 05 Mar 2022 09:33:30 -0800 (PST)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id
+ l62-20020a633e41000000b0037fee1843dbsm2922838pga.25.2022.03.05.09.33.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Mar 2022 09:33:28 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sat,  5 Mar 2022 09:34:03 -0800
+Message-Id: <20220305173405.914989-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220304202406.846485-1-robdclark@gmail.com>
- <CAA8EJprik57F+t0KicoYaRm=oDOgcQHyHSBjJKbekBKjO_-=0A@mail.gmail.com>
- <CAF6AEGtM+Jhye7ahW3uFg-8PFHH257-T7Qudo=XMU5-AU2LvcA@mail.gmail.com>
-In-Reply-To: <CAF6AEGtM+Jhye7ahW3uFg-8PFHH257-T7Qudo=XMU5-AU2LvcA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 5 Mar 2022 13:37:52 +0300
-Message-ID: <CAA8EJpr3yDW=f4gc4d06KiETtNJkrLNaTcOx28UpS3toVOh6nw@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/a6xx: Fix missing ARRAY_SIZE() check
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/a6xx: Fix missing ARRAY_SIZE() check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,102 +67,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 5 Mar 2022 at 00:57, Rob Clark <robdclark@gmail.com> wrote:
->
-> On Fri, Mar 4, 2022 at 1:47 PM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Fri, 4 Mar 2022 at 23:23, Rob Clark <robdclark@gmail.com> wrote:
-> > >
-> > > From: Rob Clark <robdclark@chromium.org>
-> > >
-> > > Fixes: f6d62d091cfd ("drm/msm/a6xx: add support for Adreno 660 GPU")
-> > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > However see the comment below.
-> >
-> > > ---
-> > >  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > index 02b47977b5c3..6406d8c3411a 100644
-> > > --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> > > @@ -687,6 +687,7 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
-> > >
-> > >         BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
-> > >         BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
-> > > +       BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
-> >
-> > The magic number 32 and 48 are repeated through this code. I'd suggest
-> > to define them and use defined names.
-> > It can come up as a separate commit.
-> >
->
-> Or perhaps instead:
+From: Rob Clark <robdclark@chromium.org>
 
-IMO this is much better.
+Fixes: f6d62d091cfd ("drm/msm/a6xx: add support for Adreno 660 GPU")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-> ----
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> index 6406d8c3411a..58c371930fb4 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -683,20 +683,23 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
->  {
->         struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->         const u32 *regs = a6xx_protect;
-> -       unsigned i, count = ARRAY_SIZE(a6xx_protect), count_max = 32;
-> -
-> -       BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
-> -       BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
-> -       BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
-> +       unsigned i, count, count_max;
->
->         if (adreno_is_a650(adreno_gpu)) {
->                 regs = a650_protect;
->                 count = ARRAY_SIZE(a650_protect);
->                 count_max = 48;
-> +               BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
->         } else if (adreno_is_a660_family(adreno_gpu)) {
->                 regs = a660_protect;
->                 count = ARRAY_SIZE(a660_protect);
->                 count_max = 48;
-> +               BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
-> +       } else {
-> +               regs = a6xx_protect;
-> +               count = ARRAY_SIZE(a6xx_protect);
-> +               count_max = 32;
-> +               BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
->         }
->
->         /*
-> ----
->
-> that moves each of the two uses of constant together..  adding three
-> #defines each used only twice seems a bit silly, IMHO
->
-> BR,
-> -R
-
-
-
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 02b47977b5c3..83c31b2ad865 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -683,19 +683,23 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
+ {
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	const u32 *regs = a6xx_protect;
+-	unsigned i, count = ARRAY_SIZE(a6xx_protect), count_max = 32;
+-
+-	BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
+-	BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
++	unsigned i, count, count_max;
+ 
+ 	if (adreno_is_a650(adreno_gpu)) {
+ 		regs = a650_protect;
+ 		count = ARRAY_SIZE(a650_protect);
+ 		count_max = 48;
++		BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
+ 	} else if (adreno_is_a660_family(adreno_gpu)) {
+ 		regs = a660_protect;
+ 		count = ARRAY_SIZE(a660_protect);
+ 		count_max = 48;
++		BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
++	} else {
++		regs = a6xx_protect;
++		count = ARRAY_SIZE(a6xx_protect);
++		count_max = 32;
++		BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
+ 	}
+ 
+ 	/*
 -- 
-With best wishes
-Dmitry
+2.35.1
+
