@@ -1,60 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93BB84CE63E
-	for <lists+freedreno@lfdr.de>; Sat,  5 Mar 2022 18:33:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E27C4CF3BC
+	for <lists+freedreno@lfdr.de>; Mon,  7 Mar 2022 09:37:31 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 442AE10E1EF;
-	Sat,  5 Mar 2022 17:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 065AC10E37D;
+	Mon,  7 Mar 2022 08:37:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFEF10E1EF;
- Sat,  5 Mar 2022 17:33:31 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id a5so10239627pfv.9;
- Sat, 05 Mar 2022 09:33:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=12jc84zVACmPZitAQSCb3aE5VlqyZHrB+UXDuxQbIOc=;
- b=OJKGYJts4lLE8sv13wBz+01+qJke1kaef4oTLqY+k4PRzNLU9gIOW/2YYRAMR5Is19
- YWW/6bQLg21aOiZ2U9RzSZS0io6k2XgufBQU7fsgymUBtvEkOVJbio6mUTZOPHjZv5mk
- yWnvftE8JsLQG1Vcu1UNu5e1PhWmQvmtCHzbc8nXGTmzj910ZIVMK1lkz5Jf0CQrlA0G
- RQ6ie8vDIYEDONm2VGnBSrDHpKWhaq+tMz87ZVoQnQK0I9vEJnM6nT2jEyfUBedFw6z9
- O1wea9/NgpRcO+0/QKorOYL5InhT1hFEWGF2Nnunn2xYpqH6xClZ9LyRpM17ALe1KNTk
- 5LlQ==
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9879010E37D
+ for <freedreno@lists.freedesktop.org>; Mon,  7 Mar 2022 08:37:28 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-2dc0364d2ceso155083217b3.7
+ for <freedreno@lists.freedesktop.org>; Mon, 07 Mar 2022 00:37:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=E6x5yVDLBVFqVJQNZ+OEdQbw27fgZWH2Vrmnv9e+WIA=;
+ b=oNhgYRxfC5S7Flav03PFuf0rKKCE1fufuLFFan6hXVBjpSOfsSMnXBp4h2wik/njKd
+ 91RQgRcuaWeCEIreQbS23aCelM6cQM927Z6zYvena3xPhX/EbcZYVf1pXWn/UHGguVqO
+ K2dcx/WFIciVIgUJg6j2gunB1QhflbZ9WWaz5mhcysoBCYf4XbjaXP2arDS86gyk6Whv
+ Fy0TdFWNL6/dvv3rSHgocQnjfmtxiXyjTLLdqb6oxObw0ZLXSd2iTALIhmrpIPhT4yhx
+ LPRRT2WhEJDGKz3oI1Udexe3bON05QXHXPqDUhbfXuQVslCHzamXeETBxry7RtIbIAS2
+ xMBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=12jc84zVACmPZitAQSCb3aE5VlqyZHrB+UXDuxQbIOc=;
- b=CPmfDs07FjwEK1MzcvO+YHIWJmKbHHzoBKSaVXry6JTTDoC9fmtq7kcYeCjdhZ4Se7
- 5lN/cL45omMbka3pOK3GFxsLebUeIHGABTi86zNKE8HDWTtGpHnJiBTc7UdUW6FnLAoM
- WURC9GygR521YMKUM3+UEIIgEwGHlZ6OKDgNYFgxepA1INanSk9Rb6Iw03nMHeXEJknL
- HOXzEE60saqMaFca+DPnQ76sMkFd8ZVUJRZ3AKWKfEU0WcThAOWp1jQwTMOOPsu8aHkG
- a7rUETtHci0DVEVBPAAScMectc5NkCHgtnsg+K1Wqh/H84MgSl+45ABIb8n5Zulk7j9k
- v9XA==
-X-Gm-Message-State: AOAM532cAJlsqKoC/FOTEC6H8FoHMlxbdWYY8GaZ5eECEooMvx7oYpC7
- Sgqhqgh5Cpt89e56+yTG3GVIqJGozxM=
-X-Google-Smtp-Source: ABdhPJwUZoMD1qdQmW7sKJkY/P0Jf8kaI1M3DCVgtmJsxT5spI6VebPuV35teZIfIPfgdje/kVVyDw==
-X-Received: by 2002:a05:6a00:180d:b0:4f6:d697:7df9 with SMTP id
- y13-20020a056a00180d00b004f6d6977df9mr3302231pfa.71.1646501610505; 
- Sat, 05 Mar 2022 09:33:30 -0800 (PST)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id
- l62-20020a633e41000000b0037fee1843dbsm2922838pga.25.2022.03.05.09.33.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Mar 2022 09:33:28 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat,  5 Mar 2022 09:34:03 -0800
-Message-Id: <20220305173405.914989-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.35.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=E6x5yVDLBVFqVJQNZ+OEdQbw27fgZWH2Vrmnv9e+WIA=;
+ b=2fr27wha4egxamdZrfp+drZ3xsqVQEgbSM8XgX7DgrpCgiwZRILVAuNUv/tqGa+XjE
+ Ic2cf8h+KXqkhTVmjgryZtYHU8YLW92YjI2OJNiOnFqAOogLAdfMREtmBTytpA2v7/Wc
+ KMsMD7Qff74IsvDljXQqit/cFDM+b+eAYWeroZDb9Z+9tN+kv0WZj/dKykd2k/xMzt6K
+ fNwmnmdzP3n3zcBAQIiaFhKuhhdCsUgjMMaBLraNxmiX80Cm+SBJZp1hVsjxCz15rbyl
+ lGFnLGc9X6+X5OuHGoPqVgIP6822dJkkeO349GOcktQavvUyApMWsmCKtICtMkPSNKnl
+ tmwg==
+X-Gm-Message-State: AOAM5316pzE8YJRM0WJN3/W59XLBj7DNLjEmwV3SVMHonEBTjraHw0bK
+ dn3U9astjFbOks4zvDvV93N7ChYtYP793HmtAZ7U+A==
+X-Google-Smtp-Source: ABdhPJxkcnqrAUZ0/BuHe0V4d9rKIzD/3EzUc+kmn55bYHjaih5zVBAoZ44017nG3klZVXrKnoyRs3z6yh7rXxMOItE=
+X-Received: by 2002:a81:c45:0:b0:2dc:59c4:3555 with SMTP id
+ 66-20020a810c45000000b002dc59c43555mr7687451ywm.36.1646642247656; Mon, 07 Mar
+ 2022 00:37:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/a6xx: Fix missing ARRAY_SIZE() check
+References: <20220219183310.557435-1-robdclark@gmail.com>
+In-Reply-To: <20220219183310.557435-1-robdclark@gmail.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Mon, 7 Mar 2022 14:07:16 +0530
+Message-ID: <CA+G9fYv6dPUsPzbFLr9PxJoe4eRAUdQyD4xT4hh4-xw=n9r=Bw@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
+ devfreq support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,57 +64,132 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Anders Roxell <anders.roxell@linaro.org>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
+ dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi Rob,
 
-Fixes: f6d62d091cfd ("drm/msm/a6xx: add support for Adreno 660 GPU")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+On Sun, 20 Feb 2022 at 00:02, Rob Clark <robdclark@gmail.com> wrote:
+>
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Avoid going down devfreq paths on devices where devfreq is not
+> initialized.
+>
+> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> Reported-by: Anders Roxell <anders.roxell@linaro.org>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 02b47977b5c3..83c31b2ad865 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -683,19 +683,23 @@ static void a6xx_set_cp_protect(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	const u32 *regs = a6xx_protect;
--	unsigned i, count = ARRAY_SIZE(a6xx_protect), count_max = 32;
--
--	BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
--	BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
-+	unsigned i, count, count_max;
- 
- 	if (adreno_is_a650(adreno_gpu)) {
- 		regs = a650_protect;
- 		count = ARRAY_SIZE(a650_protect);
- 		count_max = 48;
-+		BUILD_BUG_ON(ARRAY_SIZE(a650_protect) > 48);
- 	} else if (adreno_is_a660_family(adreno_gpu)) {
- 		regs = a660_protect;
- 		count = ARRAY_SIZE(a660_protect);
- 		count_max = 48;
-+		BUILD_BUG_ON(ARRAY_SIZE(a660_protect) > 48);
-+	} else {
-+		regs = a6xx_protect;
-+		count = ARRAY_SIZE(a6xx_protect);
-+		count_max = 32;
-+		BUILD_BUG_ON(ARRAY_SIZE(a6xx_protect) > 32);
- 	}
- 
- 	/*
--- 
-2.35.1
+I have tested this patch and the reported kernel crash is fixed [1].
 
+Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+
+> ---
+>  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 31 +++++++++++++++++++++------
+>  1 file changed, 25 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> index 9bf319be11f6..26a3669a97b3 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+> @@ -83,12 +83,17 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
+>  static void msm_devfreq_boost_work(struct kthread_work *work);
+>  static void msm_devfreq_idle_work(struct kthread_work *work);
+>
+> +static bool has_devfreq(struct msm_gpu *gpu)
+> +{
+> +       return !!gpu->funcs->gpu_busy;
+> +}
+> +
+>  void msm_devfreq_init(struct msm_gpu *gpu)
+>  {
+>         struct msm_gpu_devfreq *df = &gpu->devfreq;
+>
+>         /* We need target support to do devfreq */
+> -       if (!gpu->funcs->gpu_busy)
+> +       if (!has_devfreq(gpu))
+>                 return;
+>
+>         dev_pm_qos_add_request(&gpu->pdev->dev, &df->idle_freq,
+> @@ -149,6 +154,9 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
+>  {
+>         struct msm_gpu_devfreq *df = &gpu->devfreq;
+>
+> +       if (!has_devfreq(gpu))
+> +               return;
+> +
+>         devfreq_cooling_unregister(gpu->cooling);
+>         dev_pm_qos_remove_request(&df->boost_freq);
+>         dev_pm_qos_remove_request(&df->idle_freq);
+> @@ -156,16 +164,24 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
+>
+>  void msm_devfreq_resume(struct msm_gpu *gpu)
+>  {
+> -       gpu->devfreq.busy_cycles = 0;
+> -       gpu->devfreq.time = ktime_get();
+> +       struct msm_gpu_devfreq *df = &gpu->devfreq;
+>
+> -       devfreq_resume_device(gpu->devfreq.devfreq);
+> +       if (!has_devfreq(gpu))
+> +               return;
+> +
+> +       df->busy_cycles = 0;
+> +       df->time = ktime_get();
+> +
+> +       devfreq_resume_device(df->devfreq);
+>  }
+>
+>  void msm_devfreq_suspend(struct msm_gpu *gpu)
+>  {
+>         struct msm_gpu_devfreq *df = &gpu->devfreq;
+>
+> +       if (!has_devfreq(gpu))
+> +               return;
+> +
+>         devfreq_suspend_device(df->devfreq);
+>
+>         cancel_idle_work(df);
+> @@ -185,6 +201,9 @@ void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+>         struct msm_gpu_devfreq *df = &gpu->devfreq;
+>         uint64_t freq;
+>
+> +       if (!has_devfreq(gpu))
+> +               return;
+> +
+>         freq = get_freq(gpu);
+>         freq *= factor;
+>
+> @@ -207,7 +226,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
+>         struct devfreq_dev_status status;
+>         unsigned int idle_time;
+>
+> -       if (!df->devfreq)
+> +       if (!has_devfreq(gpu))
+>                 return;
+>
+>         /*
+> @@ -253,7 +272,7 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
+>  {
+>         struct msm_gpu_devfreq *df = &gpu->devfreq;
+>
+> -       if (!df->devfreq)
+> +       if (!has_devfreq(gpu))
+>                 return;
+>
+>         msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
+> --
+> 2.34.1
+
+
+--
+Linaro LKFT
+https://lkft.linaro.org
+
+[1] https://lkft.validation.linaro.org/scheduler/job/4664600#L1894
