@@ -2,57 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FEB04D20CE
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 19:59:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 869F04D21B1
+	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 20:36:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA7AA10E37F;
-	Tue,  8 Mar 2022 18:59:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F7E210E437;
+	Tue,  8 Mar 2022 19:36:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F4410E293;
- Tue,  8 Mar 2022 18:59:46 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- k29-20020a05600c1c9d00b003817fdc0f00so110806wms.4; 
- Tue, 08 Mar 2022 10:59:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GlEBP0dYqZ3fyLNSyiw8KHK9YhpTqiBMFquOs6BvLfo=;
- b=Xall2NrXYxCvpO+k2IRdt458PZkUo48IXE0jneqg59khrwXsl5iewYj2Eb8LIUrZZe
- FVE/jff4cGANSH0wf4dLwbtFEn/gXsXiBA3+1rlgNdAffWUeAlYtw2waUrVIil6tk/VY
- E3BmxeV8Bnufneps3gq9MfbZ90VZG1WMdr9fwdAo/oNUh5n8eeJjca1u2K4Jg5ZsosP5
- o8hXDXJQpG8Xn0AtDpOvoj6/6lf9oSSGc8hgLTaOUlE2qDvGNTdPMc3gU1I4hMML7Kgl
- 1ZGunPmBieoXBd9wvRj5dhY1QJ/3eTqEg1ukLa4h1hwrFlo9oLpVhtsa4B2LbDqgevX+
- 0iAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GlEBP0dYqZ3fyLNSyiw8KHK9YhpTqiBMFquOs6BvLfo=;
- b=YkUJYkDZ22kU3G72UaO2IfhJaehKaQtImJn0MUulgIvF4bbkktB7C0KfcKjGIdyCXR
- t245Hy2WY8DPoskiJCAD983za+ZJkweN6ThUUMtQxDh28IJi4TUOj/fYOUUXT0XEJLSh
- dx8jSFeGkKM1Xe2G3xF5te+mNeNUbfCNu/lXdR98rbxJjtg4tYlKp/R1b09IPEAhg7U4
- hfxA6fG3iRpwYcqBierWb8g7DBFKQFWSnprd3+9Kz1f8U7nzcopUWTQJzZiooqktjfKG
- XJYUVeWqP/YuHjKhOWfaZDcXdJnPFevE2dt1alndnkFVN4cUJd3cj0CUzooixvo4WU5C
- vTRA==
-X-Gm-Message-State: AOAM532AwxYOfL9zAY+P2DihCk6Vlj4USouOBBtODe7wrqVDxfPy9tJU
- kIDEwo6SkJeMVpL/Ksy6iLJZ4/whp84hBG/z8Hk=
-X-Google-Smtp-Source: ABdhPJxRLMgBSW3C5vVIU9Jzb/aKdPhWN3yZiBXjWHOvBgCS/dLX7GeDxuJWaQ/PI8AjZCkHayN5eHMLHehGkhRtfOg=
-X-Received: by 2002:a1c:f616:0:b0:37d:1e1c:f90a with SMTP id
- w22-20020a1cf616000000b0037d1e1cf90amr4597415wmc.148.1646765985128; Tue, 08
- Mar 2022 10:59:45 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 813CD10E437;
+ Tue,  8 Mar 2022 19:36:25 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DBCA56173F;
+ Tue,  8 Mar 2022 19:36:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEB4C340FA;
+ Tue,  8 Mar 2022 19:36:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646768183;
+ bh=oD0VhZlZShLXXL0VtyiSN7OYDVRpJLyegMXQzT9D+UA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=ey77ykuhs4E7ZaV6YzBUicdBDA4cjypVH7cJtFwZVB8NnFwIFeXthZTsJUnCLmie8
+ rka8c6JmvwWFY0lQKh+z1l+6QG/LA5l7xATgYgZrNMUEk8MvDsxTlQp/dRXH2jWxX7
+ wlqn5cXCoOOdOJ+Y6m2M5sWQXHnUQdCkp0VksnGEcvVWeM6/nGz8xJ775oJE4LMHYn
+ 5UetBO5K5gJ3gxe481YktKxaNtsAInoOtcnYJ6tQGqBKROzi1EnIDVLcbNPrtqHhXC
+ IwDipKRXMrQM/Gg8Scp7WnZHe8ApjUwyFiHF78Vnn0HOlpliT8qrRE8oshhaCMLPnr
+ Wa6YiYmYUneRg==
+Received: by mail-ej1-f42.google.com with SMTP id qx21so74202ejb.13;
+ Tue, 08 Mar 2022 11:36:23 -0800 (PST)
+X-Gm-Message-State: AOAM5334sU+2JC5qyNMMipUVK+Y3H1e/3GyupAVb+Y7yFYXzUzcQR9Hr
+ egnhgeUebh4M+teTTmP1lxgsd3CMxN6JqvXzvQ==
+X-Google-Smtp-Source: ABdhPJzZzoUPz4XaizE/zi66xXVmww6DX4HQPJpJ5wI1spp5ElEOP/8Wi4Qx2bFZCZ7dUrhMObCmG0cWDv+ss8lCgpw=
+X-Received: by 2002:a17:906:584:b0:6b0:8987:90af with SMTP id
+ 4-20020a170906058400b006b0898790afmr15279019ejn.264.1646768181983; Tue, 08
+ Mar 2022 11:36:21 -0800 (PST)
 MIME-Version: 1.0
-References: <20220308184844.1121029-1-robdclark@gmail.com>
- <CAOMZO5Dkr7PqvgYpNp1fBR7P91T-x1ke2pRN6A6GWFJ7zBQo7g@mail.gmail.com>
-In-Reply-To: <CAOMZO5Dkr7PqvgYpNp1fBR7P91T-x1ke2pRN6A6GWFJ7zBQo7g@mail.gmail.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 8 Mar 2022 11:00:14 -0800
-Message-ID: <CAF6AEGvfdyK2oNyLVrN5WJV0VV-EkvyD+EJ0rtGP7u7CA3kDXg@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
+References: <20220302001410.2264039-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220302001410.2264039-1-dmitry.baryshkov@linaro.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Tue, 8 Mar 2022 13:36:10 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+TwPpZSZa3Jq-qYg0kUpb2ord5bWKVAwqsdVP40RKFuQ@mail.gmail.com>
+Message-ID: <CAL_Jsq+TwPpZSZa3Jq-qYg0kUpb2ord5bWKVAwqsdVP40RKFuQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
- devfreq support (v2)
+Subject: Re: [Freedreno] [RESEND PATCH] dt-bindings: display/msm: add
+ missing brace in dpu-qcm2290.yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +61,48 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU"
- <freedreno@lists.freedesktop.org>, Anders Roxell <anders.roxell@linaro.org>,
+Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
  David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- DRI mailing list <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- Linux Kernel Functional Testing <lkft@linaro.org>, Sean Paul <sean@poorly.run>
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 8, 2022 at 10:53 AM Fabio Estevam <festevam@gmail.com> wrote:
+On Tue, Mar 1, 2022 at 6:14 PM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> On Tue, Mar 8, 2022 at 3:48 PM Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Avoid going down devfreq paths on devices where devfreq is not
-> > initialized.
-> >
-> > v2: Change has_devfreq() logic [Dmitry]
-> >
-> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> > Reported-by: Anders Roxell <anders.roxell@linaro.org>
-
-Fixes: 6aa89ae1fb04 ("drm/msm/gpu: Cancel idle/boost work on suspend")
-
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Add missing brace in dpu-qcm2290.yaml. While we are at it, also fix
+> indentation for another brace, so it matches the corresponding line.
 >
-> Does this need a Fixes tag?
+> Reported-by: Rob Herring <robh@kernel.org>
+> Cc: Loic Poulain <loic.poulain@linaro.org>
+> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Didn't include freedreno@ in the first email, so resending.
+> ---
+>  Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yes, sorry, patchwork had picked up the fixes tag from previous
-version but I'd forgot to add it locally
+Now that the example actually builds, we get just schema warnings:
 
-BR,
--R
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.example.dt.yaml:
+mdss@5e00000: compatible: ['qcom,qcm2290-mdss', 'qcom,mdss'] is too
+long
+From schema: /builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.example.dt.yaml:
+mdss@5e00000: 'mdp@5e01000' does not match any of the regexes:
+'^display-controller@[0-9a-f]+$', 'pinctrl-[0-9]+'
+From schema: /builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+
+
+I would have assumed upon reporting errors with 'make
+dt_binding_check' that the fixes would be tested with 'make
+dt_binding_check'...
+
+Rob
