@@ -1,58 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 067CE4D1868
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 13:55:31 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA2D4D1DE8
+	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 17:55:30 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2CF910E2C8;
-	Tue,  8 Mar 2022 12:55:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC9ED10E686;
+	Tue,  8 Mar 2022 16:55:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBE510E2AC;
- Tue,  8 Mar 2022 12:55:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646744127; x=1678280127;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=NYrXls5pr28/YqLnwHsHfZyvhY0KcSAOepllwzDc9VE=;
- b=Sn5ROj6GppYD5aF0NnCCPmmA59/EyD1skTfsx+PAqMG+x6xQSrNpr4OJ
- vPgk5agL/Sj54wdBPSm8rXf9VssVDmuKgjC7MqT2korH8ACy/t+HWFSwh
- ctrncaeNQg6O70H2ejJ1qyh7n2Wad4Wvt9xFnH3hb5KdJTB0N2+ylqzrk
- xyFENNwbKKNZnS5+wb9aYuMQtkEfFuGPosaouXJZyokjrBn7J43FkZqql
- 14SKo4FrIs9yvaJJXGD4TyeWfiFUZmsgSLcoRuVPkv3eNK1Ly1YSROayz
- 0/vAkMekJPeewcttNUZYcz4U6TDc9N579RPBXujyVyIO8cEmiUtqKmcQy g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10279"; a="254865663"
-X-IronPort-AV: E=Sophos;i="5.90,164,1643702400"; d="scan'208";a="254865663"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2022 04:55:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,164,1643702400"; d="scan'208";a="610995763"
-Received: from lkp-server02.sh.intel.com (HELO 89b41b6ae01c) ([10.239.97.151])
- by fmsmga004.fm.intel.com with ESMTP; 08 Mar 2022 04:55:22 -0800
-Received: from kbuild by 89b41b6ae01c with local (Exim 4.92)
- (envelope-from <lkp@intel.com>)
- id 1nRZN3-0001Ou-Qn; Tue, 08 Mar 2022 12:55:21 +0000
-Date: Tue, 8 Mar 2022 20:54:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Message-ID: <202203082018.IcI00Nvs-lkp@intel.com>
-References: <20220302225551.v1.2.Icda301aa85f1e4367601fa9b830b3365d377e669@changeid>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220302225551.v1.2.Icda301aa85f1e4367601fa9b830b3365d377e669@changeid>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH v1 02/10] drm/msm/a6xx: Send NMI to gmu when
- it is hung
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14AB610E590;
+ Tue,  8 Mar 2022 16:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1646758523; x=1678294523;
+ h=from:to:cc:subject:date:message-id;
+ bh=IJhYGSqQ+TjX2Hrn6OQWdW1SWaoeh6rjSgOhCsAhXwM=;
+ b=HT8IngSU/IFuM8YYBOdQZdhhybnxT/2jbeMYgX+jLJmfUgkpNx9VVIv1
+ q3SWgWEOSdUgLoyL4G3E89ycVHl91+ipqQfWB0urHt79dcK6G+CSsPWI8
+ yglSw2AKzPCR5EP9B3K/i++LBLwsKjFe03br/3tAlv/VlZJsqBBzYbxM+ 0=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 08 Mar 2022 08:55:23 -0800
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 08 Mar 2022 08:55:21 -0800
+X-QCInternal: smtphost
+Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 08 Mar 2022 22:25:03 +0530
+Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
+ id 3206453BE; Tue,  8 Mar 2022 22:25:02 +0530 (IST)
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Tue,  8 Mar 2022 22:24:55 +0530
+Message-Id: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v5 0/5] Update mdp clk to max supported value to
+ support higher refresh rates
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,74 +51,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Douglas Anderson <dianders@chromium.org>, kbuild-all@lists.01.org,
- Dan Carpenter <error27@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Wang Qing <wangqing@vivo.com>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Sean Paul <sean@poorly.run>
+Cc: quic_kalyant@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, swboyd@chromium.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Akhil,
+Kernel clock driver assumes that initial rate is the
+max rate for that clock and was not allowing it to scale
+beyond the assigned clock value.
 
-Thank you for the patch! Perhaps something to improve:
+Drop the assigned clock rate property and vote on the mdp clock as per
+calculated value during the usecase.
 
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-intel/for-linux-next drm-tip/drm-tip drm-exynos/exynos-drm-next tegra-drm/drm/tegra/for-next v5.17-rc7 next-20220308]
-[cannot apply to airlied/drm-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+Changes in v2:
+- Remove assigned-clock-rate property and set mdp clk during resume sequence.
+- Add fixes tag.
 
-url:    https://github.com/0day-ci/linux/commits/Akhil-P-Oommen/Support-for-GMU-coredump-and-some-related-improvements/20220303-013028
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: riscv-randconfig-r042-20220307 (https://download.01.org/0day-ci/archive/20220308/202203082018.IcI00Nvs-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project d271fc04d5b97b12e6b797c6067d3c96a8d7470e)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install riscv cross compiling tool for clang build
-        # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/0day-ci/linux/commit/23953efc645803299a93f178e9a32f2ae97dae39
-        git remote add linux-review https://github.com/0day-ci/linux
-        git fetch --no-tags linux-review Akhil-P-Oommen/Support-for-GMU-coredump-and-some-related-improvements/20220303-013028
-        git checkout 23953efc645803299a93f178e9a32f2ae97dae39
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash drivers/gpu/drm/msm/
+Changes in v3:
+- Remove extra line after fixes tag.(Stephen Boyd)
+- Add similar changes for sc7180, sdm845 which uses opp table for voting mdp clk.(Stephen Boyd)
+- Drop patch: "drm/msm/disp/dpu1: set mdp clk to the maximum frequency in opp table"
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+Changes in v4:
+- Add similar change for sm8250.(Dmitry)
 
-All warnings (new ones prefixed by >>):
+Changes in v5:
+- Add change to set mdp clk to max frequency in opp table during mdp probe/bind.
 
->> drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:967:6: warning: no previous prototype for function 'a6xx_get_gmu_state' [-Wmissing-prototypes]
-   void a6xx_get_gmu_state(struct msm_gpu *gpu, struct a6xx_gpu_state *a6xx_state)
-        ^
-   drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:967:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   void a6xx_get_gmu_state(struct msm_gpu *gpu, struct a6xx_gpu_state *a6xx_state)
-   ^
-   static 
-   1 warning generated.
+Vinod Polimera (5):
+  arm64/dts/qcom/sc7280: remove assigned-clock-rate property for mdp clk
+  arm64/dts/qcom/sc7180: remove assigned-clock-rate property for mdp clk
+  arm64/dts/qcom/sdm845: remove assigned-clock-rate property for mdp clk
+  arm64/dts/qcom/sm8250: remove assigned-clock-rate property for mdp clk
+  drm/msm/disp/dpu1: set mdp clk to the maximum frequency in opp table
+    during probe
 
+ arch/arm64/boot/dts/qcom/sc7180.dtsi    | 9 ++-------
+ arch/arm64/boot/dts/qcom/sc7280.dtsi    | 9 ++-------
+ arch/arm64/boot/dts/qcom/sdm845.dtsi    | 9 ++-------
+ arch/arm64/boot/dts/qcom/sm8250.dtsi    | 9 ++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
+ 5 files changed, 11 insertions(+), 28 deletions(-)
 
-vim +/a6xx_get_gmu_state +967 drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+-- 
+2.7.4
 
-   966	
- > 967	void a6xx_get_gmu_state(struct msm_gpu *gpu, struct a6xx_gpu_state *a6xx_state)
-   968	{
-   969		struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-   970		struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-   971		struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-   972	
-   973		if (gmu->hung)
-   974			a6xx_gmu_send_nmi(gmu);
-   975	
-   976		a6xx_get_gmu_registers(gpu, a6xx_state);
-   977	}
-   978	
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
