@@ -2,45 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E1A4D1DE3
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 17:55:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9EC94D1E2D
+	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 18:09:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E720110E4CF;
-	Tue,  8 Mar 2022 16:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67BC110E2C1;
+	Tue,  8 Mar 2022 17:09:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C924410E52C;
- Tue,  8 Mar 2022 16:55:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1646758521; x=1678294521;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=Krx54VrV7dlrLmC7GO6l/PqPdu8mz9flBFKLOOJ8Ybs=;
- b=Ug2X7LyVAUw56wNobjGumSpEr337RVIpcgHCBj9Y4D3J0iRJfvs1SM5/
- XWCCdHF1hWp6+WvalzeNNBhlMYnH2BdV5TZdw7D9BsjQ47yhAIQlFaPqW
- /H/KxGtmpV8vC6kxCEJM3fUvh2KsQ0L4r/RYotTJBytdomFWP5s5np9/R 0=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 08 Mar 2022 08:55:20 -0800
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 08 Mar 2022 08:55:19 -0800
-X-QCInternal: smtphost
-Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
- by ironmsg02-blr.qualcomm.com with ESMTP; 08 Mar 2022 22:25:05 +0530
-Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
- id 94A1C53F1; Tue,  8 Mar 2022 22:25:02 +0530 (IST)
-From: Vinod Polimera <quic_vpolimer@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Tue,  8 Mar 2022 22:25:00 +0530
-Message-Id: <1646758500-3776-6-git-send-email-quic_vpolimer@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C909510E2D4
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Mar 2022 17:09:47 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id p8so12190414qvg.12
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Mar 2022 09:09:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UQsloRHTSaGiGetdbDWoxqQEJYsHpKTImpl+EXTJaU0=;
+ b=H2042iFn8zbvVMiOulmTBRC55hfhpLFhLPRiEwvUGuLHJeAjSulrbb/dnZ+gGOGpdx
+ z+nEoUPsD5v9kA7aLyUd3mh/+c+OPht0WtwZz7SUgG5EpIxXKtD33/rrpjJgBRLOZ+Wc
+ +w4Ng70uS1XwbnLD2GxLQoEqEPlzd/G0Nj4DbBPsF4RU+8mYeOajlGGlmH85BpFpMHq4
+ V9pj+HOsO1K0j7YJzSI1eVB8yORUl7FQ0K4fuwqcZEq2hj4nu6kvqSciK8Z1UvqSgnGX
+ 2Gg1wU8u+siIqzrk0fumIX8gcdhjob0cCaqDCKEe8NWqBvwoktmRCHASmW+vII/XTqBi
+ SkNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UQsloRHTSaGiGetdbDWoxqQEJYsHpKTImpl+EXTJaU0=;
+ b=1QDHuP+/WfCl1uO3KuYLfCbFUUPkN33+WP1QECLSAgyWLp+HEnsLAgld9M2xh8Vf/q
+ SfD/VKW4eF64y5DrYU3UnpWcQNFfD18dGosT5lmGA1bC6HS6r9G1gnfTmdLVcd4bhCpC
+ qOz87A+ocN7el1ksWVKlLYYi78pMIThLd5iybug8MkGGLSQBBQUy3rCmW0kz+IzwL0gx
+ BVbCNwjT9Tiqj50kPzBQ7tbs6niDlBbuuLNJWvm5wye5RuVto04L8ke2zpQBH6KLqi9B
+ 9qjp6AJTriFxaP6PxZD7Rof7bQgg4KvoepDYRVOfxUkrqPZku+pY47q5i9Vz6PUpONaM
+ vDfg==
+X-Gm-Message-State: AOAM53352PCejdACBHPYHPyCNMCcH1B4twXGwjNouWaJSi8h2dpEWWiz
+ eMLHBVTiCaAfAWmp/qsvZMGWokbIAVfaeWq1QvNl2g==
+X-Google-Smtp-Source: ABdhPJziwHM3mwjCjwO4Ib9qlCcqXaMHab7YQ1KRTIBpOJvcb8c3ZW4vgDTtKRTvbt8UU9j7WWhqwP7KKAN7SmM4acc=
+X-Received: by 2002:a05:6214:1bcf:b0:435:4c86:607a with SMTP id
+ m15-20020a0562141bcf00b004354c86607amr12909937qvc.122.1646759386744; Tue, 08
+ Mar 2022 09:09:46 -0800 (PST)
+MIME-Version: 1.0
 References: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
-Subject: [Freedreno] [PATCH v5 5/5] drm/msm/disp/dpu1: set mdp clk to the
- maximum frequency in opp table during probe
+ <1646758500-3776-6-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1646758500-3776-6-git-send-email-quic_vpolimer@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 8 Mar 2022 20:09:35 +0300
+Message-ID: <CAA8EJprgJvOGCU_PvAHCNoMvSam8QV4x9N2ZEm+oer5d7B-cPA@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5 5/5] drm/msm/disp/dpu1: set mdp clk to
+ the maximum frequency in opp table during probe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,41 +64,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, swboyd@chromium.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
+ swboyd@chromium.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-use max clock during probe/bind sequence from the opp table.
-The clock will be scaled down when framework sends an update.
+On Tue, 8 Mar 2022 at 19:55, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
+>
+> use max clock during probe/bind sequence from the opp table.
+> The clock will be scaled down when framework sends an update.
+>
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index d550f90..d9922b9 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -1221,6 +1221,7 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
+>         struct dpu_kms *dpu_kms;
+>         struct dss_module_power *mp;
+>         int ret = 0;
+> +       unsigned long max_freq = ULONG_MAX;
+>
+>         dpu_kms = devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
+>         if (!dpu_kms)
+> @@ -1243,6 +1244,8 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
+>                 return ret;
+>         }
+>
+> +       dev_pm_opp_find_freq_floor(dev, &max_freq);
 
-Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
- 1 file changed, 3 insertions(+)
+You leak a reference to the opp here. The function returns a value,
+which should be dev_pm_opp_put().
+Moreover judging from the dev_pm_opp_set_rate() code I think you don't
+have to find an exact frequency, as it will call
+clk_round_rate()/_find_freq_ceil() anyway.
+Could you please check that it works?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index d550f90..d9922b9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1221,6 +1221,7 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 	struct dpu_kms *dpu_kms;
- 	struct dss_module_power *mp;
- 	int ret = 0;
-+	unsigned long max_freq = ULONG_MAX;
- 
- 	dpu_kms = devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
- 	if (!dpu_kms)
-@@ -1243,6 +1244,8 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 		return ret;
- 	}
- 
-+	dev_pm_opp_find_freq_floor(dev, &max_freq);
-+	dev_pm_opp_set_rate(dev, max_freq);
- 	platform_set_drvdata(pdev, dpu_kms);
- 
- 	ret = msm_kms_init(&dpu_kms->base, &kms_funcs);
+> +       dev_pm_opp_set_rate(dev, max_freq);
+>         platform_set_drvdata(pdev, dpu_kms);
+>
+>         ret = msm_kms_init(&dpu_kms->base, &kms_funcs);
+> --
+> 2.7.4
+>
+
+
 -- 
-2.7.4
-
+With best wishes
+Dmitry
