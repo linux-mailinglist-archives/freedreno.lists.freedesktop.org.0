@@ -1,54 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 869F04D21B1
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 20:36:28 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6158F4D2226
+	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 21:05:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F7E210E437;
-	Tue,  8 Mar 2022 19:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED38010E52A;
+	Tue,  8 Mar 2022 20:05:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 813CD10E437;
- Tue,  8 Mar 2022 19:36:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DBCA56173F;
- Tue,  8 Mar 2022 19:36:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEB4C340FA;
- Tue,  8 Mar 2022 19:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646768183;
- bh=oD0VhZlZShLXXL0VtyiSN7OYDVRpJLyegMXQzT9D+UA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ey77ykuhs4E7ZaV6YzBUicdBDA4cjypVH7cJtFwZVB8NnFwIFeXthZTsJUnCLmie8
- rka8c6JmvwWFY0lQKh+z1l+6QG/LA5l7xATgYgZrNMUEk8MvDsxTlQp/dRXH2jWxX7
- wlqn5cXCoOOdOJ+Y6m2M5sWQXHnUQdCkp0VksnGEcvVWeM6/nGz8xJ775oJE4LMHYn
- 5UetBO5K5gJ3gxe481YktKxaNtsAInoOtcnYJ6tQGqBKROzi1EnIDVLcbNPrtqHhXC
- IwDipKRXMrQM/Gg8Scp7WnZHe8ApjUwyFiHF78Vnn0HOlpliT8qrRE8oshhaCMLPnr
- Wa6YiYmYUneRg==
-Received: by mail-ej1-f42.google.com with SMTP id qx21so74202ejb.13;
- Tue, 08 Mar 2022 11:36:23 -0800 (PST)
-X-Gm-Message-State: AOAM5334sU+2JC5qyNMMipUVK+Y3H1e/3GyupAVb+Y7yFYXzUzcQR9Hr
- egnhgeUebh4M+teTTmP1lxgsd3CMxN6JqvXzvQ==
-X-Google-Smtp-Source: ABdhPJzZzoUPz4XaizE/zi66xXVmww6DX4HQPJpJ5wI1spp5ElEOP/8Wi4Qx2bFZCZ7dUrhMObCmG0cWDv+ss8lCgpw=
-X-Received: by 2002:a17:906:584:b0:6b0:8987:90af with SMTP id
- 4-20020a170906058400b006b0898790afmr15279019ejn.264.1646768181983; Tue, 08
- Mar 2022 11:36:21 -0800 (PST)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B9810E52A
+ for <freedreno@lists.freedesktop.org>; Tue,  8 Mar 2022 20:05:41 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ s203-20020a4a3bd4000000b003191c2dcbe8so287556oos.9
+ for <freedreno@lists.freedesktop.org>; Tue, 08 Mar 2022 12:05:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=QX67c8/LWZdvLCoz7zI9uFhqDQjOSWv595jQDqaaHvw=;
+ b=AoYICMH8irjSWwtZb+Z4eLYjCkWJeNSak3Ym+tkyXo7JKkBgfi/ApgCW8h+4uiTLk4
+ 9/ZBh92aXPInfCxmDlAWVb4MzPrC9fWhQAXR1EaTZrKwakYnK4HXEBRhrYs3Ep5zfB2E
+ sF7dLTDPwJru+Mre8SMqknSkzXsiym3TOgeUA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=QX67c8/LWZdvLCoz7zI9uFhqDQjOSWv595jQDqaaHvw=;
+ b=fjIo9KAU8tdgpDWsPFJR25WsfwtcVpM/GKQwM5XARj0DJGlhjEzvkztfWRB0biY5a7
+ wD3i4ArWYWu87wDvuUhXd7c8/dJNIyL6XwGi2SKKTX50Wzc1Dz+PlbBDPgeSptAcpP6B
+ UwC4WVup2xj9OgIA5Q/bQVhCwGTjIfng6ObHfCUxfKZhPKKBQLNNE7QToGWdyabXaHmz
+ LA3i13g6tEDveuTxRsjE7uw4zVynYU5HjKp1mzEZkf5heIY2L589YiHPfH3WJMaCPigs
+ HpBUeKc3qbmCamQaE8X0KLV7oy8hHPLzWJn1I/2Kz3YoiF/Jdn+Ke3vy+cNyw02bmP0s
+ unrQ==
+X-Gm-Message-State: AOAM530+w9/jfLZbzD9ffcBiFxiNEYakkzQTaND2ADzBB08yQ+TuKGqb
+ BgoQa45jvtmWxj8yglytXsEAuTHHSQR5ST6g1ezWyg==
+X-Google-Smtp-Source: ABdhPJxFRuIHirmuMcP8JQW2CiIQQrW1zixcggRe6oOvjNpt2ZWhCvmWo6ALkosrHI8M9jLM4bLDX5HuCCoQWjlEW1Q=
+X-Received: by 2002:a05:6870:d250:b0:da:b3f:3211 with SMTP id
+ h16-20020a056870d25000b000da0b3f3211mr3425601oac.193.1646769940572; Tue, 08
+ Mar 2022 12:05:40 -0800 (PST)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Mar 2022 12:05:39 -0800
 MIME-Version: 1.0
-References: <20220302001410.2264039-1-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220302001410.2264039-1-dmitry.baryshkov@linaro.org>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Tue, 8 Mar 2022 13:36:10 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+TwPpZSZa3Jq-qYg0kUpb2ord5bWKVAwqsdVP40RKFuQ@mail.gmail.com>
-Message-ID: <CAL_Jsq+TwPpZSZa3Jq-qYg0kUpb2ord5bWKVAwqsdVP40RKFuQ@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
+References: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 8 Mar 2022 12:05:39 -0800
+Message-ID: <CAE-0n51bfqWs8yOiyQ-A_bEQ7CZSqavz8epcFEWYyZxxoRYFHg@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [RESEND PATCH] dt-bindings: display/msm: add
- missing brace in dpu-qcm2290.yaml
+Subject: Re: [Freedreno] [PATCH v5 1/5] arm64/dts/qcom/sc7280: remove
+ assigned-clock-rate property for mdp clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,48 +68,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>
+Cc: quic_kalyant@quicinc.com, robdclark@gmail.com, linux-kernel@vger.kernel.org,
+ dianders@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 1, 2022 at 6:14 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+Quoting Vinod Polimera (2022-03-08 08:54:56)
+> Kernel clock driver assumes that initial rate is the
+> max rate for that clock and was not allowing it to scale
+> beyond the assigned clock value.
+
+How? I see ftbl_disp_cc_mdss_mdp_clk_src[] has multiple frequencies and
+clk_rcg2_shared_ops so it doesn't look like anything in the clk driver
+is preventing the frequency from changing beyond the assigned value.
+
 >
-> Add missing brace in dpu-qcm2290.yaml. While we are at it, also fix
-> indentation for another brace, so it matches the corresponding line.
+> Drop the assigned clock rate property and vote on the mdp clock as per
+> calculated value during the usecase.
 >
-> Reported-by: Rob Herring <robh@kernel.org>
-> Cc: Loic Poulain <loic.poulain@linaro.org>
-> Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> Didn't include freedreno@ in the first email, so resending.
-> ---
->  Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Changes in v2:
+> - Remove assigned-clock-rate property and set mdp clk during resume sequence.
+> - Add fixes tag.
+>
+> Changes in v3:
+> - Remove extra line after fixes tag.(Stephen Boyd)
 
-Now that the example actually builds, we get just schema warnings:
+This changelog should be removed.
 
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.example.dt.yaml:
-mdss@5e00000: compatible: ['qcom,qcm2290-mdss', 'qcom,mdss'] is too
-long
-From schema: /builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.example.dt.yaml:
-mdss@5e00000: 'mdp@5e01000' does not match any of the regexes:
-'^display-controller@[0-9a-f]+$', 'pinctrl-[0-9]+'
-From schema: /builds/robherring/linux-dt/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+>
+> Fixes: 62fbdce91("arm64: dts: qcom: sc7280: add display dt nodes")
 
+I thought folks were saying that this is bad to keep? I don't really
+mind either way, but I guess it's better to drop the fixes tag because
+this is largely a performance improvement?
 
-I would have assumed upon reporting errors with 'make
-dt_binding_check' that the fixes would be tested with 'make
-dt_binding_check'...
-
-Rob
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
