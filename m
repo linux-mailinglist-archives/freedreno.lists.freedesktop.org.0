@@ -2,52 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D7F4D20B8
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 19:53:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FEB04D20CE
+	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 19:59:49 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E02210E2EE;
-	Tue,  8 Mar 2022 18:53:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA7AA10E37F;
+	Tue,  8 Mar 2022 18:59:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB7B810E2D3;
- Tue,  8 Mar 2022 18:53:02 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id c20so7311563edr.8;
- Tue, 08 Mar 2022 10:53:02 -0800 (PST)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97F4410E293;
+ Tue,  8 Mar 2022 18:59:46 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id
+ k29-20020a05600c1c9d00b003817fdc0f00so110806wms.4; 
+ Tue, 08 Mar 2022 10:59:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mbj3xN0iDcD9/ITu0QYceYztDmj5HBmZeXlHsmQyrHw=;
- b=B618Sz+Xe0Jlwlh7LCH+brDIS/apTr66CGVdpWmDijL1AfVKPArkwxSnfq3nIRELa6
- TUXfrPY1cssYxeKbeY+Ip/mOslS0mP/E1k6W0H2j2Y91NMPfkDtML8bJWVY8DCo1TyKk
- gTyIXNUYexF/C22ReOOhfIEDkTBOo8Fs8MLg5nnPeuPooL1PhgDOxoudzwiFWU5bUOo7
- lmxV2L+z26Wi42uHoPFYo2khhsU9eEyzNz0hc7z+McfjGRvcR8cxNDpSgOy6CUuwPU75
- pHcWFGSBqKOoOlM8Hg/NRfAPK7fnu9yWDoMzm+Yfdzk0jAf5WsyDy+XULVjTMg4K82m3
- FBrw==
+ :cc; bh=GlEBP0dYqZ3fyLNSyiw8KHK9YhpTqiBMFquOs6BvLfo=;
+ b=Xall2NrXYxCvpO+k2IRdt458PZkUo48IXE0jneqg59khrwXsl5iewYj2Eb8LIUrZZe
+ FVE/jff4cGANSH0wf4dLwbtFEn/gXsXiBA3+1rlgNdAffWUeAlYtw2waUrVIil6tk/VY
+ E3BmxeV8Bnufneps3gq9MfbZ90VZG1WMdr9fwdAo/oNUh5n8eeJjca1u2K4Jg5ZsosP5
+ o8hXDXJQpG8Xn0AtDpOvoj6/6lf9oSSGc8hgLTaOUlE2qDvGNTdPMc3gU1I4hMML7Kgl
+ 1ZGunPmBieoXBd9wvRj5dhY1QJ/3eTqEg1ukLa4h1hwrFlo9oLpVhtsa4B2LbDqgevX+
+ 0iAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=mbj3xN0iDcD9/ITu0QYceYztDmj5HBmZeXlHsmQyrHw=;
- b=UpbVZqWxflvwbFPLDb9eZ94646v8cY5mbXLifCvfxf0ip95IpJ6TyUwTYZs9RvxO/R
- sErire9Ci6kMtTF6i33WttEjLznyn2wrq5g5NSdSi6LmAL0vGIIZ8MQMSTb2esxcRkZo
- u2s6zGpaknJnriTN+I0C92kMjOWACKk1EtWLSpiJ4t+PQ21VxRfEhDb2VL76WGigc6c7
- K0JJPKwYkfnEwug5r4KCB9wAkZVXtW7zQrL6bPUc4o+cVHoC9DOuHnbqUnbHP9xt4mGv
- Z3N6vIwgfVg+H4a6bvhjuwSCxcTfPBb3buOtZLm/4+7lKb97r0AlDxX0AXKI8hgI/n4R
- 58Dw==
-X-Gm-Message-State: AOAM532gJIYfP6ppQjl8ICufPK5/US29V/YejAocupE0VREpAPQsSKQA
- LnbTCctgkKpkCGXvdkiO/mnHjUB7rznoFgBf3kM=
-X-Google-Smtp-Source: ABdhPJwOJAgm8wr1+UkxQb7mNwouA+rAJXuJwzkhiCZQ1YADoQAKP9kdCqJXn9nLHZLfoyyEyfV4Hifbp+0BVDY0Ivc=
-X-Received: by 2002:a05:6402:1e8b:b0:3da:58e6:9a09 with SMTP id
- f11-20020a0564021e8b00b003da58e69a09mr17146759edf.155.1646765581293; Tue, 08
- Mar 2022 10:53:01 -0800 (PST)
+ bh=GlEBP0dYqZ3fyLNSyiw8KHK9YhpTqiBMFquOs6BvLfo=;
+ b=YkUJYkDZ22kU3G72UaO2IfhJaehKaQtImJn0MUulgIvF4bbkktB7C0KfcKjGIdyCXR
+ t245Hy2WY8DPoskiJCAD983za+ZJkweN6ThUUMtQxDh28IJi4TUOj/fYOUUXT0XEJLSh
+ dx8jSFeGkKM1Xe2G3xF5te+mNeNUbfCNu/lXdR98rbxJjtg4tYlKp/R1b09IPEAhg7U4
+ hfxA6fG3iRpwYcqBierWb8g7DBFKQFWSnprd3+9Kz1f8U7nzcopUWTQJzZiooqktjfKG
+ XJYUVeWqP/YuHjKhOWfaZDcXdJnPFevE2dt1alndnkFVN4cUJd3cj0CUzooixvo4WU5C
+ vTRA==
+X-Gm-Message-State: AOAM532AwxYOfL9zAY+P2DihCk6Vlj4USouOBBtODe7wrqVDxfPy9tJU
+ kIDEwo6SkJeMVpL/Ksy6iLJZ4/whp84hBG/z8Hk=
+X-Google-Smtp-Source: ABdhPJxRLMgBSW3C5vVIU9Jzb/aKdPhWN3yZiBXjWHOvBgCS/dLX7GeDxuJWaQ/PI8AjZCkHayN5eHMLHehGkhRtfOg=
+X-Received: by 2002:a1c:f616:0:b0:37d:1e1c:f90a with SMTP id
+ w22-20020a1cf616000000b0037d1e1cf90amr4597415wmc.148.1646765985128; Tue, 08
+ Mar 2022 10:59:45 -0800 (PST)
 MIME-Version: 1.0
 References: <20220308184844.1121029-1-robdclark@gmail.com>
-In-Reply-To: <20220308184844.1121029-1-robdclark@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 8 Mar 2022 15:52:49 -0300
-Message-ID: <CAOMZO5Dkr7PqvgYpNp1fBR7P91T-x1ke2pRN6A6GWFJ7zBQo7g@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+ <CAOMZO5Dkr7PqvgYpNp1fBR7P91T-x1ke2pRN6A6GWFJ7zBQo7g@mail.gmail.com>
+In-Reply-To: <CAOMZO5Dkr7PqvgYpNp1fBR7P91T-x1ke2pRN6A6GWFJ7zBQo7g@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 8 Mar 2022 11:00:14 -0800
+Message-ID: <CAF6AEGvfdyK2oNyLVrN5WJV0VV-EkvyD+EJ0rtGP7u7CA3kDXg@mail.gmail.com>
+To: Fabio Estevam <festevam@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
  devfreq support (v2)
@@ -74,17 +76,28 @@ Cc: Rob Clark <robdclark@chromium.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 8, 2022 at 3:48 PM Rob Clark <robdclark@gmail.com> wrote:
+On Tue, Mar 8, 2022 at 10:53 AM Fabio Estevam <festevam@gmail.com> wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
->
-> Avoid going down devfreq paths on devices where devfreq is not
-> initialized.
->
-> v2: Change has_devfreq() logic [Dmitry]
->
-> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> Reported-by: Anders Roxell <anders.roxell@linaro.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> On Tue, Mar 8, 2022 at 3:48 PM Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Avoid going down devfreq paths on devices where devfreq is not
+> > initialized.
+> >
+> > v2: Change has_devfreq() logic [Dmitry]
+> >
+> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> > Reported-by: Anders Roxell <anders.roxell@linaro.org>
 
-Does this need a Fixes tag?
+Fixes: 6aa89ae1fb04 ("drm/msm/gpu: Cancel idle/boost work on suspend")
+
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+>
+> Does this need a Fixes tag?
+
+Yes, sorry, patchwork had picked up the fixes tag from previous
+version but I'd forgot to add it locally
+
+BR,
+-R
