@@ -1,57 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9EC94D1E2D
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 18:09:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC8F64D2067
+	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 19:48:11 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67BC110E2C1;
-	Tue,  8 Mar 2022 17:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0570910E5B3;
+	Tue,  8 Mar 2022 18:48:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [IPv6:2607:f8b0:4864:20::f36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C909510E2D4
- for <freedreno@lists.freedesktop.org>; Tue,  8 Mar 2022 17:09:47 +0000 (UTC)
-Received: by mail-qv1-xf36.google.com with SMTP id p8so12190414qvg.12
- for <freedreno@lists.freedesktop.org>; Tue, 08 Mar 2022 09:09:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UQsloRHTSaGiGetdbDWoxqQEJYsHpKTImpl+EXTJaU0=;
- b=H2042iFn8zbvVMiOulmTBRC55hfhpLFhLPRiEwvUGuLHJeAjSulrbb/dnZ+gGOGpdx
- z+nEoUPsD5v9kA7aLyUd3mh/+c+OPht0WtwZz7SUgG5EpIxXKtD33/rrpjJgBRLOZ+Wc
- +w4Ng70uS1XwbnLD2GxLQoEqEPlzd/G0Nj4DbBPsF4RU+8mYeOajlGGlmH85BpFpMHq4
- V9pj+HOsO1K0j7YJzSI1eVB8yORUl7FQ0K4fuwqcZEq2hj4nu6kvqSciK8Z1UvqSgnGX
- 2Gg1wU8u+siIqzrk0fumIX8gcdhjob0cCaqDCKEe8NWqBvwoktmRCHASmW+vII/XTqBi
- SkNg==
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1D1310E532;
+ Tue,  8 Mar 2022 18:48:08 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id o26so17230405pgb.8;
+ Tue, 08 Mar 2022 10:48:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kmwLyD/dNxW2RzhMW7TqKOPG19gcSG2VPjcZNJ8YJ7Y=;
+ b=bBIeKK1bY+Eml8HcFIdHzNO9ls55ISByO+JR0/BKyKu7ETxiYU3wfkI+0nbsk12IeQ
+ 5LuDr9byAG4cZqgYdhaG6837t8v3xiTAufKyikjiVybPJ799E2pWHiXMbNTjTIp0a+iN
+ KFveCYukqhXiBR9nlyEmoNxkT6j0F6SqRXU8QH01YNwaq5Cg5uyE09Ygt9XYV5SxD/oE
+ kzzItxxjQDnQBV8jHhCjfIDR/l9j54XGRfFs1zqt9DEflfadd9Ahn1XN/u+RIJtucfHf
+ hJhCIWNB4vAcRnI7W/ZPoDrp5yfwbZcdA04VWqt7CNq/bEjW1QpXLUqtRmfHqRFd3rPL
+ JgdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UQsloRHTSaGiGetdbDWoxqQEJYsHpKTImpl+EXTJaU0=;
- b=1QDHuP+/WfCl1uO3KuYLfCbFUUPkN33+WP1QECLSAgyWLp+HEnsLAgld9M2xh8Vf/q
- SfD/VKW4eF64y5DrYU3UnpWcQNFfD18dGosT5lmGA1bC6HS6r9G1gnfTmdLVcd4bhCpC
- qOz87A+ocN7el1ksWVKlLYYi78pMIThLd5iybug8MkGGLSQBBQUy3rCmW0kz+IzwL0gx
- BVbCNwjT9Tiqj50kPzBQ7tbs6niDlBbuuLNJWvm5wye5RuVto04L8ke2zpQBH6KLqi9B
- 9qjp6AJTriFxaP6PxZD7Rof7bQgg4KvoepDYRVOfxUkrqPZku+pY47q5i9Vz6PUpONaM
- vDfg==
-X-Gm-Message-State: AOAM53352PCejdACBHPYHPyCNMCcH1B4twXGwjNouWaJSi8h2dpEWWiz
- eMLHBVTiCaAfAWmp/qsvZMGWokbIAVfaeWq1QvNl2g==
-X-Google-Smtp-Source: ABdhPJziwHM3mwjCjwO4Ib9qlCcqXaMHab7YQ1KRTIBpOJvcb8c3ZW4vgDTtKRTvbt8UU9j7WWhqwP7KKAN7SmM4acc=
-X-Received: by 2002:a05:6214:1bcf:b0:435:4c86:607a with SMTP id
- m15-20020a0562141bcf00b004354c86607amr12909937qvc.122.1646759386744; Tue, 08
- Mar 2022 09:09:46 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kmwLyD/dNxW2RzhMW7TqKOPG19gcSG2VPjcZNJ8YJ7Y=;
+ b=f4SR8mTmMHXKZ9y4lcRYfH9bRKT+dpk7GVarKZgdGjp+x6xleNdYfVJJiDUOoROl4c
+ /mwp4Vr979xPGNZmNb+M3uDVkVbcKZf7lAO3GOzvF9fdGCxqiB9Qk83bKG5fuJ5lwTrU
+ JsZPSWTKfu7xOY0JzQArjikVPum2ETjZrlVG5LKy/tB9ZvZ9nezg1NImnbpD4KJsYWlQ
+ s5iVJrM/BstJJy+5IT1pTU9LcpcY2mI9K4/hVBXgjb/UdsTJ1LDXgdJa8Tgw+Mfps7EZ
+ BqUYZFV0/WgvVPSDtFq/m/bvApHzmHJc6HNt/VBeVImOlIaXKBZw/9yEeyYCRZgJbhV2
+ 0PDA==
+X-Gm-Message-State: AOAM530cWjuhXVlqnduKlYSMifO7oOu8MXIrHt8zHHMNH1HiyqtlX3mO
+ 9UatTsoRAUOdhh2q9f74pudMKS/MIHo=
+X-Google-Smtp-Source: ABdhPJy/k9PqwomI4wEWKZQhIW9f3ebpWevqKdxPWSDsy/ybougbJzb+jzvMb97y/bbV6CrPIntPgw==
+X-Received: by 2002:a05:6a00:ad0:b0:4e1:2d96:2ab0 with SMTP id
+ c16-20020a056a000ad000b004e12d962ab0mr19664621pfl.3.1646765287869; 
+ Tue, 08 Mar 2022 10:48:07 -0800 (PST)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ d15-20020a056a00198f00b004f7109da1c4sm7129643pfl.205.2022.03.08.10.48.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Mar 2022 10:48:06 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue,  8 Mar 2022 10:48:44 -0800
+Message-Id: <20220308184844.1121029-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
- <1646758500-3776-6-git-send-email-quic_vpolimer@quicinc.com>
-In-Reply-To: <1646758500-3776-6-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 8 Mar 2022 20:09:35 +0300
-Message-ID: <CAA8EJprgJvOGCU_PvAHCNoMvSam8QV4x9N2ZEm+oer5d7B-cPA@mail.gmail.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 5/5] drm/msm/disp/dpu1: set mdp clk to
- the maximum frequency in opp table during probe
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
+ devfreq support (v2)
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +68,113 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
- swboyd@chromium.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Anders Roxell <anders.roxell@linaro.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 8 Mar 2022 at 19:55, Vinod Polimera <quic_vpolimer@quicinc.com> wrote:
->
-> use max clock during probe/bind sequence from the opp table.
-> The clock will be scaled down when framework sends an update.
->
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index d550f90..d9922b9 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1221,6 +1221,7 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
->         struct dpu_kms *dpu_kms;
->         struct dss_module_power *mp;
->         int ret = 0;
-> +       unsigned long max_freq = ULONG_MAX;
->
->         dpu_kms = devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
->         if (!dpu_kms)
-> @@ -1243,6 +1244,8 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
->                 return ret;
->         }
->
-> +       dev_pm_opp_find_freq_floor(dev, &max_freq);
+From: Rob Clark <robdclark@chromium.org>
 
-You leak a reference to the opp here. The function returns a value,
-which should be dev_pm_opp_put().
-Moreover judging from the dev_pm_opp_set_rate() code I think you don't
-have to find an exact frequency, as it will call
-clk_round_rate()/_find_freq_ceil() anyway.
-Could you please check that it works?
+Avoid going down devfreq paths on devices where devfreq is not
+initialized.
 
-> +       dev_pm_opp_set_rate(dev, max_freq);
->         platform_set_drvdata(pdev, dpu_kms);
->
->         ret = msm_kms_init(&dpu_kms->base, &kms_funcs);
-> --
-> 2.7.4
->
+v2: Change has_devfreq() logic [Dmitry]
 
+Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+Reported-by: Anders Roxell <anders.roxell@linaro.org>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 30 ++++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index 9bf319be11f6..12641616acd3 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -83,6 +83,12 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
+ static void msm_devfreq_boost_work(struct kthread_work *work);
+ static void msm_devfreq_idle_work(struct kthread_work *work);
+ 
++static bool has_devfreq(struct msm_gpu *gpu)
++{
++	struct msm_gpu_devfreq *df = &gpu->devfreq;
++	return !!df->devfreq;
++}
++
+ void msm_devfreq_init(struct msm_gpu *gpu)
+ {
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+@@ -149,6 +155,9 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
+ {
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 
++	if (!has_devfreq(gpu))
++		return;
++
+ 	devfreq_cooling_unregister(gpu->cooling);
+ 	dev_pm_qos_remove_request(&df->boost_freq);
+ 	dev_pm_qos_remove_request(&df->idle_freq);
+@@ -156,16 +165,24 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
+ 
+ void msm_devfreq_resume(struct msm_gpu *gpu)
+ {
+-	gpu->devfreq.busy_cycles = 0;
+-	gpu->devfreq.time = ktime_get();
++	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 
+-	devfreq_resume_device(gpu->devfreq.devfreq);
++	if (!has_devfreq(gpu))
++		return;
++
++	df->busy_cycles = 0;
++	df->time = ktime_get();
++
++	devfreq_resume_device(df->devfreq);
+ }
+ 
+ void msm_devfreq_suspend(struct msm_gpu *gpu)
+ {
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 
++	if (!has_devfreq(gpu))
++		return;
++
+ 	devfreq_suspend_device(df->devfreq);
+ 
+ 	cancel_idle_work(df);
+@@ -185,6 +202,9 @@ void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 	uint64_t freq;
+ 
++	if (!has_devfreq(gpu))
++		return;
++
+ 	freq = get_freq(gpu);
+ 	freq *= factor;
+ 
+@@ -207,7 +227,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
+ 	struct devfreq_dev_status status;
+ 	unsigned int idle_time;
+ 
+-	if (!df->devfreq)
++	if (!has_devfreq(gpu))
+ 		return;
+ 
+ 	/*
+@@ -253,7 +273,7 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
+ {
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+ 
+-	if (!df->devfreq)
++	if (!has_devfreq(gpu))
+ 		return;
+ 
+ 	msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
 -- 
-With best wishes
-Dmitry
+2.35.1
+
