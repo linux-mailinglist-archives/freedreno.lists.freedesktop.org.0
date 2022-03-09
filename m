@@ -2,55 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D6A4D2304
-	for <lists+freedreno@lfdr.de>; Tue,  8 Mar 2022 22:03:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A70824D2618
+	for <lists+freedreno@lfdr.de>; Wed,  9 Mar 2022 02:53:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8C210E5DB;
-	Tue,  8 Mar 2022 21:03:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC4C10E201;
+	Wed,  9 Mar 2022 01:52:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [IPv6:2607:f8b0:4864:20::834])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8651510E603
- for <freedreno@lists.freedesktop.org>; Tue,  8 Mar 2022 21:03:42 +0000 (UTC)
-Received: by mail-qt1-x834.google.com with SMTP id o22so229554qta.8
- for <freedreno@lists.freedesktop.org>; Tue, 08 Mar 2022 13:03:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yWhY8qlsdz7JCpSZpDlipoozq4SQyuAAucvDJGO5X2A=;
- b=I18vN8/IGEzuef44T7UgjcAGV/5fB8EmlgFJQNIRCsZvpnXLXns+WsL3tlcx5x3Sa7
- +EbPcoWiByB4/+7WqmKvv+JHeQDuLq1xTe83ek4BHXiWHrfM5pmZJyc06+SoudkVM7E9
- SCYmq+1SCmnIoSI1yIa4dYQ2Y8nFz+7z6zsu9kqb1ygxFXjg91duNvBVMunZ0YrW6Nl2
- Cby3t19bnzEOkLdkKDXVJLufP1M8N8qcr2Ppt6s5DHCb+QY6yjchRWl4FUAJC0xU5XqW
- tOSjDLYSMrSAhMDXF1tErKpGWljGB1tldoWc3aSuy4ZPwAjLgOE14hj5T9XM89bg6Li4
- B2ZA==
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D24210E201;
+ Wed,  9 Mar 2022 01:52:57 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id x15so743707wru.13;
+ Tue, 08 Mar 2022 17:52:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=DRolm/pjPpwXjBsNzyPivKT1VP/HfTnUyLPT4KbhwIA=;
+ b=AYWf/940N7BjBvgT3kZA/MQ/JRplQXi8rJ5TX3RSp+GTFeiW+IgoduTSwyftX2fwUT
+ KBMPlBWm9bwuQTOPfheaFvUtQ1fg20q6hg+r2O8MdvNLC9UgNU+Jet2NZsMCpy2NmFp/
+ bSi8b7DA1SBi7DhKOIgGirEFAIKwTKiQCVs6vkTVXXP5PH5kxqcn0jSvsOeaQAlFm4aJ
+ a0M3KXSyD6CjOUxV7T53RqUlASLXM4e3WCgHZ4zQ1VpKBLjf4BnzpKY1SAVTKUzt9AHS
+ MTfCyqustZ00b03/sQlBAcmWPHQRCBOnqFmMRnAjYoPtuzhZmAWBEWWF5/8TQ0Ys7mOj
+ pqpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yWhY8qlsdz7JCpSZpDlipoozq4SQyuAAucvDJGO5X2A=;
- b=omU174w0kpxjTJjTQkJXM2ri8mwCMznEE6srLcXmnUtDX/dIMUQ19vQaCWnyr4wCcO
- hustDi2b4zi4faOLl2DxIqwk31kZx+FbaZ6NmKK1pcU1HezXa/Aq2qmEa0JhYpt4acJ9
- 17QAA2KFnW+cDmt5IUnPrkOSkQN5yQYvkyDXe5daFg8BtWipY8Ip7LW7za3freOuGiOr
- 4EC/IRu9e19tII8veupLr+Mi2AWrZb3q+o3pEuYCmnVpxfcuwkTUB1aISAPzL6CSEZXR
- UUOOQVLFlxRqJOTsopjOfKS9TYAkKqZ0ghAdJZvatn2o1c2gmE0InNTUdKZ/uOjZlACI
- BhHA==
-X-Gm-Message-State: AOAM531Cj7ne2LjSP7Km3lIPNbEw0zClu4wnIRKdZXHZhXLUaKvLsZzy
- 3WiKQ19mI/+w++tMd1nV+BYuGOPwwy03woq0AkPfOA==
-X-Google-Smtp-Source: ABdhPJxHaZrUYr2m2Hlos3OFVZ5iTKhrjft5Lscz7Y+azOpRkhGOU+LvOYkxFfMkz8mobriFIysyNSnVFHYzB2SB02I=
-X-Received: by 2002:a05:622a:170d:b0:2e0:7148:ec14 with SMTP id
- h13-20020a05622a170d00b002e07148ec14mr3907614qtk.62.1646773421537; Tue, 08
- Mar 2022 13:03:41 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=DRolm/pjPpwXjBsNzyPivKT1VP/HfTnUyLPT4KbhwIA=;
+ b=XSUvKYhOHKLR0kCluQgfkHhyyX47duu91Io6PvhT+sC/qmRVqR+z9njQVVd4iH9S2D
+ VZ0hUVlnAW8uQX+iKsqgVrtGi6mqWT/TCGgOs7n84VRPpz9Lv1iKsdmwB0T+Q3/m7Xzo
+ di6eURf9h1oAz/WWyPjhN0zMDD/VNRtAR4P61Gb1OdPfxSTv8XcvyRhg6Te8y6b9woxR
+ fJQuUPzdWsqywUay3ZMKfn1BGWe7p32JTvmR0/DoAcVudj/Bjq3cQt+z1QoD6E9HNRTn
+ qni7ebgxv/tgZIA3nV9/38qALutJabSZZKf+/qktyOfvkOReoBHwN9tB5Xz3J0ByJ3OK
+ OOig==
+X-Gm-Message-State: AOAM532ysd2MX7E8ojzPJjGtpA8EV2m1F7h4glOkUUNy1IGlkZWOp0E6
+ KyAR89L9MNA1OQQ0MuN1GOI99JzLCdf0ugtB4os=
+X-Google-Smtp-Source: ABdhPJzCacRqXQsnY1FN9kqvExgwrcL2s/HF6jgcv+Uy5ST4+qG2xTodxDyNGg0883e3N8tHEcX3Jj3T/MVm3t3fmXY=
+X-Received: by 2002:adf:914f:0:b0:1ed:bb92:d0cc with SMTP id
+ j73-20020adf914f000000b001edbb92d0ccmr14384019wrj.297.1646790775618; Tue, 08
+ Mar 2022 17:52:55 -0800 (PST)
 MIME-Version: 1.0
-References: <20220308184844.1121029-1-robdclark@gmail.com>
-In-Reply-To: <20220308184844.1121029-1-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 9 Mar 2022 00:03:30 +0300
-Message-ID: <CAA8EJpqzdXTMbFt4xT5t+nsr9Hgo4mUyfJRqx6obcVtxy-tPHQ@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 8 Mar 2022 17:53:25 -0800
+Message-ID: <CAF6AEGvwHFHEd+9df-0aBOCfmw+ULvTS3f18sJuq_cvGKLDSjw@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
- devfreq support (v2)
+Subject: [Freedreno] [pull] drm/msm: drm-msm-next-2022-03-08 for 5.18
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +59,91 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Anders Roxell <anders.roxell@linaro.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- Linux Kernel Functional Testing <lkft@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 8 Mar 2022 at 21:48, Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Avoid going down devfreq paths on devices where devfreq is not
-> initialized.
->
-> v2: Change has_devfreq() logic [Dmitry]
->
-> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> Reported-by: Anders Roxell <anders.roxell@linaro.org>
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+Hi Dave & Daniel,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Follow-up pull req for v5.18 to pull in some important fixes.
 
-> ---
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 30 ++++++++++++++++++++++-----
->  1 file changed, 25 insertions(+), 5 deletions(-)
->
+The following changes since commit afab9d91d872819f98a792c32c302d9e3261f1a1:
 
+  drm/msm/adreno: Expose speedbin to userspace (2022-02-25 13:29:57 -0800)
 
+are available in the Git repository at:
 
--- 
-With best wishes
-Dmitry
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-next-2022-03-08
+
+for you to fetch changes up to 05afd57f4d34602a652fdaf58e0a2756b3c20fd4:
+
+  drm/msm/gpu: Fix crash on devices without devfreq support (v2)
+(2022-03-08 13:55:23 -0800)
+
+----------------------------------------------------------------
+Dan Carpenter (1):
+      drm/msm/adreno: fix cast in adreno_get_param()
+
+Dmitry Baryshkov (1):
+      dt-bindings: display/msm: add missing brace in dpu-qcm2290.yaml
+
+Rob Clark (8):
+      drm/msm: Update generated headers
+      drm/msm: Add SET_PARAM ioctl
+      drm/msm: Add SYSPROF param (v2)
+      drm/msm/a6xx: Zap counters across context switch
+      drm/msm: Add MSM_SUBMIT_FENCE_SN_IN
+      drm/msm/a6xx: Fix missing ARRAY_SIZE() check
+      drm/msm: Fix dirtyfb refcounting
+      drm/msm/gpu: Fix crash on devices without devfreq support (v2)
+
+Rob Herring (1):
+      dt-bindings: display/msm: Drop bogus interrupt flags cell on MDSS nodes
+
+ .../bindings/display/msm/dpu-msm8998.yaml          |   4 +-
+ .../bindings/display/msm/dpu-qcm2290.yaml          |   5 +-
+ drivers/gpu/drm/msm/adreno/a2xx.xml.h              |  26 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c              |   1 +
+ drivers/gpu/drm/msm/adreno/a3xx.xml.h              |  30 +-
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c              |   1 +
+ drivers/gpu/drm/msm/adreno/a4xx.xml.h              | 112 +++-
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c              |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx.xml.h              |  63 +-
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c              |   1 +
+ drivers/gpu/drm/msm/adreno/a6xx.xml.h              | 674 +++++++++++++--------
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.xml.h          |  26 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  42 +-
+ drivers/gpu/drm/msm/adreno/adreno_common.xml.h     |  31 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c            |  22 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   2 +
+ drivers/gpu/drm/msm/adreno/adreno_pm4.xml.h        |  46 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4.xml.h           |  37 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5.xml.h           |  37 +-
+ drivers/gpu/drm/msm/disp/mdp_common.xml.h          |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_10nm.xml.h         |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_14nm.xml.h         |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_20nm.xml.h         |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm.xml.h         |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_28nm_8960.xml.h    |  37 +-
+ drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h          | 480 ---------------
+ drivers/gpu/drm/msm/dsi/dsi_phy_7nm.xml.h          |  43 +-
+ drivers/gpu/drm/msm/dsi/mmss_cc.xml.h              |  37 +-
+ drivers/gpu/drm/msm/dsi/sfpb.xml.h                 |  37 +-
+ drivers/gpu/drm/msm/hdmi/hdmi.xml.h                |  37 +-
+ drivers/gpu/drm/msm/hdmi/qfprom.xml.h              |  37 +-
+ drivers/gpu/drm/msm/msm_drv.c                      |  31 +-
+ drivers/gpu/drm/msm/msm_fb.c                       |   4 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c               |  42 +-
+ drivers/gpu/drm/msm/msm_gpu.c                      |   2 +
+ drivers/gpu/drm/msm/msm_gpu.h                      |  29 +
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c              |  30 +-
+ drivers/gpu/drm/msm/msm_submitqueue.c              |  39 ++
+ include/uapi/drm/msm_drm.h                         |  32 +-
+ 40 files changed, 1144 insertions(+), 1156 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/dsi/dsi_phy_5nm.xml.h
