@@ -2,53 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2F324D6109
-	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 12:54:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEF924D673D
+	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 18:09:38 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59524884FD;
-	Fri, 11 Mar 2022 11:54:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0ADA10E3FB;
+	Fri, 11 Mar 2022 17:09:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from sipsolutions.net (s3.sipsolutions.net
- [IPv6:2a01:4f8:191:4433::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF1B10E930;
- Fri, 11 Mar 2022 11:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=QKQNUb8gG1815bo0+LJAzephXsrFMrZXGrmPtBwOo6c=; 
- t=1646999652; x=1648209252; b=H7PFbeGMO8u8/BOw2SLNFUUa+tG+BTqiyVEfu1hHBopvf4g
- rk8obx0wULTDkiiOXjJvT+SvT1EWlKdkz1Rx2dtzFHIOr+wx+zp7Q80/1y43iHWhQqct3k195u8cd
- dicUSLPQ28Gmu8z4ibNUYOsLO/DHOgX425o3nanJZG1xVPW9Vi1Q8z+qbdfJRGvWrUI+en3x3kxXH
- MNBqiN3t8rT1r5lVXLAsvd/nWrM2+96Ao6hD7/aS/YNQHzYxZqWmcwTvQ0ZP7OBSq5vJdvtrhEHcD
- wuW0p9r7LsOKC/ZoqLtJRnBSaU7aq8wuXHi4GT/xs7tK05vNX9qPs/rg9RK7K8+w==;
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
- id 1nSdqI-00BtPi-Dc; Fri, 11 Mar 2022 12:53:58 +0100
-Message-ID: <564672530e489da8872bdf1d8cdee7ce071d6a19.camel@sipsolutions.net>
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Rob Clark <robdclark@gmail.com>, David Laight <David.Laight@aculab.com>
-Date: Fri, 11 Mar 2022 12:53:57 +0100
-In-Reply-To: <CAF6AEGtNGJanJ9f2pkjst50yPSWGJPo5nDkcZZgq=BkRWMq4yg@mail.gmail.com>
-References: <1644349472-31077-1-git-send-email-quic_abhinavk@quicinc.com>
- <YgZD8vPqB7ISpRpZ@kroah.com>
- <654d620b-9e14-c47f-b48c-762dc0bd32a1@quicinc.com>
- <Ygdb63FrorUsX/Hg@kroah.com>
- <b9156bde-137c-2fac-19e0-b205ab4d6016@quicinc.com>
- <7db7d01fcf5a3edce61161769c0e6eb1541237bf.camel@sipsolutions.net>
- <2add9ba7-7bc8-bd1d-1963-61e8154b0e3c@quicinc.com>
- <989efb15-cc5e-8f6d-c313-118f01498e33@quicinc.com>
- <8fa2f879e33e4e42b76e21c6fbdcb023@AcuMS.aculab.com>
- <CAF6AEGtNGJanJ9f2pkjst50yPSWGJPo5nDkcZZgq=BkRWMq4yg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.42.4 (3.42.4-1.fc35) 
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15CD410E437;
+ Fri, 11 Mar 2022 17:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647018576; x=1678554576;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=KcpAxrb0JDYinv1n8D+gFVdSOh+ltmZhejslCVfISiE=;
+ b=bGoCqL9lf4C7l8i/6r20bd4p7P3B/P6RvmFOtdYsR3TkdmZViONK6RgX
+ wv2p0i0LZweNF2Qdh9RsDEAFQ8aq97tjhH/rhfgPMe0MCYrq92S+UhZxA
+ nwPq3LvC5KA6+mLiKWE0EQjLsHqfjODcvnzebiyW30IFALFHDQlC+mSuv o=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 11 Mar 2022 09:09:35 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Mar 2022 09:09:33 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Fri, 11 Mar 2022 09:09:33 -0800
+Received: from [10.110.35.206] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Fri, 11 Mar
+ 2022 09:09:32 -0800
+Message-ID: <24e7cdbc-f615-1ba2-d1a9-474b60c87590@quicinc.com>
+Date: Fri, 11 Mar 2022 09:09:31 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+References: <1646963400-25606-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1646963400-25606-2-git-send-email-quic_abhinavk@quicinc.com>
+ <CAA8EJpqnC=crWaSrXLNLBX5WsZ6LDzG0aNUu7RmqhDPTvP8tFQ@mail.gmail.com>
+ <YisC4cY8EZADarG6@pendragon.ideasonboard.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <YisC4cY8EZADarG6@pendragon.ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-malware-bazaar: not-scanned
-Subject: Re: [Freedreno] [PATCH] devcoredump: increase the device delete
- timeout to 10 mins
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 1/6] drm: allow real encoder to be passed
+ for drm_writeback_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +69,148 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "aravindh@codeaurora.org" <aravindh@codeaurora.org>,
- "rafael@kernel.org" <rafael@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "khsieh@codeaurora.org" <khsieh@codeaurora.org>,
- "nganji@codeaurora.org" <nganji@codeaurora.org>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "swboyd@chromium.org" <swboyd@chromium.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
+ rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ mripard@kernel.org, daniel@ffwll.ch, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 2022-03-01 at 09:45 -0800, Rob Clark wrote:
-> On Mon, Feb 28, 2022 at 10:49 PM David Laight <David.Laight@aculab.com> wrote:
-> > 
-> > From: Abhinav Kumar
-> > > Sent: 28 February 2022 21:38
-> > ...
-> > > We also did some profiling around how much increasing the block size
-> > > helps and here is the data:
-> > > 
-> > > Block size    cost
-> > > 
-> > > 4KB           229s
-> > > 8KB            86s
-> > 
-> > You must have an O(n^2) operation in there - find it.
+Hi Dmitry and Laurent
+
+On 3/11/2022 12:05 AM, Laurent Pinchart wrote:
+> On Fri, Mar 11, 2022 at 10:46:13AM +0300, Dmitry Baryshkov wrote:
+>> On Fri, 11 Mar 2022 at 04:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>
+>>> For some vendor driver implementations, display hardware can
+>>> be shared between the encoder used for writeback and the physical
+>>> display.
+>>>
+>>> In addition resources such as clocks and interrupts can
+>>> also be shared between writeback and the real encoder.
+>>>
+>>> To accommodate such vendor drivers and hardware, allow
+>>> real encoder to be passed for drm_writeback_connector.
+>>>
+>>> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
+>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/drm_writeback.c |  8 ++++----
+>>>   include/drm/drm_writeback.h     | 13 +++++++++++--
+>>>   2 files changed, 15 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+>>> index dccf4504..4dad687 100644
+>>> --- a/drivers/gpu/drm/drm_writeback.c
+>>> +++ b/drivers/gpu/drm/drm_writeback.c
+>>> @@ -189,8 +189,8 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>>>          if (IS_ERR(blob))
+>>>                  return PTR_ERR(blob);
+>>>
+>>> -       drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+>>> -       ret = drm_encoder_init(dev, &wb_connector->encoder,
+>>> +       drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
+>>> +       ret = drm_encoder_init(dev, wb_connector->encoder,
+>>>                                 &drm_writeback_encoder_funcs,
+>>>                                 DRM_MODE_ENCODER_VIRTUAL, NULL);
+>>
+>> If the encoder is provided by a separate driver, it might use a
+>> different set of encoder funcs.
 > 
-> The problem is how the devcoredump/sysfs interface works, which
-> results in "re-rendering" the output for each block.. it's fine for
-> moderate size sysfs files, but scales quite badly once you get into
-> couple MB size sysfs files.
+> More than that, if the encoder is provided externally but doesn't have
+> custom operations, I don't really see the point of having an external
+> encoder in the first place.
 > 
-> It could be fixed by having some way to keep state across successive
-> read callbacks.
+> Has this series been tested with a driver that needs to provide an
+> encoder, to make sure it fits the purpose ?
+> 
 
-I'm not sure that's true? Perhaps for dev_coredumpm(), but only if you
-implemented read() badly.
+Yes, I have tested this with the MSM driver which provides an encoder
+and yes it absolutely fits the purpose.
 
-If you have e.g. dev_coredumpsg() or dev_coredumpv() that's just a
-simple read from the existing buffer.
 
-johannes
+>> I'd suggest checking whether the wb_connector->encoder is NULL here.
+>> If it is, allocate one using drmm_kzalloc and init it.
+>> If it is not NULL, assume that it has been initialized already, so
+>> skip the drm_encoder_init() and just call the drm_encoder_helper_add()
+
+You are both right. We can skip the drm_encoder_init for drivers which 
+have already provided an encoder.
+
+The only issue I was facing with that is some of the drivers for example 
+the below one, access the "wb_conn->encoder.possible_crtcs" before the 
+call to drm_writeback_connector_init().
+
+198 int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+199 			   struct rcar_du_crtc *rcrtc)
+200 {
+201 	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+202
+203 	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+204 	drm_connector_helper_add(&wb_conn->base,
+205 				 &rcar_du_wb_conn_helper_funcs);
+206
+207 	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+208 					    &rcar_du_wb_conn_funcs,
+209 					    &rcar_du_wb_enc_helper_funcs,
+210 					    writeback_formats,
+211 					    ARRAY_SIZE(writeback_formats));
+
+If we allocate the encoder within drm_writeback_connector_init(), do you 
+suggest I modify the drivers to move the usage of possible_crtcs after 
+the drm_writeback_connector_init() call to avoid NULL ptr crash?
+
+
+>>
+>>>          if (ret)
+>>> @@ -204,7 +204,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>>>                  goto connector_fail;
+>>>
+>>>          ret = drm_connector_attach_encoder(connector,
+>>> -                                               &wb_connector->encoder);
+>>> +                                               wb_connector->encoder);
+>>>          if (ret)
+>>>                  goto attach_fail;
+>>>
+>>> @@ -233,7 +233,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>>>   attach_fail:
+>>>          drm_connector_cleanup(connector);
+>>>   connector_fail:
+>>> -       drm_encoder_cleanup(&wb_connector->encoder);
+>>> +       drm_encoder_cleanup(wb_connector->encoder);
+>>>   fail:
+>>>          drm_property_blob_put(blob);
+>>>          return ret;
+>>> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+>>> index 9697d27..0ba266e 100644
+>>> --- a/include/drm/drm_writeback.h
+>>> +++ b/include/drm/drm_writeback.h
+>>> @@ -25,13 +25,22 @@ struct drm_writeback_connector {
+>>>          struct drm_connector base;
+>>>
+>>>          /**
+>>> -        * @encoder: Internal encoder used by the connector to fulfill
+>>> +        * @encoder: handle to drm_encoder used by the connector to fulfill
+>>>           * the DRM framework requirements. The users of the
+>>>           * @drm_writeback_connector control the behaviour of the @encoder
+>>>           * by passing the @enc_funcs parameter to drm_writeback_connector_init()
+>>>           * function.
+>>> +        *
+>>> +        * For some vendor drivers, the hardware resources are shared between
+>>> +        * writeback encoder and rest of the display pipeline.
+>>> +        * To accommodate such cases, encoder is a handle to the real encoder
+>>> +        * hardware.
+>>> +        *
+>>> +        * For current existing writeback users, this shall continue to be the
+>>> +        * embedded encoder for the writeback connector.
+>>> +        *
+>>>           */
+>>> -       struct drm_encoder encoder;
+>>> +       struct drm_encoder *encoder;
+>>>
+>>>          /**
+>>>           * @pixel_formats_blob_ptr:
+> 
