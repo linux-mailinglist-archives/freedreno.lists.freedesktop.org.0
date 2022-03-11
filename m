@@ -2,62 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C13E4D55A5
-	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 00:45:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5308A4D5789
+	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 02:50:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92A9910E1EF;
-	Thu, 10 Mar 2022 23:45:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB9410E11E;
+	Fri, 11 Mar 2022 01:50:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9DC10E148;
- Thu, 10 Mar 2022 23:45:43 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id z16so6464293pfh.3;
- Thu, 10 Mar 2022 15:45:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Sc+BLeBhOeunpwNV1naAxApoyho4RIVwZsup23KixGA=;
- b=i/kCIR2M9+f6iR0IxrdfD6uzdUTkXYHeSmmSe0xEfqNmiGuvFwvEa9Rhc7SjtoyDRm
- iSWmf2YUwJTqDGe5yr62zNAIiPpSnKRmbpMcjNLvMsY5+aM8+89n6AjSPTudJ35s0cJ/
- cDBM6keO22ne0gjnhQGSRsVh3eyxL68tm3z7MsqZgKk9hEN2wBW+GYS5nQ81KHZBpB0U
- C4Oq5c3OhQiC3wPgyLyYCR5OQ8I894o2dkYOtOIBXyh4UkGY+Ko+6mEPpwpaiHban9ou
- FuN7FOqQk45kn4IvAWIWVJ7ZQs1Nstlv+EjKVvMQ2F7RPEnvRR0zDpw9qgXZPs/dM8Cw
- Jx7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Sc+BLeBhOeunpwNV1naAxApoyho4RIVwZsup23KixGA=;
- b=s4vGnsq/JZ7ikcUjXLrVdr6j8rddbFVs/9/AOb/erAXRc51/ZrHy6zA8gERMXYDvdG
- H9LQ8oo4OZcluGOQ1dnfyG1pkENFqSrXMO6hfX4AoaCUDnVuL/8OtHFp31TvowhYCaxI
- aOBi8WPKbC2mVrI305bPbw/y2I1rKRisxKDi7HNORPP8GpbHAgno97gB33seHYouhHZX
- m7owO3Z3m9ZEOHtbGkGGSiP3kU3qP3NaUbAolM92D+ZGVG30KKGSf9qxtFr6ie+2jxXv
- jAPiXaPwrLrysqC8pIdWVtIbULah/yn+VRgv6mJx/wBWynWMvAU5dDCFdeGOcnX5S5Pq
- cqsQ==
-X-Gm-Message-State: AOAM5300bPTPJwNK8/9cXnX+NKsEpt/dLFOf29n+Gfu/SPEDU5BCpfnG
- 4Xjw7jbUHDGl8gInBnsTkThTpxq2k+g=
-X-Google-Smtp-Source: ABdhPJyrhezjAT6CU0w7i5q6gN4DLMtI4haYY25Kw92sxxE/XVe1+QHeusf/BWUEj++yK+OMlHBWTw==
-X-Received: by 2002:a63:89:0:b0:37c:54f9:25b6 with SMTP id
- 131-20020a630089000000b0037c54f925b6mr6190197pga.494.1646955942569; 
- Thu, 10 Mar 2022 15:45:42 -0800 (PST)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id
- q14-20020a056a00150e00b004f741b5c071sm8767891pfu.86.2022.03.10.15.45.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Mar 2022 15:45:41 -0800 (PST)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 10 Mar 2022 15:46:06 -0800
-Message-Id: <20220310234611.424743-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220310234611.424743-1-robdclark@gmail.com>
-References: <20220310234611.424743-1-robdclark@gmail.com>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD99810E11E;
+ Fri, 11 Mar 2022 01:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1646963422; x=1678499422;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=cS/SqvnKsmJnfQ3x/xNTX3q2pApixpQtTrW6cBTKVSM=;
+ b=cCl/CNxe2mLtwYXqavwMOHriqf+8dZH1f/+Bg81VQGsMLk1Mazq6ecs8
+ qk6J9EaAYcT3jkzA3IVShQFANZ+Ge6FR54hy/bqRJnxpDDS9XEfuTKLzG
+ DvKY53yczCJuK+6WZSjCWQwZYq1/cQOnQ4lWlubUrPIcAkYVN/pfswCSB A=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 10 Mar 2022 17:50:22 -0800
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2022 17:50:21 -0800
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Thu, 10 Mar 2022 17:50:21 -0800
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Thu, 10 Mar 2022 17:50:20 -0800
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>
+Date: Thu, 10 Mar 2022 17:49:54 -0800
+Message-ID: <1646963400-25606-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/gpu: Remove mutex from wait_event
- condition
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH 0/6] Allow drm_writeback_connector to accept
+ pointer to drm_encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,58 +59,61 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
+ rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, mripard@kernel.org,
+ swboyd@chromium.org, melissa.srw@gmail.com, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+There are some vendor drivers for which the writeback encoder shares
+hardware resources such as clocks and interrupts with the rest of the
+display pipeline. In addition, there can be use-cases where the
+writeback encoder could be a shared encoder between the physical display
+path and the writeback path.
 
-The mutex wasn't really protecting anything before.  Before the previous
-patch we could still be racing with the scheduler's kthread, as that is
-not necessarily frozen yet.  Now that we've parked the sched threads,
-the only race is with jobs retiring, and that is harmless, ie.
+To accommodate for such cases, change the drm_writeback_connector to
+accept a pointer to drm_encoder.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_device.c | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+For existing users of drm_writeback_connector there will not be any
+change in functionality due to this change.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 0440a98988fc..661dfa7681fb 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -607,15 +607,6 @@ static int adreno_runtime_resume(struct device *dev)
- 	return gpu->funcs->pm_resume(gpu);
- }
- 
--static int active_submits(struct msm_gpu *gpu)
--{
--	int active_submits;
--	mutex_lock(&gpu->active_lock);
--	active_submits = gpu->active_submits;
--	mutex_unlock(&gpu->active_lock);
--	return active_submits;
--}
--
- static int adreno_runtime_suspend(struct device *dev)
- {
- 	struct msm_gpu *gpu = dev_to_gpu(dev);
-@@ -669,7 +660,7 @@ static int adreno_system_suspend(struct device *dev)
- 	suspend_scheduler(gpu);
- 
- 	remaining = wait_event_timeout(gpu->retire_event,
--				       active_submits(gpu) == 0,
-+				       gpu->active_submits == 0,
- 				       msecs_to_jiffies(1000));
- 	if (remaining == 0) {
- 		dev_err(dev, "Timeout waiting for GPU to suspend\n");
+This approach was first posted by Suraj Kandpal here [1] for both
+encoder and connector. But after discussions [2], the consensus was
+reached to split this change for the drm_encoder first and the
+drm_connector part can be reworked in a subsequent change later.
+
+Validation of this change was done using igt_writeback tests on
+MSM based RB5 board using the changes posted here [3].
+
+For all other chipsets, these changes were compile-tested.
+
+[1] https://patchwork.kernel.org/project/dri-devel/patch/20220202081702.22119-1-suraj.kandpal@intel.com/
+[2] https://patchwork.kernel.org/project/dri-devel/patch/20220202085429.22261-6-suraj.kandpal@intel.com/
+[3] https://patchwork.freedesktop.org/series/99724/
+
+Abhinav Kumar (6):
+  drm: allow real encoder to be passed for drm_writeback_connector
+  drm/komeda: use drm_encoder pointer for drm_writeback_connector
+  drm/vkms: use drm_encoder pointer for drm_writeback_connector
+  drm/vc4: use drm_encoder pointer for drm_writeback_connector
+  drm/rcar_du: use drm_encoder pointer for drm_writeback_connector
+  drm/malidp: use drm_encoder pointer for drm_writeback_connector
+
+ drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c |  4 +++-
+ drivers/gpu/drm/arm/malidp_mw.c                          |  3 ++-
+ drivers/gpu/drm/drm_writeback.c                          |  8 ++++----
+ drivers/gpu/drm/rcar-du/rcar_du_writeback.c              |  3 ++-
+ drivers/gpu/drm/vc4/vc4_txp.c                            | 14 ++++++++++----
+ drivers/gpu/drm/vkms/vkms_writeback.c                    |  4 +++-
+ include/drm/drm_writeback.h                              | 13 +++++++++++--
+ 7 files changed, 35 insertions(+), 14 deletions(-)
+
 -- 
-2.35.1
+2.7.4
 
