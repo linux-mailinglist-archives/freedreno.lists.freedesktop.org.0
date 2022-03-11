@@ -1,59 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E78D4D67FC
-	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 18:47:24 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1244D6852
+	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 19:12:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 182A110E592;
-	Fri, 11 Mar 2022 17:47:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C80E310E8A6;
+	Fri, 11 Mar 2022 18:11:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B134E10E528;
- Fri, 11 Mar 2022 17:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1647020840; x=1678556840;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Xzr5qFIIK7mv606I+ozkjRJEu1889W/9M5o9QZ/2yJ8=;
- b=fgqLQvju63i0uqvMq18cWnPquRJ1jUkwJBEN2DxfTm8neKqHLWWQGW6f
- wNRCwhfIOWqIYIOZlKQCN1Ea6K+2IXEU1eDM6/HsoQqgWVzlu30OGW4sU
- vzcT6N0aqtwhFuK4MR/18Qm/YOhky8kyWrjAqIL1hdPt+W/3Lvlk7DQli g=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 11 Mar 2022 09:47:20 -0800
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2022 09:47:19 -0800
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.15; Fri, 11 Mar 2022 09:47:19 -0800
-Received: from [10.110.35.206] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.15; Fri, 11 Mar
- 2022 09:47:18 -0800
-Message-ID: <e31334cf-7e3b-e330-98af-545a07ebff33@quicinc.com>
-Date: Fri, 11 Mar 2022 09:47:17 -0800
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C73BC10E8A3
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Mar 2022 18:11:57 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id 1so7037465qke.1
+ for <freedreno@lists.freedesktop.org>; Fri, 11 Mar 2022 10:11:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LDRMAQJD2IJFR2ryO9QaxnNNTgDC1VqmVGPIk4f9PME=;
+ b=h/wp1UJQYk84BXJJKzehPzS5kuPAHg3No1RZK16s3MH7kGjUenwE9lMOlCCBDI48WV
+ eYsLslKHIFNjjBPIXpcndk5/rLgMGLWggTTn4MhuVuzZrojarHGZdIIX9+IOjkenQkMv
+ 5T7xGeRSiQsKO/34ZuMPcC39H/tcQuT50R8bX5st6XT39QT4dC7xIclR9OwZdpmi/3zR
+ b+N2jO0rQdFhAkO7kRVr6Gy6nDhqGaIlE+SSNsytHgFfFhbR9k9H/NNMlDCuzx2FumOV
+ 535J34b8vIroZxKu/Kldm6DJ+CqyhPIH/H+F+tu0lnEQOJP76U8zGcSSm6+VIcHYL41z
+ mKhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LDRMAQJD2IJFR2ryO9QaxnNNTgDC1VqmVGPIk4f9PME=;
+ b=gUBqeo5xZY97eR8WlmgZs14yH7XBe3NlAafkB90KQWapA2/4gWro9jPctDqCooaY5u
+ LEXuDerdxTkNi6FJkzUu9RzWn+jPAmO0K9caNNvhmv0vjOVgethLqqvzVxvQpNi1Qt7D
+ NIQm071wRBUcKnlb9qCJ7mw0/Xl/GO5ZCK/rX2MXaDWZRn6zNxIkJwEbcWnEr6uoUp14
+ /QFPd0enbyW10xwPuQbEX85yh+JgxARB44MLZ66Ihzq4d+jJofhI9oS5MGQKVoq3AO9G
+ rvlH1ckPCVwufa6YK4gio4wsBDcpj3YYwbS0+/0MxB7xst75vG6xmv/eHiPFqwZDWKij
+ YTgw==
+X-Gm-Message-State: AOAM530ERxcP55K1mya2S3wv7T0U3I1M+a9x48oj+tvLezMN7Pf/qUH/
+ lyOtA/QDF1n+8QkAEeu2lRksFJ8l6zWWN3KSVr2Psw==
+X-Google-Smtp-Source: ABdhPJyFUfSzlfaptMreszxB59RlqCG8svcSAqvnRzhoQH+4Ac1YmteeNbwVKV9tcg31qS8fGhi5UcQNtxmlzKvcb5E=
+X-Received: by 2002:a05:620a:2449:b0:67d:16cc:8505 with SMTP id
+ h9-20020a05620a244900b0067d16cc8505mr7665959qkn.203.1647022316770; Fri, 11
+ Mar 2022 10:11:56 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-US
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 References: <1646963400-25606-1-git-send-email-quic_abhinavk@quicinc.com>
- <1646963400-25606-6-git-send-email-quic_abhinavk@quicinc.com>
- <Yir6M150BkXPyH2b@pendragon.ideasonboard.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <Yir6M150BkXPyH2b@pendragon.ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 5/6] drm/rcar_du: use drm_encoder pointer
+ <1646963400-25606-2-git-send-email-quic_abhinavk@quicinc.com>
+ <CAA8EJpqnC=crWaSrXLNLBX5WsZ6LDzG0aNUu7RmqhDPTvP8tFQ@mail.gmail.com>
+ <YisC4cY8EZADarG6@pendragon.ideasonboard.com>
+ <24e7cdbc-f615-1ba2-d1a9-474b60c87590@quicinc.com>
+In-Reply-To: <24e7cdbc-f615-1ba2-d1a9-474b60c87590@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 11 Mar 2022 21:11:45 +0300
+Message-ID: <CAA8EJpqNSWFR-qCW8EHJrV4fRR-qwU3W6tv1Q0Z=-C-zXMvSxQ@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/6] drm: allow real encoder to be passed
  for drm_writeback_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,75 +67,160 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
- rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- mripard@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- james.qian.wang@arm.com, quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
- freedreno@lists.freedesktop.org, brian.starkey@arm.com
+Cc: mripard@kernel.org, hamohammed.sa@gmail.com, suraj.kandpal@intel.com,
+ emma@anholt.net, rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com,
+ liviu.dudau@arm.com, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
+ melissa.srw@gmail.com, robdclark@gmail.com, nganji@codeaurora.org,
+ seanpaul@chromium.org, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ daniel@ffwll.ch, james.qian.wang@arm.com, quic_aravindh@quicinc.com,
+ mihail.atanassov@arm.com, freedreno@lists.freedesktop.org,
+ brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Laurent
+On Fri, 11 Mar 2022 at 20:09, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> Hi Dmitry and Laurent
+>
+> On 3/11/2022 12:05 AM, Laurent Pinchart wrote:
+> > On Fri, Mar 11, 2022 at 10:46:13AM +0300, Dmitry Baryshkov wrote:
+> >> On Fri, 11 Mar 2022 at 04:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> >>>
+> >>> For some vendor driver implementations, display hardware can
+> >>> be shared between the encoder used for writeback and the physical
+> >>> display.
+> >>>
+> >>> In addition resources such as clocks and interrupts can
+> >>> also be shared between writeback and the real encoder.
+> >>>
+> >>> To accommodate such vendor drivers and hardware, allow
+> >>> real encoder to be passed for drm_writeback_connector.
+> >>>
+> >>> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
+> >>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >>> ---
+> >>>   drivers/gpu/drm/drm_writeback.c |  8 ++++----
+> >>>   include/drm/drm_writeback.h     | 13 +++++++++++--
+> >>>   2 files changed, 15 insertions(+), 6 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> >>> index dccf4504..4dad687 100644
+> >>> --- a/drivers/gpu/drm/drm_writeback.c
+> >>> +++ b/drivers/gpu/drm/drm_writeback.c
+> >>> @@ -189,8 +189,8 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> >>>          if (IS_ERR(blob))
+> >>>                  return PTR_ERR(blob);
+> >>>
+> >>> -       drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> >>> -       ret = drm_encoder_init(dev, &wb_connector->encoder,
+> >>> +       drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
+> >>> +       ret = drm_encoder_init(dev, wb_connector->encoder,
+> >>>                                 &drm_writeback_encoder_funcs,
+> >>>                                 DRM_MODE_ENCODER_VIRTUAL, NULL);
+> >>
+> >> If the encoder is provided by a separate driver, it might use a
+> >> different set of encoder funcs.
+> >
+> > More than that, if the encoder is provided externally but doesn't have
+> > custom operations, I don't really see the point of having an external
+> > encoder in the first place.
+> >
+> > Has this series been tested with a driver that needs to provide an
+> > encoder, to make sure it fits the purpose ?
+> >
+>
+> Yes, I have tested this with the MSM driver which provides an encoder
+> and yes it absolutely fits the purpose.
+>
+>
+> >> I'd suggest checking whether the wb_connector->encoder is NULL here.
+> >> If it is, allocate one using drmm_kzalloc and init it.
+> >> If it is not NULL, assume that it has been initialized already, so
+> >> skip the drm_encoder_init() and just call the drm_encoder_helper_add()
+>
+> You are both right. We can skip the drm_encoder_init for drivers which
+> have already provided an encoder.
+>
+> The only issue I was facing with that is some of the drivers for example
+> the below one, access the "wb_conn->encoder.possible_crtcs" before the
+> call to drm_writeback_connector_init().
 
-On 3/10/2022 11:28 PM, Laurent Pinchart wrote:
-> Hi Abhinav
-> 
-> Thank you for the patch.
-> 
-> On Thu, Mar 10, 2022 at 05:49:59PM -0800, Abhinav Kumar wrote:
->> Make changes to rcar_du driver to start using drm_encoder pointer
->> for drm_writeback_connector.
->>
->> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/rcar-du/rcar_du_writeback.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
->> index c79d125..03930ad 100644
->> --- a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
->> +++ b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
->> @@ -200,7 +200,8 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
->>   {
->>   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
->>   
->> -	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
->> +	wb_conn->encoder = kzalloc(sizeof(struct drm_encoder), GFP_KERNEL);
-> 
-> Where is this freed ?
+Yes. please do.
 
-You are right, this isnt. Looking more into this, it seems like moving 
-the allocation of encoder to drm_writeback.c for cases which dont pass a 
-real encoder is much better so that I will not have to add alloc() / 
-free() code for all the vendor driver changes which is what I originally 
-thought in my RFC but changed my mind because of below.
+>
+> 198 int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+> 199                        struct rcar_du_crtc *rcrtc)
+> 200 {
+> 201     struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> 202
+> 203     wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> 204     drm_connector_helper_add(&wb_conn->base,
+> 205                              &rcar_du_wb_conn_helper_funcs);
+> 206
+> 207     return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> 208                                         &rcar_du_wb_conn_funcs,
+> 209                                         &rcar_du_wb_enc_helper_funcs,
+> 210                                         writeback_formats,
+> 211                                         ARRAY_SIZE(writeback_formats));
+>
+> If we allocate the encoder within drm_writeback_connector_init(), do you
+> suggest I modify the drivers to move the usage of possible_crtcs after
+> the drm_writeback_connector_init() call to avoid NULL ptr crash?
+>
+>
+> >>
+> >>>          if (ret)
+> >>> @@ -204,7 +204,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> >>>                  goto connector_fail;
+> >>>
+> >>>          ret = drm_connector_attach_encoder(connector,
+> >>> -                                               &wb_connector->encoder);
+> >>> +                                               wb_connector->encoder);
+> >>>          if (ret)
+> >>>                  goto attach_fail;
+> >>>
+> >>> @@ -233,7 +233,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> >>>   attach_fail:
+> >>>          drm_connector_cleanup(connector);
+> >>>   connector_fail:
+> >>> -       drm_encoder_cleanup(&wb_connector->encoder);
+> >>> +       drm_encoder_cleanup(wb_connector->encoder);
+> >>>   fail:
+> >>>          drm_property_blob_put(blob);
+> >>>          return ret;
+> >>> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> >>> index 9697d27..0ba266e 100644
+> >>> --- a/include/drm/drm_writeback.h
+> >>> +++ b/include/drm/drm_writeback.h
+> >>> @@ -25,13 +25,22 @@ struct drm_writeback_connector {
+> >>>          struct drm_connector base;
+> >>>
+> >>>          /**
+> >>> -        * @encoder: Internal encoder used by the connector to fulfill
+> >>> +        * @encoder: handle to drm_encoder used by the connector to fulfill
+> >>>           * the DRM framework requirements. The users of the
+> >>>           * @drm_writeback_connector control the behaviour of the @encoder
+> >>>           * by passing the @enc_funcs parameter to drm_writeback_connector_init()
+> >>>           * function.
+> >>> +        *
+> >>> +        * For some vendor drivers, the hardware resources are shared between
+> >>> +        * writeback encoder and rest of the display pipeline.
+> >>> +        * To accommodate such cases, encoder is a handle to the real encoder
+> >>> +        * hardware.
+> >>> +        *
+> >>> +        * For current existing writeback users, this shall continue to be the
+> >>> +        * embedded encoder for the writeback connector.
+> >>> +        *
+> >>>           */
+> >>> -       struct drm_encoder encoder;
+> >>> +       struct drm_encoder *encoder;
+> >>>
+> >>>          /**
+> >>>           * @pixel_formats_blob_ptr:
+> >
 
-> 
->> +	wb_conn->encoder->possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
 
-Do you think we can just move usage of wb_conn->encoder->possible_crtcs 
-just right after drm_writeback_connector_init() so that it wont crash?
 
-198 int rcar_du_writeback_init(struct rcar_du_device *rcdu,
-199 			   struct rcar_du_crtc *rcrtc)
-200 {
-201 	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
-202
-203 	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
-204 	drm_connector_helper_add(&wb_conn->base,
-205 				 &rcar_du_wb_conn_helper_funcs);
-206
-207 	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
-208 					    &rcar_du_wb_conn_funcs,
-209 					    &rcar_du_wb_enc_helper_funcs,
-210 					    writeback_formats,
-211 					    ARRAY_SIZE(writeback_formats));
-212 }
-
->>   	drm_connector_helper_add(&wb_conn->base,
->>   				 &rcar_du_wb_conn_helper_funcs);
->>   
-> 
+-- 
+With best wishes
+Dmitry
