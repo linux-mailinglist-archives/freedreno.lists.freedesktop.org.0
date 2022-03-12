@@ -2,59 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E1244D6852
-	for <lists+freedreno@lfdr.de>; Fri, 11 Mar 2022 19:12:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5924D7029
+	for <lists+freedreno@lfdr.de>; Sat, 12 Mar 2022 18:36:34 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C80E310E8A6;
-	Fri, 11 Mar 2022 18:11:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9D610E012;
+	Sat, 12 Mar 2022 17:36:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C73BC10E8A3
- for <freedreno@lists.freedesktop.org>; Fri, 11 Mar 2022 18:11:57 +0000 (UTC)
-Received: by mail-qk1-x731.google.com with SMTP id 1so7037465qke.1
- for <freedreno@lists.freedesktop.org>; Fri, 11 Mar 2022 10:11:57 -0800 (PST)
+Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
+ [IPv6:2607:f8b0:4864:20::c29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FFB210E009
+ for <freedreno@lists.freedesktop.org>; Sat, 12 Mar 2022 17:36:29 +0000 (UTC)
+Received: by mail-oo1-xc29.google.com with SMTP id
+ w3-20020a4ac183000000b0031d806bbd7eso14555501oop.13
+ for <freedreno@lists.freedesktop.org>; Sat, 12 Mar 2022 09:36:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LDRMAQJD2IJFR2ryO9QaxnNNTgDC1VqmVGPIk4f9PME=;
- b=h/wp1UJQYk84BXJJKzehPzS5kuPAHg3No1RZK16s3MH7kGjUenwE9lMOlCCBDI48WV
- eYsLslKHIFNjjBPIXpcndk5/rLgMGLWggTTn4MhuVuzZrojarHGZdIIX9+IOjkenQkMv
- 5T7xGeRSiQsKO/34ZuMPcC39H/tcQuT50R8bX5st6XT39QT4dC7xIclR9OwZdpmi/3zR
- b+N2jO0rQdFhAkO7kRVr6Gy6nDhqGaIlE+SSNsytHgFfFhbR9k9H/NNMlDCuzx2FumOV
- 535J34b8vIroZxKu/Kldm6DJ+CqyhPIH/H+F+tu0lnEQOJP76U8zGcSSm6+VIcHYL41z
- mKhA==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=iRAZJoZoZh3qRV/UYKwJwKogthRoGQB0qt95Y42xJ0o=;
+ b=oKm0ZN3ZKvIZN/GefFAARdns9WrE3x4XoBJ1uXZNjdXYJBaoCaTRVBtd93sMGwI+wb
+ p8+Rmdi0ffArNKC5tXIP3YZaSq6/DeK62G9RbnTr32gMAG+JgcMDg+JdNv++AmYUV1Df
+ O/HZTYKLa5nkt0j7LQvGtgOghhLEbfRLRX/FE9l+m8hY+tB0hxUqoUtufFnw1e6szCRd
+ JAfZbCuLpYAvWUxWJlNGHYM84N582JIcLYdIYqJWPblubxZzIUmM93j3yCcHmtdVpNJX
+ ZzlMrZWr4rSZLALOPDVB2B3L7jmmV2Ran9m0xNL+HRRM0xboeJumYwhCKmr7ZVJI1CyN
+ gxgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LDRMAQJD2IJFR2ryO9QaxnNNTgDC1VqmVGPIk4f9PME=;
- b=gUBqeo5xZY97eR8WlmgZs14yH7XBe3NlAafkB90KQWapA2/4gWro9jPctDqCooaY5u
- LEXuDerdxTkNi6FJkzUu9RzWn+jPAmO0K9caNNvhmv0vjOVgethLqqvzVxvQpNi1Qt7D
- NIQm071wRBUcKnlb9qCJ7mw0/Xl/GO5ZCK/rX2MXaDWZRn6zNxIkJwEbcWnEr6uoUp14
- /QFPd0enbyW10xwPuQbEX85yh+JgxARB44MLZ66Ihzq4d+jJofhI9oS5MGQKVoq3AO9G
- rvlH1ckPCVwufa6YK4gio4wsBDcpj3YYwbS0+/0MxB7xst75vG6xmv/eHiPFqwZDWKij
- YTgw==
-X-Gm-Message-State: AOAM530ERxcP55K1mya2S3wv7T0U3I1M+a9x48oj+tvLezMN7Pf/qUH/
- lyOtA/QDF1n+8QkAEeu2lRksFJ8l6zWWN3KSVr2Psw==
-X-Google-Smtp-Source: ABdhPJyFUfSzlfaptMreszxB59RlqCG8svcSAqvnRzhoQH+4Ac1YmteeNbwVKV9tcg31qS8fGhi5UcQNtxmlzKvcb5E=
-X-Received: by 2002:a05:620a:2449:b0:67d:16cc:8505 with SMTP id
- h9-20020a05620a244900b0067d16cc8505mr7665959qkn.203.1647022316770; Fri, 11
- Mar 2022 10:11:56 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=iRAZJoZoZh3qRV/UYKwJwKogthRoGQB0qt95Y42xJ0o=;
+ b=hwvtbdlBfQFH7jLjmXUoIeHlkUEza5mXZS8jlGrboQ6j09e73I+I24E5H/oJdbc3Xt
+ 8QquHpPD/f/+Pta3IijN3Cf+wuOSZM+42e5WurTu/vSxc3ISq2wrI9rrL/vmSbKX+pFz
+ mzjXDBbyLL+byULgkFXiNRuBCmJKGu0EVKwoVhozjcssnXa1bK8CI5UsXnVFVBqlbm6H
+ hlM+MHi6coejQ8TQILfKt7VeN6NnvTMlrZnQyp6L2ZXa0zk92gjM6KxTImWjdxvzB4VS
+ +XYtoLRSVyAjbIbHej8tpJi9vNklG1ZTOwD0hZhsxrjv5SyN6Z/DR3gaftNVkAMsuy13
+ Dewg==
+X-Gm-Message-State: AOAM531jSkj2pKnuQ8WKQD99hx3lQB6Fo+uJMWRkx7bbcRNjkQAwzM8k
+ dmMkxH0tUrV6wY3LoqV3AnDh/g==
+X-Google-Smtp-Source: ABdhPJyn9jljunqjT976KNT5QT5bTu3YoYxtUp/Qci2+b4frJrNNW1FUWyYNGk3vpCQ8IWOrnRf9uA==
+X-Received: by 2002:a4a:6b5d:0:b0:321:493c:edcb with SMTP id
+ h29-20020a4a6b5d000000b00321493cedcbmr7108644oof.81.1647106588714; 
+ Sat, 12 Mar 2022 09:36:28 -0800 (PST)
+Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
+ by smtp.gmail.com with ESMTPSA id
+ q16-20020a9d4b10000000b005b22b93d468sm5105250otf.74.2022.03.12.09.36.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 12 Mar 2022 09:36:28 -0800 (PST)
+Date: Sat, 12 Mar 2022 11:36:26 -0600
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>
+Message-ID: <YizaGgCLxH0D9MRF@builder.lan>
+References: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
 MIME-Version: 1.0
-References: <1646963400-25606-1-git-send-email-quic_abhinavk@quicinc.com>
- <1646963400-25606-2-git-send-email-quic_abhinavk@quicinc.com>
- <CAA8EJpqnC=crWaSrXLNLBX5WsZ6LDzG0aNUu7RmqhDPTvP8tFQ@mail.gmail.com>
- <YisC4cY8EZADarG6@pendragon.ideasonboard.com>
- <24e7cdbc-f615-1ba2-d1a9-474b60c87590@quicinc.com>
-In-Reply-To: <24e7cdbc-f615-1ba2-d1a9-474b60c87590@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 11 Mar 2022 21:11:45 +0300
-Message-ID: <CAA8EJpqNSWFR-qCW8EHJrV4fRR-qwU3W6tv1Q0Z=-C-zXMvSxQ@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/6] drm: allow real encoder to be passed
- for drm_writeback_connector
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v5 1/5] arm64/dts/qcom/sc7280: remove
+ assigned-clock-rate property for mdp clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,160 +72,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mripard@kernel.org, hamohammed.sa@gmail.com, suraj.kandpal@intel.com,
- emma@anholt.net, rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com,
- liviu.dudau@arm.com, dri-devel@lists.freedesktop.org, swboyd@chromium.org,
- melissa.srw@gmail.com, robdclark@gmail.com, nganji@codeaurora.org,
- seanpaul@chromium.org, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- daniel@ffwll.ch, james.qian.wang@arm.com, quic_aravindh@quicinc.com,
- mihail.atanassov@arm.com, freedreno@lists.freedesktop.org,
- brian.starkey@arm.com
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
+ swboyd@chromium.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 11 Mar 2022 at 20:09, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> Hi Dmitry and Laurent
->
-> On 3/11/2022 12:05 AM, Laurent Pinchart wrote:
-> > On Fri, Mar 11, 2022 at 10:46:13AM +0300, Dmitry Baryshkov wrote:
-> >> On Fri, 11 Mar 2022 at 04:50, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> >>>
-> >>> For some vendor driver implementations, display hardware can
-> >>> be shared between the encoder used for writeback and the physical
-> >>> display.
-> >>>
-> >>> In addition resources such as clocks and interrupts can
-> >>> also be shared between writeback and the real encoder.
-> >>>
-> >>> To accommodate such vendor drivers and hardware, allow
-> >>> real encoder to be passed for drm_writeback_connector.
-> >>>
-> >>> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
-> >>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>> ---
-> >>>   drivers/gpu/drm/drm_writeback.c |  8 ++++----
-> >>>   include/drm/drm_writeback.h     | 13 +++++++++++--
-> >>>   2 files changed, 15 insertions(+), 6 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> >>> index dccf4504..4dad687 100644
-> >>> --- a/drivers/gpu/drm/drm_writeback.c
-> >>> +++ b/drivers/gpu/drm/drm_writeback.c
-> >>> @@ -189,8 +189,8 @@ int drm_writeback_connector_init(struct drm_device *dev,
-> >>>          if (IS_ERR(blob))
-> >>>                  return PTR_ERR(blob);
-> >>>
-> >>> -       drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-> >>> -       ret = drm_encoder_init(dev, &wb_connector->encoder,
-> >>> +       drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
-> >>> +       ret = drm_encoder_init(dev, wb_connector->encoder,
-> >>>                                 &drm_writeback_encoder_funcs,
-> >>>                                 DRM_MODE_ENCODER_VIRTUAL, NULL);
-> >>
-> >> If the encoder is provided by a separate driver, it might use a
-> >> different set of encoder funcs.
-> >
-> > More than that, if the encoder is provided externally but doesn't have
-> > custom operations, I don't really see the point of having an external
-> > encoder in the first place.
-> >
-> > Has this series been tested with a driver that needs to provide an
-> > encoder, to make sure it fits the purpose ?
-> >
->
-> Yes, I have tested this with the MSM driver which provides an encoder
-> and yes it absolutely fits the purpose.
->
->
-> >> I'd suggest checking whether the wb_connector->encoder is NULL here.
-> >> If it is, allocate one using drmm_kzalloc and init it.
-> >> If it is not NULL, assume that it has been initialized already, so
-> >> skip the drm_encoder_init() and just call the drm_encoder_helper_add()
->
-> You are both right. We can skip the drm_encoder_init for drivers which
-> have already provided an encoder.
->
-> The only issue I was facing with that is some of the drivers for example
-> the below one, access the "wb_conn->encoder.possible_crtcs" before the
-> call to drm_writeback_connector_init().
+On Tue 08 Mar 10:54 CST 2022, Vinod Polimera wrote:
 
-Yes. please do.
+Please run:
 
->
-> 198 int rcar_du_writeback_init(struct rcar_du_device *rcdu,
-> 199                        struct rcar_du_crtc *rcrtc)
-> 200 {
-> 201     struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
-> 202
-> 203     wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
-> 204     drm_connector_helper_add(&wb_conn->base,
-> 205                              &rcar_du_wb_conn_helper_funcs);
-> 206
-> 207     return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
-> 208                                         &rcar_du_wb_conn_funcs,
-> 209                                         &rcar_du_wb_enc_helper_funcs,
-> 210                                         writeback_formats,
-> 211                                         ARRAY_SIZE(writeback_formats));
->
-> If we allocate the encoder within drm_writeback_connector_init(), do you
-> suggest I modify the drivers to move the usage of possible_crtcs after
-> the drm_writeback_connector_init() call to avoid NULL ptr crash?
->
->
-> >>
-> >>>          if (ret)
-> >>> @@ -204,7 +204,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
-> >>>                  goto connector_fail;
-> >>>
-> >>>          ret = drm_connector_attach_encoder(connector,
-> >>> -                                               &wb_connector->encoder);
-> >>> +                                               wb_connector->encoder);
-> >>>          if (ret)
-> >>>                  goto attach_fail;
-> >>>
-> >>> @@ -233,7 +233,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
-> >>>   attach_fail:
-> >>>          drm_connector_cleanup(connector);
-> >>>   connector_fail:
-> >>> -       drm_encoder_cleanup(&wb_connector->encoder);
-> >>> +       drm_encoder_cleanup(wb_connector->encoder);
-> >>>   fail:
-> >>>          drm_property_blob_put(blob);
-> >>>          return ret;
-> >>> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> >>> index 9697d27..0ba266e 100644
-> >>> --- a/include/drm/drm_writeback.h
-> >>> +++ b/include/drm/drm_writeback.h
-> >>> @@ -25,13 +25,22 @@ struct drm_writeback_connector {
-> >>>          struct drm_connector base;
-> >>>
-> >>>          /**
-> >>> -        * @encoder: Internal encoder used by the connector to fulfill
-> >>> +        * @encoder: handle to drm_encoder used by the connector to fulfill
-> >>>           * the DRM framework requirements. The users of the
-> >>>           * @drm_writeback_connector control the behaviour of the @encoder
-> >>>           * by passing the @enc_funcs parameter to drm_writeback_connector_init()
-> >>>           * function.
-> >>> +        *
-> >>> +        * For some vendor drivers, the hardware resources are shared between
-> >>> +        * writeback encoder and rest of the display pipeline.
-> >>> +        * To accommodate such cases, encoder is a handle to the real encoder
-> >>> +        * hardware.
-> >>> +        *
-> >>> +        * For current existing writeback users, this shall continue to be the
-> >>> +        * embedded encoder for the writeback connector.
-> >>> +        *
-> >>>           */
-> >>> -       struct drm_encoder encoder;
-> >>> +       struct drm_encoder *encoder;
-> >>>
-> >>>          /**
-> >>>           * @pixel_formats_blob_ptr:
-> >
+  git log --oneline --no-decorate -- arch/arm64/boot/dts/qcom/sc7280.dtsi
 
+and make sure your $subject is prefixed according to all other
+sc7280-specific changes.
 
+> Kernel clock driver assumes that initial rate is the
+> max rate for that clock and was not allowing it to scale
+> beyond the assigned clock value.
+> 
+> Drop the assigned clock rate property and vote on the mdp clock as per
+> calculated value during the usecase.
+> 
+> Changes in v2:
+> - Remove assigned-clock-rate property and set mdp clk during resume sequence.
+> - Add fixes tag.
+> 
+> Changes in v3:
+> - Remove extra line after fixes tag.(Stephen Boyd)
 
--- 
-With best wishes
-Dmitry
+It's only in drivers/drm that the changelog goes in the commit message,
+so please move this below the ---.
+
+Thanks,
+Bjorn
+
+> 
+> Fixes: 62fbdce91("arm64: dts: qcom: sc7280: add display dt nodes")
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sc7280.dtsi | 9 ++-------
+>  1 file changed, 2 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> index baf1653..408cf6c 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
+> @@ -2856,9 +2856,6 @@
+>  				      "ahb",
+>  				      "core";
+>  
+> -			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
+> -			assigned-clock-rates = <300000000>;
+> -
+>  			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+>  			interrupt-controller;
+>  			#interrupt-cells = <1>;
+> @@ -2892,11 +2889,9 @@
+>  					      "lut",
+>  					      "core",
+>  					      "vsync";
+> -				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> -						<&dispcc DISP_CC_MDSS_VSYNC_CLK>,
+> +				assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
+>  						<&dispcc DISP_CC_MDSS_AHB_CLK>;
+> -				assigned-clock-rates = <300000000>,
+> -							<19200000>,
+> +				assigned-clock-rates = <19200000>,
+>  							<19200000>;
+>  				operating-points-v2 = <&mdp_opp_table>;
+>  				power-domains = <&rpmhpd SC7280_CX>;
+> -- 
+> 2.7.4
+> 
