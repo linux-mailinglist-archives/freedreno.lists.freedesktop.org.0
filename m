@@ -1,65 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC5924D7029
-	for <lists+freedreno@lfdr.de>; Sat, 12 Mar 2022 18:36:34 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id ACE774D75EE
+	for <lists+freedreno@lfdr.de>; Sun, 13 Mar 2022 15:50:22 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B9D610E012;
-	Sat, 12 Mar 2022 17:36:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5605E10E2E9;
+	Sun, 13 Mar 2022 14:50:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FFB210E009
- for <freedreno@lists.freedesktop.org>; Sat, 12 Mar 2022 17:36:29 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- w3-20020a4ac183000000b0031d806bbd7eso14555501oop.13
- for <freedreno@lists.freedesktop.org>; Sat, 12 Mar 2022 09:36:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=iRAZJoZoZh3qRV/UYKwJwKogthRoGQB0qt95Y42xJ0o=;
- b=oKm0ZN3ZKvIZN/GefFAARdns9WrE3x4XoBJ1uXZNjdXYJBaoCaTRVBtd93sMGwI+wb
- p8+Rmdi0ffArNKC5tXIP3YZaSq6/DeK62G9RbnTr32gMAG+JgcMDg+JdNv++AmYUV1Df
- O/HZTYKLa5nkt0j7LQvGtgOghhLEbfRLRX/FE9l+m8hY+tB0hxUqoUtufFnw1e6szCRd
- JAfZbCuLpYAvWUxWJlNGHYM84N582JIcLYdIYqJWPblubxZzIUmM93j3yCcHmtdVpNJX
- ZzlMrZWr4rSZLALOPDVB2B3L7jmmV2Ran9m0xNL+HRRM0xboeJumYwhCKmr7ZVJI1CyN
- gxgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=iRAZJoZoZh3qRV/UYKwJwKogthRoGQB0qt95Y42xJ0o=;
- b=hwvtbdlBfQFH7jLjmXUoIeHlkUEza5mXZS8jlGrboQ6j09e73I+I24E5H/oJdbc3Xt
- 8QquHpPD/f/+Pta3IijN3Cf+wuOSZM+42e5WurTu/vSxc3ISq2wrI9rrL/vmSbKX+pFz
- mzjXDBbyLL+byULgkFXiNRuBCmJKGu0EVKwoVhozjcssnXa1bK8CI5UsXnVFVBqlbm6H
- hlM+MHi6coejQ8TQILfKt7VeN6NnvTMlrZnQyp6L2ZXa0zk92gjM6KxTImWjdxvzB4VS
- +XYtoLRSVyAjbIbHej8tpJi9vNklG1ZTOwD0hZhsxrjv5SyN6Z/DR3gaftNVkAMsuy13
- Dewg==
-X-Gm-Message-State: AOAM531jSkj2pKnuQ8WKQD99hx3lQB6Fo+uJMWRkx7bbcRNjkQAwzM8k
- dmMkxH0tUrV6wY3LoqV3AnDh/g==
-X-Google-Smtp-Source: ABdhPJyn9jljunqjT976KNT5QT5bTu3YoYxtUp/Qci2+b4frJrNNW1FUWyYNGk3vpCQ8IWOrnRf9uA==
-X-Received: by 2002:a4a:6b5d:0:b0:321:493c:edcb with SMTP id
- h29-20020a4a6b5d000000b00321493cedcbmr7108644oof.81.1647106588714; 
- Sat, 12 Mar 2022 09:36:28 -0800 (PST)
-Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
- by smtp.gmail.com with ESMTPSA id
- q16-20020a9d4b10000000b005b22b93d468sm5105250otf.74.2022.03.12.09.36.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 12 Mar 2022 09:36:28 -0800 (PST)
-Date: Sat, 12 Mar 2022 11:36:26 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Message-ID: <YizaGgCLxH0D9MRF@builder.lan>
-References: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
- <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D532310E2D0;
+ Sun, 13 Mar 2022 14:50:19 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id B7C9C475;
+ Sun, 13 Mar 2022 15:50:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1647183018;
+ bh=d51s09i2ljOYka2tmE99miWfW9VXyka+FuaFJHRKA9c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hW+nVE5SwELCk+UcVvmnm0L1nB6N4q5z0RjAE9g9k+QzLf2ypuDtDdJs3W7MWOH1d
+ E3bgorK2L1ebjmexWrcEoU6QE4PZr5u9uPsSvskWbxI/M+x2E7EBIJwOwlFLuHCsQN
+ hZat+vXPzXem9RS1xwhywpO/qqqgKjVtEPZB/+OQ=
+Date: Sun, 13 Mar 2022 16:50:01 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <Yi4EmSDj04KdslxP@pendragon.ideasonboard.com>
+References: <1646963400-25606-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1646963400-25606-6-git-send-email-quic_abhinavk@quicinc.com>
+ <Yir6M150BkXPyH2b@pendragon.ideasonboard.com>
+ <e31334cf-7e3b-e330-98af-545a07ebff33@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v5 1/5] arm64/dts/qcom/sc7280: remove
- assigned-clock-rate property for mdp clk
+In-Reply-To: <e31334cf-7e3b-e330-98af-545a07ebff33@quicinc.com>
+Subject: Re: [Freedreno] [PATCH 5/6] drm/rcar_du: use drm_encoder pointer
+ for drm_writeback_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,78 +50,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
- swboyd@chromium.org, freedreno@lists.freedesktop.org
+Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
+ rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ mripard@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ james.qian.wang@arm.com, quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue 08 Mar 10:54 CST 2022, Vinod Polimera wrote:
+Hi Abhinav
 
-Please run:
-
-  git log --oneline --no-decorate -- arch/arm64/boot/dts/qcom/sc7280.dtsi
-
-and make sure your $subject is prefixed according to all other
-sc7280-specific changes.
-
-> Kernel clock driver assumes that initial rate is the
-> max rate for that clock and was not allowing it to scale
-> beyond the assigned clock value.
+On Fri, Mar 11, 2022 at 09:47:17AM -0800, Abhinav Kumar wrote:
+> On 3/10/2022 11:28 PM, Laurent Pinchart wrote:
+> > On Thu, Mar 10, 2022 at 05:49:59PM -0800, Abhinav Kumar wrote:
+> >> Make changes to rcar_du driver to start using drm_encoder pointer
+> >> for drm_writeback_connector.
+> >>
+> >> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
+> >> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >> ---
+> >>   drivers/gpu/drm/rcar-du/rcar_du_writeback.c | 3 ++-
+> >>   1 file changed, 2 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> >> index c79d125..03930ad 100644
+> >> --- a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> >> +++ b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> >> @@ -200,7 +200,8 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+> >>   {
+> >>   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> >>   
+> >> -	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> >> +	wb_conn->encoder = kzalloc(sizeof(struct drm_encoder), GFP_KERNEL);
+> > 
+> > Where is this freed ?
 > 
-> Drop the assigned clock rate property and vote on the mdp clock as per
-> calculated value during the usecase.
-> 
-> Changes in v2:
-> - Remove assigned-clock-rate property and set mdp clk during resume sequence.
-> - Add fixes tag.
-> 
-> Changes in v3:
-> - Remove extra line after fixes tag.(Stephen Boyd)
+> You are right, this isnt. Looking more into this, it seems like moving 
+> the allocation of encoder to drm_writeback.c for cases which dont pass a 
+> real encoder is much better so that I will not have to add alloc() / 
+> free() code for all the vendor driver changes which is what I originally 
+> thought in my RFC but changed my mind because of below.
 
-It's only in drivers/drm that the changelog goes in the commit message,
-so please move this below the ---.
+Yes, I think that would be better indeed. You could even skip the
+dynamic allocation, you could have
 
-Thanks,
-Bjorn
+	struct drm_encoder *encoder;
+	struct drm_encoder internal_encoder;
 
+in drm_writeback_connector, and set
+
+	wb->encoder = &wb->internal_encoder;
+
+when the user doesn't pass an encoder.
+
+> >> +	wb_conn->encoder->possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
 > 
-> Fixes: 62fbdce91("arm64: dts: qcom: sc7280: add display dt nodes")
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->  arch/arm64/boot/dts/qcom/sc7280.dtsi | 9 ++-------
->  1 file changed, 2 insertions(+), 7 deletions(-)
+> Do you think we can just move usage of wb_conn->encoder->possible_crtcs 
+> just right after drm_writeback_connector_init() so that it wont crash?
+
+How about adding a possible_crtcs argument to
+drm_writeback_connector_init() (to cover existing use cases), and adding
+a new drm_writeback_connector_init_with_encoder() that would get an
+encoder pointer (and expect possible_crtcs, as well as all the other
+appropriate encoder fields, having been initialized) ?
+
+> 198 int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+> 199 			   struct rcar_du_crtc *rcrtc)
+> 200 {
+> 201 	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> 202
+> 203 	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> 204 	drm_connector_helper_add(&wb_conn->base,
+> 205 				 &rcar_du_wb_conn_helper_funcs);
+> 206
+> 207 	return drm_writeback_connector_init(&rcdu->ddev, wb_conn,
+> 208 					    &rcar_du_wb_conn_funcs,
+> 209 					    &rcar_du_wb_enc_helper_funcs,
+> 210 					    writeback_formats,
+> 211 					    ARRAY_SIZE(writeback_formats));
+> 212 }
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280.dtsi b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> index baf1653..408cf6c 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -2856,9 +2856,6 @@
->  				      "ahb",
->  				      "core";
->  
-> -			assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>;
-> -			assigned-clock-rates = <300000000>;
-> -
->  			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
->  			interrupt-controller;
->  			#interrupt-cells = <1>;
-> @@ -2892,11 +2889,9 @@
->  					      "lut",
->  					      "core",
->  					      "vsync";
-> -				assigned-clocks = <&dispcc DISP_CC_MDSS_MDP_CLK>,
-> -						<&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-> +				assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
->  						<&dispcc DISP_CC_MDSS_AHB_CLK>;
-> -				assigned-clock-rates = <300000000>,
-> -							<19200000>,
-> +				assigned-clock-rates = <19200000>,
->  							<19200000>;
->  				operating-points-v2 = <&mdp_opp_table>;
->  				power-domains = <&rpmhpd SC7280_CX>;
-> -- 
-> 2.7.4
-> 
+> >>   	drm_connector_helper_add(&wb_conn->base,
+> >>   				 &rcar_du_wb_conn_helper_funcs);
+> >>   
+
+-- 
+Regards,
+
+Laurent Pinchart
