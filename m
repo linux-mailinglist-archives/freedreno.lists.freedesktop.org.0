@@ -2,58 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017FE4D84A9
-	for <lists+freedreno@lfdr.de>; Mon, 14 Mar 2022 13:32:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 490914D8647
+	for <lists+freedreno@lfdr.de>; Mon, 14 Mar 2022 14:58:12 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0EF10E7C9;
-	Mon, 14 Mar 2022 12:32:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9294B10E710;
+	Mon, 14 Mar 2022 13:58:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [IPv6:2607:f8b0:4864:20::112a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A49A10E775
- for <freedreno@lists.freedesktop.org>; Mon, 14 Mar 2022 12:32:06 +0000 (UTC)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-2e2ca8d7812so99400917b3.13
- for <freedreno@lists.freedesktop.org>; Mon, 14 Mar 2022 05:32:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7828C10E6A9
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Mar 2022 13:58:09 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id b24so19991744edu.10
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Mar 2022 06:58:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SWYiVcad4lyN3MTMCVaEe/kHD8SmjlJLnSNDNu5hEV8=;
- b=dx89DPmQPGELKQ9URRMTc+sGTgkEbGOiXMkgouXNqdU6gaEGEWf9ADvH/onhhTn9A0
- i07Y+WDeSjXLEPXUwnNBLIzyoHrmbu+PIZZ56LGMx0d0FQ9XDJHHqdg5B425iKHO0uhY
- GeVnLJBk8jVDLd84298P3HM89dWltpY/eLhQZkpS27sg45OBX42hMGTtXK8ehdreVn/P
- jnIg+ChqnI+V8gxqyI8KZRxkMBzg/c6/lt79dm2zyzpe8FjryvOPjxeQhM723GIDLkDr
- rhNtFsEBSDzig95iZNJVTyfMhKMlVfXY81af0BTKizXB5c2HxE0fmzOMBfUq1Hw/6N38
- KXKQ==
+ :cc; bh=/sGwhFLRtiH/ykUra8RNv5VtPDl39PfWAyeMQdseV4U=;
+ b=E4HfJt2lpl5yMCJkmr268M1C6Xw1SdJiBIbXECMsySpxvvMRbBTqo3MSLg3VnfahpC
+ P7LzLbgUQFA4BE/DsfILmqLQHUV+ASwOd5AcDTChMfwhP9mK0rdOs6tf3pdCjfyIgHEm
+ lfiSNtrZ23gznqQr7osIXvkgdlCoTI2SO5lFQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=SWYiVcad4lyN3MTMCVaEe/kHD8SmjlJLnSNDNu5hEV8=;
- b=JcIs8bM2YJCKRmvueOjIe6AjBPU2CeOq19/VzuQLHxtY0+5qO+/hcsw+PRLXi33tc1
- TAcuP9tMhrsRM9A2C+wfPizbcYJFt+fLG/tUH1YLB9Bd+u6hW6lcwPvmKdgx+DGxwXjc
- TNTmSS5f4x1Lxu5b+KRgHfdOFBZFGTx6W4rYM9BrlfhDnbCtK7a3/VAJsvlqwXf3xS7U
- y3VkmmDuiVOUzvPZP4egYiBr9yIOJbOWGMD4RBh5KjeK/BdipnVb5GnH+DILTCwlvVA9
- 5y1ofrabN7hbOA1OFk4Ii+3ebD5Rpy+KO3YLlaGJzmu9FNsX2zNpt+bNWipZsixJQ4j4
- HXZA==
-X-Gm-Message-State: AOAM531KbvCX1TKQLd5SpU5MIWaXPXYHmcGwjRsWRvUPUTfyfOWDNuxF
- lHCAp7vU7qxPqCOiaykecISkQC4Z6Vo2/EU8v718VA==
-X-Google-Smtp-Source: ABdhPJw9ptK7cXWIyB+pXX4gxaG81OIr8G6j/SFNJ1dr+spjkllZx+dgElnNqGpEHU1scqv+d/HKw9nNDEh76Lq5I60=
-X-Received: by 2002:a0d:d187:0:b0:2dc:5d83:217d with SMTP id
- t129-20020a0dd187000000b002dc5d83217dmr18485669ywd.189.1647261125395; Mon, 14
- Mar 2022 05:32:05 -0700 (PDT)
+ bh=/sGwhFLRtiH/ykUra8RNv5VtPDl39PfWAyeMQdseV4U=;
+ b=eeZGLeSWqWo+b/xzmYRSLjpT3vBqjGhC6eu+ZO/9AA8bUo4EsuDr/Qy6IeX/NzxqI/
+ gH6kiqZzxajgpUmNMmYR9t0c3madMgtZn8Ms3SO2nAjTkEZAyPuTbCO/GYDBKTPkqzIg
+ 1mP7f5c4F6oAyHFTF9CiGbYWmYAetHbuVuSyCSoFTyetNoPg5mI7L6RwqMNYlRGQ2Np5
+ KwhPl4QAhdhJIcGeWGnRXAoiyBVrFV0amvrn9Zt9uAP7A87ChLJUTHOG+2pwiXO+D/Kj
+ 0cHk4vbm4huKZhd55eZz5uHCaaB3bKx9QmquKnMuq5QuVMLaxhaMY4v1aFSPtyh8ha4F
+ SHyQ==
+X-Gm-Message-State: AOAM530W7BesfndbE9/+HdCzfr70bizyKiZwvuryTcDINPRG3wPITS6v
+ ijkwY9qVtsvzJe5+0M7OO7qTxaKDClBrkg==
+X-Google-Smtp-Source: ABdhPJygZ23/poowEmey7naM9lkzrvsM/d13NBNEtiy+UcG2QEzUxN+myd9H53lMmE6CrA3kgievWw==
+X-Received: by 2002:aa7:cd81:0:b0:410:d64e:aa31 with SMTP id
+ x1-20020aa7cd81000000b00410d64eaa31mr20895366edv.167.1647266287687; 
+ Mon, 14 Mar 2022 06:58:07 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com.
+ [209.85.128.49]) by smtp.gmail.com with ESMTPSA id
+ bm23-20020a170906c05700b006d597fd51c6sm6952069ejb.145.2022.03.14.06.58.06
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Mar 2022 06:58:06 -0700 (PDT)
+Received: by mail-wm1-f49.google.com with SMTP id
+ k29-20020a05600c1c9d00b003817fdc0f00so9698228wms.4
+ for <freedreno@lists.freedesktop.org>; Mon, 14 Mar 2022 06:58:06 -0700 (PDT)
+X-Received: by 2002:a05:600c:a53:b0:38a:fc5:3a90 with SMTP id
+ c19-20020a05600c0a5300b0038a0fc53a90mr3788786wmq.15.1647266285495; Mon, 14
+ Mar 2022 06:58:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220219183310.557435-1-robdclark@gmail.com>
- <CA+G9fYv6dPUsPzbFLr9PxJoe4eRAUdQyD4xT4hh4-xw=n9r=Bw@mail.gmail.com>
-In-Reply-To: <CA+G9fYv6dPUsPzbFLr9PxJoe4eRAUdQyD4xT4hh4-xw=n9r=Bw@mail.gmail.com>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Mon, 14 Mar 2022 18:01:53 +0530
-Message-ID: <CA+G9fYsipiN2-+g9CGmvf1WVQe22ehnkRuwa45D4rsTa6+Wk=w@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
+References: <1646758500-3776-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1646758500-3776-2-git-send-email-quic_vpolimer@quicinc.com>
+ <CAE-0n51bfqWs8yOiyQ-A_bEQ7CZSqavz8epcFEWYyZxxoRYFHg@mail.gmail.com>
+ <BN0PR02MB8173F2E408848216D489D503E40C9@BN0PR02MB8173.namprd02.prod.outlook.com>
+ <CAA8EJppt_NjOdJWGrP=8zwG1yEAyJBtnv4G5vLW3CHZ8WrGFvw@mail.gmail.com>
+In-Reply-To: <CAA8EJppt_NjOdJWGrP=8zwG1yEAyJBtnv4G5vLW3CHZ8WrGFvw@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 14 Mar 2022 06:57:51 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wy-ew3sbsQ_ojoAdAXeZPsRzwGJWqNQqpuZDb1GPknfg@mail.gmail.com>
+Message-ID: <CAD=FV=Wy-ew3sbsQ_ojoAdAXeZPsRzwGJWqNQqpuZDb1GPknfg@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gpu: Fix crash on devices without
- devfreq support
+Subject: Re: [Freedreno] [PATCH v5 1/5] arm64/dts/qcom/sc7280: remove
+ assigned-clock-rate property for mdp clk
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,151 +77,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Anders Roxell <anders.roxell@linaro.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
- Linux Kernel Functional Testing <lkft@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_kalyant <quic_kalyant@quicinc.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ Vinod Polimera <vpolimer@qti.qualcomm.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ quic_vpolimer <quic_vpolimer@quicinc.com>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob and Linus,
+Hi,
 
-On Mon, 7 Mar 2022 at 14:07, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+On Fri, Mar 11, 2022 at 1:22 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> Hi Rob,
+> On Fri, 11 Mar 2022 at 11:06, Vinod Polimera <vpolimer@qti.qualcomm.com> wrote:
+> >
+> >
+> >
+> > > -----Original Message-----
+> > > From: Stephen Boyd <swboyd@chromium.org>
+> > > Sent: Wednesday, March 9, 2022 1:36 AM
+> > > To: quic_vpolimer <quic_vpolimer@quicinc.com>;
+> > > devicetree@vger.kernel.org; dri-devel@lists.freedesktop.org;
+> > > freedreno@lists.freedesktop.org; linux-arm-msm@vger.kernel.org
+> > > Cc: linux-kernel@vger.kernel.org; robdclark@gmail.com;
+> > > dianders@chromium.org; quic_kalyant <quic_kalyant@quicinc.com>
+> > > Subject: Re: [PATCH v5 1/5] arm64/dts/qcom/sc7280: remove assigned-clock-
+> > > rate property for mdp clk
+> > >
+> > > WARNING: This email originated from outside of Qualcomm. Please be wary
+> > > of any links or attachments, and do not enable macros.
+> > >
+> > > Quoting Vinod Polimera (2022-03-08 08:54:56)
+> > > > Kernel clock driver assumes that initial rate is the
+> > > > max rate for that clock and was not allowing it to scale
+> > > > beyond the assigned clock value.
+> > >
+> > > How? I see ftbl_disp_cc_mdss_mdp_clk_src[] has multiple frequencies and
+> > > clk_rcg2_shared_ops so it doesn't look like anything in the clk driver
+> > > is preventing the frequency from changing beyond the assigned value.
+> >
+> > Folowing the comment of Stephen, i have checked a bit more. it appears that clock driver is not setting the max clock from assgined clocks, dpu driver is doing that.
+> > i am planning to fix it as below.
+> > 1) assign ULONG_MAX to max_rate while initializing clock in dpu driver.
+> > 2) remove unnecessary checks in the core_perf library. If rate doesn't match with the entries in the opp table, it will throw error, hence furthur checks are not needed.
+> > 3) no changes in dt are required. (we can drop all the posted ones)
 >
-> On Sun, 20 Feb 2022 at 00:02, Rob Clark <robdclark@gmail.com> wrote:
-> >
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Avoid going down devfreq paths on devices where devfreq is not
-> > initialized.
-> >
-> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> > Reported-by: Anders Roxell <anders.roxell@linaro.org>
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
->
-> I have tested this patch and the reported kernel crash is fixed [1].
->
-> Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
->
-> > ---
-> >  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 31 +++++++++++++++++++++------
-> >  1 file changed, 25 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > index 9bf319be11f6..26a3669a97b3 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> > @@ -83,12 +83,17 @@ static struct devfreq_dev_profile msm_devfreq_profile = {
-> >  static void msm_devfreq_boost_work(struct kthread_work *work);
-> >  static void msm_devfreq_idle_work(struct kthread_work *work);
-> >
-> > +static bool has_devfreq(struct msm_gpu *gpu)
-> > +{
-> > +       return !!gpu->funcs->gpu_busy;
-> > +}
-> > +
-> >  void msm_devfreq_init(struct msm_gpu *gpu)
-> >  {
-> >         struct msm_gpu_devfreq *df = &gpu->devfreq;
-> >
-> >         /* We need target support to do devfreq */
-> > -       if (!gpu->funcs->gpu_busy)
-> > +       if (!has_devfreq(gpu))
-> >                 return;
-> >
-> >         dev_pm_qos_add_request(&gpu->pdev->dev, &df->idle_freq,
-> > @@ -149,6 +154,9 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
-> >  {
-> >         struct msm_gpu_devfreq *df = &gpu->devfreq;
-> >
-> > +       if (!has_devfreq(gpu))
-> > +               return;
-> > +
-> >         devfreq_cooling_unregister(gpu->cooling);
-> >         dev_pm_qos_remove_request(&df->boost_freq);
-> >         dev_pm_qos_remove_request(&df->idle_freq);
-> > @@ -156,16 +164,24 @@ void msm_devfreq_cleanup(struct msm_gpu *gpu)
-> >
-> >  void msm_devfreq_resume(struct msm_gpu *gpu)
-> >  {
-> > -       gpu->devfreq.busy_cycles = 0;
-> > -       gpu->devfreq.time = ktime_get();
-> > +       struct msm_gpu_devfreq *df = &gpu->devfreq;
-> >
-> > -       devfreq_resume_device(gpu->devfreq.devfreq);
-> > +       if (!has_devfreq(gpu))
-> > +               return;
-> > +
-> > +       df->busy_cycles = 0;
-> > +       df->time = ktime_get();
-> > +
-> > +       devfreq_resume_device(df->devfreq);
+> Why? They made perfect sense. The dts assignments should be replaced
+> by the opp setting in the bind function, as this would also set the
+> performance point of the respective power domain.
+
+Right. You should still _post_ the dts patches. It's nice to avoid
+unneeded "assigned-clocks" in the dts. The patch description should
+just be clear that it relies on the driver patch and shouldn't land /
+be backported without the driver patch.
+
+
+> > Changes :
+> > ```--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+> > @@ -284,17 +284,6 @@ void dpu_core_perf_crtc_release_bw(struct drm_crtc *crtc)
+> >         }
 > >  }
 > >
-> >  void msm_devfreq_suspend(struct msm_gpu *gpu)
+> > -static int _dpu_core_perf_set_core_clk_rate(struct dpu_kms *kms, u64 rate)
+> > -{
+> > -       struct dss_clk *core_clk = kms->perf.core_clk;
+> > -
+> > -       if (core_clk->max_rate && (rate > core_clk->max_rate))
+> > -               rate = core_clk->max_rate;
+> > -
+> > -       core_clk->rate = rate;
+> > -       return dev_pm_opp_set_rate(&kms->pdev->dev, core_clk->rate);
+> > -}
+> > -
+> >  static u64 _dpu_core_perf_get_core_clk_rate(struct dpu_kms *kms)
 > >  {
-> >         struct msm_gpu_devfreq *df = &gpu->devfreq;
+> >         u64 clk_rate = kms->perf.perf_tune.min_core_clk;
+> > @@ -405,7 +394,7 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
 > >
-> > +       if (!has_devfreq(gpu))
-> > +               return;
-> > +
-> >         devfreq_suspend_device(df->devfreq);
+> >                 trace_dpu_core_perf_update_clk(kms->dev, stop_req, clk_rate);
 > >
-> >         cancel_idle_work(df);
-> > @@ -185,6 +201,9 @@ void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
-> >         struct msm_gpu_devfreq *df = &gpu->devfreq;
-> >         uint64_t freq;
-> >
-> > +       if (!has_devfreq(gpu))
-> > +               return;
-> > +
-> >         freq = get_freq(gpu);
-> >         freq *= factor;
-> >
-> > @@ -207,7 +226,7 @@ void msm_devfreq_active(struct msm_gpu *gpu)
-> >         struct devfreq_dev_status status;
-> >         unsigned int idle_time;
-> >
-> > -       if (!df->devfreq)
-> > +       if (!has_devfreq(gpu))
-> >                 return;
-> >
-> >         /*
-> > @@ -253,7 +272,7 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
-> >  {
-> >         struct msm_gpu_devfreq *df = &gpu->devfreq;
-> >
-> > -       if (!df->devfreq)
-> > +       if (!has_devfreq(gpu))
-> >                 return;
-> >
-> >         msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
-
-FYI,
-This patch is missing on Linux 5.17-rc8 [1].
-kernel crash log on arm64 db410c device [2] and details [3].
-
-metadata:
-  git_describe: v5.17-rc8
-  git_ref: master
-  git_repo: https://gitlab.com/Linaro/lkft/mirrors/torvalds/linux-mainline
-  git_sha: 09688c0166e76ce2fb85e86b9d99be8b0084cdf9
-  kernel-config: https://builds.tuxbuild.com/26LbbVLHqxjh5w5ZtjBMjGmh92P/config
-  build: https://builds.tuxbuild.com/26LbbVLHqxjh5w5ZtjBMjGmh92P
-
-- Naresh
-[1] https://lore.kernel.org/dri-devel/20220219183310.557435-1-robdclark@gmail.com/
-[2]  https://lkft.validation.linaro.org/scheduler/job/4714905#L2795
-[3] https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v5.17-rc8/testrun/8446224/suite/linux-log-parser/test/check-kernel-oops-4714905/details/
-
+> > -               ret = _dpu_core_perf_set_core_clk_rate(kms, clk_rate);
+> > +               ret = dev_pm_opp_set_rate(&kms->pdev->dev, clk_rate);
+> >                 if (ret) {
+> >                         DPU_ERROR("failed to set %s clock rate %llu\n",
+> >                                         kms->perf.core_clk->clk_name, clk_rate);
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_io_util.c
 >
-> --
-> Linaro LKFT
-> https://lkft.linaro.org
->
-> [1] https://lkft.validation.linaro.org/scheduler/job/4664600#L1894
+> This file has been removed in msm/next
+
+To echo Dmitry, please make sure that your patch applies to msm-next,
+As I understand it, that means the branch msm-next on:
+
+https://gitlab.freedesktop.org/drm/msm.git
+
+-Doug
