@@ -1,59 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F7774DA2B5
-	for <lists+freedreno@lfdr.de>; Tue, 15 Mar 2022 19:52:52 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8398E4DA60C
+	for <lists+freedreno@lfdr.de>; Wed, 16 Mar 2022 00:12:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECEA010E141;
-	Tue, 15 Mar 2022 18:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E891689DE5;
+	Tue, 15 Mar 2022 23:12:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E162B10E141;
- Tue, 15 Mar 2022 18:52:49 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- k25-20020a056830151900b005b25d8588dbso14588174otp.4; 
- Tue, 15 Mar 2022 11:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=zNTJopoLGltecGhSY1J4R8lxzUea0zgkojqKJ4ephYk=;
- b=QKqrXEraFO3Q3uNBiyoVf+76YiOzMhP9FHgSq5y/4jPXEHcYc3eyCOAjQg6UCpL4OQ
- Qf9+d3Uo2az+gLFI1IyvbHSH5ZV1ysaDuDFj0/qNCK9moMY7s8Gs9YFgbndXfkrVyUUx
- LQyl9nSQ0peCvu1hpg91TKQWHAt/3dkBPOLcX0NgebyxbORQyqK+3W6dxjnxGHIE8Xhd
- CTz8OSJhD9stugfUoZ8mPXpKMCRH1HOkp0cRsOstlyL7j8RirvS3d+MTNd7tR8HfmlLk
- iNxLnCVWd7/fV7L0LaXkpC7HRsH6dWSpW6SspqpszrTSx4ODFCNv8fk16O4pru+WhBVH
- zVZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=zNTJopoLGltecGhSY1J4R8lxzUea0zgkojqKJ4ephYk=;
- b=CCpbyEaCMwpcU6Nz8E9CDK806fYyLVWPWTBnEn4PKu97XIPM9ZNxREMMIbeXUvQ5aT
- iQ0jmTjmTAHrtmacEUz1dHc0FOl36OoXpxTB2264KrEpCPswsxEEgsWUAS+qL+C+ywf7
- 2y5qiKSBURpStyuA5WT/Cg6pruQl97QOPDpgDaZsx5+DOAWRMEFPedvLaZ571TiBy840
- F98/64zZpGrqOjPuLOFM6v9A1Gmyr3ZGZ5ZUzQ7PtqbgiXdk9uYvsHnWXjGrCZVy8xxA
- vgxnq+utSktmzYS6EWJ5qxX4BtcLFI8/ObLhX9LiZpKYoQ9dEQwRhFjWUbfHnF9zIOfI
- D2tw==
-X-Gm-Message-State: AOAM532zUo7PRH1CHezxyR+hq7tJ/ZcoTXK6hZCQ5uAJeo/siQdf5vjJ
- cVfRPhD2Kj1cXIlfnoArhiX7DjbF9Rajq+mRedM=
-X-Google-Smtp-Source: ABdhPJzPCJIJm2LwauK3uaMNRrspjb+0HPgBwT8LZe/bTDIdcPf8RkEU23DNd13AaKZGCPpi0IDa/fHQYab6R7PD2VI=
-X-Received: by 2002:a05:6830:2709:b0:5b0:196:dcf with SMTP id
- j9-20020a056830270900b005b001960dcfmr13485823otu.357.1647370369237; Tue, 15
- Mar 2022 11:52:49 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92ADD89DE5;
+ Tue, 15 Mar 2022 23:12:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647385935; x=1678921935;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ITeC/LzfRWxHy9wC8pIqhLWQaZlZnQky9am5zgdEzOc=;
+ b=bRem/Ah9IN+Kf7KIQ3JUbr5bVNSo0E2CsYbrerVr61UeqSYACS8odKCt
+ VBRvmcr0McTKUQcIkuQUL78gHfTqUXvnnJRrFRL6okZJiPi6zevBhfGEw
+ SiqBbnKegFVC63CZugUrIKBjV4sD7vmHujSrdXhOJWeAvBqEPhnLmgQbA c=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 15 Mar 2022 16:12:14 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2022 16:12:13 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.15; Tue, 15 Mar 2022 16:12:12 -0700
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 15 Mar 2022 16:12:11 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>
+Date: Tue, 15 Mar 2022 16:11:56 -0700
+Message-ID: <1647385922-31539-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
- <Yi+9n0eGn3rNKb4X@intel.com>
-In-Reply-To: <Yi+9n0eGn3rNKb4X@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Mar 2022 14:52:38 -0400
-Message-ID: <CADnq5_NS07TPBWSnETRhjzqtX_oUuCu86ewurFT3MJO=PcLAuQ@mail.gmail.com>
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 00/22] drm: Review of mode copies
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v2 0/6] Allow drm_writeback_connector to accept
+ pointer to drm_encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,82 +58,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, Chen Feng <puck.chen@hisilicon.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Nikola Cornij <nikola.cornij@amd.com>, John Stultz <john.stultz@linaro.org>,
- Sean Paul <sean@poorly.run>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Tomi Valkeinen <tomba@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- Sandy Huang <hjc@rock-chips.com>, Robert Foss <robert.foss@linaro.org>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
+ rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, mripard@kernel.org,
+ swboyd@chromium.org, melissa.srw@gmail.com, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Mar 14, 2022 at 6:12 PM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Fri, Feb 18, 2022 at 12:03:41PM +0200, Ville Syrjala wrote:
-> >   drm: Add drm_mode_init()
-> >   drm/bridge: Use drm_mode_copy()
-> >   drm/imx: Use drm_mode_duplicate()
-> >   drm/panel: Use drm_mode_duplicate()
-> >   drm/vc4: Use drm_mode_copy()
-> These have been pushed to drm-misc-next.
->
-> >   drm/amdgpu: Remove pointless on stack mode copies
-> >   drm/amdgpu: Use drm_mode_init() for on-stack modes
-> >   drm/amdgpu: Use drm_mode_copy()
-> amdgpu ones are reviewed, but I'll leave them for the
-> AMD folks to push to whichever tree they prefer.
+There are some vendor drivers for which the writeback encoder shares
+hardware resources such as clocks and interrupts with the rest of the
+display pipeline. In addition, there can be use-cases where the
+writeback encoder could be a shared encoder between the physical display
+path and the writeback path.
 
-I pulled patches 2, 4, 5 into my tree.  For 3, I'm happy to have it
-land via drm-misc with the rest of the mode_init changes if you'd
-prefer.
+To accommodate for such cases, change the drm_writeback_connector to
+accept a pointer to drm_encoder.
 
-Alex
+For existing users of drm_writeback_connector there will not be any
+change in functionality due to this change.
 
+This approach was first posted by Suraj Kandpal here [1] for both
+encoder and connector. But after discussions [2], the consensus was
+reached to split this change for the drm_encoder first and the
+drm_connector part can be reworked in a subsequent change later.
 
-Alex
+Validation of this change was done using igt_writeback tests on
+MSM based RB5 board using the changes posted here [3].
 
->
->
-> The rest are still in need of review:
-> >   drm/radeon: Use drm_mode_copy()
-> >   drm/gma500: Use drm_mode_copy()
-> >   drm/hisilicon: Use drm_mode_init() for on-stack modes
-> >   drm/msm: Nuke weird on stack mode copy
-> >   drm/msm: Use drm_mode_init() for on-stack modes
-> >   drm/msm: Use drm_mode_copy()
-> >   drm/mtk: Use drm_mode_init() for on-stack modes
-> >   drm/rockchip: Use drm_mode_copy()
-> >   drm/sti: Use drm_mode_copy()
-> >   drm/tilcdc: Use drm_mode_copy()
-> >   drm/i915: Use drm_mode_init() for on-stack modes
-> >   drm/i915: Use drm_mode_copy()
-> >   drm: Use drm_mode_init() for on-stack modes
-> >   drm: Use drm_mode_copy()
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
+For all other chipsets, these changes were compile-tested.
+
+[1] https://patchwork.kernel.org/project/dri-devel/patch/20220202081702.22119-1-suraj.kandpal@intel.com/
+[2] https://patchwork.kernel.org/project/dri-devel/patch/20220202085429.22261-6-suraj.kandpal@intel.com/
+[3] https://patchwork.freedesktop.org/series/99724/
+
+changes in v2:
+    - introduce a new API drm_writeback_connector_init_with_encoder()
+    - allow passing possible_crtcs for existing users of
+      drm_writeback_connector_init()
+
+Abhinav Kumar (6):
+  drm: allow real encoder to be passed for drm_writeback_connector
+  drm/komeda: pass possible_crtcs as parameter for
+    drm_writeback_connector
+  drm/vkms: pass possible_crtcs as parameter for drm_writeback_connector
+  drm/vc4: change vc4 driver to use
+    drm_writeback_connector_init_with_encoder()
+  drm/rcar_du: pass possible_crtcs as parameter for
+    drm_writeback_connector
+  drm/malidp: pass possible_crtcs as parameter for
+    drm_writeback_connector
+
+ .../drm/arm/display/komeda/komeda_wb_connector.c   |   3 +-
+ drivers/gpu/drm/arm/malidp_mw.c                    |   5 +-
+ drivers/gpu/drm/drm_writeback.c                    | 144 +++++++++++++++------
+ drivers/gpu/drm/rcar-du/rcar_du_writeback.c        |   5 +-
+ drivers/gpu/drm/vc4/vc4_txp.c                      |  30 ++++-
+ drivers/gpu/drm/vkms/vkms_writeback.c              |   3 +-
+ include/drm/drm_writeback.h                        |  27 +++-
+ 7 files changed, 161 insertions(+), 56 deletions(-)
+
+-- 
+2.7.4
+
