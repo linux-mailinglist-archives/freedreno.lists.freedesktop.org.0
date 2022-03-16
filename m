@@ -1,55 +1,81 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04FA24DB825
-	for <lists+freedreno@lfdr.de>; Wed, 16 Mar 2022 19:49:17 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 824EC4DB902
+	for <lists+freedreno@lfdr.de>; Wed, 16 Mar 2022 20:47:55 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8522E10E95C;
-	Wed, 16 Mar 2022 18:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D8910EA34;
+	Wed, 16 Mar 2022 19:47:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8AF910E95C;
- Wed, 16 Mar 2022 18:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1647456554; x=1678992554;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=cYwjh75Ni37koW/oqyeKoOEUWx7jKfJYzZzbGyVUnWw=;
- b=P/AgUgXt+KOVCD215AKk93UNNacLyZAaYHbFzpusgkh6eXNgLfzL3vcn
- d+Wjhk/d+bw66JGwPsv9EjtWk9gtYtt5a7sm7Zmo/gNYONFIIWTDp3UQZ
- 4KbWUiYb4cQGsAcabDtkq/CULqFKF4XyLxnnG0wh78GV00tpDrjjbIAvg k=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Mar 2022 11:49:14 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2022 11:49:12 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 16 Mar 2022 11:48:41 -0700
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 16 Mar 2022 11:48:40 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>
-Date: Wed, 16 Mar 2022 11:48:18 -0700
-Message-ID: <1647456498-32533-4-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1647456498-32533-1-git-send-email-quic_abhinavk@quicinc.com>
-References: <1647456498-32533-1-git-send-email-quic_abhinavk@quicinc.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1B5310EA31
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Mar 2022 19:47:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1647460061;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=J0oI+0ISdRle63jGaS9/UHYnEMzVjtXKfWa9O2AXWGk=;
+ b=TUygf+mIUcOtBUsJNUiTJsqSdNOTvQMqvsRl6kzFwKequ6fx6ul27htehbh/QbVtFpOdVC
+ iORvGZlMGDnAmfMJptinvG5+znGo5XodTdVkNaiyN/8KidIeid6MEZg2eLtF07fc0SPGVr
+ LS3W0k9MwC8ug7NxuFrgmSjf9sS/1c4=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-480-NbJmkv8vPxiKWQqXq-gM0g-1; Wed, 16 Mar 2022 15:47:38 -0400
+X-MC-Unique: NbJmkv8vPxiKWQqXq-gM0g-1
+Received: by mail-qv1-f71.google.com with SMTP id
+ dj3-20020a056214090300b004354a9c60aaso2492150qvb.0
+ for <freedreno@lists.freedesktop.org>; Wed, 16 Mar 2022 12:47:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:date:organization
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=J0oI+0ISdRle63jGaS9/UHYnEMzVjtXKfWa9O2AXWGk=;
+ b=ZhyMskvFtBwpo93UNHaP1phmqugGYjUcYDO3FYo4otQbQRa4DstqELUTjqZ2jLqlS0
+ Q1CF/LjehPJAVA59pnUgH4Yq8qY06DObkO/tD9lNlH1KzFUMOi1S+N1vMLunbs2OtZtl
+ 1n3/DDd7fsfAHWEYNno1KcWfJ9TVFTQiTM89eSOIu7++X8Txk791zelJl/s9jEiBU4M2
+ 5NyxZ2BkKGy58LJ69Aib6mhcmOJCfW5rEl44oZYqSb62Dl3Gq9AC1pBr+sPO6ySFsFWP
+ qv3g+UZnlt3V//LC/8upuvb4Biphb5Mp2YFyG/SiO3Y7UPM4JZwIk3Dlu+f2vuFE0r+O
+ zi8g==
+X-Gm-Message-State: AOAM531QhCxKrxWlWWlpeKzFf/8wxj9r9JSovgDTUCNnPlbNV/deemB6
+ 9P0LPkiGCA2+0Wd/lwh1TEsW/BjLLdUWYqI7afxmampag91/2Hl9jtJHYg1hFXHHTxCCDnMxLsC
+ 5sGSMbXJrLhIMMxgUCk+LvH9HDY9a
+X-Received: by 2002:a05:6214:dcb:b0:435:cb9c:b0b4 with SMTP id
+ 11-20020a0562140dcb00b00435cb9cb0b4mr1081805qvt.119.1647460057834; 
+ Wed, 16 Mar 2022 12:47:37 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwd6yBQg5t9nqQt2lYJt49ehTyptVw7upMg0uojKxcC/Ku5glPD14dTM2VhzVpmsxZJOfIDgQ==
+X-Received: by 2002:a05:6214:dcb:b0:435:cb9c:b0b4 with SMTP id
+ 11-20020a0562140dcb00b00435cb9cb0b4mr1081787qvt.119.1647460057597; 
+ Wed, 16 Mar 2022 12:47:37 -0700 (PDT)
+Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
+ [96.230.100.15]) by smtp.gmail.com with ESMTPSA id
+ c27-20020a05620a165b00b0067d32238bc8sm1237699qko.125.2022.03.16.12.47.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Mar 2022 12:47:36 -0700 (PDT)
+Message-ID: <0e029c57f314bb6139e72ff22a3f7667c99b7f26.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org
+Date: Wed, 16 Mar 2022 15:47:35 -0400
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-1.fc35)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v3 3/3] drm/vc4: change vc4 driver to use
- drm_writeback_connector_init_with_encoder()
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] 2022 X.Org Board of Directors Elections Nomination
+ period is NOW
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,78 +88,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
- rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, mripard@kernel.org,
- swboyd@chromium.org, melissa.srw@gmail.com, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
- quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
- freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-vc4 driver currently embeds the drm_encoder into struct vc4_txp
-and later on uses container_of to retrieve the vc4_txp from
-the drm_encoder.
+The Board consists of directors elected from the membership.  Each year, an
+election is held to bring the total number of directors to eight. The four
+members receiving the highest vote totals will serve as directors for two year
+terms.
 
-Since drm_encoder has now been made a pointer inside
-drm_writeback_connector, make vc4 driver use the new API
-so that the embedded encoder model can be retained in the
-driver and there is no change in functionality.
+The directors who received two year terms starting in 2021 were Lyude Paul,
+Samuel Iglesias Gonsálvez, Manasi D Navare and Daniel Vetter. They will
+continue to serve until their term ends in 2023. Current directors whose term
+expires in 2022 are Emma Anholt, Keith Packard, Harry Wentland and Mark
+Filion.
 
-changes in v3:
-    - none
+A director is expected to participate in the fortnightly IRC meeting to
+discuss current business and to attend the annual meeting of the X.Org
+Foundation, which will be held at a location determined in advance by the
+Board of Directors.
 
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/vc4/vc4_txp.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+A member may nominate themselves or any other member they feel is qualified.
+Nominations should be sent to the Election Committee at elections at x.org.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
-index 32c4fb0..36dffcf 100644
---- a/drivers/gpu/drm/vc4/vc4_txp.c
-+++ b/drivers/gpu/drm/vc4/vc4_txp.c
-@@ -370,6 +370,10 @@ static const struct drm_encoder_helper_funcs vc4_txp_encoder_helper_funcs = {
- 	.disable = vc4_txp_encoder_disable,
- };
- 
-+static const struct drm_encoder_funcs vc4_txp_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- static int vc4_txp_enable_vblank(struct drm_crtc *crtc)
- {
- 	return 0;
-@@ -498,13 +502,23 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
- 	wb_conn = &txp->connector;
- 	wb_conn->encoder = &txp->drm_enc;
- 
-+	drm_encoder_helper_add(wb_conn->encoder, &vc4_txp_encoder_helper_funcs);
-+
-+	ret = drm_encoder_init(drm, wb_conn->encoder,
-+			&vc4_txp_encoder_funcs,
-+			DRM_MODE_ENCODER_VIRTUAL, NULL);
-+
-+	if (ret)
-+		return ret;
-+
- 	drm_connector_helper_add(&wb_conn->base,
- 				 &vc4_txp_connector_helper_funcs);
--	ret = drm_writeback_connector_init(drm, wb_conn,
--			&vc4_txp_connector_funcs, &vc4_txp_encoder_helper_funcs,
--			drm_fmts, ARRAY_SIZE(drm_fmts), 0);
--	if (ret)
-+	ret = drm_writeback_connector_init_with_encoder(drm, wb_conn,
-+			&vc4_txp_connector_funcs, drm_fmts, ARRAY_SIZE(drm_fmts));
-+	if (ret) {
-+		drm_encoder_cleanup(wb_conn->encoder);
- 		return ret;
-+	}
- 
- 	ret = vc4_crtc_init(drm, vc4_crtc,
- 			    &vc4_txp_crtc_funcs, &vc4_txp_crtc_helper_funcs);
--- 
-2.7.4
+Nominees shall be required to be current members of the X.Org Foundation, and
+submit a personal statement of up to 200 words that will be provided to
+prospective voters.  The collected statements, along with the statement of
+contribution to the X.Org Foundation in the member's account page on
+http://members.x.org, will be made available to all voters to help them make
+their voting decisions.
+
+Nominations, membership applications or renewals and completed personal
+statements must be received no later than 23:59 UTC on 20th March 2022.
+
+The slate of candidates will be published 28th March 2022 and candidate Q&A
+will begin then. The deadline for Xorg membership applications and renewals is
+31st March 2022.
+
+Cheers,
+   Lyude Paul, on behalf of the X.Org BoD
 
