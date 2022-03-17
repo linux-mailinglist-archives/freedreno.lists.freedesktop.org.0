@@ -2,63 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3BA4DBBC4
-	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 01:29:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B80E94DBC12
+	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 02:10:16 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99069890C2;
-	Thu, 17 Mar 2022 00:29:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1588610E038;
+	Thu, 17 Mar 2022 01:10:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE22310EAC7;
- Thu, 17 Mar 2022 00:29:15 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id
- rm8-20020a17090b3ec800b001c55791fdb1so4054107pjb.1; 
- Wed, 16 Mar 2022 17:29:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZWZ7JEAL1DE1LvgRX3uWuLKQwPRiB58gmhQLlKG1GL0=;
- b=hQEZ3z2zvW6LDZb1FOtcB/Z5Ml8F/MMBihCYO7JC4NqXWVdgMI4YYRWpGo4MuOcEkT
- 5wBBk9O0n/yPi8OCM5GrZ1YE3w/bSaxI7CJDYVUnOaoSt0+HUa0ftK/pvhJ1TkIJMDGa
- s5lZ68P5qzgHJ7KsAPP6+BHHKJzIkZu00nu6sYsx9esjYnQ9mOTEz8umK2g6GDgA2Mgx
- NlLS642gdGy9ih9gf/sG9rwk/HeLSyexsqLUqUycz3mQDjUtKeE6sFJq35cEvsknuj5a
- QO+BBHVyPUuI4lUS6DsH9rFY+vENdP7uSK6JOFbpTxDXH/8z0ODAl/RF7plJtyQTVFKp
- b7KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZWZ7JEAL1DE1LvgRX3uWuLKQwPRiB58gmhQLlKG1GL0=;
- b=U6fgeyUHbgv+bFjTirpaIX9KK4f2u57Jl63as6Z/ZpVhr9SSF3OGms0kXKwtlV0Pk1
- hjt6SgLVWA9Pl/fVN2mA72inBCl96S5ZfaJPHReSCjF6GCxUFRw8ND+rT3q5Mfz4jrja
- dGnkJmtQYE1uf4s8ZttVQNNCmOTic8YgINh9gPo/7bIcGzUipgSew3CefrGhrpUPK5fm
- 0yQJ6ajervmFnMW1dFDoTXN5n5eMJzk69ogtgXjRNh3tSS2F5UUR6JqW1j98FNQ9gtYG
- vLnP/p2WupVz+f5eZxQpkwBziB2/q5PKbFztBwJzHfmdZ6gZbQNHuVDkYhdHTN+iH2J8
- mJmg==
-X-Gm-Message-State: AOAM532IgD02GQ41SUmz7IyaHCfbZKExzshhkmGOV9PLt5mIm5xVBBud
- GlLAh96hzAID357rgNbaE6CGqc8FYao=
-X-Google-Smtp-Source: ABdhPJyqVMjKPtyWbcZMNiGxIdqe6xlBdoDkqLHl3sBZooawf6OQo1w2RitJWq1Br+5vDBkCvEo2gw==
-X-Received: by 2002:a17:90b:4b8a:b0:1c6:33b2:9d6a with SMTP id
- lr10-20020a17090b4b8a00b001c633b29d6amr2363205pjb.225.1647476954684; 
- Wed, 16 Mar 2022 17:29:14 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id
- bh6-20020a056a00308600b004f6aa0367f6sm3744636pfb.118.2022.03.16.17.29.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Mar 2022 17:29:13 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 16 Mar 2022 17:29:45 -0700
-Message-Id: <20220317002950.193449-4-robdclark@gmail.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220317002950.193449-1-robdclark@gmail.com>
-References: <20220317002950.193449-1-robdclark@gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE2510E037;
+ Thu, 17 Mar 2022 01:10:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647479413; x=1679015413;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=llS1dWwKdU+67FjJtk/PY8ppQiZAxV8LEJy+YpMh008=;
+ b=X5IWnD3Hklo6JbkfmjDDXjhyN+J2w/AM0giTArCqP1g/t+SF8NEap6z1
+ Ej32/+Xuk3Th4XI2O++kP82BjNeJqDXlj/o/hnaIcC7Q0AsFuTAv4rKu/
+ qStSqjX9XuBUAfyWEAjfR6EmU9VCroST7RyCNiwThAmAZ8i38ZM4TIjtS k=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 16 Mar 2022 18:10:13 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2022 18:10:12 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 16 Mar 2022 18:10:11 -0700
+Received: from [10.110.116.22] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 16 Mar
+ 2022 18:10:11 -0700
+Message-ID: <9476aa45-1d41-20ed-7f2f-79719f246b50@quicinc.com>
+Date: Wed, 16 Mar 2022 18:10:10 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm: Add a way to override processes
- comm/cmdline
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 00/25] drm/msm/dpu: wide planes support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,157 +65,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Emma Anholt <emma@anholt.net>,
- Jonathan Marek <jonathan@marek.ca>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi Dmitry
 
-In the cause of using the GPU via virtgpu, the host side process is
-really a sort of proxy, and not terribly interesting from the PoV of
-crash/fault logging.  Add a way to override these per process so that
-we can see the guest process's name.
+I have reviewed the series , some patches completely , some of them 
+especially the plane to sspp mapping is something i still need to check.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 40 +++++++++++++++++++++++--
- drivers/gpu/drm/msm/msm_gpu.c           | 11 +++++--
- drivers/gpu/drm/msm/msm_gpu.h           |  6 ++++
- drivers/gpu/drm/msm/msm_submitqueue.c   |  2 ++
- include/uapi/drm/msm_drm.h              |  2 ++
- 5 files changed, 56 insertions(+), 5 deletions(-)
+But I had one question on the design.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 3d307b34854d..c68dc9c722c7 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -290,11 +290,45 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- int adreno_set_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		     uint32_t param, uint64_t value, uint32_t len)
- {
--	/* No pointer params yet */
--	if (len != 0)
--		return -EINVAL;
-+	switch (param) {
-+	case MSM_PARAM_COMM:
-+	case MSM_PARAM_CMDLINE:
-+		/* kstrdup_quotable_cmdline() limits to PAGE_SIZE, so
-+		 * that should be a reasonable upper bound
-+		 */
-+		if (len > PAGE_SIZE)
-+			return -EINVAL;
-+		break;
-+	default:
-+		if (len != 0)
-+			return -EINVAL;
-+	}
- 
- 	switch (param) {
-+	case MSM_PARAM_COMM:
-+	case MSM_PARAM_CMDLINE: {
-+		char *str, **paramp;
-+
-+		str = kmalloc(len + 1, GFP_KERNEL);
-+		if (copy_from_user(str, u64_to_user_ptr(value), len)) {
-+			kfree(str);
-+			return -EFAULT;
-+		}
-+
-+		/* Ensure string is null terminated: */
-+		str[len] = '\0';
-+
-+		if (param == MSM_PARAM_COMM) {
-+			paramp = &ctx->comm;
-+		} else {
-+			paramp = &ctx->cmdline;
-+		}
-+
-+		kfree(*paramp);
-+		*paramp = str;
-+
-+		return 0;
-+	}
- 	case MSM_PARAM_SYSPROF:
- 		if (!capable(CAP_SYS_ADMIN))
- 			return -EPERM;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 4ec62b601adc..68f3f8ade76d 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -364,14 +364,21 @@ static void retire_submits(struct msm_gpu *gpu);
- 
- static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **cmd)
- {
-+	struct msm_file_private *ctx = submit->queue->ctx;
- 	struct task_struct *task;
- 
-+	*comm = kstrdup(ctx->comm, GFP_KERNEL);
-+	*cmd  = kstrdup(ctx->cmdline, GFP_KERNEL);
-+
- 	task = get_pid_task(submit->pid, PIDTYPE_PID);
- 	if (!task)
- 		return;
- 
--	*comm = kstrdup(task->comm, GFP_KERNEL);
--	*cmd = kstrdup_quotable_cmdline(task, GFP_KERNEL);
-+	if (!*comm)
-+		*comm = kstrdup(task->comm, GFP_KERNEL);
-+
-+	if (!*cmd)
-+		*cmd = kstrdup_quotable_cmdline(task, GFP_KERNEL);
- 
- 	put_task_struct(task);
- }
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index c28c2ad9f52e..2c0203fd6ce3 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -355,6 +355,12 @@ struct msm_file_private {
- 	 */
- 	int sysprof;
- 
-+	/** comm: Overridden task comm, see MSM_PARAM_COMM */
-+	char *comm;
-+
-+	/** cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE */
-+	char *cmdline;
-+
- 	/**
- 	 * elapsed:
- 	 *
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index 79b6ccd6ce64..f486a3cd4e55 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -61,6 +61,8 @@ void __msm_file_private_destroy(struct kref *kref)
- 	}
- 
- 	msm_gem_address_space_put(ctx->aspace);
-+	kfree(ctx->comm);
-+	kfree(ctx->cmdline);
- 	kfree(ctx);
- }
- 
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 0aa1a8cb4e0d..794ad1948497 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -82,6 +82,8 @@ struct drm_msm_timespec {
- #define MSM_PARAM_FAULTS     0x09  /* RO */
- #define MSM_PARAM_SUSPENDS   0x0a  /* RO */
- #define MSM_PARAM_SYSPROF    0x0b  /* WO: 1 preserves perfcntrs, 2 also disables suspend */
-+#define MSM_PARAM_COMM       0x0c  /* WO: override for task->comm */
-+#define MSM_PARAM_CMDLINE    0x0d  /* WO: override for task cmdline */
- 
- /* For backwards compat.  The original support for preemption was based on
-  * a single ring per priority level so # of priority levels equals the #
--- 
-2.35.1
+I thought we were going to have a boot param to control whether driver 
+will internally use both rectangles for the layer so that in the future 
+if compositors can do this splitting, we can use that instead of driver 
+doing it ( keep boot param disabled ? ).
 
+Thanks
+
+Abhinav
+
+On 2/9/2022 9:24 AM, Dmitry Baryshkov wrote:
+> It took me a way longer to finish than I expected. And more patches that
+> I initially hoped. This patchset brings in multirect usage to support
+> using two SSPP rectangles for a single plane. Virtual planes support is
+> omitted from this pull request, it will come later.
+> 
+> Dmitry Baryshkov (25):
+>    drm/msm/dpu: rip out master planes support
+>    drm/msm/dpu: do not limit the zpos property
+>    drm/msm/dpu: add support for SSPP allocation to RM
+>    drm/msm/dpu: move SSPP debugfs creation to dpu_kms.c
+>    drm/msm/dpu: move pipe_hw to dpu_plane_state
+>    drm/msm/dpu: inline dpu_plane_get_ctl_flush
+>    drm/msm/dpu: drop dpu_plane_pipe function
+>    drm/msm/dpu: get rid of cached flush_mask
+>    drm/msm/dpu: dpu_crtc_blend_setup: split mixer and ctl logic
+>    drm/msm/dpu: introduce struct dpu_sw_pipe
+>    drm/msm/dpu: use dpu_sw_pipe for dpu_hw_sspp callbacks
+>    drm/msm/dpu: inline _dpu_plane_set_scanout
+>    drm/msm/dpu: pass dpu_format to _dpu_hw_sspp_setup_scaler3()
+>    drm/msm/dpu: move stride programming to
+>      dpu_hw_sspp_setup_sourceaddress
+>    drm/msm/dpu: remove dpu_hw_fmt_layout from struct dpu_hw_pipe_cfg
+>    drm/msm/dpu: drop EAGAIN check from dpu_format_populate_layout
+>    drm/msm/dpu: drop src_split and multirect check from
+>      dpu_crtc_atomic_check
+>    drm/msm/dpu: move the rest of plane checks to dpu_plane_atomic_check()
+>    drm/msm/dpu: don't use unsupported blend stages
+>    drm/msm/dpu: add dpu_hw_pipe_cfg to dpu_plane_state
+>    drm/msm/dpu: simplify dpu_plane_validate_src()
+>    drm/msm/dpu: rewrite plane's QoS-related functions to take dpu_sw_pipe
+>      and dpu_format
+>    drm/msm/dpu: rework dpu_plane_atomic_check() and
+>      dpu_plane_sspp_atomic_update()
+>    drm/msm/dpu: populate SmartDMA features in hw catalog
+>    drm/msm/dpu: add support for wide planes
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      | 355 +++-----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h      |   1 -
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c   |   4 -
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  10 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  78 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |  35 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   | 136 +--
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |  88 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  21 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 813 +++++++++---------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h     |  42 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  81 ++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   6 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h     |  19 +-
+>   15 files changed, 827 insertions(+), 863 deletions(-)
+> 
