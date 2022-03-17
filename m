@@ -1,67 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA44D4DCD83
-	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 19:24:53 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A9734DCDD7
+	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 19:45:06 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2DA10E49C;
-	Thu, 17 Mar 2022 18:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 312A810E010;
+	Thu, 17 Mar 2022 18:45:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 564DF10E49C;
- Thu, 17 Mar 2022 18:24:51 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id r6so8547884wrr.2;
- Thu, 17 Mar 2022 11:24:51 -0700 (PDT)
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [IPv6:2607:f8b0:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6918810E010;
+ Thu, 17 Mar 2022 18:45:04 +0000 (UTC)
+Received: by mail-pg1-x531.google.com with SMTP id c11so3326506pgu.11;
+ Thu, 17 Mar 2022 11:45:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=5WOWImhAUqDCpINz5GAMHG6O7lsNY7VMT01bdVagZWc=;
- b=aq6DxaZijrN5HrtIcyJc8/ndCbKMm4kjpXUP+iUT09yTZppIbKxEHZb/r7JKNq5AlX
- msy8fbXcZNH5bFBn0r1JrWF+4/zw+lpu9VNyrrMbKj76h1sJINSdXAeXLr5eFkKuIKt+
- ysbfM666oKJRhu/VnQNVuqjDaMjzJiXrmxA7/w6/2OMVjNIaWHgjgDG1RfP3MLc17E3X
- yLitqncP0ZG3GC9a+4ONnVrzyerUWaCH8v92bJd8l/mkZ3aLCliELsK2aPLaj64UmYyu
- BUelbuhAC707tKScoxuuav+bkU0e5MPdUgiWtsIRujlGk0By8c7wccwTEuaYkfnIUX5S
- Qrhg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8frA8T51BfSTppCN6qAkZ99su7zckg/tQTH5hUyS8LQ=;
+ b=RyIndbofKYuCI2lbzTuwvX6FW6aLSdrSsTOTwX+0PpMG1tVUS6nBiZpd2wOMB7K7ay
+ 4TXEw9HIMq4ArLr+GY+kFHSa3rtOKuWQ87s/u9R2D32lRmCq3j6CFhCFxtPjLOd7b/hs
+ DJMpaqjupWPONWXTRQ/l751ZZyaMTn81HGy5UFIHeDiX+ffcb16r2eiSWfF+XjtYoJZf
+ iy49l9+lkoIEIRCzKoPdQj6f3X7G7il+VGeOHiFvt6MQbKpAGVI/tIWH/GoBh+5/obmw
+ wmcY4pCIn1cM15qgfWs4J/FM/wtfVB0ze3e4oDlIlB2hRiPbQyL9YIGv9n6Gl0rtTJWn
+ V+CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=5WOWImhAUqDCpINz5GAMHG6O7lsNY7VMT01bdVagZWc=;
- b=W2wn+LKDLgEJPT2Ky/ws95lgOG1HdoGHgyCUK925xTHmUZXpV1nK1Up07FfsSEiVIQ
- V7qbFe11G0vNpOXhVP4b6yz/2WXeDdr0chuTZ2DBcZhD0J2tAkNlTOA8AtFaLZCefz++
- cNVBNv7VsRQ05C23iOKbNHJgELmG97oSaFe9OxTqN+2lVCk6woy6hXM01TgXLbbw+hNl
- gTQvnA6z6zwqcI6ZTsj+kVSUVclHBsd5wJY2tF2FTe17tCU1r1ukQ6ArvTMFtgNFVXcI
- CoW3sbPeXL2gTogQXAcRzfJb2uJfUVZw6zqjQCDDFM9UBp5ygNiRHQiM9zmLcttxAnwc
- wBrw==
-X-Gm-Message-State: AOAM5320YqQVNMuP1MuW3Wns9whevPed77LCnbMPJsDC0Gra5dPWNNez
- MMgqFIlR37PBrnM0qpzfH5jHTaXF6pKvrsfb5xQ=
-X-Google-Smtp-Source: ABdhPJwnz53z1Rtn2kSyDL8yXaceWrJVmARz5BjG/m7nsW0MZePheVDYKySSeb2wxNNkLlOqQKGmpMyw2VSnnqTRnT8=
-X-Received: by 2002:a05:6000:170c:b0:203:df21:742c with SMTP id
- n12-20020a056000170c00b00203df21742cmr5175530wrc.574.1647541489710; Thu, 17
- Mar 2022 11:24:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220310234611.424743-1-robdclark@gmail.com>
- <20220310234611.424743-3-robdclark@gmail.com>
- <YjMGac4Hnjmg1wE8@phenom.ffwll.local>
- <3945551d-47d2-1974-f637-1dbc61e14702@amd.com>
- <CAF6AEGv36V8bLoDn5O1SW3iTUtzd3O1XeuT5gJxyLMxd1E-o3Q@mail.gmail.com>
- <865abcff-9f52-dca4-df38-b11189c739ff@amd.com>
- <CAF6AEGuoBeYoMTR6-KM9xGZ05XSSnSJWMDciawczi7qtiLN9Vw@mail.gmail.com>
- <915537e2-ac5b-ab0e-3697-2b16a9ec8f91@amd.com>
- <CAF6AEGsyFAOPmHqT7YX1wsukP4-gYAstCukr89r9w28V0YSCUw@mail.gmail.com>
- <3a475e5a-1090-e2f4-779c-6915fc8524b1@amd.com>
-In-Reply-To: <3a475e5a-1090-e2f4-779c-6915fc8524b1@amd.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8frA8T51BfSTppCN6qAkZ99su7zckg/tQTH5hUyS8LQ=;
+ b=USHblmNMaLD32ALbvlaypr2WQK6mcG+TJgC05dJ7RfutlOu1SsDZq8N9uVlu08wUEK
+ 0Kc8SpHAO+TLTXIWy0K6EshDQoGmV2/xSZzoDd5FbXwJV/EkH14p9yQqOwW7TOMMK86V
+ +HizMR8SL6bNGy8Pa7ltNPNJVfrEoTyQIsypbV1S4ccNiasnv1BKXTrUb9s7A3Z2VYKh
+ /pnuyrr5wqNCj1PEBnW2F/NcwyZWaLj6gjl/FHtPFaPhwsDNq8P9j1IJ79qVa52O7GqG
+ Yx3RBSwWWkDFGGS4BvMCnLBJfZu/IErWCXj0yiZiq5aJVlaaccBLkclNYRQt7owdMEz4
+ zyXw==
+X-Gm-Message-State: AOAM533Z6aNmStc+mUzsfADZNZqxBUX6zfLhwSnvr4WNFoOgGq1gUTvM
+ AnUwM2pCucnxmyBLrLg0SjAXpZa2L3Q=
+X-Google-Smtp-Source: ABdhPJw2Sgwey2XM0AbmtVD8ylMFuv07FxKNo/PyLtYEDBPs6DlFa+Py7zEbtBRkZ2Tx6uUEyf0HUQ==
+X-Received: by 2002:a63:ab47:0:b0:375:5d05:9f79 with SMTP id
+ k7-20020a63ab47000000b003755d059f79mr4900716pgp.192.1647542703366; 
+ Thu, 17 Mar 2022 11:45:03 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id
+ r1-20020a17090a560100b001bf72b5af97sm6285380pjf.13.2022.03.17.11.45.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Mar 2022 11:45:02 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 17 Mar 2022 11:25:31 -0700
-Message-ID: <CAF6AEGtPrSdj=7AP1_puR+OgmL-qro0mWZDNngtaVPxpaCM76A@mail.gmail.com>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/gpu: Park scheduler threads for
- system suspend
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 17 Mar 2022 11:45:49 -0700
+Message-Id: <20220317184550.227991-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Add missing put_task_struct() in
+ debugfs path
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,81 +68,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Sean Paul <sean@poorly.run>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 17, 2022 at 11:10 AM Andrey Grodzovsky
-<andrey.grodzovsky@amd.com> wrote:
->
->
-> On 2022-03-17 13:35, Rob Clark wrote:
-> > On Thu, Mar 17, 2022 at 9:45 AM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> >> Am 17.03.22 um 17:18 schrieb Rob Clark:
-> >>> On Thu, Mar 17, 2022 at 9:04 AM Christian K=C3=B6nig
-> >>> <christian.koenig@amd.com> wrote:
-> >>>> Am 17.03.22 um 16:10 schrieb Rob Clark:
-> >>>>> [SNIP]
-> >>>>> userspace frozen !=3D kthread frozen .. that is what this patch is
-> >>>>> trying to address, so we aren't racing between shutting down the hw
-> >>>>> and the scheduler shoveling more jobs at us.
-> >>>> Well exactly that's the problem. The scheduler is supposed to shovel=
-ing
-> >>>> more jobs at us until it is empty.
-> >>>>
-> >>>> Thinking more about it we will then keep some dma_fence instance
-> >>>> unsignaled and that is and extremely bad idea since it can lead to
-> >>>> deadlocks during suspend.
-> >>> Hmm, perhaps that is true if you need to migrate things out of vram?
-> >>> It is at least not a problem when vram is not involved.
-> >> No, it's much wider than that.
-> >>
-> >> See what can happen is that the memory management shrinkers want to wa=
-it
-> >> for a dma_fence during suspend.
-> > we don't wait on fences in shrinker, only purging or evicting things
-> > that are already ready.  Actually, waiting on fences in shrinker path
-> > sounds like a pretty bad idea.
-> >
-> >> And if you stop the scheduler they will just wait forever.
-> >>
-> >> What you need to do instead is to drain the scheduler, e.g. call
-> >> drm_sched_entity_flush() with a proper timeout for each entity you hav=
-e
-> >> created.
-> > yeah, it would work to drain the scheduler.. I guess that might be the
-> > more portable approach as far as generic solution for suspend.
-> >
-> > BR,
-> > -R
->
->
-> I am not sure how this drains the scheduler ? Suppose we done the
-> waiting in drm_sched_entity_flush,
-> what prevents someone to push right away another job into the same
-> entity's queue  right after that ?
-> Shouldn't we first disable further pushing of jobs into entity before we
-> wait for  sched->job_scheduled ?
->
+From: Rob Clark <robdclark@chromium.org>
 
-In the system suspend path, userspace processes will have already been
-frozen, so there should be no way to push more jobs to the scheduler,
-unless they are pushed from the kernel itself.  We don't do that in
-drm/msm, but maybe you need to to move things btwn vram and system
-memory?  But even in that case, if the # of jobs you push is bounded I
-guess that is ok?
+Fixes: 25faf2f2e065 ("drm/msm: Show process names in gem_describe")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-BR,
--R
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 02b9ae65a96a..a4f61972667b 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -926,6 +926,7 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
+ 					get_pid_task(aspace->pid, PIDTYPE_PID);
+ 				if (task) {
+ 					comm = kstrdup(task->comm, GFP_KERNEL);
++					put_task_struct(task);
+ 				} else {
+ 					comm = NULL;
+ 				}
+-- 
+2.35.1
+
