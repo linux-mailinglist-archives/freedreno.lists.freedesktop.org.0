@@ -2,139 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F8904DC0E4
-	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 09:22:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0372B4DC1E4
+	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 09:51:28 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26EE10F018;
-	Thu, 17 Mar 2022 08:21:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F18B10ED2B;
+	Thu, 17 Mar 2022 08:51:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C225810F018;
- Thu, 17 Mar 2022 08:21:57 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22H3XW03006895; 
- Thu, 17 Mar 2022 08:21:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2021-07-09;
- bh=wkoXgq4FgmplemcLAbi1y6MUK8J6fjNwq3PSOh3vrVo=;
- b=SCntx/FAzVwlJnTg10xp/SXFBUU4pX4Nqq5PfEAT5rRAc7uoEIDuP1BRXERIwdic57jD
- BYeAktfmAgwrMDngtfKUGI6OQeU8EKxb41bG+K9hsDpyDdsBB0LyWemn86FoACBNbALU
- zFipgAA6+JdbOnRnJd7lkLdjY9+8ryUcUCPLKQuq2L/lKGgvTa2fI94gc4LsnlI1LVF9
- h7pL0KaHn9h24MS8vy3E9fAj/gTryDW4SZKr+ZJXCORQyLP8Lo5ZIxfTy4WVi0YTFQok
- x2iRLwhEbCmpEAjmLMPNXrPx8ThHmte/K7tf+DRAxCRamsOYiJuboBtqaWHPhuQaUVKh tg== 
-Received: from aserp3030.oracle.com ([141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 3et52q0j48-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 17 Mar 2022 08:21:53 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22H8GrD3195093;
- Thu, 17 Mar 2022 08:21:52 GMT
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2109.outbound.protection.outlook.com [104.47.55.109])
- by aserp3030.oracle.com with ESMTP id 3et64u1c0u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 17 Mar 2022 08:21:51 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G2hihkimXf/A6NI6/GF1mv0H/29tgAnDGD6Q/kbQARMZJuXF8utv/Vf2MGw+LgCkpExRLFziyI106J05p+pKgegbTK4eGlYBWmpCVWFLDDewKI32Hya3j4EezbYLMupRaHtfHN5D2BzH6wJyvgLOGYtTCbpEjXH32fPyG4iNM4vU93QEe6XXex5DIzfc6mV294m/R3FgopgUjZ4lblIBG2WwlErSj26HsdpJrO8O9Caa32DnS3IBotQrvXadRH3Rhh8ncsvbxFgar5jrnONWBrnjgDAm2AmtbvD8LVxVj5qCBr7OaCfplxqGDEH/0f/1u9SN1xRO6MWDkhQtq4eB4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wkoXgq4FgmplemcLAbi1y6MUK8J6fjNwq3PSOh3vrVo=;
- b=VD8e6s06F0Ak40hOGmiIshfmXyiS0mwob62y/fQAiE064gTyNbybB/dgePPN/HQkXpWoHDSNmINN9Da5Ff8uloioGkyDNJiyQwAHLAeXztKYQr5m3pE4aSuML2rq8kdFVzLcVGnpXWjgqUD3Q8LdeNWvz/wSTtgn25Sx1lgKxw23A1y9estZ7detpKh30Fwz8gnEMIYz4YOo/PpQcCAI9fyMZdWxiFJSHowdM1+t8EWvKahGR7b2bk2N2lJF70BCWXLowBwAk9Qz+5Xla1eYbpd97XhZCGuyIckt5GW2Z1MiQfToePu6zvmOJDiLjKrn2cRd1eJxPR1BBZqDLpNbRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wkoXgq4FgmplemcLAbi1y6MUK8J6fjNwq3PSOh3vrVo=;
- b=glGe5+/DbK3vgu5t1qArvUvS8oYdHS2NV9VuLwhdPGoJNmL5JA8+zIO5fBAa09IFlFWpPWazIMYyKxR5xGiMqbfVCe9uGTW0LOLXVTOmEgnDSS+z3vG/XqdRLdnPmrAPUyp/xItuY3VgBtncdnP0klsWXTP7kJZnXekUbKojXT0=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by SJ0PR10MB4606.namprd10.prod.outlook.com
- (2603:10b6:a03:2da::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.15; Thu, 17 Mar
- 2022 08:21:50 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::2c3d:92b5:42b3:c1c5]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::2c3d:92b5:42b3:c1c5%4]) with mapi id 15.20.5081.017; Thu, 17 Mar 2022
- 08:21:49 +0000
-Date: Thu, 17 Mar 2022 11:21:21 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <20220317082121.GH1841@kadam>
-References: <20220317002950.193449-1-robdclark@gmail.com>
- <20220317002950.193449-4-robdclark@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220317002950.193449-4-robdclark@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: JNAP275CA0062.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4f::17)
- To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E110510ED2B;
+ Thu, 17 Mar 2022 08:51:24 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id CFAFF493;
+ Thu, 17 Mar 2022 09:51:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1647507083;
+ bh=6w4qmtXq0z9Xn0sA9w0ZL9i3Z9fAbBtnDou0gre+GBI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kMWc/JWXKVKHJnQqoLCH1cmlSSi2CN4/mb/jv3x13LaFn0QFZiNn2rstqtPrjSJ47
+ shGbiCs5MHSo0ubTvUNmHVrFewzRlm2ICoPpA/4v9G5cx2f6P48mq/GmXJjfgNBtYH
+ hPfEb02v+KtUXiYHkMR/QVFUIcttPyWS0AbZrOLk=
+Date: Thu, 17 Mar 2022 10:51:06 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <YjL2ehsuQZwkBuBZ@pendragon.ideasonboard.com>
+References: <1647456498-32533-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1647456498-32533-2-git-send-email-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b1a345d3-5a85-45c8-07e9-08da07ef2f37
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB4606:EE_
-X-Microsoft-Antispam-PRVS: <SJ0PR10MB46066CE122CEA1C2BA253A218E129@SJ0PR10MB4606.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fscGJE4+61Ng9QUACXrnroDMdE2i5gbkcrzlrqVTBeV5jbjyYrKzKsTk45JwAt2c/TzsTyRs+HI77HtNvM8kxa5GHEMafySSjzOl+eNtSlNOHKCTKH33bSnGtmBNH0iBt4kmp6sKztIVEq+wcBhfGbrlvW8D7zFa5vwuHwiq2OSQltKCWmtVls8bFeVneinYbznlPJpIgE4ml6pX+0BwIj4qw7x3AoR3olfcwfOWgIqPPIoS2FRvYR5RHXLnbEKGXudljWlFQxYUk5K00qRC0p6ltCkiRsoUzEMkS7Jqc92eQBad3wM53LolBSZFaIjiRCEExv+MVWQb2cWFNKBme5sTni3z/w25SshcV6AzLfYGvPjHTZSRtjwZeuBzKKxToVpVVmVLslFq07p9Y353RA+kKuqp5CozUZ1BEbpK+303/EBPNHBuUi+MpxYML7dfPyzYkVL4CzwWNVHG5/jy3bsqGlaSu0KQhzTM1+oj0MlJt/4OL/1TuB5Trw+JlwQaMjRRQ0ZOdKSc/hIQq4SgRaRfZZcGLuKDfeQHBFhf4g3HdaTBv0qzMEEATrLkpztcSQ/ihV9hoSknjd7dA+i/06seOBEfro4VcSdB/6Qd8zYyp44V7TCG+3YT9eAM5bIlwTDWid+8cXRg24ma91b9UpLAtpoeQoxqhSqet/tWpppglp/hPTC2Y6mNy2kaGznxDwV8O24uH1NSTLN5t02KBGhsZXbDMFQlyLKpu3jrK2g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(7916004)(366004)(5660300002)(83380400001)(33716001)(44832011)(7416002)(2906002)(316002)(54906003)(6916009)(4326008)(8676002)(66476007)(66556008)(508600001)(66946007)(9686003)(186003)(6512007)(86362001)(6486002)(6666004)(38100700002)(38350700002)(6506007)(52116002)(33656002)(1076003)(26005)(8936002)(43043002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?t88ieubEVsywZNOgR51Fny20QwH2RbZcuMqIzktqJBqWdyTLIC2PBbBfQ+ps?=
- =?us-ascii?Q?88r+xaTfQyNa7/wxnhS/+aTa9fXVvyXzun2CAubF/U4cQgTXClJqj51udBUj?=
- =?us-ascii?Q?AK5mzmhiEQJH20t1W2f7Vii5EsAoi+MaB1gGd8nysKiEN+IfR+w/i9NaajIJ?=
- =?us-ascii?Q?iMBgviZOw0T7Yk2VMi0fZABINtVaPX60F0+CEs2GtnIO4PWWDOc9FC+ETJcB?=
- =?us-ascii?Q?gqsH+kpyg9B0wmVctMbETe5xPsP+kMX0nJr+p17cfJOexnP2nyswpWQBE9sq?=
- =?us-ascii?Q?3m4kJ92DEpvXZhkt3bE8VuK3O5CnnwDTXEYU8GdEnvoy6mIFvGa9J2Ypb5cw?=
- =?us-ascii?Q?2vGtz8vhC66Con8Y6bpntrXBzds+/PxazI66J5NRfsVS244FYcOmdKHSbWAf?=
- =?us-ascii?Q?F6fVDmq1UtvgGK807PU026zs369WDD5mj05dn7Gw0Q+6eVJJ7xpBM3BChnO+?=
- =?us-ascii?Q?V3Hn1QXC25eWb8U4P9/2ut82eyG/P6v1PHJx1DZaSLTYNkwORbpMREJiwE/C?=
- =?us-ascii?Q?keTwI1vK85u6b7igj0F+lh7mBRnsNJVcRICzq6VD5zc6zCk/Yi7k9aOMz4vL?=
- =?us-ascii?Q?h5K0O8nqlO4Uz3T1fpqq43wtcUOndxIb55DgxAhlWoKDBPwzB7ncwVEjEKjr?=
- =?us-ascii?Q?8lgTxP6onfIsja+tmS9uOpFJV+M9Gr+EyUAv7unqiV9F+lELW+0Z2Zqf0683?=
- =?us-ascii?Q?Q5sFmq1I9KC7toz38jM68tWvPt5PJZ0OBYv81IXThoZ4ffujJ4SVCZmillNk?=
- =?us-ascii?Q?USWL+ueychJhC7iwUQEqaf0XBVzdA9tGirw6WlTqbhFl87UgixoQJI4rVLBk?=
- =?us-ascii?Q?z7gz9N4I8cicoaXWxQjPTl9Pg2wN0Czfas2uCzIZ+rDfyKcysAe98UP4Kf9j?=
- =?us-ascii?Q?lwMJ/8Yj4mAU+0vYkMBthL1GOA0QvSEsAmaAHL+AnZW6qhX9LuUBSFy4W4M/?=
- =?us-ascii?Q?ieizGOs6MkX1OXdoauaYC2eYIT7iYs8ocF8i5y3S7ofeoBaceB8sD99zS61G?=
- =?us-ascii?Q?lOrChAorhRVUQHi+ak7BGTrsdh37YCbKPU5/vn0tHAWMI4Du86m8MVGHBojw?=
- =?us-ascii?Q?eOzToUn6uSat1RxykLSgIjJTJf+7OOFBVk6Et6OousGhzeRH4CpGSc2upXnB?=
- =?us-ascii?Q?w3yDsPLai+p4aIwbIv1efQr7sKBbD8d4SIBDMvmoYdmHo5TQJrBoluaXiqIb?=
- =?us-ascii?Q?k262xJU2MuoGRMqAyBgRbxQmFyuUjYYxmfa/7h8yvASzekvE8U3Q0LYvKv8r?=
- =?us-ascii?Q?C+e9z3lcbECbnn9XDBMQfVWRX7EDBysY/y6ViCOZHUIxDFJw+CXHTLa9L5JJ?=
- =?us-ascii?Q?2lfBA5lWIihMuVMJqpHdI7+IMe80znVC6LokD7fNYT23TKJsG8I4T/ezGnXi?=
- =?us-ascii?Q?o8XSEVQ6xlYT6JjmDWYVnAfis4qfZyuJGeH3/5M4wWRp1rzbWap4Y6oCiGf2?=
- =?us-ascii?Q?NceAlgQaSEXpWRL8LaTdCodM5JuOruzVT8xqVWJg94WseCtzLUllWw=3D=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1a345d3-5a85-45c8-07e9-08da07ef2f37
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 08:21:49.8310 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zSpO6nKSR4pBsXjljHsD0BIF3+NS2wHe6UNPvtObUS7phPlgxcFrOT22X8WHBmXsNSd5/LIsa2z/S+Vf5Y6mip5Pjcieqpngc9PW4GGlxMM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4606
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10288
- signatures=693715
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- bulkscore=0 phishscore=0
- suspectscore=0 mlxscore=0 adultscore=0 spamscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
- definitions=main-2203170048
-X-Proofpoint-GUID: nkV2Y2rcSmoHSPtoya4wq9GFaj2EqKDD
-X-Proofpoint-ORIG-GUID: nkV2Y2rcSmoHSPtoya4wq9GFaj2EqKDD
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: Add a way to override
- processes comm/cmdline
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1647456498-32533-2-git-send-email-quic_abhinavk@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v3 1/3] drm: allow real encoder to be passed
+ for drm_writeback_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,88 +48,413 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- Emma Anholt <emma@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
+ rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ mripard@kernel.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ james.qian.wang@arm.com, quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 16, 2022 at 05:29:45PM -0700, Rob Clark wrote:
->  	switch (param) {
-> +	case MSM_PARAM_COMM:
-> +	case MSM_PARAM_CMDLINE: {
-> +		char *str, **paramp;
-> +
-> +		str = kmalloc(len + 1, GFP_KERNEL);
+Hi Abhinav,
 
-if (!str)
-	return -ENOMEM;
+Thank you for the patch.
 
-> +		if (copy_from_user(str, u64_to_user_ptr(value), len)) {
-> +			kfree(str);
-> +			return -EFAULT;
-> +		}
-> +
-> +		/* Ensure string is null terminated: */
-> +		str[len] = '\0';
-> +
-> +		if (param == MSM_PARAM_COMM) {
-> +			paramp = &ctx->comm;
-> +		} else {
-> +			paramp = &ctx->cmdline;
-> +		}
-> +
-> +		kfree(*paramp);
-> +		*paramp = str;
-> +
-> +		return 0;
-> +	}
->  	case MSM_PARAM_SYSPROF:
->  		if (!capable(CAP_SYS_ADMIN))
->  			return -EPERM;
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 4ec62b601adc..68f3f8ade76d 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -364,14 +364,21 @@ static void retire_submits(struct msm_gpu *gpu);
+On Wed, Mar 16, 2022 at 11:48:16AM -0700, Abhinav Kumar wrote:
+> For some vendor driver implementations, display hardware can
+> be shared between the encoder used for writeback and the physical
+> display.
+> 
+> In addition resources such as clocks and interrupts can
+> also be shared between writeback and the real encoder.
+> 
+> To accommodate such vendor drivers and hardware, allow
+> real encoder to be passed for drm_writeback_connector using a new
+> drm_writeback_connector_init_with_encoder() API.
+
+The commit message doesn't match the commit.
+
+> In addition, to preserve the same call flows for the existing
+> users of drm_writeback_connector_init(), also allow passing
+> possible_crtcs as a parameter so that encoder can be initialized
+> with it.
+> 
+> changes in v3:
+> 	- allow passing possible_crtcs for existing users of
+> 	  drm_writeback_connector_init()
+> 	- squash the vendor changes into the same commit so
+> 	  that each patch in the series can compile individually
+> 
+> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>  .../drm/arm/display/komeda/komeda_wb_connector.c   |   3 +-
+>  drivers/gpu/drm/arm/malidp_mw.c                    |   5 +-
+>  drivers/gpu/drm/drm_writeback.c                    | 103 +++++++++++++--------
+>  drivers/gpu/drm/rcar-du/rcar_du_writeback.c        |   5 +-
+>  drivers/gpu/drm/vc4/vc4_txp.c                      |  19 ++--
+>  drivers/gpu/drm/vkms/vkms_writeback.c              |   3 +-
+>  include/drm/drm_writeback.h                        |  22 ++++-
+>  7 files changed, 103 insertions(+), 57 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> index e465cc4..40774e6 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> @@ -155,7 +155,6 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>  	kwb_conn->wb_layer = kcrtc->master->wb_layer;
 >  
->  static void get_comm_cmdline(struct msm_gem_submit *submit, char **comm, char **cmd)
+>  	wb_conn = &kwb_conn->base;
+> -	wb_conn->encoder.possible_crtcs = BIT(drm_crtc_index(&kcrtc->base));
+>  
+>  	formats = komeda_get_layer_fourcc_list(&mdev->fmt_tbl,
+>  					       kwb_conn->wb_layer->layer_type,
+> @@ -164,7 +163,7 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+>  	err = drm_writeback_connector_init(&kms->base, wb_conn,
+>  					   &komeda_wb_connector_funcs,
+>  					   &komeda_wb_encoder_helper_funcs,
+> -					   formats, n_formats);
+> +					   formats, n_formats, BIT(drm_crtc_index(&kcrtc->base)));
+>  	komeda_put_fourcc_list(formats);
+>  	if (err) {
+>  		kfree(kwb_conn);
+> diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
+> index f5847a7..b882066 100644
+> --- a/drivers/gpu/drm/arm/malidp_mw.c
+> +++ b/drivers/gpu/drm/arm/malidp_mw.c
+> @@ -208,11 +208,12 @@ int malidp_mw_connector_init(struct drm_device *drm)
+>  	struct malidp_drm *malidp = drm->dev_private;
+>  	u32 *formats;
+>  	int ret, n_formats;
+> +	uint32_t possible_crtcs;
+>  
+>  	if (!malidp->dev->hw->enable_memwrite)
+>  		return 0;
+>  
+> -	malidp->mw_connector.encoder.possible_crtcs = 1 << drm_crtc_index(&malidp->crtc);
+> +	possible_crtcs = 1 << drm_crtc_index(&malidp->crtc);
+>  	drm_connector_helper_add(&malidp->mw_connector.base,
+>  				 &malidp_mw_connector_helper_funcs);
+>  
+> @@ -223,7 +224,7 @@ int malidp_mw_connector_init(struct drm_device *drm)
+>  	ret = drm_writeback_connector_init(drm, &malidp->mw_connector,
+>  					   &malidp_mw_connector_funcs,
+>  					   &malidp_mw_encoder_helper_funcs,
+> -					   formats, n_formats);
+> +					   formats, n_formats, possible_crtcs);
+
+Do you need the local variable ?
+
+>  	kfree(formats);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index dccf4504..17c1471 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -149,36 +149,15 @@ static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
+>  	.destroy = drm_encoder_cleanup,
+>  };
+>  
+> -/**
+> - * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> - * @dev: DRM device
+> - * @wb_connector: Writeback connector to initialize
+> - * @con_funcs: Connector funcs vtable
+> - * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> - * @formats: Array of supported pixel formats for the writeback engine
+> - * @n_formats: Length of the formats array
+> - *
+> - * This function creates the writeback-connector-specific properties if they
+> - * have not been already created, initializes the connector as
+> - * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> - * values. It will also create an internal encoder associated with the
+> - * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> - * the encoder helper.
+> - *
+> - * Drivers should always use this function instead of drm_connector_init() to
+> - * set up writeback connectors.
+> - *
+> - * Returns: 0 on success, or a negative error code
+> - */
+> -int drm_writeback_connector_init(struct drm_device *dev,
+> -				 struct drm_writeback_connector *wb_connector,
+> -				 const struct drm_connector_funcs *con_funcs,
+> -				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> -				 const u32 *formats, int n_formats)
+> +static int drm_writeback_connector_setup(struct drm_device *dev,
+> +		struct drm_writeback_connector *wb_connector,
+> +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
+> +		int n_formats)
 >  {
-> +	struct msm_file_private *ctx = submit->queue->ctx;
->  	struct task_struct *task;
->  
-> +	*comm = kstrdup(ctx->comm, GFP_KERNEL);
-> +	*cmd  = kstrdup(ctx->cmdline, GFP_KERNEL);
+>  	struct drm_property_blob *blob;
+> -	struct drm_connector *connector = &wb_connector->base;
+>  	struct drm_mode_config *config = &dev->mode_config;
+> +	struct drm_connector *connector = &wb_connector->base;
 > +
->  	task = get_pid_task(submit->pid, PIDTYPE_PID);
->  	if (!task)
->  		return;
+>  	int ret = create_writeback_properties(dev);
 >  
-> -	*comm = kstrdup(task->comm, GFP_KERNEL);
-> -	*cmd = kstrdup_quotable_cmdline(task, GFP_KERNEL);
-> +	if (!*comm)
-> +		*comm = kstrdup(task->comm, GFP_KERNEL);
-
-What?
-
-If the first allocation failed, then this one is going to fail as well.
-Just return -ENOMEM.  Or maybe this is meant to be checking for an empty
-string?
-
-> +
-> +	if (!*cmd)
-> +		*cmd = kstrdup_quotable_cmdline(task, GFP_KERNEL);
-
-Same.
-
+>  	if (ret != 0)
+> @@ -186,15 +165,10 @@ int drm_writeback_connector_init(struct drm_device *dev,
 >  
->  	put_task_struct(task);
+>  	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
+>  					formats);
+> -	if (IS_ERR(blob))
+> -		return PTR_ERR(blob);
+> -
+> -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> -	ret = drm_encoder_init(dev, &wb_connector->encoder,
+> -			       &drm_writeback_encoder_funcs,
+> -			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> -	if (ret)
+> -		goto fail;
+> +	if (IS_ERR(blob)) {
+> +		ret = PTR_ERR(blob);
+> +		return ret;
+> +	}
+>  
+>  	connector->interlace_allowed = 0;
+>  
+> @@ -204,7 +178,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  		goto connector_fail;
+>  
+>  	ret = drm_connector_attach_encoder(connector,
+> -						&wb_connector->encoder);
+> +						wb_connector->encoder);
+>  	if (ret)
+>  		goto attach_fail;
+>  
+> @@ -233,11 +207,62 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  attach_fail:
+>  	drm_connector_cleanup(connector);
+>  connector_fail:
+> -	drm_encoder_cleanup(&wb_connector->encoder);
+> -fail:
+>  	drm_property_blob_put(blob);
+>  	return ret;
 >  }
+> +
+> +/**
+> + * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> + * using an internal encoder
+> + *
+> + * @dev: DRM device
+> + * @wb_connector: Writeback connector to initialize
+> + * @con_funcs: Connector funcs vtable
+> + * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> + * @formats: Array of supported pixel formats for the writeback engine
+> + * @n_formats: Length of the formats array
+> + * @possible_crtcs: possible crtcs for the internal writeback encoder
+> + *
+> + * This function creates the writeback-connector-specific properties if they
+> + * have not been already created, initializes the connector as
+> + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> + * values. It will also create an internal encoder associated with the
+> + * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> + * the encoder helper.
+> + *
+> + * Drivers should always use this function instead of drm_connector_init() to
+> + * set up writeback connectors.
+> + *
+> + * Returns: 0 on success, or a negative error code
+> + */
+> +int drm_writeback_connector_init(struct drm_device *dev,
+> +		struct drm_writeback_connector *wb_connector,
+> +		const struct drm_connector_funcs *con_funcs,
+> +		const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> +		const u32 *formats, int n_formats, uint32_t possible_crtcs)
+> +{
+> +	int ret = 0;
+> +
+> +	wb_connector->encoder = &wb_connector->internal_encoder;
+> +
+> +	drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
+> +
+> +	wb_connector->encoder->possible_crtcs = possible_crtcs;
+> +
+> +	ret = drm_encoder_init(dev, wb_connector->encoder,
+> +			       &drm_writeback_encoder_funcs,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs, formats,
+> +			n_formats);
+> +
+> +	if (ret)
+> +		drm_encoder_cleanup(wb_connector->encoder);
+> +
+> +	return ret;
+> +}
 
-regards,
-dan carpenter
+All this doesn't belong to this patch. Just add the possible_crtcs
+argument to drm_writeback_connector_init() in 1/3, nothing else. One
+functional change, one patch.
 
+>  EXPORT_SYMBOL(drm_writeback_connector_init);
+>  
+>  int drm_writeback_set_fb(struct drm_connector_state *conn_state,
+> diff --git a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> index c79d125..1a610c0 100644
+> --- a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> +++ b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> @@ -199,8 +199,9 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+>  			   struct rcar_du_crtc *rcrtc)
+>  {
+>  	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> +	uint32_t possible_crtcs;
+>  
+> -	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> +	possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+>  	drm_connector_helper_add(&wb_conn->base,
+>  				 &rcar_du_wb_conn_helper_funcs);
+>  
+> @@ -208,7 +209,7 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+>  					    &rcar_du_wb_conn_funcs,
+>  					    &rcar_du_wb_enc_helper_funcs,
+>  					    writeback_formats,
+> -					    ARRAY_SIZE(writeback_formats));
+> +					    ARRAY_SIZE(writeback_formats), possible_crtcs);
+
+Same here, do you need the intermediate variable ?
+
+And please add a line break after ARRAY_SIZE().
+
+>  }
+>  
+>  void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
+> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
+> index 9809ca3..32c4fb0 100644
+> --- a/drivers/gpu/drm/vc4/vc4_txp.c
+> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
+> @@ -151,6 +151,8 @@ struct vc4_txp {
+>  
+>  	struct platform_device *pdev;
+>  
+> +	struct drm_encoder drm_enc;
+> +
+>  	struct drm_writeback_connector connector;
+>  
+>  	void __iomem *regs;
+> @@ -159,7 +161,7 @@ struct vc4_txp {
+>  
+>  static inline struct vc4_txp *encoder_to_vc4_txp(struct drm_encoder *encoder)
+>  {
+> -	return container_of(encoder, struct vc4_txp, connector.encoder);
+> +	return container_of(encoder, struct vc4_txp, drm_enc);
+>  }
+>  
+>  static inline struct vc4_txp *connector_to_vc4_txp(struct drm_connector *conn)
+> @@ -467,6 +469,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+>  	struct vc4_txp *txp;
+>  	struct drm_crtc *crtc;
+>  	struct drm_encoder *encoder;
+> +	struct drm_writeback_connector *wb_conn;
+>  	int ret, irq;
+>  
+>  	irq = platform_get_irq(pdev, 0);
+> @@ -492,12 +495,14 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+>  	txp->regset.regs = txp_regs;
+>  	txp->regset.nregs = ARRAY_SIZE(txp_regs);
+>  
+> -	drm_connector_helper_add(&txp->connector.base,
+> +	wb_conn = &txp->connector;
+> +	wb_conn->encoder = &txp->drm_enc;
+> +
+> +	drm_connector_helper_add(&wb_conn->base,
+>  				 &vc4_txp_connector_helper_funcs);
+> -	ret = drm_writeback_connector_init(drm, &txp->connector,
+> -					   &vc4_txp_connector_funcs,
+> -					   &vc4_txp_encoder_helper_funcs,
+> -					   drm_fmts, ARRAY_SIZE(drm_fmts));
+> +	ret = drm_writeback_connector_init(drm, wb_conn,
+> +			&vc4_txp_connector_funcs, &vc4_txp_encoder_helper_funcs,
+> +			drm_fmts, ARRAY_SIZE(drm_fmts), 0);
+
+Most of this also doesn't belong to this patch.
+
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -506,7 +511,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+>  	if (ret)
+>  		return ret;
+>  
+> -	encoder = &txp->connector.encoder;
+> +	encoder = txp->connector.encoder;
+>  	encoder->possible_crtcs = drm_crtc_mask(crtc);
+>  
+>  	ret = devm_request_irq(dev, irq, vc4_txp_interrupt, 0,
+> diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+> index 8694227..381e7b7 100644
+> --- a/drivers/gpu/drm/vkms/vkms_writeback.c
+> +++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+> @@ -140,12 +140,11 @@ int vkms_enable_writeback_connector(struct vkms_device *vkmsdev)
+>  {
+>  	struct drm_writeback_connector *wb = &vkmsdev->output.wb_connector;
+>  
+> -	vkmsdev->output.wb_connector.encoder.possible_crtcs = 1;
+>  	drm_connector_helper_add(&wb->base, &vkms_wb_conn_helper_funcs);
+>  
+>  	return drm_writeback_connector_init(&vkmsdev->drm, wb,
+>  					    &vkms_wb_connector_funcs,
+>  					    &vkms_wb_encoder_helper_funcs,
+>  					    vkms_wb_formats,
+> -					    ARRAY_SIZE(vkms_wb_formats));
+> +					    ARRAY_SIZE(vkms_wb_formats), 1);
+>  }
+> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> index 9697d27..5e002bc 100644
+> --- a/include/drm/drm_writeback.h
+> +++ b/include/drm/drm_writeback.h
+> @@ -25,13 +25,29 @@ struct drm_writeback_connector {
+>  	struct drm_connector base;
+>  
+>  	/**
+> -	 * @encoder: Internal encoder used by the connector to fulfill
+> +	 * @encoder: handle to drm_encoder used by the connector to fulfill
+>  	 * the DRM framework requirements. The users of the
+>  	 * @drm_writeback_connector control the behaviour of the @encoder
+>  	 * by passing the @enc_funcs parameter to drm_writeback_connector_init()
+>  	 * function.
+> +	 *
+> +	 * For some vendor drivers, the hardware resources are shared between
+> +	 * writeback encoder and rest of the display pipeline.
+> +	 * To accommodate such cases, encoder is a handle to the real encoder
+> +	 * hardware.
+> +	 *
+> +	 * For current existing writeback users, this shall continue to be the
+> +	 * embedded encoder for the writeback connector.
+> +	 *
+> +	 */
+> +	struct drm_encoder *encoder;
+> +
+> +	/**
+> +	 * @internal_encoder: internal encoder used by writeback when
+> +	 * a real encoder is not provided by the vendor drm drivers.
+> +	 * @encoder will be assigned to this for those cases.
+>  	 */
+> -	struct drm_encoder encoder;
+> +	struct drm_encoder internal_encoder;
+
+None of this belong here.
+
+>  
+>  	/**
+>  	 * @pixel_formats_blob_ptr:
+> @@ -150,7 +166,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  				 struct drm_writeback_connector *wb_connector,
+>  				 const struct drm_connector_funcs *con_funcs,
+>  				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> -				 const u32 *formats, int n_formats);
+> +				 const u32 *formats, int n_formats, uint32_t possible_crtcs);
+>  
+>  int drm_writeback_set_fb(struct drm_connector_state *conn_state,
+>  			 struct drm_framebuffer *fb);
+
+-- 
+Regards,
+
+Laurent Pinchart
