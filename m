@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 811374DD020
-	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 22:23:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1123A4DD02B
+	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 22:28:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0F8610E7F1;
-	Thu, 17 Mar 2022 21:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A138C10E112;
+	Thu, 17 Mar 2022 21:28:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
- [IPv6:2607:f8b0:4864:20::c2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 207BB10E7EF
- for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 21:23:19 +0000 (UTC)
-Received: by mail-oo1-xc2c.google.com with SMTP id
- q1-20020a4a7d41000000b003211b63eb7bso8030287ooe.6
- for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 14:23:19 -0700 (PDT)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12AB110E112
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 21:28:27 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id z8so7007754oix.3
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 14:28:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=OSDPwmZWTp87KAIy56WntFqaaFxosNFz2qqqMdiQW6w=;
- b=PJSF+SEnFIXKdHu3Posg9gntmUOehMEVLlRwTbnF1+4F7G+er1T969Y9ngviAXdzSN
- WMR2zF5dWsm+M1j1KuCH6P5qEmzm7jrw7rSRKE9YLViPhsImpNxr5Qr6j9QcfSHAzYoK
- ViP0HOoRbn6P9jB+5NFGJm65SroZFBoGUteSU=
+ bh=UNSHY9stDEkYj4x5uGDPU+/xpghSYFwE9UEK93GK/gM=;
+ b=UJ6ChFrD90E+fyCqG323ewJ4CboNt0noYEGXnfAPEfX84YTjFpiHIqWLGryy+REnEl
+ m+BeB7MRpK2nOqB4s2Vd8hj6AzSxqmyqCSgGwWoDz4bynPsW6Kd44b2jxUBbqTKRdx5M
+ rGSwbd+IxqOivaCpFLd6L9XgHkiW067VR7wP4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=OSDPwmZWTp87KAIy56WntFqaaFxosNFz2qqqMdiQW6w=;
- b=WHDcPDzuplwwodLIbjiqEFUKElqB3ryN2KIxKqTxFr24rsAFUv7I/2LhfjA7ajTFel
- 6JUWQ3EwaT531I8n0HI6VW04HZhTYJRRNVQOGnXS9Qja7f9TZuT9Px/BneAOihGlWSiW
- SOjX/w2zt1fXzsU4nhiMt0CDyYH91N97p5eMft8RG/Lqzhn04H8CMn+NyZuKUGuL78ii
- 0YhxjAFkMh5lyOFW0UdWGeRNog2vgdeWDhb3/GbA2uKIp83EjZljFApFWQiv0Ds+yLPZ
- v2WeM8S5v95gQI10fhdjSoNQ7jfDGQ7nLDUxX/A2mjqQ9xAJ78rlbfcVY+DfBFwy2kkm
- UqsA==
-X-Gm-Message-State: AOAM532Fo4jNhOV+3Zmqevvd6JQgozO91g9b1wNx2DGHeCdgqE9zi29x
- ZQ38zRTgJS5bKFtU7ZcVDwaSEtpNSwVFJnK9jNN2RQ==
-X-Google-Smtp-Source: ABdhPJw06bFhb833+vINYAHpOMiySRBg+3pJhhdSUg3v/t91YQ4C0lwpA5ljXOcGX9capHP3ozNx73UBjrV0d5X78P0=
-X-Received: by 2002:a05:6870:c0cb:b0:da:2bcc:aa09 with SMTP id
- e11-20020a056870c0cb00b000da2bccaa09mr2695488oad.63.1647552198396; Thu, 17
- Mar 2022 14:23:18 -0700 (PDT)
+ bh=UNSHY9stDEkYj4x5uGDPU+/xpghSYFwE9UEK93GK/gM=;
+ b=fhbNquQ9GBArbFDrECTU6viJnjbJfL8KJzygzc39UMhc6TFrrsyTudAdSVybNQ7bYz
+ jMjADmiwGYEPCiNMtszif7NHkO6IuU8scQ6nED44gZOeuKeIh5D87bnS/5GaOqqkkBMK
+ LTqcVifUGiVoMGp0Wy7mrihyfFeLD9pgBFK1zyjvhVnBlzwuybV3jYXwH3uOWG617tSq
+ vWG4xgaMNVk+jxmqHyY6H9nc6s0b1/QSjB5hnjcNuO31/n5ywojJVCqQvjQiHs1AHqLu
+ +IB1oGWmysuY7aq2iqOJPuYlNoe/3Hyq2A70RONn9qTq0JvXT55Uk6DIuqgpiGqePEid
+ zkOA==
+X-Gm-Message-State: AOAM530IXoBMAYU/AAAVgTjhI4eIKLcjt0HuOOzPuSvBKtnFoi6qxPog
+ +rVW8nQPdVJ+rRwBE4JsbHT/Bay8B5pNG982VUcCxw==
+X-Google-Smtp-Source: ABdhPJyv2KBnd9epOKRH7UvrY9oWjNtBrVHvuV99b+9vkNMSlZzoiR1rQ+l7ignHhDoNDiXp1SY6ndIb2XVw3NaYJjs=
+X-Received: by 2002:aca:bd41:0:b0:2ec:ff42:814f with SMTP id
+ n62-20020acabd41000000b002ecff42814fmr3029465oif.63.1647552506394; Thu, 17
+ Mar 2022 14:28:26 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Mar 2022 17:23:17 -0400
+ HTTPREST; Thu, 17 Mar 2022 17:28:25 -0400
 MIME-Version: 1.0
-In-Reply-To: <1647452154-16361-3-git-send-email-quic_sbillaka@quicinc.com>
+In-Reply-To: <1647452154-16361-4-git-send-email-quic_sbillaka@quicinc.com>
 References: <1647452154-16361-1-git-send-email-quic_sbillaka@quicinc.com>
- <1647452154-16361-3-git-send-email-quic_sbillaka@quicinc.com>
+ <1647452154-16361-4-git-send-email-quic_sbillaka@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 17 Mar 2022 17:23:17 -0400
-Message-ID: <CAE-0n52Uzo47N5QzoKOwny3XTrArA4nM-KPqAVxAPewSAyNOWw@mail.gmail.com>
+Date: Thu, 17 Mar 2022 17:28:25 -0400
+Message-ID: <CAE-0n51SCm2HJ4O-DPJy3zKLrbgn9EFQbYPkzJDyqNncnC=4mA@mail.gmail.com>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
  devicetree@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 2/9] arm64: dts: qcom: sc7280: Add
- support for eDP panel on CRD
+Subject: Re: [Freedreno] [PATCH v5 3/9] arm64: dts: qcom: sc7280: Enable
+ backlight for eDP panel
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,169 +77,65 @@ Cc: quic_kalyant@quicinc.com, dianders@chromium.org, quic_vproddut@quicinc.com,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Sankeerth Billakanti (2022-03-16 10:35:47)
+Quoting Sankeerth Billakanti (2022-03-16 10:35:48)
+> Enable backlight support for eDP panel on CRD platform for sc7280.
+>
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> ---
+>
+> Changes in v5:
+>   - Separate out backlight nodes
+>
+>  arch/arm64/boot/dts/qcom/sc7280-crd.dts | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+>
 > diff --git a/arch/arm64/boot/dts/qcom/sc7280-crd.dts b/arch/arm64/boot/dts/qcom/sc7280-crd.dts
-> index e2efbdd..2df654e 100644
+> index 2df654e..16d1a5b 100644
 > --- a/arch/arm64/boot/dts/qcom/sc7280-crd.dts
 > +++ b/arch/arm64/boot/dts/qcom/sc7280-crd.dts
-> @@ -7,6 +7,7 @@
->
->  /dts-v1/;
->
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->  #include "sc7280-idp.dtsi"
->  #include "sc7280-idp-ec-h1.dtsi"
->
-> @@ -21,6 +22,27 @@
->         chosen {
->                 stdout-path = "serial0:115200n8";
+> @@ -37,6 +37,15 @@
+>                 pinctrl-0 = <&edp_panel_power>;
 >         };
-> +
-> +       edp_3v3_regulator: edp-3v3-regulator {
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "edp_3v3_regulator";
-> +
-> +               regulator-min-microvolt = <3300000>;
-> +               regulator-max-microvolt = <3300000>;
-> +
-> +               gpio = <&tlmm 80 GPIO_ACTIVE_HIGH>;
-> +               enable-active-high;
-> +
-> +               pinctrl-names = "default";
-> +               pinctrl-0 = <&edp_panel_power>;
-> +       };
-> +
-> +       vreg_edp_bp: vreg-edp-bp-regulator {
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "vreg_edp_bp";
-> +               regulator-always-on;
-> +               regulator-boot-on;
-> +       };
->  };
 >
->  &apps_rsc {
-> @@ -76,6 +98,58 @@ ap_ts_pen_1v8: &i2c13 {
+> +       edp_backlight: edp-backlight {
+
+Does this also move to qcard.dtsi? Why can't this be combined with the
+previous patch?
+
+> +               compatible = "pwm-backlight";
+> +
+> +               power-supply = <&vreg_edp_bp>;
+> +               pwms = <&pm8350c_pwm 3 65535>;
+> +
+> +               enable-gpios = <&pm8350c_gpios 7 GPIO_ACTIVE_HIGH>;
+> +       };
+> +
+>         vreg_edp_bp: vreg-edp-bp-regulator {
+>                 compatible = "regulator-fixed";
+>                 regulator-name = "vreg_edp_bp";
+> @@ -123,7 +132,9 @@ ap_ts_pen_1v8: &i2c13 {
+>                 edp_panel: edp-panel {
+>                         compatible = "edp-panel";
+>
+> +                       backlight = <&edp_backlight>;
+>                         power-supply = <&edp_3v3_regulator>;
+> +
+
+Nitpick: Remove this newline from this hunk and put it in when
+power-supply is introduced.
+
+>                         ports {
+>                                 #address-cells = <1>;
+>                                 #size-cells = <0>;
+> @@ -172,6 +183,13 @@ ap_ts_pen_1v8: &i2c13 {
 >         };
 >  };
 >
-> +&mdss {
-> +       status = "okay";
-> +};
-> +
-> +&mdss_dp {
+> +&pm8350c_pwm {
 > +       status = "okay";
 > +
 > +       pinctrl-names = "default";
-> +       pinctrl-0 = <&dp_hot_plug_det>;
-> +       data-lanes = <0 1>;
-> +       vdda-1p2-supply = <&vreg_l6b_1p2>;
-> +       vdda-0p9-supply = <&vreg_l1b_0p8>;
-> +};
-> +
-> +&mdss_edp {
-> +       status = "okay";
-> +
-> +       data-lanes = <0 1 2 3>;
+> +       pinctrl-0 = <&edp_bl_pwm>;
 
-Is this property necessary? It looks like the default.
-
-> +       vdda-1p2-supply = <&vreg_l6b_1p2>;
-> +       vdda-0p9-supply = <&vreg_l10c_0p8>;
-> +
-> +       aux-bus {
-
-Can this move to sc7280.dtsi and get a phandle?
-
-> +               edp_panel: edp-panel {
-
-I'd prefer
-
-	edp_panel: panel {
-
-because there's only one panel node at this level.
-
-> +                       compatible = "edp-panel";
-> +
-> +                       power-supply = <&edp_3v3_regulator>;
-
-This is board specific, but I thought it was on the qcard so we should
-move this to sc7280-qcard.dtsi?
-
-> +                       ports {
-> +                               #address-cells = <1>;
-> +                               #size-cells = <0>;
-> +                               port@0 {
-> +                                       reg = <0>;
-> +                                       edp_panel_in: endpoint {
-
-This can be shortened to
-
-			port {
-				edp_panel_in: endpoint {
-
-according to panel-edp.yaml
-
-> +                                               remote-endpoint = <&mdss_edp_out>;
-> +                                       };
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +};
-> +
-> +&mdss_edp_out {
-> +       remote-endpoint = <&edp_panel_in>;
-> +};
-> +
-> +&mdss_edp_phy {
-> +       status = "okay";
-> +};
-> +
-> +&mdss_mdp {
-> +       status = "okay";
-> +};
-> +
->  &nvme_3v3_regulator {
->         gpio = <&tlmm 51 GPIO_ACTIVE_HIGH>;
->  };
-> @@ -84,7 +158,26 @@ ap_ts_pen_1v8: &i2c13 {
->         pins = "gpio51";
->  };
->
-> +&pm8350c_gpios {
-> +       edp_bl_power: edp-bl-power {
-
-Is this used in a later patch?
-
-> +               pins = "gpio7";
-> +               function = "normal";
-> +               qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-> +       };
-> +
-> +       edp_bl_pwm: edp-bl-pwm {
-
-Is this used in a later patch? Can it be moved to the patch that uses
-it?
-
-> +               pins = "gpio8";
-> +               function = "func1";
-> +               qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-> +       };
-> +};
-> +
->  &tlmm {
-> +       edp_panel_power: edp-panel-power {
-> +               pins = "gpio80";
-> +               function = "gpio";
-
-function of gpio is unnecessary. Where is the bias and drive-strength
-settings?
-
-> +       };
-> +
->         tp_int_odl: tp-int-odl {
->                 pins = "gpio7";
->                 function = "gpio";
-> --
-> 2.7.4
->
+I see the pinctrl is used now but it would be easier to review this
+patch if the pinctrl was in this patch.
