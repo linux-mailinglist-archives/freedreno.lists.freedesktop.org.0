@@ -2,60 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B1CB4DD046
-	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 22:37:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A054DD099
+	for <lists+freedreno@lfdr.de>; Thu, 17 Mar 2022 23:17:00 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF52610E819;
-	Thu, 17 Mar 2022 21:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF9610E130;
+	Thu, 17 Mar 2022 22:16:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3073A10E819
- for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 21:37:50 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id j83so7025645oih.6
- for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 14:37:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=mYahFg1u8AWNshIkG0ACNOEuY23IE74jTRUAFlXlZgs=;
- b=LzAlpuAIvhSFB57UMk4TIVaAFjG+yZiFO7gvk21cjYrKKivdM394ahnLTPM1TB1S8x
- V4Rek+owRzgElF1h34+BD/zJItn/bmK9nvLvYkifZusOqMQOwrDCfSKepPe+k4Wgq1sf
- 6FamhJegmjo6xbuGqtZsF4IhIuI+2CtxU1p1Q=
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E80EF10E12C;
+ Thu, 17 Mar 2022 22:16:55 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ bx24-20020a17090af49800b001c6872a9e4eso2646607pjb.5; 
+ Thu, 17 Mar 2022 15:16:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RtWitl79lgCs7HDZsX/B/PPKM0tEM+ZKMdXbsHiBJZo=;
+ b=Ech4xQMoXfKpgERat3wvFZGhaAg5dtFwnIbOcH71ipOMCxrvp0yPFCQdDh4P1f5Son
+ Sc3NjimpIcFK6/UHTsB5mjlnDjoZMQQJyxm1K7qJFhV9u0Ef3Eo/vnDg4Pj2Efszxnjs
+ 2bHfo4Nd808pBodG1FYt8wGTd3psPud/MoFw/7M44sZxXi73Vc/3FwAdxjtYo8kbhoBe
+ bU+UQgVDu4Cw0nx2aTlVNShR8gx2s8tvD64qrk0972c20MwqYVqgyn9ncbH5YBqijDD5
+ vtmXLK3wz8ARBN2mGB9fTvEbJ3YaONTWqRAzd7uURz8nEANoc2RYMet2NeDxv/Bo6Oao
+ gXoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=mYahFg1u8AWNshIkG0ACNOEuY23IE74jTRUAFlXlZgs=;
- b=zb5nNvasocZatd5wywlSt7RtdQDIu9rStT7LU0xE89FaQQMvoe0v60zlLQlFYdePCA
- leQQKZe9zV2Vq64Oti698uT+gCB9nhbRp3STb3Em9lHIs9k+U4SNX/adTgfD7hOdmKTA
- VvWG/rBOaX89XAwm/tKhAbH06WOhgyA2unAXS3gqObEhrsuY50F2PZxvZXqv4d8GeqJw
- GXydHpCoDqspPMv86KAbrbet2388BR1m8Y6+s/4Td1YgcrdmUkQJW+fMRcC4qZp/kFLq
- X7XYf1YWXCnDc+J1FVg7ARoh1YnOYdmZDB/7OqfQE1nISCWC5WgkFl12hSF+qtjhUD/c
- iuyA==
-X-Gm-Message-State: AOAM5311XWsUWAA+pWxXYxyAschXHjahXLxboxSO4n7fTZ3XVXppbLLQ
- LtWRhoSMx93GCmUFBymNB8/aWXEzBEIYRTam4TRQqA==
-X-Google-Smtp-Source: ABdhPJyGHg7pzS0hejsylQTRq/KbshJeBY747RjvdABUqcwVlbZBxy0liBFxJXm6e5w3U9vj0KJv+6WpvTei0kthD/8=
-X-Received: by 2002:aca:a9c8:0:b0:2da:45b6:b796 with SMTP id
- s191-20020acaa9c8000000b002da45b6b796mr2860328oie.193.1647553069283; Thu, 17
- Mar 2022 14:37:49 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 17 Mar 2022 17:37:48 -0400
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=RtWitl79lgCs7HDZsX/B/PPKM0tEM+ZKMdXbsHiBJZo=;
+ b=VXN5nswO8Tt44T2oLiVkDqHEBDB2TLBJdHG/NkFVBNK/0481F+YrN0n7jTd6Hy6K3a
+ l3RPQc6RTyFAkMszRnxMLIJ0t+VbS2g37htBiX+MI7LrWHYRceE89YT87fW/NzmRapPr
+ 3kgWtsk1A2OqBKwZ2mkD3bBh2xC0VRCg/1m7I9jHJGfev1zBVR2RXLpftCe0DgnKgEnb
+ IySgc31hfdg8U9QXPZNpMfT6FFx8yW1WXPgLUbfdRk3W+E+0zW2qKc/i03Nm8f8P1nnR
+ w3evrKrxbD4TjLib84asK1igzb64nqLnppSMm9vQawMALXGKOAx5LVPbVBM1uRrjk0Zs
+ xvIg==
+X-Gm-Message-State: AOAM531KXQTYkH/c5hoHa7h5IVb9fOXJGvOZLCmnG8rwMsZOE6wYA5nz
+ js5+7RP1axo2SQkM5ISgFuGokjVyn8E=
+X-Google-Smtp-Source: ABdhPJxSNY+wd8cOCFKVvqYX3NVor18dZh3gHfdJqnqaRm04JhZ0qekm5Jykk6q4ELrUoUAhvMY/fQ==
+X-Received: by 2002:a17:902:ab01:b0:153:2dec:6761 with SMTP id
+ ik1-20020a170902ab0100b001532dec6761mr7032370plb.71.1647555414778; 
+ Thu, 17 Mar 2022 15:16:54 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id
+ 3-20020a17090a190300b001c61add3386sm6357822pjg.35.2022.03.17.15.16.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Mar 2022 15:16:53 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 17 Mar 2022 15:17:42 -0700
+Message-Id: <20220317221742.258537-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-In-Reply-To: <1647452154-16361-6-git-send-email-quic_sbillaka@quicinc.com>
-References: <1647452154-16361-1-git-send-email-quic_sbillaka@quicinc.com>
- <1647452154-16361-6-git-send-email-quic_sbillaka@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 17 Mar 2022 17:37:48 -0400
-Message-ID: <CAE-0n50dmA0ETgNvaBGs+XmGu+r=6RbfbmnHqXAFqUBGjVGDvg@mail.gmail.com>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 5/9] drm/msm/dp: Add eDP support via
- aux_bus
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [RFC] drm/msm: Add a way for userspace to allocate GPU
+ iova
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,203 +69,151 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, dianders@chromium.org, quic_vproddut@quicinc.com,
- airlied@linux.ie, sam@ravnborg.org, quic_abhinavk@quicinc.com,
- robh+dt@kernel.org, quic_khsieh@quicinc.com, robdclark@gmail.com,
- agross@kernel.org, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, thierry.reding@gmail.com, krzk+dt@kernel.org,
- bjorn.andersson@linaro.org, sean@poorly.run
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Sankeerth Billakanti (2022-03-16 10:35:50)
->         This patch adds support for generic eDP sink through aux_bus.
+From: Rob Clark <robdclark@chromium.org>
 
-Please unindent commit text paragraphs. This isn't a book.
+The motivation at this point is mainly native userspace mesa driver in a
+VM guest.  The one remaining synchronous "hotpath" is buffer allocation,
+because guest needs to wait to know the bo's iova before it can start
+emitting cmdstream/state that references the new bo.  By allocating the
+iova in the guest userspace, we no longer need to wait for a response
+from the host, but can just rely on the allocation request being
+processed before the cmdstream submission.  Allocation faulures (OoM,
+etc) would just be treated as context-lost (ie. GL_GUILTY_CONTEXT_RESET)
+or subsequent allocations (or readpix, etc) can raise GL_OUT_OF_MEMORY.
 
-> The eDP/DP controller driver should support aux transactions originating
-> from the panel-edp driver and hence should be initialized and ready.
->
->         The panel bridge supporting the panel should be ready before
-> the bridge connector is initialized. The generic panel probe needs the
-> controller resources to be enabled to support aux tractions originating
+TODO bump uapi version, or combine w/ other changes that bump uapi
+version
 
-s/tractions/transactions/
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+So, I was initially planning on adding some extra guard-rails, ie.
+some userspace opt-in and preventing mixing of kernel and userspace
+allocated iova.  Because in general mixing and matching userspace and
+kernel allocated iova is not going to go over too well.
 
-> from it. So, the host_init and phy_init are moved to execute before the
-> panel probe.
->
->         The host_init has to return early if the core is already
-> initialized so that the regulator and clock votes for the controller
-> resources are balanced.
->
->         EV_HPD_INIT_SETUP needs to execute immediately to enable the
-> interrupts for the aux transactions from panel-edp to get the modes
-> supported.
+But the address-space is per drm_file, and I couldn't come up with
+any scenario where, on a given drm device fd, we would be trying to
+mix/match userspace doing kernel iova allocation vs userspace iova
+allocation.
 
-There are a lot of things going on in this patch. Can it be split up?
+Ofc, now is a good time to prove me wrong ;-)
 
->
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 65 +++++++++++++++++++++++++++++++++++--
->  drivers/gpu/drm/msm/dp/dp_drm.c     | 10 +++---
->  drivers/gpu/drm/msm/dp/dp_parser.c  | 21 +-----------
->  drivers/gpu/drm/msm/dp/dp_parser.h  |  1 +
->  4 files changed, 70 insertions(+), 27 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 382b3aa..688bbed 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -10,6 +10,7 @@
->  #include <linux/component.h>
->  #include <linux/of_irq.h>
->  #include <linux/delay.h>
-> +#include <drm/drm_dp_aux_bus.h>
->
->  #include "msm_drv.h"
->  #include "msm_kms.h"
-> @@ -265,8 +266,6 @@ static int dp_display_bind(struct device *dev, struct device *master,
->                 goto end;
->         }
->
-> -       dp->dp_display.next_bridge = dp->parser->next_bridge;
-> -
->         dp->aux->drm_dev = drm;
->         rc = dp_aux_register(dp->aux);
->         if (rc) {
-> @@ -421,6 +420,11 @@ static void dp_display_host_init(struct dp_display_private *dp)
->                 dp->dp_display.connector_type, dp->core_initialized,
->                 dp->phy_initialized);
->
-> +       if (dp->core_initialized) {
-> +               DRM_DEBUG_DP("DP core already initialized\n");
-> +               return;
-> +       }
-> +
->         dp_power_init(dp->power, false);
->         dp_ctrl_reset_irq_ctrl(dp->ctrl, true);
->         dp_aux_init(dp->aux);
-> @@ -433,6 +437,11 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
->                 dp->dp_display.connector_type, dp->core_initialized,
->                 dp->phy_initialized);
->
-> +       if (!dp->core_initialized) {
-> +               DRM_DEBUG_DP("DP core not initialized\n");
-> +               return;
-> +       }
-> +
->         dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
->         dp_aux_deinit(dp->aux);
->         dp_power_deinit(dp->power);
-> @@ -1502,7 +1511,7 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->
->         dp_hpd_event_setup(dp);
->
-> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
-> +       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 0);
->  }
->
->  void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
-> @@ -1524,6 +1533,52 @@ void msm_dp_debugfs_init(struct msm_dp *dp_display, struct drm_minor *minor)
->         }
->  }
->
-> +static int dp_display_get_next_bridge(struct msm_dp *dp)
-> +{
-> +       int rc = 0;
+ drivers/gpu/drm/msm/msm_drv.c | 21 +++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_gem.c | 20 ++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_gem.h |  2 ++
+ include/uapi/drm/msm_drm.h    |  1 +
+ 4 files changed, 44 insertions(+)
 
-Drop initialization.
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index a5eed5738ac8..7394312cf075 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -719,6 +719,23 @@ static int msm_ioctl_gem_info_iova(struct drm_device *dev,
+ 	return msm_gem_get_iova(obj, ctx->aspace, iova);
+ }
+ 
++static int msm_ioctl_gem_info_set_iova(struct drm_device *dev,
++		struct drm_file *file, struct drm_gem_object *obj,
++		uint64_t iova)
++{
++	struct msm_drm_private *priv = dev->dev_private;
++	struct msm_file_private *ctx = file->driver_priv;
++
++	if (!priv->gpu)
++		return -EINVAL;
++
++	/* Only supported if per-process address space is supported: */
++	if (priv->gpu->aspace == ctx->aspace)
++		return -EINVAL;
++
++	return msm_gem_set_iova(obj, ctx->aspace, iova);
++}
++
+ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 		struct drm_file *file)
+ {
+@@ -733,6 +750,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 	switch (args->info) {
+ 	case MSM_INFO_GET_OFFSET:
+ 	case MSM_INFO_GET_IOVA:
++	case MSM_INFO_SET_IOVA:
+ 		/* value returned as immediate, not pointer, so len==0: */
+ 		if (args->len)
+ 			return -EINVAL;
+@@ -757,6 +775,9 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+ 	case MSM_INFO_GET_IOVA:
+ 		ret = msm_ioctl_gem_info_iova(dev, file, obj, &args->value);
+ 		break;
++	case MSM_INFO_SET_IOVA:
++		ret = msm_ioctl_gem_info_set_iova(dev, file, obj, args->value);
++		break;
+ 	case MSM_INFO_SET_NAME:
+ 		/* length check should leave room for terminating null: */
+ 		if (args->len >= sizeof(msm_obj->name)) {
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index a4f61972667b..41ae8d9c8b3c 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -510,6 +510,26 @@ int msm_gem_get_iova(struct drm_gem_object *obj,
+ 	return ret;
+ }
+ 
++/*
++ * Get the requested iova but don't pin it.  Fails if the requested iova is
++ * not available.  Doesn't need a put because iovas are currently valid for
++ * the life of the object
++ */
++int msm_gem_set_iova(struct drm_gem_object *obj,
++		struct msm_gem_address_space *aspace, uint64_t iova)
++{
++	int ret;
++	uint64_t assigned_iova;
++
++	msm_gem_lock(obj);
++	ret = get_iova_locked(obj, aspace, &assigned_iova,
++			      iova >> PAGE_SHIFT,
++			      (iova + obj->size) >> PAGE_SHIFT);
++	msm_gem_unlock(obj);
++
++	return ret;
++}
++
+ /* get iova without taking a reference, used in places where you have
+  * already done a 'msm_gem_get_and_pin_iova' or 'msm_gem_get_iova'
+  */
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 58e11c282928..40d839f61d15 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -112,6 +112,8 @@ struct msm_gem_object {
+ uint64_t msm_gem_mmap_offset(struct drm_gem_object *obj);
+ int msm_gem_get_iova(struct drm_gem_object *obj,
+ 		struct msm_gem_address_space *aspace, uint64_t *iova);
++int msm_gem_set_iova(struct drm_gem_object *obj,
++		struct msm_gem_address_space *aspace, uint64_t iova);
+ int msm_gem_get_and_pin_iova_range(struct drm_gem_object *obj,
+ 		struct msm_gem_address_space *aspace, uint64_t *iova,
+ 		u64 range_start, u64 range_end);
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 794ad1948497..4fe9cac05981 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -135,6 +135,7 @@ struct drm_msm_gem_new {
+ #define MSM_INFO_GET_IOVA	0x01   /* get iova, returned by value */
+ #define MSM_INFO_SET_NAME	0x02   /* set the debug name (by pointer) */
+ #define MSM_INFO_GET_NAME	0x03   /* get debug name, returned by pointer */
++#define MSM_INFO_SET_IOVA	0x04   /* set the iova, passed by value */
+ 
+ struct drm_msm_gem_info {
+ 	__u32 handle;         /* in */
+-- 
+2.35.1
 
-> +       struct dp_display_private *dp_priv;
-> +       struct device_node *aux_bus;
-> +       struct device *dev;
-> +
-> +       dp_priv = container_of(dp, struct dp_display_private, dp_display);
-> +       dev = &dp_priv->pdev->dev;
-> +       aux_bus = of_get_child_by_name(dev->of_node, "aux-bus");
-> +
-> +       if (aux_bus) {
-> +               dp_display_host_init(dp_priv);
-> +               dp_catalog_ctrl_hpd_config(dp_priv->catalog);
-> +               enable_irq(dp_priv->irq);
-> +               dp_display_host_phy_init(dp_priv);
-> +
-> +               devm_of_dp_aux_populate_ep_devices(dp_priv->aux);
-> +
-> +               disable_irq(dp_priv->irq);
-
-Why do we disable irq?
-
-> +       }
-
-The aux_bus node leaked.
-
-> +
-> +       /*
-> +        * External bridges are mandatory for eDP interfaces: one has to
-> +        * provide at least an eDP panel (which gets wrapped into panel-bridge).
-> +        *
-> +        * For DisplayPort interfaces external bridges are optional, so
-> +        * silently ignore an error if one is not present (-ENODEV).
-> +        */
-> +       rc = dp_parser_find_next_bridge(dp_priv->parser);
-> +       if (rc == -ENODEV) {
-> +               if (dp->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +                       DRM_ERROR("eDP: next bridge is not present\n");
-> +                       return rc;
-> +               }
-> +       } else if (rc) {
-> +               if (rc != -EPROBE_DEFER)
-> +                       DRM_ERROR("DP: error parsing next bridge: %d\n", rc);
-> +               return rc;
-> +       }
-> +
-> +       dp->next_bridge = dp_priv->parser->next_bridge;
-> +
-> +       return 0;
-> +}
-> +
->  int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->                         struct drm_encoder *encoder)
->  {
-> @@ -1547,6 +1602,10 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->
->         dp_display->encoder = encoder;
->
-> +       ret = dp_display_get_next_bridge(dp_display);
-
-Didn't we just move bridge attachment out of modeset? Why is it being
-done here?
-
-> +       if (ret)
-> +               return ret;
-> +
->         dp_display->bridge = dp_bridge_init(dp_display, dev, encoder);
->         if (IS_ERR(dp_display->bridge)) {
->                 ret = PTR_ERR(dp_display->bridge);
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-> index 7ce1aca..5254bd6 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-> @@ -114,10 +114,12 @@ struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *
->         bridge->funcs = &dp_bridge_ops;
->         bridge->type = dp_display->connector_type;
->
-> -       bridge->ops =
-> -               DRM_BRIDGE_OP_DETECT |
-> -               DRM_BRIDGE_OP_HPD |
-> -               DRM_BRIDGE_OP_MODES;
-> +       if (bridge->type == DRM_MODE_CONNECTOR_DisplayPort) {
-
-Why can't eDP have bridge ops that are the same?
-
-> +               bridge->ops =
-> +                       DRM_BRIDGE_OP_DETECT |
-> +                       DRM_BRIDGE_OP_HPD |
-> +                       DRM_BRIDGE_OP_MODES;
-> +       }
->
->         rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->         if (rc) {
