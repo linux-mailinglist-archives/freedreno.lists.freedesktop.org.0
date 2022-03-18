@@ -1,59 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 761D34DD19E
-	for <lists+freedreno@lfdr.de>; Fri, 18 Mar 2022 01:07:38 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DCC4DD1B6
+	for <lists+freedreno@lfdr.de>; Fri, 18 Mar 2022 01:12:17 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53FB510E8DD;
-	Fri, 18 Mar 2022 00:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5DDF10E13A;
+	Fri, 18 Mar 2022 00:12:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E652310E8D4
- for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 00:07:33 +0000 (UTC)
-Received: by mail-pg1-x529.google.com with SMTP id w21so180969pgm.7
- for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 17:07:33 -0700 (PDT)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF21C10E13A
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 00:12:14 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id bi12so14038622ejb.3
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 17:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1i8tHBCz0yGUnXTP63evaW8shC/1FTv22ymAKssO43g=;
- b=Ur+HSlhkoIDLHekqpPNSXAVLlxD5+T81ff6OBaHTxdXzokDkA8qnnVLDj9q0QAArhQ
- 8B28qd/JYP4jKNuPGjkNF8Z9JI3moyBARf9Nk/nhV0r4cLAzMLmI/7ti/9uugVGYGR/J
- 4cAJHw+XO9GiplYxM7ZZn9UlMuvIuvwPzTl/g=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=GlfqT3gCisJBMTAg9owO2Ux8q0knKebgrHQt0YZbpxI=;
+ b=nBDhznL6GSZim3PdexrPGQqpwQ4fFBAapWTmPPNrAt0uN427dmLC1mJrI8HXE1C1kx
+ upaggKMpoTVkewUUN8f4G2ccK2tUnREtzjnOO9fkjvE2aXhO73VuvMgL2JxHG1mUNou7
+ E4BgOMO9zLLV6AZpoxwm0FAG5//90kHjahP1c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1i8tHBCz0yGUnXTP63evaW8shC/1FTv22ymAKssO43g=;
- b=keV/f94jtuXWytr+5ejvRzk05e0GYuGrvZJeIWv39JJnd9LmIKD6hv+DsSt6W9dBcX
- di2sb5Cj3nfd8LQy3S+GYuRTmb58OQtjfZb1jgVzLkg3jklbP7453Cwm9I2Xy7tP4heN
- z82486UXKMoD4Q1vUXkil65ThEc09f1sbHhXt5bZBlzfopTQ3LukTvkfiys8F25Cckv9
- zLkMSTq8eIZSA1ViBOMa8e4Pch1K73rxAfOJRMC/A4Mm8A8RVUuAqt77HZ8SylN+vyT8
- klPNZ6Lzd1GkfyBHoyM8zYFAnlIpZw/nylv+mTBeSiQcKkpCNpv9oWlFqz5Jgw0twbCk
- 6/bw==
-X-Gm-Message-State: AOAM532htfBnc3ZM5jOf0mNYnj5OOtCBrdKEMfuF0IjM5IUO9pkCtIkE
- GhwET75OHiw9xtDTcP5NCu4NbQ==
-X-Google-Smtp-Source: ABdhPJxx5b5fjDNUn/yUMHMvPSEd5Y6joMRanwaFw9+NHRmy92bdTzHYRpjmt7wsM7IX3PrGoD3Btw==
-X-Received: by 2002:a05:6a00:815:b0:4f6:ee04:30af with SMTP id
- m21-20020a056a00081500b004f6ee0430afmr7183021pfk.15.1647562053324; 
- Thu, 17 Mar 2022 17:07:33 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:49cf:7701:359e:b28f])
- by smtp.gmail.com with ESMTPSA id
- o5-20020a056a0015c500b004f76735be68sm8280640pfu.216.2022.03.17.17.07.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 17:07:33 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>,
-	Sean Paul <sean@poorly.run>
-Date: Thu, 17 Mar 2022 17:07:31 -0700
-Message-Id: <20220318000731.2823718-1-swboyd@chromium.org>
-X-Mailer: git-send-email 2.35.1.894.gb6a874cedc-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GlfqT3gCisJBMTAg9owO2Ux8q0knKebgrHQt0YZbpxI=;
+ b=12GdlKeIbe3I7QXLAZ1RzJ9AUYu3gQfgAfQb9X2G6u+BqrNhVBD0zvTplPDdDbF39V
+ 8nCK8af/ZZgokVqHm4Ees2V5cWl/z6LjCFXGu++IMM2/yCRdxO6mZ56eiLNNvpSbDX4Z
+ fcy0KhWaMcgBpk2YrwbHkFtZsySWkYnTxmnfL2Txnq3pajfZbl0/OoejVL5w/8GJg/hs
+ sZATT8FKN1ESlYw2ZXqSstcpkomqQYpIG9mcpbGnOFrNjtxlfhA2VjrGm6zXKpijivKg
+ XFX6LymfNU3WQQkeiNEBkib/Dopvy5hJ0roCB5qToW3d24NMjVX4SurPI77hN1zK2kgT
+ ckTw==
+X-Gm-Message-State: AOAM531vbfHyzcg8LrW7f9Nk3WKV+kxCXM4FqAPrGaicln/aJE+tSQcP
+ tWarF4oNUW5fjhjK3IAsPlQofy8CHiEPu2IDP/8=
+X-Google-Smtp-Source: ABdhPJz2mv+BeMXUQV2NmKGMJXl0AMvA62atbI2Wub0KxyQ1T7gk1mAjGKSGDOtj6+Zxt4BGQKljRg==
+X-Received: by 2002:a17:906:3ec7:b0:6d6:e52b:b with SMTP id
+ d7-20020a1709063ec700b006d6e52b000bmr6639524ejj.521.1647562332979; 
+ Thu, 17 Mar 2022 17:12:12 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com.
+ [209.85.221.44]) by smtp.gmail.com with ESMTPSA id
+ m21-20020a17090677d500b006df766974basm3003060ejn.3.2022.03.17.17.12.12
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Mar 2022 17:12:12 -0700 (PDT)
+Received: by mail-wr1-f44.google.com with SMTP id d7so9635916wrb.7
+ for <freedreno@lists.freedesktop.org>; Thu, 17 Mar 2022 17:12:12 -0700 (PDT)
+X-Received: by 2002:adf:fc47:0:b0:203:dda1:4311 with SMTP id
+ e7-20020adffc47000000b00203dda14311mr6191933wrs.301.1647562331786; Thu, 17
+ Mar 2022 17:12:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dsi: Use connector directly in
- msm_dsi_manager_connector_init()
+References: <1647269217-14064-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1647269217-14064-2-git-send-email-quic_vpolimer@quicinc.com>
+In-Reply-To: <1647269217-14064-2-git-send-email-quic_vpolimer@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 17 Mar 2022 17:11:58 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V4SWtyz4fFEmvKD_N-2ioS4R65UDZRU7utQm=0CSzp=g@mail.gmail.com>
+Message-ID: <CAD=FV=V4SWtyz4fFEmvKD_N-2ioS4R65UDZRU7utQm=0CSzp=g@mail.gmail.com>
+To: Vinod Polimera <quic_vpolimer@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6 1/5] drm/msm/disp/dpu1: set mdp clk to
+ the maximum frequency in opp table during probe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,46 +73,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <seanpaul@chromium.org>,
+Cc: quic_kalyant <quic_kalyant@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Rob Clark <robdclark@gmail.com>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The member 'msm_dsi->connector' isn't assigned until
-msm_dsi_manager_connector_init() returns (see msm_dsi_modeset_init() and
-how it assigns the return value). Therefore this pointer is going to be
-NULL here. Let's use 'connector' which is what was intended.
+Hi,
 
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <seanpaul@chromium.org>
-Fixes: 6d5e78406991 ("drm/msm/dsi: Move dsi panel init into modeset init path")
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
----
+On Mon, Mar 14, 2022 at 7:47 AM Vinod Polimera
+<quic_vpolimer@quicinc.com> wrote:
+>
+> use max clock during probe/bind sequence from the opp table.
+> The clock will be scaled down when framework sends an update.
+>
+> Fixes: 25fdd5933("drm/msm: Add SDM845 DPU support")
 
-I don't know if this is superseeded by something else but I found this
-while trying to use the connector from msm_dsi in this function.
+The "Fixes:" format is a little wrong. Should have more digits and a
+space before the parenthesis. AKA:
 
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 0c1b7dde377c..9f6af0f0fe00 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -638,7 +638,7 @@ struct drm_connector *msm_dsi_manager_connector_init(u8 id)
- 	return connector;
- 
- fail:
--	connector->funcs->destroy(msm_dsi->connector);
-+	connector->funcs->destroy(connector);
- 	return ERR_PTR(ret);
- }
- 
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 
-base-commit: 05afd57f4d34602a652fdaf58e0a2756b3c20fd4
--- 
-https://chromeos.dev
+This looks good to me now other than the bad Fixes tag. I presume
+you'll want to spin with the extra verbosity in the CL description
+that Stephen asked for, though.
 
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
