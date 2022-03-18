@@ -1,71 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C8F4DDE8F
-	for <lists+freedreno@lfdr.de>; Fri, 18 Mar 2022 17:20:02 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0D854DDECA
+	for <lists+freedreno@lfdr.de>; Fri, 18 Mar 2022 17:24:37 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC41B10E579;
-	Fri, 18 Mar 2022 16:20:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6516E10E98F;
+	Fri, 18 Mar 2022 16:24:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA5810E579;
- Fri, 18 Mar 2022 16:20:00 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id x15so12359480wru.13;
- Fri, 18 Mar 2022 09:20:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A87510E6F1
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 16:24:34 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id bi12so18060014ejb.3
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 09:24:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=u0HCPymtXblIB+cZc09PIw1aKsO6ejAhOpetsA4QzYg=;
- b=HsS8bf4hFr1h53r1GWW5J7P80c2rigF1ZXd1iqF5XPOsMXq6p4ok6Sn2H3x7cUexPv
- YABq8nJvMpMu/YHEMd143F6Qp5fA4nP7ubMhCEOPXswql4pg7XkYAMKHiv7rl+pDoZWx
- H0bO0FDj3TAj6uKTbqplAHlMjsd1f+IEw2ZN38QxEypKSTFEkQEJ53OjC6bu5nL7r56L
- Q1pPMFjEB8OhRlo6aBuSvQ2ffSBXMm5ZskqqZUxpIbkn/hYc62OjFPO0+xXgPsEu/sf8
- Jbf18oIGb/IAdnQdYoeDEK01G6VXumHILoRrEZuQIhV6NkpZvGur8FIbJwWyBxMxx94s
- MNlw==
+ :cc; bh=vJ9L0V5osggSMXilV0NUxdZ3YODQ2c0ZIQihzHn4ios=;
+ b=L11FSvmMxR/S/6J58hseaebFIGaY1w0GQZO0yjGrp1k0/LWn77MPX3oLnVkjnLa5VR
+ LTHnw3hZDmkoqVvtsOmvrvAv1apNvoCA4XOtpR8yn3emgjHbyE24KjF+ugN0bagp+Sau
+ pFEAfzk+AtQzHPGhS9ydM1oyairTwvQlgkBS4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=u0HCPymtXblIB+cZc09PIw1aKsO6ejAhOpetsA4QzYg=;
- b=cZS9CAxIDmJEDGDjowTEQ/QiBSTc9vSw9p2DVcsRch6a5Sv+ABrWJvpr6Mt0Ynloib
- 81mto/b1tR2+rx9Af98P4pP6AMJ5xqAh45aP2lbdVgK/JSnODe06qdYLcIW8YQ4+s3YA
- oky1Ubv1N8FVlLyYp1pmz+8YerJH5Xy9hLmhTp7Q4CkH7xBdWTlFrTgS/RKrJkEYJQes
- ekq9XLa2RfQv7ibpV1tsVc2u0VMpb6AMRPFcdfD9nmgZBMFKkxX2EIBiXrBC9GSx/5cI
- Gr1LDPhDIEA0nIdiS3tu+fYhVayzy+KOqqLauwI4uoVmWNhUit+M59UY2Z5Zb8Nltuzw
- 1sYw==
-X-Gm-Message-State: AOAM531FfY14WWvnNUTgMLG+HRi3BkM9cnQUSKyK+LLhEzNW8UpXA2n3
- /jxdD9BZdMzAGux73s/RW+dTSyw3fxJ5/7lFJkQ=
-X-Google-Smtp-Source: ABdhPJxNnjhQkWgGh3BiZCURGeabRTHOG3URIEu48sVr5c+bgDz9d6ZlaTpPV7k9bDjxcXo9LX1ybNqvt19BuaGSvdU=
-X-Received: by 2002:adf:914f:0:b0:1ed:bb92:d0cc with SMTP id
- j73-20020adf914f000000b001edbb92d0ccmr8615326wrj.297.1647620398559; Fri, 18
- Mar 2022 09:19:58 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=vJ9L0V5osggSMXilV0NUxdZ3YODQ2c0ZIQihzHn4ios=;
+ b=bnsoMt6g2tmWwfkmyw+wfBCxRGrjmGthkFZh667f7A1dJTyFcoagoBg5Q1IWC+ZwJQ
+ SoAa1J2dfkOS3UtmcNcgKagC39VmWrZZ8n2M9wgomNI/ql7t9zb3O3bpRNi20lX1sysk
+ K8LHjaw/PXf/S+Fvdf2gQ6iWwSfCTK9WuKOoabr5VQ4maUe+tGCiHBvxZE0EeAAOB5vQ
+ OXukGtS/QHdWgvCb8FEZp5aPWcAcMDGr3+/xALTFHFnM7KNioyl2InAh7aqVD1bQkWIO
+ mKN5mPzaFdnKivIF3QVclPAknn4G1suFg59FySBw1N50ZAlaHIKa+sGnws3P62spbYEK
+ L2qQ==
+X-Gm-Message-State: AOAM530lvzacOdElQNLOwW/hdYbx+5wk+J/FGBt93CSzCZktE+yDymSl
+ ja0s+9Bbm93MmphrLbwfb/vLnPmy4NV3dNiEjnQ=
+X-Google-Smtp-Source: ABdhPJzmeV9uAnKSUlk/MJI0aWdBpPggt3iy9ZHn9mQP5I/+5ZMZ2laAh0BeTi8GEewAtazsayoSwQ==
+X-Received: by 2002:a17:906:9751:b0:6db:cf3:e7db with SMTP id
+ o17-20020a170906975100b006db0cf3e7dbmr9958244ejy.58.1647620672890; 
+ Fri, 18 Mar 2022 09:24:32 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com.
+ [209.85.221.41]) by smtp.gmail.com with ESMTPSA id
+ b9-20020a056402278900b004186d013655sm4327290ede.33.2022.03.18.09.24.32
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Mar 2022 09:24:32 -0700 (PDT)
+Received: by mail-wr1-f41.google.com with SMTP id d7so12397907wrb.7
+ for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 09:24:32 -0700 (PDT)
+X-Received: by 2002:a5d:4491:0:b0:203:f63a:e89b with SMTP id
+ j17-20020a5d4491000000b00203f63ae89bmr3246004wrq.342.1647620671999; Fri, 18
+ Mar 2022 09:24:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220310234611.424743-1-robdclark@gmail.com>
- <20220310234611.424743-3-robdclark@gmail.com>
- <YjMGac4Hnjmg1wE8@phenom.ffwll.local>
- <3945551d-47d2-1974-f637-1dbc61e14702@amd.com>
- <CAF6AEGv36V8bLoDn5O1SW3iTUtzd3O1XeuT5gJxyLMxd1E-o3Q@mail.gmail.com>
- <865abcff-9f52-dca4-df38-b11189c739ff@amd.com>
- <CAF6AEGuoBeYoMTR6-KM9xGZ05XSSnSJWMDciawczi7qtiLN9Vw@mail.gmail.com>
- <915537e2-ac5b-ab0e-3697-2b16a9ec8f91@amd.com>
- <CAF6AEGsyFAOPmHqT7YX1wsukP4-gYAstCukr89r9w28V0YSCUw@mail.gmail.com>
- <3a475e5a-1090-e2f4-779c-6915fc8524b1@amd.com>
- <CAF6AEGtPrSdj=7AP1_puR+OgmL-qro0mWZDNngtaVPxpaCM76A@mail.gmail.com>
- <1c847474-8ee1-cc7e-3d4d-261a4e92fb2d@amd.com>
- <CAF6AEGuw45gi4f+mVs7cVyjCHY9O4N1O8OfuGHv-wAkzP3UpMA@mail.gmail.com>
- <dd7d3f20-8288-3a7c-a368-a08282746ff1@amd.com>
-In-Reply-To: <dd7d3f20-8288-3a7c-a368-a08282746ff1@amd.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Fri, 18 Mar 2022 09:20:37 -0700
-Message-ID: <CAF6AEGvp+f4=EjQ9tWwcEafBEOAy6nCd8bOTqLXopiFhjx_Y_w@mail.gmail.com>
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+References: <1647452154-16361-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1647452154-16361-7-git-send-email-quic_sbillaka@quicinc.com>
+ <CAE-0n520pQKM7mFSE_00ER+F9RKUPrN+y4U8fmsxi7FoFMyOrA@mail.gmail.com>
+In-Reply-To: <CAE-0n520pQKM7mFSE_00ER+F9RKUPrN+y4U8fmsxi7FoFMyOrA@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 18 Mar 2022 09:24:17 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UWF8K9JPJXFSGMRK-HmCi+2jM3aN6Uy7hyDSu1_azF+w@mail.gmail.com>
+Message-ID: <CAD=FV=UWF8K9JPJXFSGMRK-HmCi+2jM3aN6Uy7hyDSu1_azF+w@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/gpu: Park scheduler threads for
- system suspend
+Subject: Re: [Freedreno] [PATCH v5 6/9] drm/msm/dp: wait for hpd high before
+ any sink interaction
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,180 +74,149 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>,
- "Alexander.Deucher@amd.com" <Alexander.Deucher@amd.com>,
- Sean Paul <sean@poorly.run>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ quic_khsieh@quicinc.com, Andy Gross <agross@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, quic_vproddut@quicinc.com,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, quic_abhinavk@quicinc.com,
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ Sean Paul <sean@poorly.run>, quic_kalyant <quic_kalyant@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, krzk+dt@kernel.org,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Mar 18, 2022 at 9:04 AM Andrey Grodzovsky
-<andrey.grodzovsky@amd.com> wrote:
+Hi,
+
+On Thu, Mar 17, 2022 at 6:19 PM Stephen Boyd <swboyd@chromium.org> wrote:
 >
->
-> On 2022-03-17 16:35, Rob Clark wrote:
-> > On Thu, Mar 17, 2022 at 12:50 PM Andrey Grodzovsky
-> > <andrey.grodzovsky@amd.com> wrote:
-> >>
-> >> On 2022-03-17 14:25, Rob Clark wrote:
-> >>> On Thu, Mar 17, 2022 at 11:10 AM Andrey Grodzovsky
-> >>> <andrey.grodzovsky@amd.com> wrote:
-> >>>> On 2022-03-17 13:35, Rob Clark wrote:
-> >>>>> On Thu, Mar 17, 2022 at 9:45 AM Christian K=C3=B6nig
-> >>>>> <christian.koenig@amd.com> wrote:
-> >>>>>> Am 17.03.22 um 17:18 schrieb Rob Clark:
-> >>>>>>> On Thu, Mar 17, 2022 at 9:04 AM Christian K=C3=B6nig
-> >>>>>>> <christian.koenig@amd.com> wrote:
-> >>>>>>>> Am 17.03.22 um 16:10 schrieb Rob Clark:
-> >>>>>>>>> [SNIP]
-> >>>>>>>>> userspace frozen !=3D kthread frozen .. that is what this patch=
- is
-> >>>>>>>>> trying to address, so we aren't racing between shutting down th=
-e hw
-> >>>>>>>>> and the scheduler shoveling more jobs at us.
-> >>>>>>>> Well exactly that's the problem. The scheduler is supposed to sh=
-oveling
-> >>>>>>>> more jobs at us until it is empty.
-> >>>>>>>>
-> >>>>>>>> Thinking more about it we will then keep some dma_fence instance
-> >>>>>>>> unsignaled and that is and extremely bad idea since it can lead =
-to
-> >>>>>>>> deadlocks during suspend.
-> >>>>>>> Hmm, perhaps that is true if you need to migrate things out of vr=
-am?
-> >>>>>>> It is at least not a problem when vram is not involved.
-> >>>>>> No, it's much wider than that.
-> >>>>>>
-> >>>>>> See what can happen is that the memory management shrinkers want t=
-o wait
-> >>>>>> for a dma_fence during suspend.
-> >>>>> we don't wait on fences in shrinker, only purging or evicting thing=
-s
-> >>>>> that are already ready.  Actually, waiting on fences in shrinker pa=
-th
-> >>>>> sounds like a pretty bad idea.
-> >>>>>
-> >>>>>> And if you stop the scheduler they will just wait forever.
-> >>>>>>
-> >>>>>> What you need to do instead is to drain the scheduler, e.g. call
-> >>>>>> drm_sched_entity_flush() with a proper timeout for each entity you=
- have
-> >>>>>> created.
-> >>>>> yeah, it would work to drain the scheduler.. I guess that might be =
-the
-> >>>>> more portable approach as far as generic solution for suspend.
-> >>>>>
-> >>>>> BR,
-> >>>>> -R
-> >>>> I am not sure how this drains the scheduler ? Suppose we done the
-> >>>> waiting in drm_sched_entity_flush,
-> >>>> what prevents someone to push right away another job into the same
-> >>>> entity's queue  right after that ?
-> >>>> Shouldn't we first disable further pushing of jobs into entity befor=
-e we
-> >>>> wait for  sched->job_scheduled ?
-> >>>>
-> >>> In the system suspend path, userspace processes will have already bee=
-n
-> >>> frozen, so there should be no way to push more jobs to the scheduler,
-> >>> unless they are pushed from the kernel itself.
-> >>> amdgpu_device_suspend
-> >>
-> >> It was my suspicion but I wasn't sure about it.
-> >>
-> >>
-> >>> We don't do that in
-> >>> drm/msm, but maybe you need to to move things btwn vram and system
-> >>> memory?
-> >>
-> >> Exactly, that was my main concern - if we use this method we have to u=
-se
-> >> it in a point in
-> >> suspend sequence when all the in kernel job submissions activity alrea=
-dy
-> >> suspended
-> >>
-> >>> But even in that case, if the # of jobs you push is bounded I
-> >>> guess that is ok?
-> >> Submissions to scheduler entities are using unbounded queue, the bound=
-ed
-> >> part is when
-> >> you extract next job from entity to submit to HW ring and it rejects i=
-f
-> >> submission limit reached (drm_sched_ready)
-> >>
-> >> In general - It looks to me at least that what we what we want her is
-> >> more of a drain operation then flush (i.e.
-> >> we first want to disable any further job submission to entity's queue
-> >> and then flush all in flight ones). As example
-> >> for this i was looking at  flush_workqueue vs. drain_workqueue
-> > Would it be possible for amdgpu to, in the system suspend task,
+> Quoting Sankeerth Billakanti (2022-03-16 10:35:51)
+> >         The source device should ensure the sink is ready before
+> > proceeding to read the sink capability or performing any aux transactions.
+> > The sink will indicate its readiness by asserting the HPD line.
 > >
-> > 1) first queue up all the jobs needed to migrate bos out of vram, and
-> > whatever other housekeeping jobs are needed
-> > 2) then drain gpu scheduler's queues
-> > 3) and then finally wait for jobs executing on GPU to complete
->
->
-> We already do most of it in amdgpu_device_suspend,
-> amdgpu_device_ip_suspend_phase1
-> followed by amdgpu_device_evict_resources followed by
-> amdgpu_fence_driver_hw_fini is
-> exactly steps 1 + 3. What we are missing is step 2). For this step I
-> suggest adding a function
-> called drm_sched_entity_drain which basically sets entity->stopped =3D
-> true and then calls drm_sched_entity_flush.
-> This will both reject any new insertions into entity's job queue and
-> will flush all pending job submissions to HW from that entity.
-> One point is we need to make make drm_sched_entity_push_job return value
-> so the caller knows about job enqueue
-> rejection.
-
-Hmm, seems like job enqueue that is rejected because we are in the
-process of suspending should be more of a WARN_ON() sort of thing?
-Not sure if there is something sensible to do for the caller at that
-point?
-
->
-> What about runtime suspend ? I guess same issue with scheduler racing
-> against HW susppend is relevant there ?
-
-Runtime suspend should be ok, as long as the driver holds a runpm
-reference whenever the hw needs to be awake.  The problem with system
-suspend (at least if you are using pm_runtime_force_suspend() or doing
-something equivalent) is that it bypasses the runpm reference.
-(Which, IMO, seems like a bad design..)
-
-> Also, could you point to a particular buggy scenario where the race
-> between SW shceduler and suspend is causing a problem ?
-
-I wrote a piglit test[1] to try to trigger this scenario.. it isn't
-really that easy to hit
-
-BR,
--R
-
-[1] https://gitlab.freedesktop.org/mesa/piglit/-/merge_requests/643
-
-> Andrey
->
->
+> >         The eDP sink requires power from the source and its HPD line will
+> > be asserted only after the panel is powered on. The panel power will be
+> > enabled from the panel-edp driver.
 > >
-> > BR,
-> > -R
+> >         The controller driver needs to wait for the hpd line to be asserted
+> > by the sink.
 > >
-> >> Andrey
-> >>
-> >>
-> >>> BR,
-> >>> -R
+> > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> > ---
+> >  drivers/gpu/drm/msm/dp/dp_aux.c     |  6 ++++++
+> >  drivers/gpu/drm/msm/dp/dp_catalog.c | 23 +++++++++++++++++++++++
+> >  drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
+> >  drivers/gpu/drm/msm/dp/dp_reg.h     |  7 ++++++-
+> >  4 files changed, 36 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
+> > index 6d36f63..2ddc303 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_aux.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
+> > @@ -337,6 +337,12 @@ static ssize_t dp_aux_transfer(struct drm_dp_aux *dp_aux,
+> >                 goto exit;
+> >         }
+> >
+> > +       ret = dp_catalog_aux_wait_for_hpd_connect_state(aux->catalog);
+>
+> Why are we making aux transactions when hpd isn't asserted? Can we only
+> register the aux device once we know that state is "connected"? I'm
+> concerned that we're going to be possibly polling the connected bit up
+> to some amount of time (0x0003FFFF usecs?) for each aux transfer when
+> that doesn't make any sense to keep checking. We should be able to check
+> it once, register aux, and then when disconnect happens we can
+> unregister aux.
+
+This is for eDP and, unless someone wants to redesign it again, is
+just how it works.
+
+Specifically:
+
+1. On eDP you _always_ report "connected". This is because when an eDP
+panel is turned off (but still there) you actually have no way to
+detect it--you just have to assume it's there. And thus you _always_
+register the AUX bus.
+
+2. When we are asked to read the EDID that happens _before_ the normal
+prepare/enable steps. The way that this should work is that the
+request travels down to the panel. The panel turns itself on (waiting
+for any hardcoded delays it knows about) and then initiates an AUX
+transaction. The AUX transaction is in charge of waiting for HPD.
+
+
+For the DP case this should not cause any significant overhead, right?
+HPD should always be asserted so this is basically just one extra IO
+read confirming that HPD is asserted which should be almost nothing...
+You're just about to do a whole bunch of IO reads/writes in order to
+program the AUX transaction anyway.
+
+
+> > +       if (ret) {
+> > +               DRM_DEBUG_DP("DP sink not ready for aux transactions\n");
+> > +               goto exit;
+> > +       }
+> > +
+> >         dp_aux_update_offset_and_segment(aux, msg);
+> >         dp_aux_transfer_helper(aux, msg, true);
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> > index fac815f..2c3b0f7 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> > @@ -242,6 +242,29 @@ void dp_catalog_aux_update_cfg(struct dp_catalog *dp_catalog)
+> >         phy_calibrate(phy);
+> >  }
+> >
+> > +int dp_catalog_aux_wait_for_hpd_connect_state(struct dp_catalog *dp_catalog)
+> > +{
+> > +       u32 state, hpd_en, timeout;
+> > +       struct dp_catalog_private *catalog = container_of(dp_catalog,
+> > +                               struct dp_catalog_private, dp_catalog);
+> > +
+> > +       hpd_en = dp_read_aux(catalog, REG_DP_DP_HPD_CTRL) &
+> > +                                       DP_DP_HPD_CTRL_HPD_EN;
+>
+> Use two lines
+>
+>         hpd_en = dp_read_aux();
+>         hpd_en &= DP_DP_HPD_CTRL_HPD_EN;
+>
+> > +
+> > +       /* no-hpd case */
+> > +       if (!hpd_en)
+> > +               return 0;
+
+I guess reading from hardware is fine, but I would have expected the
+driver to simply know whether HPD is used or not. Don't need to read
+it from hardware, do we? It's not like it's changing from minute to
+minute--this is something known at probe time.
+
+
+> > +       /* Poll for HPD connected status */
+> > +       timeout = dp_read_aux(catalog, REG_DP_DP_HPD_EVENT_TIME_0) &
+> > +                                       DP_HPD_CONNECT_TIME_MASK;
+> > +
+> > +       return readl_poll_timeout(catalog->io->dp_controller.aux.base +
+> > +                               REG_DP_DP_HPD_INT_STATUS,
+> > +                               state, state & DP_DP_HPD_STATE_STATUS_CONNECTED,
+> > +                               2000, timeout);
+
+The timeout that comes from hardware is really stored in microseconds?
+That's the units of the value passed to readl_poll_timeout(), right?
+Looking at your #defines, that means that your max value here is
+0x3fff which is 16383 microseconds or ~16 ms. That doesn't seem like
+nearly a long enough timeout to wait for a panel to power itself up.
+
+Also: I'm not sure why exactly you're using the timeout in the
+register here. Isn't the time you need to wait more about how long an
+eDP panel might conceivably need to power itself on? Most eDP panels
+I've seen have max delays of ~200 ms. I'd probably just wait 500 ms to
+be on the safe side.
+
+-Doug
