@@ -1,59 +1,39 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 772464E2F38
-	for <lists+freedreno@lfdr.de>; Mon, 21 Mar 2022 18:40:14 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 406564E2FA1
+	for <lists+freedreno@lfdr.de>; Mon, 21 Mar 2022 19:07:25 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E299910E462;
-	Mon, 21 Mar 2022 17:40:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C48810E460;
+	Mon, 21 Mar 2022 18:07:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7800A10E314
- for <freedreno@lists.freedesktop.org>; Mon, 21 Mar 2022 17:40:11 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id k125so12266430qkf.0
- for <freedreno@lists.freedesktop.org>; Mon, 21 Mar 2022 10:40:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6W2sIVaPd1wN+ZQSZ4o9j1nJ91W2fIHQV8YHK4mslGI=;
- b=othMTu8DE+iag13P8/3A86+7Cc/DHfdnjpWo/byQ5ZUfFCsKml6d/b3+j7enHM3E4T
- p+KQDmhtptyFrPuooWSYmYPJhZWIkHdGt+4vDWYH8iYYuao36WWrhVCMkScMLZUcTZup
- pbxMXwiUoDBFmduoGs8/S8k0tsoBfeYNIRC0GZYKyyNpLf6jW7ygE9Q4oqBC51xdfcFk
- 7ttNl5wra931kZmVavvxQVP/9NCHWg77ijwCiHKLw+zmH2XDabD4PX37zubDr18d1FXu
- LkskplWtgjBIz3OnXb1aT9cH4qssg21daGzI4dNto8OQ0PN0SvwCPVBwRyAb6Xlo3qN2
- FbyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6W2sIVaPd1wN+ZQSZ4o9j1nJ91W2fIHQV8YHK4mslGI=;
- b=6vqo00lp7Ctp8kNBa2ayRUUGDvzEClG+K13BunxiuAjrYw2SfkBR/lqkgv3OG91iLn
- taCs/+tO6bAjdMVCAn7TW4ii1djBIzrJGgQeuqPpPYnS7b6vkntd4Ba+BjsppPF/uAgQ
- dwT1smRWz6A41SZwXGJVgbSLryEQ9uUPUTRhHcfXnQ1Dqszx93tIWL5V+Y8zwy/U/oKD
- PyZ+pkvrFj70wNXaUBF59Bca+Bqz+mdyH7+DeFETSsRIpEKbZagM7iqCMKS70mP3aXkY
- 3VOuEwMGwVaDL6f+kXiaoLwzOOsKdMb0R/drBTC1iCbGWbwoW01lhOVCs6VkAXJrdD7C
- 6fFg==
-X-Gm-Message-State: AOAM530wfjFmJgIvlMU+TQUJs0NRkjO98nvywLBMFdKHzKM263S/VlOp
- 4+x+mEWtpcaaDZFL2kPVywEexMw8ggVeLe6ZnGJegQ==
-X-Google-Smtp-Source: ABdhPJzAfOtHcF9CqanODzAbHAfQeaYZMAZcZ9hv0xTWt4ZcE9sSN4BkC8am1z8h+EdgxGiCPhpJswcEmaek2cu2UjE=
-X-Received: by 2002:a05:620a:2453:b0:67d:9539:495c with SMTP id
- h19-20020a05620a245300b0067d9539495cmr13674139qkn.30.1647884410564; Mon, 21
- Mar 2022 10:40:10 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0B02010E440
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Mar 2022 18:07:21 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A2E8D1042
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Mar 2022 11:07:20 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 10E943F66F
+ for <freedreno@lists.freedesktop.org>; Mon, 21 Mar 2022 11:07:19 -0700 (PDT)
+Date: Mon, 21 Mar 2022 18:07:13 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <Yji+0VjawUGZ3uWh@e110455-lin.cambridge.arm.com>
+References: <1647456498-32533-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1647456498-32533-2-git-send-email-quic_abhinavk@quicinc.com>
+ <YjL2ehsuQZwkBuBZ@pendragon.ideasonboard.com>
+ <4576a13a-ab85-5e8b-dcce-4b4e3563115f@quicinc.com>
 MIME-Version: 1.0
-References: <1647269217-14064-1-git-send-email-quic_vpolimer@quicinc.com>
- <1647269217-14064-2-git-send-email-quic_vpolimer@quicinc.com>
- <CAE-0n51vfoOK_6B0yAvws32MtLQ1SvBPoQPHBFE14TLzZFUZaw@mail.gmail.com>
- <BN0PR02MB8173BBD2C02F5DFBEBE94E40E4169@BN0PR02MB8173.namprd02.prod.outlook.com>
-In-Reply-To: <BN0PR02MB8173BBD2C02F5DFBEBE94E40E4169@BN0PR02MB8173.namprd02.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 21 Mar 2022 20:39:59 +0300
-Message-ID: <CAA8EJpribc722wN2jR5sQEkX6FiaE_SdBk8B5HPamCXZWhEd7A@mail.gmail.com>
-To: Vinod Polimera <vpolimer@qti.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 1/5] drm/msm/disp/dpu1: set mdp clk to
- the maximum frequency in opp table during probe
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4576a13a-ab85-5e8b-dcce-4b4e3563115f@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v3 1/3] drm: allow real encoder to be passed
+ for drm_writeback_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,55 +46,422 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "dianders@chromium.org" <dianders@chromium.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- quic_vpolimer <quic_vpolimer@quicinc.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- Stephen Boyd <swboyd@chromium.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: mripard@kernel.org, hamohammed.sa@gmail.com, suraj.kandpal@intel.com,
+ emma@anholt.net, rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 21 Mar 2022 at 19:21, Vinod Polimera <vpolimer@qti.qualcomm.com> wrote:
->
->
->
-> > -----Original Message-----
-> > From: Stephen Boyd <swboyd@chromium.org>
-> > Sent: Friday, March 18, 2022 2:41 AM
-> > To: quic_vpolimer <quic_vpolimer@quicinc.com>;
-> > devicetree@vger.kernel.org; dri-devel@lists.freedesktop.org;
-> > freedreno@lists.freedesktop.org; linux-arm-msm@vger.kernel.org
-> > Cc: linux-kernel@vger.kernel.org; robdclark@gmail.com;
-> > dmitry.baryshkov@linaro.org; dianders@chromium.org; quic_kalyant
-> > <quic_kalyant@quicinc.com>
-> > Subject: Re: [PATCH v6 1/5] drm/msm/disp/dpu1: set mdp clk to the
-> > maximum frequency in opp table during probe
-> >
-> > WARNING: This email originated from outside of Qualcomm. Please be wary
-> > of any links or attachments, and do not enable macros.
-> >
-> > Quoting Vinod Polimera (2022-03-14 07:46:53)
-> > > use max clock during probe/bind sequence from the opp table.
-> > > The clock will be scaled down when framework sends an update.
-> >
-> > Capitalize 'use'.
-> >
-> > Why is it important to use max frequency during probe/bind? Does not
-> > setting the clk rate during probe mean that we'll never use the max
-> > rate? Does it speed things up during probe?
->
-> We need to vote mdp clock during probe/bind so that rails are not set at undetermined state as pointed out by Dmitry.
-> Since we dont know what will be the rate set in boot loader, it would be ideal to vote at max frequency.
-> There could be a firmware display programmed in bootloader and we want to transition it to kernel without underflowing.
+On Thu, Mar 17, 2022 at 10:26:38AM -0700, Abhinav Kumar wrote:
+> Hi Laurent
+> 
+> Thanks for the review.
+> 
+> On 3/17/2022 1:51 AM, Laurent Pinchart wrote:
+> > Hi Abhinav,
+> > 
+> > Thank you for the patch.
+> > 
+> > On Wed, Mar 16, 2022 at 11:48:16AM -0700, Abhinav Kumar wrote:
+> > > For some vendor driver implementations, display hardware can
+> > > be shared between the encoder used for writeback and the physical
+> > > display.
+> > > 
+> > > In addition resources such as clocks and interrupts can
+> > > also be shared between writeback and the real encoder.
+> > > 
+> > > To accommodate such vendor drivers and hardware, allow
+> > > real encoder to be passed for drm_writeback_connector using a new
+> > > drm_writeback_connector_init_with_encoder() API.
+> > 
+> > The commit message doesn't match the commit.
+> Sorry, while splitting the change , I missed this part of the commit text.
+> Will fix it up.
+> > 
+> > > In addition, to preserve the same call flows for the existing
+> > > users of drm_writeback_connector_init(), also allow passing
+> > > possible_crtcs as a parameter so that encoder can be initialized
+> > > with it.
+> > > 
+> > > changes in v3:
+> > > 	- allow passing possible_crtcs for existing users of
+> > > 	  drm_writeback_connector_init()
+> > > 	- squash the vendor changes into the same commit so
+> > > 	  that each patch in the series can compile individually
+> > > 
+> > > Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
+> > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> > > ---
+> > >   .../drm/arm/display/komeda/komeda_wb_connector.c   |   3 +-
+> > >   drivers/gpu/drm/arm/malidp_mw.c                    |   5 +-
+> > >   drivers/gpu/drm/drm_writeback.c                    | 103 +++++++++++++--------
+> > >   drivers/gpu/drm/rcar-du/rcar_du_writeback.c        |   5 +-
+> > >   drivers/gpu/drm/vc4/vc4_txp.c                      |  19 ++--
+> > >   drivers/gpu/drm/vkms/vkms_writeback.c              |   3 +-
+> > >   include/drm/drm_writeback.h                        |  22 ++++-
+> > >   7 files changed, 103 insertions(+), 57 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> > > index e465cc4..40774e6 100644
+> > > --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> > > +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> > > @@ -155,7 +155,6 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+> > >   	kwb_conn->wb_layer = kcrtc->master->wb_layer;
+> > >   	wb_conn = &kwb_conn->base;
+> > > -	wb_conn->encoder.possible_crtcs = BIT(drm_crtc_index(&kcrtc->base));
+> > >   	formats = komeda_get_layer_fourcc_list(&mdev->fmt_tbl,
+> > >   					       kwb_conn->wb_layer->layer_type,
+> > > @@ -164,7 +163,7 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
+> > >   	err = drm_writeback_connector_init(&kms->base, wb_conn,
+> > >   					   &komeda_wb_connector_funcs,
+> > >   					   &komeda_wb_encoder_helper_funcs,
+> > > -					   formats, n_formats);
+> > > +					   formats, n_formats, BIT(drm_crtc_index(&kcrtc->base)));
+> > >   	komeda_put_fourcc_list(formats);
+> > >   	if (err) {
+> > >   		kfree(kwb_conn);
+> > > diff --git a/drivers/gpu/drm/arm/malidp_mw.c b/drivers/gpu/drm/arm/malidp_mw.c
+> > > index f5847a7..b882066 100644
+> > > --- a/drivers/gpu/drm/arm/malidp_mw.c
+> > > +++ b/drivers/gpu/drm/arm/malidp_mw.c
+> > > @@ -208,11 +208,12 @@ int malidp_mw_connector_init(struct drm_device *drm)
+> > >   	struct malidp_drm *malidp = drm->dev_private;
+> > >   	u32 *formats;
+> > >   	int ret, n_formats;
+> > > +	uint32_t possible_crtcs;
+> > >   	if (!malidp->dev->hw->enable_memwrite)
+> > >   		return 0;
+> > > -	malidp->mw_connector.encoder.possible_crtcs = 1 << drm_crtc_index(&malidp->crtc);
+> > > +	possible_crtcs = 1 << drm_crtc_index(&malidp->crtc);
+> > >   	drm_connector_helper_add(&malidp->mw_connector.base,
+> > >   				 &malidp_mw_connector_helper_funcs);
+> > > @@ -223,7 +224,7 @@ int malidp_mw_connector_init(struct drm_device *drm)
+> > >   	ret = drm_writeback_connector_init(drm, &malidp->mw_connector,
+> > >   					   &malidp_mw_connector_funcs,
+> > >   					   &malidp_mw_encoder_helper_funcs,
+> > > -					   formats, n_formats);
+> > > +					   formats, n_formats, possible_crtcs);
+> > 
+> > Do you need the local variable ?
+> 
+> Yes, we can dtop this. I just used this instead of "1 <<
+> drm_crtc_index(&malidp->crtc)" to simplify it.
+> No strong preference.
+> 
+> > 
+> > >   	kfree(formats);
+> > >   	if (ret)
+> > >   		return ret;
+> > > diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> > > index dccf4504..17c1471 100644
+> > > --- a/drivers/gpu/drm/drm_writeback.c
+> > > +++ b/drivers/gpu/drm/drm_writeback.c
+> > > @@ -149,36 +149,15 @@ static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
+> > >   	.destroy = drm_encoder_cleanup,
+> > >   };
+> > > -/**
+> > > - * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> > > - * @dev: DRM device
+> > > - * @wb_connector: Writeback connector to initialize
+> > > - * @con_funcs: Connector funcs vtable
+> > > - * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> > > - * @formats: Array of supported pixel formats for the writeback engine
+> > > - * @n_formats: Length of the formats array
+> > > - *
+> > > - * This function creates the writeback-connector-specific properties if they
+> > > - * have not been already created, initializes the connector as
+> > > - * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> > > - * values. It will also create an internal encoder associated with the
+> > > - * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> > > - * the encoder helper.
+> > > - *
+> > > - * Drivers should always use this function instead of drm_connector_init() to
+> > > - * set up writeback connectors.
+> > > - *
+> > > - * Returns: 0 on success, or a negative error code
+> > > - */
+> > > -int drm_writeback_connector_init(struct drm_device *dev,
+> > > -				 struct drm_writeback_connector *wb_connector,
+> > > -				 const struct drm_connector_funcs *con_funcs,
+> > > -				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> > > -				 const u32 *formats, int n_formats)
+> > > +static int drm_writeback_connector_setup(struct drm_device *dev,
+> > > +		struct drm_writeback_connector *wb_connector,
+> > > +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
+> > > +		int n_formats)
+> > >   {
+> > >   	struct drm_property_blob *blob;
+> > > -	struct drm_connector *connector = &wb_connector->base;
+> > >   	struct drm_mode_config *config = &dev->mode_config;
+> > > +	struct drm_connector *connector = &wb_connector->base;
+> > > +
+> > >   	int ret = create_writeback_properties(dev);
+> > >   	if (ret != 0)
+> > > @@ -186,15 +165,10 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> > >   	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
+> > >   					formats);
+> > > -	if (IS_ERR(blob))
+> > > -		return PTR_ERR(blob);
+> > > -
+> > > -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> > > -	ret = drm_encoder_init(dev, &wb_connector->encoder,
+> > > -			       &drm_writeback_encoder_funcs,
+> > > -			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> > > -	if (ret)
+> > > -		goto fail;
+> > > +	if (IS_ERR(blob)) {
+> > > +		ret = PTR_ERR(blob);
+> > > +		return ret;
+> > > +	}
+> > >   	connector->interlace_allowed = 0;
+> > > @@ -204,7 +178,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> > >   		goto connector_fail;
+> > >   	ret = drm_connector_attach_encoder(connector,
+> > > -						&wb_connector->encoder);
+> > > +						wb_connector->encoder);
+> > >   	if (ret)
+> > >   		goto attach_fail;
+> > > @@ -233,11 +207,62 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> > >   attach_fail:
+> > >   	drm_connector_cleanup(connector);
+> > >   connector_fail:
+> > > -	drm_encoder_cleanup(&wb_connector->encoder);
+> > > -fail:
+> > >   	drm_property_blob_put(blob);
+> > >   	return ret;
+> > >   }
+> > > +
+> > > +/**
+> > > + * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> > > + * using an internal encoder
+> > > + *
+> > > + * @dev: DRM device
+> > > + * @wb_connector: Writeback connector to initialize
+> > > + * @con_funcs: Connector funcs vtable
+> > > + * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> > > + * @formats: Array of supported pixel formats for the writeback engine
+> > > + * @n_formats: Length of the formats array
+> > > + * @possible_crtcs: possible crtcs for the internal writeback encoder
+> > > + *
+> > > + * This function creates the writeback-connector-specific properties if they
+> > > + * have not been already created, initializes the connector as
+> > > + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> > > + * values. It will also create an internal encoder associated with the
+> > > + * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> > > + * the encoder helper.
+> > > + *
+> > > + * Drivers should always use this function instead of drm_connector_init() to
+> > > + * set up writeback connectors.
+> > > + *
+> > > + * Returns: 0 on success, or a negative error code
+> > > + */
+> > > +int drm_writeback_connector_init(struct drm_device *dev,
+> > > +		struct drm_writeback_connector *wb_connector,
+> > > +		const struct drm_connector_funcs *con_funcs,
+> > > +		const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> > > +		const u32 *formats, int n_formats, uint32_t possible_crtcs)
+> > > +{
+> > > +	int ret = 0;
+> > > +
+> > > +	wb_connector->encoder = &wb_connector->internal_encoder;
+> > > +
+> > > +	drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
+> > > +
+> > > +	wb_connector->encoder->possible_crtcs = possible_crtcs;
+> > > +
+> > > +	ret = drm_encoder_init(dev, wb_connector->encoder,
+> > > +			       &drm_writeback_encoder_funcs,
+> > > +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs, formats,
+> > > +			n_formats);
+> > > +
+> > > +	if (ret)
+> > > +		drm_encoder_cleanup(wb_connector->encoder);
+> > > +
+> > > +	return ret;
+> > > +}
+> > 
+> > All this doesn't belong to this patch. Just add the possible_crtcs
+> > argument to drm_writeback_connector_init() in 1/3, nothing else. One
+> > functional change, one patch.
+> 
+> Ok, so let me re-factor the series like this:
+> 
+> 1) possible_crtcs argument along with other vendor changes
+> 2) changing encoder to a pointer with changes to vc4
+> 3) adding a new API drm_writeback_connector_init_with_encoder() with the
+> cleanup in the drm_writeback
+> 4) changing vc4 to use the new API
 
-This should be expressed in the commit message.
+I think the order should be 1, 3, 4, 2 (without the vc4 changes).
 
+Best regards,
+Liviu
+
+> 
+> Let me know what you think.
+> 
+> > 
+> > >   EXPORT_SYMBOL(drm_writeback_connector_init);
+> > >   int drm_writeback_set_fb(struct drm_connector_state *conn_state,
+> > > diff --git a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> > > index c79d125..1a610c0 100644
+> > > --- a/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> > > +++ b/drivers/gpu/drm/rcar-du/rcar_du_writeback.c
+> > > @@ -199,8 +199,9 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+> > >   			   struct rcar_du_crtc *rcrtc)
+> > >   {
+> > >   	struct drm_writeback_connector *wb_conn = &rcrtc->writeback;
+> > > +	uint32_t possible_crtcs;
+> > > -	wb_conn->encoder.possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> > > +	possible_crtcs = 1 << drm_crtc_index(&rcrtc->crtc);
+> > >   	drm_connector_helper_add(&wb_conn->base,
+> > >   				 &rcar_du_wb_conn_helper_funcs);
+> > > @@ -208,7 +209,7 @@ int rcar_du_writeback_init(struct rcar_du_device *rcdu,
+> > >   					    &rcar_du_wb_conn_funcs,
+> > >   					    &rcar_du_wb_enc_helper_funcs,
+> > >   					    writeback_formats,
+> > > -					    ARRAY_SIZE(writeback_formats));
+> > > +					    ARRAY_SIZE(writeback_formats), possible_crtcs);
+> > 
+> > Same here, do you need the intermediate variable ?
+> 
+> > 
+> > And please add a line break after ARRAY_SIZE().
+> Ok will do
+> > 
+> > >   }
+> > >   void rcar_du_writeback_setup(struct rcar_du_crtc *rcrtc,
+> > > diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
+> > > index 9809ca3..32c4fb0 100644
+> > > --- a/drivers/gpu/drm/vc4/vc4_txp.c
+> > > +++ b/drivers/gpu/drm/vc4/vc4_txp.c
+> > > @@ -151,6 +151,8 @@ struct vc4_txp {
+> > >   	struct platform_device *pdev;
+> > > +	struct drm_encoder drm_enc;
+> > > +
+> > >   	struct drm_writeback_connector connector;
+> > >   	void __iomem *regs;
+> > > @@ -159,7 +161,7 @@ struct vc4_txp {
+> > >   static inline struct vc4_txp *encoder_to_vc4_txp(struct drm_encoder *encoder)
+> > >   {
+> > > -	return container_of(encoder, struct vc4_txp, connector.encoder);
+> > > +	return container_of(encoder, struct vc4_txp, drm_enc);
+> > >   }
+> > >   static inline struct vc4_txp *connector_to_vc4_txp(struct drm_connector *conn)
+> > > @@ -467,6 +469,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+> > >   	struct vc4_txp *txp;
+> > >   	struct drm_crtc *crtc;
+> > >   	struct drm_encoder *encoder;
+> > > +	struct drm_writeback_connector *wb_conn;
+> > >   	int ret, irq;
+> > >   	irq = platform_get_irq(pdev, 0);
+> > > @@ -492,12 +495,14 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+> > >   	txp->regset.regs = txp_regs;
+> > >   	txp->regset.nregs = ARRAY_SIZE(txp_regs);
+> > > -	drm_connector_helper_add(&txp->connector.base,
+> > > +	wb_conn = &txp->connector;
+> > > +	wb_conn->encoder = &txp->drm_enc;
+> > > +
+> > > +	drm_connector_helper_add(&wb_conn->base,
+> > >   				 &vc4_txp_connector_helper_funcs);
+> > > -	ret = drm_writeback_connector_init(drm, &txp->connector,
+> > > -					   &vc4_txp_connector_funcs,
+> > > -					   &vc4_txp_encoder_helper_funcs,
+> > > -					   drm_fmts, ARRAY_SIZE(drm_fmts));
+> > > +	ret = drm_writeback_connector_init(drm, wb_conn,
+> > > +			&vc4_txp_connector_funcs, &vc4_txp_encoder_helper_funcs,
+> > > +			drm_fmts, ARRAY_SIZE(drm_fmts), 0);
+> > 
+> > Most of this also doesn't belong to this patch.
+> > 
+> > >   	if (ret)
+> > >   		return ret;
+> > > @@ -506,7 +511,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
+> > >   	if (ret)
+> > >   		return ret;
+> > > -	encoder = &txp->connector.encoder;
+> > > +	encoder = txp->connector.encoder;
+> > >   	encoder->possible_crtcs = drm_crtc_mask(crtc);
+> > >   	ret = devm_request_irq(dev, irq, vc4_txp_interrupt, 0,
+> > > diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+> > > index 8694227..381e7b7 100644
+> > > --- a/drivers/gpu/drm/vkms/vkms_writeback.c
+> > > +++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+> > > @@ -140,12 +140,11 @@ int vkms_enable_writeback_connector(struct vkms_device *vkmsdev)
+> > >   {
+> > >   	struct drm_writeback_connector *wb = &vkmsdev->output.wb_connector;
+> > > -	vkmsdev->output.wb_connector.encoder.possible_crtcs = 1;
+> > >   	drm_connector_helper_add(&wb->base, &vkms_wb_conn_helper_funcs);
+> > >   	return drm_writeback_connector_init(&vkmsdev->drm, wb,
+> > >   					    &vkms_wb_connector_funcs,
+> > >   					    &vkms_wb_encoder_helper_funcs,
+> > >   					    vkms_wb_formats,
+> > > -					    ARRAY_SIZE(vkms_wb_formats));
+> > > +					    ARRAY_SIZE(vkms_wb_formats), 1);
+> > >   }
+> > > diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> > > index 9697d27..5e002bc 100644
+> > > --- a/include/drm/drm_writeback.h
+> > > +++ b/include/drm/drm_writeback.h
+> > > @@ -25,13 +25,29 @@ struct drm_writeback_connector {
+> > >   	struct drm_connector base;
+> > >   	/**
+> > > -	 * @encoder: Internal encoder used by the connector to fulfill
+> > > +	 * @encoder: handle to drm_encoder used by the connector to fulfill
+> > >   	 * the DRM framework requirements. The users of the
+> > >   	 * @drm_writeback_connector control the behaviour of the @encoder
+> > >   	 * by passing the @enc_funcs parameter to drm_writeback_connector_init()
+> > >   	 * function.
+> > > +	 *
+> > > +	 * For some vendor drivers, the hardware resources are shared between
+> > > +	 * writeback encoder and rest of the display pipeline.
+> > > +	 * To accommodate such cases, encoder is a handle to the real encoder
+> > > +	 * hardware.
+> > > +	 *
+> > > +	 * For current existing writeback users, this shall continue to be the
+> > > +	 * embedded encoder for the writeback connector.
+> > > +	 *
+> > > +	 */
+> > > +	struct drm_encoder *encoder;
+> > > +
+> > > +	/**
+> > > +	 * @internal_encoder: internal encoder used by writeback when
+> > > +	 * a real encoder is not provided by the vendor drm drivers.
+> > > +	 * @encoder will be assigned to this for those cases.
+> > >   	 */
+> > > -	struct drm_encoder encoder;
+> > > +	struct drm_encoder internal_encoder;
+> > 
+> > None of this belong here.
+> Alright, will split to the next patch.
+> > 
+> > >   	/**
+> > >   	 * @pixel_formats_blob_ptr:
+> > > @@ -150,7 +166,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
+> > >   				 struct drm_writeback_connector *wb_connector,
+> > >   				 const struct drm_connector_funcs *con_funcs,
+> > >   				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> > > -				 const u32 *formats, int n_formats);
+> > > +				 const u32 *formats, int n_formats, uint32_t possible_crtcs);
+> > >   int drm_writeback_set_fb(struct drm_connector_state *conn_state,
+> > >   			 struct drm_framebuffer *fb);
+> > 
 
 -- 
-With best wishes
-Dmitry
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
