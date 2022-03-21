@@ -1,71 +1,134 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCE7B4DE4B1
-	for <lists+freedreno@lfdr.de>; Sat, 19 Mar 2022 00:56:49 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 861644E2DBD
+	for <lists+freedreno@lfdr.de>; Mon, 21 Mar 2022 17:21:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF0310E575;
-	Fri, 18 Mar 2022 23:56:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28BFB10E3CF;
+	Mon, 21 Mar 2022 16:21:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8DDF10E575
- for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 23:56:46 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id qa43so19765090ejc.12
- for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 16:56:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=aXGJa6CFv1aUDS6a5HMhMzXGnOQH0YUOOBu2NLGR9Jo=;
- b=fEAnYQmMbqrWHduv7kT3sDO5GJe6qUfu3cBnBhRqDNfZ6+ilQyHkcYXGW5sOABXObp
- vIuyR2O41EAOzNfPBrDuqDabDSTvhVuluj3UqOrE9oPIiFcJzzSEILdzBrSFqAwOsvQE
- 7GkJFdcQTpOtAKUQ/LX1gQzkTJXuYmS1x5fbU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=aXGJa6CFv1aUDS6a5HMhMzXGnOQH0YUOOBu2NLGR9Jo=;
- b=rda8OxqsQ+npNKxf/dOE3WdvHm0jvh9ei1HePkPqg7fQWVVyoG/qF8PGIeoiMfht8q
- P6Y2VRfZUnIbB7Iowx3VeOvpzmbRX2vTrK0Vm+DFAa3SYa+1xGBCOcnCMyeTC3z3IKGE
- tb/Z9LsgGvvfUcMemM1uGyCkJyACNPyvGr0wpoirF08LZB/LpzOBJ3zZvd5LbGPhb1JS
- bRe7db1hxkGQdYRVoxgxQX725tDHsYtqccR1w81pskL/ypnGEbJpEDCvqgH2yZpzgUHW
- fOQxZ5toJ92FgT9yr1izkJlL4gQepuPWgK/0eh3vGkychAN3r7rFeZLyjfZnoJNb3sov
- 7RQQ==
-X-Gm-Message-State: AOAM531/KuIbsd3RsaGOyHmgyeS1ii6qEJVF8EFzOvb3tyAxdw7UJ4yu
- ogKTRd9UgRMex+xvd399W7RXAT/5xEVJ7ggN9vY=
-X-Google-Smtp-Source: ABdhPJyBPB84SJtmUIRGg8swsS3RZQN7SieRJ4E0o+aukWGc3+U0dupAnVOYTx/16gcrS5Tu5cRNNQ==
-X-Received: by 2002:a17:906:c1d6:b0:6d6:e0a3:bbc7 with SMTP id
- bw22-20020a170906c1d600b006d6e0a3bbc7mr11303793ejb.484.1647647804985; 
- Fri, 18 Mar 2022 16:56:44 -0700 (PDT)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
- [209.85.221.45]) by smtp.gmail.com with ESMTPSA id
- l18-20020a1709067d5200b006cb0ba8db9esm4327242ejp.14.2022.03.18.16.56.42
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Mar 2022 16:56:43 -0700 (PDT)
-Received: by mail-wr1-f45.google.com with SMTP id j10so591461wrb.13
- for <freedreno@lists.freedesktop.org>; Fri, 18 Mar 2022 16:56:42 -0700 (PDT)
-X-Received: by 2002:a5d:4491:0:b0:203:f63a:e89b with SMTP id
- j17-20020a5d4491000000b00203f63ae89bmr4399095wrq.342.1647647801948; Fri, 18
- Mar 2022 16:56:41 -0700 (PDT)
+Received: from esa.hc3962-90.iphmx.com (esa.hc3962-90.iphmx.com
+ [216.71.142.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B9510E3D8;
+ Mon, 21 Mar 2022 16:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=qti.qualcomm.com; i=@qti.qualcomm.com; q=dns/txt;
+ s=qccesdkim1; t=1647879701; x=1648484501;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=DQljcbJhRnMX/NnxrAp+hABj2GlYAfRVVTrS7+aby0U=;
+ b=kHq8y9kw5zeottQVV8irKo5djhOfgSRGwyCX2lkpaTsB+/E6gE+XAsk3
+ KtcSwm2hGarqzdsbLdq/YmvSo+fCXSkAOlJ7EaQSJyQHMrSlEHNUX7DUG
+ 95lKsK2u7LbxjNCgEwHJDXjyfBIflI7nzFBX1wk5asqkG2ObfJnIebxi0 0=;
+Received: from mail-co1nam11lp2175.outbound.protection.outlook.com (HELO
+ NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.175])
+ by ob1.hc3962-90.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 16:21:38 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jnUBNb31pvBxSDSTBy2Y8ylc2It4ssWmR7cQaiduBRo4RHGEWIkgMkEBNEa2d830H9yi6bGYKThfsnRSl+1fKbFyj+iJv7wqi1O5O/sxq5PWuCnkbmHJBrpCZeRT0ulpmWyqP7lnoDZoNlTfQIwzo0j+L6Q0KYbxPeNO/lBCtoU31bp8q0He30YR7eCSQZ8G/yWhreOac4vVBpGN7U8eKpk7lPUeBvkyPTfKAm6bfZ6JJk56PIqZ8gMheuDr+J3hZonJdLLbLNCOPzT1vc5KDe8TYEHRKv7UWZinAqkaWl+nsAt6EtNLyGUQlxquLV6/+ZYeUlnaxK7GnWyYWDPp9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DQljcbJhRnMX/NnxrAp+hABj2GlYAfRVVTrS7+aby0U=;
+ b=jv9lBAYKXfSwTzKWf+tRZtv+2cYLnMNK3XzE5lXqBR7c73sPQPlfXUiRy4NO6AmQbAkEHyi7JmfpfNEJ4KLLQpZ1Fca7lrtxJDGS2plWLoozoDuqyPI66iIh4I75+L7AMn/DIW1i9dvetg5jO3Ie+KIXjFChOvYLT4C2Lz4ajoIbCFTh/HzM4kk19VxuSlkxSuha+R+DLkmb9zy499UNfdlmbJ2DdSeLLwRVGrnEaGfjFbLLJ7zZhcdYJXOY9Mw6WoyQG0pCTUmfJ1DqytRFMUz/60fQtPhVSdu2ogMucwyA3uziW3w5wbbAwrOCIsSK8wRvIG72sQpyl3bQHbrp4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=qti.qualcomm.com; dmarc=pass action=none
+ header.from=qti.qualcomm.com; dkim=pass header.d=qti.qualcomm.com; arc=none
+Received: from BN0PR02MB8173.namprd02.prod.outlook.com (2603:10b6:408:163::15)
+ by SN6PR02MB4415.namprd02.prod.outlook.com (2603:10b6:805:a7::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.15; Mon, 21 Mar
+ 2022 16:21:36 +0000
+Received: from BN0PR02MB8173.namprd02.prod.outlook.com
+ ([fe80::8135:e90b:883:4853]) by BN0PR02MB8173.namprd02.prod.outlook.com
+ ([fe80::8135:e90b:883:4853%5]) with mapi id 15.20.5081.023; Mon, 21 Mar 2022
+ 16:21:36 +0000
+From: Vinod Polimera <vpolimer@qti.qualcomm.com>
+To: Stephen Boyd <swboyd@chromium.org>, quic_vpolimer
+ <quic_vpolimer@quicinc.com>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>
+Thread-Topic: [PATCH v6 1/5] drm/msm/disp/dpu1: set mdp clk to the maximum
+ frequency in opp table during probe
+Thread-Index: AQHYN7JpyaIUkUBnYkOtfqwew+UyfazEF5wAgAX3NtA=
+Date: Mon, 21 Mar 2022 16:21:35 +0000
+Message-ID: <BN0PR02MB8173BBD2C02F5DFBEBE94E40E4169@BN0PR02MB8173.namprd02.prod.outlook.com>
+References: <1647269217-14064-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1647269217-14064-2-git-send-email-quic_vpolimer@quicinc.com>
+ <CAE-0n51vfoOK_6B0yAvws32MtLQ1SvBPoQPHBFE14TLzZFUZaw@mail.gmail.com>
+In-Reply-To: <CAE-0n51vfoOK_6B0yAvws32MtLQ1SvBPoQPHBFE14TLzZFUZaw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=qti.qualcomm.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b73241c4-5651-4355-f15f-08da0b56dedf
+x-ms-traffictypediagnostic: SN6PR02MB4415:EE_
+x-ld-processed: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d,ExtAddr
+x-microsoft-antispam-prvs: <SN6PR02MB4415AA0AACF80A61A6AE80B3E4169@SN6PR02MB4415.namprd02.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 6Vld2Lk5llwVeeqhCdZfrjKX+hllqGIs9wvHIJjLJFaeUaTLdCzWHKz8KCPG44ZiGzYkptkfCTtWLD9GGc2HNnpAl82SPEmBt/WKC5ue7BTm0Vpm+7DYiUlnvE/0t+vLRMgAYTwn5QWDJFRdtGGCslal4PiPLXL3hcHr9ON/ioUpr0h252ZM2RTEbwhpXAuonYvfDqxpxI99xdcCAuTKHyhY5Sko7I/1uIh9nrtrtVVbZA0iFjXaaFo9Jgx4uVIPOV9IyPKCnE9SSQVnX64F8Q5xC8MHPBfrq9OfJ36tOzNIYqHUTaI/TAhWwEJRdXCtYaWRxSSFG7veYta8nq2xb+DfBMDuMFJzpNYVgGPSM/HYw+BNoAdu8uKzRE0jpeoehHDoZ8+Fi2C6kA7N1ihjGghBiBIRJstkW3P9aGYuJEuNDu0MNP80UdKzfQYywgsfx5hbDaxEdc5ly3HMIVYi72iSDhiw9G1c3IgDKl3pb/Jihqu5zWnw0yhHvz0PYRRhkvJg+afCSw9u/PlvtrtRLN4kNFITNhtEvX8joHJyOgwwuad/C54Omnd0i1BgCuDWK+PJaIFrfNJmEZtXjwgS+SDvwbXnmKV7silNyaNussBg/n8dQwT8o0237eywwLPjYilEVdrGzHpg/+That9nvMTJfpZ35qsu+QUCbpVa04ilmn0VEsHCuNVAnqjw3ND7p5W0kEJS9ymbeERDHHTbrQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR02MB8173.namprd02.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(508600001)(83380400001)(9686003)(53546011)(4326008)(64756008)(66946007)(66556008)(66476007)(66446008)(8676002)(76116006)(26005)(110136005)(54906003)(186003)(86362001)(55016003)(38100700002)(52536014)(8936002)(122000001)(71200400001)(38070700005)(33656002)(6506007)(7696005)(2906002)(5660300002)(316002)(107886003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SllUSlRLTk8rMURkaVBJazI4ME16ekhwQlhJNnAvSzNETUk2K0hZVytXUHFE?=
+ =?utf-8?B?NmtVUHF3K3o4U2ZNMVFSQ2U5aFFPaTI4Q3dpbW5iWW5JQ25EVlVjcmtZa0di?=
+ =?utf-8?B?Wm16Z3AxdTJFaVZ6dHk5dWROelRuMFJyM2lxN1hTdkJZeTdBS1YzM1ZldXV4?=
+ =?utf-8?B?WFUzY0JmOVBTZFJiT1NkQmUvcnBTa0NOcG1OWGpnQ3hvUkJQZ2xyTlhiM3Zr?=
+ =?utf-8?B?cytidDFSMnZyNmFCdjRUeEZiazRQOVZTWHFPbUUwQUlXMkNxVVBoRExEcjZJ?=
+ =?utf-8?B?WHlHdTE0V1Z2VFVxcVhJNURGNTFwL0p1Zncxby9pcytHdVkyVkhObDcrSTdh?=
+ =?utf-8?B?VnVjYk94VHpwL1NOWG5KUVJ1MGVicnBQc0pYRnVlSWFJRnRUbmx1SU1jVHhs?=
+ =?utf-8?B?aCtlcklOYWd5TFBzT1NqazBPUzg1NTh2aWNSbkJzeXcwUitvY3B1T0NEWTRX?=
+ =?utf-8?B?cS84TEJPSUk0VElJSVY0Y0tWL21oYWFNUk5LMmlobGdQZUtKMWNTQVkzTWFG?=
+ =?utf-8?B?MCttdE1LYzU5dU5QQzA1aUN2bjVrN1RmYktHOGpGbjFuMXVYa25JVUJpY0Yw?=
+ =?utf-8?B?c0ZDS2tyNDhVUmR0Z2RQZGdsUDhmWEFzalh2akhXVlZCSDExV0xrRnhWTDBB?=
+ =?utf-8?B?ZWlRbTdnVnpiU2l4K09QbjJXZFZ3ZDF0WUlKRVpZbFRnVElvOUNtY3JjWkIr?=
+ =?utf-8?B?ZExHZEpHblExTXNCa0FSSmx0b1RnUnMvQnBSSGxzY2t0SFdPQTdWQ3NKc3Ey?=
+ =?utf-8?B?S3dkbDFvY0Rhc1ZGZFZlbm53UzJydWozTStHOUpMemZnQ2ZSVGk5SGlnOGc5?=
+ =?utf-8?B?OFJpMWhhMmdySG05eThuTE83dERkNlVScmRZWjBQVCtmVVhSRjNETVRGM3Zk?=
+ =?utf-8?B?ZUFQT3prai9lcTdkTTJ6YnNiQ3d0L3RmT2sxcDNXWFR5V1JYVGtkMjlObmM5?=
+ =?utf-8?B?clVDUlJzR3dtNVQ2dTdUdnJSN05haSswMlFEUVFDdW1JYi9KMWttZTZWNmJ1?=
+ =?utf-8?B?bzRDd0liME1yL0lHYWJOVGNuejZ6NVRPTWlrWWF1emN0OGRDYXdhQWNtanQz?=
+ =?utf-8?B?UGdWZ2xRVWp1V0RqNDZVbkVyL2grb2N2MEFCUmRJT2sxamcveUQwZmRza3VS?=
+ =?utf-8?B?NWJraGltVmc3VVBsZk1ScTNtWFRNc0dML25TVzdncDlEcUdQZTBOQXMxVnNO?=
+ =?utf-8?B?b2FUZ2hnNng2MERXVlVWK2xsMVo0VmFsdHRCYWNUZkZ2OXZNVXRNejN5SEcr?=
+ =?utf-8?B?YTBUSW5lYWRKMURvajZqOFNQK1hEWHcrbmJMcDcwUzNUeHJsamVaS2M4Q1p2?=
+ =?utf-8?B?UWpURkJOczZ6N09RWlg4RVBrZ1B6c2M0cmJLUkRabElSeXduZjY4R3Q5b3hU?=
+ =?utf-8?B?WDdJeUN3MVZncWxISklaYUFPLzhXeWMzbS8wc0EySHJ0cFlxdkt2WU81cWx0?=
+ =?utf-8?B?aHI5OFZyb1EyQ0UxUEw4NnhCTlFkMEt1QUs3ZG9UVEdZMWlHbFJRaWd6M1FC?=
+ =?utf-8?B?QnkwaDE0V1duTXRVT1hCN0RDY0dQaEgxc1pocGVabHg1dTdINy9SdlUrUWx0?=
+ =?utf-8?B?aTJqWGhsYkFJUlRBWTFtWTlFVTJRT29iZVlMU1BxTTBxbVRyQ2tEYzJNZGRD?=
+ =?utf-8?B?Sm5LbUt4bnFnMjI5TFd0OERyd3lGQkFSSUFlM0N3Rit6NEtXMThwazdTRmNr?=
+ =?utf-8?B?bjBocmVjQ0xxdUVvNy96VGxlMHo4VVRhQ2N1aVFnYVhTN3o1d2xUNm84UFNu?=
+ =?utf-8?B?RjJOWTlJRzNHckowazNKSFJlTEdYZjVZYmRaanpWbEtvekdVZkc0b3hpZldm?=
+ =?utf-8?B?eE56REVjdUtGOVJYSUc3NkUrOHpENWp0Qyt4b0VFdUJEMjVtblU4elV2dngz?=
+ =?utf-8?B?cGdHM1RPc1B3Nm9UVXV2azNSb3JQb0EzNnBmRGVWdXJMTXJWQ1QzUHJiUVZ6?=
+ =?utf-8?Q?JP416N3K+ep0XIdIS832YetXlqaU8wzF?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <1647452154-16361-1-git-send-email-quic_sbillaka@quicinc.com>
- <1647452154-16361-7-git-send-email-quic_sbillaka@quicinc.com>
- <CAE-0n520pQKM7mFSE_00ER+F9RKUPrN+y4U8fmsxi7FoFMyOrA@mail.gmail.com>
- <CAD=FV=UWF8K9JPJXFSGMRK-HmCi+2jM3aN6Uy7hyDSu1_azF+w@mail.gmail.com>
- <CAE-0n53U=bqPTGtPx2Ho5axtO6EL6WtOtmFisxSufC6OZERV1Q@mail.gmail.com>
- <CAD=FV=WaK8VFC-BvsFpnUv3mW4svGggQTw1hh+zRCEhGvbgYMQ@mail.gmail.com>
- <CAE-0n52v2m4U0wK6NYf4KBwXmp+TEVhjnGpW4rQHuZSf7TYfgA@mail.gmail.com>
-In-Reply-To: <CAE-0n52v2m4U0wK6NYf4KBwXmp+TEVhjnGpW4rQHuZSf7TYfgA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 18 Mar 2022 16:56:26 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WFkXdXVdqhBcfa48JKcUcbUe2M0bW6-V8zjP8jgvjvHA@mail.gmail.com>
-Message-ID: <CAD=FV=WFkXdXVdqhBcfa48JKcUcbUe2M0bW6-V8zjP8jgvjvHA@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 6/9] drm/msm/dp: wait for hpd high before
- any sink interaction
+X-OriginatorOrg: qti.qualcomm.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR02MB8173.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b73241c4-5651-4355-f15f-08da0b56dedf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2022 16:21:35.9564 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iavX5ws6SILA3VehhZOCNS/AXrcSdn4BiqYoyoH7TBknzKMVKTwnHOkflB5AxQQrdxghAAA4phS58XuyBG2EhG3nqSqprkDv1HKeZhiMhkk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB4415
+Subject: Re: [Freedreno] [PATCH v6 1/5] drm/msm/disp/dpu1: set mdp clk to
+ the maximum frequency in opp table during probe
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,164 +141,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- quic_khsieh@quicinc.com, Andy Gross <agross@kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, quic_vproddut@quicinc.com,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, quic_abhinavk@quicinc.com,
- Rob Herring <robh+dt@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Sean Paul <sean@poorly.run>, quic_kalyant <quic_kalyant@quicinc.com>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, krzk+dt@kernel.org,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ quic_kalyant <quic_kalyant@quicinc.com>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dianders@chromium.org" <dianders@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Fri, Mar 18, 2022 at 4:27 PM Stephen Boyd <swboyd@chromium.org> wrote:
->
-> > > Pushing hpd state checking into aux
-> > > transactions looks like the wrong direction. Also, as I said up above I
-> > > am concerned that even checking the GPIO won't work and we need some way
-> > > to ask the bridge if HPD is asserted or not and then fallback to the
-> > > GPIO method if the display phy/controller doesn't have support to check
-> > > HPD internally. Something on top of DRM_BRIDGE_OP_HPD?
-> >
-> > If we could somehow get the HPD status from the bridge in the panel
-> > driver it definitely would be convenient. It does feel like that's an
-> > improvement that could be done later, though. We've already landed a
-> > few instances of doing what's done here, like for parade-ps8640 and
-> > analogix_dp. I suspect designing a new mechanism might not be the most
-> > trivial.
->
-> What is done in the bridge drivers is to wait for a fixed timeout and
-> assume aux is ready? Or is it something else? If there's just a fixed
-> timeout for the eDP case it sounds OK to do that for now and we can fine
-> tune it later to actually check HPD status register before the panel
-> tries to read EDID.
-
-Right. For the parade chip (which is only used for eDP as far as I
-know--never DP) waits for up to 200 ms. See ps8640_ensure_hpd().
-
-So I guess tl;dr to Sankeerth that it's OK for his patch to have the
-wait in the aux transfer function, but only for eDP. Other discussions
-here are about how we could make it better in future patches.
-
-
-> > I haven't actually tried it, but I suspect that to get something like
-> > what you're talking about we'd have to get the rest of drm to know
-> > that for eDP ports that it should assume something is connected
-> > _regardless_ of what the "detect" / "HPD" options say. Then we'd have
-> > to extend the edp-panel code to be able to be able to query the next
-> > bridge in the chain if a GPIO wasn't provided.
->
-> Can the panel interrogate the bridge chain somehow? It feels like either
-> something in the chain should know the status of HPD (the case here
-> where display controller in the SoC knows) or it should be a gpio to the
-> panel (trogdor case). The bridge ops can implement DRM_BRIDGE_OP_HPD and
-> the first bridge from the encoder that supports HPD can implement some
-> sort of "wait for hpd asserted" function that the panel then uses once
-> it powers up the panel during probe. If the panel has a gpio and nothing
-> else in the chain can detect hpd then the panel polls the gpio, or it
-> waits for the amount of time delay after powering on the panel if the
-> panel's hpd function is called.
-
-Yeah, there ought to be some way to make something like that work. I
-don't think it's just DRM_BRIDGE_OP_HPD, though, for a few reasons:
-
-1. That operation actually specifically means that HPD can cause an
-interrupt and that the bridge promises to call drm_bridge_hpd_notify()
-when the interrupt occurs. It seems to work hand-in-hand with
-"DRM_BRIDGE_OP_DETECT". I know it's legit to advertise "detect"
-without "HPD" (you have an HPD line that can be polled but not cause
-interrupts) but I'd have to research whether it's legal to advertise
-"HPD" without "detect".
-
-2. If it were up to me, I'd rather avoid conflating what we need with
-the existing "HPD" and "DETECT" ops. While the line is called "HPD" in
-the eDP spec, what we're looking for here is really a different
-concept. eDP panels are never hot plugged and are always present, so
-I'd personally rather it be a new OP like "OP_PANEL_READY". Of course,
-in whatever future patch we could always debate this.
-
-3. The main reason I'd prefer a different op is that I think using the
-existing ops will confuse DRM (not just because I'm being pedantic).
-If DRM sees that the eDP controller driver advertises that it can
-"detect" and support "hpd" then it will use these functions to decide
-whether it should start turning on the panel. ...and it won't even try
-using the panel until one is detected, right? ...but that means that
-it won't be powered on and will never be detected. ;-) This is what
-I'm trying to get at: it's a different concept. The panel is always
-there and never hotplugged. The existing DRM ops (IMO) are for knowing
-whether a panel is physically present. For eDP the answer is always a
-resounding "yes", even if we have no actual evidence (because we can't
-gather evidence for an "off" panel). On eDP the HPD line simply means
-something different than on DP.
-
-
-> > > > For the DP case this should not cause any significant overhead, right?
-> > > > HPD should always be asserted so this is basically just one extra IO
-> > > > read confirming that HPD is asserted which should be almost nothing...
-> > > > You're just about to do a whole bunch of IO reads/writes in order to
-> > > > program the AUX transaction anyway.
-> > >
-> > > In the DP case the dongle/cable can be disconnected in the middle of aux
-> > > transactions. If that happens we could be waiting a while in this
-> > > transfer function to timeout looking for the status bit. The driver
-> > > already gets an "unplug" irq when the cable is disconnected though so it
-> > > would be better to figure out a way to stop the aux transactions quickly
-> > > when that happens without having to read the hardware and poll the bit
-> > > that we already know is doomed to timeout. I think apple dongles throw
-> > > this logic for a loop though because the HDMI cable can be disconnected
-> > > from the dongle and then we don't see an "unplug" irq, just the number
-> > > of sinks becomes 0. Maybe there's an irq_hpd event, not sure.
-> >
-> > Ah, interesting. Having a DP cable unplugged in the middle of an aux
-> > transaction does seem like it could be a problem. What if we just wait
-> > in the case our bridge.type is "DRM_MODE_CONNECTOR_eDP"? That should
-> > be easy, right?
->
-> Sounds like it would work. Is this supposed to fix some DP case as well
-> though? There were some patches to speed up aux failures when the dongle
-> was unplugged but I haven't checked after that. I guess this waiting is
-> only important for eDP because the edp-panel code is trying to read EDID
-> and it isn't waiting for HPD to be asserted before doing that.
-
-Right, I think this is only important for eDP.
-
-
-> > > That doesn't sound right.
-> > > My understanding is that HPD will be asserted after the panel is powered
-> > > up. Before that HPD is deasserted. Similarly, when we power down the
-> > > panel, HPD will be deasserted. I guess DRM wants to assume that an eDP
-> > > panel is always connected? That sounds like it might be OK as long as
-> > > userspace doesn't use "connected" to know that it's OK to do things like
-> > > read/write aux or push pixels to the panel when HPD is deasserted.
-> >
-> > IMO having userspace reading / writing aux directly and expecting it
-> > to work is a terrible idea anyway. It's _maybe_ sorta OK in the DP
-> > case, but it's really not good in the eDP case. To me it's sorta like
-> > expecting things to be amazing and foolproof when you go behind the
-> > kernel's back and write to an i2c device using `i2cset -f`. Sure, it
-> > might work, but it can also confuse the heck out of things. It also
-> > turns out to be a huge problem when you get to PSR because userspace
-> > will get errors if it tries to write to the AUX channel and the panel
-> > is in PSR mode. This came up in the context of Brian's analogix dp
-> > patches [1]. The right answer, in my mind, is to treat userspace
-> > accessing the AUX channel directly as more of a debug feature, at
-> > least for eDP panels.
->
-> If it's a debug feature then it should be removed from the system. The
-> flow of data is passing through the kernel so if the kernel is getting
-> confused about backdoor access over aux it should snoop the transactions
-> and block things it doesn't like. I don't know the backstory on aux
-> being exposed to userspace, but leaving it in a broken state isn't good.
-
-Agreed, it's not a great situation. :(
-
--Doug
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogU3RlcGhlbiBCb3lkIDxz
+d2JveWRAY2hyb21pdW0ub3JnPg0KPiBTZW50OiBGcmlkYXksIE1hcmNoIDE4LCAyMDIyIDI6NDEg
+QU0NCj4gVG86IHF1aWNfdnBvbGltZXIgPHF1aWNfdnBvbGltZXJAcXVpY2luYy5jb20+Ow0KPiBk
+ZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZzsNCj4gZnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtYXJtLW1zbUB2Z2Vy
+Lmtlcm5lbC5vcmcNCj4gQ2M6IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IHJvYmRjbGFy
+a0BnbWFpbC5jb207DQo+IGRtaXRyeS5iYXJ5c2hrb3ZAbGluYXJvLm9yZzsgZGlhbmRlcnNAY2hy
+b21pdW0ub3JnOyBxdWljX2thbHlhbnQNCj4gPHF1aWNfa2FseWFudEBxdWljaW5jLmNvbT4NCj4g
+U3ViamVjdDogUmU6IFtQQVRDSCB2NiAxLzVdIGRybS9tc20vZGlzcC9kcHUxOiBzZXQgbWRwIGNs
+ayB0byB0aGUNCj4gbWF4aW11bSBmcmVxdWVuY3kgaW4gb3BwIHRhYmxlIGR1cmluZyBwcm9iZQ0K
+PiANCj4gV0FSTklORzogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiBRdWFs
+Y29tbS4gUGxlYXNlIGJlIHdhcnkNCj4gb2YgYW55IGxpbmtzIG9yIGF0dGFjaG1lbnRzLCBhbmQg
+ZG8gbm90IGVuYWJsZSBtYWNyb3MuDQo+IA0KPiBRdW90aW5nIFZpbm9kIFBvbGltZXJhICgyMDIy
+LTAzLTE0IDA3OjQ2OjUzKQ0KPiA+IHVzZSBtYXggY2xvY2sgZHVyaW5nIHByb2JlL2JpbmQgc2Vx
+dWVuY2UgZnJvbSB0aGUgb3BwIHRhYmxlLg0KPiA+IFRoZSBjbG9jayB3aWxsIGJlIHNjYWxlZCBk
+b3duIHdoZW4gZnJhbWV3b3JrIHNlbmRzIGFuIHVwZGF0ZS4NCj4gDQo+IENhcGl0YWxpemUgJ3Vz
+ZScuDQo+IA0KPiBXaHkgaXMgaXQgaW1wb3J0YW50IHRvIHVzZSBtYXggZnJlcXVlbmN5IGR1cmlu
+ZyBwcm9iZS9iaW5kPyBEb2VzIG5vdA0KPiBzZXR0aW5nIHRoZSBjbGsgcmF0ZSBkdXJpbmcgcHJv
+YmUgbWVhbiB0aGF0IHdlJ2xsIG5ldmVyIHVzZSB0aGUgbWF4DQo+IHJhdGU/IERvZXMgaXQgc3Bl
+ZWQgdGhpbmdzIHVwIGR1cmluZyBwcm9iZT8NCg0KV2UgbmVlZCB0byB2b3RlIG1kcCBjbG9jayBk
+dXJpbmcgcHJvYmUvYmluZCBzbyB0aGF0IHJhaWxzIGFyZSBub3Qgc2V0IGF0IHVuZGV0ZXJtaW5l
+ZCBzdGF0ZSBhcyBwb2ludGVkIG91dCBieSBEbWl0cnkuDQpTaW5jZSB3ZSBkb250IGtub3cgd2hh
+dCB3aWxsIGJlIHRoZSByYXRlIHNldCBpbiBib290IGxvYWRlciwgaXQgd291bGQgYmUgaWRlYWwg
+dG8gdm90ZSBhdCBtYXggZnJlcXVlbmN5LiANClRoZXJlIGNvdWxkIGJlIGEgZmlybXdhcmUgZGlz
+cGxheSBwcm9ncmFtbWVkIGluIGJvb3Rsb2FkZXIgYW5kIHdlIHdhbnQgdG8gdHJhbnNpdGlvbiBp
+dCB0byBrZXJuZWwgd2l0aG91dCB1bmRlcmZsb3dpbmcuDQoNClRoYW5rcywNClZpbm9kIFAuDQo=
