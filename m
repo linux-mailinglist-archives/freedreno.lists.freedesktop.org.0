@@ -2,53 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78DF14E32B0
-	for <lists+freedreno@lfdr.de>; Mon, 21 Mar 2022 23:38:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7CB04E34FD
+	for <lists+freedreno@lfdr.de>; Tue, 22 Mar 2022 00:57:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871D710E05A;
-	Mon, 21 Mar 2022 22:38:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A1410E4DD;
+	Mon, 21 Mar 2022 23:57:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 259BD10E03E;
- Mon, 21 Mar 2022 22:38:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1647902290; x=1679438290;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=NGivaWeKRY3MksBC8EwXE84CdRJB3qnQz8+tE0sTF7w=;
- b=V2uKyly29TUd6NiBZrWGoI9vbBqYVpbAZRQ/uouzOEEyT1w4TkNv/lRl
- rJMWqhcC55qYoYwsk587CZj0kruglwvamOY+XgXrQqPGkotWE8Nlj1uZr
- YGMbbPRI92J4Yn8fBuJXxJkERGQXglwzP+Fp826pWRTP8ykiPn+OWdBLu
- 9TxZWRKl/DzxCV4fUo5vk+fut7zUg4zswBMni4uesv/jR98TLZlS6//ei
- joBjv6qZIVAR0RcpLAsSDibJYWWjUfen7wAmIkanLG4hPPeTld3/NRnEf
- +ZJwQmVRn7MHOpj6U+nEMPKCaFx0tpXD3fB8HoR/Q1qDcySmHXf9RBtsh g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10293"; a="255227096"
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="255227096"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2022 15:38:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,199,1643702400"; d="scan'208";a="560073382"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by orsmga008.jf.intel.com with SMTP; 21 Mar 2022 15:37:58 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 22 Mar 2022 00:37:57 +0200
-Date: Tue, 22 Mar 2022 00:37:57 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Message-ID: <Yjj+RSVBWk6UO2C7@intel.com>
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
- <Yi+9n0eGn3rNKb4X@intel.com>
- <CADnq5_NS07TPBWSnETRhjzqtX_oUuCu86ewurFT3MJO=PcLAuQ@mail.gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9631D10E4D6;
+ Mon, 21 Mar 2022 23:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1647907025; x=1679443025;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=d5/Io2wnZdMUf+sn7RVQaL6yVQpF6Kai1sI79s5CUCw=;
+ b=mAGDUF2PACIxuzIy6M1jMKT2aKz6IO1Gew8e148pIaYgUtkujXgHUztt
+ An6TooVvfYpA3uqeMKEhM/1qZ4AVqZnSvZnQtK8ZZxyPeFr6sN4yizTkD
+ OaUrSYJFRSIvWrrJcDF5CGaqhpWNjQ5cv+6UxfaokU23SMr+Z2rmGXrAi A=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 21 Mar 2022 16:57:05 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2022 16:57:03 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 21 Mar 2022 16:57:03 -0700
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 21 Mar 2022 16:57:02 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>
+Date: Mon, 21 Mar 2022 16:56:41 -0700
+Message-ID: <1647907005-27004-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADnq5_NS07TPBWSnETRhjzqtX_oUuCu86ewurFT3MJO=PcLAuQ@mail.gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH 00/22] drm: Review of mode copies
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v5 0/4] Allow drm_writeback_connector to accept
+ pointer to drm_encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,86 +58,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, Chen Feng <puck.chen@hisilicon.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Nikola Cornij <nikola.cornij@amd.com>, John Stultz <john.stultz@linaro.org>,
- Sean Paul <sean@poorly.run>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Tomi Valkeinen <tomba@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- Sandy Huang <hjc@rock-chips.com>, Robert Foss <robert.foss@linaro.org>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
+ rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, mripard@kernel.org,
+ swboyd@chromium.org, melissa.srw@gmail.com, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Mar 15, 2022 at 02:52:38PM -0400, Alex Deucher wrote:
-> On Mon, Mar 14, 2022 at 6:12 PM Ville Syrjälä
-> <ville.syrjala@linux.intel.com> wrote:
-> >
-> > On Fri, Feb 18, 2022 at 12:03:41PM +0200, Ville Syrjala wrote:
-> > >   drm: Add drm_mode_init()
-> > >   drm/bridge: Use drm_mode_copy()
-> > >   drm/imx: Use drm_mode_duplicate()
-> > >   drm/panel: Use drm_mode_duplicate()
-> > >   drm/vc4: Use drm_mode_copy()
-> > These have been pushed to drm-misc-next.
-> >
-> > >   drm/amdgpu: Remove pointless on stack mode copies
-> > >   drm/amdgpu: Use drm_mode_init() for on-stack modes
-> > >   drm/amdgpu: Use drm_mode_copy()
-> > amdgpu ones are reviewed, but I'll leave them for the
-> > AMD folks to push to whichever tree they prefer.
-> 
-> I pulled patches 2, 4, 5 into my tree.
+There are some vendor drivers for which the writeback encoder shares
+hardware resources such as clocks and interrupts with the rest of the
+display pipeline. In addition, there can be use-cases where the
+writeback encoder could be a shared encoder between the physical display
+path and the writeback path.
 
-Thanks.
+To accommodate for such cases, change the drm_writeback_connector to
+accept a pointer to drm_encoder.
 
-> For 3, I'm happy to have it
-> land via drm-misc with the rest of the mode_init changes if you'd
-> prefer.
+For existing users of drm_writeback_connector there will not be any
+change in functionality due to this change.
 
-Either way works for me. I don't yet have reviews yet for
-the other drivers, so I'll proably hold off for a bit more
-at least. And the i915 patch I'll be merging via drm-intel.
+This approach was first posted by Suraj Kandpal here [1] for both
+encoder and connector. But after discussions [2], the consensus was
+reached to split this change for the drm_encoder first and the
+drm_connector part can be reworked in a subsequent change later.
 
-> > >   drm/radeon: Use drm_mode_copy()
-> > >   drm/gma500: Use drm_mode_copy()
-> > >   drm/tilcdc: Use drm_mode_copy()
-> > >   drm/i915: Use drm_mode_copy()
+Validation of this change was done using igt_writeback tests on
+MSM based RB5 board using the changes posted here [3].
 
-Those are now all in.
+For all other chipsets, these changes were compile-tested.
 
-Which leaves us with these stragglers:
-> > >   drm/hisilicon: Use drm_mode_init() for on-stack modes
-> > >   drm/msm: Nuke weird on stack mode copy
-> > >   drm/msm: Use drm_mode_init() for on-stack modes
-> > >   drm/msm: Use drm_mode_copy()
-> > >   drm/mtk: Use drm_mode_init() for on-stack modes
-> > >   drm/rockchip: Use drm_mode_copy()
-> > >   drm/sti: Use drm_mode_copy()
-> > >   drm: Use drm_mode_init() for on-stack modes
-> > >   drm: Use drm_mode_copy()
+[1] https://patchwork.kernel.org/project/dri-devel/patch/20220202081702.22119-1-suraj.kandpal@intel.com/
+[2] https://patchwork.kernel.org/project/dri-devel/patch/20220202085429.22261-6-suraj.kandpal@intel.com/
+[3] https://patchwork.freedesktop.org/series/99724/
+
+changes in v5:
+	- re-order the series to make sure the encoder initialization
+	  is not broken due to incorrect order of changes
+
+Abhinav Kumar (4):
+  drm: allow passing possible_crtcs to drm_writeback_connector_init()
+  drm: introduce drm_writeback_connector_init_with_encoder() API
+  drm/vc4: change vc4 driver to use
+    drm_writeback_connector_init_with_encoder()
+  drm: allow real encoder to be passed for drm_writeback_connector
+
+ .../drm/arm/display/komeda/komeda_wb_connector.c   |   3 +-
+ drivers/gpu/drm/arm/malidp_mw.c                    |   4 +-
+ drivers/gpu/drm/drm_writeback.c                    | 143 +++++++++++++++------
+ drivers/gpu/drm/rcar-du/rcar_du_writeback.c        |   4 +-
+ drivers/gpu/drm/vc4/vc4_txp.c                      |  36 ++++--
+ drivers/gpu/drm/vkms/vkms_writeback.c              |   4 +-
+ include/drm/drm_writeback.h                        |  25 +++-
+ 7 files changed, 161 insertions(+), 58 deletions(-)
 
 -- 
-Ville Syrjälä
-Intel
+2.7.4
+
