@@ -1,41 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C3BB4E4661
-	for <lists+freedreno@lfdr.de>; Tue, 22 Mar 2022 19:59:39 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC774E4F3F
+	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 10:25:43 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A674010E1A0;
-	Tue, 22 Mar 2022 18:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A86B899BC;
+	Wed, 23 Mar 2022 09:25:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay06.th.seeweb.it (relay06.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183EA10E1A0
- for <freedreno@lists.freedesktop.org>; Tue, 22 Mar 2022 18:59:35 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 2628C3F838;
- Tue, 22 Mar 2022 19:59:33 +0100 (CET)
-Date: Tue, 22 Mar 2022 19:59:25 +0100
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20220322185925.nszstmi5silgefd5@SoMainline.org>
-References: <20211116062256.2417186-1-vkoul@kernel.org>
- <20211116062256.2417186-13-vkoul@kernel.org>
- <20211211000315.pavmcc7cc73ilb6l@SoMainline.org>
- <Yg4t/G3tgcmkswHg@matsya>
- <20220217151142.sbp6wslxbxeohsgf@SoMainline.org>
- <YjoEgpAZAwM8hWEa@matsya>
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A81899E7
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 09:25:41 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id b5so968550ljf.13
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 02:25:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fvjRDTA2PHAlGFO2FpdE45QYwvQjOSHNe4XoKh928v0=;
+ b=odabUKNblygvx+Syti9Owoko3d6g7SLDWjHmrot5+hraYUPnROcP6gnYa81bym3pCD
+ oeArRwxeKX5KKkE7bjuaIcr3IzojRwIUDOvOT2pDlzQe855uqmU9jMBVXDhxwSEm+6le
+ b0wptKL7ElZtCWGEvgk6DEA8uMXZ6ekiXx4EKRwwCbPFtxSbgzDnKuXc23zS5klEFCUU
+ A6o6dTk/363HzaVDNNyo//te08wQGKMqJcMFZka0EXnA4jjpPFAxAjVng1licqbvbHsE
+ QzbWHjc2kc+kuQzrdGu02DNIAJcGDjGwicWkUmRc7vJUF2QSCwnvsd1Nvvnv7ssAzxWV
+ rymw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fvjRDTA2PHAlGFO2FpdE45QYwvQjOSHNe4XoKh928v0=;
+ b=oQjagYwtPwSy0wa+A2pfElQ5PiIWPji+QY9t3BlocP4hdRyU8nJ2R2FRbbUeMVJsGd
+ MRuoqe/zb6FUOIzqBLzawZKLK9m/Q36g7wOztXPCSWbLlBZ6p41IVWmcdVYlNnHchYOK
+ CezcJYwRv2jA3u5DEV2ogQjPOv+0OmwST28uhFsOj7uVRPXOCNhcctWp7q826gqlVu7o
+ LubpY5Cbqi6/4Q7IsFGLhkqBn6ZCKgDhF8tfTd93JlF7+xt++xHYq2urzcHspyxLWhDV
+ crzBv13tXxKJm5jvFOtaMjX48xCwOtCVBAyDyK4UbOhdHEVhImLMmt3ZgTFBfcIRRvyq
+ sCsQ==
+X-Gm-Message-State: AOAM531bjVzSPK9Fj++UeaKtXYm0hOJKjWVHtOPGLEDT2XcxVjvCwzJf
+ dyzJxMEYYi2ea8bp+/HdLuxi8Q==
+X-Google-Smtp-Source: ABdhPJyCYvUuHklHkrRy2ybKyWKzmlY1S9EFMDIqtaglPZxKvLIyr8wx5fsy2eluw7K8dawNj3ZM4w==
+X-Received: by 2002:a2e:bf01:0:b0:247:dfe7:62dc with SMTP id
+ c1-20020a2ebf01000000b00247dfe762dcmr22281064ljr.365.1648027540016; 
+ Wed, 23 Mar 2022 02:25:40 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ br12-20020a056512400c00b0044a2c454ebcsm986026lfb.27.2022.03.23.02.25.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Mar 2022 02:25:39 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 23 Mar 2022 12:25:32 +0300
+Message-Id: <20220323092538.1757880-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YjoEgpAZAwM8hWEa@matsya>
-Subject: Re: [Freedreno] [PATCH v3 12/13] drm/msm/dsi: Add support for DSC
- configuration
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 0/6] drm/msm: rework MDSS drivers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,111 +68,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-03-22 22:46:50, Vinod Koul wrote:
-> On 17-02-22, 16:11, Marijn Suijten wrote:
-> > Hi Vinod,
-> > 
-> > Thanks for taking time to go through this review, please find some
-> > clarifications below.
-> > 
-> > On 2022-02-17 16:44:04, Vinod Koul wrote:
-> > > Hi Marijn,
-> > > 
-> > > On 11-12-21, 01:03, Marijn Suijten wrote:
-> > > 
-> > > > > +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
-> > > > > +				  int pic_width, int pic_height)
-> > > > 
-> > > > This function - adopted from downstream - does not seem to perform a
-> > > > whole lot, especially without the modulo checks against the slice size.
-> > > > Perhaps it can be inlined?
-> > > 
-> > > Most of the code here is :)
-> > > 
-> > > This was split from downstream code to check and update dimension. We
-> > > can inline this, or should we leave that to compiler. I am not a very
-> > > big fan of inlining...
-> > 
-> > It doesn't seem beneficial to code readability to have this function,
-> > which is only called just once and also has the same struct members read
-> > in a `DBG()` directly, abstracted away to a function.  Not really
-> > concerned about generated code/performance FWIW.
-> > 
-> > Also note that the caller isn't checking the `-EINVAL` result...
-> 
-> I have made this void inline.
+These patches coninue work started by AngeloGioacchino Del Regno in the
+previous cycle by further decoupling and dissecting MDSS and MDP drivers
+probe/binding paths.
 
-Perhaps there is a misunderstanding here: with inlining I am referring
-to the process of transplanting the _function body_ to the only
-call-site, not adding the `inline` keyword nor changing this to `void`.
+This removes code duplication between MDP5 and DPU1 MDSS drivers, by
+merging them and moving to the top level.
 
-The checks that make this function return `-EINVAL` seem valid, so the
-caller should check it instead of removing the return?
+This patchset depends on the patches 1 and 2 from [1]
 
-> > > > 
-> > > > > +{
-> > > > > +	if (!dsc || !pic_width || !pic_height) {
-> > > > > +		pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n", pic_width, pic_height);
-> > > > > +		return -EINVAL;
-> > > > > +	}
-> > > > > +
-> > > > > +	dsc->drm->pic_width = pic_width;
-> > > > > +	dsc->drm->pic_height = pic_height;
-> > > > > +
-> > > > > +	return 0;
-> > > > > +}
-> > > > > +
-> > > > >  static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-> > > > >  {
-> > > > >  	struct drm_display_mode *mode = msm_host->mode;
-> > > > > @@ -940,7 +954,68 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
-> > > > >  		hdisplay /= 2;
-> > > > >  	}
-> > > > >  
-> > > > > +	if (msm_host->dsc) {
-> > > > > +		struct msm_display_dsc_config *dsc = msm_host->dsc;
-> > > > > +
-> > > > > +		/* update dsc params with timing params */
-> > > > > +		dsi_dsc_update_pic_dim(dsc, mode->hdisplay, mode->vdisplay);
-> > 
-> > That is, the result code here should be checked (or function inlined).
-> 
-> This function return void, so no point in checking
+Changes since v3:
+ - Rebased on top of current msm/msm-next
+ - Fixed issue with enabling/disabling MDP4/MDP5 vs DSI driver (per
+   Stephen's suggestion)
+ - Reworked mdss_probe to remove extra platform_set_drvdata calls (per
+   Stephen's suggestion)
+ - Fixed a typo in the Kconfig (noted by Rob)
+ - Added a patch to move component mastership from mdss to mdp5/dpu1
+   devices
 
-It isn't returning `void` in the current patch series that my email is
-reviewing, hence explicitly mentioning here that it may have been
-overlooked.
+Changes since v2:
+ - Rebased on top of current msm/msm-next(-staging)
+ - Allow disabling MDP4/MDP5/DPU/HDMI components (like we do for DP and
+   DSI)
+ - Made mdp5_mdss_parse_clock() static
+ - Changed mdp5 to is_mdp5 argument in several functions
+ - Dropped boolean device data from the mdss driver
+ - Reworked error handling in msm_pdev_probe()
+ - Removed unused header inclusion
+ - Dropped __init/__exit from function prototypes
 
-Please only convert this to `void` if you are sure that the clause that
-originally made `dsi_dsc_update_pic_dim()` return `-EINVAL` on invalid
-input is unreachable (if, for example, you moved this check to another
-location, say here in `dsi_timing_setup`).
+Changes since v1:
+ - Rebased on top of [2] and [1]
 
-Alas, it's pretty tricky to reason and pose assumptions about code that
-I cannot see; we should probably continue this discussion in the next
-patch revision depending on how it looks :)
+[1] https://patchwork.freedesktop.org/series/99066/
+[2] https://patchwork.freedesktop.org/series/98521/
 
-> > [..]
-> > Thanks.  I forgot to mention: there seem to be a lot of similarities
-> > between the video and commandmode computations, can those possibly be
-> > factored out of the if-else to save on duplication and accidental
-> > mismatches like these?
-> 
-> Thanks, this was a good suggestion and am happy to report that I have
-> incorporated this and indeed code looks better
+Dmitry Baryshkov (6):
+  drm/msm: unify MDSS drivers
+  drm/msm: remove extra indirection for msm_mdss
+  drm/msm: split the main platform driver
+  drm/msm: stop using device's match data pointer
+  drm/msm: allow compile time selection of driver components
+  drm/msm: make mdp5/dpu devices master components
 
-Thank you for applying this and the other comments, glad to hear the
-code is shaping up and looking forward to the next revision!
+ drivers/gpu/drm/msm/Kconfig                   |  50 ++-
+ drivers/gpu/drm/msm/Makefile                  |  25 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |  78 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c      | 260 ------------
+ .../gpu/drm/msm/disp/mdp4/mdp4_dsi_encoder.c  |   3 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c      |  54 ++-
+ .../gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c  |   3 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c      |  54 +--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c     | 252 ------------
+ drivers/gpu/drm/msm/msm_drv.c                 | 261 +++---------
+ drivers/gpu/drm/msm/msm_drv.h                 |  61 ++-
+ drivers/gpu/drm/msm/msm_kms.h                 |  21 -
+ drivers/gpu/drm/msm/msm_mdss.c                | 379 ++++++++++++++++++
+ 13 files changed, 645 insertions(+), 856 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+ delete mode 100644 drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+ create mode 100644 drivers/gpu/drm/msm/msm_mdss.c
 
-- Marijn
+-- 
+2.35.1
+
