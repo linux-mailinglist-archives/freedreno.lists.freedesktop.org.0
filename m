@@ -1,70 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F02824E507A
-	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 11:39:50 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C746D4E50CC
+	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 11:58:07 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B4010E66B;
-	Wed, 23 Mar 2022 10:39:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 487B810E67D;
+	Wed, 23 Mar 2022 10:58:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49ACC10E675
- for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 10:39:48 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id h7so1980349lfl.2
- for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 03:39:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=LJG6LchEWg7eLND4+i+6tV16qS1u0tcHKvRxEtTuG+w=;
- b=yAkPXvHZVB3DXiA6lnV3OJs4l7boHKACGrx2zNN0q0WdW4bDDBFu/J4udxtyTi4LnD
- EW5GVcRjYXzEeDLkpqeGo1qdR36WyqvDgbQswBau6NJctIIV72R0Wo2Kj1TEosLVpGaq
- UvO0sdl+erB80ekBTDMX7IEdiKF3ft8qxVaWiecxxSgBJsWhhrQHl5YOnjDD05TZdcGP
- GDOInQ2USvHXmJkV5XU+7gTi59xIrI9Dv6xe++mHYqDqDI5n+u4nmlN8qRthsqM0DM33
- fzmhSc0ONmXxs82ScbBBb79fjsbtQFhKXPJYW/HWmd9J56xvz4lQapq28hyricqZ/Ueu
- gp4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=LJG6LchEWg7eLND4+i+6tV16qS1u0tcHKvRxEtTuG+w=;
- b=HAyALXA4JrQRHgx4GuG3CSjcVIM4+UkhVDXab50YErjOwxzd4X9Eab4tsb+6xMbBn9
- ymNCt4hn4qvRGOdanHcgFi6L8nY7RIUWoWfNpWKKnyTctbLxjNzhKuNAUBoUgcLzegPh
- agPVVZfVFXNynaEClI1fIwOJXzsw0dXVfcCoB2EF48jLwLUqxxDBtgGp26Vi9WRrpgTR
- 7ZL4nLAXqwtkKxhd6nRsVvYxiZ5/H3DvEX7xouTCnpQmemOnfE1qZR6EAqJgJ9ar0EV1
- TZHidXr0MyjQikeqwJFC4xuSF+lcNIw29H/pbzxy9IiITfnI796F7+LYt1URVHQS/RQv
- R1uQ==
-X-Gm-Message-State: AOAM533zGakOjP7IVwJ00g8iwGWEu2HpxBYASc/zk36ZsOLQ2SfBzr/S
- G7LM0PODeSizKH2sFnVDfirNCA==
-X-Google-Smtp-Source: ABdhPJxdoE2MJzCwqFEPkOY+WggWU0jxIXl/lqXQbtd4rieBWf/meitV/U1e3m4J8NKMlt9q9m+iIA==
-X-Received: by 2002:a05:6512:34c7:b0:44a:37de:9d74 with SMTP id
- w7-20020a05651234c700b0044a37de9d74mr6436931lfr.314.1648031986613; 
- Wed, 23 Mar 2022 03:39:46 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- x33-20020a0565123fa100b00443d3cffd89sm2479850lfa.210.2022.03.23.03.39.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Mar 2022 03:39:46 -0700 (PDT)
-Message-ID: <e9937a37-70c8-cc6f-15f2-1dbbb7f1bfba@linaro.org>
-Date: Wed, 23 Mar 2022 13:39:44 +0300
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5EB10E67D;
+ Wed, 23 Mar 2022 10:58:04 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 079AF60EE1;
+ Wed, 23 Mar 2022 10:58:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC840C340E9;
+ Wed, 23 Mar 2022 10:58:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648033083;
+ bh=LqwU8plbtn4AIksRq4IGPu+orql0HtiebWAHYKnPuDc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rITRSE/pQMHW6rMV+Ea0ZxWsSuyUUaz69aXGdoycdMJ66u9ihgXVNCL+lj1wpe4It
+ Yjnal3Yxk9WiKhq5dqwWYMn06dRaGeWNLIqdqcJNVENC7fcct4ET2ymGVrf+ERNNez
+ EFIIDNw96F21A3Z/HTu2Lpl855OK83YIsN0bSEc4oPogaYAA+sDwe7h9SRFJOgumqI
+ 7Y3Cvjc9zkUKxbwdZ3lBw4k2iju0p+ZkgAkHZbMACsUmG7zQXFwa771+kdVJE/DdbA
+ esp+gCxzNJwNKrt/Y0b8OQuEqEA0/TaqBdifW4zQF8f3tYL3j9CTFOl+99sVPjkLfs
+ d2WgAlIA/iw7Q==
+Date: Wed, 23 Mar 2022 16:27:59 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+Message-ID: <Yjr9N4DPdOyi7CO5@matsya>
+References: <20211116062256.2417186-1-vkoul@kernel.org>
+ <20211116062256.2417186-13-vkoul@kernel.org>
+ <20211211000315.pavmcc7cc73ilb6l@SoMainline.org>
+ <Yg4t/G3tgcmkswHg@matsya>
+ <20220217151142.sbp6wslxbxeohsgf@SoMainline.org>
+ <YjoEgpAZAwM8hWEa@matsya>
+ <20220322185925.nszstmi5silgefd5@SoMainline.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-GB
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Alex Deucher <alexdeucher@gmail.com>
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
- <Yi+9n0eGn3rNKb4X@intel.com>
- <CADnq5_NS07TPBWSnETRhjzqtX_oUuCu86ewurFT3MJO=PcLAuQ@mail.gmail.com>
- <Yjj+RSVBWk6UO2C7@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <Yjj+RSVBWk6UO2C7@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 00/22] drm: Review of mode copies
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220322185925.nszstmi5silgefd5@SoMainline.org>
+Subject: Re: [Freedreno] [PATCH v3 12/13] drm/msm/dsi: Add support for DSC
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,99 +59,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, Chen Feng <puck.chen@hisilicon.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Nikola Cornij <nikola.cornij@amd.com>, John Stultz <john.stultz@linaro.org>,
- Sean Paul <sean@poorly.run>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Tomi Valkeinen <tomba@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- Sandy Huang <hjc@rock-chips.com>, Robert Foss <robert.foss@linaro.org>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/03/2022 01:37, Ville Syrjälä wrote:
-> On Tue, Mar 15, 2022 at 02:52:38PM -0400, Alex Deucher wrote:
->> On Mon, Mar 14, 2022 at 6:12 PM Ville Syrjälä
->> <ville.syrjala@linux.intel.com> wrote:
->>>
->>> On Fri, Feb 18, 2022 at 12:03:41PM +0200, Ville Syrjala wrote:
->>>>    drm: Add drm_mode_init()
->>>>    drm/bridge: Use drm_mode_copy()
->>>>    drm/imx: Use drm_mode_duplicate()
->>>>    drm/panel: Use drm_mode_duplicate()
->>>>    drm/vc4: Use drm_mode_copy()
->>> These have been pushed to drm-misc-next.
->>>
->>>>    drm/amdgpu: Remove pointless on stack mode copies
->>>>    drm/amdgpu: Use drm_mode_init() for on-stack modes
->>>>    drm/amdgpu: Use drm_mode_copy()
->>> amdgpu ones are reviewed, but I'll leave them for the
->>> AMD folks to push to whichever tree they prefer.
->>
->> I pulled patches 2, 4, 5 into my tree.
+On 22-03-22, 19:59, Marijn Suijten wrote:
+> On 2022-03-22 22:46:50, Vinod Koul wrote:
+> > On 17-02-22, 16:11, Marijn Suijten wrote:
+> > > Hi Vinod,
+> > > 
+> > > Thanks for taking time to go through this review, please find some
+> > > clarifications below.
+> > > 
+> > > On 2022-02-17 16:44:04, Vinod Koul wrote:
+> > > > Hi Marijn,
+> > > > 
+> > > > On 11-12-21, 01:03, Marijn Suijten wrote:
+> > > > 
+> > > > > > +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
+> > > > > > +				  int pic_width, int pic_height)
+> > > > > 
+> > > > > This function - adopted from downstream - does not seem to perform a
+> > > > > whole lot, especially without the modulo checks against the slice size.
+> > > > > Perhaps it can be inlined?
+> > > > 
+> > > > Most of the code here is :)
+> > > > 
+> > > > This was split from downstream code to check and update dimension. We
+> > > > can inline this, or should we leave that to compiler. I am not a very
+> > > > big fan of inlining...
+> > > 
+> > > It doesn't seem beneficial to code readability to have this function,
+> > > which is only called just once and also has the same struct members read
+> > > in a `DBG()` directly, abstracted away to a function.  Not really
+> > > concerned about generated code/performance FWIW.
+> > > 
+> > > Also note that the caller isn't checking the `-EINVAL` result...
+> > 
+> > I have made this void inline.
 > 
-> Thanks.
+> Perhaps there is a misunderstanding here: with inlining I am referring
+> to the process of transplanting the _function body_ to the only
+> call-site, not adding the `inline` keyword nor changing this to `void`.
 > 
->> For 3, I'm happy to have it
->> land via drm-misc with the rest of the mode_init changes if you'd
->> prefer.
-> 
-> Either way works for me. I don't yet have reviews yet for
-> the other drivers, so I'll proably hold off for a bit more
-> at least. And the i915 patch I'll be merging via drm-intel.
-> 
->>>>    drm/radeon: Use drm_mode_copy()
->>>>    drm/gma500: Use drm_mode_copy()
->>>>    drm/tilcdc: Use drm_mode_copy()
->>>>    drm/i915: Use drm_mode_copy()
-> 
-> Those are now all in.
-> 
-> Which leaves us with these stragglers:
->>>>    drm/hisilicon: Use drm_mode_init() for on-stack modes
+> The checks that make this function return `-EINVAL` seem valid, so the
+> caller should check it instead of removing the return?
 
->>>>    drm/msm: Nuke weird on stack mode copy
->>>>    drm/msm: Use drm_mode_init() for on-stack modes
->>>>    drm/msm: Use drm_mode_copy()
-
-These three patches went beneath my radar for some reason.
-
-I have just sent a replacement for the first patch ([1]). Other two 
-patches can be pulled in msm/msm-next (or msm/msm-fixes) during the next 
-development cycle if that works for you.
-
-[1] https://patchwork.freedesktop.org/series/101682/
-
->>>>    drm/mtk: Use drm_mode_init() for on-stack modes
->>>>    drm/rockchip: Use drm_mode_copy()
->>>>    drm/sti: Use drm_mode_copy()
->>>>    drm: Use drm_mode_init() for on-stack modes
->>>>    drm: Use drm_mode_copy()
-> 
-
-
+Okay somehow I misunderstood then, let me see how the code looks in this
+case then
 -- 
-With best wishes
-Dmitry
+~Vinod
