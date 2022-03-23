@@ -2,55 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A7A4E54EB
-	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 16:11:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24274E56C9
+	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 17:46:29 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 795D910E73B;
-	Wed, 23 Mar 2022 15:11:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1EC210E260;
+	Wed, 23 Mar 2022 16:46:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4AC10E750;
- Wed, 23 Mar 2022 15:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1648048268; x=1679584268;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Ak6vruZ0s0jfULNjhGFGclYiId7Hr9OSzLl3ubjhZxA=;
- b=FzaN92rWg6wJqHjnMWUdpKyw9H+xCBDt4/SgO8JCGbK5jBcKsoZHK1oZ
- mhyfs0QE7zNTBnC5QBXWewiK7rLDcOnWbrmq7614mWrJkY+DcdfEmEfqj
- kdEjlVSmr/7rma/HzVRKYV/ChN3q7AySSUiGGDNRjK6EUMm6jt0Wjk+E2
- vNeX5aIlz/Ik4yULYWRAKn58KL0Itx4DbsDUc/+nqXoTn6r9/C17aWhxE
- zqx+8+aQ7JbREGEGiVLbCzx8D/vPiKiFFVfDQ0b1ErlNYbCIQYw1L6xZV
- Uymx1Cdpxzgqp6lf5SsaJE/Tgpo4BjlSpCNigAgGFwcfd6PF9CjiQHIMo Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="238735960"
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="238735960"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2022 08:11:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,204,1643702400"; d="scan'208";a="692975118"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.61])
- by fmsmga001.fm.intel.com with SMTP; 23 Mar 2022 08:10:57 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 23 Mar 2022 17:10:56 +0200
-Date: Wed, 23 Mar 2022 17:10:56 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Yjs4gIBuftRyLElE@intel.com>
-References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
- <Yi+9n0eGn3rNKb4X@intel.com>
- <CADnq5_NS07TPBWSnETRhjzqtX_oUuCu86ewurFT3MJO=PcLAuQ@mail.gmail.com>
- <Yjj+RSVBWk6UO2C7@intel.com>
- <e9937a37-70c8-cc6f-15f2-1dbbb7f1bfba@linaro.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CA94D10E260
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 16:46:26 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7CE57D6E
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 09:46:26 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3C83D3F73D
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 09:46:26 -0700 (PDT)
+Date: Wed, 23 Mar 2022 16:46:22 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <YjtO3o3gchzEPCBD@e110455-lin.cambridge.arm.com>
+References: <1647907005-27004-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1647907005-27004-3-git-send-email-quic_abhinavk@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e9937a37-70c8-cc6f-15f2-1dbbb7f1bfba@linaro.org>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH 00/22] drm: Review of mode copies
+In-Reply-To: <1647907005-27004-3-git-send-email-quic_abhinavk@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v5 2/4] drm: introduce
+ drm_writeback_connector_init_with_encoder() API
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,108 +44,279 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-rockchip@lists.infradead.org,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, Chen Feng <puck.chen@hisilicon.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- Nikola Cornij <nikola.cornij@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, John Stultz <john.stultz@linaro.org>,
- Sean Paul <sean@poorly.run>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Tomi Valkeinen <tomba@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
- Sandy Huang <hjc@rock-chips.com>, Robert Foss <robert.foss@linaro.org>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexdeucher@gmail.com>, Tian Tao <tiantao6@hisilicon.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: mripard@kernel.org, hamohammed.sa@gmail.com, suraj.kandpal@intel.com,
+ emma@anholt.net, rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
+ robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+ freedreno@lists.freedesktop.org, brian.starkey@arm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Mar 23, 2022 at 01:39:44PM +0300, Dmitry Baryshkov wrote:
-> On 22/03/2022 01:37, Ville Syrjälä wrote:
-> > On Tue, Mar 15, 2022 at 02:52:38PM -0400, Alex Deucher wrote:
-> >> On Mon, Mar 14, 2022 at 6:12 PM Ville Syrjälä
-> >> <ville.syrjala@linux.intel.com> wrote:
-> >>>
-> >>> On Fri, Feb 18, 2022 at 12:03:41PM +0200, Ville Syrjala wrote:
-> >>>>    drm: Add drm_mode_init()
-> >>>>    drm/bridge: Use drm_mode_copy()
-> >>>>    drm/imx: Use drm_mode_duplicate()
-> >>>>    drm/panel: Use drm_mode_duplicate()
-> >>>>    drm/vc4: Use drm_mode_copy()
-> >>> These have been pushed to drm-misc-next.
-> >>>
-> >>>>    drm/amdgpu: Remove pointless on stack mode copies
-> >>>>    drm/amdgpu: Use drm_mode_init() for on-stack modes
-> >>>>    drm/amdgpu: Use drm_mode_copy()
-> >>> amdgpu ones are reviewed, but I'll leave them for the
-> >>> AMD folks to push to whichever tree they prefer.
-> >>
-> >> I pulled patches 2, 4, 5 into my tree.
-> > 
-> > Thanks.
-> > 
-> >> For 3, I'm happy to have it
-> >> land via drm-misc with the rest of the mode_init changes if you'd
-> >> prefer.
-> > 
-> > Either way works for me. I don't yet have reviews yet for
-> > the other drivers, so I'll proably hold off for a bit more
-> > at least. And the i915 patch I'll be merging via drm-intel.
-> > 
-> >>>>    drm/radeon: Use drm_mode_copy()
-> >>>>    drm/gma500: Use drm_mode_copy()
-> >>>>    drm/tilcdc: Use drm_mode_copy()
-> >>>>    drm/i915: Use drm_mode_copy()
-> > 
-> > Those are now all in.
-> > 
-> > Which leaves us with these stragglers:
-> >>>>    drm/hisilicon: Use drm_mode_init() for on-stack modes
+On Mon, Mar 21, 2022 at 04:56:43PM -0700, Abhinav Kumar wrote:
+> For vendors drivers which pass an already allocated and
+> initialized encoder especially for cases where the encoder
+> hardware is shared OR the writeback encoder shares the resources
+> with the rest of the display pipeline introduce a new API,
+> drm_writeback_connector_init_with_encoder() which expects
+> an initialized encoder as a parameter and only sets up the
+> writeback connector.
 > 
-> >>>>    drm/msm: Nuke weird on stack mode copy
-> >>>>    drm/msm: Use drm_mode_init() for on-stack modes
-> >>>>    drm/msm: Use drm_mode_copy()
+> changes in v5:
+> 	- reorder this change to come before in the series
+> 	  to avoid incorrect functionality in subsequent changes
+> 	- continue using struct drm_encoder instead of
+> 	  struct drm_encoder * and switch it in next change
 > 
-> These three patches went beneath my radar for some reason.
-> 
-> I have just sent a replacement for the first patch ([1]). Other two 
-> patches can be pulled in msm/msm-next (or msm/msm-fixes) during the next 
-> development cycle if that works for you.
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-That'll do fine for me. Thanks.
+Hi Abhinav,
 
+> ---
+>  drivers/gpu/drm/drm_writeback.c | 143 ++++++++++++++++++++++++++++------------
+>  include/drm/drm_writeback.h     |   5 ++
+>  2 files changed, 106 insertions(+), 42 deletions(-)
 > 
-> [1] https://patchwork.freedesktop.org/series/101682/
-> 
-> >>>>    drm/mtk: Use drm_mode_init() for on-stack modes
-> >>>>    drm/rockchip: Use drm_mode_copy()
-> >>>>    drm/sti: Use drm_mode_copy()
-> >>>>    drm: Use drm_mode_init() for on-stack modes
-> >>>>    drm: Use drm_mode_copy()
-> > 
-> 
-> 
+> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+> index dc2ef12..abe78b9 100644
+> --- a/drivers/gpu/drm/drm_writeback.c
+> +++ b/drivers/gpu/drm/drm_writeback.c
+> @@ -149,37 +149,15 @@ static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
+>  	.destroy = drm_encoder_cleanup,
+>  };
+>  
+> -/**
+> - * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> - * @dev: DRM device
+> - * @wb_connector: Writeback connector to initialize
+> - * @con_funcs: Connector funcs vtable
+> - * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> - * @formats: Array of supported pixel formats for the writeback engine
+> - * @n_formats: Length of the formats array
+> - * @possible_crtcs: possible crtcs for the internal writeback encoder
+> - *
+> - * This function creates the writeback-connector-specific properties if they
+> - * have not been already created, initializes the connector as
+> - * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> - * values. It will also create an internal encoder associated with the
+> - * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> - * the encoder helper.
+> - *
+> - * Drivers should always use this function instead of drm_connector_init() to
+> - * set up writeback connectors.
+> - *
+> - * Returns: 0 on success, or a negative error code
+> - */
+> -int drm_writeback_connector_init(struct drm_device *dev,
+> -				 struct drm_writeback_connector *wb_connector,
+> -				 const struct drm_connector_funcs *con_funcs,
+> -				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> -				 const u32 *formats, int n_formats, uint32_t possible_crtcs)
+> +static int drm_writeback_connector_setup(struct drm_device *dev,
+> +		struct drm_writeback_connector *wb_connector,
+> +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
+> +		int n_formats)
+>  {
+>  	struct drm_property_blob *blob;
+> -	struct drm_connector *connector = &wb_connector->base;
+>  	struct drm_mode_config *config = &dev->mode_config;
+> +	struct drm_connector *connector = &wb_connector->base;
+> +
+
+Point of this reordering the statements is...?
+
+>  	int ret = create_writeback_properties(dev);
+>  
+>  	if (ret != 0)
+> @@ -187,18 +165,10 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  
+>  	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
+>  					formats);
+> -	if (IS_ERR(blob))
+> -		return PTR_ERR(blob);
+> -
+> -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> -
+> -	wb_connector->encoder.possible_crtcs = possible_crtcs;
+> -
+> -	ret = drm_encoder_init(dev, &wb_connector->encoder,
+> -			       &drm_writeback_encoder_funcs,
+> -			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> -	if (ret)
+> -		goto fail;
+> +	if (IS_ERR(blob)) {
+> +		ret = PTR_ERR(blob);
+> +		return ret;
+> +	}
+
+I don't see why you have changed the earlier code to store the result of PTR_ERR into
+ret other than to help your debugging. I suggest that you keep the existing code that
+returns PTR_ERR(blob) directly and you will have a nicer diff stat as well.
+
+>  
+>  	connector->interlace_allowed = 0;
+>  
+> @@ -237,13 +207,102 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  attach_fail:
+>  	drm_connector_cleanup(connector);
+>  connector_fail:
+> -	drm_encoder_cleanup(&wb_connector->encoder);
+> -fail:
+>  	drm_property_blob_put(blob);
+>  	return ret;
+>  }
+> +
+> +/**
+> + * drm_writeback_connector_init - Initialize a writeback connector and its properties
+> + * @dev: DRM device
+> + * @wb_connector: Writeback connector to initialize
+> + * @con_funcs: Connector funcs vtable
+> + * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> + * @formats: Array of supported pixel formats for the writeback engine
+> + * @n_formats: Length of the formats array
+> + * @possible_crtcs: possible crtcs for the internal writeback encoder
+> + *
+> + * This function creates the writeback-connector-specific properties if they
+> + * have not been already created, initializes the connector as
+> + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> + * values. It will also create an internal encoder associated with the
+> + * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
+> + * the encoder helper.
+> + *
+> + * Drivers should always use this function instead of drm_connector_init() to
+> + * set up writeback connectors.
+> + *
+> + * Returns: 0 on success, or a negative error code
+> + */
+> +int drm_writeback_connector_init(struct drm_device *dev,
+> +		struct drm_writeback_connector *wb_connector,
+> +		const struct drm_connector_funcs *con_funcs,
+> +		const struct drm_encoder_helper_funcs *enc_helper_funcs,
+> +		const u32 *formats, int n_formats, uint32_t possible_crtcs)
+> +{
+> +	int ret = 0;
+> +
+> +	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
+> +
+> +	wb_connector->encoder.possible_crtcs = possible_crtcs;
+> +
+> +	ret = drm_encoder_init(dev, &wb_connector->encoder,
+> +			       &drm_writeback_encoder_funcs,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs, formats,
+> +			n_formats);
+> +
+> +	if (ret)
+> +		drm_encoder_cleanup(&wb_connector->encoder);
+> +
+> +	return ret;
+> +}
+>  EXPORT_SYMBOL(drm_writeback_connector_init);
+>  
+> +/**
+> + * drm_writeback_connector_init_with_encoder - Initialize a writeback connector and its properties
+> + * using the encoder which already assigned and initialized
+> + *
+> + * @dev: DRM device
+> + * @wb_connector: Writeback connector to initialize
+> + * @con_funcs: Connector funcs vtable
+> + * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
+> + * @formats: Array of supported pixel formats for the writeback engine
+> + * @n_formats: Length of the formats array
+> + *
+> + * This function creates the writeback-connector-specific properties if they
+> + * have not been already created, initializes the connector as
+> + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
+> + * values.
+> + *
+> + * This function assumes that the drm_writebac_connector's encoder has already been
+
+spelling: writeback
+
+> + * created and initialized before invoking this function.
+> + *
+> + * In addition, this function also assumes that callers of this API will manage
+> + * assigning the encoder helper functions, possible_crtcs and any other encoder
+> + * specific operation which is otherwise handled by drm_writeback_connector_init().
+> + *
+> + * Drivers should always use this function instead of drm_connector_init() to
+> + * set up writeback connectors.
+
+.... if they want to manage themselves the lifetime of the associated encoder.
+
+We're not trying to replace drm_writeback_connector_init() function here, only to
+provide an alternative function to call for special cases.
+
+> + *
+> + * Returns: 0 on success, or a negative error code
+> + */
+> +int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
+> +		struct drm_writeback_connector *wb_connector,
+> +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
+> +		int n_formats)
+
+Where is the encoder parameter? Isn't that the reason why the function is called
+`_with_encoder`?
+
+I think there might have been too many version of these patchsets and things are
+starting to be confusing. Please revisit the series without rushing and come up with
+a plan of action. My understanding of watching this series has been that you're
+trying to come up with a function that does *connector* initialisation but skips the
+*encoder* initialisation because it might have been already done by the driver. The
+idea will be then to have a function `drm_writeback_connector_init_with_encoder()`
+that does *all* the work that `drm_writeback_connector_init()` does at the moment minus
+the encoder initialisation part. Then `drm_writeback_connector_init()` only
+initialises the internal encoder and calls `drm_writeback_connector_init_with_encoder()`.
+There is no need to have the `drm_writeback_connector_setup()` function at all.
+
+Best regards,
+Liviu
+ 
+
+> +{
+> +	int ret = 0;
+> +
+> +	ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs, formats,
+> +			n_formats);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_writeback_connector_init_with_encoder);
+> +
+>  int drm_writeback_set_fb(struct drm_connector_state *conn_state,
+>  			 struct drm_framebuffer *fb)
+>  {
+> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
+> index db6214f..0093bab 100644
+> --- a/include/drm/drm_writeback.h
+> +++ b/include/drm/drm_writeback.h
+> @@ -152,6 +152,11 @@ int drm_writeback_connector_init(struct drm_device *dev,
+>  				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
+>  				 const u32 *formats, int n_formats, uint32_t possible_crtcs);
+>  
+> +int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
+> +				struct drm_writeback_connector *wb_connector,
+> +				const struct drm_connector_funcs *con_funcs, const u32 *formats,
+> +				int n_formats);
+> +
+>  int drm_writeback_set_fb(struct drm_connector_state *conn_state,
+>  			 struct drm_framebuffer *fb);
+>  
 > -- 
-> With best wishes
-> Dmitry
+> 2.7.4
+> 
 
 -- 
-Ville Syrjälä
-Intel
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    Â¯\_(ãƒ„)_/Â¯
