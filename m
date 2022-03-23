@@ -1,66 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0EF14E506A
-	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 11:35:56 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F02824E507A
+	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 11:39:50 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E8D310E673;
-	Wed, 23 Mar 2022 10:35:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B4010E66B;
+	Wed, 23 Mar 2022 10:39:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 462A210E672
- for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 10:35:51 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id m3so1916569lfj.11
- for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 03:35:51 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49ACC10E675
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 10:39:48 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id h7so1980349lfl.2
+ for <freedreno@lists.freedesktop.org>; Wed, 23 Mar 2022 03:39:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=jKB5fmiWOvzOX14q2kw2udn22WzFeSJad1vyh/bFUeU=;
- b=hUDeR1gYXCpZoo8aJ9xzuPNvlOSYwSMooYjSow4DM1nBMfcwBwTiswCutViipiCKWo
- IN3RPVc1OUza5FLP1mscbYuQAgsMGZ6Po207HTlzHjmWDRdRsTf10EricuEaL5K1mrM6
- ycEwsPavC9greW/zcSZ2jX0vX4aHdqIRHTDDa+0VFyP1wWkvvhHQH4o6F0e0CL420gFG
- bPfvWCBUrn7sQJaolSiEmWRhoH7gpXWR0zBSo17kVM/mUgPaTw3wY3QS+5RQIa/S4h5O
- IfbzCoP4EpFBKqQ1EozjYbJ9+Sk9QrOB2Caz8uD7OaH/RzMcy2bMRFoYWsViYLquQfZZ
- 0f8g==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=LJG6LchEWg7eLND4+i+6tV16qS1u0tcHKvRxEtTuG+w=;
+ b=yAkPXvHZVB3DXiA6lnV3OJs4l7boHKACGrx2zNN0q0WdW4bDDBFu/J4udxtyTi4LnD
+ EW5GVcRjYXzEeDLkpqeGo1qdR36WyqvDgbQswBau6NJctIIV72R0Wo2Kj1TEosLVpGaq
+ UvO0sdl+erB80ekBTDMX7IEdiKF3ft8qxVaWiecxxSgBJsWhhrQHl5YOnjDD05TZdcGP
+ GDOInQ2USvHXmJkV5XU+7gTi59xIrI9Dv6xe++mHYqDqDI5n+u4nmlN8qRthsqM0DM33
+ fzmhSc0ONmXxs82ScbBBb79fjsbtQFhKXPJYW/HWmd9J56xvz4lQapq28hyricqZ/Ueu
+ gp4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=jKB5fmiWOvzOX14q2kw2udn22WzFeSJad1vyh/bFUeU=;
- b=ahn9NoavjLfSK6P4Pa4wY+M7yGw4YkDOe+gdqZMvwuVkpKpnPxlzX4KF21o/Jw6Bya
- leLUXPQQzLsFJ5rugcccAaY5MRdwtxaNv3FrqhsZxyjZlENMTTKrUXgAchnjyXwxMuqP
- TdTtEwJ//1W5n3pSgtBiZvK/ANbGSTK6+tuehuodEt3LSfTv/c+wphqOU2djhwbRhJfS
- Gmn+gdmylRV0HlPxdHhfGIINNIztYjW6NwS43XVLA1a7uA4H9naTGQLpIso4Z3qNwJiA
- dTjOQZRe6bID/eSfjzIn1yYzeB918+UGBet4XRJ9lr39BweYrH8amkcYQyCxQztI2qnh
- KB4w==
-X-Gm-Message-State: AOAM5309eKPFAp/YnOzihbuoO8oRu2xUKadx1jSHdFKhcXFmKzND7nvt
- rhV3aifh7kTKeZN2+jBIa0md8g==
-X-Google-Smtp-Source: ABdhPJxz66eq0PKhDvhJx3A0bfCwuf3GxcLxf1SXuGJA/glHt4BWKczUOwm6tFaN4A0Hqfb0uLZdvA==
-X-Received: by 2002:a05:6512:3194:b0:44a:3acd:2078 with SMTP id
- i20-20020a056512319400b0044a3acd2078mr5718858lfe.483.1648031749566; 
- Wed, 23 Mar 2022 03:35:49 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- x14-20020a056512078e00b004481e3198cesm2491058lfr.142.2022.03.23.03.35.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Mar 2022 03:35:49 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Date: Wed, 23 Mar 2022 13:35:46 +0300
-Message-Id: <20220323103546.1772673-4-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220323103546.1772673-1-dmitry.baryshkov@linaro.org>
-References: <20220323103546.1772673-1-dmitry.baryshkov@linaro.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=LJG6LchEWg7eLND4+i+6tV16qS1u0tcHKvRxEtTuG+w=;
+ b=HAyALXA4JrQRHgx4GuG3CSjcVIM4+UkhVDXab50YErjOwxzd4X9Eab4tsb+6xMbBn9
+ ymNCt4hn4qvRGOdanHcgFi6L8nY7RIUWoWfNpWKKnyTctbLxjNzhKuNAUBoUgcLzegPh
+ agPVVZfVFXNynaEClI1fIwOJXzsw0dXVfcCoB2EF48jLwLUqxxDBtgGp26Vi9WRrpgTR
+ 7ZL4nLAXqwtkKxhd6nRsVvYxiZ5/H3DvEX7xouTCnpQmemOnfE1qZR6EAqJgJ9ar0EV1
+ TZHidXr0MyjQikeqwJFC4xuSF+lcNIw29H/pbzxy9IiITfnI796F7+LYt1URVHQS/RQv
+ R1uQ==
+X-Gm-Message-State: AOAM533zGakOjP7IVwJ00g8iwGWEu2HpxBYASc/zk36ZsOLQ2SfBzr/S
+ G7LM0PODeSizKH2sFnVDfirNCA==
+X-Google-Smtp-Source: ABdhPJxdoE2MJzCwqFEPkOY+WggWU0jxIXl/lqXQbtd4rieBWf/meitV/U1e3m4J8NKMlt9q9m+iIA==
+X-Received: by 2002:a05:6512:34c7:b0:44a:37de:9d74 with SMTP id
+ w7-20020a05651234c700b0044a37de9d74mr6436931lfr.314.1648031986613; 
+ Wed, 23 Mar 2022 03:39:46 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ x33-20020a0565123fa100b00443d3cffd89sm2479850lfa.210.2022.03.23.03.39.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Mar 2022 03:39:46 -0700 (PDT)
+Message-ID: <e9937a37-70c8-cc6f-15f2-1dbbb7f1bfba@linaro.org>
+Date: Wed, 23 Mar 2022 13:39:44 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-GB
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20220218100403.7028-1-ville.syrjala@linux.intel.com>
+ <Yi+9n0eGn3rNKb4X@intel.com>
+ <CADnq5_NS07TPBWSnETRhjzqtX_oUuCu86ewurFT3MJO=PcLAuQ@mail.gmail.com>
+ <Yjj+RSVBWk6UO2C7@intel.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <Yjj+RSVBWk6UO2C7@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/dp: remove max_pclk_khz field from
- dp_panel/dp_display
+Subject: Re: [Freedreno] [PATCH 00/22] drm: Review of mode copies
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,91 +77,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ Emma Anholt <emma@anholt.net>, Neil Armstrong <narmstrong@baylibre.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Nikola Cornij <nikola.cornij@amd.com>, John Stultz <john.stultz@linaro.org>,
+ Sean Paul <sean@poorly.run>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Tomi Valkeinen <tomba@kernel.org>, freedreno <freedreno@lists.freedesktop.org>,
+ Sandy Huang <hjc@rock-chips.com>, Robert Foss <robert.foss@linaro.org>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Since the last commit, the max_pclk_khz became constant, it's set to
-DP_MAX_PIXEL_CLK_KHZ and never changed afterwards. Remove it completely
-and use DP_MAX_PIXEL_CLK_KHZ directly.
+On 22/03/2022 01:37, Ville Syrjälä wrote:
+> On Tue, Mar 15, 2022 at 02:52:38PM -0400, Alex Deucher wrote:
+>> On Mon, Mar 14, 2022 at 6:12 PM Ville Syrjälä
+>> <ville.syrjala@linux.intel.com> wrote:
+>>>
+>>> On Fri, Feb 18, 2022 at 12:03:41PM +0200, Ville Syrjala wrote:
+>>>>    drm: Add drm_mode_init()
+>>>>    drm/bridge: Use drm_mode_copy()
+>>>>    drm/imx: Use drm_mode_duplicate()
+>>>>    drm/panel: Use drm_mode_duplicate()
+>>>>    drm/vc4: Use drm_mode_copy()
+>>> These have been pushed to drm-misc-next.
+>>>
+>>>>    drm/amdgpu: Remove pointless on stack mode copies
+>>>>    drm/amdgpu: Use drm_mode_init() for on-stack modes
+>>>>    drm/amdgpu: Use drm_mode_copy()
+>>> amdgpu ones are reviewed, but I'll leave them for the
+>>> AMD folks to push to whichever tree they prefer.
+>>
+>> I pulled patches 2, 4, 5 into my tree.
+> 
+> Thanks.
+> 
+>> For 3, I'm happy to have it
+>> land via drm-misc with the rest of the mode_init changes if you'd
+>> prefer.
+> 
+> Either way works for me. I don't yet have reviews yet for
+> the other drivers, so I'll proably hold off for a bit more
+> at least. And the i915 patch I'll be merging via drm-intel.
+> 
+>>>>    drm/radeon: Use drm_mode_copy()
+>>>>    drm/gma500: Use drm_mode_copy()
+>>>>    drm/tilcdc: Use drm_mode_copy()
+>>>>    drm/i915: Use drm_mode_copy()
+> 
+> Those are now all in.
+> 
+> Which leaves us with these stragglers:
+>>>>    drm/hisilicon: Use drm_mode_init() for on-stack modes
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_debug.c   | 2 --
- drivers/gpu/drm/msm/dp/dp_display.c | 1 -
- drivers/gpu/drm/msm/dp/dp_display.h | 2 --
- drivers/gpu/drm/msm/dp/dp_drm.c     | 4 +---
- drivers/gpu/drm/msm/dp/dp_panel.h   | 1 -
- 5 files changed, 1 insertion(+), 9 deletions(-)
+>>>>    drm/msm: Nuke weird on stack mode copy
+>>>>    drm/msm: Use drm_mode_init() for on-stack modes
+>>>>    drm/msm: Use drm_mode_copy()
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_debug.c b/drivers/gpu/drm/msm/dp/dp_debug.c
-index 2f9c943f12d5..5e35033ba3e4 100644
---- a/drivers/gpu/drm/msm/dp/dp_debug.c
-+++ b/drivers/gpu/drm/msm/dp/dp_debug.c
-@@ -44,8 +44,6 @@ static int dp_debug_show(struct seq_file *seq, void *p)
- 	drm_mode = &debug->panel->dp_mode.drm_mode;
- 
- 	seq_printf(seq, "\tname = %s\n", DEBUG_NAME);
--	seq_printf(seq, "\tdp_panel\n\t\tmax_pclk_khz = %d\n",
--			debug->panel->max_pclk_khz);
- 	seq_printf(seq, "\tdrm_dp_link\n\t\trate = %u\n",
- 			debug->panel->link_info.rate);
- 	seq_printf(seq, "\t\tnum_lanes = %u\n",
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index be1e9c558fda..aeb08416b309 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -370,7 +370,6 @@ static int dp_display_process_hpd_high(struct dp_display_private *dp)
- 	dp->audio_supported = drm_detect_monitor_audio(edid);
- 	dp_panel_handle_sink_request(dp->panel);
- 
--	dp->dp_display.max_pclk_khz = DP_MAX_PIXEL_CLK_KHZ;
- 	dp->dp_display.max_dp_lanes = dp->parser->max_dp_lanes;
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 6efb5c853c89..f3a9d7449a1c 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -24,8 +24,6 @@ struct msm_dp {
- 
- 	hdmi_codec_plugged_cb plugged_cb;
- 
--	u32 max_pclk_khz;
--
- 	u32 max_dp_lanes;
- 	struct dp_audio *dp_audio;
- };
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index af5f1b001192..a94c9b34f397 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -88,9 +88,7 @@ static enum drm_mode_status dp_connector_mode_valid(
- 
- 	dp_disp = to_dp_connector(connector)->dp_display;
- 
--	if ((dp_disp->max_pclk_khz <= 0) ||
--			(dp_disp->max_pclk_khz > DP_MAX_PIXEL_CLK_KHZ) ||
--			(mode->clock > dp_disp->max_pclk_khz))
-+	if (mode->clock > DP_MAX_PIXEL_CLK_KHZ)
- 		return MODE_BAD;
- 
- 	return dp_display_validate_mode(dp_disp, mode->clock);
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index 9fa6e524832c..d861197ac1c8 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -49,7 +49,6 @@ struct dp_panel {
- 	bool video_test;
- 
- 	u32 vic;
--	u32 max_pclk_khz;
- 	u32 max_dp_lanes;
- 
- 	u32 max_bw_code;
+These three patches went beneath my radar for some reason.
+
+I have just sent a replacement for the first patch ([1]). Other two 
+patches can be pulled in msm/msm-next (or msm/msm-fixes) during the next 
+development cycle if that works for you.
+
+[1] https://patchwork.freedesktop.org/series/101682/
+
+>>>>    drm/mtk: Use drm_mode_init() for on-stack modes
+>>>>    drm/rockchip: Use drm_mode_copy()
+>>>>    drm/sti: Use drm_mode_copy()
+>>>>    drm: Use drm_mode_init() for on-stack modes
+>>>>    drm: Use drm_mode_copy()
+> 
+
+
 -- 
-2.35.1
-
+With best wishes
+Dmitry
