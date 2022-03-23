@@ -1,52 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C746D4E50CC
-	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 11:58:07 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2936B4E5162
+	for <lists+freedreno@lfdr.de>; Wed, 23 Mar 2022 12:38:54 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 487B810E67D;
-	Wed, 23 Mar 2022 10:58:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9009410E6A5;
+	Wed, 23 Mar 2022 11:38:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5EB10E67D;
- Wed, 23 Mar 2022 10:58:04 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B12810E6A8;
+ Wed, 23 Mar 2022 11:38:51 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 079AF60EE1;
- Wed, 23 Mar 2022 10:58:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC840C340E9;
- Wed, 23 Mar 2022 10:58:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E85E9B81E83;
+ Wed, 23 Mar 2022 11:38:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8D6C340E8;
+ Wed, 23 Mar 2022 11:38:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648033083;
- bh=LqwU8plbtn4AIksRq4IGPu+orql0HtiebWAHYKnPuDc=;
+ s=k20201202; t=1648035528;
+ bh=M/Dh2h9fc1xC5xqNZECVZBb5OmuJe1BOnjZx6fepzEY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rITRSE/pQMHW6rMV+Ea0ZxWsSuyUUaz69aXGdoycdMJ66u9ihgXVNCL+lj1wpe4It
- Yjnal3Yxk9WiKhq5dqwWYMn06dRaGeWNLIqdqcJNVENC7fcct4ET2ymGVrf+ERNNez
- EFIIDNw96F21A3Z/HTu2Lpl855OK83YIsN0bSEc4oPogaYAA+sDwe7h9SRFJOgumqI
- 7Y3Cvjc9zkUKxbwdZ3lBw4k2iju0p+ZkgAkHZbMACsUmG7zQXFwa771+kdVJE/DdbA
- esp+gCxzNJwNKrt/Y0b8OQuEqEA0/TaqBdifW4zQF8f3tYL3j9CTFOl+99sVPjkLfs
- d2WgAlIA/iw7Q==
-Date: Wed, 23 Mar 2022 16:27:59 +0530
+ b=htDlw4iENMaAEL5aR/wecoIGkgxFP+l8XV4GuLqREX+XYISEk8wE9XC0qKAfXTN6K
+ avth8lzeYN9rucJXT9euLumKhxrY3jB5vnZKdugdSmzZFoMwy82o1jkENKnFfGASxu
+ qpkJfXlEHsfGDMEburHVKMyrS6r0XLt+eSJc1oqd/EurmaOUp/+l6SNXgMlQAsMPo7
+ +SksKC8lsS8UEmaI4l4gdtXOeOCt66Dm7uHoQ4LlQdHTl2Cpzcm9DLHaYjofZL8qKO
+ YiWOwfrS/Ehe9i87PBkksapIayNnXXbzGwWiUp7r3Xgp5LLr1lbLVdbifi0RXvw7Ip
+ cyyM/L9oY2IkQ==
+Date: Wed, 23 Mar 2022 17:08:44 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Marijn Suijten <marijn.suijten@somainline.org>
-Message-ID: <Yjr9N4DPdOyi7CO5@matsya>
-References: <20211116062256.2417186-1-vkoul@kernel.org>
- <20211116062256.2417186-13-vkoul@kernel.org>
- <20211211000315.pavmcc7cc73ilb6l@SoMainline.org>
- <Yg4t/G3tgcmkswHg@matsya>
- <20220217151142.sbp6wslxbxeohsgf@SoMainline.org>
- <YjoEgpAZAwM8hWEa@matsya>
- <20220322185925.nszstmi5silgefd5@SoMainline.org>
+Message-ID: <YjsGxLt3ixy1nHxf@matsya>
+References: <20220210103423.271016-1-vkoul@kernel.org>
+ <20220210103423.271016-11-vkoul@kernel.org>
+ <20220217214417.hb6sdx53cs36us6j@SoMainline.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220322185925.nszstmi5silgefd5@SoMainline.org>
-Subject: Re: [Freedreno] [PATCH v3 12/13] drm/msm/dsi: Add support for DSC
- configuration
+In-Reply-To: <20220217214417.hb6sdx53cs36us6j@SoMainline.org>
+Subject: Re: [Freedreno] [REPOST PATCH v4 10/13] drm/msm/disp/dpu1: Add
+ support for DSC in topology
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,60 +55,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@somainline.org>, linux-kernel@vger.kernel.org,
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <abhinavk@codeaurora.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22-03-22, 19:59, Marijn Suijten wrote:
-> On 2022-03-22 22:46:50, Vinod Koul wrote:
-> > On 17-02-22, 16:11, Marijn Suijten wrote:
-> > > Hi Vinod,
-> > > 
-> > > Thanks for taking time to go through this review, please find some
-> > > clarifications below.
-> > > 
-> > > On 2022-02-17 16:44:04, Vinod Koul wrote:
-> > > > Hi Marijn,
-> > > > 
-> > > > On 11-12-21, 01:03, Marijn Suijten wrote:
-> > > > 
-> > > > > > +static int dsi_dsc_update_pic_dim(struct msm_display_dsc_config *dsc,
-> > > > > > +				  int pic_width, int pic_height)
-> > > > > 
-> > > > > This function - adopted from downstream - does not seem to perform a
-> > > > > whole lot, especially without the modulo checks against the slice size.
-> > > > > Perhaps it can be inlined?
-> > > > 
-> > > > Most of the code here is :)
-> > > > 
-> > > > This was split from downstream code to check and update dimension. We
-> > > > can inline this, or should we leave that to compiler. I am not a very
-> > > > big fan of inlining...
-> > > 
-> > > It doesn't seem beneficial to code readability to have this function,
-> > > which is only called just once and also has the same struct members read
-> > > in a `DBG()` directly, abstracted away to a function.  Not really
-> > > concerned about generated code/performance FWIW.
-> > > 
-> > > Also note that the caller isn't checking the `-EINVAL` result...
+On 17-02-22, 22:44, Marijn Suijten wrote:
+> On 2022-02-10 16:04:20, Vinod Koul wrote:
+> > For DSC to work we typically need a 2,2,1 configuration. This should
+> > suffice for resolutions up to 4k. For more resolutions like 8k this won't
+> > work.
 > > 
-> > I have made this void inline.
+> > Also, it is better to use 2 LMs and DSC instances as half width results
+> > in lesser power consumption as compared to single LM, DSC at full width.
+> > 
+> > The panel has been tested only with 2,2,1 configuration, so for
+> > now we blindly create 2,2,1 topology when DSC is enabled
+> > 
+> > Co-developed-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> > Signed-off-by: Abhinav Kumar <abhinavk@codeaurora.org>
+> > Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> > ---
+> >  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 +++++++++++++
+> >  drivers/gpu/drm/msm/msm_drv.h               |  2 ++
+> >  2 files changed, 15 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > index 95a7bf362e81..13ccb7b3cce5 100644
+> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> > @@ -574,8 +574,21 @@ static struct msm_display_topology dpu_encoder_get_topology(
+> >  	topology.num_enc = 0;
+> >  	topology.num_intf = intf_count;
+> >  
+> > +	if (dpu_enc->dsc) {
+> > +		/* In case of Display Stream Compression DSC, we would use
+> > +		 * 2 encoders, 2 line mixers and 1 interface
 > 
-> Perhaps there is a misunderstanding here: with inlining I am referring
-> to the process of transplanting the _function body_ to the only
-> call-site, not adding the `inline` keyword nor changing this to `void`.
-> 
-> The checks that make this function return `-EINVAL` seem valid, so the
-> caller should check it instead of removing the return?
+> LM is a layer mixer, not a line mixer, right?
 
-Okay somehow I misunderstood then, let me see how the code looks in this
-case then
+Right, thanks for spotting
+
 -- 
 ~Vinod
