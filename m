@@ -1,65 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 487B84E62C5
-	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 12:55:44 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 357784E6558
+	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 15:35:03 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5D2A10E89A;
-	Thu, 24 Mar 2022 11:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAB7A10E8BA;
+	Thu, 24 Mar 2022 14:35:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ADC510E899
- for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 11:55:41 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id p15so7602757lfk.8
- for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 04:55:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=32M7oTSyOKeaf1CysC1hida7B7hRSXqH2Qo2sPYMO9o=;
- b=GervhNkGgzo6q0SIVF78plM2Y7tJnDrD3UWvo6IdGmFUwiFJozGw27EoNeRo/f3+HI
- n/4DJ3MPpIcPbkvQW+C0OV3DCLB8M85KPtXukjgZ6HJ8fXGgdTnD9J6iS5kGWxORuR23
- gIkDlRjOOEK1JqYiu2fcBfzvH8EQPElPO7AT5SHLZNmktok0QtRjAp7gW1fPlQ2kio/7
- 7zbazcfXqyNqHA/BIt3qUupCcfrxrtMSeNNG2Bv2klt06enaexI2WbZKnbmOZj+1Rz6d
- f8x3tUnp21vVvurAjGkZrAy+47V6dfKf4IXKGK7Y3p9e3yGXTkGD0G4fJUCJE+xtpMpL
- XXag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=32M7oTSyOKeaf1CysC1hida7B7hRSXqH2Qo2sPYMO9o=;
- b=TgCJBvnr1iiJRmJJ0Iru6MWUNCbJY7ynK9uIEehAlI12X5zzh+Xu7POWdTPycu/4pQ
- 6sIRQqD8zzXoQsICbLkVkYd/sMMmzXBGAXs/sEfZaarqsYl6Cz0+PaX1eVXs9aReCnye
- u0P+8xLzca68pPgMFH5JX4S5p3DJsBkOH1tm75fa5gqIXWEHwQc8vjYDR2LLoeDaaD94
- yuURwA6QfzNPpYFGIs9rlfjkQmHPsbHBykSd+ZBzSHLfoFq6XcLr3z4aTF8PnPL5TB3G
- r1vK2skgg+QoUHMg11BOuAGndXaDGwOzZ/YJi1tK4C1lU7Ek7Twjowy743vg5716ecSC
- Kadg==
-X-Gm-Message-State: AOAM530BvBxGeuH6fY46ijfdFMdKv+8jTihN+ELBUXKFxXK8k9uj72tx
- D+dPGO0ej+heP8m13eVjcTi2GQ==
-X-Google-Smtp-Source: ABdhPJz4VOkKb9/awzSsxxP+26JXp48DHN5W+2ym/3IF32yD4FWcqh/X7ZVJA/dp3KMDu07/RRytVQ==
-X-Received: by 2002:a05:6512:38ca:b0:448:28c4:88c8 with SMTP id
- p10-20020a05651238ca00b0044828c488c8mr3365486lft.327.1648122939611; 
- Thu, 24 Mar 2022 04:55:39 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- p8-20020a2ea408000000b00247e5087157sm305327ljn.101.2022.03.24.04.55.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Mar 2022 04:55:37 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Date: Thu, 24 Mar 2022 14:55:36 +0300
-Message-Id: <20220324115536.2090818-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+X-Greylist: delayed 856 seconds by postgrey-1.36 at gabe;
+ Thu, 24 Mar 2022 08:52:24 UTC
+Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com
+ [203.205.221.233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF8910E866
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 08:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1648111941;
+ bh=PdI9M8lLoPowcX452EcX6k9LkvHzZyFe5xCg2aOT5z4=;
+ h=From:To:Cc:Subject:Date;
+ b=xp1MaVSJlX2GHeehjmqVJRFgkHOLg/fPoGluMIJnoaphLmBlwsyBtb1cOvTMFhbEH
+ ZLx2x/rDbZxWxUsTolzziXpmoKBaPFnDR5ZCHakt+b/IVaSaoD9oeZ+0U7N90CjUDn
+ YzyAKV7pbPvqQNONTsI89LLMqaU2ZggtOB5KpE1c=
+Received: from localhost.localdomain ([218.197.153.188])
+ by newxmesmtplogicsvrszc6.qq.com (NewEsmtp) with SMTP
+ id 9378DC37; Thu, 24 Mar 2022 16:36:55 +0800
+X-QQ-mid: xmsmtpt1648111015tha0g0i7j
+Message-ID: <tencent_F71D40EE9851737338A6289EC3A3942EFE09@qq.com>
+X-QQ-XMAILINFO: MR/iVh5QLeieiszZ2O+QJKzXzwRb+Wv/lEVxDjwkYxMewJHYJdFQoHsoWu9iam
+ ajhSQ1Eh+e59SwWAJQNIolA9hH/lQO4f1IuiJrqh01QGQQ8ynx0vMZGFAxTrWV/nL4TZ50nEHhCA
+ PfT6P9/3oSVTf0oUQNZhJhUqNJubqPtVBrsJxit3KUIEdtGymqR2GqkLJrTUzGoAP64J8TY8yV9p
+ 9T0ViPj0BviZ2jvNNEeO4NHAnnxVRGooB5Smg4EQfAXjHZ+U7NXD9DeDsulbB2O3WsjEMUwmbUX/
+ ADBjSHLTH7MBY41RUYPX9dQAZ2Nf+IQGfr4sqwcHe+VpytsaAIb0l8FZdedLnu7owihH7/bB0v9w
+ v3e1RXil9eAuCmyr3rNX5QpjaiLmjhYRpbRUNFtpKlT2xwQQxsCDC/myDcvfbciwVlDxBk0aXiIQ
+ 6QghgDCatQm7ZwMb0INN9vCio1kfph/qKCCfq+BUMpXVtNXVwrPK680hWRBfVJCqkw7acP3mMia3
+ Bz+5wCSRUSHuDffpafV3/gPepA0ROFJef9Gsx7s+nxaKpeyIQFRfV0LFUVVYToudcy+3otN+loGR
+ TV2OGBWjWfMWM+f8XV5kH6wAGlVxKwqe1uFxN+gqf1S6P+yl890qVRqvI7FjqqQVN/fbXiMgnYpA
+ dL+SUIo8JEJqMcDJYmMpiSylhXfa94+qdeFiHGHkpsTgSA1PD9TvU5C9e+4MnNBOolUOFy1IgNT6
+ qToKziTVG5vtvfM+IMUbXgPDclAYlMtEC9omhpL+vIOMcjZpQnTE2X8QzS/JTU4yt4gJSPLOaaIG
+ zfCgezFDJ2hrNk3bmb9cBHRKhm+JXn48gMqMCAUX9W7Ns4xzoJFz+KnndZsd0gAL886EkEk6H95v
+ L5nGvh0HYjfeqSczSXqrYSc2ynJYrR+aWjFCZIHMGI4x4PVR9+kQHOwcZuktExV5xkpTnsxCMYqi
+ hfz6C6jwuNs/O3Y468qg==
+From: xkernel.wang@foxmail.com
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Date: Thu, 24 Mar 2022 16:36:44 +0800
+X-OQ-MSGID: <20220324083644.2666-1-xkernel.wang@foxmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] dt-bindings: display/msm: another fix for the
- dpu-qcm2290 example
+X-Mailman-Approved-At: Thu, 24 Mar 2022 14:34:59 +0000
+Subject: [Freedreno] [PATCH] drm/msm/mdp5: check the return of kzalloc()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,49 +61,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
- Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Xiaoke Wang <xkernel.wang@foxmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Make dpu-qcm2290 example really follow the defined schema:
-- Drop qcom,mdss compatible. It's only used for MDP5 devices.
-- Change display controller name to display-controller as specified in
-  the yaml
+From: Xiaoke Wang <xkernel.wang@foxmail.com>
 
-Reported-by: Rob Herring <robh@kernel.org>
-Cc: Loic Poulain <loic.poulain@linaro.org>
-Fixes: 164f69d9d45a ("dt-bindings: msm: disp: add yaml schemas for QCM2290 DPU bindings")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+kzalloc() is a memory allocation function which can return NULL when
+some internal memory errors happen. So it is better to check it to
+prevent potential wrong memory access.
+
+Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
 ---
- .../devicetree/bindings/display/msm/dpu-qcm2290.yaml          | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-index d31483a78eab..6fb7e321f011 100644
---- a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
-@@ -160,7 +160,7 @@ examples:
-     mdss: mdss@5e00000 {
-         #address-cells = <1>;
-         #size-cells = <1>;
--        compatible = "qcom,qcm2290-mdss", "qcom,mdss";
-+        compatible = "qcom,qcm2290-mdss";
-         reg = <0x05e00000 0x1000>;
-         reg-names = "mdss";
-         power-domains = <&dispcc MDSS_GDSC>;
-@@ -180,7 +180,7 @@ examples:
-                  <&apps_smmu 0x421 0x0>;
-         ranges;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+index c6b69af..5f914cc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+@@ -90,15 +90,18 @@ static void mdp5_plane_reset(struct drm_plane *plane)
+ 		__drm_atomic_helper_plane_destroy_state(plane->state);
  
--        mdss_mdp: mdp@5e01000 {
-+        mdss_mdp: display-controller@5e01000 {
-                 compatible = "qcom,qcm2290-dpu";
-                 reg = <0x05e01000 0x8f000>,
-                       <0x05eb0000 0x2008>;
+ 	kfree(to_mdp5_plane_state(plane->state));
+-	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
++	plane->state = NULL;
+ 
+-	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+-		mdp5_state->base.zpos = STAGE_BASE;
+-	else
+-		mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
+-	mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
++	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
++	if (mdp5_state) {
++		if (plane->type == DRM_PLANE_TYPE_PRIMARY)
++			mdp5_state->base.zpos = STAGE_BASE;
++		else
++			mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
++		mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
+ 
+-	__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
++		__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
++	}
+ }
+ 
+ static struct drm_plane_state *
 -- 
-2.35.1
-
