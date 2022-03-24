@@ -1,54 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357784E6558
-	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 15:35:03 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC654E6557
+	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 15:35:01 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB7A10E8BA;
-	Thu, 24 Mar 2022 14:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 963E610E8B7;
+	Thu, 24 Mar 2022 14:35:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 856 seconds by postgrey-1.36 at gabe;
- Thu, 24 Mar 2022 08:52:24 UTC
-Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com
- [203.205.221.233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF8910E866
- for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 08:52:24 +0000 (UTC)
+X-Greylist: delayed 2130 seconds by postgrey-1.36 at gabe;
+ Thu, 24 Mar 2022 09:15:43 UTC
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
+ [162.62.57.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44EEF10E895;
+ Thu, 24 Mar 2022 09:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1648111941;
- bh=PdI9M8lLoPowcX452EcX6k9LkvHzZyFe5xCg2aOT5z4=;
+ s=s201512; t=1648113332;
+ bh=8iITNHrVU17bPyPq/aCt5ijbzEpqeSpR6VGmt9fp4O4=;
  h=From:To:Cc:Subject:Date;
- b=xp1MaVSJlX2GHeehjmqVJRFgkHOLg/fPoGluMIJnoaphLmBlwsyBtb1cOvTMFhbEH
- ZLx2x/rDbZxWxUsTolzziXpmoKBaPFnDR5ZCHakt+b/IVaSaoD9oeZ+0U7N90CjUDn
- YzyAKV7pbPvqQNONTsI89LLMqaU2ZggtOB5KpE1c=
-Received: from localhost.localdomain ([218.197.153.188])
- by newxmesmtplogicsvrszc6.qq.com (NewEsmtp) with SMTP
- id 9378DC37; Thu, 24 Mar 2022 16:36:55 +0800
-X-QQ-mid: xmsmtpt1648111015tha0g0i7j
-Message-ID: <tencent_F71D40EE9851737338A6289EC3A3942EFE09@qq.com>
-X-QQ-XMAILINFO: MR/iVh5QLeieiszZ2O+QJKzXzwRb+Wv/lEVxDjwkYxMewJHYJdFQoHsoWu9iam
- ajhSQ1Eh+e59SwWAJQNIolA9hH/lQO4f1IuiJrqh01QGQQ8ynx0vMZGFAxTrWV/nL4TZ50nEHhCA
- PfT6P9/3oSVTf0oUQNZhJhUqNJubqPtVBrsJxit3KUIEdtGymqR2GqkLJrTUzGoAP64J8TY8yV9p
- 9T0ViPj0BviZ2jvNNEeO4NHAnnxVRGooB5Smg4EQfAXjHZ+U7NXD9DeDsulbB2O3WsjEMUwmbUX/
- ADBjSHLTH7MBY41RUYPX9dQAZ2Nf+IQGfr4sqwcHe+VpytsaAIb0l8FZdedLnu7owihH7/bB0v9w
- v3e1RXil9eAuCmyr3rNX5QpjaiLmjhYRpbRUNFtpKlT2xwQQxsCDC/myDcvfbciwVlDxBk0aXiIQ
- 6QghgDCatQm7ZwMb0INN9vCio1kfph/qKCCfq+BUMpXVtNXVwrPK680hWRBfVJCqkw7acP3mMia3
- Bz+5wCSRUSHuDffpafV3/gPepA0ROFJef9Gsx7s+nxaKpeyIQFRfV0LFUVVYToudcy+3otN+loGR
- TV2OGBWjWfMWM+f8XV5kH6wAGlVxKwqe1uFxN+gqf1S6P+yl890qVRqvI7FjqqQVN/fbXiMgnYpA
- dL+SUIo8JEJqMcDJYmMpiSylhXfa94+qdeFiHGHkpsTgSA1PD9TvU5C9e+4MnNBOolUOFy1IgNT6
- qToKziTVG5vtvfM+IMUbXgPDclAYlMtEC9omhpL+vIOMcjZpQnTE2X8QzS/JTU4yt4gJSPLOaaIG
- zfCgezFDJ2hrNk3bmb9cBHRKhm+JXn48gMqMCAUX9W7Ns4xzoJFz+KnndZsd0gAL886EkEk6H95v
- L5nGvh0HYjfeqSczSXqrYSc2ynJYrR+aWjFCZIHMGI4x4PVR9+kQHOwcZuktExV5xkpTnsxCMYqi
- hfz6C6jwuNs/O3Y468qg==
+ b=vgnHeFjbP6S/4jy+ks6pkN/8CoyYrulcuHzewEWpTkBVa7qDnPX62nALt2sJvIqi8
+ MvBYCmXtMJlaTst2f384fAOsuIy3TgX9hKEUb4rVqPZvrUZHiHQgiZ2crnVhG+R/mw
+ lF1zCgpu2IuaYynYu1x4AZ2DIsGSGMPLo5wOUfMk=
+Received: from localhost.localdomain ([43.227.136.188])
+ by newxmesmtplogicsvrszc10.qq.com (NewEsmtp) with SMTP
+ id 3DC9EA7E; Thu, 24 Mar 2022 17:15:28 +0800
+X-QQ-mid: xmsmtpt1648113328tewr9hg0d
+Message-ID: <tencent_B3E19486FF39415098B572B7397C2936C309@qq.com>
+X-QQ-XMAILINFO: NwU0tZNR0OQK49YLfziyIHPVLwaNbOO/tFvzXnAVzMl7VOg4G7RENCCLyqN7nA
+ tLvurzBiClpBgVRiyqmd+F9nkdhcn1k2NOXXctTq/gFvc5ys5Jy+IishhG5yPUzSCPOm3834w6RI
+ hkFCQms90g6g22tWFTGotebD4OX+BrC2KgYWN+DHaHQxb3nLt2tgLXohme/2aqZbHkwvFXikq2jg
+ LRiOeKNA20abjn+2idG0P8u7m/ZroCajqTfZa6gVQbsGPASLgKB8ECnFiHiFwThiate46xNh5XfP
+ 5u9jphWBfDcPQh1hoYEgZWaN5JdsbJN+nGsW7uR45wI2oIRVk+Vrbmy0OD4LDm6gfu2LYVQJu7T4
+ O/bDt1LXhqR+SeaDcdolUU+D5p4xbYtwX96/EPA0MOkUeZd+sriIaltDp3pi4Fb6vz/JY1yePUGX
+ j95zM2UANmdukPhCDAgvBE+MCP5NMiPZsYjiqFbgMTJdBuUcxZ6kYLli1/Pl3eBpONg8sTNmxbVy
+ QD2SOmaVCuTldLp1hubrOlGYgcLGx35d0QEjO+UktOSQhErDz7Xd1Zkq/ZaPmHTYxHqSJX7NuSfI
+ iLmW7iTCKZ2+nJ459P9HyxBOa4RhX3FgS4Cbt7ofX9btI0e2pPTgKJqOqhm+cDnNMrdfu9EoBtJ0
+ txv3QXuE8XGEoOw/uJ5Xbok9+YlMiJJvXxMMIrhso2ftmMjeeLhDycZohbP6Rk+R7Mc+o7/korCv
+ cjhPOhP9Mkb/0iBCRkQJT41oT69Q1SOZHvGGkORYQT3T5nQgCpjep/qHNfk4x/0t6D4b+p4rwFzf
+ qEi4P0IjYvYzMMrY9JQaw972p6uV+9BQoBfIY5HuWecqz5flErRAkjeyA2ZC74t6xCsvmHI2nPrd
+ XDc9X0f23UkOybqifkQRYO2hMEfJdw3rzZgto0PEstQouVY/tat+f6Xi3EtfUbSixP1A9ysCFAyk
+ cD2QeUL1g=
 From: xkernel.wang@foxmail.com
 To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
-Date: Thu, 24 Mar 2022 16:36:44 +0800
-X-OQ-MSGID: <20220324083644.2666-1-xkernel.wang@foxmail.com>
+Date: Thu, 24 Mar 2022 17:15:08 +0800
+X-OQ-MSGID: <20220324091508.2854-1-xkernel.wang@foxmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 24 Mar 2022 14:34:59 +0000
-Subject: [Freedreno] [PATCH] drm/msm/mdp5: check the return of kzalloc()
+Subject: [Freedreno] [PATCH] drm/msm/disp: check the return value of
+ kzalloc()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,37 +76,20 @@ prevent potential wrong memory access.
 
 Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index c6b69af..5f914cc 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -90,15 +90,18 @@ static void mdp5_plane_reset(struct drm_plane *plane)
- 		__drm_atomic_helper_plane_destroy_state(plane->state);
+diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
+index cabe151..369e57f 100644
+--- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
++++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
+@@ -169,6 +169,8 @@ void msm_disp_snapshot_add_block(struct msm_disp_state *disp_state, u32 len,
+ 	va_list va;
  
- 	kfree(to_mdp5_plane_state(plane->state));
--	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
-+	plane->state = NULL;
+ 	new_blk = kzalloc(sizeof(struct msm_disp_state_block), GFP_KERNEL);
++	if (!new_blk)
++		return;
  
--	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
--		mdp5_state->base.zpos = STAGE_BASE;
--	else
--		mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
--	mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
-+	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
-+	if (mdp5_state) {
-+		if (plane->type == DRM_PLANE_TYPE_PRIMARY)
-+			mdp5_state->base.zpos = STAGE_BASE;
-+		else
-+			mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
-+		mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
+ 	va_start(va, fmt);
  
--	__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
-+		__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
-+	}
- }
- 
- static struct drm_plane_state *
 -- 
