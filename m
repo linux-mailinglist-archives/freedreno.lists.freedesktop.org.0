@@ -2,57 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606EA4E6835
-	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 18:58:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0096A4E69A2
+	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 21:07:47 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDCD010E193;
-	Thu, 24 Mar 2022 17:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 887D310E268;
+	Thu, 24 Mar 2022 20:07:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF5AD10E193;
- Thu, 24 Mar 2022 17:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1648144701; x=1679680701;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=mrbgLvlsjdW9rx9HY/2WDm9oF7weTNiBspzAy++1AVA=;
- b=TzTFHEZOy8FoYnN7HPs5eNBpL/c0bgZ38K8K5Fzms63fSVtWRD0YQOu5
- sFTzs5N9tDgDyxeYACb7/FOwXXaIACJQ8FtBmg9Z24x4yUxlAfM+FfPMy
- EKha75HVH9qHXoQdvin2BKXMPiWexH/5k09I8IIPcWxCVJSxhzwe7WwkK c=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 24 Mar 2022 10:58:19 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2022 10:58:18 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 24 Mar 2022 10:58:18 -0700
-Received: from [10.110.52.81] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 24 Mar
- 2022 10:58:18 -0700
-Message-ID: <4a23c6a6-737a-c910-588b-8d4827d9560c@quicinc.com>
-Date: Thu, 24 Mar 2022 10:58:17 -0700
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6377310E268
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 20:07:44 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id o64so6029538oib.7
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 13:07:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Cg3NylWZJ/PElbZt4b99/mDNvvoDZp7ffKlCSxaDUYg=;
+ b=chW8YydqlNUXwkhifh8g9HI1cQG2scXiQLAtd/9C96Ro0YahW6RUj3JdB3ortjEQ5D
+ XYIEzngiMK0LVLardc9TBW9wmke8bxwDrQw81faArJaoCdNc5/aXcNZO7YTasnEXsj1d
+ rNu4CXlzwVi1omwO68IOCQInfhnTIfAIjPtgI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Cg3NylWZJ/PElbZt4b99/mDNvvoDZp7ffKlCSxaDUYg=;
+ b=RSfEuKYQ5NQuSLr1BjsmmfEzDo7Ds8GzbqTGapgPpePEpQTD0bZK1dZ6Kp9lKizHN+
+ CTrz8b5giQ9GbJVLksd8/ovaFHBF0X5gdHN2rTvK+VrR0a3Lc4P07dIKuL6NNKYJYdVz
+ 6I+7C7Djc0BdvIwpBSf7YrDXSf/iEjKi+jssniESYegOIrFh8wyIoim0DN2rJOCR/Y7U
+ i0eY+vN9+urJvDl1hdg26bnpblngFqfHaFGk4NvstWRtJjUCmZmfcPxyMJ0JEbaQP6TK
+ RsCOE3/vOqH/6+R17jz1tyABo2mTjkxEfu0NLZ2X9fhhtzVm4gHeN9fb3tHXPNARbXkV
+ VP0Q==
+X-Gm-Message-State: AOAM531aHXlgSLkPMVv0paI1wMllKCTq0ppWq8/S6Zga5zGythaNkZk1
+ N3TOvhjzTYL5SHuwELwmOqJnAMw3FoG1/x9NrZ8Y0w==
+X-Google-Smtp-Source: ABdhPJxLd9283LWH/H+RVJS+GlWfRyT8dqeb5nlwjkad7sBHwIlXo5+tm7x05Z6jNmDfcbRKWPNOiVp0XJG/1vESqBQ=
+X-Received: by 2002:aca:a9c8:0:b0:2da:45b6:b796 with SMTP id
+ s191-20020acaa9c8000000b002da45b6b796mr3297126oie.193.1648152463729; Thu, 24
+ Mar 2022 13:07:43 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Mar 2022 15:07:43 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: <xkernel.wang@foxmail.com>, <robdclark@gmail.com>, <sean@poorly.run>,
- <airlied@linux.ie>, <daniel@ffwll.ch>
-References: <tencent_F71D40EE9851737338A6289EC3A3942EFE09@qq.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <tencent_F71D40EE9851737338A6289EC3A3942EFE09@qq.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: check the return of kzalloc()
+In-Reply-To: <20220323103546.1772673-2-dmitry.baryshkov@linaro.org>
+References: <20220323103546.1772673-1-dmitry.baryshkov@linaro.org>
+ <20220323103546.1772673-2-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 24 Mar 2022 15:07:43 -0500
+Message-ID: <CAE-0n52bf2VHfC+a58+P88bG2WiwDZrFd0hzAPcSFDNC_RYW8Q@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>, 
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dp: drop dp_mode argument from
+ dp_panel_get_modes()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,53 +70,19 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 3/24/2022 1:36 AM, xkernel.wang@foxmail.com wrote:
-> From: Xiaoke Wang <xkernel.wang@foxmail.com>
-> 
-> kzalloc() is a memory allocation function which can return NULL when
-> some internal memory errors happen. So it is better to check it to
-> prevent potential wrong memory access.
-> 
-> Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Quoting Dmitry Baryshkov (2022-03-23 03:35:44)
+> Since the commit ab205927592b ("drm/msm/dp: remove mode hard-coding in
+> case of DP CTS") the function dp_panel_get_modes() doesn't use (or fill)
+> the dp_mode argument. Drop it completely.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 17 ++++++++++-------
->   1 file changed, 10 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> index c6b69af..5f914cc 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-> @@ -90,15 +90,18 @@ static void mdp5_plane_reset(struct drm_plane *plane)
->   		__drm_atomic_helper_plane_destroy_state(plane->state);
->   
->   	kfree(to_mdp5_plane_state(plane->state));
-> -	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
-> +	plane->state = NULL;
->   
-> -	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
-> -		mdp5_state->base.zpos = STAGE_BASE;
-> -	else
-> -		mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
-> -	mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
-> +	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
-> +	if (mdp5_state) {
-> +		if (plane->type == DRM_PLANE_TYPE_PRIMARY)
-> +			mdp5_state->base.zpos = STAGE_BASE;
-> +		else
-> +			mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
-> +		mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
->   
-> -	__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
-> +		__drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
-> +	}
->   }
->   
->   static struct drm_plane_state *
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
