@@ -2,63 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0709D4E69AB
-	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 21:11:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48464E69AF
+	for <lists+freedreno@lfdr.de>; Thu, 24 Mar 2022 21:12:09 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82EEE10E268;
-	Thu, 24 Mar 2022 20:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B8A610E268;
+	Thu, 24 Mar 2022 20:12:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D649610E2C6
- for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 20:11:30 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- n19-20020a9d7113000000b005cd9cff76c3so4096556otj.1
- for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 13:11:30 -0700 (PDT)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB95110E2E4
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 20:12:07 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-d4164acd34so6050272fac.4
+ for <freedreno@lists.freedesktop.org>; Thu, 24 Mar 2022 13:12:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=Nwl7eXrzEg6HjQ0pYoms0bj2n7ydxw/0219nabhE8y4=;
- b=Wz0LWT+bpc8idvDVCgb6SFc2Qi2G93X+M2YY2fmhP9lnDZhmtWQOdp4XIrYFnWJ+Xu
- 1OjtvVD0C/QQP7xsv+SWY+cmKVJxaXRGRdCXufF7zTSjf3c/r4bHTemM7ZPM68WTenoz
- +jo3wpYPoEeOGQv5SN5A6G6nEfuoLns2S94Bo=
+ bh=fm33v815cGyvRnZSik/3qfh/le6zz0KlP6K6B+y0Ujw=;
+ b=j7BsnOzcEainxu4qHj53ZoSIQjjCWDVI5dpkX6Y3H7F6bGoLg+zwQ1mH1J+hSY+eBC
+ fUnpuDvR1s6e0lQ1cGONY7o0FhHRrOtx65byEMhBahgjGMhkzlr4QtW3ds3UgP7X1ZUC
+ bGMQzgtuDRbwkG8eX+c81M6n5aYkFSU2zHGkc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=Nwl7eXrzEg6HjQ0pYoms0bj2n7ydxw/0219nabhE8y4=;
- b=hj4B241TVeT2TsqgE+qJPRDcbOX7uo9C8DVFd/9WRD9K1xNB9OJ19WM1qrNID8hq50
- Jtc6T+xJXZ6278bOnwWgMUyhEEoqZzeWXbmsUr6nc5g2NP6gAMDokBBMBSg/xiCvh9UY
- TNUcJouBsv2dNeGm4gpwuTHmIS4XDWnu1jYzqbLehUf9dhDS9vqcvdgic+P/nZEqgoPO
- rrQ+FngUg9XapJxLQu1kzVufsHh5auICUT6yt3FZNvPyRjnyy1tsni7skM/syGqvMQIo
- fBdq1FMx61k1LxStMuT5O/rP72CoNuqwCyKezlQ3HSRGXUDQSCL3HYdrNvTWyKqVr6eL
- LTjQ==
-X-Gm-Message-State: AOAM533EQo8KZTFHZkqeLlmdNDM+QZ7GKCYfYzcBO4QluoYj0BzDPy8/
- 1kMm85PRhNKhdpAQUQ9IXcZJsTW2nXFKcliHmJKUdA==
-X-Google-Smtp-Source: ABdhPJyKdYuuvj+Pf/ReQ7CF0NIUyrpos1BaPLUZKxrc3wD7UER0DcKnAzcQcQ6rpt99A3PFhj4W1tAkEzuQMc1hO74=
-X-Received: by 2002:a05:6830:61b:b0:5cc:e44:7dc3 with SMTP id
- w27-20020a056830061b00b005cc0e447dc3mr2866148oti.159.1648152690112; Thu, 24
- Mar 2022 13:11:30 -0700 (PDT)
+ bh=fm33v815cGyvRnZSik/3qfh/le6zz0KlP6K6B+y0Ujw=;
+ b=MY5M5/D4rG6rrL/JfPIYNa7BxiP0wASewF0/20F7vjsnVeCFfDRbHbgUlaFstxvDBQ
+ py5/s4HRTzV7xJ4bZBU+mKx/0zSOuFDzrHkkESvXt6zWm4/vCDI29rO+WlXSCoBYD02D
+ 8btdHXLvdx9L6D8wPF3UGU6esyVVY7BrUmryxS6EsjJ0oQiLGfoFhw7GGjYVudH6EeuU
+ KqOdDRniCqnCsjVlZA11PjSaneFr6DrJVLAjYMl46kd3kVILaH1yX2U3Qg6xPFTIy7QI
+ Wv8dO9kXz9599e6BRmLc+o4oVyYsx4dh8GVp+9h4iStUB032yqMzfcjaUBCeIQehJc3i
+ 481w==
+X-Gm-Message-State: AOAM531Dx+v3q+h9k8oNFjn4MRG4Z2yCr01f0pjfOH+PrZQ6kWln1yIY
+ Q956k7MBartv+DyJ17XCc4jsvMuzAl//ljX4D7CPUQ==
+X-Google-Smtp-Source: ABdhPJzKBovD/XnQBM2VJdM2UICBfRNvK7J2MglCmPB4nXDGNIsSoqA1flcavm/5l9LdPtrW0MWyu1WgO4fQQ3UEHWo=
+X-Received: by 2002:a05:6870:b69c:b0:dd:b74b:4099 with SMTP id
+ cy28-20020a056870b69c00b000ddb74b4099mr3107374oab.193.1648152727293; Thu, 24
+ Mar 2022 13:12:07 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Mar 2022 15:11:29 -0500
+ HTTPREST; Thu, 24 Mar 2022 15:12:06 -0500
 MIME-Version: 1.0
-In-Reply-To: <20220323103546.1772673-3-dmitry.baryshkov@linaro.org>
-References: <20220323103546.1772673-1-dmitry.baryshkov@linaro.org>
- <20220323103546.1772673-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220324115536.2090818-1-dmitry.baryshkov@linaro.org>
+References: <20220324115536.2090818-1-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Thu, 24 Mar 2022 15:11:29 -0500
-Message-ID: <CAE-0n53namcRm+kYBbt+ytF5iQQKNpLDq7u+Nzsf4gyk_e+emg@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, 
- Sean Paul <sean@poorly.run>
+Date: Thu, 24 Mar 2022 15:12:06 -0500
+Message-ID: <CAE-0n519RudiM+BG722M_BKqb=9Qt1rPFH5eYE1=9Lut6H7o4A@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Rob Clark <robdclark@gmail.com>, 
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dp: simplify
- dp_connector_get_modes()
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display/msm: another fix for
+ the dpu-qcm2290 example
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,18 +70,22 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: devicetree@vger.kernel.org, Loic Poulain <loic.poulain@linaro.org>,
+ Rob Herring <robh@kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-03-23 03:35:45)
-> Since dp_panel_get_modes() handling for dp_mode was removed,
-> dp_display_get_modes also doesn't change the passed dp_mode, drop the
-> unused dp_mode variable being allocated unused and then freed.
+Quoting Dmitry Baryshkov (2022-03-24 04:55:36)
+> Make dpu-qcm2290 example really follow the defined schema:
+> - Drop qcom,mdss compatible. It's only used for MDP5 devices.
+> - Change display controller name to display-controller as specified in
+>   the yaml
 >
+> Reported-by: Rob Herring <robh@kernel.org>
+> Cc: Loic Poulain <loic.poulain@linaro.org>
+> Fixes: 164f69d9d45a ("dt-bindings: msm: disp: add yaml schemas for QCM2290 DPU bindings")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
 
