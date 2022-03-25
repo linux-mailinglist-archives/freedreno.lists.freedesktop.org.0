@@ -1,41 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B19424E7111
-	for <lists+freedreno@lfdr.de>; Fri, 25 Mar 2022 11:20:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE5B94E71D1
+	for <lists+freedreno@lfdr.de>; Fri, 25 Mar 2022 12:06:23 +0100 (CET)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59BD710E392;
-	Fri, 25 Mar 2022 10:20:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D004E10E942;
+	Fri, 25 Mar 2022 11:06:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6533C10E2A4
- for <freedreno@lists.freedesktop.org>; Fri, 25 Mar 2022 10:20:06 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D091A12FC
- for <freedreno@lists.freedesktop.org>; Fri, 25 Mar 2022 03:20:05 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 543053F73D
- for <freedreno@lists.freedesktop.org>; Fri, 25 Mar 2022 03:20:05 -0700 (PDT)
-Date: Fri, 25 Mar 2022 10:19:39 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <Yj2XO6sD1U0IvIZW@e110455-lin.cambridge.arm.com>
-References: <1647907005-27004-1-git-send-email-quic_abhinavk@quicinc.com>
- <1647907005-27004-3-git-send-email-quic_abhinavk@quicinc.com>
- <YjtO3o3gchzEPCBD@e110455-lin.cambridge.arm.com>
- <0cde82fb-a93c-5b94-6330-74916085e9af@quicinc.com>
- <YjxD8rIlt3e3thul@e110455-lin.cambridge.arm.com>
- <17dde844-5230-7ed7-e96b-963da4f2050c@quicinc.com>
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D8310E942;
+ Fri, 25 Mar 2022 11:06:19 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id A4EF1CE28D8;
+ Fri, 25 Mar 2022 11:06:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB729C340E9;
+ Fri, 25 Mar 2022 11:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648206370;
+ bh=S/8wTA0auLZSlVzKWYspR8dMbr2gyFwMvqRwtK/PO8I=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Gcv5yH8RWe9Kj1U7wJDshHa0zGo/eFxXsJOMPDJT40CxxBi8+aFnXf24UOi37NTof
+ OwdWWnFmn8Led1DtMn9SN3wPeIcJ0UrJ39SBlUTC31BuPyzNpYuLpTm4hbnAu7N/Ox
+ SSgDl3cZOBznlPFSljIZ5aps2CKzlNtw1Ay5OtmxufPEHOzVgJ2M0BqkHOftfGntWi
+ tu0AHbqKpL8RO2oD9UE6A6T0dmOYZctNWmP6T1k3odK+3qhzvlJ/327+/15d78miAl
+ ETU1LcRda5a6PUuilg4Uu/dljUEDTGdejxzBqBpLhJ4MsKR37mGGhHodpoQOkDs+mQ
+ DYNrxRnOlqc5g==
+From: Vinod Koul <vkoul@kernel.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Fri, 25 Mar 2022 16:35:43 +0530
+Message-Id: <20220325110556.275490-1-vkoul@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <17dde844-5230-7ed7-e96b-963da4f2050c@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v5 2/4] drm: introduce
- drm_writeback_connector_init_with_encoder() API
+Subject: [Freedreno] [PATCH v5 00/13] drm/msm: Add Display Stream
+ Compression Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,518 +50,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
- rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, dmitry.baryshkov@linaro.org,
- james.qian.wang@arm.com, quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <abhinavk@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 24, 2022 at 09:36:50AM -0700, Abhinav Kumar wrote:
-> Hi Liviu
+Display Stream Compression (DSC) compresses the display stream in host which
+is later decoded by panel. This series enables this for Qualcomm msm driver.
+This was tested on Google Pixel3 phone which use LGE SW43408 panel.
+ 
+The changes include DSC data and hardware block enabling for DPU1 then
+support in encoder. We also add support in DSI and introduce required
+topology changes.
+ 
+In order for panel to set the DSC parameters we add dsc in drm_panel and
+pass the dsc configuration from the panel driver
 
-Hello,
+We still have dsc as a globabl entity. I think while doing DP + DSC we
+should be able to update it, right now comprehending the requirements are
+bit difficult.
+ 
+Complete changes which enable this for Pixel3 along with panel driver (not
+part of this series) and DT changes can be found at:
+git.linaro.org/people/vinod.koul/kernel.git pixel/dsc_v5
+ 
+Comments welcome!
 
-> 
-> Thanks for the response.
-> 
-> On 3/24/2022 3:12 AM, Liviu Dudau wrote:
-> > On Wed, Mar 23, 2022 at 11:28:56AM -0700, Abhinav Kumar wrote:
-> > > Hi Liviu
-> > 
-> > Hello,
-> > 
-> > > 
-> > > Thanks for the review.
-> > > 
-> > > On 3/23/2022 9:46 AM, Liviu Dudau wrote:
-> > > > On Mon, Mar 21, 2022 at 04:56:43PM -0700, Abhinav Kumar wrote:
-> > > > > For vendors drivers which pass an already allocated and
-> > > > > initialized encoder especially for cases where the encoder
-> > > > > hardware is shared OR the writeback encoder shares the resources
-> > > > > with the rest of the display pipeline introduce a new API,
-> > > > > drm_writeback_connector_init_with_encoder() which expects
-> > > > > an initialized encoder as a parameter and only sets up the
-> > > > > writeback connector.
-> > > > > 
-> > > > > changes in v5:
-> > > > > 	- reorder this change to come before in the series
-> > > > > 	  to avoid incorrect functionality in subsequent changes
-> > > > > 	- continue using struct drm_encoder instead of
-> > > > > 	  struct drm_encoder * and switch it in next change
-> > > > > 
-> > > > > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> > > > 
-> > > > Hi Abhinav,
-> > > > 
-> > > > > ---
-> > > > >    drivers/gpu/drm/drm_writeback.c | 143 ++++++++++++++++++++++++++++------------
-> > > > >    include/drm/drm_writeback.h     |   5 ++
-> > > > >    2 files changed, 106 insertions(+), 42 deletions(-)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> > > > > index dc2ef12..abe78b9 100644
-> > > > > --- a/drivers/gpu/drm/drm_writeback.c
-> > > > > +++ b/drivers/gpu/drm/drm_writeback.c
-> > > > > @@ -149,37 +149,15 @@ static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
-> > > > >    	.destroy = drm_encoder_cleanup,
-> > > > >    };
-> > > > > -/**
-> > > > > - * drm_writeback_connector_init - Initialize a writeback connector and its properties
-> > > > > - * @dev: DRM device
-> > > > > - * @wb_connector: Writeback connector to initialize
-> > > > > - * @con_funcs: Connector funcs vtable
-> > > > > - * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
-> > > > > - * @formats: Array of supported pixel formats for the writeback engine
-> > > > > - * @n_formats: Length of the formats array
-> > > > > - * @possible_crtcs: possible crtcs for the internal writeback encoder
-> > > > > - *
-> > > > > - * This function creates the writeback-connector-specific properties if they
-> > > > > - * have not been already created, initializes the connector as
-> > > > > - * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
-> > > > > - * values. It will also create an internal encoder associated with the
-> > > > > - * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
-> > > > > - * the encoder helper.
-> > > > > - *
-> > > > > - * Drivers should always use this function instead of drm_connector_init() to
-> > > > > - * set up writeback connectors.
-> > > > > - *
-> > > > > - * Returns: 0 on success, or a negative error code
-> > > > > - */
-> > > > > -int drm_writeback_connector_init(struct drm_device *dev,
-> > > > > -				 struct drm_writeback_connector *wb_connector,
-> > > > > -				 const struct drm_connector_funcs *con_funcs,
-> > > > > -				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
-> > > > > -				 const u32 *formats, int n_formats, uint32_t possible_crtcs)
-> > > > > +static int drm_writeback_connector_setup(struct drm_device *dev,
-> > > > > +		struct drm_writeback_connector *wb_connector,
-> > > > > +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
-> > > > > +		int n_formats)
-> > > > >    {
-> > > > >    	struct drm_property_blob *blob;
-> > > > > -	struct drm_connector *connector = &wb_connector->base;
-> > > > >    	struct drm_mode_config *config = &dev->mode_config;
-> > > > > +	struct drm_connector *connector = &wb_connector->base;
-> > > > > +
-> > > > 
-> > > > Point of this reordering the statements is...?
-> > > This diff can be avoided. There was no reason to reorder this. I will remove
-> > > this re-order.
-> > > > 
-> > > > >    	int ret = create_writeback_properties(dev);
-> > > > >    	if (ret != 0)
-> > > > > @@ -187,18 +165,10 @@ int drm_writeback_connector_init(struct drm_device *dev,
-> > > > >    	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
-> > > > >    					formats);
-> > > > > -	if (IS_ERR(blob))
-> > > > > -		return PTR_ERR(blob);
-> > > > > -
-> > > > > -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-> > > > > -
-> > > > > -	wb_connector->encoder.possible_crtcs = possible_crtcs;
-> > > > > -
-> > > > > -	ret = drm_encoder_init(dev, &wb_connector->encoder,
-> > > > > -			       &drm_writeback_encoder_funcs,
-> > > > > -			       DRM_MODE_ENCODER_VIRTUAL, NULL);
-> > > > > -	if (ret)
-> > > > > -		goto fail;
-> > > > > +	if (IS_ERR(blob)) {
-> > > > > +		ret = PTR_ERR(blob);
-> > > > > +		return ret;
-> > > > > +	}
-> > > > 
-> > > > I don't see why you have changed the earlier code to store the result of PTR_ERR into
-> > > > ret other than to help your debugging. I suggest that you keep the existing code that
-> > > > returns PTR_ERR(blob) directly and you will have a nicer diff stat as well.
-> > > Sure, i can fix this for a smaller diff stat.
-> > > > 
-> > > > >    	connector->interlace_allowed = 0;
-> > > > > @@ -237,13 +207,102 @@ int drm_writeback_connector_init(struct drm_device *dev,
-> > > > >    attach_fail:
-> > > > >    	drm_connector_cleanup(connector);
-> > > > >    connector_fail:
-> > > > > -	drm_encoder_cleanup(&wb_connector->encoder);
-> > > > > -fail:
-> > > > >    	drm_property_blob_put(blob);
-> > > > >    	return ret;
-> > > > >    }
-> > > > > +
-> > > > > +/**
-> > > > > + * drm_writeback_connector_init - Initialize a writeback connector and its properties
-> > > > > + * @dev: DRM device
-> > > > > + * @wb_connector: Writeback connector to initialize
-> > > > > + * @con_funcs: Connector funcs vtable
-> > > > > + * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
-> > > > > + * @formats: Array of supported pixel formats for the writeback engine
-> > > > > + * @n_formats: Length of the formats array
-> > > > > + * @possible_crtcs: possible crtcs for the internal writeback encoder
-> > > > > + *
-> > > > > + * This function creates the writeback-connector-specific properties if they
-> > > > > + * have not been already created, initializes the connector as
-> > > > > + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
-> > > > > + * values. It will also create an internal encoder associated with the
-> > > > > + * drm_writeback_connector and set it to use the @enc_helper_funcs vtable for
-> > > > > + * the encoder helper.
-> > > > > + *
-> > > > > + * Drivers should always use this function instead of drm_connector_init() to
-> > > > > + * set up writeback connectors.
-> > > > > + *
-> > > > > + * Returns: 0 on success, or a negative error code
-> > > > > + */
-> > > > > +int drm_writeback_connector_init(struct drm_device *dev,
-> > > > > +		struct drm_writeback_connector *wb_connector,
-> > > > > +		const struct drm_connector_funcs *con_funcs,
-> > > > > +		const struct drm_encoder_helper_funcs *enc_helper_funcs,
-> > > > > +		const u32 *formats, int n_formats, uint32_t possible_crtcs)
-> > > > > +{
-> > > > > +	int ret = 0;
-> > > > > +
-> > > > > +	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-> > > > > +
-> > > > > +	wb_connector->encoder.possible_crtcs = possible_crtcs;
-> > > > > +
-> > > > > +	ret = drm_encoder_init(dev, &wb_connector->encoder,
-> > > > > +			       &drm_writeback_encoder_funcs,
-> > > > > +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
-> > > > > +	if (ret)
-> > > > > +		return ret;
-> > > > > +
-> > > > > +	ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs, formats,
-> > > > > +			n_formats);
-> > > > > +
-> > > > > +	if (ret)
-> > > > > +		drm_encoder_cleanup(&wb_connector->encoder);
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > >    EXPORT_SYMBOL(drm_writeback_connector_init);
-> > > > > +/**
-> > > > > + * drm_writeback_connector_init_with_encoder - Initialize a writeback connector and its properties
-> > > > > + * using the encoder which already assigned and initialized
-> > > > > + *
-> > > > > + * @dev: DRM device
-> > > > > + * @wb_connector: Writeback connector to initialize
-> > > > > + * @con_funcs: Connector funcs vtable
-> > > > > + * @enc_helper_funcs: Encoder helper funcs vtable to be used by the internal encoder
-> > > > > + * @formats: Array of supported pixel formats for the writeback engine
-> > > > > + * @n_formats: Length of the formats array
-> > > > > + *
-> > > > > + * This function creates the writeback-connector-specific properties if they
-> > > > > + * have not been already created, initializes the connector as
-> > > > > + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
-> > > > > + * values.
-> > > > > + *
-> > > > > + * This function assumes that the drm_writebac_connector's encoder has already been
-> > > > 
-> > > > spelling: writeback
-> > > Ack. will fix this.
-> > > > 
-> > > > > + * created and initialized before invoking this function.
-> > > > > + *
-> > > > > + * In addition, this function also assumes that callers of this API will manage
-> > > > > + * assigning the encoder helper functions, possible_crtcs and any other encoder
-> > > > > + * specific operation which is otherwise handled by drm_writeback_connector_init().
-> > > > > + *
-> > > > > + * Drivers should always use this function instead of drm_connector_init() to
-> > > > > + * set up writeback connectors.
-> > > > 
-> > > > .... if they want to manage themselves the lifetime of the associated encoder.
-> > > > 
-> > > > We're not trying to replace drm_writeback_connector_init() function here, only to
-> > > > provide an alternative function to call for special cases.
-> > > 
-> > > Yes, we are trying to provide an alternative function call for special case
-> > > where the encoder is a shared encoder and/or where the resources of the
-> > > writeback encoder are shared with other hardware blocks.
-> > > 
-> > > I can add that comment to this function's doc.
-> > > 
-> > > > 
-> > > > > + *
-> > > > > + * Returns: 0 on success, or a negative error code
-> > > > > + */
-> > > > > +int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> > > > > +		struct drm_writeback_connector *wb_connector,
-> > > > > +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
-> > > > > +		int n_formats)
-> > > > 
-> > > > Where is the encoder parameter? Isn't that the reason why the function is called
-> > > > `_with_encoder`?
-> > > The encoder parameter is skipped here because this function assumes that
-> > > wb_connector->encoder has already been initialized, setup with functions and
-> > > its possible_crts have already been set prior to calling this function like
-> > > the vc4 example shows. So this function doesnt need an explicit encoder
-> > > parameter. Let me know if thats a concern.
-> > > > 
-> > > > I think there might have been too many version of these patchsets and things are
-> > > > starting to be confusing. Please revisit the series without rushing and come up with
-> > > > a plan of action. My understanding of watching this series has been that you're
-> > > > trying to come up with a function that does *connector* initialisation but skips the
-> > > > *encoder* initialisation because it might have been already done by the driver. The
-> > > > idea will be then to have a function `drm_writeback_connector_init_with_encoder()`
-> > > > that does *all* the work that `drm_writeback_connector_init()` does at the moment minus
-> > > > the encoder initialisation part. Then `drm_writeback_connector_init()` only
-> > > > initialises the internal encoder and calls `drm_writeback_connector_init_with_encoder()`.
-> > > > There is no need to have the `drm_writeback_connector_setup()` function at all.
-> > > > 
-> > > > Best regards,
-> > > > Liviu
-> > > > 
-> > > 
-> > > I agree there have been a 4 revisions prior to this because of the way this
-> > > affects the existing writeback drivers. So initial revision was a bit
-> > > intrusive into other drivers (which was just mostly a take over from the
-> > > previous patchset posted by the Co-developer ) and since rev3 we have
-> > > decided to have a separate API drm_writeback_connector_init_with_encoder()
-> > > so that existing clients are unaffected and it works seamlessly under the
-> > > hood.
-> > > 
-> > > Only clients which already embed an encoder (vc4) and the new ones which
-> > > have special encoder requirements like the MSM driver for which I am
-> > > preparing these changes for will use the new API.
-> > > 
-> > > Apologies for the revisions, but thanks to some great feedback from you and
-> > > laurent its shaping up nicely and reaching its conclusion I feel.
-> > 
-> > I think it is only natural that there will be some iterations. If I remember
-> > correctly, the initial writeback series has something like 13 revisions :)
-> > 
-> > > 
-> > > So i think this revision is pretty close to being clean thanks to the
-> > > feedback you gave on rev4. Between rev4 and this one I didnt drastically
-> > > change the design other than re-ordering the changes to avoid the
-> > > intermediate patches having an incorrect state for the vc4 encoder. So all
-> > > your comments related to the encoder_cleanup() and vc4's encoder not getting
-> > > initialized would have gotten addressed but overall concept remained same.
-> > > 
-> > > You are right, we are trying to come up with a function which does connector
-> > > initialization but skips the encoder part because that has already been done
-> > > in the client side of this API ( hence _with_encoder() name ). The
-> > > "_with_encoder" indicates that the caller already has an encoder for the
-> > > writeback connector which is being passed so there is no need to pass the
-> > > encoder again.
-> > > 
-> > > I thought this addresses all the concerns posted in the previous series.
-> > > 
-> > > So are you suggesting something like below?
-> > > 
-> > > 1) rename drm_writeback_connector_setup() to
-> > > drm_writeback_connector_init_with_encoder()
-> > > (essentially thats what will end up happening )
-> > 
-> > Correct. Without the pointless reordering of code it should be about 3 lines of code
-> > that get removed (the calls to drm_encoder_helper_add() and drm_encoder_init()).
-> > 
-> 
-> But isnt thats how it already looks.
-> 
-> int drm_writeback_connector_init(struct drm_device *dev,
->         struct drm_writeback_connector *wb_connector,
->         const struct drm_connector_funcs *con_funcs,
->         const struct drm_encoder_helper_funcs *enc_helper_funcs,
->         const u32 *formats, int n_formats, uint32_t possible_crtcs)
-> {
->     int ret = 0;
-> 
->     wb_connector->encoder = &wb_connector->internal_encoder;
-> 
->     drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
-> 
->     wb_connector->encoder->possible_crtcs = possible_crtcs;
-> 
->     ret = drm_encoder_init(dev, wb_connector->encoder,
->                    &drm_writeback_encoder_funcs,
->                    DRM_MODE_ENCODER_VIRTUAL, NULL);
->     if (ret)
->         return ret;
-> 
->     ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs,
-> formats,
->             n_formats);
-> 
-> So the only change you are requesting is that, instead of having a new
-> drm_writeback_connector_setup(), just call
-> drm_writeback_connector_init_with_encoder().
-> 
-> It will essentially look like
-> 
-> int drm_writeback_connector_init(struct drm_device *dev,
->         struct drm_writeback_connector *wb_connector,
->         const struct drm_connector_funcs *con_funcs,
->         const struct drm_encoder_helper_funcs *enc_helper_funcs,
->         const u32 *formats, int n_formats, uint32_t possible_crtcs)
-> {
->     int ret = 0;
-> 
->     wb_connector->encoder = &wb_connector->internal_encoder;
+Changes since v4:
+ - Use new apprach based on Abhinav suggestion for dsc with 3d-merge
+ - Make common function for dsc timing caln and call that from video and cmd
+   mode
+ - update description for patch "Pass DSC params to drm_panel"
+ - update couple of typos as pointed by Marijn
+ - drop dpu_encoder_dsc_pclk_param_calc() as that was duplicating the caln
+   done in dsi timing
+ - Update copyright to 2022 to new files
+ - Update Abhinav's email to new quic one
 
-(1)
+Changes since v3:
+ - Merge changes from Dmitry to have dsc per encoder instance
+ - add warning for dsc and mode3d enabled together
+ - set dsc in dpu_encoder_phys_vid as well
+ - remove dsc hardcoded mask
+ - use devm_kzalloc for memory allocation for dsc
 
-> 
->     drm_encoder_helper_add(wb_connector->encoder, enc_helper_funcs);
-> 
->     wb_connector->encoder->possible_crtcs = possible_crtcs;
-> 
->     ret = drm_encoder_init(dev, wb_connector->encoder,
->                    &drm_writeback_encoder_funcs,
->                    DRM_MODE_ENCODER_VIRTUAL, NULL);
->     if (ret)
->         return ret;
-> 
->     ret = drm_writeback_connector_init_with_encoder(dev, wb_connector,
-> con_funcs, formats,
->             n_formats);
+Changes since v2:
+ - Fix comments by Dimitry except the dsc being global.
+ - Move RM patch later for dependency on topology now
+ - Add patch for mode valid callback for dsi_mgr
+ - Add missing structure documentation patch
+ - Fix errors in mode_3d changes
+ - Rebase on v5.16-rc1 and test
 
-Yes, this is exactly what I had in mind.
+Changes since v1:
+ - Fix various issues spotted by kbuildbot
+ - Rebase to v5.15-rc3
+ - Remove unused fields and duplicate defines
+ - Enable DSC blocks only when DSC is enabled
+ - remove sdm845 feature mask, use 0
+ - Check for DSC in hw_ctl
 
+Changes since RFC:
+ - Drop the DT binding patch as we derive the configuration from panel
+ - Drop the drm api patch as we no longer need it (use pps drm api)
+ - Fix comments raised by Dimitry
+ - Add dsc parameters calculation from downstream
 
-> 
-> drm_writeback_connector_init_with_encoder() will still not have an encoder
-> parameter because of what I wrote previously.
+Dmitry Baryshkov (1):
+  drm/msm/dpu: don't use merge_3d if DSC merge topology is used
 
-But in your patch drm_writeback_connector_init_with_encoder() still has an
-encoder_funcs pointer which is useless, as the expectations are (AFAII) that the
-whole encoder init dance has already happened. And while you have a point that you
-can set the encoder pointer in the connector before calling
-drm_writeback_connector_init_with_encoder() I think it would be easier to read if you
-pass the encoder explicitly in the parameter list and skip the assignment in (1) and
-do it inside drm_writeback_connector_init_with_encoder(). Again, your code is not
-wrong, I just think we should be explicit so that code is easier to read.
+Vinod Koul (12):
+  drm/msm/dsi: add support for dsc data
+  drm/msm/dsi: Pass DSC params to drm_panel
+  drm/msm/disp/dpu1: Add support for DSC
+  drm/msm/disp/dpu1: Add support for DSC in pingpong block
+  drm/msm/disp/dpu1: Add DSC for SDM845 to hw_catalog
+  drm/msm/disp/dpu1: Add DSC support in hw_ctl
+  drm/msm/disp/dpu1: Add support for DSC in encoder
+  drm/msm: Add missing num_dspp field documentation
+  drm/msm/disp/dpu1: Add support for DSC in topology
+  drm/msm/disp/dpu1: Add DSC support in RM
+  drm/msm/dsi: add mode valid callback for dsi_mgr
+  drm/msm/dsi: Add support for DSC configuration
 
-> 
-> Hope this is what you had in mind as well.
-> 
-> > > 
-> > > 2) Inside drm_writeback_connector_init() check:
-> > > 
-> > > drm_writeback_connector_init(.....)
-> > > {
-> > >     if (!wb_conn->encoder)
-> > > 	initialize the encoder
-> > 
-> > No, the assumption of drm_writeback_connector_init() is that we will provide the
-> > encoder, so no need to check that one is already provided. What you could do is:
-> > 
-> >       WARN_ON(wb_conn->encoder);
-> > 
-> 
-> Got it, i will add a warning inside drm_writeback_connector_init() to
-> emphasize that its only meant for cases where an encoder is not provided.
-> 
-> > before we overwrite the encoder. That way we will get a nice warning in the kernel
-> > log if someone tries to call drm_writeback_connector_init() with a preset encoder.
-> > 
-> > > 
-> > >     call drm_writeback_**_init_with_encoder() 				
-> > > }
-> > > 
-> > > This will also work but have the foll concerns/questions:
-> > > 
-> > > 1) Will drm_writeback_connector_init_with_encoder() be exported if we change
-> > > as per your suggestion or will all clients continue to use
-> > > drm_writeback_connector_init() only? We wanted to have a separate function
-> > > for new clients.
-> > 
-> > Yes, we will need to export drm_writeback_connector_init_with_encoder() as well.
-> > 
-> Alright, so vc4 and new vendors which provide their own encoder will use
-> this one. So no changes to the rest of the series.
-> 
-> > > 
-> > > 2) How will we detect that encoder needs to be initialized without it being
-> > > a pointer which happens in the later change. So ordering becomes an issue.
-> > 
-> > I think the init problem is simple. You either call drm_writeback_connector_init()
-> > and the framework provides you with an encoder, or you call
-> > drm_writeback_connector_init_with_encoder() and the framework will use yours. The
-> > problems will show up on the cleanup and exit codes, where we need to be able to skip
-> > the cleanup if the encoder pointer is not the internal one. I think a simple
-> > 
-> >      if (connector->encoder == &connector->internal_encoder)
-> >            do_encoder_cleanup_work_here()
-> > 
-> > should work.
-> 
-> Sorry, I am missing something here.
-> 
-> Even in this current patch, the drm_encoder_cleanup() is done only inside
-> drm_writeback_connector_init() where internal_encoder is used.
-> 
-> For drm_writeback_connector_init_with_encoder(), we dont do the cleanup and
-> expect the caller to do it like vc4 does in the next patch.
-> 
-> So why do we need such a condition?
-
-You're right. I was thinking that at cleanup time we also need to do work with the
-right encoder, but that should accomplished by passing the right .destroy hook in the
-drm_encoder_funcs pointer via drm_encoder_init. So if the special drivers to the
-initialisation correctly it should all work fine, please disregard my comments.
-
-Best regards,
-Liviu
-
-
-> 
-> > 
-> > > 
-> > > Thats why I thought this is the best way to address the comments and keep
-> > > the functionality intact with each change.
-> > > 
-> > > Let me know if I have misunderstood some comment or idea.
-> > 
-> > I hope that with these clarifications we are both on the same page.
-> > 
-> > Best regards,
-> > Liviu
-> > 
-> > 
-> > 
-> > > 
-> > > 
-> > > 
-> > > > 
-> > > > > +{
-> > > > > +	int ret = 0;
-> > > > > +
-> > > > > +	ret = drm_writeback_connector_setup(dev, wb_connector, con_funcs, formats,
-> > > > > +			n_formats);
-> > > > > +
-> > > > > +	return ret;
-> > > > > +}
-> > > > > +EXPORT_SYMBOL(drm_writeback_connector_init_with_encoder);
-> > > > > +
-> > > > >    int drm_writeback_set_fb(struct drm_connector_state *conn_state,
-> > > > >    			 struct drm_framebuffer *fb)
-> > > > >    {
-> > > > > diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> > > > > index db6214f..0093bab 100644
-> > > > > --- a/include/drm/drm_writeback.h
-> > > > > +++ b/include/drm/drm_writeback.h
-> > > > > @@ -152,6 +152,11 @@ int drm_writeback_connector_init(struct drm_device *dev,
-> > > > >    				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
-> > > > >    				 const u32 *formats, int n_formats, uint32_t possible_crtcs);
-> > > > > +int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> > > > > +				struct drm_writeback_connector *wb_connector,
-> > > > > +				const struct drm_connector_funcs *con_funcs, const u32 *formats,
-> > > > > +				int n_formats);
-> > > > > +
-> > > > >    int drm_writeback_set_fb(struct drm_connector_state *conn_state,
-> > > > >    			 struct drm_framebuffer *fb);
-> > > > > -- 
-> > > > > 2.7.4
-> > > > > 
-> > > > 
-> > 
+ drivers/gpu/drm/msm/Makefile                  |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 155 +++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |   6 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  12 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  20 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  13 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  11 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    | 210 ++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |  77 +++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  13 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  32 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   |  14 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  56 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   1 +
+ drivers/gpu/drm/msm/dsi/dsi.c                 |   5 +
+ drivers/gpu/drm/msm/dsi/dsi.h                 |   3 +
+ drivers/gpu/drm/msm/dsi/dsi.xml.h             |  10 +
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 274 +++++++++++++++++-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c         |  12 +
+ drivers/gpu/drm/msm/msm_drv.h                 |  26 ++
+ include/drm/drm_panel.h                       |   7 +
+ 24 files changed, 959 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.34.1
+
