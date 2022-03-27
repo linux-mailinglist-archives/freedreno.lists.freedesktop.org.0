@@ -1,63 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 816814E7A80
-	for <lists+freedreno@lfdr.de>; Fri, 25 Mar 2022 20:51:09 +0100 (CET)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3E84E88A8
+	for <lists+freedreno@lfdr.de>; Sun, 27 Mar 2022 18:05:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1887C10E518;
-	Fri, 25 Mar 2022 19:51:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D45F10E3B9;
+	Sun, 27 Mar 2022 16:05:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F8110E518
- for <freedreno@lists.freedesktop.org>; Fri, 25 Mar 2022 19:51:07 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id o64so9277281oib.7
- for <freedreno@lists.freedesktop.org>; Fri, 25 Mar 2022 12:51:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=eUek1jmX1h1x8PcNcflTTCV7rdiqXP/FImxouF9eXrk=;
- b=MuYU2U53+0XditHV3+xMmufekP83Q86clHPRUFiYJI5c83MMgqsqZU6OE0iD7uqI1D
- bq5BpO0h+DDnBW2dzr+T0KLiCp0GgYfvXmXPzjeUTmIwglTcDMjx2JTa8I15roXjfJQr
- QDYKF7wfPMDa6WIjm4l4EenX4il5h6oLp4L78=
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF13110E054;
+ Sun, 27 Mar 2022 07:33:01 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ o68-20020a17090a0a4a00b001c686a48263so9738928pjo.1; 
+ Sun, 27 Mar 2022 00:33:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=YKubZFE6bM+QSkBsG+9QO1RxuSxqs+5gFlfSVbQQPZM=;
+ b=VZ4ulUcfcPskQTm+VP+1tNFGk9rxfIjmMpkWEYsSvkdG8F0oPCs5b2j+Ayxot6MhTY
+ sIM1zO7pvPXr5csmHmxug3yU8T450E66bZa5PM+UuyTrhahCi0J2x7zs20c5uNpWDEuS
+ 2u2N/5dr8tpEwfrho4YZuhqrVZxQnX/9dIdWW9C+rp2SxaWzPFpAyVsTSw4odFx6+yaV
+ FSCc40Sy0WVQl/2T0zNgitx5om5ds0AE41dxr6Ebah7IdMOL5ZnHulfneOygKC9kmivs
+ /r/CwCmM0C2nB5zyeH5ZpDG3Ja1/VcfegeGPnV2xbjA76xO0jczW9+GI0EIQjXLnhVbN
+ PSjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=eUek1jmX1h1x8PcNcflTTCV7rdiqXP/FImxouF9eXrk=;
- b=LC7Qwtqn+evtzx/0fO6JV7tS5whdllG/hpDxUSBlq/JlrWFVHBNUPPUwWzt7mwo74V
- s+d/Kb2QwZmRbu33jC8SF5S9T0L2hj9xzkSGKY5ihUAOQzW3O60pENfgV898l78dkBeK
- zK0Iy+fM/mSuO2+MH4+BeDbe1xzGd8m2kQunLjfQsCtBEAMtGtCC8SMG2Al7OpgUvVez
- NjUpqrpqH9VZIwCRxcszHO3H6q9yN0q+YaSrNed0HBCVkUH426zq4NRlMugKceegqUv+
- y8X5n7ID1GMNuIP5/iwjsQlXo98OagAYQk1Od/1nrnzaAO2fwYHEmidzP3OKPn2zMEP8
- alpQ==
-X-Gm-Message-State: AOAM530trHHoqR82l79EogvykPtPBK9bLad/A2HGwJv3KGzsrt8sVQnn
- /UbqI30ZOauxqZVy9G/N9/qDj0B1r2B74P22Cuo81Q==
-X-Google-Smtp-Source: ABdhPJxjJgDkwaOL+igFbYKoHRlPcGxtCqcdt2HqSpDefQv8NNUO1BG5eOIgAhxWNNRmCDuEqZtRbL5DhxFUglZ6hXs=
-X-Received: by 2002:aca:a9c8:0:b0:2da:45b6:b796 with SMTP id
- s191-20020acaa9c8000000b002da45b6b796mr5910648oie.193.1648237866373; Fri, 25
- Mar 2022 12:51:06 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 25 Mar 2022 14:51:05 -0500
-MIME-Version: 1.0
-In-Reply-To: <MW4PR02MB718635E7712D44094E6E91F3E11A9@MW4PR02MB7186.namprd02.prod.outlook.com>
-References: <1647452154-16361-1-git-send-email-quic_sbillaka@quicinc.com>
- <1647452154-16361-3-git-send-email-quic_sbillaka@quicinc.com>
- <CAE-0n52Uzo47N5QzoKOwny3XTrArA4nM-KPqAVxAPewSAyNOWw@mail.gmail.com>
- <MW4PR02MB718635E7712D44094E6E91F3E11A9@MW4PR02MB7186.namprd02.prod.outlook.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Fri, 25 Mar 2022 14:51:05 -0500
-Message-ID: <CAE-0n500xV_SA_-KQ4Sh-8PV=rfaXxrMBAh5tnVpjCMD+VEyqg@mail.gmail.com>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5 2/9] arm64: dts: qcom: sc7280: Add
- support for eDP panel on CRD
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=YKubZFE6bM+QSkBsG+9QO1RxuSxqs+5gFlfSVbQQPZM=;
+ b=ZdmFbp/+/CGC6bcHRkLirTp6KvLreW1iQkvuJX1hYKX5r8JjKEdAuUf5wX3d4d5/8Y
+ ruF6GgVkDudoasJyAnv8J00qJGfZxrYLaNvWd4YDtEmOaLZPEYCRnKIGfhFj6YnVJEQN
+ U1NCGnGFFmmMcmMFye8roAu8nfLtC8wGQUdsv2C4gg1TFraabJpK1ry6ghLDBwTIk/0L
+ IauFOPYqejpIn2oOdzprSodtxzgnHMiVc3bUnN/htiBooJ2GtoVmh1sz0q4J2o50EJJU
+ 39EfuLtplzF72/rSNOMMLO+sC2DXRJh6kBYnLrgSycQ4Xn79DmrgpeZnt6u5hH6F5NFL
+ 66rA==
+X-Gm-Message-State: AOAM530Cvz+iE5dRjCQSfYIeUVMURHoqtrcrkiXJ8kIUrVygG/D4GkD2
+ PEVugTjyTN/a0KTnPME3fL0=
+X-Google-Smtp-Source: ABdhPJzze9ezzNVHssEARN6KgfiGzfb3NOY5VDH6d7E2Cd06YEKl1rpHROxsCkMbscLIKv1rf2DGqQ==
+X-Received: by 2002:a17:90a:4897:b0:1c7:5fce:cbcd with SMTP id
+ b23-20020a17090a489700b001c75fcecbcdmr32747388pjh.45.1648366381225; 
+ Sun, 27 Mar 2022 00:33:01 -0700 (PDT)
+Received: from localhost ([115.220.243.108]) by smtp.gmail.com with ESMTPSA id
+ h14-20020a63384e000000b00366ba5335e7sm9528888pgn.72.2022.03.27.00.33.00
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 27 Mar 2022 00:33:00 -0700 (PDT)
+From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+To: robdclark@gmail.com, sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
+Date: Sun, 27 Mar 2022 15:32:52 +0800
+Message-Id: <20220327073252.10871-1-xiam0nd.tong@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Sun, 27 Mar 2022 16:05:44 +0000
+Subject: [Freedreno] [PATCH] dpu1: dpu_encoder: fix a missing check on list
+ iterator
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,44 +65,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "dianders@chromium.org" <dianders@chromium.org>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "sam@ravnborg.org" <sam@ravnborg.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "agross@kernel.org" <agross@kernel.org>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- "sean@poorly.run" <sean@poorly.run>
+Cc: quic_kalyant@quicinc.com, linux-arm-msm@vger.kernel.org,
+ swboyd@chromium.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
+ Xiaomeng Tong <xiam0nd.tong@gmail.com>, stable@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, jsanka@codeaurora.org, bjorn.andersson@linaro.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ markyacoub@google.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Sankeerth Billakanti (QUIC) (2022-03-25 06:30:58)
->
->
-> > > +       vdda-1p2-supply = <&vreg_l6b_1p2>;
-> > > +       vdda-0p9-supply = <&vreg_l10c_0p8>;
-> > > +
-> > > +       aux-bus {
-> >
-> > Can this move to sc7280.dtsi and get a phandle?
-> >
->
-> Okay, I will move this to sc7280.dtsi like below.
-> Shall I define the required properties under &mdss_edp_panel node in the sc7280-crd3.dts?
+The bug is here:
+	 cstate = to_dpu_crtc_state(drm_crtc->state);
 
-The below patch looks good.
+For the drm_for_each_crtc(), just like list_for_each_entry(),
+the list iterator 'drm_crtc' will point to a bogus position
+containing HEAD if the list is empty or no element is found.
+This case must be checked before any use of the iterator,
+otherwise it will lead to a invalid memory access.
 
->
-> --- a/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280.dtsi
-> @@ -3283,6 +3283,18 @@
->
->                                 status = "disabled";
+To fix this bug, use a new variable 'iter' as the list iterator,
+while use the origin variable 'drm_crtc' as a dedicated pointer
+to point to the found element.
+
+Cc: stable@vger.kernel.org
+Fixes: b107603b4ad0f ("drm/msm/dpu: map mixer/ctl hw blocks in encoder modeset")
+Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 1e648db439f9..d3fdb18e96f9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -965,7 +965,7 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+ 	struct dpu_kms *dpu_kms;
+ 	struct list_head *connector_list;
+ 	struct drm_connector *conn = NULL, *conn_iter;
+-	struct drm_crtc *drm_crtc;
++	struct drm_crtc *drm_crtc = NULL, *iter;
+ 	struct dpu_crtc_state *cstate;
+ 	struct dpu_global_state *global_state;
+ 	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+@@ -1007,9 +1007,14 @@ static void dpu_encoder_virt_mode_set(struct drm_encoder *drm_enc,
+ 		return;
+ 	}
+ 
+-	drm_for_each_crtc(drm_crtc, drm_enc->dev)
+-		if (drm_crtc->state->encoder_mask & drm_encoder_mask(drm_enc))
++	drm_for_each_crtc(iter, drm_enc->dev)
++		if (iter->state->encoder_mask & drm_encoder_mask(drm_enc)) {
++			drm_crtc = iter;
+ 			break;
++		}
++
++	if (!drm_crtc)
++		return;
+ 
+ 	/* Query resource that have been reserved in atomic check step. */
+ 	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+-- 
+2.17.1
+
