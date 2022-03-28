@@ -2,53 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCC5F4E9C74
-	for <lists+freedreno@lfdr.de>; Mon, 28 Mar 2022 18:44:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7294E9CFB
+	for <lists+freedreno@lfdr.de>; Mon, 28 Mar 2022 19:04:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77F0710E729;
-	Mon, 28 Mar 2022 16:44:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46FA510E059;
+	Mon, 28 Mar 2022 17:04:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
- [IPv6:2607:f8b0:4864:20::f33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3539B10E729
- for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 16:44:05 +0000 (UTC)
-Received: by mail-qv1-xf33.google.com with SMTP id jo24so12288109qvb.5
- for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 09:44:05 -0700 (PDT)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A3A10E24A
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 17:04:29 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id bq8so16058570ejb.10
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 10:04:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZFIdehZrTxdj/RvUPXGwNiJz0CBRPSutTAor/H+cLso=;
- b=HY7BqZqay1vHlPzQoQMjzcnyQyiXyRjGp+TAREShAf3pydiqV7DKYRaYQoqT77XomN
- 95E7RQUXQwKi69JGzrCjskWWNF3VvTACp2QapXR/gcLtFij4dmvrqC42wjHDRht+Dxwb
- qrIJkT4BC1sa/5QqCEZkCH+19SGG/vuhKj0p/2nrtMZgOoINM+J0EN7chOuZyCcc4kGp
- BLWLjETKDhQZZGTerzv3Gytz8FVyy1LGew3BsoJfUBA122woOjL/N4+SDb/dJnBMc26y
- 6gtJ4loim8gQik4TgrcYztnMPkWzZvgrTAlLASvqNfzpk87vgb//cv2hRAzehoBw8tDz
- 8ISA==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=6yQeqxmAC2aKz5WWofRTiroUa0cIPCXtz1ZK19EhWKo=;
+ b=daxWCLSzVHGVhchsUZ6+YMjYVs1b6Fsm+tcDdFellj+t2WgqgjOdKLAWci/CZA5kTt
+ YpUbcI/aiNTyqKr5AatPYmITMGtorqn7ES0eJ6ftJukevTX7gjRktmyM2KYU+jPIuMOo
+ lRr1gySh1tvjJkDAfaSn+RFfZxDEI0XgwVFKQ3Jd0UwbgXJ421CA6h4nu98pFsDLh3iS
+ Uplm1/6F6IsS2NZY2tmoLWY6NxpGAtzxX7vCCefkJ0eCtUEmzhGnTDDG9HvdC85/RgeI
+ UmWlJrwlG+6aq9Gb59jmhagnkKLRvqeRsGPRkeNA/rmK3hTybLGNWQPHfY5ejaZOnwWR
+ nyqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZFIdehZrTxdj/RvUPXGwNiJz0CBRPSutTAor/H+cLso=;
- b=UyWvrVIYJF59+YWNVJlflu0V+/zh9oDtj3hj+hVNXs6a05fZTDNSBJFuZVftYfyWqy
- odR7ba1vwSKbLg/8/BwFd3mkWgVV9D1owiLrcbJQ9ZDldsLWGrvOZGAoON8xTyc8v/fP
- hQihixGfrRiToPNiPncP3kbEWtedcwmJzg8YpsjFaav4FyDXz8WLBUs4wEZyBaveJ+Ff
- KfySXo0okVPYdl8xnkzWB5e7t6Zml3dwtiV9PwOPalNm23boZXUyvGEBD0flpjQf3RhC
- 7X/AxNeKfay7UOtEkOFRjyKq8dNeBzd3QG4I8bB53/8I/TW9uZIZad1ihcHtg72XGvzO
- f48w==
-X-Gm-Message-State: AOAM532M4q7LW22/PnfF0Q4S24UTeYAgjvY/0P5RCxW3AurnSsyHKHIB
- X+J5Yw0VUnFGilkDyHrCjd6MIEylV5MnPu+0CI+ryfzfaqaK6w==
-X-Google-Smtp-Source: ABdhPJzliM5etgMj0wPTZaXVmyqbng42nS8uHRrcWTfKZ4sLgNctWWdu5gzWqP4wan4eEECcgE1dx/vzA6PVuddrJ4s=
-X-Received: by 2002:a0c:b2cb:0:b0:435:cb61:322e with SMTP id
- d11-20020a0cb2cb000000b00435cb61322emr21682847qvf.122.1648485844212; Mon, 28
- Mar 2022 09:44:04 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=6yQeqxmAC2aKz5WWofRTiroUa0cIPCXtz1ZK19EhWKo=;
+ b=aZyo2ZH9baMeN6NXZ0nq54rE4uW8v2rXLaoSJ52SaKfnMUOfn6dVLK2izsgxxBLUaS
+ BWmGcRFgNSXuq+XxWbAejOOfXejgwUOyleKN81tGK/iMePNl4QqfVMb7kSyqxsG+bXPk
+ fuGASfW1mQME36taVkW7MedU9hhoLbhakXAXm6dM6j4s4e3g+I0XYBBez4a8QA1d5HSf
+ dTpMQH72/rokKjDX+MOem2dcMMSSnh+fa1vNUlu5cQOlpa3RQ71jYVrldZnjdDIF+Vu4
+ 8oADzQo94DbTWB3Z0rLWe6z5vzka9WR4Jdziil1bNiE1WUfzVHHWnnYUn74D3DsqDEV1
+ uUog==
+X-Gm-Message-State: AOAM532vVR5QUDutupSoEfozKrOcstaoMpx1ye9GvdWfDX3fUP4VbVk/
+ Tvl32LU9t6AVM2rv0+/Gz6evFA==
+X-Google-Smtp-Source: ABdhPJxOIHwbCP7io7cxTbL5Y9HAi1K2LbIG9adPMWYOr5vMxk3eG/GDERE2ELL/JaPwcEKHwv7GGQ==
+X-Received: by 2002:a17:907:7704:b0:6cf:48ac:b4a8 with SMTP id
+ kw4-20020a170907770400b006cf48acb4a8mr29021497ejc.305.1648487067801; 
+ Mon, 28 Mar 2022 10:04:27 -0700 (PDT)
+Received: from [192.168.0.162] (xdsl-188-155-201-27.adslplus.ch.
+ [188.155.201.27]) by smtp.gmail.com with ESMTPSA id
+ 20-20020a17090601d400b006caff964e30sm6108433ejj.19.2022.03.28.10.04.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Mar 2022 10:04:27 -0700 (PDT)
+Message-ID: <41fe6179-5628-6393-01c1-918baccec176@linaro.org>
+Date: Mon, 28 Mar 2022 19:04:26 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 References: <20220328152923.90623-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220328152923.90623-1-krzysztof.kozlowski@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 28 Mar 2022 19:43:53 +0300
-Message-ID: <CAA8EJprWoxWwk5EWEfWdLquPR+2=u6V0-v1-+wHMHOk8HiEyNw@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CAA8EJprWoxWwk5EWEfWdLquPR+2=u6V0-v1-+wHMHOk8HiEyNw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <CAA8EJprWoxWwk5EWEfWdLquPR+2=u6V0-v1-+wHMHOk8HiEyNw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH] dt-bindings: display: msm: dsi: remove
  address/size cells
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -73,56 +86,25 @@ Cc: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, 28 Mar 2022 at 18:30, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> The DSI node is not a bus and the children do not have unit addresses.
->
-> Reported-by: Vinod Koul <vkoul@kernel.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+On 28/03/2022 18:43, Dmitry Baryshkov wrote:
+> On Mon, 28 Mar 2022 at 18:30, Krzysztof Kozlowski
+> <krzysztof.kozlowski@linaro.org> wrote:
+>>
+>> The DSI node is not a bus and the children do not have unit addresses.
+>>
+>> Reported-by: Vinod Koul <vkoul@kernel.org>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> NAK.
+> DSI panels are children of the DSI device tree node with the reg = <0>; address.
+> This is the convention used by other platforms too (see e.g.
+> arch/arm64/boot/dts/freescale/imx8mq-evk.dts).
+> 
+> With the DSI split link it is possible to attach two panels to a
+> single DSI host, so addresses are necessary.
 
-NAK.
-DSI panels are children of the DSI device tree node with the reg = <0>; address.
-This is the convention used by other platforms too (see e.g.
-arch/arm64/boot/dts/freescale/imx8mq-evk.dts).
-
-With the DSI split link it is possible to attach two panels to a
-single DSI host, so addresses are necessary.
-
-> ---
->  .../bindings/display/msm/dsi-controller-main.yaml          | 7 -------
->  1 file changed, 7 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> index 7095ec3c890d..57f238f72326 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-> @@ -51,10 +51,6 @@ properties:
->    phy-names:
->      const: dsi
->
-> -  "#address-cells": true
-> -
-> -  "#size-cells": true
-> -
->    syscon-sfpb:
->      description: A phandle to mmss_sfpb syscon node (only for DSIv2).
->      $ref: "/schemas/types.yaml#/definitions/phandle"
-> @@ -154,9 +150,6 @@ examples:
->             reg = <0x0ae94000 0x400>;
->             reg-names = "dsi_ctrl";
->
-> -           #address-cells = <1>;
-> -           #size-cells = <0>;
-> -
->             interrupt-parent = <&mdss>;
->             interrupts = <4>;
->
-> --
-> 2.32.0
->
+Yes, I noticed it slightly after I sent the patch. :(
 
 
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
