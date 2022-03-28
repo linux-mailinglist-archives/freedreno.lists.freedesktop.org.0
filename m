@@ -1,73 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFED4E9B99
-	for <lists+freedreno@lfdr.de>; Mon, 28 Mar 2022 17:52:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CCC5F4E9C74
+	for <lists+freedreno@lfdr.de>; Mon, 28 Mar 2022 18:44:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB9D910EDAC;
-	Mon, 28 Mar 2022 15:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77F0710E729;
+	Mon, 28 Mar 2022 16:44:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE9A10EDAC
- for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 15:52:06 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- k124-20020a1ca182000000b0038c9cf6e2a6so8847100wme.0
- for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 08:52:06 -0700 (PDT)
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [IPv6:2607:f8b0:4864:20::f33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3539B10E729
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 16:44:05 +0000 (UTC)
+Received: by mail-qv1-xf33.google.com with SMTP id jo24so12288109qvb.5
+ for <freedreno@lists.freedesktop.org>; Mon, 28 Mar 2022 09:44:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=GwP5ugk0tQduHftN8yL0lI1uYPDme19MV0QPD5H1y78=;
- b=arWhFvK2N7y5+CW4x51ZmDby82Ql23kNGRMi9uYrw1Cn13SAVJ07VNWWsyMqWmigJS
- p+I5GLteb7CmWLTs1zVORSuj0Sk/wcBrmkq/lO9aLiHtOMtrir04BDA9K918CKOhfWXq
- bzocvFVuU3o8hK+duUP7iMV4gdg7vjJ3b3xWLsIXAynNnn/L6+vuBU0Jdv12OZivb1u4
- 5CCEytWu7yHvK52J/SUILF4y8456JdSsFQggVYsoajxFR+PW/AulYRv0YPJdnMx3g3Va
- ThzbvYWkBn0Jpv+DHFhQ515GNWJTMZvg0bj8LX6ji0IZUSEcD/cnszu3Ceku5BTNOYRm
- T6Cw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZFIdehZrTxdj/RvUPXGwNiJz0CBRPSutTAor/H+cLso=;
+ b=HY7BqZqay1vHlPzQoQMjzcnyQyiXyRjGp+TAREShAf3pydiqV7DKYRaYQoqT77XomN
+ 95E7RQUXQwKi69JGzrCjskWWNF3VvTACp2QapXR/gcLtFij4dmvrqC42wjHDRht+Dxwb
+ qrIJkT4BC1sa/5QqCEZkCH+19SGG/vuhKj0p/2nrtMZgOoINM+J0EN7chOuZyCcc4kGp
+ BLWLjETKDhQZZGTerzv3Gytz8FVyy1LGew3BsoJfUBA122woOjL/N4+SDb/dJnBMc26y
+ 6gtJ4loim8gQik4TgrcYztnMPkWzZvgrTAlLASvqNfzpk87vgb//cv2hRAzehoBw8tDz
+ 8ISA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=GwP5ugk0tQduHftN8yL0lI1uYPDme19MV0QPD5H1y78=;
- b=V2HDlSGe+QXw/KCxMCtCRFsUMzfq0mx7i0xf8qAEqWHn70WO7xC3vVwVkmf8g8EIGO
- C0B34sUCKZirFaXDESX2cC3MG4w0ZO0fsZTVdn4uB+fN96aDgJ3KsLMhHIc3wzkI3AGm
- oK24nplgJZjPqOOD8i6kyZpxvMXhssxjnMtMXqjeNDJyi/42lbQ+JuDOzAiD8nlGFWsq
- DW+CV5Fj7uw9Bux+HaZsEGg9iOXg1h4dOX8i9fwbsYRpGNSetShijP3/ORome5ZeMqAF
- u1O6SPgaF1Hfe5hJM008oWMeBCYKelIDx2Ymnh+uQ/p59h1CkTIF6GCa4DQqNTYbwV3U
- rUsg==
-X-Gm-Message-State: AOAM532P8MuZmArVbu5i6S6KVIGj1Cbu1wfRcn2i2Yg2x/hvWCms3ows
- k9VpNSqUIybvEnl5bl0+PnKnUw==
-X-Google-Smtp-Source: ABdhPJyyUqsamosO4tTuybJr4KEp61RxvQgbNiyY0IkIVr55UV/cpGdkMnRiwYF0QSghJUBEDuttAA==
-X-Received: by 2002:a05:600c:3546:b0:38c:a8ff:843b with SMTP id
- i6-20020a05600c354600b0038ca8ff843bmr27702630wmq.24.1648482724879; 
- Mon, 28 Mar 2022 08:52:04 -0700 (PDT)
-Received: from [192.168.0.162] (xdsl-188-155-201-27.adslplus.ch.
- [188.155.201.27]) by smtp.gmail.com with ESMTPSA id
- m3-20020a5d6243000000b001e33760776fsm12628577wrv.10.2022.03.28.08.52.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Mar 2022 08:52:04 -0700 (PDT)
-Message-ID: <a43825b5-b7c7-e805-c9dc-0498d752d4f2@linaro.org>
-Date: Mon, 28 Mar 2022 17:52:03 +0200
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZFIdehZrTxdj/RvUPXGwNiJz0CBRPSutTAor/H+cLso=;
+ b=UyWvrVIYJF59+YWNVJlflu0V+/zh9oDtj3hj+hVNXs6a05fZTDNSBJFuZVftYfyWqy
+ odR7ba1vwSKbLg/8/BwFd3mkWgVV9D1owiLrcbJQ9ZDldsLWGrvOZGAoON8xTyc8v/fP
+ hQihixGfrRiToPNiPncP3kbEWtedcwmJzg8YpsjFaav4FyDXz8WLBUs4wEZyBaveJ+Ff
+ KfySXo0okVPYdl8xnkzWB5e7t6Zml3dwtiV9PwOPalNm23boZXUyvGEBD0flpjQf3RhC
+ 7X/AxNeKfay7UOtEkOFRjyKq8dNeBzd3QG4I8bB53/8I/TW9uZIZad1ihcHtg72XGvzO
+ f48w==
+X-Gm-Message-State: AOAM532M4q7LW22/PnfF0Q4S24UTeYAgjvY/0P5RCxW3AurnSsyHKHIB
+ X+J5Yw0VUnFGilkDyHrCjd6MIEylV5MnPu+0CI+ryfzfaqaK6w==
+X-Google-Smtp-Source: ABdhPJzliM5etgMj0wPTZaXVmyqbng42nS8uHRrcWTfKZ4sLgNctWWdu5gzWqP4wan4eEECcgE1dx/vzA6PVuddrJ4s=
+X-Received: by 2002:a0c:b2cb:0:b0:435:cb61:322e with SMTP id
+ d11-20020a0cb2cb000000b00435cb61322emr21682847qvf.122.1648485844212; Mon, 28
+ Mar 2022 09:44:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krishna Manikandan <mkrishn@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20220328152923.90623-1-krzysztof.kozlowski@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 In-Reply-To: <20220328152923.90623-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 28 Mar 2022 19:43:53 +0300
+Message-ID: <CAA8EJprWoxWwk5EWEfWdLquPR+2=u6V0-v1-+wHMHOk8HiEyNw@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] dt-bindings: display: msm: dsi: remove
  address/size cells
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -82,23 +63,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>
+Cc: Krishna Manikandan <mkrishn@codeaurora.org>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/03/2022 17:29, Krzysztof Kozlowski wrote:
+On Mon, 28 Mar 2022 at 18:30, Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
 > The DSI node is not a bus and the children do not have unit addresses.
-
-Eh, actually MIPI DSI is a serial bus, so address/size cells seem right
-and my patch is not correct.
-
-> 
+>
 > Reported-by: Vinod Koul <vkoul@kernel.org>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+NAK.
+DSI panels are children of the DSI device tree node with the reg = <0>; address.
+This is the convention used by other platforms too (see e.g.
+arch/arm64/boot/dts/freescale/imx8mq-evk.dts).
+
+With the DSI split link it is possible to attach two panels to a
+single DSI host, so addresses are necessary.
+
 > ---
 >  .../bindings/display/msm/dsi-controller-main.yaml          | 7 -------
 >  1 file changed, 7 deletions(-)
-> 
+>
 > diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
 > index 7095ec3c890d..57f238f72326 100644
 > --- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
@@ -106,7 +100,7 @@ and my patch is not correct.
 > @@ -51,10 +51,6 @@ properties:
 >    phy-names:
 >      const: dsi
->  
+>
 > -  "#address-cells": true
 > -
 > -  "#size-cells": true
@@ -117,14 +111,18 @@ and my patch is not correct.
 > @@ -154,9 +150,6 @@ examples:
 >             reg = <0x0ae94000 0x400>;
 >             reg-names = "dsi_ctrl";
->  
+>
 > -           #address-cells = <1>;
 > -           #size-cells = <0>;
 > -
 >             interrupt-parent = <&mdss>;
 >             interrupts = <4>;
->  
+>
+> --
+> 2.32.0
+>
 
 
-Best regards,
-Krzysztof
+-- 
+With best wishes
+Dmitry
