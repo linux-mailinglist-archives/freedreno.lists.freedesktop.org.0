@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3BB04EB575
-	for <lists+freedreno@lfdr.de>; Tue, 29 Mar 2022 23:52:22 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 104424EB645
+	for <lists+freedreno@lfdr.de>; Wed, 30 Mar 2022 01:00:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40DF010EF27;
-	Tue, 29 Mar 2022 21:52:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7822F10E4ED;
+	Tue, 29 Mar 2022 23:00:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F20310EF26;
- Tue, 29 Mar 2022 21:52:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1648590739; x=1680126739;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=El0MMeQTJ3DJE1s43/QriaOmcFIxh1mXiWAdapyszPg=;
- b=eOeS6UALISAyd7KlPdCFBvANcDp913614r8Pn+pOPOY45vT5bOvFq0nC
- 6zcLO4Kvb3mH7CEk1JnhDY8BbzGlX4ARijGeeGIFLzf1iO00MJOjJDXng
- lofdRJjDDWDHVFwxkKdjbYHoA5wyv/QSXRS2SmoIF8C7Z0uZ4TBEHLQju A=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 29 Mar 2022 14:52:19 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 14:52:17 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 29 Mar 2022 14:52:17 -0700
-Received: from [10.110.122.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 29 Mar
- 2022 14:52:16 -0700
-Message-ID: <4d39e113-37ec-3889-1726-25e9d26bdbd7@quicinc.com>
-Date: Tue, 29 Mar 2022 14:52:15 -0700
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 161CA10E057;
+ Tue, 29 Mar 2022 23:00:17 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id x2so18943693plm.7;
+ Tue, 29 Mar 2022 16:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=o8GRMi4BaOngdJPfp9V0+F4LD+JDrrKljXWdP6AfpMg=;
+ b=M65jFxPlVkdE37G6xltsUGPVyQxAPAQc77jbKKmsJWdTPzFSMHnocL4rTktfNhOlEf
+ JL566q6XWf6wARvbFknVfUEdIvYokyLyzycTNKQ1ChztkZqerMu476RVSjsRfA9TiHkl
+ 4bWhBuAQpSy+t9K/YlffBtPxPvKb4q8CndxznH45dgJX9xhjbNilZh5ujFrQ3PX6I//V
+ zWni7Y1AYcbtj7AaIORQMKlvD8xw2TmPotEDVgIa9g18VFTcvr3ty7WJVkWPSdfJPTMq
+ MQJcKmRZo5DnlNLPf/J+e8S6DgvRnrj1ROcHa9CHBykVRtYn9vPZokJeShJOl73xZPdl
+ ePTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=o8GRMi4BaOngdJPfp9V0+F4LD+JDrrKljXWdP6AfpMg=;
+ b=FBq7TnP1qWmy060UTAYCiRQacrO7+0gl5qGbJoMMY3Cu0np2J4csZbUgKYjQ/sjrfi
+ lpJxQmJJWBxG9DwXJYaL2xeV6kDTZA6CmkO8PzMBQr82ubyaCzQAM8hOFFv1GENj8V+1
+ iwogu+nienm25H6nUzT0La60svr2/mbyBDCQFxGdv2bFO8YhLjoAEVodJ2oSd82OVcTg
+ WoUw6FQjUQtoCMJvSGTJKGQeVC+pbK6U0MXUCSCt/53Cm14EPD3seNttZluwQgDnxk0P
+ QCjL5KjkxdXm5aLHanw//BEefqXjkQJo4KOvEIpHT2WRibhd7ZIoTJlKbxh58O9BDRHb
+ eb5g==
+X-Gm-Message-State: AOAM532Q7l13A5jfU0BzACMkX9TYQ0FsMskp/jT+ECyNMeUKyXwHMAVK
+ uvcXy+BzWzfggcbGrMwfOfs09ZNn1xI=
+X-Google-Smtp-Source: ABdhPJzAvBrlwtlVkQ9fKjD9KB7sU16jv8DVYU8hDEq60nLNnO5WnwWatNyurWLGlMtThb3Ay5vbbQ==
+X-Received: by 2002:a17:902:e748:b0:153:b484:bdf4 with SMTP id
+ p8-20020a170902e74800b00153b484bdf4mr31957764plf.66.1648594815849; 
+ Tue, 29 Mar 2022 16:00:15 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ k10-20020a056a00168a00b004f7e2a550ccsm21301092pfc.78.2022.03.29.16.00.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Mar 2022 16:00:14 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 29 Mar 2022 16:00:48 -0700
+Message-Id: <20220329230105.601666-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>
-References: <20220217034502.464312-1-dmitry.baryshkov@linaro.org>
- <20220217034502.464312-3-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220217034502.464312-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: drop VBIF indices
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/9] drm/msm: Userspace allocated GPU addresses
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,147 +67,63 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ open list <linux-kernel@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ Emma Anholt <emma@anholt.net>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Wang Qing <wangqing@vivo.com>,
+ Yangtao Li <tiny.windzz@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+The first five paches are various cleanups and simplifications.  The
+next two get rid of redundant vma lookups in the submit and retire
+paths.  Following that, fenced vma lets us indicate a fence value
+following which the vma is no longer used, which is needed because
+otherwise userspace could observe the signaled fence prior to
+retire_submits() finishing.  (With userspace allocated GPU addresses
+userspace is tracking when a buffer is no longer used and it's vma can
+be deleted.)  And finally the last patch adds the new uabi for user-
+space allocated iova.
 
-On 2/16/2022 7:45 PM, Dmitry Baryshkov wrote:
-> We do not expect to have other VBIFs. Drop VBIF_n indices and always use
-> VBIF_RT and VBIF_NRT.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  4 +--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  6 ++--
->   drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c      | 36 ++++++++++++-------
->   3 files changed, 28 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index aa4d20762ccb..dbb853042aa0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -1115,7 +1115,7 @@ static const struct dpu_vbif_dynamic_ot_cfg msm8998_ot_rdwr_cfg[] = {
->   
->   static const struct dpu_vbif_cfg msm8998_vbif[] = {
->   	{
-> -	.name = "vbif_0", .id = VBIF_0,
-> +	.name = "vbif_rt", .id = VBIF_RT,
->   	.base = 0, .len = 0x1040,
->   	.default_ot_rd_limit = 32,
->   	.default_ot_wr_limit = 32,
-> @@ -1144,7 +1144,7 @@ static const struct dpu_vbif_cfg msm8998_vbif[] = {
->   
->   static const struct dpu_vbif_cfg sdm845_vbif[] = {
->   	{
-> -	.name = "vbif_0", .id = VBIF_0,
-> +	.name = "vbif_rt", .id = VBIF_RT,
->   	.base = 0, .len = 0x1040,
->   	.features = BIT(DPU_VBIF_QOS_REMAP),
->   	.xin_halt_timeout = 0x4000,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index bb9ceadeb0bb..598c201ae50d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -254,11 +254,9 @@ enum dpu_wd_timer {
->   };
->   
->   enum dpu_vbif {
-> -	VBIF_0,
-> -	VBIF_1,
-> +	VBIF_RT,
-> +	VBIF_NRT,
->   	VBIF_MAX,
-> -	VBIF_RT = VBIF_0,
-> -	VBIF_NRT = VBIF_1
->   };
->   
->   /**
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> index cbbf77b17fc3..c011d4ab6acc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
-> @@ -19,6 +19,18 @@ static struct dpu_hw_vbif *dpu_get_vbif(struct dpu_kms *dpu_kms, enum dpu_vbif v
->   	return NULL;
->   }
->   
-> +static const char *dpu_vbif_name(enum dpu_vbif idx)
-> +{
-> +	switch (idx) {
-> +	case VBIF_RT:
-> +		return "VBIF_RT";
-> +	case VBIF_NRT:
-> +		return "VBIF_NRT";
-> +	default:
-> +		return "??";
-> +	}
-> +}
-> +
->   /**
->    * _dpu_vbif_wait_for_xin_halt - wait for the xin to halt
->    * @vbif:	Pointer to hardware vbif driver
-> @@ -50,12 +62,12 @@ static int _dpu_vbif_wait_for_xin_halt(struct dpu_hw_vbif *vbif, u32 xin_id)
->   
->   	if (!status) {
->   		rc = -ETIMEDOUT;
-> -		DPU_ERROR("VBIF %d client %d not halting. TIMEDOUT.\n",
-> -				vbif->idx - VBIF_0, xin_id);
-> +		DPU_ERROR("%s client %d not halting. TIMEDOUT.\n",
-> +				dpu_vbif_name(vbif->idx), xin_id);
->   	} else {
->   		rc = 0;
-> -		DRM_DEBUG_ATOMIC("VBIF %d client %d is halted\n",
-> -				vbif->idx - VBIF_0, xin_id);
-> +		DRM_DEBUG_ATOMIC("%s client %d is halted\n",
-> +				dpu_vbif_name(vbif->idx), xin_id);
->   	}
->   
->   	return rc;
-> @@ -95,8 +107,8 @@ static void _dpu_vbif_apply_dynamic_ot_limit(struct dpu_hw_vbif *vbif,
->   		}
->   	}
->   
-> -	DRM_DEBUG_ATOMIC("vbif:%d xin:%d w:%d h:%d fps:%d pps:%llu ot:%u\n",
-> -			vbif->idx - VBIF_0, params->xin_id,
-> +	DRM_DEBUG_ATOMIC("%s xin:%d w:%d h:%d fps:%d pps:%llu ot:%u\n",
-> +			dpu_vbif_name(vbif->idx), params->xin_id,
->   			params->width, params->height, params->frame_rate,
->   			pps, *ot_lim);
->   }
-> @@ -141,8 +153,8 @@ static u32 _dpu_vbif_get_ot_limit(struct dpu_hw_vbif *vbif,
->   	}
->   
->   exit:
-> -	DRM_DEBUG_ATOMIC("vbif:%d xin:%d ot_lim:%d\n",
-> -			vbif->idx - VBIF_0, params->xin_id, ot_lim);
-> +	DRM_DEBUG_ATOMIC("%s xin:%d ot_lim:%d\n",
-> +			dpu_vbif_name(vbif->idx), params->xin_id, ot_lim);
->   	return ot_lim;
->   }
->   
-> @@ -242,8 +254,8 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
->   	forced_on = mdp->ops.setup_clk_force_ctrl(mdp, params->clk_ctrl, true);
->   
->   	for (i = 0; i < qos_tbl->npriority_lvl; i++) {
-> -		DRM_DEBUG_ATOMIC("vbif:%d xin:%d lvl:%d/%d\n",
-> -				params->vbif_idx, params->xin_id, i,
-> +		DRM_DEBUG_ATOMIC("%s xin:%d lvl:%d/%d\n",
-> +				dpu_vbif_name(params->vbif_idx), params->xin_id, i,
->   				qos_tbl->priority_lvl[i]);
->   		vbif->ops.set_qos_remap(vbif, params->xin_id, i,
->   				qos_tbl->priority_lvl[i]);
-> @@ -263,8 +275,8 @@ void dpu_vbif_clear_errors(struct dpu_kms *dpu_kms)
->   		if (vbif && vbif->ops.clear_errors) {
->   			vbif->ops.clear_errors(vbif, &pnd, &src);
->   			if (pnd || src) {
-> -				DRM_DEBUG_KMS("VBIF %d: pnd 0x%X, src 0x%X\n",
-> -					      vbif->idx - VBIF_0, pnd, src);
-> +				DRM_DEBUG_KMS("%s: pnd 0x%X, src 0x%X\n",
-> +					      dpu_vbif_name(vbif->idx), pnd, src);
->   			}
->   		}
->   	}
+Rob Clark (9):
+  drm/msm/gem: Move prototypes
+  drm/msm/gpu: Drop duplicate fence counter
+  drm/msm/gem: Split out inuse helper
+  drm/msm/gem: Drop PAGE_SHIFT for address space mm
+  drm/msm: Drop msm_gem_iova()
+  drm/msm/gem: Rework vma lookup and pin
+  drm/msm/gem: Split vma lookup and pin
+  drm/msm/gem: Add fenced vma unpin
+  drm/msm: Add a way for userspace to allocate GPU iova
+
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c   |   2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  14 ++-
+ drivers/gpu/drm/msm/msm_drv.c           |  21 ++++
+ drivers/gpu/drm/msm/msm_drv.h           |  23 ----
+ drivers/gpu/drm/msm/msm_fb.c            |  16 ++-
+ drivers/gpu/drm/msm/msm_fence.c         |   6 +-
+ drivers/gpu/drm/msm/msm_fence.h         |   3 +
+ drivers/gpu/drm/msm/msm_gem.c           | 151 ++++++++++++++----------
+ drivers/gpu/drm/msm/msm_gem.h           |  47 +++++++-
+ drivers/gpu/drm/msm/msm_gem_submit.c    |  17 ++-
+ drivers/gpu/drm/msm/msm_gem_vma.c       |  59 ++++++---
+ drivers/gpu/drm/msm/msm_gpu.c           |   8 +-
+ drivers/gpu/drm/msm/msm_gpu.h           |   2 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.c    |  12 +-
+ drivers/gpu/drm/msm/msm_ringbuffer.h    |   1 -
+ include/uapi/drm/msm_drm.h              |   3 +
+ 18 files changed, 258 insertions(+), 131 deletions(-)
+
+-- 
+2.35.1
+
