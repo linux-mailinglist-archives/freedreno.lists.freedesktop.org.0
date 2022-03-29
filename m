@@ -1,56 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D514EB4EC
-	for <lists+freedreno@lfdr.de>; Tue, 29 Mar 2022 22:55:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F1C4EB534
+	for <lists+freedreno@lfdr.de>; Tue, 29 Mar 2022 23:24:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98F8010EE8D;
-	Tue, 29 Mar 2022 20:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A45510E0F8;
+	Tue, 29 Mar 2022 21:24:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7162E10EE63;
- Tue, 29 Mar 2022 20:55:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 644CA10E0F8;
+ Tue, 29 Mar 2022 21:24:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1648587330; x=1680123330;
+ t=1648589092; x=1680125092;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=QOPFOuJOfba4L+FeuEz1NdlNEPoVm4AUyXGmKyFlUQQ=;
- b=M0bYKFcFShHgTdGjKsbYOwuvw/zdQuUZA3SUBCmFCInlew4yMuGMDs/a
- T/dCXC9xaqFrOj+DQHvVKwmYoDYm23yi7Jiq7k0pf4P60IYuJbInAYkCQ
- IbHMUQdlfWpg4IA1peg33VBhyACxe5eaVacU848kwP2Swebbv96oANHRr A=;
+ bh=i9Sdtbkuhqp481oJl00WLh2Z+wfgKWLPxEauoQP9hAg=;
+ b=g6Yfv+q8Qx7WHHttD5V+STTu8VgmeCLctcGA9mazUSxh98dY4PrkNP2i
+ vu0Tw7Gu5w76UAoV1bwyLtEyCODOmYv5cFBdBkSRcLAn8RjahFBl/vExI
+ HW270xjPWCMTe0k5NjUsDcGulq9i/svwMi4jIUqZ2ByvlbKU4CigrQJM1 o=;
 Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 29 Mar 2022 13:55:30 -0700
+ by alexa-out.qualcomm.com with ESMTP; 29 Mar 2022 14:24:52 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
  by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2022 13:55:29 -0700
+ 29 Mar 2022 14:24:36 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 29 Mar 2022 13:55:28 -0700
+ 15.2.986.22; Tue, 29 Mar 2022 14:24:36 -0700
 Received: from [10.110.122.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 29 Mar
- 2022 13:55:27 -0700
-Message-ID: <a10755a4-a2dc-f0f2-7828-e2617c573116@quicinc.com>
-Date: Tue, 29 Mar 2022 13:55:27 -0700
+ 2022 14:24:35 -0700
+Message-ID: <713d0a4d-0a33-7d1e-b2a9-c3b9aa09a9cb@quicinc.com>
+Date: Tue, 29 Mar 2022 14:24:34 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
-To: <cgel.zte@gmail.com>, <robdclark@gmail.com>
-References: <20220329103416.2376616-1-lv.ruyi@zte.com.cn>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220217034502.464312-1-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220329103416.2376616-1-lv.ruyi@zte.com.cn>
+In-Reply-To: <20220217034502.464312-1-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm: msm: add null pointer check
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: index dpu_kms->hw_vbif
+ using vbif_idx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +66,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, lv.ruyi@zte.com.cn,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- sean@poorly.run, Zeal Robot <zealci@zte.com.cn>, greenfoo@u92.eu
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Seems to be a duplicate of
+Assuming this series is newer and supersedes 
+https://patchwork.freedesktop.org/patch/464353/?series=97307&rev=2,
 
-https://patchwork.freedesktop.org/patch/479378/
+please check below.
 
-Thanks
-
-Abhinav
-
-On 3/29/2022 3:34 AM, cgel.zte@gmail.com wrote:
-> From: Lv Ruyi <lv.ruyi@zte.com.cn>
+On 2/16/2022 7:45 PM, Dmitry Baryshkov wrote:
+> Remove loops over hw_vbif. Instead always VBIF's idx as an index in the
+> array. This fixes an error in dpu_kms_hw_init(), where we fill
+> dpu_kms->hw_vbif[i], but check for an error pointer at
+> dpu_kms->hw_vbif[vbif_idx].
 > 
-> kzalloc is a memory allocation function which can return NULL when some
-> internal memory errors happen. Add null pointer check to avoid
-> dereferencing null pointer.
-> 
-> Reported-by: Zeal Robot <zealci@zte.com.cn>
-> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 2 ++
->   1 file changed, 2 insertions(+)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 10 ++++----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 29 +++++++++++-------------
+>   2 files changed, 17 insertions(+), 22 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-> index 5d2ff6791058..acfe1b31e079 100644
-> --- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-> +++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-> @@ -176,6 +176,8 @@ void msm_disp_snapshot_add_block(struct msm_disp_state *disp_state, u32 len,
->   	va_list va;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index d0653a9ec694..81a35c8d62e7 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -790,11 +790,9 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+>   	_dpu_kms_mmu_destroy(dpu_kms);
 >   
->   	new_blk = kzalloc(sizeof(struct msm_disp_state_block), GFP_KERNEL);
-> +	if (!new_blk)
-> +		return;
+>   	if (dpu_kms->catalog) {
+> -		for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+> -			u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+> -
+> -			if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx])
+> -				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[vbif_idx]);
+> +		for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> +			if (dpu_kms->hw_vbif[i])
+> +				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[i]);
+>   		}
+>   	}
 >   
->   	va_start(va, fmt);
+> @@ -1102,7 +1100,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>   	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+>   		u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
 >   
+> -		dpu_kms->hw_vbif[i] = dpu_hw_vbif_init(vbif_idx,
+> +		dpu_kms->hw_vbif[vbif_idx] = dpu_hw_vbif_init(vbif_idx,
+>   				dpu_kms->vbif[vbif_idx], dpu_kms->catalog);
+>   		if (IS_ERR_OR_NULL(dpu_kms->hw_vbif[vbif_idx])) {
+>   			rc = PTR_ERR(dpu_kms->hw_vbif[vbif_idx]);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> index 21d20373eb8b..cbbf77b17fc3 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> @@ -11,6 +11,14 @@
+>   #include "dpu_hw_vbif.h"
+>   #include "dpu_trace.h"
+>   
+> +static struct dpu_hw_vbif *dpu_get_vbif(struct dpu_kms *dpu_kms, enum dpu_vbif vbif_idx)
+> +{
+> +	if (vbif_idx > ARRAY_SIZE(dpu_kms->hw_vbif))
+> +		return dpu_kms->hw_vbif[vbif_idx];
+
+Shouldnt this be
+
+if (vbif_idx < ARRAY_SIZE(dpu_kms->hw_vbif))
+	return dpu_kms->hw_vbif[vbif_idx];
+
+> +
+> +	return NULL;
+> +}
+> +
+>   /**
+>    * _dpu_vbif_wait_for_xin_halt - wait for the xin to halt
+>    * @vbif:	Pointer to hardware vbif driver
+> @@ -148,20 +156,15 @@ static u32 _dpu_vbif_get_ot_limit(struct dpu_hw_vbif *vbif,
+>   void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+>   		struct dpu_vbif_set_ot_params *params)
+>   {
+> -	struct dpu_hw_vbif *vbif = NULL;
+> +	struct dpu_hw_vbif *vbif;
+>   	struct dpu_hw_mdp *mdp;
+>   	bool forced_on = false;
+>   	u32 ot_lim;
+> -	int ret, i;
+> +	int ret;
+>   
+>   	mdp = dpu_kms->hw_mdp;
+>   
+> -	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> -		if (dpu_kms->hw_vbif[i] &&
+> -				dpu_kms->hw_vbif[i]->idx == params->vbif_idx)
+> -			vbif = dpu_kms->hw_vbif[i];
+> -	}
+> -
+> +	vbif = dpu_get_vbif(dpu_kms, params->vbif_idx);
+>   	if (!vbif || !mdp) {
+>   		DRM_DEBUG_ATOMIC("invalid arguments vbif %d mdp %d\n",
+>   				vbif != NULL, mdp != NULL);
+> @@ -204,7 +207,7 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+>   void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+>   		struct dpu_vbif_set_qos_params *params)
+>   {
+> -	struct dpu_hw_vbif *vbif = NULL;
+> +	struct dpu_hw_vbif *vbif;
+>   	struct dpu_hw_mdp *mdp;
+>   	bool forced_on = false;
+>   	const struct dpu_vbif_qos_tbl *qos_tbl;
+> @@ -216,13 +219,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+>   	}
+>   	mdp = dpu_kms->hw_mdp;
+>   
+> -	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> -		if (dpu_kms->hw_vbif[i] &&
+> -				dpu_kms->hw_vbif[i]->idx == params->vbif_idx) {
+> -			vbif = dpu_kms->hw_vbif[i];
+> -			break;
+> -		}
+> -	}
+> +	vbif = dpu_get_vbif(dpu_kms, params->vbif_idx);
+>   
+>   	if (!vbif || !vbif->cap) {
+>   		DPU_ERROR("invalid vbif %d\n", params->vbif_idx);
