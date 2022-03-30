@@ -2,64 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A08A4ECFA1
-	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 00:30:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AC964ECFA4
+	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 00:30:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE2610E25F;
-	Wed, 30 Mar 2022 22:30:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADED110E8EF;
+	Wed, 30 Mar 2022 22:30:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB87310E1AE
- for <freedreno@lists.freedesktop.org>; Wed, 30 Mar 2022 22:30:11 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id bu29so38400156lfb.0
- for <freedreno@lists.freedesktop.org>; Wed, 30 Mar 2022 15:30:11 -0700 (PDT)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 580BC10E1AE
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Mar 2022 22:30:12 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id 17so29659726lji.1
+ for <freedreno@lists.freedesktop.org>; Wed, 30 Mar 2022 15:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JtbqvUsqEzE2g6uW/TT035ax0kBfyahmOob6FsqwcPY=;
- b=hQPWu/OIb+Zegy4kT+8Em3QCWjiXaFxFPWp5W2WJaaPEXiGblSSVNAXq8q7uOJtC47
- eJ06zbMxbNw0E/hPe5Yjp02P12DRRSmUDfhM+CttqoHsY2JzvzAmyf3wiHVPDeIoKpGw
- Gq66rgG3yK108wL0ib2j/2l2m9zypCghXh1zONv+9wNSCcx7a7214v2XygnOF3Qhh53D
- muKngZCaFu3fTimsAwa7EJL10OzYpzB9Et5MUbfTxCCjOrxUViMBWYblP13jvhXdzrc5
- a6uFuEzBRgypjI7nBMWTbFx2vY2sel6pPBIfROrWd0A1tkHllnzpARSS2BurI8UK71sO
- iNsg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=hEoGB+086W5qFtT7rpPO+CifXhForrv5VQW9zjQHAzY=;
+ b=r2czRJ6lFFJB2jjTDUGrBJXjNs1cv56H9XE9cc4UJIUZlHKG/hoteI8hC3i8boYzIt
+ mhWssaWHa+RuXkz/LPEbMMDULib4GbH7j4QAqCxwzDHoXc6LoIKsHg/Y0zaXenoZyjtI
+ /5SB6F3FA5uhgKHEFnvzngC4voA0Hvj8MXGPdePwRvHxFlqDnTq38Q2Ctbcugva5m/HW
+ hYH51ShKItJ4xae1iN/HQxCo6tUMQGc6tTvtkVa26ZSktZjtX06xxmdIwBnIMykvuD8y
+ QlsBYXlwchcarb77C90cuT4Ca/RsmN8ab7Uflp6SoVN5brhnirQ1GmAog3WzvqWes3zm
+ Kz8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JtbqvUsqEzE2g6uW/TT035ax0kBfyahmOob6FsqwcPY=;
- b=lN0mFeFjVm2fiQ4bBQKXus/Mj3ezGplk043zDAf77ks1nZv2uezv+0O/T6bDsmoj5k
- TPbLp3QAiPwlIuhwPbrR9WxU2rHcQgxfa2rUVHYekXNfBM0MXs6H2HlB5mJ6caDubaRo
- nB34P1OCKnDe/GhddNWAYfIYKbJ7KJSHlV7oL5qFTBytgSxjqMt1HRIoJFs4CJPxwcyn
- UTDqkDgXJ25B/WXliBrxUIEWVXnMp3/hbVLZ3KuQUbhnKVpJGf/5bkAmUIIs1w/ME6tl
- MGAX71Pbn4U+nQXsOncKf3sFgIsqAQwp7pbTWSY1edNtS99UjPKGzKYIzR/EZgK6LdCA
- W7Ow==
-X-Gm-Message-State: AOAM5307iavqqDJPmJBZlePSsFvN+sCAiMQXcuPeerRKMnVTpxODN5RD
- rT1+xvA+alfA6yd92XrRpDjivg==
-X-Google-Smtp-Source: ABdhPJzG/f64ACIg2eEZE7Cx4oJHdTia/6Z35v5jnReSD+gy9dIQgwNO9KoopCVhR+hFwGsgSOzuRA==
-X-Received: by 2002:a05:6512:32c2:b0:44a:700c:4e97 with SMTP id
- f2-20020a05651232c200b0044a700c4e97mr8590964lfg.224.1648679409820; 
- Wed, 30 Mar 2022 15:30:09 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=hEoGB+086W5qFtT7rpPO+CifXhForrv5VQW9zjQHAzY=;
+ b=IpBcYj3TgoY2VkkfbfetgMRThAQpId0A2A1v4brFjFE1mELEN7gKkvk9UKvi0jLE2I
+ XuM/Kj+mKLGodvtzsmvxwsRnrpaFqxxudHkRtD0eHO/eIyo8d0CvVFZ/o+AaufRVFnLD
+ HoFaT9/PORTTvVPP2iDsBV8wTLw06OUXn+cBOp3PR+aXmPQIhq2Shwvy5+Mm/Vf5FcO+
+ Z8nSn9efyOcP0k3psKmguxKWIto9MP++xSmv0q3b0+PfvY/yZFc/7831JXjg0/E1NEpF
+ +hcAx3ogTzru4yqJeO6K6+0pjy6ZIUv/vwJrPQ3xsMIRMgDQe5vufpzJCukCXefUvmvY
+ eFqA==
+X-Gm-Message-State: AOAM53262MW3H0UdFDiq3fjlTRNGBtxeajjdH3ARrVTRNSJ/D+R15fUM
+ k6xeFzd8BHK3oJwSFlN0X4mymw==
+X-Google-Smtp-Source: ABdhPJxJ1FjV8WRE578fZwzltmDLODh7k28/q+RvdGrwZ6exKjgFg/B+RWR6Vl2ucR/KSHRs+GKI6Q==
+X-Received: by 2002:a05:651c:150a:b0:249:a0b1:2e15 with SMTP id
+ e10-20020a05651c150a00b00249a0b12e15mr8469748ljf.182.1648679410591; 
+ Wed, 30 Mar 2022 15:30:10 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- a4-20020a2eb164000000b0024988e1cfb6sm2521295ljm.94.2022.03.30.15.30.08
+ a4-20020a2eb164000000b0024988e1cfb6sm2521295ljm.94.2022.03.30.15.30.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Mar 2022 15:30:09 -0700 (PDT)
+ Wed, 30 Mar 2022 15:30:10 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>,
  Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Date: Thu, 31 Mar 2022 01:30:04 +0300
-Message-Id: <20220330223008.649274-1-dmitry.baryshkov@linaro.org>
+Date: Thu, 31 Mar 2022 01:30:05 +0300
+Message-Id: <20220330223008.649274-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220330223008.649274-1-dmitry.baryshkov@linaro.org>
+References: <20220330223008.649274-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 0/4] drm/msm/dp: simplify
- dp_connector_get_modes()
+Subject: [Freedreno] [PATCH v2 1/4] drm/msm/dp: drop dp_mode argument from
+ dp_panel_get_modes()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,33 +80,58 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As noted by Ville Syrjälä [1] the dp_connector_get_modes() has weird
-on-stack interim copy of the mode. When reviewing the mentioned patch I
-noticed that the rest of the code in dp_connector_get_modes() is weird,
-unused since September of 2020 and can be removed. This series removes
-dead weird code leaving dp_connector_get_modes() simple enough.
+Since the commit ab205927592b ("drm/msm/dp: remove mode hard-coding in
+case of DP CTS") the function dp_panel_get_modes() doesn't use (or fill)
+the dp_mode argument. Drop it completely.
 
-[1] https://lore.kernel.org/linux-arm-msm/20220218100403.7028-11-ville.syrjala@linux.intel.com/
+Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 2 +-
+ drivers/gpu/drm/msm/dp/dp_panel.h   | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-Changes since v1:
-- Remove unsued ret variable from dp_display_get_modes()
-- Add a patch making dp_connector_mode_valid() return MODE_CLOCK_HIGH
-  (suggested by Stephen)
-
-Dmitry Baryshkov (4):
-  drm/msm/dp: drop dp_mode argument from dp_panel_get_modes()
-  drm/msm/dp: simplify dp_connector_get_modes()
-  drm/msm/dp: remove max_pclk_khz field from dp_panel/dp_display
-  drm/msm/dp: make dp_connector_mode_valid() more precise
-
- drivers/gpu/drm/msm/dp/dp_debug.c   |  2 --
- drivers/gpu/drm/msm/dp/dp_display.c | 12 +++-------
- drivers/gpu/drm/msm/dp/dp_display.h |  5 +----
- drivers/gpu/drm/msm/dp/dp_drm.c     | 35 +++--------------------------
- drivers/gpu/drm/msm/dp/dp_panel.c   |  2 +-
- drivers/gpu/drm/msm/dp/dp_panel.h   |  3 +--
- 6 files changed, 9 insertions(+), 50 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 178b774a5fbd..3dd790083cf7 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1013,7 +1013,7 @@ int dp_display_get_modes(struct msm_dp *dp,
+ 	dp_display = container_of(dp, struct dp_display_private, dp_display);
+ 
+ 	ret = dp_panel_get_modes(dp_display->panel,
+-		dp->connector, dp_mode);
++		dp->connector);
+ 	if (dp_mode->drm_mode.clock)
+ 		dp->max_pclk_khz = dp_mode->drm_mode.clock;
+ 	return ret;
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index f1418722c549..8d7662028f30 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -259,7 +259,7 @@ u32 dp_panel_get_mode_bpp(struct dp_panel *dp_panel,
+ }
+ 
+ int dp_panel_get_modes(struct dp_panel *dp_panel,
+-	struct drm_connector *connector, struct dp_display_mode *mode)
++	struct drm_connector *connector)
+ {
+ 	if (!dp_panel) {
+ 		DRM_ERROR("invalid input\n");
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
+index 9023e5bb4b8b..9fa6e524832c 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.h
++++ b/drivers/gpu/drm/msm/dp/dp_panel.h
+@@ -64,7 +64,7 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
+ u32 dp_panel_get_mode_bpp(struct dp_panel *dp_panel, u32 mode_max_bpp,
+ 			u32 mode_pclk_khz);
+ int dp_panel_get_modes(struct dp_panel *dp_panel,
+-		struct drm_connector *connector, struct dp_display_mode *mode);
++		struct drm_connector *connector);
+ void dp_panel_handle_sink_request(struct dp_panel *dp_panel);
+ void dp_panel_tpg_config(struct dp_panel *dp_panel, bool enable);
+ 
 -- 
 2.35.1
 
