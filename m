@@ -1,56 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC0C4EBFCF
-	for <lists+freedreno@lfdr.de>; Wed, 30 Mar 2022 13:32:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05E6D4EC90B
+	for <lists+freedreno@lfdr.de>; Wed, 30 Mar 2022 18:03:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0589A10E995;
-	Wed, 30 Mar 2022 11:32:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92D8610E3EC;
+	Wed, 30 Mar 2022 16:03:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9545C10E942
- for <freedreno@lists.freedesktop.org>; Wed, 30 Mar 2022 11:32:43 +0000 (UTC)
-Received: by mail-qt1-x832.google.com with SMTP id t2so17726365qtw.9
- for <freedreno@lists.freedesktop.org>; Wed, 30 Mar 2022 04:32:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yLUVH17Uign6BvR+nDTbfXhu0XLyilVb6NY5dVncXfw=;
- b=bNxRNv7F13x/jJOsff+xDk0gPlGPDOyrSemkFfl4L44wg4lqMIDbt2LieOwGnTZq/i
- UDByN8P0ETFO3gZBAgCUWJQEe743l1wBK2B6IwbXcrlE/PZnNFW1NUxWghXeH74sIsTT
- uWhRffTGlIS1hA1Avx8XQXHwFUz871acsJFssUQZsHgCNQ0wF6PQ6QbmKTpEDebb6qXQ
- 7x3X7In0H4akcpSzxJJ7KM91JBUCTz11squZ+uGVpPIbFB2cLruMZk1ugWxVhl1mEgUJ
- /gKGIpR/4d2A5/+0xHiWMjElo8vns3shGA8xBxVvD6gpkWSTCnQt2/o/02p2Y9gmzIGb
- 902A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yLUVH17Uign6BvR+nDTbfXhu0XLyilVb6NY5dVncXfw=;
- b=mDSn4GF+v1EF+qmn2Q8iBjEwMAOqycsZjmpT5tlDmejuFg9Gy6jlGHg/rCF3EDHDRV
- PphKA6RPIWC+IQDAaHSVcXY34Y/LW5HYdKh7emUmGm8jo7tgpE7B1lW7/D8xFaosnt1t
- dzLIw80PFdz52C+YPlYg7aOh1OCnpnLWw5GkesSn0ivrPEaBRSAW7HBmp4/njIA/YBOm
- DIeN4odeXTsrlgoO0A93PLIlyhkNySG7J4Wk8pU4+/MaSE1jlNnbssaTyO4S22N75VoD
- CSgaWYyRwhJdAKAq+73jJj+lo5rfLHtVWVV5KcJvG2+WNvYazZJE8DqUrPiVFGixS0YV
- m0Gw==
-X-Gm-Message-State: AOAM532lqcso7yiXx7SvMkQz6m805mqcwGTk+fvjJWyXOaRtHxC/SS0U
- LZzxwpIC2DlCpz877ZPTrh7AGZ8i3VVqCgj9nOvlOQ==
-X-Google-Smtp-Source: ABdhPJwx+6eprB6Q5XPxYzgTUiqSDOQdVYYmG242HODu6johshrHsDsGJYL1m7iaKoPFFzKcIyGksMtG0596HZPmvb4=
-X-Received: by 2002:ac8:5a46:0:b0:2e2:2edd:374 with SMTP id
- o6-20020ac85a46000000b002e22edd0374mr32044988qta.295.1648639962608; Wed, 30
- Mar 2022 04:32:42 -0700 (PDT)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10A5A10E3EC;
+ Wed, 30 Mar 2022 16:03:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1648656202; x=1680192202;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=a5vYtPQQN52jG3RKmFp6BjZbLeVvmnj0PyCiaeGjnLQ=;
+ b=A4/gRRpQaUtdOcvS9nTM9ClwpT7mm9UQB3go9PQOd8FNP3PoUZOiliR4
+ 2NmsZ/S19Ok0YLPY3P28xg9n70lgxG04x2w1I5RuTekS7SLRKRUAHEz36
+ Zj82wrxTETy1oP4tgyQejdN4XoenGZ50GEQzDeclmeqSudeQj2NhT23WN s=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 30 Mar 2022 09:03:21 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2022 09:03:20 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 30 Mar 2022 09:03:19 -0700
+Received: from sbillaka-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 30 Mar 2022 09:03:13 -0700
+From: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+Date: Wed, 30 Mar 2022 21:32:51 +0530
+Message-ID: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20220329230105.601666-1-robdclark@gmail.com>
- <20220329230105.601666-4-robdclark@gmail.com>
-In-Reply-To: <20220329230105.601666-4-robdclark@gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 30 Mar 2022 14:32:31 +0300
-Message-ID: <CAA8EJpqAaW0Q-QeQObonUqAhdWaw8mPPvChmboH88ttTx+2XGg@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/9] drm/msm/gem: Split out inuse helper
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v6 0/8] Add support for the eDP panel over
+ aux_bus
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,127 +61,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: quic_kalyant@quicinc.com, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ dianders@chromium.org, bjorn.andersson@linaro.org, quic_vproddut@quicinc.com,
+ airlied@linux.ie, quic_abhinavk@quicinc.com, swboyd@chromium.org,
+ robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
+ quic_khsieh@quicinc.com, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 30 Mar 2022 at 02:00, Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> Prep for a following patch.  While we are at it, convert a few remaining
-> WARN_ON()s to GEM_WARN_ON().
+This series adds support for generic eDP panel over aux_bus.
 
-Well... GEM_WARN_ON doesn't really look like a 'while we are at it'.
-It might be better to split it into a separate commit.
+These changes are dependent on the following series in order:
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=620127&state=*
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=616587&state=*
+https://patchwork.kernel.org/project/linux-arm-msm/list/?series=613654&state=*
 
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/msm/msm_gem.c     |  2 +-
->  drivers/gpu/drm/msm/msm_gem.h     |  1 +
->  drivers/gpu/drm/msm/msm_gem_vma.c | 15 ++++++++++-----
->  3 files changed, 12 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index a4f61972667b..f96d1dc72021 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -938,7 +938,7 @@ void msm_gem_describe(struct drm_gem_object *obj, struct seq_file *m,
->                                 name, comm ? ":" : "", comm ? comm : "",
->                                 vma->aspace, vma->iova,
->                                 vma->mapped ? "mapped" : "unmapped",
-> -                               vma->inuse);
-> +                               msm_gem_vma_inuse(vma));
->                         kfree(comm);
->                 }
->
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> index 947ff7d9b471..1b7f0f0b88bf 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -61,6 +61,7 @@ struct msm_gem_vma {
->  int msm_gem_init_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma, int npages,
->                 u64 range_start, u64 range_end);
-> +bool msm_gem_vma_inuse(struct msm_gem_vma *vma);
->  void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma);
->  void msm_gem_unmap_vma(struct msm_gem_address_space *aspace,
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-> index f914ddbaea89..dc2ae097805e 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> @@ -37,6 +37,11 @@ msm_gem_address_space_get(struct msm_gem_address_space *aspace)
->         return aspace;
->  }
->
-> +bool msm_gem_vma_inuse(struct msm_gem_vma *vma)
-> +{
-> +       return !!vma->inuse;
-> +}
 
-It almost  asks to be a static inline. The patch 04 makes it complex,
-so it's probably not that important.
+Sankeerth Billakanti (8):
+  drm/msm/dp: Add eDP support via aux_bus
+  drm/msm/dp: wait for hpd high before aux transaction
+  drm/msm/dp: Support only IRQ_HPD and REPLUG interrupts for eDP
+  drm/msm/dp: avoid handling masked interrupts
+  drm/msm/dp: prevent multiple votes for dp resources
+  drm/msm/dp: remove unnecessary delay during boot
+  drm/msm/dp: Support edp/dp without hpd
+  drm/msm/dp: Handle eDP mode_valid differently from dp
 
-> +
->  /* Actually unmap memory for the vma */
->  void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma)
-> @@ -44,7 +49,7 @@ void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
->         unsigned size = vma->node.size << PAGE_SHIFT;
->
->         /* Print a message if we try to purge a vma in use */
-> -       if (WARN_ON(vma->inuse > 0))
-> +       if (GEM_WARN_ON(msm_gem_vma_inuse(vma)))
->                 return;
->
->         /* Don't do anything if the memory isn't mapped */
-> @@ -61,7 +66,7 @@ void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
->  void msm_gem_unmap_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma)
->  {
-> -       if (!WARN_ON(!vma->iova))
-> +       if (!GEM_WARN_ON(!vma->iova))
->                 vma->inuse--;
->  }
->
-> @@ -73,7 +78,7 @@ msm_gem_map_vma(struct msm_gem_address_space *aspace,
->         unsigned size = npages << PAGE_SHIFT;
->         int ret = 0;
->
-> -       if (WARN_ON(!vma->iova))
-> +       if (GEM_WARN_ON(!vma->iova))
->                 return -EINVAL;
->
->         /* Increase the usage counter */
-> @@ -100,7 +105,7 @@ msm_gem_map_vma(struct msm_gem_address_space *aspace,
->  void msm_gem_close_vma(struct msm_gem_address_space *aspace,
->                 struct msm_gem_vma *vma)
->  {
-> -       if (WARN_ON(vma->inuse > 0 || vma->mapped))
-> +       if (GEM_WARN_ON(msm_gem_vma_inuse(vma) || vma->mapped))
->                 return;
->
->         spin_lock(&aspace->lock);
-> @@ -120,7 +125,7 @@ int msm_gem_init_vma(struct msm_gem_address_space *aspace,
->  {
->         int ret;
->
-> -       if (WARN_ON(vma->iova))
-> +       if (GEM_WARN_ON(vma->iova))
->                 return -EBUSY;
->
->         spin_lock(&aspace->lock);
-> --
-> 2.35.1
->
-
+ drivers/gpu/drm/msm/dp/dp_aux.c     | 13 ++++-
+ drivers/gpu/drm/msm/dp/dp_aux.h     |  3 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c | 35 ++++++++++---
+ drivers/gpu/drm/msm/dp/dp_catalog.h |  1 +
+ drivers/gpu/drm/msm/dp/dp_display.c | 99 ++++++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/msm/dp/dp_drm.c     | 10 ++--
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 21 +-------
+ drivers/gpu/drm/msm/dp/dp_parser.h  |  1 +
+ 8 files changed, 143 insertions(+), 40 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.7.4
+
