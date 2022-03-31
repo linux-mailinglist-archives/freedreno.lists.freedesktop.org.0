@@ -2,48 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F30F94ED3B5
-	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 08:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A56B14ED70E
+	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 11:35:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9475310FA1B;
-	Thu, 31 Mar 2022 06:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C3D10F21E;
+	Thu, 31 Mar 2022 09:35:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B94A210FA1B;
- Thu, 31 Mar 2022 06:05:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C9A4861656;
- Thu, 31 Mar 2022 06:05:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AFDC340ED;
- Thu, 31 Mar 2022 06:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1648706743;
- bh=QQKn+Kv4FLipNOaxDBLqAUQ//ylLu2B/5Kt8RPNpRr4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fbInko8+mnPe6uxn0w7FVcGvtXjG+NE7LfwKIopJqKNt8OPhQaDArQMOt0qc8ge/t
- SLJoRK0tMmLrcbeSgGx6LtbRXc8qtzM/Be2+YkRBVmStrHi/VT2RMl8o14WGcwx1J1
- zIDZcTJU56GTnvNNDIk5SSzqqRj2OoHAvFlc+Ikjj0lNDPH349iGDORgJ2OWtMJ6Xp
- P4kxh8gOv+wANKWvGjqEzWIMsPOvxgiIapuvkjPBGGBJhdwDPwJpTiPXotmDdOjYKa
- QG96BQbQl0Ih7K5swrwEPWAXi7Kv402R/xuxng8j/zVMCxB4oigcKrQP4ENgLueBlf
- IUWluFcNjF4HQ==
-Date: Thu, 31 Mar 2022 11:35:38 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <YkVEsqiRamfTmNi0@matsya>
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6A210EE58
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 09:35:10 +0000 (UTC)
+Received: by mail-qt1-x82c.google.com with SMTP id b18so20887305qtk.13
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 02:35:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lsN5p6Zbb92CWY0fCQlSnWVHSmMIpn5JDGM4v10NtKE=;
+ b=ZunWdYGe8+BLAfVsPhIKSdgfp/G02w2RPLviviav8MFDJAF80hz+gYJdoOGSo34tqv
+ +GOt1h6oPls11MbrXMWncQOXZmfdT+lhqoeeAdjHnzcDo7Y+ls+43qjcKa4FnDUZBr8g
+ sfb8w/YhyQ+I+txxTbyARU1xScgG75osTxNrQd/eW37hUwLOqmWqtNTAMgYkd6Ktg+8v
+ SISvG4vs6TaDZYpzkTU2u3b1ge4YO9UUK1QU+l3rIQdKqsBt2Cv/PAH7mIcmQDs8WgY7
+ CqOd27nG1iOkKCVqS+VcVciIKPjF7ot65oGt3h7/40D3BucYPbivC79Gb3PETsi4mdBl
+ 9MPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lsN5p6Zbb92CWY0fCQlSnWVHSmMIpn5JDGM4v10NtKE=;
+ b=D/hsZ8vuZqHIDh5EN87hW7DSxjZym4vvVvBC77ZYDBVuOVXaHOWD9ysUrbbcipsE55
+ AM3jyLuWQAUXDnwLGv9McFBxVwZ7VDeu40r2dkc9hFfzrbwhIscasUf8jTJWjU3vRyDG
+ Se+rbza7ySwgyJPTAIXd3QFnYtVWR0Xg4y3oyM4/FR+HRosMoLDaeBdoY8xmRuKjrTZb
+ VZBvrdJW/okJkCl6VSTjJZs+CqqCG1pdfBxQenZ7FRk/Ut5BDTtRTzzOG0HbwUdxE850
+ kb2QcHPNY7VFdjbS+Vdw9f+SDTQ5bv2mtyKLKoB9qmzlu7gw2mbXwlcjeJ9+6Q+hCtuL
+ Xw8A==
+X-Gm-Message-State: AOAM531sm3Dcy1VykbVDVU8jIFWD80KlKUOSHJtmIIcK7usC78vXatZ/
+ gCMqZVlCaBn3LoNye8fXU0oHMlhBlgOBGDrI72zv1A==
+X-Google-Smtp-Source: ABdhPJzGd4rqpbpprVxRT58SQ0mWkivwbwlishXbW/R3KM5sUWLDKwn+nH2fugALpTWwKgteKCnQM+TuY1AtSd9ZY20=
+X-Received: by 2002:ac8:5702:0:b0:2e1:ec8a:917a with SMTP id
+ 2-20020ac85702000000b002e1ec8a917amr3318464qtw.682.1648719309154; Thu, 31 Mar
+ 2022 02:35:09 -0700 (PDT)
+MIME-Version: 1.0
 References: <20220328152923.90623-1-krzysztof.kozlowski@linaro.org>
  <CAA8EJprWoxWwk5EWEfWdLquPR+2=u6V0-v1-+wHMHOk8HiEyNw@mail.gmail.com>
- <YkHtY9absUjmqmW7@matsya>
- <12b0056b-8032-452b-f325-6f36037b5a80@linaro.org>
+ <YkHtY9absUjmqmW7@matsya> <12b0056b-8032-452b-f325-6f36037b5a80@linaro.org>
  <CAL_Jsq+6rx0UU6ryH+z_8KLQqKKuhTCnh=Oft2F03bcze+EV0Q@mail.gmail.com>
  <YkKmPSesQfS6RLCD@matsya> <YkMrPnRbsl3FBig8@robh.at.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YkMrPnRbsl3FBig8@robh.at.kernel.org>
+ <YkVEsqiRamfTmNi0@matsya>
+In-Reply-To: <YkVEsqiRamfTmNi0@matsya>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 31 Mar 2022 12:34:58 +0300
+Message-ID: <CAA8EJpqTqB10JkmK4GfbO6uP4wAUtqPzY+N4f+=Lt6Vy3a+g4Q@mail.gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] dt-bindings: display: msm: dsi: remove
  address/size cells
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -58,69 +68,120 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>, devicetree@vger.kernel.org,
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
  David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Sean Paul <sean@poorly.run>,
+ Daniel Vetter <daniel@ffwll.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>, Sean Paul <sean@poorly.run>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 29-03-22, 10:52, Rob Herring wrote:
-> On Tue, Mar 29, 2022 at 12:01:52PM +0530, Vinod Koul wrote:
-> > On 28-03-22, 13:21, Rob Herring wrote:
-> > > On Mon, Mar 28, 2022 at 12:18 PM Krzysztof Kozlowski
-> > > <krzysztof.kozlowski@linaro.org> wrote:
-> > > >
-> > > > On 28/03/2022 19:16, Vinod Koul wrote:
-> > > > > On 28-03-22, 19:43, Dmitry Baryshkov wrote:
-> > > > >> On Mon, 28 Mar 2022 at 18:30, Krzysztof Kozlowski
-> > > > >> <krzysztof.kozlowski@linaro.org> wrote:
-> > > > >>>
-> > > > >>> The DSI node is not a bus and the children do not have unit addresses.
-> > > > >>>
-> > > > >>> Reported-by: Vinod Koul <vkoul@kernel.org>
-> > > > >>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > > > >>
-> > > > >> NAK.
-> > > > >> DSI panels are children of the DSI device tree node with the reg = <0>; address.
-> > > > >> This is the convention used by other platforms too (see e.g.
-> > > > >> arch/arm64/boot/dts/freescale/imx8mq-evk.dts).
+On Thu, 31 Mar 2022 at 09:05, Vinod Koul <vkoul@kernel.org> wrote:
+>
+> On 29-03-22, 10:52, Rob Herring wrote:
+> > On Tue, Mar 29, 2022 at 12:01:52PM +0530, Vinod Koul wrote:
+> > > On 28-03-22, 13:21, Rob Herring wrote:
+> > > > On Mon, Mar 28, 2022 at 12:18 PM Krzysztof Kozlowski
+> > > > <krzysztof.kozlowski@linaro.org> wrote:
 > > > > >
-> > > > > So we should add reg = 0, i will update my dtsi fix
+> > > > > On 28/03/2022 19:16, Vinod Koul wrote:
+> > > > > > On 28-03-22, 19:43, Dmitry Baryshkov wrote:
+> > > > > >> On Mon, 28 Mar 2022 at 18:30, Krzysztof Kozlowski
+> > > > > >> <krzysztof.kozlowski@linaro.org> wrote:
+> > > > > >>>
+> > > > > >>> The DSI node is not a bus and the children do not have unit addresses.
+> > > > > >>>
+> > > > > >>> Reported-by: Vinod Koul <vkoul@kernel.org>
+> > > > > >>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > > > > >>
+> > > > > >> NAK.
+> > > > > >> DSI panels are children of the DSI device tree node with the reg = <0>; address.
+> > > > > >> This is the convention used by other platforms too (see e.g.
+> > > > > >> arch/arm64/boot/dts/freescale/imx8mq-evk.dts).
+> > > > > >
+> > > > > > So we should add reg = 0, i will update my dtsi fix
+> > > > > >
 > > > > >
+> > > > > To "ports" node? No. The reg=0 is for children of the bus, so the
+> > > > > panels. How to combine both without warnings - ports and panel@0 - I
+> > > > > don't know yet...
 > > > >
-> > > > To "ports" node? No. The reg=0 is for children of the bus, so the
-> > > > panels. How to combine both without warnings - ports and panel@0 - I
-> > > > don't know yet...
-> > > 
-> > > I don't think that should case a warning. Or at least it's one we turn off.
-> > 
-> > Well in this case I think we might need a fix:
-> > Here is the example quoted in the binding. We have ports{} and then the
-> > two port@0 and port@1 underneath.
-> 
-> It's the #address-cells/#size-cells under 'ports' that applies to 'port' 
-> nodes. As 'ports' has no address (reg) itself, it doesn't need 
-> #address-cells/#size-cells in its parent node.
-> 
-> > 
-> > So it should be okay to drop #address-cells/#size-cells from dsi node
-> > but keep in ports node...
-> 
-> Yes.
-> 
-> > Thoughts...?
-> 
-> But I thought a panel@0 node was being added? If so then you need to add 
-> them back.
+> > > > I don't think that should case a warning. Or at least it's one we turn off.
+> > >
+> > > Well in this case I think we might need a fix:
+> > > Here is the example quoted in the binding. We have ports{} and then the
+> > > two port@0 and port@1 underneath.
+> >
+> > It's the #address-cells/#size-cells under 'ports' that applies to 'port'
+> > nodes. As 'ports' has no address (reg) itself, it doesn't need
+> > #address-cells/#size-cells in its parent node.
+> >
+> > >
+> > > So it should be okay to drop #address-cells/#size-cells from dsi node
+> > > but keep in ports node...
+> >
+> > Yes.
+> >
+> > > Thoughts...?
+> >
+> > But I thought a panel@0 node was being added? If so then you need to add
+> > them back.
+>
+> I guess we should make this optional, keep it when adding panel@0 node
+> and skip for rest where not applicable..? Dmitry is that fine with you?
 
-I guess we should make this optional, keep it when adding panel@0 node
-and skip for rest where not applicable..? Dmitry is that fine with you?
+This sounds like a workaround. When a panel node is added together
+with the '#address-cells' / '#size-cells' properties, we will get
+warnings for the 'ports' node.
+I'd prefer to leave things to pinpoint that the problem is generic
+rather than being specific to several device trees with the DSI panel
+nodes.
+How do other platforms solve the issue?
+
+In fact we can try shifting to the following dts schema:
+
+dsi@ae940000 {
+   compatible = "qcom,mdss-dsi-ctrl";
+
+   ports {
+      #adress-cells = <1>;
+      #size-cells = <0>;
+      port@0 {
+         reg = <0>;
+         dsi0_in: endpoint {};
+      };
+      port@1 {
+         reg = <1>;
+         dsi0_out: endpoint {
+               remote-endpoint = <&panel_in>;
+         };
+      };
+
+   /* dsi-bus is a generic part */
+   dsi-bus {
+      #adress-cells = <1>;
+      #size-cells = <0>;
+      /* panel@0 goes to the board file */
+      panel@0 {
+          compatible = "vendor,some-panel";
+          ports {
+             #adress-cells = <1>;
+             #size-cells = <0>;
+             port@0 {
+               reg = <0>;
+                panel_in: endpoint {
+                   remote-endpoint = <&dsi0_out>;
+                };
+             };
+        };
+   };
+};
+
+WDYT?
 
 -- 
-~Vinod
+With best wishes
+Dmitry
