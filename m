@@ -2,60 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD0B74ED82D
-	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 13:07:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB8454EDDEA
+	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 17:51:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E64910EF99;
-	Thu, 31 Mar 2022 11:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F91B10F400;
+	Thu, 31 Mar 2022 15:51:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [IPv6:2607:f8b0:4864:20::f2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D6010EF99
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 11:07:06 +0000 (UTC)
-Received: by mail-qv1-xf2f.google.com with SMTP id kd21so16512599qvb.6
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 04:07:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ldzs2F+pKkHk9BDqjLFNwahVpE2pkUr1lDp8VpHB0F0=;
- b=sxpAq4RyE4MDaDjOhTdULxpJkKhIpld+2IKOfgYrFTJsv161z0NLODgT5cziftMAL/
- 34sJikLyLgMJ2yVfrv6jUQYyNt1R8809q8HZUt0PUglCQ5qDQzLjSawn6yBAxe6/pTRd
- uqUXXb5CYlJ3NJlKba1MHQgtqCcrII6M2lRngbtk9mgLNm1SDnNf96ZL1tXLAD1uebqL
- 7QfsCF93n58zMXrcICooqJODwjL6pdUVwd3sE5oZL1DbL2Ga172uYdNZ/vBQUb4k0Ro8
- pNUM3ttK9nsS14DaqubkSx2aJVrpihNCt5NgjHUXKhbNmXkHCac3P8SzkuDwGmjcD17z
- 3Mhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ldzs2F+pKkHk9BDqjLFNwahVpE2pkUr1lDp8VpHB0F0=;
- b=HOboFxEQyHxBMClnWV3rzoLchcBR6uGe9Gt8iICNfyA3XKdH4xptqI+RFxTMiL1Cha
- c1w2p0vw5hoWLgtydJMR9rD6zejHKn11foMb2Erc/hNMU7jd7W9xwNSp1HRIAVPlC0sQ
- qm4CDVHnY0FgTT69jrVu6SVccrTI0r+8PDq8r4ANVRkhdXKe8C62EGypJGuR7T9FYP/i
- H4N33+pSQThFg6T+DSR7P1pXZoypM0kcAzXIrgHlG+fS2Mb9CF4rdtkL9wLb4Ynop2p1
- wQbLkHtUFQOpgjmtNMv+Atz04JUWwc1H+HFB3I0+rciBCvzRFEHwoQCtxWrJ/ULgce7A
- JLaA==
-X-Gm-Message-State: AOAM531vvLJpd2+A7FAk45kdX3w3R/Otbo/cnnvOSfhlJJtYU8QPu5ix
- iYvI9YqQRlCfeXx5VH9Te5eujLm07olF4VQxeu4naA==
-X-Google-Smtp-Source: ABdhPJysJW04r/FtfLF+DfHPjBtKXZZz0wvOwBbCbh0AUcpnQjKZqUj63zSb3lGB5W34YZecDd6lon6RfoauABQcy+c=
-X-Received: by 2002:a05:6214:20e4:b0:441:7bed:5ccd with SMTP id
- 4-20020a05621420e400b004417bed5ccdmr30970783qvk.119.1648724825924; Thu, 31
- Mar 2022 04:07:05 -0700 (PDT)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 293BF10F3FB;
+ Thu, 31 Mar 2022 15:51:50 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 85632B81B7F;
+ Thu, 31 Mar 2022 15:51:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E69C340F3;
+ Thu, 31 Mar 2022 15:51:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648741905;
+ bh=k9Ttwe47dSKB//4XyhIsQOi+168C1hhlSrXlQ8RS5Qc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=XsUXwi1IjUUN7j7u1Sp3CxErD4DzJAqg0jgz4skj1CR320YstT+0KB3Chzlk9I1Y+
+ /vlM+RTDgly9Q9QJ5ZCp3JpilOqC7oX8ltxA8QafU91Vt47feMV80dxYHYdo3PZKqn
+ TTlHO2nlB1gV3C2iMg+7tS7rznDLl0Zm6uAaSTlKkpwQV6mtQbUHWbL3JZrXXpjqie
+ kILZeYH9I1J7gFoYYiGPYqLUKvmcOrWTpoQ8DEcc0wwm7DS5Z6aIJE0Jh3E7iHg+H9
+ dCR2SeLuvs1+yca1ZRKXp7mxOEc6sRx+FkbVpgDPuVVlmaOMo5Xj9W9Hao9ap1keJ6
+ i2GNzDRUUwuMA==
+Received: by mail-il1-f174.google.com with SMTP id j15so47936ila.13;
+ Thu, 31 Mar 2022 08:51:45 -0700 (PDT)
+X-Gm-Message-State: AOAM533fK4bUMhJIO7XxAWJ9BvQ7jQcxN5c1hjiqT42rEIOf1ldm/ORQ
+ QmLd0FVgKkyxtdfLalmxNOjjgzQDSdb5syam5w==
+X-Google-Smtp-Source: ABdhPJwfhuDLSTUugNUrq3UCbhD/GyXM9vgEU4DBm47fXU5hBu6gsJGmx+1IQd9N12SFQjndRYNBevb+f+MIHqebLD0=
+X-Received: by 2002:a05:6e02:1c2b:b0:2c9:b42e:981b with SMTP id
+ m11-20020a056e021c2b00b002c9b42e981bmr10724018ilh.37.1648741904453; Thu, 31
+ Mar 2022 08:51:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
- <1648656179-10347-5-git-send-email-quic_sbillaka@quicinc.com>
- <CAA8EJprMvik_6xmGt2oZGpDG9FoMtC_ojuw+oTjPLTck4Hu3WA@mail.gmail.com>
- <MW4PR02MB7186669BA1B19FA4F184B558E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
- <d9ac1cee-d4fc-09ae-b2df-82ae2ecd57fb@linaro.org>
- <MW4PR02MB71864413E9E3624D2F48F046E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
-In-Reply-To: <MW4PR02MB71864413E9E3624D2F48F046E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 31 Mar 2022 14:06:54 +0300
-Message-ID: <CAA8EJpooNVxOUa20fACGf3rTVcHBvLKP2=7Eb0x8oxxE7f2iGg@mail.gmail.com>
-To: Sankeerth Billakanti <sbillaka@qti.qualcomm.com>
+References: <20220328152923.90623-1-krzysztof.kozlowski@linaro.org>
+ <CAA8EJprWoxWwk5EWEfWdLquPR+2=u6V0-v1-+wHMHOk8HiEyNw@mail.gmail.com>
+ <YkHtY9absUjmqmW7@matsya> <12b0056b-8032-452b-f325-6f36037b5a80@linaro.org>
+ <CAL_Jsq+6rx0UU6ryH+z_8KLQqKKuhTCnh=Oft2F03bcze+EV0Q@mail.gmail.com>
+ <YkKmPSesQfS6RLCD@matsya> <YkMrPnRbsl3FBig8@robh.at.kernel.org>
+ <YkVEsqiRamfTmNi0@matsya>
+ <CAA8EJpqTqB10JkmK4GfbO6uP4wAUtqPzY+N4f+=Lt6Vy3a+g4Q@mail.gmail.com>
+In-Reply-To: <CAA8EJpqTqB10JkmK4GfbO6uP4wAUtqPzY+N4f+=Lt6Vy3a+g4Q@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 31 Mar 2022 10:51:33 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLsCEf7R89HEYzU2i9o3AFaSk-TeDV-sWQkULxnvr+8cw@mail.gmail.com>
+Message-ID: <CAL_JsqLsCEf7R89HEYzU2i9o3AFaSk-TeDV-sWQkULxnvr+8cw@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 4/8] drm/msm/dp: avoid handling masked
- interrupts
+Subject: Re: [Freedreno] [PATCH] dt-bindings: display: msm: dsi: remove
+ address/size cells
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,150 +67,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
- "dianders@chromium.org" <dianders@chromium.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- "airlied@linux.ie" <airlied@linux.ie>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "swboyd@chromium.org" <swboyd@chromium.org>,
- "sean@poorly.run" <sean@poorly.run>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: freedreno <freedreno@lists.freedesktop.org>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Sean Paul <sean@poorly.run>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 31 Mar 2022 at 14:05, Sankeerth Billakanti
-<sbillaka@qti.qualcomm.com> wrote:
+On Thu, Mar 31, 2022 at 4:35 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> Hi Dmitry,
->
-> > On 31/03/2022 08:53, Sankeerth Billakanti (QUIC) wrote:
-> > > Hi Dmitry,
-> > >
-> > >> On Wed, 30 Mar 2022 at 19:03, Sankeerth Billakanti
-> > >> <quic_sbillaka@quicinc.com> wrote:
-> > >>>
-> > >>> The interrupt register will still reflect the connect and disconnect
-> > >>> interrupt status without generating an actual HW interrupt.
-> > >>> The controller driver should not handle those masked interrupts.
-> > >>>
-> > >>> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> > >>> ---
-> > >>>   drivers/gpu/drm/msm/dp/dp_catalog.c | 5 +++--
-> > >>>   1 file changed, 3 insertions(+), 2 deletions(-)
-> > >>>
-> > >>> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>> b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>> index 3c16f95..1809ce2 100644
-> > >>> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> > >>> @@ -608,13 +608,14 @@ u32 dp_catalog_hpd_get_intr_status(struct
-> > >>> dp_catalog *dp_catalog)  {
-> > >>>          struct dp_catalog_private *catalog = container_of(dp_catalog,
-> > >>>                                  struct dp_catalog_private, dp_catalog);
-> > >>> -       int isr = 0;
-> > >>> +       int isr, mask;
-> > >>>
-> > >>>          isr = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
-> > >>>          dp_write_aux(catalog, REG_DP_DP_HPD_INT_ACK,
-> > >>>                                   (isr & DP_DP_HPD_INT_MASK));
-> > >>> +       mask = dp_read_aux(catalog, REG_DP_DP_HPD_INT_MASK);
-> > >>>
-> > >>> -       return isr;
-> > >>> +       return isr & (DP_DP_HPD_STATE_STATUS_MASK | mask);
-> > >>
-> > >> I suspect that the logic is inverted here. Shouldn't it be:
-> > >>
-> > >> return isr & DP_DP_HPD_STATE_STATUS_MASK & mask;
-> > >>
-> > >> ?
-> > >>
-> > >
-> > > The value of DP_DP_HPD_STATE_STATUS_MASK is 0xE0000000 and the
-> > value
-> > > of the read interrupt mask variable could be is 0xF.
-> > >
-> > > The mask value is indicated via the register, REG_DP_DP_HPD_INT_MASK,
-> > bits 3:0.
-> > > The HPD status is indicated via a different read-only register
-> > REG_DP_DP_HPD_INT_STATUS, bits 31:29.
+> On Thu, 31 Mar 2022 at 09:05, Vinod Koul <vkoul@kernel.org> wrote:
 > >
-> > I see. Maybe the following expression would be better?
-> >
-> > return isr & (mask & ~DP_DP_HPD_INT_MASK);
-
-Ugh, excuse me please. I meant:
-
-return isr & (mask | ~DP_DP_HPD_INT_MASK);
-
-> >
->
-> I believe the confusion occurred because the DP_DP_HPD_STATE_STATUS_CONNECTED and others were defined under the same register definition as REG_DP_DP_HPD_INT_MASK
-> I will rearrange the definitions below.
->
-> #define REG_DP_DP_HPD_INT_MASK          (0x0000000C)
-> #define DP_DP_HPD_PLUG_INT_MASK         (0x00000001)
-> #define DP_DP_IRQ_HPD_INT_MASK          (0x00000002)
-> #define DP_DP_HPD_REPLUG_INT_MASK       (0x00000004)
-> #define DP_DP_HPD_UNPLUG_INT_MASK       (0x00000008)
-> #define DP_DP_HPD_INT_MASK              (DP_DP_HPD_PLUG_INT_MASK | \
->                                                 DP_DP_IRQ_HPD_INT_MASK | \
->                                                 DP_DP_HPD_REPLUG_INT_MASK | \
->                                                 DP_DP_HPD_UNPLUG_INT_MASK)
->
-> Below are status bits from register REG_DP_DP_HPD_INT_STATUS
->
-> #define DP_DP_HPD_STATE_STATUS_CONNECTED        (0x40000000)
-> #define DP_DP_HPD_STATE_STATUS_PENDING          (0x20000000)
-> #define DP_DP_HPD_STATE_STATUS_DISCONNECTED     (0x00000000)
-> #define DP_DP_HPD_STATE_STATUS_MASK             (0xE0000000)
->
-> DP_DP_HPD_INT_MASK is 0xF and scope of mask variable is also 0xF (bits 3:0), mask & ~DP_DP_HPD_INT_MASK is 0 always.
->
-> For DP, we want to enable all interrupts.
-> So the programmed mask value is 0xF. We want to return 0x40000001 for connect and 8 for disconnect
->
-> For eDP, we want to disable the connect and disconnect interrupts. So, the mask will be 0x6 (i.e. DP_DP_IRQ_HPD_INT_MASK | DP_DP_HPD_REPLUG_INT_MASK)
-> We want to return 0x40000000 (or 0x20000000 based on hpd line status) and 0 for eDP connect and disconnect respectively.
->
+> > On 29-03-22, 10:52, Rob Herring wrote:
+> > > On Tue, Mar 29, 2022 at 12:01:52PM +0530, Vinod Koul wrote:
+> > > > On 28-03-22, 13:21, Rob Herring wrote:
+> > > > > On Mon, Mar 28, 2022 at 12:18 PM Krzysztof Kozlowski
+> > > > > <krzysztof.kozlowski@linaro.org> wrote:
+> > > > > >
+> > > > > > On 28/03/2022 19:16, Vinod Koul wrote:
+> > > > > > > On 28-03-22, 19:43, Dmitry Baryshkov wrote:
+> > > > > > >> On Mon, 28 Mar 2022 at 18:30, Krzysztof Kozlowski
+> > > > > > >> <krzysztof.kozlowski@linaro.org> wrote:
+> > > > > > >>>
+> > > > > > >>> The DSI node is not a bus and the children do not have unit addresses.
+> > > > > > >>>
+> > > > > > >>> Reported-by: Vinod Koul <vkoul@kernel.org>
+> > > > > > >>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > > > > > >>
+> > > > > > >> NAK.
+> > > > > > >> DSI panels are children of the DSI device tree node with the reg = <0>; address.
+> > > > > > >> This is the convention used by other platforms too (see e.g.
+> > > > > > >> arch/arm64/boot/dts/freescale/imx8mq-evk.dts).
+> > > > > > >
+> > > > > > > So we should add reg = 0, i will update my dtsi fix
+> > > > > > >
+> > > > > >
+> > > > > > To "ports" node? No. The reg=0 is for children of the bus, so the
+> > > > > > panels. How to combine both without warnings - ports and panel@0 - I
+> > > > > > don't know yet...
+> > > > >
+> > > > > I don't think that should case a warning. Or at least it's one we turn off.
+> > > >
+> > > > Well in this case I think we might need a fix:
+> > > > Here is the example quoted in the binding. We have ports{} and then the
+> > > > two port@0 and port@1 underneath.
 > > >
-> > > isr & DP_DP_HPD_STATE_STATUS_MASK & mask, will return 0 always.
+> > > It's the #address-cells/#size-cells under 'ports' that applies to 'port'
+> > > nodes. As 'ports' has no address (reg) itself, it doesn't need
+> > > #address-cells/#size-cells in its parent node.
 > > >
-> > >>>   }
-> > >>>
-> > >>>   int dp_catalog_ctrl_get_interrupt(struct dp_catalog *dp_catalog)
-> > >>> --
-> > >>> 2.7.4
-> > >>>
-> > >>
-> > >>
-> > >> --
-> > >> With best wishes
-> > >> Dmitry
+> > > >
+> > > > So it should be okay to drop #address-cells/#size-cells from dsi node
+> > > > but keep in ports node...
 > > >
-> > > Thank you,
-> > > Sankeerth
+> > > Yes.
+> > >
+> > > > Thoughts...?
+> > >
+> > > But I thought a panel@0 node was being added? If so then you need to add
+> > > them back.
 > >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+> > I guess we should make this optional, keep it when adding panel@0 node
+> > and skip for rest where not applicable..? Dmitry is that fine with you?
 >
-> Thank you,
-> Sankeerth
+> This sounds like a workaround. When a panel node is added together
+> with the '#address-cells' / '#size-cells' properties, we will get
+> warnings for the 'ports' node.
 
+What warning exactly? Is that with W=1?
 
+Some warnings are more "don't do this on new designs" rather than
+never allowed and need to fix current bindings/dts. As such, these
+warnings will probably never be enabled by default.
 
--- 
-With best wishes
-Dmitry
+Rob
