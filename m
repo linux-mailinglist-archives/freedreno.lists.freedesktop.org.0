@@ -1,56 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92E434EE13F
-	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 21:01:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F42E4EE200
+	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 21:41:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCFE10E0E5;
-	Thu, 31 Mar 2022 19:01:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16B2910E082;
+	Thu, 31 Mar 2022 19:41:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE11E10E0E5;
- Thu, 31 Mar 2022 19:01:44 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id d7so1060567wrb.7;
- Thu, 31 Mar 2022 12:01:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T9+AkiW/4h4A1Ms4Miaw1I42u6H5Nq21dOfaVBmxDOY=;
- b=YhXQSDQNFt1PUyiQir/KzfA2QkhaB5iXoDEQqrvlYnBuvliALMKTvUF/Tst9kBbB4J
- 3SNayKANcUSbmkrIBfOB11eokDrjDFeazk5bLvOuuZ4y8rx4zeCDpIi026N2sJjKSBvO
- MLyPRQCBNRqwW41BtETq9xWEHbm8pmQeI5NYZJD57XBOlNH+RELCfvheG81DDNXbfrW5
- 9V51RZJSTRfoGOfhBH/9emqzBACiqYXX7x+tMVXyOuVUUFOwQZ2CpUr+Isk4MflSzgt/
- lC6ridW1AAiN1lJPO3jwMQmplC3eS2daZ4s+pQGQBaxFHIrfLJFYlsbAsQptf933E6Ba
- kSfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T9+AkiW/4h4A1Ms4Miaw1I42u6H5Nq21dOfaVBmxDOY=;
- b=Sf5T1x+l34h3HFFvzf2Qy2ao/xV/RwrGCvanOPDZECg6T/8/H3Ugn1qoR6B+qxg8EN
- Q0bn+tzuMdOG7eLgA8FbKAqXIblvsmqMTPOOD0LhdW4koU9Jpckg4/YcEiQUS1RWhNky
- aXNODYfUquYq0F5LID7XLtAILK8ok/n2XGcyPopo3hrIT9la749plwq54L+LctHe8cN1
- HQuMk/Btlw980C+rNmOHWJ0xdBv0+gbYKHOXPgLGznu4xjZQVCqIxEMd9/yuOSt2QykC
- n6eaWITO/QVBytEQy8V/1pLtIG42vOG7X7syvbjS+HlsPv14xeyWnUiV1o2ELMrjvahT
- K8nA==
-X-Gm-Message-State: AOAM533DfR1+eC0LQ4eUarjReqreVn4C779KCqi9Vv7+lscCWWRHG3VK
- LQgnuqirYe9TMK0304n1ONyiSK2ffxiTsx/BruI=
-X-Google-Smtp-Source: ABdhPJwX9ypiRh4trrEQoi/7vM1BBV0U8zxJnGyxDNIWxKMhout7D4Lj2PJ5oVdWZLsHo820nf/TSIMiwiSGtr2XH7o=
-X-Received: by 2002:adf:f20f:0:b0:203:fc73:a9a0 with SMTP id
- p15-20020adff20f000000b00203fc73a9a0mr5182581wro.418.1648753303352; Thu, 31
- Mar 2022 12:01:43 -0700 (PDT)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4173E10E082;
+ Thu, 31 Mar 2022 19:41:22 +0000 (UTC)
+Received: from [IPV6:2a00:5f00:102:0:10b3:10ff:fe5d:4ec1] (unknown
+ [IPv6:2a00:5f00:102:0:10b3:10ff:fe5d:4ec1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id AD5941F46A5D;
+ Thu, 31 Mar 2022 20:41:19 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1648755680;
+ bh=XyZcQg6pqR159jgtxwGtbmonYgk2JzV10bPGOcjl0Qc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DE4VWC1bnVsxalr1+sXEPphCLUZNPnQ1i5KR46hOq9wpUWFkfxPTdYNwayv5PeJMy
+ x1usxrG78HxHgRkrg80QEw4tYf9RiS2VsRKfx4c//GaCzdwCB134eYNMsU1X/Am5PZ
+ CHMG8SEJbZRSQozYR+iQMjJ5aTBptRVxwbuCqS+5WoiwEuHs+PYVimXUgW6hIIW+0q
+ JTspnl+6ZAsyyUGvZJl4MEjp2Gdx7k35YQiEeqnhVlJ76iikG1BaLgGjDc5dRxQ8Fj
+ JKaP1em6qv0X5Nh8PQwTuJymfxQiVRhRauJ1KZVi3CiwsRah4g89P4jCPW3xXpeBWe
+ SDDqSfoz/jJSQ==
+Message-ID: <22d9a9ff-1c44-ed41-6ae1-59a1f965ab6c@collabora.com>
+Date: Thu, 31 Mar 2022 22:41:16 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
 References: <20220330204804.660819-1-robdclark@gmail.com>
  <20220330204804.660819-11-robdclark@gmail.com>
  <ad97096f-cc90-4f20-0f73-f33e9b275f1a@collabora.com>
-In-Reply-To: <ad97096f-cc90-4f20-0f73-f33e9b275f1a@collabora.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 31 Mar 2022 12:02:35 -0700
-Message-ID: <CAF6AEGvZqM1OT_n1C+x+C1GTd4PbFkH4c7P-BseDOUGj7yj3Eg@mail.gmail.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+ <CAF6AEGvZqM1OT_n1C+x+C1GTd4PbFkH4c7P-BseDOUGj7yj3Eg@mail.gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <CAF6AEGvZqM1OT_n1C+x+C1GTd4PbFkH4c7P-BseDOUGj7yj3Eg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Freedreno] [PATCH v2 10/10] drm/msm: Add a way for userspace
  to allocate GPU iova
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -79,89 +72,41 @@ Cc: Rob Clark <robdclark@chromium.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Mar 31, 2022 at 11:52 AM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
->
-> ...
-> > +/*
-> > + * Get the requested iova but don't pin it.  Fails if the requested iova is
-> > + * not available.  Doesn't need a put because iovas are currently valid for
-> > + * the life of the object.
-> > + *
-> > + * Setting an iova of zero will clear the vma.
-> > + */
-> > +int msm_gem_set_iova(struct drm_gem_object *obj,
-> > +                  struct msm_gem_address_space *aspace, uint64_t iova)
-> > +{
-> > +     int ret = 0;
->
-> nit: No need to initialize the ret
+On 3/31/22 22:02, Rob Clark wrote:
+> On Thu, Mar 31, 2022 at 11:52 AM Dmitry Osipenko
+> <dmitry.osipenko@collabora.com> wrote:
+>>
+>> ...
+>>> +/*
+>>> + * Get the requested iova but don't pin it.  Fails if the requested iova is
+>>> + * not available.  Doesn't need a put because iovas are currently valid for
+>>> + * the life of the object.
+>>> + *
+>>> + * Setting an iova of zero will clear the vma.
+>>> + */
+>>> +int msm_gem_set_iova(struct drm_gem_object *obj,
+>>> +                  struct msm_gem_address_space *aspace, uint64_t iova)
+>>> +{
+>>> +     int ret = 0;
+>>
+>> nit: No need to initialize the ret
+> 
+> actually, we do
 
-actually, we do
+Indeed, sorry :)
 
-> > +     msm_gem_lock(obj);
-> > +     if (!iova) {
-> > +             ret = clear_iova(obj, aspace);
-> > +     } else {
-> > +             struct msm_gem_vma *vma;
-> > +             vma = get_vma_locked(obj, aspace, iova, iova + obj->size);
-> > +             if (IS_ERR(vma)) {
-> > +                     ret = PTR_ERR(vma);
-> > +             } else if (GEM_WARN_ON(vma->iova != iova)) {
-> > +                     clear_iova(obj, aspace);
-> > +                     ret = -ENOSPC;
->
-> The (vma->iova != iova) means that vma is already set, but to a
-> different address. Is -ENOSPC really appropriate here? -EBUSY or -EINVAL
-> looks more natural to me.
+...
+>>>  int msm_gem_get_and_pin_iova_range(struct drm_gem_object *obj,
+>>>               struct msm_gem_address_space *aspace, uint64_t *iova,
+>>>               u64 range_start, u64 range_end);
+>> nit: There is an odd mix of uint64_t and u64 (and alike) in the MSM code
+>> :) The uint64_t variant shouldn't be used by kernel code in general and
+>> checkpatch should want about it.
+> 
+> one of many things that I disagree with checkpatch about ;-)
+> 
+> I prefer standard types to custom ones.  I _kinda_ get the argument in
+> case of uapi (but IMHO that doesn't apply to how drm uapi headers are
+> used)
 
-yeah, -EBUSY is better
-
-> > +             }
-> > +     }
-> > +     msm_gem_unlock(obj);
-> > +
-> > +     return ret;
-> > +}
-> > +
-> >  /*
-> >   * Unpin a iova by updating the reference counts. The memory isn't actually
-> >   * purged until something else (shrinker, mm_notifier, destroy, etc) decides
-> > diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> > index 38d66e1248b1..efa2e5c19f1e 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem.h
-> > +++ b/drivers/gpu/drm/msm/msm_gem.h
-> > @@ -38,6 +38,12 @@ struct msm_gem_address_space {
-> >
-> >       /* @faults: the number of GPU hangs associated with this address space */
-> >       int faults;
-> > +
-> > +     /** @va_start: lowest possible address to allocate */
-> > +     uint64_t va_start;
-> > +
-> > +     /** @va_size: the size of the address space (in bytes) */
-> > +     uint64_t va_size;
-> >  };
-> >
-> >  struct msm_gem_address_space *
-> > @@ -144,6 +150,8 @@ struct msm_gem_vma *msm_gem_get_vma_locked(struct drm_gem_object *obj,
-> >                                          struct msm_gem_address_space *aspace);
-> >  int msm_gem_get_iova(struct drm_gem_object *obj,
-> >               struct msm_gem_address_space *aspace, uint64_t *iova);
-> > +int msm_gem_set_iova(struct drm_gem_object *obj,
-> > +             struct msm_gem_address_space *aspace, uint64_t iova);
-> >  int msm_gem_get_and_pin_iova_range(struct drm_gem_object *obj,
-> >               struct msm_gem_address_space *aspace, uint64_t *iova,
-> >               u64 range_start, u64 range_end);
-> nit: There is an odd mix of uint64_t and u64 (and alike) in the MSM code
-> :) The uint64_t variant shouldn't be used by kernel code in general and
-> checkpatch should want about it.
-
-one of many things that I disagree with checkpatch about ;-)
-
-I prefer standard types to custom ones.  I _kinda_ get the argument in
-case of uapi (but IMHO that doesn't apply to how drm uapi headers are
-used)
-
-BR,
--R
+I'd understand if it was all either uint64_t or u64, but the mix.. hm.
