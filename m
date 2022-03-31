@@ -2,49 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EA4C4EE11F
-	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 20:53:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 182694EE130
+	for <lists+freedreno@lfdr.de>; Thu, 31 Mar 2022 20:57:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A92F110F49F;
-	Thu, 31 Mar 2022 18:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEB7410EC17;
+	Thu, 31 Mar 2022 18:57:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5708510E494;
- Thu, 31 Mar 2022 18:53:09 +0000 (UTC)
-Received: from [IPV6:2a00:5f00:102:0:10b3:10ff:fe5d:4ec1] (unknown
- [IPv6:2a00:5f00:102:0:10b3:10ff:fe5d:4ec1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id C8AB41F471DE;
- Thu, 31 Mar 2022 19:53:06 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1648752788;
- bh=iCIU6s94N0rdvtHyebk6zzrjx7sdwliT90RWSSA/PjY=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=QxIKFkb3DId474h3e9jG30gDcVZzCZOMhdNiTb2bcxYnBfHPbWQcgfSvfNMCzkzBK
- f2BjoF5cJEiKaX6jGmrBcILxevzVOe0AkLOznm3SBBQ10jnflEnYxIVylm7a41KBOK
- FmzPJWSeI9oQ+lq7TCNyTXwXpHAdBzKzHhbJz8oQVRNHRI9a9UO+X1QIgubbt4c2rL
- 47xFUVvxjWofBY9j6eoh8iJkc7M+1PRnP4fwEDT9d0DowSatnocSwn2y3NbZO07i6n
- kkOQmELV13W1rLuGhsqZlQjqxHXFaLeteQbjCcor+y0BLHmBAiK0ESPCqUnvpoLM/u
- ZyDm0/klPfErQ==
-Message-ID: <b7a0347f-7106-f2af-bc63-40d8bdc2bb02@collabora.com>
-Date: Thu, 31 Mar 2022 21:53:04 +0300
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 951CA10EC16;
+ Thu, 31 Mar 2022 18:57:46 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ v64-20020a1cac43000000b0038cfd1b3a6dso2206378wme.5; 
+ Thu, 31 Mar 2022 11:57:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RcGA7qZL8bg5E6qFk3sdBJk26ZdghHIeSb/SgsZqBag=;
+ b=cv7vJCYuueHR+RjurisIFmW8Xs45KZu/1kaJ+IcCX9wfrhy37/Q4x2pelmTd5sgbpE
+ HQzJ0ZJjl7w4caBkZbkmW2WH0a0/x96En8B6WNH4QpgvPLE3JmOYpH1eLtTqiXLIk5RX
+ os5c3ObHVviLGC5WFoo5DsFCWygJUx72OxxREXOHc6YvkuUkKJydvFGqaTQWS8UdKbnP
+ DOjSpXD2xkTPWQyXU2ZF7txd+9B2tTtcO33Gd+ZU9kky4jrW/o6q8U2mLG3CyFS/jC7V
+ nuU+AIB/7AnzXXJPEvhTK//ag26NrJIxg3Wa9JKxm0jqAw67nuu7Zs99kWVs8cA4kqj7
+ kPig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RcGA7qZL8bg5E6qFk3sdBJk26ZdghHIeSb/SgsZqBag=;
+ b=G6Fk32Vw7DYvTlxaNZFkaSOX/Jk/MvcFhgOb4WcSy6ol1fDGcBH6hi5G0reK+4CkO2
+ 4XhDDJtOCHceUTAkC1hJy1J2cYFvu0Xu3CRGyD3F2LxtLUoOIfCX004UsxucA+Uf573i
+ ib2KdDlSZGIWxtC4yHpenRIGQJHk029RH/JHtWZKoDX06E+OgkDLTvE0l5ShhHaNrcaS
+ 0aTLgFHyL76U5KyEJWTE6ae8Lqe8SUMgWLPaIvdu5eH75mBCnXhkDv804OE6y6LnLKGu
+ m8LT+iipB7cgVEKG+EFNV+qCIcWg8pD7VxyHDO4J/JccrnkJoa1syuuqEDw6Ma6QtVSg
+ yj+w==
+X-Gm-Message-State: AOAM532GZR7WywOOpnIWAZspmnV9XW+8OAKZyWUunQhoLC5KH2KBcd29
+ LJ10+GnYPFzM7TsCKv5DONKCVoxTUOdaAMpEQkY=
+X-Google-Smtp-Source: ABdhPJzjWFQNfQlScp7L8msEibU0gM72m999QKy+C7eRMt+/vP9w0VatzkP5yDG6lf4lyS4mdaftC+0wu2HwQWo8nt0=
+X-Received: by 2002:a05:600c:35d0:b0:38c:e6fa:44eb with SMTP id
+ r16-20020a05600c35d000b0038ce6fa44ebmr5803865wmq.102.1648753065007; Thu, 31
+ Mar 2022 11:57:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20220330204804.660819-1-robdclark@gmail.com>
- <20220330204804.660819-11-robdclark@gmail.com>
- <ad97096f-cc90-4f20-0f73-f33e9b275f1a@collabora.com>
-In-Reply-To: <ad97096f-cc90-4f20-0f73-f33e9b275f1a@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 10/10] drm/msm: Add a way for userspace
- to allocate GPU iova
+ <20220330204804.660819-8-robdclark@gmail.com>
+ <83979c7b-8a8a-5006-6af3-f3ca8b0d8ced@collabora.com>
+In-Reply-To: <83979c7b-8a8a-5006-6af3-f3ca8b0d8ced@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 31 Mar 2022 11:58:36 -0700
+Message-ID: <CAF6AEGtEczCSzwMNcr2EJJ=OcncABC2ZM2dVpAYoJM+5TBTKXQ@mail.gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 07/10] drm/msm/gem: Rework vma lookup and
+ pin
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,88 +66,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Emma Anholt <emma@anholt.net>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, Mar 31, 2022 at 11:27 AM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 3/30/22 23:47, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > Combines duplicate vma lookup in the get_and_pin path.
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > ---
+> >  drivers/gpu/drm/msm/msm_gem.c | 50 ++++++++++++++++++-----------------
+> >  1 file changed, 26 insertions(+), 24 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> > index deafae6feaa8..218744a490a4 100644
+> > --- a/drivers/gpu/drm/msm/msm_gem.c
+> > +++ b/drivers/gpu/drm/msm/msm_gem.c
+> > @@ -376,39 +376,40 @@ put_iova_vmas(struct drm_gem_object *obj)
+> >       }
+> >  }
+> >
+> > -static int get_iova_locked(struct drm_gem_object *obj,
+> > -             struct msm_gem_address_space *aspace, uint64_t *iova,
+> > +static struct msm_gem_vma *get_vma_locked(struct drm_gem_object *obj,
+> > +             struct msm_gem_address_space *aspace,
+> >               u64 range_start, u64 range_end)
+> >  {
+> >       struct msm_gem_vma *vma;
+> > -     int ret = 0;
+> >
+> >       GEM_WARN_ON(!msm_gem_is_locked(obj));
+> >
+> >       vma = lookup_vma(obj, aspace);
+> >
+> >       if (!vma) {
+> > +             int ret;
+> > +
+> >               vma = add_vma(obj, aspace);
+> >               if (IS_ERR(vma))
+> > -                     return PTR_ERR(vma);
+> > +                     return vma;
+> >
+> >               ret = msm_gem_init_vma(aspace, vma, obj->size,
+> >                       range_start, range_end);
+> >               if (ret) {
+> You're allocation range_start -> range_end
+>
+>
+> >                       del_vma(vma);
+> > -                     return ret;
+> > +                     return ERR_PTR(ret);
+> >               }
+> > +     } else {
+> > +             GEM_WARN_ON(vma->iova < range_start);
+> > +             GEM_WARN_ON((vma->iova + obj->size) > range_end);
+>
+> and then comparing range_start -> range_start + obj->size, hence you're
+> assuming that range_end always equals to obj->size during the allocation.
+>
+> I'm not sure what is the idea here.. this looks inconsistent. I think
+> you wanted to write:
+>
+>                 GEM_WARN_ON(vma->iova < range_start);
+>                 GEM_WARN_ON(vma->iova + (vma->node.size << PAGE_SHIFT) > range_end);
+>
+> But is it really useful to check whether the new range is inside of the
+> old range? Shouldn't it be always a error to change the IOVA range
+> without reallocating vma?
 
-On 3/31/22 21:52, Dmitry Osipenko wrote:
-> ...
->> +/*
->> + * Get the requested iova but don't pin it.  Fails if the requested iova is
->> + * not available.  Doesn't need a put because iovas are currently valid for
->> + * the life of the object.
->> + *
->> + * Setting an iova of zero will clear the vma.
->> + */
->> +int msm_gem_set_iova(struct drm_gem_object *obj,
->> +		     struct msm_gem_address_space *aspace, uint64_t iova)
->> +{
->> +	int ret = 0;
-> 
-> nit: No need to initialize the ret
-> 
->> +	msm_gem_lock(obj);
->> +	if (!iova) {
->> +		ret = clear_iova(obj, aspace);
->> +	} else {
->> +		struct msm_gem_vma *vma;
->> +		vma = get_vma_locked(obj, aspace, iova, iova + obj->size);
->> +		if (IS_ERR(vma)) {
->> +			ret = PTR_ERR(vma);
->> +		} else if (GEM_WARN_ON(vma->iova != iova)) {
->> +			clear_iova(obj, aspace);
->> +			ret = -ENOSPC;
-> 
-> The (vma->iova != iova) means that vma is already set, but to a
-> different address. Is -ENOSPC really appropriate here? -EBUSY or -EINVAL
-> looks more natural to me.
-> 
->> +		}
->> +	}
->> +	msm_gem_unlock(obj);
->> +
->> +	return ret;
->> +}
->> +
->>  /*
->>   * Unpin a iova by updating the reference counts. The memory isn't actually
->>   * purged until something else (shrinker, mm_notifier, destroy, etc) decides
->> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
->> index 38d66e1248b1..efa2e5c19f1e 100644
->> --- a/drivers/gpu/drm/msm/msm_gem.h
->> +++ b/drivers/gpu/drm/msm/msm_gem.h
->> @@ -38,6 +38,12 @@ struct msm_gem_address_space {
->>  
->>  	/* @faults: the number of GPU hangs associated with this address space */
->>  	int faults;
->> +
->> +	/** @va_start: lowest possible address to allocate */
->> +	uint64_t va_start;
->> +
->> +	/** @va_size: the size of the address space (in bytes) */
->> +	uint64_t va_size;
->>  };
->>  
->>  struct msm_gem_address_space *
->> @@ -144,6 +150,8 @@ struct msm_gem_vma *msm_gem_get_vma_locked(struct drm_gem_object *obj,
->>  					   struct msm_gem_address_space *aspace);
->>  int msm_gem_get_iova(struct drm_gem_object *obj,
->>  		struct msm_gem_address_space *aspace, uint64_t *iova);
->> +int msm_gem_set_iova(struct drm_gem_object *obj,
->> +		struct msm_gem_address_space *aspace, uint64_t iova);
->>  int msm_gem_get_and_pin_iova_range(struct drm_gem_object *obj,
->>  		struct msm_gem_address_space *aspace, uint64_t *iova,
->>  		u64 range_start, u64 range_end);
-> nit: There is an odd mix of uint64_t and u64 (and alike) in the MSM code
-> :) The uint64_t variant shouldn't be used by kernel code in general and
-> checkpatch should want about it.
+There are a few cases (for allocations for GMU) where the range is
+larger than the bo.. see a6xx_gmu_memory_alloc()
 
-s/want/warn/
+BR,
+-R
+
+>
+> I'd expect to see:
+>
+>                 GEM_WARN_ON(vma->iova != range_start);
+>                 GEM_WARN_ON(vma->iova + (vma->node.size << PAGE_SHIFT) != range_end);
+>
+> and then error out if range mismatches.
