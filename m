@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19BEF4EE4B3
-	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 01:23:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 686084EE4C8
+	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 01:30:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9B6810E32E;
-	Thu, 31 Mar 2022 23:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D7E710E12B;
+	Thu, 31 Mar 2022 23:30:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2441010E32E
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 23:23:40 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id u26so992201eda.12
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:23:40 -0700 (PDT)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF48910E12B
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 23:30:06 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id s13so1767242ljd.5
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:30:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LLB/4ErH2KmNX4icsPtz8gcVd91Ba8xsooM5WCEu/To=;
- b=nO2IsBJyBf/P3KA7s8QuuGM6xFZSrWZovU/MfhkXj0KUNNuFJ3JGAq+Rs/3rX52qsY
- 7P5N2AMJME5FGhl9OxAp3JLusS1z1TEB+mUKXGDbBLppxe902V/8Zo5Zc7k50FYB1oxq
- GxXAOnEIWO1JRgUrPmufk1e5oNiZETTlMRBzM=
+ :cc; bh=oU/P0lUIzx1uZfbuXoLmvC/k7etlrfD8HbND/4uBtMs=;
+ b=CVm3r8sEiJHudIn3wBe5psgjEjOXEvg7kAXV5xw19t+3DbObpkYUHppzcz6qWIyEKC
+ iD+uGmLJdXzgNCcEVX3/o2rL3pH35aBBGYvKh1WC1iiWOWhQglndY1DyhfDoBvDHciUT
+ HKdhiizGnGLfo9pL1ZqNneKf5bIxKreY/JwCs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=LLB/4ErH2KmNX4icsPtz8gcVd91Ba8xsooM5WCEu/To=;
- b=bXjxJ7jSAUm6tBNA/1vq/CqTqmRKgIhnhGVvz46NSiQ5nQfuHJu/+oxmJ5FWpjhIjp
- scXaEKuzLw47nRZe6NQyKsp/4EV3rIICdBbzfgTqKHFGg8vLL6Z51UJK3z9TemGARXnu
- BNCQ44cy1pYERLXcgUWxaqYM6auZDNxpCtzzdqLoox0ziwzn09VasoZI+nONxyBqmCsX
- 1jOZFtwwWW0WeKSueFfbAB3pd6cxa4tr8SPrS44war7+3jPGrlGxfAtmqixXxUNSHu7Y
- ckRmtPzcMlVh5piEGfyCnPKkOOhfkNhSazxMhczc5vZsw0vuB9Rqgo8JO9xLUZvWK8Bv
- D3FA==
-X-Gm-Message-State: AOAM531gRUEcsolAz5t1/b7HDN7mhsddNgM3p8Z9ZbCjcbgcyKWbxgvb
- J15p+uzgv78b8yzhXcJe0tgN8MwQoY6XU+8M
-X-Google-Smtp-Source: ABdhPJzWJk81OaxxIoD8HzfX0yf3zdZXYwpjPMYVwrgqC1hL6DHp9QkAhz1qAPhKeJmB50ixkxL6Zw==
-X-Received: by 2002:a05:6402:1c1e:b0:416:5b93:eacf with SMTP id
- ck30-20020a0564021c1e00b004165b93eacfmr18895868edb.302.1648769018305; 
- Thu, 31 Mar 2022 16:23:38 -0700 (PDT)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com.
- [209.85.128.52]) by smtp.gmail.com with ESMTPSA id
- s5-20020a170906284500b006cc551d6cabsm323218ejc.63.2022.03.31.16.23.36
+ bh=oU/P0lUIzx1uZfbuXoLmvC/k7etlrfD8HbND/4uBtMs=;
+ b=IXA+tT2MF/r+FMbBYB4jaHz9hG/8WDIYLLkwVYmW5Ql402wRxYLyw5muqoHwr+ggaS
+ IK+4jxGKqR5EUWDb7nTrRr2+vxKG3cMiip5dkx0jq+ML8fcCkWKHFzC+iVToqNRy+DkN
+ l9zAvjCAHXBym9SJEb1HhZgTfgyNo0xZIqjPyT2Oo6k5HHaNw76yq+UBRGzw7nRohETA
+ QkFFLos2ltHp+vcgcIa5M3NCp6WHLxWhGHFwZkSw7PNTu+8ZzqHazgp4DwXqVyhj1tZ3
+ F9uRXcof09ZpKWc1B5r5TTpxv0qlDy3EqpZX0LcZPsWBFoO/aZb6M3aCMtuXlTm1VVR9
+ iKcw==
+X-Gm-Message-State: AOAM531pBuqGafkI7S5wOQLcqNk2mRVDg3zLrMMDMkupeV8RT2LTPuC4
+ gilz3DEW4JKtL2kgk+E0vpwBXCUUWhPALOZ5taI=
+X-Google-Smtp-Source: ABdhPJwcLPsytgPRm2gl1eemHEM2JBxReRf4Hh02RO7XGq6MU0QTbh8xGXE5zki4+KIvNjTmdRn6qA==
+X-Received: by 2002:a2e:b88e:0:b0:249:d862:60 with SMTP id
+ r14-20020a2eb88e000000b00249d8620060mr11969987ljp.250.1648769404760; 
+ Thu, 31 Mar 2022 16:30:04 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com.
+ [209.85.167.47]) by smtp.gmail.com with ESMTPSA id
+ k11-20020a05651210cb00b0044a7a3d4bfasm70358lfg.92.2022.03.31.16.30.04
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Mar 2022 16:23:37 -0700 (PDT)
-Received: by mail-wm1-f52.google.com with SMTP id h16so731544wmd.0
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:23:36 -0700 (PDT)
-X-Received: by 2002:a1c:7518:0:b0:37c:7eb:f255 with SMTP id
- o24-20020a1c7518000000b0037c07ebf255mr6394707wmc.29.1648769016448; Thu, 31
- Mar 2022 16:23:36 -0700 (PDT)
+ Thu, 31 Mar 2022 16:30:04 -0700 (PDT)
+Received: by mail-lf1-f47.google.com with SMTP id p10so1800453lfa.12
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:30:04 -0700 (PDT)
+X-Received: by 2002:a5d:4491:0:b0:203:f63a:e89b with SMTP id
+ j17-20020a5d4491000000b00203f63ae89bmr5618171wrq.342.1648769032444; Thu, 31
+ Mar 2022 16:23:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
- <1648656179-10347-7-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1648656179-10347-7-git-send-email-quic_sbillaka@quicinc.com>
+ <1648656179-10347-8-git-send-email-quic_sbillaka@quicinc.com>
+In-Reply-To: <1648656179-10347-8-git-send-email-quic_sbillaka@quicinc.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 31 Mar 2022 16:23:23 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UX9Mg71EKvgNp_wNG5q7_ugBgVPbcFWFX5XBG+cQCi8Q@mail.gmail.com>
-Message-ID: <CAD=FV=UX9Mg71EKvgNp_wNG5q7_ugBgVPbcFWFX5XBG+cQCi8Q@mail.gmail.com>
+Date: Thu, 31 Mar 2022 16:23:40 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V92j=yEoaM4REO6ws=AXpBjM6zWwBtZ8SbPiFd2cu3yw@mail.gmail.com>
+Message-ID: <CAD=FV=V92j=yEoaM4REO6ws=AXpBjM6zWwBtZ8SbPiFd2cu3yw@mail.gmail.com>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 6/8] drm/msm/dp: remove unnecessary delay
- during boot
+Subject: Re: [Freedreno] [PATCH v6 7/8] drm/msm/dp: Support edp/dp without
+ hpd
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,10 +95,64 @@ Hi,
 On Wed, Mar 30, 2022 at 9:04 AM Sankeerth Billakanti
 <quic_sbillaka@quicinc.com> wrote:
 >
-> Remove the unnecessary delay in executing the EV_HPD_INIT_SETUP event.
+> Some eDP sinks or platform boards will not support hpd.
+> This patch adds support for those cases.
 
-Tell me more and put it in the commit message! Why did it used to be
-necessary and why is it no longer necessary? Inquiring minds want to
-know.
+You could say more, like:
+
+If we're not using HPD then _both_ the panel node and the eDP
+controller node will have "no-hpd". This tells the eDP panel code to
+hardcode the maximum possible delay for a panel to power up and tells
+the eDP driver that it should continue to do transfers even if HPD
+isn't asserted.
+
+
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> index 1809ce2..8f1fc71 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
+> @@ -244,10 +244,17 @@ void dp_catalog_aux_update_cfg(struct dp_catalog *dp_catalog)
+>
+>  int dp_catalog_aux_wait_for_hpd_connect_state(struct dp_catalog *dp_catalog)
+>  {
+> -       u32 state;
+> +       u32 state, hpd_en;
+>         struct dp_catalog_private *catalog = container_of(dp_catalog,
+>                                 struct dp_catalog_private, dp_catalog);
+>
+> +       hpd_en = dp_read_aux(catalog, REG_DP_DP_HPD_CTRL);
+> +       hpd_en &= DP_DP_HPD_CTRL_HPD_EN;
+> +
+> +       /* no-hpd case */
+> +       if (!hpd_en)
+> +               return 0;
+> +
+>         /* poll for hpd connected status every 2ms and timeout after 500ms */
+>         return readl_poll_timeout(catalog->io->dp_controller.aux.base +
+>                                 REG_DP_DP_HPD_INT_STATUS,
+> @@ -586,8 +593,10 @@ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog)
+>         reftimer |= DP_DP_HPD_REFTIMER_ENABLE;
+>         dp_write_aux(catalog, REG_DP_DP_HPD_REFTIMER, reftimer);
+>
+> -       /* Enable HPD */
+> -       dp_write_aux(catalog, REG_DP_DP_HPD_CTRL, DP_DP_HPD_CTRL_HPD_EN);
+> +       /* Enable HPD if supported*/
+> +       if (!of_property_read_bool(catalog->dev->of_node, "no-hpd"))
+
+I don't think this is a particularly lightweight operation. It's
+literally iterating through all of our device tree properties and
+doing string compares on them. ...but this function is called somewhat
+often, isn't it? It feels like the kind of thing that should happen at
+probe time and be stored in a boolean.
+
+...and then you can use that same boolean in
+dp_catalog_aux_wait_for_hpd_connect_state() rather than reading the
+register value, right?
+
 
 -Doug
