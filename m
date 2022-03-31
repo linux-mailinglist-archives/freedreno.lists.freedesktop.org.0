@@ -1,66 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686084EE4C8
-	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 01:30:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9967C4EE4C6
+	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 01:29:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D7E710E12B;
-	Thu, 31 Mar 2022 23:30:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E96210E338;
+	Thu, 31 Mar 2022 23:29:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF48910E12B
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 23:30:06 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id s13so1767242ljd.5
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:30:06 -0700 (PDT)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBE710E12B
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 23:29:56 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id c62so1043930edf.5
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:29:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oU/P0lUIzx1uZfbuXoLmvC/k7etlrfD8HbND/4uBtMs=;
- b=CVm3r8sEiJHudIn3wBe5psgjEjOXEvg7kAXV5xw19t+3DbObpkYUHppzcz6qWIyEKC
- iD+uGmLJdXzgNCcEVX3/o2rL3pH35aBBGYvKh1WC1iiWOWhQglndY1DyhfDoBvDHciUT
- HKdhiizGnGLfo9pL1ZqNneKf5bIxKreY/JwCs=
+ :cc; bh=UvSSaxHQfu4KzKOKApPWWxQRgS6ya5jprTe140uOq38=;
+ b=kRhrubUDhwfjRpRcH2joioz8ltkxfJNbJymSnvaltF2wfQaBrE1Vt07IDBgRkdEHXE
+ oyt/cLr6MOTdSRSYEb/qZXgAbgWmYV8v91sSnENZIrXOCOvtBY6eMgGQehbIw9f54vHH
+ Liv7tiuP7y9hjW7LHsjGWLQo+Eqrwsqz2awtg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=oU/P0lUIzx1uZfbuXoLmvC/k7etlrfD8HbND/4uBtMs=;
- b=IXA+tT2MF/r+FMbBYB4jaHz9hG/8WDIYLLkwVYmW5Ql402wRxYLyw5muqoHwr+ggaS
- IK+4jxGKqR5EUWDb7nTrRr2+vxKG3cMiip5dkx0jq+ML8fcCkWKHFzC+iVToqNRy+DkN
- l9zAvjCAHXBym9SJEb1HhZgTfgyNo0xZIqjPyT2Oo6k5HHaNw76yq+UBRGzw7nRohETA
- QkFFLos2ltHp+vcgcIa5M3NCp6WHLxWhGHFwZkSw7PNTu+8ZzqHazgp4DwXqVyhj1tZ3
- F9uRXcof09ZpKWc1B5r5TTpxv0qlDy3EqpZX0LcZPsWBFoO/aZb6M3aCMtuXlTm1VVR9
- iKcw==
-X-Gm-Message-State: AOAM531pBuqGafkI7S5wOQLcqNk2mRVDg3zLrMMDMkupeV8RT2LTPuC4
- gilz3DEW4JKtL2kgk+E0vpwBXCUUWhPALOZ5taI=
-X-Google-Smtp-Source: ABdhPJwcLPsytgPRm2gl1eemHEM2JBxReRf4Hh02RO7XGq6MU0QTbh8xGXE5zki4+KIvNjTmdRn6qA==
-X-Received: by 2002:a2e:b88e:0:b0:249:d862:60 with SMTP id
- r14-20020a2eb88e000000b00249d8620060mr11969987ljp.250.1648769404760; 
- Thu, 31 Mar 2022 16:30:04 -0700 (PDT)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com.
- [209.85.167.47]) by smtp.gmail.com with ESMTPSA id
- k11-20020a05651210cb00b0044a7a3d4bfasm70358lfg.92.2022.03.31.16.30.04
+ bh=UvSSaxHQfu4KzKOKApPWWxQRgS6ya5jprTe140uOq38=;
+ b=Ux6eVKUSC/x1/nHykqeUCI+NIQ58MozLjBRoQInrM08hX1b/7b+Me7jhUzufgTvfml
+ DwRJOzmHXTeRgW1BLmYahjPBmCzr5D1KoloZ/2/0sCuw8TW+9scTUkd2hUAgNjrIYNV9
+ n4WcmEHeTOyteftxv6VHJQ76kb2RQUl0i0y3Hm8YrFssr0qcMryU0v330h5yROAggqk9
+ Ta5JjHczmvmHuprW2StKYEM164DFnIy5YMiL5gO19xQhk5ES//DkSCnmyK7n6OHBakQw
+ W+oXWPN0JdAFyipAN3m5dUXS0p7QhXsw+hXnsQydH/IMrVEJBBq2oX8ZjzkJd1ZrEfXh
+ BwwQ==
+X-Gm-Message-State: AOAM530ZGlp7YqbgdsB58rR+hvMOkClFzVfxxupkhbfAP7KEE59toVgX
+ 7c04gqYwlikKeKh2gJbV/N+Aejmbdj95cV9DkMo=
+X-Google-Smtp-Source: ABdhPJx/3sYL5zDKPb5NvZ6RzzgH/MhGZ69Tvo2+wkqG5O4q3aBX0JQN04pJe5H0XdbtQw9bIcU0jQ==
+X-Received: by 2002:aa7:de93:0:b0:418:d700:662a with SMTP id
+ j19-20020aa7de93000000b00418d700662amr18441382edv.107.1648769394770; 
+ Thu, 31 Mar 2022 16:29:54 -0700 (PDT)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com.
+ [209.85.218.48]) by smtp.gmail.com with ESMTPSA id
+ mp33-20020a1709071b2100b006db6dea7f9dsm319527ejc.168.2022.03.31.16.29.54
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Mar 2022 16:30:04 -0700 (PDT)
-Received: by mail-lf1-f47.google.com with SMTP id p10so1800453lfa.12
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:30:04 -0700 (PDT)
-X-Received: by 2002:a5d:4491:0:b0:203:f63a:e89b with SMTP id
- j17-20020a5d4491000000b00203f63ae89bmr5618171wrq.342.1648769032444; Thu, 31
- Mar 2022 16:23:52 -0700 (PDT)
+ Thu, 31 Mar 2022 16:29:54 -0700 (PDT)
+Received: by mail-ej1-f48.google.com with SMTP id c10so2322246ejs.13
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:29:54 -0700 (PDT)
+X-Received: by 2002:a5d:5551:0:b0:203:f916:e319 with SMTP id
+ g17-20020a5d5551000000b00203f916e319mr5707669wrw.422.1648769060253; Thu, 31
+ Mar 2022 16:24:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
- <1648656179-10347-8-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1648656179-10347-8-git-send-email-quic_sbillaka@quicinc.com>
+ <1648656179-10347-9-git-send-email-quic_sbillaka@quicinc.com>
+ <CAA8EJprvE31ex3fCQHZ-=x+EWHK4UZ0qqHRh+rH4dk5TPhmVyw@mail.gmail.com>
+ <MW4PR02MB71867220A90FCFED295830D0E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
+In-Reply-To: <MW4PR02MB71867220A90FCFED295830D0E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 31 Mar 2022 16:23:40 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V92j=yEoaM4REO6ws=AXpBjM6zWwBtZ8SbPiFd2cu3yw@mail.gmail.com>
-Message-ID: <CAD=FV=V92j=yEoaM4REO6ws=AXpBjM6zWwBtZ8SbPiFd2cu3yw@mail.gmail.com>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+Date: Thu, 31 Mar 2022 16:24:07 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VK0D_GzYBv+u+o6-ks-UAsw97__0mWsSn9OycX72LJFg@mail.gmail.com>
+Message-ID: <CAD=FV=VK0D_GzYBv+u+o6-ks-UAsw97__0mWsSn9OycX72LJFg@mail.gmail.com>
+To: "Sankeerth Billakanti (QUIC)" <quic_sbillaka@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 7/8] drm/msm/dp: Support edp/dp without
- hpd
+Subject: Re: [Freedreno] [PATCH v6 8/8] drm/msm/dp: Handle eDP mode_valid
+ differently from dp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,85 +76,66 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
  "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, quic_aravindh@quicinc.com,
+ quic_vproddut <quic_vproddut@quicinc.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "seanpaul@chromium.org" <seanpaul@chromium.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
  "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Wed, Mar 30, 2022 at 9:04 AM Sankeerth Billakanti
+On Wed, Mar 30, 2022 at 11:02 PM Sankeerth Billakanti (QUIC)
 <quic_sbillaka@quicinc.com> wrote:
 >
-> Some eDP sinks or platform boards will not support hpd.
-> This patch adds support for those cases.
-
-You could say more, like:
-
-If we're not using HPD then _both_ the panel node and the eDP
-controller node will have "no-hpd". This tells the eDP panel code to
-hardcode the maximum possible delay for a panel to power up and tells
-the eDP driver that it should continue to do transfers even if HPD
-isn't asserted.
-
-
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_catalog.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
+> Hi Dmitry,
 >
-> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> index 1809ce2..8f1fc71 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> @@ -244,10 +244,17 @@ void dp_catalog_aux_update_cfg(struct dp_catalog *dp_catalog)
+> > On Wed, 30 Mar 2022 at 19:04, Sankeerth Billakanti
+> > <quic_sbillaka@quicinc.com> wrote:
+> > >
+> > > The panel-edp driver modes needs to be validated differently from DP
+> > > because the link capabilities are not available for EDP by that time.
+> > >
+> > > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> >
+> > This should not be necessary after
+> > https://patchwork.freedesktop.org/patch/479261/?series=101682&rev=1.
+> > Could you please check?
+> >
 >
->  int dp_catalog_aux_wait_for_hpd_connect_state(struct dp_catalog *dp_catalog)
->  {
-> -       u32 state;
-> +       u32 state, hpd_en;
->         struct dp_catalog_private *catalog = container_of(dp_catalog,
->                                 struct dp_catalog_private, dp_catalog);
+> The check for DP_MAX_PIXEL_CLK_KHZ is not necessary anymore but we need
+> to return early for eDP because unlike DP, eDP context will not have the information
+> about the number of lanes and link clock.
 >
-> +       hpd_en = dp_read_aux(catalog, REG_DP_DP_HPD_CTRL);
-> +       hpd_en &= DP_DP_HPD_CTRL_HPD_EN;
-> +
-> +       /* no-hpd case */
-> +       if (!hpd_en)
-> +               return 0;
-> +
->         /* poll for hpd connected status every 2ms and timeout after 500ms */
->         return readl_poll_timeout(catalog->io->dp_controller.aux.base +
->                                 REG_DP_DP_HPD_INT_STATUS,
-> @@ -586,8 +593,10 @@ void dp_catalog_ctrl_hpd_config(struct dp_catalog *dp_catalog)
->         reftimer |= DP_DP_HPD_REFTIMER_ENABLE;
->         dp_write_aux(catalog, REG_DP_DP_HPD_REFTIMER, reftimer);
->
-> -       /* Enable HPD */
-> -       dp_write_aux(catalog, REG_DP_DP_HPD_CTRL, DP_DP_HPD_CTRL_HPD_EN);
-> +       /* Enable HPD if supported*/
-> +       if (!of_property_read_bool(catalog->dev->of_node, "no-hpd"))
+> So, I will modify the patch to return after the DP_MAX_PIXEL_CLK_KHZ check if is_eDP is set.
 
-I don't think this is a particularly lightweight operation. It's
-literally iterating through all of our device tree properties and
-doing string compares on them. ...but this function is called somewhat
-often, isn't it? It feels like the kind of thing that should happen at
-probe time and be stored in a boolean.
+I haven't walked through all the relevant code but something you said
+above sounds strange. You say that for eDP we don't have info about
+the number of lanes? We _should_.
 
-...and then you can use that same boolean in
-dp_catalog_aux_wait_for_hpd_connect_state() rather than reading the
-register value, right?
+It's certainly possible to have a panel that supports _either_ 1 or 2
+lanes but then only physically connect 1 lane to it. ...or you could
+have a panel that supports 2 or 4 lanes and you only connect 1 lane.
+See, for instance, ti_sn_bridge_parse_lanes. There we assume 4 lanes
+but if a "data-lanes" property is present then we can use that to know
+that fewer lanes are physically connected.
+
+It's also possible to connect more lanes to a panel than it supports.
+You could connect 2 lanes to it but then it only supports 1. This case
+needs to be handled as well...
 
 
 -Doug
