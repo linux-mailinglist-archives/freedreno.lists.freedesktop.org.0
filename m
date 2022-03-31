@@ -2,65 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68EBA4EE4A5
-	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 01:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29A44EE4C1
+	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 01:28:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B02910E31C;
-	Thu, 31 Mar 2022 23:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E6810E18F;
+	Thu, 31 Mar 2022 23:28:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D49E10E31C
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 23:23:03 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id bi12so2416266ejb.3
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:23:03 -0700 (PDT)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C14810E18F
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 23:28:44 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id c62so1041788edf.5
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:28:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VA4OmUlBn+h032QaRrbwfz0ENP/lgrthHNuo2cDc9zs=;
- b=nYjHIf8uflbZHObYpxif9B5oD9Wtb4t5AI1eCWohJX41q9UAn/abH6xMu9omxNFwsr
- 7qUSDGsPXh0wIhNznI1YcZUJupDndJZzHhIHEE8hHppvHxSa6v170I7xv/CDtTfwhCpF
- kzEWwkEZCviEfCOEDQ+sa6YJGh6+XAWttUpDc=
+ :cc; bh=7juVurgjLt3GvUzI9U9c+xp5sahJ/Uk+aOlgugxy0EM=;
+ b=RtJix/BsoQj0ELH2OMFl7dwsORWQLL0UBqSXWJr5KoYLICZZbVFRb/zdCkHwWWysN5
+ 3b5vtLz0FaF+JGho0PKGYaYoz18U0Fy53xtgtIwoMITco5McP4KTTF/FQkbhfbr91SR4
+ pxJraAJYBLjynqhNcmQ0n9QTPBRiLktURUGCg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VA4OmUlBn+h032QaRrbwfz0ENP/lgrthHNuo2cDc9zs=;
- b=2O4RqAJ+CmG9WlJvGvIBZ7UhxB5QH/li2jdEI3xtLG2k4zNP6JGbXaFItRJ/1P/kap
- fgGvj3rc9JrJRaRf2oMKlEH5myLB+buGmBtJEz4u/CsGSpWavYHju2hrdzTQSLaWCk6l
- Rn4UxKpMDwzfRaSkkZ1xs9YyQg1PgSMq85Bz0m9WPfPxYq1kULGu5kxdoLg4IS7pPhrP
- nCeb1a/ZI4Na+C5zZYvCosEDdvz2yvNPX6547h0vNwWLqWTi2sgAcjzMHp5C8rG/Geo1
- 0okWaeusF9Z9ObpdzQiVGHf931ePRWOP0gO3geWpshy6JM93by+fmfkoSTFhFfUn3KJ5
- dLBg==
-X-Gm-Message-State: AOAM532H/c3WzWCasTx+brClXtsx0tIlxLFjPAF308hYwjlTXcTxnmh1
- CUomYThjDXIw5ZKvUcOnpw3DAcHSz6ebERuG
-X-Google-Smtp-Source: ABdhPJx0XNJjJMhwqSFgvPiQ+Xtmvug7Ol4vCaxeK8WQXh9lQt44q0bLrvU58NITfJBI4abXWwFlqw==
-X-Received: by 2002:a17:906:d542:b0:6e4:7f59:3a13 with SMTP id
- cr2-20020a170906d54200b006e47f593a13mr6865475ejc.563.1648768981569; 
- Thu, 31 Mar 2022 16:23:01 -0700 (PDT)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com.
- [209.85.221.50]) by smtp.gmail.com with ESMTPSA id
- ec21-20020a170906b6d500b006d170a3444csm309911ejb.164.2022.03.31.16.22.58
+ bh=7juVurgjLt3GvUzI9U9c+xp5sahJ/Uk+aOlgugxy0EM=;
+ b=8E1w9omvQHUlHq920Zdr8X7UTJP7rdjizyFWYrNRbBc55Peq2qRP17dlW126WzFryC
+ tI72Wndv7HEy68J6kWxLf8qGhp+/bvM9aL6NG2u3pcKHg7xwbz+MvFd/5kf/XtzHD05x
+ noTYSUhEc83CZEkOBOIrQZtuu/qegdlFkqaBz0Mqr2C0cGPl98AzgD6H3pojJpMDQgL+
+ uKoRZssuHmRSAL36e8JT8fNeChYNxzhnDt1lD1GdVdjCtuFi2HcEHFl2HeHqGzIUFmjL
+ de1+0t8VNxVWfVaKFjOYZpIu5jvsxMoyLY9hlW/IlBqyxVfrDyF2KKdQaaNnrFuPnNDw
+ n+VA==
+X-Gm-Message-State: AOAM530WMdnoro5YaDQMRBoC1iL4zCT5bXSS9J4U5K5SjIDdP0k47VPM
+ E8gbH3e1l8/vS1ED0TnOwwdbPciwH9n/FrpH4Hc=
+X-Google-Smtp-Source: ABdhPJzu35v9SAaYLZfxYAXWbzyXLismbpyH5p2cp4xaK7A8tkGX8fIzGkwecKxZa2FEILgbCDL4Ag==
+X-Received: by 2002:a50:954b:0:b0:41a:c9cb:8778 with SMTP id
+ v11-20020a50954b000000b0041ac9cb8778mr18600779eda.165.1648769322442; 
+ Thu, 31 Mar 2022 16:28:42 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com.
+ [209.85.218.44]) by smtp.gmail.com with ESMTPSA id
+ v20-20020a056402349400b00419651e513asm382999edc.45.2022.03.31.16.28.42
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Mar 2022 16:22:59 -0700 (PDT)
-Received: by mail-wr1-f50.google.com with SMTP id u3so1831200wrg.3
- for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:22:58 -0700 (PDT)
-X-Received: by 2002:adf:fc47:0:b0:203:dda1:4311 with SMTP id
- e7-20020adffc47000000b00203dda14311mr5685367wrs.301.1648768978217; Thu, 31
- Mar 2022 16:22:58 -0700 (PDT)
+ Thu, 31 Mar 2022 16:28:42 -0700 (PDT)
+Received: by mail-ej1-f44.google.com with SMTP id pv16so2537917ejb.0
+ for <freedreno@lists.freedesktop.org>; Thu, 31 Mar 2022 16:28:42 -0700 (PDT)
+X-Received: by 2002:adf:e7cd:0:b0:204:ba2:b106 with SMTP id
+ e13-20020adfe7cd000000b002040ba2b106mr5551021wrn.679.1648768998053; Thu, 31
+ Mar 2022 16:23:18 -0700 (PDT)
 MIME-Version: 1.0
 References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
- <1648656179-10347-4-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1648656179-10347-4-git-send-email-quic_sbillaka@quicinc.com>
+ <1648656179-10347-6-git-send-email-quic_sbillaka@quicinc.com>
+In-Reply-To: <1648656179-10347-6-git-send-email-quic_sbillaka@quicinc.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 31 Mar 2022 16:22:46 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X_ULva3J-Y7EF+0VPRRoFXSmtuKcXG9H=041Kmwa=W4A@mail.gmail.com>
-Message-ID: <CAD=FV=X_ULva3J-Y7EF+0VPRRoFXSmtuKcXG9H=041Kmwa=W4A@mail.gmail.com>
+Date: Thu, 31 Mar 2022 16:23:05 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wn-XypjRcw-D0VtBHZbuTz=RHiMq6RCHCa=CWmZM42nQ@mail.gmail.com>
+Message-ID: <CAD=FV=Wn-XypjRcw-D0VtBHZbuTz=RHiMq6RCHCa=CWmZM42nQ@mail.gmail.com>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 3/8] drm/msm/dp: Support only IRQ_HPD and
- REPLUG interrupts for eDP
+Subject: Re: [Freedreno] [PATCH v6 5/8] drm/msm/dp: prevent multiple votes
+ for dp resources
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,38 +92,29 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Wed, Mar 30, 2022 at 9:03 AM Sankeerth Billakanti
+On Wed, Mar 30, 2022 at 9:04 AM Sankeerth Billakanti
 <quic_sbillaka@quicinc.com> wrote:
 >
-> @@ -1374,6 +1382,12 @@ static int dp_pm_resume(struct device *dev)
->         dp_catalog_ctrl_hpd_config(dp->catalog);
+> The aux_bus support with the dp_display driver will enable the dp
+> resources during msm_dp_modeset_init. The host_init has to return early
+> if the core is already initialized to prevent putting an additional vote
+> for the dp controller resources.
 >
->
-> +       if (dp->dp_display.connector_type == DRM_MODE_CONNECTOR_DisplayPort)
-> +               dp_catalog_hpd_config_intr(dp->catalog,
-> +                               DP_DP_HPD_PLUG_INT_MASK |
-> +                               DP_DP_HPD_UNPLUG_INT_MASK,
-> +                               true);
-> +
+> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
-nit: why are there two blank lines above?
+I'm not a huge fan of this but I'll leave it up to Dmitry. In general
+it feels like there should be _a_ place that enables these resources.
+Checks like this make it feel like we just scattershot enabling
+resources in a bunch of random places instead of coming up with the
+design for enabling them in the right place.
 
-
-> @@ -1639,6 +1653,9 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
->                 return;
->         }
->
-> +       if (dp->connector_type == DRM_MODE_CONNECTOR_eDP)
-> +               dp_hpd_plug_handle(dp_display, 0);
-> +
-
-Should you add a "pre_enable" and do it there? That would make it more
-symmetric with the fact that you have the countertpart in
-"post_disable".
-
-
-Overall: I'm probably not familiar enough with this code to give it a
-full review. I'm hoping that Dmitry knows it well enough... ;-)
-
+In any case, if we do end up landing this patch, it sure feels like it
+needs to move earlier in the patch series, right? This patch shouldn't
+hurt even without the other patches in the series but if you apply the
+earlier patches in the series without this one then you'll have a bug,
+right? That means this needs to come earlier.
 
 -Doug
