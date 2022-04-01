@@ -2,54 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1AE54EE512
-	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 02:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1899F4EEFD2
+	for <lists+freedreno@lfdr.de>; Fri,  1 Apr 2022 16:30:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5A3410E31E;
-	Fri,  1 Apr 2022 00:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5B510E3BA;
+	Fri,  1 Apr 2022 14:30:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4299910E31E;
- Fri,  1 Apr 2022 00:12:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1648771962; x=1680307962;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=BIYrhDeKcy0YqaEI5VVwM0DmGU9yDLvi9oS6+9p3iPo=;
- b=juhm8erA2aafyVRr0bso18Utyck+iy/MaC61GsE5CqmUTcnKCvglfWWU
- jLqH9hiircP5kms397OIlkxlmPrV28uhwF9CoiZCwdmmsD5LPNkNt1qZr
- feHSaTwBKqS4Ts4uWeUkzCtBX2VHW1K1lPhJd0SGEbmLoLip0DVDg9X78 U=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 31 Mar 2022 17:12:41 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2022 17:12:41 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 31 Mar 2022 17:12:40 -0700
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 31 Mar 2022 17:12:40 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>
-Date: Thu, 31 Mar 2022 17:12:13 -0700
-Message-ID: <1648771933-18512-5-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1648771933-18512-1-git-send-email-quic_abhinavk@quicinc.com>
-References: <1648771933-18512-1-git-send-email-quic_abhinavk@quicinc.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36FDD10E3BA;
+ Fri,  1 Apr 2022 14:30:15 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AB83761CD6;
+ Fri,  1 Apr 2022 14:30:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AEEBC340F2;
+ Fri,  1 Apr 2022 14:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1648823414;
+ bh=WTCcys5M8nuJoEQ48767Pm3nH88jdDikgQW3uQHmsBw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uWSaF+HYWEPOWcPQfwg4QgtUG5XgsnGvm9w12pU5LpzgriJyajLNCk6tRwRwaPzBC
+ RFaOzX6hO6tvhrvxhMOpyJLzjxoGb+WMITAdhajzLZPpDNJTgkNkLgNeqxs6XklUOp
+ Dc3jBH5VWHndSoWuLYz2wjoKiBhSCf2FwZB5t2uz1ojfe+jl2Sjis+L7jsncpYAanH
+ w4NtV66Ap6b1PCupHMbYnqi6AoYTTCHbTgNNKF8aPZOTjoxYq8lApxjklFxdXxMMcV
+ sOJO0Rv0ymuA4UrY2EBhM+ES2Gc+Hz1EOwEl1f2HRCw2Bez/vtqQiWAfIK6sBFRd7S
+ IRl+uYgZWsJJw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Fri,  1 Apr 2022 10:24:30 -0400
+Message-Id: <20220401142536.1948161-83-sashal@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220401142536.1948161-1-sashal@kernel.org>
+References: <20220401142536.1948161-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v6 4/4] drm: allow real encoder to be passed for
- drm_writeback_connector
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH AUTOSEL 5.17 083/149] drm/msm/dsi: Remove
+ spurious IRQF_ONESHOT flag
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,183 +55,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
- rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, mripard@kernel.org,
- swboyd@chromium.org, melissa.srw@gmail.com, robdclark@gmail.com,
- nganji@codeaurora.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
- quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
- freedreno@lists.freedesktop.org, brian.starkey@arm.com
+Cc: Sasha Levin <sashal@kernel.org>, freedreno@lists.freedesktop.org,
+ Daniel Thompson <daniel.thompson@linaro.org>, jonathan@marek.ca,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ daniel@ffwll.ch, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ quic_jesszhan@quicinc.com, bjorn.andersson@linaro.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-For some vendor driver implementations, display hardware can
-be shared between the encoder used for writeback and the physical
-display.
+From: Daniel Thompson <daniel.thompson@linaro.org>
 
-In addition resources such as clocks and interrupts can
-also be shared between writeback and the real encoder.
+[ Upstream commit 24b176d8827d167ac3b379317f60c0985f6e95aa ]
 
-To accommodate such vendor drivers and hardware, allow
-real encoder to be passed for drm_writeback_connector.
+Quoting the header comments, IRQF_ONESHOT is "Used by threaded interrupts
+which need to keep the irq line disabled until the threaded handler has
+been run.". When applied to an interrupt that doesn't request a threaded
+irq then IRQF_ONESHOT has a lesser known (undocumented?) side effect,
+which it to disable the forced threading of irqs (and for "normal" kernels
+it is a nop). In this case I can find no evidence that suppressing forced
+threading is intentional. Had it been intentional then a driver must adopt
+the raw_spinlock API in order to avoid deadlocks on PREEMPT_RT kernels
+(and avoid calling any kernel API that uses regular spinlocks).
 
-changes in v6:
-	- assign the encoder inside
-	  drm_writeback_connector_init_with_encoder() for
-	  better readability
-	- improve some documentation for internal encoder
+Fix this by removing the spurious additional flag.
 
-Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
-Signed-off-by: Kandpal Suraj <suraj.kandpal@intel.com>
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+This change is required for my Snapdragon 7cx Gen2 tablet to boot-to-GUI
+with PREEMPT_RT enabled.
+
+Signed-off-by: Daniel Thompson <daniel.thompson@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20220201174734.196718-2-daniel.thompson@linaro.org
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_writeback.c | 18 ++++++++++++------
- drivers/gpu/drm/vc4/vc4_txp.c   | 14 ++++++++------
- include/drm/drm_writeback.h     | 21 +++++++++++++++++++--
- 3 files changed, 39 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-index 797223c..7f72109 100644
---- a/drivers/gpu/drm/drm_writeback.c
-+++ b/drivers/gpu/drm/drm_writeback.c
-@@ -179,21 +179,21 @@ int drm_writeback_connector_init(struct drm_device *dev,
- {
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 6b3ced4aaaf5..3a3f53f0c8ae 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1877,7 +1877,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
  
--	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-+	drm_encoder_helper_add(&wb_connector->internal_encoder, enc_helper_funcs);
- 
--	wb_connector->encoder.possible_crtcs = possible_crtcs;
-+	wb_connector->internal_encoder.possible_crtcs = possible_crtcs;
- 
--	ret = drm_encoder_init(dev, &wb_connector->encoder,
-+	ret = drm_encoder_init(dev, &wb_connector->internal_encoder,
- 			       &drm_writeback_encoder_funcs,
- 			       DRM_MODE_ENCODER_VIRTUAL, NULL);
- 	if (ret)
- 		return ret;
- 
--	ret = drm_writeback_connector_init_with_encoder(dev, wb_connector, &wb_connector->encoder,
--			con_funcs, formats, n_formats);
-+	ret = drm_writeback_connector_init_with_encoder(dev, wb_connector,
-+			&wb_connector->internal_encoder, con_funcs, formats, n_formats);
- 
- 	if (ret)
--		drm_encoder_cleanup(&wb_connector->encoder);
-+		drm_encoder_cleanup(&wb_connector->internal_encoder);
- 
- 	return ret;
- }
-@@ -238,6 +238,12 @@ int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
- 	struct drm_mode_config *config = &dev->mode_config;
- 	int ret = create_writeback_properties(dev);
- 
-+	/*
-+	 * Assign the encoder passed to this API to the wb_connector's encoder.
-+	 * For drm_writeback_connector_init(), this shall be the internal_encoder
-+	 */
-+	wb_connector->encoder = enc;
-+
- 	if (ret != 0)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
-index 5e53f02..a9b4f83 100644
---- a/drivers/gpu/drm/vc4/vc4_txp.c
-+++ b/drivers/gpu/drm/vc4/vc4_txp.c
-@@ -151,6 +151,8 @@ struct vc4_txp {
- 
- 	struct platform_device *pdev;
- 
-+	struct drm_encoder drm_enc;
-+
- 	struct drm_writeback_connector connector;
- 
- 	void __iomem *regs;
-@@ -159,7 +161,7 @@ struct vc4_txp {
- 
- static inline struct vc4_txp *encoder_to_vc4_txp(struct drm_encoder *encoder)
- {
--	return container_of(encoder, struct vc4_txp, connector.encoder);
-+	return container_of(encoder, struct vc4_txp, drm_enc);
- }
- 
- static inline struct vc4_txp *connector_to_vc4_txp(struct drm_connector *conn)
-@@ -499,9 +501,9 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
- 
- 	wb_conn = &txp->connector;
- 
--	drm_encoder_helper_add(&wb_conn->encoder, &vc4_txp_encoder_helper_funcs);
-+	drm_encoder_helper_add(&txp->drm_enc, &vc4_txp_encoder_helper_funcs);
- 
--	ret = drm_encoder_init(drm, &wb_conn->encoder,
-+	ret = drm_encoder_init(drm, &txp->drm_enc,
- 			&vc4_txp_encoder_funcs,
- 			DRM_MODE_ENCODER_VIRTUAL, NULL);
- 
-@@ -511,10 +513,10 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
- 	drm_connector_helper_add(&wb_conn->base,
- 				 &vc4_txp_connector_helper_funcs);
- 
--	ret = drm_writeback_connector_init_with_encoder(drm, wb_conn, &wb_conn->encoder,
-+	ret = drm_writeback_connector_init_with_encoder(drm, wb_conn, &txp->drm_enc,
- 			&vc4_txp_connector_funcs, drm_fmts, ARRAY_SIZE(drm_fmts));
- 	if (ret) {
--		drm_encoder_cleanup(&wb_conn->encoder);
-+		drm_encoder_cleanup(&txp->drm_enc);
- 		return ret;
- 	}
- 
-@@ -523,7 +525,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
- 
--	encoder = &txp->connector.encoder;
-+	encoder = txp->connector.encoder;
- 	encoder->possible_crtcs = drm_crtc_mask(crtc);
- 
- 	ret = devm_request_irq(dev, irq, vc4_txp_interrupt, 0,
-diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-index 4795024..3f5c330 100644
---- a/include/drm/drm_writeback.h
-+++ b/include/drm/drm_writeback.h
-@@ -25,15 +25,32 @@ struct drm_writeback_connector {
- 	struct drm_connector base;
- 
- 	/**
--	 * @encoder: Internal encoder used by the connector to fulfill
-+	 * @encoder: handle to drm_encoder used by the connector to fulfill
- 	 * the DRM framework requirements. The users of the
- 	 * @drm_writeback_connector control the behaviour of the @encoder
- 	 * by passing the @enc_funcs parameter to drm_writeback_connector_init()
- 	 * function.
-+	 *
-+	 * For some vendor drivers, the hardware resources are shared between
-+	 * writeback encoder and rest of the display pipeline.
-+	 * To accommodate such cases, encoder is a handle to the real encoder
-+	 * hardware.
-+	 *
-+	 * For current existing writeback users, this shall continue to be the
-+	 * embedded encoder for the writeback connector.
- 	 */
--	struct drm_encoder encoder;
-+	struct drm_encoder *encoder;
- 
- 	/**
-+	 * @internal_encoder: internal encoder used by writeback when
-+	 * drm_writeback_connector_init() is used.
-+	 * @encoder will be assigned to this for those cases
-+	 *
-+	 * This will be unused when drm_writeback_connector_init_with_encoder()
-+	 * is used.
-+	 */
-+	struct drm_encoder internal_encoder;
-+	/**
- 	 * @pixel_formats_blob_ptr:
- 	 *
- 	 * DRM blob property data for the pixel formats list on writeback
+ 	/* do not autoenable, will be enabled later */
+ 	ret = devm_request_irq(&pdev->dev, msm_host->irq, dsi_host_irq,
+-			IRQF_TRIGGER_HIGH | IRQF_ONESHOT | IRQF_NO_AUTOEN,
++			IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
+ 			"dsi_isr", msm_host);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "failed to request IRQ%u: %d\n",
 -- 
-2.7.4
+2.34.1
 
