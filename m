@@ -2,67 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BAC34F00B7
-	for <lists+freedreno@lfdr.de>; Sat,  2 Apr 2022 12:37:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FF7C4F052E
+	for <lists+freedreno@lfdr.de>; Sat,  2 Apr 2022 19:12:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F72210F81D;
-	Sat,  2 Apr 2022 10:37:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E509C10E2F1;
+	Sat,  2 Apr 2022 17:12:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2B210F81D
- for <freedreno@lists.freedesktop.org>; Sat,  2 Apr 2022 10:37:47 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id z12so9024732lfu.10
- for <freedreno@lists.freedesktop.org>; Sat, 02 Apr 2022 03:37:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Jx8e761MNPFyJ2/BAtkY0nyoED7Z8+xj5f0GT++V4DU=;
- b=CM5tAEao5vQ2577zZq46eGT5uUdK6gdVlWEARVuyxYeNLnYiT8lvo5OCG2ZcKhDGfb
- wy6RzILMGSWya1H7UCQr8Y4fjgCHbD+N0bIgO8rFWOwSygD60R87YX12LQBKXes0rNPR
- FQOBFpPb/5zrL2nQxvW2rumRZWeKgIx/p9Ila06gACmYl8sawMjF2PLwS8QtgZb8I5qx
- QyOD88AioP5g/0oCKIYAfuqniXGLgVHDyp5CkITXTV/3iv2MJ1nPjOiTehzvNKJJvomc
- Oa3oNbA/WgWKKW3dNoiI/IVu3xfKKUao07GPXs4EzJA+/sVfrm6CUbZRq58SKFwbCDRs
- CVjQ==
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C937B10E2F1
+ for <freedreno@lists.freedesktop.org>; Sat,  2 Apr 2022 17:12:36 +0000 (UTC)
+Received: by mail-ej1-x62c.google.com with SMTP id i27so4774415ejd.9
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Apr 2022 10:12:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5VLKCCSpyLmISzla9N+/XjTX+JlDxz/a8/Khh5Jtd44=;
+ b=EBQqUAyAT2mFgxAKYH2mUSOPgB8C0WKxoSl2rV5zFX5XrqYk/q4IfaW3dN8mTnyRaK
+ 6GqdOmrmI+L2/7nD1BufbrQsZ9zwdhDQ43hGb4cJD8bbwF4a2c0hp1ZpB2K0ikTBCCm1
+ Qas1Q/6mJyz1+zmx9g8I5NTiOnNndaJ0Fh+pg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Jx8e761MNPFyJ2/BAtkY0nyoED7Z8+xj5f0GT++V4DU=;
- b=xtrhOA6ON0tum0+u4SDb7m7WCsXJ0gnW5l1mUuYjqBmjQwiGl+6EuaOTZ/8X6mTQW7
- RC6uF/CgQzaiH9r4sgs5WPXbMCHahq/FxiBmUhsevikL9H1cOunbvOx0JMXp8tPI1PaA
- nBVcNkMsqCBz+WypJAOxbBLmccIdfGQV25atODE/aGGWbI9pRLYCXYJPtsNIbGviMlhm
- v7YUnwU2t+iMDE2au05486s43goSe5ouhtvn1OIVGYyqaHO6b6hK9/OliTGXfLVVZLSp
- hlvuygeSoy3OrpGQhMEDXpeKlxjeYrn6y/HR2OfhBoJtzicczVbxykSesGODquMVVqCU
- lBAw==
-X-Gm-Message-State: AOAM533dczmTAt4uiM2Aa3OEDX6Az9wJLoZLnj7yv69uBJYrB5yRodhe
- ZiDzZVAS5kse0uQnQEcaHK35HA==
-X-Google-Smtp-Source: ABdhPJwCW+uY9rOuoWmKzwTgEAQFjN4YRpp4A7QPyITSlGphPJj0f1ExJfTaWODEaAXo0GmLCCHjuw==
-X-Received: by 2002:a05:6512:3c90:b0:44a:dc25:ab44 with SMTP id
- h16-20020a0565123c9000b0044adc25ab44mr4502073lfv.407.1648895865799; 
- Sat, 02 Apr 2022 03:37:45 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- i16-20020a056512319000b0044ae52c6365sm264006lfe.88.2022.04.02.03.37.44
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5VLKCCSpyLmISzla9N+/XjTX+JlDxz/a8/Khh5Jtd44=;
+ b=dNQJ4jaAvSB/Me0cHN4q35HQps0oqMW8KHyRY1/q0wXwqIBkpcFPeH2sRIJr/VUb/N
+ 3JBy8sanTlbbi+q91l2tttbIkLMVKvKRFKu7z5Ochbk8E+lvHMQVNOPnqGWHvU65V0vS
+ 93xLORzX2scF6U24cRRHfCjejafrR9dyWXyiMFNuOO6ZMpWoa4eYf+gqvXoEzWurDB6r
+ RQW2b/DNx9ctPh8jK0LGUImwYKJFADITqARxXQYcRRmHx+cfnJ5FgWHEt5Js7/VIfB+S
+ y7DE7VV70U1iSW3F99/OmHQ9FkT/3ndgaGlAyHdBdJnkCYDh0dvx/Z0mKsq+/ItIXhge
+ R4bA==
+X-Gm-Message-State: AOAM532Q80WWj3x4H7HFE3NHftgguQolmBr+9MtqG03KJpFwSMynmDMx
+ BYS1SyxpDK0KdLP19ZwlyOhT8OWxOtcvNuQ8Pnk=
+X-Google-Smtp-Source: ABdhPJze2rHpixG3kVdZZBiQkB+Drw5IdLAZQsb2djJ2XUoOsKwCYSL8R3eu9KdwF0sqxOOTUkqv2A==
+X-Received: by 2002:a17:906:7307:b0:6da:92e1:9c83 with SMTP id
+ di7-20020a170906730700b006da92e19c83mr4526413ejc.459.1648919555009; 
+ Sat, 02 Apr 2022 10:12:35 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com.
+ [209.85.218.53]) by smtp.gmail.com with ESMTPSA id
+ e26-20020a50ec9a000000b004193fe50151sm2766008edr.9.2022.04.02.10.12.34
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 02 Apr 2022 03:37:45 -0700 (PDT)
-Message-ID: <392b933f-760c-3c81-1040-c514045df3da@linaro.org>
-Date: Sat, 2 Apr 2022 13:37:44 +0300
+ Sat, 02 Apr 2022 10:12:34 -0700 (PDT)
+Received: by mail-ej1-f53.google.com with SMTP id k23so8455223ejd.3
+ for <freedreno@lists.freedesktop.org>; Sat, 02 Apr 2022 10:12:34 -0700 (PDT)
+X-Received: by 2002:a5d:5551:0:b0:203:f916:e319 with SMTP id
+ g17-20020a5d5551000000b00203f916e319mr11736269wrw.422.1648919197780; Sat, 02
+ Apr 2022 10:06:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-GB
-To: Doug Anderson <dianders@chromium.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
  <1648656179-10347-2-git-send-email-quic_sbillaka@quicinc.com>
  <CAD=FV=X+QvjwoT2zGP82KW4kD0oMUY6ZgCizSikNX_Uj8dNDqA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAD=FV=X+QvjwoT2zGP82KW4kD0oMUY6ZgCizSikNX_Uj8dNDqA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <392b933f-760c-3c81-1040-c514045df3da@linaro.org>
+In-Reply-To: <392b933f-760c-3c81-1040-c514045df3da@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sat, 2 Apr 2022 10:06:24 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=W4PYK-t607yjRbfjDjjEZX0KdgHDRukw_vSH8E8EDH6w@mail.gmail.com>
+Message-ID: <CAD=FV=W4PYK-t607yjRbfjDjjEZX0KdgHDRukw_vSH8E8EDH6w@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v6 1/8] drm/msm/dp: Add eDP support via
  aux_bus
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -79,10 +77,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_kalyant <quic_kalyant@quicinc.com>,
  "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
  "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
  quic_vproddut <quic_vproddut@quicinc.com>, David Airlie <airlied@linux.ie>,
  linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  LKML <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
@@ -93,64 +92,86 @@ Cc: quic_kalyant <quic_kalyant@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 01/04/2022 02:22, Doug Anderson wrote:
-> Hi,
-> 
-> On Wed, Mar 30, 2022 at 9:03 AM Sankeerth Billakanti
-> <quic_sbillaka@quicinc.com> wrote:
->>
->> @@ -1547,6 +1593,10 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
->>
->>          dp_display->encoder = encoder;
->>
->> +       ret = dp_display_get_next_bridge(dp_display);
->> +       if (ret)
->> +               return ret;
-> 
-> It feels weird to me that this is in a function called "modeset_init",
-> though I certainly don't know the structure of the MSM display code
-> well enough to fully comment.
+Hi,
 
-It's called modeset_init() as it initializes KMS objects used by DP 
-driver. We have similar functions for dsi and hdmi
+On Sat, Apr 2, 2022 at 3:37 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 01/04/2022 02:22, Doug Anderson wrote:
+> > Hi,
+> >
+> > On Wed, Mar 30, 2022 at 9:03 AM Sankeerth Billakanti
+> > <quic_sbillaka@quicinc.com> wrote:
+> >>
+> >> @@ -1547,6 +1593,10 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+> >>
+> >>          dp_display->encoder = encoder;
+> >>
+> >> +       ret = dp_display_get_next_bridge(dp_display);
+> >> +       if (ret)
+> >> +               return ret;
+> >
+> > It feels weird to me that this is in a function called "modeset_init",
+> > though I certainly don't know the structure of the MSM display code
+> > well enough to fully comment.
+>
+> It's called modeset_init() as it initializes KMS objects used by DP
+> driver. We have similar functions for dsi and hdmi
 
-> My expectation would have been that
-> devm_of_dp_aux_populate_ep_devices() would have been called from your
-> probe routine and then you would have returned -EPROBE_DEFER from your
-> probe if you were unable to find the panel afterwards.
+Sorry, I wasn't meaning to imply that modeset_init() was a bad name or
+anything. Mostly saying that I wasn't sure that modeset init was the
+proper time to populate the aux bus. ...but then again, perhaps it is
+given the current structure of this driver?
 
-I don't think it's possible to call it from probe() since 
-drm_dp_aux_register() is called only from dp_display_bind().
-The PHY also isn't initialized at that moment, so we can not probe AUX 
-devices.
 
-The overall semantics of the AUX bus is not clear to me.
-Typically the bus is populated (and probed) when devices are accessible. 
-But for the display related buses this might not be the case.
-For example for the DSI bus we clearly define that DSI transfer are not 
-possible before the corresponding bridge's (or panel's) enable call.
+> > My expectation would have been that
+> > devm_of_dp_aux_populate_ep_devices() would have been called from your
+> > probe routine and then you would have returned -EPROBE_DEFER from your
+> > probe if you were unable to find the panel afterwards.
+>
+> I don't think it's possible to call it from probe() since
+> drm_dp_aux_register() is called only from dp_display_bind().
+> The PHY also isn't initialized at that moment, so we can not probe AUX
+> devices.
+>
+> The overall semantics of the AUX bus is not clear to me.
+> Typically the bus is populated (and probed) when devices are accessible.
+> But for the display related buses this might not be the case.
 
-Maybe the same approach should be adopted for the AUX bus. This would 
-allow us to populate the AUX bus before hardware access is actually 
-possible, thus creating all the DRM bridges before the hardware is 
-actually up and running.
+In general the AUX bus is modeled much like the i2c bus. You probe the
+sub-device when you're able to transfer. Then you can confirm that the
+device is actually there and init the device.
 
-> Huh, but I guess you _are_ getting called (indirectly) from
-> dpu_kms_hw_init() and I can't imagine AUX transfers working before
-> that function is called, so maybe I should just accept that it's
-> complicated and let those who understand this driver better confirm
-> that it's OK. ;-)
-> 
-> 
->> @@ -140,5 +140,6 @@ struct dp_parser {
->>    * can be parsed using this module.
->>    */
->>   struct dp_parser *dp_parser_get(struct platform_device *pdev);
->> +int dp_parser_find_next_bridge(struct dp_parser *parser);
-> 
-> Everything else in this file is described w/ kerneldoc. Shouldn't your
-> function also have a kerneldoc comment?
 
--- 
-With best wishes
-Dmitry
+> For example for the DSI bus we clearly define that DSI transfer are not
+> possible before the corresponding bridge's (or panel's) enable call.
+>
+> Maybe the same approach should be adopted for the AUX bus. This would
+> allow us to populate the AUX bus before hardware access is actually
+> possible, thus creating all the DRM bridges before the hardware is
+> actually up and running.
+
+So I guess what you're proposing is that you could probe the devices
+under the AUX bus and they could acquire resources (and possibly
+return EPROBE_DEFER) at a point in time _before_ it's actually
+possible to transfer. Then I guess you'd later do the transfer?
+
+I guess conceivably one could re-design the DRM subsystem like that,
+but I don't think it's trivial. Why? I believe that we need to know
+things about the panel at probe time. For instance, we need to be able
+to populate the panel's modes. To get this information we need the
+EDID which means we need to be able to do a transfer. If we're using
+an AUX backlight we also need to add info about the backlight at probe
+time and that also needs the transfer to work.
+
+
+So I guess the net result is maybe we should just keep it where it is.
+Long term I'd be interested in knowing if there's a reason why we
+can't structure the driver so that AUX transfers can happen with less
+intertwining with the rest of the code, but that can happen later. I
+would expect that you'd basically just need clocks and regulators on
+and maybe your PHY on. Ideally with some pm_runtime fun we should be
+able to do that independently with anything else the driver needs to
+do?
+
+-Doug
