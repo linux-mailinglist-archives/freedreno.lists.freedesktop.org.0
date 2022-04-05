@@ -2,53 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E994F3D27
-	for <lists+freedreno@lfdr.de>; Tue,  5 Apr 2022 20:17:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C8384F3D3C
+	for <lists+freedreno@lfdr.de>; Tue,  5 Apr 2022 20:50:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2794910EE48;
-	Tue,  5 Apr 2022 18:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE48510EAF2;
+	Tue,  5 Apr 2022 18:50:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1D0E10EE44;
- Tue,  5 Apr 2022 18:17:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 365E810EAF2;
+ Tue,  5 Apr 2022 18:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1649182639; x=1680718639;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=bwqwyzqwG2MNZKE8hl5seyqxC+Y62bblO4gxfvbXvAY=;
- b=c0yBI+SGBSPZ+KLRNvlpTjPT3mRAO2yJuOtYt9AYWbkBANAcBnw3b7ZF
- jSuX9aTIEB51bizB41sh1Rykjyq5EUYdaBFqbGZJnfdjtNRnZP5zgmuEx
- tjFkqEo4wyFzw6qKjQ4syDMeTh63b6bb/1GvdgO2FYyQAuU3wuiV6wEft w=;
+ t=1649184632; x=1680720632;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=mfdDbAeyBmB4Kl9PrpiZWCr3qRpxZ/f2Fo7EujQP55U=;
+ b=NkKCecPA1ddP0pMjOYh6FlGigdT+W57CqH9wh165VwuTl7AbcBqXiEZT
+ TzWDgGtKWCDy31Dq5p08v2n2zdZ+301RS/CCV8WO8Tf6sBZHvU1l1ap+y
+ wqHKE1m0/4zMrTRc55rJMhoowWqvt6M3tWBMdR1WVvE+SFslT/vbatIW8 U=;
 Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 05 Apr 2022 11:17:19 -0700
+ by alexa-out.qualcomm.com with ESMTP; 05 Apr 2022 11:50:32 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
  by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 11:17:19 -0700
+ 05 Apr 2022 11:50:31 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 5 Apr 2022 11:17:18 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 5 Apr 2022 11:17:17 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Tue, 5 Apr 2022 11:17:07 -0700
-Message-ID: <1649182627-8068-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ 15.2.986.22; Tue, 5 Apr 2022 11:50:30 -0700
+Received: from [10.38.244.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 5 Apr 2022
+ 11:50:26 -0700
+Message-ID: <daabe96d-404a-ac82-77f1-ed319ec60b43@quicinc.com>
+Date: Tue, 5 Apr 2022 11:50:24 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <1648771933-18512-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1648771933-18512-5-git-send-email-quic_abhinavk@quicinc.com>
+ <YkccZgD+f0enx2aV@pendragon.ideasonboard.com>
+ <CAF6AEGu6dE_47DZm9ZcF54mkHpAXGY30WuSP3LCRjtf5bNvjtw@mail.gmail.com>
+ <YkxymKepTBq1MsWG@pendragon.ideasonboard.com>
+ <65a349f6-3978-bad0-1e64-2c4ccc22d075@quicinc.com>
+ <Ykx2M0gUvG5fcLJ4@pendragon.ideasonboard.com>
+ <3866a04b-7dcc-7754-d14e-93f2ff947299@quicinc.com>
+In-Reply-To: <3866a04b-7dcc-7754-d14e-93f2ff947299@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH] drm/msm/dp: enhance both connect and disconnect
- pending_timeout handle
+Subject: Re: [Freedreno] [PATCH v6 4/4] drm: allow real encoder to be passed
+ for drm_writeback_connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,218 +71,304 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: hamohammed.sa@gmail.com, Kandpal Suraj <suraj.kandpal@intel.com>, Emma
+ Anholt <emma@anholt.net>, Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Jani Nikula <jani.nikula@intel.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, melissa.srw@gmail.com,
+ Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
+ Sean Paul <seanpaul@chromium.org>, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, james.qian.wang@arm.com,
+ quic_aravindh@quicinc.com, Mihail Atanassov <mihail.atanassov@arm.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Brian Starkey <brian.starkey@arm.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-HPD plugin handle is responsible for setting up main link and depend on
-user space frame work to start video stream. Similarly, HPD unplugged
-handle is responsible for tearing down main link and depend on user space
-frame work to stop video stream. Connect_pending_timeout and disconnect_
-pending_timeout are fired after 5 seconds timer expired to tear down main
-link and video stream and restore DP driver state into known default
-DISCONNECTED state in the case of frame work does not response uevent
-original from DP driver so that DP driver can recover gracefully.
+Hi Laurent
 
-The original connect_pending_timeout and disconnect_pending_timeout were
-not implemented correctly. This patch enhance both timeout functions to
-tear down main link and video stream correctly once timer is fired.
+On 4/5/2022 10:08 AM, Abhinav Kumar wrote:
+> Hi Laurent
+> 
+> On 4/5/2022 10:02 AM, Laurent Pinchart wrote:
+>> Hi Abhinav,
+>>
+>> On Tue, Apr 05, 2022 at 09:53:57AM -0700, Abhinav Kumar wrote:
+>>> On 4/5/2022 9:47 AM, Laurent Pinchart wrote:
+>>>> On Mon, Apr 04, 2022 at 11:43:37AM -0700, Rob Clark wrote:
+>>>>> On Fri, Apr 1, 2022 at 8:38 AM Laurent Pinchart wrote:
+>>>>>> On Thu, Mar 31, 2022 at 05:12:13PM -0700, Abhinav Kumar wrote:
+>>>>>>> For some vendor driver implementations, display hardware can
+>>>>>>> be shared between the encoder used for writeback and the physical
+>>>>>>> display.
+>>>>>>>
+>>>>>>> In addition resources such as clocks and interrupts can
+>>>>>>> also be shared between writeback and the real encoder.
+>>>>>>>
+>>>>>>> To accommodate such vendor drivers and hardware, allow
+>>>>>>> real encoder to be passed for drm_writeback_connector.
+>>>>>>>
+>>>>>>> changes in v6:
+>>>>>>>         - assign the encoder inside
+>>>>>>>           drm_writeback_connector_init_with_encoder() for
+>>>>>>>           better readability
+>>>>>>>         - improve some documentation for internal encoder
+>>>>>>>
+>>>>>>> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
+>>>>>>> Signed-off-by: Kandpal Suraj <suraj.kandpal@intel.com>
+>>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>>> ---
+>>>>>>>    drivers/gpu/drm/drm_writeback.c | 18 ++++++++++++------
+>>>>>>>    drivers/gpu/drm/vc4/vc4_txp.c   | 14 ++++++++------
+>>>>>>>    include/drm/drm_writeback.h     | 21 +++++++++++++++++++--
+>>>>>>
+>>>>>> Please split this in two patches, one for the DRM core and one for 
+>>>>>> the
+>>>>>> VC4 driver. This applies to most patches as a general rule, with the
+>>>>>> main exception being API refactoring that requires changing the
+>>>>>> implementation and all its users in a single patch.
+>>>>>
+>>>>> But this *is* API refactoring ;-)
+>>>>
+>>>> Partly at least :-) Looking at the API change itself, wouldn't we
+>>>> minimize the extra changes to vc4 if we moved this patch before 3/4 ?
+>>>
+>>> I can move all the changes done in vc4 except below part to the change
+>>> 3/4 itself because that way I can show usage of vc4->drm_enc with the
+>>> new API. Let me know if that works.
+>>
+>> What I meant is moving the API refactoring from 4/4 before the current
+>> 3/4, with minimal changes to vc4 there (only to avoid introducing a
+>> bisection breakge), and then move most of the vc4 changes from this
+>> patch to the current 3/4 (which will become 4/4). If that's what you
+>> meant too, it sounds good to me.
+> 
+> The API refactoring part in this patch is tied closely with changing the 
+> wb_connector's encoder to a pointer which breaks vc4.
+> 
+> I have not made any additional refactoring changes here.
+> 
+> So I am not sure how to decouple this more.
+> 
+> Thanks
+> 
+> Abhinav
 
-Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+Looking at this more, even if we split the patch to smaller set of core 
+changes, we might be able to make them individually compile but 
+functionality will be broken because the wb_connector->encoder has to be 
+a valid one and if we break the core functionality further it will break 
+this.
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 34 ++++++++++++++++++++++++--
- drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 +
- drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++++++++++++++++----------
- 3 files changed, 68 insertions(+), 15 deletions(-)
+@@ -238,6 +238,12 @@  int 
+drm_writeback_connector_init_with_encoder(struct drm_device *dev,
+  	struct drm_mode_config *config = &dev->mode_config;
+  	int ret = create_writeback_properties(dev);
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index dcd0126..3f4cf6d 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1910,7 +1910,7 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
- 	return ret;
- }
- 
--int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
-+int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl)
- {
- 	struct dp_ctrl_private *ctrl;
- 	struct dp_io *dp_io;
-@@ -1926,7 +1926,37 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
- 
- 	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
- 
--	dp_catalog_ctrl_reset(ctrl->catalog);
-+	ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
-+	if (ret) {
-+		DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
-+	}
-+
-+	DRM_DEBUG_DP("Before, phy=%x init_count=%d power_on=%d\n",
-+		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
-+
-+	phy_power_off(phy);
-+
-+	DRM_DEBUG_DP("After, phy=%x init_count=%d power_on=%d\n",
-+		(u32)(uintptr_t)phy, phy->init_count, phy->power_count);
-+
-+	return ret;
-+}
-+
-+int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
-+{
-+	struct dp_ctrl_private *ctrl;
-+	struct dp_io *dp_io;
-+	struct phy *phy;
-+	int ret = 0;
-+
-+	if (!dp_ctrl)
-+		return -EINVAL;
-+
-+	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-+	dp_io = &ctrl->parser->io;
-+	phy = dp_io->phy;
-+
-+	dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
- 
- 	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
- 	if (ret)
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-index 2433edb..ffafe17 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
-@@ -22,6 +22,7 @@ struct dp_ctrl {
- int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
-+int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl);
- int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
- void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl);
- void dp_ctrl_isr(struct dp_ctrl *dp_ctrl);
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 178b774..56bf7c5 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -593,10 +593,16 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
- 
- 	mutex_lock(&dp->event_mutex);
- 
 +	/*
-+	 * main link had been setup but video is not ready yet
-+	 * only tear down main link
++	 * Assign the encoder passed to this API to the wb_connector's encoder.
++	 * For drm_writeback_connector_init(), this shall be the internal_encoder
 +	 */
- 	state = dp->hpd_state;
- 	if (state == ST_CONNECT_PENDING) {
--		dp->hpd_state = ST_CONNECTED;
- 		DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
-+		dp_ctrl_off_link(dp->ctrl);
-+		dp_display_host_phy_exit(dp);
-+		dp->hpd_state = ST_DISCONNECTED;
- 	}
- 
- 	mutex_unlock(&dp->event_mutex);
-@@ -645,6 +651,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
- 		if (dp->link->sink_count == 0) {
- 			dp_display_host_phy_exit(dp);
- 		}
-+		dp_display_usbpd_disconnect_cb(&dp->pdev->dev);
- 		mutex_unlock(&dp->event_mutex);
- 		return 0;
- 	}
-@@ -661,19 +668,19 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
- 		return 0;
- 	}
- 
--	dp->hpd_state = ST_DISCONNECT_PENDING;
--
- 	/* disable HPD plug interrupts */
- 	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, false);
- 
--	/*
--	 * We don't need separate work for disconnect as
--	 * connect/attention interrupts are disabled
--	 */
- 	dp_display_usbpd_disconnect_cb(&dp->pdev->dev);
- 
--	/* start sentinel checking in case of missing uevent */
--	dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
-+	if (state == ST_DISPLAY_OFF) {
-+		dp->hpd_state = ST_DISCONNECTED;
++	wb_connector->encoder = enc;
 +
-+	} else {
-+		/* start sentinel checking in case of missing uevent */
-+		dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
-+		dp->hpd_state = ST_DISCONNECT_PENDING;
-+	}
- 
- 	/* signal the disconnect event early to ensure proper teardown */
- 	dp_display_handle_plugged_change(&dp->dp_display, false);
-@@ -695,10 +702,16 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
- 
- 	mutex_lock(&dp->event_mutex);
- 
-+	/*
-+	 * main link had been set up and video is ready
-+	 * tear down main link, video stream and phy
-+	 */
- 	state =  dp->hpd_state;
- 	if (state == ST_DISCONNECT_PENDING) {
--		dp->hpd_state = ST_DISCONNECTED;
- 		DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
-+		dp_ctrl_off(dp->ctrl);
-+		dp_display_host_phy_exit(dp);
-+		dp->hpd_state = ST_DISCONNECTED;
- 	}
- 
- 	mutex_unlock(&dp->event_mutex);
-@@ -1571,6 +1584,12 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
- 
- 	mutex_lock(&dp_display->event_mutex);
- 
-+	state =  dp_display->hpd_state;
-+	if (state == ST_DISCONNECTED) {
-+		mutex_unlock(&dp_display->event_mutex);
-+		return rc;
-+	}
-+
- 	/* stop sentinel checking */
- 	dp_del_event(dp_display, EV_CONNECT_PENDING_TIMEOUT);
- 
-@@ -1588,8 +1607,6 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
- 		return rc;
- 	}
- 
--	state =  dp_display->hpd_state;
--
- 	if (state == ST_DISPLAY_OFF)
- 		dp_display_host_phy_init(dp_display);
- 
-@@ -1638,13 +1655,18 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
- 	/* stop sentinel checking */
- 	dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
- 
-+	state =  dp_display->hpd_state;
-+	if (state == ST_DISCONNECTED || state == ST_DISPLAY_OFF) {
-+		mutex_unlock(&dp_display->event_mutex);
-+		return rc;
-+	}
-+
- 	dp_display_disable(dp_display, 0);
- 
- 	rc = dp_display_unprepare(dp);
- 	if (rc)
- 		DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
- 
--	state =  dp_display->hpd_state;
- 	if (state == ST_DISCONNECT_PENDING) {
- 		/* completed disconnection */
- 		dp_display->hpd_state = ST_DISCONNECTED;
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+  	if (ret != 0)
+  		return ret;
 
+So to keep both compilation and functionality intact at every change, i 
+am not sure how to break this up more.
+
+> 
+> 
+>>
+>>> The only part which will remain is the below one:
+>>>
+>>> @@ -523,7 +525,7 @@  static int vc4_txp_bind(struct device *dev, struct
+>>> device *master, void *data)
+>>>        if (ret)
+>>>            return ret;
+>>>
+>>> -    encoder = &txp->connector.encoder;
+>>> +    encoder = txp->connector.encoder;
+>>>        encoder->possible_crtcs = drm_crtc_mask(crtc);
+>>>
+>>> Since i dont know vc4 driver very well, I was not sure of a good way to
+>>> decouple this dependency.
+>>>
+>>> Let me know if that works.
+>>>
+>>>>>>>    3 files changed, 39 insertions(+), 14 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/drm_writeback.c 
+>>>>>>> b/drivers/gpu/drm/drm_writeback.c
+>>>>>>> index 797223c..7f72109 100644
+>>>>>>> --- a/drivers/gpu/drm/drm_writeback.c
+>>>>>>> +++ b/drivers/gpu/drm/drm_writeback.c
+>>>>>>> @@ -179,21 +179,21 @@ int drm_writeback_connector_init(struct 
+>>>>>>> drm_device *dev,
+>>>>>>>    {
+>>>>>>>         int ret = 0;
+>>>>>>>
+>>>>>>> -     drm_encoder_helper_add(&wb_connector->encoder, 
+>>>>>>> enc_helper_funcs);
+>>>>>>> +     drm_encoder_helper_add(&wb_connector->internal_encoder, 
+>>>>>>> enc_helper_funcs);
+>>>>>>>
+>>>>>>> -     wb_connector->encoder.possible_crtcs = possible_crtcs;
+>>>>>>> +     wb_connector->internal_encoder.possible_crtcs = 
+>>>>>>> possible_crtcs;
+>>>>>>>
+>>>>>>> -     ret = drm_encoder_init(dev, &wb_connector->encoder,
+>>>>>>> +     ret = drm_encoder_init(dev, &wb_connector->internal_encoder,
+>>>>>>>                                &drm_writeback_encoder_funcs,
+>>>>>>>                                DRM_MODE_ENCODER_VIRTUAL, NULL);
+>>>>>>>         if (ret)
+>>>>>>>                 return ret;
+>>>>>>>
+>>>>>>> -     ret = drm_writeback_connector_init_with_encoder(dev, 
+>>>>>>> wb_connector, &wb_connector->encoder,
+>>>>>>> -                     con_funcs, formats, n_formats);
+>>>>>>> +     ret = drm_writeback_connector_init_with_encoder(dev, 
+>>>>>>> wb_connector,
+>>>>>>> +                     &wb_connector->internal_encoder, con_funcs, 
+>>>>>>> formats, n_formats);
+>>>>>>>
+>>>>>>>         if (ret)
+>>>>>>> -             drm_encoder_cleanup(&wb_connector->encoder);
+>>>>>>> +             drm_encoder_cleanup(&wb_connector->internal_encoder);
+>>>>>>>
+>>>>>>>         return ret;
+>>>>>>>    }
+>>>>>>> @@ -238,6 +238,12 @@ int 
+>>>>>>> drm_writeback_connector_init_with_encoder(struct drm_device *dev,
+>>>>>>>         struct drm_mode_config *config = &dev->mode_config;
+>>>>>>>         int ret = create_writeback_properties(dev);
+>>>>>>>
+>>>>>>> +     /*
+>>>>>>> +      * Assign the encoder passed to this API to the 
+>>>>>>> wb_connector's encoder.
+>>>>>>> +      * For drm_writeback_connector_init(), this shall be the 
+>>>>>>> internal_encoder
+>>>>>>> +      */
+>>>>>>> +     wb_connector->encoder = enc;
+>>>>>>> +
+>>>>>>>         if (ret != 0)
+>>>>>>>                 return ret;
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c 
+>>>>>>> b/drivers/gpu/drm/vc4/vc4_txp.c
+>>>>>>> index 5e53f02..a9b4f83 100644
+>>>>>>> --- a/drivers/gpu/drm/vc4/vc4_txp.c
+>>>>>>> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
+>>>>>>> @@ -151,6 +151,8 @@ struct vc4_txp {
+>>>>>>>
+>>>>>>>         struct platform_device *pdev;
+>>>>>>>
+>>>>>>> +     struct drm_encoder drm_enc;
+>>>>>>> +
+>>>>>>>         struct drm_writeback_connector connector;
+>>>>>>>
+>>>>>>>         void __iomem *regs;
+>>>>>>> @@ -159,7 +161,7 @@ struct vc4_txp {
+>>>>>>>
+>>>>>>>    static inline struct vc4_txp *encoder_to_vc4_txp(struct 
+>>>>>>> drm_encoder *encoder)
+>>>>>>>    {
+>>>>>>> -     return container_of(encoder, struct vc4_txp, 
+>>>>>>> connector.encoder);
+>>>>>>> +     return container_of(encoder, struct vc4_txp, drm_enc);
+>>>>>>>    }
+>>>>>>>
+>>>>>>>    static inline struct vc4_txp *connector_to_vc4_txp(struct 
+>>>>>>> drm_connector *conn)
+>>>>>>> @@ -499,9 +501,9 @@ static int vc4_txp_bind(struct device *dev, 
+>>>>>>> struct device *master, void *data)
+>>>>>>>
+>>>>>>>         wb_conn = &txp->connector;
+>>>>>>>
+>>>>>>> -     drm_encoder_helper_add(&wb_conn->encoder, 
+>>>>>>> &vc4_txp_encoder_helper_funcs);
+>>>>>>> +     drm_encoder_helper_add(&txp->drm_enc, 
+>>>>>>> &vc4_txp_encoder_helper_funcs);
+>>>>>>>
+>>>>>>> -     ret = drm_encoder_init(drm, &wb_conn->encoder,
+>>>>>>> +     ret = drm_encoder_init(drm, &txp->drm_enc,
+>>>>>>>                         &vc4_txp_encoder_funcs,
+>>>>>>>                         DRM_MODE_ENCODER_VIRTUAL, NULL);
+>>>>>>>
+>>>>>>> @@ -511,10 +513,10 @@ static int vc4_txp_bind(struct device *dev, 
+>>>>>>> struct device *master, void *data)
+>>>>>>>         drm_connector_helper_add(&wb_conn->base,
+>>>>>>>                                  &vc4_txp_connector_helper_funcs);
+>>>>>>>
+>>>>>>> -     ret = drm_writeback_connector_init_with_encoder(drm, 
+>>>>>>> wb_conn, &wb_conn->encoder,
+>>>>>>> +     ret = drm_writeback_connector_init_with_encoder(drm, 
+>>>>>>> wb_conn, &txp->drm_enc,
+>>>>>>>                         &vc4_txp_connector_funcs, drm_fmts, 
+>>>>>>> ARRAY_SIZE(drm_fmts));
+>>>>>>>         if (ret) {
+>>>>>>> -             drm_encoder_cleanup(&wb_conn->encoder);
+>>>>>>> +             drm_encoder_cleanup(&txp->drm_enc);
+>>>>>>>                 return ret;
+>>>>>>>         }
+>>>>>>>
+>>>>>>> @@ -523,7 +525,7 @@ static int vc4_txp_bind(struct device *dev, 
+>>>>>>> struct device *master, void *data)
+>>>>>>>         if (ret)
+>>>>>>>                 return ret;
+>>>>>>>
+>>>>>>> -     encoder = &txp->connector.encoder;
+>>>>>>> +     encoder = txp->connector.encoder;
+>>>>>>>         encoder->possible_crtcs = drm_crtc_mask(crtc);
+>>>>>>>
+>>>>>>>         ret = devm_request_irq(dev, irq, vc4_txp_interrupt, 0,
+>>>>>>> diff --git a/include/drm/drm_writeback.h 
+>>>>>>> b/include/drm/drm_writeback.h
+>>>>>>> index 4795024..3f5c330 100644
+>>>>>>> --- a/include/drm/drm_writeback.h
+>>>>>>> +++ b/include/drm/drm_writeback.h
+>>>>>>> @@ -25,15 +25,32 @@ struct drm_writeback_connector {
+>>>>>>>         struct drm_connector base;
+>>>>>>>
+>>>>>>>         /**
+>>>>>>> -      * @encoder: Internal encoder used by the connector to fulfill
+>>>>>>> +      * @encoder: handle to drm_encoder used by the connector to 
+>>>>>>> fulfill
+>>>>>>>          * the DRM framework requirements. The users of the
+>>>>>>>          * @drm_writeback_connector control the behaviour of the 
+>>>>>>> @encoder
+>>>>>>>          * by passing the @enc_funcs parameter to 
+>>>>>>> drm_writeback_connector_init()
+>>>>>>>          * function.
+>>>>>>> +      *
+>>>>>>> +      * For some vendor drivers, the hardware resources are 
+>>>>>>> shared between
+>>>>>>> +      * writeback encoder and rest of the display pipeline.
+>>>>>>> +      * To accommodate such cases, encoder is a handle to the 
+>>>>>>> real encoder
+>>>>>>> +      * hardware.
+>>>>>>> +      *
+>>>>>>> +      * For current existing writeback users, this shall 
+>>>>>>> continue to be the
+>>>>>>> +      * embedded encoder for the writeback connector.
+>>>>>>>          */
+>>>>>>> -     struct drm_encoder encoder;
+>>>>>>> +     struct drm_encoder *encoder;
+>>>>>>>
+>>>>>>>         /**
+>>>>>>> +      * @internal_encoder: internal encoder used by writeback when
+>>>>>>> +      * drm_writeback_connector_init() is used.
+>>>>>>> +      * @encoder will be assigned to this for those cases
+>>>>>>> +      *
+>>>>>>> +      * This will be unused when 
+>>>>>>> drm_writeback_connector_init_with_encoder()
+>>>>>>> +      * is used.
+>>>>>>> +      */
+>>>>>>> +     struct drm_encoder internal_encoder;
+>>>>>>> +     /**
+>>>>>>>          * @pixel_formats_blob_ptr:
+>>>>>>>          *
+>>>>>>>          * DRM blob property data for the pixel formats list on 
+>>>>>>> writeback
+>>
