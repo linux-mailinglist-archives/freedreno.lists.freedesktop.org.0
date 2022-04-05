@@ -1,64 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E39A4F481C
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 01:51:11 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BAD124F481E
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 01:51:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8A7F10E60C;
-	Tue,  5 Apr 2022 23:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04DE610E428;
+	Tue,  5 Apr 2022 23:51:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2008E10E48A
- for <freedreno@lists.freedesktop.org>; Tue,  5 Apr 2022 23:51:04 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id p15so1179887lfk.8
- for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 16:51:04 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AEA510E428
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Apr 2022 23:51:05 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id bu29so1298156lfb.0
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 16:51:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GdBxSh9sm8JFxfcg4oZuWWjNQ4XkQKxAD+ykd2e7Nqo=;
- b=a1MrN49R7Y+OXVs56RUzeKwoND1E0SLksNg3VGcWXZTzNDbb3zzEMPXJ6ku+pX72/L
- jnsqp2kp4B35YeytTJBtFtRNj8Mig39RygT8v2RsUDzsaPAxTRPL4Iks6eOQqOBZD+PO
- qrG448SjP8q+oKjNU5JRQqK/4fh28kjGZ8JH6Zqd9qFD150qhjvabZEkW49HqsC60LOa
- VSQRxwFxvmtDtXZPO1r9je3+sqTRkz6De0c1Q6QPRvdzK7iXjv6TGeluHzCjQR0F1KhD
- o9UqaYP8kkSysqjfNg049A35T64SFNz1vmHo3xaLz2MmBOxG1dcYbIZ3LAhAR03at1g2
- umMw==
+ bh=nupzTGEBU6qZB3QvYeGIWfzRAuDNUHc7ze0LvzWnebs=;
+ b=OxZ0blf6MH5ytIdeKK8SrW/3MJcmu7DJ+xAwYvBLcf6RDejBLcHfHCgQdyzjB7atyZ
+ nT2yzJYcYmM7hfl9dHzAih0g6Qa91Ias8r/UTB7b8ew9bAA839MyDbDtU45RXUe5AASz
+ txDkk5y9CVkm9Ig0o4ZKZdFKzUJK059I79tl4A0JB7EL/wnSSLMJ6J8xKRzRqvOeKcxt
+ 9WR5rWUppPLlpAepj8Z4TQS7xUq1/S7H3WOe7yW24M/D/c66ntykk1QDMEw9wdABHzKk
+ zavkz7LTrEIAvX/YLbxCjxY50COncGWLZ/y+RD3eNgTRgesIhYAllMGcwNoWtJQ7a6qg
+ PXog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GdBxSh9sm8JFxfcg4oZuWWjNQ4XkQKxAD+ykd2e7Nqo=;
- b=D6dvX5GjasNT00xJNQL9hFL1utebkEZXnVpVEoyIVm6SxiidBGN5o7TRvg+djA54xM
- XhtZLifg8pmSkIEVlqWL5U4supTMujJWWfbP1/R0IwYaOPsJtJjo9NR0m4m86weKCv2m
- OU2zhEnzx6hnF9vTGcZqAZNWDO8hTrTfhYoPN0sK26cdph/G/VmhtxSjnxNjUboOnY89
- FavgPlQHrtwj9gEcVF2get02GKriCFae45EMKVD5QwgRQ6gcY9Tn7IFwvvXlV2BYvu/k
- 9yz2nI3rV+T68DYbVZGFLrvFkU3BgM9V8aqAi1OE156V2vs0eeJvy+WG9B7Kd/GDNPPm
- JPKQ==
-X-Gm-Message-State: AOAM5337duyNOdDwj9fZ2YVEiXAVZldLtmkvF4hFkrDVdRv6H/oHAZpr
- h9XhbtdUwnr3oiq9JXspHtombYXdVWTq4g==
-X-Google-Smtp-Source: ABdhPJxbihuuvB0EymKlPYm1DN2/hIoDbDRW283pP9l8yyUgGD4CiLfRQ2M+4enOXS9v/1+CCveTXg==
-X-Received: by 2002:a05:6512:3052:b0:44a:5104:5646 with SMTP id
- b18-20020a056512305200b0044a51045646mr4095313lfb.286.1649202662488; 
- Tue, 05 Apr 2022 16:51:02 -0700 (PDT)
+ bh=nupzTGEBU6qZB3QvYeGIWfzRAuDNUHc7ze0LvzWnebs=;
+ b=nwBHmzTS7N4lkHBlNnoKKNLNd5FyKHbGQt/4n0+S11ylrE+WvrQI8cEvGfvGV96YIQ
+ 6A3lkQazzVGV2wFBhyZzy8NKxZ4R5A2zG8CMmB9H8sPIMwP0V8Pa81l1j8F7SF/7QMw7
+ yhwbv3sJ+yx8T/DslbFGQy7RxEgSA8afwNCwZPUC2fwz7nNbkkyTh8zb5DBBxb79hTP1
+ Y8R9EEW+lsnaTbd9/h1+3+QFq2w4bXshDtZ8UnpQvU7IZvsbmhxAHP6mXH7oYJktutet
+ BD8E3EvRVGFEreAH9nfZzJQ3Sl0BbRTDw+vF3hFhWzGJlnS5JqvO3yn5pPVDax9fWiQn
+ CKxQ==
+X-Gm-Message-State: AOAM530+bh0UMQBH1hteL+9O3QKvYjr4axGowcApeQvq1cYPLa7s2+iH
+ 7sz4YKlfKNjzCsEYxEzy57/mXQ==
+X-Google-Smtp-Source: ABdhPJw/4qjYA0tk/15l2INLdAOVQq3xOnS7ZVDOJkLoL/pXMk2PHzmAY9QIvpP9oUiDy2hxAAL8pg==
+X-Received: by 2002:a05:6512:158e:b0:44a:12b5:7fea with SMTP id
+ bp14-20020a056512158e00b0044a12b57feamr3951998lfb.411.1649202663583; 
+ Tue, 05 Apr 2022 16:51:03 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- f26-20020a19381a000000b0044ad7a29b4csm1645280lfa.37.2022.04.05.16.51.01
+ f26-20020a19381a000000b0044ad7a29b4csm1645280lfa.37.2022.04.05.16.51.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Apr 2022 16:51:02 -0700 (PDT)
+ Tue, 05 Apr 2022 16:51:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed,  6 Apr 2022 02:50:58 +0300
-Message-Id: <20220405235059.359738-3-dmitry.baryshkov@linaro.org>
+Date: Wed,  6 Apr 2022 02:50:59 +0300
+Message-Id: <20220405235059.359738-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220405235059.359738-1-dmitry.baryshkov@linaro.org>
 References: <20220405235059.359738-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/3] drm/msm: loop over encoders using
- drm_for_each_encoder()
+Subject: [Freedreno] [PATCH 3/3] drm/msm: don't store created planes,
+ connectors and encoders
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,62 +77,229 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Rather than manually looping over encoders array, use standard
-drm_for_each_encoder() macro.
+There is no point now in storing arrays of creates planes, connectors
+and encoders. Remove them from struct msm_drm_private.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 5 +++--
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 6 ++----
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 12 ++++++------
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  7 -------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 11 ++++++-----
+ drivers/gpu/drm/msm/dp/dp_display.c      |  2 --
+ drivers/gpu/drm/msm/dsi/dsi.c            |  1 -
+ drivers/gpu/drm/msm/hdmi/hdmi.c          |  1 -
+ drivers/gpu/drm/msm/msm_drv.h            |  9 ---------
+ 7 files changed, 12 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index d0525a9ea92b..0bc33243dae8 100644
+index 0bc33243dae8..903be362cbce 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -681,6 +681,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 	struct drm_plane *primary_planes[MAX_PLANES], *plane;
+@@ -565,8 +565,6 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
+ 			return PTR_ERR(encoder);
+ 		}
+ 
+-		priv->encoders[priv->num_encoders++] = encoder;
+-
+ 		memset(&info, 0, sizeof(info));
+ 		info.intf_type = encoder->encoder_type;
+ 
+@@ -629,8 +627,6 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
+ 			return rc;
+ 		}
+ 
+-		priv->encoders[priv->num_encoders++] = encoder;
+-
+ 		info.num_of_h_tiles = 1;
+ 		info.h_tile_instance[0] = i;
+ 		info.capabilities = MSM_DISPLAY_CAP_VID_MODE;
+@@ -682,6 +678,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
  	struct drm_plane *cursor_planes[MAX_PLANES] = { NULL };
  	struct drm_crtc *crtc;
-+	struct drm_encoder *encoder;
+ 	struct drm_encoder *encoder;
++	unsigned int num_encoders;
  
  	struct msm_drm_private *priv;
  	struct dpu_mdss_cfg *catalog;
-@@ -745,8 +746,8 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+@@ -700,7 +697,11 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+ 	if (ret)
+ 		return ret;
+ 
+-	max_crtc_count = min(catalog->mixer_count, priv->num_encoders);
++	num_encoders = 0;
++	drm_for_each_encoder(encoder, dev)
++		num_encoders++;
++
++	max_crtc_count = min(catalog->mixer_count, num_encoders);
+ 
+ 	/* Create the planes, keeping track of one primary/cursor per crtc */
+ 	for (i = 0; i < catalog->sspp_count; i++) {
+@@ -725,7 +726,6 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+ 			ret = PTR_ERR(plane);
+ 			return ret;
+ 		}
+-		priv->planes[priv->num_planes++] = plane;
+ 
+ 		if (type == DRM_PLANE_TYPE_CURSOR)
+ 			cursor_planes[cursor_planes_idx++] = plane;
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index 3cf476c55158..1862eba51bbb 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -229,9 +229,6 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+ 			return PTR_ERR(connector);
+ 		}
+ 
+-		priv->encoders[priv->num_encoders++] = encoder;
+-		priv->connectors[priv->num_connectors++] = connector;
+-
+ 		break;
+ 	case DRM_MODE_ENCODER_TMDS:
+ 		encoder = mdp4_dtv_encoder_init(dev);
+@@ -252,8 +249,6 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+ 			}
+ 		}
+ 
+-		priv->encoders[priv->num_encoders++] = encoder;
+-
+ 		break;
+ 	case DRM_MODE_ENCODER_DSI:
+ 		/* only DSI1 supported for now */
+@@ -272,7 +267,6 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+ 
+ 		/* TODO: Add DMA_S later? */
+ 		encoder->possible_crtcs = 1 << DMA_P;
+-		priv->encoders[priv->num_encoders++] = encoder;
+ 
+ 		ret = msm_dsi_modeset_init(priv->dsi[dsi_id], dev, encoder);
+ 		if (ret) {
+@@ -324,7 +318,6 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
+ 			ret = PTR_ERR(plane);
+ 			goto fail;
+ 		}
+-		priv->planes[priv->num_planes++] = plane;
  	}
  
- 	/* All CRTCs are compatible with all encoders */
--	for (i = 0; i < priv->num_encoders; i++)
--		priv->encoders[i]->possible_crtcs = (1 << priv->num_crtcs) - 1;
-+	drm_for_each_encoder(encoder, dev)
-+		encoder->possible_crtcs = (1 << priv->num_crtcs) - 1;
- 
- 	return 0;
- }
+ 	for (i = 0; i < ARRAY_SIZE(mdp4_crtcs); i++) {
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 3b92372e7bdf..2ba06f979f72 100644
+index 2ba06f979f72..dbfe54de975c 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -434,6 +434,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
- 	int i, ret, pi = 0, ci = 0;
+@@ -319,7 +319,6 @@ static struct drm_encoder *construct_encoder(struct mdp5_kms *mdp5_kms,
+ 					     struct mdp5_ctl *ctl)
+ {
+ 	struct drm_device *dev = mdp5_kms->dev;
+-	struct msm_drm_private *priv = dev->dev_private;
+ 	struct drm_encoder *encoder;
+ 
+ 	encoder = mdp5_encoder_init(dev, intf, ctl);
+@@ -328,8 +327,6 @@ static struct drm_encoder *construct_encoder(struct mdp5_kms *mdp5_kms,
+ 		return encoder;
+ 	}
+ 
+-	priv->encoders[priv->num_encoders++] = encoder;
+-
+ 	return encoder;
+ }
+ 
+@@ -435,6 +432,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
  	struct drm_plane *primary[MAX_BASES] = { NULL };
  	struct drm_plane *cursor[MAX_BASES] = { NULL };
-+	struct drm_encoder *encoder;
+ 	struct drm_encoder *encoder;
++	unsigned int num_encoders;
  
  	/*
  	 * Construct encoders and modeset initialize connector devices
-@@ -499,11 +500,8 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
- 	 * Now that we know the number of crtcs we've created, set the possible
- 	 * crtcs for the encoders
- 	 */
--	for (i = 0; i < priv->num_encoders; i++) {
--		struct drm_encoder *encoder = priv->encoders[i];
--
+@@ -446,12 +444,16 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
+ 			goto fail;
+ 	}
+ 
++	num_encoders = 0;
 +	drm_for_each_encoder(encoder, dev)
- 		encoder->possible_crtcs = (1 << priv->num_crtcs) - 1;
--	}
++		num_encoders++;
++
+ 	/*
+ 	 * We should ideally have less number of encoders (set up by parsing
+ 	 * the MDP5 interfaces) than the number of layer mixers present in HW,
+ 	 * but let's be safe here anyway
+ 	 */
+-	num_crtcs = min(priv->num_encoders, mdp5_kms->num_hwmixers);
++	num_crtcs = min(num_encoders, mdp5_kms->num_hwmixers);
+ 
+ 	/*
+ 	 * Construct planes equaling the number of hw pipes, and CRTCs for the
+@@ -476,7 +478,6 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
+ 			DRM_DEV_ERROR(dev->dev, "failed to construct plane %d (%d)\n", i, ret);
+ 			goto fail;
+ 		}
+-		priv->planes[priv->num_planes++] = plane;
+ 
+ 		if (type == DRM_PLANE_TYPE_PRIMARY)
+ 			primary[pi++] = plane;
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 178b774a5fbd..ad7a18a0dece 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -1541,8 +1541,6 @@ int msm_dp_modeset_init(struct msm_dp *dp_display, struct drm_device *dev,
+ 
+ 	dp_priv->panel->connector = dp_display->connector;
+ 
+-	priv->connectors[priv->num_connectors++] = dp_display->connector;
+-
+ 	dp_display->bridge = msm_dp_bridge_init(dp_display, dev, encoder);
+ 	if (IS_ERR(dp_display->bridge)) {
+ 		ret = PTR_ERR(dp_display->bridge);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.c b/drivers/gpu/drm/msm/dsi/dsi.c
+index c12e66aa42a3..1fe020ee1018 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.c
++++ b/drivers/gpu/drm/msm/dsi/dsi.c
+@@ -273,7 +273,6 @@ int msm_dsi_modeset_init(struct msm_dsi *msm_dsi, struct drm_device *dev,
+ 	}
+ 
+ 	priv->bridges[priv->num_bridges++]       = msm_dsi->bridge;
+-	priv->connectors[priv->num_connectors++] = msm_dsi->connector;
  
  	return 0;
+ fail:
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index ec324352e862..baa6f1aaadf6 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -322,7 +322,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
+ 	}
+ 
+ 	priv->bridges[priv->num_bridges++]       = hdmi->bridge;
+-	priv->connectors[priv->num_connectors++] = hdmi->connector;
+ 
+ 	platform_set_drvdata(pdev, hdmi);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index d661debb50f1..ee3093890d97 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -184,23 +184,14 @@ struct msm_drm_private {
+ 
+ 	struct workqueue_struct *wq;
+ 
+-	unsigned int num_planes;
+-	struct drm_plane *planes[MAX_PLANES];
+-
+ 	unsigned int num_crtcs;
+ 	struct drm_crtc *crtcs[MAX_CRTCS];
+ 
+ 	struct msm_drm_thread event_thread[MAX_CRTCS];
+ 
+-	unsigned int num_encoders;
+-	struct drm_encoder *encoders[MAX_ENCODERS];
+-
+ 	unsigned int num_bridges;
+ 	struct drm_bridge *bridges[MAX_BRIDGES];
+ 
+-	unsigned int num_connectors;
+-	struct drm_connector *connectors[MAX_CONNECTORS];
+-
+ 	/* Properties */
+ 	struct drm_property *plane_property[PLANE_PROP_MAX_NUM];
  
 -- 
 2.35.1
