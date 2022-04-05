@@ -1,60 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0227D4F3D61
-	for <lists+freedreno@lfdr.de>; Tue,  5 Apr 2022 21:48:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABD34F4779
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 01:41:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BC610E99F;
-	Tue,  5 Apr 2022 19:48:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA90510EC21;
+	Tue,  5 Apr 2022 23:41:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C27810E99F
- for <freedreno@lists.freedesktop.org>; Tue,  5 Apr 2022 19:48:01 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- d15-20020a9d72cf000000b005cda54187c3so271315otk.2
- for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 12:48:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=iJPD9APzDqLjV+qOf9rpHBZiLlNyWx7WzJ1mV8UJe7c=;
- b=T1SO1Fz8TMPvB4YbIVayaKmOpzcbPI4uhFO6kGD5j3HJ59Foh+JcCdORHlXxNcIp4M
- ZRmNdNuLv2/hIhMjYpHLvwxRgzsdd0tVTV0FlesVlNWEbpgqofyxQUWkVDB398yx/KQa
- /szIDDLfRGu/b2gi8ib21FLRu7/H7mSRXrwrk=
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE53410EC21
+ for <freedreno@lists.freedesktop.org>; Tue,  5 Apr 2022 23:41:24 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id b21so1179270lfb.5
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 16:41:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AaD8XVb2K9YsDryXdi/t3jnaeSVSEnsi/78uo5IoYLQ=;
+ b=DhxABEvwavM6pQQGdMwYcxzvuUfulhIl2UO3Iw4uIDBkOKMTG3szy6OS+2SPdsZswC
+ J55roIMtDQLJPCh1yBiZ0Rw59wE/0po2RVMAtdfpzolQvfGqo8jACM9LZ/8jgHr0rHZm
+ mGDObOT4ggnskoPYHXcbbSy3QahES8XmoZyq9nCJhbj3ZHEmjbRCDKSgbVO+Y4+hLpjH
+ LnDlVc8IlUhDxdvNm5FLF1/HUH9PTlSc2QWniz2ZAE1trbZO7K5hiKIXgJL1xoMn0Zy0
+ LvCXMf+SBBTejxEaVfF0y+Su9sYDrfEifpsJHJ4RuzRcpD3XzCmTr1NrbQ5LgspZTrUv
+ wOCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=iJPD9APzDqLjV+qOf9rpHBZiLlNyWx7WzJ1mV8UJe7c=;
- b=4LewQYzML19Wq/Gb7mhkdFi9hBIpqBu9NxTvC+0OI1ZM1czVnJpR3rZprQglIzqjdh
- vSm1tMQP7Udr5/gFOxr5/0bIpNwnJS+SmwFPgChyf/bKSveuVCBtYnynqQdVhBrLmmwZ
- B41WYhBYuaNHc2bPfeYYB9OLU8dP0b7Fm3O/BdgZ6s0On9QV8cp7KPXZNYA8v1QOC61D
- T0+qTG7FHjflgTdwQ/uX8DhfRTFbnQgwX4SsrNGL6Khk3VB3ujDFiQx8JkA9SJrlJKoU
- RFXuN/XzVOyRcpHMnb1XM/EKORbK7XHNwBfxCQ4KFQxq7POJxhiGEGlYQBgtA0ZoxUUZ
- CrkQ==
-X-Gm-Message-State: AOAM531JG0Oth7KGzcECkl4fQaanUsiyt6Gm2Qm1c5u/J5NhmD68kPVq
- h7pw+dquhRTcO+abj9sbt7Wjw3dSJS8faGt/doH6sg==
-X-Google-Smtp-Source: ABdhPJwR0A33UiSi8THY8lPeRPmOOiXc6cK6GctfIZWfsKcwOKJxED9C+HA79JYDyXPCBgczoDzz7MJSwix/UYHlFvY=
-X-Received: by 2002:a05:6830:61b:b0:5cc:e44:7dc3 with SMTP id
- w27-20020a056830061b00b005cc0e447dc3mr1771528oti.159.1649188080802; Tue, 05
- Apr 2022 12:48:00 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Apr 2022 14:48:00 -0500
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AaD8XVb2K9YsDryXdi/t3jnaeSVSEnsi/78uo5IoYLQ=;
+ b=Ni4EVrQeBcDifWE3C/QMBLtxPzy6zg+Ka9ovrNehm99mXC7jQ66fpDzK91jTpMxEES
+ F0QullkYNrS9OhSTHN/UNazeXQA/cn4LQ76LZn2X3hZkx9vRhWgRPyyLntoa4VkQK4wB
+ 9dieH1/Zhb55plLje7shzliJmrvjQf6N29ar4os3km0bWLKnFMa1fDBipnFKj9ticId8
+ wTYTRuR/Ndj1Aq4Un56yydgrK7jtL05svdPGegp6P/LiT+g4j/uWanfyzCSMrXBEAzXR
+ uc+LlCjcksf2DIPuwJt+Ljl1EAj28TZvW6VfE1SpJ1uEKdU538ggwzoBEyhmY2i8CVxV
+ r7RA==
+X-Gm-Message-State: AOAM533NqHgykpJjjh6z7nv08zcXY8Y4ZGkPhWics/E3FRM8r8DXAPWG
+ LetN1OR0d+l22sAGFnsbnI9rSA==
+X-Google-Smtp-Source: ABdhPJzylEOY8FI7d1q+yqTJ2OScOOiaZYwKkxc/K+DV54fSUY82vbXM87xQNS/CwJownyXCVwdvjA==
+X-Received: by 2002:ac2:4c4f:0:b0:44a:3922:2f22 with SMTP id
+ o15-20020ac24c4f000000b0044a39222f22mr4149428lfk.69.1649202083027; 
+ Tue, 05 Apr 2022 16:41:23 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ br12-20020a056512400c00b0044a2c454ebcsm1648195lfb.27.2022.04.05.16.41.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Apr 2022 16:41:22 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed,  6 Apr 2022 02:41:21 +0300
+Message-Id: <20220405234121.358948-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-In-Reply-To: <1649182627-8068-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1649182627-8068-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 5 Apr 2022 14:48:00 -0500
-Message-ID: <CAE-0n50OYgSfhMcw2N_dd8LzxBXxoGhb0ToASsHGY=VPDa0zVg@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
- robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: enhance both connect and
- disconnect pending_timeout handle
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: remove unused plane_property field
+ from msm_drm_private
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,268 +69,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-04-05 11:17:07)
-> HPD plugin handle is responsible for setting up main link and depend on
+Remove from struct msm_drm_private unused field plane_property.
 
-Is "HPD plugin handle" a function? Can you use the function name?
+Fixes: 7d36db0be3b9 ("drm/msm/mdp5: switch to standard zpos property")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/msm_drv.h | 3 ---
+ 1 file changed, 3 deletions(-)
 
-> user space frame work to start video stream. Similarly, HPD unplugged
-> handle is responsible for tearing down main link and depend on user space
-> frame work to stop video stream. Connect_pending_timeout and disconnect_
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index ee3093890d97..3bce127953ec 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -192,9 +192,6 @@ struct msm_drm_private {
+ 	unsigned int num_bridges;
+ 	struct drm_bridge *bridges[MAX_BRIDGES];
+ 
+-	/* Properties */
+-	struct drm_property *plane_property[PLANE_PROP_MAX_NUM];
+-
+ 	/* VRAM carveout, used when no IOMMU: */
+ 	struct {
+ 		unsigned long size;
+-- 
+2.35.1
 
-Is 'Connect_pending_timeout' actually 'dp_connect_pending_timeout()'? If
-so, it would be clearer if the function name is used.
-
-> pending_timeout are fired after 5 seconds timer expired to tear down main
-> link and video stream and restore DP driver state into known default
-> DISCONNECTED state in the case of frame work does not response uevent
-
-s/frame work/framework/
-s/response/respond to/
-
-> original from DP driver so that DP driver can recover gracefully.
-
-This part of the sentence doesn't make sense to me.
-
->
-> The original connect_pending_timeout and disconnect_pending_timeout were
-> not implemented correctly. This patch enhance both timeout functions to
-
-s/enhance/fixes/
-
-> tear down main link and video stream correctly once timer is fired.
->
-> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
->
-
-Nitpick: Drop newline.
-
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 34 ++++++++++++++++++++++++--
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 +
->  drivers/gpu/drm/msm/dp/dp_display.c | 48 +++++++++++++++++++++++++++----------
->  3 files changed, 68 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index dcd0126..3f4cf6d 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1910,7 +1910,7 @@ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl)
->         return ret;
->  }
->
-> -int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
-> +int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl)
->  {
->         struct dp_ctrl_private *ctrl;
->         struct dp_io *dp_io;
-> @@ -1926,7 +1926,37 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
->
->         dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
->
-> -       dp_catalog_ctrl_reset(ctrl->catalog);
-> +       ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
-> +       if (ret) {
-> +               DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
-> +       }
-> +
-> +       DRM_DEBUG_DP("Before, phy=%x init_count=%d power_on=%d\n",
-> +               (u32)(uintptr_t)phy, phy->init_count, phy->power_count);
-
-Please don't recast pointer prints with %x. Use %p to print pointers.
-
-> +
-> +       phy_power_off(phy);
-> +
-> +       DRM_DEBUG_DP("After, phy=%x init_count=%d power_on=%d\n",
-> +               (u32)(uintptr_t)phy, phy->init_count, phy->power_count);
-
-It doesn't look good to be peeking inside struct phy. I wonder why that
-isn't an opaque struct. Either way, please don't print the struct
-members.
-
-> +
-> +       return ret;
-> +}
-> +
-> +int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
-> +{
-> +       struct dp_ctrl_private *ctrl;
-> +       struct dp_io *dp_io;
-> +       struct phy *phy;
-> +       int ret = 0;
-
-Drop useless assignment please
-
-> +
-> +       if (!dp_ctrl)
-
-How is this possible? Please remove useless checks.
-
-> +               return -EINVAL;
-> +
-> +       ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-> +       dp_io = &ctrl->parser->io;
-> +       phy = dp_io->phy;
-> +
-> +       dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
->
->         ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
->         if (ret)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 178b774..56bf7c5 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -593,10 +593,16 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
->
->         mutex_lock(&dp->event_mutex);
->
-> +       /*
-> +        * main link had been setup but video is not ready yet
-> +        * only tear down main link
-> +        */
->         state = dp->hpd_state;
->         if (state == ST_CONNECT_PENDING) {
-> -               dp->hpd_state = ST_CONNECTED;
->                 DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
-> +               dp_ctrl_off_link(dp->ctrl);
-> +               dp_display_host_phy_exit(dp);
-> +               dp->hpd_state = ST_DISCONNECTED;
->         }
->
->         mutex_unlock(&dp->event_mutex);
-> @@ -645,6 +651,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
->                 if (dp->link->sink_count == 0) {
->                         dp_display_host_phy_exit(dp);
->                 }
-> +               dp_display_usbpd_disconnect_cb(&dp->pdev->dev);
-
-The name of this function is very confusing. It would be nice to rename
-it to something like dp_display_notify_disconnect() and skip
-
->                 mutex_unlock(&dp->event_mutex);
->                 return 0;
->         }
-> @@ -661,19 +668,19 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
->                 return 0;
->         }
->
-> -       dp->hpd_state = ST_DISCONNECT_PENDING;
-> -
->         /* disable HPD plug interrupts */
->         dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, false);
->
-> -       /*
-> -        * We don't need separate work for disconnect as
-> -        * connect/attention interrupts are disabled
-> -        */
-
-Why is this comment removed? Because a work is actually used? Why can't
-we call dp_display_send_hpd_notification() directly?
-
->         dp_display_usbpd_disconnect_cb(&dp->pdev->dev);
->
-> -       /* start sentinel checking in case of missing uevent */
-> -       dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
-> +       if (state == ST_DISPLAY_OFF) {
-> +               dp->hpd_state = ST_DISCONNECTED;
-> +
-
-Drop extra newline please
-
-> +       } else {
-> +               /* start sentinel checking in case of missing uevent */
-> +               dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
-> +               dp->hpd_state = ST_DISCONNECT_PENDING;
-
-It looks like dp_add_event() should check the event and change
-dp->hpd_state sometimes. Then this code would be simply adding an event
-and dp_add_event() would be changing the hpd_state while scheduling the
-work.
-
-> +       }
->
->         /* signal the disconnect event early to ensure proper teardown */
->         dp_display_handle_plugged_change(&dp->dp_display, false);
-> @@ -695,10 +702,16 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
->
->         mutex_lock(&dp->event_mutex);
->
-> +       /*
-> +        * main link had been set up and video is ready
-> +        * tear down main link, video stream and phy
-
-because disconnect event never came and we need to get back to a default
-sane state?
-
-> +        */
->         state =  dp->hpd_state;
->         if (state == ST_DISCONNECT_PENDING) {
-> -               dp->hpd_state = ST_DISCONNECTED;
->                 DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
-> +               dp_ctrl_off(dp->ctrl);
-> +               dp_display_host_phy_exit(dp);
-> +               dp->hpd_state = ST_DISCONNECTED;
->         }
->
->         mutex_unlock(&dp->event_mutex);
-> @@ -1571,6 +1584,12 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
->
->         mutex_lock(&dp_display->event_mutex);
->
-> +       state =  dp_display->hpd_state;
-
-s/=  /= /
-
-Drop extra space after '=' please.
-
-> +       if (state == ST_DISCONNECTED) {
-> +               mutex_unlock(&dp_display->event_mutex);
-> +               return rc;
-> +       }
-> +
->         /* stop sentinel checking */
->         dp_del_event(dp_display, EV_CONNECT_PENDING_TIMEOUT);
->
-> @@ -1588,8 +1607,6 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
->                 return rc;
->         }
->
-> -       state =  dp_display->hpd_state;
-> -
->         if (state == ST_DISPLAY_OFF)
->                 dp_display_host_phy_init(dp_display);
->
-> @@ -1638,13 +1655,18 @@ int msm_dp_display_disable(struct msm_dp *dp, struct drm_encoder *encoder)
->         /* stop sentinel checking */
->         dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
->
-> +       state =  dp_display->hpd_state;
-
-s/=  /= /
-
-Drop extra space after '=' please.
-
-> +       if (state == ST_DISCONNECTED || state == ST_DISPLAY_OFF) {
-> +               mutex_unlock(&dp_display->event_mutex);
-> +               return rc;
-> +       }
-> +
->         dp_display_disable(dp_display, 0);
->
->         rc = dp_display_unprepare(dp);
->         if (rc)
->                 DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
->
-> -       state =  dp_display->hpd_state;
->         if (state == ST_DISCONNECT_PENDING) {
->                 /* completed disconnection */
->                 dp_display->hpd_state = ST_DISCONNECTED;
