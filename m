@@ -1,64 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8384F3D3C
-	for <lists+freedreno@lfdr.de>; Tue,  5 Apr 2022 20:50:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C59114F3D4C
+	for <lists+freedreno@lfdr.de>; Tue,  5 Apr 2022 21:13:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE48510EAF2;
-	Tue,  5 Apr 2022 18:50:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6143A10EE79;
+	Tue,  5 Apr 2022 19:13:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 365E810EAF2;
- Tue,  5 Apr 2022 18:50:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1649184632; x=1680720632;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=mfdDbAeyBmB4Kl9PrpiZWCr3qRpxZ/f2Fo7EujQP55U=;
- b=NkKCecPA1ddP0pMjOYh6FlGigdT+W57CqH9wh165VwuTl7AbcBqXiEZT
- TzWDgGtKWCDy31Dq5p08v2n2zdZ+301RS/CCV8WO8Tf6sBZHvU1l1ap+y
- wqHKE1m0/4zMrTRc55rJMhoowWqvt6M3tWBMdR1WVvE+SFslT/vbatIW8 U=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 05 Apr 2022 11:50:32 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2022 11:50:31 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 5 Apr 2022 11:50:30 -0700
-Received: from [10.38.244.111] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 5 Apr 2022
- 11:50:26 -0700
-Message-ID: <daabe96d-404a-ac82-77f1-ed319ec60b43@quicinc.com>
-Date: Tue, 5 Apr 2022 11:50:24 -0700
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28F0310E0F7;
+ Tue,  5 Apr 2022 19:13:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649186013; x=1680722013;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=BNf83Q5/1PWslvUKwhpqfDSkCkwhO7rU7ZNMZq/zkYQ=;
+ b=kUeAa1xOna8qaCyFt2FlvCZPFtsFGgi6oOFB2IfO8SJ5HU4Ok0WX0tFE
+ p75bBdTMyi3grb/s0rK+BZiMhuGw4FJQmmYbQBWgB3bzAAIXHvnoBNyXg
+ 0TO1JyQUiNdfoF5CJFHXrysProILic0XT9G7966KmmA4o25YnJgWstaMj
+ z6Ko6eT/OCUGt1PX1AFBElU4xjBEkWJhjxrprEwDSkDVjWHDEinFZ8IEt
+ 5DCmlQcfKRRug4xNzHW4R2IQHaAiOQqaiilVJGDxVrJYer9zROr9Fmo/8
+ +oULibvVxOMaQFQimHPIxLHl335uy3roQpYOd76usaukrOtVd2kp34pqg w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10308"; a="260835479"
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="260835479"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2022 12:13:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,236,1643702400"; d="scan'208";a="789979762"
+Received: from lkp-server02.sh.intel.com (HELO a44fdfb70b94) ([10.239.97.151])
+ by fmsmga006.fm.intel.com with ESMTP; 05 Apr 2022 12:13:27 -0700
+Received: from kbuild by a44fdfb70b94 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nbocI-0003gn-FR;
+ Tue, 05 Apr 2022 19:13:26 +0000
+Date: Wed, 6 Apr 2022 03:12:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+Message-ID: <202204060308.OkAS3XG3-lkp@intel.com>
+References: <20220404163436.956875-15-vkoul@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <1648771933-18512-1-git-send-email-quic_abhinavk@quicinc.com>
- <1648771933-18512-5-git-send-email-quic_abhinavk@quicinc.com>
- <YkccZgD+f0enx2aV@pendragon.ideasonboard.com>
- <CAF6AEGu6dE_47DZm9ZcF54mkHpAXGY30WuSP3LCRjtf5bNvjtw@mail.gmail.com>
- <YkxymKepTBq1MsWG@pendragon.ideasonboard.com>
- <65a349f6-3978-bad0-1e64-2c4ccc22d075@quicinc.com>
- <Ykx2M0gUvG5fcLJ4@pendragon.ideasonboard.com>
- <3866a04b-7dcc-7754-d14e-93f2ff947299@quicinc.com>
-In-Reply-To: <3866a04b-7dcc-7754-d14e-93f2ff947299@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v6 4/4] drm: allow real encoder to be passed
- for drm_writeback_connector
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220404163436.956875-15-vkoul@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH v6 14/14] drm/msm/dsi: Add support for DSC
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,304 +60,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, Kandpal Suraj <suraj.kandpal@intel.com>, Emma
- Anholt <emma@anholt.net>, Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Jani Nikula <jani.nikula@intel.com>, Liviu Dudau <liviu.dudau@arm.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, melissa.srw@gmail.com,
- Rob Clark <robdclark@gmail.com>, nganji@codeaurora.org,
- Sean Paul <seanpaul@chromium.org>, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, james.qian.wang@arm.com,
- quic_aravindh@quicinc.com, Mihail Atanassov <mihail.atanassov@arm.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- Brian Starkey <brian.starkey@arm.com>
+Cc: kbuild-all@lists.01.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ llvm@lists.linux.dev, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Laurent
+Hi Vinod,
 
-On 4/5/2022 10:08 AM, Abhinav Kumar wrote:
-> Hi Laurent
-> 
-> On 4/5/2022 10:02 AM, Laurent Pinchart wrote:
->> Hi Abhinav,
->>
->> On Tue, Apr 05, 2022 at 09:53:57AM -0700, Abhinav Kumar wrote:
->>> On 4/5/2022 9:47 AM, Laurent Pinchart wrote:
->>>> On Mon, Apr 04, 2022 at 11:43:37AM -0700, Rob Clark wrote:
->>>>> On Fri, Apr 1, 2022 at 8:38 AM Laurent Pinchart wrote:
->>>>>> On Thu, Mar 31, 2022 at 05:12:13PM -0700, Abhinav Kumar wrote:
->>>>>>> For some vendor driver implementations, display hardware can
->>>>>>> be shared between the encoder used for writeback and the physical
->>>>>>> display.
->>>>>>>
->>>>>>> In addition resources such as clocks and interrupts can
->>>>>>> also be shared between writeback and the real encoder.
->>>>>>>
->>>>>>> To accommodate such vendor drivers and hardware, allow
->>>>>>> real encoder to be passed for drm_writeback_connector.
->>>>>>>
->>>>>>> changes in v6:
->>>>>>>         - assign the encoder inside
->>>>>>>           drm_writeback_connector_init_with_encoder() for
->>>>>>>           better readability
->>>>>>>         - improve some documentation for internal encoder
->>>>>>>
->>>>>>> Co-developed-by: Kandpal Suraj <suraj.kandpal@intel.com>
->>>>>>> Signed-off-by: Kandpal Suraj <suraj.kandpal@intel.com>
->>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>>>> ---
->>>>>>>    drivers/gpu/drm/drm_writeback.c | 18 ++++++++++++------
->>>>>>>    drivers/gpu/drm/vc4/vc4_txp.c   | 14 ++++++++------
->>>>>>>    include/drm/drm_writeback.h     | 21 +++++++++++++++++++--
->>>>>>
->>>>>> Please split this in two patches, one for the DRM core and one for 
->>>>>> the
->>>>>> VC4 driver. This applies to most patches as a general rule, with the
->>>>>> main exception being API refactoring that requires changing the
->>>>>> implementation and all its users in a single patch.
->>>>>
->>>>> But this *is* API refactoring ;-)
->>>>
->>>> Partly at least :-) Looking at the API change itself, wouldn't we
->>>> minimize the extra changes to vc4 if we moved this patch before 3/4 ?
->>>
->>> I can move all the changes done in vc4 except below part to the change
->>> 3/4 itself because that way I can show usage of vc4->drm_enc with the
->>> new API. Let me know if that works.
->>
->> What I meant is moving the API refactoring from 4/4 before the current
->> 3/4, with minimal changes to vc4 there (only to avoid introducing a
->> bisection breakge), and then move most of the vc4 changes from this
->> patch to the current 3/4 (which will become 4/4). If that's what you
->> meant too, it sounds good to me.
-> 
-> The API refactoring part in this patch is tied closely with changing the 
-> wb_connector's encoder to a pointer which breaks vc4.
-> 
-> I have not made any additional refactoring changes here.
-> 
-> So I am not sure how to decouple this more.
-> 
-> Thanks
-> 
-> Abhinav
+I love your patch! Perhaps something to improve:
 
-Looking at this more, even if we split the patch to smaller set of core 
-changes, we might be able to make them individually compile but 
-functionality will be broken because the wb_connector->encoder has to be 
-a valid one and if we break the core functionality further it will break 
-this.
+[auto build test WARNING on 05241de1f69eb7f56b0a5e0bec96a7752fad1b2f]
 
-@@ -238,6 +238,12 @@  int 
-drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-  	struct drm_mode_config *config = &dev->mode_config;
-  	int ret = create_writeback_properties(dev);
+url:    https://github.com/intel-lab-lkp/linux/commits/Vinod-Koul/drm-msm-Add-Display-Stream-Compression-Support/20220405-003745
+base:   05241de1f69eb7f56b0a5e0bec96a7752fad1b2f
+config: hexagon-randconfig-r004-20220405 (https://download.01.org/0day-ci/archive/20220406/202204060308.OkAS3XG3-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project c4a1b07d0979e7ff20d7d541af666d822d66b566)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/6c54db3ee1e02d639e568c37121f797ac586af3d
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Vinod-Koul/drm-msm-Add-Display-Stream-Compression-Support/20220405-003745
+        git checkout 6c54db3ee1e02d639e568c37121f797ac586af3d
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/gpu/drm/msm/
 
-+	/*
-+	 * Assign the encoder passed to this API to the wb_connector's encoder.
-+	 * For drm_writeback_connector_init(), this shall be the internal_encoder
-+	 */
-+	wb_connector->encoder = enc;
-+
-  	if (ret != 0)
-  		return ret;
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-So to keep both compilation and functionality intact at every change, i 
-am not sure how to break this up more.
+All warnings (new ones prefixed by >>):
 
-> 
-> 
->>
->>> The only part which will remain is the below one:
->>>
->>> @@ -523,7 +525,7 @@  static int vc4_txp_bind(struct device *dev, struct
->>> device *master, void *data)
->>>        if (ret)
->>>            return ret;
->>>
->>> -    encoder = &txp->connector.encoder;
->>> +    encoder = txp->connector.encoder;
->>>        encoder->possible_crtcs = drm_crtc_mask(crtc);
->>>
->>> Since i dont know vc4 driver very well, I was not sure of a good way to
->>> decouple this dependency.
->>>
->>> Let me know if that works.
->>>
->>>>>>>    3 files changed, 39 insertions(+), 14 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/drm_writeback.c 
->>>>>>> b/drivers/gpu/drm/drm_writeback.c
->>>>>>> index 797223c..7f72109 100644
->>>>>>> --- a/drivers/gpu/drm/drm_writeback.c
->>>>>>> +++ b/drivers/gpu/drm/drm_writeback.c
->>>>>>> @@ -179,21 +179,21 @@ int drm_writeback_connector_init(struct 
->>>>>>> drm_device *dev,
->>>>>>>    {
->>>>>>>         int ret = 0;
->>>>>>>
->>>>>>> -     drm_encoder_helper_add(&wb_connector->encoder, 
->>>>>>> enc_helper_funcs);
->>>>>>> +     drm_encoder_helper_add(&wb_connector->internal_encoder, 
->>>>>>> enc_helper_funcs);
->>>>>>>
->>>>>>> -     wb_connector->encoder.possible_crtcs = possible_crtcs;
->>>>>>> +     wb_connector->internal_encoder.possible_crtcs = 
->>>>>>> possible_crtcs;
->>>>>>>
->>>>>>> -     ret = drm_encoder_init(dev, &wb_connector->encoder,
->>>>>>> +     ret = drm_encoder_init(dev, &wb_connector->internal_encoder,
->>>>>>>                                &drm_writeback_encoder_funcs,
->>>>>>>                                DRM_MODE_ENCODER_VIRTUAL, NULL);
->>>>>>>         if (ret)
->>>>>>>                 return ret;
->>>>>>>
->>>>>>> -     ret = drm_writeback_connector_init_with_encoder(dev, 
->>>>>>> wb_connector, &wb_connector->encoder,
->>>>>>> -                     con_funcs, formats, n_formats);
->>>>>>> +     ret = drm_writeback_connector_init_with_encoder(dev, 
->>>>>>> wb_connector,
->>>>>>> +                     &wb_connector->internal_encoder, con_funcs, 
->>>>>>> formats, n_formats);
->>>>>>>
->>>>>>>         if (ret)
->>>>>>> -             drm_encoder_cleanup(&wb_connector->encoder);
->>>>>>> +             drm_encoder_cleanup(&wb_connector->internal_encoder);
->>>>>>>
->>>>>>>         return ret;
->>>>>>>    }
->>>>>>> @@ -238,6 +238,12 @@ int 
->>>>>>> drm_writeback_connector_init_with_encoder(struct drm_device *dev,
->>>>>>>         struct drm_mode_config *config = &dev->mode_config;
->>>>>>>         int ret = create_writeback_properties(dev);
->>>>>>>
->>>>>>> +     /*
->>>>>>> +      * Assign the encoder passed to this API to the 
->>>>>>> wb_connector's encoder.
->>>>>>> +      * For drm_writeback_connector_init(), this shall be the 
->>>>>>> internal_encoder
->>>>>>> +      */
->>>>>>> +     wb_connector->encoder = enc;
->>>>>>> +
->>>>>>>         if (ret != 0)
->>>>>>>                 return ret;
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c 
->>>>>>> b/drivers/gpu/drm/vc4/vc4_txp.c
->>>>>>> index 5e53f02..a9b4f83 100644
->>>>>>> --- a/drivers/gpu/drm/vc4/vc4_txp.c
->>>>>>> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
->>>>>>> @@ -151,6 +151,8 @@ struct vc4_txp {
->>>>>>>
->>>>>>>         struct platform_device *pdev;
->>>>>>>
->>>>>>> +     struct drm_encoder drm_enc;
->>>>>>> +
->>>>>>>         struct drm_writeback_connector connector;
->>>>>>>
->>>>>>>         void __iomem *regs;
->>>>>>> @@ -159,7 +161,7 @@ struct vc4_txp {
->>>>>>>
->>>>>>>    static inline struct vc4_txp *encoder_to_vc4_txp(struct 
->>>>>>> drm_encoder *encoder)
->>>>>>>    {
->>>>>>> -     return container_of(encoder, struct vc4_txp, 
->>>>>>> connector.encoder);
->>>>>>> +     return container_of(encoder, struct vc4_txp, drm_enc);
->>>>>>>    }
->>>>>>>
->>>>>>>    static inline struct vc4_txp *connector_to_vc4_txp(struct 
->>>>>>> drm_connector *conn)
->>>>>>> @@ -499,9 +501,9 @@ static int vc4_txp_bind(struct device *dev, 
->>>>>>> struct device *master, void *data)
->>>>>>>
->>>>>>>         wb_conn = &txp->connector;
->>>>>>>
->>>>>>> -     drm_encoder_helper_add(&wb_conn->encoder, 
->>>>>>> &vc4_txp_encoder_helper_funcs);
->>>>>>> +     drm_encoder_helper_add(&txp->drm_enc, 
->>>>>>> &vc4_txp_encoder_helper_funcs);
->>>>>>>
->>>>>>> -     ret = drm_encoder_init(drm, &wb_conn->encoder,
->>>>>>> +     ret = drm_encoder_init(drm, &txp->drm_enc,
->>>>>>>                         &vc4_txp_encoder_funcs,
->>>>>>>                         DRM_MODE_ENCODER_VIRTUAL, NULL);
->>>>>>>
->>>>>>> @@ -511,10 +513,10 @@ static int vc4_txp_bind(struct device *dev, 
->>>>>>> struct device *master, void *data)
->>>>>>>         drm_connector_helper_add(&wb_conn->base,
->>>>>>>                                  &vc4_txp_connector_helper_funcs);
->>>>>>>
->>>>>>> -     ret = drm_writeback_connector_init_with_encoder(drm, 
->>>>>>> wb_conn, &wb_conn->encoder,
->>>>>>> +     ret = drm_writeback_connector_init_with_encoder(drm, 
->>>>>>> wb_conn, &txp->drm_enc,
->>>>>>>                         &vc4_txp_connector_funcs, drm_fmts, 
->>>>>>> ARRAY_SIZE(drm_fmts));
->>>>>>>         if (ret) {
->>>>>>> -             drm_encoder_cleanup(&wb_conn->encoder);
->>>>>>> +             drm_encoder_cleanup(&txp->drm_enc);
->>>>>>>                 return ret;
->>>>>>>         }
->>>>>>>
->>>>>>> @@ -523,7 +525,7 @@ static int vc4_txp_bind(struct device *dev, 
->>>>>>> struct device *master, void *data)
->>>>>>>         if (ret)
->>>>>>>                 return ret;
->>>>>>>
->>>>>>> -     encoder = &txp->connector.encoder;
->>>>>>> +     encoder = txp->connector.encoder;
->>>>>>>         encoder->possible_crtcs = drm_crtc_mask(crtc);
->>>>>>>
->>>>>>>         ret = devm_request_irq(dev, irq, vc4_txp_interrupt, 0,
->>>>>>> diff --git a/include/drm/drm_writeback.h 
->>>>>>> b/include/drm/drm_writeback.h
->>>>>>> index 4795024..3f5c330 100644
->>>>>>> --- a/include/drm/drm_writeback.h
->>>>>>> +++ b/include/drm/drm_writeback.h
->>>>>>> @@ -25,15 +25,32 @@ struct drm_writeback_connector {
->>>>>>>         struct drm_connector base;
->>>>>>>
->>>>>>>         /**
->>>>>>> -      * @encoder: Internal encoder used by the connector to fulfill
->>>>>>> +      * @encoder: handle to drm_encoder used by the connector to 
->>>>>>> fulfill
->>>>>>>          * the DRM framework requirements. The users of the
->>>>>>>          * @drm_writeback_connector control the behaviour of the 
->>>>>>> @encoder
->>>>>>>          * by passing the @enc_funcs parameter to 
->>>>>>> drm_writeback_connector_init()
->>>>>>>          * function.
->>>>>>> +      *
->>>>>>> +      * For some vendor drivers, the hardware resources are 
->>>>>>> shared between
->>>>>>> +      * writeback encoder and rest of the display pipeline.
->>>>>>> +      * To accommodate such cases, encoder is a handle to the 
->>>>>>> real encoder
->>>>>>> +      * hardware.
->>>>>>> +      *
->>>>>>> +      * For current existing writeback users, this shall 
->>>>>>> continue to be the
->>>>>>> +      * embedded encoder for the writeback connector.
->>>>>>>          */
->>>>>>> -     struct drm_encoder encoder;
->>>>>>> +     struct drm_encoder *encoder;
->>>>>>>
->>>>>>>         /**
->>>>>>> +      * @internal_encoder: internal encoder used by writeback when
->>>>>>> +      * drm_writeback_connector_init() is used.
->>>>>>> +      * @encoder will be assigned to this for those cases
->>>>>>> +      *
->>>>>>> +      * This will be unused when 
->>>>>>> drm_writeback_connector_init_with_encoder()
->>>>>>> +      * is used.
->>>>>>> +      */
->>>>>>> +     struct drm_encoder internal_encoder;
->>>>>>> +     /**
->>>>>>>          * @pixel_formats_blob_ptr:
->>>>>>>          *
->>>>>>>          * DRM blob property data for the pixel formats list on 
->>>>>>> writeback
->>
+>> drivers/gpu/drm/msm/dsi/dsi_host.c:918:23: warning: variable 'reg_ctrl' set but not used [-Wunused-but-set-variable]
+           u32 reg, intf_width, reg_ctrl, reg_ctrl2;
+                                ^
+   1 warning generated.
+
+
+vim +/reg_ctrl +918 drivers/gpu/drm/msm/dsi/dsi_host.c
+
+   914	
+   915	static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mode, u32 hdisplay)
+   916	{
+   917		struct msm_display_dsc_config *dsc = msm_host->dsc;
+ > 918		u32 reg, intf_width, reg_ctrl, reg_ctrl2;
+   919		u32 slice_per_intf, total_bytes_per_intf;
+   920		u32 pkt_per_line;
+   921		u32 bytes_in_slice;
+   922		u32 eol_byte_num;
+   923	
+   924		/* first calculate dsc parameters and then program
+   925		 * compress mode registers
+   926		 */
+   927		intf_width = hdisplay;
+   928		slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
+   929	
+   930		/* If slice_per_pkt is greater than slice_per_intf
+   931		 * then default to 1. This can happen during partial
+   932		 * update.
+   933		 */
+   934		if (slice_per_intf > dsc->drm->slice_count)
+   935			dsc->drm->slice_count = 1;
+   936	
+   937		slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
+   938		bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * dsc->drm->bits_per_pixel, 8);
+   939	
+   940		dsc->drm->slice_chunk_size = bytes_in_slice;
+   941	
+   942		total_bytes_per_intf = bytes_in_slice * slice_per_intf;
+   943	
+   944		eol_byte_num = total_bytes_per_intf % 3;
+   945		pkt_per_line = slice_per_intf / dsc->drm->slice_count;
+   946	
+   947		if (is_cmd_mode) /* packet data type */
+   948			reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+   949		else
+   950			reg = DSI_VIDEO_COMPRESSION_MODE_CTRL_DATATYPE(MIPI_DSI_COMPRESSED_PIXEL_STREAM);
+   951	
+   952		/* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
+   953		 * registers have similar offsets, so for below common code use
+   954		 * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
+   955		 */
+   956		reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
+   957		reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
+   958		reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EN;
+   959	
+   960		if (is_cmd_mode) {
+   961			reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+   962			reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
+   963	
+   964			reg_ctrl |= reg;
+   965			reg_ctrl2 |= DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
+   966	
+   967			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
+   968			dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+   969		} else {
+   970			dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
+   971		}
+   972	}
+   973	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
