@@ -1,61 +1,48 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168974F5302
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 06:03:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF874F5690
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 08:44:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3C3710F108;
-	Wed,  6 Apr 2022 04:03:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 332B210F28B;
+	Wed,  6 Apr 2022 06:44:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D04410F108
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 04:03:09 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id q129so1236457oif.4
- for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 21:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=OWGK0XSf75E2cBZKiH+umLuz5CYhWcZRVj1UAjEllAY=;
- b=B3Xk0zf30mn3aJ6PALMS1FYblpAC7sg/WWGpfndFeo4pqSCs2E3RWu4wnQ85Ns8Mu7
- tNV9xYLSWizZpyECol/+pTvwoQGHG/8U0IGsK7lxkp1fbLlEZmA4QJtG4PLXdhsH/0ND
- lQzmYdtcR1t/GIkVSGJuOIQ0Qz/M3m2bH4lVg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=OWGK0XSf75E2cBZKiH+umLuz5CYhWcZRVj1UAjEllAY=;
- b=xkUM7VVm6Qd8X5IT+2ilEFprQqcbS5H5pQwYdcukbvb/HUKdMyxyUC7FwHFgomvaUO
- qd5zLwL3wW8xuqUvmORfoJIQZon0TWsmbdc6a0vXbgZcUbW4hj/MF0TiAzMuKJ18Qv0h
- uxTwSx02dNQWt5N8iU9zNSOy/kFwR5/jSkXRqq2ZgYqDDvG9tIkLt2TXFeYyVDDYMMB2
- 7STntJ/VdEdyD7B5Jn62RLtZr8P6KC6QvyiIE6y4YIytu8WPe9KFy2+gvCjGVBJXPd53
- HU5xWQ6efrj+Xr5Qpi/p5+Vp6f+SD3de27pvNHNzH91FBgMntcdohpOq14ZNECou3539
- ETAQ==
-X-Gm-Message-State: AOAM530V17CUEV2adcXy9G18CfRUN4se2uezHNn5AbZ7ZCi1k3eb21TQ
- bi4rXIJXE+LBGjVDSWJqST3/8h1jGMrGB5rM9jZo3A==
-X-Google-Smtp-Source: ABdhPJxM0nn6L84rHUj4Gb+jOZSqgxHoFiOkcE8dNBOJmIDosHNk+ShSDIkEgO2AH7sNO4+MIcnbS/HprQhkcuCb8wY=
-X-Received: by 2002:aca:bd41:0:b0:2ec:ff42:814f with SMTP id
- n62-20020acabd41000000b002ecff42814fmr2770219oif.63.1649217788747; Tue, 05
- Apr 2022 21:03:08 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Apr 2022 21:03:08 -0700
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACF610F2BB;
+ Wed,  6 Apr 2022 06:44:15 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 234F7B81BAD;
+ Wed,  6 Apr 2022 06:44:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3BEC385A3;
+ Wed,  6 Apr 2022 06:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1649227451;
+ bh=BJfgiIoQUQYLiIMc6u/jkdzzSqCbxhlaeFQX+3zNbYg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HYjekCYckPQzlYNTIu2rKllAWs8+5lcZdBvpLZ9xI5S8TRTJdcr5ttJmpzrvgTHqq
+ eBOI+yY11Z3TJfcpG2JyiFMML5RGLQZJsboe9I9cTJW2Ci/Keo8fzQZrlMX9+bPIxk
+ AneKP08C/7KyS3208//LaXSwa3QQlgkeONwROWpgAiYNlAFxBuTIrw8A3WPWPvibxK
+ HsSwUsWha+bf7a+9bZ0PSFRY3uXveqsQ8JsThOC8+cr4nY85wQurMMEQ5RP1cJlBgD
+ 8RLXoGCs8CFKCBH9Jm/YxFpfluX7bvVavRQrfH460j6li/IMFTeYAGgBTxFJMxa/rE
+ gvsdmmG1GQPOA==
+Date: Wed, 6 Apr 2022 12:14:07 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <Yk02t+sZS0I7heY3@matsya>
+References: <20220404163436.956875-1-vkoul@kernel.org>
+ <20220404163436.956875-15-vkoul@kernel.org>
+ <f5fc9704-5c22-8c95-b6d6-e2c20145672c@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20220405235059.359738-4-dmitry.baryshkov@linaro.org>
-References: <20220405235059.359738-1-dmitry.baryshkov@linaro.org>
- <20220405235059.359738-4-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 5 Apr 2022 21:03:08 -0700
-Message-ID: <CAE-0n501rjepeF3Oc6g05ctyGYdZTPR1+OMC=piQEtUZT+03=w@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: don't store created planes,
- connectors and encoders
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f5fc9704-5c22-8c95-b6d6-e2c20145672c@linaro.org>
+Subject: Re: [Freedreno] [PATCH v6 14/14] drm/msm/dsi: Add support for DSC
+ configuration
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,42 +55,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-04-05 16:50:59)
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index d661debb50f1..ee3093890d97 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -184,23 +184,14 @@ struct msm_drm_private {
->
->         struct workqueue_struct *wq;
->
-> -       unsigned int num_planes;
-> -       struct drm_plane *planes[MAX_PLANES];
+On 06-04-22, 02:42, Dmitry Baryshkov wrote:
+> On 04/04/2022 19:34, Vinod Koul wrote:
+> > When DSC is enabled, we need to configure DSI registers accordingly and
+> > configure the respective stream compression registers.
+> > 
+> > Add support to calculate the register setting based on DSC params and
+> > timing information and configure these registers.
+> > 
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Vinod Koul <vkoul@kernel.org>
+> > ---
+> >   drivers/gpu/drm/msm/dsi/dsi_host.c | 98 +++++++++++++++++++++++++++++-
+> >   1 file changed, 97 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > index eb0be34add45..f3ed6c40b9e1 100644
+> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> > @@ -912,6 +912,65 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
+> >   		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
+> >   }
+> > +static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mode, u32 hdisplay)
+> > +{
+> > +	struct msm_display_dsc_config *dsc = msm_host->dsc;
+> > +	u32 reg, intf_width, reg_ctrl, reg_ctrl2;
+> > +	u32 slice_per_intf, total_bytes_per_intf;
+> > +	u32 pkt_per_line;
+> > +	u32 bytes_in_slice;
+> > +	u32 eol_byte_num;
+> > +
+> > +	/* first calculate dsc parameters and then program
+> > +	 * compress mode registers
+> > +	 */
+> > +	intf_width = hdisplay;
+> > +	slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
+> > +
+> > +	/* If slice_per_pkt is greater than slice_per_intf
+> > +	 * then default to 1. This can happen during partial
+> > +	 * update.
+> > +	 */
+> > +	if (slice_per_intf > dsc->drm->slice_count)
+> > +		dsc->drm->slice_count = 1;
+> > +
+> > +	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
+> > +	bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * dsc->drm->bits_per_pixel, 8);
+> > +
+> > +	dsc->drm->slice_chunk_size = bytes_in_slice;
+> > +
+> > +	total_bytes_per_intf = bytes_in_slice * slice_per_intf;
+> > +
+> > +	eol_byte_num = total_bytes_per_intf % 3;
+> > +	pkt_per_line = slice_per_intf / dsc->drm->slice_count;
+> > +
+> > +	if (is_cmd_mode) /* packet data type */
+> > +		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
+> > +	else
+> > +		reg = DSI_VIDEO_COMPRESSION_MODE_CTRL_DATATYPE(MIPI_DSI_COMPRESSED_PIXEL_STREAM);
+> > +
+> > +	/* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
+> > +	 * registers have similar offsets, so for below common code use
+> > +	 * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
+> > +	 */
+> > +	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
+> > +	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
+> > +	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EN;
+> > +
+> > +	if (is_cmd_mode) {
+> > +		reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+> > +		reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
+> > +
+> > +		reg_ctrl |= reg;
+> > +		reg_ctrl2 |= DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
+> > +
+> > +		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
+> 
+> reg_ctrl, as reported by testing robot
 
-Can we get rid of MAX_PLANES?
+Yes, I did run W=1 check for the patches, with gcc I do not see this
+warning :(
 
-> -
->         unsigned int num_crtcs;
->         struct drm_crtc *crtcs[MAX_CRTCS];
->
->         struct msm_drm_thread event_thread[MAX_CRTCS];
->
-> -       unsigned int num_encoders;
-> -       struct drm_encoder *encoders[MAX_ENCODERS];
+I have fixed and will send updated revision shortly
 
-And MAX_ENCODERS?
-
-> -
->         unsigned int num_bridges;
->         struct drm_bridge *bridges[MAX_BRIDGES];
->
-> -       unsigned int num_connectors;
-> -       struct drm_connector *connectors[MAX_CONNECTORS];
-
-And MAX_CONNECTORS?
+-- 
+~Vinod
