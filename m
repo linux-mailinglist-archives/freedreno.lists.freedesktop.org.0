@@ -1,64 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B92294F4F44
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 03:58:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A4DE4F4F53
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 03:59:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5032410EA8C;
-	Wed,  6 Apr 2022 01:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDEE310EA98;
+	Wed,  6 Apr 2022 01:59:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24E3610E9A0
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 01:58:45 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-d39f741ba0so1384445fac.13
- for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 18:58:45 -0700 (PDT)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A376910EAB3
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 01:59:44 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ b17-20020a0568301df100b005ce0456a9efso810123otj.9
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 18:59:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=DIVGMsVz0TJ2gV9WgOfFFiA5gprB53tRsUuj8i64WaE=;
- b=IVl44d/QhSPb+vA65mjFI4QChRvBC65acN6oulekqU11IURJUXLWGepW0IbWIkETJy
- +WrVrlZdgkcjdpCGWe5Ypk8BbFo4Srsdx5lGVYum8opBfgNK1ukiEaUzavcB9V0i23rJ
- iGmIv0l4Ztmr9owj6F0mBxOG9orcs5peuCsOM=
+ bh=jv43f2rrIHjk1Fj7wJPYOjxueyGmJxQafkTafIj1hDc=;
+ b=e2thw7ORFBl8BjqnMIlCXWzL8TEvHVFQvm51vKJ6HZWpwH+ikEQJ9uUr0XXWzGW/LA
+ yvYoh4bLmeNTMzkPCkk//kXR/dxKm75XLsoiBJ1Al+b52tsq58jDPpGQv+E9tLhjL83i
+ YLYPRMTNSc565Jq1KFxV+EQkYyiXSwK32k/7w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=DIVGMsVz0TJ2gV9WgOfFFiA5gprB53tRsUuj8i64WaE=;
- b=scQF0cTJtsQC+nEtH/oysENwEMJfJz7kh3I7ij755slQibw9nczeZptfMf7HuU4EUb
- WnYXUl2kC9s8C819a1Kw8zMoNsLGUQziYbIYHaixcH8mPBjmesznnK13Ftelk4L+OgQq
- c7xMA+Dp3hleIm+7mtzbF0sWkFxPLuH1NRVvSXn7boSa8sDgWHcbSftFw9GwxqTwYBBL
- K/yITXb1oB8IS8AZYlbaRSfdcdLUR5rwQtkgXjq/8KkJHv4NE5UrQ8gZ9Q99vpvXsj3C
- fBrRgCzDs1OdBTXBNvKjdkq6QdXA7cKuiNm3/A/qcI+603sSa6xuKyYjKUcfzJXcfZnD
- DgwQ==
-X-Gm-Message-State: AOAM532ethg7kI2bGiaiNLamcAVfKslYBVJlCo1lXtIEj4wUYdW2zpdX
- tTYci7ErLiJfjYuIpu9TbwhpukAK+w4S4R8R8NxF4Q==
-X-Google-Smtp-Source: ABdhPJygRyk6aXcwBIkmW3sXOMOwd//3/kqvY2L6PMY2iOeU+lK9xBLITJ+JWL6zDwHPOXhk4dBea47tvccNlzGqjpY=
-X-Received: by 2002:a05:6870:e314:b0:e1:e5f0:d777 with SMTP id
- z20-20020a056870e31400b000e1e5f0d777mr2777654oad.193.1649210324223; Tue, 05
- Apr 2022 18:58:44 -0700 (PDT)
+ bh=jv43f2rrIHjk1Fj7wJPYOjxueyGmJxQafkTafIj1hDc=;
+ b=vpfxoGjkA0+AZ2IsSpQTWtMgCmEaQg3VxiHvIlw/iVzmtQXOqsj9qqKwuYGNQ3Ite5
+ MMB9K3+aSfqeXMgyD2aOW3g11ea/AYWVy0nAHozksSCHxFGzsJm6ze2oIeqNwNaOWUTA
+ sQ+yyk1Ui7rO4Iy8HVI5QQoiD8npuxRDG26OV0wkp1l5CEdblPeIv4SnqyrLQzViJGEn
+ J/FkWuU/B116DaFHyOgifdHwfErgz8Ougshu9zcE/e+BXGJQM/Fl3572xBjem/hK8a0r
+ jMC/1WdMxeKQ2QbQ7IXDN2jQyObT8h0ejjh5qOSbuD21a0d6TJklq9b75JI0y5UWFClm
+ qfxA==
+X-Gm-Message-State: AOAM533udkry8RQPUP2Sb55ng06dFXLg4cc5g/ynAFJXNh8xDJ9h3MQO
+ NobP7yO8EyidaWu7GnlERCZ2VIMrtCJ2jXeZo5hq0A==
+X-Google-Smtp-Source: ABdhPJzJE9a18gRAhOd6LPf+zCiWM3yrZAtlUUjLRrak7Q4fo7tUpBr2ScsKEhil00lOrpnbqc7pUFELqtLxYKz0Tiw=
+X-Received: by 2002:a9d:b85:0:b0:5cb:3eeb:d188 with SMTP id
+ 5-20020a9d0b85000000b005cb3eebd188mr2258425oth.77.1649210383948; Tue, 05 Apr
+ 2022 18:59:43 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Apr 2022 18:58:43 -0700
+ HTTPREST; Tue, 5 Apr 2022 18:59:43 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220330223008.649274-5-dmitry.baryshkov@linaro.org>
-References: <20220330223008.649274-1-dmitry.baryshkov@linaro.org>
- <20220330223008.649274-5-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220405234121.358948-1-dmitry.baryshkov@linaro.org>
+References: <20220405234121.358948-1-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Tue, 5 Apr 2022 18:58:43 -0700
-Message-ID: <CAE-0n50gmcGrqj5p92tdTe4cyqhT4kiucRahnuLAuNtbZmXWDQ@mail.gmail.com>
+Date: Tue, 5 Apr 2022 18:59:43 -0700
+Message-ID: <CAE-0n52u=wx403GmAvccbk1JgOgK4zz+MTBS60hvJT701WdKHA@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 4/4] drm/msm/dp: make
- dp_connector_mode_valid() more precise
+Subject: Re: [Freedreno] [PATCH] drm/msm: remove unused plane_property field
+ from msm_drm_private
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,19 +69,30 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-03-30 15:30:08)
-> Make dp_connector_mode_valid() return precise MODE_CLOCK_HIGH rather
-> than generic MODE_BAD in case the mode clock is higher than
-> DP_MAX_PIXEL_CLK_KHZ (675 MHz).
+Quoting Dmitry Baryshkov (2022-04-05 16:41:21)
+> Remove from struct msm_drm_private unused field plane_property.
 >
+> Fixes: 7d36db0be3b9 ("drm/msm/mdp5: switch to standard zpos property")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
+>  drivers/gpu/drm/msm/msm_drv.h | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index ee3093890d97..3bce127953ec 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -192,9 +192,6 @@ struct msm_drm_private {
+>         unsigned int num_bridges;
+>         struct drm_bridge *bridges[MAX_BRIDGES];
+>
+> -       /* Properties */
+> -       struct drm_property *plane_property[PLANE_PROP_MAX_NUM];
+> -
 
-Suggested-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Can we remove PLANE_PROP_MAX_NUM too?
