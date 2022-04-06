@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A75E34F526A
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 04:51:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 973144F52FC
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 06:01:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F8310E748;
-	Wed,  6 Apr 2022 02:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECBC710ED34;
+	Wed,  6 Apr 2022 04:01:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 451A210E748
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 02:51:25 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-d39f741ba0so1490330fac.13
- for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 19:51:25 -0700 (PDT)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B93CB10ED34
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 04:01:09 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id 12so1191104oix.12
+ for <freedreno@lists.freedesktop.org>; Tue, 05 Apr 2022 21:01:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=b3VgmcVE3acBeuODdkvAAtJXlVuslI4bEciUTqIWCXk=;
- b=Uv+PIrB6cyK6LLEXHNe2noHhf63P0v4ECfEtz/zC4+ThCOWRUaiT7C7Ei3Fflk8r8X
- Y8JNk9YQ8oaJTVUPPWKg6Afa+IcWnWZ/VLZehdbhOcW7rEpo0BdJaCM27cnSCvOT9yld
- YHThOe5G+JB5u6NVpg8gKhFqzWQgxAFswR/Sw=
+ bh=WGUazAz+54LKBDcmDz/G18fzJNOk0DJxlOhHCUXankQ=;
+ b=hfUYXYOTYj6R1wH7vLfFU1M78Xe+pSbNhFcloVsqgMLI7XFRyw+zsprecqCimVMnGH
+ +svkrY3vzWiM7LGZC8KNfRKElz2Ta1vlGMevx8Z31we8M0Ju8aO06Rjv0M6R/k5JSc96
+ GcWyG+SrXJ9ikL+KNKJZ5ZUKpgammAd+qqRZk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=b3VgmcVE3acBeuODdkvAAtJXlVuslI4bEciUTqIWCXk=;
- b=bv7143lD136aciff1KKfEbLQZ3aradQuGIexTyftvNZDn/MC2Z8VzlOtYs/Cj+XEut
- QerNCJ6z282KP01ypks1A90fifd1BhoVAPEdQy0r8Vq+FSw3nlxxcrNcxjpodXN/1J2b
- UHVdePQknH6t2Q7po52ysokjvjm01AHAChLNn+lnCFk3RhldKWpPDQ4im2xT6y0dFz31
- a50lrYYdnBzLBOd1A5YzREF7tZHi9zSW4Oa2jr3q//Xen9qizMnBwrf0MxQOWD6sOZUU
- ZRqbUsdjcrlq59FGLIeuxJ162zb66mG7KRKwwm81SaB4u6x0if7k7qqC/P3usA0gtoPg
- eToQ==
-X-Gm-Message-State: AOAM531jYuVhcfXQQzuuNYIxRAjp3qLBIucQYrpZjpkWMpYZB5tCQWh5
- HwhLr2ep8s0dWhgvAxS3HXIxdpKjl895H/lA78KkrA==
-X-Google-Smtp-Source: ABdhPJwyhOMQxO9obsul5Y1w7P3cWlG8E3ejPRdOhFNq/BGZk2T4u3pPnhmUkLRH6BtD6orCVzZkjOczXsYtx4cXWZk=
-X-Received: by 2002:a05:6870:558e:b0:e1:db7c:26aa with SMTP id
- n14-20020a056870558e00b000e1db7c26aamr2980516oao.63.1649213484466; Tue, 05
- Apr 2022 19:51:24 -0700 (PDT)
+ bh=WGUazAz+54LKBDcmDz/G18fzJNOk0DJxlOhHCUXankQ=;
+ b=rFwm+j1Etexh1J0jHhhM6zMfaSpt8SuLmeaHg19G8+Q1liG108emn88NlriEAgrPFb
+ Ys6zW09IvgS1q+gG0X28t08a5FKYaaAYmsbqt+Gxyg3fF9YSHyW5Wv5bIvdsRRSN9LPV
+ zq3zK0dDbOZeQu7k6DFg3DCtTU7BXz08iCIJq+nawpJpOq9/xo3EDuNhWpVyshLnoS3Z
+ 5eYEsjkFddonPK+F4zGEn5ien/SyWZOHRehOqmeU1NVzKwhaouiOSgPZD8JPKMR4u89G
+ fJ2kQBbeyS1qZTlC3MlsFC02ZldpXxsoKMy9n1R/eJi8ESN0Ze7SlhBnDIqp3DQ6wtn/
+ mwhg==
+X-Gm-Message-State: AOAM533QMgeyOmsJBy03bZpVQFJyspJKSh8Fxk73RzAKEMncXkvTPmpJ
+ FxwfXSxKtwOu5QplwqOoVrLGhO8T7kYZ3S3s3APcig==
+X-Google-Smtp-Source: ABdhPJxWPA9p5d7NmUiUlh/dFDZl8efg+pQvD/HgLU5K/+3BeTFisXtsgjxxnhu+VH+3biB4raAHw2pEX8Qj/I6wP9A=
+X-Received: by 2002:aca:a9c8:0:b0:2da:45b6:b796 with SMTP id
+ s191-20020acaa9c8000000b002da45b6b796mr2652702oie.193.1649217669012; Tue, 05
+ Apr 2022 21:01:09 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 5 Apr 2022 19:51:24 -0700
+ HTTPREST; Tue, 5 Apr 2022 21:01:08 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220405234551.359453-2-dmitry.baryshkov@linaro.org>
-References: <20220405234551.359453-1-dmitry.baryshkov@linaro.org>
- <20220405234551.359453-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220405235059.359738-2-dmitry.baryshkov@linaro.org>
+References: <20220405235059.359738-1-dmitry.baryshkov@linaro.org>
+ <20220405235059.359738-2-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Tue, 5 Apr 2022 19:51:24 -0700
-Message-ID: <CAE-0n53p7MsvwzqzzyHdRzX2XV9_Lv7poTuZMQowha0=f=QZSA@mail.gmail.com>
+Date: Tue, 5 Apr 2022 21:01:08 -0700
+Message-ID: <CAE-0n53X5H6NoWgzo57dbqgh=QhRt5q3=2uiQGfw2HOcGmA5kg@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/4] drm/msm/hdmi: properly add and remove
- created bridges
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: remove manual destruction
+ of DRM objects
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,35 +74,13 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-04-05 16:45:48)
-> Add calls to drm_bridge_add()/drm_bridge_remove() for the internal HDMI
-> bridges. This fixes the following warning.
+Quoting Dmitry Baryshkov (2022-04-05 16:50:57)
+> Remove manual removal of DRM modesetting objects, it is done anyway by
+> the drm_mode_config_cleanup() called from msm_drm_uninit(). Other
+> MSM display drivers (MDP4, MDP5) do not manually destroy objects and
+> trust generic code to do it's work.
 >
-> [    2.195003] ------------[ cut here ]------------
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Usually this line is left out
-
-> [    2.195044] WARNING: CPU: 0 PID: 1 at kernel/locking/mutex.c:579 __mutex_lock+0x840/0x9f4
-
-And the timestamp is removed
-
-> [    2.198774] DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-> [    2.198786] Modules linked in:
-> [    2.211868] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.18.0-rc1-00002-g3054695a0d27-dirty #55
-> [    2.214671] Hardware name: Generic DT based system
-> [    2.223265]  unwind_backtrace from show_stack+0x10/0x14
-> [    2.228036]  show_stack from dump_stack_lvl+0x58/0x70
-> [    2.233159]  dump_stack_lvl from __warn+0xc8/0x1e8
-> [    2.238367]  __warn from warn_slowpath_fmt+0x78/0xa8
-> [    2.243054]  warn_slowpath_fmt from __mutex_lock+0x840/0x9f4
-> [    2.248174]  __mutex_lock from mutex_lock_nested+0x1c/0x24
-> [    2.253818]  mutex_lock_nested from drm_bridge_hpd_enable+0x2c/0x84
-> [    2.259116]  drm_bridge_hpd_enable from msm_hdmi_modeset_init+0xc0/0x21c
-> [    2.265279]  msm_hdmi_modeset_init from mdp4_kms_init+0x53c/0x90c
-> [    2.272223]  mdp4_kms_init from msm_drm_bind+0x514/0x698
-> [    2.278212]  msm_drm_bind from try_to_bring_up_aggregate_device+0x160/0x1bc
-
-I'd probably cut it off here.
-
-Is there any Fixes tag for this? Still seems worthwhile to have one even
-if this is a lockdep warning.
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
