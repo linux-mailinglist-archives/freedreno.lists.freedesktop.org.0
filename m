@@ -2,44 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 509394F5A3D
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 11:41:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AFCF4F5A61
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 12:01:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6F2310F299;
-	Wed,  6 Apr 2022 09:41:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4FD110F0FF;
+	Wed,  6 Apr 2022 10:01:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D7F10F2E4;
- Wed,  6 Apr 2022 09:41:40 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8A075613E2;
- Wed,  6 Apr 2022 09:41:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DEB7C385A9;
- Wed,  6 Apr 2022 09:41:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649238099;
- bh=vIXFaHjdCPMiFI1tGjfrlq7V7a3CK/Z1+eKy/+XK1KM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V7GAN+tCEfS/vvqD6n9HMjHHddiwkIpy/CA+gp1lFD7ISLNdJEfSWaPV4d2n77kq1
- CUa6dGeC9vxlI5CbkcSAke/JtMm7aYYNcDUj9d1Q2wbyIzhod7QBNVph4OygllBU0l
- 8QjcakVMdL4a62v1Da8ifVuXYEsS+AYYNKacIUP18oYmhjMO0CEXGZVUWHTVy0EFVt
- XUCDcJgJel5BVlkYuEF5nejknTIZiXxFsIjfrDZIF4aSr/CfRCXZiuzZXZ0thiNF9L
- toUhGZDFGIAMDf7Pw61GCrzde3Hlc6XUBMA25WCRt+zNNwujIwuHkDgfnd73q9hj10
- WZm1JDi4sn/bA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Rob Clark <robdclark@gmail.com>
-Date: Wed,  6 Apr 2022 15:10:31 +0530
-Message-Id: <20220406094031.1027376-15-vkoul@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220406094031.1027376-1-vkoul@kernel.org>
-References: <20220406094031.1027376-1-vkoul@kernel.org>
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
+ [IPv6:2607:f8b0:4864:20::835])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D23F10F0E9
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 10:01:21 +0000 (UTC)
+Received: by mail-qt1-x835.google.com with SMTP id t19so3447979qtc.4
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Apr 2022 03:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nF1xNfj+J34XrxSolTF0D+orBqwvLN2KXHwwalZ4HTY=;
+ b=wMZd4R/cJhJ0o5uoKdvVDyQbmt+R0cgDYTu4JUHaYhNncFM5q3J2vIFNDb6TYhq3LE
+ 1W4tlDgycH1xe5kmdKZiAKsDXZDO2eoIWr9IG4QUl2HXztiNpg2QEpXjEdvM+HqLQ0F7
+ kEBsIzbv7rm5tWx89SgopcE6Y21ULM2Ra2BUCx0WoLeB3sHu7yglx2NCzrpL4W+1Ax6w
+ xnLlNpMzURktWbZ+6A4hxd3K4LdO1umpftfSXwqwzTpZcGB1iWe3eRnfZKwRHtrDrzfC
+ 6ukVilvbwKDLkLBScgPEwiSVUIjS1oME067AS55bD9Lc2ooX2knRqNavt5FdWtw0kOwD
+ bFqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nF1xNfj+J34XrxSolTF0D+orBqwvLN2KXHwwalZ4HTY=;
+ b=csV+RG8l5tVEdtxhmX7tUmAiojGB9NW7xCMZGvu4GcBhH+iI3SqSGHqcnhA81hWpC8
+ r6QT5ocVJDTgLpBhkPS4aAnLeaqXoosgKPJrD7pW3w/VNwMV6mKK5TFLnk9SNEoymJ/1
+ S70Ked3JH/F0MAB2NoPh35cGnCOpcGAViDPh5jzX5xdkPgnpdhAteEy6/uMFeCM5LjFH
+ FRXQhqhQK9KRZhB4dAVBMEh6CbAtRcE8R2b6KWVKBb+IXPlWX1xYxWz7+HnvmE6Sqv+/
+ PlS8W2vpgrYPQVLSh9oZ/5qwnNDGN/LOTws3PBrn91U3qFwbGGZy4OGhOx/hOXvatgph
+ eUgw==
+X-Gm-Message-State: AOAM532135kSgGb7Q5HrAvQlfIhY9c27aaej6kAB6shi8XMN63abT4Xd
+ hC699l9BDsqP1dMXtftNrhmg9FcBKiD4RAH84AgYfQ==
+X-Google-Smtp-Source: ABdhPJwifkB/hY55P59uzoya9A0itxh640pczG4PfHi0w+ZaI8JqLhcORl90QHWitXyvPRj+jQS9OQSCdNRAmmRwB0A=
+X-Received: by 2002:ac8:4e52:0:b0:2e1:dad8:5141 with SMTP id
+ e18-20020ac84e52000000b002e1dad85141mr6605974qtw.62.1649239280348; Wed, 06
+ Apr 2022 03:01:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v7 14/14] drm/msm/dsi: Add support for DSC
- configuration
+References: <20220405235059.359738-1-dmitry.baryshkov@linaro.org>
+ <20220405235059.359738-4-dmitry.baryshkov@linaro.org>
+ <CAE-0n501rjepeF3Oc6g05ctyGYdZTPR1+OMC=piQEtUZT+03=w@mail.gmail.com>
+In-Reply-To: <CAE-0n501rjepeF3Oc6g05ctyGYdZTPR1+OMC=piQEtUZT+03=w@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 6 Apr 2022 13:01:09 +0300
+Message-ID: <CAA8EJppOtqSD0+3C60Qz77oCGgq0=bqC6dLK8sN_S8uRvCQ0wQ@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: don't store created planes,
+ connectors and encoders
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,153 +65,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When DSC is enabled, we need to configure DSI registers accordingly and
-configure the respective stream compression registers.
+On Wed, 6 Apr 2022 at 07:03, Stephen Boyd <swboyd@chromium.org> wrote:
+>
+> Quoting Dmitry Baryshkov (2022-04-05 16:50:59)
+> > diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> > index d661debb50f1..ee3093890d97 100644
+> > --- a/drivers/gpu/drm/msm/msm_drv.h
+> > +++ b/drivers/gpu/drm/msm/msm_drv.h
+> > @@ -184,23 +184,14 @@ struct msm_drm_private {
+> >
+> >         struct workqueue_struct *wq;
+> >
+> > -       unsigned int num_planes;
+> > -       struct drm_plane *planes[MAX_PLANES];
+>
+> Can we get rid of MAX_PLANES?
 
-Add support to calculate the register setting based on DSC params and
-timing information and configure these registers.
+Sure, I'll drop all these defines in v2.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
----
- drivers/gpu/drm/msm/dsi/dsi_host.c | 98 +++++++++++++++++++++++++++++-
- 1 file changed, 97 insertions(+), 1 deletion(-)
+>
+> > -
+> >         unsigned int num_crtcs;
+> >         struct drm_crtc *crtcs[MAX_CRTCS];
+> >
+> >         struct msm_drm_thread event_thread[MAX_CRTCS];
+> >
+> > -       unsigned int num_encoders;
+> > -       struct drm_encoder *encoders[MAX_ENCODERS];
+>
+> And MAX_ENCODERS?
+>
+> > -
+> >         unsigned int num_bridges;
+> >         struct drm_bridge *bridges[MAX_BRIDGES];
+> >
+> > -       unsigned int num_connectors;
+> > -       struct drm_connector *connectors[MAX_CONNECTORS];
+>
+> And MAX_CONNECTORS?
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index eb0be34add45..f3ed6c40b9e1 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -912,6 +912,65 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
- 		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
- }
- 
-+static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mode, u32 hdisplay)
-+{
-+	struct msm_display_dsc_config *dsc = msm_host->dsc;
-+	u32 reg, intf_width, reg_ctrl, reg_ctrl2;
-+	u32 slice_per_intf, total_bytes_per_intf;
-+	u32 pkt_per_line;
-+	u32 bytes_in_slice;
-+	u32 eol_byte_num;
-+
-+	/* first calculate dsc parameters and then program
-+	 * compress mode registers
-+	 */
-+	intf_width = hdisplay;
-+	slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
-+
-+	/* If slice_per_pkt is greater than slice_per_intf
-+	 * then default to 1. This can happen during partial
-+	 * update.
-+	 */
-+	if (slice_per_intf > dsc->drm->slice_count)
-+		dsc->drm->slice_count = 1;
-+
-+	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
-+	bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * dsc->drm->bits_per_pixel, 8);
-+
-+	dsc->drm->slice_chunk_size = bytes_in_slice;
-+
-+	total_bytes_per_intf = bytes_in_slice * slice_per_intf;
-+
-+	eol_byte_num = total_bytes_per_intf % 3;
-+	pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-+
-+	if (is_cmd_mode) /* packet data type */
-+		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
-+	else
-+		reg = DSI_VIDEO_COMPRESSION_MODE_CTRL_DATATYPE(MIPI_DSI_COMPRESSED_PIXEL_STREAM);
-+
-+	/* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
-+	 * registers have similar offsets, so for below common code use
-+	 * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
-+	 */
-+	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
-+	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
-+	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EN;
-+
-+	if (is_cmd_mode) {
-+		reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
-+		reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
-+
-+		reg_ctrl |= reg;
-+		reg_ctrl2 |= DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
-+
-+		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
-+		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
-+	} else {
-+		dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
-+	}
-+}
-+
- static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- {
- 	struct drm_display_mode *mode = msm_host->mode;
-@@ -944,7 +1003,38 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 		hdisplay /= 2;
- 	}
- 
-+	if (msm_host->dsc) {
-+		struct msm_display_dsc_config *dsc = msm_host->dsc;
-+
-+		/* update dsc params with timing params */
-+		if (!dsc || !mode->hdisplay || !mode->vdisplay) {
-+			pr_err("DSI: invalid input: pic_width: %d pic_height: %d\n",
-+			       mode->hdisplay, mode->vdisplay);
-+			return;
-+		}
-+
-+		dsc->drm->pic_width = mode->hdisplay;
-+		dsc->drm->pic_height = mode->vdisplay;
-+		DBG("Mode %dx%d\n", dsc->drm->pic_width, dsc->drm->pic_height);
-+
-+		/* we do the calculations for dsc parameters here so that
-+		 * panel can use these parameters
-+		 */
-+		dsi_populate_dsc_params(dsc);
-+
-+		/* Divide the display by 3 but keep back/font porch and
-+		 * pulse width same
-+		 */
-+		h_total -= hdisplay;
-+		hdisplay /= 3;
-+		h_total += hdisplay;
-+		ha_end = ha_start + hdisplay;
-+	}
-+
- 	if (msm_host->mode_flags & MIPI_DSI_MODE_VIDEO) {
-+		if (msm_host->dsc)
-+			dsi_update_dsc_timing(msm_host, false, mode->hdisplay);
-+
- 		dsi_write(msm_host, REG_DSI_ACTIVE_H,
- 			DSI_ACTIVE_H_START(ha_start) |
- 			DSI_ACTIVE_H_END(ha_end));
-@@ -963,8 +1053,14 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
- 			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
- 			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
- 	} else {		/* command mode */
-+		if (msm_host->dsc)
-+			dsi_update_dsc_timing(msm_host, true, mode->hdisplay);
-+
- 		/* image data and 1 byte write_memory_start cmd */
--		wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-+		if (!msm_host->dsc)
-+			wc = hdisplay * dsi_get_bpp(msm_host->format) / 8 + 1;
-+		else
-+			wc = mode->hdisplay / 2 + 1;
- 
- 		dsi_write(msm_host, REG_DSI_CMD_MDP_STREAM0_CTRL,
- 			DSI_CMD_MDP_STREAM0_CTRL_WORD_COUNT(wc) |
+
+
 -- 
-2.34.1
-
+With best wishes
+Dmitry
