@@ -2,61 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94D64F62AC
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 17:10:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590914F6418
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 18:06:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6225110E385;
-	Wed,  6 Apr 2022 15:10:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05CE110E421;
+	Wed,  6 Apr 2022 16:06:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0829C10E3FB
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 15:10:38 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- 88-20020a9d0ee1000000b005d0ae4e126fso1907928otj.5
- for <freedreno@lists.freedesktop.org>; Wed, 06 Apr 2022 08:10:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=EW64PsFO/oRdWsOjfEcx3qDN++rt+wfe2o19U6WLL8w=;
- b=OuP7pmKSNZDGrcIzCwJpg2/t9nw1/WFVenZlPZZPYYqR3ddx27AM1BdClVJBzRLnM/
- XzyRxX5oW18V+chqRFu7GaSf6OPLzLbij/YLJdjj44ZV17xQdIINEj7ednClXRZGPfWk
- yoK5NuZk4gawap5VuGW2wqbV+SL+0xGTL7UXY=
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52B9F10E40D;
+ Wed,  6 Apr 2022 16:06:34 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id h4so3905600wrc.13;
+ Wed, 06 Apr 2022 09:06:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=c6IFtJoccYowp2SPFkLYl7fBTN/gyRfnIU15c9wrgHI=;
+ b=grM1c17B0+b10VDghHxy8oPE55Scxin6NssMWayxOjNDQoqugsgbLfxFLwL8WGZxT0
+ nQKyhL51D6/3Zvs37Htp607mvGk3e4EqwSuojcAvtXGfITqyx2pbWetI2tPgjx2s3Nq0
+ L2AxpxCPyahMH9H19Uv9QemuQi7JT+OpwJvACkjwKZaJYDcWMCXBGPgqOFNldl6gFV2h
+ NOwQHgJoADY7iqKi4gUlYYFbMg9PhKfCY1KVaaQY+BogPv8zofz36D/LGuH9WsEmsXB0
+ 19rRpPGUf1LyuIz3lPAwY/Gkbs57SYBCjmbpWCdNYI5wl4JiwnUuUBFDXTLXx7sk7Xs4
+ DA4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=EW64PsFO/oRdWsOjfEcx3qDN++rt+wfe2o19U6WLL8w=;
- b=K2GPmirl0yP8vaiTXS7FC0GI+hr4Gza0NroqlpuJSH5AxIIHQJKtqHhOw6Id663TjL
- u5XHjWjVj718+8WK2LhSjeYzvHZT5NDHTRQznUZAx43N22sqg8TpDlf1SlVzBdIA2SDg
- NK6qQXyFAkV3f5oJmZwJzEsOnC2+fwVLEA650r3Q3hCcHusOPpQ16+XdN8EtgvtTIGyp
- Sb6/Ptv3RsEWskyY61XtfmbvU7OFo2ppLcKL6DL3OJdx8NPXmJlcX3Y80qtEix98/rL1
- TfATN7ukrl6lQgekSAYa7GzzH2dZ+7dJF54EDtB0Yf+6f2LvQB9MYNKSZ89gdlrduyRf
- Q3JQ==
-X-Gm-Message-State: AOAM5315jTxhEZtgM10Ev1lgjuhnx0+GW+CWQXDhm/iiPCpKjWSlfgFf
- fSl9dnpKOqjkMEcxqXE2Wxz9KHpURU8cHRx36Og20Q==
-X-Google-Smtp-Source: ABdhPJw6NpBjiEJqSqfKLXHGIB0nJEtoJYa4P3HUoNxUv5I2kNi8OGPCno72muKbEi3n2T76pqYyndvLaE5nenHEEhY=
-X-Received: by 2002:a9d:b85:0:b0:5cb:3eeb:d188 with SMTP id
- 5-20020a9d0b85000000b005cb3eebd188mr3145467oth.77.1649257835830; Wed, 06 Apr
- 2022 08:10:35 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 6 Apr 2022 08:10:35 -0700
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=c6IFtJoccYowp2SPFkLYl7fBTN/gyRfnIU15c9wrgHI=;
+ b=hDte1QvtN+Tj9X7ey3Knv0nnfvn89PybB16In+vfhzdDlLuhvtAJsl82J0qa2u0c0i
+ 4TXcmE4XUO7tpYXh7Si71U3uPTb56XbGhXUr+dn7NlC8UL2bCi9D9AJh/nRVBc8wzPvG
+ nIAcCH2QrsF2DkBNM5sahVY4rqdzqcJQFAASSSgm4PLQMf6qjhWZ3v01uYFGC1HA5lB5
+ dpkIu84tokUz4UohpCSBQuGmYOSdgBfb6GlhlTlIYEu5IWqjy6ky1dMj4m4SQzMMD2br
+ ToobkU9p6LCKoYBPyIAK8AJDHBxvtcSx8+jwWSlq/BlLhgPVroOCPfpUMfEYNAlMfUFr
+ UnBw==
+X-Gm-Message-State: AOAM533IZOzh+LyI5Opkf2X9SRGiDy/FqJADFVxynYfnY+8/SzjqHJB3
+ WgaaKZFdAv7fdJxZyDxOrGY1vdWXtMn+di/CIgA=
+X-Google-Smtp-Source: ABdhPJwtoCa6agm4ae7x3ltTqzFBJvsMB5pyzwvMFqAyEOix6fNa73x/0iOZLqFrV58zC6dyFRZPjkcrKrbc4E9GDio=
+X-Received: by 2002:a5d:6dad:0:b0:204:154d:c93d with SMTP id
+ u13-20020a5d6dad000000b00204154dc93dmr7070237wrs.574.1649261192659; Wed, 06
+ Apr 2022 09:06:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20220406101247.483649-4-dmitry.baryshkov@linaro.org>
-References: <20220406101247.483649-1-dmitry.baryshkov@linaro.org>
- <20220406101247.483649-4-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 6 Apr 2022 08:10:35 -0700
-Message-ID: <CAE-0n50FBpNy=Hmfz8+MKziPY=Z9079jFm-ZHrBD-hd_TMv37w@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+References: <5ab4f4574d7f3e042261da702d493ee40d003356.1649168268.git.robin.murphy@arm.com>
+In-Reply-To: <5ab4f4574d7f3e042261da702d493ee40d003356.1649168268.git.robin.murphy@arm.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 6 Apr 2022 09:07:26 -0700
+Message-ID: <CAF6AEGvgfqFrXHji6R1sTsxOFSdvA7HQSxa1QCXWVmEL1qcK9w@mail.gmail.com>
+To: Robin Murphy <robin.murphy@arm.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 3/3] drm/msm: don't store created planes,
- connectors and encoders
+Subject: Re: [Freedreno] [PATCH] drm/msm: Stop using iommu_present()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,17 +62,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-04-06 03:12:47)
-> There is no point now in storing arrays of creates planes, connectors
-> and encoders. Remove them from struct msm_drm_private.
+On Tue, Apr 5, 2022 at 7:17 AM Robin Murphy <robin.murphy@arm.com> wrote:
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> Even if some IOMMU has registered itself on the platform "bus", that
+> doesn't necessarily mean it provides translation for the device we
+> care about. Replace iommu_present() with a more appropriate check.
+>
+> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Rob Clark <robdclark@gmail.com>
+
+> ---
+>  drivers/gpu/drm/msm/msm_drv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index affa95eb05fc..9c36b505daab 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -274,7 +274,7 @@ bool msm_use_mmu(struct drm_device *dev)
+>         struct msm_drm_private *priv = dev->dev_private;
+>
+>         /* a2xx comes with its own MMU */
+> -       return priv->is_a2xx || iommu_present(&platform_bus_type);
+> +       return priv->is_a2xx || device_iommu_mapped(dev->dev);
+>  }
+>
+>  static int msm_init_vram(struct drm_device *dev)
+> --
+> 2.28.0.dirty
+>
