@@ -2,47 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF874F5690
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 08:44:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C0E94F5A1C
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 11:40:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 332B210F28B;
-	Wed,  6 Apr 2022 06:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A444510EC37;
+	Wed,  6 Apr 2022 09:40:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACF610F2BB;
- Wed,  6 Apr 2022 06:44:15 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD28C10EC37;
+ Wed,  6 Apr 2022 09:40:44 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 234F7B81BAD;
- Wed,  6 Apr 2022 06:44:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3BEC385A3;
- Wed,  6 Apr 2022 06:44:11 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 23BCBB821F8;
+ Wed,  6 Apr 2022 09:40:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420C5C385A3;
+ Wed,  6 Apr 2022 09:40:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1649227451;
- bh=BJfgiIoQUQYLiIMc6u/jkdzzSqCbxhlaeFQX+3zNbYg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HYjekCYckPQzlYNTIu2rKllAWs8+5lcZdBvpLZ9xI5S8TRTJdcr5ttJmpzrvgTHqq
- eBOI+yY11Z3TJfcpG2JyiFMML5RGLQZJsboe9I9cTJW2Ci/Keo8fzQZrlMX9+bPIxk
- AneKP08C/7KyS3208//LaXSwa3QQlgkeONwROWpgAiYNlAFxBuTIrw8A3WPWPvibxK
- HsSwUsWha+bf7a+9bZ0PSFRY3uXveqsQ8JsThOC8+cr4nY85wQurMMEQ5RP1cJlBgD
- 8RLXoGCs8CFKCBH9Jm/YxFpfluX7bvVavRQrfH460j6li/IMFTeYAGgBTxFJMxa/rE
- gvsdmmG1GQPOA==
-Date: Wed, 6 Apr 2022 12:14:07 +0530
+ s=k20201202; t=1649238041;
+ bh=LFn4Z3HJtRBtsjdig33zpL7sM5WeXwuOfvZWCki7ZKc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=sPeeV1K8kmQwqk2m5P4+Edcr+WImbyZwE5h/m079H9QkDrG6cWX1Q3VaSyFQWGwY+
+ dhCikRrG45VGXuggy5iOD+HqWMWk5Y6d5ghz7XuIWmThZuyA9i9fRP4gKCalK6bJLC
+ K49XlpO9ccjrNciVm7PMpWAFurimkdh9i5ONxnC3+Es5di1a/FqL/tR97/IOegSa7t
+ bdzgf4DB6+ClwxOlxo2jj/FnpKjWs7mi0r/QJXm/aWyvphk+pGnFsfSS71FmAZuDMl
+ cyT/OXHQB+SNYprnoc4Fnn/68i7JKaVsfK0NUmLuQ8Xq925FfFm2MZr23+Heuz3iWs
+ HxayYCOOL2G/g==
 From: Vinod Koul <vkoul@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Yk02t+sZS0I7heY3@matsya>
-References: <20220404163436.956875-1-vkoul@kernel.org>
- <20220404163436.956875-15-vkoul@kernel.org>
- <f5fc9704-5c22-8c95-b6d6-e2c20145672c@linaro.org>
+To: Rob Clark <robdclark@gmail.com>
+Date: Wed,  6 Apr 2022 15:10:17 +0530
+Message-Id: <20220406094031.1027376-1-vkoul@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f5fc9704-5c22-8c95-b6d6-e2c20145672c@linaro.org>
-Subject: Re: [Freedreno] [PATCH v6 14/14] drm/msm/dsi: Add support for DSC
- configuration
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v7 00/14] drm/msm: Add Display Stream
+ Compression Support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,92 +53,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06-04-22, 02:42, Dmitry Baryshkov wrote:
-> On 04/04/2022 19:34, Vinod Koul wrote:
-> > When DSC is enabled, we need to configure DSI registers accordingly and
-> > configure the respective stream compression registers.
-> > 
-> > Add support to calculate the register setting based on DSC params and
-> > timing information and configure these registers.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> > ---
-> >   drivers/gpu/drm/msm/dsi/dsi_host.c | 98 +++++++++++++++++++++++++++++-
-> >   1 file changed, 97 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > index eb0be34add45..f3ed6c40b9e1 100644
-> > --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> > @@ -912,6 +912,65 @@ static void dsi_ctrl_config(struct msm_dsi_host *msm_host, bool enable,
-> >   		dsi_write(msm_host, REG_DSI_CPHY_MODE_CTRL, BIT(0));
-> >   }
-> > +static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mode, u32 hdisplay)
-> > +{
-> > +	struct msm_display_dsc_config *dsc = msm_host->dsc;
-> > +	u32 reg, intf_width, reg_ctrl, reg_ctrl2;
-> > +	u32 slice_per_intf, total_bytes_per_intf;
-> > +	u32 pkt_per_line;
-> > +	u32 bytes_in_slice;
-> > +	u32 eol_byte_num;
-> > +
-> > +	/* first calculate dsc parameters and then program
-> > +	 * compress mode registers
-> > +	 */
-> > +	intf_width = hdisplay;
-> > +	slice_per_intf = DIV_ROUND_UP(intf_width, dsc->drm->slice_width);
-> > +
-> > +	/* If slice_per_pkt is greater than slice_per_intf
-> > +	 * then default to 1. This can happen during partial
-> > +	 * update.
-> > +	 */
-> > +	if (slice_per_intf > dsc->drm->slice_count)
-> > +		dsc->drm->slice_count = 1;
-> > +
-> > +	slice_per_intf = DIV_ROUND_UP(hdisplay, dsc->drm->slice_width);
-> > +	bytes_in_slice = DIV_ROUND_UP(dsc->drm->slice_width * dsc->drm->bits_per_pixel, 8);
-> > +
-> > +	dsc->drm->slice_chunk_size = bytes_in_slice;
-> > +
-> > +	total_bytes_per_intf = bytes_in_slice * slice_per_intf;
-> > +
-> > +	eol_byte_num = total_bytes_per_intf % 3;
-> > +	pkt_per_line = slice_per_intf / dsc->drm->slice_count;
-> > +
-> > +	if (is_cmd_mode) /* packet data type */
-> > +		reg = DSI_COMMAND_COMPRESSION_MODE_CTRL_STREAM0_DATATYPE(MIPI_DSI_DCS_LONG_WRITE);
-> > +	else
-> > +		reg = DSI_VIDEO_COMPRESSION_MODE_CTRL_DATATYPE(MIPI_DSI_COMPRESSED_PIXEL_STREAM);
-> > +
-> > +	/* DSI_VIDEO_COMPRESSION_MODE & DSI_COMMAND_COMPRESSION_MODE
-> > +	 * registers have similar offsets, so for below common code use
-> > +	 * DSI_VIDEO_COMPRESSION_MODE_XXXX for setting bits
-> > +	 */
-> > +	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_PKT_PER_LINE(pkt_per_line >> 1);
-> > +	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EOL_BYTE_NUM(eol_byte_num);
-> > +	reg |= DSI_VIDEO_COMPRESSION_MODE_CTRL_EN;
-> > +
-> > +	if (is_cmd_mode) {
-> > +		reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
-> > +		reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
-> > +
-> > +		reg_ctrl |= reg;
-> > +		reg_ctrl2 |= DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
-> > +
-> > +		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
-> 
-> reg_ctrl, as reported by testing robot
+Display Stream Compression (DSC) compresses the display stream in host which
+is later decoded by panel. This series enables this for Qualcomm msm driver.
+This was tested on Google Pixel3 phone which use LGE SW43408 panel.
+ 
+The changes include DSC data and hardware block enabling for DPU1 then
+support in encoder. We also add support in DSI and introduce required
+topology changes.
+ 
+In order for panel to set the DSC parameters we add dsc in drm_panel and
+pass the dsc configuration from the panel driver
 
-Yes, I did run W=1 check for the patches, with gcc I do not see this
-warning :(
+Complete changes which enable this for Pixel3 along with panel driver (not
+part of this series) and DT changes can be found at:
+git.linaro.org/people/vinod.koul/kernel.git pixel/dsc_v7
+ 
+Comments welcome!
 
-I have fixed and will send updated revision shortly
+Changes since v6:
+ - Fix warning reported by kbuild bot
+ - Add r-b by Dmitry
+
+Changes since v5:
+ - rebase on msm-next
+ - use generated header patch from mesa for dsc registers
+ - use generated header macros for dsc register calculation
+ - remove msm dsc struct (Dmitry)
+
+Changes since v4:
+ - Use new apprach based on Abhinav suggestion for dsc with 3d-merge
+ - Make common function for dsc timing caln and call that from video and cmd
+   mode
+ - update description for patch "Pass DSC params to drm_panel"
+ - update couple of typos as pointed by Marijn
+ - drop dpu_encoder_dsc_pclk_param_calc() as that was duplicating the caln
+   done in dsi timing
+ - Update copyright to 2022 to new files
+ - Update Abhinav's email to new quic one
+
+Changes since v3:
+ - Merge changes from Dmitry to have dsc per encoder instance
+ - add warning for dsc and mode3d enabled together
+ - set dsc in dpu_encoder_phys_vid as well
+ - remove dsc hardcoded mask
+ - use devm_kzalloc for memory allocation for dsc
+
+Changes since v2:
+ - Fix comments by Dimitry except the dsc being global.
+ - Move RM patch later for dependency on topology now
+ - Add patch for mode valid callback for dsi_mgr
+ - Add missing structure documentation patch
+ - Fix errors in mode_3d changes
+ - Rebase on v5.16-rc1 and test
+
+Changes since v1:
+ - Fix various issues spotted by kbuildbot
+ - Rebase to v5.15-rc3
+ - Remove unused fields and duplicate defines
+ - Enable DSC blocks only when DSC is enabled
+ - remove sdm845 feature mask, use 0
+ - Check for DSC in hw_ctl
+
+Changes since RFC:
+ - Drop the DT binding patch as we derive the configuration from panel
+ - Drop the drm api patch as we no longer need it (use pps drm api)
+ - Fix comments raised by Dimitry
+ - Add dsc parameters calculation from downstream
+
+Dmitry Baryshkov (1):
+  drm/msm/dpu: don't use merge_3d if DSC merge topology is used
+
+Vinod Koul (13):
+  drm/msm/dsi: add support for dsc data
+  drm/msm/dsi: Pass DSC params to drm_panel
+  drm/msm/disp/dpu1: Add support for DSC
+  drm/msm/disp/dpu1: Add support for DSC in pingpong block
+  drm/msm/disp/dpu1: Add DSC for SDM845 to hw_catalog
+  drm/msm/disp/dpu1: Add DSC support in hw_ctl
+  drm/msm/disp/dpu1: Add support for DSC in encoder
+  drm/msm: Add missing num_dspp field documentation
+  drm/msm/disp/dpu1: Add support for DSC in topology
+  drm/msm/disp/dpu1: Add DSC support in RM
+  drm/msm/dsi: add mode valid callback for dsi_mgr
+  drm/msm: Update generated headers
+  drm/msm/dsi: Add support for DSC configuration
+
+ drivers/gpu/drm/msm/Makefile                  |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   | 157 +++++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h   |   8 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h  |  12 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    |  20 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  13 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |  11 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h    |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    | 215 ++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |  80 +++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h   |  13 +
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |  32 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h   |  14 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |  56 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   1 +
+ drivers/gpu/drm/msm/dsi/dsi.c                 |   5 +
+ drivers/gpu/drm/msm/dsi/dsi.h                 |   3 +
+ drivers/gpu/drm/msm/dsi/dsi.xml.h             |  80 +++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 276 +++++++++++++++++-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c         |  12 +
+ drivers/gpu/drm/msm/msm_drv.h                 |  15 +
+ include/drm/drm_panel.h                       |   7 +
+ 24 files changed, 1032 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
 
 -- 
-~Vinod
+2.34.1
+
