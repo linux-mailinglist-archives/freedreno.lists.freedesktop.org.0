@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 590914F6418
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 18:06:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078214F64CB
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 18:23:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05CE110E421;
-	Wed,  6 Apr 2022 16:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5390110E2C9;
+	Wed,  6 Apr 2022 16:23:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52B9F10E40D;
- Wed,  6 Apr 2022 16:06:34 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id h4so3905600wrc.13;
- Wed, 06 Apr 2022 09:06:34 -0700 (PDT)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B198110E070;
+ Wed,  6 Apr 2022 16:23:29 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id q19so4023568wrc.6;
+ Wed, 06 Apr 2022 09:23:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=c6IFtJoccYowp2SPFkLYl7fBTN/gyRfnIU15c9wrgHI=;
- b=grM1c17B0+b10VDghHxy8oPE55Scxin6NssMWayxOjNDQoqugsgbLfxFLwL8WGZxT0
- nQKyhL51D6/3Zvs37Htp607mvGk3e4EqwSuojcAvtXGfITqyx2pbWetI2tPgjx2s3Nq0
- L2AxpxCPyahMH9H19Uv9QemuQi7JT+OpwJvACkjwKZaJYDcWMCXBGPgqOFNldl6gFV2h
- NOwQHgJoADY7iqKi4gUlYYFbMg9PhKfCY1KVaaQY+BogPv8zofz36D/LGuH9WsEmsXB0
- 19rRpPGUf1LyuIz3lPAwY/Gkbs57SYBCjmbpWCdNYI5wl4JiwnUuUBFDXTLXx7sk7Xs4
- DA4w==
+ :cc; bh=J9a2BqBVokvTsgXQbtymYfO3sWscM/hLjb0STJ5+gfo=;
+ b=ZLBha3ufL0jqhFoZzUzSgpHsnHd6DM/HSKIHl7RHPuuFY1C1cWUqC0PfmMqS7DfunJ
+ Dky80ByJLgonPzNihsl2DXLyMlG2HbrxCQsQtCbp92JDX62+0uWXZ/XEN2OUXX5L8okT
+ l+3ZdiwM34ISMZtglwh0Nr/0cU6YMcyjlAOt1fK307cGVY5BMZwtRE/R3iw6kGLLhlYm
+ qSxsiaAwSPmtRYrHmrhSi3H7OUENgEptGKC9vdm2kyX8NrGkbQIIS+4IwvDduTDGpdoQ
+ DigItKzsvp5rE9c8Y9TXEe0Y/CHcbfPrSzNP3deLbKRmbTIW88KJDJJTXX10Ss517V8d
+ iw+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=c6IFtJoccYowp2SPFkLYl7fBTN/gyRfnIU15c9wrgHI=;
- b=hDte1QvtN+Tj9X7ey3Knv0nnfvn89PybB16In+vfhzdDlLuhvtAJsl82J0qa2u0c0i
- 4TXcmE4XUO7tpYXh7Si71U3uPTb56XbGhXUr+dn7NlC8UL2bCi9D9AJh/nRVBc8wzPvG
- nIAcCH2QrsF2DkBNM5sahVY4rqdzqcJQFAASSSgm4PLQMf6qjhWZ3v01uYFGC1HA5lB5
- dpkIu84tokUz4UohpCSBQuGmYOSdgBfb6GlhlTlIYEu5IWqjy6ky1dMj4m4SQzMMD2br
- ToobkU9p6LCKoYBPyIAK8AJDHBxvtcSx8+jwWSlq/BlLhgPVroOCPfpUMfEYNAlMfUFr
- UnBw==
-X-Gm-Message-State: AOAM533IZOzh+LyI5Opkf2X9SRGiDy/FqJADFVxynYfnY+8/SzjqHJB3
- WgaaKZFdAv7fdJxZyDxOrGY1vdWXtMn+di/CIgA=
-X-Google-Smtp-Source: ABdhPJwtoCa6agm4ae7x3ltTqzFBJvsMB5pyzwvMFqAyEOix6fNa73x/0iOZLqFrV58zC6dyFRZPjkcrKrbc4E9GDio=
-X-Received: by 2002:a5d:6dad:0:b0:204:154d:c93d with SMTP id
- u13-20020a5d6dad000000b00204154dc93dmr7070237wrs.574.1649261192659; Wed, 06
- Apr 2022 09:06:32 -0700 (PDT)
+ bh=J9a2BqBVokvTsgXQbtymYfO3sWscM/hLjb0STJ5+gfo=;
+ b=YfGExkj1wR+QFfL0KKn2e7mLXLfm/WxAD2yo1lh4PLIFeDj50g/u+ZcPnzNUveWoiL
+ iHKGo8efEL4DE+UfZh5FNgDFeLUddsLFqB/IaaqVydPkBRtZc99ABhg550Q9PiBjpSEg
+ GsruKXKTQD7ZqrRF6v9yzgTJDG3qOCAw1VKGj5j66tQtqvahBgxSHpYeg4BUW3jXLdmv
+ Ys9kpJAVN6WXmn4PSPAHytFaZ+mn5ZFZT7P3vMz59H/erRXyIR1Ef6qQ/vks0nUb31yz
+ /QNoz/+rTEqCbKVj76laRw7TMp12R1iClASdR673nLaTHealYrr1iIBk+82CVi+nArcs
+ Bfhg==
+X-Gm-Message-State: AOAM530V4a6AdTlxfAVfPoYdBR+8TXjxCfw9nwAcqVC0bib9xGpZjInr
+ xp5Npz0Ol0RthXSL35l5whVNh4ronnrMiKZGN2A=
+X-Google-Smtp-Source: ABdhPJxXoRbU0Fimgs0YJrKVL8vfK3EP/15SjU89Ap7jwE5IFgghAQow9fzCF+kzSvUWRMEQeGazbnjQquNqIPBJoxo=
+X-Received: by 2002:adf:9111:0:b0:206:c9b:ce0d with SMTP id
+ j17-20020adf9111000000b002060c9bce0dmr7345582wrj.418.1649262207917; Wed, 06
+ Apr 2022 09:23:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <5ab4f4574d7f3e042261da702d493ee40d003356.1649168268.git.robin.murphy@arm.com>
-In-Reply-To: <5ab4f4574d7f3e042261da702d493ee40d003356.1649168268.git.robin.murphy@arm.com>
+References: <tencent_F71D40EE9851737338A6289EC3A3942EFE09@qq.com>
+In-Reply-To: <tencent_F71D40EE9851737338A6289EC3A3942EFE09@qq.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 6 Apr 2022 09:07:26 -0700
-Message-ID: <CAF6AEGvgfqFrXHji6R1sTsxOFSdvA7HQSxa1QCXWVmEL1qcK9w@mail.gmail.com>
-To: Robin Murphy <robin.murphy@arm.com>
+Date: Wed, 6 Apr 2022 09:24:22 -0700
+Message-ID: <CAF6AEGu+Sg79Sn=t=-3b9ZbDanN7KeSzUX+-rchd8SY+b+sUsg@mail.gmail.com>
+To: xkernel.wang@foxmail.com
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Stop using iommu_present()
+Subject: Re: [Freedreno] [PATCH] drm/msm/mdp5: check the return of kzalloc()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,41 +62,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 5, 2022 at 7:17 AM Robin Murphy <robin.murphy@arm.com> wrote:
+On Thu, Mar 24, 2022 at 1:37 AM <xkernel.wang@foxmail.com> wrote:
 >
-> Even if some IOMMU has registered itself on the platform "bus", that
-> doesn't necessarily mean it provides translation for the device we
-> care about. Replace iommu_present() with a more appropriate check.
+> From: Xiaoke Wang <xkernel.wang@foxmail.com>
 >
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-
+> kzalloc() is a memory allocation function which can return NULL when
+> some internal memory errors happen. So it is better to check it to
+> prevent potential wrong memory access.
+>
+> Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
 > ---
->  drivers/gpu/drm/msm/msm_drv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 17 ++++++++++-------
+>  1 file changed, 10 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index affa95eb05fc..9c36b505daab 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -274,7 +274,7 @@ bool msm_use_mmu(struct drm_device *dev)
->         struct msm_drm_private *priv = dev->dev_private;
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> index c6b69af..5f914cc 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+> @@ -90,15 +90,18 @@ static void mdp5_plane_reset(struct drm_plane *plane)
+>                 __drm_atomic_helper_plane_destroy_state(plane->state);
 >
->         /* a2xx comes with its own MMU */
-> -       return priv->is_a2xx || iommu_present(&platform_bus_type);
-> +       return priv->is_a2xx || device_iommu_mapped(dev->dev);
+>         kfree(to_mdp5_plane_state(plane->state));
+> -       mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
+> +       plane->state = NULL;
+
+At this point, you could just:
+
+    if (!mdp5_state)
+       return;
+
+BR,
+-R
+
+>
+> -       if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+> -               mdp5_state->base.zpos = STAGE_BASE;
+> -       else
+> -               mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
+> -       mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
+> +       mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
+> +       if (mdp5_state) {
+> +               if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+> +                       mdp5_state->base.zpos = STAGE_BASE;
+> +               else
+> +                       mdp5_state->base.zpos = STAGE0 + drm_plane_index(plane);
+> +               mdp5_state->base.normalized_zpos = mdp5_state->base.zpos;
+>
+> -       __drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
+> +               __drm_atomic_helper_plane_reset(plane, &mdp5_state->base);
+> +       }
 >  }
 >
->  static int msm_init_vram(struct drm_device *dev)
+>  static struct drm_plane_state *
 > --
-> 2.28.0.dirty
->
