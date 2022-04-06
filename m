@@ -1,37 +1,64 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63504F6235
-	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 16:55:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD524F62A6
+	for <lists+freedreno@lfdr.de>; Wed,  6 Apr 2022 17:09:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0683510E3C4;
-	Wed,  6 Apr 2022 14:55:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4129510E178;
+	Wed,  6 Apr 2022 15:09:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 003A910E3C4
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 14:55:29 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAD7412FC
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 07:55:29 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 736933F73B
- for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 07:55:29 -0700 (PDT)
-Date: Wed, 6 Apr 2022 15:55:26 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <Yk2p3q5EWd4P9u83@e110455-lin.cambridge.arm.com>
-References: <1648771933-18512-1-git-send-email-quic_abhinavk@quicinc.com>
- <1648771933-18512-3-git-send-email-quic_abhinavk@quicinc.com>
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DDB910E178
+ for <freedreno@lists.freedesktop.org>; Wed,  6 Apr 2022 15:09:16 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ y3-20020a056830070300b005cd9c4d03feso1912294ots.3
+ for <freedreno@lists.freedesktop.org>; Wed, 06 Apr 2022 08:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=n0YAsSJflCGF17Y0CR0O5w5xtp+VT/eBUOzd06C/67A=;
+ b=nt6HFrO6S4nJO5qShNjR/7i7MnFB2r+0qZ7G8mTuqwFw7QqpnlX7iOCRWBtKU9dmWN
+ 02o4oH2sKqTiuuOMFcHpXVZpAHLAYJB0cPL+gY9LCvFyYHfatrW/QowE2xVkXKDcFh6N
+ PcDJys37DNbIh1Ivdt8hT6c7TqNwvLPrVRfrg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=n0YAsSJflCGF17Y0CR0O5w5xtp+VT/eBUOzd06C/67A=;
+ b=OE0AbLKVK8ArXbiQF1OG+B2LmcjPGvN6Btc2tOyUBxZ+zTcoydYY/npRh8VC+zPRSh
+ Wd12wIxssSiP1zHAJwOgLdTBwYbsYA/wU0ZiQE1Ky7zaCk6Cl4wNKi0JVFOnRBgTiHeC
+ NYWagBK7h9ODgp4Yv5JHQUb/eXL5l0BK2kpG7ulYvnqhD52nW8j4lA1rCQLYwvUVvElw
+ QPMJ4WskC0taUJNTTTrjOV7WJPlRCVXG3HDy5RJV6rxB8tkHZhJhLaNr8sgYAlasoahS
+ sQh6b22OETsTT/7mtfEUSPfxgeSgkMG1+9nz438t9FAb69p7yTJOpKQKzibB5h5lkxXg
+ XGcg==
+X-Gm-Message-State: AOAM530CH6+oSxypuO4o3pPJG9n8tFaLBASNuZJhKQQrjBC/opQ0WFgB
+ vaHqT937MG529kstg76a4Y4AY0bWjuRZkc4ZLH2AJA==
+X-Google-Smtp-Source: ABdhPJwY2K8gzH413UXm6KXC3GBFZaVngaMQK8CtDE8wz/y+//wltFYxSuFffZiD4gecnGqEKCSEQx3687G9pOM0Q30=
+X-Received: by 2002:a9d:b85:0:b0:5cb:3eeb:d188 with SMTP id
+ 5-20020a9d0b85000000b005cb3eebd188mr3142392oth.77.1649257755820; Wed, 06 Apr
+ 2022 08:09:15 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 6 Apr 2022 08:09:15 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1648771933-18512-3-git-send-email-quic_abhinavk@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v6 2/4] drm: introduce
- drm_writeback_connector_init_with_encoder() API
+In-Reply-To: <9868aa33-c423-5338-6205-ec61c18c67c1@linaro.org>
+References: <20220405234551.359453-1-dmitry.baryshkov@linaro.org>
+ <20220405234551.359453-2-dmitry.baryshkov@linaro.org>
+ <CAE-0n53p7MsvwzqzzyHdRzX2XV9_Lv7poTuZMQowha0=f=QZSA@mail.gmail.com>
+ <9868aa33-c423-5338-6205-ec61c18c67c1@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 6 Apr 2022 08:09:15 -0700
+Message-ID: <CAE-0n519eqMMzv0HXmnYob4RUtdmMbdTn=T5EPc5pDQHNHcGsA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/4] drm/msm/hdmi: properly add and remove
+ created bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,193 +71,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: mripard@kernel.org, hamohammed.sa@gmail.com, suraj.kandpal@intel.com,
- emma@anholt.net, rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, melissa.srw@gmail.com,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
- quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
- freedreno@lists.freedesktop.org, brian.starkey@arm.com
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Abhinav,
+Quoting Dmitry Baryshkov (2022-04-06 03:21:25)
+> On 06/04/2022 05:51, Stephen Boyd wrote:
+> >
+> > Is there any Fixes tag for this? Still seems worthwhile to have one even
+> > if this is a lockdep warning.
+> I thought about this before sending v1, but ended up not doing so. Each
+> of these changes is not atomic. A call to drm_bridge_add() without final
+> drm_bridge_remove() in the core msm code would leave dangling pointers
+> in the drm core. A drm_bridge_remove() is not sensible without
+> converting _all_ users.
+>
+> So there are two alternatives:
+> - leave this patch series as is w/o a Fixes tag
+> - squash four patches into a single patch and add 'Fixes: a3376e3ec81c
+> ("drm/msm: convert to drm_bridge")' tag
+>
 
-On Thu, Mar 31, 2022 at 05:12:11PM -0700, Abhinav Kumar wrote:
-> For vendors drivers which pass an already allocated and
-> initialized encoder especially for cases where the encoder
-> hardware is shared OR the writeback encoder shares the resources
-> with the rest of the display pipeline introduce a new API,
-> drm_writeback_connector_init_with_encoder() which expects
-> an initialized encoder as a parameter and only sets up the
-> writeback connector.
-> 
-> changes in v6:
-> 	- remove drm_writeback_connector_setup() and instead
-> 	  directly call drm_writeback_connector_init_with_encoder()
-> 	- fix a drm_writeback_connector typo and function doc which
-> 	  incorrectly shows that the function accepts enc_helper_funcs
-> 	- pass encoder as a parameter explicitly to the new API
-> 	  for better readability
-
-Side comment: if you plan to have the log of changes in the commit message then I
-would keep a list of all the changes. Otherwise, putting the log after the -- line
-below would still convey the information but will also ensure that when merged it
-will not show up in the commit message.
-
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/drm_writeback.c | 72 +++++++++++++++++++++++++++++++++--------
->  include/drm/drm_writeback.h     |  6 ++++
->  2 files changed, 64 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index dc2ef12..797223c 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -177,6 +177,62 @@ int drm_writeback_connector_init(struct drm_device *dev,
->  				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
->  				 const u32 *formats, int n_formats, uint32_t possible_crtcs)
->  {
-> +	int ret = 0;
-> +
-> +	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-> +
-> +	wb_connector->encoder.possible_crtcs = possible_crtcs;
-> +
-> +	ret = drm_encoder_init(dev, &wb_connector->encoder,
-> +			       &drm_writeback_encoder_funcs,
-> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = drm_writeback_connector_init_with_encoder(dev, wb_connector, &wb_connector->encoder,
-> +			con_funcs, formats, n_formats);
-> +
-> +	if (ret)
-> +		drm_encoder_cleanup(&wb_connector->encoder);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL(drm_writeback_connector_init);
-> +
-> +/**
-> + * drm_writeback_connector_init_with_encoder - Initialize a writeback connector and its properties
-> + * using the encoder which already assigned and initialized
-> + *
-> + * @dev: DRM device
-> + * @wb_connector: Writeback connector to initialize
-> + * @enc: handle to the already initialized drm encoder
-> + * @con_funcs: Connector funcs vtable
-> + * @formats: Array of supported pixel formats for the writeback engine
-> + * @n_formats: Length of the formats array
-> + *
-> + * This function creates the writeback-connector-specific properties if they
-> + * have not been already created, initializes the connector as
-> + * type DRM_MODE_CONNECTOR_WRITEBACK, and correctly initializes the property
-> + * values.
-> + *
-> + * This function assumes that the drm_writeback_connector's encoder has already been
-> + * created and initialized before invoking this function.
-> + *
-> + * In addition, this function also assumes that callers of this API will manage
-> + * assigning the encoder helper functions, possible_crtcs and any other encoder
-> + * specific operation which is otherwise handled by drm_writeback_connector_init().
-
-I would stop after "... specific operation".
-
-Otherwise, looks good to me.
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
-
-> + *
-> + * Drivers should always use this function instead of drm_connector_init() to
-> + * set up writeback connectors if they want to manage themselves the lifetime of the
-> + * associated encoder.
-> + *
-> + * Returns: 0 on success, or a negative error code
-> + */
-> +int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> +		struct drm_writeback_connector *wb_connector, struct drm_encoder *enc,
-> +		const struct drm_connector_funcs *con_funcs, const u32 *formats,
-> +		int n_formats)
-> +{
->  	struct drm_property_blob *blob;
->  	struct drm_connector *connector = &wb_connector->base;
->  	struct drm_mode_config *config = &dev->mode_config;
-> @@ -190,15 +246,6 @@ int drm_writeback_connector_init(struct drm_device *dev,
->  	if (IS_ERR(blob))
->  		return PTR_ERR(blob);
->  
-> -	drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-> -
-> -	wb_connector->encoder.possible_crtcs = possible_crtcs;
-> -
-> -	ret = drm_encoder_init(dev, &wb_connector->encoder,
-> -			       &drm_writeback_encoder_funcs,
-> -			       DRM_MODE_ENCODER_VIRTUAL, NULL);
-> -	if (ret)
-> -		goto fail;
->  
->  	connector->interlace_allowed = 0;
->  
-> @@ -207,8 +254,7 @@ int drm_writeback_connector_init(struct drm_device *dev,
->  	if (ret)
->  		goto connector_fail;
->  
-> -	ret = drm_connector_attach_encoder(connector,
-> -						&wb_connector->encoder);
-> +	ret = drm_connector_attach_encoder(connector, enc);
->  	if (ret)
->  		goto attach_fail;
->  
-> @@ -237,12 +283,10 @@ int drm_writeback_connector_init(struct drm_device *dev,
->  attach_fail:
->  	drm_connector_cleanup(connector);
->  connector_fail:
-> -	drm_encoder_cleanup(&wb_connector->encoder);
-> -fail:
->  	drm_property_blob_put(blob);
->  	return ret;
->  }
-> -EXPORT_SYMBOL(drm_writeback_connector_init);
-> +EXPORT_SYMBOL(drm_writeback_connector_init_with_encoder);
->  
->  int drm_writeback_set_fb(struct drm_connector_state *conn_state,
->  			 struct drm_framebuffer *fb)
-> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> index db6214f..4795024 100644
-> --- a/include/drm/drm_writeback.h
-> +++ b/include/drm/drm_writeback.h
-> @@ -152,6 +152,12 @@ int drm_writeback_connector_init(struct drm_device *dev,
->  				 const struct drm_encoder_helper_funcs *enc_helper_funcs,
->  				 const u32 *formats, int n_formats, uint32_t possible_crtcs);
->  
-> +int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> +				struct drm_writeback_connector *wb_connector,
-> +				struct drm_encoder *enc,
-> +				const struct drm_connector_funcs *con_funcs, const u32 *formats,
-> +				int n_formats);
-> +
->  int drm_writeback_set_fb(struct drm_connector_state *conn_state,
->  			 struct drm_framebuffer *fb);
->  
-> -- 
-> 2.7.4
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+The atomic change. That's because bisection could trip over these
+patches and then break because it picked the middle of the patch series.
+One atomic commit fixes that.
