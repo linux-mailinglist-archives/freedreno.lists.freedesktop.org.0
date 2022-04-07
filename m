@@ -2,51 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2A7D4F7219
-	for <lists+freedreno@lfdr.de>; Thu,  7 Apr 2022 04:32:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C328A4F7C3C
+	for <lists+freedreno@lfdr.de>; Thu,  7 Apr 2022 11:58:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0828D10E6AE;
-	Thu,  7 Apr 2022 02:32:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8822E10E25A;
+	Thu,  7 Apr 2022 09:58:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
- [203.205.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D3810E6AB;
- Thu,  7 Apr 2022 02:32:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1649298732;
- bh=EE9E+vmbSiL+K//wojxGVNYmWUWjLLsXN8IgKVrebUk=;
- h=From:To:Cc:Subject:Date;
- b=OuIOFMkE2v14WJyUFfOxHhhyUSUTW43Xd3Fc/l2f5UWAp5iPiOyhIGkagdFIm6eog
- vWBnjRekeNrD5l7haTJXWUhIjbrSYiJyGGP2p60qHQUx+nefu41Zyyza63NsTggb+q
- 7p+yAsUaw14U/Zj1U4OVA1HhI/aSdlfJEqIlr1nY=
-Received: from localhost.localdomain ([43.227.138.48])
- by newxmesmtplogicsvrszb6.qq.com (NewEsmtp) with SMTP
- id 8082725D; Thu, 07 Apr 2022 10:32:08 +0800
-X-QQ-mid: xmsmtpt1649298728tccwz3535
-Message-ID: <tencent_8E2A1C78140EE1784AB2FF4B2088CC0AB908@qq.com>
-X-QQ-XMAILINFO: NSMIDlHhjvLjbXcmEjGjYtMMB+VxtOCuqM52WBMXPTZa5F9/hJEebwSU+dSyh+
- 7DH+K4JCzvWDAE2eWZm4BoFyPznmN7xhHELxv+2zcDNzm5tG/NvjSbBPXMoIRXICEgy7IPe3Mkbg
- 2YvBRmYADVDi2NnIBnTxVNEVk0s6jPXhUDMnnwPwS8tGvymQkEHYOyVVwabh8PHONsCr8UxennEI
- 2rczCZMJhDKnn1SsowQH20yEc8UvqiCnyEPR1UvJKVeCh1B/XWoyx98Dxa8i9K3c+nkhrHFQmfiJ
- EefFHV4HCPA2Jdvgh++/jgIZRWJy9qQn/3wVevqYub1ZqJfFY7/owJzgDnQqNqIsrR4cdHzp9oA/
- VGn59ERTFRjezkhVk2qVVfky8SkvymTT18b08Ltmy+Mg/KLztiv4FVXL6f0mW6Q7LXoqJpu4pRmj
- f8JcbGA+cZGAkznfpPo7FVbfpTLXnOgj7z7VlR0ZwRuHxaeTiDPQioe5BbZK1yivn0HtM5IvSFHo
- EmlrIe9r4UAScMtBOqJjAXaKC2vtaS2K2qFf6DQizXTeOjNIk2r1mpbNK+wCPXsOy2WRT7NlHjZ1
- boNu7eNzS84EfqN/NU9Uiujal69kaQ8wS767eTRNkOqIj6JAeU0HhJAxS0gf87joAL9bCyyLncSq
- Xuutjrjh9Q+FlJ7LwIZIu0ZB29VTnnBwVcEL8I3elo1lQ/454vlId/Ht8P3pUka77/zJrWcyu34z
- d1fMesTcUmBq6Woqwe96DhUcbdUktUtUupCNLVP+rXQ5ZOCj+1wWRU+00Mqz/Yp95ezOHsrUM5ZJ
- g+A4q2PCokVhj8QtZoPOJ/B78AeGQXPY5AaL9tfYm/5BwLdyp/NYvLJUlrWNUD5lctGJSMCbVGm1
- npco49BZrkNCXZjLY9ZUJXOonZOP6rux1flXJ/f5YPvHFEGCFrBRA/PO2Y1FjfK2Q9mRMlvQUh6m
- VpUX3Nun3qh06suqvJlQ==
-From: xkernel.wang@foxmail.com
-To: robdclark@gmail.com,
-	quic_abhinavk@quicinc.com
-Date: Thu,  7 Apr 2022 10:31:51 +0800
-X-OQ-MSGID: <20220407023151.13663-1-xkernel.wang@foxmail.com>
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB3D710E1DE;
+ Thu,  7 Apr 2022 09:58:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 18CC71F45CC6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1649325506;
+ bh=4JhwlWRjO0CnzyWEzVO1sVOFEnHl7+kZT9rj4eGLerw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=bNraVnOH9Rg8cMTjWdgj0JSpgVHxQRUECNA+C7JwxDOZVVd0Rs+ZVbOD6eCeaEUK4
+ amfTO9YV0GuLdFz5iQU1LRj6lTD/kORLNt0j/xbgUUK+DAYcw1UeWYIEwFFurSEVhO
+ j1i1gLkCk2q2rA1sQUjmeR3ODlI9uncSekbN41AqAnmfqfVFbolxRbb0H47irTI3wc
+ XdQzJ0Srp5LbqDY/5actT3/tKAK+c2CaKD9XMyjzyQ0gpM7VdaBSrSVboK5Qv6JQyF
+ QEv1uO6wjLeDoGRDLnuLFlxTBZaJt4DgjSehnVKF8PNKUBHK+7TK7nXC9lvWS7QKQh
+ zxwjFqJZp6v6w==
+Message-ID: <2fd35c28-0911-df87-c7e4-f7cbdba1f09d@collabora.com>
+Date: Thu, 7 Apr 2022 12:58:22 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm/mdp5: check the return of kzalloc()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20220406214636.1156978-1-robdclark@gmail.com>
+ <20220406214636.1156978-11-robdclark@gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20220406214636.1156978-11-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 10/10] drm/msm: Add a way for userspace
+ to allocate GPU iova
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +52,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: sean@poorly.run, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Xiaoke Wang <xkernel.wang@foxmail.com>, daniel@ffwll.ch,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ open list <linux-kernel@vger.kernel.org>, Emma Anholt <emma@anholt.net>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Xiaoke Wang <xkernel.wang@foxmail.com>
+On 4/7/22 00:46, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> The motivation at this point is mainly native userspace mesa driver in a
+> VM guest.  The one remaining synchronous "hotpath" is buffer allocation,
+> because guest needs to wait to know the bo's iova before it can start
+> emitting cmdstream/state that references the new bo.  By allocating the
+> iova in the guest userspace, we no longer need to wait for a response
+> from the host, but can just rely on the allocation request being
+> processed before the cmdstream submission.  Allocation failures (OoM,
+> etc) would just be treated as context-lost (ie. GL_GUILTY_CONTEXT_RESET)
+> or subsequent allocations (or readpix, etc) can raise GL_OUT_OF_MEMORY.
+> 
+> v2: Fix inuse check
+> v3: Change mismatched iova case to -EBUSY
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 10 ++++++
+>  drivers/gpu/drm/msm/msm_drv.c           | 21 +++++++++++
+>  drivers/gpu/drm/msm/msm_gem.c           | 48 +++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/msm_gem.h           |  8 +++++
+>  drivers/gpu/drm/msm/msm_gem_vma.c       |  2 ++
+>  include/uapi/drm/msm_drm.h              |  3 ++
+>  6 files changed, 92 insertions(+)
 
-kzalloc() is a memory allocation function which can return NULL when
-some internal memory errors happen. So it is better to check it to
-prevent potential wrong memory access.
-
-Besides, since mdp5_plane_reset() is void type, so we should better
-set `plane-state` to NULL after releasing it.
-
-Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
----
-ChangeLog:
-v1->v2 simplify the patch and update the description.
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index c6b69af..50e8542 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -90,7 +90,10 @@ static void mdp5_plane_reset(struct drm_plane *plane)
- 		__drm_atomic_helper_plane_destroy_state(plane->state);
- 
- 	kfree(to_mdp5_plane_state(plane->state));
-+	plane->state = NULL;
- 	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
-+	if (!mdp5_state)
-+		return;
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
- 		mdp5_state->base.zpos = STAGE_BASE;
--- 
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
