@@ -2,60 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60F9D4F9EF8
-	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 23:12:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 049C74FA05A
+	for <lists+freedreno@lfdr.de>; Sat,  9 Apr 2022 01:59:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B9C10E8E3;
-	Fri,  8 Apr 2022 21:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 637C410E227;
+	Fri,  8 Apr 2022 23:59:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A02010E8B7;
- Fri,  8 Apr 2022 21:12:40 +0000 (UTC)
-Received: by mail-pg1-x531.google.com with SMTP id 32so6672304pgl.4;
- Fri, 08 Apr 2022 14:12:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nk1qUFXg3SiseuNYjEIl+VPm4EeXFht7d29XrU4KaA4=;
- b=hHTYVCbzDxg/E6f2Y5m+SrW5q0WvHz2DjhOqkt9ageKVHSkzhR36bFmCGsjUHf6l46
- g8lbXxqsW6ogDLPjvXs161Wnur99anKCZOV1yg7BjtKY2pHGJmAFmkqlWrmEehmNOf2U
- 1GgiQCxoOJRaOLN/FYVn9voavYu9gGLQehaSe0lg4eINObxUDrkjRN809DqSqJ0nEqPm
- m6fVJvimqwyI7aafsQeLPxLUjmY7gTpQZXsNkynW1z1enXVR/h4clXHFNFegenDJasV6
- DNSMQ7Sw84CLuUxbYRwTcWB6mYCTELyC6JVhbsRRb4I7g/wsr5q+a9BmKzco85tUIg+M
- vK4g==
+Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
+ [IPv6:2607:f8b0:4864:20::72f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D387210E227
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 23:59:33 +0000 (UTC)
+Received: by mail-qk1-x72f.google.com with SMTP id b189so6091087qkf.11
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 16:59:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ep4HFxZGemluJutovsTbozz4aCXR3Ya1T5frn7xqC+A=;
+ b=W1MkNAp8xV5HT+QqAx4kLm0SNYJQBh84WYuvZfZmLltO29+iMFuxhXu/9iPkvvyghd
+ evMPG3QDhUti9BYqPcLkpVCb1PNebe36yhEAlsoPSXsm3ZX1Vdjytwd28ik26yCTeZwo
+ 8ssm5qZ2k165XPYHn58Y0MR0QZWeokpgdMBw3N386WqBL6BOOU30pUPL/lORltzQpyTH
+ fZQwOHaCVMxUgS8CNdYui496fBoMJXXkV5Jw1OyddA+IJeRUUkw8w5mANj0JWfU8wwEK
+ 8W0sKFHiwwsInstAxplk6zqDrVbY6DTjdc+00p/zKab3JIGMD0QrQkir+tnW0GGs9w0e
+ ReAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nk1qUFXg3SiseuNYjEIl+VPm4EeXFht7d29XrU4KaA4=;
- b=mAwgvghlUXb2x3nGG+4z5Bn2z2tWZFjkzszTcNxQM02n2SnRdx6t7NARfARqdDzCL/
- fVQRTtbpQQb1QyaTGmacCNZcPjTIwB2yEWumjvCV3MYRK3aU2T43F3vS9iOQtxX6Uaxc
- xLkX+oJP9jk/BOBrsy6N3gGIWAQ4TQ+9QUlG6FgRGOB3SuOXb7UeCADEjV1sXNbH5D+D
- kEhU5NGe0+XPDbQXRzy8QqbE/VCz9MdITOcpYkpKu8gufCrQdfj9uAvJYF+a8ebYV6f3
- u8Mj0Bap+hM89tia1PBJCKZworpWavvw80UPccQfRqFhz8zG3hUrcYKmD7sSVNlquT26
- j93Q==
-X-Gm-Message-State: AOAM533Hk8+dL6MF3l5Y8AZeDrbSUDb1vBLZlIE3TOtIS+rMpK2U3ii2
- 7kzPldE7lKg0TZDORu0uZ9N+wTdtO+4=
-X-Google-Smtp-Source: ABdhPJwttnVHc5lT1HgmINnh+1IbLwkQVQL2uri4evMfw1Up+524IZGFS0MQjKMwPf5h0DYx5sW0hQ==
-X-Received: by 2002:a63:e24b:0:b0:399:1d7e:1503 with SMTP id
- y11-20020a63e24b000000b003991d7e1503mr16974463pgj.335.1649452359613; 
- Fri, 08 Apr 2022 14:12:39 -0700 (PDT)
-Received: from olv-glaptop3.lan ([2601:647:4400:452:c6d0:c747:3e11:b8e3])
- by smtp.gmail.com with ESMTPSA id
- b7-20020a17090ae38700b001ca8947e73csm12277207pjz.0.2022.04.08.14.12.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Apr 2022 14:12:38 -0700 (PDT)
-From: Chia-I Wu <olvaffe@gmail.com>
-To: freedreno@lists.freedesktop.org
-Date: Fri,  8 Apr 2022 14:12:30 -0700
-Message-Id: <20220408211230.601475-1-olvaffe@gmail.com>
-X-Mailer: git-send-email 2.35.1.1178.g4f1659d476-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ep4HFxZGemluJutovsTbozz4aCXR3Ya1T5frn7xqC+A=;
+ b=ptbLW8KFs/p9T42PhK3RH3n45Q7R7UfL0ykyt2ptARQomXdCYlx4O4W804in4Knyfi
+ 2WXCbcDcXIXve8hc0QK7W0qICE8obxxW3NdibDzqA8te1fA+/xqNXfU4E6Fmsi/2zIZ+
+ nPtTb/SF5pTGJpXq52hZBEMYe8NFy/SGbLkIjdo38QeRsKyXYpbPHbkoFD3u8395C7mI
+ bXOaE6qM9OFUZmPjXYP4mWojURqNZqcvBT5RiB4/J8KFJdQux3AfHcwcm4950PC5Xdl+
+ 0c4nG7LF6VCT2PAIpMOvVVg4KQUoFQTNHhQ2SqQ1wUxnxHr81M8pl28WNxhPWYLVZjBP
+ qmrQ==
+X-Gm-Message-State: AOAM533dAzwTzfBZIr+qlSiCvxJPZ/fmjQ+jogAiZv3Kgwz2PVPdJ+nu
+ VMbIn9BOZlB8qtaU3Y3KAh5xFY3TUkw6UUjaDL+8rg==
+X-Google-Smtp-Source: ABdhPJybXQIl400imv5u+eLq4wIpQrgRiwQ4eURC/e6m01mzUErigFhQXkQJfEw+aw8JJtTDDj1iqa8rcBKROaoImMU=
+X-Received: by 2002:a05:620a:2449:b0:69a:4ae:85e5 with SMTP id
+ h9-20020a05620a244900b0069a04ae85e5mr7089008qkn.30.1649462372909; Fri, 08 Apr
+ 2022 16:59:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: add trace_dma_fence_emit to
- msm_gpu_submit
+References: <1649280493-4393-1-git-send-email-quic_khsieh@quicinc.com>
+ <625ce8a0-4e25-5513-5599-c1cdebf5a3a5@linaro.org>
+ <09fd563f-4a2c-f670-51c2-0e5ff023816d@quicinc.com>
+In-Reply-To: <09fd563f-4a2c-f670-51c2-0e5ff023816d@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Sat, 9 Apr 2022 02:59:21 +0300
+Message-ID: <CAA8EJpqzucFGf8ndDi2LZqtKiOt_w=_h1oPAUNVCdmUyh_3+zA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: enhance both connect and
+ disconnect pending_timeout handle
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,43 +65,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ quic_aravindh@quicinc.com, bjorn.andersson@linaro.org, sean@poorly.run,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In practice, trace_dma_fence_init is good enough and almost no driver
-calls trace_dma_fence_emit.  But this is still more correct in theory.
+On Fri, 8 Apr 2022 at 23:30, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+>
+> On 4/8/2022 5:27 AM, Dmitry Baryshkov wrote:
+> > On 07/04/2022 00:28, Kuogee Hsieh wrote:
+> >> dp_hpd_plug_handle() is responsible for setting up main link and send
+> >> uevent to notify user space framework to start video stream. Similarly,
+> >> dp_hdp_unplug_handle is responsible to send uevent to notify user space
+> >> framework to stop video stream and then tear down main link.
+> >> However there are rare cases, such as in the middle of system
+> >> suspending,
+> >> that uevent could not be delivered to user space framework. Therefore
+> >> some kind of recover mechanism armed by timer need to be in place in the
+> >> case of user space framework does not respond to uevent.
+> >
+> > Hmm, how does userpsace 'respond' to the uevent? The driver should
+> > send hotplug notifications to userspace, but it must not expect any
+> > particular reaction. The userspace might be as simple, as fbdev
+> > emulation, but the driver still should function correctly.
+>
+> yes, driver is function correctly by setting up main link. but it does
+> not know which resolution to display.
+>
+> It send hotplug notification through uevent to framework after main link
+> is ready.
+>
+> Framework  is responsible to set up MDP timing engine to start video stream.
+>
+>
+> However it does not know which
 
-Signed-off-by: Chia-I Wu <olvaffe@gmail.com>
-Cc: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gpu.c | 2 ++
- 1 file changed, 2 insertions(+)
+It's of no concern to the driver. It is completely the userspace
+problem. After resuming, it should reread available video output
+properties. The display could have been changed while the system is
+suspended.
+From your description I still do not understand why you need the
+'recovery' mechanism.
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index faf0c242874e..a82193f41ea2 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -15,6 +15,7 @@
- #include <linux/string_helpers.h>
- #include <linux/devcoredump.h>
- #include <linux/sched/task.h>
-+#include <trace/events/dma_fence.h>
- 
- /*
-  * Power Management:
-@@ -769,6 +770,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	gpu->active_submits++;
- 	mutex_unlock(&gpu->active_lock);
- 
-+	trace_dma_fence_emit(submit->hw_fence);
- 	gpu->funcs->submit(gpu, submit);
- 	gpu->cur_ctx_seqno = submit->queue->ctx->seqno;
- 
 -- 
-2.35.1.1178.g4f1659d476-goog
-
+With best wishes
+Dmitry
