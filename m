@@ -1,62 +1,84 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ED754F9668
-	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 15:06:29 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45EC94F9720
+	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 15:43:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB61110F172;
-	Fri,  8 Apr 2022 13:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDEB910F1CE;
+	Fri,  8 Apr 2022 13:43:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58E3B10F16E
- for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 13:06:26 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id h11so11400941ljb.2
- for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 06:06:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IZm1/6k3KLN/6M+TmxkxwJGUcAPHhEkHkw8p+wvixnI=;
- b=hOlyBU2NA4cmCQsMKslfc7S5GEgfsJolVzXVTrC6ireuoJr4pFlsLGAMMa3zMv6wfx
- 1AnjLGhxeHUMfVo5paiquXiXLk100G990EFxp+YlOEbrnrQAPDJDIqgCw6WH8BiEU9PJ
- C7oj3RUcM0asGOMvXuRBQQ2G+HzFA+137A/FZlvAd72jBjRzVYAddLg/ISIV+ZnA3aFH
- I8Du1nFsfj4NnnccnZNBVt9nJpXnaeOAssz9X21s24F/njpbkqaRQP/7+BIhbjF0rKaT
- hu60hWcxB0N5Tl3oJjfjYVabYentZwxiYhLvtJxWqYGATL6q3NrQDbHoEFE+aiJkyX2f
- Q6JA==
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C545510E1BA
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 13:43:47 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id b15so10143615edn.4
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 06:43:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1ZpanQL7fJ5Imrl94t4mOv+0fifiSCixQTFhocGBbW4=;
+ b=ocU4WzdvqVtDrF+QNMkeIFKSbQDrw614kxrKDCXUNEPj0TcZTn2VF33O7pzWeuQcUi
+ /kpIefrRb+tIPM7KdnbR0CjVrj0C7uFD+iwBJMThlUaqxYgu/HgyrOL3xZXxjwikkwPM
+ /w5y4+LqxJFClA/AFhhdE9da2MRmrUgMM0sYM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IZm1/6k3KLN/6M+TmxkxwJGUcAPHhEkHkw8p+wvixnI=;
- b=B8lc/9lTUfqFDI9cVwWSoc3GwhH/bUGAJO4sdcfT+X6LmoOvW2CCtjeHqKPe8EZsx9
- BvUx/OZQ9hGO+2lTDUQbR2MMNArnr9hpqf1yPzy+DoLfdKdBkEEmvgf/O+2FHvmXw8/u
- loL+nO7ixbEy9UVo+c1ILKSkBKIHr62mLK6lLoDxESbNa5si1L2FFKpS4KkoKm9aGzMG
- ecZUQPz+4xSHwFkydgYSEUvq2s6KDyNiL5K6XuKWNL5EWgZaxD8Jlxy6CsMV+sw2Ltw2
- FXomGj6ep7WsDHDCI4U5LDk8MA8FrcQlm55YtwZYE2utcg7RdFP9Uf15h2HWfbN/oBIO
- nNiQ==
-X-Gm-Message-State: AOAM532t7TXYXKZJhfgoiqQlxO8kVmLSZo66IOml20IPDcykar2QgTxA
- mvAOV7wf85Gld7YIoEWt8OI69g==
-X-Google-Smtp-Source: ABdhPJycaofkmNes77QL2MLX5s7UZTNT6hO+0oq/TtFtjHFIUxzaI1cah0CrVOXzNw6w+scm+MVKGg==
-X-Received: by 2002:a2e:7d0b:0:b0:24a:f591:9ae4 with SMTP id
- y11-20020a2e7d0b000000b0024af5919ae4mr11483923ljc.199.1649423184644; 
- Fri, 08 Apr 2022 06:06:24 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- v20-20020a2e9254000000b0024b546478bdsm54779ljg.22.2022.04.08.06.06.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Apr 2022 06:06:24 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri,  8 Apr 2022 16:06:23 +0300
-Message-Id: <20220408130623.866092-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1ZpanQL7fJ5Imrl94t4mOv+0fifiSCixQTFhocGBbW4=;
+ b=nTQ5tjDJ+Pf05Qv6ZbAmYT919cQZLeeH2p6ITPonzMPNRdsHxk5sOz9FT3bi5C3II6
+ p16vcKoKteZCc0JHcqfDUJEjxULXJJuZotbczDymog9NN9VFeA1MuGClNKVP3E4Q9fi0
+ zyvOmnOye2uCmS48x9srKQWAw0uQVrzYJcjmzKHAgGrDiTxc7CZOe9SFLI20Jn6DeN9a
+ Mc5VbdmSF3zC+huN6YmzOqAYmPTtNksn9x+hoJoMeoqiq45Tr13WpmX4UrbpSLdBdRWN
+ mvSTWQ3uypOblya+uHxr8hNxluBm40HjWSOwIiR43KQcrhoCJJRFVO8Fw8fbNC+qCxcJ
+ rApg==
+X-Gm-Message-State: AOAM533mODyrTSpeytJS4x3uTBfXQ/P/t5LP5L14rbUn55wl3kanFduL
+ 6ZXMHeNAuRJBkPFkxLnmCr0YmsD4mXJwhgykh10=
+X-Google-Smtp-Source: ABdhPJzhn/RBYwanm2bahT8OJbt0XtY4sl3tsZpB6irH9QzobCYKFY1rkB7kHXcoUtqhZco1cPEFqQ==
+X-Received: by 2002:a05:6402:1804:b0:41d:5883:2f70 with SMTP id
+ g4-20020a056402180400b0041d58832f70mr1065648edy.150.1649425426057; 
+ Fri, 08 Apr 2022 06:43:46 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com.
+ [209.85.221.46]) by smtp.gmail.com with ESMTPSA id
+ n24-20020a170906689800b006e835893777sm1737079ejr.52.2022.04.08.06.43.42
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 Apr 2022 06:43:44 -0700 (PDT)
+Received: by mail-wr1-f46.google.com with SMTP id w4so12861129wrg.12
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 06:43:42 -0700 (PDT)
+X-Received: by 2002:adf:e591:0:b0:206:1202:214 with SMTP id
+ l17-20020adfe591000000b0020612020214mr14896572wrm.342.1649425421934; Fri, 08
+ Apr 2022 06:43:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: properly add and remove internal
- bridges
+References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1648656179-10347-2-git-send-email-quic_sbillaka@quicinc.com>
+ <CAD=FV=X+QvjwoT2zGP82KW4kD0oMUY6ZgCizSikNX_Uj8dNDqA@mail.gmail.com>
+ <392b933f-760c-3c81-1040-c514045df3da@linaro.org>
+ <CAD=FV=W4PYK-t607yjRbfjDjjEZX0KdgHDRukw_vSH8E8EDH6w@mail.gmail.com>
+ <CAA8EJppt9XONbgtKfmHmN+==QNqiVJeb8GKJFdZm=yyY-tgmHQ@mail.gmail.com>
+ <CAD=FV=U5-sTDLYdkeJWLAOG-0wgxR49VxtwUyUO7z2PuibLGsg@mail.gmail.com>
+ <CAA8EJppgfYgQjG8A4LsR-1wmBj3Ku3eO8cKfAYhxjWXL7e3eHg@mail.gmail.com>
+ <CAD=FV=V=a1CnT8fqTJR40WoS3BaDQ3xZ=HnHVHqZh=MEmVUZBA@mail.gmail.com>
+ <3e5fa57f-d636-879a-b98f-77323d07c156@linaro.org>
+ <CAD=FV=Uibu-kZyix7K4_WVc-+C8xpzTqU4WFy7O=6sukMZrX5g@mail.gmail.com>
+ <MW4PR02MB7186245772DAC3E04FA8D1C0E1E69@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAD=FV=Wk3U7_bVdiCPp8iQ4bcCA_Botemu4pwHeRtgBa3Xk6KQ@mail.gmail.com>
+ <c4f086ce-c56f-f7c9-4092-7f2432330d50@quicinc.com>
+ <CAD=FV=UmU_BVUaL_X75yOEvQPtGUBTR5-jiVWBHq7uSRt6HM4Q@mail.gmail.com>
+ <225d2c0a-42ec-28ad-688c-e7e9e2035ee1@quicinc.com>
+ <CAD=FV=W=WjSACHvRDFBnkLUp-LU2c4XMu3=FTzTx=zexNF5PAw@mail.gmail.com>
+ <CAA8EJpqLZ9up4euGEbhf5QyBqm4tJuLcHi7D+0Si7ak9Jej52w@mail.gmail.com>
+ <CAD=FV=XwOzsRf7RnvyBjr5TtedMhC0LJFKoK9tp-kw1eEyuJmQ@mail.gmail.com>
+ <CAA8EJprb5UF24WRNvGaY_hSqW--NPd=9=8AaPYWSMbUumNn+dQ@mail.gmail.com>
+In-Reply-To: <CAA8EJprb5UF24WRNvGaY_hSqW--NPd=9=8AaPYWSMbUumNn+dQ@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 8 Apr 2022 06:43:28 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UG7k4A+hMXxwju-0mLddD1oJdGngXMkMA-dO3AxOx0rQ@mail.gmail.com>
+Message-ID: <CAD=FV=UG7k4A+hMXxwju-0mLddD1oJdGngXMkMA-dO3AxOx0rQ@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6 1/8] drm/msm/dp: Add eDP support via
+ aux_bus
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,142 +91,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: quic_kalyant <quic_kalyant@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
+ quic_vproddut <quic_vproddut@quicinc.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Sean Paul <seanpaul@chromium.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add calls to drm_bridge_add()/drm_bridge_remove() DRM bridges created by
-the driver. This fixes the following warning.
+Hi,
 
-WARNING: CPU: 0 PID: 1 at kernel/locking/mutex.c:579 __mutex_lock+0x840/0x9f4
-DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-Modules linked in:
-CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.18.0-rc1-00002-g3054695a0d27-dirty #55
-Hardware name: Generic DT based system
- unwind_backtrace from show_stack+0x10/0x14
- show_stack from dump_stack_lvl+0x58/0x70
- dump_stack_lvl from __warn+0xc8/0x1e8
- __warn from warn_slowpath_fmt+0x78/0xa8
- warn_slowpath_fmt from __mutex_lock+0x840/0x9f4
- __mutex_lock from mutex_lock_nested+0x1c/0x24
- mutex_lock_nested from drm_bridge_hpd_enable+0x2c/0x84
- drm_bridge_hpd_enable from msm_hdmi_modeset_init+0xc0/0x21c
- msm_hdmi_modeset_init from mdp4_kms_init+0x53c/0x90c
- mdp4_kms_init from msm_drm_bind+0x514/0x698
- msm_drm_bind from try_to_bring_up_aggregate_device+0x160/0x1bc
- try_to_bring_up_aggregate_device from component_master_add_with_match+0xc4/0xf8
- component_master_add_with_match from msm_pdev_probe+0x274/0x350
- msm_pdev_probe from platform_probe+0x5c/0xbc
- platform_probe from really_probe.part.0+0x9c/0x290
- really_probe.part.0 from __driver_probe_device+0xa8/0x13c
- __driver_probe_device from driver_probe_device+0x34/0x10c
- driver_probe_device from __driver_attach+0xbc/0x178
- __driver_attach from bus_for_each_dev+0x74/0xc0
- bus_for_each_dev from bus_add_driver+0x160/0x1e4
- bus_add_driver from driver_register+0x88/0x118
- driver_register from do_one_initcall+0x6c/0x334
- do_one_initcall from kernel_init_freeable+0x1bc/0x220
- kernel_init_freeable from kernel_init+0x18/0x12c
- kernel_init from ret_from_fork+0x14/0x2c
+On Fri, Apr 8, 2022 at 5:20 AM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> > I guess my thought was that in DP you could still create the AUX bus
+> > at probe time. Then for DP you just return an instant "transfer
+> > failed" from the AUX bus if HPD isn't asserted. For eDP (as discussed
+> > elsewhere) when we try to do an AUX transfer then we delay until HPD
+> > is there.
+>
+> I think panel-edp would already handle the delay, so we do not need to
+> have this logic in the DP driver.
 
-Fixes: 3d3f8b1f8b62 ("drm/bridge: make bridge registration independent of drm flow")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
+There's a whole discussion about this between Stephen and me in patch
+#5 ("drm/msm/dp: wait for hpd high before any sink interaction").
+Basically:
 
-I've added the Fixes tag pointing to the commit which added these
-functions. Please correct me if you think it's wrong.
+* If panel HPD is hooked up to the dedicated HPD pin on the eDP
+controller then the panel driver doesn't have a way to read it.
 
----
- drivers/gpu/drm/msm/dp/dp_drm.c        | 5 +++++
- drivers/gpu/drm/msm/dsi/dsi_manager.c  | 3 +++
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 3 +++
- drivers/gpu/drm/msm/msm_drv.c          | 3 +++
- 4 files changed, 14 insertions(+)
+* We can't leverage the existing "HPD" query functions in DRM because
+those indicate whether a panel is _physically_ connected. For eDP, it
+always is.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 80f59cf99089..a7415f9eb80e 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -230,9 +230,13 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
- 	bridge->funcs = &dp_bridge_ops;
- 	bridge->encoder = encoder;
- 
-+	drm_bridge_add(bridge);
-+
- 	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (rc) {
- 		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
-+		drm_bridge_remove(bridge);
-+
- 		return ERR_PTR(rc);
- 	}
- 
-@@ -242,6 +246,7 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (rc < 0) {
- 			DRM_ERROR("failed to attach panel bridge: %d\n", rc);
-+			drm_bridge_detach(bridge);
- 			drm_bridge_remove(bridge);
- 			return ERR_PTR(rc);
- 		}
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 0c1b7dde377c..918498e71255 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -665,6 +665,8 @@ struct drm_bridge *msm_dsi_manager_bridge_init(u8 id)
- 	bridge = &dsi_bridge->base;
- 	bridge->funcs = &dsi_mgr_bridge_funcs;
- 
-+	drm_bridge_add(bridge);
-+
- 	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
- 	if (ret)
- 		goto fail;
-@@ -735,6 +737,7 @@ struct drm_connector *msm_dsi_manager_ext_bridge_init(u8 id)
- 
- void msm_dsi_manager_bridge_destroy(struct drm_bridge *bridge)
- {
-+	drm_bridge_remove(bridge);
- }
- 
- int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg)
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 10ebe2089cb6..97c24010c4d1 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -15,6 +15,7 @@ void msm_hdmi_bridge_destroy(struct drm_bridge *bridge)
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 
- 	msm_hdmi_hpd_disable(hdmi_bridge);
-+	drm_bridge_remove(bridge);
- }
- 
- static void msm_hdmi_power_on(struct drm_bridge *bridge)
-@@ -349,6 +350,8 @@ struct drm_bridge *msm_hdmi_bridge_init(struct hdmi *hdmi)
- 		DRM_BRIDGE_OP_DETECT |
- 		DRM_BRIDGE_OP_EDID;
- 
-+	drm_bridge_add(bridge);
-+
- 	ret = drm_bridge_attach(hdmi->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret)
- 		goto fail;
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index affa95eb05fc..71e1b7393f6f 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -232,6 +232,9 @@ static int msm_drm_uninit(struct device *dev)
- 
- 	drm_mode_config_cleanup(ddev);
- 
-+	for (i = 0; i < priv->num_bridges; i++)
-+		drm_bridge_remove(priv->bridges[i]);
-+
- 	pm_runtime_get_sync(dev);
- 	msm_irq_uninstall(ddev);
- 	pm_runtime_put_sync(dev);
--- 
-2.35.1
+For now the rule is that the AUX transfer function is in charge of
+waiting for HPD for eDP if the dedicated HPD pin is used. If we want
+to re-invent this we could, but that system works, isn't _too_ ugly,
+and we're already making big enough changes in this series.
 
+
+> > So we can still acquire resources (clocks, PHY, io maps, etc) at probe
+> > time for DP and create the AUX bus, right? It will just return
+> > "-ENODEV" if HPD isn't asserted and you're DP?
+>
+> Yes, please. I still suppose that we'd need a separate case to
+> power_on eDP's PHY during the probe time. Maybe I'm mistaken here.
+
+I think the ideal way is to do it like Kieran's proposal for sn65dsi86:
+
+https://lore.kernel.org/r/20220317131250.1481275-4-kieran.bingham+renesas@ideasonboard.com/
+
+* When enabling HPD (physical hot plug detect) in the hpd_enable()
+callback you do a pm_runtime_get(). You do the
+pm_runtime_put_autosuspend() when disabling. This is only used for DP
+since we only provide DRM_BRIDGE_OP_HPD for DP, not for eDP.
+
+* We do a pm_runtime_get() / pm_runtime_put_autosuspend() in the AUX
+transfer routine. While holding the pm_runtime reference we check HPD.
+For DP we return immediately if HPD isn't asserted. For eDP, we delay.
+
+* We do the pm_runtime_get() in pre_enable and the pm_runtime_put() in
+post_disable. For DP this will add a 2nd refcount (since we probably
+were holding the reference for HPD). For eDP this will cause us to
+power on.
+
+* If there's any other time we need to read HW registers, and we
+aren't guaranteed to already have a pm_runtime reference (like during
+probe), we can do a temporary pm_runtime_get() /
+pm_runtime_put_autosuspend().
