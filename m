@@ -1,67 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0044F9C3E
-	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 20:07:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA10D4F9E32
+	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 22:30:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46BAE10E803;
-	Fri,  8 Apr 2022 18:07:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD6610E4B1;
+	Fri,  8 Apr 2022 20:30:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A133D10E803
- for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 18:07:07 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id b19so5448805qkk.12
- for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 11:07:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wmcdb5nmt0doJvCBL/+RI9ZfUWuc/Uy9BfsoaxM/AdQ=;
- b=uGxgDP2UPoHQogpGiGRfr33QAF5ZMPH1Dmn24vbaz3pUvShOvxKQPqcJN1O9UcgG1R
- +UsIG84kTzObvP3fIkFrxSARGIAKpqk+g8WKa6s3izfzgmJ32TegqRP5Iyt80OClb4Wf
- HUIb507UE83xRgsIRDMPaZDvo01bW02vCqLyXJJpA2MOJZ1FJ/Bg9LDqboalZVRe+L6e
- vPcdNHuPgg0fc/r7L/nHPXIW2qe8yJzIlmMDkTiSY0VlWaTZT76UwgYZcd8BpF9EXS61
- I8YjTREHJh3H6w8bxMqI2g5WiFtUyWFAg3fVUL7wyXRbvJv2RjDwIg+GCyppzDRSntvp
- nQLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wmcdb5nmt0doJvCBL/+RI9ZfUWuc/Uy9BfsoaxM/AdQ=;
- b=rn9S8Czfhn+WBCaQHJjSbUZwlVlVNTq6zxuyuxmxABTJpN8RBwhduijcRGXRVNELBa
- Owkj4Bb7QsuJrZQRFrxsdGazUckN9frDWjQiKzzHIMFEPg+HnnosfMOpdKrpZ74G7Zn8
- 7yMklqWb/bW+6K6unNJA9TeyBUfVqaASpwB0me6owm2SPlMI2SIrhpKcIRrugmOBXfTE
- OSwee37npzRfJogTKYcC/O0lkwuwUQA0Nm4HNK0rHStwHjZ1xVu/bR9bNfdZ2e6laGnO
- k7Uv8nkcvDV1KCLV2D+Rqd2UttQ6qzNmf9AUN6ml9oSTw4E4Lnr8/16IYNqjOAT3FOjR
- KD7g==
-X-Gm-Message-State: AOAM530Ha8z4dv2eWfOmERdNN9d00LUZbfMFjg9ruWH2t2d5a6LokkKQ
- C7iggN5hITFTE2/lfRvOCOxab9qFW6CMBe17bhy4vQ==
-X-Google-Smtp-Source: ABdhPJxJl2MJUFLzdxBjTc2b/X/CvxVwf8lRxDTWWQhaU1sWumCVgfn7mdqeldogcLlpHWNLG3g4GLwBanVn4jCZkqk=
-X-Received: by 2002:a05:620a:2449:b0:69a:4ae:85e5 with SMTP id
- h9-20020a05620a244900b0069a04ae85e5mr6168873qkn.30.1649441226697; Fri, 08 Apr
- 2022 11:07:06 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEC810E20E;
+ Fri,  8 Apr 2022 20:30:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649449847; x=1680985847;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ScFBd6ng2QrtUCP/bpsILqIYheFSc3NhuBQ1NA/h5ow=;
+ b=PEek9DCsQnlQTkFxmbrjXFHiv25+o7NJNEsGFMg1LGujbnR5PRz+tSVd
+ sE4B+UrEOrGcrDXQpwYFgMDSduXMgJJz9+p1/Wa5CAWy2cuYvGuK2Hk8q
+ Tqm0FD2aP5/rECzcN+oGisMXyA8uIB+wpuJHUv5A3I5mzRzNY9PwfZB78 o=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 08 Apr 2022 13:30:46 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2022 13:30:45 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 8 Apr 2022 13:30:45 -0700
+Received: from [10.110.92.113] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 8 Apr 2022
+ 13:30:44 -0700
+Message-ID: <09fd563f-4a2c-f670-51c2-0e5ff023816d@quicinc.com>
+Date: Fri, 8 Apr 2022 13:30:43 -0700
 MIME-Version: 1.0
-References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
- <1648656179-10347-9-git-send-email-quic_sbillaka@quicinc.com>
- <CAA8EJprvE31ex3fCQHZ-=x+EWHK4UZ0qqHRh+rH4dk5TPhmVyw@mail.gmail.com>
- <MW4PR02MB71867220A90FCFED295830D0E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
- <CAD=FV=VK0D_GzYBv+u+o6-ks-UAsw97__0mWsSn9OycX72LJFg@mail.gmail.com>
- <MW4PR02MB71865B8E17F3D194B05013EDE1E59@MW4PR02MB7186.namprd02.prod.outlook.com>
- <CAA8EJpqFh7c9ohDbR_0kG5t106-djE7TYfaoAbiT-W4-294jTw@mail.gmail.com>
- <MW4PR02MB71868617E96D59D659EFD87EE1E69@MW4PR02MB7186.namprd02.prod.outlook.com>
- <CAA8EJpqd+JVHqjNrwZ4MHi+9JMdA5QPX2UwGpeM6RhUntv0brA@mail.gmail.com>
- <MW4PR02MB7186577BFEEF3CCD8DED3D44E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
- <CAA8EJpo4MjqZDY4oLzS9ob6LPAe5gU=eqVz6m62_DaPAnxwWTQ@mail.gmail.com>
- <MW4PR02MB7186C2AB04AAC0F8D2C74B32E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
-In-Reply-To: <MW4PR02MB7186C2AB04AAC0F8D2C74B32E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 8 Apr 2022 21:06:55 +0300
-Message-ID: <CAA8EJpqEqmUEYHfb5iYJ9tFdeYNth3Ye12pmT_A7knsTb7C9kg@mail.gmail.com>
-To: Sankeerth Billakanti <sbillaka@qti.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 8/8] drm/msm/dp: Handle eDP mode_valid
- differently from dp
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <vkoul@kernel.org>,
+ <daniel@ffwll.ch>, <airlied@linux.ie>, <agross@kernel.org>,
+ <bjorn.andersson@linaro.org>
+References: <1649280493-4393-1-git-send-email-quic_khsieh@quicinc.com>
+ <625ce8a0-4e25-5513-5599-c1cdebf5a3a5@linaro.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <625ce8a0-4e25-5513-5599-c1cdebf5a3a5@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: enhance both connect and
+ disconnect pending_timeout handle
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,236 +68,263 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- "airlied@linux.ie" <airlied@linux.ie>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- Doug Anderson <dianders@chromium.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "sean@poorly.run" <sean@poorly.run>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "swboyd@chromium.org" <swboyd@chromium.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 8 Apr 2022 at 20:38, Sankeerth Billakanti
-<sbillaka@qti.qualcomm.com> wrote:
->
-> > > > > > > > > > On Wed, 30 Mar 2022 at 19:04, Sankeerth Billakanti
-> > > > > > > > > > <quic_sbillaka@quicinc.com> wrote:
-> > > > > > > > > > >
-> > > > > > > > > > > The panel-edp driver modes needs to be validated
-> > > > > > > > > > > differently from DP because the link capabilities are
-> > > > > > > > > > > not available for EDP by
-> > > > > > that time.
-> > > > > > > > > > >
-> > > > > > > > > > > Signed-off-by: Sankeerth Billakanti
-> > > > > > > > > > > <quic_sbillaka@quicinc.com>
-> > > > > > > > > >
-> > > > > > > > > > This should not be necessary after
-> > > > > > > > > >
-> > > > > > > >
-> > > > > >
-> > > >
-> > https://patchwork.freedesktop.org/patch/479261/?series=101682&rev=1.
-> > > > > > > > > > Could you please check?
-> > > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > The check for DP_MAX_PIXEL_CLK_KHZ is not necessary
-> > > > > > > > > anymore but
-> > > > > > we
-> > > > > > > > > need to return early for eDP because unlike DP, eDP
-> > > > > > > > > context will not have the information about the number of
-> > > > > > > > > lanes and link
-> > > > clock.
-> > > > > > > > >
-> > > > > > > > > So, I will modify the patch to return after the
-> > > > > > > > > DP_MAX_PIXEL_CLK_KHZ
-> > > > > > > > check if is_eDP is set.
-> > > > > > > >
-> > > > > > > > I haven't walked through all the relevant code but something
-> > > > > > > > you said above sounds strange. You say that for eDP we don't
-> > > > > > > > have info about the number of lanes? We _should_.
-> > > > > > > >
-> > > > > > > > It's certainly possible to have a panel that supports
-> > > > > > > > _either_ 1 or
-> > > > > > > > 2 lanes but then only physically connect 1 lane to it. ...or
-> > > > > > > > you could have a panel that supports 2 or 4 lanes and you
-> > > > > > > > only connect 1
-> > > > lane.
-> > > > > > > > See, for instance, ti_sn_bridge_parse_lanes. There we assume
-> > > > > > > > 4 lanes but if a "data-lanes" property is present then we
-> > > > > > > > can use that to know that fewer lanes are physically connected.
-> > > > > > > >
-> > > > > > > > It's also possible to connect more lanes to a panel than it supports.
-> > > > > > > > You could connect 2 lanes to it but then it only supports 1.
-> > > > > > > > This case needs to be handled as well...
-> > > > > > > >
-> > > > > > >
-> > > > > > > I was referring to the checks we do for DP in
-> > > > > > > dp_bridge_mode_valid. We check if the Link bandwidth can
-> > > > > > > support the pixel bandwidth. For an external DP connection,
-> > > > > > > the Initial DPCD/EDID read after cable connection will return
-> > > > > > > the sink capabilities like link rate, lane count and bpp
-> > > > > > > information that are used to we filter out the unsupported
-> > > > > > modes from the list of modes from EDID.
-> > > > > > >
-> > > > > > > For eDP case, the dp driver performs the first dpcd read
-> > > > > > > during bridge_enable. The dp_bridge_mode_valid function is
-> > > > > > > executed before bridge_enable and hence does not have the full
-> > > > > > > link or the sink capabilities information like external DP connection,
-> > by then.
-> > > > > >
-> > > > > > It sounds to me like we should emulate the HPD event for eDP to
-> > > > > > be handled earlier than the get_modes()/prepare() calls are
-> > attempted.
-> > > > > > However this might open another can of worms.
-> > > > > >
-> > > > >
-> > > > > For DP, the HPD handler mainly initiates link training and gets the EDID.
-> > > > >
-> > > > > Before adding support for a separate eDP panel, we had discussed
-> > > > > about this internally and decided to emulate eDP HPD during
-> > > > > enable(). Main reason being, eDP power is guaranteed to be on only
-> > > > > after
-> > > > bridge_enable().
-> > > > > So, eDP link training can happen and sustain only after bridge_enable().
-> > > > >
-> > > > > Emulating HPD before/during get_modes will not have any effect
-> > because:
-> > > >
-> > > > As we have seen, the term HPD is significantly overloaded. What do
-> > > > you want to emulate?
-> > > >
-> > >
-> > > On DP, we use HPD event for link training and EDID read.
-> > >
-> > > I understood that you wanted me to emulate HPD event before
-> > > get_modes() but because the panel power is controlled by panel-edp,
-> > > whatever programming we do on the sink side will be reset when panel
-> > > power will be turned off by the pm_runtime_put_autosuspend() of the
-> > panel-edp in panel_edp_get_modes().
-> >
-> > The pm_runtime_put_autosuspend() wouldn't suspend the device
-> > immediately. It will be suspended after the grace period finished, if nobody
-> > resumes the devices again. This is how it works in the
-> > sn65dsi86 driver. It sets the timeout delay long enough, so that get_modes
-> > and pre_enable would typically work together without suspending the host.
-> >
->
-> Okay. We are not implementing a bridge pre_enable currently
->
-> > >
-> > > > >
-> > > > > 1. get_modes() will go to panel's get_modes() function to power on
-> > > > > read EDID
-> > > > >
-> > > > > 2. panel power will be turned off after get_modes(). Panel power
-> > > > > off will reset every write transaction in DPCD. anyway
-> > > > > invalidating link training
-> > > >
-> > > > I tend to agree with Doug here. eDP link power status should be
-> > > > handled by the pm_runtime_autosuspend with grace period being high
-> > > > enough to cover the timeslot between get_mode() and enable().
-> > > >
-> > > > panel-edp already does most of required work.
-> > > >
-> > >
-> > > The eDP controller resources are enabled through the host_init() and
-> > > the link resources need to be powered on for doing link training,
-> > > which needs to happen in the enable() with generic panel-edp.
-> >
-> > nothing wrong with that up to now
-> >
-> > >
-> > > > >
-> > > > > 3. mode_valid will land in dp driver but panel will not be powered
-> > > > > on at that time and we cannot do aux transfers or DPCD read writes.
-> > > >
-> > > > Why do we need to perform AUX writes in mode_valid?
-> > > >
-> > >
-> > > I am trying to justify why we cannot have mode_valid() implementation
-> > similar to DP for eDP.
-> > > The detect() and get_modes() are called from panel bridge and panel-
-> > edp.c respectively.
-> > > The first eDP specific call which will land in the dp_driver is
-> > > mode_valid(), in which the controller cannot perform aux access because
-> > the panel will not be powered-on.
-> >
-> > I fail to understand why you'd like to perform aux access from mode_valid at
-> > all.
->
-> I don't want to perform it in mode_valid. I am just saying that, apart from mode_valid(),
-> there is no other eDP call (other than aux_transfer) which will land in the DP driver before the mode_set().
-> So, currently there is no function in which we can get the eDP sink capabilities before enable().
-> So, we assume the mode will be supported if the pixel clock is less than the max clock of 675MHz.
->
-> >
-> > > As the panel-power and backlight are panel resources, we are not
-> > > enabling/voting for them from the DP/eDP controller driver.
-> >
-> > correct
-> >
-> > >
-> > > > >
-> > > > > > > So, we need to proceed with the reported mode for eDP.
-> > > > > >
-> > > > > > Well... Even if during the first call to get_modes() the DPCD is
-> > > > > > not read, during subsequent calls the driver has necessary
-> > > > > > information, so it can proceed with all the checks, can't it?
-> > > > > >
-> > > > >
-> > > > > get_modes() currently does not land in DP driver. It gets executed
-> > > > > in panel bridge. But the mode_valid() comes to DP driver to check
-> > > > > the controller compatibility.
-> > > >
-> > > > Yes, this is correct. the DP's mode_valid() knows the hardware
-> > > > limitations (max clock speed, amount of lanes, etc) and thus it can
-> > > > decide whether the mode is supported by the whole chain or not.
-> > > > We should not skip such checks for the eDP.
-> > > >
-> > > >
-> > >
-> > > For eDP, we have no information about the number of lanes or the link
-> > > rate supported We only know the max lanes from the data-lanes DT
-> > property.
-> >
-> > If the device connects just a single line to the eDP panel, the DT will be
-> > changed to list that single lane.
-> > It looks like we have to call dp_panel_read_sink_caps() somewhere for the
-> > eDP case. For the DP case the HPD callbacks do this work.
-> >
-> > No, mode_valid doesn't look like a proper place. We already have read
-> > modes, so the AUX bus has been powered for some time. We could do it
-> > earlier.
->
-> Correct, we have to do it earlier. But is there some function in which we can get
-> the dp_panel_read_sink_caps() before get_modes?
->
-> A way could be to implement the mode_valid also in panel-eDP along with the
-> get_modes. We can read the sink capabilities in get_modes in panel-edp.c and
-> check in the mode_valid() in panel-edp.c.
->
-> I also feel the mode_valid() needs to check if a controller can support it rather
-> than the panel. So, I cannot find a way where to get the sink caps now before
-> the mode_set() or enable()
 
-Anywhere after you have the reference to the next_bridge, you can be
-sure that the panel is present. So you can power up the AUX bus, read
-the caps, and (auto-)suspend it again.
+On 4/8/2022 5:27 AM, Dmitry Baryshkov wrote:
+> On 07/04/2022 00:28, Kuogee Hsieh wrote:
+>> dp_hpd_plug_handle() is responsible for setting up main link and send
+>> uevent to notify user space framework to start video stream. Similarly,
+>> dp_hdp_unplug_handle is responsible to send uevent to notify user space
+>> framework to stop video stream and then tear down main link.
+>> However there are rare cases, such as in the middle of system 
+>> suspending,
+>> that uevent could not be delivered to user space framework. Therefore
+>> some kind of recover mechanism armed by timer need to be in place in the
+>> case of user space framework does not respond to uevent.
+>
+> Hmm, how does userpsace 'respond' to the uevent? The driver should 
+> send hotplug notifications to userspace, but it must not expect any 
+> particular reaction. The userspace might be as simple, as fbdev 
+> emulation, but the driver still should function correctly.
+
+yes, driver is function correctly by setting up main link. but it does 
+not know which resolution to display.
+
+It send hotplug notification through uevent to framework after main link 
+is ready.
+
+Framework  is responsible to set up MDP timing engine to start video stream.
 
 
--- 
-With best wishes
-Dmitry
+However it does not know which
+
+
+>
+>> This patch have both dp_conenct_pending_timeout and
+>> dp_disconnect_pending_timeout are used to stop video stream and tear 
+>> down
+>> main link and eventually restore DP driver state to known default
+>> DISCONNECTED state in the case of timer fired due to framework does not
+>> respond to uevent so that DP driver can recover itself gracefully at 
+>> next
+>> dongle unplug followed by plugin event.
+>>
+>> Changes in v2:
+>> -- replace dp_display_usbpd_disconnect_cb with 
+>> dp_display_notify_disconnect
+>>
+>> Fixes: 8ede2ecc3e5e ("drm/msm/dp: Add DP compliance tests on 
+>> Snapdragon Chipsets")
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 36 ++++++++++++++++++++-----
+>>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  1 +
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 54 
+>> ++++++++++++++++++++++++++++---------
+>>   3 files changed, 72 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index dcd0126..48990fb 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> @@ -1910,15 +1910,12 @@ int dp_ctrl_off_link_stream(struct dp_ctrl 
+>> *dp_ctrl)
+>>       return ret;
+>>   }
+>>   -int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+>> +int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl)
+>>   {
+>>       struct dp_ctrl_private *ctrl;
+>>       struct dp_io *dp_io;
+>>       struct phy *phy;
+>> -    int ret = 0;
+>> -
+>> -    if (!dp_ctrl)
+>> -        return -EINVAL;
+>> +    int ret;
+>>         ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+>>       dp_io = &ctrl->parser->io;
+>> @@ -1926,7 +1923,34 @@ int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+>>         dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+>>   -    dp_catalog_ctrl_reset(ctrl->catalog);
+>> +    ret = dp_power_clk_enable(ctrl->power, DP_CTRL_PM, false);
+>> +    if (ret) {
+>> +        DRM_ERROR("Failed to disable link clocks. ret=%d\n", ret);
+>> +    }
+>> +
+>> +    DRM_DEBUG_DP("Before, phy=%p init_count=%d power_on=%d\n",
+>> +        phy, phy->init_count, phy->power_count);
+>> +
+>> +    phy_power_off(phy);
+>> +
+>> +    DRM_DEBUG_DP("After, phy=%p init_count=%d power_on=%d\n",
+>> +        phy, phy->init_count, phy->power_count);
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +int dp_ctrl_off(struct dp_ctrl *dp_ctrl)
+>> +{
+>> +    struct dp_ctrl_private *ctrl;
+>> +    struct dp_io *dp_io;
+>> +    struct phy *phy;
+>> +    int ret;
+>> +
+>> +    ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+>> +    dp_io = &ctrl->parser->io;
+>> +    phy = dp_io->phy;
+>> +
+>> +    dp_catalog_ctrl_mainlink_ctrl(ctrl->catalog, false);
+>>         ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, false);
+>>       if (ret)
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h 
+>> b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> index 2433edb..ffafe17 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> @@ -22,6 +22,7 @@ struct dp_ctrl {
+>>   int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
+>> +int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
+>>   void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl);
+>>   void dp_ctrl_isr(struct dp_ctrl *dp_ctrl);
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
+>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 178b774..a6200a5 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -451,11 +451,14 @@ static int dp_display_usbpd_configure_cb(struct 
+>> device *dev)
+>>     static int dp_display_usbpd_disconnect_cb(struct device *dev)
+>>   {
+>> +    return 0;
+>> +}
+>> +
+>> +static void dp_display_notify_disconnect(struct device *dev)
+>> +{
+>>       struct dp_display_private *dp = dev_get_dp_display_private(dev);
+>>         dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+>> -
+>> -    return 0;
+>>   }
+>>     static void dp_display_handle_video_request(struct 
+>> dp_display_private *dp)
+>> @@ -593,10 +596,16 @@ static int dp_connect_pending_timeout(struct 
+>> dp_display_private *dp, u32 data)
+>>         mutex_lock(&dp->event_mutex);
+>>   +    /*
+>> +     * main link had been setup but video is not ready yet
+>> +     * only tear down main link
+>> +     */
+>>       state = dp->hpd_state;
+>>       if (state == ST_CONNECT_PENDING) {
+>> -        dp->hpd_state = ST_CONNECTED;
+>>           DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
+>> +        dp_ctrl_off_link(dp->ctrl);
+>> +        dp_display_host_phy_exit(dp);
+>> +        dp->hpd_state = ST_DISCONNECTED;
+>>       }
+>>         mutex_unlock(&dp->event_mutex);
+>> @@ -645,6 +654,7 @@ static int dp_hpd_unplug_handle(struct 
+>> dp_display_private *dp, u32 data)
+>>           if (dp->link->sink_count == 0) {
+>>               dp_display_host_phy_exit(dp);
+>>           }
+>> +        dp_display_notify_disconnect(&dp->pdev->dev);
+>>           mutex_unlock(&dp->event_mutex);
+>>           return 0;
+>>       }
+>> @@ -661,19 +671,22 @@ static int dp_hpd_unplug_handle(struct 
+>> dp_display_private *dp, u32 data)
+>>           return 0;
+>>       }
+>>   -    dp->hpd_state = ST_DISCONNECT_PENDING;
+>> -
+>>       /* disable HPD plug interrupts */
+>>       dp_catalog_hpd_config_intr(dp->catalog, 
+>> DP_DP_HPD_PLUG_INT_MASK, false);
+>>         /*
+>>        * We don't need separate work for disconnect as
+>>        * connect/attention interrupts are disabled
+>> -     */
+>> -    dp_display_usbpd_disconnect_cb(&dp->pdev->dev);
+>> +    */
+>> +    dp_display_notify_disconnect(&dp->pdev->dev);
+>>   -    /* start sentinel checking in case of missing uevent */
+>> -    dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, 
+>> DP_TIMEOUT_5_SECOND);
+>> +    if (state == ST_DISPLAY_OFF) {
+>> +        dp->hpd_state = ST_DISCONNECTED;
+>> +    } else {
+>> +        /* start sentinel checking in case of missing uevent */
+>> +        dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, 
+>> DP_TIMEOUT_5_SECOND);
+>> +        dp->hpd_state = ST_DISCONNECT_PENDING;
+>> +    }
+>>         /* signal the disconnect event early to ensure proper 
+>> teardown */
+>>       dp_display_handle_plugged_change(&dp->dp_display, false);
+>> @@ -695,10 +708,16 @@ static int dp_disconnect_pending_timeout(struct 
+>> dp_display_private *dp, u32 data
+>>         mutex_lock(&dp->event_mutex);
+>>   +    /*
+>> +     * main link had been set up and video is ready
+>> +     * tear down main link, video stream and phy
+>> +     */
+>>       state =  dp->hpd_state;
+>>       if (state == ST_DISCONNECT_PENDING) {
+>> -        dp->hpd_state = ST_DISCONNECTED;
+>>           DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
+>> +        dp_ctrl_off(dp->ctrl);
+>> +        dp_display_host_phy_exit(dp);
+>> +        dp->hpd_state = ST_DISCONNECTED;
+>>       }
+>>         mutex_unlock(&dp->event_mutex);
+>> @@ -1571,6 +1590,12 @@ int msm_dp_display_enable(struct msm_dp *dp, 
+>> struct drm_encoder *encoder)
+>>         mutex_lock(&dp_display->event_mutex);
+>>   +    state = dp_display->hpd_state;
+>> +    if (state == ST_DISCONNECTED) {
+>> +        mutex_unlock(&dp_display->event_mutex);
+>> +        return rc;
+>> +    }
+>> +
+>>       /* stop sentinel checking */
+>>       dp_del_event(dp_display, EV_CONNECT_PENDING_TIMEOUT);
+>>   @@ -1588,8 +1613,6 @@ int msm_dp_display_enable(struct msm_dp *dp, 
+>> struct drm_encoder *encoder)
+>>           return rc;
+>>       }
+>>   -    state =  dp_display->hpd_state;
+>> -
+>>       if (state == ST_DISPLAY_OFF)
+>>           dp_display_host_phy_init(dp_display);
+>>   @@ -1638,13 +1661,18 @@ int msm_dp_display_disable(struct msm_dp 
+>> *dp, struct drm_encoder *encoder)
+>>       /* stop sentinel checking */
+>>       dp_del_event(dp_display, EV_DISCONNECT_PENDING_TIMEOUT);
+>>   +    state = dp_display->hpd_state;
+>> +    if (state == ST_DISCONNECTED || state == ST_DISPLAY_OFF) {
+>> +        mutex_unlock(&dp_display->event_mutex);
+>> +        return rc;
+>> +    }
+>> +
+>>       dp_display_disable(dp_display, 0);
+>>         rc = dp_display_unprepare(dp);
+>>       if (rc)
+>>           DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
+>>   -    state =  dp_display->hpd_state;
+>>       if (state == ST_DISCONNECT_PENDING) {
+>>           /* completed disconnection */
+>>           dp_display->hpd_state = ST_DISCONNECTED;
+>
+>
