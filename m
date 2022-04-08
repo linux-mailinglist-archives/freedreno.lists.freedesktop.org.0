@@ -1,46 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74A574F97CF
-	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 16:17:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA6114F98C6
+	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 16:58:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F39310F298;
-	Fri,  8 Apr 2022 14:17:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9608710E4E7;
+	Fri,  8 Apr 2022 14:58:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C287410F298
- for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 14:17:56 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id r3so700579edi.8
- for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 07:17:56 -0700 (PDT)
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2186D10E4E0
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 14:58:42 +0000 (UTC)
+Received: by mail-qt1-x831.google.com with SMTP id z15so1629922qtj.13
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 07:58:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z2JJx5IiDtTwR6XIUL714OcPUvnCKRiD1BViuooLypE=;
- b=CGpI14i0IwPVUyQqUyjByEDEtvkduDKUP7QuMKRoP5X6taKf8CuagqxSKl0sUVwrJ6
- XlNiwJVxLEaaLeESNo1108Ey5YpNqQwtI1MMVoK33xpMfv+ntnywV4+AdxcBtxaqUtiB
- v42lwnS+0NBcuvOdUFBFjSBaaG8u4SGkaHFNJzd5yma1QbRjddoJECDuLr1ByP2jTcRO
- WUjiD6sVRM3XnHllzbQq21jnwdhNxTkp3IOe5AU8DEF8UtwpVbRkA2j5PR5A1E6FIetC
- ts/n6gziaQp7LcOyY+UuRl8qpSkmwjXuA5N4JjHJxcnPbeTQiwLbCN3+1JsTSwqTidt9
- P5jA==
+ :cc; bh=oK4c0Q5n4J9QZqL0KRS62UFXdtvmGL0QpHUG9UqlFtM=;
+ b=JiaoeEJ/h9I9ehyz8BB6b9aKvzhlWiELooPvTLvhQPWAibE2DQQfgLRqmoAyu/5dvT
+ rnPF14ChjvoWWRTv1O1+XGk7d7CJaDjrPBzhI5kNAqSbVvHLEDKlSwnepynKSS382oJy
+ KRSei97PDYMYZ94FSluYQxLrD913+mXOOxVOtoZkWB3KA5eS5WrnMIHM2QkMCAAs7Dbu
+ 7bmklpOVzpmMLTFCXp1ZBNeN4XW577KkV4MJy3932uMLZ3wmLOWREGM25Ndko/6r690q
+ r5EPs7PQTXDQR5cT4l3+GmWBYArICqxEdbETXBxTRdr6Q6Dhix31+mOqoVVKgySLNTpy
+ VmWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=z2JJx5IiDtTwR6XIUL714OcPUvnCKRiD1BViuooLypE=;
- b=zIe83s5aGCS/IMkYSFRSnjFfYHWTb3ePd/P65g8ngFprM/0NDM8kdSRdujZSXoIGtA
- oK/G75zdOfljytv7lV/XxlnFP6K+85DPVJHtBARtjXK0fY5lttwowYDyvk8SwpYV73hS
- dX8pz4ue5QFCh5/vYbMFMn4gzPFfijoJakZQDV1VdLG62uR69PvgELqj99yMha2cMt/C
- 5kC4foGA1lG8AMEZSb/lKtsVcxxQsub52oncxZu1auy3ov5UBNc9USoxvIrJYvjNN1e0
- T0T4CCoYBD/Ix5Ym00CEd7a+wAXf2nX4/kou7MB0O4ysmOjO2vVbkacxfbixKMyiU+bi
- 00FA==
-X-Gm-Message-State: AOAM533rwp7plCglrCtVkDlAK10FxfQ8MSTdJKFRDBh/fEEEHdmR3Kz1
- oOiBa1kTGnr1afEwE7kdJ1ZBANqWsi7cFNSU9F7PMQ==
-X-Google-Smtp-Source: ABdhPJwthrucugVECJPFqMMkPdoQSMiDpbnsnpjUekEkrPs3/zxUp6NmoUpnfog0HvMvVa9IrZ6w7Hyd3rCSGbzbmeA=
-X-Received: by 2002:a05:6402:1804:b0:41d:5883:2f70 with SMTP id
- g4-20020a056402180400b0041d58832f70mr1242754edy.150.1649427475320; Fri, 08
- Apr 2022 07:17:55 -0700 (PDT)
+ bh=oK4c0Q5n4J9QZqL0KRS62UFXdtvmGL0QpHUG9UqlFtM=;
+ b=Mq2OIY8TsaRICZiiE/o7llR4EKPzRW2FH0VPrK1Zq1os+ZAQKxGTxIZyNu3DIyCzyE
+ 05QMsQzK2Xdhw6xaNmDVuXkAk3hYne6EXJkwCf4uo58XD1XaWrj0hRzHjuiH16odin3c
+ QgIgPqt6nnFJAi8FcQL8aD270SM7s6Eft5NI2QndpNVvFqUZ5XLW/wXxueIKydVKJ4R1
+ wwW/yMqFTVjLidCTni8lnsS+UZ/QUyPNF6BwxiYYkq+TD8NsKgsTRBNY4YFdhZ4kYpO0
+ 1ddhpA2WZap2k87XzEFYBDynlprn5J/JyDrHw+KxDpP/hNYtb9OLtVKRNFBoYn001k4J
+ DQxQ==
+X-Gm-Message-State: AOAM532yaN8vEUni5mgYBGallH+sE02B6JCPUi4vrIDQxcMszzN57h6I
+ xZPQBF4zkUDgesBWZvdq7CSuhP1d8HxECBr5KCAmww==
+X-Google-Smtp-Source: ABdhPJz4zF64TRpqJTVRBI33gdjEupkPabNbuA0AKMSnErc+1tO72wtp19hJVfKoDbuiPTth9omw+T8ZHl/AJ/7gkmg=
+X-Received: by 2002:ac8:5a46:0:b0:2e2:2edd:374 with SMTP id
+ o6-20020ac85a46000000b002e22edd0374mr16119166qta.295.1649429920056; Fri, 08
+ Apr 2022 07:58:40 -0700 (PDT)
 MIME-Version: 1.0
 References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
  <1648656179-10347-2-git-send-email-quic_sbillaka@quicinc.com>
@@ -56,14 +56,17 @@ References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
  <MW4PR02MB7186245772DAC3E04FA8D1C0E1E69@MW4PR02MB7186.namprd02.prod.outlook.com>
  <CAD=FV=Wk3U7_bVdiCPp8iQ4bcCA_Botemu4pwHeRtgBa3Xk6KQ@mail.gmail.com>
  <c4f086ce-c56f-f7c9-4092-7f2432330d50@quicinc.com>
- <CAA8EJprdV64jOexEF-XqbkwsNDWBNRRndOAas-QqMHaL=zp9rw@mail.gmail.com>
- <CAD=FV=XdRKWFQnJx9AKYmB2p26sXmhjqxLzz+LYyCt7rg+zF6w@mail.gmail.com>
- <CAA8EJprvSy1PuYCXMr-TxBF1XwcAZaErSmzH2Tw5-NAovxHY7A@mail.gmail.com>
- <CAD=FV=XS8h8GwL11CmJou31hTbf=mS77-j1y66uY+2YuGAUpzQ@mail.gmail.com>
-In-Reply-To: <CAD=FV=XS8h8GwL11CmJou31hTbf=mS77-j1y66uY+2YuGAUpzQ@mail.gmail.com>
+ <CAD=FV=UmU_BVUaL_X75yOEvQPtGUBTR5-jiVWBHq7uSRt6HM4Q@mail.gmail.com>
+ <225d2c0a-42ec-28ad-688c-e7e9e2035ee1@quicinc.com>
+ <CAD=FV=W=WjSACHvRDFBnkLUp-LU2c4XMu3=FTzTx=zexNF5PAw@mail.gmail.com>
+ <CAA8EJpqLZ9up4euGEbhf5QyBqm4tJuLcHi7D+0Si7ak9Jej52w@mail.gmail.com>
+ <CAD=FV=XwOzsRf7RnvyBjr5TtedMhC0LJFKoK9tp-kw1eEyuJmQ@mail.gmail.com>
+ <CAA8EJprb5UF24WRNvGaY_hSqW--NPd=9=8AaPYWSMbUumNn+dQ@mail.gmail.com>
+ <CAD=FV=UG7k4A+hMXxwju-0mLddD1oJdGngXMkMA-dO3AxOx0rQ@mail.gmail.com>
+In-Reply-To: <CAD=FV=UG7k4A+hMXxwju-0mLddD1oJdGngXMkMA-dO3AxOx0rQ@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 8 Apr 2022 17:17:43 +0300
-Message-ID: <CAA8EJpr5ezSLB1FQwzbmEfjKd5YB77h+NaWB4GJ2akJcF1nwGw@mail.gmail.com>
+Date: Fri, 8 Apr 2022 17:58:28 +0300
+Message-ID: <CAA8EJprLRiWrkqLG09UG1arDmo1fuq917ztfxts66p+AaYcYbA@mail.gmail.com>
 To: Doug Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v6 1/8] drm/msm/dp: Add eDP support via
@@ -97,111 +100,86 @@ Cc: quic_kalyant <quic_kalyant@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 8 Apr 2022 at 16:56, Doug Anderson <dianders@chromium.org> wrote:
+On Fri, 8 Apr 2022 at 16:43, Doug Anderson <dianders@chromium.org> wrote:
 >
 > Hi,
 >
-> On Fri, Apr 8, 2022 at 5:13 AM Dmitry Baryshkov
+> On Fri, Apr 8, 2022 at 5:20 AM Dmitry Baryshkov
 > <dmitry.baryshkov@linaro.org> wrote:
 > >
-> > On Fri, 8 Apr 2022 at 03:28, Doug Anderson <dianders@chromium.org> wrote:
-> > >
-> > > Hi,
-> > >
-> > > On Thu, Apr 7, 2022 at 4:36 PM Dmitry Baryshkov
-> > > <dmitry.baryshkov@linaro.org> wrote:
-> > > >
-> > > > The ps8640 driver looks 'working by coincidence'. It calls
-> > > > dp_aux_populate, then immediately after the function returns it checks
-> > > > for the panel. If panel-edp is built as a module, the probe might fail
-> > > > easily.
-> > > > The anx7625 driver has the same kind of issue. The DP AUX bus is
-> > > > populated from the probe() and after some additional work the panel is
-> > > > being checked.
-> > > > This design is fragile and from my quick glance it can break (or be
-> > > > broken) too easy. It reminds me of our drm msm 'probe' loops
-> > > > preventing the device to boot completely if the dsi bridge/panel could
-> > > > not be probed in time.
-> > >
-> > > I did spend some time thinking about this, at least for ps8640. I
-> > > believe that as long as the panel's probe isn't asynchronous.
+> > > I guess my thought was that in DP you could still create the AUX bus
+> > > at probe time. Then for DP you just return an instant "transfer
+> > > failed" from the AUX bus if HPD isn't asserted. For eDP (as discussed
+> > > elsewhere) when we try to do an AUX transfer then we delay until HPD
+> > > is there.
 > >
-> > By panel probe (as a probe of any device) is potentially asynchronous.
-> > As in your example, the PWM might not be present, the regulator probe
-> > might have been delayed, the panel-edp might be built as a module,
-> > which is not present for some reason.
+> > I think panel-edp would already handle the delay, so we do not need to
+> > have this logic in the DP driver.
 >
-> Well, in those cases it's not exactly asynchronous, or at least not in
-> the way I was thinking about. Either it will work now, or we should
-> try again later when more drivers have probed. The case I was worried
-> about was:
+> There's a whole discussion about this between Stephen and me in patch
+> #5 ("drm/msm/dp: wait for hpd high before any sink interaction").
+> Basically:
 >
-> 1. We call devm_of_dp_aux_populate_ep_devices()
->
-> 2. devm_of_dp_aux_populate_ep_devices() kicks off a probe to the panel
-> in the background
->
-> 3. devm_of_dp_aux_populate_ep_devices() returns to us without waiting
-> for the panel's probe to finish.
->
-> I think that's possible if the panel driver sets PROBE_PREFER_ASYNCHRONOUS.
+> * If panel HPD is hooked up to the dedicated HPD pin on the eDP
+> controller then the panel driver doesn't have a way to read it.
 
-That would be a separate story, yes. However the general case is still
-valid: one can not guarantee that the panel device is available
-immediately after aux bus population.
-So ps8640 works at this moment and in the particular configuration.
+I refreshed that dialog. I must admit, I have missed the fact that the
+HPD pin might not be visible as the GPIO pin.
 
->
-> I was less worried about the resources missing since I thought that
-> would be handled by the normal probe deferral case. IIRC the "infinite
-> loop" that we used to end up with MSM's probe was because something
-> about the way the MSM DRM driver worked would cause the deferral
-> mechanisms to retry instantly each time we deferred. I don't remember
-> exactly what triggered it, but I don't _think_ that's true for ps8640?
+> * We can't leverage the existing "HPD" query functions in DRM because
+> those indicate whether a panel is _physically_ connected. For eDP, it
+> always is.
 
-I'm not sure either. If you have a system with that bridge, it can be
-easily tried by returning -EPROBE_DEFER from the panel driver's
-probe().
+Yes, I was thinking about (mis)using the
+drm_bridge_connector_hpd_notify() for generic HPD-related
+notifications (to tell eDP that it should check the current state). I
+have abandoned that idea.
 
-For the msm driver it was the following sequence of events:
-- mdss probes
-- mdss creates subdevices including dsi host
-- subdevices are probed
-- mdss drivers tries to perform component binding
-- dsi host determines that the next item is not available
-- it returns -EPROBE_DEFER to the component bind
-- mdss reverts registration of subdevices, returning probe defer.
+> For now the rule is that the AUX transfer function is in charge of
+> waiting for HPD for eDP if the dedicated HPD pin is used. If we want
+> to re-invent this we could, but that system works, isn't _too_ ugly,
+> and we're already making big enough changes in this series.
 
-However as there were devices added to the device list, the deferral
-list was retried immediately. Thus we faced the probe loop.
+The is_hpd_asserted() looks like a good callback for the aux bus.
+It will allow the panel driver to check if the panel is powered up (in
+the absence of the GPIO pin).
 
-I think this looks close to the ps8640, but I wouldn't bet on that.
-
-> > > Basically if the panel isn't ready then ps8640 should return and we'll
-> > > retry later. I do remember the probe loops that we used to have with
-> > > msm and I don't _think_ this would trigger it.
+> > > So we can still acquire resources (clocks, PHY, io maps, etc) at probe
+> > > time for DP and create the AUX bus, right? It will just return
+> > > "-ENODEV" if HPD isn't asserted and you're DP?
 > >
-> > I don't have proof here. But as I wrote, this thing might break at some point.
-> >
-> > > That being said, if we need to separate out the AUX bus into a
-> > > sub-device like we did in sn65dsi86 we certainly could.
-> >
-> > Ideally we should separate the "bridge" subdevice, like it was done in
-> > sn65dsi86.
-> > So that the aux host probes, registers the EP device, then the bridge
-> > device can not be probed (and thus the drm_bridge is not created)
-> > until the next  bridge becomes available.
+> > Yes, please. I still suppose that we'd need a separate case to
+> > power_on eDP's PHY during the probe time. Maybe I'm mistaken here.
 >
-> You're definitely right, that's best. I was hesitant to force the
-> issue during review of the ps8640 because it adds a bunch of
-> complexity and didn't _seem_ to be needed. Maybe it makes sense to
-> just code it up, though...
+> I think the ideal way is to do it like Kieran's proposal for sn65dsi86:
+>
+> https://lore.kernel.org/r/20220317131250.1481275-4-kieran.bingham+renesas@ideasonboard.com/
+>
+> * When enabling HPD (physical hot plug detect) in the hpd_enable()
+> callback you do a pm_runtime_get(). You do the
+> pm_runtime_put_autosuspend() when disabling. This is only used for DP
+> since we only provide DRM_BRIDGE_OP_HPD for DP, not for eDP.
+>
+> * We do a pm_runtime_get() / pm_runtime_put_autosuspend() in the AUX
+> transfer routine. While holding the pm_runtime reference we check HPD.
+> For DP we return immediately if HPD isn't asserted. For eDP, we delay.
+>
+> * We do the pm_runtime_get() in pre_enable and the pm_runtime_put() in
+> post_disable. For DP this will add a 2nd refcount (since we probably
+> were holding the reference for HPD). For eDP this will cause us to
+> power on.
+>
+> * If there's any other time we need to read HW registers, and we
+> aren't guaranteed to already have a pm_runtime reference (like during
+> probe), we can do a temporary pm_runtime_get() /
+> pm_runtime_put_autosuspend().
 
-As I wrote, the test is easy. If the system boots fine, there is no
-need to fix that immediately.
-However I think in general we should stop depending on the panel being
-available right after populating the aux bus.
+This looks good. I'd be more than welcome to review such series.
 
+Note: I think this would require using
+drm_bridge_connector_enable_hpd() in the DP code.
+Hopefully at some point we would be able to move all
+drm_bridge_connector calls to the core msm layer.
 --
 With best wishes
 Dmitry
