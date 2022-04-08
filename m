@@ -1,60 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0300A4F9C2D
-	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 20:02:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C0044F9C3E
+	for <lists+freedreno@lfdr.de>; Fri,  8 Apr 2022 20:07:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A6C10E719;
-	Fri,  8 Apr 2022 18:02:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46BAE10E803;
+	Fri,  8 Apr 2022 18:07:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 594DD10E719
- for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 18:02:36 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id c199so3751107qkg.4
- for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 11:02:36 -0700 (PDT)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A133D10E803
+ for <freedreno@lists.freedesktop.org>; Fri,  8 Apr 2022 18:07:07 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id b19so5448805qkk.12
+ for <freedreno@lists.freedesktop.org>; Fri, 08 Apr 2022 11:07:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qnWn/G1v8AMjgZeV0vrRRskVP5PKCPkKnjAvSBWCiog=;
- b=Yrv/4DfWo8XzuZKX3n2fnRyM5qg5cpPd9RJn0imI4WJgfA4/hq+XwK9Zez1bIwBFYG
- QxCMABFF3bqiHIWYhC6zjNtGol7oTSnOQqqyJFcuFqDNXpPyLZ4B69ms5ViWU63tMj+8
- uVXMMz2FNHEUtmwK6ym9rZiV1MBctW2Kf7hipW8dlYW3COwe6ol7B3iEqbxxH1VB98C8
- aOIvIk6e5JtfwqivEiIizEpJiJV/ST6bkAayH/VrgmDzhchacsaK+uSJE0OnvGg2/eGU
- cMu9HHoge1H5LkMbBB1zaIdGPc4PwFNWUQA1vngF5bjc+F94yqev4OLIAImsKsRY4Vh1
- 6+aw==
+ :cc; bh=wmcdb5nmt0doJvCBL/+RI9ZfUWuc/Uy9BfsoaxM/AdQ=;
+ b=uGxgDP2UPoHQogpGiGRfr33QAF5ZMPH1Dmn24vbaz3pUvShOvxKQPqcJN1O9UcgG1R
+ +UsIG84kTzObvP3fIkFrxSARGIAKpqk+g8WKa6s3izfzgmJ32TegqRP5Iyt80OClb4Wf
+ HUIb507UE83xRgsIRDMPaZDvo01bW02vCqLyXJJpA2MOJZ1FJ/Bg9LDqboalZVRe+L6e
+ vPcdNHuPgg0fc/r7L/nHPXIW2qe8yJzIlmMDkTiSY0VlWaTZT76UwgYZcd8BpF9EXS61
+ I8YjTREHJh3H6w8bxMqI2g5WiFtUyWFAg3fVUL7wyXRbvJv2RjDwIg+GCyppzDRSntvp
+ nQLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=qnWn/G1v8AMjgZeV0vrRRskVP5PKCPkKnjAvSBWCiog=;
- b=CV9+1Uxgza4oDOiUffSiGZP9VKR3t0rW2f9fRzzf/HqG8qJMmdYSnJeiUo6BrIfbj4
- lJkkFopKMV31gwXi5KUhcZD4pkbqb6+PZjHDpU3nvhV+bQW5i7dK/8mDrTELwL2L43ch
- VBaPfEnoZR97fvGEpjkUe1t6VrAfFMio883h8NSMO/OxuEZtStarVAThM5PaAFHJEPo1
- 5P/H6WN+dLnu/vd/Tzp9n9HQVFgx1eFafR38dsIYgjSHl8oBPjtpLCNZe80ZOOW9+kkw
- 0GNL99yi9TLOPKBXIWXBp8KbA7xjXtz1+L1C+IiQG0gDVKOcx/+ldTqJgDECpfIe1edH
- HDhA==
-X-Gm-Message-State: AOAM533qpfhv9Wqz7FA+846jEcOoxukQBEWVtdwgLX5wWPSF3aT0Ehkw
- r1x1k4gGkypABLbH004JTpy0XeLrDGJXUiJDwEWx4w==
-X-Google-Smtp-Source: ABdhPJy0Zg7wGYGP3Y4ju21eKWOojsGNF/XGXzPyEC1bFWczC1hJ830VSwicu8jxDsJoQJjrLC3tmgMKEMTuAl3yecw=
-X-Received: by 2002:a05:620a:170a:b0:67d:be5c:204a with SMTP id
- az10-20020a05620a170a00b0067dbe5c204amr13919747qkb.593.1649440955444; Fri, 08
- Apr 2022 11:02:35 -0700 (PDT)
+ bh=wmcdb5nmt0doJvCBL/+RI9ZfUWuc/Uy9BfsoaxM/AdQ=;
+ b=rn9S8Czfhn+WBCaQHJjSbUZwlVlVNTq6zxuyuxmxABTJpN8RBwhduijcRGXRVNELBa
+ Owkj4Bb7QsuJrZQRFrxsdGazUckN9frDWjQiKzzHIMFEPg+HnnosfMOpdKrpZ74G7Zn8
+ 7yMklqWb/bW+6K6unNJA9TeyBUfVqaASpwB0me6owm2SPlMI2SIrhpKcIRrugmOBXfTE
+ OSwee37npzRfJogTKYcC/O0lkwuwUQA0Nm4HNK0rHStwHjZ1xVu/bR9bNfdZ2e6laGnO
+ k7Uv8nkcvDV1KCLV2D+Rqd2UttQ6qzNmf9AUN6ml9oSTw4E4Lnr8/16IYNqjOAT3FOjR
+ KD7g==
+X-Gm-Message-State: AOAM530Ha8z4dv2eWfOmERdNN9d00LUZbfMFjg9ruWH2t2d5a6LokkKQ
+ C7iggN5hITFTE2/lfRvOCOxab9qFW6CMBe17bhy4vQ==
+X-Google-Smtp-Source: ABdhPJxJl2MJUFLzdxBjTc2b/X/CvxVwf8lRxDTWWQhaU1sWumCVgfn7mdqeldogcLlpHWNLG3g4GLwBanVn4jCZkqk=
+X-Received: by 2002:a05:620a:2449:b0:69a:4ae:85e5 with SMTP id
+ h9-20020a05620a244900b0069a04ae85e5mr6168873qkn.30.1649441226697; Fri, 08 Apr
+ 2022 11:07:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <1648656179-10347-1-git-send-email-quic_sbillaka@quicinc.com>
- <1648656179-10347-6-git-send-email-quic_sbillaka@quicinc.com>
- <CAD=FV=Wn-XypjRcw-D0VtBHZbuTz=RHiMq6RCHCa=CWmZM42nQ@mail.gmail.com>
- <94da2c97-2ad2-4575-bd73-d66ad989e17b@linaro.org>
- <MW4PR02MB7186B3A2F8EDF388CA521498E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
-In-Reply-To: <MW4PR02MB7186B3A2F8EDF388CA521498E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <1648656179-10347-9-git-send-email-quic_sbillaka@quicinc.com>
+ <CAA8EJprvE31ex3fCQHZ-=x+EWHK4UZ0qqHRh+rH4dk5TPhmVyw@mail.gmail.com>
+ <MW4PR02MB71867220A90FCFED295830D0E1E19@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAD=FV=VK0D_GzYBv+u+o6-ks-UAsw97__0mWsSn9OycX72LJFg@mail.gmail.com>
+ <MW4PR02MB71865B8E17F3D194B05013EDE1E59@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAA8EJpqFh7c9ohDbR_0kG5t106-djE7TYfaoAbiT-W4-294jTw@mail.gmail.com>
+ <MW4PR02MB71868617E96D59D659EFD87EE1E69@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAA8EJpqd+JVHqjNrwZ4MHi+9JMdA5QPX2UwGpeM6RhUntv0brA@mail.gmail.com>
+ <MW4PR02MB7186577BFEEF3CCD8DED3D44E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAA8EJpo4MjqZDY4oLzS9ob6LPAe5gU=eqVz6m62_DaPAnxwWTQ@mail.gmail.com>
+ <MW4PR02MB7186C2AB04AAC0F8D2C74B32E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
+In-Reply-To: <MW4PR02MB7186C2AB04AAC0F8D2C74B32E1E99@MW4PR02MB7186.namprd02.prod.outlook.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 8 Apr 2022 21:02:24 +0300
-Message-ID: <CAA8EJppMnDR15ZSS7FyMvDH0yshfNtgZgoYaxpYkJ3=xYm+Ggw@mail.gmail.com>
+Date: Fri, 8 Apr 2022 21:06:55 +0300
+Message-ID: <CAA8EJpqEqmUEYHfb5iYJ9tFdeYNth3Ye12pmT_A7knsTb7C9kg@mail.gmail.com>
 To: Sankeerth Billakanti <sbillaka@qti.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v6 5/8] drm/msm/dp: prevent multiple votes
- for dp resources
+Subject: Re: [Freedreno] [PATCH v6 8/8] drm/msm/dp: Handle eDP mode_valid
+ differently from dp
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,76 +75,233 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "Sankeerth Billakanti \(QUIC\)" <quic_sbillaka@quicinc.com>,
  "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ quic_vproddut <quic_vproddut@quicinc.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
  "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
  "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
  Doug Anderson <dianders@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "seanpaul@chromium.org" <seanpaul@chromium.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
  "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 8 Apr 2022 at 20:12, Sankeerth Billakanti
+On Fri, 8 Apr 2022 at 20:38, Sankeerth Billakanti
 <sbillaka@qti.qualcomm.com> wrote:
 >
-> > > On Wed, Mar 30, 2022 at 9:04 AM Sankeerth Billakanti
-> > > <quic_sbillaka@quicinc.com> wrote:
-> > >>
-> > >> The aux_bus support with the dp_display driver will enable the dp
-> > >> resources during msm_dp_modeset_init. The host_init has to return
-> > >> early if the core is already initialized to prevent putting an
-> > >> additional vote for the dp controller resources.
-> > >>
-> > >> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> > >> ---
-> > >>   drivers/gpu/drm/msm/dp/dp_display.c | 10 ++++++++++
-> > >>   1 file changed, 10 insertions(+)
+> > > > > > > > > > On Wed, 30 Mar 2022 at 19:04, Sankeerth Billakanti
+> > > > > > > > > > <quic_sbillaka@quicinc.com> wrote:
+> > > > > > > > > > >
+> > > > > > > > > > > The panel-edp driver modes needs to be validated
+> > > > > > > > > > > differently from DP because the link capabilities are
+> > > > > > > > > > > not available for EDP by
+> > > > > > that time.
+> > > > > > > > > > >
+> > > > > > > > > > > Signed-off-by: Sankeerth Billakanti
+> > > > > > > > > > > <quic_sbillaka@quicinc.com>
+> > > > > > > > > >
+> > > > > > > > > > This should not be necessary after
+> > > > > > > > > >
+> > > > > > > >
+> > > > > >
+> > > >
+> > https://patchwork.freedesktop.org/patch/479261/?series=101682&rev=1.
+> > > > > > > > > > Could you please check?
+> > > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > The check for DP_MAX_PIXEL_CLK_KHZ is not necessary
+> > > > > > > > > anymore but
+> > > > > > we
+> > > > > > > > > need to return early for eDP because unlike DP, eDP
+> > > > > > > > > context will not have the information about the number of
+> > > > > > > > > lanes and link
+> > > > clock.
+> > > > > > > > >
+> > > > > > > > > So, I will modify the patch to return after the
+> > > > > > > > > DP_MAX_PIXEL_CLK_KHZ
+> > > > > > > > check if is_eDP is set.
+> > > > > > > >
+> > > > > > > > I haven't walked through all the relevant code but something
+> > > > > > > > you said above sounds strange. You say that for eDP we don't
+> > > > > > > > have info about the number of lanes? We _should_.
+> > > > > > > >
+> > > > > > > > It's certainly possible to have a panel that supports
+> > > > > > > > _either_ 1 or
+> > > > > > > > 2 lanes but then only physically connect 1 lane to it. ...or
+> > > > > > > > you could have a panel that supports 2 or 4 lanes and you
+> > > > > > > > only connect 1
+> > > > lane.
+> > > > > > > > See, for instance, ti_sn_bridge_parse_lanes. There we assume
+> > > > > > > > 4 lanes but if a "data-lanes" property is present then we
+> > > > > > > > can use that to know that fewer lanes are physically connected.
+> > > > > > > >
+> > > > > > > > It's also possible to connect more lanes to a panel than it supports.
+> > > > > > > > You could connect 2 lanes to it but then it only supports 1.
+> > > > > > > > This case needs to be handled as well...
+> > > > > > > >
+> > > > > > >
+> > > > > > > I was referring to the checks we do for DP in
+> > > > > > > dp_bridge_mode_valid. We check if the Link bandwidth can
+> > > > > > > support the pixel bandwidth. For an external DP connection,
+> > > > > > > the Initial DPCD/EDID read after cable connection will return
+> > > > > > > the sink capabilities like link rate, lane count and bpp
+> > > > > > > information that are used to we filter out the unsupported
+> > > > > > modes from the list of modes from EDID.
+> > > > > > >
+> > > > > > > For eDP case, the dp driver performs the first dpcd read
+> > > > > > > during bridge_enable. The dp_bridge_mode_valid function is
+> > > > > > > executed before bridge_enable and hence does not have the full
+> > > > > > > link or the sink capabilities information like external DP connection,
+> > by then.
+> > > > > >
+> > > > > > It sounds to me like we should emulate the HPD event for eDP to
+> > > > > > be handled earlier than the get_modes()/prepare() calls are
+> > attempted.
+> > > > > > However this might open another can of worms.
+> > > > > >
+> > > > >
+> > > > > For DP, the HPD handler mainly initiates link training and gets the EDID.
+> > > > >
+> > > > > Before adding support for a separate eDP panel, we had discussed
+> > > > > about this internally and decided to emulate eDP HPD during
+> > > > > enable(). Main reason being, eDP power is guaranteed to be on only
+> > > > > after
+> > > > bridge_enable().
+> > > > > So, eDP link training can happen and sustain only after bridge_enable().
+> > > > >
+> > > > > Emulating HPD before/during get_modes will not have any effect
+> > because:
+> > > >
+> > > > As we have seen, the term HPD is significantly overloaded. What do
+> > > > you want to emulate?
+> > > >
 > > >
-> > > I'm not a huge fan of this but I'll leave it up to Dmitry. In general
-> > > it feels like there should be _a_ place that enables these resources.
-> > > Checks like this make it feel like we just scattershot enabling
-> > > resources in a bunch of random places instead of coming up with the
-> > > design for enabling them in the right place.
+> > > On DP, we use HPD event for link training and EDID read.
+> > >
+> > > I understood that you wanted me to emulate HPD event before
+> > > get_modes() but because the panel power is controlled by panel-edp,
+> > > whatever programming we do on the sink side will be reset when panel
+> > > power will be turned off by the pm_runtime_put_autosuspend() of the
+> > panel-edp in panel_edp_get_modes().
 > >
-> > I'd prefer to see a check for eDP in dp_display_config_hpd(). Or even better
-> > to see that this function isn't called for eDP at all.
+> > The pm_runtime_put_autosuspend() wouldn't suspend the device
+> > immediately. It will be suspended after the grace period finished, if nobody
+> > resumes the devices again. This is how it works in the
+> > sn65dsi86 driver. It sets the timeout delay long enough, so that get_modes
+> > and pre_enable would typically work together without suspending the host.
 > >
 >
-> This needs to be called when eDP is not using the aux_bus path. If the eDP panel is
-> given as a separate panel driver, then the resources need to be enabled here.
+> Okay. We are not implementing a bridge pre_enable currently
 >
-> If we don't want to support eDP without aux_bus, then we can skip this function.
-
-I think it's up to you to decide, if it's necessary or not.
-But if it is, please change it accordingly.
-
 > > >
-> > > In any case, if we do end up landing this patch, it sure feels like it
-> > > needs to move earlier in the patch series, right? This patch shouldn't
-> > > hurt even without the other patches in the series but if you apply the
-> > > earlier patches in the series without this one then you'll have a bug,
-> > > right? That means this needs to come earlier.
+> > > > >
+> > > > > 1. get_modes() will go to panel's get_modes() function to power on
+> > > > > read EDID
+> > > > >
+> > > > > 2. panel power will be turned off after get_modes(). Panel power
+> > > > > off will reset every write transaction in DPCD. anyway
+> > > > > invalidating link training
+> > > >
+> > > > I tend to agree with Doug here. eDP link power status should be
+> > > > handled by the pm_runtime_autosuspend with grace period being high
+> > > > enough to cover the timeslot between get_mode() and enable().
+> > > >
+> > > > panel-edp already does most of required work.
+> > > >
 > > >
-> > > -Doug
+> > > The eDP controller resources are enabled through the host_init() and
+> > > the link resources need to be powered on for doing link training,
+> > > which needs to happen in the enable() with generic panel-edp.
 > >
+> > nothing wrong with that up to now
 > >
-> > --
-> > With best wishes
-> > Dmitry
+> > >
+> > > > >
+> > > > > 3. mode_valid will land in dp driver but panel will not be powered
+> > > > > on at that time and we cannot do aux transfers or DPCD read writes.
+> > > >
+> > > > Why do we need to perform AUX writes in mode_valid?
+> > > >
+> > >
+> > > I am trying to justify why we cannot have mode_valid() implementation
+> > similar to DP for eDP.
+> > > The detect() and get_modes() are called from panel bridge and panel-
+> > edp.c respectively.
+> > > The first eDP specific call which will land in the dp_driver is
+> > > mode_valid(), in which the controller cannot perform aux access because
+> > the panel will not be powered-on.
+> >
+> > I fail to understand why you'd like to perform aux access from mode_valid at
+> > all.
 >
-> Thank you,
-> Sankeerth
+> I don't want to perform it in mode_valid. I am just saying that, apart from mode_valid(),
+> there is no other eDP call (other than aux_transfer) which will land in the DP driver before the mode_set().
+> So, currently there is no function in which we can get the eDP sink capabilities before enable().
+> So, we assume the mode will be supported if the pixel clock is less than the max clock of 675MHz.
+>
+> >
+> > > As the panel-power and backlight are panel resources, we are not
+> > > enabling/voting for them from the DP/eDP controller driver.
+> >
+> > correct
+> >
+> > >
+> > > > >
+> > > > > > > So, we need to proceed with the reported mode for eDP.
+> > > > > >
+> > > > > > Well... Even if during the first call to get_modes() the DPCD is
+> > > > > > not read, during subsequent calls the driver has necessary
+> > > > > > information, so it can proceed with all the checks, can't it?
+> > > > > >
+> > > > >
+> > > > > get_modes() currently does not land in DP driver. It gets executed
+> > > > > in panel bridge. But the mode_valid() comes to DP driver to check
+> > > > > the controller compatibility.
+> > > >
+> > > > Yes, this is correct. the DP's mode_valid() knows the hardware
+> > > > limitations (max clock speed, amount of lanes, etc) and thus it can
+> > > > decide whether the mode is supported by the whole chain or not.
+> > > > We should not skip such checks for the eDP.
+> > > >
+> > > >
+> > >
+> > > For eDP, we have no information about the number of lanes or the link
+> > > rate supported We only know the max lanes from the data-lanes DT
+> > property.
+> >
+> > If the device connects just a single line to the eDP panel, the DT will be
+> > changed to list that single lane.
+> > It looks like we have to call dp_panel_read_sink_caps() somewhere for the
+> > eDP case. For the DP case the HPD callbacks do this work.
+> >
+> > No, mode_valid doesn't look like a proper place. We already have read
+> > modes, so the AUX bus has been powered for some time. We could do it
+> > earlier.
+>
+> Correct, we have to do it earlier. But is there some function in which we can get
+> the dp_panel_read_sink_caps() before get_modes?
+>
+> A way could be to implement the mode_valid also in panel-eDP along with the
+> get_modes. We can read the sink capabilities in get_modes in panel-edp.c and
+> check in the mode_valid() in panel-edp.c.
+>
+> I also feel the mode_valid() needs to check if a controller can support it rather
+> than the panel. So, I cannot find a way where to get the sink caps now before
+> the mode_set() or enable()
 
+Anywhere after you have the reference to the next_bridge, you can be
+sure that the panel is present. So you can power up the AUX bus, read
+the caps, and (auto-)suspend it again.
 
 
 -- 
