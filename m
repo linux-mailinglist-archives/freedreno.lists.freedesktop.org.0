@@ -1,69 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2336B4FB14F
-	for <lists+freedreno@lfdr.de>; Mon, 11 Apr 2022 03:20:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3224FB35B
+	for <lists+freedreno@lfdr.de>; Mon, 11 Apr 2022 07:55:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44DFB10E494;
-	Mon, 11 Apr 2022 01:20:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB0EF10EE31;
+	Mon, 11 Apr 2022 05:55:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C124410E494
- for <freedreno@lists.freedesktop.org>; Mon, 11 Apr 2022 01:20:15 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id j9so15916908lfe.9
- for <freedreno@lists.freedesktop.org>; Sun, 10 Apr 2022 18:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language
- :from:to:cc:references:in-reply-to:content-transfer-encoding;
- bh=05X/pQBV2MI76IjGX7fSWAPTcXgd+Vfg/z1tUXGVcQc=;
- b=HL6xtEPacsZ6zEKa4xgS6WpIIMLbpOvanq1tH1R7pc6+fIzJsqF2GEV5pG2IK8elON
- hsvsroTmMu2x5m6FPVW5qBKhOYyboosL2EwPqiYVFTS0jKuLzouTo1KtofUzvDfkD4cs
- xL4TYxCEuMsVT4bKCXdH+iC0gQLvWGlE8UbgE/VycNqIfEchp1SI7lntYmR437jI/5qy
- PkYk45rDiQT6d9iXs7Ub/EwEvcr3AmZ8U60Qn8oScXCXO00MkqUaTkU0MRXRw1mygVbw
- QjrFj7UF2xCBo+z2qiy9CNBAqj9VWhvR7o0CcSEuWatpe88mc5YfMKKWYZ9/DaVqB5d7
- KWfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=05X/pQBV2MI76IjGX7fSWAPTcXgd+Vfg/z1tUXGVcQc=;
- b=txdDKWbB5xDNqHfnw7FfAf+IogNhXJVHCkBKaqjHJIvnE7AR9lhuSkeZT2BpO2AN31
- uV4ayXbUGYGHfzmZcxcwhuRNzRGf2B9pdW+zUrref6jDIyDxlgDB/fC7YRRiC6dFCIg5
- yr7GrkDEauRsDE63TdO583NyNWKNO8HM8WcoAs6SoLGjtgBaTk8nvpQaTF+w9XKjNdTX
- jgxbo23U8QJ/Sch2mQhjZZm9iw5XwgJBQ1mirj/B5ITI8fDtj7WB1ToSdRHqqjf4G7Ys
- 0w9slAyq+cZT2kq8dLFPZIX17XOp3ksKdRuwcV38W2hM5TKl2HlfUEaLncsmCw/Nyf5v
- YJZw==
-X-Gm-Message-State: AOAM533+aTmNj4rj4VjHuSXCyNc+SYKvmC4PVsxYEclA3LB8Q0AqGWd2
- v9uwPSRd1DH512RIkt6eCkuf2g==
-X-Google-Smtp-Source: ABdhPJwgOvDStoVkU5PcymcKMDfs/8Fh2oeLos5hkTOAv/lK50CRFRy3NioQSwXdvc/8q7VUKZrx6g==
-X-Received: by 2002:a05:6512:3994:b0:44a:7125:c689 with SMTP id
- j20-20020a056512399400b0044a7125c689mr20002136lfu.166.1649640014132; 
- Sun, 10 Apr 2022 18:20:14 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- b16-20020a2ebc10000000b0024b63f0da2csm154707ljf.13.2022.04.10.18.20.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 10 Apr 2022 18:20:13 -0700 (PDT)
-Message-ID: <7e0592bc-1e8f-0981-cea2-f74402ab5886@linaro.org>
-Date: Mon, 11 Apr 2022 04:20:12 +0300
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ACB810EE74;
+ Mon, 11 Apr 2022 05:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649656535; x=1681192535;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=p9HXYw/ALt+MopqQNrusnXpB/e7Lu7tHls88nUVRk1Q=;
+ b=Vqb4xvQIqez5v21H2EtXpsw0nVmD/NBvFxq5cosnWx/OHceug7c1AUXs
+ vwGWHHvUb0ZjO70eNVXjyvDgkf/ffvm70szIASi2moTs9R2qZSQY30hr7
+ Ig24P5VK4/brHd33NsmZx3+75iE6CtuPZB4GV6EoJfeGvj9L4ms98WjU1 Q=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 10 Apr 2022 22:55:33 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2022 22:55:32 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Sun, 10 Apr 2022 22:55:31 -0700
+Received: from [10.111.167.150] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Sun, 10 Apr
+ 2022 22:55:29 -0700
+Message-ID: <adb5b728-d1e3-022d-62fa-1f7278e63e41@quicinc.com>
+Date: Sun, 10 Apr 2022 22:55:27 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Xiaomeng Tong <xiam0nd.tong@gmail.com>, robdclark@gmail.com,
- sean@poorly.run, airlied@linux.ie, daniel@ffwll.ch
-References: <20220327073252.10871-1-xiam0nd.tong@gmail.com>
- <0788b245-ee8f-25de-dde3-7ff10f6c688c@linaro.org>
-In-Reply-To: <0788b245-ee8f-25de-dde3-7ff10f6c688c@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] dpu1: dpu_encoder: fix a missing check on
- list iterator
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>, "Sean
+ Paul" <sean@poorly.run>
+References: <20220318000731.2823718-1-swboyd@chromium.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220318000731.2823718-1-swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Use connector directly in
+ msm_dsi_manager_connector_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,80 +66,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- stable@vger.kernel.org, jsanka@codeaurora.org, bjorn.andersson@linaro.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- markyacoub@google.com
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>, Dmitry
+ Baryshkov <dmitry.baryshkov@linaro.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/04/2022 03:56, Dmitry Baryshkov wrote:
-> On 27/03/2022 10:32, Xiaomeng Tong wrote:
->> The bug is here:
->>      cstate = to_dpu_crtc_state(drm_crtc->state);
->>
->> For the drm_for_each_crtc(), just like list_for_each_entry(),
->> the list iterator 'drm_crtc' will point to a bogus position
->> containing HEAD if the list is empty or no element is found.
->> This case must be checked before any use of the iterator,
->> otherwise it will lead to a invalid memory access.
->>
->> To fix this bug, use a new variable 'iter' as the list iterator,
->> while use the origin variable 'drm_crtc' as a dedicated pointer
->> to point to the found element.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: b107603b4ad0f ("drm/msm/dpu: map mixer/ctl hw blocks in encoder 
->> modeset")
->> Signed-off-by: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-On the other hand, this code has been removed in 5.18-rc1 in the commit 
-764332bf96244cbc8baf08aa35844b29106da312.
-
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 11 ++++++++---
->>   1 file changed, 8 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 1e648db439f9..d3fdb18e96f9 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -965,7 +965,7 @@ static void dpu_encoder_virt_mode_set(struct 
->> drm_encoder *drm_enc,
->>       struct dpu_kms *dpu_kms;
->>       struct list_head *connector_list;
->>       struct drm_connector *conn = NULL, *conn_iter;
->> -    struct drm_crtc *drm_crtc;
->> +    struct drm_crtc *drm_crtc = NULL, *iter;
->>       struct dpu_crtc_state *cstate;
->>       struct dpu_global_state *global_state;
->>       struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
->> @@ -1007,9 +1007,14 @@ static void dpu_encoder_virt_mode_set(struct 
->> drm_encoder *drm_enc,
->>           return;
->>       }
->> -    drm_for_each_crtc(drm_crtc, drm_enc->dev)
->> -        if (drm_crtc->state->encoder_mask & drm_encoder_mask(drm_enc))
->> +    drm_for_each_crtc(iter, drm_enc->dev)
->> +        if (iter->state->encoder_mask & drm_encoder_mask(drm_enc)) {
->> +            drm_crtc = iter;
->>               break;
->> +        }
->> +
->> +    if (!drm_crtc)
->> +        return;
->>       /* Query resource that have been reserved in atomic check step. */
->>       num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> 
-> 
 
 
--- 
-With best wishes
-Dmitry
+On 3/17/2022 5:07 PM, Stephen Boyd wrote:
+> The member 'msm_dsi->connector' isn't assigned until
+> msm_dsi_manager_connector_init() returns (see msm_dsi_modeset_init() and
+> how it assigns the return value). Therefore this pointer is going to be
+> NULL here. Let's use 'connector' which is what was intended.
+> 
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <seanpaul@chromium.org>
+> Fixes: 6d5e78406991 ("drm/msm/dsi: Move dsi panel init into modeset init path")
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> 
+> I don't know if this is superseeded by something else but I found this
+> while trying to use the connector from msm_dsi in this function.
+> 
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 0c1b7dde377c..9f6af0f0fe00 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -638,7 +638,7 @@ struct drm_connector *msm_dsi_manager_connector_init(u8 id)
+>   	return connector;
+>   
+>   fail:
+> -	connector->funcs->destroy(msm_dsi->connector);
+> +	connector->funcs->destroy(connector);
+>   	return ERR_PTR(ret);
+>   }
+>   
+> 
+> base-commit: 05afd57f4d34602a652fdaf58e0a2756b3c20fd4
