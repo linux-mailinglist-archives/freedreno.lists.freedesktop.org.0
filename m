@@ -2,55 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2DC44FC10E
-	for <lists+freedreno@lfdr.de>; Mon, 11 Apr 2022 17:39:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007D44FC282
+	for <lists+freedreno@lfdr.de>; Mon, 11 Apr 2022 18:37:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C58910E3F3;
-	Mon, 11 Apr 2022 15:39:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A59EC10E5B3;
+	Mon, 11 Apr 2022 16:37:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4605610E3F2;
- Mon, 11 Apr 2022 15:39:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649691544; x=1681227544;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4OuhLMDm2gIHeo2uWhK5RkdHal1Usw5svsUTMNNReMA=;
- b=ea2dIGZ8w0s6wAICc/l/YVRiUeFrD0BIaqNKUyz0v1B4qm2gcFX+8+n/
- cP/xEOwjdOwcUgIibhcFThOCBtppnreEtwHHMrCGm09Peb6mCx0I1p9/E
- LBt6ydv5CfgPVCxYaDzEmPC1cIssr3v7IuVCj87EUUNuVb2RBbRb8OTqy
- /56cMA9+w9eiWqHi44lCpiXP8TNXvfYjC271zkY3dlk20WKggzIETYxLv
- ABmzhrurv9uapv60Ofh6/LBe/ypJlOUoB0Gs6J1S1fmEgzIeRMMufFNTR
- vbDkgQKXbYtwsGXkIenxRZIDs4C3Pl7oLtPYmP+X0gG/51wHDF1wEbd3H w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="262324626"
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="262324626"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2022 08:39:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="611029400"
-Received: from lkp-server02.sh.intel.com (HELO d3fc50ef50de) ([10.239.97.151])
- by fmsmga008.fm.intel.com with ESMTP; 11 Apr 2022 08:39:01 -0700
-Received: from kbuild by d3fc50ef50de with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1ndw84-0001wt-Su;
- Mon, 11 Apr 2022 15:39:00 +0000
-Date: Mon, 11 Apr 2022 23:38:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <202204112350.b4eldlK1-lkp@intel.com>
-References: <20220408130623.866092-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220408130623.866092-1-dmitry.baryshkov@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Freedreno] [PATCH] drm/msm: properly add and remove internal
- bridges
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F07410E5B3;
+ Mon, 11 Apr 2022 16:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649695039; x=1681231039;
+ h=from:to:cc:subject:date:message-id;
+ bh=mtE2O+IGOhI4fPN3hDjLHvmi5++/ZnWEsB0kf034Y9I=;
+ b=LSh62J8jXJldwdnVXs3z+EkBiZrkapSELJXcaBNjNlzhukwYKuuGtWJZ
+ dXzjTWrhC5xMtZBWl+b763iVCOMs9O1ooKCOzgTnfM502zVVc9lGLNECv
+ 7Z2SS+2G4QYtWSlmOPiWv+cMctP5/e7nG4ttl//O85ZOzHYN6WNFhMyAo 8=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 11 Apr 2022 09:37:18 -0700
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 11 Apr 2022 09:37:16 -0700
+X-QCInternal: smtphost
+Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 11 Apr 2022 22:07:04 +0530
+Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
+ id 75AC655E9; Mon, 11 Apr 2022 22:07:03 +0530 (IST)
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon, 11 Apr 2022 22:06:59 +0530
+Message-Id: <1649695021-19132-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v8 0/2] Add inline rotation support for sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,44 +50,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
+ Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Changes in RFC:
+- Rebase changes to the latest code base.
+- Append rotation config variables with v2 and
+remove unused variables.(Dmitry)
+- Move pixel_ext setup separately from scaler3 config.(Dmitry)
+- Add 270 degree rotation to supported rotation list.(Dmitry)
 
-Thank you for the patch! Yet something to improve:
+Changes in V2:
+- Remove unused macros and fix indentation.
+- Add check if 90 rotation is supported and
+add supported rotations to rot_cfg.
 
-[auto build test ERROR on drm/drm-next]
-[also build test ERROR on v5.18-rc2 next-20220411]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+Changes in V3:
+- Fix indentation.
+- Move rot_supported to sspp capabilities. (Dmitry)
+- Config pixel_ext based on src_h/src_w directly. (Dmitry)
+- Misc changes.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-properly-add-and-remove-internal-bridges/20220408-210744
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20220411/202204112350.b4eldlK1-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 11.2.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/fe14b6490aa99b01a424580fb84462519a9a310c
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Dmitry-Baryshkov/drm-msm-properly-add-and-remove-internal-bridges/20220408-210744
-        git checkout fe14b6490aa99b01a424580fb84462519a9a310c
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=arm64 SHELL=/bin/bash
+Changes in V4:
+- Pass boolean value to sspp blk based on supported rotations for each hw.
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+Changes in V5:
+- Update boolean value to true/false and add it for qcm2290.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+Changes in V6:
+- Add changes that are missed as part of v5.
+- Add dpu_find_format inline function to find valid format. (Dmitry)
 
->> ERROR: modpost: "drm_bridge_detach" [drivers/gpu/drm/msm/msm.ko] undefined!
+Changes in V7:
+- Move dpu_find_format inline function to separate commit. (Dmitry)
+- Remove rot_cfg from SSPP_BLK and use DPU_SSPP_INLINE_ROTATION caps
+to append supported rotations. (Dmitry)
+- Misc Changes.
+
+Changes in V8:
+- Misc changes.
+
+Co-developed-by: Kalyan Thota <quic_kalyant@quicinc.com>
+Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+
+Vinod Polimera (2):
+  drm/msm/disp/dpu1: add inline function to validate format support
+  drm/msm/disp/dpu1: add inline rotation support for sc7280
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h    |  22 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  43 +++++++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  16 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 139 +++++++++++++++++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |   2 +
+ 5 files changed, 186 insertions(+), 36 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.7.4
+
