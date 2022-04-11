@@ -1,59 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3224FB35B
-	for <lists+freedreno@lfdr.de>; Mon, 11 Apr 2022 07:55:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F2DC44FC10E
+	for <lists+freedreno@lfdr.de>; Mon, 11 Apr 2022 17:39:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0EF10EE31;
-	Mon, 11 Apr 2022 05:55:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C58910E3F3;
+	Mon, 11 Apr 2022 15:39:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ACB810EE74;
- Mon, 11 Apr 2022 05:55:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1649656535; x=1681192535;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=p9HXYw/ALt+MopqQNrusnXpB/e7Lu7tHls88nUVRk1Q=;
- b=Vqb4xvQIqez5v21H2EtXpsw0nVmD/NBvFxq5cosnWx/OHceug7c1AUXs
- vwGWHHvUb0ZjO70eNVXjyvDgkf/ffvm70szIASi2moTs9R2qZSQY30hr7
- Ig24P5VK4/brHd33NsmZx3+75iE6CtuPZB4GV6EoJfeGvj9L4ms98WjU1 Q=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 10 Apr 2022 22:55:33 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2022 22:55:32 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Sun, 10 Apr 2022 22:55:31 -0700
-Received: from [10.111.167.150] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Sun, 10 Apr
- 2022 22:55:29 -0700
-Message-ID: <adb5b728-d1e3-022d-62fa-1f7278e63e41@quicinc.com>
-Date: Sun, 10 Apr 2022 22:55:27 -0700
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4605610E3F2;
+ Mon, 11 Apr 2022 15:39:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1649691544; x=1681227544;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4OuhLMDm2gIHeo2uWhK5RkdHal1Usw5svsUTMNNReMA=;
+ b=ea2dIGZ8w0s6wAICc/l/YVRiUeFrD0BIaqNKUyz0v1B4qm2gcFX+8+n/
+ cP/xEOwjdOwcUgIibhcFThOCBtppnreEtwHHMrCGm09Peb6mCx0I1p9/E
+ LBt6ydv5CfgPVCxYaDzEmPC1cIssr3v7IuVCj87EUUNuVb2RBbRb8OTqy
+ /56cMA9+w9eiWqHi44lCpiXP8TNXvfYjC271zkY3dlk20WKggzIETYxLv
+ ABmzhrurv9uapv60Ofh6/LBe/ypJlOUoB0Gs6J1S1fmEgzIeRMMufFNTR
+ vbDkgQKXbYtwsGXkIenxRZIDs4C3Pl7oLtPYmP+X0gG/51wHDF1wEbd3H w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="262324626"
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="262324626"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2022 08:39:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,252,1643702400"; d="scan'208";a="611029400"
+Received: from lkp-server02.sh.intel.com (HELO d3fc50ef50de) ([10.239.97.151])
+ by fmsmga008.fm.intel.com with ESMTP; 11 Apr 2022 08:39:01 -0700
+Received: from kbuild by d3fc50ef50de with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1ndw84-0001wt-Su;
+ Mon, 11 Apr 2022 15:39:00 +0000
+Date: Mon, 11 Apr 2022 23:38:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Message-ID: <202204112350.b4eldlK1-lkp@intel.com>
+References: <20220408130623.866092-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>, "Sean
- Paul" <sean@poorly.run>
-References: <20220318000731.2823718-1-swboyd@chromium.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220318000731.2823718-1-swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Use connector directly in
- msm_dsi_manager_connector_init()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220408130623.866092-1-dmitry.baryshkov@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Freedreno] [PATCH] drm/msm: properly add and remove internal
+ bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +63,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>, Dmitry
- Baryshkov <dmitry.baryshkov@linaro.org>, freedreno@lists.freedesktop.org
+Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dmitry,
 
+Thank you for the patch! Yet something to improve:
 
-On 3/17/2022 5:07 PM, Stephen Boyd wrote:
-> The member 'msm_dsi->connector' isn't assigned until
-> msm_dsi_manager_connector_init() returns (see msm_dsi_modeset_init() and
-> how it assigns the return value). Therefore this pointer is going to be
-> NULL here. Let's use 'connector' which is what was intended.
-> 
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Fixes: 6d5e78406991 ("drm/msm/dsi: Move dsi panel init into modeset init path")
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
-> 
-> I don't know if this is superseeded by something else but I found this
-> while trying to use the connector from msm_dsi in this function.
-> 
->   drivers/gpu/drm/msm/dsi/dsi_manager.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> index 0c1b7dde377c..9f6af0f0fe00 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-> @@ -638,7 +638,7 @@ struct drm_connector *msm_dsi_manager_connector_init(u8 id)
->   	return connector;
->   
->   fail:
-> -	connector->funcs->destroy(msm_dsi->connector);
-> +	connector->funcs->destroy(connector);
->   	return ERR_PTR(ret);
->   }
->   
-> 
-> base-commit: 05afd57f4d34602a652fdaf58e0a2756b3c20fd4
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on v5.18-rc2 next-20220411]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-properly-add-and-remove-internal-bridges/20220408-210744
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20220411/202204112350.b4eldlK1-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 11.2.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/fe14b6490aa99b01a424580fb84462519a9a310c
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Dmitry-Baryshkov/drm-msm-properly-add-and-remove-internal-bridges/20220408-210744
+        git checkout fe14b6490aa99b01a424580fb84462519a9a310c
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=arm64 SHELL=/bin/bash
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: "drm_bridge_detach" [drivers/gpu/drm/msm/msm.ko] undefined!
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
