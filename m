@@ -1,50 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76BE04FE2EF
-	for <lists+freedreno@lfdr.de>; Tue, 12 Apr 2022 15:41:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9302F4FE8DA
+	for <lists+freedreno@lfdr.de>; Tue, 12 Apr 2022 21:40:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC1510E9E4;
-	Tue, 12 Apr 2022 13:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A9810E728;
+	Tue, 12 Apr 2022 19:40:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F70A10E9D8;
- Tue, 12 Apr 2022 13:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1649770899; x=1681306899;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=oD6m9SeRfl7eHmHKzLOAmxJnQwG1UbpU/JTq/9MxsDM=;
- b=i4xtZH32l3RVr6e8QgrmWwbkUh3Gp/i+R0ejDjioQxH9mdOzH34LXr7E
- ZpIChuyoChjAmj13hex+1v9u3U4gDCSwSfjj2p+DcdMhYhvG7B/0eQh8C
- zoa3eS34P31gULq9xfQMYdKO/FKUaGE2P3DoFI6WouDzdo7spjnXYmzV2
- OeyNL1fBfQpYDUGHHH1LHaTxLDCUgL7VbUFOq9G0Vv5O4QvJ04NEuYfWg
- cI9i+AP7wJTfPiHLCU8qmPZEVbCb6qslCz15EVgd/fpxQ6ID9ZNfipv1L
- 71r0KjCIlzx2bfV+1G2YoOB/rWkUAVMN2Si5MJfDpEjtvdAprcy2aQC69 A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10314"; a="242963730"
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="242963730"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2022 06:41:38 -0700
-X-IronPort-AV: E=Sophos;i="5.90,254,1643702400"; d="scan'208";a="526480890"
-Received: from aguzmanb-mobl.amr.corp.intel.com (HELO intel.com)
- ([10.255.33.149])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2022 06:41:36 -0700
-Date: Tue, 12 Apr 2022 09:41:35 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Sean Paul <sean@poorly.run>
-Message-ID: <YlWBjy5lxtuGZ4vm@intel.com>
-References: <20220411204741.1074308-1-sean@poorly.run>
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [IPv6:2607:f8b0:4864:20::1034])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD7010E6CB
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Apr 2022 19:40:41 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ h23-20020a17090a051700b001c9c1dd3acbso4099761pjh.3
+ for <freedreno@lists.freedesktop.org>; Tue, 12 Apr 2022 12:40:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=KcAH7mF9eHpU+lzQ0ZOVf7kLghMZDIfYqzoC1pN6kTM=;
+ b=lvdmYsNPUPYWEsyu97OOGiswPuqEO5+U6hmLz19+U3z1EhfM40k+q3vdyFLwSVjxYq
+ HyuqZIKnAZNpXj1GgNiUIwAGq/wXIDrmKGdOeUgMmLGSLnsCIuw5tP/vgQDv+CVY5c9K
+ PdTW8Fc/CJKDbvFX7+TUPjQOlYkFKnMMGTVOk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=KcAH7mF9eHpU+lzQ0ZOVf7kLghMZDIfYqzoC1pN6kTM=;
+ b=jzqTrrs0mEU0be9uIXlSBje0k7KYwUCkulf0oDzRvH3xVKXQece0AAYHZ8udWpV6Eh
+ v9cFWIqmhWY+tLFOffCSzxpH8+fzWwlGBl9zF9yypA5S+nSbAjwhKomWmV6waYNHVDOz
+ Rh/8rqlLjn1tjaEkzq7y7Thd6Lbx6SDbEU4OoUbWJYaz49s8vV6X6RCBGBYOqGJOnmvq
+ FJXPnjMWdchn3b15E++j5sVzIkLAqQGIpbS4fgYLi3wGWNsLvjT1URYQQuQ3Aa3CuNyL
+ XyQvMUCE9amJyr7ht+fHuzqxiJougBBwgkUbXguuFryXBwckdmgE6rnf3cRkCidbjeLP
+ ic3A==
+X-Gm-Message-State: AOAM533L27/AC/pCuXzFEZckjf+GInaq8UK6x6nJphu0sT0CZvRAIRVD
+ kRhJRm0pr/YeFya1D7hKFepFhUCJOGsPbsE0uXurTQ==
+X-Google-Smtp-Source: ABdhPJySFUINMJMixO8zjYrN5d3dPQurR2XuF6FeIqDtLCfyJ3PnvHW2g+hJC7Fln34M7qkAWjkWthog0cz8f1w8sAY=
+X-Received: by 2002:a17:903:1248:b0:151:9708:d586 with SMTP id
+ u8-20020a170903124800b001519708d586mr39321437plh.15.1649792440697; Tue, 12
+ Apr 2022 12:40:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220411204741.1074308-1-sean@poorly.run>
-Subject: Re: [Freedreno] [PATCH v5 00/10] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+References: <20220408211230.601475-1-olvaffe@gmail.com>
+ <fe1e583c-b942-0f33-55d1-435f0966b110@amd.com>
+In-Reply-To: <fe1e583c-b942-0f33-55d1-435f0966b110@amd.com>
+From: Rob Clark <robdclark@chromium.org>
+Date: Tue, 12 Apr 2022 12:41:40 -0700
+Message-ID: <CAJs_Fx6ehFu4Fzvo93XCN+7yufU0NQCshreDniRk37V4f6fmPA@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH] drm/msm: add trace_dma_fence_emit to
+ msm_gpu_submit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,92 +64,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, markyacoub@chromium.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, Sean Paul <seanpaul@chromium.org>,
- abhinavk@codeaurora.org, bjorn.andersson@linaro.org,
- freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 11, 2022 at 08:47:29PM +0000, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> Rebased set from November. Fixed a nit from Stephen in the msm patch and
-> moved hdcp registers into the trogdor dtsi file to avoid differences
-> with sc7180-based windows devices. The set is 4 patches lighter since
-> some of the changes were accepted into msm.
-> 
-> I'm still waiting for Intel review of the first 7 patches. Rodrigo/Jani,
-> would you please provide your input so we can move forward with this
-> set?
+On Sat, Apr 9, 2022 at 7:33 AM Christian K=C3=B6nig <christian.koenig@amd.c=
+om> wrote:
+>
+> Am 08.04.22 um 23:12 schrieb Chia-I Wu:
+> > In practice, trace_dma_fence_init is good enough and almost no driver
+> > calls trace_dma_fence_emit.  But this is still more correct in theory.
+>
+> Well, the reason why basically no driver is calling this is because it
+> is pretty much deprecated.
+>
+> We do have a case in the GPU scheduler where it makes sense to distinct
+> between init and emit, but it doesn't really matter for drivers.
+>
+> So I'm not sure if it's a good idea to add that here.
 
-I'm a bit concerned with patches 4 and 7. It is hard to map the removals
-and additions and there are some changes that looks like changing behaviors,
-but end up not being clear in the big patch. Also with big patch it is prune
-to the rebasing and backport conflicts.
+visualization can't easily differentiate between drivers/timelines
+where the split matters and ones where it doesn't..  IMO it is better
+to just have the extra trace even in the cases where it comes at the
+same time as the init trace
 
-Would be possible to split some work in moving individual functions from i915
-to drm little by little with smaller patches?
+BR,
+-R
 
-But thank you for this great work. It is also good to align our drm drivers.
-
-Thanks,
-Rodrigo.
-
-> 
-> Thanks,
-> 
-> Sean
-> 
-> Link: https://patchwork.freedesktop.org/series/94623/ #v1
-> Link: https://patchwork.freedesktop.org/series/94713/ #v2
-> Link: https://patchwork.freedesktop.org/series/94712/ #v3
-> Link: https://patchwork.freedesktop.org/series/94712/ #v4
-> 
-> Sean Paul (10):
->   drm/hdcp: Add drm_hdcp_atomic_check()
->   drm/hdcp: Avoid changing crtc state in hdcp atomic check
->   drm/hdcp: Update property value on content type and user changes
->   drm/hdcp: Expand HDCP helper library for enable/disable/check
->   drm/i915/hdcp: Consolidate HDCP setup/state cache
->   drm/i915/hdcp: Retain hdcp_capable return codes
->   drm/i915/hdcp: Use HDCP helpers for i915
->   dt-bindings: msm/dp: Add bindings for HDCP registers
->   arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
->   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-> 
->  .../bindings/display/msm/dp-controller.yaml   |    7 +-
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
->  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    6 +-
->  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
->  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
->  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
->  .../drm/i915/display/intel_display_types.h    |   58 +-
->  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
->  drivers/gpu/drm/i915/display/intel_hdcp.h     |   36 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
->  drivers/gpu/drm/msm/Makefile                  |    1 +
->  drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
->  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
->  drivers/gpu/drm/msm/dp/dp_display.c           |   46 +-
->  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
->  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
->  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
->  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  453 +++++++
->  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
->  drivers/gpu/drm/msm/dp/dp_parser.c            |   20 +-
->  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
->  drivers/gpu/drm/msm/dp/dp_reg.h               |   32 +-
->  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
->  include/drm/drm_hdcp.h                        |  194 +++
->  27 files changed, 2582 insertions(+), 1328 deletions(-)
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
->  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
-> 
-> -- 
-> Sean Paul, Software Engineer, Google / Chromium OS
-> 
+> Regards,
+> Christian.
+>
+> >
+> > Signed-off-by: Chia-I Wu <olvaffe@gmail.com>
+> > Cc: Rob Clark <robdclark@chromium.org>
+> > ---
+> >   drivers/gpu/drm/msm/msm_gpu.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gp=
+u.c
+> > index faf0c242874e..a82193f41ea2 100644
+> > --- a/drivers/gpu/drm/msm/msm_gpu.c
+> > +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> > @@ -15,6 +15,7 @@
+> >   #include <linux/string_helpers.h>
+> >   #include <linux/devcoredump.h>
+> >   #include <linux/sched/task.h>
+> > +#include <trace/events/dma_fence.h>
+> >
+> >   /*
+> >    * Power Management:
+> > @@ -769,6 +770,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm=
+_gem_submit *submit)
+> >       gpu->active_submits++;
+> >       mutex_unlock(&gpu->active_lock);
+> >
+> > +     trace_dma_fence_emit(submit->hw_fence);
+> >       gpu->funcs->submit(gpu, submit);
+> >       gpu->cur_ctx_seqno =3D submit->queue->ctx->seqno;
+> >
+>
