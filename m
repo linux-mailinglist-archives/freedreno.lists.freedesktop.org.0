@@ -2,61 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D5EC4FE9E5
-	for <lists+freedreno@lfdr.de>; Tue, 12 Apr 2022 23:26:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A77044FFCAA
+	for <lists+freedreno@lfdr.de>; Wed, 13 Apr 2022 19:28:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE53510E7E7;
-	Tue, 12 Apr 2022 21:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34EC210E135;
+	Wed, 13 Apr 2022 17:28:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C5E510E7E7;
- Tue, 12 Apr 2022 21:26:16 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id
- g12-20020a17090a640c00b001cb59d7a57cso2628115pjj.1; 
- Tue, 12 Apr 2022 14:26:16 -0700 (PDT)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59CD310E0CC;
+ Wed, 13 Apr 2022 17:28:19 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id i20so3595673wrb.13;
+ Wed, 13 Apr 2022 10:28:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JqPjwNSGzY9+HzHZDgw3eVUdEY3fO13OJf0xVug0ueo=;
- b=Rx8iu67QAQwZex6fWL1sgh8cglXQ0Z3CWcYve31a4UC5d8j2CV7Vw2Ehyn7Jl5D/dy
- KRLOS9ND5rXOD6H9AKNJP8qIbbx4HicQAJh2mV4/MW/DUyyYnZ0IRnaYZjsE4+n01Dtx
- 7TvlEsBNYYjr9c2l6zl2ZhXQ+hoWGpWsz1HvM/Ie71Fzu7AvydchWb1482ARULazfIDD
- 83mA7Z4abQjO0XQukQQFXvbIJ/WAX4QMxJtTPwRMqpMfxZzD+VvidqqBTw5krHUpsJHc
- jSQ24icK4yMtWbRzlJDnw0ZBKh0TFJMWjtm5yl8UuBCC80ftU/EbNnxI8V9wS0HQYeK/
- 5vSQ==
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=wmTTJc7cl6oOaGuqAfmrOjx/4kHHCDLsI0qGb1ByPRU=;
+ b=Gv0EL/ZxgM6nD/QdcZ5kwRGNHJ/sBQhPXzudfQnBcFAvkiSRamLbDDwEAKzysR8fZi
+ mphBn6flOXPHW3LAXs+Zd7s8O6qADVOFbZuBCNbn2gtGKkEymkN7XVYhG5DDDlAOWzOs
+ utVWGr4rUfXkLa1DITlFJhpDRVozlE8qDeGyew1EEQNZA7eFCTEk6OI5rooUkOn6p++C
+ APPgG08rQY1IRAV84oExr/vkG4PDnweWiJMBqkfM0CP9jT/jSpJtkEXo1thptFAYRnji
+ oWb/VLM2mdQ30uAjW4CXZlO78guqimS2qA4OgPDAU8xJVc1JEWf1a/+qrr4bfQCW3i1a
+ MPGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JqPjwNSGzY9+HzHZDgw3eVUdEY3fO13OJf0xVug0ueo=;
- b=414MSVhylpgJrQxqlZQZQ6Yqxbi4UN6g83+oJXmJHSUdBgaOFHZd6Ae15pi8ZHsGUd
- cZZu7ksuttFeEpjklUgKwaB/ck16lHLF8FuV/DavX42BtPRzVc4QrcC8KQhh1TbCpUo4
- eLxlYBotXiLwBQ5tIootY6bAc8Vrc/KwMjpBuAykBbD2MUAsf6K9L15EF0s/QwzoGzDa
- YwzOIHYf9NNao1fauGlbLPujYsPPczey1MqZYJfkfdNLPWyZwhjLZ5PbwDCgIT8Q2u0y
- /hjFktjWY4d1tqvpyQHtBeS9ufBn/asJF3p97badd1SpS2/i3lR96wAnUkqW3WlIGbx/
- pwxA==
-X-Gm-Message-State: AOAM533NqUJ2ObBbVj2yhfXnSvf45CujNqeR4ku9yUN+pukU3fStyT1W
- nrH60c6B843INh3JfVZhjh7Lor5X5NI=
-X-Google-Smtp-Source: ABdhPJxUi7dNDCCedyqkYea6nCWY5Rkxx0r9qRfxILcmYFc0nHZ83e8fDCSJYzQ0dALjg8dz9y2zAQ==
-X-Received: by 2002:a17:902:7fc5:b0:158:1de9:4646 with SMTP id
- t5-20020a1709027fc500b001581de94646mr23027600plb.91.1649798775636; 
- Tue, 12 Apr 2022 14:26:15 -0700 (PDT)
-Received: from olv-glaptop3.lan ([2601:647:4400:452:1661:f107:58eb:51b7])
- by smtp.gmail.com with ESMTPSA id
- 196-20020a6300cd000000b0039940fd184dsm3784363pga.9.2022.04.12.14.26.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Apr 2022 14:26:15 -0700 (PDT)
-From: Chia-I Wu <olvaffe@gmail.com>
-To: freedreno@lists.freedesktop.org
-Date: Tue, 12 Apr 2022 14:25:58 -0700
-Message-Id: <20220412212558.827289-1-olvaffe@gmail.com>
-X-Mailer: git-send-email 2.35.1.1178.g4f1659d476-goog
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=wmTTJc7cl6oOaGuqAfmrOjx/4kHHCDLsI0qGb1ByPRU=;
+ b=aecjPUJulwZVaJ5eXZtR11580t1vnPknA5u9Au1ctYCE5IwvKpyaLz1tlGRN4jyT7o
+ 5lcNF+/4C1PwiHeYaKdzqDaSLJn2Aut4WMxVY4Q67eNCzRR6hZo1Vz2jsXGWd5t/KcK+
+ QSYBRNWPCIu+cH0fj7grUv07iXXO+4buyaFbF02yXyrRzHajEZUb30TxLUXCTvzo0src
+ fWln0JJ+YpvRkxLp2srJI2NndVVlKdRN2yfCdKMxW7hLUWzgyynFKsCNHwZpiIJgX6dr
+ Z0a/hl2T6JuPgVQV3NghBJgH278EBc1LsdRTsXygatTYFlVAVcF3Ga209MRFZcYQbpYF
+ m0wg==
+X-Gm-Message-State: AOAM532NQAWq2OCFPfbWE2riJxamqN4uf8q69TDU/dEsm7lkmIon6fn2
+ zGrNMp3zR9JYovHjz8wnyZQm+Ds1wTxnRd6T81U=
+X-Google-Smtp-Source: ABdhPJyZ1BaUvX4fdp9fHfEfMZEDBiKMqmJvGwIR/qqtcLJHzy6ocEtB/UGcnZkibsi6xA0n8HSz3NR+93CMmZd70x0=
+X-Received: by 2002:adf:9111:0:b0:206:c9b:ce0d with SMTP id
+ j17-20020adf9111000000b002060c9bce0dmr33934513wrj.418.1649870897772; Wed, 13
+ Apr 2022 10:28:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm: add trace_dma_fence_emit to
- msm_gpu_submit
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 13 Apr 2022 10:29:20 -0700
+Message-ID: <CAF6AEGvuTwx09MKwK68KWXqi4o7LxDGMUz1=Z7xOS+i=OV84Ug@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-04-13 for v5.18
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +59,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-In practice, trace_dma_fence_init called from dma_fence_init is good
-enough and almost no driver calls trace_dma_fence_emit.  But drm_sched
-and virtio both have cases where trace_dma_fence_init and
-trace_dma_fence_emit can be apart.  It is easier for visualization tools
-to always use the more correct trace_dma_fence_emit when visualizing
-fence timelines.
+Hi Dave & Daniel,
 
-v2: improve commit message (Dmitry)
+A few fixes for v5.18.
 
-Signed-off-by: Chia-I Wu <olvaffe@gmail.com>
-Cc: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/msm_gpu.c | 2 ++
- 1 file changed, 2 insertions(+)
+The following changes since commit 05afd57f4d34602a652fdaf58e0a2756b3c20fd4:
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index faf0c242874e..a82193f41ea2 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -15,6 +15,7 @@
- #include <linux/string_helpers.h>
- #include <linux/devcoredump.h>
- #include <linux/sched/task.h>
-+#include <trace/events/dma_fence.h>
- 
- /*
-  * Power Management:
-@@ -769,6 +770,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	gpu->active_submits++;
- 	mutex_unlock(&gpu->active_lock);
- 
-+	trace_dma_fence_emit(submit->hw_fence);
- 	gpu->funcs->submit(gpu, submit);
- 	gpu->cur_ctx_seqno = submit->queue->ctx->seqno;
- 
--- 
-2.35.1.1178.g4f1659d476-goog
+  drm/msm/gpu: Fix crash on devices without devfreq support (v2)
+(2022-03-08 13:55:23 -0800)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2022-04-13
+
+for you to fetch changes up to 390d645877ffd6dcb55f162d618045b2779217b3:
+
+  drm/msm/gpu: Avoid -Wunused-function with !CONFIG_PM_SLEEP
+(2022-04-11 18:35:31 -0700)
+
+----------------------------------------------------------------
+Dmitry Baryshkov (1):
+      dt-bindings: display/msm: another fix for the dpu-qcm2290 example
+
+Kuogee Hsieh (1):
+      drm/msm/dp: add fail safe mode outside of event_mutex context
+
+Marijn Suijten (1):
+      drm/msm/dpu: Use indexed array initializer to prevent mismatches
+
+Nathan Chancellor (1):
+      drm/msm/gpu: Avoid -Wunused-function with !CONFIG_PM_SLEEP
+
+Rob Clark (5):
+      drm/msm/gpu: Rename runtime suspend/resume functions
+      drm/msm/gpu: Park scheduler threads for system suspend
+      drm/msm/gpu: Remove mutex from wait_event condition
+      drm/msm: Add missing put_task_struct() in debugfs path
+      drm/msm: Fix range size vs end confusion
+
+Robin Murphy (1):
+      drm/msm: Stop using iommu_present()
+
+Stephen Boyd (1):
+      drm/msm/dsi: Use connector directly in msm_dsi_manager_connector_init()
+
+Xiaoke Wang (2):
+      drm/msm/disp: check the return value of kzalloc()
+      drm/msm/mdp5: check the return of kzalloc()
+
+ .../bindings/display/msm/dpu-qcm2290.yaml          |  4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c         | 80 +++++++++++++++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 34 ++++-----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  3 +
+ drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c  |  2 +
+ drivers/gpu/drm/msm/dp/dp_display.c                |  6 ++
+ drivers/gpu/drm/msm/dp/dp_panel.c                  | 20 +++---
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |  1 +
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  2 +-
+ drivers/gpu/drm/msm/msm_drv.c                      |  2 +-
+ drivers/gpu/drm/msm/msm_gem.c                      |  1 +
+ 12 files changed, 109 insertions(+), 48 deletions(-)
