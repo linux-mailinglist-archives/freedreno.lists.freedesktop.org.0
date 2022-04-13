@@ -2,69 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6199500209
-	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 00:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FC6500271
+	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 01:20:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE33710F18F;
-	Wed, 13 Apr 2022 22:48:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A762410F1DA;
+	Wed, 13 Apr 2022 23:20:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C37589FCE
- for <freedreno@lists.freedesktop.org>; Wed, 13 Apr 2022 22:48:24 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id r2so3941018ljd.10
- for <freedreno@lists.freedesktop.org>; Wed, 13 Apr 2022 15:48:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/QXOMaVvg+CTi87zJpJj70f7phML+yemGlwgZHvXLmk=;
- b=AXd/Asb8wNQ8zq/ak5YJMnYqLTUqiomfqglqBtRA5mvvBNJH7x7pa+sYy4kRD/ob3Q
- 4biMZ0PrIKEuGn3xmfcCQ+XYQao3/5ORBTREFAN48WD3moglASksrJuIPZKK991CjypY
- RSINtz1lnHw4+BRCj7lz29L8vGUBonhlwrLgFY93mefx1JdtN+4ha7R/cDde6PouInAM
- /g/gbW0NHVM/rWOcwxuHEf0ZFAV3dP7Q/BRNogXUTWrUCDYP/mnkjK63Aq3dA4Z8ldaw
- mwSUkH0Q7A2hPZS2oiE15eOqdzCWEOh7dX6pQ4GKwNihDGNXSC9jC0j//udGudP10bjg
- 1J6g==
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2CC810F1DA
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Apr 2022 23:19:59 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ a17-20020a9d3e11000000b005cb483c500dso2217353otd.6
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Apr 2022 16:19:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=A76+qe6l2R4PjtaHOG75B4+IXG7YG12PDKm5b7n2jWs=;
+ b=SHoATc0eEmqjjIwRKvexraebmX2kGeRzptDhV06lGjHycAYMT+TOpWHUuC00JxUOTj
+ RHHtsMgFG+ZIU6axzwN0FQc7X9fdSEWHjTK8L/jGvPcI/8iNhZQrE7OwFAp/5b5lWymZ
+ ZpFMog5M4McPKnPsUbvdTa8nAmF0nFb1cEDYU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/QXOMaVvg+CTi87zJpJj70f7phML+yemGlwgZHvXLmk=;
- b=CZD9jmc3YbsVtjkaGkEm8VPdhfVOBfnNuD5XzygJHI3/d0JJmjWHKxN98OGVXYVJr2
- RedSHR7n1m6XBOWv0sHqy+f9OMsLQjGljMj4LVNLYgNTYUpAPOd6lxn0mZMgNr+p+ZVb
- te0LpnZj96EgInr0GXsJJkHScUdwVBMZ0uIzlenOlKAoHCJCfNJhvYK2c0YTIQr3Akcx
- 9sloCt4NfLqwLxTWcVH/nqCKtnf+L2RUfOF9bEqqrVYZ4qBStvnaWvOU0/C+48+gX2fB
- z+9iKLw16wPT4aCm//KHw6PEeiv1RT1lGaqgtlFpnreilAVFdoDgewHGehljLZfjX5+9
- RrAg==
-X-Gm-Message-State: AOAM531+IuUyvlQGs2AoSd0wKKtt+bAEpeUKR9+znVJ08x/gcR3rf2Eq
- qlJm498rOlVrARD3oOVRrJLn0Q==
-X-Google-Smtp-Source: ABdhPJyXZBCCgl9xBQsYtZ+Ea5UCKfNhxPaGb7ExrdkQVPT3NErDeFz32H7Y1VvUfawYrRHoJtb2Aw==
-X-Received: by 2002:a05:651c:1503:b0:24c:81df:e1f2 with SMTP id
- e3-20020a05651c150300b0024c81dfe1f2mr3615402ljf.182.1649890102635; 
- Wed, 13 Apr 2022 15:48:22 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- i16-20020ac25b50000000b0046bc407519dsm30172lfp.130.2022.04.13.15.48.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Apr 2022 15:48:22 -0700 (PDT)
-Message-ID: <d7380f8e-a419-b438-31a3-1e35b92ee019@linaro.org>
-Date: Thu, 14 Apr 2022 01:48:21 +0300
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=A76+qe6l2R4PjtaHOG75B4+IXG7YG12PDKm5b7n2jWs=;
+ b=Tr+I0sw8C3n365D9nEvtHbzbORnO2DJrFlp5e3hDdb2IRGddUFqQ8tYSat97NLFRwI
+ OlEp2EO1uFfQuORTK47wfq8d44exjoel2Y6Jwt3GC6whXB/3wSjF6BUJjnoU/QpXCsnU
+ 9d00gy2xGOhuZnuaOnAayiZitLcEiQ9BgscL2Jg5PbNaBvx/efKNj8LTFcBCWZxQHypM
+ YpV+8IcWEUWMKZCAhd8a0O2XqPRgPp4KFqpDFnfS6avRjlh1lXHwgh02y19vSYrd8+/q
+ 6fO/kyhcBlZ31QstWm5wBAbVM7Z1M4xpZQr0Ayb5XGhSBWPjuXSMLixzQrtvFwggPNKJ
+ +XjA==
+X-Gm-Message-State: AOAM533GErhKY9OPJfHnKlBLvkJwVzA1xtpFAwcLsthiqXdp0lfd5Cz4
+ aGOSOAoj7fSAKpy427L1vePWsB2FnA3hEAMAkmgWpw==
+X-Google-Smtp-Source: ABdhPJz4zQOvWO+Ka65MElptgAevAeXuKyDHAfQnJYr8K685AAWqQ2cIPgcN1VMnmhtkiEpddCxTwpmuwEtmVKjoZ5o=
+X-Received: by 2002:a9d:b85:0:b0:5cb:3eeb:d188 with SMTP id
+ 5-20020a9d0b85000000b005cb3eebd188mr10346oth.77.1649891999102; Wed, 13 Apr
+ 2022 16:19:59 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 13 Apr 2022 16:19:58 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-GB
-To: Vinod Polimera <quic_vpolimer@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <1649695021-19132-1-git-send-email-quic_vpolimer@quicinc.com>
- <1649695021-19132-3-git-send-email-quic_vpolimer@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1649695021-19132-3-git-send-email-quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/disp/dpu1: add inline
- rotation support for sc7280
+In-Reply-To: <1649883865-9012-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1649883865-9012-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 13 Apr 2022 16:19:58 -0700
+Message-ID: <CAE-0n5259qjMj12LXRp=7kQ7zT3bRMaHpSpwKMwZ8HL6rq7fbw@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: stop event kernel thread
+ when DP unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,444 +67,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, robdclark@gmail.com, linux-kernel@vger.kernel.org,
- dianders@chromium.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/04/2022 19:37, Vinod Polimera wrote:
-> - Some DPU versions support inline rot90. It is supported only for
-> limited amount of UBWC formats.
-> - There are two versions of inline rotators, v1 (present on sm8250 and
-> sm7250) and v2 (sc7280). These versions differ in the list of supported
-> formats and in the scaler possibilities.
-> 
-> Co-developed-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
+Quoting Kuogee Hsieh (2022-04-13 14:04:25)
+> Current DP driver implementation, event thread is kept running
+> after DP display is unbind. This patch fix this problem by disabling
+> DP irq and stop event thread to exit gracefully at dp_display_unbind().
+>
+> Changes in v2:
+> -- start event thread at dp_display_bind()
+>
+> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c |  43 ++++++++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  16 +++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c      | 129 ++++++++++++++++++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h      |   2 +
->   4 files changed, 161 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> index a4fe77c..85b539d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-> @@ -35,6 +35,9 @@
->   	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
->   	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_EXCL_RECT))
->   
-> +#define VIG_SC7280_MASK \
-> +	(VIG_SC7180_MASK | BIT(DPU_SSPP_INLINE_ROTATION))
+>  drivers/gpu/drm/msm/dp/dp_display.c | 40 +++++++++++++++++++++++++++----------
+>  1 file changed, 30 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 01453db..943e4f1 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -113,6 +113,7 @@ struct dp_display_private {
+>         u32 hpd_state;
+>         u32 event_pndx;
+>         u32 event_gndx;
+> +       struct task_struct *ev_tsk;
+>         struct dp_event event_list[DP_EVENT_Q_MAX];
+>         spinlock_t event_lock;
+>
+> @@ -230,6 +231,31 @@ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
+>         complete_all(&dp->audio_comp);
+>  }
+>
+> +static int hpd_event_thread(void *data);
+
+Is there a reason why this is needed vs. defining the kthread start
+function after hpd_event_thread()?
+
 > +
->   #define DMA_SDM845_MASK \
->   	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) | BIT(DPU_SSPP_QOS_8LVL) |\
->   	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
-> @@ -203,6 +206,11 @@ static const uint32_t plane_formats_yuv[] = {
->   	DRM_FORMAT_YVU420,
->   };
->   
-> +static const u32 rotation_v2_formats[] = {
-> +	DRM_FORMAT_NV12,
-> +	/* TODO add formats after validation */
-> +};
-> +
->   /*************************************************************
->    * DPU sub blocks config
->    *************************************************************/
-> @@ -642,7 +650,6 @@ static const struct dpu_ctl_cfg qcm2290_ctl[] = {
->    *************************************************************/
->   
->   /* SSPP common configuration */
-> -
->   #define _VIG_SBLK(num, sdma_pri, qseed_ver) \
->   	{ \
->   	.maxdwnscale = MAX_DOWNSCALE_RATIO, \
-> @@ -660,6 +667,27 @@ static const struct dpu_ctl_cfg qcm2290_ctl[] = {
->   	.num_formats = ARRAY_SIZE(plane_formats_yuv), \
->   	.virt_format_list = plane_formats, \
->   	.virt_num_formats = ARRAY_SIZE(plane_formats), \
-> +	.rotation_cfg = NULL, \
-> +	}
-> +
-> +#define _VIG_SBLK_ROT(num, sdma_pri, qseed_ver, rot_cfg) \
-> +	{ \
-> +	.maxdwnscale = MAX_DOWNSCALE_RATIO, \
-> +	.maxupscale = MAX_UPSCALE_RATIO, \
-> +	.smart_dma_priority = sdma_pri, \
-> +	.src_blk = {.name = STRCAT("sspp_src_", num), \
-> +		.id = DPU_SSPP_SRC, .base = 0x00, .len = 0x150,}, \
-> +	.scaler_blk = {.name = STRCAT("sspp_scaler", num), \
-> +		.id = qseed_ver, \
-> +		.base = 0xa00, .len = 0xa0,}, \
-> +	.csc_blk = {.name = STRCAT("sspp_csc", num), \
-> +		.id = DPU_SSPP_CSC_10BIT, \
-> +		.base = 0x1a00, .len = 0x100,}, \
-> +	.format_list = plane_formats_yuv, \
-> +	.num_formats = ARRAY_SIZE(plane_formats_yuv), \
-> +	.virt_format_list = plane_formats, \
-> +	.virt_num_formats = ARRAY_SIZE(plane_formats), \
-> +	.rotation_cfg = rot_cfg, \
->   	}
->   
->   #define _DMA_SBLK(num, sdma_pri) \
-> @@ -684,6 +712,12 @@ static const struct dpu_sspp_sub_blks msm8998_vig_sblk_2 =
->   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_3 =
->   				_VIG_SBLK("3", 0, DPU_SSPP_SCALER_QSEED3);
->   
-> +static const struct dpu_rotation_cfg dpu_rot_sc7280_cfg_v2 = {
-> +	.rot_maxheight = 1088,
-> +	.rot_num_formats = ARRAY_SIZE(rotation_v2_formats),
-> +	.rot_format_list = rotation_v2_formats,
-> +};
-> +
->   static const struct dpu_sspp_sub_blks sdm845_vig_sblk_0 =
->   				_VIG_SBLK("0", 5, DPU_SSPP_SCALER_QSEED3);
->   static const struct dpu_sspp_sub_blks sdm845_vig_sblk_1 =
-> @@ -751,6 +785,9 @@ static const struct dpu_sspp_cfg sdm845_sspp[] = {
->   static const struct dpu_sspp_sub_blks sc7180_vig_sblk_0 =
->   				_VIG_SBLK("0", 4, DPU_SSPP_SCALER_QSEED4);
->   
-> +static const struct dpu_sspp_sub_blks sc7280_vig_sblk_0 =
-> +			_VIG_SBLK_ROT("0", 4, DPU_SSPP_SCALER_QSEED4, &dpu_rot_sc7280_cfg_v2);
-> +
->   static const struct dpu_sspp_cfg sc7180_sspp[] = {
->   	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7180_MASK,
->   		sc7180_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-> @@ -791,8 +828,8 @@ static const struct dpu_sspp_cfg sm8250_sspp[] = {
->   };
->   
->   static const struct dpu_sspp_cfg sc7280_sspp[] = {
-> -	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7180_MASK,
-> -		sc7180_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
-> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, VIG_SC7280_MASK,
-> +		sc7280_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
->   	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000,  DMA_SDM845_MASK,
->   		sdm845_dma_sblk_0, 1, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
->   	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000,  DMA_CURSOR_SDM845_MASK,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> index b85b24b..35dd5c4 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-> @@ -112,6 +112,7 @@ enum {
->    * @DPU_SSPP_TS_PREFILL      Supports prefill with traffic shaper
->    * @DPU_SSPP_TS_PREFILL_REC1 Supports prefill with traffic shaper multirec
->    * @DPU_SSPP_CDP             Supports client driven prefetch
-> + * @DPU_SSPP_INLINE_ROTATION Support inline rotation
->    * @DPU_SSPP_MAX             maximum value
->    */
->   enum {
-> @@ -132,6 +133,7 @@ enum {
->   	DPU_SSPP_TS_PREFILL,
->   	DPU_SSPP_TS_PREFILL_REC1,
->   	DPU_SSPP_CDP,
-> +	DPU_SSPP_INLINE_ROTATION,
->   	DPU_SSPP_MAX
->   };
->   
-> @@ -315,6 +317,18 @@ struct dpu_qos_lut_tbl {
->   };
->   
->   /**
-> + * struct dpu_rotation_cfg - define inline rotation config
-> + * @rot_maxheight: max pre rotated height allowed for rotation
-> + * @rot_num_formats: number of elements in @rot_format_list
-> + * @rot_format_list: list of supported rotator formats
-> + */
-> +struct dpu_rotation_cfg {
-> +	u32 rot_maxheight;
-> +	size_t rot_num_formats;
-> +	const u32 *rot_format_list;
-> +};
-> +
-> +/**
->    * struct dpu_caps - define DPU capabilities
->    * @max_mixer_width    max layer mixer line width support.
->    * @max_mixer_blendstages max layer mixer blend stages or
-> @@ -369,6 +383,7 @@ struct dpu_caps {
->    * @num_formats: Number of supported formats
->    * @virt_format_list: Pointer to list of supported formats for virtual planes
->    * @virt_num_formats: Number of supported formats for virtual planes
-> + * @dpu_rotation_cfg: inline rotation configuration
->    */
->   struct dpu_sspp_sub_blks {
->   	u32 creq_vblank;
-> @@ -390,6 +405,7 @@ struct dpu_sspp_sub_blks {
->   	u32 num_formats;
->   	const u32 *virt_format_list;
->   	u32 virt_num_formats;
-> +	const struct dpu_rotation_cfg *rotation_cfg;
->   };
->   
->   /**
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 3216cda..c77c3d9d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -528,11 +528,19 @@ static void _dpu_plane_setup_scaler3(struct dpu_plane *pdpu,
->   		struct dpu_plane_state *pstate,
->   		uint32_t src_w, uint32_t src_h, uint32_t dst_w, uint32_t dst_h,
->   		struct dpu_hw_scaler3_cfg *scale_cfg,
-> -		struct dpu_hw_pixel_ext *pixel_ext,
->   		const struct dpu_format *fmt,
->   		uint32_t chroma_subsmpl_h, uint32_t chroma_subsmpl_v)
->   {
->   	uint32_t i;
-> +	bool inline_rotation = pstate->rotation & DRM_MODE_ROTATE_90;
-> +
-> +	/*
-> +	 * For inline rotation cases, scaler config is post-rotation,
-> +	 * so swap the dimensions here. However, pixel extension will
-> +	 * need pre-rotation settings.
-> +	 */
-> +	if (inline_rotation)
-> +		swap(src_w, src_h);
->   
->   	scale_cfg->phase_step_x[DPU_SSPP_COMP_0] =
->   		mult_frac((1 << PHASE_STEP_SHIFT), src_w, dst_w);
-> @@ -571,11 +579,6 @@ static void _dpu_plane_setup_scaler3(struct dpu_plane *pdpu,
->   			scale_cfg->preload_x[i] = DPU_QSEED3_DEFAULT_PRELOAD_H;
->   			scale_cfg->preload_y[i] = DPU_QSEED3_DEFAULT_PRELOAD_V;
->   		}
-> -
-> -		pixel_ext->num_ext_pxls_top[i] =
-> -			scale_cfg->src_height[i];
-> -		pixel_ext->num_ext_pxls_left[i] =
-> -			scale_cfg->src_width[i];
->   	}
->   	if (!(DPU_FORMAT_IS_YUV(fmt)) && (src_h == dst_h)
->   		&& (src_w == dst_w))
-> @@ -591,6 +594,24 @@ static void _dpu_plane_setup_scaler3(struct dpu_plane *pdpu,
->   	scale_cfg->enable = 1;
->   }
->   
-> +static void _dpu_plane_setup_pixel_ext(struct dpu_hw_scaler3_cfg *scale_cfg,
-> +				struct dpu_hw_pixel_ext *pixel_ext,
-> +				uint32_t src_w, uint32_t src_h,
-> +				uint32_t chroma_subsmpl_h, uint32_t chroma_subsmpl_v)
+> +static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
+
+Maybe dp_hpd_event_thread_start()?
+
 > +{
-> +	int i;
+> +       init_waitqueue_head(&dp_priv->event_q);
+> +       spin_lock_init(&dp_priv->event_lock);
 > +
-> +	for (i = 0; i < DPU_MAX_PLANES; i++) {
-> +		if (i == DPU_SSPP_COMP_1_2 || i == DPU_SSPP_COMP_2) {
-> +			src_w /= chroma_subsmpl_h;
-> +			src_h /= chroma_subsmpl_v;
-> +		}
+> +       dp_priv->ev_tsk = kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
 > +
-> +		pixel_ext->num_ext_pxls_top[i] = src_h;
-> +		pixel_ext->num_ext_pxls_left[i] = src_w;
-> +	}
+> +       if (IS_ERR(dp_priv->ev_tsk))
+> +               DRM_ERROR("failed to create DP event thread\n");
+
+Can we return an error from this function?
+
 > +}
 > +
->   static const struct dpu_csc_cfg dpu_csc_YUV2RGB_601L = {
->   	{
->   		/* S15.16 format */
-> @@ -654,6 +675,10 @@ static void _dpu_plane_setup_scaler(struct dpu_plane *pdpu,
->   	const struct drm_format_info *info = drm_format_info(fmt->base.pixel_format);
->   	struct dpu_hw_scaler3_cfg scaler3_cfg;
->   	struct dpu_hw_pixel_ext pixel_ext;
-> +	u32 src_width = drm_rect_width(&pipe_cfg->src_rect);
-> +	u32 src_height = drm_rect_height(&pipe_cfg->src_rect);
-> +	u32 dst_width = drm_rect_width(&pipe_cfg->dst_rect);
-> +	u32 dst_height = drm_rect_height(&pipe_cfg->dst_rect);
->   
->   	memset(&scaler3_cfg, 0, sizeof(scaler3_cfg));
->   	memset(&pixel_ext, 0, sizeof(pixel_ext));
-> @@ -661,13 +686,17 @@ static void _dpu_plane_setup_scaler(struct dpu_plane *pdpu,
->   	/* don't chroma subsample if decimating */
->   	/* update scaler. calculate default config for QSEED3 */
->   	_dpu_plane_setup_scaler3(pdpu, pstate,
-> -			drm_rect_width(&pipe_cfg->src_rect),
-> -			drm_rect_height(&pipe_cfg->src_rect),
-> -			drm_rect_width(&pipe_cfg->dst_rect),
-> -			drm_rect_height(&pipe_cfg->dst_rect),
-> -			&scaler3_cfg, &pixel_ext, fmt,
-> +			src_width,
-> +			src_height,
-> +			dst_width,
-> +			dst_height,
-> +			&scaler3_cfg, fmt,
->   			info->hsub, info->vsub);
->   
-> +	/* configure pixel extension based on scalar config */
-> +	_dpu_plane_setup_pixel_ext(&scaler3_cfg, &pixel_ext,
-> +			src_width, src_height, info->hsub, info->vsub);
-> +
->   	if (pdpu->pipe_hw->ops.setup_pe)
->   		pdpu->pipe_hw->ops.setup_pe(pdpu->pipe_hw,
->   				&pixel_ext);
-> @@ -956,6 +985,34 @@ static bool dpu_plane_validate_src(struct drm_rect *src,
->   		drm_rect_equals(fb_rect, src);
->   }
->   
-> +static int dpu_plane_check_inline_rotation(struct dpu_plane *pdpu,
-> +						const struct dpu_sspp_sub_blks *sblk,
-> +						struct drm_rect src, const struct dpu_format *fmt)
+> +static void dp_hpd_event_stop(struct dp_display_private *dp_priv)
+
+Maybe dp_hpd_event_thread_stop()?
+
 > +{
-> +	size_t num_formats;
-> +	const u32 *supported_formats;
+> +       if (IS_ERR(dp_priv->ev_tsk))
+> +               return;
+
+If we handled the error then this check becomes impossible.
+
 > +
-> +	if (!sblk->rotation_cfg) {
-> +		DPU_ERROR("invalid rotation cfg\n");
-> +		return -EINVAL;
-> +	}
+> +       kthread_stop(dp_priv->ev_tsk);
 > +
-> +	if (drm_rect_width(&src) > sblk->rotation_cfg->rot_maxheight) {
-> +		DPU_DEBUG_PLANE(pdpu, "invalid height for inline rot:%d max:%d\n",
-> +				src.y2, sblk->rotation_cfg->rot_maxheight);
-> +		return -EINVAL;
-> +	}
-> +
-> +	supported_formats = sblk->rotation_cfg->rot_format_list;
-> +	num_formats = sblk->rotation_cfg->rot_num_formats;
-> +
-> +	if (!DPU_FORMAT_IS_UBWC(fmt) ||
-> +		!dpu_find_format(fmt->base.pixel_format, supported_formats, num_formats))
-> +		return -EINVAL;
-> +
-> +	return 0;
+> +       /* reset event q to empty */
+> +       dp_priv->event_gndx = 0;
+> +       dp_priv->event_pndx = 0;
 > +}
 > +
->   static int dpu_plane_atomic_check(struct drm_plane *plane,
->   				  struct drm_atomic_state *state)
->   {
-> @@ -968,15 +1025,19 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   	const struct dpu_format *fmt;
->   	struct drm_rect src, dst, fb_rect = { 0 };
->   	uint32_t min_src_size, max_linewidth;
-> +	unsigned int rotation;
-> +	uint32_t supported_rotations;
-> +	const struct dpu_sspp_cfg *pipe_hw_caps = pdpu->pipe_hw->cap;
-> +	const struct dpu_sspp_sub_blks *sblk = pdpu->pipe_hw->cap->sblk;
->   
->   	if (new_plane_state->crtc)
->   		crtc_state = drm_atomic_get_new_crtc_state(state,
->   							   new_plane_state->crtc);
->   
-> -	min_scale = FRAC_16_16(1, pdpu->pipe_hw->cap->sblk->maxupscale);
-> +	min_scale = FRAC_16_16(1, sblk->maxupscale);
->   	ret = drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
->   						  min_scale,
-> -						  pdpu->pipe_hw->cap->sblk->maxdwnscale << 16,
-> +						  sblk->maxdwnscale << 16,
->   						  true, true);
->   	if (ret) {
->   		DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
-> @@ -1002,8 +1063,8 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   	min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
->   
->   	if (DPU_FORMAT_IS_YUV(fmt) &&
-> -		(!(pdpu->pipe_hw->cap->features & DPU_SSPP_SCALER) ||
-> -		 !(pdpu->pipe_hw->cap->features & DPU_SSPP_CSC_ANY))) {
-> +		(!(pipe_hw_caps->features & DPU_SSPP_SCALER) ||
-> +		 !(pipe_hw_caps->features & DPU_SSPP_CSC_ANY))) {
->   		DPU_DEBUG_PLANE(pdpu,
->   				"plane doesn't have scaler/csc for yuv\n");
->   		return -EINVAL;
-> @@ -1036,6 +1097,22 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   		return -E2BIG;
->   	}
->   
-> +	supported_rotations = DRM_MODE_REFLECT_MASK | DRM_MODE_ROTATE_0;
-> +
-> +	if (pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION))
-> +		supported_rotations |= DRM_MODE_ROTATE_90;
-> +
-> +	rotation = drm_rotation_simplify(new_plane_state->rotation,
-> +					supported_rotations);
-> +
-> +	if ((pipe_hw_caps->features & BIT(DPU_SSPP_INLINE_ROTATION)) &&
-> +		(rotation & DRM_MODE_ROTATE_90)) {
-> +		ret = dpu_plane_check_inline_rotation(pdpu, sblk, src, fmt);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	pstate->rotation = rotation;
->   	pstate->needs_qos_remap = drm_atomic_crtc_needs_modeset(crtc_state);
->   
->   	return 0;
-> @@ -1151,21 +1228,19 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->   				pstate->multirect_mode);
->   
->   	if (pdpu->pipe_hw->ops.setup_format) {
-> -		unsigned int rotation;
-> +		unsigned int rotation = pstate->rotation;
->   
->   		src_flags = 0x0;
->   
-> -		rotation = drm_rotation_simplify(state->rotation,
-> -						 DRM_MODE_ROTATE_0 |
-> -						 DRM_MODE_REFLECT_X |
-> -						 DRM_MODE_REFLECT_Y);
-> -
->   		if (rotation & DRM_MODE_REFLECT_X)
->   			src_flags |= DPU_SSPP_FLIP_LR;
->   
->   		if (rotation & DRM_MODE_REFLECT_Y)
->   			src_flags |= DPU_SSPP_FLIP_UD;
->   
-> +		if (rotation & DRM_MODE_ROTATE_90)
-> +			src_flags |= DPU_SSPP_ROT_90;
-> +
->   		/* update format */
->   		pdpu->pipe_hw->ops.setup_format(pdpu->pipe_hw, fmt, src_flags,
->   				pstate->multirect_index);
-> @@ -1458,6 +1533,7 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
->   	struct dpu_kms *kms = to_dpu_kms(priv->kms);
->   	int zpos_max = DPU_ZPOS_MAX;
->   	uint32_t num_formats;
-> +	uint32_t supported_rotations;
->   	int ret = -EINVAL;
->   
->   	/* create and zero local structure */
-> @@ -1526,12 +1602,13 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
->   			BIT(DRM_MODE_BLEND_PREMULTI) |
->   			BIT(DRM_MODE_BLEND_COVERAGE));
->   
-> +	supported_rotations = DRM_MODE_REFLECT_MASK | DRM_MODE_ROTATE_0;
-> +
-> +	if (pdpu->pipe_hw->cap->features & BIT(DPU_SSPP_INLINE_ROTATION))
-> +		supported_rotations |= DRM_MODE_ROTATE_MASK;
-> +
->   	drm_plane_create_rotation_property(plane,
-> -			DRM_MODE_ROTATE_0,
-> -			DRM_MODE_ROTATE_0 |
-> -			DRM_MODE_ROTATE_180 |
-> -			DRM_MODE_REFLECT_X |
-> -			DRM_MODE_REFLECT_Y);
-> +		    DRM_MODE_ROTATE_0, supported_rotations);
->   
->   	drm_plane_enable_fb_damage_clips(plane);
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> index 50781e2..e146310 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
-> @@ -26,6 +26,7 @@
->    * @plane_fetch_bw: calculated BW per plane
->    * @plane_clk: calculated clk per plane
->    * @needs_dirtyfb: whether attached CRTC needs pixel data explicitly flushed
-> + * @rotation: simplified drm rotation hint
->    */
->   struct dpu_plane_state {
->   	struct drm_plane_state base;
-> @@ -40,6 +41,7 @@ struct dpu_plane_state {
->   	u64 plane_clk;
->   
->   	bool needs_dirtyfb;
-> +	unsigned int rotation;
->   };
->   
->   /**
+>  static int dp_display_bind(struct device *dev, struct device *master,
+>                            void *data)
+>  {
+> @@ -269,6 +295,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
+>         if (rc)
+>                 DRM_ERROR("Audio registration Dp failed\n");
+>
+> +       dp_hpd_event_setup(dp); /* start event thread */
 
+The comment is useless, please remove.
 
--- 
-With best wishes
-Dmitry
+>  end:
+>         return rc;
+>  }
+> @@ -280,6 +307,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+>         struct drm_device *drm = dev_get_drvdata(master);
+>         struct msm_drm_private *priv = drm->dev_private;
+>
+> +       disable_irq(dp->irq);
+
+Is the disable_irq() necessary? It would be nicer to silence the
+hardware and remove the disable_irq() so that we can reason about the
+code assuming the irq is always enabled after it is requested.
+
+> +       dp_hpd_event_stop(dp); /* stop event thread */
+>         dp_power_client_deinit(dp->power);
+>         dp_aux_unregister(dp->aux);
+>         priv->dp[dp->id] = NULL;
