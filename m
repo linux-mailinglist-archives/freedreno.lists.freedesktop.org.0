@@ -2,51 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A77044FFCAA
-	for <lists+freedreno@lfdr.de>; Wed, 13 Apr 2022 19:28:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 379EC500087
+	for <lists+freedreno@lfdr.de>; Wed, 13 Apr 2022 23:04:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34EC210E135;
-	Wed, 13 Apr 2022 17:28:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9ACE10E308;
+	Wed, 13 Apr 2022 21:04:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59CD310E0CC;
- Wed, 13 Apr 2022 17:28:19 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id i20so3595673wrb.13;
- Wed, 13 Apr 2022 10:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=wmTTJc7cl6oOaGuqAfmrOjx/4kHHCDLsI0qGb1ByPRU=;
- b=Gv0EL/ZxgM6nD/QdcZ5kwRGNHJ/sBQhPXzudfQnBcFAvkiSRamLbDDwEAKzysR8fZi
- mphBn6flOXPHW3LAXs+Zd7s8O6qADVOFbZuBCNbn2gtGKkEymkN7XVYhG5DDDlAOWzOs
- utVWGr4rUfXkLa1DITlFJhpDRVozlE8qDeGyew1EEQNZA7eFCTEk6OI5rooUkOn6p++C
- APPgG08rQY1IRAV84oExr/vkG4PDnweWiJMBqkfM0CP9jT/jSpJtkEXo1thptFAYRnji
- oWb/VLM2mdQ30uAjW4CXZlO78guqimS2qA4OgPDAU8xJVc1JEWf1a/+qrr4bfQCW3i1a
- MPGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=wmTTJc7cl6oOaGuqAfmrOjx/4kHHCDLsI0qGb1ByPRU=;
- b=aecjPUJulwZVaJ5eXZtR11580t1vnPknA5u9Au1ctYCE5IwvKpyaLz1tlGRN4jyT7o
- 5lcNF+/4C1PwiHeYaKdzqDaSLJn2Aut4WMxVY4Q67eNCzRR6hZo1Vz2jsXGWd5t/KcK+
- QSYBRNWPCIu+cH0fj7grUv07iXXO+4buyaFbF02yXyrRzHajEZUb30TxLUXCTvzo0src
- fWln0JJ+YpvRkxLp2srJI2NndVVlKdRN2yfCdKMxW7hLUWzgyynFKsCNHwZpiIJgX6dr
- Z0a/hl2T6JuPgVQV3NghBJgH278EBc1LsdRTsXygatTYFlVAVcF3Ga209MRFZcYQbpYF
- m0wg==
-X-Gm-Message-State: AOAM532NQAWq2OCFPfbWE2riJxamqN4uf8q69TDU/dEsm7lkmIon6fn2
- zGrNMp3zR9JYovHjz8wnyZQm+Ds1wTxnRd6T81U=
-X-Google-Smtp-Source: ABdhPJyZ1BaUvX4fdp9fHfEfMZEDBiKMqmJvGwIR/qqtcLJHzy6ocEtB/UGcnZkibsi6xA0n8HSz3NR+93CMmZd70x0=
-X-Received: by 2002:adf:9111:0:b0:206:c9b:ce0d with SMTP id
- j17-20020adf9111000000b002060c9bce0dmr33934513wrj.418.1649870897772; Wed, 13
- Apr 2022 10:28:17 -0700 (PDT)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB23C10EF46;
+ Wed, 13 Apr 2022 21:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649883876; x=1681419876;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=4g9kIwKn84VsdzcM7eVUWEjweV9j7Y7uJiQP/4rq6JE=;
+ b=r0AJ0iQykUeW6GJH+18icmVt3zDwa4aGELAhYJvghoIHdAy0q/hF4+lC
+ XkdmbDa03pEyyE6nkvb5zJ+V/ZQboSoBPfImdhrwvzTfymlgd0MY/H7ID
+ GH6VXkNl7j0wPXuQPoPUUFG/ASILcrTcnglmjdOer7jDAgdPZXRqKFi3e s=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 13 Apr 2022 14:04:36 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2022 14:04:35 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Apr 2022 14:04:35 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 13 Apr 2022 14:04:34 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 13 Apr 2022 14:04:25 -0700
+Message-ID: <1649883865-9012-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 13 Apr 2022 10:29:20 -0700
-Message-ID: <CAF6AEGvuTwx09MKwK68KWXqi4o7LxDGMUz1=Z7xOS+i=OV84Ug@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-04-13 for v5.18
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: stop event kernel thread when DP
+ unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,73 +62,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+Current DP driver implementation, event thread is kept running
+after DP display is unbind. This patch fix this problem by disabling
+DP irq and stop event thread to exit gracefully at dp_display_unbind().
 
-A few fixes for v5.18.
+Changes in v2:
+-- start event thread at dp_display_bind()
 
-The following changes since commit 05afd57f4d34602a652fdaf58e0a2756b3c20fd4:
+Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 40 +++++++++++++++++++++++++++----------
+ 1 file changed, 30 insertions(+), 10 deletions(-)
 
-  drm/msm/gpu: Fix crash on devices without devfreq support (v2)
-(2022-03-08 13:55:23 -0800)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 01453db..943e4f1 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -113,6 +113,7 @@ struct dp_display_private {
+ 	u32 hpd_state;
+ 	u32 event_pndx;
+ 	u32 event_gndx;
++	struct task_struct *ev_tsk;
+ 	struct dp_event event_list[DP_EVENT_Q_MAX];
+ 	spinlock_t event_lock;
+ 
+@@ -230,6 +231,31 @@ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
+ 	complete_all(&dp->audio_comp);
+ }
+ 
++static int hpd_event_thread(void *data);
++
++static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
++{
++	init_waitqueue_head(&dp_priv->event_q);
++	spin_lock_init(&dp_priv->event_lock);
++
++	dp_priv->ev_tsk = kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
++
++	if (IS_ERR(dp_priv->ev_tsk))
++		DRM_ERROR("failed to create DP event thread\n");
++}
++
++static void dp_hpd_event_stop(struct dp_display_private *dp_priv)
++{
++	if (IS_ERR(dp_priv->ev_tsk))
++		return;
++
++	kthread_stop(dp_priv->ev_tsk);
++
++	/* reset event q to empty */
++	dp_priv->event_gndx = 0;
++	dp_priv->event_pndx = 0;
++}
++
+ static int dp_display_bind(struct device *dev, struct device *master,
+ 			   void *data)
+ {
+@@ -269,6 +295,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
+ 	if (rc)
+ 		DRM_ERROR("Audio registration Dp failed\n");
+ 
++	dp_hpd_event_setup(dp); /* start event thread */
+ end:
+ 	return rc;
+ }
+@@ -280,6 +307,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = dev_get_drvdata(master);
+ 	struct msm_drm_private *priv = drm->dev_private;
+ 
++	disable_irq(dp->irq);
++	dp_hpd_event_stop(dp); /* stop event thread */
+ 	dp_power_client_deinit(dp->power);
+ 	dp_aux_unregister(dp->aux);
+ 	priv->dp[dp->id] = NULL;
+@@ -1054,7 +1083,7 @@ static int hpd_event_thread(void *data)
+ 
+ 	dp_priv = (struct dp_display_private *)data;
+ 
+-	while (1) {
++	while (!kthread_should_stop()) {
+ 		if (timeout_mode) {
+ 			wait_event_timeout(dp_priv->event_q,
+ 				(dp_priv->event_pndx == dp_priv->event_gndx),
+@@ -1132,13 +1161,6 @@ static int hpd_event_thread(void *data)
+ 	return 0;
+ }
+ 
+-static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
+-{
+-	init_waitqueue_head(&dp_priv->event_q);
+-	spin_lock_init(&dp_priv->event_lock);
+-
+-	kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
+-}
+ 
+ static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
+ {
+@@ -1441,8 +1463,6 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
+ 
+ 	dp = container_of(dp_display, struct dp_display_private, dp_display);
+ 
+-	dp_hpd_event_setup(dp);
+-
+ 	dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+ }
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2022-04-13
-
-for you to fetch changes up to 390d645877ffd6dcb55f162d618045b2779217b3:
-
-  drm/msm/gpu: Avoid -Wunused-function with !CONFIG_PM_SLEEP
-(2022-04-11 18:35:31 -0700)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (1):
-      dt-bindings: display/msm: another fix for the dpu-qcm2290 example
-
-Kuogee Hsieh (1):
-      drm/msm/dp: add fail safe mode outside of event_mutex context
-
-Marijn Suijten (1):
-      drm/msm/dpu: Use indexed array initializer to prevent mismatches
-
-Nathan Chancellor (1):
-      drm/msm/gpu: Avoid -Wunused-function with !CONFIG_PM_SLEEP
-
-Rob Clark (5):
-      drm/msm/gpu: Rename runtime suspend/resume functions
-      drm/msm/gpu: Park scheduler threads for system suspend
-      drm/msm/gpu: Remove mutex from wait_event condition
-      drm/msm: Add missing put_task_struct() in debugfs path
-      drm/msm: Fix range size vs end confusion
-
-Robin Murphy (1):
-      drm/msm: Stop using iommu_present()
-
-Stephen Boyd (1):
-      drm/msm/dsi: Use connector directly in msm_dsi_manager_connector_init()
-
-Xiaoke Wang (2):
-      drm/msm/disp: check the return value of kzalloc()
-      drm/msm/mdp5: check the return of kzalloc()
-
- .../bindings/display/msm/dpu-qcm2290.yaml          |  4 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  2 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c         | 80 +++++++++++++++++-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 34 ++++-----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  3 +
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c  |  2 +
- drivers/gpu/drm/msm/dp/dp_display.c                |  6 ++
- drivers/gpu/drm/msm/dp/dp_panel.c                  | 20 +++---
- drivers/gpu/drm/msm/dp/dp_panel.h                  |  1 +
- drivers/gpu/drm/msm/dsi/dsi_manager.c              |  2 +-
- drivers/gpu/drm/msm/msm_drv.c                      |  2 +-
- drivers/gpu/drm/msm/msm_gem.c                      |  1 +
- 12 files changed, 109 insertions(+), 48 deletions(-)
