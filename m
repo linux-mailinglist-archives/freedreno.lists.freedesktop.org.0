@@ -1,55 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 379EC500087
-	for <lists+freedreno@lfdr.de>; Wed, 13 Apr 2022 23:04:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 555C2500204
+	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 00:48:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9ACE10E308;
-	Wed, 13 Apr 2022 21:04:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01A0C10E444;
+	Wed, 13 Apr 2022 22:48:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB23C10EF46;
- Wed, 13 Apr 2022 21:04:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1649883876; x=1681419876;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=4g9kIwKn84VsdzcM7eVUWEjweV9j7Y7uJiQP/4rq6JE=;
- b=r0AJ0iQykUeW6GJH+18icmVt3zDwa4aGELAhYJvghoIHdAy0q/hF4+lC
- XkdmbDa03pEyyE6nkvb5zJ+V/ZQboSoBPfImdhrwvzTfymlgd0MY/H7ID
- GH6VXkNl7j0wPXuQPoPUUFG/ASILcrTcnglmjdOer7jDAgdPZXRqKFi3e s=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 13 Apr 2022 14:04:36 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 14:04:35 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 13 Apr 2022 14:04:35 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 13 Apr 2022 14:04:34 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Wed, 13 Apr 2022 14:04:25 -0700
-Message-ID: <1649883865-9012-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 662E510E444
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Apr 2022 22:48:15 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id y32so6074094lfa.6
+ for <freedreno@lists.freedesktop.org>; Wed, 13 Apr 2022 15:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=Rjljh0Ck2s5oy15NuHhlHI64zRd9D7mmJO/ww9jh6KI=;
+ b=JWPPH9IH9OWhM3mr2yzedKc+0F9KJv9p7R8apF2V7A2kjsZ2XZjLnG7U+Erq4JMcRx
+ j2aZMzjF3EF7sBHG7wuRccxwqgQNYhJG2OA0/8d2o+R2yGaG0xoo5pvUnEK1PZuSQQP/
+ AyW5hTUWVYZtAj7V484d8mdQ9j0uPbLOCvGahkS47sUhfOoFCGP3FqhrVEnL7JSRowIp
+ RtZnVrR/KSP5kqhTlXNlp/gsIzFfDR+pLFTCTcw8/UzMBDKm+T/mk7PcHJ7NiBZcINFb
+ 3p0MHtLW7uU+S0GMER/TNzg6r4fSv9A/7HnaUwX8zWdgS0A+iIoaMMrWi+GkBc4jU2m+
+ ywbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Rjljh0Ck2s5oy15NuHhlHI64zRd9D7mmJO/ww9jh6KI=;
+ b=rsiv3VriOaEUd9m1OigokFuUEUCrFGiP39CZvM+DSOn1+/j9ZKc72SWhrH4zgKVzr5
+ Bw7RaB8p2zCVvqNT4GtjIZRk50nLb5jfC4EPKMEvdbCdgcv7nyuZLWBNkuBsBYHToTcs
+ ghLOm4+IhM16ibb3VGWUy11KJo9qTRmahB7h8O9nNSfwoMpNiQPIhFq5pNc/2haUdtwg
+ 4PhVs8o8RJzMzYFpPGmvf9xcY5wjnsA3boNX4XRk8mWduaEtN1fJAFMiCHRpzjT6PX0I
+ Nyeokk+VMeoQR+EgISu2fPgRmeEJzYWuPcqLLsKyYJHhjSHRvbIWD6rDZhH618f/R7oy
+ 0f1A==
+X-Gm-Message-State: AOAM531JTJvqa62UhecZi1y1ae1b+rSIrLiSuajxUdfNvtY5A4BllFN7
+ yZy16TLPbzV9j8uJN2tyBYWowQ==
+X-Google-Smtp-Source: ABdhPJwLGOXVgRQRnW/vis5ArNXs3GbeL5yfyHkCoVwhOuEEu/oGx5gTPf1dorzul0P6MeWE+j+AqQ==
+X-Received: by 2002:ac2:4c53:0:b0:44a:4357:c285 with SMTP id
+ o19-20020ac24c53000000b0044a4357c285mr29062315lfk.99.1649890093755; 
+ Wed, 13 Apr 2022 15:48:13 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ k16-20020a192d10000000b0046ba99878a6sm31873lfj.17.2022.04.13.15.48.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Apr 2022 15:48:13 -0700 (PDT)
+Message-ID: <d39dca75-4f0c-6a8a-8bb3-fb745116c6f8@linaro.org>
+Date: Thu, 14 Apr 2022 01:48:12 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2] drm/msm/dp: stop event kernel thread when DP
- unbind
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Content-Language: en-GB
+To: Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <1649695021-19132-1-git-send-email-quic_vpolimer@quicinc.com>
+ <1649695021-19132-2-git-send-email-quic_vpolimer@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1649695021-19132-2-git-send-email-quic_vpolimer@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v8 1/2] drm/msm/disp/dpu1: add inline
+ function to validate format support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,121 +77,81 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: quic_kalyant@quicinc.com, robdclark@gmail.com, linux-kernel@vger.kernel.org,
+ dianders@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Current DP driver implementation, event thread is kept running
-after DP display is unbind. This patch fix this problem by disabling
-DP irq and stop event thread to exit gracefully at dp_display_unbind().
+On 11/04/2022 19:37, Vinod Polimera wrote:
+> Check if the dpu format is supported or not using dpu_find_format.
+> 
+> Co-developed-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
 
-Changes in v2:
--- start event thread at dp_display_bind()
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 40 +++++++++++++++++++++++++++----------
- 1 file changed, 30 insertions(+), 10 deletions(-)
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h | 22 ++++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 10 +++-------
+>   2 files changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
+> index 418f5ae..84b8b32 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h
+> @@ -21,6 +21,28 @@ const struct dpu_format *dpu_get_dpu_format_ext(
+>   #define dpu_get_dpu_format(f) dpu_get_dpu_format_ext(f, 0)
+>   
+>   /**
+> + * dpu_find_format - validate if the pixel format is supported
+> + * @format:		dpu format
+> + * @supported_formats:	supported formats by dpu HW
+> + * @num_formatss:	total number of formats
+> + *
+> + * Return: false if not valid format, true on success
+> + */
+> +static inline bool dpu_find_format(u32 format, const u32 *supported_formats,
+> +					size_t num_formats)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < num_formats; i++) {
+> +		/* check for valid formats supported */
+> +		if (format == supported_formats[i])
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +/**
+>    * dpu_get_msm_format - get an dpu_format by its msm_format base
+>    *                     callback function registers with the msm_kms layer
+>    * @kms:             kms driver
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 6565682..3216cda 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -1411,13 +1411,9 @@ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
+>   	if (modifier == DRM_FORMAT_MOD_LINEAR)
+>   		return true;
+>   
+> -	if (modifier == DRM_FORMAT_MOD_QCOM_COMPRESSED) {
+> -		int i;
+> -		for (i = 0; i < ARRAY_SIZE(qcom_compressed_supported_formats); i++) {
+> -			if (format == qcom_compressed_supported_formats[i])
+> -				return true;
+> -		}
+> -	}
+> +	if (modifier == DRM_FORMAT_MOD_QCOM_COMPRESSED)
+> +		return dpu_find_format(format, qcom_compressed_supported_formats,
+> +				ARRAY_SIZE(qcom_compressed_supported_formats));
+>   
+>   	return false;
+>   }
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 01453db..943e4f1 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -113,6 +113,7 @@ struct dp_display_private {
- 	u32 hpd_state;
- 	u32 event_pndx;
- 	u32 event_gndx;
-+	struct task_struct *ev_tsk;
- 	struct dp_event event_list[DP_EVENT_Q_MAX];
- 	spinlock_t event_lock;
- 
-@@ -230,6 +231,31 @@ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
- 	complete_all(&dp->audio_comp);
- }
- 
-+static int hpd_event_thread(void *data);
-+
-+static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
-+{
-+	init_waitqueue_head(&dp_priv->event_q);
-+	spin_lock_init(&dp_priv->event_lock);
-+
-+	dp_priv->ev_tsk = kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
-+
-+	if (IS_ERR(dp_priv->ev_tsk))
-+		DRM_ERROR("failed to create DP event thread\n");
-+}
-+
-+static void dp_hpd_event_stop(struct dp_display_private *dp_priv)
-+{
-+	if (IS_ERR(dp_priv->ev_tsk))
-+		return;
-+
-+	kthread_stop(dp_priv->ev_tsk);
-+
-+	/* reset event q to empty */
-+	dp_priv->event_gndx = 0;
-+	dp_priv->event_pndx = 0;
-+}
-+
- static int dp_display_bind(struct device *dev, struct device *master,
- 			   void *data)
- {
-@@ -269,6 +295,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
- 	if (rc)
- 		DRM_ERROR("Audio registration Dp failed\n");
- 
-+	dp_hpd_event_setup(dp); /* start event thread */
- end:
- 	return rc;
- }
-@@ -280,6 +307,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 	struct drm_device *drm = dev_get_drvdata(master);
- 	struct msm_drm_private *priv = drm->dev_private;
- 
-+	disable_irq(dp->irq);
-+	dp_hpd_event_stop(dp); /* stop event thread */
- 	dp_power_client_deinit(dp->power);
- 	dp_aux_unregister(dp->aux);
- 	priv->dp[dp->id] = NULL;
-@@ -1054,7 +1083,7 @@ static int hpd_event_thread(void *data)
- 
- 	dp_priv = (struct dp_display_private *)data;
- 
--	while (1) {
-+	while (!kthread_should_stop()) {
- 		if (timeout_mode) {
- 			wait_event_timeout(dp_priv->event_q,
- 				(dp_priv->event_pndx == dp_priv->event_gndx),
-@@ -1132,13 +1161,6 @@ static int hpd_event_thread(void *data)
- 	return 0;
- }
- 
--static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
--{
--	init_waitqueue_head(&dp_priv->event_q);
--	spin_lock_init(&dp_priv->event_lock);
--
--	kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
--}
- 
- static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
- {
-@@ -1441,8 +1463,6 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
--	dp_hpd_event_setup(dp);
--
- 	dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
- }
- 
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+With best wishes
+Dmitry
