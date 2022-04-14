@@ -2,63 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7A6C5017A6
-	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 18:00:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CA45018BB
+	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 18:35:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711E410E28F;
-	Thu, 14 Apr 2022 16:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F7C10FC70;
+	Thu, 14 Apr 2022 16:35:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BF7A10E146
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 16:00:38 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id hu11so4297157qvb.7
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:00:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poorly.run; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=7eaHHFtd1RPN3Z/Kt74RCD3nqCFekvmQchrcxgikn2Q=;
- b=ViceBsfKRlCjYXE8w9M0Ly2mtX6a29V/pF9e7tjaGE0IFIltNoR7/E364digeB3lp1
- dFhSKP98+dhtuaxj+4vdtm2BKc4EuTBjlrD7iZgXhDw4UUb+JQGBFJmcqkeji1498qIv
- e7ZhAHzJsww2qCxsXc8pgWppqGRZY0YBO2Y0aReUwAraUGwwx6M+W5OwW8tKv4V2X/Lj
- y5cVDi+//QmwsYvsue903WZALHaIMHEhCEjrJdzD60HOXersoQND8fIa4ETuVOFECVzt
- ojGW+W+0lcPKTxp7MjJED6ParcgwThJT0FYbkCamzFFlfkYg7yLJk3vR0tLxMvBh8+SH
- IQvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=7eaHHFtd1RPN3Z/Kt74RCD3nqCFekvmQchrcxgikn2Q=;
- b=E/5i1Axtb+AoIu6GAUPZF3HiLmYejQA3/scfwk2rADWJKT33xyXFzcWn1+tztH3dhB
- WA0tjkh9lnrrQiGVhKno52mN9x6X7feOSzqNieIv2Ux2k+HtSD7M0wD1nfl7Y3iJ2o1q
- DMPMetGZB1mDV2R6ZqsOU0o9ILOFJLk8GGlCucTOxGeI8shIACcPx9Bo/QPN+q0GkPCn
- ecjXQPDRMwo9xVavyldWNhe2inl0vNzLBrsq27p1TP25Pz2JVMjY2q94WvOUtC6N4flK
- 9JULGXIR0VymWUxXEZ6dgqBC1fkgjwlssL2xxXGwPVujXtMfoxD7iLPyyHGPENTBGxFv
- /JIw==
-X-Gm-Message-State: AOAM533us6lkzPlE6m6dDO2BUo28pzdsYp5bl4SmR22vhA0GVfRKCJ+e
- QkVyh9tBrzzE2RDg9TwEIIjBsA==
-X-Google-Smtp-Source: ABdhPJw1Vk+DzcHcH9DvZ8s4hHv441rcD9Ubypkzl7T8m363ZCNSw8uiOgCDZgXK1dX+g72QZWadEA==
-X-Received: by 2002:a0c:8151:0:b0:42c:2329:91a0 with SMTP id
- 75-20020a0c8151000000b0042c232991a0mr3974014qvc.107.1649952037207; 
- Thu, 14 Apr 2022 09:00:37 -0700 (PDT)
-Received: from localhost (115.25.199.35.bc.googleusercontent.com.
- [35.199.25.115]) by smtp.gmail.com with ESMTPSA id
- o20-20020a05620a229400b0069c70250fe5sm1114845qkh.55.2022.04.14.09.00.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Apr 2022 09:00:36 -0700 (PDT)
-Date: Thu, 14 Apr 2022 16:00:35 +0000
-From: Sean Paul <sean@poorly.run>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-ID: <YlhFIycEACT4GbKt@art_vandelay>
-References: <20220411204741.1074308-1-sean@poorly.run>
- <YlWBjy5lxtuGZ4vm@intel.com>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F07010FC70;
+ Thu, 14 Apr 2022 16:35:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649954123; x=1681490123;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=xSXPlBzZTv6+R+sI6EzS6LbvpQWfbv+dUZziSIPXPjs=;
+ b=dfZix8l3Uf4DmBU3HFK37cz1VOJXK3cJb0MNitgy4MjdJ9i2m0/Tpt9h
+ BNenD7QaJFTd97YkJuI9HF6XdjU30IXI6qj1ekM0FtZpU/04XIW9oBnGL
+ 0rPKyMAPNng7v/rC1CVLmdFqQW59Ti15CywqugaidhFUQRti5QAkcg9XV o=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 14 Apr 2022 09:35:23 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 09:35:22 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 14 Apr 2022 09:35:21 -0700
+Received: from [10.110.43.239] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 14 Apr
+ 2022 09:35:20 -0700
+Message-ID: <0d8a0716-c8b8-a4f6-3e9a-924245dd97fc@quicinc.com>
+Date: Thu, 14 Apr 2022 09:34:55 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YlWBjy5lxtuGZ4vm@intel.com>
-Subject: Re: [Freedreno] [PATCH v5 00/10] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <vkoul@kernel.org>
+References: <1649280493-4393-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n511nbPrRCMx3E2De-htmR79vZr4ezSj13Gm1PbTGasC4A@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n511nbPrRCMx3E2De-htmR79vZr4ezSj13Gm1PbTGasC4A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: enhance both connect and
+ disconnect pending_timeout handle
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,105 +69,154 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Sean Paul <sean@poorly.run>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- bjorn.andersson@linaro.org, Sean Paul <seanpaul@chromium.org>,
- abhinavk@codeaurora.org, markyacoub@chromium.org, swboyd@chromium.org,
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Apr 12, 2022 at 09:41:35AM -0400, Rodrigo Vivi wrote:
-> On Mon, Apr 11, 2022 at 08:47:29PM +0000, Sean Paul wrote:
-> > From: Sean Paul <seanpaul@chromium.org>
-> > 
-> > Rebased set from November. Fixed a nit from Stephen in the msm patch and
-> > moved hdcp registers into the trogdor dtsi file to avoid differences
-> > with sc7180-based windows devices. The set is 4 patches lighter since
-> > some of the changes were accepted into msm.
-> > 
-> > I'm still waiting for Intel review of the first 7 patches. Rodrigo/Jani,
-> > would you please provide your input so we can move forward with this
-> > set?
-> 
-> I'm a bit concerned with patches 4 and 7. It is hard to map the removals
-> and additions and there are some changes that looks like changing behaviors,
-> but end up not being clear in the big patch. Also with big patch it is prune
-> to the rebasing and backport conflicts.
 
-I had the same concerns when I was writing this. I originally had it split up,
-but it seemed really cluttered with 2 sets of helpers (intel-internal + drm)
-that worked slightly differently.
+On 4/13/2022 5:02 PM, Stephen Boyd wrote:
+> The subject is still misleading. It is fixing something. It may be
+> enhancing it as well but it is clearly fixing it first.
+>
+> Quoting Kuogee Hsieh (2022-04-06 14:28:13)
+>> dp_hpd_plug_handle() is responsible for setting up main link and send
+>> uevent to notify user space framework to start video stream. Similarly,
+>> dp_hdp_unplug_handle is responsible to send uevent to notify user space
+>> framework to stop video stream and then tear down main link.
+>> However there are rare cases, such as in the middle of system suspending,
+>> that uevent could not be delivered to user space framework. Therefore
+>> some kind of recover mechanism armed by timer need to be in place in the
+>> case of user space framework does not respond to uevent.
+>>
+>> This patch have both dp_conenct_pending_timeout and
+>> dp_disconnect_pending_timeout are used to stop video stream and tear down
+>> main link and eventually restore DP driver state to known default
+>> DISCONNECTED state in the case of timer fired due to framework does not
+>> respond to uevent so that DP driver can recover itself gracefully at next
+>> dongle unplug followed by plugin event.
+>>
+>> Changes in v2:
+>> -- replace dp_display_usbpd_disconnect_cb with dp_display_notify_disconnect
+> I'd prefer this part to be a different patch. It can come after the fix
+> to ease backporting.
+>
+> Also, is there any response to Dmitry's question yet? I haven't seen
+> anything.
 
-I'll try again now that some time has passed, perhaps a fresh look will help.
+Sorry, since our internal review does not like this approach.
 
-Sean
+I will upload new patch for review soon.
 
-> 
-> Would be possible to split some work in moving individual functions from i915
-> to drm little by little with smaller patches?
-> 
-> But thank you for this great work. It is also good to align our drm drivers.
-> 
-> Thanks,
-> Rodrigo.
-> 
-> > 
-> > Thanks,
-> > 
-> > Sean
-> > 
-> > Link: https://patchwork.freedesktop.org/series/94623/ #v1
-> > Link: https://patchwork.freedesktop.org/series/94713/ #v2
-> > Link: https://patchwork.freedesktop.org/series/94712/ #v3
-> > Link: https://patchwork.freedesktop.org/series/94712/ #v4
-> > 
-> > Sean Paul (10):
-> >   drm/hdcp: Add drm_hdcp_atomic_check()
-> >   drm/hdcp: Avoid changing crtc state in hdcp atomic check
-> >   drm/hdcp: Update property value on content type and user changes
-> >   drm/hdcp: Expand HDCP helper library for enable/disable/check
-> >   drm/i915/hdcp: Consolidate HDCP setup/state cache
-> >   drm/i915/hdcp: Retain hdcp_capable return codes
-> >   drm/i915/hdcp: Use HDCP helpers for i915
-> >   dt-bindings: msm/dp: Add bindings for HDCP registers
-> >   arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
-> >   drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-> > 
-> >  .../bindings/display/msm/dp-controller.yaml   |    7 +-
-> >  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
-> >  arch/arm64/boot/dts/qcom/sc7180.dtsi          |    6 +-
-> >  drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
-> >  drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
-> >  drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
-> >  .../drm/i915/display/intel_display_debugfs.c  |   11 +-
-> >  .../drm/i915/display/intel_display_types.h    |   58 +-
-> >  drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
-> >  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
-> >  drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
-> >  drivers/gpu/drm/i915/display/intel_hdcp.h     |   36 +-
-> >  drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
-> >  drivers/gpu/drm/msm/Makefile                  |    1 +
-> >  drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
-> >  drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
-> >  drivers/gpu/drm/msm/dp/dp_display.c           |   46 +-
-> >  drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
-> >  drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
-> >  drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
-> >  drivers/gpu/drm/msm/dp/dp_hdcp.c              |  453 +++++++
-> >  drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
-> >  drivers/gpu/drm/msm/dp/dp_parser.c            |   20 +-
-> >  drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
-> >  drivers/gpu/drm/msm/dp/dp_reg.h               |   32 +-
-> >  drivers/gpu/drm/msm/msm_atomic.c              |   15 +
-> >  include/drm/drm_hdcp.h                        |  194 +++
-> >  27 files changed, 2582 insertions(+), 1328 deletions(-)
-> >  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
-> >  create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
-> > 
-> > -- 
-> > Sean Paul, Software Engineer, Google / Chromium OS
-> > 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> index 2433edb..ffafe17 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> @@ -22,6 +22,7 @@ struct dp_ctrl {
+>>   int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
+>> +int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
+>>   void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl);
+>>   void dp_ctrl_isr(struct dp_ctrl *dp_ctrl);
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 178b774..a6200a5 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -451,11 +451,14 @@ static int dp_display_usbpd_configure_cb(struct device *dev)
+>>
+>>   static int dp_display_usbpd_disconnect_cb(struct device *dev)
+> We shouldn't need to keep around an empty function.
+>
+>>   {
+>> +       return 0;
+>> +}
+>> +
+>> +static void dp_display_notify_disconnect(struct device *dev)
+>> +{
+>>          struct dp_display_private *dp = dev_get_dp_display_private(dev);
+>>
+>>          dp_add_event(dp, EV_USER_NOTIFICATION, false, 0);
+>> -
+>> -       return 0;
+>>   }
+>>
+>>   static void dp_display_handle_video_request(struct dp_display_private *dp)
+>> @@ -593,10 +596,16 @@ static int dp_connect_pending_timeout(struct dp_display_private *dp, u32 data)
+>>
+>>          mutex_lock(&dp->event_mutex);
+>>
+>> +       /*
+>> +        * main link had been setup but video is not ready yet
+>> +        * only tear down main link
+>> +        */
+>>          state = dp->hpd_state;
+>>          if (state == ST_CONNECT_PENDING) {
+>> -               dp->hpd_state = ST_CONNECTED;
+>>                  DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
+>> +               dp_ctrl_off_link(dp->ctrl);
+>> +               dp_display_host_phy_exit(dp);
+>> +               dp->hpd_state = ST_DISCONNECTED;
+>>          }
+>>
+>>          mutex_unlock(&dp->event_mutex);
+>> @@ -645,6 +654,7 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+>>                  if (dp->link->sink_count == 0) {
+>>                          dp_display_host_phy_exit(dp);
+>>                  }
+>> +               dp_display_notify_disconnect(&dp->pdev->dev);
+>>                  mutex_unlock(&dp->event_mutex);
+>>                  return 0;
+>>          }
+>> @@ -661,19 +671,22 @@ static int dp_hpd_unplug_handle(struct dp_display_private *dp, u32 data)
+>>                  return 0;
+>>          }
+>>
+>> -       dp->hpd_state = ST_DISCONNECT_PENDING;
+>> -
+>>          /* disable HPD plug interrupts */
+>>          dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_PLUG_INT_MASK, false);
+>>
+>>          /*
+>>           * We don't need separate work for disconnect as
+>>           * connect/attention interrupts are disabled
+>> -        */
+>> -       dp_display_usbpd_disconnect_cb(&dp->pdev->dev);
+>> +       */
+> This comment end is wrong. It should be unchanged.
+>
+>> +       dp_display_notify_disconnect(&dp->pdev->dev);
+>>
+>> -       /* start sentinel checking in case of missing uevent */
+>> -       dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+>> +       if (state == ST_DISPLAY_OFF) {
+>> +               dp->hpd_state = ST_DISCONNECTED;
+>> +       } else {
+>> +               /* start sentinel checking in case of missing uevent */
+>> +               dp_add_event(dp, EV_DISCONNECT_PENDING_TIMEOUT, 0, DP_TIMEOUT_5_SECOND);
+>> +               dp->hpd_state = ST_DISCONNECT_PENDING;
+>> +       }
+>>
+>>          /* signal the disconnect event early to ensure proper teardown */
+>>          dp_display_handle_plugged_change(&dp->dp_display, false);
+>> @@ -695,10 +708,16 @@ static int dp_disconnect_pending_timeout(struct dp_display_private *dp, u32 data
+>>
+>>          mutex_lock(&dp->event_mutex);
+>>
+>> +       /*
+>> +        * main link had been set up and video is ready
+>> +        * tear down main link, video stream and phy
+>> +        */
+>>          state =  dp->hpd_state;
+>>          if (state == ST_DISCONNECT_PENDING) {
+>> -               dp->hpd_state = ST_DISCONNECTED;
+>>                  DRM_DEBUG_DP("type=%d\n", dp->dp_display.connector_type);
+>> +               dp_ctrl_off(dp->ctrl);
+>> +               dp_display_host_phy_exit(dp);
+>> +               dp->hpd_state = ST_DISCONNECTED;
+>>          }
+>>
+>>          mutex_unlock(&dp->event_mutex);
