@@ -1,69 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A25CC501D80
-	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 23:32:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3C3501D96
+	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 23:41:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 456BD10E285;
-	Thu, 14 Apr 2022 21:32:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCDB10E0F7;
+	Thu, 14 Apr 2022 21:41:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FEED10E285
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 21:32:16 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id b21so7621988ljf.4
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 14:32:16 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D5510E247
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 21:41:34 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id p10so11252330lfa.12
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 14:41:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=3G18jQRmhMG/5I436XBzeOU7bDnBwC2v1Bhdzpj2XrE=;
- b=BIAtuHFGqtc77IcJBd1dRicDE49KDvCSUTNqt4MB04AJUwUZUjpFCrEptxXdOQ0EP/
- 6kOCq3n/lrnfXalWRmE5cZFSkl254WjS5dTFFXT9kfcTbyIKY1S91QGGG95BiIG9i9+H
- XY+rWbnPj6sx1bjbCcL4LFHQjTsetgNd6osk9d6/lBzOOgb7dLm9av4x8dJSa/8ajD3n
- 7TvJ/wLgeAGNBuZr/Vu7TxlOevgki5/xgOXCvMI4EtwUXy+OqB4j2Td7A/WKVF9vukHp
- e7B9c7UvrBw/Pm/YpFkWtITP7YjvzNctruW4K0pBwGwaGkXkDTZCzDvogT9LplDbO2hO
- JeKw==
+ bh=2/Yn6rcCLuVkDd7ZWYN5mIX/4R5D86jFJbrRjPVsRLM=;
+ b=axykHEMfKkAeSrMwdhIgCC1B5sU831jr45QiAdiHfU3Q2OHbPbFl5+QN0OsYMAwNB+
+ F+JyjkhB4qebk7loJvfpfdepXiH1IDiTiPubP9s/UT9B9Ts25p1wE3lJvhn5czG5NleR
+ 6rzGiBXEaGxKMcLwt/Q07i9a7DEZdx69iopEocNVeD9dTs6xpXqbWZqWlgm5HcXfNrN9
+ vnKsehQDHIyNtih2RppZ1mC0CiPX4NSeTZkNDFHzT2HsCOH1XFnGZi9FxAl61cgykAuu
+ dMBLqMoWZ0J1SQ9ZWCbaUlAbHHhxwip06YXSId7GTmeyvsZQWlBc8Wy9Xp9uwxaJWSHD
+ XE/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=3G18jQRmhMG/5I436XBzeOU7bDnBwC2v1Bhdzpj2XrE=;
- b=tcptjIXXuJJsbraf4TUuxLA6XsDPsELbbUpX4L76iVbBOuChKpGfnWuXpqZ8NkSAKO
- RdBN4GD0qH4nwVPPJl9khV0OkFhnp3nI/Mjwse0D/z1XyX/WaKNMXYpIwnB7rBWRQaga
- OV6QbQHRhUJJGEnVoNYtPNSIoWNL90Ci7ZsOvIxEpfz+5N1rGyWWfkMK46WL7mhT27eZ
- KQGtrRxXG+DpjAdaJ+c4KTNYhk2KtpiWV7fvaJsPA7JATs49CtOZfW+ygogqA6kmOMTi
- Pb5+qS7FXP8JDs+VQWn54Cs/fUvE/6m3/89/Pv2lu5c953g+jnb29xZTTLpgup7JWyss
- k1WQ==
-X-Gm-Message-State: AOAM533BRlMd49syXVgrD0mmYY6DJkwxr4kYXzUEE5kJWIkw/LjwGABt
- vQZoYsMM4mTg5wVcFklAX5uVyQ==
-X-Google-Smtp-Source: ABdhPJztMe937OcZ+pH0rRzKFMdGcZbcgBr6hEAAPcXyV8Vsk/5/qGTHfrqOgDlpCj5mndWReZ7xVA==
-X-Received: by 2002:a2e:5c81:0:b0:24b:7d:6ae7 with SMTP id
- q123-20020a2e5c81000000b0024b007d6ae7mr2749477ljb.76.1649971934275; 
- Thu, 14 Apr 2022 14:32:14 -0700 (PDT)
+ bh=2/Yn6rcCLuVkDd7ZWYN5mIX/4R5D86jFJbrRjPVsRLM=;
+ b=GSTC1ZSCPETZ2tAKFshtep0nXseVE4GzWhGG9dw8aDjtM1Ygv8h/dG6L+HjgJEqdqR
+ 94UeGEGsN14Ibw7gCSJHSqzjJk033Etf5EQ/Xc9NEMs5Qx/ocHXIbYwD7rdAlnud5qEK
+ I5MiBjDaDVdOL5bwGEl4sjMxyDBeqkws0rPHRFHp+FFsVK4MxhHjLdzyExyZRBLVWGFA
+ v3fUD4FRJ94tcZzKnTc5OyDnlDPfP+ET7wo2F0o9TsUE3desq8R+pucngqbt1M1snyx8
+ de3cRy0B99D50qxxo3LDHN1e6wNBfkHi8DzhDy+2V+cbtfFFENHpGwxftRLXipNLzJtA
+ wpvg==
+X-Gm-Message-State: AOAM532WWO36BXif7+7nPam1W1pqJqoHQAe5wn+wugsMvpxzaG+nSdss
+ 7q5wA1TT1ifpSEv+xpDbZPN4Bw==
+X-Google-Smtp-Source: ABdhPJxHPxHf5dwEUNaag0aZq2pTBm0A4XJU0QdwJ6J/CNXok/eaNSI1uJEfKpKBB5fZ61xhrPbOAQ==
+X-Received: by 2002:a05:6512:3402:b0:448:cd3:4b67 with SMTP id
+ i2-20020a056512340200b004480cd34b67mr3110192lfr.294.1649972492388; 
+ Thu, 14 Apr 2022 14:41:32 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- z8-20020a056512308800b0044a2863f972sm114000lfd.241.2022.04.14.14.32.13
+ i16-20020ac25b50000000b0046bc407519dsm117510lfp.130.2022.04.14.14.41.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Apr 2022 14:32:13 -0700 (PDT)
-Message-ID: <a5d6bcb4-3963-cadd-e2b7-81cec20c1464@linaro.org>
-Date: Fri, 15 Apr 2022 00:32:13 +0300
+ Thu, 14 Apr 2022 14:41:32 -0700 (PDT)
+Message-ID: <8e0c0a82-5dd4-916a-d969-0e4a1e6c8bf2@linaro.org>
+Date: Fri, 15 Apr 2022 00:41:31 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
- airlied@linux.ie, agross@kernel.org, bjorn.andersson@linaro.org
-References: <1649971592-14240-1-git-send-email-quic_khsieh@quicinc.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org
+References: <1644009445-17320-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1644009445-17320-3-git-send-email-quic_abhinavk@quicinc.com>
+ <0351391d-e9ad-cd4f-cf64-d76bdaed898d@linaro.org>
+ <37652560-e752-a837-a310-5e12ad4986a6@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1649971592-14240-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <37652560-e752-a837-a310-5e12ad4986a6@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dp: stop event kernel thread
- when DP unbind
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 02/12] drm/msm/dpu: add dpu_hw_wb
+ abstraction for writeback blocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,445 +77,311 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+Cc: linux-arm-msm@vger.kernel.org, swboyd@chromium.org, robdclark@gmail.com,
+ nganji@codeaurora.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ markyacoub@chromium.org, quic_jesszhan@quicinc.com, aravindh@codeaurora.org,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/04/2022 00:26, Kuogee Hsieh wrote:
-> Current DP driver implementation, event thread is kept running
-> after DP display is unbind. This patch fix this problem by disabling
-> DP irq and stop event thread to exit gracefully at dp_display_unbind().
+On 15/04/2022 00:28, Abhinav Kumar wrote:
+> Hi Dmitry
 > 
-> Changes in v2:
-> -- start event thread at dp_display_bind()
+> Thanks for the review.
 > 
-> Changes in v3:
-> -- disable all HDP interrupts at unbind
-> -- replace dp_hpd_event_setup() with dp_hpd_event_thread_start()
-> -- replace dp_hpd_event_stop() with dp_hpd_event_thread_stop()
-> -- move init_waitqueue_head(&dp->event_q) to probe()
-> -- move spin_lock_init(&dp->event_lock) to probe()
+> Finally got back to this series after getting acks on the drm_writeback 
+> core changes.
 > 
-> Changes in v4:
-> -- relocate both dp_display_bind() and dp_display_unbind() to bottom of file
+> 
+> On 2/4/2022 2:56 PM, Dmitry Baryshkov wrote:
+>> On 05/02/2022 00:17, Abhinav Kumar wrote:
+>>> Add the dpu_hw_wb abstraction to program registers related to the
+>>> writeback block. These will be invoked once all the configuration
+>>> is set and ready to be programmed to the registers.
+>>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>
+>> Few minor comments bellow.
+>>
+>>>
+>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/Makefile              |   1 +
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 267 
+>>> ++++++++++++++++++++++++++++++
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h | 145 ++++++++++++++++
+>>>   3 files changed, 413 insertions(+)
+>>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+>>>   create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+>>> index 03ab55c..c43ef35 100644
+>>> --- a/drivers/gpu/drm/msm/Makefile
+>>> +++ b/drivers/gpu/drm/msm/Makefile
+>>> @@ -66,6 +66,7 @@ msm-y := \
+>>>       disp/dpu1/dpu_hw_top.o \
+>>>       disp/dpu1/dpu_hw_util.o \
+>>>       disp/dpu1/dpu_hw_vbif.o \
+>>> +    disp/dpu1/dpu_hw_wb.o \
+>>>       disp/dpu1/dpu_io_util.o \
+>>>       disp/dpu1/dpu_kms.o \
+>>>       disp/dpu1/dpu_mdss.o \
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+>>> new file mode 100644
+>>> index 0000000..d395475
+>>> --- /dev/null
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+>>> @@ -0,0 +1,267 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> + /*
+>>> +  * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights 
+>>> reserved
+>>> +  */
+>>> +
+>>> +#include "dpu_hw_mdss.h"
+>>> +#include "dpu_hwio.h"
+>>> +#include "dpu_hw_catalog.h"
+>>> +#include "dpu_hw_wb.h"
+>>> +#include "dpu_formats.h"
+>>> +#include "dpu_kms.h"
+>>> +
+>>> +#define WB_DST_FORMAT                         0x000
+>>> +#define WB_DST_OP_MODE                        0x004
+>>> +#define WB_DST_PACK_PATTERN                   0x008
+>>> +#define WB_DST0_ADDR                          0x00C
+>>> +#define WB_DST1_ADDR                          0x010
+>>> +#define WB_DST2_ADDR                          0x014
+>>> +#define WB_DST3_ADDR                          0x018
+>>> +#define WB_DST_YSTRIDE0                       0x01C
+>>> +#define WB_DST_YSTRIDE1                       0x020
+>>> +#define WB_DST_YSTRIDE1                       0x020
+>>> +#define WB_DST_DITHER_BITDEPTH                0x024
+>>> +#define WB_DST_MATRIX_ROW0                    0x030
+>>> +#define WB_DST_MATRIX_ROW1                    0x034
+>>> +#define WB_DST_MATRIX_ROW2                    0x038
+>>> +#define WB_DST_MATRIX_ROW3                    0x03C
+>>> +#define WB_DST_WRITE_CONFIG                   0x048
+>>> +#define WB_ROTATION_DNSCALER                  0x050
+>>> +#define WB_ROTATOR_PIPE_DOWNSCALER            0x054
+>>> +#define WB_N16_INIT_PHASE_X_C03               0x060
+>>> +#define WB_N16_INIT_PHASE_X_C12               0x064
+>>> +#define WB_N16_INIT_PHASE_Y_C03               0x068
+>>> +#define WB_N16_INIT_PHASE_Y_C12               0x06C
+>>> +#define WB_OUT_SIZE                           0x074
+>>> +#define WB_ALPHA_X_VALUE                      0x078
+>>> +#define WB_DANGER_LUT                         0x084
+>>> +#define WB_SAFE_LUT                           0x088
+>>> +#define WB_QOS_CTRL                           0x090
+>>> +#define WB_CREQ_LUT_0                         0x098
+>>> +#define WB_CREQ_LUT_1                         0x09C
+>>> +#define WB_UBWC_STATIC_CTRL                   0x144
+>>> +#define WB_MUX                                0x150
+>>> +#define WB_CROP_CTRL                          0x154
+>>> +#define WB_CROP_OFFSET                        0x158
+>>> +#define WB_CSC_BASE                           0x260
+>>> +#define WB_DST_ADDR_SW_STATUS                 0x2B0
+>>> +#define WB_CDP_CNTL                           0x2B4
+>>> +#define WB_OUT_IMAGE_SIZE                     0x2C0
+>>> +#define WB_OUT_XY                             0x2C4
+>>> +
+>>> +/* WB_QOS_CTRL */
+>>> +#define WB_QOS_CTRL_DANGER_SAFE_EN            BIT(0)
+>>> +
+>>> +static const struct dpu_wb_cfg *_wb_offset(enum dpu_wb wb,
+>>> +        const struct dpu_mdss_cfg *m, void __iomem *addr,
+>>> +        struct dpu_hw_blk_reg_map *b)
+>>> +{
+>>> +    int i;
+>>> +
+>>> +    for (i = 0; i < m->wb_count; i++) {
+>>> +        if (wb == m->wb[i].id) {
+>>> +            b->base_off = addr;
+>>> +            b->blk_off = m->wb[i].base;
+>>> +            b->length = m->wb[i].len;
+>>> +            b->hwversion = m->hwversion;
+>>> +            return &m->wb[i];
+>>> +        }
+>>> +    }
+>>> +    return ERR_PTR(-EINVAL);
+>>> +}
+>>> +
+>>> +static void dpu_hw_wb_setup_outaddress(struct dpu_hw_wb *ctx,
+>>> +        struct dpu_hw_wb_cfg *data)
+>>> +{
+>>> +    struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_DST0_ADDR, data->dest.plane_addr[0]);
+>>> +    DPU_REG_WRITE(c, WB_DST1_ADDR, data->dest.plane_addr[1]);
+>>> +    DPU_REG_WRITE(c, WB_DST2_ADDR, data->dest.plane_addr[2]);
+>>> +    DPU_REG_WRITE(c, WB_DST3_ADDR, data->dest.plane_addr[3]);
+>>> +}
+>>> +
+>>> +static void dpu_hw_wb_setup_format(struct dpu_hw_wb *ctx,
+>>> +        struct dpu_hw_wb_cfg *data)
+>>> +{
+>>> +    struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>>> +    const struct dpu_format *fmt = data->dest.format;
+>>> +    u32 dst_format, pattern, ystride0, ystride1, outsize, chroma_samp;
+>>> +    u32 write_config = 0;
+>>> +    u32 opmode = 0;
+>>> +    u32 dst_addr_sw = 0;
+>>> +
+>>> +    chroma_samp = fmt->chroma_sample;
+>>> +
+>>> +    dst_format = (chroma_samp << 23) |
+>>> +        (fmt->fetch_planes << 19) |
+>>> +        (fmt->bits[C3_ALPHA] << 6) |
+>>> +        (fmt->bits[C2_R_Cr] << 4) |
+>>> +        (fmt->bits[C1_B_Cb] << 2) |
+>>> +        (fmt->bits[C0_G_Y] << 0);
+>>> +
+>>> +    if (fmt->bits[C3_ALPHA] || fmt->alpha_enable) {
+>>> +        dst_format |= BIT(8); /* DSTC3_EN */
+>>> +        if (!fmt->alpha_enable ||
+>>> +            !(ctx->caps->features & BIT(DPU_WB_PIPE_ALPHA)))
+>>> +            dst_format |= BIT(14); /* DST_ALPHA_X */
+>>> +    }
+>>> +
+>>> +    pattern = (fmt->element[3] << 24) |
+>>> +        (fmt->element[2] << 16) |
+>>> +        (fmt->element[1] << 8)  |
+>>> +        (fmt->element[0] << 0);
+>>> +
+>>> +    dst_format |= (fmt->unpack_align_msb << 18) |
+>>> +        (fmt->unpack_tight << 17) |
+>>> +        ((fmt->unpack_count - 1) << 12) |
+>>> +        ((fmt->bpp - 1) << 9);
+>>> +
+>>> +    ystride0 = data->dest.plane_pitch[0] |
+>>> +        (data->dest.plane_pitch[1] << 16);
+>>> +    ystride1 = data->dest.plane_pitch[2] |
+>>> +    (data->dest.plane_pitch[3] << 16);
+>>> +
+>>> +    if (drm_rect_height(&data->roi) && drm_rect_width(&data->roi))
+>>> +        outsize = (drm_rect_height(&data->roi) << 16) | 
+>>> drm_rect_width(&data->roi);
+>>> +    else
+>>> +        outsize = (data->dest.height << 16) | data->dest.width;
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_ALPHA_X_VALUE, 0xFF);
+>>> +    DPU_REG_WRITE(c, WB_DST_FORMAT, dst_format);
+>>> +    DPU_REG_WRITE(c, WB_DST_OP_MODE, opmode);
+>>> +    DPU_REG_WRITE(c, WB_DST_PACK_PATTERN, pattern);
+>>> +    DPU_REG_WRITE(c, WB_DST_YSTRIDE0, ystride0);
+>>> +    DPU_REG_WRITE(c, WB_DST_YSTRIDE1, ystride1);
+>>> +    DPU_REG_WRITE(c, WB_OUT_SIZE, outsize);
+>>> +    DPU_REG_WRITE(c, WB_DST_WRITE_CONFIG, write_config);
+>>> +    DPU_REG_WRITE(c, WB_DST_ADDR_SW_STATUS, dst_addr_sw);
+>>> +}
+>>> +
+>>> +static void dpu_hw_wb_roi(struct dpu_hw_wb *ctx, struct 
+>>> dpu_hw_wb_cfg *wb)
+>>> +{
+>>> +    struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>>> +    u32 image_size, out_size, out_xy;
+>>> +
+>>> +    image_size = (wb->dest.height << 16) | wb->dest.width;
+>>> +    out_xy = 0;
+>>> +    out_size = (drm_rect_height(&wb->roi) << 16) | 
+>>> drm_rect_width(&wb->roi);
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_OUT_IMAGE_SIZE, image_size);
+>>> +    DPU_REG_WRITE(c, WB_OUT_XY, out_xy);
+>>> +    DPU_REG_WRITE(c, WB_OUT_SIZE, out_size);
+>>> +}
+>>> +
+>>> +static void dpu_hw_wb_setup_qos_lut(struct dpu_hw_wb *ctx,
+>>> +        struct dpu_hw_wb_qos_cfg *cfg)
+>>> +{
+>>> +    struct dpu_hw_blk_reg_map *c = &ctx->hw;
+>>> +    u32 qos_ctrl = 0;
+>>> +
+>>> +    if (!ctx || !cfg)
+>>> +        return;
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_DANGER_LUT, cfg->danger_lut);
+>>> +    DPU_REG_WRITE(c, WB_SAFE_LUT, cfg->safe_lut);
+>>> +
+>>> +    if (ctx->caps && test_bit(DPU_WB_QOS_8LVL, &ctx->caps->features)) {
+>>> +        DPU_REG_WRITE(c, WB_CREQ_LUT_0, cfg->creq_lut);
+>>> +        DPU_REG_WRITE(c, WB_CREQ_LUT_1, cfg->creq_lut >> 32);
+>>> +    }
+>>> +
+>>> +    if (cfg->danger_safe_en)
+>>> +        qos_ctrl |= WB_QOS_CTRL_DANGER_SAFE_EN;
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_QOS_CTRL, qos_ctrl);
+>>> +}
+>>> +
+>>> +static void dpu_hw_wb_setup_cdp(struct dpu_hw_wb *ctx,
+>>> +        struct dpu_hw_wb_cdp_cfg *cfg)
+>>> +{
+>>> +    struct dpu_hw_blk_reg_map *c;
+>>> +    u32 cdp_cntl = 0;
+>>> +
+>>> +    if (!ctx || !cfg)
+>>> +        return;
+>>> +
+>>> +    c = &ctx->hw;
+>>> +
+>>> +    if (cfg->enable)
+>>> +        cdp_cntl |= BIT(0);
+>>> +    if (cfg->ubwc_meta_enable)
+>>> +        cdp_cntl |= BIT(1);
+>>> +    if (cfg->preload_ahead == DPU_WB_CDP_PRELOAD_AHEAD_64)
+>>> +        cdp_cntl |= BIT(3);
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_CDP_CNTL, cdp_cntl);
+>>> +}
+>>
+>> I thought for a moment if we can unify these several functions with 
+>> SSPP code. Most probably we can, but I'm not sure that it make sense.
+>>
+> I understand why you might think that way. Some bitfields in the 
+> register have the same name.
 
-Ugh, no. I think Stephen asked to do it in the followup (= additional) 
-patch. Doing it in the same patch squashes unrelated changes and makes 
-review harder. The previous one was nearly ideal.
+Yes. I was looking at the way the DS and SSPP share the scaler code. So 
+came the idea of sharing the CDP.
 
 > 
-> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 345 +++++++++++++++++++-----------------
->   1 file changed, 182 insertions(+), 163 deletions(-)
+> Both SSPP and WB do have CDP_CNTL but with some different bit 
+> definitions and ofcourse the register offsets are different.
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 01453db..198df6b 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -113,6 +113,7 @@ struct dp_display_private {
->   	u32 hpd_state;
->   	u32 event_pndx;
->   	u32 event_gndx;
-> +	struct task_struct *ev_tsk;
->   	struct dp_event event_list[DP_EVENT_Q_MAX];
->   	spinlock_t event_lock;
->   
-> @@ -230,65 +231,6 @@ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
->   	complete_all(&dp->audio_comp);
->   }
->   
-> -static int dp_display_bind(struct device *dev, struct device *master,
-> -			   void *data)
-> -{
-> -	int rc = 0;
-> -	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> -	struct msm_drm_private *priv;
-> -	struct drm_device *drm;
-> -
-> -	drm = dev_get_drvdata(master);
-> -
-> -	dp->dp_display.drm_dev = drm;
-> -	priv = drm->dev_private;
-> -	priv->dp[dp->id] = &dp->dp_display;
-> -
-> -	rc = dp->parser->parse(dp->parser, dp->dp_display.connector_type);
-> -	if (rc) {
-> -		DRM_ERROR("device tree parsing failed\n");
-> -		goto end;
-> -	}
-> -
-> -	dp->dp_display.panel_bridge = dp->parser->panel_bridge;
-> -
-> -	dp->aux->drm_dev = drm;
-> -	rc = dp_aux_register(dp->aux);
-> -	if (rc) {
-> -		DRM_ERROR("DRM DP AUX register failed\n");
-> -		goto end;
-> -	}
-> -
-> -	rc = dp_power_client_init(dp->power);
-> -	if (rc) {
-> -		DRM_ERROR("Power client create failed\n");
-> -		goto end;
-> -	}
-> -
-> -	rc = dp_register_audio_driver(dev, dp->audio);
-> -	if (rc)
-> -		DRM_ERROR("Audio registration Dp failed\n");
-> -
-> -end:
-> -	return rc;
-> -}
-> -
-> -static void dp_display_unbind(struct device *dev, struct device *master,
-> -			      void *data)
-> -{
-> -	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> -	struct drm_device *drm = dev_get_drvdata(master);
-> -	struct msm_drm_private *priv = drm->dev_private;
-> -
-> -	dp_power_client_deinit(dp->power);
-> -	dp_aux_unregister(dp->aux);
-> -	priv->dp[dp->id] = NULL;
-> -}
-> -
-> -static const struct component_ops dp_display_comp_ops = {
-> -	.bind = dp_display_bind,
-> -	.unbind = dp_display_unbind,
-> -};
->   
->   static bool dp_display_is_ds_bridge(struct dp_panel *panel)
->   {
-> @@ -1054,7 +996,7 @@ static int hpd_event_thread(void *data)
->   
->   	dp_priv = (struct dp_display_private *)data;
->   
-> -	while (1) {
-> +	while (!kthread_should_stop()) {
->   		if (timeout_mode) {
->   			wait_event_timeout(dp_priv->event_q,
->   				(dp_priv->event_pndx == dp_priv->event_gndx),
-> @@ -1132,14 +1074,6 @@ static int hpd_event_thread(void *data)
->   	return 0;
->   }
->   
-> -static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
-> -{
-> -	init_waitqueue_head(&dp_priv->event_q);
-> -	spin_lock_init(&dp_priv->event_lock);
-> -
-> -	kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
-> -}
-> -
->   static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
->   {
->   	struct dp_display_private *dp = dev_id;
-> @@ -1237,65 +1171,6 @@ static const struct msm_dp_desc *dp_display_get_desc(struct platform_device *pde
->   	return NULL;
->   }
->   
-> -static int dp_display_probe(struct platform_device *pdev)
-> -{
-> -	int rc = 0;
-> -	struct dp_display_private *dp;
-> -	const struct msm_dp_desc *desc;
-> -
-> -	if (!pdev || !pdev->dev.of_node) {
-> -		DRM_ERROR("pdev not found\n");
-> -		return -ENODEV;
-> -	}
-> -
-> -	dp = devm_kzalloc(&pdev->dev, sizeof(*dp), GFP_KERNEL);
-> -	if (!dp)
-> -		return -ENOMEM;
-> -
-> -	desc = dp_display_get_desc(pdev, &dp->id);
-> -	if (!desc)
-> -		return -EINVAL;
-> -
-> -	dp->pdev = pdev;
-> -	dp->name = "drm_dp";
-> -	dp->dp_display.connector_type = desc->connector_type;
-> -
-> -	rc = dp_init_sub_modules(dp);
-> -	if (rc) {
-> -		DRM_ERROR("init sub module failed\n");
-> -		return -EPROBE_DEFER;
-> -	}
-> -
-> -	mutex_init(&dp->event_mutex);
-> -
-> -	/* Store DP audio handle inside DP display */
-> -	dp->dp_display.dp_audio = dp->audio;
-> -
-> -	init_completion(&dp->audio_comp);
-> -
-> -	platform_set_drvdata(pdev, &dp->dp_display);
-> -
-> -	rc = component_add(&pdev->dev, &dp_display_comp_ops);
-> -	if (rc) {
-> -		DRM_ERROR("component add failed, rc=%d\n", rc);
-> -		dp_display_deinit_sub_modules(dp);
-> -	}
-> -
-> -	return rc;
-> -}
-> -
-> -static int dp_display_remove(struct platform_device *pdev)
-> -{
-> -	struct dp_display_private *dp = dev_get_dp_display_private(&pdev->dev);
-> -
-> -	dp_display_deinit_sub_modules(dp);
-> -
-> -	component_del(&pdev->dev, &dp_display_comp_ops);
-> -	platform_set_drvdata(pdev, NULL);
-> -
-> -	return 0;
-> -}
-> -
->   static int dp_pm_resume(struct device *dev)
->   {
->   	struct platform_device *pdev = to_platform_device(dev);
-> @@ -1398,40 +1273,6 @@ static void dp_pm_complete(struct device *dev)
->   
->   }
->   
-> -static const struct dev_pm_ops dp_pm_ops = {
-> -	.suspend = dp_pm_suspend,
-> -	.resume =  dp_pm_resume,
-> -	.prepare = dp_pm_prepare,
-> -	.complete = dp_pm_complete,
-> -};
-> -
-> -static struct platform_driver dp_display_driver = {
-> -	.probe  = dp_display_probe,
-> -	.remove = dp_display_remove,
-> -	.driver = {
-> -		.name = "msm-dp-display",
-> -		.of_match_table = dp_dt_match,
-> -		.suppress_bind_attrs = true,
-> -		.pm = &dp_pm_ops,
-> -	},
-> -};
-> -
-> -int __init msm_dp_register(void)
-> -{
-> -	int ret;
-> -
-> -	ret = platform_driver_register(&dp_display_driver);
-> -	if (ret)
-> -		DRM_ERROR("Dp display driver register failed");
-> -
-> -	return ret;
-> -}
-> -
-> -void __exit msm_dp_unregister(void)
-> -{
-> -	platform_driver_unregister(&dp_display_driver);
-> -}
-> -
->   void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->   {
->   	struct dp_display_private *dp;
-> @@ -1441,8 +1282,6 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
->   
->   	dp = container_of(dp_display, struct dp_display_private, dp_display);
->   
-> -	dp_hpd_event_setup(dp);
-> -
->   	dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
->   }
->   
-> @@ -1640,3 +1479,183 @@ void msm_dp_display_mode_set(struct msm_dp *dp, struct drm_encoder *encoder,
->   	dp_display->dp_mode.h_active_low =
->   		!!(dp_display->dp_mode.drm_mode.flags & DRM_MODE_FLAG_NHSYNC);
->   }
-> +
-> +static int dp_hpd_event_thread_start(struct dp_display_private *dp_priv)
-> +{
-> +	dp_priv->ev_tsk = kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
-> +	if (IS_ERR(dp_priv->ev_tsk)) {
-> +		DRM_ERROR("failed to create DP event thread\n");
-> +		return PTR_ERR(dp_priv->ev_tsk);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void dp_hpd_event_thread_stop(struct dp_display_private *dp_priv)
-> +{
-> +	kthread_stop(dp_priv->ev_tsk);
-> +
-> +	/* reset event q to empty */
-> +	dp_priv->event_gndx = 0;
-> +	dp_priv->event_pndx = 0;
-> +}
-> +
-> +static int dp_display_bind(struct device *dev, struct device *master,
-> +			   void *data)
-> +{
-> +	int rc = 0;
-> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> +	struct msm_drm_private *priv;
-> +	struct drm_device *drm;
-> +
-> +	drm = dev_get_drvdata(master);
-> +
-> +	dp->dp_display.drm_dev = drm;
-> +	priv = drm->dev_private;
-> +	priv->dp[dp->id] = &dp->dp_display;
-> +
-> +	rc = dp->parser->parse(dp->parser, dp->dp_display.connector_type);
-> +	if (rc) {
-> +		DRM_ERROR("device tree parsing failed\n");
-> +		goto end;
-> +	}
-> +
-> +	dp->dp_display.panel_bridge = dp->parser->panel_bridge;
-> +
-> +	dp->aux->drm_dev = drm;
-> +	rc = dp_aux_register(dp->aux);
-> +	if (rc) {
-> +		DRM_ERROR("DRM DP AUX register failed\n");
-> +		goto end;
-> +	}
-> +
-> +	rc = dp_power_client_init(dp->power);
-> +	if (rc) {
-> +		DRM_ERROR("Power client create failed\n");
-> +		goto end;
-> +	}
-> +
-> +	rc = dp_register_audio_driver(dev, dp->audio);
-> +	if (rc)
-> +		DRM_ERROR("Audio registration Dp failed\n");
-> +
-> +	rc = dp_hpd_event_thread_start(dp);
-> +end:
-> +	return rc;
-> +}
-> +
-> +static void dp_display_unbind(struct device *dev, struct device *master,
-> +			      void *data)
-> +{
-> +	struct dp_display_private *dp = dev_get_dp_display_private(dev);
-> +	struct drm_device *drm = dev_get_drvdata(master);
-> +	struct msm_drm_private *priv = drm->dev_private;
-> +
-> +	/* disable all HPD interrupts */
-> +	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
-> +	dp_hpd_event_thread_stop(dp);
-> +	dp_power_client_deinit(dp->power);
-> +	dp_aux_unregister(dp->aux);
-> +	priv->dp[dp->id] = NULL;
-> +}
-> +
-> +static const struct component_ops dp_display_comp_ops = {
-> +	.bind = dp_display_bind,
-> +	.unbind = dp_display_unbind,
-> +};
-> +
-> +static int dp_display_probe(struct platform_device *pdev)
-> +{
-> +	int rc = 0;
-> +	struct dp_display_private *dp;
-> +	const struct msm_dp_desc *desc;
-> +
-> +	if (!pdev || !pdev->dev.of_node) {
-> +		DRM_ERROR("pdev not found\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	dp = devm_kzalloc(&pdev->dev, sizeof(*dp), GFP_KERNEL);
-> +	if (!dp)
-> +		return -ENOMEM;
-> +
-> +	desc = dp_display_get_desc(pdev, &dp->id);
-> +	if (!desc)
-> +		return -EINVAL;
-> +
-> +	dp->pdev = pdev;
-> +	dp->name = "drm_dp";
-> +	dp->dp_display.connector_type = desc->connector_type;
-> +
-> +	rc = dp_init_sub_modules(dp);
-> +	if (rc) {
-> +		DRM_ERROR("init sub module failed\n");
-> +		return -EPROBE_DEFER;
-> +	}
-> +
-> +	/* setup event q */
-> +	mutex_init(&dp->event_mutex);
-> +	init_waitqueue_head(&dp->event_q);
-> +	spin_lock_init(&dp->event_lock);
-> +
-> +	/* Store DP audio handle inside DP display */
-> +	dp->dp_display.dp_audio = dp->audio;
-> +
-> +	init_completion(&dp->audio_comp);
-> +
-> +	platform_set_drvdata(pdev, &dp->dp_display);
-> +
-> +	rc = component_add(&pdev->dev, &dp_display_comp_ops);
-> +	if (rc) {
-> +		DRM_ERROR("component add failed, rc=%d\n", rc);
-> +		dp_display_deinit_sub_modules(dp);
-> +	}
-> +
-> +	return rc;
-> +}
-> +
-> +static int dp_display_remove(struct platform_device *pdev)
-> +{
-> +	struct dp_display_private *dp = dev_get_dp_display_private(&pdev->dev);
-> +
-> +	dp_display_deinit_sub_modules(dp);
-> +
-> +	component_del(&pdev->dev, &dp_display_comp_ops);
-> +	platform_set_drvdata(pdev, NULL);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops dp_pm_ops = {
-> +	.suspend = dp_pm_suspend,
-> +	.resume =  dp_pm_resume,
-> +	.prepare = dp_pm_prepare,
-> +	.complete = dp_pm_complete,
-> +};
-> +
-> +static struct platform_driver dp_display_driver = {
-> +	.probe  = dp_display_probe,
-> +	.remove = dp_display_remove,
-> +	.driver = {
-> +		.name = "msm-dp-display",
-> +		.of_match_table = dp_dt_match,
-> +		.suppress_bind_attrs = true,
-> +		.pm = &dp_pm_ops,
-> +	},
-> +};
-> +
-> +int __init msm_dp_register(void)
-> +{
-> +	int ret;
-> +
-> +	ret = platform_driver_register(&dp_display_driver);
-> +	if (ret)
-> +		DRM_ERROR("Dp display driver register failed");
-> +
-> +	return ret;
-> +}
-> +
-> +void __exit msm_dp_unregister(void)
-> +{
-> +	platform_driver_unregister(&dp_display_driver);
-> +}
+> So I think we are better off them being separate right now.
+
+Agree. Let's land this code first. Later we can check it would make 
+sense to unify the ops or not.
+
+> 
+>>> +
+>>> +static void dpu_hw_wb_bind_pingpong_blk(
+>>> +        struct dpu_hw_wb *ctx,
+>>> +        bool enable, const enum dpu_pingpong pp)
+>>> +{
+>>> +    struct dpu_hw_blk_reg_map *c;
+>>> +    int mux_cfg = 0xF;
+>>> +
+>>> +    if (!ctx)
+>>> +        return;
+>>> +
+>>> +    c = &ctx->hw;
+>>> +    if (enable)
+>>> +        mux_cfg = (pp - PINGPONG_0) & 0x7;
+>>
+>> Just noticed that dpu_hw_intf_bind_pingpong_blk() keeps higher bits 
+>> rather than setting them to 0. Which policy should we follow here?
+> Yes correct. I can also preserve the upper bits here while posting the 
+> next version.
+
+Thank you!
+
+>>
+>>> +
+>>> +    DPU_REG_WRITE(c, WB_MUX, mux_cfg);
+>>> +}
+>>> +
+
 
 
 -- 
