@@ -2,64 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D41F5018FD
-	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 18:47:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEB6A5019D5
+	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 19:15:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB75E10E01F;
-	Thu, 14 Apr 2022 16:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 898BD10E021;
+	Thu, 14 Apr 2022 17:15:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02AE110E01F
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 16:47:32 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id bj36so902211ljb.13
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:47:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zX+0Rp8KeI1bu36+dWYbiIQtitTDuR4Sdzxg17DTCMM=;
- b=N693k4tshoimUMR7PJSOzCwUrqo6jmdbynTTZ5/gGXiI4BUH5YFaTyhChlD1qYPwIv
- Kh7ugHtuZ2uky5ruCQ6mniUIioKbVQxsbZ/Rnh06noLFOOH9Mi+acFsRtex2XGvkaG4R
- Q3VlTKcErFU8W0iVIIxODoppOuI9yIftPOgPA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zX+0Rp8KeI1bu36+dWYbiIQtitTDuR4Sdzxg17DTCMM=;
- b=gWMegrpDetzSiWclISgLfXzf3EtY9JPuMJ7/XhyXfQxXW4sm38bUVTFtVbmBCYvFsD
- 7c7YJX07dk2wCDad8hJdVLH/VkzAlvyAlaJkTppC+1DBNp2whJZeUX6R097GeCbh6K9z
- f3oYMHvdmLxnQv/2lSfer6unKKV816JjhlNF4Yy+kKoMSenMguZYwqg85vjMvpxemXou
- iPBCog7SgTXiiVeFmci38oE4bvLArv3SQP1ELoDXug+mEc5viDyrMrGpF3Di72AAJ14J
- It7hplFVz1p0PR9VvuBnoJ0M6E2i6K5Or72DBZLDZn1aCnzc2Tycms7dU9J3UJfyNmGL
- fUXg==
-X-Gm-Message-State: AOAM531isbJTXt9s9rjD377pD3KYDDnG1WLiyMgMGv56KlfPEg7R9CH8
- PE2qOrqvYQPjjTtAE80S5ryFvHG6C5SVUN10U0g=
-X-Google-Smtp-Source: ABdhPJwep8Cb1ZYImeaeNhpN2eP8nVJX271zaJRXhvq/WRCBRW779TQCKQhwllpbI3QnbdLbgW+amg==
-X-Received: by 2002:a2e:9c03:0:b0:24a:fe64:2c12 with SMTP id
- s3-20020a2e9c03000000b0024afe642c12mr2066865lji.101.1649954850866; 
- Thu, 14 Apr 2022 09:47:30 -0700 (PDT)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com.
- [209.85.167.47]) by smtp.gmail.com with ESMTPSA id
- i8-20020a196d08000000b0046d09ac99e0sm47676lfc.107.2022.04.14.09.47.30
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Apr 2022 09:47:30 -0700 (PDT)
-Received: by mail-lf1-f47.google.com with SMTP id w19so10086469lfu.11
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:47:30 -0700 (PDT)
-X-Received: by 2002:a5d:47cf:0:b0:207:ac31:c2ce with SMTP id
- o15-20020a5d47cf000000b00207ac31c2cemr2734623wrc.422.1649954428907; Thu, 14
- Apr 2022 09:40:28 -0700 (PDT)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE46910E021;
+ Thu, 14 Apr 2022 17:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1649956556; x=1681492556;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=BF7u36Wb73cxpkjy9bfZRgOS+0WolmnhOmyAdga/rCk=;
+ b=yQ4Tcv0+65RY+21QZCDpaj3hY5on4zoMDWYtWuORrtzclTgpqubBlhGf
+ sJQ5kqVYfH7Y0nTjFNHKVTy1EXU1fXvwAB6djW1Pr5w8kypoNXEbQ/7k7
+ zyhdjjlgZI5/UZHybHnKNPPGkeQ7cm6vxaa9iobufIZhi9BC7JjiGV8Gc 8=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 14 Apr 2022 10:15:55 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2022 10:15:55 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 14 Apr 2022 10:15:53 -0700
+Received: from [10.110.19.13] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 14 Apr
+ 2022 10:15:52 -0700
+Message-ID: <02faf872-8fef-342a-d070-67b68953b5f8@quicinc.com>
+Date: Thu, 14 Apr 2022 10:15:51 -0700
 MIME-Version: 1.0
-References: <1649938766-6768-1-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1649938766-6768-1-git-send-email-quic_sbillaka@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 14 Apr 2022 09:40:15 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Ui6BAsnTaJ2_TMh1Tnjtaw7FR92aWoUysS+UT=c0qB3Q@mail.gmail.com>
-Message-ID: <CAD=FV=Ui6BAsnTaJ2_TMh1Tnjtaw7FR92aWoUysS+UT=c0qB3Q@mail.gmail.com>
-To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v7 0/4] Add support for the eDP panel over
- aux_bus
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <vkoul@kernel.org>
+References: <1649883865-9012-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n5259qjMj12LXRp=7kQ7zT3bRMaHpSpwKMwZ8HL6rq7fbw@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n5259qjMj12LXRp=7kQ7zT3bRMaHpSpwKMwZ8HL6rq7fbw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: stop event kernel thread
+ when DP unbind
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +69,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Steev Klimaszewski <steev@kali.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Thu, Apr 14, 2022 at 5:19 AM Sankeerth Billakanti
-<quic_sbillaka@quicinc.com> wrote:
+On 4/13/2022 4:19 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-04-13 14:04:25)
+>> Current DP driver implementation, event thread is kept running
+>> after DP display is unbind. This patch fix this problem by disabling
+>> DP irq and stop event thread to exit gracefully at dp_display_unbind().
+>>
+>> Changes in v2:
+>> -- start event thread at dp_display_bind()
+>>
+>> Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>> Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 40 +++++++++++++++++++++++++++----------
+>>   1 file changed, 30 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 01453db..943e4f1 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -113,6 +113,7 @@ struct dp_display_private {
+>>          u32 hpd_state;
+>>          u32 event_pndx;
+>>          u32 event_gndx;
+>> +       struct task_struct *ev_tsk;
+>>          struct dp_event event_list[DP_EVENT_Q_MAX];
+>>          spinlock_t event_lock;
+>>
+>> @@ -230,6 +231,31 @@ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
+>>          complete_all(&dp->audio_comp);
+>>   }
+>>
+>> +static int hpd_event_thread(void *data);
+> Is there a reason why this is needed vs. defining the kthread start
+> function after hpd_event_thread()?
+too many code need to be relocated.
 >
-> This series adds support for generic eDP panel over aux_bus.
+>> +
+>> +static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
+> Maybe dp_hpd_event_thread_start()?
 >
-> These changes are dependent on the following series:
-> https://patchwork.kernel.org/project/linux-arm-msm/list/?series=613654&state=*
-
-You're basically depending on the last two patches of that series.
-What's the plan there? In patchwork they're marked as "Not
-Applicable". If they're good to go, maybe we should land them? If not,
-maybe you should include them (with Dmitry as the author, of course)
-at the beginning of your series?
-
-
-> Sankeerth Billakanti (4):
->   drm/msm/dp: Add eDP support via aux_bus
->   drm/msm/dp: Support only IRQ_HPD and REPLUG interrupts for eDP
->   drm/msm/dp: wait for hpd high before aux transaction
->   Support the eDP modes given by panel
-
-One of these things is not like the others. One of these things just
-doesn't belong. Can you spot which patch is missing the prefix by
-looking at the subject line of all 4 patches? ;-)
+>> +{
+>> +       init_waitqueue_head(&dp_priv->event_q);
+>> +       spin_lock_init(&dp_priv->event_lock);
+>> +
+>> +       dp_priv->ev_tsk = kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
+>> +
+>> +       if (IS_ERR(dp_priv->ev_tsk))
+>> +               DRM_ERROR("failed to create DP event thread\n");
+> Can we return an error from this function?
+>
+>> +}
+>> +
+>> +static void dp_hpd_event_stop(struct dp_display_private *dp_priv)
+> Maybe dp_hpd_event_thread_stop()?
+>
+>> +{
+>> +       if (IS_ERR(dp_priv->ev_tsk))
+>> +               return;
+> If we handled the error then this check becomes impossible.
+>
+>> +
+>> +       kthread_stop(dp_priv->ev_tsk);
+>> +
+>> +       /* reset event q to empty */
+>> +       dp_priv->event_gndx = 0;
+>> +       dp_priv->event_pndx = 0;
+>> +}
+>> +
+>>   static int dp_display_bind(struct device *dev, struct device *master,
+>>                             void *data)
+>>   {
+>> @@ -269,6 +295,7 @@ static int dp_display_bind(struct device *dev, struct device *master,
+>>          if (rc)
+>>                  DRM_ERROR("Audio registration Dp failed\n");
+>>
+>> +       dp_hpd_event_setup(dp); /* start event thread */
+> The comment is useless, please remove.
+>
+>>   end:
+>>          return rc;
+>>   }
+>> @@ -280,6 +307,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+>>          struct drm_device *drm = dev_get_drvdata(master);
+>>          struct msm_drm_private *priv = drm->dev_private;
+>>
+>> +       disable_irq(dp->irq);
+> Is the disable_irq() necessary? It would be nicer to silence the
+> hardware and remove the disable_irq() so that we can reason about the
+> code assuming the irq is always enabled after it is requested.
+>
+>> +       dp_hpd_event_stop(dp); /* stop event thread */
+>>          dp_power_client_deinit(dp->power);
+>>          dp_aux_unregister(dp->aux);
+>>          priv->dp[dp->id] = NULL;
