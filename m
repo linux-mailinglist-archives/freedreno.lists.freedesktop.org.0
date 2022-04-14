@@ -1,65 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04461501909
-	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 18:48:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D41F5018FD
+	for <lists+freedreno@lfdr.de>; Thu, 14 Apr 2022 18:47:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B908910E01F;
-	Thu, 14 Apr 2022 16:48:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB75E10E01F;
+	Thu, 14 Apr 2022 16:47:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C0210E01F
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 16:48:12 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id bv19so11185368ejb.6
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:48:12 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02AE110E01F
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 16:47:32 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id bj36so902211ljb.13
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:47:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uNCknelIIQ0A0jhcGpNkNt/itvQulq3csLsSq+jMi4k=;
- b=OFD1FNp9YuGu2v7rR5vIDLHqSlz5x0ooKxLOUUFLXVcVscIABJa9XczVMvEG6Hdpic
- QEwuykdd5CFYaIM4fwYl2u3dNKd7uLY+YmmM3txQhfvMJ2+kl0ds92uwsXIkXH97bUKc
- WjRgnLpsfAzXQuHotizBIDeTEdVOmrYFEECKE=
+ :cc; bh=zX+0Rp8KeI1bu36+dWYbiIQtitTDuR4Sdzxg17DTCMM=;
+ b=N693k4tshoimUMR7PJSOzCwUrqo6jmdbynTTZ5/gGXiI4BUH5YFaTyhChlD1qYPwIv
+ Kh7ugHtuZ2uky5ruCQ6mniUIioKbVQxsbZ/Rnh06noLFOOH9Mi+acFsRtex2XGvkaG4R
+ Q3VlTKcErFU8W0iVIIxODoppOuI9yIftPOgPA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=uNCknelIIQ0A0jhcGpNkNt/itvQulq3csLsSq+jMi4k=;
- b=cYGNYOPDtwcttAvdrpCseaTNnsDFeT26NHD5mc6ZaUdBkscqEuiLDgZ5cXegdO6zCl
- FuH4S6nma9U3oIyDkL7EI7ol6urtTroOwtLknrLm0U9UBuUE4ObyMh6m/h3foE4HRjBM
- tE2eZHxOWocJS0aiRitu4AxX8QMqzBqPW542+7ckN4LJYzRT073Vxixt4Tf07hrIowYA
- 8XfoAR+Y95FzJEPj05MpTfq+vfZQ/dWknJjc5fSt0fRnwsdbaq4qN5oYJK7zixlIF2Vz
- VP9t7eS0MpZz18Y0HHxe/pY4dVooGVsPmMvbHlwE6EzrKyiSZp6IFueDd9R0I7Cq9a2v
- 6sBw==
-X-Gm-Message-State: AOAM530PFRTEZt/Tc8blDmSBBwaBfpjJNyhzPh7NhSOrtCztEeKxj30X
- y3Dt+DQ/LBoZMPDvpxR7CuUpElmlsFHZIVaC7BI=
-X-Google-Smtp-Source: ABdhPJyB+pI505mzKPfkGKLCM3zuZD/S82XzLqBInQp4i5IIM1VBIVyN/c/DEloa2uSSC1VCDdZB7A==
-X-Received: by 2002:a17:907:1b15:b0:6d7:13bd:dd62 with SMTP id
- mp21-20020a1709071b1500b006d713bddd62mr2994670ejc.673.1649954890948; 
- Thu, 14 Apr 2022 09:48:10 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com.
- [209.85.218.46]) by smtp.gmail.com with ESMTPSA id
- sa23-20020a1709076d1700b006e89f401d7esm759106ejc.206.2022.04.14.09.48.10
+ bh=zX+0Rp8KeI1bu36+dWYbiIQtitTDuR4Sdzxg17DTCMM=;
+ b=gWMegrpDetzSiWclISgLfXzf3EtY9JPuMJ7/XhyXfQxXW4sm38bUVTFtVbmBCYvFsD
+ 7c7YJX07dk2wCDad8hJdVLH/VkzAlvyAlaJkTppC+1DBNp2whJZeUX6R097GeCbh6K9z
+ f3oYMHvdmLxnQv/2lSfer6unKKV816JjhlNF4Yy+kKoMSenMguZYwqg85vjMvpxemXou
+ iPBCog7SgTXiiVeFmci38oE4bvLArv3SQP1ELoDXug+mEc5viDyrMrGpF3Di72AAJ14J
+ It7hplFVz1p0PR9VvuBnoJ0M6E2i6K5Or72DBZLDZn1aCnzc2Tycms7dU9J3UJfyNmGL
+ fUXg==
+X-Gm-Message-State: AOAM531isbJTXt9s9rjD377pD3KYDDnG1WLiyMgMGv56KlfPEg7R9CH8
+ PE2qOrqvYQPjjTtAE80S5ryFvHG6C5SVUN10U0g=
+X-Google-Smtp-Source: ABdhPJwep8Cb1ZYImeaeNhpN2eP8nVJX271zaJRXhvq/WRCBRW779TQCKQhwllpbI3QnbdLbgW+amg==
+X-Received: by 2002:a2e:9c03:0:b0:24a:fe64:2c12 with SMTP id
+ s3-20020a2e9c03000000b0024afe642c12mr2066865lji.101.1649954850866; 
+ Thu, 14 Apr 2022 09:47:30 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com.
+ [209.85.167.47]) by smtp.gmail.com with ESMTPSA id
+ i8-20020a196d08000000b0046d09ac99e0sm47676lfc.107.2022.04.14.09.47.30
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Apr 2022 09:48:10 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id t11so11119913eju.13
- for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:48:10 -0700 (PDT)
-X-Received: by 2002:adf:c14d:0:b0:207:a28f:f5dd with SMTP id
- w13-20020adfc14d000000b00207a28ff5ddmr2647776wre.679.1649954418519; Thu, 14
- Apr 2022 09:40:18 -0700 (PDT)
+ Thu, 14 Apr 2022 09:47:30 -0700 (PDT)
+Received: by mail-lf1-f47.google.com with SMTP id w19so10086469lfu.11
+ for <freedreno@lists.freedesktop.org>; Thu, 14 Apr 2022 09:47:30 -0700 (PDT)
+X-Received: by 2002:a5d:47cf:0:b0:207:ac31:c2ce with SMTP id
+ o15-20020a5d47cf000000b00207ac31c2cemr2734623wrc.422.1649954428907; Thu, 14
+ Apr 2022 09:40:28 -0700 (PDT)
 MIME-Version: 1.0
 References: <1649938766-6768-1-git-send-email-quic_sbillaka@quicinc.com>
- <1649938766-6768-5-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1649938766-6768-5-git-send-email-quic_sbillaka@quicinc.com>
+In-Reply-To: <1649938766-6768-1-git-send-email-quic_sbillaka@quicinc.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 14 Apr 2022 09:40:04 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Xrsnk0PYENn5Een1xdUc9B1DKy8jvd1itKbFkvHAivMg@mail.gmail.com>
-Message-ID: <CAD=FV=Xrsnk0PYENn5Een1xdUc9B1DKy8jvd1itKbFkvHAivMg@mail.gmail.com>
+Date: Thu, 14 Apr 2022 09:40:15 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Ui6BAsnTaJ2_TMh1Tnjtaw7FR92aWoUysS+UT=c0qB3Q@mail.gmail.com>
+Message-ID: <CAD=FV=Ui6BAsnTaJ2_TMh1Tnjtaw7FR92aWoUysS+UT=c0qB3Q@mail.gmail.com>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v7 4/4] Support the eDP modes given by panel
+Subject: Re: [Freedreno] [PATCH v7 0/4] Add support for the eDP panel over
+ aux_bus
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,47 +92,27 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Thu, Apr 14, 2022 at 5:20 AM Sankeerth Billakanti
+On Thu, Apr 14, 2022 at 5:19 AM Sankeerth Billakanti
 <quic_sbillaka@quicinc.com> wrote:
 >
-> The eDP controller does not have a reliable way keep panel
-> powered on to read the sink capabilities. So, the controller
-> driver cannot validate if a mode can be supported by the
-> source. We will rely on the panel driver to populate only
-> the supported modes for now.
+> This series adds support for generic eDP panel over aux_bus.
 >
-> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index c7277f0..0f18a16 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -998,6 +998,14 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
->                 return -EINVAL;
->         }
->
-> +       /*
-> +        * The eDP controller currently does not have a reliable way of
-> +        * enabling panel power to read sink capabilities. So, we rely
-> +        * on the panel driver to populate only supported modes for now.
-> +        */
-> +       if (dp->is_edp)
-> +               return MODE_OK;
+> These changes are dependent on the following series:
+> https://patchwork.kernel.org/project/linux-arm-msm/list/?series=613654&state=*
 
-As discussed out-of-band, I agree that this is the right thing for now
-and making this assumption won't break anything. In general the set of
-eDP panels is known ahead of time it's fairly unlikely someone would
-set things up so that a panel couldn't use the mode it was reporting.
+You're basically depending on the last two patches of that series.
+What's the plan there? In patchwork they're marked as "Not
+Applicable". If they're good to go, maybe we should land them? If not,
+maybe you should include them (with Dmitry as the author, of course)
+at the beginning of your series?
 
-Longer term we should figure out a way to solve this but it doesn't
-have to be today. To properly implement mode_valid() we've got to
-combine knowledge from the panel (mostly rates supported and number of
-lanes supported) with the controller (rates supported, number of lanes
-supported/hooked up on this board).
 
-In any case:
+> Sankeerth Billakanti (4):
+>   drm/msm/dp: Add eDP support via aux_bus
+>   drm/msm/dp: Support only IRQ_HPD and REPLUG interrupts for eDP
+>   drm/msm/dp: wait for hpd high before aux transaction
+>   Support the eDP modes given by panel
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+One of these things is not like the others. One of these things just
+doesn't belong. Can you spot which patch is missing the prefix by
+looking at the subject line of all 4 patches? ;-)
