@@ -2,61 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422305031F9
-	for <lists+freedreno@lfdr.de>; Sat, 16 Apr 2022 02:06:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3787850320C
+	for <lists+freedreno@lfdr.de>; Sat, 16 Apr 2022 02:33:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBB2610E041;
-	Sat, 16 Apr 2022 00:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45C6710E271;
+	Sat, 16 Apr 2022 00:33:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A59F10E041;
- Sat, 16 Apr 2022 00:06:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650067612; x=1681603612;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DQtwRdS6XYJt/v5xq6iKxAuHySM8dxAVE35V5MJgrZ0=;
- b=F+AGBCnnxAA25DdIcbfhx904upzQVOsU2+KhgtLg2v8RlK6y4qTjjJd3
- kwSrqQ2HJjeLwlcnXGDMpvK20yDGCT5+COr2KPRN9S6bSJY+c3DGcwHA0
- FFaOVbhrdK2CRRd4Uc/zDyvgPhW+OVRloahtBx6jzJ7VT+QOJOtqCIFTX o=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 15 Apr 2022 17:06:51 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2022 17:06:50 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 15 Apr 2022 17:06:50 -0700
-Received: from [10.110.19.13] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 15 Apr
- 2022 17:06:49 -0700
-Message-ID: <02d31565-4ae4-a319-30b0-76a6e4917f6f@quicinc.com>
-Date: Fri, 15 Apr 2022 17:06:48 -0700
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAA3710E271;
+ Sat, 16 Apr 2022 00:33:25 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id k29so9072105pgm.12;
+ Fri, 15 Apr 2022 17:33:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FSpeGI+AKCEsOeI+kpzi6mqwOR7Zmm4NjdrpPLaO+uk=;
+ b=Xkeb/eK0YajPaB1EbwGsYvDPvezCBkZvGOWMof9W3sVXS+yjF/c/+BEHBuHJh0uiEc
+ 4mICmkMIxiVdXFcvEu/NVcApQsUh7LCOeMRx2Ranap89omih6ev1lFALLY2PJ7WNK4US
+ Fzk9K20aHoTqVUzsmgX0711c5+pVhjiADrmuqH4Znq68D4fc/6KnxeYywreXPeUtYq1U
+ oDhxcC5hcdbXGt/WiOUq997iXEIenMTo37VaOrlAqCGUu2uapa3MyTRDTN1ofnMA+//3
+ XK8RJsxoftuui9aSBKyS8vCI2x6TcC0gCl4BorIr7kQsFaiu+Xs3YAopGdXBZxvpXY4W
+ 7JeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FSpeGI+AKCEsOeI+kpzi6mqwOR7Zmm4NjdrpPLaO+uk=;
+ b=oJwOET7OM3A2LriigHU8NSfqSbmGbuxASPaFLUd/WWXl8M+X9CLNagw0ywFEBcDrp8
+ EVhQwKuoNgKrlfm/LrSrxXMHIaxtRz8mMZRHAIiu8XuMCIwEPb+AM35nYqudH+Ixhjbe
+ lie47YlsN7WOs34Nug2CdKh0V3SqjFf2hkNfR5mQym4INchmsVZ3DU8QtrMgKKg2riU+
+ J3NkO882LLsJvPD3RxJKBaJol4J1ttA73riTJY4kltNsdnsZfUfZmElFQ1Cazkk9sXVf
+ ZsevEa80j2Em/8MqgFeLzUrJiSjKY79UtBy6NGxbAvfeiRJKx67E2dDtdQH/xy2yrs+2
+ CNlg==
+X-Gm-Message-State: AOAM533o5ZROSIQNLfgk1GmrmkRS3Gdp6kj1gBw3p47ZTCR8Vi+k3dhZ
+ CuiRQ+8iDQf7qwrwZ1tykQmbBhK4XKo=
+X-Google-Smtp-Source: ABdhPJx0PBJyIcjSuMZcCKzSpC48ofRcK+Nd4E9AAl/1wQ1BLVEe4QrKJXsxg1zib5CJXZufx45ISA==
+X-Received: by 2002:a05:6a00:856:b0:50a:431b:c298 with SMTP id
+ q22-20020a056a00085600b0050a431bc298mr1521546pfk.75.1650069204901; 
+ Fri, 15 Apr 2022 17:33:24 -0700 (PDT)
+Received: from olv-glaptop3.lan ([2601:647:4400:452:4301:d32e:a8ad:adbf])
+ by smtp.gmail.com with ESMTPSA id
+ oo17-20020a17090b1c9100b001bf0ccc59c2sm9900249pjb.16.2022.04.15.17.33.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Apr 2022 17:33:24 -0700 (PDT)
+From: Chia-I Wu <olvaffe@gmail.com>
+To: freedreno@lists.freedesktop.org
+Date: Fri, 15 Apr 2022 17:33:12 -0700
+Message-Id: <20220416003314.59211-1-olvaffe@gmail.com>
+X-Mailer: git-send-email 2.36.0.rc0.470.gd361397f0d-goog
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1649280493-4393-1-git-send-email-quic_khsieh@quicinc.com>
- <625ce8a0-4e25-5513-5599-c1cdebf5a3a5@linaro.org>
- <09fd563f-4a2c-f670-51c2-0e5ff023816d@quicinc.com>
- <CAA8EJpqzucFGf8ndDi2LZqtKiOt_w=_h1oPAUNVCdmUyh_3+zA@mail.gmail.com>
- <2039ef97-4fdb-bffe-1e02-18ae79c18be4@quicinc.com>
- <27bb2732-b322-75b0-3883-773e6eb4b1b9@linaro.org>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <27bb2732-b322-75b0-3883-773e6eb4b1b9@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: enhance both connect and
- disconnect pending_timeout handle
+Subject: [Freedreno] [PATCH 1/3] drm/msm: remove explicit devfreq status
+ reset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,101 +68,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- quic_aravindh@quicinc.com, bjorn.andersson@linaro.org, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+It is redundant since commit 7c0ffcd40b16 ("drm/msm/gpu: Respect PM QoS
+constraints") because dev_pm_qos_update_request triggers get_dev_status.
 
-On 4/14/2022 4:34 PM, Dmitry Baryshkov wrote:
-> On 15/04/2022 01:06, Kuogee Hsieh wrote:
->>
->> On 4/8/2022 4:59 PM, Dmitry Baryshkov wrote:
->>> On Fri, 8 Apr 2022 at 23:30, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->>> wrote:
->>>>
->>>> On 4/8/2022 5:27 AM, Dmitry Baryshkov wrote:
->>>>> On 07/04/2022 00:28, Kuogee Hsieh wrote:
->>>>>> dp_hpd_plug_handle() is responsible for setting up main link and 
->>>>>> send
->>>>>> uevent to notify user space framework to start video stream. 
->>>>>> Similarly,
->>>>>> dp_hdp_unplug_handle is responsible to send uevent to notify user 
->>>>>> space
->>>>>> framework to stop video stream and then tear down main link.
->>>>>> However there are rare cases, such as in the middle of system
->>>>>> suspending,
->>>>>> that uevent could not be delivered to user space framework. 
->>>>>> Therefore
->>>>>> some kind of recover mechanism armed by timer need to be in place 
->>>>>> in the
->>>>>> case of user space framework does not respond to uevent.
->>>>> Hmm, how does userpsace 'respond' to the uevent? The driver should
->>>>> send hotplug notifications to userspace, but it must not expect any
->>>>> particular reaction. The userspace might be as simple, as fbdev
->>>>> emulation, but the driver still should function correctly.
->>>> yes, driver is function correctly by setting up main link. but it does
->>>> not know which resolution to display.
->>>>
->>>> It send hotplug notification through uevent to framework after main 
->>>> link
->>>> is ready.
->>>>
->>>> Framework  is responsible to set up MDP timing engine to start 
->>>> video stream.
->>>>
->>>>
->>>> However it does not know which
->>> It's of no concern to the driver. It is completely the userspace
->>> problem. After resuming, it should reread available video output
->>> properties. The display could have been changed while the system is
->>> suspended.
->>>  From your description I still do not understand why you need the
->>> 'recovery' mechanism.
->>
->> I mean "recovery" means  dp driver may leave stay at link ready 
->> mistakenly after dongle unplugged due to missing framework action to 
->> tear down main link so that next dongle plug in will not work.
->>
->> Currently it was armed with timeout function and it will fired if 
->> framework did not call msm_dp_display_disable() after 5 second.
->
-> framework = userspace?
->
-> Is my understanding correct? Currently DP driver sends a notification 
-> to userspace that DP is unplugged, waits for userspace to disable DP 
-> output, and only after that it will shutdown the link. Is this a 
-> correct description?
-Yes, you are correct, connection need to be tear down from top to bottom.
->
-> If so, then yes, your change is correct. I mean that the kernel 
-> shouldn't wait for clients to stop using video pipeline if the sink 
-> gets unplugged. Instead it should tear the video stream down and let 
-> the DRM client cope with that.
->
-> I'm not sure how should the driver react if the client doesn't disable 
-> the output, but then the sink gets reattached?
+Signed-off-by: Chia-I Wu <olvaffe@gmail.com>
+Cc: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-I do not know that either.
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index 12641616acd3..317a95d42922 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -224,7 +224,6 @@ void msm_devfreq_boost(struct msm_gpu *gpu, unsigned factor)
+ void msm_devfreq_active(struct msm_gpu *gpu)
+ {
+ 	struct msm_gpu_devfreq *df = &gpu->devfreq;
+-	struct devfreq_dev_status status;
+ 	unsigned int idle_time;
+ 
+ 	if (!has_devfreq(gpu))
+@@ -248,12 +247,6 @@ void msm_devfreq_active(struct msm_gpu *gpu)
+ 
+ 	dev_pm_qos_update_request(&df->idle_freq,
+ 				  PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE);
+-
+-	/*
+-	 * Reset the polling interval so we aren't inconsistent
+-	 * about freq vs busy/total cycles
+-	 */
+-	msm_devfreq_get_dev_status(&gpu->pdev->dev, &status);
+ }
+ 
+ 
+-- 
+2.36.0.rc0.470.gd361397f0d-goog
 
-But it should not happen as long as framework response to uevent.
-
-> And a bit more interesting question: how should the driver behave if 
-> the new sink is not compatible with the existing video stream.
-
-When dongle plug/replug in, driver will always read sink's edid.
-
-Therefore resolution database should be updated accordingly.
-
->
->>
->> Anyway, we think this approach is not good. therefore it is replaced 
->> with  below patch.
->>
->> drm/msm/dp: tear down main link at unplug handle immediately
->
->
