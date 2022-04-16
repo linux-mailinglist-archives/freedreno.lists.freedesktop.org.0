@@ -2,56 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EACF503216
-	for <lists+freedreno@lfdr.de>; Sat, 16 Apr 2022 02:50:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC93C503590
+	for <lists+freedreno@lfdr.de>; Sat, 16 Apr 2022 11:12:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86FF310E0E5;
-	Sat, 16 Apr 2022 00:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4246D10EB0A;
+	Sat, 16 Apr 2022 09:12:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1F9810E0E5;
- Sat, 16 Apr 2022 00:50:42 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id v4so11595204edl.7;
- Fri, 15 Apr 2022 17:50:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JMjk7zC07wK4tB00etsqhwr9uo4W2Y6KkbolTdtnv6U=;
- b=puVYkkLVhML6N2wmKvFnPivjjcK7jdGvAsVX4kGOBc2jByQW3SrqCG36GtiuMhhdfU
- yqotygvLHOlVfq97CtFoOh2JqAUTjuvFGmNGgkxU4+nzIdFxMWX2dC5VnQe6kMQwkMHu
- w2Vt3loK3TbVLMhhTupP2d8mX+mZRdIe4zDW20X9YsugDgSMjdcaRMeG0NgGhpjnc0tF
- 6dJhC4WwHXOMlwqVp8pKO6aUB5M2/IRlI391/mDdHUS6z5TGjsiDmDF8XbLP2JMadxEG
- FKC4Y+IfLg+efjQTZ69Mh4LlNeDMtgc7DqudQysvCwwcvXFxI6eMkuC1U/ZJz84Jgw37
- z2hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JMjk7zC07wK4tB00etsqhwr9uo4W2Y6KkbolTdtnv6U=;
- b=qwfKNMeE4pYRtXwe2rEmCWhobaIsiqd3AnZ1l98NxkJ5fFqTMyYNI8wNLOTyM53WHZ
- nD0qAWqKQoNaRyYtccV0Z1jM2TOfiP+wvlLTjjXFQZZislhi/igYvuGehAnIvFktMELG
- P2BOQ0qBP3I/IoxI37C2l88kTwbQdIx7BOrD3+AM77VzU1pelfAd/EH2u/9m5YpPfqPH
- Tv0B4v4dsv4WPRICYDP9wtDEdtta5I60S5nlYIB9VeVsUN5p3B4hr39NCgt4BViKVKAL
- onqu+92d2YtRXPxV2ZShE/3W3NDszCfJmKWscgFIXhADE+jjiHg3/el1I4xTLfftI0Vh
- nAFw==
-X-Gm-Message-State: AOAM530m9rsnnFQQG33DKBR7VqM7qQpF3bCWYvA1dFYIq/WGitQVg7pF
- IhdcJErdF3W3VuU7jDxuyIYw8acrWZ4m1yT+P8iEEFIY
-X-Google-Smtp-Source: ABdhPJxfJR2HIW2/Fy3sCMCcLYW5K0Kuc9J1mqLT2Wpqpskb9vN+9bGZqSDhEaeCnfleaNqPpbrKoMxNjFQBTf1JkF4=
-X-Received: by 2002:a05:6402:26d6:b0:421:6368:33b4 with SMTP id
- x22-20020a05640226d600b00421636833b4mr1655617edd.242.1650070240913; Fri, 15
- Apr 2022 17:50:40 -0700 (PDT)
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7CA10EB0A
+ for <freedreno@lists.freedesktop.org>; Sat, 16 Apr 2022 09:12:33 +0000 (UTC)
+Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 4F2AC3F66F;
+ Sat, 16 Apr 2022 11:12:31 +0200 (CEST)
+Date: Sat, 16 Apr 2022 11:12:29 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20220416091229.pwek4wblroaabhio@SoMainline.org>
+References: <20220401231104.967193-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-References: <20220416003314.59211-1-olvaffe@gmail.com>
- <20220416003314.59211-3-olvaffe@gmail.com>
-In-Reply-To: <20220416003314.59211-3-olvaffe@gmail.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Fri, 15 Apr 2022 17:50:30 -0700
-Message-ID: <CAPaKu7Q9CpSFhfrZWytDxzPgv4j4PHcxB8besMSSFd=W6vVYtQ@mail.gmail.com>
-To: freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm: return the average load over
- the polling period
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220401231104.967193-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] drm/msm/dsi: fix error checks and return values for
+ DSI xmit functions
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,145 +43,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Chanwoo Choi <cw00.choi@samsung.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 15, 2022 at 5:33 PM Chia-I Wu <olvaffe@gmail.com> wrote:
->
-> simple_ondemand interacts poorly with clamp_to_idle.  It only looks at
-> the load since the last get_dev_status call, while it should really look
-> at the load over polling_ms.  When clamp_to_idle true, it almost always
-> picks the lowest frequency on active because the gpu is idle between
-> msm_devfreq_idle/msm_devfreq_active.
->
-> This logic could potentially be moved into devfreq core.
-The idea is to extend devfreq_simple_ondemand_data to specify whether
-devfreq_simple_ondemand_func should use "last status" or "average
-status" to determine the target frequency.  devfreq core will need to
-store "struct devfreq_dev_status average_status", which will be
-updated when a device uses simple_ondemand and asks for average_status
-instead of last_status.
+Hi Dmitry,
 
+On 2022-04-02 02:11:04, Dmitry Baryshkov wrote:
+> As noticed by Dan ([1] an the followup thread) there are multiple issues
+> with the return values for MSM DSI command transmission callback. In
+> the error case it can easily return a positive value when it should
+> have returned a proper error code.
+> 
+> This commits attempts to fix these issues both in TX and in RX paths.
+> 
+> [1]: https://lore.kernel.org/linux-arm-msm/20211001123617.GH2283@kili/
+> 
+> Fixes: a689554ba6ed ("drm/msm: Initial add DSI connector support")
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
+Thank you for your patience waiting for the requested tests; this patch
+seems to have no adverse effect on our cmdmode panels.
 
->
-> Fixes: 7c0ffcd40b16 ("drm/msm/gpu: Respect PM QoS constraints")
-> Signed-off-by: Chia-I Wu <olvaffe@gmail.com>
-> Cc: Rob Clark <robdclark@chromium.org>
+Tested-by: Marijn Suijten <marijn.suijten@somainline.org>
+
+On the following devices:
+- Sony Xperia X (Loire Suzu, MSM8976), on Linux 5.17;
+- Sony Xperia 10 II (Seine PDX201, SM6125), on -next 20220318;
+- Sony Xperia XA2 Ultra (Nile Discovery, SDM630), on Linux 5.16.
+
+Apologies for the older kernel versions, that's what happens when having
+too many patches to dig through and too little hobby time to send them.
+Let me know if there's a patch dependency that you like to be included.
+
+- Marijn
+
 > ---
->  drivers/gpu/drm/msm/msm_gpu.h         |  3 ++
->  drivers/gpu/drm/msm/msm_gpu_devfreq.c | 60 ++++++++++++++++++++++++++-
->  2 files changed, 62 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 389c6dab751b..143c56f5185b 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -9,6 +9,7 @@
->
->  #include <linux/adreno-smmu-priv.h>
->  #include <linux/clk.h>
-> +#include <linux/devfreq.h>
->  #include <linux/interconnect.h>
->  #include <linux/pm_opp.h>
->  #include <linux/regulator/consumer.h>
-> @@ -117,6 +118,8 @@ struct msm_gpu_devfreq {
->         /** idle_time: Time of last transition to idle: */
->         ktime_t idle_time;
->
-> +       struct devfreq_dev_status average_status;
-> +
->         /**
->          * idle_work:
->          *
-> diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> index f531015107c3..d2539ca78c29 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
-> @@ -9,6 +9,7 @@
->
->  #include <linux/devfreq.h>
->  #include <linux/devfreq_cooling.h>
-> +#include <linux/math64.h>
->  #include <linux/units.h>
->
->  /*
-> @@ -75,12 +76,69 @@ static void get_raw_dev_status(struct msm_gpu *gpu,
->         status->busy_time = busy_time;
->  }
->
-> +static void update_average_dev_status(struct msm_gpu *gpu,
-> +               const struct devfreq_dev_status *raw)
-> +{
-> +       struct msm_gpu_devfreq *df = &gpu->devfreq;
-> +       const u32 polling_ms = df->devfreq->profile->polling_ms;
-> +       const u32 max_history_ms = polling_ms * 11 / 10;
-> +       struct devfreq_dev_status *avg = &df->average_status;
-> +       u64 avg_freq;
-> +
-> +       /* simple_ondemand governor interacts poorly with gpu->clamp_to_idle.
-> +        * When we enforce the constraint on idle, it calls get_dev_status
-> +        * which would normally reset the stats.  When we remove the
-> +        * constraint on active, it calls get_dev_status again where busy_time
-> +        * would be 0.
-> +        *
-> +        * To remedy this, we always return the average load over the past
-> +        * polling_ms.
-> +        */
-> +
-> +       /* raw is longer than polling_ms or avg has no history */
-> +       if (div_u64(raw->total_time, USEC_PER_MSEC) >= polling_ms ||
-> +           !avg->total_time) {
-> +               *avg = *raw;
-> +               return;
-> +       }
-> +
-> +       /* Truncate the oldest history first.
-> +        *
-> +        * Because we keep the history with a single devfreq_dev_status,
-> +        * rather than a list of devfreq_dev_status, we have to assume freq
-> +        * and load are the same over avg->total_time.  We can scale down
-> +        * avg->busy_time and avg->total_time by the same factor to drop
-> +        * history.
-> +        */
-> +       if (div_u64(avg->total_time + raw->total_time, USEC_PER_MSEC) >=
-> +                       max_history_ms) {
-> +               const u32 new_total_time = polling_ms * USEC_PER_MSEC -
-> +                       raw->total_time;
-> +               avg->busy_time = div_u64(
-> +                               mul_u32_u32(avg->busy_time, new_total_time),
-> +                               avg->total_time);
-> +               avg->total_time = new_total_time;
-> +       }
-> +
-> +       /* compute the average freq over avg->total_time + raw->total_time */
-> +       avg_freq = mul_u32_u32(avg->current_frequency, avg->total_time);
-> +       avg_freq += mul_u32_u32(raw->current_frequency, raw->total_time);
-> +       do_div(avg_freq, avg->total_time + raw->total_time);
-> +
-> +       avg->current_frequency = avg_freq;
-> +       avg->busy_time += raw->busy_time;
-> +       avg->total_time += raw->total_time;
-> +}
-> +
->  static int msm_devfreq_get_dev_status(struct device *dev,
->                 struct devfreq_dev_status *status)
->  {
->         struct msm_gpu *gpu = dev_to_gpu(dev);
-> +       struct devfreq_dev_status raw;
->
-> -       get_raw_dev_status(gpu, status);
-> +       get_raw_dev_status(gpu, &raw);
-> +       update_average_dev_status(gpu, &raw);
-> +       *status = gpu->devfreq.average_status;
->
->         return 0;
->  }
-> --
-> 2.36.0.rc0.470.gd361397f0d-goog
->
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 21 ++++++++++++++-------
+>  1 file changed, 14 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index d51e70fab93d..8925f60fd9ec 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1341,10 +1341,10 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
+>  			dsi_get_bpp(msm_host->format) / 8;
+>  
+>  	len = dsi_cmd_dma_add(msm_host, msg);
+> -	if (!len) {
+> +	if (len < 0) {
+>  		pr_err("%s: failed to add cmd type = 0x%x\n",
+>  			__func__,  msg->type);
+> -		return -EINVAL;
+> +		return len;
+>  	}
+>  
+>  	/* for video mode, do not send cmds more than
+> @@ -1363,10 +1363,14 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
+>  	}
+>  
+>  	ret = dsi_cmd_dma_tx(msm_host, len);
+> -	if (ret < len) {
+> -		pr_err("%s: cmd dma tx failed, type=0x%x, data0=0x%x, len=%d\n",
+> -			__func__, msg->type, (*(u8 *)(msg->tx_buf)), len);
+> -		return -ECOMM;
+> +	if (ret < 0) {
+> +		pr_err("%s: cmd dma tx failed, type=0x%x, data0=0x%x, len=%d, ret=%d\n",
+> +			__func__, msg->type, (*(u8 *)(msg->tx_buf)), len, ret);
+> +		return ret;
+> +	} else if (ret < len) {
+> +		pr_err("%s: cmd dma tx failed, type=0x%x, data0=0x%x, ret=%d len=%d\n",
+> +			__func__, msg->type, (*(u8 *)(msg->tx_buf)), ret, len);
+> +		return -EIO;
+>  	}
+>  
+>  	return len;
+> @@ -2092,9 +2096,12 @@ int msm_dsi_host_cmd_rx(struct mipi_dsi_host *host,
+>  		}
+>  
+>  		ret = dsi_cmds2buf_tx(msm_host, msg);
+> -		if (ret < msg->tx_len) {
+> +		if (ret < 0) {
+>  			pr_err("%s: Read cmd Tx failed, %d\n", __func__, ret);
+>  			return ret;
+> +		} else if (ret < msg->tx_len) {
+> +			pr_err("%s: Read cmd Tx failed, too short: %d\n", __func__, ret);
+> +			return -ECOMM;
+>  		}
+>  
+>  		/*
