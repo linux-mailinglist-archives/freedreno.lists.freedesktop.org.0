@@ -2,54 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECC38505F83
-	for <lists+freedreno@lfdr.de>; Mon, 18 Apr 2022 23:56:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CDFF506034
+	for <lists+freedreno@lfdr.de>; Tue, 19 Apr 2022 01:28:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84ABF10E09F;
-	Mon, 18 Apr 2022 21:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51FCE10E0E4;
+	Mon, 18 Apr 2022 23:28:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
  [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A772810E09F;
- Mon, 18 Apr 2022 21:56:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23A5910E0E4;
+ Mon, 18 Apr 2022 23:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650318999; x=1681854999;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=g+8b9txo5waRsbA0cyCyq+0DMmyqR2c+BKkrlbxlDik=;
- b=C15lC84EdSEFNTut9noMOhcjTamYNEEJwGaJJPS8W7G1zTtD4t4o1+AD
- quL3qvhMLVf8G1ZRHTHsCH/uVmC2FRzLaQrluFSlyfSE9nGoo38D1G9AP
- xRXdRETRelW8BLaV2aBY6UzC2Y+j+Rxkzn03p18y9jFpQkqrhtU38jLhy 8=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Apr 2022 14:56:38 -0700
+ t=1650324496; x=1681860496;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=qPFy3bOAkFUxxH+s8E7ncY6iRl9ck8cB+4iLx1mXVYA=;
+ b=EXOGh6Mkuera2qUfVkMx0YydocZ/e9S2ac9c/4lGbWK40sl+e6QzItZm
+ cjuGD+de4b+R+aFcTyumPzhaRxjaURvsCPhZ3GePfc5BHSxIYyjUt1448
+ CUMF2jGAv02pURZty4+nyJ2TiTf/bEI+hu81Sgcchkeza0cqXf2ygD+8W A=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 Apr 2022 16:28:15 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2022 14:56:37 -0700
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2022 16:28:15 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 18 Apr 2022 14:56:36 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 18 Apr 2022 14:56:36 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Mon, 18 Apr 2022 14:56:28 -0700
-Message-ID: <1650318988-17580-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ 15.2.986.22; Mon, 18 Apr 2022 16:28:14 -0700
+Received: from [10.111.175.117] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 18 Apr
+ 2022 16:28:12 -0700
+Message-ID: <dc66a13f-f37a-496f-27ce-5cd2600b76fc@quicinc.com>
+Date: Mon, 18 Apr 2022 16:28:10 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220411234953.2425280-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220411234953.2425280-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v10] drm/msm/dp: stop event kernel thread when
- DP unbind
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: properly add and remove
+ internal bridges
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,162 +67,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Current DP driver implementation, event thread is kept running
-after DP display is unbind. This patch fix this problem by disabling
-DP irq and stop event thread to exit gracefully at dp_display_unbind().
 
-Changes in v2:
--- start event thread at dp_display_bind()
 
-Changes in v3:
--- disable all HDP interrupts at unbind
--- replace dp_hpd_event_setup() with dp_hpd_event_thread_start()
--- replace dp_hpd_event_stop() with dp_hpd_event_thread_stop()
--- move init_waitqueue_head(&dp->event_q) to probe()
--- move spin_lock_init(&dp->event_lock) to probe()
-
-Changes in v4:
--- relocate both dp_display_bind() and dp_display_unbind() to bottom of file
-
-Changes in v5:
--- cancel relocation of both dp_display_bind() and dp_display_unbind()
-
-Changes in v6:
--- move empty event q to dp_event_thread_start()
-
-Changes in v7:
--- call ktheread_stop() directly instead of dp_hpd_event_thread_stop() function
-
-Changes in v8:
--- return error immediately if audio registration failed.
-
-Changes in v9:
--- return error immediately if event thread create failed.
-
-Changes in v10:
--- delete extra  DRM_ERROR("failed to create DP event thread\n");
-
-Fixes: e91e3065a806 ("drm/msm/dp: Add DP compliance tests on Snapdragon Chipsets")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 39 +++++++++++++++++++++++++++++--------
- 1 file changed, 31 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 01453db..4dc0758 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -113,6 +113,7 @@ struct dp_display_private {
- 	u32 hpd_state;
- 	u32 event_pndx;
- 	u32 event_gndx;
-+	struct task_struct *ev_tsk;
- 	struct dp_event event_list[DP_EVENT_Q_MAX];
- 	spinlock_t event_lock;
- 
-@@ -230,6 +231,8 @@ void dp_display_signal_audio_complete(struct msm_dp *dp_display)
- 	complete_all(&dp->audio_comp);
- }
- 
-+static int dp_hpd_event_thread_start(struct dp_display_private *dp_priv);
-+
- static int dp_display_bind(struct device *dev, struct device *master,
- 			   void *data)
- {
-@@ -266,9 +269,18 @@ static int dp_display_bind(struct device *dev, struct device *master,
- 	}
- 
- 	rc = dp_register_audio_driver(dev, dp->audio);
--	if (rc)
-+	if (rc) {
- 		DRM_ERROR("Audio registration Dp failed\n");
-+		goto end;
-+	}
- 
-+	rc = dp_hpd_event_thread_start(dp);
-+	if (rc) {
-+		DRM_ERROR("Event thread create failed\n");
-+		goto end;
-+	}
-+
-+	return 0;
- end:
- 	return rc;
- }
-@@ -280,6 +292,11 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 	struct drm_device *drm = dev_get_drvdata(master);
- 	struct msm_drm_private *priv = drm->dev_private;
- 
-+	/* disable all HPD interrupts */
-+	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
-+
-+	kthread_stop(dp->ev_tsk);
-+
- 	dp_power_client_deinit(dp->power);
- 	dp_aux_unregister(dp->aux);
- 	priv->dp[dp->id] = NULL;
-@@ -1054,7 +1071,7 @@ static int hpd_event_thread(void *data)
- 
- 	dp_priv = (struct dp_display_private *)data;
- 
--	while (1) {
-+	while (!kthread_should_stop()) {
- 		if (timeout_mode) {
- 			wait_event_timeout(dp_priv->event_q,
- 				(dp_priv->event_pndx == dp_priv->event_gndx),
-@@ -1132,12 +1149,17 @@ static int hpd_event_thread(void *data)
- 	return 0;
- }
- 
--static void dp_hpd_event_setup(struct dp_display_private *dp_priv)
-+static int dp_hpd_event_thread_start(struct dp_display_private *dp_priv)
- {
--	init_waitqueue_head(&dp_priv->event_q);
--	spin_lock_init(&dp_priv->event_lock);
-+	/* set event q to empty */
-+	dp_priv->event_gndx = 0;
-+	dp_priv->event_pndx = 0;
- 
--	kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
-+	dp_priv->ev_tsk = kthread_run(hpd_event_thread, dp_priv, "dp_hpd_handler");
-+	if (IS_ERR(dp_priv->ev_tsk))
-+		return PTR_ERR(dp_priv->ev_tsk);
-+
-+	return 0;
- }
- 
- static irqreturn_t dp_display_irq_handler(int irq, void *dev_id)
-@@ -1266,7 +1288,10 @@ static int dp_display_probe(struct platform_device *pdev)
- 		return -EPROBE_DEFER;
- 	}
- 
-+	/* setup event q */
- 	mutex_init(&dp->event_mutex);
-+	init_waitqueue_head(&dp->event_q);
-+	spin_lock_init(&dp->event_lock);
- 
- 	/* Store DP audio handle inside DP display */
- 	dp->dp_display.dp_audio = dp->audio;
-@@ -1441,8 +1466,6 @@ void msm_dp_irq_postinstall(struct msm_dp *dp_display)
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
--	dp_hpd_event_setup(dp);
--
- 	dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
- }
- 
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+On 4/11/2022 4:49 PM, Dmitry Baryshkov wrote:
+> Add calls to drm_bridge_add()/drm_bridge_remove() DRM bridges created by
+> the driver. This fixes the following warning.
+> 
+> WARNING: CPU: 0 PID: 1 at kernel/locking/mutex.c:579 __mutex_lock+0x840/0x9f4
+> DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+> Modules linked in:
+> CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.18.0-rc1-00002-g3054695a0d27-dirty #55
+> Hardware name: Generic DT based system
+>   unwind_backtrace from show_stack+0x10/0x14
+>   show_stack from dump_stack_lvl+0x58/0x70
+>   dump_stack_lvl from __warn+0xc8/0x1e8
+>   __warn from warn_slowpath_fmt+0x78/0xa8
+>   warn_slowpath_fmt from __mutex_lock+0x840/0x9f4
+>   __mutex_lock from mutex_lock_nested+0x1c/0x24
+>   mutex_lock_nested from drm_bridge_hpd_enable+0x2c/0x84
+>   drm_bridge_hpd_enable from msm_hdmi_modeset_init+0xc0/0x21c
+>   msm_hdmi_modeset_init from mdp4_kms_init+0x53c/0x90c
+>   mdp4_kms_init from msm_drm_bind+0x514/0x698
+>   msm_drm_bind from try_to_bring_up_aggregate_device+0x160/0x1bc
+>   try_to_bring_up_aggregate_device from component_master_add_with_match+0xc4/0xf8
+>   component_master_add_with_match from msm_pdev_probe+0x274/0x350
+>   msm_pdev_probe from platform_probe+0x5c/0xbc
+>   platform_probe from really_probe.part.0+0x9c/0x290
+>   really_probe.part.0 from __driver_probe_device+0xa8/0x13c
+>   __driver_probe_device from driver_probe_device+0x34/0x10c
+>   driver_probe_device from __driver_attach+0xbc/0x178
+>   __driver_attach from bus_for_each_dev+0x74/0xc0
+>   bus_for_each_dev from bus_add_driver+0x160/0x1e4
+>   bus_add_driver from driver_register+0x88/0x118
+>   driver_register from do_one_initcall+0x6c/0x334
+>   do_one_initcall from kernel_init_freeable+0x1bc/0x220
+>   kernel_init_freeable from kernel_init+0x18/0x12c
+>   kernel_init from ret_from_fork+0x14/0x2c
+> 
+> Fixes: 3d3f8b1f8b62 ("drm/bridge: make bridge registration independent of drm flow")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> Changes since v1:
+>   - Dropped drm_bridge_detach() call, it is not necessary, also it breaks
+>     compilation if MSM DRM is built as module.
+> ---
+>   drivers/gpu/drm/msm/dp/dp_drm.c        | 4 ++++
+>   drivers/gpu/drm/msm/dsi/dsi_manager.c  | 3 +++
+>   drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 3 +++
+>   drivers/gpu/drm/msm/msm_drv.c          | 3 +++
+>   4 files changed, 13 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> index 80f59cf99089..262744914f97 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> @@ -230,9 +230,13 @@ struct drm_bridge *msm_dp_bridge_init(struct msm_dp *dp_display, struct drm_devi
+>   	bridge->funcs = &dp_bridge_ops;
+>   	bridge->encoder = encoder;
+>   
+> +	drm_bridge_add(bridge);
+> +
+>   	rc = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>   	if (rc) {
+>   		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
+> +		drm_bridge_remove(bridge);
+> +
+>   		return ERR_PTR(rc);
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 9f6af0f0fe00..1db93e562fe6 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -665,6 +665,8 @@ struct drm_bridge *msm_dsi_manager_bridge_init(u8 id)
+>   	bridge = &dsi_bridge->base;
+>   	bridge->funcs = &dsi_mgr_bridge_funcs;
+>   
+> +	drm_bridge_add(bridge);
+> +
+>   	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+>   	if (ret)
+>   		goto fail;
+> @@ -735,6 +737,7 @@ struct drm_connector *msm_dsi_manager_ext_bridge_init(u8 id)
+>   
+>   void msm_dsi_manager_bridge_destroy(struct drm_bridge *bridge)
+>   {
+> +	drm_bridge_remove(bridge);
+>   }
+>   
+>   int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg)
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> index 10ebe2089cb6..97c24010c4d1 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -15,6 +15,7 @@ void msm_hdmi_bridge_destroy(struct drm_bridge *bridge)
+>   	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+>   
+>   	msm_hdmi_hpd_disable(hdmi_bridge);
+> +	drm_bridge_remove(bridge);
+>   }
+>   
+>   static void msm_hdmi_power_on(struct drm_bridge *bridge)
+> @@ -349,6 +350,8 @@ struct drm_bridge *msm_hdmi_bridge_init(struct hdmi *hdmi)
+>   		DRM_BRIDGE_OP_DETECT |
+>   		DRM_BRIDGE_OP_EDID;
+>   
+> +	drm_bridge_add(bridge);
+> +
+>   	ret = drm_bridge_attach(hdmi->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>   	if (ret)
+>   		goto fail;
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 2905b82a9de3..d8f2c8838a7f 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -232,6 +232,9 @@ static int msm_drm_uninit(struct device *dev)
+>   
+>   	drm_mode_config_cleanup(ddev);
+>   
+> +	for (i = 0; i < priv->num_bridges; i++)
+> +		drm_bridge_remove(priv->bridges[i]);
+> +
+>   	pm_runtime_get_sync(dev);
+>   	msm_irq_uninstall(ddev);
+>   	pm_runtime_put_sync(dev);
