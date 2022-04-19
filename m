@@ -1,85 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44788507AF9
-	for <lists+freedreno@lfdr.de>; Tue, 19 Apr 2022 22:31:07 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6AB4507B38
+	for <lists+freedreno@lfdr.de>; Tue, 19 Apr 2022 22:50:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBCC110E6D0;
-	Tue, 19 Apr 2022 20:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7489110E063;
+	Tue, 19 Apr 2022 20:50:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCC210E6D0
- for <freedreno@lists.freedesktop.org>; Tue, 19 Apr 2022 20:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1650400263;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=be6VP4VL+z444uHhPHKMJh9PH6wDtAablx8mg5VMxYw=;
- b=Q9VmekBoMNDj/aiRUIPTUfaHP3TnJti/BT7kUq5buwKzbJNol9ojGXncYuaazAHu7zTjsh
- Ax65hx8GF9oUh3O3CboyJJn1k5jmmQBfGDqx4ph5jrEB1fg0fz3XAWFhaEXBe96aaXGCc4
- YTtMDwebzu+238emPGkfwktZ/Kf1Q8k=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-494-j-uhbKoONUCjiwC5lKksgg-1; Tue, 19 Apr 2022 16:31:02 -0400
-X-MC-Unique: j-uhbKoONUCjiwC5lKksgg-1
-Received: by mail-qv1-f72.google.com with SMTP id
- cs5-20020ad44c45000000b004463a27fb3fso9435345qvb.9
- for <freedreno@lists.freedesktop.org>; Tue, 19 Apr 2022 13:31:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=be6VP4VL+z444uHhPHKMJh9PH6wDtAablx8mg5VMxYw=;
- b=401V5eWL+g/uK70Snmg3oxD19/Y/0RN/d1sB7sg8mZIi2HxReK6oe3B1nJ/n2rdC9g
- cs+Tgs093W5/II0d67B/9DkNCp9dh6V8sIOcUtqdch5qvzPKZ4YRFPe/mEVv+zNnkLS/
- doB4WeMXz2f0UlIztyJL6fQls/IutPoD/w27fRArvB88slbOpw3h1rS8ZAMJEmThc3G6
- 6mPavvz64CmwfXEwVQXi9fU64v6GRNc/RFymcktigMsL3AWMFp+lXtWKZ/S0kvaclIeE
- 2CXdffegQaxQ1OpXYfhTByPERxAykRme1xnT++fuivokEWsG7KT8OGQwMKvWU+BknFoY
- utpQ==
-X-Gm-Message-State: AOAM532LquY03oj+g5XJAHDUjMHfCllqfgwVnW1FMzplHsmedB7fB0Dh
- IGkYK4xENe5530BRo4zSylehzNCe0BIPMn7EPRCg/yEj1ZcVcS+Gs/bjxcDp8L4qTsov61QIwfV
- W5a/bcfWYhsgxp1UzprkV5nepT+lz
-X-Received: by 2002:a37:510:0:b0:69e:8868:c691 with SMTP id
- 16-20020a370510000000b0069e8868c691mr8634584qkf.731.1650400261755; 
- Tue, 19 Apr 2022 13:31:01 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx/S5ftop0ghBWPqC6VcdbCKk2EHMRpvcn+OOjAta4APIO+s/kcOllMhR+W7PX4+MaicfOv5Q==
-X-Received: by 2002:a37:510:0:b0:69e:8868:c691 with SMTP id
- 16-20020a370510000000b0069e8868c691mr8634569qkf.731.1650400261514; 
- Tue, 19 Apr 2022 13:31:01 -0700 (PDT)
-Received: from [192.168.8.138] (pool-71-126-244-162.bstnma.fios.verizon.net.
- [71.126.244.162]) by smtp.gmail.com with ESMTPSA id
- f16-20020a05622a105000b002ed4688f116sm612817qte.86.2022.04.19.13.30.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 13:31:00 -0700 (PDT)
-Message-ID: <55713be81efe8d2b9d19f6e4ad8d64a88087289f.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: elections@foundation.x.org, events@lists.x.org, 
- xorg-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org, 
- members@x.org
-Date: Tue, 19 Apr 2022 16:30:59 -0400
-In-Reply-To: <b75862cc1cb0a05b02c9249bb4858e8d9013be30.camel@redhat.com>
-References: <b75862cc1cb0a05b02c9249bb4858e8d9013be30.camel@redhat.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87A6310E063;
+ Tue, 19 Apr 2022 20:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1650401432; x=1681937432;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Mxl40I/GVF4LYfYnv2CrUGvPyjKo5X9LbQFOPvAimOY=;
+ b=bvjQbMrlqNmENjrVbwCendq0ch5CGvA2YEArOj6eOdJ5lx0pmERLR/D+
+ eyOqsB2xznhDzDn1rsTgi0Xb/GbDeB1y115AJ/+NoHHUvi/r7HBe37cAW
+ Rv1yvF0SdfUhqgeLwD/HCsaI2qpb15nsv9dVgx6G1CvDq2czypOFYenvU g=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 19 Apr 2022 13:50:32 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2022 13:50:32 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 19 Apr 2022 13:50:31 -0700
+Received: from [10.111.175.117] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 19 Apr
+ 2022 13:50:28 -0700
+Message-ID: <e3b8dcea-2458-1a6b-7cfd-3818d029d548@quicinc.com>
+Date: Tue, 19 Apr 2022 13:50:26 -0700
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] 2022 X.Org Foundation Election vote results
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Vinod Koul <vkoul@kernel.org>, Rob Clark <robdclark@gmail.com>
+References: <20220406094031.1027376-1-vkoul@kernel.org>
+ <20220406094031.1027376-9-vkoul@kernel.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220406094031.1027376-9-vkoul@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v7 08/14] drm/msm/dpu: don't use merge_3d if
+ DSC merge topology is used
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,34 +65,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Board of Directors election and the vote on the By-laws concluded at
-23:59 UTC on 18 April 2022. There are 80 current Members of the X.Org
-Foundation, and 52 Members cast votes. This is a 65.0% turn out.
 
-In the election of the Directors to the Board of the X.Org Foundation,
-the results were that Emma Anholt, Alyssa Rosenzweig, Mark Filion and
-Ricardo Garcia were elected for two year terms.
 
-The old full board is: Emma Anholt, Samuel Iglesias Gonsálvez, Mark
-Filion, Manasi D Navare, Keith Packard, Lyude Paul, Daniel Vetter, Harry
-Wentland
+On 4/6/2022 2:40 AM, Vinod Koul wrote:
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> DPU supports different topologies for the case when multiple INTFs are
+> being driven by the single phys_enc. The driver defaults to using 3DMux
+> in such cases. Don't use it if DSC merge is used instead.
+> 
+> Suggested-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
-The new full board is: Emma Anholt, Samuel Iglesias Gonsálvez, Mark
-Filion, Manasi D Navare, Alyssa Rosenzweig, Lyude Paul, Daniel Vetter,
-and Ricardo Garcia
+Thank you for making the change generic as suggested.
 
-The full election results were as follows:
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-           Option | Rank 1 | Rank 2 | Rank 3 | Rank 4 | Rank 5 | Rank 6 | Final Score
-      Emma Anholt |     21 |     16 |      4 |      1 |      5 |      5 |         240
-Alyssa Rosenzweig |      4 |     10 |     17 |      7 |     11 |      3 |         188
-      Mark Filion |      8 |     12 |      7 |     10 |      5 |     10 |         186
-   Ricardo Garcia |      9 |      4 |      5 |     17 |     10 |      7 |         172
-      Lucas Stach |      4 |      5 |     14 |      9 |     11 |      9 |         163
-  Shashank Sharma |      6 |      5 |      5 |      8 |     10 |     18 |         143
-
-Lyude Paul, on behalf of the X.Org elections committee
-
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 16 ++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h      |  6 ++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  4 +++-
+>   3 files changed, 25 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 4052486f19d8..95d1588f3bb6 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -511,6 +511,22 @@ void dpu_encoder_helper_split_config(
+>   	}
+>   }
+>   
+> +bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc)
+> +{
+> +	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(drm_enc);
+> +	int i, intf_count = 0, num_dsc = 0;
+> +
+> +	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
+> +		if (dpu_enc->phys_encs[i])
+> +			intf_count++;
+> +
+> +	/* See dpu_encoder_get_topology, we only support 2:2:1 topology */
+> +	if (dpu_enc->dsc)
+> +		num_dsc = 2;
+> +
+> +	return (num_dsc > 0) && (num_dsc > intf_count);
+> +}
+> +
+>   static struct msm_display_topology dpu_encoder_get_topology(
+>   			struct dpu_encoder_virt *dpu_enc,
+>   			struct dpu_kms *dpu_kms,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> index ef873e5285a0..084c5265d7e5 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> @@ -172,4 +172,10 @@ int dpu_encoder_get_linecount(struct drm_encoder *drm_enc);
+>    */
+>   int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc);
+>   
+> +/**
+> + * dpu_encoder_use_dsc_merge - returns true if the encoder uses DSC merge topology.
+> + * @drm_enc:    Pointer to previously created drm encoder structure
+> + */
+> +bool dpu_encoder_use_dsc_merge(struct drm_encoder *drm_enc);
+> +
+>   #endif /* __DPU_ENCODER_H__ */
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index 4842070fdfa8..b5ad43b8a19b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -314,8 +314,10 @@ static inline enum dpu_3d_blend_mode dpu_encoder_helper_get_3d_blend_mode(
+>   
+>   	dpu_cstate = to_dpu_crtc_state(phys_enc->parent->crtc->state);
+>   
+> +	/* Use merge_3d unless DSC MERGE topology is used */
+>   	if (phys_enc->split_role == ENC_ROLE_SOLO &&
+> -	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS)
+> +	    dpu_cstate->num_mixers == CRTC_DUAL_MIXERS &&
+> +	    !dpu_encoder_use_dsc_merge(phys_enc->parent))
+>   		return BLEND_3D_H_ROW_INT;
+>   
+>   	return BLEND_3D_NONE;
