@@ -1,39 +1,40 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4859A507725
-	for <lists+freedreno@lfdr.de>; Tue, 19 Apr 2022 20:11:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B200A507746
+	for <lists+freedreno@lfdr.de>; Tue, 19 Apr 2022 20:12:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E413110E805;
-	Tue, 19 Apr 2022 18:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49EF810E069;
+	Tue, 19 Apr 2022 18:12:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4AC10E805;
- Tue, 19 Apr 2022 18:11:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1B310E069;
+ Tue, 19 Apr 2022 18:12:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B5ABA60C90;
- Tue, 19 Apr 2022 18:11:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700E6C385A5;
- Tue, 19 Apr 2022 18:11:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CD8E560DCB;
+ Tue, 19 Apr 2022 18:12:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21C3C385A7;
+ Tue, 19 Apr 2022 18:12:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650391893;
- bh=j2fWnchsZdK99kusfeZuzP3ZMiYvZ++rKX4EyqUwgpo=;
+ s=k20201202; t=1650391925;
+ bh=rgM8kfe5zD9EZNfO/4CiOhR5Q/c5QFs9MDQG24jIl1Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SgNHZpus1HSMf8hmR4xe2BfEF+8U6Dml+ZT7dL7d32f2skcqCzA+OPGWn/LHg9/mT
- 5thDpOEu5DHeOUF0AwwnRO8wpNctwdFSV994MD46lPOTD7/DUkfWysI9t2BCy5XdTQ
- OI2E9dlNpPo68UdqiAmqEHCDEvJg+8KJhBMSNvjAqyoIItsVgVQgltUcM6lPdYpvOR
- li/Dopbk+Jdf4LoqHVN9y9wyYPpi9Gfr+Hm4t3XyzAFxRcMeuetlL0Fl+BYpfD3f4y
- lD8z9EfFYOV570Wixxdc++KLIeMcmwlC71LJHiD2LXypbZndHeEz9aKLTGhoopEknw
- JM8A5wTWA6kPw==
+ b=qwuc9UrkGrFxXkJB484smNCOL8GDkGschpD08ebHizugR+mRP4RKDkKHIZW0CHCeA
+ a9p6lMB7ek80P3SftwAUXBO9ldMTWD23CUGNc+pHg5dLTC01bBU6Vjod7Zt5meK6ah
+ W5wHYFnAHTpkhJ3DAega92rRVTFiWqZF4VtDJTlr8s886zJeVwsWsMcaZyVkpDXvac
+ pSNZqkiF7AR0dGsWcy+eZ4+rEAp9DNKHI9sQRp8YTi7A/vh16QAqMqBt2DTHoJ0RwU
+ uxRAeUaC9VkpxvIausRShVz5uyfqcpsreegI0jYsJhWRoyj8xvhvtBI7kIPpDlye9F
+ 7bJj4NYhxsLZA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 19 Apr 2022 14:10:35 -0400
-Message-Id: <20220419181104.484667-8-sashal@kernel.org>
+Date: Tue, 19 Apr 2022 14:10:45 -0400
+Message-Id: <20220419181104.484667-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220419181104.484667-1-sashal@kernel.org>
 References: <20220419181104.484667-1-sashal@kernel.org>
@@ -41,8 +42,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.17 08/34] drm/msm/disp: check the
- return value of kzalloc()
+Subject: [Freedreno] [PATCH AUTOSEL 5.17 18/34] drm/msm/mdp5: check the
+ return of kzalloc()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,43 +58,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, Sasha Levin <sashal@kernel.org>,
  airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Xiaoke Wang <xkernel.wang@foxmail.com>,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- robdclark@gmail.com, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- bjorn.andersson@linaro.org, sean@poorly.run, greenfoo@u92.eu
+ Xiaoke Wang <xkernel.wang@foxmail.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, maxime@cerno.tech, daniel@ffwll.ch,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Xiaoke Wang <xkernel.wang@foxmail.com>
 
-[ Upstream commit f75e582b0c3ee8f0bddc2248cc8b9175f29c5937 ]
+[ Upstream commit 047ae665577776b7feb11bd4f81f46627cff95e7 ]
 
 kzalloc() is a memory allocation function which can return NULL when
 some internal memory errors happen. So it is better to check it to
 prevent potential wrong memory access.
 
+Besides, since mdp5_plane_reset() is void type, so we should better
+set `plane-state` to NULL after releasing it.
+
 Signed-off-by: Xiaoke Wang <xkernel.wang@foxmail.com>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Link: https://lore.kernel.org/r/tencent_B3E19486FF39415098B572B7397C2936C309@qq.com
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Patchwork: https://patchwork.freedesktop.org/patch/481055/
+Link: https://lore.kernel.org/r/tencent_8E2A1C78140EE1784AB2FF4B2088CC0AB908@qq.com
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-index 5d2ff6791058..acfe1b31e079 100644
---- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-+++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-@@ -176,6 +176,8 @@ void msm_disp_snapshot_add_block(struct msm_disp_state *disp_state, u32 len,
- 	va_list va;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+index c6b69afcbac8..50e854207c70 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+@@ -90,7 +90,10 @@ static void mdp5_plane_reset(struct drm_plane *plane)
+ 		__drm_atomic_helper_plane_destroy_state(plane->state);
  
- 	new_blk = kzalloc(sizeof(struct msm_disp_state_block), GFP_KERNEL);
-+	if (!new_blk)
+ 	kfree(to_mdp5_plane_state(plane->state));
++	plane->state = NULL;
+ 	mdp5_state = kzalloc(sizeof(*mdp5_state), GFP_KERNEL);
++	if (!mdp5_state)
 +		return;
  
- 	va_start(va, fmt);
- 
+ 	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+ 		mdp5_state->base.zpos = STAGE_BASE;
 -- 
 2.35.1
 
