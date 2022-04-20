@@ -1,56 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E4E3507F11
-	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 04:47:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37B12507F17
+	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 04:48:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA27C10F273;
-	Wed, 20 Apr 2022 02:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1FA110F18F;
+	Wed, 20 Apr 2022 02:48:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA0F10F273
- for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 02:47:15 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id z2so634407oic.6
- for <freedreno@lists.freedesktop.org>; Tue, 19 Apr 2022 19:47:15 -0700 (PDT)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5385C10F1CD
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 02:48:42 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ r12-20020a056830418c00b006054e1142acso252923otu.7
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Apr 2022 19:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=84Z8Ou62HiUqb8n4/xIdxq8unXBMW3W4N2w/x005ArY=;
- b=iruwlQMQmkHPdfb5AUtOdH7s6RB4z+YA3vS74UUFPPoI9qTD2pH2mcQTnXg78CVToG
- Q5zsNfXphSO1QQAk/vj3875wHTzoeSlZ2vXJO7asCXN5yVk/jZK7KSzWIN+zQrtjHSzC
- JgLnEjBkjJMfRSqoiGAfGUFtMKk5Qd1MHOcNNK9rXQ2N79STDLNknk3YsCQqROd8eqDN
- K83lmvqOaYoK5rTmwC1AcQhk/7BiBVtX+7UPL3qdAkdGRGvB06YApqKCgowV1mMo16wa
- JdLAiTaTpGjpbImKUzleBacTZtMddsi30sZpK2RLjT2atcF2jhXSpjpCs7xbkuxbnlEa
- Bv0g==
+ bh=2eKNulS3qlhgDAvYpJZI0rmczwYonxuVadqbW93L0aw=;
+ b=xJQQvbGeiv55LxOgRCAxCgC9ZiBXWIggFHAJQV+kqOo/UxUl+LQqeAmAvnk7ypXt5V
+ se5zB4Ez70kwsW8uPe+64bZzeadkPOkPg3c8sFvMS74WiPjabZ/cEm+S8w5IBAt/POhJ
+ 20tph+hKKIc1Rt5DSHPY3ueFYM9+Us1NVQKXMKiMwDyAI7GC+sfbC7n6aZGfKTP0Qegc
+ fiRyzh4V8hHOgAGEBcLA86KqxAW1G5RaVemUcn9F4tmgwawojJN5ZCfPvl+Icqdp65N4
+ gcNhDqpjrch4yLNwUu5AUrXGNZSunusoxGSUhL2YamKpprMNvIT4vp1cDS3uSEFWGzH6
+ lkhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=84Z8Ou62HiUqb8n4/xIdxq8unXBMW3W4N2w/x005ArY=;
- b=wLgOUiW50W8yqxQbIJBTtvjN2wYGfmV8hnE+CTwM/sI/Qg+K2oBkIbgca80vt8abyL
- oRm/8wiK7OSsit55oIYaUgnUWKlerdY4e1tVd2D9zYui71HVp4ZBDzFnU/FiWhYXcesc
- rmVkYMAjP8S/UrosUbcInhSnfzn+xrwi1QVyzLbb+aTraNTt4FbssMEwo+XZsgP9I1cH
- 5cGvBVtQc9pkDnujbSLU3D1Foile7i1HCjykodRqXZLwUYr7A98Pux6+rWuB7fwbMft2
- c95bewK/0okw+3K8tsHXBFqm7VlFtdJhpL4eFJqqKXim+TIAYeeA9QyA+nnn+j+5fILX
- IHUg==
-X-Gm-Message-State: AOAM532nraq2Kp1bNpWHaGDWMCs9TPzwRLpUdbg3LY6093FgHT1yW/ga
- LOADvg3PT2vXLHakaeq8Q2KG5A==
-X-Google-Smtp-Source: ABdhPJwpUgs1fxza/ioCVfipQG6pgrpTluzQomDGAxienilt70kyO+VUXsamqwicKGfF+JtOL5M7+g==
-X-Received: by 2002:a05:6808:140a:b0:2f9:a830:d12e with SMTP id
- w10-20020a056808140a00b002f9a830d12emr772201oiv.235.1650422835061; 
- Tue, 19 Apr 2022 19:47:15 -0700 (PDT)
+ bh=2eKNulS3qlhgDAvYpJZI0rmczwYonxuVadqbW93L0aw=;
+ b=MmmgCJ8xWCpioixgc8GEPISPcLzIyO78N9dXlAPJJU5696UoOMqkiPvsBeZQ12CrVH
+ w3m5LNFdimgg5CTl9iW16ze2YJf3CTCM2/NgSh2zAZ3Ksogi5OYTMilODyVAM30t2HYu
+ G/ANiIn7uXr0gOuSNUpsDNN0JR8hK0KNfB6Xg2pXzQ54qWewegPIIQWinPiPFCB9Zc2n
+ asqb1uQfTpHggKnwzAzBEzVgkbTpSg7hvxvOzLrHAZHIsNA4spFHBU08RN3gONgwe6Lj
+ Bx1rZgKOro30datdgq7mRfZU2IbsQxISN17pcqAo+Jk3fhyLahAeYHDuUn34EmbTddnr
+ rf0A==
+X-Gm-Message-State: AOAM533xSVCLIn4uEouRpnpqXlJNLgOt6TkG2C1X9yddFgu6QfDsspgU
+ jyv0u0VXIZ1HBTWlBL5jQMBOCA==
+X-Google-Smtp-Source: ABdhPJyDQoZdetLa1WR+iC8qmsQIEGsOqkaYfUCgaps/vrkB92VYUqzJ5B11+iUsOjAXBVem+glQDg==
+X-Received: by 2002:a9d:6d06:0:b0:605:4e8e:fe89 with SMTP id
+ o6-20020a9d6d06000000b006054e8efe89mr3984218otp.329.1650422921576; 
+ Tue, 19 Apr 2022 19:48:41 -0700 (PDT)
 Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
  by smtp.gmail.com with ESMTPSA id
- o19-20020a4a9593000000b0032176119e65sm6117380ooi.34.2022.04.19.19.47.14
+ bp17-20020a056808239100b00322c34c4afbsm1165291oib.25.2022.04.19.19.48.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 19:47:14 -0700 (PDT)
-Date: Tue, 19 Apr 2022 21:47:12 -0500
+ Tue, 19 Apr 2022 19:48:41 -0700 (PDT)
+Date: Tue, 19 Apr 2022 21:48:39 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <Yl90MENoa52cGtna@builder.lan>
+Message-ID: <Yl90hxm7+nbAV4cN@builder.lan>
 References: <20220419235447.1586192-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -95,15 +96,10 @@ On Tue 19 Apr 18:54 CDT 2022, Dmitry Baryshkov wrote:
 > respective PLLs (0 and ULONG_MAX).
 > 
 > Fixes: 948fb0969eae ("clk: Always clamp the rounded rate")
+
+Reported-by: Rob Clark <robdclark@chromium.org>
+
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Stephen, please pick this for -fixes.
-
-Thanks,
-Bjorn
-
 > ---
 >  drivers/clk/qcom/clk-rcg2.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
