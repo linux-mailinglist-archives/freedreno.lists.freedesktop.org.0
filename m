@@ -2,51 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D454509112
-	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 22:06:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 517C2509216
+	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 23:28:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85C4789E14;
-	Wed, 20 Apr 2022 20:06:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964AC10F2C0;
+	Wed, 20 Apr 2022 21:28:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34DE089E08;
- Wed, 20 Apr 2022 20:06:41 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id bg25so1206990wmb.4;
- Wed, 20 Apr 2022 13:06:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=nWM6fd421Z4mKGkR1OIW70pm4ctWscYqXgFoO0lKsdE=;
- b=WCxCuoNchmrc/oA4EswPMRVUrXUqZW5DzagrGczH8EpL1ShlI9Ip0lE+2P3fIR/8A3
- nSZGQha3A+hSniBiMQCMlbyLHwpXrS2x0d+ge86bMgUrr6oX+1HhgNoHXe/w/PU9p4oA
- R/BtqXmIqBn4I65qfZbX1zGjs/SgNLf+gGLNrsS/t9iEWhMKhOaKy3eogScToO68HwBw
- G3NbNRCkLLGFHA7lmLusnIp3P1DBmACX45+MSbJ1zLPzpKtohTM+EGlI8uorwTHH3uFo
- PD0SC+OuHL+qEdbcUs+Wg554dfoRPduXe6y2TWERqZmFsCMyYMM35tlkoJwvYNJcP5jW
- 1dpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=nWM6fd421Z4mKGkR1OIW70pm4ctWscYqXgFoO0lKsdE=;
- b=5aMlhslrjbQLN+zYMkWonqjxgAUnXVRiYW9HJoHkhqlyEhMph3fnLDJ68kckwUI91s
- sBGwBueQj32NHDJGMmPcXB45RTwZvYY3YBlPIDKvjSVjP/ts8MXdebnaNG8PiJGJi6Y8
- CDuXSfW4FhM0YLM31sN4KTFYlFqrDvG3q+M2sKbD2vRE2XewJEFirxTWshfGSFOx1Ca9
- QjVnCAXnxvwcVUcmvQk7haZ2bda9zwo5OxxcQ7CyGDzmrsFnpkyicTHUaW9iz2hdaxQN
- B44X0XoOhIjP95iqvgiHVNkyLVnx5yeNw3iFAlGEybvTUCohrJvzeChee7pAzx9DO4Ph
- 38uw==
-X-Gm-Message-State: AOAM530LNbidQD241tHRPiob5CjmwUOCtwtzOGwizpS8SezPuA1FMXPa
- pjCMxd/uj/A/IEXAjuASM39P6Da8vRfv8xi/bzi8k8Lj2VY=
-X-Google-Smtp-Source: ABdhPJwa5LiP99fr6eQduCzYo4KsoL4ArGW9pdCWo3BZH9Cuso01h+ojF/xAPij16lY7vWBDIcBCEEykjJktJXqpG4k=
-X-Received: by 2002:a05:600c:1f17:b0:392:5c1a:5ed9 with SMTP id
- bd23-20020a05600c1f1700b003925c1a5ed9mr5492570wmb.148.1650485199416; Wed, 20
- Apr 2022 13:06:39 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDA8610F2BE;
+ Wed, 20 Apr 2022 21:28:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1650490113; x=1682026113;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=IBUoBtAKIjSuK/QI3W+wGDAdyTFBvwfAGqllU1JcAVg=;
+ b=GL788eelb/nfDUiUWhB4t5XLq3gYmVwLd49RvS3kpkXb4dLysfS2GseX
+ VxI9ELVeOtyxqLapeTbgInDzUPanOunu1/m/gf/4wY6Krgpwjaf56ME1R
+ y9yAb01yntJUz4SnMerxlL5Jo+GJKVkAI/493gApEquDVmVa8EWPLJeUA Q=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 20 Apr 2022 14:28:32 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2022 14:28:31 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 20 Apr 2022 14:28:31 -0700
+Received: from [10.111.175.210] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 20 Apr
+ 2022 14:28:29 -0700
+Message-ID: <13fac83c-99e7-0ca6-f93d-b4e6b975abdb@quicinc.com>
+Date: Wed, 20 Apr 2022 14:28:27 -0700
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 20 Apr 2022 13:07:44 -0700
-Message-ID: <CAF6AEGtvPo4xD2peAztDMPP2n4utb7d9WQboMFwsba9E8U2rCw@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-04-20 for v5.18
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <freedreno@lists.freedesktop.org>
+References: <1650419169-13760-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1650419169-13760-10-git-send-email-quic_abhinavk@quicinc.com>
+ <2f37ee8d-6b6a-3e05-cdb7-cd84d81632bf@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <2f37ee8d-6b6a-3e05-cdb7-cd84d81632bf@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 09/17] drm/msm/dpu: add an API to reset
+ the encoder related hw blocks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,36 +67,190 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: markyacoub@chromium.org, liviu.dudau@arm.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
 
-One more fix for v5.18.. actually a revert to fix iommu breakage on
-older devices
 
-The following changes since commit 390d645877ffd6dcb55f162d618045b2779217b3:
+On 4/20/2022 12:23 AM, Dmitry Baryshkov wrote:
+> On 20/04/2022 04:46, Abhinav Kumar wrote:
+>> Add an API to reset the encoder related hw blocks to ensure
+>> a proper teardown of the pipeline. At the moment this is being
+>> used only for the writeback encoder but eventually we can start
+>> using this for all interfaces.
+>>
+>> changes in v2:
+>>     - split the writeback part to another commit
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
+> A minor question: do we need to also reset the DSPP alongside resetting 
+> the LM?
 
-  drm/msm/gpu: Avoid -Wunused-function with !CONFIG_PM_SLEEP
-(2022-04-11 18:35:31 -0700)
+So this function is mostly doing what the downstream equivalent of it 
+does which is to disable all the sspp blend stages, the ping-pong 
+binding and 3d-merge connection.
 
-are available in the Git repository at:
+For DSPP, there is no ability to *bind* it or connect it. Its a 
+hard-wired connection. Its just a question of whether to enable it or not.
 
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2022-04-20
+When the CTL path connections are removed, there is no need to 
+explicitly disable the DSPP.
 
-for you to fetch changes up to 0371870b96907bf560ecf7dc3fadc238fadf7845:
+Thats why even downstream doesnt do it today.
 
-  drm/msm: Revert "drm/msm: Stop using iommu_present()" (2022-04-19
-10:33:07 -0700)
-
-----------------------------------------------------------------
-Dmitry Baryshkov (1):
-      drm/msm: Revert "drm/msm: Stop using iommu_present()"
-
- drivers/gpu/drm/msm/msm_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 82 
+>> ++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  7 ++
+>>   2 files changed, 89 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index 4523693..0e31ad3 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -1,5 +1,6 @@
+>>   // SPDX-License-Identifier: GPL-2.0-only
+>>   /*
+>> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights 
+>> reserved.
+>>    * Copyright (c) 2014-2018, 2020-2021 The Linux Foundation. All 
+>> rights reserved.
+>>    * Copyright (C) 2013 Red Hat
+>>    * Author: Rob Clark <robdclark@gmail.com>
+>> @@ -22,6 +23,7 @@
+>>   #include "dpu_hw_ctl.h"
+>>   #include "dpu_hw_dspp.h"
+>>   #include "dpu_hw_dsc.h"
+>> +#include "dpu_hw_merge3d.h"
+>>   #include "dpu_formats.h"
+>>   #include "dpu_encoder_phys.h"
+>>   #include "dpu_crtc.h"
+>> @@ -1838,6 +1840,86 @@ void dpu_encoder_kickoff(struct drm_encoder 
+>> *drm_enc)
+>>       DPU_ATRACE_END("encoder_kickoff");
+>>   }
+>> +static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys 
+>> *phys_enc)
+>> +{
+>> +    struct dpu_hw_mixer_cfg mixer;
+>> +    int i, num_lm;
+>> +    u32 flush_mask = 0;
+>> +    struct dpu_global_state *global_state;
+>> +    struct dpu_hw_blk *hw_lm[2];
+>> +    struct dpu_hw_mixer *hw_mixer[2];
+>> +    struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
+>> +
+>> +    memset(&mixer, 0, sizeof(mixer));
+>> +
+>> +    /* reset all mixers for this encoder */
+>> +    if (phys_enc->hw_ctl->ops.clear_all_blendstages)
+>> +        phys_enc->hw_ctl->ops.clear_all_blendstages(phys_enc->hw_ctl);
+>> +
+>> +    global_state = dpu_kms_get_existing_global_state(phys_enc->dpu_kms);
+>> +
+>> +    num_lm = dpu_rm_get_assigned_resources(&phys_enc->dpu_kms->rm, 
+>> global_state,
+>> +        phys_enc->parent->base.id, DPU_HW_BLK_LM, hw_lm, 
+>> ARRAY_SIZE(hw_lm));
+>> +
+>> +    for (i = 0; i < num_lm; i++) {
+>> +        hw_mixer[i] = to_dpu_hw_mixer(hw_lm[i]);
+>> +        flush_mask = phys_enc->hw_ctl->ops.get_bitmask_mixer(ctl, 
+>> hw_mixer[i]->idx);
+>> +        if (phys_enc->hw_ctl->ops.update_pending_flush)
+>> +            phys_enc->hw_ctl->ops.update_pending_flush(ctl, flush_mask);
+>> +
+>> +        /* clear all blendstages */
+>> +        if (phys_enc->hw_ctl->ops.setup_blendstage)
+>> +            phys_enc->hw_ctl->ops.setup_blendstage(ctl, 
+>> hw_mixer[i]->idx, NULL);
+>> +    }
+>> +}
+>> +
+>> +void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
+>> +{
+>> +    struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
+>> +    struct dpu_hw_intf_cfg intf_cfg = { 0 };
+>> +    int i;
+>> +    struct dpu_encoder_virt *dpu_enc;
+>> +
+>> +    dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
+>> +
+>> +    phys_enc->hw_ctl->ops.reset(ctl);
+>> +
+>> +    dpu_encoder_helper_reset_mixers(phys_enc);
+>> +
+>> +    for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+>> +        if (dpu_enc->phys_encs[i] && 
+>> phys_enc->hw_intf->ops.bind_pingpong_blk)
+>> +            phys_enc->hw_intf->ops.bind_pingpong_blk(
+>> +                    dpu_enc->phys_encs[i]->hw_intf, false,
+>> +                    dpu_enc->phys_encs[i]->hw_pp->idx);
+>> +
+>> +        /* mark INTF flush as pending */
+>> +        if (phys_enc->hw_ctl->ops.update_pending_flush_intf)
+>> +            
+>> phys_enc->hw_ctl->ops.update_pending_flush_intf(phys_enc->hw_ctl,
+>> +                    dpu_enc->phys_encs[i]->hw_intf->idx);
+>> +    }
+>> +
+>> +    /* reset the merge 3D HW block */
+>> +    if (phys_enc->hw_pp->merge_3d) {
+>> +        
+>> phys_enc->hw_pp->merge_3d->ops.setup_3d_mode(phys_enc->hw_pp->merge_3d,
+>> +                BLEND_3D_NONE);
+>> +        if (phys_enc->hw_ctl->ops.update_pending_flush_merge_3d)
+>> +            phys_enc->hw_ctl->ops.update_pending_flush_merge_3d(ctl,
+>> +                    phys_enc->hw_pp->merge_3d->idx);
+>> +    }
+>> +
+>> +    intf_cfg.stream_sel = 0; /* Don't care value for video mode */
+>> +    intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
+>> +    if (phys_enc->hw_pp->merge_3d)
+>> +        intf_cfg.merge_3d = phys_enc->hw_pp->merge_3d->idx;
+>> +
+>> +    if (ctl->ops.reset_intf_cfg)
+>> +        ctl->ops.reset_intf_cfg(ctl, &intf_cfg);
+>> +
+>> +    ctl->ops.trigger_flush(ctl);
+>> +    ctl->ops.trigger_start(ctl);
+>> +    ctl->ops.clear_pending_flush(ctl);
+>> +}
+>> +
+>>   void dpu_encoder_prepare_commit(struct drm_encoder *drm_enc)
+>>   {
+>>       struct dpu_encoder_virt *dpu_enc;
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+>> index 706b566..544a9a4 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+>> @@ -1,5 +1,6 @@
+>>   /* SPDX-License-Identifier: GPL-2.0-only */
+>>   /*
+>> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights 
+>> reserved.
+>>    * Copyright (c) 2015-2018 The Linux Foundation. All rights reserved.
+>>    */
+>> @@ -350,4 +351,10 @@ int dpu_encoder_helper_wait_for_irq(struct 
+>> dpu_encoder_phys *phys_enc,
+>>           void (*func)(void *arg, int irq_idx),
+>>           struct dpu_encoder_wait_info *wait_info);
+>> +/**
+>> + * dpu_encoder_helper_phys_cleanup - helper to cleanup dpu pipeline
+>> + * @phys_enc: Pointer to physical encoder structure
+>> + */
+>> +void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc);
+>> +
+>>   #endif /* __dpu_encoder_phys_H__ */
+> 
+> 
