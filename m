@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1655C50820F
-	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 09:26:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16785508280
+	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 09:44:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD25F10F202;
-	Wed, 20 Apr 2022 07:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A2C810F0D5;
+	Wed, 20 Apr 2022 07:44:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F4E410F202
- for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 07:26:29 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id w1so1266706lfa.4
- for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 00:26:29 -0700 (PDT)
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCE2410E836
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 07:44:20 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id h11so945414ljb.2
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 00:44:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=cojOaNHOH/OuAXhbP7HRkjccKofdUD89wnI1kGLBN/4=;
- b=nu2RxL8dmKq3CS59pKdAF2Gv1kfBM9g3wv6wOqF5r4aSnLDTbXY0r/vAbTHIltCRVH
- /1Af2uWo3/aBhARgjU4IebVjj37jm2qXcQ4YpO+E+xqdaRzynOM61S3NfYtpu1HItLBp
- GUQsoUYO/3luE+RKrtXdAgZsf/b6KIupmUbDhwL0dU0XdTpimvwwEBuG9Qjqge7UdhNq
- aQPfH/h1rOYcc6ZwMHR8hyV8dY1widEK2jxfGMcVWUP6dlvof9IXpfyzEKT/i/pJCljw
- SGip53/ndO56h4+yvJay8rA8bQKnd1F7ENjjCqm5PNSbMTEW81C+WNVBbEl0VZOT2T4z
- 4vVA==
+ bh=ibwUwHm/xhch6g+B676ErtePh6cmjlKjgcvhpkHL8f4=;
+ b=ocE+pHmhwwcPGq8yPZFvrxB4QNQRa3l1Tj4xoSw9J3/aNPAnSj+Jvetzi5ssv4UlPO
+ FeeJloH4CrvvRTsoauyytI5BfTulPRvjC1TWcEK0X6j1/rN0aJ8Y2q85xBkBEwvmEmDU
+ pJklVVnN42gyEOAR5X8J8qBb1MkxjZ6u9MNxTW0tF2GdneFlloJd9y+Pd0hpz0mQR4kH
+ CCCtTtRF9MWaigIMZCWUvR2+ClnBIWgOLiwVw5DGS5S58Q/a+FcLeiyIT3hlUPJEXzs3
+ ymsvwRNHo7zL43eZYgWxDi1P9ptTMkg88cz06bhoJEdPm3dc+TZZflydOUxi/BptTCHW
+ vcJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=cojOaNHOH/OuAXhbP7HRkjccKofdUD89wnI1kGLBN/4=;
- b=HQcpx9SqUu9WcNHNf38AFz/AIQUa0IT43kx9XlizfkrNIpkZmo2IwqgEfwh6JlsnJ5
- WLnbAYqMWnW3hZHxYL6B3Y+tCKhLgRDwidGku0tUU45xWm5nFGC/Jx13nsNDZ6bcnsad
- YSreEvb4KeyF3SBJn9MJ/iqg6t2C1V7R/pkMQ2Tf5YFW/C0FuRl3YwspNRdpbsjc8oOc
- 6wum7ojJ76Ov0A61zBdZzZO0TM6T9pgBVY4n4ahUBOISiIZhiqycqEdLirFQghxyV2pJ
- 61ZcnVCPGi+ha8EZLBjIyzUnbPiVXxKfd+rSgfLc3yofk7WWO6bKlZnarLqkPpm6ogtP
- B+hg==
-X-Gm-Message-State: AOAM530OSZ6ehJ8ZIWnXxXTjuvLaFEx6Ex9nV9gNhUHXqt+PwZnYtazr
- rIWari5e1zMxgcdVv8QtRCJ51w==
-X-Google-Smtp-Source: ABdhPJzPXREVzo/+QlSyPlmI3ImHupvgQQOHZvAu6d7YJwkpdOWC7PDc51qQtHaQ/K7UcoGiknEtuQ==
-X-Received: by 2002:ac2:4dbc:0:b0:46b:c20e:7574 with SMTP id
- h28-20020ac24dbc000000b0046bc20e7574mr14298119lfe.386.1650439587734; 
- Wed, 20 Apr 2022 00:26:27 -0700 (PDT)
+ bh=ibwUwHm/xhch6g+B676ErtePh6cmjlKjgcvhpkHL8f4=;
+ b=489zCkWwsgVIflq7As4mJYYzmJRzwPEpfN1wtCZRXXFuZVl8p8fyiZYCZvUN16m0bN
+ sVQ5B95F9ixrKVd6P3wdwaQibdvzpm6F52Jjrbv1ALQWLQzSC7ZQ8qN532QHjHLmVTSa
+ twJYIeybpGI44fR74A51xgEehmL0D8ZWulJnf4Oo+98Q1drIX4oOQX/Wi9r9Jr9nFr9x
+ 0J5iU4ZIwGnfC+1hoY82RRYvCgmjk8L93yfNfMU6usjvFpjxSw8HQoI2aoxXEerez/RT
+ 7jAVl7I7uLxpCZXBISB5GM9/mIynCqpSH/zXF7WuS1/ykMFXCKR0M5LTrVQRcE8ALaNS
+ PxNQ==
+X-Gm-Message-State: AOAM531AUAFWoAsoPPTUGxvRL0IBMAGn1IK5RdB9lBVUflvzvxAODxNH
+ gqtuQgQ+Al2dXRy8jJEFV7wrjg==
+X-Google-Smtp-Source: ABdhPJxprE+9wH3oqsQuTKK8tf7KDAsJuH+nCv0YZ9FRirgKZU61bZSo9ZcGhwqJLK37+e/p3UJ34g==
+X-Received: by 2002:a05:651c:4c8:b0:24b:598f:9ceb with SMTP id
+ e8-20020a05651c04c800b0024b598f9cebmr12753475lji.158.1650440659135; 
+ Wed, 20 Apr 2022 00:44:19 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- s22-20020a197716000000b0046bc65188d6sm1739163lfc.80.2022.04.20.00.26.26
+ h10-20020a056512338a00b0046fd34ed2dcsm1429260lfg.230.2022.04.20.00.44.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 00:26:27 -0700 (PDT)
-Message-ID: <367c1856-305f-f6b9-cb71-6dcecad38b77@linaro.org>
-Date: Wed, 20 Apr 2022 10:26:26 +0300
+ Wed, 20 Apr 2022 00:44:18 -0700 (PDT)
+Message-ID: <d31094f8-c067-567e-3fcb-d2ae31fff3c0@linaro.org>
+Date: Wed, 20 Apr 2022 10:44:18 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
 Content-Language: en-GB
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
 References: <1650419169-13760-1-git-send-email-quic_abhinavk@quicinc.com>
- <1650419169-13760-13-git-send-email-quic_abhinavk@quicinc.com>
+ <1650419169-13760-11-git-send-email-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1650419169-13760-13-git-send-email-quic_abhinavk@quicinc.com>
+In-Reply-To: <1650419169-13760-11-git-send-email-quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 12/17] drm/msm/dpu: move
- _dpu_plane_get_qos_lut to dpu_hw_util file
+Subject: Re: [Freedreno] [PATCH v2 10/17] drm/msm/dpu: make changes to
+ dpu_encoder to support virtual encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,121 +83,194 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 20/04/2022 04:46, Abhinav Kumar wrote:
-> _dpu_plane_get_qos_lut() is not specific to just dpu_plane.
-> It can take any fill level and return the LUT matching it.
-> This can be used even for other modules like dpu_writeback.
+> Make changes to dpu_encoder to support virtual encoder needed
+> to support writeback for dpu.
 > 
-> Move _dpu_plane_get_qos_lut() to the common dpu_hw_util file
-> and rename it to _dpu_hw_get_qos_lut().
+> changes in v2:
+> 	- add the writeback parts to dpu_encoder_helper_phys_cleanup
+> 	- rebase on tip of msm-next and fix related dependencies
+> 	- get the writeback blocks directly from RM
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 25 +++++++++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h |  4 ++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 27 +--------------------------
->   3 files changed, 30 insertions(+), 26 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 71 +++++++++++++++++-------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  3 +
+>   2 files changed, 54 insertions(+), 20 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
-> index aad8511..512316f 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c
-> @@ -422,3 +422,28 @@ void dpu_hw_csc_setup(struct dpu_hw_blk_reg_map *c,
->   	DPU_REG_WRITE(c, csc_reg_off + 0x3c, data->csc_post_bv[1]);
->   	DPU_REG_WRITE(c, csc_reg_off + 0x40, data->csc_post_bv[2]);
->   }
-> +
-> +/**
-> + * _dpu_hw_get_qos_lut - get LUT mapping based on fill level
-> + * @tbl:		Pointer to LUT table
-> + * @total_fl:		fill level
-> + * Return: LUT setting corresponding to the fill level
-> + */
-> +u64 _dpu_hw_get_qos_lut(const struct dpu_qos_lut_tbl *tbl,
-> +		u32 total_fl)
-> +{
-> +	int i;
-> +
-> +	if (!tbl || !tbl->nentry || !tbl->entries)
-> +		return 0;
-> +
-> +	for (i = 0; i < tbl->nentry; i++)
-> +		if (total_fl <= tbl->entries[i].fl)
-> +			return tbl->entries[i].lut;
-> +
-> +	/* if last fl is zero, use as default */
-> +	if (!tbl->entries[i-1].fl)
-> +		return tbl->entries[i-1].lut;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-> index 3913475..529a6e0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h
-> @@ -9,6 +9,7 @@
->   #include <linux/io.h>
->   #include <linux/slab.h>
->   #include "dpu_hw_mdss.h"
-> +#include "dpu_hw_catalog.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 0e31ad3..06b8631 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -928,6 +928,7 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+>   	int num_lm, num_ctl, num_pp, num_dsc;
+>   	unsigned int dsc_mask = 0;
+> +	enum dpu_hw_blk_type blk_type;
+>   	int i;
 >   
->   #define REG_MASK(n)                     ((BIT(n)) - 1)
+>   	if (!drm_enc) {
+> @@ -1009,12 +1010,21 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   		phys->hw_pp = dpu_enc->hw_pp[i];
+>   		phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
 >   
-> @@ -324,4 +325,7 @@ void dpu_hw_csc_setup(struct dpu_hw_blk_reg_map  *c,
->   		u32 csc_reg_off,
->   		const struct dpu_csc_cfg *data, bool csc10);
->   
-> +u64 _dpu_hw_get_qos_lut(const struct dpu_qos_lut_tbl *tbl,
-> +		u32 total_fl);
+> -		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+> -			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
+> +		if (dpu_encoder_get_intf_mode(&dpu_enc->base) == INTF_MODE_WB_LINE)
+> +			blk_type = DPU_HW_BLK_WB;
+> +		else
+> +			blk_type = DPU_HW_BLK_INTF;
 > +
->   #endif /* _DPU_HW_UTIL_H */
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index c77c3d9d..730f0a3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -280,31 +280,6 @@ static int _dpu_plane_calc_fill_level(struct drm_plane *plane,
+> +		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX) {
+> +			if (blk_type == DPU_HW_BLK_INTF)
+> +				phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
+> +			else if (blk_type == DPU_HW_BLK_WB)
+> +				phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->intf_idx);
+> +		}
+>   
+> -		if (!phys->hw_intf) {
+> +		if (!phys->hw_intf && !phys->hw_wb) {
+>   			DPU_ERROR_ENC(dpu_enc,
+> -				      "no intf block assigned at idx: %d\n", i);
+> +				      "no intf ow wb block assigned at idx: %d\n", i);
+
+or wb
+
+>   			return;
+>   		}
+>   
+> @@ -1157,15 +1167,22 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+>   	mutex_unlock(&dpu_enc->enc_lock);
 >   }
 >   
->   /**
-> - * _dpu_plane_get_qos_lut - get LUT mapping based on fill level
-> - * @tbl:		Pointer to LUT table
-> - * @total_fl:		fill level
-> - * Return: LUT setting corresponding to the fill level
-> - */
-> -static u64 _dpu_plane_get_qos_lut(const struct dpu_qos_lut_tbl *tbl,
-> -		u32 total_fl)
-> -{
-> -	int i;
-> -
-> -	if (!tbl || !tbl->nentry || !tbl->entries)
-> -		return 0;
-> -
-> -	for (i = 0; i < tbl->nentry; i++)
-> -		if (total_fl <= tbl->entries[i].fl)
-> -			return tbl->entries[i].lut;
-> -
-> -	/* if last fl is zero, use as default */
-> -	if (!tbl->entries[i-1].fl)
-> -		return tbl->entries[i-1].lut;
-> -
-> -	return 0;
-> -}
-> -
-> -/**
->    * _dpu_plane_set_qos_lut - set QoS LUT of the given plane
->    * @plane:		Pointer to drm plane
->    * @fb:			Pointer to framebuffer associated with the given plane
-> @@ -333,7 +308,7 @@ static void _dpu_plane_set_qos_lut(struct drm_plane *plane,
->   			lut_usage = DPU_QOS_LUT_USAGE_MACROTILE;
+> -static enum dpu_intf dpu_encoder_get_intf(struct dpu_mdss_cfg *catalog,
+> +static enum dpu_intf dpu_encoder_get_intf_or_wb(struct dpu_mdss_cfg *catalog,
+>   		enum dpu_intf_type type, u32 controller_id)
+>   {
+>   	int i = 0;
+>   
+> -	for (i = 0; i < catalog->intf_count; i++) {
+> -		if (catalog->intf[i].type == type
+> -		    && catalog->intf[i].controller_id == controller_id) {
+> -			return catalog->intf[i].id;
+> +	if (type != INTF_WB) {
+> +		for (i = 0; i < catalog->intf_count; i++) {
+> +			if (catalog->intf[i].type == type
+> +				&& catalog->intf[i].controller_id == controller_id) {
+> +				return catalog->intf[i].id;
+> +			}
+> +		}
+> +	} else {
+> +		for (i = 0; i < catalog->wb_count; i++) {
+> +			if (catalog->wb[i].id == controller_id)
+> +				return catalog->wb[i].id;
+>   		}
 >   	}
 >   
-> -	qos_lut = _dpu_plane_get_qos_lut(
-> +	qos_lut = _dpu_hw_get_qos_lut(
->   			&pdpu->catalog->perf.qos_lut_tbl[lut_usage], total_fl);
+> @@ -1886,16 +1903,27 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
 >   
->   	trace_dpu_perf_set_qos_luts(pdpu->pipe - SSPP_VIG0,
+>   	dpu_encoder_helper_reset_mixers(phys_enc);
+>   
+> -	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+> -		if (dpu_enc->phys_encs[i] && phys_enc->hw_intf->ops.bind_pingpong_blk)
+> -			phys_enc->hw_intf->ops.bind_pingpong_blk(
+> -					dpu_enc->phys_encs[i]->hw_intf, false,
+> -					dpu_enc->phys_encs[i]->hw_pp->idx);
+> +	if (phys_enc->hw_wb) {
+
+I think this adds a hidden knowledge here. That there is always just a 
+single phys_enc for the WB encoder. I'd still do this cleanup in a loop 
+together with the INTF cleanup.
+
+> +		/* disable the PP block */
+> +		if (phys_enc->hw_wb->ops.bind_pingpong_blk)
+> +			phys_enc->hw_wb->ops.bind_pingpong_blk(phys_enc->hw_wb, false,
+> +					phys_enc->hw_pp->idx);
+>   
+> -		/* mark INTF flush as pending */
+> -		if (phys_enc->hw_ctl->ops.update_pending_flush_intf)
+> -			phys_enc->hw_ctl->ops.update_pending_flush_intf(phys_enc->hw_ctl,
+> -					dpu_enc->phys_encs[i]->hw_intf->idx);
+> +		/* mark WB flush as pending */
+> +		if (phys_enc->hw_ctl->ops.update_pending_flush_wb)
+> +			phys_enc->hw_ctl->ops.update_pending_flush_wb(ctl, phys_enc->hw_wb->idx);
+> +	} else {
+> +		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+> +			if (dpu_enc->phys_encs[i] && phys_enc->hw_intf->ops.bind_pingpong_blk)
+> +				phys_enc->hw_intf->ops.bind_pingpong_blk(
+> +						dpu_enc->phys_encs[i]->hw_intf, false,
+> +						dpu_enc->phys_encs[i]->hw_pp->idx);
+> +
+> +			/* mark INTF flush as pending */
+> +			if (phys_enc->hw_ctl->ops.update_pending_flush_intf)
+> +				phys_enc->hw_ctl->ops.update_pending_flush_intf(phys_enc->hw_ctl,
+> +						dpu_enc->phys_encs[i]->hw_intf->idx);
+> +		}
+>   	}
+>   
+>   	/* reset the merge 3D HW block */
+> @@ -2111,6 +2139,9 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+>   	case DRM_MODE_ENCODER_TMDS:
+>   		intf_type = INTF_DP;
+>   		break;
+> +	case DRM_MODE_ENCODER_VIRTUAL:
+> +		intf_type = INTF_WB;
+> +		break;
+>   	}
+>   
+>   	WARN_ON(disp_info->num_of_h_tiles < 1);
+> @@ -2145,11 +2176,11 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+>   		DPU_DEBUG("h_tile_instance %d = %d, split_role %d\n",
+>   				i, controller_id, phys_params.split_role);
+>   
+> -		phys_params.intf_idx = dpu_encoder_get_intf(dpu_kms->catalog,
+> +		phys_params.intf_idx = dpu_encoder_get_intf_or_wb(dpu_kms->catalog,
+>   													intf_type,
+>   													controller_id);
+
+I'd prefer to be more explicit here. intf_idx is of type enum dpu_intf, 
+while WBs are enumerated with enum dpu_wb.
+
+I's suggest adding a separate phys_params.wb_idx and a 
+dpu_encoder_get_wb() and calling one here depending on intf_type.
+
+Then at the dpu_encoder_virt_atomic_mode_set() you don't need to check 
+intf_mode, but get both intf and wb and report an error if none was 
+provided.
+
+>   		if (phys_params.intf_idx == INTF_MAX) {
+> -			DPU_ERROR_ENC(dpu_enc, "could not get intf: type %d, id %d\n",
+> +			DPU_ERROR_ENC(dpu_enc, "could not get intf or wb: type %d, id %d\n",
+>   						  intf_type, controller_id);
+>   			ret = -EINVAL;
+>   		}
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index 544a9a4..0b80af4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -11,6 +11,7 @@
+>   
+>   #include "dpu_kms.h"
+>   #include "dpu_hw_intf.h"
+> +#include "dpu_hw_wb.h"
+>   #include "dpu_hw_pingpong.h"
+>   #include "dpu_hw_ctl.h"
+>   #include "dpu_hw_top.h"
+> @@ -165,6 +166,7 @@ enum dpu_intr_idx {
+>    * @hw_ctl:		Hardware interface to the ctl registers
+>    * @hw_pp:		Hardware interface to the ping pong registers
+>    * @hw_intf:		Hardware interface to the intf registers
+> + * @hw_wb:		Hardware interface to the wb registers
+>    * @dpu_kms:		Pointer to the dpu_kms top level
+>    * @cached_mode:	DRM mode cached at mode_set time, acted on in enable
+>    * @enabled:		Whether the encoder has enabled and running a mode
+> @@ -193,6 +195,7 @@ struct dpu_encoder_phys {
+>   	struct dpu_hw_ctl *hw_ctl;
+>   	struct dpu_hw_pingpong *hw_pp;
+>   	struct dpu_hw_intf *hw_intf;
+> +	struct dpu_hw_wb *hw_wb;
+>   	struct dpu_kms *dpu_kms;
+>   	struct drm_display_mode cached_mode;
+>   	enum dpu_enc_split_role split_role;
 
 
 -- 
