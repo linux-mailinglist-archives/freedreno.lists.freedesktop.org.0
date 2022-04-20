@@ -1,68 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51CEE5082E3
-	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 09:54:17 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15E775082F4
+	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 09:55:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0BDD10F1B1;
-	Wed, 20 Apr 2022 07:54:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3DF10F1B8;
+	Wed, 20 Apr 2022 07:55:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84CDB10F1B8
- for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 07:54:14 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id y32so1371119lfa.6
- for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 00:54:14 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A2A10F1B1
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 07:55:14 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id w1so1381839lfa.4
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 00:55:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=JHFHIfMWok7YUhJBGEeNPDXqsMvM9nZ0ifc2Vic3yQY=;
- b=GCcVTcpeEw96UsK37wO+CSYLw2C2Yth7DJIEfxD/WhJ+iVEsPU1gMxalxZBILNy5yN
- 2mYJ8ryJtQHM1iHWYDz69ZKe6ivHLUxrDOslOrnGMoJYTDuA8+hw655AABPAEhMjDGGD
- 2W23vDKHUnpPSO+sSenAMK5Fg4AYpOlcQu9efVm2WAtUIitaAxe4L91Y3Rm8W7U1eCCi
- IxLFERIlXwm3CWF7QUn4sxCYi33hhiBo9e01hC4wC9A3uIshwaEqE1EEnDvQnoIvDT/+
- wHTTI+bXyy1jnqLwc3VrJjqH+gmgUqCnpC/DTD8DheAxqz3gzU54vTbhLf3h9phzL86Q
- c4dQ==
+ bh=T5KtR5lRhhPM3FKeYo+8y/vzpSYPxhvdp4ZbKNwZlEE=;
+ b=MJjxxTHUOSB3GJcE9f4Q4cvOmxZK/qU4J1Stq6dxohJP2iVp4CheOTf7g9HTO1Glig
+ lvI9PiN9qS4tRJKI9cLWd0UlnsNizhix5URalvu5jGuGKO+9XD+NEUK4imJ+L+t6PdGB
+ 5MNrrD+yxISe/p8IqgF+cYhbbXXGvKRd/XgYHQxvg7r3jtNN/S9E0r0/tHPjkzVO5pCE
+ joO/CDQx5bMTHUNGz5YstY1lVUu/hEbwGEMM7Pf6tNvX4MmNh45nmwCo0EpJtbalvz3a
+ SaGXnROy+ks1UBPL5YoUg5DNXgU3xSESEjkYYOQONzzazkJ/AKZ7CUrHviI7OzbeW+Fc
+ RpLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=JHFHIfMWok7YUhJBGEeNPDXqsMvM9nZ0ifc2Vic3yQY=;
- b=y9eOUvsLr3keFiyiUfxdH9OA0epob3XQt8kQgA/Qvy1C2R3GAJYV/Yx1/163iK98Ak
- HAtFsaRzq/qjsZG4QtXhWGAfYJfk8t2jp2Qllq1ruU/Elh+H7CEd1i7CPdt3rTyMMTes
- b+oYUzgHlM8jEkECkmU5FFl2IJgWRgT1AaBrYWHxuZR+UIGzv1jsduaU1OlJi/vBxx0h
- ouQlF0iKQ4nelLwsMHLrL3IrHV4gc3F/JxgKpxDVSCwgah/VMRKKGniXSfuPrt1oPvDX
- QJDS60XtZEMrfWM8gEtmpmbItS0/iHV4+S7/NZQaHajUUL6yhk4mTUU8p00JjupBoUR5
- oS9Q==
-X-Gm-Message-State: AOAM5308vSHFdBhUnWlabdVUhnPi0rgVlIFCnnTXGLQ2N3Tn7i52dqcx
- cfiaL374O5vd+A2+rNq8u8wmv8qwkeKbqg==
-X-Google-Smtp-Source: ABdhPJwuHC8e7nhL/oxwenWBCoSUwG0ccNQIycxx9Xp9vM3DOOA+Axx0goxd6gqGFuDTi6eKCPwjww==
-X-Received: by 2002:a05:6512:3441:b0:46d:f73:777a with SMTP id
- j1-20020a056512344100b0046d0f73777amr13326649lfr.426.1650441252666; 
- Wed, 20 Apr 2022 00:54:12 -0700 (PDT)
+ bh=T5KtR5lRhhPM3FKeYo+8y/vzpSYPxhvdp4ZbKNwZlEE=;
+ b=E4Fy8KQSfwkj73rM3kBr1Q4tE82+lowGKBwPE434n7aRrJAwrJXgzRcs6Vk5ZfyXR1
+ VhvCKluOiOQV1HXkiQWuY+Uj89rcal2yIMpFdwDJKDE7scA/yoOZzxPq6Johfmj/zg9O
+ vG5LXJQSKQtblylby84EMAUZaumq8KmiCNYgzRPEahM4hIBimiCggxY1DkaaGZf1vjTa
+ qhXr/AxyvKFA7UIAMHSacWVioTpm97Vv8Nort1FhbWJZ2KWtMhIlZUO9oK54kQPoxonw
+ 0FSIVuCKUaWt7xWYhGvwlFqWNj88oT1X3wDHCxtauO62BaQRx0LWzMMOfPnHjin9rAlm
+ m/nw==
+X-Gm-Message-State: AOAM530UPiVVD4YPPUuCugLEikT6f+/gSU8Ps88X9P4ykxo+47EcSqus
+ J3EWtUZouGpRtAhXSwkOXMiJIA==
+X-Google-Smtp-Source: ABdhPJwUtL2Bj1LnTN1Kaf81iarLQr53GEhtFPjtpmcrTizMEAEwWzs46ow9RcOcVgIzdeWttOp/EQ==
+X-Received: by 2002:a05:6512:400a:b0:46b:8cd9:1af8 with SMTP id
+ br10-20020a056512400a00b0046b8cd91af8mr14465289lfb.545.1650441312951; 
+ Wed, 20 Apr 2022 00:55:12 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- o26-20020a198c1a000000b0046bc20821f6sm1744115lfd.115.2022.04.20.00.54.11
+ s12-20020a2e83cc000000b0024ee0d96123sm10374ljh.122.2022.04.20.00.55.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 00:54:12 -0700 (PDT)
-Message-ID: <f2ee13ea-8c75-5000-3354-75ddd57a0b9b@linaro.org>
-Date: Wed, 20 Apr 2022 10:54:11 +0300
+ Wed, 20 Apr 2022 00:55:12 -0700 (PDT)
+Message-ID: <8ad828bb-8614-561d-4e3d-fe901e665077@linaro.org>
+Date: Wed, 20 Apr 2022 10:55:11 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
 Content-Language: en-GB
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
 References: <1650419169-13760-1-git-send-email-quic_abhinavk@quicinc.com>
- <1650419169-13760-16-git-send-email-quic_abhinavk@quicinc.com>
+ <1650419169-13760-17-git-send-email-quic_abhinavk@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1650419169-13760-16-git-send-email-quic_abhinavk@quicinc.com>
+In-Reply-To: <1650419169-13760-17-git-send-email-quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 15/17] drm/msm/dpu: initialize dpu
- encoder and connector for writeback
+Subject: Re: [Freedreno] [PATCH v2 16/17] drm/msm/dpu: gracefully handle
+ null fb commits for writeback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,202 +83,147 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 20/04/2022 04:46, Abhinav Kumar wrote:
-> Initialize dpu encoder and connector for writeback if the
-> target supports it in the catalog.
+> kms_writeback test cases also verify with a null fb for the
+> writeback connector job. In addition there are also other
+> commit paths which can result in kickoffs without a valid
+> framebuffer like while closing the fb which results in the
+> callback to drm_atomic_helper_dirtyfb() which internally
+> triggers a commit.
+> 
+> Add protection in the dpu driver to ensure that commits for
+> writeback encoders without a valid fb are gracefully skipped.
 > 
 > changes in v2:
-> 	- start initialing the encoder for writeback since we
-> 	have migrated to using drm_writeback_connector_init_with_encoder()
-> 	- instead of checking for WB_2 inside _dpu_kms_initialize_writeback
-> 	call it only when its WB_2
-> 	- rebase on tip of msm-next and remove usage of priv->encoders
+> 	- rename dpu_encoder_has_valid_fb to dpu_encoder_is_valid_for_commit
 > 
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 27 ++++++++++----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 58 +++++++++++++++++++++++++++++
->   2 files changed, 78 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c            |  9 +++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h         |  6 ++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h    |  1 +
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 12 ++++++++++++
+>   5 files changed, 49 insertions(+)
 > 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 7763558..d65e124 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -869,6 +869,13 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+>   
+>   	DPU_ATRACE_BEGIN("crtc_commit");
+>   
+> +	drm_for_each_encoder_mask(encoder, crtc->dev,
+> +			crtc->state->encoder_mask) {
+> +		if (!dpu_encoder_is_valid_for_commit(encoder)) {
+> +			DRM_DEBUG_ATOMIC("invalid FB not kicking off crtc\n");
+> +			goto end;
+> +		}
+> +	}
+>   	/*
+>   	 * Encoder will flush/start now, unless it has a tx pending. If so, it
+>   	 * may delay and flush at an irq event (e.g. ppdone)
+> @@ -891,6 +898,8 @@ void dpu_crtc_commit_kickoff(struct drm_crtc *crtc)
+>   		dpu_encoder_kickoff(encoder);
+>   
+>   	reinit_completion(&dpu_crtc->frame_done_comp);
+> +
+> +end:
+>   	DPU_ATRACE_END("crtc_commit");
+>   }
+>   
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index b117cad..b1475dd 100644
+> index b1475dd..d07e3ee 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2085,7 +2085,7 @@ static void dpu_encoder_early_unregister(struct drm_encoder *encoder)
+> @@ -1850,6 +1850,27 @@ void dpu_encoder_prepare_for_kickoff(struct drm_encoder *drm_enc)
+>   		dpu_encoder_prep_dsc(dpu_enc, dpu_enc->dsc);
 >   }
 >   
->   static int dpu_encoder_virt_add_phys_encs(
-> -		u32 display_caps,
-> +		struct msm_display_info *disp_info,
->   		struct dpu_encoder_virt *dpu_enc,
->   		struct dpu_enc_phys_init_params *params)
->   {
-> @@ -2104,7 +2104,7 @@ static int dpu_encoder_virt_add_phys_encs(
->   		return -EINVAL;
->   	}
->   
-> -	if (display_caps & MSM_DISPLAY_CAP_VID_MODE) {
-> +	if (disp_info->capabilities & MSM_DISPLAY_CAP_VID_MODE) {
->   		enc = dpu_encoder_phys_vid_init(params);
->   
->   		if (IS_ERR_OR_NULL(enc)) {
-> @@ -2117,7 +2117,7 @@ static int dpu_encoder_virt_add_phys_encs(
->   		++dpu_enc->num_phys_encs;
->   	}
->   
-> -	if (display_caps & MSM_DISPLAY_CAP_CMD_MODE) {
-> +	if (disp_info->capabilities & MSM_DISPLAY_CAP_CMD_MODE) {
->   		enc = dpu_encoder_phys_cmd_init(params);
->   
->   		if (IS_ERR_OR_NULL(enc)) {
-> @@ -2130,6 +2130,19 @@ static int dpu_encoder_virt_add_phys_encs(
->   		++dpu_enc->num_phys_encs;
->   	}
->   
-> +	if (disp_info->intf_type == DRM_MODE_ENCODER_VIRTUAL) {
-> +		enc = dpu_encoder_phys_wb_init(params);
-> +
-> +		if (IS_ERR_OR_NULL(enc)) {
-> +			DPU_ERROR_ENC(dpu_enc, "failed to init wb enc: %ld\n",
-> +					PTR_ERR(enc));
-> +			return enc == NULL ? -EINVAL : PTR_ERR(enc);
-> +		}
-> +
-> +		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
-> +		++dpu_enc->num_phys_encs;
-> +	}
-> +
->   	if (params->split_role == ENC_ROLE_SLAVE)
->   		dpu_enc->cur_slave = enc;
->   	else
-> @@ -2220,9 +2233,8 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->   		}
->   
->   		if (!ret) {
-> -			ret = dpu_encoder_virt_add_phys_encs(disp_info->capabilities,
-> -												 dpu_enc,
-> -												 &phys_params);
-> +			ret = dpu_encoder_virt_add_phys_encs(disp_info,
-> +					dpu_enc, &phys_params);
->   			if (ret)
->   				DPU_ERROR_ENC(dpu_enc, "failed to add phys encs\n");
->   		}
-> @@ -2339,8 +2351,9 @@ struct drm_encoder *dpu_encoder_init(struct drm_device *dev,
->   	if (!dpu_enc)
->   		return ERR_PTR(-ENOMEM);
->   
-> +
->   	rc = drm_encoder_init(dev, &dpu_enc->base, &dpu_encoder_funcs,
-> -			drm_enc_mode, NULL);
-> +							  drm_enc_mode, NULL);
->   	if (rc) {
->   		devm_kfree(dev->dev, dpu_enc);
->   		return ERR_PTR(rc);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index c683cab..0a50509 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1,5 +1,6 @@
->   // SPDX-License-Identifier: GPL-2.0-only
->   /*
-> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
->    * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
->    * Copyright (C) 2013 Red Hat
->    * Author: Rob Clark <robdclark@gmail.com>
-> @@ -15,6 +16,7 @@
->   #include <drm/drm_crtc.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_vblank.h>
-> +#include <drm/drm_writeback.h>
->   
->   #include "msm_drv.h"
->   #include "msm_mmu.h"
-> @@ -29,6 +31,7 @@
->   #include "dpu_kms.h"
->   #include "dpu_plane.h"
->   #include "dpu_vbif.h"
-> +#include "dpu_writeback.h"
->   
->   #define CREATE_TRACE_POINTS
->   #include "dpu_trace.h"
-> @@ -648,6 +651,45 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
->   	return 0;
->   }
->   
-> +static int _dpu_kms_initialize_writeback(struct drm_device *dev,
-> +		struct msm_drm_private *priv, struct dpu_kms *dpu_kms,
-> +		const u32 *wb_formats, int n_formats)
+> +bool dpu_encoder_is_valid_for_commit(struct drm_encoder *drm_enc)
 > +{
-> +	struct drm_encoder *encoder = NULL;
-> +	struct msm_display_info info;
-> +	int rc;
+> +	struct dpu_encoder_virt *dpu_enc;
+> +	unsigned int i;
+> +	struct dpu_encoder_phys *phys;
 > +
-> +	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_VIRTUAL);
-> +	if (IS_ERR(encoder)) {
-> +		DPU_ERROR("encoder init failed for dsi display\n");
-> +		return PTR_ERR(encoder);
-> +	}
+> +	dpu_enc = to_dpu_encoder_virt(drm_enc);
 > +
-> +	memset(&info, 0, sizeof(info));
-> +
-> +	rc = dpu_writeback_init(dev, encoder, wb_formats,
-> +			n_formats);
-> +	if (rc) {
-> +		DPU_ERROR("dpu_writeback_init, rc = %d\n", rc);
-> +		drm_encoder_cleanup(encoder);
-> +		return rc;
-> +	}
-> +
-> +	info.num_of_h_tiles = 1;
-> +	/* use only WB idx 2 instance for DPU */
-> +	info.h_tile_instance[0] = WB_2;
-> +	info.intf_type = encoder->encoder_type;
-> +
-> +	rc = dpu_encoder_setup(dev, encoder, &info);
-> +	if (rc) {
-> +		DPU_ERROR("failed to setup DPU encoder %d: rc:%d\n",
-> +				  encoder->base.id, rc);
-> +		return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   /**
->    * _dpu_kms_setup_displays - create encoders, bridges and connectors
->    *                           for underlying displays
-> @@ -661,6 +703,7 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
->   				    struct dpu_kms *dpu_kms)
->   {
->   	int rc = 0;
-> +	int i;
->   
->   	rc = _dpu_kms_initialize_dsi(dev, priv, dpu_kms);
->   	if (rc) {
-> @@ -674,6 +717,21 @@ static int _dpu_kms_setup_displays(struct drm_device *dev,
->   		return rc;
->   	}
->   
-> +	/* Since WB isn't a driver check the catalog before initializing */
-> +	if (dpu_kms->catalog->wb_count) {
-> +		for (i = 0; i < dpu_kms->catalog->wb_count; i++) {
-> +			if (dpu_kms->catalog->wb[i].id == WB_2) {
-> +				rc = _dpu_kms_initialize_writeback(dev, priv, dpu_kms,
-> +						dpu_kms->catalog->wb[i].format_list,
-> +						dpu_kms->catalog->wb[i].num_formats);
-> +				if (rc) {
-> +					DPU_ERROR("initialize_WB failed, rc = %d\n", rc);
-> +					return rc;
-> +				}
+> +	if (drm_enc->encoder_type == DRM_MODE_ENCODER_VIRTUAL) {
+> +		for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+> +			phys = dpu_enc->phys_encs[i];
+> +			if (phys->ops.is_valid_for_commit && !phys->ops.is_valid_for_commit(phys)) {
+> +				DPU_DEBUG("invalid FB not kicking off\n");
+> +				return false;
 > +			}
 > +		}
 > +	}
 > +
->   	return rc;
+> +	return true;
+> +}
+> +
+>   void dpu_encoder_kickoff(struct drm_encoder *drm_enc)
+>   {
+>   	struct dpu_encoder_virt *dpu_enc;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> index 6ceec1d..781d41c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
+> @@ -196,4 +196,10 @@ void dpu_encoder_prepare_wb_job(struct drm_encoder *drm_enc,
+>   void dpu_encoder_cleanup_wb_job(struct drm_encoder *drm_enc,
+>   		struct drm_writeback_job *job);
+>   
+> +/**
+> + * dpu_encoder_is_valid_for_commit - check if encode has valid parameters for commit.
+> + * @drm_enc:    Pointer to drm encoder structure
+> + */
+> +bool dpu_encoder_is_valid_for_commit(struct drm_encoder *drm_enc);
+> +
+>   #endif /* __DPU_ENCODER_H__ */
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> index 5452f98..04d037e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> @@ -142,6 +142,7 @@ struct dpu_encoder_phys_ops {
+>   			struct drm_writeback_job *job);
+>   	void (*cleanup_wb_job)(struct dpu_encoder_phys *phys_enc,
+>   			struct drm_writeback_job *job);
+> +	bool (*is_valid_for_commit)(struct dpu_encoder_phys *phys_enc);
+>   };
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> index 128317fe..9acbce0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> @@ -667,6 +667,16 @@ static void dpu_encoder_phys_wb_cleanup_wb_job(struct dpu_encoder_phys *phys_enc
+>   	wb_enc->wb_conn = NULL;
 >   }
 >   
+> +static bool dpu_encoder_phys_wb_is_valid_for_commit(struct dpu_encoder_phys *phys_enc)
+> +{
+> +	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys_enc);
+> +
+> +	if (wb_enc->wb_job)
+> +		return true;
+> +	else
+> +		return false;
+> +}
+> +
+>   /**
+>    * dpu_encoder_phys_wb_init_ops - initialize writeback operations
+>    * @ops:	Pointer to encoder operation table
+> @@ -687,6 +697,8 @@ static void dpu_encoder_phys_wb_init_ops(struct dpu_encoder_phys_ops *ops)
+>   	ops->prepare_wb_job = dpu_encoder_phys_wb_prepare_wb_job;
+>   	ops->cleanup_wb_job = dpu_encoder_phys_wb_cleanup_wb_job;
+>   	ops->irq_control = dpu_encoder_phys_wb_irq_ctrl;
+> +	ops->is_valid_for_commit = dpu_encoder_phys_wb_is_valid_for_commit;
+> +
+>   }
+>   
+>   /**
 
 
 -- 
