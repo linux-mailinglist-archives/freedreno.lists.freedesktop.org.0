@@ -2,58 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E15F507E77
-	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 03:54:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4E3507F11
+	for <lists+freedreno@lfdr.de>; Wed, 20 Apr 2022 04:47:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2F710E6B3;
-	Wed, 20 Apr 2022 01:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA27C10F273;
+	Wed, 20 Apr 2022 02:47:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8EA510E6B3;
- Wed, 20 Apr 2022 01:54:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650419672; x=1681955672;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=XI3sCHTzxVxILrLLvE1sd8KTIJ0EmjGjLNH4rTSU50Y=;
- b=FLltoc0y4b3njugCeNTXX3U9Lm0i8Dxo/95CQPoV8D2k8u1CRnEyPyAd
- aAPDzVXm6TYxDe+EtBNDbjpIGGxe8LR0ZgxVqqX+jZD3DQdEDVE3/MbWW
- gea+9Y8fYeTPxzMeJPyT/UtgzeYFs/aBfHb3lfVbdTA+O8993c0rXxHXd 8=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 19 Apr 2022 18:54:32 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 18:54:31 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 19 Apr 2022 18:54:31 -0700
-Received: from [10.111.175.117] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 19 Apr
- 2022 18:54:26 -0700
-Message-ID: <5ae2ede7-13e3-85fe-efd8-66bdcefda910@quicinc.com>
-Date: Tue, 19 Apr 2022 18:54:24 -0700
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCA0F10F273
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 02:47:15 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id z2so634407oic.6
+ for <freedreno@lists.freedesktop.org>; Tue, 19 Apr 2022 19:47:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=84Z8Ou62HiUqb8n4/xIdxq8unXBMW3W4N2w/x005ArY=;
+ b=iruwlQMQmkHPdfb5AUtOdH7s6RB4z+YA3vS74UUFPPoI9qTD2pH2mcQTnXg78CVToG
+ Q5zsNfXphSO1QQAk/vj3875wHTzoeSlZ2vXJO7asCXN5yVk/jZK7KSzWIN+zQrtjHSzC
+ JgLnEjBkjJMfRSqoiGAfGUFtMKk5Qd1MHOcNNK9rXQ2N79STDLNknk3YsCQqROd8eqDN
+ K83lmvqOaYoK5rTmwC1AcQhk/7BiBVtX+7UPL3qdAkdGRGvB06YApqKCgowV1mMo16wa
+ JdLAiTaTpGjpbImKUzleBacTZtMddsi30sZpK2RLjT2atcF2jhXSpjpCs7xbkuxbnlEa
+ Bv0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=84Z8Ou62HiUqb8n4/xIdxq8unXBMW3W4N2w/x005ArY=;
+ b=wLgOUiW50W8yqxQbIJBTtvjN2wYGfmV8hnE+CTwM/sI/Qg+K2oBkIbgca80vt8abyL
+ oRm/8wiK7OSsit55oIYaUgnUWKlerdY4e1tVd2D9zYui71HVp4ZBDzFnU/FiWhYXcesc
+ rmVkYMAjP8S/UrosUbcInhSnfzn+xrwi1QVyzLbb+aTraNTt4FbssMEwo+XZsgP9I1cH
+ 5cGvBVtQc9pkDnujbSLU3D1Foile7i1HCjykodRqXZLwUYr7A98Pux6+rWuB7fwbMft2
+ c95bewK/0okw+3K8tsHXBFqm7VlFtdJhpL4eFJqqKXim+TIAYeeA9QyA+nnn+j+5fILX
+ IHUg==
+X-Gm-Message-State: AOAM532nraq2Kp1bNpWHaGDWMCs9TPzwRLpUdbg3LY6093FgHT1yW/ga
+ LOADvg3PT2vXLHakaeq8Q2KG5A==
+X-Google-Smtp-Source: ABdhPJwpUgs1fxza/ioCVfipQG6pgrpTluzQomDGAxienilt70kyO+VUXsamqwicKGfF+JtOL5M7+g==
+X-Received: by 2002:a05:6808:140a:b0:2f9:a830:d12e with SMTP id
+ w10-20020a056808140a00b002f9a830d12emr772201oiv.235.1650422835061; 
+ Tue, 19 Apr 2022 19:47:15 -0700 (PDT)
+Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
+ by smtp.gmail.com with ESMTPSA id
+ o19-20020a4a9593000000b0032176119e65sm6117380ooi.34.2022.04.19.19.47.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Apr 2022 19:47:14 -0700 (PDT)
+Date: Tue, 19 Apr 2022 21:47:12 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <Yl90MENoa52cGtna@builder.lan>
+References: <20220419235447.1586192-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: <dri-devel@lists.freedesktop.org>
-References: <1649465635-20542-1-git-send-email-quic_abhinavk@quicinc.com>
- <1649465635-20542-5-git-send-email-quic_abhinavk@quicinc.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <1649465635-20542-5-git-send-email-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v7 4/4] drm/vc4: change vc4 driver to use
- drm_writeback_connector_init_with_encoder()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220419235447.1586192-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH] clk: qcom: clk-rcg2: fix gfx3d frequency
+ calculation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,119 +70,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, suraj.kandpal@intel.com, emma@anholt.net,
- rodrigosiqueiramelo@gmail.com, jani.nikula@intel.com, liviu.dudau@arm.com,
- mripard@kernel.org, swboyd@chromium.org, melissa.srw@gmail.com,
- robdclark@gmail.com, nganji@codeaurora.org, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, james.qian.wang@arm.com,
- quic_aravindh@quicinc.com, mihail.atanassov@arm.com,
- freedreno@lists.freedesktop.org, brian.starkey@arm.com
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>, Andy Gross <agross@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Taniya Das <quic_tdas@quicinc.com>, freedreno@lists.freedesktop.org,
+ linux-clk@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I am dropping this change because originally I had made this only to 
-show usage of drm_writeback_connector_init_with_encoder().
+On Tue 19 Apr 18:54 CDT 2022, Dmitry Baryshkov wrote:
 
-For writeback functionality, vc4 doesnt need this and this seems redundant.
-
-To show the usage of drm_writeback_connector_init_with_encoder(), I have 
-posted the MSM writeback driver changes here [1].
-
-[1] https://patchwork.freedesktop.org/series/99724/
-
-Thanks
-
-Abhinav
-
-On 4/8/2022 5:53 PM, Abhinav Kumar wrote:
-> vc4 driver currently embeds the drm_encoder into struct vc4_txp
-> and later on uses container_of to retrieve the vc4_txp from
-> the drm_encoder.
+> Since the commit 948fb0969eae ("clk: Always clamp the rounded rate"),
+> the clk_core_determine_round_nolock() would clamp the requested rate
+> between min and max rates from the rate request. Normally these fields
+> would be filled by clk_core_get_boundaries() called from
+> clk_round_rate().
 > 
-> Make vc4 driver use the new API so that the embedded encoder model
-> can be retained in the driver and there is no change in
-> functionality.
+> However clk_gfx3d_determine_rate() uses a manually crafted rate request,
+> which did not have these fields filled. Thus the requested frequency
+> would be clamped to 0, resulting in weird frequencies being requested
+> from the hardware.
 > 
-> changes in v7:
-> 	- remove the drm core changes to previous patch in the series
+> Fix this by filling min_rate and max_rate to the values valid for the
+> respective PLLs (0 and ULONG_MAX).
 > 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Fixes: 948fb0969eae ("clk: Always clamp the rounded rate")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+
+Stephen, please pick this for -fixes.
+
+Thanks,
+Bjorn
+
 > ---
->   drivers/gpu/drm/vc4/vc4_txp.c | 32 ++++++++++++++++++++++++--------
->   1 file changed, 24 insertions(+), 8 deletions(-)
+>  drivers/clk/qcom/clk-rcg2.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
-> index 7e063a9..0d461df 100644
-> --- a/drivers/gpu/drm/vc4/vc4_txp.c
-> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
-> @@ -151,6 +151,8 @@ struct vc4_txp {
->   
->   	struct platform_device *pdev;
->   
-> +	struct drm_encoder drm_enc;
-> +
->   	struct drm_writeback_connector connector;
->   
->   	void __iomem *regs;
-> @@ -159,7 +161,7 @@ struct vc4_txp {
->   
->   static inline struct vc4_txp *encoder_to_vc4_txp(struct drm_encoder *encoder)
->   {
-> -	return container_of(encoder, struct vc4_txp, connector.internal_encoder);
-> +	return container_of(encoder, struct vc4_txp, drm_enc);
->   }
->   
->   static inline struct vc4_txp *connector_to_vc4_txp(struct drm_connector *conn)
-> @@ -368,6 +370,10 @@ static const struct drm_encoder_helper_funcs vc4_txp_encoder_helper_funcs = {
->   	.disable = vc4_txp_encoder_disable,
->   };
->   
-> +static const struct drm_encoder_funcs vc4_txp_encoder_funcs = {
-> +	.destroy = drm_encoder_cleanup,
-> +};
-> +
->   static int vc4_txp_enable_vblank(struct drm_crtc *crtc)
->   {
->   	return 0;
-> @@ -467,6 +473,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
->   	struct vc4_txp *txp;
->   	struct drm_crtc *crtc;
->   	struct drm_encoder *encoder;
-> +	struct drm_writeback_connector *wb_conn;
->   	int ret, irq;
->   
->   	irq = platform_get_irq(pdev, 0);
-> @@ -492,16 +499,25 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
->   	txp->regset.regs = txp_regs;
->   	txp->regset.nregs = ARRAY_SIZE(txp_regs);
->   
-> -	drm_connector_helper_add(&txp->connector.base,
-> -				 &vc4_txp_connector_helper_funcs);
-> -	ret = drm_writeback_connector_init(drm, &txp->connector,
-> -					   &vc4_txp_connector_funcs,
-> -					   &vc4_txp_encoder_helper_funcs,
-> -					   drm_fmts, ARRAY_SIZE(drm_fmts),
-> -					   0);
-> +	wb_conn = &txp->connector;
-> +
-> +	drm_encoder_helper_add(&txp->drm_enc, &vc4_txp_encoder_helper_funcs);
-> +
-> +	ret = drm_encoder_init(drm, &txp->drm_enc, &vc4_txp_encoder_funcs,
-> +			DRM_MODE_ENCODER_VIRTUAL, NULL);
->   	if (ret)
->   		return ret;
->   
-> +	drm_connector_helper_add(&wb_conn->base, &vc4_txp_connector_helper_funcs);
-> +
-> +	ret = drm_writeback_connector_init_with_encoder(drm, wb_conn, &txp->drm_enc,
-> +			&vc4_txp_connector_funcs, drm_fmts, ARRAY_SIZE(drm_fmts));
-> +
-> +	if (ret) {
-> +		drm_encoder_cleanup(&txp->drm_enc);
-> +		return ret;
-> +	}
-> +
->   	ret = vc4_crtc_init(drm, vc4_crtc,
->   			    &vc4_txp_crtc_funcs, &vc4_txp_crtc_helper_funcs);
->   	if (ret)
+> diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
+> index f675fd969c4d..e9c357309fd9 100644
+> --- a/drivers/clk/qcom/clk-rcg2.c
+> +++ b/drivers/clk/qcom/clk-rcg2.c
+> @@ -818,7 +818,7 @@ EXPORT_SYMBOL_GPL(clk_pixel_ops);
+>  static int clk_gfx3d_determine_rate(struct clk_hw *hw,
+>  				    struct clk_rate_request *req)
+>  {
+> -	struct clk_rate_request parent_req = { };
+> +	struct clk_rate_request parent_req = { .min_rate = 0, .max_rate = ULONG_MAX };
+>  	struct clk_rcg2_gfx3d *cgfx = to_clk_rcg2_gfx3d(hw);
+>  	struct clk_hw *xo, *p0, *p1, *p2;
+>  	unsigned long p0_rate;
+> -- 
+> 2.35.1
+> 
