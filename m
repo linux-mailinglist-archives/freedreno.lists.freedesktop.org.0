@@ -2,37 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F53250AA35
-	for <lists+freedreno@lfdr.de>; Thu, 21 Apr 2022 22:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8D2B50AA49
+	for <lists+freedreno@lfdr.de>; Thu, 21 Apr 2022 22:48:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F9A10E053;
-	Thu, 21 Apr 2022 20:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2374010E11E;
+	Thu, 21 Apr 2022 20:48:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
- Thu, 21 Apr 2022 20:41:56 UTC
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7E010E053;
- Thu, 21 Apr 2022 20:41:56 +0000 (UTC)
-Received: from g550jk.arnhem.chello.nl (a246182.upc-a.chello.nl
- [62.163.246.182])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id 1910FCC043;
- Thu, 21 Apr 2022 20:35:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
- t=1650573312; bh=Wx/zCUfbsxDCv8xhISdDZZirNu+1fzyBwddjK0yGyOg=;
- h=From:To:Cc:Subject:Date;
- b=CQUxwhoVAz4cdMEfo9dta2JoY5jVEcOoXhXsXr+EnXMmkay599as3FhA4d/Zx5sZY
- 5ZO/7/wOn1oxMgMwVbc87vRWZn4mEfaN38jiPb3+zUlVhdbEor4HKprwLja/gKpYfd
- Bbr2mwmKx9vVTk4tmYQ8oI3KyqMkA4naO4NVQb9s=
-From: Luca Weiss <luca@z3ntu.xyz>
-To: dri-devel@lists.freedesktop.org
-Date: Thu, 21 Apr 2022 22:34:53 +0200
-Message-Id: <20220421203455.313523-1-luca@z3ntu.xyz>
-X-Mailer: git-send-email 2.36.0
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2760310E0FF;
+ Thu, 21 Apr 2022 20:48:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1650574123; x=1682110123;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=DHQXQMD0+ttB1gsHAOfHJqjJxFGWIUydn6S6qP2jqGM=;
+ b=wQ49v8y+FKKGgyvuQ5a6esNPaNA2A0LhvST6ubr1l0uUFvikogeqFBwR
+ C95bsQ4LM0PStxIAJGq1E/zu2ew7c2Lwp3mfRNgCMFSqnYSrnPANGwpMX
+ PiI1sY+1dKq1Ro0HSN6YvUy3cns3Ycf6s7DBQE0EQYf+sVhOKkxuoAzGo E=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 21 Apr 2022 13:48:42 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2022 13:48:42 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 21 Apr 2022 13:48:41 -0700
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 21 Apr 2022 13:48:41 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Thu, 21 Apr 2022 13:48:28 -0700
+Message-ID: <1650574112-25294-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix null pointer dereferences without
- iommu
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [RFC 0/4] Separate wb_idx and intf_idx in dpu_encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,58 +58,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Emma Anholt <emma@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Luca Weiss <luca@z3ntu.xyz>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: markyacoub@chromium.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Check if 'aspace' is set before using it as it will stay null without
-IOMMU, such as on msm8974.
+As promised here [1], this is a follow up change to separate out
+wb_idx and intf_idx for better clarity in dpu_encoder.
 
-Fixes: bc2112583a0b ("drm/msm/gpu: Track global faults per address-space")
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 5 ++++-
- drivers/gpu/drm/msm/msm_gpu.c           | 3 ++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+This also helps to easily handle boards which do not have a physical
+display but can still be validated using writeback interface.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 9efc84929be0..1219f71629a5 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -272,7 +272,10 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
- 		*value = 0;
- 		return 0;
- 	case MSM_PARAM_FAULTS:
--		*value = gpu->global_faults + ctx->aspace->faults;
-+		if (ctx->aspace)
-+			*value = gpu->global_faults + ctx->aspace->faults;
-+		else
-+			*value = gpu->global_faults;
- 		return 0;
- 	case MSM_PARAM_SUSPENDS:
- 		*value = gpu->suspend_count;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index faf0c242874e..58eb3e1662cb 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -371,7 +371,8 @@ static void recover_worker(struct kthread_work *work)
- 
- 		/* Increment the fault counts */
- 		submit->queue->faults++;
--		submit->aspace->faults++;
-+		if (submit->aspace)
-+			submit->aspace->faults++;
- 
- 		task = get_pid_task(submit->pid, PIDTYPE_PID);
- 		if (task) {
+In addition, this also takes care of adding wb_idx to existing DRM prints
+and traces.
+
+Currently posting this as a RFC to get feedback on this approach and if
+the reviews are positive, I can easily absorb this in the DPU writeback
+series [2]
+
+[1] https://patchwork.freedesktop.org/patch/482637/?series=99724&rev=2#comment_868460
+[2] https://patchwork.freedesktop.org/series/99724/#rev3
+
+Abhinav Kumar (4):
+  drm/msm/dpu: introduce a wb_idx to be used for writeback interfaces
+  drm/msm/dpu: start using wb_idx in dpu_encoder_phys_wb
+  drm/msm/dpu: add wb_idx to existing DRM prints in dpu_encoder
+  drm/msm/dpu: add wb_idx to DRM traces in dpu_encoder
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 125 +++++++++++----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |   4 +
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  10 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |  26 +++--
+ 5 files changed, 93 insertions(+), 74 deletions(-)
+
 -- 
-2.36.0
+2.7.4
 
