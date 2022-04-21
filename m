@@ -2,68 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63CC750A6B7
-	for <lists+freedreno@lfdr.de>; Thu, 21 Apr 2022 19:12:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F53250AA35
+	for <lists+freedreno@lfdr.de>; Thu, 21 Apr 2022 22:41:58 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F8710E63F;
-	Thu, 21 Apr 2022 17:12:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47F9A10E053;
+	Thu, 21 Apr 2022 20:41:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D046110E69D
- for <freedreno@lists.freedesktop.org>; Thu, 21 Apr 2022 17:12:25 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id y10so11338173ejw.8
- for <freedreno@lists.freedesktop.org>; Thu, 21 Apr 2022 10:12:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2MPNpuQIn58xclaII7JLtz3726FMV8Uc3tMH6h6B8NI=;
- b=bBNfsfaX5+t397nY8krJ6rOY+BwUEqeZAxmKxALGPGTEvqP18XUnW+RBq+8533S2Cx
- 4EV8TOqeVZ6InzOy+Clk6PoZZcP733fPrCreUdVWX5hsQ86zskl7VuVo459prXNFybb1
- Cgr3GdH/n45QIxV4RqjZzyZdx/NuBOURr5Vwg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2MPNpuQIn58xclaII7JLtz3726FMV8Uc3tMH6h6B8NI=;
- b=tWq4TnEwPBgywpo+pw6QgGLFAfqrpmQr5QyFXSFjo5/yb6SyOx0qlqvf4C2l90nSJ0
- rXrmn8mWLjpt0c9qtkltj+jH3Ahn15/7tu8zUkieB5W6AAOcesi1GPYNzdXC74GMYp7R
- ymkwVWJdF14rptCcA/fnFoQB4fpMdCRALPlWjsxBOzEX7FYK/uCbjoXpXDywKiW01Y81
- 1snCpXJ0f8xCcLzfIaHCW5vQqgnlmrwsDNDzDkWeH1ADnpMXoXoXjrDydB3XkTRa272e
- 3qZMrRch9MxpKkLhwoLDuNUDt0UnCc3o5JF5WrzhLB9I1C1gnAQ3g+PvhoA6I9Jt0b8F
- +cUA==
-X-Gm-Message-State: AOAM5334oKsCUmxsrI+Rwd/bIsU9qFxxt1/KEL6rRCvtR+i4qCu/gPsO
- mVziZzsNK0qY9HYbVocuEGanPt5Drc3IsC9M0z4=
-X-Google-Smtp-Source: ABdhPJwwom9/587/qrCtodBIKjOmizWXiQchLoXzFChw/gLUBali2uMyA2MaLM6WBo2K9Q4JWcjhKw==
-X-Received: by 2002:a17:906:9b89:b0:6da:ac6b:e785 with SMTP id
- dd9-20020a1709069b8900b006daac6be785mr465882ejc.295.1650561144054; 
- Thu, 21 Apr 2022 10:12:24 -0700 (PDT)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com.
- [209.85.128.42]) by smtp.gmail.com with ESMTPSA id
- l17-20020a056402231100b0041d98ed7ad8sm11788385eda.46.2022.04.21.10.12.22
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Apr 2022 10:12:22 -0700 (PDT)
-Received: by mail-wm1-f42.google.com with SMTP id
- ay36-20020a05600c1e2400b0038ebc885115so3936308wmb.1
- for <freedreno@lists.freedesktop.org>; Thu, 21 Apr 2022 10:12:22 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f08:b0:391:fe3c:40e6 with SMTP id
- l8-20020a05600c4f0800b00391fe3c40e6mr9600453wmq.34.1650561141633; Thu, 21 Apr
- 2022 10:12:21 -0700 (PDT)
+X-Greylist: delayed 372 seconds by postgrey-1.36 at gabe;
+ Thu, 21 Apr 2022 20:41:56 UTC
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E7E010E053;
+ Thu, 21 Apr 2022 20:41:56 +0000 (UTC)
+Received: from g550jk.arnhem.chello.nl (a246182.upc-a.chello.nl
+ [62.163.246.182])
+ by mail.z3ntu.xyz (Postfix) with ESMTPSA id 1910FCC043;
+ Thu, 21 Apr 2022 20:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1650573312; bh=Wx/zCUfbsxDCv8xhISdDZZirNu+1fzyBwddjK0yGyOg=;
+ h=From:To:Cc:Subject:Date;
+ b=CQUxwhoVAz4cdMEfo9dta2JoY5jVEcOoXhXsXr+EnXMmkay599as3FhA4d/Zx5sZY
+ 5ZO/7/wOn1oxMgMwVbc87vRWZn4mEfaN38jiPb3+zUlVhdbEor4HKprwLja/gKpYfd
+ Bbr2mwmKx9vVTk4tmYQ8oI3KyqMkA4naO4NVQb9s=
+From: Luca Weiss <luca@z3ntu.xyz>
+To: dri-devel@lists.freedesktop.org
+Date: Thu, 21 Apr 2022 22:34:53 +0200
+Message-Id: <20220421203455.313523-1-luca@z3ntu.xyz>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-References: <1650551811-24319-1-git-send-email-quic_sbillaka@quicinc.com>
- <1650551811-24319-3-git-send-email-quic_sbillaka@quicinc.com>
- <CAD=FV=UVmUG0t-8wFXT-NT1-naojeJ_gcd8eEVr96AnMos0m4A@mail.gmail.com>
- <MW4PR02MB71869CCA50E1706926C4B6FAE1F49@MW4PR02MB7186.namprd02.prod.outlook.com>
-In-Reply-To: <MW4PR02MB71869CCA50E1706926C4B6FAE1F49@MW4PR02MB7186.namprd02.prod.outlook.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 21 Apr 2022 10:12:08 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WcqaESoZTU1_FBzZ3XGFmoKwmdm_zaAw7QEtc51wcewQ@mail.gmail.com>
-Message-ID: <CAD=FV=WcqaESoZTU1_FBzZ3XGFmoKwmdm_zaAw7QEtc51wcewQ@mail.gmail.com>
-To: "Sankeerth Billakanti (QUIC)" <quic_sbillaka@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v8 2/4] drm/msm/dp: Support only IRQ_HPD and
- REPLUG interrupts for eDP
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm: Fix null pointer dereferences without
+ iommu
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,159 +45,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- quic_vproddut <quic_vproddut@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Steev Klimaszewski <steev@kali.org>, Daniel Vetter <daniel@ffwll.ch>,
- "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Emma Anholt <emma@anholt.net>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Luca Weiss <luca@z3ntu.xyz>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, Rob Clark <robdclark@gmail.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Check if 'aspace' is set before using it as it will stay null without
+IOMMU, such as on msm8974.
 
-On Thu, Apr 21, 2022 at 9:39 AM Sankeerth Billakanti (QUIC)
-<quic_sbillaka@quicinc.com> wrote:
->
-> Hi Doug,
->
-> >On Thu, Apr 21, 2022 at 7:37 AM Sankeerth Billakanti
-> ><quic_sbillaka@quicinc.com> wrote:
-> >>
-> >> The panel-edp enables the eDP panel power during probe, get_modes and
-> >> pre-enable. The eDP connect and disconnect interrupts for the eDP/DP
-> >> controller are directly dependent on panel power. As eDP display can
-> >> be assumed as always connected, the controller driver can skip the eDP
-> >> connect and disconnect interrupts. Any disruption in the link status
-> >> will be indicated via the IRQ_HPD interrupts.
-> >>
-> >> So, the eDP controller driver can just enable the IRQ_HPD and replug
-> >> interrupts. The DP controller driver still needs to enable all the
-> >> interrupts.
-> >>
-> >> Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
-> >> ---
-> >> Changes in v8:
-> >>   - add comment explaining the interrupt status return
-> >>
-> >> Changes in v7:
-> >>   - reordered the patch in the series
-> >>   - modified the return statement for isr
-> >>   - connector check modified to just check for eDP
-> >>
-> >>  drivers/gpu/drm/msm/dp/dp_catalog.c | 18 ++++++++++++------
-> >> drivers/gpu/drm/msm/dp/dp_display.c | 22 +++++++++++++++++++++-
-> >>  2 files changed, 33 insertions(+), 7 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> >> b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> >> index fac815f..3a298e9 100644
-> >> --- a/drivers/gpu/drm/msm/dp/dp_catalog.c
-> >> +++ b/drivers/gpu/drm/msm/dp/dp_catalog.c
-> >> @@ -569,10 +569,6 @@ void dp_catalog_ctrl_hpd_config(struct dp_catalog
-> >> *dp_catalog)
-> >>
-> >>         u32 reftimer = dp_read_aux(catalog, REG_DP_DP_HPD_REFTIMER);
-> >>
-> >> -       /* enable HPD plug and unplug interrupts */
-> >> -       dp_catalog_hpd_config_intr(dp_catalog,
-> >> -               DP_DP_HPD_PLUG_INT_MASK |
-> >DP_DP_HPD_UNPLUG_INT_MASK, true);
-> >> -
-> >>         /* Configure REFTIMER and enable it */
-> >>         reftimer |= DP_DP_HPD_REFTIMER_ENABLE;
-> >>         dp_write_aux(catalog, REG_DP_DP_HPD_REFTIMER, reftimer); @@
-> >> -599,13 +595,23 @@ u32 dp_catalog_hpd_get_intr_status(struct
-> >> dp_catalog *dp_catalog)  {
-> >>         struct dp_catalog_private *catalog = container_of(dp_catalog,
-> >>                                 struct dp_catalog_private, dp_catalog);
-> >> -       int isr = 0;
-> >> +       int isr, mask;
-> >>
-> >>         isr = dp_read_aux(catalog, REG_DP_DP_HPD_INT_STATUS);
-> >>         dp_write_aux(catalog, REG_DP_DP_HPD_INT_ACK,
-> >>                                  (isr & DP_DP_HPD_INT_MASK));
-> >> +       mask = dp_read_aux(catalog, REG_DP_DP_HPD_INT_MASK);
-> >>
-> >> -       return isr;
-> >> +       /*
-> >> +        * REG_DP_DP_HPD_INT_STATUS reports the status of all interrupts
-> >> +        * irrespective of their masked status. The HW interrupt will not be
-> >> +        * generated if an interrupt is masked. However, the interrupt status
-> >> +        * bit in the register will still be set. The eDP controller driver
-> >> +        * masks the plug and unplug interrupts unlike DP controller which
-> >> +        * unmasks all the interrupts. So, do not report the status of the
-> >> +        * masked interrupts.
-> >> +        */
-> >> +       return isr & (mask | ~DP_DP_HPD_INT_MASK);
-> >
-> >What's still missing in your comments is why you aren't just doing "return isr &
-> >mask;". In other words, why is the API for HPD bits different from the API for
-> >non-HPD bits? What code out there wants to know about non-HPD interrupts
-> >even if they are masked?
->
-> The mask register bitfields are different from the INT_STATUS register.
-> The INT_STATUS register has additional bits [31:28] which indicates the HPD state machine
-> status and [3:0] indicates the actual generated/set interrupt. The fields [3:0] are similar to
-> the mask and ack interrupts.
->
-> #define DP_DP_HPD_STATE_STATUS_CONNECTED        (0x40000000)
-> #define DP_DP_HPD_STATE_STATUS_PENDING          (0x20000000)
-> #define DP_DP_HPD_STATE_STATUS_DISCONNECTED     (0x00000000)
-> #define DP_DP_HPD_STATE_STATUS_MASK             (0xE0000000)
->
-> So, earlier I returned isr & (mask | DP_DP_HPD_STATE_STATUS_MASK);
->
-> Actually, there is no reason to do this. We can just do the below:
-> return isr & mask;
->
-> >
-> >Actually, thinking about this more, my preference would be this:
-> >
-> >a) Rename the existing function to dp_catalog_hpd_get_intr_status_raw()
-> >
-> >b) Create a new function called dp_catalog_hpd_get_intr_status() whose
-> >implementation is:
-> >
-> >  return dp_catalog_hpd_get_intr_status_raw() & mask;
-> >
-> >Then any callers who care about the raw status can be changed to call
-> >dp_catalog_hpd_get_intr_status_raw(). If no callers need
-> >dp_catalog_hpd_get_intr_status_raw() then you don't actually need to
-> >create this function.
-> >
->
-> There is no caller for raw status. All interrupts are unmasked for DP.
-> While handling the aux interrupts generated during the transfer call from panel probe,
-> we read that the HPD interrupt status [3:0] bit0 is set and proceed to handle connect like DP.
-> We experimented to find out that the connect interrupt is not generated but just the status
-> bit is set.
->
-> As the interrupts are generated over a single MDSS line, the controller driver has to read all the
-> interrupt status registers and handle all the set interrupt bits. So, while handling aux transfer
-> interrupts, we were proceeding to handle connect interrupt also as a consequence.
+Fixes: bc2112583a0b ("drm/msm/gpu: Track global faults per address-space")
+Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 5 ++++-
+ drivers/gpu/drm/msm/msm_gpu.c           | 3 ++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-Ah, I see. There aren't other _interrupts_ in this register. There's
-just other status info that someone jammed into this register. Got it.
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 9efc84929be0..1219f71629a5 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -272,7 +272,10 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
+ 		*value = 0;
+ 		return 0;
+ 	case MSM_PARAM_FAULTS:
+-		*value = gpu->global_faults + ctx->aspace->faults;
++		if (ctx->aspace)
++			*value = gpu->global_faults + ctx->aspace->faults;
++		else
++			*value = gpu->global_faults;
+ 		return 0;
+ 	case MSM_PARAM_SUSPENDS:
+ 		*value = gpu->suspend_count;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index faf0c242874e..58eb3e1662cb 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -371,7 +371,8 @@ static void recover_worker(struct kthread_work *work)
+ 
+ 		/* Increment the fault counts */
+ 		submit->queue->faults++;
+-		submit->aspace->faults++;
++		if (submit->aspace)
++			submit->aspace->faults++;
+ 
+ 		task = get_pid_task(submit->pid, PIDTYPE_PID);
+ 		if (task) {
+-- 
+2.36.0
 
-So with this comment I'm happy with my Reviewed-by:
-
-/*
- * We only want to return interrupts that are unmasked to the caller.
- * However, the interrupt status field also contains other
- * informational bits about the HPD state status, so we only mask
- * out the part of the register that tells us about which interrupts
- * are pending.
- */
-
--Doug
