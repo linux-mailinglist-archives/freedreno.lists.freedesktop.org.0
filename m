@@ -2,64 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DE42509405
-	for <lists+freedreno@lfdr.de>; Thu, 21 Apr 2022 01:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFADA5095B1
+	for <lists+freedreno@lfdr.de>; Thu, 21 Apr 2022 06:13:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC0710F2CC;
-	Wed, 20 Apr 2022 23:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F6110E45C;
+	Thu, 21 Apr 2022 04:13:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0178F10E52A;
- Wed, 20 Apr 2022 23:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650499056; x=1682035056;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=tV9q1FcF378yrdx5+hEGskQjYdOotMDfqbP0qjm2Llo=;
- b=M84PGDrYyxK/MuYM0NmLJ5bJb/aoUcCy6EYpKhkrwG1NxUmv3SsC8gDQ
- fKEXgqksn0gORseeAtRzRDgBTPCbb20Pujsi0DYhdra59K/bBJHPAYjb2
- MTOq+vWiZqUdX2/ArZokot0o1oyNbdCWxngjmkPDnyAxzpGCPZZrObOR3 g=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 20 Apr 2022 16:57:35 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2022 16:57:34 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 20 Apr 2022 16:57:34 -0700
-Received: from [10.110.1.198] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 20 Apr
- 2022 16:57:33 -0700
-Message-ID: <0b92cab4-d46b-a419-43ad-0fa08c8c0e4d@quicinc.com>
-Date: Wed, 20 Apr 2022 16:57:25 -0700
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9757910E4B8
+ for <freedreno@lists.freedesktop.org>; Thu, 21 Apr 2022 04:13:47 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id e189so4360956oia.8
+ for <freedreno@lists.freedesktop.org>; Wed, 20 Apr 2022 21:13:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=VvonfvZ7LB6aLy4wjty29l8R5C37JLm7o1EML3W0CCw=;
+ b=g45lqDkJ/wvyiDbt549UbOl4EexQg+Opiy33qRcMdmUnwYletPFwpZCsTiGUr5H5jE
+ NFI8vIDyfZCqrUGKl3w6uzjhnSitd6TMyxCfutUrVDV4AE8zWQ6sMRbQJ5BtSdpo94GM
+ ZAgc44FcZm315lDNAEcGmx2Hjr5AcHB/KOxyDJChXjRhScCRifUZiqYsU22hKLN4MqgX
+ Guj20eDcjNRZSDR/cJQ+jNz87K7acXrKliJPl0pXfM2HONp5SsH5Qx1JbW14MpdCor0T
+ iIbGUTUFcKn1LBJ5TgOCYyxj60HX76l1PFbruft5ftllMsn7gq1IY5VxGNzUeL9lwqHu
+ ziXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=VvonfvZ7LB6aLy4wjty29l8R5C37JLm7o1EML3W0CCw=;
+ b=De/fUp+k7qMVcrgns07dM/kElpQw15Sgu7SnOESBPUTMtCR/yxHtAu0aZSk2QhXGcv
+ keyH3+7UMRgpJZ3V7eRoSd/bf7Q52ZIcbQFRXmoQFD2ffP5jTdL37F/O5ynkzeyaAd3l
+ eq8af84iZP4mHKtRl3chFQbqbrB86y8QaWccvbUu0Jl6Z6TfBarRzDKv6iFCqfoXU9S6
+ dWr2bEehBlM6yhi57rPcH1hCdNbUZ/cYOPc6/i5nQ6go61rJzO3imSLfe3Jw/CAoJT/7
+ khSTkRTiF8UFtFefq5UjUOAeaSGmF2JyMHALni1NxMLxJRl8H+JSRVCIvBctFStas+3N
+ /oWw==
+X-Gm-Message-State: AOAM533100/N7uj6Jr5UhjBv/JhH7Yv8KsDamom4NrW4gFkdZ3If/Iv4
+ zr6zR6Zj2mwfwRfHwJtX643vQQ==
+X-Google-Smtp-Source: ABdhPJyfAjep5BALu93JuedvIOa2GKA4DK1inJPuUOVfulw9xgmddkM8zQM4uyWjFYtYVy5qA9L1Ow==
+X-Received: by 2002:a05:6808:1312:b0:322:7d72:9006 with SMTP id
+ y18-20020a056808131200b003227d729006mr3455595oiv.244.1650514426736; 
+ Wed, 20 Apr 2022 21:13:46 -0700 (PDT)
+Received: from ripper.. ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id
+ h186-20020acab7c3000000b002ef5106248asm7115512oif.45.2022.04.20.21.13.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Apr 2022 21:13:46 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 20 Apr 2022 21:15:49 -0700
+Message-Id: <20220421041550.643964-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <1649280493-4393-1-git-send-email-quic_khsieh@quicinc.com>
- <625ce8a0-4e25-5513-5599-c1cdebf5a3a5@linaro.org>
- <09fd563f-4a2c-f670-51c2-0e5ff023816d@quicinc.com>
- <CAA8EJpqzucFGf8ndDi2LZqtKiOt_w=_h1oPAUNVCdmUyh_3+zA@mail.gmail.com>
- <2039ef97-4fdb-bffe-1e02-18ae79c18be4@quicinc.com>
- <27bb2732-b322-75b0-3883-773e6eb4b1b9@linaro.org>
- <02d31565-4ae4-a319-30b0-76a6e4917f6f@quicinc.com>
- <CAE-0n51F+S4a2mQoyWa-TpJcd73hstm2Sh1uO+4T_75UaWQASQ@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n51F+S4a2mQoyWa-TpJcd73hstm2Sh1uO+4T_75UaWQASQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: enhance both connect and
- disconnect pending_timeout handle
+Subject: [Freedreno] [PATCH v4 1/2] dt-bindings: display: msm: Add optional
+ resets
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,60 +70,92 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, quic_aravindh@quicinc.com, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Add an optional reference to the MDSS_CORE reset, which when specified
+can be used by the implementation to reset the hardware blocks.
 
-On 4/20/2022 3:58 PM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2022-04-15 17:06:48)
->> On 4/14/2022 4:34 PM, Dmitry Baryshkov wrote:
->>> I'm not sure how should the driver react if the client doesn't disable
->>> the output, but then the sink gets reattached?
->> I do not know that either.
->>
->> But it should not happen as long as framework response to uevent.
-> In talking with seanpaul@ it sounds like we can update the link status
-> to BAD with drm_connector_set_link_status_property() and then put it
-> back to GOOD when the link is re-established. This way userspace will
-> know it needs to retry the modeset. Does that help here?
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
 
-To setup connection, dp driver have to enable phy and do link training 
-then transfer dp controller to video ready state.
+Changes since v3:
+- None
 
-After that, dp driver signal framework to set up frame buffer 
-fetching/layer mixer and start timing engine at final step to have video 
-stream start transmitting to panel.
+ .../devicetree/bindings/display/msm/dpu-qcm2290.yaml          | 4 ++++
+ Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml | 4 ++++
+ Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml | 4 ++++
+ Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml | 4 ++++
+ 4 files changed, 16 insertions(+)
 
-Do opposite way to tear down connection since dp driver can not reset dp 
-controller and disable phy before timing engine has been stopped. 
-Otherwise vsync timeout or buffer underrun/overrun may happen.
-
-this means user space framework need to stop timing engine (stop frame 
-buffer fetching/layer mixer) first and then stop video ready state of dp 
-controller and then disable phy. (note, there may have something else at 
-drm stack need to be teared down but i do not know details)
-
-In this case, since framework is not response to uevent to stop timing 
-engine,  dp controller still in video ready state and phy still enabled 
-even dongle had been removed already.
-
-At this point, I am not sure what dp driver should do if dongle re 
-plugged back in.
-
-Tear down dp mainlink while timing engine is still running and re setup 
-dp mainlink?
-
-However, I think this scenario most likely will not happen since if 
-framework responses uevent to setup connection earlier it should be 
-there to response uevent to tear down connection.
-
-
-
-
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+index 6fb7e321f011..734d14de966d 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-qcm2290.yaml
+@@ -66,6 +66,10 @@ properties:
+   interconnect-names:
+     const: mdp0-mem
+ 
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+index 12a86b1ec1bc..b41991eaa454 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml
+@@ -65,6 +65,10 @@ properties:
+   interconnect-names:
+     const: mdp0-mem
+ 
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+index fbeb931a026e..6e417d06fc79 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml
+@@ -64,6 +64,10 @@ properties:
+   interconnect-names:
+     const: mdp0-mem
+ 
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+diff --git a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+index 0dca4b3d66e4..1a42491efdbc 100644
+--- a/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml
+@@ -57,6 +57,10 @@ properties:
+ 
+   ranges: true
+ 
++  resets:
++    items:
++      - description: MDSS_CORE reset
++
+ patternProperties:
+   "^display-controller@[0-9a-f]+$":
+     type: object
+-- 
+2.35.1
 
