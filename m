@@ -1,66 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E09A50B989
-	for <lists+freedreno@lfdr.de>; Fri, 22 Apr 2022 16:09:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C0F50B9AB
+	for <lists+freedreno@lfdr.de>; Fri, 22 Apr 2022 16:10:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 068D110ECFA;
-	Fri, 22 Apr 2022 14:09:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF83610EB58;
+	Fri, 22 Apr 2022 14:10:43 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B51310ECFA
- for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 14:09:35 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id f5so9766892ljp.8
- for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 07:09:35 -0700 (PDT)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1143F10EB58
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 14:10:43 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id y20so16637377eju.7
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 07:10:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XXfqebKK5B9iW+cuu7Wrx8oyDP/rWO517FbDuh8GYTA=;
- b=EwnC0F+Pg4MtRzeeWPuywGVVfrIfoQpkjZejmyOOhaV3NRtb5XzudpYoMW98fIdcAm
- NUM6hR06S3J+6kzWZeWdVcyZdI0Toqj/vsaUJ+zpNTbPAQhBWPEucmWtE0wTHtBDsJ05
- p7cS3QW5VSa1GBar/5aair5GlO7o2wDtoN4xo=
+ :cc; bh=R+w/lFm+gTC9eW9lBYMMnUgARDTN948ashX6/88jSSk=;
+ b=ghMiyWVM5DKXsssoViKphQIWceZP/fjd3ty8ZXt7WVjJwP3cN3O9IT7qFAE/Jj/Qdw
+ cR9jYLzNJMz5r3gE7L5BLvMguTvA0g7jVmzMc9rN0pTwKYDEQo4/M8O2xgTv2G8CrHaT
+ U2LEsQ4bPR/y/gfgsnT9qyWh/kRicE14xKEec=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=XXfqebKK5B9iW+cuu7Wrx8oyDP/rWO517FbDuh8GYTA=;
- b=2fVfdys1WX3suDb8YJwyWnduFcRu2suNQ/Zmr04F9RTPlPSJ8CrI4tR5ybRm1dXhk1
- Kdd6tSAATzQm3W5RiN7gSQpVMXsuKfBYn9CMZqAIgdInIrs7QKlsm0x3iHYu9QHFLSeq
- 5PxM1PCtCqoP43gGWS9BjwEbM7x7/ooUjPouDPAYvFUKOKGRbfQkh1xJIVz0A9I04aZC
- c8wJAOvRnNG+nVkax891OcNg5/ogRFMyx2Z+AGweBpRrAhxhlEsw/5r8MsIXlkcJ4XPx
- feOi41z/TM9eR1aeS+SG6HcDUWwadOZig0E7PEQU/2gqWbFt4hnaTA5/qNt9EBa+s+Uk
- EUjw==
-X-Gm-Message-State: AOAM533egE58VEbINPxy1+Tu8BhJz4wAD4ANt8lQ2umo7BGhe9R2Iwrn
- valJfhzh0rCqUmbpBTuKhycUywfgvCN8GzzKFW8=
-X-Google-Smtp-Source: ABdhPJy8+5Gn2Nk25W8r4Ba2agTPdzk2gnBzlAMMkSydQTQldEBFneRV94WowsM+HRQBNgU74sqfxA==
-X-Received: by 2002:a2e:bc09:0:b0:24d:b413:7be with SMTP id
- b9-20020a2ebc09000000b0024db41307bemr2900776ljf.504.1650636573263; 
- Fri, 22 Apr 2022 07:09:33 -0700 (PDT)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
- [209.85.208.182]) by smtp.gmail.com with ESMTPSA id
- e25-20020a195019000000b0046d18e1e08esm238446lfb.121.2022.04.22.07.09.32
+ bh=R+w/lFm+gTC9eW9lBYMMnUgARDTN948ashX6/88jSSk=;
+ b=0+X9gt7Cfyc9qt12czY8q/tki2b9Gu7IvbC/ljJgCB7Tsx4t4XuYlJ+wpNcvrsSw7u
+ 9LvsFhtuMPfw3QyDZd9R3kdBcKPjzhnU3AYOsLVzqUz+FjQuA60OnSQNIc7mQDFbIK5A
+ RFQy5/RC4Rju/474Zor5mQn4BL1AR8Sy0uuDCz2qCkOajFOPa/7Q1BjHCNPqBeDCqqvk
+ lW20de1Nd8GeGuaxlaHdWxasqa1czX2+GNFwGn9tGG+h+otS2GWM4iWT+5u1fdRqeNdJ
+ d02QL0XuQeEZlEbshzBdCQeFDx8QzSFj7hBHm50eB33aCle33VTY/7fdzDS0P4FAFuTj
+ LBVA==
+X-Gm-Message-State: AOAM5303pVBaEGRBYh9EPsP8cTWBMxIFEwQGmd1LfHVbXrSFkPgHnNRa
+ znZn6RIx0rShAPgAFIdnpRNIMeMgtht+SwWTJQ0=
+X-Google-Smtp-Source: ABdhPJyzi9obL2WIvcCdiSCOBZIGOfvASCKhyre+COhhdXB49ZlU5yeedAZRfCD0v6OhvAcizP00vw==
+X-Received: by 2002:a17:907:968d:b0:6f0:d083:fd57 with SMTP id
+ hd13-20020a170907968d00b006f0d083fd57mr3807638ejc.186.1650636641356; 
+ Fri, 22 Apr 2022 07:10:41 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com.
+ [209.85.128.45]) by smtp.gmail.com with ESMTPSA id
+ u10-20020a170906b10a00b006e1004406easm803746ejy.93.2022.04.22.07.10.40
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Apr 2022 07:09:32 -0700 (PDT)
-Received: by mail-lj1-f182.google.com with SMTP id 17so9806765lji.1
- for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 07:09:32 -0700 (PDT)
-X-Received: by 2002:a5d:6506:0:b0:20a:c240:90e2 with SMTP id
- x6-20020a5d6506000000b0020ac24090e2mr3855081wru.342.1650636201140; Fri, 22
- Apr 2022 07:03:21 -0700 (PDT)
+ Fri, 22 Apr 2022 07:10:41 -0700 (PDT)
+Received: by mail-wm1-f45.google.com with SMTP id
+ ay11-20020a05600c1e0b00b0038eb92fa965so8046762wmb.4
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 07:10:40 -0700 (PDT)
+X-Received: by 2002:a05:600c:502b:b0:38f:f7c6:3609 with SMTP id
+ n43-20020a05600c502b00b0038ff7c63609mr4367415wmr.15.1650636228521; Fri, 22
+ Apr 2022 07:03:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <1650618666-15342-1-git-send-email-quic_sbillaka@quicinc.com>
- <1650618666-15342-2-git-send-email-quic_sbillaka@quicinc.com>
-In-Reply-To: <1650618666-15342-2-git-send-email-quic_sbillaka@quicinc.com>
+ <1650618666-15342-3-git-send-email-quic_sbillaka@quicinc.com>
+In-Reply-To: <1650618666-15342-3-git-send-email-quic_sbillaka@quicinc.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 22 Apr 2022 07:03:07 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U9M_qsEacBHundgZAHMg7NEnW1LKZX6niN4fmsKUwt6A@mail.gmail.com>
-Message-ID: <CAD=FV=U9M_qsEacBHundgZAHMg7NEnW1LKZX6niN4fmsKUwt6A@mail.gmail.com>
+Date: Fri, 22 Apr 2022 07:03:35 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XhznD3Nuiku9mS5YKFVX0GB8qxQZe8m8AgGCQz=a2chQ@mail.gmail.com>
+Message-ID: <CAD=FV=XhznD3Nuiku9mS5YKFVX0GB8qxQZe8m8AgGCQz=a2chQ@mail.gmail.com>
 To: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v9 1/4] drm/msm/dp: Add eDP support via
- aux_bus
+Subject: Re: [Freedreno] [PATCH v9 2/4] drm/msm/dp: Support only IRQ_HPD and
+ REPLUG interrupts for eDP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,39 +97,32 @@ Hi,
 On Fri, Apr 22, 2022 at 2:11 AM Sankeerth Billakanti
 <quic_sbillaka@quicinc.com> wrote:
 >
-> This patch adds support for generic eDP sink through aux_bus. The eDP/DP
-> controller driver should support aux transactions originating from the
-> panel-edp driver and hence should be initialized and ready.
+> The panel-edp enables the eDP panel power during probe, get_modes
+> and pre-enable. The eDP connect and disconnect interrupts for the eDP/DP
+> controller are directly dependent on panel power. As eDP display can be
+> assumed as always connected, the controller driver can skip the eDP
+> connect and disconnect interrupts. Any disruption in the link status
+> will be indicated via the IRQ_HPD interrupts.
 >
-> The panel bridge supporting the panel should be ready before the bridge
-> connector is initialized. The generic panel probe needs the controller
-> resources to be enabled to support the aux transactions originating from
-> the panel probe.
+> So, the eDP controller driver can just enable the IRQ_HPD and replug
+> interrupts. The DP controller driver still needs to enable all the
+> interrupts.
 >
 > Signed-off-by: Sankeerth Billakanti <quic_sbillaka@quicinc.com>
 > ---
 > Changes in v9:
->   - add comments for panel probe
->   - modify the error handling checks
+>   - add comment explaining the interrupt status register
 >
 > Changes in v8:
->   - handle corner cases
->   - add comment for the bridge ops
+>   - add comment explaining the interrupt status return
 >
 > Changes in v7:
->   - aux_bus is mandatory for eDP
->   - connector type check modified to just check for eDP
+>   - reordered the patch in the series
+>   - modified the return statement for isr
+>   - connector check modified to just check for eDP
 >
-> Changes in v6:
->   - Remove initialization
->   - Fix aux_bus node leak
->   - Split the patches
->
->  drivers/gpu/drm/msm/dp/dp_display.c | 73 +++++++++++++++++++++++++++++++++++--
->  drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->  drivers/gpu/drm/msm/dp/dp_drm.c     | 21 +++++++++--
->  drivers/gpu/drm/msm/dp/dp_parser.c  | 23 +-----------
->  drivers/gpu/drm/msm/dp/dp_parser.h  | 13 ++++++-
->  5 files changed, 101 insertions(+), 30 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_catalog.c | 16 ++++++++++------
+>  drivers/gpu/drm/msm/dp/dp_display.c | 22 +++++++++++++++++++++-
+>  2 files changed, 31 insertions(+), 7 deletions(-)
 
 Reviewed-by: Douglas Anderson <dianders@chromium.org>
