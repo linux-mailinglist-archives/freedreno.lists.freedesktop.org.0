@@ -1,77 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BEC050B45D
-	for <lists+freedreno@lfdr.de>; Fri, 22 Apr 2022 11:48:28 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3435C50B534
+	for <lists+freedreno@lfdr.de>; Fri, 22 Apr 2022 12:37:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8801610E05D;
-	Fri, 22 Apr 2022 09:48:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC9D310E029;
+	Fri, 22 Apr 2022 10:37:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E82E110E05D
- for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 09:48:23 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6C22C5C01D0;
- Fri, 22 Apr 2022 05:48:20 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 22 Apr 2022 05:48:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1650620900; x=1650707300; bh=/jnprJeoFi
- lGfszResO5jhYHi6Tsya2lCXafPCGM034=; b=ZKFlHfILgt29pRaSja/Vo61gr+
- Ins4b8H8vp4rBOJIw8BeMO87LgElN1YWZWDHD082yM4w5aRTJCt3RILah3i60USp
- HE0VU8TH7/dyEMIi8LZPchz9SBkWWA66yMi4ldu8hPo0hXuoDGGyyGNo5PeXhO9Q
- x70XpybfEhwh+Y7BR2c6UWJFxVxNsUfS1L6LGB2vkMw19BxoBpGR5qt3d9GfqgPC
- HlZpR2ETJ8no2qQ7NiC+x1NlcuwomQpx8wA0Rl4/sWBlQGE7rerqNxubuEIBL7Qi
- zYZ8VQT/zjBc/yeDcApBrC2g5l5ofJOX7P0VpnNlK0mbu4wSAM4AN3f1K+KQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1650620900; x=
- 1650707300; bh=/jnprJeoFilGfszResO5jhYHi6Tsya2lCXafPCGM034=; b=X
- RDfJ8fwx5tp9NZdAU+0UtA9MfHjHInCrw+f2/C1M2p0lA72uYY0Bx0RhfY07FcEg
- ulE+BwuPQr1eYYo/Ab9qJ32bFJcE66v4f6gXUKKslx35odw5c2DS3ts41dIYaf7y
- ++4cY+JRjFSl89cMJVrz3oS25hCLX9GXbk8plm9ft4mky1uu8d+R2Dtekulh/Ng9
- I7tMISGuwJmBc6u/mksOT0YYoWQOiCAW3RNfgvOd3Wg8Pr4QiENTPOZZI22ub2RI
- rsPUQm1lenR/WrmY7xj70Q4+Z7chqe0hCIChm6InlNhXgs16WPFQpy0DYmvUf72a
- n4vcP+xvOlKquM7aPvWig==
-X-ME-Sender: <xms:43liYjdjRJuZ00iqcAOWH0LkaHQLe7OoSg-SFBzA5si5jR_yPmQfSg>
- <xme:43liYpPE6_3jcQUIAkjD2okJNyNuxGhQzT6YZcicW6QhMquXbi0IaaLbQTz4xNb6Q
- JFNfh18iyRNpAunlaQ>
-X-ME-Received: <xmr:43liYsgc45g1hNDBYDt_uk8oF6iLLsOUubHpBBUA0FrEHy46k53STf7t6Izt8F10nkw-BnzNqYsxJ8x7dB11jB-zHZXhssD2d6ENbSc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrtdeggddukecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepiedtgfevffevffeuudevjefhleduheffueffieeftedvvddvgfehleejtddt
- veehnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenuc
- evlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhm
- vgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:5HliYk9d0mG_KEG8UkvKN4aZPwtIeryzvfxLOaWb3jzGWEdf2p02Ug>
- <xmx:5HliYvt4fmmMgiJqQhHpJFo6xC8RGhuGk82os9kIpi7mgnN5Tbh3Bw>
- <xmx:5HliYjGh1T26ungdUTgyTSZsT3se-RlcCMGnT-fq5nF3HtG9c0jhOg>
- <xmx:5HliYtJvBYBKK8iUl4dDbsn5H9Un1OwaaTszs2oudyUTJmWI2Q2FMA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 22 Apr 2022 05:48:19 -0400 (EDT)
-Date: Fri, 22 Apr 2022 11:48:17 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Stephen Boyd <sboyd@kernel.org>
-Message-ID: <20220422094817.f3b7l5hg5inuq7vs@houat>
-References: <20220419235447.1586192-1-dmitry.baryshkov@linaro.org>
- <20220422024914.203CEC385A7@smtp.kernel.org>
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A15210E029
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 10:37:44 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id w20so7521467ybi.8
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 03:37:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=sJZA3wTJW0oXjXONmC9Yoe9i63fgFToeWZLupYbLhH0=;
+ b=sZxw7DKjLU82JWO8fTVdfMLTE/lwqiD59OwgqugczIexivD6RebCgB4++BiGbVOb9j
+ 0/Y+t4ujWKL1BAUsnt7/C4dr38abrGb0fY8Xv1J+RgoVa2S+f3vo0k1oLvAB7hTW78kQ
+ IYX+TnLSGa5BfLST1QkcgszznAEoUE8jTXWith3Iqx+KGQcMjAsjDAVZ9QY4TcxBdn2T
+ yaBUeytP+ttN4YzdAD+5eq15WCoBYrPI+xhXmA7ZNRmuqaWlKkxhKE8UHIwE69CgzpBC
+ cK6uNL6mlMiRmSoqmJUmlekh6Kizhkz581qM3+EKV7reOXP0mrDPZ2pRTemBkJThM+2j
+ OU4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=sJZA3wTJW0oXjXONmC9Yoe9i63fgFToeWZLupYbLhH0=;
+ b=BK69cXSSXWPF9QelmB4OmMM/+gz38cHh+jcd/VL9ddxZ5uhvxTXgDNYBwHyASGHhjc
+ abxZBn+BTuvB8r12CdW9SeR8RApjdQwJ3lf+9uq9N2NYazNeVYjp/GJRFKgAwUjiQMVf
+ hy5XaXJte4hzu6hdDk9eyIvBbxd1sUfCuMD3M7f3xHN8Vr2ttnc70r9iIOYqCaiUbY56
+ a1Hox6sQPNMow6eQbWOfuny6fFQERkuT7Qr5+/s8V3krTNMRG7soVr4Cs1IyLkP5Om7S
+ DfVzPMmLDe9r3JkrHMAicfjiibAx1AKQG5AWqobnCyVep7IO/OJCFZc1mV52vVxJD+OC
+ g5XQ==
+X-Gm-Message-State: AOAM532yCHsIYj2eqh9yF/tRHhruvAFWFS38AQKMk9xFgzqPrV7WYqhw
+ HTmjghZB7zlEljAuxaeraCWrny4Ql51rW5SLm0SxtQ==
+X-Google-Smtp-Source: ABdhPJyxhZyEcbbS1ED3FQRKrSoRnmfnkdErKoMI7qXfDG4k6xeoVy0G4qXOfBJ5zzY2DHqkp3q0aEafXrtwXi6a89c=
+X-Received: by 2002:a25:a1c6:0:b0:641:5ff5:9f93 with SMTP id
+ a64-20020a25a1c6000000b006415ff59f93mr3741936ybi.49.1650623863122; Fri, 22
+ Apr 2022 03:37:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="shly2rgnn4uitr6h"
-Content-Disposition: inline
-In-Reply-To: <20220422024914.203CEC385A7@smtp.kernel.org>
-Subject: Re: [Freedreno] [PATCH] clk: qcom: clk-rcg2: fix gfx3d frequency
- calculation
+References: <1650574112-25294-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1650574112-25294-2-git-send-email-quic_abhinavk@quicinc.com>
+ <f3c788b1-e7d8-f13a-e4f9-b96e069fe700@linaro.org>
+ <da2b917f-d7c0-e9a2-61a0-df2a88a441e4@quicinc.com>
+ <CAA8EJpov5N1q-uB_iCrHMPXZV59UmrMFV17ihXPjfEzknRsXSQ@mail.gmail.com>
+ <353a3eb8-c559-7697-27d4-059495db1422@quicinc.com>
+In-Reply-To: <353a3eb8-c559-7697-27d4-059495db1422@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 22 Apr 2022 13:37:32 +0300
+Message-ID: <CAA8EJprWNKVVt62ukqoQcq29ukeK7KcNpZ+c1gE9yH01CWj3VA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC 1/4] drm/msm/dpu: introduce a wb_idx to be
+ used for writeback interfaces
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,119 +68,263 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Taniya Das <quic_tdas@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org
+Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Fri, 22 Apr 2022 at 04:59, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+>
+>
+> On 4/21/2022 5:22 PM, Dmitry Baryshkov wrote:
+> > On Fri, 22 Apr 2022 at 02:07, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> >>
+> >> Hi Dmitry
+> >>
+> >> Thanks for the review.
+> >>
+> >> One question below.
+> >>
+> >> On 4/21/2022 3:40 PM, Dmitry Baryshkov wrote:
+> >>> On 21/04/2022 23:48, Abhinav Kumar wrote:
+> >>>> Using intf_idx even for writeback interfaces is confusing
+> >>>> because intf_idx is of type enum dpu_intf but the index used
+> >>>> for writeback is of type enum dpu_wb.
+> >>>>
+> >>>> In addition, this makes it easier to separately check the
+> >>>> availability of the two as its possible that there are boards
+> >>>> which don't have any physical display connected but can still
+> >>>> work in writeback mode.
+> >>>>
+> >>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> >>>
+> >>> Looks good, two minor issues bellow.
+> >>>
+> >>> With them fixed, I'd even squash this patch into the corresponding patch
+> >>> of the previous patchset.
+> >>>
+> >>>> ---
+> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 62
+> >>>> +++++++++++++-----------
+> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  4 ++
+> >>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h           |  2 +-
+> >>>>    3 files changed, 40 insertions(+), 28 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> index 9c12841..054d7e4 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> >>>> @@ -962,7 +962,6 @@ static void
+> >>>> dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> >>>>        struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+> >>>>        int num_lm, num_ctl, num_pp, num_dsc;
+> >>>>        unsigned int dsc_mask = 0;
+> >>>> -    enum dpu_hw_blk_type blk_type;
+> >>>>        int i;
+> >>>>        if (!drm_enc) {
+> >>>> @@ -1044,17 +1043,11 @@ static void
+> >>>> dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+> >>>>            phys->hw_pp = dpu_enc->hw_pp[i];
+> >>>>            phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
+> >>>> -        if (dpu_encoder_get_intf_mode(&dpu_enc->base) ==
+> >>>> INTF_MODE_WB_LINE)
+> >>>> -            blk_type = DPU_HW_BLK_WB;
+> >>>> -        else
+> >>>> -            blk_type = DPU_HW_BLK_INTF;
+> >>>> +        if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+> >>>> +            phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm,
+> >>>> phys->intf_idx);
+> >>>> -        if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX) {
+> >>>> -            if (blk_type == DPU_HW_BLK_INTF)
+> >>>> -                phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm,
+> >>>> phys->intf_idx);
+> >>>> -            else if (blk_type == DPU_HW_BLK_WB)
+> >>>> -                phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm,
+> >>>> phys->intf_idx);
+> >>>> -        }
+> >>>> +        if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
+> >>>> +            phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+> >>>
+> >>> We also need a check for if (phus->hw_intf && phys->hw_wb) HERE
+> >>
+> >> So there is an error if
+> >>
+> >> 1) Neither wb NOR intf are present
+> >> 2) Both wb AND intf are present for the physical encoder?
+> >>
+> >> The second check is okay for now to add but considering concurrent
+> >> writeback then that wouldn't assumption be wrong since both physical and
+> >> wb interfaces can go with the same encoder?
+> >
+> > To the same encoder, but not to the same physical encoder. Here we
+> > check the phys_enc parameters.
+>
+> Ok got it, let me re-spin this RFC with patches 2 & 3 squashed.
+> Get the acks on them.
+>
+> Then will absorb into WB series and re-post it.
 
---shly2rgnn4uitr6h
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sounds like a good plan!
 
-Hi,
+>
+> >
+> >>
+> >>>
+> >>>>            if (!phys->hw_intf && !phys->hw_wb) {
+> >>>>                DPU_ERROR_ENC(dpu_enc,
+> >>>> @@ -1201,7 +1194,7 @@ static void dpu_encoder_virt_disable(struct
+> >>>> drm_encoder *drm_enc)
+> >>>>        mutex_unlock(&dpu_enc->enc_lock);
+> >>>>    }
+> >>>> -static enum dpu_intf dpu_encoder_get_intf_or_wb(struct dpu_mdss_cfg
+> >>>> *catalog,
+> >>>> +static enum dpu_intf dpu_encoder_get_intf(struct dpu_mdss_cfg *catalog,
+> >>>>            enum dpu_intf_type type, u32 controller_id)
+> >>>>    {
+> >>>>        int i = 0;
+> >>>> @@ -1213,16 +1206,28 @@ static enum dpu_intf
+> >>>> dpu_encoder_get_intf_or_wb(struct dpu_mdss_cfg *catalog,
+> >>>>                    return catalog->intf[i].id;
+> >>>>                }
+> >>>>            }
+> >>>> -    } else {
+> >>>> -        for (i = 0; i < catalog->wb_count; i++) {
+> >>>> -            if (catalog->wb[i].id == controller_id)
+> >>>> -                return catalog->wb[i].id;
+> >>>> -        }
+> >>>>        }
+> >>>>        return INTF_MAX;
+> >>>>    }
+> >>>> +static enum dpu_wb dpu_encoder_get_wb(struct dpu_mdss_cfg *catalog,
+> >>>> +        enum dpu_intf_type type, u32 controller_id)
+> >>>> +{
+> >>>> +    int i = 0;
+> >>>> +
+> >>>> +    if (type != INTF_WB)
+> >>>> +        goto end;
+> >>>> +
+> >>>> +    for (i = 0; i < catalog->wb_count; i++) {
+> >>>> +        if (catalog->wb[i].id == controller_id)
+> >>>> +            return catalog->wb[i].id;
+> >>>> +    }
+> >>>> +
+> >>>> +end:
+> >>>> +    return WB_MAX;
+> >>>
+> >>> I'd return INTF_NONE/WB_NONE if the interface or WB unit was not found.
+> >> ack, i guess in that case even the places checking the return value of
+> >> this function need to be changed.
+> >
+> > Yes, of course.
+> >
+> >>>
+> >>>> +}
+> >>>> +
+> >>>>    static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
+> >>>>            struct dpu_encoder_phys *phy_enc)
+> >>>>    {
+> >>>> @@ -2249,18 +2254,21 @@ static int dpu_encoder_setup_display(struct
+> >>>> dpu_encoder_virt *dpu_enc,
+> >>>>            DPU_DEBUG("h_tile_instance %d = %d, split_role %d\n",
+> >>>>                    i, controller_id, phys_params.split_role);
+> >>>> -        /*
+> >>>> -         * FIXME: have separate intf_idx and wb_idx to avoid using
+> >>>> -         * enum dpu_intf type for wb_idx and also to be able to
+> >>>> -         * not bail out when there is no intf for boards which dont
+> >>>> -         * have a display connected to them.
+> >>>> -         * Having a valid wb_idx but not a intf_idx can be a valid
+> >>>> -         * combination moving forward.
+> >>>> -         */
+> >>>> -        phys_params.intf_idx =
+> >>>> dpu_encoder_get_intf_or_wb(dpu_kms->catalog,
+> >>>> +        phys_params.intf_idx = dpu_encoder_get_intf(dpu_kms->catalog,
+> >>>>                                                        intf_type,
+> >>>>                                                        controller_id);
+> >>>> -        if (phys_params.intf_idx == INTF_MAX) {
+> >>>> +
+> >>>> +        phys_params.wb_idx = dpu_encoder_get_wb(dpu_kms->catalog,
+> >>>> +                intf_type, controller_id);
+> >>>> +        /*
+> >>>> +         * For boards which have no physical displays, having no
+> >>>> interface
+> >>>> +         * is fine because it can still be used with just writeback.
+> >>>> +         * If we try without a display on a board which uses a DPU in
+> >>>> which
+> >>>> +         * writeback is not supported, then this will still fail as
+> >>>> it will not
+> >>>> +         * find any writeback in the catalog.
+> >>>> +         */
+> >>>> +        if ((phys_params.intf_idx == INTF_MAX) &&
+> >>>> +                (phys_params.wb_idx == WB_MAX)) {
+> >>>>                DPU_ERROR_ENC(dpu_enc, "could not get intf or wb: type
+> >>>> %d, id %d\n",
+> >>>>                              intf_type, controller_id);
+> >>>>                ret = -EINVAL;
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> index 04d037e..f2af07d 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
+> >>>> @@ -181,6 +181,7 @@ enum dpu_intr_idx {
+> >>>>     * @split_role:        Role to play in a split-panel configuration
+> >>>>     * @intf_mode:        Interface mode
+> >>>>     * @intf_idx:        Interface index on dpu hardware
+> >>>> + * @wb_idx:            Writeback index on dpu hardware
+> >>>>     * @enc_spinlock:    Virtual-Encoder-Wide Spin Lock for IRQ purposes
+> >>>>     * @enable_state:    Enable state tracking
+> >>>>     * @vblank_refcount:    Reference count of vblank request
+> >>>> @@ -209,6 +210,7 @@ struct dpu_encoder_phys {
+> >>>>        enum dpu_enc_split_role split_role;
+> >>>>        enum dpu_intf_mode intf_mode;
+> >>>>        enum dpu_intf intf_idx;
+> >>>> +    enum dpu_wb wb_idx;
+> >>>>        spinlock_t *enc_spinlock;
+> >>>>        enum dpu_enc_enable_state enable_state;
+> >>>>        atomic_t vblank_refcount;
+> >>>> @@ -275,6 +277,7 @@ struct dpu_encoder_phys_cmd {
+> >>>>     * @parent_ops:        Callbacks exposed by the parent to the phys_enc
+> >>>>     * @split_role:        Role to play in a split-panel configuration
+> >>>>     * @intf_idx:        Interface index this phys_enc will control
+> >>>> + * @wb_idx:            Writeback index this phys_enc will control
+> >>>>     * @enc_spinlock:    Virtual-Encoder-Wide Spin Lock for IRQ purposes
+> >>>>     */
+> >>>>    struct dpu_enc_phys_init_params {
+> >>>> @@ -283,6 +286,7 @@ struct dpu_enc_phys_init_params {
+> >>>>        const struct dpu_encoder_virt_ops *parent_ops;
+> >>>>        enum dpu_enc_split_role split_role;
+> >>>>        enum dpu_intf intf_idx;
+> >>>> +    enum dpu_wb wb_idx;
+> >>>>        spinlock_t *enc_spinlock;
+> >>>>    };
+> >>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> >>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> >>>> index ba82e54..2f34a31 100644
+> >>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> >>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+> >>>> @@ -103,7 +103,7 @@ static inline struct dpu_hw_intf
+> >>>> *dpu_rm_get_intf(struct dpu_rm *rm, enum dpu_in
+> >>>>     * @rm: DPU Resource Manager handle
+> >>>>     * @wb_idx: WB index
+> >>>>     */
+> >>>> -static inline struct dpu_hw_wb *dpu_rm_get_wb(struct dpu_rm *rm, enum
+> >>>> dpu_intf wb_idx)
+> >>>> +static inline struct dpu_hw_wb *dpu_rm_get_wb(struct dpu_rm *rm, enum
+> >>>> dpu_wb wb_idx)
+> >>>>    {
+> >>>>        return rm->hw_wb[wb_idx - WB_0];
+> >>>>    }
+> >>>
+> >>>
+> >
+> >
+> >
 
-On Thu, Apr 21, 2022 at 07:49:12PM -0700, Stephen Boyd wrote:
-> +Maxime
->=20
-> Quoting Dmitry Baryshkov (2022-04-19 16:54:47)
-> > Since the commit 948fb0969eae ("clk: Always clamp the rounded rate"),
-> > the clk_core_determine_round_nolock() would clamp the requested rate
-> > between min and max rates from the rate request. Normally these fields
-> > would be filled by clk_core_get_boundaries() called from
-> > clk_round_rate().
-> >=20
-> > However clk_gfx3d_determine_rate() uses a manually crafted rate request,
-> > which did not have these fields filled. Thus the requested frequency
-> > would be clamped to 0, resulting in weird frequencies being requested
-> > from the hardware.
-> >=20
-> > Fix this by filling min_rate and max_rate to the values valid for the
-> > respective PLLs (0 and ULONG_MAX).
-> >=20
-> > Fixes: 948fb0969eae ("clk: Always clamp the rounded rate")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
->=20
-> I hope there aren't others like this lurking.
 
-The problem is larger than that (even though I overlooked this
-particular issue), and addressed partially by patches 12-19 here:
-https://lore.kernel.org/linux-clk/20220408091037.2041955-1-maxime@cerno.tec=
-h/
 
-I wanted to have your feedback before fixing the relevant drivers, but
-these are:
-
-  * clk_divider:
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/clk-divider.=
-c#L389
-
-    Only sunxi-ng is using divider_round_rate_parent, and I couldn't
-    find any clock with CLK_SET_RATE_PARENT, so this one is probably
-    minor. This one doesn't setup the boundaries and would probably
-    benefit from using clk_hw_init_rate_req.
-
-  * clk_composite:
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/clk-composit=
-e.c#L88
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/clk-composit=
-e.c#L107
-
-    Both are doing an ok job at setting up the parent, but won't set up
-    the boundaries there. They setup the parent properly though, and
-    will update the "parent" request best_parent_* fields too. Switching
-    to clk_core_forward_rate_req would probably help maintenance a bit.
-
-    It's used in davinci_pll_obsclk_register,
-    mtk_clk_register_composite, lpc18xx_cgu_register_div,
-    lpc18xx_register_base_clk, lpc18xx_cgu_register_pll,
-    lpc32xx_clk_register, clk_pxa_cken_init and of_ti_composite_clk_setup.
-
-    It's not really clear to me whether these clocks have a
-    clk_round_rate / clk_set_rate on them, but it looks pretty bad.
-
-  * at91:
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/at91/clk-gen=
-erated.c#L135
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/at91/clk-mas=
-ter.c#L381
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/at91/clk-per=
-ipheral.c#L272
-
-    The issue is the same addressed in my series. The clk_rate_request
-    structure is forwarded as is and only the rate is updated. The
-    best_parent_* and boundaries aren't updated. It should be switched
-    to use clk_core_forward_rate_req or something equivalent.
-
-  * qcom:
-    https://elixir.bootlin.com/linux/latest/source/drivers/clk/qcom/clk-rcg=
-2.c#L821
-
-    This is the one affected by the patch. It's doing a better job at
-    filling the clk_rate_request, but indeed doesn't update the
-    boundaries. This patch is probably sane from an clk_hw
-    point-of-view, but it's broken if any user has set a boundary. It
-    should probably be switched to clk_core_forward_rate_req or similar
-    as well. Since the logic seems fairly intricate, I'm not sure if it
-    would be convenient though.
-
-Maxime
-
---shly2rgnn4uitr6h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYmJ54QAKCRDj7w1vZxhR
-xSR5AP9AMlHnRKHhBXlCcrlBc7zDJRHHIRnC93hrO71Q1lmriwD+J39BedrjqTeT
-5LYu2r+BFecqfMsp874SkOr9wOw6oQ8=
-=ngM8
------END PGP SIGNATURE-----
-
---shly2rgnn4uitr6h--
+-- 
+With best wishes
+Dmitry
