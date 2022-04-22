@@ -2,58 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D5D750C29E
-	for <lists+freedreno@lfdr.de>; Sat, 23 Apr 2022 01:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B29850C4A3
+	for <lists+freedreno@lfdr.de>; Sat, 23 Apr 2022 01:45:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C90A10EC23;
-	Fri, 22 Apr 2022 23:08:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1720710E0B7;
+	Fri, 22 Apr 2022 23:45:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0587710EC09;
- Fri, 22 Apr 2022 23:08:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF64410E0A7;
+ Fri, 22 Apr 2022 23:45:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650668934; x=1682204934;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DTrtGDiDbvdslMht5KJ7fAnV0GtDI++8BTMc0b/OcV4=;
- b=wFMYaV9dLIhApHz5pNMaI/j2tscVDf/uSw4t9VYnIP9u/0g4KhZOXVU5
- IHOwnwyTXf5Yp7qeYjsVG7YVKIkP0d5zrB/VaJEN6A1J2Q18NffkJGsrA
- hOZaOjdVsUfwOOMUPU6UvRhPlnJJrrk/DoBE0nENXhM6GDHtaChT4jRG1 U=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 22 Apr 2022 16:08:54 -0700
+ t=1650671135; x=1682207135;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=4lI5QQVTvYeP8wkKNBfN+3WtQcv3wu/e6yW5dEZ3qWQ=;
+ b=e1tgnpCOdd8bDpKJ8wPl5sRRrXOOkgmnrIR70CxQUl0rgJ2CeCiF4RAD
+ vO3YluGEUOACPx+KqaJFSW/wAKJ8W5AUBl+Fs8TdLac8TyOtA++9Gf8RB
+ eCfS+za2tGLXcqCD1x1nVtfMv6DnRPVEdTIKxG0RnITHcOHpjXKxdmGQJ 0=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 22 Apr 2022 16:45:34 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2022 16:08:53 -0700
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2022 16:45:33 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 22 Apr 2022 16:08:12 -0700
-Received: from [10.111.175.210] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 22 Apr
- 2022 16:08:10 -0700
-Message-ID: <8473260f-e5c9-4112-ca4d-ddd300fa0d8b@quicinc.com>
-Date: Fri, 22 Apr 2022 16:08:08 -0700
+ 15.2.986.22; Fri, 22 Apr 2022 16:45:33 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 22 Apr 2022 16:45:32 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Fri, 22 Apr 2022 16:45:23 -0700
+Message-ID: <1650671124-14030-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Liviu Dudau <liviu.dudau@arm.com>
-References: <1650419169-13760-1-git-send-email-quic_abhinavk@quicinc.com>
- <1650419169-13760-5-git-send-email-quic_abhinavk@quicinc.com>
- <YmFLOjLlkCwV6klC@e110455-lin.cambridge.arm.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <YmFLOjLlkCwV6klC@e110455-lin.cambridge.arm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 04/17] drm/msm/dpu: add writeback blocks
- to the sm8250 DPU catalog
+Subject: [Freedreno] [PATCH] drm/msm/dp: move add fail safe mode to
+ dp_connector_get_mode()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,272 +61,201 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Liviu
+Current DP driver implementation has adding safe mode done at
+dp_hpd_plug_handle() which is expected to be executed under event
+thread context.
 
-Thank you for the feedback.
+However there is possible circular locking happen (see blow stack trace)
+after edp driver call dp_hpd_plug_handle() from dp_bridge_enable() which
+is executed under drm_thread context.
 
-I have fixed the order of copyright years in all the changes in the next 
-version.
+To break this circular locking, this patch have safe mode added at
+dp_connector_get_mode() which is executed under drm thread context.
+Therefore no lock acquired required for &dev->mode_config.mutex while
+adding fail safe mode since it has been hold by drm thread already.
 
-Thanks
+======================================================
+ WARNING: possible circular locking dependency detected
+ 5.15.35-lockdep #6 Tainted: G        W
+ ------------------------------------------------------
+ frecon/429 is trying to acquire lock:
+ ffffff808dc3c4e8 (&dev->mode_config.mutex){+.+.}-{3:3}, at:
+dp_panel_add_fail_safe_mode+0x4c/0xa0
 
-Abhinav
+ but task is already holding lock:
+ ffffff808dc441e0 (&kms->commit_lock[i]){+.+.}-{3:3}, at: lock_crtcs+0xb4/0x124
 
-On 4/21/2022 5:16 AM, Liviu Dudau wrote:
-> On Tue, Apr 19, 2022 at 06:45:56PM -0700, Abhinav Kumar wrote:
->> Add writeback blocks to the sm8250 DPU hardware catalog. Other
->> chipsets support writeback too but add it to sm8250 to prototype
->> the feature so that it can be easily extended to other chipsets.
->>
->> changes in v2:
->> 	- none
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 74 +++++++++++++++++++++++++-
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h | 66 ++++++++++++++++++++++-
->>   2 files changed, 138 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> index b0a0ef7..bcb5273 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
->> @@ -1,5 +1,6 @@
->>   // SPDX-License-Identifier: GPL-2.0-only
->> -/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
->> +/* Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-> 
-> Hi Abhinav,
-> 
-> Nit: Order should be historical (i.e. QIC copyright comes last). Comment applies to
-> all other copyright years additions.
-> 
-> Best regards,
-> Liviu
-> 
->>    */
->>   
->>   #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
->> @@ -120,6 +121,16 @@
->>   			  BIT(MDP_AD4_0_INTR) | \
->>   			  BIT(MDP_AD4_1_INTR))
->>   
->> +#define WB_SM8250_MASK (BIT(DPU_WB_LINE_MODE) | \
->> +			 BIT(DPU_WB_UBWC) | \
->> +			 BIT(DPU_WB_YUV_CONFIG) | \
->> +			 BIT(DPU_WB_PIPE_ALPHA) | \
->> +			 BIT(DPU_WB_XY_ROI_OFFSET) | \
->> +			 BIT(DPU_WB_QOS) | \
->> +			 BIT(DPU_WB_QOS_8LVL) | \
->> +			 BIT(DPU_WB_CDP) | \
->> +			 BIT(DPU_WB_INPUT_CTRL))
->> +
->>   #define DEFAULT_PIXEL_RAM_SIZE		(50 * 1024)
->>   #define DEFAULT_DPU_LINE_WIDTH		2048
->>   #define DEFAULT_DPU_OUTPUT_LINE_WIDTH	2560
->> @@ -211,6 +222,40 @@ static const u32 rotation_v2_formats[] = {
->>   	/* TODO add formats after validation */
->>   };
->>   
->> +static const uint32_t wb2_formats[] = {
->> +	DRM_FORMAT_RGB565,
->> +	DRM_FORMAT_BGR565,
->> +	DRM_FORMAT_RGB888,
->> +	DRM_FORMAT_ARGB8888,
->> +	DRM_FORMAT_RGBA8888,
->> +	DRM_FORMAT_ABGR8888,
->> +	DRM_FORMAT_XRGB8888,
->> +	DRM_FORMAT_RGBX8888,
->> +	DRM_FORMAT_XBGR8888,
->> +	DRM_FORMAT_ARGB1555,
->> +	DRM_FORMAT_RGBA5551,
->> +	DRM_FORMAT_XRGB1555,
->> +	DRM_FORMAT_RGBX5551,
->> +	DRM_FORMAT_ARGB4444,
->> +	DRM_FORMAT_RGBA4444,
->> +	DRM_FORMAT_RGBX4444,
->> +	DRM_FORMAT_XRGB4444,
->> +	DRM_FORMAT_BGR565,
->> +	DRM_FORMAT_BGR888,
->> +	DRM_FORMAT_ABGR8888,
->> +	DRM_FORMAT_BGRA8888,
->> +	DRM_FORMAT_BGRX8888,
->> +	DRM_FORMAT_XBGR8888,
->> +	DRM_FORMAT_ABGR1555,
->> +	DRM_FORMAT_BGRA5551,
->> +	DRM_FORMAT_XBGR1555,
->> +	DRM_FORMAT_BGRX5551,
->> +	DRM_FORMAT_ABGR4444,
->> +	DRM_FORMAT_BGRA4444,
->> +	DRM_FORMAT_BGRX4444,
->> +	DRM_FORMAT_XBGR4444,
->> +};
->> +
->>   /*************************************************************
->>    * DPU sub blocks config
->>    *************************************************************/
->> @@ -448,6 +493,8 @@ static const struct dpu_mdp_cfg sm8250_mdp[] = {
->>   			.reg_off = 0x2C4, .bit_off = 8},
->>   	.clk_ctrls[DPU_CLK_CTRL_REG_DMA] = {
->>   			.reg_off = 0x2BC, .bit_off = 20},
->> +	.clk_ctrls[DPU_CLK_CTRL_WB2] = {
->> +			.reg_off = 0x3B8, .bit_off = 24},
->>   	},
->>   };
->>   
->> @@ -1235,6 +1282,29 @@ static const struct dpu_intf_cfg qcm2290_intf[] = {
->>   };
->>   
->>   /*************************************************************
->> + * Writeback blocks config
->> + *************************************************************/
->> +#define WB_BLK(_name, _id, _base, _features, _clk_ctrl, \
->> +		__xin_id, vbif_id, _reg, _wb_done_bit) \
->> +	{ \
->> +	.name = _name, .id = _id, \
->> +	.base = _base, .len = 0x2c8, \
->> +	.features = _features, \
->> +	.format_list = wb2_formats, \
->> +	.num_formats = ARRAY_SIZE(wb2_formats), \
->> +	.clk_ctrl = _clk_ctrl, \
->> +	.xin_id = __xin_id, \
->> +	.vbif_idx = vbif_id, \
->> +	.maxlinewidth = DEFAULT_DPU_LINE_WIDTH, \
->> +	.intr_wb_done = DPU_IRQ_IDX(_reg, _wb_done_bit) \
->> +	}
->> +
->> +static const struct dpu_wb_cfg sm8250_wb[] = {
->> +	WB_BLK("wb_2", WB_2, 0x65000, WB_SM8250_MASK, DPU_CLK_CTRL_WB2, 6,
->> +			VBIF_RT, MDP_SSPP_TOP0_INTR, 4),
->> +};
->> +
->> +/*************************************************************
->>    * VBIF sub blocks config
->>    *************************************************************/
->>   /* VBIF QOS remap */
->> @@ -1832,6 +1902,8 @@ static void sm8250_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
->>   		.intf = sm8150_intf,
->>   		.vbif_count = ARRAY_SIZE(sdm845_vbif),
->>   		.vbif = sdm845_vbif,
->> +		.wb_count = ARRAY_SIZE(sm8250_wb),
->> +		.wb = sm8250_wb,
->>   		.reg_dma_count = 1,
->>   		.dma_cfg = sm8250_regdma,
->>   		.perf = sm8250_perf_data,
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> index 866fd7a..8cb6d1f 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
->> @@ -1,5 +1,7 @@
->>   /* SPDX-License-Identifier: GPL-2.0-only */
->> -/* Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
->> +/*
->> + * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
->> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
->>    */
->>   
->>   #ifndef _DPU_HW_CATALOG_H
->> @@ -214,6 +216,42 @@ enum {
->>   };
->>   
->>   /**
->> +  * WB sub-blocks and features
->> +  * @DPU_WB_LINE_MODE        Writeback module supports line/linear mode
->> +  * @DPU_WB_BLOCK_MODE       Writeback module supports block mode read
->> +  * @DPU_WB_CHROMA_DOWN,     Writeback chroma down block,
->> +  * @DPU_WB_DOWNSCALE,       Writeback integer downscaler,
->> +  * @DPU_WB_DITHER,          Dither block
->> +  * @DPU_WB_TRAFFIC_SHAPER,  Writeback traffic shaper bloc
->> +  * @DPU_WB_UBWC,            Writeback Universal bandwidth compression
->> +  * @DPU_WB_YUV_CONFIG       Writeback supports output of YUV colorspace
->> +  * @DPU_WB_PIPE_ALPHA       Writeback supports pipe alpha
->> +  * @DPU_WB_XY_ROI_OFFSET    Writeback supports x/y-offset of out ROI in
->> +  *                          the destination image
->> +  * @DPU_WB_QOS,             Writeback supports QoS control, danger/safe/creq
->> +  * @DPU_WB_QOS_8LVL,        Writeback supports 8-level QoS control
->> +  * @DPU_WB_CDP              Writeback supports client driven prefetch
->> +  * @DPU_WB_INPUT_CTRL       Writeback supports from which pp block input pixel
->> +  *                          data arrives.
->> +  * @DPU_WB_CROP             CWB supports cropping
->> +  * @DPU_WB_MAX              maximum value
->> +  */
->> +enum {
->> +	DPU_WB_LINE_MODE = 0x1,
->> +	DPU_WB_BLOCK_MODE,
->> +	DPU_WB_UBWC,
->> +	DPU_WB_YUV_CONFIG,
->> +	DPU_WB_PIPE_ALPHA,
->> +	DPU_WB_XY_ROI_OFFSET,
->> +	DPU_WB_QOS,
->> +	DPU_WB_QOS_8LVL,
->> +	DPU_WB_CDP,
->> +	DPU_WB_INPUT_CTRL,
->> +	DPU_WB_CROP,
->> +	DPU_WB_MAX
->> +};
->> +
->> +/**
->>    * VBIF sub-blocks and features
->>    * @DPU_VBIF_QOS_OTLIM        VBIF supports OT Limit
->>    * @DPU_VBIF_QOS_REMAP        VBIF supports QoS priority remap
->> @@ -460,6 +498,7 @@ enum dpu_clk_ctrl_type {
->>   	DPU_CLK_CTRL_CURSOR1,
->>   	DPU_CLK_CTRL_INLINE_ROT0_SSPP,
->>   	DPU_CLK_CTRL_REG_DMA,
->> +	DPU_CLK_CTRL_WB2,
->>   	DPU_CLK_CTRL_MAX,
->>   };
->>   
->> @@ -608,6 +647,28 @@ struct dpu_intf_cfg  {
->>   };
->>   
->>   /**
->> + * struct dpu_wb_cfg - information of writeback blocks
->> + * @DPU_HW_BLK_INFO:    refer to the description above for DPU_HW_BLK_INFO
->> + * @vbif_idx:           vbif client index
->> + * @maxlinewidth:       max line width supported by writeback block
->> + * @xin_id:             bus client identifier
->> + * @intr_wb_done:       interrupt index for WB_DONE
->> + * @format_list:	    list of formats supported by this writeback block
->> + * @num_formats:	    number of formats supported by this writeback block
->> + * @clk_ctrl:	        clock control identifier
->> + */
->> +struct dpu_wb_cfg {
->> +	DPU_HW_BLK_INFO;
->> +	u8 vbif_idx;
->> +	u32 maxlinewidth;
->> +	u32 xin_id;
->> +	s32 intr_wb_done;
->> +	const u32 *format_list;
->> +	u32 num_formats;
->> +	enum dpu_clk_ctrl_type clk_ctrl;
->> +};
->> +
->> +/**
->>    * struct dpu_vbif_dynamic_ot_cfg - dynamic OT setting
->>    * @pps                pixel per seconds
->>    * @ot_limit           OT limit to use up to specified pixel per second
->> @@ -792,6 +853,9 @@ struct dpu_mdss_cfg {
->>   	u32 vbif_count;
->>   	const struct dpu_vbif_cfg *vbif;
->>   
->> +	u32 wb_count;
->> +	const struct dpu_wb_cfg *wb;
->> +
->>   	u32 reg_dma_count;
->>   	struct dpu_reg_dma_cfg dma_cfg;
->>   
->> -- 
->> 2.7.4
->>
-> 
+ which lock already depends on the new lock.
+
+ the existing dependency chain (in reverse order) is:
+
+ -> #3 (&kms->commit_lock[i]){+.+.}-{3:3}:
+        __mutex_lock_common+0x174/0x1a64
+        mutex_lock_nested+0x98/0xac
+        lock_crtcs+0xb4/0x124
+        msm_atomic_commit_tail+0x330/0x748
+        commit_tail+0x19c/0x278
+        drm_atomic_helper_commit+0x1dc/0x1f0
+        drm_atomic_commit+0xc0/0xd8
+        drm_atomic_helper_set_config+0xb4/0x134
+        drm_mode_setcrtc+0x688/0x1248
+        drm_ioctl_kernel+0x1e4/0x338
+        drm_ioctl+0x3a4/0x684
+        __arm64_sys_ioctl+0x118/0x154
+        invoke_syscall+0x78/0x224
+        el0_svc_common+0x178/0x200
+        do_el0_svc+0x94/0x13c
+        el0_svc+0x5c/0xec
+        el0t_64_sync_handler+0x78/0x108
+        el0t_64_sync+0x1a4/0x1a8
+
+ -> #2 (crtc_ww_class_mutex){+.+.}-{3:3}:
+        __mutex_lock_common+0x174/0x1a64
+        ww_mutex_lock+0xb8/0x278
+        modeset_lock+0x304/0x4ac
+        drm_modeset_lock+0x4c/0x7c
+        drmm_mode_config_init+0x4a8/0xc50
+        msm_drm_init+0x274/0xac0
+        msm_drm_bind+0x20/0x2c
+        try_to_bring_up_master+0x3dc/0x470
+        __component_add+0x18c/0x3c0
+        component_add+0x1c/0x28
+        dp_display_probe+0x954/0xa98
+        platform_probe+0x124/0x15c
+        really_probe+0x1b0/0x5f8
+        __driver_probe_device+0x174/0x20c
+        driver_probe_device+0x70/0x134
+        __device_attach_driver+0x130/0x1d0
+        bus_for_each_drv+0xfc/0x14c
+        __device_attach+0x1bc/0x2bc
+        device_initial_probe+0x1c/0x28
+        bus_probe_device+0x94/0x178
+        deferred_probe_work_func+0x1a4/0x1f0
+        process_one_work+0x5d4/0x9dc
+        worker_thread+0x898/0xccc
+        kthread+0x2d4/0x3d4
+        ret_from_fork+0x10/0x20
+
+ -> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
+        ww_acquire_init+0x1c4/0x2c8
+        drm_modeset_acquire_init+0x44/0xc8
+        drm_helper_probe_single_connector_modes+0xb0/0x12dc
+        drm_mode_getconnector+0x5dc/0xfe8
+        drm_ioctl_kernel+0x1e4/0x338
+        drm_ioctl+0x3a4/0x684
+        __arm64_sys_ioctl+0x118/0x154
+        invoke_syscall+0x78/0x224
+        el0_svc_common+0x178/0x200
+        do_el0_svc+0x94/0x13c
+        el0_svc+0x5c/0xec
+        el0t_64_sync_handler+0x78/0x108
+        el0t_64_sync+0x1a4/0x1a8
+
+ -> #0 (&dev->mode_config.mutex){+.+.}-{3:3}:
+        __lock_acquire+0x2650/0x672c
+        lock_acquire+0x1b4/0x4ac
+        __mutex_lock_common+0x174/0x1a64
+        mutex_lock_nested+0x98/0xac
+        dp_panel_add_fail_safe_mode+0x4c/0xa0
+        dp_hpd_plug_handle+0x1f0/0x280
+        dp_bridge_enable+0x94/0x2b8
+        drm_atomic_bridge_chain_enable+0x11c/0x168
+        drm_atomic_helper_commit_modeset_enables+0x500/0x740
+        msm_atomic_commit_tail+0x3e4/0x748
+        commit_tail+0x19c/0x278
+        drm_atomic_helper_commit+0x1dc/0x1f0
+        drm_atomic_commit+0xc0/0xd8
+        drm_atomic_helper_set_config+0xb4/0x134
+        drm_mode_setcrtc+0x688/0x1248
+        drm_ioctl_kernel+0x1e4/0x338
+        drm_ioctl+0x3a4/0x684
+        __arm64_sys_ioctl+0x118/0x154
+        invoke_syscall+0x78/0x224
+        el0_svc_common+0x178/0x200
+        do_el0_svc+0x94/0x13c
+        el0_svc+0x5c/0xec
+        el0t_64_sync_handler+0x78/0x108
+        el0t_64_sync+0x1a4/0x1a8
+
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c |  6 ------
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 23 +++++++++++++----------
+ 2 files changed, 13 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 92cd50f..01453db 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -555,12 +555,6 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+ 
+ 	mutex_unlock(&dp->event_mutex);
+ 
+-	/*
+-	 * add fail safe mode outside event_mutex scope
+-	 * to avoid potiential circular lock with drm thread
+-	 */
+-	dp_panel_add_fail_safe_mode(dp->dp_display.connector);
+-
+ 	/* uevent will complete connection part */
+ 	return 0;
+ };
+diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
+index 1aa9aa8c..23fee42 100644
+--- a/drivers/gpu/drm/msm/dp/dp_panel.c
++++ b/drivers/gpu/drm/msm/dp/dp_panel.c
+@@ -151,15 +151,6 @@ static int dp_panel_update_modes(struct drm_connector *connector,
+ 	return rc;
+ }
+ 
+-void dp_panel_add_fail_safe_mode(struct drm_connector *connector)
+-{
+-	/* fail safe edid */
+-	mutex_lock(&connector->dev->mode_config.mutex);
+-	if (drm_add_modes_noedid(connector, 640, 480))
+-		drm_set_preferred_mode(connector, 640, 480);
+-	mutex_unlock(&connector->dev->mode_config.mutex);
+-}
+-
+ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
+ 	struct drm_connector *connector)
+ {
+@@ -216,7 +207,11 @@ int dp_panel_read_sink_caps(struct dp_panel *dp_panel,
+ 			goto end;
+ 		}
+ 
+-		dp_panel_add_fail_safe_mode(connector);
++		/* fail safe edid */
++		mutex_lock(&connector->dev->mode_config.mutex);
++		if (drm_add_modes_noedid(connector, 640, 480))
++			drm_set_preferred_mode(connector, 640, 480);
++		mutex_unlock(&connector->dev->mode_config.mutex);
+ 	}
+ 
+ 	if (panel->aux_cfg_update_done) {
+@@ -266,6 +261,14 @@ int dp_panel_get_modes(struct dp_panel *dp_panel,
+ 		return -EINVAL;
+ 	}
+ 
++	/*
++	 * add fail safe mode (640x480) here
++	 * since we are executed in drm_thread context,
++	 * no mode_config.mutex acquired required
++	 */
++	if (drm_add_modes_noedid(connector, 640, 480))
++		drm_set_preferred_mode(connector, 640, 480);
++
+ 	if (dp_panel->edid)
+ 		return dp_panel_update_modes(connector, dp_panel->edid);
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
