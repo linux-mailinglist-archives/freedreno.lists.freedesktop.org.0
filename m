@@ -2,67 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92BE350C248
-	for <lists+freedreno@lfdr.de>; Sat, 23 Apr 2022 00:41:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B50750C271
+	for <lists+freedreno@lfdr.de>; Sat, 23 Apr 2022 01:07:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237C410E350;
-	Fri, 22 Apr 2022 22:41:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F3510EC03;
+	Fri, 22 Apr 2022 23:07:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5705A10E300
- for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 22:41:02 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id h27so16387072lfj.13
- for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 15:41:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language
- :from:to:cc:references:in-reply-to:content-transfer-encoding;
- bh=9OGcVwu87n3nund5h+/ahM8cEAIF7XFZ15UqXk1Yef4=;
- b=CAbZr1b6SoLRrn/4p8RcK6MLkzVkZgvKehcD3ykk64L1/GQ5UmB431dmyJGGomJr5t
- dRPHBDtHDtmmCotIXNa3FMpfZrYi+pzKGLfCTdphzfy5ur+Hj4gdLnD9XHOrU2Ql1nPp
- JeLDHlxeu2zfMIxQj6Ir6A6i003s57R/ADVSBgIne7y4GpHjpuvtOzWcUUiOg2qIgrWK
- TZedyUdVBjOeQW9AspdDmo51QngzQnuez6hlfVK0RFZHmoeA5cuKYT57ag9lMEoDGKbW
- PYn1Psu3wJkuFyzBpeYMhGYKOUograhAi5d1twBLHe6Iv6Vvr3S1H9fK5uf5aXRdESbk
- DmNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:from:to:cc:references:in-reply-to
- :content-transfer-encoding;
- bh=9OGcVwu87n3nund5h+/ahM8cEAIF7XFZ15UqXk1Yef4=;
- b=ugPrbuPZ2BoXmV9pehITyYuXoAU5OOq65CEqpEQFifMpOk7uX2JApLIEUqSsJ03fV2
- wqU5vxZETrJjuyft9WsRYjjzr3eWnYstjE25G1LNQYqcSo1tkx26xDl7R2KSgtgUM/aw
- ym55oOhOJe1CnrXATJ++ic+10zxJSOPTOktyXrKkqyDHXf+VDMUXyYWGljAl0PhUDmBI
- F4ta2zahkOJkEWyVnUzJomkNaUrk2JNBz07wMavk0NjF40t65Lo00An51Ki3m7aINPFN
- ukpKKD93HEDUBa+dADQdu/XtrEQsSkD0/n+MRlXuJvBfJz6nrJQoHRbwShA6WQYUB3OM
- TGlw==
-X-Gm-Message-State: AOAM5339T7cfcgMbMFRJIem8+kEizH9Ya7ZwO2745KyMValbyMo5sweJ
- 5zx85u4DhXpfn9pfx4RDkZeArw==
-X-Google-Smtp-Source: ABdhPJzys8moEhv4YW8LsUgDZNfCdy9bUPFmjV3EvTn8K635yo6mVPcZHalEKkB0DlcYfz1pZkkM7g==
-X-Received: by 2002:a05:6512:1193:b0:471:af88:2d74 with SMTP id
- g19-20020a056512119300b00471af882d74mr4515551lfr.531.1650667260391; 
- Fri, 22 Apr 2022 15:41:00 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- e1-20020a196741000000b0046bc4be1d60sm376636lfj.123.2022.04.22.15.40.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Apr 2022 15:41:00 -0700 (PDT)
-Message-ID: <39b3828e-064c-6aa4-de77-35b201b1b40f@linaro.org>
-Date: Sat, 23 Apr 2022 01:40:59 +0300
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B61C10EBFC;
+ Fri, 22 Apr 2022 23:07:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1650668828; x=1682204828;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=sLfPv7inDSaAFl2QH6Ru1bmNh9ZWv3VDUmQ5VeiupNM=;
+ b=hNDixTuyCsKx6Xt+wlXZRaGS/q35gp5txqKZ7nWG59D5wioqV26NHvIH
+ znV962ydV4f8nfZMW78KMLABzZlRbD8AJIWa64/uY6VD4ulvkYFxrkhzi
+ STyj1iddGKvC6qaeTA50B2AMm2EnjgyXFI7vreRmBkjbaOtnqBaEoOTci g=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 22 Apr 2022 16:07:07 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2022 16:07:06 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 22 Apr 2022 16:07:05 -0700
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 22 Apr 2022 16:07:04 -0700
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+To: <freedreno@lists.freedesktop.org>
+Date: Fri, 22 Apr 2022 16:06:35 -0700
+Message-ID: <1650668815-7048-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: cgel.zte@gmail.com
-References: <20220422085211.2776419-1-lv.ruyi@zte.com.cn>
- <CAA8EJpoAeCp-=k2o+C4E4jHBAv7f3eKrV5FZiYjVZ8hcRGYLVA@mail.gmail.com>
-In-Reply-To: <CAA8EJpoAeCp-=k2o+C4E4jHBAv7f3eKrV5FZiYjVZ8hcRGYLVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm: msm: fix error check return value of
- irq_of_parse_and_map()
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v4 00/20] Add writeback block support for DPU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +58,116 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, Lv Ruyi <lv.ruyi@zte.com.cn>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, quic_mkrishn@quicinc.com,
- vulab@iscas.ac.cn, daniel@ffwll.ch, sean@poorly.run,
- Zeal Robot <zealci@zte.com.cn>, linux-kernel@vger.kernel.org,
- angelogioacchino.delregno@collabora.com
+Cc: markyacoub@chromium.org, liviu.dudau@arm.com,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/04/2022 13:42, Dmitry Baryshkov wrote:
-> On Fri, 22 Apr 2022 at 11:52, <cgel.zte@gmail.com> wrote:
->>
->> From: Lv Ruyi <lv.ruyi@zte.com.cn>
->>
->> The irq_of_parse_and_map() function returns 0 on failure, and does not
->> return an negative value.
->>
->> Reported-by: Zeal Robot <zealci@zte.com.cn>
->> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> index 3b92372e7bdf..1fb1ed9e95d9 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> @@ -570,7 +570,7 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
->>          }
->>
->>          irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
->> -       if (irq < 0) {
->> +       if (!irq) {
->>                  ret = irq;
+This series adds support for writeback block on DPU. Writeback
+block is extremely useful to validate boards having no physical displays
+in addition to many other use-cases where we want to get the output
+of the display pipeline to examine whether issue is with the display
+pipeline or with the panel.
 
-As noted by Stephen, this will cause the function to prematurely return 
-0 (success).
+These changes have been validated on SM8250 RB5 boards with IGT KMS
+writeback test-suite thereby further increasing the IGT test coverage
+for DPU. I am sharing the test results below.
 
->>                  DRM_DEV_ERROR(&pdev->dev, "failed to get irq: %d\n", ret);
->>                  goto fail;
->> --
->> 2.25.1
->>
-> 
-> 
+root@linaro-developer:~/igt_repo/igt-gpu-tools/build/tests# ./kms_writeback
+[   35.066157] Console: switching to colour dummy device 80x25
+[   35.071964] [IGT] kms_writeback: executing
+IGT-Version: 1.26-gae2eb9e1 (aarch64) (Linux: 5.16.0-rc2-62171-g132577e2697b aarch64)
+[   35.611418] [IGT] kms_writeback: starting subtest writeback-pixel-formats
+Starting subtest: writeback-pixel-formats
+[   35.618528] [IGT] kms_writeback: starting subtest writeback-invalid-parameters
+Subtest writeback-pixel-formats: SUCCESS (0.000s)
+Starting subtest: writeback-invalid-parameters
+Subtest writeback-invalid-parameters: SUCCESS (0.028s)   35.657437] [IGT] kms_writeback: starting subtest writeback-fb-id
+Starting subtest: writeback-fb-id
+Subtest writeback-fb-id: SUCCESS (0.030s)
+[   35.698957] [IGT] kms_writeback: starting subtest writeback-check-output
+Starting subtest: writeback-check-output
+[   35.852834] [IGT] kms_writeback: exiting, ret=0
+Subtest writeback-check-output: SUCCESS (0.142s)
+[   35.861291] Console: switching to colour frame buffer device 240x67
+root@linaro-developer:~/igt_repo/igt-gpu-tools/build/tests# 
 
+The changes can easily be extended to support any other chipset using
+the DPU driver by adding the support in the catalog.
+
+Writeback block supports various formats and features. The support
+for all of them can be incrementally added on top of this framework when
+validation is improved and the test frameworks are extended to validate
+them.
+
+changes in v4:
+	- absorb https://patchwork.freedesktop.org/series/102964/ into this
+	  and also preserve necessary acks for trivial changes
+	- fix order of copyright years for all the changes  	
+
+Abhinav Kumar (20):
+  drm: allow passing possible_crtcs to drm_writeback_connector_init()
+  drm: introduce drm_writeback_connector_init_with_encoder() API
+  drm: allow real encoder to be passed for drm_writeback_connector
+  drm/msm/dpu: add writeback blocks to the sm8250 DPU catalog
+  drm/msm/dpu: add reset_intf_cfg operation for dpu_hw_ctl
+  drm/msm/dpu: rename dpu_hw_pipe_cdp_cfg to dpu_hw_cdp_cfg
+  drm/msm/dpu: add dpu_hw_wb abstraction for writeback blocks
+  drm/msm/dpu: add writeback blocks to DPU RM
+  drm/msm/dpu: add changes to support writeback in hw_ctl
+  drm/msm/dpu: add an API to reset the encoder related hw blocks
+  drm/msm/dpu: make changes to dpu_encoder to support virtual encoder
+  drm/msm/dpu: add encoder operations to prepare/cleanup wb job
+  drm/msm/dpu: move _dpu_plane_get_qos_lut to dpu_hw_util file
+  drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback
+  drm/msm/dpu: add the writeback connector layer
+  drm/msm/dpu: initialize dpu encoder and connector for writeback
+  drm/msm/dpu: gracefully handle null fb commits for writeback
+  drm/msm/dpu: add writeback blocks to the display snapshot
+  drm/msm/dpu: add wb_idx to existing DRM prints in dpu_encoder
+  drm/msm/dpu: add wb_idx to DRM traces in dpu_encoder
+
+ .../drm/arm/display/komeda/komeda_wb_connector.c   |   4 +-
+ drivers/gpu/drm/arm/malidp_mw.c                    |   4 +-
+ drivers/gpu/drm/drm_writeback.c                    |  79 ++-
+ drivers/gpu/drm/msm/Makefile                       |   3 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           |   9 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 306 +++++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  22 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  50 ++
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    | 763 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  72 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  66 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  82 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |  21 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c        |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h        |  18 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c        |  25 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h        |  19 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c          | 279 ++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h          | 115 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  66 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  31 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  22 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |  12 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |  26 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |  68 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h      |  25 +
+ drivers/gpu/drm/rcar-du/rcar_du_writeback.c        |   4 +-
+ drivers/gpu/drm/vc4/vc4_txp.c                      |   7 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c              |   4 +-
+ include/drm/drm_writeback.h                        |  31 +-
+ 30 files changed, 2103 insertions(+), 132 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.h
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h
 
 -- 
-With best wishes
-Dmitry
+2.7.4
+
