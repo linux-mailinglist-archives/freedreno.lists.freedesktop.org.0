@@ -1,48 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72F2750C645
-	for <lists+freedreno@lfdr.de>; Sat, 23 Apr 2022 03:56:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D80550C72A
+	for <lists+freedreno@lfdr.de>; Sat, 23 Apr 2022 06:10:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 123E810E512;
-	Sat, 23 Apr 2022 01:56:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6CEF10EAD1;
+	Sat, 23 Apr 2022 04:10:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 460D310E4A0
- for <freedreno@lists.freedesktop.org>; Sat, 23 Apr 2022 01:56:46 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3951E60FEA;
- Sat, 23 Apr 2022 01:56:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968EEC385A0;
- Sat, 23 Apr 2022 01:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1650679004;
- bh=Bvs159fqlA+szPjoabbxj2y1cL+KWtGzrGMxMCDdbNs=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=nZVDUQ+UbA6SgSFlg9FR6a2yd6OefS6rhi1F1v0sJ0J53idPCeWU/c1mJ1/sMj1e/
- 3thcCdmIUHYwC6dxbKreehRAOb5oXHzY3Rj+5XR26lpUxOAlc6qdHlXIVOuidz/2Cs
- 2Vfyc0ATPQwpV6hWXCIgjrZdga/LSa3N+C60DSjlwG0sxVB+d3UlHOvKadpXMeeLjX
- jJhJOUo+OD+UM6vK8hF5KK2BoYWhQsxhQz3xl0T5v5Ddj+wf/ppFjdUNmyKOG9bKgy
- mB0yKscpydW7MASzHtm6l4W7geb31R2WQC2+gZAF/8f1fINaGZtL/dVhh70HPndHSy
- ZzmSYARA425ZQ==
-Content-Type: text/plain; charset="utf-8"
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 257B310EAB2
+ for <freedreno@lists.freedesktop.org>; Sat, 23 Apr 2022 04:10:17 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id m11so419987oib.11
+ for <freedreno@lists.freedesktop.org>; Fri, 22 Apr 2022 21:10:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YNhoTijYDK5hg3tJxjQgdgbL/kgrcPDOQkgZNKFoLe0=;
+ b=hdtSyu9V8DkuUoFOA2YMj1NAwALLRl8/nme92ADOd6vw4uiyPQw2nLnwlWE4hZOTYh
+ hMVnDHLTvfUc3WViSmGZpg2u+pUEdcvsCyRqN73T6IzHEHGfA1vTEDiRHBJPN+6XlSrv
+ msMrpfZZZUF+GyEAV6/iGHUUspOxCkoTxxTgLKGlzea3b8Ke23TheCXbCJsLEcyEmSAx
+ ScCt27p+r7SoHmhvmiiLbK5GcRXCci038RWnzP44TuuwC/pgLF4fgvBbUOcFzAdBcVtl
+ NfA6FDVc5YQAbEHs68IP4imFUJETFAHSxXGTUp5cLGJo2EgIWtcozlUiXlg7hCcXLvqZ
+ T+QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YNhoTijYDK5hg3tJxjQgdgbL/kgrcPDOQkgZNKFoLe0=;
+ b=BOAM2FxezuzdQz9spGx8K7blNvnfD6n05rkU9JGdkgrcojIPdCIq6dIE1XVMWuQH7n
+ 6T4CxHwtiBqmpxR/qWVKfOXJdCCeBja1pK5a2dYGdJtr+pm7cPUysNVmdclZYo+c4k3Y
+ b5pjbW/VcH4eLcM0Ypuda1khDtmBpie09WQeUfDvfIBAw3hgpgRBwqA/t0z2tlw/QQCs
+ Y12zA01PA/JgwokzCUVpbAOlVZR2UROHy1kC75jfBEkmOuDIrSZPpX0vFZrY0EsIbSob
+ o7JGKi+h+Orlq7QApIgaUv6aHzURUgRzLVT6BtkOdiJSXsQ07nCsEdeCBBivn/KYPM7g
+ 2hEw==
+X-Gm-Message-State: AOAM531faP4G5HOgb5JDelsEmJGOnbqcTweXG6A4EYAQuLd94MF20Wb2
+ V0hu8VBgsTAKRNKmVrcN+Bj3Dw==
+X-Google-Smtp-Source: ABdhPJzEuQC08m6xCkVKR6XsHeSL5p0/ZkR7uRyRVVh9KvlNaDYNcO6f0NhDLqPj0GWi2P4EkbGFgQ==
+X-Received: by 2002:a05:6808:1a04:b0:322:7b89:1973 with SMTP id
+ bk4-20020a0568081a0400b003227b891973mr8311352oib.227.1650687016176; 
+ Fri, 22 Apr 2022 21:10:16 -0700 (PDT)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id
+ l10-20020aca3e0a000000b0032258369a5fsm1410185oia.44.2022.04.22.21.10.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Apr 2022 21:10:15 -0700 (PDT)
+Date: Fri, 22 Apr 2022 21:12:16 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YmN8oMl7EulvBbEG@ripper>
+References: <20220422223225.1297434-1-bjorn.andersson@linaro.org>
+ <20220422223225.1297434-2-bjorn.andersson@linaro.org>
+ <11a77fd7-d30b-edf6-3570-64d0c2e1764c@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20220422094817.f3b7l5hg5inuq7vs@houat>
-References: <20220419235447.1586192-1-dmitry.baryshkov@linaro.org>
- <20220422024914.203CEC385A7@smtp.kernel.org>
- <20220422094817.f3b7l5hg5inuq7vs@houat>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Date: Fri, 22 Apr 2022 18:56:42 -0700
-User-Agent: alot/0.10
-Message-Id: <20220423015644.968EEC385A0@smtp.kernel.org>
-Subject: Re: [Freedreno] [PATCH] clk: qcom: clk-rcg2: fix gfx3d frequency
- calculation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <11a77fd7-d30b-edf6-3570-64d0c2e1764c@linaro.org>
+Subject: Re: [Freedreno] [PATCH v3 2/2] drm/msm/dp: Implement
+ oob_hotplug_event()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,50 +72,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Taniya Das <quic_tdas@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, linux-usb@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
+ Sean Paul <sean@poorly.run>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Maxime Ripard (2022-04-22 02:48:17)
-> Hi,
->=20
-> On Thu, Apr 21, 2022 at 07:49:12PM -0700, Stephen Boyd wrote:
-> > +Maxime
-> >=20
-> > Quoting Dmitry Baryshkov (2022-04-19 16:54:47)
-> > > Since the commit 948fb0969eae ("clk: Always clamp the rounded rate"),
-> > > the clk_core_determine_round_nolock() would clamp the requested rate
-> > > between min and max rates from the rate request. Normally these fields
-> > > would be filled by clk_core_get_boundaries() called from
-> > > clk_round_rate().
-> > >=20
-> > > However clk_gfx3d_determine_rate() uses a manually crafted rate reque=
-st,
-> > > which did not have these fields filled. Thus the requested frequency
-> > > would be clamped to 0, resulting in weird frequencies being requested
-> > > from the hardware.
-> > >=20
-> > > Fix this by filling min_rate and max_rate to the values valid for the
-> > > respective PLLs (0 and ULONG_MAX).
-> > >=20
-> > > Fixes: 948fb0969eae ("clk: Always clamp the rounded rate")
-> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > ---
-> >=20
-> > I hope there aren't others like this lurking.
->=20
-> The problem is larger than that (even though I overlooked this
-> particular issue), and addressed partially by patches 12-19 here:
-> https://lore.kernel.org/linux-clk/20220408091037.2041955-1-maxime@cerno.t=
-ech/
->=20
-> I wanted to have your feedback before fixing the relevant drivers, but
-> these are:
+On Fri 22 Apr 16:07 PDT 2022, Dmitry Baryshkov wrote:
+> On 23/04/2022 01:32, Bjorn Andersson wrote:
+[..]
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+> > index 80f59cf99089..76904b1601b1 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_drm.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+> > @@ -123,6 +123,14 @@ static enum drm_mode_status dp_connector_mode_valid(
+> >   	return dp_display_validate_mode(dp_disp, mode->clock);
+> >   }
+> > +static void dp_oob_hotplug_event(struct drm_connector *connector,
+> > +				 enum drm_connector_hpd_state hpd_state)
+> > +{
+> > +	struct msm_dp *dp_disp = to_dp_connector(connector)->dp_display;
+> > +
+> > +	dp_display_oob_hotplug_event(dp_disp, hpd_state);
+> > +}
+> > +
+> >   static const struct drm_connector_funcs dp_connector_funcs = {
+> >   	.detect = dp_connector_detect,
+> >   	.fill_modes = drm_helper_probe_single_connector_modes,
+> > @@ -130,6 +138,7 @@ static const struct drm_connector_funcs dp_connector_funcs = {
+> >   	.reset = drm_atomic_helper_connector_reset,
+> >   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+> >   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> > +	.oob_hotplug_event = dp_oob_hotplug_event,
+> 
+> We were (are) going to switch dp driver to use drm_bridge_connector (to fix
+> support for bridge chains, eDP panels, etc.
+> 
+> So these changes must be ported to drm_bridge_connector (or we must
+> abandon/defer the idea of using the bridge_connector).
+> 
+> For the oob_hotplug_event() callback proper support might be as simple as
+> calling drm_bridge_connector_hpd_cb().
+> 
 
-Ok. Let me move the conversation over to that thread. I'm applying this
-to clk-fixes.
+Are you saying that you have code ready and being merged into linux-next
+that I should redesign this on top of, or that you're planning to write
+some code in the future and DisplayPort support have to wait until then?
+
+> >   };
+> >   static const struct drm_connector_helper_funcs dp_connector_helper_funcs = {
+> > @@ -160,6 +169,8 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
+> >   	if (ret)
+> >   		return ERR_PTR(ret);
+> > +	connector->fwnode = fwnode_handle_get(dev_fwnode(dp_display->dev));
+> > +
+> 
+> This would be much more interesting. Supporting this in a generic way might
+> be tricky. But we can still set the fwnode manually from the dp code.
+> 
+
+There's a slight mishmash here, because the device used to initialize
+the connector is the drm_dev, but we need the actual fwnode of the DP
+device associated with the connector.
+
+So I think this is how it needs to be done.
+
+Regards,
+Bjorn
