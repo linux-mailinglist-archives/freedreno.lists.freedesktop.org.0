@@ -2,63 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F6C750EAFF
-	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 23:07:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA3850EB08
+	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 23:08:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C898910E25F;
-	Mon, 25 Apr 2022 21:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4188E10E1BC;
+	Mon, 25 Apr 2022 21:08:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E619B10E22C
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 21:07:15 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id h12so24630121plf.12
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 14:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=fYD/F2OSbA7Q4eCV40OrtxHiQtAfyrFTFEIn6t3W6f8=;
- b=WvFR64qpnd4yCLm8ubU/W/DeKgWVe5sf1D05fbZmkSyTq8yGSG6v5hnDff1XSYazp6
- 83XXw1NiHbANd+TaAV+ZBDA2iYhNtL67l2+aocpmUGDCinB5/oxcsmHaIHzPCmL0lSdx
- g5TTDnxbPbEk7GACTTB9R3BKu9hJsSL5XH2GA=
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2648210E1BC
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 21:08:26 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id x17so28463358lfa.10
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 14:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=HeAipw4zYNeia12j7XYVHYU9J94Bm4xqgnpreAQ+Qzk=;
+ b=bJuLeSOBykWi8VGrKRwylfeefE2eR9q7qefiHN/24sOZYASDOB9zymZS0eZbwAsheU
+ Gn4212dpt17MZcEosVxxHQ1QU71XN3nv/dW+3Sgz+L/ZmBsC+H8kYSSCGKgVux/H0RZJ
+ OlHI/3SxclyA+rX2bf47Vrd+l8jqMnjmfHjFL8evdEp77DNfVFCA6pbb7dQy/DGPXKYD
+ nwXorNKIEOk5/vOMCoxziHmqaFKWA8YpmSxLjZ6iywDpExXO33x6Yq1p/nXkMzvdwhtS
+ +Gf4v9krns0rCYdVYEaZ+LAnv+gS0yE48Kitf0Icp0BbyPAXL+1aXCkrteqcXE8WlyRA
+ ZNWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=fYD/F2OSbA7Q4eCV40OrtxHiQtAfyrFTFEIn6t3W6f8=;
- b=rM7Vnw9sNB21S508VFjwRmqYUmzt0m9ZSqGc0PxjtIR7qrOW550LC+1/AzkoGaF3Df
- pJfRtFKxuBUsPb1hf+2mPWmGN2vxJvcBhRhG7gJdGZ4+8mGLoe0PEp4Cgkjk0/FDSLpR
- 8Br5uird9y2GJwl+giYB5Oi05KqELGcrMAWfQURWX3J9N8XNo0KCD0//I+EsdfnXRbla
- ou5djrSZGoKrAXYmBXYr1uzy19OdY+64ourH3Izs4V9ahi+NKByqnjGMO+oa744hiiJZ
- uEItT3uSTuvp6Dnspd7/yC5UBzkaTyQC2j7B+Q0RiLFPRO1g9XmRguvNAnOojZ3MGyPg
- TPdw==
-X-Gm-Message-State: AOAM5336nznjINltFbT8QxioKs926UTsaQUK6GohDa6ZjeaQ14XHQp9R
- sp4GZzGJMssA6QWhP1XHVN9Srg==
-X-Google-Smtp-Source: ABdhPJyG9Xx7/t8cUKO2ub7bBhrSNggYmBrlKgygY827SF0gU8Mp7i0d+ErwAnNSiBQq7WdPpARN0w==
-X-Received: by 2002:a17:902:ed89:b0:15a:d3e:ada6 with SMTP id
- e9-20020a170902ed8900b0015a0d3eada6mr20094621plj.94.1650920835532; 
- Mon, 25 Apr 2022 14:07:15 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:b820:7f63:f3dd:3da])
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=HeAipw4zYNeia12j7XYVHYU9J94Bm4xqgnpreAQ+Qzk=;
+ b=iq557O0eayC68YiWdRiN+GhY1Ji4ZxI4TgiPA1HeFI565nw31vzfJdxqjpESh8oTfy
+ smsf4AF169AgawpKF1u72ugPJOq0IlIm+HFNbNhRJWNdH4zseT3dX4yIcnolFUV8x0cy
+ oB3tGK0VzDbDrBEk61ECB0nlubP70xmoTN0Le28P6rh9nJBA42tW4glU1+T0u8kxhBVy
+ d98zp2ZhwkmfKjLL0ackJ7I70kLSt7s95vPxktw7RUjjmlOxsHB5veBoc+7+JcyCcKlR
+ oboa7b2pP4ToXsThEkbGWrRMWV++27YKoWzbSfeKBJwdOAW5TzAnjQS/cNQlVBu/l30u
+ gIFw==
+X-Gm-Message-State: AOAM533lLB3p35pMTy8GVnaLDfAFY3g85bx22rr/15++qvQ6ZkyRs68R
+ pSo0uGaSZ+9bpbIKsbkom6Mubg==
+X-Google-Smtp-Source: ABdhPJwa4PWVY0l1RBVql9YpM5TgtmLWxVWf1CxtDSxCxju9pLQGfESguxQXkIRMvWAE98kugzeAgw==
+X-Received: by 2002:a05:6512:239c:b0:472:3d5:7e77 with SMTP id
+ c28-20020a056512239c00b0047203d57e77mr5600455lfv.448.1650920904365; 
+ Mon, 25 Apr 2022 14:08:24 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- b20-20020a62a114000000b0050d231e08ffsm8523202pff.37.2022.04.25.14.07.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Apr 2022 14:07:15 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@chromium.org>
-Date: Mon, 25 Apr 2022 14:06:43 -0700
-Message-Id: <20220425140619.2.Iae013f0ff4599294189f3a6e91376fad137bbabf@changeid>
-X-Mailer: git-send-email 2.36.0.rc2.479.g8af0fa9b8e-goog
-In-Reply-To: <20220425210643.2420919-1-dianders@chromium.org>
-References: <20220425210643.2420919-1-dianders@chromium.org>
+ q3-20020a19f203000000b0044aef0e60d5sm1528696lfh.210.2022.04.25.14.08.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Apr 2022 14:08:23 -0700 (PDT)
+Message-ID: <517db2b8-6be0-2f2b-f98e-ca5ca27d0603@linaro.org>
+Date: Tue, 26 Apr 2022 00:08:18 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] dt-bindings: phy: List supplies for qcom,
- edp-phy
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Content-Language: en-GB
+To: Stephen Boyd <swboyd@chromium.org>, cgel.zte@gmail.com,
+ robdclark@gmail.com, sean@poorly.run
+References: <20220425090947.3498897-1-lv.ruyi@zte.com.cn>
+ <CAE-0n50fs1fFQcwMCq_x_UG8ZJKprjcYKwcy1+1ckD--XE28+g@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAE-0n50fs1fFQcwMCq_x_UG8ZJKprjcYKwcy1+1ckD--XE28+g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: fix error check return value
+ of irq_of_parse_and_map()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,63 +76,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Douglas Anderson <dianders@chromium.org>, linux-arm-msm@vger.kernel.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Kishon Vijay Abraham I <kishon@ti.com>, Andy Gross <agross@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-phy@lists.infradead.org, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: architt@codeaurora.org, linux-kernel@vger.kernel.org, ryadav@codeaurora.org,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org, Lv Ruyi <lv.ruyi@zte.com.cn>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ bjorn.andersson@linaro.org, tiny.windzz@gmail.com, daniel@ffwll.ch,
+ angelogioacchino.delregno@somainline.org, jsanka@codeaurora.org,
+ freedreno@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
+ skolluku@codeaurora.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-We're supposed to list the supplies in the dt bindings but there are
-none in the eDP PHY bindings.
+On 25/04/2022 23:10, Stephen Boyd wrote:
+> Quoting cgel.zte@gmail.com (2022-04-25 02:09:47)
+>> From: Lv Ruyi <lv.ruyi@zte.com.cn>
+>>
+>> The irq_of_parse_and_map() function returns 0 on failure, and does not
+>> return a negative value anyhow, so never enter this conditional branch.
+>>
+>> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+>> Reported-by: Zeal Robot <zealci@zte.com.cn>
+>> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+>> ---
+> 
+> Question still stands why we can't use platform device APIs.
 
-Looking at the driver in Linux, I can see that there seem to be two
-relevant supplies: "vdda-phy" and "vdda-pll". Let's add those to the
-bindings.
+Let's do a separate pass and replace all of functions with platform 
+device API.
 
-NOTE: from looking at the Qualcomm datasheet for sc7280, it's not
-immediately clear how to figure out how to fill in these supplies. The
-only two eDP related supplies are simply described as "power for eDP
-0.9V circuits" and "power for eDP 1.2V circuits". From guessing and
-from comparing how a similar PHY is hooked up on other similar
-Qualcomm boards, I'll make the educated guess that the 1.2V supply
-goes to "vdda-phy" and the 0.9V supply goes to "vdda-pll" and I'll use
-that in the example here.
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
 
- Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-index a5850ff529f8..cf9e9b8011cb 100644
---- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-@@ -41,6 +41,9 @@ properties:
-   "#phy-cells":
-     const: 0
- 
-+  vdda-phy-supply: true
-+  vdda-pll-supply: true
-+
- required:
-   - compatible
-   - reg
-@@ -65,5 +68,8 @@ examples:
- 
-       #clock-cells = <1>;
-       #phy-cells = <0>;
-+
-+      vdda-phy-supply = <&vdd_a_edp_0_1p2>;
-+      vdda-pll-supply = <&vdd_a_edp_0_0p9>;
-     };
- ...
 -- 
-2.36.0.rc2.479.g8af0fa9b8e-goog
-
+With best wishes
+Dmitry
