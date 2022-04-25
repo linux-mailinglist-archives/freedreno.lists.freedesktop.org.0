@@ -1,69 +1,75 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 343EC50EB1B
-	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 23:11:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B252150EB1E
+	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 23:12:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60FE10E1BC;
-	Mon, 25 Apr 2022 21:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D12510E1BC;
+	Mon, 25 Apr 2022 21:12:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A68D10E22C
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 21:11:24 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id x33so28490426lfu.1
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 14:11:24 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE00C10E1BC
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 21:12:17 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id k12so4077495lfr.9
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 14:12:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=oQazfOAFrQddDPrpYfYQVsnloceCr9NIRYCe8QuCQ6s=;
- b=I+UA4zwpy8anE+yetM6ogFnNuFOQr1aWPNEBZ/cAEPjewlmNGZt/BvuRoWneB6JHpE
- 2tfBsAH1/w6JbVK55BfytJtNPDSsbJzbZhdA8KuTTsmJSJQJhmTExgq4Uo0wjX+ZnGfD
- 8+C43OZp5XDttcVdchpA4kibuxAXLR2yNCyotKEuLazqnqmtNRCCAiKf2Ooc/Zx/N9bH
- yFvmgdixnX2T9q1xr3aadTeeFQWIAblmN5hR6i56qPLXuE6XeGFfxprumpnq7THNtfv8
- 230F0/RiXKeyO4bziFdZoxCK2P4zoxDC000QpDQrgGL/Vb1RscArwMstMuLNkQztbq5Q
- id3g==
+ bh=n48UC8FYBgza6LVhcnu3WqzBBzGR0TUqYOXWNSGJNhA=;
+ b=NH4maRhQqGMoN/cZAlAaVgXCc/h1NJVTKr8F0GqK2f8ubsZMl5exb0+1Pt4QRMKgg0
+ AYUnTGmzTKIb3XBcHuUVxyDZACSd0xMzNm2eH5moaKl8WolVTJO/Y/dyEo2jDXCPr9a+
+ y/6FIg3Nyp8fupRVie1iD6axXOMvzsZzzZLyhJMfWKDA4Q7A5msr07uvlTkaMP90b5yp
+ JegglGvQ5rDlYD519GW/1BkBSsJJRIx12rxtN/ySXsP47PQ97e56NX9M+jJd4+r2fLFF
+ tVYHv0gQHpwX4pOLAj+krJiRGHPiarefgMG3xVWcRrBwIDkgeQKeCoNucZ1CwuAt6FJ5
+ v3AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=oQazfOAFrQddDPrpYfYQVsnloceCr9NIRYCe8QuCQ6s=;
- b=4TE0FrfzsHpcIpsPaNXIR/FoE12pGBNkRhbYxN4yp1jI/km+RM+zUcbnC19S8Z2//4
- z36H5h0L2PtSIAbu4iajNk31w3sNGYd1XZuQUkTjpdLi5s8aYZKnj+WpCII9bO3hc4eA
- QroVkFCNA71owLRrAJvYgDM9002lL9ia9D5JYis1p/ITDY8zSW0uFlXrMZSiHIFELhvT
- dd8fpzWNd8FmNXHleZIRs7WQmRJDN8GsBhVv3sMkgTIMnY/jl0Bq1TaULSWvKvjWEiUP
- C61/gkX8pFe9NGNfxGT3bPiDtIlFR2BAk/GaZH2/JKa6kejaxCysfRykKdtoDGOAAJxD
- Xv9A==
-X-Gm-Message-State: AOAM530wzuoJphVvXn365r/CZAB2klK1I25s34UG3eHD5WDMeysmPzq9
- 7XsKKkfKtedMEuTnFNA+QvfOcA==
-X-Google-Smtp-Source: ABdhPJxcbZtDpr6V9JljEso0M9prK9fOVpFL2+y5PMRZrGKtbo0TOW4NnBVy18JV5UzWakkQ9T4FGQ==
-X-Received: by 2002:a05:6512:2828:b0:471:9ef6:f5bf with SMTP id
- cf40-20020a056512282800b004719ef6f5bfmr14342161lfb.122.1650921082135; 
- Mon, 25 Apr 2022 14:11:22 -0700 (PDT)
+ bh=n48UC8FYBgza6LVhcnu3WqzBBzGR0TUqYOXWNSGJNhA=;
+ b=0uNnkQFz7+/0YExidOcYUZ0ZuU3NT53cXURfnBhA5XFTV3HYAKCCQd6kpYncudPK6b
+ dF8m+01m8132L21zrb/DsxpkFxx+mmCEos0k+ljTyrKrAh4OEPhfwxlslNwoEhBD27ID
+ hezbxrOvcjX6xBoPAWn86ykIdK7YVbNJ2ue9lC0notvH4v6SiZwr9jGINF6CEFGbvkls
+ Ui/GWssET/cZaw4/lQ7tVv6C4hcejb981oVuHnOXE7ivWGPKgVd//mESOBYkLVLTBWXQ
+ XQ4IrdQJ0ZqNsoNBxgMiL6XsFqFz497+3iYFgEBwgXBwVr148O16hCsfDQYyNIo8GCZO
+ r2Xg==
+X-Gm-Message-State: AOAM532KE/C79Y6rH6Xkmvu7ThtLJff2boFniG39rZgVVhDEUO/sZMDE
+ rCS9nvy65vdnXj1croMOXUc8Eg==
+X-Google-Smtp-Source: ABdhPJwzna+WG3O2iW9VkiovidbQKqbuLtVxXaL1TUSZEFmS83MEMFZt8wBnv/+oE2d5HSXwHkMtqQ==
+X-Received: by 2002:a19:674c:0:b0:448:3f49:e6d5 with SMTP id
+ e12-20020a19674c000000b004483f49e6d5mr14477854lfj.518.1650921136308; 
+ Mon, 25 Apr 2022 14:12:16 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- b11-20020a19670b000000b0044a385058acsm1522183lfc.187.2022.04.25.14.11.20
+ b11-20020a19670b000000b0044a385058acsm1522365lfc.187.2022.04.25.14.12.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 14:11:21 -0700 (PDT)
-Message-ID: <1564e2b1-e205-aa44-6a30-38a5160b0ec3@linaro.org>
-Date: Tue, 26 Apr 2022 00:11:20 +0300
+ Mon, 25 Apr 2022 14:12:15 -0700 (PDT)
+Message-ID: <664de9f0-a9a1-9b5e-9612-06a051c85434@linaro.org>
+Date: Tue, 26 Apr 2022 00:12:15 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
 Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>, cgel.zte@gmail.com,
- quic_abhinavk@quicinc.com, sean@poorly.run
-References: <20220425091831.3500487-1-lv.ruyi@zte.com.cn>
- <CAE-0n53xBM+n__eKKGaCuB+3Ea4O+rNk2PUQbD2bjW3JS7YJBA@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1650618666-15342-1-git-send-email-quic_sbillaka@quicinc.com>
+ <1650618666-15342-2-git-send-email-quic_sbillaka@quicinc.com>
+ <CAE-0n51VBDmOOworjpuB1nqVD-7055yqvn2Er5H13qgFC5R2AQ@mail.gmail.com>
+ <MW4PR02MB7186108BA0131C8BFC46A219E1F89@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAE-0n51oUFkYuZ5qd2CbnaUGo2xcAjU+F0M+Kptk8b=7curH0Q@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n53xBM+n__eKKGaCuB+3Ea4O+rNk2PUQbD2bjW3JS7YJBA@mail.gmail.com>
+In-Reply-To: <CAE-0n51oUFkYuZ5qd2CbnaUGo2xcAjU+F0M+Kptk8b=7curH0Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/hdmi: fix error check return value
- of irq_of_parse_and_map()
+Subject: Re: [Freedreno] [PATCH v9 1/4] drm/msm/dp: Add eDP support via
+ aux_bus
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,34 +82,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linmq006@gmail.com, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- lv.ruyi@zte.com.cn, daniel.thompson@linaro.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- robdclark@gmail.com, christophe.jaillet@wanadoo.fr, daniel@ffwll.ch,
- freedreno@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
- angelogioacchino.delregno@collabora.com
+Cc: quic_kalyant <quic_kalyant@quicinc.com>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ quic_vproddut <quic_vproddut@quicinc.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, "steev@kali.org" <steev@kali.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "seanpaul@chromium.org" <seanpaul@chromium.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ Aravind Venkateswaran <quic_aravindh@quicinc.com>,
+ "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
+ "sean@poorly.run" <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/04/2022 23:11, Stephen Boyd wrote:
-> Quoting cgel.zte@gmail.com (2022-04-25 02:18:31)
->> From: Lv Ruyi <lv.ruyi@zte.com.cn>
+On 25/04/2022 23:26, Stephen Boyd wrote:
+> Quoting Sankeerth Billakanti (QUIC) (2022-04-25 02:39:43)
+>> Hi Stephen,
 >>
->> The irq_of_parse_and_map() function returns 0 on failure, and does not
->> return a negative value anyhow, so never enter this conditional branch.
+>>> Quoting Sankeerth Billakanti (2022-04-22 02:11:03)
+>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> index d7a19d6..055681a 100644
+>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>>>
+>>> Some nitpicks
+>>>
+>>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+>>>
+>>>> @@ -1508,7 +1509,8 @@ void msm_dp_irq_postinstall(struct msm_dp
+>>>> *dp_display)
+>>>>
+>>>>          dp_hpd_event_setup(dp);
+>>>>
+>>>> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+>>>> +       if (!dp_display->is_edp)
+>>>> +               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
+>>>
+>>> Did it turn out that in fact DP isn't ready still to setup even after delaying the
+>>> irq?
+>>>
 >>
->> Fixes: f6a8eaca0ea1 ("drm/msm/mdp5: use irqdomains")
->> Reported-by: Zeal Robot <zealci@zte.com.cn>
->> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
->> ---
+>> The host_init, config_hpd, phy_init and enable_irq are happening in modeset_init already for eDP.
+>> So, I am not scheduling the EV_HPD_INIT_SETUP event for eDP. I am not modifying the delay for DP.
 > 
-> This one fixes a commit that moved away from platform APIs!
+> Cool. That didn't answer my question though. Why does DP still need the
+> delay? I thought recent changes made it unnecessary.
 
-The change was introduced in 2014 in the commit f6a8eaca0ea1 
-("drm/msm/mdp5: use irqdomains"). I can suspect that at that time 
-platform irq code wasn't fully compatible with IRQ domains.
-
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+I'd say that if it is not necessary, it should be changed in the 
+separate commit. The question is valid nevertheless.
 
 
 -- 
