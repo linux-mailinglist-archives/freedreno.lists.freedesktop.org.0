@@ -1,75 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B252150EB1E
-	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 23:12:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E65E750EB2E
+	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 23:14:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D12510E1BC;
-	Mon, 25 Apr 2022 21:12:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7506710E234;
+	Mon, 25 Apr 2022 21:14:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE00C10E1BC
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 21:12:17 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id k12so4077495lfr.9
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 14:12:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=n48UC8FYBgza6LVhcnu3WqzBBzGR0TUqYOXWNSGJNhA=;
- b=NH4maRhQqGMoN/cZAlAaVgXCc/h1NJVTKr8F0GqK2f8ubsZMl5exb0+1Pt4QRMKgg0
- AYUnTGmzTKIb3XBcHuUVxyDZACSd0xMzNm2eH5moaKl8WolVTJO/Y/dyEo2jDXCPr9a+
- y/6FIg3Nyp8fupRVie1iD6axXOMvzsZzzZLyhJMfWKDA4Q7A5msr07uvlTkaMP90b5yp
- JegglGvQ5rDlYD519GW/1BkBSsJJRIx12rxtN/ySXsP47PQ97e56NX9M+jJd4+r2fLFF
- tVYHv0gQHpwX4pOLAj+krJiRGHPiarefgMG3xVWcRrBwIDkgeQKeCoNucZ1CwuAt6FJ5
- v3AA==
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A292A10E1BC
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 21:14:26 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id v65so13867582oig.10
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 14:14:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=X8qBR4k7N3biK/baIHugbINU/cSkeqhq6SIFIR2b73g=;
+ b=BYv54WpQMfcQHf9EDLt0vgrF2mLVZ5MNLfSA6GV7H7W7HA8OQtn7WOTar0ykA6Lj4a
+ UpNrT8Qi8xqIO/wlkhnFrZ5jjWJNWcJZpKzS02rhG2lomL9AdL2U+20NFJZVe9+KiWs5
+ HjAvLJpl+dL1J7dLUDPXLywfNY6mcNrqC62mU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=n48UC8FYBgza6LVhcnu3WqzBBzGR0TUqYOXWNSGJNhA=;
- b=0uNnkQFz7+/0YExidOcYUZ0ZuU3NT53cXURfnBhA5XFTV3HYAKCCQd6kpYncudPK6b
- dF8m+01m8132L21zrb/DsxpkFxx+mmCEos0k+ljTyrKrAh4OEPhfwxlslNwoEhBD27ID
- hezbxrOvcjX6xBoPAWn86ykIdK7YVbNJ2ue9lC0notvH4v6SiZwr9jGINF6CEFGbvkls
- Ui/GWssET/cZaw4/lQ7tVv6C4hcejb981oVuHnOXE7ivWGPKgVd//mESOBYkLVLTBWXQ
- XQ4IrdQJ0ZqNsoNBxgMiL6XsFqFz497+3iYFgEBwgXBwVr148O16hCsfDQYyNIo8GCZO
- r2Xg==
-X-Gm-Message-State: AOAM532KE/C79Y6rH6Xkmvu7ThtLJff2boFniG39rZgVVhDEUO/sZMDE
- rCS9nvy65vdnXj1croMOXUc8Eg==
-X-Google-Smtp-Source: ABdhPJwzna+WG3O2iW9VkiovidbQKqbuLtVxXaL1TUSZEFmS83MEMFZt8wBnv/+oE2d5HSXwHkMtqQ==
-X-Received: by 2002:a19:674c:0:b0:448:3f49:e6d5 with SMTP id
- e12-20020a19674c000000b004483f49e6d5mr14477854lfj.518.1650921136308; 
- Mon, 25 Apr 2022 14:12:16 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- b11-20020a19670b000000b0044a385058acsm1522365lfc.187.2022.04.25.14.12.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 14:12:15 -0700 (PDT)
-Message-ID: <664de9f0-a9a1-9b5e-9612-06a051c85434@linaro.org>
-Date: Tue, 26 Apr 2022 00:12:15 +0300
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=X8qBR4k7N3biK/baIHugbINU/cSkeqhq6SIFIR2b73g=;
+ b=iUS09JZI0/lgf447k729QOVkXB0iDNhO29hZ8sr7m1711AhKeTYDMZYZ6Dgy+l9vef
+ i1dE5bO9FnS2Cdji5Ve661mWbGb04lBqSzh2+ouCT+LUFA2iD+txg/nmE7RiRskaij/Q
+ 2GwQKYd2mlfistT65vYibwqxXVthBC0IBSfm7M1n6jp61aiR1PRLZ3DrXs6gcosmenYz
+ 0gQQz2m4VS7m7FN25JOL7f3c0o/vA8ZBg/GLgMRGDhppwsfUO9JCAOdCWxQrrcpsecBu
+ JTSxMWpmLxPW5C3TE9fRp02/Td1pLu1AWjrqZ1wy51ZBiNluDf4IYv8IuTdhlvf0TXBT
+ 8NIg==
+X-Gm-Message-State: AOAM5337SD+04uWUFsNx9IHWZuWdeGMrxja6zwb9J+tDLfebGaGFdXP8
+ iZuxwlkCLclmCXB2Mjg93Z1ue4rdWYokKF3BiYdxTQ==
+X-Google-Smtp-Source: ABdhPJztvQbfhKUVNaMO1H0yxKW2QJXWNd3iFmKb0M3Orpq7oisRwtkCiiqoU7PJj6ZXQ7WmO1sLao/x8L0uFXM5LbY=
+X-Received: by 2002:a05:6808:1296:b0:325:8fb:68f3 with SMTP id
+ a22-20020a056808129600b0032508fb68f3mr5332637oiw.193.1650921265969; Mon, 25
+ Apr 2022 14:14:25 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 25 Apr 2022 14:14:25 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <1650618666-15342-1-git-send-email-quic_sbillaka@quicinc.com>
- <1650618666-15342-2-git-send-email-quic_sbillaka@quicinc.com>
- <CAE-0n51VBDmOOworjpuB1nqVD-7055yqvn2Er5H13qgFC5R2AQ@mail.gmail.com>
- <MW4PR02MB7186108BA0131C8BFC46A219E1F89@MW4PR02MB7186.namprd02.prod.outlook.com>
- <CAE-0n51oUFkYuZ5qd2CbnaUGo2xcAjU+F0M+Kptk8b=7curH0Q@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n51oUFkYuZ5qd2CbnaUGo2xcAjU+F0M+Kptk8b=7curH0Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v9 1/4] drm/msm/dp: Add eDP support via
- aux_bus
+In-Reply-To: <20220425140619.1.Ibfde5a26a7182c4b478d570c23d2649823ac2cce@changeid>
+References: <20220425210643.2420919-1-dianders@chromium.org>
+ <20220425140619.1.Ibfde5a26a7182c4b478d570c23d2649823ac2cce@changeid>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Mon, 25 Apr 2022 14:14:25 -0700
+Message-ID: <CAE-0n51eZpAKprRQ0HqjLciF_BVQHBDN8SMFNVmmOd=B9UBEzg@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>, 
+ Rob Clark <robdclark@chromium.org>, Rob Herring <robh+dt@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: msm/dp: List supplies in
+ the bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,59 +69,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "dianders@chromium.org" <dianders@chromium.org>,
- quic_vproddut <quic_vproddut@quicinc.com>,
- "airlied@linux.ie" <airlied@linux.ie>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, "steev@kali.org" <steev@kali.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "seanpaul@chromium.org" <seanpaul@chromium.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- Aravind Venkateswaran <quic_aravindh@quicinc.com>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- "sean@poorly.run" <sean@poorly.run>
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Kishon Vijay Abraham I <kishon@ti.com>,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-phy@lists.infradead.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 25/04/2022 23:26, Stephen Boyd wrote:
-> Quoting Sankeerth Billakanti (QUIC) (2022-04-25 02:39:43)
->> Hi Stephen,
->>
->>> Quoting Sankeerth Billakanti (2022-04-22 02:11:03)
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> index d7a19d6..055681a 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>
->>> Some nitpicks
->>>
->>> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
->>>
->>>> @@ -1508,7 +1509,8 @@ void msm_dp_irq_postinstall(struct msm_dp
->>>> *dp_display)
->>>>
->>>>          dp_hpd_event_setup(dp);
->>>>
->>>> -       dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
->>>> +       if (!dp_display->is_edp)
->>>> +               dp_add_event(dp, EV_HPD_INIT_SETUP, 0, 100);
->>>
->>> Did it turn out that in fact DP isn't ready still to setup even after delaying the
->>> irq?
->>>
->>
->> The host_init, config_hpd, phy_init and enable_irq are happening in modeset_init already for eDP.
->> So, I am not scheduling the EV_HPD_INIT_SETUP event for eDP. I am not modifying the delay for DP.
-> 
-> Cool. That didn't answer my question though. Why does DP still need the
-> delay? I thought recent changes made it unnecessary.
+Quoting Douglas Anderson (2022-04-25 14:06:42)
+> We're supposed to list the supplies in the dt bindings but there are
+> none in the DP controller bindings. Looking at the Linux driver and
+> existing device trees, we can see that two supplies are expected:
+> - vdda-0p9-supply
+> - vdda-1p2-supply
+>
+> Let's list them both in the bindings. Note that the datasheet for
+> sc7280 doesn't describe these supplies very verbosely. For the 0p9
+> supply, for instance, it says "Power for eDP 0.9 V circuits". This
+> this is obvious from the property name, we don't bother cluttering the
+> bindings with a description.
+>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+>
+>  .../devicetree/bindings/display/msm/dp-controller.yaml      | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index cd05cfd76536..dba31108db51 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -76,6 +76,9 @@ properties:
+>    "#sound-dai-cells":
+>      const: 0
+>
+> +  vdda-0p9-supply: true
+> +  vdda-1p2-supply: true
+> +
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+>      properties:
+> @@ -137,6 +140,9 @@ examples:
+>
+>          power-domains = <&rpmhpd SC7180_CX>;
+>
+> +        vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
 
-I'd say that if it is not necessary, it should be changed in the 
-separate commit. The question is valid nevertheless.
+Having 'a' in 'vdda' typically means 'analog' for 'analog' circuits, so
+I'd expect this to only matter for the phy that contains the analog
+circuitry. It would be great to remove the regulator code from
+drivers/gpu/drm/msm/dp/dp_power.c and move the regulator_set_load() call
+to the phy driver if possible. Hopefully qcom folks can help clarify
+here.
 
-
--- 
-With best wishes
-Dmitry
+> +        vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
