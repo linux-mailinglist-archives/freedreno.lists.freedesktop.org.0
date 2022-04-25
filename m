@@ -1,48 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8343550E7FE
-	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 20:20:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B045550E995
+	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 21:36:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B4A410E23E;
-	Mon, 25 Apr 2022 18:20:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3565610E212;
+	Mon, 25 Apr 2022 19:36:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B22410E06E;
- Mon, 25 Apr 2022 18:20:48 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 50128496;
- Mon, 25 Apr 2022 20:20:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1650910846;
- bh=40BJ2ulQyTcKJv6ZrNDl5oAAImwopfC+JsH7W6yD3QU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=f8NYudD1sb6B9xSfeECWuRRMkDdWhd8BGSdGfwow9oHJzt7IaHAF+hTcL6duduBW7
- CV3zZs+7jU8j9H5uoKBlEgFl3ttfoJKg48FzKbsDlR8KeHRSplq26Tt8l8HF8mO5e9
- SBLKfv4wRVl/L2PNxU/NLrxubFLg08ax0FdR0ilQ=
-Date: Mon, 25 Apr 2022 21:20:46 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <Ymbmfl2I9nLjZSIU@pendragon.ideasonboard.com>
-References: <1650668815-7048-1-git-send-email-quic_abhinavk@quicinc.com>
- <1650668815-7048-4-git-send-email-quic_abhinavk@quicinc.com>
- <YmVj0/XouEH0yfmT@pendragon.ideasonboard.com>
- <e924e564-e4e2-1f8f-4f5f-1cc0bc2084c3@quicinc.com>
- <eac58ee5-14ae-a9df-364d-d46da1fd64c3@quicinc.com>
- <YmWsLWnRa43hQ2sg@pendragon.ideasonboard.com>
- <CAA8EJppeH+qxUcU0OqLsAhHAMqd_ut1XwHKO7xUCyLj=m06_Zg@mail.gmail.com>
- <YmbbQfWP4PDr84pZ@pendragon.ideasonboard.com>
- <36c5e99b-3df6-88b3-a567-f24ca249d028@quicinc.com>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADE6D10E18A;
+ Mon, 25 Apr 2022 19:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1650915373; x=1682451373;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ttkPKv7KBRScQdqSGu+qI/lFMgzvkwKDjLvYQ4ASrfM=;
+ b=C5YGMxvzr8/rP0X33C38R+lf0uT0EDyQpH4/vr9uvRN5V+JHX+IL6QIw
+ oWePnfyckSzNYCCIS6cIqgDLoFNoGfxvFt97fqSnUbMov7hph4BwRMKFr
+ 0lfctqHvVT8P+SS0NHp3n1npK4iKpDWKu8MIOe25RR39UVFHZ8ulkCQrE w=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 25 Apr 2022 12:36:13 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Apr 2022 12:36:12 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 25 Apr 2022 12:36:12 -0700
+Received: from [10.111.165.107] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 25 Apr
+ 2022 12:36:10 -0700
+Message-ID: <041366dc-88a6-bb74-2b69-796988421806@quicinc.com>
+Date: Mon, 25 Apr 2022 12:36:08 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <36c5e99b-3df6-88b3-a567-f24ca249d028@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 03/20] drm: allow real encoder to be
- passed for drm_writeback_connector
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220419162030.1287562-1-dmitry.baryshkov@linaro.org>
+ <20220419162030.1287562-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220419162030.1287562-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dpu: index dpu_kms->hw_vbif
+ using vbif_idx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,208 +68,132 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, liviu.dudau@arm.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, quic_vpolimer@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, Apr 25, 2022 at 10:48:07AM -0700, Abhinav Kumar wrote:
-> On 4/25/2022 10:32 AM, Laurent Pinchart wrote:
-> > On Mon, Apr 25, 2022 at 01:50:43PM +0300, Dmitry Baryshkov wrote:
-> >> On Sun, 24 Apr 2022 at 22:59, Laurent Pinchart wrote:
-> >>> On Sun, Apr 24, 2022 at 11:23:20AM -0700, Abhinav Kumar wrote:
-> >>>> On 4/24/2022 11:12 AM, Abhinav Kumar wrote:
-> >>>>> On 4/24/2022 7:50 AM, Laurent Pinchart wrote:
-> >>>>>> On Fri, Apr 22, 2022 at 04:06:38PM -0700, Abhinav Kumar wrote:
-> >>>>>>> For some vendor driver implementations, display hardware can
-> >>>>>>> be shared between the encoder used for writeback and the physical
-> >>>>>>> display.
-> >>>>>>>
-> >>>>>>> In addition resources such as clocks and interrupts can
-> >>>>>>> also be shared between writeback and the real encoder.
-> >>>>>>>
-> >>>>>>> To accommodate such vendor drivers and hardware, allow
-> >>>>>>> real encoder to be passed for drm_writeback_connector.
-> >>>>>>>
-> >>>>>>> For existing clients, drm_writeback_connector_init() will use
-> >>>>>>> an internal_encoder under the hood and hence no changes will
-> >>>>>>> be needed.
-> >>>>>>>
-> >>>>>>> changes in v7:
-> >>>>>>>      - move this change before the vc4 change in the series
-> >>>>>>>        to minimize the changes to vendor drivers in drm core
-> >>>>>>>        changes
-> >>>>>>
-> >>>>>> Why is this needed ? The drm_writeback_connector functions don't need
-> >>>>>> the drm_encoder after drm_writeback_connector_init() (or
-> >>>>>> drm_writeback_connector_init_with_encoder()) returns.
-> >>>>>>
-> >>>>>
-> >>>>> Sorry I didnt follow this comment. This change log is incorrect, so
-> >>>>> after changing the previous change in the series and modifying this, no
-> >>>>> further changes are needed to vc4, so I decided to drop the next change.
-> >>>>> So this change log is incorrect. I can remove this.
-> >>>>>
-> >>>>> Is that what you meant?
-> >>>>
-> >>>> So till the previous change, the only user of
-> >>>> drm_writeback_connector_init_with_encoder() was
-> >>>> drm_writeback_connector_init() which was still passing its own
-> >>>> internal_encoder.
-> >>>>
-> >>>> Only if the wb_connector->encoder is changed to a pointer, other vendor
-> >>>> drivers can pass their own encoder to
-> >>>> drm_writeback_connector_init_with_encoder().
-> >>>>
-> >>>> Hence you are right that drm_writeback_connector functions do not need
-> >>>> drm_encoder after init() returns, but till this change is done, other
-> >>>> vendor drivers cannot directly call
-> >>>> drm_writeback_connector_init_with_encoder() because the encoder will not
-> >>>> be valid till then.
-> >>>
-> >>> Users of drm_writeback_connector_init_with_encoder() handle the encoder
-> >>> themselves, they can simply ignore drm_writeback_connector.encoder. The
-> >>> documentation of the encoder field needs to be updated though (I'd do so
-> >>> in the previous patch), to clearly mention that the field is valid only
-> >>> when using drm_writeback_connector_init(), not when calling
-> >>> drm_writeback_connector_init_with_encoder().
-> >>
-> >> If we allow it to be unitialized, it might end with hard-to-trace
-> >> bugs, additional conditions, etc.
-> >> In my opnion we should:
-> >>   - either make drm_writeback_connector.encoder a valid pointer
-> >>   - or drop the field completely.
-> >>
-> >> And up to some point I'd vote for the second option. The code using
-> >> internal_encoder can continue using it directly. The code using
-> >> drm_writeback_connector_init_with_encoder() will manage encoder on
-> >> their own. We will loose a single entry point for wb's encoder, but do
-> >> we really need it? (Frankly speaking I didn't check.)
-> > 
-> > As far as I understand, we went for the second option as Abhinav dropped
-> > this patch for the next version.
++ Vinod
+
+Hi Dmitry
+
+Can we also absorb https://patchwork.freedesktop.org/patch/483255/ into 
+this change?
+
+Looks like they are touching the same code and can be absorbed easily.
+
+Thanks
+
+Abhinav
+
+
+On 4/19/2022 9:20 AM, Dmitry Baryshkov wrote:
+> Remove loops over hw_vbif. Instead always VBIF's idx as an index in the
+> array. This fixes an error in dpu_kms_hw_init(), where we fill
+> dpu_kms->hw_vbif[i], but check for an error pointer at
+> dpu_kms->hw_vbif[vbif_idx].
 > 
-> I dropped the patch as there was no agreement yet and I didnt want to 
-> block the series as its not really needed now but thats not option 2 
-> because wb_conn->encoder field remains there, just that its unused for 
-> users using drm_writeback_connector_init_with_encoder().
+> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 10 ++++----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 29 +++++++++++-------------
+>   2 files changed, 17 insertions(+), 22 deletions(-)
 > 
-> I guess what Dmitry is suggesting is just drop that 
-> wb_connector->encoder field completely.
-
-I don't think we can do that, as that field is used for the internal
-encoder :-) It could be renamed to internal_encoder if desired, but not
-dropped. I don't mind much either way, as long as we make it clear that
-drivers must never reference it directly.
-
-> >>>> Hope this clarifies it.
-> >>>>
-> >>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> >>>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >>>>>>> ---
-> >>>>>>>    drivers/gpu/drm/drm_writeback.c | 18 ++++++++++++------
-> >>>>>>>    drivers/gpu/drm/vc4/vc4_txp.c   |  4 ++--
-> >>>>>>>    include/drm/drm_writeback.h     | 22 ++++++++++++++++++++--
-> >>>>>>>    3 files changed, 34 insertions(+), 10 deletions(-)
-> >>>>>>>
-> >>>>>>> diff --git a/drivers/gpu/drm/drm_writeback.c
-> >>>>>>> b/drivers/gpu/drm/drm_writeback.c
-> >>>>>>> index 92658ad..0538674 100644
-> >>>>>>> --- a/drivers/gpu/drm/drm_writeback.c
-> >>>>>>> +++ b/drivers/gpu/drm/drm_writeback.c
-> >>>>>>> @@ -180,21 +180,21 @@ int drm_writeback_connector_init(struct
-> >>>>>>> drm_device *dev,
-> >>>>>>>    {
-> >>>>>>>        int ret = 0;
-> >>>>>>> -    drm_encoder_helper_add(&wb_connector->encoder, enc_helper_funcs);
-> >>>>>>> +    drm_encoder_helper_add(&wb_connector->internal_encoder, enc_helper_funcs);
-> >>>>>>> -    wb_connector->encoder.possible_crtcs = possible_crtcs;
-> >>>>>>> +    wb_connector->internal_encoder.possible_crtcs = possible_crtcs;
-> >>>>>>> -    ret = drm_encoder_init(dev, &wb_connector->encoder,
-> >>>>>>> +    ret = drm_encoder_init(dev, &wb_connector->internal_encoder,
-> >>>>>>>                       &drm_writeback_encoder_funcs,
-> >>>>>>>                       DRM_MODE_ENCODER_VIRTUAL, NULL);
-> >>>>>>>        if (ret)
-> >>>>>>>            return ret;
-> >>>>>>> -    ret = drm_writeback_connector_init_with_encoder(dev, wb_connector, &wb_connector->encoder,
-> >>>>>>> -            con_funcs, formats, n_formats);
-> >>>>>>> +    ret = drm_writeback_connector_init_with_encoder(dev, wb_connector,
-> >>>>>>> +            &wb_connector->internal_encoder, con_funcs, formats, n_formats);
-> >>>>>>>        if (ret)
-> >>>>>>> -        drm_encoder_cleanup(&wb_connector->encoder);
-> >>>>>>> +        drm_encoder_cleanup(&wb_connector->internal_encoder);
-> >>>>>>>        return ret;
-> >>>>>>>    }
-> >>>>>>> @@ -239,6 +239,12 @@ int drm_writeback_connector_init_with_encoder(struct drm_device *dev,
-> >>>>>>>        struct drm_mode_config *config = &dev->mode_config;
-> >>>>>>>        int ret = create_writeback_properties(dev);
-> >>>>>>> +    /*
-> >>>>>>> +     * Assign the encoder passed to this API to the wb_connector's encoder.
-> >>>>>>> +     * For drm_writeback_connector_init(), this shall be the internal_encoder
-> >>>>>>> +     */
-> >>>>>>> +    wb_connector->encoder = enc;
-> >>>>>>> +
-> >>>>>>>        if (ret != 0)
-> >>>>>>>            return ret;
-> >>>>>>> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
-> >>>>>>> index 3447eb6..7e063a9 100644
-> >>>>>>> --- a/drivers/gpu/drm/vc4/vc4_txp.c
-> >>>>>>> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
-> >>>>>>> @@ -159,7 +159,7 @@ struct vc4_txp {
-> >>>>>>>    static inline struct vc4_txp *encoder_to_vc4_txp(struct drm_encoder *encoder)
-> >>>>>>>    {
-> >>>>>>> -    return container_of(encoder, struct vc4_txp, connector.encoder);
-> >>>>>>> +    return container_of(encoder, struct vc4_txp, connector.internal_encoder);
-> >>>>>>>    }
-> >>>>>>>    static inline struct vc4_txp *connector_to_vc4_txp(struct  drm_connector *conn)
-> >>>>>>> @@ -507,7 +507,7 @@ static int vc4_txp_bind(struct device *dev, struct device *master, void *data)
-> >>>>>>>        if (ret)
-> >>>>>>>            return ret;
-> >>>>>>> -    encoder = &txp->connector.encoder;
-> >>>>>>> +    encoder = txp->connector.encoder;
-> >>>>>>>        encoder->possible_crtcs = drm_crtc_mask(crtc);
-> >>>>>>>        ret = devm_request_irq(dev, irq, vc4_txp_interrupt, 0,
-> >>>>>>> diff --git a/include/drm/drm_writeback.h b/include/drm/drm_writeback.h
-> >>>>>>> index bb306fa..3fbae9d 100644
-> >>>>>>> --- a/include/drm/drm_writeback.h
-> >>>>>>> +++ b/include/drm/drm_writeback.h
-> >>>>>>> @@ -25,13 +25,31 @@ struct drm_writeback_connector {
-> >>>>>>>        struct drm_connector base;
-> >>>>>>>        /**
-> >>>>>>> -     * @encoder: Internal encoder used by the connector to fulfill
-> >>>>>>> +     * @encoder: handle to drm_encoder used by the connector to fulfill
-> >>>>>>>         * the DRM framework requirements. The users of the
-> >>>>>>>         * @drm_writeback_connector control the behaviour of the @encoder
-> >>>>>>>         * by passing the @enc_funcs parameter to drm_writeback_connector_init()
-> >>>>>>>         * function.
-> >>>>>>> +     *
-> >>>>>>> +     * For some vendor drivers, the hardware resources are shared between
-> >>>>>>> +     * writeback encoder and rest of the display pipeline.
-> >>>>>>> +     * To accommodate such cases, encoder is a handle to the real encoder
-> >>>>>>> +     * hardware.
-> >>>>>>> +     *
-> >>>>>>> +     * For current existing writeback users, this shall continue to be the
-> >>>>>>> +     * embedded encoder for the writeback connector.
-> >>>>>>> +     */
-> >>>>>>> +    struct drm_encoder *encoder;
-> >>>>>>> +
-> >>>>>>> +    /**
-> >>>>>>> +     * @internal_encoder: internal encoder used by writeback when
-> >>>>>>> +     * drm_writeback_connector_init() is used.
-> >>>>>>> +     * @encoder will be assigned to this for those cases
-> >>>>>>> +     *
-> >>>>>>> +     * This will be unused when drm_writeback_connector_init_with_encoder()
-> >>>>>>> +     * is used.
-> >>>>>>>         */
-> >>>>>>> -    struct drm_encoder encoder;
-> >>>>>>> +    struct drm_encoder internal_encoder;
-> >>>>>>>        /**
-> >>>>>>>         * @pixel_formats_blob_ptr:
-
--- 
-Regards,
-
-Laurent Pinchart
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index e29796c4f27b..aadf032a190b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -790,11 +790,9 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+>   	_dpu_kms_mmu_destroy(dpu_kms);
+>   
+>   	if (dpu_kms->catalog) {
+> -		for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+> -			u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+> -
+> -			if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx])
+> -				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[vbif_idx]);
+> +		for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> +			if (dpu_kms->hw_vbif[i])
+> +				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[i]);
+>   		}
+>   	}
+>   
+> @@ -1102,7 +1100,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+>   	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+>   		u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+>   
+> -		dpu_kms->hw_vbif[i] = dpu_hw_vbif_init(vbif_idx,
+> +		dpu_kms->hw_vbif[vbif_idx] = dpu_hw_vbif_init(vbif_idx,
+>   				dpu_kms->vbif[vbif_idx], dpu_kms->catalog);
+>   		if (IS_ERR_OR_NULL(dpu_kms->hw_vbif[vbif_idx])) {
+>   			rc = PTR_ERR(dpu_kms->hw_vbif[vbif_idx]);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> index 21d20373eb8b..a18fb649301c 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+> @@ -11,6 +11,14 @@
+>   #include "dpu_hw_vbif.h"
+>   #include "dpu_trace.h"
+>   
+> +static struct dpu_hw_vbif *dpu_get_vbif(struct dpu_kms *dpu_kms, enum dpu_vbif vbif_idx)
+> +{
+> +	if (vbif_idx < ARRAY_SIZE(dpu_kms->hw_vbif))
+> +		return dpu_kms->hw_vbif[vbif_idx];
+> +
+> +	return NULL;
+> +}
+> +
+>   /**
+>    * _dpu_vbif_wait_for_xin_halt - wait for the xin to halt
+>    * @vbif:	Pointer to hardware vbif driver
+> @@ -148,20 +156,15 @@ static u32 _dpu_vbif_get_ot_limit(struct dpu_hw_vbif *vbif,
+>   void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+>   		struct dpu_vbif_set_ot_params *params)
+>   {
+> -	struct dpu_hw_vbif *vbif = NULL;
+> +	struct dpu_hw_vbif *vbif;
+>   	struct dpu_hw_mdp *mdp;
+>   	bool forced_on = false;
+>   	u32 ot_lim;
+> -	int ret, i;
+> +	int ret;
+>   
+>   	mdp = dpu_kms->hw_mdp;
+>   
+> -	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> -		if (dpu_kms->hw_vbif[i] &&
+> -				dpu_kms->hw_vbif[i]->idx == params->vbif_idx)
+> -			vbif = dpu_kms->hw_vbif[i];
+> -	}
+> -
+> +	vbif = dpu_get_vbif(dpu_kms, params->vbif_idx);
+>   	if (!vbif || !mdp) {
+>   		DRM_DEBUG_ATOMIC("invalid arguments vbif %d mdp %d\n",
+>   				vbif != NULL, mdp != NULL);
+> @@ -204,7 +207,7 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+>   void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+>   		struct dpu_vbif_set_qos_params *params)
+>   {
+> -	struct dpu_hw_vbif *vbif = NULL;
+> +	struct dpu_hw_vbif *vbif;
+>   	struct dpu_hw_mdp *mdp;
+>   	bool forced_on = false;
+>   	const struct dpu_vbif_qos_tbl *qos_tbl;
+> @@ -216,13 +219,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+>   	}
+>   	mdp = dpu_kms->hw_mdp;
+>   
+> -	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+> -		if (dpu_kms->hw_vbif[i] &&
+> -				dpu_kms->hw_vbif[i]->idx == params->vbif_idx) {
+> -			vbif = dpu_kms->hw_vbif[i];
+> -			break;
+> -		}
+> -	}
+> +	vbif = dpu_get_vbif(dpu_kms, params->vbif_idx);
+>   
+>   	if (!vbif || !vbif->cap) {
+>   		DPU_ERROR("invalid vbif %d\n", params->vbif_idx);
