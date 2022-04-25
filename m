@@ -2,43 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6957950D77E
-	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 05:27:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1FE850DC0A
+	for <lists+freedreno@lfdr.de>; Mon, 25 Apr 2022 11:10:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD78110E60A;
-	Mon, 25 Apr 2022 03:27:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D83E10E06F;
+	Mon, 25 Apr 2022 09:10:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC44910E5B4;
- Mon, 25 Apr 2022 03:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1650857232; x=1682393232;
- h=from:to:cc:subject:date:message-id;
- bh=YjOcgIOFXyRnwECVbo7xYwtnF1RAoHpr1cKLFYwgHuA=;
- b=fcDVdDpI2jjjtmSVq9sH1GKF7KwWrK3e1bPXrjlo5XpHXD0F2WUyOUuE
- Y3+ms09O6hgJLkPWgUusegJ4stwhl4y4Dpy+4n/2ijMa3eBKX1/9d62nJ
- 6sme/Yw3rtP1Lu9bgbFDBE44ci7vQ0XN1rCs8CA6Wc0YESPEfjDnrNu6p 0=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 24 Apr 2022 20:27:11 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 24 Apr 2022 20:27:10 -0700
-X-QCInternal: smtphost
-Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
- by ironmsg02-blr.qualcomm.com with ESMTP; 25 Apr 2022 08:56:56 +0530
-Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
- id 0A71255BD; Mon, 25 Apr 2022 08:56:55 +0530 (IST)
-From: Vinod Polimera <quic_vpolimer@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Mon, 25 Apr 2022 08:56:53 +0530
-Message-Id: <1650857213-30075-1-git-send-email-quic_vpolimer@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH] drm/msm/disp/dpu1: set vbif hw config to NULL
- to avoid use after memory free during pm runtime resume
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FFD210E09B;
+ Mon, 25 Apr 2022 09:09:58 +0000 (UTC)
+Received: by mail-qt1-x832.google.com with SMTP id t11so2960252qto.11;
+ Mon, 25 Apr 2022 02:09:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fxgLQ1soDdNo6GOHgPvluqBZIfBwx/V3C+hOxuZtNW8=;
+ b=BtwHxyPpct0J/94b6H6JFnfA626J0AL2B34MiNkgVl/GmKQdL0t7FSK6PAhiLi7Km6
+ h876ttC1XBP68qbB3vc4+a93XEN5R9ZwU/dKsbGptAD3v+11FS+3wniG62kH+RdmoDLV
+ zt79dPL4a8c0YUu3WvbCSchqL2EyqvClNf4zAlgruLcHdamP2Ll6euQm5p7yAKi7Sw1v
+ ZmGYY9bmlAHDsDAXexFR8zv64kfP9DKxxg5/uOZ9egdrB98PmSnG8LKTl2pX7fYdU+wR
+ a4tqIPxNnHfzca27KN5WaSkZCNc9OkxMXrTysh5MHJupPxFOXcAGmz2Dq4xmkElk+UDO
+ 2Gvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fxgLQ1soDdNo6GOHgPvluqBZIfBwx/V3C+hOxuZtNW8=;
+ b=3/TpoSVT9VR/Y6COMCvOxvja1d2VSJ8oh2PTYZteXbpIQ0ExJP1etxgXYmRIF25YQ5
+ ctPHO0fX7ti8OAtvOAvdkcvkQQBvRMQqGEjhKSCbSNYFBgkAqu+24z1C5A0dzygN6nuN
+ 6zwxl/PYoKjihDOAY3bKKN8043dAcsGRuNwJdCvrnWCtwjA5cBuZgTFVTKyXWEflFq66
+ mRzLXi2IcnJylHnnj8PG7HiPH451Vy1HdS7WocEs81JATeLvqIL645nWTo9xjcAbTFWN
+ R+FTqlDl9kNk2cOV4WMfkTUTEG/f/Uc85S19ierIfCNG+Iy2JILQah0vaAGSLVbyk32M
+ sFFw==
+X-Gm-Message-State: AOAM533nhWc5tefTlvx8PFQMTpp2kUJgSdeUJngFOV6M+ubiH9c9Ujgj
+ 3kja3tCbwkUbwyxjHxCH8pk=
+X-Google-Smtp-Source: ABdhPJwBdVMVBLRA8VCjJ4w1pDSTXYa39d9cefp0lgq6pG4EAjTTfJBWbxdQxFOYYMlZhszBt2D22w==
+X-Received: by 2002:a05:622a:100a:b0:2f3:391c:3ce6 with SMTP id
+ d10-20020a05622a100a00b002f3391c3ce6mr11187185qte.351.1650877797522; 
+ Mon, 25 Apr 2022 02:09:57 -0700 (PDT)
+Received: from localhost.localdomain ([193.203.214.57])
+ by smtp.gmail.com with ESMTPSA id
+ y189-20020a37afc6000000b0069ede17247csm4799225qke.86.2022.04.25.02.09.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Apr 2022 02:09:57 -0700 (PDT)
+From: cgel.zte@gmail.com
+X-Google-Original-From: lv.ruyi@zte.com.cn
+To: robdclark@gmail.com,
+	sean@poorly.run
+Date: Mon, 25 Apr 2022 09:09:47 +0000
+Message-Id: <20220425090947.3498897-1-lv.ruyi@zte.com.cn>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dpu: fix error check return value of
+ irq_of_parse_and_map()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,50 +70,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: architt@codeaurora.org, linux-kernel@vger.kernel.org, ryadav@codeaurora.org,
+ airlied@linux.ie, linux-arm-msm@vger.kernel.org, Lv Ruyi <lv.ruyi@zte.com.cn>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ bjorn.andersson@linaro.org, tiny.windzz@gmail.com, daniel@ffwll.ch,
+ angelogioacchino.delregno@somainline.org, dmitry.baryshkov@linaro.org,
+ jsanka@codeaurora.org, swboyd@chromium.org, freedreno@lists.freedesktop.org,
+ Zeal Robot <zealci@zte.com.cn>, skolluku@codeaurora.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-BUG: Unable to handle kernel paging request at virtual address 006b6b6b6b6b6be3
+From: Lv Ruyi <lv.ruyi@zte.com.cn>
 
-Call trace:
-  dpu_vbif_init_memtypes+0x40/0xb8
-  dpu_runtime_resume+0xcc/0x1c0
-  pm_generic_runtime_resume+0x30/0x44
-  __genpd_runtime_resume+0x68/0x7c
-  genpd_runtime_resume+0x134/0x258
-  __rpm_callback+0x98/0x138
-  rpm_callback+0x30/0x88
-  rpm_resume+0x36c/0x49c
-  __pm_runtime_resume+0x80/0xb0
-  dpu_core_irq_uninstall+0x30/0xb0
-  dpu_irq_uninstall+0x18/0x24
-  msm_drm_uninit+0xd8/0x16c
+The irq_of_parse_and_map() function returns 0 on failure, and does not
+return a negative value anyhow, so never enter this conditional branch.
 
-Fixes: 25fdd5933e4 ("drm/msm: Add SDM845 DPU support")
-Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 9c346ce..59982d3 100644
+index e29796c4f27b..36eeeae7fe45 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -793,8 +793,10 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
- 		for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
- 			u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+@@ -1187,9 +1187,9 @@ struct msm_kms *dpu_kms_init(struct drm_device *dev)
+ 	dpu_kms = to_dpu_kms(priv->kms);
  
--			if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx])
-+			if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx]) {
- 				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[vbif_idx]);
-+				dpu_kms->hw_vbif[vbif_idx] = NULL;
-+			}
- 		}
+ 	irq = irq_of_parse_and_map(dpu_kms->pdev->dev.of_node, 0);
+-	if (irq < 0) {
+-		DPU_ERROR("failed to get irq: %d\n", irq);
+-		return ERR_PTR(irq);
++	if (!irq) {
++		DPU_ERROR("failed to get irq\n");
++		return ERR_PTR(-EINVAL);
  	}
+ 	dpu_kms->base.irq = irq;
  
 -- 
-2.7.4
+2.25.1
 
