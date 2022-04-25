@@ -2,67 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECAAF50EB77
-	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 00:12:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC8AF50EBE8
+	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 00:23:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE2010EE35;
-	Mon, 25 Apr 2022 22:12:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A545F10EE97;
+	Mon, 25 Apr 2022 22:23:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A04B10EDFE
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 22:12:53 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id j4so4202055lfh.8
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 15:12:52 -0700 (PDT)
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4351210E29E
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 22:23:41 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id w19so28737419lfu.11
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 15:23:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=CAP7rPZV7Wg1L7ILm1X74Kue+bkQwcGO5HR9HWZTqCQ=;
- b=dJX2cSv/+gKglImH2uFpJEYgjc5+NX9Xd3BuvqhDgGusOPOJFIHWKeRICKBQpPPoSR
- LRWg4erbLAb1L1jmTzVE/ERDXVMvVaMjRvVK7eK25m1tZvgc7xsuVzviLcWRLXb4qJNe
- NncodU0a2RPl7ROmTaSIncvmiSd45Wt4Ukqa56boq0NxluU+2gvngMpLmVhuRptAw847
- xuWUIzDVOKohXpafkUfT2vcFXmK0te0qBVyT91KKUUDbSKU9uqP1ofJgrALW5B6j0/MD
- B0TFCbQWgpjg+K5CtO/iipd/25Fhf9UGPKZNMiNdweZ0IA1QeOLtbn7yj1vNiyXmfHLL
- 3RdA==
+ bh=X6tPtyrOOLF1/p14xxSTVx958MJNQbxFMOc73dV5Mzo=;
+ b=Ce7pCVUGiFJQSnItmyWywubtP/Tv45dyMCL1pPWfKJJsTdHrxgfCvX2KsBbiyFqZGS
+ 901m5YPZcONrcIef6sdmwhVrPW1kaCXD9G041SP5iPMSzE1RLDX+bASNocYr2CCvcDXs
+ zB7zZVUHI8pwS/nHvMGZNa/UtCBMU90HFa3ZsXC8jEoLC+6kVzr7bukkiDi9clU5rCha
+ 8qOIrhFwfd6NpJUV3luIYezgZV1CPJFqxHRNEiyLpuRKNM5yFKbwPwikPsjqQI/LB11r
+ /sXNjJZo08eJQNLd4RxJWAtWXTe3iq0fTXNDpIRvqPVrs2Cme9p0NXt8bwoXT1g50RuN
+ QK4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=CAP7rPZV7Wg1L7ILm1X74Kue+bkQwcGO5HR9HWZTqCQ=;
- b=mXDVJ9jSdEP/C7ZvRavgR0iu4wG8oVI+HTQVSyxILUiyzvgwoag/v69Jsx2TSyc/f3
- oB0xxR+f8xJY4/vnvn9bLunLniHS7S8Mmr8G+z2+TmUmo4Yw2vkdIz0wJFlh7VieQLLE
- cn1NfYeQZW7qVlPqij1mO9P3XAzZwpFm5fJmz4cMMQySIYOkZC8fQwa4Wl1F1+Ss0/E6
- nWpK+MwTFxOpVCXsJL2PxqDOrCOCCm0NblHD1IWnuy3GnJ/c9tjCfLR8hZVC9G2kBUNO
- ab7zQwzTgGLNJh2C8YgeymoiBpb6npom/TEojbfIEiE0SsbniFYlYMQTW2MzZ0J15NKJ
- V6Zg==
-X-Gm-Message-State: AOAM533SPds0ENlGR7Q2j/W81JNA+1qxBnBgRs3fmTqfWyUjy1BG0HGb
- P/3n4oztPaM4DN6upfaoTNV9ig==
-X-Google-Smtp-Source: ABdhPJwcqBXtXmf+RLDNzHIm9VFcDdg9XbcmIbPJSD5DRm06iD9NfzLea91rV2lpzRSmr+WIJqT1DQ==
-X-Received: by 2002:ac2:435a:0:b0:46b:ae5b:83e8 with SMTP id
- o26-20020ac2435a000000b0046bae5b83e8mr14551244lfl.485.1650924771409; 
- Mon, 25 Apr 2022 15:12:51 -0700 (PDT)
+ bh=X6tPtyrOOLF1/p14xxSTVx958MJNQbxFMOc73dV5Mzo=;
+ b=KbxSBHJupr+gG81yg8QMxXkRzZcgje2TpPE+gmrKQCGOGgs54SoYP9mEQPZVRP9/2Y
+ ubbHafNMkWiMivVSOxPrPPxlQ1jTTlVCt04TiVBUhSZBR/zORbYeJ3K45aDBscyP+2fb
+ euTrxZFpO4zHtggHk7LuVgoMepbFQcpt0TIigMoc+wx7uKzufzElptyWSiHtpAzxeuWF
+ yAHRxH8Rt45oHp/WArCy8prsBfE5QXZlDUfUFyir1HYnnNG5ENeMfpUvxoxML0NcSmhr
+ s4MItQpRjnd6lZxw6bPAudPd2kIqccKR9Be1IUu/gOyZ7gefwrjxPN6mqv5AISDJCmdG
+ 2y0w==
+X-Gm-Message-State: AOAM533xONCpW/TBF66gxXAgj1x1+yiV8GI0Z+EcNqDx/ChOrSlPnZAt
+ h1E9ZajmgqW89CeU4ngHl2vC1i09mUxwiw==
+X-Google-Smtp-Source: ABdhPJzxHLoRrGJZ4lg39u4RC4KZZ7ipF64tibG2Qxu8QIwRay7SmyMbnhHFRx5OOlxuYAKETLeK2Q==
+X-Received: by 2002:a05:6512:b1e:b0:44a:9b62:3201 with SMTP id
+ w30-20020a0565120b1e00b0044a9b623201mr14974371lfu.42.1650925419622; 
+ Mon, 25 Apr 2022 15:23:39 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- l28-20020a19495c000000b0044a8abcb589sm1536797lfj.186.2022.04.25.15.12.50
+ z17-20020a05651c023100b0024f11b44e93sm453321ljn.102.2022.04.25.15.23.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 15:12:51 -0700 (PDT)
-Message-ID: <e9d7c636-09ba-52f4-5575-a7027f722d20@linaro.org>
-Date: Tue, 26 Apr 2022 01:12:50 +0300
+ Mon, 25 Apr 2022 15:23:39 -0700 (PDT)
+Message-ID: <d315bd2d-6f8d-592f-b24e-15ee34ca22d8@linaro.org>
+Date: Tue, 26 Apr 2022 01:23:38 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
 Content-Language: en-GB
-To: Tom Rix <trix@redhat.com>, robdclark@gmail.com, sean@poorly.run,
- quic_abhinavk@quicinc.com, airlied@linux.ie, daniel@ffwll.ch
-References: <20220421131507.1557667-1-trix@redhat.com>
+To: cgel.zte@gmail.com
+References: <39b3828e-064c-6aa4-de77-35b201b1b40f@linaro.org>
+ <20220424031959.3172406-1-lv.ruyi@zte.com.cn>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220421131507.1557667-1-trix@redhat.com>
+In-Reply-To: <20220424031959.3172406-1-lv.ruyi@zte.com.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm: change msm_sched_ops from global
- to static
+Subject: Re: [Freedreno] [PATCH v2] drm: msm: fix error check return value
+ of irq_of_parse_and_map()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +75,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: sean@poorly.run, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ lv.ruyi@zte.com.cn, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, quic_abhinavk@quicinc.com,
+ quic_mkrishn@quicinc.com, vulab@iscas.ac.cn, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
+ angelogioacchino.delregno@collabora.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/04/2022 16:15, Tom Rix wrote:
-> Smatch reports this issue
-> msm_ringbuffer.c:43:36: warning: symbol 'msm_sched_ops' was not declared. Should it be static?
+On 24/04/2022 06:19, cgel.zte@gmail.com wrote:
+> From: Lv Ruyi <lv.ruyi@zte.com.cn>
 > 
-> msm_sched_ops is only used in msm_ringbuffer.c so change its
-> storage-class specifier to static.
+> The irq_of_parse_and_map() function returns 0 on failure, and does not
+> return an negative value.
 > 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+> Reported-by: Zeal Robot <zealci@zte.com.cn>
+> Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
->   drivers/gpu/drm/msm/msm_ringbuffer.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> v2: don't print irq, and return ERR_PTR(-EINVAL)
+> ---
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> index 367a6aaa3a20..66f4ec09ef67 100644
-> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
-> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
-> @@ -40,7 +40,7 @@ static void msm_job_free(struct drm_sched_job *job)
->   	msm_gem_submit_put(submit);
->   }
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> index 3b92372e7bdf..44e395e59df9 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> @@ -570,9 +570,9 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
+>   	}
 >   
-> -const struct drm_sched_backend_ops msm_sched_ops = {
-> +static const struct drm_sched_backend_ops msm_sched_ops = {
->   	.run_job = msm_job_run,
->   	.free_job = msm_job_free
->   };
+>   	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
+> -	if (irq < 0) {
+> -		ret = irq;
+> -		DRM_DEV_ERROR(&pdev->dev, "failed to get irq: %d\n", ret);
+> +	if (!irq) {
+> +		ret = -EINVAL;
+> +		DRM_DEV_ERROR(&pdev->dev, "failed to get irq\n");
+>   		goto fail;
+>   	}
+>   
 
 
 -- 
