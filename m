@@ -2,69 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 518B250EB6D
-	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 00:11:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECAAF50EB77
+	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 00:12:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0566310ED8D;
-	Mon, 25 Apr 2022 22:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE2010EE35;
+	Mon, 25 Apr 2022 22:12:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06DDC10ED75
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 22:11:17 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id y32so28714810lfa.6
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 15:11:16 -0700 (PDT)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A04B10EDFE
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 22:12:53 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id j4so4202055lfh.8
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 15:12:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=wNSzXqr9gdAV/1UM9LYsZKhA56gdS5t/rHhHRCuCh9o=;
- b=Hiz+GTMfZU/jt91kJKCco1eBpfOqVPKVZMhV/zyHzpUJa9fxMwVoWkXni0uPP2otu0
- jputn5/iM0C+IFHkKBouHDGxaaUSjcGVmVQSzBARnE3ScQV7/lkhQKbygWxZx6iGnJr9
- hu7s2AHKExVON0O6Ah4Eowky6GyYnyEDNiWd3HUwmT5wnID2LVAGVA+HsUmc7os0MBv6
- fZ8VyzyqeFQ2b1gpKs+xwyPyVZWhvPtb45NweWrXltBzpcFoA/xNvCeO2QN8bJLLZHou
- wpb34eHMRCEkIzq5Ib74y5rfhBAWj2t+9hFioOfJR5tltu+0PCFzrNwmG/xiEbl5Usoz
- THDg==
+ bh=CAP7rPZV7Wg1L7ILm1X74Kue+bkQwcGO5HR9HWZTqCQ=;
+ b=dJX2cSv/+gKglImH2uFpJEYgjc5+NX9Xd3BuvqhDgGusOPOJFIHWKeRICKBQpPPoSR
+ LRWg4erbLAb1L1jmTzVE/ERDXVMvVaMjRvVK7eK25m1tZvgc7xsuVzviLcWRLXb4qJNe
+ NncodU0a2RPl7ROmTaSIncvmiSd45Wt4Ukqa56boq0NxluU+2gvngMpLmVhuRptAw847
+ xuWUIzDVOKohXpafkUfT2vcFXmK0te0qBVyT91KKUUDbSKU9uqP1ofJgrALW5B6j0/MD
+ B0TFCbQWgpjg+K5CtO/iipd/25Fhf9UGPKZNMiNdweZ0IA1QeOLtbn7yj1vNiyXmfHLL
+ 3RdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=wNSzXqr9gdAV/1UM9LYsZKhA56gdS5t/rHhHRCuCh9o=;
- b=ALDSFqBlDGWZ/58oyCNWh6VF8ycoT60vqLyEG+7peJ4ed/Lzswm4dy6uuA3OgxcY9C
- 5gx2uQp5bkKI35Klb0o4dnPwLWxuOswYAsb0OTYX5OLRL6kPuQ5s5/rTSF5t1qGb++ib
- rsRauMfTMrPKSOeKUbSlzlL+M/m68z+4Pz0kFUKJFYGgpHUsGO0OIMkW9zmnoE1Aoy9/
- iAhSr2vlDM86I670E5naJjJ9YGAiX19lN31uBik+D4+eZyJKW1bO0GceUcOw5ayqtFF/
- XJW4vRO9TCuEVhWURr6PrYCjKRRNxNQFR6dKdoYhUwJilIL2nLM1D2mZXQSz1GSj1A/a
- +4mw==
-X-Gm-Message-State: AOAM532W2UHNBYOqU9Pq2gSWnD+E4Jqk9if9EqYN7y7+jaJjd71xHSyw
- j8DSjB0VvMmutbETd7HqfQNkwQ==
-X-Google-Smtp-Source: ABdhPJygzyWrtK9unqztvwrqXyM2kAZwTWywvbu94iVNo3ZY5VdXZlRg8gXQR4FdAEqJKb2oRknSyQ==
-X-Received: by 2002:a19:ac04:0:b0:471:664f:95df with SMTP id
- g4-20020a19ac04000000b00471664f95dfmr14698796lfc.310.1650924675274; 
- Mon, 25 Apr 2022 15:11:15 -0700 (PDT)
+ bh=CAP7rPZV7Wg1L7ILm1X74Kue+bkQwcGO5HR9HWZTqCQ=;
+ b=mXDVJ9jSdEP/C7ZvRavgR0iu4wG8oVI+HTQVSyxILUiyzvgwoag/v69Jsx2TSyc/f3
+ oB0xxR+f8xJY4/vnvn9bLunLniHS7S8Mmr8G+z2+TmUmo4Yw2vkdIz0wJFlh7VieQLLE
+ cn1NfYeQZW7qVlPqij1mO9P3XAzZwpFm5fJmz4cMMQySIYOkZC8fQwa4Wl1F1+Ss0/E6
+ nWpK+MwTFxOpVCXsJL2PxqDOrCOCCm0NblHD1IWnuy3GnJ/c9tjCfLR8hZVC9G2kBUNO
+ ab7zQwzTgGLNJh2C8YgeymoiBpb6npom/TEojbfIEiE0SsbniFYlYMQTW2MzZ0J15NKJ
+ V6Zg==
+X-Gm-Message-State: AOAM533SPds0ENlGR7Q2j/W81JNA+1qxBnBgRs3fmTqfWyUjy1BG0HGb
+ P/3n4oztPaM4DN6upfaoTNV9ig==
+X-Google-Smtp-Source: ABdhPJwcqBXtXmf+RLDNzHIm9VFcDdg9XbcmIbPJSD5DRm06iD9NfzLea91rV2lpzRSmr+WIJqT1DQ==
+X-Received: by 2002:ac2:435a:0:b0:46b:ae5b:83e8 with SMTP id
+ o26-20020ac2435a000000b0046bae5b83e8mr14551244lfl.485.1650924771409; 
+ Mon, 25 Apr 2022 15:12:51 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- i13-20020a2e864d000000b0024f1564ea12sm207876ljj.105.2022.04.25.15.11.13
+ l28-20020a19495c000000b0044a8abcb589sm1536797lfj.186.2022.04.25.15.12.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 15:11:14 -0700 (PDT)
-Message-ID: <94435133-b875-3005-ab23-dc4457ec9002@linaro.org>
-Date: Tue, 26 Apr 2022 01:11:13 +0300
+ Mon, 25 Apr 2022 15:12:51 -0700 (PDT)
+Message-ID: <e9d7c636-09ba-52f4-5575-a7027f722d20@linaro.org>
+Date: Tue, 26 Apr 2022 01:12:50 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
 Content-Language: en-GB
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-References: <20220421041550.643964-1-bjorn.andersson@linaro.org>
- <20220421041550.643964-2-bjorn.andersson@linaro.org>
+To: Tom Rix <trix@redhat.com>, robdclark@gmail.com, sean@poorly.run,
+ quic_abhinavk@quicinc.com, airlied@linux.ie, daniel@ffwll.ch
+References: <20220421131507.1557667-1-trix@redhat.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220421041550.643964-2-bjorn.andersson@linaro.org>
+In-Reply-To: <20220421131507.1557667-1-trix@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 2/2] drm/msm/dpu: Issue MDSS reset during
- initialization
+Subject: Re: [Freedreno] [PATCH] drm/msm: change msm_sched_ops from global
+ to static
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,104 +75,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Sean Paul <sean@poorly.run>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/04/2022 07:15, Bjorn Andersson wrote:
-> It's typical for the bootloader to bring up the display for showing a
-> boot splash or efi framebuffer. But in some cases the kernel driver ends
-> up only partially configuring (in particular) the DPU, which might
-> result in e.g. that two different data paths attempts to push data to
-> the interface - with resulting graphical artifacts.
+On 21/04/2022 16:15, Tom Rix wrote:
+> Smatch reports this issue
+> msm_ringbuffer.c:43:36: warning: symbol 'msm_sched_ops' was not declared. Should it be static?
 > 
-> Naturally the end goal would be to inherit the bootloader's
-> configuration and provide the user with a glitch free handover from the
-> boot configuration to a running DPU.
+> msm_sched_ops is only used in msm_ringbuffer.c so change its
+> storage-class specifier to static.
 > 
-> But as implementing seamless transition from the bootloader
-> configuration to the running OS will be a considerable effort, start by
-> simply resetting the entire MDSS to its power-on state, to avoid the
-> partial configuration.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
+>   drivers/gpu/drm/msm/msm_ringbuffer.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Changes since v3:
-> - Rebased upon the mdss dpu/mdp restructuring (https://patchwork.freedesktop.org/series/98525/)
-> 
->   drivers/gpu/drm/msm/msm_mdss.c | 32 ++++++++++++++++++++++++++++++++
->   1 file changed, 32 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index f6f0d0fa5ab2..20f154dda9cf 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -4,11 +4,13 @@
->    */
->   
->   #include <linux/clk.h>
-> +#include <linux/delay.h>
->   #include <linux/irq.h>
->   #include <linux/irqchip.h>
->   #include <linux/irqdesc.h>
->   #include <linux/irqchip/chained_irq.h>
->   #include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
->   
->   #include "msm_drv.h"
->   #include "msm_kms.h"
-> @@ -193,6 +195,32 @@ static void msm_mdss_destroy(struct msm_mdss *msm_mdss)
->   	irq_set_chained_handler_and_data(irq, NULL, NULL);
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> index 367a6aaa3a20..66f4ec09ef67 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+> @@ -40,7 +40,7 @@ static void msm_job_free(struct drm_sched_job *job)
+>   	msm_gem_submit_put(submit);
 >   }
 >   
-> +static int msm_mdss_reset(struct device *dev)
-> +{
-> +	struct reset_control *reset;
-> +
-> +	reset = reset_control_get_optional_exclusive(dev, NULL);
-> +	if (!reset) {
-> +		/* Optional reset not specified */
-> +		return 0;
-> +	} else if (IS_ERR(reset)) {
-> +		return dev_err_probe(dev, PTR_ERR(reset),
-> +				     "failed to acquire mdss reset\n");
-> +	}
-> +
-> +	reset_control_assert(reset);
-> +	/*
-> +	 * Tests indicate that reset has to be held for some period of time,
-> +	 * make it one frame in a typical system
-> +	 */
-> +	msleep(20);
-> +	reset_control_deassert(reset);
-> +
-> +	reset_control_put(reset);
-> +
-> +	return 0;
-> +}
-> +
->   /*
->    * MDP5 MDSS uses at most three specified clocks.
->    */
-> @@ -229,6 +257,10 @@ static struct msm_mdss *msm_mdss_init(struct platform_device *pdev, bool is_mdp5
->   	int ret;
->   	int irq;
->   
-> +	ret = msm_mdss_reset(&pdev->dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
->   	msm_mdss = devm_kzalloc(&pdev->dev, sizeof(*msm_mdss), GFP_KERNEL);
->   	if (!msm_mdss)
->   		return ERR_PTR(-ENOMEM);
+> -const struct drm_sched_backend_ops msm_sched_ops = {
+> +static const struct drm_sched_backend_ops msm_sched_ops = {
+>   	.run_job = msm_job_run,
+>   	.free_job = msm_job_free
+>   };
 
 
 -- 
