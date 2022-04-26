@@ -2,69 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A63C350EDC6
-	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 02:46:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCB050EE17
+	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 03:33:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34B9210EF02;
-	Tue, 26 Apr 2022 00:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3922B10F01A;
+	Tue, 26 Apr 2022 01:33:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E60F10EF02
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 00:46:11 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id 4so6397294ljw.11
- for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 17:46:11 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39B8E10F01A
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 01:33:10 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id q14so20023154ljc.12
+ for <freedreno@lists.freedesktop.org>; Mon, 25 Apr 2022 18:33:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=EwXSMtNwKY3OlJZVs3rgiyqAPsTCrN/oQb/CnYT5rWw=;
- b=tiGec78C3eX03CT8JxH+c+XalgymeLsxTp54cuUCuURW2bemq1IWKM9XFNBiTMyBer
- zhrDgGfv0vxb2Lwsg2afelz63OlixkyvefYP7g5DEYjqvPwcgrYMkwo4/WEcdULc4i7P
- H7jh8XUba0mpfDlZQ6bacL+nq3CknKUYKXWcfpPHL0AsjRMlOguDzn91ppu8QEYN/8Rr
- al62fw50tsE/u1UDBdwC5TAGptzKYaD4Rrf6XCzNHStoI1GHzBoATgBsARSQosBQWWao
- OQRq1oi7lHFdH+/5UdaE14f9b29kP8MYZg4f1vVlmmUYBOay+SJ2Lu29uQEqHrCRcBVz
- mMgA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=emP8+R538WvL1wuXgx0L4uWxHnnwA12+iVHtL5H27k4=;
+ b=q4zAlbYpNPJS1sKjj8JkJ5+R/TKzcrw83UHN/N/XqNqPllkI0+joSo9+Xur0BvlZHj
+ YcGt3PM1zODmwDMdqSetQkT/DZHxGf1JmOJSKgUcHt6a/8wk8KVk21XtYsjmE95+vf1U
+ xykVZXnUeEuo4Iw7kIB5e92DQcYDAn+zWqGzM9Apuorp7FHm69E7Knu627vZhQRgBWa4
+ wICCsEmJjLdbFAPblR1KK2NgenAnDRBxBAg2fa8+ThWiIg+cnZ7BzZLifV9wKAwZ6jI2
+ HtZfsTor4lK23Pvp/yb+6+nwmeKp0307HghzbyCP4PEsbzsYhDxz8cGbaQeLeU3W6fs0
+ K5Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=EwXSMtNwKY3OlJZVs3rgiyqAPsTCrN/oQb/CnYT5rWw=;
- b=8BLa+O4BB8Ya1DmpvSo0dS6ULeVOrk39gP3bRKrDAS1hUtjwqHwcFWKLv3ECz2uh4K
- +1s0aScrPe1noqL1zNzDyZ7+FswRVHMQ05DR6ODHiR8x+Suw5abaKEh52CpcyWPSJkTu
- Rl9QZ1afvVM8ZADkBq3Sd+FgpHRqAdEnGOh4fjczmiSP5jSP1RKOzztSdA0dv3xQrd0c
- dLU+muhFigHiXqOsIH47CYMLUz+BWG1D7GBfioQkg9wmwrb7hiiDiFTVx/ju/PMHChw5
- uFGU6qFZkn7YzceHn9NL32sBJxm7Y8LffwT1nCcgLaeTutdsbUXCqYDQS6Xn7m149KoL
- fciw==
-X-Gm-Message-State: AOAM53374Y/npIypbO4ZjxW/wSyS8SwCGg0ex6wb+t7OQ7ELRTIQJcdZ
- nTDZOy9HiNqOy86rLWlvoE1hig==
-X-Google-Smtp-Source: ABdhPJyz4Bu/3GDyhabs3JMflUhlHeOVlQDMYcPeY+sQ01TVHnWNs1c6frZbozUAdv5q5PvJWbaymw==
-X-Received: by 2002:a2e:300a:0:b0:24d:b373:2d41 with SMTP id
- w10-20020a2e300a000000b0024db3732d41mr12468937ljw.486.1650933969871; 
- Mon, 25 Apr 2022 17:46:09 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- p1-20020a056512328100b0046e8ccf696csm1566274lfe.58.2022.04.25.17.46.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Apr 2022 17:46:09 -0700 (PDT)
-Message-ID: <7163d07e-3f5d-1587-6a4f-cf22ff4b910a@linaro.org>
-Date: Tue, 26 Apr 2022 03:46:08 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
-References: <1650846730-19226-1-git-send-email-quic_abhinavk@quicinc.com>
- <1650846730-19226-11-git-send-email-quic_abhinavk@quicinc.com>
- <14b4955d-459a-927c-7568-6770b73efdae@linaro.org>
- <4ace513f-26c5-ad95-f71e-c7d869f944a2@quicinc.com>
+ bh=emP8+R538WvL1wuXgx0L4uWxHnnwA12+iVHtL5H27k4=;
+ b=0hhBX1Vhv33Zepv6a3YBH6XFseS7ZAx+QL6bMiphe1YoOYbUCBvazHGbfFtgjcJBQC
+ 5JCGvXNtJgaxR1EmDhNA9bg/g1MqyPRNXncuX1gvqo2edDwCSmeaMI/cdpPHbugy6Swz
+ YlCRXgf+5+gqgqIgr/Qt+7lu4YQ20VZcfDeEvi4J4hVFncSgHQ+lvp9u7qz0qbR1AnI/
+ a+2rA5QmRQXHe97yQ0Qqb4ZauSed7jIhMOLv8hrZR1fCXjh5p9gp/PU7aPGRtZOWc+9e
+ fhlwIfMIwX9k9xwkbfUc3HiggL7RXArL+b4VnN0+xM+ZkB1rNULZiG5wQkzZmRKf1WFy
+ cGuA==
+X-Gm-Message-State: AOAM530E1A/l77XGOmijtGTEU8eChp3vsZHyrXTcAbdETZO2ScOzH2dx
+ KVxytMzeHP7rWMAuQkY2n9aW6A==
+X-Google-Smtp-Source: ABdhPJxYACL031VdKnGYTh0aM3bFDRNZlcf3rNCEu42VGajhYmTAb/TRVeyN4tP7O4b47c2kWhkc9A==
+X-Received: by 2002:a2e:9817:0:b0:24f:ad4:e912 with SMTP id
+ a23-20020a2e9817000000b0024f0ad4e912mr7196797ljj.178.1650936788433; 
+ Mon, 25 Apr 2022 18:33:08 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ t17-20020a2e4611000000b0024f0900dda2sm903990lja.49.2022.04.25.18.33.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Apr 2022 18:33:07 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <4ace513f-26c5-ad95-f71e-c7d869f944a2@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rob Clark <robdclark@gmail.com>
+Date: Tue, 26 Apr 2022 04:33:07 +0300
+Message-Id: <20220426013307.2880243-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v5 10/19] drm/msm/dpu: make changes to
- dpu_encoder to support virtual encoder
+Subject: [Freedreno] [PULL] drm/msm display pull request
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,284 +66,222 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, liviu.dudau@arm.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
+Cc: freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 26/04/2022 03:44, Abhinav Kumar wrote:
-> Hi Dmitry
-> 
-> On 4/25/2022 5:21 PM, Dmitry Baryshkov wrote:
->> On 25/04/2022 03:32, Abhinav Kumar wrote:
->>> Make changes to dpu_encoder to support virtual encoder needed
->>> to support writeback for dpu.
->>>
->>> changes in v4:
->>>     - squash dpu_encoder pieces from [1]
->>>
->>> [1] https://patchwork.freedesktop.org/patch/483099/?series=102964&rev=2
->>>
->>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c      | 94 
->>> +++++++++++++++++++-----
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h |  7 ++
->>>   2 files changed, 83 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> index 25c7eda..d1e92d89 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->>> @@ -1013,9 +1013,18 @@ static void 
->>> dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->>>           if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
->>>               phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, 
->>> phys->intf_idx);
->>> -        if (!phys->hw_intf) {
->>> +        if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
->>> +            phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
->>> +
->>> +        if (!phys->hw_intf && !phys->hw_wb) {
->>>               DPU_ERROR_ENC(dpu_enc,
->>> -                      "no intf block assigned at idx: %d\n", i);
->>> +                      "no intf or wb block assigned at idx: %d\n", i);
->>> +            return;
->>> +        }
->>> +
->>> +        if (phys->hw_intf && phys->hw_wb) {
->>> +            DPU_ERROR_ENC(dpu_enc,
->>> +                    "invalid phys both intf and wb block at idx: 
->>> %d\n", i);
->>>               return;
->>>           }
->>> @@ -1163,16 +1172,35 @@ static enum dpu_intf 
->>> dpu_encoder_get_intf(struct dpu_mdss_cfg *catalog,
->>>   {
->>>       int i = 0;
->>> -    for (i = 0; i < catalog->intf_count; i++) {
->>> -        if (catalog->intf[i].type == type
->>> -            && catalog->intf[i].controller_id == controller_id) {
->>> -            return catalog->intf[i].id;
->>> +    if (type != INTF_WB) {
->>> +        for (i = 0; i < catalog->intf_count; i++) {
->>> +            if (catalog->intf[i].type == type
->>> +                && catalog->intf[i].controller_id == controller_id) {
->>> +                return catalog->intf[i].id;
->>> +            }
->>>           }
->>>       }
->>>       return INTF_MAX;
->>>   }
->>> +static enum dpu_wb dpu_encoder_get_wb(struct dpu_mdss_cfg *catalog,
->>> +        enum dpu_intf_type type, u32 controller_id)
->>> +{
->>> +    int i = 0;
->>> +
->>> +    if (type != INTF_WB)
->>> +        goto end;
->>> +
->>> +    for (i = 0; i < catalog->wb_count; i++) {
->>> +        if (catalog->wb[i].id == controller_id)
->>> +            return catalog->wb[i].id;
->>> +    }
->>> +
->>> +end:
->>> +    return WB_MAX;
->>> +}
->>> +
->>>   static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
->>>           struct dpu_encoder_phys *phy_enc)
->>>   {
->>> @@ -1887,16 +1915,32 @@ void dpu_encoder_helper_phys_cleanup(struct 
->>> dpu_encoder_phys *phys_enc)
->>>       dpu_encoder_helper_reset_mixers(phys_enc);
->>> -    for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->>> -        if (dpu_enc->phys_encs[i] && 
->>> phys_enc->hw_intf->ops.bind_pingpong_blk)
->>> -            phys_enc->hw_intf->ops.bind_pingpong_blk(
->>> -                    dpu_enc->phys_encs[i]->hw_intf, false,
->>> -                    dpu_enc->phys_encs[i]->hw_pp->idx);
->>> -
->>> -        /* mark INTF flush as pending */
->>> -        if (phys_enc->hw_ctl->ops.update_pending_flush_intf)
->>> - phys_enc->hw_ctl->ops.update_pending_flush_intf(phys_enc->hw_ctl,
->>> -                    dpu_enc->phys_encs[i]->hw_intf->idx);
->>> +    /*
->>> +     * TODO: move the once-only operation like CTL flush/trigger
->>> +     * into dpu_encoder_virt_disable() and all operations which need
->>> +     * to be done per phys encoder into the phys_disable() op.
->>> +     */
->>> +    if (phys_enc->hw_wb) {
->>> +        /* disable the PP block */
->>> +        if (phys_enc->hw_wb->ops.bind_pingpong_blk)
->>> +            phys_enc->hw_wb->ops.bind_pingpong_blk(phys_enc->hw_wb, 
->>> false,
->>> +                    phys_enc->hw_pp->idx);
->>> +
->>> +        /* mark WB flush as pending */
->>> +        if (phys_enc->hw_ctl->ops.update_pending_flush_wb)
->>> +            phys_enc->hw_ctl->ops.update_pending_flush_wb(ctl, 
->>> phys_enc->hw_wb->idx);
->>> +    } else {
->>> +        for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->>> +            if (dpu_enc->phys_encs[i] && 
->>> phys_enc->hw_intf->ops.bind_pingpong_blk)
->>> +                phys_enc->hw_intf->ops.bind_pingpong_blk(
->>> +                        dpu_enc->phys_encs[i]->hw_intf, false,
->>> +                        dpu_enc->phys_encs[i]->hw_pp->idx);
->>> +
->>> +            /* mark INTF flush as pending */
->>> +            if (phys_enc->hw_ctl->ops.update_pending_flush_intf)
->>> + phys_enc->hw_ctl->ops.update_pending_flush_intf(phys_enc->hw_ctl,
->>> +                        dpu_enc->phys_encs[i]->hw_intf->idx);
->>> +        }
->>>       }
->>>       /* reset the merge 3D HW block */
->>> @@ -2112,6 +2156,9 @@ static int dpu_encoder_setup_display(struct 
->>> dpu_encoder_virt *dpu_enc,
->>>       case DRM_MODE_ENCODER_TMDS:
->>>           intf_type = INTF_DP;
->>>           break;
->>> +    case DRM_MODE_ENCODER_VIRTUAL:
->>> +        intf_type = INTF_WB;
->>> +        break;
->>>       }
->>>       WARN_ON(disp_info->num_of_h_tiles < 1);
->>> @@ -2149,8 +2196,19 @@ static int dpu_encoder_setup_display(struct 
->>> dpu_encoder_virt *dpu_enc,
->>>           phys_params.intf_idx = dpu_encoder_get_intf(dpu_kms->catalog,
->>>                                                       intf_type,
->>>                                                       controller_id);
->>> -        if (phys_params.intf_idx == INTF_MAX) {
->>> -            DPU_ERROR_ENC(dpu_enc, "could not get intf: type %d, id 
->>> %d\n",
->>> +
->>> +        phys_params.wb_idx = dpu_encoder_get_wb(dpu_kms->catalog,
->>> +                intf_type, controller_id);
->>> +        /*
->>> +         * For boards which have no physical displays, having no 
->>> interface
->>> +         * is fine because it can still be used with just writeback.
->>> +         * If we try without a display on a board which uses a DPU 
->>> in which
->>> +         * writeback is not supported, then this will still fail as 
->>> it will not
->>> +         * find any writeback in the catalog.
->>> +         */
->>> +        if ((phys_params.intf_idx == INTF_MAX) &&
->>> +                (phys_params.wb_idx == WB_MAX)) {
->>> +            DPU_ERROR_ENC(dpu_enc, "could not get intf or wb: type 
->>> %d, id %d\n",
->>
->> I've commented the previous iteration by the mistake, but the comment 
->> still applies to this version too. Let's repeat it, so that we have 
->> all the comments in the single version.
->>
->> I think the comment is misleading. It is a phys_params, so it must have
->> etiher intf_idx or wb_idx, but not both of them, despite the board
->> having the interfaces or WB.
->>
->> So somthing like this might be more appropriate:
->>
->> /*
->>    * The phys_params might represent either an INTF or a WB unit, but not
->>    * both of them at the same time.
->>    */
->>
->> if ((phys_params.intf_idx == INTF_MAX) && (phys_params.wb_idx == 
->> WB_MAX)) {
->>    .... // error out
->> }
->>
->> if ((phys_params.intf_idx != INTF_MAX) && (phys_params.wb_idx == 
->> WB_MAX)) {
->>     ........ // error out
->> }
-> 
-> I didnt understand this condition. So if there is a valid intf but not 
-> valid wb intf, why is that an error.
-> 
+Hi Rob,
 
-c&p error. of course:
+This is a pull request over the patches accumulated, reviewed and tested for
+the 5.19 merge window. This pull request contains following changes:
 
-if ((intf_idx == INTF_MAX) && (wb_idx == INTF_MAX)) {...}
+ - DPU: DSC (Display Stream Compression) support
+ - DPU: inline rotation support on SC7280
+ - DPU: update DP timings to follow vendor recommendations
+ - DP, DPU: add support for wide bus (on newer chipsets)
+ - DP: eDP support
+ - Merge DPU1 and MDP5 MDSS driver, make dpu/mdp device the master
+   component
+ - MDSS: optionally reset the IP block at the bootup to drop
+   bootloader state
+ - Properly register and unregister internal bridges in the DRM framework
+ - Complete DPU IRQ cleanup
+ - DP: conversion to use drm_bridge and drm_bridge_connector
+ - Misc small fixes
 
-if ((intf_idx != INTF_MAX) && (wb_idx != INTF_MAX)) {...}
+This request still comes as a merge of several local branches. If you wish, I
+can rebase them into a single stream of patches.
 
+There are several other series which are very close to the merge (e.g. the
+writeback support), so if the time permits I might send another pull request
+later.
 
->>
->>
->> Looks good otherwise.
->>
->>
->>>                             intf_type, controller_id);
->>>               ret = -EINVAL;
->>>           }
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->>> index 544a9a4..c84b8e8 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h
->>> @@ -11,6 +11,7 @@
->>>   #include "dpu_kms.h"
->>>   #include "dpu_hw_intf.h"
->>> +#include "dpu_hw_wb.h"
->>>   #include "dpu_hw_pingpong.h"
->>>   #include "dpu_hw_ctl.h"
->>>   #include "dpu_hw_top.h"
->>> @@ -165,12 +166,14 @@ enum dpu_intr_idx {
->>>    * @hw_ctl:        Hardware interface to the ctl registers
->>>    * @hw_pp:        Hardware interface to the ping pong registers
->>>    * @hw_intf:        Hardware interface to the intf registers
->>> + * @hw_wb:        Hardware interface to the wb registers
->>>    * @dpu_kms:        Pointer to the dpu_kms top level
->>>    * @cached_mode:    DRM mode cached at mode_set time, acted on in 
->>> enable
->>>    * @enabled:        Whether the encoder has enabled and running a mode
->>>    * @split_role:        Role to play in a split-panel configuration
->>>    * @intf_mode:        Interface mode
->>>    * @intf_idx:        Interface index on dpu hardware
->>> + * @wb_idx:            Writeback index on dpu hardware
->>>    * @enc_spinlock:    Virtual-Encoder-Wide Spin Lock for IRQ purposes
->>>    * @enable_state:    Enable state tracking
->>>    * @vblank_refcount:    Reference count of vblank request
->>> @@ -193,11 +196,13 @@ struct dpu_encoder_phys {
->>>       struct dpu_hw_ctl *hw_ctl;
->>>       struct dpu_hw_pingpong *hw_pp;
->>>       struct dpu_hw_intf *hw_intf;
->>> +    struct dpu_hw_wb *hw_wb;
->>>       struct dpu_kms *dpu_kms;
->>>       struct drm_display_mode cached_mode;
->>>       enum dpu_enc_split_role split_role;
->>>       enum dpu_intf_mode intf_mode;
->>>       enum dpu_intf intf_idx;
->>> +    enum dpu_wb wb_idx;
->>>       spinlock_t *enc_spinlock;
->>>       enum dpu_enc_enable_state enable_state;
->>>       atomic_t vblank_refcount;
->>> @@ -243,6 +248,7 @@ struct dpu_encoder_phys_cmd {
->>>    * @parent_ops:        Callbacks exposed by the parent to the phys_enc
->>>    * @split_role:        Role to play in a split-panel configuration
->>>    * @intf_idx:        Interface index this phys_enc will control
->>> + * @wb_idx:            Writeback index this phys_enc will control
->>>    * @enc_spinlock:    Virtual-Encoder-Wide Spin Lock for IRQ purposes
->>>    */
->>>   struct dpu_enc_phys_init_params {
->>> @@ -251,6 +257,7 @@ struct dpu_enc_phys_init_params {
->>>       const struct dpu_encoder_virt_ops *parent_ops;
->>>       enum dpu_enc_split_role split_role;
->>>       enum dpu_intf intf_idx;
->>> +    enum dpu_wb wb_idx;
->>>       spinlock_t *enc_spinlock;
->>>   };
->>
->>
+The following changes since commit 78f815c1cf8fc5f05dc5cec29eb1895cb53470e9:
 
+  drm/msm: return the average load over the polling period (2022-04-21 15:05:23 -0700)
 
--- 
-With best wishes
-Dmitry
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/lumag/msm.git msm-next-lumag
+
+for you to fetch changes up to 7e7657dc3f145df9990494f17aebcbea163f4a84:
+
+  Merge branches 'msm-next-lumag-core', 'msm-next-lumag-dpu', 'msm-next-lumag-dp', 'msm-next-lumag-dsi', 'msm-next-lumag-hdmi', 'msm-next-lumag-mdp5' and 'msm-next-lumag-mdp4' into msm-next-lumag (2022-04-26 04:08:20 +0300)
+
+----------------------------------------------------------------
+Abhinav Kumar (1):
+      drm/msm: remove unused hotplug and edid macros from msm_drv.h
+
+Bjorn Andersson (2):
+      dt-bindings: display: msm: Add optional resets
+      drm/msm/dpu: Issue MDSS reset during initialization
+
+Chia-I Wu (1):
+      drm/msm: add trace_dma_fence_emit to msm_gpu_submit
+
+Dmitry Baryshkov (30):
+      drm/msm: unify MDSS drivers
+      drm/msm: remove extra indirection for msm_mdss
+      drm/msm: split the main platform driver
+      drm/msm: stop using device's match data pointer
+      drm/msm: allow compile time selection of driver components
+      drm/msm: make mdp5/dpu devices master components
+      drm/msm: properly add and remove internal bridges
+      drm/msm/dpu: remove manual destruction of DRM objects
+      drm/msm: loop over encoders using drm_for_each_encoder()
+      drm/msm: don't store created planes, connectors and encoders
+      drm/msm: remove unused plane_property field from msm_drm_private
+      drm/msm/dpu: don't use merge_3d if DSC merge topology is used
+      drm/msm/dp: replace dp_connector with drm_bridge_connector
+      drm/msm/dp: remove extra wrappers and public functions
+      drm/msm/dp: drop dp_mode argument from dp_panel_get_modes()
+      drm/msm/dp: simplify dp_connector_get_modes()
+      drm/msm/dp: remove max_pclk_khz field from dp_panel/dp_display
+      drm/msm/dpu: remove extra wrappers around dpu_core_irq
+      drm/msm/dpu: remove always-true argument of dpu_core_irq_read()
+      drm/msm/dpu: allow just single IRQ callback
+      drm/msm/dpu: get rid of dpu_encoder_helper_(un)register_irq
+      drm/msm/dpu: remove struct dpu_encoder_irq
+      drm/msm/dpu: pass irq to dpu_encoder_helper_wait_for_irq()
+      drm/msm/dpu: document INTF_EDP/INTF_DP difference
+      drm/msm/dpu: drop INTF_TYPE_MAX symbol
+      drm/msm/dpu: drop obsolete INTF_EDP comment
+      drm/msm/dpu: drop INTF_EDP from interface type conditions
+      drm/msm/dsi: fix error checks and return values for DSI xmit functions
+      drm/msm: select DRM_DP_AUX_BUS for the AUX bus support
+      Merge branches 'msm-next-lumag-core', 'msm-next-lumag-dpu', 'msm-next-lumag-dp', 'msm-next-lumag-dsi', 'msm-next-lumag-hdmi', 'msm-next-lumag-mdp5' and 'msm-next-lumag-mdp4' into msm-next-lumag
+
+Guo Zhengkui (1):
+      drm/msm: fix returnvar.cocci warning
+
+Haowen Bai (1):
+      drm/msm/mdp5: Eliminate useless code
+
+Kuogee Hsieh (7):
+      drm/msm/dpu: adjust display_v_end for eDP and DP
+      drm/msm/dpu: replace BIT(x) with correspond marco define string
+      drm/msm/dpu: revise timing engine programming to support widebus feature
+      drm/msm/dp: enable widebus feature for display port
+      drm/msm/dp: replace DRM_DEBUG_DP marco with drm_dbg_dp
+      drm/msm/dp: stop event kernel thread when DP unbind
+      drm/msm/dp: tear down main link at unplug handle immediately
+
+Lv Ruyi (4):
+      drm: msm: fix error check return value of irq_of_parse_and_map()
+      drm/msm/dp: fix error check return value of irq_of_parse_and_map()
+      drm/msm/hdmi: fix error check return value of irq_of_parse_and_map()
+      drm/msm/dpu: fix error check return value of irq_of_parse_and_map()
+
+Marijn Suijten (1):
+      drm/msm/dpu: Bind pingpong block to intf on active ctls in cmd encoder
+
+Sankeerth Billakanti (4):
+      drm/msm/dp: Add eDP support via aux_bus
+      drm/msm/dp: Support only IRQ_HPD and REPLUG interrupts for eDP
+      drm/msm/dp: wait for hpd high before aux transaction
+      drm/msm/dp: Support the eDP modes given by panel
+
+Tom Rix (1):
+      drm/msm: change msm_sched_ops from global to static
+
+Vinod Koul (13):
+      drm/msm/dsi: add support for dsc data
+      drm/msm/dsi: Pass DSC params to drm_panel
+      drm/msm/disp/dpu1: Add support for DSC
+      drm/msm/disp/dpu1: Add support for DSC in pingpong block
+      drm/msm/disp/dpu1: Add DSC for SDM845 to hw_catalog
+      drm/msm/disp/dpu1: Add DSC support in hw_ctl
+      drm/msm/disp/dpu1: Add support for DSC in encoder
+      drm/msm: Add missing num_dspp field documentation
+      drm/msm/disp/dpu1: Add support for DSC in topology
+      drm/msm/disp/dpu1: Add DSC support in RM
+      drm/msm/dsi: add mode valid callback for dsi_mgr
+      drm/msm: Update generated headers
+      drm/msm/dsi: Add support for DSC configuration
+
+Vinod Polimera (3):
+      drm/msm/disp/dpu1: add inline function to validate format support
+      drm/msm/disp/dpu1: add inline rotation support for sc7280
+      drm/msm/disp/dpu1: set vbif hw config to NULL to avoid use after memory free during pm runtime resume
+
+Yang Yingliang (1):
+      drm/msm/hdmi: check return value after calling platform_get_resource_byname()
+
+ .../bindings/display/msm/dpu-qcm2290.yaml          |   4 +
+ .../bindings/display/msm/dpu-sc7180.yaml           |   4 +
+ .../bindings/display/msm/dpu-sc7280.yaml           |   4 +
+ .../bindings/display/msm/dpu-sdm845.yaml           |   4 +
+ drivers/gpu/drm/msm/Kconfig                        |  51 ++-
+ drivers/gpu/drm/msm/Makefile                       |  26 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_irq.h       |  32 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        | 282 +++++++++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h        |  10 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys.h   |  55 +--
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c   | 112 +++---
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c   |  79 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.h        |  22 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  63 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |  29 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  11 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h         |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c         | 215 +++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h         |  80 ++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  | 157 +++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |  12 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c        |  62 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h        |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |  22 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c    |  32 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.h    |  14 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 168 +++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h            |  13 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c           | 260 -------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          | 139 +++++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h          |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c             |  56 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h             |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h          |  67 ++--
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_dsi_encoder.c   |   3 +
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c           |  64 ++-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cmd_encoder.c   |   3 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  80 ++--
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c          | 252 ------------
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |   2 -
+ drivers/gpu/drm/msm/dp/dp_audio.c                  |  50 ++-
+ drivers/gpu/drm/msm/dp/dp_aux.c                    |  21 +-
+ drivers/gpu/drm/msm/dp/dp_aux.h                    |   3 +-
+ drivers/gpu/drm/msm/dp/dp_catalog.c                |  98 +++--
+ drivers/gpu/drm/msm/dp/dp_catalog.h                |   3 +
+ drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 150 ++++---
+ drivers/gpu/drm/msm/dp/dp_ctrl.h                   |   2 +
+ drivers/gpu/drm/msm/dp/dp_debug.c                  |   2 -
+ drivers/gpu/drm/msm/dp/dp_display.c                | 429 +++++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_display.h                |   7 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c                    | 215 +++--------
+ drivers/gpu/drm/msm/dp/dp_drm.h                    |  22 +-
+ drivers/gpu/drm/msm/dp/dp_link.c                   | 103 +++--
+ drivers/gpu/drm/msm/dp/dp_panel.c                  |  49 ++-
+ drivers/gpu/drm/msm/dp/dp_panel.h                  |   3 +-
+ drivers/gpu/drm/msm/dp/dp_parser.c                 |  25 +-
+ drivers/gpu/drm/msm/dp/dp_parser.h                 |  14 +-
+ drivers/gpu/drm/msm/dp/dp_power.c                  |  25 +-
+ drivers/gpu/drm/msm/dsi/dsi.c                      |   6 +-
+ drivers/gpu/drm/msm/dsi/dsi.h                      |   3 +
+ drivers/gpu/drm/msm/dsi/dsi.xml.h                  |  80 ++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c                 | 297 +++++++++++++-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  15 +
+ drivers/gpu/drm/msm/hdmi/hdmi.c                    |  11 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c             |   3 +
+ drivers/gpu/drm/msm/msm_drv.c                      | 264 +++----------
+ drivers/gpu/drm/msm/msm_drv.h                      | 139 ++++---
+ drivers/gpu/drm/msm/msm_gpu.c                      |   2 +
+ drivers/gpu/drm/msm/msm_kms.h                      |  21 -
+ drivers/gpu/drm/msm/msm_mdss.c                     | 416 ++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_ringbuffer.c               |   2 +-
+ include/drm/drm_panel.h                            |   7 +
+ 72 files changed, 3004 insertions(+), 1979 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+ create mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
+ delete mode 100644 drivers/gpu/drm/msm/disp/dpu1/dpu_mdss.c
+ delete mode 100644 drivers/gpu/drm/msm/disp/mdp5/mdp5_mdss.c
+ create mode 100644 drivers/gpu/drm/msm/msm_mdss.c
