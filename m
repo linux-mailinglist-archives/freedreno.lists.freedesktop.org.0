@@ -2,84 +2,74 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79991510731
-	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 20:36:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8BDC51077B
+	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 20:48:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0A5A10E40B;
-	Tue, 26 Apr 2022 18:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E42A899BB;
+	Tue, 26 Apr 2022 18:48:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47ABE10E33D
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 18:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1650998208;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=U7x3WHti8mB7zSssr6dU5T2fFBWQH7ax9JH4iLf8LkU=;
- b=d9odd6x1wzf73HOPYL+LjGvCy5TRQTwMNFXtI7TiJWkb2z+0740XtXKsww5enbon1NOxeF
- BeG1IYDTzNhyXmzTw+t6NMKFraaMmw1xYNzzvnOVQgpTc3twvCLZqelVa6nWwYVLUI0dgS
- Jw9Uy9J+ihQ3S93rr9oF7tHVSIqJsL4=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-323-WcdIvhaNO96IHm6yRiCThA-1; Tue, 26 Apr 2022 14:36:47 -0400
-X-MC-Unique: WcdIvhaNO96IHm6yRiCThA-1
-Received: by mail-qk1-f198.google.com with SMTP id
- bj2-20020a05620a190200b005084968bb24so12258249qkb.23
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 11:36:47 -0700 (PDT)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB5788B2B
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 18:48:20 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id g20so23476705edw.6
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 11:48:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Fi4UID/HmFece7oTL/UhSNA9qggnqUU7Xw1cgGW6Rg0=;
+ b=aqWjLkdHqdOFB49iwf5Y4RQwk+Ttcp7/V4Ed9GhbY0FJtH/LOgxkMwi6yimmLKCDKQ
+ b15sUfrqFb4zKv92ew4D5gnVulyEv3XWxOqsnWuf7A7Hsv9YkfsB0yJ+Jq3GnUix8T92
+ OhjiEgYtIeKLE63VdPnbE878TJT/VB/AdbkpM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
- :user-agent:mime-version:content-transfer-encoding;
- bh=U7x3WHti8mB7zSssr6dU5T2fFBWQH7ax9JH4iLf8LkU=;
- b=Vgr+kRFUK/OzhXApN87ASHoHLYhZ9f1nPs74AmjTw+FtsPeYQ8GgozS9xZUqxoqQbp
- xfcN/wsvfy1mI6V2sj2VMsgKh1t4zNlD3uLDxd1+fWVn6w672V2EC78H590L3FdhEIY7
- LbweCyUU45BuyRBq5fnmTjwkgpJA1p/+t3AYmhOLwf1C6b844QFD0T0mb8aEX25bC2hk
- l2CylD6XBaO4dYTsBrBdeRhYrjo4+HVkE8+Cf4HDfmcKR5cCdw0gaoO2TztZgTZXZ6KA
- WyaaZ3E1JcDzysm2znKHLp23Uhs4iw0oSAX/h1bUcXj9h4r2SHO47GjZ33CrHOtA7lGC
- BLew==
-X-Gm-Message-State: AOAM533bhepTOaeTBStP+I0tHUJGRrdyAF6ikCtUbWtRumUGvFfyMS9q
- RWPBLkiFJUSJGjK0iqsHsiyWz2xxfvTU62RuKy+QihCH3tv4XKtl8eiVisCY/O9JxhISQyZ8aMm
- 5ASq26eFXvWClZkqhWdvcGheXJmk9
-X-Received: by 2002:a05:620a:f98:b0:648:a980:5161 with SMTP id
- b24-20020a05620a0f9800b00648a9805161mr13975233qkn.545.1650998206560; 
- Tue, 26 Apr 2022 11:36:46 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxFlkV78mcoPFbdNEywIl8YhmnRu/TNzHWCRjxstF0LNzVzvVzweFee+/7HtJv0KoRQlwNbkA==
-X-Received: by 2002:a05:620a:f98:b0:648:a980:5161 with SMTP id
- b24-20020a05620a0f9800b00648a9805161mr13975211qkn.545.1650998206290; 
- Tue, 26 Apr 2022 11:36:46 -0700 (PDT)
-Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
- [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
- f39-20020a05622a1a2700b002f367d7a7a5sm4252542qtb.23.2022.04.26.11.36.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Apr 2022 11:36:45 -0700 (PDT)
-Message-ID: <2be5f25b4212817ebc5e0435467848675063b45f.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: "events@lists.x.org" <events@lists.x.org>, 
- "xorg-devel@lists.freedesktop.org"
- <xorg-devel@lists.freedesktop.org>, wayland-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, mesa-dev@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, libre-soc-dev@lists.libre-soc.org
-Date: Tue, 26 Apr 2022 14:36:44 -0400
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Fi4UID/HmFece7oTL/UhSNA9qggnqUU7Xw1cgGW6Rg0=;
+ b=hed06E6g8Jgw7U9h1GBZGFXo7mYcoH/MvTiIzfiQLz8XRj9zLWFh0oY6Tbddt45r5Y
+ hTaS49ZP8X5H57rqFzm3xJ8kWiXf7+fjmzhXqWhtKFcdAXGaXLd/pFnMVNsZNzf5AWdC
+ aDCsL3pC+hvB3704pkX5s9OdgQ1Z0fL9AN8YXWutv1uREORuyRHeXRQ0nYGHth5c35vI
+ EPzf0a8uI1ExiMPyYRTCsCiS9Z6IcyvrfjzNdu5GtLxZ4ef8WqD9OZGcZYdQ6aIEl70W
+ 3I/6liKQBgPlOtCes9V45HG0HFuihPq3Enqf0XulIPr0KC3l9MDh+LYpV/ovBgTEOERQ
+ 7OEQ==
+X-Gm-Message-State: AOAM5315xIJfOcGgDxfKF12TD5nXXTPN064ZQ3ttnH3UH+EpSb8nH+pF
+ JkEQ8SvgFJrRKgIZxhHndO9IKKvX9DbIen6TAXU=
+X-Google-Smtp-Source: ABdhPJyOS8hwRdY7bAFMISpUWY/3bayxqEamuHRy3Kei1ITHvkMNJP5qtaLA6nFzOGGMkXEiWjouHg==
+X-Received: by 2002:a50:8a96:0:b0:425:e046:76d9 with SMTP id
+ j22-20020a508a96000000b00425e04676d9mr14728279edj.115.1650998898197; 
+ Tue, 26 Apr 2022 11:48:18 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
+ [209.85.128.53]) by smtp.gmail.com with ESMTPSA id
+ z19-20020a1709067e5300b006f39880d8e5sm2649212ejr.78.2022.04.26.11.48.16
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Apr 2022 11:48:16 -0700 (PDT)
+Received: by mail-wm1-f53.google.com with SMTP id p189so11793507wmp.3
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 11:48:16 -0700 (PDT)
+X-Received: by 2002:a05:600c:3c99:b0:392:b49c:7b79 with SMTP id
+ bg25-20020a05600c3c9900b00392b49c7b79mr22469790wmb.199.1650998895809; Tue, 26
+ Apr 2022 11:48:15 -0700 (PDT)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+References: <1650671124-14030-1-git-send-email-quic_khsieh@quicinc.com>
+ <3b9588d2-d9f6-c96f-b316-953b56b59bfe@linaro.org>
+ <73e2a37e-23db-d614-5f5c-8120f1869158@quicinc.com>
+ <CAA8EJprjuzUrfwXodgKmbWxgK6t+bY601E_nS7CHNH_+4Tfn5Q@mail.gmail.com>
+ <9b331b16-8d1b-4e74-8fee-d74c4041f8d7@quicinc.com>
+ <CAD=FV=VxEnbBypNYSq=iTUTwZUs_v620juSA6gsMW4h2_3HyBQ@mail.gmail.com>
+ <9b4ccdef-c98a-b907-c7ee-a92456dc5bba@quicinc.com>
+ <CAD=FV=U3MJ1W6CCVW0+Si8ZyAD+_ZBYsL1cT6Y8yhcTvWsCLUQ@mail.gmail.com>
+ <d3d1d0d5-d3e0-0777-5b20-cdf24697742d@quicinc.com>
+ <CAD=FV=W2WPdiY2zq6JC_-10kOqzDuiUYQOdYbyRyw2k-fbXFXQ@mail.gmail.com>
+ <eaedbc40-f8cb-aaf8-f335-ef48e3cf82cc@quicinc.com>
+In-Reply-To: <eaedbc40-f8cb-aaf8-f335-ef48e3cf82cc@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 26 Apr 2022 11:48:02 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XJsWRjawybS2222MupBLVD7rLyKxUPBmax8PaFX8N4dA@mail.gmail.com>
+Message-ID: <CAD=FV=XJsWRjawybS2222MupBLVD7rLyKxUPBmax8PaFX8N4dA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Subject: [Freedreno] Requests For Proposals for hosting XDC 2023 are now open
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: move add fail safe mode to
+ dp_connector_get_mode()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,38 +82,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: board@foundation.x.org
+Cc: Sean Paul <sean@poorly.run>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello everyone!
+Hi,
 
-The X.org board is soliciting proposals to host XDC in 2023. Since
-XDC 2022 is being held in North America this year, XDC 2023 is expected
-to be in Europe. However, the board is open to other locations,
-especially if there's an interesting co-location with another
-conference.
+On Tue, Apr 26, 2022 at 8:37 AM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> > Can you provide the exact EDID from the failing test case? Maybe that
+> > will help shed some light on what's going on. I looked at the original
+> > commit and it just referred to 4.2.2.1, which I assume is "EDID Read
+> > upon HPD Plug Event", but that doesn't give details that seem relevant
+> > to the discussion here.
+>
+> Yes so it is 4.2.2.1 and 4.2.2.6.
+>
+> That alone wont give the full picture.
+>
+> So its a combination of things.
+>
+> While running the test, the test equipment published only one mode.
+> But we could not support that mode because of 2 lanes.
+> Equipment did not add 640x480 to the list of modes.
+> DRM fwk will also not add it because count_modes is not 0 ( there was
+> one mode ).
+> So we ended up making these changes.
 
-If you're considering hosting XDC, we've assembled a wiki page with
-what's generally expected and needed:
+Ah! This is useful context and makes tons of sense.
 
-https://www.x.org/wiki/Events/RFP/
+This really feels like something that could be handled in the core. OK, See:
 
-When submitting your proposal, please make sure to include at least the
-key information about the potential location in question, possible
-dates along with estimated costs. Proposals can be submitted to board
-at foundation.x.org until the deadline of *September 1st, 2022*. 
+https://lore.kernel.org/r/20220426114627.2.I4ac7f55aa446699f8c200a23c10463256f6f439f@changeid
 
-Additionally, an quirk early heads-up to the board if you're
-considering hosting would be appreciated, in case we need to adjust the
-schedule a bit. Also, earlier is better since there generally will be a
-bit of Q&A with organizers.
 
-And if you just have some questions about what organizing XDC entails,
-please feel free to chat with previous organizers, or someone from the
-board.
+> > I guess maybe what's happening is that the test case is giving an EDID
+> > where all the modes are not supportable by the current clock rate /
+> > lanes? ...and then somehow we're not falling back to 640x480. It's
+> > always possible that this is a userspace problem.
+> >
+> > In any case, would you object to a revert of the patches in the short term?
+>
+> Not sure, if you saw this change kuogee posted last night.
+> https://patchwork.freedesktop.org/patch/483415/
+> We did decided to remove all the code related to these test cases and
+> handle them in IGT.
 
-Best regards,
-	Lyude Paul
-On behalf of X.org
-
+I hadn't seen it yet and I wasn't CCed. :( I'll take a look now.
