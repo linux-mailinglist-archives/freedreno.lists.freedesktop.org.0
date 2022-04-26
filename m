@@ -1,58 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94A4D510B1A
-	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 23:18:36 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E5EC510B48
+	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 23:31:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 543AF10E010;
-	Tue, 26 Apr 2022 21:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10E8310E075;
+	Tue, 26 Apr 2022 21:31:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632F610E010
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 21:18:34 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-e93bbb54f9so8055958fac.12
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 14:18:34 -0700 (PDT)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4687D10E032
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 21:31:06 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id p4so8311718edx.0
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 14:31:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=UQdTLiFS6s5lb76z4V/zrcCjKl7kNha5dSW7q7Ju4iw=;
- b=i4UpTC9epX2dJK4owogRVosBAzugi615/pZuFaNT0GMn/rXImP/Z1IkC2BP9L9m3KO
- mOisseWijdZbjf0asGuv7vhXCkSH5GH52OL4ryQ5V/9AvT8Iyl7NkSWHt+uM/IKxVuKp
- 8mCGvnSETOUjT5zWn1gPpmQuBa/iZlytHc92U=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=OF4zaxvUZZwjx0sw8BnnZAnlnQz/NSULAjKYH++y2eE=;
+ b=TPOfReJHSRRjySe00DfrcR4r90IocI23aIbK/ZNXWf4si8RMKRyvt5ThdYvrEhPYc6
+ ffxg58j+JplNytgEYxQcnyctvjc7sBRXg90LY3jF5/hzK6bJzkgy8hGiuccOI981NeLJ
+ w1W/WkBrzjvibgEN448TvpikSDjeHIZv3Odig=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=UQdTLiFS6s5lb76z4V/zrcCjKl7kNha5dSW7q7Ju4iw=;
- b=eV6jQtx4OgTvcZ7OmJ9xxIMaxzfLZYIIXPlmvOtdAgUQlPUZ4NHA/gzEry8nuDHb6U
- JPVPh/JknZxZLzW5ItSiS4JNXmOFn526ND2h+dgHH6Dj9FYnitgX7s0Kei+te7Tvjdu3
- l18RkSjKCwooR1zLC2C4Vl0hPB/T4/SUt/SQuv43AmzkFfVts3D4yey5HYWAr4n6FPEc
- 9668dUo1eibYAIoVz6hMPg6ZVCC7a8fIf6K5InG49jXKLnn426ILk7ZugZGghMbCh7s0
- jWLHSYPhlASlVybPBPrqdzl+Ur0+UQ3DryuAL0SR2sU44aidmOcQi4Z9m1ZuLNmpua2Q
- qCUg==
-X-Gm-Message-State: AOAM532TtIV1QPjDdL+otFCOuFZzGFWbb6zATW6zHweDiamaSJuDZLI0
- 7giFjXns5i651XFyFLdJtJ8L08MyajuUYxWYsHUo+Q==
-X-Google-Smtp-Source: ABdhPJyW17NjxF3rs/I0KgToaqsIbXY3bjCBx58ePbAI217dDz1IltjBckzBntvCJY0CiDdmMaXOV9ldviATzU4d0f8=
-X-Received: by 2002:a05:6870:15ca:b0:e9:551:6d1c with SMTP id
- k10-20020a05687015ca00b000e905516d1cmr8599802oad.193.1651007913723; Tue, 26
- Apr 2022 14:18:33 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 26 Apr 2022 14:18:33 -0700
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=OF4zaxvUZZwjx0sw8BnnZAnlnQz/NSULAjKYH++y2eE=;
+ b=QA2i31ZrJDwj+EMUWtGr7YJHK8aP+04khrXWw4LFhV/1B3sswFa2WHdhuetOjpn+69
+ 3arfHYiqTw2TKyNBuBIzHr3vSXaVKcGPDWA3gfBwjXTgt7PvMCgdN/aj9O+vLmy0lLmI
+ ppEb1XlgasHq9LtB9hJzqBsB/6ojay1WWBwukabAmQwcHxT/jehiHjVPPdiNHMYYihjT
+ msZTpc54Iv0dTa8Aal7Zj5eT1mQ4wAmeCYLY88XDHCMkIq8ALlaYtcapzdPuZAbGvkNf
+ cvx7GACaUWAc0AMGZYjUBvKjwYSo9TA6MMsI00N+lAXUblDnZQ28Tgtm+jEqgddP0JY2
+ PxGg==
+X-Gm-Message-State: AOAM532hYwKYX9Ij6UcFG/atmwTV2x6veDWkB1qnP9Fs3UZKCdNp1Cpu
+ EuocOslq5nEGO2DR5ndKVQLdiDopEbGYYjGQ6Lk=
+X-Google-Smtp-Source: ABdhPJy2VhC8OMpg0mteEqmHF7GdNe/zr5SKkIw3IQ/E5CCsWqmz/JAua0j6sTWlX1UIzdc3W5QQ1w==
+X-Received: by 2002:a05:6402:40c1:b0:423:f451:bb48 with SMTP id
+ z1-20020a05640240c100b00423f451bb48mr27504629edb.95.1651008664470; 
+ Tue, 26 Apr 2022 14:31:04 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
+ [209.85.128.46]) by smtp.gmail.com with ESMTPSA id
+ w14-20020a056402268e00b00425f02088d2sm3514463edd.26.2022.04.26.14.31.01
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Apr 2022 14:31:02 -0700 (PDT)
+Received: by mail-wm1-f46.google.com with SMTP id
+ m22-20020a05600c3b1600b00393ed50777aso67242wms.3
+ for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 14:31:01 -0700 (PDT)
+X-Received: by 2002:a05:600c:3d0e:b0:38f:f83b:e7dc with SMTP id
+ bh14-20020a05600c3d0e00b0038ff83be7dcmr31619457wmb.29.1651008661066; Tue, 26
+ Apr 2022 14:31:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1651007534-31842-1-git-send-email-quic_khsieh@quicinc.com>
 References: <1651007534-31842-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 26 Apr 2022 14:18:33 -0700
-Message-ID: <CAE-0n50Hpt92HAZH2JF88LfXzGEJ8sa4cy5RsnKpFmZ5fWSzAg@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
+In-Reply-To: <1651007534-31842-1-git-send-email-quic_khsieh@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 26 Apr 2022 14:30:49 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Ux8G61HNV+y2zmTVeyfWe5zZd28RAhN_9zoZ=rJSSjWQ@mail.gmail.com>
+Message-ID: <CAD=FV=Ux8G61HNV+y2zmTVeyfWe5zZd28RAhN_9zoZ=rJSSjWQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v6] drm/msm/dp: remove fail safe mode
  related code
@@ -68,19 +73,152 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
+ Vinod Koul <vkoul@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-04-26 14:12:14)
+Hi,
+
+On Tue, Apr 26, 2022 at 2:12 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
 > Current DP driver implementation has adding safe mode done at
 > dp_hpd_plug_handle() which is expected to be executed under event
 > thread context.
 >
-[...]
+> However there is possible circular locking happen (see blow stack trace)
+> after edp driver call dp_hpd_plug_handle() from dp_bridge_enable() which
+> is executed under drm_thread context.
+>
+> After review all possibilities methods and as discussed on
+> https://patchwork.freedesktop.org/patch/483155/, supporting EDID
+> compliance tests in the driver is quite hacky. As seen with other
+> vendor drivers, supporting these will be much easier with IGT. Hence
+> removing all the related fail safe code for it so that no possibility
+> of circular lock will happen.
+>
+> ======================================================
+>  WARNING: possible circular locking dependency detected
+>  5.15.35-lockdep #6 Tainted: G        W
+>  ------------------------------------------------------
+>  frecon/429 is trying to acquire lock:
+>  ffffff808dc3c4e8 (&dev->mode_config.mutex){+.+.}-{3:3}, at:
+> dp_panel_add_fail_safe_mode+0x4c/0xa0
+>
+>  but task is already holding lock:
+>  ffffff808dc441e0 (&kms->commit_lock[i]){+.+.}-{3:3}, at: lock_crtcs+0xb4/0x124
+>
+>  which lock already depends on the new lock.
+>
+>  the existing dependency chain (in reverse order) is:
+>
+>  -> #3 (&kms->commit_lock[i]){+.+.}-{3:3}:
+>         __mutex_lock_common+0x174/0x1a64
+>         mutex_lock_nested+0x98/0xac
+>         lock_crtcs+0xb4/0x124
+>         msm_atomic_commit_tail+0x330/0x748
+>         commit_tail+0x19c/0x278
+>         drm_atomic_helper_commit+0x1dc/0x1f0
+>         drm_atomic_commit+0xc0/0xd8
+>         drm_atomic_helper_set_config+0xb4/0x134
+>         drm_mode_setcrtc+0x688/0x1248
+>         drm_ioctl_kernel+0x1e4/0x338
+>         drm_ioctl+0x3a4/0x684
+>         __arm64_sys_ioctl+0x118/0x154
+>         invoke_syscall+0x78/0x224
+>         el0_svc_common+0x178/0x200
+>         do_el0_svc+0x94/0x13c
+>         el0_svc+0x5c/0xec
+>         el0t_64_sync_handler+0x78/0x108
+>         el0t_64_sync+0x1a4/0x1a8
+>
+>  -> #2 (crtc_ww_class_mutex){+.+.}-{3:3}:
+>         __mutex_lock_common+0x174/0x1a64
+>         ww_mutex_lock+0xb8/0x278
+>         modeset_lock+0x304/0x4ac
+>         drm_modeset_lock+0x4c/0x7c
+>         drmm_mode_config_init+0x4a8/0xc50
+>         msm_drm_init+0x274/0xac0
+>         msm_drm_bind+0x20/0x2c
+>         try_to_bring_up_master+0x3dc/0x470
+>         __component_add+0x18c/0x3c0
+>         component_add+0x1c/0x28
+>         dp_display_probe+0x954/0xa98
+>         platform_probe+0x124/0x15c
+>         really_probe+0x1b0/0x5f8
+>         __driver_probe_device+0x174/0x20c
+>         driver_probe_device+0x70/0x134
+>         __device_attach_driver+0x130/0x1d0
+>         bus_for_each_drv+0xfc/0x14c
+>         __device_attach+0x1bc/0x2bc
+>         device_initial_probe+0x1c/0x28
+>         bus_probe_device+0x94/0x178
+>         deferred_probe_work_func+0x1a4/0x1f0
+>         process_one_work+0x5d4/0x9dc
+>         worker_thread+0x898/0xccc
+>         kthread+0x2d4/0x3d4
+>         ret_from_fork+0x10/0x20
+>
+>  -> #1 (crtc_ww_class_acquire){+.+.}-{0:0}:
+>         ww_acquire_init+0x1c4/0x2c8
+>         drm_modeset_acquire_init+0x44/0xc8
+>         drm_helper_probe_single_connector_modes+0xb0/0x12dc
+>         drm_mode_getconnector+0x5dc/0xfe8
+>         drm_ioctl_kernel+0x1e4/0x338
+>         drm_ioctl+0x3a4/0x684
+>         __arm64_sys_ioctl+0x118/0x154
+>         invoke_syscall+0x78/0x224
+>         el0_svc_common+0x178/0x200
+>         do_el0_svc+0x94/0x13c
+>         el0_svc+0x5c/0xec
+>         el0t_64_sync_handler+0x78/0x108
+>         el0t_64_sync+0x1a4/0x1a8
+>
+>  -> #0 (&dev->mode_config.mutex){+.+.}-{3:3}:
+>         __lock_acquire+0x2650/0x672c
+>         lock_acquire+0x1b4/0x4ac
+>         __mutex_lock_common+0x174/0x1a64
+>         mutex_lock_nested+0x98/0xac
+>         dp_panel_add_fail_safe_mode+0x4c/0xa0
+>         dp_hpd_plug_handle+0x1f0/0x280
+>         dp_bridge_enable+0x94/0x2b8
+>         drm_atomic_bridge_chain_enable+0x11c/0x168
+>         drm_atomic_helper_commit_modeset_enables+0x500/0x740
+>         msm_atomic_commit_tail+0x3e4/0x748
+>         commit_tail+0x19c/0x278
+>         drm_atomic_helper_commit+0x1dc/0x1f0
+>         drm_atomic_commit+0xc0/0xd8
+>         drm_atomic_helper_set_config+0xb4/0x134
+>         drm_mode_setcrtc+0x688/0x1248
+>         drm_ioctl_kernel+0x1e4/0x338
+>         drm_ioctl+0x3a4/0x684
+>         __arm64_sys_ioctl+0x118/0x154
+>         invoke_syscall+0x78/0x224
+>         el0_svc_common+0x178/0x200
+>         do_el0_svc+0x94/0x13c
+>         el0_svc+0x5c/0xec
+>         el0t_64_sync_handler+0x78/0x108
+>         el0t_64_sync+0x1a4/0x1a8
+>
+> Changes in v2:
+> -- re text commit title
+> -- remove all fail safe mode
+>
+> Changes in v3:
+> -- remove dp_panel_add_fail_safe_mode() from dp_panel.h
+> -- add Fixes
+>
+> Changes in v5:
+> --  to=dianders@chromium.org
 >
 > Changes in v6:
 > --  fix Fixes commit ID
@@ -88,5 +226,10 @@ Quoting Kuogee Hsieh (2022-04-26 14:12:14)
 > Fixes: 8b2c181e3dcf ("drm/msm/dp: add fail safe mode outside of event_mutex context")
 > Reported-by: Douglas Anderson <dianders@chromium.org>
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c |  6 ------
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 11 -----------
+>  drivers/gpu/drm/msm/dp/dp_panel.h   |  1 -
+>  3 files changed, 18 deletions(-)
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
