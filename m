@@ -2,60 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744505118DC
-	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 16:41:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06CC511C32
+	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 18:07:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E852B10E99F;
-	Wed, 27 Apr 2022 14:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91F8210F673;
+	Wed, 27 Apr 2022 16:07:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3377810E93D;
- Wed, 27 Apr 2022 14:41:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651070495; x=1682606495;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=chW8rJzR1VAM7oNMSeS/OvPjzKydGU7NEGgWJb9XMDI=;
- b=a+bKgGK3ImOLGYJ+YQRKYSzEY17nQaEIniiGhY84IITpa9JXMeNCUVuH
- CWjTiOWAceF8VbtRAsR4lJjIT8OUEFXPAQ/cZ2C0Miz/t54/ZuPxgA8FU
- KLGh26FAy9hY7TwdjumEh11ekUVTKQEYcPq7bQp03WlcaYF2dD33XHscG k=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 27 Apr 2022 07:41:34 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2022 07:41:34 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 27 Apr 2022 07:41:33 -0700
-Received: from [10.111.160.161] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 27 Apr
- 2022 07:41:31 -0700
-Message-ID: <89d01a02-c267-b264-4a28-eed3385a0729@quicinc.com>
-Date: Wed, 27 Apr 2022 07:41:29 -0700
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
+ [IPv6:2607:f8b0:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92DB410F674
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Apr 2022 16:07:17 +0000 (UTC)
+Received: by mail-pg1-x52f.google.com with SMTP id 15so1813845pgf.4
+ for <freedreno@lists.freedesktop.org>; Wed, 27 Apr 2022 09:07:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=thh3b7rvFYMcWHBGJTfcjm7L4QV8/jt2EZrs9nTl3/s=;
+ b=nHvJcRQDvgnFH2mocyoYQgZtIrbsIsmTsZ74EguoCNewAbSODSdrwqhoxexS8tR/yh
+ hBYBW29wCw14+O+78B8pYxO/PeMyALOI0bQ46Nl3BgK4n56x6OF7xgpz0MHDdtlXed8M
+ DM9tNwEwzP500NWVah6UGtMlwOluQHybWUawI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=thh3b7rvFYMcWHBGJTfcjm7L4QV8/jt2EZrs9nTl3/s=;
+ b=qErtMV5jFx32KmUjaspRnwjMc9UQm9aoPDNkFFtgQ6CA0CJ2mj38LdowMakHRwzfSX
+ MwF4LKt4JHEcNia3+0EhsUK21wjPSmQUJjMYJj2JkuiSkCLtFLCEzle0/+z5fXF5sf1m
+ IkTTgmUAFgOIuVPJVHzD53XcJoKKxZCJDh7vcUtbAvvofQKgxZWrGTFEzb6jX3i0FzoW
+ NNit6j2Uri8IyvSP0Rqli216OrSmXMdq8N9qcOoyUIAS6TdnNSjKcWhJwn/q1pwbPp41
+ Im7wN5VcoCWflABAithwj3KSD8ZYcoJNAZOw4bCmlOpy1hdPeHCJGqU33NnprDUGMTyx
+ tBVA==
+X-Gm-Message-State: AOAM530O0IpMLxCuL8ffo10QW1B/lmEygi/VH53blsCm8HbJoAijldqM
+ hwDY+O7eb5ef94v+vozi3VKID6r09InjmIGTdfcNCA==
+X-Google-Smtp-Source: ABdhPJx8fm8/yx+ZjmZhEV0V49ps4Zr4PYjpyXxyQlzPoHV3JUBxQd/ptdVWyyMngsed5HIFfmLvF6S+wXinkOQR8f4=
+X-Received: by 2002:a05:6a00:14c5:b0:50d:4871:3619 with SMTP id
+ w5-20020a056a0014c500b0050d48713619mr13516854pfu.12.1651075637181; Wed, 27
+ Apr 2022 09:07:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <1650984096-9964-1-git-send-email-quic_abhinavk@quicinc.com>
- <1650984096-9964-20-git-send-email-quic_abhinavk@quicinc.com>
- <2a12a6c7-aff2-b364-a653-80630e4710e5@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <2a12a6c7-aff2-b364-a653-80630e4710e5@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v6 19/19] drm/msm/dpu: add wb_idx to DRM
- traces in dpu_encoder
+References: <20220412212558.827289-1-olvaffe@gmail.com>
+ <CAPaKu7Tv1Mxt7Ao8kH2-MZDBK7EB0D41COJD8Sjze76t_o-qmw@mail.gmail.com>
+ <ffe7dbc1-8a19-1e19-402d-27efc8e55b39@amd.com>
+ <CAJs_Fx7OQ2OJo3pQ-ETT1827PtfuFsvn984gg8GeDVrqy0Ucug@mail.gmail.com>
+ <215f55f6-97b8-5dd3-a2cc-fe42e19a2769@amd.com>
+ <CAJs_Fx69yhVQ6t1xdTqEs3kxiz1gZSZ2-qNA=Cq21j_BSaymrQ@mail.gmail.com>
+ <17fc1a68-747a-f707-364d-76f12a2b535a@amd.com>
+ <CAPaKu7Rny7pxsPA+cnow0d6PAD2YCb+b+j1_Di5gziyOVNLaYQ@mail.gmail.com>
+ <c32bf2de-0e48-e3b7-98ae-0bcd46933465@amd.com>
+ <CAPaKu7T2hTFnsSSdFvQRuGefhZHVmGO9KXKpO8Y_ZcLbe75rpA@mail.gmail.com>
+ <b587ca5f-eb8a-cf0c-5c07-9844c8794463@amd.com>
+In-Reply-To: <b587ca5f-eb8a-cf0c-5c07-9844c8794463@amd.com>
+From: Rob Clark <robdclark@chromium.org>
+Date: Wed, 27 Apr 2022 09:07:06 -0700
+Message-ID: <CAJs_Fx7Jq9VWy_Eux+hGoQTCTeKkFMQCdibY9gFQTqrvVob5fA@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: add trace_dma_fence_emit to
+ msm_gpu_submit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,163 +72,99 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, liviu.dudau@arm.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
+Cc: David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry
+On Tue, Apr 26, 2022 at 11:20 PM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 26.04.22 um 20:50 schrieb Chia-I Wu:
+> > On Tue, Apr 26, 2022 at 11:02 AM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >> Am 26.04.22 um 19:40 schrieb Chia-I Wu:
+> >>> [SNIP]
+> >>>>>> Well I just send a patch to completely remove the trace point.
+> >>>>>>
+> >>>>>> As I said it absolutely doesn't make sense to use this for
+> >>>>>> visualization, that's what the trace_dma_fence_init trace point is=
+ good for.
+> >>> I am a bit confused by this.  _emit and _signaled are a great way to
+> >>> see how many fences are pending from cpu's point of view.  How does
+> >>> _emit make no sense and _init is good instead?
+> >> We had exactly that confusion now multiple times and it's one of the
+> >> main reasons why I want to remove the _emit trace point.
+> >>
+> >> See the when you want to know how many fences are pending you need to
+> >> watch out for init/destroy and *NOT* emit.
+> >>
+> >> The reason is that in the special case where emit makes sense (e.g. th=
+e
+> >> GPU scheduler fences) emit comes later than init, but pending on the C=
+PU
+> >> and taking up resources are all fences and not just the one emitted to
+> >> the hardware.
+> > I am more interested in pending on the GPU.
+> >
+> >> On the other hand when you want to measure how much time each operatio=
+n
+> >> took on the hardware you need to take a look at the differences of the
+> >> signal events on each timeline.
+> > _signaled alone is not enough when the GPU is not always busy.  After
+> > the last pending fence signals but before the following _init/_emit,
+> > nothing is pending.
+>
+> Yeah, I'm perfectly aware of that.
+>
+> > For all drivers except virtio-gpu, _init and "ring head update" always
+> > happen close enough that I can see why _emit is redundant.  But I like
+> > having _emit as a generic tracepoint for timelines where _init and
+> > _emit can be apart, instead of requiring a special case tracepoint for
+> > each special case timeline.
+>
+> And I'm certainly not going to add _emit to all drivers just because of
+> that. As you said it is a special case for virtio-gpu and the GPU schedul=
+er.
+>
+> And as I explained before the difference between _init and _emit
+> shouldn't matter to your visualization. The background is that as soon
+> as an dma_fence is initialized with _init it is "live" regarding the
+> dependency and memory management and exactly that's what matters for the
+> visualization.
+>
+> The latency between _init and _emit is just interesting for debugging
+> the scheduler and surprisingly virtio-gpu as well, for all other use
+> cases it is irrelevant.
 
-Thanks for fixing it up.
+It might actually be *more* interesting for virtio-gpu.. unless there
+is some other way to link guest and host fences to see what the
+potential latency of guest->host is
 
-I agree about the indentation issue.
+re: adding the tracepoint to other drivers, I'm fine with folks doing
+that as needed.  Unless you have a better proposal about how to
+visualize init vs emit latency, I think it's fine to have an extra
+tracepoint even if it is redundant in some cases.  The visualization
+tool is the customer here, we have to give it what it wants/needs.
 
-And yes even wb_idx missing in TP_ARGS seems like a geniune miss.
+BR,
+-R
 
-But the weird part is it did not break my compilation. I tested even now 
-without your fix.
-
-Am I missing something to be enabled in my config to replicate the error 
-for future reference?
-
-Thanks
-
-Abhinav
-On 4/27/2022 3:43 AM, Dmitry Baryshkov wrote:
-> On 26/04/2022 17:41, Abhinav Kumar wrote:
->> Change the DRM traces to include both the intf_mode
->> and wb_idx similar to the DRM prints in the previous change.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> 
-> This commit got traces broken. I'm going to apply a fix.
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 ++++++++-----
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h   | 26 
->> ++++++++++++++++++--------
->>   2 files changed, 26 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 35080c4..52516eb 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -1354,8 +1354,9 @@ static void dpu_encoder_frame_done_callback(
->>                * suppress frame_done without waiter,
->>                * likely autorefresh
->>                */
->> -            trace_dpu_enc_frame_done_cb_not_busy(DRMID(drm_enc),
->> -                    event, ready_phys->intf_idx);
->> +            trace_dpu_enc_frame_done_cb_not_busy(DRMID(drm_enc), event,
->> +                    
->> dpu_encoder_helper_get_intf_type(ready_phys->intf_mode),
->> +                    ready_phys->intf_idx, ready_phys->wb_idx);
->>               return;
->>           }
->> @@ -1433,9 +1434,11 @@ static void _dpu_encoder_trigger_flush(struct 
->> drm_encoder *drm_enc,
->>       if (ctl->ops.get_pending_flush)
->>           ret = ctl->ops.get_pending_flush(ctl);
->> -    trace_dpu_enc_trigger_flush(DRMID(drm_enc), phys->intf_idx,
->> -                    pending_kickoff_cnt, ctl->idx,
->> -                    extra_flush_bits, ret);
->> +    trace_dpu_enc_trigger_flush(DRMID(drm_enc),
->> +            dpu_encoder_helper_get_intf_type(phys->intf_mode),
->> +            phys->intf_idx, phys->wb_idx,
->> +            pending_kickoff_cnt, ctl->idx,
->> +            extra_flush_bits, ret);
->>   }
->>   /**
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> index 58b411f..1106d44 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
->> @@ -380,20 +380,26 @@ TRACE_EVENT(dpu_enc_rc,
->>   );
->>   TRACE_EVENT(dpu_enc_frame_done_cb_not_busy,
->> -    TP_PROTO(uint32_t drm_id, u32 event, enum dpu_intf intf_idx),
->> -    TP_ARGS(drm_id, event, intf_idx),
->> +    TP_PROTO(uint32_t drm_id, u32 event, char *intf_mode, enum 
->> dpu_intf intf_idx,
->> +            enum dpu_wb wb_idx),
->> +    TP_ARGS(drm_id, event, intf_mode, intf_idx, wb_idx),
->>       TP_STRUCT__entry(
->>           __field(    uint32_t,    drm_id        )
->>           __field(    u32,        event        )
->> +        __string(    intf_mode_str,        intf_mode    )
->>           __field(    enum dpu_intf,    intf_idx    )
->> +        __field(    enum dpu_wb,  wb_idx    )
-> 
-> Nit: indentation broken. Please use tabs.
-> 
->>       ),
->>       TP_fast_assign(
->>           __entry->drm_id = drm_id;
->>           __entry->event = event;
->> +        __assign_str(intf_mode_str, intf_mode);
->>           __entry->intf_idx = intf_idx;
->> +        __entry->wb_idx = wb_idx;
->>       ),
->> -    TP_printk("id=%u, event=%u, intf=%d", __entry->drm_id, 
->> __entry->event,
->> -          __entry->intf_idx)
->> +    TP_printk("id=%u, event=%u, intf_mode=%s intf=%d wb=%d", 
->> __entry->drm_id,
->> +            __entry->event, __get_str(intf_mode_str),
->> +            __entry->intf_idx, __entry->wb_idx)
->>   );
->>   TRACE_EVENT(dpu_enc_frame_done_cb,
->> @@ -415,14 +421,16 @@ TRACE_EVENT(dpu_enc_frame_done_cb,
->>   );
->>   TRACE_EVENT(dpu_enc_trigger_flush,
->> -    TP_PROTO(uint32_t drm_id, enum dpu_intf intf_idx,
->> +    TP_PROTO(uint32_t drm_id, char *intf_mode, enum dpu_intf 
->> intf_idx, enum dpu_wb wb_idx,
->>            int pending_kickoff_cnt, int ctl_idx, u32 extra_flush_bits,
->>            u32 pending_flush_ret),
->> -    TP_ARGS(drm_id, intf_idx, pending_kickoff_cnt, ctl_idx,
->> +    TP_ARGS(drm_id, intf_mode, intf_idx, pending_kickoff_cnt, ctl_idx,
->>           extra_flush_bits, pending_flush_ret),
-> 
-> wb_idx is missing from the TP_ARGS, so compilation fails.
-> 
->>       TP_STRUCT__entry(
->>           __field(    uint32_t,    drm_id            )
->> +        __string(    intf_mode_str,    intf_mode    )
->>           __field(    enum dpu_intf,    intf_idx        )
->> +        __field(    enum dpu_wb,  wb_idx        )
-> 
-> Nit: indentation broken. Please use tabs.
-> 
->>           __field(    int,        pending_kickoff_cnt    )
->>           __field(    int,        ctl_idx            )
->>           __field(    u32,        extra_flush_bits    )
->> @@ -430,15 +438,17 @@ TRACE_EVENT(dpu_enc_trigger_flush,
->>       ),
->>       TP_fast_assign(
->>           __entry->drm_id = drm_id;
->> +        __assign_str(intf_mode_str, intf_mode);
->>           __entry->intf_idx = intf_idx;
->> +        __entry->wb_idx = wb_idx;
->>           __entry->pending_kickoff_cnt = pending_kickoff_cnt;
->>           __entry->ctl_idx = ctl_idx;
->>           __entry->extra_flush_bits = extra_flush_bits;
->>           __entry->pending_flush_ret = pending_flush_ret;
->>       ),
->> -    TP_printk("id=%u, intf_idx=%d, pending_kickoff_cnt=%d ctl_idx=%d "
->> +    TP_printk("id=%u, intf_mode=%s, intf_idx=%d, wb_idx=%d, 
->> pending_kickoff_cnt=%d ctl_idx=%d "
->>             "extra_flush_bits=0x%x pending_flush_ret=0x%x",
->> -          __entry->drm_id, __entry->intf_idx,
->> +          __entry->drm_id, __get_str(intf_mode_str), 
->> __entry->intf_idx, __entry->wb_idx,
->>             __entry->pending_kickoff_cnt, __entry->ctl_idx,
->>             __entry->extra_flush_bits, __entry->pending_flush_ret)
->>   );
-> 
-> 
+>
+> Regards,
+> Christian.
+>
+> >> So there isn't really any use case for the emit trace point, except wh=
+en
+> >> you want to figure out how much latency the scheduler introduce. Then
+> >> you want to take a look at init and emit, but that isn't really that
+> >> interesting for performance analyses.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+>
