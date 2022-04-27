@@ -1,71 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61A9151152E
-	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 12:53:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 744505118DC
+	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 16:41:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69FD910F167;
-	Wed, 27 Apr 2022 10:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E852B10E99F;
+	Wed, 27 Apr 2022 14:41:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9714A10F167
- for <freedreno@lists.freedesktop.org>; Wed, 27 Apr 2022 10:53:04 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id y32so2429641lfa.6
- for <freedreno@lists.freedesktop.org>; Wed, 27 Apr 2022 03:53:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/MDg5A9f9rvXZp1xmjZTzHZIeAwlmtx2mQRfLrQsy7E=;
- b=pIfuPJr7nqblgDaRQ4dMb03d0stbXtuCVITICOO7D+Sw4d+0uljC/gJd1LCHv7Wm9B
- y2F0N82TJJBYu0rQaIMQKnpmzGNTPTX5A+GLOyh8RADJXlYzT/kGOqQhs7QPP6GHlFJ5
- kmLGvEhadsTzLtWOODP2aBnJUHIf7Hk/jn1ipAPo0UhWS72L3ZzXTQ+w41iM/nmLTfl8
- wmzpzsg2qFyv1MxvPC3mFzATo055/Ji8SfudiSp05BcwrRzxyyN/sgMAt6+nNg/dWo5X
- nzaD0OWmvYHrz0atobccvico61skaUsgrUdBzgcJP3W3slbs/JsbPCWA0WzOuMTUYJcg
- Qwhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/MDg5A9f9rvXZp1xmjZTzHZIeAwlmtx2mQRfLrQsy7E=;
- b=lOe7Zb3b66Vhniietrs//L5pxYFIXFLH3ZZvhvAvBVC+HrxosY81lljL35VHcRVOJw
- kO/ek+fu1HGHiaRC3WYLrLBr9YjpPBLccy2SEKR/ESNG41yx0v7J4ZkfNdSBVDIql/0t
- PkK/L9MOUqTg13Wzm8RaCqEaCcHNt9Z5n5fztRU81j+m1oUofD9vXaSmkWhvivS3WMct
- WmMCqJ+giGILYg6wJ0heWSXv9XngYQGlukSo2wNRy8oxOxcg2I9fyC05Z+YZUgroF0e5
- sfF8zkhI+MkKninYHx6tpm3Y7v9ZF6+7s9B8XCfZmtHlAqlnc7V6k5bAoUGyBz/RkvGZ
- 5bRw==
-X-Gm-Message-State: AOAM532JNWjKvCTqm3LQLQspp5vvVbZPyEwvo6QoBP6DIhpJf3w+nbYr
- THbW7OVF/mx5CIW3foT6rLOGZg==
-X-Google-Smtp-Source: ABdhPJzYAmcUZabicyvLvDv5FdlC1iUQgJ59NCULUae//BS2fAbM2zBP4v+0xt14oQfazbKVtV3ERA==
-X-Received: by 2002:ac2:4add:0:b0:471:fc6d:a71d with SMTP id
- m29-20020ac24add000000b00471fc6da71dmr14050863lfp.350.1651056782925; 
- Wed, 27 Apr 2022 03:53:02 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- c6-20020a19e346000000b0046b8aac6e16sm2022462lfk.26.2022.04.27.03.53.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Apr 2022 03:53:02 -0700 (PDT)
-Message-ID: <e20d94d7-a865-21f7-0514-706992294614@linaro.org>
-Date: Wed, 27 Apr 2022 13:53:01 +0300
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3377810E93D;
+ Wed, 27 Apr 2022 14:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1651070495; x=1682606495;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=chW8rJzR1VAM7oNMSeS/OvPjzKydGU7NEGgWJb9XMDI=;
+ b=a+bKgGK3ImOLGYJ+YQRKYSzEY17nQaEIniiGhY84IITpa9JXMeNCUVuH
+ CWjTiOWAceF8VbtRAsR4lJjIT8OUEFXPAQ/cZ2C0Miz/t54/ZuPxgA8FU
+ KLGh26FAy9hY7TwdjumEh11ekUVTKQEYcPq7bQp03WlcaYF2dD33XHscG k=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 27 Apr 2022 07:41:34 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2022 07:41:34 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 27 Apr 2022 07:41:33 -0700
+Received: from [10.111.160.161] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 27 Apr
+ 2022 07:41:31 -0700
+Message-ID: <89d01a02-c267-b264-4a28-eed3385a0729@quicinc.com>
+Date: Wed, 27 Apr 2022 07:41:29 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-GB
-To: Stephen Boyd <swboyd@chromium.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org
-References: <1650952931-31988-1-git-send-email-quic_vpolimer@quicinc.com>
- <CAE-0n52cSR_xCxF+_UeK8CaHqsu=4HOtfWQ3BMmx2Tx3kmk-ZA@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <CAE-0n52cSR_xCxF+_UeK8CaHqsu=4HOtfWQ3BMmx2Tx3kmk-ZA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/disp/dpu1: avoid clearing hw
- interrupts if hw_intr is null during drm uninit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ <freedreno@lists.freedesktop.org>
+References: <1650984096-9964-1-git-send-email-quic_abhinavk@quicinc.com>
+ <1650984096-9964-20-git-send-email-quic_abhinavk@quicinc.com>
+ <2a12a6c7-aff2-b364-a653-80630e4710e5@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <2a12a6c7-aff2-b364-a653-80630e4710e5@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v6 19/19] drm/msm/dpu: add wb_idx to DRM
+ traces in dpu_encoder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,76 +68,163 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, robdclark@gmail.com, linux-kernel@vger.kernel.org,
- dianders@chromium.org
+Cc: markyacoub@chromium.org, liviu.dudau@arm.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
+ quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 27/04/2022 00:50, Stephen Boyd wrote:
-> Quoting Vinod Polimera (2022-04-25 23:02:11)
->> Avoid clearing irqs and derefernce hw_intr when hw_intr is null.
-> 
-> Presumably this is only the case when the display driver doesn't fully
-> probe and something probe defers? Can you clarify how this situation
-> happens?
-> 
+Hi Dmitry
+
+Thanks for fixing it up.
+
+I agree about the indentation issue.
+
+And yes even wb_idx missing in TP_ARGS seems like a geniune miss.
+
+But the weird part is it did not break my compilation. I tested even now 
+without your fix.
+
+Am I missing something to be enabled in my config to replicate the error 
+for future reference?
+
+Thanks
+
+Abhinav
+On 4/27/2022 3:43 AM, Dmitry Baryshkov wrote:
+> On 26/04/2022 17:41, Abhinav Kumar wrote:
+>> Change the DRM traces to include both the intf_mode
+>> and wb_idx similar to the DRM prints in the previous change.
 >>
->> BUG: Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
->>
->> Call trace:
->>   dpu_core_irq_uninstall+0x50/0xb0
->>   dpu_irq_uninstall+0x18/0x24
->>   msm_drm_uninit+0xd8/0x16c
->>   msm_drm_bind+0x580/0x5fc
->>   try_to_bring_up_master+0x168/0x1c0
->>   __component_add+0xb4/0x178
->>   component_add+0x1c/0x28
->>   dp_display_probe+0x38c/0x400
->>   platform_probe+0xb0/0xd0
->>   really_probe+0xcc/0x2c8
->>   __driver_probe_device+0xbc/0xe8
->>   driver_probe_device+0x48/0xf0
->>   __device_attach_driver+0xa0/0xc8
->>   bus_for_each_drv+0x8c/0xd8
->>   __device_attach+0xc4/0x150
->>   device_initial_probe+0x1c/0x28
->>
->> Fixes: a73033619ea ("drm/msm/dpu: squash dpu_core_irq into dpu_hw_interrupts")
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > 
-> The fixes tag looks odd. In dpu_core_irq_uninstall() at that commit it
-> is dealing with 'irq_obj' which isn't a pointer. After commit
-> f25f656608e3 ("drm/msm/dpu: merge struct dpu_irq into struct
-> dpu_hw_intr") dpu_core_irq_uninstall() starts using 'hw_intr' which is
-> allocated on the heap. If we backported this patch to a place that had
-> a73033619ea without f25f656608e3 it wouldn't make any sense.
-
-I'd agree here. The following tag would be correct:
-
-Fixes: f25f656608e3 ("drm/msm/dpu: merge struct dpu_irq into struct 
-dpu_hw_intr")
-
-
+> This commit got traces broken. I'm going to apply a fix.
 > 
->> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
 >> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
->>   1 file changed, 3 insertions(+)
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 13 ++++++++-----
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h   | 26 
+>> ++++++++++++++++++--------
+>>   2 files changed, 26 insertions(+), 13 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> index c515b7c..ab28577 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
->> @@ -599,6 +599,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
->>   {
->>          int i;
->>
->> +       if (!dpu_kms->hw_intr)
->> +               return;
->> +
->>          pm_runtime_get_sync(&dpu_kms->pdev->dev);
->>          for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
-
-
--- 
-With best wishes
-Dmitry
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> index 35080c4..52516eb 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>> @@ -1354,8 +1354,9 @@ static void dpu_encoder_frame_done_callback(
+>>                * suppress frame_done without waiter,
+>>                * likely autorefresh
+>>                */
+>> -            trace_dpu_enc_frame_done_cb_not_busy(DRMID(drm_enc),
+>> -                    event, ready_phys->intf_idx);
+>> +            trace_dpu_enc_frame_done_cb_not_busy(DRMID(drm_enc), event,
+>> +                    
+>> dpu_encoder_helper_get_intf_type(ready_phys->intf_mode),
+>> +                    ready_phys->intf_idx, ready_phys->wb_idx);
+>>               return;
+>>           }
+>> @@ -1433,9 +1434,11 @@ static void _dpu_encoder_trigger_flush(struct 
+>> drm_encoder *drm_enc,
+>>       if (ctl->ops.get_pending_flush)
+>>           ret = ctl->ops.get_pending_flush(ctl);
+>> -    trace_dpu_enc_trigger_flush(DRMID(drm_enc), phys->intf_idx,
+>> -                    pending_kickoff_cnt, ctl->idx,
+>> -                    extra_flush_bits, ret);
+>> +    trace_dpu_enc_trigger_flush(DRMID(drm_enc),
+>> +            dpu_encoder_helper_get_intf_type(phys->intf_mode),
+>> +            phys->intf_idx, phys->wb_idx,
+>> +            pending_kickoff_cnt, ctl->idx,
+>> +            extra_flush_bits, ret);
+>>   }
+>>   /**
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h 
+>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+>> index 58b411f..1106d44 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_trace.h
+>> @@ -380,20 +380,26 @@ TRACE_EVENT(dpu_enc_rc,
+>>   );
+>>   TRACE_EVENT(dpu_enc_frame_done_cb_not_busy,
+>> -    TP_PROTO(uint32_t drm_id, u32 event, enum dpu_intf intf_idx),
+>> -    TP_ARGS(drm_id, event, intf_idx),
+>> +    TP_PROTO(uint32_t drm_id, u32 event, char *intf_mode, enum 
+>> dpu_intf intf_idx,
+>> +            enum dpu_wb wb_idx),
+>> +    TP_ARGS(drm_id, event, intf_mode, intf_idx, wb_idx),
+>>       TP_STRUCT__entry(
+>>           __field(    uint32_t,    drm_id        )
+>>           __field(    u32,        event        )
+>> +        __string(    intf_mode_str,        intf_mode    )
+>>           __field(    enum dpu_intf,    intf_idx    )
+>> +        __field(    enum dpu_wb,  wb_idx    )
+> 
+> Nit: indentation broken. Please use tabs.
+> 
+>>       ),
+>>       TP_fast_assign(
+>>           __entry->drm_id = drm_id;
+>>           __entry->event = event;
+>> +        __assign_str(intf_mode_str, intf_mode);
+>>           __entry->intf_idx = intf_idx;
+>> +        __entry->wb_idx = wb_idx;
+>>       ),
+>> -    TP_printk("id=%u, event=%u, intf=%d", __entry->drm_id, 
+>> __entry->event,
+>> -          __entry->intf_idx)
+>> +    TP_printk("id=%u, event=%u, intf_mode=%s intf=%d wb=%d", 
+>> __entry->drm_id,
+>> +            __entry->event, __get_str(intf_mode_str),
+>> +            __entry->intf_idx, __entry->wb_idx)
+>>   );
+>>   TRACE_EVENT(dpu_enc_frame_done_cb,
+>> @@ -415,14 +421,16 @@ TRACE_EVENT(dpu_enc_frame_done_cb,
+>>   );
+>>   TRACE_EVENT(dpu_enc_trigger_flush,
+>> -    TP_PROTO(uint32_t drm_id, enum dpu_intf intf_idx,
+>> +    TP_PROTO(uint32_t drm_id, char *intf_mode, enum dpu_intf 
+>> intf_idx, enum dpu_wb wb_idx,
+>>            int pending_kickoff_cnt, int ctl_idx, u32 extra_flush_bits,
+>>            u32 pending_flush_ret),
+>> -    TP_ARGS(drm_id, intf_idx, pending_kickoff_cnt, ctl_idx,
+>> +    TP_ARGS(drm_id, intf_mode, intf_idx, pending_kickoff_cnt, ctl_idx,
+>>           extra_flush_bits, pending_flush_ret),
+> 
+> wb_idx is missing from the TP_ARGS, so compilation fails.
+> 
+>>       TP_STRUCT__entry(
+>>           __field(    uint32_t,    drm_id            )
+>> +        __string(    intf_mode_str,    intf_mode    )
+>>           __field(    enum dpu_intf,    intf_idx        )
+>> +        __field(    enum dpu_wb,  wb_idx        )
+> 
+> Nit: indentation broken. Please use tabs.
+> 
+>>           __field(    int,        pending_kickoff_cnt    )
+>>           __field(    int,        ctl_idx            )
+>>           __field(    u32,        extra_flush_bits    )
+>> @@ -430,15 +438,17 @@ TRACE_EVENT(dpu_enc_trigger_flush,
+>>       ),
+>>       TP_fast_assign(
+>>           __entry->drm_id = drm_id;
+>> +        __assign_str(intf_mode_str, intf_mode);
+>>           __entry->intf_idx = intf_idx;
+>> +        __entry->wb_idx = wb_idx;
+>>           __entry->pending_kickoff_cnt = pending_kickoff_cnt;
+>>           __entry->ctl_idx = ctl_idx;
+>>           __entry->extra_flush_bits = extra_flush_bits;
+>>           __entry->pending_flush_ret = pending_flush_ret;
+>>       ),
+>> -    TP_printk("id=%u, intf_idx=%d, pending_kickoff_cnt=%d ctl_idx=%d "
+>> +    TP_printk("id=%u, intf_mode=%s, intf_idx=%d, wb_idx=%d, 
+>> pending_kickoff_cnt=%d ctl_idx=%d "
+>>             "extra_flush_bits=0x%x pending_flush_ret=0x%x",
+>> -          __entry->drm_id, __entry->intf_idx,
+>> +          __entry->drm_id, __get_str(intf_mode_str), 
+>> __entry->intf_idx, __entry->wb_idx,
+>>             __entry->pending_kickoff_cnt, __entry->ctl_idx,
+>>             __entry->extra_flush_bits, __entry->pending_flush_ret)
+>>   );
+> 
+> 
