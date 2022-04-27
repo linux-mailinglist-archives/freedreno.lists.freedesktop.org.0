@@ -1,61 +1,131 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C6BC510E57
-	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 04:06:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB5651110A
+	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 08:20:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2570310E22D;
-	Wed, 27 Apr 2022 02:06:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3D610E05F;
+	Wed, 27 Apr 2022 06:20:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6802810E18C;
- Wed, 27 Apr 2022 02:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651025175; x=1682561175;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=0m+dY10uYolN81K4/2jJLNtkRZYeucyRLbTsObn7+EE=;
- b=mrfrRZf5rU0DS7xF9WtiY/ggE05aozdXJPTag/h3Mzj9+50yKwbMA88z
- o+Ss0724vsTb8gZpyaaxlnwE5KfUbsAvIn0Mih/NGLpyTe4o7+89iHToQ
- YANFPDWSzo6Is3mybxwmn8ulDWVOXE91BoVA19khXyQVWtH6H80r43kpX w=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 26 Apr 2022 19:06:15 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 19:06:14 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 26 Apr 2022 19:06:13 -0700
-Received: from [10.111.160.161] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 26 Apr
- 2022 19:06:11 -0700
-Message-ID: <0b3245d7-1d1e-4e34-004e-821be59451f1@quicinc.com>
-Date: Tue, 26 Apr 2022 19:06:09 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam08on2063.outbound.protection.outlook.com [40.107.101.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABC2210E05F;
+ Wed, 27 Apr 2022 06:20:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O6YsIgcAFfVnsORTmVHSDuZLEb80L2yCpoc6n61vnmBR0YOmVAVBhb/fIwIUg1nbazgVgVExZkFsTiUoeCK8+zCh5q5vH9z4oduKxh/dH8f963Wl+sNUiTfcKi0qbEQjFRLsH9fcbmQRLYhcxG5Qgbyyw4az1iPcu4zK/UwoMFfUe+8C9LVkNAD7Lsr//LKnwUmMoJzCm5M5WPz1AuX+CUCbry3GWdXq8lNSwqrVMhotA99khuBz++H1/1HX/6SrYDIhTdlag82vrlzdAhIeuzSguynMlcgyCZfp35ap6Jv/k4rWMpCB6LhYRBWcu1WTnXaHlFqi5Eh/Hgate/RAAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jCGOh0n5/Pe83hLYx/5J5lnU8o4tLgJa2GP+CMU8ZoQ=;
+ b=AVJtzjVD7rIunGZjGOgxoArzAPG70YGzAN9fh5xkyUgjuf9PCULzZdgAe+81bCirOhbaOjS+3HJRSdXF5JlCy5OsAjWJOWHsYqKD8C/wOu44ozzN4Fjwz+LpkQCFkkgNB7WAHIMrgi4lENxADyQD344e0lD1Fj75QZYnQ/AuioU+DL6PHVpZnwOSKAlNPSz60yC6LIXFqtbLyTBbo0FmWuUHccjh2iBS0FodPBPeaLsrnHFvAhuaIVw6wTnkHeZMyRC88pzAZapFqtbtI0RNRyNyQDRodRSiO6GdN0Losgns6njFU/auhy+vCFMLlb8IADR/QBTVmIPxnX15aT8ysw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jCGOh0n5/Pe83hLYx/5J5lnU8o4tLgJa2GP+CMU8ZoQ=;
+ b=YztX+eiBA2AVdUzve9P8f2wi7iXIbS9AR2gA0fXOigXbyrWy9VBidh0LScKYIKZb3dWI2BMwddd8x178YAR8rG7rpcUSdPX76EIfwKQ10HeHAvHpIaW+u5MQqQTQZDtEnRs95qjyEb2TMlbIE6kYZUW2/spN20FK+3UnmYd4h0g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM6PR12MB4810.namprd12.prod.outlook.com (2603:10b6:5:1f7::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Wed, 27 Apr
+ 2022 06:20:05 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a5fb:7137:5e64:cf8]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::a5fb:7137:5e64:cf8%5]) with mapi id 15.20.5186.021; Wed, 27 Apr 2022
+ 06:20:05 +0000
+Message-ID: <b587ca5f-eb8a-cf0c-5c07-9844c8794463@amd.com>
+Date: Wed, 27 Apr 2022 08:19:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>
-References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
- <20220209172520.3719906-4-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220209172520.3719906-4-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 03/25] drm/msm/dpu: add support for SSPP
- allocation to RM
+To: Chia-I Wu <olvaffe@gmail.com>
+References: <20220412212558.827289-1-olvaffe@gmail.com>
+ <CAPaKu7Tv1Mxt7Ao8kH2-MZDBK7EB0D41COJD8Sjze76t_o-qmw@mail.gmail.com>
+ <ffe7dbc1-8a19-1e19-402d-27efc8e55b39@amd.com>
+ <CAJs_Fx7OQ2OJo3pQ-ETT1827PtfuFsvn984gg8GeDVrqy0Ucug@mail.gmail.com>
+ <215f55f6-97b8-5dd3-a2cc-fe42e19a2769@amd.com>
+ <CAJs_Fx69yhVQ6t1xdTqEs3kxiz1gZSZ2-qNA=Cq21j_BSaymrQ@mail.gmail.com>
+ <17fc1a68-747a-f707-364d-76f12a2b535a@amd.com>
+ <CAPaKu7Rny7pxsPA+cnow0d6PAD2YCb+b+j1_Di5gziyOVNLaYQ@mail.gmail.com>
+ <c32bf2de-0e48-e3b7-98ae-0bcd46933465@amd.com>
+ <CAPaKu7T2hTFnsSSdFvQRuGefhZHVmGO9KXKpO8Y_ZcLbe75rpA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAPaKu7T2hTFnsSSdFvQRuGefhZHVmGO9KXKpO8Y_ZcLbe75rpA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM6P191CA0074.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:209:8a::15) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1c928d98-3be1-4cbe-5df1-08da2815f7fe
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4810:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR12MB481046AB2D0C16DD2A7CFE9083FA9@DM6PR12MB4810.namprd12.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CtRcP/xTgkcN6peCZSom0ORdSqpf+6yquqvtvj4+iojoIdDpO/WexSobWGF83AhRoNEbN2Phr0L5cERe1beMK+uV4XeMrhPZ4QZVai8mCEvHTYjuOnnHjwAHqGKegqa7S3bWVC8JoirrxXVDCTzzCZuTMH1LQ8iQdKL1fh8xBCLp7OcDhnHFzAROKLfBnOkCx1MBajXbmqJ3bhw9aGXchFrkbl9OFkrq2XRdXW5lLFTfv2sv3G/10HWICj2VrHr3cB3F08cya/ktU7cEYBj+vva+MRBGyZA1CvGoH53ms9JaBDhZg01X7tmHCoJzt5wAfsbx1yHicSqpFLgfFM0hnDWHmtrLcUGUIAyd7mwdM+MFSuK1rGAjvA4vUm5YNyvMyRi064R0fzkPTZiTb/jv0cEEWJKaLOksbNuAeWJm5JHNDbDDQrYok4v9ISAa1cWb4v7hqz0LoUEwcNn7qtp+4BlnqZdiq3vZ+blLuO+NX4SXl/03sb5xbS/CVYkgXhsPm/HV43wFbGFIio3erbeXx85LyrGNfp6wePk++ZTctMkBvQHW52gorlZfP9c/4Rz6IE6JUs47HdjIdI2Ss8r5Q6KR+7g/AAsq+B4NA0LKluO4cJB7ooCN4qjJK4sNO3QKkQGk4yJqg3xuTptvxo4sDlMg7PriX7RfLVc60aCgmjusZnVefqCkQ+LN1wN0KNh6QA+rVl7mBTNel/toEO5kCGuymqcH1qK3k1AvnccSbHc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(6916009)(54906003)(6506007)(508600001)(53546011)(6486002)(31696002)(83380400001)(6666004)(2906002)(86362001)(38100700002)(4326008)(8676002)(66476007)(31686004)(316002)(2616005)(186003)(36756003)(66946007)(66556008)(66574015)(7416002)(8936002)(5660300002)(6512007)(26005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1RjQzJWdk5ZOGtLSTlJVUNuYUtvQXlwOTBrdGRzVXZFUU51czFPeW84RHRO?=
+ =?utf-8?B?aWFnU2JMU3hHQjJtd0RrV20rZGM5WnYvamR1SStBcW9BbXZJcHFjSDczN3gr?=
+ =?utf-8?B?eHNtUzJBNGxOdnRLR2N2b0JIak5hRTJSYllyTXJBaGp2OTBYTnNRSEtYaFRr?=
+ =?utf-8?B?bVJBUG92cjB4VU05NzIyQndNbGg4V2h5RjE0SFNYbTJqSEVTL1U3NThrRnRO?=
+ =?utf-8?B?dXZ3a25za0tOdUhEVlZ6S0tYaFo2eGZVczZwN2t2WmFZVDRTMnpMeVNDcjJI?=
+ =?utf-8?B?WXNnQXg4N1BXd2ZJM0pEWXE4Z0djb2twN3N6RWZnM3V0T3dsY1FLVjl6QWFj?=
+ =?utf-8?B?eVM3WjB3citoa0RwTFlLMG9rMkhQbDJ4eGthL05Sd2NrNkQ0U1drOWlHb1Uz?=
+ =?utf-8?B?Q05TSXpwdzNPazBQYjA3Y2M2UjNnSHp1c0xDeU1oQy9YUjdlYkh3RmptR3Zz?=
+ =?utf-8?B?cU8wcDEzbzg5K05Mc0JaVWZDR2xzMFpadEl3Z0F2Qjl1RHE5TXJ2NFlwdDB4?=
+ =?utf-8?B?eDZuVlZoZnM0bnNrZDR0YTFhNTd6aHFsdnVlUExUMEI1UWJmNGttUXRzWlVN?=
+ =?utf-8?B?REh0dzZqV0dYMFdSekRySE81NkY0QmRCR0t5SDZablFrazlucERJTmYrcUF0?=
+ =?utf-8?B?ODFVSjcwaXR0cyt6TlRPRWNJMEZzRFNzYTR4dWduYzdoa2kvV3NWb2JLV1Rk?=
+ =?utf-8?B?R2dQOXVsUTc4ZkVnbGVpRThIeTBqbzl3VFJyZy9nOVhBVGczVmlIQ2pFS2hm?=
+ =?utf-8?B?c3BXYnFqbjZDMThVQW9tUkxhV3JueHpxdEE0bTdzV3FRbmFsSmU5ZFhpRTdG?=
+ =?utf-8?B?M1o3U0RVQjJnbWtybE1ja0hteFI0Y2Y1enBIMkVDazRFek1EdzFxUzg1bjVJ?=
+ =?utf-8?B?SnhiQTl3dkR3YmQ1ZUQrWjllRGlnOVk2ejk5R202b09vQXNBMFNWd0VkWlFJ?=
+ =?utf-8?B?OC9Yb1YxYlFMbkNtMGJ4YnVYREZDK3phVysrOHRBaWVmMXNOUU1rMyt0QnZU?=
+ =?utf-8?B?WG5KdXN1TUhYZ25wTmlJMjlSd3F0K1JlSklPOWFIMU9EempyOWtCNDg2dCtR?=
+ =?utf-8?B?SjlWNjZjUHZXYmE3OXRlcW5CT3Bic3poZU56cERwYjI4R1VTTm5vTFRHSXJE?=
+ =?utf-8?B?QWpVdnlBMXk3aWNKSmZlSWZ2RWxDT3Zqenh0MVgxNzNYU2hXNm1TY0dkNVBh?=
+ =?utf-8?B?Y2g1eFB0eFlpdlhKRTR3WlV1Ti8vZnlOZ1ViS1hMcmN5RXZBV1lYTVVKRmZX?=
+ =?utf-8?B?UHFCeGxWYUtFTHZtNmxHYjJ2Nis3L2VBeXlpSkhLcWJ0OTkzSXpvVE1FMDEr?=
+ =?utf-8?B?OFJ2MzJKZHp1UFdYeEI1SXFKNXVKYzUyZ08wVmo2L05vZ3RQSG4xZ2F6TkVt?=
+ =?utf-8?B?bzlLc3VDYVF3RmF5K25iWUs5Q2Z2ZXZDOTgyT1hrUXp2Uk4xM0hBSWxrdkxs?=
+ =?utf-8?B?cTc2c1l3K2FvNlF5UjJjcHNYaXVkTUlPTThjSzNiZ0F6S0JvU2FiVUNSaTho?=
+ =?utf-8?B?NkphVVV4K3BsQ2xNaFF1eUFTcXAxZWc1Y05hRm1vTGxFcTNaNUNwUFpYTFRU?=
+ =?utf-8?B?V1NEU3c2Si85YkoxWU9WTDY3N0FGakIwaW1COS9MWnM1OU9rSURhclJVTHhk?=
+ =?utf-8?B?RkkxcHFGRS80UmIyV2o0TnFqTll4ejhXUmdCOVhyK2lOS2ZFbDdYNmcyNSto?=
+ =?utf-8?B?ekZGUGthUXhoVUExUWIwRGFUNjE4RGg3R2NCbFNjSDA2MVFmNGIrZHhDTTc1?=
+ =?utf-8?B?bXA0R2JNUm5MNThzV29qK1ZTRFNsQmZ6enRNRmUyZ0NvQ0gzd29ieTlyOE1D?=
+ =?utf-8?B?UnBpSzcyZ2JOVXlxVk9UQUxJR2ZaOWJhcXFwZnc4bDFsOUZHYTY3ZWs0c054?=
+ =?utf-8?B?UVFhbmtVaGJUSThhc1NWK29wVWVmWEZTQ25nNTh4ZzJ2NGp5VGVaT0tIVG9L?=
+ =?utf-8?B?WnJEKytLa0hFYi8rY2dOdFhUMzJuMDA2a3krRXNqbmRQeitNYS9oRGtlNkoz?=
+ =?utf-8?B?c0RNMnd4RW8wWk4vTThVdzZtVnVQWXN4QmlpalUzYXM1c0lQUzRuS25QVkNt?=
+ =?utf-8?B?ZzVHSXFPRWhvblNiQjUvMmU4Qjl2elJVeFlWaklseFpod2tQZU9OQnRYL2VV?=
+ =?utf-8?B?bmFtTDZyOHRoU2k2RmR0bU9aZmxmeDVLWXVqMURML2p1OCt0QVNsZWFxb3hC?=
+ =?utf-8?B?dmpRd1o0cHpmdndmRUVjMmFnSlB0OEFwbWpPZnVzajNodjNVbHJDcEJHYm11?=
+ =?utf-8?B?d2RmWDBBTHFhTXZiYm9uQkVacmFtNEVJQ2RZK01RU3ZnVUFySjl5TDdXaU1B?=
+ =?utf-8?B?RVpaMkxiQ3hOT3E5L1UvczZaQWUwQ3MzK0RaRlRkK0xtcEIzZ0s4QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c928d98-3be1-4cbe-5df1-08da2815f7fe
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 06:20:04.9538 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZXZX9idvIeju+wJVbmCdJkqTv9IoSWN0SI4hCEvLYN/HU9GNrBsWh/zGKUI7u2bu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4810
+Subject: Re: [Freedreno] [PATCH v2] drm/msm: add trace_dma_fence_emit to
+ msm_gpu_submit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,267 +138,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>,
+ Sumit Semwal <sumit.semwal@linaro.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Am 26.04.22 um 20:50 schrieb Chia-I Wu:
+> On Tue, Apr 26, 2022 at 11:02 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>> Am 26.04.22 um 19:40 schrieb Chia-I Wu:
+>>> [SNIP]
+>>>>>> Well I just send a patch to completely remove the trace point.
+>>>>>>
+>>>>>> As I said it absolutely doesn't make sense to use this for
+>>>>>> visualization, that's what the trace_dma_fence_init trace point is good for.
+>>> I am a bit confused by this.  _emit and _signaled are a great way to
+>>> see how many fences are pending from cpu's point of view.  How does
+>>> _emit make no sense and _init is good instead?
+>> We had exactly that confusion now multiple times and it's one of the
+>> main reasons why I want to remove the _emit trace point.
+>>
+>> See the when you want to know how many fences are pending you need to
+>> watch out for init/destroy and *NOT* emit.
+>>
+>> The reason is that in the special case where emit makes sense (e.g. the
+>> GPU scheduler fences) emit comes later than init, but pending on the CPU
+>> and taking up resources are all fences and not just the one emitted to
+>> the hardware.
+> I am more interested in pending on the GPU.
+>
+>> On the other hand when you want to measure how much time each operation
+>> took on the hardware you need to take a look at the differences of the
+>> signal events on each timeline.
+> _signaled alone is not enough when the GPU is not always busy.  After
+> the last pending fence signals but before the following _init/_emit,
+> nothing is pending.
 
+Yeah, I'm perfectly aware of that.
 
-On 2/9/2022 9:24 AM, Dmitry Baryshkov wrote:
-> Add support for handling and allocting SSPP blocks through the resource
-> manager. Handling code is not converted to use it though.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 10 +++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h     |  1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 18 ++---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c      | 81 +++++++++++++++++++++
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h      |  6 ++
->   5 files changed, 104 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> index 1b18de957500..f805c30643b1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> @@ -388,6 +388,16 @@ struct dpu_hw_pipe {
->   };
->   
->   struct dpu_kms;
-> +/**
-> + * to_dpu_hw_pipe - convert base object dpu_hw_base to container
-> + * @hw: Pointer to base hardware block
-> + * return: Pointer to hardware block container
-> + */
-> +static inline struct dpu_hw_pipe *to_dpu_hw_pipe(struct dpu_hw_blk *hw)
-> +{
-> +	return container_of(hw, struct dpu_hw_pipe, base);
-> +}
-> +
->   /**
->    * dpu_hw_sspp_init - initializes the sspp hw driver object.
->    * Should be called once before accessing every pipe.
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> index 2d385b4b7f5e..824495ad2392 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-> @@ -146,6 +146,7 @@ struct dpu_global_state {
->   	uint32_t ctl_to_enc_id[CTL_MAX - CTL_0];
->   	uint32_t intf_to_enc_id[INTF_MAX - INTF_0];
->   	uint32_t dspp_to_enc_id[DSPP_MAX - DSPP_0];
-> +	uint32_t pipe_to_plane_id[SSPP_MAX - SSPP_NONE];
->   };
->   
->   struct dpu_global_state
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index c04c3be16d85..146dbccd79cd 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -1235,8 +1235,6 @@ static void dpu_plane_destroy(struct drm_plane *plane)
->   		/* this will destroy the states as well */
->   		drm_plane_cleanup(plane);
->   
-> -		dpu_hw_sspp_destroy(pdpu->pipe_hw);
-> -
->   		kfree(pdpu);
->   	}
->   }
-> @@ -1445,14 +1443,13 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
->   	pdpu->pipe = pipe;
->   
->   	/* initialize underlying h/w driver */
-> -	pdpu->pipe_hw = dpu_hw_sspp_init(pipe, kms->mmio, kms->catalog);
-> -	if (IS_ERR(pdpu->pipe_hw)) {
-> -		DPU_ERROR("[%u]SSPP init failed\n", pipe);
-> -		ret = PTR_ERR(pdpu->pipe_hw);
-> +	if (!kms->rm.sspp_blks[pipe - SSPP_NONE])
->   		goto clean_plane;
-> -	} else if (!pdpu->pipe_hw->cap || !pdpu->pipe_hw->cap->sblk) {
-> +	pdpu->pipe_hw = to_dpu_hw_pipe(kms->rm.sspp_blks[pipe - SSPP_NONE]);
-> +
-> +	if (!pdpu->pipe_hw->cap || !pdpu->pipe_hw->cap->sblk) {
->   		DPU_ERROR("[%u]SSPP init returned invalid cfg\n", pipe);
-> -		goto clean_sspp;
-> +		goto clean_plane;
->   	}
->   
->   	format_list = pdpu->pipe_hw->cap->sblk->format_list;
-> @@ -1462,7 +1459,7 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
->   				format_list, num_formats,
->   				supported_format_modifiers, type, NULL);
->   	if (ret)
-> -		goto clean_sspp;
-> +		goto clean_plane;
->   
->   	pdpu->catalog = kms->catalog;
->   
-> @@ -1494,9 +1491,6 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
->   					pipe, plane->base.id);
->   	return plane;
->   
-> -clean_sspp:
-> -	if (pdpu && pdpu->pipe_hw)
-> -		dpu_hw_sspp_destroy(pdpu->pipe_hw);
->   clean_plane:
->   	kfree(pdpu);
->   	return ERR_PTR(ret);
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> index f9c83d6e427a..21c9e513f1f6 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
-> @@ -8,6 +8,7 @@
->   #include "dpu_hw_lm.h"
->   #include "dpu_hw_ctl.h"
->   #include "dpu_hw_pingpong.h"
-> +#include "dpu_hw_sspp.h"
->   #include "dpu_hw_intf.h"
->   #include "dpu_hw_dspp.h"
->   #include "dpu_hw_merge3d.h"
-> @@ -35,6 +36,14 @@ int dpu_rm_destroy(struct dpu_rm *rm)
->   {
->   	int i;
->   
-> +	for (i = 0; i < ARRAY_SIZE(rm->sspp_blks); i++) {
-> +		struct dpu_hw_pipe *hw;
-> +
-> +		if (rm->sspp_blks[i]) {
-> +			hw = to_dpu_hw_pipe(rm->sspp_blks[i]);
-> +			dpu_hw_sspp_destroy(hw);
-> +		}
-> +	}
->   	for (i = 0; i < ARRAY_SIZE(rm->pingpong_blks); i++) {
->   		struct dpu_hw_pingpong *hw;
->   
-> @@ -166,6 +175,24 @@ int dpu_rm_init(struct dpu_rm *rm,
->   		rm->pingpong_blks[pp->id - PINGPONG_0] = &hw->base;
->   	}
->   
-> +	for (i = 0; i < cat->sspp_count; i++) {
-> +		struct dpu_hw_pipe *hw;
-> +		const struct dpu_sspp_cfg *sspp = &cat->sspp[i];
-> +
-> +		if (sspp->id <= SSPP_NONE || sspp->id >= SSPP_MAX) {
-> +			DPU_ERROR("skip sspp %d with invalid id\n", sspp->id);
-> +			continue;
-> +		}
-> +		hw = dpu_hw_sspp_init(sspp->id, mmio, cat);
-> +		if (IS_ERR_OR_NULL(hw)) {
-> +			rc = PTR_ERR(hw);
-> +			DPU_ERROR("failed sspp object creation: err %d\n",
-> +				rc);
-> +			goto fail;
-> +		}
-> +		rm->sspp_blks[sspp->id - SSPP_NONE] = &hw->base;
-> +	}
-> +
->   	for (i = 0; i < cat->intf_count; i++) {
->   		struct dpu_hw_intf *hw;
->   		const struct dpu_intf_cfg *intf = &cat->intf[i];
-> @@ -660,3 +687,57 @@ int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
->   
->   	return num_blks;
->   }
-> +
-> +enum dpu_sspp dpu_rm_get_sspp(struct dpu_rm *rm, struct dpu_global_state *global_state, uint32_t plane_id, bool yuv, bool scale)
-> +{
+> For all drivers except virtio-gpu, _init and "ring head update" always
+> happen close enough that I can see why _emit is redundant.  But I like
+> having _emit as a generic tracepoint for timelines where _init and
+> _emit can be apart, instead of requiring a special case tracepoint for
+> each special case timeline.
 
-Right now we have only yuv and scale as requirements for the incoming 
-plane. But these requirements can expand.
+And I'm certainly not going to add _emit to all drivers just because of 
+that. As you said it is a special case for virtio-gpu and the GPU scheduler.
 
-Do you think a enum req_mask will be a good addition here?
-You can start with having 2 masks for YUV and Scale but atleast that way 
-its expandable cleanly rather than just increasing function parameters here.
+And as I explained before the difference between _init and _emit 
+shouldn't matter to your visualization. The background is that as soon 
+as an dma_fence is initialized with _init it is "live" regarding the 
+dependency and memory management and exactly that's what matters for the 
+visualization.
 
+The latency between _init and _emit is just interesting for debugging 
+the scheduler and surprisingly virtio-gpu as well, for all other use 
+cases it is irrelevant.
 
-> +	int i;
-> +	enum dpu_sspp pipe = SSPP_NONE;
-> +	struct dpu_hw_pipe *pipe_hw;
-> +	bool retry = false;
-> +
-> +retry_loop:
-> +	for (i = 0; i < ARRAY_SIZE(rm->sspp_blks) && pipe == SSPP_NONE; i++) {
-> +		if (!rm->sspp_blks[i])
-> +			continue;
-> +		if (reserved_by_other(global_state->pipe_to_plane_id, i, plane_id))
-> +			continue;
-> +
-> +		pipe_hw = to_dpu_hw_pipe(rm->sspp_blks[i]);
-> +
-> +		/* skip incompatible planes */
-> +		if (scale && !(pipe_hw->cap->features & DPU_SSPP_SCALER))
-> +			continue;
-> +
-> +		if (yuv && (!(pipe_hw->cap->features & DPU_SSPP_SCALER) ||
-> +			    !(pipe_hw->cap->features & DPU_SSPP_CSC_ANY)))
-> +			continue;
-> +
-> +		/* For non-yuv, non-scaled planes try to find simple (DMA)
-> +		 * plane, fallback to VIG on a second try.
-> +		 *
-> +		 * This way we'd leave VIG pipes to be later used for YUV formats.
-> +		 */
-> +
+Regards,
+Christian.
 
-this strategy should work. I just think we need to validate this quite a 
-bit with some real world cases such as video playback with UI layers, 
-opening and closing video players, browsers etc.
+>> So there isn't really any use case for the emit trace point, except when
+>> you want to figure out how much latency the scheduler introduce. Then
+>> you want to take a look at init and emit, but that isn't really that
+>> interesting for performance analyses.
+>>
+>> Regards,
+>> Christian.
+>>
 
-I am yet to review the usage of this in the next patches, but yes if 
-even this wont kick in for small layers, we are protected.
-
-
-> +		if (!scale && !yuv && !retry &&
-> +		    (pipe_hw->cap->features & (DPU_SSPP_SCALER | DPU_SSPP_CSC_ANY)))
-> +			continue;
-> +
-> +		pipe = i + SSPP_NONE;
-> +	};
-> +
-> +	if (!scale && !yuv && !retry && pipe == SSPP_NONE) {
-> +		retry = true;
-> +		goto retry_loop;
-> +	}
-> +
-> +	if (pipe != SSPP_NONE)
-> +		global_state->pipe_to_plane_id[pipe - SSPP_NONE] = plane_id;
-> +
-> +	return pipe;
-> +}
-> +
-> +void dpu_rm_release_sspp(struct dpu_rm *rm, struct dpu_global_state *global_state, uint32_t plane_id)
-> +{
-> +	_dpu_rm_clear_mapping(global_state->pipe_to_plane_id,
-> +			ARRAY_SIZE(global_state->pipe_to_plane_id), plane_id);
-> +}
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> index 1f12c8d5b8aa..b759fe39f6d6 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
-> @@ -16,6 +16,7 @@ struct dpu_global_state;
->   /**
->    * struct dpu_rm - DPU dynamic hardware resource manager
->    * @pingpong_blks: array of pingpong hardware resources
-> + * @sspp_blks: array of sspp hardware resources
->    * @mixer_blks: array of layer mixer hardware resources
->    * @ctl_blks: array of ctl hardware resources
->    * @intf_blks: array of intf hardware resources
-> @@ -25,6 +26,7 @@ struct dpu_global_state;
->    */
->   struct dpu_rm {
->   	struct dpu_hw_blk *pingpong_blks[PINGPONG_MAX - PINGPONG_0];
-> +	struct dpu_hw_blk *sspp_blks[SSPP_MAX - SSPP_NONE];
->   	struct dpu_hw_blk *mixer_blks[LM_MAX - LM_0];
->   	struct dpu_hw_blk *ctl_blks[CTL_MAX - CTL_0];
->   	struct dpu_hw_blk *intf_blks[INTF_MAX - INTF_0];
-> @@ -88,5 +90,9 @@ void dpu_rm_release(struct dpu_global_state *global_state,
->   int dpu_rm_get_assigned_resources(struct dpu_rm *rm,
->   	struct dpu_global_state *global_state, uint32_t enc_id,
->   	enum dpu_hw_blk_type type, struct dpu_hw_blk **blks, int blks_size);
-> +
-> +enum dpu_sspp dpu_rm_get_sspp(struct dpu_rm *rm, struct dpu_global_state *global_state, uint32_t plane_id, bool yuv, bool scale);
-> +void dpu_rm_release_sspp(struct dpu_rm *rm, struct dpu_global_state *global_state, uint32_t plane_id);
-> +
->   #endif /* __DPU_RM_H__ */
->   
