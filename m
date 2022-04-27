@@ -2,58 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1118510B83
-	for <lists+freedreno@lfdr.de>; Tue, 26 Apr 2022 23:50:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 587E3510DE3
+	for <lists+freedreno@lfdr.de>; Wed, 27 Apr 2022 03:28:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A991410E0D0;
-	Tue, 26 Apr 2022 21:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CBB710E12C;
+	Wed, 27 Apr 2022 01:28:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 771DE10E0D0
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 21:50:44 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id s131so125362oie.1
- for <freedreno@lists.freedesktop.org>; Tue, 26 Apr 2022 14:50:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=pjo5mXaYQ8tuJfJZuu4TdSNcsnRgj5B9DLZVepdghWQ=;
- b=CQiwaHLvsuJ+ikXqofBkW8jrqC5ybJyYGda2ADk6TuRwRak/ZZrAWQr+Oc3GoIyUxL
- jAiQC84FRkg0/xIgPZYwLmYHAR/MiaTGiJk7wDC3ByWcpz0mVRL0o5yr3i5GeTh9YxTq
- TczVSgufsKZt2Yp2vNv7WM6j9VMoK+ZRTN5VI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=pjo5mXaYQ8tuJfJZuu4TdSNcsnRgj5B9DLZVepdghWQ=;
- b=OH7iZAIuPtNzk3F64gVrWXk33ah4yAN90GzqpO1YoEO6sQbnDTIdII2cY844+lXsY4
- IUz/HIKd9zgnCfCsdQ/nkOr3i8w9tTTFsv13qwytR/eEgCcpgtTPDFSrLHpWt0/uD/dw
- oghHJkqfby/usq8Bl7/PemvUB7fq4FdKyv9YYWARXy2HEzKJfKED3e7lqLCdRcaLpZrM
- SAEYu9nURxvi7cIQYPW/JS79iBXeuE/xjtHA6ur0jzs/tngCzNH79PHTesNEmYByIDMz
- gSW8/nkIKWjE6wnigd7E0ermbioT9NX1cUae4DDxbPyB15ffFIjEbfTRmT5ZZ7AqoDpD
- QBeg==
-X-Gm-Message-State: AOAM533H0WpdHzxkMkmRDO23aAxrMKi6Fh1v99BxR7fiQF3ZPlPEoUTo
- 3rTGtK6fkcTjh1iwS/SDJa6YYbEsIlvLS0fepOvSYQ==
-X-Google-Smtp-Source: ABdhPJwyMTUw/mtFu6agjAsPIJW+iWTJHYIxIVvFs4+GRM3nbBnWOJM3vPKxiLw52uQ1xwjfjvHgiiuMneQ854bVIsM=
-X-Received: by 2002:aca:bd41:0:b0:2ec:ff42:814f with SMTP id
- n62-20020acabd41000000b002ecff42814fmr11888453oif.63.1651009843704; Tue, 26
- Apr 2022 14:50:43 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 26 Apr 2022 14:50:43 -0700
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4677510E10B;
+ Wed, 27 Apr 2022 01:28:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1651022913; x=1682558913;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/NTqXDdYYcjyqvnH+2TSNv8cwD0wOtxyytxNMQVJnVM=;
+ b=qzPoucglIy14Kg3SA9MDTzhRO6i4rOMHV5Ts2x7NfMSeMqChkD5bFQUF
+ Lzt9nKEVwn20h7kEK4j2j5hDZmY2zbhkOgXMuT+yrorepQwLBDoDntk14
+ AB2OrbQpmzGQtAFUtpw4IW8csSDzLZppDBhdgAGiJmdSKghxIj5WyTFep o=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 26 Apr 2022 18:28:32 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 18:28:32 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 26 Apr 2022 18:28:31 -0700
+Received: from [10.111.160.161] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 26 Apr
+ 2022 18:28:29 -0700
+Message-ID: <b014df94-493a-4f9f-213f-1bdc311a4889@quicinc.com>
+Date: Tue, 26 Apr 2022 18:28:27 -0700
 MIME-Version: 1.0
-In-Reply-To: <1650952931-31988-1-git-send-email-quic_vpolimer@quicinc.com>
-References: <1650952931-31988-1-git-send-email-quic_vpolimer@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 26 Apr 2022 14:50:43 -0700
-Message-ID: <CAE-0n52cSR_xCxF+_UeK8CaHqsu=4HOtfWQ3BMmx2Tx3kmk-ZA@mail.gmail.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/disp/dpu1: avoid clearing hw
- interrupts if hw_intr is null during drm uninit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+ <20220209172520.3719906-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220209172520.3719906-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 01/25] drm/msm/dpu: rip out master planes
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +67,296 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dmitry.baryshkov@linaro.org, quic_kalyant@quicinc.com, robdclark@gmail.com,
- linux-kernel@vger.kernel.org, dianders@chromium.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Vinod Polimera (2022-04-25 23:02:11)
-> Avoid clearing irqs and derefernce hw_intr when hw_intr is null.
 
-Presumably this is only the case when the display driver doesn't fully
-probe and something probe defers? Can you clarify how this situation
-happens?
 
->
-> BUG: Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
->
-> Call trace:
->  dpu_core_irq_uninstall+0x50/0xb0
->  dpu_irq_uninstall+0x18/0x24
->  msm_drm_uninit+0xd8/0x16c
->  msm_drm_bind+0x580/0x5fc
->  try_to_bring_up_master+0x168/0x1c0
->  __component_add+0xb4/0x178
->  component_add+0x1c/0x28
->  dp_display_probe+0x38c/0x400
->  platform_probe+0xb0/0xd0
->  really_probe+0xcc/0x2c8
->  __driver_probe_device+0xbc/0xe8
->  driver_probe_device+0x48/0xf0
->  __device_attach_driver+0xa0/0xc8
->  bus_for_each_drv+0x8c/0xd8
->  __device_attach+0xc4/0x150
->  device_initial_probe+0x1c/0x28
->
-> Fixes: a73033619ea ("drm/msm/dpu: squash dpu_core_irq into dpu_hw_interrupts")
+On 2/9/2022 9:24 AM, Dmitry Baryshkov wrote:
+> Master/virtual planes were used for multirect support. In preparation to
+> reworking DPU planes, drop support for master planes (which was not used
+> anyway).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-The fixes tag looks odd. In dpu_core_irq_uninstall() at that commit it
-is dealing with 'irq_obj' which isn't a pointer. After commit
-f25f656608e3 ("drm/msm/dpu: merge struct dpu_irq into struct
-dpu_hw_intr") dpu_core_irq_uninstall() starts using 'hw_intr' which is
-allocated on the heap. If we backported this patch to a place that had
-a73033619ea without f25f656608e3 it wouldn't make any sense.
-
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+Agreed, master planes were unused today anyway.
+hence,
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> index c515b7c..ab28577 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-> @@ -599,6 +599,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
->  {
->         int i;
->
-> +       if (!dpu_kms->hw_intr)
-> +               return;
-> +
->         pm_runtime_get_sync(&dpu_kms->pdev->dev);
->         for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 11 +---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c |  3 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h |  4 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 72 ++++-----------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h   | 13 +---
+>   6 files changed, 18 insertions(+), 87 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index e7c9fe1a250f..7318bd45637a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1138,17 +1138,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   	}
+>   
+>   	for (i = 1; i < SSPP_MAX; i++) {
+> -		if (pipe_staged[i]) {
+> +		if (pipe_staged[i])
+>   			dpu_plane_clear_multirect(pipe_staged[i]);
+> -
+> -			if (is_dpu_plane_virtual(pipe_staged[i]->plane)) {
+> -				DPU_ERROR(
+> -					"r1 only virt plane:%d not supported\n",
+> -					pipe_staged[i]->plane->base.id);
+> -				rc  = -EINVAL;
+> -				goto end;
+> -			}
+> -		}
+>   	}
+>   
+>   	z_pos = -1;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index 09cdc3576653..8714ee767346 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -783,8 +783,7 @@ static const struct dpu_sspp_cfg *_sspp_offset(enum dpu_sspp sspp,
+>   }
+>   
+>   struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+> -		void __iomem *addr, struct dpu_mdss_cfg *catalog,
+> -		bool is_virtual_pipe)
+> +		void __iomem *addr, struct dpu_mdss_cfg *catalog)
+>   {
+>   	struct dpu_hw_pipe *hw_pipe;
+>   	const struct dpu_sspp_cfg *cfg;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> index 92b071b78fdb..1b18de957500 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> @@ -394,11 +394,9 @@ struct dpu_kms;
+>    * @idx:  Pipe index for which driver object is required
+>    * @addr: Mapped register io address of MDP
+>    * @catalog : Pointer to mdss catalog data
+> - * @is_virtual_pipe: is this pipe virtual pipe
+>    */
+>   struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+> -		void __iomem *addr, struct dpu_mdss_cfg *catalog,
+> -		bool is_virtual_pipe);
+> +		void __iomem *addr, struct dpu_mdss_cfg *catalog);
+>   
+>   /**
+>    * dpu_hw_sspp_destroy(): Destroys SSPP driver context
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 47fe11a84a77..4d2b75f3bc89 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -738,7 +738,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+>   			  catalog->sspp[i].features & BIT(DPU_SSPP_CURSOR));
+>   
+>   		plane = dpu_plane_init(dev, catalog->sspp[i].id, type,
+> -				       (1UL << max_crtc_count) - 1, 0);
+> +				       (1UL << max_crtc_count) - 1);
+>   		if (IS_ERR(plane)) {
+>   			DPU_ERROR("dpu_plane_init failed\n");
+>   			ret = PTR_ERR(plane);
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index ca75089c9d61..3fcc964dec0a 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -89,7 +89,7 @@ enum dpu_plane_qos {
+>   /*
+>    * struct dpu_plane - local dpu plane structure
+>    * @aspace: address space pointer
+> - * @mplane_list: List of multirect planes of the same pipe
+> + * @csc_ptr: Points to dpu_csc_cfg structure to use for current
+>    * @catalog: Points to dpu catalog structure
+>    * @revalidate: force revalidation of all the plane properties
+>    */
+> @@ -104,8 +104,6 @@ struct dpu_plane {
+>   	uint32_t color_fill;
+>   	bool is_error;
+>   	bool is_rt_pipe;
+> -	bool is_virtual;
+> -	struct list_head mplane_list;
+>   	struct dpu_mdss_cfg *catalog;
+>   };
+>   
+> @@ -223,7 +221,7 @@ static void _dpu_plane_calc_clk(struct drm_plane *plane, struct dpu_hw_pipe_cfg
+>   static int _dpu_plane_calc_fill_level(struct drm_plane *plane,
+>   		const struct dpu_format *fmt, u32 src_width)
+>   {
+> -	struct dpu_plane *pdpu, *tmp;
+> +	struct dpu_plane *pdpu;
+>   	struct dpu_plane_state *pstate;
+>   	u32 fixed_buff_size;
+>   	u32 total_fl;
+> @@ -237,19 +235,7 @@ static int _dpu_plane_calc_fill_level(struct drm_plane *plane,
+>   	pstate = to_dpu_plane_state(plane->state);
+>   	fixed_buff_size = pdpu->catalog->caps->pixel_ram_size;
+>   
+> -	list_for_each_entry(tmp, &pdpu->mplane_list, mplane_list) {
+> -		u32 tmp_width;
+> -
+> -		if (!tmp->base.state->visible)
+> -			continue;
+> -		tmp_width = drm_rect_width(&tmp->base.state->src) >> 16;
+> -		DPU_DEBUG("plane%d/%d src_width:%d/%d\n",
+> -				pdpu->base.base.id, tmp->base.base.id,
+> -				src_width,
+> -				tmp_width);
+> -		src_width = max_t(u32, src_width,
+> -				  tmp_width);
+> -	}
+> +	/* FIXME: in multirect case account for the src_width of all the planes */
+>   
+>   	if (fmt->fetch_planes == DPU_PLANE_PSEUDO_PLANAR) {
+>   		if (fmt->chroma_sample == DPU_CHROMA_420) {
+> @@ -848,13 +834,8 @@ int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states *plane)
+>   	}
+>   
+>   done:
+> -	if (dpu_plane[R0]->is_virtual) {
+> -		pstate[R0]->multirect_index = DPU_SSPP_RECT_1;
+> -		pstate[R1]->multirect_index = DPU_SSPP_RECT_0;
+> -	} else {
+> -		pstate[R0]->multirect_index = DPU_SSPP_RECT_0;
+> -		pstate[R1]->multirect_index = DPU_SSPP_RECT_1;
+> -	}
+> +	pstate[R0]->multirect_index = DPU_SSPP_RECT_0;
+> +	pstate[R1]->multirect_index = DPU_SSPP_RECT_1;
+>   
+>   	DPU_DEBUG_PLANE(dpu_plane[R0], "R0: %d - %d\n",
+>   		pstate[R0]->multirect_mode, pstate[R0]->multirect_index);
+> @@ -1213,19 +1194,13 @@ static void dpu_plane_sspp_atomic_update(struct drm_plane *plane)
+>   
+>   static void _dpu_plane_atomic_disable(struct drm_plane *plane)
+>   {
+> -	struct dpu_plane *pdpu = to_dpu_plane(plane);
+>   	struct drm_plane_state *state = plane->state;
+>   	struct dpu_plane_state *pstate = to_dpu_plane_state(state);
+>   
+> -	trace_dpu_plane_disable(DRMID(plane), is_dpu_plane_virtual(plane),
+> +	trace_dpu_plane_disable(DRMID(plane), false,
+>   				pstate->multirect_mode);
+>   
+>   	pstate->pending = true;
+> -
+> -	if (is_dpu_plane_virtual(plane) &&
+> -			pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_multirect)
+> -		pdpu->pipe_hw->ops.setup_multirect(pdpu->pipe_hw,
+> -				DPU_SSPP_RECT_SOLO, DPU_SSPP_MULTIRECT_NONE);
+>   }
+>   
+>   static void dpu_plane_atomic_update(struct drm_plane *plane,
+> @@ -1444,17 +1419,12 @@ enum dpu_sspp dpu_plane_pipe(struct drm_plane *plane)
+>   	return plane ? to_dpu_plane(plane)->pipe : SSPP_NONE;
+>   }
+>   
+> -bool is_dpu_plane_virtual(struct drm_plane *plane)
+> -{
+> -	return plane ? to_dpu_plane(plane)->is_virtual : false;
+> -}
+> -
+>   /* initialize plane */
+>   struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>   		uint32_t pipe, enum drm_plane_type type,
+> -		unsigned long possible_crtcs, u32 master_plane_id)
+> +		unsigned long possible_crtcs)
+>   {
+> -	struct drm_plane *plane = NULL, *master_plane = NULL;
+> +	struct drm_plane *plane = NULL;
+>   	const uint32_t *format_list;
+>   	struct dpu_plane *pdpu;
+>   	struct msm_drm_private *priv = dev->dev_private;
+> @@ -1474,18 +1444,9 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>   	/* cache local stuff for later */
+>   	plane = &pdpu->base;
+>   	pdpu->pipe = pipe;
+> -	pdpu->is_virtual = (master_plane_id != 0);
+> -	INIT_LIST_HEAD(&pdpu->mplane_list);
+> -	master_plane = drm_plane_find(dev, NULL, master_plane_id);
+> -	if (master_plane) {
+> -		struct dpu_plane *mpdpu = to_dpu_plane(master_plane);
+> -
+> -		list_add_tail(&pdpu->mplane_list, &mpdpu->mplane_list);
+> -	}
+>   
+>   	/* initialize underlying h/w driver */
+> -	pdpu->pipe_hw = dpu_hw_sspp_init(pipe, kms->mmio, kms->catalog,
+> -							master_plane_id != 0);
+> +	pdpu->pipe_hw = dpu_hw_sspp_init(pipe, kms->mmio, kms->catalog);
+>   	if (IS_ERR(pdpu->pipe_hw)) {
+>   		DPU_ERROR("[%u]SSPP init failed\n", pipe);
+>   		ret = PTR_ERR(pdpu->pipe_hw);
+> @@ -1495,14 +1456,8 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>   		goto clean_sspp;
+>   	}
+>   
+> -	if (pdpu->is_virtual) {
+> -		format_list = pdpu->pipe_hw->cap->sblk->virt_format_list;
+> -		num_formats = pdpu->pipe_hw->cap->sblk->virt_num_formats;
+> -	}
+> -	else {
+> -		format_list = pdpu->pipe_hw->cap->sblk->format_list;
+> -		num_formats = pdpu->pipe_hw->cap->sblk->num_formats;
+> -	}
+> +	format_list = pdpu->pipe_hw->cap->sblk->format_list;
+> +	num_formats = pdpu->pipe_hw->cap->sblk->num_formats;
+>   
+>   	ret = drm_universal_plane_init(dev, plane, 0xff, &dpu_plane_funcs,
+>   				format_list, num_formats,
+> @@ -1543,15 +1498,14 @@ struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>   
+>   	mutex_init(&pdpu->lock);
+>   
+> -	DPU_DEBUG("%s created for pipe:%u id:%u virtual:%u\n", plane->name,
+> -					pipe, plane->base.id, master_plane_id);
+> +	DPU_DEBUG("%s created for pipe:%u id:%u\n", plane->name,
+> +					pipe, plane->base.id);
+>   	return plane;
+>   
+>   clean_sspp:
+>   	if (pdpu && pdpu->pipe_hw)
+>   		dpu_hw_sspp_destroy(pdpu->pipe_hw);
+>   clean_plane:
+> -	list_del(&pdpu->mplane_list);
+>   	kfree(pdpu);
+>   	return ERR_PTR(ret);
+>   }
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> index 9d51dad5c6a5..d2f60810434e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> @@ -59,14 +59,6 @@ struct dpu_multirect_plane_states {
+>    */
+>   enum dpu_sspp dpu_plane_pipe(struct drm_plane *plane);
+>   
+> -/**
+> - * is_dpu_plane_virtual - check for virtual plane
+> - * @plane: Pointer to DRM plane object
+> - * returns: true - if the plane is virtual
+> - *          false - if the plane is primary
+> - */
+> -bool is_dpu_plane_virtual(struct drm_plane *plane);
+> -
+>   /**
+>    * dpu_plane_get_ctl_flush - get control flush mask
+>    * @plane:   Pointer to DRM plane object
+> @@ -94,14 +86,11 @@ void dpu_plane_set_error(struct drm_plane *plane, bool error);
+>    * @pipe:  dpu hardware pipe identifier
+>    * @type:  Plane type - PRIMARY/OVERLAY/CURSOR
+>    * @possible_crtcs: bitmask of crtc that can be attached to the given pipe
+> - * @master_plane_id: primary plane id of a multirect pipe. 0 value passed for
+> - *                   a regular plane initialization. A non-zero primary plane
+> - *                   id will be passed for a virtual pipe initialization.
+>    *
+>    */
+>   struct drm_plane *dpu_plane_init(struct drm_device *dev,
+>   		uint32_t pipe, enum drm_plane_type type,
+> -		unsigned long possible_crtcs, u32 master_plane_id);
+> +		unsigned long possible_crtcs);
+>   
+>   /**
+>    * dpu_plane_validate_multirecti_v2 - validate the multirect planes
