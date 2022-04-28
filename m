@@ -1,50 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA60F513B45
-	for <lists+freedreno@lfdr.de>; Thu, 28 Apr 2022 20:16:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D88513DAD
+	for <lists+freedreno@lfdr.de>; Thu, 28 Apr 2022 23:34:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF9CA10E1A9;
-	Thu, 28 Apr 2022 18:16:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CED910EB88;
+	Thu, 28 Apr 2022 21:34:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDBD710E1A9;
- Thu, 28 Apr 2022 18:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651169813; x=1682705813;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=S4ej8cAaExSyWS0YJOGhu3zdFKhnoSxnIcZpa0GFhkE=;
- b=fheTdMqD+Lt3tXv7z5lp8wGlj/KJFPZQePKVdsz9WYOypbChbsP8/B0r
- VVkLaSs/YBxL6yCf6QuWA/z/8JBDGD79G1bvgI6sm4KfmYFnuIqoB3yMX
- wjxA/arNzkNTmuL8VhTvOa0tX7vtWzy81Sp1T3QzLrt0cyLnyVuXxJftc k=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 28 Apr 2022 11:16:53 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2022 11:16:53 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 28 Apr 2022 11:16:12 -0700
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 28 Apr 2022 11:16:12 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Thu, 28 Apr 2022 11:15:59 -0700
-Message-ID: <1651169759-29760-1-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59E5910EB8D
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Apr 2022 21:34:40 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id c15so8337075ljr.9
+ for <freedreno@lists.freedesktop.org>; Thu, 28 Apr 2022 14:34:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=LUO8kGdNJXZTMb0WmkKFEGqEheFIy7DQPZG/Z0cgjoA=;
+ b=lNXfvFzsxPyNTjxt6InfLkA3RG4El1r+Dc1kSWwGQOqo5rTHIVKAcGiG2EAStEhtbN
+ lLWdMkaxjIIaDN6p/4VLMxFptvRzt/Ii9XjWyyxPeS8dAhGR6fQEJeN22LqjwUntOYAf
+ +o62I+wXaGNPvyAJ0QXgF2vGwC5QjRqKv6FO/Y14/92WM6k43fXeraLYmUAyg/lHFhw1
+ iSpQtj42ZCDnQmUwkDTp457UV1URd64cyklxDTqVe8cVTEtBG+4Ck13hwB01fMhxdC1e
+ rKq3/yuBpYGOlRi77nnPM6KlqtqcQOg/KORapBbNifPSmoztQ13/d9VWBSFMyPKxCV75
+ 0N9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=LUO8kGdNJXZTMb0WmkKFEGqEheFIy7DQPZG/Z0cgjoA=;
+ b=Czo6aSOaZoGBvPhd4p6cvHpIEc+OCpWBdA/bmOBvtlfTpv2x6a8ywL+ALIs1u3qIfD
+ JnBbVMPVEYPiin5oAhf1icMtjfzpijUSVZneYW+Yw4L5L4ptAUlg6cWsN0/x+oSAWZy2
+ owtQjZGZsydDYvCskBTn17J1Wd8/K6bRnXc826/Gzc+C0SO8nNov96S7H42X9TEtQcA5
+ 6ZsG5cs+PRGLOGNyyoLTP3x1GoKQgmKyKvw7P0ux4wNrOM4SBBY6tiPoysOEGIRYjKH3
+ XaJuapXHhC+PggfJehtbl2Kzf0RTjixK/RWmz6bZtXroMRYad4z0C2c629eH5hpYwW/+
+ u9Qg==
+X-Gm-Message-State: AOAM531qLdmIvjG9jy9zmLXWpirf5K7lxRH0OSvUZOnCSuv2nCKOesZQ
+ p41n1+/gtrwsAZqKg+O1UkRMfA==
+X-Google-Smtp-Source: ABdhPJy4VZqBBFOSxpowqFsDu0aJsJZvoxMi0KRblL784nZybddRajmHphO+K/QrlPfQvi8IB3sdsQ==
+X-Received: by 2002:a2e:9c03:0:b0:24a:fe64:2c12 with SMTP id
+ s3-20020a2e9c03000000b0024afe642c12mr22792679lji.101.1651181678375; 
+ Thu, 28 Apr 2022 14:34:38 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ y16-20020a199150000000b00472012f5d72sm95626lfj.98.2022.04.28.14.34.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Apr 2022 14:34:37 -0700 (PDT)
+Message-ID: <81490e39-2cd1-02ce-508f-936bbd4e994b@linaro.org>
+Date: Fri, 29 Apr 2022 00:34:36 +0300
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: remove unused refcount for
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
+References: <1651169759-29760-1-git-send-email-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1651169759-29760-1-git-send-email-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: remove unused refcount for
  encoder_phys_wb
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,57 +74,62 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
  quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Remove the unused local variable refcount for encoder_phys_wb
-as the one part of wb_enc is used directly.
+On 28/04/2022 21:15, Abhinav Kumar wrote:
+> Remove the unused local variable refcount for encoder_phys_wb
+> as the one part of wb_enc is used directly.
+> 
+> changes in v2:
+> 	- remove usage of ret variable also
+> 	- remove the if (ret) code as it was dead-code anyway
+> 
+> Fixes: 0ce51f19453e ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-changes in v2:
-	- remove usage of ret variable also
-	- remove the if (ret) code as it was dead-code anyway
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Fixes: 0ce51f19453e ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 15 +++------------
+>   1 file changed, 3 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> index cb5c7da53c29..f4a79715a02e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+> @@ -406,22 +406,13 @@ static void dpu_encoder_phys_wb_irq_ctrl(
+>   {
+>   
+>   	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys);
+> -	int ret = 0;
+> -	int refcount;
+> -
+> -	refcount = atomic_read(&wb_enc->wbirq_refcount);
+>   
+> -	if (enable && atomic_inc_return(&wb_enc->wbirq_refcount) == 1) {
+> +	if (enable && atomic_inc_return(&wb_enc->wbirq_refcount) == 1)
+>   		dpu_core_irq_register_callback(phys->dpu_kms,
+>   				phys->irq[INTR_IDX_WB_DONE], dpu_encoder_phys_wb_done_irq, phys);
+> -		if (ret)
+> -			atomic_dec_return(&wb_enc->wbirq_refcount);
+> -	} else if (!enable &&
+> -			atomic_dec_return(&wb_enc->wbirq_refcount) == 0) {
+> +	else if (!enable &&
+> +			atomic_dec_return(&wb_enc->wbirq_refcount) == 0)
+>   		dpu_core_irq_unregister_callback(phys->dpu_kms, phys->irq[INTR_IDX_WB_DONE]);
+> -		if (ret)
+> -			atomic_inc_return(&wb_enc->wbirq_refcount);
+> -	}
+>   }
+>   
+>   static void dpu_encoder_phys_wb_atomic_mode_set(
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index cb5c7da53c29..f4a79715a02e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -406,22 +406,13 @@ static void dpu_encoder_phys_wb_irq_ctrl(
- {
- 
- 	struct dpu_encoder_phys_wb *wb_enc = to_dpu_encoder_phys_wb(phys);
--	int ret = 0;
--	int refcount;
--
--	refcount = atomic_read(&wb_enc->wbirq_refcount);
- 
--	if (enable && atomic_inc_return(&wb_enc->wbirq_refcount) == 1) {
-+	if (enable && atomic_inc_return(&wb_enc->wbirq_refcount) == 1)
- 		dpu_core_irq_register_callback(phys->dpu_kms,
- 				phys->irq[INTR_IDX_WB_DONE], dpu_encoder_phys_wb_done_irq, phys);
--		if (ret)
--			atomic_dec_return(&wb_enc->wbirq_refcount);
--	} else if (!enable &&
--			atomic_dec_return(&wb_enc->wbirq_refcount) == 0) {
-+	else if (!enable &&
-+			atomic_dec_return(&wb_enc->wbirq_refcount) == 0)
- 		dpu_core_irq_unregister_callback(phys->dpu_kms, phys->irq[INTR_IDX_WB_DONE]);
--		if (ret)
--			atomic_inc_return(&wb_enc->wbirq_refcount);
--	}
- }
- 
- static void dpu_encoder_phys_wb_atomic_mode_set(
+
 -- 
-2.7.4
-
+With best wishes
+Dmitry
