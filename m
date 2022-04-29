@@ -2,50 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7475651540C
-	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 20:52:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B43515407
+	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 20:52:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F034910F0A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1970110E77A;
 	Fri, 29 Apr 2022 18:52:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4BA410E9C0
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 18:52:02 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id j4so15580909lfh.8
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 11:52:02 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0AC910F0A4
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 18:52:03 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id n14so15548328lfu.13
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 11:52:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=egoM2XNXIqCFT4+22sOj5Td+05iys3AKcQL89KtNa7Y=;
- b=skwtRUUkWT/EYLdN443is8LXG02fqfEXAigHCT4YqvC/QvQc0HjYZKLkJHNxf1V9QV
- jP6pCTYXh9TTvGYLBRzsUanMufNk1twjqWHMNyKtXDiKWKGkY3jDz6+OZDGypy/TJTqa
- +fDQN6wPUEU4PAxtUbg4jb0C1ylEo6KsPEOoKOSOX3paEMpfsT9/guSG9JBnDhYxwHOg
- ITKXhlGnYZvGD3GdaZM8SB6YHUj+Jka06c4nrqf1R7siWQq1v3NSWNQzHfesx9+JM5P4
- 6b/48SP2xRRbHdZQNdhRZStKmFm2v/lCdUnFSehFsx11G2lAbChaAo5GrJj78ulN/Lxu
- eQfQ==
+ bh=mNmsSu5EFMsnDMxNTzSovNKF0T/u6pITv3O7/Fgf9Jc=;
+ b=McZLPyglK/9tU+mYeWuO/1tmJahwwBbj4r7sgq0WslepjKDaME/CtmzyGsyk/VBQNu
+ NaLRMyuLPEsgsYFDvZJ3N8sm1P99XtaZgTGrTECvw4GLONdP13VhuY6RRhH3ahExtPho
+ PnHgPwe3N6BvUL5LV4le75QjdS0lbr0Ua+9uHg0koB0pLNOPJleIXBDx5G57ncei+eF8
+ F7zDQMb7Imr9GBi19tFIM6D3LSKFp1lk1PS1Yy1oYl3Sde6d/HQeaDodZ8NEfYVPY1VQ
+ tZHjvz4JnoFMUPlYB4uBZR0fcEV6Gmrh3mNPd4DfmZhqAMr1DWwsjULDLGoF5WXvnCOQ
+ HXgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=egoM2XNXIqCFT4+22sOj5Td+05iys3AKcQL89KtNa7Y=;
- b=R8UQj/ctvU5vWK1d8UXoXBp0xvBSz/1LxGgKg0Kznoi9ou7OFH+Xbwodjz6XpZeHBb
- mT2znKzbled/p51M5Fb286vt8A80mLWO4RQG0HYzCps1Le6lZQ2KL7ynQWpATP+xsXtr
- cYEfeLAm1WITvomFejsaWdUkwNAkhMcC4spbj9uT7uK4p0mqVXar6FXwtMsy2RJjeTsl
- W8WASwPtkYVnzlWQYfYu71VBT8AFaIYXvFQ55RkvTUwAR0etqqasPIsaymy8xQE5ONTG
- r0UgyC4iJzgNyLHrP/GRCNuAUWnsziNtS8ScVHkPVvEoyLqqYTgbWF1x15aBTs/1vYYa
- wlyQ==
-X-Gm-Message-State: AOAM532zQuOylsJVeQKEVoYyUbIq2G+ykklTD6GknEd9PKpIy6PpsJDX
- hAYjvi8AAuPtWszq/oqG6ojyLw==
-X-Google-Smtp-Source: ABdhPJyjCsbQEtPyBhi3kbQoUQtQQ4PYG8E9Jw9FZt0MDn+fGgl5lwgg1u2usJx/LpkmGJqDdvO7ag==
-X-Received: by 2002:a05:6512:3290:b0:472:b9c:751 with SMTP id
- p16-20020a056512329000b004720b9c0751mr394067lfe.591.1651258320849; 
- Fri, 29 Apr 2022 11:52:00 -0700 (PDT)
+ bh=mNmsSu5EFMsnDMxNTzSovNKF0T/u6pITv3O7/Fgf9Jc=;
+ b=CHw/rhyqhepvD0GF5RbGpaIfbWmkG7QG1f/035dUOLP29HD6Yk04YfbD+awIWgC1n0
+ KenFxCmI477xMsbTKt3qMvoFMBMLrr/RcrtusquKlCFwV3bEtpVZ7NjAKhaQaBY6602K
+ Lm36W0c7+1dNDneIQi4CDtKvZOjklv7GkybDGWm9dE+3aWfDx7ccUhkaYMkIQu/yiKZ6
+ Prg+/uHCmHDyY4jv8hoxK677ObzkT3caTACC2gYimj2NAJhylny4UJn+jTeqR3nsa0Hx
+ C+fzqpvwM9wjG6vrkUZCOTt2iid4hIPpPY3SQSBzCO9U2Ji4mnNTsungxVPv83M6uAfd
+ ATZQ==
+X-Gm-Message-State: AOAM533T1NegQ3g8RFcaxR2HexTvEFcpKekBy3D0kOXrRS08DomNxjX6
+ yQsTgcputfOk/wdv7xzHak5oXttNovFOIw==
+X-Google-Smtp-Source: ABdhPJytbJr6ns9XOXOBR4HEVk85eizRt7BmJyw1M+DX9Ve/Bpz0VhLYSogBpCzoLFACGwmxzaJ6vg==
+X-Received: by 2002:a05:6512:3c86:b0:472:1ea6:52bb with SMTP id
+ h6-20020a0565123c8600b004721ea652bbmr440553lfv.334.1651258321866; 
+ Fri, 29 Apr 2022 11:52:01 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
  z25-20020a19e219000000b00472230888a5sm295313lfg.121.2022.04.29.11.52.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Apr 2022 11:52:00 -0700 (PDT)
+ Fri, 29 Apr 2022 11:52:01 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,15 +60,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Tomi Valkeinen <tomba@kernel.org>
-Date: Fri, 29 Apr 2022 21:51:51 +0300
-Message-Id: <20220429185157.3673633-2-dmitry.baryshkov@linaro.org>
+Date: Fri, 29 Apr 2022 21:51:52 +0300
+Message-Id: <20220429185157.3673633-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220429185157.3673633-1-dmitry.baryshkov@linaro.org>
 References: <20220429185157.3673633-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 1/7] drm/poll-helper: merge
- drm_kms_helper_poll_disable() and _fini()
+Subject: [Freedreno] [PATCH v1 2/7] drm/probe-helper: enable and disable HPD
+ on connectors
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,60 +86,96 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Merge drm_kms_helper_poll_disable() and drm_kms_helper_poll_fini() code
-into a common helper function.
+Intruct two drm_connector_helper_funcs: enable_hpd() and disable_hpd().
+They are called by drm_kms_helper_poll_enable() and
+drm_kms_helper_poll_disable() (and thus drm_kms_helper_poll_init() and
+drm_kms_helper_poll_fini()) respectively.
+
+This allows drivers to rely on drm_kms_helper_poll for enabling and
+disabling HPD detection rather than doing that manually.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/drm_probe_helper.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_probe_helper.c       | 19 +++++++++++++++++++
+ include/drm/drm_modeset_helper_vtables.h | 22 ++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 682359512996..204f6999113f 100644
+index 204f6999113f..7fef16cd80ff 100644
 --- a/drivers/gpu/drm/drm_probe_helper.c
 +++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -754,6 +754,17 @@ bool drm_kms_helper_is_poll_worker(void)
- }
- EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+@@ -251,6 +251,12 @@ void drm_kms_helper_poll_enable(struct drm_device *dev)
  
-+static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
-+{
-+	if (!dev->mode_config.poll_enabled)
-+		return;
+ 	drm_connector_list_iter_begin(dev, &conn_iter);
+ 	drm_for_each_connector_iter(connector, &conn_iter) {
++		const struct drm_connector_helper_funcs *funcs =
++			connector->helper_private;
 +
-+	if (fini)
-+		dev->mode_config.poll_enabled = false;
++		if (funcs && funcs->enable_hpd)
++			funcs->enable_hpd(connector);
 +
-+	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
-+}
+ 		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
+ 					 DRM_CONNECTOR_POLL_DISCONNECT))
+ 			poll = true;
+@@ -756,12 +762,25 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+ 
+ static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
+ {
++	struct drm_connector *connector;
++	struct drm_connector_list_iter conn_iter;
 +
+ 	if (!dev->mode_config.poll_enabled)
+ 		return;
+ 
+ 	if (fini)
+ 		dev->mode_config.poll_enabled = false;
+ 
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		const struct drm_connector_helper_funcs *funcs =
++			connector->helper_private;
++
++		if (funcs && funcs->disable_hpd)
++			funcs->disable_hpd(connector);
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
+ 	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
+ }
+ 
+diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+index fdfa9f37ce05..7fa67017d303 100644
+--- a/include/drm/drm_modeset_helper_vtables.h
++++ b/include/drm/drm_modeset_helper_vtables.h
+@@ -1143,6 +1143,28 @@ struct drm_connector_helper_funcs {
+ 	 */
+ 	void (*cleanup_writeback_job)(struct drm_writeback_connector *connector,
+ 				      struct drm_writeback_job *job);
++
++	/**
++	 * @enable_hpd:
++	 *
++	 * Enable hot-plug detection for the connector.
++	 *
++	 * This operation is optional.
++	 *
++	 * This callback is used by the drm_kms_helper_poll_enable() helpers.
++	 */
++	void (*enable_hpd)(struct drm_connector *connector);
++
++	/**
++	 * @disable_hpd:
++	 *
++	 * Disable hot-plug detection for the connector.
++	 *
++	 * This operation is optional.
++	 *
++	 * This callback is used by the drm_kms_helper_poll_disable() helpers.
++	 */
++	void (*disable_hpd)(struct drm_connector *connector);
+ };
+ 
  /**
-  * drm_kms_helper_poll_disable - disable output polling
-  * @dev: drm_device
-@@ -770,9 +781,7 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
-  */
- void drm_kms_helper_poll_disable(struct drm_device *dev)
- {
--	if (!dev->mode_config.poll_enabled)
--		return;
--	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
-+	drm_kms_helper_poll_disable_fini(dev, false);
- }
- EXPORT_SYMBOL(drm_kms_helper_poll_disable);
- 
-@@ -810,11 +819,7 @@ EXPORT_SYMBOL(drm_kms_helper_poll_init);
-  */
- void drm_kms_helper_poll_fini(struct drm_device *dev)
- {
--	if (!dev->mode_config.poll_enabled)
--		return;
--
--	dev->mode_config.poll_enabled = false;
--	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
-+	drm_kms_helper_poll_disable_fini(dev, true);
- }
- EXPORT_SYMBOL(drm_kms_helper_poll_fini);
- 
 -- 
 2.35.1
 
