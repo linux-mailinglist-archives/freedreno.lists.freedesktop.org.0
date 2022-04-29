@@ -1,59 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BED51402E
-	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 03:20:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF05751459D
+	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 11:44:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D127810F5F9;
-	Fri, 29 Apr 2022 01:20:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4012810EEFE;
+	Fri, 29 Apr 2022 09:44:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2818210F60B
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 01:20:11 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-d6e29fb3d7so6847031fac.7
- for <freedreno@lists.freedesktop.org>; Thu, 28 Apr 2022 18:20:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=R5FcMtHB95cGY7bqn/aaSoN9px3b2CiohH6o45BGCPc=;
- b=lZBTXOPrH/HQgFZDRSQ+AY62amn6CUuRdEyr0/a9qQawZ8dn6Y8nRvZzaR1iK2ozO7
- 6mw9RcrYRHZ9w2BVpwK9G+Sj5UUYxHSHVOXXHhOKX8o+doQRJh5wqTflrmbRz4qbM6hE
- 38duCGZLzGB7Qd7BtMXXTK5L2cdjP9J3cD6GQ=
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68C9810EEFD
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 09:44:40 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-2ef5380669cso79426797b3.9
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 02:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=WYCGVCEJksGGCdRlgIqjR2lhvuooSLq5edP8oO1Q4Gc=;
+ b=qXTCKdPPbH69hhnz+M+TPUAGCmNzy6PuGKgWs0JHwB2aoBg7hrjTPaMZoAoIQDoWSs
+ 0lmnwzpo47pGHqJUzmoSLgH0xxs4vpYqKs5VaNkLhIjt4xe9NBaCxYnD5rZfSLgbIvMm
+ zgsM0ilvnK84KcGPdNndif0vtYd6QRYkZJD3a2KzeKri4hyAji+GDZtusBC2mSHRCr6p
+ SHFXwtn+sHZPaLC6Fb5Q0NESuoOi44uDggQGTZz3h/jeU4OWkJiRd3uhm2tuN+g2bh9f
+ 3Z9w0ZVNZJEs1+L18TcczTi8dfVqr4yn0gF8OPbL3O5iS7U8siW5kSCj9kKn8nzEQQc7
+ 3MkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=R5FcMtHB95cGY7bqn/aaSoN9px3b2CiohH6o45BGCPc=;
- b=Vks4khLoV4fOgbmoXlZt11PuRTWuAjO/CWSCb272fBJJ6uUvnnrVfvjZtMih0KMBPm
- e5uNJXiC7NRokh14oK60cUsL0SKjTXZsMyyninQYCKAfnjBM5FNxXQPXhymHN+lXDnyB
- FFh+fMnc3FOL4Lb8hyH9FBhSQB/HCueORFuaUiSyDiVqhRblBlvE4zfJ4BrdxAq1T4rw
- XyKSgWPjYqaNGWPhHK8pCM7NMv7R3zNKZ5ZmsYm6ksBBHFLg7MDxwZ3e+p5MKYdM7OlS
- d5srAAIaiHF4fbwv4pqrhZNJLM7HtbWZj5eZ5gD+wTLUJmiwRDbHvteUHl4lZsR7cn1L
- mLvw==
-X-Gm-Message-State: AOAM532jQ+ms586Y7V7OXwB0eNH9puNe8EsWt4vn2ME3XBn3JwTpp1pf
- XUMNsvCmiNR9tfoq6VMuXeJEO4iImhwD2K5gDJG9nQ==
-X-Google-Smtp-Source: ABdhPJyct3+Dz7vTxA3RPk3QX+auuKudDLIw7X3JH0Xeh4QWS37W/QrLu0SWV9IQXMUw1wOemKuBCG9GS9ciqmqkCmc=
-X-Received: by 2002:a05:6870:15ca:b0:e9:551:6d1c with SMTP id
- k10-20020a05687015ca00b000e905516d1cmr371956oad.193.1651195210193; Thu, 28
- Apr 2022 18:20:10 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 28 Apr 2022 18:20:09 -0700
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=WYCGVCEJksGGCdRlgIqjR2lhvuooSLq5edP8oO1Q4Gc=;
+ b=QQyRG0wLQ8P2eS9UcUYCGMRL2TS906jK2BLdCGD7ksF4aQNh+Y+nmkDXzTPD1R3zOq
+ j6ql2tN507tYnXO7crvBEPL/HWXjDTewSqo6FA8KNIY1ud/mMhSFZOaAZSBdqTNDOpsi
+ 5+yhtg5D9fZ5++Qz/M1bl9x6YzZGhwM4+HUazS7vIWcigaRRQxdNmOG3rOqtX6JUd6w6
+ s2DhOgHwCJK6KhSuNTYzfHF1Nb4PS3QyPt0yMmMMYtIhnFD4IB94I6jahmzRux6/S0ai
+ AHkmXbxqroCw4XeM8tVEYAi6e4+y2jPUhx5t+sy7MHwXOjG6UIu87xwksppw9vSiGMqp
+ 8OUw==
+X-Gm-Message-State: AOAM5314dbhDNDeoYR01trkdrngq6v3/MD9fwCawy17g+Oi0EOuy7kAK
+ s2m5WsvYKFWAcGTA3Nihkpadxd0znDFI/GPL7mkdEg==
+X-Google-Smtp-Source: ABdhPJynZzoVZwfjlCOF1/abA7cHNOUV/ui+HyQTclEHfZp0K+s8TqPA+IOfsxjsI1xMK2BMg4DLPDanu12s14nmOyg=
+X-Received: by 2002:a81:5603:0:b0:2f8:3187:f37a with SMTP id
+ k3-20020a815603000000b002f83187f37amr15645499ywb.255.1651225479645; Fri, 29
+ Apr 2022 02:44:39 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20220217055529.499829-4-dmitry.baryshkov@linaro.org>
 References: <20220217055529.499829-1-dmitry.baryshkov@linaro.org>
  <20220217055529.499829-4-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 28 Apr 2022 18:20:09 -0700
-Message-ID: <CAE-0n53wAqV3ttugY+VR_zxdZGZGjbitWOppk1zF-Rp-buiNaA@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
+ <CAE-0n53wAqV3ttugY+VR_zxdZGZGjbitWOppk1zF-Rp-buiNaA@mail.gmail.com>
+In-Reply-To: <CAE-0n53wAqV3ttugY+VR_zxdZGZGjbitWOppk1zF-Rp-buiNaA@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 29 Apr 2022 12:44:28 +0300
+Message-ID: <CAA8EJpqCwe_mr60SpFNfK8rE84RoA4EzAaPw-rC-PGmdB99ytQ@mail.gmail.com>
+To: Stephen Boyd <swboyd@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v5 3/5] drm/msm/dp: set stream_pixel rate
  directly
@@ -69,18 +66,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-02-16 21:55:27)
-> The only clock for which we set the rate is the "stream_pixel". Rather
-> than storing the rate and then setting it by looping over all the
-> clocks, set the clock rate directly.
+On Fri, 29 Apr 2022 at 04:20, Stephen Boyd <swboyd@chromium.org> wrote:
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+> Quoting Dmitry Baryshkov (2022-02-16 21:55:27)
+> > The only clock for which we set the rate is the "stream_pixel". Rather
+> > than storing the rate and then setting it by looping over all the
+> > clocks, set the clock rate directly.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Thanks! I think this series can be queued for 5.20 then (probably not
+worth rushing it into 5.19)
+
+-- 
+With best wishes
+Dmitry
