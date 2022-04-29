@@ -1,60 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1B9515473
-	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 21:29:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 14A9E515475
+	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 21:29:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E28E10E135;
-	Fri, 29 Apr 2022 19:29:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B263810E1B7;
+	Fri, 29 Apr 2022 19:29:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE3A410E135
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 19:29:31 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id v4so11629104ljd.10
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 12:29:31 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E6010E1B7
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 19:29:33 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id h29so8491580lfj.2
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 12:29:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3SvLk5TP6P/sVxT2lEncD+uRqoDF7TswQoR3K12ke84=;
- b=kOkUoiQ1zgTce1LEq2rQ1z8p6CJcKQFmPCJtg9pz5utZMffMXK2JVqROIrmEwNRvdJ
- tgyaTh7nwZMkv/Auvm2XGfYqHDe8NJEBiqkTj8wesaG8NlhfmyVfy8KhQfHQj2TB6o5o
- zvFoOYDJp+ROD0smBvQE3zbj1/9bCkly3WLJaGctXDuRG8EtsKpMeS1UidIY+GDYuetU
- pGJiTZvXBpuNI/Kvm4iLjiAE1L2qnkB2WSmQcPxutpNVqNjgWCJSxLNdeP2OwgSM/oZo
- ZanuA0xHZyYb6jxcBi6I9rYk1wjYbAAhgUM+MDoeIIysKVSsrum0bNvsbEiknkvOvO6X
- Q27g==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=yjiWSb36gHEJ1pupckIvzivsOKw4TFaRqlM2gJWlkeg=;
+ b=VvyHyWk9ss55mLpsJMhmDjLhAfzhgVwTosz5/KtUeXG8f7gtCjTHh9ta12MW8Q8Qv5
+ 4DCA1vAf+oNQJ5HTw+zih0F5/DyFy+nm53WCzwbk3uXoIyM8g/8pKcgK21gXn58WtvKA
+ J4zl4mtbS1F+is88ser58AScok4CrSoRmJtjvvuNn1454jhm3si8OX9Qs6KdGc+I4Sgo
+ RTcEoD6xMlh0TttERyIG4Zsvx0Pls4MCEJhOrW0XfLUoGWJVTMZPsBSPpFpBXd5mdirm
+ hIGNDG+xAirjAo4pgoGFeJ08L39dxzZ1Xcn9luY4BXXFvAOC33bzkReV+4C0CRtn4fyG
+ 6shg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=3SvLk5TP6P/sVxT2lEncD+uRqoDF7TswQoR3K12ke84=;
- b=ha4WQmtpQYXswaoKkvv4tHXZYVPuJYdHbIemMjgGMuLQevw/QPJXi1WIBATk7qYNZx
- 3eJlyTM7pythRId+HN4z7gt5Fg+bC9ZLPW6VVuivjp0oGJfJH9peAuPFevJZN6vcpz43
- s5SPkGuvnKpCM/ii5mm/px+uyiCB73Gd5eNTwyvxqhMrFGkcxL5wByGLZfBksSD01Gev
- OR9Cr8m0nh4lUaHflmAplShT7dBd9LSCzSXvJaZPbSRE0APZLGeEpZQBD1eSd5sO0Nh/
- 6YzEsHc+b17KOilxe2mwyRPzITMWiX9Yofn+qPb+Rwz3x6zTR0Ku+iAhiCuafijjjKHZ
- VO3g==
-X-Gm-Message-State: AOAM5322XTnd77W7GHy36qgl38k+rhH0MwUnIjPpW/JRd42SPM/z03WH
- Vs9bkMraVHwByGEufmDXPlx4zQ==
-X-Google-Smtp-Source: ABdhPJzmJFI1u3ls6UXLOa+wli7Vrojk5Tfom13j11M/XsobZcxiKnXIvykm4/P+EmLL8BF8Zm5Fjg==
-X-Received: by 2002:a05:651c:311:b0:246:1250:d6f with SMTP id
- a17-20020a05651c031100b0024612500d6fmr411264ljp.455.1651260570270; 
- Fri, 29 Apr 2022 12:29:30 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=yjiWSb36gHEJ1pupckIvzivsOKw4TFaRqlM2gJWlkeg=;
+ b=Apl5QWUjxoaKCtKcG5TIEAA+p6GXT/duZdyryX5B7Ud3dEfSmBUCUYzWXe+SGOZhqO
+ bSKy5B+EYfc4N8f8lx2Ut7G4NB5L6f19He8tdN4zvem55TlTn1a5jD5Ye/XJ0ut8UCcT
+ W8EbwLZA9NJKq0zWlUrqcp2LYqhr4tdyVfUcH8T05FPOlK2tz1bsrziVzDIx9O40+LiA
+ LWXeG58xwjf9Ip1m0J6n/1u8IEIYuTMOMSeKapTOxRz7mCQOFlRHGeFypijh6HDTa8fW
+ fOR4yTJurUgaPCNu5KSPyXqvQdOgsKQbcXow/UBpChmjhQlnXyHC5nHlbT6mANnd2jEL
+ TStQ==
+X-Gm-Message-State: AOAM530ZosJnIKLAgRPh5UVdQd0IZXh5Z4Z+mK3VmVC6JC0HJ1eIn+9U
+ WSsahf9phV/YQ6mQnagAUrOeEuuTkLkoaA==
+X-Google-Smtp-Source: ABdhPJwZsF+ismHXA1SwjcjwLTj06u3hcpcicsYABBKTikMY3EqCe2yKGTDrLfdc4eDJFLhtBjsEQw==
+X-Received: by 2002:a05:6512:21cc:b0:46f:47c0:9c20 with SMTP id
+ d12-20020a05651221cc00b0046f47c09c20mr572436lft.74.1651260571698; 
+ Fri, 29 Apr 2022 12:29:31 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- y10-20020ac24e6a000000b0047255d211e7sm5522lfs.278.2022.04.29.12.29.29
+ y10-20020ac24e6a000000b0047255d211e7sm5522lfs.278.2022.04.29.12.29.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Apr 2022 12:29:29 -0700 (PDT)
+ Fri, 29 Apr 2022 12:29:30 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Fri, 29 Apr 2022 22:29:24 +0300
-Message-Id: <20220429192928.3697407-1-dmitry.baryshkov@linaro.org>
+Date: Fri, 29 Apr 2022 22:29:25 +0300
+Message-Id: <20220429192928.3697407-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220429192928.3697407-1-dmitry.baryshkov@linaro.org>
+References: <20220429192928.3697407-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH 0/4] drm/msm/dp: implement HPD notifications
- handling
+Subject: [Freedreno] [RFC PATCH 1/4] drm/bridge_connector: stop filtering
+ events in drm_bridge_connector_hpd_cb()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,35 +73,38 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-USB altmodes code would send OOB notifications to the drm_connector
-specified in the device tree. However as the MSM DP driver uses
-drm_bridge_connector, there is no way to receive these event directly.
-Implement a bridge between oob_hotplug_event and drm_bridge's hpd_notify
-and use it to deliver altmode messages to the MSM DP driver
+In some cases the bridge drivers would like to receive hotplug events
+even in the case new status is equal to the old status. In the DP case
+this is used to deliver "attention" messages to the DP host. Stop
+filtering the events in the drm_bridge_connector_hpd_cb() and let
+drivers decide whether they would like to receive the event or not.
 
-Bjorn Andersson (2):
-  drm: Add HPD state to drm_connector_oob_hotplug_event()
-  drm/msm/dp: Implement hpd_notify()
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/drm_bridge_connector.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-Dmitry Baryshkov (2):
-  drm/bridge_connector: stop filtering events in
-    drm_bridge_connector_hpd_cb()
-  drm/bridge_connector: implement oob_hotplug_event
-
- drivers/gpu/drm/drm_bridge_connector.c   | 17 ++++++++++++-----
- drivers/gpu/drm/drm_connector.c          |  6 ++++--
- drivers/gpu/drm/i915/display/intel_dp.c  | 17 ++++++++++++++---
- drivers/gpu/drm/i915/i915_drv.h          |  3 +++
- drivers/gpu/drm/msm/dp/dp_display.c      | 11 +++++++++++
- drivers/gpu/drm/msm/dp/dp_display.h      |  1 +
- drivers/gpu/drm/msm/dp/dp_drm.c          |  3 +++
- drivers/gpu/drm/msm/dp/dp_drm.h          |  2 ++
- drivers/gpu/drm/msm/dp/dp_hpd.c          | 21 +++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_hpd.h          |  5 +++++
- drivers/usb/typec/altmodes/displayport.c | 10 +++-------
- include/drm/drm_connector.h              |  6 ++++--
- 12 files changed, 83 insertions(+), 19 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
+index 60923cdfe8e1..a0b742ebb330 100644
+--- a/drivers/gpu/drm/drm_bridge_connector.c
++++ b/drivers/gpu/drm/drm_bridge_connector.c
+@@ -113,16 +113,11 @@ static void drm_bridge_connector_hpd_cb(void *cb_data,
+ 	struct drm_bridge_connector *drm_bridge_connector = cb_data;
+ 	struct drm_connector *connector = &drm_bridge_connector->base;
+ 	struct drm_device *dev = connector->dev;
+-	enum drm_connector_status old_status;
+ 
+ 	mutex_lock(&dev->mode_config.mutex);
+-	old_status = connector->status;
+ 	connector->status = status;
+ 	mutex_unlock(&dev->mode_config.mutex);
+ 
+-	if (old_status == status)
+-		return;
+-
+ 	drm_bridge_connector_hpd_notify(connector, status);
+ 
+ 	drm_kms_helper_hotplug_event(dev);
 -- 
 2.35.1
 
