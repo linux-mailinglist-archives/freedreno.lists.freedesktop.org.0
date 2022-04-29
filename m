@@ -2,60 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C86B5154FB
-	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 21:57:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 701E5515655
+	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 23:01:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BEF610F0FC;
-	Fri, 29 Apr 2022 19:57:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1642010FAA5;
+	Fri, 29 Apr 2022 21:01:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80E3A10F0E1
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 19:57:39 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id j4so15840811lfh.8
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 12:57:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=eClHtbNiyjfQMFNU+LbIHUtg8OiaLij9Jf6MKVBO3/w=;
- b=O1EtoYK8JCQCkenpxDnCOCsTYxo0VODpEHOyZTQhHF1TGIPTVGLEpB9oTJBCQwCHcw
- nL5RYgymewRJddvp0vTxXU89g46rHg/An+VRKc20cW4Da6S////L2BBH1ubC0HulOMjY
- ADpOrnFgcrthGZK3nSq3f8pVdIML3q9Md5ZnR9agV07Y4G8Ntj5YJmGqKIUcWFP0tumR
- C3yJ2j3hk4Q8yaa4dFnqNLBB5dhHDWTkJZlGqwLqyTcGMhKW9T/pD/YmQzUzz97jegC+
- AbjiPx7q0m0jHX/+QA9wHP2b31f7z+W39EhE9+fbUljLk7VXjtjIqDqYpMsDN4HeBZv1
- y8jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=eClHtbNiyjfQMFNU+LbIHUtg8OiaLij9Jf6MKVBO3/w=;
- b=w1zcTHGz6RDBA5BrDRS84IJgnzPvvgrzsqGG0U8vHtW7Qt6MzytzM0eumfbetW7BTw
- H1L5tXz1iONSpuSiKqtfOaNfyLCIIGBITWUZGuU0zQ5tqS4UTg2qhKGYoirDGz9SQXK7
- DnQvrEKcBrZFna3fxps8ZXJYN9+J6qf6K9hniWJaqBumBTbU6mY+b4vpvAPaFvSKYpsa
- /3ZpefX4XXXMOvOblC6t/VusrdfeCLZOTBmlPBLb2LtLX62IvLStY5uA7UYY42vzmQ93
- ZpjzAffqRGGoW4T5iKqRL3K0okCSexxAHSzBLznosafmwQdMqlPCd3XLTlO/7PkRW9wj
- BlHg==
-X-Gm-Message-State: AOAM533r/PNN6ZB2hgzChGH8gCOWyDON4VmmSzKMIPFWkIk18nIBkkJy
- HMUdMcMvklj5PLUxitXSzUjXXNFilfSclQ==
-X-Google-Smtp-Source: ABdhPJwSQtm1XQHdRHRT3NywhR9YSG/M+3nXg2H7ZIiOA8iyPR2tX8KWIRRjEJh+CAquDpPqswQddA==
-X-Received: by 2002:a05:6512:12c8:b0:471:c14e:1edf with SMTP id
- p8-20020a05651212c800b00471c14e1edfmr665903lfg.144.1651262257796; 
- Fri, 29 Apr 2022 12:57:37 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- j17-20020ac253b1000000b0047255d2118csm10601lfh.187.2022.04.29.12.57.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Apr 2022 12:57:37 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Fri, 29 Apr 2022 22:57:31 +0300
-Message-Id: <20220429195731.3716446-6-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220429195731.3716446-1-dmitry.baryshkov@linaro.org>
-References: <20220429195731.3716446-1-dmitry.baryshkov@linaro.org>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 132E210FAA7
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 21:01:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1651266084; x=1682802084;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=YAy5hDNSXKSdiUe7Q8Gg9AVeElzFMCbEu2X1y5vlsLw=;
+ b=zgYxipx6N2VMVk1GUb4OhW4qvYgUKi5FCgOhFFXFsmMpIehYmAZClDXP
+ w+tffYFqgs4m+WlNzwjk/6EwJw3Z+jQaJFjE5smsYin6M5qEcTx/hwK/2
+ Kco2vQ7aSrHq5z04SCoQigutoKE+O+ju4NfHwKg3S1IDPndwl2K84Upua E=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 29 Apr 2022 14:01:23 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2022 14:01:23 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 29 Apr 2022 14:01:22 -0700
+Received: from [10.38.245.205] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 29 Apr
+ 2022 14:01:21 -0700
+Message-ID: <1ff04bd4-7d0d-9a08-6ea6-277c0eec0f43@quicinc.com>
+Date: Fri, 29 Apr 2022 14:01:19 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC PATCH v2 5/5] drm/msm/dp: Implement hpd_notify()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>
+References: <20220429192928.3697407-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220429192928.3697407-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [RFC PATCH 0/4] drm/msm/dp: implement HPD
+ notifications handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,126 +65,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ freedreno@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
+Adding kuogee here to keep him in the loop.
 
-The Qualcomm DisplayPort driver contains traces of the necessary
-plumbing to hook up USB HPD, in the form of the dp_hpd module and the
-dp_usbpd_cb struct. Use this as basis for implementing the
-hpd_notify() callback, by amending the dp_hpd module with the
-missing logic.
+We will also review/test these.
 
-Overall the solution is similar to what's done downstream, but upstream
-all the code to disect the HPD notification lives on the calling side of
-drm_connector_oob_hotplug_event().
+Thanks
 
-drm_connector_oob_hotplug_event() performs the lookup of the
-drm_connector based on fwnode, hence the need to assign the fwnode in
-dp_drm_connector_init().
+Abhinav
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-[DB: rebased to use drm_bridge_connector]
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_display.h |  1 +
- drivers/gpu/drm/msm/dp/dp_drm.c     |  3 +++
- drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
- 4 files changed, 29 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 454c21e702ae..35004640d42a 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -83,6 +83,8 @@ struct dp_display_private {
- 	bool hpd_irq_on;
- 	bool audio_supported;
- 
-+	bool connected;
-+
- 	struct drm_device *drm_dev;
- 	struct platform_device *pdev;
- 	struct dentry *root;
-@@ -1272,6 +1274,7 @@ static int dp_display_probe(struct platform_device *pdev)
- 	if (!desc)
- 		return -EINVAL;
- 
-+	dp->dp_display.dev = &pdev->dev;
- 	dp->pdev = pdev;
- 	dp->name = "drm_dp";
- 	dp->dp_display.connector_type = desc->connector_type;
-@@ -1761,3 +1764,23 @@ void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
- 	dp_display->dp_mode.h_active_low =
- 		!!(dp_display->dp_mode.drm_mode.flags & DRM_MODE_FLAG_NHSYNC);
- }
-+
-+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-+			  enum drm_connector_status status)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
-+	struct msm_dp *dp = dp_bridge->dp_display;
-+	struct dp_display_private *dp_display = container_of(dp, struct dp_display_private, dp_display);
-+
-+	drm_dbg_dp(dp_display->drm_dev, "status: %d connected: %d\n", status, dp_display->connected);
-+
-+	if (!dp_display->connected && status == connector_status_connected) {
-+		dp_display->connected = true;
-+		dp_display_usbpd_configure(dp_display);
-+	} else if (status != connector_status_connected) {
-+		dp_display->connected = false;
-+		dp_display_usbpd_disconnect(dp_display);
-+	} else {
-+		dp_display_usbpd_attention(dp_display);
-+	}
-+}
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 4f9fe4d7610b..2d2614bc5a14 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -11,6 +11,7 @@
- #include "disp/msm_disp_snapshot.h"
- 
- struct msm_dp {
-+	struct device *dev;
- 	struct drm_device *drm_dev;
- 	struct device *codec_dev;
- 	struct drm_bridge *bridge;
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 62d58b9c4647..821cfd37b1fb 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -68,6 +68,7 @@ static const struct drm_bridge_funcs dp_bridge_ops = {
- 	.mode_valid   = dp_bridge_mode_valid,
- 	.get_modes    = dp_bridge_get_modes,
- 	.detect       = dp_bridge_detect,
-+	.hpd_notify   = dp_bridge_hpd_notify,
- };
- 
- struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-@@ -138,6 +139,8 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- 	if (IS_ERR(connector))
- 		return connector;
- 
-+	connector->fwnode = fwnode_handle_get(dev_fwnode(dp_display->dev));
-+
- 	drm_connector_attach_encoder(connector, dp_display->encoder);
- 
- 	return connector;
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index f4b1ed1e24f7..3b7480a86844 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -32,5 +32,7 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
- void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
- 			const struct drm_display_mode *mode,
- 			const struct drm_display_mode *adjusted_mode);
-+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-+			  enum drm_connector_status status);
- 
- #endif /* _DP_DRM_H_ */
--- 
-2.35.1
-
+On 4/29/2022 12:29 PM, Dmitry Baryshkov wrote:
+> USB altmodes code would send OOB notifications to the drm_connector
+> specified in the device tree. However as the MSM DP driver uses
+> drm_bridge_connector, there is no way to receive these event directly.
+> Implement a bridge between oob_hotplug_event and drm_bridge's hpd_notify
+> and use it to deliver altmode messages to the MSM DP driver
+> 
+> Bjorn Andersson (2):
+>    drm: Add HPD state to drm_connector_oob_hotplug_event()
+>    drm/msm/dp: Implement hpd_notify()
+> 
+> Dmitry Baryshkov (2):
+>    drm/bridge_connector: stop filtering events in
+>      drm_bridge_connector_hpd_cb()
+>    drm/bridge_connector: implement oob_hotplug_event
+> 
+>   drivers/gpu/drm/drm_bridge_connector.c   | 17 ++++++++++++-----
+>   drivers/gpu/drm/drm_connector.c          |  6 ++++--
+>   drivers/gpu/drm/i915/display/intel_dp.c  | 17 ++++++++++++++---
+>   drivers/gpu/drm/i915/i915_drv.h          |  3 +++
+>   drivers/gpu/drm/msm/dp/dp_display.c      | 11 +++++++++++
+>   drivers/gpu/drm/msm/dp/dp_display.h      |  1 +
+>   drivers/gpu/drm/msm/dp/dp_drm.c          |  3 +++
+>   drivers/gpu/drm/msm/dp/dp_drm.h          |  2 ++
+>   drivers/gpu/drm/msm/dp/dp_hpd.c          | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/dp/dp_hpd.h          |  5 +++++
+>   drivers/usb/typec/altmodes/displayport.c | 10 +++-------
+>   include/drm/drm_connector.h              |  6 ++++--
+>   12 files changed, 83 insertions(+), 19 deletions(-)
+> 
