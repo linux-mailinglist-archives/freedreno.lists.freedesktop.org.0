@@ -1,59 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809BF515657
-	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 23:02:12 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E07551576E
+	for <lists+freedreno@lfdr.de>; Fri, 29 Apr 2022 23:53:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4800B10FAA5;
-	Fri, 29 Apr 2022 21:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2607D10FAD9;
+	Fri, 29 Apr 2022 21:53:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A201410FAA5
- for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 21:02:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651266130; x=1682802130;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=7KZOUPszHZtEf2cG9unXjNPKVInGhLk0ydDvXgNUdUU=;
- b=nqGPaghyv0DHtL5Meg5keKJ4SjD2Fe8PpTGwPVb8yRvPocEvwKf5B0ik
- yCYIhQroVfPOYk/makDkXw/SGZmAvJQWOSs5Wa4rVywELnnjEpsvELnaO
- teyVS3HnIMsJtN56ao94wCWw+Kj2MkFVf49jwjluVBAe2GZwT9CPwbb/F Y=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 29 Apr 2022 14:02:10 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2022 14:02:10 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 29 Apr 2022 14:02:09 -0700
-Received: from [10.38.245.205] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 29 Apr
- 2022 14:02:08 -0700
-Message-ID: <a40691ac-6803-93e8-23dd-dfad18a7bb42@quicinc.com>
-Date: Fri, 29 Apr 2022 14:02:06 -0700
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B244310FAC9
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 21:53:27 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id m23so11987189ljb.8
+ for <freedreno@lists.freedesktop.org>; Fri, 29 Apr 2022 14:53:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mx96GF5mK2X2Q9SZlgJmIqotjYYuzoJNpzCjKgQvXXc=;
+ b=zQM1rexPb+PuCeQE3rGh8yDNn0rfbjhAYBLT/pCtmSftZ+l8negFH45+12uqdbCIq7
+ f34QunA7P3tbi4Aj6F5SfdH+TkMNhRqgq8CdqyqgPFwl9hqHQZ7aDS74hCPXut+oQ+i3
+ 45IP3qxP5JBqEWQYkrdBjSgiB4DST48lDrtg5Th3IAc+pXs4CkrqjruPfX6ITKBkjQxa
+ 2ER8y2fZR3jsN/0pP7bw6uMwKxUrMSLPWZPM7xcYczbEw5DmzN/0fPvwkoGqX3Ce1qpK
+ gwUO8OpBVBBZADCHddKhbknM5suUAADtHI4x/Jt6039iFbzxsJgAZwsJonAX9maOEcbq
+ uvKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mx96GF5mK2X2Q9SZlgJmIqotjYYuzoJNpzCjKgQvXXc=;
+ b=NuZEKie0Nc3AzY9+FkItGR4EuhHe1EPcMcjhzDRwyRal7LSiiRIieyt8PdqaeT6J5B
+ a9jh9uuYEyTbK2TrqOAiMziK/JbOtTq4nKuB/WgpnV8V3rmFt5EZlzaJoIg2pTTNYt3X
+ hkgEjB4YIAKKZiqOLL1Sxj3IN0Sq4HZXbkTsnFJKtKzaOi8XSzLS2qiyJRVYd259Dgo9
+ N1bHWQh505fZzDimm34Irr2+zejb0nTZLUNUf7wXwGRIzfsj0O+PHutAGFfUtujqgS7D
+ Hpzn4YF0eFnKto0d6w8dJW6uKs6skR+gBfBcJZN0Spl2aorIXgcASwv2VdZNgqSugliP
+ PbFw==
+X-Gm-Message-State: AOAM531QeD5ERF4Gjchk2f6nsd4l5igAsw9KgNSQ/r0yre/1OSUPCcde
+ RGAt7ddMLGdZTpuR+lXFsRUYwg==
+X-Google-Smtp-Source: ABdhPJxTCMaDPQsKPWv6eVS+a/KAs7Y2FdPT/TsKt8CoWZ8/JPGV9PwjBnt3nTK4XNlR4U+ne07m7Q==
+X-Received: by 2002:a2e:b8c3:0:b0:24f:3395:16e8 with SMTP id
+ s3-20020a2eb8c3000000b0024f339516e8mr801971ljp.378.1651269206070; 
+ Fri, 29 Apr 2022 14:53:26 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ 11-20020ac2568b000000b0047255d21182sm32637lfr.177.2022.04.29.14.53.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Apr 2022 14:53:25 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: linux-kernel@vger.kernel.org
+Date: Sat, 30 Apr 2022 00:53:24 +0300
+Message-Id: <20220429215324.3729441-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>
-References: <20220429195731.3716446-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220429195731.3716446-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [RFC PATCH v2 0/5] drm/msm/dp: implement HPD
- notifications handling
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] MAINTAINERS: Add Dmitry as MSM DRM driver
+ co-maintainer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,63 +67,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- freedreno@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Adding kuogee to keep him in the loop to review/test these.
+For the past several releases I have been assisting Rob by writing,
+collecting, testing and integrating patches for non-GPU and non-core
+parts of MSM DRM driver, while Rob is more interested in improving the
+GPU-related part. Let's note this in the MAINTAINERS file.
 
-Thanks
+While we are at it, per Rob's suggestion let's also promote Abhinav
+Kumar to M: (as he is actively working on the driver) and switch Sean
+Paul to R: (since he isn't doing much on msm these days).
 
-Abhinav
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ MAINTAINERS | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-On 4/29/2022 12:57 PM, Dmitry Baryshkov wrote:
-> USB altmodes code would send OOB notifications to the drm_connector
-> specified in the device tree. However as the MSM DP driver uses
-> drm_bridge_connector, there is no way to receive these event directly.
-> Implement a bridge between oob_hotplug_event and drm_bridge's hpd_notify
-> and use it to deliver altmode messages to the MSM DP driver.
-> 
-> Note, I left the original 'bool connected' field to be used by the
-> notifiers. However I think that it should be replaced in favour of using
-> the dp->hpd_state properly.
-> 
-> Changes since RFC v1:
->   - Incorporated old patch dropping old usbpd code. Most of it remained
->     unused.
-> 
-> Bjorn Andersson (2):
->    drm: Add HPD state to drm_connector_oob_hotplug_event()
->    drm/msm/dp: Implement hpd_notify()
-> 
-> Dmitry Baryshkov (3):
->    drm/bridge_connector: stop filtering events in
->      drm_bridge_connector_hpd_cb()
->    drm/bridge_connector: implement oob_hotplug_event
->    drm/msm/dp: remove most of usbpd-related remains
-> 
->   drivers/gpu/drm/drm_bridge_connector.c   | 17 ++++--
->   drivers/gpu/drm/drm_connector.c          |  6 +-
->   drivers/gpu/drm/i915/display/intel_dp.c  | 17 +++++-
->   drivers/gpu/drm/i915/i915_drv.h          |  3 +
->   drivers/gpu/drm/msm/Makefile             |  1 -
->   drivers/gpu/drm/msm/dp/dp_ctrl.h         |  1 -
->   drivers/gpu/drm/msm/dp/dp_debug.c        |  6 +-
->   drivers/gpu/drm/msm/dp/dp_debug.h        |  4 +-
->   drivers/gpu/drm/msm/dp/dp_display.c      | 65 +++++++++-----------
->   drivers/gpu/drm/msm/dp/dp_display.h      |  1 +
->   drivers/gpu/drm/msm/dp/dp_drm.c          |  3 +
->   drivers/gpu/drm/msm/dp/dp_drm.h          |  2 +
->   drivers/gpu/drm/msm/dp/dp_hpd.c          | 67 --------------------
->   drivers/gpu/drm/msm/dp/dp_hpd.h          | 78 ------------------------
->   drivers/gpu/drm/msm/dp/dp_panel.h        |  1 -
->   drivers/gpu/drm/msm/dp/dp_power.c        |  2 +-
->   drivers/gpu/drm/msm/dp/dp_power.h        |  3 +-
->   drivers/usb/typec/altmodes/displayport.c | 10 +--
->   include/drm/drm_connector.h              |  6 +-
->   19 files changed, 82 insertions(+), 211 deletions(-)
->   delete mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
->   delete mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
-> 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 61d9f114c37f..782934f318d4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6254,8 +6254,9 @@ F:	drivers/gpu/drm/tiny/panel-mipi-dbi.c
+ 
+ DRM DRIVER FOR MSM ADRENO GPU
+ M:	Rob Clark <robdclark@gmail.com>
+-M:	Sean Paul <sean@poorly.run>
+-R:	Abhinav Kumar <quic_abhinavk@quicinc.com>
++M:	Abhinav Kumar <quic_abhinavk@quicinc.com>
++M:	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
++R:	Sean Paul <sean@poorly.run>
+ L:	linux-arm-msm@vger.kernel.org
+ L:	dri-devel@lists.freedesktop.org
+ L:	freedreno@lists.freedesktop.org
+-- 
+2.35.1
+
