@@ -1,53 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B26515F59
-	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 18:54:40 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4165515FA0
+	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 19:39:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B100310E1E8;
-	Sat, 30 Apr 2022 16:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E4AD10E260;
+	Sat, 30 Apr 2022 17:39:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E77C810E1E8;
- Sat, 30 Apr 2022 16:54:37 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- az27-20020a05600c601b00b0039431ba4905so229636wmb.1; 
- Sat, 30 Apr 2022 09:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=UgcfR9fxU4zn71AkYAESURVcvwrfVRwbY7xOuXfpyVs=;
- b=RaVNxJ1ZS3dYfc2EW9OaPpgudBJ6n/5ARY+OKf5kiz//QhyBK2GzO9Vw2u8KbabzK1
- frw4eR+tJiKArbMjTF1ZgMt9cUi5CyFBn3dsiQS8tMnWM4ARCMV8qABMTXq7Uo2/7hNk
- 6aTo//bGnmWPO7PTMJqBlOG+zEaJ9kIohIdOCiu3XG7dd3qP6H0jvG6sT1xDQ2gG6rJb
- bQraA3FCd35zqxDSTIAMW1w/3vFr/9Iu3fRWdUKM3TnRNGmbvz/ywWY+ldq2vaKwRdLR
- Gm6n0vax5hJ949t7uHBVkyFjfzCDpS61SxeDyOgGuWddSdEpCTQo9vjMmun8SNYezJHI
- w0vg==
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1BC10E260
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 17:39:12 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id j4so19018960lfh.8
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 10:39:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=PJUZmqtC/NlHzYBP/fTYOLhJquf+nkTxythqoIbiJuM=;
+ b=pd1meebuNyXZNSecDYOignWtnc4uipjWvxFVlqwUedoes11qQYqEUl9XeZ4L7Skj3t
+ bLLLLu2wiGS6Cs0JoyCGacW6QOGboQ41b+SY9PYZXeNRjdtE1j2SMREQnjml6+N7IYzk
+ PBfcaDqxY1h0MCi0KzIUq9r6DG6YsQupIFvCaOEBgVu9Cm4L0+T3uH2cGDnllzeTqDXU
+ gqvZzVGAPULEuUYHszaJjNXXqTo0QNuudXw/28OZD68EAmaFaBroBsrDk5WMjqNKx7j8
+ vSQZPVHMZsjE599NJs1tD5I4dQ3gF+RKnkcLW8Bzadp25d/77/lE/N1PekRlxmOEoPeA
+ AqRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=UgcfR9fxU4zn71AkYAESURVcvwrfVRwbY7xOuXfpyVs=;
- b=z2LlLH0i+MIX3iThhc3st/uY/7FpQ5eR6dk6jnseg7kgOOLOhj9Q6yk/zv5R4aHYhj
- tW4Jk6GS/V6Bxy+AIx8ba2/F8ZITmAim1LnNPlAIfeC40QAnbkXJBnRqT+jAaA3WAB6K
- xnkh5jQcrdosHM+XGNlkH06BYu8hhrgXn1a5e1bMoTobBxpYFI2N9NFEcI3BkRfhUyz2
- 6NJvu8h9Taz8nargr0IVcAjROOl7KdXJKweTKwc/EhQcmpJAivxv4YLnlcdSiZubZH7w
- 6v3XNB0XE6r+y4TKpzWL2z7q5M17kSefWvVv40lX9q6WSjIkab/suK3/I5eoL2mALSO0
- vK1Q==
-X-Gm-Message-State: AOAM5306JXnoOaQf/UAsf4nyUOsTU3i7jtjOkxZOEDvp9E2iB7nA8eCE
- MQTYiBo21447NHOS8Hak3d69B90idp+14rHsCAE=
-X-Google-Smtp-Source: ABdhPJwdO4xjsnmx6Bm8HEjwC+mQZtQxVrKTkJrHIUXRSOWdtkI810k4ORQlSla+k9gRR1V+zWGIQR6Xo0tEsV3sFr4=
-X-Received: by 2002:a05:600c:1548:b0:392:8e1a:18c3 with SMTP id
- f8-20020a05600c154800b003928e1a18c3mr4259445wmg.102.1651337676201; Sat, 30
- Apr 2022 09:54:36 -0700 (PDT)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=PJUZmqtC/NlHzYBP/fTYOLhJquf+nkTxythqoIbiJuM=;
+ b=V5ttXupGhQvt8HmjNrCXxxdn5WPpr9adm+ggnSaaYHybhEZE2HxMF9v3yl7PFMavid
+ YdUyIk7pGH7/y/Gk+8mjyl3YWGBF/Yl7t6LnI8o30c0s/Yq4my/cy7Rg1ok4v6PVzZM5
+ Z9pJiMwWvEpN2eVQ1+V01Tz+pz9lnUMyxG2nfHZbrbwYLdauHHJ2FHkffUIXC0I9iQbu
+ FowMCnRh2zVk1fo0hx4n7Kv01xj+E3/lJ71NQ/dNHOwRf5caAg04yZlsCUV4wE5r/Lx+
+ I+lN4C1cO7to4ktQsZVoH+f6gYG8HFgRqCwy9i4vRUtXe/M1jLFl3ea2YdPSpkDglPit
+ jnFg==
+X-Gm-Message-State: AOAM530jgpQLbnsDU+z8CYYApgowT6jXImiWX2B1E9S3zGXDcryHr2m+
+ jNk4m/sqIti/cJayg4h/YZWUew==
+X-Google-Smtp-Source: ABdhPJyE49bxeXuAVwnhwbGgtx0PpXMHqSkwfcWTqNFrKFCTOstMHHYjG2ux6kczABK3kiJkuT6HfA==
+X-Received: by 2002:a19:c511:0:b0:471:fc54:8a5 with SMTP id
+ w17-20020a19c511000000b00471fc5408a5mr3676482lfe.454.1651340350988; 
+ Sat, 30 Apr 2022 10:39:10 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ r5-20020a2e8e25000000b0024f3d1dae89sm589670ljk.17.2022.04.30.10.39.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 30 Apr 2022 10:39:10 -0700 (PDT)
+Message-ID: <d80dea48-5618-95be-67a4-e6ba12b4d05e@linaro.org>
+Date: Sat, 30 Apr 2022 20:39:09 +0300
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Sat, 30 Apr 2022 09:54:24 -0700
-Message-ID: <CAF6AEGtkzqzxDLp82OaKXVrWd7nWZtkxKsuOK1wOGCDz7qF-dA@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-04-30
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220430081101.3763847-1-dmitry.baryshkov@linaro.org>
+ <37f83a5e-a966-3da3-ea32-3478f77e98e8@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <37f83a5e-a966-3da3-ea32-3478f77e98e8@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: use RMW cycles in
+ dsi_update_dsc_timing
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,37 +77,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave & Daniel,
+On 30/04/2022 18:16, Abhinav Kumar wrote:
+> 
+> 
+> On 4/30/2022 1:11 AM, Dmitry Baryshkov wrote:
+>> The downstream uses read-modify-write for updating command mode
+>> compression registers. Let's follow this approach. This also fixes the
+>> following warning:
+>>
+>> drivers/gpu/drm/msm/dsi/dsi_host.c:918:23: warning: variable 
+>> 'reg_ctrl' set but not used [-Wunused-but-set-variable]
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +++-
+>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c 
+>> b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> index c983698d1384..a5619ad82a53 100644
+>> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+>> @@ -961,10 +961,12 @@ static void dsi_update_dsc_timing(struct 
+>> msm_dsi_host *msm_host, bool is_cmd_mod
+>>           reg_ctrl = dsi_read(msm_host, 
+>> REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+>>           reg_ctrl2 = dsi_read(msm_host, 
+>> REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
+>> +        reg_ctrl &= ~0xffff;
+>>           reg_ctrl |= reg;
+>> +        reg_ctrl &= 
+>> ~DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH__MASK;
+> 
+> Shoulnt this be
+> 
+> reg_ctrl2 &= ~DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH__MASK;
+> 
+> You seem to have used reg_ctrl which is wrong.
+> 
 
-One last fix for v5.18, to fix a lockdep issue.  Sorry, I meant to
-send this a couple days ago but forgot.
+Yes. Dummy c&p. I'll post v2 asap.
 
-The following changes since commit 0371870b96907bf560ecf7dc3fadc238fadf7845:
+>>           reg_ctrl2 |= 
+>> DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
+>> -        dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
+>> +        dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, 
+>> reg_ctrl);
+>>           dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, 
+>> reg_ctrl2);
+>>       } else {
+>>           dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
 
-  drm/msm: Revert "drm/msm: Stop using iommu_present()" (2022-04-19
-10:33:07 -0700)
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/msm.git drm-msm-fixes-2022-04-30
-
-for you to fetch changes up to 3f65b1e2f424f44585bd701024a3bfd0b1e0ade2:
-
-  drm/msm/dp: remove fail safe mode related code (2022-04-27 10:17:05 -0700)
-
-----------------------------------------------------------------
-Kuogee Hsieh (1):
-      drm/msm/dp: remove fail safe mode related code
-
- drivers/gpu/drm/msm/dp/dp_display.c |  6 ------
- drivers/gpu/drm/msm/dp/dp_panel.c   | 11 -----------
- drivers/gpu/drm/msm/dp/dp_panel.h   |  1 -
- 3 files changed, 18 deletions(-)
+-- 
+With best wishes
+Dmitry
