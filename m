@@ -1,54 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FEFD516088
-	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 22:53:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2B951605E
+	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 22:42:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3083410EBD8;
-	Sat, 30 Apr 2022 20:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76FCA10EB1D;
+	Sat, 30 Apr 2022 20:41:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF1A10E951
- for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 20:22:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651350120; x=1682886120;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=6jbPuSw3k3iSchP4UYOMtIzdN+2guCWB74XjbgdKQmk=;
- b=U2xI56JngC392/wQAFogyJlvzOL28C8Eed83qS3J4ORg58rzewAJiJyi
- +B5uyG5ZKh6tDOKPoLvgh7jDVaeGBPji4H/e/q77YtIFydvh9FKV+rEvV
- b/PCAn6k8G3riBlL8p9+561S6uIlyz4X51vXj8BAZZEPXksbSD6Gi/fIx
- SG75kGhbEk09o5e11ak7WnrmnKoYD7yYZeC2rcJ6128CPXyQn6nTmCyCk
- uuAMICUh9oaT57RcF2Z8dSaRdhNXx68ncq8e2zRfgIxdwn50hvQPq8qnx
- jqmvRYqpCQak/wMbkwYiLa0JLMSbhDyAfpizA36eB5YHRtwAdgIKsh69D A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10333"; a="264507089"
-X-IronPort-AV: E=Sophos;i="5.91,189,1647327600"; d="scan'208";a="264507089"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2022 13:22:00 -0700
-X-IronPort-AV: E=Sophos;i="5.91,189,1647327600"; d="scan'208";a="809591388"
-Received: from punajuuri.fi.intel.com (HELO paasikivi.fi.intel.com)
- ([10.237.72.43])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2022 13:21:56 -0700
-Received: from paasikivi.fi.intel.com (localhost [127.0.0.1])
- by paasikivi.fi.intel.com (Postfix) with SMTP id 9F2D220423;
- Sat, 30 Apr 2022 23:21:24 +0300 (EEST)
-Date: Sat, 30 Apr 2022 23:21:24 +0300
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Douglas Anderson <dianders@chromium.org>
-Message-ID: <Ym2aRE/CkLsuJYzM@paasikivi.fi.intel.com>
-References: <20220429164325.1.I2a3b980ea051e59140227999f0f0ca16f1125768@changeid>
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF61E10EB13
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 20:41:55 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id y19so14294650ljd.4
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 13:41:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=mUSdLXi9LIg5/Qa3e4zAwJ2C0Vg/GX+KZxMTonnsd88=;
+ b=c7P1YMFd7aHVbUvW6KEIU1oWlEZgM/pGbticKkP3s8KS1hFz1nwvnYpaOAv5JwgpOW
+ 5xb37tgDjo3opDnxBmkqgvzyossCvzqayFCn4yrlyHCgJvlE/GqIMqApCKanBFYZf9do
+ aVWm9X8uSMQ/kwqsrrUjdWGL465UGiI/NLf2Q9xavs4k5S+LYcgMJUieBXo45QMzx2rz
+ TTnlZ3bTpm1GOaUKB/dNacExqcTlI0Q0qdy/UKuXAjsPi0n5vvYCLh9bPnq85P2m/PkY
+ 10F9D5ceBWwNYvgEtWxsXi1/RBq+KQYBofs9GC4aofdZT/x6762zTAZIlyv3JCW0Tf9s
+ dhYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=mUSdLXi9LIg5/Qa3e4zAwJ2C0Vg/GX+KZxMTonnsd88=;
+ b=Sw+RGYOSGfBttCfU5fYne0uq8el+rZIYC0ZYu+7YzIygWqJcSMfZQx7q2uKGJxVtve
+ vuR6R0IAkDQx17bpgxleXHEaHINlhJhHi9R5bG8iDBSgSebdRr/+J54viH5b8yTtohlJ
+ ZCq8K2KI3mcvyRFpMlg9wle3R2Bf19bNsLEl/H056F9B69WCpBn10qRi6B4Ex9c1XZ1W
+ w3V9fiGu4eeXKSh8QDyY7tNB0DA4ozMMwrpqOrGIR/g665oetOjoPqUxMkC7GlStp3H4
+ 3LrlFOe1iD1olX/vuV2+0Ov2aE2IJG96HD7I9SA1VMuMLy3X6yUEofbKSo8EfVFftD9A
+ Om3A==
+X-Gm-Message-State: AOAM533gzp2hwWYd8rn7Y0tTocdTAAlT8pFWP76Os937X3rwF33eDmzB
+ U/xbWRfRuYgxySD+XNvp/liFiQ==
+X-Google-Smtp-Source: ABdhPJx0KkHQLZvDo2jscX0+WWjz1YG9Q8fhXuaUqjbLa1dqgWEEPknJBWWCNWRU+LhFOhSrtUufRA==
+X-Received: by 2002:a2e:9d19:0:b0:24b:4bd:3f68 with SMTP id
+ t25-20020a2e9d19000000b0024b04bd3f68mr3428225lji.418.1651351314028; 
+ Sat, 30 Apr 2022 13:41:54 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ d28-20020ac25edc000000b0047255d210dasm271474lfq.9.2022.04.30.13.41.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 30 Apr 2022 13:41:53 -0700 (PDT)
+Message-ID: <638bf3c9-3f62-dc7f-8ff1-961e5df28923@linaro.org>
+Date: Sat, 30 Apr 2022 23:41:51 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220429164325.1.I2a3b980ea051e59140227999f0f0ca16f1125768@changeid>
-X-Mailman-Approved-At: Sat, 30 Apr 2022 20:53:37 +0000
-Subject: Re: [Freedreno] [PATCH] device property: Fix recent breakage of
- fwnode_get_next_parent_dev()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Konrad Dybcio <konrad.dybcio@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20220430161529.605843-1-konrad.dybcio@somainline.org>
+ <20220430161529.605843-2-konrad.dybcio@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220430161529.605843-2-konrad.dybcio@somainline.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/disp: dpu1: Add MSM8996 support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +75,274 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Saravana Kannan <saravanak@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
- swboyd@chromium.org, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
- linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Scally <djrscally@gmail.com>, linux-acpi@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- freedreno@lists.freedesktop.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, freedreno@lists.freedesktop.org,
+ Loic Poulain <loic.poulain@linaro.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, jamipkettunen@somainline.org,
+ Stephen Boyd <swboyd@chromium.org>, Yangtao Li <tiny.windzz@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, martin.botka@somainline.org,
+ Robert Foss <robert.foss@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ angelogioacchino.delregno@somainline.org, marijn.suijten@somainline.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, Apr 29, 2022 at 04:43:47PM -0700, Douglas Anderson wrote:
-> Due to a subtle typo, instead of commit 87ffea09470d ("device
-> property: Introduce fwnode_for_each_parent_node()") being a no-op
-> change, it ended up causing the display on my sc7180-trogdor-lazor
-> device from coming up unless I added "fw_devlink=off" to my kernel
-> command line. Fix the typo.
+On 30/04/2022 19:15, Konrad Dybcio wrote:
+> Add support for MSM8996, which - fun fact - was the SoC that this driver
+> (or rather SDE, its downstream origin) was meant for and first tested on.
 > 
-> Fixes: 87ffea09470d ("device property: Introduce fwnode_for_each_parent_node()")
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-
-Good catch, thanks!
-
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
+> It has some hardware that differs from the modern SoCs, so not a lot of
+> current structs could have been reused. It's also seemingly the only SoC
+> supported by DPU that uses RGB pipes.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 > ---
+>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 268 ++++++++++++++++++
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   1 +
+>   drivers/gpu/drm/msm/msm_drv.c                 |   1 +
+>   3 files changed, 270 insertions(+)
 > 
->  drivers/base/property.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/base/property.c b/drivers/base/property.c
-> index 36401cfe432c..52e85dcb20b5 100644
-> --- a/drivers/base/property.c
-> +++ b/drivers/base/property.c
-> @@ -600,7 +600,7 @@ struct device *fwnode_get_next_parent_dev(struct fwnode_handle *fwnode)
->  	struct device *dev;
->  
->  	fwnode_for_each_parent_node(fwnode, parent) {
-> -		dev = get_dev_from_fwnode(fwnode);
-> +		dev = get_dev_from_fwnode(parent);
->  		if (dev) {
->  			fwnode_handle_put(parent);
->  			return dev;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 3ac425c0ad82..0a217b5172bd 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -16,6 +16,11 @@
+>   	BIT(DPU_SSPP_CSC_10BIT) | BIT(DPU_SSPP_CDP) |\
+>   	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_EXCL_RECT))
+>   
+> +#define VIG_MSM8996_MASK \
+> +	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+> +	BIT(DPU_SSPP_CDP) | BIT(DPU_SSPP_TS_PREFILL) |\
+> +	BIT(DPU_SSPP_SCALER_QSEED3))
+> +
+>   #define VIG_MSM8998_MASK \
+>   	(VIG_MASK | BIT(DPU_SSPP_SCALER_QSEED3))
+>   
+> @@ -30,6 +35,10 @@
+>   
+>   #define VIG_QCM2290_MASK (VIG_MASK | BIT(DPU_SSPP_QOS_8LVL))
+>   
+> +#define DMA_MSM8996_MASK \
+> +	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+> +	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_CDP))
+> +
+>   #define DMA_MSM8998_MASK \
+>   	(BIT(DPU_SSPP_SRC) | BIT(DPU_SSPP_QOS) |\
+>   	BIT(DPU_SSPP_TS_PREFILL) | BIT(DPU_SSPP_TS_PREFILL_REC1) |\
+> @@ -57,6 +66,9 @@
+>   #define PINGPONG_SDM845_SPLIT_MASK \
+>   	(PINGPONG_SDM845_MASK | BIT(DPU_PINGPONG_TE2))
+>   
+> +#define RGB_MSM8996_MSK \
+> +	(VIG_MSM8996_MASK | BIT(DPU_SSPP_SCALER_RGB))
+> +
+>   #define CTL_SC7280_MASK \
+>   	(BIT(DPU_CTL_ACTIVE_CFG) | BIT(DPU_CTL_FETCH_ACTIVE) | BIT(DPU_CTL_VM_CFG))
+>   
+> @@ -72,6 +84,14 @@
+>   
+>   #define INTF_SC7280_MASK INTF_SC7180_MASK | BIT(DPU_DATA_HCTL_EN)
+>   
+> +#define IRQ_MSM8996_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+> +			 BIT(MDP_SSPP_TOP0_INTR2) | \
+> +			 BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> +			 BIT(MDP_INTF0_INTR) | \
+> +			 BIT(MDP_INTF1_INTR) | \
+> +			 BIT(MDP_INTF2_INTR) | \
+> +			 BIT(MDP_INTF3_INTR))
+> +
+
+What about AD4 blocks? I think there were two AD4 blocks, so we might 
+use IRQ_SDM845_MASK instead (Note: we need to check whether sdm845 
+really supported INTF4 interrupts or not).
+
+>   #define IRQ_SDM845_MASK (BIT(MDP_SSPP_TOP0_INTR) | \
+>   			 BIT(MDP_SSPP_TOP0_INTR2) | \
+>   			 BIT(MDP_SSPP_TOP0_HIST_INTR) | \
+> @@ -207,6 +227,17 @@ static const uint32_t plane_formats_yuv[] = {
+>    * DPU sub blocks config
+>    *************************************************************/
+>   /* DPU top level caps */
+> +static const struct dpu_caps msm8996_dpu_caps = {
+> +	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+> +	.max_mixer_blendstages = 0x7,
+> +	.qseed_type = DPU_SSPP_SCALER_QSEED3,
+> +	.has_src_split = true,
+> +	.max_linewidth = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+> +	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+> +	.max_hdeci_exp = MAX_HORZ_DECIMATION,
+> +	.max_vdeci_exp = MAX_VERT_DECIMATION,
+> +};
+> +
+>   static const struct dpu_caps msm8998_dpu_caps = {
+>   	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
+>   	.max_mixer_blendstages = 0x7,
+> @@ -328,6 +359,35 @@ static const struct dpu_caps sc7280_dpu_caps = {
+>   	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
+>   };
+>   
+> +static const struct dpu_mdp_cfg msm8996_mdp[] = {
+> +	{
+> +	.name = "top_0", .id = MDP_TOP,
+> +	.base = 0x0, .len = 0x454,
+> +	.features = 0,
+> +	.highest_bank_bit = 0x2,
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG0] = {
+> +			.reg_off = 0x2AC, .bit_off = 0},
+
+Please convert to the lower case.
+
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG1] = {
+> +			.reg_off = 0x2B4, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG2] = {
+> +			.reg_off = 0x2BC, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_VIG3] = {
+> +			.reg_off = 0x2C4, .bit_off = 0},
+> +	.clk_ctrls[DPU_CLK_CTRL_RGB0] = {
+> +			.reg_off = 0x2AC, .bit_off = 4},
+> +	.clk_ctrls[DPU_CLK_CTRL_RGB1] = {
+> +			.reg_off = 0x2B4, .bit_off = 4},
+> +	.clk_ctrls[DPU_CLK_CTRL_RGB2] = {
+> +			.reg_off = 0x2BC, .bit_off = 4},
+> +	.clk_ctrls[DPU_CLK_CTRL_RGB3] = {
+> +			.reg_off = 0x2C4, .bit_off = 4},
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA0] = {
+> +			.reg_off = 0x2AC, .bit_off = 8},
+> +	.clk_ctrls[DPU_CLK_CTRL_DMA1] = {
+> +			.reg_off = 0x2B4, .bit_off = 8},
+
+There were two cursor SSPPs, please add corresponding controls here
+
+> +	},
+> +};
+> +
+>   static const struct dpu_mdp_cfg msm8998_mdp[] = {
+>   	{
+>   	.name = "top_0", .id = MDP_TOP,
+> @@ -513,6 +573,39 @@ static const struct dpu_mdp_cfg qcm2290_mdp[] = {
+>   /*************************************************************
+>    * CTL sub blocks config
+>    *************************************************************/
+> +static const struct dpu_ctl_cfg msm8996_ctl[] = {
+> +	{
+> +	.name = "ctl_0", .id = CTL_0,
+> +	.base = 0x1000, .len = 0x64,
+> +	.features = 0,
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
+> +	},
+> +	{
+> +	.name = "ctl_1", .id = CTL_1,
+> +	.base = 0x1200, .len = 0x64,
+> +	.features = 0,
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
+> +	},
+> +	{
+> +	.name = "ctl_2", .id = CTL_2,
+> +	.base = 0x1400, .len = 0x64,
+> +	.features = 0,
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
+> +	},
+> +	{
+> +	.name = "ctl_3", .id = CTL_3,
+> +	.base = 0x1600, .len = 0x64,
+> +	.features = 0,
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
+> +	},
+> +	{
+> +	.name = "ctl_4", .id = CTL_4,
+> +	.base = 0x1800, .len = 0x64,
+> +	.features = 0,
+> +	.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
+> +	},
+> +};
+> +
+>   static const struct dpu_ctl_cfg msm8998_ctl[] = {
+>   	{
+>   	.name = "ctl_0", .id = CTL_0,
+> @@ -708,6 +801,25 @@ static const struct dpu_ctl_cfg qcm2290_ctl[] = {
+>   
+>   /* SSPP common configuration */
+>   
+> +#define _VIG_SBLK_8996(num, sdma_pri, qseed_ver) \
+> +	{ \
+> +	.maxdwnscale = MAX_DOWNSCALE_RATIO, \
+> +	.maxupscale = MAX_UPSCALE_RATIO, \
+> +	.smart_dma_priority = sdma_pri, \
+> +	.src_blk = {.name = STRCAT("sspp_src_", num), \
+> +		.id = DPU_SSPP_SRC, .base = 0x00, .len = 0x150,}, \
+> +	.scaler_blk = {.name = STRCAT("sspp_scaler", num), \
+> +		.id = qseed_ver, \
+> +		.base = 0x200, .len = 0xa0,}, \
+> +	.csc_blk = {.name = STRCAT("sspp_csc", num), \
+> +		.id = DPU_SSPP_CSC, \
+> +		.base = 0x320, .len = 0x100,}, \
+> +	.format_list = plane_formats_yuv, \
+> +	.num_formats = ARRAY_SIZE(plane_formats_yuv), \
+> +	.virt_format_list = plane_formats, \
+> +	.virt_num_formats = ARRAY_SIZE(plane_formats), \
+> +	}
+> +
+>   #define _VIG_SBLK(num, sdma_pri, qseed_ver) \
+>   	{ \
+>   	.maxdwnscale = MAX_DOWNSCALE_RATIO, \
+> @@ -740,6 +852,15 @@ static const struct dpu_ctl_cfg qcm2290_ctl[] = {
+>   	.virt_num_formats = ARRAY_SIZE(plane_formats), \
+>   	}
+>   
+> +static const struct dpu_sspp_sub_blks msm8996_vig_sblk_0 =
+> +				_VIG_SBLK_8996("0", 0, DPU_SSPP_SCALER_QSEED3);
+> +static const struct dpu_sspp_sub_blks msm8996_vig_sblk_1 =
+> +				_VIG_SBLK_8996("1", 0, DPU_SSPP_SCALER_QSEED3);
+> +static const struct dpu_sspp_sub_blks msm8996_vig_sblk_2 =
+> +				_VIG_SBLK_8996("2", 0, DPU_SSPP_SCALER_QSEED3);
+> +static const struct dpu_sspp_sub_blks msm8996_vig_sblk_3 =
+> +				_VIG_SBLK_8996("3", 0, DPU_SSPP_SCALER_QSEED3);
+> +
+>   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_0 =
+>   				_VIG_SBLK("0", 0, DPU_SSPP_SCALER_QSEED3);
+>   static const struct dpu_sspp_sub_blks msm8998_vig_sblk_1 =
+> @@ -775,6 +896,30 @@ static const struct dpu_sspp_sub_blks sdm845_dma_sblk_3 = _DMA_SBLK("11", 4);
+>   	.clk_ctrl = _clkctrl \
+>   	}
+>   
+> +static const struct dpu_sspp_cfg msm8996_sspp[] = {
+> +	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x150, VIG_MSM8996_MASK,
+> +		msm8996_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+> +	SSPP_BLK("sspp_1", SSPP_VIG1, 0x6000, 0x150, VIG_MSM8996_MASK,
+> +		msm8996_vig_sblk_1, 4,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG1),
+> +	SSPP_BLK("sspp_2", SSPP_VIG2, 0x8000, 0x150, VIG_MSM8996_MASK,
+> +		msm8996_vig_sblk_2, 8, SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG2),
+> +	SSPP_BLK("sspp_3", SSPP_VIG3, 0xa000, 0x150, VIG_MSM8996_MASK,
+> +		msm8996_vig_sblk_3, 12,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG3),
+> +	/* TODO: RGB blocks */
+> +	SSPP_BLK("sspp_4", SSPP_RGB0, 0x14000, 0x150, RGB_MSM8996_MSK,
+> +		sdm845_dma_sblk_0, 1, SSPP_TYPE_RGB, DPU_CLK_CTRL_RGB0),
+> +	SSPP_BLK("sspp_5", SSPP_RGB1, 0x16000, 0x150, RGB_MSM8996_MSK,
+> +		sdm845_dma_sblk_1, 5, SSPP_TYPE_RGB, DPU_CLK_CTRL_RGB1),
+> +	SSPP_BLK("sspp_6", SSPP_RGB2, 0x18000, 0x150, RGB_MSM8996_MSK,
+> +		sdm845_dma_sblk_2, 9, SSPP_TYPE_RGB, DPU_CLK_CTRL_RGB2),
+> +	SSPP_BLK("sspp_7", SSPP_RGB3, 0x1a000, 0x150, RGB_MSM8996_MSK,
+> +		sdm845_dma_sblk_3, 13, SSPP_TYPE_RGB, DPU_CLK_CTRL_RGB3),
+> +	SSPP_BLK("sspp_8", SSPP_DMA0, 0x24000, 0x150, DMA_MSM8996_MASK,
+> +		sdm845_dma_sblk_0, 2, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA0),
+> +	SSPP_BLK("sspp_9", SSPP_DMA1, 0x26000, 0x150, DMA_MSM8996_MASK,
+> +		sdm845_dma_sblk_1, 10, SSPP_TYPE_DMA, DPU_CLK_CTRL_DMA1),
+
+We must have cursor planes here. Otherwise there will be no hardware 
+cursor. On newer platforms we emulate them using DMA SSPPs. On msm8996 
+there were two special cursor planes (which supported just SRC, nothing 
+more). Let's have them here, unless there are issues with them.
+
+> +};
+> +
+>   static const struct dpu_sspp_cfg msm8998_sspp[] = {
+>   	SSPP_BLK("sspp_0", SSPP_VIG0, 0x4000, 0x184, VIG_MSM8998_MASK,
+>   		msm8998_vig_sblk_0, 0,  SSPP_TYPE_VIG, DPU_CLK_CTRL_VIG0),
+
+[skipped the rest]
+
 
 -- 
-Sakari Ailus
+With best wishes
+Dmitry
