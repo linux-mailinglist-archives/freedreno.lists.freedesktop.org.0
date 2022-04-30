@@ -1,42 +1,42 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1CC515E80
-	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 17:00:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6508A515E9B
+	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 17:16:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71D2D10E7F2;
-	Sat, 30 Apr 2022 15:00:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFE6D10E88D;
+	Sat, 30 Apr 2022 15:16:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78DD910E7F2;
- Sat, 30 Apr 2022 15:00:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC99910E888;
+ Sat, 30 Apr 2022 15:16:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651330839; x=1682866839;
+ t=1651331815; x=1682867815;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=v/gkyE4ULsTCLZ3kbGGH3ZHrxDlf8lVW8P4DVyRBJyY=;
- b=SjB3ZOKuZDWr6bmKs1or8YZ3z/qL5kWBQ79JfrDgs0Y81BR6aqZN6J8F
- Gm7daaMo35S62Sbu7EfkPA+CV6ZOEjzfgdLffawCr9semxqN086kaUMr0
- UpRj8Bvr/Mzwy4XrxKc41R4WOwcwARX8tDSlD6fXS8FJ+Up3esAKDuMfH k=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 30 Apr 2022 08:00:38 -0700
+ bh=SIGsbF76GumDxFQaBowTdv//ZxAPwULxfYMI2yX63Pw=;
+ b=NQdQEhHIMl8W8jopX59e1ARaFUKxdphqIe8lLa7aeT+VEmnWnXUWvV5P
+ HlzrO1ixtS5rGFP3vPJLvjxK1KT8gpzGT+m4KAVFLkPlQhZtzjC7zuhBa
+ XOwLrTf6k5vD3g1+PVR+01RM0xve5A2JT7JV90+0RsQzVCt2l0M1vtq8O k=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 30 Apr 2022 08:16:54 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2022 08:00:37 -0700
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2022 08:16:54 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Sat, 30 Apr 2022 08:00:17 -0700
+ 15.2.986.22; Sat, 30 Apr 2022 08:16:13 -0700
 Received: from [10.38.245.205] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Sat, 30 Apr
- 2022 08:00:14 -0700
-Message-ID: <f564f2e0-74b9-7829-1729-12cb840db9b9@quicinc.com>
-Date: Sat, 30 Apr 2022 08:00:12 -0700
+ 2022 08:16:11 -0700
+Message-ID: <37f83a5e-a966-3da3-ea32-3478f77e98e8@quicinc.com>
+Date: Sat, 30 Apr 2022 08:16:08 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
@@ -44,15 +44,16 @@ Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
  <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
  <sean@poorly.run>
-References: <20220430104820.3782290-1-dmitry.baryshkov@linaro.org>
+References: <20220430081101.3763847-1-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220430104820.3782290-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220430081101.3763847-1-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm: add missing include to msm_drv.c
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: use RMW cycles in
+ dsi_update_dsc_timing
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,43 +68,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, Vinod
+ Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Change seems fine, with a couple of minor things below.
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-On 4/30/2022 3:48 AM, Dmitry Baryshkov wrote:
-> Add explicit include of drm_bridge.h to the msm_drm.c to fix the
-
-this should be msm_drv.c
-
+On 4/30/2022 1:11 AM, Dmitry Baryshkov wrote:
+> The downstream uses read-modify-write for updating command mode
+> compression registers. Let's follow this approach. This also fixes the
 > following warning:
 > 
-> drivers/gpu/drm/msm/msm_drv.c:236:17: error: implicit declaration of function 'drm_bridge_remove'; did you mean 'drm_bridge_detach'? [-Werror=implicit-function-declaration]
+> drivers/gpu/drm/msm/dsi/dsi_host.c:918:23: warning: variable 'reg_ctrl' set but not used [-Wunused-but-set-variable]
 > 
-> Fixes: d28ea556267c ("drm/msm: properly add and remove internal bridges")
-
-How did the this commit compile without this?
-
 > Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
->   drivers/gpu/drm/msm/msm_drv.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 4f3dce334553..4a3dda23e3e0 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -11,6 +11,7 @@
->   #include <linux/uaccess.h>
->   #include <uapi/linux/sched/types.h>
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index c983698d1384..a5619ad82a53 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -961,10 +961,12 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+>   		reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+>   		reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
 >   
-> +#include <drm/drm_bridge.h>
->   #include <drm/drm_drv.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_ioctl.h>
+> +		reg_ctrl &= ~0xffff;
+>   		reg_ctrl |= reg;
+> +		reg_ctrl &= ~DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH__MASK;
+
+Shoulnt this be
+
+reg_ctrl2 &= ~DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH__MASK;
+
+You seem to have used reg_ctrl which is wrong.
+
+>   		reg_ctrl2 |= DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
+>   
+> -		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
+> +		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg_ctrl);
+>   		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+>   	} else {
+>   		dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
