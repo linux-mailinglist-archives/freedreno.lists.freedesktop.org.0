@@ -1,49 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5725515970
-	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 02:52:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA234515B59
+	for <lists+freedreno@lfdr.de>; Sat, 30 Apr 2022 10:11:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50EEB10E73E;
-	Sat, 30 Apr 2022 00:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5528310EA53;
+	Sat, 30 Apr 2022 08:11:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5ADB10E44E;
- Sat, 30 Apr 2022 00:52:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651279940; x=1682815940;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=D0vo6WhzBSzqBOQxPqXyV5dzqrUSfHxGU87zk7QkcGE=;
- b=agM3xaOcpJPxq5S23mCetwMMSsg2vvxNSQSCDdWCxuSESXd1AL0fmQ5b
- n9EJK4GgiKyqicKdndtciztZhzv9uiYB6xE75svzGTlgoSJpBjt+MW8f7
- aWmmpOC1hjpsoQXqvdFy8qa/7ekKWGLNHLmxkWPcfDxln5BJJepO/PpXo k=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 29 Apr 2022 17:52:20 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2022 17:52:19 -0700
-Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 29 Apr 2022 17:52:19 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Fri, 29 Apr 2022 17:52:10 -0700
-Message-ID: <20220430005210.339-1-quic_jesszhan@quicinc.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C7910E6D0
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 08:11:04 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id n14so17584963lfu.13
+ for <freedreno@lists.freedesktop.org>; Sat, 30 Apr 2022 01:11:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GZFy56yledS7FbOebj4m9u5HtvT4WVnS3R3vI55qw0Y=;
+ b=FxBjmuck2yLeExqEqI0/4hM+lFyQKgm6MgQgTDZJWsCgv+WQmHhWJ0+OFyZZatThnC
+ h+rP1KUsEIP3jDHHSbIXYE2VChtCjoxzBCHLF96ZiAbwb4isogrggpgc/4cOGERMt4tP
+ VAVxX+2h0xBMlMJR0skUcYbI9vJT0GVQs+AH/FjT8kwPsJK98ilsnIGErP185tAPnxZe
+ kq7OOSujxRnthquPh14yhykmkeahil3srbXLijco0Xbqa3R2nVxSZeixvtiAgq7wb7uF
+ FfXv1E5UPVq/t5GnZtmO8Tb602cXB5sXRxJVFytG7m41iFXvc5SbkI/QoXCUtfUk4iHc
+ DRIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GZFy56yledS7FbOebj4m9u5HtvT4WVnS3R3vI55qw0Y=;
+ b=pRbRU/Ez+CcGIPYNtNMouMq7MJrLB9k6yckXqDE+MxodfcP5AhqyALZfULNxFKveXj
+ VHYpCJvBnxpjjnJxMurzf9zG7uKGDe5AiZkeHkNsYcy+6DhBsN8b1bL5uPXYlgSwMf1+
+ qJcjHnT/ZIQNQeeo4eDvatSWxqU1Z8jLWmfHFj0v7xtimxfSivbbez6N2H5JypphhGsn
+ Cp+9Hn3NRYeh83TdNGfAavhR9YkyWcVfEF1cqQATd0Qs2NbKEf6c3fHfQseY/LrOMMBS
+ iHCfFR0QsyyxXqZ3ejmCqWxinfqNJFIwEel8SgXIY0RwcsZyidGAIoSs8lZ3VxMrWYnS
+ leGw==
+X-Gm-Message-State: AOAM532faw872DgchvGhIGuQjYVpW7Ewj2w/r5Mh1oCJZZT/PuZGQGDo
+ b+iZJWgaLEsDSXzgmc/7t+zhgcTDsOCuPQ==
+X-Google-Smtp-Source: ABdhPJxkOTCjGyk9PjuqjQDE8yMj/tC5jWYubB71G3pJVejsP4v96n7KM+iTFlb32edoQpX5qpp/oQ==
+X-Received: by 2002:a05:6512:3fa1:b0:44a:f351:5a00 with SMTP id
+ x33-20020a0565123fa100b0044af3515a00mr2335727lfa.19.1651306262449; 
+ Sat, 30 Apr 2022 01:11:02 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ p15-20020a2e9a8f000000b0024f3d1daed6sm478319lji.94.2022.04.30.01.11.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 30 Apr 2022 01:11:02 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 30 Apr 2022 11:11:01 +0300
+Message-Id: <20220430081101.3763847-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: [Freedreno] [PATCH v2] drm/msm/dpu: Clean up CRC debug logs
+Subject: [Freedreno] [PATCH] drm/msm/dsi: use RMW cycles in
+ dsi_update_dsc_timing
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,61 +69,44 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- dmitry.baryshkov@linaro.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
- quic_aravindh@quicinc.com
+Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Currently, dpu_hw_lm_collect_misr returns EINVAL if CRC is disabled.
-This causes a lot of spam in the DRM debug logs as it's called for every
-vblank.
+The downstream uses read-modify-write for updating command mode
+compression registers. Let's follow this approach. This also fixes the
+following warning:
 
-Instead of returning EINVAL when CRC is disabled in
-dpu_hw_lm_collect_misr, let's return ENODATA and add an extra ENODATA check
-before the debug log in dpu_crtc_get_crc.
+drivers/gpu/drm/msm/dsi/dsi_host.c:918:23: warning: variable 'reg_ctrl' set but not used [-Wunused-but-set-variable]
 
-Changes since V1:
-- Added reported-by and suggested-by tags
-
-Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Suggested-by: Rob Clark <robdclark@chromium.org>
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # RB5  (qrb5165)
+Reported-by: kernel test robot <lkp@intel.com>
+Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 3 ++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 7763558ef566..16ba9f9b9a78 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -204,7 +204,8 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
- 		rc = m->hw_lm->ops.collect_misr(m->hw_lm, &crcs[i]);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index c983698d1384..a5619ad82a53 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -961,10 +961,12 @@ static void dsi_update_dsc_timing(struct msm_dsi_host *msm_host, bool is_cmd_mod
+ 		reg_ctrl = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL);
+ 		reg_ctrl2 = dsi_read(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2);
  
- 		if (rc) {
--			DRM_DEBUG_DRIVER("MISR read failed\n");
-+			if (rc != -ENODATA)
-+				DRM_DEBUG_DRIVER("MISR read failed\n");
- 			return rc;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
-index 86363c0ec834..462f5082099e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c
-@@ -138,7 +138,7 @@ static int dpu_hw_lm_collect_misr(struct dpu_hw_mixer *ctx, u32 *misr_value)
- 	ctrl = DPU_REG_READ(c, LM_MISR_CTRL);
++		reg_ctrl &= ~0xffff;
+ 		reg_ctrl |= reg;
++		reg_ctrl &= ~DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH__MASK;
+ 		reg_ctrl2 |= DSI_COMMAND_COMPRESSION_MODE_CTRL2_STREAM0_SLICE_WIDTH(bytes_in_slice);
  
- 	if (!(ctrl & LM_MISR_CTRL_ENABLE))
--		return -EINVAL;
-+		return -ENODATA;
- 
- 	if (!(ctrl & LM_MISR_CTRL_STATUS))
- 		return -EINVAL;
+-		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg);
++		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL, reg_ctrl);
+ 		dsi_write(msm_host, REG_DSI_COMMAND_COMPRESSION_MODE_CTRL2, reg_ctrl2);
+ 	} else {
+ 		dsi_write(msm_host, REG_DSI_VIDEO_COMPRESSION_MODE_CTRL, reg);
 -- 
 2.35.1
 
