@@ -2,59 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50DF451638E
-	for <lists+freedreno@lfdr.de>; Sun,  1 May 2022 12:10:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A8CD51638F
+	for <lists+freedreno@lfdr.de>; Sun,  1 May 2022 12:10:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44E7510EADB;
-	Sun,  1 May 2022 10:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9061110EAE7;
+	Sun,  1 May 2022 10:10:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8703010EADB
- for <freedreno@lists.freedesktop.org>; Sun,  1 May 2022 10:10:25 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id b18so2051500lfv.9
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A60A10EADB
+ for <freedreno@lists.freedesktop.org>; Sun,  1 May 2022 10:10:26 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id p10so20932844lfa.12
  for <freedreno@lists.freedesktop.org>; Sun, 01 May 2022 03:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=G27wgdd/ZwvOWQ526mQM89rV7+V8FgRW2sR7NATsocw=;
- b=kU7AbjSRYqZGWt/IVMwirjrR6WpiCwboMH7bfBW5Rbpiby5hLkOivzIvjZ48wggzwm
- 6AIffeWAwUsAeYXghedDZ9aAo0r6mXKoIv5vT6MpGL1TR45V9yNW12ayqvq24ZeZ2vEq
- sJHCqB06x+AJ4oaxHOJ1YNP8CIYuPTSUioee+YWuvYHyC2flphjSGKyzBu2cvxs6DpoT
- Vt0veVNY19khJQrPMl2Bo+eZFMBgq4btzYntwMjbIf9SJdXo6Bf6SiL+RynUYXjIaONu
- Dcp85ceB/yXnWmwQ7NjTbd7QlzulLQNZ0bOgB64mY8a7wQvRrqPidA5yZxSmNUgYSE2d
- BOqA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=c6BZ7IebefRthM/nq1GeRPMj1Jfg2tTeYdhhJgi+YZc=;
+ b=x0WLWXgfnSOjWXAOlv5T8ikE2AvIsJvghkqfUvzaZFO+TJQFjU0viRJKy+ZgvXt68F
+ Kj/hBSnljsPbPc4Az3awoo4s4yLgAg2QZgNFtTHlOdNqZE+EmXC/+115SN5pxcpSFraC
+ uqVIf51UL0bDF8lx7Ss8Wuklhw4+2mHYE+ql2qLaYUhyrzXgxATtFiDKCTZlQ9eZjeR1
+ 4ApFSBb5+CVwfUYPujgOapIpAhi9mRL6L6tNOp5Swk0VKPg5OLrI74DVsFjA6ZVmz4wg
+ hMcBD9eRa6ZvnJPVpK5t5YRcVZjBmvvHP4crAy8m8F9LE/D7r9bYHYOoV1OXe5F/qZUG
+ HXNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=G27wgdd/ZwvOWQ526mQM89rV7+V8FgRW2sR7NATsocw=;
- b=hjIsJxkJiKbGjdrv6+2VLCB1fe1y1BUEzwwJ45AOm59YERt5Y38bh8XM5L7F5xcfds
- 5hq+EBMwHW9+aSedEKMmONL0TXsf3OFostiKTsQaZOKLscSLiGvJ4bTU79c6gbkl4OPs
- Tm+2sh9yPrSWVcKYswWZVjrniElqXejoLTkaNSVRLTPm6Xfh6W+RzXx9mPcfzTf/LBsw
- 7wyMNJn/dbBoZyRFwz5vJ5Z4Gl4urnjbmL9FJAPMNJS8V0n3oQ6x5OgJrA2TkVNhKe0V
- HrYFVt5M6IcL67RikC0HO7ELQr+/Ul8sq86nAzGP04ZjIZ7qjP0NZSte8RWVlm9KnQT/
- cwNw==
-X-Gm-Message-State: AOAM5317sIi0TntulPFFM6nm7GW3PQ02YGjR2vRlFZpYh2rc9cpT5pZF
- SowZa7rqJoqOiqF8sW7WQXbrVQ==
-X-Google-Smtp-Source: ABdhPJxrVlSOlP2q+CFvx6DhukQA7dZ/3Eu8p4Ke5TIuXemYFkOZUSArjyxTEullMVARludl7N4Igw==
-X-Received: by 2002:a05:6512:3e13:b0:471:f6a9:85d3 with SMTP id
- i19-20020a0565123e1300b00471f6a985d3mr5796824lfv.120.1651399823711; 
- Sun, 01 May 2022 03:10:23 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=c6BZ7IebefRthM/nq1GeRPMj1Jfg2tTeYdhhJgi+YZc=;
+ b=ES73GFx7e8jOkwBsut6Uyz2pkfB9gXV9xbdQekm3KSqFjHVGOPJcaBpn0q7ZY+JVoF
+ qObagh2wDkk/Zi1eNpVbuGGpodUgqKSeYbb+G7dccCcnfA2p2RkYFp8TdiQL3DSu/wuc
+ 92rZpd2zkNTEHdozVaIx1YdgRZOUugIjEmcvdPKK4aSlbYojR+aqNChWad5tpM2gsFkj
+ EvtKoHQCaVIGquegkQR+xtOlLQtQ0m2joqcLt8q7i9dY6Fd0bHODx6LBN4oqa/Gg5svz
+ wfwQMdRpR6MBqRu3DqKhGL5i4+7gTm1mDCebwIwkbCKETPXxQSQ/6cYy10UsD2Lv6MPA
+ QYcg==
+X-Gm-Message-State: AOAM5314ty6auwJDWvXbH004Fo3FMzlaNFhig0TuXZ1r4R0o3li4MKo6
+ D0lvPEF9pppr0l9L0MfRj5M61Q==
+X-Google-Smtp-Source: ABdhPJzz7Fwj/ogJKl0mXT3YjdI8YwpcM0MXQsR2xOULe+kyoVMLWn8dwYrIQOMZ8hqjScUUdUOEZw==
+X-Received: by 2002:a05:6512:3f96:b0:44a:f504:597f with SMTP id
+ x22-20020a0565123f9600b0044af504597fmr5758946lfa.621.1651399824316; 
+ Sun, 01 May 2022 03:10:24 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
  h7-20020a2ea487000000b0024f3d1dae7csm766412lji.4.2022.05.01.03.10.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 May 2022 03:10:23 -0700 (PDT)
+ Sun, 01 May 2022 03:10:24 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sun,  1 May 2022 13:10:19 +0300
-Message-Id: <20220501101022.3931295-1-dmitry.baryshkov@linaro.org>
+Date: Sun,  1 May 2022 13:10:20 +0300
+Message-Id: <20220501101022.3931295-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220501101022.3931295-1-dmitry.baryshkov@linaro.org>
+References: <20220501101022.3931295-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 0/3] drm/msm: fixes for KMS iommu handling
+Subject: [Freedreno] [PATCH 1/3] drm/msm/dpu: check both DPU and MDSS
+ devices for the IOMMU
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,33 +77,48 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This series started from the applied and then reverted [2] patch by
-Robin Murphy [1]. After the MDSS rework [3] has landed it is now
-possible to reapply the extended version of the original patch. While we
-are at it, also rework the IOMMU init code for DPU and MDP5 drivers.
+Follow the lead of MDP5 driver and check both DPU and MDSS devices for
+the IOMMU specifiers.
 
-For MDP5 this moves iommu_domain_alloc() call and removes struct
-mdp5_cfg_platform remains.
+Historically DPU devices had IOMMU specified in the MDSS device tree
+node, but as some of MDP5 devices are being converted to the supported
+by the DPU driver, the driver should adapt and check both devices.
 
-For DPU this allows specifying the iommus = <...> either in the DPU
-device (like all DPU devices do) or in the MDSS device (like MDP5
-devices do).
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-[1] https://patchwork.freedesktop.org/patch/480707/
-[2] https://patchwork.freedesktop.org/patch/482453/
-[3] https://patchwork.freedesktop.org/series/98525/
-
-Dmitry Baryshkov (3):
-  drm/msm/dpu: check both DPU and MDSS devices for the IOMMU
-  drm/msm/mdp5: move iommu_domain_alloc() call close to its usage
-  drm/msm: Stop using iommu_present()
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 14 +++++++++++---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 16 ----------------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h |  6 ------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  6 ++++--
- drivers/gpu/drm/msm/msm_drv.c            | 10 ++++++++--
- 5 files changed, 23 insertions(+), 29 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 143d6643be53..5ccda0766f6c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1004,14 +1004,22 @@ static int _dpu_kms_mmu_init(struct dpu_kms *dpu_kms)
+ 	struct msm_mmu *mmu;
+ 	struct device *dpu_dev = dpu_kms->dev->dev;
+ 	struct device *mdss_dev = dpu_dev->parent;
++	struct device *iommu_dev;
+ 
+ 	domain = iommu_domain_alloc(&platform_bus_type);
+ 	if (!domain)
+ 		return 0;
+ 
+-	/* IOMMUs are a part of MDSS device tree binding, not the
+-	 * MDP/DPU device. */
+-	mmu = msm_iommu_new(mdss_dev, domain);
++	/*
++	 * IOMMUs can be a part of MDSS device tree binding, or the
++	 * MDP/DPU device.
++	 */
++	if (dev_iommu_fwspec_get(dpu_dev))
++		iommu_dev = dpu_dev;
++	else
++		iommu_dev = mdss_dev;
++
++	mmu = msm_iommu_new(iommu_dev, domain);
+ 	if (IS_ERR(mmu)) {
+ 		iommu_domain_free(domain);
+ 		return PTR_ERR(mmu);
 -- 
 2.35.1
+
