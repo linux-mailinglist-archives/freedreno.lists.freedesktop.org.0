@@ -2,57 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4415517423
-	for <lists+freedreno@lfdr.de>; Mon,  2 May 2022 18:19:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A895174C7
+	for <lists+freedreno@lfdr.de>; Mon,  2 May 2022 18:44:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8DF10EDF1;
-	Mon,  2 May 2022 16:19:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D584310F0E4;
+	Mon,  2 May 2022 16:44:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E22D410EB00;
- Mon,  2 May 2022 16:19:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E679110F0E4;
+ Mon,  2 May 2022 16:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651508389; x=1683044389;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=m79NQdP0qPoQxsIecBh0qrDXW2e18c/ca/bhuLWolMY=;
- b=S2MQKAbVhUUXyYrEWhlnlstMw6v0S2+y4DNTgMYOPuQyrXhjo7sSWBea
- nyJInx/scMD4oG25vGPrYI98jfZO1vIclx5MVKMLjUPaqZ0MW729xxGvb
- XktWJA5gjSnQP7c6qzIR7a7Gv014BkO209GpINjaQwgCNwyCT3bmTfGX8 0=;
+ t=1651509883; x=1683045883;
+ h=from:to:cc:subject:date:message-id;
+ bh=/hBP51dakvyFvptK3SaVoqwhUb9b+sUY7FBEgdyP/G0=;
+ b=hyPm767w2Y6qJH/Q7FTsMJK1LB4mEBeX5HVhp+DL0BUq34mzquY69SiZ
+ V7m90xKJwq8exLjXVZ6rLb1sIs/hyFXD3DKLA/nMipn84yXJWvqNclD0Y
+ c3agREp+YRM/fCGXVH7f8jLsreNxEU3VYW651gxcJ0yYi7qS9uee/0i2n c=;
 Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 02 May 2022 09:19:48 -0700
+ by alexa-out.qualcomm.com with ESMTP; 02 May 2022 09:44:42 -0700
 X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2022 09:19:47 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 2 May 2022 09:19:47 -0700
-Received: from [10.38.244.235] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 2 May 2022
- 09:19:44 -0700
-Message-ID: <fb4cce22-803c-37f3-aabe-2b353c3cc66b@quicinc.com>
-Date: Mon, 2 May 2022 09:19:42 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220502082420.48409-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220502082420.48409-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: don't access mode pointer
- before it is set
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 02 May 2022 09:44:25 -0700
+X-QCInternal: smtphost
+Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 02 May 2022 22:14:11 +0530
+Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
+ id 8727E28A6; Mon,  2 May 2022 22:14:09 +0530 (IST)
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Mon,  2 May 2022 22:14:06 +0530
+Message-Id: <1651509846-4842-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [PATCH v2] drm/msm/disp/dpu1: avoid clearing hw
+ interrupts if hw_intr is null during drm uninit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +51,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Bjorn
- Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, quic_abhinavk@quicinc.com, dianders@chromium.org,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
+ swboyd@chromium.org, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+If edp modeset init is failed due to panel being not ready and
+probe defers during drm bind, avoid clearing irqs and derefernce
+hw_intr when hw_intr is null.
 
+BUG: Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
 
-On 5/2/2022 1:24 AM, Dmitry Baryshkov wrote:
-> Move the initializer for the mode variable to the declaration point to
-> remove unitialized variable access from the DEBUG_DPU macro. This fixes
-> the following warning:
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:250:37: note: initialize the variable 'mode' to silence this warning
-> 
-> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Thanks,
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> index f4a79715a02e..4829d1ce0cf8 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-> @@ -247,7 +247,7 @@ static int dpu_encoder_phys_wb_atomic_check(
->   		struct drm_connector_state *conn_state)
->   {
->   	struct drm_framebuffer *fb;
-> -	const struct drm_display_mode *mode;
-> +	const struct drm_display_mode *mode = &crtc_state->mode;
->   
->   	DPU_DEBUG("[atomic_check:%d, \"%s\",%d,%d]\n",
->   			phys_enc->wb_idx, mode->name, mode->hdisplay, mode->vdisplay);
-> @@ -256,7 +256,6 @@ static int dpu_encoder_phys_wb_atomic_check(
->   		return 0;
->   
->   	fb = conn_state->writeback_job->fb;
-> -	mode = &crtc_state->mode;
->   
->   	if (!conn_state || !conn_state->connector) {
->   		DPU_ERROR("invalid connector state\n");
+Call trace:
+ dpu_core_irq_uninstall+0x50/0xb0
+ dpu_irq_uninstall+0x18/0x24
+ msm_drm_uninit+0xd8/0x16c
+ msm_drm_bind+0x580/0x5fc
+ try_to_bring_up_master+0x168/0x1c0
+ __component_add+0xb4/0x178
+ component_add+0x1c/0x28
+ dp_display_probe+0x38c/0x400
+ platform_probe+0xb0/0xd0
+ really_probe+0xcc/0x2c8
+ __driver_probe_device+0xbc/0xe8
+ driver_probe_device+0x48/0xf0
+ __device_attach_driver+0xa0/0xc8
+ bus_for_each_drv+0x8c/0xd8
+ __device_attach+0xc4/0x150
+ device_initial_probe+0x1c/0x28
+
+Changes in V2:
+- Update commit message and coreect fixes tag.
+
+Fixes: f25f656608e3 ("drm/msm/dpu: merge struct dpu_irq into struct dpu_hw_intr")
+Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+index c515b7c..ab28577 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+@@ -599,6 +599,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
+ {
+ 	int i;
+ 
++	if (!dpu_kms->hw_intr)
++		return;
++
+ 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
+ 	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
+ 		if (!list_empty(&dpu_kms->hw_intr->irq_cb_tbl[i]))
+-- 
+2.7.4
+
