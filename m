@@ -2,43 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66A895174C7
-	for <lists+freedreno@lfdr.de>; Mon,  2 May 2022 18:44:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7B915174EF
+	for <lists+freedreno@lfdr.de>; Mon,  2 May 2022 18:51:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D584310F0E4;
-	Mon,  2 May 2022 16:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16A6210F142;
+	Mon,  2 May 2022 16:51:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E679110F0E4;
- Mon,  2 May 2022 16:44:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651509883; x=1683045883;
- h=from:to:cc:subject:date:message-id;
- bh=/hBP51dakvyFvptK3SaVoqwhUb9b+sUY7FBEgdyP/G0=;
- b=hyPm767w2Y6qJH/Q7FTsMJK1LB4mEBeX5HVhp+DL0BUq34mzquY69SiZ
- V7m90xKJwq8exLjXVZ6rLb1sIs/hyFXD3DKLA/nMipn84yXJWvqNclD0Y
- c3agREp+YRM/fCGXVH7f8jLsreNxEU3VYW651gxcJ0yYi7qS9uee/0i2n c=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 02 May 2022 09:44:42 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 02 May 2022 09:44:25 -0700
-X-QCInternal: smtphost
-Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
- by ironmsg02-blr.qualcomm.com with ESMTP; 02 May 2022 22:14:11 +0530
-Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
- id 8727E28A6; Mon,  2 May 2022 22:14:09 +0530 (IST)
-From: Vinod Polimera <quic_vpolimer@quicinc.com>
-To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Date: Mon,  2 May 2022 22:14:06 +0530
-Message-Id: <1651509846-4842-1-git-send-email-quic_vpolimer@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [Freedreno] [PATCH v2] drm/msm/disp/dpu1: avoid clearing hw
- interrupts if hw_intr is null during drm uninit
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9ABF10F13B
+ for <freedreno@lists.freedesktop.org>; Mon,  2 May 2022 16:51:31 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id y63so15762489oia.7
+ for <freedreno@lists.freedesktop.org>; Mon, 02 May 2022 09:51:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qDbeIX3G7CAdlzYVZYrcGdjlGadN5/397vtFVJ5LGZ0=;
+ b=XooHx68yyT3HJJvAvwlP32zNjixKBDR2DZX+foZ/QUBBANRiEilHqqKIyJMKqQF8l/
+ USWW8mTYv0yD5WnhQ0199oxHJVfYZVVhMtab+xX+vTqWNRBVI827oWnXoJMh9n93ls2F
+ nK8foxy6JPLfD6Nw+a3+4xbM+FHpQjSzk4OnF1T1AEAjbTwArmAnU2215ZyRtP6OZNkY
+ VfkPJ6/gYjrj9tycLldB0fedH/O+ear22oankqOIHZjEeGz14YDpsbV+kvuEmjeijaLl
+ emcOmA1hbgQyUmRUGEEL9AwyWm5TliinL6rXMxDelAdp3wYsyqvMA8t1HxV9X+0HGmEk
+ 77zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qDbeIX3G7CAdlzYVZYrcGdjlGadN5/397vtFVJ5LGZ0=;
+ b=lqNO19MY/UtJOH9QhZW9qLyYPu9DYDnPJY/K+TSY2iNwQDxoJ3PnlQ4wweuShQ5/rp
+ 1l3hJtRJApiiiX+ZnZ3e8Ile3QppeCpS86AwE2lcJI43s80h5g4ZfUUNdzU6BXPFM5aP
+ i3JtN03zQqlM6FVJc/BWmcUSWXac+Rzhn8Bz+CB32RCNb3hR9AY4r7rmfgZ/L9HX71ne
+ 80zQD5KuZqAbnMAjjoBDyngPFGh4TY2Oc3UB4KyIOcALje8Z0HPoVAkOYQHBJCLACfxr
+ V9HdUKN+QsCFbQy4DRWbgilDM+YeVIZyv7hczYQgHd3WbGsrOoKL2rvvsXFP1YKhkQPv
+ EMEQ==
+X-Gm-Message-State: AOAM532nnnr8MlVX17OkvR+IZEyPUO/qkPUcTyT5g8w/73r1hsWnmBXK
+ kbEdukL/75FXE1fqhhcTLiZL8g==
+X-Google-Smtp-Source: ABdhPJzBKz1yiIK2Jf2XUFNV3lOE1PeOdmDd6SS2he3gildxijlbqu95mdYr54pb4q4sU2bTKcztnQ==
+X-Received: by 2002:aca:502:0:b0:2cd:c24:278f with SMTP id
+ 2-20020aca0502000000b002cd0c24278fmr33189oif.150.1651510290838; 
+ Mon, 02 May 2022 09:51:30 -0700 (PDT)
+Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ h11-20020a4add8b000000b0035eb4e5a6ccsm4029422oov.34.2022.05.02.09.51.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 May 2022 09:51:29 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Date: Mon,  2 May 2022 09:53:11 -0700
+Message-Id: <20220502165316.4167199-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v4 0/5] drm/msm/dp: implement HPD notifications
+ handling
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,59 +80,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_abhinavk@quicinc.com, dianders@chromium.org,
- linux-kernel@vger.kernel.org, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org, Vinod Polimera <quic_vpolimer@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If edp modeset init is failed due to panel being not ready and
-probe defers during drm bind, avoid clearing irqs and derefernce
-hw_intr when hw_intr is null.
+USB altmodes code would send OOB notifications to the drm_connector
+specified in the device tree. However as the MSM DP driver uses
+drm_bridge_connector, there is no way to receive these event directly.
+Implement a bridge between oob_hotplug_event and drm_bridge's hpd_notify
+and use it to deliver altmode messages to the MSM DP driver.
 
-BUG: Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+Note, I left the original 'bool connected' field to be used by the
+notifiers. However I think that it should be replaced in favour of using
+the dp->hpd_state properly.
 
-Call trace:
- dpu_core_irq_uninstall+0x50/0xb0
- dpu_irq_uninstall+0x18/0x24
- msm_drm_uninit+0xd8/0x16c
- msm_drm_bind+0x580/0x5fc
- try_to_bring_up_master+0x168/0x1c0
- __component_add+0xb4/0x178
- component_add+0x1c/0x28
- dp_display_probe+0x38c/0x400
- platform_probe+0xb0/0xd0
- really_probe+0xcc/0x2c8
- __driver_probe_device+0xbc/0xe8
- driver_probe_device+0x48/0xf0
- __device_attach_driver+0xa0/0xc8
- bus_for_each_drv+0x8c/0xd8
- __device_attach+0xc4/0x150
- device_initial_probe+0x1c/0x28
+Bjorn Andersson (2):
+  drm: Add HPD state to drm_connector_oob_hotplug_event()
+  drm/msm/dp: Implement hpd_notify()
 
-Changes in V2:
-- Update commit message and coreect fixes tag.
+Dmitry Baryshkov (3):
+  drm/bridge_connector: stop filtering events in
+    drm_bridge_connector_hpd_cb()
+  drm/bridge_connector: implement oob_hotplug_event
+  drm/msm/dp: remove most of usbpd-related remains
 
-Fixes: f25f656608e3 ("drm/msm/dpu: merge struct dpu_irq into struct dpu_hw_intr")
-Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/drm_bridge_connector.c   | 17 +++--
+ drivers/gpu/drm/drm_connector.c          |  6 +-
+ drivers/gpu/drm/i915/display/intel_dp.c  | 17 ++++-
+ drivers/gpu/drm/i915/i915_drv.h          |  3 +
+ drivers/gpu/drm/msm/Makefile             |  1 -
+ drivers/gpu/drm/msm/dp/dp_ctrl.h         |  1 -
+ drivers/gpu/drm/msm/dp/dp_debug.c        |  6 +-
+ drivers/gpu/drm/msm/dp/dp_debug.h        |  4 +-
+ drivers/gpu/drm/msm/dp/dp_display.c      | 81 +++++++++++-------------
+ drivers/gpu/drm/msm/dp/dp_display.h      |  1 +
+ drivers/gpu/drm/msm/dp/dp_drm.c          |  3 +
+ drivers/gpu/drm/msm/dp/dp_drm.h          |  2 +
+ drivers/gpu/drm/msm/dp/dp_hpd.c          | 67 --------------------
+ drivers/gpu/drm/msm/dp/dp_hpd.h          | 78 -----------------------
+ drivers/gpu/drm/msm/dp/dp_panel.h        |  1 -
+ drivers/gpu/drm/msm/dp/dp_power.c        |  2 +-
+ drivers/gpu/drm/msm/dp/dp_power.h        |  3 +-
+ drivers/usb/typec/altmodes/displayport.c | 10 +--
+ include/drm/drm_connector.h              |  6 +-
+ 19 files changed, 88 insertions(+), 221 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.c
+ delete mode 100644 drivers/gpu/drm/msm/dp/dp_hpd.h
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index c515b7c..ab28577 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -599,6 +599,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
- {
- 	int i;
- 
-+	if (!dpu_kms->hw_intr)
-+		return;
-+
- 	pm_runtime_get_sync(&dpu_kms->pdev->dev);
- 	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
- 		if (!list_empty(&dpu_kms->hw_intr->irq_cb_tbl[i]))
 -- 
-2.7.4
+2.35.1
 
