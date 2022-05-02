@@ -2,73 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D77D25174F8
-	for <lists+freedreno@lfdr.de>; Mon,  2 May 2022 18:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7022951758A
+	for <lists+freedreno@lfdr.de>; Mon,  2 May 2022 19:12:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B0C410F164;
-	Mon,  2 May 2022 16:51:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 146D510F0FE;
+	Mon,  2 May 2022 17:12:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E19C110F164
- for <freedreno@lists.freedesktop.org>; Mon,  2 May 2022 16:51:37 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id r8so15765857oib.5
- for <freedreno@lists.freedesktop.org>; Mon, 02 May 2022 09:51:37 -0700 (PDT)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4381110F0FE
+ for <freedreno@lists.freedesktop.org>; Mon,  2 May 2022 17:12:07 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id n14so26297618lfu.13
+ for <freedreno@lists.freedesktop.org>; Mon, 02 May 2022 10:12:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=WQqGy9/cAtVs0rYLMmKAdIwpOUTHX81bUyFE+Uvv2gE=;
- b=NcXfUDSWHsIAofMX/GKhg1VN4gKrGgzzc/Kb/ahx4U1bLirmQsRQkwYr9kPzv9BrUI
- XyokdoAYCCDvYD1v+EHnatssF+T8x8GdlO1M+uq+j0Qgsej/GuduhNlhQHgXqevnRBDT
- fOCWLNBmTJpm3VfQlSzhf/m8/BI1H4ry+oczo5XCLDWu5YcXjeEOIV8Vlvs1BSUk+rlr
- gF2rmTZKI9EsC+45WyhPEsqtmgcSNb8vQOGshtfU/FSxHRTfiQYv3tvbz9wuRalASvZR
- T28f5WI3egA6226XuKPIdX+8we5ZyVhXngq/+FRYFTn4Onkwi/RgBGsOVXB1HrGbFvLy
- 6yKw==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=tfJfzW5D4/+mvV5ypqeVXDbthQVO2IvgikDBXjGyA60=;
+ b=Jk1QN88CqvFdk0UuRuqURJ4UVhpx8OAxnd0T493cwxqjOVXjBnAeoL1MaFMAWTRShO
+ dZ69nMzm3LLz5RUjb3A+97DsAxCv5FfIKrQtCD+1CGB0FUNIw5/8axd156kxWuRCeJAZ
+ qyxq3e4bZo9MffWtnlr78MZyevS6X1fzaRemUL6vVl5nTs5Gk2ei10hH7srkUh+vhLGA
+ YmqbDDOGu3AlNL7Besk0vVhmRFs2Bfg/pA/5v7itsUmoF+AIeMFjnzmVuDZTq/vYdR8K
+ hfUwI06aYWpby8NTV7c+BS5wj+dBKJASQ4UK7G8Vsukj6jPKM2qko9QQ955jz4T32Yxs
+ 5LWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=WQqGy9/cAtVs0rYLMmKAdIwpOUTHX81bUyFE+Uvv2gE=;
- b=aKt834o0vo1qUKJIDewnYZUSQEEU1FumgUuRpaqsd5Qaa654czXr74mlE/iA7XJtRN
- 5MipaGP8bil1Cb6KXxG6TEoe0BKoUaPTyTkoTTLnWc7fX+czp6Ud6mpLLcb7c4N2KY0F
- 4oDF5ttV1vcN+PhNV9wLrz+mxNQZgSv4I3gyjfK3zgOqF2fBzbI6K/WoPeQiGXA3pvTH
- AxVQ1o1jsH43LJ0AGaJvmTQ0+Odl9XU5LK/C6grhxihCNYSLL6Wg29Uu4bkMg4Ql4Y8O
- em7Rizx+B1iDkJumTOTDHbE0YAtfFpXSJ7oR6D7YGf8NWnvkba5wORZcFm8FxxCgFlxd
- JRpQ==
-X-Gm-Message-State: AOAM532odqYYMVFx5eW/QgIChJkiRM4D8c5Kiy6bwm/HWzfRb5xvnlLE
- DLiyxfwOdt7BAZu+Z9GJxKZIyg==
-X-Google-Smtp-Source: ABdhPJxGUGnYgijgOuwgEEEHawCtTKNkif8bNgtzd1O6MMWsWF1x8UKYWT5NJqYOoLdQVxWq53KdlQ==
-X-Received: by 2002:a05:6808:2396:b0:325:b6e:6cf0 with SMTP id
- bp22-20020a056808239600b003250b6e6cf0mr22930oib.288.1651510297242; 
- Mon, 02 May 2022 09:51:37 -0700 (PDT)
-Received: from ripper.. (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
- h11-20020a4add8b000000b0035eb4e5a6ccsm4029422oov.34.2022.05.02.09.51.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 May 2022 09:51:36 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Date: Mon,  2 May 2022 09:53:16 -0700
-Message-Id: <20220502165316.4167199-6-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220502165316.4167199-1-bjorn.andersson@linaro.org>
-References: <20220502165316.4167199-1-bjorn.andersson@linaro.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=tfJfzW5D4/+mvV5ypqeVXDbthQVO2IvgikDBXjGyA60=;
+ b=knG4j/bCTzQE6fTezKH/ZLeMJkWdtZ+tMkPRpuPB9CtGZVgp7dZm6S9bfDP1fjEr+J
+ ilDjWWClsRyAffJEZyYUv/qowJ6YnbnUZriCZFKFCr7y6tEIzQIjLJRKS1Aa6cHfOez2
+ IR4EGNpKLEt/AujqsLqc3Zbme2+iMfbmKhfAD44i3t9FYIUO9bFtNOUNDKGK9EB/V6tT
+ +Xh/sgHiZP1Hq7S6E1UlUPa1wAzDiruld8PzWizjRIUMVtrEkSbLQeOIbOpArdwHrwPf
+ e/HbbiCbVELCoDaYpW1GR92CmSm7e3Ww2XRmJOx4zMrnSR8SlsHees1c/XVAqYrq6shs
+ e8Cw==
+X-Gm-Message-State: AOAM530gAyMKKDjSm4gqCIqUCuc9HqVNY1OTvdyVhZ7BOAXF2YLbBrMD
+ OJptpUPorVkRGytkIx/AyoLYJw==
+X-Google-Smtp-Source: ABdhPJxK9FbHHdv2wyG8oI74ITCgks3MnQGVEBJhOGVP3JLuuzGptrCfLdlnkkol35ZbWzze7LqIEQ==
+X-Received: by 2002:a05:6512:448:b0:472:3c0e:cf7f with SMTP id
+ y8-20020a056512044800b004723c0ecf7fmr9457323lfk.279.1651511525368; 
+ Mon, 02 May 2022 10:12:05 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ be40-20020a05651c172800b0024f3d1daec5sm1108268ljb.77.2022.05.02.10.12.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 May 2022 10:12:05 -0700 (PDT)
+Message-ID: <f9dbdfc1-117c-b713-7f1d-40de9726baa1@linaro.org>
+Date: Mon, 2 May 2022 20:12:04 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v4 5/5] drm/msm/dp: Implement hpd_notify()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Vinod Polimera <quic_vpolimer@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <1651509846-4842-1-git-send-email-quic_vpolimer@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1651509846-4842-1-git-send-email-quic_vpolimer@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/disp/dpu1: avoid clearing hw
+ interrupts if hw_intr is null during drm uninit
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,134 +76,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_kalyant@quicinc.com, dianders@chromium.org, quic_abhinavk@quicinc.com,
+ linux-kernel@vger.kernel.org, swboyd@chromium.org, robdclark@gmail.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The Qualcomm DisplayPort driver contains traces of the necessary
-plumbing to hook up USB HPD, in the form of the dp_hpd module and the
-dp_usbpd_cb struct. Use this as basis for implementing the
-hpd_notify() callback, by amending the dp_hpd module with the
-missing logic.
+On 02/05/2022 19:44, Vinod Polimera wrote:
+> If edp modeset init is failed due to panel being not ready and
+> probe defers during drm bind, avoid clearing irqs and derefernce
+> hw_intr when hw_intr is null.
+> 
+> BUG: Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+> 
+> Call trace:
+>   dpu_core_irq_uninstall+0x50/0xb0
+>   dpu_irq_uninstall+0x18/0x24
+>   msm_drm_uninit+0xd8/0x16c
+>   msm_drm_bind+0x580/0x5fc
+>   try_to_bring_up_master+0x168/0x1c0
+>   __component_add+0xb4/0x178
+>   component_add+0x1c/0x28
+>   dp_display_probe+0x38c/0x400
+>   platform_probe+0xb0/0xd0
+>   really_probe+0xcc/0x2c8
+>   __driver_probe_device+0xbc/0xe8
+>   driver_probe_device+0x48/0xf0
+>   __device_attach_driver+0xa0/0xc8
+>   bus_for_each_drv+0x8c/0xd8
+>   __device_attach+0xc4/0x150
+>   device_initial_probe+0x1c/0x28
+> 
+> Changes in V2:
+> - Update commit message and coreect fixes tag.
+> 
+> Fixes: f25f656608e3 ("drm/msm/dpu: merge struct dpu_irq into struct dpu_hw_intr")
+> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
 
-Overall the solution is similar to what's done downstream, but upstream
-all the code to disect the HPD notification lives on the calling side of
-drm_connector_oob_hotplug_event().
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-drm_connector_oob_hotplug_event() performs the lookup of the
-drm_connector based on fwnode, hence the need to assign the fwnode in
-dp_drm_connector_init().
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> index c515b7c..ab28577 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> @@ -599,6 +599,9 @@ void dpu_core_irq_uninstall(struct dpu_kms *dpu_kms)
+>   {
+>   	int i;
+>   
+> +	if (!dpu_kms->hw_intr)
+> +		return;
+> +
+>   	pm_runtime_get_sync(&dpu_kms->pdev->dev);
+>   	for (i = 0; i < dpu_kms->hw_intr->total_irqs; i++)
+>   		if (!list_empty(&dpu_kms->hw_intr->irq_cb_tbl[i]))
 
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
----
 
-Changes since v3:
-- Implements hpd_notify instead of oob_hotplug_event
-- Rebased on new cleanup patch from Dmitry
-- Set hpd_state to ST_MAINLINK_READY when dp_display_usbpd_configure() succeeds
-
- drivers/gpu/drm/msm/dp/dp_display.c | 26 ++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_display.h |  1 +
- drivers/gpu/drm/msm/dp/dp_drm.c     |  3 +++
- drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
- 4 files changed, 32 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index b447446d75e9..080294ac6144 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -83,6 +83,8 @@ struct dp_display_private {
- 	bool hpd_irq_on;
- 	bool audio_supported;
- 
-+	bool connected;
-+
- 	struct drm_device *drm_dev;
- 	struct platform_device *pdev;
- 	struct dentry *root;
-@@ -1271,6 +1273,7 @@ static int dp_display_probe(struct platform_device *pdev)
- 	if (!desc)
- 		return -EINVAL;
- 
-+	dp->dp_display.dev = &pdev->dev;
- 	dp->pdev = pdev;
- 	dp->name = "drm_dp";
- 	dp->dp_display.connector_type = desc->connector_type;
-@@ -1760,3 +1763,26 @@ void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
- 	dp_display->dp_mode.h_active_low =
- 		!!(dp_display->dp_mode.drm_mode.flags & DRM_MODE_FLAG_NHSYNC);
- }
-+
-+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-+			  enum drm_connector_status status)
-+{
-+	struct msm_dp_bridge *dp_bridge = to_dp_bridge(bridge);
-+	struct msm_dp *dp = dp_bridge->dp_display;
-+	struct dp_display_private *dp_display = container_of(dp, struct dp_display_private, dp_display);
-+	int ret;
-+
-+	drm_dbg_dp(dp_display->drm_dev, "status: %d connected: %d\n", status, dp_display->connected);
-+
-+	if (!dp_display->connected && status == connector_status_connected) {
-+		dp_display->connected = true;
-+		ret = dp_display_usbpd_configure(dp_display);
-+		if (!ret)
-+			dp_display->hpd_state = ST_MAINLINK_READY;
-+	} else if (status != connector_status_connected) {
-+		dp_display->connected = false;
-+		dp_display_notify_disconnect(dp_display);
-+	} else {
-+		dp_display_usbpd_attention(dp_display);
-+	}
-+}
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
-index 4f9fe4d7610b..2d2614bc5a14 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.h
-+++ b/drivers/gpu/drm/msm/dp/dp_display.h
-@@ -11,6 +11,7 @@
- #include "disp/msm_disp_snapshot.h"
- 
- struct msm_dp {
-+	struct device *dev;
- 	struct drm_device *drm_dev;
- 	struct device *codec_dev;
- 	struct drm_bridge *bridge;
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 62d58b9c4647..821cfd37b1fb 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -68,6 +68,7 @@ static const struct drm_bridge_funcs dp_bridge_ops = {
- 	.mode_valid   = dp_bridge_mode_valid,
- 	.get_modes    = dp_bridge_get_modes,
- 	.detect       = dp_bridge_detect,
-+	.hpd_notify   = dp_bridge_hpd_notify,
- };
- 
- struct drm_bridge *dp_bridge_init(struct msm_dp *dp_display, struct drm_device *dev,
-@@ -138,6 +139,8 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
- 	if (IS_ERR(connector))
- 		return connector;
- 
-+	connector->fwnode = fwnode_handle_get(dev_fwnode(dp_display->dev));
-+
- 	drm_connector_attach_encoder(connector, dp_display->encoder);
- 
- 	return connector;
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index f4b1ed1e24f7..3b7480a86844 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -32,5 +32,7 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
- void dp_bridge_mode_set(struct drm_bridge *drm_bridge,
- 			const struct drm_display_mode *mode,
- 			const struct drm_display_mode *adjusted_mode);
-+void dp_bridge_hpd_notify(struct drm_bridge *bridge,
-+			  enum drm_connector_status status);
- 
- #endif /* _DP_DRM_H_ */
 -- 
-2.35.1
-
+With best wishes
+Dmitry
