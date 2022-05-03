@@ -2,58 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FB50519240
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 01:21:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0586519265
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 01:40:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5CE010FFBD;
-	Tue,  3 May 2022 23:21:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64A7210F712;
+	Tue,  3 May 2022 23:40:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C8010FFAF
- for <freedreno@lists.freedesktop.org>; Tue,  3 May 2022 23:21:35 +0000 (UTC)
-Received: by mail-pj1-x102d.google.com with SMTP id fv2so16661852pjb.4
- for <freedreno@lists.freedesktop.org>; Tue, 03 May 2022 16:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dCyuL8rj9y1A8bDYJ8Ok6fBVOndsrzjav6d8Lz8t4jk=;
- b=YVlF//VOfLdFfTHNcRkc8XnlCRMWvCRgRFOyO0OlWHfVA/1hmWIyQ24dRLBvLTt/09
- RixtWaNqCQvHR/DAubbDesLZC/lrn90ebAgeglGtOHCwyOkla9KZHMkdEOVb0RCDldeW
- Lc+nC8AdLpuEBt9M3EzTa/k7Hb47M7gokTp/M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dCyuL8rj9y1A8bDYJ8Ok6fBVOndsrzjav6d8Lz8t4jk=;
- b=VQzvBFpAwROgFmBA7AkHsH0vzu7FTzeXrAtJWbUf4KSFNY9ZWPCFIbfndixiHd7N97
- BkATUJbg83vF5b6SdcW6BLrOOY8pvt2VP6aoiqMGbInPuv4ozU3MIL8o01mR/f08IvEM
- 2Q4keSyzCLPJAEykwELbC3r1sp4AP4tXwdaqkEHRsjBhXzrsz/UvqLtgzjzfc7OJrSpI
- fXC6Z4T3TVEHqtn/mIVdWPJZvlqMKzSZTo836gDRa+DwQz7pFB6uFtK6//UzqXtizwB6
- JdHf602VnvUcOXdUSYhfEY/55Kr99F5s2YYesfxijH2n7XWpZyFKEXOxS54zMT9dNChL
- m2oA==
-X-Gm-Message-State: AOAM530LkkoD6cb02sPVdKQ0qc2sg5l9fxLYwI72mUsrJGx8KxOR0aY7
- wUobP26uxQWXNHM9hNghUMznNA==
-X-Google-Smtp-Source: ABdhPJya1M18CBF7DP0IaMvzRvqWs1ZQknQS2KXlRom+8Op79bVXXJtl3EZCPPX8Tq6isGWo5p1MvQ==
-X-Received: by 2002:a17:90a:1944:b0:1d9:7cf8:5457 with SMTP id
- 4-20020a17090a194400b001d97cf85457mr7232685pjh.112.1651620095171; 
- Tue, 03 May 2022 16:21:35 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:93ca:84cb:c452:c0a3])
- by smtp.gmail.com with ESMTPSA id
- s12-20020a17090302cc00b0015e8d4eb2e2sm6872180plk.300.2022.05.03.16.21.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 16:21:34 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  3 May 2022 16:21:08 -0700
-Message-Id: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
-X-Mailer: git-send-email 2.36.0.464.gb9c8b46e94-goog
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 608F610F712;
+ Tue,  3 May 2022 23:40:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1651621224; x=1683157224;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=gLxi3hSAGzUXIcIBMnsOL9IDLdKVO76+Gch6gUEtubg=;
+ b=CgxaG6RSyzeNO3WBzF93hU/vdTLLpcBV7rxRo3GHi5NLLU53sPSOc19l
+ VMiWl/0kY0NUz3uG3dKpV7ws8sN4ZpvCdHQJceSBnpZK19tdBhaHEbedy
+ tykumk4Qxw7oVJdliGcRUmrDq3KVyMODPso/shXwPzD9KBBeGFUmvJIrd I=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 03 May 2022 16:40:24 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2022 16:40:23 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 3 May 2022 16:40:23 -0700
+Received: from [10.38.244.235] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 3 May 2022
+ 16:40:20 -0700
+Message-ID: <8e7dc3a8-c1d1-df90-3861-e3309d7ae0b9@quicinc.com>
+Date: Tue, 3 May 2022 16:40:18 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm: Document that power requirements for DP
- AUX transfers
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+ <20220209172520.3719906-9-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220209172520.3719906-9-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 08/25] drm/msm/dpu: get rid of cached
+ flush_mask
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,86 +68,334 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lyude Paul <lyude@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- linux-kernel@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
- Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- Jani Nikula <jani.nikula@intel.com>, Maxime Ripard <maxime@cerno.tech>,
- Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-When doing DP AUX transfers there are two actors that need to be
-powered in order for the DP AUX transfer to work: the DP source and
-the DP sync. Commit bacbab58f09d ("drm: Mention the power state
-requirement on side-channel operations") added some documentation
-saying that the DP source is required to power itself up (if needed)
-to do AUX transfers. However, that commit doesn't talk anything about
-the DP sink.
 
-For full fledged DP the sink isn't really a problem. It's expected
-that if an external DP monitor isn't plugged in that attempting to do
-AUX transfers won't work. It's also expected that if a DP monitor is
-plugged in (and thus asserting HPD) that it AUX transfers will work.
 
-When we're looking at eDP, however, things are less obvious. Let's add
-some documentation about expectations. Here's what we'll say:
+On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
+> Instead of querying the CTL for the flush mask (for SSPP, LM or DSPP),
+> storing the mask in the mixer configuration and then pushing the mask to
+> the CTL, tell CTL to cache the flush in place.
+> 
 
-1. We don't expect the DP AUX transfer function to power on an eDP
-panel. If an eDP panel is physically connected but powered off then it
-makes sense for the transfer to fail.
+This follows the pattern of other update_pending_flush_*** ops which we 
+have so this is fine.
 
-2. We'll document that the official way to power on a panel is via the
-bridge chain, specifically by making sure that the panel's prepare
-function has been called (which is called by
-panel_bridge_pre_enable()). It's already specified in the kernel doc
-of drm_panel_prepare() that this is the way to power the panel on and
-also that after this call "it is possible to communicate with any
-integrated circuitry via a command bus."
+This change can go in independent of this series. no need to wait.
 
-3. We'll also document that for code running in the panel driver
-itself that it is legal for the panel driver to power itself up
-however it wants (it doesn't need to officially call
-drm_panel_pre_enable()) and then it can do AUX bus transfers. This is
-currently the way that edp-panel works when it's running atop the DP
-AUX bus.
+Apart from a minor comments nit below,
 
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c   | 25 ++-----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h   |  1 -
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 78 +++++++++-------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h | 35 +++++++---
+>   4 files changed, 66 insertions(+), 73 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index d21791db6ab1..e6c33022d560 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -396,7 +396,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   			_dpu_crtc_setup_blend_cfg(mixer + lm_idx,
+>   						pstate, format);
+>   
+> -			mixer[lm_idx].flush_mask |= ctl->ops.get_bitmask_sspp(ctl, sspp_idx);
+> +			mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(mixer[lm_idx].lm_ctl, sspp_idx);
+>   
+>   			if (bg_alpha_enable && !format->alpha_enable)
+>   				mixer[lm_idx].mixer_op_mode = 0;
+> @@ -430,7 +430,6 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+>   
+>   	for (i = 0; i < cstate->num_mixers; i++) {
+>   		mixer[i].mixer_op_mode = 0;
+> -		mixer[i].flush_mask = 0;
+>   		if (mixer[i].lm_ctl->ops.clear_all_blendstages)
+>   			mixer[i].lm_ctl->ops.clear_all_blendstages(
+>   					mixer[i].lm_ctl);
+> @@ -447,17 +446,14 @@ static void _dpu_crtc_blend_setup(struct drm_crtc *crtc)
+>   
+>   		lm->ops.setup_alpha_out(lm, mixer[i].mixer_op_mode);
+>   
+> -		mixer[i].flush_mask |= ctl->ops.get_bitmask_mixer(ctl,
+> -			mixer[i].hw_lm->idx);
+> -
+>   		/* stage config flush mask */
+> -		ctl->ops.update_pending_flush(ctl, mixer[i].flush_mask);
+> +		ctl->ops.update_pending_flush_mixer(ctl,
+> +			mixer[i].hw_lm->idx);
+>   
+> -		DRM_DEBUG_ATOMIC("lm %d, op_mode 0x%X, ctl %d, flush mask 0x%x\n",
+> +		DRM_DEBUG_ATOMIC("lm %d, op_mode 0x%X, ctl %d\n",
+>   			mixer[i].hw_lm->idx - LM_0,
+>   			mixer[i].mixer_op_mode,
+> -			ctl->idx - CTL_0,
+> -			mixer[i].flush_mask);
+> +			ctl->idx - CTL_0);
+>   
+>   		ctl->ops.setup_blendstage(ctl, mixer[i].hw_lm->idx,
+>   			&stage_cfg);
+> @@ -701,16 +697,9 @@ static void _dpu_crtc_setup_cp_blocks(struct drm_crtc *crtc)
+>   			dspp->ops.setup_pcc(dspp, &cfg);
+>   		}
+>   
+> -		mixer[i].flush_mask |= ctl->ops.get_bitmask_dspp(ctl,
+> -			mixer[i].hw_dspp->idx);
+> -
+>   		/* stage config flush mask */
+> -		ctl->ops.update_pending_flush(ctl, mixer[i].flush_mask);
+> -
+> -		DRM_DEBUG_ATOMIC("lm %d, ctl %d, flush mask 0x%x\n",
+> -			mixer[i].hw_lm->idx - DSPP_0,
+> -			ctl->idx - CTL_0,
+> -			mixer[i].flush_mask);
+> +		ctl->ops.update_pending_flush_dspp(ctl,
+> +			mixer[i].hw_dspp->idx);
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> index b8785c394fcc..9f87fc32b1bb 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> @@ -95,7 +95,6 @@ struct dpu_crtc_mixer {
+>   	struct dpu_hw_ctl *lm_ctl;
+>   	struct dpu_hw_dspp *hw_dspp;
+>   	u32 mixer_op_mode;
+> -	u32 flush_mask;
+>   };
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> index 02da9ecf71f1..8dc59659bd18 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c
+> @@ -139,92 +139,84 @@ static inline void dpu_hw_ctl_trigger_flush(struct dpu_hw_ctl *ctx)
+>   	DPU_REG_WRITE(&ctx->hw, CTL_FLUSH, ctx->pending_flush_mask);
+>   }
+>   
+> -static uint32_t dpu_hw_ctl_get_bitmask_sspp(struct dpu_hw_ctl *ctx,
+> +static void dpu_hw_ctl_update_pending_flush_sspp(struct dpu_hw_ctl *ctx,
+>   	enum dpu_sspp sspp)
+>   {
+> -	uint32_t flushbits = 0;
+> -
+>   	switch (sspp) {
+>   	case SSPP_VIG0:
+> -		flushbits =  BIT(0);
+> +		ctx->pending_flush_mask |=  BIT(0);
+>   		break;
+>   	case SSPP_VIG1:
+> -		flushbits = BIT(1);
+> +		ctx->pending_flush_mask |= BIT(1);
+>   		break;
+>   	case SSPP_VIG2:
+> -		flushbits = BIT(2);
+> +		ctx->pending_flush_mask |= BIT(2);
+>   		break;
+>   	case SSPP_VIG3:
+> -		flushbits = BIT(18);
+> +		ctx->pending_flush_mask |= BIT(18);
+>   		break;
+>   	case SSPP_RGB0:
+> -		flushbits = BIT(3);
+> +		ctx->pending_flush_mask |= BIT(3);
+>   		break;
+>   	case SSPP_RGB1:
+> -		flushbits = BIT(4);
+> +		ctx->pending_flush_mask |= BIT(4);
+>   		break;
+>   	case SSPP_RGB2:
+> -		flushbits = BIT(5);
+> +		ctx->pending_flush_mask |= BIT(5);
+>   		break;
+>   	case SSPP_RGB3:
+> -		flushbits = BIT(19);
+> +		ctx->pending_flush_mask |= BIT(19);
+>   		break;
+>   	case SSPP_DMA0:
+> -		flushbits = BIT(11);
+> +		ctx->pending_flush_mask |= BIT(11);
+>   		break;
+>   	case SSPP_DMA1:
+> -		flushbits = BIT(12);
+> +		ctx->pending_flush_mask |= BIT(12);
+>   		break;
+>   	case SSPP_DMA2:
+> -		flushbits = BIT(24);
+> +		ctx->pending_flush_mask |= BIT(24);
+>   		break;
+>   	case SSPP_DMA3:
+> -		flushbits = BIT(25);
+> +		ctx->pending_flush_mask |= BIT(25);
+>   		break;
+>   	case SSPP_CURSOR0:
+> -		flushbits = BIT(22);
+> +		ctx->pending_flush_mask |= BIT(22);
+>   		break;
+>   	case SSPP_CURSOR1:
+> -		flushbits = BIT(23);
+> +		ctx->pending_flush_mask |= BIT(23);
+>   		break;
+>   	default:
+>   		break;
+>   	}
+> -
+> -	return flushbits;
+>   }
+>   
+> -static uint32_t dpu_hw_ctl_get_bitmask_mixer(struct dpu_hw_ctl *ctx,
+> +static void dpu_hw_ctl_update_pending_flush_mixer(struct dpu_hw_ctl *ctx,
+>   	enum dpu_lm lm)
+>   {
+> -	uint32_t flushbits = 0;
+> -
+>   	switch (lm) {
+>   	case LM_0:
+> -		flushbits = BIT(6);
+> +		ctx->pending_flush_mask |= BIT(6);
+>   		break;
+>   	case LM_1:
+> -		flushbits = BIT(7);
+> +		ctx->pending_flush_mask |= BIT(7);
+>   		break;
+>   	case LM_2:
+> -		flushbits = BIT(8);
+> +		ctx->pending_flush_mask |= BIT(8);
+>   		break;
+>   	case LM_3:
+> -		flushbits = BIT(9);
+> +		ctx->pending_flush_mask |= BIT(9);
+>   		break;
+>   	case LM_4:
+> -		flushbits = BIT(10);
+> +		ctx->pending_flush_mask |= BIT(10);
+>   		break;
+>   	case LM_5:
+> -		flushbits = BIT(20);
+> +		ctx->pending_flush_mask |= BIT(20);
+>   		break;
+>   	default:
+> -		return -EINVAL;
+> +		break;
+>   	}
+>   
+> -	flushbits |= CTL_FLUSH_MASK_CTL;
+> -
+> -	return flushbits;
+> +	ctx->pending_flush_mask |= CTL_FLUSH_MASK_CTL;
+>   }
+>   
+>   static void dpu_hw_ctl_update_pending_flush_intf(struct dpu_hw_ctl *ctx,
+> @@ -262,29 +254,25 @@ static void dpu_hw_ctl_update_pending_flush_merge_3d_v1(struct dpu_hw_ctl *ctx,
+>   	ctx->pending_flush_mask |= BIT(MERGE_3D_IDX);
+>   }
+>   
+> -static uint32_t dpu_hw_ctl_get_bitmask_dspp(struct dpu_hw_ctl *ctx,
+> +static void dpu_hw_ctl_update_pending_flush_dspp(struct dpu_hw_ctl *ctx,
+>   	enum dpu_dspp dspp)
+>   {
+> -	uint32_t flushbits = 0;
+> -
+>   	switch (dspp) {
+>   	case DSPP_0:
+> -		flushbits = BIT(13);
+> +		ctx->pending_flush_mask |= BIT(13);
+>   		break;
+>   	case DSPP_1:
+> -		flushbits = BIT(14);
+> +		ctx->pending_flush_mask |= BIT(14);
+>   		break;
+>   	case DSPP_2:
+> -		flushbits = BIT(15);
+> +		ctx->pending_flush_mask |= BIT(15);
+>   		break;
+>   	case DSPP_3:
+> -		flushbits = BIT(21);
+> +		ctx->pending_flush_mask |= BIT(21);
+>   		break;
+>   	default:
+> -		return 0;
+> +		break;
+>   	}
+> -
+> -	return flushbits;
+>   }
+>   
+>   static u32 dpu_hw_ctl_poll_reset_status(struct dpu_hw_ctl *ctx, u32 timeout_us)
+> @@ -592,9 +580,9 @@ static void _setup_ctl_ops(struct dpu_hw_ctl_ops *ops,
+>   	ops->wait_reset_status = dpu_hw_ctl_wait_reset_status;
+>   	ops->clear_all_blendstages = dpu_hw_ctl_clear_all_blendstages;
+>   	ops->setup_blendstage = dpu_hw_ctl_setup_blendstage;
+> -	ops->get_bitmask_sspp = dpu_hw_ctl_get_bitmask_sspp;
+> -	ops->get_bitmask_mixer = dpu_hw_ctl_get_bitmask_mixer;
+> -	ops->get_bitmask_dspp = dpu_hw_ctl_get_bitmask_dspp;
+> +	ops->update_pending_flush_sspp = dpu_hw_ctl_update_pending_flush_sspp;
+> +	ops->update_pending_flush_mixer = dpu_hw_ctl_update_pending_flush_mixer;
+> +	ops->update_pending_flush_dspp = dpu_hw_ctl_update_pending_flush_dspp;
+>   	if (cap & BIT(DPU_CTL_FETCH_ACTIVE))
+>   		ops->set_active_pipes = dpu_hw_ctl_set_fetch_pipe_active;
+>   };
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> index 806c171e5df2..84e8167c23a1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.h
+> @@ -110,6 +110,32 @@ struct dpu_hw_ctl_ops {
+>   	void (*update_pending_flush_merge_3d)(struct dpu_hw_ctl *ctx,
+>   		enum dpu_merge_3d blk);
+>   
+> +	/**
+> +	 * OR in the given flushbits to the cached pending_flush_mask
+> +	 * No effect on hardware
+flush bits for SSPP
 
- include/drm/display/drm_dp_helper.h | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index dca40a045dd6..e5165b708a40 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -370,9 +370,17 @@ struct drm_dp_aux {
- 	 * helpers assume this is the case.
- 	 *
- 	 * Also note that this callback can be called no matter the
--	 * state @dev is in. Drivers that need that device to be powered
--	 * to perform this operation will first need to make sure it's
--	 * been properly enabled.
-+	 * state @dev is in and also no matter what state the panel is
-+	 * in. It's expected:
-+	 * - If the @dev providing the AUX bus is currently unpowered then
-+	 *   it will power itself up for the transfer.
-+	 * - If we're on eDP and the panel is not in a state where it can
-+	 *   respond (it's not powered or it's in a low power state) then this
-+	 *   function will return an error (but not crash). Note that if a
-+	 *   panel driver is initiating a DP AUX transfer it may power itself
-+	 *   up however it wants. All other code should ensure that the
-+	 *   pre_enable() bridge chain (which eventually calls the panel
-+	 *   prepare function) has powered the panel.
- 	 */
- 	ssize_t (*transfer)(struct drm_dp_aux *aux,
- 			    struct drm_dp_aux_msg *msg);
--- 
-2.36.0.464.gb9c8b46e94-goog
-
+> +	 * @ctx       : ctl path ctx pointer
+> +	 * @blk       : SSPP block index
+> +	 */
+> +	void (*update_pending_flush_sspp)(struct dpu_hw_ctl *ctx,
+> +		enum dpu_sspp blk);
+> +
+> +	/**
+> +	 * OR in the given flushbits to the cached pending_flush_mask
+> +	 * No effect on hardware
+> +	 * @ctx       : ctl path ctx pointer
+> +	 * @blk       : LM block index
+> +	 */
+flush bits for blend stages
+> +	void (*update_pending_flush_mixer)(struct dpu_hw_ctl *ctx,
+> +		enum dpu_lm blk);
+> +
+> +	/**
+> +	 * OR in the given flushbits to the cached pending_flush_mask
+> +	 * No effect on hardware
+flush bits for DSPP
+> +	 * @ctx       : ctl path ctx pointer
+> +	 * @blk       : DSPP block index
+> +	 */
+> +	void (*update_pending_flush_dspp)(struct dpu_hw_ctl *ctx,
+> +		enum dpu_dspp blk);
+>   	/**
+>   	 * Write the value of the pending_flush_mask to hardware
+>   	 * @ctx       : ctl path ctx pointer
+> @@ -144,15 +170,6 @@ struct dpu_hw_ctl_ops {
+>   	 */
+>   	int (*wait_reset_status)(struct dpu_hw_ctl *ctx);
+>   
+> -	uint32_t (*get_bitmask_sspp)(struct dpu_hw_ctl *ctx,
+> -		enum dpu_sspp blk);
+> -
+> -	uint32_t (*get_bitmask_mixer)(struct dpu_hw_ctl *ctx,
+> -		enum dpu_lm blk);
+> -
+> -	uint32_t (*get_bitmask_dspp)(struct dpu_hw_ctl *ctx,
+> -		enum dpu_dspp blk);
+> -
+>   	/**
+>   	 * Set all blend stages to disabled
+>   	 * @ctx       : ctl path ctx pointer
