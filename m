@@ -1,62 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F7E51918A
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 00:41:02 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 310855191EF
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 00:56:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0383310E9F7;
-	Tue,  3 May 2022 22:40:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF1A710F508;
+	Tue,  3 May 2022 22:56:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [IPv6:2607:f8b0:4864:20::1031])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAE8410E37E
- for <freedreno@lists.freedesktop.org>; Tue,  3 May 2022 22:40:54 +0000 (UTC)
-Received: by mail-pj1-x1031.google.com with SMTP id
- cq17-20020a17090af99100b001dc0386cd8fso3190007pjb.5
- for <freedreno@lists.freedesktop.org>; Tue, 03 May 2022 15:40:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=BJTMp60yVPlpACNJP/dPSerG6q4+tCNFLovcxZfzgpw=;
- b=mPiekIzUJZ1ORsFOwevg29S0fjLLyCb6eTpc6bO+PI8+8zvjqyUtZHNV+eui9dr/wu
- 7z7br0XhXN9ubuQQnpWD+kemfxzRMjMKbepsIZdLeBz5BSRZcTf9HqMWSsD1AaxuTv30
- ywRf8Bx6v27k7tzIVuZ6SpHE1vyE5QcghEj4U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=BJTMp60yVPlpACNJP/dPSerG6q4+tCNFLovcxZfzgpw=;
- b=ZLSQkFrgI0hGQESsfZV5Bn3yQgo4cPxttcvMdy+P8xmwMG8+H99ZHo4y67129ljt3E
- z3HQ9n9UyGvCDZV1zxsCd2c6sEJ46L+jZzYOVinEeD3f3brPBpD3aS0IJZ/0uY5fw3yW
- yQSD6TL8JwwH59aTv9RBksbqK1V/eLuYfrkVTknm68Qduqfu2DwQ+EblKHPHIlSIo9+v
- F2A2JxgPgwoUgScI+SzEH1rgtDTpKy6IcYVGhcvrApuRQPPHsQ+aI3Oroid8oVXkInVR
- JNUp4WQrf0dM/Xp67udb7n42UrTc0wEPaA5Ar0IpIsnoWO5iTwVlt0RGC9mcmTGuzct8
- l9MA==
-X-Gm-Message-State: AOAM531IkwZhn9p7J/qhqcBl19miayyLKVfv1rifOqU4XVdKDxT1yBmo
- YUkWMxf8DmmqFSXtv2TghwJjJR4zaFdcTZuTcCM=
-X-Google-Smtp-Source: ABdhPJxI1px4iialtat/eNsHwtP473+rj8LypxEcCFT7XlM63zuMiRvvrL3tTsdNa82uXlSxVWhzsA==
-X-Received: by 2002:a17:902:9001:b0:156:a567:2683 with SMTP id
- a1-20020a170902900100b00156a5672683mr18769417plp.164.1651617654273; 
- Tue, 03 May 2022 15:40:54 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:202:201:93ca:84cb:c452:c0a3])
- by smtp.gmail.com with ESMTPSA id
- az12-20020a170902a58c00b0015e8d4eb27esm6803778plb.200.2022.05.03.15.40.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 15:40:53 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  3 May 2022 15:40:29 -0700
-Message-Id: <20220503153850.v2.2.Ia6324ebc848cd40b4dbd3ad3289a7ffb5c197779@changeid>
-X-Mailer: git-send-email 2.36.0.464.gb9c8b46e94-goog
-In-Reply-To: <20220503224029.3195306-1-dianders@chromium.org>
-References: <20220503224029.3195306-1-dianders@chromium.org>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4631210F467;
+ Tue,  3 May 2022 22:56:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1651618562; x=1683154562;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=/bXc6PmLSiya/35ATiW+XNjyJ5gHOb7yWo93Qqu4O6k=;
+ b=CYbZ8l1kJz1qcSuThk7SXSEZMsjXG4i68HaTFu5X7CBg+dUklhDkUIvD
+ GBmcvullm0ai5qJEfSxnb1TlNJnDK0uYIhP1ofm1m0QIuZYF94KnUacw8
+ nYrnqOheWdsc4QoSMt8ltgyWDo1p3zZxaobKceHANOEgZwuXRt9IIjaKu s=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 03 May 2022 15:56:02 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2022 15:56:01 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 3 May 2022 15:56:00 -0700
+Received: from [10.38.244.235] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 3 May 2022
+ 15:55:58 -0700
+Message-ID: <dd2daa5e-9d72-9b07-82f3-e163fef0f42f@quicinc.com>
+Date: Tue, 3 May 2022 15:55:56 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/bridge: parade-ps8640: Handle DP AUX
- more properly
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+ <20220209172520.3719906-7-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220209172520.3719906-7-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 06/25] drm/msm/dpu: inline
+ dpu_plane_get_ctl_flush
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,192 +67,130 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Douglas Anderson <dianders@chromium.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Neil Armstrong <narmstrong@baylibre.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-While it works, for the most part, to assume that the panel has
-finished probing when devm_of_dp_aux_populate_ep_devices() returns,
-it's a bit fragile. This is talked about at length in commit
-a1e3667a9835 ("drm/bridge: ti-sn65dsi86: Promote the AUX channel to
-its own sub-dev").
 
-When reviewing the ps8640 code, I managed to convince myself that it
-was OK not to worry about it there and that maybe it wasn't really
-_that_ fragile. However, it turns out that it really is. Simply
-hardcoding panel_edp_probe() to return -EPROBE_DEFER was enough to put
-the boot process into an infinite loop. I believe this manages to trip
-the same issues that we used to trip with the main MSM code where
-something about our actions trigger Linux to re-probe previously
-deferred devices right away and each time we try again we re-trigger
-Linux to re-probe.
 
-Let's fix this using the callback introduced in the patch ("drm/dp:
-Callbacks to make it easier for drivers to use DP AUX bus properly").
-When using the new callback, we have to be a little careful. The
-probe_done() callback is no longer (always) called in the context of
-our probe routine. That means we can't rely on being able to return
--EPROBE_DEFER from it. We re-jigger the order of things a bit to
-account for that.
-
-With this change, the device still boots (though obviously the panel
-doesn't come up) if I force panel-edp to always return
--EPROBE_DEFER. If I fake it and make the panel probe exactly once it
-also works.
-
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
-
-Changes in v2:
-- Rewrote atop new method introduced by patch #1.
-
- drivers/gpu/drm/bridge/parade-ps8640.c | 77 +++++++++++++++++---------
- 1 file changed, 52 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/bridge/parade-ps8640.c
-index edb939b14c04..68131ca91eac 100644
---- a/drivers/gpu/drm/bridge/parade-ps8640.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8640.c
-@@ -104,6 +104,7 @@ struct ps8640 {
- 	struct gpio_desc *gpio_powerdown;
- 	struct device_link *link;
- 	bool pre_enabled;
-+	bool bridge_added;
- };
- 
- static const struct regmap_config ps8640_regmap_config[] = {
-@@ -537,12 +538,11 @@ static const struct drm_bridge_funcs ps8640_bridge_funcs = {
- 	.pre_enable = ps8640_pre_enable,
- };
- 
--static int ps8640_bridge_host_attach(struct device *dev, struct ps8640 *ps_bridge)
-+static int ps8640_bridge_get_dsi_resources(struct device *dev, struct ps8640 *ps_bridge)
- {
- 	struct device_node *in_ep, *dsi_node;
- 	struct mipi_dsi_device *dsi;
- 	struct mipi_dsi_host *host;
--	int ret;
- 	const struct mipi_dsi_device_info info = { .type = "ps8640",
- 						   .channel = 0,
- 						   .node = NULL,
-@@ -577,17 +577,44 @@ static int ps8640_bridge_host_attach(struct device *dev, struct ps8640 *ps_bridg
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = NUM_MIPI_LANES;
- 
--	ret = devm_mipi_dsi_attach(dev, dsi);
-+	return 0;
-+}
-+
-+static int ps8640_bridge_link_panel(struct drm_dp_aux *aux)
-+{
-+	struct ps8640 *ps_bridge = aux_to_ps8640(aux);
-+	struct device *dev = aux->dev;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	/*
-+	 * NOTE about returning -EPROBE_DEFER from this function: if we
-+	 * return an error (most relevant to -EPROBE_DEFER) it will only
-+	 * be passed out to ps8640_probe() if we don't have our panel
-+	 * under the "aux-bus". That should be fine because if the panel is
-+	 * under "aux-bus" it's guaranteed to have probed by the time this
-+	 * function has been called.
-+	 */
-+
-+	/* port@1 is ps8640 output port */
-+	ps_bridge->panel_bridge = devm_drm_of_get_bridge(dev, np, 1, 0);
-+	if (IS_ERR(ps_bridge->panel_bridge))
-+		return PTR_ERR(ps_bridge->panel_bridge);
-+
-+	drm_bridge_add(&ps_bridge->bridge);
-+
-+	ret = devm_mipi_dsi_attach(dev, ps_bridge->dsi);
- 	if (ret)
--		return ret;
-+		drm_bridge_remove(&ps_bridge->bridge);
-+	else
-+		ps_bridge->bridge_added = true;
- 
--	return 0;
-+	return ret;
- }
- 
- static int ps8640_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
--	struct device_node *np = dev->of_node;
- 	struct ps8640 *ps_bridge;
- 	int ret;
- 	u32 i;
-@@ -628,6 +655,14 @@ static int ps8640_probe(struct i2c_client *client)
- 	if (!ps8640_of_panel_on_aux_bus(&client->dev))
- 		ps_bridge->bridge.ops = DRM_BRIDGE_OP_EDID;
- 
-+	/*
-+	 * Get MIPI DSI resources early. These can return -EPROBE_DEFER so
-+	 * we want to get them out of the way sooner.
-+	 */
-+	ret = ps8640_bridge_get_dsi_resources(&client->dev, ps_bridge);
-+	if (ret)
-+		return ret;
-+
- 	ps_bridge->page[PAGE0_DP_CNTL] = client;
- 
- 	ps_bridge->regmap[PAGE0_DP_CNTL] = devm_regmap_init_i2c(client, ps8640_regmap_config);
-@@ -670,31 +705,23 @@ static int ps8640_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
--	devm_of_dp_aux_populate_ep_devices(&ps_bridge->aux);
--
--	/* port@1 is ps8640 output port */
--	ps_bridge->panel_bridge = devm_drm_of_get_bridge(dev, np, 1, 0);
--	if (IS_ERR(ps_bridge->panel_bridge))
--		return PTR_ERR(ps_bridge->panel_bridge);
--
--	drm_bridge_add(&ps_bridge->bridge);
--
--	ret = ps8640_bridge_host_attach(dev, ps_bridge);
--	if (ret)
--		goto err_bridge_remove;
--
--	return 0;
--
--err_bridge_remove:
--	drm_bridge_remove(&ps_bridge->bridge);
--	return ret;
-+	/*
-+	 * Kick off the probe for our panel if it's on the dp-aux bus.
-+	 * If the panel is on the aux bus ps8640_bridge_link_panel() will
-+	 * get called when it finishes probing. If the panel is an old-style
-+	 * platform device ps8640_bridge_link_panel() will be called directly
-+	 * and its return value will be the return value of our function.
-+	 */
-+	return devm_of_dp_aux_populate_ep_device(&ps_bridge->aux,
-+						 ps8640_bridge_link_panel);
- }
- 
- static int ps8640_remove(struct i2c_client *client)
- {
- 	struct ps8640 *ps_bridge = i2c_get_clientdata(client);
- 
--	drm_bridge_remove(&ps_bridge->bridge);
-+	if (ps_bridge->bridge_added)
-+		drm_bridge_remove(&ps_bridge->bridge);
- 
- 	return 0;
- }
--- 
-2.36.0.464.gb9c8b46e94-goog
-
+On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
+> There is no need to keep a separate function for calling into the ctl if
+> we already know all the details. Inline this function in the dpu_crtc.c
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c  | 15 ++++++++-------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 ------------
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |  9 ---------
+>   3 files changed, 8 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 7318bd45637a..5fc338ef3460 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -348,7 +348,6 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   	struct dpu_format *format;
+>   	struct dpu_hw_ctl *ctl = mixer->lm_ctl;
+>   
+> -	u32 flush_mask;
+>   	uint32_t stage_idx, lm_idx;
+>   	int zpos_cnt[DPU_STAGE_MAX + 1] = { 0 };
+>   	bool bg_alpha_enable = false;
+> @@ -356,6 +355,8 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   
+>   	memset(fetch_active, 0, sizeof(fetch_active));
+>   	drm_atomic_crtc_for_each_plane(plane, crtc) {
+> +		enum dpu_sspp sspp_idx;
+> +
+>   		state = plane->state;
+>   		if (!state)
+>   			continue;
+> @@ -363,14 +364,14 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   		pstate = to_dpu_plane_state(state);
+>   		fb = state->fb;
+>   
+> -		dpu_plane_get_ctl_flush(plane, ctl, &flush_mask);
+> -		set_bit(dpu_plane_pipe(plane), fetch_active);
+> +		sspp_idx = dpu_plane_pipe(plane);
+> +		set_bit(sspp_idx, fetch_active);
+>   
+>   		DRM_DEBUG_ATOMIC("crtc %d stage:%d - plane %d sspp %d fb %d\n",
+>   				crtc->base.id,
+>   				pstate->stage,
+>   				plane->base.id,
+> -				dpu_plane_pipe(plane) - SSPP_VIG0,
+> +				sspp_idx - SSPP_VIG0,
+>   				state->fb ? state->fb->base.id : -1);
+>   
+>   		format = to_dpu_format(msm_framebuffer_format(pstate->base.fb));
+> @@ -380,13 +381,13 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   
+>   		stage_idx = zpos_cnt[pstate->stage]++;
+>   		stage_cfg->stage[pstate->stage][stage_idx] =
+> -					dpu_plane_pipe(plane);
+> +					sspp_idx;
+>   		stage_cfg->multirect_index[pstate->stage][stage_idx] =
+>   					pstate->multirect_index;
+>   
+>   		trace_dpu_crtc_setup_mixer(DRMID(crtc), DRMID(plane),
+>   					   state, pstate, stage_idx,
+> -					   dpu_plane_pipe(plane) - SSPP_VIG0,
+> +					   sspp_idx - SSPP_VIG0,
+>   					   format->base.pixel_format,
+>   					   fb ? fb->modifier : 0);
+>   
+> @@ -395,7 +396,7 @@ static void _dpu_crtc_blend_setup_mixer(struct drm_crtc *crtc,
+>   			_dpu_crtc_setup_blend_cfg(mixer + lm_idx,
+>   						pstate, format);
+>   
+> -			mixer[lm_idx].flush_mask |= flush_mask;
+> +			mixer[lm_idx].flush_mask |= ctl->ops.get_bitmask_sspp(ctl, sspp_idx);
+>   
+>   			if (bg_alpha_enable && !format->alpha_enable)
+>   				mixer[lm_idx].mixer_op_mode = 0;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 0247ff8a67a2..ca194cd83cd0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -849,18 +849,6 @@ int dpu_plane_validate_multirect_v2(struct dpu_multirect_plane_states *plane)
+>   	return 0;
+>   }
+>   
+> -/**
+> - * dpu_plane_get_ctl_flush - get control flush for the given plane
+> - * @plane: Pointer to drm plane structure
+> - * @ctl: Pointer to hardware control driver
+> - * @flush_sspp: Pointer to sspp flush control word
+> - */
+> -void dpu_plane_get_ctl_flush(struct drm_plane *plane, struct dpu_hw_ctl *ctl,
+> -		u32 *flush_sspp)
+> -{
+> -	*flush_sspp = ctl->ops.get_bitmask_sspp(ctl, dpu_plane_pipe(plane));
+> -}
+> -
+>   static int dpu_plane_prepare_fb(struct drm_plane *plane,
+>   		struct drm_plane_state *new_state)
+>   {
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> index 42b88b6bc9c2..aa9478b475d4 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
+> @@ -61,15 +61,6 @@ struct dpu_multirect_plane_states {
+>    */
+>   enum dpu_sspp dpu_plane_pipe(struct drm_plane *plane);
+>   
+> -/**
+> - * dpu_plane_get_ctl_flush - get control flush mask
+> - * @plane:   Pointer to DRM plane object
+> - * @ctl: Pointer to control hardware
+> - * @flush_sspp: Pointer to sspp flush control word
+> - */
+> -void dpu_plane_get_ctl_flush(struct drm_plane *plane, struct dpu_hw_ctl *ctl,
+> -		u32 *flush_sspp);
+> -
+>   /**
+>    * dpu_plane_flush - final plane operations before commit flush
+>    * @plane: Pointer to drm plane structure
