@@ -2,43 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6BEA51A0F0
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 15:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DD751A0FB
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 15:36:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5517610EC98;
-	Wed,  4 May 2022 13:31:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0B8A10EC6B;
+	Wed,  4 May 2022 13:36:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD3010EC84;
- Wed,  4 May 2022 13:31:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0AA810EC6B;
+ Wed,  4 May 2022 13:36:01 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C85FC615F9;
- Wed,  4 May 2022 13:31:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF4BC385A5;
- Wed,  4 May 2022 13:31:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7B44961967;
+ Wed,  4 May 2022 13:35:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A011C385AF;
+ Wed,  4 May 2022 13:35:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1651671113;
- bh=lBEsUXAhncVrCtdTQLW5xpTq13o4idnU/Uuq8Y9Mjws=;
+ s=k20201202; t=1651671358;
+ bh=kNhPGoxLldv4gWT0XuX6jvHYFzpnyliDly+8z7ipYrk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZIFSKVI/d24n75tJuzFwgDlw89b3QZ9a9webgZcypgJzhhvWqzR2tl3oZV0PLoRgN
- JsTbZr1/GCQXFWxM+q107mW4LVoYo/3PabiPk4avx0vHDQy16PzBpchziMuGSuFZ7U
- dt8Bs3YqCfrt65kOANAXL4PnMPR4QhnLUoktDvwOTcHBajYm3VGc4awRdkml1S4+/Z
- /aHMx5nuxGUqZZfsKH41e7Sn0pn0sJpjKNneac8eqy2cwKJoFolLIFSJBHZ26gEybO
- /BvsZNlStQWxcAxVMFoIx/wRaBadjvbCMTJOaSf1WHcPXD/eLtsZi9RIJp5qgYxMtw
- m4FC1rVKBIf3Q==
-Date: Wed, 4 May 2022 19:01:48 +0530
+ b=O7HGc+qHGOavR+BgNIiQSJiHOHhLG5MVP5Y8Qrq4ZrqIEjGRHh0qFXgWWYafDK8nd
+ VNn9im1zQnjGfyjvT2xqk15nRAEQ6hQB6rerYBBEhC38wZBprNKpA8CtVgi98NZHan
+ Txovb+Y58HFsh3aWAYoArlNhBXEyghLpcZKLFRAXCaye3ZneFZlMFnhVusyLq6oDEw
+ py2egKM4DmY2rJQHLnRWd5MD2LjO5Tdw2yAHiBvPUMs9ZoCqrqSf8YmaqOzDWx7XXy
+ UdoWM02XJwMRF+f2wQj/D4X+LYyFEEM3qBkV7L4/U/GOhLBOQ3Ys2qSrTbOHPVyJqr
+ qgJFzX+zIQHOQ==
+Date: Wed, 4 May 2022 19:05:54 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <YnKARNKFBuEx+Xli@matsya>
+Message-ID: <YnKBOr1bBXarjQgJ@matsya>
 References: <20220430175533.3817792-1-dmitry.baryshkov@linaro.org>
+ <20220430185807.yn2j2coyc77qzx2o@SoMainline.org>
+ <02114b24-f954-f145-4918-01cc3def65ac@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220430175533.3817792-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <02114b24-f954-f145-4918-01cc3def65ac@linaro.org>
 Subject: Re: [Freedreno] [PATCH v2] drm/msm/dsi: use RMW cycles in
  dsi_update_dsc_timing
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -56,23 +57,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: freedreno@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
  David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30-04-22, 20:55, Dmitry Baryshkov wrote:
-> The downstream uses read-modify-write for updating command mode
-> compression registers. Let's follow this approach. This also fixes the
-> following warning:
+On 30-04-22, 22:28, Dmitry Baryshkov wrote:
+> On 30/04/2022 21:58, Marijn Suijten wrote:
+> > On 2022-04-30 20:55:33, Dmitry Baryshkov wrote:
+> > > The downstream uses read-modify-write for updating command mode
+> > > compression registers. Let's follow this approach. This also fixes the
+> > > following warning:
+> > > 
+> > > drivers/gpu/drm/msm/dsi/dsi_host.c:918:23: warning: variable 'reg_ctrl' set but not used [-Wunused-but-set-variable]
+> > > 
+> > > Reported-by: kernel test robot <lkp@intel.com>
+> > > Fixes: 08802f515c3c ("drm/msm/dsi: Add support for DSC configuration")
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > 
+> > I pointed this out in review multiple times, so you'll obviously get my:
 > 
-> drivers/gpu/drm/msm/dsi/dsi_host.c:918:23: warning: variable 'reg_ctrl' set but not used [-Wunused-but-set-variable]
+> I think I might have also pointed this out once (and then forgot to check
+> that the issue was fixed by Vinod).
 
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
+I think i have tried to reply to all comments, if anything was missed
+that would be my mistake..
 
-Tested on pixel3:
-Tested-by: Vinod Koul <vkoul@kernel.org>
+> > Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+> > 
+> > (But are you sure there's nothing else to clear in the 1st CTRL
+> > register, only the lowest 16 bits?  That should mean `reg` never
+> > contains anything in 0xffff0000)
+> 
+> Judging from the downstream the upper half conains the same fields, but used
+> for other virtual channel. I didn't research what's the difference yet. All
+> the dtsi files that I have here at hand use
+> 'qcom,mdss-dsi-virtual-channel-id = <0>;'
+
+Yes the register description is for STREAM1 in documentation, it is
+unclear to me when that can be used
 
 -- 
 ~Vinod
