@@ -1,60 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BD1A51AD21
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 20:44:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD04251ADD0
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 21:33:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A88B10E0EB;
-	Wed,  4 May 2022 18:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5955910ED1C;
+	Wed,  4 May 2022 19:33:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C6A10E0EB
- for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 18:44:13 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id y63so2067014oia.7
- for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 11:44:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=Krvi/HpwBHAesm89MfsfOEIVsDIyjC5WrgT/4s6KRVQ=;
- b=Oao9pys9XD8VYE1VlkOYBz1163LoVqK0zQTXLcgwltnMASr9kfj9/M4WPVNS3hAy7A
- X01TWIvf5m/gbtLzupZrqcJ7u1D7aKzJ2VgI4+xF1TS+ioPlz0/Be3OZU5VRk4tIzZN8
- lj+SykAlqKoIZtcW8FCGRyjQK8KNyIQujQAuw=
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4734810ED1C
+ for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 19:33:17 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id j4so4047039lfh.8
+ for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 12:33:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YHYwQFAJmnErQZCKQJLUVtyEs4pscZoMMUhpkcqKYYM=;
+ b=ruHB31Y5G/kQ2KevdpivuWXbJaJwj7plgUBubNjE2VewX9g1xk6hQh78xwHb7tlLM8
+ j45bYpAaDPoI31/fFnmgQ0zbBL/GfKz61r4L+7mywO3UK/dG/+ZytdMpeJeC3f2UnlPv
+ PbYm1ltZWYimGB53KF9AiyIhrjMIsmxu6AcWmHyEj+S226NA1TkcNTA141zdhVMrFFem
+ f2GzbnsjDjYKjFQo98qG6qVlIEosWYVvxjdyBoMGtWyM+wei3NxMgIcvmY5fqUqtE91Y
+ bBJur4JPuZw/U5Y4z+PtaLZJFdAEiMxrytdm3OJKElgKnwH976dnI5kIksXldvtx+HV1
+ 1Ptw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=Krvi/HpwBHAesm89MfsfOEIVsDIyjC5WrgT/4s6KRVQ=;
- b=s0LKNW3hhrLbJDMo54LkQ4VFj3cPqsfAmA02AknOJvFz/+CZA0ffOAk4RLAvvm4pVb
- UEgxIExKRE8vLGOVK/Z2/uJcruhJvXPkD1fS6DMc4QkqbZSa57HTzayLMs35lsTBd+Mx
- C5qhXufFTY9rbsqFoUZ9rzgJMYSULUSuGdUofzsVM+935J4DvGeBL98p1VPEsDaM+juJ
- gMDV8KEOX+7Hy88NmZIbdrLxbfvXR/QXPULAaIX0sP4NCU+GysnbiNclD5phMluosB9W
- 63SczO6a1mb+HFCrdEOMWcod7sn4xdR+Oiiq/FRqdCUSrCsBM1HhzDarg3f3c4Ef1uGE
- uRFA==
-X-Gm-Message-State: AOAM532yBprvm3at+dNOvKHFaPi8hW9gEMHacWPjKMBFsJ9ojJN+aACC
- OSCPon0qPizfzgMNh4aZkLSQBPbxzWIHf/y4qikBjQ==
-X-Google-Smtp-Source: ABdhPJzN6Wlws2ejvXzwfKhDTAuq/vO3u/Y7SEw5cpP2kVU87jhPZQDlvf6Baumo+WHVMuuIUelVblPIYt8pNdViXkE=
-X-Received: by 2002:aca:bd41:0:b0:2ec:ff42:814f with SMTP id
- n62-20020acabd41000000b002ecff42814fmr440284oif.63.1651689852377; Wed, 04 May
- 2022 11:44:12 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 4 May 2022 14:44:11 -0400
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=YHYwQFAJmnErQZCKQJLUVtyEs4pscZoMMUhpkcqKYYM=;
+ b=1fsbbNWmv9aVIHeWjljpeu4mHnciOgbP4pFnkgJM4QlCj06btgdOdYAeyYa5LUDVxa
+ OzpChX2wVGUgZI/4mZxOPXjTT9+F+ebcaCB67hx9oq1LZeKPW1X9ZCYduqU8IQ6UBh7G
+ CbLaSFSQtb38G1yO1p3K3sFmt7Gozof7c4jveP9Ct7uyK+iKSL8N6qVrvHoSgVJnCtpT
+ 1IG/E/5+uj7bry2LIEgqo4gl2u6Kk+vJvmr558u+GgTLbnHpUnvN4vBYC/Ovdgbinif2
+ b/8hIiFGMp8FCIgfWVLhgFTb19GxsPcP7dtinbiIHQFZtS2MmgvzkVTscDMc8upVE7GW
+ EF0Q==
+X-Gm-Message-State: AOAM530BN6HdOFEtDBQmwqB4fr86tBjEdNBo5xVUTgxH8RmLWM2VonII
+ WxlCQHwXj0Eg+q/DOiFXQoNiWw==
+X-Google-Smtp-Source: ABdhPJwDQJGAoar+6xZb17zLviI1ctKFIgCOtDGssMUG/VfV7UGq2Htvy4sqs5yKuxLjdJyGWXsi4g==
+X-Received: by 2002:a19:a405:0:b0:473:cb3d:6cb0 with SMTP id
+ q5-20020a19a405000000b00473cb3d6cb0mr746951lfc.208.1651692795615; 
+ Wed, 04 May 2022 12:33:15 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ o8-20020ac24348000000b0047255d2110csm1283388lfl.59.2022.05.04.12.33.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 May 2022 12:33:15 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed,  4 May 2022 22:33:14 +0300
+Message-Id: <20220504193314.1185639-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-In-Reply-To: <1651595136-24312-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1651595136-24312-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 4 May 2022 14:44:11 -0400
-Message-ID: <CAE-0n50P4G1gwKmdzKR-ezHwmN3_BfBC5eWTC852oww75Zen6g@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: fix event thread stuck in
- wait_event after kthread_stop()
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PULL] drm/msm: several fixes for 5.19
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,31 +67,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-05-03 09:25:36)
-> Event thread supposed to exit from its while loop after kthread_stop().
-> However there may has possibility that event thread is pending in the
-> middle of wait_event due to condition checking never become true.
-> To make sure event thread exit its loop after kthread_stop(), this
-> patch OR kthread_should_stop() into wait_event's condition checking
-> so that event thread will exit its loop after kernal_stop().
->
-> Changes in v2:
-> --  correct spelling error at commit title
->
-> Changes in v3:
-> -- remove unnecessary parenthesis
-> -- while(1) to replace while (!kthread_should_stop())
->
-> Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Fixes: 570d3e5d28db ("drm/msm/dp: stop event kernel thread when DP unbind")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
+This pull request contains few tiny fixes targeting 5.19. The biggest one is
+the fix for the dp event thread wait condition.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+The following changes since commit 36a1d1bda77e1851bddfa9cf4e8ada94476dbaff:
+
+  drm/msm: Fix null pointer dereferences without iommu (2022-05-02 10:11:44 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/lumag/msm.git msm-next-lumag
+
+for you to fetch changes up to e402369f0b16d1518a9c7c7ffaaee9a90b2de6a5:
+
+  drm/msm/dp: fix event thread stuck in wait_event after kthread_stop() (2022-05-04 21:46:40 +0300)
+
+----------------------------------------------------------------
+Abhinav Kumar (1):
+      drm/msm/dpu: add missing break statement for update_pending_flush_wb()
+
+Dmitry Baryshkov (2):
+      drm/msm/dpu: don't access mode pointer before it is set
+      drm/msm/dsi: fix address for second DSI PHY on SDM660
+
+Konrad Dybcio (1):
+      drm/msm/disp: dpu1: Properly sort qcm2290_dpu_caps
+
+Kuogee Hsieh (1):
+      drm/msm/dp: fix event thread stuck in wait_event after kthread_stop()
+
+Vinod Polimera (1):
+      drm/msm/disp/dpu1: avoid clearing hw interrupts if hw_intr is null during drm uninit
+
+ .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  3 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 22 +++++++++++-----------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |  3 +++
+ drivers/gpu/drm/msm/dp/dp_display.c                | 13 +++++++++----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  2 +-
+ 6 files changed, 26 insertions(+), 18 deletions(-)
