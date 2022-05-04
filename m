@@ -2,66 +2,67 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39432519740
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 08:12:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73EDD519D3E
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 12:41:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B00A910FB6E;
-	Wed,  4 May 2022 06:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82D210F26C;
+	Wed,  4 May 2022 10:41:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B2E10FB6E
- for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 06:12:54 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id x17so606724lfa.10
- for <freedreno@lists.freedesktop.org>; Tue, 03 May 2022 23:12:54 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5B610F201
+ for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 10:41:53 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id y32so1604576lfa.6
+ for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 03:41:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=2tuqEYU8OdIQxZ+rdModr4KYTKneYsLdEMUMbVDbBTk=;
- b=BWUeIlVpukCSflMHB1tgYceEosqVc9oe/jVXzIYsrusbl87pNjhYnDjv9qEL0oLhwn
- aa5UjM1m72/z0Hga1RJHxiWZAKJqXW7wF3rMzST8CqwYHbsHDVJmbnoWbRlJOuZlx6tU
- ySVvgdDG7ZICzvh3u7mvZrki7RSf7Jlvyp9n+9KOD688mckez/KQg0eVURkS5L/boK+e
- IbT0Ut7YD4VLvL2Hh6VnoxQu4td6H/Fr3wJXIwAUC0p64RQorCh9AzQc5A4aFkxjWj4X
- zV3ANrN2TxFoRJ8c3bWK+NaiHY6YqPwSlTVWKpnmiPXr/oEYIm7X6CGb+/md6PS/104Z
- VzNg==
+ bh=Uh0KA8XyN0oZQi7YPk9g1XQPr9qWlNAqqxVYwUJ/JCA=;
+ b=Lhs3M01caOx70nH/SrvCQe1J34c6jTYeNb+HUeaivhZDHZIefzWyzLhaGIFuGXqkg6
+ e9a/26JcuqyMQhlmmknX9NXNzyCQW7BlbJEvUPia05ZxmC3hoi1mUlQ1X08zHXf13v7U
+ 3hUwks1S5XDOWmgMS71fP9zIK+nI+PHjxF6yK4FBQGnqGmry1x4T9lCppIZXrnD9Z42X
+ WuKVCbHrQysLGj18mhQthrmZRQWX1OfNPQ82qeFD9UJnqwDAdYlryS86aW8DghvelZwe
+ 0yYX1gSqjF0CuAhguwCr6vPvn1Sq5sK8X+udIwmnIBNdV1QCRY4JtKXGb0yWFeFotjc8
+ poow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=2tuqEYU8OdIQxZ+rdModr4KYTKneYsLdEMUMbVDbBTk=;
- b=ZgttjUlMwrHC+rw2NfrAdyRLjhCZpNEcbo1QGYvs89Ujt/Pwp1REo7MUydYwyN/+w8
- nKEyKXldBOPsfcgtQucZTYLxKgX6PUgagfYcbkLte6I3Eivk9cQpCgzEDYjiYC/GHbuc
- wV8KunRAPVdtMA2ZV3Ifm1+7YPb/gLiJuYwyDEVs1JwBr3fkOmDnFltN/dRP8sONGvA0
- iOr5EeTm4fIl9/wwojFwyAyoK13+qF8OgCtbVu8BUaCb/2vaKDAXMud++o3/UdUgQY4d
- 52xkQs1TpH7Dp3xR8yKl9+Gop1v74l/Z+fxAaOy7q588C/Hchdn6IZv0bSQGOgnN7MFc
- BHoA==
-X-Gm-Message-State: AOAM530VRYFBfcqLIubsCXQLx/RjXghIfXey39wS4qB6xDeQKq20L8mJ
- hHV/VDCoU3GBjf/7aoCciM5QsQ==
-X-Google-Smtp-Source: ABdhPJwS/7njQpo3DbfyMqUKtFd3wGDymfnni39lsDf6ApW3pU5xpDjIEk2egMPRoKYUqDcviFdi4w==
-X-Received: by 2002:a05:6512:118b:b0:46b:a9ae:3a3b with SMTP id
- g11-20020a056512118b00b0046ba9ae3a3bmr13477930lfr.188.1651644772957; 
- Tue, 03 May 2022 23:12:52 -0700 (PDT)
+ bh=Uh0KA8XyN0oZQi7YPk9g1XQPr9qWlNAqqxVYwUJ/JCA=;
+ b=gcrVjmFGyLCYjf3Kx6j9+3r1wiy2Z+WUKCWZqovlYG96IS81xt5S1SqyX4vibSmtw4
+ LTM5hyO4mOehetHi9o6jeM6Xml0r+OlzaOIviB1c0B9An4jmbrw+j9bNvK+GuBtZBaoq
+ xV3saZDQu7P8HBO1IMV6G0Zrza2o10jWG0Ce/XUpx0nJrLL1x7INTbOJ7BhblGhxgSI9
+ rS3zMOIc3s8qYOVM+Pm/zGjxiWMz2uNIKCXK2iRM6PPsO0eRsF+LN/6asBYBBcGU/zyx
+ GTjNDFyImymIyW/Sf568iTKlGI+kvW3Mofmb+J0QvTGw8A5Bm61JeX4mU+amzFsHCVib
+ 0vMA==
+X-Gm-Message-State: AOAM533zQCIYClCqsXQnZNPPvIlwgbOENlOdbnAXAT7xApDw7dnX/s8Y
+ H3tbYXj5PWfaKy6ymmZfHAO8aA==
+X-Google-Smtp-Source: ABdhPJwNt99pyJt15hjrfx+h/Wz1Hrhd+lxWlRzRo6cHXG9wRaX/fXns0esvb0VMeFela+NImjPB0g==
+X-Received: by 2002:a05:6512:3b10:b0:473:b6bf:88b1 with SMTP id
+ f16-20020a0565123b1000b00473b6bf88b1mr3048125lfv.277.1651660911058; 
+ Wed, 04 May 2022 03:41:51 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- c3-20020ac25303000000b0047255d210f9sm1119231lfh.40.2022.05.03.23.12.52
+ a4-20020a19f804000000b004725b99d2fdsm1073802lff.164.2022.05.04.03.41.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 May 2022 23:12:52 -0700 (PDT)
-Message-ID: <031fccd7-0082-8284-967d-285525a64394@linaro.org>
-Date: Wed, 4 May 2022 09:12:51 +0300
+ Wed, 04 May 2022 03:41:50 -0700 (PDT)
+Message-ID: <d4541684-337f-4c3f-fafa-a883be370c0e@linaro.org>
+Date: Wed, 4 May 2022 13:41:49 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
 Content-Language: en-GB
 To: Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org
-References: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
+References: <20220503224029.3195306-1-dianders@chromium.org>
+ <20220503153850.v2.1.I4182ae27e00792842cb86f1433990a0ef9c0a073@changeid>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
+In-Reply-To: <20220503153850.v2.1.I4182ae27e00792842cb86f1433990a0ef9c0a073@changeid>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] drm: Document that power requirements for
- DP AUX transfers
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/dp: Add callbacks to make using
+ DP AUX bus properly easier
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,95 +75,481 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lyude Paul <lyude@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- linux-kernel@vger.kernel.org, Robert Foss <robert.foss@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, Jani Nikula <jani.nikula@intel.com>,
- Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Philip Chen <philipchen@chromium.org>, Lyude Paul <lyude@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 04/05/2022 02:21, Douglas Anderson wrote:
-> When doing DP AUX transfers there are two actors that need to be
-> powered in order for the DP AUX transfer to work: the DP source and
-> the DP sync.
+On 04/05/2022 01:40, Douglas Anderson wrote:
+> As talked about in this patch in the kerneldoc of
+> of_dp_aux_populate_ep_device() and also in the past in commit
+> a1e3667a9835 ("drm/bridge: ti-sn65dsi86: Promote the AUX channel to
+> its own sub-dev"), it can be difficult for eDP controller drivers to
+> know when the panel has finished probing when they're using
+> of_dp_aux_populate_ep_devices().
+> 
+> The ti-sn65dsi86 driver managed to solve this because it was already
+> broken up into a bunch of sub-drivers. That means we could solve the
+> problem there by adding a new sub-driver to get the panel. We could
+> use the traditional -EPROBE_DEFER retry mechansim to handle the case
+> where the panel hadn't probed yet.
+> 
+> In parade-ps8640 we didn't really solve this. The code just expects
+> the panel to be ready right away. While reviewing the code originally
+> I had managed to convince myself it was fine to just expect the panel
+> right away, but additional testing has shown that not to be the
+> case. We could fix parade-ps8640 like we did ti-sn65dsi86 but it's
+> pretty cumbersome (since we're not already broken into multiple
+> drivers) and requires a bunch of boilerplate code.
+> 
+> After discussion [1] it seems like the best solution for most people
+> is:
+> - Accept that there's always at most one device that will probe as a
+>    result of the DP AUX bus (it may have sub-devices, but there will be
+>    one device _directly_ probed).
+> - When that device finishes probing, we can just have a call back.
+> 
+> This patch implements that idea. We'll now take a callback as an
+> argument to the populate function. To make this easier to land in
+> pieces, we'll make wrappers for the old functions. The functions with
+> the new name (which make it clear that we only have one child) will
+> take the callback and the functions with the old name will temporarily
+> wrap.
+> 
+> This patch also includes in a few tiny fixes that I noticed while
+> working on the code. Specifically:
+> - We had forgotten a EXPORT_SYMBOL_GPL on the non "devm" populate
+>    function.
 
-Nit: sink
+This can go to a separate patch, so that the fix can be backported to 
+earlier kernels. Please don't forget the Fixes: tag.
 
-> Commit bacbab58f09d ("drm: Mention the power state
-> requirement on side-channel operations") added some documentation
-> saying that the DP source is required to power itself up (if needed)
-> to do AUX transfers. However, that commit doesn't talk anything about
-> the DP sink.
+> - The kerneldoc of dp_aux_ep_dev_release() had incorrectly included a
+>    "Returns" clause.
 > 
-> For full fledged DP the sink isn't really a problem. It's expected
-> that if an external DP monitor isn't plugged in that attempting to do
-> AUX transfers won't work. It's also expected that if a DP monitor is
-> plugged in (and thus asserting HPD) that it AUX transfers will work.
-
-then
-
-> 
-> When we're looking at eDP, however, things are less obvious. Let's add
-> some documentation about expectations. Here's what we'll say:
-> 
-> 1. We don't expect the DP AUX transfer function to power on an eDP
-> panel. If an eDP panel is physically connected but powered off then it
-> makes sense for the transfer to fail.
-> 
-> 2. We'll document that the official way to power on a panel is via the
-> bridge chain, specifically by making sure that the panel's prepare
-> function has been called (which is called by
-> panel_bridge_pre_enable()). It's already specified in the kernel doc
-> of drm_panel_prepare() that this is the way to power the panel on and
-> also that after this call "it is possible to communicate with any
-> integrated circuitry via a command bus."
-> 
-> 3. We'll also document that for code running in the panel driver
-> itself that it is legal for the panel driver to power itself up
-> however it wants (it doesn't need to officially call
-> drm_panel_pre_enable()) and then it can do AUX bus transfers. This is
-> currently the way that edp-panel works when it's running atop the DP
-> AUX bus.
+> [1] https://lore.kernel.org/r/CAD=FV=Ur3afHhsXe7a3baWEnD=MFKFeKRbhFU+bt3P67G0MVzQ@mail.gmail.com
 > 
 > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 > ---
 > 
->   include/drm/display/drm_dp_helper.h | 14 +++++++++++---
->   1 file changed, 11 insertions(+), 3 deletions(-)
+> Changes in v2:
+> - Change to assume exactly one device.
+> - Have a probe callback instead of an extra sub device.
 > 
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index dca40a045dd6..e5165b708a40 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -370,9 +370,17 @@ struct drm_dp_aux {
->   	 * helpers assume this is the case.
->   	 *
->   	 * Also note that this callback can be called no matter the
-> -	 * state @dev is in. Drivers that need that device to be powered
-> -	 * to perform this operation will first need to make sure it's
-> -	 * been properly enabled.
-> +	 * state @dev is in and also no matter what state the panel is
-> +	 * in. It's expected:
-> +	 * - If the @dev providing the AUX bus is currently unpowered then
-> +	 *   it will power itself up for the transfer.
-> +	 * - If we're on eDP and the panel is not in a state where it can
-> +	 *   respond (it's not powered or it's in a low power state) then this
-> +	 *   function will return an error (but not crash). Note that if a
-> +	 *   panel driver is initiating a DP AUX transfer it may power itself
-> +	 *   up however it wants. All other code should ensure that the
-> +	 *   pre_enable() bridge chain (which eventually calls the panel
-> +	 *   prepare function) has powered the panel.
->   	 */
->   	ssize_t (*transfer)(struct drm_dp_aux *aux,
->   			    struct drm_dp_aux_msg *msg);
+>   drivers/gpu/drm/display/drm_dp_aux_bus.c | 215 +++++++++++++++--------
+>   include/drm/display/drm_dp_aux_bus.h     |  24 ++-
+>   2 files changed, 164 insertions(+), 75 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_aux_bus.c b/drivers/gpu/drm/display/drm_dp_aux_bus.c
+> index dccf3e2ea323..f3412c1c2a3c 100644
+> --- a/drivers/gpu/drm/display/drm_dp_aux_bus.c
+> +++ b/drivers/gpu/drm/display/drm_dp_aux_bus.c
+> @@ -3,10 +3,10 @@
+>    * Copyright 2021 Google Inc.
+>    *
+>    * The DP AUX bus is used for devices that are connected over a DisplayPort
+> - * AUX bus. The devices on the far side of the bus are referred to as
+> - * endpoints in this code.
+> + * AUX bus. The device on the far side of the bus is referred to as an
+> + * endpoint in this code.
+>    *
+> - * Commonly there is only one device connected to the DP AUX bus: a panel.
+> + * There is only one device connected to the DP AUX bus: an eDP panel.
+>    * Though historically panels (even DP panels) have been modeled as simple
+>    * platform devices, putting them under the DP AUX bus allows the panel driver
+>    * to perform transactions on that bus.
+> @@ -22,6 +22,11 @@
+>   #include <drm/display/drm_dp_aux_bus.h>
+>   #include <drm/display/drm_dp_helper.h>
+>   
+> +struct dp_aux_ep_device_with_data {
+> +	struct dp_aux_ep_device aux_ep;
+> +	int (*done_probing)(struct drm_dp_aux *aux);
+> +};
+> +
+>   /**
+>    * dp_aux_ep_match() - The match function for the dp_aux_bus.
+>    * @dev: The device to match.
+> @@ -48,6 +53,8 @@ static int dp_aux_ep_probe(struct device *dev)
+>   {
+>   	struct dp_aux_ep_driver *aux_ep_drv = to_dp_aux_ep_drv(dev->driver);
+>   	struct dp_aux_ep_device *aux_ep = to_dp_aux_ep_dev(dev);
+> +	struct dp_aux_ep_device_with_data *aux_ep_with_data =
+> +		container_of(aux_ep, struct dp_aux_ep_device_with_data, aux_ep);
+>   	int ret;
+>   
+>   	ret = dev_pm_domain_attach(dev, true);
+> @@ -56,7 +63,31 @@ static int dp_aux_ep_probe(struct device *dev)
+>   
+>   	ret = aux_ep_drv->probe(aux_ep);
+>   	if (ret)
+> -		dev_pm_domain_detach(dev, true);
+> +		goto err_attached;
+> +
+> +	if (aux_ep_with_data->done_probing) {
+> +		ret = aux_ep_with_data->done_probing(aux_ep->aux);
+> +		if (ret) {
+> +			/*
+> +			 * The done_probing() callback can only defer if it's
+> +			 * called directly from of_dp_aux_populate_ep_device()
+> +			 * because we had no DP AUX children. Flag an error.
+> +			 */
+> +			if (ret == -EPROBE_DEFER) {
+> +				dev_err(dev,
+> +					"DP AUX done_probing() can't defer w/ aux children\n");
+> +				ret = -EINVAL;
+> +			}
+> +			goto err_probed;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +err_probed:
+> +	if (aux_ep_drv->remove)
+> +		aux_ep_drv->remove(aux_ep);
+> +err_attached:
+> +	dev_pm_domain_detach(dev, true);
+>   
+>   	return ret;
+>   }
+> @@ -66,7 +97,6 @@ static int dp_aux_ep_probe(struct device *dev)
+>    * @dev: The device to remove.
+>    *
+>    * Calls through to the endpoint driver remove.
+> - *
+>    */
+>   static void dp_aux_ep_remove(struct device *dev)
+>   {
+> @@ -120,12 +150,14 @@ ATTRIBUTE_GROUPS(dp_aux_ep_dev);
+>   /**
+>    * dp_aux_ep_dev_release() - Free memory for the dp_aux_ep device
+>    * @dev: The device to free.
+> - *
+> - * Return: 0 if no error or negative error code.
+>    */
+>   static void dp_aux_ep_dev_release(struct device *dev)
+>   {
+> -	kfree(to_dp_aux_ep_dev(dev));
+> +	struct dp_aux_ep_device *aux_ep = to_dp_aux_ep_dev(dev);
+> +	struct dp_aux_ep_device_with_data *aux_ep_with_data =
+> +		container_of(aux_ep, struct dp_aux_ep_device_with_data, aux_ep);
+> +
+> +	kfree(aux_ep_with_data);
+>   }
+>   
+>   static struct device_type dp_aux_device_type_type = {
+> @@ -139,12 +171,14 @@ static struct device_type dp_aux_device_type_type = {
+>    * @dev: The device to destroy.
+>    * @data: Not used
+>    *
+> - * This is just used as a callback by of_dp_aux_depopulate_ep_devices() and
+> + * This is just used as a callback by of_dp_aux_depopulate_ep_device() and
+>    * is called for _all_ of the child devices of the device providing the AUX bus.
+>    * We'll only act on those that are of type "dp_aux_bus_type".
+>    *
+> - * This function is effectively an inverse of what's in the loop
+> - * in of_dp_aux_populate_ep_devices().
+> + * This function is effectively an inverse of what's in
+> + * of_dp_aux_populate_ep_devices(). NOTE: since we only populate one child
+> + * then it's expected that only one device will match all the "if" tests in
+> + * this function and get to the device_unregister().
+>    *
+>    * Return: 0 if no error or negative error code.
+>    */
+> @@ -167,122 +201,159 @@ static int of_dp_aux_ep_destroy(struct device *dev, void *data)
+>   }
+>   
+>   /**
+> - * of_dp_aux_depopulate_ep_devices() - Undo of_dp_aux_populate_ep_devices
+> - * @aux: The AUX channel whose devices we want to depopulate
+> + * of_dp_aux_depopulate_ep_device() - Undo of_dp_aux_populate_ep_device
+> + * @aux: The AUX channel whose device we want to depopulate
+>    *
+> - * This will destroy all devices that were created
+> - * by of_dp_aux_populate_ep_devices().
+> + * This will destroy the device that was created
+> + * by of_dp_aux_populate_ep_device().
+>    */
+> -void of_dp_aux_depopulate_ep_devices(struct drm_dp_aux *aux)
+> +void of_dp_aux_depopulate_ep_device(struct drm_dp_aux *aux)
+>   {
+>   	device_for_each_child_reverse(aux->dev, NULL, of_dp_aux_ep_destroy);
+>   }
+> -EXPORT_SYMBOL_GPL(of_dp_aux_depopulate_ep_devices);
+> +EXPORT_SYMBOL_GPL(of_dp_aux_depopulate_ep_device);
+
+Small note about the name. What if we change that to something more 
+future-proof? Something like of_dp_aux_depopulate_bus() (and similarly 
+rename other calls)?
+
+>   
+>   /**
+> - * of_dp_aux_populate_ep_devices() - Populate the endpoint devices on the DP AUX
+> - * @aux: The AUX channel whose devices we want to populate. It is required that
+> + * of_dp_aux_populate_ep_device() - Populate the endpoint device on the DP AUX
+> + * @aux: The AUX channel whose device we want to populate. It is required that
+>    *       drm_dp_aux_init() has already been called for this AUX channel.
+> + * @done_probing: Callback functions to call after EP device finishes probing.
+> + *                If we have no EP devices this will be called directly.
+> + *                NULL if you don't need a callback.
+>    *
+> - * This will populate all the devices under the "aux-bus" node of the device
+> - * providing the AUX channel (AKA aux->dev).
+> + * This will populate the device (expected to be an eDP panel) under the
+> + * "aux-bus" node of the device providing the AUX channel (AKA aux->dev).
+>    *
+>    * When this function finishes, it is _possible_ (but not guaranteed) that
+> - * our sub-devices will have finished probing. It should be noted that if our
+> - * sub-devices return -EPROBE_DEFER that we will not return any error codes
+> - * ourselves but our sub-devices will _not_ have actually probed successfully
+> - * yet. There may be other cases (maybe added in the future?) where sub-devices
+> - * won't have been probed yet when this function returns, so it's best not to
+> - * rely on that.
+> + * our sub-device will have finished probing. It should be noted that if our
+> + * sub-device returns -EPROBE_DEFER or is probing asynchronously for some
+> + * reason that we will not return any error codes ourselves but our
+> + * sub-device will _not_ have actually probed successfully yet.
+> + *
+> + * In many cases it's important for the caller of this function to be notified
+> + * when our sub device finishes probing. Our sub device is expected to be an
+> + * eDP panel and the caller is expected to be an eDP controller. The eDP
+> + * controller needs to be able to get a reference to the panel when it finishes
+> + * probing. For this reason the caller can pass in a function pointer that
+> + * will be called when our sub-device finishes probing.
+>    *
+>    * If this function succeeds you should later make sure you call
+> - * of_dp_aux_depopulate_ep_devices() to undo it, or just use the devm version
+> + * of_dp_aux_depopulate_ep_device() to undo it, or just use the devm version
+>    * of this function.
+>    *
+>    * Return: 0 if no error or negative error code.
+>    */
+> -int of_dp_aux_populate_ep_devices(struct drm_dp_aux *aux)
+> +int of_dp_aux_populate_ep_device(struct drm_dp_aux *aux,
+> +				 int (*done_probing)(struct drm_dp_aux *aux))
+>   {
+> -	struct device_node *bus, *np;
+> +	struct device_node *bus = NULL, *np = NULL;
+>   	struct dp_aux_ep_device *aux_ep;
+> +	struct dp_aux_ep_device_with_data *aux_ep_with_data;
+>   	int ret;
+>   
+>   	/* drm_dp_aux_init() should have been called already; warn if not */
+>   	WARN_ON_ONCE(!aux->ddc.algo);
+>   
+> -	if (!aux->dev->of_node)
+> -		return 0;
+> +	if (aux->dev->of_node)
+> +		bus = of_get_child_by_name(aux->dev->of_node, "aux-bus");
+> +	if (bus) {
+> +		np = of_get_next_available_child(bus, NULL);
+> +		of_node_put(bus);
+> +	}
+>   
+> -	bus = of_get_child_by_name(aux->dev->of_node, "aux-bus");
+> -	if (!bus)
+> +	/*
+> +	 * If no parent "of_node", no "aux-bus" child node, or no available
+> +	 * children then we're done. Call the callback (if needed) and return.
+> +	 *
+> +	 * NOTE: we intentionally pass the return code from done_probing
+> +	 * directly out here. eDP controller drivers may want to support
+> +	 * panels from old device trees where the panel was an independent
+> +	 * platform device. In that case it's expected that done_probing()
+> +	 * might need to return -EPROBE_DEFER to our caller.
+> +	 */
+> +	if (!np) {
+> +		if (done_probing)
+> +			return done_probing(aux);
+
+I see your point here (and that it makes code simpler). However I'm a 
+little bit uneasy here. What if code this more explicitly in the 
+drivers? Like the following:
+
+if (!dev_has_aux_bus()) {
+	ret = panel_ready(....);
+} else {
+	...
+	ret = of_dp_aux_populate_ep_device(dp_aux, panel_ready);
+	....;
+}
+
+This way you won't have to worry about the EPROBE_DEFER. Or you'd rather 
+forbid it explicitly. Why? Consider the following scenario:
+
+dp_driver_probe()
+   /* This creates new devices */
+   done_probing returns -EPROBE_DEFER
+   /* device registration is unwound */
+   dp_driver_probe returns -EPROBE_DEFER
+
+However as the state of devices was chagned, the dp_driver_probe() can 
+be called again and again, ending up with the the same probe loop that 
+we are trying to solve.
+
+
+>   		return 0;
+> +	}
+>   
+> -	for_each_available_child_of_node(bus, np) {
+> -		if (of_node_test_and_set_flag(np, OF_POPULATED))
+> -			continue;
+> +	if (of_node_test_and_set_flag(np, OF_POPULATED)) {
+> +		dev_err(aux->dev, "DP AUX EP device already populated\n");
+> +		ret = -EINVAL;
+> +		goto err_did_get_np;
+> +	}
+>   
+> -		aux_ep = kzalloc(sizeof(*aux_ep), GFP_KERNEL);
+> -		if (!aux_ep)
+> -			continue;
+> -		aux_ep->aux = aux;
+> +	aux_ep_with_data = kzalloc(sizeof(*aux_ep_with_data), GFP_KERNEL);
+> +	if (!aux_ep_with_data) {
+> +		ret = -ENOMEM;
+> +		goto err_did_set_populated;
+> +	}
+>   
+> -		aux_ep->dev.parent = aux->dev;
+> -		aux_ep->dev.bus = &dp_aux_bus_type;
+> -		aux_ep->dev.type = &dp_aux_device_type_type;
+> -		aux_ep->dev.of_node = of_node_get(np);
+> -		dev_set_name(&aux_ep->dev, "aux-%s", dev_name(aux->dev));
+> +	aux_ep_with_data->done_probing = done_probing;
+>   
+> -		ret = device_register(&aux_ep->dev);
+> -		if (ret) {
+> -			dev_err(aux->dev, "Failed to create AUX EP for %pOF: %d\n", np, ret);
+> -			of_node_clear_flag(np, OF_POPULATED);
+> -			of_node_put(np);
+> +	aux_ep = &aux_ep_with_data->aux_ep;
+> +	aux_ep->aux = aux;
+> +	aux_ep->dev.parent = aux->dev;
+> +	aux_ep->dev.bus = &dp_aux_bus_type;
+> +	aux_ep->dev.type = &dp_aux_device_type_type;
+> +	aux_ep->dev.of_node = of_node_get(np);
+> +	dev_set_name(&aux_ep->dev, "aux-%s", dev_name(aux->dev));
+>   
+> -			/*
+> -			 * As per docs of device_register(), call this instead
+> -			 * of kfree() directly for error cases.
+> -			 */
+> -			put_device(&aux_ep->dev);
+> +	ret = device_register(&aux_ep->dev);
+> +	if (ret) {
+> +		dev_err(aux->dev, "Failed to create AUX EP for %pOF: %d\n", np, ret);
+>   
+> -			/*
+> -			 * Following in the footsteps of of_i2c_register_devices(),
+> -			 * we won't fail the whole function here--we'll just
+> -			 * continue registering any other devices we find.
+> -			 */
+> -		}
+> -	}
+> +		/*
+> +		 * As per docs of device_register(), call this instead
+> +		 * of kfree() directly for error cases.
+> +		 */
+> +		put_device(&aux_ep->dev);
+>   
+> -	of_node_put(bus);
+> +		goto err_did_set_populated;
+> +	}
+>   
+>   	return 0;
+> +
+> +err_did_set_populated:
+> +	of_node_clear_flag(np, OF_POPULATED);
+> +
+> +err_did_get_np:
+> +	of_node_put(np);
+> +
+> +	return ret;
+>   }
+> +EXPORT_SYMBOL_GPL(of_dp_aux_populate_ep_device);
+>   
+> -static void of_dp_aux_depopulate_ep_devices_void(void *data)
+> +static void of_dp_aux_depopulate_ep_device_void(void *data)
+>   {
+> -	of_dp_aux_depopulate_ep_devices(data);
+> +	of_dp_aux_depopulate_ep_device(data);
+>   }
+>   
+>   /**
+> - * devm_of_dp_aux_populate_ep_devices() - devm wrapper for of_dp_aux_populate_ep_devices()
+> - * @aux: The AUX channel whose devices we want to populate
+> + * devm_of_dp_aux_populate_ep_device() - devm wrapper for of_dp_aux_populate_ep_device()
+> + * @aux: The AUX channel whose device we want to populate
+> + * @done_probing: Callback functions to call after EP device finishes probing.
+> + *                If we have no EP devices this will be called directly.
+> + *                NULL if you don't need a callback.
+>    *
+>    * Handles freeing w/ devm on the device "aux->dev".
+>    *
+>    * Return: 0 if no error or negative error code.
+>    */
+> -int devm_of_dp_aux_populate_ep_devices(struct drm_dp_aux *aux)
+> +int devm_of_dp_aux_populate_ep_device(struct drm_dp_aux *aux,
+> +				      int (*done_probing)(struct drm_dp_aux *aux))
+>   {
+>   	int ret;
+>   
+> -	ret = of_dp_aux_populate_ep_devices(aux);
+> +	ret = of_dp_aux_populate_ep_device(aux, done_probing);
+>   	if (ret)
+>   		return ret;
+>   
+>   	return devm_add_action_or_reset(aux->dev,
+> -					of_dp_aux_depopulate_ep_devices_void,
+> +					of_dp_aux_depopulate_ep_device_void,
+>   					aux);
+>   }
+> -EXPORT_SYMBOL_GPL(devm_of_dp_aux_populate_ep_devices);
+> +EXPORT_SYMBOL_GPL(devm_of_dp_aux_populate_ep_device);
+>   
+>   int __dp_aux_dp_driver_register(struct dp_aux_ep_driver *drv, struct module *owner)
+>   {
+> diff --git a/include/drm/display/drm_dp_aux_bus.h b/include/drm/display/drm_dp_aux_bus.h
+> index 4f19b20b1dd6..c6d5a66f75f2 100644
+> --- a/include/drm/display/drm_dp_aux_bus.h
+> +++ b/include/drm/display/drm_dp_aux_bus.h
+> @@ -44,9 +44,27 @@ static inline struct dp_aux_ep_driver *to_dp_aux_ep_drv(struct device_driver *dr
+>   	return container_of(drv, struct dp_aux_ep_driver, driver);
+>   }
+>   
+> -int of_dp_aux_populate_ep_devices(struct drm_dp_aux *aux);
+> -void of_dp_aux_depopulate_ep_devices(struct drm_dp_aux *aux);
+> -int devm_of_dp_aux_populate_ep_devices(struct drm_dp_aux *aux);
+> +int of_dp_aux_populate_ep_device(struct drm_dp_aux *aux,
+> +				 int (*done_probing)(struct drm_dp_aux *aux));
+> +void of_dp_aux_depopulate_ep_device(struct drm_dp_aux *aux);
+> +int devm_of_dp_aux_populate_ep_device(struct drm_dp_aux *aux,
+> +				      int (*done_probing)(struct drm_dp_aux *aux));
+> +
+> +/* Deprecated versions of the above functions. To be removed when no callers. */
+> +static inline int of_dp_aux_populate_ep_devices(struct drm_dp_aux *aux)
+> +{
+> +	return of_dp_aux_populate_ep_device(aux, NULL);
+> +}
+> +
+> +static inline int devm_of_dp_aux_populate_ep_devices(struct drm_dp_aux *aux)
+> +{
+> +	return devm_of_dp_aux_populate_ep_device(aux, NULL);
+> +}
+> +
+> +static inline void of_dp_aux_depopulate_ep_devices(struct drm_dp_aux *aux)
+> +{
+> +	of_dp_aux_depopulate_ep_device(aux);
+> +}
+>   
+>   #define dp_aux_dp_driver_register(aux_ep_drv) \
+>   	__dp_aux_dp_driver_register(aux_ep_drv, THIS_MODULE)
 
 
 -- 
