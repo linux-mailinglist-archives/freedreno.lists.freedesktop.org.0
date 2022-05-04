@@ -1,53 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2254519F21
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 14:21:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8EE51A033
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 15:04:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4559E10EA9D;
-	Wed,  4 May 2022 12:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14DE010E734;
+	Wed,  4 May 2022 13:04:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC7410E604;
- Wed,  4 May 2022 12:21:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651666915; x=1683202915;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=FX28G2dRJvDF+aaInWBzjFS4ellS21zQ+6eIjm4E/Wk=;
- b=DXhCgbkJBCJVgpTva6Z/eFLpL9Vryx4tr8Z6N9RCVIIxHBNfa9sXghcj
- epp0fDMFFy1f/pTxytUNNYLuMOctQG7cAUq5A6sllpRrnMgJsJDzvWxvc
- n+hvDxTZRYnKRMtk+tg3vlGfaplZjkDMT8HJurW+9ez6G0kUr3akUZ2U7
- JVDvXMBGxhymwYm2PKi6t3w0anPGd1d+1XI/9s6zl9HF5krUOK4zXFhei
- voD6VqQ5TguS+alYw7laPFIqBlNGLDy/uZ780sU92Ei9dAKPZMynmgv1i
- AZJIH/2l/9SBHbVFe3rd93tdP8zv+UxjILqHbL/zuHt4irutQlSO19V5C g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10336"; a="248291214"
-X-IronPort-AV: E=Sophos;i="5.91,198,1647327600"; d="scan'208";a="248291214"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2022 05:21:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,198,1647327600"; d="scan'208";a="599510653"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by orsmga001.jf.intel.com with SMTP; 04 May 2022 05:21:49 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 04 May 2022 15:21:48 +0300
-Date: Wed, 4 May 2022 15:21:48 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Douglas Anderson <dianders@chromium.org>
-Message-ID: <YnJv3B/85hTz54SC@intel.com>
-References: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B40510E734;
+ Wed,  4 May 2022 13:04:54 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AA222618BB;
+ Wed,  4 May 2022 13:04:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437A0C385A4;
+ Wed,  4 May 2022 13:04:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1651669491;
+ bh=zHWcpt3bK0TDTAN2FqBM6HMQFW9CX5zg/jNylvcfIaA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FsdkLXYTzrKjJsxb6Vs5S1KirEgfixOt3aUhgUTJPttgvk84wO6C8pol8JoyxCmXA
+ Y4ahHI4GNvXe5SMR4RN7uJfkn1x4Fm4hD1kAw929vpPljMTXc2f9BiDe+0s6Hfjhq3
+ o0rskrEMhOW5teED8d8vadEBcyEOInauvQl8Rpr1urZDA8mAmnFaA4esTxE8kkdeyl
+ GtshsPlmWckS2evRqHw++8QKMJ2fUOcZaH+q+jtsH4Rw/xsjfbT9rgmkQNgihse2oi
+ bxTdeVeN47eOFPhlJmoACu3Yk0PvYh6MXipHWBrm603kOb8COM/rcrd0JGcueKW18G
+ ahHYo63ZDXITQ==
+Date: Wed, 4 May 2022 18:34:46 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <YnJ57lXGyc8zcj0m@matsya>
+References: <20220501151220.3999164-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
-X-Patchwork-Hint: comment
-Subject: Re: [Freedreno] [PATCH] drm: Document that power requirements for
- DP AUX transfers
+In-Reply-To: <20220501151220.3999164-1-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH 0/3] drm: move dsc data pointer from
+ drm_panel to mipi_dsi_device
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,43 +53,43 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lyude Paul <lyude@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Imre Deak <imre.deak@intel.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Jani Nikula <jani.nikula@intel.com>,
- Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Rob Clark <robdclark@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm@vger.kernel.org, Sam Ravnborg <sam@ravnborg.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 03, 2022 at 04:21:08PM -0700, Douglas Anderson wrote:
-> When doing DP AUX transfers there are two actors that need to be
-> powered in order for the DP AUX transfer to work: the DP source and
-> the DP sync. Commit bacbab58f09d ("drm: Mention the power state
-> requirement on side-channel operations") added some documentation
-> saying that the DP source is required to power itself up (if needed)
-> to do AUX transfers. However, that commit doesn't talk anything about
-> the DP sink.
+On 01-05-22, 18:12, Dmitry Baryshkov wrote:
+> To properly support DSC the sink driver (panel) has to pass DSC pps data
+> to the source (DSI host). The commit 0f40ba48de3b ("drm/msm/dsi: Pass
+> DSC params to drm_panel") added a pointer to the DSC data to the struct
+> drm_panel. However this is not the ideal solution.
 > 
-> For full fledged DP the sink isn't really a problem. It's expected
-> that if an external DP monitor isn't plugged in that attempting to do
-> AUX transfers won't work. It's also expected that if a DP monitor is
-> plugged in (and thus asserting HPD) that it AUX transfers will work.
+> First, this leaves DSC-supporting DSI sink bridges (like ANX7625 which
+> support DSC decoding on the MIPI DSI inputs).
 > 
-> When we're looking at eDP, however, things are less obvious. Let's add
-> some documentation about expectations. Here's what we'll say:
+> Second, this does not play well with the panel_bridge. Drivers depending
+> solely on the bridge chains will still have to lookup panel and fetch
+> data from it.
 > 
-> 1. We don't expect the DP AUX transfer function to power on an eDP
-> panel. If an eDP panel is physically connected but powered off then it
-> makes sense for the transfer to fail.
+> Last, but not least, the DSC data is not relevant for the wide variety
+> of panels including DPI and LVDS panels.
+> 
+> To solve all these problems, move struct drm_dsc_config pointer from
+> struct drm_panel to struct mipi_host_device. This way MIPI DSI host
+> driver receives DSC data during attach callback without additional
+> lookups.
 
-I don't agree with this. I think the panel should just get powred up
-for AUX transfers. Otherwise you can't trust that eg. the /dev/aux
-stuff is actually usable.
+Reviewed-by: Vinod Koul <vkoul@kernel.org>
+
+I tested this on my pixel3 and had to change how panel driver handles
+this, with that it worked just fine
+
+Tested-by: Vinod Koul <vkoul@kernel.org>
 
 -- 
-Ville Syrjälä
-Intel
+~Vinod
