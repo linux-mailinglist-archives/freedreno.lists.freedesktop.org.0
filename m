@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 208D651ACC3
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 20:26:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D24B51AD0F
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 20:38:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B002D10E833;
-	Wed,  4 May 2022 18:26:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D981D10EA5E;
+	Wed,  4 May 2022 18:38:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB62610E833
- for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 18:26:12 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id q130so2732414ljb.5
- for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 11:26:12 -0700 (PDT)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C693710EA40
+ for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 18:38:08 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id p10so3806441lfa.12
+ for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 11:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=WcSGq79606QCKFHIe92xawG76AnBIpchBNyPREMJFh8=;
- b=RURKbGYakxzaIrEtJ9aTpazHbip4v8DlxNuQ+4p5UAkCAZudwRQdESInGeQcaXhynz
- Q4Ianc7rdPV2mUeJh79YDyBjSBEKFqcEb9jNAEtGgjXUGf3/nWvXMp+nHZuSN7bNfCvu
- 47ARcI+vA7xBND6soQPd2CBVJ/Fb9t0LXnybCZROluJ1Fo6Td4CxbfDOXfWm1edMC5rL
- VNXVWV0V9zoxFLjELeOSXBoEMraplR1T6iTn4//lfso6Fhn0GyPqCu7cywE5zMAKxu1V
- uK2HPN00tSbLNjVB7vjM8fRFuhTfTAJYP+n1K3agSTtwam1d0xMlGz4TLq1upH27KoP4
- fe1A==
+ bh=VDj+h4V23SXKlruYDD3RGIbbcHLL5wjAWDq/F5foLqE=;
+ b=fxjXjRbPxX0+juWMAepDKZlUcCaSCPxxuzNTXL/t1cwBxfS5s2tjysAoHlG3Z67/7R
+ XL2oup6dBfxm30lTRgo8OIwVvvc3Wey04GuG7Vb/BzbHV9UwXBemXCx5r2q6SqEAqeEU
+ D9vmaG0dBfIjkmy51e5WuulFFGzZ6A/ZTJDV1vQbEiBil8Up9kTCSI2yPBj/jPtV4ZT3
+ OeV0t8JKfTeTvqiCBUVYCb6xBarrjSwc+726v+pjx1/wKJS2WyK3HVpGymESkVavXbMg
+ BM1/r/DDv2pCN+hcuanvYGk/YgHOCr5bcy6DFbmISlx+GYBjpT5NZ6l1mlj4J8qDjXus
+ 1KmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=WcSGq79606QCKFHIe92xawG76AnBIpchBNyPREMJFh8=;
- b=FHjYZh4/LjEI+HEvy3hX03rNPQSHt1iOC3GrwNdCOvilnmWMLVrMn18o3QgyG/3p18
- 3CZbeN8tbYQwYydxisxdb1aPEoRnGUc5w6Kf9vbVRZGtfJ9shHVhG19H/Xs8l4SCUS4t
- iweAujiUDgWo/+AAGA4S4j2MAB46MEfiwiALrJIHBbP00/aCP1sY3+YpQSULCCk+URjC
- EIYhfZyrcqC95LeP63kDTqcCO+AUDfwd6UMY+Vu9NYYaefm8tAASOPfGyy5pZpKwhwaJ
- LhHYmiTjzTwIR4gIM5EyX7o84r7H91Y9cu3cPNT11ZMdQzN62kWSK9c+y0XcIlA043Kk
- H8Ew==
-X-Gm-Message-State: AOAM531+889fh5z7MVX87LB26vy9yL8g3gr3wht7HYc+QKcLHglI5A9Y
- gP9AUP/G5Klogbb9zt4s8WoWhCw3fA73gw==
-X-Google-Smtp-Source: ABdhPJxws7eoaBBc/d8tLooGSLDO9wYMzHRjrretVeiVwsWonORpkVOxpE/ICf2zdQsZwe3x4LLDjA==
-X-Received: by 2002:a05:651c:3c2:b0:24f:b91:fcba with SMTP id
- f2-20020a05651c03c200b0024f0b91fcbamr12865430ljp.154.1651688770938; 
- Wed, 04 May 2022 11:26:10 -0700 (PDT)
+ bh=VDj+h4V23SXKlruYDD3RGIbbcHLL5wjAWDq/F5foLqE=;
+ b=lnBVUnbrrDVLJAGyadewME2mWvZFZ2GWscifeeVewSbg1vf6fXVVHxs8ayDT2nUiUw
+ 0YoHc5mVXiv6E8UeJb/Cmy5nThR1PuDdZuqZp67byVpnNjpYfpzSYkLJTJQDraAZ8GUe
+ ZQenDTBBWdr2lG3ekaWuIeji1VVnE2a6MKuiuphNjKPv4wt5m8IUsZKTpVyjzZiZ5YsF
+ pTS3r3xPiuZgVPxg+kuAo+Ln20k99cl3HXEAiaQhK0R9nXAhLX5wgeptvBDR4aqURz9B
+ TYiUOvTokI/Z71/HdMT+W/g6qZ5fQbJG5b8UQgmrGN7wwDn9xXx+4qanC2VokzZtbsPu
+ pkxQ==
+X-Gm-Message-State: AOAM533d8sVndk7z39imksXtHpNAUhUGUeEYUocdAEud28CIW0qeJC6R
+ chzBJdsKWR3+vdrLPV2wMJvSIA==
+X-Google-Smtp-Source: ABdhPJyI5erUXW0RKxsHAT4wZDIOhnHXaMT1ZI70tUjd1MU7r4fGr09Jg5RPwZvekympeq5jP9071g==
+X-Received: by 2002:a05:6512:22cf:b0:473:a41f:155f with SMTP id
+ g15-20020a05651222cf00b00473a41f155fmr7171873lfu.227.1651689487107; 
+ Wed, 04 May 2022 11:38:07 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- f24-20020a2eb5b8000000b0024f3df9f298sm1746762ljn.46.2022.05.04.11.26.10
+ y20-20020ac24214000000b0047255d21168sm1270671lfh.151.2022.05.04.11.38.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 May 2022 11:26:10 -0700 (PDT)
-Message-ID: <febc6b74-eb33-8c72-0b60-a2253d8d6dde@linaro.org>
-Date: Wed, 4 May 2022 21:26:09 +0300
+ Wed, 04 May 2022 11:38:06 -0700 (PDT)
+Message-ID: <834eeda0-12b0-3f16-8ca2-89175c1de186@linaro.org>
+Date: Wed, 4 May 2022 21:38:05 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
@@ -103,7 +103,9 @@ On 03/05/2022 19:25, Kuogee Hsieh wrote:
 > Fixes: 570d3e5d28db ("drm/msm/dp: stop event kernel thread when DP unbind")
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
-Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Let's do it properly:
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 > ---
 >   drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++----
