@@ -2,82 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6DA51AC73
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 20:10:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 208D651ACC3
+	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 20:26:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02ADC10E252;
-	Wed,  4 May 2022 18:10:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B002D10E833;
+	Wed,  4 May 2022 18:26:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B69310E279
- for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 18:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1651687812;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t7hIAy3RxcqOtM7Yf90BC+sWNEC/sHJ+29FfPH3OpXA=;
- b=fZG5DAMUID6LRMpg0c0ZD/Nl7SFvrdvdZ71osOgcse1V2nAsDr9CJyPE8v//6JB50WTSfT
- Y3RunZLz9dNuIKqy+i7WUP7CdmPa9EoEi+q0y4G8h6sV3Uux/1f2R81E3CL6RegHUvWN/2
- hHZDtjhpCOm7QxZWkD5jOnd/AYZdBrA=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-66-qyujN2x2OIKW2syvkGOZBA-1; Wed, 04 May 2022 14:10:11 -0400
-X-MC-Unique: qyujN2x2OIKW2syvkGOZBA-1
-Received: by mail-qk1-f200.google.com with SMTP id
- l127-20020a378985000000b0069f997b79easo1425695qkd.21
- for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 11:10:11 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB62610E833
+ for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 18:26:12 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id q130so2732414ljb.5
+ for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 11:26:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=WcSGq79606QCKFHIe92xawG76AnBIpchBNyPREMJFh8=;
+ b=RURKbGYakxzaIrEtJ9aTpazHbip4v8DlxNuQ+4p5UAkCAZudwRQdESInGeQcaXhynz
+ Q4Ianc7rdPV2mUeJh79YDyBjSBEKFqcEb9jNAEtGgjXUGf3/nWvXMp+nHZuSN7bNfCvu
+ 47ARcI+vA7xBND6soQPd2CBVJ/Fb9t0LXnybCZROluJ1Fo6Td4CxbfDOXfWm1edMC5rL
+ VNXVWV0V9zoxFLjELeOSXBoEMraplR1T6iTn4//lfso6Fhn0GyPqCu7cywE5zMAKxu1V
+ uK2HPN00tSbLNjVB7vjM8fRFuhTfTAJYP+n1K3agSTtwam1d0xMlGz4TLq1upH27KoP4
+ fe1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=t7hIAy3RxcqOtM7Yf90BC+sWNEC/sHJ+29FfPH3OpXA=;
- b=GNn2v/m7Pb/lbOFMypLf085n/8OVmNSliZZUexkw0cNenoM/gnQZ7+ZQ1CgFHBh6iJ
- UDbRe6c5mRZ9Dv9B6wVbOY+JLPeWcVYRDT/B5ah2glFN0pcdkeGGLUtjBCPZsU+FdfMY
- TtNyfi9vNyyu6KEL37DHxbR7pye+DvBQsR3ztqsVMNssPokC2p66DT6aAXk9M9fz9hnw
- DLYmhCYnV1Zv5rXqaMiRJOr2b1Hgh7CUwAPRDBYeXCu7uci64eeEnutYzEMofkzeMGOO
- N3gkW+DgqDn4mBbZvHTYKRGskVVYy6558hlwvKGaFHpBwvXFINb6alN54tphYw9BLMC/
- wA0g==
-X-Gm-Message-State: AOAM531gTbBiljIxyervjRKFBsa2gLeuPpwup0J8U4UN5zqXXt9SIRA7
- O49MaKrRacfQT+PI9tDjre1U9cdNqWvXi+tZD0bbDmkT1qCiHFSZbHjuVWQjZBwE+YRyl8coaim
- 5cndUCzoMIyW35XlxdzMD6BnApEZa
-X-Received: by 2002:a37:8641:0:b0:67e:85d1:f5e9 with SMTP id
- i62-20020a378641000000b0067e85d1f5e9mr17179570qkd.128.1651687810835; 
- Wed, 04 May 2022 11:10:10 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzO7GIjDZ3nMFv/5xr7vzUdIYwV4LLtoe8PJ1zll9EeaciJXDt+o14bNRkod44VnjaoVQRryQ==
-X-Received: by 2002:a37:8641:0:b0:67e:85d1:f5e9 with SMTP id
- i62-20020a378641000000b0067e85d1f5e9mr17179531qkd.128.1651687810478; 
- Wed, 04 May 2022 11:10:10 -0700 (PDT)
-Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
- [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
- m21-20020ac84455000000b002f39b99f674sm7757467qtn.14.2022.05.04.11.10.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 11:10:09 -0700 (PDT)
-Message-ID: <1c6c9fde6e85f09cc89ea8dc6e8716fef58f3ee1.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Doug Anderson <dianders@chromium.org>, Ville
- =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Date: Wed, 04 May 2022 14:10:08 -0400
-In-Reply-To: <CAD=FV=WndmKuEB0=OVQP9YuJaSmD0uxkNs5LE0wWsFj7gBvhBA@mail.gmail.com>
-References: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
- <YnJv3B/85hTz54SC@intel.com>
- <CAD=FV=WndmKuEB0=OVQP9YuJaSmD0uxkNs5LE0wWsFj7gBvhBA@mail.gmail.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+ bh=WcSGq79606QCKFHIe92xawG76AnBIpchBNyPREMJFh8=;
+ b=FHjYZh4/LjEI+HEvy3hX03rNPQSHt1iOC3GrwNdCOvilnmWMLVrMn18o3QgyG/3p18
+ 3CZbeN8tbYQwYydxisxdb1aPEoRnGUc5w6Kf9vbVRZGtfJ9shHVhG19H/Xs8l4SCUS4t
+ iweAujiUDgWo/+AAGA4S4j2MAB46MEfiwiALrJIHBbP00/aCP1sY3+YpQSULCCk+URjC
+ EIYhfZyrcqC95LeP63kDTqcCO+AUDfwd6UMY+Vu9NYYaefm8tAASOPfGyy5pZpKwhwaJ
+ LhHYmiTjzTwIR4gIM5EyX7o84r7H91Y9cu3cPNT11ZMdQzN62kWSK9c+y0XcIlA043Kk
+ H8Ew==
+X-Gm-Message-State: AOAM531+889fh5z7MVX87LB26vy9yL8g3gr3wht7HYc+QKcLHglI5A9Y
+ gP9AUP/G5Klogbb9zt4s8WoWhCw3fA73gw==
+X-Google-Smtp-Source: ABdhPJxws7eoaBBc/d8tLooGSLDO9wYMzHRjrretVeiVwsWonORpkVOxpE/ICf2zdQsZwe3x4LLDjA==
+X-Received: by 2002:a05:651c:3c2:b0:24f:b91:fcba with SMTP id
+ f2-20020a05651c03c200b0024f0b91fcbamr12865430ljp.154.1651688770938; 
+ Wed, 04 May 2022 11:26:10 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ f24-20020a2eb5b8000000b0024f3df9f298sm1746762ljn.46.2022.05.04.11.26.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 May 2022 11:26:10 -0700 (PDT)
+Message-ID: <febc6b74-eb33-8c72-0b60-a2253d8d6dde@linaro.org>
+Date: Wed, 4 May 2022 21:26:09 +0300
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm: Document that power requirements for
- DP AUX transfers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
+ vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
+ bjorn.andersson@linaro.org
+References: <1651595136-24312-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1651595136-24312-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: fix event thread stuck in
+ wait_event after kthread_stop()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,192 +77,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- Hsin-Yi Wang <hsinyi@chromium.org>, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Jani Nikula <jani.nikula@intel.com>,
- Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Robert Foss <robert.foss@linaro.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 2022-05-04 at 09:04 -0700, Doug Anderson wrote:
-> Hi,
+On 03/05/2022 19:25, Kuogee Hsieh wrote:
+> Event thread supposed to exit from its while loop after kthread_stop().
+> However there may has possibility that event thread is pending in the
+> middle of wait_event due to condition checking never become true.
+> To make sure event thread exit its loop after kthread_stop(), this
+> patch OR kthread_should_stop() into wait_event's condition checking
+> so that event thread will exit its loop after kernal_stop().
 > 
-> On Wed, May 4, 2022 at 5:21 AM Ville Syrjälä
-> <ville.syrjala@linux.intel.com> wrote:
-> > 
-> > On Tue, May 03, 2022 at 04:21:08PM -0700, Douglas Anderson wrote:
-> > > When doing DP AUX transfers there are two actors that need to be
-> > > powered in order for the DP AUX transfer to work: the DP source and
-> > > the DP sync. Commit bacbab58f09d ("drm: Mention the power state
-> > > requirement on side-channel operations") added some documentation
-> > > saying that the DP source is required to power itself up (if needed)
-> > > to do AUX transfers. However, that commit doesn't talk anything about
-> > > the DP sink.
-> > > 
-> > > For full fledged DP the sink isn't really a problem. It's expected
-> > > that if an external DP monitor isn't plugged in that attempting to do
-> > > AUX transfers won't work. It's also expected that if a DP monitor is
-> > > plugged in (and thus asserting HPD) that it AUX transfers will work.
-> > > 
-> > > When we're looking at eDP, however, things are less obvious. Let's add
-> > > some documentation about expectations. Here's what we'll say:
-> > > 
-> > > 1. We don't expect the DP AUX transfer function to power on an eDP
-> > > panel. If an eDP panel is physically connected but powered off then it
-> > > makes sense for the transfer to fail.
-> > 
-> > I don't agree with this. I think the panel should just get powred up
-> > for AUX transfers.
+> Changes in v2:
+> --  correct spelling error at commit title
 > 
-> That's definitely a fair thing to think about and I have at times
-> thought about trying to make it work that way. It always ends up
-> hitting a roadblock.
+> Changes in v3:
+> -- remove unnecessary parenthesis
+> -- while(1) to replace while (!kthread_should_stop())
 > 
-> The biggest roadblock that I recall is that to make this work then
-> you'd have to somehow ensure that the bridge chain's pre_enable() call
-> was made as part of the AUX transfer, right? Since the transfer
-> function can be called in any context at all, we have to coordinate
-> this with DRM. If, for instance, DRM is mid way through powering the
-> panel down then we need to wait for DRM to fully finish powering down,
-> then we need to power the panel back up. I don't believe that we can
-> just force the panel to stay on if DRM is turning it off because of
-> panel power sequencing requirements. At least I know it would have the
-> potential to break "samsung-atna33xc20.c" which absolutely needs to
-> see the panel power off after it's been disabled.
-> 
-> We also, I believe, need to handle the fact that the bridge chain may
-> not have even been created yet. We do AUX transfers to read the EDID
-> and also to setup the backlight in the probe function of panel-edp. At
-> that point the panel hasn't been linked into the chain. We had _long_
-> discussions [1] about moving these out of probe and decided that we
-> could move the EDID read to be later but that it was going to really
-> ugly to move the AUX backlight later. The backlight would end up
-> popping up at some point in time later (the first call to panel
-> prepare() or maybe get_modes()) and that seemed weird.
-> 
-> [1]
-> https://lore.kernel.org/lkml/CAD=FV=U5-sTDLYdkeJWLAOG-0wgxR49VxtwUyUO7z2PuibLGsg@mail.gmail.com/
-> 
-> 
-> > Otherwise you can't trust that eg. the /dev/aux
-> > stuff is actually usable.
-> 
-> Yeah, it's been on my mind to talk more about /dev/aux. I think
-> /dev/aux has some problems, at least with eDP. Specifically:
-> 
-> 1. Even if we somehow figure out how to power the panel on as part of
-> the aux transfer, we actually _still_ not guaranteed to be able to
-> talk to it as far as I understand. My colleague reported to me that on
-> a system he was working with that had PSR (panel self refresh) that
-> when the panel was powered on but in PSR mode that it wouldn't talk
-> over AUX. Assuming that this is correct then I guess we'd also have to
-> do even more coordination with DRM to exit PSR and block future
-> transitions of PSR. (NOTE: it's always possible that my colleague ran
-> into some other bug and that panels are _supposed_ to be able to talk
-> in PSR. If you think this is the case, I can always try to dig more).
+> Reported-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Fixes: 570d3e5d28db ("drm/msm/dp: stop event kernel thread when DP unbind")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
-TBH - the coordination with drm I don't think would be the difficult part, as
-we'd just need to add some sort of property (ideally invisible to userspace)
-that can be used in an atomic commit to disable PSR - similar to how we enable
-CRC readback from sysfs in the majority of DRM drivers. That being said
-though, I think we can just leave the work of solving this problem up to
-whoever ends up needing this to work.
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++++++----
+>   1 file changed, 9 insertions(+), 4 deletions(-)
 > 
-> 2. I'm not totally convinced that it's a great idea, at least for eDP,
-> for userspace to be mucking with /dev/aux. For DP's case I guess
-> /dev/aux is essentially enabling userspace drivers to do things like
-> update firmware on DP monitors or play with the backlight. I guess we
-> decided that we didn't want to add drivers in the kernel to handle
-> this type of stuff so we left it for userspace? For eDP, though, there
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index c388323..da5c03a 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1103,15 +1103,20 @@ static int hpd_event_thread(void *data)
+>   
+>   	dp_priv = (struct dp_display_private *)data;
+>   
+> -	while (!kthread_should_stop()) {
+> +	while (1) {
+>   		if (timeout_mode) {
+>   			wait_event_timeout(dp_priv->event_q,
+> -				(dp_priv->event_pndx == dp_priv->event_gndx),
+> -						EVENT_TIMEOUT);
+> +				(dp_priv->event_pndx == dp_priv->event_gndx) ||
+> +					kthread_should_stop(), EVENT_TIMEOUT);
+>   		} else {
+>   			wait_event_interruptible(dp_priv->event_q,
+> -				(dp_priv->event_pndx != dp_priv->event_gndx));
+> +				(dp_priv->event_pndx != dp_priv->event_gndx) ||
+> +					kthread_should_stop());
+>   		}
+> +
+> +		if (kthread_should_stop())
+> +			break;
+> +
+>   		spin_lock_irqsave(&dp_priv->event_lock, flag);
+>   		todo = &dp_priv->event_list[dp_priv->event_gndx];
+>   		if (todo->delay) {
 
-The main reason DP AUX got exposed to userspace in the first place was for
-usecases like fwupd, where some MST docks actually do their firmware updates
-over DPCD. I don't know of any equivalent usecase for eDP at the moment, but I
-can definitely try asking some of the OEM contacts I have whether this is/may
-eventually be a thing or not.
-
-> is a panel driver and we if we have an AUX backlight we create a real
-> backlight device. If we needed to do a firmware update of an eDP panel
-> it would make sense for the panel driver to present some interface for
-> the firmware update so that the panel driver could make sure that the
-> panel stayed powered for the duration of the firmware update, not just
-> for the duration of a single AUX transfer.
-
-Yeah, I tried adding this at one point actually but ran into some issues
-finding a nice solution. It wasn't the most important thing at the time, so I
-ended up shifting my attention to other things. Honestly the biggest
-complicating factor of this is the fact that we can't synchronously wake up a
-device from sysfs without introducing a deadlock due to lock order inversion
-between DRM and sysfs. If this could be solved nicely, I think a lot of this
-would become far easier.
-
-> 
-> 3. In general it feels a little awkward for userspace to be directly
-> poking at the same set of registers that a kernel driver is also
-> poking at.
-
-We could always consider limiting the ranges that the DP AUX interface allows
-userspace to read from, although I haven't thought too hard about that since I
-don't know that would fix the issue entirely.
-
-> 
-> To me it feels like /dev/aux is much like the /dev/i2c interface. Yes,
-> userspace can go talk to random i2c devices and can even talk to them
-> after a kernel driver has "claimed" an i2c device, but:
-> a) If an i2c device is powered off, then the i2c transfer won't work.
-> b) If you set a register of a device managed by a kernel driver behind
-> the back of the kernel driver, you're really asking for trouble.
-> 
-> 
-> So I guess my proposals would be to pick one of:
-> 
-> a) Leave things they way they are as I've documented. NOTE that my
-> documentation does document the way things are today. No aux transfer
-> function that I'm aware of powers up an eDP panel. In this case if
-> someone wants to use /dev/aux for an eDP panel it's really up to them
-> not to shoot themselves in the foot.
-
-To be honest, I do totally agree though that /dev/aux has very limited
-usecases for eDP. I do think it's definitely a useful debugging tool, and it's
-been a big help in figuring out how things like backlight interfaces work when
-I'm otherwise lacking in docs (and sometimes it's still useful, since you can
-test various subleties of panel controllers). So at a bare minimum, I'd very
-much like it if we can at least keep it around in some form (perhaps hidden
-behind a kernel config option). Although, that brings up the question of if
-that makes it harder for someone without kernel debugging experience to get me
-DPCD output from a panel outside of what got logged to the kernel…
-
-> 
-> b) Stop populating /dev/aux for eDP panels and only do it for DP and
-> then if/when someone yells we figure out how they were using /dev/aux
-> and why it was safe. This is definitely an ABI change but I have no
-> idea if it would really break anyone. I suppose we could take a first
-> step by spewing a WARN_ON if someone directly uses /dev/aux for eDP?
-> 
-> c) Somehow dynamically create / remove the /dev/aux device as the eDP
-> panel turns off and on again. If /dev/aux is there then we know that
-> the panel is on. NOTE: this ignores PSR. I don't think we'd want to
-> delete / create the /dev/aux node that often. So we'd either have to
-> still accept that the transfers will sometimes fail (c1) or make it a
-> requirement that we bring the panel out of PSR for an AUX transfer
-> (c2).
-> 
-> 
-> Technically we could list option (d) to power the panel up, but as per
-> above I think it's pretty awkward and doesn't feel like the right way
-> to go. Obviously happy to hear other opinions, though.
-> 
 
 -- 
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+With best wishes
+Dmitry
