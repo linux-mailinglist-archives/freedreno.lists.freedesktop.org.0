@@ -1,60 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD04251ADD0
-	for <lists+freedreno@lfdr.de>; Wed,  4 May 2022 21:33:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D089E51B243
+	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 00:49:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5955910ED1C;
-	Wed,  4 May 2022 19:33:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 819E410EB33;
+	Wed,  4 May 2022 22:49:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4734810ED1C
- for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 19:33:17 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id j4so4047039lfh.8
- for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 12:33:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB4810E9B7
+ for <freedreno@lists.freedesktop.org>; Wed,  4 May 2022 22:49:31 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id x12so2269319pgj.7
+ for <freedreno@lists.freedesktop.org>; Wed, 04 May 2022 15:49:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=YHYwQFAJmnErQZCKQJLUVtyEs4pscZoMMUhpkcqKYYM=;
- b=ruHB31Y5G/kQ2KevdpivuWXbJaJwj7plgUBubNjE2VewX9g1xk6hQh78xwHb7tlLM8
- j45bYpAaDPoI31/fFnmgQ0zbBL/GfKz61r4L+7mywO3UK/dG/+ZytdMpeJeC3f2UnlPv
- PbYm1ltZWYimGB53KF9AiyIhrjMIsmxu6AcWmHyEj+S226NA1TkcNTA141zdhVMrFFem
- f2GzbnsjDjYKjFQo98qG6qVlIEosWYVvxjdyBoMGtWyM+wei3NxMgIcvmY5fqUqtE91Y
- bBJur4JPuZw/U5Y4z+PtaLZJFdAEiMxrytdm3OJKElgKnwH976dnI5kIksXldvtx+HV1
- 1Ptw==
+ bh=dijXTkiQHrfrlF4ID+znm8V5fZSPJC1gmyuClDGbRpM=;
+ b=KnQUKihb/oVI0KbzvzptyFH6gHyzwx78tuSQzyxRYYtkAIdDOZTWZhlQZhLFlBeWOp
+ j8RKG5i1b4ugEU754VQCuM8t49ONqK8c8R+I2vGT2BEGRs92ej0IZ2N9VXvkWqu4ClDi
+ Diq2ZeuXYyv4WvhnGPBn1lRcHUKVUIOCL2kVU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=YHYwQFAJmnErQZCKQJLUVtyEs4pscZoMMUhpkcqKYYM=;
- b=1fsbbNWmv9aVIHeWjljpeu4mHnciOgbP4pFnkgJM4QlCj06btgdOdYAeyYa5LUDVxa
- OzpChX2wVGUgZI/4mZxOPXjTT9+F+ebcaCB67hx9oq1LZeKPW1X9ZCYduqU8IQ6UBh7G
- CbLaSFSQtb38G1yO1p3K3sFmt7Gozof7c4jveP9Ct7uyK+iKSL8N6qVrvHoSgVJnCtpT
- 1IG/E/5+uj7bry2LIEgqo4gl2u6Kk+vJvmr558u+GgTLbnHpUnvN4vBYC/Ovdgbinif2
- b/8hIiFGMp8FCIgfWVLhgFTb19GxsPcP7dtinbiIHQFZtS2MmgvzkVTscDMc8upVE7GW
- EF0Q==
-X-Gm-Message-State: AOAM530BN6HdOFEtDBQmwqB4fr86tBjEdNBo5xVUTgxH8RmLWM2VonII
- WxlCQHwXj0Eg+q/DOiFXQoNiWw==
-X-Google-Smtp-Source: ABdhPJwDQJGAoar+6xZb17zLviI1ctKFIgCOtDGssMUG/VfV7UGq2Htvy4sqs5yKuxLjdJyGWXsi4g==
-X-Received: by 2002:a19:a405:0:b0:473:cb3d:6cb0 with SMTP id
- q5-20020a19a405000000b00473cb3d6cb0mr746951lfc.208.1651692795615; 
- Wed, 04 May 2022 12:33:15 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- o8-20020ac24348000000b0047255d2110csm1283388lfl.59.2022.05.04.12.33.14
+ bh=dijXTkiQHrfrlF4ID+znm8V5fZSPJC1gmyuClDGbRpM=;
+ b=JNA7gICicSoa4YHr6J0z1WkgdY8VWSSxlL+rBu2unf7oDDLoQglO4l3ZvZYitTN5pw
+ hSxpenwVigRzlNGpZQDSJGkK7yktl/eFT/0qQETgoL2ElMkp1vaGTKJ2H2aPhisNe3PA
+ dBdigf5qrjk+LHM1hIhPGc/uytSor0UcA33xPKjzE8fAEszFUj3MLE9rAHbYVYssv9h4
+ jWpEd/e8Uygy84BjllRox0zrk0DRzXmyHENsqgMXzzjAvmfwTOV11o03NqyBdFmGYiqv
+ SN0kuragurnfu7m21SCs70aX9xMbmaEgFi3d4QeSV3B9vvkPNEDtL5S6SXA6KKsgyk/i
+ 4gpg==
+X-Gm-Message-State: AOAM5307cd0SsyhLXH+WiFK0KjkcXm1v+2RSvj4BcJEoV2FIRzsooUFA
+ JasV7VqlrzxtPLdD0WR63lLvxw==
+X-Google-Smtp-Source: ABdhPJyMiDyPd/6VfPLzI/BKb/Du4iDMHhjPft3yL/BkGqSeg5FtyrDZBqihX1qBl5TEhX24E/4+wA==
+X-Received: by 2002:a05:6a02:19c:b0:3aa:1bf8:7388 with SMTP id
+ bj28-20020a056a02019c00b003aa1bf87388mr19780091pgb.455.1651704571489; 
+ Wed, 04 May 2022 15:49:31 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:1da3:6a8e:557c:da09])
+ by smtp.gmail.com with ESMTPSA id
+ s21-20020aa78295000000b0050dc76281b7sm9034473pfm.145.2022.05.04.15.49.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 12:33:15 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed,  4 May 2022 22:33:14 +0300
-Message-Id: <20220504193314.1185639-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ Wed, 04 May 2022 15:49:31 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed,  4 May 2022 15:49:26 -0700
+Message-Id: <20220504154909.1.Iaebd35e60160fc0f2a50fac3a0bf3b298c0637c8@changeid>
+X-Mailer: git-send-email 2.36.0.464.gb9c8b46e94-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PULL] drm/msm: several fixes for 5.19
+Subject: [Freedreno] [PATCH] drm/msm: Fix shutdown
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,49 +66,84 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+Cc: linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Lv Ruyi <lv.ruyi@zte.com.cn>, Douglas Anderson <dianders@chromium.org>,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+ Xu Wang <vulab@iscas.ac.cn>, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This pull request contains few tiny fixes targeting 5.19. The biggest one is
-the fix for the dp event thread wait condition.
+When rebooting on my sc7280-herobrine based device, I got a
+crash. Upon debugging, I found that I was in msm_drv_shutdown() and my
+"pdev" was the one associated with mdss_probe().
 
-The following changes since commit 36a1d1bda77e1851bddfa9cf4e8ada94476dbaff:
+From source, I found that mdss_probe() has the line:
+  platform_set_drvdata(pdev, mdss);
+...where "mdss" is of type "struct msm_mdss *".
 
-  drm/msm: Fix null pointer dereferences without iommu (2022-05-02 10:11:44 -0700)
+Also from source, I saw that in msm_drv_shutdown() we have the line:
+  struct msm_drm_private *priv = platform_get_drvdata(pdev);
 
-are available in the Git repository at:
+This is a mismatch and is the root of the problem.
 
-  https://gitlab.freedesktop.org/lumag/msm.git msm-next-lumag
+Further digging made it apparent that msm_drv_shutdown() is only
+supposed to be used for parts of the msm display framework that also
+call msm_drv_probe() but mdss_probe() doesn't call
+msm_drv_probe(). Let's remove the shutdown functon from msm_mdss.c.
 
-for you to fetch changes up to e402369f0b16d1518a9c7c7ffaaee9a90b2de6a5:
+Digging a little further, code inspection found that two drivers that
+use msm_drv_probe() weren't calling msm_drv_shutdown(). Let's add it
+to them.
 
-  drm/msm/dp: fix event thread stuck in wait_event after kthread_stop() (2022-05-04 21:46:40 +0300)
+Fixes: ecb23f2e3009 ("drm/msm: split the main platform driver")
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
-----------------------------------------------------------------
-Abhinav Kumar (1):
-      drm/msm/dpu: add missing break statement for update_pending_flush_wb()
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 1 +
+ drivers/gpu/drm/msm/msm_mdss.c           | 1 -
+ 3 files changed, 2 insertions(+), 1 deletion(-)
 
-Dmitry Baryshkov (2):
-      drm/msm/dpu: don't access mode pointer before it is set
-      drm/msm/dsi: fix address for second DSI PHY on SDM660
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 143d6643be53..2b9d931474e0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1350,6 +1350,7 @@ MODULE_DEVICE_TABLE(of, dpu_dt_match);
+ static struct platform_driver dpu_driver = {
+ 	.probe = dpu_dev_probe,
+ 	.remove = dpu_dev_remove,
++	.shutdown = msm_drv_shutdown,
+ 	.driver = {
+ 		.name = "msm_dpu",
+ 		.of_match_table = dpu_dt_match,
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 9b7bbc3adb97..3d5621a68f85 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -1009,6 +1009,7 @@ MODULE_DEVICE_TABLE(of, mdp5_dt_match);
+ static struct platform_driver mdp5_driver = {
+ 	.probe = mdp5_dev_probe,
+ 	.remove = mdp5_dev_remove,
++	.shutdown = msm_drv_shutdown,
+ 	.driver = {
+ 		.name = "msm_mdp",
+ 		.of_match_table = mdp5_dt_match,
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 20f154dda9cf..0454a571adf7 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -397,7 +397,6 @@ MODULE_DEVICE_TABLE(of, mdss_dt_match);
+ static struct platform_driver mdss_platform_driver = {
+ 	.probe      = mdss_probe,
+ 	.remove     = mdss_remove,
+-	.shutdown   = msm_drv_shutdown,
+ 	.driver     = {
+ 		.name   = "msm-mdss",
+ 		.of_match_table = mdss_dt_match,
+-- 
+2.36.0.464.gb9c8b46e94-goog
 
-Konrad Dybcio (1):
-      drm/msm/disp: dpu1: Properly sort qcm2290_dpu_caps
-
-Kuogee Hsieh (1):
-      drm/msm/dp: fix event thread stuck in wait_event after kthread_stop()
-
-Vinod Polimera (1):
-      drm/msm/disp/dpu1: avoid clearing hw interrupts if hw_intr is null during drm uninit
-
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  3 +--
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     | 22 +++++++++++-----------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c         |  1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |  3 +++
- drivers/gpu/drm/msm/dp/dp_display.c                | 13 +++++++++----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c         |  2 +-
- 6 files changed, 26 insertions(+), 18 deletions(-)
