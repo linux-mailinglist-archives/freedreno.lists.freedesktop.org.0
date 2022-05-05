@@ -1,49 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C1751B53D
-	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 03:27:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF54951B570
+	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 03:55:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751DE10F30E;
-	Thu,  5 May 2022 01:27:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 893F910E884;
+	Thu,  5 May 2022 01:55:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5AB310EFE0;
- Thu,  5 May 2022 01:27:30 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6892910E884;
+ Thu,  5 May 2022 01:55:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1651714051; x=1683250051;
+ t=1651715755; x=1683251755;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=D2dgoyq4FWRZvrMGZm7T1JXcISRJleFT+FccBaZr8Dc=;
- b=ceVqaMRD76pXUZgy38iXiTk39FGeVl+c2DRRBt44qaX0u8tdf+Tvs6m3
- 1cniET/9O24V7ynwh42f6Gj7j7d8vWxOUaYUakYy9FQzFBOPWAaiVixz+
- Ef+kpzZNCNAQc1TxkvOollShsfnoUUdDpy2U/bgdOXT7v6O1KSQdqYHUD M=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 04 May 2022 18:27:30 -0700
+ bh=IvNrUCQoVha9VJ29n1DumUXaf15DUs3puLErsozaFps=;
+ b=uevg7Gji0z2rCSm31pL2M+MrxuMxMWd4jOXJw8J3+wJkX/We8jiZWCTW
+ TMBS56WkHjJ5xMN8TfiHAytA8VnaAFJZCsSqOsDSJ8VrK+TFMR7TpuHkm
+ OdXnO7M+ZDxC1UH+TD8exVAJSGUdnKO/kJgqeXQv1YrDJASOxbD/C59fG A=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 04 May 2022 18:55:55 -0700
 X-QCInternal: smtphost
 Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2022 18:27:30 -0700
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2022 18:55:54 -0700
 Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
  nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 4 May 2022 18:27:29 -0700
+ 15.2.986.22; Wed, 4 May 2022 18:55:54 -0700
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
 To: <freedreno@lists.freedesktop.org>
-Date: Wed, 4 May 2022 18:27:06 -0700
-Message-ID: <20220505012706.135-1-quic_jesszhan@quicinc.com>
+Date: Wed, 4 May 2022 18:55:28 -0700
+Message-ID: <20220505015528.344-1-quic_jesszhan@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: [Freedreno] [PATCH] drm/msm/mdp5: Return error code in
+Subject: [Freedreno] [PATCH v2] drm/msm/mdp5: Return error code in
  mdp5_pipe_release when deadlock is detected
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,7 +64,7 @@ Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-mdp5_get_global_state runs the risk of hitting an EDEADLK when aqcuiring
+mdp5_get_global_state runs the risk of hitting a -EDEADLK when acquiring
 the modeset lock, but currently mdp5_pipe_release doesn't check for if
 an error is returned. Because of this, there is a possibility of
 mdp5_pipe_release hitting a NULL dereference error.
@@ -72,18 +72,23 @@ mdp5_pipe_release hitting a NULL dereference error.
 To avoid this, let's have mdp5_pipe_release check if
 mdp5_get_global_state returns an error and propogate that error.
 
+Changes since v1:
+- Separated declaration and initialization of *new_state to avoid
+  compiler warning
+- Fixed some spelling mistakes in commit message
+
 Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c  | 14 ++++++++++----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c  | 15 +++++++++++----
  drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.h  |  2 +-
  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c | 20 ++++++++++++++++----
- 3 files changed, 27 insertions(+), 9 deletions(-)
+ 3 files changed, 28 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c
-index ba6695963aa6..1309ab89fcda 100644
+index ba6695963aa6..97887a2be082 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_pipe.c
-@@ -119,18 +119,22 @@ int mdp5_pipe_assign(struct drm_atomic_state *s, struct drm_plane *plane,
+@@ -119,18 +119,23 @@ int mdp5_pipe_assign(struct drm_atomic_state *s, struct drm_plane *plane,
  	return 0;
  }
  
@@ -94,6 +99,7 @@ index ba6695963aa6..1309ab89fcda 100644
  	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
  	struct mdp5_global_state *state = mdp5_get_global_state(s);
 -	struct mdp5_hw_pipe_state *new_state = &state->hwpipe;
++	struct mdp5_hw_pipe_state *new_state;
  
  	if (!hwpipe)
 -		return;
@@ -102,7 +108,7 @@ index ba6695963aa6..1309ab89fcda 100644
 +	if (IS_ERR(state))
 +		return PTR_ERR(state);
 +
-+	struct mdp5_hw_pipe_state *new_state = &state->hwpipe;
++	new_state = &state->hwpipe;
  
  	if (WARN_ON(!new_state->hwpipe_to_plane[hwpipe->idx]))
 -		return;
@@ -110,7 +116,7 @@ index ba6695963aa6..1309ab89fcda 100644
  
  	DBG("%s: release from plane %s", hwpipe->name,
  		new_state->hwpipe_to_plane[hwpipe->idx]->name);
-@@ -141,6 +145,8 @@ void mdp5_pipe_release(struct drm_atomic_state *s, struct mdp5_hw_pipe *hwpipe)
+@@ -141,6 +146,8 @@ void mdp5_pipe_release(struct drm_atomic_state *s, struct mdp5_hw_pipe *hwpipe)
  	}
  
  	new_state->hwpipe_to_plane[hwpipe->idx] = NULL;
