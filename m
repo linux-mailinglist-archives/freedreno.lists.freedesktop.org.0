@@ -1,59 +1,49 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E1AE51BE5F
-	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 13:50:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A445751BF2C
+	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 14:21:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0574B10FC37;
-	Thu,  5 May 2022 11:50:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC8E10E0A5;
+	Thu,  5 May 2022 12:21:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
- [IPv6:2607:f8b0:4864:20::1130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA0D710FC36
- for <freedreno@lists.freedesktop.org>; Thu,  5 May 2022 11:50:10 +0000 (UTC)
-Received: by mail-yw1-x1130.google.com with SMTP id
- 00721157ae682-2f7d7e3b5bfso45353057b3.5
- for <freedreno@lists.freedesktop.org>; Thu, 05 May 2022 04:50:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=knsgBaKDxBJq/+C6n1oHiCqqmfyfeBuftY53CndmalY=;
- b=SM44piqvB6PrqrAPdDmOVBPGUpMa6VQ7GR8bQzSv1SAhXkySLDsDAdJ1VPRLvQaFBh
- Ol610ebhZ+uieFD0VVnK0iIXig38NNJ7QfhIpSgyIX9m8CFDrfyiOpzJd8n/swZmaveG
- 1uBUJtsKAyBZ0+Ib5c2TBLU4prjlN3/Uq40WI5YCc1Qs8jb/M8d/4c5rpiSRbghAFNih
- WDOSHN0LeV4DZnB8kqjWTOPOmsKY+SSfNM4XYiM3q/GyQK8rmIZgXbWtIXFp0TfqqehL
- RHhZ/wT373IXw0lC+GIWCCdcbp0bHi3TajHb2P2R8AzQSD1nX4WofKxKkgAh8j2aLr6L
- iznA==
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 195BE10E0A5
+ for <freedreno@lists.freedesktop.org>; Thu,  5 May 2022 12:21:02 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id y2so7287040ybi.7
+ for <freedreno@lists.freedesktop.org>; Thu, 05 May 2022 05:21:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=knsgBaKDxBJq/+C6n1oHiCqqmfyfeBuftY53CndmalY=;
- b=rrhaaOSzuIBykP1UwnR496h0wvN4saDrqkCdNu+UJ7qZhFyuG2hrY9YgSP4xICRQKr
- 60JhoaaFD3RFpv9HshQWeqsrLFTtQLx3jDOyIGfTJl/TSv+e+jckluowQWnXDuELQBYr
- d+A9e0rGQJOghUe4gJ/9KdoX1yh4n5mgPi5hlRd0One/kMbZesHWqJyUPEjsYkXUu+Mh
- aVqojW8uBm4N6z81iErpyRwUjj9PjBUTT0/tKnAIyL4lJoRlRA8F5r77rRyROwIkn58W
- xl/reXyvd77ScKO6lmhcMwIqkTPqRgac1EF2f4FTv1zsySmC4UddPCQOLTXfsW81VFJ4
- y+Xw==
-X-Gm-Message-State: AOAM530fUBgty7L112j49oKtbJUMFOur4tO8u3DpWm2SXWJ7FxDhvV30
- WrWTQ5UEMV4Y1xHr8wVakwRMPf48wZm/mW4RCzf9IcJakjQ=
-X-Google-Smtp-Source: ABdhPJzb1tD2LmJ8tp6RbAhJBJCOjfLazkH7aZEB+Qz4bVwRprWKluCD0K9DoGQLFrhgFdl9XVrkJbPy20dGBz6VuDk=
-X-Received: by 2002:a81:3252:0:b0:2f6:b826:2286 with SMTP id
- y79-20020a813252000000b002f6b8262286mr23062193ywy.289.1651751410012; Thu, 05
- May 2022 04:50:10 -0700 (PDT)
+ bh=oqzYqmtOukgWsbQu7Sm4paiPoURWMu6g5DfWZGiQmpI=;
+ b=yu0XS7cRt5+84Nt1NOCR0GMW7QRyqAy9GCxDc2pywEbKshYlRAnflbX9eMW5SWgt89
+ B3DJKW/GdF0mi+yyLwkDGXaBZnGrgL6NohACS11JfQe7eWLV4N5bNvIdLS1a8q4AJvtu
+ ObrfQOVYiB0GgjNnMXXoFIDxQGXtHKgswDO+c8Y4erVLSYZ+WmmailrpjoSCswcHpoJj
+ LalM4+ALYML4fZ8x52uw00sc5kVyUVxw+XtE8BTAWCpHH3Hrf0qsHlojaVSRwTlYUj+x
+ 6ovfoRXedOmY9piTq1fgHsSwLGcWp5rjJY+E9eSnWhzHwCJwLILT03fnGiHCPxYcOQ51
+ yM6Q==
+X-Gm-Message-State: AOAM531AS6hz/pW+79AeeHJlMDyWT9A++iAAlLrhMDGJ3b+sDTxWVktm
+ vIUxezkOKfhs8mO2u6iysAvKW78vEXEptGxQBY4=
+X-Google-Smtp-Source: ABdhPJyG1iLik/vFtFS9S/zeuipmFl5Gpkix5aWcrJKW9hkV7rmqAdKIbPiRyp0qfbH/Xm9ONsG2JYip54XwJP1Ai5U=
+X-Received: by 2002:a25:da84:0:b0:648:423e:57b0 with SMTP id
+ n126-20020a25da84000000b00648423e57b0mr20879291ybf.137.1651753261048; Thu, 05
+ May 2022 05:21:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220505001605.1268483-1-dmitry.baryshkov@linaro.org>
- <20220505001605.1268483-6-dmitry.baryshkov@linaro.org>
- <91f3c385-9d6d-faef-384e-1d87e507c1f2@arm.com>
-In-Reply-To: <91f3c385-9d6d-faef-384e-1d87e507c1f2@arm.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 5 May 2022 14:49:59 +0300
-Message-ID: <CAA8EJpqj-fBuRasV-sDUVrCX_yASbZCA9d20T7bojzS46-F8_Q@mail.gmail.com>
-To: Robin Murphy <robin.murphy@arm.com>
+References: <20220429164325.1.I2a3b980ea051e59140227999f0f0ca16f1125768@changeid>
+ <CAHp75VdqbXCYoEwxMt7xG55QDu2mXHbnpwdnHb6ktm8NdVPJnQ@mail.gmail.com>
+In-Reply-To: <CAHp75VdqbXCYoEwxMt7xG55QDu2mXHbnpwdnHb6ktm8NdVPJnQ@mail.gmail.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 5 May 2022 14:20:50 +0200
+Message-ID: <CAJZ5v0hKrnRznpTjTyb8ANGN=REaukAbqQNB_14i_NwAA84=uA@mail.gmail.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 5/5] drm/msm: switch
- msm_kms_init_aspace() to use device_iommu_mapped()
+Subject: Re: [Freedreno] [PATCH] device property: Fix recent breakage of
+ fwnode_get_next_parent_dev()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,88 +56,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Saravana Kannan <saravanak@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Scally <djrscally@gmail.com>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 5 May 2022 at 13:27, Robin Murphy <robin.murphy@arm.com> wrote:
+On Sun, May 1, 2022 at 9:50 AM Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
 >
-> On 2022-05-05 01:16, Dmitry Baryshkov wrote:
-> > Change msm_kms_init_aspace() to use generic function
-> > device_iommu_mapped() instead of the fwnode-specific interface
-> > dev_iommu_fwspec_get(). While we are at it, stop referencing
-> > platform_bus_type directly and use the bus of the IOMMU device.
+> On Sat, Apr 30, 2022 at 3:00 PM Douglas Anderson <dianders@chromium.org> wrote:
+> >
+> > Due to a subtle typo, instead of commit 87ffea09470d ("device
+> > property: Introduce fwnode_for_each_parent_node()") being a no-op
+> > change, it ended up causing the display on my sc7180-trogdor-lazor
+> > device from coming up unless I added "fw_devlink=off" to my kernel
+> > command line. Fix the typo.
 >
-> FWIW, I'd have squashed these changes across the previous patches, such
-> that the dodgy fwspec calls are never introduced in the first place, but
-> it's your driver, and if that's the way you want to work it and Rob's
-> happy with it too, then fine by me.
+> Sorry and merci pour la fix!
+> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
-I thought about this. But as the calls were already there (in the
-mdp5), it was easier for me to merge the code and to update it
-afterwards.
+Applied, thanks!
 
->
-> For the end result,
->
-> Reviewed-by: Robin Murphy <robin.murphy@arm.com>
->
-> I'm guessing MDP4 could probably use msm_kms_init_aspace() now as well,
-> but unless there's any other reason to respin this series, that's
-> something we could do as a follow-up. Thanks for sorting this out!
-
-Not really. MDP4 doesn't have the parent MDSS device, so it doesn't
-need all these troubles.
-
->
-> Robin.
->
-> > Suggested-by: Robin Murphy <robin.murphy@arm.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Fixes: 87ffea09470d ("device property: Introduce fwnode_for_each_parent_node()")
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
 > > ---
-> >   drivers/gpu/drm/msm/msm_drv.c | 14 +++++++-------
-> >   1 file changed, 7 insertions(+), 7 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > index 98ae0036ab57..2fc3f820cd59 100644
-> > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > @@ -272,21 +272,21 @@ struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
-> >       struct device *mdss_dev = mdp_dev->parent;
-> >       struct device *iommu_dev;
+> >  drivers/base/property.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > -     domain = iommu_domain_alloc(&platform_bus_type);
-> > -     if (!domain) {
-> > -             drm_info(dev, "no IOMMU, fallback to phys contig buffers for scanout\n");
-> > -             return NULL;
-> > -     }
-> > -
-> >       /*
-> >        * IOMMUs can be a part of MDSS device tree binding, or the
-> >        * MDP/DPU device.
-> >        */
-> > -     if (dev_iommu_fwspec_get(mdp_dev))
-> > +     if (device_iommu_mapped(mdp_dev))
-> >               iommu_dev = mdp_dev;
-> >       else
-> >               iommu_dev = mdss_dev;
+> > diff --git a/drivers/base/property.c b/drivers/base/property.c
+> > index 36401cfe432c..52e85dcb20b5 100644
+> > --- a/drivers/base/property.c
+> > +++ b/drivers/base/property.c
+> > @@ -600,7 +600,7 @@ struct device *fwnode_get_next_parent_dev(struct fwnode_handle *fwnode)
+> >         struct device *dev;
 > >
-> > +     domain = iommu_domain_alloc(iommu_dev->bus);
-> > +     if (!domain) {
-> > +             drm_info(dev, "no IOMMU, fallback to phys contig buffers for scanout\n");
-> > +             return NULL;
-> > +     }
-> > +
-> >       mmu = msm_iommu_new(iommu_dev, domain);
-> >       if (IS_ERR(mmu)) {
-> >               iommu_domain_free(domain);
-
-
-
--- 
-With best wishes
-Dmitry
+> >         fwnode_for_each_parent_node(fwnode, parent) {
+> > -               dev = get_dev_from_fwnode(fwnode);
+> > +               dev = get_dev_from_fwnode(parent);
+> >                 if (dev) {
+> >                         fwnode_handle_put(parent);
+> >                         return dev;
+> > --
+> > 2.36.0.464.gb9c8b46e94-goog
+> >
+>
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
