@@ -1,63 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 350DD51C149
-	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 15:50:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F2CF51C2D7
+	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 16:46:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7585210E21D;
-	Thu,  5 May 2022 13:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A273810E447;
+	Thu,  5 May 2022 14:46:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF41810E1F9
- for <freedreno@lists.freedesktop.org>; Thu,  5 May 2022 13:50:12 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id j4so7587697lfh.8
- for <freedreno@lists.freedesktop.org>; Thu, 05 May 2022 06:50:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4TMEXMjLJmLbEp82QyGh3Ohj7SMwYayrIWMx4meas6A=;
- b=mq46J0H/IjNAIDz8bE6PrQuyTKG1597bUo+Deucv2qyqHWQbgksoq7fvxfIFGSD4VH
- Yvwuj4IBetARd3HxM7F45rEYRocIgBGSKM7ZUa8EuA6u3Bm24A7NtIKh7VEWeRwfdx1T
- OQTAyrtqFKNcG2RwP9jzeANvrP/kWSfE9uvMzG7heqPMz+ppsyDUXaAJQX0KEkS0oo1u
- ruYl8LKRZv7Ri5T+/L+tUV4/ZF5czKHuZObBBTypUTi3vY7w5QSqcPWmXT2u3ST+xXJF
- ws9ekV5CouCMxIrErUSJfoLMVxRhO+3mLMUQBV721oUJPx4QFrLWyrfwLFNr452ElBiY
- kRXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4TMEXMjLJmLbEp82QyGh3Ohj7SMwYayrIWMx4meas6A=;
- b=kCHdwEUojT0blsZ1NMDW09/SKnHy+m5np0660AZkTYfPYACjAACovJ9qCH9XabdOUg
- vgycCGTwk/OlqfIULIf+/+rWbPIf98MlmKpfR9WOl8c4XJMtwPuuam6o1Ln41Ah5VOrY
- xGak3xazFGsoM3tQRrzJTjnyH0BIeoiHBVulDdsp+fRgk+gN856/8aYtCE/0Q1gx2BH7
- xGMaI0onrFTnijHWYP51x0FNbHZYDyIFK27LyCpGtjE3PvAT/nFEuO5iUSf07A2iq0bY
- JS4YbC7CBWnvckJVsik3qab6cbSpU7VhwXyWo8qCFvzHSrzw+968UaPCFehlyOh7w8Se
- A/1g==
-X-Gm-Message-State: AOAM531jSmFHMfzPKxYA/0UfgPwGqvaFV7Ok6jYv9qpPJsfupSeSTeH3
- hO+e5vo5TwFnbgUT5z2NjKGZyg==
-X-Google-Smtp-Source: ABdhPJy4OvbVt3GEoZrJDhM4UmwcIpYhzXR+SeylsTgUHNK2EM6X9YusgMqR1gXPROkM/kerD31MAA==
-X-Received: by 2002:a05:6512:1395:b0:446:d382:79a5 with SMTP id
- p21-20020a056512139500b00446d38279a5mr17647734lfa.210.1651758610739; 
- Thu, 05 May 2022 06:50:10 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- c17-20020a2ea791000000b0024f3d1dae96sm210935ljf.30.2022.05.05.06.50.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 May 2022 06:50:10 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu,  5 May 2022 16:50:08 +0300
-Message-Id: <20220505135008.1351533-3-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
-References: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40BD810E447;
+ Thu,  5 May 2022 14:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1651761986; x=1683297986;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=4+kd0vjMMPtv/zM2IFvgaogRom6Tf4HdZlD6H0t9CP0=;
+ b=Ng+++amhxRW65S0WX6OwPnkGPAAStAPxP9QzbcUWX3nVZ9Ah7nh/YHgg
+ LriHlkvBX59+vsKlpkxtwwktXhcDj0c8bS9KY7DhVwJVHWtv1gjKTZSPW
+ 1nXTyT2rRCe1gzRla6Y1u/Pz1Gd3xDddos05u4IH33dHvdBKrZ4Wtqz7z
+ exTwS8Zlvediw4HLL04KJ4B+R8wTd107+K1V+fP58gQTkS+wsblSoUkOS
+ RjfSo7a4xmLx/dpkVaQxTnPtClbFkGA4C+7mbFuoJsr8fWLW+cpYvdi3e
+ 4/SKAECS3pIfFNjhFCab4JzQLkI/r9qi/Byyn9RQpbnjPZi+k5AkBcoWD w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="250115059"
+X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="250115059"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2022 07:46:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,201,1647327600"; d="scan'208";a="568618280"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
+ by fmsmga007.fm.intel.com with SMTP; 05 May 2022 07:46:20 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 05 May 2022 17:46:19 +0300
+Date: Thu, 5 May 2022 17:46:19 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Lyude Paul <lyude@redhat.com>
+Message-ID: <YnPjO4kbjezQl5Da@intel.com>
+References: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
+ <YnJv3B/85hTz54SC@intel.com>
+ <CAD=FV=WndmKuEB0=OVQP9YuJaSmD0uxkNs5LE0wWsFj7gBvhBA@mail.gmail.com>
+ <1c6c9fde6e85f09cc89ea8dc6e8716fef58f3ee1.camel@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/mdp4: get rid of struct
- mdp4_platform_config
+In-Reply-To: <1c6c9fde6e85f09cc89ea8dc6e8716fef58f3ee1.camel@redhat.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Freedreno] [PATCH] drm: Document that power requirements for
+ DP AUX transfers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,107 +63,139 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, Doug Anderson <dianders@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Jani Nikula <jani.nikula@intel.com>,
+ Maxime Ripard <maxime@cerno.tech>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Struct mdp4_platform_config is a relict from the DT-conversion time.
-Move the max_clk field to the mdp4_kms_init(), the place where it is
-used and drop the struct mdp4_platform_config and the mdp4_get_config()
-function.
+On Wed, May 04, 2022 at 02:10:08PM -0400, Lyude Paul wrote:
+> On Wed, 2022-05-04 at 09:04 -0700, Doug Anderson wrote:
+> > Hi,
+> > 
+> > On Wed, May 4, 2022 at 5:21 AM Ville Syrjälä
+> > <ville.syrjala@linux.intel.com> wrote:
+> > > 
+> > > On Tue, May 03, 2022 at 04:21:08PM -0700, Douglas Anderson wrote:
+> > > > When doing DP AUX transfers there are two actors that need to be
+> > > > powered in order for the DP AUX transfer to work: the DP source and
+> > > > the DP sync. Commit bacbab58f09d ("drm: Mention the power state
+> > > > requirement on side-channel operations") added some documentation
+> > > > saying that the DP source is required to power itself up (if needed)
+> > > > to do AUX transfers. However, that commit doesn't talk anything about
+> > > > the DP sink.
+> > > > 
+> > > > For full fledged DP the sink isn't really a problem. It's expected
+> > > > that if an external DP monitor isn't plugged in that attempting to do
+> > > > AUX transfers won't work. It's also expected that if a DP monitor is
+> > > > plugged in (and thus asserting HPD) that it AUX transfers will work.
+> > > > 
+> > > > When we're looking at eDP, however, things are less obvious. Let's add
+> > > > some documentation about expectations. Here's what we'll say:
+> > > > 
+> > > > 1. We don't expect the DP AUX transfer function to power on an eDP
+> > > > panel. If an eDP panel is physically connected but powered off then it
+> > > > makes sense for the transfer to fail.
+> > > 
+> > > I don't agree with this. I think the panel should just get powred up
+> > > for AUX transfers.
+> > 
+> > That's definitely a fair thing to think about and I have at times
+> > thought about trying to make it work that way. It always ends up
+> > hitting a roadblock.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 21 ++++++---------------
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h |  5 -----
- 2 files changed, 6 insertions(+), 20 deletions(-)
+How do you even probe the panel initially if you can't power it on
+without doing some kind of full modeset/etc.?
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 1fba6ab06eb1..ccde710c63fa 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -13,8 +13,6 @@
- #include "msm_mmu.h"
- #include "mdp4_kms.h"
- 
--static struct mdp4_platform_config *mdp4_get_config(struct platform_device *dev);
--
- static int mdp4_hw_init(struct msm_kms *kms)
- {
- 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
-@@ -384,7 +382,6 @@ static void read_mdp_hw_revision(struct mdp4_kms *mdp4_kms,
- static int mdp4_kms_init(struct drm_device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev->dev);
--	struct mdp4_platform_config *config = mdp4_get_config(pdev);
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct mdp4_kms *mdp4_kms;
- 	struct msm_kms *kms = NULL;
-@@ -392,6 +389,10 @@ static int mdp4_kms_init(struct drm_device *dev)
- 	struct msm_gem_address_space *aspace;
- 	int irq, ret;
- 	u32 major, minor;
-+	unsigned long max_clk;
-+
-+	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
-+	max_clk = 266667000;
- 
- 	mdp4_kms = kzalloc(sizeof(*mdp4_kms), GFP_KERNEL);
- 	if (!mdp4_kms) {
-@@ -459,7 +460,7 @@ static int mdp4_kms_init(struct drm_device *dev)
- 		goto fail;
- 	}
- 
--	clk_set_rate(mdp4_kms->clk, config->max_clk);
-+	clk_set_rate(mdp4_kms->clk, max_clk);
- 
- 	read_mdp_hw_revision(mdp4_kms, &major, &minor);
- 
-@@ -479,7 +480,7 @@ static int mdp4_kms_init(struct drm_device *dev)
- 			ret = PTR_ERR(mdp4_kms->lut_clk);
- 			goto fail;
- 		}
--		clk_set_rate(mdp4_kms->lut_clk, config->max_clk);
-+		clk_set_rate(mdp4_kms->lut_clk, max_clk);
- 	}
- 
- 	pm_runtime_enable(dev->dev);
-@@ -552,16 +553,6 @@ static int mdp4_kms_init(struct drm_device *dev)
- 	return ret;
- }
- 
--static struct mdp4_platform_config *mdp4_get_config(struct platform_device *dev)
--{
--	static struct mdp4_platform_config config = {};
--
--	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
--	config.max_clk = 266667000;
--
--	return &config;
--}
--
- static const struct dev_pm_ops mdp4_pm_ops = {
- 	.prepare = msm_pm_prepare,
- 	.complete = msm_pm_complete,
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-index 7cc549b6a82b..01179e764a29 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-@@ -42,11 +42,6 @@ struct mdp4_kms {
- };
- #define to_mdp4_kms(x) container_of(x, struct mdp4_kms, base)
- 
--/* platform config data (ie. from DT, or pdata) */
--struct mdp4_platform_config {
--	uint32_t max_clk;
--};
--
- static inline void mdp4_write(struct mdp4_kms *mdp4_kms, u32 reg, u32 data)
- {
- 	msm_writel(data, mdp4_kms->mmio + reg);
+> > 
+> > The biggest roadblock that I recall is that to make this work then
+> > you'd have to somehow ensure that the bridge chain's pre_enable() call
+> > was made as part of the AUX transfer, right? Since the transfer
+> > function can be called in any context at all, we have to coordinate
+> > this with DRM. If, for instance, DRM is mid way through powering the
+> > panel down then we need to wait for DRM to fully finish powering down,
+> > then we need to power the panel back up. I don't believe that we can
+> > just force the panel to stay on if DRM is turning it off because of
+> > panel power sequencing requirements. At least I know it would have the
+> > potential to break "samsung-atna33xc20.c" which absolutely needs to
+> > see the panel power off after it's been disabled.
+> > 
+> > We also, I believe, need to handle the fact that the bridge chain may
+> > not have even been created yet. We do AUX transfers to read the EDID
+> > and also to setup the backlight in the probe function of panel-edp. At
+> > that point the panel hasn't been linked into the chain. We had _long_
+> > discussions [1] about moving these out of probe and decided that we
+> > could move the EDID read to be later but that it was going to really
+> > ugly to move the AUX backlight later. The backlight would end up
+> > popping up at some point in time later (the first call to panel
+> > prepare() or maybe get_modes()) and that seemed weird.
+> > 
+> > [1]
+> > https://lore.kernel.org/lkml/CAD=FV=U5-sTDLYdkeJWLAOG-0wgxR49VxtwUyUO7z2PuibLGsg@mail.gmail.com/
+> > 
+> > 
+> > > Otherwise you can't trust that eg. the /dev/aux
+> > > stuff is actually usable.
+> > 
+> > Yeah, it's been on my mind to talk more about /dev/aux. I think
+> > /dev/aux has some problems, at least with eDP. Specifically:
+> > 
+> > 1. Even if we somehow figure out how to power the panel on as part of
+> > the aux transfer, we actually _still_ not guaranteed to be able to
+> > talk to it as far as I understand. My colleague reported to me that on
+> > a system he was working with that had PSR (panel self refresh) that
+> > when the panel was powered on but in PSR mode that it wouldn't talk
+> > over AUX. Assuming that this is correct then I guess we'd also have to
+> > do even more coordination with DRM to exit PSR and block future
+> > transitions of PSR. (NOTE: it's always possible that my colleague ran
+> > into some other bug and that panels are _supposed_ to be able to talk
+> > in PSR. If you think this is the case, I can always try to dig more).
+> 
+> TBH - the coordination with drm I don't think would be the difficult part, as
+> we'd just need to add some sort of property (ideally invisible to userspace)
+> that can be used in an atomic commit to disable PSR - similar to how we enable
+> CRC readback from sysfs in the majority of DRM drivers. That being said
+> though, I think we can just leave the work of solving this problem up to
+> whoever ends up needing this to work.
+
+The driver should just disable/prevent PSR when doing AUX if the hardware
+can't guarantee the PSR and AUX won't interfere with each other.
+
+For i915 we have no problems with powering the panel on for AUX, but
+there is still a race with PSR vs. AUX because both use the same hardware
+internally. I've been nagging at people to fix this for i915 but I don't 
+think it still got done :( Originally we were supposed to get a hardware
+mutex for this but that plan got scrapped for some reason.
+
+> 
+> > 
+> > 2. I'm not totally convinced that it's a great idea, at least for eDP,
+> > for userspace to be mucking with /dev/aux. For DP's case I guess
+> > /dev/aux is essentially enabling userspace drivers to do things like
+> > update firmware on DP monitors or play with the backlight. I guess we
+> > decided that we didn't want to add drivers in the kernel to handle
+> > this type of stuff so we left it for userspace? For eDP, though, there
+> 
+> The main reason DP AUX got exposed to userspace in the first place was for
+> usecases like fwupd,
+
+My memory says the original reason was debugging. Or at least I had
+no idea fwupd had started to use this until I saw some weird looking
+DPCD addresses in some debug log.
+
+But I suppose it's possible there were already plans for firmware
+updates and whatnot and it just wasn't being discussed when this was
+being developed.
+
 -- 
-2.35.1
-
+Ville Syrjälä
+Intel
