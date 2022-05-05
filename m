@@ -2,60 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67BF651C146
-	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 15:50:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACDAA51C148
+	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 15:50:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7DC610E21B;
-	Thu,  5 May 2022 13:50:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9BD10E219;
+	Thu,  5 May 2022 13:50:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3995510E1F9
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D496C10E1F9
  for <freedreno@lists.freedesktop.org>; Thu,  5 May 2022 13:50:11 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id w19so7574370lfu.11
+Received: by mail-lf1-x133.google.com with SMTP id w1so7600992lfa.4
  for <freedreno@lists.freedesktop.org>; Thu, 05 May 2022 06:50:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UpknYVo+DPBanWKhGXXYTya2awtDru7xqOaKjU/zIXs=;
- b=jYpTjc8C+5n8SykUBLJlcX5f4/GaOP6cofNjPFSWocIRskcsTJBKXn3aPUWYfj9ejM
- U0o0tNYhzJ24OB1Rfdisw6FWA/OiwTIjo1pVJyKqKIgw5KQ8503scj/bwx+0FoLZAsSU
- f8C2J/BFIz122GP0+cSOtixDfiIBQWM/5TqmXVTk6v8iv1477Lu1Ovh1EmQKvz8QQ4fA
- 61mA+ykZrb+zZbseVcAbtUao6oxksh6pLzGGal+wb06aDuN7MPMuIS5aefWz3fIID0a7
- n+Lrr/z3RNnpg9plBf7SPpW/oQHW0y+Jp2HB0m8U7GDhig/z9d/z9j6TL3o+urvX28Pd
- rvsQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=48aIM/KpZ2USvZfBjFUkxb9XMnlqoCOw+7fM77NfVAA=;
+ b=NMoeNvcLJk+xmbePWh3To9N8YfwCw+vd1k+B9lNsy1gqOT9AMDa45R//CGpom4peg+
+ /v1FCPS0nMVyWu22f0C64GjOlFzVNoqdymZCI1IgtvjpD3OHA+mRJTlLe5GqbOQA5ctQ
+ MIKGqSOGnNYbss2M26R4BntyKss1T1oKWxvC7cuVOSFofNo95QR4aiXpAtha03xewhy3
+ jk5PJyDbp0302H8n24oqony+SD8B1/rtgyh0RH/Ohp3daHD6ixh5raeIJ9ChnylFE8le
+ FGIP4OBESn8VgJ43dWCK0TDfFGIVQTxaCR0jmBvFW0wAZGnjBWDctsFWWIqpXVHheo/g
+ X/Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=UpknYVo+DPBanWKhGXXYTya2awtDru7xqOaKjU/zIXs=;
- b=Cx9QC3+NlT/WAnNe2OPDfskrufdes/LdL2H9nDRjRB4/Q8wtXhB9GDbhhcL6PnJhNK
- nQT6TNwza8yqNn5AYZUGdIVCQ29L0coKs38rOOiKVcvixoCWbP6p42UQY7/QvT9ooR/i
- g3k1vAKVXWDhiS9X2+0pLre+9ELo/v41vyBf2xCSDGiRJ/NhUC2JAENl+DMwnK545SG+
- nYWQLhcku0+4VjJv+EpLLD35OOPcuh7+vdrAo6csOceQWqFDZavIXU5RHfAf0kRlJPuZ
- /nPGXb6rX7lR6l2L02qYl8cNcyBXGR1uY3irNSNzn9wIWUXIvZoreG1eQjubBF3I13Sg
- 7szg==
-X-Gm-Message-State: AOAM531nHCkS4pvAXu57dn5/VpQXiCpA4Lzjhf+dQlo4bjQO7ePNeCEB
- I/Q95gnb7Eowi4m/sprq2r3lcw==
-X-Google-Smtp-Source: ABdhPJxk+A+USoTrmmhDNbDbzaJg/sCHtmKZabpJS2NcPJFPHS1t7xOecFr/5FjS9oNdhmox/ahsPA==
-X-Received: by 2002:a05:6512:158c:b0:473:9d87:aa23 with SMTP id
- bp12-20020a056512158c00b004739d87aa23mr12785524lfb.409.1651758609431; 
- Thu, 05 May 2022 06:50:09 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=48aIM/KpZ2USvZfBjFUkxb9XMnlqoCOw+7fM77NfVAA=;
+ b=PUYLSX83wwtn2Dy5qY2jcGyGP1o+GkKiGZEFA6ttDtpNveBcBd1reHFBwNUYQtWJ9o
+ 49iFO88YtQPOAp3k9jpqumPT7YZrBxqDGDZWz2X+Wwzxybld6mDuNTrC5py4V0vnTrpa
+ GP9XybR6NKywEsNCFu4PJKeCt5gREpX0HY6UlTlwOl64mA3aKeNGYPAcC2hH0L5FYLpb
+ kucLEDu0r/BYHzbFxAvK3iR6JbpPaRXFaaQYSltJMNhv0Xv0pd3u2ofSedS9KpI1wBNq
+ zRJB4XveUU2Jmm0nSrRljUZQh1dPzY7NqRTnvLOvSjk5NGsdGlDr41fbL2MGSPKhZiEY
+ FGgg==
+X-Gm-Message-State: AOAM530ie2RWM3O6tqc8lv870JR+RvFD9sCawdpMRCnrj0/O6pGb3UN4
+ R3nKJARGysxJvdzlhY+T0liogQ==
+X-Google-Smtp-Source: ABdhPJzqtJE/niHNvJTferK/O5UKI9g35GxmefvqtWOB+1+GmgdY0AtN0f9+Srwt/hIbilzloKtYGA==
+X-Received: by 2002:a05:6512:128e:b0:473:d371:5a38 with SMTP id
+ u14-20020a056512128e00b00473d3715a38mr2576589lfs.502.1651758610065; 
+ Thu, 05 May 2022 06:50:10 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- c17-20020a2ea791000000b0024f3d1dae96sm210935ljf.30.2022.05.05.06.50.08
+ c17-20020a2ea791000000b0024f3d1dae96sm210935ljf.30.2022.05.05.06.50.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 05 May 2022 06:50:09 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu,  5 May 2022 16:50:06 +0300
-Message-Id: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
+Date: Thu,  5 May 2022 16:50:07 +0300
+Message-Id: <20220505135008.1351533-2-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
+References: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 0/2] drm/msm/mpd4: get rid of struct
- mdp4_platform_config
+Subject: [Freedreno] [PATCH 1/2] drm/msm/mdp4: move iommu_domain_alloc()
+ call close to its usage
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,17 +77,61 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The struct mdp4_platform_config is a remnant from pre-DT times. It
-serves no particular purpose nowadays. So let's get rid of it.
+Move iommu_domain_alloc() in front of adress space/IOMMU initialization.
+This allows us to drop it from struct mdp4_cfg_platform which
+remained from the pre-DT days.
 
-Dmitry Baryshkov (2):
-  drm/msm/mdp4: move iommu_domain_alloc() call close to its usage
-  drm/msm/mdp4: get rid of struct mdp4_platform_config
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 8 ++++----
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h | 1 -
+ 2 files changed, 4 insertions(+), 5 deletions(-)
 
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 29 ++++++++----------------
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h |  6 -----
- 2 files changed, 10 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+index fb48c8c19ec3..1fba6ab06eb1 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+@@ -388,6 +388,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct mdp4_kms *mdp4_kms;
+ 	struct msm_kms *kms = NULL;
++	struct iommu_domain *iommu;
+ 	struct msm_gem_address_space *aspace;
+ 	int irq, ret;
+ 	u32 major, minor;
+@@ -495,9 +496,9 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 	mdp4_disable(mdp4_kms);
+ 	mdelay(16);
+ 
+-	if (config->iommu) {
+-		struct msm_mmu *mmu = msm_iommu_new(&pdev->dev,
+-			config->iommu);
++	iommu = iommu_domain_alloc(pdev->dev.bus);
++	if (iommu) {
++		struct msm_mmu *mmu = msm_iommu_new(&pdev->dev, iommu);
+ 
+ 		aspace  = msm_gem_address_space_create(mmu,
+ 			"mdp4", 0x1000, 0x100000000 - 0x1000);
+@@ -557,7 +558,6 @@ static struct mdp4_platform_config *mdp4_get_config(struct platform_device *dev)
+ 
+ 	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
+ 	config.max_clk = 266667000;
+-	config.iommu = iommu_domain_alloc(&platform_bus_type);
+ 
+ 	return &config;
+ }
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+index e8ee92ab7956..7cc549b6a82b 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+@@ -44,7 +44,6 @@ struct mdp4_kms {
+ 
+ /* platform config data (ie. from DT, or pdata) */
+ struct mdp4_platform_config {
+-	struct iommu_domain *iommu;
+ 	uint32_t max_clk;
+ };
+ 
 -- 
 2.35.1
 
