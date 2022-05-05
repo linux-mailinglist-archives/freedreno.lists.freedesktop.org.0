@@ -1,58 +1,80 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D0E51C8D9
-	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 21:19:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4EA351C9AF
+	for <lists+freedreno@lfdr.de>; Thu,  5 May 2022 21:55:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 959F810E27A;
-	Thu,  5 May 2022 19:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5650710F317;
+	Thu,  5 May 2022 19:55:04 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81BC410E27A;
- Thu,  5 May 2022 19:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1651778369; x=1683314369;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=RLW+jPbp8UIwlXJsm54YUpwL2/fRiHq7imOLuAfSmdI=;
- b=i+VRgrjC3WyWnsFLQwQlUkqE2glimGoulvTPgUbofBE2cE4ZJSDGgnzq
- QPaMQ8+6aPfp7f3EUQIsBPBEA9WYnjSV3b3baGK5Wpn4kBX4N85LIuE9a
- dgZsI2+UnBKF+54DrsQui3X2J5F3vpCss44o1s2LhEz6RF4ZghcFa4SxZ
- ffVPhUI4/AUHcJkLGZxW6MPY2Nax748QDr2NPWK0PQ9cO00k1rB50AG49
- PAeYcrftvx9bdKb19dwIpFVxe0GBL2Kj4hZMYf39QQ2HMy+kSX+fSDLse
- Ne0yYATSAP7GUxJbPtG6FWHZmqU0NtsTA/cJ9YD2wzAPugKg8Oxw0eEZM g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10338"; a="331214746"
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="331214746"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2022 12:19:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,203,1647327600"; d="scan'208";a="600191604"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.51])
- by orsmga001.jf.intel.com with SMTP; 05 May 2022 12:19:23 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 05 May 2022 22:19:22 +0300
-Date: Thu, 5 May 2022 22:19:22 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <YnQjOuSh3TV+Zbgk@intel.com>
+X-Greylist: delayed 449 seconds by postgrey-1.36 at gabe;
+ Thu, 05 May 2022 19:55:02 UTC
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [170.10.129.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0AA10F317
+ for <freedreno@lists.freedesktop.org>; Thu,  5 May 2022 19:55:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1651780501;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DnqJVZbPVeI46s0enhoaS6Hy7uEfMjKkZf47zK1+eGQ=;
+ b=dp5QrYv9svJ4sULxPsV4K588qLZCuiCyrXDvwmoIB65ItmJ6+e8G69+seQ8GsYVVcLnZJV
+ JGgn+gmWh1mLBTkizbyTf8hEDBy8qNf3Qwtlf/uCH7pWM8HJd2tll/O/OsH2VVRGLkBvuq
+ vEuqozInoTYIfp2Vxu3nHk8yX2tiutA=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-201-ZQAdT1sYOnyL0OZKm24qQg-1; Thu, 05 May 2022 15:47:31 -0400
+X-MC-Unique: ZQAdT1sYOnyL0OZKm24qQg-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ o12-20020a0562140e4c00b0044a67ef728dso4028800qvc.8
+ for <freedreno@lists.freedesktop.org>; Thu, 05 May 2022 12:47:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=DnqJVZbPVeI46s0enhoaS6Hy7uEfMjKkZf47zK1+eGQ=;
+ b=19nhMcAbNFUpmMueoMXj3JJupc/H1GvbE8+IzEJ0hy0c7mOcn0QdCVRkx5rxiTqy+O
+ n/6rCl70gd6TwJTranrSu93pm9RGp4w9T2D/d2eZgYWWFg2aRxjAz7MwkOrhx5+E6PfF
+ dyVZC6VN4eX8QGeTSfiMfjeCoHFrrrFfwyKXLU5/ULqS8/KaPW/hcs+KWJGw2xKS9x0C
+ L0LOsRxfXs54IxTjhDMeH5+ppZggPtY1Ncig/sK25AgstKLsNAB3UqhSjh5/kmxLZxpl
+ wtMq1S4U/zyH/sEr+EAKicx61Uayk9zXwOeOrr129CS4+8l545VOCnBM9dpKye+TrVMq
+ Q8ow==
+X-Gm-Message-State: AOAM533FnIHUavhuyDzRtovQJftOoFnqi4ARRjjzitVUhVGtA0K+oxHp
+ uegl20pnqug4edjR3D89xBuTFe5XTi/QO26+BFjW1/Qi8nmYsrTY5mgme/N/PShZERL57tJia7G
+ ApvsLR1567e8Qmo5sn7WNOPlcSfOF
+X-Received: by 2002:a05:622a:1899:b0:2f3:b09e:dbe9 with SMTP id
+ v25-20020a05622a189900b002f3b09edbe9mr12328376qtc.199.1651780050730; 
+ Thu, 05 May 2022 12:47:30 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxw9VxJIDFIIwB9AlGQDX3a0wArIewXNGv5CEduHIStpRGXI2+xlxlAMXfahblbt2mKcwJawQ==
+X-Received: by 2002:a05:622a:1899:b0:2f3:b09e:dbe9 with SMTP id
+ v25-20020a05622a189900b002f3b09edbe9mr12328357qtc.199.1651780050495; 
+ Thu, 05 May 2022 12:47:30 -0700 (PDT)
+Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
+ [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
+ m21-20020aed27d5000000b002f39b99f686sm1290873qtg.32.2022.05.05.12.47.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 May 2022 12:47:29 -0700 (PDT)
+Message-ID: <b1a7310afc2b09dd0575826d0df973df839ef5ac.camel@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+To: Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org
+Date: Thu, 05 May 2022 15:47:28 -0400
+In-Reply-To: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
 References: <20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
- <YnJv3B/85hTz54SC@intel.com>
- <CAD=FV=WndmKuEB0=OVQP9YuJaSmD0uxkNs5LE0wWsFj7gBvhBA@mail.gmail.com>
- <1c6c9fde6e85f09cc89ea8dc6e8716fef58f3ee1.camel@redhat.com>
- <YnPjO4kbjezQl5Da@intel.com>
- <CAD=FV=XbZEagm5qR207mcVm1Ry=bGeuRAqTYx3SBoZfyo6fSkg@mail.gmail.com>
- <YnPoYsnx7IeBfJ5D@intel.com>
- <CAD=FV=WxxEGM4cLBHGMeRBFDAXGJJF105kLZ588JSFJRg8PM8A@mail.gmail.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD=FV=WxxEGM4cLBHGMeRBFDAXGJJF105kLZ588JSFJRg8PM8A@mail.gmail.com>
-X-Patchwork-Hint: comment
 Subject: Re: [Freedreno] [PATCH] drm: Document that power requirements for
  DP AUX transfers
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -67,205 +89,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lyude Paul <lyude@redhat.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Jani Nikula <jani.nikula@intel.com>,
- Maxime Ripard <maxime@cerno.tech>, Thomas Zimmermann <tzimmermann@suse.de>,
- Hsin-Yi Wang <hsinyi@chromium.org>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, linux-kernel@vger.kernel.org,
+ Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Jani Nikula <jani.nikula@intel.com>, Maxime Ripard <maxime@cerno.tech>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Robert Foss <robert.foss@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 05, 2022 at 08:53:12AM -0700, Doug Anderson wrote:
-> Hi,
+So I think if Ville is OK with it (an ack at least) I'm fine with this
+documentation change. I think it's worth me noting for other reviewers I made
+this decision based on the fact that the documentation is for the transfer()
+function - which I agree shouldn't need to be responsible for powering the
+panel on.
+
+Since that doesn't actually specify what we expect the behavior for userspace
+accesses to be (since we could in theory add more behavior in those codepaths
+around the transfer() calls that don't exist for the driver's own AUX usages)
+I think this is totally fine
+
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+
+On Tue, 2022-05-03 at 16:21 -0700, Douglas Anderson wrote:
+> When doing DP AUX transfers there are two actors that need to be
+> powered in order for the DP AUX transfer to work: the DP source and
+> the DP sync. Commit bacbab58f09d ("drm: Mention the power state
+> requirement on side-channel operations") added some documentation
+> saying that the DP source is required to power itself up (if needed)
+> to do AUX transfers. However, that commit doesn't talk anything about
+> the DP sink.
 > 
-> On Thu, May 5, 2022 at 8:29 AM Ville Syrj�l�
-> <ville.syrjala@linux.intel.com> wrote:
-> >
-> > On Thu, May 05, 2022 at 08:00:20AM -0700, Doug Anderson wrote:
-> > > Hi,
-> > >
-> > > On Thu, May 5, 2022 at 7:46 AM Ville Syrj�l�
-> > > <ville.syrjala@linux.intel.com> wrote:
-> > > >
-> > > > On Wed, May 04, 2022 at 02:10:08PM -0400, Lyude Paul wrote:
-> > > > > On Wed, 2022-05-04 at 09:04 -0700, Doug Anderson wrote:
-> > > > > > Hi,
-> > > > > >
-> > > > > > On Wed, May 4, 2022 at 5:21 AM Ville Syrj�l�
-> > > > > > <ville.syrjala@linux.intel.com> wrote:
-> > > > > > >
-> > > > > > > On Tue, May 03, 2022 at 04:21:08PM -0700, Douglas Anderson wrote:
-> > > > > > > > When doing DP AUX transfers there are two actors that need to be
-> > > > > > > > powered in order for the DP AUX transfer to work: the DP source and
-> > > > > > > > the DP sync. Commit bacbab58f09d ("drm: Mention the power state
-> > > > > > > > requirement on side-channel operations") added some documentation
-> > > > > > > > saying that the DP source is required to power itself up (if needed)
-> > > > > > > > to do AUX transfers. However, that commit doesn't talk anything about
-> > > > > > > > the DP sink.
-> > > > > > > >
-> > > > > > > > For full fledged DP the sink isn't really a problem. It's expected
-> > > > > > > > that if an external DP monitor isn't plugged in that attempting to do
-> > > > > > > > AUX transfers won't work. It's also expected that if a DP monitor is
-> > > > > > > > plugged in (and thus asserting HPD) that it AUX transfers will work.
-> > > > > > > >
-> > > > > > > > When we're looking at eDP, however, things are less obvious. Let's add
-> > > > > > > > some documentation about expectations. Here's what we'll say:
-> > > > > > > >
-> > > > > > > > 1. We don't expect the DP AUX transfer function to power on an eDP
-> > > > > > > > panel. If an eDP panel is physically connected but powered off then it
-> > > > > > > > makes sense for the transfer to fail.
-> > > > > > >
-> > > > > > > I don't agree with this. I think the panel should just get powred up
-> > > > > > > for AUX transfers.
-> > > > > >
-> > > > > > That's definitely a fair thing to think about and I have at times
-> > > > > > thought about trying to make it work that way. It always ends up
-> > > > > > hitting a roadblock.
-> > > >
-> > > > How do you even probe the panel initially if you can't power it on
-> > > > without doing some kind of full modeset/etc.?
-> > >
-> > > It's not that we can't power it on without a full modeset. It' that at
-> > > panel probe time all the DRM components haven't been hooked together
-> > > yet, so the bridge chain isn't available yet. The panel can power
-> > > itself on, though. This is why the documentation I added says: "if a
-> > > panel driver is initiating a DP AUX transfer it may power itself up
-> > > however it wants"
-> > >
-> > >
-> > > > > > The biggest roadblock that I recall is that to make this work then
-> > > > > > you'd have to somehow ensure that the bridge chain's pre_enable() call
-> > > > > > was made as part of the AUX transfer, right? Since the transfer
-> > > > > > function can be called in any context at all, we have to coordinate
-> > > > > > this with DRM. If, for instance, DRM is mid way through powering the
-> > > > > > panel down then we need to wait for DRM to fully finish powering down,
-> > > > > > then we need to power the panel back up. I don't believe that we can
-> > > > > > just force the panel to stay on if DRM is turning it off because of
-> > > > > > panel power sequencing requirements. At least I know it would have the
-> > > > > > potential to break "samsung-atna33xc20.c" which absolutely needs to
-> > > > > > see the panel power off after it's been disabled.
-> > > > > >
-> > > > > > We also, I believe, need to handle the fact that the bridge chain may
-> > > > > > not have even been created yet. We do AUX transfers to read the EDID
-> > > > > > and also to setup the backlight in the probe function of panel-edp. At
-> > > > > > that point the panel hasn't been linked into the chain. We had _long_
-> > > > > > discussions [1] about moving these out of probe and decided that we
-> > > > > > could move the EDID read to be later but that it was going to really
-> > > > > > ugly to move the AUX backlight later. The backlight would end up
-> > > > > > popping up at some point in time later (the first call to panel
-> > > > > > prepare() or maybe get_modes()) and that seemed weird.
-> > > > > >
-> > > > > > [1]
-> > > > > > https://lore.kernel.org/lkml/CAD=FV=U5-sTDLYdkeJWLAOG-0wgxR49VxtwUyUO7z2PuibLGsg@mail.gmail.com/
-> > > > > >
-> > > > > >
-> > > > > > > Otherwise you can't trust that eg. the /dev/aux
-> > > > > > > stuff is actually usable.
-> > > > > >
-> > > > > > Yeah, it's been on my mind to talk more about /dev/aux. I think
-> > > > > > /dev/aux has some problems, at least with eDP. Specifically:
-> > > > > >
-> > > > > > 1. Even if we somehow figure out how to power the panel on as part of
-> > > > > > the aux transfer, we actually _still_ not guaranteed to be able to
-> > > > > > talk to it as far as I understand. My colleague reported to me that on
-> > > > > > a system he was working with that had PSR (panel self refresh) that
-> > > > > > when the panel was powered on but in PSR mode that it wouldn't talk
-> > > > > > over AUX. Assuming that this is correct then I guess we'd also have to
-> > > > > > do even more coordination with DRM to exit PSR and block future
-> > > > > > transitions of PSR. (NOTE: it's always possible that my colleague ran
-> > > > > > into some other bug and that panels are _supposed_ to be able to talk
-> > > > > > in PSR. If you think this is the case, I can always try to dig more).
-> > > > >
-> > > > > TBH - the coordination with drm I don't think would be the difficult part, as
-> > > > > we'd just need to add some sort of property (ideally invisible to userspace)
-> > > > > that can be used in an atomic commit to disable PSR - similar to how we enable
-> > > > > CRC readback from sysfs in the majority of DRM drivers. That being said
-> > > > > though, I think we can just leave the work of solving this problem up to
-> > > > > whoever ends up needing this to work.
-> > > >
-> > > > The driver should just disable/prevent PSR when doing AUX if the hardware
-> > > > can't guarantee the PSR and AUX won't interfere with each other.
-> > >
-> > > OK, fair enough. If we can solve the PSR problem that would be great.
-> > >
-> > >
-> > > > For i915 we have no problems with powering the panel on for AUX, but
-> > > > there is still a race with PSR vs. AUX because both use the same hardware
-> > > > internally. I've been nagging at people to fix this for i915 but I don't
-> > > > think it still got done :( Originally we were supposed to get a hardware
-> > > > mutex for this but that plan got scrapped for some reason.
-> > >
-> > > I haven't looked at the i915 DRM code much, but my understanding is
-> > > that it's more of an "all in one" approach. The one driver pretty much
-> > > handles everything itself. That means that powering the panel up isn't
-> > > too hard. Is that right?
-> >
-> > Yeah, we don't have too many "helpful" abstractions in the way ;)
-> >
-> > > > > > for userspace to be mucking with /dev/aux. For DP's case I guess
-> > > > > > /dev/aux is essentially enabling userspace drivers to do things like
-> > > > > > update firmware on DP monitors or play with the backlight. I guess we
-> > > > > > decided that we didn't want to add drivers in the kernel to handle
-> > > > > > this type of stuff so we left it for userspace? For eDP, though, there
-> > > > >
-> > > > > The main reason DP AUX got exposed to userspace in the first place was for
-> > > > > usecases like fwupd,
-> > > >
-> > > > My memory says the original reason was debugging. Or at least I had
-> > > > no idea fwupd had started to use this until I saw some weird looking
-> > > > DPCD addresses in some debug log.
-> > > >
-> > > > But I suppose it's possible there were already plans for firmware
-> > > > updates and whatnot and it just wasn't being discussed when this was
-> > > > being developed.
-> > >
-> > > If it's just for debugging, I'd argue that leaving it as-is should be
-> > > fine. Someone poking around with their system can find a way to make
-> > > sure that the panel stays on.
-> >
-> > That could require altering the state of the system quite a bit, which
-> > may defeat the purpose.
+> For full fledged DP the sink isn't really a problem. It's expected
+> that if an external DP monitor isn't plugged in that attempting to do
+> AUX transfers won't work. It's also expected that if a DP monitor is
+> plugged in (and thus asserting HPD) that it AUX transfers will work.
 > 
-> It does? In my experience you just need to make sure that the panel is
-> turned on. ...or are you saying that you'd use this for debugging a
-> case where the system isn't probing properly?
-
-I don't want to have to eg. try to set a mode on the panel to get it
-to reply to AUX/DDC. I want to be able to talk to it in any situation.
-I don't need to jump through any extra hoops to talk to external DP
-panels, and don't really see why eDP should be any different.
-
-> If things are truly in bad shape, at least on boards using device tree
-> it's easy to tweak the device tree to force a regulator to stay on. I
-> suppose we could also add a "debugfs" entry for the panel that also
-> forces it to be powered on.
-
-Not really sure how adding a separate knob for it would be
-somehow easier than just turning on the power from the
-aux transfer hook.
-
-> >  At least I would not be willing to accept such
-> > a limitation.
+> When we're looking at eDP, however, things are less obvious. Let's add
+> some documentation about expectations. Here's what we'll say:
 > 
-> Hmm, so where does that leave us? Are you against landing this patch?
-> I've done a lot of cleanups recently and I just don't think I have the
-> time to rework all the AUX transfer functions and figure out how to
-> power the panel. It also seems like a lot of added complexity for a
-> debug path.
-
-If people don't feel like fixing this then I have no real
-objection to documenting the fact that *some* drivers can't
-power the panel on for AUX transfers for whatever random
-reason. But I disagree with claims that it is the only
-expected/desired behaviour.
+> 1. We don't expect the DP AUX transfer function to power on an eDP
+> panel. If an eDP panel is physically connected but powered off then it
+> makes sense for the transfer to fail.
+> 
+> 2. We'll document that the official way to power on a panel is via the
+> bridge chain, specifically by making sure that the panel's prepare
+> function has been called (which is called by
+> panel_bridge_pre_enable()). It's already specified in the kernel doc
+> of drm_panel_prepare() that this is the way to power the panel on and
+> also that after this call "it is possible to communicate with any
+> integrated circuitry via a command bus."
+> 
+> 3. We'll also document that for code running in the panel driver
+> itself that it is legal for the panel driver to power itself up
+> however it wants (it doesn't need to officially call
+> drm_panel_pre_enable()) and then it can do AUX bus transfers. This is
+> currently the way that edp-panel works when it's running atop the DP
+> AUX bus.
+> 
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> 
+>  include/drm/display/drm_dp_helper.h | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/drm/display/drm_dp_helper.h
+> b/include/drm/display/drm_dp_helper.h
+> index dca40a045dd6..e5165b708a40 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -370,9 +370,17 @@ struct drm_dp_aux {
+>          * helpers assume this is the case.
+>          *
+>          * Also note that this callback can be called no matter the
+> -        * state @dev is in. Drivers that need that device to be powered
+> -        * to perform this operation will first need to make sure it's
+> -        * been properly enabled.
+> +        * state @dev is in and also no matter what state the panel is
+> +        * in. It's expected:
+> +        * - If the @dev providing the AUX bus is currently unpowered then
+> +        *   it will power itself up for the transfer.
+> +        * - If we're on eDP and the panel is not in a state where it can
+> +        *   respond (it's not powered or it's in a low power state) then
+> this
+> +        *   function will return an error (but not crash). Note that if a
+> +        *   panel driver is initiating a DP AUX transfer it may power
+> itself
+> +        *   up however it wants. All other code should ensure that the
+> +        *   pre_enable() bridge chain (which eventually calls the panel
+> +        *   prepare function) has powered the panel.
+>          */
+>         ssize_t (*transfer)(struct drm_dp_aux *aux,
+>                             struct drm_dp_aux_msg *msg);
 
 -- 
-Ville Syrj�l�
-Intel
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
+
