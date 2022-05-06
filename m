@@ -1,66 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168F451D6C6
-	for <lists+freedreno@lfdr.de>; Fri,  6 May 2022 13:36:49 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A41C51D790
+	for <lists+freedreno@lfdr.de>; Fri,  6 May 2022 14:26:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B190A10E4F3;
-	Fri,  6 May 2022 11:36:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC58D11210D;
+	Fri,  6 May 2022 12:26:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C04D10E4F3
- for <freedreno@lists.freedesktop.org>; Fri,  6 May 2022 11:36:46 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id i10so12056252lfg.13
- for <freedreno@lists.freedesktop.org>; Fri, 06 May 2022 04:36:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=XafsDV8I0xHrzVkv4lSdRDTo5FGQ0l18EsU91PxSrTY=;
- b=R/9u2E/dM6T5z3Ufuk0pILf/XaQE12+vA3CHOQMvtmD7vacSqg6PRji9NzlXeQig7d
- MAkwEe8dhqsZ4NX4tfVcYsHhKtMwK/lqOTRA2onnjz9V1JqsDYITp8IpBvEM3+agWg0V
- ddqJltjhy6S6IrcSB70mYwPw3jDWq3Zr5xETNZohTeU4TAnCezQuUHu4ZGwcjSnarNxY
- y4/2AYaGddX/+OYwOvZwRX7jcM4LOkLhcUcHp8mt5E6xarP123G+WCS7y4tnAcYpgsfo
- Epf5pyLfMyFAebYW25CET/ldtijPYr9BX5TxXQ8az+pRZuBS6RSvBctVfMaLD/hiLjdO
- 1uyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=XafsDV8I0xHrzVkv4lSdRDTo5FGQ0l18EsU91PxSrTY=;
- b=caqhWMIRh+07+tIpDjx6mgOIMLAGW0QMEUUn8d5DKFw8uUDjyjVCSBGvAQY+GeCsK6
- eegTCERnRhrIbcEaEiAAdlEamBWikRYrYPiatr0hnbiwhlNeNBWEPrqQ+T5mm0Lm72UE
- JXZm0Fs6dRHvBxO3tLiOs9VQ+JrCT3uf4d9+Xsxcx+WmE8W8KDjaoqL1WT17o+y0O2Gx
- AtoraeS9yh5HRqD3K9//YMB/cSmUeAMtbMTVLfzyj0gmtRFIUan7FB+YWkt2jjcCYYku
- JZkbeoYThTNMn1YbEV4UAE8g02/chcYmF+MoD8DoJkdgMQucNFZjLbNgCjQQmOLaNFUW
- LzdQ==
-X-Gm-Message-State: AOAM532mYkNKDTNjkpSHKj56aeW8OXhQ/3VVUratx/2IOFfQKItr0is8
- i2drADaUSIUiChlTxaml9W2W3g==
-X-Google-Smtp-Source: ABdhPJxADU+mLvDMm3zIaM1F95WrlOimpTGlSy6aaEIi5buS5/Jd61rBVItq1CRnPCHmI8zY3L0ySA==
-X-Received: by 2002:ac2:530c:0:b0:471:fa37:1123 with SMTP id
- c12-20020ac2530c000000b00471fa371123mr2255207lfh.397.1651837004835; 
- Fri, 06 May 2022 04:36:44 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- q17-20020a05651c055100b0024f3d1daebesm603620ljp.70.2022.05.06.04.36.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 May 2022 04:36:44 -0700 (PDT)
-Message-ID: <dbe452b1-7f6a-141c-5fe3-bd889c62abc7@linaro.org>
-Date: Fri, 6 May 2022 14:36:43 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-GB
-To: YueHaibing <yuehaibing@huawei.com>, robdclark@gmail.com, sean@poorly.run, 
- quic_abhinavk@quicinc.com, airlied@linux.ie, daniel@ffwll.ch
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A352711210A;
+ Fri,  6 May 2022 12:26:13 +0000 (UTC)
+Received: from canpemm500007.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4KvqXq3chjzhYv2;
+ Fri,  6 May 2022 20:25:47 +0800 (CST)
+Received: from [10.174.179.215] (10.174.179.215) by
+ canpemm500007.china.huawei.com (7.192.104.62) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Fri, 6 May 2022 20:26:10 +0800
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <quic_abhinavk@quicinc.com>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>
 References: <20220506020300.20704-1-yuehaibing@huawei.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220506020300.20704-1-yuehaibing@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <dbe452b1-7f6a-141c-5fe3-bd889c62abc7@linaro.org>
+From: YueHaibing <yuehaibing@huawei.com>
+Message-ID: <f0ac2d9a-1005-b7e9-f263-5f02a37f8e55@huawei.com>
+Date: Fri, 6 May 2022 20:26:09 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <dbe452b1-7f6a-141c-5fe3-bd889c62abc7@linaro.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ canpemm500007.china.huawei.com (7.192.104.62)
+X-CFilter-Loop: Reflected
 Subject: Re: [Freedreno] [PATCH -next] drm/msm: Add missing OF dependency
  for DRM_MSM
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -80,38 +57,37 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 06/05/2022 05:03, YueHaibing wrote:
-> WARNING: unmet direct dependencies detected for DRM_DP_AUX_BUS
->    Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && OF [=n]
->    Selected by [y]:
->    - DRM_MSM [=y] && HAS_IOMEM [=y] && DRM [=y] && (ARCH_QCOM || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=n] || QCOM_OCMEM [=n]=n) && (QCOM_LLCC [=y] || QCOM_LLCC [=y]=n) && (QCOM_COMMAND_DB [=n] || QCOM_COMMAND_DB [=n]=n)
+On 2022/5/6 19:36, Dmitry Baryshkov wrote:
+> On 06/05/2022 05:03, YueHaibing wrote:
+>> WARNING: unmet direct dependencies detected for DRM_DP_AUX_BUS
+>>    Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && OF [=n]
+>>    Selected by [y]:
+>>    - DRM_MSM [=y] && HAS_IOMEM [=y] && DRM [=y] && (ARCH_QCOM || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=n] || QCOM_OCMEM [=n]=n) && (QCOM_LLCC [=y] || QCOM_LLCC [=y]=n) && (QCOM_COMMAND_DB [=n] || QCOM_COMMAND_DB [=n]=n)
+>>
+>> DRM_DP_AUX_BUS depends on OF, so DRM_MSM also should depends on it.
 > 
-> DRM_DP_AUX_BUS depends on OF, so DRM_MSM also should depends on it.
+> I think the proper fix would be to make DRM_DP_AUX_BUS depend on OF || COMPILE_TEST rather than just OF
 
-I think the proper fix would be to make DRM_DP_AUX_BUS depend on OF || 
-COMPILE_TEST rather than just OF
-
+Make sense, will do this in v2.
 > 
-> Fixes: f5d01644921b ("drm/msm: select DRM_DP_AUX_BUS for the AUX bus support")
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->   drivers/gpu/drm/msm/Kconfig | 1 +
->   1 file changed, 1 insertion(+)
+>>
+>> Fixes: f5d01644921b ("drm/msm: select DRM_DP_AUX_BUS for the AUX bus support")
+>> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+>> ---
+>>   drivers/gpu/drm/msm/Kconfig | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+>> index 4e0cbd682725..1d710a20ffdd 100644
+>> --- a/drivers/gpu/drm/msm/Kconfig
+>> +++ b/drivers/gpu/drm/msm/Kconfig
+>> @@ -3,6 +3,7 @@
+>>   config DRM_MSM
+>>       tristate "MSM DRM"
+>>       depends on DRM
+>> +    depends on OF
+>>       depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
+>>       depends on COMMON_CLK
+>>       depends on IOMMU_SUPPORT
 > 
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index 4e0cbd682725..1d710a20ffdd 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -3,6 +3,7 @@
->   config DRM_MSM
->   	tristate "MSM DRM"
->   	depends on DRM
-> +	depends on OF
->   	depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->   	depends on COMMON_CLK
->   	depends on IOMMU_SUPPORT
-
-
--- 
-With best wishes
-Dmitry
+> 
