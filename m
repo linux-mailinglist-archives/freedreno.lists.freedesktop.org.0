@@ -1,71 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45D051E1BE
-	for <lists+freedreno@lfdr.de>; Sat,  7 May 2022 01:34:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFAD851E2BD
+	for <lists+freedreno@lfdr.de>; Sat,  7 May 2022 02:29:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8F310E4C0;
-	Fri,  6 May 2022 23:34:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B10410E01F;
+	Sat,  7 May 2022 00:29:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F08210E17F
- for <freedreno@lists.freedesktop.org>; Fri,  6 May 2022 23:34:32 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id 4so10909593ljw.11
- for <freedreno@lists.freedesktop.org>; Fri, 06 May 2022 16:34:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=qj0OGIAM8O4bpr43jntO9Q52sAfqToP4iOj+8IyVDwY=;
- b=VMOtZT1Cn3fYEBx4HLYEIu+Rz6cdBqk7e3etnbAvy+jiIWFYQLfSUGOj80KymvrgQz
- yQJSz/Jy9NYrbcEqgFaldMs20jeuK927xGq0CRTcmlbJw2t2EQGqnib+1B8kWOesntpC
- y4He71rz9W0+l0Z9Pqw2NjhF9ATnpmgnDaB0CtPQ5o69Aq3z5N39Jp+5LGqGGayNNJ3C
- J2KGcWmE1mOX6YlaHOB9DulDiQWQwX3lY/mTcH4HlXPIDbTOjM4aVKcz4hQ2PTNbvcZZ
- eNCZjeNCufxu2te90sDrK+CT9wismM3QSnVqYvXr5kpSa+cvj8paj1ZQZ+bMtZh+UgW4
- N52Q==
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 775D110E01F
+ for <freedreno@lists.freedesktop.org>; Sat,  7 May 2022 00:29:36 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id r1so9243670oie.4
+ for <freedreno@lists.freedesktop.org>; Fri, 06 May 2022 17:29:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=BfXIYuTjESdwCcwnM3M8fBVsvHWnXl3HX1TNkGVkeNM=;
+ b=Hj7bOIh95GPwij//9n8NwUm1Iyp50iOpugsjgNphXDJgxGmxKiY0vlKUeyMxhIi2K2
+ 6VXze4xJSRJ2kDbt4uS7zYk6Qr7yImNb8t9GihFG4WjcRLbXWUEoPHYoi87oTDjtqQx/
+ dOcVT7uJgYR1HQRorqxvT5KUTQxczWwGabjn4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=qj0OGIAM8O4bpr43jntO9Q52sAfqToP4iOj+8IyVDwY=;
- b=Wvy9JpIV+W1pc3mADiZOlZ9jTqafMlQ+/VVolU/IJ1v1ZnbITaisrJNPiYwYzGgQ8P
- N+iY9MLGZYMk3Qbj8fy0EzLbml5GXBKCCx/VU0DuUPopM6LM87MCTj9ZSE+JXPxhQ40+
- 0O7PB7suXojJHlQJej1zCiIWg5kvxql/SIehiRmQBum6ZhdiFRXDXcFvN45hEaYGDwq9
- TI67RgUI4L63aXWFeYGq47pF9tIJbCnXutsZvXBvuBQfv7WRAb0z+GQr/QnefWGDvtik
- wEJi2D09mjU+468+iHvzVMicXcmUStuOElj+FwG20EyjSdHLOxyPBz8rXfXs0RaDnP47
- 24dQ==
-X-Gm-Message-State: AOAM531lExNdqyFE8Vvv1V1Ttqf/WxffmKLUNxaXF9OHS3fWbprHyTe+
- akD4pUtUua2ga5lKX1fcPfMlnA==
-X-Google-Smtp-Source: ABdhPJyS5T2QC6LxpWPGiGnSrufYJLuIsy4vwod/OpLOLWo5odo4MPJfR0ndQKAOehHZjbJC0tPGQg==
-X-Received: by 2002:a05:651c:1145:b0:24f:22fe:360c with SMTP id
- h5-20020a05651c114500b0024f22fe360cmr3534611ljo.54.1651880070678; 
- Fri, 06 May 2022 16:34:30 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- j4-20020a056512344400b0047255d211e1sm858003lfr.272.2022.05.06.16.34.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 May 2022 16:34:30 -0700 (PDT)
-Message-ID: <72aad0dc-a591-e333-aef7-59d51594bfd3@linaro.org>
-Date: Sat, 7 May 2022 02:34:29 +0300
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=BfXIYuTjESdwCcwnM3M8fBVsvHWnXl3HX1TNkGVkeNM=;
+ b=HFWWWh/rDPnzC/kGqHEEHn1vucylYLYmwSBCS5217mE/W9Uhd3cUUgf2X+inGp9oQ8
+ sP1bNFMHhtUknsa0fwHpuaFQPDotR+liHPpRC/qlvg45+JRzs7Ydr1MCIKm4hvVHewsB
+ M01ga1AhNnh/wDOiWppcR/quSQgvZF76/vLShAWPNzvVwptDufbBGgpS4DlgXFltzXs3
+ geyxxQsFtXMr7gVPG0PJGKe+8pBJNgkxlgEyYJLXof0YIjTdrumF9czFrFg4FPtOzKOr
+ 5k5W5rVOOkw2U/zWAF93XKUzCeiHKuPzlblZTPJlPiWSI0Z1A7D1FhDFVwUICWkkwk9S
+ efyA==
+X-Gm-Message-State: AOAM532Gsuq0QdK25aQkA6OvkPfSKiFR4Ul8y14m+aMbNjubrzqhwvRT
+ h13/G6TV4/KoP7VGChyG5+9liU7WrExdihXf545Rsg==
+X-Google-Smtp-Source: ABdhPJxy2rjvHnXRgZkg73o/CmbSvZTI1SbRFqdP1g9gdFeFf/h84x2in8Rewwao0QtsPr/lxD+NoSJdi+JC2LVdHf4=
+X-Received: by 2002:a05:6808:23ce:b0:326:6698:c271 with SMTP id
+ bq14-20020a05680823ce00b003266698c271mr2647939oib.193.1651883375667; Fri, 06
+ May 2022 17:29:35 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 6 May 2022 20:29:34 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
- <20220209172520.3719906-13-dmitry.baryshkov@linaro.org>
- <888eb1c7-67fa-dbb4-a589-da629d175486@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <888eb1c7-67fa-dbb4-a589-da629d175486@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH 12/25] drm/msm/dpu: inline
- _dpu_plane_set_scanout
+In-Reply-To: <1651873267-18220-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1651873267-18220-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 6 May 2022 20:29:34 -0400
+Message-ID: <CAE-0n52HvhT_RFbJHhijKCCt8jQM70fo6ceAbnYEfOfO-dRxVA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Always clear mask bits to
+ disable interrupts at dp_ctrl_reset_irq_ctrl()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,99 +67,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 07/05/2022 02:33, Abhinav Kumar wrote:
-> 
-> 
-> On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
->> In preparation to reworking dpu_plane_sspp_atomic_update() inline the
->> _dpu_plane_set_scanout() function.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 41 ++++++++++-------------
->>   1 file changed, 18 insertions(+), 23 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> index d029ce806039..3ce7dcc285e2 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->> @@ -490,28 +490,6 @@ static void _dpu_plane_set_qos_remap(struct 
->> drm_plane *plane)
->>       dpu_vbif_set_qos_remap(dpu_kms, &qos_params);
->>   }
->> -static void _dpu_plane_set_scanout(struct drm_plane *plane,
->> -        struct dpu_plane_state *pstate,
->> -        struct dpu_hw_pipe_cfg *pipe_cfg,
->> -        struct drm_framebuffer *fb)
->> -{
->> -    struct dpu_plane *pdpu = to_dpu_plane(plane);
->> -    struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->> -    struct msm_gem_address_space *aspace = kms->base.aspace;
->> -    int ret;
->> -
->> -    ret = dpu_format_populate_layout(aspace, fb, &pipe_cfg->layout);
->> -    if (ret == -EAGAIN)
->> -        DPU_DEBUG_PLANE(pdpu, "not updating same src addrs\n");
->> -    else if (ret)
->> -        DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
->> -    else if (pstate->pipe.sspp->ops.setup_sourceaddress) {
->> -        trace_dpu_plane_set_scanout(&pstate->pipe,
->> -                        &pipe_cfg->layout);
->> -        pstate->pipe.sspp->ops.setup_sourceaddress(&pstate->pipe, 
->> pipe_cfg);
->> -    }
->> -}
->> -
->>   static void _dpu_plane_setup_scaler3(struct dpu_hw_pipe *pipe_hw,
->>           uint32_t src_w, uint32_t src_h, uint32_t dst_w, uint32_t dst_h,
->>           struct dpu_hw_scaler3_cfg *scale_cfg,
->> @@ -1074,10 +1052,27 @@ static void 
->> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->>       const struct dpu_format *fmt =
->>           to_dpu_format(msm_framebuffer_format(fb));
->>       struct dpu_hw_pipe_cfg pipe_cfg;
->> +    struct dpu_kms *kms = _dpu_plane_get_kms(&pdpu->base);
->> +    struct msm_gem_address_space *aspace = kms->base.aspace;
->> +    bool update_src_addr = true;
->> +    int ret;
->>       memset(&pipe_cfg, 0, sizeof(struct dpu_hw_pipe_cfg));
->> -    _dpu_plane_set_scanout(plane, pstate, &pipe_cfg, fb);
->> +    ret = dpu_format_populate_layout(aspace, fb, &pipe_cfg.layout);
->> +    if (ret == -EAGAIN) {
->> +        DPU_DEBUG_PLANE(pdpu, "not updating same src addrs\n");
->> +        update_src_addr = false;
->> +    } else if (ret) {
->> +        DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", ret);
->> +        update_src_addr = false;
->> +    }
->> +
-> Do we need update_src_addr?
-> 
-> It seems we can just do
-> 
-> if (!ret &&  pipe->sspp->ops.setup_sourceaddress) {
->      .....
->      .....
-> }
+Quoting Kuogee Hsieh (2022-05-06 14:41:07)
+> dp_catalog_ctrl_reset() will software reset DP controller. But it will
+> not reset programmable registers to default value. DP driver still have
+> to clear mask bits to interrupt status registers to disable interrupts
+> after software reset of controller. This patch removes the enable flag
+> condition checking to always clear mask bits of interrupt status
+> registers to disable interrupts if enable flag is false.
 
-Ack, let's do it this way
+Another paragraph is needed which is that this (partially?) fixes the
+suspend path where we call dp_catalog_ctrl_reset() but the irq is still
+unmasked and can come in while we're suspending. This leads to bus hangs
+if the irq is handled after we power down the DP hardware because we run
+the irq handler and access a device register assuming that no irq could
+ever come in if we powered down the device. We don't know when the irq
+will be handled though, so it's possible the irq is pending from before
+we disable the irq in the hardware. Don't we need some irq synchronize
+to make sure it doesn't run?
 
-> 
->> +    if (update_src_addr &&
->> +        pipe->sspp->ops.setup_sourceaddress) {
->> +        trace_dpu_plane_set_scanout(pipe, &pipe_cfg.layout);
->> +        pipe->sspp->ops.setup_sourceaddress(pipe, &pipe_cfg);
->> +    }
->>       pstate->pending = true;
-
-
--- 
-With best wishes
-Dmitry
+>
+> Fixes: ba0a422be723 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 38026f2..cbf3399 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1379,8 +1379,13 @@ void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable)
+>
+>         dp_catalog_ctrl_reset(ctrl->catalog);
+>
+> -       if (enable)
+> -               dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
+> +       /*
+> +        * all dp controller programmable registers will not
+> +        * be reset to default value after DP_SW_RESET
+> +        * therefore interrupt mask bits have to be updated
+> +        * to enable/disable interrupts
+> +        */
+> +       dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
+>  }
+>
+>  void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
+> --
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
