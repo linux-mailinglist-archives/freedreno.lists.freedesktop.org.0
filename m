@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03EDC51E6AC
-	for <lists+freedreno@lfdr.de>; Sat,  7 May 2022 13:40:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED5051E6BD
+	for <lists+freedreno@lfdr.de>; Sat,  7 May 2022 13:59:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 809DF10F348;
-	Sat,  7 May 2022 11:40:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A3A112C01;
+	Sat,  7 May 2022 11:59:47 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF0B1121BC
- for <freedreno@lists.freedesktop.org>; Sat,  7 May 2022 11:40:13 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id bx33so1086134ljb.12
- for <freedreno@lists.freedesktop.org>; Sat, 07 May 2022 04:40:13 -0700 (PDT)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1889112BFB
+ for <freedreno@lists.freedesktop.org>; Sat,  7 May 2022 11:59:46 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id d15so8033023lfk.5
+ for <freedreno@lists.freedesktop.org>; Sat, 07 May 2022 04:59:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=0ysL/MDDZX+Geot7Zeu3H5HxZht23rz3nv2oCFFwflE=;
- b=ovmshWwzkN58+3wOOViYPxyU0kTw3nFoH9MgkTZWjgXnTJIJLZWPP23Nr7YIjZGl2G
- 7YQFWReKvx9HFyY6x3Rmsq7aLyLfjw4cypPzxar3okcZMp4jKlVRZaaD6pVIFWpviVzf
- NwV+07k5oDPUAguIH7OABpMx6sFGvAN3DPkM/HrszeGI5xv5FAHf2mhaArrcAJrS9toC
- 6xSo8vM+IvlMevwbgFIIUjesxioYlfU6vOiEPJ4p5dMDqO1lqpJKl3hKkIXbZ+m18Dol
- iZz4uSum3CPZRbkRy2buLoQMhgnoG9tq+JtwRk8+K7TxatV2cvYNdN4bxD4rRN1s9VvT
- 3nQw==
+ bh=71+fcv8KnRRz4CuqYuY+NOVmoaQwb5cZ/U5LdVWh7tM=;
+ b=n+rNKj/VaY5MM0sGyHUQJc3L0k9VjSBfjX3fHluOgmtXWvXdWQXaSX6yLmkUUDHzds
+ Wo6aLL/R8X8lv5rDJUWrKwO0nZxgEK+iwo6alutGariALUk9YhkGLfBcoRATi1zGzCgB
+ eCjmXwI+HVWdgZ6TqcF9m2LKTLD9z1JtIcJCVXL966+KjbAjisfZO7grad5wgOFwsZ8V
+ mMgdSdopZPUphNGTPb9xG1rA9aDSeyLRqkfo/dajP4iNRmxqEsW2TcuRrzPTDoYep2SN
+ scqmZfJJQS5r2hRT8lcIEYoMi25Z2n+f1tWqWOhGv7nfkQiVH1thBFTasrLdyG4l0Q+T
+ 219g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=0ysL/MDDZX+Geot7Zeu3H5HxZht23rz3nv2oCFFwflE=;
- b=V3eJXCyVIx2lIzQU3Zx5cWe/ghX2vqMbgYoXvqr+NuNcOTtHANAO6DxJ/Ma+RExSmA
- Y9eK93Dmf+fzwQdZS84mxvAz9AT6UsXPzzr8pqbrFj8BjM7DlEt+hadXOmTxY5L6BEdd
- mWpvZgmyj8O7Tgw+6s7UVodVkGhWr31Br+0baYmbise1+CPTJY5XlL76IduiVqQTtlXB
- SvBUFUNgTvC3fEc/KijQFTWWVe7/6xF8Dqkf3m58n2fXmxQ4q9mp5dw/A+K9RC81nmif
- 8y8w6R2YDg4SDKS4UfjgjbQqK25PL8u2FzPoCBwiv3g+cjigbZWabe/JLmjOjcVdkCD3
- oQ0g==
-X-Gm-Message-State: AOAM532xVbBVT22IxhXbObRulPyhmHrvTOaJbkCt2WF8G9m9CxlZEwHp
- qKCCqUFPYUMQAqYz62yHaxdTzQ==
-X-Google-Smtp-Source: ABdhPJykL7x0YQXiXu0uXG4acTOiNNgMT+vUsR0COda25KAqnxHNJVfhdW8GcPFarglKC6ddEf7apQ==
-X-Received: by 2002:a2e:7007:0:b0:250:629f:7ca0 with SMTP id
- l7-20020a2e7007000000b00250629f7ca0mr4824093ljc.419.1651923611897; 
- Sat, 07 May 2022 04:40:11 -0700 (PDT)
+ bh=71+fcv8KnRRz4CuqYuY+NOVmoaQwb5cZ/U5LdVWh7tM=;
+ b=ak3MWP6DzLf2W4EQqBtFVYKX5a0ZblIR2K+k3M72L0b0KgAYOAs8hO1EiMQ8nvVRLV
+ SlxGGEjgVUvN1R7uqKkHkBWPzPaolyQWwNxxiRUCN9x1QS/27g+ivafutmXVmP+Ahz1X
+ x7/vSemMO6e1izzESKybOTpePVhJaZcIWx/U+qciATJTa73l3/B04SwPoyLvRCHFQLxm
+ rYpH8jbwTjfpt5bRFi6UBtD7Wydv/2eYoDSVYvnLyOyqfZHFqNFLXnRI5yejGdshiLBb
+ 1QjPdVy96FkbJpUXvavjjy1/QLTD0tismIW+AeR27+dZZ4NPz2cWZWaEoG0ERgJjwa8k
+ gmog==
+X-Gm-Message-State: AOAM532bpg2kRYjGE+vOfBpc4g00bykOz/qkJAMdXtKCRg5Xpb4VHGhs
+ 8Nw8VJsM9H5QNfdoL5LqFAsQgQ==
+X-Google-Smtp-Source: ABdhPJyONaIbERmZr+B2RapCSr7d8hvEZej6e1O9rIrrCtHkWpZ+eP62baG228pimeIkFEF+zzbdNQ==
+X-Received: by 2002:a05:6512:12c9:b0:473:c33e:a65b with SMTP id
+ p9-20020a05651212c900b00473c33ea65bmr6301435lfg.285.1651924784990; 
+ Sat, 07 May 2022 04:59:44 -0700 (PDT)
 Received: from eriador.lumag.spb.ru ([94.25.229.149])
  by smtp.gmail.com with ESMTPSA id
- o8-20020a2e9448000000b0024f4bb33c50sm953953ljh.100.2022.05.07.04.40.10
+ f3-20020ac251a3000000b0047255d211b5sm1083738lfk.228.2022.05.07.04.59.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 May 2022 04:40:11 -0700 (PDT)
+ Sat, 07 May 2022 04:59:44 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat,  7 May 2022 14:40:09 +0300
-Message-Id: <20220507114009.1696278-1-dmitry.baryshkov@linaro.org>
+Date: Sat,  7 May 2022 14:59:41 +0300
+Message-Id: <20220507115942.1705872-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dpu: remove NULL-ness check in
- dpu_hw_intr_destroy
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dpu: dont_use IS_ERR_OR_NULL for
+ encoder phys backends
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,36 +69,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-There is no need to check that kfree() argument is not NULL. Remove
-extra check and call kfree() unconditionally.
+The functions dpu_encoder_phys_foo_init() can not return NULL. Replace
+corresponding IS_ERR_OR_NULL() checks with just IS_ERR().
 
-Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-index fa4f99034a08..915250b7f122 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
-@@ -433,8 +433,7 @@ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 52516eb20cb8..07de0c0506d3 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -2144,10 +2144,10 @@ static int dpu_encoder_virt_add_phys_encs(
+ 	if (disp_info->capabilities & MSM_DISPLAY_CAP_VID_MODE) {
+ 		enc = dpu_encoder_phys_vid_init(params);
  
- void dpu_hw_intr_destroy(struct dpu_hw_intr *intr)
- {
--	if (intr)
--		kfree(intr);
-+	kfree(intr);
- }
+-		if (IS_ERR_OR_NULL(enc)) {
++		if (IS_ERR(enc)) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to init vid enc: %ld\n",
+ 				PTR_ERR(enc));
+-			return enc == NULL ? -EINVAL : PTR_ERR(enc);
++			return PTR_ERR(enc);
+ 		}
  
- int dpu_core_irq_register_callback(struct dpu_kms *dpu_kms, int irq_idx,
+ 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
+@@ -2157,10 +2157,10 @@ static int dpu_encoder_virt_add_phys_encs(
+ 	if (disp_info->capabilities & MSM_DISPLAY_CAP_CMD_MODE) {
+ 		enc = dpu_encoder_phys_cmd_init(params);
+ 
+-		if (IS_ERR_OR_NULL(enc)) {
++		if (IS_ERR(enc)) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to init cmd enc: %ld\n",
+ 				PTR_ERR(enc));
+-			return enc == NULL ? -EINVAL : PTR_ERR(enc);
++			return PTR_ERR(enc);
+ 		}
+ 
+ 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
+@@ -2170,10 +2170,10 @@ static int dpu_encoder_virt_add_phys_encs(
+ 	if (disp_info->intf_type == DRM_MODE_ENCODER_VIRTUAL) {
+ 		enc = dpu_encoder_phys_wb_init(params);
+ 
+-		if (IS_ERR_OR_NULL(enc)) {
++		if (IS_ERR(enc)) {
+ 			DPU_ERROR_ENC(dpu_enc, "failed to init wb enc: %ld\n",
+ 					PTR_ERR(enc));
+-			return enc == NULL ? -EINVAL : PTR_ERR(enc);
++			return PTR_ERR(enc);
+ 		}
+ 
+ 		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
 -- 
 2.35.1
 
