@@ -2,53 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97660520747
-	for <lists+freedreno@lfdr.de>; Tue, 10 May 2022 00:00:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1EE5207A8
+	for <lists+freedreno@lfdr.de>; Tue, 10 May 2022 00:30:29 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD7810EB41;
-	Mon,  9 May 2022 22:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D27F510F0F1;
+	Mon,  9 May 2022 22:30:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDD7710EB41;
- Mon,  9 May 2022 22:00:17 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA05310F0F1;
+ Mon,  9 May 2022 22:30:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652133618; x=1683669618;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=qXJoH9z1xHlw23nsN/8/A2gdlf4FUhU7ZzRmRTFr6lg=;
- b=cR4Iz7SS9wmuFOPP/WC1MEjuvc7v5dEBCngee8Hn9MqkPDEynv1aKbLb
- UDY4yKBLk++jCbgtwU5+DXE0VSw6ri8RO6AX/l/60NJA+fYUzZSDniSpz
- 7y8HlADnNVG+sTNjhjjx8a73lyBOPPgYeX9EBuKva3/NclJuchsD+syPf 4=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 09 May 2022 15:00:17 -0700
+ t=1652135426; x=1683671426;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=txrlFWqiGdkiALrcSI2wR/yr/MIiFo2lpP8fu+2tkI8=;
+ b=KVPVV9PWBL9fdFgUtc6wxvLyFUHSYYF5Qe4HX8cztGRCM7smOEHWJcCr
+ Tpeg63OGx7YvOhQQmpYR+Ef7lzsWwVRZ4ZSNgJFQhgEJfYPCC0pdy3L27
+ lzoSuXG5SvZIiL5OrUZh6WRsP5ree9QW0flr8mahSFVAieR2VWozeHDso A=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 09 May 2022 15:30:26 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 15:00:17 -0700
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2022 15:30:26 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 9 May 2022 15:00:16 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 9 May 2022 15:00:15 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Mon, 9 May 2022 15:00:08 -0700
-Message-ID: <1652133608-29247-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ 15.2.986.22; Mon, 9 May 2022 15:30:25 -0700
+Received: from [10.111.163.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 9 May 2022
+ 15:30:23 -0700
+Message-ID: <0fa56e8f-a169-e342-a670-89dc48ac3cdc@quicinc.com>
+Date: Mon, 9 May 2022 15:30:20 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>
+References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
+ <20220209172520.3719906-14-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220209172520.3719906-14-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2] drm/msm/dp: Always clear mask bits to
- disable interrupts at dp_ctrl_reset_irq_ctrl()
+Subject: Re: [Freedreno] [PATCH 13/25] drm/msm/dpu: pass dpu_format to
+ _dpu_hw_sspp_setup_scaler3()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +68,105 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dp_catalog_ctrl_reset() will software reset DP controller. But it will
-not reset programmable registers to default value. DP driver still have
-to clear mask bits to interrupt status registers to disable interrupts
-after software reset of controller. This patch removes the enable flag
-condition checking to always clear mask bits of interrupt status
-registers to disable interrupts if enable flag is false.
 
-This patch also will fix the potential problem happen at system suspend where
-dp_ctrl_reset_irq_ctrl() was called to try to disable HPD related irqs but
-the irq is still unmasked unexpectedly and can come in while system are
-suspending. This leads to bus hangs if the irq is handled after we power down
-the DP hardware because we run the irq handler and access a device register
-assuming that no irq could ever come in if we powered down the device. We
-don't know when the irq will be handled though, so it's possible the irq is
-pending from before we disable the irq in the hardware.
 
-Changes in v2:
--- add more details commit text
+On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
+> There is no need to pass full dpu_hw_pipe_cfg instance to
+> _dpu_hw_sspp_setup_scaler3, pass just struct dpu_format pointer.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 9 ++++-----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 7 +++----
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 4 ++--
+>   3 files changed, 9 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> index d8120168f974..7194c14f87bc 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+> @@ -415,19 +415,18 @@ static void dpu_hw_sspp_setup_pe_config(struct dpu_hw_pipe *ctx,
+>   }
+>   
+>   static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
+> -		struct dpu_hw_pipe_cfg *sspp,
+> -		void *scaler_cfg)
 
-Fixes: ba0a422be723 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+This change does two things:
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index ebd38d7..09475a5 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1391,8 +1391,13 @@ void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable)
- 
- 	dp_catalog_ctrl_reset(ctrl->catalog);
- 
--	if (enable)
--		dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
-+	/*
-+	* all dp controller programmable registers will not
-+	* be reset to default value after DP_SW_RESET
-+	* therefore interrupt mask bits have to be updated
-+	* to enable/disable interrupts
-+	*/
-+	dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
- }
- 
- void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+1) pass fmt and stop passing dpu_hw_pipe_cfg
+2) change the scaler_cfg from void to struct dpu_hw_scaler3_cfg
 
+So it seems like we had this void casting to allow different versions of 
+the scaler to be passed and based on catalog bits the appropriate 
+structs can be used (scaler2/scaler3)
+
+In the current DPU we have only scaler3. For that reason this is fine.
+
+I do not know what versions of scaler we will support in DPU.
+
+Do you think we can retain the void casting in this change and just 
+change passing the format?
+
+
+
+> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
+> +		const struct dpu_format *format)
+>   {
+>   	u32 idx;
+> -	struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
+>   
+> -	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
+> +	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
+>   		|| !scaler3_cfg)
+>   		return;
+>   
+>   	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
+>   			ctx->cap->sblk->scaler_blk.version,
+> -			sspp->layout.format);
+> +			format);
+>   }
+>   
+>   static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_pipe *ctx)
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> index 74171fb4e585..eee8501ea80d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+> @@ -334,13 +334,12 @@ struct dpu_hw_sspp_ops {
+>   
+>   	/**
+>   	 * setup_scaler - setup scaler
+> -	 * @ctx: Pointer to pipe context
+> -	 * @pipe_cfg: Pointer to pipe configuration
+>   	 * @scaler_cfg: Pointer to scaler configuration
+> +	 * @format: pixel format parameters
+>   	 */
+>   	void (*setup_scaler)(struct dpu_hw_pipe *ctx,
+> -		struct dpu_hw_pipe_cfg *pipe_cfg,
+> -		void *scaler_cfg);
+> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
+> +		const struct dpu_format *format);
+>   
+>   	/**
+>   	 * get_scaler_ver - get scaler h/w version
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> index 3ce7dcc285e2..e9421fa2fb2e 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -646,8 +646,8 @@ static void _dpu_plane_setup_scaler(struct dpu_sw_pipe *pipe,
+>   	if (pipe_hw->ops.setup_scaler &&
+>   			pipe->multirect_index != DPU_SSPP_RECT_1)
+>   		pipe_hw->ops.setup_scaler(pipe_hw,
+> -				pipe_cfg,
+> -				&scaler3_cfg);
+> +				&scaler3_cfg,
+> +				fmt);
+>   }
+>   
+>   /**
