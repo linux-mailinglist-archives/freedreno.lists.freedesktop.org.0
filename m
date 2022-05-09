@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A1EE5207A8
-	for <lists+freedreno@lfdr.de>; Tue, 10 May 2022 00:30:29 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02182520846
+	for <lists+freedreno@lfdr.de>; Tue, 10 May 2022 01:18:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D27F510F0F1;
-	Mon,  9 May 2022 22:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9326E10E10A;
+	Mon,  9 May 2022 23:18:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA05310F0F1;
- Mon,  9 May 2022 22:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652135426; x=1683671426;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=txrlFWqiGdkiALrcSI2wR/yr/MIiFo2lpP8fu+2tkI8=;
- b=KVPVV9PWBL9fdFgUtc6wxvLyFUHSYYF5Qe4HX8cztGRCM7smOEHWJcCr
- Tpeg63OGx7YvOhQQmpYR+Ef7lzsWwVRZ4ZSNgJFQhgEJfYPCC0pdy3L27
- lzoSuXG5SvZIiL5OrUZh6WRsP5ree9QW0flr8mahSFVAieR2VWozeHDso A=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 09 May 2022 15:30:26 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2022 15:30:26 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 9 May 2022 15:30:25 -0700
-Received: from [10.111.163.26] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 9 May 2022
- 15:30:23 -0700
-Message-ID: <0fa56e8f-a169-e342-a670-89dc48ac3cdc@quicinc.com>
-Date: Mon, 9 May 2022 15:30:20 -0700
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF0610E10A
+ for <freedreno@lists.freedesktop.org>; Mon,  9 May 2022 23:18:34 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id
+ a15-20020a17090ad80f00b001dc2e23ad84so597572pjv.4
+ for <freedreno@lists.freedesktop.org>; Mon, 09 May 2022 16:18:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S3MsMPfbPAtt+LUx5QQOJPDQW/jqUKRczHTmbnCnNlo=;
+ b=Lo3FcdLeWFTsfpLIEtHet1p83g9yEAUTRFUUlVA9jNybAnhR0ACD66qvwx/Sni7Xvr
+ KOJFXQJJ8qK8OXYOYI4LF9vvQDnot8Nf0A1g/XQ2GznnKufeBlILgR3GcQlp7RGJ0Ebk
+ clgZZ1EnekJLzRptH/+bl1z/QggljRTkX5di4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S3MsMPfbPAtt+LUx5QQOJPDQW/jqUKRczHTmbnCnNlo=;
+ b=oFUqtykMnS0keK+T9VCBjf0iFpiIBFt33zUu/aYWlBFNEJKSFFDuil5tKdXWrt37Qn
+ 3R0cXJ8+WPsRCphnZxwln9Lnq1c+6+8FikN5SlTw0fHEeiVO0dfUBmbnn6me2WDBxSyW
+ hLOFt6dyhaP4BF1y3jTh7kpDdGO6ivfYJGBgZUF1CWWJoOUnZTem8fygFgpq8r6xHoWO
+ 8/C0yAAe3MtWxvlzBDWhWJaNtBCKPmbyxABa8qepuNMwQOybLE8muDU5qzznxZkLpSt0
+ sUx5UQWtyq34LmEXoalfO0AGcwQWR5YbjhH68NF2fnuTvZVjznI9qSS/y2Z/ZS7BMJk+
+ Ve/w==
+X-Gm-Message-State: AOAM533plVotxJfGDGv25nvdB7QbJKxK+tyzweGkxxnLJk6j7JXlnJpM
+ 1/ZXSBGLe7ONLYLfZR1gaPmfWg==
+X-Google-Smtp-Source: ABdhPJwQCABxWhyzWje58moI3QY+RTSGkK5L/8OY0DPvxKxKjVGkEKQ2u55xzo2aEXZeNm94nOeQKw==
+X-Received: by 2002:a17:902:f708:b0:153:839f:bf2c with SMTP id
+ h8-20020a170902f70800b00153839fbf2cmr18252580plo.113.1652138313471; 
+ Mon, 09 May 2022 16:18:33 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:e0c:1ed:8d0b:2894])
+ by smtp.gmail.com with ESMTPSA id
+ q13-20020a170902edcd00b0015ed003552fsm371045plk.293.2022.05.09.16.18.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 May 2022 16:18:33 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  9 May 2022 16:18:09 -0700
+Message-Id: <20220509161733.v2.1.Ia8651894026707e4fa61267da944ff739610d180@changeid>
+X-Mailer: git-send-email 2.36.0.512.ge40c2bad7a-goog
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>
-References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
- <20220209172520.3719906-14-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220209172520.3719906-14-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 13/25] drm/msm/dpu: pass dpu_format to
- _dpu_hw_sspp_setup_scaler3()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm: Document the power requirements for DP
+ AUX transfers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,105 +68,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Lyude Paul <lyude@redhat.com>, Kees Cook <keescook@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Maxime Ripard <maxime@cerno.tech>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+When doing DP AUX transfers there are two actors that need to be
+powered in order for the DP AUX transfer to work: the DP source and
+the DP sink. Commit bacbab58f09d ("drm: Mention the power state
+requirement on side-channel operations") added some documentation
+saying that the DP source is required to power itself up (if needed)
+to do AUX transfers. However, that commit doesn't talk anything about
+the DP sink.
 
+For full fledged DP the sink isn't really a problem. It's expected
+that if an external DP monitor isn't plugged in that attempting to do
+AUX transfers won't work. It's also expected that if a DP monitor is
+plugged in (and thus asserting HPD) then AUX transfers will work.
 
-On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
-> There is no need to pass full dpu_hw_pipe_cfg instance to
-> _dpu_hw_sspp_setup_scaler3, pass just struct dpu_format pointer.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c | 9 ++++-----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h | 7 +++----
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c   | 4 ++--
->   3 files changed, 9 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> index d8120168f974..7194c14f87bc 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
-> @@ -415,19 +415,18 @@ static void dpu_hw_sspp_setup_pe_config(struct dpu_hw_pipe *ctx,
->   }
->   
->   static void _dpu_hw_sspp_setup_scaler3(struct dpu_hw_pipe *ctx,
-> -		struct dpu_hw_pipe_cfg *sspp,
-> -		void *scaler_cfg)
+When we're looking at eDP, however, things are less obvious. Let's add
+some documentation about expectations. Here's what we'll say:
 
-This change does two things:
+1. We don't expect the DP AUX transfer function to power on an eDP
+panel. If an eDP panel is physically connected but powered off then it
+makes sense for the transfer to fail.
 
-1) pass fmt and stop passing dpu_hw_pipe_cfg
-2) change the scaler_cfg from void to struct dpu_hw_scaler3_cfg
+2. We'll document that the official way to power on a panel is via the
+bridge chain, specifically by making sure that the panel's prepare
+function has been called (which is called by
+panel_bridge_pre_enable()). It's already specified in the kernel doc
+of drm_panel_prepare() that this is the way to power the panel on and
+also that after this call "it is possible to communicate with any
+integrated circuitry via a command bus."
 
-So it seems like we had this void casting to allow different versions of 
-the scaler to be passed and based on catalog bits the appropriate 
-structs can be used (scaler2/scaler3)
+3. We'll also document that for code running in the panel driver
+itself that it is legal for the panel driver to power itself up
+however it wants (it doesn't need to officially call
+drm_panel_pre_enable()) and then it can do AUX bus transfers. This is
+currently the way that edp-panel works when it's running atop the DP
+AUX bus.
 
-In the current DPU we have only scaler3. For that reason this is fine.
+NOTE: there was much discussion of all of this in response to v1 [1]
+of this patch. A summary of that is:
+* With the Intel i195 driver, apparently eDP panels do get powered
+  up. We won't forbid this but it is expected that code that wants to
+  run on a variety of platforms should ensure that the drm_panel's
+  prepare() function has been called.
+* There is at least a reasonable amount of agreement that the
+  transfer() functions itself shouldn't be responsible for powering
+  the panel. It's proposed that if we need the DP AUX dev nodes to be
+  robust for eDP that the code handling the DP AUX dev nodes could
+  handle powering the panel by ensuring that the panel's prepare()
+  call was made. Potentially drm_dp_aux_dev_get_by_minor() could be a
+  good place to do this. This is left as a future exercise. Until
+  that's fixed the DP AUX dev nodes for eDP are probably best just
+  used for debugging.
+* If a panel could be in PSR and DP AUX via the dev node needs to be
+  reliable then we need to be able to pull the panel out of PSR. On
+  i915 this is also apparently handled as part of the transfer()
+  function.
 
-I do not know what versions of scaler we will support in DPU.
+[1] https://lore.kernel.org/r/20220503162033.1.Ia8651894026707e4fa61267da944ff739610d180@changeid
 
-Do you think we can retain the void casting in this change and just 
-change passing the format?
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+---
+Hopefully I've resolved everything here to everyone's
+satisfaction. There's no crazy hurry here. I'll give this a week or so
+and then land it on drm-misc if there is no additional discussion.
 
+Changes in v2:
+- Updated wording as per discussion on v1.
+- Updated commit message as per discussion on v1.
+- Add pointer to v1 discussion for future reference.
 
+ include/drm/display/drm_dp_helper.h | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
-> +		const struct dpu_format *format)
->   {
->   	u32 idx;
-> -	struct dpu_hw_scaler3_cfg *scaler3_cfg = scaler_cfg;
->   
-> -	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx) || !sspp
-> +	if (_sspp_subblk_offset(ctx, DPU_SSPP_SCALER_QSEED3, &idx)
->   		|| !scaler3_cfg)
->   		return;
->   
->   	dpu_hw_setup_scaler3(&ctx->hw, scaler3_cfg, idx,
->   			ctx->cap->sblk->scaler_blk.version,
-> -			sspp->layout.format);
-> +			format);
->   }
->   
->   static u32 _dpu_hw_sspp_get_scaler3_ver(struct dpu_hw_pipe *ctx)
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> index 74171fb4e585..eee8501ea80d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
-> @@ -334,13 +334,12 @@ struct dpu_hw_sspp_ops {
->   
->   	/**
->   	 * setup_scaler - setup scaler
-> -	 * @ctx: Pointer to pipe context
-> -	 * @pipe_cfg: Pointer to pipe configuration
->   	 * @scaler_cfg: Pointer to scaler configuration
-> +	 * @format: pixel format parameters
->   	 */
->   	void (*setup_scaler)(struct dpu_hw_pipe *ctx,
-> -		struct dpu_hw_pipe_cfg *pipe_cfg,
-> -		void *scaler_cfg);
-> +		struct dpu_hw_scaler3_cfg *scaler3_cfg,
-> +		const struct dpu_format *format);
->   
->   	/**
->   	 * get_scaler_ver - get scaler h/w version
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 3ce7dcc285e2..e9421fa2fb2e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -646,8 +646,8 @@ static void _dpu_plane_setup_scaler(struct dpu_sw_pipe *pipe,
->   	if (pipe_hw->ops.setup_scaler &&
->   			pipe->multirect_index != DPU_SSPP_RECT_1)
->   		pipe_hw->ops.setup_scaler(pipe_hw,
-> -				pipe_cfg,
-> -				&scaler3_cfg);
-> +				&scaler3_cfg,
-> +				fmt);
->   }
->   
->   /**
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index dca40a045dd6..dc3c02225fcf 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -370,9 +370,19 @@ struct drm_dp_aux {
+ 	 * helpers assume this is the case.
+ 	 *
+ 	 * Also note that this callback can be called no matter the
+-	 * state @dev is in. Drivers that need that device to be powered
+-	 * to perform this operation will first need to make sure it's
+-	 * been properly enabled.
++	 * state @dev is in and also no matter what state the panel is
++	 * in. It's expected:
++	 * - If the @dev providing the AUX bus is currently unpowered then
++	 *   it will power itself up for the transfer.
++	 * - If we're on eDP (using a drm_panel) and the panel is not in a
++	 *   state where it can respond (it's not powered or it's in a
++	 *   low power state) then this function may return an error, but
++	 *   not crash. It's up to the caller of this code to make sure that
++	 *   the panel is powered on if getting an error back is not OK. If a
++	 *   drm_panel driver is initiating a DP AUX transfer it may power
++	 *   itself up however it wants. All other code should ensure that
++	 *   the pre_enable() bridge chain (which eventually calls the
++	 *   drm_panel prepare function) has powered the panel.
+ 	 */
+ 	ssize_t (*transfer)(struct drm_dp_aux *aux,
+ 			    struct drm_dp_aux_msg *msg);
+-- 
+2.36.0.512.ge40c2bad7a-goog
+
