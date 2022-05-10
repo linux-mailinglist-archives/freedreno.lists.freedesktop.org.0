@@ -2,59 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A4C5221BD
-	for <lists+freedreno@lfdr.de>; Tue, 10 May 2022 18:52:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 486E15222EE
+	for <lists+freedreno@lfdr.de>; Tue, 10 May 2022 19:39:48 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 090D910E799;
-	Tue, 10 May 2022 16:52:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D059C10E23F;
+	Tue, 10 May 2022 17:39:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC40A10E7BC;
- Tue, 10 May 2022 16:52:20 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id s14so17267631plk.8;
- Tue, 10 May 2022 09:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GlbUvuuWywK7r9IASaNCIAQVNurd9YpTqewxFeLD4Rs=;
- b=eAksJ5ZwCS6JUF2s47IELsBUbuSOqioFvb6MBBDzupqY9v71HGtPALLBQdHly+Q4Fh
- DShJbrjkSQIb7jykbW/iyKoL2t8zf5ENw/mG8nt94ygLj8ongvXhTPpdzRtPsoY7kJ6V
- mX8KaQXsxzDiE18YMgbJgBvw2Ctwrd9I2WbpQuIXTFnvUoJjYPAxdkyBUVboE9ts76AJ
- FacBL5YkyyFO+PSjs0yjsiTjP3Yz0NIQJOhkouL8zuRxNzedFRafbtFdMgOYXfkGGFRo
- 77GAI3ARWhvuQ0JxQ/XQ4G3SyOR3ZyVLzm6N19EwoHIHz9egltmUj6Up+YZTV8ukpIE1
- nVhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GlbUvuuWywK7r9IASaNCIAQVNurd9YpTqewxFeLD4Rs=;
- b=JK5zRNXEIklsdAOwzdWrEbNrU+Sd+ncmZ69BF1lKTCf3Yjoq1wRElPIq6SAOZwIEgh
- yf+S5bXfJdtwq5UMssw4BrQ3v/wz3PSHdN6+DJl8bsm0c3a9OkE6WNqo8hxFQpF7pVjv
- PR61ZDAnSKMRaGO+yU/n58iquWpoUgrxnTgeroyXLdmSKYrbz2AC0JfDL0O8TdeY5Ytn
- 5ENx6Nf4oGVaDKFfTx887sV8ltnRDACTZ2yo6cUoGO8pE2rAC2KfY6BWLQhIQYP5QWCn
- Vct7FVQSS2/SRkzHIvdvJFVi8z4RLyXxBKcLgcPnqWEtjIVFGFpkUF845wrABSG2Ja0b
- rYgQ==
-X-Gm-Message-State: AOAM5306X2W7MIHgXZqvHmJBybDtLahOnpNOH3TWt1Ns2pzvhRZTy+lX
- ft2VMyjDioztyh7ga4YgmKXCJBTXdiY=
-X-Google-Smtp-Source: ABdhPJwmOOWFZJFiV5ZPMNAWyXasCIh2GiEs5APeA0AQgt/pqcBNlctje9oW1aHg3VNdud72TsDotQ==
-X-Received: by 2002:a17:902:d4ce:b0:15e:90f8:216c with SMTP id
- o14-20020a170902d4ce00b0015e90f8216cmr22171600plg.65.1652201539771; 
- Tue, 10 May 2022 09:52:19 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- n10-20020a170903110a00b0015e8d4eb20fsm2296636plh.89.2022.05.10.09.52.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 May 2022 09:52:18 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue, 10 May 2022 09:52:16 -0700
-Message-Id: <20220510165216.3577068-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.35.1
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA32810E23F;
+ Tue, 10 May 2022 17:39:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1652204386; x=1683740386;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=FkyvDe+lg/6UUzc3a3RX0uzSgZKO1lAGbr6Xu1sBYnI=;
+ b=kQMsueoNZK5SbvPlsCBOIoNIMgo0Sos82mEJNrLRT2dUBnbl26HCQ8M1
+ tAImu4APL3OuCOfA7VD1M/UzJoADMERNT2K62DD53EWD03Q4w4DEoVmRT
+ 8mqBhqt29gmwXu7K/tGMQhHsiOS7ioq7Vdol3OpeI0T1QhpGCfzUvrQV5 4=;
+Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
+ by alexa-out.qualcomm.com with ESMTP; 10 May 2022 10:39:45 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 10:39:45 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 10 May 2022 10:39:45 -0700
+Received: from [10.38.241.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 10 May
+ 2022 10:39:42 -0700
+Message-ID: <e205565a-e0f5-dca2-a287-a829056d9601@quicinc.com>
+Date: Tue, 10 May 2022 10:39:40 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm: Fix fb plane offset calculation
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
+References: <20220510165216.3577068-1-robdclark@gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220510165216.3577068-1-robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm: Fix fb plane offset calculation
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +63,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-The offset got dropped by accident.
 
-Fixes: d413e6f97134 ("drm/msm: Drop msm_gem_iova()")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_fb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-index 362775ae50af..4269da268a4a 100644
---- a/drivers/gpu/drm/msm/msm_fb.c
-+++ b/drivers/gpu/drm/msm/msm_fb.c
-@@ -118,7 +118,7 @@ uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb,
- 		struct msm_gem_address_space *aspace, int plane)
- {
- 	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
--	return msm_fb->iova[plane];
-+	return msm_fb->iova[plane] + fb->offsets[plane];
- }
- 
- struct drm_gem_object *msm_framebuffer_bo(struct drm_framebuffer *fb, int plane)
--- 
-2.35.1
-
+On 5/10/2022 9:52 AM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> The offset got dropped by accident.
+> 
+> Fixes: d413e6f97134 ("drm/msm: Drop msm_gem_iova()")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/msm_fb.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+> index 362775ae50af..4269da268a4a 100644
+> --- a/drivers/gpu/drm/msm/msm_fb.c
+> +++ b/drivers/gpu/drm/msm/msm_fb.c
+> @@ -118,7 +118,7 @@ uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb,
+>   		struct msm_gem_address_space *aspace, int plane)
+>   {
+>   	struct msm_framebuffer *msm_fb = to_msm_framebuffer(fb);
+> -	return msm_fb->iova[plane];
+> +	return msm_fb->iova[plane] + fb->offsets[plane];
+>   }
+>   
+>   struct drm_gem_object *msm_framebuffer_bo(struct drm_framebuffer *fb, int plane)
