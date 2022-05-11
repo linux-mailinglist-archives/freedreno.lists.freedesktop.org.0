@@ -1,56 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601C152344F
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 15:34:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68826523412
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 15:20:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 082E610EF77;
-	Wed, 11 May 2022 13:34:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0B9D10FB2A;
+	Wed, 11 May 2022 13:20:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
- Wed, 11 May 2022 10:36:16 UTC
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 329DC10EB60
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 10:36:16 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4KyrfS4WZhz9spJ;
- Wed, 11 May 2022 12:26:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1652264768;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y/E1vKB93vrG/DjRCzLKzwqBALm4NpArvjus/ourHbI=;
- b=k8G6LO/DA2hkLYEA4a/jti/zyEqH+lLwPnhhAIg00NLSzA8dFGBzwZhjEyddtDJLG3Vqtx
- 3Hfgh/KESeU2q0Gw3XmFYEv5SohRvJ9OmQ0KtNd+AsM/0RZ4CtNKQKLVz3qvG7MNiLRA/8
- hV5lPw77oNCmAbG/y34GKc2R3BkkcJkYNWyp7x4MuZlJmMDy7hV6XZvhZ48GrkYg/y6kP/
- Pe25JiyS+7TgQAiMk6Nv3aOyN9XhrIOaN1xn89Fs+TB070DOxvp+q8L1+fIyUGWK67T+KX
- bnk1uVDGBkRI0+yZao76NBnnBcpEyLkexJXAszQCzAVpSOj9nfjih2CEcl0QKA==
-Message-ID: <1255a66a-121d-988a-19a7-316f703cb37d@mailbox.org>
-Date: Wed, 11 May 2022 12:26:05 +0200
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFDF110FB1B;
+ Wed, 11 May 2022 13:20:50 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id j25so1954537wrc.9;
+ Wed, 11 May 2022 06:20:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oxBAEgkqPwjl7j2IRT0qwSbmvKmtMj9Uu/0rfJ9C3HY=;
+ b=BFtrKj/WbzGddmQvEk3VMnzWRw/Gm8bqNWgAL4/V5F5ORGU/W+I2X+NRXETzGq4amf
+ 6zH2AEWErpG7i8W7RiUS4//aVUpKqlh0Sr/aMR+7ASspn0/PCyZ03Qdvt0F+2t48G/kq
+ 5CCvXmXubgkQQZvMu0/F4ff5eesEhAHHwFAWhJYWcFHKLwjlOa26aQT/lAOB2i18VVYN
+ 5QtKqLq4MZW7MZONTfYwK+HQBCO0oh6XpFj90Ac2Hlf8u2LliKuINKVPSPPTpyYgnm5R
+ qyl64VtVW2CszZWmkOjshlLFYkcQVOBoXLciBSPETQvRTgDhgJDodoxEzbMVqqSzhQq7
+ F7Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oxBAEgkqPwjl7j2IRT0qwSbmvKmtMj9Uu/0rfJ9C3HY=;
+ b=DbX4+C4Faalr9O/iUWsH3YjlkvtwoPbsfQQJJ+D9CF0MdSa0c+ZbhTMntqIwIeYgLt
+ j997bYrMVHBNIbFvHJS/8jB/E0ZY5rpt/6dFTIJXV6LSbRoMsjOD557vA58V43HWfp26
+ yjNla6HN27YH2Fdi/q/29mChksaR455kIgbvyK9lmR3/2QtT2UPVmn2hihq4dtW934MU
+ NyIF7uDEOpLJ/DHnAqW719P4POKiK3mnSez9ipyfWWrkfcDaKEYebvS3VQmA+z87yUWC
+ 6S/UC7rLeq4cJEirq4E9WNVlq1SKddz808/JeHp3+76pg7ZJ/Lwif1fuFswKKzS3YTdP
+ 8VEA==
+X-Gm-Message-State: AOAM530LiX2IQfpGhWEPbbfjDqyBzk8mCr0H3UUE5p2QqlTo7D8Jc3X1
+ Mq/Lq2+zY3Q5LGay833yCHZaWpp9J0hfwyiN73A=
+X-Google-Smtp-Source: ABdhPJwMEuHOME5RAqLJg1dKTW2d5wEp9Fa+vDbBzf5cIsjIT1fvYzWr1ATGYW77vkjZEgwUvYYcJm1ccXNbRGIpIUw=
+X-Received: by 2002:a05:6000:1a87:b0:20c:687f:6d10 with SMTP id
+ f7-20020a0560001a8700b0020c687f6d10mr22188924wry.574.1652275246816; Wed, 11
+ May 2022 06:20:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Language: en-CA
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dave Airlie <airlied@gmail.com>
-References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
- <20220510141329.54414-1-tomeu.vizoso@collabora.com>
- <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
- <YntWQIXSqMCd6TYV@kroah.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <YntWQIXSqMCd6TYV@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: f1u1x9t1eq9gx7t66636ikwanw7e56pm
-X-MBO-RS-ID: 8072a6e3cb6bccf98f1
-X-Mailman-Approved-At: Wed, 11 May 2022 13:34:44 +0000
-Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
- v2] drm/msm: Add initial ci/ subdirectory
+References: <20220510141329.54414-1-tomeu.vizoso@collabora.com>
+ <20220511061533.56881-1-tomeu.vizoso@collabora.com>
+In-Reply-To: <20220511061533.56881-1-tomeu.vizoso@collabora.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 11 May 2022 06:20:36 -0700
+Message-ID: <CAF6AEGts6cKOrmRruo8uSXSW=Kq58VZxdPuS13Q7jVajbvga-g@mail.gmail.com>
+To: Tomeu Vizoso <tomeu.vizoso@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [RFC v3] drm/msm: Add initial ci/ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,49 +63,86 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>, Jonathan Corbet <corbet@lwn.net>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-doc@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-05-11 08:22, Greg Kroah-Hartman wrote:
-> On Wed, May 11, 2022 at 03:06:47PM +1000, Dave Airlie wrote:
->>> And use it to store expectations about what the drm/msm driver is
->>> supposed to pass in the IGT test suite.
->>
->> I wanted to loop in Linus/Greg to see if there are any issues raised
->> by adding CI results file to the tree in their minds, or if any other
->> subsystem has done this already, and it's all fine.
-> 
-> Why does the results need to be added to the tree?  Shouldn't they be
-> either "all is good" or "constantly changing and a constant churn"?
-> 
->> I think this is a good thing after our Mesa experience, but Mesa has a
->> lot tighter integration here, so I want to get some more opinions
->> outside the group.
-> 
-> For systems that have "tight integration" this might make sense as proof
-> that all is working for a specific commit, but I can't see how this will
-> help the kernel out much.
-> 
-> What are you going to do with these results being checked in all the
-> time?
+On Tue, May 10, 2022 at 11:15 PM Tomeu Vizoso
+<tomeu.vizoso@collabora.com> wrote:
+>
+> And use it to store expectations about what the drm/msm driver is
+> supposed to pass in the IGT test suite.
+>
+> Also include a configuration file that points to the out-of-tree CI
+> scripts.
+>
+> By storing the test expectations along the code we can make sure both
+> stay in sync with each other, and so we can know when a code change
+> breaks those expectations.
+>
+> This will allow all contributors to drm/msm to reuse the infrastructure
+> already in gitlab.freedesktop.org to test the driver on several
+> generations of the hardware.
+>
+> v2:
+>   - Fix names of result expectation files to match SoC
+>   - Don't execute tests that are going to skip on all boards
+>
+> v3:
+>   - Remove tracking of dmesg output during test execution
+>
+> Signed-off-by: Tomeu Vizoso <tomeu.vizoso@collabora.com>
+> ---
+>  Documentation/gpu/msm_automated_testing.rst   |  70 +++++++++
+>  drivers/gpu/drm/msm/ci/gitlab-ci.yml          |  11 ++
+>  drivers/gpu/drm/msm/ci/msm.testlist           | 144 ++++++++++++++++++
+>  .../gpu/drm/msm/ci/msm_apq8016_results.txt    | 141 +++++++++++++++++
+>  .../gpu/drm/msm/ci/msm_apq8096_results.txt    | 141 +++++++++++++++++
+>  drivers/gpu/drm/msm/ci/msm_sc7180_results.txt | 142 +++++++++++++++++
+>  drivers/gpu/drm/msm/ci/msm_sdm845_results.txt | 142 +++++++++++++++++
+>  7 files changed, 791 insertions(+)
+>  create mode 100644 Documentation/gpu/msm_automated_testing.rst
+>  create mode 100644 drivers/gpu/drm/msm/ci/gitlab-ci.yml
+>  create mode 100644 drivers/gpu/drm/msm/ci/msm.testlist
+>  create mode 100644 drivers/gpu/drm/msm/ci/msm_apq8016_results.txt
+>  create mode 100644 drivers/gpu/drm/msm/ci/msm_apq8096_results.txt
+>  create mode 100644 drivers/gpu/drm/msm/ci/msm_sc7180_results.txt
+>  create mode 100644 drivers/gpu/drm/msm/ci/msm_sdm845_results.txt
+>
 
-Having the expected results in the tree keeps them consistent with the driver code itself, and allows putting in place gating CI to prevent merging driver changes which make any of the tests deviate from the expected result.
+[snip]
 
-Keeping them separate inevitably results in divergence between the driver code and the expected test results, which would result in spurious failures of such CI.
+> diff --git a/drivers/gpu/drm/msm/ci/gitlab-ci.yml b/drivers/gpu/drm/msm/ci/gitlab-ci.yml
+> new file mode 100644
+> index 000000000000..9b7caa7fcab2
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/ci/gitlab-ci.yml
+> @@ -0,0 +1,11 @@
+> +variables:
+> +  # Change this to use your fork of drm-ci
+> +  DRM_CI_PROJECT_PATH: &drm-ci-project-path gfx-ci/drm-ci
+> +  DRM_CI_COMMIT_SHA: &drm-ci-commit-sha msm
 
+btw, shouldn't we list an exact commit sha (or tag) for drm-ci, or am
+I overlooking something?  We want to be able to uprev the drm-ci
+version (and therefore igt version) in sync with any necessary updates
+to the expectations
 
-I expect the main complication for the kernel will be due to driver changes merged via different trees, e.g. for cross-subsystem reworks. Since those will not go through the same CI, they may accidentally introduce inconsistencies. The ideal solution for this IMO would be centralizing CI such that the same gating tests have to pass regardless of how the code is merged. But there's likely quite a long way to go until we get there. :)
+BR,
+-R
 
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+> +
+> +include:
+> +  - project: *drm-ci-project-path
+> +    ref: *drm-ci-commit-sha
+> +    file:
+> +      - '.msm-gitlab-ci.yml'
+> +      - '.gitlab-ci.yml'
