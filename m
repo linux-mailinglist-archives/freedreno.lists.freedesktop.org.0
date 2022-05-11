@@ -2,69 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225EB523C38
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 20:09:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA182523C62
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 20:22:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA695112752;
-	Wed, 11 May 2022 18:09:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6177E112885;
+	Wed, 11 May 2022 18:22:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E835D10EA67
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 17:40:03 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id ch13so5462913ejb.12
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 10:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 820AD112885
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 18:22:09 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id z19so3540599edx.9
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 11:22:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RnK+iHlohBHk+K+PPu2H+s8rv61aQCy6hHkZXbGO1nI=;
- b=KSDW7EaxEEAox9ArNl/cG0HEgm3SfZ3GtqPNzdmMU8fD7w0C0oDZs3MEyYZ6yoLdeu
- yShjYNBWL3FgGR6nQX6mpwU5Yirj2LjWdpRYv8a8UxBup5whzO4smQ6iqzPoBSfjp87S
- 7RlaOLEm4NKQMZeXbACuJSvVt1Ssh4WSaqYVM=
+ :cc; bh=uiYBAkZ/K7TON78jcHgwLk8yR9bWm2DLv+jXS6/7A90=;
+ b=TysY5PPYSJqqGGSP17kFdgyVAcXW0GiDdLa8+M1+Q0ojkz+YMGJOdGZ1g7kkbPZOu6
+ yt+IrWP6PXRoXVf3HH1RNxijEEEziatsJwBR8ffnixgRhgmDKQimGHpCgltyrkDtU5pd
+ QyBownI7LpEYTX9O9gVL+tE6Wpia3KSKpa7tY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=RnK+iHlohBHk+K+PPu2H+s8rv61aQCy6hHkZXbGO1nI=;
- b=qOCP0RFKEqSAsp0k9PrW73q9xBM5bI2bkfvF8gz/wnGKIajMItEAppV9NroYECiwgx
- uVgiCcJFUjQkrmG5ohxQaMQVIXXKIBNlwHAX9keanFSAbeRKkAiscRjOCpxjD8fSLW4C
- AfXN7+xh8UOBofFD+lf8FcxKEm2asobkreiJJSos4D+TwT+2ediKFKBSUc2mOJcdLKVc
- F59+TPjmoc0wj+wW8QpAhd6wmu3Fg3GDwwoewr5mbgRzWSlTIET8esJhrLJJAy3khpDN
- 2rJe1Vd0QmG/PBgCgwbta/7v8h1ZDpg10dHnGzTNDOT3glC6BYRqvzlup0PH7Cuk7Kc0
- GIMA==
-X-Gm-Message-State: AOAM531TxIdBDpeFynR6PNJJTVxE1dQ5Drr1DTnyJiSAd+7rCvkvrIDL
- CIcgkC+ONW/30M4Nes1P1lLo+mg/NNB4gKdpHBQ=
-X-Google-Smtp-Source: ABdhPJxMme/8XtLgh0r68eVhkjmhrkCPDgdAPbLwZ/ftzFA03J218o3CZ8uvT+Y96IfgL1hloIdsYg==
-X-Received: by 2002:a17:906:19c3:b0:6ec:c7b:ed28 with SMTP id
- h3-20020a17090619c300b006ec0c7bed28mr25434963ejd.612.1652290802146; 
- Wed, 11 May 2022 10:40:02 -0700 (PDT)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com.
- [209.85.128.45]) by smtp.gmail.com with ESMTPSA id
- j6-20020a17090643c600b006f3ef214e4bsm1237006ejn.177.2022.05.11.10.40.01
+ bh=uiYBAkZ/K7TON78jcHgwLk8yR9bWm2DLv+jXS6/7A90=;
+ b=CACqhVCbY+aNxd+wWf55jorzeQQNA/XTHka0HAn8wIdEiVZL7ypWPFI/j/xYvctocv
+ n/WRp4mXYkbEWZiLeIBEANtl6ZKYRsMLkR5BnrCwKvt7UgmeqmQfrha4ZHcPC0vbepvU
+ VCIOG/T141CKdqzflIg+Yf0L0NTyD4fPPsL0tgfX0BIddiliWXGd5/CDZS5Mb75QuPVd
+ ESp1X4O8Wsn5wAbFYLE3KjB5LSu5qE/tzMUF8KaknjOrNLAt5lqzdlhLBk2dpJAgwbs/
+ bwVv+C3HpeZTQ48PWxFiEQo4ptdEgGpliOcC8RJ8WXb9UyEYl0xLx9zjg8ejXJt08u0N
+ u+oA==
+X-Gm-Message-State: AOAM530nU5GwU3IQBzmxQlFiOP3l9mjiBbsPVes57451bZ/hh7Gr21r+
+ KAaQC+ZqFNp9maa/wc+prew1stzmxzfxNLaS3SE=
+X-Google-Smtp-Source: ABdhPJyXIIZ8JGx/IulzsGoQCNEvL5OA+l3K09Tr6F9Y+z5OC1CZNX+ETbAFTrUp9eplehECs6HzIw==
+X-Received: by 2002:a05:6402:120a:b0:428:91cf:7615 with SMTP id
+ c10-20020a056402120a00b0042891cf7615mr20867581edw.379.1652293327692; 
+ Wed, 11 May 2022 11:22:07 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com.
+ [209.85.128.50]) by smtp.gmail.com with ESMTPSA id
+ lh1-20020a170906f8c100b006f3ef214db6sm1261885ejb.28.2022.05.11.11.22.06
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 May 2022 10:40:01 -0700 (PDT)
-Received: by mail-wm1-f45.google.com with SMTP id
- l38-20020a05600c1d2600b00395b809dfbaso1368172wms.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 10:40:01 -0700 (PDT)
-X-Received: by 2002:a1c:4c06:0:b0:394:65c4:bd03 with SMTP id
- z6-20020a1c4c06000000b0039465c4bd03mr6060279wmf.8.1652290402369; Wed, 11 May
- 2022 10:33:22 -0700 (PDT)
+ Wed, 11 May 2022 11:22:06 -0700 (PDT)
+Received: by mail-wm1-f50.google.com with SMTP id
+ c190-20020a1c35c7000000b0038e37907b5bso3771105wma.0
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 11:22:06 -0700 (PDT)
+X-Received: by 2002:a05:600c:3c99:b0:392:b49c:7b79 with SMTP id
+ bg25-20020a05600c3c9900b00392b49c7b79mr6101308wmb.199.1652293325498; Wed, 11
+ May 2022 11:22:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
- <20220510141329.54414-1-tomeu.vizoso@collabora.com>
- <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
-In-Reply-To: <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 11 May 2022 10:33:06 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg8YgH1h3wrm9CtXff7rSewa+NE0Z5upb1GOE8XiTL9HA@mail.gmail.com>
-Message-ID: <CAHk-=wg8YgH1h3wrm9CtXff7rSewa+NE0Z5upb1GOE8XiTL9HA@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>
+References: <20220425210643.2420919-1-dianders@chromium.org>
+ <20220425140619.1.Ibfde5a26a7182c4b478d570c23d2649823ac2cce@changeid>
+ <CAE-0n51eZpAKprRQ0HqjLciF_BVQHBDN8SMFNVmmOd=B9UBEzg@mail.gmail.com>
+ <CAD=FV=WmVK3wTQf_EAxSi0WPXedSFGCsKdyqRnHsskmMYTHDQA@mail.gmail.com>
+ <MW4PR02MB718610FAA14F966ADE1B1585E1C29@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAE-0n51Q=cGwrMec3JEQENqWHV3pAUjLPT6RwZLA5xV080sgxQ@mail.gmail.com>
+ <MW4PR02MB71867A18732B266DE8FA2040E1C29@MW4PR02MB7186.namprd02.prod.outlook.com>
+ <CAE-0n53MEBYhyRtGWOCmjj923UQU_iVE_SEBQw6_FUci8NLz3w@mail.gmail.com>
+ <MW4PR02MB71866E59B844A0842DF7570EE1C59@MW4PR02MB7186.namprd02.prod.outlook.com>
+In-Reply-To: <MW4PR02MB71866E59B844A0842DF7570EE1C59@MW4PR02MB7186.namprd02.prod.outlook.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 11 May 2022 11:21:52 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WeTK8LBJmc6AkjPyPLVS+2sSRNEFuEOZrWGJr3Kpq58Q@mail.gmail.com>
+Message-ID: <CAD=FV=WeTK8LBJmc6AkjPyPLVS+2sSRNEFuEOZrWGJr3Kpq58Q@mail.gmail.com>
+To: "Sankeerth Billakanti (QUIC)" <quic_sbillaka@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 11 May 2022 18:09:34 +0000
-Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
- v2] drm/msm: Add initial ci/ subdirectory
+Subject: Re: [Freedreno] [PATCH 1/2] dt-bindings: msm/dp: List supplies in
+ the bindings
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,72 +81,95 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Sean Paul <sean@poorly.run>
+Cc: Rob Clark <robdclark@chromium.org>, Kishon Vijay Abraham I <kishon@ti.com>,
+ "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
+ "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
+ Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Clark <robdclark@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 10, 2022 at 10:07 PM Dave Airlie <airlied@gmail.com> wrote:
+Hi,
+
+On Fri, May 6, 2022 at 6:36 AM Sankeerth Billakanti (QUIC)
+<quic_sbillaka@quicinc.com> wrote:
 >
-> > And use it to store expectations about what the drm/msm driver is
-> > supposed to pass in the IGT test suite.
+> >> >> Our internal power grid documents list the regulators as
+> >> >> VDD_A_*_1P2 and VDD_A_*_0P9 for all the platforms.
+> >> >
+> >> >Do your internal power grid documents indicate what these supplies
+> >> >are powering? The question is if these supplies power any of the
+> >> >logic inside the eDP controller or if they only supply power to the
+> >> >analog circuits in the eDP phy. If it's the eDP phy only then the
+> >> >regulator usage in the eDP driver should be removed. I would suspect
+> >> >this is the case because the controller is probably all digital logic
+> >> >and runs at the typical 1.8V that the rest of the SoC uses.
+> >> >Similarly, these are voltage references which sound like a PLL reference
+> >voltage.
+> >> >
+> >> >Please clarify this further.
+> >> >
+> >>
+> >> For the DP driver using the usb-dp combo phy, there were cases where
+> >> the usb driver was turning off the phy and pll regulators whenever usb-dp
+> >concurrent mode need not be supported.
+> >> This caused phy and pll to be powered down causing aux transaction failures
+> >and display blankouts.
+> >> From then on, it became a practice for the controller driver to vote for the
+> >phy and pll regulators also.
+> >>
+> >
+> >That sounds like USB-DP combo phy driver had improper regulator power
+> >management where aux transactions from DP didn't keep the power on to
+> >the phy. Where does the power physically go? If the power isn't physically
+> >going to the DP controller it shouldn't be controlled from the DP controller
+> >driver. If the aux bus needs the DP phy enabled, the DP controller driver
+> >should enable the phy power (via phy_power_on()?).
 >
-> I wanted to loop in Linus/Greg to see if there are any issues raised
-> by adding CI results file to the tree in their minds, or if any other
-> subsystem has done this already, and it's all fine.
+> Yes, it was limitation earlier when we did not have proper interface to interact
+> with the combo phy.
 >
-> I think this is a good thing after our Mesa experience, but Mesa has a
-> lot tighter integration here, so I want to get some more opinions
-> outside the group.
+> In this case, the power from the regulators go to the combo phy.
+>
+> Now that there is an interface for the controller to interact with the
+> combo phy, the proposal to drop the phy regulator voting from the controller
+> driver seems reasonable to me.
+>
+> The phy_power_on() is used for getting the phy out of low power state or getting
+> it ready for data transfer.
+>
+> The controller driver needs to enable the phy power via the phy_init() before
+> any interaction with the sink like the aux transactions or before sending the data.
+> The controller can disable the regulators via the phy_exit() call.
 
-Honestly, my immediate reaction is that I think it might be ok, but
+I can confirm that if I stop providing these regulators to the DP
+controller that the screen still comes up. ...but also there are lots
+of other things (including the PHY) that power these regulators up...
 
- (a) are these things going to absolutely balloon over time?
+From offline discussion with folks:
 
- (b) should these not be separated out?
+1. It sounds like maybe the code for handling the regulators in the DP
+controller leaked in from downstream where the DP driver itself
+controls more stuff.
 
-Those two issues kind of interact.
+2. We should probably remove these regulators from the DP controller.
 
-If it's a small and targeted test-suite, by all means keep it in the
-kernel, but why not make it part of "tools/testing/selftests"
+3. When we remove this from the DP controller, we'll have to make sure
+that the PHY driver calls regulator_set_load() as needed.
 
-But if people expect this to balloon and we end up having megabytes of
-test output, then I really think it should be a separate git tree.
+Kuogee has volunteered to own this issue and send out patches fixing
+the stuff up. So for now, please consider ${SUBJECT} patch abandoned.
 
-A diffstat like this:
-
->  7 files changed, 791 insertions(+)
-
-is not a problem at all. But I get the feeling that this is just the
-tip of the iceberg, and people will want to not just have the result
-files, but start adding actual *input* files that may be largely
-automated stuff and may be tens of megabytes in size.
-
-Because the result files on their own aren't really self-contained,
-and then people will want to keep them in sync with the test-files
-themselves, and start adding those, and now it *really* is likely very
-unwieldy.
-
-Or if that doesn't happen, and the actual input test files stay in a
-separate CI repo, and then you end up having random coherency issues
-with that CI repo, and it all gets to be either horribly messy, or the
-result files in the kernel end up really stale.
-
-So honestly, I personally don't see a good end result here.  This
-particular small patch? *This* one looks fine to me, except I really
-think tools/testing/selftests/gpu would be a much more logical place
-for it.
-
-But I don't see a way forward that is sane.
-
-Can somebody argue otherwise?
-
-            Linus
+-Doug
