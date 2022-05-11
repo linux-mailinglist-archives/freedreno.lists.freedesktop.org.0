@@ -2,65 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A802D523E65
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 22:06:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F77523E67
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 22:06:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EEB1112B4D;
-	Wed, 11 May 2022 20:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6385B112B58;
+	Wed, 11 May 2022 20:06:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EDC0112B4D
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 20:06:34 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id ks9so6229462ejb.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 13:06:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF844112B58;
+ Wed, 11 May 2022 20:06:37 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id a5so646477wrp.7;
+ Wed, 11 May 2022 13:06:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=s+VKxsDNd2Dlk25JXEG0/tKdfNG/XmzW8g0WEIYdC88=;
- b=R7vHakTRampr8OzU3rpFsQDFxOiF/ZYOzyU/LbZPRwC2qoIjA41ST8iUnSy/gzro0B
- jTSxW/5/tKOFtoy6GEXCUuG7WzsuuTRO9uiHlsS2zYy6Q3XcNRZo3IY6AxUvfNLsJgll
- Cp/W/Cf1mJWMPRsE9Ldkye6nOnCYHs/+4rGE4=
+ :cc; bh=W6YNSoA5Dua0+s/FF7SpEIcKqn99xdL9v6a8e8wASjE=;
+ b=huVs1irgBIkg9Eul0wYK5EYPJx3b0ncqN0x9QsTfJvBcQ2t5FOtXmqR45KnVbSBCt0
+ tRVR32t6absZdZ99QabYYfqRY9JvV5eBYNqMncuhU2tTBEa3Jx27JsNQ5Qk/8J/I1Rqd
+ uiZxKXViZRvewgUcnsIcC3Lbrm8xA1GbN6EW0FjiDtQoz/UCGHm8rUNxBJguevCQ8bby
+ hbqSts8HPIVGxqadiiBHoU5HXVcqmZGmu8SOnw+2/jhm12VXAimJtNgdng9UB3jfuSIq
+ 6e1eUh5wALaSoHtArYquH1ViBA4Y+EuTOUaXV46Htl6nWhXkQD9cVPMgbXCnlOic3bq7
+ XXOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=s+VKxsDNd2Dlk25JXEG0/tKdfNG/XmzW8g0WEIYdC88=;
- b=LFWutZfcSMdq1mPUHQWL2mny5Dz5pcabwDyuhrqwHMf3YD2CuH2SrGgXesojSr8hW2
- 586TA9jcBc3TdwqvI/QliV7E/RF/Jn9jf5k1II5dg17Giid0sqwERHkeYlK00hBUEE54
- tEjmfq916mMzAYaTX8gVW1cdH/ebDx3XDGBq8k/Ia+OT3Z+NQfADO4/q6XbJL6RfZeyw
- dai3FKuvwxfrHYU4316g9V057kAPo7BYEDQREjOpuBfJAySYqAEG/C0P0oODPjG6pnLM
- Z1eKgjyzWsqntqzT7KgT98CYK6pLtWRA1L++uXMBgiVsKL98nXGND1npl7+ZPTzK77f7
- iHgA==
-X-Gm-Message-State: AOAM5311n5HnpvSFxpz8/n0dZy4okg6KUDQerfqWPveYfnPHM9eo6IPn
- McZh6fH5Xko54eY8h4VJ4tYbbwOww2RNCjXrvnU=
-X-Google-Smtp-Source: ABdhPJzu95h52vXK06INGhwfM2uDtmFg8B93xPfKFypwD4wCG3jEjLtXdLbfQngbiCpjv63s9P9oPA==
-X-Received: by 2002:a17:906:6a10:b0:6f5:5e4:9d5 with SMTP id
- qw16-20020a1709066a1000b006f505e409d5mr26056356ejc.122.1652299592826; 
- Wed, 11 May 2022 13:06:32 -0700 (PDT)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com.
- [209.85.128.43]) by smtp.gmail.com with ESMTPSA id
- fv36-20020a17090750a400b006f3ef214e60sm1281972ejc.198.2022.05.11.13.06.30
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 May 2022 13:06:31 -0700 (PDT)
-Received: by mail-wm1-f43.google.com with SMTP id 129so1855333wmz.0
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 13:06:30 -0700 (PDT)
-X-Received: by 2002:a7b:c4c8:0:b0:394:26c5:b79e with SMTP id
- g8-20020a7bc4c8000000b0039426c5b79emr6580581wmk.15.1652299589792; Wed, 11 May
- 2022 13:06:29 -0700 (PDT)
+ bh=W6YNSoA5Dua0+s/FF7SpEIcKqn99xdL9v6a8e8wASjE=;
+ b=sUtepmhvnole91/OxWUnuxDi64P/pDwv2skjdaQdSmkDrzntediH+Q1BGh1FNcPlSV
+ LNg7SVseejTfPJ6xUbDlMtox1x339nGXbk6g7o3VBv/QkNgCd4S6SgjZMaRhNloOa9SR
+ hyCOTWnDvCCE2QuqxqUL50mRG/6Eq9Yw7/suMFaItncobTIOdb/fpvb23SaQlhwf6KIo
+ XBWiRxMtgHTq/hOKp55pd84xaxKg13AL8k58SWWP6t10zeoQZjHgZuiOiTkg6cjPns2e
+ zDh2uf6x1j9Q3nWpz0Vf35sMMPM43eVFtTucBX+n6WQ8nlJwnczPld5W10dTxZ92Carm
+ LwZg==
+X-Gm-Message-State: AOAM533QjXFnWZY6JkqJ+s6Ux2ppoFh77MS3h9ebvtPvxQPHNi5bwJ34
+ jPe2AKRpow1hbnWNxnXXRavQrseFrG4/pIQW6fI=
+X-Google-Smtp-Source: ABdhPJztZ9XbUj0FLLKnjaG49uOatzw5PqIll6Yx+Z6ecof8fZ/Xg+4CXVkwVcsz/BnqI+EDtAS88Q5dTYmp2/hyOH8=
+X-Received: by 2002:a05:6000:156e:b0:20c:5218:8907 with SMTP id
+ 14-20020a056000156e00b0020c52188907mr24120425wrz.297.1652299596131; Wed, 11
+ May 2022 13:06:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20211207222901.988484-1-dmitry.baryshkov@linaro.org>
- <20211207222901.988484-2-dmitry.baryshkov@linaro.org>
-In-Reply-To: <20211207222901.988484-2-dmitry.baryshkov@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 11 May 2022 13:06:17 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V7RyVJKis9e3aoouQyhUppyAhVs9oN9=miKeZcV0t6_g@mail.gmail.com>
-Message-ID: <CAD=FV=V7RyVJKis9e3aoouQyhUppyAhVs9oN9=miKeZcV0t6_g@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
+ <20220510141329.54414-1-tomeu.vizoso@collabora.com>
+ <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
+ <CAHk-=wg8YgH1h3wrm9CtXff7rSewa+NE0Z5upb1GOE8XiTL9HA@mail.gmail.com>
+ <CAF6AEGusO9XAqHNatJLgV+wpVoyyLg1vHtUsnSkAxJeV7n3WNg@mail.gmail.com>
+ <CAHk-=wjbE0f2AGroB1Hy=fx2fh7cRpS0wNdB46Ybk14Mb0b5Jw@mail.gmail.com>
+In-Reply-To: <CAHk-=wjbE0f2AGroB1Hy=fx2fh7cRpS0wNdB46Ybk14Mb0b5Jw@mail.gmail.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 11 May 2022 13:06:23 -0700
+Message-ID: <CAF6AEGvNfC6=o63hH7eoSzT5JmF5C73sDyYXJj-hecS_cgRjHg@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dsi: move DSI host powerup to
- modeset time
+Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
+ v2] drm/msm: Add initial ci/ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,102 +68,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Stephen Boyd <sboyd@kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <abhinavk@codeaurora.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, Dec 7, 2021 at 2:29 PM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
+On Wed, May 11, 2022 at 12:08 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> The DSI subsystem does not fully fall into the pre-enable/enable system
-> of callbacks, since typically DSI device bridge drivers expect to be
-> able to communicate with DSI devices at the pre-enable() callback. The
-> reason is that for some DSI hosts enabling the video stream would
-> prevent other drivers from sending DSI commands. For example see the
-> panel-bridge driver, which does drm_panel_prepare() from the
-> pre_enable() callback (which would be called before our pre_enable()
-> callback, resulting in panel preparation failures as the link is not yet
-> ready).
+> On Wed, May 11, 2022 at 11:40 AM Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > It is missing in this revision of the RFC, but the intention is to
+> > have the gitlab-ci.yml point to a specific commit SHA in the
+> > gfx-ci/drm-ci[1] tree, to solve the problem of keeping the results in
+> > sync with the expectations.  Ie. a kernel commit would control moving
+> > to a new version of i-g-t (and eventually deqp and/or piglit), and at
+> > the same time make any necessary updates in the expectations files.
 >
-> Therewere several attempts to solve this issue, but currently the best
-> approach is to power up the DSI link from the mode_set() callback,
-> allowing next bridge/panel to use DSI transfers in the pre_enable()
-> time. Follow this approach.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 43 +++++++++++++++++++--------
->  1 file changed, 31 insertions(+), 12 deletions(-)
+> Wouldn't it then be better to just have the expectation files in the
+> ci tree too?
 
-I happened to be testing today on one of the sc7180-trogdor variants
-that has a parade-ps8640 bridge chip in it and ran into problems. A
-bisect pointed to this patch and, sure enough, reverting it fixes me
-again.
+The main reason is that we would frequently have situations where both
+-next and -fixes pointing at the same ci tree commit, but with
+differing expectations.  If we kept the expectations in the ci tree,
+we'd end up frequently updating the ci tree and then updating the
+kernel tree to point to the appropriate ci tree version.
 
-The Chromebook in question is able to power the screen on at bootup
-but things don't work so well in other cases. Specifically, if I leave
-the Chromebook idle then it will turn the screen off (but in this
-case, not enter S3). Hitting a key should wake the screen up, but it
-doesn't.
+Additionally, on the mesa side, it has been useful to squash the
+expectations update into the commit that fixed a bug or added a
+feature.  It provides a connection in git history between code and
+test results.
 
-None of the error prints in dsi_mgr_bridge_power_on() are hitting when
-it fails and I even added extra error prints. It's not hitting any of
-the early returns.
-
-I did a little bit more debugging and it appears that nothing funny is
-going on. It's just the ordering difference that matters. With the
-patch reverted, I see this and it all works:
-
-boot:
-[    9.653801] DOUG: dsi_mgr_bridge_mode_set
-[    9.658687] DOUG: ps8640_pre_enable
-[    9.664194] DOUG: dsi_mgr_bridge_pre_enable
-
-screen turns off:
-[   82.130038] DOUG: dsi_mgr_bridge_post_disable
-[   82.166817] DOUG: ps8640_post_disable
-
-screen turns on:
-[   92.611846] DOUG: dsi_mgr_bridge_mode_set
-[   92.617875] DOUG: ps8640_pre_enable
-[   92.920237] DOUG: dsi_mgr_bridge_pre_enable
-
-Without the patch reverted, I see this and it fails:
-
-boot:
-[   10.817810] DOUG: dsi_mgr_bridge_mode_set
-[   10.822128] DOUG: dsi_mgr_bridge_power_on
-[   10.852131] DOUG: ps8640_pre_enable
-[   10.857942] DOUG: dsi_mgr_bridge_pre_enable
-
-screen turns off:
-[   34.819953] DOUG: dsi_mgr_bridge_post_disable
-[   34.883777] DOUG: ps8640_post_disable
-
-screen should turn on, but doesn't:
-[   46.193589] DOUG: dsi_mgr_bridge_mode_set
-[   46.197951] DOUG: dsi_mgr_bridge_power_on
-[   46.248438] DOUG: ps8640_pre_enable
-[   46.541700] DOUG: dsi_mgr_bridge_pre_enable
-
-Unfortunately, ps8640 is a pretty big black box. The Linux kernel
-driver does almost nothing at all and the parade bridge chip has a
-bunch of magic firmware on it. Though I don't know for sure, I assume
-that this magic firmware simply can't handle the fact that the MIPI
-side is already setup / running when the bridge is powered on.
-
-Rather than this patch, maybe you can jump on Dave Stevenson's patch
-series [1] which I believe would solve this problem in a more dynamic
-way? Would you accept a revert of ${SUBJECT} patch to fix my problem?
-
-[1] https://lore.kernel.org/r/cover.1646406653.git.dave.stevenson@raspberrypi.com
-
-
--Doug
+BR,
+-R
