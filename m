@@ -2,65 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E48523D40
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 21:15:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FC06523D31
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 21:12:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C58A112B37;
-	Wed, 11 May 2022 19:15:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B97D112B37;
+	Wed, 11 May 2022 19:12:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A17112B37
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 19:15:28 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id gh6so6055527ejb.0
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 12:15:28 -0700 (PDT)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFCB2112B37
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 19:12:38 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id z2so5977382ejj.3
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 12:12:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux-foundation.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vmamqcS6UVefjf9ZEAc++snoGPnFlkAJ7A2gr6Hybu0=;
- b=dBuK2lymrrDPdlannsOQHXnUcfuHTrBkOPfEbu7qkW0E5kYO5Z+bFsewwOP9kO18lS
- Ebs/5hwuDtsE7odsW2FMFSxqELyAfsWmglvZotYHMj+VC+iTD8HgUjirJo2F71hfTMdW
- r33xYQIIdwMLG8WV5P6snakQvBwy2w3VlziQA=
+ :cc; bh=m0rLYZTGM9tABUfYW7kAK/fqq3Ax7YNevFHH/XCjFGs=;
+ b=eCbRkCpG+1uv8o7qRy4S8ofMtbzrfrNObimViXJYOfvi54JNTAr6JFhhlnpgtpAcS+
+ VN1OH3CnIDFz9Ap8QJJbmVusIA88+j05i4dmbpolhuHRtJjOf6pV7NrV6W8AIKtloJuO
+ Epo1XPPLAfd3d4t/rIpKYoMleVpcQa62xi+gI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=vmamqcS6UVefjf9ZEAc++snoGPnFlkAJ7A2gr6Hybu0=;
- b=kXwhDZooK/aHfBFnWjYdV2Xawhff04zB4FmUtvoqX4Yzm1C6DAz+LKdMPQgNPcx6z8
- D5dA0j23iHUtLnvFhvPs7P6pxRh3YT0YJS+NROkElav1mDzsrKe6qthIyG1VB7mVcwsj
- zXS2eOZgztM4t+PwZdw8Z1wEW7hEkt6szVpYcwvVJnPvUwQ0IkX1ZsvdikSSNKXxMwhy
- s8ZzXgGWHyKvYyq4QqUrCFjaorsKd6sOnH715t3UB6HNOTuO45pnpumPkclhlJj0TBdw
- fUlEJFEammLNi9D4kYkXkvhOLEpHbDGx4a5/B77UBdPhD2FhpgK8OiOPhqO2bnmI3y4T
- F/dQ==
-X-Gm-Message-State: AOAM533MqU2iC85/HXkQcWoxicCq40S8j/buPm3HGES8avU29J8T9sgQ
- F9tvkWa51UcGSU1gRUq+BuoJ43Byiacn6xa8Qzk=
-X-Google-Smtp-Source: ABdhPJxuzyATVXCqieK73V3Hd3raM3P3LO2+C9CZi5NdAc0dPqI7oqLsWet76jf7ekP87Uk4T+5rNQ==
-X-Received: by 2002:a17:907:6d82:b0:6f4:d62e:8168 with SMTP id
- sb2-20020a1709076d8200b006f4d62e8168mr26413872ejc.374.1652296527022; 
- Wed, 11 May 2022 12:15:27 -0700 (PDT)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com.
- [209.85.128.49]) by smtp.gmail.com with ESMTPSA id
- i11-20020a50870b000000b0042617ba63a6sm1673896edb.48.2022.05.11.12.15.26
+ bh=m0rLYZTGM9tABUfYW7kAK/fqq3Ax7YNevFHH/XCjFGs=;
+ b=h+fVvuKv7d6DuYcg9XUie21M89dcQV3YjLKZRDlRPlGHqiYBagzjoOC0swB6V+Yoml
+ +NRqpuhALmhfK8O1IIgyG3lxaBZrtMbz7FtQ1X7iyGfI/pnI2u6DR7L/oksiCqWPu9Fh
+ TgJFnqm30IvduKJnNMkfAcy+2laRqjzmvi8hzK7W7frMY5YHvq/tQ2s3rLsAp1kbjPuQ
+ qXzebuSCY4DcluBgscQGcp2nTiCiXzaEh8LnWg9VR9dvBoFQhFi6XojKJN/HJ6rgg/AN
+ WnA1reNMDTAbUvwWBNyXb3ACrMO5uqPPpL3G2ZI+2/ccksRXvzhV7KsQEKAfx2cBbW3z
+ VYIA==
+X-Gm-Message-State: AOAM530vEXiyoBz/8W4gmRdZLgsPy71H6IVYuvtR+anJQqnbqIMxymFY
+ Ar6U4iZx9/2rlciRbQ5A5sUkoVOdmrau+X2+wCc=
+X-Google-Smtp-Source: ABdhPJzOTR2MJ9ybbVvCAi7WPfNa9oJBp3+jhO2+NOKMGqUsQsSdwZR+gNYwhO8jsIV27sLNz/Nv0A==
+X-Received: by 2002:a17:907:8c85:b0:6f4:6b2a:5f0 with SMTP id
+ td5-20020a1709078c8500b006f46b2a05f0mr26660809ejc.491.1652296357254; 
+ Wed, 11 May 2022 12:12:37 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
+ [209.85.221.49]) by smtp.gmail.com with ESMTPSA id
+ w11-20020a056402070b00b0042617ba63a7sm1550270edx.49.2022.05.11.12.12.35
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 May 2022 12:15:26 -0700 (PDT)
-Received: by mail-wm1-f49.google.com with SMTP id k126so1781375wme.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 12:15:26 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f06:b0:394:836b:1552 with SMTP id
- l6-20020a05600c4f0600b00394836b1552mr6316930wmq.145.1652296099201; Wed, 11
- May 2022 12:08:19 -0700 (PDT)
+ Wed, 11 May 2022 12:12:35 -0700 (PDT)
+Received: by mail-wr1-f49.google.com with SMTP id h16so3600728wrb.2
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 12:12:35 -0700 (PDT)
+X-Received: by 2002:a5d:6dad:0:b0:20c:4dc1:e247 with SMTP id
+ u13-20020a5d6dad000000b0020c4dc1e247mr24044515wrs.274.1652296354621; Wed, 11
+ May 2022 12:12:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
  <20220510141329.54414-1-tomeu.vizoso@collabora.com>
  <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
  <CAHk-=wg8YgH1h3wrm9CtXff7rSewa+NE0Z5upb1GOE8XiTL9HA@mail.gmail.com>
  <CAF6AEGusO9XAqHNatJLgV+wpVoyyLg1vHtUsnSkAxJeV7n3WNg@mail.gmail.com>
-In-Reply-To: <CAF6AEGusO9XAqHNatJLgV+wpVoyyLg1vHtUsnSkAxJeV7n3WNg@mail.gmail.com>
+ <CAHk-=wjbE0f2AGroB1Hy=fx2fh7cRpS0wNdB46Ybk14Mb0b5Jw@mail.gmail.com>
+In-Reply-To: <CAHk-=wjbE0f2AGroB1Hy=fx2fh7cRpS0wNdB46Ybk14Mb0b5Jw@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 11 May 2022 12:08:03 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjbE0f2AGroB1Hy=fx2fh7cRpS0wNdB46Ybk14Mb0b5Jw@mail.gmail.com>
-Message-ID: <CAHk-=wjbE0f2AGroB1Hy=fx2fh7cRpS0wNdB46Ybk14Mb0b5Jw@mail.gmail.com>
+Date: Wed, 11 May 2022 12:12:18 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjy4DY_ya8TBs9W2wLWHibBiHMQW2T43DQR1SGRkqD=gw@mail.gmail.com>
+Message-ID: <CAHk-=wjy4DY_ya8TBs9W2wLWHibBiHMQW2T43DQR1SGRkqD=gw@mail.gmail.com>
 To: Rob Clark <robdclark@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
@@ -91,20 +92,26 @@ Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 11, 2022 at 11:40 AM Rob Clark <robdclark@gmail.com> wrote:
+On Wed, May 11, 2022 at 12:08 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> It is missing in this revision of the RFC, but the intention is to
-> have the gitlab-ci.yml point to a specific commit SHA in the
-> gfx-ci/drm-ci[1] tree, to solve the problem of keeping the results in
-> sync with the expectations.  Ie. a kernel commit would control moving
-> to a new version of i-g-t (and eventually deqp and/or piglit), and at
-> the same time make any necessary updates in the expectations files.
+> The kernel tree might have just the expected *failures* listed, if
+> there are any. Presumably the ci tree has to have the expected results
+> anyway, so what's the advantage of listing non-failures?
 
-Wouldn't it then be better to just have the expectation files in the
-ci tree too?
+.. put another way: I think a list of "we are aware that these
+currently fail" is quite reasonable for a development tree, maybe even
+with a comment in the commit that created them about why they
+currently fail.
 
-The kernel tree might have just the expected *failures* listed, if
-there are any. Presumably the ci tree has to have the expected results
-anyway, so what's the advantage of listing non-failures?
+That also ends up being very nice if you fix a problem, and the fix
+commit might then remove the failure for the list, and that all makes
+perfect sense.
 
-                  Linus
+But having just the raw output of "these are the expected CI results"
+that is being done and specified by some other tree entirely - that
+seems pointless and just noise to me. There's no actual reason to have
+that kind of noise - and update that kind of noise - that I really
+see.
+
+                Linus
