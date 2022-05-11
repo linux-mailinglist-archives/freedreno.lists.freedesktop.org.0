@@ -1,80 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F597523DAE
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 21:39:55 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37CD0523E51
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 22:04:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B092910E640;
-	Wed, 11 May 2022 19:39:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEDB5112B1B;
+	Wed, 11 May 2022 20:04:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B53D110E640
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 19:39:52 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id w24so3777391edx.3
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 12:39:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=KUjfW/kaHDRwhWp5Rt/2AgtSuQq/hXyzExdN5I7ro90=;
- b=N5Sewa0q9eHV45UM94+DzpGvQdCTPLlQVm2dEzNxjvomA5nCkkBrjpYNctI7qVfxDw
- zTTnnDEJyOsSB1lBbLOg8zLzUazdA4CE5/w+5mlE77v9ce3pHkQQltOb3x41srT+4OrW
- xrFq9MjViOUDiGbXn7gV83kszXNflH/WBLH4k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=KUjfW/kaHDRwhWp5Rt/2AgtSuQq/hXyzExdN5I7ro90=;
- b=zjxZuPNMDm0Y+w71w/jMojxF/Nfx18Yh+kPv25h5/ugNoT44XyQtI3FQQHeh2wjuWA
- +Rfxs30GHSdmEGe9poFWINjAgme9w3/hbJOs4wdYZWBOSu9JCiHGoDVZ8eC5sPuFzQUx
- ix21JBwo0VMJFqH22Cq/yBdQH7rW5K7i90a2PCmzWOZv0VJ9fAkBK8U3/GV9xrM6D+LZ
- J2emQjnymfmibmOA3O6z9IshOD8WMh/nntMjmzEA0+gjBkHjGyqtvnuDGu7Dj53CHBqA
- 4uhcQcPfhDuU0U0ym4A0EjvfZrpoEDU+xmyGYdsFJ9EAC6Tvpzn1cC3ITkhU6gezGS68
- L0cw==
-X-Gm-Message-State: AOAM530vUX1dHtxqaNQ4crQNnXdzh9tW0aJV1j2wWUNfIWaBZOVxpYBN
- b4WcFNVhK0R/qhAw7UX5fjeKWw==
-X-Google-Smtp-Source: ABdhPJzWesYTj8gmkcmegNXLf0uSlKr9mITbAOCF+I6/YdvNNo+sGdi8tvr8Vq30B8lkClQ7lWiONw==
-X-Received: by 2002:a05:6402:2932:b0:425:d7b3:e0d1 with SMTP id
- ee50-20020a056402293200b00425d7b3e0d1mr30745307edb.141.1652297990866; 
- Wed, 11 May 2022 12:39:50 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- h11-20020a170906828b00b006f3ef214e44sm1295729ejx.170.2022.05.11.12.39.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 May 2022 12:39:50 -0700 (PDT)
-Date: Wed, 11 May 2022 21:39:48 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YnwRBFNyygB0Ub6S@phenom.ffwll.local>
-Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Dave Airlie <airlied@gmail.com>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>
-References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
- <20220510141329.54414-1-tomeu.vizoso@collabora.com>
- <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
- <CAHk-=wg8YgH1h3wrm9CtXff7rSewa+NE0Z5upb1GOE8XiTL9HA@mail.gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11115112575;
+ Wed, 11 May 2022 20:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1652299461; x=1683835461;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=vo23C2NXNJUhjPv0ou9jjN5qBMPI2jaVxAHFOXzcqC0=;
+ b=PF7ikufoln50javw9oTeWcJn7KnrZguJBZ5W7vIUCYbzEGa31tNSIXhe
+ MIRrmJM87QBq4oUs/OHWXL1VNLfH8q7XwAO3RJGFal94QPZi4y53641C4
+ I0CjXAHvOg5E5LiSUsAW9BK4RjGoQ2QDtzIdPrQeib3tcauJEWAPapJEh Q=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 11 May 2022 13:04:20 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2022 13:04:20 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 11 May 2022 13:04:19 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 11 May 2022 13:04:18 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 11 May 2022 13:04:09 -0700
+Message-ID: <1652299449-31205-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wg8YgH1h3wrm9CtXff7rSewa+NE0Z5upb1GOE8XiTL9HA@mail.gmail.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
- v2] drm/msm: Add initial ci/ subdirectory
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v3] drm/msm/dp: Always clear mask bits to
+ disable interrupts at dp_ctrl_reset_irq_ctrl()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,136 +61,121 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, freedreno <freedreno@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, Rob Clark <robdclark@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 11, 2022 at 10:33:06AM -0700, Linus Torvalds wrote:
-> On Tue, May 10, 2022 at 10:07 PM Dave Airlie <airlied@gmail.com> wrote:
-> >
-> > > And use it to store expectations about what the drm/msm driver is
-> > > supposed to pass in the IGT test suite.
-> >
-> > I wanted to loop in Linus/Greg to see if there are any issues raised
-> > by adding CI results file to the tree in their minds, or if any other
-> > subsystem has done this already, and it's all fine.
-> >
-> > I think this is a good thing after our Mesa experience, but Mesa has a
-> > lot tighter integration here, so I want to get some more opinions
-> > outside the group.
-> 
-> Honestly, my immediate reaction is that I think it might be ok, but
-> 
->  (a) are these things going to absolutely balloon over time?
-> 
->  (b) should these not be separated out?
-> 
-> Those two issues kind of interact.
-> 
-> If it's a small and targeted test-suite, by all means keep it in the
-> kernel, but why not make it part of "tools/testing/selftests"
-> 
-> But if people expect this to balloon and we end up having megabytes of
-> test output, then I really think it should be a separate git tree.
-> 
-> A diffstat like this:
-> 
-> >  7 files changed, 791 insertions(+)
+dp_catalog_ctrl_reset() will software reset DP controller. But it will
+not reset programmable registers to default value. DP driver still have
+to clear mask bits to interrupt status registers to disable interrupts
+after software reset of controller. This patch removes the enable flag
+condition checking to always clear mask bits of interrupt status
+registers to disable interrupts if enable flag is false.
 
-Yeah I guess it's good to have some numbers for where this might go. Good
-comparison is probably mesa3d, since it's the same-ish people doing the
-same-ish ci on the same-ish infrastructure, just the userspace part of it.
+This patch also will fix the potential problem happen at system suspend where
+dp_ctrl_reset_irq_ctrl() was called to try to disable HPD related irqs but
+the irq is still unmasked unexpectedly and can come in while system are
+suspending. This leads to bus hangs if the irq is handled after we power down
+the DP hardware because we run the irq handler and access a device register
+assuming that no irq could ever come in if we powered down the device. We
+don't know when the irq will be handled though, so it's possible the irq is
+pending from before we disable the irq in the hardware.
 
-mesa$ git ls-files | grep ci | xargs cat | wc -l
-123077
+Changes in v2:
+-- add more details commit text
 
-mesa$ git ls-files | grep ci | wc -l
-421
+Changes in v3:
+-- add synchrons_irq()
+-- add atomic_t suspended
 
-Compared to drivers/gpu it's really not much, and mesa is about the size
-of drivers/gpu if you exclude the massive amount of register headers from
-amd.
+Fixes: ba0a422be723 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  9 +++++++--
+ drivers/gpu/drm/msm/dp/dp_display.c | 18 ++++++++++++++++++
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-And I guess if we do stuff like result file compression like you mentioned
-it should be quite a bit less even.
-
-So yeah if this does take off it wil be substantially more, but I don't
-think it'll ever get to a point where it'll swamp code changes. And if it
-does that's kinda a solid indicator that something really wrong is going
-on.
-
-> is not a problem at all. But I get the feeling that this is just the
-> tip of the iceberg, and people will want to not just have the result
-> files, but start adding actual *input* files that may be largely
-> automated stuff and may be tens of megabytes in size.
-> 
-> Because the result files on their own aren't really self-contained,
-> and then people will want to keep them in sync with the test-files
-> themselves, and start adding those, and now it *really* is likely very
-> unwieldy.
-> 
-> Or if that doesn't happen, and the actual input test files stay in a
-> separate CI repo, and then you end up having random coherency issues
-> with that CI repo, and it all gets to be either horribly messy, or the
-> result files in the kernel end up really stale.
-> 
-> So honestly, I personally don't see a good end result here.  This
-> particular small patch? *This* one looks fine to me, except I really
-> think tools/testing/selftests/gpu would be a much more logical place
-> for it.
-> 
-> But I don't see a way forward that is sane.
-> 
-> Can somebody argue otherwise?
-
-I do personally think we should add a bunch more things here, radically
-putting everything into the drm-ci repo feels a bit much like appeasement
-to get the foot in the door. Like some of the scripts are definitely
-specific to the ci infra on freedesktop.org (or specific hw runners for
-the drivers), and that makes sense to keep in that drm/fd ci repo. But
-other scripts should probably migrate to scripts/ and at least start out
-in a ci/ folder in the kernel.
-
-igt itself might eventually move to tools/testing/selftests/gpu or
-whatever, but that's kinda a huge discussion onto itself. And I haven't
-seen a clear consensus yet among subsystem that these kind of tests (like
-xfs-tests, and I think pretty much ever bigger subsystem that is old
-enough to predate selftests has them somewhere) should all move into
-tools/testing/selftest. Maybe they should, but feels like this is
-orthogonal to ci integration.
-
-Note that mesa3d has the exact same issue going that you're raising, and
-some of those are unfixable because the opengl/vulkan conformance test
-suites are maintained entirely externally by Khronos (and you have to use
-those or you're not conformant to the spec, which renders the point of
-having a shared spec a bit moot). It's messy but workable, and the CI you
-get seems very much to be worth the price.
-
-One idea I tossed out on irc is to move this all under drivers/gpu/ci.
-There's driver specific stuff like the test result/fail lists, and maybe
-those could eventually move out to drivers. But for starting out it might
-be better to keep it all in one place so it's a bit better under control
-and doesn't accidentally become a kranken of some kind. And then make sure
-pieces move to scripts/ or tools/testing/ appropriately.
-
-In general I think any mess this causes is a pretty good indicator that
-something is amiss, like if this causes messy history due to tests
-flipping too much and causing issues then that also indicates an issue
-with the kernel or testcase quality itself. And it might be good to shine
-more light on that stuff.
-
-Cheers, Daniel
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index af7a80c..f3e333e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1389,8 +1389,13 @@ void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable)
+ 
+ 	dp_catalog_ctrl_reset(ctrl->catalog);
+ 
+-	if (enable)
+-		dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
++	/*
++	 * all dp controller programmable registers will not
++	 * be reset to default value after DP_SW_RESET
++	 * therefore interrupt mask bits have to be updated
++	 * to enable/disable interrupts
++	 */
++	dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
+ }
+ 
+ void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index c388323..c34dbfc 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -98,6 +98,8 @@ struct dp_display_private {
+ 	struct dp_ctrl    *ctrl;
+ 	struct dp_debug   *debug;
+ 
++	atomic_t suspended;
++
+ 	struct dp_usbpd_cb usbpd_cb;
+ 	struct dp_display_mode dp_mode;
+ 	struct msm_dp dp_display;
+@@ -187,6 +189,11 @@ static int dp_add_event(struct dp_display_private *dp_priv, u32 event,
+ 	int pndx;
+ 
+ 	spin_lock_irqsave(&dp_priv->event_lock, flag);
++	if (atomic_read(&dp_priv->suspended)) {
++		spin_unlock_irqrestore(&dp_priv->event_lock, flag);
++		return -EPERM;
++	}
++
+ 	pndx = dp_priv->event_pndx + 1;
+ 	pndx %= DP_EVENT_Q_MAX;
+ 	if (pndx == dp_priv->event_gndx) {
+@@ -454,6 +461,13 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
+ 		dp->dp_display.connector_type, dp->core_initialized,
+ 		dp->phy_initialized);
+ 
++	if (!dp->core_initialized) {
++		DRM_DEBUG_DP("DP core not initialized\n");
++		return;
++	}
++
++	synchronize_irq(dp->irq);
++
+ 	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
+ 	dp_aux_deinit(dp->aux);
+ 	dp_power_deinit(dp->power);
+@@ -1362,6 +1376,8 @@ static int dp_pm_resume(struct device *dev)
+ 		dp->dp_display.connector_type, dp->core_initialized,
+ 		dp->phy_initialized, dp_display->power_on);
+ 
++	atomic_set(&dp->suspended, 0);
++
+ 	/* start from disconnected state */
+ 	dp->hpd_state = ST_DISCONNECTED;
+ 
+@@ -1431,6 +1447,8 @@ static int dp_pm_suspend(struct device *dev)
+ 		dp->dp_display.connector_type, dp->core_initialized,
+ 		dp->phy_initialized, dp_display->power_on);
+ 
++	atomic_inc(&dp->suspended);
++
+ 	/* mainlink enabled */
+ 	if (dp_power_clk_status(dp->power, DP_CTRL_PM))
+ 		dp_ctrl_off_link_stream(dp->ctrl);
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
