@@ -2,69 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A90523F6C
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 23:27:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF0C3523F77
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 23:32:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8328E10EED9;
-	Wed, 11 May 2022 21:27:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D58B10E423;
+	Wed, 11 May 2022 21:32:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E2B10EEC9
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 21:27:05 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id h29so5797129lfj.2
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 14:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=0t9E9hcubacycb/zfx8NOSEjN1B6k+ZB3dddohbc/ik=;
- b=kM3dmvoncuD5XtNPlhBAKOP2qXP2ajDKmQmc1lBzJca2oYpJO1qR2EKzsLRYmIBBGL
- F/2Ki+OsQfYsDfDNLQPyHLngCEJpG7Hmv03c8SCUEPdnHM1eDhKoUnRgzR3wlpF/IdkF
- SsVYG9b0LTVmdk0af6aEyhOsON9J549uHEB+eVcaC3zGAwNNYxs+i1p/sDHFQDax3rn0
- WDvMd2HDY0d9/I/Lx8D6PVSigLHMTb7rFTFfn0BwyGgz9F2C9rgEmoKnLPZyKTW+dCBF
- pdpZczEaXwNlNuZ98OjNnrFRfW9dxZ2E6mADUSPaKoYjgKuiFxYNnXUsQLervijrtRt0
- jj1w==
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ED2110E423
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 21:32:42 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id s23so3407123iog.13
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 14:32:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=E6pxwbhOL58efAEpspYDSg6HtmNXrpN7C08+cjeITwQ=;
+ b=Bun6KWZaMx96+9+uXGZgUChN1x9/Aj4KQGLniflfQhrzj3QoS7dDf8YRxNsH4jJGam
+ gBzzT9mfcPztSxGb2V3qWAN2pD0bT2izPpALbOjJUsUrp55Yx+pIEMIbQxVHohM5Nqqv
+ UDD4ougcotvewCQD2tIHFSU/bC9430Tj7rFPE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=0t9E9hcubacycb/zfx8NOSEjN1B6k+ZB3dddohbc/ik=;
- b=4mwNyPkuPaPpYh2zO5UcpRPZ9o590hMBAXuwxIcHOSnUAsjRMhE5sUfqHIm9PZnD+R
- twuGFw7XrEq5CPTFjrhq8SBp9fZDTiYBjAAL0+uOcU2LvjTYCSn0SKRSzDYx75xhYLL4
- H+LyrFqZZg0qnYo8LtodZ7tdY8cxsiDohPa8YiZU9WLe5K6JJQfMDrb23lak0hYSfjRM
- ApHc56keuGui5Bs1JCiSe55am5yCp/icE2E1AlcKrBSfhWJXps0Y74243nLYLprhszN4
- 1OsMlUJpwOXMgDgfZlbfqRC9w5rH3BCfLYPXCQ8S+Sza8vnA5sfjuB56cJ77K4Ojc+sU
- EiDw==
-X-Gm-Message-State: AOAM532mR9xWT6h3m5B8lVlz6UoV6lzIs3fOK2urcgol/BFBh3bvRi2p
- FJmsiAyjY9pDmjagwSkZTOMESQ==
-X-Google-Smtp-Source: ABdhPJxJbTJa9hCT9uXv/2v5fnZ5XvY4eL65/ufFsRs0owsiNgUQf/BPFxlypK8lT+xGGI+GzA004w==
-X-Received: by 2002:a05:6512:401d:b0:473:c7e2:f3ca with SMTP id
- br29-20020a056512401d00b00473c7e2f3camr22421513lfb.153.1652304424182; 
- Wed, 11 May 2022 14:27:04 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- d7-20020a05651c088700b0024f3d1daeadsm538518ljq.53.2022.05.11.14.27.03
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=E6pxwbhOL58efAEpspYDSg6HtmNXrpN7C08+cjeITwQ=;
+ b=j1sOgtE+2D79RTE0UCHMqhb9xF+LIbwEbfwsL4xcNLmeeIykXu+D3qyw1H3X7XdH1F
+ zS+esBJcAA/jce74DLAEuuQX0GAqui8b9qHoyCW/DqyqfghBQCCWfn4ksXUhX2NCtjiH
+ 6XAeWwZP59b7CiWPgoTuLmnZXDifmm8ggFUT79nQ5jxRJO80of80Fm88RUgupA1G2IYF
+ u2Jo6kP3Ys8wDNnxYrSYixGC54iqjAwYMrs06hv9okQVK/mJDDcFXwn3Ay8gVWjPP1f3
+ x4k5zfvM7/fXu+aNPu5irRqcqUk8mN6G3PalX2CW9b6Z8rt8Km/N1gca2B5e76s1Q5KF
+ 861g==
+X-Gm-Message-State: AOAM530nQtzXKn8l9X4y8fNKomK69IMQFk+4L5ms3KyXh/OG9/ytnP56
+ +PfeQzfC7lNARXfEq3lV8II8r19VJGjaX26A
+X-Google-Smtp-Source: ABdhPJw26MF2QjW9Zgu7iZF/uHTKgd5xYPshIBVZPOy1QHtyD/gTZn10WR/rwJgIgHrI9ESfPKZ5+w==
+X-Received: by 2002:a05:6638:190a:b0:32b:95b7:4e64 with SMTP id
+ p10-20020a056638190a00b0032b95b74e64mr13084856jal.212.1652304761712; 
+ Wed, 11 May 2022 14:32:41 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com.
+ [209.85.166.45]) by smtp.gmail.com with ESMTPSA id
+ b5-20020a05663801a500b0032b3a7817acsm870520jaq.112.2022.05.11.14.32.40
+ for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 May 2022 14:27:03 -0700 (PDT)
-Message-ID: <e9ab2ffe-4e98-6f12-927e-5defa1fae304@linaro.org>
-Date: Thu, 12 May 2022 00:27:02 +0300
+ Wed, 11 May 2022 14:32:40 -0700 (PDT)
+Received: by mail-io1-f45.google.com with SMTP id e3so3431549ios.6
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 14:32:40 -0700 (PDT)
+X-Received: by 2002:a05:6638:3589:b0:32b:858c:6cc3 with SMTP id
+ v9-20020a056638358900b0032b858c6cc3mr13931855jal.229.1652304760140; Wed, 11
+ May 2022 14:32:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-References: <1652299449-31205-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1652299449-31205-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3] drm/msm/dp: Always clear mask bits to
- disable interrupts at dp_ctrl_reset_irq_ctrl()
+References: <20220510135101.v2.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+ <db7a2b7f-3c94-d45d-98fd-7fd0b181e6aa@suse.de>
+In-Reply-To: <db7a2b7f-3c94-d45d-98fd-7fd0b181e6aa@suse.de>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 11 May 2022 14:32:26 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WoSTcSOB_reDbayNb=q7w00rd7p-zHUDt+evTkSjQ=2g@mail.gmail.com>
+Message-ID: <CAD=FV=WoSTcSOB_reDbayNb=q7w00rd7p-zHUDt+evTkSjQ=2g@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2] drm/probe-helper: Default to 640x480 if
+ no EDID
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,126 +73,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/05/2022 23:04, Kuogee Hsieh wrote:
-> dp_catalog_ctrl_reset() will software reset DP controller. But it will
-> not reset programmable registers to default value. DP driver still have
-> to clear mask bits to interrupt status registers to disable interrupts
-> after software reset of controller. This patch removes the enable flag
-> condition checking to always clear mask bits of interrupt status
-> registers to disable interrupts if enable flag is false.
-> 
-> This patch also will fix the potential problem happen at system suspend where
-> dp_ctrl_reset_irq_ctrl() was called to try to disable HPD related irqs but
-> the irq is still unmasked unexpectedly and can come in while system are
-> suspending. This leads to bus hangs if the irq is handled after we power down
-> the DP hardware because we run the irq handler and access a device register
-> assuming that no irq could ever come in if we powered down the device. We
-> don't know when the irq will be handled though, so it's possible the irq is
-> pending from before we disable the irq in the hardware.
-> 
-> Changes in v2:
-> -- add more details commit text
-> 
-> Changes in v3:
-> -- add synchrons_irq()
-> -- add atomic_t suspended
-> 
-> Fixes: ba0a422be723 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
+Hi,
 
-Revision in the Fixes tag is incorrect
+On Wed, May 11, 2022 at 12:14 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> Hi
+>
+> Am 10.05.22 um 22:51 schrieb Douglas Anderson:
+> > If we're unable to read the EDID for a display because it's corrupt /
+> > bogus / invalid then we'll add a set of standard modes for the
+> > display. When userspace looks at these modes it doesn't really have a
+> > good concept for which mode to pick and it'll likely pick the highest
+> > resolution one by default. That's probably not ideal because the modes
+> > were purely guesses on the part of the Linux kernel.
+>
+> I'm skeptical. Why does the kernel do a better job than userspace here?
+> Only the graphics driver could possibly make such a decision.
+>
+> Not setting any preferred mode at least gives a clear message to userspace.
 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/dp/dp_ctrl.c    |  9 +++++++--
->   drivers/gpu/drm/msm/dp/dp_display.c | 18 ++++++++++++++++++
->   2 files changed, 25 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index af7a80c..f3e333e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1389,8 +1389,13 @@ void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable)
->   
->   	dp_catalog_ctrl_reset(ctrl->catalog);
->   
-> -	if (enable)
-> -		dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
-> +	/*
-> +	 * all dp controller programmable registers will not
-> +	 * be reset to default value after DP_SW_RESET
-> +	 * therefore interrupt mask bits have to be updated
-> +	 * to enable/disable interrupts
-> +	 */
-> +	dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
->   }
->   
->   void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index c388323..c34dbfc 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -98,6 +98,8 @@ struct dp_display_private {
->   	struct dp_ctrl    *ctrl;
->   	struct dp_debug   *debug;
->   
-> +	atomic_t suspended;
-> +
->   	struct dp_usbpd_cb usbpd_cb;
->   	struct dp_display_mode dp_mode;
->   	struct msm_dp dp_display;
-> @@ -187,6 +189,11 @@ static int dp_add_event(struct dp_display_private *dp_priv, u32 event,
->   	int pndx;
->   
->   	spin_lock_irqsave(&dp_priv->event_lock, flag);
-> +	if (atomic_read(&dp_priv->suspended)) {
-> +		spin_unlock_irqrestore(&dp_priv->event_lock, flag);
-> +		return -EPERM;
-> +	}
-> +
->   	pndx = dp_priv->event_pndx + 1;
->   	pndx %= DP_EVENT_Q_MAX;
->   	if (pndx == dp_priv->event_gndx) {
-> @@ -454,6 +461,13 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
->   		dp->dp_display.connector_type, dp->core_initialized,
->   		dp->phy_initialized);
->   
-> +	if (!dp->core_initialized) {
-> +		DRM_DEBUG_DP("DP core not initialized\n");
-> +		return;
-> +	}
-> +
-> +	synchronize_irq(dp->irq);
-> +
->   	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
->   	dp_aux_deinit(dp->aux);
->   	dp_power_deinit(dp->power);
-> @@ -1362,6 +1376,8 @@ static int dp_pm_resume(struct device *dev)
->   		dp->dp_display.connector_type, dp->core_initialized,
->   		dp->phy_initialized, dp_display->power_on);
->   
-> +	atomic_set(&dp->suspended, 0);
-> +
->   	/* start from disconnected state */
->   	dp->hpd_state = ST_DISCONNECTED;
->   
-> @@ -1431,6 +1447,8 @@ static int dp_pm_suspend(struct device *dev)
->   		dp->dp_display.connector_type, dp->core_initialized,
->   		dp->phy_initialized, dp_display->power_on);
->   
-> +	atomic_inc(&dp->suspended);
-> +
->   	/* mainlink enabled */
->   	if (dp_power_clk_status(dp->power, DP_CTRL_PM))
->   		dp_ctrl_off_link_stream(dp->ctrl);
+OK, that's a fair point. So I tried to find out what our userspace is
+doing. I believe it's:
 
+https://source.chromium.org/chromium/chromium/src/+/main:ui/ozone/platform/drm/common/drm_util.cc;l=529
 
--- 
-With best wishes
-Dmitry
+Specifically this bit of code:
+
+  // If we still have no preferred mode, then use the first one since it should
+  // be the best mode.
+  if (!*out_native_mode && !modes.empty())
+    *out_native_mode = modes.front().get();
+
+Do you agree with what our userspace is doing here, or is it wrong?
+
+If our userspace is doing the right thing, then I guess the problem is
+the call to "drm_mode_sort(&connector->modes);" at the end of
+drm_helper_probe_single_connector_modes(). Would you be OK with me
+_not_ sorting the modes in the "bad EDID" case? That also seems to fix
+my problem...
+
+-Doug
