@@ -1,65 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB9F523B6A
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 19:23:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E587523BD2
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 19:46:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5C5112342;
-	Wed, 11 May 2022 17:23:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B525D1125A7;
+	Wed, 11 May 2022 17:46:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAA45112291;
- Wed, 11 May 2022 17:23:35 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id a5so144829wrp.7;
- Wed, 11 May 2022 10:23:35 -0700 (PDT)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6681125A6;
+ Wed, 11 May 2022 17:46:38 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id m62so1642448wme.5;
+ Wed, 11 May 2022 10:46:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=t+uExahuLFs0lwI65+li3ZxmFaNfaWHqSTSJZ2XjbAs=;
- b=LEDNVSFLwfFJoutNu7Z+cuVLwScWtXpYqs/aKugxuTaEVH9u7G64kOa0gpyma9L+FL
- ILmOzR6KK59WZT8muKWEDKti0z/Hd3nhlHbgCza9CGhdPnKnvC+mWOg07sgY4RyE/b/S
- uFSvTeHSUMk3ov/GzmhAAOeiDs8k5APMzC8KqFhMNudS9Rdjc8I9m7cRjHZP02/6SfhF
- b0h6RDaiZ373YcGDejut/NcvERdMDjI8tfv0NF0P0hosYAT9/1lew9OGWmtBCq4UyoaT
- I7k1Y+hUtdJZvTGurSwdWOifp9+lFYkurtrzDU1ps7RjVcyXHMo7hErN4AHUZNVMnSjx
- PCHQ==
+ :cc; bh=hZIhjLMbOoF976Pa2gp/bTHKHDJhsmozC2Xdhlo7Go4=;
+ b=WbaD35REy4RkuI+0jS9Yz9GZbFYslRKSN3kwXxem7hTMwcXCJRi/7mSeJB4RNe+KUJ
+ M7ikAVkz3pLJ/+A/Zd7OZof/hD0WjT2CoD6kwoRDnXii4/UIoRq//XkQr7rsw3AciJXV
+ eW/JXs0byA6F9CltG3XlyUnpqrGxdk+vGhJD7UTD7aAaxjJrgivbmyq8JVh5cWGoAeoP
+ GGy1NuKChyOz9ZnWmc4SmcP9lCn6EWUIuW4vdFKC2zBoerfScGv0yoBZZoBWfmS8DvH8
+ XpH1Vpu3fYyUfcUOC8sDv7lL97hTjYYhp/GdsFmzd41J/zvu+1oLbdC2iQhYcfKukri6
+ MdXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=t+uExahuLFs0lwI65+li3ZxmFaNfaWHqSTSJZ2XjbAs=;
- b=y0GxmOQE2PevGgBilZc1/EYlz5B2bo8pFbVxvu6rvLrxcMtvNYaFPvAa8gjKatmUGj
- lB+376VK+KVQdMg5QYksA2FglNNozpx8r0Ul9cww6V39AZ5YLtkCscC8Cf9gzq53lm4c
- F24wy/GeAxtCdIK3wk272wF2ciFOy4hIVx2j73XgKzqMsz3sVHig4XqBXVs9SeyUHahu
- eP9QTsFVLqu4nBqkKCI12PeZ92UEcDzaKX8lvzhE9mzDGsK350K0EIDovMhM34+Ri8WB
- J1b58SvnL599iCzF9qmpoDfPRfFDTc7+Z+n9+S7xvRCtoSvJyHMmv8PC0QtTPofnWVZH
- Kplw==
-X-Gm-Message-State: AOAM533HLJdfa5LPVzFnH7oc3louvZiezYrv7QHdrXg2Fnm2/Wa2mei1
- FK96nUEZvnywvY5o/FVfxawAaWRCAxVuI66BtQ4=
-X-Google-Smtp-Source: ABdhPJyC6inV6eAWLK0ZXsHs0MrWHXEsfMAJsBP34QdhxVkct3PvJuiGu3x0A+V1OdjNNJe8DBpE4CuVih15n0h5kXc=
-X-Received: by 2002:a05:6000:156e:b0:20c:5218:8907 with SMTP id
- 14-20020a056000156e00b0020c52188907mr23626979wrz.297.1652289814014; Wed, 11
- May 2022 10:23:34 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=hZIhjLMbOoF976Pa2gp/bTHKHDJhsmozC2Xdhlo7Go4=;
+ b=YlBdlJzHJKl9cSmHthJlN8k830TYtPLXp/73OX8wFXiy0QVO91JWIoukHVKeL8PXBM
+ +VvBhDAZ7y1DCK8idHjZuA+TwQ03ubAfkcz4JTDGDzc6H7QT1AJD0vglZmjvXHq+2bPQ
+ MNl7TNKUAda5e/ELz8xpXrNzL1htd48/lmMTW5C1YQ0zD2DSLqK5n8JUEAOyKm7ENMk3
+ aXyLwF07QWcDqpF08xpD5G/C6jrugMQcC0mg+/XwLUDtKuayrgLMpeesYUYeAN7zqZW2
+ GLUS7u+f3bP04ZI9BE9mkXILAY/rwuRg6166gIWsEFVn1vxaPoEF35XAbcMcrnUlX5tI
+ Wfbg==
+X-Gm-Message-State: AOAM5325bpAB12hEvYEDcD1gG4qLyIyfJ6J+z1U7vlZdgk4i0zsu/ztA
+ VVy5V8D7FN37Z8gmMuaOX99HrFIVg7odaKGWuow=
+X-Google-Smtp-Source: ABdhPJyyI6ZQQ21PBHHrfOwIDXju3dqvOzK7tmSkFW7qgZPpqEGyfOOYbWN1XYAiCyzaICg8/Egs+zHO23GPOYNfFPc=
+X-Received: by 2002:a05:600c:a53:b0:394:7a51:cb71 with SMTP id
+ c19-20020a05600c0a5300b003947a51cb71mr6322859wmq.148.1652291196975; Wed, 11
+ May 2022 10:46:36 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
  <20220510141329.54414-1-tomeu.vizoso@collabora.com>
- <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
- <YntWQIXSqMCd6TYV@kroah.com>
- <1255a66a-121d-988a-19a7-316f703cb37d@mailbox.org>
- <YnujG0nkF0U6d5kd@kroah.com>
- <CAF6AEGsmD-CNGj4bAE952JQpquaWA+Nxo5TGpFiHqaPK9doP-g@mail.gmail.com>
- <CAKMK7uH8k6j5jE562yvbtBaE8EnM8JGF7zOXT4C62HdOgOs9SQ@mail.gmail.com>
-In-Reply-To: <CAKMK7uH8k6j5jE562yvbtBaE8EnM8JGF7zOXT4C62HdOgOs9SQ@mail.gmail.com>
+ <e4e03cd8-3ebc-e5e1-e7d0-6bdc038049b5@quicinc.com>
+ <CAF6AEGueadnRMiatO3MoHS+NTQ1o1sgcV0cVjJM3iu-6JUNmNw@mail.gmail.com>
+ <CAKMK7uGRuCZwF6m02tcxxrgQGaijsYaNkowjxR+cw0JM3UpDkQ@mail.gmail.com>
+In-Reply-To: <CAKMK7uGRuCZwF6m02tcxxrgQGaijsYaNkowjxR+cw0JM3UpDkQ@mail.gmail.com>
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 11 May 2022 10:23:21 -0700
-Message-ID: <CAF6AEGvF9aaAiggAmdBq-OQ0BP5-+3YmdL+P2=Vm4LAEf0aqvg@mail.gmail.com>
+Date: Wed, 11 May 2022 10:46:24 -0700
+Message-ID: <CAF6AEGthpxPLxyt_i-aUFgW485hA5qw+xXcJ3gKQUJ+fM=ZBhg@mail.gmail.com>
 To: Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
- v2] drm/msm: Add initial ci/ subdirectory
+Subject: Re: [Freedreno] [RFC v2] drm/msm: Add initial ci/ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,167 +66,167 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>, Jonathan Corbet <corbet@lwn.net>,
- Sean Paul <sean@poorly.run>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>,
  "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 11, 2022 at 9:43 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Wed, May 11, 2022 at 10:12 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 >
-> On Wed, 11 May 2022 at 15:33, Rob Clark <robdclark@gmail.com> wrote:
-> > On Wed, May 11, 2022 at 4:50 AM Greg Kroah-Hartman
-> > <gregkh@linuxfoundation.org> wrote:
+> On Tue, 10 May 2022 at 22:26, Rob Clark <robdclark@gmail.com> wrote:
+> >
+> > On Tue, May 10, 2022 at 12:39 PM Jessica Zhang
+> > <quic_jesszhan@quicinc.com> wrote:
 > > >
-> > > On Wed, May 11, 2022 at 12:26:05PM +0200, Michel D=C3=A4nzer wrote:
-> > > > On 2022-05-11 08:22, Greg Kroah-Hartman wrote:
-> > > > > On Wed, May 11, 2022 at 03:06:47PM +1000, Dave Airlie wrote:
-> > > > >>> And use it to store expectations about what the drm/msm driver =
-is
-> > > > >>> supposed to pass in the IGT test suite.
-> > > > >>
-> > > > >> I wanted to loop in Linus/Greg to see if there are any issues ra=
-ised
-> > > > >> by adding CI results file to the tree in their minds, or if any =
-other
-> > > > >> subsystem has done this already, and it's all fine.
-> > > > >
-> > > > > Why does the results need to be added to the tree?  Shouldn't the=
-y be
-> > > > > either "all is good" or "constantly changing and a constant churn=
-"?
-> > > > >
-> > > > >> I think this is a good thing after our Mesa experience, but Mesa=
- has a
-> > > > >> lot tighter integration here, so I want to get some more opinion=
-s
-> > > > >> outside the group.
-> > > > >
-> > > > > For systems that have "tight integration" this might make sense a=
-s proof
-> > > > > that all is working for a specific commit, but I can't see how th=
-is will
-> > > > > help the kernel out much.
-> > > > >
-> > > > > What are you going to do with these results being checked in all =
-the
-> > > > > time?
+> > >
+> > >
+> > > On 5/10/2022 7:13 AM, Tomeu Vizoso wrote:
+> > > > And use it to store expectations about what the drm/msm driver is
+> > > > supposed to pass in the IGT test suite.
 > > > >
-> > > > Having the expected results in the tree keeps them consistent with =
-the driver code itself, and allows putting in place gating CI to prevent me=
-rging driver changes which make any of the tests deviate from the expected =
-result.
-> > >
-> > > Shouldn't "expected result" always be "pass"?
-> > >
-> > > If not, then the test should be changed to be "skipped" like we have
-> > > today in the kselftest tests.
-> >
-> > No, we want to run tests even if they are expected to fail.  This
-> > prevents the scenario of a test getting fixed without being noticed
-> > (for ex, developer was working on fixing test A and didn't notice that
-> > the fix also fixed test B).  If a fix goes unnoticed, a later
-> > regression would also go unnoticed ;-)
-> >
-> > I was skeptical about this approach at first with mesa CI, but having
-> > used mesa CI for a while, I am now a firm believer in the approach.
-> >
-> > And ofc we want the expectations to be in the kernel tree because
-> > there could be, for example, differences between -fixes and -next
-> > branches.  (Or even stable kernel branches if/when we get to the point
-> > of running CI on those.)
->
-> Yeah result files in tree is kinda needed, even more so for the
-> kernel. A lot of the linux-next integration testing is only done after
-> patches have landed, and sometimes such breakage makes it to upstream
-> and then into the subsystem/driver tree. Annotating in the backmerge
-> what exactly broke and why helps a lot with tracking issues.
->
-> And expecting every subsystem to run every other subsystem's tests,
-> especially tests that run on hw, is just not going to scale. So there
-> will be all kinds of difference in test results.
->
-> > > And how about tieing this into the kselftest process as well, why wou=
-ld
-> > > this be somehow separate from the rest of the kernel tests?
-> > >
-> > > > Keeping them separate inevitably results in divergence between the =
-driver code and the expected test results, which would result in spurious f=
-ailures of such CI.
-> > >
-> > > Again, "pass" should be the expected results :)
-> > >
-> > > > I expect the main complication for the kernel will be due to driver=
- changes merged via different trees, e.g. for cross-subsystem reworks. Sinc=
-e those will not go through the same CI, they may accidentally introduce in=
-consistencies. The ideal solution for this IMO would be centralizing CI suc=
-h that the same gating tests have to pass regardless of how the code is mer=
-ged. But there's likely quite a long way to go until we get there. :)
-> > >
-> > > We have in-kernel tests for the rest of the kernel, why can't you put
-> > > your testing stuff into there as well?
-> >
-> > We could ofc put a lot more of the gitlab yml and scripts into the
-> > kernel tree.  Probably all of i-g-t is a bit much to put in the kernel
-> > tree.  Not to mention I'd like to see this expand to also run some
-> > deqp and/or piglit tests, which is definitely too much to vendor into
-> > the kernel tree.
-> >
-> > The approach of this RFC was to put only what was absolutely required
-> > in the kernel tree (such as expectations), and then link out to an
-> > external drm-ci tree[1] which has all the necessary scripts and yml
-> > for building and running tests, to avoid having to put a whole lot
-> > more in the kernel tree. (We should be specifying exact commit-sha for
-> > that tree, IMO, as it controls the version of i-g-t which gets used,
-> > and we need to be able to update expectations in sync with an i-g-t
-> > uprev, for example when new tests are added or if a test fix caused a
-> > fail->pass transition.)
->
-> Yeah I think longer-term we should carry a lot more in upstream, at
-> least anything that's shared across drivers wrt the ci integration (or
-> build testing and running tests which are hw agnostic). Maybe even
-> igt, not sure (otoh xfs-tests isn't moving into the kernel either, and
-> there's lots more like that).
+> > > > Also include a configuration file that points to the out-of-tree CI
+> > > > scripts.
+> > > >
+> > > > By storing the test expectations along the code we can make sure both
+> > > > stay in sync with each other, and so we can know when a code change
+> > > > breaks those expectations.
+> > > >
+> > > > This will allow all contributors to drm/msm to reuse the infrastructure
+> > > > already in gitlab.freedesktop.org to test the driver on several
+> > > > generations of the hardware.
+> > > >
+> > > > v2:
+> > > >    - Fix names of result expectation files to match SoC
+> > > >    - Don't execute tests that are going to skip on all boards
+> > > >
+> > > > Signed-off-by: Tomeu Vizoso <tomeu.vizoso@collabora.com>
+> > > > ---
+> > > >   Documentation/gpu/msm_automated_testing.rst   |  70 +++++++++
+> > > >   drivers/gpu/drm/msm/ci/gitlab-ci.yml          |  11 ++
+> > > >   drivers/gpu/drm/msm/ci/msm.testlist           | 148 ++++++++++++++++++
+> > > >   .../gpu/drm/msm/ci/msm_apq8016_results.txt    | 140 +++++++++++++++++
+> > > >   .../gpu/drm/msm/ci/msm_apq8096_results.txt    | 140 +++++++++++++++++
+> > > >   drivers/gpu/drm/msm/ci/msm_sc7180_results.txt | 141 +++++++++++++++++
+> > > >   drivers/gpu/drm/msm/ci/msm_sdm845_results.txt | 141 +++++++++++++++++
+> > > >   7 files changed, 791 insertions(+)
+> > > >   create mode 100644 Documentation/gpu/msm_automated_testing.rst
+> > > >   create mode 100644 drivers/gpu/drm/msm/ci/gitlab-ci.yml
+> > > >   create mode 100644 drivers/gpu/drm/msm/ci/msm.testlist
+> > > >   create mode 100644 drivers/gpu/drm/msm/ci/msm_apq8016_results.txt
+> > > >   create mode 100644 drivers/gpu/drm/msm/ci/msm_apq8096_results.txt
+> > > >   create mode 100644 drivers/gpu/drm/msm/ci/msm_sc7180_results.txt
+> > > >   create mode 100644 drivers/gpu/drm/msm/ci/msm_sdm845_results.txt
+> > > >
 
-A lot of the drm-ci tree is the scripts/etc for things like power
-control, booting, etc.. and a lot of that is identical to what we have
-in the mesa tree (since the on-hw tests run on the same CI farms as
-mesa-ci)
+[snip]
 
-But ofc it can be re-used by other drivers via one line in toplevel
-$driver/ci/gitlab-ci.yml, ie:
+> > > > diff --git a/drivers/gpu/drm/msm/ci/msm_sc7180_results.txt b/drivers/gpu/drm/msm/ci/msm_sc7180_results.txt
+> > > > new file mode 100644
+> > > > index 000000000000..01f7b4b399b5
+> > > > --- /dev/null
+> > > > +++ b/drivers/gpu/drm/msm/ci/msm_sc7180_results.txt
+> > > > @@ -0,0 +1,141 @@
+> > > > +igt@core_auth@getclient-simple,dmesg-warn
+> > > > +igt@core_auth@getclient-master-drop,pass
+> > > > +igt@core_auth@basic-auth,pass
+> > > > +igt@core_auth@many-magics,pass
+> > > > +igt@core_getclient,pass
+> > > > +igt@core_getstats,pass
+> > > > +igt@core_getversion,pass
+> > > > +igt@core_setmaster_vs_auth,pass
+> > > > +igt@drm_read@invalid-buffer,pass
+> > > > +igt@drm_read@fault-buffer,pass
+> > > > +igt@drm_read@empty-block,pass
+> > > > +igt@drm_read@empty-nonblock,pass
+> > > > +igt@drm_read@short-buffer-block,pass
+> > > > +igt@drm_read@short-buffer-nonblock,pass
+> > > > +igt@drm_read@short-buffer-wakeup,pass
+> > > > +igt@kms_addfb_basic@unused-handle,pass
+> > > > +igt@kms_addfb_basic@unused-pitches,pass
+> > > > +igt@kms_addfb_basic@unused-offsets,pass
+> > > > +igt@kms_addfb_basic@unused-modifier,pass
+> > > > +igt@kms_addfb_basic@legacy-format,dmesg-warn
+> > > > +igt@kms_addfb_basic@no-handle,pass
+> > > > +igt@kms_addfb_basic@basic,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-0,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-32,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-63,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-128,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-256,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-1024,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-999,pass
+> > > > +igt@kms_addfb_basic@bad-pitch-65536,pass
+> > > > +igt@kms_addfb_basic@size-max,pass
+> > > > +igt@kms_addfb_basic@too-wide,pass
+> > > > +igt@kms_addfb_basic@too-high,dmesg-warn
+> > >
+> > > For test results on Trogdor, is is possible to have them be
+> > > success/fail/skip only?
+> > >
+> > > Results such as dmesg-warn/dmesg-fail are igt_runner specific and
+> > > because there isn't support for igt_runner on ChromeOS, they will be
+> > > difficult to replicate and debug.
+> >
+> > Actually, I wonder if it would be better to just treat
+> > dmesg-warn/dmesg-fail as pass/fail?  I'd noticed some flakes on
+> > rockchip which looked just like unrelated dmesg msg which just
+> > happened to show up while the test was running.
+>
+> This is kinda the reason behind standardizing on drm dmesg logging, so
+> that we have some chances at filtering stuff out. Not sure that's a
+> good idea, since when your entire box splats and lockdep is dead, then
+> continuing to run drm tests is still fairly pointless.
 
-  DRM_CI_PROJECT_PATH: &drm-ci-project-path gfx-ci/drm-ci
+I'm not sure if we are using it yet for drm-ci, but for mesa-ci we
+monitor dmesg (over serial port, from the controller) for splats, so
+we already have the tech for restarting or aborting the CI run.  We
+don't need igt-runner to tell us.
+
+> I think this is another reason why trying at least to standardize this
+> stuff over drivers would be pretty good idea.
+>
+> > Additionally, some of the tests, like msm_recovery, are *expected* to
+> > generate some dmesg spam since they are intentionally triggering GPU
+> > hangs to test the recovery mechanism.
+>
+> Uh I don't like that. It just allows userspace to spam dmesg, which
+> doesn't seem like a great idea. That's at least why i915 dumps these
+> at a lower level, and in the past had a special "I'm going to whack
+> the gpu real hard expect hangs" knob in debugfs.
+>
+> Having tests which intentionally spam dmesg above info level isn't
+> really good since then you need endless amounts of test-specific
+> encoding of what is considered a success and what not. Like when a
+> backmerge breaks a testcases which is already at dmesg-fail, is that
+> bad or not? Probably bad, but was the situation before that really
+> good or already kinda on fire?
+
+I guess I could add some debugfs knobs to squelch the dmesg msgs on
+gpu hangs.  In the normal case, I'd prefer that gpu hangs are not
+silent.. since that is something we get in feedback reports if a user
+(or dogfooder) reports a bug.
+
+The rockchip case I mentioned was some unrelated dmesg about
+linktraining failing.. presumably because there was no display
+attached?  IDK, I didn't look too closely.  But my point is we could
+be getting unrelated and asynchronous dmesg spam, even from other
+kernel subsystems.  Letting that be part of the test results just
+sounds like asking for flakes.
 
 BR,
 -R
 
-> Personally I think long-term the only thing outside should be other
-> repos with tests or stuff you need to run them, and not really the
-> glue to make it all work in ci. But that's maybe a bit too much
-> wishful thinking if CI systems stay largely subsystem specific (which
-> they currently are in many ways, with some overlap).
->
-> But maybe there is enough random pieces to share here for a lot more
-> in-tree to make sense, and imo the fewer extra steps and indirection
-> CI testing and test updating has, the better.
->
-> But like Rob says, eventually there's a limit and when you put the
-> entire GL/vulkan stack + it's conformance testsuite (which is
-> maintained by khronos somewhere completely different than both
-> kernel.org and freedesktop.org) then it's definitely too much and wont
-> work. And eventually we do want to run these things too (e.g.
-> intel-gfx-ci does run mesa + piglit on every run).
 > -Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+>
+> > BR,
+> > -R
+> >
