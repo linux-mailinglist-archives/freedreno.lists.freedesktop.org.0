@@ -2,57 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13CB852280C
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 02:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C72522859
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 02:20:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1196D10F3EB;
-	Wed, 11 May 2022 00:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A17310E6AA;
+	Wed, 11 May 2022 00:20:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA0710F0E0;
- Wed, 11 May 2022 00:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652227287; x=1683763287;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=7RHRssae2FRX5psk74Xv8tmjt+FT1A3nY8e9aWoktGc=;
- b=mVhIvLU3WHMvsiHzsfV1gMRgrt9ZhOUhh5H66ZEsIxwdMB6+xyH7tyf9
- Dz/mAVs79mOOG4kqAWs0bhQ3Xs2/1Hxyv+6ujPbfpl4eGmcGaY4c+dRIH
- +PhnJIW+3EPl2TfJllTOVU9Mh60952V/2Ow+VI8DtxEQD3xpKu07Y2nen U=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 10 May 2022 17:01:27 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 17:01:28 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 10 May 2022 17:00:56 -0700
-Received: from [10.38.241.82] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 10 May
- 2022 17:00:52 -0700
-Message-ID: <228732a3-47d4-c97c-a016-a14013dc13d8@quicinc.com>
-Date: Tue, 10 May 2022 17:00:50 -0700
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38B6D10E693
+ for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 00:20:12 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-2ec42eae76bso3555757b3.10
+ for <freedreno@lists.freedesktop.org>; Tue, 10 May 2022 17:20:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=NOKwGUyMeVgfGZrU/c9rklePCH6FmNPSbNn+SDO/ULs=;
+ b=u6V34wycssLfvzE8R/Nf/ApseGDPsJSTrsu8mIdnblsdOB6MZSXiMqyP7zTA7YEFmM
+ CyzZ/rM/48ctt6GKrDV5me5XeD8TMaJHoK/OPte8dYFifopvtQbhkszFqSsbolxmJTSl
+ GbvW319vb+WFBHpzt1GkLOgC4hqgqi0N33cNKF288+Ip3WEkRarnPQC+1PBXEFu97BpT
+ PLuyNE9KCV5Q1Unx/dUqGpkFflzhg0ykcePnHvZHbk/Ey25adD+kTzhSH1J0tPqgvxfE
+ dfp8nTo/g6IVNmXiPuI2F3fdSWLVxibKqBtol1ryIOaBOEeeN4BamnngqLids2ASPcqq
+ Tr5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=NOKwGUyMeVgfGZrU/c9rklePCH6FmNPSbNn+SDO/ULs=;
+ b=GfE3LoNYWx3Jyfj786tWBpnu4dP2UKjttbemQg7wmJGDSqm9U6NzGcwn9cJnIHwOV+
+ kS9HtuAlqWX4uvE6eneX94oZnGoFzbMZo8Snfnl87wHNej7SUL3Gm6u+TXM9Up5lKU9M
+ N9xx14/6KOoBp5zx4b6dsY9NlyBJ9aEOYQ0Aj/p+QxYyaIm45z5WsIH3m3Fcf+OdwO7T
+ 8PMkGLDozuMSCM6z5vFTqUF+Mw0ES+0JPKiTbqZc+yHbzoER+6yvVrcdOHdAyVHdKcm8
+ MqK2cIcaQmv2R9HeETnkriv0karQI7m8Lz06v5sw8sIlgxmDllvKxzi2HIMOPvwDG0kC
+ Movw==
+X-Gm-Message-State: AOAM532iJPtzyYZbfyCxdLL0JL9h79zDyVJ1FZAdOtMntTJhZ7G/bcNk
+ o3+tfxrgqsl6OcgE3ynLQW5zq8Qru2LetqVkvzJ9Yg==
+X-Google-Smtp-Source: ABdhPJxlG6XQ5mhCKsFPgTu2pCahShBgY3mb8Xr2yU4IY/oWlb19oiP8XGjsrDKtbiK7OF6IYdtQsojIB/qbUx23yeo=
+X-Received: by 2002:a81:492:0:b0:2f7:ce87:c324 with SMTP id
+ 140-20020a810492000000b002f7ce87c324mr23005145ywe.359.1652228411446; Tue, 10
+ May 2022 17:20:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Douglas Anderson <dianders@chromium.org>, <dri-devel@lists.freedesktop.org>
-References: <20220510135101.v2.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220510135101.v2.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2] drm/probe-helper: Default to 640x480 if
- no EDID
+References: <20220510235439.31916-1-quic_abhinavk@quicinc.com>
+In-Reply-To: <20220510235439.31916-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 11 May 2022 03:20:00 +0300
+Message-ID: <CAA8EJppOjzENORK9UFAFUus7GkjjrSsKtQp6cURHFM9oz9Fizw@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: add writeback support for
+ sc7180
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,73 +64,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, Daniel Vetter <daniel@ffwll.ch>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com, swboyd@chromium.org,
- robdclark@gmail.com, Maxime Ripard <mripard@kernel.org>, tzimmermann@suse.de,
- dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
- quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
+Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Wed, 11 May 2022 at 02:55, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> Add writeback support for sc7180 devices. This has been
+> validated on sc7180 chromebook using IGT writeback test
+> suite.
+>
+> localhost /usr/local/libexec/igt-gpu-tools # ./kms_writeback
+> Starting subtest: writeback-pixel-formats
+> Subtest writeback-pixel-formats: SUCCESS (0.001s)
+> Starting subtest: writeback-invalid-parameters
+> Subtest writeback-invalid-parameters: SUCCESS (0.004s)
+> Starting subtest: writeback-fb-id
+> Subtest writeback-fb-id: SUCCESS (0.009s)
+> Starting subtest: writeback-check-output
+> Subtest writeback-check-output: SUCCESS (0.203s)
+>
+> Adding this will increase IGT coverage on chromebooks and also
+> allow using writeback functionality for other use-cases as
+> necessary.
+>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-On 5/10/2022 1:51 PM, Douglas Anderson wrote:
-> If we're unable to read the EDID for a display because it's corrupt /
-> bogus / invalid then we'll add a set of standard modes for the
-> display. When userspace looks at these modes it doesn't really have a
-> good concept for which mode to pick and it'll likely pick the highest
-> resolution one by default. That's probably not ideal because the modes
-> were purely guesses on the part of the Linux kernel.
-> 
-> Let's instead set 640x480 as the "preferred" mode when we have no EDID.
-> 
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
-> Note that this is the second of two related and similar-sounding but
-> different patches. See also ("drm/probe-helper: For DP, add 640x480 if
-> all other modes are bad") [1]. I'm hoping to land _both_ of the
-> patches since they address different issues. This patch addresses the
-> case of a corrupt EDID and having 640x480 be the default in the
-> "guessed" modes. The other patch handles the case where the EDID
-> _isn't_ corrupt but all the modes listed can't be made with the
-> existing situations. The two patches can land in either order.
-> 
-> Also note that I didn't carry any Tested-by / Reviewed-by tags since
-> the patch is now quite different.
-> 
-> [1] https://lore.kernel.org/r/20220510131309.v2.2.I4ac7f55aa446699f8c200a23c10463256f6f439f@changeid
-> 
-> Changes in v2:
-> - Don't modify drm_add_modes_noedid() 'cause that'll break others
-> - Set 640x480 as preferred in drm_helper_probe_single_connector_modes()
-> 
->   drivers/gpu/drm/drm_probe_helper.c | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-> index 682359512996..1fbb9a8c315c 100644
-> --- a/drivers/gpu/drm/drm_probe_helper.c
-> +++ b/drivers/gpu/drm/drm_probe_helper.c
-> @@ -516,8 +516,17 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
->   		count = drm_add_override_edid_modes(connector);
->   
->   	if (count == 0 && (connector->status == connector_status_connected ||
-> -			   connector->status == connector_status_unknown))
-> +			   connector->status == connector_status_unknown)) {
->   		count = drm_add_modes_noedid(connector, 1024, 768);
-> +
-> +		/*
-> +		 * Give userspace a hint that we don't have a lot of confidence
-> +		 * in these modes (we totally guessed) by marking 640x480 as
-> +		 * preferred. This is low clock rate and incredibly common as
-> +		 * a failsafe mode.
-> +		 */
-> +		drm_set_preferred_mode(connector, 640, 480);
-> +	}
->   	count += drm_helper_probe_add_cmdline_mode(connector);
->   	if (count == 0)
->   		goto prune;
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index 400ebceb56bb..210becd2a9b7 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -1803,6 +1803,8 @@ static void sc7180_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
+>                 .pingpong = sc7180_pp,
+>                 .intf_count = ARRAY_SIZE(sc7180_intf),
+>                 .intf = sc7180_intf,
+> +               .wb_count = ARRAY_SIZE(sm8250_wb),
+> +               .wb = sm8250_wb,
+>                 .vbif_count = ARRAY_SIZE(sdm845_vbif),
+>                 .vbif = sdm845_vbif,
+>                 .reg_dma_count = 1,
+> --
+> 2.35.1
+>
+
+
+-- 
+With best wishes
+Dmitry
