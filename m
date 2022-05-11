@@ -2,55 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F405D522861
-	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 02:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6D0522AF2
+	for <lists+freedreno@lfdr.de>; Wed, 11 May 2022 06:25:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9522710EAFE;
-	Wed, 11 May 2022 00:22:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4227B10E2A7;
+	Wed, 11 May 2022 04:25:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DBF710E9A5
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 00:22:31 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id x17so963812ybj.3
- for <freedreno@lists.freedesktop.org>; Tue, 10 May 2022 17:22:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=DdS4LZ7mqGBxPaeGzqFu6xL7PLhOVbvjUXM7la61o/M=;
- b=XgCUr/iOevJS21fhdEkGGCivLNeOLhoAWYumXsPp88f8f/zg+5r5oQHJyI4Ie99jFI
- agkIVkxUbE8yXd6i6Us8qlSyT/Th3Y/mrwqi1qoVavNqEeWz0RweVhVtAqH3vjyRYzQ3
- ItTBNXxi/bmOSBRTTNxUjknJVTUCg+RndVzGtDIYpws852Kh9mUQXEBSpuS563rOh/hE
- bfDND2E5hCJkaOpuX/tSNFmiHcrXBGanJACUQmkrx5DOn3b2P9kZmXBCR1m7VvrDkv6A
- jKVcgfEuIoysQ3aA0Mo3H3SGEIPWd/6Z/VCs8DchZjZGpV1XFn4R47tG4UWTYddAgCIb
- cA8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=DdS4LZ7mqGBxPaeGzqFu6xL7PLhOVbvjUXM7la61o/M=;
- b=w7fdf2xmYRR9LGR/nGGd+exN+qc/QChklWkcC0RfwK7lBfmVrY5Oyc2poxKiGeIFHr
- 3y7QEdjAT2eMBNarRJKuRTQvZ4/hp8ALXHCDChEwSmCDC1R18lwNA8MC8oQrOEQEEEpk
- oTuFNr6I6diNTXPkARHOOK8sPBgCXk95RTHug8H6fF+y/s7V8cEisqtn4aG1sV8K/kC5
- bp1BaTze1lc2e0BhLP/XWVbjXCr6xpjT/ravGOFqLGpr8FSrlsoHAjcy/JR1XBcbhnsv
- v7WNh0DeBKcaeb/9IeFcZcsixhYek3pSJo4sOIkHuEbF6IZF8gRGRXDCeWVhGO0rdH1v
- 2IhQ==
-X-Gm-Message-State: AOAM533FfWWnw0aI2ffj6ZewvPM/0upAOxCd0a36r187el7z6LS2V0RK
- GuYbEQIVj7KTfWSKPHwWHfXNZ8QiKtO2qKLAzYOKhg==
-X-Google-Smtp-Source: ABdhPJz4MB95vmfbkO8RYAD9atniqUztRKCagWj0vKt6uZa5Ph2V5Tsln22BbnQi2fFneVAxvQrYIjwoAXhjbIjn+NQ=
-X-Received: by 2002:a25:fb10:0:b0:64a:d339:3f38 with SMTP id
- j16-20020a25fb10000000b0064ad3393f38mr11111060ybe.234.1652228550563; Tue, 10
- May 2022 17:22:30 -0700 (PDT)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE50C10E284;
+ Wed, 11 May 2022 04:25:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: tomeu) with ESMTPSA id 814831F44A6E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1652243109;
+ bh=k4CAo9Y95waZZqgDc5richqC5rLeJJTWfy44Q601/Q0=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=niWJrFanqGGREze6rfJDFHgENDAnnMzMPF1kW1PppuLMKTJrCqRH5Manut/a+mBZi
+ qfP5A2JO/4AMj55JBTKCwMaOOFmcM6hoWeaQkyAuWSnmN5h0BpzX/+4r3DlUGq0V8Y
+ LofZuROKTHNgs6pUHlJhdSIjqDzNtoy0ppPHE1sj7Roqwqw1AADwNS1IMfkPgMASJb
+ 9tgcrydqEl4JdMpTAomltpPNZib56Y29L7FNr29pTB0iqZrqiVefgbYjbxEmWAsmwr
+ YsUxUW4/t1xacp3+wVJ2CBqyqw/XtAH+cUPfmfAYFOIrLXLHAj3CTroxJ7HX9R0mw8
+ FXYT9MeAeEEnA==
+To: Jessica Zhang <quic_jesszhan@quicinc.com>
+References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
+ <20220510141329.54414-1-tomeu.vizoso@collabora.com>
+ <e4e03cd8-3ebc-e5e1-e7d0-6bdc038049b5@quicinc.com>
+From: Tomeu Vizoso <tomeu.vizoso@collabora.com>
+Message-ID: <33ab308f-f0a1-b5b9-1bcb-b4387f5a4152@collabora.com>
+Date: Wed, 11 May 2022 06:25:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
-In-Reply-To: <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 11 May 2022 03:22:19 +0300
-Message-ID: <CAA8EJpqBnR_-YaNj-hc6fjfeRX-aTBhuzCFKg77QEyANu37cnA@mail.gmail.com>
-To: Douglas Anderson <dianders@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
+In-Reply-To: <e4e03cd8-3ebc-e5e1-e7d0-6bdc038049b5@quicinc.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [RFC v2] drm/msm: Add initial ci/ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +51,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+Cc: freedreno@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-doc@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Hsin-Yi Wang <hsinyi@chromium.org>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 10 May 2022 at 22:30, Douglas Anderson <dianders@chromium.org> wrote:
->
-> This adds a devm managed version of drm_bridge_add(). Like other
-> "devm" function listed in drm_bridge.h, this function takes an
-> explicit "dev" to use for the lifetime management. A few notes:
-> * In general we have a "struct device" for bridges that makes a good
->   candidate for where the lifetime matches exactly what we want.
-> * The "bridge->dev->dev" device appears to be the encoder
->   device. That's not the right device to use for lifetime management.
->
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+On 5/10/22 9:39 PM, Jessica Zhang wrote:
+> 
+> 
+> On 5/10/2022 7:13 AM, Tomeu Vizoso wrote:
+>> +igt@kms_atomic_interruptible@legacy-setmode@pipe-a-edp-1
+>> +igt@kms_atomic_interruptible@atomic-setmode@pipe-a-edp-1
+>> +igt@kms_atomic_interruptible@legacy-dpms@pipe-a-edp-1
+>> +igt@kms_atomic_interruptible@legacy-pageflip@pipe-a-edp-1
+>> +igt@kms_atomic_interruptible@legacy-cursor@pipe-a-edp-1
+>> +igt@kms_atomic_interruptible@universal-setplane-primary@pipe-a-edp-1
+>> +igt@kms_atomic_interruptible@universal-setplane-cursor@pipe-a-edp-1
+> 
+> I see that there are some KMS subtests/tests are missing such as 
+> kms_atomic_transition -- are they unstable across all boards?
+> 
+>  From what I've seen, kms_atomic_transition is unstable only on Trogdor, 
+> but has stable results on other boards.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+I don't know of a good reason for not having the tests in this list. 
+Developers can follow the instructions at "How to expand coverage" to 
+add tests if the driver can consistently pass (or fail) them.
 
-> ---
->
-> Changes in v3:
-> - Patch ("drm/bridge: Add devm_drm_bridge_add()") new for v3.
->
->  drivers/gpu/drm/drm_bridge.c | 23 +++++++++++++++++++++++
->  include/drm/drm_bridge.h     |  1 +
->  2 files changed, 24 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index c96847fc0ebc..e275b4ca344b 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -170,6 +170,29 @@ void drm_bridge_add(struct drm_bridge *bridge)
->  }
->  EXPORT_SYMBOL(drm_bridge_add);
->
-> +static void drm_bridge_remove_void(void *bridge)
-> +{
-> +       drm_bridge_remove(bridge);
-> +}
-> +
-> +/**
-> + * devm_drm_bridge_add - devm managed version of drm_bridge_add()
-> + *
-> + * @dev: device to tie the bridge lifetime to
-> + * @bridge: bridge control structure
-> + *
-> + * This is the managed version of drm_bridge_add() which automatically
-> + * calls drm_bridge_remove() when @dev is unbound.
-> + *
-> + * Return: 0 if no error or negative error code.
-> + */
-> +int devm_drm_bridge_add(struct device *dev, struct drm_bridge *bridge)
-> +{
-> +       drm_bridge_add(bridge);
-> +       return devm_add_action_or_reset(dev, drm_bridge_remove_void, bridge);
-> +}
-> +EXPORT_SYMBOL(devm_drm_bridge_add);
-> +
->  /**
->   * drm_bridge_remove - remove the given bridge from the global bridge list
->   *
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index f27b4060faa2..42aec8612f37 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -796,6 +796,7 @@ drm_priv_to_bridge(struct drm_private_obj *priv)
->  }
->
->  void drm_bridge_add(struct drm_bridge *bridge);
-> +int devm_drm_bridge_add(struct device *dev, struct drm_bridge *bridge);
->  void drm_bridge_remove(struct drm_bridge *bridge);
->  int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
->                       struct drm_bridge *previous,
-> --
-> 2.36.0.550.gb090851708-goog
->
+There is ongoing work to have a test runner that will better handle 
+flaky tests, which will make it possible to expand the list without 
+having to resort to per-soc test lists.
 
+>> +igt@kms_addfb_basic@size-max,pass
+>> +igt@kms_addfb_basic@too-wide,pass
+>> +igt@kms_addfb_basic@too-high,dmesg-warn
+> 
+> For test results on Trogdor, is is possible to have them be 
+> success/fail/skip only?
+> 
+> Results such as dmesg-warn/dmesg-fail are igt_runner specific and 
+> because there isn't support for igt_runner on ChromeOS, they will be 
+> difficult to replicate and debug.
 
---
-With best wishes
-Dmitry
+As Rob said later, it's probably better to drop that distinction. Maybe 
+at some future point we will want to track expected kmsg output but I 
+think there are lots of work to do before that makes sense.
+
+Will do that in a v3.
+
+>> +igt@kms_universal_plane@universal-plane-pipe-a-functional,skip
+>> +igt@kms_universal_plane@disable-primary-vs-flip-pipe-a,pass
+>> +igt@kms_universal_plane@disable-primary-vs-flip-pipe-b,fail
+> 
+> We could probably skip checking the results for kms_universal_plane on 
+> Trogdor for now, since this is a test affected by the hack regression. 
+> There is an IGT patch in the works for fixing the 
+> disable-primary-vs-flip-pipe-b failure, so it should be updated pretty 
+> soon too.
+
+So, how this should work is for the patch that fixes that bug to update 
+also the expectation files (see "How to update test expectations" in the 
+docs). In this case though, the fix is likely to land before this patch, 
+so I will just update the expectations once I rebase and the fix is 
+brought into my branch.
+
+Thanks for the feedback!
+
+Tomeu
