@@ -2,53 +2,76 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 771785243B4
-	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 05:50:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1722A524BDD
+	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 13:42:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9D210EFE7;
-	Thu, 12 May 2022 03:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4C1C10F048;
+	Thu, 12 May 2022 11:42:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 385 seconds by postgrey-1.36 at gabe;
- Thu, 12 May 2022 02:31:12 UTC
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A2810FE0A
- for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 02:31:12 +0000 (UTC)
-Received: from cwcc.thunk.org (pool-108-7-220-252.bstnma.fios.verizon.net
- [108.7.220.252]) (authenticated bits=0)
- (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 24C2ObEp028012
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 May 2022 22:24:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
- t=1652322280; bh=VS1Wz6MTDeDEe7mFjiXRuQFi0ffsrqAX4JhdhobUr+g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=nNm5XGIRxTLkjZ9+UM/FNhm3f18Kz/55+4qIb2adh81DsdLJNfttLakxIdBFcKBz/
- v6RcM3QlUFnreCqfGI9u0aM29E2Hajngw3eNDNzNaBwVfexhXlodmpISiMjDfCneba
- zKOe5AGr/mkJmrvK5CQdgcbL1k5Lz3M7eFbWYe4rUMHh1E6vRf9Q4fEwhUYDFlbK5y
- LWqOCX6pa+RkWVEdidnv1a0BZYzD3du3sS6sdLzZ/0AvpZequqUjv+mz6lB5zYAUT4
- 38DKNY31Qk0LCta6rxrZKK02UcwVWoo5XwR/bdEuCvaFs9XHUxOtFf4hqy3pynrbXw
- 6uy4GZTTcYUrA==
-Received: by cwcc.thunk.org (Postfix, from userid 15806)
- id 67CE015C3F2A; Wed, 11 May 2022 22:24:37 -0400 (EDT)
-Date: Wed, 11 May 2022 22:24:37 -0400
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <Ynxv5WGMd0aJYM5a@mit.edu>
-References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
- <20220510141329.54414-1-tomeu.vizoso@collabora.com>
- <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
- <YntWQIXSqMCd6TYV@kroah.com>
- <1255a66a-121d-988a-19a7-316f703cb37d@mailbox.org>
- <YnujG0nkF0U6d5kd@kroah.com>
- <CAF6AEGsmD-CNGj4bAE952JQpquaWA+Nxo5TGpFiHqaPK9doP-g@mail.gmail.com>
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2462310F01B
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 11:42:00 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id o22so5233907ljp.8
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 04:42:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language
+ :from:to:cc:references:in-reply-to:content-transfer-encoding;
+ bh=6T9T68NcFc0952zVBrDOq932Pet+Nc2yVT/DrOYRhBM=;
+ b=MfrdMblJoJMaGsS9/wwW7IgEQsVP493T0B1dVe/hcRSHQa2qJJK6zLDzIs6XqgyR6m
+ QqfINpCdr9iBM3iCKd6TTUo+pAsGqLKef6QAyAc2K2RmGJWUjCdnSU07euRA2Bw8FRUT
+ JltbqrXpIvCr0205WJ2tqiIoa6maS5A7zmw3V0Dc+Wp8gy8e0p3dQILf38H0rBWeoICh
+ 2ssSozJzebsLnI83/u/dfjW67b84Qn85zVECo/1GsKsGpu6Kj5AdvifWajNp1Dc5eSST
+ rH7y5LadelaqdTVMbl7zqeWBMMyQF4+5YWG92akdBoS/xu+I6Wo3NhiBepyPZYFpP9Z9
+ sWVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:from:to:cc:references:in-reply-to
+ :content-transfer-encoding;
+ bh=6T9T68NcFc0952zVBrDOq932Pet+Nc2yVT/DrOYRhBM=;
+ b=vTndgosBakra887vW22Q1aFk/Hh/L/b3KP7EoomtR2CxdYqQYmUvQrjZCdtN4DsJcG
+ NQuRE9eZij0SWOWMNE4KHfLXXFx8kGJ9W2YntzvcK8pviw5MXK868+wHbuqX/3LexOXp
+ ItFTEm2Q4oqW1yZnBa8Izv+iVF9f8Hz5lAsdBiTzh6fIzkQAI0a0Qqv9GyKUx2zB3acL
+ jsYAAChAaN7cMs7NgPSeTcSW9dqz+51v0EhdButcsjP1ZPPJtnhedcAnGhWyit3yFKIV
+ yXxhZadHJWvwI1WQPC6ONvU4I1bH5CiEfNz+fctUr99g6QIkf1aHu4D3i++gAfJk1oVg
+ iduA==
+X-Gm-Message-State: AOAM531NBDdpzbi5CEEbYN3Vt17QHbXPO8p1XxGnguZzKFlyta+l9JIF
+ 4ZsaBOc5hS8jgj2+H+UNAWhrTg==
+X-Google-Smtp-Source: ABdhPJwrvrRsnMiVU5z5IvyBoA7401rH8GIZeABVb/kiO4ZTWHWXkyItgblVBRrywExalFEcfqjYCg==
+X-Received: by 2002:a2e:b0fc:0:b0:24f:1050:ff61 with SMTP id
+ h28-20020a2eb0fc000000b0024f1050ff61mr20342984ljl.290.1652355718324; 
+ Thu, 12 May 2022 04:41:58 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ 10-20020ac25f4a000000b0047255d210f0sm753651lfz.31.2022.05.12.04.41.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 May 2022 04:41:57 -0700 (PDT)
+Message-ID: <d589845f-e85c-5dcb-28cf-ac08eb7c1a8e@linaro.org>
+Date: Thu, 12 May 2022 14:41:56 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGsmD-CNGj4bAE952JQpquaWA+Nxo5TGpFiHqaPK9doP-g@mail.gmail.com>
-X-Mailman-Approved-At: Thu, 12 May 2022 03:50:19 +0000
-Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
- v2] drm/msm: Add initial ci/ subdirectory
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Tomi Valkeinen <tomba@kernel.org>
+References: <20220429185157.3673633-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220429185157.3673633-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v1 0/7] drm/bridge_connector: perform HPD
+ enablement automatically
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,45 +84,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 11, 2022 at 06:33:32AM -0700, Rob Clark wrote:
+On 29/04/2022 21:51, Dmitry Baryshkov wrote:
+>  From all the drivers using drm_bridge_connector only iMX/dcss and OMAP
+> DRM driver do a proper work of calling
+> drm_bridge_connector_en/disable_hpd() in right places. Rather than
+> teaching each and every driver how to properly handle
+> drm_bridge_connector's HPD, make that automatic.
 > 
-> And ofc we want the expectations to be in the kernel tree because
-> there could be, for example, differences between -fixes and -next
-> branches.  (Or even stable kernel branches if/when we get to the point
-> of running CI on those.)
+> Add two additional drm_connector helper funcs: enable_hpd() and
+> disable_hpd(). Make drm_kms_helper_poll_* functions call them (as this
+> is the time where the drm_bridge_connector's functions are called by the
+> drivers too).
 
-There are tradeoffs both ways, whether the patches are kept separate,
-opr in the kernel tree.
+Gracious ping regarding this series. It went for two weeks w/o review.
 
-In the file system world, when we discover a bug, very often a test
-case is found to test the fix, and to protect us against regressions.
-It has one other benefit; since the tests (xfstests) are kept separate
-from the kernel, it's a useful way to identify when some patch didn't
-get automatically backported to a LTS or distro kernel.  (For example,
-because the patch didn't cherry-pick cleanly and the manual backport
-process fell through the cracks.)
+Few additional points 'pro':
+- It makes it possible to handle hpd enablement in cases where the 
+driver uses a mixture of drm_bridge_connector and old connectors (msm)
+- It makes it possible for other connectors to also implement dynamic 
+hpd enablement/disablement in a standard way
 
-It does make things annoying when we have bugs that can not be safely
-backported (which results in tests that fail on the LTS kernel without
-kernel-version exclude files), and/or when the expectations change
-between versions.  (Although to be honest, for us, the more common
-annoyance is when some userspace package --- e.g., bash or coreutils
-or util-linux --- changes their output, and we have to add filter
-functions to accomodate expected output differences.)
+> 
+> Dmitry Baryshkov (7):
+>    drm/poll-helper: merge drm_kms_helper_poll_disable() and _fini()
+>    drm/probe-helper: enable and disable HPD on connectors
+>    drm/bridge_connector: rely on drm_kms_helper_poll_* for HPD enablement
+>    drm/imx/dcss: stop using drm_bridge_connector_en/disable_hpd()
+>    drm/msm/hdmi: stop using drm_bridge_connector_en/disable_hpd()
+>    drm/omap: stop using drm_bridge_connector_en/disable_hpd()
+>    drm/bridge_connector: drop drm_bridge_connector_en/disable_hpd()
+> 
+>   drivers/gpu/drm/drm_bridge_connector.c   | 23 +++----------
+>   drivers/gpu/drm/drm_probe_helper.c       | 40 ++++++++++++++++++-----
+>   drivers/gpu/drm/imx/dcss/dcss-dev.c      |  4 ---
+>   drivers/gpu/drm/imx/dcss/dcss-kms.c      |  4 ---
+>   drivers/gpu/drm/msm/hdmi/hdmi.c          |  2 --
+>   drivers/gpu/drm/omapdrm/omap_drv.c       | 41 ------------------------
+>   include/drm/drm_bridge_connector.h       |  2 --
+>   include/drm/drm_modeset_helper_vtables.h | 22 +++++++++++++
+>   8 files changed, 58 insertions(+), 80 deletions(-)
+> 
 
-						- Ted
+
+-- 
+With best wishes
+Dmitry
