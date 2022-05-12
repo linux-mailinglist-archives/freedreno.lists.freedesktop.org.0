@@ -1,43 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B66C25251C2
-	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 18:02:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F73E5255BC
+	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 21:33:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8931126C8;
-	Thu, 12 May 2022 16:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32E7210E18C;
+	Thu, 12 May 2022 19:33:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
  [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE39B1126C2;
- Thu, 12 May 2022 16:02:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ECAC10E18C;
+ Thu, 12 May 2022 19:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652371335; x=1683907335;
+ t=1652384011; x=1683920011;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=Uk8KetLMQmVcByn8GqAjnN4FXpr5Io3d+JPHKDf5tDw=;
- b=DIize8frSOHIMASjYifXe6dCOjJ0air8bSgYWGxA0cS8ckyMkCbBMwVx
- ZoIlXMXWrTBgEEvczcV1o/l0JB9pefMlPdiw703WbCyBG/MEE3E/HCXPn
- B6YsKz0AIgX5xX/o8h9zrG5bUMtxrWTOAw0A0TJ4FIijc/k8FUSr3iXUI U=;
+ bh=aF38eStTDqNFqz4Gx3c+CKSDyxaee9RhF1zN1sw4C8Q=;
+ b=H2lc3a7LssmEuvsZDhwV4imFstLT5hVLEihTLCoGvBtsOrRg0JBUGT2q
+ XvZ6e+2BfAsxFiK4loTO2P9B7gJMT048s9y7lIDSyZTZrDbC214iU1Jls
+ U+6JAA5w6NzyDjjnjWEkufcbYiOERI3jTIDdXdKZHK/Wz+fi2Kow3zepb E=;
 Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 12 May 2022 09:02:15 -0700
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 12 May 2022 12:33:29 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
  by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2022 09:02:15 -0700
+ 12 May 2022 12:33:29 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 12 May 2022 09:02:14 -0700
+ 15.2.986.22; Thu, 12 May 2022 12:33:28 -0700
 Received: from [10.110.33.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 12 May
- 2022 09:02:13 -0700
-Message-ID: <0c1bf723-1fb5-6718-4c44-7a0e7af5b2b7@quicinc.com>
-Date: Thu, 12 May 2022 09:02:12 -0700
+ 2022 12:33:27 -0700
+Message-ID: <45b7c7fd-9e77-a0f8-022b-27e874f4b3f0@quicinc.com>
+Date: Thu, 12 May 2022 12:33:26 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
@@ -51,9 +51,9 @@ References: <1652313768-16286-1-git-send-email-quic_khsieh@quicinc.com>
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
 In-Reply-To: <CAA8EJppc9d+FjVzAX_KU2-akTc1vSmSHMeKr8dp2ynH2LLOyBQ@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
 Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: Always clear mask bits to
  disable interrupts at dp_ctrl_reset_irq_ctrl()
@@ -126,11 +126,17 @@ On 5/11/2022 6:03 PM, Dmitry Baryshkov wrote:
 > This sounds like a good reason to rewrite event_thread to use
 > threaded_irq and/or workqueue.
 
-ok, i will do
+I think we are facing two problems,
 
-1) protect suspended flag with event_lock to prevent new event be added
+1) event q is not empty after suspend  (this scenario most likely will 
+not happen since display is off already) -- anyway it should be  fixed 
+by adding "suspended" flag checking
 
-2) disable interrupts
+2) new events add after suspend  due to irq mask bits were not cleared 
+(this scenario most likely the major culprit) -- this fixed by remove 
+"enable" flag check at  dp_ctrl_reset_irq_ctrl().
 
-2) wait for event_q empty before turn off power
+I will have "suspended" flag protected by event_lock.
 
+
+>
