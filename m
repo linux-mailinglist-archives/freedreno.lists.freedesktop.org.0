@@ -1,55 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81E9F5255F3
-	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 21:43:31 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0B65525698
+	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 22:52:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1540B10EF55;
-	Thu, 12 May 2022 19:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACBF10F492;
+	Thu, 12 May 2022 20:52:28 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCADD10E73C;
- Thu, 12 May 2022 19:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652384608; x=1683920608;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=96oVflBv0iDGh4dmL/Pe1lrSs1hsULFMFnDpjN3gQKs=;
- b=xpPRqdDy+MtloIjU+yk3bs+xs+UrJoxGAUlbEaXJwq+V8L5B+PJuBAVH
- 50zvX/36Xe97oVlsENKiOvlbmesi1fsVz0y8NsS8G3CNq8J2bx25Bc/a+
- 7YrL4b+WiF2JSqMcFkArsHT77icLA9ahKWbqDUKGH1Q7Q6sPetku8w95d U=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 12 May 2022 12:43:28 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2022 12:43:27 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 12 May 2022 12:43:27 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 12 May 2022 12:43:26 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Thu, 12 May 2022 12:43:18 -0700
-Message-ID: <1652384598-21586-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE7610F492
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 20:52:26 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id c14so5891352pfn.2
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 13:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0Ies45XQh7ymdD5acJILStC2yG/IlgiJIKbLY52H88Q=;
+ b=Zc+8sBWS1pojS7k/yPaJKk9BjzB/ATYdrEE1H/xsCuyenIYW19LxvPheqCeXWPmZrD
+ OOdoPh+6HS1wB5oA53VwSqlqDOQqR1G1jmoJCMF8PDHBQPQX4IM6t2ImiFcbjqaLE5Nt
+ EERMlp16x35JlLgCeCl/sSNUXfn8TWUZfRE+k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0Ies45XQh7ymdD5acJILStC2yG/IlgiJIKbLY52H88Q=;
+ b=4wD5IcJCWdrcNeEdhFcEHw+poJWurjGgWhy0NNsnXlCJHI9LoUsZdsHarNwGhcXv8P
+ u4OpO4hidHpy5cv7L14pV87r6mmmUuyJW7yObhfUS1XCOTElMYwktsfqxusZ4qCkc/EW
+ QAxzqTrj9yR/tNV6s0Xno1i1CjAZoZ+SzF6VTIWXqMOc6Ay7s+60Alw8UXNSUkoWQ33e
+ IBQc3E8GC6k6d0kvHMFjOl/0uVIUWKHttQv6GETS0+TEWE6ctYSFDL0M2SyVR3K6Qgx8
+ Sx9LYf5ngBSc9qE0/WiD5ZHbVYGiw9sHshdJyyl2EISAQDVJbFwYsiX3Xwk7r84dA3kK
+ mB9w==
+X-Gm-Message-State: AOAM533j9PdCwcURdrUGXXO5IJI10wlXt/Seck3fLUGGpX4zWFgQKW1d
+ vbXj0nBkWx5b8lrCmsD5REiGmA==
+X-Google-Smtp-Source: ABdhPJxegJvQdMeDYnLXr1pjy2t9mHEjDACmKnVCoEdKhoZ9MnnfrVqDUATBEGvOT8sgCIE9Jo6b7Q==
+X-Received: by 2002:a63:1d5f:0:b0:3c6:e822:2eb1 with SMTP id
+ d31-20020a631d5f000000b003c6e8222eb1mr1122541pgm.99.1652388746275; 
+ Thu, 12 May 2022 13:52:26 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:201:1ee3:ea22:908:c2b5])
+ by smtp.gmail.com with ESMTPSA id
+ q15-20020a170902a3cf00b0015eddb8e450sm370681plb.25.2022.05.12.13.52.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 May 2022 13:52:25 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 12 May 2022 13:52:18 -0700
+Message-Id: <20220512135134.v3.1.Ia196e35ad985059e77b038a41662faae9e26f411@changeid>
+X-Mailer: git-send-email 2.36.0.550.gb090851708-goog
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v6] drm/msm/dp: Always clear mask bits to
- disable interrupts at dp_ctrl_reset_irq_ctrl()
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3] drm/msm/dsi: only powerup at modeset time if
+ "early_poweron" modparam
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,163 +67,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@linux.ie>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-msm@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-dp_catalog_ctrl_reset() will software reset DP controller. But it will
-not reset programmable registers to default value. DP driver still have
-to clear mask bits to interrupt status registers to disable interrupts
-after software reset of controller.
+Commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
+time") caused sc7180 Chromebooks that use the parade-ps8640 bridge
+chip to fail to turn the display back on after it turns off.
 
-At current implementation, dp_ctrl_reset_irq_ctrl() will software reset dp
-controller but did not call dp_catalog_ctrl_enable_irq(false) to clear hpd
-related interrupt mask bits to disable hpd related interrupts due to it
-mistakenly think hpd related interrupt mask bits will be cleared by software
-reset of dp controller automatically. This mistake may cause system to crash
-during suspending procedure due to unexpected irq fired and trigger event
-thread to access dp controller registers with controller clocks are disabled.
+Unfortunately, it doesn't look easy to fix the parade-ps8640 driver to
+handle the new power sequence. The Linux driver has almost nothing in
+it and most of the logic for this bridge chip is in black-box firmware
+that the bridge chip uses.
 
-This patch fixes system crash during suspending problem by removing "enable"
-flag condition checking at dp_ctrl_reset_irq_ctrl() so that hpd related
-interrupt mask bits are cleared to prevent unexpected from happening.
-In addition, this patch also add suspended flag to prevent new events be
-added into event Q to wake up event thread after system suspended.
+Also unfortunately, reverting the patch will break "tc358762".
 
-Changes in v2:
--- add more details commit text
+The long term solution here is probably Dave Stevenson's series [1]
+that would give more flexibility. However, that is likely not a quick
+fix.
+
+For the short term, let's introduce a module parameter that selects
+between the two behaviors. This is a short term hack but at least can
+keep both users working. We'll default the value of the module
+parameter to the old behavior. Given that the old behavior has existed
+for longer it's probably a safer default.
+
+[1] https://lore.kernel.org/r/cover.1646406653.git.dave.stevenson@raspberrypi.com
+
+Fixes: 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset time")
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
 Changes in v3:
--- add synchrons_irq()
--- add atomic_t suspended
+- No longer a revert; now a module parameter.
 
-Changes in v4:
--- correct Fixes's commit ID
--- remove synchrons_irq()
+Changes in v2:
+- Remove the mud from my face.
 
-Changes in v5:
--- revise commit text
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Changes in v6:
--- add event_lock to protect "suspended"
-
-Fixes: 989ebe7bc446 ("drm/msm/dp: do not initialize phy until plugin interrupt received")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c    |  9 +++++++--
- drivers/gpu/drm/msm/dp/dp_display.c | 25 ++++++++++++++++++++++++-
- 2 files changed, 31 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index af7a80c..f3e333e 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1389,8 +1389,13 @@ void dp_ctrl_reset_irq_ctrl(struct dp_ctrl *dp_ctrl, bool enable)
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 50b987658b1f..2bf4123ef5df 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -34,6 +34,10 @@ static struct msm_dsi_manager msm_dsim_glb;
+ #define IS_SYNC_NEEDED()	(msm_dsim_glb.is_sync_needed)
+ #define IS_MASTER_DSI_LINK(id)	(msm_dsim_glb.master_dsi_link_id == id)
  
- 	dp_catalog_ctrl_reset(ctrl->catalog);
++bool early_poweron;
++MODULE_PARM_DESC(early_poweron, "Power DSI controller early");
++module_param(early_poweron, bool, 0600);
++
+ static inline struct msm_dsi *dsi_mgr_get_dsi(int id)
+ {
+ 	return msm_dsim_glb.dsi[id];
+@@ -389,6 +393,9 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
+ 	if (is_bonded_dsi && !IS_MASTER_DSI_LINK(id))
+ 		return;
  
--	if (enable)
--		dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
-+	/*
-+	 * all dp controller programmable registers will not
-+	 * be reset to default value after DP_SW_RESET
-+	 * therefore interrupt mask bits have to be updated
-+	 * to enable/disable interrupts
-+	 */
-+	dp_catalog_ctrl_enable_irq(ctrl->catalog, enable);
++	if (!early_poweron)
++		dsi_mgr_bridge_power_on(bridge);
++
+ 	/* Always call panel functions once, because even for dual panels,
+ 	 * there is only one drm_panel instance.
+ 	 */
+@@ -570,7 +577,8 @@ static void dsi_mgr_bridge_mode_set(struct drm_bridge *bridge,
+ 	if (is_bonded_dsi && other_dsi)
+ 		msm_dsi_host_set_display_mode(other_dsi->host, adjusted_mode);
+ 
+-	dsi_mgr_bridge_power_on(bridge);
++	if (early_poweron)
++		dsi_mgr_bridge_power_on(bridge);
  }
  
- void dp_ctrl_phy_init(struct dp_ctrl *dp_ctrl)
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index c388323..ab691aa 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -98,6 +98,8 @@ struct dp_display_private {
- 	struct dp_ctrl    *ctrl;
- 	struct dp_debug   *debug;
- 
-+	bool suspended;
-+
- 	struct dp_usbpd_cb usbpd_cb;
- 	struct dp_display_mode dp_mode;
- 	struct msm_dp dp_display;
-@@ -187,6 +189,11 @@ static int dp_add_event(struct dp_display_private *dp_priv, u32 event,
- 	int pndx;
- 
- 	spin_lock_irqsave(&dp_priv->event_lock, flag);
-+	if (dp_priv->suspended) {
-+		spin_unlock_irqrestore(&dp_priv->event_lock, flag);
-+		return -ENOENT;
-+	}
-+
- 	pndx = dp_priv->event_pndx + 1;
- 	pndx %= DP_EVENT_Q_MAX;
- 	if (pndx == dp_priv->event_gndx) {
-@@ -454,7 +461,6 @@ static void dp_display_host_deinit(struct dp_display_private *dp)
- 		dp->dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized);
- 
--	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
- 	dp_aux_deinit(dp->aux);
- 	dp_power_deinit(dp->power);
- 	dp->core_initialized = false;
-@@ -1112,7 +1118,12 @@ static int hpd_event_thread(void *data)
- 			wait_event_interruptible(dp_priv->event_q,
- 				(dp_priv->event_pndx != dp_priv->event_gndx));
- 		}
-+
- 		spin_lock_irqsave(&dp_priv->event_lock, flag);
-+		if (dp_priv->suspended) {
-+			spin_unlock_irqrestore(&dp_priv->event_lock, flag);
-+			continue;
-+		}
- 		todo = &dp_priv->event_list[dp_priv->event_gndx];
- 		if (todo->delay) {
- 			struct dp_event *todo_next;
-@@ -1351,6 +1362,7 @@ static int dp_pm_resume(struct device *dev)
- 	struct platform_device *pdev = to_platform_device(dev);
- 	struct msm_dp *dp_display = platform_get_drvdata(pdev);
- 	struct dp_display_private *dp;
-+	unsigned long flag;
- 	int sink_count = 0;
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
-@@ -1362,6 +1374,10 @@ static int dp_pm_resume(struct device *dev)
- 		dp->dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized, dp_display->power_on);
- 
-+	spin_lock_irqsave(&dp->event_lock, flag);
-+	dp->suspended = false;
-+	spin_unlock_irqrestore(&dp->event_lock, flag);
-+
- 	/* start from disconnected state */
- 	dp->hpd_state = ST_DISCONNECTED;
- 
-@@ -1421,6 +1437,7 @@ static int dp_pm_suspend(struct device *dev)
- 	struct platform_device *pdev = to_platform_device(dev);
- 	struct msm_dp *dp_display = platform_get_drvdata(pdev);
- 	struct dp_display_private *dp;
-+	unsigned long flag;
- 
- 	dp = container_of(dp_display, struct dp_display_private, dp_display);
- 
-@@ -1431,6 +1448,12 @@ static int dp_pm_suspend(struct device *dev)
- 		dp->dp_display.connector_type, dp->core_initialized,
- 		dp->phy_initialized, dp_display->power_on);
- 
-+	dp_ctrl_reset_irq_ctrl(dp->ctrl, false);
-+
-+	spin_lock_irqsave(&dp->event_lock, flag);
-+	dp->suspended = true;
-+	spin_unlock_irqrestore(&dp->event_lock, flag);
-+
- 	/* mainlink enabled */
- 	if (dp_power_clk_status(dp->power, DP_CTRL_PM))
- 		dp_ctrl_off_link_stream(dp->ctrl);
+ static enum drm_mode_status dsi_mgr_bridge_mode_valid(struct drm_bridge *bridge,
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.36.0.550.gb090851708-goog
 
