@@ -1,63 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C9FA525865
-	for <lists+freedreno@lfdr.de>; Fri, 13 May 2022 01:36:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9452E525871
+	for <lists+freedreno@lfdr.de>; Fri, 13 May 2022 01:37:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C419010ED24;
-	Thu, 12 May 2022 23:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 829B710ED93;
+	Thu, 12 May 2022 23:36:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80C1A10ED07
- for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 23:36:51 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id s27so8389526ljd.2
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 163EA10ED07
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 23:36:52 +0000 (UTC)
+Received: by mail-lf1-x133.google.com with SMTP id c24so2230900lfv.11
  for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 16:36:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=azPGR+vZJiRZ8wrc365ZR8Nim5+sjCT0QCeZdqg0Fso=;
- b=l5nombBMfLAuoochQ9oKZQKmL4OlVXimRrMej51XNpCjFbI+7UJi97jWbuDOSquEoU
- 8Xns6m6Xc2aRVdzBcLMxBJ7A48uyOpqfwq5CTKT+O/DUBTfNBzIaJ9ocYIXvw7N8HKKh
- wZKDdQ6VtJCQfaOvOw+A8Ph1ZlZtbHtxdAaoDIMy7SB7hIs92PDWqfdtQxUMGB+pLxmt
- RlVyJTHg3L2wK56nSPk13WlmcUb4Eppn/TvKfXbdgo4U03FFOj+Cwl2U9OaPPxg2wIdr
- syXry3wLBnBGqGV3z+0lxjuMYfsfga1fN/9KnUv+wO/bqM3ji5wYesLAM4c7HOUXnrpM
- rQqg==
+ bh=i1goeg2wYzcHMfXO9CDFGJF9XLqANUBaSoksUz5XNRc=;
+ b=X3LHZVoKx/IHv7Ini1Y3dYLp8M7uyC0RZiERWt3pMoULdXqVrVHZggMQMIPfrPtF8V
+ /IGe+F1554dHMvA4Ofm87+iFxPr0aiiYA2jSn5qp3oGvtrAc7F/Hs8bJE+bVbNia/U85
+ pII+jH+Vr4nEsO+l0Z+j3ygVX97CVFOeNDl1kcoc0SA7TcjZf4b0GNyROQNkYoVLwXn1
+ PzDDWkvwYjkVxrdJHsy9U7EoWvc9ehA1NrkzlepJOGHN2/dla7NVig3LEB1bO2ubAxYz
+ i/0iu6pswFhG/ZevKdlUtJVl8Im1rW0mo0mgA1vuKUWge7U2DU+IFD6uM9r15WsephHA
+ 1UQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=azPGR+vZJiRZ8wrc365ZR8Nim5+sjCT0QCeZdqg0Fso=;
- b=b1T2eSokw4q+kCOYQLqI2/cyk0YI4SFESDgWy4XyO1d7rs7zpb4+PzPWeX99ssW1cC
- 3F79TQXBo6GXHV6AEVCukguuiSmz3IpjofoxG3fO6ZkLCpDkmaDRTUQ+dvsGWl5GRgo1
- ORBSUlBQ8ORI3VhghTWg260XQdQz8lGSJIwvTapbTSRASsy+nT2PEHXdeC4QFVWjGvQ8
- ryRt8txFOsPmLgUxIYyPh7hyvjy3fTRfS/EAYc6fCNQR6whg8fVL4RyTf0BAQH0JSc6c
- v5bBxTNSII9beM120rOnzZy6txbuwkR0WtWXR0eEVpANxQc12AHoN37hcMx1vR2nqi15
- Y6Gw==
-X-Gm-Message-State: AOAM533bihg1wzDlHbvuveFzRNeiKvIMTrG82BDqIlEkoQq5vrVFe3+r
- AG+UttxxsrevmnQouv4HvYKK5Q==
-X-Google-Smtp-Source: ABdhPJxgCHMnJ4LEek1kUdhz+O1bKDx5YuEx6gHj4DQBPerUjDefkT8WWBp7JYFactZEmVCxE/WRtw==
-X-Received: by 2002:a2e:8902:0:b0:24f:1446:3101 with SMTP id
- d2-20020a2e8902000000b0024f14463101mr1437014lji.266.1652398609807; 
- Thu, 12 May 2022 16:36:49 -0700 (PDT)
+ bh=i1goeg2wYzcHMfXO9CDFGJF9XLqANUBaSoksUz5XNRc=;
+ b=K5IH2PS9lpIxH4tfRLB6xLpLaRl8OHvb0qb+mZqXv+epRn64zyThBIzOCPca0YLF3m
+ eFeiWbyc1K2R3HMhzLhXQT8Z2RHCDy6u0yH9MMVa9CbWZkghYk5RgLEPEmtuDvgU1XQ+
+ qQXzsYNuXth+L8CfM7JYeGI+k4tPoWOs665laczXA974ztfWjQzQuB62TQadqwH0UZ1R
+ V5vm0tMqOzJwn19bf9CxuyFGNoJRqdvTyLDS1xLX8A616LsDmwcDrvrHXsd+YUWbz3xF
+ rnYy5dCzp8pY6NJiy0vMNNcTAd59/qFGIQvFuc6MX2BoAO/+c6sDXPyn///KKmv1yAeE
+ himg==
+X-Gm-Message-State: AOAM532T85/ytLOklGhN5/LhMczA3EBk/eGojwO2Sb3sDH9+qaJjsUou
+ yAdyIrNwsTVGeOmlh0QF3Wo42A==
+X-Google-Smtp-Source: ABdhPJyzdJYvPj0AkVnv7w7nwDsyWQeF24SHe/E4f8AaPGTqUAz7rhU1DRRUEWq3JfYUPpVIUs3HcQ==
+X-Received: by 2002:a05:6512:2399:b0:473:a82d:cfde with SMTP id
+ c25-20020a056512239900b00473a82dcfdemr1413328lfv.375.1652398610434; 
+ Thu, 12 May 2022 16:36:50 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
  p13-20020a19f00d000000b0047255d211c1sm127937lfc.240.2022.05.12.16.36.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 May 2022 16:36:49 -0700 (PDT)
+ Thu, 12 May 2022 16:36:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 13 May 2022 02:36:41 +0300
-Message-Id: <20220512233647.2672813-3-dmitry.baryshkov@linaro.org>
+Date: Fri, 13 May 2022 02:36:42 +0300
+Message-Id: <20220512233647.2672813-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220512233647.2672813-1-dmitry.baryshkov@linaro.org>
 References: <20220512233647.2672813-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/8] arm64: dts: qcom: sdm630: disable
- dsi1/dsi1_phy by default
+Subject: [Freedreno] [PATCH v2 3/8] arm64: dts: qcom: sdm630: disable GPU by
+ default
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,42 +71,37 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Follow the typical practice and keep DSI0/DSI0 PHY disabled by default.
-They should be enabled in the board DT files. No existing boards use
-them at this moment.
+The SoC's device tree file disables gpucc and adreno's SMMU by default.
+So let's disable the GPU too. Moreover it looks like SMMU might be not
+usable without additional patches (which means that GPU is unusable
+too). No board uses GPU at this moment.
 
+Fixes: 5cf69dcbec8b ("arm64: dts: qcom: sdm630: Add Adreno 508 GPU configuration")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sdm630.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-index 240293592ef9..8697d40e9b74 100644
+index 8697d40e9b74..e8bb170e8b2f 100644
 --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-@@ -1559,6 +1559,8 @@ dsi0: dsi@c994000 {
- 				phys = <&dsi0_phy>;
- 				phy-names = "dsi";
+@@ -1050,6 +1050,8 @@ adreno_gpu: gpu@5000000 {
  
-+				status = "disabled";
+ 			operating-points-v2 = <&gpu_sdm630_opp_table>;
+ 
++			status = "disabled";
 +
- 				ports {
- 					#address-cells = <1>;
- 					#size-cells = <0>;
-@@ -1592,6 +1594,7 @@ dsi0_phy: dsi-phy@c994400 {
- 
- 				clocks = <&mmcc MDSS_AHB_CLK>, <&xo_board>;
- 				clock-names = "iface", "ref";
-+				status = "disabled";
- 			};
- 		};
- 
+ 			gpu_sdm630_opp_table: opp-table {
+ 				compatible  = "operating-points-v2";
+ 				opp-775000000 {
 -- 
 2.35.1
 
