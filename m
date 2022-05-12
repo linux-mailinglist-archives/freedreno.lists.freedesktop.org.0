@@ -2,59 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46EC7525811
-	for <lists+freedreno@lfdr.de>; Fri, 13 May 2022 01:05:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E272525863
+	for <lists+freedreno@lfdr.de>; Fri, 13 May 2022 01:36:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDDEB10E79D;
-	Thu, 12 May 2022 23:05:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1B5210ED1D;
+	Thu, 12 May 2022 23:36:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93C0B10E799;
- Thu, 12 May 2022 23:05:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652396701; x=1683932701;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Irmk+PIoDl9lVGe3CGNHkqKewPzKLkRFe6w4ku7l9SQ=;
- b=GA3jW+qjL+orraCoTI7E+dx4kAiSy6JuVvILmpsdSyCa/Bg/ZwlXbnYF
- vT2xpa374v+5OnwYbU3qaBJQrVYHRexdu+MNHU3IJ3MGPBC1YVM/+ouEw
- g9fxRrV9IyDLMNr9JeGqBLJmPBTcixYQbkQ6Tp1lsy/Yg/lBp+653pPaY I=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 12 May 2022 16:05:00 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2022 16:04:59 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 12 May 2022 16:04:59 -0700
-Received: from [10.38.247.112] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 12 May
- 2022 16:04:56 -0700
-Message-ID: <09d99477-ac9d-ee90-41f1-af13a302d25d@quicinc.com>
-Date: Thu, 12 May 2022 16:04:54 -0700
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0325510ECB6
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 23:36:49 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id s27so8389480ljd.2
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 16:36:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Mqg2HFo22LFUUAaIX3kOrdEQtT9JSav1gOQJOHe+MV4=;
+ b=mmR26HUeqn9O1FSlvZQyN8+ORR4vZKDXyrydHFmv787Zc9a1TOfTgqG5GLjXrYHsYA
+ /FwsXZG72N4ZPzGi/bx4LpFilKVXHporkkc39B9zx7xzqVw1HT/8CCod3ku7aY31RLCy
+ yi8S5F9e8zcNX+kOQ5POJ6PH5pDW3GxLS7vQA5cyAtqv1KDmlj8u5zQvVG1UN9pUqu7O
+ jObEyn32ImgdkZdTGsYTDRJqg/DybjdlvEJ8tSzQSfb6RvcqsqgD+6z18IpCBod348u0
+ i/cFE6wp7VrPz5qDGvaYkpHm0Bvlk/5UqcckaZyl3TRyx6YkoB7TqCzQG/5QBtsrykdi
+ +9cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Mqg2HFo22LFUUAaIX3kOrdEQtT9JSav1gOQJOHe+MV4=;
+ b=dtm2VA2/4ayh2u29xW+e+Wnm/2Vft1RfdWIKHZyb1SLl+zFw2J9VCykvCKvr0Tdw6u
+ wn9aeyvxn/P1ulzIZDKcVY16zZ1YnoohvSRDx8jGazv1N+CpsWt+MDwM1W2EyCQ/ioRn
+ Dq+cyYV9EnOJpGAuB1acSnkM2yo5uhfjVxwthW0k0bQRHJi6VA252EnbER4Xras3iVVQ
+ DSIel707FgxUUXNOmlEHZRLIRb1UY0n5KmohjFqITdk0ipx2sKg0bSf7+ZEBUMPB+U32
+ nACrPZTBDORsacGXC9jg3nx53K2w/nS2rP6NvhnpPlhpHx0oGPG9wTRxev91fBlv1yTt
+ JJkw==
+X-Gm-Message-State: AOAM530nRS1/IB8pN+883NyYNHOPnv4CGDDfHPWvfKlXsziKPFkEQznU
+ VgNkWir/8UxNcfLTrfq+c8jsgQ==
+X-Google-Smtp-Source: ABdhPJwBV8uAqbFejjQddQs0SGuoQqzrAx8iRAAigbgyagyUKnQQFbrC4zQOu8lElkRCIsjDcVoTBw==
+X-Received: by 2002:a2e:934b:0:b0:24f:cce:5501 with SMTP id
+ m11-20020a2e934b000000b0024f0cce5501mr1442767ljh.443.1652398608278; 
+ Thu, 12 May 2022 16:36:48 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ p13-20020a19f00d000000b0047255d211c1sm127937lfc.240.2022.05.12.16.36.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 May 2022 16:36:47 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 13 May 2022 02:36:39 +0300
+Message-Id: <20220512233647.2672813-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>
-References: <20220512145954.v4.1.Ia196e35ad985059e77b038a41662faae9e26f411@changeid>
- <dd62b8a7-43b9-364a-a427-94d621648012@linaro.org>
- <a721e2e9-934e-3028-cb1a-047f6d5c5b1e@quicinc.com>
- <CAD=FV=U_dfCzcW6kP9zH=pxOUAioTMwh7=0-_=zSAkX9hurZmg@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAD=FV=U_dfCzcW6kP9zH=pxOUAioTMwh7=0-_=zSAkX9hurZmg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v4] drm/msm/dsi: don't powerup at modeset
- time for parade-ps8640
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/8] arm64: dts: qcom: initial Inforce
+ IFC6560 board support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,106 +68,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Vinod Koul <vkoul@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+This work is largely based on the previous work by Bjorn Andersson ([1])
 
-On 5/12/2022 3:44 PM, Doug Anderson wrote:
-> Hi,
-> 
-> On Thu, May 12, 2022 at 3:34 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>
->> On 5/12/2022 3:16 PM, Dmitry Baryshkov wrote:
->>> On 13/05/2022 01:00, Douglas Anderson wrote:
->>>> Commit 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
->>>> time") caused sc7180 Chromebooks that use the parade-ps8640 bridge
->>>> chip to fail to turn the display back on after it turns off.
->>>>
->>>> Unfortunately, it doesn't look easy to fix the parade-ps8640 driver to
->>>> handle the new power sequence. The Linux driver has almost nothing in
->>>> it and most of the logic for this bridge chip is in black-box firmware
->>>> that the bridge chip uses.
->>>>
->>>> Also unfortunately, reverting the patch will break "tc358762".
->>>>
->>>> The long term solution here is probably Dave Stevenson's series [1]
->>>> that would give more flexibility. However, that is likely not a quick
->>>> fix.
->>>>
->>>> For the short term, we'll look at the compatible of the next bridge in
->>>> the chain and go back to the old way for the Parade PS8640 bridge
->>>> chip. If it's found that other bridge chips also need this workaround
->>>> then we can add them to the list or consider inverting the condition.
->>>>
->>>> [1]
->>>> https://lore.kernel.org/r/cover.1646406653.git.dave.stevenson@raspberrypi.com
->>>>
->>>>
->>>> Fixes: 7d8e9a90509f ("drm/msm/dsi: move DSI host powerup to modeset
->>>> time")
->>>> Suggested-by: Rob Clark <robdclark@gmail.com>
->>>> Signed-off-by: Douglas Anderson <dianders@chromium.org>
->>>
->>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>
->> Yes, I think this is a better solution than a full revert
->>
->> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> I am curious to know why this doesnt work for parade but will not hold
->> this patch back for that. We are initializing and turning on DSI PHY now
->> before turning on the bridge chip which is actually better as we are
->> putting PHY in a good state.
->>
->> So this should have been better, but somehow doesn't work.
-> 
-> I can't really explain it, but mostly because the Parade chip is just
-> a big black box. There have been several times when an OEM using this
-> bridge chip had one problem or another with getting the display to
-> turn on, then the parade FAE would make some magic tweak to the
-> firmware and it would be fixed. The current way that the Linux driver
-> is working is with pretty much zero configuration so I think this chip
-> bakes in a bunch of assumptions about the timings / signal coming from
-> the MIPI DSI side. It doesn't surprise me that changing the order like
-> this would confuse it.
-> 
-> In theory I believe the Parade chip can run in a less "automatic" mode
-> where everything is configured and controlled by Linux. I'd really
-> have preferred if we could have gotten that done, but it didn't end up
-> happening. :(
-> 
-> -Doug
+Changes since v1 (mostly based on Kondrad's review):
+- Also disabled dsi0/dsi0 phy in sdm630.dtsi
+- Removed the clock from BAM DMA devices rather than disabling them
+  completely
+- Replaced numbers with symbolic names for interconnects in sdm630.dtsi
+- Switched to "qcom,sda660" as a fallback compatible string
+- Added dt-bindings for the qcom,sda660 compat
+- Removed extra nesting level from the adsp firmware path
+- Replaced numbers with proper symbolic names in the board file
+- Added chassis-type property
+- Changed the order of blsp entries in the board file
+- Removed spurious newlines
+- Changed the order of regulator properties
+- Changed the DSI data-lines to list all four lanes. Still use just
+  three lanes for the adv bridge (and describe the reason in the
+  comment)
 
-Again this is not to block this change (you already have my ack) but 
-perhaps to help you debug this for future reference as we wont know what 
-change can break parade even in the future if this happens again and the 
-compatible check for parade will keep growing.
+Changes since Bjorn's v2:
+- Disable dsi1, dsi1 phy, GPU by default in sdm660.dtsi/sdm630.dtsi
+- Fix qusb2phy ref clock
+- Added USB2 host support to sdm630.dtsi
+- Renamed DTS to follow SoC-vendor-board pattern
+- Fixed vph_pwr voltage
+- Removed extra/unrelated comments
+- Added keys, USB2, USB3,
+- Added configuration for the attached HDMI bridge
+- Enabled MDP, MDSS and DSI0/DSI0 PHY devices
+- Removed uart pinctrl and /reserved-mem nodes (present in main dtsi
+  file)
+- Added card detection for the SDCC2
+- Disabled BLSP BAM DMA devices, they make the board reset during boot
 
-One suggestion I can give is can we read any status bits out of the 
-parade chip in the power_on() method as its right after the new method 
-to check why its not in good status or what error bits it throws and 
-perhaps share those error bits with the FAE to see when this error can 
-come to decode this black box a bit :)
+[1] https://lore.kernel.org/linux-arm-msm/20210825221110.1498718-1-bjorn.andersson@linaro.org/#t
 
- From those bits, we can narrow down why this timing or sequence change 
-is affecting them. Like some things could be somehow this is delaying 
-the video pixels from transmitting, it expects PHY to be in some state 
-etc and we can kind-of reverse engineer why this change broke it.
+Dmitry Baryshkov (8):
+  arm64: dts: qcom: sdm660: disable dsi1/dsi1_phy by default
+  arm64: dts: qcom: sdm630: disable dsi1/dsi1_phy by default
+  arm64: dts: qcom: sdm630: disable GPU by default
+  arm64: dts: qcom: sdm630: fix the qusb2phy ref clock
+  arm64: dts: qcom: sdm630: add second (HS) USB host support
+  arm64: dts: qcom: sdm630: use defined symbols for interconnects
+  arm64: dts: qcom: sdm660: Add initial Inforce IFC6560 board support
+  dt-bindings: arm: qcom: document sda660 SoC and ifc6560 board
 
-Like-wise, it is highly possible at the moment we have identified only 
-parade not to work but if there is something wrong with this change we 
-can atleast know what and address it.
+ .../devicetree/bindings/arm/qcom.yaml         |   6 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sda660-inforce-ifc6560.dts  | 459 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm630.dtsi          |  85 +++-
+ arch/arm64/boot/dts/qcom/sdm660.dtsi          |   3 +
+ 5 files changed, 542 insertions(+), 12 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
 
-Thanks
+-- 
+2.35.1
 
-Abhinav
