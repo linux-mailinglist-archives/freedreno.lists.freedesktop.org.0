@@ -2,61 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9321252422F
-	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 03:41:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 771785243B4
+	for <lists+freedreno@lfdr.de>; Thu, 12 May 2022 05:50:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2002910F1B5;
-	Thu, 12 May 2022 01:41:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9D210EFE7;
+	Thu, 12 May 2022 03:50:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B32A610F1C0
- for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 01:41:22 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- l9-20020a4abe09000000b0035eb3d4a2aeso1931526oop.0
- for <freedreno@lists.freedesktop.org>; Wed, 11 May 2022 18:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=rLjJ0ObXm/eG6uFPnmb+hbYQUbWPG5VcdG3gBpulpjA=;
- b=Oy2qCbFWbhJBsSdixvgT7G4jo+4gIjzNLWF7oRirqts3owtmixSElnXy9clxneyVgm
- HRrQZFgEeFiNNneI+TEcUmiy++apz0RYXUvUefMNmFGlbzAbCV7XPcCCNhhsaM4zVQNe
- RSD7V/WP159ERvRINmvoLgqVSgcceUwIGHH/Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=rLjJ0ObXm/eG6uFPnmb+hbYQUbWPG5VcdG3gBpulpjA=;
- b=6hQTp0JGvulpzp5lKA9P7vmQkadMZo3IltZaqJbSLb1we4aeFLtQXCabHNG1NwufgR
- 5CHr+G1CCRNwJSBFmQFC/gdsTI5MBdjxOCxRKcofgdRmoT4HRNSQaqwS7Uwg6G4f+NVG
- zDHJiQFlYaH9G///QLMkptU/DrHkL8LKz2cNk8D5H/WdmRi5vqlg5nip6cemfJZAVQrM
- A9KCWlksCPoXA32gJhfvZ9KKA7a3te4zqS91a6Xh3XMQcq6UnIUSe8gOp4q1+FMSsVmI
- hfA+yvI5/TTXHNiu2Dzz+pmAM+2+EnafnY/ywIpcO38FGTKclI0dzQx/3QZOYAhtkSwT
- C44A==
-X-Gm-Message-State: AOAM530jJZNyrawoESn4b2UFeFW7HjN3rDRxFmfkZTIGIXviO4Vf84vs
- lEFsBU5nTUkZV0nEuMFQAwJ9/4PFfw0uVKGO2CfV4g==
-X-Google-Smtp-Source: ABdhPJzMsinqtg+1aVXUb6CHbZyRBCYcDG6Dhx4Pikw/1PbPWqg/iWQaAJtoxWKqcuORKe4t/jiMxSg0p15gnHkqdUs=
-X-Received: by 2002:a4a:6f49:0:b0:35e:1902:1d3b with SMTP id
- i9-20020a4a6f49000000b0035e19021d3bmr10874934oof.1.1652319681985; Wed, 11 May
- 2022 18:41:21 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 11 May 2022 18:41:21 -0700
+X-Greylist: delayed 385 seconds by postgrey-1.36 at gabe;
+ Thu, 12 May 2022 02:31:12 UTC
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A2810FE0A
+ for <freedreno@lists.freedesktop.org>; Thu, 12 May 2022 02:31:12 +0000 (UTC)
+Received: from cwcc.thunk.org (pool-108-7-220-252.bstnma.fios.verizon.net
+ [108.7.220.252]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 24C2ObEp028012
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 May 2022 22:24:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+ t=1652322280; bh=VS1Wz6MTDeDEe7mFjiXRuQFi0ffsrqAX4JhdhobUr+g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=nNm5XGIRxTLkjZ9+UM/FNhm3f18Kz/55+4qIb2adh81DsdLJNfttLakxIdBFcKBz/
+ v6RcM3QlUFnreCqfGI9u0aM29E2Hajngw3eNDNzNaBwVfexhXlodmpISiMjDfCneba
+ zKOe5AGr/mkJmrvK5CQdgcbL1k5Lz3M7eFbWYe4rUMHh1E6vRf9Q4fEwhUYDFlbK5y
+ LWqOCX6pa+RkWVEdidnv1a0BZYzD3du3sS6sdLzZ/0AvpZequqUjv+mz6lB5zYAUT4
+ 38DKNY31Qk0LCta6rxrZKK02UcwVWoo5XwR/bdEuCvaFs9XHUxOtFf4hqy3pynrbXw
+ 6uy4GZTTcYUrA==
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+ id 67CE015C3F2A; Wed, 11 May 2022 22:24:37 -0400 (EDT)
+Date: Wed, 11 May 2022 22:24:37 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Rob Clark <robdclark@gmail.com>
+Message-ID: <Ynxv5WGMd0aJYM5a@mit.edu>
+References: <20220510070140.45407-1-tomeu.vizoso@collabora.com>
+ <20220510141329.54414-1-tomeu.vizoso@collabora.com>
+ <CAPM=9tzLR-wsLhg2ikGjoK06s-ju5XWa1rtPPiUpN=pwD1vgtA@mail.gmail.com>
+ <YntWQIXSqMCd6TYV@kroah.com>
+ <1255a66a-121d-988a-19a7-316f703cb37d@mailbox.org>
+ <YnujG0nkF0U6d5kd@kroah.com>
+ <CAF6AEGsmD-CNGj4bAE952JQpquaWA+Nxo5TGpFiHqaPK9doP-g@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <d6509c64-3a3e-f13b-6a3f-06f50c427eaf@linaro.org>
-References: <20220507010021.1667700-1-dmitry.baryshkov@linaro.org>
- <CAE-0n50tgiNj6j8+90xNw2Sku7rHKOGQYrHRjHCHb8-rqnOAxg@mail.gmail.com>
- <CAA8EJpqFksVc+Lj4-G81z26GH-WbQ3CKOUwgsx0Xar-F+EMNRg@mail.gmail.com>
- <CAE-0n51KAdQHvpgon6-qpLXZT7X8ghZ+9bSeTji-duMOG2wYiQ@mail.gmail.com>
- <d6509c64-3a3e-f13b-6a3f-06f50c427eaf@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 11 May 2022 18:41:21 -0700
-Message-ID: <CAE-0n51Bt6VKJb4RjFfNUJVpWu=3jZs7Ym++7oa+-uvMf=hfWA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: don't free the IRQ if it was
- not requested
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGsmD-CNGj4bAE952JQpquaWA+Nxo5TGpFiHqaPK9doP-g@mail.gmail.com>
+X-Mailman-Approved-At: Thu, 12 May 2022 03:50:19 +0000
+Subject: Re: [Freedreno] Adding CI results to the kernel tree was Re: [RFC
+ v2] drm/msm: Add initial ci/ subdirectory
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,36 +61,45 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: Sean Paul <sean@poorly.run>, Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, Dave Airlie <airlied@gmail.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-05-11 18:30:55)
-> On 12/05/2022 04:29, Stephen Boyd wrote:
-> > Quoting Dmitry Baryshkov (2022-05-11 18:01:31)
-> >> On Thu, 12 May 2022 at 03:54, Stephen Boyd <swboyd@chromium.org> wrote:
-> >>>
-> >>> Quoting Dmitry Baryshkov (2022-05-06 18:00:20)
-> >>>
-> >>> Does this supersede commit 01013ba9bbdd ("drm/msm/disp/dpu1: avoid
-> >>> clearing hw interrupts if hw_intr is null during drm uninit")? I mean
-> >>> that with this patch applied kms->irq_requested makes the check in
-> >>> dpu_core_irq_uninstall() irrelevant because it isn't called anymore?
-> >>
-> >> Yes.
-> >>
-> >
-> > I didn't see it deleted in the second patch so is a revert going to be
-> > sent?
->
-> No need to. They are separate checks. The older one is superseded (as it
-> will be never hit),  but it is still valid and useful (to protect from
-> the crash if this code changes again).
->
+On Wed, May 11, 2022 at 06:33:32AM -0700, Rob Clark wrote:
+> 
+> And ofc we want the expectations to be in the kernel tree because
+> there could be, for example, differences between -fixes and -next
+> branches.  (Or even stable kernel branches if/when we get to the point
+> of running CI on those.)
 
-Ew, gross. The extra conditionals everywhere really makes it hard to
-follow along.
+There are tradeoffs both ways, whether the patches are kept separate,
+opr in the kernel tree.
+
+In the file system world, when we discover a bug, very often a test
+case is found to test the fix, and to protect us against regressions.
+It has one other benefit; since the tests (xfstests) are kept separate
+from the kernel, it's a useful way to identify when some patch didn't
+get automatically backported to a LTS or distro kernel.  (For example,
+because the patch didn't cherry-pick cleanly and the manual backport
+process fell through the cracks.)
+
+It does make things annoying when we have bugs that can not be safely
+backported (which results in tests that fail on the LTS kernel without
+kernel-version exclude files), and/or when the expectations change
+between versions.  (Although to be honest, for us, the more common
+annoyance is when some userspace package --- e.g., bash or coreutils
+or util-linux --- changes their output, and we have to add filter
+functions to accomodate expected output differences.)
+
+						- Ted
