@@ -1,61 +1,58 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07620526DCB
-	for <lists+freedreno@lfdr.de>; Sat, 14 May 2022 03:58:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8450B526DFB
+	for <lists+freedreno@lfdr.de>; Sat, 14 May 2022 05:58:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E906210E1DD;
-	Sat, 14 May 2022 01:57:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E90B110E103;
+	Sat, 14 May 2022 03:58:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8223A10E1D7;
- Sat, 14 May 2022 01:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652493476; x=1684029476;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DDwU0MIIX7cHAeGzIXm3PASsFEXV/dXGCnlifbLzn+E=;
- b=jjRHBy/8sSuv9EF0M5/fQ3vdPxRKqjddbqZcE6JRVftvuQsC+onlL0tM
- Onu08EPMBAnbGil0BS5vdgM8gufz5sddRzMFW73eqd7aS7vRN6HXjfPsa
- FTcsjboIPqdXto9Ud3w7N5ARzcvkEkERFsADmu7G/gdkEjE14DlmIpxXV 4=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 13 May 2022 18:57:56 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 May 2022 18:57:55 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 13 May 2022 18:57:55 -0700
-Received: from [10.38.247.112] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 13 May
- 2022 18:57:53 -0700
-Message-ID: <b0739528-881f-32ca-d026-a06ada7259a5@quicinc.com>
-Date: Fri, 13 May 2022 18:57:51 -0700
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2110610E074
+ for <freedreno@lists.freedesktop.org>; Sat, 14 May 2022 03:58:49 +0000 (UTC)
+Received: by mail-yb1-xb34.google.com with SMTP id w187so18419302ybe.2
+ for <freedreno@lists.freedesktop.org>; Fri, 13 May 2022 20:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=GT9/q30klIOZiNi12Byl1O8n++vZSioA/Bb3DiRLCoc=;
+ b=b9aVU7IS90gpAcPOVXeUUrzRXPZYphDZXmhfMOkEgJQ0e8/RprHm3Tru+rqh0eu/jP
+ +n+RJB1cn+kThXEeRgZv3mfaquhe++Vzq8HazzqAAM+xvKu/o65jXbXFJ7FLfvnG0L2X
+ z6AeKhwLSb05/HIc8T0pKufqixhuDC5lp3vBhssiTDDtccAOAjgpAijozUNZ0Gic9K8a
+ GS+rPR30c8EgzGZ0TTaTWHGNsyTqAxZ3GpD9QJu3i/JNT2qSik9ALRb9T9DBno78oVbZ
+ 9GWixvBNT3L7/uh+PeNGp8S7tXWLa/fuHpW6kLY4B9I1fgL4a0I9ZvJYqbq9S1tiD3mf
+ siqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GT9/q30klIOZiNi12Byl1O8n++vZSioA/Bb3DiRLCoc=;
+ b=o4D4IByF5x1QVlRq6vGEoKwRi9+qnc6hHXj2P5RM9z8KC9L89X9oQCyKNBw5GQZsNX
+ CzyP7oTtBFPYJgUsDwYt1P31fhV6W0+Fby4Sdw+u5dclYpRV26QvDMXtv/Hwmbse9xtv
+ QMIzZpudPdZMqX1H2xr560F9Oyc7qW3KnZcHgoY+3fr7BplrjNgylnwhkRonKtgYzU7T
+ JgHlDh7x0rbh3R7H5af05j1fcWJk3rPJrMXCLwiDJ5yrL7i35KD5ZZp26WTbwaKXceEo
+ yzMNn9sNSSqbojd8bVX+IjIrniYdgYSvMXGjN60GPkLOVsaoEO6mGLoMQAQ3srjBnOgd
+ Zovg==
+X-Gm-Message-State: AOAM5302F6LN4qr60gsMi+u7401z7DAxO0ZU//ubyehe+7IOtU90Rysc
+ mzSfkqqYr9tC2AnFH/d0m0sNOpthJ3YDbyurY1HNrw==
+X-Google-Smtp-Source: ABdhPJyA0cZpGgVC+vHuXsPtJhVk9N1EspaO4yzHpGvrbO4jnRAAMhk7yYaKZyXDuU7oq2lHHQw5HbRctiWXIBKLOBM=
+X-Received: by 2002:a25:504c:0:b0:64b:979c:1bae with SMTP id
+ e73-20020a25504c000000b0064b979c1baemr5867654ybb.563.1652500728034; Fri, 13
+ May 2022 20:58:48 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>
-References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
- <20220209172520.3719906-20-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220209172520.3719906-20-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 19/25] drm/msm/dpu: don't use unsupported
- blend stages
+References: <20220429164325.1.I2a3b980ea051e59140227999f0f0ca16f1125768@changeid>
+ <CAHp75VdqbXCYoEwxMt7xG55QDu2mXHbnpwdnHb6ktm8NdVPJnQ@mail.gmail.com>
+ <CAJZ5v0hKrnRznpTjTyb8ANGN=REaukAbqQNB_14i_NwAA84=uA@mail.gmail.com>
+In-Reply-To: <CAJZ5v0hKrnRznpTjTyb8ANGN=REaukAbqQNB_14i_NwAA84=uA@mail.gmail.com>
+From: Saravana Kannan <saravanak@google.com>
+Date: Fri, 13 May 2022 20:58:12 -0700
+Message-ID: <CAGETcx_9MNGBi1avOzYoOOaed0CVHa03dfTxYpQuOErtpiisLg@mail.gmail.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] device property: Fix recent breakage of
+ fwnode_get_next_parent_dev()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,43 +65,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Douglas Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Scally <djrscally@gmail.com>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, May 5, 2022 at 5:21 AM Rafael J. Wysocki <rafael@kernel.org> wrote:
+>
+> On Sun, May 1, 2022 at 9:50 AM Andy Shevchenko
+> <andy.shevchenko@gmail.com> wrote:
+> >
+> > On Sat, Apr 30, 2022 at 3:00 PM Douglas Anderson <dianders@chromium.org> wrote:
+> > >
+> > > Due to a subtle typo, instead of commit 87ffea09470d ("device
+> > > property: Introduce fwnode_for_each_parent_node()") being a no-op
+> > > change, it ended up causing the display on my sc7180-trogdor-lazor
+> > > device from coming up unless I added "fw_devlink=off" to my kernel
+> > > command line. Fix the typo.
+> >
+> > Sorry and merci pour la fix!
+> > Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+>
+> Applied, thanks!
+
+Has this been picked up by one of the driver-core branches yet? I was
+poking around that
+git repo and didn't see any commit with this title. This breaks
+fw_devlink in a severe manner, so I want to make sure it gets into
+5.18.
+
+-Saravana
 
 
-On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
-> The atomic_check compares blending stage with DPU_STAGE_MAX (maximum
-> amount of blending stages supported by the driver), however we should
-> compare it against .max_mixer_blendstages, the maximum blend stage
-> supported by the mixer.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-This seems reasonable to me,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> index 637d164667e9..952ff11162c0 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-> @@ -927,9 +927,9 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
->   	pstate->pipe.multirect_mode = DPU_SSPP_MULTIRECT_NONE;
->   
->   	pstate->stage = DPU_STAGE_0 + pstate->base.normalized_zpos;
-> -	if (pstate->stage >= DPU_STAGE_MAX) {
-> +	if (pstate->stage >= pdpu->catalog->caps->max_mixer_blendstages) {
->   		DPU_ERROR("> %d plane stages assigned\n",
-> -				DPU_STAGE_MAX - DPU_STAGE_0);
-> +				pdpu->catalog->caps->max_mixer_blendstages - DPU_STAGE_0);
->   		return -EINVAL;
->   	}
->   
+-Saravana
