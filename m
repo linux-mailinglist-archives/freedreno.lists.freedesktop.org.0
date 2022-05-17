@@ -2,57 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2259A52A92A
-	for <lists+freedreno@lfdr.de>; Tue, 17 May 2022 19:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B616A52AAAB
+	for <lists+freedreno@lfdr.de>; Tue, 17 May 2022 20:25:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F61611351F;
-	Tue, 17 May 2022 17:26:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 678AE897FD;
+	Tue, 17 May 2022 18:25:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C56CB11351A;
- Tue, 17 May 2022 17:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652808387; x=1684344387;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=HWRBR0+UgN1qn8UzjMrMhlumkaHTOr4lbZ2cBy/KxG0=;
- b=ekEmyBczDi/2RWdaWFaCvcxJSsHht4ZVceajHhPznGB8yRf4ZI9B+cVh
- lYayDk6fxk0DjVvrW1hY53b3VDg+7AFOTbIkTrO8rBbKOVMDA5MpnYRef
- tkvIYecGc+ArAWtq66yJEWMyxTjmSvzULUupa6WmOhC8Bm+eMtaBBr/a6 4=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 17 May 2022 10:26:26 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2022 10:26:25 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 17 May 2022 10:26:25 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 17 May 2022 10:26:24 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Tue, 17 May 2022 10:26:00 -0700
-Message-ID: <1652808360-9830-3-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1652808360-9830-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1652808360-9830-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3EA897FD
+ for <freedreno@lists.freedesktop.org>; Tue, 17 May 2022 18:25:25 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id m6so2210017ljb.2
+ for <freedreno@lists.freedesktop.org>; Tue, 17 May 2022 11:25:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qH8JUwLx+nM2xLEZwshDyeOy6cvrct0hZrP49LTkuDM=;
+ b=EY9f44uXKvLkOY8iZd14BHawAhNUN5U4GqSLHNYuqKHcKS0Qke1+e4dR2Lr2q+pgtm
+ PuNJGHYdn8j0Q/PHfKAhuitiiKnVmprU51irprKmrChcHh4UC7xaOLSS3bNfv3rRF2Ws
+ I6aoIAW3INBzIFcGpdp5JQMEl5AHmprHor3Xc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qH8JUwLx+nM2xLEZwshDyeOy6cvrct0hZrP49LTkuDM=;
+ b=WAPZF66PN8kBjpv2t+GlSllNHcf2SRdRusrOZStPrJNurgjJzxltNWJ4nxs1JvcQy7
+ kqCHwi1nSQUvmkUKmo7kdQUFIDLCdru0C/v1NwAtkOhikdrZylLB18XVnH1MzN8uJEBx
+ qAZvCFRyhcQ2brcdnmQbCJpNkqikcrCYYy3RwFB7gw5iKnYn3beCZ6OqSE+Dg8DwXnVc
+ h26dcU0t9SHx68tvc1Sk36OlElFaL9F87nEF5i91mbZuHoFeIwuB2tOrp16en5oCwLOA
+ VhlUp5AEE8uvNV0PfZp6xo5Q80kv+NVcKX0YNw8ec3+nOrAiVHvQLLbdZLinklf6fITG
+ OGjA==
+X-Gm-Message-State: AOAM530WW727ZPrzMWCgFRLhMLOK3jkIl5enccMLisoLb0NRKB4Bifps
+ FkVobFIyJCWDL1bNUZmb1ogK9gCL2MXR8z5q
+X-Google-Smtp-Source: ABdhPJzGGf8DIU7FVYPuywdVfk2mwnOtqqtFfEioPH3X+Ppfh7Y3EJYxNo6b/k8XE1FYxRAHyYfHYg==
+X-Received: by 2002:a2e:9801:0:b0:24f:983:b17f with SMTP id
+ a1-20020a2e9801000000b0024f0983b17fmr15426107ljj.88.1652811923407; 
+ Tue, 17 May 2022 11:25:23 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com.
+ [209.85.208.173]) by smtp.gmail.com with ESMTPSA id
+ p3-20020a05651211e300b0047255d21103sm29687lfs.50.2022.05.17.11.25.22
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 May 2022 11:25:23 -0700 (PDT)
+Received: by mail-lj1-f173.google.com with SMTP id i23so1736928ljb.4
+ for <freedreno@lists.freedesktop.org>; Tue, 17 May 2022 11:25:22 -0700 (PDT)
+X-Received: by 2002:a5d:5009:0:b0:20d:846:f4da with SMTP id
+ e9-20020a5d5009000000b0020d0846f4damr10202605wrt.301.1652811497320; Tue, 17
+ May 2022 11:18:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v1 2/2] drm/msm/dp: delete vdda regulator
- related functions from eDP/DP controller
+References: <1652808360-9830-1-git-send-email-quic_khsieh@quicinc.com>
+ <1652808360-9830-2-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1652808360-9830-2-git-send-email-quic_khsieh@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 17 May 2022 11:18:05 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=U0Ba0th-jmF+3t9BPEisXU2ZmjiahV7YFUqC0fbUrvJQ@mail.gmail.com>
+Message-ID: <CAD=FV=U0Ba0th-jmF+3t9BPEisXU2ZmjiahV7YFUqC0fbUrvJQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v1 1/2] phy/qcom: add regulator_set_load to
+ edp/dp phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,223 +73,172 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
+ Vinod Koul <vkoul@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Vdda regulators are related to both eDP and DP phy so that it should be
-managed at eDP and DP phy driver instead of controller. This patch remove
-vdda regulators related functions out of eDP/DP controller.
+Hi,
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
----
- drivers/gpu/drm/msm/dp/dp_parser.c | 14 ------
- drivers/gpu/drm/msm/dp/dp_parser.h |  6 ---
- drivers/gpu/drm/msm/dp/dp_power.c  | 95 +-------------------------------------
- 3 files changed, 2 insertions(+), 113 deletions(-)
+On Tue, May 17, 2022 at 10:26 AM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> This patch add regulator_set_load() to both eDP and DP phy driver
+> to have totally control regulators.
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-edp.c | 25 +++++++++++++++++++++----
+>  drivers/phy/qualcomm/phy-qcom-qmp.c | 24 ++++++++++++++++++++++++
+>  2 files changed, 45 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
+> index cacd32f..9b55095 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+> @@ -87,17 +87,24 @@ struct qcom_edp {
+>
+>         struct clk_bulk_data clks[2];
+>         struct regulator_bulk_data supplies[2];
+> +       int enable_load[2];
+> +       int disable_load[2];
+>  };
+>
+>  static int qcom_edp_phy_init(struct phy *phy)
+>  {
+>         struct qcom_edp *edp = phy_get_drvdata(phy);
+>         int ret;
+> +       int num_consumers = ARRAY_SIZE(edp->supplies);
+> +       int i;
+>
+> -       ret = regulator_bulk_enable(ARRAY_SIZE(edp->supplies), edp->supplies);
+> +       ret = regulator_bulk_enable(num_consumers, edp->supplies);
+>         if (ret)
+>                 return ret;
+>
+> +       for (i = num_consumers - 1; i >= 0; --i)
+> +               regulator_set_load(edp->supplies[i].consumer, edp->enable_load[i]);
+> +
+>         ret = clk_bulk_prepare_enable(ARRAY_SIZE(edp->clks), edp->clks);
+>         if (ret)
+>                 goto out_disable_supplies;
+> @@ -425,9 +432,15 @@ static int qcom_edp_phy_power_off(struct phy *phy)
+>  static int qcom_edp_phy_exit(struct phy *phy)
+>  {
+>         struct qcom_edp *edp = phy_get_drvdata(phy);
+> +       int num_consumers = ARRAY_SIZE(edp->supplies);
+> +       int i;
+>
+>         clk_bulk_disable_unprepare(ARRAY_SIZE(edp->clks), edp->clks);
+> -       regulator_bulk_disable(ARRAY_SIZE(edp->supplies), edp->supplies);
+> +
+> +       for (i = num_consumers - 1; i >= 0; --i)
+> +               regulator_set_load(edp->supplies[i].consumer, edp->disable_load[i]);
+> +
+> +       regulator_bulk_disable(num_consumers, edp->supplies);
+>
+>         return 0;
+>  }
+> @@ -633,8 +646,12 @@ static int qcom_edp_phy_probe(struct platform_device *pdev)
+>         if (ret)
+>                 return ret;
+>
+> -       edp->supplies[0].supply = "vdda-phy";
+> -       edp->supplies[1].supply = "vdda-pll";
+> +       edp->supplies[0].supply = "vdda-1p2";
+> +       edp->supplies[1].supply = "vdda-0p9";
+> +       edp->enable_load[0] = 21800;    /* 1.2 V */
+> +       edp->enable_load[1] = 36000;    /* 1.2 V */
+> +       edp->disable_load[0] = 4;       /* 0.9 V */
+> +       edp->disable_load[1] = 4;       /* 10.9V */
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index 8f9fed9..4ef2130 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -22,14 +22,6 @@
- #define DP_DEFAULT_P0_OFFSET	0x1000
- #define DP_DEFAULT_P0_SIZE	0x0400
- 
--static const struct dp_regulator_cfg sdm845_dp_reg_cfg = {
--	.num = 2,
--	.regs = {
--		{"vdda-1p2", 21800, 4 },	/* 1.2 V */
--		{"vdda-0p9", 36000, 32 },	/* 0.9 V */
--	},
--};
--
- static void __iomem *dp_ioremap(struct platform_device *pdev, int idx, size_t *len)
- {
- 	struct resource *res;
-@@ -298,12 +290,6 @@ static int dp_parser_parse(struct dp_parser *parser)
- 	if (rc)
- 		return rc;
- 
--	/* Map the corresponding regulator information according to
--	 * version. Currently, since we only have one supported platform,
--	 * mapping the regulator directly.
--	 */
--	parser->regulator_cfg = &sdm845_dp_reg_cfg;
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 3a4d797..b56b4d7 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -101,11 +101,6 @@ struct dp_reg_entry {
- 	int disable_load;
- };
- 
--struct dp_regulator_cfg {
--	int num;
--	struct dp_reg_entry regs[DP_DEV_REGULATOR_MAX];
--};
--
- /**
-  * struct dp_parser - DP parser's data exposed to clients
-  *
-@@ -121,7 +116,6 @@ struct dp_parser {
- 	struct dp_pinctrl pinctrl;
- 	struct dp_io io;
- 	struct dp_display_data disp_data;
--	const struct dp_regulator_cfg *regulator_cfg;
- 	u32 max_dp_lanes;
- 	struct drm_bridge *next_bridge;
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-index d9e0117..b52ac1d 100644
---- a/drivers/gpu/drm/msm/dp/dp_power.c
-+++ b/drivers/gpu/drm/msm/dp/dp_power.c
-@@ -20,82 +20,10 @@ struct dp_power_private {
- 	struct clk *link_clk_src;
- 	struct clk *pixel_provider;
- 	struct clk *link_provider;
--	struct regulator_bulk_data supplies[DP_DEV_REGULATOR_MAX];
- 
- 	struct dp_power dp_power;
- };
- 
--static void dp_power_regulator_disable(struct dp_power_private *power)
--{
--	struct regulator_bulk_data *s = power->supplies;
--	const struct dp_reg_entry *regs = power->parser->regulator_cfg->regs;
--	int num = power->parser->regulator_cfg->num;
--	int i;
--
--	DBG("");
--	for (i = num - 1; i >= 0; i--)
--		if (regs[i].disable_load >= 0)
--			regulator_set_load(s[i].consumer,
--					   regs[i].disable_load);
--
--	regulator_bulk_disable(num, s);
--}
--
--static int dp_power_regulator_enable(struct dp_power_private *power)
--{
--	struct regulator_bulk_data *s = power->supplies;
--	const struct dp_reg_entry *regs = power->parser->regulator_cfg->regs;
--	int num = power->parser->regulator_cfg->num;
--	int ret, i;
--
--	DBG("");
--	for (i = 0; i < num; i++) {
--		if (regs[i].enable_load >= 0) {
--			ret = regulator_set_load(s[i].consumer,
--						 regs[i].enable_load);
--			if (ret < 0) {
--				pr_err("regulator %d set op mode failed, %d\n",
--					i, ret);
--				goto fail;
--			}
--		}
--	}
--
--	ret = regulator_bulk_enable(num, s);
--	if (ret < 0) {
--		pr_err("regulator enable failed, %d\n", ret);
--		goto fail;
--	}
--
--	return 0;
--
--fail:
--	for (i--; i >= 0; i--)
--		regulator_set_load(s[i].consumer, regs[i].disable_load);
--	return ret;
--}
--
--static int dp_power_regulator_init(struct dp_power_private *power)
--{
--	struct regulator_bulk_data *s = power->supplies;
--	const struct dp_reg_entry *regs = power->parser->regulator_cfg->regs;
--	struct platform_device *pdev = power->pdev;
--	int num = power->parser->regulator_cfg->num;
--	int i, ret;
--
--	for (i = 0; i < num; i++)
--		s[i].supply = regs[i].name;
--
--	ret = devm_regulator_bulk_get(&pdev->dev, num, s);
--	if (ret < 0) {
--		pr_err("%s: failed to init regulator, ret=%d\n",
--						__func__, ret);
--		return ret;
--	}
--
--	return 0;
--}
--
- static int dp_power_clk_init(struct dp_power_private *power)
- {
- 	int rc = 0;
-@@ -318,21 +246,10 @@ int dp_power_client_init(struct dp_power *dp_power)
- 
- 	pm_runtime_enable(&power->pdev->dev);
- 
--	rc = dp_power_regulator_init(power);
--	if (rc) {
--		DRM_ERROR("failed to init regulators %d\n", rc);
--		goto error;
--	}
--
- 	rc = dp_power_clk_init(power);
--	if (rc) {
-+	if (rc)
- 		DRM_ERROR("failed to init clocks %d\n", rc);
--		goto error;
--	}
--	return 0;
- 
--error:
--	pm_runtime_disable(&power->pdev->dev);
- 	return rc;
- }
- 
-@@ -365,22 +282,15 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
- 	pm_runtime_get_sync(&power->pdev->dev);
--	rc = dp_power_regulator_enable(power);
--	if (rc) {
--		DRM_ERROR("failed to enable regulators, %d\n", rc);
--		goto exit;
--	}
- 
- 	rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
- 	if (rc) {
- 		DRM_ERROR("failed to enable DP core clocks, %d\n", rc);
--		goto err_clk;
-+		goto exit;
- 	}
- 
- 	return 0;
- 
--err_clk:
--	dp_power_regulator_disable(power);
- exit:
- 	pm_runtime_put_sync(&power->pdev->dev);
- 	return rc;
-@@ -393,7 +303,6 @@ int dp_power_deinit(struct dp_power *dp_power)
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
- 	dp_power_clk_enable(dp_power, DP_CORE_PM, false);
--	dp_power_regulator_disable(power);
- 	pm_runtime_put_sync(&power->pdev->dev);
- 	return 0;
- }
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+10.9V? That's a lot!
 
+
+>         ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(edp->supplies), edp->supplies);
+>         if (ret)
+>                 return ret;
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> index b144ae1..c589231 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> @@ -3130,6 +3130,8 @@ struct qmp_phy_cfg {
+>         int num_resets;
+>         /* regulators to be requested */
+>         const char * const *vreg_list;
+> +       const unsigned int *vreg_enable_load;
+> +       const unsigned int *vreg_disable_load;
+>         int num_vregs;
+>
+>         /* array of registers with different offsets */
+> @@ -3346,6 +3348,14 @@ static const char * const qmp_phy_vreg_l[] = {
+>         "vdda-phy", "vdda-pll",
+>  };
+>
+> +static const unsigned int qmp_phy_vreg_enable_load[] = {
+> +       21800, 36000
+> +};
+> +
+> +static const unsigned int qmp_phy_vreg_disable_load[] = {
+> +       4, 32
+> +};
+> +
+>  static const struct qmp_phy_cfg ipq8074_usb3phy_cfg = {
+>         .type                   = PHY_TYPE_USB3,
+>         .nlanes                 = 1,
+> @@ -4072,6 +4082,8 @@ static const struct qmp_phy_cfg sm8250_usb3phy_cfg = {
+>         .reset_list             = msm8996_usb3phy_reset_l,
+>         .num_resets             = ARRAY_SIZE(msm8996_usb3phy_reset_l),
+>         .vreg_list              = qmp_phy_vreg_l,
+> +       .vreg_enable_load       = qmp_phy_vreg_enable_load,
+> +       .vreg_disable_load      = qmp_phy_vreg_disable_load,
+>         .num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
+>         .regs                   = qmp_v4_usb3phy_regs_layout,
+>
+> @@ -4139,6 +4151,8 @@ static const struct qmp_phy_cfg sm8250_dpphy_cfg = {
+>         .reset_list             = msm8996_usb3phy_reset_l,
+>         .num_resets             = ARRAY_SIZE(msm8996_usb3phy_reset_l),
+>         .vreg_list              = qmp_phy_vreg_l,
+> +       .vreg_enable_load       = qmp_phy_vreg_enable_load,
+> +       .vreg_disable_load      = qmp_phy_vreg_disable_load,
+>         .num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
+>         .regs                   = qmp_v4_usb3phy_regs_layout,
+>
+> @@ -5015,6 +5029,11 @@ static int qcom_qmp_phy_com_init(struct qmp_phy *qphy)
+>                 goto err_reg_enable;
+>         }
+>
+> +       if (cfg->vreg_enable_load) {
+> +               for (i = cfg->num_vregs - 1; i >= 0; --i)
+> +                       regulator_set_load(qmp->vregs[i].consumer, cfg->vreg_enable_load[i]);
+> +       }
+> +
+>         for (i = 0; i < cfg->num_resets; i++) {
+>                 ret = reset_control_assert(qmp->resets[i]);
+>                 if (ret) {
+> @@ -5116,6 +5135,11 @@ static int qcom_qmp_phy_com_exit(struct qmp_phy *qphy)
+>
+>         clk_bulk_disable_unprepare(cfg->num_clks, qmp->clks);
+>
+> +       if (cfg->vreg_disable_load[i]) {
+> +               for (i = cfg->num_vregs - 1; i >= 0; --i)
+> +                       regulator_set_load(qmp->vregs[i].consumer, cfg->vreg_disable_load[i]);
+> +       }
+> +
+>         regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
+
+You don't haven't needed the regulator_set_load() on
+regulator_bulk_disable() for many years now. See commit 5451781dadf8
+("regulator: core: Only count load for enabled consumers")
+
+...so the only place you should set the load is in qcom_edp_phy_init()
+
+-Doug
