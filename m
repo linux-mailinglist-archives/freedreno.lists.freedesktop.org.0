@@ -2,56 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2C7952C3D3
-	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 21:58:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2314252C40A
+	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 22:19:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCE6810E55B;
-	Wed, 18 May 2022 19:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C095F10F435;
+	Wed, 18 May 2022 20:19:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3314410E55B
- for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 19:57:59 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id w127so570335oie.1
- for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 12:57:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=UcTbUgGIvqsT3olvD3JU2VJ3/UUh5htiHSA1O+KkiiE=;
- b=YobbZ2QJc+rrHelFAGviFrdAvTVXo2zCucJrpGg+idHoeBAZ6YRxtZDeL0MP+vxdGE
- /bKWX1zSLEFTdq2KMZxiviOpAnw4gVrn7TkFfm1WaTmyRbQgxbESeDdZaTdXYYPOJ1gR
- DWspatPXKL1M3VuocDgKM8N8ed7ZLQrozT7hU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=UcTbUgGIvqsT3olvD3JU2VJ3/UUh5htiHSA1O+KkiiE=;
- b=WqhUXfWXwRqWeFp9M7vynLDWfz7r8kRcI5J9SMESHx0wx0bwMdP88w7Zof2ttmgMJ6
- cPV/f6+ktqxTn4H7BPNm32WwWiwrS2cgNUk7eB0Jl4YAITHrGHONlWDTTACnFi1UXq4V
- rwQjEM4VgVMMKrjiQhCWtWccYetHhVwezkDrLGUwVigiAERCf4iNedfKt/pwpl4Ab5p9
- /aR5DD3LFv1kBc59V0LYC9MCVLApp1j1Jmd+VOA8fpo9UzoP7QG1giMHjbvDxhE8i4Kb
- n2+U1Jv6yUfUz5BmWj/4CYCm+fjlfaEqRB8IpeSAvCmhBpS3+ADFn5WbE4JYj2RhNsVo
- 4WvA==
-X-Gm-Message-State: AOAM531GjTEtDzQSQC1Yulc/R3jvV0t4fOsdBQ3Q/kuN6G3KSw5Cs17n
- UbdiAyBkHv+3Dhk3PyUFSSTmGaHZ2uuaTxwpbt2DIA==
-X-Google-Smtp-Source: ABdhPJxcBIZ6WAPAF+BE1ubh8zCQ2HtllaswZgL+Lw9xO6F45Cwgz9H+CQ8gV9kxkAh/6j0nnKospRlAC18YtbTnsk8=
-X-Received: by 2002:a05:6808:23c3:b0:326:bd8d:7993 with SMTP id
- bq3-20020a05680823c300b00326bd8d7993mr771163oib.63.1652903878386; Wed, 18 May
- 2022 12:57:58 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 18 May 2022 12:57:58 -0700
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5DE910F435;
+ Wed, 18 May 2022 20:19:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1652905177; x=1684441177;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=35+mVLkWcgooCHSr+c7HPDAJpJIycqcHxmTzAwsFFrI=;
+ b=xZ/D5cMp1xtEF2DlrVSvAInKNOKHdg+Afc+SYjkNlgGghQzS4/nn5hp7
+ blEmCp+72XGW9MBfDgaAw//06jO3Ye5TzBxMCVSiBAqg/Xwj5OWu4lVKn
+ i/DJj4SwtoBmf2QsSjEUQqhn9wIB3Nv5OPrqaYBWPYDNuM3lQuLHVxwt1 E=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 18 May 2022 13:19:37 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 May 2022 13:19:37 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 18 May 2022 13:19:36 -0700
+Received: from [10.110.42.114] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 18 May
+ 2022 13:19:35 -0700
+Message-ID: <a905227d-0e3f-0e91-a6ac-a2fffc0b88df@quicinc.com>
+Date: Wed, 18 May 2022 13:19:33 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220518195540.30459-1-quic_abhinavk@quicinc.com>
-References: <20220518195540.30459-1-quic_abhinavk@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 18 May 2022 12:57:57 -0700
-Message-ID: <CAE-0n538GBcz1TgsamEoJvUZRYEVZ6inTo=9A7YOo8PMreYeLQ@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: handle pm_runtime_get_sync()
- errors in bind path
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <1652892186-22346-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAA8EJpqq4fxxgY0mj0JBans3GE-HAuad4Zsf7Ntwy1WW3bHbTQ@mail.gmail.com>
+ <98295144-2e05-674b-4983-5f1738480c86@quicinc.com>
+ <38e1f139-6814-db63-1f4b-5a76a1ab0eda@linaro.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <38e1f139-6814-db63-1f4b-5a76a1ab0eda@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v2 0/2] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +67,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, robdclark@gmail.com,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
+ agross@kernel.org, bjorn.andersson@linaro.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, quic_aravindh@quicinc.com, swboyd@chromium.org,
+ sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Abhinav Kumar (2022-05-18 12:55:40)
-> If there are errors while trying to enable the pm in the
-> bind path, it will lead to unclocked access of hw revision
-> register thereby crashing the device.
->
-> This will not address why the pm_runtime_get_sync() fails
-> but at the very least we should be able to prevent the
-> crash by handling the error and bailing out earlier.
->
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 2b9d931474e0..2fd1f5b70a06 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1089,7 +1089,11 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->
->         dpu_kms_parse_data_bus_icc_path(dpu_kms);
->
-> -       pm_runtime_get_sync(&dpu_kms->pdev->dev);
-> +       rc = pm_runtime_get_sync(&dpu_kms->pdev->dev);
 
-Any reason to not use pm_runtime_resume_and_get()?
-
-> +       if (rc < 0) {
-> +               pm_runtime_put_autosuspend(&dpu_kms->pdev->dev);
-> +               goto error;
-
-Then this is a single goto error
+On 5/18/2022 10:31 AM, Dmitry Baryshkov wrote:
+> On 18/05/2022 20:29, Kuogee Hsieh wrote:
+>>
+>> On 5/18/2022 10:16 AM, Dmitry Baryshkov wrote:
+>>> On Wed, 18 May 2022 at 19:43, Kuogee Hsieh <quic_khsieh@quicinc.com> 
+>>> wrote:
+>>>> 1) add regulator_set_load() to eDP/DP phy
+>>>> 2) remove vdda related function out of eDP/DP controller
+>>> These patches touch two subsystems and have a dependency between them.
+>>> How do we merge them?
+>>
+>> currently, both phy and controller are vote for regulator. The last 
+>> vote will just increase count.
+>>
+>> Therefore the dependency should be very loose.
+>
+> So, do you propose to merge dp change a cycle after the phy changes go 
+> in?
+>
+yes,
+>>
+>>
+>>>> Kuogee Hsieh (2):
+>>>>    phy/qcom: add regulator_set_load to edp/dp phy
+>>>>    drm/msm/dp: delete vdda regulator related functions from eDP/DP
+>>>>      controller
+>>>>
+>>>>   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
+>>>>   drivers/gpu/drm/msm/dp/dp_parser.h  |  6 ---
+>>>>   drivers/gpu/drm/msm/dp/dp_power.c   | 95 
+>>>> +------------------------------------
+>>>>   drivers/phy/qualcomm/phy-qcom-edp.c | 25 ++++++++--
+>>>>   drivers/phy/qualcomm/phy-qcom-qmp.c | 13 +++++
+>>>>   5 files changed, 36 insertions(+), 117 deletions(-)
+>>>>
+>>>> -- 
+>>>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
+>>>> Forum,
+>>>> a Linux Foundation Collaborative Project
+>>>>
+>>>
+>
+>
