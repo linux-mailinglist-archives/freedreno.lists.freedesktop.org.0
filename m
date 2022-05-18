@@ -2,61 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFE452C233
-	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 20:27:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94C2452C32F
+	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 21:20:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 794B110EAF7;
-	Wed, 18 May 2022 18:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1142810EC31;
+	Wed, 18 May 2022 19:20:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D66810EAF7;
- Wed, 18 May 2022 18:27:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652898446; x=1684434446;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=b8tRQsCHtzmgJoCqviRRMmkqm8bIh2NyvIijPhk0qDw=;
- b=U7Ek7D7sVhEQzyKRPJBZ80mRZaBDpE+/iE+vT1bmulJUNR5JOlcU5QHH
- oHjGUXUIwkQ7JttHEGtDMHi3QWXuwCPnn3paZHUAF5NGQByglP/5BgGbn
- 2fnb2SnYRKK1KAcdVycEuDrHzchamOLKh34nKUP7ZMPy8E9de6fYaPGhv I=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 18 May 2022 11:27:25 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 11:27:23 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 18 May 2022 11:27:25 -0700
-Received: from [10.110.42.114] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 18 May
- 2022 11:27:23 -0700
-Message-ID: <fccdd789-81a7-c1c8-8d46-2eee33fc7fb1@quicinc.com>
-Date: Wed, 18 May 2022 11:27:22 -0700
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7632710EB97
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 19:20:20 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id d15so5326960lfk.5
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 12:20:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=0L/FNTLYazFc9GR438CvVRajnH///iO8Ms9EgsVnn/8=;
+ b=Ko40aNSPAlKJB7VuMUGtV+fRHGF55+Tx67dBvUvqIv9eO7XTGL/Np8DRblcp2iCB4L
+ z/yQGIx8nbDOGwvIN4sXt0aqtPZtljeabhHi4aVURUCKMG6ogyvMVone3oEEpuGcRf7D
+ sAf6Lg7Yhc/t55gD6BXGm8FlQtAvDyN4l7tIpQG03N2hplpMaZ6o/CnKV4SRxLvpQ7iO
+ TyzusJYkpXX38EwDRdUqDubA/9MK6NEGxRyshxTXioGHxb5GOgoi+RGa/9H6kc1X0K67
+ 3R53G3dvRERS2n/2YaBpZbpA6QqDzXCZDyPb5Wi1J35dwgPcw1ohMf+3gPDTbkfFOB0q
+ +61Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=0L/FNTLYazFc9GR438CvVRajnH///iO8Ms9EgsVnn/8=;
+ b=uKdMbZsaBoAGTW5tIhuLEVhJvFWLVuHLavUM6bbuHYVcjj937y6UkMu6vUi7dnGA5B
+ n99fW2BNp8PXbCLKuiD/5LVjFWp2vJ6RGkqu4nbUmoMOJjQwkOIx+N29DZo2SdJ9o5/C
+ Q+G0MDYGISgKnhPaXJSTblbn2KFCm9FXJ3tr0anKugts3C9befOBOOzHrwgVwP+aFsQE
+ DTnjkpRHnm2t/IBOnKpExcX4q/Arh/H1JlUzpW1SDlERM4e3/9SKEfL2xYswoJ8paF25
+ 6TmrOyHAqGpQ8Qg3DK9zw9qaaRsmlV7ozP3HAp507YGI9Qp47TkOoR9M1NgK5ELZvQp4
+ esHA==
+X-Gm-Message-State: AOAM531O23VvC/L9T3wDqzZxSDBuP4LAgWk9RXxWZTaIE41drU3ZUYvk
+ QedVzkQCla4xNnTUuePJqAM8Zg==
+X-Google-Smtp-Source: ABdhPJx2TQQftncTAAwU+1FFE41NG8tqtmCVZDhL0EBWiEeb9IHiOOtytuFkHTOX+4gDIqviyVKSjg==
+X-Received: by 2002:ac2:5229:0:b0:476:7a25:374c with SMTP id
+ i9-20020ac25229000000b004767a25374cmr667370lfl.97.1652901618816; 
+ Wed, 18 May 2022 12:20:18 -0700 (PDT)
+Received: from ?IPV6:2001:470:dd84:abc0::8a5? ([2001:470:dd84:abc0::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ 189-20020a2e09c6000000b00251fcb946d2sm296691ljj.119.2022.05.18.12.20.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 May 2022 12:20:18 -0700 (PDT)
+Message-ID: <7020a5e1-0579-abba-5e43-7d12f42d62b5@linaro.org>
+Date: Wed, 18 May 2022 22:20:17 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <1652892186-22346-1-git-send-email-quic_khsieh@quicinc.com>
- <1652892186-22346-2-git-send-email-quic_khsieh@quicinc.com>
- <CAA8EJpr9znfxLK+kDstMFFk3V8goyaceGXi4sDc9ghz4eryXMg@mail.gmail.com>
- <c5decaeb-2e88-ef23-ce6c-50d3d853766b@quicinc.com>
- <42b0034f-0be1-2951-d6a6-bf0a51cf0fc2@linaro.org>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <42b0034f-0be1-2951-d6a6-bf0a51cf0fc2@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 1/2] phy/qcom: add regulator_set_load to
- edp/dp phy
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20220513225959.19004-1-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220513225959.19004-1-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: limit writeback modes
+ according to max_linewidth
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,216 +74,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
- agross@kernel.org, bjorn.andersson@linaro.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, quic_aravindh@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com, quic_khsieh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 14/05/2022 01:59, Abhinav Kumar wrote:
+> Writeback modes were being added according to mode_config.max_width
+> but this is assigned to double of max_mixer_width.
+> 
+> For compositors/clients using a single SSPP, this will fail
+> the dpu_plane's atomic check as it checks for max_linewidth.
+> 
+> Limit writeback modes according to max_linewidth to allow
+> even compositors/clients which use only a single SSPP to
+> use writeback.
+> 
+> Fixes: 77b001acdcfeb ("drm/msm/dpu: add the writeback connector layer")
+> Reported-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-On 5/18/2022 10:52 AM, Dmitry Baryshkov wrote:
-> On 18/05/2022 20:36, Kuogee Hsieh wrote:
->>
->> On 5/18/2022 10:12 AM, Dmitry Baryshkov wrote:
->>> On Wed, 18 May 2022 at 19:43, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->>> wrote:
->>>> This patch add regulator_set_load() to both eDP and DP phy driver
->>>> to have totally control regulators.
->>>>
->>>> Changes in v2:
->>>> -- no regulator_set_laod() before disable regulator
->>>>
->>>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> ---
->>>>   drivers/phy/qualcomm/phy-qcom-edp.c | 25 +++++++++++++++++++++----
->>>>   drivers/phy/qualcomm/phy-qcom-qmp.c | 13 +++++++++++++
->>> Split into -edp and -qmp part.
->>>
->>>>   2 files changed, 34 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c 
->>>> b/drivers/phy/qualcomm/phy-qcom-edp.c
->>>> index cacd32f..9b55095 100644
->>>> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
->>>> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
->>>> @@ -87,17 +87,24 @@ struct qcom_edp {
->>>>
->>>>          struct clk_bulk_data clks[2];
->>>>          struct regulator_bulk_data supplies[2];
->>>> +       int enable_load[2];
->>>> +       int disable_load[2];
->>> As noticed in the review of the previous patch, disable_load is 
->>> unnecessary.
->>>
->>>>   };
->>>>
->>>>   static int qcom_edp_phy_init(struct phy *phy)
->>>>   {
->>>>          struct qcom_edp *edp = phy_get_drvdata(phy);
->>>>          int ret;
->>>> +       int num_consumers = ARRAY_SIZE(edp->supplies);
->>>> +       int i;
->>>>
->>>> -       ret = regulator_bulk_enable(ARRAY_SIZE(edp->supplies), 
->>>> edp->supplies);
->>>> +       ret = regulator_bulk_enable(num_consumers, edp->supplies);
->>>>          if (ret)
->>>>                  return ret;
->>>>
->>>> +       for (i = num_consumers - 1; i >= 0; --i)
->>>> + regulator_set_load(edp->supplies[i].consumer, edp->enable_load[i]);
->>>> +
->>>>          ret = clk_bulk_prepare_enable(ARRAY_SIZE(edp->clks), 
->>>> edp->clks);
->>>>          if (ret)
->>>>                  goto out_disable_supplies;
->>>> @@ -425,9 +432,15 @@ static int qcom_edp_phy_power_off(struct phy 
->>>> *phy)
->>>>   static int qcom_edp_phy_exit(struct phy *phy)
->>>>   {
->>>>          struct qcom_edp *edp = phy_get_drvdata(phy);
->>>> +       int num_consumers = ARRAY_SIZE(edp->supplies);
->>>> +       int i;
->>>>
->>>> clk_bulk_disable_unprepare(ARRAY_SIZE(edp->clks), edp->clks);
->>>> -       regulator_bulk_disable(ARRAY_SIZE(edp->supplies), 
->>>> edp->supplies);
->>>> +
->>>> +       for (i = num_consumers - 1; i >= 0; --i)
->>>> + regulator_set_load(edp->supplies[i].consumer, edp->disable_load[i]);
->>>> +
->>>> +       regulator_bulk_disable(num_consumers, edp->supplies);
->>>>
->>>>          return 0;
->>>>   }
->>>> @@ -633,8 +646,12 @@ static int qcom_edp_phy_probe(struct 
->>>> platform_device *pdev)
->>>>          if (ret)
->>>>                  return ret;
->>>>
->>>> -       edp->supplies[0].supply = "vdda-phy";
->>>> -       edp->supplies[1].supply = "vdda-pll";
->>>> +       edp->supplies[0].supply = "vdda-1p2";
->>>> +       edp->supplies[1].supply = "vdda-0p9";
->>> NAK, You can not randomly change supply names.
->>
->> if you do no change here, then we have to change dtsi.
->>
->> They are not match.
->
-> Where is no match? I don't see any in-kernel dtsi using them.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-my mistake, we did not pull in Doug's patch at our internal release 
-where i run my test.
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> index 7620ffe55779..399115e4e217 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+> @@ -8,8 +8,10 @@
+>   static int dpu_wb_conn_get_modes(struct drm_connector *connector)
+>   {
+>   	struct drm_device *dev = connector->dev;
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+>   
+> -	return drm_add_modes_noedid(connector, dev->mode_config.max_width,
+> +	return drm_add_modes_noedid(connector, dpu_kms->catalog->caps->max_linewidth,
+>   			dev->mode_config.max_height);
+>   }
+>   
 
 
->
->
->>>> +       edp->enable_load[0] = 21800;    /* 1.2 V */
->>>> +       edp->enable_load[1] = 36000;    /* 1.2 V */
->>>> +       edp->disable_load[0] = 4;       /* 0.9 V */
->>>> +       edp->disable_load[1] = 4;       /* 10.9V */
->>> Again, 10.9V here. Kuogee. Have you read the review points?
->> I have read it. but forget to make  change at edp file.
->>>
->>>>          ret = devm_regulator_bulk_get(dev, 
->>>> ARRAY_SIZE(edp->supplies), edp->supplies);
->>>>          if (ret)
->>>>                  return ret;
->>>> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c 
->>>> b/drivers/phy/qualcomm/phy-qcom-qmp.c
->>>> index b144ae1..0a4c8a8 100644
->>>> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
->>>> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
->>>> @@ -3130,6 +3130,7 @@ struct qmp_phy_cfg {
->>>>          int num_resets;
->>>>          /* regulators to be requested */
->>>>          const char * const *vreg_list;
->>>> +       const unsigned int *vreg_enable_load;
->>>>          int num_vregs;
->>>>
->>>>          /* array of registers with different offsets */
->>>> @@ -3346,6 +3347,10 @@ static const char * const qmp_phy_vreg_l[] = {
->>>>          "vdda-phy", "vdda-pll",
->>>>   };
->>>>
->>>> +static const unsigned int qmp_phy_vreg_enable_load[] = {
->>>> +       21800, 36000
->>>> +};
->>>> +
->>>>   static const struct qmp_phy_cfg ipq8074_usb3phy_cfg = {
->>>>          .type                   = PHY_TYPE_USB3,
->>>>          .nlanes                 = 1,
->>>> @@ -4072,6 +4077,7 @@ static const struct qmp_phy_cfg 
->>>> sm8250_usb3phy_cfg = {
->>>>          .reset_list             = msm8996_usb3phy_reset_l,
->>>>          .num_resets             = 
->>>> ARRAY_SIZE(msm8996_usb3phy_reset_l),
->>>>          .vreg_list              = qmp_phy_vreg_l,
->>>> +       .vreg_enable_load       = qmp_phy_vreg_enable_load,
->>>>          .num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
->>>>          .regs                   = qmp_v4_usb3phy_regs_layout,
->>>>
->>>> @@ -4139,6 +4145,7 @@ static const struct qmp_phy_cfg 
->>>> sm8250_dpphy_cfg = {
->>>>          .reset_list             = msm8996_usb3phy_reset_l,
->>>>          .num_resets             = 
->>>> ARRAY_SIZE(msm8996_usb3phy_reset_l),
->>>>          .vreg_list              = qmp_phy_vreg_l,
->>>> +       .vreg_enable_load       = qmp_phy_vreg_enable_load,
->
-> So, you apply this change only to the sm8250 (sc7280) config. Are you 
-> sure that both of them have the same requirement?
->
-> Also there are other DP phy instances (sc8180x, sc7180). Do they have 
-> to be extended too?
->
->>>>          .num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
->>>>          .regs                   = qmp_v4_usb3phy_regs_layout,
->>>>
->>>> @@ -5008,6 +5015,11 @@ static int qcom_qmp_phy_com_init(struct 
->>>> qmp_phy *qphy)
->>>>                  return 0;
->>>>          }
->>>>
->>>> +       if (cfg->vreg_enable_load) {
->>>> +               for (i = cfg->num_vregs - 1; i >= 0; --i)
->>> What's the point of iterating the list backwards?
->>
->> do no  know,
->>
->> I just follow the order from regulator_bulk_enable()
->
-> regulator_bulk_enable() iterates the list in the ascending order.
->
->>
->>>
->>>> + regulator_set_load(qmp->vregs[i].consumer, 
->>>> cfg->vreg_enable_load[i]);
->>>> +       }
->>>> +
->>>>          /* turn on regulator supplies */
->>>>          ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
->>>>          if (ret) {
->>>> @@ -5116,6 +5128,7 @@ static int qcom_qmp_phy_com_exit(struct 
->>>> qmp_phy *qphy)
->>>>
->>>>          clk_bulk_disable_unprepare(cfg->num_clks, qmp->clks);
->>>>
->>>> +       /* no minimum load set required before disable regulator */
->>> No otneed for the comment.
->>>
->>>> regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
->>>>
->>>>          mutex_unlock(&qmp->phy_mutex);
->>>> -- 
->>>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
->>>> Forum,
->>>> a Linux Foundation Collaborative Project
->>>>
->>>
->
->
+-- 
+With best wishes
+Dmitry
