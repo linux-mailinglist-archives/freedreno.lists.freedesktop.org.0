@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1220652C4C6
-	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 22:53:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id F129E52C4CB
+	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 22:57:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C7510E5D9;
-	Wed, 18 May 2022 20:53:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92BE010F3C3;
+	Wed, 18 May 2022 20:57:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
  [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 233D910E5D9
- for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 20:53:41 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id w130so4232579oig.0
- for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 13:53:41 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A74AA10F3C3
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 20:57:19 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id v65so4149503oig.10
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 13:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=UNqWZZ/W5ko5bopxO2cXE64dq+vAay+pJVcB9JPEK7k=;
- b=MZU6ZApL+VJ2nR/SOYL+8sNV8dz7t8gWj15O7ujNs2F9Fz+Vn9RCogVeN1vvAnRWRS
- ilsC9DGDD64NEGVFzpPB1wzxKAVfzks8J0UC+0ZH1/CCa+nGcAPbTMg0RH+kWk0nCnip
- XhfMZL6B6uOhpLcXD57lGxIbgFNNO8i1wISrQ=
+ bh=6+Q6Ia54N+h/zYeULcAq/1r7inK8vu27VxH+3POr9pM=;
+ b=FCfIeQDz7BEFc2r1x1Z4vqS879fyQaltiuhbDf7kyIEd01e9EjWvx8V2uS0KxqL2cg
+ 5/ooo7xWRr1jJIr5XJpmK+kAO0lupumix2aX+yD4rTulnRzInTvkOc4yJBq5JIoeAPDA
+ O0GRoo1gzcQSR3ssnr/qC1+mGHSgg0b45C9bM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=UNqWZZ/W5ko5bopxO2cXE64dq+vAay+pJVcB9JPEK7k=;
- b=sxDcUAhOyptcQ1wX2ZihHV7gZc8qj6z7k4iB01Jz9OWrTHOERaDRPcruCc09aWAyIx
- mWKqhv/WbPv/yDJ2uJA/W5+PJ+F/duF6xoptN1+Ephtt36vrCBwwvjnTYWQgZe9MmHJr
- JvjqoYgIlk6tp65UFzGmOgxzc3sqqNQyLLiyOR4LKqd1PEd6a2Vbl0f5RUgxyyYqFypm
- O0W8iJ/cW8N95E24EoXGTJsM1BcBoP/85hRbhv0PD7Tnq0BXee4Queg8oNqWYthJrMC/
- Vnye7RLQDmTCn8qae0FGbDl30zQFGoHCjVJgRK18uMn+HdhNp1R2XP0qc8eE2bK0ZYS4
- 5Qbg==
-X-Gm-Message-State: AOAM531/ameOBDGQxAtDM2z2MbgqxSQTZyqMU0QUBxP1/vwovoAymNwP
- uOdSCvjahXCgtarwkfvQLYPW6bjwOdcnV/fzFGxQzX9E2lk=
-X-Google-Smtp-Source: ABdhPJydobKed7t7rxB1Dk5wydK9YkQwNJ01ZtS6wCryK3YwFULkGDQ1slIBbwUS+XCTTygMr92gMAt/aKu+AoKQ+Hw=
-X-Received: by 2002:a05:6808:23c3:b0:326:bd8d:7993 with SMTP id
- bq3-20020a05680823c300b00326bd8d7993mr892931oib.63.1652907220416; Wed, 18 May
- 2022 13:53:40 -0700 (PDT)
+ bh=6+Q6Ia54N+h/zYeULcAq/1r7inK8vu27VxH+3POr9pM=;
+ b=0mol6BtFNXUTw3h5okXBYvkzQTNg1qT7deddOO5wcjJBBYTy1eJEkFu0hbB0GIR2/S
+ 6zXnhxm9lc3mHjG+8eRnaRQ+MCvYc62I1I8WL0n/YhOqye1QNTQyMM8h2+VDFzU6iU2+
+ uMsvqb/OGBH8L7gwxeUzWCo8CR0iFUfVbOrDsKz1kBtTBcv9F2R1nnyDInVEHbm9wlzc
+ HbjsLNIRJu9+yi8rOlUHZnuKDqULquIY/6ko4FYCiQKI1mHgKNNyMXW+y4E5do4wDnOB
+ PVa1V89ej3yehjzOHLYG+8K3XaiD+bUZujN9lJaGjADGPXRS5ykSbrCXdrmhweDjObfM
+ hxQw==
+X-Gm-Message-State: AOAM532srnH//Bxo9dETAe4y2T2bqkOMYRIIvmppjHD/QWzPGLKPU0EA
+ e7ITDV8ka/22he2ATPtXHg/w1zepBw+5WRr4MKKwHeN3wo0=
+X-Google-Smtp-Source: ABdhPJwOntt7o/KNEDNeAfpwY3gBusWaODLEh84L1Zfcy+bCLj4aybWd7ofKRirQbZPT5O0ha6jImqVdDYDMAgS1OwE=
+X-Received: by 2002:a05:6808:14c2:b0:326:c129:d308 with SMTP id
+ f2-20020a05680814c200b00326c129d308mr796441oiw.193.1652907438996; Wed, 18 May
+ 2022 13:57:18 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 18 May 2022 13:53:40 -0700
+ HTTPREST; Wed, 18 May 2022 13:57:18 -0700
 MIME-Version: 1.0
-In-Reply-To: <1652905444-10130-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1652905444-10130-4-git-send-email-quic_khsieh@quicinc.com>
 References: <1652905444-10130-1-git-send-email-quic_khsieh@quicinc.com>
- <1652905444-10130-3-git-send-email-quic_khsieh@quicinc.com>
+ <1652905444-10130-4-git-send-email-quic_khsieh@quicinc.com>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Wed, 18 May 2022 13:53:39 -0700
-Message-ID: <CAE-0n53o234QGNiDZ20Bmtrxcr03wUEbTgM82i1-sF4VhT=JsQ@mail.gmail.com>
+Date: Wed, 18 May 2022 13:57:18 -0700
+Message-ID: <CAE-0n51VJZ-mq+9=YH1J-F7rv7-8eA6A3DxpSDPRvssppKPFqQ@mail.gmail.com>
 To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
  bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
  dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org, 
  robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 2/3] phy/qualcomm: add regulator_set_load
- to dp phy
+Subject: Re: [Freedreno] [PATCH v3 3/3] drm/msm/dp: delete vdda regulator
+ related functions from eDP/DP controller
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,18 +74,10 @@ Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-05-18 13:24:03)
-> This patch add regulator_set_load() before enable regulator at
-> DP phy driver.
->
-> Changes in v2:
-> -- no regulator_set_load() before disable regulator
->
-> Changes in v3:
-> --  split into two patches
-
-Same changelog comment
-
+Quoting Kuogee Hsieh (2022-05-18 13:24:04)
+> Vdda regulators are related to both eDP and DP phy so that it should be
+> managed at eDP and DP phy driver instead of controller. This patch removes
+> vdda regulators related functions out of eDP/DP controller.
 >
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
