@@ -2,56 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612AB52C0F8
-	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 19:30:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD61C52C0FA
+	for <lists+freedreno@lfdr.de>; Wed, 18 May 2022 19:31:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1ADC10FCDD;
-	Wed, 18 May 2022 17:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E81411219C;
+	Wed, 18 May 2022 17:31:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D3E110FC75;
- Wed, 18 May 2022 17:29:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652894999; x=1684430999;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=FjJ+9xSrC3MzYALAqvbVXtyf2yB1lnVWdTlBlRcSlBc=;
- b=ycjzq0C/pLYzMmGGHYZKA7RiBrWB+24+r6xjmgMxWdMs9tLCtUu2HOeq
- uMyI3r/xqCsJYADkgYI5IGJ8fxwW4w9z6rtSOa8oFL6EcIJRVCTKmdxKB
- +lE1yzIlpwRRiS60FBb5ips9dR0cljxb1qSxtbZwZ7r+UmUcxyu3z+XxV c=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 18 May 2022 10:29:59 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 10:29:58 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 18 May 2022 10:29:58 -0700
-Received: from [10.110.42.114] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 18 May
- 2022 10:29:57 -0700
-Message-ID: <98295144-2e05-674b-4983-5f1738480c86@quicinc.com>
-Date: Wed, 18 May 2022 10:29:55 -0700
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA701121AE
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 17:31:04 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id h29so4868024lfj.2
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 10:31:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=W0khqJIcojkvYp4i+6PmQHGcWlcA75m1iNcSn8ShT7U=;
+ b=yTpK9RpaOCMTiTgGpMgZG8XdBWs1CywBpNqPNB29FH4LyQ4Q19n7ZDG+0p0yAbqn8r
+ BLjY1LZQvtzo9mGDZ/nJIQGicjEwpVawGRAnTB+TCU8GKGz/8MXPtW9ZbELwHRbRomG7
+ WOIH0dHRvGtarMRZNDeaXLjDXfk3TG+VyXheQA2lNSP+fNLwFM0vSsXRBEzz5AQdYH87
+ z2enqN7WR88m4xNykkWTEbhRSfwlE/YaTbp0OJ+LcNCFY1f/9F6vNsPL3X+BCG+0DPgG
+ Dr/m30YVoa5cq2h+I4NpsPojDin+LKAOeuLnNfeYfb4o/03GlxDTf0SXwTzkpDiVlFvZ
+ yg+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=W0khqJIcojkvYp4i+6PmQHGcWlcA75m1iNcSn8ShT7U=;
+ b=vrEt0p2Y3AFO/twbxVCxweZQdll8ZhIh++Qbu1lbZYZhmk+6drvD/QQuc2Wqnfq3I2
+ gXBH3xmnZ64+fNZPdL8pWBSNuWux2AQQHaQ4NINNab09No340G7aGc1o+DEagQeYr2br
+ p4td3zS8Dfvi/y9Br6T5AhjietfTHbNFcmHgUnaC7RvYs22bSIG/9SufOa5MpiICci5X
+ hwITHpui8GsOvNTM2VMIJRKLWfWdahULuSAf/oIooaXafSpfBA5dtYPY+5LYZRfgqOn8
+ 1SXZOPWKyVRbC/CZ5oRk85JnoaQtALBFpJxmhRVIMWRaM/k7hv5Ag4+OHpPOpROcYWr/
+ rhJQ==
+X-Gm-Message-State: AOAM5324h5FK+caVbqOW2XdVyaWj8alsrKwswrEMzFX2xhupaO1uFxb1
+ sWcuDNtgR4DUjaVxtpfXngNfvQ==
+X-Google-Smtp-Source: ABdhPJzfhQnOcGgqw+xluDL3RImpfpueTdknbybj82UpoiEHjdlbUY8XBYfPioSEHPNlaYbP/Hl7yg==
+X-Received: by 2002:a05:6512:2622:b0:448:27b9:5299 with SMTP id
+ bt34-20020a056512262200b0044827b95299mr399179lfb.86.1652895062363; 
+ Wed, 18 May 2022 10:31:02 -0700 (PDT)
+Received: from ?IPV6:2001:470:dd84:abc0::8a5? ([2001:470:dd84:abc0::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ h7-20020a197007000000b0047255d211a1sm5568lfc.208.2022.05.18.10.31.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 May 2022 10:31:01 -0700 (PDT)
+Message-ID: <38e1f139-6814-db63-1f4b-5a76a1ab0eda@linaro.org>
+Date: Wed, 18 May 2022 20:31:00 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
 References: <1652892186-22346-1-git-send-email-quic_khsieh@quicinc.com>
  <CAA8EJpqq4fxxgY0mj0JBans3GE-HAuad4Zsf7Ntwy1WW3bHbTQ@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAA8EJpqq4fxxgY0mj0JBans3GE-HAuad4Zsf7Ntwy1WW3bHbTQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+ <98295144-2e05-674b-4983-5f1738480c86@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <98295144-2e05-674b-4983-5f1738480c86@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Subject: Re: [Freedreno] [PATCH v2 0/2] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,34 +84,46 @@ Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 18/05/2022 20:29, Kuogee Hsieh wrote:
+> 
+> On 5/18/2022 10:16 AM, Dmitry Baryshkov wrote:
+>> On Wed, 18 May 2022 at 19:43, Kuogee Hsieh <quic_khsieh@quicinc.com> 
+>> wrote:
+>>> 1) add regulator_set_load() to eDP/DP phy
+>>> 2) remove vdda related function out of eDP/DP controller
+>> These patches touch two subsystems and have a dependency between them.
+>> How do we merge them?
+> 
+> currently, both phy and controller are vote for regulator. The last vote 
+> will just increase count.
+> 
+> Therefore the dependency should be very loose.
 
-On 5/18/2022 10:16 AM, Dmitry Baryshkov wrote:
-> On Wed, 18 May 2022 at 19:43, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->> 1) add regulator_set_load() to eDP/DP phy
->> 2) remove vdda related function out of eDP/DP controller
-> These patches touch two subsystems and have a dependency between them.
-> How do we merge them?
+So, do you propose to merge dp change a cycle after the phy changes go in?
 
-currently, both phy and controller are vote for regulator. The last vote 
-will just increase count.
-
-Therefore the dependency should be very loose.
-
-
->> Kuogee Hsieh (2):
->>    phy/qcom: add regulator_set_load to edp/dp phy
->>    drm/msm/dp: delete vdda regulator related functions from eDP/DP
->>      controller
+> 
+> 
+>>> Kuogee Hsieh (2):
+>>>    phy/qcom: add regulator_set_load to edp/dp phy
+>>>    drm/msm/dp: delete vdda regulator related functions from eDP/DP
+>>>      controller
+>>>
+>>>   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
+>>>   drivers/gpu/drm/msm/dp/dp_parser.h  |  6 ---
+>>>   drivers/gpu/drm/msm/dp/dp_power.c   | 95 
+>>> +------------------------------------
+>>>   drivers/phy/qualcomm/phy-qcom-edp.c | 25 ++++++++--
+>>>   drivers/phy/qualcomm/phy-qcom-qmp.c | 13 +++++
+>>>   5 files changed, 36 insertions(+), 117 deletions(-)
+>>>
+>>> -- 
+>>> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora 
+>>> Forum,
+>>> a Linux Foundation Collaborative Project
+>>>
 >>
->>   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
->>   drivers/gpu/drm/msm/dp/dp_parser.h  |  6 ---
->>   drivers/gpu/drm/msm/dp/dp_power.c   | 95 +------------------------------------
->>   drivers/phy/qualcomm/phy-qcom-edp.c | 25 ++++++++--
->>   drivers/phy/qualcomm/phy-qcom-qmp.c | 13 +++++
->>   5 files changed, 36 insertions(+), 117 deletions(-)
->>
->> --
->> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
->> a Linux Foundation Collaborative Project
->>
->
+
+
+-- 
+With best wishes
+Dmitry
