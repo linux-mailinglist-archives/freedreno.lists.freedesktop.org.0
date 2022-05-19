@@ -1,56 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815C052DA0D
-	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 18:21:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 23D6A52DB90
+	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 19:45:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A057D10E11D;
-	Thu, 19 May 2022 16:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6C910E817;
+	Thu, 19 May 2022 17:45:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D278610E11D;
- Thu, 19 May 2022 16:21:24 +0000 (UTC)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 271C710E7CA;
+ Thu, 19 May 2022 17:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652977284; x=1684513284;
- h=message-id:date:mime-version:to:cc:from:subject:
- content-transfer-encoding;
- bh=OgFPRDCgT5PDUUJnCeD3XeLnIAuSjY8zzzo6IowuC5Y=;
- b=U8JK0OD7jGiDB67r11RtZyZzvsEJzxMZF69IIiMJlRXufHObXyGIkoMm
- sdy8R35Ne3S0G1e/60IbflIzUgUNHDA2vyf320bhzfyPyc9KX2PEiU1Kz
- dlWymEBerh7eFn7VYaVyuwLsRYK8t9Qa1YWmPZC0QYp17eCtyntFivpbx w=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 19 May 2022 09:21:23 -0700
+ t=1652982351; x=1684518351;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=CYLrqUDrZ80p9ncAy6YURBGJYkxdkslDJ+ojtqW+u54=;
+ b=amXDQmyhKtSJrMAagByx3i2cAR9TxZ5gnF6zd43fkkkLg2awElRgm62I
+ K8Ir3e4vbcmrONNhv0UxmkP89SlFkkCvhvg/i+73IS719ZhoQOXdoW1HR
+ 00RfyyOGSpoSJWseaqo0AOmvBtNKyk32ubXujp7aWQ6N4NTikl+a/MRRp c=;
+Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 19 May 2022 10:45:50 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 09:21:23 -0700
+ by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 10:45:49 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 19 May 2022 09:21:23 -0700
-Received: from [10.38.246.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 19 May
- 2022 09:21:21 -0700
-Message-ID: <b011d51d-d634-123e-bf5f-27219ee33151@quicinc.com>
-Date: Thu, 19 May 2022 09:21:19 -0700
+ 15.2.986.22; Thu, 19 May 2022 10:45:49 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 19 May 2022 10:45:48 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Thu, 19 May 2022 10:45:36 -0700
+Message-ID: <1652982339-18190-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [GIT PULL] drm/msm: drm-msm-fixes-2022-05-19
+Subject: [Freedreno] [PATCH v5 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +62,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob
+1) add regulator_set_load() to eDP phy
+2) add regulator_set_load() to DP phy
+3) remove vdda related function out of eDP/DP controller
 
-Here is the pull request for the fixes for 5.19.
+Kuogee Hsieh (3):
+  phy: qcom-edp: add regulator_set_load to edp phy
+  phy: qcom-qmp: add regulator_set_load to dp phy
+  drm/msm/dp: delete vdda regulator related functions from eDP/DP
+    controller
 
-Just a few more changes on top of msm-fixes-staging.
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
+ drivers/gpu/drm/msm/dp/dp_parser.h  |  6 ---
+ drivers/gpu/drm/msm/dp/dp_power.c   | 95 +------------------------------------
+ drivers/phy/qualcomm/phy-qcom-edp.c |  9 +++-
+ drivers/phy/qualcomm/phy-qcom-qmp.c | 16 +++++++
+ 5 files changed, 26 insertions(+), 114 deletions(-)
 
-Mainly it has the foll fixes:
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
-- Limiting WB modes to max sspp linewidth
-- Fixing the supported rotations to add 180 back for IGT
-- Fix to handle pm_runtime_get_sync() errors to avoid unclocked access
-   in the bind() path for dpu driver
-- Fix the irq_free() without request issue which was a big-time
-   hitter in the CI-runs.
-
-Thanks
-
-Abhinav
-
-
-
-The following changes since commit 947a844bb3ebff0f4736d244d792ce129f6700d7:
-
-   drm: msm: fix possible memory leak in mdp5_crtc_cursor_set() 
-(2022-05-18 11:05:21 -0700)
-
-are available in the git repository at:
-
-   https://gitlab.freedesktop.org/abhinavk/msm.git/ tags/msm-next-5.19-fixes
-
-for you to fetch changes up to 64b22a0da12adb571c01edd671ee43634ebd7e41:
-
-   drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path 
-(2022-05-18 18:32:03 -0700)
-
-----------------------------------------------------------------
-5.19 fixes for msm-next
-
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-----------------------------------------------------------------
-Abhinav Kumar (3):
-       drm/msm/dpu: limit writeback modes according to max_linewidth
-       drm/msm/dpu: add DRM_MODE_ROTATE_180 back to supported rotations
-       drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path
-
-Dmitry Baryshkov (1):
-       drm/msm: don't free the IRQ if it was not requested
-
-  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 4 +++-
-  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 2 +-
-  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 4 +++-
-  drivers/gpu/drm/msm/msm_drv.c                 | 7 ++++++-
-  drivers/gpu/drm/msm/msm_kms.h                 | 1 +
-  5 files changed, 14 insertions(+), 4 deletions(-)
