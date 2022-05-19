@@ -1,59 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DBAA52C934
-	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 03:27:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3DEB52CAD4
+	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 06:23:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8320D10E267;
-	Thu, 19 May 2022 01:26:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1053711A444;
+	Thu, 19 May 2022 04:23:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A715B10E23F;
- Thu, 19 May 2022 01:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1652923618; x=1684459618;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=djUsSThGWl8Oji0llWp8FRTEvQJkz4qmxWCclOn2LyI=;
- b=hKoUZatZo5ok1dE7enPsKRJc0RvyRJUy43Q2XcBbir+JpmrlM5LY3gws
- Q7kjt4exHZzVYbSEqz6NlAnR+LjYSN50/YqIwIt/i53tSF9Vv42ZKXRAH
- 0cP32fB+t8wP2jJvf1eFdoER2/C6ULGATSK5d1D3yjI51i1CjkttHdBfq U=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 18 May 2022 18:26:58 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 May 2022 18:26:56 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 18 May 2022 18:26:57 -0700
-Received: from [10.111.161.138] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 18 May
- 2022 18:26:55 -0700
-Message-ID: <ef406fb0-f83e-81ef-071c-d92f7c16c1dd@quicinc.com>
-Date: Wed, 18 May 2022 18:26:53 -0700
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F4C11A444;
+ Thu, 19 May 2022 04:23:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 09EE4B8218E;
+ Thu, 19 May 2022 04:23:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AACC385B8;
+ Thu, 19 May 2022 04:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1652934195;
+ bh=6ta6aaI6tZYd4czjbXO9LuG4HfvGWt2Y/Ts7jlbhP/0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=j16VJIovr/SGv3ZmRNnW+P/VjcCm3XxU8S+Q2r7Is31qpQ7HK7uFdFMjj8HCFi/3o
+ vcKDWB1ojUKaatdsHkBTngatO1oglaywdWX91smvl6wqZeGenURDV0wO6jYpJg700A
+ CsyO2bgguOOYbqsNJlRCjLGtx/rIN6/CFCgZtzqecDKPwUwtsEnhncXG54lpgUpqiw
+ TsGppih04cBPrElfBzM3OU99RG5JF445YX3QTAPlqF3v9ThQ6hcV2F5Ngs2ktgx+l1
+ 7vkSwnTHp5pEm99S1Vxa6KgpF71ahYnh+Mle9yR6HGuJU2wKS37EOzH7dxmRTUd/Z9
+ PYPT/fckxC7AA==
+Date: Thu, 19 May 2022 09:53:11 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <YoXGL908lcypSaQc@matsya>
+References: <1652909790-16245-1-git-send-email-quic_khsieh@quicinc.com>
+ <1652909790-16245-3-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <freedreno@lists.freedesktop.org>
-References: <20220518223407.26147-1-quic_abhinavk@quicinc.com>
- <CAE-0n53Cffs82nQC3_2QADbvQm0f_7tX+NPac8rvJULYE10GvA@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAE-0n53Cffs82nQC3_2QADbvQm0f_7tX+NPac8rvJULYE10GvA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: handle
- pm_runtime_get_sync() errors in bind path
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1652909790-16245-3-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v4 2/3] phy/qualcomm: add regulator_set_load
+ to dp phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +53,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
+ bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 18-05-22, 14:36, Kuogee Hsieh wrote:
+> This patch add regulator_set_load() before enable regulator at
+> DP phy driver.
 
+sigh! still wrong tags!
 
-On 5/18/2022 5:40 PM, Stephen Boyd wrote:
-> Quoting Abhinav Kumar (2022-05-18 15:34:07)
->> If there are errors while trying to enable the pm in the
->> bind path, it will lead to unclocked access of hw revision
->> register thereby crashing the device.
->>
->> This will not address why the pm_runtime_get_sync() fails
->> but at the very least we should be able to prevent the
->> crash by handling the error and bailing out earlier.
->>
->> changes in v2:
->>          - use pm_runtime_resume_and_get() instead of
->>            pm_runtime_get_sync()
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
 > 
-> Any Fixes tag? When did pm errors start happening in the bind path?
-> 
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> index b144ae1..20ac446 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> @@ -3130,6 +3130,7 @@ struct qmp_phy_cfg {
+>  	int num_resets;
+>  	/* regulators to be requested */
+>  	const char * const *vreg_list;
+> +	const unsigned int *vreg_enable_load;
+>  	int num_vregs;
+>  
+>  	/* array of registers with different offsets */
+> @@ -3346,6 +3347,10 @@ static const char * const qmp_phy_vreg_l[] = {
+>  	"vdda-phy", "vdda-pll",
+>  };
+>  
+> +static const unsigned int qmp_phy_vreg_enable_load[] = {
+> +	21800, 36000
+> +};
+> +
+>  static const struct qmp_phy_cfg ipq8074_usb3phy_cfg = {
+>  	.type			= PHY_TYPE_USB3,
+>  	.nlanes			= 1,
+> @@ -4072,6 +4077,7 @@ static const struct qmp_phy_cfg sm8250_usb3phy_cfg = {
+>  	.reset_list		= msm8996_usb3phy_reset_l,
+>  	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
+>  	.vreg_list		= qmp_phy_vreg_l,
+> +	.vreg_enable_load	= qmp_phy_vreg_enable_load,
+>  	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
+>  	.regs			= qmp_v4_usb3phy_regs_layout,
+>  
+> @@ -4139,6 +4145,7 @@ static const struct qmp_phy_cfg sm8250_dpphy_cfg = {
+>  	.reset_list		= msm8996_usb3phy_reset_l,
+>  	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
+>  	.vreg_list		= qmp_phy_vreg_l,
+> +	.vreg_enable_load	= qmp_phy_vreg_enable_load,
+>  	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
+>  	.regs			= qmp_v4_usb3phy_regs_layout,
+>  
+> @@ -5008,6 +5015,11 @@ static int qcom_qmp_phy_com_init(struct qmp_phy *qphy)
+>  		return 0;
+>  	}
+>  
+> +	if (cfg->vreg_enable_load) {
+> +		for (i = cfg->num_vregs - 1; i >= 0; --i)
+> +			regulator_set_load(qmp->vregs[i].consumer, cfg->vreg_enable_load[i]);
+> +	}
+> +
+>  	/* turn on regulator supplies */
+>  	ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
+>  	if (ret) {
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
 
-This error got exposed with PANEL_EDP=m and DRM_MSM=y. We were not 
-testing this combination previously. This combination causes "clk stuck 
-at OFF" from the pm_runtime_get_sync() path which means we shouldnt 
-proceed with the next register access since it failed.
-
-We are still debugging the root-cause of why "clk stuck at OFF" error is 
-present, this is just resolving the crash.
-
-Fixes : 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+-- 
+~Vinod
