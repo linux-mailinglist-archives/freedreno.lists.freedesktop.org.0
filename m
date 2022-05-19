@@ -1,46 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3DEB52CAD4
-	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 06:23:21 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 815C052DA0D
+	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 18:21:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1053711A444;
-	Thu, 19 May 2022 04:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A057D10E11D;
+	Thu, 19 May 2022 16:21:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F4C11A444;
- Thu, 19 May 2022 04:23:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 09EE4B8218E;
- Thu, 19 May 2022 04:23:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AACC385B8;
- Thu, 19 May 2022 04:23:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1652934195;
- bh=6ta6aaI6tZYd4czjbXO9LuG4HfvGWt2Y/Ts7jlbhP/0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=j16VJIovr/SGv3ZmRNnW+P/VjcCm3XxU8S+Q2r7Is31qpQ7HK7uFdFMjj8HCFi/3o
- vcKDWB1ojUKaatdsHkBTngatO1oglaywdWX91smvl6wqZeGenURDV0wO6jYpJg700A
- CsyO2bgguOOYbqsNJlRCjLGtx/rIN6/CFCgZtzqecDKPwUwtsEnhncXG54lpgUpqiw
- TsGppih04cBPrElfBzM3OU99RG5JF445YX3QTAPlqF3v9ThQ6hcV2F5Ngs2ktgx+l1
- 7vkSwnTHp5pEm99S1Vxa6KgpF71ahYnh+Mle9yR6HGuJU2wKS37EOzH7dxmRTUd/Z9
- PYPT/fckxC7AA==
-Date: Thu, 19 May 2022 09:53:11 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <YoXGL908lcypSaQc@matsya>
-References: <1652909790-16245-1-git-send-email-quic_khsieh@quicinc.com>
- <1652909790-16245-3-git-send-email-quic_khsieh@quicinc.com>
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D278610E11D;
+ Thu, 19 May 2022 16:21:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1652977284; x=1684513284;
+ h=message-id:date:mime-version:to:cc:from:subject:
+ content-transfer-encoding;
+ bh=OgFPRDCgT5PDUUJnCeD3XeLnIAuSjY8zzzo6IowuC5Y=;
+ b=U8JK0OD7jGiDB67r11RtZyZzvsEJzxMZF69IIiMJlRXufHObXyGIkoMm
+ sdy8R35Ne3S0G1e/60IbflIzUgUNHDA2vyf320bhzfyPyc9KX2PEiU1Kz
+ dlWymEBerh7eFn7VYaVyuwLsRYK8t9Qa1YWmPZC0QYp17eCtyntFivpbx w=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 19 May 2022 09:21:23 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 09:21:23 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 19 May 2022 09:21:23 -0700
+Received: from [10.38.246.15] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 19 May
+ 2022 09:21:21 -0700
+Message-ID: <b011d51d-d634-123e-bf5f-27219ee33151@quicinc.com>
+Date: Thu, 19 May 2022 09:21:19 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1652909790-16245-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v4 2/3] phy/qualcomm: add regulator_set_load
- to dp phy
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [GIT PULL] drm/msm: drm-msm-fixes-2022-05-19
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,82 +63,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
- bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 18-05-22, 14:36, Kuogee Hsieh wrote:
-> This patch add regulator_set_load() before enable regulator at
-> DP phy driver.
+Hi Rob
 
-sigh! still wrong tags!
+Here is the pull request for the fixes for 5.19.
 
-> 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> index b144ae1..20ac446 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
-> @@ -3130,6 +3130,7 @@ struct qmp_phy_cfg {
->  	int num_resets;
->  	/* regulators to be requested */
->  	const char * const *vreg_list;
-> +	const unsigned int *vreg_enable_load;
->  	int num_vregs;
->  
->  	/* array of registers with different offsets */
-> @@ -3346,6 +3347,10 @@ static const char * const qmp_phy_vreg_l[] = {
->  	"vdda-phy", "vdda-pll",
->  };
->  
-> +static const unsigned int qmp_phy_vreg_enable_load[] = {
-> +	21800, 36000
-> +};
-> +
->  static const struct qmp_phy_cfg ipq8074_usb3phy_cfg = {
->  	.type			= PHY_TYPE_USB3,
->  	.nlanes			= 1,
-> @@ -4072,6 +4077,7 @@ static const struct qmp_phy_cfg sm8250_usb3phy_cfg = {
->  	.reset_list		= msm8996_usb3phy_reset_l,
->  	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
->  	.vreg_list		= qmp_phy_vreg_l,
-> +	.vreg_enable_load	= qmp_phy_vreg_enable_load,
->  	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
->  	.regs			= qmp_v4_usb3phy_regs_layout,
->  
-> @@ -4139,6 +4145,7 @@ static const struct qmp_phy_cfg sm8250_dpphy_cfg = {
->  	.reset_list		= msm8996_usb3phy_reset_l,
->  	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
->  	.vreg_list		= qmp_phy_vreg_l,
-> +	.vreg_enable_load	= qmp_phy_vreg_enable_load,
->  	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
->  	.regs			= qmp_v4_usb3phy_regs_layout,
->  
-> @@ -5008,6 +5015,11 @@ static int qcom_qmp_phy_com_init(struct qmp_phy *qphy)
->  		return 0;
->  	}
->  
-> +	if (cfg->vreg_enable_load) {
-> +		for (i = cfg->num_vregs - 1; i >= 0; --i)
-> +			regulator_set_load(qmp->vregs[i].consumer, cfg->vreg_enable_load[i]);
-> +	}
-> +
->  	/* turn on regulator supplies */
->  	ret = regulator_bulk_enable(cfg->num_vregs, qmp->vregs);
->  	if (ret) {
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
+Just a few more changes on top of msm-fixes-staging.
 
--- 
-~Vinod
+Mainly it has the foll fixes:
+
+- Limiting WB modes to max sspp linewidth
+- Fixing the supported rotations to add 180 back for IGT
+- Fix to handle pm_runtime_get_sync() errors to avoid unclocked access
+   in the bind() path for dpu driver
+- Fix the irq_free() without request issue which was a big-time
+   hitter in the CI-runs.
+
+Thanks
+
+Abhinav
+
+
+
+The following changes since commit 947a844bb3ebff0f4736d244d792ce129f6700d7:
+
+   drm: msm: fix possible memory leak in mdp5_crtc_cursor_set() 
+(2022-05-18 11:05:21 -0700)
+
+are available in the git repository at:
+
+   https://gitlab.freedesktop.org/abhinavk/msm.git/ tags/msm-next-5.19-fixes
+
+for you to fetch changes up to 64b22a0da12adb571c01edd671ee43634ebd7e41:
+
+   drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path 
+(2022-05-18 18:32:03 -0700)
+
+----------------------------------------------------------------
+5.19 fixes for msm-next
+
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+
+----------------------------------------------------------------
+Abhinav Kumar (3):
+       drm/msm/dpu: limit writeback modes according to max_linewidth
+       drm/msm/dpu: add DRM_MODE_ROTATE_180 back to supported rotations
+       drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path
+
+Dmitry Baryshkov (1):
+       drm/msm: don't free the IRQ if it was not requested
+
+  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 4 +++-
+  drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 2 +-
+  drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 4 +++-
+  drivers/gpu/drm/msm/msm_drv.c                 | 7 ++++++-
+  drivers/gpu/drm/msm/msm_kms.h                 | 1 +
+  5 files changed, 14 insertions(+), 4 deletions(-)
