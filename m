@@ -1,54 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2864E52C89C
-	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 02:31:14 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD6452C8C5
+	for <lists+freedreno@lfdr.de>; Thu, 19 May 2022 02:40:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB9010EFD9;
-	Thu, 19 May 2022 00:31:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24A0E10FA04;
+	Thu, 19 May 2022 00:40:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D0A10EFD2;
- Thu, 19 May 2022 00:31:11 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- k126-20020a1ca184000000b003943fd07180so1891819wme.3; 
- Wed, 18 May 2022 17:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=644m3QAZy0BxnZhjJAWJUaDuf7e4YnP3tpJeqi/0B3s=;
- b=I4+dPQhOXhs6SJ7SI/ufzv2ZecyYBH355nWOTQVBZgrFYg5DlOPZJA8ftE0jXGgVKJ
- Vy+hiYD2+ZUIIy4S5YQS5/XG1/NNkjl5T3Jgvf+RJIZ9Hu9cHZ5neC0aLVDGFqZyUfWb
- xE7YB5stgdzXjP9l+Rd5gW+LUEqa1iDSdxvu6Qadxg/HS7o3L4JyfrOPum+osO0CiIvG
- PoYakGfj8lMIJmfkfIOtViNs22z216HulHVpWqT51D2rvhWnO5CiMfLpZHF2vNDm6i92
- uZBICT49fLYbSOkNV/Zp3RvXxL0BwiLJH8g7hGMwA0d4JHcoAGiChIBFZJ4ow7TE3XS2
- 5eog==
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E293113CC9
+ for <freedreno@lists.freedesktop.org>; Thu, 19 May 2022 00:40:04 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-f1d5464c48so4884079fac.6
+ for <freedreno@lists.freedesktop.org>; Wed, 18 May 2022 17:40:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=E9klG2UgqGoR+B4vfVoEYPmVWhZp8MKNBr28kykx1i4=;
+ b=P4QbUzoNL4SuGojYBX4E1vcV57VoJT9qywb2Q7UPlZNLvEIxlOhEt8vkjcws7DXjKL
+ 0FBq4wA9likuzpAyIWirug8bmegBZeaE/h+yPyiB/U9zyDE3Ymvrg0sKinMECQ6P+uoG
+ 1bO0kQiG2p1hTzHqGJC+vpxNP4W5FjTz8+OYk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=644m3QAZy0BxnZhjJAWJUaDuf7e4YnP3tpJeqi/0B3s=;
- b=Bzj/+/UVBxeIamQJtE+Zyeh/4e+5t0Dsm7WxfMHRBSH4/xtJ8qA5ZXUXoOPQ2XJCCP
- iEZwrOe7+hLrmcX+l1WDjC+u62FCAsDn18hNGi+DnwgRSBVfxTtZNe6Gr2DbfH1Zot8p
- cPn2HUo5t1x9TdZgDxLJ4nmoJiJiG9Kb4mJM3XZfMsGnrLFbTBvSWB4dW2vTJG84OAR0
- UOGI/0RWACCjJpMS4daOUVCswEjjUi0uhzTEPeRC+8cKyqGFeFpQ85qA1m82COvZJTgq
- J4ZGv8J0DvO60Wd3MBZLUf19EJiIuBsAk8wiaUQn0Xy0QUBy5Qbh+5AdZlAzDSVGmX/s
- IFsA==
-X-Gm-Message-State: AOAM533FJuXVJ7eTpMRF7+ConuVLWopBWHV0/exE9dK0BHurzoqcXYt8
- lfOhtv647Xqav46mGLDebDK3lYaF7Vg/vQ2R7+M=
-X-Google-Smtp-Source: ABdhPJwXlj7aH9IodBxhtdT2Nu/pyRuQngj2a8RiwioXTrmjhfVJyvqibd7G+AHg8nRIeSZtNCRKzUrv9jcZxCkLM1Q=
-X-Received: by 2002:a7b:c5d0:0:b0:389:fe85:3d79 with SMTP id
- n16-20020a7bc5d0000000b00389fe853d79mr2039833wmk.77.1652920270241; Wed, 18
- May 2022 17:31:10 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=E9klG2UgqGoR+B4vfVoEYPmVWhZp8MKNBr28kykx1i4=;
+ b=nUrEKFo0APLF9rmAaIBaseY2NahXw9GvKBvST81FQjM9Qog7ki5zpVJjW5uNBkF8dx
+ ZOdlXdmoVMTyjTXIXaI6FH/o+fvC9PFY0pdc61ULYhJfBUCmFHlD2AGpX/0rClbe1vyr
+ sapAvJ6gL4IchfYtnpPlLKwSsDq7t0KuiQdJsB9pe1V2DPuig+b8uqDvh6hDd5fmxfpR
+ Mq7709+xrrtvibFqQYwNxNzaX0xCA4A6U9O6Xmj4Vvi/Y8PJddXyx2fR93ais/5vR1xZ
+ 8XJhyu9V/KoeiXluSfMk0us575WktQu1d/OVjQ70QzW+B1PaW67D08Kqtn5k48jbeNCb
+ 44qw==
+X-Gm-Message-State: AOAM5317xy/WCBSxfWZ5Kw5d8C075rTr5i9gFd2D3aQwP+Mq91R9r6AI
+ 9zUlwmU1qf5oABNlF8FI55wQ7fMfMwCyQz7w7Sh4OA==
+X-Google-Smtp-Source: ABdhPJzonSJru6ZO3LeUWkbogtQydycvpfK3n/Yt5M2jS4+yt8uszcyLUMiADmES7++8Jw8dyPzqutdkAzE7g31L054=
+X-Received: by 2002:a05:6870:558e:b0:e1:db7c:26aa with SMTP id
+ n14-20020a056870558e00b000e1db7c26aamr1318300oao.63.1652920803484; Wed, 18
+ May 2022 17:40:03 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 18 May 2022 17:40:03 -0700
 MIME-Version: 1.0
-References: <20220518223407.26147-1-quic_abhinavk@quicinc.com>
 In-Reply-To: <20220518223407.26147-1-quic_abhinavk@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 18 May 2022 17:31:04 -0700
-Message-ID: <CAF6AEGtKwsqvpkxghV8phZqmDPEuf3VThXzCy9QMWTPWjXPZpA@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20220518223407.26147-1-quic_abhinavk@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 18 May 2022 17:40:03 -0700
+Message-ID: <CAE-0n53Cffs82nQC3_2QADbvQm0f_7tX+NPac8rvJULYE10GvA@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: handle
  pm_runtime_get_sync() errors in bind path
@@ -64,18 +65,14 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <seanpaul@chromium.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, quic_aravindh@quicinc.com,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
+ robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 18, 2022 at 3:34 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
+Quoting Abhinav Kumar (2022-05-18 15:34:07)
 > If there are errors while trying to enable the pm in the
 > bind path, it will lead to unclocked access of hw revision
 > register thereby crashing the device.
@@ -89,28 +86,8 @@ On Wed, May 18, 2022 at 3:34 PM Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
 >           pm_runtime_get_sync()
 >
 > Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-Reviewed-by: Rob Clark <robdclark@gmail.com>
-
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 2b9d931474e0..bce47647d891 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1089,7 +1089,9 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->
->         dpu_kms_parse_data_bus_icc_path(dpu_kms);
->
-> -       pm_runtime_get_sync(&dpu_kms->pdev->dev);
-> +       rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
-> +       if (rc < 0)
-> +               goto error;
->
->         dpu_kms->core_rev = readl_relaxed(dpu_kms->mmio + 0x0);
->
-> --
-> 2.35.1
->
+
+Any Fixes tag? When did pm errors start happening in the bind path?
+
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
