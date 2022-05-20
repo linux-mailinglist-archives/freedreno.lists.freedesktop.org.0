@@ -1,65 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3304B52E116
-	for <lists+freedreno@lfdr.de>; Fri, 20 May 2022 02:20:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37AFB52E11E
+	for <lists+freedreno@lfdr.de>; Fri, 20 May 2022 02:21:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D982510E3EB;
-	Fri, 20 May 2022 00:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0CFE10E3D0;
+	Fri, 20 May 2022 00:21:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 303F810E3FA
- for <freedreno@lists.freedesktop.org>; Fri, 20 May 2022 00:20:48 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id n23so8936681edy.0
- for <freedreno@lists.freedesktop.org>; Thu, 19 May 2022 17:20:48 -0700 (PDT)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8F210E3D0
+ for <freedreno@lists.freedesktop.org>; Fri, 20 May 2022 00:21:36 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id m20so12755763ejj.10
+ for <freedreno@lists.freedesktop.org>; Thu, 19 May 2022 17:21:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Q2SsP49FcCChtmjGtwbSaTMmlIgf4FKqMdxkNXcLZxo=;
- b=HXRvwBSe1kdLw+E5XZQUg1aqD+Xzx1EPDD38vER8o23tEByEWKBd7UsuCsmlQjS2IA
- UrFRDsWb1JfLL64GhKqULVkddtRl8NXbTC9LPYW7SISZVG8H9KSTco/tZyI1GcTczIEC
- gnDMhQk9vYaGXJfrN3vT+O6EmsVeRrRGlccwc=
+ :cc; bh=+wYJNaePiHcWNH/q3h1ZhNLEV4dJ71MIiiBiHgAmbYA=;
+ b=NVM/bktb8CtRk0VgJ75AEtD+l1Etp4dc82+iRcIAsF62UYPJmJUe2sENhNxQGCGQpE
+ vCsHBMNUy7vONzvYsBEHm8ej3XihpZ8QIBEoXSsqArdCBjVJF4IByYjx2R35+TnR4FqV
+ VDBFu5MpvMXsafQZ0SE+nZWoCjniwY9mA1MNg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Q2SsP49FcCChtmjGtwbSaTMmlIgf4FKqMdxkNXcLZxo=;
- b=vh6tABWLSDz/Q3uylOEpzgFvbpe61n5olc0WgAhl6uCs/AV/7DhQDdmLnMk8zbaURD
- 0O9ti8ez8xQi+Afc3N/S86aG/EF61YSKktI7Z/zFbo9qRs2QQtvQpvaOM0m4IpdqGH8H
- Gjrj27ESP8JduhmgicILSG0n/qYevaqBpPK5rCN8Qnufal10/jhfprPUF0HYsyXVNrp+
- iy8eLrhcsIjebPogY9Fc0cRHzhy7fWqeCuJFCKgW1Mtf8wsZVedQdcChebFqbe+VIXvV
- eNJk0vFDKE8vnTzFoZLDAb2xs9CJ62uEJxSciwGxaTpnsvEPQJkTWHZBiHiUFFOY6TQ6
- dmlg==
-X-Gm-Message-State: AOAM531gmSj8TLDCjMq3yQYMEFQkDOdz24ky7vTOH9bqdvmh3IaHAOwX
- e9vCcVARsy/W7uknicaYO77nBgC7fHtqFuwKOGc=
-X-Google-Smtp-Source: ABdhPJwF4TUcE9RDz/S3d7ICvgyV11DLRkrqSTocRLuaYabVJ/dZg/Jx6S+7POJBBLyofad4qlmlrw==
-X-Received: by 2002:a05:6402:31e5:b0:42a:b724:c567 with SMTP id
- dy5-20020a05640231e500b0042ab724c567mr8081540edb.347.1653006046520; 
- Thu, 19 May 2022 17:20:46 -0700 (PDT)
+ bh=+wYJNaePiHcWNH/q3h1ZhNLEV4dJ71MIiiBiHgAmbYA=;
+ b=e2gCSURieVZdi8+w5x5GqH+JCdDyR7DylqneadDGiLoJWnOjSSaFZ0xmrvRjY/r7XX
+ UtBuX08SYeDjoinEeBmqv7AtJCMKEl9mhfxecYIRRaYbRuvJs8TR3fDVM9fnnSCS+7+P
+ TX6lP/WsV1fbBvd3LfNkD5kCU3sKEdSM6v4TJbyBcpcNjnkGyQtLohtdmGbpSdHrBNqy
+ Pvpr5msOZ1Wvb+0ttf1baulalxqG+K5f/BVg6+0BYadqKjaI6CfbcqeAO6qmx02dcy7o
+ W/VOS4FpcyfrcaEngLertVMH/HvNIQEPjyZqJ8WS6rQLj6bYT+aBLULJ1ujPr/3Z9gMk
+ ic7g==
+X-Gm-Message-State: AOAM531AnJilLivExLRdEJINPCGcyhdYxngNYTUvc3zYdE3D5pfxG2ez
+ YwtKPUqTtIXxXSNOxPM00S/EPKdp6hIs2b5gXN4=
+X-Google-Smtp-Source: ABdhPJyqum5JYZ+hBUKARdJpPua6iEwD1wEQAEfao1k3HmCCjGT1iqizUEOJ8Dtv1NgHSj3MkEhCqg==
+X-Received: by 2002:a17:907:7f1f:b0:6fa:2704:c601 with SMTP id
+ qf31-20020a1709077f1f00b006fa2704c601mr6600745ejc.496.1653006094696; 
+ Thu, 19 May 2022 17:21:34 -0700 (PDT)
 Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com.
  [209.85.221.43]) by smtp.gmail.com with ESMTPSA id
- eo8-20020a1709069b0800b006fe78f1123fsm2532343ejc.197.2022.05.19.17.20.44
+ j4-20020a170906104400b006f52dbc192bsm2659259ejj.37.2022.05.19.17.21.33
  for <freedreno@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 May 2022 17:20:45 -0700 (PDT)
-Received: by mail-wr1-f43.google.com with SMTP id j25so9359931wrc.9
- for <freedreno@lists.freedesktop.org>; Thu, 19 May 2022 17:20:44 -0700 (PDT)
-X-Received: by 2002:a5d:6d09:0:b0:20c:53a9:cc30 with SMTP id
- e9-20020a5d6d09000000b0020c53a9cc30mr5985688wrq.513.1653006043655; Thu, 19
- May 2022 17:20:43 -0700 (PDT)
+ Thu, 19 May 2022 17:21:33 -0700 (PDT)
+Received: by mail-wr1-f43.google.com with SMTP id f2so9427402wrc.0
+ for <freedreno@lists.freedesktop.org>; Thu, 19 May 2022 17:21:33 -0700 (PDT)
+X-Received: by 2002:a5d:5085:0:b0:20d:5f6:63fa with SMTP id
+ a5-20020a5d5085000000b0020d05f663famr5861629wrt.679.1653006092752; Thu, 19
+ May 2022 17:21:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220511155749.v3.1.I2dd93486c6952bd52f2020904de0133970d11b29@changeid>
-In-Reply-To: <20220511155749.v3.1.I2dd93486c6952bd52f2020904de0133970d11b29@changeid>
+ <20220511155749.v3.2.I4ac7f55aa446699f8c200a23c10463256f6f439f@changeid>
+In-Reply-To: <20220511155749.v3.2.I4ac7f55aa446699f8c200a23c10463256f6f439f@changeid>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 19 May 2022 17:20:31 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Und7oTNBf8+=d9_RMQyv1v0vzh6OSGpvvPTYWtGF07MA@mail.gmail.com>
-Message-ID: <CAD=FV=Und7oTNBf8+=d9_RMQyv1v0vzh6OSGpvvPTYWtGF07MA@mail.gmail.com>
+Date: Thu, 19 May 2022 17:21:20 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X7cr-=UwV_XbAYovTqeUYXO3LVLTU2bLiwf8wU2kGsLA@mail.gmail.com>
+Message-ID: <CAD=FV=X7cr-=UwV_XbAYovTqeUYXO3LVLTU2bLiwf8wU2kGsLA@mail.gmail.com>
 To: dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 1/2] drm/probe-helper: Add helper for
- drm_helper_probe_single_connector_modes()
+Subject: Re: [Freedreno] [PATCH v3 2/2] drm/probe-helper: For DP,
+ add 640x480 if all other modes are bad
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,16 +93,54 @@ Hi,
 
 On Wed, May 11, 2022 at 3:58 PM Douglas Anderson <dianders@chromium.org> wrote:
 >
-> The drm_helper_probe_single_connector_modes() is a bit long. Let's
-> break a chunk off to update and validate modes. This helps avoid one
-> goto and also will allow us to more easily call the helper a second
-> time in a future patch without adding looping or another goto.
+> As per Displayport spec section 5.2.1.2 ("Video Timing Format") says
+> that all detachable sinks shall support 640x480 @60Hz as a fail safe
+> mode.
 >
-> This change is intended to be a no-op change--just code movement.
+> A DP compliance test expected us to utilize the above fact when all
+> modes it presented to the DP source were not achievable. It presented
+> only modes that would be achievable with more lanes and/or higher
+> speeds than we had available and expected that when we couldn't do
+> that then we'd fall back to 640x480 even though it didn't advertise
+> this size.
+>
+> In order to pass the compliance test (and also support any users who
+> might fall into a similar situation with their display), we need to
+> add 640x480 into the list of modes. However, we don't want to add
+> 640x480 all the time. Despite the fact that the DP spec says all sinks
+> _shall support_ 640x480, they're not guaranteed to support it
+> _well_. Continuing to read the spec you can see that the display is
+> not required to really treat 640x480 equal to all the other modes. It
+> doesn't need to scale or anything--just display the pixels somehow for
+> failsafe purposes. It should also be noted that it's not hard to find
+> a display hooked up via DisplayPort that _doesn't_ support 640x480 at
+> all. The HP ZR30w screen I'm sitting in front of has a native DP port
+> and doesn't work at 640x480. I also plugged in a tiny 800x480 HDMI
+> display via a DP to HDMI adapter and that screen definitely doesn't
+> support 640x480.
+>
+> As a compromise solution, let's only add the 640x480 mode if:
+> * We're on DP.
+> * All other modes have been pruned.
+>
+> This acknowledges that 640x480 might not be the best mode to use but,
+> since sinks are _supposed_ to support it, we will at least fall back
+> to it if there's nothing else.
+>
+> Note that we _don't_ add higher resolution modes like 1024x768 in this
+> case. We only add those modes for a failed EDID read where we have no
+> idea what's going on. In the case where we've pruned all modes then
+> instead we only want 640x480 which is the only defined "Fail Safe"
+> resolution.
+>
+> This patch originated in response to Kuogee Hsieh's patch [1].
+>
+> [1] https://lore.kernel.org/r/1650671124-14030-1-git-send-email-quic_khsieh@quicinc.com
 >
 > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Tested-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
 >
 > Changes in v3:
@@ -111,10 +150,9 @@ On Wed, May 11, 2022 at 3:58 PM Douglas Anderson <dianders@chromium.org> wrote:
 > - Two underscores for __drm_helper_update_and_validate().
 > - Return err and use WARN_ON instead of returning a bool.
 >
->  drivers/gpu/drm/drm_probe_helper.c | 106 ++++++++++++++++-------------
->  1 file changed, 60 insertions(+), 46 deletions(-)
+>  drivers/gpu/drm/drm_probe_helper.c | 27 ++++++++++++++++++++++-----
+>  1 file changed, 22 insertions(+), 5 deletions(-)
 
 Pushed to drm-misc-next:
 
-4a2a13a57b60 drm/probe-helper: Add helper for
-drm_helper_probe_single_connector_modes()
+e7c254d75d16 drm/probe-helper: For DP, add 640x480 if all other modes are bad
