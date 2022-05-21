@@ -1,59 +1,69 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 656C452F50E
-	for <lists+freedreno@lfdr.de>; Fri, 20 May 2022 23:27:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C1452F67B
+	for <lists+freedreno@lfdr.de>; Sat, 21 May 2022 02:02:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA3510FCEC;
-	Fri, 20 May 2022 21:27:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFD810EC4B;
+	Sat, 21 May 2022 00:02:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A77F10EFB6;
- Fri, 20 May 2022 21:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1653082074; x=1684618074;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=rI5ZKSOJKM0Bcjv9f134lRqpnioCEqKK1pNus30VpcY=;
- b=GPlowu9nCm44pkiYVLKR+40qsQf05fJeuvhetZZXyLM8yC8aad00jyxt
- 7ZPGes6OYY4W3wm0YQz9+gufNOKIz5dgfS4NSZdy04iha9R8wDrcb6Zm5
- 4Q4WqkRuJewNrQ7MGUuc6LJE+C+0mjv2Q0Wc0YluSBdk7eZLQkGPXCPGZ Q=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 20 May 2022 14:27:53 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2022 14:27:53 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 20 May 2022 14:27:23 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 20 May 2022 14:27:22 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Fri, 20 May 2022 14:27:08 -0700
-Message-ID: <1653082028-10211-4-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1653082028-10211-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1653082028-10211-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 212F710EBC4
+ for <freedreno@lists.freedesktop.org>; Sat, 21 May 2022 00:02:06 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id j4so8149316edq.6
+ for <freedreno@lists.freedesktop.org>; Fri, 20 May 2022 17:02:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=5Hxa6+qS9fIPO89ddVWrccYQHlKE1/5D9kW9MMuathA=;
+ b=BsLD0XyXQ6aUCt8XdDDdgGJx+e5CnjRgib2MXW3YMcy9F0tjwKE/PR2zGvDsh4ybfo
+ BZ2cjEIABtYk0dWKUDXWwvfb7NO9dp99AxzPhlbN55/jlO9oNey5Wi/tZEBV9ufUL3A0
+ M2AJvVZ+jvu39U7CUih5oopgEUx5/RTQrULf0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=5Hxa6+qS9fIPO89ddVWrccYQHlKE1/5D9kW9MMuathA=;
+ b=vAlCw1XF8hoCtrWlnlUXn5y1JRuOn4Qgm7P9Qtv6Yxnx7iBh1JSsnz3S2Hlvo/Ljzg
+ gsn1rTfm6G9LW/Ih+RsXZLMIeyeFm9UfmL3JEEvQJPA5idEO6htJZf+Fuae9KfCRNM8j
+ 89ImAvVrEddNBVteDMYFkIafzUDfZEvh0+t0NicRXn8Vs9647Tg+O4LzWROYCp1a6Ace
+ hdcGtyY7sewc2SBu+I4xjMKJ5tsdrtKpZiYLiaJyoE0Es3DGEZIDwZauhY0+TzlygoDb
+ 8p3kSMtNqgFAaaNbdtnzIEDvwUoEWlTJdtlQE1Toi04Wlwrsv3maN/TSn0sc2xlF7tLF
+ P03A==
+X-Gm-Message-State: AOAM5301H7Pf9u2vfSGrOylnYtK7fjTeaDMtW3NormOcVXueG2uz/ZtX
+ M6TZy6/Mubt+f542RVz7gYynQ8/9yFfRt839hT4=
+X-Google-Smtp-Source: ABdhPJz+ij3PoejkrJ7sQMJ4x5uTpDWRZGoGb6/ikV/eDHh1wY8Yy8uV+vkvfx7Z0JUHTLgtQiPeTg==
+X-Received: by 2002:a05:6402:486:b0:42a:f08b:8928 with SMTP id
+ k6-20020a056402048600b0042af08b8928mr13462418edv.14.1653091324225; 
+ Fri, 20 May 2022 17:02:04 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com.
+ [209.85.221.51]) by smtp.gmail.com with ESMTPSA id
+ zp26-20020a17090684fa00b006f3ef214e37sm3644618ejb.157.2022.05.20.17.02.02
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 May 2022 17:02:02 -0700 (PDT)
+Received: by mail-wr1-f51.google.com with SMTP id u27so12546240wru.8
+ for <freedreno@lists.freedesktop.org>; Fri, 20 May 2022 17:02:02 -0700 (PDT)
+X-Received: by 2002:a05:6000:1c03:b0:20e:5cac:1eb5 with SMTP id
+ ba3-20020a0560001c0300b0020e5cac1eb5mr10297360wrb.422.1653091321358; Fri, 20
+ May 2022 17:02:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v11 3/3] drm/msm/dp: delete vdda regulator
- related functions from eDP/DP controller
+References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+ <5857c510-9783-a483-8414-65d7350618d6@suse.de>
+In-Reply-To: <5857c510-9783-a483-8414-65d7350618d6@suse.de>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 20 May 2022 17:01:49 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
+Message-ID: <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
+ no EDID
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,225 +76,236 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Vdda regulators are related to both eDP and DP phy so that it should be
-managed at eDP and DP phy driver instead of controller. This patch removes
-vdda regulators related functions out of eDP/DP controller.
+Hi,
 
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_parser.c | 14 ------
- drivers/gpu/drm/msm/dp/dp_parser.h |  6 ---
- drivers/gpu/drm/msm/dp/dp_power.c  | 95 +-------------------------------------
- 3 files changed, 2 insertions(+), 113 deletions(-)
+On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse.de> wro=
+te:
+>
+> Hi Douglas,
+>
+> I understand that you're trying to tell userspace that the modelist has
+> been made up, but it's not something that should be done via fragile
+> heuristics IMHO.
+>
+> I looked at the Chromium source code that you linked, but I cannot say
+> whether it's doing the correct thing. It all depends on what your
+> program needs.
+>
+> In that function, you could also search for 'DRM_MODE_TYPE_USERDEF'.
+> It's the mode that the user specified on the kernel command line. If
+> Chromium's automatic mode selection fails, you'd give your users direct
+> control over it.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.c b/drivers/gpu/drm/msm/dp/dp_parser.c
-index 8f9fed9..4ef2130 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.c
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.c
-@@ -22,14 +22,6 @@
- #define DP_DEFAULT_P0_OFFSET	0x1000
- #define DP_DEFAULT_P0_SIZE	0x0400
- 
--static const struct dp_regulator_cfg sdm845_dp_reg_cfg = {
--	.num = 2,
--	.regs = {
--		{"vdda-1p2", 21800, 4 },	/* 1.2 V */
--		{"vdda-0p9", 36000, 32 },	/* 0.9 V */
--	},
--};
--
- static void __iomem *dp_ioremap(struct platform_device *pdev, int idx, size_t *len)
- {
- 	struct resource *res;
-@@ -298,12 +290,6 @@ static int dp_parser_parse(struct dp_parser *parser)
- 	if (rc)
- 		return rc;
- 
--	/* Map the corresponding regulator information according to
--	 * version. Currently, since we only have one supported platform,
--	 * mapping the regulator directly.
--	 */
--	parser->regulator_cfg = &sdm845_dp_reg_cfg;
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_parser.h b/drivers/gpu/drm/msm/dp/dp_parser.h
-index 3a4d797..b56b4d7 100644
---- a/drivers/gpu/drm/msm/dp/dp_parser.h
-+++ b/drivers/gpu/drm/msm/dp/dp_parser.h
-@@ -101,11 +101,6 @@ struct dp_reg_entry {
- 	int disable_load;
- };
- 
--struct dp_regulator_cfg {
--	int num;
--	struct dp_reg_entry regs[DP_DEV_REGULATOR_MAX];
--};
--
- /**
-  * struct dp_parser - DP parser's data exposed to clients
-  *
-@@ -121,7 +116,6 @@ struct dp_parser {
- 	struct dp_pinctrl pinctrl;
- 	struct dp_io io;
- 	struct dp_display_data disp_data;
--	const struct dp_regulator_cfg *regulator_cfg;
- 	u32 max_dp_lanes;
- 	struct drm_bridge *next_bridge;
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_power.c b/drivers/gpu/drm/msm/dp/dp_power.c
-index d9e0117..b52ac1d 100644
---- a/drivers/gpu/drm/msm/dp/dp_power.c
-+++ b/drivers/gpu/drm/msm/dp/dp_power.c
-@@ -20,82 +20,10 @@ struct dp_power_private {
- 	struct clk *link_clk_src;
- 	struct clk *pixel_provider;
- 	struct clk *link_provider;
--	struct regulator_bulk_data supplies[DP_DEV_REGULATOR_MAX];
- 
- 	struct dp_power dp_power;
- };
- 
--static void dp_power_regulator_disable(struct dp_power_private *power)
--{
--	struct regulator_bulk_data *s = power->supplies;
--	const struct dp_reg_entry *regs = power->parser->regulator_cfg->regs;
--	int num = power->parser->regulator_cfg->num;
--	int i;
--
--	DBG("");
--	for (i = num - 1; i >= 0; i--)
--		if (regs[i].disable_load >= 0)
--			regulator_set_load(s[i].consumer,
--					   regs[i].disable_load);
--
--	regulator_bulk_disable(num, s);
--}
--
--static int dp_power_regulator_enable(struct dp_power_private *power)
--{
--	struct regulator_bulk_data *s = power->supplies;
--	const struct dp_reg_entry *regs = power->parser->regulator_cfg->regs;
--	int num = power->parser->regulator_cfg->num;
--	int ret, i;
--
--	DBG("");
--	for (i = 0; i < num; i++) {
--		if (regs[i].enable_load >= 0) {
--			ret = regulator_set_load(s[i].consumer,
--						 regs[i].enable_load);
--			if (ret < 0) {
--				pr_err("regulator %d set op mode failed, %d\n",
--					i, ret);
--				goto fail;
--			}
--		}
--	}
--
--	ret = regulator_bulk_enable(num, s);
--	if (ret < 0) {
--		pr_err("regulator enable failed, %d\n", ret);
--		goto fail;
--	}
--
--	return 0;
--
--fail:
--	for (i--; i >= 0; i--)
--		regulator_set_load(s[i].consumer, regs[i].disable_load);
--	return ret;
--}
--
--static int dp_power_regulator_init(struct dp_power_private *power)
--{
--	struct regulator_bulk_data *s = power->supplies;
--	const struct dp_reg_entry *regs = power->parser->regulator_cfg->regs;
--	struct platform_device *pdev = power->pdev;
--	int num = power->parser->regulator_cfg->num;
--	int i, ret;
--
--	for (i = 0; i < num; i++)
--		s[i].supply = regs[i].name;
--
--	ret = devm_regulator_bulk_get(&pdev->dev, num, s);
--	if (ret < 0) {
--		pr_err("%s: failed to init regulator, ret=%d\n",
--						__func__, ret);
--		return ret;
--	}
--
--	return 0;
--}
--
- static int dp_power_clk_init(struct dp_power_private *power)
- {
- 	int rc = 0;
-@@ -318,21 +246,10 @@ int dp_power_client_init(struct dp_power *dp_power)
- 
- 	pm_runtime_enable(&power->pdev->dev);
- 
--	rc = dp_power_regulator_init(power);
--	if (rc) {
--		DRM_ERROR("failed to init regulators %d\n", rc);
--		goto error;
--	}
--
- 	rc = dp_power_clk_init(power);
--	if (rc) {
-+	if (rc)
- 		DRM_ERROR("failed to init clocks %d\n", rc);
--		goto error;
--	}
--	return 0;
- 
--error:
--	pm_runtime_disable(&power->pdev->dev);
- 	return rc;
- }
- 
-@@ -365,22 +282,15 @@ int dp_power_init(struct dp_power *dp_power, bool flip)
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
- 	pm_runtime_get_sync(&power->pdev->dev);
--	rc = dp_power_regulator_enable(power);
--	if (rc) {
--		DRM_ERROR("failed to enable regulators, %d\n", rc);
--		goto exit;
--	}
- 
- 	rc = dp_power_clk_enable(dp_power, DP_CORE_PM, true);
- 	if (rc) {
- 		DRM_ERROR("failed to enable DP core clocks, %d\n", rc);
--		goto err_clk;
-+		goto exit;
- 	}
- 
- 	return 0;
- 
--err_clk:
--	dp_power_regulator_disable(power);
- exit:
- 	pm_runtime_put_sync(&power->pdev->dev);
- 	return rc;
-@@ -393,7 +303,6 @@ int dp_power_deinit(struct dp_power *dp_power)
- 	power = container_of(dp_power, struct dp_power_private, dp_power);
- 
- 	dp_power_clk_enable(dp_power, DP_CORE_PM, false);
--	dp_power_regulator_disable(power);
- 	pm_runtime_put_sync(&power->pdev->dev);
- 	return 0;
- }
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+That doesn't really work for Chrome OS. Certainly a kernel hacker
+could do this, but it's not something I could imagine us exposing to
+an average user of a Chromebook.
 
+
+> When there's no flagged mode or if
+> /sys/class/drm/card<...>/status contains "unconnected", you can assume
+> that the modelist is artificial and try the modes in an appropriate order=
+.
+
+So "no flagged" means that nothing is marked as preferred, correct?
+
+...so I guess what you're suggesting is that the order that the kernel
+is presenting the modes to userspace is not ABI. If there are no
+preferred modes then userspace shouldn't necessarily assume that the
+first mode returned is the best mode. Instead it should assume that if
+there is no preferred mode then the mode list is made up and it should
+make its own decisions about the best mode to start with. If this is
+the ABI from the kernel then plausibly I could convince people to
+change userspace to pick 640x480 first in this case.
+
+> If we really want the kernel to give additional guarantees, we should
+> have a broader discussion about this topic IMHO.
+
+Sure. I've added St=C3=A9phane Marchesin to this thread in case he wants to
+chime in about anything.
+
+Overall, my take on the matter:
+
+* Mostly I got involved because, apparently, a DP compliance test was
+failing. The compliance test was upset that when it presented us with
+no EDID that we didn't default to 640x480. There was a push to make a
+fix for this in the Qualcomm specific driver but that didn't sit right
+with me.
+
+* On all devices I'm currently working with (laptops), the DP is a
+secondary display. If a user was trying to plug in a display with a
+bad EDID and the max mode (1024x768) didn't work, they could just use
+the primary display to choose a different resolution. It seems
+unlikely a user would truly be upset and would probably be happy they
+could get their broken display to work at all. Even if this is a
+primary display, I believe there are documented key combos to change
+the resolution of the primary display even if you can't see anything.
+
+* That all being said, defaulting to 640x480 when there's no EDID made
+sense to me, especially since it's actually defined in the DP spec. So
+I'm trying to do the right thing and solve this corner case. That
+being said, if it's truly controversial I can just drop it.
+
+
+So I guess my plan will be to give St=C3=A9phane a little while in case he
+wants to chime in. If not then I guess I'll try a Chrome patch...
+...and if that doesn't work, I'll just drop it.
+
+
+> Best regards
+> Thomas
+>
+> [1]
+> https://elixir.bootlin.com/linux/v5.17.8/source/drivers/gpu/drm/drm_sysfs=
+.c#L196
+>
+> Am 13.05.22 um 22:06 schrieb Douglas Anderson:
+> > If we're unable to read the EDID for a display because it's corrupt /
+> > bogus / invalid then we'll add a set of standard modes for the
+> > display. Since we have no true information about the connected
+> > display, these modes are essentially guesses but better than nothing.
+> > None of the modes returned is marked as preferred, but the modes are
+> > currently sorted such that the higher resolution modes are listed
+> > first.
+> >
+> > When userspace sees these modes presented by the kernel it needs to
+> > figure out which one to pick. At least one userspace, ChromeOS [1]
+> > seems to use the rules:
+> > 1. Try to pick the first mode marked as preferred.
+> > 2. If no modes were marked as preferred then pick the first mode.
+> >
+> > The rules above seem pretty reasonable, but they have unfortunate side
+> > effect that when we have no EDID present we'll default to the highest
+> > resolution (least likely to work) mode.
+> >
+> > Let's change things slightly. In the case of a failed EDID read we
+> > still won't mark anything preferred but we _won't_ sort the modes at
+> > the end of drm_helper_probe_single_connector_modes(). The
+> > drm_add_modes_noedid() adds 640x480 first and so by skipping the call
+> > to drm_mode_sort() it will stay first. That will be a hint to
+> > userspace to default to 640x480.
+> >
+> > This change makes userspace that behaves like ChromeOS does compliant
+> > with section 4.2.2.6 (EDID Corruption Detection) of the DP 1.4a Link
+> > CTS. That section indicates that, at least on DP, if we have a corrupt
+> > EDID userspace may allow other modes to be tried but should default to
+> > 640x480 in the absence of more information. Note that if
+> > drm_add_modes_noedid() ever changes to _not_ list 640x480 first we
+> > might need to do more here, but that seems unlikely and, in any case,
+> > it would be caught by a future run of DP compliance testing.
+> >
+> > Note: this change could pave the way to further improvement to
+> > drm_helper_probe_single_connector_modes(). Specifically, in the case
+> > of no EDID we could add additional "standard" modes that are riskier
+> > than 1024x768 (the current max we add). Now that we're giving
+> > userspace the hint that it should default to 640x480 perhaps it would
+> > be OK to offer the options of the higher resolution modes just in case
+> > they work. This further improvement is left as an exercise to the
+> > reader.
+> >
+> > [1] https://source.chromium.org/chromium/chromium/src/+/a051f741d0a15ca=
+ff2251301efe081c30e0f4a96:ui/ozone/platform/drm/common/drm_util.cc;l=3D488
+> >
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
+> > Note that this is the second of two related and similar-sounding but
+> > different patches. See also ("drm/probe-helper: For DP, add 640x480 if
+> > all other modes are bad") [2]. I'm hoping to land _both_ of the
+> > patches since they address different issues. This patch addresses the
+> > case of a corrupt EDID and having 640x480 be the default in the
+> > "guessed" modes. The other patch handles the case where the EDID
+> > _isn't_ corrupt but all the modes listed can't be made with the
+> > existing situations. The two patches can land in either order.
+> >
+> > Also note that I didn't carry any Tested-by / Reviewed-by tags since
+> > the patch is now quite different (yet again for v2 to v3).
+> >
+> > [2] https://lore.kernel.org/r/20220510131309.v2.2.I4ac7f55aa446699f8c20=
+0a23c10463256f6f439f@changeid
+> >
+> > Changes in v3:
+> > - Don't set preferred, just disable the sort.
+> >
+> > Changes in v2:
+> > - Don't modify drm_add_modes_noedid() 'cause that'll break others
+> > - Set 640x480 as preferred in drm_helper_probe_single_connector_modes()
+> >
+> >   drivers/gpu/drm/drm_probe_helper.c | 14 ++++++++++++--
+> >   1 file changed, 12 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_p=
+robe_helper.c
+> > index 682359512996..21dd60f30cc7 100644
+> > --- a/drivers/gpu/drm/drm_probe_helper.c
+> > +++ b/drivers/gpu/drm/drm_probe_helper.c
+> > @@ -425,6 +425,7 @@ int drm_helper_probe_single_connector_modes(struct =
+drm_connector *connector,
+> >       bool verbose_prune =3D true;
+> >       enum drm_connector_status old_status;
+> >       struct drm_modeset_acquire_ctx ctx;
+> > +     bool sort_list =3D true;
+> >
+> >       WARN_ON(!mutex_is_locked(&dev->mode_config.mutex));
+> >
+> > @@ -516,8 +517,16 @@ int drm_helper_probe_single_connector_modes(struct=
+ drm_connector *connector,
+> >               count =3D drm_add_override_edid_modes(connector);
+> >
+> >       if (count =3D=3D 0 && (connector->status =3D=3D connector_status_=
+connected ||
+> > -                        connector->status =3D=3D connector_status_unkn=
+own))
+> > +                        connector->status =3D=3D connector_status_unkn=
+own)) {
+> >               count =3D drm_add_modes_noedid(connector, 1024, 768);
+> > +             /*
+> > +              * Want lower res modes, like 640x480, first. That indica=
+tes
+> > +              * to userspace that these are "better" modes. Since we h=
+ave
+> > +              * no EDID the modes are a guess anyway, so guess the saf=
+er
+> > +              * mode first.
+> > +              */
+> > +             sort_list =3D false;
+> > +     }
+> >       count +=3D drm_helper_probe_add_cmdline_mode(connector);
+> >       if (count =3D=3D 0)
+> >               goto prune;
+> > @@ -576,7 +585,8 @@ int drm_helper_probe_single_connector_modes(struct =
+drm_connector *connector,
+> >       if (list_empty(&connector->modes))
+> >               return 0;
+> >
+> > -     drm_mode_sort(&connector->modes);
+> > +     if (sort_list)
+> > +             drm_mode_sort(&connector->modes);
+> >
+> >       DRM_DEBUG_KMS("[CONNECTOR:%d:%s] probed modes :\n", connector->ba=
+se.id,
+> >                       connector->name);
+>
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+> (HRB 36809, AG N=C3=BCrnberg)
+> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
