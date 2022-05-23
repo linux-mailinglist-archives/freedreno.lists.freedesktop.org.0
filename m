@@ -2,57 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D45531EE5
-	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 00:54:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91ABD531F4E
+	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 01:43:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9466610EF61;
-	Mon, 23 May 2022 22:54:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 109DA10E37E;
+	Mon, 23 May 2022 23:43:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 531B910E905
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 22:54:00 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- t11-20020a17090a6a0b00b001df6f318a8bso499655pjj.4
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 15:54:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [IPv6:2607:f8b0:4864:20::836])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6FB10E37E
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 23:43:13 +0000 (UTC)
+Received: by mail-qt1-x836.google.com with SMTP id v14so13737691qtc.3
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 16:43:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=I1qORWyPQI7jXQYKqrTLFexrH7TndgYx7v8bQkC3I1k=;
- b=MrVJTB5IfkuU2llfyGLxOVi1li3nVyFrD6vpdgLjU9bOE9pIZPkRUF3WzpG+oTmbPg
- turc8MPYaO8YL65bR88RnXdazD/OsqMmceQBh2LRlGPIrlRyORixeQ9HzCt3THi5OuEC
- RW2HcoAGAS/GGrdkWuwTRaRT+SZPeTV0soOtw=
+ :cc; bh=vo71c+n/wCWfUYChsCch/TOZTAc6RqS7hic8WUvcoIw=;
+ b=b1HZCTlc0FaASasHRCD5Y4kmWzTiLs2LaQl7/CXAt9GX3aDYUTR+mEWyBmw6QyDjt0
+ kqoqMhMB7Pb3sbK/HKSgcZG0lKxupwMeKXRmTekoG+0tSkivdjQZ4FQVz23bKT9fKurd
+ gFH178OzpkErKGL+s0tqPjvX6Q/YMAxaQ0BoEB5n8E3Z34ZOQsdTCMGjsAQxXESXvteq
+ vNVOIS9eoKRtkaVRQ4oz4jZMWxwJHYLdIuxnM3g2JKYoP8Yr+Gx2yzwrrrYIOiQe99ET
+ 7UXJKrS42Tnbe12+4yhg0jflTmXsJbahMHsA1CgFxMKNVA/2xzXV1sWrEPEVqWdPse5m
+ iRVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=I1qORWyPQI7jXQYKqrTLFexrH7TndgYx7v8bQkC3I1k=;
- b=das++65bjkDk1EkpLldG9xgy85m3Egtb1bufkGGK5p2MZnzSqxhz3KVtMCAogE0oIi
- lUyjsieM7qUC6hePk97aGuRjimjMv0scpUHtVDuDZAH3ksdoyaLrS+28nB35fv9dCGee
- ofXvuc7VGES789mB3lc6wnP5VbEjPiWhUnZFThYWcBFEVU4fHwkBfxaSkgzqGqnhdfqG
- DZnSS1Zeki9OcGTF9vjIeg2dWiGaCAuHA2pJoN/fnJ+kr2z2xIdfATBSkr/ELPusE8NI
- 7k1Erb5Whh7rmsAo/Ubu/hyD/6Ew7dpC/zuNamp66VGcQAS069j0q4yvuPIheJy5rFpJ
- PjIA==
-X-Gm-Message-State: AOAM533u+zqLSC3z3YEO8fiBYCzDH7D6FmPCO4YojUMSBFivle0VVb9p
- FZMPo9t9jJy1NsjEwP8gA07GlEh2WiAjTE9j7fSRuw==
-X-Google-Smtp-Source: ABdhPJyB9/BoLZUXvgBg7syUvZffUWV7ljrppLmDTIS3IF6ZgIrSG+O04lBehFPP8YNY2XC9tOGhbg6iR39pwahkoSM=
-X-Received: by 2002:a17:90a:468d:b0:1df:39da:322b with SMTP id
- z13-20020a17090a468d00b001df39da322bmr1284066pjf.137.1653346439805; Mon, 23
- May 2022 15:53:59 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=vo71c+n/wCWfUYChsCch/TOZTAc6RqS7hic8WUvcoIw=;
+ b=NtjwUjM18k66i8+SmUmNf6hQqu5dLzh8/TWhHCqWBp6Gyvekaq3P/A9PHhHFvVZv31
+ uD6BJbTILC6otfYM49O4KLu3u3DlJy2Sam78VQzILki9F07vvlD9MU6Y2m6hOol3g76Q
+ I5l71ptfAWnmwyiYwvSEdYQ2/1JPqytbmT2JBHqoUNTTMTN5NsPKoS70yT9AE8Mx+vPf
+ Xh1o7SqWfIhsFweMq3nGWVMoW8MrECnz7/07LIGA0SylhhMRK0yNv/4HUjdZO25t6k2s
+ IlLwKuOlS4s0ffiTeOn2XHs6fn6GMrx97kyKk14gKqnTgYpU4jlp3AYZhnGnhM3EDeZJ
+ Ps4g==
+X-Gm-Message-State: AOAM533bzJ/yOd3yGDs0fp2CiqYeD5NqgZOi8Q7/Edm73m9n/KJ8pXFw
+ 50IQIyKN4lbX/f1Mu0aAaCxjN/lQNu05LcJLcSU2UQ==
+X-Google-Smtp-Source: ABdhPJzUW9RhiGAZVdELoGYpBS6ZpU1N20WruTBeXfIZLJ+KEXjedEvFNxLgd/OJk3jzcNbkBvu6dH9ebgySiUvx914=
+X-Received: by 2002:ac8:5e54:0:b0:2f3:f4ee:efbd with SMTP id
+ i20-20020ac85e54000000b002f3f4eeefbdmr17894617qtx.295.1653349392378; Mon, 23
+ May 2022 16:43:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210728010632.2633470-1-robdclark@gmail.com>
- <20210728010632.2633470-13-robdclark@gmail.com>
- <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
-In-Reply-To: <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
-From: Rob Clark <robdclark@chromium.org>
-Date: Mon, 23 May 2022 15:53:58 -0700
-Message-ID: <CAJs_Fx6Nc337LPNh=p2GT2d2yDTdLWH934o4Cof3urDGhUJB6A@mail.gmail.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20220523213837.1016542-1-marijn.suijten@somainline.org>
+In-Reply-To: <20220523213837.1016542-1-marijn.suijten@somainline.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 24 May 2022 02:43:01 +0300
+Message-ID: <CAA8EJprEjOWRh98V3sprjXZJZMeR25Bz1U3a_uX_KhRbU48srQ@mail.gmail.com>
+To: Marijn Suijten <marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v4 12/13] drm/msm: Utilize gpu scheduler
- priorities
+Subject: Re: [Freedreno] [PATCH 0/9] drm/msm/dsi_phy: Replace parent names
+ with clk_hw pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,366 +63,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>, dri-devel@lists.freedesktop.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Stephen Boyd <sboyd@kernel.org>, Vladimir Lypak <vladimir.lypak@gmail.com>,
+ linux-kernel@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 23, 2022 at 7:45 AM Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
+Hi,
+
+On Tue, 24 May 2022 at 00:38, Marijn Suijten
+<marijn.suijten@somainline.org> wrote:
 >
+> As stated in [1] I promised to tackle and send this series.
 >
-> Hi Rob,
+> parent_hw pointers are easier to manage and cheaper to use than
+> repeatedly formatting the parent name and subsequently leaving the clk
+> framework to perform lookups based on that name.
 >
-> On 28/07/2021 02:06, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > The drm/scheduler provides additional prioritization on top of that
-> > provided by however many number of ringbuffers (each with their own
-> > priority level) is supported on a given generation.  Expose the
-> > additional levels of priority to userspace and map the userspace
-> > priority back to ring (first level of priority) and schedular priority
-> > (additional priority levels within the ring).
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >   drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 +-
-> >   drivers/gpu/drm/msm/msm_gem_submit.c    |  4 +-
-> >   drivers/gpu/drm/msm/msm_gpu.h           | 58 ++++++++++++++++++++++++=
--
-> >   drivers/gpu/drm/msm/msm_submitqueue.c   | 35 +++++++--------
-> >   include/uapi/drm/msm_drm.h              | 14 +++++-
-> >   5 files changed, 88 insertions(+), 27 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/=
-msm/adreno/adreno_gpu.c
-> > index bad4809b68ef..748665232d29 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > @@ -261,8 +261,8 @@ int adreno_get_param(struct msm_gpu *gpu, uint32_t =
-param, uint64_t *value)
-> >                       return ret;
-> >               }
-> >               return -EINVAL;
-> > -     case MSM_PARAM_NR_RINGS:
-> > -             *value =3D gpu->nr_rings;
-> > +     case MSM_PARAM_PRIORITIES:
-> > +             *value =3D gpu->nr_rings * NR_SCHED_PRIORITIES;
-> >               return 0;
-> >       case MSM_PARAM_PP_PGTABLE:
-> >               *value =3D 0;
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm=
-/msm_gem_submit.c
-> > index 450efe59abb5..c2ecec5b11c4 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -59,7 +59,7 @@ static struct msm_gem_submit *submit_create(struct dr=
-m_device *dev,
-> >       submit->gpu =3D gpu;
-> >       submit->cmd =3D (void *)&submit->bos[nr_bos];
-> >       submit->queue =3D queue;
-> > -     submit->ring =3D gpu->rb[queue->prio];
-> > +     submit->ring =3D gpu->rb[queue->ring_nr];
-> >       submit->fault_dumped =3D false;
-> >
-> >       INIT_LIST_HEAD(&submit->node);
-> > @@ -749,7 +749,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, vo=
-id *data,
-> >       /* Get a unique identifier for the submission for logging purpose=
-s */
-> >       submitid =3D atomic_inc_return(&ident) - 1;
-> >
-> > -     ring =3D gpu->rb[queue->prio];
-> > +     ring =3D gpu->rb[queue->ring_nr];
-> >       trace_msm_gpu_submit(pid_nr(pid), ring->id, submitid,
-> >               args->nr_bos, args->nr_cmds);
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gp=
-u.h
-> > index b912cacaecc0..0e4b45bff2e6 100644
-> > --- a/drivers/gpu/drm/msm/msm_gpu.h
-> > +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> > @@ -250,6 +250,59 @@ struct msm_gpu_perfcntr {
-> >       const char *name;
-> >   };
-> >
-> > +/*
-> > + * The number of priority levels provided by drm gpu scheduler.  The
-> > + * DRM_SCHED_PRIORITY_KERNEL priority level is treated specially in so=
-me
-> > + * cases, so we don't use it (no need for kernel generated jobs).
-> > + */
-> > +#define NR_SCHED_PRIORITIES (1 + DRM_SCHED_PRIORITY_HIGH - DRM_SCHED_P=
-RIORITY_MIN)
-> > +
-> > +/**
-> > + * msm_gpu_convert_priority - Map userspace priority to ring # and sch=
-ed priority
-> > + *
-> > + * @gpu:        the gpu instance
-> > + * @prio:       the userspace priority level
-> > + * @ring_nr:    [out] the ringbuffer the userspace priority maps to
-> > + * @sched_prio: [out] the gpu scheduler priority level which the users=
-pace
-> > + *              priority maps to
-> > + *
-> > + * With drm/scheduler providing it's own level of prioritization, our =
-total
-> > + * number of available priority levels is (nr_rings * NR_SCHED_PRIORIT=
-IES).
-> > + * Each ring is associated with it's own scheduler instance.  However,=
- our
-> > + * UABI is that lower numerical values are higher priority.  So mappin=
-g the
-> > + * single userspace priority level into ring_nr and sched_prio takes s=
-ome
-> > + * care.  The userspace provided priority (when a submitqueue is creat=
-ed)
-> > + * is mapped to ring nr and scheduler priority as such:
-> > + *
-> > + *   ring_nr    =3D userspace_prio / NR_SCHED_PRIORITIES
-> > + *   sched_prio =3D NR_SCHED_PRIORITIES -
-> > + *                (userspace_prio % NR_SCHED_PRIORITIES) - 1
-> > + *
-> > + * This allows generations without preemption (nr_rings=3D=3D1) to hav=
-e some
-> > + * amount of prioritization, and provides more priority levels for gen=
-s
-> > + * that do have preemption.
+> This series starts out by adding extra constructors for divider, mux and
+> fixed-factor clocks that have parent_hw(s) pointer argument(s) instead
+> of some DT index or name.  Followed by individual patches performing the
+> conversion, one DSI PHY at a time.
 >
-> I am exploring how different drivers handle priority levels and this
-> caught my eye.
+> dsi_phy_28nm_8960 includes an extra fixup to replace "eternal"
+> devm_kzalloc allocations (for the lifetime of the device) with
+> stack-local char arrays, like all the other DSI PHY drivers.
 >
-> Is the implication of the last paragraphs that on hw with nr_rings > 1,
-> ring + 1 preempts ring?
+> I couldn't help but notice that clock names are wildly varying:
+>
+> - Some use underscores in the _clk suffix where others have nothing;
+> - Some have an _ after the %d, others have not;
+> - Some use a _pll suffix after dsi%d or even _phy_pll suffix.
+>
+> Are there any thoughts or feelings towards unifying these?
+> Theoretically no clock names are used anywhere in the kernel, and
+> everything is based on a phandle + index in DT (I have yet to validate
+> this).  Obviously no .name/.fw_name will be updated to not break DT.
 
-Other way around, at least from the uabi standpoint.  Ie. ring[0]
-preempts ring[1]
+I'd say, leave them as is. Even if they are historical, we don't have
+a strong pressure to change them.
 
-> If so I am wondering does the "spreading" of
-> user visible priorities by NR_SCHED_PRIORITIES creates a non-preemptable
-> levels within every "bucket" or how does that work?
+Significant number of older platforms still use names to identify the
+clock. And moreover apq8096/msm8960 uses dsi1/dsi2 instead of
+dsi0/dsi1.
 
-So, preemption is possible between any priority level before run_job()
-gets called, which writes the job into the ringbuffer.  After that
-point, you only have "bucket" level preemption, because
-NR_SCHED_PRIORITIES levels of priority get mapped to a single FIFO
-ringbuffer.
+Probably we should call the next cycle "The Cycle of clocks cleaning".
+I can volunteer to take care of 8960/8064/8016/8996, as at least I can
+test them. But if you wish, you (or anybody else of course) can take
+any of these platforms too, just ping me, so that I won't spend time
+duplicating somebody's efforts.
 
------
+> Which, by the way, is there a particular reason for:
+>
+>   #define DSI_BYTE_PLL_CLK              0
+>   #define DSI_PIXEL_PLL_CLK             1
+>
+> To not be in the dt-bindings and used in the DT?
 
-btw, one fun (but unrelated) issue I'm hitting with scheduler... I'm
-trying to add an igt test to stress shrinker/eviction, similar to the
-existing tests/i915/gem_shrink.c.  But we hit an unfortunate
-combination of circumstances:
-1. Pinning memory happens in the synchronous part of the submit ioctl,
-before enqueuing the job for the kthread to handle.
-2. The first run_job() callback incurs a slight delay (~1.5ms) while
-resuming the GPU
-3. Because of that delay, userspace has a chance to queue up enough
-more jobs to require locking/pinning more than the available system
-RAM..
-
-I'm not sure if we want a way to prevent userspace from getting *too*
-far ahead of the kthread.  Or maybe at some point the shrinker should
-sleep on non-idle buffers?
-
-BR,
--R
+Before my restructure of the DSI PHY subsys, each driver defined them
+separately. And the idea of moving them to a dt-bindings header didn't
+come to my mind. Feel free to do so, it looks like a good idea.
+Just as a note, DP PHY also uses 0 for the link clock and 1 for the
+pixel clock. What do you think about having a single header for these
+names?
 
 >
-> Regards,
+> And with enough future improvements out of the way, let's round out this
+> patch-series by stating that it has been successfully tested on:
 >
-> Tvrtko
+> - Sony Nile Discovery (Xperia XA2 Ultra): 14nm;
+> - Sony Seine PDX201 (Xperia 10II): 14nm;
+> - Sony Loire Suzu (Xperia X): 28nm.
 >
-> > + */
-> > +static inline int msm_gpu_convert_priority(struct msm_gpu *gpu, int pr=
-io,
-> > +             unsigned *ring_nr, enum drm_sched_priority *sched_prio)
-> > +{
-> > +     unsigned rn, sp;
-> > +
-> > +     rn =3D div_u64_rem(prio, NR_SCHED_PRIORITIES, &sp);
-> > +
-> > +     /* invert sched priority to map to higher-numeric-is-higher-
-> > +      * priority convention
-> > +      */
-> > +     sp =3D NR_SCHED_PRIORITIES - sp - 1;
-> > +
-> > +     if (rn >=3D gpu->nr_rings)
-> > +             return -EINVAL;
-> > +
-> > +     *ring_nr =3D rn;
-> > +     *sched_prio =3D sp;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >   /**
-> >    * A submitqueue is associated with a gl context or vk queue (or equi=
-v)
-> >    * in userspace.
-> > @@ -257,7 +310,8 @@ struct msm_gpu_perfcntr {
-> >    * @id:        userspace id for the submitqueue, unique within the dr=
-m_file
-> >    * @flags:     userspace flags for the submitqueue, specified at crea=
-tion
-> >    *             (currently unusued)
-> > - * @prio:      the submitqueue priority
-> > + * @ring_nr:   the ringbuffer used by this submitqueue, which is deter=
-mined
-> > + *             by the submitqueue's priority
-> >    * @faults:    the number of GPU hangs associated with this submitque=
-ue
-> >    * @ctx:       the per-drm_file context associated with the submitque=
-ue (ie.
-> >    *             which set of pgtables do submits jobs associated with =
-the
-> > @@ -272,7 +326,7 @@ struct msm_gpu_perfcntr {
-> >   struct msm_gpu_submitqueue {
-> >       int id;
-> >       u32 flags;
-> > -     u32 prio;
-> > +     u32 ring_nr;
-> >       int faults;
-> >       struct msm_file_private *ctx;
-> >       struct list_head node;
-> > diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/ms=
-m/msm_submitqueue.c
-> > index 682ba2a7c0ec..32a55d81b58b 100644
-> > --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> > +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> > @@ -68,6 +68,8 @@ int msm_submitqueue_create(struct drm_device *drm, st=
-ruct msm_file_private *ctx,
-> >       struct msm_gpu_submitqueue *queue;
-> >       struct msm_ringbuffer *ring;
-> >       struct drm_gpu_scheduler *sched;
-> > +     enum drm_sched_priority sched_prio;
-> > +     unsigned ring_nr;
-> >       int ret;
-> >
-> >       if (!ctx)
-> > @@ -76,8 +78,9 @@ int msm_submitqueue_create(struct drm_device *drm, st=
-ruct msm_file_private *ctx,
-> >       if (!priv->gpu)
-> >               return -ENODEV;
-> >
-> > -     if (prio >=3D priv->gpu->nr_rings)
-> > -             return -EINVAL;
-> > +     ret =3D msm_gpu_convert_priority(priv->gpu, prio, &ring_nr, &sche=
-d_prio);
-> > +     if (ret)
-> > +             return ret;
-> >
-> >       queue =3D kzalloc(sizeof(*queue), GFP_KERNEL);
-> >
-> > @@ -86,24 +89,13 @@ int msm_submitqueue_create(struct drm_device *drm, =
-struct msm_file_private *ctx,
-> >
-> >       kref_init(&queue->ref);
-> >       queue->flags =3D flags;
-> > -     queue->prio =3D prio;
-> > +     queue->ring_nr =3D ring_nr;
-> >
-> > -     ring =3D priv->gpu->rb[prio];
-> > +     ring =3D priv->gpu->rb[ring_nr];
-> >       sched =3D &ring->sched;
-> >
-> > -     /*
-> > -      * TODO we can allow more priorities than we have ringbuffers by
-> > -      * mapping:
-> > -      *
-> > -      *    ring =3D prio / 3;
-> > -      *    ent_prio =3D DRM_SCHED_PRIORITY_MIN + (prio % 3);
-> > -      *
-> > -      * Probably avoid using DRM_SCHED_PRIORITY_KERNEL as that is
-> > -      * treated specially in places.
-> > -      */
-> >       ret =3D drm_sched_entity_init(&queue->entity,
-> > -                     DRM_SCHED_PRIORITY_NORMAL,
-> > -                     &sched, 1, NULL);
-> > +                     sched_prio, &sched, 1, NULL);
-> >       if (ret) {
-> >               kfree(queue);
-> >               return ret;
-> > @@ -134,16 +126,19 @@ int msm_submitqueue_create(struct drm_device *drm=
-, struct msm_file_private *ctx,
-> >   int msm_submitqueue_init(struct drm_device *drm, struct msm_file_priv=
-ate *ctx)
-> >   {
-> >       struct msm_drm_private *priv =3D drm->dev_private;
-> > -     int default_prio;
-> > +     int default_prio, max_priority;
-> >
-> >       if (!priv->gpu)
-> >               return -ENODEV;
-> >
-> > +     max_priority =3D (priv->gpu->nr_rings * NR_SCHED_PRIORITIES) - 1;
-> > +
-> >       /*
-> > -      * Select priority 2 as the "default priority" unless nr_rings is=
- less
-> > -      * than 2 and then pick the lowest priority
-> > +      * Pick a medium priority level as default.  Lower numeric value =
-is
-> > +      * higher priority, so round-up to pick a priority that is not hi=
-gher
-> > +      * than the middle priority level.
-> >        */
-> > -     default_prio =3D clamp_t(uint32_t, 2, 0, priv->gpu->nr_rings - 1)=
-;
-> > +     default_prio =3D DIV_ROUND_UP(max_priority, 2);
-> >
-> >       INIT_LIST_HEAD(&ctx->submitqueues);
-> >
-> > diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-> > index f075851021c3..6b8fffc28a50 100644
-> > --- a/include/uapi/drm/msm_drm.h
-> > +++ b/include/uapi/drm/msm_drm.h
-> > @@ -73,11 +73,19 @@ struct drm_msm_timespec {
-> >   #define MSM_PARAM_MAX_FREQ   0x04
-> >   #define MSM_PARAM_TIMESTAMP  0x05
-> >   #define MSM_PARAM_GMEM_BASE  0x06
-> > -#define MSM_PARAM_NR_RINGS   0x07
-> > +#define MSM_PARAM_PRIORITIES 0x07  /* The # of priority levels */
-> >   #define MSM_PARAM_PP_PGTABLE 0x08  /* =3D> 1 for per-process pagetabl=
-es, else 0 */
-> >   #define MSM_PARAM_FAULTS     0x09
-> >   #define MSM_PARAM_SUSPENDS   0x0a
-> >
-> > +/* For backwards compat.  The original support for preemption was base=
-d on
-> > + * a single ring per priority level so # of priority levels equals the=
- #
-> > + * of rings.  With drm/scheduler providing additional levels of priori=
-ty,
-> > + * the number of priorities is greater than the # of rings.  The param=
- is
-> > + * renamed to better reflect this.
-> > + */
-> > +#define MSM_PARAM_NR_RINGS   MSM_PARAM_PRIORITIES
-> > +
-> >   struct drm_msm_param {
-> >       __u32 pipe;           /* in, MSM_PIPE_x */
-> >       __u32 param;          /* in, MSM_PARAM_x */
-> > @@ -304,6 +312,10 @@ struct drm_msm_gem_madvise {
-> >
-> >   #define MSM_SUBMITQUEUE_FLAGS (0)
-> >
-> > +/*
-> > + * The submitqueue priority should be between 0 and MSM_PARAM_PRIORITI=
-ES-1,
-> > + * a lower numeric value is higher priority.
-> > + */
-> >   struct drm_msm_submitqueue {
-> >       __u32 flags;   /* in, MSM_SUBMITQUEUE_x */
-> >       __u32 prio;    /* in, Priority level */
+> And no diff is observed in debugfs's clk_summary.
+>
+> Unfortunately all other devices in my collection with a 7/10nm DSI PHY
+> have a DSC panel which we have yet to get working.
+
+I will test it on RB3 (10nm) and RB5 (7nm) during one of the next few days.
+
+>
+> [1]: https://lore.kernel.org/linux-arm-msm/20220502214235.s5plebunh4ttjhge@SoMainline.org/
+>
+> Marijn Suijten (9):
+>   clk: divider: Introduce devm_clk_hw_register_divider_parent_hw()
+>   clk: mux: Introduce devm_clk_hw_register_mux_parent_hws()
+>   clk: fixed-factor: Introduce *clk_hw_register_fixed_factor_parent_hw()
+>   drm/msm/dsi_phy_28nm: Replace parent names with clk_hw pointers
+>   drm/msm/dsi_phy_28nm_8960: Replace parent names with clk_hw pointers
+>   drm/msm/dsi_phy_28nm_8960: Use stack memory for temporary clock names
+>   drm/msm/dsi_phy_14nm: Replace parent names with clk_hw pointers
+>   drm/msm/dsi_phy_10nm: Replace parent names with clk_hw pointers
+>   drm/msm/dsi_phy_7nm: Replace parent names with clk_hw pointers
+>
+>  drivers/clk/clk-fixed-factor.c                | 57 ++++++++++--
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    | 92 ++++++++-----------
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    | 36 ++++----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    | 52 +++++------
+>  .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   | 26 ++----
+>  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 92 +++++++++----------
+>  include/linux/clk-provider.h                  | 34 +++++++
+>  7 files changed, 209 insertions(+), 180 deletions(-)
+>
+> --
+> 2.36.1
+
+
+
+-- 
+With best wishes
+Dmitry
