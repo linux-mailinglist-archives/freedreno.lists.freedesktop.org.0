@@ -1,36 +1,36 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8E6531DED
-	for <lists+freedreno@lfdr.de>; Mon, 23 May 2022 23:38:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0E7B531DFC
+	for <lists+freedreno@lfdr.de>; Mon, 23 May 2022 23:39:07 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D45DF10F803;
-	Mon, 23 May 2022 21:38:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9341010FDCD;
+	Mon, 23 May 2022 21:39:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B27710F803
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 21:38:54 +0000 (UTC)
+Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C08210F7F0
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 21:39:00 +0000 (UTC)
 Received: from Marijn-Arch-PC.localdomain
  (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id D742A20531;
- Mon, 23 May 2022 23:38:51 +0200 (CEST)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 64B5320536;
+ Mon, 23 May 2022 23:38:53 +0200 (CEST)
 From: Marijn Suijten <marijn.suijten@somainline.org>
 To: phone-devel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 23 May 2022 23:38:32 +0200
-Message-Id: <20220523213837.1016542-5-marijn.suijten@somainline.org>
+Date: Mon, 23 May 2022 23:38:33 +0200
+Message-Id: <20220523213837.1016542-6-marijn.suijten@somainline.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220523213837.1016542-1-marijn.suijten@somainline.org>
 References: <20220523213837.1016542-1-marijn.suijten@somainline.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 4/9] drm/msm/dsi_phy_28nm: Replace parent names
- with clk_hw pointers
+Subject: [Freedreno] [PATCH 5/9] drm/msm/dsi_phy_28nm_8960: Replace parent
+ names with clk_hw pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,100 +65,64 @@ framework to perform lookups based on that name.
 
 Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
 ---
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c | 52 +++++++++-------------
- 1 file changed, 22 insertions(+), 30 deletions(-)
+ .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c    | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-index 48eab80b548e..6926c8ff6255 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c
-@@ -519,7 +519,7 @@ static int dsi_28nm_pll_restore_state(struct msm_dsi_phy *phy)
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+index fc56cdcc9ad6..943a7e847c90 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
+@@ -383,7 +383,7 @@ static int dsi_28nm_pll_restore_state(struct msm_dsi_phy *phy)
 
  static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **provided_clocks)
  {
--	char clk_name[32], parent1[32], parent2[32], vco_name[32];
-+	char clk_name[32], vco_name[32];
+-	char *clk_name, *parent_name, *vco_name;
++	char *clk_name, *vco_name;
  	struct clk_init_data vco_init = {
  		.parent_data = &(const struct clk_parent_data) {
- 			.fw_name = "ref", .name = "xo",
-@@ -529,7 +529,7 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
- 		.flags = CLK_IGNORE_UNUSED,
- 	};
- 	struct device *dev = &pll_28nm->phy->pdev->dev;
--	struct clk_hw *hw;
-+	struct clk_hw *hw, *analog_postdiv, *indirect_path_div2, *byte_mux;
- 	int ret;
+ 			.fw_name = "ref",
+@@ -408,10 +408,6 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+ 	if (!vco_name)
+ 		return -ENOMEM;
 
- 	DBG("%d", pll_28nm->phy->id);
-@@ -546,48 +546,40 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
- 		return ret;
+-	parent_name = devm_kzalloc(dev, 32, GFP_KERNEL);
+-	if (!parent_name)
+-		return -ENOMEM;
+-
+ 	clk_name = devm_kzalloc(dev, 32, GFP_KERNEL);
+ 	if (!clk_name)
+ 		return -ENOMEM;
+@@ -429,13 +425,14 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+ 	bytediv->hw.init = &bytediv_init;
+ 	bytediv->reg = pll_28nm->phy->pll_base + REG_DSI_28nm_8960_PHY_PLL_CTRL_9;
 
- 	snprintf(clk_name, 32, "dsi%danalog_postdiv_clk", pll_28nm->phy->id);
--	snprintf(parent1, 32, "dsi%dvco_clk", pll_28nm->phy->id);
+-	snprintf(parent_name, 32, "dsi%dvco_clk", pll_28nm->phy->id);
+ 	snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id + 1);
+
+ 	bytediv_init.name = clk_name;
+ 	bytediv_init.ops = &clk_bytediv_ops;
+ 	bytediv_init.flags = CLK_SET_RATE_PARENT;
+-	bytediv_init.parent_names = (const char * const *) &parent_name;
++	bytediv_init.parent_hws = (const struct clk_hw*[]){
++		&pll_28nm->clk_hw,
++	};
+ 	bytediv_init.num_parents = 1;
+
+ 	/* DIV2 */
+@@ -446,10 +443,9 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
+
+ 	snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id + 1);
+ 	/* DIV3 */
 -	hw = devm_clk_hw_register_divider(dev, clk_name,
--			parent1, CLK_SET_RATE_PARENT,
-+	analog_postdiv = devm_clk_hw_register_divider_parent_hw(dev, clk_name,
-+			&pll_28nm->clk_hw, CLK_SET_RATE_PARENT,
- 			pll_28nm->phy->pll_base +
--			REG_DSI_28nm_PHY_PLL_POSTDIV1_CFG,
--			0, 4, 0, NULL);
--	if (IS_ERR(hw))
--		return PTR_ERR(hw);
-+			REG_DSI_28nm_PHY_PLL_POSTDIV1_CFG, 0, 4, 0, NULL);
-+	if (IS_ERR(analog_postdiv))
-+		return PTR_ERR(analog_postdiv);
-
- 	snprintf(clk_name, 32, "dsi%dindirect_path_div2_clk", pll_28nm->phy->id);
--	snprintf(parent1, 32, "dsi%danalog_postdiv_clk", pll_28nm->phy->id);
--	hw = devm_clk_hw_register_fixed_factor(dev, clk_name,
--			parent1, CLK_SET_RATE_PARENT,
--			1, 2);
--	if (IS_ERR(hw))
--		return PTR_ERR(hw);
-+	indirect_path_div2 = devm_clk_hw_register_fixed_factor_parent_hw(dev,
-+			clk_name, analog_postdiv, CLK_SET_RATE_PARENT, 1, 2);
-+	if (IS_ERR(indirect_path_div2))
-+		return PTR_ERR(indirect_path_div2);
-
- 	snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id);
--	snprintf(parent1, 32, "dsi%dvco_clk", pll_28nm->phy->id);
--	hw = devm_clk_hw_register_divider(dev, clk_name,
--				parent1, 0, pll_28nm->phy->pll_base +
--				REG_DSI_28nm_PHY_PLL_POSTDIV3_CFG,
+-				parent_name, 0, pll_28nm->phy->pll_base +
+-				REG_DSI_28nm_8960_PHY_PLL_CTRL_10,
 -				0, 8, 0, NULL);
 +	hw = devm_clk_hw_register_divider_parent_hw(dev, clk_name,
 +			&pll_28nm->clk_hw, 0, pll_28nm->phy->pll_base +
-+			REG_DSI_28nm_PHY_PLL_POSTDIV3_CFG, 0, 8, 0, NULL);
++			REG_DSI_28nm_8960_PHY_PLL_CTRL_10, 0, 8, 0, NULL);
  	if (IS_ERR(hw))
  		return PTR_ERR(hw);
  	provided_clocks[DSI_PIXEL_PLL_CLK] = hw;
-
- 	snprintf(clk_name, 32, "dsi%dbyte_mux", pll_28nm->phy->id);
--	snprintf(parent1, 32, "dsi%dvco_clk", pll_28nm->phy->id);
--	snprintf(parent2, 32, "dsi%dindirect_path_div2_clk", pll_28nm->phy->id);
--	hw = devm_clk_hw_register_mux(dev, clk_name,
--			((const char *[]){
--				parent1, parent2
-+	byte_mux = devm_clk_hw_register_mux_parent_hws(dev, clk_name,
-+			((const struct clk_hw *[]){
-+				&pll_28nm->clk_hw,
-+				indirect_path_div2,
- 			}), 2, CLK_SET_RATE_PARENT, pll_28nm->phy->pll_base +
- 			REG_DSI_28nm_PHY_PLL_VREG_CFG, 1, 1, 0, NULL);
--	if (IS_ERR(hw))
--		return PTR_ERR(hw);
-+	if (IS_ERR(byte_mux))
-+		return PTR_ERR(byte_mux);
-
- 	snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id);
--	snprintf(parent1, 32, "dsi%dbyte_mux", pll_28nm->phy->id);
--	hw = devm_clk_hw_register_fixed_factor(dev, clk_name,
--				parent1, CLK_SET_RATE_PARENT, 1, 4);
-+	hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, clk_name,
-+			byte_mux, CLK_SET_RATE_PARENT, 1, 4);
- 	if (IS_ERR(hw))
- 		return PTR_ERR(hw);
- 	provided_clocks[DSI_BYTE_PLL_CLK] = hw;
 --
 2.36.1
 
