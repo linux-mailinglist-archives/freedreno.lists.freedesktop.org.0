@@ -1,39 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 760655315FD
-	for <lists+freedreno@lfdr.de>; Mon, 23 May 2022 22:43:53 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BC4F531DE4
+	for <lists+freedreno@lfdr.de>; Mon, 23 May 2022 23:38:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAD1C10E2A3;
-	Mon, 23 May 2022 20:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3022810F39E;
+	Mon, 23 May 2022 21:38:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1E8B10E2A3;
- Mon, 23 May 2022 20:43:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=PF2QZluFpG0B0SGot/0yZRsxkLgQZRVAXG0KLm186/s=; b=ePBn21i0dh+Ir40Tm9N7ZENfdT
- hgszo8s9Ohf8SKMCxdkhgIqlNXEGRpqdZLUCRybtaAS8/hm/W8Ff6bQ81izzjpRezVYHFMOymW9EC
- Bin8Q3tsmYgTbn9z2lho1IdfNt+lz5N+Q8fDswk9vtG8tzLUK5ZH1UAh8+j5DSi5FdxRGZmpZ2v6f
- p+3JhjpLxZCASGhfj3V3htG+60bn0c3zvTJms+/Bd/QqfVgSxgcnHSZ9hRZV3kTsjXJK8B7xmZiQ0
- y8rE4B1jYfh8YEsaXq2B9Ai4QJXkfodlDN8gte5uO4+D+xvBa2sniht1AAXFoEJ9sDvaBtzGBH60t
- 2rN7lI8Q==;
-Received: from [2601:1c0:6280:3f0::aa0b] (helo=casper.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ntEtz-00GX1n-Gs; Mon, 23 May 2022 20:43:44 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 23 May 2022 13:43:37 -0700
-Message-Id: <20220523204337.19739-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.35.3
+Received: from relay02.th.seeweb.it (relay02.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACC4D10F3BC;
+ Mon, 23 May 2022 21:38:50 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id F35032051B;
+ Mon, 23 May 2022 23:38:46 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 23 May 2022 23:38:28 +0200
+Message-Id: <20220523213837.1016542-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH -next] drm/msm: DRM_DP_AUX_BUS depends on OF
+Subject: [Freedreno] [PATCH 0/9] drm/msm/dsi_phy: Replace parent names with
+ clk_hw pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,44 +42,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Arnd Bergmann <arnd@arndb.de>, Jami Kettunen <jami.kettunen@somainline.org>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Fix a Kconfig warning for DRM_MSM by making it depend on OF,
-since 'select' does not follow any dependency chaings.
+As stated in [1] I promised to tackle and send this series.
 
-WARNING: unmet direct dependencies detected for DRM_DP_AUX_BUS
-  Depends on [n]: HAS_IOMEM [=y] && DRM [=m] && OF [=n]
-  Selected by [m]:
-  - DRM_MSM [=m] && HAS_IOMEM [=y] && DRM [=m] && (ARCH_QCOM || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=n] || QCOM_OCMEM [=n]=n) && (QCOM_LLCC [=y] || QCOM_LLCC [=y]=n) && (QCOM_COMMAND_DB [=n] || QCOM_COMMAND_DB [=n]=n)
+parent_hw pointers are easier to manage and cheaper to use than
+repeatedly formatting the parent name and subsequently leaving the clk
+framework to perform lookups based on that name.
 
-Fixes: f5d01644921b ("drm/msm: select DRM_DP_AUX_BUS for the AUX bus support")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Sean Paul <sean@poorly.run>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: David Airlie <airlied@linux.ie>
-Cc: Daniel Vetter <daniel@ffwll.ch>
----
- drivers/gpu/drm/msm/Kconfig |    1 +
- 1 file changed, 1 insertion(+)
+This series starts out by adding extra constructors for divider, mux and
+fixed-factor clocks that have parent_hw(s) pointer argument(s) instead
+of some DT index or name.  Followed by individual patches performing the
+conversion, one DSI PHY at a time.
 
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -3,6 +3,7 @@
- config DRM_MSM
- 	tristate "MSM DRM"
- 	depends on DRM
-+	depends on OF
- 	depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
- 	depends on COMMON_CLK
- 	depends on IOMMU_SUPPORT
+dsi_phy_28nm_8960 includes an extra fixup to replace "eternal"
+devm_kzalloc allocations (for the lifetime of the device) with
+stack-local char arrays, like all the other DSI PHY drivers.
+
+I couldn't help but notice that clock names are wildly varying:
+
+- Some use underscores in the _clk suffix where others have nothing;
+- Some have an _ after the %d, others have not;
+- Some use a _pll suffix after dsi%d or even _phy_pll suffix.
+
+Are there any thoughts or feelings towards unifying these?
+Theoretically no clock names are used anywhere in the kernel, and
+everything is based on a phandle + index in DT (I have yet to validate
+this).  Obviously no .name/.fw_name will be updated to not break DT.
+
+Which, by the way, is there a particular reason for:
+
+  #define DSI_BYTE_PLL_CLK		0
+  #define DSI_PIXEL_PLL_CLK		1
+
+To not be in the dt-bindings and used in the DT?
+
+And with enough future improvements out of the way, let's round out this
+patch-series by stating that it has been successfully tested on:
+
+- Sony Nile Discovery (Xperia XA2 Ultra): 14nm;
+- Sony Seine PDX201 (Xperia 10II): 14nm;
+- Sony Loire Suzu (Xperia X): 28nm.
+
+And no diff is observed in debugfs's clk_summary.
+
+Unfortunately all other devices in my collection with a 7/10nm DSI PHY
+have a DSC panel which we have yet to get working.
+
+[1]: https://lore.kernel.org/linux-arm-msm/20220502214235.s5plebunh4ttjhge@SoMainline.org/
+
+Marijn Suijten (9):
+  clk: divider: Introduce devm_clk_hw_register_divider_parent_hw()
+  clk: mux: Introduce devm_clk_hw_register_mux_parent_hws()
+  clk: fixed-factor: Introduce *clk_hw_register_fixed_factor_parent_hw()
+  drm/msm/dsi_phy_28nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_28nm_8960: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_28nm_8960: Use stack memory for temporary clock names
+  drm/msm/dsi_phy_14nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_10nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_7nm: Replace parent names with clk_hw pointers
+
+ drivers/clk/clk-fixed-factor.c                | 57 ++++++++++--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    | 92 ++++++++-----------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    | 36 ++++----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    | 52 +++++------
+ .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   | 26 ++----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 92 +++++++++----------
+ include/linux/clk-provider.h                  | 34 +++++++
+ 7 files changed, 209 insertions(+), 180 deletions(-)
+
+--
+2.36.1
