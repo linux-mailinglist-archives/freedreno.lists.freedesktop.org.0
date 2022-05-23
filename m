@@ -1,53 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E459531EB9
-	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 00:44:26 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E261C531EBC
+	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 00:45:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B22DA10F6B3;
-	Mon, 23 May 2022 22:44:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBE810E3CD;
+	Mon, 23 May 2022 22:45:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A867910F2DF
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 22:44:20 +0000 (UTC)
-Received: by mail-qt1-x82c.google.com with SMTP id g3so13631577qtb.7
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 15:44:20 -0700 (PDT)
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [IPv6:2607:f8b0:4864:20::f2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB9210E86C
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 22:45:01 +0000 (UTC)
+Received: by mail-qv1-xf2a.google.com with SMTP id e20so13125913qvr.6
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 15:45:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BMvYc5cVRi/7P7VqCcz6wkYkjkr+Z5yusPcVVwCNKu8=;
- b=fMix2ntTRVTtJnqBs7qMwFVLcxCsxu9pcBi+MZBc2cOnP1/pNBFG2awmR5pZp1XyR+
- db0opIiyTUz2rCd/AhfWOA7CtwAmfTF4bPG8MmEaymcT3Wtda9M+fYwZ0TpiEtx1OvwC
- YPXa0mWOEjgvZmgIuw4LDBAAUoNg4ADRbCJUBN7fGmDSEkg07UpjuE6Lk85JoR9wmtT1
- o9VFliz9vJ/hdI4LBtRuG0zkIXLI1tPYFXTg6+Ws0ddc2gMa2KRQz8y1ReVk5maCy/Pl
- 2hQoPjiQ6y1rQoU7ZyHEFH0lKWNqEkLYlJwIRuV1jpiNiH/yJ2jeKUhizIgqMUFvqmtk
- YB/A==
+ :cc; bh=rypfduMofq52o9Cw4bRVJ4YmnkHY5oYB2ohQA+ESkAI=;
+ b=k21oHGm0XlDpBA85Iv8KLMxGl747dSSdXE/EQyrLw9mufTBWj0M6QTD5xziStZGSax
+ rsRSKgHWBLMlhZ92G8QYix9zssd7roGkDcKcOVZ78tx2ubdiDauy3Vbkx008q6bxygJ4
+ DUmQ26ZXi3O2lWLDlZDoUFt85gOIQ6f1dlS2AhQ9k28X+yfGX3ow6kOvQNJgZHpnnzvF
+ FWbQfK8KuSu9LWM1QZyd6uCIrhja4Y/y3XPc/g+P4FxJwERhcMptBoMl3Xb/l+rYfkJh
+ 8rebEvtWe+YSg431tnavm1SWe+NxnNWr/h9TNjHOIcf+Fj+ppVEv6ttuw9iIYwaoBIu5
+ 4SKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=BMvYc5cVRi/7P7VqCcz6wkYkjkr+Z5yusPcVVwCNKu8=;
- b=K92s/00YFJ3A0+aOdG2oX3ovSZFe+d1neba2TZMzQSJ3GoN2bq9KyR4yaDA95qm3S5
- qQOU2O3RlwTmbw3mB6FtXViBsgNLFoTgM4+JPoodBEDBtqQo2oOAjouqC3Hh8RU5fAk2
- gYPDD+3gLpFR7+2TpMT6AwFsol0etGiGnRpbe9ttxO7LJCDuBZqJUdCbTjilGvmCSke5
- LNHZbnz6QKQhv4WQABS2zWu411TSzctL80kpKP+8+HA9kQYqsxKIKc2+ovzLNpdtMs8F
- hfMY1/UecY0N5ASR9Xrv6YCIyZn1B6x+Nu5K1v0NWTeT6nM/GBD3P9Gqyip5jsOYgcxg
- bJkA==
-X-Gm-Message-State: AOAM533/Y0re5nK2H5U1LVQUxEXGLuojFdRPQGuluWxSIozsksFrx3lG
- TE+Udm13PcM55oufszuBGWJGUn2IEQKoDdsExy3eRw==
-X-Google-Smtp-Source: ABdhPJzFO/4zafP3v1e6529SONTTFHEAZD4hPZ20zILccqfJCGhFe7ekBZASZWLj8O+KiuFhkOaPvlPHIfBEUUO/fS0=
-X-Received: by 2002:a05:622a:13c8:b0:2f9:1cb4:9079 with SMTP id
- p8-20020a05622a13c800b002f91cb49079mr13032611qtk.629.1653345859783; Mon, 23
- May 2022 15:44:19 -0700 (PDT)
+ bh=rypfduMofq52o9Cw4bRVJ4YmnkHY5oYB2ohQA+ESkAI=;
+ b=5jezEtw70q30x/N+QOedaei4UmXbEk3CMH7JEJYvorD4CDthlYCWSA4c/RGyynWgny
+ nW3Ypr7KJncwHrWxlQaJrl7OB0N0wsH+nY82dUon3veKLlHCC6blaROLZDj0/n5ll/tV
+ uReLDDPwdjUpKRJsLRh06n4t8fjjWzkWwZaVATPo1Rm4YHUqo30Sl9lmHwWA85VBa1MW
+ 4ZCeb+M3ifhY/kaSV1KBtjsceAN2vRI8tD7/FCx5oWhAvtZrITpexJ4xLFPXMgN7jxpf
+ SxfDw88wWhVL0tghTCPVftDvoisHldy/CsEAD2gXyGdchTMhADDBuqp1ZOGPBMwQMwYK
+ dBhA==
+X-Gm-Message-State: AOAM532cDggJAGXWgOqNaGA+tMSJk5Yd2xw7UHyWvHh48/c94GASOBUL
+ OUPgNzKhKUG3+Eel6BzoK/ZGQhArv9vHHWF5qyK38Q==
+X-Google-Smtp-Source: ABdhPJzz71U22o77PPLCWll4LOjtW5ov17NvyPyylFN9GoUFs7JpXdQIQhFptHaspJJWWce0ytJssabLtNao3p4Y8No=
+X-Received: by 2002:a05:6214:3e1:b0:461:f0b1:6b12 with SMTP id
+ cf1-20020a05621403e100b00461f0b16b12mr18964358qvb.122.1653345900868; Mon, 23
+ May 2022 15:45:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220523213837.1016542-1-marijn.suijten@somainline.org>
  <20220523213837.1016542-6-marijn.suijten@somainline.org>
-In-Reply-To: <20220523213837.1016542-6-marijn.suijten@somainline.org>
+ <CAA8EJprN833M+KOZXOyuaL_KqzEV61P69VXw7mfWo5OiXjE2FA@mail.gmail.com>
+In-Reply-To: <CAA8EJprN833M+KOZXOyuaL_KqzEV61P69VXw7mfWo5OiXjE2FA@mail.gmail.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 24 May 2022 01:44:08 +0300
-Message-ID: <CAA8EJprN833M+KOZXOyuaL_KqzEV61P69VXw7mfWo5OiXjE2FA@mail.gmail.com>
+Date: Tue, 24 May 2022 01:44:49 +0300
+Message-ID: <CAA8EJpqB4wAZo_EVX9dgTvAyX7yqTUUPNeEUsG58nckdDKxr-A@mail.gmail.com>
 To: Marijn Suijten <marijn.suijten@somainline.org>
 Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH 5/9] drm/msm/dsi_phy_28nm_8960: Replace
@@ -81,93 +82,23 @@ Cc: David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 24 May 2022 at 00:38, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
+On Tue, 24 May 2022 at 01:44, Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
 >
-> parent_hw pointers are easier to manage and cheaper to use than
-> repeatedly formatting the parent name and subsequently leaving the clk
-> framework to perform lookups based on that name.
+> On Tue, 24 May 2022 at 00:38, Marijn Suijten
+> <marijn.suijten@somainline.org> wrote:
+> >
+> > parent_hw pointers are easier to manage and cheaper to use than
+> > repeatedly formatting the parent name and subsequently leaving the clk
+> > framework to perform lookups based on that name.
+>
+> Can you please add a followup patch (or a preface one) removing the
+> rest of devm_kzalloc()'ed clock names.
 
-Can you please add a followup patch (or a preface one) removing the
-rest of devm_kzalloc()'ed clock names.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-Minor nit below.
-
->
-> Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-> ---
->  .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c    | 18 +++++++-----------
->  1 file changed, 7 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> index fc56cdcc9ad6..943a7e847c90 100644
-> --- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> +++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c
-> @@ -383,7 +383,7 @@ static int dsi_28nm_pll_restore_state(struct msm_dsi_phy *phy)
->
->  static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **provided_clocks)
->  {
-> -       char *clk_name, *parent_name, *vco_name;
-> +       char *clk_name, *vco_name;
->         struct clk_init_data vco_init = {
->                 .parent_data = &(const struct clk_parent_data) {
->                         .fw_name = "ref",
-> @@ -408,10 +408,6 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
->         if (!vco_name)
->                 return -ENOMEM;
->
-> -       parent_name = devm_kzalloc(dev, 32, GFP_KERNEL);
-> -       if (!parent_name)
-> -               return -ENOMEM;
-> -
->         clk_name = devm_kzalloc(dev, 32, GFP_KERNEL);
->         if (!clk_name)
->                 return -ENOMEM;
-> @@ -429,13 +425,14 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
->         bytediv->hw.init = &bytediv_init;
->         bytediv->reg = pll_28nm->phy->pll_base + REG_DSI_28nm_8960_PHY_PLL_CTRL_9;
->
-> -       snprintf(parent_name, 32, "dsi%dvco_clk", pll_28nm->phy->id);
->         snprintf(clk_name, 32, "dsi%dpllbyte", pll_28nm->phy->id + 1);
->
->         bytediv_init.name = clk_name;
->         bytediv_init.ops = &clk_bytediv_ops;
->         bytediv_init.flags = CLK_SET_RATE_PARENT;
-> -       bytediv_init.parent_names = (const char * const *) &parent_name;
-> +       bytediv_init.parent_hws = (const struct clk_hw*[]){
-> +               &pll_28nm->clk_hw,
-> +       };
->         bytediv_init.num_parents = 1;
-
-I wonder if we can express the bytediv clock with the standard ops.
-However it's definitely a separate topic.
+Argh, stupid me, you did that in the next patch. Please ignore this.
 
 >
->         /* DIV2 */
-> @@ -446,10 +443,9 @@ static int pll_28nm_register(struct dsi_pll_28nm *pll_28nm, struct clk_hw **prov
->
->         snprintf(clk_name, 32, "dsi%dpll", pll_28nm->phy->id + 1);
->         /* DIV3 */
-> -       hw = devm_clk_hw_register_divider(dev, clk_name,
-> -                               parent_name, 0, pll_28nm->phy->pll_base +
-> -                               REG_DSI_28nm_8960_PHY_PLL_CTRL_10,
-> -                               0, 8, 0, NULL);
-> +       hw = devm_clk_hw_register_divider_parent_hw(dev, clk_name,
-> +                       &pll_28nm->clk_hw, 0, pll_28nm->phy->pll_base +
-> +                       REG_DSI_28nm_8960_PHY_PLL_CTRL_10, 0, 8, 0, NULL);
-
-Again, could you please keep the linebreak in place?
-
-
->         if (IS_ERR(hw))
->                 return PTR_ERR(hw);
->         provided_clocks[DSI_PIXEL_PLL_CLK] = hw;
-> --
-> 2.36.1
->
-
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 -- 
 With best wishes
