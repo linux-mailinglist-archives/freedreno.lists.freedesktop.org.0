@@ -2,77 +2,68 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C070152FA35
-	for <lists+freedreno@lfdr.de>; Sat, 21 May 2022 11:18:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5135153075D
+	for <lists+freedreno@lfdr.de>; Mon, 23 May 2022 03:59:08 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C57411AD20;
-	Sat, 21 May 2022 09:18:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2A2510E28E;
+	Mon, 23 May 2022 01:59:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CE9011AD20;
- Sat, 21 May 2022 09:17:59 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id C199B5C00E0;
- Sat, 21 May 2022 05:17:55 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sat, 21 May 2022 05:17:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1653124675; x=
- 1653211075; bh=tSnVUwRgkIan0g05mJZYFNNv+SUzSaOd09kahxAg1rw=; b=h
- 95GWU0jeLj958g55gzl2t8b8Id8N4+oKTBAfK5Sste9K6tC/nU5FY9iB5TtjE8Bm
- 1xF3vxIGNxTvG+OujgkuJshqEVBGO6bIYtyoJjK6AIdj69Hwnk/HVJiaW4G/wBmk
- vQ5pHzCtJlM84hts9w5bZnxrB2zCEuJJ+chsfPIzVJS7gttf6KItSr1JT2GyPd4K
- Nph0cnoF7nZAdRBEk4gmELoM5p+/yDE2hbtWDgxPdI73tyDHQguwtcjikh0pvFUJ
- iBHiGYUERPSWuRbh7CIymRE+vC0G/bhdMII3UIcSU1leUDDURq/uU+eRrd3jdNyh
- BbLsqKISsG0yvPAj5KxDQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1653124675; x=
- 1653211075; bh=tSnVUwRgkIan0g05mJZYFNNv+SUzSaOd09kahxAg1rw=; b=F
- BzyzQSXPexamp04Xoi34eEM+p28ClmXflxOxvz3uDnS6d3QUmMPI8ha+HwqlzCjG
- izV4OWOYKe2yoM5zkFPhsl1GeB20Ao9xiaIqXdScG2MqX8d+lvkqwQxuzpJwrWBG
- QKEzEcRyFUkAHgLCI35Pb1R/zN3AsUzNY+vVzIavtyyoV6m2dN4kD7TLydiUOpe2
- d8J6gBijtxuR7+f0JSicuAjb1wV0Un2360muscfugOcXJ26w1JuG1Ffx4QOtO6MO
- W7sqW5e3E6rfgmbL7J1iaRX0AHMmK6X9RLvBidKTNSA/+QEKoJeS0xOvG2jGQZg+
- V2wcQHxg4Wz20ythBnpiw==
-X-ME-Sender: <xms:Qq6IYrXi6tgcwroDAryeztq43ACQIuhqzJpcoWhczgMMJZNEU9-Tmg>
- <xme:Qq6IYjlBg6ADlBd46elz5uAARkP3tUhBMioqx8fybJ3EFN9K9YcPBXjSKDUgdLcbO
- Qj8avwGehF5E1axsz0>
-X-ME-Received: <xmr:Qq6IYnZTaMoJGd8BI1YIUhLV8qoOtSKl4zQW3A-ju3uoD8C73UdypDcZcvJZxLJVMcrd9KD99xuQx1kUUNLWm7ZPR_tGJzHfeW8WeYE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrieeigddtjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtugfgjgesthhqredttddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetgfelgefggeekkefggfeludeiudffjeffgeevveekjedukedtudeuteef
- teefgfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:Qq6IYmX5EnMoY8tVNERTNOlE1aC4PNwXAAeTgMvNnFEuaZnpbIJOOg>
- <xmx:Qq6IYlmyhMafBCp4RU2B7oUKV5gboicdUv3xQI71wcpPPgdfN2vNlg>
- <xmx:Qq6IYjeCrtdgEjHaIAVLxD03RqqyPWuIjjuWEbF2sCBjq0iX1D-zaw>
- <xmx:Q66IYq-3CSZZbbSQClpxpipR4iPen0OzP1gwUntfhLdUAK-ne95P8Q>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 21 May 2022 05:17:54 -0400 (EDT)
-Date: Sat, 21 May 2022 11:17:51 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Douglas Anderson <dianders@chromium.org>
-Message-ID: <20220521091751.opeiqbmc5c2okdq6@houat>
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 052FF10E28E;
+ Mon, 23 May 2022 01:59:05 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id 202so5399467pfu.0;
+ Sun, 22 May 2022 18:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=vD+DGie99zMkr0nJSBJghK7m9B4fcVep+NfF0Px5NeI=;
+ b=UlU4j2O6HkuShPLRu/4u5GJiJ2CR1lrNCFQWQ3sarMDfjW3K35g5qugZRYr/bBsWMu
+ sE5exKzQmF/F3MYbkC8G7PpD8LVneNqDvmVGPDRq8ZzwJ4s4FYk6ysLjd+0AKr89AI11
+ WMX6f9PCKQ1MH9bSM+5o6Y8TImhjXLFM9jXTF2B7msyggWdCI4jEd9rR9whV5ZgcL5bm
+ C3hu7HJCcQKC5SKKMU5vqy74ZftwJBS4P1Zwzx85K9+p0YF5ET0APiECuHeedzBqq1OH
+ rgKZAhIqFADAwLBKp+duuuKcDz+a/q/vS/Z7YVtFI1kXc+pW/bGmZ64e/FaUUqB1yvak
+ +yZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=vD+DGie99zMkr0nJSBJghK7m9B4fcVep+NfF0Px5NeI=;
+ b=dLYZV7T/lYIep8lZKtmy4p3z8Mh3UdWlioOdXs3j/bmPCrsKrD97CChyQkGHaLR1I0
+ GLDdSeCmVHe68j+naUlOm/jO0lgcPbWG4L/P6mF5+WW2y1mAH6GeWrlFWQCY2QukormJ
+ wl1MNVpk9I8q0tikk42WZmHT5OrHajJXmr15sMxaZAsjngmIjADFF/hPoHz0vkJptA6I
+ oUUC5QVdsDmdy/adcCbAXxrTXehfoQKIHUXH9G4SiJYSd0NyMe1ScPlbMxLMsEJk+WBs
+ wpIBB/yslBAF+fyKiC4p2YEnCS+hbXTkVQKjTL2NpCruBJsJido0xFE6zNot+oGp/ByH
+ fKNg==
+X-Gm-Message-State: AOAM5338W2OPzOYkCw4ny/+ldrTOI3HmxCSYHIJILUbr7/p7sNHkBoQz
+ JXxz1s5SdMBb6pmmKUebCx4=
+X-Google-Smtp-Source: ABdhPJy2p/jFV7g6ZgpcDogCvhXmrWLXQEZijPyaAoNQV+V83ON3F3qw4ZovWJ4SBd+qU6FmZPMsOw==
+X-Received: by 2002:a63:8bc1:0:b0:3f9:f00b:f877 with SMTP id
+ j184-20020a638bc1000000b003f9f00bf877mr7866091pge.378.1653271145241; 
+ Sun, 22 May 2022 18:59:05 -0700 (PDT)
+Received: from [192.168.50.247] ([103.84.139.165])
+ by smtp.gmail.com with ESMTPSA id
+ l13-20020a6542cd000000b003c619f3d086sm3607429pgp.2.2022.05.22.18.59.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 22 May 2022 18:59:04 -0700 (PDT)
+Message-ID: <61149e02-ad4c-6e3d-e33b-b21025aa3b65@gmail.com>
+Date: Mon, 23 May 2022 09:58:59 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
-Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: robdclark@gmail.com, sean@poorly.run, quic_abhinavk@quicinc.com,
+ airlied@linux.ie, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ gbeeresh@codeaurora.org, sviau@codeaurora.org, wentaox@codeaurora.org
+References: <20220509061125.18585-1-hbh25y@gmail.com>
+From: Hangyu Hua <hbh25y@gmail.com>
+In-Reply-To: <20220509061125.18585-1-hbh25y@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH] drm: msm: fix possible memory leak in
+ mdp5_crtc_cursor_set()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,37 +76,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On 2022/5/9 14:11, Hangyu Hua wrote:
+> drm_gem_object_lookup will call drm_gem_object_get inside. So cursor_bo
+> needs to be put when msm_gem_get_and_pin_iova fails.
+> 
+> Fixes: e172d10a9c4a ("drm/msm/mdp5: Add hardware cursor support")
+> Signed-off-by: Hangyu Hua <hbh25y@gmail.com>
+> ---
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+> index b966cd69f99d..6a5f73f6a23b 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c
+> @@ -991,8 +991,10 @@ static int mdp5_crtc_cursor_set(struct drm_crtc *crtc,
+>   
+>   	ret = msm_gem_get_and_pin_iova(cursor_bo, kms->aspace,
+>   			&mdp5_crtc->cursor.iova);
+> -	if (ret)
+> +	if (ret) {
+> +		drm_gem_object_put(cursor_bo);
+>   		return -EINVAL;
+> +	}
+>   
+>   	pm_runtime_get_sync(&pdev->dev);
+>   
 
-On Tue, May 10, 2022 at 12:29:43PM -0700, Douglas Anderson wrote:
-> This adds a devm managed version of drm_bridge_add(). Like other
-> "devm" function listed in drm_bridge.h, this function takes an
-> explicit "dev" to use for the lifetime management. A few notes:
-> * In general we have a "struct device" for bridges that makes a good
->   candidate for where the lifetime matches exactly what we want.
-> * The "bridge->dev->dev" device appears to be the encoder
->   device. That's not the right device to use for lifetime management.
->=20
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-
-If we are to introduce more managed helpers, I think it'd be wiser to
-introduce them as DRM-managed, and not device managed.
-
-Otherwise, you'll end up in a weird state when a device has been removed
-but the DRM device is still around.
-
-Maxime
+Gentel ping.
