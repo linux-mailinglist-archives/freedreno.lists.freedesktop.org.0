@@ -2,57 +2,57 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E63532F7F
-	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 19:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7037D53331B
+	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 23:45:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF32210F8BF;
-	Tue, 24 May 2022 17:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF3510E426;
+	Tue, 24 May 2022 21:44:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 681E810F8BB;
- Tue, 24 May 2022 17:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1653412663; x=1684948663;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=DoOUN0UTfeRv6bBPpzkewrxRvmKM7X4VuHkvCLosprE=;
- b=dRPixB/sGuNhhlfYQBjpz5cuj11p7RMLLAPbLQ6C5iAo1NFHX63bk2qA
- vRZeEXi18trx93kcxrPYBSWDzJitknHB3/+W0KoFAVJp/hgEYhAALUa30
- 3bocG7oknCPr1jnMdMbzSyNmQXd3tqhLac3Xakbn+YWhOOeoBR/dskcaH E=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 24 May 2022 10:17:42 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2022 10:17:41 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 24 May 2022 10:17:41 -0700
-Received: from [10.38.240.101] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 24 May
- 2022 10:17:39 -0700
-Message-ID: <83713f0b-2fcc-afe8-899a-4e3e634543bb@quicinc.com>
-Date: Tue, 24 May 2022 10:17:37 -0700
+Received: from relay03.th.seeweb.it (relay03.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::164])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D7410E426;
+ Tue, 24 May 2022 21:44:58 +0000 (UTC)
+Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id D1E221F9D9;
+ Tue, 24 May 2022 23:44:54 +0200 (CEST)
+Date: Tue, 24 May 2022 23:44:53 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20220524214453.ciwyhu7rnsrcx3xz@SoMainline.org>
+Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ phone-devel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Martin Botka <martin.botka@somainline.org>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Arnd Bergmann <arnd@arndb.de>, Jonathan Marek <jonathan@marek.ca>,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20220523213837.1016542-1-marijn.suijten@somainline.org>
+ <20220523213837.1016542-6-marijn.suijten@somainline.org>
+ <CAA8EJprN833M+KOZXOyuaL_KqzEV61P69VXw7mfWo5OiXjE2FA@mail.gmail.com>
+ <CAA8EJpqB4wAZo_EVX9dgTvAyX7yqTUUPNeEUsG58nckdDKxr-A@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <20220524103534.2520439-1-vkoul@kernel.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220524103534.2520439-1-vkoul@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/disp/dpu1: remove supoerflous init
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA8EJpqB4wAZo_EVX9dgTvAyX7yqTUUPNeEUsG58nckdDKxr-A@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH 5/9] drm/msm/dsi_phy_28nm_8960: Replace
+ parent names with clk_hw pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,41 +65,42 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- kernel test robot <yujie.liu@intel.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Stephen Boyd <sboyd@kernel.org>, Vladimir Lypak <vladimir.lypak@gmail.com>,
+ linux-kernel@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 5/24/2022 3:35 AM, Vinod Koul wrote:
-> Commit 58dca9810749 ("drm/msm/disp/dpu1: Add support for DSC in
-> encoder") added dsc_common_mode variable which was set to zero but then
-> again programmed, so drop the supoerflous init.
-Both in the subject line and here, typo
-supoerflous ---> superfluous
-
-Other than that,
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
+On 2022-05-24 01:44:49, Dmitry Baryshkov wrote:
+> On Tue, 24 May 2022 at 01:44, Dmitry Baryshkov
+> <dmitry.baryshkov@linaro.org> wrote:
+> >
+> > On Tue, 24 May 2022 at 00:38, Marijn Suijten
+> > <marijn.suijten@somainline.org> wrote:
+> > >
+> > > parent_hw pointers are easier to manage and cheaper to use than
+> > > repeatedly formatting the parent name and subsequently leaving the clk
+> > > framework to perform lookups based on that name.
+> >
+> > Can you please add a followup patch (or a preface one) removing the
+> > rest of devm_kzalloc()'ed clock names.
 > 
-> Fixes: 58dca9810749 ("drm/msm/disp/dpu1: Add support for DSC in encoder")
-> Reported-by: kernel test robot <yujie.liu@intel.com>
-> Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 51f24ba68375..388125c8bda1 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1798,7 +1798,6 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
->   		}
->   	}
->   
-> -	dsc_common_mode = 0;
->   	pic_width = dsc->drm->pic_width;
->   
->   	dsc_common_mode = DSC_MODE_MULTIPLEX | DSC_MODE_SPLIT_PANEL;
+> Argh, stupid me, you did that in the next patch. Please ignore this.
+
+It's a fair observation, one that bothered me as well.  I've reordered
+the next patch before this one for the next revision, to have clearer
+separation (since this patch was currently deleting 1/3 of the
+devm_kzalloc()'s).
+
+- Marijn
