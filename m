@@ -2,55 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91ABD531F4E
-	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 01:43:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67158532023
+	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 03:07:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 109DA10E37E;
-	Mon, 23 May 2022 23:43:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9E510E9CF;
+	Tue, 24 May 2022 01:07:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A6FB10E37E
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 23:43:13 +0000 (UTC)
-Received: by mail-qt1-x836.google.com with SMTP id v14so13737691qtc.3
- for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 16:43:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFDC610E9CF
+ for <freedreno@lists.freedesktop.org>; Tue, 24 May 2022 01:07:12 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id br17so16042937lfb.2
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 18:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vo71c+n/wCWfUYChsCch/TOZTAc6RqS7hic8WUvcoIw=;
- b=b1HZCTlc0FaASasHRCD5Y4kmWzTiLs2LaQl7/CXAt9GX3aDYUTR+mEWyBmw6QyDjt0
- kqoqMhMB7Pb3sbK/HKSgcZG0lKxupwMeKXRmTekoG+0tSkivdjQZ4FQVz23bKT9fKurd
- gFH178OzpkErKGL+s0tqPjvX6Q/YMAxaQ0BoEB5n8E3Z34ZOQsdTCMGjsAQxXESXvteq
- vNVOIS9eoKRtkaVRQ4oz4jZMWxwJHYLdIuxnM3g2JKYoP8Yr+Gx2yzwrrrYIOiQe99ET
- 7UXJKrS42Tnbe12+4yhg0jflTmXsJbahMHsA1CgFxMKNVA/2xzXV1sWrEPEVqWdPse5m
- iRVQ==
+ :cc:content-transfer-encoding;
+ bh=OFIx7s/L3YnWfFaGk/Iok1k3YIHu8uSKhlMvRjqHwqQ=;
+ b=KSe/i6TaqXpR9n9Kj7do5tEUVCruj9NeCfJis7lHPt4XCGpfoUSsdoXddyYwkGuok5
+ 3r/Zv3GeYnYa3EkuzsUa+waSAnvXSIr8oza+OoPRxZNq0zKswJLBHr1tZeo9hc1oY5l1
+ INhxu0T4ehuftGE/tXzigmaJGDdwu9VGppBZ4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vo71c+n/wCWfUYChsCch/TOZTAc6RqS7hic8WUvcoIw=;
- b=NtjwUjM18k66i8+SmUmNf6hQqu5dLzh8/TWhHCqWBp6Gyvekaq3P/A9PHhHFvVZv31
- uD6BJbTILC6otfYM49O4KLu3u3DlJy2Sam78VQzILki9F07vvlD9MU6Y2m6hOol3g76Q
- I5l71ptfAWnmwyiYwvSEdYQ2/1JPqytbmT2JBHqoUNTTMTN5NsPKoS70yT9AE8Mx+vPf
- Xh1o7SqWfIhsFweMq3nGWVMoW8MrECnz7/07LIGA0SylhhMRK0yNv/4HUjdZO25t6k2s
- IlLwKuOlS4s0ffiTeOn2XHs6fn6GMrx97kyKk14gKqnTgYpU4jlp3AYZhnGnhM3EDeZJ
- Ps4g==
-X-Gm-Message-State: AOAM533bzJ/yOd3yGDs0fp2CiqYeD5NqgZOi8Q7/Edm73m9n/KJ8pXFw
- 50IQIyKN4lbX/f1Mu0aAaCxjN/lQNu05LcJLcSU2UQ==
-X-Google-Smtp-Source: ABdhPJzUW9RhiGAZVdELoGYpBS6ZpU1N20WruTBeXfIZLJ+KEXjedEvFNxLgd/OJk3jzcNbkBvu6dH9ebgySiUvx914=
-X-Received: by 2002:ac8:5e54:0:b0:2f3:f4ee:efbd with SMTP id
- i20-20020ac85e54000000b002f3f4eeefbdmr17894617qtx.295.1653349392378; Mon, 23
- May 2022 16:43:12 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=OFIx7s/L3YnWfFaGk/Iok1k3YIHu8uSKhlMvRjqHwqQ=;
+ b=LE9N7j21VfJxNZBLoEEo6VfUASQ22nn2dGKAhJRLnfr7yC+3QrRcHkXPPM5wKQGq5c
+ A2iM84bLxwfXU57Oc6wS7UyJZmU51x8XOBBYKgRl6+G0Vw5eAUA/7Y0vXDHgMCj7XOOh
+ TVYzgG+vj6ErhQTKo0ygQ1Wdm0VHSIBNprLWxBWpHrL4Igzs3V5U3xW5dGSZcnClHVU1
+ S7MPRKy72fOnWQkM8u8chVYL2Cn8jmcicaIhIAVqFpyv7IPgaSVh8qPDjdY+PTYKJ7BZ
+ ZggkJA7V4YCenoklecy0bmayXQDkTMaYm4SFdUVH7v96Pt1RbjcNt+1LmT/vvXe0+ujr
+ n+FQ==
+X-Gm-Message-State: AOAM531iJlkMSFzV+07T+hpb01DdNjDxK8f3OgfBlkCC+ljoRd2JVUsw
+ 4Y1hTFO3jI+ftgiujttNv+5LdgSMu8REIHgAJYI=
+X-Google-Smtp-Source: ABdhPJyNCy7vTw+mOT2LAw5C12yYYsdHA+dU/VzweY0r9vIzgeZnn+pU2DL4/FyYTbtowN90//tChQ==
+X-Received: by 2002:a05:6512:1308:b0:450:ad32:2b30 with SMTP id
+ x8-20020a056512130800b00450ad322b30mr17053994lfu.470.1653354430894; 
+ Mon, 23 May 2022 18:07:10 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com.
+ [209.85.167.41]) by smtp.gmail.com with ESMTPSA id
+ u18-20020a2e2e12000000b00253e1833e8bsm1795025lju.117.2022.05.23.18.07.10
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 May 2022 18:07:10 -0700 (PDT)
+Received: by mail-lf1-f41.google.com with SMTP id br17so16042882lfb.2
+ for <freedreno@lists.freedesktop.org>; Mon, 23 May 2022 18:07:10 -0700 (PDT)
+X-Received: by 2002:a05:6000:1548:b0:20f:c4e3:637a with SMTP id
+ 8-20020a056000154800b0020fc4e3637amr11832701wry.513.1653353955258; Mon, 23
+ May 2022 17:59:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220523213837.1016542-1-marijn.suijten@somainline.org>
-In-Reply-To: <20220523213837.1016542-1-marijn.suijten@somainline.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 24 May 2022 02:43:01 +0300
-Message-ID: <CAA8EJprEjOWRh98V3sprjXZJZMeR25Bz1U3a_uX_KhRbU48srQ@mail.gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
+References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+ <5857c510-9783-a483-8414-65d7350618d6@suse.de>
+ <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
+In-Reply-To: <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 23 May 2022 17:59:02 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
+Message-ID: <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 0/9] drm/msm/dsi_phy: Replace parent names
- with clk_hw pointers
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
+ no EDID
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,124 +77,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Stephen Boyd <sboyd@kernel.org>, Vladimir Lypak <vladimir.lypak@gmail.com>,
- linux-kernel@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Tue, 24 May 2022 at 00:38, Marijn Suijten
-<marijn.suijten@somainline.org> wrote:
+On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.org> wrote=
+:
 >
-> As stated in [1] I promised to tackle and send this series.
+> Hi,
 >
-> parent_hw pointers are easier to manage and cheaper to use than
-> repeatedly formatting the parent name and subsequently leaving the clk
-> framework to perform lookups based on that name.
+> On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse.de> w=
+rote:
+> >
+> > Hi Douglas,
+> >
+> > I understand that you're trying to tell userspace that the modelist has
+> > been made up, but it's not something that should be done via fragile
+> > heuristics IMHO.
+> >
+> > I looked at the Chromium source code that you linked, but I cannot say
+> > whether it's doing the correct thing. It all depends on what your
+> > program needs.
+> >
+> > In that function, you could also search for 'DRM_MODE_TYPE_USERDEF'.
+> > It's the mode that the user specified on the kernel command line. If
+> > Chromium's automatic mode selection fails, you'd give your users direct
+> > control over it.
 >
-> This series starts out by adding extra constructors for divider, mux and
-> fixed-factor clocks that have parent_hw(s) pointer argument(s) instead
-> of some DT index or name.  Followed by individual patches performing the
-> conversion, one DSI PHY at a time.
+> That doesn't really work for Chrome OS. Certainly a kernel hacker
+> could do this, but it's not something I could imagine us exposing to
+> an average user of a Chromebook.
 >
-> dsi_phy_28nm_8960 includes an extra fixup to replace "eternal"
-> devm_kzalloc allocations (for the lifetime of the device) with
-> stack-local char arrays, like all the other DSI PHY drivers.
 >
-> I couldn't help but notice that clock names are wildly varying:
+> > When there's no flagged mode or if
+> > /sys/class/drm/card<...>/status contains "unconnected", you can assume
+> > that the modelist is artificial and try the modes in an appropriate ord=
+er.
 >
-> - Some use underscores in the _clk suffix where others have nothing;
-> - Some have an _ after the %d, others have not;
-> - Some use a _pll suffix after dsi%d or even _phy_pll suffix.
+> So "no flagged" means that nothing is marked as preferred, correct?
 >
-> Are there any thoughts or feelings towards unifying these?
-> Theoretically no clock names are used anywhere in the kernel, and
-> everything is based on a phandle + index in DT (I have yet to validate
-> this).  Obviously no .name/.fw_name will be updated to not break DT.
+> ...so I guess what you're suggesting is that the order that the kernel
+> is presenting the modes to userspace is not ABI. If there are no
+> preferred modes then userspace shouldn't necessarily assume that the
+> first mode returned is the best mode. Instead it should assume that if
+> there is no preferred mode then the mode list is made up and it should
+> make its own decisions about the best mode to start with. If this is
+> the ABI from the kernel then plausibly I could convince people to
+> change userspace to pick 640x480 first in this case.
+>
+> > If we really want the kernel to give additional guarantees, we should
+> > have a broader discussion about this topic IMHO.
+>
+> Sure. I've added St=C3=A9phane Marchesin to this thread in case he wants =
+to
+> chime in about anything.
+>
+> Overall, my take on the matter:
+>
+> * Mostly I got involved because, apparently, a DP compliance test was
+> failing. The compliance test was upset that when it presented us with
+> no EDID that we didn't default to 640x480. There was a push to make a
+> fix for this in the Qualcomm specific driver but that didn't sit right
+> with me.
+>
+> * On all devices I'm currently working with (laptops), the DP is a
+> secondary display. If a user was trying to plug in a display with a
+> bad EDID and the max mode (1024x768) didn't work, they could just use
+> the primary display to choose a different resolution. It seems
+> unlikely a user would truly be upset and would probably be happy they
+> could get their broken display to work at all. Even if this is a
+> primary display, I believe there are documented key combos to change
+> the resolution of the primary display even if you can't see anything.
+>
+> * That all being said, defaulting to 640x480 when there's no EDID made
+> sense to me, especially since it's actually defined in the DP spec. So
+> I'm trying to do the right thing and solve this corner case. That
+> being said, if it's truly controversial I can just drop it.
+>
+>
+> So I guess my plan will be to give St=C3=A9phane a little while in case h=
+e
+> wants to chime in. If not then I guess I'll try a Chrome patch...
+> ...and if that doesn't work, I'll just drop it.
 
-I'd say, leave them as is. Even if they are historical, we don't have
-a strong pressure to change them.
+OK, this userspace code seems to work:
 
-Significant number of older platforms still use names to identify the
-clock. And moreover apq8096/msm8960 uses dsi1/dsi2 instead of
-dsi0/dsi1.
+https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
+the first mode if no EDID
 
-Probably we should call the next cycle "The Cycle of clocks cleaning".
-I can volunteer to take care of 8960/8064/8016/8996, as at least I can
-test them. But if you wish, you (or anybody else of course) can take
-any of these platforms too, just ping me, so that I won't spend time
-duplicating somebody's efforts.
-
-> Which, by the way, is there a particular reason for:
->
->   #define DSI_BYTE_PLL_CLK              0
->   #define DSI_PIXEL_PLL_CLK             1
->
-> To not be in the dt-bindings and used in the DT?
-
-Before my restructure of the DSI PHY subsys, each driver defined them
-separately. And the idea of moving them to a dt-bindings header didn't
-come to my mind. Feel free to do so, it looks like a good idea.
-Just as a note, DP PHY also uses 0 for the link clock and 1 for the
-pixel clock. What do you think about having a single header for these
-names?
-
->
-> And with enough future improvements out of the way, let's round out this
-> patch-series by stating that it has been successfully tested on:
->
-> - Sony Nile Discovery (Xperia XA2 Ultra): 14nm;
-> - Sony Seine PDX201 (Xperia 10II): 14nm;
-> - Sony Loire Suzu (Xperia X): 28nm.
->
-> And no diff is observed in debugfs's clk_summary.
->
-> Unfortunately all other devices in my collection with a 7/10nm DSI PHY
-> have a DSC panel which we have yet to get working.
-
-I will test it on RB3 (10nm) and RB5 (7nm) during one of the next few days.
-
->
-> [1]: https://lore.kernel.org/linux-arm-msm/20220502214235.s5plebunh4ttjhge@SoMainline.org/
->
-> Marijn Suijten (9):
->   clk: divider: Introduce devm_clk_hw_register_divider_parent_hw()
->   clk: mux: Introduce devm_clk_hw_register_mux_parent_hws()
->   clk: fixed-factor: Introduce *clk_hw_register_fixed_factor_parent_hw()
->   drm/msm/dsi_phy_28nm: Replace parent names with clk_hw pointers
->   drm/msm/dsi_phy_28nm_8960: Replace parent names with clk_hw pointers
->   drm/msm/dsi_phy_28nm_8960: Use stack memory for temporary clock names
->   drm/msm/dsi_phy_14nm: Replace parent names with clk_hw pointers
->   drm/msm/dsi_phy_10nm: Replace parent names with clk_hw pointers
->   drm/msm/dsi_phy_7nm: Replace parent names with clk_hw pointers
->
->  drivers/clk/clk-fixed-factor.c                | 57 ++++++++++--
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    | 92 ++++++++-----------
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    | 36 ++++----
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    | 52 +++++------
->  .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   | 26 ++----
->  drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 92 +++++++++----------
->  include/linux/clk-provider.h                  | 34 +++++++
->  7 files changed, 209 insertions(+), 180 deletions(-)
->
-> --
-> 2.36.1
-
-
-
--- 
-With best wishes
-Dmitry
+...so we'll see how review of that goes. :-)
