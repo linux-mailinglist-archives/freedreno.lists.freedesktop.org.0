@@ -2,44 +2,36 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67DA6532271
-	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 07:28:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B538F532DA5
+	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 17:36:57 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1286410E5BF;
-	Tue, 24 May 2022 05:28:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6566810E4EB;
+	Tue, 24 May 2022 15:36:56 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from desiato.infradead.org (desiato.infradead.org
- [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25B5710E5BF;
- Tue, 24 May 2022 05:28:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
- :In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=2VtEeL3LYI3tn6ymwoPdd7cGYYQeTtuIYXW+VQ1eTis=; b=j1S0r+DfFSKHn/PnO/l5SfRfuy
- HMGksZWm8gJQxXKNGn5eO+sSMq9t0q5nxlVtrWPEfqSA04E92MpuSkyDdRIaFpzdHOvp57r23PHsA
- ef/QCfeT+zajVkdcoSqlaS/Neyh5+dI16TQWrQaSm3HaPs0iaHnqkwRhF7LbbNMTO2uqK6mnO12Hg
- 79/Kz73RvUYYrxtbzDi2ugTj0SPcDmXv/kflXK5vbAAhB5yhXWvP8oyTyrtxOjfBc+rfTre4DQpYt
- WYUyGQ4iMROH5Xc/8eMOJArDTHEVwMSojWpBgcqk6LbsnjAy61CY54LCDpsfqf58nXw7fnWpB6ib9
- oHjQUm4w==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ntN5v-001Ffq-2K; Tue, 24 May 2022 05:28:38 +0000
-Message-ID: <83787d45-d8cd-26b5-1ca1-412d49570000@infradead.org>
-Date: Mon, 23 May 2022 22:28:27 -0700
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Tue, 24 May 2022 08:19:28 UTC
+Received: from out30-54.freemail.mail.aliyun.com
+ (out30-54.freemail.mail.aliyun.com [115.124.30.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0470E10E2C5
+ for <freedreno@lists.freedesktop.org>; Tue, 24 May 2022 08:19:27 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R451e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=14; SR=0;
+ TI=SMTPD_---0VEH.xWd_1653380055; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VEH.xWd_1653380055) by smtp.aliyun-inc.com(127.0.0.1);
+ Tue, 24 May 2022 16:14:20 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: robdclark@gmail.com
+Date: Tue, 24 May 2022 16:14:13 +0800
+Message-Id: <20220524081413.37895-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220523204337.19739-1-rdunlap@infradead.org>
- <CAA8EJpoLBLVv3Snth2Jn-aLAXTOnOas=zcns829ddr4mF7sNig@mail.gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <CAA8EJpoLBLVv3Snth2Jn-aLAXTOnOas=zcns829ddr4mF7sNig@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH -next] drm/msm: DRM_DP_AUX_BUS depends on OF
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 24 May 2022 15:36:55 +0000
+Subject: [Freedreno] [PATCH] drm/msm/dpu: Remove unused code
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,66 +44,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, vkoul@kernel.org, daniel@ffwll.ch,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Eliminate the follow clang warning:
 
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:544:33: warning: variable
+‘mode’ set but not used [-Wunused-but-set-variable].
 
-On 5/23/22 15:23, Dmitry Baryshkov wrote:
-> Hi,
-> 
-> On Mon, 23 May 2022 at 23:43, Randy Dunlap <rdunlap@infradead.org> wrote:
->>
->> Fix a Kconfig warning for DRM_MSM by making it depend on OF,
->> since 'select' does not follow any dependency chaings.
->>
->> WARNING: unmet direct dependencies detected for DRM_DP_AUX_BUS
-> 
-> I think it was agreed that DRM_DP_AUX_BUS should depend on OF ||
-> COMPILE_TEST (and the patch has been submitted by YueHaibing). See the
-> thread at https://lore.kernel.org/dri-devel/9534934e-4c4a-ba2f-3bc3-d6d241e625bb@linaro.org/T/
-> 
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-I see.  Thanks.
-
-> 
->>   Depends on [n]: HAS_IOMEM [=y] && DRM [=m] && OF [=n]
->>   Selected by [m]:
->>   - DRM_MSM [=m] && HAS_IOMEM [=y] && DRM [=m] && (ARCH_QCOM || SOC_IMX5 || COMPILE_TEST [=y]) && COMMON_CLK [=y] && IOMMU_SUPPORT [=y] && (QCOM_OCMEM [=n] || QCOM_OCMEM [=n]=n) && (QCOM_LLCC [=y] || QCOM_LLCC [=y]=n) && (QCOM_COMMAND_DB [=n] || QCOM_COMMAND_DB [=n]=n)
->>
->> Fixes: f5d01644921b ("drm/msm: select DRM_DP_AUX_BUS for the AUX bus support")
->> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
->> Cc: Rob Clark <robdclark@gmail.com>
->> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> Cc: Sean Paul <sean@poorly.run>
->> Cc: linux-arm-msm@vger.kernel.org
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: freedreno@lists.freedesktop.org
->> Cc: David Airlie <airlied@linux.ie>
->> Cc: Daniel Vetter <daniel@ffwll.ch>
->> ---
->>  drivers/gpu/drm/msm/Kconfig |    1 +
->>  1 file changed, 1 insertion(+)
->>
->> --- a/drivers/gpu/drm/msm/Kconfig
->> +++ b/drivers/gpu/drm/msm/Kconfig
->> @@ -3,6 +3,7 @@
->>  config DRM_MSM
->>         tristate "MSM DRM"
->>         depends on DRM
->> +       depends on OF
->>         depends on ARCH_QCOM || SOC_IMX5 || COMPILE_TEST
->>         depends on COMMON_CLK
->>         depends on IOMMU_SUPPORT
-> 
-> 
-> 
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 52516eb20cb8..658171799b9a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -541,7 +541,6 @@ static int dpu_encoder_virt_atomic_check(
+ 	struct dpu_encoder_virt *dpu_enc;
+ 	struct msm_drm_private *priv;
+ 	struct dpu_kms *dpu_kms;
+-	const struct drm_display_mode *mode;
+ 	struct drm_display_mode *adj_mode;
+ 	struct msm_display_topology topology;
+ 	struct dpu_global_state *global_state;
+@@ -559,7 +558,6 @@ static int dpu_encoder_virt_atomic_check(
+ 
+ 	priv = drm_enc->dev->dev_private;
+ 	dpu_kms = to_dpu_kms(priv->kms);
+-	mode = &crtc_state->mode;
+ 	adj_mode = &crtc_state->adjusted_mode;
+ 	global_state = dpu_kms_get_global_state(crtc_state->state);
+ 	if (IS_ERR(global_state))
 -- 
-~Randy
+2.20.1.7.g153144c
+
