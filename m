@@ -2,36 +2,42 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B538F532DA5
-	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 17:36:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9094F5327D0
+	for <lists+freedreno@lfdr.de>; Tue, 24 May 2022 12:35:49 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6566810E4EB;
-	Tue, 24 May 2022 15:36:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42ED110EF81;
+	Tue, 24 May 2022 10:35:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Tue, 24 May 2022 08:19:28 UTC
-Received: from out30-54.freemail.mail.aliyun.com
- (out30-54.freemail.mail.aliyun.com [115.124.30.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0470E10E2C5
- for <freedreno@lists.freedesktop.org>; Tue, 24 May 2022 08:19:27 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R451e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=14; SR=0;
- TI=SMTPD_---0VEH.xWd_1653380055; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VEH.xWd_1653380055) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 24 May 2022 16:14:20 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: robdclark@gmail.com
-Date: Tue, 24 May 2022 16:14:13 +0800
-Message-Id: <20220524081413.37895-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8AF10EF81;
+ Tue, 24 May 2022 10:35:47 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D714761204;
+ Tue, 24 May 2022 10:35:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1BBC385AA;
+ Tue, 24 May 2022 10:35:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653388545;
+ bh=gwBQJB78CCphDTIy50bjriGtJcPqoXOiI/qgg5bZ34M=;
+ h=From:To:Cc:Subject:Date:From;
+ b=WAaa2wtSlhxP+AHfoFOc7dz4elSiiUuzyEy1vVdV+SwfuFrdYunPJskyJPChaiIxC
+ BTyqcwwyxlDOCdGAbnn3uICkHK8zjZzXNd1eCEOX8dBQOst+aEYkMJjh8DTsDS3ANj
+ L0iMjphD/gyDwZQX18/+J7Lj+OXSsBcU0IipLFNONzZvRVJ1oXEYkD7+0ryzxHKFSt
+ +o8pgUM9j1hAxWopwkURSx7V9YAYGi0L1fz11uKuV2Vuvo1RXD9v6AdPXrusjFsYUe
+ F3as93AT0Kdb2i5/8N4SRkQhidQ13dhB8SI1gTUv+gJO4faL/ooWLnUvugDuGj9h7/
+ 75Cd6qtQPPKmA==
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 24 May 2022 16:05:34 +0530
+Message-Id: <20220524103534.2520439-1-vkoul@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 24 May 2022 15:36:55 +0000
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Remove unused code
+Subject: [Freedreno] [PATCH] drm/msm/disp/dpu1: remove supoerflous init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,46 +50,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, vkoul@kernel.org, daniel@ffwll.ch,
- dmitry.baryshkov@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: kernel test robot <yujie.liu@intel.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Eliminate the follow clang warning:
+Commit 58dca9810749 ("drm/msm/disp/dpu1: Add support for DSC in
+encoder") added dsc_common_mode variable which was set to zero but then
+again programmed, so drop the supoerflous init.
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:544:33: warning: variable
-‘mode’ set but not used [-Wunused-but-set-variable].
-
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Fixes: 58dca9810749 ("drm/msm/disp/dpu1: Add support for DSC in encoder")
+Reported-by: kernel test robot <yujie.liu@intel.com>
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 52516eb20cb8..658171799b9a 100644
+index 51f24ba68375..388125c8bda1 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -541,7 +541,6 @@ static int dpu_encoder_virt_atomic_check(
- 	struct dpu_encoder_virt *dpu_enc;
- 	struct msm_drm_private *priv;
- 	struct dpu_kms *dpu_kms;
--	const struct drm_display_mode *mode;
- 	struct drm_display_mode *adj_mode;
- 	struct msm_display_topology topology;
- 	struct dpu_global_state *global_state;
-@@ -559,7 +558,6 @@ static int dpu_encoder_virt_atomic_check(
+@@ -1798,7 +1798,6 @@ static void dpu_encoder_prep_dsc(struct dpu_encoder_virt *dpu_enc,
+ 		}
+ 	}
  
- 	priv = drm_enc->dev->dev_private;
- 	dpu_kms = to_dpu_kms(priv->kms);
--	mode = &crtc_state->mode;
- 	adj_mode = &crtc_state->adjusted_mode;
- 	global_state = dpu_kms_get_global_state(crtc_state->state);
- 	if (IS_ERR(global_state))
+-	dsc_common_mode = 0;
+ 	pic_width = dsc->drm->pic_width;
+ 
+ 	dsc_common_mode = DSC_MODE_MULTIPLEX | DSC_MODE_SPLIT_PANEL;
 -- 
-2.20.1.7.g153144c
+2.34.1
 
