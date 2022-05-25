@@ -2,55 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5349153332C
-	for <lists+freedreno@lfdr.de>; Wed, 25 May 2022 00:03:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2DAF533444
+	for <lists+freedreno@lfdr.de>; Wed, 25 May 2022 02:23:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 744C610E03F;
-	Tue, 24 May 2022 22:03:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73F5610E2A1;
+	Wed, 25 May 2022 00:23:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay04.th.seeweb.it (relay04.th.seeweb.it
- [IPv6:2001:4b7a:2000:18::165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA1FB10E03F
- for <freedreno@lists.freedesktop.org>; Tue, 24 May 2022 22:03:15 +0000 (UTC)
-Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
- [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 36B4520596;
- Wed, 25 May 2022 00:03:13 +0200 (CEST)
-Date: Wed, 25 May 2022 00:03:12 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <20220524220312.jrdkolu7eoxtcyju@SoMainline.org>
-Mail-Followup-To: Marijn Suijten <marijn.suijten@somainline.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- phone-devel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Martin Botka <martin.botka@somainline.org>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Rajeev Nandan <quic_rajeevny@quicinc.com>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Jonathan Marek <jonathan@marek.ca>,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20220523213837.1016542-1-marijn.suijten@somainline.org>
- <CAA8EJprEjOWRh98V3sprjXZJZMeR25Bz1U3a_uX_KhRbU48srQ@mail.gmail.com>
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B214610EE1C
+ for <freedreno@lists.freedesktop.org>; Wed, 25 May 2022 00:23:38 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id rs12so26785689ejb.13
+ for <freedreno@lists.freedesktop.org>; Tue, 24 May 2022 17:23:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1LTAegdLBV4hZX2uHYmjk/dla88XNgBTSaD0OB3B+8M=;
+ b=kKPLSMN6xMS2w0FJsTSTn5fBnoTHeJt+9CeeTUzN+aQ9dQimk0L1Aafe33w0wWCux7
+ 74qHznQVKBOW7spBnui2O1O6Gso4TYWEKlsqH/WH0dTLemoEDscHt4LEYFMSq1bfqCKC
+ KQPHqZL7iohxsDVP7GweVtzVtE0Klup1Gh8qA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1LTAegdLBV4hZX2uHYmjk/dla88XNgBTSaD0OB3B+8M=;
+ b=OeJD9ZiKewdWe0tx2vV8e2DVhAm3yCcItq5gXUkMNHQE6eWIDnUzQq9z9f7rewtLJ+
+ /+XeXqPyqvbtZKNVnHNAJpj9LlvSciUwA0T6/ZXbaiscN1k145fqc46RiovevYq8WYtH
+ tl4xXJEBox5RraMnMM6Npy6speUcOu6Kpsx0Tvp96vXBvDUGd7r5uKQVM9EZpCCKcc6Y
+ C84iHHGdqMDsBD3xFMQJJ7AqnD6VIgXSXHs9i3vFhbc3rdCvQU+uLDWxdgXfG3LQq78B
+ xwcVR3wTIj3MJ/q9NUO2/Xb21TLkm96ppnkPq52IXJx4dd5GshwjQUh7+SgCIvScB1eN
+ J1fg==
+X-Gm-Message-State: AOAM5332xMym+QiUxghIr7rggNCbTiZR4vgOAXBM6pz0Cad16nGQgiRf
+ lCFtECQf3yl4NMH+Yl15VdnA8yvW+OJOiGNcgvs=
+X-Google-Smtp-Source: ABdhPJxJ/5pha5bt8cd94lMYSCBhrfhPzqywAdpd+l4psUbYava5gDlb58eS44ZBDUdWWg05lLMghQ==
+X-Received: by 2002:a17:906:9c82:b0:6df:c5f0:d456 with SMTP id
+ fj2-20020a1709069c8200b006dfc5f0d456mr26808669ejc.287.1653438216889; 
+ Tue, 24 May 2022 17:23:36 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com.
+ [209.85.128.47]) by smtp.gmail.com with ESMTPSA id
+ f4-20020a1709063f4400b006f3ef214d9fsm7614531ejj.5.2022.05.24.17.23.36
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 May 2022 17:23:36 -0700 (PDT)
+Received: by mail-wm1-f47.google.com with SMTP id
+ r6-20020a1c2b06000000b00396fee5ebc9so2394064wmr.1
+ for <freedreno@lists.freedesktop.org>; Tue, 24 May 2022 17:23:36 -0700 (PDT)
+X-Received: by 2002:a05:600c:2e53:b0:397:4730:ee7a with SMTP id
+ q19-20020a05600c2e5300b003974730ee7amr5788119wmf.118.1653437839019; Tue, 24
+ May 2022 17:17:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA8EJprEjOWRh98V3sprjXZJZMeR25Bz1U3a_uX_KhRbU48srQ@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH 0/9] drm/msm/dsi_phy: Replace parent names
- with clk_hw pointers
+References: <1653082028-10211-1-git-send-email-quic_khsieh@quicinc.com>
+ <1653082028-10211-3-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <1653082028-10211-3-git-send-email-quic_khsieh@quicinc.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 24 May 2022 17:17:07 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=XTtXZ9onaAZCsog=ENFb7_rsNhy=wviROAFMd05ycJqg@mail.gmail.com>
+Message-ID: <CAD=FV=XTtXZ9onaAZCsog=ENFb7_rsNhy=wviROAFMd05ycJqg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v11 2/3] phy: qcom-qmp: add
+ regulator_set_load to dp phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,122 +74,103 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
- Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
- Stephen Boyd <sboyd@kernel.org>, Vladimir Lypak <vladimir.lypak@gmail.com>,
- linux-kernel@vger.kernel.org, Jami Kettunen <jami.kettunen@somainline.org>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
+ Vinod Koul <vkoul@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 2022-05-24 02:43:01, Dmitry Baryshkov wrote:
-> Hi,
-> 
-> On Tue, 24 May 2022 at 00:38, Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
-> >
-> > As stated in [1] I promised to tackle and send this series.
-> >
-> > parent_hw pointers are easier to manage and cheaper to use than
-> > repeatedly formatting the parent name and subsequently leaving the clk
-> > framework to perform lookups based on that name.
-> >
-> > This series starts out by adding extra constructors for divider, mux and
-> > fixed-factor clocks that have parent_hw(s) pointer argument(s) instead
-> > of some DT index or name.  Followed by individual patches performing the
-> > conversion, one DSI PHY at a time.
-> >
-> > dsi_phy_28nm_8960 includes an extra fixup to replace "eternal"
-> > devm_kzalloc allocations (for the lifetime of the device) with
-> > stack-local char arrays, like all the other DSI PHY drivers.
-> >
-> > I couldn't help but notice that clock names are wildly varying:
-> >
-> > - Some use underscores in the _clk suffix where others have nothing;
-> > - Some have an _ after the %d, others have not;
-> > - Some use a _pll suffix after dsi%d or even _phy_pll suffix.
-> >
-> > Are there any thoughts or feelings towards unifying these?
-> > Theoretically no clock names are used anywhere in the kernel, and
-> > everything is based on a phandle + index in DT (I have yet to validate
-> > this).  Obviously no .name/.fw_name will be updated to not break DT.
-> 
-> I'd say, leave them as is. Even if they are historical, we don't have
-> a strong pressure to change them.
+Hi,
 
-Leave them as it is, or - as suggested below - clean them up?
+On Fri, May 20, 2022 at 2:27 PM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+> This patch add regulator_set_load() before enable regulator at
+> DP phy driver.
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp.c | 25 ++++++++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> index b144ae1..a93e153 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+> @@ -3130,6 +3130,7 @@ struct qmp_phy_cfg {
+>         int num_resets;
+>         /* regulators to be requested */
+>         const char * const *vreg_list;
+> +       const unsigned int *vreg_enable_load;
+>         int num_vregs;
+>
+>         /* array of registers with different offsets */
+> @@ -3346,6 +3347,10 @@ static const char * const qmp_phy_vreg_l[] = {
+>         "vdda-phy", "vdda-pll",
+>  };
+>
+> +static const unsigned int qmp_phy_vreg_enable_load[] = {
+> +       21800, 36000
+> +};
 
-> Significant number of older platforms still use names to identify the
-> clock. And moreover apq8096/msm8960 uses dsi1/dsi2 instead of
-> dsi0/dsi1.
-> 
-> Probably we should call the next cycle "The Cycle of clocks cleaning".
-> I can volunteer to take care of 8960/8064/8016/8996, as at least I can
-> test them. But if you wish, you (or anybody else of course) can take
-> any of these platforms too, just ping me, so that I won't spend time
-> duplicating somebody's efforts.
+I'm a little confused. Why make a new parallel structure? Don't you
+want to set a load for everyone who's using "qmp_phy_vreg_l"? It seems
+like it would be better to do something like this:
 
-We can at least clean up the names of clocks that are not "exported" by
-the drivers.  However, we should also convert all other clk drivers to
-utilize DT to define clk dependencies instead of depending on global
-names, and already got quite some platforms tackled.  At that point we
-can just convert all names (give or take the often discussed "backwards
-compatbility" between the kernel and some ancient DT someone may still
-be running on their device).
+struct qmp_regulator_data {
+  const char *name;
+  unsigned int load;
+};
 
-I don't own any device for the SoCs you mentioned, all good from my
-side if you take them.  We should probably note down all clock drivers
-that still need conversion and split them across devs with physical
-access, then I can check what I still have lying around here as well.
+struct qmp_regulator_data qmp_phy_vreg_l[] = {
+  { .name = "vdda-phy", .load = 21800 },
+  { .name = "vdda-pll", .load = 36000 },
+};
 
-> > Which, by the way, is there a particular reason for:
-> >
-> >   #define DSI_BYTE_PLL_CLK              0
-> >   #define DSI_PIXEL_PLL_CLK             1
-> >
-> > To not be in the dt-bindings and used in the DT?
-> 
-> Before my restructure of the DSI PHY subsys, each driver defined them
-> separately. And the idea of moving them to a dt-bindings header didn't
-> come to my mind. Feel free to do so, it looks like a good idea.
-> Just as a note, DP PHY also uses 0 for the link clock and 1 for the
-> pixel clock. What do you think about having a single header for these
-> names?
+Right now some random smattering of devices are setting the load but
+not others...
 
-No worries, it's already much better to have them defined once :), now
-we can just go one step further and move it to dt-bindings.  Great to
-clean up the "magic constant indices" for the DP PHY as well
-(phy-qcom-qmp.c is the only one defining these clocks, right?) and I
-think we're fine having them in one header, pending someone suggesting a
-name as I have no idea what to call it nor where to put it.  Under
-dt-bindings/clock most likely, but what common name would we choose?
-Something including qcom and mdss?
+>  static const struct qmp_phy_cfg ipq8074_usb3phy_cfg = {
+>         .type                   = PHY_TYPE_USB3,
+>         .nlanes                 = 1,
+> @@ -3711,6 +3716,7 @@ static const struct qmp_phy_cfg sc7180_usb3phy_cfg = {
+>         .reset_list             = sc7180_usb3phy_reset_l,
+>         .num_resets             = ARRAY_SIZE(sc7180_usb3phy_reset_l),
+>         .vreg_list              = qmp_phy_vreg_l,
+> +       .vreg_enable_load       = qmp_phy_vreg_enable_load,
+>         .num_vregs              = ARRAY_SIZE(qmp_phy_vreg_l),
 
-> 
-> >
-> > And with enough future improvements out of the way, let's round out this
-> > patch-series by stating that it has been successfully tested on:
-> >
-> > - Sony Nile Discovery (Xperia XA2 Ultra): 14nm;
-> > - Sony Seine PDX201 (Xperia 10II): 14nm;
-> > - Sony Loire Suzu (Xperia X): 28nm.
-> >
-> > And no diff is observed in debugfs's clk_summary.
-> >
-> > Unfortunately all other devices in my collection with a 7/10nm DSI PHY
-> > have a DSC panel which we have yet to get working.
-> 
-> I will test it on RB3 (10nm) and RB5 (7nm) during one of the next few days.
+One downside of the parallel structures is that there's nothing
+enforcing that ARRAY_SIZE(qmp_phy_vreg_l) ==
+ARRAY_SIZE(qmp_phy_vreg_enable_load), though the code below relies on
+it.
 
-Lovely, thanks a ton - also for reviewing this so quickly!
 
-- Marijn
+> @@ -6175,6 +6186,18 @@ static int qcom_qmp_phy_probe(struct platform_device *pdev)
+>                 return ret;
+>         }
+>
+> +       if (cfg->vreg_enable_load) {
+> +               for (i = 0; i < cfg->num_vregs; i++) {
+> +                       ret = regulator_set_load(qmp->vregs[i].consumer,
+> +                                               cfg->vreg_enable_load[i]);
+> +                       if (ret) {
+> +                               dev_err(dev, "failed to set load at %s\n",
+> +                                               qmp->vregs[i].supply);
+
+nit: indentation of the 2nd line seems a bit off?
+
+> +                               return ret;
+> +                       }
+> +               }
+> +       }
+
+Feels like the above snippet belongs in qcom_qmp_phy_vreg_init() ?
