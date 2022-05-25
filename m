@@ -1,59 +1,87 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 133DB533A33
-	for <lists+freedreno@lfdr.de>; Wed, 25 May 2022 11:46:38 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C2044533DDB
+	for <lists+freedreno@lfdr.de>; Wed, 25 May 2022 15:26:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67EE610F9C1;
-	Wed, 25 May 2022 09:46:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E9910EF8E;
+	Wed, 25 May 2022 13:26:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D424510F9C1;
- Wed, 25 May 2022 09:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653471994; x=1685007994;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=nGymsr8SSj+sne0ImeoCBh2PzvGkNLmIxBxKIlbfpMo=;
- b=fjgC3T1eQ+yElOd1vWLWH9PJk85lbBkryQgHvAnqa1J2+JFIKaLWRPbl
- BcuSHe6JWf6lYEzUFR8nUHqZhAu1AmdbUrqnGqc0YD5iWn0DUy8qA1Rpe
- mGgRpqTVDUsnZYGCZa6s3KES8pOjYOx2/Jjt2yJA58fFy2kYazwhxoEek
- 9U77kvjaCY/HI6i0m4JxyXjMp3MTKc9DKT+2PFLMbnb8y8UVdnzszdoDs
- A1y2vPCBdO62soGnPUJbqrwP7afnJSTJ79lxlNXZuQyxWj/NB1ZRDMipV
- VuUAanq3qRpcLU4Bhgn8h/Axr3W3WnAzEyBpkUCVYik8PetzTZAIod9zO g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10357"; a="360160826"
-X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; d="scan'208";a="360160826"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2022 02:46:34 -0700
-X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; d="scan'208";a="676799098"
-Received: from isobansk-mobl.ger.corp.intel.com (HELO [10.213.230.191])
- ([10.213.230.191])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2022 02:46:31 -0700
-Message-ID: <1cd913da-6e51-509c-a6e6-83bf79cae20b@linux.intel.com>
-Date: Wed, 25 May 2022 10:46:29 +0100
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C455F10EF8E
+ for <freedreno@lists.freedesktop.org>; Wed, 25 May 2022 13:26:25 +0000 (UTC)
+Received: by mail-wm1-x333.google.com with SMTP id
+ o29-20020a05600c511d00b00397697f172dso1110731wms.0
+ for <freedreno@lists.freedesktop.org>; Wed, 25 May 2022 06:26:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=MpAJjoRKwGLkh3LcW90CCOydeHbiAiNXwW2FaiG7+5Y=;
+ b=QQ8HN/d+PVpdcmWvwIk13yOR6arO1frU91StcQ9M/kCJ8FdOEutASVqNnl0oFm/EZH
+ tEt0nVXQW764JiFG5GFiAGbr/Es2hBMAJ0BqVNCWdma0pXaFu0SUXYi0eyKowEidI3w3
+ 7p7kfRhKxEPT55ahiSMGxdfw22s2xnhjVcBrc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=MpAJjoRKwGLkh3LcW90CCOydeHbiAiNXwW2FaiG7+5Y=;
+ b=Kd1GtHiWmPahx0DzOCSwD1HLgHguqDA57A6c5ZmRThE+iXypXslv4D6PNmHR0/QGry
+ WGsqiazT1vRSX/TYPcU34ci2lEJho+IwzEK8GUutyrOR4O6TKPp2ucmhvfXUaaOYqcHD
+ n2jXZgjXbH1lq0t7cVd7cmxC8SEj+x2CGTBT7Cqgl4K7gC2GciUeRPuw4V4FZfDWKcFD
+ 52V/6u/BciBbmgc4zODx+J+k4tSn9JtIq2QoEJ9nLy0AaU3vQaifCwIO/JiHzS8r/qg8
+ AmuVUFs5fchVIwr/DD1TAE/SOOnUoHCmC2SzxJFPZs9JLBdtl7i7y3mFZEZ88rUnF+2t
+ Xybw==
+X-Gm-Message-State: AOAM531utfQF7hqOA58KO4l/8QEHdYd2lQwkHjLFqwW5avn+o8E67FLU
+ WytwH1WYKyPHIMCMMuBu6TnU1Q==
+X-Google-Smtp-Source: ABdhPJzAkynVKxqfhn4pVC8Fu0ef4gHIkJfVw0FJOU2QlVfLYEJ7eKnSnAbOa7QOcrhCIDLgMvWWWA==
+X-Received: by 2002:a05:600c:3b20:b0:397:6311:c0c7 with SMTP id
+ m32-20020a05600c3b2000b003976311c0c7mr5836015wms.69.1653485184116; 
+ Wed, 25 May 2022 06:26:24 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ t22-20020a1c7716000000b0039749bab534sm5164109wmi.1.2022.05.25.06.26.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 May 2022 06:26:23 -0700 (PDT)
+Date: Wed, 25 May 2022 15:26:21 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Doug Anderson <dianders@chromium.org>
+Message-ID: <Yo4ufWm5WiXsnRX8@phenom.ffwll.local>
+Mail-Followup-To: Doug Anderson <dianders@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ =?iso-8859-1?Q?St=E9phane?= Marchesin <marcheu@chromium.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "Aravind Venkateswaran (QUIC)" <quic_aravindh@quicinc.com>,
+ "Kuogee Hsieh (QUIC)" <quic_khsieh@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ "Abhinav Kumar (QUIC)" <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Sean Paul <seanpaul@chromium.org>
+References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+ <5857c510-9783-a483-8414-65d7350618d6@suse.de>
+ <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
+ <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20210728010632.2633470-1-robdclark@gmail.com>
- <20210728010632.2633470-13-robdclark@gmail.com>
- <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
- <CAJs_Fx6Nc337LPNh=p2GT2d2yDTdLWH934o4Cof3urDGhUJB6A@mail.gmail.com>
- <904ae104-1c30-d130-129f-ccae381261d5@linux.intel.com>
- <CAF6AEGsH=K1Hut7QBmF1kX40xS+9px=BrtZecAXVQopNs67Feg@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CAF6AEGsH=K1Hut7QBmF1kX40xS+9px=BrtZecAXVQopNs67Feg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v4 12/13] drm/msm: Utilize gpu scheduler
- priorities
+In-Reply-To: <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
+ no EDID
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,203 +94,126 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ =?iso-8859-1?Q?St=E9phane?= Marchesin <marcheu@chromium.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
  freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Mon, May 23, 2022 at 05:59:02PM -0700, Doug Anderson wrote:
+> Hi,
+> 
+> On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.org> wrote:
+> >
+> > Hi,
+> >
+> > On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > >
+> > > Hi Douglas,
+> > >
+> > > I understand that you're trying to tell userspace that the modelist has
+> > > been made up, but it's not something that should be done via fragile
+> > > heuristics IMHO.
+> > >
+> > > I looked at the Chromium source code that you linked, but I cannot say
+> > > whether it's doing the correct thing. It all depends on what your
+> > > program needs.
+> > >
+> > > In that function, you could also search for 'DRM_MODE_TYPE_USERDEF'.
+> > > It's the mode that the user specified on the kernel command line. If
+> > > Chromium's automatic mode selection fails, you'd give your users direct
+> > > control over it.
+> >
+> > That doesn't really work for Chrome OS. Certainly a kernel hacker
+> > could do this, but it's not something I could imagine us exposing to
+> > an average user of a Chromebook.
+> >
+> >
+> > > When there's no flagged mode or if
+> > > /sys/class/drm/card<...>/status contains "unconnected", you can assume
+> > > that the modelist is artificial and try the modes in an appropriate order.
+> >
+> > So "no flagged" means that nothing is marked as preferred, correct?
+> >
+> > ...so I guess what you're suggesting is that the order that the kernel
+> > is presenting the modes to userspace is not ABI. If there are no
+> > preferred modes then userspace shouldn't necessarily assume that the
+> > first mode returned is the best mode. Instead it should assume that if
+> > there is no preferred mode then the mode list is made up and it should
+> > make its own decisions about the best mode to start with. If this is
+> > the ABI from the kernel then plausibly I could convince people to
+> > change userspace to pick 640x480 first in this case.
+> >
+> > > If we really want the kernel to give additional guarantees, we should
+> > > have a broader discussion about this topic IMHO.
+> >
+> > Sure. I've added Stéphane Marchesin to this thread in case he wants to
+> > chime in about anything.
+> >
+> > Overall, my take on the matter:
+> >
+> > * Mostly I got involved because, apparently, a DP compliance test was
+> > failing. The compliance test was upset that when it presented us with
+> > no EDID that we didn't default to 640x480. There was a push to make a
+> > fix for this in the Qualcomm specific driver but that didn't sit right
+> > with me.
+> >
+> > * On all devices I'm currently working with (laptops), the DP is a
+> > secondary display. If a user was trying to plug in a display with a
+> > bad EDID and the max mode (1024x768) didn't work, they could just use
+> > the primary display to choose a different resolution. It seems
+> > unlikely a user would truly be upset and would probably be happy they
+> > could get their broken display to work at all. Even if this is a
+> > primary display, I believe there are documented key combos to change
+> > the resolution of the primary display even if you can't see anything.
+> >
+> > * That all being said, defaulting to 640x480 when there's no EDID made
+> > sense to me, especially since it's actually defined in the DP spec. So
+> > I'm trying to do the right thing and solve this corner case. That
+> > being said, if it's truly controversial I can just drop it.
+> >
+> >
+> > So I guess my plan will be to give Stéphane a little while in case he
+> > wants to chime in. If not then I guess I'll try a Chrome patch...
+> > ...and if that doesn't work, I'll just drop it.
+> 
+> OK, this userspace code seems to work:
+> 
+> https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
+> the first mode if no EDID
+> 
+> ...so we'll see how review of that goes. :-)
 
-On 24/05/2022 15:50, Rob Clark wrote:
-> On Tue, May 24, 2022 at 6:45 AM Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
->>
->>
->> On 23/05/2022 23:53, Rob Clark wrote:
->>> On Mon, May 23, 2022 at 7:45 AM Tvrtko Ursulin
->>> <tvrtko.ursulin@linux.intel.com> wrote:
->>>>
->>>>
->>>> Hi Rob,
->>>>
->>>> On 28/07/2021 02:06, Rob Clark wrote:
->>>>> From: Rob Clark <robdclark@chromium.org>
->>>>>
->>>>> The drm/scheduler provides additional prioritization on top of that
->>>>> provided by however many number of ringbuffers (each with their own
->>>>> priority level) is supported on a given generation.  Expose the
->>>>> additional levels of priority to userspace and map the userspace
->>>>> priority back to ring (first level of priority) and schedular priority
->>>>> (additional priority levels within the ring).
->>>>>
->>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>>>> Acked-by: Christian KÃ¶nig <christian.koenig@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/msm/adreno/adreno_gpu.c |  4 +-
->>>>>     drivers/gpu/drm/msm/msm_gem_submit.c    |  4 +-
->>>>>     drivers/gpu/drm/msm/msm_gpu.h           | 58 ++++++++++++++++++++++++-
->>>>>     drivers/gpu/drm/msm/msm_submitqueue.c   | 35 +++++++--------
->>>>>     include/uapi/drm/msm_drm.h              | 14 +++++-
->>>>>     5 files changed, 88 insertions(+), 27 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>>> index bad4809b68ef..748665232d29 100644
->>>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>>> @@ -261,8 +261,8 @@ int adreno_get_param(struct msm_gpu *gpu, uint32_t param, uint64_t *value)
->>>>>                         return ret;
->>>>>                 }
->>>>>                 return -EINVAL;
->>>>> -     case MSM_PARAM_NR_RINGS:
->>>>> -             *value = gpu->nr_rings;
->>>>> +     case MSM_PARAM_PRIORITIES:
->>>>> +             *value = gpu->nr_rings * NR_SCHED_PRIORITIES;
->>>>>                 return 0;
->>>>>         case MSM_PARAM_PP_PGTABLE:
->>>>>                 *value = 0;
->>>>> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
->>>>> index 450efe59abb5..c2ecec5b11c4 100644
->>>>> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
->>>>> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
->>>>> @@ -59,7 +59,7 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
->>>>>         submit->gpu = gpu;
->>>>>         submit->cmd = (void *)&submit->bos[nr_bos];
->>>>>         submit->queue = queue;
->>>>> -     submit->ring = gpu->rb[queue->prio];
->>>>> +     submit->ring = gpu->rb[queue->ring_nr];
->>>>>         submit->fault_dumped = false;
->>>>>
->>>>>         INIT_LIST_HEAD(&submit->node);
->>>>> @@ -749,7 +749,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
->>>>>         /* Get a unique identifier for the submission for logging purposes */
->>>>>         submitid = atomic_inc_return(&ident) - 1;
->>>>>
->>>>> -     ring = gpu->rb[queue->prio];
->>>>> +     ring = gpu->rb[queue->ring_nr];
->>>>>         trace_msm_gpu_submit(pid_nr(pid), ring->id, submitid,
->>>>>                 args->nr_bos, args->nr_cmds);
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
->>>>> index b912cacaecc0..0e4b45bff2e6 100644
->>>>> --- a/drivers/gpu/drm/msm/msm_gpu.h
->>>>> +++ b/drivers/gpu/drm/msm/msm_gpu.h
->>>>> @@ -250,6 +250,59 @@ struct msm_gpu_perfcntr {
->>>>>         const char *name;
->>>>>     };
->>>>>
->>>>> +/*
->>>>> + * The number of priority levels provided by drm gpu scheduler.  The
->>>>> + * DRM_SCHED_PRIORITY_KERNEL priority level is treated specially in some
->>>>> + * cases, so we don't use it (no need for kernel generated jobs).
->>>>> + */
->>>>> +#define NR_SCHED_PRIORITIES (1 + DRM_SCHED_PRIORITY_HIGH - DRM_SCHED_PRIORITY_MIN)
->>>>> +
->>>>> +/**
->>>>> + * msm_gpu_convert_priority - Map userspace priority to ring # and sched priority
->>>>> + *
->>>>> + * @gpu:        the gpu instance
->>>>> + * @prio:       the userspace priority level
->>>>> + * @ring_nr:    [out] the ringbuffer the userspace priority maps to
->>>>> + * @sched_prio: [out] the gpu scheduler priority level which the userspace
->>>>> + *              priority maps to
->>>>> + *
->>>>> + * With drm/scheduler providing it's own level of prioritization, our total
->>>>> + * number of available priority levels is (nr_rings * NR_SCHED_PRIORITIES).
->>>>> + * Each ring is associated with it's own scheduler instance.  However, our
->>>>> + * UABI is that lower numerical values are higher priority.  So mapping the
->>>>> + * single userspace priority level into ring_nr and sched_prio takes some
->>>>> + * care.  The userspace provided priority (when a submitqueue is created)
->>>>> + * is mapped to ring nr and scheduler priority as such:
->>>>> + *
->>>>> + *   ring_nr    = userspace_prio / NR_SCHED_PRIORITIES
->>>>> + *   sched_prio = NR_SCHED_PRIORITIES -
->>>>> + *                (userspace_prio % NR_SCHED_PRIORITIES) - 1
->>>>> + *
->>>>> + * This allows generations without preemption (nr_rings==1) to have some
->>>>> + * amount of prioritization, and provides more priority levels for gens
->>>>> + * that do have preemption.
->>>>
->>>> I am exploring how different drivers handle priority levels and this
->>>> caught my eye.
->>>>
->>>> Is the implication of the last paragraphs that on hw with nr_rings > 1,
->>>> ring + 1 preempts ring?
->>>
->>> Other way around, at least from the uabi standpoint.  Ie. ring[0]
->>> preempts ring[1]
->>
->> Ah yes, I figure it out from the comments but then confused myself when
->> writing the email.
->>
->>>> If so I am wondering does the "spreading" of
->>>> user visible priorities by NR_SCHED_PRIORITIES creates a non-preemptable
->>>> levels within every "bucket" or how does that work?
->>>
->>> So, preemption is possible between any priority level before run_job()
->>> gets called, which writes the job into the ringbuffer.  After that
->>
->> Hmm how? Before run_job() the jobs are not runnable, sitting in the
->> scheduler queues, right?
-> 
-> I mean, if prio[0]+prio[1]+prio[2] map to a single ring, submit A on
-> prio[1] could be executed after submit B on prio[2] provided that
-> run_job(submitA) hasn't happened yet.  So I guess it isn't "really"
-> preemption because the submit hasn't started running on the GPU yet.
-> But rather just scheduling according to priority.
-> 
->>> point, you only have "bucket" level preemption, because
->>> NR_SCHED_PRIORITIES levels of priority get mapped to a single FIFO
->>> ringbuffer.
->>
->> Right, and you have one GPU with four rings, which means you expose 12
->> priority levels to userspace, did I get that right?
-> 
-> Correct
-> 
->> If so how do you convey in the ABI that not all there priority levels
->> are equal? Like userspace can submit at prio 4 and expect prio 3 to
->> preempt, as would prio 2 preempt prio 3. While actual behaviour will not
->> match - 3 will not preempt 4.
-> 
-> It isn't really exposed to userspace, but perhaps it should be..
-> Userspace just knows that, to the extent possible, the kernel will try
-> to execute prio 3 before prio 4.
-> 
->> Also, does your userspace stack (EGL/Vulkan) use the priorities? I had a
->> quick peek in Mesa but did not spot it - although I am not really at
->> home there yet so maybe I missed it.
-> 
-> Yes, there is an EGL extension:
-> 
-> https://www.khronos.org/registry/EGL/extensions/IMG/EGL_IMG_context_priority.txt
-> 
-> It is pretty limited, it only exposes three priority levels.
+Yeah it sucks a bit but I'm mildly afraid that if we muck around with the
+absolute fallback mode list in upstream we get whacked by a regression
+report :-/
 
-Right, is that wired up on msm? And if it is, or could be, how do/would 
-you map the three priority levels for GPUs which expose 3 priority 
-levels versus the one which exposes 12?
+There's the additional fun that on modern displays probably 720p (or maybe
+720i) is a lot more likely to work than anything else really, so best we
+can do here maybe is to make it an uapi guarantee that if there's no
+preferred mode, then most likely the kernel invent random noise out of
+thin air, and userspace has to be careful and do its own magic heuristics.
+Or maybe we should add a flag for "this stuff is invented, buyer beware".
 
-Is it doable properly without leaking the fact drm/sched internal 
-implementation detail of three priority levels? Or if you went the other 
-way and only exposed up to max 3 levels, then you lose one priority 
-level your hardware suppose which is also not good.
-
-It is all quite interesting because your hardware is completely 
-different from ours in this respect. In our case i915 decides when to 
-preempt, hardware has no concept of priority (*).
-
-Regards,
-
-Tvrtko
-
-(*) Almost no concept of priority in hardware - we do have it on new 
-GPUs and only on a subset of engine classes where render and compute 
-share the EUs. But I think it's way different from Ardenos.
+I think clarifying that would be good. Changing defaults feels a bit too
+risky, we had some really hilarious regression reports in the past along
+the lines of the infamous xkcd.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
