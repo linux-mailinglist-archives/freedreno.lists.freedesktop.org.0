@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C99534FE6
-	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 15:29:34 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35EEC535192
+	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 17:42:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B916510F3AB;
-	Thu, 26 May 2022 13:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C17D010E22D;
+	Thu, 26 May 2022 15:42:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3312E10F34F;
- Thu, 26 May 2022 13:29:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653571771; x=1685107771;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=CDg+TGx7gGRdWVAZ8Gvb9aIHZ73vJ+er6cK1qLaQP4E=;
- b=XQHfOv22o/Q5qLrIVQbXGST8esK95iLchxgrM50O4J4p6tyfvNDzphbX
- ptSecML8khhaEcmNZcMef2Ugq3/dVqBrZEKMclayhIc88W9ouSVQu17O9
- syxpXKg9YQ/OMm0XSJBWkyvVhmE/Hxu3sbQlmquJQ32b2ijz7J8BkE3jg
- QX3MP9YSTDs9pULukthP4x4pP4MpMd20milD2Eg6O5WiWd71548HiB9qf
- Cxh0vSiU5LfF4AGTpHpsf5QWNUHH5DVLi76j8qiNTIwpfbnx6+K4LYClp
- D58mypz05xFHbAjWI08ifbZtshRgNzbjEGabWBbuLSghNHLJkPQykkgXR w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10358"; a="256221169"
-X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="256221169"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2022 06:29:29 -0700
-X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="664938350"
-Received: from tkinch-mobl.ger.corp.intel.com (HELO [10.213.214.182])
- ([10.213.214.182])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2022 06:29:26 -0700
-Message-ID: <d15cccd3-4b77-992e-23f7-0c4808592a9f@linux.intel.com>
-Date: Thu, 26 May 2022 14:29:24 +0100
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD7410E22D
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 15:42:30 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ s32-20020a4a96a3000000b0040e504332adso348055ooi.10
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 08:42:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=n3qAlBBeFNZ+aBiN6togZG6C5YO85T5AdGF+1zBN49Q=;
+ b=LNeZtIBX+bOWD9mIM2QZXpdX6WjvRHSLWEP2lSAtqY2RGtmgC4uI0ByD2SrOR8Gn/C
+ 4GISyRYSnQz5XJf6zQ95LO7pedctMPzi1eqhI3kJNAjZFJG0XgYdl0iNysJjElmEP/YO
+ w3qVbdfNem8fDY0R4sWLFbwufVJ1kfzgRhw6g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=n3qAlBBeFNZ+aBiN6togZG6C5YO85T5AdGF+1zBN49Q=;
+ b=NX51WSkQLknfrWOEo8nbTSqAImhAXsQs6kiem/wZdIXZfUBDhHdNFTkfnh/GPGg7GO
+ GyE9nUnziOJ8dL7NuD+FPZS/69aBzkFzD/MfwxysciDXyrV4HNkBiNYfY6xxCoyGtD4H
+ VJwRmPZXf6mL5HSWEVZX8KSpLRyi8Zob/ANmpNPTKbOyw048940cpW0iGDWtua82g7KT
+ cfSNBdXgOh7cuVa/k6u/lCDTUS42gPtEzOz9ck4jjQzWeFXjArmEnYvokIags8/kRBZR
+ YtacaBGYv3O0jHI7BnOPfZDNF/02hGtzRl9wlV5Jp7IBlvdbs3muUllxxPWOwYFACV0l
+ N/2w==
+X-Gm-Message-State: AOAM533EM6lEmh4oZOz9zLa0Uw7gzG1moSKvcV4NGBto+sKAbs3pIFXm
+ 02IYk2sXv4olAWX4drFevn5DwguT4s+c3y4lQt6hWQ==
+X-Google-Smtp-Source: ABdhPJxQyvd/QD9jWHOhsULI65vBT79Z2iZL/7QARVVGluoa3p4MpGO4pbDMFwaxqzoo8wfw2Vtnarv7PDsGdIhhjbQ=
+X-Received: by 2002:a4a:95c6:0:b0:35f:7f11:7055 with SMTP id
+ p6-20020a4a95c6000000b0035f7f117055mr15159789ooi.87.1653579749268; Thu, 26
+ May 2022 08:42:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20210728010632.2633470-1-robdclark@gmail.com>
- <20210728010632.2633470-13-robdclark@gmail.com>
- <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
- <CAJs_Fx6Nc337LPNh=p2GT2d2yDTdLWH934o4Cof3urDGhUJB6A@mail.gmail.com>
- <904ae104-1c30-d130-129f-ccae381261d5@linux.intel.com>
- <CAF6AEGuVhXuX63Od+kcJ0QtfAZ2-wqZsN0KOuEzKbivJdouzog@mail.gmail.com>
- <1972f50b-d71a-9e2e-d10b-cc4f13bb208f@linux.intel.com>
- <CAF6AEGsvmQYjzoFgEMTer3oDmb62y2Hq_unDbq2UEoZ6CA3CSw@mail.gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CAF6AEGsvmQYjzoFgEMTer3oDmb62y2Hq_unDbq2UEoZ6CA3CSw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v4 12/13] drm/msm: Utilize gpu scheduler
- priorities
+References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+ <5857c510-9783-a483-8414-65d7350618d6@suse.de>
+ <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
+ <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
+ <Yo4ufWm5WiXsnRX8@phenom.ffwll.local>
+ <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
+In-Reply-To: <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 26 May 2022 17:42:18 +0200
+Message-ID: <CAKMK7uHTkQjQ5=HOb0MtXD4JZRj3Szt5vm9gQZ6BixZ8LtUpxQ@mail.gmail.com>
+To: Sean Paul <seanpaul@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
+ no EDID
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,128 +68,218 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ LKML <linux-kernel@vger.kernel.org>, Sean Paul <seanpaul@google.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Doug Anderson <dianders@chromium.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Stephen Boyd <swboyd@chromium.org>,
  freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Thu, 26 May 2022 at 03:28, Sean Paul <seanpaul@chromium.org> wrote:
+>
+> On Wed, May 25, 2022 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> > On Mon, May 23, 2022 at 05:59:02PM -0700, Doug Anderson wrote:
+> > > Hi,
+> > >
+> > > On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.org>=
+ wrote:
+> > > >
+> > > > Hi,
+> > > >
+> > > > On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+> > > > >
+> > > > > Hi Douglas,
+> > > > >
+> > > > > I understand that you're trying to tell userspace that the modeli=
+st has
+> > > > > been made up, but it's not something that should be done via frag=
+ile
+> > > > > heuristics IMHO.
+> > > > >
+> > > > > I looked at the Chromium source code that you linked, but I canno=
+t say
+> > > > > whether it's doing the correct thing. It all depends on what your
+> > > > > program needs.
+> > > > >
+> > > > > In that function, you could also search for 'DRM_MODE_TYPE_USERDE=
+F'.
+> > > > > It's the mode that the user specified on the kernel command line.=
+ If
+> > > > > Chromium's automatic mode selection fails, you'd give your users =
+direct
+> > > > > control over it.
+> > > >
+> > > > That doesn't really work for Chrome OS. Certainly a kernel hacker
+> > > > could do this, but it's not something I could imagine us exposing t=
+o
+> > > > an average user of a Chromebook.
+> > > >
+> > > >
+> > > > > When there's no flagged mode or if
+> > > > > /sys/class/drm/card<...>/status contains "unconnected", you can a=
+ssume
+> > > > > that the modelist is artificial and try the modes in an appropria=
+te order.
+> > > >
+> > > > So "no flagged" means that nothing is marked as preferred, correct?
+> > > >
+> > > > ...so I guess what you're suggesting is that the order that the ker=
+nel
+> > > > is presenting the modes to userspace is not ABI. If there are no
+> > > > preferred modes then userspace shouldn't necessarily assume that th=
+e
+> > > > first mode returned is the best mode. Instead it should assume that=
+ if
+> > > > there is no preferred mode then the mode list is made up and it sho=
+uld
+> > > > make its own decisions about the best mode to start with. If this i=
+s
+> > > > the ABI from the kernel then plausibly I could convince people to
+> > > > change userspace to pick 640x480 first in this case.
+> > > >
+> > > > > If we really want the kernel to give additional guarantees, we sh=
+ould
+> > > > > have a broader discussion about this topic IMHO.
+> > > >
+> > > > Sure. I've added St=C3=A9phane Marchesin to this thread in case he =
+wants to
+> > > > chime in about anything.
+> > > >
+> > > > Overall, my take on the matter:
+> > > >
+> > > > * Mostly I got involved because, apparently, a DP compliance test w=
+as
+> > > > failing. The compliance test was upset that when it presented us wi=
+th
+> > > > no EDID that we didn't default to 640x480. There was a push to make=
+ a
+> > > > fix for this in the Qualcomm specific driver but that didn't sit ri=
+ght
+> > > > with me.
+> > > >
+> > > > * On all devices I'm currently working with (laptops), the DP is a
+> > > > secondary display. If a user was trying to plug in a display with a
+> > > > bad EDID and the max mode (1024x768) didn't work, they could just u=
+se
+> > > > the primary display to choose a different resolution. It seems
+> > > > unlikely a user would truly be upset and would probably be happy th=
+ey
+> > > > could get their broken display to work at all. Even if this is a
+> > > > primary display, I believe there are documented key combos to chang=
+e
+> > > > the resolution of the primary display even if you can't see anythin=
+g.
+> > > >
+> > > > * That all being said, defaulting to 640x480 when there's no EDID m=
+ade
+> > > > sense to me, especially since it's actually defined in the DP spec.=
+ So
+> > > > I'm trying to do the right thing and solve this corner case. That
+> > > > being said, if it's truly controversial I can just drop it.
+> > > >
+> > > >
+> > > > So I guess my plan will be to give St=C3=A9phane a little while in =
+case he
+> > > > wants to chime in. If not then I guess I'll try a Chrome patch...
+> > > > ...and if that doesn't work, I'll just drop it.
+> > >
+> > > OK, this userspace code seems to work:
+> > >
+> > > https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
+> > > the first mode if no EDID
+> > >
+> > > ...so we'll see how review of that goes. :-)
+>
+> Mirroring some of my comments on that review here :-)
+>
+> IMO, this should be addressed in the kernel, or not at all. The kernel
+> ensures other aspects of DisplayPort implementation are compliant, so
+> I don't think this would be any exception. Further, the kernel is the
+> one creating the "safe" mode list, so it seems odd that userspace
+> would override that. Finally, relying on every userspace to do the
+> right thing is asking for trouble (we have 3 places which would need
+> this logic in CrOS).
 
-On 26/05/2022 04:15, Rob Clark wrote:
-> On Wed, May 25, 2022 at 9:11 AM Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
->>
->>
->> On 24/05/2022 15:57, Rob Clark wrote:
->>> On Tue, May 24, 2022 at 6:45 AM Tvrtko Ursulin
->>> <tvrtko.ursulin@linux.intel.com> wrote:
->>>>
->>>> On 23/05/2022 23:53, Rob Clark wrote:
->>>>>
->>>>> btw, one fun (but unrelated) issue I'm hitting with scheduler... I'm
->>>>> trying to add an igt test to stress shrinker/eviction, similar to the
->>>>> existing tests/i915/gem_shrink.c.  But we hit an unfortunate
->>>>> combination of circumstances:
->>>>> 1. Pinning memory happens in the synchronous part of the submit ioctl,
->>>>> before enqueuing the job for the kthread to handle.
->>>>> 2. The first run_job() callback incurs a slight delay (~1.5ms) while
->>>>> resuming the GPU
->>>>> 3. Because of that delay, userspace has a chance to queue up enough
->>>>> more jobs to require locking/pinning more than the available system
->>>>> RAM..
->>>>
->>>> Is that one or multiple threads submitting jobs?
->>>
->>> In this case multiple.. but I think it could also happen with a single
->>> thread (provided it didn't stall on a fence, directly or indirectly,
->>> from an earlier submit), because of how resume and actual job
->>> submission happens from scheduler kthread.
->>>
->>>>> I'm not sure if we want a way to prevent userspace from getting *too*
->>>>> far ahead of the kthread.  Or maybe at some point the shrinker should
->>>>> sleep on non-idle buffers?
->>>>
->>>> On the direct reclaim path when invoked from the submit ioctl? In i915
->>>> we only shrink idle objects on direct reclaim and leave active ones for
->>>> the swapper. It depends on how your locking looks like whether you could
->>>> do them, whether there would be coupling of locks and fs-reclaim context.
->>>
->>> I think the locking is more or less ok, although lockdep is unhappy
->>> about one thing[1] which is I think a false warning (ie. not
->>> recognizing that we'd already successfully acquired the obj lock via
->>> trylock).  We can already reclaim idle bo's in this path.  But the
->>> problem with a bunch of submits queued up in the scheduler, is that
->>> they are already considered pinned and active.  So at some point we
->>> need to sleep (hopefully interruptabley) until they are no longer
->>> active, ie. to throttle userspace trying to shove in more submits
->>> until some of the enqueued ones have a chance to run and complete.
->>
->> Odd I did not think trylock could trigger that. Looking at your code it
->> indeed seems two trylocks. I am pretty sure we use the same trylock
->> trick to avoid it. I am confused..
-> 
-> The sequence is,
-> 
-> 1. kref_get_unless_zero()
-> 2. trylock, which succeeds
-> 3. attempt to evict or purge (which may or may not have succeeded)
-> 4. unlock
-> 
->   ... meanwhile this has raced with submit (aka execbuf) finishing and
-> retiring and dropping *other* remaining reference to bo...
-> 
-> 5. drm_gem_object_put() which triggers drm_gem_object_free()
-> 6. in our free path we acquire the obj lock again and then drop it.
-> Which arguably is unnecessary and only serves to satisfy some
-> GEM_WARN_ON(!msm_gem_is_locked(obj)) in code paths that are also used
-> elsewhere
-> 
-> lockdep doesn't realize the previously successful trylock+unlock
-> sequence so it assumes that the code that triggered recursion into
-> shrinker could be holding the objects lock.
+Oh I missed the part that this is defined in the DP spec as _the_ fallback =
+mode.
 
-Ah yes, missed that lock after trylock in msm_gem_shrinker/scan(). Well 
-i915 has the same sequence in our shrinker, but the difference is we use 
-delayed work to actually free, _and_ use trylock in the delayed worker. 
-It does feel a bit inelegant (objects with no reference count which 
-cannot be trylocked?!), but as this is the code recently refactored by 
-Maarten so I think best try and sync with him for the full story.
+I think the probe helpers could check whether it's a DP connector and
+then dtrt per DP spec? I think that should have a solid chance of
+avoiding the regression mess, since the really shoddy stuff tends to
+be VGA/HDMI.
 
->> Otherwise if you can afford to sleep you can of course throttle
->> organically via direct reclaim. Unless I am forgetting some key gotcha -
->> it's been a while I've been active in this area.
-> 
-> So, one thing that is awkward about sleeping in this path is that
-> there is no way to propagate back -EINTR, so we end up doing an
-> uninterruptible sleep in something that could be called indirectly
-> from userspace syscall.. i915 seems to deal with this by limiting it
-> to shrinker being called from kswapd.  I think in the shrinker we want
-> to know whether it is ok to sleep (ie. not syscall trigggered
-> codepath, and whether we are under enough memory pressure to justify
-> sleeping).  For the syscall path, I'm playing with something that lets
-> me pass __GFP_RETRY_MAYFAIL | __GFP_NOWARN to
-> shmem_read_mapping_page_gfp(), and then stall after the shrinker has
-> failed, somewhere where we can make it interruptable.  Ofc, that
-> doesn't help with all the other random memory allocations which can
-> fail, so not sure if it will turn out to be a good approach or not.
-> But I guess pinning the GEM bo's is the single biggest potential
-> consumer of pages in the submit path, so maybe it will be better than
-> nothing.
+Also if DP says only 640x480 should be the fallback if there's no
+other mode list source, then I think we should trim it down to only
+that. But also only for DP.
 
-We play similar games, although by a quick look I am not sure we quite 
-manage to honour/propagate signals. This has certainly been a 
-historically fiddly area. If you first ask for no reclaim allocations 
-and invoke the shrinker manually first, then falling back to a bigger 
-hammer, you should be able to do it.
+Also ofc that patch should reference the right DP spec sections :-)
+-Daniel
 
-Regards,
+>
+> >
+> > Yeah it sucks a bit but I'm mildly afraid that if we muck around with t=
+he
+> > absolute fallback mode list in upstream we get whacked by a regression
+> > report :-/
+>
+> Yeah, this seems likely (unfortunately).
+>
+> >
+> > There's the additional fun that on modern displays probably 720p (or ma=
+ybe
+> > 720i) is a lot more likely to work than anything else really, so best w=
+e
+> > can do here maybe is to make it an uapi guarantee that if there's no
+> > preferred mode, then most likely the kernel invent random noise out of
+> > thin air, and userspace has to be careful and do its own magic heuristi=
+cs.
+> > Or maybe we should add a flag for "this stuff is invented, buyer beware=
+".
+> >
+>
+> This seems like a reasonable compromise. Perhaps marking 640x480 as
+> preferred would be a middle road?
+>
+> > I think clarifying that would be good. Changing defaults feels a bit to=
+o
+> > risky, we had some really hilarious regression reports in the past alon=
+g
+> > the lines of the infamous xkcd.
+>
+> FWIW, I don't really have a strong opinion as to whether this should
+> be fixed or not. I have a hard time believing that either 1024x768 or
+> 640x480 would result in a happy result for the user, so we're really
+> just choosing a mode which is bad enough for the user to
+> unplug/replug. If 640x480 makes the compliance machine happy, I
+> suppose that's a compelling reason, but I don't really feel like this
+> is worth special casing each userspace.
+>
+> Sean
+>
+> > -Daniel
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
 
-Tvrtko
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
