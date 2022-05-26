@@ -1,45 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35EEC535192
-	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 17:42:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B77FF5351C6
+	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 18:01:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C17D010E22D;
-	Thu, 26 May 2022 15:42:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5CF10E14B;
+	Thu, 26 May 2022 16:01:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD7410E22D
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 15:42:30 +0000 (UTC)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- s32-20020a4a96a3000000b0040e504332adso348055ooi.10
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 08:42:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3163810E141
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 16:01:21 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id f21so3762538ejh.11
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 09:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=n3qAlBBeFNZ+aBiN6togZG6C5YO85T5AdGF+1zBN49Q=;
- b=LNeZtIBX+bOWD9mIM2QZXpdX6WjvRHSLWEP2lSAtqY2RGtmgC4uI0ByD2SrOR8Gn/C
- 4GISyRYSnQz5XJf6zQ95LO7pedctMPzi1eqhI3kJNAjZFJG0XgYdl0iNysJjElmEP/YO
- w3qVbdfNem8fDY0R4sWLFbwufVJ1kfzgRhw6g=
+ bh=muVoFK53cly8UGkO/IVCCGOOWf4SlvW8Ah8wz/JuMYA=;
+ b=AxVXi03p5UNt0Fr/8FDLRPX5zQexwuRutI6hUxd4KJvSUBo+WTG0kvpmKKylKzPIqu
+ 1lWSrumYqzhq0Cvn7on/Uq/4WfbWeYVdE7dtbnD8vjC/Wi9w3PVjCHwFmAPpsJsqZJqp
+ jcyV/+yVBLz9Ii3IVSUC8uEj79X4+PYhrVtbg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=n3qAlBBeFNZ+aBiN6togZG6C5YO85T5AdGF+1zBN49Q=;
- b=NX51WSkQLknfrWOEo8nbTSqAImhAXsQs6kiem/wZdIXZfUBDhHdNFTkfnh/GPGg7GO
- GyE9nUnziOJ8dL7NuD+FPZS/69aBzkFzD/MfwxysciDXyrV4HNkBiNYfY6xxCoyGtD4H
- VJwRmPZXf6mL5HSWEVZX8KSpLRyi8Zob/ANmpNPTKbOyw048940cpW0iGDWtua82g7KT
- cfSNBdXgOh7cuVa/k6u/lCDTUS42gPtEzOz9ck4jjQzWeFXjArmEnYvokIags8/kRBZR
- YtacaBGYv3O0jHI7BnOPfZDNF/02hGtzRl9wlV5Jp7IBlvdbs3muUllxxPWOwYFACV0l
- N/2w==
-X-Gm-Message-State: AOAM533EM6lEmh4oZOz9zLa0Uw7gzG1moSKvcV4NGBto+sKAbs3pIFXm
- 02IYk2sXv4olAWX4drFevn5DwguT4s+c3y4lQt6hWQ==
-X-Google-Smtp-Source: ABdhPJxQyvd/QD9jWHOhsULI65vBT79Z2iZL/7QARVVGluoa3p4MpGO4pbDMFwaxqzoo8wfw2Vtnarv7PDsGdIhhjbQ=
-X-Received: by 2002:a4a:95c6:0:b0:35f:7f11:7055 with SMTP id
- p6-20020a4a95c6000000b0035f7f117055mr15159789ooi.87.1653579749268; Thu, 26
- May 2022 08:42:29 -0700 (PDT)
+ bh=muVoFK53cly8UGkO/IVCCGOOWf4SlvW8Ah8wz/JuMYA=;
+ b=j4QEUaMIvF5ctnuJyZ+BSjDyf7oTwBdw+OJ3k6jw1Nf2IKAr//veFct/RaX1VQAGxO
+ 7QQ2mz7bzltP0UuiDaLnJQq9gZDgtOj11JSuOo6I9oROeYfCgvMwPg0hC6tPkRdJH+Zq
+ zYcldLwx6rtV8LqkTPVzOfWHNWaZ4ZF9gsJpj3in4wZe1XjFGj4jI25qHBEEvTsDfz1f
+ pcZz9n3GEZk7acTJGQx+izgAPW2qMZ9Ckr7iTm+U2QvQymTHAE9VPt44rSLkVBsUVSUw
+ R2UCKLkev1KULuwIf6NmY3GR5/UKShtZCINZuRAluWA3nnT1nA6FtxBRsomsF/pmDqtc
+ d5ZQ==
+X-Gm-Message-State: AOAM531HCDnBTfcMvfjp6WpRb8zAGS5E41/vjenyZk0LY+WHxl9EivnE
+ uOEdKIaeFTgEV6bAmj4SNFLU4uiVrh4svzZccrA=
+X-Google-Smtp-Source: ABdhPJwLcNlHXtf/OROI4PxXW99GD4pEuH7iSDYEuXbftuPIh7t+ACZ0pIc4CL31N3fwzSItFyGfQA==
+X-Received: by 2002:a17:907:3fa2:b0:6fe:d043:3fd1 with SMTP id
+ hr34-20020a1709073fa200b006fed0433fd1mr20556333ejc.700.1653580879199; 
+ Thu, 26 May 2022 09:01:19 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com.
+ [209.85.221.51]) by smtp.gmail.com with ESMTPSA id
+ m3-20020a056402430300b0042bc7635534sm1005765edc.62.2022.05.26.09.01.16
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 May 2022 09:01:16 -0700 (PDT)
+Received: by mail-wr1-f51.google.com with SMTP id z15so2669425wrg.11
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 09:01:16 -0700 (PDT)
+X-Received: by 2002:a5d:5085:0:b0:20d:5f6:63fa with SMTP id
+ a5-20020a5d5085000000b0020d05f663famr31419542wrt.679.1653580875415; Thu, 26
+ May 2022 09:01:15 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
  <5857c510-9783-a483-8414-65d7350618d6@suse.de>
@@ -47,11 +57,13 @@ References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@chang
  <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
  <Yo4ufWm5WiXsnRX8@phenom.ffwll.local>
  <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
-In-Reply-To: <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Thu, 26 May 2022 17:42:18 +0200
-Message-ID: <CAKMK7uHTkQjQ5=HOb0MtXD4JZRj3Szt5vm9gQZ6BixZ8LtUpxQ@mail.gmail.com>
-To: Sean Paul <seanpaul@chromium.org>
+ <CAKMK7uHTkQjQ5=HOb0MtXD4JZRj3Szt5vm9gQZ6BixZ8LtUpxQ@mail.gmail.com>
+In-Reply-To: <CAKMK7uHTkQjQ5=HOb0MtXD4JZRj3Szt5vm9gQZ6BixZ8LtUpxQ@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 26 May 2022 09:01:03 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WgRjW2yFKvRkcKoj-nGEAhku6_d3kgs9WhTC6bVrzxeQ@mail.gmail.com>
+Message-ID: <CAD=FV=WgRjW2yFKvRkcKoj-nGEAhku6_d3kgs9WhTC6bVrzxeQ@mail.gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
@@ -71,13 +83,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Maxime Ripard <mripard@kernel.org>,
  Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
  LKML <linux-kernel@vger.kernel.org>, Sean Paul <seanpaul@google.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
  David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Doug Anderson <dianders@chromium.org>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>,
@@ -88,198 +100,171 @@ Cc: Maxime Ripard <mripard@kernel.org>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 26 May 2022 at 03:28, Sean Paul <seanpaul@chromium.org> wrote:
+Hi,
+
+On Thu, May 26, 2022 at 8:42 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 >
-> On Wed, May 25, 2022 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> On Thu, 26 May 2022 at 03:28, Sean Paul <seanpaul@chromium.org> wrote:
 > >
-> > On Mon, May 23, 2022 at 05:59:02PM -0700, Doug Anderson wrote:
-> > > Hi,
+> > On Wed, May 25, 2022 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
 > > >
-> > > On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.org>=
- wrote:
-> > > >
+> > > On Mon, May 23, 2022 at 05:59:02PM -0700, Doug Anderson wrote:
 > > > > Hi,
 > > > >
-> > > > On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
+> > > > On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.or=
+g> wrote:
 > > > > >
-> > > > > Hi Douglas,
+> > > > > Hi,
 > > > > >
-> > > > > I understand that you're trying to tell userspace that the modeli=
-st has
-> > > > > been made up, but it's not something that should be done via frag=
-ile
-> > > > > heuristics IMHO.
+> > > > > On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@su=
+se.de> wrote:
+> > > > > >
+> > > > > > Hi Douglas,
+> > > > > >
+> > > > > > I understand that you're trying to tell userspace that the mode=
+list has
+> > > > > > been made up, but it's not something that should be done via fr=
+agile
+> > > > > > heuristics IMHO.
+> > > > > >
+> > > > > > I looked at the Chromium source code that you linked, but I can=
+not say
+> > > > > > whether it's doing the correct thing. It all depends on what yo=
+ur
+> > > > > > program needs.
+> > > > > >
+> > > > > > In that function, you could also search for 'DRM_MODE_TYPE_USER=
+DEF'.
+> > > > > > It's the mode that the user specified on the kernel command lin=
+e. If
+> > > > > > Chromium's automatic mode selection fails, you'd give your user=
+s direct
+> > > > > > control over it.
 > > > > >
-> > > > > I looked at the Chromium source code that you linked, but I canno=
-t say
-> > > > > whether it's doing the correct thing. It all depends on what your
-> > > > > program needs.
+> > > > > That doesn't really work for Chrome OS. Certainly a kernel hacker
+> > > > > could do this, but it's not something I could imagine us exposing=
+ to
+> > > > > an average user of a Chromebook.
 > > > > >
-> > > > > In that function, you could also search for 'DRM_MODE_TYPE_USERDE=
-F'.
-> > > > > It's the mode that the user specified on the kernel command line.=
- If
-> > > > > Chromium's automatic mode selection fails, you'd give your users =
-direct
-> > > > > control over it.
-> > > >
-> > > > That doesn't really work for Chrome OS. Certainly a kernel hacker
-> > > > could do this, but it's not something I could imagine us exposing t=
-o
-> > > > an average user of a Chromebook.
-> > > >
-> > > >
-> > > > > When there's no flagged mode or if
-> > > > > /sys/class/drm/card<...>/status contains "unconnected", you can a=
-ssume
-> > > > > that the modelist is artificial and try the modes in an appropria=
-te order.
-> > > >
-> > > > So "no flagged" means that nothing is marked as preferred, correct?
-> > > >
-> > > > ...so I guess what you're suggesting is that the order that the ker=
-nel
-> > > > is presenting the modes to userspace is not ABI. If there are no
-> > > > preferred modes then userspace shouldn't necessarily assume that th=
-e
-> > > > first mode returned is the best mode. Instead it should assume that=
- if
-> > > > there is no preferred mode then the mode list is made up and it sho=
-uld
-> > > > make its own decisions about the best mode to start with. If this i=
-s
-> > > > the ABI from the kernel then plausibly I could convince people to
-> > > > change userspace to pick 640x480 first in this case.
-> > > >
-> > > > > If we really want the kernel to give additional guarantees, we sh=
-ould
-> > > > > have a broader discussion about this topic IMHO.
-> > > >
-> > > > Sure. I've added St=C3=A9phane Marchesin to this thread in case he =
-wants to
-> > > > chime in about anything.
-> > > >
-> > > > Overall, my take on the matter:
-> > > >
-> > > > * Mostly I got involved because, apparently, a DP compliance test w=
-as
-> > > > failing. The compliance test was upset that when it presented us wi=
-th
-> > > > no EDID that we didn't default to 640x480. There was a push to make=
+> > > > >
+> > > > > > When there's no flagged mode or if
+> > > > > > /sys/class/drm/card<...>/status contains "unconnected", you can=
+ assume
+> > > > > > that the modelist is artificial and try the modes in an appropr=
+iate order.
+> > > > >
+> > > > > So "no flagged" means that nothing is marked as preferred, correc=
+t?
+> > > > >
+> > > > > ...so I guess what you're suggesting is that the order that the k=
+ernel
+> > > > > is presenting the modes to userspace is not ABI. If there are no
+> > > > > preferred modes then userspace shouldn't necessarily assume that =
+the
+> > > > > first mode returned is the best mode. Instead it should assume th=
+at if
+> > > > > there is no preferred mode then the mode list is made up and it s=
+hould
+> > > > > make its own decisions about the best mode to start with. If this=
+ is
+> > > > > the ABI from the kernel then plausibly I could convince people to
+> > > > > change userspace to pick 640x480 first in this case.
+> > > > >
+> > > > > > If we really want the kernel to give additional guarantees, we =
+should
+> > > > > > have a broader discussion about this topic IMHO.
+> > > > >
+> > > > > Sure. I've added St=C3=A9phane Marchesin to this thread in case h=
+e wants to
+> > > > > chime in about anything.
+> > > > >
+> > > > > Overall, my take on the matter:
+> > > > >
+> > > > > * Mostly I got involved because, apparently, a DP compliance test=
+ was
+> > > > > failing. The compliance test was upset that when it presented us =
+with
+> > > > > no EDID that we didn't default to 640x480. There was a push to ma=
+ke a
+> > > > > fix for this in the Qualcomm specific driver but that didn't sit =
+right
+> > > > > with me.
+> > > > >
+> > > > > * On all devices I'm currently working with (laptops), the DP is =
+a
+> > > > > secondary display. If a user was trying to plug in a display with=
  a
-> > > > fix for this in the Qualcomm specific driver but that didn't sit ri=
-ght
-> > > > with me.
+> > > > > bad EDID and the max mode (1024x768) didn't work, they could just=
+ use
+> > > > > the primary display to choose a different resolution. It seems
+> > > > > unlikely a user would truly be upset and would probably be happy =
+they
+> > > > > could get their broken display to work at all. Even if this is a
+> > > > > primary display, I believe there are documented key combos to cha=
+nge
+> > > > > the resolution of the primary display even if you can't see anyth=
+ing.
+> > > > >
+> > > > > * That all being said, defaulting to 640x480 when there's no EDID=
+ made
+> > > > > sense to me, especially since it's actually defined in the DP spe=
+c. So
+> > > > > I'm trying to do the right thing and solve this corner case. That
+> > > > > being said, if it's truly controversial I can just drop it.
+> > > > >
+> > > > >
+> > > > > So I guess my plan will be to give St=C3=A9phane a little while i=
+n case he
+> > > > > wants to chime in. If not then I guess I'll try a Chrome patch...
+> > > > > ...and if that doesn't work, I'll just drop it.
 > > > >
-> > > > * On all devices I'm currently working with (laptops), the DP is a
-> > > > secondary display. If a user was trying to plug in a display with a
-> > > > bad EDID and the max mode (1024x768) didn't work, they could just u=
-se
-> > > > the primary display to choose a different resolution. It seems
-> > > > unlikely a user would truly be upset and would probably be happy th=
-ey
-> > > > could get their broken display to work at all. Even if this is a
-> > > > primary display, I believe there are documented key combos to chang=
-e
-> > > > the resolution of the primary display even if you can't see anythin=
-g.
+> > > > OK, this userspace code seems to work:
 > > > >
-> > > > * That all being said, defaulting to 640x480 when there's no EDID m=
-ade
-> > > > sense to me, especially since it's actually defined in the DP spec.=
- So
-> > > > I'm trying to do the right thing and solve this corner case. That
-> > > > being said, if it's truly controversial I can just drop it.
+> > > > https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
+> > > > the first mode if no EDID
 > > > >
-> > > >
-> > > > So I guess my plan will be to give St=C3=A9phane a little while in =
-case he
-> > > > wants to chime in. If not then I guess I'll try a Chrome patch...
-> > > > ...and if that doesn't work, I'll just drop it.
-> > >
-> > > OK, this userspace code seems to work:
-> > >
-> > > https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
-> > > the first mode if no EDID
-> > >
-> > > ...so we'll see how review of that goes. :-)
->
-> Mirroring some of my comments on that review here :-)
->
-> IMO, this should be addressed in the kernel, or not at all. The kernel
-> ensures other aspects of DisplayPort implementation are compliant, so
-> I don't think this would be any exception. Further, the kernel is the
-> one creating the "safe" mode list, so it seems odd that userspace
-> would override that. Finally, relying on every userspace to do the
-> right thing is asking for trouble (we have 3 places which would need
-> this logic in CrOS).
-
-Oh I missed the part that this is defined in the DP spec as _the_ fallback =
-mode.
-
-I think the probe helpers could check whether it's a DP connector and
-then dtrt per DP spec? I think that should have a solid chance of
-avoiding the regression mess, since the really shoddy stuff tends to
-be VGA/HDMI.
-
-Also if DP says only 640x480 should be the fallback if there's no
-other mode list source, then I think we should trim it down to only
-that. But also only for DP.
-
-Also ofc that patch should reference the right DP spec sections :-)
--Daniel
-
->
+> > > > ...so we'll see how review of that goes. :-)
 > >
-> > Yeah it sucks a bit but I'm mildly afraid that if we muck around with t=
-he
-> > absolute fallback mode list in upstream we get whacked by a regression
-> > report :-/
->
-> Yeah, this seems likely (unfortunately).
->
+> > Mirroring some of my comments on that review here :-)
 > >
-> > There's the additional fun that on modern displays probably 720p (or ma=
-ybe
-> > 720i) is a lot more likely to work than anything else really, so best w=
-e
-> > can do here maybe is to make it an uapi guarantee that if there's no
-> > preferred mode, then most likely the kernel invent random noise out of
-> > thin air, and userspace has to be careful and do its own magic heuristi=
-cs.
-> > Or maybe we should add a flag for "this stuff is invented, buyer beware=
-".
-> >
+> > IMO, this should be addressed in the kernel, or not at all. The kernel
+> > ensures other aspects of DisplayPort implementation are compliant, so
+> > I don't think this would be any exception. Further, the kernel is the
+> > one creating the "safe" mode list, so it seems odd that userspace
+> > would override that. Finally, relying on every userspace to do the
+> > right thing is asking for trouble (we have 3 places which would need
+> > this logic in CrOS).
 >
-> This seems like a reasonable compromise. Perhaps marking 640x480 as
-> preferred would be a middle road?
+> Oh I missed the part that this is defined in the DP spec as _the_ fallbac=
+k mode.
 >
-> > I think clarifying that would be good. Changing defaults feels a bit to=
-o
-> > risky, we had some really hilarious regression reports in the past alon=
-g
-> > the lines of the infamous xkcd.
->
-> FWIW, I don't really have a strong opinion as to whether this should
-> be fixed or not. I have a hard time believing that either 1024x768 or
-> 640x480 would result in a happy result for the user, so we're really
-> just choosing a mode which is bad enough for the user to
-> unplug/replug. If 640x480 makes the compliance machine happy, I
-> suppose that's a compelling reason, but I don't really feel like this
-> is worth special casing each userspace.
->
-> Sean
->
-> > -Daniel
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
+> I think the probe helpers could check whether it's a DP connector and
+> then dtrt per DP spec? I think that should have a solid chance of
+> avoiding the regression mess, since the really shoddy stuff tends to
+> be VGA/HDMI.
+
+I'm fine with making this DP-specific if that's what people think is best.
 
 
+> Also if DP says only 640x480 should be the fallback if there's no
+> other mode list source, then I think we should trim it down to only
+> that. But also only for DP.
 
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+So the DP spec says that 640x480 is _the_ default fallback, but it
+also says that we're also allowed to have some implementation-specific
+fall-back modes as well, so I'd rather not fully trim the list and
+just make it clear (somehow) that 640x480 ought to be the default.
+Would you be OK going back to v2 of this patch [1] but adding a check
+that the connector type is DP and also making sure that the spec is
+referenced?
+
+
+> Also ofc that patch should reference the right DP spec sections :-)
+
+My original patch description for this patch (v3) did reference
+section 4.2.2.6 (EDID Corruption Detection) of the DP 1.4a Link CTS.
+...or did you want this in inline comments in the patch itself?
+
+
+[1] https://lore.kernel.org/r/20220510135101.v2.1.I31ec454f8d4ffce51a7708a8=
+092f8a6f9c929092@changeid
