@@ -2,86 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05806534816
-	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 03:28:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6536534933
+	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 05:15:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A375B10E12B;
-	Thu, 26 May 2022 01:28:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E09910E0A4;
+	Thu, 26 May 2022 03:15:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
- [IPv6:2607:f8b0:4864:20::e35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FDDA10E12B
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 01:28:44 +0000 (UTC)
-Received: by mail-vs1-xe35.google.com with SMTP id 67so137893vsh.2
- for <freedreno@lists.freedesktop.org>; Wed, 25 May 2022 18:28:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9A4010E0A4;
+ Thu, 26 May 2022 03:15:52 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ i82-20020a1c3b55000000b003974edd7c56so1827214wma.2; 
+ Wed, 25 May 2022 20:15:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=oiTRf6EF/H3TBNBVZIGNJm3A9cOgQLVm1U6yDTQ2d5I=;
- b=fs1lwK6/6kqEgmHrQX6rxnyuN1F3qSBt6oZlGY/IgJSpxNNazl86s15U+QVeAweXiR
- e6K+dANWBE/D616R5uaxSIyjtWKMeZSMe8xcAZDhDA5mUPTWA/yrOPlxhZN2BW62jzVY
- lNQQhdz4wtvTJNq/yaBpzqsMj5a9tBTTmHJsY=
+ :cc; bh=eGeMotmHD5kcwokKadCBWqHPNlO0Qvs0CVZPqUnOIwU=;
+ b=STPbaruw09QCXES5FDI15P7EnfhRJv83ICkhIygnvPTFFztNE3QMp+2HkzKr0MHCCL
+ vA13P4G9M+1adv/QOdjA4zKguI6NfBb99Puhm/tqNrB5bbfpnVqbXcxKrH+kH32KOrFo
+ HMFF7e4t//YJWSQez1Oune1sW8RhYrJZ1/DAvNr9nAFb5N2QrdmPgaD1/51V2R3Oc2M5
+ 4JSjqZQAsd+Ss3GDdMJoEPIuDNkdvFOzpc222fcM/EhXyoxrHdZl+bcrqKhb3IoHjjmk
+ XQfHM6d95nts0V5Lo5/Zn7+uX+M0Qq1/53NK5LM62BqbRnif39q/O+EM7n0+iU8ahDcW
+ 4MZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=oiTRf6EF/H3TBNBVZIGNJm3A9cOgQLVm1U6yDTQ2d5I=;
- b=goRQpYMS+M+1N/DE39GGYxTmWrbREp+KkvMpFZIxqdT99r4GuG6O+bn+4+y+kDSUOY
- ceIdh9qUYr+lL4WqTk4z1vpBkNOxA+jPZYy2xvtB+b/u3YaXhM25uMl9cR8Iegkp6dkS
- TiMcRqloMkSJxJcdwYdm6uYLcOm3tYG6m4Dves+JjHkiSgEi4tQTvzYIVw8TOZwBkRF4
- eZZGEslISPZkyt/PfggBWVAdBAfSXyKIt6G0vvJiRAwJGUJWykuZmudFMeAIq8Negsa9
- 1yVfFRALE994Q3cRp/2uBk0lbHs6uKYc7uu7s5ZvXZWFuqNcaaxCNlwIoRzhQk1MYDeA
- HqLQ==
-X-Gm-Message-State: AOAM5330z898ED6LWJTUYjkjlyFCyz7fQuTsYvq+utyeJEWd7/p2Tnrc
- WM+mRyjdLjiXKRD0NRcPXEKXythdv55spN/j
-X-Google-Smtp-Source: ABdhPJzdLhZOgpi+mBVjow+IoUURboAvGD2HAK2NCksAzbEw6fheSSvQbDibWJbKArBfrRrPRa1oGQ==
-X-Received: by 2002:a05:6102:20dd:b0:338:8642:36ca with SMTP id
- i29-20020a05610220dd00b00338864236camr2013325vsr.2.1653528522615; 
- Wed, 25 May 2022 18:28:42 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com.
- [209.85.221.170]) by smtp.gmail.com with ESMTPSA id
- l15-20020a056102242f00b0032d275e690bsm14054vsi.11.2022.05.25.18.28.41
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 May 2022 18:28:41 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id i25so129437vkr.8
- for <freedreno@lists.freedesktop.org>; Wed, 25 May 2022 18:28:41 -0700 (PDT)
-X-Received: by 2002:a05:6122:221f:b0:343:f3d4:87cb with SMTP id
- bb31-20020a056122221f00b00343f3d487cbmr12802200vkb.13.1653528520525; Wed, 25
- May 2022 18:28:40 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=eGeMotmHD5kcwokKadCBWqHPNlO0Qvs0CVZPqUnOIwU=;
+ b=rXIrd/fnM0w3VYq9Tbids5VswQTnybuxfk89wo1Gh4vi0JVWeuZ06l5qay7CG5bG8K
+ X2D/en6Tehk40NJaL4if1pdcwtqorOBlTx1bEye5t+J4iaaop8aiMsw7iJ6w/GBx/jtk
+ e3U43GGUfo0HE4u/OcthEvfMkyKyphTQnyIzqWAUhjt95LOFzd/QZngUdAH3iA55A95i
+ 5UA2A2bNSm5z/rDoOGt9vmc+J3swgNJ0npWeBIJ/lyPnwnoCitEOfeel0um0DUlS4X94
+ rgyOw/UD9LWlPebWP3q6l1/i6ADoW45vY4C2ds3K53KqMZ678+HElBbcDR2yx65r+hY/
+ AecA==
+X-Gm-Message-State: AOAM5317PvrgpRRFaPzrFjQVPrc8p3WdKnViYimPujcDAcgXQg2Q3qWw
+ exo5jSAVGGV9JXWfDWLgz/OUnGZB+8wSm9CDMV8=
+X-Google-Smtp-Source: ABdhPJxM/y4CWGrksx4gNScQ00GELDhe/3yND60YFdXQhe2SiNRzSPQjRttu0dMdsWj00S1f+XPDEvscDu7F5r9UUA0=
+X-Received: by 2002:a05:600c:3843:b0:397:476f:ceb8 with SMTP id
+ s3-20020a05600c384300b00397476fceb8mr234025wmr.200.1653534950360; Wed, 25 May
+ 2022 20:15:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
- <5857c510-9783-a483-8414-65d7350618d6@suse.de>
- <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
- <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
- <Yo4ufWm5WiXsnRX8@phenom.ffwll.local>
-In-Reply-To: <Yo4ufWm5WiXsnRX8@phenom.ffwll.local>
-From: Sean Paul <seanpaul@chromium.org>
-Date: Wed, 25 May 2022 21:28:04 -0400
-X-Gmail-Original-Message-ID: <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
-Message-ID: <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
-To: Doug Anderson <dianders@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- =?UTF-8?Q?St=C3=A9phane_Marchesin?= <marcheu@chromium.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- "Aravind Venkateswaran (QUIC)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh (QUIC)" <quic_khsieh@quicinc.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Rob Clark <robdclark@gmail.com>, 
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- "Abhinav Kumar (QUIC)" <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Stephen Boyd <swboyd@chromium.org>, freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- LKML <linux-kernel@vger.kernel.org>, Sean Paul <seanpaul@chromium.org>, 
- Sean Paul <seanpaul@google.com>
+References: <20210728010632.2633470-1-robdclark@gmail.com>
+ <20210728010632.2633470-13-robdclark@gmail.com>
+ <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
+ <CAJs_Fx6Nc337LPNh=p2GT2d2yDTdLWH934o4Cof3urDGhUJB6A@mail.gmail.com>
+ <904ae104-1c30-d130-129f-ccae381261d5@linux.intel.com>
+ <CAF6AEGuVhXuX63Od+kcJ0QtfAZ2-wqZsN0KOuEzKbivJdouzog@mail.gmail.com>
+ <1972f50b-d71a-9e2e-d10b-cc4f13bb208f@linux.intel.com>
+In-Reply-To: <1972f50b-d71a-9e2e-d10b-cc4f13bb208f@linux.intel.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Wed, 25 May 2022 20:15:47 -0700
+Message-ID: <CAF6AEGsvmQYjzoFgEMTer3oDmb62y2Hq_unDbq2UEoZ6CA3CSw@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
- no EDID
+Subject: Re: [Freedreno] [PATCH v4 12/13] drm/msm: Utilize gpu scheduler
+ priorities
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,162 +70,125 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, May 25, 2022 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Wed, May 25, 2022 at 9:11 AM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
 >
-> On Mon, May 23, 2022 at 05:59:02PM -0700, Doug Anderson wrote:
-> > Hi,
+>
+> On 24/05/2022 15:57, Rob Clark wrote:
+> > On Tue, May 24, 2022 at 6:45 AM Tvrtko Ursulin
+> > <tvrtko.ursulin@linux.intel.com> wrote:
+> >>
+> >> On 23/05/2022 23:53, Rob Clark wrote:
+> >>>
+> >>> btw, one fun (but unrelated) issue I'm hitting with scheduler... I'm
+> >>> trying to add an igt test to stress shrinker/eviction, similar to the
+> >>> existing tests/i915/gem_shrink.c.  But we hit an unfortunate
+> >>> combination of circumstances:
+> >>> 1. Pinning memory happens in the synchronous part of the submit ioctl,
+> >>> before enqueuing the job for the kthread to handle.
+> >>> 2. The first run_job() callback incurs a slight delay (~1.5ms) while
+> >>> resuming the GPU
+> >>> 3. Because of that delay, userspace has a chance to queue up enough
+> >>> more jobs to require locking/pinning more than the available system
+> >>> RAM..
+> >>
+> >> Is that one or multiple threads submitting jobs?
 > >
-> > On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.org> w=
-rote:
-> > >
-> > > Hi,
-> > >
-> > > On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse.d=
-e> wrote:
-> > > >
-> > > > Hi Douglas,
-> > > >
-> > > > I understand that you're trying to tell userspace that the modelist=
- has
-> > > > been made up, but it's not something that should be done via fragil=
-e
-> > > > heuristics IMHO.
-> > > >
-> > > > I looked at the Chromium source code that you linked, but I cannot =
-say
-> > > > whether it's doing the correct thing. It all depends on what your
-> > > > program needs.
-> > > >
-> > > > In that function, you could also search for 'DRM_MODE_TYPE_USERDEF'=
-.
-> > > > It's the mode that the user specified on the kernel command line. I=
-f
-> > > > Chromium's automatic mode selection fails, you'd give your users di=
-rect
-> > > > control over it.
-> > >
-> > > That doesn't really work for Chrome OS. Certainly a kernel hacker
-> > > could do this, but it's not something I could imagine us exposing to
-> > > an average user of a Chromebook.
-> > >
-> > >
-> > > > When there's no flagged mode or if
-> > > > /sys/class/drm/card<...>/status contains "unconnected", you can ass=
-ume
-> > > > that the modelist is artificial and try the modes in an appropriate=
- order.
-> > >
-> > > So "no flagged" means that nothing is marked as preferred, correct?
-> > >
-> > > ...so I guess what you're suggesting is that the order that the kerne=
-l
-> > > is presenting the modes to userspace is not ABI. If there are no
-> > > preferred modes then userspace shouldn't necessarily assume that the
-> > > first mode returned is the best mode. Instead it should assume that i=
-f
-> > > there is no preferred mode then the mode list is made up and it shoul=
-d
-> > > make its own decisions about the best mode to start with. If this is
-> > > the ABI from the kernel then plausibly I could convince people to
-> > > change userspace to pick 640x480 first in this case.
-> > >
-> > > > If we really want the kernel to give additional guarantees, we shou=
-ld
-> > > > have a broader discussion about this topic IMHO.
-> > >
-> > > Sure. I've added St=C3=A9phane Marchesin to this thread in case he wa=
-nts to
-> > > chime in about anything.
-> > >
-> > > Overall, my take on the matter:
-> > >
-> > > * Mostly I got involved because, apparently, a DP compliance test was
-> > > failing. The compliance test was upset that when it presented us with
-> > > no EDID that we didn't default to 640x480. There was a push to make a
-> > > fix for this in the Qualcomm specific driver but that didn't sit righ=
-t
-> > > with me.
-> > >
-> > > * On all devices I'm currently working with (laptops), the DP is a
-> > > secondary display. If a user was trying to plug in a display with a
-> > > bad EDID and the max mode (1024x768) didn't work, they could just use
-> > > the primary display to choose a different resolution. It seems
-> > > unlikely a user would truly be upset and would probably be happy they
-> > > could get their broken display to work at all. Even if this is a
-> > > primary display, I believe there are documented key combos to change
-> > > the resolution of the primary display even if you can't see anything.
-> > >
-> > > * That all being said, defaulting to 640x480 when there's no EDID mad=
-e
-> > > sense to me, especially since it's actually defined in the DP spec. S=
-o
-> > > I'm trying to do the right thing and solve this corner case. That
-> > > being said, if it's truly controversial I can just drop it.
-> > >
-> > >
-> > > So I guess my plan will be to give St=C3=A9phane a little while in ca=
-se he
-> > > wants to chime in. If not then I guess I'll try a Chrome patch...
-> > > ...and if that doesn't work, I'll just drop it.
+> > In this case multiple.. but I think it could also happen with a single
+> > thread (provided it didn't stall on a fence, directly or indirectly,
+> > from an earlier submit), because of how resume and actual job
+> > submission happens from scheduler kthread.
 > >
-> > OK, this userspace code seems to work:
+> >>> I'm not sure if we want a way to prevent userspace from getting *too*
+> >>> far ahead of the kthread.  Or maybe at some point the shrinker should
+> >>> sleep on non-idle buffers?
+> >>
+> >> On the direct reclaim path when invoked from the submit ioctl? In i915
+> >> we only shrink idle objects on direct reclaim and leave active ones for
+> >> the swapper. It depends on how your locking looks like whether you could
+> >> do them, whether there would be coupling of locks and fs-reclaim context.
 > >
-> > https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
-> > the first mode if no EDID
-> >
-> > ...so we'll see how review of that goes. :-)
+> > I think the locking is more or less ok, although lockdep is unhappy
+> > about one thing[1] which is I think a false warning (ie. not
+> > recognizing that we'd already successfully acquired the obj lock via
+> > trylock).  We can already reclaim idle bo's in this path.  But the
+> > problem with a bunch of submits queued up in the scheduler, is that
+> > they are already considered pinned and active.  So at some point we
+> > need to sleep (hopefully interruptabley) until they are no longer
+> > active, ie. to throttle userspace trying to shove in more submits
+> > until some of the enqueued ones have a chance to run and complete.
+>
+> Odd I did not think trylock could trigger that. Looking at your code it
+> indeed seems two trylocks. I am pretty sure we use the same trylock
+> trick to avoid it. I am confused..
 
-Mirroring some of my comments on that review here :-)
+The sequence is,
 
-IMO, this should be addressed in the kernel, or not at all. The kernel
-ensures other aspects of DisplayPort implementation are compliant, so
-I don't think this would be any exception. Further, the kernel is the
-one creating the "safe" mode list, so it seems odd that userspace
-would override that. Finally, relying on every userspace to do the
-right thing is asking for trouble (we have 3 places which would need
-this logic in CrOS).
+1. kref_get_unless_zero()
+2. trylock, which succeeds
+3. attempt to evict or purge (which may or may not have succeeded)
+4. unlock
+
+ ... meanwhile this has raced with submit (aka execbuf) finishing and
+retiring and dropping *other* remaining reference to bo...
+
+5. drm_gem_object_put() which triggers drm_gem_object_free()
+6. in our free path we acquire the obj lock again and then drop it.
+Which arguably is unnecessary and only serves to satisfy some
+GEM_WARN_ON(!msm_gem_is_locked(obj)) in code paths that are also used
+elsewhere
+
+lockdep doesn't realize the previously successful trylock+unlock
+sequence so it assumes that the code that triggered recursion into
+shrinker could be holding the objects lock.
 
 >
-> Yeah it sucks a bit but I'm mildly afraid that if we muck around with the
-> absolute fallback mode list in upstream we get whacked by a regression
-> report :-/
+> Otherwise if you can afford to sleep you can of course throttle
+> organically via direct reclaim. Unless I am forgetting some key gotcha -
+> it's been a while I've been active in this area.
 
-Yeah, this seems likely (unfortunately).
+So, one thing that is awkward about sleeping in this path is that
+there is no way to propagate back -EINTR, so we end up doing an
+uninterruptible sleep in something that could be called indirectly
+from userspace syscall.. i915 seems to deal with this by limiting it
+to shrinker being called from kswapd.  I think in the shrinker we want
+to know whether it is ok to sleep (ie. not syscall trigggered
+codepath, and whether we are under enough memory pressure to justify
+sleeping).  For the syscall path, I'm playing with something that lets
+me pass __GFP_RETRY_MAYFAIL | __GFP_NOWARN to
+shmem_read_mapping_page_gfp(), and then stall after the shrinker has
+failed, somewhere where we can make it interruptable.  Ofc, that
+doesn't help with all the other random memory allocations which can
+fail, so not sure if it will turn out to be a good approach or not.
+But I guess pinning the GEM bo's is the single biggest potential
+consumer of pages in the submit path, so maybe it will be better than
+nothing.
+
+BR,
+-R
 
 >
-> There's the additional fun that on modern displays probably 720p (or mayb=
-e
-> 720i) is a lot more likely to work than anything else really, so best we
-> can do here maybe is to make it an uapi guarantee that if there's no
-> preferred mode, then most likely the kernel invent random noise out of
-> thin air, and userspace has to be careful and do its own magic heuristics=
-.
-> Or maybe we should add a flag for "this stuff is invented, buyer beware".
+> Regards,
 >
-
-This seems like a reasonable compromise. Perhaps marking 640x480 as
-preferred would be a middle road?
-
-> I think clarifying that would be good. Changing defaults feels a bit too
-> risky, we had some really hilarious regression reports in the past along
-> the lines of the infamous xkcd.
-
-FWIW, I don't really have a strong opinion as to whether this should
-be fixed or not. I have a hard time believing that either 1024x768 or
-640x480 would result in a happy result for the user, so we're really
-just choosing a mode which is bad enough for the user to
-unplug/replug. If 640x480 makes the compliance machine happy, I
-suppose that's a compelling reason, but I don't really feel like this
-is worth special casing each userspace.
-
-Sean
-
-> -Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> Tvrtko
+>
+> >
+> > BR,
+> > -R
+> >
+> > [1] https://gitlab.freedesktop.org/drm/msm/-/issues/14
+> >
