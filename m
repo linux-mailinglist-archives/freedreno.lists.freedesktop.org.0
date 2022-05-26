@@ -2,63 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19706534E4B
-	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 13:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2468534E9E
+	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 13:52:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72CAC10F309;
-	Thu, 26 May 2022 11:44:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59DBB10E0B7;
+	Thu, 26 May 2022 11:52:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3A3910F2C8
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 11:44:09 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id
- o9-20020a17090a0a0900b001df3fc52ea7so4199456pjo.3
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 04:44:09 -0700 (PDT)
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29FDD10E083
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 11:52:48 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id q1so1499375ljb.5
+ for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 04:52:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=bM3evDjfiE3dprTsclqC+/G6p3TK8Ys0Oy1ZcImUYfI=;
- b=laC4QuTRCSg15JyXcb0ZD2Q4k53G7vghjfyxzv8umgfoorTsmmpQfMbYRec0NDOGhY
- ZE0ZNojePoqY3DSa/G78FdLptguqGGFfqzBBeXXMtwm/h7U7JYySMx7+JuJ2G2PWb3bF
- PeCNYJfs5DMIsiIbeRrYXdDW32Yaz4CxTKzg74MkpPCwWlM8X1FpLYNQf3pyAK8WTICf
- 8TYeST48ot3aMLkvlkVrIqlqckVx0E8VRNIYFTuZMyd/flWwH0p6GgIs0sTfN2G+gAse
- HFr9P6EcchTDffeVhYQex9XhPyJ9Fh+fa8aoXzjKUaa1c3/Z2YLN8kK8lbl24keZ9tzc
- tJaw==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=MVQ54/b1Bl5zWRXm8QvTFiSCRNNAIcNHd+D1lpI9ZC4=;
+ b=UmO31J8nUxjp24jXb9Co3KN+CJRVqgMArHtMvcSuJO9jKWXYfcw9VbrPq5AxzeSKve
+ XwfqJ/YWWzlM15YQ7L2Ar4pTSJS8dStrVzFwMFmeJMwAmPVRdVZIWB7lXBbtMiRV/L8u
+ 29u8sVAXQFS16oufZNyiAaly3L2FSIJ1ztnAN8iBfmvpauGpqCbbqKEzm/2gYtzrNU6T
+ 8zgAjq7HS3lwy70SilPNTgXtbtFb/g0QQ3CWw0wjAWNdSVwWw05wn4fSVjMrCMyN+SZ/
+ /WUfUezYDuuF7PU0JAQylw8BVe3pxpyp/5CEh9LrIjr7sHcFRJTrpqgKZsPsaeHdQa4h
+ dxNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=bM3evDjfiE3dprTsclqC+/G6p3TK8Ys0Oy1ZcImUYfI=;
- b=RfFSQpa/IyQD8a5fp9oJY2UWgxVkIbFtrV7xYJepvIVG/P50QUuk3H+nU7bjmn3We0
- 2jUk+htEZA51hjtvoJX0PJaZCq12GaN7RPFEAhHXdWZtFAH0KBDl2XzgTZbs0/7grI5s
- oHQgNJTkJfwdwMsKB80OLJZ7LqW/VoUm224jUgIfklfPE9bsoSKFU1aqbI08AtZBgHeu
- +KzjiZy4WP0+IwkRN9GV/152YeN/OoClcCMVEhKVFOu9jW5DAHm25YIL7h//LQXGtYYD
- LWwKvjpMqok9WOShecNd0qLzUOjkZR02GXmyW6qnQ8MrU35mzdIGsW1r1PtX+ZyYUxwX
- PCVw==
-X-Gm-Message-State: AOAM533cMh/9ccOZym+f8mtoC6RyTlAFmO10P5NwjTV9FyViMHh5NY4Z
- cAvLWs0PlV7KLEsUARGwN9PR7g==
-X-Google-Smtp-Source: ABdhPJzFEsV7cJrNzaIFA5do0FQhIQLA3swJDrst+zf/HBD8jNqWQ/kokmEk7NyfDIO4ycChLj/aKw==
-X-Received: by 2002:a17:90a:4803:b0:1dc:b4c9:1958 with SMTP id
- a3-20020a17090a480300b001dcb4c91958mr2177698pjh.61.1653565449495; 
- Thu, 26 May 2022 04:44:09 -0700 (PDT)
-Received: from localhost ([122.162.234.2]) by smtp.gmail.com with ESMTPSA id
- jb14-20020a170903258e00b00161527e1d9fsm1270109plb.294.2022.05.26.04.44.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 May 2022 04:44:09 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 26 May 2022 17:12:13 +0530
-Message-Id: <f6a74bce04534144719ee4811a663dac85056815.1653564321.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <cover.1653564321.git.viresh.kumar@linaro.org>
-References: <cover.1653564321.git.viresh.kumar@linaro.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=MVQ54/b1Bl5zWRXm8QvTFiSCRNNAIcNHd+D1lpI9ZC4=;
+ b=EWaCAO4u3hYU4tGNpsuJuhEp6BGS831Axvp8kEnJkrz7hBmp5xTvDbesB4cs9TnQQn
+ Rx1BhYqfB0vHrXB4mN6w1HzjgDE16u9mnf2lW1m3VtaQdixjqfMhkGuKei6KLIP0OGWV
+ he0ntCG22vPDC4zMq25STyICXx6sOscV7ixXv4d9a9rwbgDpDSYC/vBzY45d4M1a6fPP
+ FeaWaUA389pC89EDzDEbe69bRbkJXoMEk57AEgPjQ4vZLSRrwVLMzP34ctEm80FhQPIj
+ wH02XTNbMs0nzb9n9np7L47ls5MF3OUrMIQJG4awTZ/M9rw6GbmLYiv6WYnRH3Jt6z15
+ SSEw==
+X-Gm-Message-State: AOAM533EfOv2/4h6z+g55sr4OlBMJlUxVL0arCzqNr81JzxFoIEkEi9p
+ ObJBD4IsQj7pwRc/p/p/945U/A==
+X-Google-Smtp-Source: ABdhPJztaBE9q35bXW9bdbc3Uh0AoR+2BUwqLHJO3rjZrvvCaUtOnyrtI6FYp/7+up8Ee6UQVdXDxQ==
+X-Received: by 2002:a2e:a60a:0:b0:253:dbf2:cf with SMTP id
+ v10-20020a2ea60a000000b00253dbf200cfmr18285606ljp.498.1653565966201; 
+ Thu, 26 May 2022 04:52:46 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ t4-20020a199104000000b0047255d211c8sm308410lfd.247.2022.05.26.04.52.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 May 2022 04:52:45 -0700 (PDT)
+Message-ID: <fbbb223b-c0cd-6cd9-ca1f-1c1ebaa5f6ce@linaro.org>
+Date: Thu, 26 May 2022 14:52:45 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>
+References: <b011d51d-d634-123e-bf5f-27219ee33151@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <b011d51d-d634-123e-bf5f-27219ee33151@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 14/31] drm/msm: Migrate to
- dev_pm_opp_set_config()
+Subject: Re: [Freedreno] [GIT PULL] drm/msm: drm-msm-fixes-2022-05-19
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,153 +73,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nishanth Menon <nm@ti.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- linux-pm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Rafael Wysocki <rjw@rjwysocki.net>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The OPP core now provides a unified API for setting all configuration
-types, i.e. dev_pm_opp_set_config().
+On 19/05/2022 19:21, Abhinav Kumar wrote:
+> Hi Rob
+> 
+> Here is the pull request for the fixes for 5.19.
+> 
+> Just a few more changes on top of msm-fixes-staging.
+> 
+> Mainly it has the foll fixes:
+> 
+> - Limiting WB modes to max sspp linewidth
+> - Fixing the supported rotations to add 180 back for IGT
+> - Fix to handle pm_runtime_get_sync() errors to avoid unclocked access
+>    in the bind() path for dpu driver
+> - Fix the irq_free() without request issue which was a big-time
+>    hitter in the CI-runs.
 
-Lets start using it.
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  8 ++++++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c   | 10 +++++-----
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  5 ++++-
- drivers/gpu/drm/msm/dp/dp_ctrl.c        |  5 ++++-
- drivers/gpu/drm/msm/dsi/dsi_host.c      |  5 ++++-
- 5 files changed, 23 insertions(+), 10 deletions(-)
+> 
+> Thanks
+> 
+> Abhinav
+> 
+> 
+> 
+> The following changes since commit 
+> 947a844bb3ebff0f4736d244d792ce129f6700d7:
+> 
+>    drm: msm: fix possible memory leak in mdp5_crtc_cursor_set() 
+> (2022-05-18 11:05:21 -0700)
+> 
+> are available in the git repository at:
+> 
+>    https://gitlab.freedesktop.org/abhinavk/msm.git/ 
+> tags/msm-next-5.19-fixes
+> 
+> for you to fetch changes up to 64b22a0da12adb571c01edd671ee43634ebd7e41:
+> 
+>    drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path 
+> (2022-05-18 18:32:03 -0700)
+> 
+> ----------------------------------------------------------------
+> 5.19 fixes for msm-next
+> 
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> 
+> ----------------------------------------------------------------
+> Abhinav Kumar (3):
+>        drm/msm/dpu: limit writeback modes according to max_linewidth
+>        drm/msm/dpu: add DRM_MODE_ROTATE_180 back to supported rotations
+>        drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path
+> 
+> Dmitry Baryshkov (1):
+>        drm/msm: don't free the IRQ if it was not requested
+> 
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 4 +++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 4 +++-
+>   drivers/gpu/drm/msm/msm_drv.c                 | 7 ++++++-
+>   drivers/gpu/drm/msm/msm_kms.h                 | 1 +
+>   5 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 407f50a15faa..c39fb085a762 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1728,10 +1728,14 @@ static void check_speed_bin(struct device *dev)
- {
- 	struct nvmem_cell *cell;
- 	u32 val;
-+	struct dev_pm_opp_config config = {
-+		.supported_hw = &val,
-+		.supported_hw_count = 1,
-+	};
- 
- 	/*
- 	 * If the OPP table specifies a opp-supported-hw property then we have
--	 * to set something with dev_pm_opp_set_supported_hw() or the table
-+	 * to set something with dev_pm_opp_set_config() or the table
- 	 * doesn't get populated so pick an arbitrary value that should
- 	 * ensure the default frequencies are selected but not conflict with any
- 	 * actual bins
-@@ -1753,7 +1757,7 @@ static void check_speed_bin(struct device *dev)
- 		nvmem_cell_put(cell);
- 	}
- 
--	devm_pm_opp_set_supported_hw(dev, &val, 1);
-+	devm_pm_opp_set_config(dev, &config);
- }
- 
- struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 83c31b2ad865..ddb2812b1ff7 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1805,6 +1805,10 @@ static int a6xx_set_supported_hw(struct device *dev, struct adreno_rev rev)
- 	u32 supp_hw = UINT_MAX;
- 	u32 speedbin;
- 	int ret;
-+	struct dev_pm_opp_config config = {
-+		.supported_hw = &supp_hw,
-+		.supported_hw_count = 1,
-+	};
- 
- 	ret = adreno_read_speedbin(dev, &speedbin);
- 	/*
-@@ -1823,11 +1827,7 @@ static int a6xx_set_supported_hw(struct device *dev, struct adreno_rev rev)
- 	supp_hw = fuse_to_supp_hw(dev, rev, speedbin);
- 
- done:
--	ret = devm_pm_opp_set_supported_hw(dev, &supp_hw, 1);
--	if (ret)
--		return ret;
--
--	return 0;
-+	return devm_pm_opp_set_config(dev, &config);
- }
- 
- static const struct adreno_gpu_funcs funcs = {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index e29796c4f27b..43f943fdfde5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -1203,12 +1203,15 @@ static int dpu_bind(struct device *dev, struct device *master, void *data)
- 	struct drm_device *ddev = priv->dev;
- 	struct dpu_kms *dpu_kms;
- 	int ret = 0;
-+	struct dev_pm_opp_config config = {
-+		.clk_name = "core",
-+	};
- 
- 	dpu_kms = devm_kzalloc(&pdev->dev, sizeof(*dpu_kms), GFP_KERNEL);
- 	if (!dpu_kms)
- 		return -ENOMEM;
- 
--	ret = devm_pm_opp_set_clkname(dev, "core");
-+	ret = devm_pm_opp_set_config(dev, &config);
- 	if (ret)
- 		return ret;
- 	/* OPP table is optional */
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 53568567e05b..54bdb33eef45 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1974,6 +1974,9 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
- {
- 	struct dp_ctrl_private *ctrl;
- 	int ret;
-+	struct dev_pm_opp_config config = {
-+		.clk_name = "ctrl_link",
-+	};
- 
- 	if (!dev || !panel || !aux ||
- 	    !link || !catalog) {
-@@ -1987,7 +1990,7 @@ struct dp_ctrl *dp_ctrl_get(struct device *dev, struct dp_link *link,
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	ret = devm_pm_opp_set_clkname(dev, "ctrl_link");
-+	ret = devm_pm_opp_set_config(dev, &config);
- 	if (ret) {
- 		dev_err(dev, "invalid DP OPP table in device tree\n");
- 		/* caller do PTR_ERR(opp_table) */
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index d51e70fab93d..7d5b027629d2 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1801,6 +1801,9 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 	struct msm_dsi_host *msm_host = NULL;
- 	struct platform_device *pdev = msm_dsi->pdev;
- 	int ret;
-+	struct dev_pm_opp_config config = {
-+		.clk_name = "byte",
-+	};
- 
- 	msm_host = devm_kzalloc(&pdev->dev, sizeof(*msm_host), GFP_KERNEL);
- 	if (!msm_host) {
-@@ -1862,7 +1865,7 @@ int msm_dsi_host_init(struct msm_dsi *msm_dsi)
- 		goto fail;
- 	}
- 
--	ret = devm_pm_opp_set_clkname(&pdev->dev, "byte");
-+	ret = devm_pm_opp_set_config(&pdev->dev, &config);
- 	if (ret)
- 		return ret;
- 	/* OPP table is optional */
+
 -- 
-2.31.1.272.g89b43f80a514
-
+With best wishes
+Dmitry
