@@ -1,43 +1,43 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C70A253545B
-	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 22:21:47 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 413C4535644
+	for <lists+freedreno@lfdr.de>; Fri, 27 May 2022 00:59:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C53A310E63B;
-	Thu, 26 May 2022 20:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC2F110EF7A;
+	Thu, 26 May 2022 22:59:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
  [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0F6B10E040;
- Thu, 26 May 2022 20:21:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5B3F10EE82;
+ Thu, 26 May 2022 22:59:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1653596502; x=1685132502;
+ t=1653605984; x=1685141984;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=0YnNU4czi+jE5eLiRiWNT5pmy7UdBCTqaC2/OhH6A/0=;
- b=aYH9cdaHWY9OePJOu0DCa95jmP+6VatN9jH97b7VMZifG/m8IwhGQ5lJ
- 8AT6/sZps33u9hWTokyE2A9TacUEkJo45j3XpGpmdw7Lw7Cb+alqwc2fQ
- oNPPb8H3YjiGVsx0p+44DfBT1UnTn1peq0hOxVN5fEpk0P7wnUEo7qVxZ A=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 26 May 2022 13:21:42 -0700
+ bh=EjlOLw6oLAfXK2hKbCs9hYy6HvUERt+vUOVFrzi8Lkk=;
+ b=ZgZIiY1ZZVY4KFvQ3Mi/indoT6S7rDfzqjih/U2i7tulTLRH4BLu3SC5
+ I7Tq9xhHYiVa4c2hkE1u5APVQL5jAK3I8mN4AqYROaNEo8nytqih1I2BM
+ TJCVY2fa+1lfGlWjdux/QNsMKL8UTLnqPpKpQo7OGrr+VE6U+9ucYCoLY s=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 26 May 2022 15:59:43 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2022 13:21:42 -0700
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 15:59:42 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 26 May 2022 13:21:41 -0700
+ 15.2.986.22; Thu, 26 May 2022 15:59:42 -0700
 Received: from [10.111.172.77] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 26 May
- 2022 13:21:39 -0700
-Message-ID: <cd66c7bf-78af-94c1-cc58-811790cfe991@quicinc.com>
-Date: Thu, 26 May 2022 13:21:36 -0700
+ 2022 15:59:40 -0700
+Message-ID: <bebe59d7-cb8d-5e34-919d-703d2b477d25@quicinc.com>
+Date: Thu, 26 May 2022 15:59:38 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
@@ -46,18 +46,16 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Bjorn Andersson
  <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>, Sean Paul
  <sean@poorly.run>
 References: <20220209172520.3719906-1-dmitry.baryshkov@linaro.org>
- <20220209172520.3719906-6-dmitry.baryshkov@linaro.org>
- <368f0587-2c34-034c-ee00-b41ab6d01f66@quicinc.com>
- <57a12232-e263-0dea-4b5b-c632613cb579@linaro.org>
+ <20220209172520.3719906-18-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <57a12232-e263-0dea-4b5b-c632613cb579@linaro.org>
+In-Reply-To: <20220209172520.3719906-18-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 05/25] drm/msm/dpu: move pipe_hw to
- dpu_plane_state
+Subject: Re: [Freedreno] [PATCH 17/25] drm/msm/dpu: drop src_split and
+ multirect check from dpu_crtc_atomic_check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,421 +76,273 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/13/2022 11:37 PM, Dmitry Baryshkov wrote:
-> On 04/05/2022 01:32, Abhinav Kumar wrote:
->>
->>
->> On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
->>> In preparation to adding fully virtualized planes, move struct
->>> dpu_hw_pipe instance from struct dpu_plane to struct dpu_plane_state, as
->>> it will become a part of state (allocated during atomic check) rather
->>> than part of a plane (allocated during boot).
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 104 ++++++++++++----------
->>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h |   2 +
->>>   2 files changed, 58 insertions(+), 48 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> index 37742f74a7bf..0247ff8a67a2 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
->>> @@ -100,7 +100,6 @@ struct dpu_plane {
->>>       enum dpu_sspp pipe;
->>> -    struct dpu_hw_pipe *pipe_hw;
->>>       uint32_t color_fill;
->>>       bool is_error;
->>>       bool is_rt_pipe;
->>> @@ -300,6 +299,7 @@ static void _dpu_plane_set_qos_lut(struct 
->>> drm_plane *plane,
->>>           struct drm_framebuffer *fb, struct dpu_hw_pipe_cfg *pipe_cfg)
->>>   {
->>>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>> +    struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->>>       const struct dpu_format *fmt = NULL;
->>>       u64 qos_lut;
->>>       u32 total_fl = 0, lut_usage;
->>> @@ -331,7 +331,7 @@ static void _dpu_plane_set_qos_lut(struct 
->>> drm_plane *plane,
->>>               fmt ? (char *)&fmt->base.pixel_format : NULL,
->>>               pdpu->is_rt_pipe, total_fl, qos_lut);
->>> -    pdpu->pipe_hw->ops.setup_creq_lut(pdpu->pipe_hw, qos_lut);
->>> +    pstate->pipe_hw->ops.setup_creq_lut(pstate->pipe_hw, qos_lut);
->>>   }
->>>   /**
->>> @@ -343,6 +343,7 @@ static void _dpu_plane_set_danger_lut(struct 
->>> drm_plane *plane,
->>>           struct drm_framebuffer *fb)
->>>   {
->>>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>> +    struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->>>       const struct dpu_format *fmt = NULL;
->>>       u32 danger_lut, safe_lut;
->>> @@ -382,7 +383,7 @@ static void _dpu_plane_set_danger_lut(struct 
->>> drm_plane *plane,
->>>           danger_lut,
->>>           safe_lut);
->>> -    pdpu->pipe_hw->ops.setup_danger_safe_lut(pdpu->pipe_hw,
->>> +    pstate->pipe_hw->ops.setup_danger_safe_lut(pstate->pipe_hw,
->>>               danger_lut, safe_lut);
->>>   }
->>> @@ -396,14 +397,15 @@ static void _dpu_plane_set_qos_ctrl(struct 
->>> drm_plane *plane,
->>>       bool enable, u32 flags)
->>>   {
->>>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>> +    struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->>>       struct dpu_hw_pipe_qos_cfg pipe_qos_cfg;
->>>       memset(&pipe_qos_cfg, 0, sizeof(pipe_qos_cfg));
->>>       if (flags & DPU_PLANE_QOS_VBLANK_CTRL) {
->>> -        pipe_qos_cfg.creq_vblank = 
->>> pdpu->pipe_hw->cap->sblk->creq_vblank;
->>> +        pipe_qos_cfg.creq_vblank = 
->>> pstate->pipe_hw->cap->sblk->creq_vblank;
->>>           pipe_qos_cfg.danger_vblank =
->>> -                pdpu->pipe_hw->cap->sblk->danger_vblank;
->>> +                pstate->pipe_hw->cap->sblk->danger_vblank;
->>>           pipe_qos_cfg.vblank_en = enable;
->>>       }
->>> @@ -429,7 +431,7 @@ static void _dpu_plane_set_qos_ctrl(struct 
->>> drm_plane *plane,
->>>           pipe_qos_cfg.danger_vblank,
->>>           pdpu->is_rt_pipe);
->>> -    pdpu->pipe_hw->ops.setup_qos_ctrl(pdpu->pipe_hw,
->>> +    pstate->pipe_hw->ops.setup_qos_ctrl(pstate->pipe_hw,
->>>               &pipe_qos_cfg);
->>>   }
->>> @@ -443,18 +445,19 @@ static void _dpu_plane_set_ot_limit(struct 
->>> drm_plane *plane,
->>>           struct drm_crtc *crtc, struct dpu_hw_pipe_cfg *pipe_cfg)
->>>   {
->>>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>> +    struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->>>       struct dpu_vbif_set_ot_params ot_params;
->>>       struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
->>>       memset(&ot_params, 0, sizeof(ot_params));
->>> -    ot_params.xin_id = pdpu->pipe_hw->cap->xin_id;
->>> -    ot_params.num = pdpu->pipe_hw->idx - SSPP_NONE;
->>> +    ot_params.xin_id = pstate->pipe_hw->cap->xin_id;
->>> +    ot_params.num = pstate->pipe_hw->idx - SSPP_NONE;
->>>       ot_params.width = drm_rect_width(&pipe_cfg->src_rect);
->>>       ot_params.height = drm_rect_height(&pipe_cfg->src_rect);
->>>       ot_params.is_wfd = !pdpu->is_rt_pipe;
->>>       ot_params.frame_rate = drm_mode_vrefresh(&crtc->mode);
->>>       ot_params.vbif_idx = VBIF_RT;
->>> -    ot_params.clk_ctrl = pdpu->pipe_hw->cap->clk_ctrl;
->>> +    ot_params.clk_ctrl = pstate->pipe_hw->cap->clk_ctrl;
->>>       ot_params.rd = true;
->>>       dpu_vbif_set_ot_limit(dpu_kms, &ot_params);
->>> @@ -467,14 +470,15 @@ static void _dpu_plane_set_ot_limit(struct 
->>> drm_plane *plane,
->>>   static void _dpu_plane_set_qos_remap(struct drm_plane *plane)
->>>   {
->>>       struct dpu_plane *pdpu = to_dpu_plane(plane);
->>> +    struct dpu_plane_state *pstate = to_dpu_plane_state(plane->state);
->>>       struct dpu_vbif_set_qos_params qos_params;
->>>       struct dpu_kms *dpu_kms = _dpu_plane_get_kms(plane);
->>>       memset(&qos_params, 0, sizeof(qos_params));
->>>       qos_params.vbif_idx = VBIF_RT;
->>> -    qos_params.clk_ctrl = pdpu->pipe_hw->cap->clk_ctrl;
->>> -    qos_params.xin_id = pdpu->pipe_hw->cap->xin_id;
->>> -    qos_params.num = pdpu->pipe_hw->idx - SSPP_VIG0;
->>> +    qos_params.clk_ctrl = pstate->pipe_hw->cap->clk_ctrl;
->>> +    qos_params.xin_id = pstate->pipe_hw->cap->xin_id;
->>> +    qos_params.num = pstate->pipe_hw->idx - SSPP_VIG0;
->>>       qos_params.is_rt = pdpu->is_rt_pipe;
->>>       DPU_DEBUG_PLANE(pdpu, "pipe:%d vbif:%d xin:%d rt:%d, 
->>> clk_ctrl:%d\n",
->>> @@ -501,11 +505,11 @@ static void _dpu_plane_set_scanout(struct 
->>> drm_plane *plane,
->>>           DPU_DEBUG_PLANE(pdpu, "not updating same src addrs\n");
->>>       else if (ret)
->>>           DPU_ERROR_PLANE(pdpu, "failed to get format layout, %d\n", 
->>> ret);
->>> -    else if (pdpu->pipe_hw->ops.setup_sourceaddress) {
->>> -        trace_dpu_plane_set_scanout(pdpu->pipe_hw->idx,
->>> +    else if (pstate->pipe_hw->ops.setup_sourceaddress) {
->>> +        trace_dpu_plane_set_scanout(pstate->pipe_hw->idx,
->>>                           &pipe_cfg->layout,
->>>                           pstate->multirect_index);
->>> -        pdpu->pipe_hw->ops.setup_sourceaddress(pdpu->pipe_hw, pipe_cfg,
->>> +        pstate->pipe_hw->ops.setup_sourceaddress(pstate->pipe_hw, 
->>> pipe_cfg,
->>>                           pstate->multirect_index);
->>>       }
->>>   }
->>> @@ -549,7 +553,7 @@ static void _dpu_plane_setup_scaler3(struct 
->>> dpu_plane *pdpu,
->>>               scale_cfg->src_height[i] /= chroma_subsmpl_v;
->>>           }
->>> -        if (pdpu->pipe_hw->cap->features &
->>> +        if (pstate->pipe_hw->cap->features &
->>>               BIT(DPU_SSPP_SCALER_QSEED4)) {
->>>               scale_cfg->preload_x[i] = DPU_QSEED4_DEFAULT_PRELOAD_H;
->>>               scale_cfg->preload_y[i] = DPU_QSEED4_DEFAULT_PRELOAD_V;
->>> @@ -609,6 +613,7 @@ static const struct dpu_csc_cfg 
->>> dpu_csc10_YUV2RGB_601L = {
->>>   static const struct dpu_csc_cfg *_dpu_plane_get_csc(struct 
->>> dpu_plane *pdpu, const struct dpu_format *fmt)
->>>   {
->>> +    struct dpu_plane_state *pstate = 
->>> to_dpu_plane_state(pdpu->base.state);
->>>       const struct dpu_csc_cfg *csc_ptr;
->>>       if (!pdpu) {
->>> @@ -619,7 +624,7 @@ static const struct dpu_csc_cfg 
->>> *_dpu_plane_get_csc(struct dpu_plane *pdpu, cons
->>>       if (!DPU_FORMAT_IS_YUV(fmt))
->>>           return NULL;
->>> -    if (BIT(DPU_SSPP_CSC_10BIT) & pdpu->pipe_hw->cap->features)
->>> +    if (BIT(DPU_SSPP_CSC_10BIT) & pstate->pipe_hw->cap->features)
->>>           csc_ptr = &dpu_csc10_YUV2RGB_601L;
->>>       else
->>>           csc_ptr = &dpu_csc_YUV2RGB_601L;
->>> @@ -654,8 +659,8 @@ static void _dpu_plane_setup_scaler(struct 
->>> dpu_plane *pdpu,
->>>               &scaler3_cfg, &pixel_ext, fmt,
->>>               info->hsub, info->vsub);
->>> -    if (pdpu->pipe_hw->ops.setup_pe)
->>> -        pdpu->pipe_hw->ops.setup_pe(pdpu->pipe_hw,
->>> +    if (pstate->pipe_hw->ops.setup_pe)
->>> +        pstate->pipe_hw->ops.setup_pe(pstate->pipe_hw,
->>>                   &pixel_ext);
->>>       /**
->>> @@ -663,9 +668,9 @@ static void _dpu_plane_setup_scaler(struct 
->>> dpu_plane *pdpu,
->>>        * bypassed. Still we need to update alpha and bitwidth
->>>        * ONLY for RECT0
->>>        */
->>> -    if (pdpu->pipe_hw->ops.setup_scaler &&
->>> +    if (pstate->pipe_hw->ops.setup_scaler &&
->>>               pstate->multirect_index != DPU_SSPP_RECT_1)
->>> -        pdpu->pipe_hw->ops.setup_scaler(pdpu->pipe_hw,
->>> +        pstate->pipe_hw->ops.setup_scaler(pstate->pipe_hw,
->>>                   pipe_cfg,
->>>                   &scaler3_cfg);
->>>   }
->>> @@ -694,8 +699,8 @@ static int _dpu_plane_color_fill(struct dpu_plane 
->>> *pdpu,
->>>       fmt = dpu_get_dpu_format(DRM_FORMAT_ABGR8888);
->>>       /* update sspp */
->>> -    if (fmt && pdpu->pipe_hw->ops.setup_solidfill) {
->>> -        pdpu->pipe_hw->ops.setup_solidfill(pdpu->pipe_hw,
->>> +    if (fmt && pstate->pipe_hw->ops.setup_solidfill) {
->>> +        pstate->pipe_hw->ops.setup_solidfill(pstate->pipe_hw,
->>>                   (color & 0xFFFFFF) | ((alpha & 0xFF) << 24),
->>>                   pstate->multirect_index);
->>> @@ -709,13 +714,13 @@ static int _dpu_plane_color_fill(struct 
->>> dpu_plane *pdpu,
->>>           pipe_cfg.src_rect.y2 =
->>>               drm_rect_height(&pipe_cfg.dst_rect);
->>> -        if (pdpu->pipe_hw->ops.setup_format)
->>> -            pdpu->pipe_hw->ops.setup_format(pdpu->pipe_hw,
->>> +        if (pstate->pipe_hw->ops.setup_format)
->>> +            pstate->pipe_hw->ops.setup_format(pstate->pipe_hw,
->>>                       fmt, DPU_SSPP_SOLID_FILL,
->>>                       pstate->multirect_index);
->>> -        if (pdpu->pipe_hw->ops.setup_rects)
->>> -            pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
->>> +        if (pstate->pipe_hw->ops.setup_rects)
->>> +            pstate->pipe_hw->ops.setup_rects(pstate->pipe_hw,
->>>                       &pipe_cfg,
->>>                       pstate->multirect_index);
->>> @@ -953,10 +958,10 @@ static int dpu_plane_atomic_check(struct 
->>> drm_plane *plane,
->>>           crtc_state = drm_atomic_get_new_crtc_state(state,
->>>                                  new_plane_state->crtc);
->>> -    min_scale = FRAC_16_16(1, pdpu->pipe_hw->cap->sblk->maxupscale);
->>> +    min_scale = FRAC_16_16(1, pstate->pipe_hw->cap->sblk->maxupscale);
->>>       ret = drm_atomic_helper_check_plane_state(new_plane_state, 
->>> crtc_state,
->>>                             min_scale,
->>> -                          pdpu->pipe_hw->cap->sblk->maxdwnscale << 16,
->>> +                          pstate->pipe_hw->cap->sblk->maxdwnscale << 
->>> 16,
->>>                             true, true);
->>>       if (ret) {
->>>           DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
->>> @@ -982,8 +987,8 @@ static int dpu_plane_atomic_check(struct 
->>> drm_plane *plane,
->>>       min_src_size = DPU_FORMAT_IS_YUV(fmt) ? 2 : 1;
->>>       if (DPU_FORMAT_IS_YUV(fmt) &&
->>> -        (!(pdpu->pipe_hw->cap->features & DPU_SSPP_SCALER) ||
->>> -         !(pdpu->pipe_hw->cap->features & DPU_SSPP_CSC_ANY))) {
->>> +        (!(pstate->pipe_hw->cap->features & DPU_SSPP_SCALER) ||
->>> +         !(pstate->pipe_hw->cap->features & DPU_SSPP_CSC_ANY))) {
->>>           DPU_DEBUG_PLANE(pdpu,
->>>                   "plane doesn't have scaler/csc for yuv\n");
->>>           return -EINVAL;
->>> @@ -1044,12 +1049,12 @@ void dpu_plane_flush(struct drm_plane *plane)
->>>       else if (pdpu->color_fill & DPU_PLANE_COLOR_FILL_FLAG)
->>>           /* force 100% alpha */
->>>           _dpu_plane_color_fill(pdpu, pdpu->color_fill, 0xFF);
->>> -    else if (pdpu->pipe_hw && pdpu->pipe_hw->ops.setup_csc) {
->>> +    else if (pstate->pipe_hw && pstate->pipe_hw->ops.setup_csc) {
->>>           const struct dpu_format *fmt = 
->>> to_dpu_format(msm_framebuffer_format(plane->state->fb));
->>>           const struct dpu_csc_cfg *csc_ptr = 
->>> _dpu_plane_get_csc(pdpu, fmt);
->>>           if (csc_ptr)
->>> -            pdpu->pipe_hw->ops.setup_csc(pdpu->pipe_hw, csc_ptr);
->>> +            pstate->pipe_hw->ops.setup_csc(pstate->pipe_hw, csc_ptr);
->>>       }
->>>       /* flag h/w flush complete */
->>> @@ -1116,21 +1121,21 @@ static void 
->>> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->>>           return;
->>>       }
->>> -    if (pdpu->pipe_hw->ops.setup_rects) {
->>> -        pdpu->pipe_hw->ops.setup_rects(pdpu->pipe_hw,
->>> +    if (pstate->pipe_hw->ops.setup_rects) {
->>> +        pstate->pipe_hw->ops.setup_rects(pstate->pipe_hw,
->>>                   &pipe_cfg,
->>>                   pstate->multirect_index);
->>>       }
->>>       _dpu_plane_setup_scaler(pdpu, pstate, fmt, false, &pipe_cfg);
->>> -    if (pdpu->pipe_hw->ops.setup_multirect)
->>> -        pdpu->pipe_hw->ops.setup_multirect(
->>> -                pdpu->pipe_hw,
->>> +    if (pstate->pipe_hw->ops.setup_multirect)
->>> +        pstate->pipe_hw->ops.setup_multirect(
->>> +                pstate->pipe_hw,
->>>                   pstate->multirect_index,
->>>                   pstate->multirect_mode);
->>> -    if (pdpu->pipe_hw->ops.setup_format) {
->>> +    if (pstate->pipe_hw->ops.setup_format) {
->>>           unsigned int rotation;
->>>           src_flags = 0x0;
->>> @@ -1147,10 +1152,10 @@ static void 
->>> dpu_plane_sspp_atomic_update(struct drm_plane *plane)
->>>               src_flags |= DPU_SSPP_FLIP_UD;
->>>           /* update format */
->>> -        pdpu->pipe_hw->ops.setup_format(pdpu->pipe_hw, fmt, src_flags,
->>> +        pstate->pipe_hw->ops.setup_format(pstate->pipe_hw, fmt, 
->>> src_flags,
->>>                   pstate->multirect_index);
->>> -        if (pdpu->pipe_hw->ops.setup_cdp) {
->>> +        if (pstate->pipe_hw->ops.setup_cdp) {
->>>               struct dpu_hw_pipe_cdp_cfg cdp_cfg;
->>>               memset(&cdp_cfg, 0, sizeof(struct dpu_hw_pipe_cdp_cfg));
->>> @@ -1164,7 +1169,7 @@ static void dpu_plane_sspp_atomic_update(struct 
->>> drm_plane *plane)
->>>                       DPU_FORMAT_IS_TILE(fmt);
->>>               cdp_cfg.preload_ahead = DPU_SSPP_CDP_PRELOAD_AHEAD_64;
->>> -            pdpu->pipe_hw->ops.setup_cdp(pdpu->pipe_hw, &cdp_cfg, 
->>> pstate->multirect_index);
->>> +            pstate->pipe_hw->ops.setup_cdp(pstate->pipe_hw, 
->>> &cdp_cfg, pstate->multirect_index);
->>>           }
->>>       }
->>> @@ -1310,10 +1315,9 @@ static void 
->>> dpu_plane_atomic_print_state(struct drm_printer *p,
->>>           const struct drm_plane_state *state)
->>>   {
->>>       const struct dpu_plane_state *pstate = to_dpu_plane_state(state);
->>> -    const struct dpu_plane *pdpu = to_dpu_plane(state->plane);
->>>       drm_printf(p, "\tstage=%d\n", pstate->stage);
->>> -    drm_printf(p, "\tsspp=%s\n", pdpu->pipe_hw->cap->name);
->>> +    drm_printf(p, "\tsspp=%s\n", pstate->pipe_hw->cap->name);
->>>       drm_printf(p, "\tmultirect_mode=%s\n", 
->>> dpu_get_multirect_mode(pstate->multirect_mode));
->>>       drm_printf(p, "\tmultirect_index=%s\n", 
->>> dpu_get_multirect_index(pstate->multirect_index));
->>>   }
->>> @@ -1322,6 +1326,7 @@ static void dpu_plane_reset(struct drm_plane 
->>> *plane)
->>>   {
->>>       struct dpu_plane *pdpu;
->>>       struct dpu_plane_state *pstate;
->>> +    struct dpu_kms *kms = _dpu_plane_get_kms(plane);
->>>       if (!plane) {
->>>           DPU_ERROR("invalid plane\n");
->>> @@ -1343,6 +1348,8 @@ static void dpu_plane_reset(struct drm_plane 
->>> *plane)
->>>           return;
->>>       }
->>> +    pstate->pipe_hw = to_dpu_hw_pipe(kms->rm.sspp_blks[pdpu->pipe - 
->>> SSPP_NONE]);
->>> +
->>>       __drm_atomic_helper_plane_reset(plane, &pstate->base);
->>>   }
->>> @@ -1411,6 +1418,7 @@ struct drm_plane *dpu_plane_init(struct 
->>> drm_device *dev,
->>>       struct dpu_plane *pdpu;
->>>       struct msm_drm_private *priv = dev->dev_private;
->>>       struct dpu_kms *kms = to_dpu_kms(priv->kms);
->>> +    struct dpu_hw_pipe *pipe_hw;
->>>       uint32_t num_formats;
->>>       int ret = -EINVAL;
->>> @@ -1429,15 +1437,15 @@ struct drm_plane *dpu_plane_init(struct 
->>> drm_device *dev,
->>>       /* initialize underlying h/w driver */
->>>       if (!kms->rm.sspp_blks[pipe - SSPP_NONE])
->>>           goto clean_plane;
->>> -    pdpu->pipe_hw = to_dpu_hw_pipe(kms->rm.sspp_blks[pipe - 
->>> SSPP_NONE]);
->>> +    pipe_hw = to_dpu_hw_pipe(kms->rm.sspp_blks[pipe - SSPP_NONE]);
->>> -    if (!pdpu->pipe_hw->cap || !pdpu->pipe_hw->cap->sblk) {
->>> +    if (!pipe_hw->cap || !pipe_hw->cap->sblk) {
->>>           DPU_ERROR("[%u]SSPP init returned invalid cfg\n", pipe);
->>>           goto clean_plane;
->>>       }
->>> -    format_list = pdpu->pipe_hw->cap->sblk->format_list;
->>> -    num_formats = pdpu->pipe_hw->cap->sblk->num_formats;
->>> +    format_list = pipe_hw->cap->sblk->format_list;
->>> +    num_formats = pipe_hw->cap->sblk->num_formats;
->>>       ret = drm_universal_plane_init(dev, plane, 0xff, &dpu_plane_funcs,
->>>                   format_list, num_formats,
->>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h 
->>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>> index d2f60810434e..42b88b6bc9c2 100644
->>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.h
->>> @@ -35,6 +35,8 @@ struct dpu_plane_state {
->>>       uint32_t multirect_mode;
->>>       bool pending;
->>> +    struct dpu_hw_pipe *pipe_hw;
->>
->> now that pipe_hw has been made part of the dpu_plane_state, it means
->> that it can also change with atomic state.
->>
->> In this change, I can see you update this only in dpu_plane_reset() 
->> which will be invoked during the drm_mode_config_reset().
->>
->> Should this pipe_hw assignment be moved to the 
->> dpu_plane_atomic_update() function?
+On 2/9/2022 9:25 AM, Dmitry Baryshkov wrote:
+> Neither source split nor multirect are properly supported at this
+> moment. Both of these checks depend on normalized_zpos being equal for
+> several planes (which is never the case for normalized zpos).
+> Drop these checks to simplify dpu_crtc_atomic_check(). The actual
+> support for either of these features is not removed from the backend
+> code (sspp, ctl, etc).
 > 
-> 
-> dpu_plane_atomic_update() is too late for the assignment.  Probably you 
-> meane dpu_plane_atomic_check(). However in this change I didn't want to 
-> change the logic of the code. Previously pipe_hw was available at all 
-> the times. With this change I also want to make it available at all the 
-> times, which means resetting it in the _reset() function. It will be 
-> moved to atomic_check() later, in the virtual planes series.
-> 
-> Probably I should do two changes for the v2:
-> - Use inline helper insted of hardcoding kms->rm.sspp_blks[pipe - 
-> SSPP_NONE] everywhere
-> - Add the text above as a comment to the assignment in the _reset() 
-> function.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Yes, my first concern was that dpu_plane_reset() is to reset the state 
-so using it to assign the pipe_hw seemed a little strange to me in terms 
-of location.
+This is true that current implementation of these features is not really 
+compatible with any of the existing opensource compositors.
 
-So I think leaving a comment that after virtual planes, this location 
-will be changed will make it more clear.
+Till we have a better way to utilize this, I am okay to drop this code.
 
-Thanks
+When we do re-visit this implementation especially for src split, 
+atleast we have a reference of this PW link of what has been removed and 
+can take it from there.
 
-Abhinav
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 166 ++---------------------
+>   1 file changed, 12 insertions(+), 154 deletions(-)
 > 
->>
->>> +
->>>       u64 plane_fetch_bw;
->>>       u64 plane_clk;
->>>   };
-> 
-> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index 751c64012058..cbd0e50c2bd3 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1046,13 +1046,6 @@ static void dpu_crtc_enable(struct drm_crtc *crtc,
+>   	drm_crtc_vblank_on(crtc);
+>   }
+>   
+> -struct plane_state {
+> -	struct dpu_plane_state *dpu_pstate;
+> -	const struct drm_plane_state *drm_pstate;
+> -	int stage;
+> -	u32 pipe_id;
+> -};
+> -
+>   static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   		struct drm_atomic_state *state)
+>   {
+> @@ -1060,28 +1053,21 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   									  crtc);
+>   	struct dpu_crtc *dpu_crtc = to_dpu_crtc(crtc);
+>   	struct dpu_crtc_state *cstate = to_dpu_crtc_state(crtc_state);
+> -	struct plane_state *pstates;
+>   
+>   	const struct drm_plane_state *pstate;
+>   	struct drm_plane *plane;
+>   	struct drm_display_mode *mode;
+>   
+> -	int cnt = 0, rc = 0, mixer_width = 0, i, z_pos;
+> +	int rc = 0;
+>   
+> -	struct dpu_multirect_plane_states multirect_plane[DPU_STAGE_MAX * 2];
+> -	int multirect_count = 0;
+> -	const struct drm_plane_state *pipe_staged[SSPP_MAX];
+> -	int left_zpos_cnt = 0, right_zpos_cnt = 0;
+>   	struct drm_rect crtc_rect = { 0 };
+>   
+> -	pstates = kzalloc(sizeof(*pstates) * DPU_STAGE_MAX * 4, GFP_KERNEL);
+> -
+>   	if (!crtc_state->enable || !crtc_state->active) {
+>   		DRM_DEBUG_ATOMIC("crtc%d -> enable %d, active %d, skip atomic_check\n",
+>   				crtc->base.id, crtc_state->enable,
+>   				crtc_state->active);
+>   		memset(&cstate->new_perf, 0, sizeof(cstate->new_perf));
+> -		goto end;
+> +		return 0;
+>   	}
+>   
+>   	mode = &crtc_state->adjusted_mode;
+> @@ -1091,13 +1077,8 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   	if (crtc_state->active_changed)
+>   		crtc_state->mode_changed = true;
+>   
+> -	memset(pipe_staged, 0, sizeof(pipe_staged));
+> -
+> -	if (cstate->num_mixers) {
+> -		mixer_width = mode->hdisplay / cstate->num_mixers;
+> -
+> +	if (cstate->num_mixers)
+>   		_dpu_crtc_setup_lm_bounds(crtc, crtc_state);
+> -	}
+>   
+>   	crtc_rect.x2 = mode->hdisplay;
+>   	crtc_rect.y2 = mode->vdisplay;
+> @@ -1105,33 +1086,16 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   	 /* get plane state for all drm planes associated with crtc state */
+>   	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
+>   		struct drm_rect dst, clip = crtc_rect;
+> +		int z_pos;
+>   
+>   		if (IS_ERR_OR_NULL(pstate)) {
+>   			rc = PTR_ERR(pstate);
+>   			DPU_ERROR("%s: failed to get plane%d state, %d\n",
+>   					dpu_crtc->name, plane->base.id, rc);
+> -			goto end;
+> -		}
+> -		if (cnt >= DPU_STAGE_MAX * 4)
+> -			continue;
+> -
+> -		pstates[cnt].dpu_pstate = to_dpu_plane_state(pstate);
+> -		pstates[cnt].drm_pstate = pstate;
+> -		pstates[cnt].stage = pstate->normalized_zpos;
+> -		pstates[cnt].pipe_id = to_dpu_plane_state(pstate)->pipe.sspp->idx;
+> -
+> -		if (pipe_staged[pstates[cnt].pipe_id]) {
+> -			multirect_plane[multirect_count].r0 =
+> -				pipe_staged[pstates[cnt].pipe_id];
+> -			multirect_plane[multirect_count].r1 = pstate;
+> -			multirect_count++;
+> -
+> -			pipe_staged[pstates[cnt].pipe_id] = NULL;
+> -		} else {
+> -			pipe_staged[pstates[cnt].pipe_id] = pstate;
+> +			return rc;
+>   		}
+>   
+> -		cnt++;
+> +		dpu_plane_clear_multirect(pstate);
+>   
+>   		dst = drm_plane_state_dest(pstate);
+>   		if (!drm_rect_intersect(&clip, &dst)) {
+> @@ -1139,63 +1103,21 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   			DPU_ERROR("display: " DRM_RECT_FMT " plane: "
+>   				  DRM_RECT_FMT "\n", DRM_RECT_ARG(&crtc_rect),
+>   				  DRM_RECT_ARG(&dst));
+> -			rc = -E2BIG;
+> -			goto end;
+> +			return -E2BIG;
+>   		}
+> -	}
+> -
+> -	for (i = 1; i < SSPP_MAX; i++) {
+> -		if (pipe_staged[i])
+> -			dpu_plane_clear_multirect(pipe_staged[i]);
+> -	}
+>   
+> -	z_pos = -1;
+> -	for (i = 0; i < cnt; i++) {
+> -		/* reset counts at every new blend stage */
+> -		if (pstates[i].stage != z_pos) {
+> -			left_zpos_cnt = 0;
+> -			right_zpos_cnt = 0;
+> -			z_pos = pstates[i].stage;
+> -		}
+> +		z_pos = pstate->normalized_zpos;
+>   
+>   		/* verify z_pos setting before using it */
+>   		if (z_pos >= DPU_STAGE_MAX - DPU_STAGE_0) {
+>   			DPU_ERROR("> %d plane stages assigned\n",
+>   					DPU_STAGE_MAX - DPU_STAGE_0);
+> -			rc = -EINVAL;
+> -			goto end;
+> -		} else if (pstates[i].drm_pstate->crtc_x < mixer_width) {
+> -			if (left_zpos_cnt == 2) {
+> -				DPU_ERROR("> 2 planes @ stage %d on left\n",
+> -					z_pos);
+> -				rc = -EINVAL;
+> -				goto end;
+> -			}
+> -			left_zpos_cnt++;
+> -
+> -		} else {
+> -			if (right_zpos_cnt == 2) {
+> -				DPU_ERROR("> 2 planes @ stage %d on right\n",
+> -					z_pos);
+> -				rc = -EINVAL;
+> -				goto end;
+> -			}
+> -			right_zpos_cnt++;
+> +			return -EINVAL;
+>   		}
+>   
+> -		pstates[i].dpu_pstate->stage = z_pos + DPU_STAGE_0;
+> +		to_dpu_plane_state(pstate)->stage = z_pos + DPU_STAGE_0;
+>   		DRM_DEBUG_ATOMIC("%s: zpos %d\n", dpu_crtc->name, z_pos);
+> -	}
+>   
+> -	for (i = 0; i < multirect_count; i++) {
+> -		if (dpu_plane_validate_multirect_v2(&multirect_plane[i])) {
+> -			DPU_ERROR(
+> -			"multirect validation failed for planes (%d - %d)\n",
+> -					multirect_plane[i].r0->plane->base.id,
+> -					multirect_plane[i].r1->plane->base.id);
+> -			rc = -EINVAL;
+> -			goto end;
+> -		}
+>   	}
+>   
+>   	atomic_inc(&_dpu_crtc_get_kms(crtc)->bandwidth_ref);
+> @@ -1204,74 +1126,10 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+>   	if (rc) {
+>   		DPU_ERROR("crtc%d failed performance check %d\n",
+>   				crtc->base.id, rc);
+> -		goto end;
+> -	}
+> -
+> -	/* validate source split:
+> -	 * use pstates sorted by stage to check planes on same stage
+> -	 * we assume that all pipes are in source split so its valid to compare
+> -	 * without taking into account left/right mixer placement
+> -	 */
+> -	for (i = 1; i < cnt; i++) {
+> -		struct plane_state *prv_pstate, *cur_pstate;
+> -		struct drm_rect left_rect, right_rect;
+> -		int32_t left_pid, right_pid;
+> -		int32_t stage;
+> -
+> -		prv_pstate = &pstates[i - 1];
+> -		cur_pstate = &pstates[i];
+> -		if (prv_pstate->stage != cur_pstate->stage)
+> -			continue;
+> -
+> -		stage = cur_pstate->stage;
+> -
+> -		left_pid = prv_pstate->dpu_pstate->base.plane->base.id;
+> -		left_rect = drm_plane_state_dest(prv_pstate->drm_pstate);
+> -
+> -		right_pid = cur_pstate->dpu_pstate->base.plane->base.id;
+> -		right_rect = drm_plane_state_dest(cur_pstate->drm_pstate);
+> -
+> -		if (right_rect.x1 < left_rect.x1) {
+> -			swap(left_pid, right_pid);
+> -			swap(left_rect, right_rect);
+> -		}
+> -
+> -		/**
+> -		 * - planes are enumerated in pipe-priority order such that
+> -		 *   planes with lower drm_id must be left-most in a shared
+> -		 *   blend-stage when using source split.
+> -		 * - planes in source split must be contiguous in width
+> -		 * - planes in source split must have same dest yoff and height
+> -		 */
+> -		if (right_pid < left_pid) {
+> -			DPU_ERROR(
+> -				"invalid src split cfg. priority mismatch. stage: %d left: %d right: %d\n",
+> -				stage, left_pid, right_pid);
+> -			rc = -EINVAL;
+> -			goto end;
+> -		} else if (right_rect.x1 != drm_rect_width(&left_rect)) {
+> -			DPU_ERROR("non-contiguous coordinates for src split. "
+> -				  "stage: %d left: " DRM_RECT_FMT " right: "
+> -				  DRM_RECT_FMT "\n", stage,
+> -				  DRM_RECT_ARG(&left_rect),
+> -				  DRM_RECT_ARG(&right_rect));
+> -			rc = -EINVAL;
+> -			goto end;
+> -		} else if (left_rect.y1 != right_rect.y1 ||
+> -			   drm_rect_height(&left_rect) != drm_rect_height(&right_rect)) {
+> -			DPU_ERROR("source split at stage: %d. invalid "
+> -				  "yoff/height: left: " DRM_RECT_FMT " right: "
+> -				  DRM_RECT_FMT "\n", stage,
+> -				  DRM_RECT_ARG(&left_rect),
+> -				  DRM_RECT_ARG(&right_rect));
+> -			rc = -EINVAL;
+> -			goto end;
+> -		}
+> +		return rc;
+>   	}
+>   
+> -end:
+> -	kfree(pstates);
+> -	return rc;
+> +	return 0;
+>   }
+>   
+>   int dpu_crtc_vblank(struct drm_crtc *crtc, bool en)
