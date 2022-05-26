@@ -2,65 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2468534E9E
-	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 13:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C99534FE6
+	for <lists+freedreno@lfdr.de>; Thu, 26 May 2022 15:29:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59DBB10E0B7;
-	Thu, 26 May 2022 11:52:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B916510F3AB;
+	Thu, 26 May 2022 13:29:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29FDD10E083
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 11:52:48 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id q1so1499375ljb.5
- for <freedreno@lists.freedesktop.org>; Thu, 26 May 2022 04:52:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=MVQ54/b1Bl5zWRXm8QvTFiSCRNNAIcNHd+D1lpI9ZC4=;
- b=UmO31J8nUxjp24jXb9Co3KN+CJRVqgMArHtMvcSuJO9jKWXYfcw9VbrPq5AxzeSKve
- XwfqJ/YWWzlM15YQ7L2Ar4pTSJS8dStrVzFwMFmeJMwAmPVRdVZIWB7lXBbtMiRV/L8u
- 29u8sVAXQFS16oufZNyiAaly3L2FSIJ1ztnAN8iBfmvpauGpqCbbqKEzm/2gYtzrNU6T
- 8zgAjq7HS3lwy70SilPNTgXtbtFb/g0QQ3CWw0wjAWNdSVwWw05wn4fSVjMrCMyN+SZ/
- /WUfUezYDuuF7PU0JAQylw8BVe3pxpyp/5CEh9LrIjr7sHcFRJTrpqgKZsPsaeHdQa4h
- dxNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=MVQ54/b1Bl5zWRXm8QvTFiSCRNNAIcNHd+D1lpI9ZC4=;
- b=EWaCAO4u3hYU4tGNpsuJuhEp6BGS831Axvp8kEnJkrz7hBmp5xTvDbesB4cs9TnQQn
- Rx1BhYqfB0vHrXB4mN6w1HzjgDE16u9mnf2lW1m3VtaQdixjqfMhkGuKei6KLIP0OGWV
- he0ntCG22vPDC4zMq25STyICXx6sOscV7ixXv4d9a9rwbgDpDSYC/vBzY45d4M1a6fPP
- FeaWaUA389pC89EDzDEbe69bRbkJXoMEk57AEgPjQ4vZLSRrwVLMzP34ctEm80FhQPIj
- wH02XTNbMs0nzb9n9np7L47ls5MF3OUrMIQJG4awTZ/M9rw6GbmLYiv6WYnRH3Jt6z15
- SSEw==
-X-Gm-Message-State: AOAM533EfOv2/4h6z+g55sr4OlBMJlUxVL0arCzqNr81JzxFoIEkEi9p
- ObJBD4IsQj7pwRc/p/p/945U/A==
-X-Google-Smtp-Source: ABdhPJztaBE9q35bXW9bdbc3Uh0AoR+2BUwqLHJO3rjZrvvCaUtOnyrtI6FYp/7+up8Ee6UQVdXDxQ==
-X-Received: by 2002:a2e:a60a:0:b0:253:dbf2:cf with SMTP id
- v10-20020a2ea60a000000b00253dbf200cfmr18285606ljp.498.1653565966201; 
- Thu, 26 May 2022 04:52:46 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- t4-20020a199104000000b0047255d211c8sm308410lfd.247.2022.05.26.04.52.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 May 2022 04:52:45 -0700 (PDT)
-Message-ID: <fbbb223b-c0cd-6cd9-ca1f-1c1ebaa5f6ce@linaro.org>
-Date: Thu, 26 May 2022 14:52:45 +0300
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3312E10F34F;
+ Thu, 26 May 2022 13:29:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653571771; x=1685107771;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=CDg+TGx7gGRdWVAZ8Gvb9aIHZ73vJ+er6cK1qLaQP4E=;
+ b=XQHfOv22o/Q5qLrIVQbXGST8esK95iLchxgrM50O4J4p6tyfvNDzphbX
+ ptSecML8khhaEcmNZcMef2Ugq3/dVqBrZEKMclayhIc88W9ouSVQu17O9
+ syxpXKg9YQ/OMm0XSJBWkyvVhmE/Hxu3sbQlmquJQ32b2ijz7J8BkE3jg
+ QX3MP9YSTDs9pULukthP4x4pP4MpMd20milD2Eg6O5WiWd71548HiB9qf
+ Cxh0vSiU5LfF4AGTpHpsf5QWNUHH5DVLi76j8qiNTIwpfbnx6+K4LYClp
+ D58mypz05xFHbAjWI08ifbZtshRgNzbjEGabWBbuLSghNHLJkPQykkgXR w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10358"; a="256221169"
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="256221169"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 06:29:29 -0700
+X-IronPort-AV: E=Sophos;i="5.91,252,1647327600"; d="scan'208";a="664938350"
+Received: from tkinch-mobl.ger.corp.intel.com (HELO [10.213.214.182])
+ ([10.213.214.182])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 06:29:26 -0700
+Message-ID: <d15cccd3-4b77-992e-23f7-0c4808592a9f@linux.intel.com>
+Date: Thu, 26 May 2022 14:29:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>
-References: <b011d51d-d634-123e-bf5f-27219ee33151@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <b011d51d-d634-123e-bf5f-27219ee33151@quicinc.com>
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
+References: <20210728010632.2633470-1-robdclark@gmail.com>
+ <20210728010632.2633470-13-robdclark@gmail.com>
+ <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
+ <CAJs_Fx6Nc337LPNh=p2GT2d2yDTdLWH934o4Cof3urDGhUJB6A@mail.gmail.com>
+ <904ae104-1c30-d130-129f-ccae381261d5@linux.intel.com>
+ <CAF6AEGuVhXuX63Od+kcJ0QtfAZ2-wqZsN0KOuEzKbivJdouzog@mail.gmail.com>
+ <1972f50b-d71a-9e2e-d10b-cc4f13bb208f@linux.intel.com>
+ <CAF6AEGsvmQYjzoFgEMTer3oDmb62y2Hq_unDbq2UEoZ6CA3CSw@mail.gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <CAF6AEGsvmQYjzoFgEMTer3oDmb62y2Hq_unDbq2UEoZ6CA3CSw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [GIT PULL] drm/msm: drm-msm-fixes-2022-05-19
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v4 12/13] drm/msm: Utilize gpu scheduler
+ priorities
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,78 +68,128 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+Cc: Rob Clark <robdclark@chromium.org>,
+ Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
  "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ Sharat Masetty <smasetty@codeaurora.org>,
+ Akhil P Oommen <akhilpo@codeaurora.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 19/05/2022 19:21, Abhinav Kumar wrote:
-> Hi Rob
-> 
-> Here is the pull request for the fixes for 5.19.
-> 
-> Just a few more changes on top of msm-fixes-staging.
-> 
-> Mainly it has the foll fixes:
-> 
-> - Limiting WB modes to max sspp linewidth
-> - Fixing the supported rotations to add 180 back for IGT
-> - Fix to handle pm_runtime_get_sync() errors to avoid unclocked access
->    in the bind() path for dpu driver
-> - Fix the irq_free() without request issue which was a big-time
->    hitter in the CI-runs.
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+On 26/05/2022 04:15, Rob Clark wrote:
+> On Wed, May 25, 2022 at 9:11 AM Tvrtko Ursulin
+> <tvrtko.ursulin@linux.intel.com> wrote:
+>>
+>>
+>> On 24/05/2022 15:57, Rob Clark wrote:
+>>> On Tue, May 24, 2022 at 6:45 AM Tvrtko Ursulin
+>>> <tvrtko.ursulin@linux.intel.com> wrote:
+>>>>
+>>>> On 23/05/2022 23:53, Rob Clark wrote:
+>>>>>
+>>>>> btw, one fun (but unrelated) issue I'm hitting with scheduler... I'm
+>>>>> trying to add an igt test to stress shrinker/eviction, similar to the
+>>>>> existing tests/i915/gem_shrink.c.  But we hit an unfortunate
+>>>>> combination of circumstances:
+>>>>> 1. Pinning memory happens in the synchronous part of the submit ioctl,
+>>>>> before enqueuing the job for the kthread to handle.
+>>>>> 2. The first run_job() callback incurs a slight delay (~1.5ms) while
+>>>>> resuming the GPU
+>>>>> 3. Because of that delay, userspace has a chance to queue up enough
+>>>>> more jobs to require locking/pinning more than the available system
+>>>>> RAM..
+>>>>
+>>>> Is that one or multiple threads submitting jobs?
+>>>
+>>> In this case multiple.. but I think it could also happen with a single
+>>> thread (provided it didn't stall on a fence, directly or indirectly,
+>>> from an earlier submit), because of how resume and actual job
+>>> submission happens from scheduler kthread.
+>>>
+>>>>> I'm not sure if we want a way to prevent userspace from getting *too*
+>>>>> far ahead of the kthread.  Or maybe at some point the shrinker should
+>>>>> sleep on non-idle buffers?
+>>>>
+>>>> On the direct reclaim path when invoked from the submit ioctl? In i915
+>>>> we only shrink idle objects on direct reclaim and leave active ones for
+>>>> the swapper. It depends on how your locking looks like whether you could
+>>>> do them, whether there would be coupling of locks and fs-reclaim context.
+>>>
+>>> I think the locking is more or less ok, although lockdep is unhappy
+>>> about one thing[1] which is I think a false warning (ie. not
+>>> recognizing that we'd already successfully acquired the obj lock via
+>>> trylock).  We can already reclaim idle bo's in this path.  But the
+>>> problem with a bunch of submits queued up in the scheduler, is that
+>>> they are already considered pinned and active.  So at some point we
+>>> need to sleep (hopefully interruptabley) until they are no longer
+>>> active, ie. to throttle userspace trying to shove in more submits
+>>> until some of the enqueued ones have a chance to run and complete.
+>>
+>> Odd I did not think trylock could trigger that. Looking at your code it
+>> indeed seems two trylocks. I am pretty sure we use the same trylock
+>> trick to avoid it. I am confused..
+> 
+> The sequence is,
+> 
+> 1. kref_get_unless_zero()
+> 2. trylock, which succeeds
+> 3. attempt to evict or purge (which may or may not have succeeded)
+> 4. unlock
+> 
+>   ... meanwhile this has raced with submit (aka execbuf) finishing and
+> retiring and dropping *other* remaining reference to bo...
+> 
+> 5. drm_gem_object_put() which triggers drm_gem_object_free()
+> 6. in our free path we acquire the obj lock again and then drop it.
+> Which arguably is unnecessary and only serves to satisfy some
+> GEM_WARN_ON(!msm_gem_is_locked(obj)) in code paths that are also used
+> elsewhere
+> 
+> lockdep doesn't realize the previously successful trylock+unlock
+> sequence so it assumes that the code that triggered recursion into
+> shrinker could be holding the objects lock.
 
-> 
-> Thanks
-> 
-> Abhinav
-> 
-> 
-> 
-> The following changes since commit 
-> 947a844bb3ebff0f4736d244d792ce129f6700d7:
-> 
->    drm: msm: fix possible memory leak in mdp5_crtc_cursor_set() 
-> (2022-05-18 11:05:21 -0700)
-> 
-> are available in the git repository at:
-> 
->    https://gitlab.freedesktop.org/abhinavk/msm.git/ 
-> tags/msm-next-5.19-fixes
-> 
-> for you to fetch changes up to 64b22a0da12adb571c01edd671ee43634ebd7e41:
-> 
->    drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path 
-> (2022-05-18 18:32:03 -0700)
-> 
-> ----------------------------------------------------------------
-> 5.19 fixes for msm-next
-> 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> ----------------------------------------------------------------
-> Abhinav Kumar (3):
->        drm/msm/dpu: limit writeback modes according to max_linewidth
->        drm/msm/dpu: add DRM_MODE_ROTATE_180 back to supported rotations
->        drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path
-> 
-> Dmitry Baryshkov (1):
->        drm/msm: don't free the IRQ if it was not requested
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       | 4 +++-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     | 2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 4 +++-
->   drivers/gpu/drm/msm/msm_drv.c                 | 7 ++++++-
->   drivers/gpu/drm/msm/msm_kms.h                 | 1 +
->   5 files changed, 14 insertions(+), 4 deletions(-)
+Ah yes, missed that lock after trylock in msm_gem_shrinker/scan(). Well 
+i915 has the same sequence in our shrinker, but the difference is we use 
+delayed work to actually free, _and_ use trylock in the delayed worker. 
+It does feel a bit inelegant (objects with no reference count which 
+cannot be trylocked?!), but as this is the code recently refactored by 
+Maarten so I think best try and sync with him for the full story.
 
+>> Otherwise if you can afford to sleep you can of course throttle
+>> organically via direct reclaim. Unless I am forgetting some key gotcha -
+>> it's been a while I've been active in this area.
+> 
+> So, one thing that is awkward about sleeping in this path is that
+> there is no way to propagate back -EINTR, so we end up doing an
+> uninterruptible sleep in something that could be called indirectly
+> from userspace syscall.. i915 seems to deal with this by limiting it
+> to shrinker being called from kswapd.  I think in the shrinker we want
+> to know whether it is ok to sleep (ie. not syscall trigggered
+> codepath, and whether we are under enough memory pressure to justify
+> sleeping).  For the syscall path, I'm playing with something that lets
+> me pass __GFP_RETRY_MAYFAIL | __GFP_NOWARN to
+> shmem_read_mapping_page_gfp(), and then stall after the shrinker has
+> failed, somewhere where we can make it interruptable.  Ofc, that
+> doesn't help with all the other random memory allocations which can
+> fail, so not sure if it will turn out to be a good approach or not.
+> But I guess pinning the GEM bo's is the single biggest potential
+> consumer of pages in the submit path, so maybe it will be better than
+> nothing.
 
--- 
-With best wishes
-Dmitry
+We play similar games, although by a quick look I am not sure we quite 
+manage to honour/propagate signals. This has certainly been a 
+historically fiddly area. If you first ask for no reclaim allocations 
+and invoke the shrinker manually first, then falling back to a bigger 
+hammer, you should be able to do it.
+
+Regards,
+
+Tvrtko
