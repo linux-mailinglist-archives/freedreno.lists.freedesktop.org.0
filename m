@@ -2,54 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93943535988
-	for <lists+freedreno@lfdr.de>; Fri, 27 May 2022 08:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE575364A3
+	for <lists+freedreno@lfdr.de>; Fri, 27 May 2022 17:25:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 481A710E16F;
-	Fri, 27 May 2022 06:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F32710F0B1;
+	Fri, 27 May 2022 15:25:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0128A10E16F;
- Fri, 27 May 2022 06:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1653633863; x=1685169863;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=fQI6cbTw2kPlUwwHwJseatTgtASIlX3ZxniUjFCz3CU=;
- b=T9V8jD1bp6SocM9p8qjSmqqvP/23RP3BEGGCdiVYK+2Bm2v5JF0WVLfE
- dMa/Knao9c97hsILqEbffG5xmKrsVKoqK8A8dnHpsTZML5Jg8TNkumm3I
- 6Thx8cYSQyD294/hN7Y7hQPSlgxbAAqJ7aKEzaVfIlT1HJJwj1iTsKZBf
- XBmSZd+2c9urjG/lBvUGcV+TS9GBUheXQ1X30Da5ooNVMkMFFUyafQZxx
- xpTmh29TDxrOGUobBzd81hc7eXwC6cVkwxl8gJ6qtXHA1s0oCVKYIzOp0
- i7zUFqEOo7+tYPWF0BHuvyqj/pfTfNxdHdGulKrOYqaFHHjzZYMiqrysm g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10359"; a="337444449"
-X-IronPort-AV: E=Sophos;i="5.91,254,1647327600"; d="scan'208";a="337444449"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2022 23:44:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,254,1647327600"; d="scan'208";a="718706904"
-Received: from lkp-server01.sh.intel.com (HELO db63a1be7222) ([10.239.97.150])
- by fmsmga001.fm.intel.com with ESMTP; 26 May 2022 23:44:18 -0700
-Received: from kbuild by db63a1be7222 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nuThp-0004Uk-Cr;
- Fri, 27 May 2022 06:44:17 +0000
-Date: Fri, 27 May 2022 14:43:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
- agross@kernel.org, dmitry.baryshkov@linaro.org, bjorn.andersson@linaro.org
-Message-ID: <202205271424.ApfrMbAm-lkp@intel.com>
-References: <1653606555-18675-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A04B10F0B1;
+ Fri, 27 May 2022 15:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1653665147; x=1685201147;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=4AmAb1G5xdwslkVKnzE93VMW23TrnWoLURqtUMAegWE=;
+ b=T9cghxPOj/KLj2uzGacuRYZahdBSNSBk20Du+WutpDwkUE7UGiXz6Ie9
+ fFncuKXBDLWYFY7ufCMTvpJ2IAnULrT4Q/bxm8ZkIiyFWFT8AAft5s+Mj
+ SO6fHcBDro0dLcdwX5MoAMWk31rw3oqdcJQyxn+xL5AptBinJgmslqF6D E=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 27 May 2022 08:25:46 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2022 08:25:45 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 27 May 2022 08:25:44 -0700
+Received: from [10.110.46.98] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 27 May
+ 2022 08:25:43 -0700
+Message-ID: <1f325de0-a10e-27a8-ce7a-9ecaed75465c@quicinc.com>
+Date: Fri, 27 May 2022 08:25:42 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1653606555-18675-1-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: force link training for
- display resolution change
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dianders@chromium.org>, <dmitry.baryshkov@linaro.org>,
+ <robdclark@gmail.com>, <sean@poorly.run>, <vkoul@kernel.org>
+References: <1653585978-30090-1-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n53Nr7o=ZmSsBWOjUxCKxMYNrVwuVdbdL0wG7WZyrPo4Yw@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <CAE-0n53Nr7o=ZmSsBWOjUxCKxMYNrVwuVdbdL0wG7WZyrPo4Yw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: force link training for display
+ resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,132 +68,94 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, kbuild-all@lists.01.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Kuogee,
 
-Thank you for the patch! Yet something to improve:
+On 5/26/2022 5:07 PM, Stephen Boyd wrote:
+> Quoting Kuogee Hsieh (2022-05-26 10:26:18)
+>> During display resolution changes display have to be disabled first
+>> followed by display enable with new resolution. This patch force
+>> main link always be retrained during display enable procedure to
+>> simplify implementation instead of manually kicking of irq_hpd
+>> handle.
+> How is that better? Can you please describe how it improves things? I
+> suppose it avoids some round trips through the event queue just to turn
+> on the display?
 
-[auto build test ERROR on drm/drm-next]
-[also build test ERROR on next-20220526]
-[cannot apply to v5.18]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+This try to fix customer issues which only happen on one particular 
+panel which fails on display resolution changes sometimes.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/drm-msm-dp-force-link-training-for-display-resolution-change/20220527-071202
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20220527/202205271424.ApfrMbAm-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 11.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/42816831cad7ced23cdedbb77ef2ebf13247c623
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Kuogee-Hsieh/drm-msm-dp-force-link-training-for-display-resolution-change/20220527-071202
-        git checkout 42816831cad7ced23cdedbb77ef2ebf13247c623
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash drivers/gpu/drm/msm/
+I will add more description.
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/msm/dp/dp_ctrl.c: In function 'dp_ctrl_on_stream':
->> drivers/gpu/drm/msm/dp/dp_ctrl.c:1852:13: error: 'force_link_tarin' undeclared (first use in this function); did you mean 'force_link_train'?
-    1852 |         if (force_link_tarin || !dp_ctrl_channel_eq_ok(ctrl))
-         |             ^~~~~~~~~~~~~~~~
-         |             force_link_train
-   drivers/gpu/drm/msm/dp/dp_ctrl.c:1852:13: note: each undeclared identifier is reported only once for each function it appears in
-
-
-vim +1852 drivers/gpu/drm/msm/dp/dp_ctrl.c
-
-  1810	
-  1811	int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
-  1812	{
-  1813		int ret = 0;
-  1814		bool mainlink_ready = false;
-  1815		struct dp_ctrl_private *ctrl;
-  1816		unsigned long pixel_rate_orig;
-  1817	
-  1818		if (!dp_ctrl)
-  1819			return -EINVAL;
-  1820	
-  1821		ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-  1822	
-  1823		ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
-  1824	
-  1825		pixel_rate_orig = ctrl->dp_ctrl.pixel_rate;
-  1826		if (dp_ctrl->wide_bus_en)
-  1827			ctrl->dp_ctrl.pixel_rate >>= 1;
-  1828	
-  1829		drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%d\n",
-  1830			ctrl->link->link_params.rate,
-  1831			ctrl->link->link_params.num_lanes, ctrl->dp_ctrl.pixel_rate);
-  1832	
-  1833		if (!dp_power_clk_status(ctrl->power, DP_CTRL_PM)) { /* link clk is off */
-  1834			ret = dp_ctrl_enable_mainlink_clocks(ctrl);
-  1835			if (ret) {
-  1836				DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
-  1837				goto end;
-  1838			}
-  1839		}
-  1840	
-  1841		ret = dp_ctrl_enable_stream_clocks(ctrl);
-  1842		if (ret) {
-  1843			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-  1844			goto end;
-  1845		}
-  1846	
-  1847		if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
-  1848			dp_ctrl_send_phy_test_pattern(ctrl);
-  1849			return 0;
-  1850		}
-  1851	
-> 1852		if (force_link_tarin || !dp_ctrl_channel_eq_ok(ctrl))
-  1853			dp_ctrl_link_retrain(ctrl);
-  1854	
-  1855		/* stop txing train pattern to end link training */
-  1856		dp_ctrl_clear_training_pattern(ctrl);
-  1857	
-  1858		/*
-  1859		 * Set up transfer unit values and set controller state to send
-  1860		 * video.
-  1861		 */
-  1862		reinit_completion(&ctrl->video_comp);
-  1863	
-  1864		dp_ctrl_configure_source_params(ctrl);
-  1865	
-  1866		dp_catalog_ctrl_config_msa(ctrl->catalog,
-  1867			ctrl->link->link_params.rate,
-  1868			pixel_rate_orig, dp_ctrl_use_fixed_nvid(ctrl));
-  1869	
-  1870		dp_ctrl_setup_tr_unit(ctrl);
-  1871	
-  1872		dp_catalog_ctrl_state_ctrl(ctrl->catalog, DP_STATE_CTRL_SEND_VIDEO);
-  1873	
-  1874		ret = dp_ctrl_wait4video_ready(ctrl);
-  1875		if (ret)
-  1876			return ret;
-  1877	
-  1878		mainlink_ready = dp_catalog_ctrl_mainlink_ready(ctrl->catalog);
-  1879		drm_dbg_dp(ctrl->drm_dev,
-  1880			"mainlink %s\n", mainlink_ready ? "READY" : "NOT READY");
-  1881	
-  1882	end:
-  1883		return ret;
-  1884	}
-  1885	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+>
+>> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Any Fixes tag? Or it's not fixing anything, just making things simpler?
+will add.
+>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> index 5ddb4e8..8b71013 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> index 2433edb..dcc7af21 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+>> @@ -20,7 +20,7 @@ struct dp_ctrl {
+>>   };
+>>
+>>   int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
+>> -int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
+>> +int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train);
+> Can we have another API like dp_ctrl_on_stream_retrain()? Or name
+> 'force_link_train' to 'retrain'?
+>
+>>   int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
+>>   int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
+>>   void dp_ctrl_push_idle(struct dp_ctrl *dp_ctrl);
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index bfc6581..9246421 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -892,7 +892,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+> Any reason why dp_display_enable() is forward declared and why it takes
+> a u32 data argument? It's not part of the eventqueue calling code from
+> what I can tell so we should be able to rename 'data' to 'retrain_link'?
+>
+>>                  return 0;
+>>          }
+>>
+>> -       rc = dp_ctrl_on_stream(dp->ctrl);
+>> +       rc = dp_ctrl_on_stream(dp->ctrl, data);
+>>          if (!rc)
+>>                  dp_display->power_on = true;
+>>
+>> @@ -1594,6 +1594,7 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+>>          int rc = 0;
+>>          struct dp_display_private *dp_display;
+>>          u32 state;
+>> +       bool force_link_train = false;
+>>
+>>          dp_display = container_of(dp, struct dp_display_private, dp_display);
+>>          if (!dp_display->dp_mode.drm_mode.clock) {
+>> @@ -1622,10 +1623,12 @@ int msm_dp_display_enable(struct msm_dp *dp, struct drm_encoder *encoder)
+>>
+>>          state =  dp_display->hpd_state;
+>>
+>> -       if (state == ST_DISPLAY_OFF)
+>> +       if (state == ST_DISPLAY_OFF) {
+>>                  dp_display_host_phy_init(dp_display);
+>> +               force_link_train = 1;
+> Use true instead of 1 if the type is a bool please.
+>
+>> +       }
+>>
+>> -       dp_display_enable(dp_display, 0);
+>> +       dp_display_enable(dp_display, force_link_train);
+>>
+>>          rc = dp_display_post_enable(dp);
+>>          if (rc) {
