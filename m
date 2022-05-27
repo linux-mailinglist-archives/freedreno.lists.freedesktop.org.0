@@ -1,65 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98B553588C
-	for <lists+freedreno@lfdr.de>; Fri, 27 May 2022 06:44:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93943535988
+	for <lists+freedreno@lfdr.de>; Fri, 27 May 2022 08:44:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11F5B10E324;
-	Fri, 27 May 2022 04:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 481A710E16F;
+	Fri, 27 May 2022 06:44:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E07B810E28C;
- Fri, 27 May 2022 04:44:40 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- v4-20020a1cac04000000b00397001398c0so3892388wme.5; 
- Thu, 26 May 2022 21:44:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fJNm7ixmWwLrx0f9ri8FeFPBsjqtPYRN+qD5pi3kNI4=;
- b=n702XXGYnB7Ab4e+wrUOK9V/3e08brtsUjJ0xGzixtoRxUYZV2JU2VNhp6+UeY+fTI
- cmy7WXFGsa3KmIR4LeMhQ9gE57tTQ3gS6u89WX97rY4l46l/kvAissogC3oIe5Z8uORK
- 4vMMoxoX9JPsoouHeyMV23lfB6W5NilaYEAMPe+qd9M9x1lcYUPztPMmN4K4QNkNESZP
- exWrUybz6A5EAXLHbQLnxOfkTOkNcx/mVZHxiLSU6AN487B18zxk67cY5epNZaMg1t0e
- aMU7w6Hp+fi3pPQr0yLbG1QIdVRUW9fb3trkLXnm8tUwieDfkgPa5hpnknNg5KmOb4A3
- gCpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fJNm7ixmWwLrx0f9ri8FeFPBsjqtPYRN+qD5pi3kNI4=;
- b=TAZZa2L+Ji43VygY0SP0uX8m+s8/4Qq1fmBCyy1tDSE8ljwKNijvaLmaXkgYTcUHxd
- 5zeYInqqAS4/TpkLFUi2fZ1P5XDYvs+h61038gMuSnfObYArOBnlXxR2E5echlihyUgB
- tfwxfJP2odT+mOgnbVKF5XvHvfT3GxpqB+59S4wrnImBXJ4V+ga2dhjq1L41SID58ssl
- gGRetD3IPfBsTQRFAVxSJCi+UtaxHWYTQSGky1igtTtzK9qfruCsIJeId1TJj76YPC6N
- 0+Eh47TWKzgQ+QxE4HeW5kkrfo42uG0cc4JngF64rdpDUWL1CPpJuLwtlXhTUJRRHYB9
- x7AA==
-X-Gm-Message-State: AOAM530b8QvHqQEZjQNRYKTlY5L5xbSm8h7TldBxmJeKJxBqmN/xb/Ty
- XjsxqdG64iWTo+mBWITC6VhuaGaF7QWRRXB0wW8=
-X-Google-Smtp-Source: ABdhPJxnQ7P4GWSwhd0fJWlUiOOLjcblbqPvopZQXdaZqoX0ibmoroj904PTx1r6TvH5Z71MmGQkZWbJwFP8PQF65xQ=
-X-Received: by 2002:a05:600c:4f95:b0:397:82a5:dcf8 with SMTP id
- n21-20020a05600c4f9500b0039782a5dcf8mr4297532wmq.84.1653626679357; Thu, 26
- May 2022 21:44:39 -0700 (PDT)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0128A10E16F;
+ Fri, 27 May 2022 06:44:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1653633863; x=1685169863;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fQI6cbTw2kPlUwwHwJseatTgtASIlX3ZxniUjFCz3CU=;
+ b=T9V8jD1bp6SocM9p8qjSmqqvP/23RP3BEGGCdiVYK+2Bm2v5JF0WVLfE
+ dMa/Knao9c97hsILqEbffG5xmKrsVKoqK8A8dnHpsTZML5Jg8TNkumm3I
+ 6Thx8cYSQyD294/hN7Y7hQPSlgxbAAqJ7aKEzaVfIlT1HJJwj1iTsKZBf
+ XBmSZd+2c9urjG/lBvUGcV+TS9GBUheXQ1X30Da5ooNVMkMFFUyafQZxx
+ xpTmh29TDxrOGUobBzd81hc7eXwC6cVkwxl8gJ6qtXHA1s0oCVKYIzOp0
+ i7zUFqEOo7+tYPWF0BHuvyqj/pfTfNxdHdGulKrOYqaFHHjzZYMiqrysm g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10359"; a="337444449"
+X-IronPort-AV: E=Sophos;i="5.91,254,1647327600"; d="scan'208";a="337444449"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2022 23:44:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,254,1647327600"; d="scan'208";a="718706904"
+Received: from lkp-server01.sh.intel.com (HELO db63a1be7222) ([10.239.97.150])
+ by fmsmga001.fm.intel.com with ESMTP; 26 May 2022 23:44:18 -0700
+Received: from kbuild by db63a1be7222 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nuThp-0004Uk-Cr;
+ Fri, 27 May 2022 06:44:17 +0000
+Date: Fri, 27 May 2022 14:43:30 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
+ vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie,
+ agross@kernel.org, dmitry.baryshkov@linaro.org, bjorn.andersson@linaro.org
+Message-ID: <202205271424.ApfrMbAm-lkp@intel.com>
+References: <1653606555-18675-1-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-References: <20210728010632.2633470-1-robdclark@gmail.com>
- <20210728010632.2633470-13-robdclark@gmail.com>
- <84e03c5f-a3af-6592-d19a-a2f5d20b92fb@linux.intel.com>
- <CAJs_Fx6Nc337LPNh=p2GT2d2yDTdLWH934o4Cof3urDGhUJB6A@mail.gmail.com>
- <904ae104-1c30-d130-129f-ccae381261d5@linux.intel.com>
- <CAF6AEGuVhXuX63Od+kcJ0QtfAZ2-wqZsN0KOuEzKbivJdouzog@mail.gmail.com>
- <1972f50b-d71a-9e2e-d10b-cc4f13bb208f@linux.intel.com>
- <CAF6AEGsvmQYjzoFgEMTer3oDmb62y2Hq_unDbq2UEoZ6CA3CSw@mail.gmail.com>
- <d15cccd3-4b77-992e-23f7-0c4808592a9f@linux.intel.com>
-In-Reply-To: <d15cccd3-4b77-992e-23f7-0c4808592a9f@linux.intel.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 26 May 2022 21:44:36 -0700
-Message-ID: <CAF6AEGuFZ_TRHiEB5S_HORbTQahhc3DoSmQkP56jws8cLr0bPA@mail.gmail.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4 12/13] drm/msm: Utilize gpu scheduler
- priorities
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1653606555-18675-1-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: force link training for
+ display resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,152 +62,132 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Jonathan Marek <jonathan@marek.ca>, David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Sharat Masetty <smasetty@codeaurora.org>,
- Akhil P Oommen <akhilpo@codeaurora.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- open list <linux-kernel@vger.kernel.org>
+Cc: quic_sbillaka@quicinc.com, kbuild-all@lists.01.org,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 26, 2022 at 6:29 AM Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
->
->
-> On 26/05/2022 04:15, Rob Clark wrote:
-> > On Wed, May 25, 2022 at 9:11 AM Tvrtko Ursulin
-> > <tvrtko.ursulin@linux.intel.com> wrote:
-> >>
-> >>
-> >> On 24/05/2022 15:57, Rob Clark wrote:
-> >>> On Tue, May 24, 2022 at 6:45 AM Tvrtko Ursulin
-> >>> <tvrtko.ursulin@linux.intel.com> wrote:
-> >>>>
-> >>>> On 23/05/2022 23:53, Rob Clark wrote:
-> >>>>>
-> >>>>> btw, one fun (but unrelated) issue I'm hitting with scheduler... I'm
-> >>>>> trying to add an igt test to stress shrinker/eviction, similar to the
-> >>>>> existing tests/i915/gem_shrink.c.  But we hit an unfortunate
-> >>>>> combination of circumstances:
-> >>>>> 1. Pinning memory happens in the synchronous part of the submit ioctl,
-> >>>>> before enqueuing the job for the kthread to handle.
-> >>>>> 2. The first run_job() callback incurs a slight delay (~1.5ms) while
-> >>>>> resuming the GPU
-> >>>>> 3. Because of that delay, userspace has a chance to queue up enough
-> >>>>> more jobs to require locking/pinning more than the available system
-> >>>>> RAM..
-> >>>>
-> >>>> Is that one or multiple threads submitting jobs?
-> >>>
-> >>> In this case multiple.. but I think it could also happen with a single
-> >>> thread (provided it didn't stall on a fence, directly or indirectly,
-> >>> from an earlier submit), because of how resume and actual job
-> >>> submission happens from scheduler kthread.
-> >>>
-> >>>>> I'm not sure if we want a way to prevent userspace from getting *too*
-> >>>>> far ahead of the kthread.  Or maybe at some point the shrinker should
-> >>>>> sleep on non-idle buffers?
-> >>>>
-> >>>> On the direct reclaim path when invoked from the submit ioctl? In i915
-> >>>> we only shrink idle objects on direct reclaim and leave active ones for
-> >>>> the swapper. It depends on how your locking looks like whether you could
-> >>>> do them, whether there would be coupling of locks and fs-reclaim context.
-> >>>
-> >>> I think the locking is more or less ok, although lockdep is unhappy
-> >>> about one thing[1] which is I think a false warning (ie. not
-> >>> recognizing that we'd already successfully acquired the obj lock via
-> >>> trylock).  We can already reclaim idle bo's in this path.  But the
-> >>> problem with a bunch of submits queued up in the scheduler, is that
-> >>> they are already considered pinned and active.  So at some point we
-> >>> need to sleep (hopefully interruptabley) until they are no longer
-> >>> active, ie. to throttle userspace trying to shove in more submits
-> >>> until some of the enqueued ones have a chance to run and complete.
-> >>
-> >> Odd I did not think trylock could trigger that. Looking at your code it
-> >> indeed seems two trylocks. I am pretty sure we use the same trylock
-> >> trick to avoid it. I am confused..
-> >
-> > The sequence is,
-> >
-> > 1. kref_get_unless_zero()
-> > 2. trylock, which succeeds
-> > 3. attempt to evict or purge (which may or may not have succeeded)
-> > 4. unlock
-> >
-> >   ... meanwhile this has raced with submit (aka execbuf) finishing and
-> > retiring and dropping *other* remaining reference to bo...
-> >
-> > 5. drm_gem_object_put() which triggers drm_gem_object_free()
-> > 6. in our free path we acquire the obj lock again and then drop it.
-> > Which arguably is unnecessary and only serves to satisfy some
-> > GEM_WARN_ON(!msm_gem_is_locked(obj)) in code paths that are also used
-> > elsewhere
-> >
-> > lockdep doesn't realize the previously successful trylock+unlock
-> > sequence so it assumes that the code that triggered recursion into
-> > shrinker could be holding the objects lock.
->
-> Ah yes, missed that lock after trylock in msm_gem_shrinker/scan(). Well
-> i915 has the same sequence in our shrinker, but the difference is we use
-> delayed work to actually free, _and_ use trylock in the delayed worker.
-> It does feel a bit inelegant (objects with no reference count which
-> cannot be trylocked?!), but as this is the code recently refactored by
-> Maarten so I think best try and sync with him for the full story.
+Hi Kuogee,
 
-ahh, we used to use delayed work for free, but realized that was
-causing janks where we'd get a bunch of bo's queued up to free and at
-some point that would cause us to miss deadlines
+Thank you for the patch! Yet something to improve:
 
-I suppose instead we could have used an unbound wq for free instead of
-the same one we used (at the time, since transitioned to kthread
-worker to avoid being preempted by RT SF threads) for retiring submits
+[auto build test ERROR on drm/drm-next]
+[also build test ERROR on next-20220526]
+[cannot apply to v5.18]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-> >> Otherwise if you can afford to sleep you can of course throttle
-> >> organically via direct reclaim. Unless I am forgetting some key gotcha -
-> >> it's been a while I've been active in this area.
-> >
-> > So, one thing that is awkward about sleeping in this path is that
-> > there is no way to propagate back -EINTR, so we end up doing an
-> > uninterruptible sleep in something that could be called indirectly
-> > from userspace syscall.. i915 seems to deal with this by limiting it
-> > to shrinker being called from kswapd.  I think in the shrinker we want
-> > to know whether it is ok to sleep (ie. not syscall trigggered
-> > codepath, and whether we are under enough memory pressure to justify
-> > sleeping).  For the syscall path, I'm playing with something that lets
-> > me pass __GFP_RETRY_MAYFAIL | __GFP_NOWARN to
-> > shmem_read_mapping_page_gfp(), and then stall after the shrinker has
-> > failed, somewhere where we can make it interruptable.  Ofc, that
-> > doesn't help with all the other random memory allocations which can
-> > fail, so not sure if it will turn out to be a good approach or not.
-> > But I guess pinning the GEM bo's is the single biggest potential
-> > consumer of pages in the submit path, so maybe it will be better than
-> > nothing.
->
-> We play similar games, although by a quick look I am not sure we quite
-> manage to honour/propagate signals. This has certainly been a
-> historically fiddly area. If you first ask for no reclaim allocations
-> and invoke the shrinker manually first, then falling back to a bigger
-> hammer, you should be able to do it.
+url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/drm-msm-dp-force-link-training-for-display-resolution-change/20220527-071202
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: sparc-allmodconfig (https://download.01.org/0day-ci/archive/20220527/202205271424.ApfrMbAm-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 11.3.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/42816831cad7ced23cdedbb77ef2ebf13247c623
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Kuogee-Hsieh/drm-msm-dp-force-link-training-for-display-resolution-change/20220527-071202
+        git checkout 42816831cad7ced23cdedbb77ef2ebf13247c623
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash drivers/gpu/drm/msm/
 
-yeah, I think it should.. but I've been fighting a bit today with the
-fact that the state of bo wrt. shrinkable state has grown a bit
-complicated (ie. is it purgeable, evictable, evictable if we are
-willing to wait a short amount of time, vs things that are pinned for
-scanout and we shouldn't bother waiting on, etc.. plus I managed to
-make it a bit worse recently with fenced un-pin of the vma for dealing
-with the case that userspace notices that, for userspace allocated
-iova, it can release the virtual address before the kernel has a
-chance to retire the submit) ;-)
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
 
-BR,
--R
+All errors (new ones prefixed by >>):
 
-> Regards,
->
-> Tvrtko
+   drivers/gpu/drm/msm/dp/dp_ctrl.c: In function 'dp_ctrl_on_stream':
+>> drivers/gpu/drm/msm/dp/dp_ctrl.c:1852:13: error: 'force_link_tarin' undeclared (first use in this function); did you mean 'force_link_train'?
+    1852 |         if (force_link_tarin || !dp_ctrl_channel_eq_ok(ctrl))
+         |             ^~~~~~~~~~~~~~~~
+         |             force_link_train
+   drivers/gpu/drm/msm/dp/dp_ctrl.c:1852:13: note: each undeclared identifier is reported only once for each function it appears in
+
+
+vim +1852 drivers/gpu/drm/msm/dp/dp_ctrl.c
+
+  1810	
+  1811	int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+  1812	{
+  1813		int ret = 0;
+  1814		bool mainlink_ready = false;
+  1815		struct dp_ctrl_private *ctrl;
+  1816		unsigned long pixel_rate_orig;
+  1817	
+  1818		if (!dp_ctrl)
+  1819			return -EINVAL;
+  1820	
+  1821		ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+  1822	
+  1823		ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+  1824	
+  1825		pixel_rate_orig = ctrl->dp_ctrl.pixel_rate;
+  1826		if (dp_ctrl->wide_bus_en)
+  1827			ctrl->dp_ctrl.pixel_rate >>= 1;
+  1828	
+  1829		drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%d\n",
+  1830			ctrl->link->link_params.rate,
+  1831			ctrl->link->link_params.num_lanes, ctrl->dp_ctrl.pixel_rate);
+  1832	
+  1833		if (!dp_power_clk_status(ctrl->power, DP_CTRL_PM)) { /* link clk is off */
+  1834			ret = dp_ctrl_enable_mainlink_clocks(ctrl);
+  1835			if (ret) {
+  1836				DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
+  1837				goto end;
+  1838			}
+  1839		}
+  1840	
+  1841		ret = dp_ctrl_enable_stream_clocks(ctrl);
+  1842		if (ret) {
+  1843			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+  1844			goto end;
+  1845		}
+  1846	
+  1847		if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
+  1848			dp_ctrl_send_phy_test_pattern(ctrl);
+  1849			return 0;
+  1850		}
+  1851	
+> 1852		if (force_link_tarin || !dp_ctrl_channel_eq_ok(ctrl))
+  1853			dp_ctrl_link_retrain(ctrl);
+  1854	
+  1855		/* stop txing train pattern to end link training */
+  1856		dp_ctrl_clear_training_pattern(ctrl);
+  1857	
+  1858		/*
+  1859		 * Set up transfer unit values and set controller state to send
+  1860		 * video.
+  1861		 */
+  1862		reinit_completion(&ctrl->video_comp);
+  1863	
+  1864		dp_ctrl_configure_source_params(ctrl);
+  1865	
+  1866		dp_catalog_ctrl_config_msa(ctrl->catalog,
+  1867			ctrl->link->link_params.rate,
+  1868			pixel_rate_orig, dp_ctrl_use_fixed_nvid(ctrl));
+  1869	
+  1870		dp_ctrl_setup_tr_unit(ctrl);
+  1871	
+  1872		dp_catalog_ctrl_state_ctrl(ctrl->catalog, DP_STATE_CTRL_SEND_VIDEO);
+  1873	
+  1874		ret = dp_ctrl_wait4video_ready(ctrl);
+  1875		if (ret)
+  1876			return ret;
+  1877	
+  1878		mainlink_ready = dp_catalog_ctrl_mainlink_ready(ctrl->catalog);
+  1879		drm_dbg_dp(ctrl->drm_dev,
+  1880			"mainlink %s\n", mainlink_ready ? "READY" : "NOT READY");
+  1881	
+  1882	end:
+  1883		return ret;
+  1884	}
+  1885	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
