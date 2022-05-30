@@ -2,46 +2,46 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4D3537B90
-	for <lists+freedreno@lfdr.de>; Mon, 30 May 2022 15:27:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ADF6537CC6
+	for <lists+freedreno@lfdr.de>; Mon, 30 May 2022 15:41:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0C210E89D;
-	Mon, 30 May 2022 13:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A59F10E9A2;
+	Mon, 30 May 2022 13:41:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 055AD10E886;
- Mon, 30 May 2022 13:27:28 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE5B110E996;
+ Mon, 30 May 2022 13:41:18 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7263960F09;
- Mon, 30 May 2022 13:27:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3218FC385B8;
- Mon, 30 May 2022 13:27:26 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 807C8B80D86;
+ Mon, 30 May 2022 13:41:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72524C385B8;
+ Mon, 30 May 2022 13:41:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1653917247;
- bh=dMH/huRRqAdoiUb0Rl7RxxXYfjvxgvx+UaGWVg1/P4w=;
+ s=k20201202; t=1653918076;
+ bh=UpzbA3wVk0DsQjKWMTYnU5OSFElWl46K5qBulj/XdIQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=H2bPr5GGIwESpH86icOZLx1s4YgU/0/L/hZxnwwycC31y4wQNps/MRog5x9tNyRXN
- VRQgw2237BjA4MO9TQfmroVF8kTQzG9CciALAfcApwF8Wxb9duNclw54fXOeLOP1lD
- lzDpQiS0L4hklBbxRVP+yvP49jOsDv6Ice8RFwbKmZyZzDbS/AxljMfgdCa25eUO4L
- sseaC5Ns+LAF/3MW1MAUkh4/OcDkrhY0yToGK9TIgg0CbGYZqmjUNErUrikG/3Buj9
- wmUrCl/qh9LSt+BhSWMVylLcP49d1PVmUBp696nxY/ZUuwLYehy3G0VW92Q/eIe+Rr
- eAEPzcQ5ln6KQ==
+ b=WP+zZQf56Zyhp1NTljPmVzmhpAS5+m0lM4C+a3xs61zV8LvkaIHC2KlSAUofU1+c4
+ 4D3xaqAu/suBasT+GDXw7OvoLk21OxZ3/KVwcvCxelEFFN/UWIPxDUsW7gDdAPK2t3
+ mmTovJNHYzJFGBpM+3fprohHzxJ0bUShxBh3yB+g0yEc2hXvwjcqNE1MGcoFrHxPHS
+ WmbQUruVCPX2kvKidVTUYqwnwp2dAktt2z8+AF/HR3Bn1ixBuzpzmDPhxlwqIkYQJQ
+ CUWNGMAUmbqNZteD3Yqhrp8oEEIRiwRH+ZlQjt1ipHnWZCZYJkfLVII34OdLQxxoZ4
+ 73oQftchR8j9g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 30 May 2022 09:22:55 -0400
-Message-Id: <20220530132425.1929512-70-sashal@kernel.org>
+Date: Mon, 30 May 2022 09:37:26 -0400
+Message-Id: <20220530133825.1933431-50-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
-References: <20220530132425.1929512-1-sashal@kernel.org>
+In-Reply-To: <20220530133825.1933431-1-sashal@kernel.org>
+References: <20220530133825.1933431-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH AUTOSEL 5.18 070/159] drm: msm: fix error check
+Subject: [Freedreno] [PATCH AUTOSEL 5.15 050/109] drm: msm: fix error check
  return value of irq_of_parse_and_map()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,7 +58,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
  linux-arm-msm@vger.kernel.org, Lv Ruyi <lv.ruyi@zte.com.cn>,
  quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, vulab@iscas.ac.cn, daniel@ffwll.ch,
+ swboyd@chromium.org, robdclark@gmail.com, quic_mkrishn@quicinc.com,
+ vulab@iscas.ac.cn, daniel@ffwll.ch,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  freedreno@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
  angelogioacchino.delregno@collabora.com
@@ -84,10 +85,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 3b92372e7bdf..1d4bbde29320 100644
+index b3b42672b2d4..a2b276ae9673 100644
 --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
 +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -570,9 +570,9 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
+@@ -598,9 +598,9 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
  	}
  
  	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
