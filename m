@@ -2,40 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F39A7537593
-	for <lists+freedreno@lfdr.de>; Mon, 30 May 2022 09:39:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E4D3537B90
+	for <lists+freedreno@lfdr.de>; Mon, 30 May 2022 15:27:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A441288A56;
-	Mon, 30 May 2022 07:39:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0C210E89D;
+	Mon, 30 May 2022 13:27:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
- Mon, 30 May 2022 07:39:01 UTC
-Received: from mail.meizu.com (edge07.meizu.com [112.91.151.210])
- by gabe.freedesktop.org (Postfix) with ESMTP id CB9BD10E0A8;
- Mon, 30 May 2022 07:39:01 +0000 (UTC)
-Received: from IT-EXMB-1-125.meizu.com (172.16.1.125) by mz-mail11.meizu.com
- (172.16.1.15) with Microsoft SMTP Server (TLS) id 14.3.487.0; Mon, 30 May
- 2022 15:33:26 +0800
-Received: from meizu.meizu.com (172.16.137.70) by IT-EXMB-1-125.meizu.com
- (172.16.1.125) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Mon, 30 May
- 2022 15:33:26 +0800
-From: Haowen Bai <baihaowen@meizu.com>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>
-Date: Mon, 30 May 2022 15:33:24 +0800
-Message-ID: <1653896005-25168-1-git-send-email-baihaowen@meizu.com>
-X-Mailer: git-send-email 2.7.4
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 055AD10E886;
+ Mon, 30 May 2022 13:27:28 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7263960F09;
+ Mon, 30 May 2022 13:27:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3218FC385B8;
+ Mon, 30 May 2022 13:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1653917247;
+ bh=dMH/huRRqAdoiUb0Rl7RxxXYfjvxgvx+UaGWVg1/P4w=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=H2bPr5GGIwESpH86icOZLx1s4YgU/0/L/hZxnwwycC31y4wQNps/MRog5x9tNyRXN
+ VRQgw2237BjA4MO9TQfmroVF8kTQzG9CciALAfcApwF8Wxb9duNclw54fXOeLOP1lD
+ lzDpQiS0L4hklBbxRVP+yvP49jOsDv6Ice8RFwbKmZyZzDbS/AxljMfgdCa25eUO4L
+ sseaC5Ns+LAF/3MW1MAUkh4/OcDkrhY0yToGK9TIgg0CbGYZqmjUNErUrikG/3Buj9
+ wmUrCl/qh9LSt+BhSWMVylLcP49d1PVmUBp696nxY/ZUuwLYehy3G0VW92Q/eIe+Rr
+ eAEPzcQ5ln6KQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Mon, 30 May 2022 09:22:55 -0400
+Message-Id: <20220530132425.1929512-70-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220530132425.1929512-1-sashal@kernel.org>
+References: <20220530132425.1929512-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.16.137.70]
-X-ClientProxiedBy: IT-EXMB-1-126.meizu.com (172.16.1.126) To
- IT-EXMB-1-125.meizu.com (172.16.1.125)
-Subject: [Freedreno] [PATCH] drm/msm/dpu: Fix pointer dereferenced before
- checking
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH AUTOSEL 5.18 070/159] drm: msm: fix error check
+ return value of irq_of_parse_and_map()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,39 +55,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Haowen Bai <baihaowen@meizu.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
+ linux-arm-msm@vger.kernel.org, Lv Ruyi <lv.ruyi@zte.com.cn>,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, vulab@iscas.ac.cn, daniel@ffwll.ch,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org, Zeal Robot <zealci@zte.com.cn>,
+ angelogioacchino.delregno@collabora.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The ctx->hw is dereferencing before null checking, so move
-it after checking.
+From: Lv Ruyi <lv.ruyi@zte.com.cn>
 
-Signed-off-by: Haowen Bai <baihaowen@meizu.com>
+[ Upstream commit b9e4f1d2b505df8e2439b63e67afaa287c1c43e2 ]
+
+The irq_of_parse_and_map() function returns 0 on failure, and does not
+return an negative value.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: Lv Ruyi <lv.ruyi@zte.com.cn>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Patchwork: https://patchwork.freedesktop.org/patch/483175/
+Link: https://lore.kernel.org/r/20220424031959.3172406-1-lv.ruyi@zte.com.cn
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-index bcccce292937..e59680cdd0ce 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c
-@@ -155,11 +155,13 @@ static void dpu_hw_wb_roi(struct dpu_hw_wb *ctx, struct dpu_hw_wb_cfg *wb)
- static void dpu_hw_wb_setup_qos_lut(struct dpu_hw_wb *ctx,
- 		struct dpu_hw_wb_qos_cfg *cfg)
- {
--	struct dpu_hw_blk_reg_map *c = &ctx->hw;
-+	struct dpu_hw_blk_reg_map *c;
- 	u32 qos_ctrl = 0;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 3b92372e7bdf..1d4bbde29320 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -570,9 +570,9 @@ struct msm_kms *mdp5_kms_init(struct drm_device *dev)
+ 	}
  
- 	if (!ctx || !cfg)
- 		return;
-+	
-+	c = &ctx->hw;
+ 	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
+-	if (irq < 0) {
+-		ret = irq;
+-		DRM_DEV_ERROR(&pdev->dev, "failed to get irq: %d\n", ret);
++	if (!irq) {
++		ret = -EINVAL;
++		DRM_DEV_ERROR(&pdev->dev, "failed to get irq\n");
+ 		goto fail;
+ 	}
  
- 	DPU_REG_WRITE(c, WB_DANGER_LUT, cfg->danger_lut);
- 	DPU_REG_WRITE(c, WB_SAFE_LUT, cfg->safe_lut);
 -- 
-2.7.4
+2.35.1
 
