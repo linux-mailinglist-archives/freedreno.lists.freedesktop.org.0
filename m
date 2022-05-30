@@ -2,61 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9631753872D
-	for <lists+freedreno@lfdr.de>; Mon, 30 May 2022 20:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 024725388A7
+	for <lists+freedreno@lfdr.de>; Mon, 30 May 2022 23:49:36 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E0810F79A;
-	Mon, 30 May 2022 18:20:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18A5010E0D8;
+	Mon, 30 May 2022 21:49:34 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC50B10F79A;
- Mon, 30 May 2022 18:20:30 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id x17so6653240wrg.6;
- Mon, 30 May 2022 11:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41ABD10E102
+ for <freedreno@lists.freedesktop.org>; Mon, 30 May 2022 21:49:33 +0000 (UTC)
+Received: by mail-qk1-x735.google.com with SMTP id 199so1752555qkk.0
+ for <freedreno@lists.freedesktop.org>; Mon, 30 May 2022 14:49:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=ALLZipw00VqFyoGIsTsJK6QyjTVltKc85FS1BcRmMeU=;
- b=eb8v3CaFu7wALENbAfSO6gWKDRalxi7rh8oX69+gLSrvRujyCkBzXqzwAUkSjTyv35
- Oc1CkS2vl5bF5CWINhplp7O/ynkBrmwMJnbMVJ9UE5A41ffc/z8x9XpkxY3HHkSbmNSi
- 9tVlt59ipkPiO8iUJaE40go+4/ogx3apgRti5HNRfroDflbSjozmvm4f66wVsvcQlNcR
- eZm4XRVVE1lsRP3JcH/FLi3CfufFJMEqrv70BPVfiCQrHKC5Y13zSzZtWHkmy9d3H3WT
- YekO6HQ6TcI7cfk68wUM5cE0C6f61TBRNIVpyvlA6D4GTArG98twS1fvTrzBWpA4oYc4
- FoTg==
+ :cc; bh=oXaOVjxu9BRXioIvJGUPeph15IZ7f+RIDq16BIHjmoA=;
+ b=MXfdGkwALQnjWH6rK/1fSXDcuWOUo9C8ZG2sO9wNr+MKKvRiwjciQ+mEp7fq6ZKKqa
+ JiGwltb6kFwr13ASse+qgNwZCbfGcmKHJxoZLefcqsu1qhJfmzrT1+t8yJM+/YPxJx1M
+ kXIQUt3oIqyISHEgwiqR1EqnwC3doPe+j9SbWXoAY3vW7WOYYGQhvNJ3FSrlS9jkb/5+
+ XGOKTUgJnkooU8bIUvkgV0Zibj2hN4HTtvYI4YTKbQKaRDEEPGsM8LqZWUzpVTR8WBOz
+ sMEvIlx182Rg3pXShcGXIvjgCMGFOqWUkCtm2qDhMz6tOKceqZEPvRXb6fxxhjEI4q0E
+ N0lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=ALLZipw00VqFyoGIsTsJK6QyjTVltKc85FS1BcRmMeU=;
- b=ryEWWqSateeWvQ6zU4VBknYhA0X6zmNsFRYdPYSL9v9PRI5uJpMj9PYShrMvWuojMO
- IJLx78E3ITa0K7+AeSIzHOga01icacC/VOdjae2ursOvg0FuVAspfknqqyLdxQ3ld+Tl
- Ivu0BFa0cERJFby2hz+R4nPzxxp/8Eg7pTmwFCF1p5UL5ZBFxW7Soudc5LlvOcIX5t+G
- 7fOjjC1XgO3dCFrq3ys1H9m70bFIiMoLO81J4uNi+g+ERl1tsUDTuoPRMkGtNmBDGLCa
- yzJm4Nwlxw8S9hrOru3NEtT1+r0utVXdgSIjWtakBHLhTTlA0eB4aZ0NbQrNTONabd5i
- Arrg==
-X-Gm-Message-State: AOAM532grC4g/ZK85XNx4EhnLbkEmhGenEHkaoirB+Bq7S+0LrAlp/RG
- MwoUEDQ3orjtMuJHxAqHWSFx6OHqDE/OaQYjonE=
-X-Google-Smtp-Source: ABdhPJxxUJkA1Q45166szFe9btXwfDRUVihfDJGK7+dd9es5Z+W5G+0TA4WMX7fkss9EEKoPQnYmlWxdLQQbNcToAwM=
-X-Received: by 2002:a05:6000:547:b0:20f:ca41:cc51 with SMTP id
- b7-20020a056000054700b0020fca41cc51mr37150554wrf.221.1653934829054; Mon, 30
- May 2022 11:20:29 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=oXaOVjxu9BRXioIvJGUPeph15IZ7f+RIDq16BIHjmoA=;
+ b=uQwXeOABAzLt3zp/NQ4wlGaD9/UYOODdA8IdhoOTwud9LArxbrplg/m1ZiCHQRx+Ye
+ JKl7smXwwOsRyr134nv/DnnEuslTW/u+DKCa4F8uPApb2NITnrTnsVyDMqpDu+jcoL6u
+ x1qafFJ8boz2mYxsYCqapba3TxWoYH1144BEVXhHdmjT7ievbzzCatO/icXaBWC2JkvF
+ dFpjn30hPLZoJWBAvYrBkyz4PcXsr3Wmta6ZTIXCGihYXtqFpB0hZenJW1ykWC4laqox
+ J9YCRmu4DGLsATuqjzA7Dj3djVSSm1Kz+AiLafeFbb2s+yPvGiDmSb+J/ytz4qERdMNI
+ cdqw==
+X-Gm-Message-State: AOAM532lmHs+qfcYPWBObQ+O/0SoHglnqI9LgH2JK/vCFXCbAFeiZm92
+ nZXlYV0wRGGnCjmqEWt4dW8sWQWm/OFE1IfkEanC9Q==
+X-Google-Smtp-Source: ABdhPJzh9WsdzR5//egtXV1XikapFrTINZPmX4fFRgsjAj4mQhfoLHQ1FXuKd2ZeCPj/PcYntJhO1dwhQVQuvS6qnJQ=
+X-Received: by 2002:a05:620a:414e:b0:6a5:8dec:57bb with SMTP id
+ k14-20020a05620a414e00b006a58dec57bbmr21169409qko.30.1653947372228; Mon, 30
+ May 2022 14:49:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220529162936.2539901-1-robdclark@gmail.com>
- <0bf230f4-c888-b9c9-f061-7450406baa4a@suse.de>
- <CAF6AEGthAfWyAvbuE4EP+u52LEKS2Fs6X=gG8qUjc7gci6oh-A@mail.gmail.com>
- <CAKMK7uG9=EcmD4hPqm4zYsDHiS9Mr=y_5tUa_R1veDxSSK-P-Q@mail.gmail.com>
- <CAF6AEGuLeLmD4m+yi5csGdb0XZbnAOfYOKx6c-wEgMGt6rj7Cw@mail.gmail.com>
- <df7de69a-47b3-1a28-f673-8f9a94f70a97@suse.de>
-In-Reply-To: <df7de69a-47b3-1a28-f673-8f9a94f70a97@suse.de>
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 30 May 2022 11:20:29 -0700
-Message-ID: <CAF6AEGureUPNRR3GFfuPS4c3byM6aqxLm3QN9+SMtHgytKaNPA@mail.gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
+References: <1653896005-25168-1-git-send-email-baihaowen@meizu.com>
+In-Reply-To: <1653896005-25168-1-git-send-email-baihaowen@meizu.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 31 May 2022 00:49:21 +0300
+Message-ID: <CAA8EJpoA2VOO28tzT24fzYseFg__thXHcuXHiXGX-pwxGNz8HQ@mail.gmail.com>
+To: Haowen Bai <baihaowen@meizu.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/prime: Ensure mmap offset is initialized
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix pointer dereferenced
+ before checking
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,166 +63,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno <freedreno@lists.freedesktop.org>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Mon, May 30, 2022 at 10:20 AM Thomas Zimmermann <tzimmermann@suse.de> wr=
-ote:
->
-> Hi
->
-> Am 30.05.22 um 17:41 schrieb Rob Clark:
-> > On Mon, May 30, 2022 at 7:49 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >>
-> >> On Mon, 30 May 2022 at 15:54, Rob Clark <robdclark@gmail.com> wrote:
-> >>>
-> >>> On Mon, May 30, 2022 at 12:26 AM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
-> >>>>
-> >>>> Hi
-> >>>>
-> >>>> Am 29.05.22 um 18:29 schrieb Rob Clark:
-> >>>>> From: Rob Clark <robdclark@chromium.org>
-> >>>>>
-> >>>>> If a GEM object is allocated, and then exported as a dma-buf fd whi=
-ch is
-> >>>>> mmap'd before or without the GEM buffer being directly mmap'd, the
-> >>>>> vma_node could be unitialized.  This leads to a situation where the=
- CPU
-> >>>>> mapping is not correctly torn down in drm_vma_node_unmap().
-> >>>>
-> >>>> Which drivers are affected by this problem?
-> >>>>
-> >>>> I checked several drivers and most appear to be initializing the off=
-set
-> >>>> during object construction, such as GEM SHMEM. [1] TTM-based drivers
-> >>>> also seem unaffected. [2]
-> >>>>
-> >>>>   From a quick grep, only etnaviv, msm and omapdrm appear to be affe=
-cted?
-> >>>> They only seem to run drm_gem_create_mmap_offset() from their
-> >>>> ioctl-handling code.
-> >>>>
-> >>>> If so, I'd say it's preferable to fix these drivers and put a
-> >>>> drm_WARN_ONCE() into drm_gem_prime_mmap().
-> >>>
-> >>> That is good if fewer drivers are affected, however I disagree with
-> >>> your proposal.  At least for freedreno userspace, a lot of bo's never
-> >>> get mmap'd (either directly of via dmabuf), so we should not be
-> >>> allocating a mmap offset unnecessarily.
-> >>
-> >> Does this actually matter in the grand scheme of things? We originally
-> >> allocated mmap offset only on demand because userspace only had 32bit
-> >> loff_t support and so simply couldn't mmap anything if the offset
-> >> ended up above 32bit (even if there was still va space available).
-> >>
-> >> But those days are long gone (about 10 years or so) and the allocation
-> >> overhead for an mmap offset is tiny. So I think unless you can
-> >> benchmark an impact allocating it at bo alloc seems like the simplest
-> >> design overall, and hence what we should be doing. And if the vma
-> >> offset allocation every gets too slow due to fragmentation we can lift
-> >> the hole tree from i915 into drm_mm and the job should be done. At
-> >> that point we could also allocate the offset unconditionally in the
-> >> gem_init function and be done with it.
-> >>
-> >> Iow I concur with Thomas here, unless there's hard data contrary
-> >> simplicity imo trumps here.
-> >
-> > 32b userspace is still alive and well, at least on arm chromebooks ;-)
->
-> I mostly dislike the inconsistency among drivers. If we want to create
-> the offset on-demand in the DRM helpers, we should do so for all
-> drivers. At least our generic GEM helpers and TTM should implement this
-> pattern.
+A nit: patchwork thinks that two patches from the same author with the
+same subject are two versions of the same patch. In future, could you
+please send such patches with distinct names? No need to send v2 now
+unless review shows other issues with the patches.
 
-Possibly we should have drm_gem_get_mmap_offset() which combines
-drm_gem_create_mmap_offset() and drm_vma_node_start() calls, and use
-that everywhere.
-
-But I think we should fix this issue first, and then refactor on top,
-so that a fix can be backported to stable kernels ;-)
-
-BR,
--R
-
-> Best regards
-> Thomas
+On Mon, 30 May 2022 at 10:33, Haowen Bai <baihaowen@meizu.com> wrote:
 >
-> >
-> > BR,
-> > -R
-> >
-> >> -Daniel
-> >>
-> >>>
-> >>> BR,
-> >>> -R
-> >>>
-> >>>> Best regards
-> >>>> Thomas
-> >>>>
-> >>>> [1]
-> >>>> https://elixir.bootlin.com/linux/v5.18/source/drivers/gpu/drm/drm_ge=
-m_shmem_helper.c#L85
-> >>>> [2]
-> >>>> https://elixir.bootlin.com/linux/v5.18/source/drivers/gpu/drm/ttm/tt=
-m_bo.c#L1002
-> >>>>
-> >>>>>
-> >>>>> Fixes: e5516553999f ("drm: call drm_gem_object_funcs.mmap with fake=
- offset")
-> >>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >>>>> ---
-> >>>>> Note, it's possible the issue existed in some related form prior to=
- the
-> >>>>> commit tagged with Fixes.
-> >>>>>
-> >>>>>    drivers/gpu/drm/drm_prime.c | 5 +++++
-> >>>>>    1 file changed, 5 insertions(+)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prim=
-e.c
-> >>>>> index e3f09f18110c..849eea154dfc 100644
-> >>>>> --- a/drivers/gpu/drm/drm_prime.c
-> >>>>> +++ b/drivers/gpu/drm/drm_prime.c
-> >>>>> @@ -716,6 +716,11 @@ int drm_gem_prime_mmap(struct drm_gem_object *=
-obj, struct vm_area_struct *vma)
-> >>>>>        struct file *fil;
-> >>>>>        int ret;
-> >>>>>
-> >>>>> +     /* Ensure that the vma_node is initialized: */
-> >>>>> +     ret =3D drm_gem_create_mmap_offset(obj);
-> >>>>> +     if (ret)
-> >>>>> +             return ret;
-> >>>>> +
-> >>>>>        /* Add the fake offset */
-> >>>>>        vma->vm_pgoff +=3D drm_vma_node_start(&obj->vma_node);
-> >>>>>
-> >>>>
-> >>>> --
-> >>>> Thomas Zimmermann
-> >>>> Graphics Driver Developer
-> >>>> SUSE Software Solutions Germany GmbH
-> >>>> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-> >>>> (HRB 36809, AG N=C3=BCrnberg)
-> >>>> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
-> >>
-> >>
-> >>
-> >> --
-> >> Daniel Vetter
-> >> Software Engineer, Intel Corporation
-> >> http://blog.ffwll.ch
+> The ctx->hw is dereferencing before null checking, so move
+> it after checking.
 >
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-> (HRB 36809, AG N=C3=BCrnberg)
-> Gesch=C3=A4ftsf=C3=BChrer: Ivo Totev
+> Signed-off-by: Haowen Bai <baihaowen@meizu.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
