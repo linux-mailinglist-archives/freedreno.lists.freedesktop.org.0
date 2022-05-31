@@ -1,56 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FA0A539600
-	for <lists+freedreno@lfdr.de>; Tue, 31 May 2022 20:14:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C0165397C4
+	for <lists+freedreno@lfdr.de>; Tue, 31 May 2022 22:08:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 309DB10F17A;
-	Tue, 31 May 2022 18:14:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D639E10E00C;
+	Tue, 31 May 2022 20:08:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C83110F104;
- Tue, 31 May 2022 18:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654020896; x=1685556896;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=NoFkx5lMbc6Etp61cemnFmxpuTtNZtTnaA3KQmlBh6I=;
- b=qLuGWn07otosh0nEaAFhXeQ+fkbXnLRTZh0AzXipLMMUWCOTOG/jXmLC
- 4BpFH+9dmUbrB2RrVKJo3+p+lEXKZKGabuh/DDcbHFTPAaGFOlOyELBYc
- ZkOnhQ/Cv6OzsBU3mouvSKKvSY1juN2/rRyct3KOVQNVWmdVOLn3mqQZH I=;
-Received: from ironmsg07-lv.qualcomm.com ([10.47.202.151])
- by alexa-out.qualcomm.com with ESMTP; 31 May 2022 11:14:55 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg07-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2022 11:14:55 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 31 May 2022 11:14:54 -0700
-Received: from [10.38.242.41] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 31 May
- 2022 11:14:51 -0700
-Message-ID: <4b78c34e-c7ce-effd-b116-026c498b6a28@quicinc.com>
-Date: Tue, 31 May 2022 11:14:50 -0700
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97A5910E00C;
+ Tue, 31 May 2022 20:08:50 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ w2-20020a17090ac98200b001e0519fe5a8so3323444pjt.4; 
+ Tue, 31 May 2022 13:08:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BIlTvNQCOLyj5QYBgLjFuJKAi3jXSDwMPRUpJqRAlyI=;
+ b=V47/nwt1rg0trFoHkq1rcjJntJUe53RkSjuHjspR9T338P3kjd1OIeyyLjqMMUuo3Q
+ iPzDz6rIP1uHRlbwK6q2C4Faj4tCr7BmFFc5zJFq6Ihp87BiZ7TCfgL6NUpaYCnz5mBC
+ FfbI/rm0VTDhHVfBHCDOyqgEnUetYgsW320wmS621UQ7IjegQhqSzzv0t0ody3l4/RCc
+ +2G8wYqR9UAsB6J8TGIoGcHvui7lLaLiChc1DyqKtNtYDCOsGao1iI7Ja5UrzHXCPZR3
+ DqL25Zn+axwwRSC/eJCH7IQu3sTWz4rPgUIMas5x39g3DbYY5MGt8pAvZBV2VCryM4Bb
+ yNCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BIlTvNQCOLyj5QYBgLjFuJKAi3jXSDwMPRUpJqRAlyI=;
+ b=2hL1GciT7VFHfkaXAUsrEq0pl+WJ5B/CV/Gy196g7UIDjx3v/CnJN+TXvYKxyLCLTd
+ EX7jtvn3hqDFMgEO3WHPRv3TMhnpMxUB8yuTsInOG+iBxcvefeocKJ9J9DbKNGTnzt4B
+ //Sl7x3RUFpc97URLrZqa0okwVtElhzPVH3Gud56zx661MbwklOThWoW5wfHKzhex3Ik
+ 9LdCZnkmlmOnI0/yWqJFx/DlDHr5B4LKk6J2Pu4zCsqe2io+f1xOx+Nc/iiUCP+k7dLj
+ YyGhMbaTljHAJmW3BN5qPpY5IxVWgzVnfO0kqrWgu1F77hxZJAVmURqXgdlwgUjdaP54
+ CJAw==
+X-Gm-Message-State: AOAM532x+IaNSj4T25KoPSSrfjmSEBaKgrrOLB12ncYodDu6IMAavamM
+ FLTPehnZsuituH3VSKU7M8RlkmlX1PA=
+X-Google-Smtp-Source: ABdhPJzstetsR+Bwh6vbo+RGs7C4Ljt6yWFL0Fym5keJ831UNf5WjeyP55xY+H/RquR5Wk7AiL/zdg==
+X-Received: by 2002:a17:902:f789:b0:163:935d:aa69 with SMTP id
+ q9-20020a170902f78900b00163935daa69mr22475063pln.165.1654027729564; 
+ Tue, 31 May 2022 13:08:49 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ z17-20020aa785d1000000b005184c9c46dbsm11162319pfn.81.2022.05.31.13.08.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 May 2022 13:08:48 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 31 May 2022 13:08:56 -0700
+Message-Id: <20220531200857.136547-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, <robdclark@gmail.com>
-References: <20220524081413.37895-1-jiapeng.chong@linux.alibaba.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220524081413.37895-1-jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Remove unused code
+Subject: [Freedreno] [PATCH] drm/msm: Ensure mmap offset is initialized
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +68,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, airlied@linux.ie,
- linux-arm-msm@vger.kernel.org, Abaci
- Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_khsieh@quicinc.com, vkoul@kernel.org,
- daniel@ffwll.ch, dmitry.baryshkov@linaro.org, sean@poorly.run
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
+If a GEM object is allocated, and then exported as a dma-buf fd which is
+mmap'd before or without the GEM buffer being directly mmap'd, the
+vma_node could be unitialized.  This leads to a situation where the CPU
+mapping is not correctly torn down in drm_vma_node_unmap().
 
-On 5/24/2022 1:14 AM, Jiapeng Chong wrote:
-> Eliminate the follow clang warning:
-> 
-> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:544:33: warning: variable
-> ‘mode’ set but not used [-Wunused-but-set-variable].
-> 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Fixes: e5516553999f ("drm: call drm_gem_object_funcs.mmap with fake offset")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_drv.c       |  2 +-
+ drivers/gpu/drm/msm/msm_drv.h       |  1 +
+ drivers/gpu/drm/msm/msm_gem_prime.c | 15 +++++++++++++++
+ 3 files changed, 17 insertions(+), 1 deletion(-)
 
-Fixes: 3177589c6e93("drm/msm/dpu: encoder: drop unused mode_fixup callback")
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 44485363f37a..14ab9a627d8b 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -964,7 +964,7 @@ static const struct drm_driver msm_driver = {
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = msm_gem_prime_import_sg_table,
+-	.gem_prime_mmap     = drm_gem_prime_mmap,
++	.gem_prime_mmap     = msm_gem_prime_mmap,
+ #ifdef CONFIG_DEBUG_FS
+ 	.debugfs_init       = msm_debugfs_init,
+ #endif
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index bb052071b16d..090b8074fec7 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -275,6 +275,7 @@ unsigned long msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_t
+ void msm_gem_shrinker_init(struct drm_device *dev);
+ void msm_gem_shrinker_cleanup(struct drm_device *dev);
+ 
++int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj);
+ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map);
+ void msm_gem_prime_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
+diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+index 94ab705e9b8a..dcc8a573bc76 100644
+--- a/drivers/gpu/drm/msm/msm_gem_prime.c
++++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+@@ -11,6 +11,21 @@
+ #include "msm_drv.h"
+ #include "msm_gem.h"
+ 
++int msm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
++{
++	int ret;
++
++	/* Ensure the mmap offset is initialized.  We lazily initialize it,
++	 * so if it has not been first mmap'd directly as a GEM object, the
++	 * mmap offset will not be already initialized.
++	 */
++	ret = drm_gem_create_mmap_offset(obj);
++	if (ret)
++		return ret;
++
++	return drm_gem_prime_mmap(obj, vma);
++}
++
+ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+-- 
+2.36.1
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 2 --
->   1 file changed, 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 52516eb20cb8..658171799b9a 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -541,7 +541,6 @@ static int dpu_encoder_virt_atomic_check(
->   	struct dpu_encoder_virt *dpu_enc;
->   	struct msm_drm_private *priv;
->   	struct dpu_kms *dpu_kms;
-> -	const struct drm_display_mode *mode;
->   	struct drm_display_mode *adj_mode;
->   	struct msm_display_topology topology;
->   	struct dpu_global_state *global_state;
-> @@ -559,7 +558,6 @@ static int dpu_encoder_virt_atomic_check(
->   
->   	priv = drm_enc->dev->dev_private;
->   	dpu_kms = to_dpu_kms(priv->kms);
-> -	mode = &crtc_state->mode;
->   	adj_mode = &crtc_state->adjusted_mode;
->   	global_state = dpu_kms_get_global_state(crtc_state->state);
->   	if (IS_ERR(global_state))
