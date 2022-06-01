@@ -2,59 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1152E539BAE
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 05:31:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0469853A120
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 11:47:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19EF6112AEC;
-	Wed,  1 Jun 2022 03:31:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B8D910EB55;
+	Wed,  1 Jun 2022 09:47:12 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48248112AEC
- for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 03:31:49 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-f16a3e0529so1084472fac.2
- for <freedreno@lists.freedesktop.org>; Tue, 31 May 2022 20:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=ZXANg1Xbh102jrQayjOuezZ9O/gFRLgsMRDupXP1QUA=;
- b=QCRv/9hjjsPosXK8+SozzTvw4mbpn5cVmMRPrTx8zbtfJZ8P6yp6nrPikH5M3Bb/zY
- 9zj+RzSvXK0g8rzpgjMmty2pyBIC2N8frbv66r+wBgGh1aQpLT8s8K+9i7Krw1YN9LgX
- sVhAm8KDz42ZHGje/8QwEcJtsvASD/rChgUVA=
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [IPv6:2607:f8b0:4864:20::731])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A298E10EB5F
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 09:47:11 +0000 (UTC)
+Received: by mail-qk1-x731.google.com with SMTP id i68so872124qke.11
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Jun 2022 02:47:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kIz59c+baaDvx06RFDWodUgWj9cBhAddosfcxlDJ0UE=;
+ b=BCrlL+z5bniTAK5GCt/y7tJUrGs04CEaFtfMKy/X2OvVx0PxbEB6uRXsS+Aaxwxqsq
+ Li6lN1HMVdvt5++eoMgWtm/YBaONKvgHCNCZWxVSRNNz7lhKoQ1FCMQd148QY3Vb6C0v
+ 7hVk9uYDs/D0ss/NLHqjpTj0PVsfQVLzbKCkJctrSz5SIi4G0UDByTN8IiEVXK9ST2UD
+ grjL3ZYvAunbQj2rDpDhYPqEvgU09vCGxoHRQQXIRkNJkxia43kAlmwEkWvWK4SfZSgI
+ gjO4NOVXA7LDGH5+vcLyrYrz5yUpJ//qthiFs7mtX3FVyAf1V8ULtlQU1Ese5GWtlTM/
+ zeRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=ZXANg1Xbh102jrQayjOuezZ9O/gFRLgsMRDupXP1QUA=;
- b=qYDrLIdvbEclaAxmlzO31/RH38b9ToWRASuec+yN1mk+goGSTR/VK5sAf5Vp9rVwkF
- 73VpJq3t0zDwZ5pZtnzzk2rfzyk42dX6NYUYMsI9g9A7fgIf68pzh0IJRpB0Qo2FvWIc
- iJZBhihVc9A/HAXJkZuUAAZQvgAhUrHKeaXwh0KogEjNyItx0zlwbOTxUPJv09jOImbk
- REcltlKFSdm+WZukrhoZRZWmGTb/k+FPqF3+AXSVXimwIw9sU8GHE2Yfs4vX895Lx62s
- b5t9GevCGBU5mQEju8CKSvZWV35R2VTpyNv1mtpGY9GzAA7lpW5oK83JdX9HHg0U0qpn
- Dxag==
-X-Gm-Message-State: AOAM532REz1L19vDBQPBIhc5uLgJzVVewP1Wmr/O1jU/uisXYdGddKho
- 1ielYpJjI4RfL6QlO6ZULWVtdnJsMoG06YGXdXNhoQ==
-X-Google-Smtp-Source: ABdhPJxWg/wQ47t6UdY8plKB4yDS5oiLWxRUVa6tt3bSryEz8iA4tslZ3JT274/cfraEHMrjdCaYi12Re0wyLgqxBE8=
-X-Received: by 2002:a05:6870:240d:b0:f1:b878:e97c with SMTP id
- n13-20020a056870240d00b000f1b878e97cmr14788774oap.193.1654054308492; Tue, 31
- May 2022 20:31:48 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 31 May 2022 20:31:47 -0700
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kIz59c+baaDvx06RFDWodUgWj9cBhAddosfcxlDJ0UE=;
+ b=OBXUq9RxE+f2yUohs9624yXFPUojUDEmhwVL9FKCZtbyzmbWWLbtsURFcaNardRzlr
+ WeUxDm4sKXUjjGZRUQbaSQ4uyk+cm4W58Qpb2QGVWgacGJCU1B2rMQmnSNVdRyboWP99
+ 5wMZhEriKfXiPrMYtJYy9+9Yn9HKj/Sb5tMF59FBT3oXpYC9qRaZ6uQzc6tycvkyA8Sf
+ DjUs9ScyOY6q4bpLqB4kAoQRYXKkL/6vmfv0JnN4DgNsYNfZRAymiXto/yxQpXdqcsG8
+ 8ED2vccHm3ruLo1aRuH5Ag5bYrJN3/4CajdWXw3BKP3DNVe98mmdGiCRLC6r71xj9g6e
+ 13Sw==
+X-Gm-Message-State: AOAM530orV7CLuqSgkVyarrYr8fZnM0cVfMgXJtBdHH6MWK/4KgHk9HJ
+ 6RG19Z4q/cvXwj2wSvpgtmFBw3VWskIOV99nyNkIhA==
+X-Google-Smtp-Source: ABdhPJzpJ19BVsF3gVFUbCRm2W54JFRIgN/cNpclZjaO5CcKaUq2Y3AFR2wPED/OypMCWDhP2AIMKBAANfbN13Rgjt8=
+X-Received: by 2002:a05:620a:4311:b0:67e:8a0f:4cd5 with SMTP id
+ u17-20020a05620a431100b0067e8a0f4cd5mr44323514qko.363.1654076830580; Wed, 01
+ Jun 2022 02:47:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20220531160059.v2.1.Ie7f6d4bf8cce28131da31a43354727e417cae98d@changeid>
-References: <20220531160059.v2.1.Ie7f6d4bf8cce28131da31a43354727e417cae98d@changeid>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 31 May 2022 20:31:47 -0700
-Message-ID: <CAE-0n53E+J9osr2ajviwFLwrtFrS2_i9fgW=d1P5=7UZ+s1Kew@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>
+References: <20220531121825.1126204-1-dmitry.baryshkov@linaro.org>
+ <d7084452-ea90-3a8b-d39a-b09d9f45f839@quicinc.com>
+In-Reply-To: <d7084452-ea90-3a8b-d39a-b09d9f45f839@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Wed, 1 Jun 2022 12:46:59 +0300
+Message-ID: <CAA8EJprW7xnYJaeqh4vozSTx04DcQ20MMRrzLaEJPJTC3dV30w@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Move min BW request and
- full BW disable back to mdss
+Subject: Re: [Freedreno] [PATCH] drm/msm: less magic numbers in
+ msm_mdss_enable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,105 +64,136 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, Sean Paul <sean@poorly.run>
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Douglas Anderson (2022-05-31 16:01:26)
-> In commit a670ff578f1f ("drm/msm/dpu: always use mdp device to scale
-> bandwidth") we fully moved interconnect stuff to the DPU driver. This
-> had no change for sc7180 but _did_ have an impact for other SoCs. It
-> made them match the sc7180 scheme.
+On Wed, 1 Jun 2022 at 01:01, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+> On 5/31/2022 5:18 AM, Dmitry Baryshkov wrote:
+> > Replace magic register writes in msm_mdss_enable() with version that
+> > contains less magic and more variable names that can be traced back to
+> > the dpu_hw_catalog or the downstream dtsi files.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/msm_mdss.c | 79 ++++++++++++++++++++++++++++++----
+> >   1 file changed, 71 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> > index 0454a571adf7..2a48263cd1b5 100644
+> > --- a/drivers/gpu/drm/msm/msm_mdss.c
+> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> > @@ -21,6 +21,7 @@
+> >   #define HW_REV                              0x0
+> >   #define HW_INTR_STATUS                      0x0010
+> >
+> > +#define UBWC_DEC_HW_VERSION          0x58
+> >   #define UBWC_STATIC                 0x144
+> >   #define UBWC_CTRL_2                 0x150
+> >   #define UBWC_PREDICTION_MODE                0x154
+> > @@ -132,9 +133,63 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *msm_mdss)
+> >       return 0;
+> >   }
+> >
+> > +#define UBWC_1_0 0x10000000
+> > +#define UBWC_2_0 0x20000000
+> > +#define UBWC_3_0 0x30000000
+> > +#define UBWC_4_0 0x40000000
+> > +
+> > +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
+> > +                                    u32 ubwc_static)
+> > +{
+> > +     writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
+> > +}
+> > +
+> > +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
+> > +                                    unsigned int ubwc_version,
+> > +                                    u32 ubwc_swizzle,
+> > +                                    u32 highest_bank_bit,
+> > +                                    u32 macrotile_mode)
+> > +{
+> > +     u32 value = (ubwc_swizzle & 0x1) |
+> > +                 (highest_bank_bit & 0x3) << 4 |
+> > +                 (macrotile_mode & 0x1) << 12;
+> > +
+> > +     if (ubwc_version == UBWC_3_0)
+> > +             value |= BIT(10);
+> > +
+> > +     if (ubwc_version == UBWC_1_0)
+> > +             value |= BIT(8);
+> > +
+> > +     writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
+> > +}
+> > +
+> > +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
+> > +                                    unsigned int ubwc_version,
+> > +                                    u32 ubwc_swizzle,
+> > +                                    u32 ubwc_static,
+> > +                                    u32 highest_bank_bit,
+> > +                                    u32 macrotile_mode)
+> > +{
+> > +     u32 value = (ubwc_swizzle & 0x7) |
+> > +                 (ubwc_static & 0x1) << 3 |
+> > +                 (highest_bank_bit & 0x7) << 4 |
+> > +                 (macrotile_mode & 0x1) << 12;
+> > +
+> > +     writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
+> > +
+> > +     if (ubwc_version == UBWC_3_0) {
+> > +             writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
+> > +             writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
+> > +     } else {
+> > +             writel_relaxed(2, msm_mdss->mmio + UBWC_CTRL_2);
+> > +             writel_relaxed(1, msm_mdss->mmio + UBWC_PREDICTION_MODE);
+> > +     }
+> > +}
+> > +
 >
-> Unfortunately, the sc7180 scheme seems like it was a bit broken.
-> Specifically the interconnect needs to be on for more than just the
-> DPU driver's AXI bus. In the very least it also needs to be on for the
-> DSI driver's AXI bus. This can be seen fairly easily by doing this on
-> a ChromeOS sc7180-trogdor class device:
->
->   set_power_policy --ac_screen_dim_delay=5 --ac_screen_off_delay=10
->   sleep 10
->   cd /sys/bus/platform/devices/ae94000.dsi/power
->   echo on > control
->
-> When you do that, you'll get a warning splat in the logs about
-> "gcc_disp_hf_axi_clk status stuck at 'off'".
->
-> One could argue that perhaps what I have done above is "illegal" and
-> that it can't happen naturally in the system because in normal system
-> usage the DPU is pretty much always on when DSI is on. That being
-> said:
-> * In official ChromeOS builds (admittedly a 5.4 kernel with backports)
->   we have seen that splat at bootup.
-> * Even though we don't use "autosuspend" for these components, we
->   don't use the "put_sync" variants. Thus plausibly the DSI could stay
->   "runtime enabled" past when the DPU is enabled. Techncially we
->   shouldn't do that if the DPU's suspend ends up yanking our clock.
->
-> Let's change things such that the "bare minimum" request for the
-> interconnect happens in the mdss driver again. That means that all of
-> the children can assume that the interconnect is on at the minimum
-> bandwidth. We'll then let the DPU request the higher amount that it
-> wants.
->
-> It should be noted that this isn't as hacky of a solution as it might
-> initially appear. Specifically:
-> * Since MDSS and DPU individually get their own references to the
->   interconnect then the framework will actually handle aggregating
->   them. The two drivers are _not_ clobbering each other.
-> * When the Qualcomm interconnect driver aggregates it takes the max of
->   all the peaks. Thus having MDSS request a peak, as we're doing here,
->   won't actually change the total interconnect bandwidth (it won't be
->   added to the request for the DPU). This perhaps explains why the
->   "average" requested in MDSS was historically 0 since that one
->   _would_ be added in.
->
-> NOTE also that in the downstream ChromeOS 5.4 and 5.15 kernels, we're
-> also seeing some RPMH hangs that are addressed by this fix. These
-> hangs are showing up in the field and on _some_ devices with enough
-> stress testing of suspend/resume. Specifically right at suspend time
-> with a stack crawl that looks like this (from chromeos-5.15 tree):
->   rpmh_write_batch+0x19c/0x240
->   qcom_icc_bcm_voter_commit+0x210/0x420
->   qcom_icc_set+0x28/0x38
->   apply_constraints+0x70/0xa4
->   icc_set_bw+0x150/0x24c
->   dpu_runtime_resume+0x50/0x1c4
->   pm_generic_runtime_resume+0x30/0x44
->   __genpd_runtime_resume+0x68/0x7c
->   genpd_runtime_resume+0x12c/0x20c
->   __rpm_callback+0x98/0x138
->   rpm_callback+0x30/0x88
->   rpm_resume+0x370/0x4a0
->   __pm_runtime_resume+0x80/0xb0
->   dpu_kms_enable_commit+0x24/0x30
->   msm_atomic_commit_tail+0x12c/0x630
->   commit_tail+0xac/0x150
->   drm_atomic_helper_commit+0x114/0x11c
->   drm_atomic_commit+0x68/0x78
->   drm_atomic_helper_disable_all+0x158/0x1c8
->   drm_atomic_helper_suspend+0xc0/0x1c0
->   drm_mode_config_helper_suspend+0x2c/0x60
->   msm_pm_prepare+0x2c/0x40
->   pm_generic_prepare+0x30/0x44
->   genpd_prepare+0x80/0xd0
->   device_prepare+0x78/0x17c
->   dpm_prepare+0xb0/0x384
->   dpm_suspend_start+0x34/0xc0
->
-> We don't completely understand all the mechanisms in play, but the
-> hang seemed to come and go with random factors. It's not terribly
-> surprising that the hang is gone after this patch since the line of
-> code that was failing is no longer present in the kernel.
->
-> Fixes: a670ff578f1f ("drm/msm/dpu: always use mdp device to scale bandwidth")
-> Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> ---
+> Is it possible to unify the above functions by having the internal
+> ubwc_version checks?
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Note, it's not the ubwc_version, it is the ubwc_dec_hw_version. And
+also different functions take different sets of arguments.
+
+> It seems like msm_mdss_setup_ubwc_dec_xxx can keep growing.
+>
+> I have not looked into each bit programming but from the top level so
+> feel free to correct if wrong but it seems both do write UBWC_STATIC
+> (different values based on different UBWC versions) and write some extra
+> registers based on version
+
+This is what both the current code and the downstream do. See
+https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/zeus-s-oss/techpack/display-drivers/msm/sde/sde_hw_top.c#L312
+
+>
+> >   static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+> >   {
+> >       int ret;
+> > +     u32 hw_rev;
+> >
+> >       ret = clk_bulk_prepare_enable(msm_mdss->num_clocks, msm_mdss->clocks);
+> >       if (ret) {
+> > @@ -149,26 +204,34 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+> >       if (msm_mdss->is_mdp5)
+> >               return 0;
+> >
+> > +     hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
+> > +     dev_info(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
+> > +     dev_info(msm_mdss->dev, "UBWC_DEC_HW_VERSION: 0x%x\n",
+> > +             readl_relaxed(msm_mdss->mmio + UBWC_DEC_HW_VERSION));
+>
+> we are already printing the HW version here
+>
+> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c#L1096
+>
+> Do you want to remove that print then? May be. Let me take a look.
+
+[skipped]
+
+-- 
+With best wishes
+Dmitry
