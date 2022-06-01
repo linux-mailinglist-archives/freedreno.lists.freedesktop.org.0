@@ -1,91 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE7153A53B
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 14:41:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B152653A9BF
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 17:16:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D2010E147;
-	Wed,  1 Jun 2022 12:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1125810E212;
+	Wed,  1 Jun 2022 15:16:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 983F510E2CB
- for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 12:41:06 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id q7so2182311wrg.5
- for <freedreno@lists.freedesktop.org>; Wed, 01 Jun 2022 05:41:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=82D84xfOz9UFhgLk1p0WJgUaCXHpLRzcEqRYu6sSb2s=;
- b=bdxF3/DXO4qlpxqkXTrRROXDIzdPmZxYjgx2PxYdOKJuSWBn8HLo4nATCcT0DKW9KH
- Cijrvdvd0yqX/EojdnkIt5nfBf89U1g/5anXHWLFWAp74qZyRSomsXZB7TExj7ggiD1m
- UpFKG7zfCy9A55FysHzghHj8HSFQzlFhnIlOY=
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A285F10E212
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 15:16:16 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id u23so3314850lfc.1
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Jun 2022 08:16:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=g6KOzK1wBJwy3fIC+H9t0O69JIU0L0pK8Y3WOrDMzMo=;
+ b=o/5TryVyPmMjLG6+uoJ4V8nADbhbsOpy17OYQL62lVOvXlC2q5J+9UVnUdOke4QS41
+ ZzMO+QbvpjNqfPyXJsTeAcc6GEPL7a1khH4SYRZKeo2O565kW5rkHYikDAnKimuiCyYW
+ brW74y/z1jnYvkttaBtPoejriej4ubcSVsUXwU6XLUoABdIewEAsvH0kfA3TlyYcna0j
+ UxsgRZiJAGyUDJMB72D3AEaeDaVdoskleRS6mM8mYW1S4+aA+ZcvLcSEsQNTfNBMg8SB
+ ko32JA625HVN4cVQQtQu9+GepOkD4vQZWGD+DPV+bldvTeU+jhDdBuaMbluiTUfFFa6K
+ O2kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=82D84xfOz9UFhgLk1p0WJgUaCXHpLRzcEqRYu6sSb2s=;
- b=s7IAQ3GIQmw9kACf/Zz9MP9oPjNofFrcY0k/oOq2Wyja7XagyowoQT8NzI3pVNi/Y5
- DlengzKQoydVwLl3fxHZuKcHwyGCtLvDLIUhr8jD6o7fB9Izrqn21DpLi2b6Bav53g6z
- 6Vk+V2yHvFEqHArwjtVFEi3B6RZQyqofmVwAiyXfSPRTlbyHtwdjoDrkpyEaUpP8+zZq
- mk79Q02sISS6xUu2qM5rSiS4n0sb962sqJThxC65fSeRpYLITCw1sx6GMmah+ey+1Ia8
- ZBEQi7akq90R2CifMo1SqapQrD7SEy8qV+cUGD3Ma+g1VXjvUSRDDsyWfUAAzmxM2ec6
- kGGg==
-X-Gm-Message-State: AOAM531KISbdi/nHFrIviWl7GME41P5MJ7xduxz1Ue8GV4IwgYFqUn5O
- KIxnW6GA9eq3Qu3Arr09XP+tig==
-X-Google-Smtp-Source: ABdhPJzHKqlkmDoQMVjXPxnvl7IKRCbzihedoNMp9HVpHhhgsWSiQTlxA7XH2Wmeq/uhzhc2s74sIg==
-X-Received: by 2002:a05:6000:1847:b0:20f:c628:5884 with SMTP id
- c7-20020a056000184700b0020fc6285884mr44468094wri.526.1654087265056; 
- Wed, 01 Jun 2022 05:41:05 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- l10-20020a5d410a000000b0020fc6590a12sm1472887wrp.41.2022.06.01.05.41.03
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=g6KOzK1wBJwy3fIC+H9t0O69JIU0L0pK8Y3WOrDMzMo=;
+ b=KGD5FjdiLlOLU0ZTSoPLz/Hbn9rUkGgnP9SE5eohTTKSXiPqPNUI09Tw0sOmdOXaEs
+ 6UXFVkuIYmZxxpILkk7iHvZ/PvhRD9C7LN1Hvdo3ggfZ4cs0u8KqASqbskIQT2UUpCZR
+ C/M/yx9fp6gwJsiySfe3nMT5v9o8wJRh1UBlhMWecu3y4tOX71eGfPBxOICCAl32B3Qf
+ NMP7DV/++jr3PbffmahNVn7JvUzitBZBHo/4dt1gP15vAndUTEkznUq/f5RDh6kHC42X
+ nhWPMIsy8Qph7qN1LfdLJYaauI73ugZaF5CZhjzgDvXJ0SAzFD4eBE1SkmHEc9aqXjp1
+ CAmA==
+X-Gm-Message-State: AOAM533mPgR+Ntpzv0BuXzSmJ4EMPRyUUz0LgUZ1pS+FZMCBhoyzdV7c
+ zqa/2sYt6zddFS2tZJ0xNoW4pw==
+X-Google-Smtp-Source: ABdhPJxxgtMFmzHwUs2iXsWaBdtpeFiYbbmXLIq9X+HInbKbcMdBW7tel2W6a9F27fzw3+04H5Tn9w==
+X-Received: by 2002:a05:6512:c04:b0:478:f837:d813 with SMTP id
+ z4-20020a0565120c0400b00478f837d813mr136328lfu.17.1654096574815; 
+ Wed, 01 Jun 2022 08:16:14 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ bp17-20020a056512159100b0047255d21186sm415294lfb.181.2022.06.01.08.16.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jun 2022 05:41:04 -0700 (PDT)
-Date: Wed, 1 Jun 2022 14:41:02 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <YpdeXux0R6PUZhnf@phenom.ffwll.local>
-Mail-Followup-To: Doug Anderson <dianders@chromium.org>,
- Sean Paul <seanpaul@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?iso-8859-1?Q?St=E9phane?= Marchesin <marcheu@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "Aravind Venkateswaran (QUIC)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh (QUIC)" <quic_khsieh@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- "Abhinav Kumar (QUIC)" <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Sean Paul <seanpaul@google.com>
-References: <20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
- <5857c510-9783-a483-8414-65d7350618d6@suse.de>
- <CAD=FV=X99EWmRk82ako7cL7BWPEsTG=L7VVBVDFX5qKc1MifSA@mail.gmail.com>
- <CAD=FV=U3Wywjev9tEhkL_zE1cV5NwEknH2YwHqyhd5TQtiJ=AQ@mail.gmail.com>
- <Yo4ufWm5WiXsnRX8@phenom.ffwll.local>
- <CAOw6vbLu7TzTppUYv1cynMvn+ykTuGiYBCNhN7FO2kYqZj4DUg@mail.gmail.com>
- <CAKMK7uHTkQjQ5=HOb0MtXD4JZRj3Szt5vm9gQZ6BixZ8LtUpxQ@mail.gmail.com>
- <CAD=FV=WgRjW2yFKvRkcKoj-nGEAhku6_d3kgs9WhTC6bVrzxeQ@mail.gmail.com>
+ Wed, 01 Jun 2022 08:16:14 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed,  1 Jun 2022 18:16:08 +0300
+Message-Id: <20220601151613.1513554-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD=FV=WgRjW2yFKvRkcKoj-nGEAhku6_d3kgs9WhTC6bVrzxeQ@mail.gmail.com>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Freedreno] [PATCH v3] drm/probe-helper: Make 640x480 first if
- no EDID
+Subject: [Freedreno] [PATCH v1 0/5] drm/msm: clean up the hw catalog init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,167 +67,53 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- LKML <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <seanpaul@google.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <seanpaul@chromium.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- =?iso-8859-1?Q?St=E9phane?= Marchesin <marcheu@chromium.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, May 26, 2022 at 09:01:03AM -0700, Doug Anderson wrote:
-> Hi,
-> 
-> On Thu, May 26, 2022 at 8:42 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Thu, 26 May 2022 at 03:28, Sean Paul <seanpaul@chromium.org> wrote:
-> > >
-> > > On Wed, May 25, 2022 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Mon, May 23, 2022 at 05:59:02PM -0700, Doug Anderson wrote:
-> > > > > Hi,
-> > > > >
-> > > > > On Fri, May 20, 2022 at 5:01 PM Doug Anderson <dianders@chromium.org> wrote:
-> > > > > >
-> > > > > > Hi,
-> > > > > >
-> > > > > > On Mon, May 16, 2022 at 3:28 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> > > > > > >
-> > > > > > > Hi Douglas,
-> > > > > > >
-> > > > > > > I understand that you're trying to tell userspace that the modelist has
-> > > > > > > been made up, but it's not something that should be done via fragile
-> > > > > > > heuristics IMHO.
-> > > > > > >
-> > > > > > > I looked at the Chromium source code that you linked, but I cannot say
-> > > > > > > whether it's doing the correct thing. It all depends on what your
-> > > > > > > program needs.
-> > > > > > >
-> > > > > > > In that function, you could also search for 'DRM_MODE_TYPE_USERDEF'.
-> > > > > > > It's the mode that the user specified on the kernel command line. If
-> > > > > > > Chromium's automatic mode selection fails, you'd give your users direct
-> > > > > > > control over it.
-> > > > > >
-> > > > > > That doesn't really work for Chrome OS. Certainly a kernel hacker
-> > > > > > could do this, but it's not something I could imagine us exposing to
-> > > > > > an average user of a Chromebook.
-> > > > > >
-> > > > > >
-> > > > > > > When there's no flagged mode or if
-> > > > > > > /sys/class/drm/card<...>/status contains "unconnected", you can assume
-> > > > > > > that the modelist is artificial and try the modes in an appropriate order.
-> > > > > >
-> > > > > > So "no flagged" means that nothing is marked as preferred, correct?
-> > > > > >
-> > > > > > ...so I guess what you're suggesting is that the order that the kernel
-> > > > > > is presenting the modes to userspace is not ABI. If there are no
-> > > > > > preferred modes then userspace shouldn't necessarily assume that the
-> > > > > > first mode returned is the best mode. Instead it should assume that if
-> > > > > > there is no preferred mode then the mode list is made up and it should
-> > > > > > make its own decisions about the best mode to start with. If this is
-> > > > > > the ABI from the kernel then plausibly I could convince people to
-> > > > > > change userspace to pick 640x480 first in this case.
-> > > > > >
-> > > > > > > If we really want the kernel to give additional guarantees, we should
-> > > > > > > have a broader discussion about this topic IMHO.
-> > > > > >
-> > > > > > Sure. I've added Stéphane Marchesin to this thread in case he wants to
-> > > > > > chime in about anything.
-> > > > > >
-> > > > > > Overall, my take on the matter:
-> > > > > >
-> > > > > > * Mostly I got involved because, apparently, a DP compliance test was
-> > > > > > failing. The compliance test was upset that when it presented us with
-> > > > > > no EDID that we didn't default to 640x480. There was a push to make a
-> > > > > > fix for this in the Qualcomm specific driver but that didn't sit right
-> > > > > > with me.
-> > > > > >
-> > > > > > * On all devices I'm currently working with (laptops), the DP is a
-> > > > > > secondary display. If a user was trying to plug in a display with a
-> > > > > > bad EDID and the max mode (1024x768) didn't work, they could just use
-> > > > > > the primary display to choose a different resolution. It seems
-> > > > > > unlikely a user would truly be upset and would probably be happy they
-> > > > > > could get their broken display to work at all. Even if this is a
-> > > > > > primary display, I believe there are documented key combos to change
-> > > > > > the resolution of the primary display even if you can't see anything.
-> > > > > >
-> > > > > > * That all being said, defaulting to 640x480 when there's no EDID made
-> > > > > > sense to me, especially since it's actually defined in the DP spec. So
-> > > > > > I'm trying to do the right thing and solve this corner case. That
-> > > > > > being said, if it's truly controversial I can just drop it.
-> > > > > >
-> > > > > >
-> > > > > > So I guess my plan will be to give Stéphane a little while in case he
-> > > > > > wants to chime in. If not then I guess I'll try a Chrome patch...
-> > > > > > ...and if that doesn't work, I'll just drop it.
-> > > > >
-> > > > > OK, this userspace code seems to work:
-> > > > >
-> > > > > https://crrev.com/c/3662501 - ozone/drm: Try 640x480 before picking
-> > > > > the first mode if no EDID
-> > > > >
-> > > > > ...so we'll see how review of that goes. :-)
-> > >
-> > > Mirroring some of my comments on that review here :-)
-> > >
-> > > IMO, this should be addressed in the kernel, or not at all. The kernel
-> > > ensures other aspects of DisplayPort implementation are compliant, so
-> > > I don't think this would be any exception. Further, the kernel is the
-> > > one creating the "safe" mode list, so it seems odd that userspace
-> > > would override that. Finally, relying on every userspace to do the
-> > > right thing is asking for trouble (we have 3 places which would need
-> > > this logic in CrOS).
-> >
-> > Oh I missed the part that this is defined in the DP spec as _the_ fallback mode.
-> >
-> > I think the probe helpers could check whether it's a DP connector and
-> > then dtrt per DP spec? I think that should have a solid chance of
-> > avoiding the regression mess, since the really shoddy stuff tends to
-> > be VGA/HDMI.
-> 
-> I'm fine with making this DP-specific if that's what people think is best.
-> 
-> 
-> > Also if DP says only 640x480 should be the fallback if there's no
-> > other mode list source, then I think we should trim it down to only
-> > that. But also only for DP.
-> 
-> So the DP spec says that 640x480 is _the_ default fallback, but it
-> also says that we're also allowed to have some implementation-specific
-> fall-back modes as well, so I'd rather not fully trim the list and
-> just make it clear (somehow) that 640x480 ought to be the default.
-> Would you be OK going back to v2 of this patch [1] but adding a check
-> that the connector type is DP and also making sure that the spec is
-> referenced?
+Replace superfluous cfg_init functions, which just assign a static
+config to the struct dpu_mdss_cfg, with static instances of struct
+dpu_mdss_cfg.
 
-Sounds reasonable.
--Daniel
+Dmitry Baryshkov (5):
+  drm/msm/dpu: use feature bit for LM combined alpha check
+  drm/msm/dpu: move VBIF_XINL_QOS_LVL_REMAP size to hw_catalog
+  drm/msm/dpu: remove hwversion field from data structures
+  drm/msm/dpu: constify struct dpu_mdss_cfg
+  drm/msm/dpu: make dpu hardware catalog static const
 
-> 
-> 
-> > Also ofc that patch should reference the right DP spec sections :-)
-> 
-> My original patch description for this patch (v3) did reference
-> section 4.2.2.6 (EDID Corruption Detection) of the DP 1.4a Link CTS.
-> ...or did you want this in inline comments in the patch itself?
-> 
-> 
-> [1] https://lore.kernel.org/r/20220510135101.v2.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   4 +-
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |   4 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 500 ++++++++----------
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  16 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |   1 -
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |   5 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c     |   7 +-
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c    |   1 -
+ .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   4 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   2 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c   |   5 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |   1 -
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   6 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |   2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   2 +-
+ 27 files changed, 258 insertions(+), 334 deletions(-)
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.35.1
+
