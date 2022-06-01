@@ -2,67 +2,33 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E71753ADBE
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 22:47:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C0453AE97
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 00:08:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F11610FC96;
-	Wed,  1 Jun 2022 20:46:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF6E10F0EB;
+	Wed,  1 Jun 2022 22:07:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7D310FC96
- for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 20:46:57 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id a23so3250323ljd.9
- for <freedreno@lists.freedesktop.org>; Wed, 01 Jun 2022 13:46:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=fj9HtRIX4+M0EdDnghqxhr6GHQmpAm8s/XdenW9yup0=;
- b=WjRHLkgwCSWAlphNr9xuVVKYEGPDefIDXa8vtmj6h2K4iVHM8CaH0cyKh8/b2pU7oL
- 04g6nvj+ijgHp8BUpa+zZhO+h0wje7fT5ZpxGla7N/gc9nSxuemkwDTZm2sU+E8gheIl
- lcSwrUkHewNgnVDmX8xCnqI66SEdC8AV+cvo+s8gm6i5cIHRjzh0iwboTcCSzSrb4UkS
- qh84i8eQatdMSnl44dhsjqBB9rQCgxlwKxlXRi2a1ajTT13maFRIUyRQoIAV9USm5xEF
- CItZYLYEb9drifjhDbJHByDwfMd0WwusljT+rG/4pmJVL1F26KP5vuH+t929KHSGunBB
- 0kfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=fj9HtRIX4+M0EdDnghqxhr6GHQmpAm8s/XdenW9yup0=;
- b=6huXpZlvYbF1zu3kBOqzdPYeiLC/WTjouPhXYtHN2YNgbsZnjrOBwrlIpxm1xpp/Uv
- eJPSrUjxC6lt2W2r5fD4T65z529gLT0FMfxiIAWWkJIbBkKdjKeYuHdnyDl739vAdoHI
- fPdADzpYKOxvoyYA8lkoxLDS5AOIT3vX7+kMsZFQS8O7idEy1k9Oe41SFxqIQhJSrOQF
- FovdvtNmlq328AImrjy6xeE06ravZpdrw2mnCq2x9KJTJGDa6zcyU3w752frHJd1G9Wv
- bjkQt9BiBDH1ni1KqsGCwJgLrfMFTFgqHbcczWhOr9nmQ9QyysGVU0uo+nRp/S/V5XW8
- nvqw==
-X-Gm-Message-State: AOAM53176lZRH0+g4sgO7Rm0Y1/wsQUOgyw77f5C2kCtms+hDK4GM5UZ
- Pt6/eMD/jAe2j7CUetn60sSVOA==
-X-Google-Smtp-Source: ABdhPJxaKLcEkkU4GB/4Q1C4XrI6PGY70nBZOBslqQa/9byzq+gv3CmXYlcwJG2qlo5+RfiL+/eYJg==
-X-Received: by 2002:a2e:9e41:0:b0:253:c37c:378b with SMTP id
- g1-20020a2e9e41000000b00253c37c378bmr39695585ljk.202.1654116415632; 
- Wed, 01 Jun 2022 13:46:55 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- k8-20020a2ea288000000b0024f3d1dae99sm509610lja.33.2022.06.01.13.46.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jun 2022 13:46:54 -0700 (PDT)
-Message-ID: <f415aa0c-edf8-94de-bde8-faf151f5f530@linaro.org>
-Date: Wed, 1 Jun 2022 23:46:54 +0300
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it [5.144.164.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A817410EC18
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 22:07:53 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 9D52B20603;
+ Thu,  2 Jun 2022 00:07:49 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu,  2 Jun 2022 00:07:36 +0200
+Message-Id: <20220601220747.1145095-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-GB
-To: Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.4.Ia6324ebc848cd40b4dbd3ad3289a7ffb5c197779@changeid>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220510122726.v3.4.Ia6324ebc848cd40b4dbd3ad3289a7ffb5c197779@changeid>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v3 4/4] drm/bridge: parade-ps8640: Handle DP
- AUX more properly
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 00/11] drm/msm/dsi_phy: Replace parent names
+ with clk_hw pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,190 +41,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Neil Armstrong <narmstrong@baylibre.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Hsin-Yi Wang <hsinyi@chromium.org>,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Arnd Bergmann <arnd@arndb.de>, Jami Kettunen <jami.kettunen@somainline.org>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 10/05/2022 22:29, Douglas Anderson wrote:
-> While it works, for the most part, to assume that the panel has
-> finished probing when devm_of_dp_aux_populate_ep_devices() returns,
-> it's a bit fragile. This is talked about at length in commit
-> a1e3667a9835 ("drm/bridge: ti-sn65dsi86: Promote the AUX channel to
-> its own sub-dev").
-> 
-> When reviewing the ps8640 code, I managed to convince myself that it
-> was OK not to worry about it there and that maybe it wasn't really
-> _that_ fragile. However, it turns out that it really is. Simply
-> hardcoding panel_edp_probe() to return -EPROBE_DEFER was enough to put
-> the boot process into an infinite loop. I believe this manages to trip
-> the same issues that we used to trip with the main MSM code where
-> something about our actions trigger Linux to re-probe previously
-> deferred devices right away and each time we try again we re-trigger
-> Linux to re-probe.
-> 
-> Let's fix this using the callback introduced in the patch ("drm/dp:
-> Callbacks to make it easier for drivers to use DP AUX bus properly").
-> When using the new callback, we have to be a little careful. The
-> probe_done() callback is no longer always called in the context of
-> our probe routine. That means we can't rely on being able to return
-> -EPROBE_DEFER from it. We re-jigger the order of things a bit to
-> account for that.
-> 
-> With this change, the device still boots (though obviously the panel
-> doesn't come up) if I force panel-edp to always return
-> -EPROBE_DEFER. If I fake it and make the panel probe exactly once it
-> also works.
-> 
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+As stated in [1] I promised to tackle and send this series.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+parent_hw pointers are easier to manage and cheaper to use than
+repeatedly formatting the parent name and subsequently leaving the clk
+framework to perform lookups based on that name.
 
-> ---
-> 
-> Changes in v3:
-> - Adapt to v3 changes in aux bus.
-> - Use devm_drm_bridge_add() to simplify.
-> 
-> Changes in v2:
-> - Rewrote atop new method introduced by patch #1.
-> 
->   drivers/gpu/drm/bridge/parade-ps8640.c | 74 ++++++++++++++++----------
->   1 file changed, 46 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/bridge/parade-ps8640.c
-> index e2467e58b5b7..ff4227f6d800 100644
-> --- a/drivers/gpu/drm/bridge/parade-ps8640.c
-> +++ b/drivers/gpu/drm/bridge/parade-ps8640.c
-> @@ -537,7 +537,7 @@ static const struct drm_bridge_funcs ps8640_bridge_funcs = {
->   	.pre_enable = ps8640_pre_enable,
->   };
->   
-> -static int ps8640_bridge_host_attach(struct device *dev, struct ps8640 *ps_bridge)
-> +static int ps8640_bridge_get_dsi_resources(struct device *dev, struct ps8640 *ps_bridge)
->   {
->   	struct device_node *in_ep, *dsi_node;
->   	struct mipi_dsi_device *dsi;
-> @@ -576,13 +576,40 @@ static int ps8640_bridge_host_attach(struct device *dev, struct ps8640 *ps_bridg
->   	dsi->format = MIPI_DSI_FMT_RGB888;
->   	dsi->lanes = NUM_MIPI_LANES;
->   
-> -	return devm_mipi_dsi_attach(dev, dsi);
-> +	return 0;
-> +}
-> +
-> +static int ps8640_bridge_link_panel(struct drm_dp_aux *aux)
-> +{
-> +	struct ps8640 *ps_bridge = aux_to_ps8640(aux);
-> +	struct device *dev = aux->dev;
-> +	struct device_node *np = dev->of_node;
-> +	int ret;
-> +
-> +	/*
-> +	 * NOTE about returning -EPROBE_DEFER from this function: if we
-> +	 * return an error (most relevant to -EPROBE_DEFER) it will only
-> +	 * be passed out to ps8640_probe() if it called this directly (AKA the
-> +	 * panel isn't under the "aux-bus" node). That should be fine because
-> +	 * if the panel is under "aux-bus" it's guaranteed to have probed by
-> +	 * the time this function has been called.
-> +	 */
-> +
-> +	/* port@1 is ps8640 output port */
-> +	ps_bridge->panel_bridge = devm_drm_of_get_bridge(dev, np, 1, 0);
-> +	if (IS_ERR(ps_bridge->panel_bridge))
-> +		return PTR_ERR(ps_bridge->panel_bridge);
-> +
-> +	ret = devm_drm_bridge_add(dev, &ps_bridge->bridge);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_mipi_dsi_attach(dev, ps_bridge->dsi);
->   }
->   
->   static int ps8640_probe(struct i2c_client *client)
->   {
->   	struct device *dev = &client->dev;
-> -	struct device_node *np = dev->of_node;
->   	struct ps8640 *ps_bridge;
->   	int ret;
->   	u32 i;
-> @@ -623,6 +650,14 @@ static int ps8640_probe(struct i2c_client *client)
->   	if (!ps8640_of_panel_on_aux_bus(&client->dev))
->   		ps_bridge->bridge.ops = DRM_BRIDGE_OP_EDID;
->   
-> +	/*
-> +	 * Get MIPI DSI resources early. These can return -EPROBE_DEFER so
-> +	 * we want to get them out of the way sooner.
-> +	 */
-> +	ret = ps8640_bridge_get_dsi_resources(&client->dev, ps_bridge);
-> +	if (ret)
-> +		return ret;
-> +
->   	ps_bridge->page[PAGE0_DP_CNTL] = client;
->   
->   	ps_bridge->regmap[PAGE0_DP_CNTL] = devm_regmap_init_i2c(client, ps8640_regmap_config);
-> @@ -665,35 +700,19 @@ static int ps8640_probe(struct i2c_client *client)
->   	if (ret)
->   		return ret;
->   
-> -	devm_of_dp_aux_populate_ep_devices(&ps_bridge->aux);
-> +	ret = devm_of_dp_aux_populate_bus(&ps_bridge->aux, ps8640_bridge_link_panel);
->   
-> -	/* port@1 is ps8640 output port */
-> -	ps_bridge->panel_bridge = devm_drm_of_get_bridge(dev, np, 1, 0);
-> -	if (IS_ERR(ps_bridge->panel_bridge))
-> -		return PTR_ERR(ps_bridge->panel_bridge);
-> -
-> -	drm_bridge_add(&ps_bridge->bridge);
-> -
-> -	ret = ps8640_bridge_host_attach(dev, ps_bridge);
-> -	if (ret)
-> -		goto err_bridge_remove;
-> -
-> -	return 0;
-> +	/*
-> +	 * If devm_of_dp_aux_populate_bus() returns -ENODEV then it's up to
-> +	 * usa to call ps8640_bridge_link_panel() directly. NOTE: in this case
-> +	 * the function is allowed to -EPROBE_DEFER.
-> +	 */
-> +	if (ret == -ENODEV)
-> +		return ps8640_bridge_link_panel(&ps_bridge->aux);
->   
-> -err_bridge_remove:
-> -	drm_bridge_remove(&ps_bridge->bridge);
->   	return ret;
->   }
->   
-> -static int ps8640_remove(struct i2c_client *client)
-> -{
-> -	struct ps8640 *ps_bridge = i2c_get_clientdata(client);
-> -
-> -	drm_bridge_remove(&ps_bridge->bridge);
-> -
-> -	return 0;
-> -}
-> -
->   static const struct of_device_id ps8640_match[] = {
->   	{ .compatible = "parade,ps8640" },
->   	{ }
-> @@ -702,7 +721,6 @@ MODULE_DEVICE_TABLE(of, ps8640_match);
->   
->   static struct i2c_driver ps8640_driver = {
->   	.probe_new = ps8640_probe,
-> -	.remove = ps8640_remove,
->   	.driver = {
->   		.name = "ps8640",
->   		.of_match_table = ps8640_match,
+This series starts out by adding extra constructors for divider, mux and
+fixed-factor clocks that have parent_hw(s) pointer argument(s) instead
+of some DT index or name.  Followed by individual patches performing the
+conversion, one DSI PHY at a time.
 
+dsi_phy_28nm_8960 includes an extra fixup to replace "eternal"
+devm_kzalloc allocations (for the lifetime of the device) with
+stack-local char arrays, like all the other DSI PHY drivers.
+
+(Questions from v1 cover letter regarding the future of these drivers
+ is omitted for brevity.)
+
+And with enough future improvements out of the way, let's round out this
+patch-series by stating that it has been successfully tested on:
+
+- Sony Nile Discovery (Xperia XA2 Ultra): 14nm;
+- Sony Seine PDX201 (Xperia 10II): 14nm;
+- Sony Loire Suzu (Xperia X): 28nm.
+
+And no diff is observed in debugfs's clk_summary.
+
+Unfortunately all other devices in my collection with a 7/10nm DSI PHY
+have a DSC panel which we have yet to get working.
+
+[1]: https://lore.kernel.org/linux-arm-msm/20220502214235.s5plebunh4ttjhge@SoMainline.org/
+
+Changes since v1:
+
+- Moved indentation changes to separate patch (Dmitry);
+- dsi_phy_28nm_8960: move clock name allocation removal prior to
+  parent_hw refactor;
+- Remove vco_name stack-local char array in favour of reusing clk_name
+  (Dmitry);
+- Inserted additional patch to replace hardcoded char-array length
+  constant 32 with sizeof(clk_name).
+
+v1: https://lore.kernel.org/linux-arm-msm/20220523213837.1016542-1-marijn.suijten@somainline.org/T/#u
+
+Marijn Suijten (11):
+  clk: divider: Introduce devm_clk_hw_register_divider_parent_hw()
+  clk: mux: Introduce devm_clk_hw_register_mux_parent_hws()
+  clk: fixed-factor: Introduce *clk_hw_register_fixed_factor_parent_hw()
+  drm/msm/dsi/phy: Reindent and reflow multiline function calls
+  drm/msm/dsi_phy_28nm_8960: Use stack memory for temporary clock names
+  drm/msm/dsi/phy: Replace hardcoded char-array length with sizeof()
+  drm/msm/dsi_phy_28nm_8960: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_28nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_14nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_10nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_7nm: Replace parent names with clk_hw pointers
+
+ drivers/clk/clk-fixed-factor.c                |  57 ++++--
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    | 165 +++++++++---------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    |  55 +++---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    | 117 ++++++-------
+ .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   |  90 +++++-----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 156 ++++++++---------
+ include/linux/clk-provider.h                  |  34 ++++
+ 7 files changed, 358 insertions(+), 316 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.36.1
+
