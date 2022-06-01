@@ -2,56 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5FF5399F9
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 01:14:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B2F539A9B
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 03:09:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8616610FE70;
-	Tue, 31 May 2022 23:14:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C31D10EBD0;
+	Wed,  1 Jun 2022 01:09:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B94A810FE70;
- Tue, 31 May 2022 23:14:54 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83ED610EABA;
+ Wed,  1 Jun 2022 01:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654038894; x=1685574894;
+ t=1654045758; x=1685581758;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=s9eTUFSi+nlZc2iHt/fEkYzkW4B+qHZYST1eAW2dANU=;
- b=kXHjSKNGBiEK6puKCYXQvd/1T2vQyFxAn2EaGs0YabzGxQzbJfUEuRRg
- iXiog3fuqYDuGqXU9gYcl7QB3GkoNV99y2iUC/G0MxrXiiHpjpsHd4OO5
- 4eqSiTNn7rube0DUiKTRvnGVMvccRMaw1PrJOSM5p20AcvydRlD5CxGVw E=;
+ bh=0wMv4MMFRXMQyMrdi3iH6CjYTUZBmyjt9+CbjBkzRBE=;
+ b=w4Q6oGWqxEzM5SZZUnNeBE7QmCTucMYjwfOZarQzadKarVv7zA7h4LEK
+ Lf93kws7ytszi1c9mMMBc+0/CV2q1x0iJTEs5aWGRLdSG0D6JbGubQFtu
+ KzN5UOEKm9yfJTDQm/EfpSptKtPt7Ts33b2q70Z+GvNojbv4y1+InDcH2 k=;
 Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 31 May 2022 16:14:54 -0700
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 31 May 2022 18:09:18 -0700
 X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
  by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2022 16:14:53 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 31 May 2022 16:14:52 -0700
-Received: from [10.38.242.41] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ 31 May 2022 18:09:17 -0700
+Received: from [10.71.110.111] (10.80.80.8) by nasanex01b.na.qualcomm.com
+ (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 31 May
- 2022 16:14:50 -0700
-Message-ID: <a641d93e-adec-a92b-1b2c-949a79cb4f3a@quicinc.com>
-Date: Tue, 31 May 2022 16:14:48 -0700
+ 2022 18:09:16 -0700
+Message-ID: <513014c2-c72c-0dad-2e2e-5a2ec512bb56@quicinc.com>
+Date: Tue, 31 May 2022 18:09:16 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+ Thunderbird/91.9.0
 Content-Language: en-US
 To: Douglas Anderson <dianders@chromium.org>, Rob Clark <robdclark@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
 References: <20220531160059.v2.1.Ie7f6d4bf8cce28131da31a43354727e417cae98d@changeid>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+From: Jessica Zhang <quic_jesszhan@quicinc.com>
 In-Reply-To: <20220531160059.v2.1.Ie7f6d4bf8cce28131da31a43354727e417cae98d@changeid>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01b.na.qualcomm.com (10.46.141.250)
 Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Move min BW request and
  full BW disable back to mdss
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -67,16 +64,16 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Kalyan Thota <quic_kalyant@quicinc.com>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Sean Paul <sean@poorly.run>, Daniel Vetter <daniel@ffwll.ch>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- Vinod Polimera <quic_vpolimer@quicinc.com>
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org, Vinod
+ Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Doug
+
 
 On 5/31/2022 4:01 PM, Douglas Anderson wrote:
 > In commit a670ff578f1f ("drm/msm/dpu: always use mdp device to scale
@@ -168,14 +165,9 @@ On 5/31/2022 4:01 PM, Douglas Anderson wrote:
 > Fixes: a670ff578f1f ("drm/msm/dpu: always use mdp device to scale bandwidth")
 > Fixes: c33b7c0389e1 ("drm/msm/dpu: add support for clk and bw scaling for display")
 > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-We will test this out even on RB3/RB5 to make sure it boots up fine and 
-give Tested-by.
-
-Thanks
-
-Abhinav
+Tested-by: Jessica Zhang <quic_jesszhan@quicinc.com> # RB3 (sdm845) and 
+RB5  (qrb5165)
 
 > ---
 > 
@@ -320,3 +312,6 @@ Abhinav
 >   	if (is_mdp5)
 >   		ret = mdp5_mdss_parse_clock(pdev, &msm_mdss->clocks);
 >   	else
+> -- 
+> 2.36.1.255.ge46751e96f-goog
+> 
