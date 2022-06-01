@@ -2,56 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0469853A120
-	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 11:47:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2FD553A1C4
+	for <lists+freedreno@lfdr.de>; Wed,  1 Jun 2022 12:04:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B8D910EB55;
-	Wed,  1 Jun 2022 09:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5991C10E9EF;
+	Wed,  1 Jun 2022 10:04:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A298E10EB5F
- for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 09:47:11 +0000 (UTC)
-Received: by mail-qk1-x731.google.com with SMTP id i68so872124qke.11
- for <freedreno@lists.freedesktop.org>; Wed, 01 Jun 2022 02:47:11 -0700 (PDT)
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [IPv6:2607:f8b0:4864:20::72c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 769C810E9F6
+ for <freedreno@lists.freedesktop.org>; Wed,  1 Jun 2022 10:04:49 +0000 (UTC)
+Received: by mail-qk1-x72c.google.com with SMTP id m68so901586qkb.9
+ for <freedreno@lists.freedesktop.org>; Wed, 01 Jun 2022 03:04:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kIz59c+baaDvx06RFDWodUgWj9cBhAddosfcxlDJ0UE=;
- b=BCrlL+z5bniTAK5GCt/y7tJUrGs04CEaFtfMKy/X2OvVx0PxbEB6uRXsS+Aaxwxqsq
- Li6lN1HMVdvt5++eoMgWtm/YBaONKvgHCNCZWxVSRNNz7lhKoQ1FCMQd148QY3Vb6C0v
- 7hVk9uYDs/D0ss/NLHqjpTj0PVsfQVLzbKCkJctrSz5SIi4G0UDByTN8IiEVXK9ST2UD
- grjL3ZYvAunbQj2rDpDhYPqEvgU09vCGxoHRQQXIRkNJkxia43kAlmwEkWvWK4SfZSgI
- gjO4NOVXA7LDGH5+vcLyrYrz5yUpJ//qthiFs7mtX3FVyAf1V8ULtlQU1Ese5GWtlTM/
- zeRg==
+ :cc; bh=lHSPQr2cIR/ntw9mchA0Qp1Mf6n70DWLKdFta7FA2i8=;
+ b=rf0on8d64kNqqEPTSKDTeJLGi5mhx/w+LSPJtQsnkQKzerFRuh98mE1mlZVoerdEdB
+ nilWximLlUxpwJOs6aAz4ko74Qc9SI1fC0RMONIZ9o6NiK4xAhDC905SK2U7UgYVPaTj
+ 39HnnlavGu7ksAvSci1lRnC1b6W/qVV7Lvsn892uJV3Z3R20E63iaxso4k8FTMBFdRCY
+ 1I2NERWc8n/ZlpGPw9fQnlfCPLBEdGUcbAXi+7ckTakLT2rvM4VyDnQwIZoSlf7TsSqj
+ GWmnEf3wePEtp1Za+lfRaKXAM5SoA+GXn1A0hgDcQEob8ruq43wLLx4r+NgtiKwX2TQf
+ SNLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=kIz59c+baaDvx06RFDWodUgWj9cBhAddosfcxlDJ0UE=;
- b=OBXUq9RxE+f2yUohs9624yXFPUojUDEmhwVL9FKCZtbyzmbWWLbtsURFcaNardRzlr
- WeUxDm4sKXUjjGZRUQbaSQ4uyk+cm4W58Qpb2QGVWgacGJCU1B2rMQmnSNVdRyboWP99
- 5wMZhEriKfXiPrMYtJYy9+9Yn9HKj/Sb5tMF59FBT3oXpYC9qRaZ6uQzc6tycvkyA8Sf
- DjUs9ScyOY6q4bpLqB4kAoQRYXKkL/6vmfv0JnN4DgNsYNfZRAymiXto/yxQpXdqcsG8
- 8ED2vccHm3ruLo1aRuH5Ag5bYrJN3/4CajdWXw3BKP3DNVe98mmdGiCRLC6r71xj9g6e
- 13Sw==
-X-Gm-Message-State: AOAM530orV7CLuqSgkVyarrYr8fZnM0cVfMgXJtBdHH6MWK/4KgHk9HJ
- 6RG19Z4q/cvXwj2wSvpgtmFBw3VWskIOV99nyNkIhA==
-X-Google-Smtp-Source: ABdhPJzpJ19BVsF3gVFUbCRm2W54JFRIgN/cNpclZjaO5CcKaUq2Y3AFR2wPED/OypMCWDhP2AIMKBAANfbN13Rgjt8=
+ bh=lHSPQr2cIR/ntw9mchA0Qp1Mf6n70DWLKdFta7FA2i8=;
+ b=yUn9ysenMKUwNwo65Ji0h3gmAk+QFC5/zlHQGT6Zgqe04r5enS44VjUAkiv97s6NDi
+ RLUqoIN0ZAgs6wCn9YanoC6MIT6fRHA+AOFrN+RNQTWeQdqs7v5QrCHbCVzCdiflEO72
+ jbyBPtbHwhWcxP41qj5Ql0yl3SW5Sn4aSefHa75GWh1xpDCk9HN+nrFWuSm8W/1yk8R6
+ XH46CDRbfInasTdzUhzLS+WIJBcnzh4bla6BNS2DG7zZHHHav9djKtzBygRYbvDsjeUc
+ mjZaOt3Qc81mGLHKAxKSg8Qo9cilvKZQ5eFilN/HsXXiiGWQRSM76zvE5NOGWi5GEZBE
+ WHHA==
+X-Gm-Message-State: AOAM5314xoY/OgXgkFZbhCSiO5H8ZPKiCsnDdo5+LZ6WfbXD3OfV9UYX
+ N8nTZ0SQo80s9g6ZqO5V6z9jkHufKG5CnAYaPXRtYg==
+X-Google-Smtp-Source: ABdhPJzAahRdMs1ggkVHLtcwa0pM08LnUkdsm3uZvqJc3UZYhpPnwH+rgos7SIKGM+mWOnxRi1I1hPNAfmBomXzhN+c=
 X-Received: by 2002:a05:620a:4311:b0:67e:8a0f:4cd5 with SMTP id
- u17-20020a05620a431100b0067e8a0f4cd5mr44323514qko.363.1654076830580; Wed, 01
- Jun 2022 02:47:10 -0700 (PDT)
+ u17-20020a05620a431100b0067e8a0f4cd5mr44362828qko.363.1654077888548; Wed, 01
+ Jun 2022 03:04:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220531121825.1126204-1-dmitry.baryshkov@linaro.org>
- <d7084452-ea90-3a8b-d39a-b09d9f45f839@quicinc.com>
-In-Reply-To: <d7084452-ea90-3a8b-d39a-b09d9f45f839@quicinc.com>
+References: <20220531160059.v2.1.Ie7f6d4bf8cce28131da31a43354727e417cae98d@changeid>
+In-Reply-To: <20220531160059.v2.1.Ie7f6d4bf8cce28131da31a43354727e417cae98d@changeid>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 1 Jun 2022 12:46:59 +0300
-Message-ID: <CAA8EJprW7xnYJaeqh4vozSTx04DcQ20MMRrzLaEJPJTC3dV30w@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 1 Jun 2022 13:04:37 +0300
+Message-ID: <CAA8EJpqp64eDmXPN1qMTZ78My8BKPUcu7zKunZV1SJpzjSRDuQ@mail.gmail.com>
+To: Douglas Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: less magic numbers in
- msm_mdss_enable
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dpu: Move min BW request and
+ full BW disable back to mdss
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,135 +63,76 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, David Airlie <airlied@linux.ie>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>
+ Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, 1 Jun 2022 at 01:01, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
-> On 5/31/2022 5:18 AM, Dmitry Baryshkov wrote:
-> > Replace magic register writes in msm_mdss_enable() with version that
-> > contains less magic and more variable names that can be traced back to
-> > the dpu_hw_catalog or the downstream dtsi files.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_mdss.c | 79 ++++++++++++++++++++++++++++++----
-> >   1 file changed, 71 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > index 0454a571adf7..2a48263cd1b5 100644
-> > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > @@ -21,6 +21,7 @@
-> >   #define HW_REV                              0x0
-> >   #define HW_INTR_STATUS                      0x0010
-> >
-> > +#define UBWC_DEC_HW_VERSION          0x58
-> >   #define UBWC_STATIC                 0x144
-> >   #define UBWC_CTRL_2                 0x150
-> >   #define UBWC_PREDICTION_MODE                0x154
-> > @@ -132,9 +133,63 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *msm_mdss)
-> >       return 0;
-> >   }
-> >
-> > +#define UBWC_1_0 0x10000000
-> > +#define UBWC_2_0 0x20000000
-> > +#define UBWC_3_0 0x30000000
-> > +#define UBWC_4_0 0x40000000
-> > +
-> > +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
-> > +                                    u32 ubwc_static)
-> > +{
-> > +     writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
-> > +}
-> > +
-> > +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
-> > +                                    unsigned int ubwc_version,
-> > +                                    u32 ubwc_swizzle,
-> > +                                    u32 highest_bank_bit,
-> > +                                    u32 macrotile_mode)
-> > +{
-> > +     u32 value = (ubwc_swizzle & 0x1) |
-> > +                 (highest_bank_bit & 0x3) << 4 |
-> > +                 (macrotile_mode & 0x1) << 12;
-> > +
-> > +     if (ubwc_version == UBWC_3_0)
-> > +             value |= BIT(10);
-> > +
-> > +     if (ubwc_version == UBWC_1_0)
-> > +             value |= BIT(8);
-> > +
-> > +     writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
-> > +}
-> > +
-> > +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
-> > +                                    unsigned int ubwc_version,
-> > +                                    u32 ubwc_swizzle,
-> > +                                    u32 ubwc_static,
-> > +                                    u32 highest_bank_bit,
-> > +                                    u32 macrotile_mode)
-> > +{
-> > +     u32 value = (ubwc_swizzle & 0x7) |
-> > +                 (ubwc_static & 0x1) << 3 |
-> > +                 (highest_bank_bit & 0x7) << 4 |
-> > +                 (macrotile_mode & 0x1) << 12;
-> > +
-> > +     writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
-> > +
-> > +     if (ubwc_version == UBWC_3_0) {
-> > +             writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
-> > +             writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
-> > +     } else {
-> > +             writel_relaxed(2, msm_mdss->mmio + UBWC_CTRL_2);
-> > +             writel_relaxed(1, msm_mdss->mmio + UBWC_PREDICTION_MODE);
-> > +     }
-> > +}
-> > +
+On Wed, 1 Jun 2022 at 02:01, Douglas Anderson <dianders@chromium.org> wrote:
 >
-> Is it possible to unify the above functions by having the internal
-> ubwc_version checks?
+> In commit a670ff578f1f ("drm/msm/dpu: always use mdp device to scale
+> bandwidth") we fully moved interconnect stuff to the DPU driver. This
+> had no change for sc7180 but _did_ have an impact for other SoCs. It
+> made them match the sc7180 scheme.
 
-Note, it's not the ubwc_version, it is the ubwc_dec_hw_version. And
-also different functions take different sets of arguments.
-
-> It seems like msm_mdss_setup_ubwc_dec_xxx can keep growing.
->
-> I have not looked into each bit programming but from the top level so
-> feel free to correct if wrong but it seems both do write UBWC_STATIC
-> (different values based on different UBWC versions) and write some extra
-> registers based on version
-
-This is what both the current code and the downstream do. See
-https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/zeus-s-oss/techpack/display-drivers/msm/sde/sde_hw_top.c#L312
+[skipped the description]
 
 >
-> >   static int msm_mdss_enable(struct msm_mdss *msm_mdss)
-> >   {
-> >       int ret;
-> > +     u32 hw_rev;
-> >
-> >       ret = clk_bulk_prepare_enable(msm_mdss->num_clocks, msm_mdss->clocks);
-> >       if (ret) {
-> > @@ -149,26 +204,34 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
-> >       if (msm_mdss->is_mdp5)
-> >               return 0;
-> >
-> > +     hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
-> > +     dev_info(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
-> > +     dev_info(msm_mdss->dev, "UBWC_DEC_HW_VERSION: 0x%x\n",
-> > +             readl_relaxed(msm_mdss->mmio + UBWC_DEC_HW_VERSION));
+> Changes in v2:
+> - Don't set bandwidth in init.
 >
-> we are already printing the HW version here
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c |  8 ----
+>  drivers/gpu/drm/msm/msm_mdss.c          | 57 +++++++++++++++++++++++++
+>  2 files changed, 57 insertions(+), 8 deletions(-)
 >
-> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c#L1096
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 2b9d931474e0..3025184053e0 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -49,8 +49,6 @@
+>  #define DPU_DEBUGFS_DIR "msm_dpu"
+>  #define DPU_DEBUGFS_HWMASKNAME "hw_log_mask"
 >
-> Do you want to remove that print then? May be. Let me take a look.
+> -#define MIN_IB_BW      400000000ULL /* Min ib vote 400MB */
+> -
+>  static int dpu_kms_hw_init(struct msm_kms *kms);
+>  static void _dpu_kms_mmu_destroy(struct dpu_kms *dpu_kms);
+>
 
 [skipped]
+
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index 0454a571adf7..e13c5c12b775 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -5,6 +5,7 @@
+>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+> +#include <linux/interconnect.h>
+>  #include <linux/irq.h>
+>  #include <linux/irqchip.h>
+>  #include <linux/irqdesc.h>
+> @@ -25,6 +26,8 @@
+>  #define UBWC_CTRL_2                    0x150
+>  #define UBWC_PREDICTION_MODE           0x154
+>
+> +#define MIN_IB_BW      400000000UL /* Min ib vote 400MB */
+
+As msm_mdss is now used for both DPU and MDP5 devices, could you
+please confirm that this value is valid for older devices too? E.g.
+db410c or 8974
+
+> +
+>  struct msm_mdss {
+>         struct device *dev;
+>
 
 -- 
 With best wishes
