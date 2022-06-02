@@ -2,56 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007D053BFBE
-	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 22:24:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1657D53C05B
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 23:30:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8589113485;
-	Thu,  2 Jun 2022 20:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4991F11363D;
+	Thu,  2 Jun 2022 21:30:31 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CD2A113476;
- Thu,  2 Jun 2022 20:24:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654201494; x=1685737494;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=5iVKzHg2aC6sarFPY5Jcp0A0AL32g8HzGVyqht6Aoos=;
- b=gRf7scRhnXvsAogdHZFuGxfgQ/zHp4pCDDBgc49pdo0lic7C7plAiuz2
- 3c1UHMiOBuwpq1CgpWc6SNwFwynJ+LwhV0KqdV7Wz6TjsvCnxnGQzqXyl
- 0l8H6hAJbO4p0Q/FjJWzyP5vSTRefDU9JdEKHQ2radZIgpMVf4fbOmVAX 8=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 02 Jun 2022 13:24:53 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2022 13:24:53 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 2 Jun 2022 13:24:53 -0700
-Received: from [10.38.242.41] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 2 Jun 2022
- 13:24:51 -0700
-Message-ID: <cb7e2c75-286a-2b74-7e21-bee90a83a91d@quicinc.com>
-Date: Thu, 2 Jun 2022 13:24:48 -0700
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7D0F11363D
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Jun 2022 21:30:30 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id v9so6559802lja.12
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Jun 2022 14:30:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=XzPSZDkHqlfhXXNElxfL2tzko5P7SZop+8kxOD3fOXc=;
+ b=nB7UbuH4mmQHiE+0EIKbQv5WhULrT7aFENXAZoBtooEo2FhwYRU8nFWiTfwQk2SWu8
+ oPW7aCCOHP33+JRtrc9KEC4ezZ54Th4d4vr9J/SaohgpHs2t3ToogHX2pfNiBLpY78ZU
+ ixWXVrdBm2fD3AHGO3VcQZGemV91KuseNzvSlPM8QgezQfmAgeWhKpmf8JoUoSYqPSOl
+ rFQ4CE8uyuUZkuTFaA+DE4xD4NZWQ6dKsg7aESBj//bZhgTJY6OR4Fm5B/fI1KUAuL9i
+ ozg5Sy5jwLf5Pav8BNtsYe8740H2f3zWD6PkYSkr8wEvxYPmUzmHZ7Rw6h24gamKQ/VN
+ 3lcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=XzPSZDkHqlfhXXNElxfL2tzko5P7SZop+8kxOD3fOXc=;
+ b=vH1HCOvZfZ2GKyvhXESeyaePayLZjjNbli5D7vzw+NUlMnnuqWiDzEb23e/yYj3IfB
+ x9WKbKJCPp0Vm8Rj8DDWnGhsD0A7jAieQk0Bl8WsFZDZobzHyzI5OAIs5XdfGPZwd4qs
+ EgpFW9uK4MCOFGuHX6rR2tFKe/5TKKhZTRMqIAkUz+nU0o3ayrER+goIaASyfjcfCB1E
+ M769eNsQ5f77WzrBvAQNq7OULnvCS3SlNhVAbcJ4/c0PhLHZg0fqVlmIR4nbrnxQ1FOH
+ UlX8JXVYD6X4tBj2ssAcJ6aV7YhRG3ILzJqsYQbOwlaNdZOJLXPUdNijesdqzE5jUnPw
+ 4YOw==
+X-Gm-Message-State: AOAM532jw/o0pwCKL9ZV2A8zFvdX84238zpCDw1c9/yanl4o5NQ2tw0s
+ 97HlH1cHzZZVwiM3b0RdPBmy5Q==
+X-Google-Smtp-Source: ABdhPJz4BAmKowdTjBR4WRTsxlt2gWIgsTgak+woebkooU0PA8SO0VLTygNBbGBWyRrot+wZDst0Dw==
+X-Received: by 2002:a05:651c:893:b0:249:4023:3818 with SMTP id
+ d19-20020a05651c089300b0024940233818mr44377790ljq.44.1654205428972; 
+ Thu, 02 Jun 2022 14:30:28 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ w41-20020a0565120b2900b00477a51842aasm1214248lfu.211.2022.06.02.14.30.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jun 2022 14:30:28 -0700 (PDT)
+Message-ID: <fb8f2f80-e016-80d4-cf30-0b1df5bde261@linaro.org>
+Date: Fri, 3 Jun 2022 00:30:27 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
 References: <20220602202207.1754351-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220602202207.1754351-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+ <cb7e2c75-286a-2b74-7e21-bee90a83a91d@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <cb7e2c75-286a-2b74-7e21-bee90a83a91d@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Subject: Re: [Freedreno] [PATCH v3 0/7] drm/msm: clean up the hw catalog init
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,60 +82,69 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 02/06/2022 23:24, Abhinav Kumar wrote:
+> 
+> 
+> On 6/2/2022 1:22 PM, Dmitry Baryshkov wrote:
+>> Replace superfluous cfg_init functions, which just assign a static
+>> config to the struct dpu_mdss_cfg, with static instances of struct
+>> dpu_mdss_cfg.
+>>
+>> Changes since v2:
+>>   - Add DPU_MIXER_COMBINED_ALPHA to sc7180's mixer features mask (noted
+>>     by Abhinav).
+>>
+>> Changes since v1:
+>>   - Turn catalog->perf and catalog->dma_cfg to be pointers, otherwise
+>>     clang complains that they are not constant.
+>>
+> 
+> I see you have dropped the R-bs from all the changes in V2.
+> Can you please add them back?
+
+Yes, I missed that in v3. Should be fixed in v4.
+
+> 
+>> Dmitry Baryshkov (7):
+>>    drm/msm/dpu: use feature bit for LM combined alpha check
+>>    drm/msm/dpu: move VBIF_XINL_QOS_LVL_REMAP size to hw_catalog
+>>    drm/msm/dpu: remove hwversion field from data structures
+>>    drm/msm/dpu: change catalog->perf to be a const pointer
+>>    drm/msm/dpu: change catalog->dma_cfg to be a const pointer
+>>    drm/msm/dpu: constify struct dpu_mdss_cfg
+>>    drm/msm/dpu: make dpu hardware catalog static const
+>>
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |  24 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |   4 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   4 +-
+>>   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  12 +-
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 502 ++++++++----------
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  20 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |   1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    |   5 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |   2 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |   1 -
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |   5 +-
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   2 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |   1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c     |   7 +-
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c    |   1 -
+>>   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |   1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   5 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   4 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |   1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   2 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c   |   5 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |   1 -
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   6 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   2 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |  20 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |   2 +-
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   2 +-
+>>   27 files changed, 283 insertions(+), 359 deletions(-)
+>>
 
 
-On 6/2/2022 1:22 PM, Dmitry Baryshkov wrote:
-> Replace superfluous cfg_init functions, which just assign a static
-> config to the struct dpu_mdss_cfg, with static instances of struct
-> dpu_mdss_cfg.
-> 
-> Changes since v2:
->   - Add DPU_MIXER_COMBINED_ALPHA to sc7180's mixer features mask (noted
->     by Abhinav).
-> 
-> Changes since v1:
->   - Turn catalog->perf and catalog->dma_cfg to be pointers, otherwise
->     clang complains that they are not constant.
-> 
-
-I see you have dropped the R-bs from all the changes in V2.
-Can you please add them back?
-
-> Dmitry Baryshkov (7):
->    drm/msm/dpu: use feature bit for LM combined alpha check
->    drm/msm/dpu: move VBIF_XINL_QOS_LVL_REMAP size to hw_catalog
->    drm/msm/dpu: remove hwversion field from data structures
->    drm/msm/dpu: change catalog->perf to be a const pointer
->    drm/msm/dpu: change catalog->dma_cfg to be a const pointer
->    drm/msm/dpu: constify struct dpu_mdss_cfg
->    drm/msm/dpu: make dpu hardware catalog static const
-> 
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |  24 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h |   4 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c   |   4 +-
->   .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  12 +-
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c    | 502 ++++++++----------
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h    |  20 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c    |   1 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c    |   5 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h    |   2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c   |   1 -
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c |   5 +-
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h |   2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c   |   1 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c     |   7 +-
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_merge3d.c    |   1 -
->   .../gpu/drm/msm/disp/dpu1/dpu_hw_pingpong.c   |   1 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c   |   5 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h   |   4 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_top.c    |   1 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h   |   2 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_vbif.c   |   5 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_wb.c     |   1 -
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   6 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h       |   2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c     |  20 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c        |   2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h        |   2 +-
->   27 files changed, 283 insertions(+), 359 deletions(-)
-> 
+-- 
+With best wishes
+Dmitry
