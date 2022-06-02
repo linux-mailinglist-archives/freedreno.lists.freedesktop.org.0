@@ -1,54 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE6353B0D3
-	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 02:40:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 800BB53B5AA
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 11:05:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7C6A10E108;
-	Thu,  2 Jun 2022 00:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24AEB112BC1;
+	Thu,  2 Jun 2022 09:05:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1AC10E108;
- Thu,  2 Jun 2022 00:40:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97DA4112315;
+ Thu,  2 Jun 2022 09:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1654130400; x=1685666400;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=rgg9lrRoTbyGUqBXjkt3vAJoPX0NgN9jHGqc3UmmXnw=;
- b=MNomT42BRfWOtFjs6ViFz+uAEdAPaRq5Z9jsvUb2w6dtB8Pw81hxJkjg
- 2QUcbPMrz+1Jn4XXcamd46MIijmca9TBdqoJbNqN2OM5kGyKYXoyRKpBq
- ELMpJcqercD9zhgcnukkhsL0IIRSRVJA6dK4WNHRbp56kPkgyUuav0m0o
- w6SmCGHkR/3z2yOqwxXsVAQXWKeju3RPGKLiNVAputIElETh1w1S/zuoo
- O7gDWIx/vIRAmlDLO/OSJDvl7qFcZUxu5lKMEnzFuH+FXsYUSAP7AJ+Pc
- cHRQOc2JfoDr45nK6GALqDe9xo6bi/l9xUgvNLGpWRIu9F+zLFZKdb2eI Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="301137993"
-X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="301137993"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ t=1654160740; x=1685696740;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=4oEeBotuaVj/tAGV+5gO0EXVh2xbVUIWuPkd2EPJER8=;
+ b=LYAg96dGJQKETJXIVOXlcbhOAugoBQ4eT/PcEG+NOOmCGoPyRIkEO5Tm
+ zkD3vB3JjI3kCTf0ipR+y3GXybf5UvCOLzSOlq1icVLRTeqdItVB3geul
+ XMa44pK4SeJWrs4Ax498XZexuESIFvgQ+5NY9eJG5qr+XEjy7mE2EUY5L
+ lvSJGzkA2ZXzEsk1FvN1tfsE2ZEOsRVGeFhZMGTOiMjHYwdF6qHgM/Kxl
+ BM3aU49GpXwbIThwvcF8N+Bf3pPVbbEhwqx9syEKfSQM1l/v4C3bcUvwe
+ QGUoyNaxH6HR5yB8P8hsID8/lSYX/yG4wRXOhDJZ0aG1sYk0uo60EA0tb w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10365"; a="301250596"
+X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="301250596"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2022 17:39:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="606557433"
-Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 01 Jun 2022 17:39:56 -0700
-Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nwYsW-0004aH-2c;
- Thu, 02 Jun 2022 00:39:56 +0000
-Date: Thu, 2 Jun 2022 08:39:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Message-ID: <202206020857.GD3c79od-lkp@intel.com>
-References: <20220601151613.1513554-6-dmitry.baryshkov@linaro.org>
+ 02 Jun 2022 02:05:38 -0700
+X-IronPort-AV: E=Sophos;i="5.91,270,1647327600"; d="scan'208";a="552747058"
+Received: from fbackhou-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.46.4])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2022 02:05:32 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>
+In-Reply-To: <20220601112302.v4.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20220601112302.v4.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
+Date: Thu, 02 Jun 2022 12:05:29 +0300
+Message-ID: <87v8tjph9i.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220601151613.1513554-6-dmitry.baryshkov@linaro.org>
-Subject: Re: [Freedreno] [PATCH v1 5/5] drm/msm/dpu: make dpu hardware
- catalog static const
+Content-Type: text/plain
+Subject: Re: [Freedreno] [PATCH v4] drm/probe-helper: Default to 640x480 if
+ no EDID on DP
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,125 +58,110 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kbuild-all@lists.01.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, Douglas Anderson <dianders@chromium.org>,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ quic_abhinavk@quicinc.com, Maxime Ripard <mripard@kernel.org>,
+ swboyd@chromium.org, robdclark@gmail.com, tzimmermann@suse.de,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
+ quic_khsieh@quicinc.com, freedreno@lists.freedesktop.org,
+ ville.syrjala@linux.intel.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+On Wed, 01 Jun 2022, Douglas Anderson <dianders@chromium.org> wrote:
+> If we're unable to read the EDID for a display because it's corrupt /
+> bogus / invalid then we'll add a set of standard modes for the
+> display. Since we have no true information about the connected
+> display, these modes are essentially guesses but better than nothing.
+> At the moment, none of the modes returned is marked as preferred, but
+> the modes are sorted such that the higher resolution modes are listed
+> first.
+>
+> When userspace sees these modes presented by the kernel it needs to
+> figure out which one to pick. At least one userspace, ChromeOS [1]
+> seems to use the rules (which seem pretty reasonable):
+> 1. Try to pick the first mode marked as preferred.
+> 2. Try to pick the mode which matches the first detailed timing
+>    descriptor in the EDID.
+> 3. If no modes were marked as preferred then pick the first mode.
+>
+> Unfortunately, userspace's rules combined with what the kernel is
+> doing causes us to fail section 4.2.2.6 (EDID Corruption Detection) of
+> the DP 1.4a Link CTS. That test case says that, while it's OK to allow
+> some implementation-specific fall-back modes if the EDID is bad that
+> userspace should _default_ to 640x480.
+>
+> Let's fix this by marking 640x480 as default for DP in the no-EDID
+> case.
+>
+> NOTES:
+> - In the discussion around v3 of this patch [2] there was talk about
+>   solving this in userspace and I even implemented a patch that would
+>   have solved this for ChromeOS, but then the discussion turned back
+>   to solving this in the kernel.
+> - Also in the discussion of v3 [2] it was requested to limit this
+> 83;40900;0c  change to just DP since folks were worried that it would break some
+>   subtle corner case on VGA or HDMI.
+>
+> [1] https://source.chromium.org/chromium/chromium/src/+/a051f741d0a15caff2251301efe081c30e0f4a96:ui/ozone/platform/drm/common/drm_util.cc;l=488
+> [2] https://lore.kernel.org/r/20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid
+>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+> I put Abhinav's Reviewed-by tag from v2 here since this is nearly the
+> same as v2. Hope this is OK.
+>
+> Changes in v4:
+> - Code is back to v2, but limit to just DP.
+> - Beefed up the commit message.
+>
+> Changes in v3:
+> - Don't set preferred, just disable the sort.
+>
+> Changes in v2:
+> - Don't modify drm_add_modes_noedid() 'cause that'll break others
+> - Set 640x480 as preferred in drm_helper_probe_single_connector_modes()
+>
+>  drivers/gpu/drm/drm_probe_helper.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+> index 425f56280d51..75a71649b64d 100644
+> --- a/drivers/gpu/drm/drm_probe_helper.c
+> +++ b/drivers/gpu/drm/drm_probe_helper.c
+> @@ -569,8 +569,17 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
+>  		count = drm_add_override_edid_modes(connector);
+>  
+>  	if (count == 0 && (connector->status == connector_status_connected ||
+> -			   connector->status == connector_status_unknown))
+> +			   connector->status == connector_status_unknown)) {
+>  		count = drm_add_modes_noedid(connector, 1024, 768);
+> +
+> +		/*
+> +		 * Section 4.2.2.6 (EDID Corruption Detection) of the DP 1.4a
+> +		 * Link CTS specifies that 640x480 (the official "failsafe"
+> +		 * mode) needs to be the default if there's no EDID.
+> +		 */
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort)
 
-I love your patch! Yet something to improve:
+If we're doing this primarily to appease the CTS, this is fine.
 
-[auto build test ERROR on drm/drm-next]
-[also build test ERROR on next-20220601]
-[cannot apply to v5.18]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
+If we think this is a functional improvement for regular use, I suppose
+we should consider doing this also for DRM_MODE_CONNECTOR_eDP. Which is
+irrelevant for the CTS.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-clean-up-the-hw-catalog-init/20220601-231925
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: arm64-randconfig-r003-20220531 (https://download.01.org/0day-ci/archive/20220602/202206020857.GD3c79od-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project c825abd6b0198fb088d9752f556a70705bc99dfd)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install arm64 cross compiling tool for clang build
-        # apt-get install binutils-aarch64-linux-gnu
-        # https://github.com/intel-lab-lkp/linux/commit/ae9332859e2098bf10e3c915aa912fc851b7541c
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Dmitry-Baryshkov/drm-msm-clean-up-the-hw-catalog-init/20220601-231925
-        git checkout ae9332859e2098bf10e3c915aa912fc851b7541c
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/gpu/drm/msm/
+Either way,
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1747:10: error: initializer element is not a compile-time constant
-           .perf = msm8998_perf_data,
-                   ^~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1770:13: error: initializer element is not a compile-time constant
-           .dma_cfg = sdm845_regdma,
-                      ^~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1794:13: error: initializer element is not a compile-time constant
-           .dma_cfg = sdm845_regdma,
-                      ^~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1820:13: error: initializer element is not a compile-time constant
-           .dma_cfg = sm8150_regdma,
-                      ^~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1844:13: error: initializer element is not a compile-time constant
-           .dma_cfg = sm8150_regdma,
-                      ^~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1872:13: error: initializer element is not a compile-time constant
-           .dma_cfg = sm8250_regdma,
-                      ^~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1893:10: error: initializer element is not a compile-time constant
-           .perf = sc7280_perf_data,
-                   ^~~~~~~~~~~~~~~~
-   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c:1916:13: error: initializer element is not a compile-time constant
-           .dma_cfg = sdm845_regdma,
-                      ^~~~~~~~~~~~~
-   8 errors generated.
-
-
-vim +1747 drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-
-591e34a091d17df Krishna Manikandan         2021-04-06  1702  
-5334087ee7438fa Loic Poulain               2022-02-14  1703  static const struct dpu_perf_cfg qcm2290_perf_data = {
-5334087ee7438fa Loic Poulain               2022-02-14  1704  	.max_bw_low = 2700000,
-5334087ee7438fa Loic Poulain               2022-02-14  1705  	.max_bw_high = 2700000,
-5334087ee7438fa Loic Poulain               2022-02-14  1706  	.min_core_ib = 1300000,
-5334087ee7438fa Loic Poulain               2022-02-14  1707  	.min_llcc_ib = 0,
-5334087ee7438fa Loic Poulain               2022-02-14  1708  	.min_dram_ib = 1600000,
-5334087ee7438fa Loic Poulain               2022-02-14  1709  	.min_prefill_lines = 24,
-5334087ee7438fa Loic Poulain               2022-02-14  1710  	.danger_lut_tbl = {0xff, 0x0, 0x0},
-5334087ee7438fa Loic Poulain               2022-02-14  1711  	.safe_lut_tbl = {0xfff0, 0x0, 0x0},
-5334087ee7438fa Loic Poulain               2022-02-14  1712  	.qos_lut_tbl = {
-5334087ee7438fa Loic Poulain               2022-02-14  1713  		{.nentry = ARRAY_SIZE(qcm2290_qos_linear),
-5334087ee7438fa Loic Poulain               2022-02-14  1714  		.entries = qcm2290_qos_linear
-5334087ee7438fa Loic Poulain               2022-02-14  1715  		},
-5334087ee7438fa Loic Poulain               2022-02-14  1716  	},
-5334087ee7438fa Loic Poulain               2022-02-14  1717  	.cdp_cfg = {
-5334087ee7438fa Loic Poulain               2022-02-14  1718  		{.rd_enable = 1, .wr_enable = 1},
-5334087ee7438fa Loic Poulain               2022-02-14  1719  		{.rd_enable = 1, .wr_enable = 0}
-5334087ee7438fa Loic Poulain               2022-02-14  1720  	},
-5334087ee7438fa Loic Poulain               2022-02-14  1721  	.clk_inefficiency_factor = 105,
-5334087ee7438fa Loic Poulain               2022-02-14  1722  	.bw_inefficiency_factor = 120,
-5334087ee7438fa Loic Poulain               2022-02-14  1723  };
-25fdd5933e4c0f5 Jeykumar Sankaran          2018-06-27  1724  /*************************************************************
-ae9332859e2098b Dmitry Baryshkov           2022-06-01  1725   * Hardware catalog
-25fdd5933e4c0f5 Jeykumar Sankaran          2018-06-27  1726   *************************************************************/
-25fdd5933e4c0f5 Jeykumar Sankaran          2018-06-27  1727  
-ae9332859e2098b Dmitry Baryshkov           2022-06-01  1728  static const struct dpu_mdss_cfg msm8998_dpu_cfg = {
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1729  	.caps = &msm8998_dpu_caps,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1730  	.mdp_count = ARRAY_SIZE(msm8998_mdp),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1731  	.mdp = msm8998_mdp,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1732  	.ctl_count = ARRAY_SIZE(msm8998_ctl),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1733  	.ctl = msm8998_ctl,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1734  	.sspp_count = ARRAY_SIZE(msm8998_sspp),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1735  	.sspp = msm8998_sspp,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1736  	.mixer_count = ARRAY_SIZE(msm8998_lm),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1737  	.mixer = msm8998_lm,
-6452cbd6f04cd57 Dmitry Baryshkov           2022-02-22  1738  	.dspp_count = ARRAY_SIZE(msm8998_dspp),
-6452cbd6f04cd57 Dmitry Baryshkov           2022-02-22  1739  	.dspp = msm8998_dspp,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1740  	.pingpong_count = ARRAY_SIZE(sdm845_pp),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1741  	.pingpong = sdm845_pp,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1742  	.intf_count = ARRAY_SIZE(msm8998_intf),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1743  	.intf = msm8998_intf,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1744  	.vbif_count = ARRAY_SIZE(msm8998_vbif),
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1745  	.vbif = msm8998_vbif,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1746  	.reg_dma_count = 0,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13 @1747  	.perf = msm8998_perf_data,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1748  	.mdss_irqs = IRQ_SM8250_MASK,
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1749  };
-94391a14fc27383 AngeloGioacchino Del Regno 2022-01-13  1750  
+> +			drm_set_preferred_mode(connector, 640, 480);
+> +	}
+>  	count += drm_helper_probe_add_cmdline_mode(connector);
+>  	if (count != 0) {
+>  		ret = __drm_helper_update_and_validate(connector, maxX, maxY, &ctx);
 
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Jani Nikula, Intel Open Source Graphics Center
