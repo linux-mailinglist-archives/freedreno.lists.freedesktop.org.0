@@ -1,81 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E461253C0F7
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jun 2022 00:47:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2FC253C10F
+	for <lists+freedreno@lfdr.de>; Fri,  3 Jun 2022 00:51:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85FE71139DB;
-	Thu,  2 Jun 2022 22:47:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8955A11306E;
+	Thu,  2 Jun 2022 22:51:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94E9A113B47
- for <freedreno@lists.freedesktop.org>; Thu,  2 Jun 2022 22:47:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1654210054;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=qM7RSO4/tzFo13g+8+xYBdsTDduUl6xGQcpX/+XbDM4=;
- b=C8VY3sfgf+QqFzTfAWSlevr4HxHruEzDT8FkhnBGW8S75FRcf3Z2zrkES/pzpxUKJyxKJT
- y438dYmOaS2aP11dg1Xt+SOB7sue5sS1GBIu53YQzIF+7h2tVolfnKIOl6B4/NLzgXc6b5
- 6w8Qtxg7K+l63hj9WyNRpwI7yAF6m90=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-631-MCGfzEwENaetSog7zxneiA-1; Thu, 02 Jun 2022 18:47:32 -0400
-X-MC-Unique: MCGfzEwENaetSog7zxneiA-1
-Received: by mail-qv1-f72.google.com with SMTP id
- fw9-20020a056214238900b0043522aa5b81so4259802qvb.21
- for <freedreno@lists.freedesktop.org>; Thu, 02 Jun 2022 15:47:32 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C851811306E
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Jun 2022 22:51:16 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id g25so6713728ljm.2
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Jun 2022 15:51:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=9NkYAD2C4UUETYtAXX2dOGJoXAZJaIMNUMYDdg5Tj+Y=;
+ b=KtLZVD/626GPNcYcWWT1YbQVuA06Q9prmTtWJKk92ZGqPre2TC0gHwCTpdwuyXnkEY
+ NObwfABqtzgf3n336Jc54XGf8QYhsUEDAqQ83YZ5P1+I0EOdCZquers5aZp21mf7Pjix
+ SYi1aD7S2eHXzUY71RsZNfr7HSinfjBvF/pU+3Ctup6SmZlCiLSDk904kbZRDXpxgDNh
+ jgNYawbW3InkM/ZBvDYAaoEHKaDCgs4Yu+ZJDcPe2NVhOyFVSOlh8kO6kGl1u8c9F5Zb
+ Utt954xBWqN5hMMzLtTC/hZvA4GSS1S/IOnUNLXSHRxs2zG08Vo8QrV+i8uvqiwsV3x4
+ C1wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:organization
- :user-agent:mime-version:content-transfer-encoding;
- bh=qM7RSO4/tzFo13g+8+xYBdsTDduUl6xGQcpX/+XbDM4=;
- b=MwL6qOFh31tL9wqBtS84If/zO7psFPg2f9EMsofF3nDF1U2ikepWspeqCDiGp085aC
- LtQnZ4Le8xop6ZqkfS8DPMR4Wrol39DYvBzRFhiMFGswUHNyVvgDxpV9JxqD47WyGeg9
- IS6NM8igrSkJVUYlgmRZ1Rf98r7yay1qcKckuz+qk37diyMw+3Vn1sg2gA7jDfRDXJc3
- BuEuf3CsXEw+NsL0VaAK/tqdXT1wCEZ+hXWZncpr/URgnDYD08pAt4tFMIHOL/y3gS06
- MugR0rNJoxqz65c8wjXCTK+VwL1OMz91nEtAsLMu1tfyC7htD+unX5HYYZTz0q1+ZEO6
- i+1g==
-X-Gm-Message-State: AOAM530xM8s3tQhXK+WRKTu1F6rILGFnwduknIZSMCAWGiosagLcF235
- YMOULE/4mJI6Bt2GuPHPNHmGA5st2wnwtvobVuyiuKGyiq+M8oCz6MIP0LzbgKrsidxY626xqRD
- UZZkvq2Lj+j082sOWmDSAudu193Qf
-X-Received: by 2002:a05:620a:25cb:b0:6a1:136:a7ed with SMTP id
- y11-20020a05620a25cb00b006a10136a7edmr4702916qko.531.1654210052043; 
- Thu, 02 Jun 2022 15:47:32 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwpnm1UyzEEBtWAnuoHs5dkbiAxvr8+KtajlKCD6hPVaJaiWLzEVDhYIlzllPONobjHXa8Z3g==
-X-Received: by 2002:a05:620a:25cb:b0:6a1:136:a7ed with SMTP id
- y11-20020a05620a25cb00b006a10136a7edmr4702907qko.531.1654210051816; 
- Thu, 02 Jun 2022 15:47:31 -0700 (PDT)
-Received: from [192.168.8.138] (static-71-184-137-158.bstnma.ftas.verizon.net.
- [71.184.137.158]) by smtp.gmail.com with ESMTPSA id
- f6-20020a05622a104600b002f39b99f6a3sm4086110qte.61.2022.06.02.15.47.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jun 2022 15:47:31 -0700 (PDT)
-Message-ID: <d717d5e385e0f64e0168695ea2f693ec9db2e28a.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org
-Date: Thu, 02 Jun 2022 18:47:29 -0400
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35)
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=9NkYAD2C4UUETYtAXX2dOGJoXAZJaIMNUMYDdg5Tj+Y=;
+ b=xta/3pjvsyGuYG9R/WQIsec9ZTxfl4Tg9TP5ouT3d/vtN1aL1887h16D3LUC8bCkOd
+ U4yU5EE9wCyVviZ+FIWGCf7E5tMhO4JKpV7fkp+K/SL4RXfNgfCPT1trCAv50pwZTPMi
+ JVsLu56oGZMIyjjU/SVnlfUhkZEqdr2FB1Yuk9yGjw4vwDQ9H6KsGrr8OOs7uRvl89d2
+ SZ3br6VWgDEXOYjIV+hiRAg1x2s4Ur8EHp1XF6zKn3FTd7KHasUdplJPPpzPGivo/P3I
+ 6w9MyeGDRUKdLh4AgJIaY5crvAFl9Finz9vAl0GfREqvbPstCD73JTMjMQ6diwIIsVJw
+ FasA==
+X-Gm-Message-State: AOAM531qB94mAmVOtPfNOUonPqQ7NRTQmnWOIAxLpKTXVILGz2A80NG/
+ Pg0pBphQd5EYShy7SPj8AVXFGw==
+X-Google-Smtp-Source: ABdhPJwV0Vr69l6IGoIcphyRWsMWQKkGS7rBC8LYQMhPUh1Uc5BkCP/VrFSlJHAVB7iy2bFwyHIWhA==
+X-Received: by 2002:a05:651c:2008:b0:255:594a:cef9 with SMTP id
+ s8-20020a05651c200800b00255594acef9mr10486338ljo.144.1654210275065; 
+ Thu, 02 Jun 2022 15:51:15 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ c11-20020a056512238b00b00479079c72bbsm1069562lfv.277.2022.06.02.15.51.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jun 2022 15:51:14 -0700 (PDT)
+Message-ID: <beaaeb57-c144-a680-eea6-20a950d25205@linaro.org>
+Date: Fri, 3 Jun 2022 01:51:13 +0300
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-GB
+To: Jessica Zhang <quic_jesszhan@quicinc.com>, freedreno@lists.freedesktop.org
+References: <20220527185407.162-1-quic_jesszhan@quicinc.com>
+ <20220527185407.162-4-quic_jesszhan@quicinc.com>
+ <266fdac1-db57-a729-3d73-42d2b34017cd@linaro.org>
+ <aa4617f6-65fd-73c6-61b1-686a72c515d7@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <aa4617f6-65fd-73c6-61b1-686a72c515d7@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] XDC 2022: Registration & Call for Presentations still
- open!
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: Add interface support for
+ CRC debugfs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,63 +77,266 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: board@foundation.x.org
+Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hello! This is just a reminder that the CFP for XDC in 2022 is still open!
+On 28/05/2022 01:23, Jessica Zhang wrote:
+> 
+> 
+> On 5/27/2022 12:46 PM, Dmitry Baryshkov wrote:
+>> On 27/05/2022 21:54, Jessica Zhang wrote:
+>>> Add support for writing CRC values for the interface block to
+>>> the debugfs by calling the necessary MISR setup/collect methods.
+>>>
+>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+>>> ---
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 43 ++++++++++++++-
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  3 +
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 61 +++++++++++++++++++++
+>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 22 ++++++++
+>>>   4 files changed, 128 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>> index ae09466663cf..e830fb1e910d 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+>>> @@ -79,6 +79,8 @@ static enum dpu_crtc_crc_source 
+>>> dpu_crtc_parse_crc_source(const char *src_name)
+>>>       if (!strcmp(src_name, "auto") ||
+>>>           !strcmp(src_name, "lm"))
+>>>           return DPU_CRTC_CRC_SOURCE_LAYER_MIXER;
+>>> +    if (!strcmp(src_name, "intf"))
+>>> +        return DPU_CRTC_CRC_SOURCE_INTF;
+>>>       return DPU_CRTC_CRC_SOURCE_INVALID;
+>>>   }
+>>> @@ -94,8 +96,18 @@ static int dpu_crtc_verify_crc_source(struct 
+>>> drm_crtc *crtc,
+>>>           return -EINVAL;
+>>>       }
+>>> -    if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
+>>> +    if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER) {
+>>>           *values_cnt = crtc_state->num_mixers;
+>>> +    } else if (source == DPU_CRTC_CRC_SOURCE_INTF) {
+>>> +        struct drm_encoder *drm_enc = get_encoder_from_crtc(crtc);
+>>
+>> Let's do this correctly from the beginning. The CRTC can drive several 
+>> encoders. Do we want to get CRC from all of them or just from the 
+>> first one?
+> 
+> In the case of multiple encoders, it would be better to collect CRCs 
+> from all of them.
 
-The 2022 X.Org Developers Conference is being held in conjunction with
-the 2022 Wine Developers Conference.  This is a meeting to bring
-together developers working on all things open graphics (Linux kernel,
-Mesa, DRM, Wayland, X11, etc.) as well as developers for the Wine
-Project, a key consumer of open graphics.
+Then this should become a loop.
 
-Registration & Call for Proposals are now open for both XDC 2022 and
-WineConf 2022, which will take place on October 4-6, 2022 in
-Minneapolis, Minnesota, USA. 
+> 
+>>
+>>> +
+>>> +        if (!drm_enc) {
+>>> +            DRM_ERROR("no encoder found for crtc %d\n", crtc->index);
+>>> +            return -ENODATA;
+>>> +        }
+>>> +
+>>> +        *values_cnt = dpu_encoder_get_num_phys(drm_enc);
+>>> +    }
+>>>       return 0;
+>>>   }
+>>> @@ -116,6 +128,18 @@ static void dpu_crtc_setup_lm_misr(struct 
+>>> dpu_crtc_state *crtc_state)
+>>>       }
+>>>   }
+>>> +static void dpu_crtc_setup_encoder_misr(struct drm_crtc *crtc)
+>>> +{
+>>> +    struct drm_encoder *drm_enc = get_encoder_from_crtc(crtc);
+>>> +
+>>> +    if (!drm_enc) {
+>>> +        DRM_ERROR("no encoder found for crtc %d\n", crtc->index);
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    dpu_encoder_setup_misr(drm_enc);
+>>> +}
+>>> +
+>>>   static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const 
+>>> char *src_name)
+>>>   {
+>>>       enum dpu_crtc_crc_source source = 
+>>> dpu_crtc_parse_crc_source(src_name);
+>>> @@ -164,6 +188,8 @@ static int dpu_crtc_set_crc_source(struct 
+>>> drm_crtc *crtc, const char *src_name)
+>>>       if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
+>>>           dpu_crtc_setup_lm_misr(crtc_state);
+>>> +    else if (source == DPU_CRTC_CRC_SOURCE_INTF)
+>>> +        dpu_crtc_setup_encoder_misr(crtc);
+>>>   cleanup:
+>>>       drm_modeset_unlock(&crtc->mutex);
+>>> @@ -212,6 +238,18 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc 
+>>> *crtc, struct dpu_crtc_state *crt
+>>>               drm_crtc_accurate_vblank_count(crtc), crcs);
+>>>   }
+>>> +static int dpu_crtc_get_encoder_crc(struct drm_crtc *crtc)
+>>> +{
+>>> +    struct drm_encoder *drm_enc =  get_encoder_from_crtc(crtc);
+>>> +
+>>> +    if (!drm_enc) {
+>>> +        DRM_ERROR("no encoder found for crtc %d\n", crtc->index);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    return dpu_encoder_get_crc(drm_enc);
+>>> +}
+>>> +
+>>>   static int dpu_crtc_get_crc(struct drm_crtc *crtc)
+>>>   {
+>>>       struct dpu_crtc_state *crtc_state;
+>>> @@ -227,6 +265,9 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
+>>>       if (crtc_state->crc_source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
+>>>           return dpu_crtc_get_lm_crc(crtc, crtc_state);
+>>> +    if (crtc_state->crc_source == DPU_CRTC_CRC_SOURCE_INTF)
+>>> +        return dpu_crtc_get_encoder_crc(crtc);
+>>> +
+>>>       return 0;
+>>>   }
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+>>> index b8785c394fcc..a60af034905d 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+>>> @@ -1,5 +1,6 @@
+>>>   /* SPDX-License-Identifier: GPL-2.0-only */
+>>>   /*
+>>> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights 
+>>> reserved.
+>>>    * Copyright (c) 2015-2021 The Linux Foundation. All rights reserved.
+>>>    * Copyright (C) 2013 Red Hat
+>>>    * Author: Rob Clark <robdclark@gmail.com>
+>>> @@ -73,11 +74,13 @@ struct dpu_crtc_smmu_state_data {
+>>>    * enum dpu_crtc_crc_source: CRC source
+>>>    * @DPU_CRTC_CRC_SOURCE_NONE: no source set
+>>>    * @DPU_CRTC_CRC_SOURCE_LAYER_MIXER: CRC in layer mixer
+>>> + * @DPU_CRTC_CRC_SOURCE_INTF: CRC in phys interface
+>>>    * @DPU_CRTC_CRC_SOURCE_INVALID: Invalid source
+>>>    */
+>>>   enum dpu_crtc_crc_source {
+>>>       DPU_CRTC_CRC_SOURCE_NONE = 0,
+>>>       DPU_CRTC_CRC_SOURCE_LAYER_MIXER,
+>>> +    DPU_CRTC_CRC_SOURCE_INTF,
+>>>       DPU_CRTC_CRC_SOURCE_MAX,
+>>>       DPU_CRTC_CRC_SOURCE_INVALID = -1
+>>>   };
+>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
+>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> index 52516eb20cb8..7740515f462d 100644
+>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+>>> @@ -14,6 +14,7 @@
+>>>   #include <drm/drm_crtc.h>
+>>>   #include <drm/drm_file.h>
+>>> +#include <drm/drm_vblank.h>
+>>>   #include <drm/drm_probe_helper.h>
+>>>   #include "msm_drv.h"
+>>> @@ -225,6 +226,66 @@ bool dpu_encoder_is_widebus_enabled(const struct 
+>>> drm_encoder *drm_enc)
+>>>       return dpu_enc->wide_bus_en;
+>>>   }
+>>> +int dpu_encoder_get_num_phys(const struct drm_encoder *drm_enc)
+>>> +{
+>>> +    struct dpu_encoder_virt *dpu_enc;
+>>> +
+>>> +    dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>> +
+>>> +    return dpu_enc->num_phys_encs;
+>>> +}
+>>> +
+>>> +void dpu_encoder_setup_misr(const struct drm_encoder *drm_enc)
+>>> +{
+>>> +    struct dpu_encoder_virt *dpu_enc;
+>>> +
+>>> +    int i;
+>>> +
+>>> +    dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>> +
+>>> +    for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+>>> +        struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>>> +
+>>> +        if (!phys->hw_intf || !phys->hw_intf->ops.setup_misr)
+>>> +            continue;
+>>
+>> Does WB support CRC?
+> 
+> AFAIK, no.
+> 
+>>
+>>> +
+>>> +        phys->hw_intf->ops.setup_misr(phys->hw_intf, true, 1);
+>>> +    }
+>>> +}
+>>> +
+>>> +int dpu_encoder_get_crc(const struct drm_encoder *drm_enc)
+>>> +{
+>>> +    struct dpu_encoder_virt *dpu_enc;
+>>> +    u32 crcs[MAX_PHYS_ENCODERS_PER_VIRTUAL];
+>>> +
+>>> +    int i, rc;
+>>> +
+>>> +    if (!drm_enc->crtc) {
+>>> +        DRM_ERROR("no crtc found for encoder %d\n", drm_enc->index);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    dpu_enc = to_dpu_encoder_virt(drm_enc);
+>>> +
+>>> +    for (i = 0; i < dpu_enc->num_phys_encs; i++) {
+>>> +        struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>>> +
+>>> +        if (!phys->hw_intf || !phys->hw_intf->ops.collect_misr)
+>>> +            continue;
+>>> +
+>>> +        rc = phys->hw_intf->ops.collect_misr(phys->hw_intf, &crcs[i]);
+>>
+>> This doesn't look fully correct. Do we need to skip the indices for 
+>> the phys without a backing hw_intf?
+> 
+> Sorry if I'm misunderstanding your question, but don't we need to have a 
+> backing hw_intf (and skip if there isn't any) since the methods for 
+> collecting/setting MISR registers is within the hw_intf?
 
-https://xdc2022.x.org
- 
-As usual, the conference is free of charge and open to the general
-public. If you plan on attending, please make sure to register as early
-as possible!
- 
-In order to register as attendee, you will therefore need to do it via
-the XDC website:
- 
-https://indico.freedesktop.org/event/2/registrations/2/
- 
-In addition to registration, the CfP is now open for talks, workshops
-and demos at XDC 2022. While any serious proposal will be gratefully
-considered, topics of interest to X.Org and freedesktop.org developers
-are encouraged. The program focus is on new development, ongoing
-challenges and anything else that will spark discussions among
-attendees in the hallway track.
- 
-We are open to talks across all layers of the graphics stack, from the
-kernel to desktop environments / graphical applications and about how
-to make things better for the developers who build them. Head to the
-CfP page to learn more: 
- 
-https://indico.freedesktop.org/event/2/abstracts/
- 
-The deadline for submissions is Monday July 4th, 2022.
- 
-Check out our Reimbursement Policy to accept speaker
-expenses for X.Org events like XDC 2022:
- 
-https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
+Yes. So the question if we should skip the phys and leave the crcs[i] 
+untouched, skip the phys and sset crcs[i] to 0 or change 
+dpu_crtc_parse_crc_source() to return the number of intf-backed 
+phys_enc's and do not skip any crcs[i].
 
-If you have any questions, please send me an email to
-xdc@codeweavers.com, adding on CC the X.org board (board
-at foundation.x.org).
- 
-And don't forget, you can follow us on Twitter for all the latest
-updates and to stay connected:
- 
-https://twitter.com/XOrgDevConf
 
-Best regards,
-Lyude Paul, on behalf of X.org
+> 
+>>
+>>> +
+>>
+>> Extra empty line.
+> 
+> Noted
+> 
+>>
+>>> +        if (rc) {
+>>> +            if (rc != -ENODATA)
+>>
+>> Do we need to handle ENODATA in any specific way (like zeroing the 
+>> crcs[i])? If not, I'd suggest to drop this return code. Let's make an 
+>> error always an error.
+> 
+> This is a carry-over from this change [1]. We wanted to have the ENODATA 
+> check to avoid spamming the driver debug logs when CRC is disabled for 
+> this block.
+> 
+> [1] 
+> https://gitlab.freedesktop.org/drm/msm/-/commit/3ce8bdca394fc606b55e7c5ed779d171aaae5d09 
 
+Thanks for the reminder. I commented this in the previous patch now.
+
+
+
+-- 
+With best wishes
+Dmitry
