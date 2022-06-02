@@ -1,64 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D11A853BF96
-	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 22:22:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 938DB53BF9A
+	for <lists+freedreno@lfdr.de>; Thu,  2 Jun 2022 22:22:35 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E5E3113388;
-	Thu,  2 Jun 2022 20:22:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 505261133A6;
+	Thu,  2 Jun 2022 20:22:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F631113389
- for <freedreno@lists.freedesktop.org>; Thu,  2 Jun 2022 20:22:18 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id q1so6408727ljb.5
- for <freedreno@lists.freedesktop.org>; Thu, 02 Jun 2022 13:22:18 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2C7113388
+ for <freedreno@lists.freedesktop.org>; Thu,  2 Jun 2022 20:22:19 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id s6so9508626lfo.13
+ for <freedreno@lists.freedesktop.org>; Thu, 02 Jun 2022 13:22:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=uAheKADgU7FFP6gs93z+GaOaC3MGdLNxwxQqmTpG/bA=;
- b=D3GCEaEybSNUlwfKdNCWFDDhq05pNjKhofiz2sWBEqA1RP9cyAhrk8BKtt13L2jyMW
- w7kr0UNjDwgU1bOISh53bcvjEdNE/ZtCCnMYKM/dHA/Bz6w4mCSlQf6Z56oCqdHrQ2UN
- 7OwVjBQwnHspIx2lwbyVo2J9YNe6+zhHfKR/yTk7m+b3FEY/b5pJJwNi6oAySoSTUzOV
- 759f0pAD9LGvhZ2nFGnjAJqTgu1gmbgFsZmowlB3IYndRVTAbIaHJWH05kG5c80pO03c
- AcQYJDROZfbVQEtaLiaQ9owrfv8DwJlGJQly2xPOFVGi8XqluImOAFAx9Q8pFlITbnmu
- N8cg==
+ bh=VF3zcL9aVUjrV8YE9/pqSAYXQhQODeGd7rFyHfOKrqY=;
+ b=Pmrn5Myz/3nwROIrj5C4koRVtlH1nt+nHKejYC1iHdaThHXgeQZ62b2d54R9bDzixL
+ XMCGCVG+NQKDFvaQTkz3OQ0hrJuKzE1X3dLqZsOjHJp3HY5b3jS7WYP+RkIFZKRN88Ly
+ NeChk+60am+7RstH5+rgpzMvbfMNRBhTkJ3r+odMW34J5TzUN5rsDZenDysp/X5szxS3
+ afIdmmGiShtKGimKmhEBQtEvYuFu/2KXGnhwbD4ONCw3RYiHJYqfWoVzvZlwViCLNtYk
+ 1CpHRVYIzVJVnJPyQkq9HDD2Khjkmpa6sKSF8j88BLemYr1pacboOXKYBggBS5bt/f43
+ rqmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=uAheKADgU7FFP6gs93z+GaOaC3MGdLNxwxQqmTpG/bA=;
- b=gMLEFZDWzxNixtmfd2QZIgc+FVMgdCVGXoRuk4dzEQ9b4zjJeMj0NJKH882PP8l/o8
- uM1btwInXqcOuWjs6Y0MInoQdcQm2N72CmX+ZHIDONvGO7RirzOkWpc15gqOL8J58Z9h
- wviO4iI1HUSDvmzb9P7QA4nMxJHE7/oc+5JDBPhnL9wcBDG/Uf8r2EfarJmKxRFgsPHv
- Ab0VntWr7shAxI/pj8GT8pa5uXl0pDEy30w9rLZvrk2INqcrwjvAQataYRf/oNA1Ry7N
- 3i5WxZEWLlqXVhwSnB8aG/HpBTv9V9EYYvGzlSB+l8r4OjTnQYIGR8H7fhBk64OqI+Tp
- RDHA==
-X-Gm-Message-State: AOAM530Hjl7E46mLzI1qEBA3/BeVnfsZHq8mBjdskUFSaXnt1B2u9f9I
- nvfneAeD8j7pP4jOemy0NaCmIg==
-X-Google-Smtp-Source: ABdhPJwMP111n9Zn+7SslGSwDoOCodjdDUIQjtvndgQXrDbsgDChIQPyuo1z1YpOSjWkSH4GJRW8QA==
-X-Received: by 2002:a2e:9695:0:b0:255:6eb1:469c with SMTP id
- q21-20020a2e9695000000b002556eb1469cmr4979483lji.188.1654201336459; 
- Thu, 02 Jun 2022 13:22:16 -0700 (PDT)
+ bh=VF3zcL9aVUjrV8YE9/pqSAYXQhQODeGd7rFyHfOKrqY=;
+ b=Eiwk6J4Jcr1yGRWfdJvaOCAcZaoEVgK3aouf7/eLPZZ+2nejOG2oBd/VASxU8u4yyL
+ CNYNncokrTmqnmH7IQhpJ1v7LkvSDMViT5deAQR3Kop9bXUw+0a44eLCG0iXLbbebg+g
+ 2Ca3Qq8E7qCLGk3B4A5R1XlPHKTmqqB58jBshGPZXkXF3Rb6Pu+f5/BqxurDPmNkl+XA
+ ymXfxq1qq10/2MG33kBwW8GH/zLi9hTbPWd2lnc9aY9BISrG960+4yWFQFDLDtJN3UvC
+ 6tboUgIR4dk9SiAgSQQi2yFOLMQ0J7mkuxs4l5JIvGNjkChdIH5XArLyHrmVd+SEJc6q
+ XNxw==
+X-Gm-Message-State: AOAM531zciH9ZlwG2pCMaeNZX1i4hKjuNekYR+3lg4pbznWSNQq+ISDt
+ d5LVnTWquZB5j3wNqOplJQ2MJQ==
+X-Google-Smtp-Source: ABdhPJxprucooGK4swM7ZpHNHSqirdUATOwQjfFUcflUKUuxwSF5NaOFmZQxfmO1kz7vFCBiyi34wA==
+X-Received: by 2002:a05:6512:32c1:b0:478:6e6c:53a5 with SMTP id
+ f1-20020a05651232c100b004786e6c53a5mr40110880lfg.435.1654201337747; 
+ Thu, 02 Jun 2022 13:22:17 -0700 (PDT)
 Received: from eriador.lumag.spb.ru ([94.25.229.139])
  by smtp.gmail.com with ESMTPSA id
- p12-20020a2e740c000000b0024f3d1daef5sm992451ljc.125.2022.06.02.13.22.15
+ p12-20020a2e740c000000b0024f3d1daef5sm992451ljc.125.2022.06.02.13.22.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jun 2022 13:22:16 -0700 (PDT)
+ Thu, 02 Jun 2022 13:22:17 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu,  2 Jun 2022 23:22:05 +0300
-Message-Id: <20220602202207.1754351-6-dmitry.baryshkov@linaro.org>
+Date: Thu,  2 Jun 2022 23:22:06 +0300
+Message-Id: <20220602202207.1754351-7-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220602202207.1754351-1-dmitry.baryshkov@linaro.org>
 References: <20220602202207.1754351-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 5/7] drm/msm/dpu: change catalog->dma_cfg to
- be a const pointer
+Subject: [Freedreno] [PATCH v3 6/7] drm/msm/dpu: constify struct dpu_mdss_cfg
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,94 +70,378 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Change dpu_mdss_cfg::dma_cfg to be a const pointer rather than embedding
-the dpu_reg_dma_cfg struct into the struct dpu_mdss_cfg.
+Mark struct dpu_mdss_cfg instance as a const pointer. This is mostly a
+preparation for the next patch.
 
-Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 12 ++++++------
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h |  2 +-
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c       |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h       |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c      | 11 +++--------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h      |  9 ++-------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c          |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h          |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c   |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h   |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c         |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h         |  4 ++--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c             |  8 +++-----
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h             |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c           |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c              |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h              |  2 +-
+ 17 files changed, 29 insertions(+), 41 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 31767d0f7353..1d9d83d7b99e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -468,7 +468,7 @@ static const struct file_operations dpu_core_perf_mode_fops = {
+ int dpu_core_perf_debugfs_init(struct dpu_kms *dpu_kms, struct dentry *parent)
+ {
+ 	struct dpu_core_perf *perf = &dpu_kms->perf;
+-	struct dpu_mdss_cfg *catalog = perf->catalog;
++	const struct dpu_mdss_cfg *catalog = perf->catalog;
+ 	struct dentry *entry;
+ 
+ 	entry = debugfs_create_dir("core_perf", parent);
+@@ -517,7 +517,7 @@ void dpu_core_perf_destroy(struct dpu_core_perf *perf)
+ 
+ int dpu_core_perf_init(struct dpu_core_perf *perf,
+ 		struct drm_device *dev,
+-		struct dpu_mdss_cfg *catalog,
++		const struct dpu_mdss_cfg *catalog,
+ 		struct clk *core_clk)
+ {
+ 	perf->dev = dev;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+index 8dfcc6db7176..e3795995e145 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.h
+@@ -68,7 +68,7 @@ struct dpu_core_perf_tune {
+ struct dpu_core_perf {
+ 	struct drm_device *dev;
+ 	struct dentry *debugfs_root;
+-	struct dpu_mdss_cfg *catalog;
++	const struct dpu_mdss_cfg *catalog;
+ 	struct clk *core_clk;
+ 	u64 core_clk_rate;
+ 	u64 max_core_clk_rate;
+@@ -119,7 +119,7 @@ void dpu_core_perf_destroy(struct dpu_core_perf *perf);
+  */
+ int dpu_core_perf_init(struct dpu_core_perf *perf,
+ 		struct drm_device *dev,
+-		struct dpu_mdss_cfg *catalog,
++		const struct dpu_mdss_cfg *catalog,
+ 		struct clk *core_clk);
+ 
+ struct dpu_kms;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 52516eb20cb8..460df2a4831c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1207,7 +1207,7 @@ static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
+ 	mutex_unlock(&dpu_enc->enc_lock);
+ }
+ 
+-static enum dpu_intf dpu_encoder_get_intf(struct dpu_mdss_cfg *catalog,
++static enum dpu_intf dpu_encoder_get_intf(const struct dpu_mdss_cfg *catalog,
+ 		enum dpu_intf_type type, u32 controller_id)
+ {
+ 	int i = 0;
+@@ -1224,7 +1224,7 @@ static enum dpu_intf dpu_encoder_get_intf(struct dpu_mdss_cfg *catalog,
+ 	return INTF_MAX;
+ }
+ 
+-static enum dpu_wb dpu_encoder_get_wb(struct dpu_mdss_cfg *catalog,
++static enum dpu_wb dpu_encoder_get_wb(const struct dpu_mdss_cfg *catalog,
+ 		enum dpu_intf_type type, u32 controller_id)
+ {
+ 	int i = 0;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 1e4a4822fbf4..4088c9e17d50 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -103,7 +103,7 @@ static void dpu_encoder_phys_wb_set_qos(struct dpu_encoder_phys *phys_enc)
+ {
+ 	struct dpu_hw_wb *hw_wb;
+ 	struct dpu_hw_wb_qos_cfg qos_cfg;
+-	struct dpu_mdss_cfg *catalog;
++	const struct dpu_mdss_cfg *catalog;
+ 	const struct dpu_qos_lut_tbl *qos_lut_tb;
+ 
+ 	if (!phys_enc || !phys_enc->dpu_kms || !phys_enc->dpu_kms->catalog) {
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 95b3ecc4db60..cca3b3a0c231 100644
+index cca3b3a0c231..1c40307af0ec 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -1780,7 +1780,7 @@ static void sdm845_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 		.vbif = sdm845_vbif,
- 		.reg_dma_count = 1,
--		.dma_cfg = sdm845_regdma,
-+		.dma_cfg = &sdm845_regdma,
- 		.perf = &sdm845_perf_data,
- 		.mdss_irqs = IRQ_SDM845_MASK,
- 	};
-@@ -1811,7 +1811,7 @@ static void sc7180_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 		.vbif = sdm845_vbif,
- 		.reg_dma_count = 1,
--		.dma_cfg = sdm845_regdma,
-+		.dma_cfg = &sdm845_regdma,
- 		.perf = &sc7180_perf_data,
- 		.mdss_irqs = IRQ_SC7180_MASK,
- 	};
-@@ -1844,7 +1844,7 @@ static void sm8150_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 		.vbif = sdm845_vbif,
- 		.reg_dma_count = 1,
--		.dma_cfg = sm8150_regdma,
-+		.dma_cfg = &sm8150_regdma,
- 		.perf = &sm8150_perf_data,
- 		.mdss_irqs = IRQ_SDM845_MASK,
- 	};
-@@ -1875,7 +1875,7 @@ static void sc8180x_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 		.vbif = sdm845_vbif,
- 		.reg_dma_count = 1,
--		.dma_cfg = sm8150_regdma,
-+		.dma_cfg = &sm8150_regdma,
- 		.perf = &sc8180x_perf_data,
- 		.mdss_irqs = IRQ_SC8180X_MASK,
- 	};
-@@ -1910,7 +1910,7 @@ static void sm8250_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.wb_count = ARRAY_SIZE(sm8250_wb),
- 		.wb = sm8250_wb,
- 		.reg_dma_count = 1,
--		.dma_cfg = sm8250_regdma,
-+		.dma_cfg = &sm8250_regdma,
- 		.perf = &sm8250_perf_data,
- 		.mdss_irqs = IRQ_SM8250_MASK,
- 	};
-@@ -1965,7 +1965,7 @@ static void qcm2290_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
- 		.vbif_count = ARRAY_SIZE(sdm845_vbif),
- 		.vbif = sdm845_vbif,
- 		.reg_dma_count = 1,
--		.dma_cfg = sdm845_regdma,
-+		.dma_cfg = &sdm845_regdma,
- 		.perf = &qcm2290_perf_data,
- 		.mdss_irqs = IRQ_SC7180_MASK,
- 	};
+@@ -1985,17 +1985,12 @@ static const struct dpu_mdss_hw_cfg_handler cfg_handler[] = {
+ 	{ .hw_rev = DPU_HW_VER_720, .cfg_init = sc7280_cfg_init},
+ };
+ 
+-void dpu_hw_catalog_deinit(struct dpu_mdss_cfg *dpu_cfg)
+-{
+-	kfree(dpu_cfg);
+-}
+-
+-struct dpu_mdss_cfg *dpu_hw_catalog_init(u32 hw_rev)
++const struct dpu_mdss_cfg *dpu_hw_catalog_init(struct device *dev, u32 hw_rev)
+ {
+ 	int i;
+ 	struct dpu_mdss_cfg *dpu_cfg;
+ 
+-	dpu_cfg = kzalloc(sizeof(*dpu_cfg), GFP_KERNEL);
++	dpu_cfg = devm_kzalloc(dev, sizeof(*dpu_cfg), GFP_KERNEL);
+ 	if (!dpu_cfg)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -2007,7 +2002,7 @@ struct dpu_mdss_cfg *dpu_hw_catalog_init(u32 hw_rev)
+ 	}
+ 
+ 	DPU_ERROR("unsupported chipset id:%X\n", hw_rev);
+-	dpu_hw_catalog_deinit(dpu_cfg);
++
+ 	return ERR_PTR(-ENODEV);
+ }
+ 
 diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-index 64ed96b2fa3d..60b403ac9f0f 100644
+index 60b403ac9f0f..c317fa27daa0 100644
 --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
 +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
-@@ -859,7 +859,7 @@ struct dpu_mdss_cfg {
- 	const struct dpu_wb_cfg *wb;
+@@ -884,16 +884,11 @@ struct dpu_mdss_hw_cfg_handler {
+ /**
+  * dpu_hw_catalog_init - dpu hardware catalog init API retrieves
+  * hardcoded target specific catalog information in config structure
++ * @dev:          DPU device
+  * @hw_rev:       caller needs provide the hardware revision.
+  *
+  * Return: dpu config structure
+  */
+-struct dpu_mdss_cfg *dpu_hw_catalog_init(u32 hw_rev);
+-
+-/**
+- * dpu_hw_catalog_deinit - dpu hardware catalog cleanup
+- * @dpu_cfg:      pointer returned from init function
+- */
+-void dpu_hw_catalog_deinit(struct dpu_mdss_cfg *dpu_cfg);
++const struct dpu_mdss_cfg *dpu_hw_catalog_init(struct device *dev, u32 hw_rev);
  
- 	u32 reg_dma_count;
--	struct dpu_reg_dma_cfg dma_cfg;
-+	const struct dpu_reg_dma_cfg *dma_cfg;
+ #endif /* _DPU_HW_CATALOG_H */
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+index 6f20d6b6dddd..184a1b27b13d 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.c
+@@ -158,7 +158,7 @@ static void dpu_hw_dsc_config_thresh(struct dpu_hw_dsc *hw_dsc,
+ }
  
- 	u32 ad_count;
+ static struct dpu_dsc_cfg *_dsc_offset(enum dpu_dsc dsc,
+-				       struct dpu_mdss_cfg *m,
++				       const struct dpu_mdss_cfg *m,
+ 				       void __iomem *addr,
+ 				       struct dpu_hw_blk_reg_map *b)
+ {
+@@ -186,7 +186,7 @@ static void _setup_dsc_ops(struct dpu_hw_dsc_ops *ops,
+ };
  
+ struct dpu_hw_dsc *dpu_hw_dsc_init(enum dpu_dsc idx, void __iomem *addr,
+-				   struct dpu_mdss_cfg *m)
++				   const struct dpu_mdss_cfg *m)
+ {
+ 	struct dpu_hw_dsc *c;
+ 	struct dpu_dsc_cfg *cfg;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
+index 164e5f5b1002..5fab8bbba764 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dsc.h
+@@ -64,7 +64,7 @@ struct dpu_hw_dsc {
+  * Returns: Error code or allocated dpu_hw_dsc context
+  */
+ struct dpu_hw_dsc *dpu_hw_dsc_init(enum dpu_dsc idx, void __iomem *addr,
+-				   struct dpu_mdss_cfg *m);
++				   const struct dpu_mdss_cfg *m);
+ 
+ /**
+  * dpu_hw_dsc_destroy - destroys dsc driver context
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+index 01bb2d84c3a0..d83503ea2419 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+@@ -398,7 +398,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms, int irq_idx)
+ 	return intr_status;
+ }
+ 
+-static void __intr_offset(struct dpu_mdss_cfg *m,
++static void __intr_offset(const struct dpu_mdss_cfg *m,
+ 		void __iomem *addr, struct dpu_hw_blk_reg_map *hw)
+ {
+ 	hw->base_off = addr;
+@@ -406,7 +406,7 @@ static void __intr_offset(struct dpu_mdss_cfg *m,
+ }
+ 
+ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
+-		struct dpu_mdss_cfg *m)
++		const struct dpu_mdss_cfg *m)
+ {
+ 	struct dpu_hw_intr *intr;
+ 	int nirq = MDP_INTR_MAX * 32;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+index 4154c5e2b4ae..46443955443c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h
+@@ -67,7 +67,7 @@ struct dpu_hw_intr {
+  * @m :   pointer to mdss catalog data
+  */
+ struct dpu_hw_intr *dpu_hw_intr_init(void __iomem *addr,
+-		struct dpu_mdss_cfg *m);
++		const struct dpu_mdss_cfg *m);
+ 
+ /**
+  * dpu_hw_intr_destroy(): Cleanup interrutps hw object
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+index ab7f1a4cc578..da4c7e4f304b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.c
+@@ -761,7 +761,7 @@ int _dpu_hw_sspp_init_debugfs(struct dpu_hw_pipe *hw_pipe, struct dpu_kms *kms,
+ 
+ static const struct dpu_sspp_cfg *_sspp_offset(enum dpu_sspp sspp,
+ 		void __iomem *addr,
+-		struct dpu_mdss_cfg *catalog,
++		const struct dpu_mdss_cfg *catalog,
+ 		struct dpu_hw_blk_reg_map *b)
+ {
+ 	int i;
+@@ -782,7 +782,7 @@ static const struct dpu_sspp_cfg *_sspp_offset(enum dpu_sspp sspp,
+ }
+ 
+ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+-		void __iomem *addr, struct dpu_mdss_cfg *catalog,
++		void __iomem *addr, const struct dpu_mdss_cfg *catalog,
+ 		bool is_virtual_pipe)
+ {
+ 	struct dpu_hw_pipe *hw_pipe;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+index a81e16657d61..7f7338fcddeb 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_sspp.h
+@@ -360,7 +360,7 @@ struct dpu_hw_sspp_ops {
+ struct dpu_hw_pipe {
+ 	struct dpu_hw_blk base;
+ 	struct dpu_hw_blk_reg_map hw;
+-	struct dpu_mdss_cfg *catalog;
++	const struct dpu_mdss_cfg *catalog;
+ 	const struct dpu_mdp_cfg *mdp;
+ 
+ 	/* Pipe */
+@@ -381,7 +381,7 @@ struct dpu_kms;
+  * @is_virtual_pipe: is this pipe virtual pipe
+  */
+ struct dpu_hw_pipe *dpu_hw_sspp_init(enum dpu_sspp idx,
+-		void __iomem *addr, struct dpu_mdss_cfg *catalog,
++		void __iomem *addr, const struct dpu_mdss_cfg *catalog,
+ 		bool is_virtual_pipe);
+ 
+ /**
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 2b9d931474e0..bba29c31f843 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -747,7 +747,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+ 	unsigned int num_encoders;
+ 
+ 	struct msm_drm_private *priv;
+-	struct dpu_mdss_cfg *catalog;
++	const struct dpu_mdss_cfg *catalog;
+ 
+ 	int primary_planes_idx = 0, cursor_planes_idx = 0, i, ret;
+ 	int max_crtc_count;
+@@ -844,8 +844,6 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+ 		dpu_rm_destroy(&dpu_kms->rm);
+ 	dpu_kms->rm_init = false;
+ 
+-	if (dpu_kms->catalog)
+-		dpu_hw_catalog_deinit(dpu_kms->catalog);
+ 	dpu_kms->catalog = NULL;
+ 
+ 	if (dpu_kms->vbif[VBIF_NRT])
+@@ -907,7 +905,7 @@ static void dpu_kms_mdp_snapshot(struct msm_disp_state *disp_state, struct msm_k
+ {
+ 	int i;
+ 	struct dpu_kms *dpu_kms;
+-	struct dpu_mdss_cfg *cat;
++	const struct dpu_mdss_cfg *cat;
+ 	struct dpu_hw_mdp *top;
+ 
+ 	dpu_kms = to_dpu_kms(kms);
+@@ -1095,7 +1093,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 
+ 	pr_info("dpu hardware revision:0x%x\n", dpu_kms->core_rev);
+ 
+-	dpu_kms->catalog = dpu_hw_catalog_init(dpu_kms->core_rev);
++	dpu_kms->catalog = dpu_hw_catalog_init(dev->dev, dpu_kms->core_rev);
+ 	if (IS_ERR_OR_NULL(dpu_kms->catalog)) {
+ 		rc = PTR_ERR(dpu_kms->catalog);
+ 		if (!dpu_kms->catalog)
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+index 832a0769f2e7..ed80ed6784ee 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
+@@ -69,7 +69,7 @@ struct dpu_kms {
+ 	struct msm_kms base;
+ 	struct drm_device *dev;
+ 	int core_rev;
+-	struct dpu_mdss_cfg *catalog;
++	const struct dpu_mdss_cfg *catalog;
+ 
+ 	/* io/register spaces: */
+ 	void __iomem *mmio, *vbif[VBIF_MAX], *reg_dma;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index d8048b6862f9..71a4bdcf4ad8 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -106,7 +106,7 @@ struct dpu_plane {
+ 	bool is_rt_pipe;
+ 	bool is_virtual;
+ 	struct list_head mplane_list;
+-	struct dpu_mdss_cfg *catalog;
++	const struct dpu_mdss_cfg *catalog;
+ };
+ 
+ static const uint64_t supported_format_modifiers[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+index 06f03e7081bc..73b3442e7467 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c
+@@ -95,7 +95,7 @@ int dpu_rm_destroy(struct dpu_rm *rm)
+ }
+ 
+ int dpu_rm_init(struct dpu_rm *rm,
+-		struct dpu_mdss_cfg *cat,
++		const struct dpu_mdss_cfg *cat,
+ 		void __iomem *mmio)
+ {
+ 	int rc, i;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+index 2f34a31d8d0d..59de72b381f9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_rm.h
+@@ -42,7 +42,7 @@ struct dpu_rm {
+  * @Return: 0 on Success otherwise -ERROR
+  */
+ int dpu_rm_init(struct dpu_rm *rm,
+-		struct dpu_mdss_cfg *cat,
++		const struct dpu_mdss_cfg *cat,
+ 		void __iomem *mmio);
+ 
+ /**
 -- 
 2.35.1
 
