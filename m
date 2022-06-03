@@ -1,60 +1,140 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59C0B53C882
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jun 2022 12:19:30 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F79253C8F7
+	for <lists+freedreno@lfdr.de>; Fri,  3 Jun 2022 12:55:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB14710E5D1;
-	Fri,  3 Jun 2022 10:19:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E795810FEDE;
+	Fri,  3 Jun 2022 10:55:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [IPv6:2607:f8b0:4864:20::f2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2A6810E5D1
- for <freedreno@lists.freedesktop.org>; Fri,  3 Jun 2022 10:19:27 +0000 (UTC)
-Received: by mail-qv1-xf2f.google.com with SMTP id s10so2120563qvt.8
- for <freedreno@lists.freedesktop.org>; Fri, 03 Jun 2022 03:19:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0UMpW2GQFjbsAh4Z5E0cvPjEi6lZODEcP2+hYnwC+bE=;
- b=zkYz2hGQ1rahMqWa937cH83pVnLOTqmdXNQFV1d1uS6u6aMj6SPNQ9yOFFN00ysLMX
- jUuAr5G7K4WTsp3BRQ/W+wjUDU3Dd0I0+Ku7oPNjCuEGNCC0Ww7/T88ekjo7m8hkooCW
- wZjrIspW94cmLUoBhvkgkad+qwItBz0RGN2yAH9oxYP1JhVS2lT+VSN2HdfejhqjN+sP
- VxYoY7vUAdFgjk8lpGRJ9ntj+LeaIt5Ri18B5vb3zKIVQ3Se/4O7f/hKLIJl6Qj3nHnT
- N1RcbTDKcuGHQzkJbstZ9TgqQiLmHFFS8rpdNWxYzMk5r2oy4EqRV1nLAUM2gu4ezrOb
- XicQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0UMpW2GQFjbsAh4Z5E0cvPjEi6lZODEcP2+hYnwC+bE=;
- b=35TGsga/ObGQHM6GSVi70shAlZIY8cGcYIicKN53ww4naP5qMV49vT4s0NuntWk7m3
- P1H4M6ckwFpObhYC9hQBZpprV2Gl0JvRmnkBoc+jTyPDTJ3WAy/Rr/JBsKsWXoaP0Pzl
- sdf5+0eMcotqQCfKIplcgvigby6mbiWUUyR8Gww4Ojl8WYK6ATe6emRdCQIwfeQrjn1X
- T9wKCIlaWM+SJoV7Yvq8KhXY7qfqOn63xJeVRUjabttKx2CYCClwhqU1hXtF2nplRwme
- nTJHw7AR6M+YpZD7sXXjlu5RGlc9epZMiVR1Sh0Dj6dDMlkVBfHBw7cB/o6ZBk9PnGAf
- TcSg==
-X-Gm-Message-State: AOAM530pk2Ndzu4h8HluQwNMKhEobo65U+TK1EQVpPjz7IV3Blbxlph7
- f/qExVrEGhU2pn6q8F8u3cDpY+0KiI3uj6JwSoEV4g==
-X-Google-Smtp-Source: ABdhPJw8iJoGhy2MD45IsbCDP/yP/cDddSg1Ox604Dq9yoEDEqKfDIRzqKkUy7GFMX8kjhbpUdHowJBaBXsYNKHA+So=
-X-Received: by 2002:ad4:5b81:0:b0:465:ded8:780 with SMTP id
- 1-20020ad45b81000000b00465ded80780mr8480006qvp.119.1654251567078; Fri, 03 Jun
- 2022 03:19:27 -0700 (PDT)
+Received: from esa.hc3962-90.iphmx.com (esa.hc3962-90.iphmx.com
+ [216.71.140.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A00B10FEDE;
+ Fri,  3 Jun 2022 10:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=qti.qualcomm.com; i=@qti.qualcomm.com; q=dns/txt;
+ s=qccesdkim1; t=1654253717; x=1654858517;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=c8aqbGi9FXoTdenT8qt/Z3fTnUbyPOHwRqIVgDGqCY4=;
+ b=z43abK9OzxyQQrQe9VJZgn2XiiRv4mQSFEEBw4jnZWTH2lXMNYJpBkFF
+ UDlLS16yuAcK+tnaj0stCrMZVDYPVJnS+aop3Ivg4SzxraPC82LcQ6T3+
+ M1/XDfTCBexnfY84EfzuSKDe9k9v+NqS2O5JvT0nAEa0wT0xf6LbYHyOV 4=;
+Received: from mail-bn8nam04lp2043.outbound.protection.outlook.com (HELO
+ NAM04-BN8-obe.outbound.protection.outlook.com) ([104.47.74.43])
+ by ob1.hc3962-90.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2022 10:55:13 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ICfLJgdSOEvBoThH/VpmC5RK4aK55UZiPSfZicDHy4SHkC3tYXT8ibKV5JwSsZ1nN3wu4Onbc0pkDSiZ59mpiq3f+aKjb/rN/4XyI73vEuAzeADJ6vJ5taV0x2g0ES2+n0aMvQhg1VIInL1eCHSNFIdOEYXlnIEbaahDj9PzOLnd8X/ohT88P7U1An5IrB8HEfzfrGYHIaAd6r70fmUOuM7yyd+a0vpHnCxCD88pV+lXPSg6PkDFYU9BRehZ2LWqNE9pt6FkuPKkQt/o9OU4XJNbp74T1bfFEKx0wbqIB3cw2PhF7PeTjglJKkN8Sb6ga1khLKNi5i93g6U7Pk0P0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c8aqbGi9FXoTdenT8qt/Z3fTnUbyPOHwRqIVgDGqCY4=;
+ b=ZSlKZyGBT00iwxpSpn+V9fMvm92FsONvMP1rrLW5zscw0R8df2AoCcfsSNK3scVlcTl8pupVyBbUxvcxdsVAUwzNARSjcmdM5NnpzLwULbUiNEDugHSYzzylIy6tk6sY3R66NXAtGdI36pOCnbBacn4MT7NQoRC0dXkhu1VEXgvhwHfyw56HVQRognkjfJXTB3cfzTU81pAVP7+vnMr8NfIs9S9IKKSOkb5MXW50X3UytebYbymXW2ZTLUNMtGuwi1tuphwmuYSpIdpSecqWnP6MoR+qQHK8kzAQ9N5GF/5YTMj2HcZCHvstwNwFVnBXAmjMacTOxuLEnmccJy/dRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=qti.qualcomm.com; dmarc=pass action=none
+ header.from=qti.qualcomm.com; dkim=pass header.d=qti.qualcomm.com; arc=none
+Received: from BN0PR02MB8173.namprd02.prod.outlook.com (2603:10b6:408:166::9)
+ by BN6PR02MB2449.namprd02.prod.outlook.com (2603:10b6:404:50::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Fri, 3 Jun
+ 2022 10:55:09 +0000
+Received: from BN0PR02MB8173.namprd02.prod.outlook.com
+ ([fe80::5483:ae3f:a820:b25e]) by BN0PR02MB8173.namprd02.prod.outlook.com
+ ([fe80::5483:ae3f:a820:b25e%6]) with mapi id 15.20.5314.015; Fri, 3 Jun 2022
+ 10:55:09 +0000
+From: Vinod Polimera <vpolimer@qti.qualcomm.com>
+To: "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>, "Vinod
+ Polimera (QUIC)" <quic_vpolimer@quicinc.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Thread-Topic: [v1] drm/msm: add null checks for drm device to avoid crash
+ during probe defer
+Thread-Index: AQHYdyuKE2gK6YgKjUuLkPHm/JYEN609bJyAgAAQNPA=
+Date: Fri, 3 Jun 2022 10:55:08 +0000
+Message-ID: <BN0PR02MB8173E511825B236D1E2A087FE4A19@BN0PR02MB8173.namprd02.prod.outlook.com>
+References: <1654248167-10594-1-git-send-email-quic_vpolimer@quicinc.com>
+ <01f88e7a-eeef-d538-634d-bb8e7c1272a0@linaro.org>
+In-Reply-To: <01f88e7a-eeef-d538-634d-bb8e7c1272a0@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=qti.qualcomm.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1acb664e-b095-4140-21f6-08da454f86ab
+x-ms-traffictypediagnostic: BN6PR02MB2449:EE_
+x-ld-processed: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d,ExtAddr
+x-microsoft-antispam-prvs: <BN6PR02MB24496037F0170C3F3CD384CAE4A19@BN6PR02MB2449.namprd02.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jm2XtiLIpti1w9VuuiNbdlNl8P0NZe5AH0RuQVWPQYw/C+m/YtIFbpsoq4JXXZ1NQuZXmgMX38rjfFZECH0sP3Ny5VfEDDgiSAExwx2ZZ8XsqWLqvfTd2sgXRGGLTv66J4Ryr/khJeGb0Ji0luSqNgtNkS69/wAKh25Bat/JENX507KgotFFkPo1UHaXjg6apREFWepp6K4cbvUy71Wz15C7JBnxEKBCWa+ag8MeUWxM+2QUIOasviyBxcD3zfQmPnySAQKXCrlSI5f/AEdsjMVZ5aVOWGAsUViFfnfgxHJV1lBM/drQ4/aDDyDQ0CvyemP+pxx1d+R17j3Kd4l8HWeTLHm9nqCfamG/kDXxyYviCcUGWuqqIKXfCic6VYCxBQxtCKj7u59vwNZh/pdBM3lZ9msTtxweUmg4XctMQImcpMC0ujyf0V3UyRTsoxf9w8l7iBwq63x9aoTqWV7ERK5MGOJIpP8Be30iahM9N3AsPzqklYK2MGoWrnz9jTl+B7Vj7bcn6GbRtgvjwLCTccyUBXSr+TZa3pLtojtGPguxiCQUHXFzgDAmjVT7PVFeVTZeAOIcyHBRNidQdKI3DSqFmlM0MTZnerc8TBRLzR3AeigyjMb36dFrkZriTfqWTqErqORRd+/x1mxxt9uzY90i21Ein3jJzIBMw9G/miji2tva+HLwUy0HrprSpTRT3CuKUn6P4yTUUhCyJJDJTQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR02MB8173.namprd02.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(122000001)(186003)(33656002)(508600001)(5660300002)(53546011)(38100700002)(8936002)(107886003)(2906002)(83380400001)(6506007)(9686003)(7696005)(26005)(55016003)(38070700005)(52536014)(76116006)(64756008)(966005)(86362001)(316002)(54906003)(110136005)(71200400001)(66946007)(66556008)(66446008)(4326008)(66476007)(8676002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UmY1ZXNDdGM5dEwrQW95d09leXBUaE5tQjh5dUVVelBucW5Fd01EUlNaRC8r?=
+ =?utf-8?B?UlVnVjNPUEZMMEx2cGdxV3oya3AvMUNmbUozTFBhYm1YQXhJZE4zRm45VWlt?=
+ =?utf-8?B?emdZUXkwZ0JQK0NMZDVwaFpESDZPREd6anQ4Y2lXRDFkS2x3UkxqZ2xJbmxj?=
+ =?utf-8?B?SFhtQlBKL21XTG9xMDFWZm45bEZGZWN5bDRsU1hiR0RLWDdaYVFIek02bk5W?=
+ =?utf-8?B?b3h2ZGZzMkZxa3lldGtlUzMxcHgyUVpYU2J1VGs2Q3Q4MFl2bkRPaGEwL3pK?=
+ =?utf-8?B?V0hvZW43REd2S3BKNjdINk5VdTl4b3dieldLQkU1aENxcUFScFI2NEZIQUtW?=
+ =?utf-8?B?Z2R4MVFCempDNW5kYXdKZVRRSzJMakFCQTRhVFplT1Z6MDRCb1lNaVdBNWtR?=
+ =?utf-8?B?ZC9IYmt2VVN2ZUFleElka1lZaVloNGRjNnlqYWhFK3JxY0hKNmVtSjh3aFd5?=
+ =?utf-8?B?TEYwbS9zcG1YUFhqdjNuS2ZTb0F1akJwOU4vamsxMW9rTkFZOUlUb3NXZFd6?=
+ =?utf-8?B?V2RGSGZ1MSs4SkhnOVRVamhmcUc1K2JLbllIZ1htbUQ0NDV2ZzhXaUVGWjFn?=
+ =?utf-8?B?REl1eGVtRGJjRUxwMG1KUzZZeVptRmtKenNWMERoczRNd2F0WGhMb250OUwx?=
+ =?utf-8?B?dlVFdTEybFMrcFd3b2tqYUlWcmVDalo2Z0ExY3NScTNFVkJYOWdqUFFHQUJ6?=
+ =?utf-8?B?Vk5pNzYrWHNzZXFMNDVic1F4aUd0T3hqY2MrT2NrbnpqbHFCS3g2NnpiaXdo?=
+ =?utf-8?B?K28wdjRzOFJMUDlmUDV5c3hDV01WNkdVVm52K0lkbXRzQmJUTVVxWEtZcDBi?=
+ =?utf-8?B?TFNsNVMyazNEM1I4RW9MdEkwUzBsWFZpQTJETVVEcHBFd2NjQ0Z1Q25zNmRz?=
+ =?utf-8?B?QUkrYkNCczFjOTZYODZsVzVYb0pBdUVMOXNpSi9lbG9wQWxmcklRZFZiUU9W?=
+ =?utf-8?B?WC9ZSmlSMDBzWVZpdlB4RFJkRUZlSHFxUUpVWEFpSnIrUkNxR1VYTG9TTTN4?=
+ =?utf-8?B?NzA1anJhUXBBWnVqSEM1R0sxc2p2SndSWDFjTVlWcC9iLzlhb2NYa3g2NkY4?=
+ =?utf-8?B?ZFRwSU5hS3NxSnp3TThObW5OMEorb1piL3FEb1pGN3NKWDN2b0tkT0J2WkJs?=
+ =?utf-8?B?L3I5ek9tSnZkK29wNlovV2ZXeDVnWnRwUGdjWTM2UG5pcTVTM0lZMms0ZDB0?=
+ =?utf-8?B?UEZkc1NJcmQ4Q1RQMHE2YzZoS0U1VlZVMDExNWQwODcwSEd2S3VtbW0vL0o3?=
+ =?utf-8?B?VTd1OUh2ekN5SHZDMXpaU3ZPcFlDaHoxVithV3RvV0czY2FGcTRYM2h6UmZB?=
+ =?utf-8?B?dWYrRVlkWVhJd3UydmVXUU00cW5weWpRRjdOVlRYdGYrczRJNXJKZlNTMTg4?=
+ =?utf-8?B?TnU3RFladzJjd3krbllHenhVQnlpTnZaa3JQSlVnMlZJSGhnOWFTdy9MTmIy?=
+ =?utf-8?B?SStiYlhkTFZpWVB2RnhrSkozOHV3cy9mYkl1ZTJaREt2ZU16KzQ1VWJGUzVX?=
+ =?utf-8?B?eTNXM2V1SjExWC9lekZtQkZJVFd6ZnMxNlMxSFQrd0w0RWZhMkxvK2MwTi93?=
+ =?utf-8?B?YVp3ZEVnZHoreTIzQTI2Q1Bvdk02aHpJSDdISFc0SnVRVVRzS290NmVZRXZM?=
+ =?utf-8?B?cWFSZjh0TkpVUkovM3JhRE1UbEJJRlI4b1RhSjhZS01rY3RaNU5DSnJiNWhH?=
+ =?utf-8?B?Mi9iZCtTZVhNbm1pNkczUklyMWw2Q1g5TmJuVlErUXE3T1FWdk5NTDUwU296?=
+ =?utf-8?B?Z1MxSjhScVN6V29PbUhVcExRdXhFUUJ1V1VjWEErRnBJaGVTNVJldGZzY2F2?=
+ =?utf-8?B?emZnRFdXSG1oTkxkWnhHU0krcDhnQmNRNkdiTlVoUHBaQ0h2RlRyR1lIWG1a?=
+ =?utf-8?B?eFFYem9jU255L0plQ3EvandMeWZnRHQ5VjZvRDZacEtqdVZKa2N2ODI0MzRw?=
+ =?utf-8?B?UTdiRkhXQjczNHN1aXlraVJNSTByQWZ0RjNQMDdNenpSZ29NNWtzZXNvYWFz?=
+ =?utf-8?B?dzlTdGUrQ0dmaHF2K2YvSFZNZnJNWENnWjBFeU40cENpeXpHNkRpYUhFbVpw?=
+ =?utf-8?B?T0Q1ZllsbklWOXl1OVMwWnVQdWZEZSsyU3ZIS1doVUIwNVVuYmc4djZXNitU?=
+ =?utf-8?B?WU9lMHhpKzRlMEI5UEd0enJrOEtkMEtSU01IWUZNYm1sY3pnbWtrWGZQbGM1?=
+ =?utf-8?B?RTR1UTZLMlU2Y0MzT3dFYndCMkk1SDJGVEJQZ3oxdTVVYzlLOHlXZ2ZTN2h3?=
+ =?utf-8?B?UWxqRytROHpWYlZFalhSTU9TWmw5WHBxVmVEUUpBbTc3WGVTVGxNTlRadnBZ?=
+ =?utf-8?B?L2hRNGZ5cktGbmlsUGZiWUVlZzdCT1dnS0RVU3g1NG5rTFhlRjFjbmVDTmM2?=
+ =?utf-8?Q?KW4iND2tlCRBITMc=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
- <20220521091751.opeiqbmc5c2okdq6@houat>
- <CAD=FV=Wea0LT5umK4Xg87cDikim+dSuyLndfydO3_DnTujZr9Q@mail.gmail.com>
- <CAD=FV=XqJuPHxm7HYMvyHBL_zC-BBA_f0MBsZX-jHt7Pk9ngsQ@mail.gmail.com>
- <20220603082139.sfdxb5ndwpvlhklh@penduick>
-In-Reply-To: <20220603082139.sfdxb5ndwpvlhklh@penduick>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 3 Jun 2022 13:19:16 +0300
-Message-ID: <CAA8EJpqrw63K_xxJjawLjEqP-05eUD-k6dy21162hcq7q07jgQ@mail.gmail.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
+X-OriginatorOrg: qti.qualcomm.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR02MB8173.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1acb664e-b095-4140-21f6-08da454f86ab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2022 10:55:08.9973 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 98e9ba89-e1a1-4e38-9007-8bdabc25de1d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MIQEdhXfW24DkqvCGKztXRRERuBNtiQJZImIjU0bLmY2IA0M4TbUwqqgWJBiuaityvcLcyzyAybzWRhmNDCY2Pr/LGtcvlh4WQWUDTmp9Jk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR02MB2449
+Subject: Re: [Freedreno] [v1] drm/msm: add null checks for drm device to
+ avoid crash during probe defer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,131 +147,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Doug Anderson <dianders@chromium.org>, Robert Foss <robert.foss@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: "Kalyan Thota \(QUIC\)" <quic_kalyant@quicinc.com>,
+ "vpolimer@quicinc.com" <vpolimer@quicinc.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "swboyd@chromium.org" <swboyd@chromium.org>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "dianders@chromium.org" <dianders@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 3 Jun 2022 at 11:21, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> On Tue, May 31, 2022 at 02:06:34PM -0700, Doug Anderson wrote:
-> > On Mon, May 23, 2022 at 10:00 AM Doug Anderson <dianders@chromium.org> wrote:
-> > > On Sat, May 21, 2022 at 2:17 AM Maxime Ripard <maxime@cerno.tech> wrote:
-> > > > On Tue, May 10, 2022 at 12:29:43PM -0700, Douglas Anderson wrote:
-> > > > > This adds a devm managed version of drm_bridge_add(). Like other
-> > > > > "devm" function listed in drm_bridge.h, this function takes an
-> > > > > explicit "dev" to use for the lifetime management. A few notes:
-> > > > > * In general we have a "struct device" for bridges that makes a good
-> > > > >   candidate for where the lifetime matches exactly what we want.
-> > > > > * The "bridge->dev->dev" device appears to be the encoder
-> > > > >   device. That's not the right device to use for lifetime management.
-> > > > >
-> > > > > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > >
-> > > > If we are to introduce more managed helpers, I think it'd be wiser to
-> > > > introduce them as DRM-managed, and not device managed.
-> > > >
-> > > > Otherwise, you'll end up in a weird state when a device has been removed
-> > > > but the DRM device is still around.
-> > >
-> > > I'm kinda confused. In this case there is no DRM device for the bridge
-> > > and, as per my CL description, "bridge-dev->dev" appears to be the
-> > > encoder device. I wasn't personally involved in discussions about it,
-> > > but I was under the impression that this was expected / normal. Thus
-> > > we can't make this DRM-managed.
-> >
-> > Since I didn't hear a reply,
->
-> Gah, I replied but it looks like somehow it never reached the ML...
->
-> Here was my original reply:
->
-> > > > This adds a devm managed version of drm_bridge_add(). Like other
-> > > > "devm" function listed in drm_bridge.h, this function takes an
-> > > > explicit "dev" to use for the lifetime management. A few notes:
-> > > > * In general we have a "struct device" for bridges that makes a good
-> > > >   candidate for where the lifetime matches exactly what we want.
-> > > > * The "bridge->dev->dev" device appears to be the encoder
-> > > >   device. That's not the right device to use for lifetime management.
-> > > >
-> > > > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > >
-> > > If we are to introduce more managed helpers, I think it'd be wiser to
-> > > introduce them as DRM-managed, and not device managed.
-> > >
-> > > Otherwise, you'll end up in a weird state when a device has been removed
-> > > but the DRM device is still around.
-> >=20
-> > I'm kinda confused. In this case there is no DRM device for the bridge
-> > and, as per my CL description, "bridge-dev->dev" appears to be the
-> > encoder device.
->
-> bridge->dev seems right though?
->
-> > I wasn't personally involved in discussions about it, but I was under
-> > the impression that this was expected / normal. Thus we can't make
-> > this DRM-managed.
->
-> Still, I don't think devm is the right solution to this either.
->
-> The underlying issue is two-fold:
->
->   - Encoders can have a pointer to a bridge through of_drm_find_bridge
->     or similar. However, bridges are traditionally tied to their device
->     lifetime (by calling drm_bridge_add in probe, and drm_bridge_remove
->     in remove). Encoders will typically be tied to the DRM device
->     however, and that one sticks around until the last application
->     closes it. We can thus very easily end up with a dangling pointer,
->     and a use-after-free.
->
->   - It's not the case yet, but it doesn't seem far fetch to expose
->     properties of bridges to the userspace. In that case, the userspace
->     would be likely to still hold references to objects that aren't
->     there anymore when the bridge is gone.
->
-> The first is obviously a larger concern, but if we can find a solution
-> that would accomodate the second it would be great.
->
-> As far as I can see, we should fix in two steps:
->
->   - in drm_bridge_attach, we should add a device-managed call that will
->     unregister the main DRM device. We don't allow to probe the main DRM
->     device when the bridge isn't there yet in most case, so it makes
->     sense to remove it once the bridge is no longer there as well.
-
-The problem is that I do not see a good way to unregister the main DRM
-device outside of it's driver code.
-
->
->   - When the DRM device is removed, have the core cleanup any bridge
->     registered. That will remove the need to have drm_bridge_remove in
->     the first place.
->
-> > I'll assume that my response addressed your concerns. Assuming I get
-> > reviews for the other two patches in this series I'll plan to land
-> > this with Dmitry's review.
->
-> I still don't think it's a good idea to merge it. It gives an illusion
-> of being safe, but it's really far from it.
-
-It is more of removing the boilerplate code spread over all the
-drivers rather than about particular safety.
-
-I'd propose to land devm_drm_bridge_add (and deprecate calling
-drm_bridge_remove from the bridge driver at some point) and work on
-the whole drm_device <-> drm_bridge problem in the meantime.
-
--- 
-With best wishes
-Dmitry
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogRG1pdHJ5IEJhcnlzaGtv
+diA8ZG1pdHJ5LmJhcnlzaGtvdkBsaW5hcm8ub3JnPg0KPiBTZW50OiBGcmlkYXksIEp1bmUgMywg
+MjAyMiAzOjA3IFBNDQo+IFRvOiBWaW5vZCBQb2xpbWVyYSAoUVVJQykgPHF1aWNfdnBvbGltZXJA
+cXVpY2luYy5jb20+OyBkcmktDQo+IGRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgt
+YXJtLW1zbUB2Z2VyLmtlcm5lbC5vcmc7DQo+IGZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5v
+cmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnDQo+IENjOiBsaW51eC1rZXJuZWxAdmdlci5r
+ZXJuZWwub3JnOyByb2JkY2xhcmtAZ21haWwuY29tOw0KPiBkaWFuZGVyc0BjaHJvbWl1bS5vcmc7
+IHZwb2xpbWVyQHF1aWNpbmMuY29tOyBzd2JveWRAY2hyb21pdW0ub3JnOw0KPiBrYWx5YW50QHF1
+aWNpbmMuY29tDQo+IFN1YmplY3Q6IFJlOiBbdjFdIGRybS9tc206IGFkZCBudWxsIGNoZWNrcyBm
+b3IgZHJtIGRldmljZSB0byBhdm9pZCBjcmFzaA0KPiBkdXJpbmcgcHJvYmUgZGVmZXINCj4gDQo+
+IFdBUk5JTkc6IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgUXVhbGNvbW0u
+IFBsZWFzZSBiZSB3YXJ5DQo+IG9mIGFueSBsaW5rcyBvciBhdHRhY2htZW50cywgYW5kIGRvIG5v
+dCBlbmFibGUgbWFjcm9zLg0KPiANCj4gT24gMDMvMDYvMjAyMiAxMjoyMiwgVmlub2QgUG9saW1l
+cmEgd3JvdGU6DQo+ID4gRHVyaW5nIHByb2JlIGRlZmVyLCBkcm0gZGV2aWNlIGlzIG5vdCBpbml0
+aWFsaXplZCBhbmQgYW4gZXh0ZXJuYWwNCj4gPiB0cmlnZ2VyIHRvIHNodXRkb3duIGlzIHRyeWlu
+ZyB0byBjbGVhbiB1cCBkcm0gZGV2aWNlIGxlYWRpbmcgdG8gY3Jhc2guDQo+ID4gQWRkIGNoZWNr
+cyB0byBhdm9pZCBkcm0gZGV2aWNlIGNsZWFudXAgaW4gc3VjaCBjYXNlcy4NCj4gPg0KPiA+IEJV
+RzogdW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0IHZp
+cnR1YWwNCj4gPiBhZGRyZXNzIDAwMDAwMDAwMDAwMDAwYjgNCj4gPg0KPiA+IENhbGwgdHJhY2U6
+DQo+ID4NCj4gPiBkcm1fYXRvbWljX2hlbHBlcl9zaHV0ZG93bisweDQ0LzB4MTQ0DQo+ID4gbXNt
+X3BkZXZfc2h1dGRvd24rMHgyYy8weDM4DQo+ID4gcGxhdGZvcm1fc2h1dGRvd24rMHgyYy8weDM4
+DQo+ID4gZGV2aWNlX3NodXRkb3duKzB4MTU4LzB4MjEwDQo+ID4ga2VybmVsX3Jlc3RhcnRfcHJl
+cGFyZSsweDQwLzB4NGMNCj4gPiBrZXJuZWxfcmVzdGFydCsweDIwLzB4NmMNCj4gPiBfX2FybTY0
+X3N5c19yZWJvb3QrMHgxOTQvMHgyM2MNCj4gPiBpbnZva2Vfc3lzY2FsbCsweDUwLzB4MTNjDQo+
+ID4gZWwwX3N2Y19jb21tb24rMHhhMC8weDE3Yw0KPiA+IGRvX2VsMF9zdmNfY29tcGF0KzB4Mjgv
+MHgzNA0KPiA+IGVsMF9zdmNfY29tcGF0KzB4MjAvMHg3MA0KPiA+IGVsMHRfMzJfc3luY19oYW5k
+bGVyKzB4YTgvMHhjYw0KPiA+IGVsMHRfMzJfc3luYysweDFhOC8weDFhYw0KPiA+DQo+ID4gU2ln
+bmVkLW9mZi1ieTogVmlub2QgUG9saW1lcmEgPHF1aWNfdnBvbGltZXJAcXVpY2luYy5jb20+DQo+
+IA0KPiBGaXhlcyA/DQotIEFkZGVkIGZpeGVzIHRhZyBpbiB2Mi4NCj4gDQo+ID4gLS0tDQo+ID4g
+ICBkcml2ZXJzL2dwdS9kcm0vbXNtL21zbV9kcnYuYyB8IDYgKysrKystDQo+ID4gICAxIGZpbGUg
+Y2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+ID4NCj4gPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0v
+bXNtL21zbV9kcnYuYw0KPiA+IGluZGV4IDQ0NDg1MzYuLmQ2MmFjNjYgMTAwNjQ0DQo+ID4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZHJ2LmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vbXNtL21zbV9kcnYuYw0KPiA+IEBAIC0xNDIsNiArMTQyLDkgQEAgc3RhdGljIHZvaWQgbXNt
+X2lycV91bmluc3RhbGwoc3RydWN0IGRybV9kZXZpY2UNCj4gKmRldikNCj4gPiAgICAgICBzdHJ1
+Y3QgbXNtX2RybV9wcml2YXRlICpwcml2ID0gZGV2LT5kZXZfcHJpdmF0ZTsNCj4gPiAgICAgICBz
+dHJ1Y3QgbXNtX2ttcyAqa21zID0gcHJpdi0+a21zOw0KPiA+DQo+ID4gKyAgICAgaWYgKCFpcnFf
+aGFzX2FjdGlvbihrbXMtPmlycSkpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm47DQo+ID4gKw0K
+PiANCj4gSXMgdGhpcyBwYXJ0IHJlcXVpcmVkIHdpdGgNCj4gaHR0cHM6Ly9wYXRjaHdvcmsuZnJl
+ZWRlc2t0b3Aub3JnL3BhdGNoLzQ4NTQyMi8/c2VyaWVzPTEwMzcwMiZyZXY9MT8NClllcywgSSBm
+ZWVsIGxpa2UgdGhpcyBpcyBhIGJldHRlciBhcHByb2FjaCB0aGFuIG1haW50YWluaW5nIGEgbmV3
+IHZhcmlhYmxlLiBJIHNlZSBhIGNvdXBsZSBvZiBkcml2ZXJzIGZvbGxvd2luZyBzaW1pbGFyIGFw
+cHJvYWNoIHRvIHNhZmVndWFyZCB1bmluc3RhbGwgd2l0aG91dCBiZWluZyBpbnN0YWxsIGNhbGxl
+ZC4NCj4gDQo+ID4gICAgICAga21zLT5mdW5jcy0+aXJxX3VuaW5zdGFsbChrbXMpOw0KPiA+ICAg
+ICAgIGlmIChrbXMtPmlycV9yZXF1ZXN0ZWQpDQo+ID4gICAgICAgICAgICAgICBmcmVlX2lycShr
+bXMtPmlycSwgZGV2KTsNCj4gPiBAQCAtMjU5LDYgKzI2Miw3IEBAIHN0YXRpYyBpbnQgbXNtX2Ry
+bV91bmluaXQoc3RydWN0IGRldmljZSAqZGV2KQ0KPiA+DQo+ID4gICAgICAgZGRldi0+ZGV2X3By
+aXZhdGUgPSBOVUxMOw0KPiA+ICAgICAgIGRybV9kZXZfcHV0KGRkZXYpOw0KPiA+ICsgICAgIHBy
+aXYtPmRldiA9IE5VTEw7DQo+IA0KPiBXaGF0IGFyZSB5b3UgdHJ5aW5nIHRvIHByb3RlY3QgaGVy
+ZT8NCklmIHdlIGdldCBhIHNodXRkb3duIGNhbGwgYWZ0ZXIgcHJvYmUgZGVmZXIsIHRoZXJlIGNh
+biBiZSBzdGFsZSBwb2ludGVyIGluIHByaXYtPmRldiB3aGljaCBpcyBpbnZhbGlkIHRoYXQgbmVl
+ZHMgdG8gYmUgY2xlYXJlZC4NCj4gDQo+ID4NCj4gPiAgICAgICBkZXN0cm95X3dvcmtxdWV1ZShw
+cml2LT53cSk7DQo+ID4NCj4gPiBAQCAtMTE2Nyw3ICsxMTcxLDcgQEAgdm9pZCBtc21fZHJ2X3No
+dXRkb3duKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UNCj4gKnBkZXYpDQo+ID4gICAgICAgc3RydWN0
+IG1zbV9kcm1fcHJpdmF0ZSAqcHJpdiA9IHBsYXRmb3JtX2dldF9kcnZkYXRhKHBkZXYpOw0KPiA+
+ICAgICAgIHN0cnVjdCBkcm1fZGV2aWNlICpkcm0gPSBwcml2ID8gcHJpdi0+ZGV2IDogTlVMTDsN
+Cj4gPg0KPiA+IC0gICAgIGlmICghcHJpdiB8fCAhcHJpdi0+a21zKQ0KPiA+ICsgICAgIGlmICgh
+cHJpdiB8fCAhcHJpdi0+a21zIHx8ICFkcm0pDQo+ID4gICAgICAgICAgICAgICByZXR1cm47DQo+
+ID4NCj4gPiAgICAgICBkcm1fYXRvbWljX2hlbHBlcl9zaHV0ZG93bihkcm0pOw0KPiANCj4gDQo+
+IC0tDQo+IFdpdGggYmVzdCB3aXNoZXMNCj4gRG1pdHJ5DQo=
