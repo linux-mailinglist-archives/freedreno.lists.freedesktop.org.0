@@ -2,77 +2,43 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79F0353C6DD
-	for <lists+freedreno@lfdr.de>; Fri,  3 Jun 2022 10:21:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 046A953C765
+	for <lists+freedreno@lfdr.de>; Fri,  3 Jun 2022 11:23:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1362C10E1BC;
-	Fri,  3 Jun 2022 08:21:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07487112181;
+	Fri,  3 Jun 2022 09:23:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E94E10E1BC;
- Fri,  3 Jun 2022 08:21:46 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 791335C012F;
- Fri,  3 Jun 2022 04:21:43 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 03 Jun 2022 04:21:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm3; t=1654244503; x=1654330903; bh=1ccPbvvPc2
- QJsF6EYg6aGAQTpq423l5bpHT3Jr0RAzE=; b=ufgwP5wykpzQaFVt5QI+f4srwp
- CDN5XhLL1lgIkELkWDuGu0MVGlKY2xDOdDHtyOtgyp06tpczWh+jSYjaijvftF94
- VOHO3pemB7wIPmECwfxv0W6YMBYFHFuzvN5BQVI872/kr4Noy93fMJ0p8IgsucLG
- Cu+5+DesHvyhsL5tvGADwk+iUZXDxe4w9dqo3tfp+cWvE5EqQHth6xeQlctNNwiK
- krtMHJlDrKey2G/pvksyNMQSz/aUHL/GXga1eQQv/V+F/oauYs5Y8URtN0ZGjZb9
- Yeb9kUFJ763rFFg9MqyXWs+egN3S0EnG585JBwcTs6+o64dGYZB144eCUrvQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; t=1654244503; x=1654330903; bh=1ccPbvvPc2QJsF6EYg6aGAQTpq42
- 3l5bpHT3Jr0RAzE=; b=JGNuH2RRj8GNk/GdW0Yz8QCithFazuLg7ZmgIXCfKMJ7
- CXUBXaYIFvQ95sVI/WKJQnrtwPow0jtxlyrJYMeqgScTQX2iMZVEN9HZl/aG7QDA
- gc9CVHc/g18ezC4jBvX5ziOBchoJXViIX38J4f7AzPF/EDmbTRZBVg2EosHL6wRv
- GlzsdfgHMX5QJ4Ftwd2Z72qdm8hy7jGTHSXOt7bCfLQT9BfqzrwPRDjIPs+ACU3a
- buSA+Oj7XeCjbgPfGvxRIkxDrIKYn4kWRXkKEZLqzy9tcmMlsD+C7pZAIzsGLzWw
- X4u63OdlW10xy73/6PZk+JRRVrnY+CR9FnplmiWsRw==
-X-ME-Sender: <xms:lsSZYhEe1bgESXbJAkQIeQUcKZfufA4TUKR4Lj1T0elJLzr_IwdJDA>
- <xme:lsSZYmUvY-lam4ev421x8-yY_Ijq2jSCzB1edB5z25QED_FcbEYUf0zGJBW3gqc2w
- ENs1XpkZP9FroFW1SU>
-X-ME-Received: <xmr:lsSZYjJETLpiMwc9tmKt0lT5Hve7ygX70mzz-SR1dVSDhxERs9A0msW235wi>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrleeigddtudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepfedtueevteeggfeivdffjeejledvveduudetteekvdeiueehvdegkedvleet
- ffeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- grgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:lsSZYnFhuVbHa2a3HIHFNtndJSGMwBUAKUX96abHese1LKfLBO534w>
- <xmx:lsSZYnXH6Yh1hNoBEJ8yINX_zEyrmvYNxU7iDGNx_GNRBNcvkXJ3zA>
- <xmx:lsSZYiOnfys3V5irrRFjCr2A2qF-_ob_AnrigaEJqbQG4pG6ACjWtQ>
- <xmx:l8SZYovxnXDLVbsF-05lta2lwtxO7wGvZ6XbVyMk-phWTNfphZhMQQ>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 3 Jun 2022 04:21:42 -0400 (EDT)
-Date: Fri, 3 Jun 2022 10:21:39 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20220603082139.sfdxb5ndwpvlhklh@penduick>
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
- <20220521091751.opeiqbmc5c2okdq6@houat>
- <CAD=FV=Wea0LT5umK4Xg87cDikim+dSuyLndfydO3_DnTujZr9Q@mail.gmail.com>
- <CAD=FV=XqJuPHxm7HYMvyHBL_zC-BBA_f0MBsZX-jHt7Pk9ngsQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=XqJuPHxm7HYMvyHBL_zC-BBA_f0MBsZX-jHt7Pk9ngsQ@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFA410FE8A;
+ Fri,  3 Jun 2022 09:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654248186; x=1685784186;
+ h=from:to:cc:subject:date:message-id;
+ bh=V2lKivc9M3T8itEYOlhL4nuspF06rOXNkuFJ8fsnkqw=;
+ b=gMt1+Lm3LQ7HJ52SklO0bT/NRxHF5XuKVY0XCWvymT9ASTV1NZYggf/y
+ QLv/OzR5i8by7ag4xtGr7exJxA8zRr0ZuJPmfmfW94Se9ouzgyanLkOP6
+ T+r+mELWOUSxuqjNzb4DYLkM4W54PuqkvKKw6eFz8sFH+aXmu+qYLkyWW Y=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 03 Jun 2022 02:23:05 -0700
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 03 Jun 2022 02:23:03 -0700
+X-QCInternal: smtphost
+Received: from vpolimer-linux.qualcomm.com ([10.204.67.235])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 03 Jun 2022 14:52:50 +0530
+Received: by vpolimer-linux.qualcomm.com (Postfix, from userid 463814)
+ id 680753A0D; Fri,  3 Jun 2022 14:52:49 +0530 (IST)
+From: Vinod Polimera <quic_vpolimer@quicinc.com>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Date: Fri,  3 Jun 2022 14:52:47 +0530
+Message-Id: <1654248167-10594-1-git-send-email-quic_vpolimer@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Freedreno] [v1] drm/msm: add null checks for drm device to avoid
+ crash during probe defer
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,116 +51,71 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>, Stephen Boyd <swboyd@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: vpolimer@quicinc.com, dianders@chromium.org, linux-kernel@vger.kernel.org,
+ robdclark@gmail.com, dmitry.baryshkov@linaro.org, swboyd@chromium.org,
+ kalyant@quicinc.com, Vinod Polimera <quic_vpolimer@quicinc.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, May 31, 2022 at 02:06:34PM -0700, Doug Anderson wrote:
-> On Mon, May 23, 2022 at 10:00 AM Doug Anderson <dianders@chromium.org> wrote:
-> > On Sat, May 21, 2022 at 2:17 AM Maxime Ripard <maxime@cerno.tech> wrote:
-> > > On Tue, May 10, 2022 at 12:29:43PM -0700, Douglas Anderson wrote:
-> > > > This adds a devm managed version of drm_bridge_add(). Like other
-> > > > "devm" function listed in drm_bridge.h, this function takes an
-> > > > explicit "dev" to use for the lifetime management. A few notes:
-> > > > * In general we have a "struct device" for bridges that makes a good
-> > > >   candidate for where the lifetime matches exactly what we want.
-> > > > * The "bridge->dev->dev" device appears to be the encoder
-> > > >   device. That's not the right device to use for lifetime management.
-> > > >
-> > > > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > >
-> > > If we are to introduce more managed helpers, I think it'd be wiser to
-> > > introduce them as DRM-managed, and not device managed.
-> > >
-> > > Otherwise, you'll end up in a weird state when a device has been removed
-> > > but the DRM device is still around.
-> >
-> > I'm kinda confused. In this case there is no DRM device for the bridge
-> > and, as per my CL description, "bridge-dev->dev" appears to be the
-> > encoder device. I wasn't personally involved in discussions about it,
-> > but I was under the impression that this was expected / normal. Thus
-> > we can't make this DRM-managed.
-> 
-> Since I didn't hear a reply,
+During probe defer, drm device is not initialized and an external
+trigger to shutdown is trying to clean up drm device leading to crash.
+Add checks to avoid drm device cleanup in such cases.
 
-Gah, I replied but it looks like somehow it never reached the ML...
+BUG: unable to handle kernel NULL pointer dereference at virtual
+address 00000000000000b8
 
-Here was my original reply:
+Call trace:
 
-> > > This adds a devm managed version of drm_bridge_add(). Like other
-> > > "devm" function listed in drm_bridge.h, this function takes an
-> > > explicit "dev" to use for the lifetime management. A few notes:
-> > > * In general we have a "struct device" for bridges that makes a good
-> > >   candidate for where the lifetime matches exactly what we want.
-> > > * The "bridge->dev->dev" device appears to be the encoder
-> > >   device. That's not the right device to use for lifetime management.
-> > >
-> > > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> >
-> > If we are to introduce more managed helpers, I think it'd be wiser to
-> > introduce them as DRM-managed, and not device managed.
-> >
-> > Otherwise, you'll end up in a weird state when a device has been removed
-> > but the DRM device is still around.
->=20
-> I'm kinda confused. In this case there is no DRM device for the bridge
-> and, as per my CL description, "bridge-dev->dev" appears to be the
-> encoder device.
+drm_atomic_helper_shutdown+0x44/0x144
+msm_pdev_shutdown+0x2c/0x38
+platform_shutdown+0x2c/0x38
+device_shutdown+0x158/0x210
+kernel_restart_prepare+0x40/0x4c
+kernel_restart+0x20/0x6c
+__arm64_sys_reboot+0x194/0x23c
+invoke_syscall+0x50/0x13c
+el0_svc_common+0xa0/0x17c
+do_el0_svc_compat+0x28/0x34
+el0_svc_compat+0x20/0x70
+el0t_32_sync_handler+0xa8/0xcc
+el0t_32_sync+0x1a8/0x1ac
 
-bridge->dev seems right though?
+Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
+---
+ drivers/gpu/drm/msm/msm_drv.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-> I wasn't personally involved in discussions about it, but I was under
-> the impression that this was expected / normal. Thus we can't make
-> this DRM-managed.
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 4448536..d62ac66 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -142,6 +142,9 @@ static void msm_irq_uninstall(struct drm_device *dev)
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+ 
++	if (!irq_has_action(kms->irq))
++		return;
++
+ 	kms->funcs->irq_uninstall(kms);
+ 	if (kms->irq_requested)
+ 		free_irq(kms->irq, dev);
+@@ -259,6 +262,7 @@ static int msm_drm_uninit(struct device *dev)
+ 
+ 	ddev->dev_private = NULL;
+ 	drm_dev_put(ddev);
++	priv->dev = NULL;
+ 
+ 	destroy_workqueue(priv->wq);
+ 
+@@ -1167,7 +1171,7 @@ void msm_drv_shutdown(struct platform_device *pdev)
+ 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 	struct drm_device *drm = priv ? priv->dev : NULL;
+ 
+-	if (!priv || !priv->kms)
++	if (!priv || !priv->kms || !drm)
+ 		return;
+ 
+ 	drm_atomic_helper_shutdown(drm);
+-- 
+2.7.4
 
-Still, I don't think devm is the right solution to this either.
-
-The underlying issue is two-fold:
-
-  - Encoders can have a pointer to a bridge through of_drm_find_bridge
-    or similar. However, bridges are traditionally tied to their device
-    lifetime (by calling drm_bridge_add in probe, and drm_bridge_remove
-    in remove). Encoders will typically be tied to the DRM device
-    however, and that one sticks around until the last application
-    closes it. We can thus very easily end up with a dangling pointer,
-    and a use-after-free.
-
-  - It's not the case yet, but it doesn't seem far fetch to expose
-    properties of bridges to the userspace. In that case, the userspace
-    would be likely to still hold references to objects that aren't
-    there anymore when the bridge is gone.
-
-The first is obviously a larger concern, but if we can find a solution
-that would accomodate the second it would be great.
-
-As far as I can see, we should fix in two steps:
-
-  - in drm_bridge_attach, we should add a device-managed call that will
-    unregister the main DRM device. We don't allow to probe the main DRM
-    device when the bridge isn't there yet in most case, so it makes
-    sense to remove it once the bridge is no longer there as well.
-
-  - When the DRM device is removed, have the core cleanup any bridge
-    registered. That will remove the need to have drm_bridge_remove in
-    the first place.
-
-> I'll assume that my response addressed your concerns. Assuming I get
-> reviews for the other two patches in this series I'll plan to land
-> this with Dmitry's review.
-
-I still don't think it's a good idea to merge it. It gives an illusion
-of being safe, but it's really far from it.
-
-Maxime
