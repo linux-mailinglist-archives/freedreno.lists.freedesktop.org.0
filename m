@@ -2,59 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB0253D3D6
-	for <lists+freedreno@lfdr.de>; Sat,  4 Jun 2022 01:21:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C914853DEA8
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 00:38:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64DF1112474;
-	Fri,  3 Jun 2022 23:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D6B810E09B;
+	Sun,  5 Jun 2022 22:38:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14973112442;
- Fri,  3 Jun 2022 23:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654298485; x=1685834485;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=bUMNBuUXY/UAvVKqEyweKMXGBGukeILdGV/BgiEzxl4=;
- b=R+OmJmUQWYW9uyAlBgeqbVKsGBSWBFjR+wznpfRq6MpyuOl/BuBuKIcA
- 7ov/qJhbaw/FkjmDiwghxWNOpgFLKLHNTQAdDaPi7AMvy9c4NOKf1fVGA
- YI9rxTDybVKvrmqN6PZgpdQtj5qBArbMphC8s2crwhc1nYLxG5yOSzcWR Y=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 03 Jun 2022 16:21:24 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2022 16:21:24 -0700
-Received: from [10.71.110.111] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 3 Jun 2022
- 16:21:23 -0700
-Message-ID: <ec9516d1-31dd-5cfb-6f93-8cb41e205498@quicinc.com>
-Date: Fri, 3 Jun 2022 16:21:23 -0700
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C442510E09B;
+ Sun,  5 Jun 2022 22:38:34 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id p8so9318017qtx.9;
+ Sun, 05 Jun 2022 15:38:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2o4Si/ESwdinfrZMz9nTD0LmxXF7OLAHry8I5SkRmG4=;
+ b=3G+Xa0wAtbRQa7fMfwtPMs7hbcZ1BdqIByplSJ3AAcdCKy+KSUe6bPN+WiH7tjjiev
+ zxrlAS4zLqPOlvaJLlgnXZuEvD/Bwxh7YZtNyisKF1N1hcgAUczCjNO7WMtPVBdrARmz
+ egtsXorQhF37gw3HbbUtfXrxq2XQrE2wmHvBu5EoM/x6HPf3ceLnYN3IgLyiOlN/x6Do
+ DRsICXrpWLUPjtIzZSoMuuUJFZ/mPrDSuTx3iv8AK4UQINZt35dOUNEgSNt+EjdY+Go0
+ KHoddY7aGPEVnARgqgwjY9mQ9QYXfaG48jOFR7Gb/XIGQFTMNbnwbePbnjdRQfvcvOFs
+ z4nw==
+X-Gm-Message-State: AOAM530JYYvni1UFd5bPOQvbX8FYNEPC0TuwY7W2Kuh8sZICsjZgvfdW
+ AzMWRwk4FKmkLWeRNb+5RQ==
+X-Google-Smtp-Source: ABdhPJzSKRDnrny8BKo9He5QTFTcAXpqrnhpYOyi4zRLtD4q9a2RlGz5Mr2RHgWmvJf67C+lU0kTdg==
+X-Received: by 2002:ac8:7d49:0:b0:304:e4ce:3345 with SMTP id
+ h9-20020ac87d49000000b00304e4ce3345mr7305436qtb.508.1654468713846; 
+ Sun, 05 Jun 2022 15:38:33 -0700 (PDT)
+Received: from robh.at.kernel.org ([2607:fb90:1bdb:2e61:f12:452:5315:9c7e])
+ by smtp.gmail.com with ESMTPSA id
+ w184-20020a3794c1000000b006a098381abcsm10168131qkd.114.2022.06.05.15.38.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Jun 2022 15:38:33 -0700 (PDT)
+Received: (nullmailer pid 3657152 invoked by uid 1000);
+ Sun, 05 Jun 2022 22:38:30 -0000
+Date: Sun, 5 Jun 2022 17:38:30 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krishna <quic_mkrishn@quicinc.com>
+Message-ID: <20220605223830.GA3657088-robh@kernel.org>
+References: <1654166998-14907-1-git-send-email-quic_mkrishn@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220527185407.162-1-quic_jesszhan@quicinc.com>
- <20220527185407.162-4-quic_jesszhan@quicinc.com>
- <266fdac1-db57-a729-3d73-42d2b34017cd@linaro.org>
- <aa4617f6-65fd-73c6-61b1-686a72c515d7@quicinc.com>
- <beaaeb57-c144-a680-eea6-20a950d25205@linaro.org>
- <bd96aaaf-e324-295c-a35b-1474deeb706c@quicinc.com>
- <CAA8EJppE8dZFQD0fsoS1YwKTzj6U_CfL1SD6RB5stRnD-7UYuQ@mail.gmail.com>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <CAA8EJppE8dZFQD0fsoS1YwKTzj6U_CfL1SD6RB5stRnD-7UYuQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dpu: Add interface support for
- CRC debugfs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1654166998-14907-1-git-send-email-quic_mkrishn@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v1] dt-bindings: msm: update maintainers
+ list with proper id
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,92 +62,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, quic_aravindh@quicinc.com,
+Cc: quic_kalyant@quicinc.com, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh+dt@kernel.org,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-
-
-On 6/3/2022 12:02 AM, Dmitry Baryshkov wrote:
-> On Fri, 3 Jun 2022 at 04:02, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->> On 6/2/2022 3:51 PM, Dmitry Baryshkov wrote:
->>> On 28/05/2022 01:23, Jessica Zhang wrote:
->>>> On 5/27/2022 12:46 PM, Dmitry Baryshkov wrote:
->>>>> On 27/05/2022 21:54, Jessica Zhang wrote:
->>>>>> Add support for writing CRC values for the interface block to
->>>>>> the debugfs by calling the necessary MISR setup/collect methods.
->>>>>>
->>>>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+On Thu, 02 Jun 2022 16:19:58 +0530, Krishna wrote:
+> From: Krishna Manikandan <quic_mkrishn@quicinc.com>
 > 
-> [skipped]
+> Use quic id instead of codeaurora id in maintainers list
+> for display devicetree bindings.
 > 
->>>>>> +
->>>>>> +        phys->hw_intf->ops.setup_misr(phys->hw_intf, true, 1);
->>>>>> +    }
->>>>>> +}
->>>>>> +
->>>>>> +int dpu_encoder_get_crc(const struct drm_encoder *drm_enc)
->>>>>> +{
->>>>>> +    struct dpu_encoder_virt *dpu_enc;
->>>>>> +    u32 crcs[MAX_PHYS_ENCODERS_PER_VIRTUAL];
->>>>>> +
->>>>>> +    int i, rc;
->>>>>> +
->>>>>> +    if (!drm_enc->crtc) {
->>>>>> +        DRM_ERROR("no crtc found for encoder %d\n", drm_enc->index);
->>>>>> +        return -EINVAL;
->>>>>> +    }
->>>>>> +
->>>>>> +    dpu_enc = to_dpu_encoder_virt(drm_enc);
->>>>>> +
->>>>>> +    for (i = 0; i < dpu_enc->num_phys_encs; i++) {
->>>>>> +        struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->>>>>> +
->>>>>> +        if (!phys->hw_intf || !phys->hw_intf->ops.collect_misr)
->>>>>> +            continue;
->>>>>> +
->>>>>> +        rc = phys->hw_intf->ops.collect_misr(phys->hw_intf, &crcs[i]);
->>>>>
->>>>> This doesn't look fully correct. Do we need to skip the indices for
->>>>> the phys without a backing hw_intf?
->>>>
->>>> Sorry if I'm misunderstanding your question, but don't we need to have
->>>> a backing hw_intf (and skip if there isn't any) since the methods for
->>>> collecting/setting MISR registers is within the hw_intf?
->>>
->>> Yes. So the question if we should skip the phys and leave the crcs[i]
->>> untouched, skip the phys and sset crcs[i] to 0 or change
->>> dpu_crtc_parse_crc_source() to return the number of intf-backed
->>> phys_enc's and do not skip any crcs[i].
->>
->> Thanks for the clarification.
->>
->> Is it possible to hit a case where a phys_encoder won't have a
->> corresponding hw_intf?
->>
->> AFAIK, it seems guaranteed that a phys_encoder will have an hw_intf
->> since dpu_encoder_setup_display will skip incrementing num_phys_encs if
->> dpu_encoder_get_intf fails [1].
+> Signed-off-by: Krishna Manikandan <quic_mkrishn@quicinc.com>
+> ---
+>  Documentation/devicetree/bindings/display/msm/dpu-sc7180.yaml          | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dpu-sc7280.yaml          | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dpu-sdm845.yaml          | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-10nm.yaml        | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-14nm.yaml        | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-20nm.yaml        | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-28nm.yaml        | 2 +-
+>  Documentation/devicetree/bindings/display/msm/dsi-phy-common.yaml      | 2 +-
+>  9 files changed, 9 insertions(+), 9 deletions(-)
 > 
-> WB encoders won't have hw_intf. The code checks that either get_intf
-> or get_wb succeeds.
 
-Got it, I see your point. I'll change the values_cnt to only include the 
-intf-backed phys_encoders then.
-
-Thanks,
-
-Jessica Zhang
-
-> 
->>
->> [1]
->> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c#L2263
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
+Applied, thanks!
