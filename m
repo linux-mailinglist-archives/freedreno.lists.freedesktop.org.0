@@ -1,66 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A90653EF44
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 22:12:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 985CF53F20D
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jun 2022 00:19:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A74C610EA5D;
-	Mon,  6 Jun 2022 20:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED36E10E161;
+	Mon,  6 Jun 2022 22:19:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CC910EA5D
- for <freedreno@lists.freedesktop.org>; Mon,  6 Jun 2022 20:12:03 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id s12so23875462ejx.3
- for <freedreno@lists.freedesktop.org>; Mon, 06 Jun 2022 13:12:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HCWIcD+SfRMw/M9RRt+jg58AphPseq4gfsJ1F6OVZZU=;
- b=L64JkmvDNh1FIACsNToXduJszZ5RYI3mnVnXlEJgBMBcVUIJznBmtDp/P0EKumXSX/
- zad6k3tZainA3cYz+aKtsb03+xotN0Og3MtfFmorTrxvRWwPwuEKwx8H4Vj5ghwhAf3G
- CWzDhBbC4GdfPTWfSGrqktycegGjlYT4PyutU=
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE9DB10F122;
+ Mon,  6 Jun 2022 21:13:36 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id n10so31387145ejk.5;
+ Mon, 06 Jun 2022 14:13:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/vrjMAvCFt6wUI3BDJ99m6gry4K6PxML5aBtTWp7pZQ=;
+ b=JjYSoRegWg4TZgb8oMQZIZJSQWGIKj9z2gM5kWLF70V1Ib9I32PpN4BWerHyWCrw5l
+ HvB34rGAglkE+wPkkNQab9kQ2pJrPEfJWtJDZUJ1KBouMzrWehKMd1FW8niFVKONtVfI
+ g8AU4ecym7aMzL+hZZnsf9cHrn/sZB/GQzUuKLBn6HuBaL+iDsAEJlQDHkHpJZXUX6DD
+ 449ChyQIf7H4J5vEq0bzWxuAkbYfh+b2mtm2xu6bpHJvtbS1Ac2IchV5YbnwjZcQ8JBx
+ psWXQsq67vFX3OebEtCBqQkMpm5deM6VD7q/RQgrd4xR56BCBk+k27cAQ7XNpg83GQdl
+ b6hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HCWIcD+SfRMw/M9RRt+jg58AphPseq4gfsJ1F6OVZZU=;
- b=3ks/1q3ggaQjkL7I4qTlDg57TQN1RtZAHLwjisE3gLuS+Wj3aXWWTOiJ74DGllMv/S
- CiBtIAekTIjZo8E7wUJrBiO3qQHYNhESQJLdfeJG+fiEF6W59c9aY1B27q1q+cTHWA+l
- r33FH6unPITFAU90+a8qp3U2CYfj5j05VMLSjI4LogdWoW3FiiO7fqF6Cx231+W7GkNS
- qL7uAD5I4llu7i4i4rN1MqIP9csseGNuR2TFfL8htA72D/GduI0e6+lBrsKameXDCwF7
- c+aRp/w1h2pJPWhdwCPZjHprXNJvCiSmiSuR47qrFcoxNTzbX9ih68cHeZ1UCinLubpa
- VBOQ==
-X-Gm-Message-State: AOAM533R4ZgkvCj7Mla+UnpcGUdi9Oqk4F0NqmgE02Pef39fb37Eg+4B
- pNqR3Bu+tyeJZfslZcW7r0P4XXKkYmU61jgdCKg=
-X-Google-Smtp-Source: ABdhPJwlET6WKFs3zB5hbxWUYeacvHuYotWCnUsk9CXXvKFO/Hbz4EPfec2mskR/T+wdJy+gXEAuUQ==
-X-Received: by 2002:a17:907:3da3:b0:711:ca9a:ae23 with SMTP id
- he35-20020a1709073da300b00711ca9aae23mr7425823ejc.709.1654546321689; 
- Mon, 06 Jun 2022 13:12:01 -0700 (PDT)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
- [209.85.128.46]) by smtp.gmail.com with ESMTPSA id
- h24-20020a170906829800b0070f7d1c5a18sm4163656ejx.55.2022.06.06.13.11.59
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jun 2022 13:12:00 -0700 (PDT)
-Received: by mail-wm1-f46.google.com with SMTP id e5so1386742wma.0
- for <freedreno@lists.freedesktop.org>; Mon, 06 Jun 2022 13:11:59 -0700 (PDT)
-X-Received: by 2002:a05:600c:591:b0:39c:4544:b814 with SMTP id
- o17-20020a05600c059100b0039c4544b814mr14648542wmd.118.1654546319242; Mon, 06
- Jun 2022 13:11:59 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/vrjMAvCFt6wUI3BDJ99m6gry4K6PxML5aBtTWp7pZQ=;
+ b=mn37cDLPbiiSF9VC6eFmO8MUKqGyi0U5I5E+zVDgHbEr2PPrZYlw4OmbFe+99fHEvw
+ eomXn8MvH775HF5s8umo3y9xKO99bHuMsGaUET8Y4ZS66dVBZ2Nj5vkP0tob9U54b/xu
+ yGfShqPh2Z2lsacJGbAHLPSx2fqP8PXpIj79L46Pha4vhiCqxMQEpc9Mq7AZLOXKQy/5
+ M655cQWvQkqdhATVOkn10zV6iI9eN7wnOP6q1KMN5wS7A+zAjemIjEfoA17J7tiMD0tp
+ B7MQOWGWRt1yVi5Dc7DHvXsLXG3aGoXvlIDMdt1ZR1YDTk10raURnoxPZpBCoMKDmpXP
+ jgWQ==
+X-Gm-Message-State: AOAM5304imriCee5lAGQgwIRAMS1+bjRb3TtAUzPGNJlB9+jHFP3q/Io
+ iTgwP9XrFnV1kry9wBdEjf4=
+X-Google-Smtp-Source: ABdhPJzu0VYk2HyNbCEmKotVrY7I0kwRusHR3DozhQRm/s4pEzZeZM0+mkyCZ1uSwCq8FooJhmyt9w==
+X-Received: by 2002:a17:907:961a:b0:6ff:b74:7e67 with SMTP id
+ gb26-20020a170907961a00b006ff0b747e67mr23436126ejc.424.1654550015210; 
+ Mon, 06 Jun 2022 14:13:35 -0700 (PDT)
+Received: from xws.localdomain ([37.120.217.83])
+ by smtp.gmail.com with ESMTPSA id
+ kq15-20020a170906abcf00b0070cac22060esm5144284ejb.95.2022.06.06.14.13.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jun 2022 14:13:34 -0700 (PDT)
+From: Maximilian Luz <luzmaximilian@gmail.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Date: Mon,  6 Jun 2022 23:13:05 +0200
+Message-Id: <20220606211305.189585-1-luzmaximilian@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220601112302.v4.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
-In-Reply-To: <20220601112302.v4.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 6 Jun 2022 13:11:47 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VKWNeXzDZ=DdXi=U218xghLJAeAQah_uFOjM9WrGZ5sQ@mail.gmail.com>
-Message-ID: <CAD=FV=VKWNeXzDZ=DdXi=U218xghLJAeAQah_uFOjM9WrGZ5sQ@mail.gmail.com>
-To: dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v4] drm/probe-helper: Default to 640x480 if
- no EDID on DP
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 06 Jun 2022 22:19:36 +0000
+Subject: [Freedreno] [PATCH] drm/msm: Fix double pm_runtime_disable() call
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,86 +69,67 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, Stephen Boyd <swboyd@chromium.org>,
- Rob Clark <robdclark@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+Following commit 17e822f7591f ("drm/msm: fix unbalanced
+pm_runtime_enable in adreno_gpu_{init, cleanup}"), any call to
+adreno_unbind() will disable runtime PM twice, as indicated by the call
+trees below:
 
-On Wed, Jun 1, 2022 at 11:23 AM Douglas Anderson <dianders@chromium.org> wrote:
->
-> If we're unable to read the EDID for a display because it's corrupt /
-> bogus / invalid then we'll add a set of standard modes for the
-> display. Since we have no true information about the connected
-> display, these modes are essentially guesses but better than nothing.
-> At the moment, none of the modes returned is marked as preferred, but
-> the modes are sorted such that the higher resolution modes are listed
-> first.
->
-> When userspace sees these modes presented by the kernel it needs to
-> figure out which one to pick. At least one userspace, ChromeOS [1]
-> seems to use the rules (which seem pretty reasonable):
-> 1. Try to pick the first mode marked as preferred.
-> 2. Try to pick the mode which matches the first detailed timing
->    descriptor in the EDID.
-> 3. If no modes were marked as preferred then pick the first mode.
->
-> Unfortunately, userspace's rules combined with what the kernel is
-> doing causes us to fail section 4.2.2.6 (EDID Corruption Detection) of
-> the DP 1.4a Link CTS. That test case says that, while it's OK to allow
-> some implementation-specific fall-back modes if the EDID is bad that
-> userspace should _default_ to 640x480.
->
-> Let's fix this by marking 640x480 as default for DP in the no-EDID
-> case.
->
-> NOTES:
-> - In the discussion around v3 of this patch [2] there was talk about
->   solving this in userspace and I even implemented a patch that would
->   have solved this for ChromeOS, but then the discussion turned back
->   to solving this in the kernel.
-> - Also in the discussion of v3 [2] it was requested to limit this
-> 83;40900;0c  change to just DP since folks were worried that it would break some
->   subtle corner case on VGA or HDMI.
->
-> [1] https://source.chromium.org/chromium/chromium/src/+/a051f741d0a15caff2251301efe081c30e0f4a96:ui/ozone/platform/drm/common/drm_util.cc;l=488
-> [2] https://lore.kernel.org/r/20220513130533.v3.1.I31ec454f8d4ffce51a7708a8092f8a6f9c929092@changeid
->
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
-> I put Abhinav's Reviewed-by tag from v2 here since this is nearly the
-> same as v2. Hope this is OK.
->
-> Changes in v4:
-> - Code is back to v2, but limit to just DP.
-> - Beefed up the commit message.
->
-> Changes in v3:
-> - Don't set preferred, just disable the sort.
->
-> Changes in v2:
-> - Don't modify drm_add_modes_noedid() 'cause that'll break others
-> - Set 640x480 as preferred in drm_helper_probe_single_connector_modes()
->
->  drivers/gpu/drm/drm_probe_helper.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+  adreno_unbind()
+   -> pm_runtime_force_suspend()
+   -> pm_runtime_disable()
 
-Pushed to drm-misc-next after cleaning up the turd that I somehow left
-in the commit message.
+  adreno_unbind()
+   -> gpu->funcs->destroy() [= aNxx_destroy()]
+   -> adreno_gpu_cleanup()
+   -> pm_runtime_disable()
 
-fae7d186403e drm/probe-helper: Default to 640x480 if no EDID on DP
+Note that pm_runtime_force_suspend() is called right before
+gpu->funcs->destroy() and both functions are called unconditionally.
 
--Doug
+With recent addition of the eDP AUX bus code, this problem manifests
+itself when the eDP panel cannot be found yet and probing is deferred.
+On the first probe attempt, we disable runtime PM twice as described
+above. This then causes any later probe attempt to fail with
+
+  [drm:adreno_load_gpu [msm]] *ERROR* Couldn't power up the GPU: -13
+
+preventing the driver from loading.
+
+As there seem to be scenarios where the aNxx_destroy() functions are not
+called from adreno_unbind(), simply removing pm_runtime_disable() from
+inside adreno_unbind() does not seem to be the proper fix. This is what
+commit 17e822f7591f ("drm/msm: fix unbalanced pm_runtime_enable in
+adreno_gpu_{init, cleanup}") intended to fix. Therefore, instead check
+whether runtime PM is still enabled, and only disable it in that case.
+
+Fixes: 17e822f7591f ("drm/msm: fix unbalanced pm_runtime_enable in adreno_gpu_{init, cleanup}")
+Signed-off-by: Maximilian Luz <luzmaximilian@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 4e665c806a14..f944b69e2a25 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -1057,7 +1057,8 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ 	for (i = 0; i < ARRAY_SIZE(adreno_gpu->info->fw); i++)
+ 		release_firmware(adreno_gpu->fw[i]);
+ 
+-	pm_runtime_disable(&priv->gpu_pdev->dev);
++	if (pm_runtime_enabled(&priv->gpu_pdev->dev))
++		pm_runtime_disable(&priv->gpu_pdev->dev);
+ 
+ 	msm_gpu_cleanup(&adreno_gpu->base);
+ }
+-- 
+2.36.1
+
