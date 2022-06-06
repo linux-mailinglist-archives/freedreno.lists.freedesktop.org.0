@@ -2,64 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A7F53E4D6
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 15:46:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A35A253ED14
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 19:40:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 932F910E7FB;
-	Mon,  6 Jun 2022 13:46:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 195E311BA81;
+	Mon,  6 Jun 2022 17:40:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2A8410E7FB
- for <freedreno@lists.freedesktop.org>; Mon,  6 Jun 2022 13:46:15 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so19168834fac.9
- for <freedreno@lists.freedesktop.org>; Mon, 06 Jun 2022 06:46:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=xTpWPSxN0cL0aVs3iLR/HmIswwTyMjklIN9jCgr7T+Q=;
- b=FcPDlAGsBBZqIo/U7deOp4+kp/FFXUkJnzTHVfhMBmEPyi9B3VzXHpf9gxN0z9WkZE
- zMex9FE2JL2CXklp11tM+RvrBj2sYpgTHD7by7BoUHU3pZmfwFqd8lcUpyC1rjyBO1bm
- YCd03N3WPWfcU+4W6kh7sCBKnMJnjOmWzjjWZWdg4XY4USYk6DjUd77G1FNecYHavaK9
- aGMnGYduuyWNrQl6bnFZuv9IHGX89Lrc6mq3xecc153xREDsJw++jqd/pn3Abtox+NkW
- wzKxonhke55kKh88L6qB9H87YfwIf04YwnblGT9+aG1335WeM4zWDlhR7pVeun0+kLQB
- ViWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=xTpWPSxN0cL0aVs3iLR/HmIswwTyMjklIN9jCgr7T+Q=;
- b=wQajBRs4owNoQmNefDtWaX4GrUR8xuUHCzoUz8gYJp6J1dAMCT5FhH5DHezRozc/v2
- RA6hvszgHmaZGEoR6phEbueUt+z2LQTzyT/14iniuQ6LxZM3Rlky2PiophyIOt8h4arF
- dQLK6gd8h1R+gt4m/0tGaLzo3YHltvyp0uysLkVi+3Q52e2TnUU6rnRz24jaThg+Jrv+
- madsYDZYxugO+NwPNWKC0RqejMZiAhQ+4lD8NJ5vPKvh5UH7wjqOh5hiYUn71+lglar3
- b4AopDaA0a3SWG13MxkgTI3/03DkYCXYQq8bQrpFxhqvcYxVHRtZpday6pBIK8CXlOb7
- qL0g==
-X-Gm-Message-State: AOAM532bLzMoGKUbH+uV0yW+B42eM29rByXb7CRKLiPL57owDD5b6qjr
- 2MIiYGb9gBu7hUxJ2fsiUlqKuA==
-X-Google-Smtp-Source: ABdhPJzjWkyxD1qfFKANpxzk990e+EpRbqV/OdMD73IIFh/8xr2wLPUb0uOpjWjw5mrkS+7u1j/ptw==
-X-Received: by 2002:a05:6870:8184:b0:f5:dd95:7ef7 with SMTP id
- k4-20020a056870818400b000f5dd957ef7mr13883037oae.117.1654523174846; 
- Mon, 06 Jun 2022 06:46:14 -0700 (PDT)
-Received: from ripper (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
- pu7-20020a0568709e8700b000f5e33aaa66sm6770625oab.0.2022.06.06.06.46.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jun 2022 06:46:14 -0700 (PDT)
-Date: Mon, 6 Jun 2022 06:48:39 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Message-ID: <Yp4FtznlEzNKmRPZ@ripper>
-References: <1653512540-21956-1-git-send-email-quic_khsieh@quicinc.com>
- <1653512540-21956-2-git-send-email-quic_khsieh@quicinc.com>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59E7711BA7E;
+ Mon,  6 Jun 2022 17:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654537240; x=1686073240;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=zESBcsC3q66fDUCxK78kqEowxXd5sdCuRRFUeC5plGY=;
+ b=bUc1GhThZGPl/F+SCbyk7cHMV5yFtlOioAcOAniB7OH9oiQcCx/RZ5L2
+ gOXpCOEC/ixexnU4oDY+cFgTAY6Kp8YNusgUMIiKD42XpJ44z5uxZ6wFF
+ P3FVUfHhp6m/0frQZYg30x1lBwufqVxQ+rjQrfeF4ASqTpamePk44jmEP c=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 06 Jun 2022 10:40:39 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2022 10:40:39 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 6 Jun 2022 10:40:38 -0700
+Received: from [10.110.88.53] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 6 Jun 2022
+ 10:40:37 -0700
+Message-ID: <68c6f375-5b11-98f2-83f5-1b481ea09ebd@quicinc.com>
+Date: Mon, 6 Jun 2022 10:40:36 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1653512540-21956-2-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v13 1/3] phy: qcom-edp: add
- regulator_set_load to edp phy
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+References: <1654291716-6603-1-git-send-email-quic_khsieh@quicinc.com>
+ <1654291716-6603-2-git-send-email-quic_khsieh@quicinc.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <1654291716-6603-2-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm: enable msm irq after all
+ initializations are done successfully at msm_drm_init()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,53 +70,90 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, robdclark@gmail.com,
- dri-devel@lists.freedesktop.org, dianders@chromium.org, vkoul@kernel.org,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com, swboyd@chromium.org,
- sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed 25 May 14:02 PDT 2022, Kuogee Hsieh wrote:
+I will drop this patch since the problem had been fixed by Dmitry 
+Baryshkov patch.
 
-> This patch add regulator_set_load() before enable regulator at
-> eDP phy driver.
-> 
+https://gitlab.freedesktop.org/drm/msm/-/commit/577e2a9dfc8fba7938aaf75db63fae7e328cc3cb
+
+
+
+On 6/3/2022 2:28 PM, Kuogee Hsieh wrote:
+> At msm initialize phase, msm_drm_init() is called to initialize modules
+> sequentially. It will call msm_drm_uninit() to clean up initialized phase
+> if any module initialization return failed. This patch move msm_irq_install()
+> to the last step of msm_drm_init() after all modules are initialized successfully
+> so that no msm_irq_unistall() required at msm_drm_uninit() if any module
+> initialization failed happen at msm_drm_init().
+>
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
 > ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index cacd32f..7e357078 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -639,6 +639,18 @@ static int qcom_edp_phy_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
->  
-> +	ret = regulator_set_load(edp->supplies[0].consumer, 21800); /* 1.2 V vdda-phy */
-> +	if (ret) {
-> +		dev_err(dev, "failed to set load at %s\n", edp->supplies[0].supply);
-> +		return ret;
+>   drivers/gpu/drm/msm/msm_drv.c | 29 ++++++-----------------------
+>   1 file changed, 6 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 6665c5a..ab42e9a 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -132,15 +132,6 @@ static int msm_irq_install(struct drm_device *dev, unsigned int irq)
+>   	return 0;
+>   }
+>   
+> -static void msm_irq_uninstall(struct drm_device *dev)
+> -{
+> -	struct msm_drm_private *priv = dev->dev_private;
+> -	struct msm_kms *kms = priv->kms;
+> -
+> -	kms->funcs->irq_uninstall(kms);
+> -	free_irq(kms->irq, dev);
+> -}
+> -
+>   struct msm_vblank_work {
+>   	struct work_struct work;
+>   	int crtc_id;
+> @@ -232,10 +223,6 @@ static int msm_drm_uninit(struct device *dev)
+>   
+>   	drm_mode_config_cleanup(ddev);
+>   
+> -	pm_runtime_get_sync(dev);
+> -	msm_irq_uninstall(ddev);
+> -	pm_runtime_put_sync(dev);
+> -
+>   	if (kms && kms->funcs)
+>   		kms->funcs->destroy(kms);
+>   
+> @@ -437,16 +424,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   		goto err_msm_uninit;
+>   	}
+>   
+> -	if (kms) {
+> -		pm_runtime_get_sync(dev);
+> -		ret = msm_irq_install(ddev, kms->irq);
+> -		pm_runtime_put_sync(dev);
+> -		if (ret < 0) {
+> -			DRM_DEV_ERROR(dev, "failed to install IRQ handler\n");
+> -			goto err_msm_uninit;
+> -		}
+> -	}
+> -
+>   	ret = drm_dev_register(ddev, 0);
+>   	if (ret)
+>   		goto err_msm_uninit;
+> @@ -467,6 +444,12 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   	if (ret)
+>   		goto err_msm_uninit;
+>   
+> +	if (kms) {
+> +		pm_runtime_get_sync(dev);
+> +		msm_irq_install(ddev, kms->irq);
+> +		pm_runtime_put_sync(dev);
 > +	}
 > +
-> +	ret = regulator_set_load(edp->supplies[1].consumer, 36000); /* 0.9 V vdda-pll */
-> +	if (ret) {
-> +		dev_err(dev, "failed to set load at %s\n", edp->supplies[1].supply);
-> +		return ret;
-> +	}
-> +
->  	ret = qcom_edp_clks_register(edp, pdev->dev.of_node);
->  	if (ret)
->  		return ret;
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
+>   	drm_kms_helper_poll_init(ddev);
+>   
+>   	return 0;
