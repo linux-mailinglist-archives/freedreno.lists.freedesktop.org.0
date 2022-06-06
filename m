@@ -1,63 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35A253ED14
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 19:40:43 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F9BB53ED4E
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 19:55:54 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 195E311BA81;
-	Mon,  6 Jun 2022 17:40:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E29F11AA30;
+	Mon,  6 Jun 2022 17:55:53 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E7711BA7E;
- Mon,  6 Jun 2022 17:40:40 +0000 (UTC)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9706711AA30;
+ Mon,  6 Jun 2022 17:55:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654537240; x=1686073240;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=zESBcsC3q66fDUCxK78kqEowxXd5sdCuRRFUeC5plGY=;
- b=bUc1GhThZGPl/F+SCbyk7cHMV5yFtlOioAcOAniB7OH9oiQcCx/RZ5L2
- gOXpCOEC/ixexnU4oDY+cFgTAY6Kp8YNusgUMIiKD42XpJ44z5uxZ6wFF
- P3FVUfHhp6m/0frQZYg30x1lBwufqVxQ+rjQrfeF4ASqTpamePk44jmEP c=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 06 Jun 2022 10:40:39 -0700
+ t=1654538151; x=1686074151;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=nA3VMIc0EdXLtq38zIS6zslzeXYlwNxm4o2TKajA+5E=;
+ b=aB8f/Hnkgq8hYIVzjcTOYMszJsB1KWRG9RNUjETlqJ5rrmQs5FiUJh+9
+ jP6YGLM07uGvILaRQsmYpMsl2HSMWUqanH6W5TlkD8NxBDeinrYmqxscS
+ 01rDhYl0kLH+KwVOpvOxHR13rbwL71SlXhPpDFgzZgyITeGDRfzDiDwk0 E=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 06 Jun 2022 10:55:51 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2022 10:40:39 -0700
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2022 10:55:50 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 6 Jun 2022 10:40:38 -0700
-Received: from [10.110.88.53] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 6 Jun 2022
- 10:40:37 -0700
-Message-ID: <68c6f375-5b11-98f2-83f5-1b481ea09ebd@quicinc.com>
-Date: Mon, 6 Jun 2022 10:40:36 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-References: <1654291716-6603-1-git-send-email-quic_khsieh@quicinc.com>
- <1654291716-6603-2-git-send-email-quic_khsieh@quicinc.com>
+ 15.2.986.22; Mon, 6 Jun 2022 10:55:49 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 6 Jun 2022 10:55:49 -0700
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <1654291716-6603-2-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 6 Jun 2022 10:55:39 -0700
+Message-ID: <1654538139-7450-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v1 1/2] drm/msm: enable msm irq after all
- initializations are done successfully at msm_drm_init()
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: check core_initialized before
+ disable interrupts at dp_display_unbind()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,89 +62,64 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-I will drop this patch since the problem had been fixed by Dmitry 
-Baryshkov patch.
+During msm initialize phase, dp_display_unbind() will be called to undo
+initializations had been done by dp_display_bind() previously if there is
+error happen at msm_drm_bind. In this case, core_initialized flag had to
+be check to make sure clocks is on before update DP controller register
+to disable HPD interrupts. Otherwise system will crash due to below NOC
+fatal error.
 
-https://gitlab.freedesktop.org/drm/msm/-/commit/577e2a9dfc8fba7938aaf75db63fae7e328cc3cb
+QTISECLIB [01f01a7ad]CNOC2 ERROR: ERRLOG0_LOW = 0x00061007
+QTISECLIB [01f01a7ad]GEM_NOC ERROR: ERRLOG0_LOW = 0x00001007
+QTISECLIB [01f0371a0]CNOC2 ERROR: ERRLOG0_HIGH = 0x00000003
+QTISECLIB [01f055297]GEM_NOC ERROR: ERRLOG0_HIGH = 0x00000003
+QTISECLIB [01f072beb]CNOC2 ERROR: ERRLOG1_LOW = 0x00000024
+QTISECLIB [01f0914b8]GEM_NOC ERROR: ERRLOG1_LOW = 0x00000042
+QTISECLIB [01f0ae639]CNOC2 ERROR: ERRLOG1_HIGH = 0x00004002
+QTISECLIB [01f0cc73f]GEM_NOC ERROR: ERRLOG1_HIGH = 0x00004002
+QTISECLIB [01f0ea092]CNOC2 ERROR: ERRLOG2_LOW = 0x0009020c
+QTISECLIB [01f10895f]GEM_NOC ERROR: ERRLOG2_LOW = 0x0ae9020c
+QTISECLIB [01f125ae1]CNOC2 ERROR: ERRLOG2_HIGH = 0x00000000
+QTISECLIB [01f143be7]GEM_NOC ERROR: ERRLOG2_HIGH = 0x00000000
+QTISECLIB [01f16153a]CNOC2 ERROR: ERRLOG3_LOW = 0x00000000
+QTISECLIB [01f17fe07]GEM_NOC ERROR: ERRLOG3_LOW = 0x00000000
+QTISECLIB [01f19cf89]CNOC2 ERROR: ERRLOG3_HIGH = 0x00000000
+QTISECLIB [01f1bb08e]GEM_NOC ERROR: ERRLOG3_HIGH = 0x00000000
+QTISECLIB [01f1d8a31]CNOC2 ERROR: SBM1 FAULTINSTATUS0_LOW = 0x00000002
+QTISECLIB [01f1f72a4]GEM_NOC ERROR: SBM0 FAULTINSTATUS0_LOW = 0x00000001
+QTISECLIB [01f21a217]CNOC3 ERROR: ERRLOG0_LOW = 0x00000006
+QTISECLIB [01f23dfd3]NOC error fatal
 
+changes in v2:
+-- drop the first patch (drm/msm: enable msm irq after all initializations are done successfully at msm_drm_init()) since the problem had been fixed by other patch
 
+Fixes: a65c95ff88f2 ("drm/msm/dp: stop event kernel thread when DP unbind")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On 6/3/2022 2:28 PM, Kuogee Hsieh wrote:
-> At msm initialize phase, msm_drm_init() is called to initialize modules
-> sequentially. It will call msm_drm_uninit() to clean up initialized phase
-> if any module initialization return failed. This patch move msm_irq_install()
-> to the last step of msm_drm_init() after all modules are initialized successfully
-> so that no msm_irq_unistall() required at msm_drm_uninit() if any module
-> initialization failed happen at msm_drm_init().
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/msm_drv.c | 29 ++++++-----------------------
->   1 file changed, 6 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 6665c5a..ab42e9a 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -132,15 +132,6 @@ static int msm_irq_install(struct drm_device *dev, unsigned int irq)
->   	return 0;
->   }
->   
-> -static void msm_irq_uninstall(struct drm_device *dev)
-> -{
-> -	struct msm_drm_private *priv = dev->dev_private;
-> -	struct msm_kms *kms = priv->kms;
-> -
-> -	kms->funcs->irq_uninstall(kms);
-> -	free_irq(kms->irq, dev);
-> -}
-> -
->   struct msm_vblank_work {
->   	struct work_struct work;
->   	int crtc_id;
-> @@ -232,10 +223,6 @@ static int msm_drm_uninit(struct device *dev)
->   
->   	drm_mode_config_cleanup(ddev);
->   
-> -	pm_runtime_get_sync(dev);
-> -	msm_irq_uninstall(ddev);
-> -	pm_runtime_put_sync(dev);
-> -
->   	if (kms && kms->funcs)
->   		kms->funcs->destroy(kms);
->   
-> @@ -437,16 +424,6 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   		goto err_msm_uninit;
->   	}
->   
-> -	if (kms) {
-> -		pm_runtime_get_sync(dev);
-> -		ret = msm_irq_install(ddev, kms->irq);
-> -		pm_runtime_put_sync(dev);
-> -		if (ret < 0) {
-> -			DRM_DEV_ERROR(dev, "failed to install IRQ handler\n");
-> -			goto err_msm_uninit;
-> -		}
-> -	}
-> -
->   	ret = drm_dev_register(ddev, 0);
->   	if (ret)
->   		goto err_msm_uninit;
-> @@ -467,6 +444,12 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   	if (ret)
->   		goto err_msm_uninit;
->   
-> +	if (kms) {
-> +		pm_runtime_get_sync(dev);
-> +		msm_irq_install(ddev, kms->irq);
-> +		pm_runtime_put_sync(dev);
-> +	}
-> +
->   	drm_kms_helper_poll_init(ddev);
->   
->   	return 0;
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index da5c03a..2b72639 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -309,7 +309,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+ 	struct msm_drm_private *priv = dev_get_drvdata(master);
+ 
+ 	/* disable all HPD interrupts */
+-	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
++	if (dp->core_initialized)
++		dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
+ 
+ 	kthread_stop(dp->ev_tsk);
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
