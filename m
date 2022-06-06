@@ -1,54 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F9BB53ED4E
-	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 19:55:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1379353EEE6
+	for <lists+freedreno@lfdr.de>; Mon,  6 Jun 2022 21:54:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E29F11AA30;
-	Mon,  6 Jun 2022 17:55:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70DF810E5D8;
+	Mon,  6 Jun 2022 19:54:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9706711AA30;
- Mon,  6 Jun 2022 17:55:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654538151; x=1686074151;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=nA3VMIc0EdXLtq38zIS6zslzeXYlwNxm4o2TKajA+5E=;
- b=aB8f/Hnkgq8hYIVzjcTOYMszJsB1KWRG9RNUjETlqJ5rrmQs5FiUJh+9
- jP6YGLM07uGvILaRQsmYpMsl2HSMWUqanH6W5TlkD8NxBDeinrYmqxscS
- 01rDhYl0kLH+KwVOpvOxHR13rbwL71SlXhPpDFgzZgyITeGDRfzDiDwk0 E=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 06 Jun 2022 10:55:51 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2022 10:55:50 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 6 Jun 2022 10:55:49 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 6 Jun 2022 10:55:49 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
- <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
- <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Mon, 6 Jun 2022 10:55:39 -0700
-Message-ID: <1654538139-7450-1-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 309AE10E5D8;
+ Mon,  6 Jun 2022 19:54:28 +0000 (UTC)
+Received: by mail-pf1-x42e.google.com with SMTP id p8so13543814pfh.8;
+ Mon, 06 Jun 2022 12:54:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=U22q+bCY4VehZDY1ro1wKhQ9JA/5THGWTqZ5PD1r04Q=;
+ b=MsRh9c98MvoAppDPeqo38Vb739JyYwj+s41ar9mghVqyhGsmukgMPi8IRp/2ifr+/1
+ wQUx2lZuy3g5xrM+gAYUS2bNFC3/1WHTkaJmkc6iVqDutQ5aYD6gdfcq+qxJ9r8B77Xl
+ MSS2HCpHn+G/A/MNwYJ8UhktBiScFyL6xUiQZnY7PvOCVX9O5HdFIrRqph2pvjgMGBRJ
+ G1007ZgbrDnvrFm3gcnAT64XrMDrUTQQG+JSzKGlArdPK5w4NiiM9gzegK8PDTkou/gF
+ ej5Oe62IVuk91glANudWjZN9AxhpX9TOaxrB3G8ttEn79cmf3yPfPl1xGyuni1H/xeM/
+ 9Tnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=U22q+bCY4VehZDY1ro1wKhQ9JA/5THGWTqZ5PD1r04Q=;
+ b=KdOLu3r56S38sMlZjYdfJ+35dOjNX0RIC2jlgTzdYWzk8CvLMWgvPNOTXWAbZogDfD
+ uBghqifuIbneZpGh+14qaDc4xbpT20NzWO+WoV8r+JjrhlimAy/kB4CgCTZ5HHEjxaCA
+ djlemn5C+uuDPrcddSb+vUxrx9IUO2PGZQR1iPtztPWTMu5LSttE+636jBYg7ho5jmeX
+ cwxlvqUjC60IKHsCHEJBC6X5lj/cjVTj2K2ehZSX0R3CoTbWX5GtHv54FuXvnwZkwUtO
+ uWimnW9i2Sw4B44HR7PK75pVp8J8oF/rFAB1aiKhalU8juM7wrtpk3O7xTPtRxuLmd5v
+ D7Gw==
+X-Gm-Message-State: AOAM533ZQmiqphJ+SaX9agyMYJSv9nR6Nnf4j2UcM2mDZeAhEY+7A4kL
+ Wogor2L5SliD1QtYiqiVdjRit5r4kZ4=
+X-Google-Smtp-Source: ABdhPJyOhQAvqpntmLlHAcjV3qfEg+KW6muhda1YLTUDNbrs9eK1BvjRMgvyNwrpCI/PRLxHSCMoEw==
+X-Received: by 2002:a65:64d9:0:b0:3fc:5285:5d63 with SMTP id
+ t25-20020a6564d9000000b003fc52855d63mr22376970pgv.456.1654545266970; 
+ Mon, 06 Jun 2022 12:54:26 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ w22-20020a1709026f1600b0016196bcf743sm4556724plk.275.2022.06.06.12.54.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jun 2022 12:54:25 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Mon,  6 Jun 2022 12:54:31 -0700
+Message-Id: <20220606195432.1888346-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2] drm/msm/dp: check core_initialized before
- disable interrupts at dp_display_unbind()
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 1/2] drm: Add DRM_GEM_FOPS
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,65 +67,70 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-During msm initialize phase, dp_display_unbind() will be called to undo
-initializations had been done by dp_display_bind() previously if there is
-error happen at msm_drm_bind. In this case, core_initialized flag had to
-be check to make sure clocks is on before update DP controller register
-to disable HPD interrupts. Otherwise system will crash due to below NOC
-fatal error.
+From: Rob Clark <robdclark@chromium.org>
 
-QTISECLIB [01f01a7ad]CNOC2 ERROR: ERRLOG0_LOW = 0x00061007
-QTISECLIB [01f01a7ad]GEM_NOC ERROR: ERRLOG0_LOW = 0x00001007
-QTISECLIB [01f0371a0]CNOC2 ERROR: ERRLOG0_HIGH = 0x00000003
-QTISECLIB [01f055297]GEM_NOC ERROR: ERRLOG0_HIGH = 0x00000003
-QTISECLIB [01f072beb]CNOC2 ERROR: ERRLOG1_LOW = 0x00000024
-QTISECLIB [01f0914b8]GEM_NOC ERROR: ERRLOG1_LOW = 0x00000042
-QTISECLIB [01f0ae639]CNOC2 ERROR: ERRLOG1_HIGH = 0x00004002
-QTISECLIB [01f0cc73f]GEM_NOC ERROR: ERRLOG1_HIGH = 0x00004002
-QTISECLIB [01f0ea092]CNOC2 ERROR: ERRLOG2_LOW = 0x0009020c
-QTISECLIB [01f10895f]GEM_NOC ERROR: ERRLOG2_LOW = 0x0ae9020c
-QTISECLIB [01f125ae1]CNOC2 ERROR: ERRLOG2_HIGH = 0x00000000
-QTISECLIB [01f143be7]GEM_NOC ERROR: ERRLOG2_HIGH = 0x00000000
-QTISECLIB [01f16153a]CNOC2 ERROR: ERRLOG3_LOW = 0x00000000
-QTISECLIB [01f17fe07]GEM_NOC ERROR: ERRLOG3_LOW = 0x00000000
-QTISECLIB [01f19cf89]CNOC2 ERROR: ERRLOG3_HIGH = 0x00000000
-QTISECLIB [01f1bb08e]GEM_NOC ERROR: ERRLOG3_HIGH = 0x00000000
-QTISECLIB [01f1d8a31]CNOC2 ERROR: SBM1 FAULTINSTATUS0_LOW = 0x00000002
-QTISECLIB [01f1f72a4]GEM_NOC ERROR: SBM0 FAULTINSTATUS0_LOW = 0x00000001
-QTISECLIB [01f21a217]CNOC3 ERROR: ERRLOG0_LOW = 0x00000006
-QTISECLIB [01f23dfd3]NOC error fatal
+The DEFINE_DRM_GEM_FOPS() helper is a bit limiting if a driver wants to
+provide additional file ops, like show_fdinfo().
 
-changes in v2:
--- drop the first patch (drm/msm: enable msm irq after all initializations are done successfully at msm_drm_init()) since the problem had been fixed by other patch
-
-Fixes: a65c95ff88f2 ("drm/msm/dp: stop event kernel thread when DP unbind")
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/drm/drm_gem.h | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index da5c03a..2b72639 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -309,7 +309,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
- 	struct msm_drm_private *priv = dev_get_drvdata(master);
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 9d7c61a122dc..dc88d4a2cdf6 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -314,6 +314,23 @@ struct drm_gem_object {
+ 	const struct drm_gem_object_funcs *funcs;
+ };
  
- 	/* disable all HPD interrupts */
--	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
-+	if (dp->core_initialized)
-+		dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
++/**
++ * DRM_GEM_FOPS - Default drm GEM file operations
++ *
++ * This macro provides a shorthand for setting the GEM file ops in the
++ * &file_operations structure.
++ */
++#define DRM_GEM_FOPS \
++	.open		= drm_open,\
++	.release	= drm_release,\
++	.unlocked_ioctl	= drm_ioctl,\
++	.compat_ioctl	= drm_compat_ioctl,\
++	.poll		= drm_poll,\
++	.read		= drm_read,\
++	.llseek		= noop_llseek,\
++	.mmap		= drm_gem_mmap
++
++
+ /**
+  * DEFINE_DRM_GEM_FOPS() - macro to generate file operations for GEM drivers
+  * @name: name for the generated structure
+@@ -330,14 +347,7 @@ struct drm_gem_object {
+ #define DEFINE_DRM_GEM_FOPS(name) \
+ 	static const struct file_operations name = {\
+ 		.owner		= THIS_MODULE,\
+-		.open		= drm_open,\
+-		.release	= drm_release,\
+-		.unlocked_ioctl	= drm_ioctl,\
+-		.compat_ioctl	= drm_compat_ioctl,\
+-		.poll		= drm_poll,\
+-		.read		= drm_read,\
+-		.llseek		= noop_llseek,\
+-		.mmap		= drm_gem_mmap,\
++		DRM_GEM_FOPS,\
+ 	}
  
- 	kthread_stop(dp->ev_tsk);
- 
+ void drm_gem_object_release(struct drm_gem_object *obj);
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.36.1
 
