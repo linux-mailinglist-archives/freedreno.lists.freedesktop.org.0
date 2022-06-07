@@ -1,62 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A267C53F6A0
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jun 2022 08:56:44 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id D48EF53F8DB
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jun 2022 10:56:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4515212AC44;
-	Tue,  7 Jun 2022 06:56:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2089C10E331;
+	Tue,  7 Jun 2022 08:56:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 030A712AC63;
- Tue,  7 Jun 2022 06:56:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 644031F974;
- Tue,  7 Jun 2022 06:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1654585000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GtYnqqkMeCG+SdwABzSw7VDFtwge7SFqOX+iy7N9eNU=;
- b=eLwEsnDDYoCnXqAb+jFqP9/RFg+FI+S9Zub8CmAIV+YIC+Zxgx4JjAn4vnAMphALDYg6wz
- tPow/NWPkJvmhboqRIRYW4DaF3dBdBNDlLhfgOnK31/Gm5eUe2TNIixf6K1C6Q05tIpI9W
- Kjx1HVm7YFQQSMYscLiDkQG2F1KzDkU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1654585000;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GtYnqqkMeCG+SdwABzSw7VDFtwge7SFqOX+iy7N9eNU=;
- b=/cbUUaVSP6Ozv8pG8uH/ZZOZwZEQkKcjbhmsZVdVNw51JXcaKZnNzVu9DuT+4/IZ8vv7q7
- TtZlFlmX3If1FlCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2DFA313638;
- Tue,  7 Jun 2022 06:56:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ui5MCqj2nmIFcQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 07 Jun 2022 06:56:40 +0000
-Message-ID: <34aacfa3-9eb9-d3d5-07b7-805fd1408bb7@suse.de>
-Date: Tue, 7 Jun 2022 08:56:39 +0200
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8809110E1BB;
+ Tue,  7 Jun 2022 08:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654592171; x=1686128171;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=TNjuxlNqjf4QqyCj82B4tS5ErRzaVWZCJ6/e6HR0xyA=;
+ b=EKi115tUmXEItRoDHuHEBWnfTTdERyKGfSr1V7HsAvyEBuqyOMolbVvl
+ Kc8r2aTkFhNnAYqopJsS1Cct4qsxYTDPf/y5iaWgdNgR61hwr/dESvGwU
+ NnjBm8yvIFVuvN7leZ1CqBs4sYpbFXoRZFL566KZrVTDpNJ0GcNsO3FKx
+ 07rncMtPXWTiOrn3mpvvbQkY9/ErfiODcXHN88o0dn4TbRSHNvvpBcfdd
+ uTZxhcGzlfVjWDMTKre/u3gccHiVDn5GMqGutc54ehxfls39qD1DR7KEs
+ Uw/Tfmh//PiNfvoHq+4OgMznZh8ShJvJb6X+cUCaDJhzXP2zZtjguoZb6 A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10370"; a="302075522"
+X-IronPort-AV: E=Sophos;i="5.91,283,1647327600"; d="scan'208";a="302075522"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2022 01:56:09 -0700
+X-IronPort-AV: E=Sophos;i="5.91,283,1647327600"; d="scan'208";a="636033838"
+Received: from bdgardin-mobl1.ger.corp.intel.com (HELO [10.213.217.225])
+ ([10.213.217.225])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jun 2022 01:56:06 -0700
+Message-ID: <8559b6f0-0322-9232-7000-534087e786fe@linux.intel.com>
+Date: Tue, 7 Jun 2022 09:56:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
+ Thunderbird/91.9.1
 Content-Language: en-US
 To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
 References: <20220606195432.1888346-1-robdclark@gmail.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20220606195432.1888346-1-robdclark@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------xlw0dtzkO9vwXvWXs909mr81"
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm: Add DRM_GEM_FOPS
+ <20220606195432.1888346-2-robdclark@gmail.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20220606195432.1888346-2-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 2/2] drm/msm: Expose client engine
+ utilization via fdinfo
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,103 +62,230 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------xlw0dtzkO9vwXvWXs909mr81
-Content-Type: multipart/mixed; boundary="------------WPv3m0MaCPCi1nhPiH36UBtP";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@chromium.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-Message-ID: <34aacfa3-9eb9-d3d5-07b7-805fd1408bb7@suse.de>
-Subject: Re: [PATCH v2 1/2] drm: Add DRM_GEM_FOPS
-References: <20220606195432.1888346-1-robdclark@gmail.com>
-In-Reply-To: <20220606195432.1888346-1-robdclark@gmail.com>
 
---------------WPv3m0MaCPCi1nhPiH36UBtP
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 06/06/2022 20:54, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Similar to AMD commit
+> 874442541133 ("drm/amdgpu: Add show_fdinfo() interface"), using the
+> infrastructure added in previous patches, we add basic client info
+> and GPU engine utilisation for msm.
+> 
+> Example output:
+> 
+> 	# cat /proc/`pgrep glmark2`/fdinfo/6
+> 	pos:	0
+> 	flags:	02400002
+> 	mnt_id:	21
+> 	ino:	162
+> 	drm-driver:	msm
+> 	drm-client-id:	7
+> 	drm-engine-gpu:	1734371319 ns
+> 	drm-cycles-gpu:	1153645024
+> 	drm-maxfreq-gpu:	800000000 Hz
+> 
+> See also: https://patchwork.freedesktop.org/patch/468505/
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   Documentation/gpu/drm-usage-stats.rst | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/msm/msm_drv.c         | 19 ++++++++++++++++++-
+>   drivers/gpu/drm/msm/msm_gpu.c         | 21 +++++++++++++++++++--
+>   drivers/gpu/drm/msm/msm_gpu.h         | 19 +++++++++++++++++++
+>   4 files changed, 77 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+> index 6c9f166a8d6f..60e5cc9c13ad 100644
+> --- a/Documentation/gpu/drm-usage-stats.rst
+> +++ b/Documentation/gpu/drm-usage-stats.rst
+> @@ -105,6 +105,27 @@ object belong to this client, in the respective memory region.
+>   Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>   indicating kibi- or mebi-bytes.
+>   
+> +- drm-cycles-<str> <uint>
+> +
+> +Engine identifier string must be the same as the one specified in the
+> +drm-engine-<str> tag and shall contain the number of busy cycles for the given
+> +engine.
+> +
+> +Values are not required to be constantly monotonic if it makes the driver
+> +implementation easier, but are required to catch up with the previously reported
+> +larger value within a reasonable period. Upon observing a value lower than what
+> +was previously read, userspace is expected to stay with that larger previous
+> +value until a monotonic update is seen.
+> +
+> +- drm-maxfreq-<str> <uint> [Hz|MHz|KHz]
+> +
+> +Engine identifier string must be the same as the one specified in the
+> +drm-engine-<str> tag and shall contain the maxium frequence for the given
 
-SGkNCg0KQW0gMDYuMDYuMjIgdW0gMjE6NTQgc2NocmllYiBSb2IgQ2xhcms6DQo+IEZyb206
-IFJvYiBDbGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4NCj4gDQo+IFRoZSBERUZJTkVf
-RFJNX0dFTV9GT1BTKCkgaGVscGVyIGlzIGEgYml0IGxpbWl0aW5nIGlmIGEgZHJpdmVyIHdh
-bnRzIHRvDQo+IHByb3ZpZGUgYWRkaXRpb25hbCBmaWxlIG9wcywgbGlrZSBzaG93X2ZkaW5m
-bygpLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogUm9iIENsYXJrIDxyb2JkY2xhcmtAY2hyb21p
-dW0ub3JnPg0KPiAtLS0NCj4gICBpbmNsdWRlL2RybS9kcm1fZ2VtLmggfCAyNiArKysrKysr
-KysrKysrKysrKystLS0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNlcnRpb25z
-KCspLCA4IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2Ry
-bV9nZW0uaCBiL2luY2x1ZGUvZHJtL2RybV9nZW0uaA0KPiBpbmRleCA5ZDdjNjFhMTIyZGMu
-LmRjODhkNGEyY2RmNiAxMDA2NDQNCj4gLS0tIGEvaW5jbHVkZS9kcm0vZHJtX2dlbS5oDQo+
-ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9nZW0uaA0KPiBAQCAtMzE0LDYgKzMxNCwyMyBAQCBz
-dHJ1Y3QgZHJtX2dlbV9vYmplY3Qgew0KPiAgIAljb25zdCBzdHJ1Y3QgZHJtX2dlbV9vYmpl
-Y3RfZnVuY3MgKmZ1bmNzOw0KPiAgIH07DQo+ICAgDQo+ICsvKioNCj4gKyAqIERSTV9HRU1f
-Rk9QUyAtIERlZmF1bHQgZHJtIEdFTSBmaWxlIG9wZXJhdGlvbnMNCj4gKyAqDQo+ICsgKiBU
-aGlzIG1hY3JvIHByb3ZpZGVzIGEgc2hvcnRoYW5kIGZvciBzZXR0aW5nIHRoZSBHRU0gZmls
-ZSBvcHMgaW4gdGhlDQo+ICsgKiAmZmlsZV9vcGVyYXRpb25zIHN0cnVjdHVyZS4gDQoNCkkg
-d291bGQgYXBwcmVjaWF0ZSBhIHJlZmVyZW5jZSB0byBERUZJTkVfRFJNX0dFTV9GT1BTLiBT
-b21ldGhpbmcgYWxvbmcgDQp0aGUgbGluZXMgb2YgJ2lmIGFsbCB5b3UgbmVlZCBhcmUgdGhl
-IGRlZmF1bHQgb3BzLCB1c2UgREVGSU5FX0RSTV9HRU1fRk9QUycuDQoNCj4gKyAqLw0KPiAr
-I2RlZmluZSBEUk1fR0VNX0ZPUFMgXA0KPiArCS5vcGVuCQk9IGRybV9vcGVuLFwNCj4gKwku
-cmVsZWFzZQk9IGRybV9yZWxlYXNlLFwNCj4gKwkudW5sb2NrZWRfaW9jdGwJPSBkcm1faW9j
-dGwsXA0KPiArCS5jb21wYXRfaW9jdGwJPSBkcm1fY29tcGF0X2lvY3RsLFwNCj4gKwkucG9s
-bAkJPSBkcm1fcG9sbCxcDQo+ICsJLnJlYWQJCT0gZHJtX3JlYWQsXA0KPiArCS5sbHNlZWsJ
-CT0gbm9vcF9sbHNlZWssXA0KPiArCS5tbWFwCQk9IGRybV9nZW1fbW1hcA0KPiArDQo+ICsN
-Cg0KT25seSBvbmUgZW1wdHkgbGluZSBwbGVhc2UuDQoNCj4gICAvKioNCj4gICAgKiBERUZJ
-TkVfRFJNX0dFTV9GT1BTKCkgLSBtYWNybyB0byBnZW5lcmF0ZSBmaWxlIG9wZXJhdGlvbnMg
-Zm9yIEdFTSBkcml2ZXJzDQo+ICAgICogQG5hbWU6IG5hbWUgZm9yIHRoZSBnZW5lcmF0ZWQg
-c3RydWN0dXJlDQo+IEBAIC0zMzAsMTQgKzM0Nyw3IEBAIHN0cnVjdCBkcm1fZ2VtX29iamVj
-dCB7DQo+ICAgI2RlZmluZSBERUZJTkVfRFJNX0dFTV9GT1BTKG5hbWUpIFwNCj4gICAJc3Rh
-dGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlvbnMgbmFtZSA9IHtcDQo+ICAgCQkub3du
-ZXIJCT0gVEhJU19NT0RVTEUsXA0KDQpJcyB0aGVyZSBhIHNwZWNpZmljIHJlYXNvbiB3aHkg
-Lm93bmVyIGlzIHN0aWxsIHNldCBoZXJlPyBJIHN1c3BlY3QgdGhhdCANCkRSTV9HRU1fRk9Q
-UyBpcyBzdHJpY3RseSBmb3IgY2FsbGJhY2sgZnVuY3Rpb25zPw0KDQpJbiBhbnkgY2FzZQ0K
-DQpBY2tlZC1ieTogVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+DQoN
-CkJlc3QgcmVnYXJkcw0KVGhvbWFzDQoNCj4gLQkJLm9wZW4JCT0gZHJtX29wZW4sXA0KPiAt
-CQkucmVsZWFzZQk9IGRybV9yZWxlYXNlLFwNCj4gLQkJLnVubG9ja2VkX2lvY3RsCT0gZHJt
-X2lvY3RsLFwNCj4gLQkJLmNvbXBhdF9pb2N0bAk9IGRybV9jb21wYXRfaW9jdGwsXA0KPiAt
-CQkucG9sbAkJPSBkcm1fcG9sbCxcDQo+IC0JCS5yZWFkCQk9IGRybV9yZWFkLFwNCj4gLQkJ
-Lmxsc2VlawkJPSBub29wX2xsc2VlayxcDQo+IC0JCS5tbWFwCQk9IGRybV9nZW1fbW1hcCxc
-DQo+ICsJCURSTV9HRU1fRk9QUyxcDQo+ICAgCX0NCj4gICANCj4gICB2b2lkIGRybV9nZW1f
-b2JqZWN0X3JlbGVhc2Uoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopOw0KDQotLSANClRo
-b21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3
-YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJu
-YmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bD
-vGhyZXI6IEl2byBUb3Rldg0K
+maximum frequency
 
---------------WPv3m0MaCPCi1nhPiH36UBtP--
+> +engine.  Taken together with drm-cycles-<str>, this can be used to calculate
+> +percentage utilization of the engine, whereas drm-engine-<str> only refects
 
---------------xlw0dtzkO9vwXvWXs909mr81
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+reflects
 
------BEGIN PGP SIGNATURE-----
+> +time active without considering what frequency the engine is operating as a
+> +percentage of it's maximum frequency.
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmKe9qcFAwAAAAAACgkQlh/E3EQov+DG
-hQ//fkjGsZRzBkApq7GtenwYHJJUtBJ5BE9x6aEjkNYYZw1EJ6IdJBZudTX5B8f6SQpno4GCO+aQ
-pQcp13X9YKBI3SZ/YNRuanCh5T1w7x34+z2MH6/hRBWmFSzBGUsQdXoxbe1n6eanY/BU1ZSsuc4r
-dTmKVDD8iC3HLEiX8mOhmgG509HWtCgh4RVSE7/wmwO+ijH5WcCLhKm0crC480EDT1/vyHohJ6eH
-eBbs1SdE9IR9ucAiarXfuS2NgEQw6uar24wTEYKXORHDsjrB8/aZV21fKU7oQSr6ZYqWq3P7rmAc
-x7gXtF6hEoe/k/ixl8rj3Q4NuNMO90MBQDTQEGVJCQTtL8kXzA17rmLYaVlY2NdlPGnDNPvvHfq9
-KJh3W3S8oAhm/831DHMRr902vu69zIX94wawYoHF/vG1n/jrxzMEKGAEFcX1r8PIUIN1B4EAgaQb
-AVpvqrVo3kuulJPGZTFreEvwGniO4H23DBHdXBT6MEazzcu+x01UBvghHY/dAcQvy0+R+LW7bKcg
-xK6uhuPdTwT/k70ZSAwGOD5yZ/2aIH9rS+seM5rLwCbqk7rimv+6aAXav1PxeaUchqfbWGSDKv4A
-V+T+X/MaBW3bbPrJ1vau0O8rfLLJJL4KzWZH0b6WVqTt70E2zFTP9QaXnWxM05MLP7TM3UOZvzFB
-GiE=
-=JNib
------END PGP SIGNATURE-----
+Cycles vs max freq sounds very useful. My reservations is that how come 
+the idea hasn't happened in the CPU world. Or maybe it has and I am 
+un-informed?
 
---------------xlw0dtzkO9vwXvWXs909mr81--
+In any case, if going with this I think we need to clarify the text that 
+the value should reflect the current soft limit, where the driver 
+supports that, in case it has been set to lower than the maximum 
+frequency hardware can support. I am thinking about avoiding "my gpu 
+cannot hit 100%" support incidents in cases when user/admin lowered the 
+soft limit for some reason. Possibly does not apply to msm but can apply 
+to i915, if we decided to export the same data.
+
+No other gotchas come to mind at the moment.
+
+Regards,
+
+Tvrtko
+
+> +
+>   ===============================
+>   Driver specific implementations
+>   ===============================
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 14ab9a627d8b..57a66093e671 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -948,7 +948,24 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+>   	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+>   };
+>   
+> -DEFINE_DRM_GEM_FOPS(fops);
+> +static void msm_fop_show_fdinfo(struct seq_file *m, struct file *f)
+> +{
+> +	struct drm_file *file = f->private_data;
+> +	struct drm_device *dev = file->minor->dev;
+> +	struct msm_drm_private *priv = dev->dev_private;
+> +	struct drm_printer p = drm_seq_file_printer(m);
+> +
+> +	if (!priv->gpu)
+> +		return;
+> +
+> +	msm_gpu_show_fdinfo(priv->gpu, file->driver_priv, &p);
+> +}
+> +
+> +static const struct file_operations fops = {
+> +	.owner = THIS_MODULE,
+> +	DRM_GEM_FOPS,
+> +	.show_fdinfo = msm_fop_show_fdinfo,
+> +};
+>   
+>   static const struct drm_driver msm_driver = {
+>   	.driver_features    = DRIVER_GEM |
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index eb8a6663f309..333a9a299b41 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -4,6 +4,8 @@
+>    * Author: Rob Clark <robdclark@gmail.com>
+>    */
+>   
+> +#include "drm/drm_drv.h"
+> +
+>   #include "msm_gpu.h"
+>   #include "msm_gem.h"
+>   #include "msm_mmu.h"
+> @@ -146,6 +148,16 @@ int msm_gpu_pm_suspend(struct msm_gpu *gpu)
+>   	return 0;
+>   }
+>   
+> +void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
+> +			 struct drm_printer *p)
+> +{
+> +	drm_printf(p, "drm-driver:\t%s\n", gpu->dev->driver->name);
+> +	drm_printf(p, "drm-client-id:\t%u\n", ctx->seqno);
+> +	drm_printf(p, "drm-engine-gpu:\t%llu ns\n", ctx->elapsed_ns);
+> +	drm_printf(p, "drm-cycles-gpu:\t%llu\n", ctx->cycles);
+> +	drm_printf(p, "drm-maxfreq-gpu:\t%lu Hz\n", gpu->fast_rate);
+> +}
+> +
+>   int msm_gpu_hw_init(struct msm_gpu *gpu)
+>   {
+>   	int ret;
+> @@ -652,7 +664,7 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>   {
+>   	int index = submit->seqno % MSM_GPU_SUBMIT_STATS_COUNT;
+>   	volatile struct msm_gpu_submit_stats *stats;
+> -	u64 elapsed, clock = 0;
+> +	u64 elapsed, clock = 0, cycles;
+>   	unsigned long flags;
+>   
+>   	stats = &ring->memptrs->stats[index];
+> @@ -660,12 +672,17 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>   	elapsed = (stats->alwayson_end - stats->alwayson_start) * 10000;
+>   	do_div(elapsed, 192);
+>   
+> +	cycles = stats->cpcycles_end - stats->cpcycles_start;
+> +
+>   	/* Calculate the clock frequency from the number of CP cycles */
+>   	if (elapsed) {
+> -		clock = (stats->cpcycles_end - stats->cpcycles_start) * 1000;
+> +		clock = cycles * 1000;
+>   		do_div(clock, elapsed);
+>   	}
+>   
+> +	submit->queue->ctx->elapsed_ns += elapsed;
+> +	submit->queue->ctx->cycles     += cycles;
+> +
+>   	trace_msm_gpu_submit_retired(submit, elapsed, clock,
+>   		stats->alwayson_start, stats->alwayson_end);
+>   
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> index 6def00883046..4911943ba53b 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+> @@ -361,6 +361,22 @@ struct msm_file_private {
+>   	/** cmdline: Overridden task cmdline, see MSM_PARAM_CMDLINE */
+>   	char *cmdline;
+>   
+> +	/**
+> +	 * elapsed:
+> +	 *
+> +	 * The total (cumulative) elapsed time GPU was busy with rendering
+> +	 * from this context in ns.
+> +	 */
+> +	uint64_t elapsed_ns;
+> +
+> +	/**
+> +	 * cycles:
+> +	 *
+> +	 * The total (cumulative) GPU cycles elapsed attributed to this
+> +	 * context.
+> +	 */
+> +	uint64_t cycles;
+> +
+>   	/**
+>   	 * entities:
+>   	 *
+> @@ -544,6 +560,9 @@ static inline void gpu_write64(struct msm_gpu *gpu, u32 lo, u32 hi, u64 val)
+>   int msm_gpu_pm_suspend(struct msm_gpu *gpu);
+>   int msm_gpu_pm_resume(struct msm_gpu *gpu);
+>   
+> +void msm_gpu_show_fdinfo(struct msm_gpu *gpu, struct msm_file_private *ctx,
+> +			 struct drm_printer *p);
+> +
+>   int msm_submitqueue_init(struct drm_device *drm, struct msm_file_private *ctx);
+>   struct msm_gpu_submitqueue *msm_submitqueue_get(struct msm_file_private *ctx,
+>   		u32 id);
