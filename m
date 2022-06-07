@@ -2,63 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2D6F54051B
-	for <lists+freedreno@lfdr.de>; Tue,  7 Jun 2022 19:22:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AEEF540E80
+	for <lists+freedreno@lfdr.de>; Tue,  7 Jun 2022 20:58:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 606E710F05E;
-	Tue,  7 Jun 2022 17:22:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7A0410EEFB;
+	Tue,  7 Jun 2022 18:58:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA1E10F05E;
- Tue,  7 Jun 2022 17:22:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F2F271F9C5;
- Tue,  7 Jun 2022 17:22:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1654622559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uqrHo72t/egh4eNcpx8eoTFgHBdSO5h/73dIvIbUMoc=;
- b=i31KyvkjR3ttXiDZKKYNnfh7FMxbcNejOIkF2dskvohB7fOjjF6KD3Z7ILHJVnDLoCem5R
- F4A4LoqqV2jbiXNFzkAU7NShq64dkkv8TQ0GxqAjAifXWYPm4jcIVTlx5/C7Jm3zzXTFNF
- 2+W3Wpm2xzma+DeB3Ue1kx55XnWNZ0Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1654622559;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uqrHo72t/egh4eNcpx8eoTFgHBdSO5h/73dIvIbUMoc=;
- b=LTSsckAlefo3halfg034rdzHNz567wacaNmmndzCRH8VGBHFPJbOdRLeLNqDBv+NxkDV5/
- V+XCH1MOG7BRgCCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C055013A88;
- Tue,  7 Jun 2022 17:22:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Y2u+LV6Jn2LqEAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 07 Jun 2022 17:22:38 +0000
-Message-ID: <26a6ed05-264a-eef6-a0ee-527d6968f8a8@suse.de>
-Date: Tue, 7 Jun 2022 19:22:38 +0200
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 898C710EEFB
+ for <freedreno@lists.freedesktop.org>; Tue,  7 Jun 2022 18:58:09 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id y29so20253938ljd.7
+ for <freedreno@lists.freedesktop.org>; Tue, 07 Jun 2022 11:58:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/W9jGpIH/OL56+uBhFnE9P3noAAOQAr28i57rZ4o8JQ=;
+ b=Fx68vBqv45589Im4IvB0H8RQ6BqBh+sZp72BRgAEYLdJUHRr5zV3uUKQXxAjSGUa6q
+ TCRiIPrfiGlbN9VT3oaxlxkAEPik61ghm4YmrJEiPPrnU6kFTxxb+LhB2c2O8iujSbpZ
+ vYa0IXYWBue7/PqO70VJ2VbjW+HXeMZIspILfuL/mUL0wG5E+krhe8/YDsfxiZe5D8+k
+ qCMIHa60w5zUFT9WMf2LTRvvMJrH4MU7NV8zhsJT1ffDSPXHA54XjHcBlj8S0T94Bb3G
+ fkQdrK5t0CnollXZ7RGFXTbvnyOPE2iMS5kBvNZWKmI7LkrPYHWDCqkJTfc7KvdS2Ilt
+ fesA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/W9jGpIH/OL56+uBhFnE9P3noAAOQAr28i57rZ4o8JQ=;
+ b=cCRCKaaDfV1OJZCB/l1cQl/fbyDsQsN3QKhvJNsSTONidqHLwDQLqTq5wyHtoX+TSt
+ /EpAyH7FNqXmzfVCYI4iAAfJvgADldudQKUEWuh4dVFrYGnx5XcU2maS/i5vxeaFSiv2
+ /x47HUCf+54No4sXhP149Fb2Ixma+eDnilQ087FEdoIQ4r9MYAHTRjGRqY54CFIgYLDg
+ Yurwgs+B9Os7HgS8Xwaocp38fJ2+w1hZ567WnCAuk0zRBCPOB73wM/sU4LWJUAxMPhit
+ 3JFiqMDPZDCXCIP3lV0BGL/EzY7cJOnQwsloJtkIK7S56pslgz232PAT0o0+5X0zJ+ZM
+ hsZQ==
+X-Gm-Message-State: AOAM531uMbr2uC2nKHzx+A0uZ2aT1Tnn+fcsN7SEs8NYtwqGwltoJv44
+ 3Xh+Z/NT9P18D6msoxjNvajepw==
+X-Google-Smtp-Source: ABdhPJzLmOS1+/guV5q204SUkhFztXDSFtNTawl/bLE9lR2G+hjpUayf3IPB1mxKvThg6bhdHx7edw==
+X-Received: by 2002:a05:651c:1a10:b0:255:9422:a7c6 with SMTP id
+ by16-20020a05651c1a1000b002559422a7c6mr7959383ljb.328.1654628287555; 
+ Tue, 07 Jun 2022 11:58:07 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ d19-20020a2eb053000000b0025587b872cesm1611668ljl.70.2022.06.07.11.58.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jun 2022 11:58:07 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Tue,  7 Jun 2022 21:57:59 +0300
+Message-Id: <20220607185806.2771739-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20220606195432.1888346-1-robdclark@gmail.com>
- <34aacfa3-9eb9-d3d5-07b7-805fd1408bb7@suse.de>
- <CAF6AEGuikc8Qh2ixEvJoeN0hQ+VLJNk_jBQm8fqYQAJ=ihpo1g@mail.gmail.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <CAF6AEGuikc8Qh2ixEvJoeN0hQ+VLJNk_jBQm8fqYQAJ=ihpo1g@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------89GWd80acGp6EW6OVodnIp0z"
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm: Add DRM_GEM_FOPS
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v1 0/7] drm/msm/hdmi: YAML-ify schema and
+ cleanup some platform properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,127 +72,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, David Heidelberg <david@ixit.cz>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------89GWd80acGp6EW6OVodnIp0z
-Content-Type: multipart/mixed; boundary="------------5RHAoO43WMHEge7jXP9WGHn3";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Clark <robdclark@gmail.com>
-Cc: Rob Clark <robdclark@chromium.org>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- freedreno <freedreno@lists.freedesktop.org>
-Message-ID: <26a6ed05-264a-eef6-a0ee-527d6968f8a8@suse.de>
-Subject: Re: [PATCH v2 1/2] drm: Add DRM_GEM_FOPS
-References: <20220606195432.1888346-1-robdclark@gmail.com>
- <34aacfa3-9eb9-d3d5-07b7-805fd1408bb7@suse.de>
- <CAF6AEGuikc8Qh2ixEvJoeN0hQ+VLJNk_jBQm8fqYQAJ=ihpo1g@mail.gmail.com>
-In-Reply-To: <CAF6AEGuikc8Qh2ixEvJoeN0hQ+VLJNk_jBQm8fqYQAJ=ihpo1g@mail.gmail.com>
+As agreed with David, this is a continuation of his work started at [1].
 
---------------5RHAoO43WMHEge7jXP9WGHn3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Changes since his patches:
+HDMI schema:
+- Dropped generic pinctrl properties
+- Dropped data-lanes property, which is not supported by the HDMI driver
+- Switched to unevaluatedProperties
+- Moved clocks/regulators/supplies to condition clauses
+- Specified phy-names as used by existing DT files
+- Dropped #phy-cells
+- Dropped power-domains property (which is not used by the device trees)
+- Marked old GPIO properties as deprecated (in a separate patch)
 
-SGkNCg0KQW0gMDcuMDYuMjIgdW0gMTY6NTggc2NocmllYiBSb2IgQ2xhcms6DQo+IE9uIE1v
-biwgSnVuIDYsIDIwMjIgYXQgMTE6NTYgUE0gVGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJt
-YW5uQHN1c2UuZGU+IHdyb3RlOg0KPj4NCj4+IEhpDQo+Pg0KPj4gQW0gMDYuMDYuMjIgdW0g
-MjE6NTQgc2NocmllYiBSb2IgQ2xhcms6DQo+Pj4gRnJvbTogUm9iIENsYXJrIDxyb2JkY2xh
-cmtAY2hyb21pdW0ub3JnPg0KPj4+DQo+Pj4gVGhlIERFRklORV9EUk1fR0VNX0ZPUFMoKSBo
-ZWxwZXIgaXMgYSBiaXQgbGltaXRpbmcgaWYgYSBkcml2ZXIgd2FudHMgdG8NCj4+PiBwcm92
-aWRlIGFkZGl0aW9uYWwgZmlsZSBvcHMsIGxpa2Ugc2hvd19mZGluZm8oKS4NCj4+Pg0KPj4+
-IFNpZ25lZC1vZmYtYnk6IFJvYiBDbGFyayA8cm9iZGNsYXJrQGNocm9taXVtLm9yZz4NCj4+
-PiAtLS0NCj4+PiAgICBpbmNsdWRlL2RybS9kcm1fZ2VtLmggfCAyNiArKysrKysrKysrKysr
-KysrKystLS0tLS0tLQ0KPj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNlcnRpb25zKCsp
-LCA4IGRlbGV0aW9ucygtKQ0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2Ry
-bV9nZW0uaCBiL2luY2x1ZGUvZHJtL2RybV9nZW0uaA0KPj4+IGluZGV4IDlkN2M2MWExMjJk
-Yy4uZGM4OGQ0YTJjZGY2IDEwMDY0NA0KPj4+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9nZW0u
-aA0KPj4+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9nZW0uaA0KPj4+IEBAIC0zMTQsNiArMzE0
-LDIzIEBAIHN0cnVjdCBkcm1fZ2VtX29iamVjdCB7DQo+Pj4gICAgICAgIGNvbnN0IHN0cnVj
-dCBkcm1fZ2VtX29iamVjdF9mdW5jcyAqZnVuY3M7DQo+Pj4gICAgfTsNCj4+Pg0KPj4+ICsv
-KioNCj4+PiArICogRFJNX0dFTV9GT1BTIC0gRGVmYXVsdCBkcm0gR0VNIGZpbGUgb3BlcmF0
-aW9ucw0KPj4+ICsgKg0KPj4+ICsgKiBUaGlzIG1hY3JvIHByb3ZpZGVzIGEgc2hvcnRoYW5k
-IGZvciBzZXR0aW5nIHRoZSBHRU0gZmlsZSBvcHMgaW4gdGhlDQo+Pj4gKyAqICZmaWxlX29w
-ZXJhdGlvbnMgc3RydWN0dXJlLg0KPj4NCj4+IEkgd291bGQgYXBwcmVjaWF0ZSBhIHJlZmVy
-ZW5jZSB0byBERUZJTkVfRFJNX0dFTV9GT1BTLiBTb21ldGhpbmcgYWxvbmcNCj4+IHRoZSBs
-aW5lcyBvZiAnaWYgYWxsIHlvdSBuZWVkIGFyZSB0aGUgZGVmYXVsdCBvcHMsIHVzZSBERUZJ
-TkVfRFJNX0dFTV9GT1BTJy4NCj4+DQo+Pj4gKyAqLw0KPj4+ICsjZGVmaW5lIERSTV9HRU1f
-Rk9QUyBcDQo+Pj4gKyAgICAgLm9wZW4gICAgICAgICAgID0gZHJtX29wZW4sXA0KPj4+ICsg
-ICAgIC5yZWxlYXNlICAgICAgICA9IGRybV9yZWxlYXNlLFwNCj4+PiArICAgICAudW5sb2Nr
-ZWRfaW9jdGwgPSBkcm1faW9jdGwsXA0KPj4+ICsgICAgIC5jb21wYXRfaW9jdGwgICA9IGRy
-bV9jb21wYXRfaW9jdGwsXA0KPj4+ICsgICAgIC5wb2xsICAgICAgICAgICA9IGRybV9wb2xs
-LFwNCj4+PiArICAgICAucmVhZCAgICAgICAgICAgPSBkcm1fcmVhZCxcDQo+Pj4gKyAgICAg
-Lmxsc2VlayAgICAgICAgID0gbm9vcF9sbHNlZWssXA0KPj4+ICsgICAgIC5tbWFwICAgICAg
-ICAgICA9IGRybV9nZW1fbW1hcA0KPj4+ICsNCj4+PiArDQo+Pg0KPj4gT25seSBvbmUgZW1w
-dHkgbGluZSBwbGVhc2UuDQo+Pg0KPj4+ICAgIC8qKg0KPj4+ICAgICAqIERFRklORV9EUk1f
-R0VNX0ZPUFMoKSAtIG1hY3JvIHRvIGdlbmVyYXRlIGZpbGUgb3BlcmF0aW9ucyBmb3IgR0VN
-IGRyaXZlcnMNCj4+PiAgICAgKiBAbmFtZTogbmFtZSBmb3IgdGhlIGdlbmVyYXRlZCBzdHJ1
-Y3R1cmUNCj4+PiBAQCAtMzMwLDE0ICszNDcsNyBAQCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3Qg
-ew0KPj4+ICAgICNkZWZpbmUgREVGSU5FX0RSTV9HRU1fRk9QUyhuYW1lKSBcDQo+Pj4gICAg
-ICAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZmlsZV9vcGVyYXRpb25zIG5hbWUgPSB7XA0KPj4+
-ICAgICAgICAgICAgICAgIC5vd25lciAgICAgICAgICA9IFRISVNfTU9EVUxFLFwNCj4+DQo+
-PiBJcyB0aGVyZSBhIHNwZWNpZmljIHJlYXNvbiB3aHkgLm93bmVyIGlzIHN0aWxsIHNldCBo
-ZXJlPyBJIHN1c3BlY3QgdGhhdA0KPj4gRFJNX0dFTV9GT1BTIGlzIHN0cmljdGx5IGZvciBj
-YWxsYmFjayBmdW5jdGlvbnM/DQo+IA0KPiBJIHdhcyBvbiB0aGUgZmVuY2UgYWJvdXQgdGhh
-dCBvbmUsIGJ1dCBpdCBzZWVtZWQgYmV0dGVyIHRvIG5vdCBtaXgNCj4gIm1hZ2ljIiBhbmQg
-dGhlIGNhbGxiYWNrcy4uIGJ1dCBJIGNvdWxkIGJlIGNvbnZpbmNlZCBpbiBlaXRoZXINCj4g
-ZGlyZWN0aW9uDQoNCkkgdGhpbmsgeW91IG1hZGUgdGhlIHJpZ2h0IGNob2ljZS4gSXQncyBj
-bGVhbmVyIGFuZCBtb3N0IGRyaXZlcnMgd2lsbCANCndhbnQgdG8gdXNlIERFRklORV9EUk1f
-R0VNX0ZPUFMsIHdoaWNoIGluY2x1ZGVzIHRoZSBtYWdpYy4NCg0KQmVzdCByZWdhcmRzDQpU
-aG9tYXMNCg0KPiANCj4+IEluIGFueSBjYXNlDQo+Pg0KPj4gQWNrZWQtYnk6IFRob21hcyBa
-aW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiANCj4gdGh4LCBJJ2xsIGZpeHVw
-IHRoZSBvdGhlciBuaXRzIGluIHYzLg0KPiANCj4+DQo+PiBCZXN0IHJlZ2FyZHMNCj4+IFRo
-b21hcw0KPj4NCj4+PiAtICAgICAgICAgICAgIC5vcGVuICAgICAgICAgICA9IGRybV9vcGVu
-LFwNCj4+PiAtICAgICAgICAgICAgIC5yZWxlYXNlICAgICAgICA9IGRybV9yZWxlYXNlLFwN
-Cj4+PiAtICAgICAgICAgICAgIC51bmxvY2tlZF9pb2N0bCA9IGRybV9pb2N0bCxcDQo+Pj4g
-LSAgICAgICAgICAgICAuY29tcGF0X2lvY3RsICAgPSBkcm1fY29tcGF0X2lvY3RsLFwNCj4+
-PiAtICAgICAgICAgICAgIC5wb2xsICAgICAgICAgICA9IGRybV9wb2xsLFwNCj4+PiAtICAg
-ICAgICAgICAgIC5yZWFkICAgICAgICAgICA9IGRybV9yZWFkLFwNCj4+PiAtICAgICAgICAg
-ICAgIC5sbHNlZWsgICAgICAgICA9IG5vb3BfbGxzZWVrLFwNCj4+PiAtICAgICAgICAgICAg
-IC5tbWFwICAgICAgICAgICA9IGRybV9nZW1fbW1hcCxcDQo+Pj4gKyAgICAgICAgICAgICBE
-Uk1fR0VNX0ZPUFMsXA0KPj4+ICAgICAgICB9DQo+Pj4NCj4+PiAgICB2b2lkIGRybV9nZW1f
-b2JqZWN0X3JlbGVhc2Uoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopOw0KPj4NCj4+IC0t
-DQo+PiBUaG9tYXMgWmltbWVybWFubg0KPj4gR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0K
-Pj4gU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJIDQo+PiBNYXhmZWxkc3Ry
-LiA1LCA5MDQwOSBOw7xybmJlcmcsIEdlcm1hbnkNCj4+IChIUkIgMzY4MDksIEFHIE7DvHJu
-YmVyZykNCj4+IEdlc2Now6RmdHNmw7xocmVyOiBJdm8gVG90ZXYNCg0KLS0gDQpUaG9tYXMg
-WmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBT
-b2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcs
-IEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVy
-OiBJdm8gVG90ZXYNCg==
+HDMI PHY schema:
+- Split into QMP (msm8996) and non-QMP (other) PHY schemas
+- Added proper clocks/clock-names/reg/reg-names descriptions
 
---------------5RHAoO43WMHEge7jXP9WGHn3--
+The rest of the patches consist of the new work. They further cleanup
+the platform configs, remove unused supplies, etc.
 
---------------89GWd80acGp6EW6OVodnIp0z
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+[1]: https://patchwork.freedesktop.org/series/98353/
 
------BEGIN PGP SIGNATURE-----
+Dmitry Baryshkov (7):
+  dt-bindings: display/msm: hdmi: split and convert to yaml
+  dt-bindings: display/msm: hdmi: mark old GPIO properties as deprecated
+  drm/msm/hdmi: drop unused GPIO support
+  drm/msm/hdmi: enable core-vcc/core-vdda-supply for 8996 platform
+  drm/msm/hdmi: drop empty 'none' regulator lists
+  drm/msm/hdmi: drop hpd_regs usage on 8x74/8084
+  drm/msm/hdmi: merge platform config for 8974/8084/8994/8996
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmKfiV4FAwAAAAAACgkQlh/E3EQov+DQ
-uQ/+KnvET6HMvJUhfdKhlai2pSkrzSbKSF2Pb+b1D3obDj4/rK/d2B+cC/pl+fqz8bu0ViMTnRQL
-IKKuUABF02sxx1VdHHvFxXZKlk7Nw2CzW7PFd2uoPMpY50gboPp8bR8mOMVqhHsZhOHAVacOtZsB
-YmVClM+TODlUgzky+wC5/sQtULVNgOdmZHn1M5EpxTAvThMPotan+BTJF5JgO39TQG13REF5g+Y6
-J/KWvQlYWjN4YZBDsCLFlC7sqHJLDFtAsdCPsOH86Wqx3w9z9UGVH4D5eDbMmNftbY5lR4aBnVaw
-46nfs/Z6shV07FmZwTduGDNRLGyjDnR+2OoDVVp6jl89+W3/HGZEqkmhQHRHljo+3LrClRECSoPk
-YR5IaXgud6ANeiuRWPI1W4ogxrhlZNjDNiJ8wBlQQjQ4llBm3YvVFjBDP+CzkdCVDuhACQd338DW
-71lvJaWeuoWlms97Saolua/DED2AnC5nH83gC2so+vxyC6a+IvuRiegKW3XrLRKN1fUdIjCiZYSO
-OHlsV9HLvGKuMcZrfe1KY4NrTM5YKkXvt5Ng1lUgKRxrjIeukOuHaxJWgtVSzZObIFxgRlcM0SO9
-CWiCI4BnT/e6lZDNtExIvobeAofZLUBsvUzDYjO3z4bxVqXJIcpmO/2zMBcpCdhTBTTMfuKKG7GH
-DJM=
-=5OZi
------END PGP SIGNATURE-----
+ .../devicetree/bindings/display/msm/hdmi.txt  |  99 --------
+ .../bindings/display/msm/qcom,hdmi.yaml       | 240 ++++++++++++++++++
+ .../bindings/phy/qcom,hdmi-phy-other.yaml     | 103 ++++++++
+ .../bindings/phy/qcom,hdmi-phy-qmp.yaml       |  84 ++++++
+ drivers/gpu/drm/msm/hdmi/hdmi.c               |  98 +------
+ drivers/gpu/drm/msm/hdmi/hdmi.h               |  13 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c           |  62 +----
+ 7 files changed, 447 insertions(+), 252 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/hdmi.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/qcom,hdmi.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/qcom,hdmi-phy-other.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
 
---------------89GWd80acGp6EW6OVodnIp0z--
+-- 
+2.35.1
+
