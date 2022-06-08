@@ -2,60 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DFB4543DB9
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 22:47:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C20A3543DF7
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 22:56:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88DFE113C7B;
-	Wed,  8 Jun 2022 20:47:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C1AC11A0F6;
+	Wed,  8 Jun 2022 20:56:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F17B3113C7A;
- Wed,  8 Jun 2022 20:47:21 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id a15so21315771wrh.2;
- Wed, 08 Jun 2022 13:47:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=YO3uFVIndRZEsy8GIdl/SBdnE+NXVeLS4S/TD3zVgu8=;
- b=fZupOoixI48nSRfkR4Mmobzl9D/DfTbVa8ZFBSGnq2EE8R8uxbHLxicPkeH+XoA8Hr
- J0zeFbVZo/eakgcsZaaW618ND6c5NfoK4OkUf+PU10ZR35y20iwMA05KjIk6X0Va8bnt
- OXcrYtnmNk1R1bKnFk4zb6dObkrTb3mLqFbEN/ibn8v+Hu96+joIMHdGm5c2BECgsE2/
- NcMqHedsN4Ooi5074c4jzFGXF+DtWOYwop/oR5K5DmvNslU4srTazf/SZrY6MllIJtNh
- 29csVe7rMK5GndO733mBC6GcpU892ybtsHb5pCb/blneBLVyDzWHbsFJSyg2zfb+klVn
- kOyA==
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6271F11A13A
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 20:56:35 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-f16a3e0529so28801981fac.2
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 13:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=uoflk9ZD42yTqlWFFFtt2B3OyFO93fCK9K2LB5UTMT8=;
+ b=mspAVxZx07cISScTn8vphHUwaC9+I1lJP/rNe4vCeLEPkIMfrye3kzXFsg8y30kNUQ
+ E8axWJREnFK7kgXPPdhb40iW94D8vS94Xa+Q1cGSDK+kpoAIHLcEnO9xUwW2BqULnlQt
+ JgsziaHWOF+CdH+0ugkPKHjk7GSuBnZrUas/E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=YO3uFVIndRZEsy8GIdl/SBdnE+NXVeLS4S/TD3zVgu8=;
- b=VLBmYQvaEH80RQm+//lHxxc0Sa93ZU1ED4BEe1IDhQnNnUPek+X/NAcY1ZVpVVVgnl
- dnbOE7tnhWSa6r3nB/UT1756gsyCjYjX/JC51cWcYjjzpkG8uvEHl13HAiqL4jNiX4If
- G52yFbDeMIALb1LsOeldZ6Y+lvv8RXJS2v8+c6Ao20xhVi1yMIeYrNqGPcyNAVWo/tWL
- 3wGJu0rcRFa+fYmHhcCtJeHDXflCqjTZh3q50bryokrWt39vYExk4lzk6YB7E3haZ5Yr
- RM5V8l19hZPGDZMv0iwl9AWNb4oyS0pslHbGw7DtkhLNLQaSWZUbYhV69Idimk3RxtQ3
- y0Bw==
-X-Gm-Message-State: AOAM5328yfxMgAWZE7n11DahULzXFfdYyqMISz+MiptAxFTeaMpxTxaH
- IdLotgOBpbrHL7OjFOj6zpnLl7SeSCqPalRa34LXSZ+Cz18=
-X-Google-Smtp-Source: ABdhPJxge7NY2M3tyn2D7hW+msJl2ZlgP4HAVvhUtIgREg2hn1YhT5UWT8l/25o9JWzK8Z8BP7mHRE8dcK1DJmLaI6c=
-X-Received: by 2002:adf:fb0d:0:b0:20d:97e:17ce with SMTP id
- c13-20020adffb0d000000b0020d097e17cemr35419463wrr.585.1654721240259; Wed, 08
- Jun 2022 13:47:20 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=uoflk9ZD42yTqlWFFFtt2B3OyFO93fCK9K2LB5UTMT8=;
+ b=8J+4ODgizBCVqQgkRdAj2phQA8+jrYz4V3RXBLK4a8Q4YF/9r0EkYrKxRuJ3P7elEx
+ 6QBDvJ19Kh1wy9Fle6ZjCZ0tKSwbM8mb2DxB+aeraLcTXnE2apPAqXyl3HhTkR+5R1Ww
+ EzE7NNM2C8MibxTlWCFo2B/w6BZeYaNGwR7Iyc8Kj3NuNzif5Mn19XHgW4WcrxjQA5hV
+ DCP707J+v1IZG5FlGHLtdxe1MFWx0kEV9p9GLvMoL94A9+fcA3qo66yIEcADiFvDpjyG
+ Ei8iBw06X/31aomGKqgMrx7E1Cx4JNPfqxGHBfMsq+w7JC3oJbPwYRB5Pts9OMp5YyK6
+ zFVw==
+X-Gm-Message-State: AOAM532+7vPKmxHWpLkxpcI483n48Rs+EjDk7At339ykFOQx2pacWDQF
+ cRScUXhmQPAvJeaNwxPE8sokit0MfXvrh52yk0oCCA==
+X-Google-Smtp-Source: ABdhPJyIaQ3UiUYUvaiSPO44e3POU/qNgkGu5ZFpgew9NSUx88rB+R+DEX5E3FMCjq8MpcqYcFKBsJcgHwyAMwkkIzQ=
+X-Received: by 2002:a05:6870:240d:b0:f1:b878:e97c with SMTP id
+ n13-20020a056870240d00b000f1b878e97cmr3367934oap.193.1654721794575; Wed, 08
+ Jun 2022 13:56:34 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 8 Jun 2022 13:56:34 -0700
 MIME-Version: 1.0
-References: <20210927152928.831245-1-robdclark@gmail.com>
- <f1c6fff0-a220-86d9-8572-2de3d47ab96a@codeaurora.org>
- <CAF6AEGtRO2VdweN014JpApQ460=KxEU9uF8jf1U__Gh-bMRo7w@mail.gmail.com>
- <2e8544dc-1914-92ab-a9c6-e9093a649c49@quicinc.com>
-In-Reply-To: <2e8544dc-1914-92ab-a9c6-e9093a649c49@quicinc.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 8 Jun 2022 13:47:07 -0700
-Message-ID: <CAF6AEGvgd7AbGG9szgAW1hXPrhfY78Vdh2s8a6Cei1gpScDQNw@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <20220608120723.2987843-3-dmitry.baryshkov@linaro.org>
+References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
+ <20220608120723.2987843-3-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 8 Jun 2022 13:56:34 -0700
+Message-ID: <CAE-0n53UGHQXcU++xk+sXxNTg78_Na=Cw4Jjtmn_JtknW=r+5w@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, 
+ Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm: Switch ordering of runpm put vs
- devfreq_idle
+Subject: Re: [Freedreno] [PATCH v2 02/12] dt-bindings: display/msm: hdmi:
+ mark old GPIO properties as deprecated
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,237 +71,18 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Wed, Jun 8, 2022 at 12:36 PM Akhil P Oommen <quic_akhilpo@quicinc.com> w=
-rote:
+Quoting Dmitry Baryshkov (2022-06-08 05:07:13)
+> Mark obsolete GPIO properties as deprecated. They are not used by
+> existing device trees. While we are at it, also drop them from the
+> schema example.
 >
-> On 6/8/2022 3:00 AM, Rob Clark wrote:
-> > On Tue, Sep 28, 2021 at 7:52 AM Akhil P Oommen <akhilpo@codeaurora.org>=
- wrote:
-> >> On 9/27/2021 8:59 PM, Rob Clark wrote:
-> >>> From: Rob Clark <robdclark@chromium.org>
-> >>>
-> >>> I've seen a few crashes like:
-> >>>
-> >>>       Internal error: synchronous external abort: 96000010 [#1] PREEM=
-PT SMP
-> >>>       Modules linked in: snd_seq_dummy snd_seq snd_seq_device bridge =
-stp llc tun nf_nat_tftp nf_conntrack_tftp nf_nat_ftp nf_conntrack_ftp esp6 =
-ah6 ip6t_REJECT ip6t_ipv6header vhost_vsock vhost vmw_vsock_virtio_transpor=
-t_common vsock rfcomm algif_hash algif_skcipher af_alg uinput veth xt_cgrou=
-p xt_MASQUERADE venus_enc venus_dec videobuf2_dma_contig qcom_spmi_adc5 qco=
-m_spmi_adc_tm5 hci_uart qcom_vadc_common cros_ec_typec qcom_spmi_temp_alarm=
- typec btqca snd_soc_rt5682_i2c snd_soc_rt5682 snd_soc_sc7180 bluetooth snd=
-_soc_qcom_common snd_soc_rl6231 ecdh_generic ecc venus_core v4l2_mem2mem sn=
-d_soc_lpass_sc7180 snd_soc_lpass_hdmi snd_soc_lpass_cpu snd_soc_lpass_platf=
-orm snd_soc_max98357a ip6table_nat fuse iio_trig_sysfs cros_ec_lid_angle cr=
-os_ec_sensors cros_ec_sensors_core industrialio_triggered_buffer kfifo_buf =
-cros_ec_sensorhub lzo_rle ath10k_snoc lzo_compress ath10k_core ath zram mac=
-80211 cfg80211 ax88179_178a usbnet mii uvcvideo videobuf2_vmalloc joydev
-> >>>       CPU: 3 PID: 212 Comm: A618-worker Tainted: G W 5.4.139-16300-g8=
-8d8e1285982 #1
-> >>>       Hardware name: Google Pompom (rev1) with LTE (DT)
-> >>>       pstate: 60c00009 (nZCv daif +PAN +UAO)
-> >>>       pc : a6xx_gmu_set_oob+0x114/0x200
-> >>>       lr : a6xx_gmu_set_oob+0x10c/0x200
-> >>>       sp : ffffffc011b7bc20
-> >>>       x29: ffffffc011b7bc20 x28: ffffffdad27c5000
-> >>>       x27: 0000000000000001 x26: ffffffdad1521044
-> >>>       x25: ffffffbef7498338 x24: 0000000000000018
-> >>>       x23: 0000000000000002 x22: 0000000000014648
-> >>>       x21: 0000033732fe638b x20: 0000000080000000
-> >>>       x19: ffffffbef7433bc8 x18: 0000000040000000
-> >>>       x17: 000000243508d982 x16: 000000000000b67e
-> >>>       x15: 00000000000090d4 x14: 0000000000000024
-> >>>       x13: 0000000000000024 x12: 0000000000017521
-> >>>       x11: 0000000000000b48 x10: 0000000000326a48
-> >>>       x9 : 1a130d33f6371600 x8 : ffffffc011e54648
-> >>>       x7 : 614948e00005003c x6 : ffffffbe3cd17e60
-> >>>       x5 : 0000000000000040 x4 : 0000000000000004
-> >>>       x3 : 0000000000000000 x2 : ffffffbef7488000
-> >>>       x1 : ffffffbef7488000 x0 : 0000000000000000
-> >>>       Call trace:
-> >>>       a6xx_gmu_set_oob+0x114/0x200
-> >>>       a6xx_gmu_set_freq+0xe0/0x1fc
-> >>>       msm_devfreq_target+0x80/0x13c
-> >>>       msm_devfreq_idle+0x54/0x94
-> >>>       retire_submit+0x170/0x254
-> >>>       retire_submits+0xa4/0xdc
-> >>>       retire_worker+0x1c/0x28
-> >>>       kthread_worker_fn+0xf4/0x1bc
-> >>>       kthread+0x140/0x158
-> >>>       ret_from_fork+0x10/0x18
-> >>>       Code: 52800c81 9415bbe5 f9400a68 8b160108 (b9400108)
-> >>>       ---[ end trace 16b871df2482cd61 ]---
-> >>>       Kernel panic - not syncing: Fatal exception
-> >>>       SMP: stopping secondary CPUs
-> >>>       Kernel Offset: 0x1ac1400000 from 0xffffffc010000000
-> >>>       PHYS_OFFSET: 0xffffffc280000000
-> >>>       CPU features: 0x88102e,2a80aa38
-> >>>       Memory Limit: none
-> >>>
-> >>> Which smells a lot like touching hw after power collapse.  I'm not
-> >>> *entirely* sure how it could have taken 66ms (the autosuspend delay)
-> >>> before we get to a6xx_gmu_set_oob(), but to be safe we should move
-> >>> the pm_runtime_put_autosuspend() after msm_devfreq_idle().
-> >> https://elixir.bootlin.com/linux/v5.15-rc1/source/drivers/gpu/drm/msm/=
-adreno/a6xx_gmu.c#L132
-> >> We have this check in the gmu freq set path which should avoid this
-> >> scenario. I might be a bit pedantic here, but I feel that the original
-> >> code is more accurate. We should immediately mark last busy and put
-> >> runtime_pm refcount.
-> > So, I've been doing some experiments, changing the _put_autosuspend()
-> > to _put_sync(), in the course of tracking down some remaining "GMU
-> > OOB" timeout type issues and related badness, and discovered things
-> > very quickly die with SError splats like below.  Possibly the issue is
-> > that runpm has some race conditions, but I'm not sure we can trust
-> > pm_runtime_get_if_in_use() quite as much as one would like..
-> >
-> > -----------
-> > [   33.225332] CPU: 0 PID: 216 Comm: A618-worker Tainted: G        W
-> >        5.4.196 #7
-> > [   33.225337] Hardware name: Google Wormdingler rev1+ INX panel board =
-(DT)
-> > [   33.225343] pstate: 20c00009 (nzCv daif +PAN +UAO)
-> > [   33.225353] pc : msm_readl+0x14/0x34
-> > [   33.225361] lr : a6xx_gpu_busy+0x40/0x80
-> > [   33.225365] sp : ffffffc011b93ad0
-> > [   33.225371] x29: ffffffc011b93ad0 x28: ffffffe77cba3000
-> > [   33.225377] x27: 0000000000000001 x26: ffffffe77bb4c4ac
-> > [   33.225384] x25: ffffffa2f227dfa0 x24: ffffffa2f22aab28
-> > [   33.225390] x23: 0000000000000000 x22: ffffffa2f22bf020
-> > [   33.225397] x21: ffffffa2f22bf000 x20: ffffffc011b93b10
-> > [   33.225404] x19: ffffffc011bd4110 x18: 000000000000000e
-> > [   33.225410] x17: 0000000000000004 x16: 000000000000000c
-> > [   33.225416] x15: 000001be3a969450 x14: 0000000000000400
-> > [   33.225423] x13: 00000000000101d6 x12: 0000000034155555
-> > [   33.225429] x11: 0000000000000001 x10: 0000000000000000
-> > [   33.225436] x9 : 0000000100000000 x8 : ffffffc011bd4000
-> > [   33.225443] x7 : 0000000000000000 x6 : 0000000000000007
-> > [   33.225450] x5 : ffffffc01d8b38f0 x4 : 0000000000000000
-> > [   33.225457] x3 : 00000000ffffffff x2 : 0000000000000002
-> > [   33.225463] x1 : 0000000000000000 x0 : ffffffc011bd4110
-> > [   33.225471] Call trace:
-> > [   33.225478]  msm_readl+0x14/0x34
-> > [   33.225484]  a6xx_gpu_busy+0x40/0x80
-> > [   33.225490]  msm_devfreq_get_dev_status+0x70/0x1d0
-> > [   33.225500]  devfreq_simple_ondemand_func+0x34/0x100
-> > [   33.225510]  update_devfreq+0x50/0xe8
-> > [   33.225517]  qos_notifier_call+0x2c/0x64
-> > [   33.225523]  qos_max_notifier_call+0x1c/0x2c
-> > [   33.225532]  notifier_call_chain+0x58/0x98
-> > [   33.225539]  __blocking_notifier_call_chain+0x74/0x84
-> > [   33.225545]  blocking_notifier_call_chain+0x38/0x48
-> > [   33.225554]  pm_qos_update_target+0xf8/0x19c
-> > [   33.225560]  freq_qos_apply+0x54/0x6c
-> > [   33.225566]  apply_constraint+0x60/0x104
-> > [   33.225572]  __dev_pm_qos_update_request+0xb4/0x184
-> > [   33.225578]  dev_pm_qos_update_request+0x38/0x58
-> > [   33.225584]  msm_devfreq_idle_work+0x34/0x40
-> > [   33.225591]  kthread_worker_fn+0x144/0x1c8
-> > [   33.225597]  kthread+0x140/0x284
-> > [   33.225604]  ret_from_fork+0x10/0x18
-> > [   33.225617] Code: f9000bf3 910003fd aa0003f3 d503201f (b9400260)
-> > [   33.225623] ---[ end trace f6309767a42d0831 ]---
-> > [   33.236185] SMP: stopping secondary CPUs
-> > [   33.236186] Kernel Offset: 0x276b600000 from 0xffffffc010000000
-> > [   33.236186] PHYS_OFFSET: 0xffffffdf80000000
-> > [   33.236187] CPU features: 0x088102e,2a80aa38
-> > -----------
-> Any chance we are racing with system suspend here? Because, when
-> "dev->power.disable_depth > 0", pm_runtime_get_if_in_use() returns
-> -EINVAL. Then I guess we should look for a positive return value from
-> pm_runtime_get_if_in_use() before proceeding.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-I think that is possible.. although I can still still SErrors in
-a6xx_gpu_busy() with:
-
-----------
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 1ec90a9ca56c..61e1e33f355a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -129,7 +129,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct
-dev_pm_opp *opp)
-         * This can get called from devfreq while the hardware is idle. Don=
-'t
-         * bring up the power if it isn't already active
-         */
--       if (pm_runtime_get_if_in_use(gmu->dev) =3D=3D 0)
-+       if (pm_runtime_get_if_in_use(gmu->dev) <=3D 0)
-                return;
-
-        if (!gmu->legacy) {
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 95a6c3361a1e..b17a95f7b85c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1456,7 +1456,7 @@ static u64 a6xx_gpu_busy(struct msm_gpu *gpu,
-unsigned long *out_sample_rate)
-        *out_sample_rate =3D 19200000;
-
-        /* Only read the gpu busy if the hardware is already active */
--       if (pm_runtime_get_if_in_use(a6xx_gpu->gmu.dev) =3D=3D 0)
-+       if (pm_runtime_get_if_in_use(a6xx_gpu->gmu.dev) <=3D 0)
-                return 0;
-
-        busy_cycles =3D gmu_read64(&a6xx_gpu->gmu,
-----------
-
-So I don't think this completely explains it
-
-I am starting to think it might not be a bad idea to drain the gpu's
-kthread working in the suspend path
-
-BR,
--R
-
->
-> -Akhil.
-> >> -Akhil.
-> >>
-> >>> Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
-> >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> >>> ---
-> >>>    drivers/gpu/drm/msm/msm_gpu.c | 6 +++---
-> >>>    1 file changed, 3 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_=
-gpu.c
-> >>> index d1a16642ecd5..2b2bbe7499e6 100644
-> >>> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> >>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> >>> @@ -667,9 +667,6 @@ static void retire_submit(struct msm_gpu *gpu, st=
-ruct msm_ringbuffer *ring,
-> >>>
-> >>>        msm_submit_retire(submit);
-> >>>
-> >>> -     pm_runtime_mark_last_busy(&gpu->pdev->dev);
-> >>> -     pm_runtime_put_autosuspend(&gpu->pdev->dev);
-> >>> -
-> >>>        spin_lock_irqsave(&ring->submit_lock, flags);
-> >>>        list_del(&submit->node);
-> >>>        spin_unlock_irqrestore(&ring->submit_lock, flags);
-> >>> @@ -683,6 +680,9 @@ static void retire_submit(struct msm_gpu *gpu, st=
-ruct msm_ringbuffer *ring,
-> >>>        mutex_unlock(&gpu->active_lock);
-> >>>
-> >>>        msm_gem_submit_put(submit);
-> >>> +
-> >>> +     pm_runtime_mark_last_busy(&gpu->pdev->dev);
-> >>> +     pm_runtime_put_autosuspend(&gpu->pdev->dev);
-> >>>    }
-> >>>
-> >>>    static void retire_submits(struct msm_gpu *gpu)
-> >>>
->
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
