@@ -2,77 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53DE354380B
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 17:50:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5816154382E
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 17:57:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2FA10EFA7;
-	Wed,  8 Jun 2022 15:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B4A511259D;
+	Wed,  8 Jun 2022 15:57:44 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA09F10EFA7
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 15:50:19 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id
- i17-20020a7bc951000000b0039c4760ec3fso4637048wml.0
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 08:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=CMsRXdWPmCDKvHowScgEPfcStDkBg94b5gd4aiXfFOo=;
- b=Xqtl8Ykb4qZhu60PLm3yREsrhfN7nycopV9Cg9DUODp+2a1GNn/lBEVFmoUaJT4ctn
- Og0NsuClCH8RLjcbeHc3nTohfjXaaOF5zeejqNfesaxvPyIkipv6pYygVud9iJNcmYKh
- ahaIdZft8ba9IAW5aiqjdFaX5F43Oza1EtamY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=CMsRXdWPmCDKvHowScgEPfcStDkBg94b5gd4aiXfFOo=;
- b=U52U88E2zt/pMW/ab107hS78ebn5xiK2v1aaOepvzofsMFgtIY+uARchmT7QwnGpIl
- kaPG9TZ7ro6wvWCcJiEYaM5Ju0jujbqmDCDAeEmrxyskDvC6ejG9mgIhiNOj/qC3c5xY
- 5MpmZ5nz9+ueec2M+uZuHz3wJG0ErlBEEtNNYp8mqQwJ4cbgszIgVdnIddDZNBowLd9w
- iAsfuSABbxGIf5KvtXNbjl4bead+/XA8JEZ7jM44AaScww2r305YvfLb+rhvTUavk8Mu
- vxPT+pJHJOubC+NLH3xkaSKP/k9lhE2armbwIfKanoU57Ozgn82emixV8CFlygToyLPo
- YXdQ==
-X-Gm-Message-State: AOAM532Y5tO1h0mCkRwGIm4vdqW/1SdEd+tbula4CwNGN+wDN2rxKMmc
- nODw24QN5qR1xEs4NOnlx/JWbA==
-X-Google-Smtp-Source: ABdhPJyiIwGCreHBsvQ2VeugCyr176Iz/EYHcScGY1DBTFXJ2J9uF7B9z1Usvrt4vZT/C7DnLh5RkA==
-X-Received: by 2002:a05:600c:10cb:b0:39c:4e74:2b41 with SMTP id
- l11-20020a05600c10cb00b0039c4e742b41mr19026418wmd.130.1654703418228; 
- Wed, 08 Jun 2022 08:50:18 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- h4-20020adffd44000000b002102d4ed579sm21547079wrs.39.2022.06.08.08.50.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jun 2022 08:50:17 -0700 (PDT)
-Date: Wed, 8 Jun 2022 17:50:15 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YqDFNx0Oim9RBIMf@phenom.ffwll.local>
-Mail-Followup-To: Maxime Ripard <maxime@cerno.tech>,
- Douglas Anderson <dianders@chromium.org>,
- dri-devel@lists.freedesktop.org, Hsin-Yi Wang <hsinyi@chromium.org>,
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45CAA11259D;
+ Wed,  8 Jun 2022 15:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1654703863; x=1686239863;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hQWh/ajhlNrdHVnR8asoXOOhohzEj4Vrv4I0sYKIHMk=;
+ b=Hf2yPBd1EukiMalQN77+ApBRqBxtLEJR4PppT0NpNdLBw4A2BnefC138
+ slwfrTr1UFUgdmx/RpJ63d3Q3HdRoUtCn7+bjEdp5tcYe1o+Y9vGGLrA8
+ 3nFEuQycQwIfMKgsbxrLFVJ7wWLKk/pv356BldI77fn6O0ENpTg7MNa2Y
+ q3ywPfLd2snPxP8ooHys6D7+GkVP4X5ln0XAKZ1nzXnS+pswrH0HnvQ8C
+ xTwjlnDe8nqngSZQs4K0rY/adTBC6CuHqgyAHl1Mr9HBL7sOXIrY6/9Jr
+ pQAApVCyGH+A/B3gZo0rj/llx6iaUwLChAiXnXZLfTP6U995xysb4Qt7g A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="276972308"
+X-IronPort-AV: E=Sophos;i="5.91,286,1647327600"; d="scan'208";a="276972308"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2022 08:57:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,286,1647327600"; d="scan'208";a="609717426"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 08 Jun 2022 08:57:38 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nyy3u-000ElX-2h;
+ Wed, 08 Jun 2022 15:57:38 +0000
+Date: Wed, 8 Jun 2022 23:57:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Philip Chen <philipchen@chromium.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Robert Foss <robert.foss@linaro.org>,
- freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
- David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
- <20220521091751.opeiqbmc5c2okdq6@houat>
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <202206082312.XB745jWy-lkp@intel.com>
+References: <20220608120723.2987843-7-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220521091751.opeiqbmc5c2okdq6@houat>
-X-Operating-System: Linux phenom 5.10.0-8-amd64 
-Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
+In-Reply-To: <20220608120723.2987843-7-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 06/12] drm/msm/hdmi: drop unused GPIO
+ support
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,66 +64,108 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: devicetree@vger.kernel.org, kbuild-all@lists.01.org,
  David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Robert Foss <robert.foss@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, May 21, 2022 at 11:17:51AM +0200, Maxime Ripard wrote:
-> Hi,
-> 
-> On Tue, May 10, 2022 at 12:29:43PM -0700, Douglas Anderson wrote:
-> > This adds a devm managed version of drm_bridge_add(). Like other
-> > "devm" function listed in drm_bridge.h, this function takes an
-> > explicit "dev" to use for the lifetime management. A few notes:
-> > * In general we have a "struct device" for bridges that makes a good
-> >   candidate for where the lifetime matches exactly what we want.
-> > * The "bridge->dev->dev" device appears to be the encoder
-> >   device. That's not the right device to use for lifetime management.
-> > 
-> > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> 
-> If we are to introduce more managed helpers, I think it'd be wiser to
-> introduce them as DRM-managed, and not device managed.
-> 
-> Otherwise, you'll end up in a weird state when a device has been removed
-> but the DRM device is still around.
+Hi Dmitry,
 
-Top-level post since I didn't see any good place to reply in the thread
-below:
+I love your patch! Perhaps something to improve:
 
-- devm is for device stuff, which drm_bridge is (it's not uapi visible in
-  any way or fasion)
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on robh/for-next linus/master v5.19-rc1 next-20220608]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-- drmm is for uapi visible stuff (like drm_encoder)
+url:    https://github.com/intel-lab-lkp/linux/commits/Dmitry-Baryshkov/drm-msm-hdmi-YAML-ify-schema-and-cleanup-some-platform-properties/20220608-200925
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: hexagon-randconfig-r045-20220608 (https://download.01.org/0day-ci/archive/20220608/202206082312.XB745jWy-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project b92436efcb7813fc481b30f2593a4907568d917a)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/c3e263fe0a077b382c2a76911c8ace385bd59a4c
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Dmitry-Baryshkov/drm-msm-hdmi-YAML-ify-schema-and-cleanup-some-platform-properties/20220608-200925
+        git checkout c3e263fe0a077b382c2a76911c8ace385bd59a4c
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/gpu/drm/msm/
 
-Yes the uapi-visible stuff can outlive the device-related pieces. The way
-to handle this is:
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
 
-- drm_dev_unplug() when the device disappears underneath you (or just a
-  part, I guess the infra for that doesn't exist yet and maybe we should
-  add it).
+All warnings (new ones prefixed by >>):
 
-- drm_dev_enter/exit wrapped around the device related parts.
+>> drivers/gpu/drm/msm/hdmi/hdmi.c:532:2: warning: variable 'hdmi' is uninitialized when used here [-Wuninitialized]
+           hdmi->hpd_gpiod = devm_gpiod_get_optional(dev, "hpd", GPIOD_IN);
+           ^~~~
+   drivers/gpu/drm/msm/hdmi/hdmi.c:518:19: note: initialize the variable 'hdmi' to silence this warning
+           struct hdmi *hdmi;
+                            ^
+                             = NULL
+   1 warning generated.
 
-Iow, this patch here I think is the right direction, and gets my
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for DRM_DP_AUX_BUS
+   Depends on HAS_IOMEM && DRM && OF
+   Selected by
+   - DRM_MSM && HAS_IOMEM && DRM && (ARCH_QCOM || SOC_IMX5 || COMPILE_TEST && COMMON_CLK && IOMMU_SUPPORT && (QCOM_OCMEM || QCOM_OCMEM && (QCOM_LLCC || QCOM_LLCC && (QCOM_COMMAND_DB || QCOM_COMMAND_DB
 
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-But also, it's definitely not a complete solution as the discussion in the
-thread here points out.
+vim +/hdmi +532 drivers/gpu/drm/msm/hdmi/hdmi.c
 
-Cheers, Daniel
+   513	
+   514	static int msm_hdmi_bind(struct device *dev, struct device *master, void *data)
+   515	{
+   516		struct msm_drm_private *priv = dev_get_drvdata(master);
+   517		struct hdmi_platform_config *hdmi_cfg;
+   518		struct hdmi *hdmi;
+   519		struct device_node *of_node = dev->of_node;
+   520		int err;
+   521	
+   522		hdmi_cfg = (struct hdmi_platform_config *)
+   523				of_device_get_match_data(dev);
+   524		if (!hdmi_cfg) {
+   525			DRM_DEV_ERROR(dev, "unknown hdmi_cfg: %pOFn\n", of_node);
+   526			return -ENXIO;
+   527		}
+   528	
+   529		hdmi_cfg->mmio_name     = "core_physical";
+   530		hdmi_cfg->qfprom_mmio_name = "qfprom_physical";
+   531	
+ > 532		hdmi->hpd_gpiod = devm_gpiod_get_optional(dev, "hpd", GPIOD_IN);
+   533		/* This will catch e.g. -PROBE_DEFER */
+   534		if (IS_ERR(hdmi->hpd_gpiod))
+   535			return PTR_ERR(hdmi->hpd_gpiod);
+   536	
+   537		if (!hdmi->hpd_gpiod)
+   538			DBG("failed to get HPD gpio");
+   539	
+   540		if (hdmi->hpd_gpiod)
+   541			gpiod_set_consumer_name(hdmi->hpd_gpiod, "HDMI_HPD");
+   542	
+   543		dev->platform_data = hdmi_cfg;
+   544	
+   545		hdmi = msm_hdmi_init(to_platform_device(dev));
+   546		if (IS_ERR(hdmi))
+   547			return PTR_ERR(hdmi);
+   548		priv->hdmi = hdmi;
+   549	
+   550		err = msm_hdmi_register_audio_driver(hdmi, dev);
+   551		if (err) {
+   552			DRM_ERROR("Failed to attach an audio codec %d\n", err);
+   553			hdmi->audio_pdev = NULL;
+   554		}
+   555	
+   556		return 0;
+   557	}
+   558	
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+0-DAY CI Kernel Test Service
+https://01.org/lkp
