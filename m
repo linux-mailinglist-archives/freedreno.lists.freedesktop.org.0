@@ -2,72 +2,77 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9CFD54308C
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 14:38:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53DE354380B
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 17:50:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2123C10EF01;
-	Wed,  8 Jun 2022 12:38:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2FA10EFA7;
+	Wed,  8 Jun 2022 15:50:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83A0210E759
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 12:38:15 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id o7so7901136eja.1
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 05:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=aEGXQECe4H9Yr1drGqc8tKF4uy6G/ckZC8sU26gHtJg=;
- b=b0/e4QaChXD6ECkdPGCyuGyJUawjE5WGDcCNngEWwicQcNjDBbxo96ujUWEmtKrU2G
- ZMV1/fftHeM20VSZ1GnA3cO3UI2z2DsvrBZNPz7+jiUrFVPZIBy0sgoNg5p0Pfy1zMZF
- YNPucSatWgbT1iWYyD9lZJ1QDWLyJbfaTO/sOfHHfuGk6h60/vmfjohGEYeGC7QA6Ijl
- sMHq3Sn0Kc6zK80Gnb/dC/bhil/qMHH5H6HB6ULVl1KM9OQgbQSpzqcyx6JC0Ie/CTlr
- vOsO7I/mJ97tFrhOLU/JqhZnShBHwZR5U33m/zhkDAyJ/AmCyI1K/R4Fp11qMP6Sc0TM
- rxQA==
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA09F10EFA7
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 15:50:19 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ i17-20020a7bc951000000b0039c4760ec3fso4637048wml.0
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 08:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=CMsRXdWPmCDKvHowScgEPfcStDkBg94b5gd4aiXfFOo=;
+ b=Xqtl8Ykb4qZhu60PLm3yREsrhfN7nycopV9Cg9DUODp+2a1GNn/lBEVFmoUaJT4ctn
+ Og0NsuClCH8RLjcbeHc3nTohfjXaaOF5zeejqNfesaxvPyIkipv6pYygVud9iJNcmYKh
+ ahaIdZft8ba9IAW5aiqjdFaX5F43Oza1EtamY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=aEGXQECe4H9Yr1drGqc8tKF4uy6G/ckZC8sU26gHtJg=;
- b=peBymsSK8onDvu0MzA5s/FwJQCxkDG131lAyBIYLVEpEBh0KZQp3Yrsbjg7fmeQgVG
- PZt2Dj7gct2PBYOiLGIlkLyPZiYS1pXJu5YvbBqfW1GeQ8aM/6WRC83GcqFnAxr/Mgq1
- 65SjBYgR4RpVPWbS+yw6FWBZj7iyAJnCYybeYNYfmpY9wvx6mlY5vWP32n/mGTpvM+Ru
- Ee8AluoRZeNqIyZCpgf33c5U9V2DwGTT53zwVfUwjmXjM4jcRw0EUAKvK/pCNiCuijJP
- wlsrGYriBgSZHxnpk3BTlH1eLRC8OCDleeq1DhlhZpPR3agPvojpuTRORDou772V0vHF
- y1SQ==
-X-Gm-Message-State: AOAM532tcZyvW6Cb9DEoqV5dan9rQilCMgxYu6ev5r0EnGJaoKKkxNhm
- uskUvhRQO3IIbOq8Zgoot3fHIg==
-X-Google-Smtp-Source: ABdhPJw2db8NS2pKzLZNRjdCIdLmNenvGRa27Y2xy0C/8AXs/h3fBZJZTn7uOXirBYfkc7BesWdcBA==
-X-Received: by 2002:a17:906:414f:b0:711:ce99:69ec with SMTP id
- l15-20020a170906414f00b00711ce9969ecmr14718867ejk.724.1654691894016; 
- Wed, 08 Jun 2022 05:38:14 -0700 (PDT)
-Received: from [192.168.0.192] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- t20-20020a1709066bd400b006fea3702e56sm9102856ejs.79.2022.06.08.05.38.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jun 2022 05:38:13 -0700 (PDT)
-Message-ID: <1fa92614-d08f-162a-da3a-28fa9388d314@linaro.org>
-Date: Wed, 8 Jun 2022 14:38:12 +0200
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=CMsRXdWPmCDKvHowScgEPfcStDkBg94b5gd4aiXfFOo=;
+ b=U52U88E2zt/pMW/ab107hS78ebn5xiK2v1aaOepvzofsMFgtIY+uARchmT7QwnGpIl
+ kaPG9TZ7ro6wvWCcJiEYaM5Ju0jujbqmDCDAeEmrxyskDvC6ejG9mgIhiNOj/qC3c5xY
+ 5MpmZ5nz9+ueec2M+uZuHz3wJG0ErlBEEtNNYp8mqQwJ4cbgszIgVdnIddDZNBowLd9w
+ iAsfuSABbxGIf5KvtXNbjl4bead+/XA8JEZ7jM44AaScww2r305YvfLb+rhvTUavk8Mu
+ vxPT+pJHJOubC+NLH3xkaSKP/k9lhE2armbwIfKanoU57Ozgn82emixV8CFlygToyLPo
+ YXdQ==
+X-Gm-Message-State: AOAM532Y5tO1h0mCkRwGIm4vdqW/1SdEd+tbula4CwNGN+wDN2rxKMmc
+ nODw24QN5qR1xEs4NOnlx/JWbA==
+X-Google-Smtp-Source: ABdhPJyiIwGCreHBsvQ2VeugCyr176Iz/EYHcScGY1DBTFXJ2J9uF7B9z1Usvrt4vZT/C7DnLh5RkA==
+X-Received: by 2002:a05:600c:10cb:b0:39c:4e74:2b41 with SMTP id
+ l11-20020a05600c10cb00b0039c4e742b41mr19026418wmd.130.1654703418228; 
+ Wed, 08 Jun 2022 08:50:18 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ h4-20020adffd44000000b002102d4ed579sm21547079wrs.39.2022.06.08.08.50.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jun 2022 08:50:17 -0700 (PDT)
+Date: Wed, 8 Jun 2022 17:50:15 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <YqDFNx0Oim9RBIMf@phenom.ffwll.local>
+Mail-Followup-To: Maxime Ripard <maxime@cerno.tech>,
+ Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Philip Chen <philipchen@chromium.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Stephen Boyd <swboyd@chromium.org>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-kernel@vger.kernel.org
+References: <20220510192944.2408515-1-dianders@chromium.org>
+ <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
+ <20220521091751.opeiqbmc5c2okdq6@houat>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
- <20220608120723.2987843-4-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220608120723.2987843-4-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 03/12] dt-bindings: display/msm: hdmi:
- mark hdmi-mux-supply as deprecated
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220521091751.opeiqbmc5c2okdq6@houat>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
+Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,24 +85,66 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, Robert Foss <robert.foss@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/06/2022 14:07, Dmitry Baryshkov wrote:
-> hdmi-mux-supply is not used by the SoC's HDMI block, it is thought to
-> power up the external logic. Thus it should not be a part of HDMI
-> bindings, but it should be declared at some other device in the DT (like
-> HDMI mux, bridge, etc). Mark it as deprecated.
+On Sat, May 21, 2022 at 11:17:51AM +0200, Maxime Ripard wrote:
+> Hi,
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> On Tue, May 10, 2022 at 12:29:43PM -0700, Douglas Anderson wrote:
+> > This adds a devm managed version of drm_bridge_add(). Like other
+> > "devm" function listed in drm_bridge.h, this function takes an
+> > explicit "dev" to use for the lifetime management. A few notes:
+> > * In general we have a "struct device" for bridges that makes a good
+> >   candidate for where the lifetime matches exactly what we want.
+> > * The "bridge->dev->dev" device appears to be the encoder
+> >   device. That's not the right device to use for lifetime management.
+> > 
+> > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> 
+> If we are to introduce more managed helpers, I think it'd be wiser to
+> introduce them as DRM-managed, and not device managed.
+> 
+> Otherwise, you'll end up in a weird state when a device has been removed
+> but the DRM device is still around.
 
+Top-level post since I didn't see any good place to reply in the thread
+below:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+- devm is for device stuff, which drm_bridge is (it's not uapi visible in
+  any way or fasion)
 
+- drmm is for uapi visible stuff (like drm_encoder)
 
-Best regards,
-Krzysztof
+Yes the uapi-visible stuff can outlive the device-related pieces. The way
+to handle this is:
+
+- drm_dev_unplug() when the device disappears underneath you (or just a
+  part, I guess the infra for that doesn't exist yet and maybe we should
+  add it).
+
+- drm_dev_enter/exit wrapped around the device related parts.
+
+Iow, this patch here I think is the right direction, and gets my
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+But also, it's definitely not a complete solution as the discussion in the
+thread here points out.
+
+Cheers, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
