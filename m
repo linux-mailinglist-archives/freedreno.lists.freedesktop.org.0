@@ -1,55 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93E9543089
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 14:38:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9CFD54308C
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 14:38:18 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FB410E759;
-	Wed,  8 Jun 2022 12:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2123C10EF01;
+	Wed,  8 Jun 2022 12:38:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5977010E759
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 12:37:58 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id kq6so28156260ejb.11
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 05:37:58 -0700 (PDT)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83A0210E759
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 12:38:15 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id o7so7901136eja.1
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 05:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=NHIetuJMCCtxZ99NkRHS0VtGi8XQFFhwLSYL0Z9zvSg=;
- b=XxfX5E6ZIq2gg6arJxbd1VWHNHNd8ze3UjlEriuPNrOGHnYCMI7mah53xfcVh/aSdg
- 7GIAQ4LI2gGc73+XLyIiv0n64nTwuGbgCLsYJylmxNDVAoOsBdgSRJPsjxms4wbv4A4/
- Iyx111eTK9xZBykGyFKpj/gc8kVV2FEhq9T0r2gmeIUHzkisSapdLi4cAiNl1f7L0ArE
- A37xUGJmxX6yhEKaZ8o7HZe5fbdNAldU9F7RrdUX/NPPlUItlCszUk4ZbeuWH0ZVa8SH
- iHrjM4Jb91fb2BKRbsoIknZb1lIptQTJFZowbZUZOmw1HWFUdxognHXvYLe8z9zkrsyF
- NiQA==
+ bh=aEGXQECe4H9Yr1drGqc8tKF4uy6G/ckZC8sU26gHtJg=;
+ b=b0/e4QaChXD6ECkdPGCyuGyJUawjE5WGDcCNngEWwicQcNjDBbxo96ujUWEmtKrU2G
+ ZMV1/fftHeM20VSZ1GnA3cO3UI2z2DsvrBZNPz7+jiUrFVPZIBy0sgoNg5p0Pfy1zMZF
+ YNPucSatWgbT1iWYyD9lZJ1QDWLyJbfaTO/sOfHHfuGk6h60/vmfjohGEYeGC7QA6Ijl
+ sMHq3Sn0Kc6zK80Gnb/dC/bhil/qMHH5H6HB6ULVl1KM9OQgbQSpzqcyx6JC0Ie/CTlr
+ vOsO7I/mJ97tFrhOLU/JqhZnShBHwZR5U33m/zhkDAyJ/AmCyI1K/R4Fp11qMP6Sc0TM
+ rxQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=NHIetuJMCCtxZ99NkRHS0VtGi8XQFFhwLSYL0Z9zvSg=;
- b=18ZGWMptQ6DKFHSeGCmlUDS1cYZ0XcpFAT3y7gzvX5SQqu5rQbd4BHKLBrs9WdCiRl
- 8F7dUyC966YAxXRVq8Rzi7KNT/aJXKyXbpmlrN6jZ7FxwvwPaOmJEgc0b7xy2tXFv6bt
- DARKZta1SiXYQmKFo2T9zW5OBx/hDftkA3F4OUcC4U137C8FmUYiUfWkLbQbh++9hYLs
- 2gxE1HxyS6hM+UBo1ITDBvtBpueyWUT1JLcb7+TqNKPh6UddfcbPZfVP6nKEsLmqx6UG
- BQHppWRAvwH9EfZAiZnwUbNuYlYG0UnQimVgwBaY4QcChU20rf+8tDajgKgp/aokYdDB
- w12g==
-X-Gm-Message-State: AOAM533mhuKAz9Ch+rUg8UJiGIzTwJOnwALHQY9Ps7v+7RkmLu4c6Ev/
- Cm8RbR6ajby8LZfeS+BzHF1/eA==
-X-Google-Smtp-Source: ABdhPJw9TCJr3FEiqfRvqPTVN3ZNekIiUPP4dDLMm5LkpOs1Bj7RM6hndPutXi1h9Rha1wG0AAaRDg==
-X-Received: by 2002:a17:907:1628:b0:711:e3fe:50a9 with SMTP id
- hb40-20020a170907162800b00711e3fe50a9mr6738850ejc.746.1654691876853; 
- Wed, 08 Jun 2022 05:37:56 -0700 (PDT)
+ bh=aEGXQECe4H9Yr1drGqc8tKF4uy6G/ckZC8sU26gHtJg=;
+ b=peBymsSK8onDvu0MzA5s/FwJQCxkDG131lAyBIYLVEpEBh0KZQp3Yrsbjg7fmeQgVG
+ PZt2Dj7gct2PBYOiLGIlkLyPZiYS1pXJu5YvbBqfW1GeQ8aM/6WRC83GcqFnAxr/Mgq1
+ 65SjBYgR4RpVPWbS+yw6FWBZj7iyAJnCYybeYNYfmpY9wvx6mlY5vWP32n/mGTpvM+Ru
+ Ee8AluoRZeNqIyZCpgf33c5U9V2DwGTT53zwVfUwjmXjM4jcRw0EUAKvK/pCNiCuijJP
+ wlsrGYriBgSZHxnpk3BTlH1eLRC8OCDleeq1DhlhZpPR3agPvojpuTRORDou772V0vHF
+ y1SQ==
+X-Gm-Message-State: AOAM532tcZyvW6Cb9DEoqV5dan9rQilCMgxYu6ev5r0EnGJaoKKkxNhm
+ uskUvhRQO3IIbOq8Zgoot3fHIg==
+X-Google-Smtp-Source: ABdhPJw2db8NS2pKzLZNRjdCIdLmNenvGRa27Y2xy0C/8AXs/h3fBZJZTn7uOXirBYfkc7BesWdcBA==
+X-Received: by 2002:a17:906:414f:b0:711:ce99:69ec with SMTP id
+ l15-20020a170906414f00b00711ce9969ecmr14718867ejk.724.1654691894016; 
+ Wed, 08 Jun 2022 05:38:14 -0700 (PDT)
 Received: from [192.168.0.192] (xdsl-188-155-176-92.adslplus.ch.
  [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- u15-20020a05640207cf00b0042dd60352d1sm12304001edy.35.2022.06.08.05.37.55
+ t20-20020a1709066bd400b006fea3702e56sm9102856ejs.79.2022.06.08.05.38.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jun 2022 05:37:56 -0700 (PDT)
-Message-ID: <1abaa0ae-1080-1f78-70a8-6d263ded94cd@linaro.org>
-Date: Wed, 8 Jun 2022 14:37:55 +0200
+ Wed, 08 Jun 2022 05:38:13 -0700 (PDT)
+Message-ID: <1fa92614-d08f-162a-da3a-28fa9388d314@linaro.org>
+Date: Wed, 8 Jun 2022 14:38:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
@@ -61,13 +61,13 @@ To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
 References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
- <20220608120723.2987843-3-dmitry.baryshkov@linaro.org>
+ <20220608120723.2987843-4-dmitry.baryshkov@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220608120723.2987843-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220608120723.2987843-4-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 02/12] dt-bindings: display/msm: hdmi:
- mark old GPIO properties as deprecated
+Subject: Re: [Freedreno] [PATCH v2 03/12] dt-bindings: display/msm: hdmi:
+ mark hdmi-mux-supply as deprecated
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,12 +88,12 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 08/06/2022 14:07, Dmitry Baryshkov wrote:
-> Mark obsolete GPIO properties as deprecated. They are not used by
-> existing device trees. While we are at it, also drop them from the
-> schema example.
+> hdmi-mux-supply is not used by the SoC's HDMI block, it is thought to
+> power up the external logic. Thus it should not be a part of HDMI
+> bindings, but it should be declared at some other device in the DT (like
+> HDMI mux, bridge, etc). Mark it as deprecated.
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
 
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
