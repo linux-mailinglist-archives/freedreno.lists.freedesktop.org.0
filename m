@@ -2,60 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1694543886
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 18:13:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 240C9543CDD
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 21:29:17 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 736741128B1;
-	Wed,  8 Jun 2022 16:13:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 512EA10FE22;
+	Wed,  8 Jun 2022 19:29:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [IPv6:2607:f8b0:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 312251128A9;
- Wed,  8 Jun 2022 16:13:25 +0000 (UTC)
-Received: by mail-pf1-x42e.google.com with SMTP id y196so18735672pfb.6;
- Wed, 08 Jun 2022 09:13:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PcBQko4cpGjmgYpYJRhuhnU2CSYO7hE4kC+caWY2rnA=;
- b=oQZ6Co7un7vNnnwo0MWy3/ll0w9QKyta6veSEP9n7/tptqGD5afT3k9XtWSF0cUNxa
- PFePEj206aHCS0VFJr4mngObgh30ya1yOEdYiTL5fjvEDedlSFshElmJse3S4N8Cject
- exb21c7IF+GpPNoiLQQMWN2hSJRWYUjr6SYRZYhvEPUXCxr0fB6MbkPZijyJLBRo1Cbx
- zXgh5vgWZ6QZDoSb3tmnDFMdaXCV9Olq4yvHOR89B/tSoJoHHUa7QuPXuFahfLtp/78F
- j0e77VxpwNKNdVk8JZ9USyXz4Vp5L2a0x8afZdBoD4+w5nTrF3YJLec/E/pXN8W6X+F6
- FtUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PcBQko4cpGjmgYpYJRhuhnU2CSYO7hE4kC+caWY2rnA=;
- b=shm21/J1Gn2A/Y1dIXjCJ0f7djvongDBYz3qGzTCK2j1/UWglNDa1C9RYHNGk0ku9k
- f3xgTGm0QreNMbiVCoyggalp0FdhT1AYGwLhpmz8uk6aRXgDW9PZtHNJe5CsuXGP8ZVW
- zKlS6k5SCFvCTriwhnfGQbPo/ynh1973CcQA3r7b1tQdEz1nX5vWGyQjt3v5DdG4q75M
- MB/lF5fW+cDfzIeDJ8TWOBJG3OIYK4TccwYm2Sdy8UcBcMOqwFXUB2ZIXXUbyPuVA7aY
- XEBgggFJT3JJPE9oJtAwmznq0tB8i831ecEWOWzPW1s/KXzjm6tgWxGqvCGLYoEVqVRx
- 2YKA==
-X-Gm-Message-State: AOAM531RF1WmFnruLFpmWlAF0e0Xm+pL1PqCph4BlWRQFCSWXr8QJUfw
- NAeaqIbLaFPcH8j0D7IKyUp3b6bT3Ao=
-X-Google-Smtp-Source: ABdhPJwdj4TeVR34T3U2JQQQVLO5VGGvV0SXi0bl8R1KnEsKJMkgXRtIFUWA4fiWZ+faIzjfjfHbSg==
-X-Received: by 2002:aa7:8691:0:b0:51c:db9:4073 with SMTP id
- d17-20020aa78691000000b0051c0db94073mr18712151pfo.72.1654704803766; 
- Wed, 08 Jun 2022 09:13:23 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- cp15-20020a170902e78f00b0015e8d4eb213sm14972161plb.93.2022.06.08.09.13.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jun 2022 09:13:22 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed,  8 Jun 2022 09:13:34 -0700
-Message-Id: <20220608161334.2140611-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C164210FA63;
+ Wed,  8 Jun 2022 19:29:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654716553; x=1686252553;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=BZdpUZIWhAaLzKQoiW64mA5GcDePFfVEhO4psuS1qss=;
+ b=C/g4x1tvlXCp7C8jyi1LYKQgLiVFwStl+jezb87njem44UV/jsTDCvYW
+ yAjCBtaUXESeeTYyJEzuiH2CRYJsz6VSJUTx+U/BqwHF9aRT00x+gKCji
+ akmsSieP34Tu4ru75s3GZRRx6BDc+tnfc94ISL6tC8A0oUTDfwZ4fM4PI A=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 08 Jun 2022 12:29:13 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2022 12:29:13 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 8 Jun 2022 12:29:12 -0700
+Received: from [10.111.166.162] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 8 Jun 2022
+ 12:29:10 -0700
+Message-ID: <e56780cb-44c1-b26b-90b8-ceb40b8f218b@quicinc.com>
+Date: Wed, 8 Jun 2022 12:29:08 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm: Switch ordering of runpm put vs
- devfreq_idle
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20220531121825.1126204-1-dmitry.baryshkov@linaro.org>
+ <d7084452-ea90-3a8b-d39a-b09d9f45f839@quicinc.com>
+ <CAA8EJprW7xnYJaeqh4vozSTx04DcQ20MMRrzLaEJPJTC3dV30w@mail.gmail.com>
+ <80c1da0f-0006-6602-ec86-ebdf71c3037a@quicinc.com>
+ <CAA8EJppfWfP-bZLOYF8QBe6kW6gBBw5eXpzzDA6GFo8U7g=jRQ@mail.gmail.com>
+ <963f5ef5-4b1d-6b0d-5b6d-0d6136e9e8d3@quicinc.com>
+ <CAA8EJppCiN65NV7w9TyR=P+XzGPVxZJoAZoX5+XjxKwXsL_FQg@mail.gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <CAA8EJppCiN65NV7w9TyR=P+XzGPVxZJoAZoX5+XjxKwXsL_FQg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm: less magic numbers in
+ msm_mdss_enable
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,103 +71,212 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Doug Anderson <dianders@chromium.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
+Cc: Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Stephen
+ Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-I've seen a few crashes like:
 
-    CPU: 0 PID: 216 Comm: A618-worker Tainted: G        W         5.4.196 #7
-    Hardware name: Google Wormdingler rev1+ INX panel board (DT)
-    pstate: 20c00009 (nzCv daif +PAN +UAO)
-    pc : msm_readl+0x14/0x34
-    lr : a6xx_gpu_busy+0x40/0x80
-    sp : ffffffc011b93ad0
-    x29: ffffffc011b93ad0 x28: ffffffe77cba3000
-    x27: 0000000000000001 x26: ffffffe77bb4c4ac
-    x25: ffffffa2f227dfa0 x24: ffffffa2f22aab28
-    x23: 0000000000000000 x22: ffffffa2f22bf020
-    x21: ffffffa2f22bf000 x20: ffffffc011b93b10
-    x19: ffffffc011bd4110 x18: 000000000000000e
-    x17: 0000000000000004 x16: 000000000000000c
-    x15: 000001be3a969450 x14: 0000000000000400
-    x13: 00000000000101d6 x12: 0000000034155555
-    x11: 0000000000000001 x10: 0000000000000000
-    x9 : 0000000100000000 x8 : ffffffc011bd4000
-    x7 : 0000000000000000 x6 : 0000000000000007
-    x5 : ffffffc01d8b38f0 x4 : 0000000000000000
-    x3 : 00000000ffffffff x2 : 0000000000000002
-    x1 : 0000000000000000 x0 : ffffffc011bd4110
-    Call trace:
-     msm_readl+0x14/0x34
-     a6xx_gpu_busy+0x40/0x80
-     msm_devfreq_get_dev_status+0x70/0x1d0
-     devfreq_simple_ondemand_func+0x34/0x100
-     update_devfreq+0x50/0xe8
-     qos_notifier_call+0x2c/0x64
-     qos_max_notifier_call+0x1c/0x2c
-     notifier_call_chain+0x58/0x98
-     __blocking_notifier_call_chain+0x74/0x84
-     blocking_notifier_call_chain+0x38/0x48
-     pm_qos_update_target+0xf8/0x19c
-     freq_qos_apply+0x54/0x6c
-     apply_constraint+0x60/0x104
-     __dev_pm_qos_update_request+0xb4/0x184
-     dev_pm_qos_update_request+0x38/0x58
-     msm_devfreq_idle_work+0x34/0x40
-     kthread_worker_fn+0x144/0x1c8
-     kthread+0x140/0x284
-     ret_from_fork+0x10/0x18
-    Code: f9000bf3 910003fd aa0003f3 d503201f (b9400260)
-    ---[ end trace f6309767a42d0831 ]---
+On 6/2/2022 1:13 PM, Dmitry Baryshkov wrote:
+> On Thu, 2 Jun 2022 at 21:18, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>>
+>>
+>> On 6/1/2022 1:04 PM, Dmitry Baryshkov wrote:
+>>> On Wed, 1 Jun 2022 at 20:38, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 6/1/2022 2:46 AM, Dmitry Baryshkov wrote:
+>>>>> On Wed, 1 Jun 2022 at 01:01, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>>>>> On 5/31/2022 5:18 AM, Dmitry Baryshkov wrote:
+>>>>>>> Replace magic register writes in msm_mdss_enable() with version that
+>>>>>>> contains less magic and more variable names that can be traced back to
+>>>>>>> the dpu_hw_catalog or the downstream dtsi files.
+>>>>>>>
+>>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>>>>> ---
+>>>>>>>      drivers/gpu/drm/msm/msm_mdss.c | 79 ++++++++++++++++++++++++++++++----
+>>>>>>>      1 file changed, 71 insertions(+), 8 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+>>>>>>> index 0454a571adf7..2a48263cd1b5 100644
+>>>>>>> --- a/drivers/gpu/drm/msm/msm_mdss.c
+>>>>>>> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+>>>>>>> @@ -21,6 +21,7 @@
+>>>>>>>      #define HW_REV                              0x0
+>>>>>>>      #define HW_INTR_STATUS                      0x0010
+>>>>>>>
+>>>>>>> +#define UBWC_DEC_HW_VERSION          0x58
+>>>>>>>      #define UBWC_STATIC                 0x144
+>>>>>>>      #define UBWC_CTRL_2                 0x150
+>>>>>>>      #define UBWC_PREDICTION_MODE                0x154
+>>>>>>> @@ -132,9 +133,63 @@ static int _msm_mdss_irq_domain_add(struct msm_mdss *msm_mdss)
+>>>>>>>          return 0;
+>>>>>>>      }
+>>>>>>>
+>>>>>>> +#define UBWC_1_0 0x10000000
+>>>>>>> +#define UBWC_2_0 0x20000000
+>>>>>>> +#define UBWC_3_0 0x30000000
+>>>>>>> +#define UBWC_4_0 0x40000000
+>>>>>>> +
+>>>>>>> +static void msm_mdss_setup_ubwc_dec_20(struct msm_mdss *msm_mdss,
+>>>>>>> +                                    u32 ubwc_static)
+>>>>>>> +{
+>>>>>>> +     writel_relaxed(ubwc_static, msm_mdss->mmio + UBWC_STATIC);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static void msm_mdss_setup_ubwc_dec_30(struct msm_mdss *msm_mdss,
+>>>>>>> +                                    unsigned int ubwc_version,
+>>>>>>> +                                    u32 ubwc_swizzle,
+>>>>>>> +                                    u32 highest_bank_bit,
+>>>>>>> +                                    u32 macrotile_mode)
+>>>>>>> +{
+>>>>>>> +     u32 value = (ubwc_swizzle & 0x1) |
+>>>>>>> +                 (highest_bank_bit & 0x3) << 4 |
+>>>>>>> +                 (macrotile_mode & 0x1) << 12;
+>>>>>>> +
+>>>>>>> +     if (ubwc_version == UBWC_3_0)
+>>>>>>> +             value |= BIT(10);
+>>>>>>> +
+>>>>>>> +     if (ubwc_version == UBWC_1_0)
+>>>>>>> +             value |= BIT(8);
+>>>>>>> +
+>>>>>>> +     writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static void msm_mdss_setup_ubwc_dec_40(struct msm_mdss *msm_mdss,
+>>>>>>> +                                    unsigned int ubwc_version,
+>>>>>>> +                                    u32 ubwc_swizzle,
+>>>>>>> +                                    u32 ubwc_static,
+>>>>>>> +                                    u32 highest_bank_bit,
+>>>>>>> +                                    u32 macrotile_mode)
+>>>>>>> +{
+>>>>>>> +     u32 value = (ubwc_swizzle & 0x7) |
+>>>>>>> +                 (ubwc_static & 0x1) << 3 |
+>>>>>>> +                 (highest_bank_bit & 0x7) << 4 |
+>>>>>>> +                 (macrotile_mode & 0x1) << 12;
+>>>>>>> +
+>>>>>>> +     writel_relaxed(value, msm_mdss->mmio + UBWC_STATIC);
+>>>>>>> +
+>>>>>>> +     if (ubwc_version == UBWC_3_0) {
+>>>>>>> +             writel_relaxed(1, msm_mdss->mmio + UBWC_CTRL_2);
+>>>>>>> +             writel_relaxed(0, msm_mdss->mmio + UBWC_PREDICTION_MODE);
+>>>>>>> +     } else {
+>>>>>>> +             writel_relaxed(2, msm_mdss->mmio + UBWC_CTRL_2);
+>>>>>>> +             writel_relaxed(1, msm_mdss->mmio + UBWC_PREDICTION_MODE);
+>>>>>>> +     }
+>>>>>>> +}
+>>>>>>> +
+>>>>>>
+>>>>>> Is it possible to unify the above functions by having the internal
+>>>>>> ubwc_version checks?
+>>>>>
+>>>>> Note, it's not the ubwc_version, it is the ubwc_dec_hw_version. And
+>>>>> also different functions take different sets of arguments.
+>>>>>
+>>>>>> It seems like msm_mdss_setup_ubwc_dec_xxx can keep growing.
+>>>>>>
+>>>>>> I have not looked into each bit programming but from the top level so
+>>>>>> feel free to correct if wrong but it seems both do write UBWC_STATIC
+>>>>>> (different values based on different UBWC versions) and write some extra
+>>>>>> registers based on version
+>>>>>
+>>>>> This is what both the current code and the downstream do. See
+>>>>> https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/zeus-s-oss/techpack/display-drivers/msm/sde/sde_hw_top.c#L312
+>>>>>
+>>>>
+>>>> Thanks for pointing to the downstream method for this,
+>>>>
+>>>> This is exactly what i was also suggesting to do when I mentioned
+>>>> unifying the above functions.
+>>>>
+>>>> So instead of having a separate function for each version why not handle
+>>>> all the versions in the same function like what the link you have shown
+>>>> does.
+>>>
+>>> I wouldn't like that. The downstream uses hw_catalog to pass all
+>>> possible parameters. We do not, so we'd have a whole set of artificial
+>>> values.
+>>>
+>>
+>> Now that you brought that up, why cannot even upstream dpu start using
+>> catalog for ubwc settings?
+> 
+> Because msm_mdss lives out of disp/dpu1. And using the disp/dpu1 for
+> it would be an inversion of dependencies.
+> I like the fact that msm_mdss is independent of mdp/dpu drivers and I
+> do not want to add such dependency.
+> 
 
-Which smells a lot like touching hw after power collapse.  This seems
-a bit like a race/timing issue elsewhere, as pm_runtime_get_if_in_use()
-in a6xx_gpu_busy() should have kept us from touching hw if it wasn't
-powered.
+Ok, so I think this function itself is placed incorrectly. It should not 
+be in msm_mdss.c and should in the DPU folder.
 
-But, we've seen cases where the idle_work scheduled by
-msm_devfreq_idle() ends up racing with the resume path.  Which, again,
-shouldn't be a problem other than unnecessary freq changes.
+This check tells me that this will not be executed for mdp5 devices.
 
-v2. Only move the runpm _put_autosuspend, and not the _mark_last_busy()
+    /*
+      * HW_REV requires MDSS_MDP_CLK, which is not enabled by the mdss on
+      * mdp5 hardware. Skip reading it for now.
+      */
+     if (msm_mdss->is_mdp5)
+         return 0;
 
-Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Link: https://lore.kernel.org/r/20210927152928.831245-1-robdclark@gmail.com
----
- drivers/gpu/drm/msm/msm_gpu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+In that case, what prevents us from moving this to dpu and start using 
+catalog for this?
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index eb8a6663f309..244511f85044 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -672,7 +672,6 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 	msm_submit_retire(submit);
- 
- 	pm_runtime_mark_last_busy(&gpu->pdev->dev);
--	pm_runtime_put_autosuspend(&gpu->pdev->dev);
- 
- 	spin_lock_irqsave(&ring->submit_lock, flags);
- 	list_del(&submit->node);
-@@ -686,6 +685,8 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 		msm_devfreq_idle(gpu);
- 	mutex_unlock(&gpu->active_lock);
- 
-+	pm_runtime_put_autosuspend(&gpu->pdev->dev);
-+
- 	msm_gem_submit_put(submit);
- }
- 
--- 
-2.36.1
-
+>>
+>> /* struct dpu_mdp_cfg : MDP TOP-BLK instance info
+>>    * @id:                index identifying this block
+>>    * @base:              register base offset to mdss
+>>    * @features           bit mask identifying sub-blocks/features
+>>    * @highest_bank_bit:  UBWC parameter
+>>    * @ubwc_static:       ubwc static configuration
+>>    * @ubwc_swizzle:      ubwc default swizzle setting
+>>    * @clk_ctrls          clock control register definition
+>>    */
+>> struct dpu_mdp_cfg {
+>>       DPU_HW_BLK_INFO;
+>>       u32 highest_bank_bit;
+>>       u32 ubwc_swizzle;
+>>       struct dpu_clk_ctrl_reg clk_ctrls[DPU_CLK_CTRL_MAX];
+>> };
+>>
+>> We already do seem to have a couple of parameters. have to add the others.
+>>
+>> That way the number of functions wont keep growing.
+>>
+>>>>
+>>>>>>
+>>>>>>>      static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+>>>>>>>      {
+>>>>>>>          int ret;
+>>>>>>> +     u32 hw_rev;
+>>>>>>>
+>>>>>>>          ret = clk_bulk_prepare_enable(msm_mdss->num_clocks, msm_mdss->clocks);
+>>>>>>>          if (ret) {
+>>>>>>> @@ -149,26 +204,34 @@ static int msm_mdss_enable(struct msm_mdss *msm_mdss)
+>>>>>>>          if (msm_mdss->is_mdp5)
+>>>>>>>                  return 0;
+>>>>>>>
+>>>>>>> +     hw_rev = readl_relaxed(msm_mdss->mmio + HW_REV);
+>>>>>>> +     dev_info(msm_mdss->dev, "HW_REV: 0x%x\n", hw_rev);
+>>>>>>> +     dev_info(msm_mdss->dev, "UBWC_DEC_HW_VERSION: 0x%x\n",
+>>>>>>> +             readl_relaxed(msm_mdss->mmio + UBWC_DEC_HW_VERSION));
+>>>>>>
+>>>>>> we are already printing the HW version here
+>>>>>>
+>>>>>> https://gitlab.freedesktop.org/drm/msm/-/blob/msm-next/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c#L1096
+>>>>>>
+>>>>>> Do you want to remove that print then? May be. Let me take a look.
+>>>>>
+>>>>> [skipped]
+>>>>>
+>>>
+>>>
+>>>
+> 
+> 
+> 
