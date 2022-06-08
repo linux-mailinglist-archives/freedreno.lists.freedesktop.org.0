@@ -2,53 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B278E543E0C
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 22:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8DC543E10
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 23:00:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5DC11A178;
-	Wed,  8 Jun 2022 20:59:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208B811A1A4;
+	Wed,  8 Jun 2022 21:00:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88C4911A178
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 20:59:42 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id w16so19751384oie.5
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 13:59:42 -0700 (PDT)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C4C11A1AB
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 21:00:25 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-e5e433d66dso28763380fac.5
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 14:00:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=FcmDs4vqa+TasYfpZVJLUBpBUyUSt1C9HSlbOciM/mM=;
- b=YOMVdz3SS4pfTUc9aTrCX3WuwDW/bMFrATGKllus5yfo9SvZzofwCdlpHpiVN2Gns1
- d5AZNsNbRhYDQS0Desv3WuqN0QQ7dyGM9dNZLwc9yMWJqwcHPW4heAwNTOStgVTvxTZY
- UfX9r8aXugrnDZJlQ4ycpUXv10eFgNnA5EuHQ=
+ bh=RfojhM+HvhoFUnCUYXubG1c+YnDVOjxUgDJWQ5CNrD8=;
+ b=Zbg5T0Ft2Qyes3tF93Q6J0IzPyCQhYKtIWw0jw6DstsqqYQV1A/dk+2CMasNFSbRvB
+ 4c0u2mufR0ywsmnFBOkHTL0n5Fg+v3ZSb40aysn12VBT5NzbFrfKUHDL/jQZXUw23KRE
+ qt5+O6JXDBXfWdg0zBNwFvXEibj0LTQqci6zg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=FcmDs4vqa+TasYfpZVJLUBpBUyUSt1C9HSlbOciM/mM=;
- b=vqgUqLrcj7XyoAXInSELiltf5pRj5L8XNH8QHDdEt6iY5pMCsnT5tgH/hZ0aMHP0sj
- OL9CuAMlThPlgmG9jfr+AsOXqgZYBDVjIDGaMjQHalOnEnJpNn9jAZpu+Ce+QY9WzuDk
- 23WvpZOMA6X3ZwQ1+Xg4UrRgHrLTnWUM0X8wnStTy/kr6TlHC0a1Twf49SuLqK8yfDiP
- 5xOgCyDnTi+8VFxHET9hiTZjwv8ck96OTXHMnLeDhW3WnK61gPdmdQVVQFDGo5Wd68mC
- PXlVfTREx0hLSHN7F4PqqzYp37hzLo2+A2+R04bM0oVvIasTKVihSI1yG/9IK/L6LDJN
- szrQ==
-X-Gm-Message-State: AOAM530R6C7dk9YpIKnKx++2DzT20vvVhmYD4wdeBG7wRCGHJMtmW2Gh
- aT4MXSi7LkSDGiq5vBiLaX4ptIhSOsAtJrzECtFaMA==
-X-Google-Smtp-Source: ABdhPJxnlj9sN3+K7oKRZ4gWu7RbfsNuNQkj4EkKq1yNdOgmwVZ5t/rmtKGAs68dcNiueV47wbdHzEDCVycwsnvzh9U=
-X-Received: by 2002:a05:6808:1703:b0:32e:851e:7f81 with SMTP id
- bc3-20020a056808170300b0032e851e7f81mr3564449oib.63.1654721981740; Wed, 08
- Jun 2022 13:59:41 -0700 (PDT)
+ bh=RfojhM+HvhoFUnCUYXubG1c+YnDVOjxUgDJWQ5CNrD8=;
+ b=VqFaI6JRuCLcxhr5jvX1+JeqFhwFmSZ8HonDgtxNjB7y0GACaasWIKUYeOvzxBgGus
+ kHk67k59Ev7gnh+k8G3p2D/UShij1Bk8smspu88X9TFpYa5REFsOSno22GWrBw1upTuN
+ Z3CsmcRtVyzfVuv7g8AFjE0pY4YyR9Ii/a3qHTqHWFzOFS+E8VRrEczToyyUST6XAhrk
+ 8V0WU5nSmoVTWGX/wgxnWi/JrLFkjYhMJYSykt3CS2NxOleRWR7hL14fNdWZKokytE6R
+ Goey6HKHM+Jbvz4mnrL9zEnjXhQj0mcLKBPMaohED1yFB7vHIsrKEWPS1coxGTboHyWa
+ n5QA==
+X-Gm-Message-State: AOAM533R5zHc4HECQrWUXFCNofW0fI/RJf0uzivvw/0ozFAdjDpTW4dn
+ JxWfml3vDWFGU1l1bYrejIEcZtWr1Gpju4YvDBnUHA==
+X-Google-Smtp-Source: ABdhPJwFBJUEkULzJAaH7LxPz94JppRi9Mr0BKxOSBfhv34a+e+Ti2dPDnik5hKcgov0hA6wVNLtyuNw8WJ6wXaJ0Y8=
+X-Received: by 2002:a05:6870:240d:b0:f1:b878:e97c with SMTP id
+ n13-20020a056870240d00b000f1b878e97cmr3374939oap.193.1654722025105; Wed, 08
+ Jun 2022 14:00:25 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Jun 2022 13:59:41 -0700
+ HTTPREST; Wed, 8 Jun 2022 14:00:24 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220608120723.2987843-7-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220608120723.2987843-9-dmitry.baryshkov@linaro.org>
 References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
- <20220608120723.2987843-7-dmitry.baryshkov@linaro.org>
+ <20220608120723.2987843-9-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Wed, 8 Jun 2022 13:59:41 -0700
-Message-ID: <CAE-0n53z_nWsgVVn-4LbsP1GuzTgCa+DDDDE0y8k3+s-t=eSBA@mail.gmail.com>
+Date: Wed, 8 Jun 2022 14:00:24 -0700
+Message-ID: <CAE-0n53BuO91fZEQzTmhOmNxvdmLBfJaf7cu77FGU5hZgme2RQ@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
@@ -56,8 +57,8 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>,
  Rob Clark <robdclark@gmail.com>, 
  Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 06/12] drm/msm/hdmi: drop unused GPIO
- support
+Subject: Re: [Freedreno] [PATCH v2 08/12] drm/msm/hdmi: drop empty 'none'
+ regulator lists
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,34 +77,12 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-06-08 05:07:17)
-> @@ -543,41 +529,16 @@ static int msm_hdmi_bind(struct device *dev, struct device *master, void *data)
->         hdmi_cfg->mmio_name     = "core_physical";
->         hdmi_cfg->qfprom_mmio_name = "qfprom_physical";
+Quoting Dmitry Baryshkov (2022-06-08 05:07:19)
+> Several platform configs use empty 'none' regulator arrays. They are not
+> necessary, as the code will use corresponding _cnt field and skip the
+> array completely. Drop them now.
 >
-> -       for (i = 0; i < HDMI_MAX_NUM_GPIO; i++) {
-[...]
-> -               if (gpiod)
-> -                       gpiod_set_consumer_name(gpiod, msm_hdmi_gpio_pdata[i].label);
-> -               hdmi_cfg->gpios[i].output = msm_hdmi_gpio_pdata[i].output;
-> -               hdmi_cfg->gpios[i].value = msm_hdmi_gpio_pdata[i].value;
-> -       }
-> +       hdmi->hpd_gpiod = devm_gpiod_get_optional(dev, "hpd", GPIOD_IN);
-> +       /* This will catch e.g. -PROBE_DEFER */
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-EPROBE_DEFER?
-
-> +       if (IS_ERR(hdmi->hpd_gpiod))
-> +               return PTR_ERR(hdmi->hpd_gpiod);
-> +
-> +       if (!hdmi->hpd_gpiod)
-> +               DBG("failed to get HPD gpio");
-
-Does DBG() add newlines?
-
-> +
-> +       if (hdmi->hpd_gpiod)
-> +               gpiod_set_consumer_name(hdmi->hpd_gpiod, "HDMI_HPD");
->
->         dev->platform_data = hdmi_cfg;
->
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
