@@ -2,54 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2335543E20
-	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 23:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD7ED543E25
+	for <lists+freedreno@lfdr.de>; Wed,  8 Jun 2022 23:04:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13F8011A2CC;
-	Wed,  8 Jun 2022 21:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6622F11A2F6;
+	Wed,  8 Jun 2022 21:04:50 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AE8B11A2CC
- for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 21:04:10 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- r12-20020a056830448c00b0060aec7b7a54so15963735otv.5
- for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 14:04:10 -0700 (PDT)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF7711A2F4
+ for <freedreno@lists.freedesktop.org>; Wed,  8 Jun 2022 21:04:48 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-fb1ae0cd9cso18191525fac.13
+ for <freedreno@lists.freedesktop.org>; Wed, 08 Jun 2022 14:04:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=h3WYdhT+bSyEFJQRK2T2Y7MQ9aMLpv/BsDHvjB1RCFo=;
- b=OV8nFHwFV8+oaUgIpeZSsMa+igLoLIgsbGnG1Ekd6Pju2FJ57wm40rgHI9uPr/tLzX
- WXq76Gqx58nsJjvNT0+UhRTm5PcUqWeeV+0phPaDqsk0aJpBXduSfsl1UpE6+Ksr1bYw
- NU9pj/krznBcya3uKkZSxUBbF6zSq2wr+EF/0=
+ bh=76kDmXTl6n20l0N3wMIAHBopXj92kDXl0aNreW0xlog=;
+ b=ACuv6dIrKUhatTPgkh9ihw4JDfAtZuexalyvUFBehcn/g+w/cHWDoutvKBlHUMd2kw
+ peSHMKjHkNUiammMRf68xcZ2JmCc/DhEmaL6TiakXagb0GPM5zat5pp83dPEot/afrw1
+ N2gj2q2+Wy8zKbhtuhcf7H9z2iAhobZcKb7GM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=h3WYdhT+bSyEFJQRK2T2Y7MQ9aMLpv/BsDHvjB1RCFo=;
- b=F4yxUJGAo8oiEzdFJcGZnyqzEAnJviC7tSETSKbiZ5KAq6ukrSPo0H1GTjDk/EpDRX
- aKaBNhLar/HU22qrLSg+wuTIUcSbDYJeg5I4VYKfNxBWQ3DEcDG98OX5VrsbzvowdYvE
- +DLx0uu9dfwrA50H+KAlzCXSG2ZGSJwxInZ6TUNV0EPF93MaBvyeL2xDCOwY2t9R9+hT
- FYOfoZQbE8Vp82Yn1hwxnE17OvmEmIr+y8cOGk4M93KsLAiiCkCiKyEurS1Wrh6XOjX4
- qCtdwGXC1wl21uBlXuPY6rlJlx00FkF46s71m+5qSOJqVLmdw8lP3vfaw7v+K6Az4hyL
- v11A==
-X-Gm-Message-State: AOAM5318RNgzA6zq+inPKfzWKjDEfvH1N5OFBAsVo5A8e2JGW4A0nbzB
- HKnrjYbC/gbwdu2QEHWUlP+LEhAdVyB8lSaHL+B1pA==
-X-Google-Smtp-Source: ABdhPJyEjeij56wVLmMzReZohtc8fJnmcF7nuZKiyj5xoJItE95hmxq6PmAGeiZCmyQ8BoRvSHdowjvMNXYqpBsHYXA=
-X-Received: by 2002:a9d:729b:0:b0:60c:21bd:97c0 with SMTP id
- t27-20020a9d729b000000b0060c21bd97c0mr602063otj.77.1654722249602; Wed, 08 Jun
- 2022 14:04:09 -0700 (PDT)
+ bh=76kDmXTl6n20l0N3wMIAHBopXj92kDXl0aNreW0xlog=;
+ b=6xiXDEG4Cv/sb81dbon0m22yvu5PgYK6R9Yfu1EhAnjl8ndKqyB4w/hKIuIu1IUTih
+ BtriPJ5g5Va5dZjD+0DDTtoVqn+JgQzrzBtuGZ8fHyNpsGWOnEAjnjIrSBvNofw3YLdV
+ ntWUevSaH28NCmF3Kbe7ehhP3m4EkCX68w/HztoYpa03WI4TyrJxVsx5oBfe+sBknS+g
+ Qttaj7jjPRnPQ5a051zvzYOSy+RRI8G3qvwnWuF7nG/ryq3BvDB71ECuC4njK6jXRQ8v
+ S3/2igD5dIKjDr+0hlnShLXw5vsx7mCcGHlK2NPlQ49tBuFje9y0T8CM0O75t7kB2h5F
+ USTw==
+X-Gm-Message-State: AOAM530UeZrtwOdq4Mu0olL4nLmFbb5ee1QA2RJciEsORPmJVP6uGYoE
+ uAJoRRwBIKdfQo0/91Uk8HYFFVl+t8UFLNz6eqSOWg==
+X-Google-Smtp-Source: ABdhPJx5QgouVrnNVjSRQ5Ti8tygKWrwahuC3IBuZEnkG6Id6JLff5As9nN3YO6dFQR/ervQ0uOSDKBZDydn+sTQqj8=
+X-Received: by 2002:a05:6870:240d:b0:f1:b878:e97c with SMTP id
+ n13-20020a056870240d00b000f1b878e97cmr3386036oap.193.1654722287412; Wed, 08
+ Jun 2022 14:04:47 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Jun 2022 14:04:09 -0700
+ HTTPREST; Wed, 8 Jun 2022 14:04:46 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220608120723.2987843-11-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220608120723.2987843-12-dmitry.baryshkov@linaro.org>
 References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
- <20220608120723.2987843-11-dmitry.baryshkov@linaro.org>
+ <20220608120723.2987843-12-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Wed, 8 Jun 2022 14:04:09 -0700
-Message-ID: <CAE-0n51Yr4PCGRakrSapUEdCKe7oFa3axw=5BXdDXK3D6b8NMw@mail.gmail.com>
+Date: Wed, 8 Jun 2022 14:04:46 -0700
+Message-ID: <CAE-0n536e0+huMmmiBaXMZ4v_GiOYfrEh6Zp1b5piLpv4WMogw@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>, 
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
@@ -57,8 +57,8 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Andy Gross <agross@kernel.org>,
  Rob Clark <robdclark@gmail.com>, 
  Rob Herring <robh+dt@kernel.org>, Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 10/12] drm/msm/hdmi: merge platform
- config for 8974/8084/8994/8996
+Subject: Re: [Freedreno] [PATCH v2 11/12] drm/msm/hdmi: reuse MSM8960's
+ config for MSM8660
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,10 +77,9 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-06-08 05:07:21)
-> Since there is no more difference between the HDMI platform data
-> between MSM8974/APQ8084/MSM8994/MSM8996, merge these configs into a
-> single entry.
+Quoting Dmitry Baryshkov (2022-06-08 05:07:22)
+> MSM8660 requires the same set of clocks and regulators as MSM8960. Reuse
+> MSM8960's config for the MSM8660 (8x60).
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
