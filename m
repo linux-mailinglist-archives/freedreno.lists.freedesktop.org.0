@@ -1,74 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 775D7544B5F
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 14:10:29 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E5A544BA7
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 14:23:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7EBC11A133;
-	Thu,  9 Jun 2022 12:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFFB011BE5D;
+	Thu,  9 Jun 2022 12:23:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
  [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25AD011A08B
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:10:26 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id u26so36938717lfd.8
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:10:26 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 675F411BE5E
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:23:53 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id u26so36991038lfd.8
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:23:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=QSG20Dj6ndvabyRb1c78eTbY+WPCIgmk0mLj5fnfkZc=;
- b=yQKeO/Z2I0TkmD51XdZCPv8rndgXW2el6J4HIJe8EIgTxElnD7e53n1HVblBwk0mSH
- /OL51MvESzk+OSfstbvtRK7HkC5CfWoBkQ5DafO7X4w4naZypTtCpPv3wtQuHf5w/APp
- AdtLE6rLqvrH59UL2r7T+mFuUG5rOnl+s0EhkCr5rKP6JQdyoRBRMu7+/dA1HzvQjSfA
- fVNYV4DEU8dNTo8jAfZ4fOxFTT0CIUBgFGtgSQb5Cu9RpfO10idNjaP9F4DC9R8qd03/
- ricINP2QR0CJS8dwHMPx6jjXnkITY2DYestbvJJjvut1Qu2V+HkwjZ/C3dwVjViaLc1r
- Yscg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Zd34kREa0n00H398I8o2YhXQla1j3aeJKt50d9fLvpQ=;
+ b=a9GC6/AhrnYGFqHxrVH0bfIEVxyfwQBfJxpCnNS8YjK467zxQBT4yZTfTSntHLIAng
+ QYi+ajizkgGnyx0L9wAOewRZtUf+uxC8vEiClZaW2xtNbro5e5opB2WwmKca3ShcHzLY
+ ceR/O2a9U3d953WuKHVJnrt+INC+KfwRSlGC66H3xS0fgNOFRSG8Ftqq/oSZW59NlSg6
+ YVs8i9F0pfwFEwbPi/oGIWpPhPJ3+MnXPZSFG0P++PAqhNnwkZKnSKhAP03s6VkOuPNU
+ ViOgAhJT9Sfuq/cFQ8lysnt6GxmpSv/Vhtu25ivjGCGlz7eot/B4OZHTYugO2r19WNwt
+ Godw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=QSG20Dj6ndvabyRb1c78eTbY+WPCIgmk0mLj5fnfkZc=;
- b=xtgxczwaW+7EbACnujv0IxVOK8NRjQulPzGk7hOGYvYuZ/XRt8SEMvaKRc+vB2K/vf
- Yq+MezBJvXbzz9Wu+aCRcDS3BCySPXVBiUkyQd1KkoDdiIPdwfDlkXb+gDMrENXGGQkl
- mnXdlmEvGJrz/nP1Pd9IibVXOtrmVr3aCF4RNpQOZaYEKX7pmTFQ+oQOUfLi2BG9abS0
- QpiRWAdGWDQVXMAKJYhg/OdPOBnFAv38cC8FhOw7lV/l8SXf58lksnHvSv0VKL/3kouQ
- dQTD5sE07OkbVnMr8B+/Fg6IQDwJgqrbNeOE0a/5/yoouEfX9Wp4acnOxFxgvahvJVLb
- lXxg==
-X-Gm-Message-State: AOAM531cEcZWkcA++1AYsDOVxMJQgVCLYvmZUPWzeYDpuRW8h43vP73A
- c80sgQGI7OyWO2eL/TAbRlRaCA==
-X-Google-Smtp-Source: ABdhPJx4hS6cWFi0csc42PotruFgLnEop7eKNzSQaLClCXHVQwjjzFnQZjWmDt88EW5Yplrdbl5cVQ==
-X-Received: by 2002:a05:6512:92c:b0:479:7a74:8427 with SMTP id
- f12-20020a056512092c00b004797a748427mr4722918lft.126.1654776624478; 
- Thu, 09 Jun 2022 05:10:24 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- f25-20020a19dc59000000b0047255d211afsm4199310lfj.222.2022.06.09.05.10.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jun 2022 05:10:24 -0700 (PDT)
-Message-ID: <98c98ef4-06df-0aae-ecf7-77e181f566f4@linaro.org>
-Date: Thu, 9 Jun 2022 15:10:23 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-GB
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ bh=Zd34kREa0n00H398I8o2YhXQla1j3aeJKt50d9fLvpQ=;
+ b=Lva8gVD4+K9ClU8MBX65WH3/QkFdP3mIVPIFawMVOEACv7+dlK5vrLfSCLTL9hEKFP
+ KY8dR+j3FsI7uOpV3vkSyrFd7Z0BQdFCMaBLoXehulbRoZ1vi1X46Rl4lFT5hn75oRcc
+ cBsFx5ytbzY0v8YbNkVNFSgKMCcsrzwzO9vj1SKBndaSsh3uUsIEXKZXx1zPmDgFxcYe
+ MLQHFWNQA+OAclBEEb6SnsW7VlQQyE35bG5LDb+JU6vL2YSuRqA9VbHRhk9PTk07MFcM
+ yqPN0jARq1OnpHFQBSX4TKrdmNt7qPwUtLPEO69P+q/OuBQh4fNaO8/uHdODhAbXuu7Z
+ OHCA==
+X-Gm-Message-State: AOAM533IuZ5ABTncxndFCaeVgAEDlWWSQziRoTzxdogbQI9C+770swKJ
+ pZpDEgljd+8r8SbRG/HpupApofYCSLnI7twd
+X-Google-Smtp-Source: ABdhPJyxqJwN1fJVc3vG+X2bWsbFDHRVBc9p4ES3Hjxr0Pn1co0TJLZTo0YqlK6Z6CtHpmd8TDH7nA==
+X-Received: by 2002:ac2:5e37:0:b0:478:f418:a2a9 with SMTP id
+ o23-20020ac25e37000000b00478f418a2a9mr31156071lfg.281.1654777431709; 
+ Thu, 09 Jun 2022 05:23:51 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ f11-20020a056512360b00b0047daa133decsm32421lfs.166.2022.06.09.05.23.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jun 2022 05:23:51 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
- <20220608120723.2987843-2-dmitry.baryshkov@linaro.org>
- <e9918d06-1b53-d847-016f-2310c4fa9866@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <e9918d06-1b53-d847-016f-2310c4fa9866@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display/msm: hdmi:
- split and convert to yaml
+Date: Thu,  9 Jun 2022 15:23:36 +0300
+Message-Id: <20220609122350.3157529-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 00/14] drm/msm/hdmi: YAML-ify schema and
+ cleanup some platform properties
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,30 +74,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, David Heidelberg <david@ixit.cz>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 08/06/2022 15:37, Krzysztof Kozlowski wrote:
-> On 08/06/2022 14:07, Dmitry Baryshkov wrote:
->> Convert Qualcomm HDMI binding into HDMI TX and PHY yaml bindings.
->>
->> Changes to schema:
->> HDMI:
->>   - fixed reg-names numbering to match 0..3 instead 0,1,3,4
->>   - dropped qcom,tx-ddc-* from example, they were not documented
->>
->> PHY:
->>   - moved into phy/ directory
->>   - split into QMP and non-QMP PHY schemas
->>
->> Co-developed-by: David Heidelberg <david@ixit.cz>
-> 
-> David also needs to SoB here.
+As agreed with David, this is a continuation of his work started at [1].
 
-Thank you for the review and for the comments.
+Changes since v2:
+- Deprecated usage of phy-names for HDMI node, added two patches to
+  remove this property from DT files,
+- Fixed the uninitialized variable access in hpd_gpio code.
 
+Changes since v1:
+- Dropped quotes in $id/$schema
+- Sorted out compat strings alphabetically
+- Removed obvious descriptions
+- Removed undocumented qcom,hdmi-tx-ddc-* properties
+- Switched to additionalProperties
+- Fixed IRQ and GPIO flags in the schema example
+- Added 8084 and 8660 variants to qcom,hdmi-phy-other.yaml conditional
+
+- Marked hdmi-mux-supply as deprecated (and dropped it from
+  apq8064-ifc6410.dtsi)
+- Reused 8960 regulator/clock configs for 8x60 (verified against msm-3.4
+  kernel)
+
+Changes since David's patches:
+HDMI schema:
+- Dropped generic pinctrl properties
+- Dropped data-lanes property, which is not supported by the HDMI driver
+- Switched to unevaluatedProperties
+- Moved clocks/regulators/supplies to condition clauses
+- Specified phy-names as used by existing DT files
+- Dropped #phy-cells
+- Dropped power-domains property (which is not used by the device trees)
+- Marked old GPIO properties as deprecated (in a separate patch)
+
+HDMI PHY schema:
+- Split into QMP (msm8996) and non-QMP (other) PHY schemas
+- Added proper clocks/clock-names/reg/reg-names descriptions
+
+The rest of the patches consist of the new work. They further cleanup
+the platform configs, remove unused supplies, etc.
+
+[1]: https://patchwork.freedesktop.org/series/98353/
+
+Dmitry Baryshkov (14):
+  dt-bindings: display/msm: hdmi: split and convert to yaml
+  dt-bindings: display/msm: hdmi: mark old GPIO properties as deprecated
+  dt-bindings: display/msm: hdmi: mark hdmi-mux-supply as deprecated
+  ARM: dts: qcom: apq8064-ifc6410: drop hdmi-mux-supply
+  drm/msm/hdmi: drop the hdmi-mux support
+  drm/msm/hdmi: drop unused GPIO support
+  drm/msm/hdmi: enable core-vcc/core-vdda-supply for 8996 platform
+  drm/msm/hdmi: drop empty 'none' regulator lists
+  drm/msm/hdmi: drop hpd_regs usage on 8x74/8084
+  drm/msm/hdmi: merge platform config for 8974/8084/8994/8996
+  drm/msm/hdmi: reuse MSM8960's config for MSM8660
+  drm/msm/hdmi-phy: populate 8x60 HDMI PHY requirements
+  ARM: dts: qcom: apq8064: drop phy-names from HDMI device node
+  arm64: dts: qcom: msm8996: drop phy-names from HDMI device node
+
+ .../devicetree/bindings/display/msm/hdmi.txt  |  99 --------
+ .../devicetree/bindings/display/msm/hdmi.yaml | 232 ++++++++++++++++++
+ .../bindings/phy/qcom,hdmi-phy-other.yaml     | 104 ++++++++
+ .../bindings/phy/qcom,hdmi-phy-qmp.yaml       |  85 +++++++
+ arch/arm/boot/dts/qcom-apq8064-ifc6410.dts    |   1 -
+ arch/arm/boot/dts/qcom-apq8064.dtsi           |   1 -
+ arch/arm64/boot/dts/qcom/msm8996.dtsi         |   1 -
+ drivers/gpu/drm/msm/hdmi/hdmi.c               | 109 ++------
+ drivers/gpu/drm/msm/hdmi/hdmi.h               |  13 +-
+ drivers/gpu/drm/msm/hdmi/hdmi_hpd.c           |  62 +----
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c      |  12 +
+ 11 files changed, 459 insertions(+), 260 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/msm/hdmi.txt
+ create mode 100644 Documentation/devicetree/bindings/display/msm/hdmi.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/qcom,hdmi-phy-other.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+
+
+base-commit: f2906aa863381afb0015a9eb7fefad885d4e5a56
+prerequisite-patch-id: 89e074537a1d17a955ba626431104040577c0bec
 -- 
-With best wishes
-Dmitry
+2.35.1
+
