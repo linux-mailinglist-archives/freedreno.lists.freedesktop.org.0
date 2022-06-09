@@ -2,50 +2,50 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F62A544BD8
+	by mail.lfdr.de (Postfix) with ESMTPS id 0799A544BD5
 	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 14:24:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7F711BE96;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E9811BE93;
 	Thu,  9 Jun 2022 12:24:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C66C811BE7F
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:24:04 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id l18so18627174lje.13
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:24:04 -0700 (PDT)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1BE211BE6C
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:24:03 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id i29so20969240lfp.3
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ui0unneZE7BMiOaLERLPySBQhcdhLuTjLknA7+UsfE0=;
- b=HPByxhGaDalzJm58MrIWMB9jh++xSbzG0pze660M++vV7YBptqiyHE7Kv8DvdHYyKC
- D5i1QxFWzRN/reF17ukqawcCVmgoYxwNACV4DFhOxKEmX42sg2jg/cv3BTfaBcP6ytIW
- kgJLm3HLqv/BUpW+AnzAxg+NZLLHNLF/2MgNHjlyQ18Ty32UoKgM9TdfX1AGi4OXIKYg
- jgt1aCqItL16U4xdprVkJ8QPBH2UdQESCLcUpqjuYgIu0LiKgEY1ay49HZdhQAcM05I2
- idO4vQoiOwh5PVwcvGTcdRlWmg8wIpur40xd9Hpoz+SzyFjXsjo9lzEHyAUaVat/9J43
- HgZA==
+ bh=SUn1WOp+JZSnlJIDDrxH+O9fgRsQXrcw9L2S+Zca6OM=;
+ b=EtrvkCBe0NgzfUAPrPX2jYHqaxd/nG9HcYiVXsFU+ROL/t8759M9ti0tkbthJGhTpQ
+ HLie4OUOUEFIAcYrpJkr/uIWCtaS5fAFy5r8kYfNsx7HeHi2PIoa0c5sa4nSrXc9PthH
+ KP5FvRtOq+0Is+pyI4ZLIqxActQUQ3VAh8RzP3oYkFYmhPkicqRkpAKYqBNBM9paCEAZ
+ UeGXRs/kZFFVf02ZI6fDc5QOoagK030Y3J5D7U+M4siq/10TKQahS63WQQ0dk+s0eYqX
+ xKocU+YtXkTBMux7h14v/cjRX13BKBP8dJ7fR5V6ZdX/yoUxt5cm2OIud1h786P/UPMY
+ 3CdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ui0unneZE7BMiOaLERLPySBQhcdhLuTjLknA7+UsfE0=;
- b=5hNMli4P3Vlj9Rhejw/NvJcBfWWyq4pIsSV4IXj4YUBX2sMe/1FVC37bdQVFXS/mid
- fm7qaIqKi501NS+7uivmUhmI2+8JFrEcxQTT+yZkM/6N00WsRqTpSUGf5cwX0jlgRCjN
- XxelmagUq0MwcskhgkX91XBi91Bmf9KS1zkTxwuiX1G97ACihX5/gC+PvZrlu9kjbhxC
- eJYM4TwLjA4v+K5DEcILhbDgn9Ak4D4h4rMxA3xFTwJiJj+huZJT0rKZe9ywMHpAFFVL
- G6l3y8xsRh3ZkBMSA0YFaFtQzIB9m+pKPlGKfV7XkNBq6HpsFkz4/mG09XSSmJOcIl34
- +05A==
-X-Gm-Message-State: AOAM531nXMIyFucBYi3P2A9D4Fb0H9gPPX329AFjqkvUEqiNcz83bz7j
- Xl/OPoUGLBPzD9dzGh9fbT47fw==
-X-Google-Smtp-Source: ABdhPJy5DBd7PT4mmZ37b4F3q+VMB9zFcQ/NWR65+MFjedI07n2lBGt5XNmj4fYaLMAyx3QzJb8kOA==
-X-Received: by 2002:a2e:151d:0:b0:255:6b9e:98ec with SMTP id
- s29-20020a2e151d000000b002556b9e98ecmr22885480ljd.444.1654777442607; 
- Thu, 09 Jun 2022 05:24:02 -0700 (PDT)
+ bh=SUn1WOp+JZSnlJIDDrxH+O9fgRsQXrcw9L2S+Zca6OM=;
+ b=xytJe5F6IOaVAKNVZ8SoWOQaXBEm3DAYWxA4MD/kUHeyMmZWGFLJoPGoNnPScKbT7E
+ PHj5upz9pXK+34yY1YkqkiLQcCcij+8vAwSYnFlw0gbzr8pLMriXqkfsLjUvWBbxLtGK
+ tiGpZ4oEflI8w8jHNz8F4xfmI0BxKXb8GcvGgyjCIwKXdkDzCWaQVOxPPjZCDP4xwmqR
+ NfNouoe3p3qzUIxS7iPm2Nk1xcnHZEnywTGZOoyfP49KNrgUrVlzYpO/1PHF5ycu0RyA
+ jw/2adnHxqPCzoB8XFqUaobewJYxEFTDqljPPHziQ6P6ggU4j6fiVgyyHdA6FkeDG0mt
+ LAjw==
+X-Gm-Message-State: AOAM5308wun3EefSkBZCXlSbWFNCqsUO9zqUfkjJkeojzsWMXEOGML8j
+ IT6epgaJ4WUVaH6bi50cl9U6xw==
+X-Google-Smtp-Source: ABdhPJwCXoEf6TkZjW0q7EHMhRCvA2o+dBUu8Cm/IqQaJmBV3E7VjgKjZV1hohNlh5iKc8A/ZUwXZA==
+X-Received: by 2002:a05:6512:130c:b0:477:e2ea:396e with SMTP id
+ x12-20020a056512130c00b00477e2ea396emr68244331lfu.489.1654777443367; 
+ Thu, 09 Jun 2022 05:24:03 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
  f11-20020a056512360b00b0047daa133decsm32421lfs.166.2022.06.09.05.24.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jun 2022 05:24:02 -0700 (PDT)
+ Thu, 09 Jun 2022 05:24:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -53,15 +53,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu,  9 Jun 2022 15:23:48 +0300
-Message-Id: <20220609122350.3157529-13-dmitry.baryshkov@linaro.org>
+Date: Thu,  9 Jun 2022 15:23:49 +0300
+Message-Id: <20220609122350.3157529-14-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220609122350.3157529-1-dmitry.baryshkov@linaro.org>
 References: <20220609122350.3157529-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 12/14] drm/msm/hdmi-phy: populate 8x60 HDMI
- PHY requirements
+Subject: [Freedreno] [PATCH v3 13/14] ARM: dts: qcom: apq8064: drop
+ phy-names from HDMI device node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +81,28 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Declare that 8x60 HDMI PHY uses the core-vdda regulator and slave_iface
-clock (this is the same config as is used by the 8960).
+The HDMI driver doesn't use the phy-names to identify the PHY. Different
+Qualcomm platforms have used different names for the PHY. So, we are
+deprecating phy-names propertty of the HDMI device and dropping them
+from existing DTs.
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ arch/arm/boot/dts/qcom-apq8064.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c
-index 95f2928cb2cb..1d97640d8c24 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_8x60.c
-@@ -122,8 +122,20 @@ static void hdmi_phy_8x60_powerdown(struct hdmi_phy *phy)
- 		       HDMI_8x60_PHY_REG2_PD_DESER);
- }
+diff --git a/arch/arm/boot/dts/qcom-apq8064.dtsi b/arch/arm/boot/dts/qcom-apq8064.dtsi
+index 34c0ba7fa358..391ad85559bd 100644
+--- a/arch/arm/boot/dts/qcom-apq8064.dtsi
++++ b/arch/arm/boot/dts/qcom-apq8064.dtsi
+@@ -1420,7 +1420,6 @@ hdmi: hdmi-tx@4a00000 {
+ 				      "slave_iface";
  
-+static const char * const hdmi_phy_8x60_reg_names[] = {
-+	"core-vdda",
-+};
-+
-+static const char * const hdmi_phy_8x60_clk_names[] = {
-+	"slave_iface",
-+};
-+
- const struct hdmi_phy_cfg msm_hdmi_phy_8x60_cfg = {
- 	.type = MSM_HDMI_PHY_8x60,
- 	.powerup = hdmi_phy_8x60_powerup,
- 	.powerdown = hdmi_phy_8x60_powerdown,
-+	.reg_names = hdmi_phy_8x60_reg_names,
-+	.num_regs = ARRAY_SIZE(hdmi_phy_8x60_reg_names),
-+	.clk_names = hdmi_phy_8x60_clk_names,
-+	.num_clks = ARRAY_SIZE(hdmi_phy_8x60_clk_names),
- };
+ 			phys = <&hdmi_phy>;
+-			phy-names = "hdmi-phy";
+ 
+ 			ports {
+ 				#address-cells = <1>;
 -- 
 2.35.1
 
