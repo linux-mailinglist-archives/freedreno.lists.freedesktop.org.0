@@ -2,82 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E417544DAD
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 15:30:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55FA544E85
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 16:16:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF8D113FE0;
-	Thu,  9 Jun 2022 13:30:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC7B11A855;
+	Thu,  9 Jun 2022 14:16:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 310DD11A0F1;
- Thu,  9 Jun 2022 13:30:20 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BD9195C015E;
- Thu,  9 Jun 2022 09:30:17 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 09 Jun 2022 09:30:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm1; t=1654781417; x=1654867817; bh=b5Igb65gfn
- ctwI+RmVcDwth67sj2G3dGQC36Mmle1xo=; b=hrNMVTrTRQEGyDhZAL/1QrQN5N
- P0aN116ZSMxkNjztkjs7NS5b8SROBAmQQ2f6/Zj4PknLBtlBogQclvBWWxOINVP0
- +7/n3UUV+CfHpkIV6Zf8StrfdQZDG+DG8DSuzs/k+XfFddv/QH0WTA6wGszWRDFF
- mqc/JOHVtif8H+QO1t0m2VSiZgl0YSobS06XoudyDIdaiX1swxxPQWY6PQw3zGZA
- pebiAH0Nn480Gjmw2RQhCLkwVME+n33/UfCQV525mzNVo+TZ3Qp7tWajbaza49Ve
- 5QniqcFlN3hyTTgaq2hoMp8kHu4IS2lY77/5iAe/A8QpofRoh9tcMSp9jSjA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1654781417; x=1654867817; bh=b5Igb65gfnctwI+RmVcDwth67sj2
- G3dGQC36Mmle1xo=; b=ot/lx1glgu8FRpUD/xpDMAyOKyxEnimxixAshRv3ShVN
- BQx1BHHX6AE3QMHdGyxjezt1DOMO6qRx2i3r3kN/NM39i5q10X6ljWwl/6aeWvZw
- ceW6PB7/Uh0WOYU2tC3SMujJPRWxLzpybAPG0wFUG4yXQrOFynu5Rs329tSAk44z
- OneftqZUsmO28zU+feEChIJzjInZWgC9XIcBGKlhqO4QybiO/Syvvovny7rz/dok
- HqbLUX6s2BBbzXrJAMSorOSjE9oRNRjxlarpm46SaHo83ygjYwMBmXlW7LUJKpyS
- olMUEKcOGz4oKKv6F71TLyKc/4OQwUNOIqMI8H7K3A==
-X-ME-Sender: <xms:6fWhYucywhODPj6i5crRPjl4hFU8H56Fu8isoOVhHmVCUKiZQGRezw>
- <xme:6fWhYoNSVWpOxurkhXGBXwEToKINNrxTNdf9FlNuLxJTUPT2RJMhtshYEfVtTcZZt
- vBCxmgWI-eas9RL7Wo>
-X-ME-Received: <xmr:6fWhYvgrmpAVb_J5GJBjOy6HrXYNLWG0SEvKq6Oacu4y5Xr_r_fLiXs_lyD2b82aNiU90d-bd50ayXzANaSLYRBvwknUtkr39m6fa4k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddtledgieduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetfefffefgkedtfefgledugfdtjeefjedvtddtkeetieffjedvgfehheff
- hfevudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:6fWhYr_0qPI8otBXQiksi79Fkts6kQK-hG8iMobHDaBiK1Wqa6eFwg>
- <xmx:6fWhYquTK5wgI8fPDIOUoSBQfbOjhToyculi8vGvRxbGb_-oN2vpLg>
- <xmx:6fWhYiEexJG-w-aiWLc_jBdbZSUCdJ6m1MV8f4Wq1xBfZgW5Hda5DQ>
- <xmx:6fWhYqEc3mY9dgz5GkH3fofyEnl8ov46_axMc35-axSp5DtL7mButg>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Jun 2022 09:30:16 -0400 (EDT)
-Date: Thu, 9 Jun 2022 15:30:15 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20220609133015.e4oj5xur3pzpw7tp@houat>
-References: <20220510192944.2408515-1-dianders@chromium.org>
- <20220510122726.v3.3.Iba4b9bf6c7a1ee5ea2835ad7bd5eaf84d7688520@changeid>
- <20220521091751.opeiqbmc5c2okdq6@houat>
- <CAD=FV=Wea0LT5umK4Xg87cDikim+dSuyLndfydO3_DnTujZr9Q@mail.gmail.com>
- <CAD=FV=XqJuPHxm7HYMvyHBL_zC-BBA_f0MBsZX-jHt7Pk9ngsQ@mail.gmail.com>
- <20220603082139.sfdxb5ndwpvlhklh@penduick>
- <CAA8EJpqrw63K_xxJjawLjEqP-05eUD-k6dy21162hcq7q07jgQ@mail.gmail.com>
- <20220603141405.dybjn3blifau6662@penduick>
- <CAD=FV=Wy_HnshYRcLFRddo0-w=v6sfnzhRYJd+eH0S7uMPxqaQ@mail.gmail.com>
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2EA11A855;
+ Thu,  9 Jun 2022 14:16:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654784204; x=1686320204;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=gqNgxjaipmT4j4Yi0VwrAMLIwp7qaYJjEvl1HZCa8KA=;
+ b=R5JvU9oKZufPNpEI0EcTz79d69zW0avEfPt0mJpHbUjMemrZF6FyZeQW
+ aSWTTFE0EOI0KeQNd58joJ3QRiSaIfPmQeXdOqUMP5XzXckqG4iXYqCty
+ cLEqdQsQfxJyb42bbdNooLpCchG2B8Fsutja0RrtfBMNC+gdGExv+WFKg I=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 09 Jun 2022 07:16:44 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 07:16:43 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 9 Jun 2022 07:16:43 -0700
+Received: from [10.216.42.89] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 9 Jun 2022
+ 07:16:39 -0700
+Message-ID: <9d321f53-eabc-3f8d-79a9-f2c407aea6f1@quicinc.com>
+Date: Thu, 9 Jun 2022 19:46:35 +0530
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wxmfr2nwsxbwozb6"
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=Wy_HnshYRcLFRddo0-w=v6sfnzhRYJd+eH0S7uMPxqaQ@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH v3 3/4] drm/bridge: Add devm_drm_bridge_add()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>
+References: <20210927152928.831245-1-robdclark@gmail.com>
+ <f1c6fff0-a220-86d9-8572-2de3d47ab96a@codeaurora.org>
+ <CAF6AEGtRO2VdweN014JpApQ460=KxEU9uF8jf1U__Gh-bMRo7w@mail.gmail.com>
+ <2e8544dc-1914-92ab-a9c6-e9093a649c49@quicinc.com>
+ <CAF6AEGvgd7AbGG9szgAW1hXPrhfY78Vdh2s8a6Cei1gpScDQNw@mail.gmail.com>
+From: Akhil P Oommen <quic_akhilpo@quicinc.com>
+In-Reply-To: <CAF6AEGvgd7AbGG9szgAW1hXPrhfY78Vdh2s8a6Cei1gpScDQNw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm: Switch ordering of runpm put vs
+ devfreq_idle
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,229 +68,219 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Philip Chen <philipchen@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Robert Foss <robert.foss@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Hsin-Yi Wang <hsinyi@chromium.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On 6/9/2022 2:17 AM, Rob Clark wrote:
+> On Wed, Jun 8, 2022 at 12:36 PM Akhil P Oommen <quic_akhilpo@quicinc.com> wrote:
+>> On 6/8/2022 3:00 AM, Rob Clark wrote:
+>>> On Tue, Sep 28, 2021 at 7:52 AM Akhil P Oommen <akhilpo@codeaurora.org> wrote:
+>>>> On 9/27/2021 8:59 PM, Rob Clark wrote:
+>>>>> From: Rob Clark <robdclark@chromium.org>
+>>>>>
+>>>>> I've seen a few crashes like:
+>>>>>
+>>>>>        Internal error: synchronous external abort: 96000010 [#1] PREEMPT SMP
+>>>>>        Modules linked in: snd_seq_dummy snd_seq snd_seq_device bridge stp llc tun nf_nat_tftp nf_conntrack_tftp nf_nat_ftp nf_conntrack_ftp esp6 ah6 ip6t_REJECT ip6t_ipv6header vhost_vsock vhost vmw_vsock_virtio_transport_common vsock rfcomm algif_hash algif_skcipher af_alg uinput veth xt_cgroup xt_MASQUERADE venus_enc venus_dec videobuf2_dma_contig qcom_spmi_adc5 qcom_spmi_adc_tm5 hci_uart qcom_vadc_common cros_ec_typec qcom_spmi_temp_alarm typec btqca snd_soc_rt5682_i2c snd_soc_rt5682 snd_soc_sc7180 bluetooth snd_soc_qcom_common snd_soc_rl6231 ecdh_generic ecc venus_core v4l2_mem2mem snd_soc_lpass_sc7180 snd_soc_lpass_hdmi snd_soc_lpass_cpu snd_soc_lpass_platform snd_soc_max98357a ip6table_nat fuse iio_trig_sysfs cros_ec_lid_angle cros_ec_sensors cros_ec_sensors_core industrialio_triggered_buffer kfifo_buf cros_ec_sensorhub lzo_rle ath10k_snoc lzo_compress ath10k_core ath zram mac80211 cfg80211 ax88179_178a usbnet mii uvcvideo videobuf2_vmalloc joydev
+>>>>>        CPU: 3 PID: 212 Comm: A618-worker Tainted: G W 5.4.139-16300-g88d8e1285982 #1
+>>>>>        Hardware name: Google Pompom (rev1) with LTE (DT)
+>>>>>        pstate: 60c00009 (nZCv daif +PAN +UAO)
+>>>>>        pc : a6xx_gmu_set_oob+0x114/0x200
+>>>>>        lr : a6xx_gmu_set_oob+0x10c/0x200
+>>>>>        sp : ffffffc011b7bc20
+>>>>>        x29: ffffffc011b7bc20 x28: ffffffdad27c5000
+>>>>>        x27: 0000000000000001 x26: ffffffdad1521044
+>>>>>        x25: ffffffbef7498338 x24: 0000000000000018
+>>>>>        x23: 0000000000000002 x22: 0000000000014648
+>>>>>        x21: 0000033732fe638b x20: 0000000080000000
+>>>>>        x19: ffffffbef7433bc8 x18: 0000000040000000
+>>>>>        x17: 000000243508d982 x16: 000000000000b67e
+>>>>>        x15: 00000000000090d4 x14: 0000000000000024
+>>>>>        x13: 0000000000000024 x12: 0000000000017521
+>>>>>        x11: 0000000000000b48 x10: 0000000000326a48
+>>>>>        x9 : 1a130d33f6371600 x8 : ffffffc011e54648
+>>>>>        x7 : 614948e00005003c x6 : ffffffbe3cd17e60
+>>>>>        x5 : 0000000000000040 x4 : 0000000000000004
+>>>>>        x3 : 0000000000000000 x2 : ffffffbef7488000
+>>>>>        x1 : ffffffbef7488000 x0 : 0000000000000000
+>>>>>        Call trace:
+>>>>>        a6xx_gmu_set_oob+0x114/0x200
+>>>>>        a6xx_gmu_set_freq+0xe0/0x1fc
+>>>>>        msm_devfreq_target+0x80/0x13c
+>>>>>        msm_devfreq_idle+0x54/0x94
+>>>>>        retire_submit+0x170/0x254
+>>>>>        retire_submits+0xa4/0xdc
+>>>>>        retire_worker+0x1c/0x28
+>>>>>        kthread_worker_fn+0xf4/0x1bc
+>>>>>        kthread+0x140/0x158
+>>>>>        ret_from_fork+0x10/0x18
+>>>>>        Code: 52800c81 9415bbe5 f9400a68 8b160108 (b9400108)
+>>>>>        ---[ end trace 16b871df2482cd61 ]---
+>>>>>        Kernel panic - not syncing: Fatal exception
+>>>>>        SMP: stopping secondary CPUs
+>>>>>        Kernel Offset: 0x1ac1400000 from 0xffffffc010000000
+>>>>>        PHYS_OFFSET: 0xffffffc280000000
+>>>>>        CPU features: 0x88102e,2a80aa38
+>>>>>        Memory Limit: none
+>>>>>
+>>>>> Which smells a lot like touching hw after power collapse.  I'm not
+>>>>> *entirely* sure how it could have taken 66ms (the autosuspend delay)
+>>>>> before we get to a6xx_gmu_set_oob(), but to be safe we should move
+>>>>> the pm_runtime_put_autosuspend() after msm_devfreq_idle().
+>>>> https://elixir.bootlin.com/linux/v5.15-rc1/source/drivers/gpu/drm/msm/adreno/a6xx_gmu.c#L132
+>>>> We have this check in the gmu freq set path which should avoid this
+>>>> scenario. I might be a bit pedantic here, but I feel that the original
+>>>> code is more accurate. We should immediately mark last busy and put
+>>>> runtime_pm refcount.
+>>> So, I've been doing some experiments, changing the _put_autosuspend()
+>>> to _put_sync(), in the course of tracking down some remaining "GMU
+>>> OOB" timeout type issues and related badness, and discovered things
+>>> very quickly die with SError splats like below.  Possibly the issue is
+>>> that runpm has some race conditions, but I'm not sure we can trust
+>>> pm_runtime_get_if_in_use() quite as much as one would like..
+>>>
+>>> -----------
+>>> [   33.225332] CPU: 0 PID: 216 Comm: A618-worker Tainted: G        W
+>>>         5.4.196 #7
+>>> [   33.225337] Hardware name: Google Wormdingler rev1+ INX panel board (DT)
+>>> [   33.225343] pstate: 20c00009 (nzCv daif +PAN +UAO)
+>>> [   33.225353] pc : msm_readl+0x14/0x34
+>>> [   33.225361] lr : a6xx_gpu_busy+0x40/0x80
+>>> [   33.225365] sp : ffffffc011b93ad0
+>>> [   33.225371] x29: ffffffc011b93ad0 x28: ffffffe77cba3000
+>>> [   33.225377] x27: 0000000000000001 x26: ffffffe77bb4c4ac
+>>> [   33.225384] x25: ffffffa2f227dfa0 x24: ffffffa2f22aab28
+>>> [   33.225390] x23: 0000000000000000 x22: ffffffa2f22bf020
+>>> [   33.225397] x21: ffffffa2f22bf000 x20: ffffffc011b93b10
+>>> [   33.225404] x19: ffffffc011bd4110 x18: 000000000000000e
+>>> [   33.225410] x17: 0000000000000004 x16: 000000000000000c
+>>> [   33.225416] x15: 000001be3a969450 x14: 0000000000000400
+>>> [   33.225423] x13: 00000000000101d6 x12: 0000000034155555
+>>> [   33.225429] x11: 0000000000000001 x10: 0000000000000000
+>>> [   33.225436] x9 : 0000000100000000 x8 : ffffffc011bd4000
+>>> [   33.225443] x7 : 0000000000000000 x6 : 0000000000000007
+>>> [   33.225450] x5 : ffffffc01d8b38f0 x4 : 0000000000000000
+>>> [   33.225457] x3 : 00000000ffffffff x2 : 0000000000000002
+>>> [   33.225463] x1 : 0000000000000000 x0 : ffffffc011bd4110
+>>> [   33.225471] Call trace:
+>>> [   33.225478]  msm_readl+0x14/0x34
+>>> [   33.225484]  a6xx_gpu_busy+0x40/0x80
+>>> [   33.225490]  msm_devfreq_get_dev_status+0x70/0x1d0
+>>> [   33.225500]  devfreq_simple_ondemand_func+0x34/0x100
+>>> [   33.225510]  update_devfreq+0x50/0xe8
+>>> [   33.225517]  qos_notifier_call+0x2c/0x64
+>>> [   33.225523]  qos_max_notifier_call+0x1c/0x2c
+>>> [   33.225532]  notifier_call_chain+0x58/0x98
+>>> [   33.225539]  __blocking_notifier_call_chain+0x74/0x84
+>>> [   33.225545]  blocking_notifier_call_chain+0x38/0x48
+>>> [   33.225554]  pm_qos_update_target+0xf8/0x19c
+>>> [   33.225560]  freq_qos_apply+0x54/0x6c
+>>> [   33.225566]  apply_constraint+0x60/0x104
+>>> [   33.225572]  __dev_pm_qos_update_request+0xb4/0x184
+>>> [   33.225578]  dev_pm_qos_update_request+0x38/0x58
+>>> [   33.225584]  msm_devfreq_idle_work+0x34/0x40
+>>> [   33.225591]  kthread_worker_fn+0x144/0x1c8
+>>> [   33.225597]  kthread+0x140/0x284
+>>> [   33.225604]  ret_from_fork+0x10/0x18
+>>> [   33.225617] Code: f9000bf3 910003fd aa0003f3 d503201f (b9400260)
+>>> [   33.225623] ---[ end trace f6309767a42d0831 ]---
+>>> [   33.236185] SMP: stopping secondary CPUs
+>>> [   33.236186] Kernel Offset: 0x276b600000 from 0xffffffc010000000
+>>> [   33.236186] PHYS_OFFSET: 0xffffffdf80000000
+>>> [   33.236187] CPU features: 0x088102e,2a80aa38
+>>> -----------
+>> Any chance we are racing with system suspend here? Because, when
+>> "dev->power.disable_depth > 0", pm_runtime_get_if_in_use() returns
+>> -EINVAL. Then I guess we should look for a positive return value from
+>> pm_runtime_get_if_in_use() before proceeding.
+> I think that is possible.. although I can still still SErrors in
+> a6xx_gpu_busy() with:
+>
+> ----------
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 1ec90a9ca56c..61e1e33f355a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -129,7 +129,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct
+> dev_pm_opp *opp)
+>           * This can get called from devfreq while the hardware is idle. Don't
+>           * bring up the power if it isn't already active
+>           */
+> -       if (pm_runtime_get_if_in_use(gmu->dev) == 0)
+> +       if (pm_runtime_get_if_in_use(gmu->dev) <= 0)
+>                  return;
+>
+>          if (!gmu->legacy) {
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 95a6c3361a1e..b17a95f7b85c 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1456,7 +1456,7 @@ static u64 a6xx_gpu_busy(struct msm_gpu *gpu,
+> unsigned long *out_sample_rate)
+>          *out_sample_rate = 19200000;
+>
+>          /* Only read the gpu busy if the hardware is already active */
+> -       if (pm_runtime_get_if_in_use(a6xx_gpu->gmu.dev) == 0)
+> +       if (pm_runtime_get_if_in_use(a6xx_gpu->gmu.dev) <= 0)
+>                  return 0;
+>
+>          busy_cycles = gmu_read64(&a6xx_gpu->gmu,
+> ----------
+>
+> So I don't think this completely explains it
+>
+> I am starting to think it might not be a bad idea to drain the gpu's
+> kthread working in the suspend path
+If it helps, draining kthread sounds like a better solution compared to 
+the current patch. Because msm_devfreq_idle() is queuing a work which 
+can still race with autosuspend + system-suspend under enough system 
+pressure.
 
---wxmfr2nwsxbwozb6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+-Akhil.
+>
+> BR,
+> -R
+>
+>> -Akhil.
+>>>> -Akhil.
+>>>>
+>>>>> Fixes: 9bc95570175a ("drm/msm: Devfreq tuning")
+>>>>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+>>>>> ---
+>>>>>     drivers/gpu/drm/msm/msm_gpu.c | 6 +++---
+>>>>>     1 file changed, 3 insertions(+), 3 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+>>>>> index d1a16642ecd5..2b2bbe7499e6 100644
+>>>>> --- a/drivers/gpu/drm/msm/msm_gpu.c
+>>>>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+>>>>> @@ -667,9 +667,6 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>>>>>
+>>>>>         msm_submit_retire(submit);
+>>>>>
+>>>>> -     pm_runtime_mark_last_busy(&gpu->pdev->dev);
+>>>>> -     pm_runtime_put_autosuspend(&gpu->pdev->dev);
+>>>>> -
+>>>>>         spin_lock_irqsave(&ring->submit_lock, flags);
+>>>>>         list_del(&submit->node);
+>>>>>         spin_unlock_irqrestore(&ring->submit_lock, flags);
+>>>>> @@ -683,6 +680,9 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+>>>>>         mutex_unlock(&gpu->active_lock);
+>>>>>
+>>>>>         msm_gem_submit_put(submit);
+>>>>> +
+>>>>> +     pm_runtime_mark_last_busy(&gpu->pdev->dev);
+>>>>> +     pm_runtime_put_autosuspend(&gpu->pdev->dev);
+>>>>>     }
+>>>>>
+>>>>>     static void retire_submits(struct msm_gpu *gpu)
+>>>>>
 
-On Fri, Jun 03, 2022 at 07:56:16AM -0700, Doug Anderson wrote:
-> Hi,
->=20
-> On Fri, Jun 3, 2022 at 7:14 AM Maxime Ripard <maxime@cerno.tech> wrote:
-> >
-> > On Fri, Jun 03, 2022 at 01:19:16PM +0300, Dmitry Baryshkov wrote:
-> > > On Fri, 3 Jun 2022 at 11:21, Maxime Ripard <maxime@cerno.tech> wrote:
-> > > >
-> > > > On Tue, May 31, 2022 at 02:06:34PM -0700, Doug Anderson wrote:
-> > > > > On Mon, May 23, 2022 at 10:00 AM Doug Anderson <dianders@chromium=
-=2Eorg> wrote:
-> > > > > > On Sat, May 21, 2022 at 2:17 AM Maxime Ripard <maxime@cerno.tec=
-h> wrote:
-> > > > > > > On Tue, May 10, 2022 at 12:29:43PM -0700, Douglas Anderson wr=
-ote:
-> > > > > > > > This adds a devm managed version of drm_bridge_add(). Like =
-other
-> > > > > > > > "devm" function listed in drm_bridge.h, this function takes=
- an
-> > > > > > > > explicit "dev" to use for the lifetime management. A few no=
-tes:
-> > > > > > > > * In general we have a "struct device" for bridges that mak=
-es a good
-> > > > > > > >   candidate for where the lifetime matches exactly what we =
-want.
-> > > > > > > > * The "bridge->dev->dev" device appears to be the encoder
-> > > > > > > >   device. That's not the right device to use for lifetime m=
-anagement.
-> > > > > > > >
-> > > > > > > > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > > > > >
-> > > > > > > If we are to introduce more managed helpers, I think it'd be =
-wiser to
-> > > > > > > introduce them as DRM-managed, and not device managed.
-> > > > > > >
-> > > > > > > Otherwise, you'll end up in a weird state when a device has b=
-een removed
-> > > > > > > but the DRM device is still around.
-> > > > > >
-> > > > > > I'm kinda confused. In this case there is no DRM device for the=
- bridge
-> > > > > > and, as per my CL description, "bridge-dev->dev" appears to be =
-the
-> > > > > > encoder device. I wasn't personally involved in discussions abo=
-ut it,
-> > > > > > but I was under the impression that this was expected / normal.=
- Thus
-> > > > > > we can't make this DRM-managed.
-> > > > >
-> > > > > Since I didn't hear a reply,
-> > > >
-> > > > Gah, I replied but it looks like somehow it never reached the ML...
-> > > >
-> > > > Here was my original reply:
-> > > >
-> > > > > > > This adds a devm managed version of drm_bridge_add(). Like ot=
-her
-> > > > > > > "devm" function listed in drm_bridge.h, this function takes an
-> > > > > > > explicit "dev" to use for the lifetime management. A few note=
-s:
-> > > > > > > * In general we have a "struct device" for bridges that makes=
- a good
-> > > > > > >   candidate for where the lifetime matches exactly what we wa=
-nt.
-> > > > > > > * The "bridge->dev->dev" device appears to be the encoder
-> > > > > > >   device. That's not the right device to use for lifetime man=
-agement.
-> > > > > > >
-> > > > > > > Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > > > > > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > > > > >
-> > > > > > If we are to introduce more managed helpers, I think it'd be wi=
-ser to
-> > > > > > introduce them as DRM-managed, and not device managed.
-> > > > > >
-> > > > > > Otherwise, you'll end up in a weird state when a device has bee=
-n removed
-> > > > > > but the DRM device is still around.
-> > > > >=3D20
-> > > > > I'm kinda confused. In this case there is no DRM device for the b=
-ridge
-> > > > > and, as per my CL description, "bridge-dev->dev" appears to be the
-> > > > > encoder device.
-> > > >
-> > > > bridge->dev seems right though?
-> > > >
-> > > > > I wasn't personally involved in discussions about it, but I was u=
-nder
-> > > > > the impression that this was expected / normal. Thus we can't make
-> > > > > this DRM-managed.
-> > > >
-> > > > Still, I don't think devm is the right solution to this either.
-> > > >
-> > > > The underlying issue is two-fold:
-> > > >
-> > > >   - Encoders can have a pointer to a bridge through of_drm_find_bri=
-dge
-> > > >     or similar. However, bridges are traditionally tied to their de=
-vice
-> > > >     lifetime (by calling drm_bridge_add in probe, and drm_bridge_re=
-move
-> > > >     in remove). Encoders will typically be tied to the DRM device
-> > > >     however, and that one sticks around until the last application
-> > > >     closes it. We can thus very easily end up with a dangling point=
-er,
-> > > >     and a use-after-free.
-> > > >
-> > > >   - It's not the case yet, but it doesn't seem far fetch to expose
-> > > >     properties of bridges to the userspace. In that case, the users=
-pace
-> > > >     would be likely to still hold references to objects that aren't
-> > > >     there anymore when the bridge is gone.
-> > > >
-> > > > The first is obviously a larger concern, but if we can find a solut=
-ion
-> > > > that would accomodate the second it would be great.
-> > > >
-> > > > As far as I can see, we should fix in two steps:
-> > > >
-> > > >   - in drm_bridge_attach, we should add a device-managed call that =
-will
-> > > >     unregister the main DRM device. We don't allow to probe the mai=
-n DRM
-> > > >     device when the bridge isn't there yet in most case, so it makes
-> > > >     sense to remove it once the bridge is no longer there as well.
-> > >
-> > > The problem is that I do not see a good way to unregister the main DRM
-> > > device outside of it's driver code.
-> >
-> > That's what drmm helpers are doing though: they'll defer the cleanup
-> > until the last user has closed its fd.
->=20
-> I'm a bit confused here. I'll take the concrete example of ps8640
-> since that's what I was working on here.
->=20
-> ...right now the fact that we're using devm means that
-> drm_bridge_remove() will get called when a ps8640 device is unbound,
-> right?
-
-Yes
-
-> I guess you're saying that the "drm_bridge" memory needs to
-> outlast this, right?
-
-Since drm_bridge isn't exposing anything to userspace, it would mostly
-be its connector. But they are usually allocated in the same structure,
-so it's pretty much equivalent here.
-
-> That being said, even if the actual memory for drm_bridge outlasts the
-> ps8640 driver lifetime, much of the data would need to be marked
-> invalid I think.
-
-All the device resources, yes. So things like IO mappings, clocks, reset
-lines, regulators, etc.
-
-> If nothing else all function pointers that point into the driver would
-> have to be made NULL, right? Once the device has been unbound it's
-> possible that the underlying module might be removed. I suspect that
-> we'd need to do more than just bogus-up the function pointers, though.
-
-I ... didn't think of the module memory being freed. I don't know the
-module handling code, but if it's an option we could get a reference to
-the module memory to make sure the memory stays around until everything
-has been freed.
-
-If we can't, then we could relocate all the functions inside the kernel
-for the teardown, but I'm sure it's going to be a mess.
-
-> ...so it feels like any solution here needs to take into account
-> _both_ the lifetime of the "struct device" and the "struct
-> drm_device". If the "struct device" goes away but the "struct
-> drm_device" is still around then we need to essentially transition the
-> "struct drm_device" over to a dummy, right?
-
-So we want to make sure we won't access the device resources if they
-aren't there anymore, during the timeframe between the device being
-unbound and the DRM device being unregistered (which can be arbitrarily
-long). Fortunately, drm_device->registered is being toggled as soon as
-we start the unbinding process, and drm_dev_enter()/drm_dev_exit() is
-there to make sure the device is registered.
-
-So we would need to make sure that all device resource access is
-protected by a call to those functions. It's tedious, but it works
-today.
-
-It's a bit more complicated in the case of bridges (as opposed to any
-other entity) because you don't have access to the DRM device when you
-probe, only when you are attached. So you also need to make sure the
-private structure you allocated in probe (using devm_) is properly
-converted to be DRM-managed and freed later on.
-
-Maxime
-
---wxmfr2nwsxbwozb6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYqH15wAKCRDj7w1vZxhR
-xbinAP4k1MWu9RhJ9c2UTXZ6KpsdkD+7929wsLPuo/a9FBhuWgEAgL1lu8WRNZU1
-1XzudSHHZYEO9pNa2rw+qu5uq7XwkQk=
-=02sb
------END PGP SIGNATURE-----
-
---wxmfr2nwsxbwozb6--
