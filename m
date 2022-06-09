@@ -1,60 +1,70 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED45544A43
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 13:31:54 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AF49544B54
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 14:09:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5B7711B1E6;
-	Thu,  9 Jun 2022 11:31:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70790113336;
+	Thu,  9 Jun 2022 12:09:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1AC11B1E7
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 11:31:51 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id s6so37471707lfo.13
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 04:31:51 -0700 (PDT)
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1A8511315D
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:09:55 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id b7so13380945ljr.6
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:09:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=osPC7nggXKqJCgggBesqx8Y0buQDmZALkohv6+cRgp8=;
- b=rxgaufoYydqleVu0MBrDVaOwUv9VSuk7YDRyq06HxJQJcY/RrJTzQBpBlj+J+CiX+W
- ZjtUS5e21LzJ1xBtgSH+YVwtBTsfH1pQBIBz7nQNBekVYj2tLH63RN2Fn7/QczwGC+OK
- arFI7LP/hK7lZmEKDiEKuAyWz95kXtrQZ3gInOAacjD0XncyN7v5pPTSoZMGZwrf77bq
- ojnKCnMZQaHDHpB1O0Prjyo1ZBAko/CF9Y4ZnCpRYuEKpfZSLOOhEfaUoBOkyl0hfbYH
- /y0EbMsU+WTvOPTeLUkUb/GCaUkM+hogrvOPr0aQ+lQO5LZTKrowtWpzOjhUoQbnJkPE
- q+UQ==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=Rim2Ki2Eu3BjQABgKkl/x6ZfzcgX4FO+4AS4UaRphF8=;
+ b=CL9aPDC4zmgstdQlhsmmruoiv+PY/kyMtM3oki+NCEWjfAVUT8tz9cQYJBkg14i46V
+ bugl+IasUsJzAcG+g38guZkPwTknRSwoptaGsFHq5tmsagVmQa9ULVO5tsU6Nu6N5boQ
+ KJvpg0GIT/13DMWfWfMe/Mcun2xTKE7uo3vkPzDVu54UA3t8f1EZ3zsLx0SjugKTGlXu
+ OH1uiYMEYf7y/QyG9WQnG8J+sswMf6rmCZyI6/mFZcSUhQrv8B/OAET54vlu5x6xuFZc
+ lJN7+hqbKvXFT7VbJo5OZsZIfI2PEO3fQ/fjEt2hPEsPa69+V/g8YO1FyvJMWZ8vXwlm
+ x6pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=osPC7nggXKqJCgggBesqx8Y0buQDmZALkohv6+cRgp8=;
- b=vzkKjEopTIZG/UQXrIcrff8/P5WuEv8F7Vg7OY7fu05uRWkTq8AQQlrSFnd7TQuLGW
- SidYLUzOg3XKzH9roc+SPwA2VW4ngvWjSqvhLH6LdpNV6RTHbxRyepCEWA592Z7EI9/y
- h+OMF364+ZhWqw8m3InnPWwGCwIQbf1rcHYl6uY/rCyK2DOaf8TrqC07zLmp6UP6sbeu
- 5xzzSqe7XdebgOpzZgUcx+WgsDDvWNhorZo9EOLuh5eGeO6Fxr3CSA4J/eUlwcVfYB9/
- LMMR1ZNtMSFpza85byzBtifByt+48DHwkGNQbZElQukzC35cS5JhbPaVYF4VWKIeAXD7
- ppZw==
-X-Gm-Message-State: AOAM5324Cqc3UlBKha/nQ3pZgF0zkAwm1UsRwMQRDptn7yTJcwkSSXmN
- DFjto8VDT+4+BcFWbvCi+UYcMw==
-X-Google-Smtp-Source: ABdhPJxW6RZmoRdg9h0UIzsoBpR2KmQ5DeD1hic3gg2SxUODs8OxB0D6TTPV4Sd5S7S435+Z44zw3A==
-X-Received: by 2002:a05:6512:4004:b0:479:1d77:4e43 with SMTP id
- br4-20020a056512400400b004791d774e43mr18757090lfb.537.1654774309942; 
- Thu, 09 Jun 2022 04:31:49 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- d29-20020a0565123d1d00b00478f2325fbbsm4180147lfv.282.2022.06.09.04.31.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jun 2022 04:31:49 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu,  9 Jun 2022 14:31:48 +0300
-Message-Id: <20220609113148.3149194-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ bh=Rim2Ki2Eu3BjQABgKkl/x6ZfzcgX4FO+4AS4UaRphF8=;
+ b=PnurwIXf9ax4E6dJqezfpYYEF1Ad6BNbc+EH/ffAPQwlALLLT2W8Ht+xLQ1xAyg8Dm
+ urf4fbmslEbFlyc93CrGnt4Arqjt+ZviDMuBjXu6J/MePYtyxOD4txuaXD/q31/XMVrm
+ yFHmtQ8GrUdiIG+hIr3GDnWLkaXLWw5u201KApkSL5UGj9UDhrjgXtKU96giT2LB/QbD
+ vkk3LpceMvDjhOAyVKPmMLIMWLCTk9c2IMyMwG4ErYU8CFeEaFEbzWTCpqXgE1PlUBVx
+ Hki1IwmzkNGjSz2waug8xhuwK9IomFy8nEex/ko7OPyPM1TOd+oQXqqDiI7CjfjYX8rA
+ ngCw==
+X-Gm-Message-State: AOAM530ZFz1hOqWMYaDMmxxW85cJS/6FhASqxRfAAApvGjSwTulzm+/n
+ kL1OKkLtaRlocDduF4/WYUbtFw==
+X-Google-Smtp-Source: ABdhPJxwGatgo+iZBh1zUEHAJkUUpucUDp/+0VK2xI554y8QFcDYLe4X7kHwkCGa0+lfZasdCHoJSQ==
+X-Received: by 2002:a2e:908b:0:b0:255:68b4:4085 with SMTP id
+ l11-20020a2e908b000000b0025568b44085mr23175357ljg.369.1654776594036; 
+ Thu, 09 Jun 2022 05:09:54 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ n11-20020a05651203eb00b0047255d211e9sm4202581lfq.280.2022.06.09.05.09.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Jun 2022 05:09:53 -0700 (PDT)
+Message-ID: <58811796-1a27-b159-28a4-e9b507fa5869@linaro.org>
+Date: Thu, 9 Jun 2022 15:09:52 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-GB
+To: David Heidelberg <david@ixit.cz>
+References: <20220608120723.2987843-1-dmitry.baryshkov@linaro.org>
+ <20220608120723.2987843-2-dmitry.baryshkov@linaro.org>
+ <e9918d06-1b53-d847-016f-2310c4fa9866@linaro.org>
+ <f1489ae9-268a-5e35-2223-e8ee95cbd206@ixit.cz>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <f1489ae9-268a-5e35-2223-e8ee95cbd206@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/hdmi: fill the pwr_regs bulk regulators
+Subject: Re: [Freedreno] [PATCH v2 01/12] dt-bindings: display/msm: hdmi:
+ split and convert to yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,38 +77,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Conversion to use bulk regulator API omitted filling the pwr_regs with
-proper regulator IDs. This was left unnoticed, since none of my testing
-platforms has used the pwr_regs. Fix this by propagating regulator ids
-properly.
+On 09/06/2022 01:45, David Heidelberg wrote:
+> On 08/06/2022 14:37, Krzysztof Kozlowski wrote:
+>> On 08/06/2022 14:07, Dmitry Baryshkov wrote:
+>>> Convert Qualcomm HDMI binding into HDMI TX and PHY yaml bindings.
+>>>
+>>> Changes to schema:
+>>> HDMI:
+>>>   - fixed reg-names numbering to match 0..3 instead 0,1,3,4
+>>>   - dropped qcom,tx-ddc-* from example, they were not documented
+>>>
+>>> PHY:
+>>>   - moved into phy/ directory
+>>>   - split into QMP and non-QMP PHY schemas
+>>>
+>>> Co-developed-by: David Heidelberg <david@ixit.cz>
+>> David also needs to SoB here.
+> 
+> no problem, for this or any later version of patches developed by me:
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-Fixes: 31b3b1f5e352 ("drm/msm/hdmi: use bulk regulator API")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/hdmi/hdmi.c | 3 +++
- 1 file changed, 3 insertions(+)
+Thanks!
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 992d29f75008..c66e857ef20e 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -180,6 +180,9 @@ static struct hdmi *msm_hdmi_init(struct platform_device *pdev)
- 		goto fail;
- 	}
- 
-+	for (i = 0; i < config->pwr_reg_cnt; i++)
-+		hdmi->pwr_regs[i].supply = config->pwr_reg_names[i];
-+
- 	ret = devm_regulator_bulk_get(&pdev->dev, config->pwr_reg_cnt, hdmi->pwr_regs);
- 	if (ret) {
- 		DRM_DEV_ERROR(&pdev->dev, "failed to get pwr regulator: %d\n", ret);
 -- 
-2.35.1
-
+With best wishes
+Dmitry
