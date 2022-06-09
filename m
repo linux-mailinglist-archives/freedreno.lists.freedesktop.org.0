@@ -1,51 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F915544BD6
-	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 14:24:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D90A544BD4
+	for <lists+freedreno@lfdr.de>; Thu,  9 Jun 2022 14:24:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33F0F11BE88;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F3811BE87;
 	Thu,  9 Jun 2022 12:24:06 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9398D11BE86
- for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:24:00 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id i29so20969331lfp.3
- for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:24:00 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AEC711BE6C
+ for <freedreno@lists.freedesktop.org>; Thu,  9 Jun 2022 12:24:01 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id j20so2328087ljg.8
+ for <freedreno@lists.freedesktop.org>; Thu, 09 Jun 2022 05:24:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VtlQ+3hM/P+ANfbvU+LcjJagzse8umOcu68TzYNqjsc=;
- b=Dz5lfZyEPkdd0N7eAQ27UADDki7GRRZMqHqimmXo/C5FIGp0lmgdhFpuIkWUCkaJJo
- G1unBpX03pOCQ3kgKHpGglHFPJsQXdI2oY8wY2yAaHYTBAroHcyQj9Q4ePWFWpQc4SDR
- wVHE72HladG/nyl13UK9x9/JRQDnJkqPpIki7lRgb9UO2bXkuPCTLxNBgbp98wpUM4lJ
- Wd+sNk9RJEkXVGgT4KiIIs/0P8z6n/Vnfy8gZlOEAAww/5l+CqRUZImGAu/P9j+GI5RS
- 5jD6aI5dEH8/qJeVl4AMqyqS6JPj0AOwt7eAc/gc6X5j/TZT2vCeeoIl7T9RNgTATvV2
- whuw==
+ bh=dKk2oambieXEp2AwUFQX/TaOB8Vv+hh7QY5UAinx/h0=;
+ b=WV97w6LIARmfhVKCezXA9VaDBJkVmULZJ+2N+TsGr2s4eqfQyflKUYuvv5VkLioVWA
+ ovw3rAEGEti5PUWf0ymC8eZ+3kyvdhQ/cbyLHz+k1/rWIs6kgxI3tZoQH56590Rd04u7
+ oVDGnK46vj61vTZpHf/MtzhGlH2/SnDWn5tzj37XMUj6hHDHtV41pTPfJJySSE0pWOqv
+ fZphbHlinEw5OHvPbnPpT/fCvCrJyLMR0SszxienvPMEhaSQF/1YJ0jNkxhaIcws73X7
+ hBNhf1jLau0Ayh6FBRVylvp/HenchsQt9m/26TbtUC/jw7P8rHabBoDcVsg3laS0tq/R
+ ZwKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VtlQ+3hM/P+ANfbvU+LcjJagzse8umOcu68TzYNqjsc=;
- b=tlU1fq3f/+DZEDWQquDFJBBS5PXZSw2UUlyHAq04pdGc0Io++dCRA7U4Lb5uoD5vLA
- yLVfHXkzgI2bfJk3o31jqXd33rp0MwwnMIWI+C7cPbSMDA8cL/SFQDruwQtT1X1TKJ1u
- duSLX5LmrAVZwG9Dg0muzig54ft3bgQJpO4mu0knhTXQ+6NCYwmnAy1RAccwzp/uxeg1
- WspXUngnD++duq8ZojyjjnWPsCBKKzUqNk84qjbSqJ78tme46V8uSNEozdb9RgistrSX
- 5WLCp2QrWY2EyxtgDXEqaaNXh227p19UPSEHhh9GTJu0SALfjlti+9G7UT5TBO9KTCFc
- CeRw==
-X-Gm-Message-State: AOAM530PU2rNJWjFQ29TqzUM5kCpcWdzn+Iu37Ku7TvwHERpkpdaAUPD
- YnWi/GwHjj1J6sLINcx3QHeQXQ==
-X-Google-Smtp-Source: ABdhPJxE+KET2TkT1nz+5eGpQKt7okZGZwF+Kdnl1FePY8swIarLWPWW9LzspzzA2mS5KLuwyemL7g==
-X-Received: by 2002:a19:4316:0:b0:479:ed75:5c1f with SMTP id
- q22-20020a194316000000b00479ed755c1fmr4134295lfa.253.1654777438831; 
- Thu, 09 Jun 2022 05:23:58 -0700 (PDT)
+ bh=dKk2oambieXEp2AwUFQX/TaOB8Vv+hh7QY5UAinx/h0=;
+ b=yZLCXYL4AjGWAf8CMCe95zpf1w5SXSVEfBLg59YYQM0QJK1jG96gHkjUslpE1uZpzd
+ bg8DYF5h1Q0iMFbnl77mbj3UeHHNv8H9l/73trWRm5BWMMzdB6G/fNDL04+kipSH+1ah
+ 1CNQcmQpmSIqurwxyrKH1xTBZ8N12iWGwiDkkiiVLq1rT8WY8mVL+VdsLCWRHmTfGhe5
+ zXdP0ztmmgSzPVH5do87dATo0DvsRq7TlRtFq7zb+/z08sMORzZ3THN5opymMfOKGJ0E
+ pRpkq7Tuql4oUKArAtS1s+XUnTLNZsB+Ql5ckypopUCkL0nZiYoDbrGcj+Ba/d+zP27F
+ JVtw==
+X-Gm-Message-State: AOAM532CDq+93IEIj3NHFnswbgqCXv+sey7TUB20Gxxj+UA4836ZrwN6
+ qGuRxfZtsxvzV2gU0MgdMM9exA==
+X-Google-Smtp-Source: ABdhPJwzS8bASRLzBpW9RQ7vbEpoyH2bD+NWpuVg2C1yNcDeZs7eqsDz8l5u7gEzRpwhOFpOOij5nQ==
+X-Received: by 2002:a2e:80d2:0:b0:255:6e92:c6d5 with SMTP id
+ r18-20020a2e80d2000000b002556e92c6d5mr21989714ljg.224.1654777439858; 
+ Thu, 09 Jun 2022 05:23:59 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
  f11-20020a056512360b00b0047daa133decsm32421lfs.166.2022.06.09.05.23.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jun 2022 05:23:58 -0700 (PDT)
+ Thu, 09 Jun 2022 05:23:59 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Andy Gross <agross@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -53,15 +53,15 @@ To: Andy Gross <agross@kernel.org>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Thu,  9 Jun 2022 15:23:44 +0300
-Message-Id: <20220609122350.3157529-9-dmitry.baryshkov@linaro.org>
+Date: Thu,  9 Jun 2022 15:23:45 +0300
+Message-Id: <20220609122350.3157529-10-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220609122350.3157529-1-dmitry.baryshkov@linaro.org>
 References: <20220609122350.3157529-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 08/14] drm/msm/hdmi: drop empty 'none'
- regulator lists
+Subject: [Freedreno] [PATCH v3 09/14] drm/msm/hdmi: drop hpd_regs usage on
+ 8x74/8084
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,9 +81,15 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Several platform configs use empty 'none' regulator arrays. They are not
-necessary, as the code will use corresponding _cnt field and skip the
-array completely. Drop them now.
+The MSM HDMI driver has support for hpd_regs on 8x74/8084: supply
+regulators that are to be enabled for HPD to work. Currently these
+regulators contain the hpd_gdsc, which was replaced by the power-domains
+support and hpd-5v/hpd-5v-en, which are not used by the chip itself.
+They power up the ESD bridge.
+However it is a separate device which should be represented separately
+in the device tree.
+None of upstreamed devices support these properties. Thus drop support
+for them from the HDMI driver.
 
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
@@ -92,32 +98,31 @@ Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
  1 file changed, 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 4ec55616a2e5..8f0fd2795748 100644
+index 8f0fd2795748..48cd6b9a7565 100644
 --- a/drivers/gpu/drm/msm/hdmi/hdmi.c
 +++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -370,9 +370,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
- 	.item ## _names = item ##_names_ ## entry, \
- 	.item ## _cnt   = ARRAY_SIZE(item ## _names_ ## entry)
+@@ -381,24 +381,19 @@ static struct hdmi_platform_config hdmi_tx_8960_config = {
+ };
  
--static const char *pwr_reg_names_none[] = {};
--static const char *hpd_reg_names_none[] = {};
--
- static struct hdmi_platform_config hdmi_tx_8660_config;
+ static const char *pwr_reg_names_8x74[] = {"core-vdda", "core-vcc"};
+-static const char *hpd_reg_names_8x74[] = {"hpd-gdsc", "hpd-5v"};
+ static const char *pwr_clk_names_8x74[] = {"extp", "alt_iface"};
+ static const char *hpd_clk_names_8x74[] = {"iface", "core", "mdp_core"};
+ static unsigned long hpd_clk_freq_8x74[] = {0, 19200000, 0};
  
- static const char *hpd_reg_names_8960[] = {"core-vdda"};
-@@ -409,7 +406,6 @@ static struct hdmi_platform_config hdmi_tx_8084_config = {
- 
- static struct hdmi_platform_config hdmi_tx_8994_config = {
+ static struct hdmi_platform_config hdmi_tx_8974_config = {
  		HDMI_CFG(pwr_reg, 8x74),
--		HDMI_CFG(hpd_reg, none),
+-		HDMI_CFG(hpd_reg, 8x74),
  		HDMI_CFG(pwr_clk, 8x74),
  		HDMI_CFG(hpd_clk, 8x74),
  		.hpd_freq      = hpd_clk_freq_8x74,
-@@ -417,7 +413,6 @@ static struct hdmi_platform_config hdmi_tx_8994_config = {
+ };
  
- static struct hdmi_platform_config hdmi_tx_8996_config = {
+-static const char *hpd_reg_names_8084[] = {"hpd-gdsc", "hpd-5v", "hpd-5v-en"};
+-
+ static struct hdmi_platform_config hdmi_tx_8084_config = {
  		HDMI_CFG(pwr_reg, 8x74),
--		HDMI_CFG(hpd_reg, none),
+-		HDMI_CFG(hpd_reg, 8084),
  		HDMI_CFG(pwr_clk, 8x74),
  		HDMI_CFG(hpd_clk, 8x74),
  		.hpd_freq      = hpd_clk_freq_8x74,
