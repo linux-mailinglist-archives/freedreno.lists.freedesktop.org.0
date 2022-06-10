@@ -2,66 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01559547001
-	for <lists+freedreno@lfdr.de>; Sat, 11 Jun 2022 01:30:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A458547004
+	for <lists+freedreno@lfdr.de>; Sat, 11 Jun 2022 01:32:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A245310E43E;
-	Fri, 10 Jun 2022 23:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 114A711A398;
+	Fri, 10 Jun 2022 23:32:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C014910E43E
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jun 2022 23:30:43 +0000 (UTC)
-Received: by mail-lj1-x231.google.com with SMTP id s10so630602ljh.12
- for <freedreno@lists.freedesktop.org>; Fri, 10 Jun 2022 16:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=Sv8K11oZ7Lv4AmiRrISFf7n2mB2iCSpIfL4GspaERss=;
- b=eCYr1lrWDY+g9PwdpzhAXIvVxv5ugWFG3MIQ6r/G3RgHmdBMDW3KVqfsjE3DDe/PqK
- X4XHTXmaztJIMHFgq3lq0rMIHkmLTRNbvrTrCrznepvxo6pIlRBJgwfTmcFexLMcUlhY
- M/0YsMbWPaQ6fOeI5YsWEKqC/Ov831IT/gWDSL0mbN+DIeKW6WfZuzM6s0BVrJGVsf1E
- 3dKv9ThqZ3QeZQWEUY77vb6R/e3iapUATovF/px7SmivgLoznSYJiU109MJ+G0QYSmcC
- PtxU+H0QWGlDFibQOgP/npf810d2+kCJdU6ztAeRvPM/gTf67JOUDtX1k3RmA0lElGsH
- SyBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Sv8K11oZ7Lv4AmiRrISFf7n2mB2iCSpIfL4GspaERss=;
- b=ZF6oU03YBdozpnQzZeROo8uwBTaDyo1dDyjPhdNXDQHsGtuLedvQO2y69MZZwvsims
- Z7iSO6xUz7kWByIzFD3QwmJ/+I4rjEU01Lx2c6fPj6Y5+AJnAMJQUPiY6Ui2tvcAoAgi
- yBOuA0Isyx0sKcXeZtcegWfMAtVwMT24zF8vFK3qQhYGbePVvjFd/HeM6xlTKyboGsLx
- CE9vR3gn1mDMPH3Vv5QYdGn3O2gCfQA9Vvrz1lrMkf2tN8oORttXRCeKQ3ERYwOGHjCx
- DHEtp3Cob+EgUZjtYmtMK8T39JAmjWv78iq5PS+Ts4HIkF2RdBh0lB0lsPwABvXJnGu9
- Bw7A==
-X-Gm-Message-State: AOAM5337OXIEbxALS/zlGM0fasvqxup3tYr/nNue1CoXDHJXAG5xBYR3
- w4WWNXI5y7ATpSKT0xiZvm8z1Q==
-X-Google-Smtp-Source: ABdhPJyQWfgzv3lGQjgGqamMRcSrJ3LohMrscyux/fTbfyQePC67i0s9ib/Pgwby9VZ76BA7VJ7wgg==
-X-Received: by 2002:a05:651c:1581:b0:255:48d1:fdae with SMTP id
- h1-20020a05651c158100b0025548d1fdaemr36354825ljq.286.1654903841934; 
- Fri, 10 Jun 2022 16:30:41 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- c28-20020ac2531c000000b0047889d37464sm35918lfh.196.2022.06.10.16.30.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Jun 2022 16:30:40 -0700 (PDT)
-Message-ID: <68399bf2-4cb7-69e4-0923-6ca8db386de6@linaro.org>
-Date: Sat, 11 Jun 2022 02:30:39 +0300
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF0911A36D;
+ Fri, 10 Jun 2022 23:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1654903938; x=1686439938;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=w/FOh0Rryq87K89eHJ8OClXAVl0+b6TmG4Pvq3oySnw=;
+ b=jGzHwKuHLVBrYNWojn+WYa8NwDU7561BCuHqa3dIF8RN0FR7vOZai1Vh
+ JSO/49WAp5clKYZlGVP0BsBM1lPRDO3FDX1oSFTN+CKsdvrJ0NKBuA0e/
+ fNUuZVRIApUjnbZbuwG8kh0k1WmyKzrstP3qA7OSJwgR+I0iaHVDP1XMB c=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 10 Jun 2022 16:32:17 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2022 16:32:17 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 10 Jun 2022 16:32:16 -0700
+Received: from [10.38.242.187] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 10 Jun
+ 2022 16:32:13 -0700
+Message-ID: <92f47c6f-779c-d651-b4c0-6eade1a2653a@quicinc.com>
+Date: Fri, 10 Jun 2022 16:32:11 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-GB
-To: Luca Weiss <luca@z3ntu.xyz>, linux-arm-msm@vger.kernel.org
-References: <20220610225304.267508-1-luca@z3ntu.xyz>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220610225304.267508-1-luca@z3ntu.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Luca Weiss <luca@z3ntu.xyz>, <dri-devel@lists.freedesktop.org>
+References: <20220610220259.220622-1-luca@z3ntu.xyz>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220610220259.220622-1-luca@z3ntu.xyz>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/mdp5: Add perf data for MDP
- v1.16
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Use single function for reset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,48 +64,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: James Willcox <jwillcox@squareup.com>,
- Sireesh Kodali <sireeshkodali1@gmail.com>, David Airlie <airlied@linux.ie>,
- freedreno@lists.freedesktop.org, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, phone-devel@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/06/2022 01:53, Luca Weiss wrote:
+
+
+On 6/10/2022 3:02 PM, Luca Weiss wrote:
 > From: Vladimir Lypak <vladimir.lypak@gmail.com>
 > 
-> Add the perf data for the mdp found in msm8953.
+> There is currently two function for performing reset: dsi_sw_reset and
+> dsi_sw_reset_restore. Only difference betwean those is that latter one
+betwean --> between
+> assumes that DSI controller is enabled. In contrary former one assumes
+> that controller is disabled and executed during power-on. However this
+> assumtion is not true mobile devices which have boot splash set up by
+> boot-loader.
+> 
+> This patch removes dsi_sw_reset_restore and makes dsi_sw_reset disable
+> DSI controller during reset sequence if it's enabled.
 > 
 > Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
 > Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Otherwise, looks good to me,
 
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 5 +++++
->   1 file changed, 5 insertions(+)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 48 +++++++++++++-----------------
+>   1 file changed, 21 insertions(+), 27 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> index 1bf9ff5dbabc..b17f868ffca8 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-> @@ -837,6 +837,11 @@ static const struct mdp5_cfg_hw msm8x53_config = {
->   			[2] = INTF_DSI,
->   		},
->   	},
-> +	.perf = {
-> +		.ab_inefficiency = 100,
-> +		.ib_inefficiency = 200,
-> +		.clk_inefficiency = 105
-> +	},
->   	.max_clk = 400000000,
->   };
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index a95d5df52653..bab2634ebd11 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1080,12 +1080,32 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
 >   
-
-
--- 
-With best wishes
-Dmitry
+>   static void dsi_sw_reset(struct msm_dsi_host *msm_host)
+>   {
+> +	u32 ctrl;
+> +
+> +	ctrl = dsi_read(msm_host, REG_DSI_CTRL);
+> +
+> +	if (ctrl & DSI_CTRL_ENABLE) {
+> +		dsi_write(msm_host, REG_DSI_CTRL, ctrl & ~DSI_CTRL_ENABLE);
+> +		/*
+> +		 * dsi controller need to be disabled before
+> +		 * clocks turned on
+> +		 */
+> +		wmb();
+> +	}
+> +
+>   	dsi_write(msm_host, REG_DSI_CLK_CTRL, DSI_CLK_CTRL_ENABLE_CLKS);
+>   	wmb(); /* clocks need to be enabled before reset */
+>   
+> +	/* dsi controller can only be reset while clocks are running */
+>   	dsi_write(msm_host, REG_DSI_RESET, 1);
+>   	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
+>   	dsi_write(msm_host, REG_DSI_RESET, 0);
+> +	wmb(); /* controller out of reset */
+> +
+> +	if (ctrl & DSI_CTRL_ENABLE) {
+> +		dsi_write(msm_host, REG_DSI_CTRL, ctrl);
+> +		wmb();	/* make sure dsi controller enabled again */
+> +	}
+>   }
+>   
+>   static void dsi_op_mode_config(struct msm_dsi_host *msm_host,
+> @@ -1478,32 +1498,6 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
+>   	return len;
+>   }
+>   
+> -static void dsi_sw_reset_restore(struct msm_dsi_host *msm_host)
+> -{
+> -	u32 data0, data1;
+> -
+> -	data0 = dsi_read(msm_host, REG_DSI_CTRL);
+> -	data1 = data0;
+> -	data1 &= ~DSI_CTRL_ENABLE;
+> -	dsi_write(msm_host, REG_DSI_CTRL, data1);
+> -	/*
+> -	 * dsi controller need to be disabled before
+> -	 * clocks turned on
+> -	 */
+> -	wmb();
+> -
+> -	dsi_write(msm_host, REG_DSI_CLK_CTRL, DSI_CLK_CTRL_ENABLE_CLKS);
+> -	wmb();	/* make sure clocks enabled */
+> -
+> -	/* dsi controller can only be reset while clocks are running */
+> -	dsi_write(msm_host, REG_DSI_RESET, 1);
+> -	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
+> -	dsi_write(msm_host, REG_DSI_RESET, 0);
+> -	wmb();	/* controller out of reset */
+> -	dsi_write(msm_host, REG_DSI_CTRL, data0);
+> -	wmb();	/* make sure dsi controller enabled again */
+> -}
+> -
+>   static void dsi_hpd_worker(struct work_struct *work)
+>   {
+>   	struct msm_dsi_host *msm_host =
+> @@ -1520,7 +1514,7 @@ static void dsi_err_worker(struct work_struct *work)
+>   
+>   	pr_err_ratelimited("%s: status=%x\n", __func__, status);
+>   	if (status & DSI_ERR_STATE_MDP_FIFO_UNDERFLOW)
+> -		dsi_sw_reset_restore(msm_host);
+> +		dsi_sw_reset(msm_host);
+>   
+>   	/* It is safe to clear here because error irq is disabled. */
+>   	msm_host->err_work_state = 0;
