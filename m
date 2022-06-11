@@ -1,57 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A458547004
-	for <lists+freedreno@lfdr.de>; Sat, 11 Jun 2022 01:32:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2F76547713
+	for <lists+freedreno@lfdr.de>; Sat, 11 Jun 2022 20:16:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114A711A398;
-	Fri, 10 Jun 2022 23:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B4E10E089;
+	Sat, 11 Jun 2022 18:16:41 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF0911A36D;
- Fri, 10 Jun 2022 23:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1654903938; x=1686439938;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=w/FOh0Rryq87K89eHJ8OClXAVl0+b6TmG4Pvq3oySnw=;
- b=jGzHwKuHLVBrYNWojn+WYa8NwDU7561BCuHqa3dIF8RN0FR7vOZai1Vh
- JSO/49WAp5clKYZlGVP0BsBM1lPRDO3FDX1oSFTN+CKsdvrJ0NKBuA0e/
- fNUuZVRIApUjnbZbuwG8kh0k1WmyKzrstP3qA7OSJwgR+I0iaHVDP1XMB c=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 10 Jun 2022 16:32:17 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2022 16:32:17 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 10 Jun 2022 16:32:16 -0700
-Received: from [10.38.242.187] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 10 Jun
- 2022 16:32:13 -0700
-Message-ID: <92f47c6f-779c-d651-b4c0-6eade1a2653a@quicinc.com>
-Date: Fri, 10 Jun 2022 16:32:11 -0700
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0B810E089
+ for <freedreno@lists.freedesktop.org>; Sat, 11 Jun 2022 18:16:40 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1011df6971aso790165fac.1
+ for <freedreno@lists.freedesktop.org>; Sat, 11 Jun 2022 11:16:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=kgRN1xEQcitAejCBLpzML1+JqkKMRkpU5jU1U59JtqE=;
+ b=JSzeQQNZSFvyTFEakgnEEc1U3Ooj9KJ/WvCXS0bFwd92LVCZ/A/lElrk/VaSc/FbUO
+ /wViRb+cDQhSRNLcI8pkoviXuMbZQz6l0Ke8ehmlTcJsupvN2jr5YvTbPL9ayvPuYtwe
+ w7Bd73fXXEcKPoQJdgYcbqepmPDYT5ckwjz26eiqYmkeXytwT65GGUo8qFw0bBql6Unv
+ tmy98DlvUK2XG28yo7bbnBpfaqx76zzuDQpfM0MyvrvaGoS09R8ztPNzxRKpMuCbvrJS
+ vO8UpjMF7l1lOt7pW+7839VwMJdR9IqbdUne3QRkZdwMJexDFESHpA0SJaSDEIvIyzkB
+ QTbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=kgRN1xEQcitAejCBLpzML1+JqkKMRkpU5jU1U59JtqE=;
+ b=40MKFuG2jKA34HfBEtyGfxE4TRxw/tq14JQI93EAlhGuCpCewPjAwH3lhU/gVA4lv+
+ 92tzWm0gO4fnqv2y/dDlkSSnDv6j56DNkhn5OGGezt+k005+r8I/Z7rKuc7HCl/HVK5h
+ ZDxS4DiKBc+wTMrMU5xGMreQ/5wov/KJ/tzsZfS2OJzRP7R/A9ggtCRJGgu98dUH3lsG
+ Jizn01bWdJOeDUsZ5PRJLmZFbiMS2b8fiKMSrfi0nO6Brlk+jLoBhEHc7s+TFOiyYbz/
+ ta7zMBmPg16E6V6+WQYKz/AiOPb44GNbzsDx4JH+J4ftpkdGsngYC9EHO2DQK5ZIotyi
+ cIFQ==
+X-Gm-Message-State: AOAM532b3hGTdulX8fUKUCbVKSYMFooBoQn8CDcvB9kbbSS71GcwDV25
+ GwplW6bcMZVWDqmSgPyN1tPb5g==
+X-Google-Smtp-Source: ABdhPJxH6EjZpF1SBHn+LX+TQys5+EfxFofNkvijYQT6OUdvv/+GF69NEHAXWY+ttpQglZ7ZTOqnZg==
+X-Received: by 2002:a05:6870:889c:b0:f2:57f0:b7ef with SMTP id
+ m28-20020a056870889c00b000f257f0b7efmr3130568oam.243.1654971399704; 
+ Sat, 11 Jun 2022 11:16:39 -0700 (PDT)
+Received: from [192.168.11.16] (cpe-173-173-107-246.satx.res.rr.com.
+ [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
+ z3-20020a056870d68300b000f342119f41sm1352095oap.42.2022.06.11.11.16.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 11 Jun 2022 11:16:35 -0700 (PDT)
+Message-ID: <42e52572-726b-d94d-6523-7b42dbeecff1@kali.org>
+Date: Sat, 11 Jun 2022 13:16:32 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.10.0
 Content-Language: en-US
-To: Luca Weiss <luca@z3ntu.xyz>, <dri-devel@lists.freedesktop.org>
-References: <20220610220259.220622-1-luca@z3ntu.xyz>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220610220259.220622-1-luca@z3ntu.xyz>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20220610172055.2337977-1-robdclark@gmail.com>
+From: Steev Klimaszewski <steev@kali.org>
+In-Reply-To: <20220610172055.2337977-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Use single function for reset
+Subject: Re: [Freedreno] [PATCH] drm/msm/gem: Drop early returns in
+ close/purge vma
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,118 +75,58 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
  David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Vladimir Lypak <vladimir.lypak@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, phone-devel@vger.kernel.org,
- Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Rob,
 
-
-On 6/10/2022 3:02 PM, Luca Weiss wrote:
-> From: Vladimir Lypak <vladimir.lypak@gmail.com>
-> 
-> There is currently two function for performing reset: dsi_sw_reset and
-> dsi_sw_reset_restore. Only difference betwean those is that latter one
-betwean --> between
-> assumes that DSI controller is enabled. In contrary former one assumes
-> that controller is disabled and executed during power-on. However this
-> assumtion is not true mobile devices which have boot splash set up by
-> boot-loader.
-> 
-> This patch removes dsi_sw_reset_restore and makes dsi_sw_reset disable
-> DSI controller during reset sequence if it's enabled.
-> 
-> Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
-> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
-
-Otherwise, looks good to me,
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On 6/10/22 12:20 PM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> Keep the warn, but drop the early return.  If we do manage to hit this
+> sort of issue, skipping the cleanup just makes things worse (dangling
+> drm_mm_nodes when the msm_gem_vma is freed, etc).  Whereas the worst
+> that happens if we tear down a mapping the GPU is accessing is that we
+> get GPU iova faults, but otherwise the world keeps spinning.
+>
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
 > ---
->   drivers/gpu/drm/msm/dsi/dsi_host.c | 48 +++++++++++++-----------------
->   1 file changed, 21 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index a95d5df52653..bab2634ebd11 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -1080,12 +1080,32 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+>   drivers/gpu/drm/msm/msm_gem_vma.c | 6 ++----
+>   1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+> index 3c1dc9241831..c471aebcdbab 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+> @@ -62,8 +62,7 @@ void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
+>   	unsigned size = vma->node.size;
 >   
->   static void dsi_sw_reset(struct msm_dsi_host *msm_host)
+>   	/* Print a message if we try to purge a vma in use */
+> -	if (GEM_WARN_ON(msm_gem_vma_inuse(vma)))
+> -		return;
+> +	GEM_WARN_ON(msm_gem_vma_inuse(vma));
+>   
+>   	/* Don't do anything if the memory isn't mapped */
+>   	if (!vma->mapped)
+> @@ -128,8 +127,7 @@ msm_gem_map_vma(struct msm_gem_address_space *aspace,
+>   void msm_gem_close_vma(struct msm_gem_address_space *aspace,
+>   		struct msm_gem_vma *vma)
 >   {
-> +	u32 ctrl;
-> +
-> +	ctrl = dsi_read(msm_host, REG_DSI_CTRL);
-> +
-> +	if (ctrl & DSI_CTRL_ENABLE) {
-> +		dsi_write(msm_host, REG_DSI_CTRL, ctrl & ~DSI_CTRL_ENABLE);
-> +		/*
-> +		 * dsi controller need to be disabled before
-> +		 * clocks turned on
-> +		 */
-> +		wmb();
-> +	}
-> +
->   	dsi_write(msm_host, REG_DSI_CLK_CTRL, DSI_CLK_CTRL_ENABLE_CLKS);
->   	wmb(); /* clocks need to be enabled before reset */
+> -	if (GEM_WARN_ON(msm_gem_vma_inuse(vma) || vma->mapped))
+> -		return;
+> +	GEM_WARN_ON(msm_gem_vma_inuse(vma) || vma->mapped);
 >   
-> +	/* dsi controller can only be reset while clocks are running */
->   	dsi_write(msm_host, REG_DSI_RESET, 1);
->   	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
->   	dsi_write(msm_host, REG_DSI_RESET, 0);
-> +	wmb(); /* controller out of reset */
-> +
-> +	if (ctrl & DSI_CTRL_ENABLE) {
-> +		dsi_write(msm_host, REG_DSI_CTRL, ctrl);
-> +		wmb();	/* make sure dsi controller enabled again */
-> +	}
->   }
->   
->   static void dsi_op_mode_config(struct msm_dsi_host *msm_host,
-> @@ -1478,32 +1498,6 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
->   	return len;
->   }
->   
-> -static void dsi_sw_reset_restore(struct msm_dsi_host *msm_host)
-> -{
-> -	u32 data0, data1;
-> -
-> -	data0 = dsi_read(msm_host, REG_DSI_CTRL);
-> -	data1 = data0;
-> -	data1 &= ~DSI_CTRL_ENABLE;
-> -	dsi_write(msm_host, REG_DSI_CTRL, data1);
-> -	/*
-> -	 * dsi controller need to be disabled before
-> -	 * clocks turned on
-> -	 */
-> -	wmb();
-> -
-> -	dsi_write(msm_host, REG_DSI_CLK_CTRL, DSI_CLK_CTRL_ENABLE_CLKS);
-> -	wmb();	/* make sure clocks enabled */
-> -
-> -	/* dsi controller can only be reset while clocks are running */
-> -	dsi_write(msm_host, REG_DSI_RESET, 1);
-> -	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
-> -	dsi_write(msm_host, REG_DSI_RESET, 0);
-> -	wmb();	/* controller out of reset */
-> -	dsi_write(msm_host, REG_DSI_CTRL, data0);
-> -	wmb();	/* make sure dsi controller enabled again */
-> -}
-> -
->   static void dsi_hpd_worker(struct work_struct *work)
->   {
->   	struct msm_dsi_host *msm_host =
-> @@ -1520,7 +1514,7 @@ static void dsi_err_worker(struct work_struct *work)
->   
->   	pr_err_ratelimited("%s: status=%x\n", __func__, status);
->   	if (status & DSI_ERR_STATE_MDP_FIFO_UNDERFLOW)
-> -		dsi_sw_reset_restore(msm_host);
-> +		dsi_sw_reset(msm_host);
->   
->   	/* It is safe to clear here because error irq is disabled. */
->   	msm_host->err_work_state = 0;
+>   	spin_lock(&aspace->lock);
+>   	if (vma->iova)
+
+I've seen the splat on the Lenovo Yoga C630 here, and have tested this 
+patch, and as described, the splat still happens, but the system is 
+still able to be used.
+
+Tested-by: Steev Klimaszewski <steev@kali.org>
+
