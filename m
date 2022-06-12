@@ -1,56 +1,35 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F34D54786F
-	for <lists+freedreno@lfdr.de>; Sun, 12 Jun 2022 06:03:20 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C3E547985
+	for <lists+freedreno@lfdr.de>; Sun, 12 Jun 2022 11:22:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58E4010F22B;
-	Sun, 12 Jun 2022 04:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5593E112578;
+	Sun, 12 Jun 2022 09:22:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C39CF10F15C;
- Sun, 12 Jun 2022 04:03:13 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id m20so5064807ejj.10;
- Sat, 11 Jun 2022 21:03:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pbFRE+VCdz/Mvat4l03Ru/M9ljAjH7/8wgRe5uPLKmA=;
- b=JylIYtTShS/QVxxbVK6KZgGdN2BZID9npboqy/8nxih8wIBzeXClsDxln2BxALdDKo
- s/rdJm9lAJOmYNN48gAD4YprUguICzlGaD2n5L+7N8UDtwFkb10xOgcJROs17fds/p0C
- djKJtLrvwes1nNTxMct5KgVOoJHnvlGqfRffcNGB3xI2tq12ydBIJQHokfeodlOA/OOS
- dYL3kFDEUOlRW3hG09rOFTU1ut9Ig2Vy409NhFVaCYhKZGXtR2Br5lyBBBhkA4Dy49q6
- TzI1y3h5cFKs45EFz7cIirMCXSqmb9Tt9rLTkz+gaZA4p2T4AjtpmqQTeePPu2QxhL0S
- e16Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pbFRE+VCdz/Mvat4l03Ru/M9ljAjH7/8wgRe5uPLKmA=;
- b=v6DNPkF5Z5Qvj1Ah0qsqTkOYp3tGCDndZ2q0tzc/ZGPY53TGNWXBeEsutLFHiQrE64
- Cl34CRdq+bOdWE/o0iIhACXK7l2FcLyLr6xR2zXgrRWTlhLeKrBVOk6DRodjGgjo0F5W
- KN9MasApX6s2K/wWNyZWNYPZs4w1Goiu5VEpPEmnSryaRPpG0na0hzdDJYWVfdUHT+4/
- 6+gi9gAysyoeufKrnImrjkaA/Wc5fz2Qi7r6hixLXSa8NyCJqJnL8wvDw4Gm9x5e2FU/
- +mgXB5Frq8EoBiHKiti/4Z8mHz8yGncWvwhGwdCqmgmATJqws44dDC1lQTk/Uv8IJoeU
- txUw==
-X-Gm-Message-State: AOAM533UrILOQjCHfG2aEfMNVQ311JSqc6v1jPiqCm55szctDpnLFJVL
- rRSp6k6LfaHZR0gL6yAGtUsKpx4Wy0nIGtBWavc=
-X-Google-Smtp-Source: ABdhPJy9n/qDVUSTdlF1vXGTql2S/bTRtKA5PHOMP6KIlAgDuGmiLNoP/0JDATNBnLXZHa3pJmlXULj0phEuLoDftkE=
-X-Received: by 2002:a17:907:1c19:b0:711:e5f9:2ec7 with SMTP id
- nc25-20020a1709071c1900b00711e5f92ec7mr23267565ejc.518.1655006591088; Sat, 11
- Jun 2022 21:03:11 -0700 (PDT)
+Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E67CF112571;
+ Sun, 12 Jun 2022 09:22:33 +0000 (UTC)
+Received: from g550jk.arnhem.chello.nl (31-151-115-246.dynamic.upc.nl
+ [31.151.115.246])
+ by mail.z3ntu.xyz (Postfix) with ESMTPSA id E0E5ECD3B3;
+ Sun, 12 Jun 2022 09:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
+ t=1655025752; bh=isvXvz151xa9quT3FHp3T0dcyI84C7Y5YBfGdMQhMmA=;
+ h=From:To:Cc:Subject:Date;
+ b=o9/ANSNedqRJigIQk70MGTfgaC+jNQhcvq9Bl0RmRLiqfBmZcK+iBTW4CC0os403e
+ nQ1DJZ4+tjDtbExBe6brM1mH4UNWUq2ZZTnYV+9jv6ZVobjKgTW7vHz6ZG6ha9e0FP
+ OCvhLYgAcJCsDUCkWTZlEQwvdPqduG5mXgkqftr0=
+From: Luca Weiss <luca@z3ntu.xyz>
+To: linux-arm-msm@vger.kernel.org
+Date: Sun, 12 Jun 2022 11:22:12 +0200
+Message-Id: <20220612092218.424809-1-luca@z3ntu.xyz>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220529180428.2577832-1-robdclark@gmail.com>
-In-Reply-To: <20220529180428.2577832-1-robdclark@gmail.com>
-From: Chia-I Wu <olvaffe@gmail.com>
-Date: Sat, 11 Jun 2022 21:02:59 -0700
-Message-ID: <CAPaKu7QDoZiPRDAptk7+cfv3Da+oXU7f0f4m6LQiwfzd=x=TuA@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2] drm/msm/adreno: Allow larger address
- space size
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/4] MDSS support for MSM8953
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +42,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Connor Abbott <cwabbott0@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, Emma Anholt <emma@anholt.net>,
- Jonathan Marek <jonathan@marek.ca>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Sean Paul <sean@poorly.run>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, freedreno@lists.freedesktop.org,
- Dan Carpenter <dan.carpenter@oracle.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Rob Clark <robdclark@chromium.org>, devicetree@vger.kernel.org,
+ James Willcox <jwillcox@squareup.com>, freedreno@lists.freedesktop.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Luca Weiss <luca@z3ntu.xyz>,
+ iommu@lists.linux-foundation.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, phone-devel@vger.kernel.org,
+ Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sun, May 29, 2022 at 11:04 AM Rob Clark <robdclark@gmail.com> wrote:
->
-> From: Rob Clark <robdclark@chromium.org>
->
-> The restriction to 4G was strictly to work around 64b math bug in some
-> versions of SQE firmware.  This appears to be fixed in a650+ SQE fw, so
-> allow a larger address space size on these devices.
->
-> Also, add a modparam override for debugging and igt.
->
-> v2: Send the right version of the patch (ie. the one that actually
->     compiles)
->
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
+This series adds the APPS IOMMU and the MDSS block for display that is
+found on msm8953 SoCs.
+
+Luca Weiss (1):
+  dt-bindings: qcom-iommu: Add Qualcomm MSM8953 compatible
+
+Vladimir Lypak (3):
+  arm64: dts: qcom: msm8953: add APPS IOMMU
+  drm/msm/mdp5: Add perf data for MDP v1.16
+  arm64: dts: qcom: msm8953: add MDSS
+
+ .../devicetree/bindings/iommu/qcom,iommu.txt  |   1 +
+ arch/arm64/boot/dts/qcom/msm8953.dtsi         | 244 ++++++++++++++++++
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c      |   5 +
+ 3 files changed, 250 insertions(+)
+
+-- 
+2.36.1
+
