@@ -1,61 +1,54 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD86854A023
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jun 2022 22:50:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F3A54A1BC
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jun 2022 23:48:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18BF910F9A7;
-	Mon, 13 Jun 2022 20:50:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC6710FBB0;
+	Mon, 13 Jun 2022 21:48:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCEB410F9A5;
- Mon, 13 Jun 2022 20:50:22 +0000 (UTC)
-Received: by mail-pf1-x433.google.com with SMTP id x4so6762356pfj.10;
- Mon, 13 Jun 2022 13:50:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZmwXvgLLBC7TADCPkXTU2hZQHv34ij//8HIDEtsV3fg=;
- b=d4SK5QkUQl4YuJ5khcaFrQapCV8SM63zlqRjeOcI9zoh06FmMqpOvdLTMXBdxba3Gp
- KUnYizKkLIF419F1zA6l4tHwGs0rDfnMp9sWokkyqAUHQ6i23NSuOzFZkwzTnnem7M3Z
- C4SRDjxVroJVNHZbdGP5H5tW5ILZSO5vpca7JWzFw3UIl4+t9a2qEoWGvQ2Q+JIGnCaU
- Xocf8oekLGO2iA1zStcBA4ruy69//oC9IZ2z9xRCLQxlXY7HfD8LGUgn+agiTmVTboaQ
- zxa9rxnZonyLUvKJBBII++QCt3dI3TIr12x3YJ/BGFO0g6kjVtBAi+7Uogl+2PQHP7it
- +LAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZmwXvgLLBC7TADCPkXTU2hZQHv34ij//8HIDEtsV3fg=;
- b=jRYVa8dzEa4glgvbD2oJ9CKWE6w/UrC28BmABsS5Pcf39psO9RU/3FmAgWbo4jsfqY
- nK5muXnXcI0DWuXoCxTqyVBYAQJ/nOsDJAgoH/rFueviaOQdN6nzaQxn6Cx4/KXZX/dO
- K64S7EhjFWszTMGgUlZ5DYjnaNiMyZEQZ0Q1OPgjCLcfcjTovpu97fVM0H4WtcgYSN0q
- Namor37jVTPFHOaAWeZ2yHrLIGZIOpz/oN5ZhVVrD0y4Cu9FVF3YoMgbsklfDqGlyyLq
- r6/OkuYzycE/jrvy3ndEEsj/ZGDhcjj43LwEHf0ODFkyI9PixsU6CL17TwCCBZpXOIfQ
- GwSA==
-X-Gm-Message-State: AOAM531/hFMwQcBw1AULyc8tchaSOkOgDlXeuBv5m0LBzO3LnPuTXkyR
- waNKXBQYEx1K6nKMKorlDjfWytXR72U=
-X-Google-Smtp-Source: ABdhPJzm1ncJI/Zv5ZahCXdnEdUzbwnLxSHxpjYu4I8xjvCMgyZ73IgE2hbkPio67Zoi84w6qPuTJw==
-X-Received: by 2002:a65:6b92:0:b0:39c:c97b:1b57 with SMTP id
- d18-20020a656b92000000b0039cc97b1b57mr1281744pgw.517.1655153421701; 
- Mon, 13 Jun 2022 13:50:21 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- y2-20020a17090264c200b0016641a37e71sm5509262pli.225.2022.06.13.13.50.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jun 2022 13:50:20 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Mon, 13 Jun 2022 13:50:32 -0700
-Message-Id: <20220613205032.2652374-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D5110ED42;
+ Mon, 13 Jun 2022 21:48:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655156928; x=1686692928;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=S1094JypZPKwpqgk7nhQXoJksw/Gez7Oko5h6drJib4=;
+ b=dYAqvEge4O3WIaENX/OeS7o8/I9DRD6zwWalovsBVY/6NLLopQv8D+vT
+ 72eJYjY4I3+8+9eKKaAJZU2/ZVFSXITUbfkKv7q7nCO6kuSatIKqlFp6k
+ g5sNFwj+NzuyG4jUzkfkg1pqK0XDXI9pf3k9lVANL57bMq4D8DQRIEaSZ I=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 13 Jun 2022 14:48:47 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2022 14:48:46 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 13 Jun 2022 14:48:46 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 13 Jun 2022 14:48:45 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 13 Jun 2022 14:48:37 -0700
+Message-ID: <1655156917-21726-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/gem: Drop obj lock in
- msm_gem_free_object()
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v5] drm/msm/dp: force link training for display
+ resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,86 +61,146 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+During display resolution changes display have to be disabled first
+followed by display enabling with new resolution. Display disable
+will turn off both pixel clock and main link clock so that main link
+have to be re-trained during display enable to have new video stream
+flow again. At current implementation, display enable function manually
+kicks up irq_hpd_handle which will read panel link status and start link
+training if link status is not in sync state. However, there is rare
+case that a particular panel links status keep staying in sync for
+some period of time after main link had been shut down previously at
+display disabled. Main link retraining will not be executed by
+irq_hdp_handle() if the link status read from panel shows it is in
+sync state. If this was happen, then video stream of newer display
+resolution will fail to be transmitted to panel due to main link is
+not in sync between host and panel. This patch force main link always
+be retrained during display enable procedure to prevent this rare
+failed case from happening. Also this implementation are more
+efficient than manual kicking off irq_hpd_handle function.
 
-The only reason we grabbed the lock was to satisfy a bunch of places
-that WARN_ON() if called without the lock held.  But this angers lockdep
-which doesn't realize no one else can be holding the lock by the time we
-end up destroying the object (and sees what would otherwise be a locking
-inversion between reservation_ww_class_mutex and fs_reclaim).
+Changes in v2:
+-- set force_link_train flag on DP only (is_edp == false)
 
-Closes: https://gitlab.freedesktop.org/drm/msm/-/issues/14
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+Changes in v3:
+-- revise commit  text
+-- add Fixes tag
+
+Changes in v4:
+-- revise commit  text
+
+Changes in v5:
+-- fix spelling at commit text
+
+Fixes: 62671d2ef24b ("drm/msm/dp: fixes wrong connection state caused by failure of link train")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 ---
- drivers/gpu/drm/msm/msm_gem.c |  8 --------
- drivers/gpu/drm/msm/msm_gem.h | 14 +++++++++++++-
- 2 files changed, 13 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    |  6 +++---
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
+ drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
+ 3 files changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 3ef7ada59392..ccc7e6d8cc30 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -1020,8 +1020,6 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
- 	list_del(&msm_obj->mm_list);
- 	mutex_unlock(&priv->mm_lock);
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index af7a80c..bea93eb 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1551,7 +1551,7 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
  
--	msm_gem_lock(obj);
--
- 	/* object should not be on active list: */
- 	GEM_WARN_ON(is_active(msm_obj));
+ 	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
+ 	if (!ret)
+-		ret = dp_ctrl_on_stream(&ctrl->dp_ctrl);
++		ret = dp_ctrl_on_stream(&ctrl->dp_ctrl, false);
+ 	else
+ 		DRM_ERROR("failed to enable DP link controller\n");
  
-@@ -1037,17 +1035,11 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
- 
- 		put_iova_vmas(obj);
- 
--		/* dma_buf_detach() grabs resv lock, so we need to unlock
--		 * prior to drm_prime_gem_destroy
--		 */
--		msm_gem_unlock(obj);
--
- 		drm_prime_gem_destroy(obj, msm_obj->sgt);
- 	} else {
- 		msm_gem_vunmap(obj);
- 		put_pages(obj);
- 		put_iova_vmas(obj);
--		msm_gem_unlock(obj);
- 	}
- 
- 	drm_gem_object_release(obj);
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index d608339c1643..432032ad4aed 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -229,7 +229,19 @@ msm_gem_unlock(struct drm_gem_object *obj)
- static inline bool
- msm_gem_is_locked(struct drm_gem_object *obj)
- {
--	return dma_resv_is_locked(obj->resv);
-+	/*
-+	 * Destroying the object is a special case.. msm_gem_free_object()
-+	 * calls many things that WARN_ON if the obj lock is not held.  But
-+	 * acquiring the obj lock in msm_gem_free_object() can cause a
-+	 * locking order inversion between reservation_ww_class_mutex and
-+	 * fs_reclaim.
-+	 *
-+	 * This deadlock is not actually possible, because no one should
-+	 * be already holding the lock when msm_gem_free_object() is called.
-+	 * Unfortunately lockdep is not aware of this detail.  So when the
-+	 * refcount drops to zero, we pretend it is already locked.
-+	 */
-+	return dma_resv_is_locked(obj->resv) || (kref_read(&obj->refcount) == 0);
+@@ -1807,7 +1807,7 @@ static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
+ 	return dp_ctrl_setup_main_link(ctrl, &training_step);
  }
  
- static inline bool is_active(struct msm_gem_object *msm_obj)
+-int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
++int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+ {
+ 	int ret = 0;
+ 	bool mainlink_ready = false;
+@@ -1848,7 +1848,7 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
+ 		return 0;
+ 	}
+ 
+-	if (!dp_ctrl_channel_eq_ok(ctrl))
++	if (force_link_train || !dp_ctrl_channel_eq_ok(ctrl))
+ 		dp_ctrl_link_retrain(ctrl);
+ 
+ 	/* stop txing train pattern to end link training */
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 0745fde..b563e2e 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -21,7 +21,7 @@ struct dp_ctrl {
+ };
+ 
+ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
+-int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
++int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train);
+ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index c388323..370348d 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -872,7 +872,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 		return 0;
+ 	}
+ 
+-	rc = dp_ctrl_on_stream(dp->ctrl);
++	rc = dp_ctrl_on_stream(dp->ctrl, data);
+ 	if (!rc)
+ 		dp_display->power_on = true;
+ 
+@@ -1654,6 +1654,7 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 	int rc = 0;
+ 	struct dp_display_private *dp_display;
+ 	u32 state;
++	bool force_link_train = false;
+ 
+ 	dp_display = container_of(dp, struct dp_display_private, dp_display);
+ 	if (!dp_display->dp_mode.drm_mode.clock) {
+@@ -1688,10 +1689,14 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 
+ 	state =  dp_display->hpd_state;
+ 
+-	if (state == ST_DISPLAY_OFF)
++	if (state == ST_DISPLAY_OFF) {
+ 		dp_display_host_phy_init(dp_display);
+ 
+-	dp_display_enable(dp_display, 0);
++		if (!dp->is_edp)
++			force_link_train = true;
++	}
++
++	dp_display_enable(dp_display, force_link_train);
+ 
+ 	rc = dp_display_post_enable(dp);
+ 	if (rc) {
+@@ -1700,10 +1705,6 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 		dp_display_unprepare(dp);
+ 	}
+ 
+-	/* manual kick off plug event to train link */
+-	if (state == ST_DISPLAY_OFF)
+-		dp_add_event(dp_display, EV_IRQ_HPD_INT, 0, 0);
+-
+ 	/* completed connection */
+ 	dp_display->hpd_state = ST_CONNECTED;
+ 
 -- 
-2.36.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
