@@ -1,63 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC48154A1F5
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 00:14:18 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BDB54A23A
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 00:45:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6C610F83F;
-	Mon, 13 Jun 2022 22:14:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A712B10FABD;
+	Mon, 13 Jun 2022 22:44:58 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB7D910F8F3
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jun 2022 22:14:16 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id c144so5097762qkg.11
- for <freedreno@lists.freedesktop.org>; Mon, 13 Jun 2022 15:14:16 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1911D10FABD;
+ Mon, 13 Jun 2022 22:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20210112.gappssmtp.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DUiAeAfmEZIvnaedz68FdfSLl3Zzr0m6IgnYQsJx0+M=;
- b=L+MVtYj3pR9bGDgWW1ZLh6MEJL2EQuCpnYM8vbzG/AZc/TBQPbd5vwrc1jSCxsampk
- bDLP9XlkJpzVtfLiX6GJwl/7eZ+ooP+cOkck5THn2TZOmDlb0ItuoiArFCtKfuX0xWRi
- 2SZD13n1AUaET9GxI3D6Y8qeqM4CIMesN2KBpO7+Rn5w/sUPtySQ90rNHUuUhu7/fYBX
- YzMXPg2zpJpcTXdpC8ftkbyUEXsv5PFHCcISDkPc23cPcaBJYbzjZ83/0DXASvENCMHc
- 2S7+RfLPulb9pZJurQTv7Zt70tMZmNeVXMQH1nUcxQrfJYL/z9PQz7mUEgmKPnBPmMoj
- DnTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DUiAeAfmEZIvnaedz68FdfSLl3Zzr0m6IgnYQsJx0+M=;
- b=hvzZt9kkDStiQkPPEW3hUN80w5Zr/rJHZXOJTslVFCOaUTFUnG98Tg79dhiQkIVB1Q
- HvD2QoeY/ZdFcHKmj0iEcYVkeqi7BWA7UjLqCbL7Q04wz2azR4qtzKB6Vw4zRl545MqT
- gFkRkwCrbEkj9alrKmRCv1uF2mfiDiUovrIgW6t5oLpdIbnenZF8LqSowj3/BGEtPhjf
- dqGhiyIboJ6KkpWllbyQKC2ACmQAaPajJ9CL8knXeFh+AVqPeyTDdsh/4cbLjRzAEmMZ
- MotdGm837QalB6t45TgmWmzkacRF4a81rHBCGZAV9hvMsTKzeagO6VIVwuBlwrsHT9NY
- ZA0g==
-X-Gm-Message-State: AOAM531VcVg/tR9qqouLNKkHs7Tq/U+GyVvtZbcdUL607K6seGkQzV+N
- L4g8sONlM0aylOWX++jp7djYnayQW3sdc9bi
-X-Google-Smtp-Source: ABdhPJz8SZxKA/0hDuOp4+Jhg9OT2Vji6pJSqJnR7maEE5yHqeZHat7TCXVM+y1Uv/5GzBpK9Bpq3w==
-X-Received: by 2002:a05:620a:4252:b0:67e:8977:db80 with SMTP id
- w18-20020a05620a425200b0067e8977db80mr1813022qko.483.1655158455792; 
- Mon, 13 Jun 2022 15:14:15 -0700 (PDT)
-Received: from localhost.localdomain
- (modemcable134.222-177-173.mc.videotron.ca. [173.177.222.134])
- by smtp.gmail.com with ESMTPSA id
- l11-20020ac84ccb000000b002f92b74ba99sm5700569qtv.13.2022.06.13.15.14.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jun 2022 15:14:15 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: freedreno@lists.freedesktop.org
-Date: Mon, 13 Jun 2022 18:10:19 -0400
-Message-Id: <20220613221019.11399-1-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655160298; x=1686696298;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Jnn+jXJ31MGDLO6HdQ23ZKYS4Lu1ffv8Vgu9+kjL8aI=;
+ b=Lsfd4hpCgKmyE/Ya0rcg/Uf3PNm7atVvbCRJ498CPI9Y10uNcEuBvUi7
+ 0PoKZlD698jsDr5gkzdVVUAWBo87IEWUeMUdcHm88mU7JEVM1++pb4p4F
+ whTkLn7nyDbPOE/86zmrI3FX9q669r608sVfP3dEHKALQAVeI//7s38dg Y=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 13 Jun 2022 15:44:57 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2022 15:44:57 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 13 Jun 2022 15:44:56 -0700
+Received: from [10.111.164.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 13 Jun
+ 2022 15:44:54 -0700
+Message-ID: <d6668a3f-d977-53e3-966c-ed4e7fd603e1@quicinc.com>
+Date: Mon, 13 Jun 2022 15:44:52 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2] drm/msm: use for_each_sgtable_sg to iterate
- over scatterlist
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
+References: <20220613204910.2651747-1-robdclark@gmail.com>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220613204910.2651747-1-robdclark@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH] drm/msm: Make msm_gem_free_object() static
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,42 +63,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <dri-devel@lists.freedesktop.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>, open list <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The dma_map_sgtable() call (used to invalidate cache) overwrites sgt->nents
-with 1, so msm_iommu_pagetable_map maps only the first physical segment.
 
-To fix this problem use for_each_sgtable_sg(), which uses orig_nents.
 
-Fixes: b145c6e65eb0 ("drm/msm: Add support to create a local pagetable")
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
-v2: use for_each_sgtable_sg and update commit message
-
- drivers/gpu/drm/msm/msm_iommu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index bcaddbba564df..a54ed354578b5 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -58,7 +58,7 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
- 	u64 addr = iova;
- 	unsigned int i;
- 
--	for_each_sg(sgt->sgl, sg, sgt->nents, i) {
-+	for_each_sgtable_sg(sgt, sg, i) {
- 		size_t size = sg->length;
- 		phys_addr_t phys = sg_phys(sg);
- 
--- 
-2.26.1
-
+On 6/13/2022 1:49 PM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Misc small cleanup I noticed.  Not called from another object file since
+> 3c9edd9c85f5 ("drm/msm: Introduce GEM object funcs")
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/msm_gem.c | 2 +-
+>   drivers/gpu/drm/msm/msm_gem.h | 1 -
+>   2 files changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 35845e273d81..3ef7ada59392 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -1004,7 +1004,7 @@ void msm_gem_describe_objects(struct list_head *list, struct seq_file *m)
+>   #endif
+>   
+>   /* don't call directly!  Use drm_gem_object_put() */
+> -void msm_gem_free_object(struct drm_gem_object *obj)
+> +static void msm_gem_free_object(struct drm_gem_object *obj)
+>   {
+>   	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+>   	struct drm_device *dev = obj->dev;
+> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+> index 6b7d5bb3b575..d608339c1643 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.h
+> +++ b/drivers/gpu/drm/msm/msm_gem.h
+> @@ -175,7 +175,6 @@ void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu);
+>   void msm_gem_active_put(struct drm_gem_object *obj);
+>   int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
+>   int msm_gem_cpu_fini(struct drm_gem_object *obj);
+> -void msm_gem_free_object(struct drm_gem_object *obj);
+>   int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+>   		uint32_t size, uint32_t flags, uint32_t *handle, char *name);
+>   struct drm_gem_object *msm_gem_new(struct drm_device *dev,
