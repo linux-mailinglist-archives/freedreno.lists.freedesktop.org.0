@@ -2,60 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94CCA549B51
-	for <lists+freedreno@lfdr.de>; Mon, 13 Jun 2022 20:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81022549DF5
+	for <lists+freedreno@lfdr.de>; Mon, 13 Jun 2022 21:46:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34EE010F618;
-	Mon, 13 Jun 2022 18:20:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDCB610F495;
+	Mon, 13 Jun 2022 19:46:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [IPv6:2607:f8b0:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F5D310F604;
- Mon, 13 Jun 2022 18:20:31 +0000 (UTC)
-Received: by mail-pg1-x52a.google.com with SMTP id f65so6257020pgc.7;
- Mon, 13 Jun 2022 11:20:31 -0700 (PDT)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF5710F396;
+ Mon, 13 Jun 2022 19:46:14 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id gd1so6569674pjb.2;
+ Mon, 13 Jun 2022 12:46:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=HPIFmqCq08/SpFCwk6A8CEBBfhPP5/Wk5un3Ts1xf9s=;
- b=E+wZjHmzh6EFZ9vKKG60lhqV9ZhJSRLQp2p8vF8yQi4Je1eGft2sy33hBoAmrBsGSA
- X+a6C0rVHwzy99s9ZjqLnj+XDUnhTzAQBZsG01edG+So9XfvQrvAgBL96y+R1ejuSFsx
- x3yViwfQT7IFJ6pt/1+k8s23lwJMdtNZEHe4UnDg5W6JndgtKkmGrKXoeDr5SI5lhtRS
- j6Knod7c94L7jH4fi3bb8yG6CyiXRYMlw8H7vswIff9sGaWOCRbSyR8yJsUC4+dNFtIL
- yYv6rEISd3QnsoBtHnUaT/Z1R2ftY2pPB5WUY6Y/ez5Dxlonzaziy/zWgyK1Xenvtpwk
- a71w==
+ bh=8PJJNUcJj53ev3AqJRn3xVtb+ZpTb0J1fJRS/I1pZqo=;
+ b=j/Xl5g9NFS0JUQC69FXYr+svQcCT14l0bivAxI2nyR+X8FM6UQZKcoEoVsihPU7lWO
+ i19+z9tQemZeYruJR5ghpoevoYa3r7x8g0nl3neKATakG/axZF+CQjn/qn2PI4lSotee
+ KYczE/L1R/e483aBjj2+BU4xanG3sJNL7fWdDHp5OFltj46W7ATvG74EoiTBroqErfDi
+ W1C0Z95EMYGO94zakXZqcFOTKs/AMONEiRpxMGTKDr2S1YSPOWjBlMgE24ZNe/8TOjZI
+ H5P5vzZJqzaiaRsSaUyFu0QeMK7GW/Gbv1uEjmS858q+Y/E1Nz88iDCZ3IzUta4UvgAX
+ FBRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=HPIFmqCq08/SpFCwk6A8CEBBfhPP5/Wk5un3Ts1xf9s=;
- b=GRXgHV3w87p8hEZbtyEzvD9R6if0H+EHy85rSo0zielABMzb0AYVd250TWCnwIYjPD
- c56fpr0xYXR1y+H1YKh5XrzBlrXJidnaFOUyQkJdfi0ECFrk8aeSqzTLs+vmKdLq8uTS
- F6QjekMK3u/PtERNwSTHfhn5svCjrUgJgXH5Ne2gBwS0bJZAFWqdat5vOo4Q3pQ6n29P
- fEsVmjA0GLSnYUO/a67iH2Mr/m4IVBTB2z6MenyP4b7GhBba90ZHh5vcskTq4i/leCtK
- eKNHRyd+MTza8gmHbdG4FN+HOZum+RJVlQhHOesxYbjzo+JIXsCL6HGpbr4aKahHBwvw
- QJVA==
-X-Gm-Message-State: AOAM5323DfEi2NgxBbhROlAJ50h/IbWBp8F5IKg6gbVAzWBTutEeWbdM
- yOjffjY5c20JxpTY8dYtWNdLkdqhLVM=
-X-Google-Smtp-Source: ABdhPJwoCFy7Fg7AXQdm2sHljb364JgGjZxqDMO5nnl8BckmDA+So8WCDRoR5nCyZC6DzDAyDDrvcg==
-X-Received: by 2002:a63:483:0:b0:3fc:9128:60a5 with SMTP id
- 125-20020a630483000000b003fc912860a5mr790658pge.606.1655144430244; 
- Mon, 13 Jun 2022 11:20:30 -0700 (PDT)
+ bh=8PJJNUcJj53ev3AqJRn3xVtb+ZpTb0J1fJRS/I1pZqo=;
+ b=IJoZDeFs/wK1H0drcjRQgOX1xWNeztHQt0lGqztprVBVpP0iHpVHLt0JLdE/TaKyMH
+ Vs2BsTcz2fs5tYFk/oxq+xBhMtE6PpX+FNU+/5xS2F3iD8EMiV560htVip6sDP7uXjwm
+ JMcHwuoyFSbu5RtUelCeriEH6UtFAosaYalgUN3ZWzTBLbKtnyko5QGdapwlxRt0mOFi
+ AzSvHgv5lrhZywRzUI4CBvtuaf4jlDxkPVxcf+6UeMVj/2PYkDKxC2ZmDXNd8A+Z0nDw
+ No7395HW0M2iODUIlW5y+FfE6+6DyEi7fnq8Kzyn2WOMUgH9hfgdeN78Uksq/DIGmkQD
+ I4/w==
+X-Gm-Message-State: AOAM530pbaOJNGVbqw+KHbQQPFAcEC0BFAo4G4KfsJA343wZQYlvDLlE
+ pBeSDvR6JhjG9wHUUXC0fRbsDMOrTmk=
+X-Google-Smtp-Source: AGRyM1thfR5WcCUpEKNj9m6vRAIv50Kk1vGSAieTTtgXiETCAqb603bEsvDIQhWxcu3vrC8MEVnyoA==
+X-Received: by 2002:a17:903:2c2:b0:168:e323:d471 with SMTP id
+ s2-20020a17090302c200b00168e323d471mr667931plk.147.1655149573799; 
+ Mon, 13 Jun 2022 12:46:13 -0700 (PDT)
 Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
  by smtp.gmail.com with ESMTPSA id
- z11-20020aa7958b000000b0051bdb735647sm5737882pfj.159.2022.06.13.11.20.28
+ jj18-20020a170903049200b0015ee24acf38sm5474487plb.212.2022.06.13.12.46.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jun 2022 11:20:28 -0700 (PDT)
+ Mon, 13 Jun 2022 12:46:12 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Mon, 13 Jun 2022 11:20:30 -0700
-Message-Id: <20220613182036.2567963-1-robdclark@gmail.com>
+Date: Mon, 13 Jun 2022 12:46:23 -0700
+Message-Id: <20220613194623.2588353-1-robdclark@gmail.com>
 X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/adreno: Defer enabling runpm until
- hw_init()
+Subject: [Freedreno] [PATCH] drm/msm: Deprecate MSM_BO_UNCACHED harder
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,72 +67,109 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- open list <linux-kernel@vger.kernel.org>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Jonathan Marek <jonathan@marek.ca>, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Nathan Chancellor <nathan@kernel.org>, Sean Paul <sean@poorly.run>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-To avoid preventing the display from coming up before the rootfs is
-mounted, without resorting to packing fw in the initrd, the GPU has
-this limbo state where the device is probed, but we aren't ready to
-start sending commands to it.  This is particularly problematic for
-a6xx, since the GMU (which requires fw to be loaded) is the one that
-is controlling the power/clk/icc votes.
-
-So defer enabling runpm until we are ready to call gpu->hw_init(),
-as that is a point where we know we have all the needed fw and are
-ready to start sending commands to the coproc's.
+Handle the demotion to MSM_BO_WC at the userspace ABI level, and fix
+the remaining internal MSM_BO_UNCACHED user.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/adreno/adreno_device.c | 6 ++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 1 -
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_drv.c | 13 +++++++++++++
+ drivers/gpu/drm/msm/msm_gem.c |  7 +++----
+ drivers/gpu/drm/msm/msm_gpu.c |  2 +-
+ 3 files changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 8706bcdd1472..7cef8ae73c71 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -415,6 +415,12 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
- 	if (ret)
- 		return NULL;
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 57a66093e671..acc940d32ab4 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -633,12 +633,25 @@ static int msm_ioctl_gem_new(struct drm_device *dev, void *data,
+ 		struct drm_file *file)
+ {
+ 	struct drm_msm_gem_new *args = data;
++	uint32_t flags = args->flags;
+ 
+ 	if (args->flags & ~MSM_BO_FLAGS) {
+ 		DRM_ERROR("invalid flags: %08x\n", args->flags);
+ 		return -EINVAL;
+ 	}
  
 +	/*
-+	 * Now that we have firmware loaded, and are ready to begin
-+	 * booting the gpu, go ahead and enable runpm:
++	 * Uncached CPU mappings are deprecated, as of:
++	 *
++	 * 9ef364432db4 ("drm/msm: deprecate MSM_BO_UNCACHED (map as writecombine instead)")
++	 *
++	 * So promote them to WC.
 +	 */
-+	pm_runtime_enable(&pdev->dev);
++	if (flags & MSM_BO_UNCACHED) {
++		flags &= ~MSM_BO_CACHED;
++		flags |= MSM_BO_WC;
++	}
 +
- 	/* Make sure pm runtime is active and reset any previous errors */
- 	pm_runtime_set_active(&pdev->dev);
+ 	return msm_gem_new_handle(dev, file, args->size,
+ 			args->flags, &args->handle, NULL);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 9a73e48a3049..35845e273d81 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -129,7 +129,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 		/* For non-cached buffers, ensure the new pages are clean
+ 		 * because display controller, GPU, etc. are not coherent:
+ 		 */
+-		if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
++		if (msm_obj->flags & MSM_BO_WC)
+ 			sync_for_device(msm_obj);
  
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 4e665c806a14..e1aef4875e2f 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -1042,7 +1042,6 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	pm_runtime_set_autosuspend_delay(dev,
- 		adreno_gpu->info->inactive_period);
- 	pm_runtime_use_autosuspend(dev);
--	pm_runtime_enable(dev);
+ 		update_inactive(msm_obj);
+@@ -160,7 +160,7 @@ static void put_pages(struct drm_gem_object *obj)
+ 			 * pages are clean because display controller,
+ 			 * GPU, etc. are not coherent:
+ 			 */
+-			if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
++			if (msm_obj->flags & MSM_BO_WC)
+ 				sync_for_cpu(msm_obj);
  
- 	return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
- 			gpu_name, &adreno_gpu_config);
+ 			sg_free_table(msm_obj->sgt);
+@@ -213,7 +213,7 @@ void msm_gem_put_pages(struct drm_gem_object *obj)
+ 
+ static pgprot_t msm_gem_pgprot(struct msm_gem_object *msm_obj, pgprot_t prot)
+ {
+-	if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
++	if (msm_obj->flags & MSM_BO_WC)
+ 		return pgprot_writecombine(prot);
+ 	return prot;
+ }
+@@ -1122,7 +1122,6 @@ static int msm_gem_new_impl(struct drm_device *dev,
+ 	struct msm_gem_object *msm_obj;
+ 
+ 	switch (flags & MSM_BO_CACHE_MASK) {
+-	case MSM_BO_UNCACHED:
+ 	case MSM_BO_CACHED:
+ 	case MSM_BO_WC:
+ 		break;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index f99292eaf529..e59a757578df 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -952,7 +952,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	memptrs = msm_gem_kernel_new(drm,
+ 		sizeof(struct msm_rbmemptrs) * nr_rings,
+-		check_apriv(gpu, MSM_BO_UNCACHED), gpu->aspace, &gpu->memptrs_bo,
++		check_apriv(gpu, MSM_BO_WC), gpu->aspace, &gpu->memptrs_bo,
+ 		&memptrs_iova);
+ 
+ 	if (IS_ERR(memptrs)) {
 -- 
 2.36.1
 
