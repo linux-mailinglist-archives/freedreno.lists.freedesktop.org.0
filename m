@@ -2,60 +2,75 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F4AB54ABEC
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 10:38:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3230554ADEB
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 12:07:15 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0BC10E352;
-	Tue, 14 Jun 2022 08:38:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7BFA10F37C;
+	Tue, 14 Jun 2022 10:07:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A188110E352
- for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 08:38:10 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-1013ecaf7e0so5936776fac.13
- for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 01:38:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=utIOJeHG0w8xs3SdDFyTFAYjLdnYVwoFoYTnpKxafwQ=;
- b=PpOH0MNv6SWnsCve6x76GZ2a7kc2QZ0KWbrdW6PwdMuxBBXd7x7jmWZJ9Why9wWUlZ
- mo3tuBIoV7efRGdIejyHvqTtg//3/Ea/6842v6XznIBCTIdLIF5P0UHz/RWKAikYCH6T
- z60XTX8aSPx5UJmA8TfiQvgJ/E9L0dM3B9oBE=
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6EFD10F37C;
+ Tue, 14 Jun 2022 10:07:12 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id t2so7376768pld.4;
+ Tue, 14 Jun 2022 03:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :references:from:in-reply-to:content-transfer-encoding;
+ bh=1PYCxh/aEy1B/B4SGvA+P1dNrNFqRqlM66HHaxRQnxQ=;
+ b=gbB2hKVA+eQR7MyVJbKPG4X7RLQo9rH5gwYb+y/jJjedFWWWUmRMP3Gb0euvIFdf5Z
+ V5zg4VDsMicq4bJjIqv61oyyhoYsUjA+qFId7Rg7ubHmW8bYtr03nyNi+KFBNRLl444G
+ ppfrqmqFrJXZ/tmu+4Ej/huzsQHBQx/2GVnVl4ifjlT1tmI0NiR+UCYc25JJYDTRg4uu
+ lheYuAYhDdmWn9GS4sFb4nDh22AWui+mLXh1G2H7PY3sTOkdQyFtgurYXssmUUJgVD/H
+ QmB39t+juHcI/RuKPe5CCaOJglEjmidjmywFI10mf9ZZPBlx0pIWumW5Cf5GEDVAteu3
+ hguA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=utIOJeHG0w8xs3SdDFyTFAYjLdnYVwoFoYTnpKxafwQ=;
- b=BYc7XlowI5yKus7PV0BZSxwt4DZ1WwDHfhSKY5/jLlPqqsl8tkZTHTwxgzMXQv3pAx
- nLonoYJnDIK/oXMcO/SC10PJ0bPuv7xzIMW8YlIwt8J0r4zxQ+B60mCUi8xVIHfXYR9v
- Iu7lKe5MfsMM/Lnl02Vzio3cFxyjbIKqrQjAeoUPUDcQOVG3uoYlTs39jMtXnUbp6t24
- JlVQq4i6GSVXvuCniArVS/BEP8EkNDBFiZSMZljnO/QMHHsj2DEaapAVacbw7dDZAp3C
- gENTBKAz7a5HzVYmF2rcJix11LBScvvEFccxtZOhJQ5bYlUb5DB0WwGuTpZI6zQl4XBB
- bjPw==
-X-Gm-Message-State: AJIora+Mtosl6+4s+CUuOtQKZXiAClX8Z6I1bKV+FGDo2A+xIdphBHbN
- uX2POoaYvKQHE84/FU5Y14iA7dpZZHM2stlz7JAi0w==
-X-Google-Smtp-Source: AGRyM1tIQCOd0lHpGAf9UboG4z86U6be0GMGv1Fy2kiXMRApvUT1XTQs3EslrPM7sbRGeKYe8XQa6rgpoSs+KeBwBEQ=
-X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
- w1-20020a056870b38100b000fe2004b3b5mr1683897oap.63.1655195889918; Tue, 14 Jun
- 2022 01:38:09 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 14 Jun 2022 01:38:09 -0700
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=1PYCxh/aEy1B/B4SGvA+P1dNrNFqRqlM66HHaxRQnxQ=;
+ b=Y1u1iFQ6BxFFbLPaf5TCGV/pgFGPPpUPThJt5jPiDEWTycaOP/cJkJqB3NpfpA0fdV
+ +sjB8RYoo5ja0RaiWqgeSAyuwKgAabh8X92oQ0rNZTqvUxX3LKJ9wqjm85QJrLrdrQGI
+ dqxO1HsSYDh9+SSZUgqkOhLozAGpRozGn/W7gAQ7WuM4KmJjVfx4HyNIv4rzbzpwzEO0
+ 7zqQmyhE8/TmdAwp9uyuNCY9EnfJr9wu3XA8VSruSAnhQUXCfoWy3n3q/6qZoWNTE+pF
+ QO18QYylFuhLnMAYRFVhPIKIMYxFZCBe7avM11qIoB8JhxiNehtNMRJIS3njtTUcpU/0
+ 81kw==
+X-Gm-Message-State: AJIora9+9pITH07oAgJ3assxrKrpiol0kU0prkcdAaFFBNo8M3RcxSpx
+ io31H1UjJwZP1Z/T5CNPyJ4=
+X-Google-Smtp-Source: AGRyM1tfe1iHHvOsLHmLzA4Kc1RqE4mnpfUb1ktvaQdNgaeBEKNlz+WTmfaAU523v0cW0EGHi8l6gQ==
+X-Received: by 2002:a17:90a:e50c:b0:1ea:14c1:2236 with SMTP id
+ t12-20020a17090ae50c00b001ea14c12236mr3858090pjy.2.1655201232415; 
+ Tue, 14 Jun 2022 03:07:12 -0700 (PDT)
+Received: from [172.16.4.4] ([219.142.145.25])
+ by smtp.gmail.com with ESMTPSA id
+ je9-20020a170903264900b0015e8d4eb2e3sm6730333plb.301.2022.06.14.03.07.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jun 2022 03:07:11 -0700 (PDT)
+Message-ID: <0bdb3a64-e795-4aa0-86c9-efd7fc3d5a19@gmail.com>
+Date: Tue, 14 Jun 2022 18:07:05 +0800
 MIME-Version: 1.0
-In-Reply-To: <1655156917-21726-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1655156917-21726-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Tue, 14 Jun 2022 01:38:09 -0700
-Message-ID: <CAE-0n50Z92PM+j7S_wmTeLcmu5cVO3YBT+viLeoLs5QhgXZMoA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: force link training for
- display resolution change
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
+ <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ David Heidelberg <david@ixit.cz>, Guo Zhengkui <guozhengkui@vivo.com>,
+ Xu Wang <vulab@iscas.ac.cn>, Neil Armstrong <narmstrong@baylibre.com>,
+ Rob Herring <robh@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20220607110841.53889-1-linmq006@gmail.com>
+ <059e0a81-3c0a-1c8f-90f0-a836da1204f5@quicinc.com>
+From: Miaoqian Lin <linmq006@gmail.com>
+In-Reply-To: <059e0a81-3c0a-1c8f-90f0-a836da1204f5@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH] drm/msm/mdp4: Fix refcount leak in
+ mdp4_modeset_init_intf
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,124 +83,55 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-06-13 14:48:37)
-> During display resolution changes display have to be disabled first
-> followed by display enabling with new resolution. Display disable
-> will turn off both pixel clock and main link clock so that main link
-> have to be re-trained during display enable to have new video stream
-> flow again. At current implementation, display enable function manually
-> kicks up irq_hpd_handle which will read panel link status and start link
-> training if link status is not in sync state. However, there is rare
-> case that a particular panel links status keep staying in sync for
-> some period of time after main link had been shut down previously at
-> display disabled. Main link retraining will not be executed by
-> irq_hdp_handle() if the link status read from panel shows it is in
-> sync state. If this was happen, then video stream of newer display
-> resolution will fail to be transmitted to panel due to main link is
-> not in sync between host and panel. This patch force main link always
-> be retrained during display enable procedure to prevent this rare
-> failed case from happening. Also this implementation are more
-> efficient than manual kicking off irq_hpd_handle function.
+Hi, Abhinav
 
-How is resolution change different from disabling and enabling the
-display? The commit text talks about resolution changes, but the code
-doesn't compare resolutions from before and after to know when to
-retrain the link. Can the code be made to actually do what the commit
-text says? It would be clearer if the code looked for actual resolution
-changes instead of hooking the dp_bridge_enable() function.
+On 2022/6/11 7:20, Abhinav Kumar wrote:
+>
+>
+> On 6/7/2022 4:08 AM, Miaoqian Lin wrote:
+>> of_graph_get_remote_node() returns remote device node pointer with
+>> refcount incremented, we should use of_node_put() on it
+>> when not need anymore.
+>> Add missing of_node_put() to avoid refcount leak.
+>>
+>> Fixes: 86418f90a4c1 ("drm: convert drivers to use of_graph_get_remote_node")
+>> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>
+> This patch itself looks fine and will cover the cases when there was an error and we did not release the refcount.
+>
+> But, even in the normal cases I am not finding where we are releasing the refcount for the panel_node.
+>
+> I dont see a of_node_put() on mdp4_lcdc_encoder->panel_node.
+>
+Thanks for your review.
 
->
-> Changes in v2:
-> -- set force_link_train flag on DP only (is_edp == false)
->
-> Changes in v3:
-> -- revise commit  text
-> -- add Fixes tag
->
-> Changes in v4:
-> -- revise commit  text
->
-> Changes in v5:
-> -- fix spelling at commit text
->
-> Fixes: 62671d2ef24b ("drm/msm/dp: fixes wrong connection state caused by failure of link train")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  6 +++---
->  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
->  drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
->  3 files changed, 12 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index af7a80c..bea93eb 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1551,7 +1551,7 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
->
->         ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
->         if (!ret)
-> -               ret = dp_ctrl_on_stream(&ctrl->dp_ctrl);
-> +               ret = dp_ctrl_on_stream(&ctrl->dp_ctrl, false);
+I don't see it either. It's a bit messy because the reference assigned to mdp4_lcdc_encoder->panel_node and mdp4_lvds_connector->panel_node both.
 
-Does this even matter if it's true or false? The 'sink_request' has
-DP_TEST_LINK_PHY_TEST_PATTERN set from what I can tell, and then
-dp_ctrl_on_stream() bails out before calling dp_ctrl_link_retrain()
-anyway. It would be nice if we could split dp_ctrl_on_stream() so that
-the part after the check for the sink request is a different function
-that is called by dp_display.c and then this code can call the 'prepare'
-function that does the first part. Then we can ignore the testing path
-in the code, and possibly remove the conditional in dp_ctrl_on_stream()?
-
->         else
->                 DRM_ERROR("failed to enable DP link controller\n");
+> Am i missing something?
 >
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index c388323..370348d 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -872,7 +872,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
->                 return 0;
->         }
->
-> -       rc = dp_ctrl_on_stream(dp->ctrl);
-> +       rc = dp_ctrl_on_stream(dp->ctrl, data);
->         if (!rc)
->                 dp_display->power_on = true;
->
-> @@ -1654,6 +1654,7 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
->         int rc = 0;
->         struct dp_display_private *dp_display;
->         u32 state;
-> +       bool force_link_train = false;
->
->         dp_display = container_of(dp, struct dp_display_private, dp_display);
->         if (!dp_display->dp_mode.drm_mode.clock) {
-> @@ -1688,10 +1689,14 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
->
->         state =  dp_display->hpd_state;
->
-> -       if (state == ST_DISPLAY_OFF)
-> +       if (state == ST_DISPLAY_OFF) {
->                 dp_display_host_phy_init(dp_display);
->
-> -       dp_display_enable(dp_display, 0);
-> +               if (!dp->is_edp)
-
-I didn't see any answer to my question about why edp is special on v4.
-Can you at least add a comment to the code about why edp doesn't need to
-unconditionally retrain, but DP does?
-
-> +                       force_link_train = true;
-> +       }
-> +
-> +       dp_display_enable(dp_display, force_link_train);
->
->         rc = dp_display_post_enable(dp);
->         if (rc) {
+>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+>> index fb48c8c19ec3..17cb1fc78379 100644
+>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+>> @@ -216,6 +216,7 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+>>           encoder = mdp4_lcdc_encoder_init(dev, panel_node);
+>>           if (IS_ERR(encoder)) {
+>>               DRM_DEV_ERROR(dev->dev, "failed to construct LCDC encoder\n");
+>> +            of_node_put(panel_node);
+>>               return PTR_ERR(encoder);
+>>           }
+>>   @@ -225,6 +226,7 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+>>           connector = mdp4_lvds_connector_init(dev, panel_node, encoder);
+>>           if (IS_ERR(connector)) {
+>>               DRM_DEV_ERROR(dev->dev, "failed to initialize LVDS connector\n");
+>> +            of_node_put(panel_node);
+>>               return PTR_ERR(connector);
+>>           }
+>>   
