@@ -1,52 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DB9354BC98
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 23:13:58 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 654E454BD28
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 23:59:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DAFA112E4A;
-	Tue, 14 Jun 2022 21:13:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E655E112A85;
+	Tue, 14 Jun 2022 21:59:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A237A112F5B;
- Tue, 14 Jun 2022 21:13:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655241231; x=1686777231;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=PrXVr0Aaa+LrCCYvHc+q7kcrZfqw54mijXT8Ycb4B84=;
- b=jKrrNaNwT64mDHQfnzrp4MR7T+Cx9zF4uBNG/YjuPafFHCurKu9mKWWo
- 9GUKAjpCjBkNCeC21SIA/OlmUsD5lKnobrAoThvAJjD3MdJsYSwxGU8fu
- 0CfUP61891TIIlN/jya67K0XfJA76AOMGWCa9XWOPczEpravYViC671cA 4=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 14 Jun 2022 14:13:51 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2022 14:13:51 -0700
-Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 14 Jun 2022 14:13:51 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Tue, 14 Jun 2022 14:13:28 -0700
-Message-ID: <20220614211328.216-4-quic_jesszhan@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220614211328.216-1-quic_jesszhan@quicinc.com>
-References: <20220614211328.216-1-quic_jesszhan@quicinc.com>
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35E6F11218E
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 21:59:08 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id v4so2708989oiv.1
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 14:59:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=5yJj86hSPwBzwhbQhqdV1Hn3ZaFbVir/hOB/SXTT3bI=;
+ b=ZdGEZsOt+TRm+aYxq42AYd4MLTcEpKed0OVtU15Eb9mKcEjoxGxefcc8Hou/DOFmCp
+ ki0mc220xUAOCHMnS/OCVj7tuFFIQ/OhnyOzgqy38WOee9k8w1eGsxVOtxPZOic5yyPU
+ 8l81rocDbnMve9NNM0Jcnj6qmGymABDBeO0dk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=5yJj86hSPwBzwhbQhqdV1Hn3ZaFbVir/hOB/SXTT3bI=;
+ b=2UKmT/HYtaYILq/pNlUnIcMkqe0DgxtCHcIFoydYRKjbfM2gNZslV4bhRR8hXcUwzT
+ Ukmm6MjMtrgH4Ru0VWG0LfKV2Qj03CaVWBphuZCZizvR4OuMjVPGhEIF3FZFHyMSp8ko
+ XPUoKoRm73gMUTvSehT3ylvYkwcHpNlapwD+ks32zZYJO/Ff6HYiosbk///6prmn4R2I
+ VTM9i3waZRtky/ZEAAQ7jtQ2rlDq0IsFoTXAmgbXZOOaI9vKCS1v0R7nXF1V8a0cXBT8
+ VnGgxs/kK/m828pwUl873BssI2NSm2vgynEmFp8ffWFIb7fZVTfVLKrYR7b0HQMYrNTF
+ qasw==
+X-Gm-Message-State: AOAM5334MS9wa8uEsYE6W5dd0yo3vvZCTr42tOAXVofJ/IF3PY/N2KR/
+ 4m3ivh/F80HKhGhk/xZXYflGzsBfO6pUUhyPGNfymA==
+X-Google-Smtp-Source: ABdhPJxDYah7bUTWBiwxr/l4NWNy6VphDHyLT3XGi+NAYbfMAhtii820vbsYtQ0n/RqMQE67M2fjkNbG1wG1z9Wq3cE=
+X-Received: by 2002:a05:6808:1703:b0:32e:851e:7f81 with SMTP id
+ bc3-20020a056808170300b0032e851e7f81mr3333511oib.63.1655243947436; Tue, 14
+ Jun 2022 14:59:07 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 14 Jun 2022 14:59:06 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: Add interface support for
- CRC debugfs
+In-Reply-To: <1655240702-12230-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1655240702-12230-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 14 Jun 2022 14:59:06 -0700
+Message-ID: <CAE-0n52EAyTcQd6CiwXT1T658C-b+2r14BK_3-tf-ZiJdzqaAw@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v6] drm/msm/dp: force link training for
+ display resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,272 +67,133 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, dmitry.baryshkov@linaro.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>, quic_aravindh@quicinc.com
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for writing CRC values for the interface block to
-the debugfs by calling the necessary MISR setup/collect methods.
+Quoting Kuogee Hsieh (2022-06-14 14:05:02)
+> Display resolution change is implemented through drm modeset. Older
+> modeset (resolution) has to be disabled first before newer modeset
+> (resolution) can be enabled. Display disable will turn off both
+> pixel clock and main link clock so that main link have to be
+> re-trained during display enable to have new video stream flow
+> again. At current implementation, display enable function manually
+> kicks up irq_hpd_handle which will read panel link status and start
+> link training if link status is not in sync state.
+>
+> However, there is rare case that a particular panel links status keep
+> staying in sync for some period of time after main link had been shut
+> down previously at display disabled. In this case, main link retraining
+> will not be executed by irq_hdp_handle(). Hence video stream of newer
+> display resolution will fail to be transmitted to panel due to main
+> link is not in sync between host and panel.
+>
+> This patch will bypass irq_hpd_hanle() in favor of directly call
 
-Changes since V1:
-- Set values_cnt to only include phys with backing hw_intf
-- Loop over all drm_encs connected to crtc
+s/hanle/handle/
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 49 ++++++++++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  3 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 64 +++++++++++++++++++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 22 +++++++
- 4 files changed, 134 insertions(+), 4 deletions(-)
+> dp_ctrl_on_stream() to always perform link training in regardless of
+> main link status. So that no unexpected exception resolution change
+> failure cases will happen. Also this implementation are more efficient
+> than manual kicking off irq_hpd_handle function.
+>
+> Changes in v2:
+> -- set force_link_train flag on DP only (is_edp == false)
+>
+> Changes in v3:
+> -- revise commit  text
+> -- add Fixes tag
+>
+> Changes in v4:
+> -- revise commit  text
+>
+> Changes in v5:
+> -- fix spelling at commit text
+>
+> Changes in v6:
+> -- split dp_ctrl_on_stream() for phy test case
+> -- revise commit text for modeset
+>
+> Fixes: 62671d2ef24b ("drm/msm/dp: fixes wrong connection state caused by failure of link train")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    | 31 +++++++++++++++++++++++--------
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  3 ++-
+>  drivers/gpu/drm/msm/dp/dp_display.c | 13 ++++++-------
+>  3 files changed, 31 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index af7a80c..cb9c7af 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1807,7 +1807,27 @@ static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
+>         return dp_ctrl_setup_main_link(ctrl, &training_step);
+>  }
+>
+> -int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
+> +int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+> +{
+> +       int ret = 0;
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 16742a66878e..8c9933b2337f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -79,6 +79,8 @@ static enum dpu_crtc_crc_source dpu_crtc_parse_crc_source(const char *src_name)
- 	if (!strcmp(src_name, "auto") ||
- 	    !strcmp(src_name, "lm"))
- 		return DPU_CRTC_CRC_SOURCE_LAYER_MIXER;
-+	if (!strcmp(src_name, "intf"))
-+		return DPU_CRTC_CRC_SOURCE_INTF;
- 
- 	return DPU_CRTC_CRC_SOURCE_INVALID;
- }
-@@ -99,8 +101,14 @@ static int dpu_crtc_verify_crc_source(struct drm_crtc *crtc,
- 		return -EINVAL;
- 	}
- 
--	if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
-+	if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER) {
- 		*values_cnt = crtc_state->num_mixers;
-+	} else if (source == DPU_CRTC_CRC_SOURCE_INTF) {
-+		struct drm_encoder *drm_enc;
-+
-+		drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask)
-+			*values_cnt += dpu_encoder_get_num_phys(drm_enc);
-+	}
- 
- 	crtc_state->crcs = kcalloc(*values_cnt, sizeof(crtc_state->crcs), GFP_KERNEL);
- 
-@@ -123,6 +131,14 @@ static void dpu_crtc_setup_lm_misr(struct dpu_crtc_state *crtc_state)
- 	}
- }
- 
-+static void dpu_crtc_setup_encoder_misr(struct drm_crtc *crtc)
-+{
-+	struct drm_encoder *drm_enc;
-+
-+	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask)
-+		dpu_encoder_setup_misr(drm_enc);
-+}
-+
- static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- {
- 	enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
-@@ -175,6 +191,8 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 
- 	if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
- 		dpu_crtc_setup_lm_misr(crtc_state);
-+	else if (source == DPU_CRTC_CRC_SOURCE_INTF)
-+		dpu_crtc_setup_encoder_misr(crtc);
- 
- cleanup:
- 	drm_modeset_unlock(&crtc->mutex);
-@@ -220,11 +238,31 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc, struct dpu_crtc_state *crt
- 			drm_crtc_accurate_vblank_count(crtc), crtc_state->crcs);
- }
- 
--static int dpu_crtc_get_crc(struct drm_crtc *crtc)
-+static int dpu_crtc_get_encoder_crc(struct drm_crtc *crtc)
- {
--	struct dpu_crtc_state *crtc_state;
-+	struct drm_encoder *drm_enc;
-+	struct dpu_crtc_state *crtc_state = to_dpu_crtc_state(crtc->state);
-+	int rc, pos = 0;
- 
--	crtc_state = to_dpu_crtc_state(crtc->state);
-+	drm_for_each_encoder_mask(drm_enc, crtc->dev, crtc->state->encoder_mask) {
-+		rc = dpu_encoder_get_crc(drm_enc, crtc_state->crcs, pos);
-+		if (rc < 0) {
-+			if (rc != -ENODATA)
-+				DRM_DEBUG_DRIVER("MISR read failed\n");
-+
-+			return rc;
-+		}
-+
-+		pos += rc;
-+	}
-+
-+	return drm_crtc_add_crc_entry(crtc, true,
-+			drm_crtc_accurate_vblank_count(crtc), crtc_state->crcs);
-+}
-+
-+static int dpu_crtc_get_crc(struct drm_crtc *crtc)
-+{
-+	struct dpu_crtc_state *crtc_state = to_dpu_crtc_state(crtc->state);
- 
- 	/* Skip first 2 frames in case of "uncooked" CRCs */
- 	if (crtc_state->crc_frame_skip_count < 2) {
-@@ -235,6 +273,9 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
- 	if (crtc_state->crc_source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
- 		return dpu_crtc_get_lm_crc(crtc, crtc_state);
- 
-+	if (crtc_state->crc_source == DPU_CRTC_CRC_SOURCE_INTF)
-+		return dpu_crtc_get_encoder_crc(crtc);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index 4bf45e3343ef..5db84ea796db 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -1,5 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
-+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-  * Copyright (c) 2015-2021 The Linux Foundation. All rights reserved.
-  * Copyright (C) 2013 Red Hat
-  * Author: Rob Clark <robdclark@gmail.com>
-@@ -73,11 +74,13 @@ struct dpu_crtc_smmu_state_data {
-  * enum dpu_crtc_crc_source: CRC source
-  * @DPU_CRTC_CRC_SOURCE_NONE: no source set
-  * @DPU_CRTC_CRC_SOURCE_LAYER_MIXER: CRC in layer mixer
-+ * @DPU_CRTC_CRC_SOURCE_INTF: CRC in phys interface
-  * @DPU_CRTC_CRC_SOURCE_INVALID: Invalid source
-  */
- enum dpu_crtc_crc_source {
- 	DPU_CRTC_CRC_SOURCE_NONE = 0,
- 	DPU_CRTC_CRC_SOURCE_LAYER_MIXER,
-+	DPU_CRTC_CRC_SOURCE_INTF,
- 	DPU_CRTC_CRC_SOURCE_MAX,
- 	DPU_CRTC_CRC_SOURCE_INVALID = -1
- };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 52516eb20cb8..2cbfed5c627e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -14,6 +14,7 @@
- 
- #include <drm/drm_crtc.h>
- #include <drm/drm_file.h>
-+#include <drm/drm_vblank.h>
- #include <drm/drm_probe_helper.h>
- 
- #include "msm_drv.h"
-@@ -225,6 +226,69 @@ bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc)
- 	return dpu_enc->wide_bus_en;
- }
- 
-+int dpu_encoder_get_num_phys(const struct drm_encoder *drm_enc)
-+{
-+	struct dpu_encoder_virt *dpu_enc;
-+	int i, num_intf = 0;
-+
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
-+
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-+
-+		if (phys->hw_intf)
-+			num_intf++;
-+	}
-+
-+	return num_intf;
-+}
-+
-+void dpu_encoder_setup_misr(const struct drm_encoder *drm_enc)
-+{
-+	struct dpu_encoder_virt *dpu_enc;
-+
-+	int i;
-+
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
-+
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-+
-+		if (!phys->hw_intf || !phys->hw_intf->ops.setup_misr)
-+			continue;
-+
-+		phys->hw_intf->ops.setup_misr(phys->hw_intf, true, 1);
-+	}
-+}
-+
-+int dpu_encoder_get_crc(const struct drm_encoder *drm_enc, u32 *crcs, int pos)
-+{
-+	struct dpu_encoder_virt *dpu_enc;
-+
-+	int i, rc = 0, entries_added = 0;
-+
-+	if (!drm_enc->crtc) {
-+		DRM_ERROR("no crtc found for encoder %d\n", drm_enc->index);
-+		return -EINVAL;
-+	}
-+
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
-+
-+	for (i = 0; i < dpu_enc->num_phys_encs; i++) {
-+		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
-+
-+		if (!phys->hw_intf || !phys->hw_intf->ops.collect_misr)
-+			continue;
-+
-+		rc = phys->hw_intf->ops.collect_misr(phys->hw_intf, &crcs[pos + i]);
-+		if (rc)
-+			return rc;
-+		entries_added++;
-+	}
-+
-+	return entries_added;
-+}
-+
- static void _dpu_encoder_setup_dither(struct dpu_hw_pingpong *hw_pp, unsigned bpc)
- {
- 	struct dpu_hw_dither_cfg dither_cfg = { 0 };
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 781d41c91994..375370029cb9 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -1,5 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
-+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-  * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-  * Copyright (C) 2013 Red Hat
-  * Author: Rob Clark <robdclark@gmail.com>
-@@ -174,6 +175,27 @@ int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc);
- 
- bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc);
- 
-+/**
-+ * dpu_encoder_get_num_phys - get number of physical encoders contained in virtual
-+ *                            encoder
-+ * @drm_enc:    Pointer to previously created drm encoder structure
-+ * Returns:     Number of physical encoders for given drm encoder
-+ */
-+int dpu_encoder_get_num_phys(const struct drm_encoder *drm_enc);
-+
-+/**
-+ * dpu_encoder_setup_misr - enable misr calculations
-+ * @drm_enc:    Pointer to previously created drm encoder structure
-+ */
-+void dpu_encoder_setup_misr(const struct drm_encoder *drm_encoder);
-+
-+/**
-+ * dpu_encoder_get_crc - get the crc value from interface blocks
-+ * @drm_enc:    Pointer to previously created drm encoder structure
-+ * Returns:     0 on success, error otherwise
-+ */
-+int dpu_encoder_get_crc(const struct drm_encoder *drm_enc, u32 *crcs, int pos);
-+
- /**
-  * dpu_encoder_use_dsc_merge - returns true if the encoder uses DSC merge topology.
-  * @drm_enc:    Pointer to previously created drm encoder structure
--- 
-2.35.1
+Drop assignment please.
 
+> +       struct dp_ctrl_private *ctrl;
+> +
+> +       ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+> +
+> +       ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> +
+> +       ret = dp_ctrl_enable_stream_clocks(ctrl);
+> +       if (ret) {
+> +               DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+> +               return ret;
+> +       }
+> +
+> +       dp_ctrl_send_phy_test_pattern(ctrl);
+
+None of this code needs to be run in the normal display on case?
+
+> +
+> +       return 0;
+> +}
+> +
+> +int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+>  {
+>         int ret = 0;
+>         bool mainlink_ready = false;
+> @@ -1843,12 +1863,7 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
+>                 goto end;
+>         }
+>
+> -       if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
+> -               dp_ctrl_send_phy_test_pattern(ctrl);
+> -               return 0;
+> -       }
+> -
+> -       if (!dp_ctrl_channel_eq_ok(ctrl))
+> +       if (force_link_train || !dp_ctrl_channel_eq_ok(ctrl))
+>                 dp_ctrl_link_retrain(ctrl);
+>
+>         /* stop txing train pattern to end link training */
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index c388323..b6d25ab 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -1688,10 +1689,12 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+>
+>         state =  dp_display->hpd_state;
+>
+> -       if (state == ST_DISPLAY_OFF)
+> +       if (state == ST_DISPLAY_OFF) {
+>                 dp_display_host_phy_init(dp_display);
+> +               force_link_train = true;
+> +       }
+>
+> -       dp_display_enable(dp_display, 0);
+> +       dp_display_enable(dp_display, force_link_train);
+
+Do we need to pass it from here? Why can't dp_display_enable() simply
+check for 'state == ST_DISPLAY_OFF' and then force retrain the link?
