@@ -2,60 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3230554ADEB
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 12:07:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7038B54ADF2
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 12:09:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7BFA10F37C;
-	Tue, 14 Jun 2022 10:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203E210F37C;
+	Tue, 14 Jun 2022 10:09:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6EFD10F37C;
- Tue, 14 Jun 2022 10:07:12 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id t2so7376768pld.4;
- Tue, 14 Jun 2022 03:07:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 080D510E4D0
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 10:09:28 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id b7so9147184ljr.6
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 03:09:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :references:from:in-reply-to:content-transfer-encoding;
- bh=1PYCxh/aEy1B/B4SGvA+P1dNrNFqRqlM66HHaxRQnxQ=;
- b=gbB2hKVA+eQR7MyVJbKPG4X7RLQo9rH5gwYb+y/jJjedFWWWUmRMP3Gb0euvIFdf5Z
- V5zg4VDsMicq4bJjIqv61oyyhoYsUjA+qFId7Rg7ubHmW8bYtr03nyNi+KFBNRLl444G
- ppfrqmqFrJXZ/tmu+4Ej/huzsQHBQx/2GVnVl4ifjlT1tmI0NiR+UCYc25JJYDTRg4uu
- lheYuAYhDdmWn9GS4sFb4nDh22AWui+mLXh1G2H7PY3sTOkdQyFtgurYXssmUUJgVD/H
- QmB39t+juHcI/RuKPe5CCaOJglEjmidjmywFI10mf9ZZPBlx0pIWumW5Cf5GEDVAteu3
- hguA==
+ bh=DsZFrxKEYYtj45Hwk8U2QPz1/Ldjsw5xgixABi1aBlM=;
+ b=v57NKOWEyQ6rhRAigKgq4T4hANl6Vaj0YPhvuEdBv0rPiC6k01c4kb5mUXsFZgAE25
+ EnzbiYVVCYH/rOH6lBajNn7/uSJARAxlh4dFZgonTPQUbZT3qRfRJURG8BiKsYemA8I9
+ QZBrr+dvumqLXERgoXkUMhch9UiSTrSMZJKSHJmL+X8KPrfriGHsgd/f4R4lf+QLqUAH
+ fg+i4ZQcgel/hPovoFPahzd3u6jMPGhGakmjT5tOlA7NmWe2IBwnP46vi6PHBMF+3IsT
+ 4qV8AL+Nzi2s0v1GZbnGiMIn/Q1wg5f3X6lklzQp58SP4T+Vcl/kmAdYzzy/6eKwoHdm
+ 7PPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:references:from:in-reply-to
  :content-transfer-encoding;
- bh=1PYCxh/aEy1B/B4SGvA+P1dNrNFqRqlM66HHaxRQnxQ=;
- b=Y1u1iFQ6BxFFbLPaf5TCGV/pgFGPPpUPThJt5jPiDEWTycaOP/cJkJqB3NpfpA0fdV
- +sjB8RYoo5ja0RaiWqgeSAyuwKgAabh8X92oQ0rNZTqvUxX3LKJ9wqjm85QJrLrdrQGI
- dqxO1HsSYDh9+SSZUgqkOhLozAGpRozGn/W7gAQ7WuM4KmJjVfx4HyNIv4rzbzpwzEO0
- 7zqQmyhE8/TmdAwp9uyuNCY9EnfJr9wu3XA8VSruSAnhQUXCfoWy3n3q/6qZoWNTE+pF
- QO18QYylFuhLnMAYRFVhPIKIMYxFZCBe7avM11qIoB8JhxiNehtNMRJIS3njtTUcpU/0
- 81kw==
-X-Gm-Message-State: AJIora9+9pITH07oAgJ3assxrKrpiol0kU0prkcdAaFFBNo8M3RcxSpx
- io31H1UjJwZP1Z/T5CNPyJ4=
-X-Google-Smtp-Source: AGRyM1tfe1iHHvOsLHmLzA4Kc1RqE4mnpfUb1ktvaQdNgaeBEKNlz+WTmfaAU523v0cW0EGHi8l6gQ==
-X-Received: by 2002:a17:90a:e50c:b0:1ea:14c1:2236 with SMTP id
- t12-20020a17090ae50c00b001ea14c12236mr3858090pjy.2.1655201232415; 
- Tue, 14 Jun 2022 03:07:12 -0700 (PDT)
-Received: from [172.16.4.4] ([219.142.145.25])
+ bh=DsZFrxKEYYtj45Hwk8U2QPz1/Ldjsw5xgixABi1aBlM=;
+ b=s7cxlTl2d5ZPiuC1+a+sNSGDMjRuO5M6t4E9MFd4iftmwVoNLAhXaJ4mnUNvEEf9r0
+ SwSSoQS9s6TCNID+gmweJh1p9gGUBhZ4PGcQgu8G4/iayijmUHawF60LSDDWaZWMaK2T
+ BPbv0vUQj+HSefUCYo/wUFXTv3ySdgVMDUGDKKASUREDWXYNV9ZIdLg3Fc+tHIAliJ/t
+ HpuHKR5kvpJsU97Edf4qRYdVa4hl2Hq8BVb4AO+h6/g5i62ue2Q24t5u51pYNHDLZ+/L
+ LzJ7kiOd1aFgjnKWW5jSNjUDi/9cGUjkxX34eEt3jjXCKkp0a3b6hgWvRWM7exg6+239
+ P+sw==
+X-Gm-Message-State: AJIora9M5zXSB4igjUe7nUhjeLwPotDEwEphex9nue7fH5w5yw4ejesH
+ 6Rw1m0ZC0SjSau0BkCFmgY4dyw==
+X-Google-Smtp-Source: AGRyM1vkEYj3zCeaffJC38HgJLnsTcvhsAF4UYsrQgbbwqYDsuWMGZVtTKdXbGKJ23ksJ7rypPKDxg==
+X-Received: by 2002:a2e:bd86:0:b0:24f:16a6:8c0e with SMTP id
+ o6-20020a2ebd86000000b0024f16a68c0emr2085612ljq.450.1655201366296; 
+ Tue, 14 Jun 2022 03:09:26 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- je9-20020a170903264900b0015e8d4eb2e3sm6730333plb.301.2022.06.14.03.07.07
+ m20-20020a056512359400b004791c4858e0sm1337289lfr.114.2022.06.14.03.09.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jun 2022 03:07:11 -0700 (PDT)
-Message-ID: <0bdb3a64-e795-4aa0-86c9-efd7fc3d5a19@gmail.com>
-Date: Tue, 14 Jun 2022 18:07:05 +0800
+ Tue, 14 Jun 2022 03:09:25 -0700 (PDT)
+Message-ID: <10ac04f9-6374-0f85-166c-223a220a8c0d@linaro.org>
+Date: Tue, 14 Jun 2022 13:09:13 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Content-Language: en-US
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-GB
+To: Miaoqian Lin <linmq006@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
  David Heidelberg <david@ixit.cz>, Guo Zhengkui <guozhengkui@vivo.com>,
@@ -65,9 +65,10 @@ To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
  linux-kernel@vger.kernel.org
 References: <20220607110841.53889-1-linmq006@gmail.com>
  <059e0a81-3c0a-1c8f-90f0-a836da1204f5@quicinc.com>
-From: Miaoqian Lin <linmq006@gmail.com>
-In-Reply-To: <059e0a81-3c0a-1c8f-90f0-a836da1204f5@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
+ <0bdb3a64-e795-4aa0-86c9-efd7fc3d5a19@gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <0bdb3a64-e795-4aa0-86c9-efd7fc3d5a19@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Subject: Re: [Freedreno] [PATCH] drm/msm/mdp4: Fix refcount leak in
  mdp4_modeset_init_intf
@@ -86,52 +87,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi, Abhinav
-
-On 2022/6/11 7:20, Abhinav Kumar wrote:
->
->
-> On 6/7/2022 4:08 AM, Miaoqian Lin wrote:
->> of_graph_get_remote_node() returns remote device node pointer with
->> refcount incremented, we should use of_node_put() on it
->> when not need anymore.
->> Add missing of_node_put() to avoid refcount leak.
+On 14/06/2022 13:07, Miaoqian Lin wrote:
+> Hi, Abhinav
+> 
+> On 2022/6/11 7:20, Abhinav Kumar wrote:
 >>
->> Fixes: 86418f90a4c1 ("drm: convert drivers to use of_graph_get_remote_node")
->> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
->> ---
->>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 ++
->>   1 file changed, 2 insertions(+)
 >>
->
-> This patch itself looks fine and will cover the cases when there was an error and we did not release the refcount.
->
-> But, even in the normal cases I am not finding where we are releasing the refcount for the panel_node.
->
-> I dont see a of_node_put() on mdp4_lcdc_encoder->panel_node.
->
-Thanks for your review.
+>> On 6/7/2022 4:08 AM, Miaoqian Lin wrote:
+>>> of_graph_get_remote_node() returns remote device node pointer with
+>>> refcount incremented, we should use of_node_put() on it
+>>> when not need anymore.
+>>> Add missing of_node_put() to avoid refcount leak.
+>>>
+>>> Fixes: 86418f90a4c1 ("drm: convert drivers to use of_graph_get_remote_node")
+>>> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+>>> ---
+>>>    drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 ++
+>>>    1 file changed, 2 insertions(+)
+>>>
+>>
+>> This patch itself looks fine and will cover the cases when there was an error and we did not release the refcount.
+>>
+>> But, even in the normal cases I am not finding where we are releasing the refcount for the panel_node.
+>>
+>> I dont see a of_node_put() on mdp4_lcdc_encoder->panel_node.
+>>
+> Thanks for your review.
+> 
+> I don't see it either. It's a bit messy because the reference assigned to mdp4_lcdc_encoder->panel_node and mdp4_lvds_connector->panel_node both.
 
-I don't see it either. It's a bit messy because the reference assigned to mdp4_lcdc_encoder->panel_node and mdp4_lvds_connector->panel_node both.
+I have a plan to rework mdp4 lcdc support once I get my ifc6410 lvds 
+cable. Thus I think we can land this patch now and fix the mdp4 
+lcdc/lvds code leaking the reference in the due time.
 
-> Am i missing something?
->
->> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> index fb48c8c19ec3..17cb1fc78379 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> @@ -216,6 +216,7 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
->>           encoder = mdp4_lcdc_encoder_init(dev, panel_node);
->>           if (IS_ERR(encoder)) {
->>               DRM_DEV_ERROR(dev->dev, "failed to construct LCDC encoder\n");
->> +            of_node_put(panel_node);
->>               return PTR_ERR(encoder);
->>           }
->>   @@ -225,6 +226,7 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
->>           connector = mdp4_lvds_connector_init(dev, panel_node, encoder);
->>           if (IS_ERR(connector)) {
->>               DRM_DEV_ERROR(dev->dev, "failed to initialize LVDS connector\n");
->> +            of_node_put(panel_node);
->>               return PTR_ERR(connector);
->>           }
->>   
+> 
+>> Am i missing something?
+>>
+>>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+>>> index fb48c8c19ec3..17cb1fc78379 100644
+>>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+>>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+>>> @@ -216,6 +216,7 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+>>>            encoder = mdp4_lcdc_encoder_init(dev, panel_node);
+>>>            if (IS_ERR(encoder)) {
+>>>                DRM_DEV_ERROR(dev->dev, "failed to construct LCDC encoder\n");
+>>> +            of_node_put(panel_node);
+>>>                return PTR_ERR(encoder);
+>>>            }
+>>>    @@ -225,6 +226,7 @@ static int mdp4_modeset_init_intf(struct mdp4_kms *mdp4_kms,
+>>>            connector = mdp4_lvds_connector_init(dev, panel_node, encoder);
+>>>            if (IS_ERR(connector)) {
+>>>                DRM_DEV_ERROR(dev->dev, "failed to initialize LVDS connector\n");
+>>> +            of_node_put(panel_node);
+>>>                return PTR_ERR(connector);
+>>>            }
+>>>    
+
+
+-- 
+With best wishes
+Dmitry
