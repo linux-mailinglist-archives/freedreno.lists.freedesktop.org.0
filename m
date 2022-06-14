@@ -1,68 +1,52 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D2554B631
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 18:31:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA8B254BA8B
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 21:32:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50A5112843;
-	Tue, 14 Jun 2022 16:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81DD4112BF8;
+	Tue, 14 Jun 2022 19:32:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA4111283D;
- Tue, 14 Jun 2022 16:31:22 +0000 (UTC)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDD6F112BEA;
+ Tue, 14 Jun 2022 19:32:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655224282; x=1686760282;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=D96JT6uaVa91vNLNM5PVooqVfZFmJK1syxu6+/l0gIk=;
- b=hDr4BwL6oPgobYshX7gOYfKZBeI+gSpjic+gKkh0X23Tz6bgzPA7wKNi
- gzvnVdR3YLY+5vQurBC98U3dBS7xmxjDh64nvfXPVBXr5T+jMuIJJqmY0
- nvyYQmfhYck9HTlHbQUhKtXaQczuhGEVPhqvGi+rXSO13OEtKQDG1mMPe U=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 14 Jun 2022 09:31:22 -0700
+ t=1655235157; x=1686771157;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=5MJ8iVYxzfn7rpMYLhsGmHvkMwIEVKS3UapIC+tPGpo=;
+ b=pZvfe5pPh1/ClARIIZ0FQYU/KM/x6YgRmYIKSuy3+oR4Gu6PJZs/5Lkm
+ vnYU9WFlnd0RhatLtYbAEvfWhg8r7M0yFVFplhAPUPGXFe/KJfTngHric
+ hlWUdzE49nu11cjLlA/vjZWesRfSp4vMJCA7YCxCA378VLHQnJ/D0WSnB Q=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 14 Jun 2022 12:32:37 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2022 09:31:20 -0700
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2022 12:32:37 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 14 Jun 2022 09:31:20 -0700
-Received: from [10.111.164.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 14 Jun
- 2022 09:31:17 -0700
-Message-ID: <c258b072-82cf-71a8-fdfb-79df52c5d480@quicinc.com>
-Date: Tue, 14 Jun 2022 09:31:15 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Miaoqian Lin
- <linmq006@gmail.com>, Rob Clark <robdclark@gmail.com>, Sean Paul
- <sean@poorly.run>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>, David Heidelberg
- <david@ixit.cz>, Guo Zhengkui <guozhengkui@vivo.com>, Xu Wang
- <vulab@iscas.ac.cn>, Neil Armstrong <narmstrong@baylibre.com>, Rob Herring
- <robh@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <freedreno@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <20220607110841.53889-1-linmq006@gmail.com>
- <059e0a81-3c0a-1c8f-90f0-a836da1204f5@quicinc.com>
- <0bdb3a64-e795-4aa0-86c9-efd7fc3d5a19@gmail.com>
- <10ac04f9-6374-0f85-166c-223a220a8c0d@linaro.org>
+ 15.2.986.22; Tue, 14 Jun 2022 12:32:36 -0700
+Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 14 Jun 2022 12:32:36 -0700
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <10ac04f9-6374-0f85-166c-223a220a8c0d@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+To: <freedreno@lists.freedesktop.org>
+Date: Tue, 14 Jun 2022 12:32:18 -0700
+Message-ID: <1655235140-16424-1-git-send-email-quic_abhinavk@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/mdp4: Fix refcount leak in
- mdp4_modeset_init_intf
+Subject: [Freedreno] [PATCH 1/3] drm/msm/dpu: move intf and wb assignment to
+ dpu_encoder_setup_display()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,82 +59,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+intf and wb resources are not dependent on the rm global
+state so need not be allocated during dpu_encoder_virt_atomic_mode_set().
 
+Move the allocation of intf and wb resources to dpu_encoder_setup_display()
+so that we can utilize the hw caps even during atomic_check() phase.
 
-On 6/14/2022 3:09 AM, Dmitry Baryshkov wrote:
-> On 14/06/2022 13:07, Miaoqian Lin wrote:
->> Hi, Abhinav
->>
->> On 2022/6/11 7:20, Abhinav Kumar wrote:
->>>
->>>
->>> On 6/7/2022 4:08 AM, Miaoqian Lin wrote:
->>>> of_graph_get_remote_node() returns remote device node pointer with
->>>> refcount incremented, we should use of_node_put() on it
->>>> when not need anymore.
->>>> Add missing of_node_put() to avoid refcount leak.
->>>>
->>>> Fixes: 86418f90a4c1 ("drm: convert drivers to use 
->>>> of_graph_get_remote_node")
->>>> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 2 ++
->>>>    1 file changed, 2 insertions(+)
->>>>
->>>
->>> This patch itself looks fine and will cover the cases when there was 
->>> an error and we did not release the refcount.
->>>
->>> But, even in the normal cases I am not finding where we are releasing 
->>> the refcount for the panel_node.
->>>
->>> I dont see a of_node_put() on mdp4_lcdc_encoder->panel_node.
->>>
->> Thanks for your review.
->>
->> I don't see it either. It's a bit messy because the reference assigned 
->> to mdp4_lcdc_encoder->panel_node and mdp4_lvds_connector->panel_node 
->> both.
-> 
-> I have a plan to rework mdp4 lcdc support once I get my ifc6410 lvds 
-> cable. Thus I think we can land this patch now and fix the mdp4 
-> lcdc/lvds code leaking the reference in the due time.
-> 
+Since dpu_encoder_setup_display() already has protection against
+setting invalid intf_idx and wb_idx, these checks can now
+be dropped as well.
 
-Alright, with that assurance,
+Fixes: e02a559a720f ("make changes to dpu_encoder to support virtual encoder")
+Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 25 +++++++------------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 3a462e327e0e..e991d4ba8a40 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1048,24 +1048,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 		phys->hw_pp = dpu_enc->hw_pp[i];
+ 		phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
+ 
+-		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+-			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
+-
+-		if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
+-			phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+-
+-		if (!phys->hw_intf && !phys->hw_wb) {
+-			DPU_ERROR_ENC(dpu_enc,
+-				      "no intf or wb block assigned at idx: %d\n", i);
+-			return;
+-		}
+-
+-		if (phys->hw_intf && phys->hw_wb) {
+-			DPU_ERROR_ENC(dpu_enc,
+-					"invalid phys both intf and wb block at idx: %d\n", i);
+-			return;
+-		}
+-
+ 		phys->cached_mode = crtc_state->adjusted_mode;
+ 		if (phys->ops.atomic_mode_set)
+ 			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
+@@ -2293,7 +2275,14 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+ 		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+ 		atomic_set(&phys->vsync_cnt, 0);
+ 		atomic_set(&phys->underrun_cnt, 0);
++
++		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
++			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
++
++		if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
++			phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+ 	}
++
+ 	mutex_unlock(&dpu_enc->enc_lock);
+ 
+ 	return ret;
+-- 
+2.7.4
 
-Will pick it up for -fixes.
->>
->>> Am i missing something?
->>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c 
->>>> b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->>>> index fb48c8c19ec3..17cb1fc78379 100644
->>>> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->>>> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->>>> @@ -216,6 +216,7 @@ static int mdp4_modeset_init_intf(struct 
->>>> mdp4_kms *mdp4_kms,
->>>>            encoder = mdp4_lcdc_encoder_init(dev, panel_node);
->>>>            if (IS_ERR(encoder)) {
->>>>                DRM_DEV_ERROR(dev->dev, "failed to construct LCDC 
->>>> encoder\n");
->>>> +            of_node_put(panel_node);
->>>>                return PTR_ERR(encoder);
->>>>            }
->>>>    @@ -225,6 +226,7 @@ static int mdp4_modeset_init_intf(struct 
->>>> mdp4_kms *mdp4_kms,
->>>>            connector = mdp4_lvds_connector_init(dev, panel_node, 
->>>> encoder);
->>>>            if (IS_ERR(connector)) {
->>>>                DRM_DEV_ERROR(dev->dev, "failed to initialize LVDS 
->>>> connector\n");
->>>> +            of_node_put(panel_node);
->>>>                return PTR_ERR(connector);
->>>>            }
-> 
-> 
