@@ -1,56 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93BDB54A23A
-	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 00:45:00 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4AB54ABEC
+	for <lists+freedreno@lfdr.de>; Tue, 14 Jun 2022 10:38:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A712B10FABD;
-	Mon, 13 Jun 2022 22:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC0BC10E352;
+	Tue, 14 Jun 2022 08:38:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1911D10FABD;
- Mon, 13 Jun 2022 22:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655160298; x=1686696298;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Jnn+jXJ31MGDLO6HdQ23ZKYS4Lu1ffv8Vgu9+kjL8aI=;
- b=Lsfd4hpCgKmyE/Ya0rcg/Uf3PNm7atVvbCRJ498CPI9Y10uNcEuBvUi7
- 0PoKZlD698jsDr5gkzdVVUAWBo87IEWUeMUdcHm88mU7JEVM1++pb4p4F
- whTkLn7nyDbPOE/86zmrI3FX9q669r608sVfP3dEHKALQAVeI//7s38dg Y=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 13 Jun 2022 15:44:57 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2022 15:44:57 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 13 Jun 2022 15:44:56 -0700
-Received: from [10.111.164.34] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 13 Jun
- 2022 15:44:54 -0700
-Message-ID: <d6668a3f-d977-53e3-966c-ed4e7fd603e1@quicinc.com>
-Date: Mon, 13 Jun 2022 15:44:52 -0700
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A188110E352
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 08:38:10 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-1013ecaf7e0so5936776fac.13
+ for <freedreno@lists.freedesktop.org>; Tue, 14 Jun 2022 01:38:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=utIOJeHG0w8xs3SdDFyTFAYjLdnYVwoFoYTnpKxafwQ=;
+ b=PpOH0MNv6SWnsCve6x76GZ2a7kc2QZ0KWbrdW6PwdMuxBBXd7x7jmWZJ9Why9wWUlZ
+ mo3tuBIoV7efRGdIejyHvqTtg//3/Ea/6842v6XznIBCTIdLIF5P0UHz/RWKAikYCH6T
+ z60XTX8aSPx5UJmA8TfiQvgJ/E9L0dM3B9oBE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=utIOJeHG0w8xs3SdDFyTFAYjLdnYVwoFoYTnpKxafwQ=;
+ b=BYc7XlowI5yKus7PV0BZSxwt4DZ1WwDHfhSKY5/jLlPqqsl8tkZTHTwxgzMXQv3pAx
+ nLonoYJnDIK/oXMcO/SC10PJ0bPuv7xzIMW8YlIwt8J0r4zxQ+B60mCUi8xVIHfXYR9v
+ Iu7lKe5MfsMM/Lnl02Vzio3cFxyjbIKqrQjAeoUPUDcQOVG3uoYlTs39jMtXnUbp6t24
+ JlVQq4i6GSVXvuCniArVS/BEP8EkNDBFiZSMZljnO/QMHHsj2DEaapAVacbw7dDZAp3C
+ gENTBKAz7a5HzVYmF2rcJix11LBScvvEFccxtZOhJQ5bYlUb5DB0WwGuTpZI6zQl4XBB
+ bjPw==
+X-Gm-Message-State: AJIora+Mtosl6+4s+CUuOtQKZXiAClX8Z6I1bKV+FGDo2A+xIdphBHbN
+ uX2POoaYvKQHE84/FU5Y14iA7dpZZHM2stlz7JAi0w==
+X-Google-Smtp-Source: AGRyM1tIQCOd0lHpGAf9UboG4z86U6be0GMGv1Fy2kiXMRApvUT1XTQs3EslrPM7sbRGeKYe8XQa6rgpoSs+KeBwBEQ=
+X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
+ w1-20020a056870b38100b000fe2004b3b5mr1683897oap.63.1655195889918; Tue, 14 Jun
+ 2022 01:38:09 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 14 Jun 2022 01:38:09 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, <dri-devel@lists.freedesktop.org>
-References: <20220613204910.2651747-1-robdclark@gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220613204910.2651747-1-robdclark@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm: Make msm_gem_free_object() static
+In-Reply-To: <1655156917-21726-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1655156917-21726-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Tue, 14 Jun 2022 01:38:09 -0700
+Message-ID: <CAE-0n50Z92PM+j7S_wmTeLcmu5cVO3YBT+viLeoLs5QhgXZMoA@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5] drm/msm/dp: force link training for
+ display resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,50 +68,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Kuogee Hsieh (2022-06-13 14:48:37)
+> During display resolution changes display have to be disabled first
+> followed by display enabling with new resolution. Display disable
+> will turn off both pixel clock and main link clock so that main link
+> have to be re-trained during display enable to have new video stream
+> flow again. At current implementation, display enable function manually
+> kicks up irq_hpd_handle which will read panel link status and start link
+> training if link status is not in sync state. However, there is rare
+> case that a particular panel links status keep staying in sync for
+> some period of time after main link had been shut down previously at
+> display disabled. Main link retraining will not be executed by
+> irq_hdp_handle() if the link status read from panel shows it is in
+> sync state. If this was happen, then video stream of newer display
+> resolution will fail to be transmitted to panel due to main link is
+> not in sync between host and panel. This patch force main link always
+> be retrained during display enable procedure to prevent this rare
+> failed case from happening. Also this implementation are more
+> efficient than manual kicking off irq_hpd_handle function.
 
+How is resolution change different from disabling and enabling the
+display? The commit text talks about resolution changes, but the code
+doesn't compare resolutions from before and after to know when to
+retrain the link. Can the code be made to actually do what the commit
+text says? It would be clearer if the code looked for actual resolution
+changes instead of hooking the dp_bridge_enable() function.
 
-On 6/13/2022 1:49 PM, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Misc small cleanup I noticed.  Not called from another object file since
-> 3c9edd9c85f5 ("drm/msm: Introduce GEM object funcs")
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>
+> Changes in v2:
+> -- set force_link_train flag on DP only (is_edp == false)
+>
+> Changes in v3:
+> -- revise commit  text
+> -- add Fixes tag
+>
+> Changes in v4:
+> -- revise commit  text
+>
+> Changes in v5:
+> -- fix spelling at commit text
+>
+> Fixes: 62671d2ef24b ("drm/msm/dp: fixes wrong connection state caused by failure of link train")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/msm_gem.c | 2 +-
->   drivers/gpu/drm/msm/msm_gem.h | 1 -
->   2 files changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 35845e273d81..3ef7ada59392 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -1004,7 +1004,7 @@ void msm_gem_describe_objects(struct list_head *list, struct seq_file *m)
->   #endif
->   
->   /* don't call directly!  Use drm_gem_object_put() */
-> -void msm_gem_free_object(struct drm_gem_object *obj)
-> +static void msm_gem_free_object(struct drm_gem_object *obj)
->   {
->   	struct msm_gem_object *msm_obj = to_msm_bo(obj);
->   	struct drm_device *dev = obj->dev;
-> diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-> index 6b7d5bb3b575..d608339c1643 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.h
-> +++ b/drivers/gpu/drm/msm/msm_gem.h
-> @@ -175,7 +175,6 @@ void msm_gem_active_get(struct drm_gem_object *obj, struct msm_gpu *gpu);
->   void msm_gem_active_put(struct drm_gem_object *obj);
->   int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout);
->   int msm_gem_cpu_fini(struct drm_gem_object *obj);
-> -void msm_gem_free_object(struct drm_gem_object *obj);
->   int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
->   		uint32_t size, uint32_t flags, uint32_t *handle, char *name);
->   struct drm_gem_object *msm_gem_new(struct drm_device *dev,
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c    |  6 +++---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h    |  2 +-
+>  drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++-------
+>  3 files changed, 12 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index af7a80c..bea93eb 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1551,7 +1551,7 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+>
+>         ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
+>         if (!ret)
+> -               ret = dp_ctrl_on_stream(&ctrl->dp_ctrl);
+> +               ret = dp_ctrl_on_stream(&ctrl->dp_ctrl, false);
+
+Does this even matter if it's true or false? The 'sink_request' has
+DP_TEST_LINK_PHY_TEST_PATTERN set from what I can tell, and then
+dp_ctrl_on_stream() bails out before calling dp_ctrl_link_retrain()
+anyway. It would be nice if we could split dp_ctrl_on_stream() so that
+the part after the check for the sink request is a different function
+that is called by dp_display.c and then this code can call the 'prepare'
+function that does the first part. Then we can ignore the testing path
+in the code, and possibly remove the conditional in dp_ctrl_on_stream()?
+
+>         else
+>                 DRM_ERROR("failed to enable DP link controller\n");
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index c388323..370348d 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -872,7 +872,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+>                 return 0;
+>         }
+>
+> -       rc = dp_ctrl_on_stream(dp->ctrl);
+> +       rc = dp_ctrl_on_stream(dp->ctrl, data);
+>         if (!rc)
+>                 dp_display->power_on = true;
+>
+> @@ -1654,6 +1654,7 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+>         int rc = 0;
+>         struct dp_display_private *dp_display;
+>         u32 state;
+> +       bool force_link_train = false;
+>
+>         dp_display = container_of(dp, struct dp_display_private, dp_display);
+>         if (!dp_display->dp_mode.drm_mode.clock) {
+> @@ -1688,10 +1689,14 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+>
+>         state =  dp_display->hpd_state;
+>
+> -       if (state == ST_DISPLAY_OFF)
+> +       if (state == ST_DISPLAY_OFF) {
+>                 dp_display_host_phy_init(dp_display);
+>
+> -       dp_display_enable(dp_display, 0);
+> +               if (!dp->is_edp)
+
+I didn't see any answer to my question about why edp is special on v4.
+Can you at least add a comment to the code about why edp doesn't need to
+unconditionally retrain, but DP does?
+
+> +                       force_link_train = true;
+> +       }
+> +
+> +       dp_display_enable(dp_display, force_link_train);
+>
+>         rc = dp_display_post_enable(dp);
+>         if (rc) {
