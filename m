@@ -2,61 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A014E54CC0E
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 17:01:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A3C54CD8D
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 17:54:13 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC99710EF6D;
-	Wed, 15 Jun 2022 15:01:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DFD910F78B;
+	Wed, 15 Jun 2022 15:54:11 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7223910E1CD;
- Wed, 15 Jun 2022 15:01:07 +0000 (UTC)
-Received: by mail-pg1-x52e.google.com with SMTP id z14so7476774pgh.0;
- Wed, 15 Jun 2022 08:01:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=oZ4C/2pH/xtflOzIMAJ169l+TNeby43rC2FOPbSEEZs=;
- b=nojPL5UaGkmux0gCu7JOJqxhwy1lqtFptyfnXTMFceVdPL2Rxobub2I3oVJ78AtmFb
- +bxryzTBDxDkecuOV+d5DIJNeSXPxGjnCIy8peSr6Zzju4bWjrlmC14dbkg0RJgzM49Y
- cKr976plCRJjpRBAYYPnhi+X03BBEYPdI+xzPzHMfZyMrWq4HR0XRTo/TLXX6SHVJwy7
- Lk82MdXUTdp52hzlrVgeQZKZuyRad/oYjLydlLYnj+yuxvqDYv7TqHFdjPjnniOcrsc0
- arz2nwYUYoEsieX7Drp5TKN5rrm9iEPvY6dpl+51IfD6oiEyNc/28QbRwGH4H783PdDX
- qeGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=oZ4C/2pH/xtflOzIMAJ169l+TNeby43rC2FOPbSEEZs=;
- b=vzJQoTlD00Nl87xrOWIWVS4/RTceV+nDF1a+nBuMa4reEJUUu0ZdFoCERSZolL6Joh
- ghiFoOS4pNKJfpQgLsNhFxRKSjPAQRXc2NU//dLiVLWJw8sTkx7Hx11tfmkufWdw+tvQ
- dE8D/ol/Uq5uVSDFi3AMvDeXlxtaA+NlxqkScMzqv0gv0FBloDnzTHLWUEae1gqBY8cM
- xG29d8LPyzBE5/yVpvZtItYX3KQSxcZmVHUC2M37hxEqGmgiHwPr4srg240YW1T05nFk
- J2EuwOws+m9ZXvC762ZU/6g9Y5sRTdhQ9zZ/tD9BvYb7r63YTx6/qQNzxVacq7+TGIUw
- GofQ==
-X-Gm-Message-State: AJIora+Qca9CDeYto+43vKqBe0g934ZGh2k8RwJXJBNBJsTPiQj9Wktb
- vwpikISLebRnBTwmWqrRYyG6JCe7xrI=
-X-Google-Smtp-Source: AGRyM1uVmXm2LijmpDnabCBZB64cAjzssYoJ5LFqFHbcXkw1POVaPkDuu3znkGzi5uOvf/VCeg9V5Q==
-X-Received: by 2002:a63:ec14:0:b0:401:9e3e:7d23 with SMTP id
- j20-20020a63ec14000000b004019e3e7d23mr190083pgh.235.1655305266249; 
- Wed, 15 Jun 2022 08:01:06 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- d4-20020a62f804000000b0050dc76281d9sm10341671pfh.179.2022.06.15.08.01.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jun 2022 08:01:02 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 15 Jun 2022 08:01:07 -0700
-Message-Id: <20220615150107.2969593-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220615150107.2969593-1-robdclark@gmail.com>
-References: <20220615150107.2969593-1-robdclark@gmail.com>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0683311258E;
+ Wed, 15 Jun 2022 15:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655308450; x=1686844450;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=hQbr63r6g12pXkWSUm16jYJVYXPNC3k9vGnZ4/4C+so=;
+ b=p8UrUphPep9rilcP9NVTHNQmS2Tv3ekdPlSYUUqqGDAyIfOZHYFp+Awr
+ n2DWMdwjBKHPCb2ncEVCOuZrgwDYRKl/AIKdYtDSZw6n1e2WKmpLf0J4a
+ s+HUwYrGjlmupSgs6Tag6pMOfq/+yAM0bOenOrfRwhZVrXiYc3OMPwKbj o=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Jun 2022 08:54:08 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2022 08:54:07 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 15 Jun 2022 08:54:07 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 15 Jun 2022 08:54:06 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 15 Jun 2022 08:53:57 -0700
+Message-ID: <1655308437-1924-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm: Don't overwrite hw fence in hw_init
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v7] drm/msm/dp: force link training for display
+ resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,73 +62,181 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Steev Klimaszewski <steev@kali.org>, open list <linux-kernel@vger.kernel.org>,
- Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Display resolution change is implemented through drm modeset. Older
+modeset (resolution) has to be disabled first before newer modeset
+(resolution) can be enabled. Display disable will turn off both
+pixel clock and main link clock so that main link have to be
+re-trained during display enable to have new video stream flow
+again. At current implementation, display enable function manually
+kicks up irq_hpd_handle which will read panel link status and start
+link training if link status is not in sync state.
 
-Prior to the last commit, this could result in setting the GPU
-written fence value back to an older value, if we had missed
-updating completed_fence prior to suspend.  This was mostly
-harmless as the GPU would eventually overwrite it again with
-the correct value.  But we should just not do this.  Instead
-just leave a sanity check that the fence looks plausible (in
-case the GPU scribbled on memory).
+However, there is rare case that a particular panel links status keep
+staying in sync for some period of time after main link had been shut
+down previously at display disabled. In this case, main link retraining
+will not be executed by irq_hdp_handle(). Hence video stream of newer
+display resolution will fail to be transmitted to panel due to main
+link is not in sync between host and panel.
 
-Reported-by: Steev Klimaszewski <steev@kali.org>
-Fixes: 95d1deb02a9c ("drm/msm/gem: Add fenced vma unpin")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
+This patch will bypass irq_hpd_handle() in favor of directly call
+dp_ctrl_on_stream() to always perform link training in regardless of
+main link status. So that no unexpected exception resolution change
+failure cases will happen. Also this implementation are more efficient
+than manual kicking off irq_hpd_handle function.
+
+Changes in v2:
+-- set force_link_train flag on DP only (is_edp == false)
+
+Changes in v3:
+-- revise commit  text
+-- add Fixes tag
+
+Changes in v4:
+-- revise commit  text
+
+Changes in v5:
+-- fix spelling at commit text
+
+Changes in v6:
+-- split dp_ctrl_on_stream() for phy test case
+-- revise commit text for modeset
+
+Changes in v7:
+-- drop 0 assignment at local variable (ret = 0)
+
+Fixes: 62671d2ef24b ("drm/msm/dp: fixes wrong connection state caused by failure of link train")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++++---
- drivers/gpu/drm/msm/msm_gpu.c           |  2 +-
- 2 files changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 31 +++++++++++++++++++++++--------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c | 13 ++++++-------
+ 3 files changed, 31 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index e1aef4875e2f..dd044d557c7c 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -498,10 +498,15 @@ int adreno_hw_init(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index af7a80c..01028b5 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -1551,7 +1551,7 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
  
- 		ring->cur = ring->start;
- 		ring->next = ring->start;
--
--		/* reset completed fence seqno: */
--		ring->memptrs->fence = ring->fctx->completed_fence;
- 		ring->memptrs->rptr = 0;
+ 	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
+ 	if (!ret)
+-		ret = dp_ctrl_on_stream(&ctrl->dp_ctrl);
++		ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
+ 	else
+ 		DRM_ERROR("failed to enable DP link controller\n");
+ 
+@@ -1807,7 +1807,27 @@ static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
+ 	return dp_ctrl_setup_main_link(ctrl, &training_step);
+ }
+ 
+-int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
++int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
++{
++	int ret;
++	struct dp_ctrl_private *ctrl;
 +
-+		/* Detect and clean up an impossible fence, ie. if GPU managed
-+		 * to scribble something invalid, we don't want that to confuse
-+		 * us into mistakingly believing that submits have completed.
-+		 */
-+		if (fence_before(ring->fctx->last_fence, ring->memptrs->fence)) {
-+			ring->memptrs->fence = ring->fctx->last_fence;
-+		}
++	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
++
++	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
++
++	ret = dp_ctrl_enable_stream_clocks(ctrl);
++	if (ret) {
++		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
++		return ret;
++	}
++
++	dp_ctrl_send_phy_test_pattern(ctrl);
++
++	return 0;
++}
++
++int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+ {
+ 	int ret = 0;
+ 	bool mainlink_ready = false;
+@@ -1843,12 +1863,7 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl)
+ 		goto end;
  	}
  
- 	return 0;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index b61078f0cd0f..8c00f9187c03 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -430,7 +430,7 @@ static void recover_worker(struct kthread_work *work)
- 		 * one more to clear the faulting submit
- 		 */
- 		if (ring == cur_ring)
--			fence++;
-+			ring->memptrs->fence = ++fence;
+-	if (ctrl->link->sink_request & DP_TEST_LINK_PHY_TEST_PATTERN) {
+-		dp_ctrl_send_phy_test_pattern(ctrl);
+-		return 0;
+-	}
+-
+-	if (!dp_ctrl_channel_eq_ok(ctrl))
++	if (force_link_train || !dp_ctrl_channel_eq_ok(ctrl))
+ 		dp_ctrl_link_retrain(ctrl);
  
- 		msm_update_fence(ring->fctx, fence);
+ 	/* stop txing train pattern to end link training */
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 0745fde..9a39b00 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -21,7 +21,8 @@ struct dp_ctrl {
+ };
+ 
+ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl);
+-int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl);
++int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train);
++int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off_link_stream(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off_link(struct dp_ctrl *dp_ctrl);
+ int dp_ctrl_off(struct dp_ctrl *dp_ctrl);
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index c388323..b6d25ab 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -872,7 +872,7 @@ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ 		return 0;
  	}
+ 
+-	rc = dp_ctrl_on_stream(dp->ctrl);
++	rc = dp_ctrl_on_stream(dp->ctrl, data);
+ 	if (!rc)
+ 		dp_display->power_on = true;
+ 
+@@ -1654,6 +1654,7 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 	int rc = 0;
+ 	struct dp_display_private *dp_display;
+ 	u32 state;
++	bool force_link_train = false;
+ 
+ 	dp_display = container_of(dp, struct dp_display_private, dp_display);
+ 	if (!dp_display->dp_mode.drm_mode.clock) {
+@@ -1688,10 +1689,12 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 
+ 	state =  dp_display->hpd_state;
+ 
+-	if (state == ST_DISPLAY_OFF)
++	if (state == ST_DISPLAY_OFF) {
+ 		dp_display_host_phy_init(dp_display);
++		force_link_train = true;
++	}
+ 
+-	dp_display_enable(dp_display, 0);
++	dp_display_enable(dp_display, force_link_train);
+ 
+ 	rc = dp_display_post_enable(dp);
+ 	if (rc) {
+@@ -1700,10 +1703,6 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 		dp_display_unprepare(dp);
+ 	}
+ 
+-	/* manual kick off plug event to train link */
+-	if (state == ST_DISPLAY_OFF)
+-		dp_add_event(dp_display, EV_IRQ_HPD_INT, 0, 0);
+-
+ 	/* completed connection */
+ 	dp_display->hpd_state = ST_CONNECTED;
+ 
 -- 
-2.36.1
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
