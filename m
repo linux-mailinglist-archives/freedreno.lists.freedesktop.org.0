@@ -1,58 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8172154D076
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 19:56:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 77B7D54D096
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 20:03:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21B5E10EAE0;
-	Wed, 15 Jun 2022 17:56:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7837510EEF4;
+	Wed, 15 Jun 2022 18:03:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3AC110EA8D;
- Wed, 15 Jun 2022 17:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655315781; x=1686851781;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=mf4qnmQcWK+OGeMCPEBVX1U2QPkWG2jVkjuDZpuUL7E=;
- b=u739ph5AJu11aRquUlFTX0z3A2zaU7IDQDegKanM/gXfPIEaUktb73PR
- 1ILHING34fxrgdOhWbVE/a/Uuk2XfcEpKKq0Pxp/bxkO3gnpGSme0eedo
- 41JciYQAQu9O3uBqwDByxh2L0V5AIsgaa4fz1bUXTCUJZbMhv6Ih5mr0t U=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Jun 2022 10:56:21 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 10:56:21 -0700
-Received: from [10.71.110.111] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 15 Jun
- 2022 10:56:20 -0700
-Message-ID: <68d35494-a68f-0c0d-87f1-bc4278f2275b@quicinc.com>
-Date: Wed, 15 Jun 2022 10:56:20 -0700
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1267E10EFBF
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 18:03:07 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-fe4ac3b87fso17526213fac.3
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 11:03:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kali.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=t06Whp8J1p63OOXUI0W1zpEYnP4NO86mmZ4mk1dCZBM=;
+ b=YvcDqM7MBtAzPErRZDMbs6OrvTj+QYa+beHr6a1/MPFMs36i4IHHwhi/HrIonOHZ5B
+ hAUWJL3EbN6PE/e8P4Z81X6QJIsNKjUjHq19oEJRFL71hOOBmhYR+56JNNHhAWSN505e
+ Nz/TMvVRs9UNYU48UyVN9DOAZQ90/tRCME+jo9JP1s89FnySs++DfspxfIqCKmzeGvQ+
+ c3/JaoohIEjh16DUNRuaWmdkgUVAZYJ+3hmyBoaLBWEni6QCiIzg8W7Ps3Moz17GYXDX
+ hORteutp7s4Wt1czjZDn+3iZMk9sBrTpR6ZxA5go2qgomPRSoP5I2UfKO3mLRTKU1mBQ
+ UUMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=t06Whp8J1p63OOXUI0W1zpEYnP4NO86mmZ4mk1dCZBM=;
+ b=Q/zAwzoN7CvRmfXGTxjQEhgNlHONKPwIP9ZDvKZIUSCslevO2WEWAJr7Y9mlpYkElL
+ WneQ01jFqG0u30dYAtwqHpgV3IIHA0CxTxGGgd6gD8fEPZIlBaBYeJpqQzksv9JbpuPS
+ fKusclqd8cx1GVEr3+huvzF5aze9EhLBFgqJGcaSZvlq3jWzX5DWGaUX7Pj3WC2yWm1u
+ EqPwxPAOdl15U5v/Qt9mw6Bk19BDeTlhe3Dc02NPaVH7073zxBKKQeb3EhXT21XxuIM2
+ hxgjUa6PimSVunFgFkx5Yhc+VX/a+TcGOegYdJlOXHeK0naMMRuKEvZrlHFWAx5onZVz
+ yKdA==
+X-Gm-Message-State: AJIora/L54s/G8FkSZvs75IfCIrLTTzJ5uxsEZvfth8nF9VL5iX5NvPC
+ 5yhH+x8Kd/a5ATvCSw9bvtNpKw==
+X-Google-Smtp-Source: AGRyM1tzJ8Etjk9NLHG0a4rnjXGH2j3pVNbLOrclTtBfeP2QVF6H/r8tCJsVdlCCmanAzxOmg7ofJw==
+X-Received: by 2002:a05:6870:73cc:b0:f5:ff37:ab8e with SMTP id
+ a12-20020a05687073cc00b000f5ff37ab8emr6016895oan.153.1655316186084; 
+ Wed, 15 Jun 2022 11:03:06 -0700 (PDT)
+Received: from [192.168.11.16] (cpe-173-173-107-246.satx.res.rr.com.
+ [173.173.107.246]) by smtp.gmail.com with ESMTPSA id
+ q15-20020a056830232f00b0060c030fae2asm6385436otg.54.2022.06.15.11.03.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 11:03:05 -0700 (PDT)
+Message-ID: <0eb804a6-050e-5f69-48bb-27a8c41da108@kali.org>
+Date: Wed, 15 Jun 2022 13:03:03 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.10.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220614211328.216-1-quic_jesszhan@quicinc.com>
- <20220614211328.216-2-quic_jesszhan@quicinc.com>
- <CAA8EJppgyuzHipZT1SVyD5+NNnC2yB5hRy4=--DGv=dk1VRMAw@mail.gmail.com>
- <7489a181-f87f-5187-6fae-3ad5b74c2d2c@quicinc.com>
- <d91600b6-c9a6-bdae-e5c3-38a6b1133883@linaro.org>
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <d91600b6-c9a6-bdae-e5c3-38a6b1133883@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dpu: Move LM CRC code into
- separate method
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20220615150107.2969593-1-robdclark@gmail.com>
+From: Steev Klimaszewski <steev@kali.org>
+In-Reply-To: <20220615150107.2969593-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm: Drop update_fences()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,122 +74,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
+On 6/15/22 10:01 AM, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> I noticed while looking at some traces, that we could miss calls to
+> msm_update_fence(), as the irq could have raced with retire_submits()
+> which could have already popped the last submit on a ring out of the
+> queue of in-flight submits.  But walking the list of submits in the
+> irq handler isn't really needed, as dma_fence_is_signaled() will dtrt.
+> So lets just drop it entirely.
+>
+> Reported-by: Steev Klimaszewski <steev@kali.org>
+> Fixes: 95d1deb02a9c ("drm/msm/gem: Add fenced vma unpin")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/msm/msm_gpu.c | 22 ++--------------------
+>   1 file changed, 2 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> index e59a757578df..b61078f0cd0f 100644
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+> @@ -176,24 +176,6 @@ int msm_gpu_hw_init(struct msm_gpu *gpu)
+>   	return ret;
+>   }
+>   
+> -static void update_fences(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+> -		uint32_t fence)
+> -{
+> -	struct msm_gem_submit *submit;
+> -	unsigned long flags;
+> -
+> -	spin_lock_irqsave(&ring->submit_lock, flags);
+> -	list_for_each_entry(submit, &ring->submits, node) {
+> -		if (fence_after(submit->seqno, fence))
+> -			break;
+> -
+> -		msm_update_fence(submit->ring->fctx,
+> -			submit->hw_fence->seqno);
+> -		dma_fence_signal(submit->hw_fence);
+> -	}
+> -	spin_unlock_irqrestore(&ring->submit_lock, flags);
+> -}
+> -
+>   #ifdef CONFIG_DEV_COREDUMP
+>   static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
+>   		size_t count, void *data, size_t datalen)
+> @@ -450,7 +432,7 @@ static void recover_worker(struct kthread_work *work)
+>   		if (ring == cur_ring)
+>   			fence++;
+>   
+> -		update_fences(gpu, ring, fence);
+> +		msm_update_fence(ring->fctx, fence);
+>   	}
+>   
+>   	if (msm_gpu_active(gpu)) {
+> @@ -753,7 +735,7 @@ void msm_gpu_retire(struct msm_gpu *gpu)
+>   	int i;
+>   
+>   	for (i = 0; i < gpu->nr_rings; i++)
+> -		update_fences(gpu, gpu->rb[i], gpu->rb[i]->memptrs->fence);
+> +		msm_update_fence(gpu->rb[i]->fctx, gpu->rb[i]->memptrs->fence);
+>   
+>   	kthread_queue_work(gpu->worker, &gpu->retire_work);
+>   	update_sw_cntrs(gpu);
 
-On 6/15/2022 9:17 AM, Dmitry Baryshkov wrote:
-> On 15/06/2022 19:11, Jessica Zhang wrote:
->> On 6/15/2022 2:35 AM, Dmitry Baryshkov wrote:
->>> On Wed, 15 Jun 2022 at 00:13, Jessica Zhang 
->>> <quic_jesszhan@quicinc.com> wrote:
->>>>
->>>> Move layer mixer-specific section of dpu_crtc_get_crc() into a separate
->>>> helper method. This way, we can make it easier to get CRCs from 
->>>> other HW
->>>> blocks by adding other get_crc helper methods.
->>>>
->>>> Changes since V1:
->>>> - Moved common bitmasks to dpu_hw_util.h
->>>> - Moved common CRC methods to dpu_hw_util.c
->>>> - Updated copyrights
->>>> - Changed crcs array to a dynamically allocated array and added it as a
->>>>    member of crtc_state
->>>>
->>>> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
->>>
->>> Please split this into separate patches. One for hw_util, one for the 
->>> rest
->>
->> Sure
->>
->>>
->>>> ---
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    | 88 
->>>> +++++++++++++--------
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  4 +
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_lm.c   | 42 +---------
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.c | 46 ++++++++++-
->>>>   drivers/gpu/drm/msm/disp/dpu1/dpu_hw_util.h | 16 ++++
->>>>   5 files changed, 124 insertions(+), 72 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c 
->>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>> index b56f777dbd0e..16742a66878e 100644
->>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
->>>> @@ -1,5 +1,6 @@
->>>>   // SPDX-License-Identifier: GPL-2.0-only
->>>>   /*
->>>> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights 
->>>> reserved.
->>>>    * Copyright (c) 2014-2021 The Linux Foundation. All rights reserved.
->>>>    * Copyright (C) 2013 Red Hat
->>>>    * Author: Rob Clark <robdclark@gmail.com>
->>>> @@ -88,6 +89,11 @@ static int dpu_crtc_verify_crc_source(struct 
->>>> drm_crtc *crtc,
->>>>          enum dpu_crtc_crc_source source = 
->>>> dpu_crtc_parse_crc_source(src_name);
->>>>          struct dpu_crtc_state *crtc_state = 
->>>> to_dpu_crtc_state(crtc->state);
->>>>
->>>> +       if (crtc_state->crcs) {
->>>> +               kfree(crtc_state->crcs);
->>>> +               crtc_state->crcs = NULL;
->>>> +       }
->>>> +
->>>>          if (source < 0) {
->>>>                  DRM_DEBUG_DRIVER("Invalid source %s for CRTC%d\n", 
->>>> src_name, crtc->index);
->>>>                  return -EINVAL;
->>>> @@ -96,20 +102,37 @@ static int dpu_crtc_verify_crc_source(struct 
->>>> drm_crtc *crtc,
->>>>          if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
->>>>                  *values_cnt = crtc_state->num_mixers;
->>>>
->>>> +       crtc_state->crcs = kcalloc(*values_cnt, 
->>>> sizeof(crtc_state->crcs), GFP_KERNEL);
->>>> +
->>>
->>> I do not quite like the idea of constantly allocating and freeing the
->>> crcs array. I'd suggest defining sensible MAX_CRC_VALUES, using a
->>> static array and verifying that no one over commits the
->>> MAX_CRC_VALUES.
->>> If at some point we decide that we really need the dynamic array, we
->>> can implement it later. We already had dynamic arrays and Rob had to
->>> fix it. See 00326bfa4e63 ("drm/msm/dpu: Remove dynamic allocation from
->>> atomic context").
->>
->> Ah, got it... the reason I used a dynamic array here was because AFAIK 
->> we don't have a defined upper limit for how many drm_encoders can be 
->> connected to a CRTC simultaneously. Do you have a suggestion on what 
->> value we can set for MAX_CRC_VALUES?
-> 
-> Three? Two for two hw_intfs?
 
-Do you mean 2 hw_intfs per drm_encoder or 2 hw_intfs overall? IIRC we 
-also wanted to take into account the possibility of there being multiple 
-drm_encoders attached to a single CRTC.
+Tested on the Lenovo Yoga C630
 
-Also, looking through Rob's fix, the warning was occuring because we 
-were trying to call kcalloc in an IRQ context. However, the way I'm 
-currently doing dynamic allocation will avoid the warning (since I'm 
-doing kcalloc in verify_crc_source, which is called during the debugfs 
-read/write/open and not during vblank). So I don't believe that we'll 
-encounter the warning related to Rob's fix with my current 
-implementation of the crcs dynamic array.
+Tested-by: Steev Klimaszewski <steev@kali.org>
 
-Thanks,
-
-Jessica Zhang
-
-> 
-> 
-> -- 
-> With best wishes
-> Dmitry
