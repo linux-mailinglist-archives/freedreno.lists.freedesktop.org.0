@@ -1,63 +1,63 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B82154CA8F
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 15:59:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 752F254CB15
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 16:19:47 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3A110F625;
-	Wed, 15 Jun 2022 13:59:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228CB10FD5E;
+	Wed, 15 Jun 2022 14:19:46 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
  [IPv6:2a00:1450:4864:20::12d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F86510F53F
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 13:59:41 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id t25so19025203lfg.7
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 06:59:41 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C05C10FD5E
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 14:19:45 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id a2so19164249lfg.5
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 07:19:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=hmuYPwQa1jhocO5psPDczMcPAlt9oeSQSumJCmiaYKg=;
- b=V0SMWQZDOrXALeVCBqwaWCFd8WspAVe46SWqzAh0uKYFL3AO2cwoYOo6q2NfimIbkm
- fy5YkUIoVpm8oYmkOZvm7OQ3ZEBjvcx90eP+IyjfnUfO29Xj6KSX8yILvA7s+xMCP17H
- XX7SQJyodlNgfTbVdAE99X8hWXTw3Z7mQW3xREz5H9qpPk1HgMyiIh+8eIhOTDRqbgv+
- 0IliZuz1rzXjCjAgNEJZYfBxdbJue15Ch722prREzLoCHVX3f76cbmXvejgkTnuyAPo+
- F0IBJFgr/Lw8r/K29/fD6RUoSB/bB6WOsEU2zrWiNtI+VF2zEOdgahdhx/sj3wIklgqA
- yXNA==
+ h=message-id:date:mime-version:user-agent:content-language:to:cc:from
+ :subject:content-transfer-encoding;
+ bh=A9RmSO/OHnan4DfbcCHEVVY9M4r3MnYRFQBaUW6bNWA=;
+ b=MNuMF3PuaRY/+6YKpSGtGwP/4IuvRcZKjZOwztV73IB8RG1NWUXPWaU2BFUwCr5ux6
+ nBrrd+8xchQCtImhgEfLaO4XTIbMV5XSVMTLk6ED6SSBDT0nTF4DGaiqTC5iP57OnHyd
+ UnMT+znTe8UDArIKd/v8jCrb2b01rK/7rRWt77ff2CTsrz/hjzgoF/Q79oG63L1TXG8b
+ ODyf6yIpWkuPxejCxOUmlcetemEUmOZJ/PHWn0J42S4FAhLHKTsGRd/YiVUb0Kd/SYd7
+ u2l+ZoFA8i/WTSrXUIWOCnXlVFg0Im6YEETIIqQZfPzvhp+69RfGTUlaHICOsYkfT2DP
+ jaMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=hmuYPwQa1jhocO5psPDczMcPAlt9oeSQSumJCmiaYKg=;
- b=jF21L8Odh9H5BKXjtiSbiPXq4UzPtj1+rHAdMWBogA2eqYaD+8b9vZImk62nX0PBpn
- 2Vm7KrGlxL9o9Imkm2zZHVsWduk00VBTpNbMQOxOYUXuiYTYRvQvp7Di9g5k8A4bJFdo
- rjvKrw7N89rSh3s6z3kijoyzFRwoQWcMTbaOTlOJ+TPSisr0tBcusJ0yFYC5EYRFl/9W
- OV2ttj+WhiKNYN//e9LlFrjdoxSejmkZYtdDEu1fAv9HvkoKjL3TlbEKZlyZ2AoFW/5L
- CoA8fAaqF5oEjkFWcoAo2R4K+bSXRhr7UFUQf7IStjw+ZT7h+jXsOR3Pqkb3LuVjQG6K
- 6zvQ==
-X-Gm-Message-State: AJIora9Gv/hNKLO+p680oAhCjo9mRXftqtE9OeXe+P69m+fRKjdTY8OC
- EyKPE29FNOydpXatu422DuAW+Q==
-X-Google-Smtp-Source: AGRyM1vkiSlaaS7HgWsdKdlvAox15z9dfhdTJCVxZj4b6ETZ4bWDKdP/yXoUuylqR7yIVkSwvpR1bA==
-X-Received: by 2002:a05:6512:3992:b0:47c:48fc:3c62 with SMTP id
- j18-20020a056512399200b0047c48fc3c62mr6374831lfu.102.1655301580930; 
- Wed, 15 Jun 2022 06:59:40 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- z23-20020a2e8e97000000b0025530fa4edesm1694962ljk.49.2022.06.15.06.59.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jun 2022 06:59:40 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed, 15 Jun 2022 16:59:35 +0300
-Message-Id: <20220615135935.87381-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220615135935.87381-1-dmitry.baryshkov@linaro.org>
-References: <20220615135935.87381-1-dmitry.baryshkov@linaro.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent
+ :content-language:to:cc:from:subject:content-transfer-encoding;
+ bh=A9RmSO/OHnan4DfbcCHEVVY9M4r3MnYRFQBaUW6bNWA=;
+ b=mSrC+o7JeoIj9uVEqMfv5X7PR92A0+SVgANTDHteRn5bX35zaA73VY/MbA3DRhBOP0
+ ki38AwHp4FgL5qFfyzkNLtU7YvS51FK8i6tVDnfTrbizGLMAtXQMu7hM6voAsZlnePu0
+ sVGXG9Rd7OpqCaZGRjBoHPo2ub9LHmv1LweN15DQGiquhf0sdvFx3Dl/Iae05Xe8Tmab
+ uqx5veLm25hyXciEVxyZ1H1P7ZMRfrv7BZV+NTluaxiVPqxzqEv4SwS3RPwJ3Ftwd75O
+ SsQ5HfOh2KUMacMQlrteVbEMSv37ScvPGeDYGDoPaokTocqK+FzoOfOrGWSfXCGU6e9X
+ uwug==
+X-Gm-Message-State: AJIora/UURK7uOODegZzDazcNpzTbNO7aJqb1Yer7PpwCfIaJMpvypjM
+ f62ulmPXXtg6+RAJuLCF+I4KrA==
+X-Google-Smtp-Source: AGRyM1ugCc/2OaezlkOsaaKljgQlyk2WvF+Ik7GaQdltNSp7JiRkOQRFbTxT/C1eeTM0SUyJMfAG8w==
+X-Received: by 2002:ac2:58d6:0:b0:479:5b9:74a with SMTP id
+ u22-20020ac258d6000000b0047905b9074amr6019118lfo.551.1655302783810; 
+ Wed, 15 Jun 2022 07:19:43 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ v5-20020ac258e5000000b0047255d210fcsm1818418lfo.43.2022.06.15.07.19.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 07:19:43 -0700 (PDT)
+Message-ID: <5dbc0159-cb33-db5b-20cc-05f3027af15e@linaro.org>
+Date: Wed, 15 Jun 2022 17:19:42 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 5/5] arm64: dts: qcom: add mdp_clk clock to the
- MDSS device
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-GB
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: [Freedreno] Please add another drm/msm tree to the linux-next
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +70,31 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@gmail.com>, linux-next@vger.kernel.org,
+ freedreno <freedreno@lists.freedesktop.org>, linux-kernel@vger.kernel.org,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add MDP_CLK ("core") clock to the mdss device to allow MDSS driver to
-access HW_REV/etc registers.
+Hi Stephen,
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/msm8996.dtsi | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+I would appreciate if you could add
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-index f0f81c23c16f..3d8ecfe56fb3 100644
---- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-@@ -773,8 +773,9 @@ mdss: mdss@900000 {
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
- 
--			clocks = <&mmcc MDSS_AHB_CLK>;
--			clock-names = "iface";
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_MDP_CLK>;
-+			clock-names = "iface", "core";
- 
- 			#address-cells = <1>;
- 			#size-cells = <1>;
+https://gitlab.freedesktop.org/lumag/msm.git msm-next-lumag
+
+to the linux-next tree.
+
+This tree is a part of drm/msm maintenance structure. As a co-maintainer 
+I collect and test display patches, while Rob concenctrates on GPU part 
+of the driver. Later during the release cycle these patchesare pulled by 
+Rob Clark directly into msm-next.
+
+During last cycle Rob suggested adding this tree to the linux-next 
+effort, so that the patches receive better integration testing during 
+the Linux development cycle.
+
+Thanks!
+
 -- 
-2.35.1
-
+With best wishes
+Dmitry
