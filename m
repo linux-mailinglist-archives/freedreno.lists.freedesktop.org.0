@@ -2,74 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 672C554C7C1
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 13:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B96B54C805
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 13:59:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8D010E162;
-	Wed, 15 Jun 2022 11:51:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCA7D10E178;
+	Wed, 15 Jun 2022 11:59:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6F5610E162
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 11:51:00 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id c2so18574322lfk.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 04:51:00 -0700 (PDT)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F5210E1DA
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 11:59:23 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id be31so18526841lfb.10
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 04:59:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=WO0nwIuovSMeFOh147VxfsRiP5jPmKwXeiabGncRUA4=;
- b=uCL41/ysCSOyXoQAz1ufqI209ZJM4qxeQjipG4DG7UySSHPWw0AsYR4vrWSlngpCB2
- dz5L61Ar4irJAUus4KHWAT7uZWuRv1WpsVHybi2/yefeHrORC6pi0+QMdGjyo7je/+ax
- LnpzkTi399ciawKc2eMYFSZt45O9u5vKQVjBqJcXCp4y0Z3ljAQPK8qGXBc301lMNVB1
- mX6UzLrW6X7dTWPx16KvcchRUnr+38U/jcnaIjgh6DNGkM5yEq8d8wPFMz6aQtxGjAAm
- ShTLjb3hUSkNaU7l+CuYvIJfKAlPYlwy+ezUiPC3cWYZ2neZfzx6uyglFfSWgQM78xvd
- p3IQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Fxhig7S/wRtvHvzsbn9rHd0EStZ8R3uFvogUlmb/lgo=;
+ b=p0x9cBSaRJyRVTcL/bQMqtCCAUZw8gAxE/Nip++Oi3MBE4TigpMJuno7ju74eI8ltQ
+ AP7aVPu4D6KJBuYXDAQ+rFwf71t8rX8mv+yRHH/AyNTdrsGeXzuRZ77vgyPTssrXpaav
+ IRBU74MOTjW/rBHX+rjOjTIu5oQxgtE5k9XDAXJ2rBnLcDFyjciaTkJn16fyjiZo5t7V
+ UavKS9sBZA7+klaTmCiUE2pCd8Gd2rlNQGlsym2KyAFHvypx8LSECRSr3FAxva+czYtb
+ sLEx3qdcvEyVPZkjaRlMc+FgXVsMtF3ONkmvCIZOy3BH9xZdM4tT4v6/oX13XqSfGCtl
+ 4PYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=WO0nwIuovSMeFOh147VxfsRiP5jPmKwXeiabGncRUA4=;
- b=5ccRKjSAA0jNI1SmBxyv08tBP+A22X+PgAfl4XbZmqfXs2m1tpWE8N/CSmWefMY0AU
- KE1p6DS3embfoESiKIRHo83lXY1mEKlhmBE3QrjLZ/KvdBBtdVw8+Xya3hQ91ZLCu7GS
- 0KdfgsQ11Cay6tblR3VcIhQoK4Ysk2moBn7uUJFs93oxgJZJsc6tEHaqX5exIunJ3CrL
- FmcexJkSxCQFsdhTyHGAp91gfZs7hKVKzhrjbCO9tMQCrurKfNbjp6miKW+OpztFbAoL
- OuKY4uePqBRxmMnbKDohjKRSeSRSWgwG6hhW7FzT6Jw8e8Z47mTdBA39sVGkpAxjcmQq
- P4yQ==
-X-Gm-Message-State: AJIora/CNuTeSBC387DDIWvE9JdqEvl27vUA4MN16VjzWLQyiTr7wpkc
- HXBhNRfLKlP+RqHOwcA2WP207Q==
-X-Google-Smtp-Source: AGRyM1swwvjJTFIH/fHV1BdTuQ04yWwfcyDf1MvWtGNhk/I3H1OLQsh1eJj6aqcsEoVFyStGWhM5Vg==
-X-Received: by 2002:ac2:48ab:0:b0:47d:af82:65e9 with SMTP id
- u11-20020ac248ab000000b0047daf8265e9mr5660443lfg.673.1655293858825; 
- Wed, 15 Jun 2022 04:50:58 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- 27-20020ac24d5b000000b00478ee191091sm1767031lfp.153.2022.06.15.04.50.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 04:50:58 -0700 (PDT)
-Message-ID: <576379dd-e5b0-3363-07a1-c623aeea6fee@linaro.org>
-Date: Wed, 15 Jun 2022 14:50:56 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-GB
-To: Vinod Polimera <quic_vpolimer@quicinc.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, agross@kernel.org, bjorn.andersson@linaro.org,
- robh+dt@kernel.org, robdclark@gmail.com, seanpaul@chromium.org,
- swboyd@chromium.org, dianders@chromium.org,
- krzysztof.kozlowski@canonical.com, thierry.reding@gmail.com,
- sam@ravnborg.org, airlied@linux.ie, daniel@ffwll.ch
-References: <1645455086-9359-1-git-send-email-quic_vpolimer@quicinc.com>
- <1645455086-9359-4-git-send-email-quic_vpolimer@quicinc.com>
+ bh=Fxhig7S/wRtvHvzsbn9rHd0EStZ8R3uFvogUlmb/lgo=;
+ b=49QJV7EkwTBR258u1F5lbUm4IEYIoCyGNdCuoNKaHyMi08mDZT5zkodOwu6JPIrbws
+ 2i1QP51A4/hk/LWz+KOA0cltkw21XxLbI5rKeOblYEKhT9s7Yl8N5+MxSGFT/pdPQZgO
+ DKsjXZtnQQpZouj4xJhaDiQ7a+Bu+ZvsB2VuidUkGAkkIv5u+HheOLG0+azI9178V1US
+ qoJTc8k8p0RiBLEj7zu+OKo2sBddyqNFYsz+eIEQYLxpxij+3GtvX13Q8nlxr8JjRxWX
+ uboxZFtv6mFZPXkJI8uFYjnTuZmTTh5P665UUDb8R2dySvZTIiK0P0/SvMRJ8q6IDG4d
+ ZZIw==
+X-Gm-Message-State: AJIora9IVfaq+iyw4MiXPgaUFBFxwDNJGoFuwze0GuUZs4BjQ2Vad7kc
+ T1jpNFaMG07Fk4mzXpK9496Eyg==
+X-Google-Smtp-Source: AGRyM1ucrkTItoEeZZkUTWkAu68SV/jCTVdq114h4nEOl2QUT54X0xVMh3MbsPpBZO+8vQHBq4wuAQ==
+X-Received: by 2002:a05:6512:3d05:b0:479:4fc7:3332 with SMTP id
+ d5-20020a0565123d0500b004794fc73332mr6146023lfv.463.1655294361968; 
+ Wed, 15 Jun 2022 04:59:21 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ x18-20020a2e7c12000000b00253ceefb668sm1603680ljc.60.2022.06.15.04.59.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jun 2022 04:59:21 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1645455086-9359-4-git-send-email-quic_vpolimer@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 3/4] drm/msm/disp/dpu1: use atomic
- enable/disable callbacks for encoder functions
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 15 Jun 2022 14:59:20 +0300
+Message-Id: <20220615115920.6768-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/dp: make dp_bridge_mode_valid() more
+ precise
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,67 +68,37 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, quic_sbillaka@quicinc.com,
- quic_vproddut@quicinc.com
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 21/02/2022 17:51, Vinod Polimera wrote:
-> Use atomic variants for encoder callback functions such that
-> certain states like self-refresh can be accessed as part of
-> enable/disable sequence.
-> 
-> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
-> Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-> 
-> Changes in v2:
-> - As per review suggestion by Dmitry.
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 1e648db..6eac417 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1138,7 +1138,8 @@ void dpu_encoder_virt_runtime_resume(struct drm_encoder *drm_enc)
->   	mutex_unlock(&dpu_enc->enc_lock);
->   }
->   
-> -static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
-> +static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc,
-> +				struct drm_atomic_state *state)
->   {
->   	struct dpu_encoder_virt *dpu_enc = NULL;
->   	int ret = 0;
-> @@ -1176,7 +1177,8 @@ static void dpu_encoder_virt_enable(struct drm_encoder *drm_enc)
->   	mutex_unlock(&dpu_enc->enc_lock);
->   }
->   
-> -static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc)
-> +static void dpu_encoder_virt_disable(struct drm_encoder *drm_enc,
-> +				struct drm_atomic_state *state)
->   {
->   	struct dpu_encoder_virt *dpu_enc = NULL;
->   	struct msm_drm_private *priv;
-> @@ -2094,8 +2096,8 @@ static void dpu_encoder_frame_done_timeout(struct timer_list *t)
->   
->   static const struct drm_encoder_helper_funcs dpu_encoder_helper_funcs = {
->   	.mode_set = dpu_encoder_virt_mode_set,
-> -	.disable = dpu_encoder_virt_disable,
-> -	.enable = dpu_encoder_virt_enable,
-> +	.atomic_disable = dpu_encoder_virt_disable,
-> +	.atomic_enable = dpu_encoder_virt_enable,
+Make dp_connector_mode_valid() return precise MODE_CLOCK_HIGH rather
+than generic MODE_BAD in case the mode clock is higher than
+DP_MAX_PIXEL_CLK_KHZ (675 MHz).
 
-A small nit before you post the next iteration of PSR:
+Reviewed-by: Kuogee Hsieh<quic_khsieh@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Please rename these functions to follow atomic_enable/atomic_disable names.
-
->   	.atomic_check = dpu_encoder_virt_atomic_check,
->   };
->   
-
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index bce77935394f..6ecdd81d0555 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -989,7 +989,7 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
+ 		return MODE_OK;
+ 
+ 	if (mode->clock > DP_MAX_PIXEL_CLK_KHZ)
+-		return MODE_BAD;
++		return MODE_CLOCK_HIGH;
+ 
+ 	dp_display = container_of(dp, struct dp_display_private, dp_display);
+ 	link_info = &dp_display->panel->link_info;
 -- 
-With best wishes
-Dmitry
+2.35.1
+
