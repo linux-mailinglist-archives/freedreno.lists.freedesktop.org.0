@@ -1,70 +1,73 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E8E54D110
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 20:42:05 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66BAC54D383
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 23:18:30 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC5B112871;
-	Wed, 15 Jun 2022 18:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 181DA1132B1;
+	Wed, 15 Jun 2022 21:18:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C66B8112871
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 18:42:02 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id l18so14243176lje.13
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 11:42:02 -0700 (PDT)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB361132B1
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 21:18:28 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id r1so11429448plo.10
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 14:18:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=oLMY36PZ3nW7GKaFEt/tQXwOlaFMOJLeGVecYzJXHB0=;
- b=txKicfVz471k6uUxfSx1HiuFNxhaT8dtKjeFwbheGMbIC2Gfes23b8H0LwZAeH7kU+
- M0fnapAgLc5CApfDC7lsViX+89vHI8Kr9iw4QznDnLd6sSb1knZgluv6PbrEuJr3x5Qa
- PGr4qtQU1vOvcePHTZHR7xRUTEy3fK0tlf7n/t9piYE9eWyEQe+sbzmmcfancDQUXPHe
- mxuqinYfFIntz9nRE/m5S3wg4MBm6GSmpCQimRVv7G7pi5WT4ihdLFpFeGBN9fdYO44K
- VJvVYSod+9u/CNvGu3EGyOCLH3T3dsVAlAo2tp8csb0mrfWEMErvFCNfodE+d4LHEvNF
- Li1Q==
+ bh=AdSNYlarnghZLL4+EwD5Nxa+VwtZOE12n1YSRFgSAD0=;
+ b=rq4HnFWbq6xo4ji9uDTZmvctRQPOMXHvVKyRxreJHg5eITcoxkEQ6nZOWfWPBms4Fl
+ zKZ61g6FzYqexv/S1p1JkHv3DWL7dHqvtn0J4/fF1v9m8yX4qTbP/s6ZyY93Jlqzc2Sj
+ gLyuPHqzLXNHJe0FwYjs645KMSKe6FSsJi4rbByhr4xKMEId9b3FldShsDEwNo2C8B1S
+ NeODmLsRDJ+3tVZ788Hah7dyxkh0ZqqCxb33Nta7jTiNPVDRwwmKg9QcKGMKlG9Alvbf
+ UoeEFLICKmbY7LfDudU4Mu1CEG6Ld7nyvMFn/dYae2vOXm5A9YFTHfIs3lAgBP4oaYtv
+ Xjng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=oLMY36PZ3nW7GKaFEt/tQXwOlaFMOJLeGVecYzJXHB0=;
- b=8OdPHgtsH19ZnhahpGS8UTPfa6EQyv9vdWWX5wUTDWb7nw1K5JzUWh/AitdTpytaap
- 4r+V2lNFkiWeb94I2APgZrs5XMdJ8801cpUOSDdG81cma8UUuTnvQyhO5nti9G/ZT72u
- pTjjtTSPxofE/LDUMhL1W9sLfL1W3PfB/EVAtoExYnYWPJNgyOpsbRQCgwZ8ZQ5cVqll
- H69FxglVOSTh7CLvv2FbzoxgG69fvjrSBq6+fb84sTEnYvi//EN23SAcEcziv0LCMFJt
- LlpiXt8D4LDyn/eqpLGr4wGmwHOvn5exHgPDGq6PUzBqmZuVYCSQBZJp64wvaq99U98q
- XAHA==
-X-Gm-Message-State: AJIora8HXGbFrlDtAhW0ZUBH0lBrffBus7f8nMiAvlvJOMqBsZHHdcvQ
- ZUqcFv0zEADdtpIecr6RFQqHeQ==
-X-Google-Smtp-Source: AGRyM1vDgzmCi4yDlvrCARv17NB22Q1PGE6RhpepS9n39418PdS0Z6OWHDGfQQyiNRkTTKF1pt3QDA==
-X-Received: by 2002:a2e:908b:0:b0:255:68b4:4085 with SMTP id
- l11-20020a2e908b000000b0025568b44085mr554520ljg.369.1655318521094; 
- Wed, 15 Jun 2022 11:42:01 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
+ bh=AdSNYlarnghZLL4+EwD5Nxa+VwtZOE12n1YSRFgSAD0=;
+ b=tR1kHrw+wp+VhHb09sPG+lA+Ga1N0inQ7PLn5b8KWlJiEhHfIW2mUbMXyvlMyUaS5/
+ HAN5iqoN0zcPBIAh0g2GLLbnVGDHOJVboBM2S2oZelV6EpqrPmPTTmgLr5yo4z3B2OOY
+ HbpdNlL25MlTas5eZB61hZdmiU38TgDh/pbT9sN4VFd0DGhWm3q6g+H0QZDIFUEb8E+B
+ RCpTeZ6p3ByptDkE/4oAHWGYQ5g1l2wkl1qyLY6ittZ0euV49VtR6Qzd1KiLevP+6K+8
+ OQDEqbplEP1L8+ixPp7EKbDlA/bTTmVgzkniloZfB9D0YTBwTNgQBARs9xSadNCTpCnD
+ x36A==
+X-Gm-Message-State: AJIora+zMKjxyqKnMoDc5ahODHS1yGdkSC7w7bu1wMLumtfqUXqyj0uH
+ lANM3taIKhgH3oF6vUjC1lqUmQ==
+X-Google-Smtp-Source: AGRyM1tA/elZAAtrJW4sA4e2iACdIX7S4wavbn+hv4qN9/qOkHwSZUGjW/opaYx+1Ur/YEnpVMCSaQ==
+X-Received: by 2002:a17:903:230b:b0:167:5310:9eed with SMTP id
+ d11-20020a170903230b00b0016753109eedmr1469945plh.46.1655327907931; 
+ Wed, 15 Jun 2022 14:18:27 -0700 (PDT)
+Received: from [172.22.33.138] ([192.77.111.2])
  by smtp.gmail.com with ESMTPSA id
- 194-20020a2e05cb000000b00253dfbe2522sm1747017ljf.100.2022.06.15.11.42.00
+ x8-20020a17090a6b4800b001e2d4ef6160sm39763pjl.27.2022.06.15.14.18.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 11:42:00 -0700 (PDT)
-Message-ID: <3e3215e2-2ddc-377f-f43a-1532dabd9727@linaro.org>
-Date: Wed, 15 Jun 2022 21:42:00 +0300
+ Wed, 15 Jun 2022 14:18:27 -0700 (PDT)
+Message-ID: <90bf6d4b-68bd-3508-7a28-4b45287ee4cb@linaro.org>
+Date: Wed, 15 Jun 2022 14:18:26 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220505001605.1268483-1-dmitry.baryshkov@linaro.org>
- <20220505001605.1268483-2-dmitry.baryshkov@linaro.org>
- <14f2d0e2-6c34-e244-26a4-79638b147592@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <14f2d0e2-6c34-e244-26a4-79638b147592@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH v2 1/5] drm/msm/dpu: check both DPU and MDSS
- devices for the IOMMU
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+References: <20220609122350.3157529-1-dmitry.baryshkov@linaro.org>
+ <20220609122350.3157529-2-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220609122350.3157529-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v3 01/14] dt-bindings: display/msm: hdmi:
+ split and convert to yaml
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,76 +80,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, Robin Murphy <robin.murphy@arm.com>
+ Stephen Boyd <swboyd@chromium.org>, David Heidelberg <david@ixit.cz>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 15/06/2022 20:55, Abhinav Kumar wrote:
+On 09/06/2022 05:23, Dmitry Baryshkov wrote:
+> Convert Qualcomm HDMI binding into HDMI TX and PHY yaml bindings.
 > 
+> Changes to schema:
+> HDMI:
+>  - fixed reg-names numbering to match 0..3 instead 0,1,3,4
+>  - dropped qcom,tx-ddc-* from example, they were not documented
+>  - make phy-names deprecated, drop it from the examples
 > 
-> On 5/4/2022 5:16 PM, Dmitry Baryshkov wrote:
->> Follow the lead of MDP5 driver and check both DPU and MDSS devices for
->> the IOMMU specifiers.
->>
->> Historically DPU devices had IOMMU specified in the MDSS device tree
->> node, but as some of MDP5 devices are being converted to the supported
->> by the DPU driver, the driver should adapt and check both devices.
->>
->> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 14 +++++++++++---
->>   1 file changed, 11 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> index 143d6643be53..5ccda0766f6c 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
->> @@ -1004,14 +1004,22 @@ static int _dpu_kms_mmu_init(struct dpu_kms 
->> *dpu_kms)
->>       struct msm_mmu *mmu;
->>       struct device *dpu_dev = dpu_kms->dev->dev;
->>       struct device *mdss_dev = dpu_dev->parent;
->> +    struct device *iommu_dev;
->>       domain = iommu_domain_alloc(&platform_bus_type);
->>       if (!domain)
->>           return 0;
->> -    /* IOMMUs are a part of MDSS device tree binding, not the
->> -     * MDP/DPU device. */
->> -    mmu = msm_iommu_new(mdss_dev, domain);
->> +    /*
->> +     * IOMMUs can be a part of MDSS device tree binding, or the
->> +     * MDP/DPU device.
->> +     */
+> PHY:
+>  - moved into phy/ directory
+>  - split into QMP and non-QMP PHY schemas
 > 
-> Can you please explain this a little more?
-> 
-> So even if some of the mdp5 devices are getting converted to use DPU 
-> driver, their device trees are also updated right?
-
-No. The DT describes the device, not the Linux drivers. So while 
-updating the drivers we should not change the DT.
-
-> 
-> In other words, if DPU driver was using mdss_dev to initialize the 
-> iommu, why should the new devices which are going to use DPU have the 
-> binding in the dpu_dev?
-> 
-> 
->> +    if (dev_iommu_fwspec_get(dpu_dev))
->> +        iommu_dev = dpu_dev;
->> +    else
->> +        iommu_dev = mdss_dev;
->> +
->> +    mmu = msm_iommu_new(iommu_dev, domain);
->>       if (IS_ERR(mmu)) {
->>           iommu_domain_free(domain);
->>           return PTR_ERR(mmu);
+> Co-developed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Best regards,
+Krzysztof
