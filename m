@@ -2,57 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 905DB54CC02
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 16:59:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5609154CC09
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 17:01:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1643410FDCD;
-	Wed, 15 Jun 2022 14:59:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0614E10EB49;
+	Wed, 15 Jun 2022 15:01:00 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADF2B10F713;
- Wed, 15 Jun 2022 14:59:41 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- m16-20020a7bca50000000b0039c8a224c95so1281015wml.2; 
- Wed, 15 Jun 2022 07:59:41 -0700 (PDT)
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1669E10F770;
+ Wed, 15 Jun 2022 15:00:59 +0000 (UTC)
+Received: by mail-pl1-x62c.google.com with SMTP id f9so10680771plg.0;
+ Wed, 15 Jun 2022 08:00:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6fopigGhBHUvToQDW8C96mevEAHmyd9RwH6T3VHGQno=;
- b=aMm4UMWGVLS0PAt7bgDYcLdhm/CszdAgtdVdM0VB45miYsgwGwV09ga2eYkF4zV8yE
- kUtl2fvYUcU7gIGTYYEkTyc6kdkn+RFFKlGwxZoASle2G2i0bcCNksb6K0Kc73gmP5qU
- G1J8w5fZywh60Dj2gtTk22jbwzc1IhxKa5YXcVEdViPzZrOrJYAJu3ojR7mrJWPmlND2
- 2Z8qcYC60RFp6XpiM4BGr+2XVXKD1E7lHXhSAFHKx9eHClHe+2Un2u1GC2EzxzP1SIz4
- Vw0e6Y3MBvEM+wL9S7jigJAfH3hZYTDU/M5Ys9NHbpq1jLpR21o0Agibudjy8rVbRB5P
- ttjw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Fftyusq14pygoE98VFvLknKqjgDHop8Kgx2bJEg9loM=;
+ b=Dd3Vk1PDo0eKWLfXky6AqmbKiDsQNoKnePr1CSH3382YVX+2aZufcgim47ivxwg5DE
+ kDiDg+sLDTkhcTEfkvirUrkkwoJ+ppkuaGzEBuat0jMexCMf+Jx+iDGyqqRz7gu1/JVl
+ TartlMlP+t2GHtOzP4IMWy7ny70JiJ+z+iUe4YZ9GSyjIqLVo3UEWUfZe83dMJ4AmYyX
+ k5TVD4eemocFf9bWC+ljn8+B8cjvobhfXBee9TTDIZSCXc6jikLOjKbu6Q4R4gH53UtV
+ fet3ZKzxp7koEjzXrQqmm1lGxJLAGUvF24OY6Ov89HA1mF/zLkYITI7e5H8yq1BOqU4a
+ OQ4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6fopigGhBHUvToQDW8C96mevEAHmyd9RwH6T3VHGQno=;
- b=cg+1J4x38SHj8WMsJ0QMn78sRSYMG+X64xl9JwBKy0tJpoMGQKHmNlgR8WD3AZweYo
- 7oxFppen94Q3r/K6mwCbsLy9QUOZ7hjkr7TIMk2eMgUkuhVYw5cGi6/RoNv0xMGS5Fzp
- qbVNEdkdV6xBxbFO1D7Eyv075qA73hT/FQAmOwEoXsuoikbTSaGAetNpRXxpILqpAHrM
- 1VAFpAXjtVnJbZ1IaxJxNUnrONT1LxAYSloc3aJqaySyK7LLNXt6CTRXeKlpphu07UeD
- AuuLxING+SzTiu7NUa19oIoRx6jsiykBe1yDojmUhK8rLDc9/hkKpugdL7SQuIgLwUKO
- n43w==
-X-Gm-Message-State: AOAM531biJ4BOEB7NBNIttKWDTkKWvNLSOb9Vj5ZFYfDlru4nsecr1tL
- PPAYbYZiu31KaMPkGbJBvCSaCybs50Z3UHtbAWs=
-X-Google-Smtp-Source: ABdhPJwOdzB0phMq92UxkYkA4A0DK81tSFVTV8Pe3y2MmItWnkJUarOsTTIAMYPDNE2/mS2V7lGTfJqzy/ONnv84lkk=
-X-Received: by 2002:a05:600c:4f96:b0:39c:951e:66b7 with SMTP id
- n22-20020a05600c4f9600b0039c951e66b7mr10636359wmq.84.1655305179680; Wed, 15
- Jun 2022 07:59:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220610172055.2337977-1-robdclark@gmail.com>
- <42e52572-726b-d94d-6523-7b42dbeecff1@kali.org>
-In-Reply-To: <42e52572-726b-d94d-6523-7b42dbeecff1@kali.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Fftyusq14pygoE98VFvLknKqjgDHop8Kgx2bJEg9loM=;
+ b=IbsGmoI/Y2YXDUnZr8ctDOLFlX9P3ky7igKTulWnuEZ7jruJBFK3XiEg5Cq2GA+QzX
+ x3GFPqal4K05lyfHmZkvaUqlxYr+ZdoIgc/q5AL7h1ABsKvGWm28eDxcQwT8n1vEi949
+ 93ANcj3+FXGd/w9e2jPgsvoD/0JBRo2AvAXPT/pItjPQEhJcJJT3+V1o/Ean7tHDMxZQ
+ 7beEn2ml1vI7Ed3Dgg27DHUJZYdd9N4YUMl9H3nwdFlgP5YhT2I9I1qeDM4t4rB8dwwL
+ e5GKanZ3NiAE7/+ZZPTHahHrZdQOR+0ipn3xZ05dS9N0jjPFYnGV8cURviF8zkYky9xg
+ Ng6A==
+X-Gm-Message-State: AJIora/g2FZKcol9KoRrGKLcQQbSC9DeC1L+A+glm1ZX8KiEFt+ow+Hx
+ ydrHwiGKP2grwZ5PhXuhpL+NcxgPYm8=
+X-Google-Smtp-Source: AGRyM1t6iYGPtiNKJylInJeuhNBnTKe4fKmcXmlacbZLF5hj1JNSIvXkPggEUHpPxBOzLLO8qeRYTA==
+X-Received: by 2002:a17:90a:b284:b0:1e3:826b:d11d with SMTP id
+ c4-20020a17090ab28400b001e3826bd11dmr10881434pjr.79.1655305257874; 
+ Wed, 15 Jun 2022 08:00:57 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ z6-20020a1709027e8600b0015e8e7db067sm9485101pla.4.2022.06.15.08.00.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jun 2022 08:00:56 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 15 Jun 2022 07:59:44 -0700
-Message-ID: <CAF6AEGuTw3fMaNbvkt9z3EWqjND2R3nrRu+PP=GVQjx+TW0N9w@mail.gmail.com>
-To: Steev Klimaszewski <steev@kali.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gem: Drop early returns in
- close/purge vma
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 15 Jun 2022 08:01:06 -0700
+Message-Id: <20220615150107.2969593-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 1/2] drm/msm: Drop update_fences()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,67 +68,78 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Steev Klimaszewski <steev@kali.org>, open list <linux-kernel@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, Jun 11, 2022 at 11:16 AM Steev Klimaszewski <steev@kali.org> wrote:
->
-> Hi Rob,
->
-> On 6/10/22 12:20 PM, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > Keep the warn, but drop the early return.  If we do manage to hit this
-> > sort of issue, skipping the cleanup just makes things worse (dangling
-> > drm_mm_nodes when the msm_gem_vma is freed, etc).  Whereas the worst
-> > that happens if we tear down a mapping the GPU is accessing is that we
-> > get GPU iova faults, but otherwise the world keeps spinning.
-> >
+From: Rob Clark <robdclark@chromium.org>
 
-forgot this initially:
+I noticed while looking at some traces, that we could miss calls to
+msm_update_fence(), as the irq could have raced with retire_submits()
+which could have already popped the last submit on a ring out of the
+queue of in-flight submits.  But walking the list of submits in the
+irq handler isn't really needed, as dma_fence_is_signaled() will dtrt.
+So lets just drop it entirely.
 
 Reported-by: Steev Klimaszewski <steev@kali.org>
+Fixes: 95d1deb02a9c ("drm/msm/gem: Add fenced vma unpin")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 22 ++--------------------
+ 1 file changed, 2 insertions(+), 20 deletions(-)
 
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > ---
-> >   drivers/gpu/drm/msm/msm_gem_vma.c | 6 ++----
-> >   1 file changed, 2 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-> > index 3c1dc9241831..c471aebcdbab 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> > @@ -62,8 +62,7 @@ void msm_gem_purge_vma(struct msm_gem_address_space *aspace,
-> >       unsigned size = vma->node.size;
-> >
-> >       /* Print a message if we try to purge a vma in use */
-> > -     if (GEM_WARN_ON(msm_gem_vma_inuse(vma)))
-> > -             return;
-> > +     GEM_WARN_ON(msm_gem_vma_inuse(vma));
-> >
-> >       /* Don't do anything if the memory isn't mapped */
-> >       if (!vma->mapped)
-> > @@ -128,8 +127,7 @@ msm_gem_map_vma(struct msm_gem_address_space *aspace,
-> >   void msm_gem_close_vma(struct msm_gem_address_space *aspace,
-> >               struct msm_gem_vma *vma)
-> >   {
-> > -     if (GEM_WARN_ON(msm_gem_vma_inuse(vma) || vma->mapped))
-> > -             return;
-> > +     GEM_WARN_ON(msm_gem_vma_inuse(vma) || vma->mapped);
-> >
-> >       spin_lock(&aspace->lock);
-> >       if (vma->iova)
->
-> I've seen the splat on the Lenovo Yoga C630 here, and have tested this
-> patch, and as described, the splat still happens, but the system is
-> still able to be used.
->
-> Tested-by: Steev Klimaszewski <steev@kali.org>
->
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index e59a757578df..b61078f0cd0f 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -176,24 +176,6 @@ int msm_gpu_hw_init(struct msm_gpu *gpu)
+ 	return ret;
+ }
+ 
+-static void update_fences(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+-		uint32_t fence)
+-{
+-	struct msm_gem_submit *submit;
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ring->submit_lock, flags);
+-	list_for_each_entry(submit, &ring->submits, node) {
+-		if (fence_after(submit->seqno, fence))
+-			break;
+-
+-		msm_update_fence(submit->ring->fctx,
+-			submit->hw_fence->seqno);
+-		dma_fence_signal(submit->hw_fence);
+-	}
+-	spin_unlock_irqrestore(&ring->submit_lock, flags);
+-}
+-
+ #ifdef CONFIG_DEV_COREDUMP
+ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
+ 		size_t count, void *data, size_t datalen)
+@@ -450,7 +432,7 @@ static void recover_worker(struct kthread_work *work)
+ 		if (ring == cur_ring)
+ 			fence++;
+ 
+-		update_fences(gpu, ring, fence);
++		msm_update_fence(ring->fctx, fence);
+ 	}
+ 
+ 	if (msm_gpu_active(gpu)) {
+@@ -753,7 +735,7 @@ void msm_gpu_retire(struct msm_gpu *gpu)
+ 	int i;
+ 
+ 	for (i = 0; i < gpu->nr_rings; i++)
+-		update_fences(gpu, gpu->rb[i], gpu->rb[i]->memptrs->fence);
++		msm_update_fence(gpu->rb[i]->fctx, gpu->rb[i]->memptrs->fence);
+ 
+ 	kthread_queue_work(gpu->worker, &gpu->retire_work);
+ 	update_sw_cntrs(gpu);
+-- 
+2.36.1
+
