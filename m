@@ -1,56 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 042F054D409
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 23:59:16 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C28154D4F4
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 01:06:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1271138D3;
-	Wed, 15 Jun 2022 21:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C89113945;
+	Wed, 15 Jun 2022 23:06:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [IPv6:2607:f8b0:4864:20::f34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB49D1138D3
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 21:59:13 +0000 (UTC)
-Received: by mail-qv1-xf34.google.com with SMTP id b8so4636807qvi.11
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 14:59:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AjtCcr1otywJJft7QhHhYY4k1NkowkQRAMqif6cFR4I=;
- b=tFmMq9hUlun2Ubw7g3fgSKXkRIhjvl2VCtNoR0h6ONzY32x/1Ac7FGiDD/B6/E4g+5
- 0E/qzz8+cr9wkieuQseJ+ECH1JVFkUclk+nsAa7hQStdKrUEwISC9i4NJ8EaDGvSjyG/
- dxcPfNHEeMkFmV5+74orgeDc6aQeAqel2gpqJKLXw16eYM3UKHyAd3y/vZtXpO61UMbs
- uGPZB75PMuhOk/dO0HhDTemzm217au2v/G3n6YlgAMCNMdBvrfiwmxf6Esk6EE1KHL4w
- xe+Z5IFiJiDYDL68ERXK+yqE1Rz9DH0Kb3IdxrFEvsCeBQVJMviwP+ociuayU/AzCBM/
- JFPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AjtCcr1otywJJft7QhHhYY4k1NkowkQRAMqif6cFR4I=;
- b=5Qr46h7kZjgZ7ijjmk6TwidU7jkdadNSrjSTJSBahLzTAjiHR8sPwQWolYzFGlzEoc
- bUCUJGB7DYNYviX4H6e1J7TF0R6KgTGNy/0dW212ktyfXs22uEjyJY2wZAesxAs1ejw9
- gsv+WeuVR8gmBVAzq17s8xjYNfvhc3TuxYDT5RovJJkcYgze1Dx6dW72R+7pZ/Tn2HD1
- 7+nAbIH69g2t8R1VwhRmBd74ZG+U7CGrLUW/zKvS/88U98UEduMFjhNC/BIfH/ldvsnR
- dxEf2G/QNDqzR/wQ+ejF2YjOOZnxZqAtEmYOq9TCNlPI1MsWHPao2Hdh0YHKkIeH6tr5
- BAbg==
-X-Gm-Message-State: AJIora/llXU1aofiilQGC7fTZX9XU15RCB0DWAKCgINRFVh/PGNBC1PD
- 1EntnR9UL/YD16Z0sK2XSmmCC+FC1eWUlJcbzAqOTw==
-X-Google-Smtp-Source: AGRyM1sIm8Ml4jI9orl5uYN0vCBzM+ah83e3Yffmsx/SZYX8fvriqmwQV4EKxUYhWlB4nX89Bgh15cl/50Jy8N2mg1c=
-X-Received: by 2002:a05:622a:34a:b0:304:f25a:ecf0 with SMTP id
- r10-20020a05622a034a00b00304f25aecf0mr1551754qtw.62.1655330352789; Wed, 15
- Jun 2022 14:59:12 -0700 (PDT)
+X-Greylist: delayed 420 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Jun 2022 23:06:24 UTC
+Received: from gandalf.ozlabs.org (mail.ozlabs.org
+ [IPv6:2404:9400:2221:ea00::3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59133113945
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 23:06:24 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4LNgjL0Vbhz4xXj;
+ Thu, 16 Jun 2022 08:59:18 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+ s=201702; t=1655333959;
+ bh=d5d/IXe2LkYdx5k7DNB4uYu/qhr7MqhAXwMIkq0IZr8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=S50womizPOE/MYo07uLMQcWFqsctzgwvZiWerf0osMSG5zjbC8x0h2xehY+IjdAug
+ Q8ZWTFPVx7O39mZzBj+pw1UNC7GFA6lTwdb8tao4+F984YmtCrcN1vX2/OU5yccXRA
+ uFE1rKlG9y0acJ20YeAbKiDea2xVfYHRgL0BL1Z+TvearBUCWZcVRC8GPng+dmntd7
+ 1YfbKQmaxoCeOtv9udflSSoxCnEiFLyXXUh0/0+1fgY1ryzYFDvArpTDOhQLNHLwY/
+ jNQZeGjrdhaD7Wk+xsXx8Xjq/HVwtGM63jBGHbzNCBZkhQVHNSnOAwJsyKqs4RQdR8
+ 99V/4B6nRk2cg==
+Date: Thu, 16 Jun 2022 08:59:16 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20220616085916.113e477b@canb.auug.org.au>
+In-Reply-To: <5dbc0159-cb33-db5b-20cc-05f3027af15e@linaro.org>
+References: <5dbc0159-cb33-db5b-20cc-05f3027af15e@linaro.org>
 MIME-Version: 1.0
-References: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
-In-Reply-To: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 16 Jun 2022 00:59:01 +0300
-Message-ID: <CAA8EJpp80=-uwXVQhkgGq6-nXw17Lv-5fRg0kuZOAQENcDmVrw@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dpu: move intf and wb
- assignment to dpu_encoder_setup_display()
+Content-Type: multipart/signed; boundary="Sig_/0Rts+dJPHVuFp7yBrsgCJ62";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Freedreno] Please add another drm/msm tree to the linux-next
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,97 +53,74 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@gmail.com>, linux-next@vger.kernel.org,
+ freedreno <freedreno@lists.freedesktop.org>, linux-kernel@vger.kernel.org,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, 16 Jun 2022 at 00:22, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->
-> intf and wb resources are not dependent on the rm global
-> state so need not be allocated during dpu_encoder_virt_atomic_mode_set().
->
-> Move the allocation of intf and wb resources to dpu_encoder_setup_display()
-> so that we can utilize the hw caps even during atomic_check() phase.
->
-> Since dpu_encoder_setup_display() already has protection against
-> setting invalid intf_idx and wb_idx, these checks can now
-> be dropped as well.
->
-> changes in v2:
->         - add phys->hw_intf and phys->hw_wb checks back
->
-> Fixes: e02a559a720f ("make changes to dpu_encoder to support virtual encoder")
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+--Sig_/0Rts+dJPHVuFp7yBrsgCJ62
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Hi Dmitry,
 
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 36 ++++++++++++++---------------
->  1 file changed, 18 insertions(+), 18 deletions(-)
+On Wed, 15 Jun 2022 17:19:42 +0300 Dmitry Baryshkov <dmitry.baryshkov@linar=
+o.org> wrote:
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 3a462e327e0e..3be73211d631 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1048,24 +1048,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->                 phys->hw_pp = dpu_enc->hw_pp[i];
->                 phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
->
-> -               if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
-> -                       phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
-> -
-> -               if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
-> -                       phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
-> -
-> -               if (!phys->hw_intf && !phys->hw_wb) {
-> -                       DPU_ERROR_ENC(dpu_enc,
-> -                                     "no intf or wb block assigned at idx: %d\n", i);
-> -                       return;
-> -               }
-> -
-> -               if (phys->hw_intf && phys->hw_wb) {
-> -                       DPU_ERROR_ENC(dpu_enc,
-> -                                       "invalid phys both intf and wb block at idx: %d\n", i);
-> -                       return;
-> -               }
-> -
->                 phys->cached_mode = crtc_state->adjusted_mode;
->                 if (phys->ops.atomic_mode_set)
->                         phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
-> @@ -2293,7 +2275,25 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->                 struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->                 atomic_set(&phys->vsync_cnt, 0);
->                 atomic_set(&phys->underrun_cnt, 0);
-> +
-> +               if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
-> +                       phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
-> +
-> +               if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
-> +                       phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
-> +
-> +               if (!phys->hw_intf && !phys->hw_wb) {
-> +                       DPU_ERROR_ENC(dpu_enc, "no intf or wb block assigned at idx: %d\n", i);
-> +                       ret = -EINVAL;
-> +               }
-> +
-> +               if (phys->hw_intf && phys->hw_wb) {
-> +                       DPU_ERROR_ENC(dpu_enc,
-> +                                       "invalid phys both intf and wb block at idx: %d\n", i);
-> +                       ret = -EINVAL;
-> +               }
->         }
-> +
->         mutex_unlock(&dpu_enc->enc_lock);
->
->         return ret;
-> --
-> 2.7.4
->
+> I would appreciate if you could add
+>=20
+> https://gitlab.freedesktop.org/lumag/msm.git msm-next-lumag
+>=20
+> to the linux-next tree.
+>=20
+> This tree is a part of drm/msm maintenance structure. As a co-maintainer =
+I collect and test display patches, while Rob concenctrates on GPU part of =
+the driver. Later during the release cycle these patchesare pulled by Rob C=
+lark directly into msm-next.
+>=20
+> During last cycle Rob suggested adding this tree to the linux-next effort=
+, so that the patches receive better integration testing during the Linux d=
+evelopment cycle.
 
+Added from today.
 
--- 
-With best wishes
-Dmitry
+Thanks for adding your subsystem tree as a participant of linux-next.  As
+you may know, this is not a judgement of your code.  The purpose of
+linux-next is for integration testing and to lower the impact of
+conflicts between subsystems in the next merge window.=20
+
+You will need to ensure that the patches/commits in your tree/series have
+been:
+     * submitted under GPL v2 (or later) and include the Contributor's
+        Signed-off-by,
+     * posted to the relevant mailing list,
+     * reviewed by you (or another maintainer of your subsystem tree),
+     * successfully unit tested, and=20
+     * destined for the current or next Linux merge window.
+
+Basically, this should be just what you would send to Linus (or ask him
+to fetch).  It is allowed to be rebased if you deem it necessary.
+
+--=20
+Cheers,
+Stephen Rothwell=20
+sfr@canb.auug.org.au
+
+--Sig_/0Rts+dJPHVuFp7yBrsgCJ62
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmKqZEQACgkQAVBC80lX
+0Gy8RAf+IsCrpN0TDFAO9/3ciyLA7BYcxQ/hKmvxNaN2bLcryQB1yauyzvsDZXgU
+IK0JJ3IIj74Spo+BkUYsET41GEJdCKZ+wsz3oxhRrTHm2SuA1uV5NcScB2AMuAc5
+li4wgBFQ9+QOO+gjijsWKgpNsC51hjvmra4c1w5RmPk074XJCBzuSJQ+/aACQL3I
+706Aexc/pUvuwWgBeSW0d5ykai0t7GXSfuefJxebvZfgyBL7KFd8TUsR4RSQ5hFD
+sxc5LxZqW9+L6XRM3LSLaLJnKcnqK7pjuWrH5tqV9fM113XhN9ccJjdUtrZ0c5CW
+nFRpf2SjqtvYrK+v4wKzAIvh2eC00A==
+=NQ/0
+-----END PGP SIGNATURE-----
+
+--Sig_/0Rts+dJPHVuFp7yBrsgCJ62--
