@@ -2,69 +2,65 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7110D54C86C
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1421154C88A
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:30:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F1D10E455;
-	Wed, 15 Jun 2022 12:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 629C310E4B4;
+	Wed, 15 Jun 2022 12:30:15 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B75410E3FC
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:25:06 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id c2so18716361lfk.0
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:25:05 -0700 (PDT)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 758D210E445
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:30:14 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id m25so13060055lji.11
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:30:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/XSr+w94TsWPuJS7OSNV5L/UO5RzkyOGJs0L8Cgm8pI=;
- b=YNIiePeBhBSlCbM+N7NA1Bi5YsljgHEOEPoGq1B7/1SAdkUgXFreGq6PfnzEl3wqxh
- Kkx4FSpmTs/8BB8Wwnq0kVcc3o6VaqLI7o67MuYadcXKNuvuwcYkeQWYO2gtd3jH/iZR
- wvGqksekdrBM71Zj549aNs+3UZ8IqBiPmAtvf7HgY/z16qtYmD8zAkmg900n2QJ8ApzN
- git4StvRknLnDjZ3m8SRW62FJ6OeHR7o5TBfsmpw5bMm6J3QSefIIcQZNmntHKuDEPhG
- gSWl30CICQNJF7YmDgYlYRJ9m0YvNEp90Ymt+SEad6K0gv77FQTTwpxGk8vjvqB2GTwA
- 79rQ==
+ bh=5vGAXTFss+xRVWCjnDcb7Q0fDyWMmYQS1IlIisRz3kA=;
+ b=EOkJnIDxrEFF+7/lL50921cC8xj04yIhzL/gjXZ2b99hFK2rWxyrK9CAGQMtFmvcvf
+ ktSx+aJ1aXXVzZYdHssvQ+iY9tweS2bkxIJDvynoAHbIP+KiqZ+o+VFZnQHlHMaeWh1H
+ FopnjxWrPoqGWx0EgSR1oqfam4d36/hYw+7+qwSw8dojx8NTc4+Plcq0bv7m90zRwFb8
+ sL7i915LBomiiZ1YP7udhS3T1xO330Iy9eXS26A9J5Sms7GMlxoRiQ6d0aHFwZO1VAMr
+ zakJ7NDnHlnsXmcm4DGdaX+lY6lgKOFJ2SZQ33FeaUKD6OTMZIFTsnw4ohSUPk+hQii+
+ F4Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=/XSr+w94TsWPuJS7OSNV5L/UO5RzkyOGJs0L8Cgm8pI=;
- b=RZj/8OJROinh6n+GLzh8YNCAT2OYl8gDSS8sjwq2MFUUWLnOsoQQc5esaMNjUhRTpK
- M7pBPV/LHPdkqAXtzMe7gb3OEw6bFZBjxcfU81bDnka3q3GBvJML3wtKmxCSSJwt3y+i
- +j6TVM0z+A/whz4+46MX7g+UHe33tUTF9QgcF1PEsPGuYQt7kyvJAwBfE+WNn/y1w7Vr
- 7wYSPJ29AchItEaTkGbEoSG5+pltFHALCyRp/UfY5//Dgc/GAIk79WVaYIYWhPl97sfI
- gXupwat0tNKaXIDUA/wGvv/5RsCrwVV4PB+ZNhIibPcuwQn8NwAo0RWKEKXuDa/Pxhm1
- nPjw==
-X-Gm-Message-State: AJIora+Sr5IIc2M5F0h43s24nwzarxKSjmxOYM6WE2d0aImuVFESOR98
- YpoeoZ4nfdre2uu5nuNODQMx6A==
-X-Google-Smtp-Source: AGRyM1u9YJURgXPk9UCSobnkOQ/l5kCouy20zHlxbyP4uQrLCno47jfZPehZeU6Bpo+5+Y8qTa/FKA==
-X-Received: by 2002:a05:6512:10d3:b0:479:732e:d62a with SMTP id
- k19-20020a05651210d300b00479732ed62amr6277501lfg.319.1655295904361; 
- Wed, 15 Jun 2022 05:25:04 -0700 (PDT)
+ bh=5vGAXTFss+xRVWCjnDcb7Q0fDyWMmYQS1IlIisRz3kA=;
+ b=4s+/1Q7BZLhBoT09bdFN6oltiyYjmu9glhN7eNUYmV/le3GuSs4ukaE8v3B4DcjWUy
+ JHdmGHnSyui7Xc3e9ihPDzp7aNo5CvdnzgpwT94L0QEg2RjX/N+D08HX4tmWKzwG+pwD
+ 7vdGDehOIijve/C//qwWq9pEUgT4SnV1RK6ChmXtol4Ml/pxs4HeTBBBFwlSZZQ+0/2K
+ neWSxQ5+isDy1HCQPEXnwfjhY8gi/wbRyBLnOK3E895rAIF5jg2WmnqXInGqvn93U9qS
+ 9d4BvBJ7+FMqvUNY/r6NIfUh9fnuPoWc7aqfmsG+MsHL+bgDIVZd9dQzmf3BAlBS1xdH
+ MZPg==
+X-Gm-Message-State: AJIora+PPhZUlPZpU5JqU2ns1ME97JVyyr7/WTWUqPQ/LNm1uLRuE6r3
+ bv1HkR1NDJI43jbARTcawJsRjg==
+X-Google-Smtp-Source: AGRyM1stEKOa97MHGOwvfFGeoSt3FuS+Eu5m4yHonr0NYFdvsXzMyJYZLHDcfQQpysoq8eIb4KKNAg==
+X-Received: by 2002:a05:651c:50b:b0:259:957:f2c6 with SMTP id
+ o11-20020a05651c050b00b002590957f2c6mr4985704ljp.26.1655296212733; 
+ Wed, 15 Jun 2022 05:30:12 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- w3-20020a05651c102300b0024f3d1dae87sm1676074ljm.15.2022.06.15.05.25.03
+ f27-20020a19381b000000b00479050b8260sm1782521lfa.104.2022.06.15.05.30.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 05:25:03 -0700 (PDT)
-Message-ID: <0030792f-464b-307f-6991-bfc7b0badfd5@linaro.org>
-Date: Wed, 15 Jun 2022 15:25:03 +0300
+ Wed, 15 Jun 2022 05:30:12 -0700 (PDT)
+Message-ID: <3f595dba-36e7-59ed-04d6-af1f1259b3ba@linaro.org>
+Date: Wed, 15 Jun 2022 15:30:11 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-References: <1654286979-11072-1-git-send-email-quic_khsieh@quicinc.com>
+To: Luca Weiss <luca@z3ntu.xyz>, dri-devel@lists.freedesktop.org
+References: <20220610220259.220622-1-luca@z3ntu.xyz>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1654286979-11072-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <20220610220259.220622-1-luca@z3ntu.xyz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm: update maintainers list
- with proper id
+Subject: Re: [Freedreno] [PATCH] drm/msm/dsi: Use single function for reset
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,40 +73,118 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Vinod Koul <vkoul@kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ phone-devel@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 03/06/2022 23:09, Kuogee Hsieh wrote:
-> Use quic id instead of codeaurora id in maintainers list
-> for display devicetree bindings.
+On 11/06/2022 01:02, Luca Weiss wrote:
+> From: Vladimir Lypak <vladimir.lypak@gmail.com>
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> There is currently two function for performing reset: dsi_sw_reset and
+> dsi_sw_reset_restore. Only difference betwean those is that latter one
+> assumes that DSI controller is enabled. In contrary former one assumes
+> that controller is disabled and executed during power-on. However this
+> assumtion is not true mobile devices which have boot splash set up by
+> boot-loader.
+> 
+> This patch removes dsi_sw_reset_restore and makes dsi_sw_reset disable
+> DSI controller during reset sequence if it's enabled.
+> 
+> Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-We can pick it through the msm/ tree, if no one objects.
-
 > ---
->   Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/msm/dsi/dsi_host.c | 48 +++++++++++++-----------------
+>   1 file changed, 21 insertions(+), 27 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index cd05cfd..c950710 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: MSM Display Port Controller
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> index a95d5df52653..bab2634ebd11 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+> @@ -1080,12 +1080,32 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
 >   
->   maintainers:
-> -  - Kuogee Hsieh <khsieh@codeaurora.org>
-> +  - Kuogee Hsieh <quic_khsieh@quicinc.com>
+>   static void dsi_sw_reset(struct msm_dsi_host *msm_host)
+>   {
+> +	u32 ctrl;
+> +
+> +	ctrl = dsi_read(msm_host, REG_DSI_CTRL);
+> +
+> +	if (ctrl & DSI_CTRL_ENABLE) {
+> +		dsi_write(msm_host, REG_DSI_CTRL, ctrl & ~DSI_CTRL_ENABLE);
+> +		/*
+> +		 * dsi controller need to be disabled before
+> +		 * clocks turned on
+> +		 */
+> +		wmb();
+> +	}
+> +
+>   	dsi_write(msm_host, REG_DSI_CLK_CTRL, DSI_CLK_CTRL_ENABLE_CLKS);
+>   	wmb(); /* clocks need to be enabled before reset */
 >   
->   description: |
->     Device tree bindings for DisplayPort host controller for MSM targets
+> +	/* dsi controller can only be reset while clocks are running */
+>   	dsi_write(msm_host, REG_DSI_RESET, 1);
+>   	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
+>   	dsi_write(msm_host, REG_DSI_RESET, 0);
+> +	wmb(); /* controller out of reset */
+> +
+> +	if (ctrl & DSI_CTRL_ENABLE) {
+> +		dsi_write(msm_host, REG_DSI_CTRL, ctrl);
+> +		wmb();	/* make sure dsi controller enabled again */
+> +	}
+>   }
+>   
+>   static void dsi_op_mode_config(struct msm_dsi_host *msm_host,
+> @@ -1478,32 +1498,6 @@ static int dsi_cmds2buf_tx(struct msm_dsi_host *msm_host,
+>   	return len;
+>   }
+>   
+> -static void dsi_sw_reset_restore(struct msm_dsi_host *msm_host)
+> -{
+> -	u32 data0, data1;
+> -
+> -	data0 = dsi_read(msm_host, REG_DSI_CTRL);
+> -	data1 = data0;
+> -	data1 &= ~DSI_CTRL_ENABLE;
+> -	dsi_write(msm_host, REG_DSI_CTRL, data1);
+> -	/*
+> -	 * dsi controller need to be disabled before
+> -	 * clocks turned on
+> -	 */
+> -	wmb();
+> -
+> -	dsi_write(msm_host, REG_DSI_CLK_CTRL, DSI_CLK_CTRL_ENABLE_CLKS);
+> -	wmb();	/* make sure clocks enabled */
+> -
+> -	/* dsi controller can only be reset while clocks are running */
+> -	dsi_write(msm_host, REG_DSI_RESET, 1);
+> -	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
+> -	dsi_write(msm_host, REG_DSI_RESET, 0);
+> -	wmb();	/* controller out of reset */
+> -	dsi_write(msm_host, REG_DSI_CTRL, data0);
+> -	wmb();	/* make sure dsi controller enabled again */
+> -}
+> -
+>   static void dsi_hpd_worker(struct work_struct *work)
+>   {
+>   	struct msm_dsi_host *msm_host =
+> @@ -1520,7 +1514,7 @@ static void dsi_err_worker(struct work_struct *work)
+>   
+>   	pr_err_ratelimited("%s: status=%x\n", __func__, status);
+>   	if (status & DSI_ERR_STATE_MDP_FIFO_UNDERFLOW)
+> -		dsi_sw_reset_restore(msm_host);
+> +		dsi_sw_reset(msm_host);
+>   
+>   	/* It is safe to clear here because error irq is disabled. */
+>   	msm_host->err_work_state = 0;
 
 
 -- 
