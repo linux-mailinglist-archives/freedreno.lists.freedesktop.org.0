@@ -2,68 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD4C54C92A
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1464954C945
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:57:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E570310E63C;
-	Wed, 15 Jun 2022 12:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0293E10E67E;
+	Wed, 15 Jun 2022 12:57:07 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
  [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C9410E67B
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:53:06 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id b7so13142277ljr.6
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:53:06 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB85F10E508
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:57:05 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id b7so13154247ljr.6
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:57:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=rZJIbtFCcqW5LZyvrtvGRTza0kOPHpDYWoVZinEr7HE=;
- b=NrS9NRpe5o/bQ3lb903LO8dcj/qna1rKoR+6M72kCwOBfDqP12nDzar/jIizc9f0V3
- aBW9pgDpvxUVObm8Oxr30RBfDkr3F/0MTiOuwpV2f9oCi24oSevmvHraXgxIeSebtN2L
- 2oX+cSxSSl1S6+xEfJhHc/PNawyEzs6ZZ8DaTRH81FXrTzYQY9mJYYTyrcl6rMPvpb4r
- 6/Pm4J/fADNJZwgH3tbG+cYkv8dx7otU3lENgl2/D3X/yFNrNdPxo7ogXduApB8F/tFI
- hylI70/9G/vyE1jjs/Whrc/QKFhSwRYYhdl7Wo8m/IwC2hSASyc0xwIQF0y0knznX5wn
- YTwA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DRnxwAmVFrwYRwDRhIhnKR3tEygFG1xsNvUP8AYSEHM=;
+ b=EQPEl9FuLaZGT9FxfR+2AX1NZv4dd5vKmCDoJWBC0MotYbOgPOiULE7Hw9cs8DKtXJ
+ PYZeC+uIV+kq3A6BuAZUNqO6UPfIKBUK2WuooepvJ716kbGzbPUBb99E0r9LUf+87sYC
+ 61nKkeq31S0LeG/ZmMk3fD8SBt9qwnlWtFfCtuOcxQEDklOsCVk+AXcPfYZ28tl0gUZZ
+ dGtTGwNVq8yhfjXpHAsfcAZccdux4FosKNzMUH1nNcWJK4nNfRZ6M2vrVmCbESIAyzvn
+ XOkEnYUc0EZIoQWGMrNyEyG9BO+TU7qIbZG6R2U4jIClBMkUzfCtFAHzSoO1CzOT9UJv
+ eoqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=rZJIbtFCcqW5LZyvrtvGRTza0kOPHpDYWoVZinEr7HE=;
- b=SFT38OJK2MPRZIZCbgZ2iqHvgO631JhQcteuA7x6YQt9ez14/1KErftrO+YJiTXSfo
- SKv6VIaXI/BrRYNqFIa8cbXOjrv8P5cUrBWpVb/sDhnL/JE+HMmvVsvvY+bjzedatoyK
- hpKnTz+hdhxE3jqi2cckbeus7eGo8kRnK7eBA7gKr0ZPays5OSFRT+garfowe4gnqOXK
- QYTsVq8M6Y50Z0cI620vmT2mlVZiRYkskbzkMBglybT4wg1c3a4kxLhOIlTNvXYjZF5y
- Cz0dCw498e0H0XjdKQfxI5Olek43YAiURGnP6R0T3UEOsjDtXhsloIcv3ATn4YGwYMbC
- /P9Q==
-X-Gm-Message-State: AJIora/wXzV61H5sxIrsPAGyEzxyOimdUL0MygC56K0lCrQIFtc0J00p
- dU+FNUMfwX/VAzOBKpiPlyExYA==
-X-Google-Smtp-Source: AGRyM1s4qlj+lIrSeBVgJpZxc2lRZyIpqY/3N4nxVO3aLTpjlxU1ZGI606Bxg9SdJ9MvROUjqADQKA==
-X-Received: by 2002:a2e:934f:0:b0:24f:ea1:6232 with SMTP id
- m15-20020a2e934f000000b0024f0ea16232mr5335649ljh.135.1655297583639; 
- Wed, 15 Jun 2022 05:53:03 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- s14-20020a056512314e00b0047dc488aceesm1709184lfi.116.2022.06.15.05.53.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 05:53:03 -0700 (PDT)
-Message-ID: <7282608a-314c-b8ac-e225-a7f220be81b6@linaro.org>
-Date: Wed, 15 Jun 2022 15:53:02 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org,
- jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, rodrigo.vivi@intel.com
-References: <20220411204741.1074308-1-sean@poorly.run>
+ bh=DRnxwAmVFrwYRwDRhIhnKR3tEygFG1xsNvUP8AYSEHM=;
+ b=uvW9Px4MzDYWZ31kQfy8d9zcq00QFx1TQkutmj/OUv5reFjWLEPk9c77y35CLDhSn2
+ hdJrgw4ifb+QaYrmI/334EKe5OebQf456oRskUN5dkHEC6jbRjW3kFBYtxy2xR5ZBb1b
+ ytZ3dPcQjon8B0EKnFiNVrAz163qHNcibmY6gDiQ7CGjXDY2iKXUl5voV7Hy8us2pTwR
+ JsRpWVOBHc3JW3IXbCIOYTHagZiUm9At2sRv0jEa6Kme1j/TxW0KBOe1ma8/mC1tFLZI
+ vBVTVaBOa6KxUgcJxXZd+uOOx4M+cdHjE1mdy7iRXwbEKp7v2ZSlabDHPfHDEmhHsxVw
+ 1+nA==
+X-Gm-Message-State: AJIora8j9WwBSc7XZu0/vcWpHRRKUQCKOjCruP1f4ttx+UfjJ5eCpfYX
+ vZrEDDfM4Jf8jknoF942nw7zVA==
+X-Google-Smtp-Source: AGRyM1sgiwVhO4+byCpZSd7W+z9U5Ik+t3MkkhIdqiQXV6H4hkjeTl1hkIY9v7In9ywQUzRbnNmRaw==
+X-Received: by 2002:a05:651c:1793:b0:25a:42f4:2f32 with SMTP id
+ bn19-20020a05651c179300b0025a42f42f32mr1363099ljb.58.1655297824100; 
+ Wed, 15 Jun 2022 05:57:04 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ u13-20020a05651220cd00b0047255d21100sm1798013lfr.47.2022.06.15.05.57.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jun 2022 05:57:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220411204741.1074308-1-sean@poorly.run>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v5 00/10] drm/hdcp: Pull HDCP
- auth/exchange/check into helpers
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Wed, 15 Jun 2022 15:57:01 +0300
+Message-Id: <20220615125703.24647-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 1/3] drm/msm/dpu: index dpu_kms->hw_vbif
+ using vbif_idx
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,85 +68,122 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, bjorn.andersson@linaro.org,
- Sean Paul <seanpaul@chromium.org>, abhinavk@codeaurora.org,
- swboyd@chromium.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 11/04/2022 23:47, Sean Paul wrote:
-> From: Sean Paul <seanpaul@chromium.org>
-> 
-> Rebased set from November. Fixed a nit from Stephen in the msm patch and
-> moved hdcp registers into the trogdor dtsi file to avoid differences
-> with sc7180-based windows devices. The set is 4 patches lighter since
-> some of the changes were accepted into msm.
-> 
-> I'm still waiting for Intel review of the first 7 patches. Rodrigo/Jani,
-> would you please provide your input so we can move forward with this
-> set?
-> 
-> Thanks,
-> 
-> Sean
-> 
-> Link: https://patchwork.freedesktop.org/series/94623/ #v1
-> Link: https://patchwork.freedesktop.org/series/94713/ #v2
-> Link: https://patchwork.freedesktop.org/series/94712/ #v3
-> Link: https://patchwork.freedesktop.org/series/94712/ #v4
+Remove loops over hw_vbif. Instead always VBIF's idx as an index in the
+array. This fixes an error in dpu_kms_hw_init(), where we fill
+dpu_kms->hw_vbif[i], but check for an error pointer at
+dpu_kms->hw_vbif[vbif_idx].
 
-With most of the patches getting necessary acks and r-b, what would be 
-the plan to merge the series?
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 12 ++++------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c | 29 +++++++++++-------------
+ 2 files changed, 18 insertions(+), 23 deletions(-)
 
-We can take patches 1-4 (core) + 8, 10 (msm) through the msm tree, 
-leaving i915 for the next cycle. Does that sound good?
-
-> 
-> Sean Paul (10):
->    drm/hdcp: Add drm_hdcp_atomic_check()
->    drm/hdcp: Avoid changing crtc state in hdcp atomic check
->    drm/hdcp: Update property value on content type and user changes
->    drm/hdcp: Expand HDCP helper library for enable/disable/check
->    drm/i915/hdcp: Consolidate HDCP setup/state cache
->    drm/i915/hdcp: Retain hdcp_capable return codes
->    drm/i915/hdcp: Use HDCP helpers for i915
->    dt-bindings: msm/dp: Add bindings for HDCP registers
->    arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
->    drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-> 
->   .../bindings/display/msm/dp-controller.yaml   |    7 +-
->   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
->   arch/arm64/boot/dts/qcom/sc7180.dtsi          |    6 +-
->   drivers/gpu/drm/drm_hdcp.c                    | 1197 ++++++++++++++++-
->   drivers/gpu/drm/i915/display/intel_atomic.c   |    7 +-
->   drivers/gpu/drm/i915/display/intel_ddi.c      |   29 +-
->   .../drm/i915/display/intel_display_debugfs.c  |   11 +-
->   .../drm/i915/display/intel_display_types.h    |   58 +-
->   drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  345 ++---
->   drivers/gpu/drm/i915/display/intel_dp_mst.c   |   17 +-
->   drivers/gpu/drm/i915/display/intel_hdcp.c     | 1011 +++-----------
->   drivers/gpu/drm/i915/display/intel_hdcp.h     |   36 +-
->   drivers/gpu/drm/i915/display/intel_hdmi.c     |  256 ++--
->   drivers/gpu/drm/msm/Makefile                  |    1 +
->   drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
->   drivers/gpu/drm/msm/dp/dp_debug.h             |    6 +-
->   drivers/gpu/drm/msm/dp/dp_display.c           |   46 +-
->   drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
->   drivers/gpu/drm/msm/dp/dp_drm.c               |   68 +-
->   drivers/gpu/drm/msm/dp/dp_drm.h               |    5 +
->   drivers/gpu/drm/msm/dp/dp_hdcp.c              |  453 +++++++
->   drivers/gpu/drm/msm/dp/dp_hdcp.h              |   27 +
->   drivers/gpu/drm/msm/dp/dp_parser.c            |   20 +-
->   drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
->   drivers/gpu/drm/msm/dp/dp_reg.h               |   32 +-
->   drivers/gpu/drm/msm/msm_atomic.c              |   15 +
->   include/drm/drm_hdcp.h                        |  194 +++
->   27 files changed, 2582 insertions(+), 1328 deletions(-)
->   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
->   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
-> 
-
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 2b9d931474e0..1255d00c92cf 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -830,12 +830,10 @@ static void _dpu_kms_hw_destroy(struct dpu_kms *dpu_kms)
+ 	_dpu_kms_mmu_destroy(dpu_kms);
+ 
+ 	if (dpu_kms->catalog) {
+-		for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+-			u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+-
+-			if ((vbif_idx < VBIF_MAX) && dpu_kms->hw_vbif[vbif_idx]) {
+-				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[vbif_idx]);
+-				dpu_kms->hw_vbif[vbif_idx] = NULL;
++		for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
++			if (dpu_kms->hw_vbif[i]) {
++				dpu_hw_vbif_destroy(dpu_kms->hw_vbif[i]);
++				dpu_kms->hw_vbif[i] = NULL;
+ 			}
+ 		}
+ 	}
+@@ -1135,7 +1133,7 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
+ 	for (i = 0; i < dpu_kms->catalog->vbif_count; i++) {
+ 		u32 vbif_idx = dpu_kms->catalog->vbif[i].id;
+ 
+-		dpu_kms->hw_vbif[i] = dpu_hw_vbif_init(vbif_idx,
++		dpu_kms->hw_vbif[vbif_idx] = dpu_hw_vbif_init(vbif_idx,
+ 				dpu_kms->vbif[vbif_idx], dpu_kms->catalog);
+ 		if (IS_ERR_OR_NULL(dpu_kms->hw_vbif[vbif_idx])) {
+ 			rc = PTR_ERR(dpu_kms->hw_vbif[vbif_idx]);
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+index 21d20373eb8b..a18fb649301c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_vbif.c
+@@ -11,6 +11,14 @@
+ #include "dpu_hw_vbif.h"
+ #include "dpu_trace.h"
+ 
++static struct dpu_hw_vbif *dpu_get_vbif(struct dpu_kms *dpu_kms, enum dpu_vbif vbif_idx)
++{
++	if (vbif_idx < ARRAY_SIZE(dpu_kms->hw_vbif))
++		return dpu_kms->hw_vbif[vbif_idx];
++
++	return NULL;
++}
++
+ /**
+  * _dpu_vbif_wait_for_xin_halt - wait for the xin to halt
+  * @vbif:	Pointer to hardware vbif driver
+@@ -148,20 +156,15 @@ static u32 _dpu_vbif_get_ot_limit(struct dpu_hw_vbif *vbif,
+ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+ 		struct dpu_vbif_set_ot_params *params)
+ {
+-	struct dpu_hw_vbif *vbif = NULL;
++	struct dpu_hw_vbif *vbif;
+ 	struct dpu_hw_mdp *mdp;
+ 	bool forced_on = false;
+ 	u32 ot_lim;
+-	int ret, i;
++	int ret;
+ 
+ 	mdp = dpu_kms->hw_mdp;
+ 
+-	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+-		if (dpu_kms->hw_vbif[i] &&
+-				dpu_kms->hw_vbif[i]->idx == params->vbif_idx)
+-			vbif = dpu_kms->hw_vbif[i];
+-	}
+-
++	vbif = dpu_get_vbif(dpu_kms, params->vbif_idx);
+ 	if (!vbif || !mdp) {
+ 		DRM_DEBUG_ATOMIC("invalid arguments vbif %d mdp %d\n",
+ 				vbif != NULL, mdp != NULL);
+@@ -204,7 +207,7 @@ void dpu_vbif_set_ot_limit(struct dpu_kms *dpu_kms,
+ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+ 		struct dpu_vbif_set_qos_params *params)
+ {
+-	struct dpu_hw_vbif *vbif = NULL;
++	struct dpu_hw_vbif *vbif;
+ 	struct dpu_hw_mdp *mdp;
+ 	bool forced_on = false;
+ 	const struct dpu_vbif_qos_tbl *qos_tbl;
+@@ -216,13 +219,7 @@ void dpu_vbif_set_qos_remap(struct dpu_kms *dpu_kms,
+ 	}
+ 	mdp = dpu_kms->hw_mdp;
+ 
+-	for (i = 0; i < ARRAY_SIZE(dpu_kms->hw_vbif); i++) {
+-		if (dpu_kms->hw_vbif[i] &&
+-				dpu_kms->hw_vbif[i]->idx == params->vbif_idx) {
+-			vbif = dpu_kms->hw_vbif[i];
+-			break;
+-		}
+-	}
++	vbif = dpu_get_vbif(dpu_kms, params->vbif_idx);
+ 
+ 	if (!vbif || !vbif->cap) {
+ 		DPU_ERROR("invalid vbif %d\n", params->vbif_idx);
 -- 
-With best wishes
-Dmitry
+2.35.1
+
