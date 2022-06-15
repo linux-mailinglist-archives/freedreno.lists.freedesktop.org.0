@@ -2,60 +2,70 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B96B54C805
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 13:59:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3BF254C813
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:04:21 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCA7D10E178;
-	Wed, 15 Jun 2022 11:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95A1410E1FA;
+	Wed, 15 Jun 2022 12:04:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F5210E1DA
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 11:59:23 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id be31so18526841lfb.10
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 04:59:23 -0700 (PDT)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0A310E1FA
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:04:19 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id l20so6237856lji.0
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:04:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Fxhig7S/wRtvHvzsbn9rHd0EStZ8R3uFvogUlmb/lgo=;
- b=p0x9cBSaRJyRVTcL/bQMqtCCAUZw8gAxE/Nip++Oi3MBE4TigpMJuno7ju74eI8ltQ
- AP7aVPu4D6KJBuYXDAQ+rFwf71t8rX8mv+yRHH/AyNTdrsGeXzuRZ77vgyPTssrXpaav
- IRBU74MOTjW/rBHX+rjOjTIu5oQxgtE5k9XDAXJ2rBnLcDFyjciaTkJn16fyjiZo5t7V
- UavKS9sBZA7+klaTmCiUE2pCd8Gd2rlNQGlsym2KyAFHvypx8LSECRSr3FAxva+czYtb
- sLEx3qdcvEyVPZkjaRlMc+FgXVsMtF3ONkmvCIZOy3BH9xZdM4tT4v6/oX13XqSfGCtl
- 4PYw==
+ h=message-id:date:mime-version:user-agent:subject:content-language
+ :from:to:cc:references:in-reply-to:content-transfer-encoding;
+ bh=iXTqTOe5xGmaUGe1huORsSfZpFx3XRNmNcB6WpH+6mw=;
+ b=ec0g+iH2H1WZ6TAg373dSwMY7lpuvlaoeH0t+38efRrkBitZWDTOMV55aQR654l6t1
+ PSwLA/CCuiRT9Hxi8oaGg3t6+4ZpUrptmsfvYrYTAiYvor9ucyxNz4+/zpQj8CtVFfXJ
+ ZQt51/zeDGVbDBwYFKsX3/XmSlQqBK5t4YhuJmILIW33fRm3f/+9XK2Cw9VGaLydheN0
+ +YWdcF8SPFtHIG0Cq2pd6wtdIPQwD6KtT+CaS/7zLUdoN2Z9Ib4DKrwxXSP02IHUuT+y
+ iE0g/9YRvFZ3YCTrH9bMr0bx/vf9qFhU+FC923i4QVXcRGtR691AL/RLFZhinP0DS8ff
+ /rVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:from:to:cc:references:in-reply-to
  :content-transfer-encoding;
- bh=Fxhig7S/wRtvHvzsbn9rHd0EStZ8R3uFvogUlmb/lgo=;
- b=49QJV7EkwTBR258u1F5lbUm4IEYIoCyGNdCuoNKaHyMi08mDZT5zkodOwu6JPIrbws
- 2i1QP51A4/hk/LWz+KOA0cltkw21XxLbI5rKeOblYEKhT9s7Yl8N5+MxSGFT/pdPQZgO
- DKsjXZtnQQpZouj4xJhaDiQ7a+Bu+ZvsB2VuidUkGAkkIv5u+HheOLG0+azI9178V1US
- qoJTc8k8p0RiBLEj7zu+OKo2sBddyqNFYsz+eIEQYLxpxij+3GtvX13Q8nlxr8JjRxWX
- uboxZFtv6mFZPXkJI8uFYjnTuZmTTh5P665UUDb8R2dySvZTIiK0P0/SvMRJ8q6IDG4d
- ZZIw==
-X-Gm-Message-State: AJIora9IVfaq+iyw4MiXPgaUFBFxwDNJGoFuwze0GuUZs4BjQ2Vad7kc
- T1jpNFaMG07Fk4mzXpK9496Eyg==
-X-Google-Smtp-Source: AGRyM1ucrkTItoEeZZkUTWkAu68SV/jCTVdq114h4nEOl2QUT54X0xVMh3MbsPpBZO+8vQHBq4wuAQ==
-X-Received: by 2002:a05:6512:3d05:b0:479:4fc7:3332 with SMTP id
- d5-20020a0565123d0500b004794fc73332mr6146023lfv.463.1655294361968; 
- Wed, 15 Jun 2022 04:59:21 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- x18-20020a2e7c12000000b00253ceefb668sm1603680ljc.60.2022.06.15.04.59.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jun 2022 04:59:21 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Wed, 15 Jun 2022 14:59:20 +0300
-Message-Id: <20220615115920.6768-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ bh=iXTqTOe5xGmaUGe1huORsSfZpFx3XRNmNcB6WpH+6mw=;
+ b=SXwfYuNidP8XgE4U6RD6rDnJ3Q+Vlaz/Z/ki0VI89Ad68MpBDVSGi1AQF/2T75AmhX
+ sJ6SWEQqWKcMu4Q0+sC3R+J+ztyEk+l/4DQHn7tlBjLofbvUgLQHIhoU0V/J/1vwBG3p
+ N1MDsPJgm5J50YnlMUQUKyj0+i6znW29epe4U5WnbWRZMePcxBN7md5yBMbKgSCueW6C
+ ix/39Dx/xuudUDZmvfubqOxBaIBri35sd7bA6E3wTd9+BqlVi/NhfEPxVzQmTBFJyTzm
+ kgFVgIOC+ODsMezu/Z1BXjgi6sHkQ0/Xo+lXH05vX/kiP9YataY+pDeTWZn7BmXaio9W
+ Q95Q==
+X-Gm-Message-State: AJIora+HkY9h2aoUNU8HzVaKXD5NZ53SotKCV7FDD48yI50cqb0SmoxI
+ O9WXhHnkpJVALK7Yz/3vRVsIUg==
+X-Google-Smtp-Source: AGRyM1t0B8AvkM8FcmOy8Zu8YweVXPHtZP5xqhSG54spm9zJAqUPumOZFpD4TvA/3C3bBm/DhW7tBg==
+X-Received: by 2002:a2e:bf14:0:b0:255:b789:576b with SMTP id
+ c20-20020a2ebf14000000b00255b789576bmr5097964ljr.47.1655294657724; 
+ Wed, 15 Jun 2022 05:04:17 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ 9-20020a2e0809000000b002557cc64de7sm1668179lji.71.2022.06.15.05.04.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 05:04:17 -0700 (PDT)
+Message-ID: <da71cb6c-7512-d187-6ec0-d2d1a4eeaeba@linaro.org>
+Date: Wed, 15 Jun 2022 15:04:16 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: make dp_bridge_mode_valid() more
- precise
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-GB
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg
+ <sam@ravnborg.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+References: <20220501151220.3999164-1-dmitry.baryshkov@linaro.org>
+ <20220501151220.3999164-2-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220501151220.3999164-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/3] drm/mipi-dsi: pass DSC data through the
+ struct mipi_dsi_device
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,37 +78,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Make dp_connector_mode_valid() return precise MODE_CLOCK_HIGH rather
-than generic MODE_BAD in case the mode clock is higher than
-DP_MAX_PIXEL_CLK_KHZ (675 MHz).
+On 01/05/2022 18:12, Dmitry Baryshkov wrote:
+> The commit 0f40ba48de3b ("drm/msm/dsi: Pass DSC params to drm_panel")
+> added a pointer to the DSC data to the struct drm_panel. However DSC
+> support is not limited to the DSI panels. MIPI DSI bridges can also
+> consume DSC command streams. Thus add struct drm_dsc_config pointer to
+> the struct mipi_dsi_device.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Reviewed-by: Kuogee Hsieh<quic_khsieh@quicinc.com>
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Gracious ping for the review from the drm core
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index bce77935394f..6ecdd81d0555 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -989,7 +989,7 @@ enum drm_mode_status dp_bridge_mode_valid(struct drm_bridge *bridge,
- 		return MODE_OK;
- 
- 	if (mode->clock > DP_MAX_PIXEL_CLK_KHZ)
--		return MODE_BAD;
-+		return MODE_CLOCK_HIGH;
- 
- 	dp_display = container_of(dp, struct dp_display_private, dp_display);
- 	link_info = &dp_display->panel->link_info;
+> ---
+>   include/drm/drm_mipi_dsi.h | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+> index 147e51b6d241..8b1c9be9b2a7 100644
+> --- a/include/drm/drm_mipi_dsi.h
+> +++ b/include/drm/drm_mipi_dsi.h
+> @@ -177,6 +177,7 @@ struct mipi_dsi_device_info {
+>    * @lp_rate: maximum lane frequency for low power mode in hertz, this should
+>    * be set to the real limits of the hardware, zero is only accepted for
+>    * legacy drivers
+> + * @dsc: panel/bridge DSC pps payload to be sent
+>    */
+>   struct mipi_dsi_device {
+>   	struct mipi_dsi_host *host;
+> @@ -189,6 +190,7 @@ struct mipi_dsi_device {
+>   	unsigned long mode_flags;
+>   	unsigned long hs_rate;
+>   	unsigned long lp_rate;
+> +	struct drm_dsc_config *dsc;
+>   };
+>   
+>   #define MIPI_DSI_MODULE_PREFIX "mipi-dsi:"
+
+
 -- 
-2.35.1
-
+With best wishes
+Dmitry
