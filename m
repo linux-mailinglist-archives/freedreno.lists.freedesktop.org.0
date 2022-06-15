@@ -1,55 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 399F154D394
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 23:22:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 042F054D409
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 23:59:16 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE5471132C1;
-	Wed, 15 Jun 2022 21:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1271138D3;
+	Wed, 15 Jun 2022 21:59:14 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 973BE1132C1;
- Wed, 15 Jun 2022 21:22:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655328143; x=1686864143;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=6FF6rJlSbGV8QZdnCHFxn6gv2Ru5foFQ9WjF1NhaNmA=;
- b=nlGaRirVJD4Q1vG5Y5CTskLEToueQmlYHI8AiOE/X8ZTD5OTzV608Rv+
- mN6dqxbWeufqRT05k1wPG5k309YFdZet5myYv3XgwMv7mWCFY4CI6cZhp
- yM1ZrUxKqVPvkimVIWSo9rCFcv5+4BaZ57Hs4vTXAUaLU6drBfD9gHuFS Y=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 15 Jun 2022 14:22:23 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 14:22:22 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 15 Jun 2022 14:22:22 -0700
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 15 Jun 2022 14:22:21 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Wed, 15 Jun 2022 14:22:02 -0700
-Message-ID: <1655328122-23619-3-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
-References: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [IPv6:2607:f8b0:4864:20::f34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB49D1138D3
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 21:59:13 +0000 (UTC)
+Received: by mail-qv1-xf34.google.com with SMTP id b8so4636807qvi.11
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 14:59:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=AjtCcr1otywJJft7QhHhYY4k1NkowkQRAMqif6cFR4I=;
+ b=tFmMq9hUlun2Ubw7g3fgSKXkRIhjvl2VCtNoR0h6ONzY32x/1Ac7FGiDD/B6/E4g+5
+ 0E/qzz8+cr9wkieuQseJ+ECH1JVFkUclk+nsAa7hQStdKrUEwISC9i4NJ8EaDGvSjyG/
+ dxcPfNHEeMkFmV5+74orgeDc6aQeAqel2gpqJKLXw16eYM3UKHyAd3y/vZtXpO61UMbs
+ uGPZB75PMuhOk/dO0HhDTemzm217au2v/G3n6YlgAMCNMdBvrfiwmxf6Esk6EE1KHL4w
+ xe+Z5IFiJiDYDL68ERXK+yqE1Rz9DH0Kb3IdxrFEvsCeBQVJMviwP+ociuayU/AzCBM/
+ JFPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=AjtCcr1otywJJft7QhHhYY4k1NkowkQRAMqif6cFR4I=;
+ b=5Qr46h7kZjgZ7ijjmk6TwidU7jkdadNSrjSTJSBahLzTAjiHR8sPwQWolYzFGlzEoc
+ bUCUJGB7DYNYviX4H6e1J7TF0R6KgTGNy/0dW212ktyfXs22uEjyJY2wZAesxAs1ejw9
+ gsv+WeuVR8gmBVAzq17s8xjYNfvhc3TuxYDT5RovJJkcYgze1Dx6dW72R+7pZ/Tn2HD1
+ 7+nAbIH69g2t8R1VwhRmBd74ZG+U7CGrLUW/zKvS/88U98UEduMFjhNC/BIfH/ldvsnR
+ dxEf2G/QNDqzR/wQ+ejF2YjOOZnxZqAtEmYOq9TCNlPI1MsWHPao2Hdh0YHKkIeH6tr5
+ BAbg==
+X-Gm-Message-State: AJIora/llXU1aofiilQGC7fTZX9XU15RCB0DWAKCgINRFVh/PGNBC1PD
+ 1EntnR9UL/YD16Z0sK2XSmmCC+FC1eWUlJcbzAqOTw==
+X-Google-Smtp-Source: AGRyM1sIm8Ml4jI9orl5uYN0vCBzM+ah83e3Yffmsx/SZYX8fvriqmwQV4EKxUYhWlB4nX89Bgh15cl/50Jy8N2mg1c=
+X-Received: by 2002:a05:622a:34a:b0:304:f25a:ecf0 with SMTP id
+ r10-20020a05622a034a00b00304f25aecf0mr1551754qtw.62.1655330352789; Wed, 15
+ Jun 2022 14:59:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dpu: remove hard-coded linewidth
- limit for writeback
+References: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
+In-Reply-To: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 16 Jun 2022 00:59:01 +0300
+Message-ID: <CAA8EJpp80=-uwXVQhkgGq6-nXw17Lv-5fRg0kuZOAQENcDmVrw@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dpu: move intf and wb
+ assignment to dpu_encoder_setup_display()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,48 +63,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
+Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Remove the hard-coded limit for writeback and lets start using
-the one from catalog instead.
+On Thu, 16 Jun 2022 at 00:22, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>
+> intf and wb resources are not dependent on the rm global
+> state so need not be allocated during dpu_encoder_virt_atomic_mode_set().
+>
+> Move the allocation of intf and wb resources to dpu_encoder_setup_display()
+> so that we can utilize the hw caps even during atomic_check() phase.
+>
+> Since dpu_encoder_setup_display() already has protection against
+> setting invalid intf_idx and wb_idx, these checks can now
+> be dropped as well.
+>
+> changes in v2:
+>         - add phys->hw_intf and phys->hw_wb checks back
+>
+> Fixes: e02a559a720f ("make changes to dpu_encoder to support virtual encoder")
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Fixes: d7d0e73f7de3 ("introduce the dpu_encoder_phys_* for writeback")
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-index 59da348ff339..fc1d4fda69b5 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
-@@ -20,8 +20,6 @@
- #include "dpu_crtc.h"
- #include "disp/msm_disp_snapshot.h"
- 
--#define DEFAULT_MAX_WRITEBACK_WIDTH 2048
--
- #define to_dpu_encoder_phys_wb(x) \
- 	container_of(x, struct dpu_encoder_phys_wb, base)
- 
-@@ -278,9 +276,9 @@ static int dpu_encoder_phys_wb_atomic_check(
- 		DPU_ERROR("invalid fb h=%d, mode h=%d\n", fb->height,
- 				  mode->vdisplay);
- 		return -EINVAL;
--	} else if (fb->width > DEFAULT_MAX_WRITEBACK_WIDTH) {
-+	} else if (fb->width > phys_enc->hw_wb->caps->maxlinewidth) {
- 		DPU_ERROR("invalid fb w=%d, maxlinewidth=%u\n",
--				  fb->width, DEFAULT_MAX_WRITEBACK_WIDTH);
-+				  fb->width, phys_enc->hw_wb->caps->maxlinewidth);
- 		return -EINVAL;
- 	}
- 
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 36 ++++++++++++++---------------
+>  1 file changed, 18 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 3a462e327e0e..3be73211d631 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1048,24 +1048,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>                 phys->hw_pp = dpu_enc->hw_pp[i];
+>                 phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
+>
+> -               if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+> -                       phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
+> -
+> -               if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
+> -                       phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+> -
+> -               if (!phys->hw_intf && !phys->hw_wb) {
+> -                       DPU_ERROR_ENC(dpu_enc,
+> -                                     "no intf or wb block assigned at idx: %d\n", i);
+> -                       return;
+> -               }
+> -
+> -               if (phys->hw_intf && phys->hw_wb) {
+> -                       DPU_ERROR_ENC(dpu_enc,
+> -                                       "invalid phys both intf and wb block at idx: %d\n", i);
+> -                       return;
+> -               }
+> -
+>                 phys->cached_mode = crtc_state->adjusted_mode;
+>                 if (phys->ops.atomic_mode_set)
+>                         phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
+> @@ -2293,7 +2275,25 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+>                 struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>                 atomic_set(&phys->vsync_cnt, 0);
+>                 atomic_set(&phys->underrun_cnt, 0);
+> +
+> +               if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+> +                       phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
+> +
+> +               if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
+> +                       phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+> +
+> +               if (!phys->hw_intf && !phys->hw_wb) {
+> +                       DPU_ERROR_ENC(dpu_enc, "no intf or wb block assigned at idx: %d\n", i);
+> +                       ret = -EINVAL;
+> +               }
+> +
+> +               if (phys->hw_intf && phys->hw_wb) {
+> +                       DPU_ERROR_ENC(dpu_enc,
+> +                                       "invalid phys both intf and wb block at idx: %d\n", i);
+> +                       ret = -EINVAL;
+> +               }
+>         }
+> +
+>         mutex_unlock(&dpu_enc->enc_lock);
+>
+>         return ret;
+> --
+> 2.7.4
+>
+
+
 -- 
-2.7.4
-
+With best wishes
+Dmitry
