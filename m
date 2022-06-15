@@ -1,55 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C6854C854
-	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:20:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D45954C861
+	for <lists+freedreno@lfdr.de>; Wed, 15 Jun 2022 14:23:51 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86CFC10E34D;
-	Wed, 15 Jun 2022 12:20:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9725910E517;
+	Wed, 15 Jun 2022 12:23:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04E4D10E34D
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:20:56 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id m25so13031605lji.11
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:20:55 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A48A910E3A2
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 12:23:47 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id a2so18639544lfg.5
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 05:23:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=tzCBDGq5tGP2jW5rnyj4CLiseepU/qiH2K3m08j9gZQ=;
- b=K/iR/Jes4UImRpP9oPymqXSfBpOXxjBX/klSVMZxUQX0B3jmYTwpMevJVw9Bnm221j
- hnDovWtI96/30CVVsP8nOIgC04xORFFFdRaXazvIr16nw2ktjTJM9kqbmX6qxOUHbdYN
- flAiZIc9tn41EVx3SMnwQl+aS+ZW8fQIyVC61ZRxhzFKegIXXCtqpoHrNPjRqDdPb//V
- BcgAjnAiDKwsRvQSCpLnC5WXailqtBcceD0aJNOAU51RICuYtvzzrcV5f3ERlist4Btf
- sqixFsrqDMQwhOTWen74dmJLfvTH47zQFQCJbt80BhhyjwCvLkJkcz35nUBSWz7TNsoY
- btlg==
+ bh=8rUU1v4caE1AGNF+lS60izJAnVf3yfLugaHg1ivJmQQ=;
+ b=G0WaETsHyn+zH1jan5g5fdKXYSbLSIGLfgZCngWeHK8SNc6nQaDLhLivMVUXnvlOTv
+ j4gPVfyfvAz+71QqSBN+y91lg+zLaTokZAhllYwPwsCK7/ml459ODxQJCMOfUsXTuX3t
+ 24phzz2A2cO/wqpy9Cfq7Uyvzpd30CBu0tJ6U/ma4Ol39pEUANFas0cu+qBJR9+vtJym
+ DPopdyECdgnP8WHtBZLiwlyRDDKcirwwmxibKWqcycj8pkqYLWrqfWLtV5jbnrMQkwlv
+ 2uY4eH6XkhHaUimOqIEBGDesWnkEPYdELMPnKw04x6Ab55rDraTSah6vX2q/VZog+RMX
+ zM5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=tzCBDGq5tGP2jW5rnyj4CLiseepU/qiH2K3m08j9gZQ=;
- b=ZF88OxWP2HaMpRSM8uC9F/+n1nrGOqMF07YCWsjmvCySJYiEkdVmQ2eopDNiuq2Vbr
- /A2SaJlw3tJqnQ7SJsHyu1bJSypW4Xe5Aq0UQup4zzMKWT7sdwV+8uSvLJ350fYTAi2v
- a3r2XHt9qEKS5eFiVU5a6FsYgb8fWGxEV2G1NSmBEOImSSSDKxAgVn/w2dH4cpTnavN8
- Nl2fFecxRZC9XMUiNlQdHHY0xiNKAyCkL7vASjjr2zEQh0+t7wrVEMK3YJnAel12Plvx
- RT2NKCzR1iV/oxFS22w6NSaq2eMVWHRWUCcnjZSekybL0BiStZhXnRL13KAiJo0IB6w6
- vzVw==
-X-Gm-Message-State: AJIora9gJ2hQ9V3nfOawCL5KIBLhih3r0l18LxiO6pA1aZupK6dFHIV+
- I/O2AakWWtXnlJ41buSSdT5S9A==
-X-Google-Smtp-Source: AGRyM1tXizTF3DMpBDe2HwCwP04IOR9oCCKUA7x0NKnvosFst6z4y8wzPyxa9IaqrtXKhCjtZtRGaQ==
-X-Received: by 2002:a2e:3315:0:b0:258:dfff:e252 with SMTP id
- d21-20020a2e3315000000b00258dfffe252mr5229345ljc.141.1655295654031; 
- Wed, 15 Jun 2022 05:20:54 -0700 (PDT)
+ bh=8rUU1v4caE1AGNF+lS60izJAnVf3yfLugaHg1ivJmQQ=;
+ b=AzainA5mMifBgEZAJXVuWuxIE3soIKJ4G2coSQTggQbHm1S02c5IZkKIvedz6nQOvQ
+ UDsO/E5nWvqoywN7GWgNKg4ECwYkb+YJzTfDj8gJjKwARSvXZrjq3h419XR7ox0I6HSi
+ HKnhwQIEhfQg1ojSyaW3Zy0VPArMcP53hCMTKXqN0cG+q1qSwJU81h7CUd9oxuJDejD8
+ tcNg3Wb+qG/5qsM/+1pkmvTgJZ3wMzUoG+5kyR0ItBVAbLTqQUXXHG/SsPnLn6j4JogN
+ QhXglaRxYqfklYtUN/vOvRlFqgLX+/I1pvWeie0L3VVftJuI3/ct1WdowYmIuFu9H0QC
+ WViw==
+X-Gm-Message-State: AJIora9oVOv2yrZ9VS8EpBAkB/o96GADvmhtba9pQZpc4eRNL+1YBuZ/
+ lMgpp7dGaV0lnKjZEfq4jvauQw==
+X-Google-Smtp-Source: AGRyM1sxaiDNiyNPJgYfTRi01S0KUZbw4hqUs7vxcFmh4deHfpD4rJBiVYuquo3bmE4kDP6en8Kvxw==
+X-Received: by 2002:a05:6512:3a84:b0:479:209a:578a with SMTP id
+ q4-20020a0565123a8400b00479209a578amr5931900lfu.292.1655295825901; 
+ Wed, 15 Jun 2022 05:23:45 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- f18-20020a19dc52000000b0047255d21128sm1786085lfj.87.2022.06.15.05.20.52
+ v6-20020a2e87c6000000b00255ac185029sm1672893ljj.30.2022.06.15.05.23.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 05:20:53 -0700 (PDT)
-Message-ID: <e78fb0d3-a7ea-9f0b-ae42-fac76e54aa6a@linaro.org>
-Date: Wed, 15 Jun 2022 15:20:52 +0300
+ Wed, 15 Jun 2022 05:23:45 -0700 (PDT)
+Message-ID: <29ae886c-b2b2-2387-87cb-e4a885080418@linaro.org>
+Date: Wed, 15 Jun 2022 15:23:44 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.0
@@ -110,10 +110,6 @@ On 03/06/2022 12:42, Vinod Polimera wrote:
 > 
 > Fixes: 623f279c778 ("drm/msm: fix shutdown hook in case GPU components failed to bind")
 > Signed-off-by: Vinod Polimera <quic_vpolimer@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
-
 > ---
 >   drivers/gpu/drm/msm/msm_drv.c | 6 +++++-
 >   1 file changed, 5 insertions(+), 1 deletion(-)
@@ -128,6 +124,12 @@ Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >   
 > +	if (!irq_has_action(kms->irq))
 > +		return;
+
+As a second thought I'd still prefer a variable here. irq_has_action 
+would check that there is _any_ IRQ handler for this IRQ. While we do 
+not have anybody sharing this IRQ, I'd prefer to be clear here, that we 
+do not want to uninstall our IRQ handler rather than any IRQ handler.
+
 > +
 >   	kms->funcs->irq_uninstall(kms);
 >   	if (kms->irq_requested)
