@@ -2,59 +2,69 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0527C54DA14
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 07:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0F1B54DA1E
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 08:03:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B908A11A05C;
-	Thu, 16 Jun 2022 05:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6106711A08A;
+	Thu, 16 Jun 2022 06:03:10 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4A5611A05C;
- Thu, 16 Jun 2022 05:59:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655359170; x=1686895170;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=fYTknwqyj1AQO6bgU6HRYVdX/mxtESWcssnOCYsVQYk=;
- b=jWlbAA0KnVmtGUEIsDsp7LGHfqWX5TeXsiyZ7vw88ldWEz2rFIuKROIu
- YgE+qnCz1PZP2vVpNkUbQCT1//JnQ5yD1Tn8tbtZ2a1yb87rGhd6NHqlR
- tYfv5k80jsZAbTGm6HbpUnSaQT2lpSI1ChkT9QBjbwIWSL8jXYlfQkQ5Q s=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 15 Jun 2022 22:59:30 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 22:59:29 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 15 Jun 2022 22:59:29 -0700
-Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 15 Jun
- 2022 22:59:27 -0700
-Message-ID: <5b35ee5a-ed94-1440-cdc2-909a82c3aa61@quicinc.com>
-Date: Wed, 15 Jun 2022 22:59:25 -0700
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF28D11A087
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 06:03:08 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id v8so365142ljj.8
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 23:03:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=Z/6CysC4KQFR6QV0a+LcXqbeuRwoBK9qA3xXzR01nNA=;
+ b=jJBZf5sR+X/C0YJwR0nZXdlcP6Mg/UWZcz8pvAkxXWXvjtleJI2UT67Q1pyo/Zg3x3
+ GMQOwt66Ow7g0H3TZ3boR173BdYaRDZuZcKwV5mTsMphMY5zkUze9XFajqwbN137oH7p
+ 9nXdbizZiMoQdjChe0JA+k1Q/nZc4RsC3XyCGmzBPcBamRUXXsertcCrfoIBIzKVpAY7
+ T4RpbmlA4Kyer4WlrLJIj5mdeIWW526RKjW7IEdyAGeLqdNoXV4Ko4NGwk6WeUzCm8lD
+ qT0W9NNYySWjIcRgJwO9EYetjK/yhYXNUC+NZBLl/XKRoJ7uORUn4ESP+qHJuaYkfF/N
+ Qm8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=Z/6CysC4KQFR6QV0a+LcXqbeuRwoBK9qA3xXzR01nNA=;
+ b=nt7i1Q0tMxTrWLqLThfdL7A7KpgNjvZ8QpJIMATx+ueEJKVjFeDjQpBgOJqN+WoFRq
+ 7+hmwLZzBg3Rko0zAEwrUKEqYwojU4M892yTUCDrNVyfXaZYvOy3efayM/15MV9mYNLa
+ /zgZCsJRUOgcjszgGIFMrxrTfRaNzPktW7rhymgZYpgjjxG2RdNDTEaJZVEAnfqngibW
+ O3l77/lXU0m8cknoLh/GQKacg7komb8UfGbXTW5cFsaf37WXrpjM1BdpEs1G9AVi3BQR
+ 9OcQhPl73l5HDYeI666YbpqRBC4WFCvJA4+mAmpaOQDHupJPHAjmwjkmoN0QQyPtAHgR
+ NmHA==
+X-Gm-Message-State: AJIora/nNJ9YQ77Z/FVSY/u8FLZtuLekS3RTEqHWW+JPcuPObCplkHNI
+ lP5Uwr1VYV55yOjwfo4Okma28Q==
+X-Google-Smtp-Source: AGRyM1v86oTwwWaYY30N6Fge9WAZr/mqmx1kTvvedOKhIeoDmVomiiB8oAcjcTIUh/5Z5daZ7v4RjQ==
+X-Received: by 2002:a2e:2e07:0:b0:25a:4bb3:a2c2 with SMTP id
+ u7-20020a2e2e07000000b0025a4bb3a2c2mr75328lju.450.1655359386925; 
+ Wed, 15 Jun 2022 23:03:06 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ u10-20020a2e9b0a000000b0025a43eb8c64sm119450lji.65.2022.06.15.23.03.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 23:03:06 -0700 (PDT)
+Message-ID: <297160e7-3999-e20e-c25b-ee60758a8f5d@linaro.org>
+Date: Thu, 16 Jun 2022 09:03:05 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <1655235140-16424-1-git-send-email-quic_abhinavk@quicinc.com>
- <82b09d4d-1985-519e-3657-0d15e07ccc2f@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <82b09d4d-1985-519e-3657-0d15e07ccc2f@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: move intf and wb
- assignment to dpu_encoder_setup_display()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-GB
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
+ vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
+ bjorn.andersson@linaro.org
+References: <1654538139-7450-1-git-send-email-quic_khsieh@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1654538139-7450-1-git-send-email-quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2] drm/msm/dp: check core_initialized
+ before disable interrupts at dp_display_unbind()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,87 +77,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
- quic_aravindh@quicinc.com
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dmitry
+On 06/06/2022 20:55, Kuogee Hsieh wrote:
+> During msm initialize phase, dp_display_unbind() will be called to undo
+> initializations had been done by dp_display_bind() previously if there is
+> error happen at msm_drm_bind. In this case, core_initialized flag had to
+> be check to make sure clocks is on before update DP controller register
+> to disable HPD interrupts. Otherwise system will crash due to below NOC
+> fatal error.
+> 
+> QTISECLIB [01f01a7ad]CNOC2 ERROR: ERRLOG0_LOW = 0x00061007
+> QTISECLIB [01f01a7ad]GEM_NOC ERROR: ERRLOG0_LOW = 0x00001007
+> QTISECLIB [01f0371a0]CNOC2 ERROR: ERRLOG0_HIGH = 0x00000003
+> QTISECLIB [01f055297]GEM_NOC ERROR: ERRLOG0_HIGH = 0x00000003
+> QTISECLIB [01f072beb]CNOC2 ERROR: ERRLOG1_LOW = 0x00000024
+> QTISECLIB [01f0914b8]GEM_NOC ERROR: ERRLOG1_LOW = 0x00000042
+> QTISECLIB [01f0ae639]CNOC2 ERROR: ERRLOG1_HIGH = 0x00004002
+> QTISECLIB [01f0cc73f]GEM_NOC ERROR: ERRLOG1_HIGH = 0x00004002
+> QTISECLIB [01f0ea092]CNOC2 ERROR: ERRLOG2_LOW = 0x0009020c
+> QTISECLIB [01f10895f]GEM_NOC ERROR: ERRLOG2_LOW = 0x0ae9020c
+> QTISECLIB [01f125ae1]CNOC2 ERROR: ERRLOG2_HIGH = 0x00000000
+> QTISECLIB [01f143be7]GEM_NOC ERROR: ERRLOG2_HIGH = 0x00000000
+> QTISECLIB [01f16153a]CNOC2 ERROR: ERRLOG3_LOW = 0x00000000
+> QTISECLIB [01f17fe07]GEM_NOC ERROR: ERRLOG3_LOW = 0x00000000
+> QTISECLIB [01f19cf89]CNOC2 ERROR: ERRLOG3_HIGH = 0x00000000
+> QTISECLIB [01f1bb08e]GEM_NOC ERROR: ERRLOG3_HIGH = 0x00000000
+> QTISECLIB [01f1d8a31]CNOC2 ERROR: SBM1 FAULTINSTATUS0_LOW = 0x00000002
+> QTISECLIB [01f1f72a4]GEM_NOC ERROR: SBM0 FAULTINSTATUS0_LOW = 0x00000001
+> QTISECLIB [01f21a217]CNOC3 ERROR: ERRLOG0_LOW = 0x00000006
+> QTISECLIB [01f23dfd3]NOC error fatal
+> 
+> changes in v2:
+> -- drop the first patch (drm/msm: enable msm irq after all initializations are done successfully at msm_drm_init()) since the problem had been fixed by other patch
+> 
+> Fixes: a65c95ff88f2 ("drm/msm/dp: stop event kernel thread when DP unbind")
 
-On 6/15/2022 10:55 PM, Dmitry Baryshkov wrote:
-> On 14/06/2022 22:32, Abhinav Kumar wrote:
->> intf and wb resources are not dependent on the rm global
->> state so need not be allocated during dpu_encoder_virt_atomic_mode_set().
->>
->> Move the allocation of intf and wb resources to 
->> dpu_encoder_setup_display()
->> so that we can utilize the hw caps even during atomic_check() phase.
->>
->> Since dpu_encoder_setup_display() already has protection against
->> setting invalid intf_idx and wb_idx, these checks can now
->> be dropped as well.
->>
->> Fixes: e02a559a720f ("make changes to dpu_encoder to support virtual 
->> encoder")
+Please. Stop using commit IDs from the private git tree.  I thought we 
+have stumbled upon this during the last cycle, thus we won't see rogue 
+commit IDs anymore. But I was wrong. I've got another complaint from 
+Stephen. I'm going to fix this one manually, but please make sure to 
+stop sending wrong Fixes tags in the future.
+
+Generally I feel like this is a sign of an incorrect process on your 
+side. The patches should be developed and tested against one of upstream 
+trees (linux-next, msm-next or msm-next-lumag) and then backported to 
+your integration/backports/stable/whatever. Since today the 
+msm-next-lumag is included into the linux-next, so you can use 
+linux-next as a basis.
+
+
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_display.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> Please adjust the Fixes tags in all three commits. I didn't notice this 
-> beforehand and Stephen has complained.
-> 
-Is something wrong with the tag? Format and hash looked right to me.
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 25 
->> +++++++------------------
->>   1 file changed, 7 insertions(+), 18 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> index 3a462e327e0e..e991d4ba8a40 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
->> @@ -1048,24 +1048,6 @@ static void 
->> dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->>           phys->hw_pp = dpu_enc->hw_pp[i];
->>           phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
->> -        if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
->> -            phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, 
->> phys->intf_idx);
->> -
->> -        if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
->> -            phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
->> -
->> -        if (!phys->hw_intf && !phys->hw_wb) {
->> -            DPU_ERROR_ENC(dpu_enc,
->> -                      "no intf or wb block assigned at idx: %d\n", i);
->> -            return;
->> -        }
->> -
->> -        if (phys->hw_intf && phys->hw_wb) {
->> -            DPU_ERROR_ENC(dpu_enc,
->> -                    "invalid phys both intf and wb block at idx: 
->> %d\n", i);
->> -            return;
->> -        }
->> -
->>           phys->cached_mode = crtc_state->adjusted_mode;
->>           if (phys->ops.atomic_mode_set)
->>               phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
->> @@ -2293,7 +2275,14 @@ static int dpu_encoder_setup_display(struct 
->> dpu_encoder_virt *dpu_enc,
->>           struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->>           atomic_set(&phys->vsync_cnt, 0);
->>           atomic_set(&phys->underrun_cnt, 0);
->> +
->> +        if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
->> +            phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, 
->> phys->intf_idx);
->> +
->> +        if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
->> +            phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
->>       }
->> +
->>       mutex_unlock(&dpu_enc->enc_lock);
->>       return ret;
-> 
-> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index da5c03a..2b72639 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -309,7 +309,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+>   	struct msm_drm_private *priv = dev_get_drvdata(master);
+>   
+>   	/* disable all HPD interrupts */
+> -	dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
+> +	if (dp->core_initialized)
+> +		dp_catalog_hpd_config_intr(dp->catalog, DP_DP_HPD_INT_MASK, false);
+>   
+>   	kthread_stop(dp->ev_tsk);
+>   
+
+
+-- 
+With best wishes
+Dmitry
