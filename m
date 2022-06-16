@@ -1,64 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 768CF54EB26
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 22:29:06 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E3EE54EB6B
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 22:43:03 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D59D10E2A2;
-	Thu, 16 Jun 2022 20:29:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0FF10E590;
+	Thu, 16 Jun 2022 20:43:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
  [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C6B10E0AC;
- Thu, 16 Jun 2022 20:29:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6370D10E590;
+ Thu, 16 Jun 2022 20:43:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655411343; x=1686947343;
+ t=1655412181; x=1686948181;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=NoCtxtbcqu+xKoXbpE9s02YriiqOhO6QDcxNHKKprhI=;
- b=UUOkoMx9FvZgFYKtvF7pxd0WgjDxTihwbQ98w6eRfCB4Q97pOLnMqS7v
- /gXRSY+PIwQ43GIc+NZdBWPn1KHtmMPxU8vwV0Me2oYC3SIkbZcz5agcT
- o68TJNLoeXJR4ijnzs5Nm3t6Hqg5r1kDdrZp9dUa4tKISt+2G2VF2kwaL 0=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 13:29:02 -0700
+ bh=+pvXpGgCvGMLklfAcFFyeylmCVs7Y2BlrR5HvOXQd8s=;
+ b=AAE/GqD7jgFLYNHG6ZlBilnDcJl1ytAApfpbziZTNr+VSyIHLDdJQj57
+ sCfYAeDL24XgoQc0asRguEdJw5CX9H2X+xk928mkLKt61+Gp0xUDF8ifN
+ usQJTWLaPCvvQbhyE3fTdWKhRbFgB21J2xgtC7LUJHwsd61oR+CUrk6vD g=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 13:43:00 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 13:29:02 -0700
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 13:43:00 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 13:29:02 -0700
-Received: from [10.110.49.58] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ 15.2.986.22; Thu, 16 Jun 2022 13:43:00 -0700
+Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 16 Jun
- 2022 13:29:00 -0700
-Message-ID: <be06b65d-a39e-7e1d-891e-def55f0d8043@quicinc.com>
-Date: Thu, 16 Jun 2022 13:29:00 -0700
+ 2022 13:42:57 -0700
+Message-ID: <2217f2a6-c94c-0efe-a58c-ddae015f6d49@quicinc.com>
+Date: Thu, 16 Jun 2022 13:42:55 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
+ Thunderbird/91.6.2
 Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
- <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
- <dianders@chromium.org>, <dmitry.baryshkov@linaro.org>,
- <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>, <sean@poorly.run>,
- <vkoul@kernel.org>
-References: <1655399361-10842-1-git-send-email-quic_khsieh@quicinc.com>
- <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n50cteV=uYRR=7LmcUB00kjHwDRoutq+sz5FoGmZqLso4Q@mail.gmail.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAE-0n50cteV=uYRR=7LmcUB00kjHwDRoutq+sz5FoGmZqLso4Q@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220507170922.1723712-1-dmitry.baryshkov@linaro.org>
+ <20220507170922.1723712-3-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220507170922.1723712-3-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/dp: clean up pixel_rate from
- dp_ctrl.c
+Subject: Re: [Freedreno] [PATCH v2 3/3] drm/msm: stop storing the array of
+ CRTCs in struct msm_drm_private
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,140 +67,201 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
+Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 6/16/2022 1:07 PM, Stephen Boyd wrote:
-> Quoting Kuogee Hsieh (2022-06-16 10:09:21)
->> dp_ctrl keep an local cache of pixel_rate which increase confusing
->> in regrading how pixel_rate being used. This patch refer pixel_rate
->> directly from dp_panel to eliminate unnecessary pixel_rate variable
->> from struct dp_ctrl.
->>
->> Changes in v8:
->> -- add this patch to remove pixel_rate from dp_ctrl
->>
->> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> I can send a proper patch for this myself later.
-ok, then I will drop this patch
->
->> ---
->>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 158 +++++++++++++++++++--------------------
->>   drivers/gpu/drm/msm/dp/dp_ctrl.h |   2 -
->>   2 files changed, 79 insertions(+), 81 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> index 01028b5..6fddddd 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->> @@ -1528,36 +1526,6 @@ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
->>          return ret;
->>   }
->>
->> -static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
->> -{
->> -       int ret = 0;
->> -
->> -       if (!ctrl->link->phy_params.phy_test_pattern_sel) {
->> -               drm_dbg_dp(ctrl->drm_dev,
->> -                       "no test pattern selected by sink\n");
->> -               return ret;
->> -       }
->> -
->> -       /*
->> -        * The global reset will need DP link related clocks to be
->> -        * running. Add the global reset just before disabling the
->> -        * link clocks and core clocks.
->> -        */
->> -       ret = dp_ctrl_off(&ctrl->dp_ctrl);
->> -       if (ret) {
->> -               DRM_ERROR("failed to disable DP controller\n");
->> -               return ret;
->> -       }
->> -
->> -       ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
->> -       if (!ret)
->> -               ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
->> -       else
->> -               DRM_ERROR("failed to enable DP link controller\n");
->> -
->> -       return ret;
->> -}
->> -
->>   static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
->>   {
->>          bool success = false;
->> @@ -1610,6 +1578,56 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
->>          return success;
->>   }
->>
->> +int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
->> +{
->> +       int ret = 0;
->> +       struct dp_ctrl_private *ctrl;
->> +       unsigned long pixel_rate;
->> +
->> +       ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
->> +
->> +       pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
->> +       ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
->> +       if (ret) {
->> +               DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
->> +               return ret;
->> +       }
->> +
->> +       dp_ctrl_send_phy_test_pattern(ctrl);
->> +
->> +       return 0;
->> +}
->> +
->> +static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
->> +{
->> +       int ret = 0;
->> +
->> +       if (!ctrl->link->phy_params.phy_test_pattern_sel) {
->> +               drm_dbg_dp(ctrl->drm_dev,
->> +                       "no test pattern selected by sink\n");
->> +               return ret;
->> +       }
->> +
->> +       /*
->> +        * The global reset will need DP link related clocks to be
->> +        * running. Add the global reset just before disabling the
->> +        * link clocks and core clocks.
->> +        */
->> +       ret = dp_ctrl_off(&ctrl->dp_ctrl);
->> +       if (ret) {
->> +               DRM_ERROR("failed to disable DP controller\n");
->> +               return ret;
->> +       }
->> +
->> +       ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
->> +       if (!ret)
->> +               ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
->> +       else
->> +               DRM_ERROR("failed to enable DP link controller\n");
->> +
->> +       return ret;
->> +}
->> +
->>   void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
->>   {
->>          struct dp_ctrl_private *ctrl;
-> I'd prefer these hunks to be part of a different patch. Either squashed
-> into the previous patch, or after the previous patch to show that a
-> forward declaration isn't necessary, but helped minimize the diff of
-> that patch.
->
->> @@ -1685,6 +1703,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
->>          u32 const phy_cts_pixel_clk_khz = 148500;
->>          u8 link_status[DP_LINK_STATUS_SIZE];
->>          unsigned int training_step;
->> +       unsigned long pixel_rate;
->>
->>          if (!dp_ctrl)
->>                  return -EINVAL;
+
+On 5/7/2022 10:09 AM, Dmitry Baryshkov wrote:
+> Handling the array of CRTC duplicate the struct msm_drm_private
+> duplicates a list of CRTCs in the drm_device. Drop it and use the
+
+There seem to be two duplicates in the commit text :)
+
+So this should just be "handling the array of CRTCs duplicates a list of
+of CRTCs in the drm_device.
+
+> existing list for CRTC enumeration.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> 
+> Changes since v1:
+> - Intialize the index variable in msm_drm_init() / event thread
+>    initialization.
+> 
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  2 +-
+>   drivers/gpu/drm/msm/msm_drv.c            | 29 ++++++++++++------------
+>   drivers/gpu/drm/msm/msm_drv.h            |  3 +--
+>   5 files changed, 19 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index 2b9d931474e0..c84859fb2d9b 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -808,7 +808,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+>   			ret = PTR_ERR(crtc);
+>   			return ret;
+>   		}
+> -		priv->crtcs[priv->num_crtcs++] = crtc;
+> +		priv->num_crtcs++;
+>   	}
+>   
+>   	/* All CRTCs are compatible with all encoders */
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> index fb48c8c19ec3..7449c1693e45 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> @@ -337,7 +337,7 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
+>   			goto fail;
+>   		}
+>   
+> -		priv->crtcs[priv->num_crtcs++] = crtc;
+> +		priv->num_crtcs++;
+>   	}
+>   
+>   	/*
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> index 3d5621a68f85..36808990f840 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+> @@ -497,7 +497,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
+>   			DRM_DEV_ERROR(dev->dev, "failed to construct crtc %d (%d)\n", i, ret);
+>   			goto fail;
+>   		}
+> -		priv->crtcs[priv->num_crtcs++] = crtc;
+> +		priv->num_crtcs++;
+>   	}
+>   
+>   	/*
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 4a3dda23e3e0..db676a142ac1 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -144,7 +144,7 @@ static void msm_irq_uninstall(struct drm_device *dev)
+>   
+>   struct msm_vblank_work {
+>   	struct work_struct work;
+> -	int crtc_id;
+> +	struct drm_crtc *crtc;
+>   	bool enable;
+>   	struct msm_drm_private *priv;
+>   };
+> @@ -157,15 +157,15 @@ static void vblank_ctrl_worker(struct work_struct *work)
+>   	struct msm_kms *kms = priv->kms;
+>   
+>   	if (vbl_work->enable)
+> -		kms->funcs->enable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
+> +		kms->funcs->enable_vblank(kms, vbl_work->crtc);
+>   	else
+> -		kms->funcs->disable_vblank(kms,	priv->crtcs[vbl_work->crtc_id]);
+> +		kms->funcs->disable_vblank(kms,	vbl_work->crtc);
+>   
+>   	kfree(vbl_work);
+>   }
+>   
+>   static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
+> -					int crtc_id, bool enable)
+> +					struct drm_crtc *crtc, bool enable)
+>   {
+>   	struct msm_vblank_work *vbl_work;
+>   
+> @@ -175,7 +175,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
+>   
+>   	INIT_WORK(&vbl_work->work, vblank_ctrl_worker);
+>   
+> -	vbl_work->crtc_id = crtc_id;
+> +	vbl_work->crtc = crtc;
+>   	vbl_work->enable = enable;
+>   	vbl_work->priv = priv;
+>   
+> @@ -349,6 +349,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   	struct msm_drm_private *priv = dev_get_drvdata(dev);
+>   	struct drm_device *ddev;
+>   	struct msm_kms *kms;
+> +	struct drm_crtc *crtc;
+>   	int ret, i;
+>   
+>   	if (drm_firmware_drivers_only())
+> @@ -422,12 +423,14 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
+>   	ddev->mode_config.funcs = &mode_config_funcs;
+>   	ddev->mode_config.helper_private = &mode_config_helper_funcs;
+>   
+> -	for (i = 0; i < priv->num_crtcs; i++) {
+> +	drm_for_each_crtc(crtc, ddev) {
+> +		i = drm_crtc_index(crtc);
+> +
+>   		/* initialize event thread */
+> -		priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
+> +		priv->event_thread[i].crtc = crtc;
+>   		priv->event_thread[i].dev = ddev;
+
+Do we really need 'i' here?
+Can't we just do priv->event_thread[drm_crtc_index(crtc)]?
+
+>   		priv->event_thread[i].worker = kthread_create_worker(0,
+> -			"crtc_event:%d", priv->event_thread[i].crtc_id);
+> +			"crtc_event:%d", priv->event_thread[i].crtc->base.id);
+>   		if (IS_ERR(priv->event_thread[i].worker)) {
+>   			ret = PTR_ERR(priv->event_thread[i].worker);
+>   			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
+> @@ -558,25 +561,23 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
+>   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
+>   {
+>   	struct drm_device *dev = crtc->dev;
+> -	unsigned int pipe = crtc->index;
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct msm_kms *kms = priv->kms;
+>   	if (!kms)
+>   		return -ENXIO;
+> -	drm_dbg_vbl(dev, "crtc=%u", pipe);
+> -	return vblank_ctrl_queue_work(priv, pipe, true);
+> +	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
+> +	return vblank_ctrl_queue_work(priv, crtc, true);
+>   }
+>   
+>   void msm_crtc_disable_vblank(struct drm_crtc *crtc)
+>   {
+>   	struct drm_device *dev = crtc->dev;
+> -	unsigned int pipe = crtc->index;
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct msm_kms *kms = priv->kms;
+>   	if (!kms)
+>   		return;
+> -	drm_dbg_vbl(dev, "crtc=%u", pipe);
+> -	vblank_ctrl_queue_work(priv, pipe, false);
+> +	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
+> +	vblank_ctrl_queue_work(priv, crtc, false);
+>   }
+>   
+>   /*
+> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+> index fdbaad53eb84..2ba57c575e13 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.h
+> +++ b/drivers/gpu/drm/msm/msm_drv.h
+> @@ -102,7 +102,7 @@ struct msm_display_topology {
+>   /* Commit/Event thread specific structure */
+>   struct msm_drm_thread {
+>   	struct drm_device *dev;
+> -	unsigned int crtc_id;
+> +	struct drm_crtc *crtc;
+>   	struct kthread_worker *worker;
+>   };
+>   
+> @@ -178,7 +178,6 @@ struct msm_drm_private {
+>   	struct workqueue_struct *wq;
+>   
+>   	unsigned int num_crtcs;
+> -	struct drm_crtc *crtcs[MAX_CRTCS];
+>   
+>   	struct msm_drm_thread event_thread[MAX_CRTCS];
+>   
