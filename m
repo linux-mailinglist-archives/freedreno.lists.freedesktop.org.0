@@ -1,57 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA39954E2DB
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 16:04:13 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6AE154E649
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 17:44:02 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3347511297F;
-	Thu, 16 Jun 2022 14:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF1B10E6CE;
+	Thu, 16 Jun 2022 15:44:01 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C3311297F;
- Thu, 16 Jun 2022 14:04:10 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- m16-20020a7bca50000000b0039c8a224c95so933378wml.2; 
- Thu, 16 Jun 2022 07:04:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D592C10E6CE
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 15:44:00 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id be31so2797476lfb.10
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 08:44:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=slC185Ob3bqwRbXUouHuTugpdNeQm0iZ+NbyQh6gPTc=;
- b=BjTvft9fFPRIzJq1i2BdE+Ngl7Lnwas+O5i3jS01WgAIwobhoFJwDsfz+t5rUAkEK4
- 8PvZYeBrFNhXVIDPC6oRttEjtOFIF2qSVsdcZAy4lwLb4ZKPfIq6ZgJxN4cDzvfoxrhv
- Eli6czrFILNMmzqSWwheVkrEoq6D72f2Af1wSzkHCtFlioENSWN+0/qWT9V8W8VqDy3J
- TJP8DLFHr/P0/nqeZeDXo96GEgnIreXeODLg8xijl/1UrXE8Hou0JQguVP/wB2gYxJNI
- tHPxOb3tuGJQmQEVDdkSXrJubExIU7an2AMNUFCEXQ2HgaMSv6w/7A+7+ppDssY3r/fU
- HMMg==
+ :cc; bh=5dVDuCM8VRK665zH/HV+gDuurZlzqRaw3AF4f+4QEQY=;
+ b=YpSpNH3K+KjKkXCuVKrFBcVrP5SWlYv3RWSSUdRdHJUnj+BZbndMy/7IyaCo4ZQ5rb
+ d5YerNu+HSuaHbXK9sCxIH2I4yswgUI5cbWPgvOV+jsqmpGVVOzFPK8wchjbBtnuyFNC
+ yiHYfw8thWjslkqgb7sZ31mB5KIv7561wqhQw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=slC185Ob3bqwRbXUouHuTugpdNeQm0iZ+NbyQh6gPTc=;
- b=UdehHUbBV08Z3X8szuto+KDDYc7tu5ODAxBNGDFjYyi32aptxkdjqQtKpoQWpmkxPl
- bfNiHe0gayjLF15Yu95YtvJ64cNhlw1Y120UARwAM/Cm2S8rQLeZjdK7RZYlWw5HJOwS
- Bxe2ilmmPDDOrFkjBEf14E8X1gVtLtBp3xH8/lVrTVugqa5rp5P4tRvE7fXBf8zmHwu0
- st2uoc2iRy92z4Bzfyjt12mzsGfWlX9ce5ssIRC0lqEDN5/EdfNeJBHEiTM0zBiR3pwC
- upgnGbOCz7GfXpY30rWutdbtOWunduIPeWMbSg0AzpfCXUtLtZJ9z0WVfo85yBABaZ1i
- FZBg==
-X-Gm-Message-State: AJIora9Of/XMMYmzXcPEqh7Pu51mG4kLnT2do5VBjoZ1hfDssSiaT5Ki
- s9Bs1Ovo8P4WWMM+FNQofDLABiT+F89in9Sm3tc=
-X-Google-Smtp-Source: AGRyM1vS5uY/KayIVVnAafrvhMLqkQv0X/+RZJiaVU0H2MFh34eE7xgk+0K7uZmYowMiafmu//6OgSqoUg5erP+u2uY=
-X-Received: by 2002:a05:600c:4f96:b0:39c:951e:66b7 with SMTP id
- n22-20020a05600c4f9600b0039c951e66b7mr5296884wmq.84.1655388249063; Thu, 16
- Jun 2022 07:04:09 -0700 (PDT)
+ bh=5dVDuCM8VRK665zH/HV+gDuurZlzqRaw3AF4f+4QEQY=;
+ b=krl1oE+PLnkVqxvhYfkhHgzow7A8KywJqRA6hciCSgJX9GyvHCMXrRdNfjxEayqG4y
+ WDTWhQrYis5r6YHWWjbz0Gg6VvEvQ9JimxIkZRvVgvmjFbGNiJ0J2SC8rvcsFnEFgan1
+ aUa74PMpdpcUlTGU5hZiG3D6H8wCKpGAmOa0+T2Af4JHM9+D2RQxBWitB3l2iAfcuslT
+ BLJsg0lseXv+45vMVBI4v9HhbMu1OT3jCxSgbLkaXHLShl5kHZ+BW9AFyWnhfHayKo/4
+ VtZtYGGZ2VM9AVHRexWjreinbsdYJ8Jo7bXE7KZMHiUncM3nGjzZu8cJw/o2t0EtQA6X
+ oYnw==
+X-Gm-Message-State: AJIora9kMOZRojDqncICPZZr6U8wL0jpBqH/62PTI/LMVWZq65WQkHQ2
+ IwSqBzrIDgDSs44KZwRTAwnhDe4xVoatyl+BdRM=
+X-Google-Smtp-Source: AGRyM1vNW5MJ7IHuFoxF7Tz7b/fCXoeEHDygHNWKKSRQmC7LrWTZS3E/O9QAXe25fEO0BnisVOgGVQ==
+X-Received: by 2002:ac2:4c50:0:b0:479:4fac:dd8e with SMTP id
+ o16-20020ac24c50000000b004794facdd8emr2970788lfk.678.1655394237531; 
+ Thu, 16 Jun 2022 08:43:57 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com.
+ [209.85.167.41]) by smtp.gmail.com with ESMTPSA id
+ s13-20020a056512214d00b004785ad6c74esm277374lfr.270.2022.06.16.08.43.57
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Jun 2022 08:43:57 -0700 (PDT)
+Received: by mail-lf1-f41.google.com with SMTP id y32so2814776lfa.6
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 08:43:57 -0700 (PDT)
+X-Received: by 2002:a5d:68d2:0:b0:210:31cc:64a6 with SMTP id
+ p18-20020a5d68d2000000b0021031cc64a6mr5183133wrw.679.1655393766098; Thu, 16
+ Jun 2022 08:36:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220615162435.3011793-1-robdclark@gmail.com>
- <991331d8-ddda-a816-d279-fdaed90b43c1@linaro.org>
-In-Reply-To: <991331d8-ddda-a816-d279-fdaed90b43c1@linaro.org>
-From: Rob Clark <robdclark@gmail.com>
-Date: Thu, 16 Jun 2022 07:04:14 -0700
-Message-ID: <CAF6AEGvqoOOcNTrBEFxnROY-M8PazbaZb4zDw4gJFLC7jCR8CA@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20220425210643.2420919-1-dianders@chromium.org>
+ <20220425140619.2.Iae013f0ff4599294189f3a6e91376fad137bbabf@changeid>
+In-Reply-To: <20220425140619.2.Iae013f0ff4599294189f3a6e91376fad137bbabf@changeid>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 16 Jun 2022 08:35:53 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wbi=CXhPpOUJj=1PdgB8i6Lf1Sfr=T7wrQsgBx790S_w@mail.gmail.com>
+Message-ID: <CAD=FV=Wbi=CXhPpOUJj=1PdgB8i6Lf1Sfr=T7wrQsgBx790S_w@mail.gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm: Fix fence rollover issue
+Subject: Re: [Freedreno] [PATCH 2/2] dt-bindings: phy: List supplies for
+ qcom, edp-phy
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,99 +73,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>
+Cc: quic_kalyant <quic_kalyant@quicinc.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Rob Clark <robdclark@chromium.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>, Rob Herring <robh+dt@kernel.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-phy@lists.infradead.org, Stephen Boyd <swboyd@chromium.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Thu, Jun 16, 2022 at 1:27 AM Dmitry Baryshkov
-<dmitry.baryshkov@linaro.org> wrote:
->
-> On 15/06/2022 19:24, Rob Clark wrote:
-> > From: Rob Clark <robdclark@chromium.org>
-> >
-> > And while we are at it, let's start the fence counter close to the
-> > rollover point so that if issues slip in, they are more obvious.
-> >
-> > Signed-off-by: Rob Clark <robdclark@chromium.org>
->
-> Should it also have
->
-> Fixes: fde5de6cb461 ("drm/msm: move fence code to it's own file")
->
-> Or maybe
->
-> Fixes: 5f3aee4ceb5b ("drm/msm: Handle fence rollover")
+Hi,
 
-arguably it fixes the first commit that added GPU support (and
-finishes up a couple spots that the above commit missed)
-
-I guess I could use the fixes tag just to indicate how far back it
-would be reasonable to backport to stable branches.
-
-> Otherwise:
+On Mon, Apr 25, 2022 at 2:07 PM Douglas Anderson <dianders@chromium.org> wrote:
 >
-> Reviewed: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> We're supposed to list the supplies in the dt bindings but there are
+> none in the eDP PHY bindings.
 >
+> Looking at the driver in Linux, I can see that there seem to be two
+> relevant supplies: "vdda-phy" and "vdda-pll". Let's add those to the
+> bindings.
 >
-> > ---
-> >   drivers/gpu/drm/msm/msm_fence.c | 13 +++++++++++--
-> >   1 file changed, 11 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
-> > index 3df255402a33..a35a6746c7cd 100644
-> > --- a/drivers/gpu/drm/msm/msm_fence.c
-> > +++ b/drivers/gpu/drm/msm/msm_fence.c
-> > @@ -28,6 +28,14 @@ msm_fence_context_alloc(struct drm_device *dev, volatile uint32_t *fenceptr,
-> >       fctx->fenceptr = fenceptr;
-> >       spin_lock_init(&fctx->spinlock);
-> >
-> > +     /*
-> > +      * Start out close to the 32b fence rollover point, so we can
-> > +      * catch bugs with fence comparisons.
-> > +      */
-> > +     fctx->last_fence = 0xffffff00;
-> > +     fctx->completed_fence = fctx->last_fence;
-> > +     *fctx->fenceptr = fctx->last_fence;
+> NOTE: from looking at the Qualcomm datasheet for sc7280, it's not
+> immediately clear how to figure out how to fill in these supplies. The
+> only two eDP related supplies are simply described as "power for eDP
+> 0.9V circuits" and "power for eDP 1.2V circuits". From guessing and
+> from comparing how a similar PHY is hooked up on other similar
+> Qualcomm boards, I'll make the educated guess that the 1.2V supply
+> goes to "vdda-phy" and the 0.9V supply goes to "vdda-pll" and I'll use
+> that in the example here.
 >
-> This looks like a debugging hack. But probably it's fine to have it, as
-> it wouldn't cause any side effects.
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+>
+>  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-I was originally going to add a modparam or kconfig to enable this..
-but then thought, if there is a bug and thing are to go wrong, it's
-best for that to happen ASAP rather than after 200-400 days of
-uptime.. the latter case can be rather hard to reproduce bugs ;-)
+Even though patch #1 in this series should be dropped, this patch
+(patch #2) is still valid. Vinod: I assume this would land in your
+tree along with the first two patches in Kuogee's series [1], which
+are related. Please let me know if you need me to re-send or anything.
+Thanks!
 
-IIRC the kernel does something similar with jiffies to ensure the
-rollover point is hit quickly
+[1] https://lore.kernel.org/r/1653507433-22585-1-git-send-email-quic_khsieh@quicinc.com/
 
-BR,
--R
-
-> > +
-> >       return fctx;
-> >   }
-> >
-> > @@ -46,11 +54,12 @@ bool msm_fence_completed(struct msm_fence_context *fctx, uint32_t fence)
-> >               (int32_t)(*fctx->fenceptr - fence) >= 0;
-> >   }
-> >
-> > -/* called from workqueue */
-> > +/* called from irq handler */
-> >   void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence)
-> >   {
-> >       spin_lock(&fctx->spinlock);
-> > -     fctx->completed_fence = max(fence, fctx->completed_fence);
-> > +     if (fence_after(fence, fctx->completed_fence))
-> > +             fctx->completed_fence = fence;
-> >       spin_unlock(&fctx->spinlock);
-> >   }
-> >
->
->
-> --
-> With best wishes
-> Dmitry
+-Doug
