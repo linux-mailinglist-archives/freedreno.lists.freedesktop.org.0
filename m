@@ -2,59 +2,66 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id C99EE54D863
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 04:34:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CEEF54DA0D
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 07:55:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32559113B22;
-	Thu, 16 Jun 2022 02:34:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8624F11A02F;
+	Thu, 16 Jun 2022 05:55:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25D4810EE5E
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 02:34:49 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id k24so371106oij.2
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 19:34:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=ZXzBYl7c4qhw0nAJ+Zs1jCGG0+YRodCryRVN6/4gvzM=;
- b=ggJmfGCPsbsopNVADBV2HKnPKfr9VRAHXlBBfNm/8YCMgP+0xJLx+S6W+EAH9wimOg
- JFnqPOJl3Mq1Gw2hIVLkfT2XCSJhbwydzaQl+QIZp+hadAtTrTqNsEdqknQcmn/DwqIY
- 3ackF/HDy9VPD3bRAWdTXALtsPHsdsC9xMxAc=
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A7F611A02F
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 05:55:38 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id e4so371360ljl.1
+ for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 22:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=HarZZOMqwX2nfuyIoxzYBsQI132xDDkrDcmus7kOCgs=;
+ b=SlA1XLYB3V/+F+CAnL6en02LkgCxHCp+zojbpaj0GHSbiQX88d2JLUitWXhv/WEB7e
+ D/urnYBTFbNFLwEx42GfdgdnBm6nHoKeQI/02GuRA0AiPUg8ISsKOdtFOTOs9i5haddz
+ 6JzqE8pbCgFnFh6DNRKi0O28d5WJzpZ/Isf1pYi25sg7rMPOUktALmywdgTBIwEbUL2p
+ yeswd9z5o0oYxUXquUWLwXdOrc+5yetnnDR0iDav1S/iJcak+j8R4elXU2KFawArilC5
+ fbkm2mIWvLLwEn39ya+ywFTa0rBm26JIQeyKgUhnKFlgtZs6F8lPSIuXAADjuoHGN/2C
+ cLsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=ZXzBYl7c4qhw0nAJ+Zs1jCGG0+YRodCryRVN6/4gvzM=;
- b=PYf1LBLwkcxPven1WOwh8afzR8GNAuBr1frdPSDxjA4xt4+L/54FiSP+G4aTRGxVK9
- RZ5oR8VHP1qZ+JE1t05Ftw2rzCsQ4r+zor10pjvyr23gnHlA5ynKKdOn/UyYO7wcXBaV
- WGYnkEhFUFz9XfkF567AGW10dpN6TDOABuyR2NiO6vYVbpMEEpHP/s3qc6CzOnL/zepW
- UevCIrEVC4voHWSw1re7aJoXF6vA8qFsXrrAIxA5yAtevaWxTzrRUd0eMYzhCE7U0zW6
- Z1W3B5HFWhhi4hgjCoGWQ/A9nltxhjHnKpq6WIQfDSWHe9oy3aocHG22It4ERK7sO9PR
- eA0w==
-X-Gm-Message-State: AJIora+ZM2KwLWHhtbChWiEsa/ViWf57vblu25FvJWGKRsS+rJG6YjvH
- 58yaDOvyM+vfDALe83r2CkRg76dZCIpRPidJCHeHnA==
-X-Google-Smtp-Source: AGRyM1sa6lplkMCFOipTd6Swl2l6u6vpT25FP3UquGCoDEY0DTPWPu6rIDvFT/FDYo/EvUHSAfEBD56GyD6Ms+JkhYQ=
-X-Received: by 2002:a05:6808:1703:b0:32e:851e:7f81 with SMTP id
- bc3-20020a056808170300b0032e851e7f81mr1497286oib.63.1655346888488; Wed, 15
- Jun 2022 19:34:48 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jun 2022 19:34:47 -0700
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=HarZZOMqwX2nfuyIoxzYBsQI132xDDkrDcmus7kOCgs=;
+ b=w6aHFc1LAUW56paOSiBV364O/4M+gZzS4msjaLEX+t4CyenTBkWWnXaDoFXjrWZFYl
+ HXtp/Tux6sqO6EGKEdx2KLuHOcSd5pCbtUX9V+NAlVwWEk2fjqQTckp9Y62S7fyyvJJt
+ zFA1ne09MHZoZXNri4+C08u4bENneZLjXxjj0gfvJFqRwtVLWVtPVqUC3YAHHBS6z3jZ
+ 74uzOsZDTO9dHYep/5FNd4dUancdn9coErXlEBPnTX0wWFEmsEpzS7lE4fqSj5ra5ZcD
+ Pn565i5ei0IYy2FeB1jo2oKWyuyfMrAhdg9iJs6EpnqVonNp5sYRihHLjwiZLuyvrGUX
+ P/9A==
+X-Gm-Message-State: AJIora+gbRrXKD8YvfDd5cJwpEaFhSzyyWvQCvoQ3y0DAFPaRpy17mGl
+ W11q2eOMk/aIoEquJWt/0GJNkQ==
+X-Google-Smtp-Source: AGRyM1u2eCbA4NOP1GqEYww+pLp4BPVnEoT9h4a2CfaGiqPHGf8dobXXLe2o5ffEtjsRKP2cgXRMKA==
+X-Received: by 2002:a05:651c:a11:b0:255:af78:48d9 with SMTP id
+ k17-20020a05651c0a1100b00255af7848d9mr1718828ljq.508.1655358936500; 
+ Wed, 15 Jun 2022 22:55:36 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ m17-20020a056512359100b00477b38eabd1sm98951lfr.94.2022.06.15.22.55.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 22:55:36 -0700 (PDT)
+Message-ID: <82b09d4d-1985-519e-3657-0d15e07ccc2f@linaro.org>
+Date: Thu, 16 Jun 2022 08:55:35 +0300
 MIME-Version: 1.0
-In-Reply-To: <20220505001605.1268483-5-dmitry.baryshkov@linaro.org>
-References: <20220505001605.1268483-1-dmitry.baryshkov@linaro.org>
- <20220505001605.1268483-5-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 15 Jun 2022 19:34:47 -0700
-Message-ID: <CAE-0n53nQS=m1SsGaYavtyTgJbO_uFqp51srexY2H1rK-hz0=g@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 4/5] drm/msm: move KMS aspace init to the
- separate helper
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-GB
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
+References: <1655235140-16424-1-git-send-email-quic_abhinavk@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <1655235140-16424-1-git-send-email-quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: move intf and wb
+ assignment to dpu_encoder_setup_display()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +74,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
+ seanpaul@chromium.org, daniel@ffwll.ch, quic_jesszhan@quicinc.com,
+ quic_aravindh@quicinc.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-05-04 17:16:04)
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index a37a3bbc04d9..98ae0036ab57 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -262,6 +263,46 @@ static int msm_drm_uninit(struct device *dev)
->
->  #include <linux/of_address.h>
->
-> +struct msm_gem_address_space *msm_kms_init_aspace(struct drm_device *dev)
-> +{
-[...]
-> +       }
+On 14/06/2022 22:32, Abhinav Kumar wrote:
+> intf and wb resources are not dependent on the rm global
+> state so need not be allocated during dpu_encoder_virt_atomic_mode_set().
+> 
+> Move the allocation of intf and wb resources to dpu_encoder_setup_display()
+> so that we can utilize the hw caps even during atomic_check() phase.
+> 
+> Since dpu_encoder_setup_display() already has protection against
+> setting invalid intf_idx and wb_idx, these checks can now
+> be dropped as well.
+> 
+> Fixes: e02a559a720f ("make changes to dpu_encoder to support virtual encoder")
+
+Please adjust the Fixes tags in all three commits. I didn't notice this 
+beforehand and Stephen has complained.
+
+> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 25 +++++++------------------
+>   1 file changed, 7 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 3a462e327e0e..e991d4ba8a40 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -1048,24 +1048,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+>   		phys->hw_pp = dpu_enc->hw_pp[i];
+>   		phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
+>   
+> -		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+> -			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
+> -
+> -		if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
+> -			phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+> -
+> -		if (!phys->hw_intf && !phys->hw_wb) {
+> -			DPU_ERROR_ENC(dpu_enc,
+> -				      "no intf or wb block assigned at idx: %d\n", i);
+> -			return;
+> -		}
+> -
+> -		if (phys->hw_intf && phys->hw_wb) {
+> -			DPU_ERROR_ENC(dpu_enc,
+> -					"invalid phys both intf and wb block at idx: %d\n", i);
+> -			return;
+> -		}
+> -
+>   		phys->cached_mode = crtc_state->adjusted_mode;
+>   		if (phys->ops.atomic_mode_set)
+>   			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
+> @@ -2293,7 +2275,14 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
+>   		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
+>   		atomic_set(&phys->vsync_cnt, 0);
+>   		atomic_set(&phys->underrun_cnt, 0);
 > +
-> +       aspace = msm_gem_address_space_create(mmu, "mdp_kms",
-> +               0x1000, 0x100000000 - 0x1000);
-> +       if (IS_ERR(aspace)) {
-> +               mmu->funcs->destroy(mmu);
-
-
-> +               return aspace;
-> +       }
+> +		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
+> +			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
 > +
-> +       return aspace;
-
-This can be 'return aspace' one time instead of two.
-
-> +}
+> +		if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
+> +			phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
+>   	}
 > +
->  bool msm_use_mmu(struct drm_device *dev)
->  {
->         struct msm_drm_private *priv = dev->dev_private;
+>   	mutex_unlock(&dpu_enc->enc_lock);
+>   
+>   	return ret;
+
+
+-- 
+With best wishes
+Dmitry
