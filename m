@@ -1,59 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5B4C54EA4E
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 21:46:25 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4EE54EA85
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 22:07:42 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA0F510E431;
-	Thu, 16 Jun 2022 19:46:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DFC10E25D;
+	Thu, 16 Jun 2022 20:07:40 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF3D10E431;
- Thu, 16 Jun 2022 19:46:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655408782; x=1686944782;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=q+zfdU8CHrLB6fcOwNpYub9QfP/SQqDPjkb0NAMPTC0=;
- b=eB1LbX4yB25KyfiY/tq6Fa0cLIdoMCzoE8qQHP9ptXIBw70pvmkCS7gJ
- Tmivq4KVvIbqy5fJVCs6FSpyreMZGkiUwDE2+7UnPSlU4XEwmAeYwh6ES
- YVC2obpgddQf7Y+QM4Mwjd2CqWRHLvSOBlP8K2LCnI6ZKnegdXGrkXyDw c=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 12:46:22 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 12:46:22 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 12:46:21 -0700
-Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 16 Jun
- 2022 12:46:19 -0700
-Message-ID: <84f5e432-ee63-68c2-8072-e5ae2024b4ae@quicinc.com>
-Date: Thu, 16 Jun 2022 12:46:17 -0700
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44C5E10E2A2
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 20:07:39 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id v4so3130416oiv.1
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 13:07:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=s6YjNqeFkBeitJEod+ywoglNF76LvxWXetZQio3hBl0=;
+ b=NTaM09TANSQ9YjApBo2joU0KGvGfREh02jr9HfmBLye/nzoowGhLj1X/iQkqjlvc6W
+ VuuHlG1lvdT5J1EdLIYD37uTEbPK5nsoc2SWQvuLrHU5gfzSH6o/adshSSIN7UzkjUyx
+ 1mT6ppunDhl3A5Vjkg/i3GHnqfSEZkb6yeJEY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=s6YjNqeFkBeitJEod+ywoglNF76LvxWXetZQio3hBl0=;
+ b=n2NGl31WCh/pIgEGMhLNIRYdROWDqYjqiN7TC+aOPngIZZrB3tLc8uH1Dd4GNdpeDB
+ vNKr4ftgFzq4gENINcLWwvMNlRQEMBVQZZRB3ZZtlwbf595l9CEyWJg9YlkgGjXpjsVp
+ iomXwcwrgmCK6EvXlmH7zvKawtmSVutp6fRwYlzm6IZy76xDAjO4tB5A3CelRCYKZYNI
+ DNjCBBh+vWeLLwSdY1w/7bApuyo8joouxL5WzC8B6dW9QDuk74bWmOIiEEm/mZepIOlT
+ cPuoCOQG873VTPABXObcpYxOu6VE5XcJN2dNy8GIhPAW+8gU1f8lwlZQy1mPXluZgNzO
+ jswQ==
+X-Gm-Message-State: AJIora+huo5icU1/w8XPyUzYAIkYNPYcbVGr3zE8CcohXEqYOLbyo4x9
+ lRr3X3tx5ODIY+m+i12z+07gnpwhr6D4yNJZFinUxA==
+X-Google-Smtp-Source: AGRyM1vE/OzRxo9t3OzpbmbBYVrPabfJBVXad89oOXTWAGuEN5A0P8WKfJlZlPkQDZQqBd6CO7j07+NCgeWUyhjdZR0=
+X-Received: by 2002:a05:6808:1703:b0:32e:851e:7f81 with SMTP id
+ bc3-20020a056808170300b0032e851e7f81mr3494471oib.63.1655410058546; Thu, 16
+ Jun 2022 13:07:38 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jun 2022 13:07:38 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220507170922.1723712-1-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220507170922.1723712-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/mdp4: convert to
- drm_crtc_handle_vblank()
+In-Reply-To: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
+References: <1655399361-10842-1-git-send-email-quic_khsieh@quicinc.com>
+ <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 16 Jun 2022 13:07:38 -0700
+Message-ID: <CAE-0n50cteV=uYRR=7LmcUB00kjHwDRoutq+sz5FoGmZqLso4Q@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/dp: clean up pixel_rate from
+ dp_ctrl.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,49 +68,139 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Quoting Kuogee Hsieh (2022-06-16 10:09:21)
+> dp_ctrl keep an local cache of pixel_rate which increase confusing
+> in regrading how pixel_rate being used. This patch refer pixel_rate
+> directly from dp_panel to eliminate unnecessary pixel_rate variable
+> from struct dp_ctrl.
+>
+> Changes in v8:
+> -- add this patch to remove pixel_rate from dp_ctrl
+>
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
 
+I can send a proper patch for this myself later.
 
-On 5/7/2022 10:09 AM, Dmitry Baryshkov wrote:
-> Stop using deprecated drm_handle_vblank(), use drm_crtc_handle_vblank()
-> instead.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c | 9 ++++-----
->   1 file changed, 4 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
-> index 4d49f3ba6a96..ddcdd5e87853 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
-> @@ -69,8 +69,7 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
->   	struct mdp_kms *mdp_kms = to_mdp_kms(kms);
->   	struct mdp4_kms *mdp4_kms = to_mdp4_kms(mdp_kms);
->   	struct drm_device *dev = mdp4_kms->dev;
-> -	struct msm_drm_private *priv = dev->dev_private;
-> -	unsigned int id;
-> +	struct drm_crtc *crtc;
->   	uint32_t status, enable;
->   
->   	enable = mdp4_read(mdp4_kms, REG_MDP4_INTR_ENABLE);
-> @@ -81,9 +80,9 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
->   
->   	mdp_dispatch_irqs(mdp_kms, status);
->   
-> -	for (id = 0; id < priv->num_crtcs; id++)
-> -		if (status & mdp4_crtc_vblank(priv->crtcs[id]))
-> -			drm_handle_vblank(dev, id);
-> +	drm_for_each_crtc(crtc, dev)
-> +		if (status & mdp4_crtc_vblank(crtc))
-> +			drm_crtc_handle_vblank(crtc);
->   
->   	return IRQ_HANDLED;
->   }
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 158 +++++++++++++++++++--------------------
+>  drivers/gpu/drm/msm/dp/dp_ctrl.h |   2 -
+>  2 files changed, 79 insertions(+), 81 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index 01028b5..6fddddd 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1528,36 +1526,6 @@ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
+>         return ret;
+>  }
+>
+> -static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+> -{
+> -       int ret = 0;
+> -
+> -       if (!ctrl->link->phy_params.phy_test_pattern_sel) {
+> -               drm_dbg_dp(ctrl->drm_dev,
+> -                       "no test pattern selected by sink\n");
+> -               return ret;
+> -       }
+> -
+> -       /*
+> -        * The global reset will need DP link related clocks to be
+> -        * running. Add the global reset just before disabling the
+> -        * link clocks and core clocks.
+> -        */
+> -       ret = dp_ctrl_off(&ctrl->dp_ctrl);
+> -       if (ret) {
+> -               DRM_ERROR("failed to disable DP controller\n");
+> -               return ret;
+> -       }
+> -
+> -       ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
+> -       if (!ret)
+> -               ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
+> -       else
+> -               DRM_ERROR("failed to enable DP link controller\n");
+> -
+> -       return ret;
+> -}
+> -
+>  static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
+>  {
+>         bool success = false;
+> @@ -1610,6 +1578,56 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
+>         return success;
+>  }
+>
+> +int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+> +{
+> +       int ret = 0;
+> +       struct dp_ctrl_private *ctrl;
+> +       unsigned long pixel_rate;
+> +
+> +       ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+> +
+> +       pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> +       ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+> +       if (ret) {
+> +               DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+> +               return ret;
+> +       }
+> +
+> +       dp_ctrl_send_phy_test_pattern(ctrl);
+> +
+> +       return 0;
+> +}
+> +
+> +static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+> +{
+> +       int ret = 0;
+> +
+> +       if (!ctrl->link->phy_params.phy_test_pattern_sel) {
+> +               drm_dbg_dp(ctrl->drm_dev,
+> +                       "no test pattern selected by sink\n");
+> +               return ret;
+> +       }
+> +
+> +       /*
+> +        * The global reset will need DP link related clocks to be
+> +        * running. Add the global reset just before disabling the
+> +        * link clocks and core clocks.
+> +        */
+> +       ret = dp_ctrl_off(&ctrl->dp_ctrl);
+> +       if (ret) {
+> +               DRM_ERROR("failed to disable DP controller\n");
+> +               return ret;
+> +       }
+> +
+> +       ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
+> +       if (!ret)
+> +               ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
+> +       else
+> +               DRM_ERROR("failed to enable DP link controller\n");
+> +
+> +       return ret;
+> +}
+> +
+>  void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
+>  {
+>         struct dp_ctrl_private *ctrl;
+
+I'd prefer these hunks to be part of a different patch. Either squashed
+into the previous patch, or after the previous patch to show that a
+forward declaration isn't necessary, but helped minimize the diff of
+that patch.
+
+> @@ -1685,6 +1703,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>         u32 const phy_cts_pixel_clk_khz = 148500;
+>         u8 link_status[DP_LINK_STATUS_SIZE];
+>         unsigned int training_step;
+> +       unsigned long pixel_rate;
+>
+>         if (!dp_ctrl)
+>                 return -EINVAL;
