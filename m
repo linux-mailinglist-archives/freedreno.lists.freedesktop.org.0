@@ -1,60 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE39054E661
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 17:49:35 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id A257354E85C
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 19:09:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 800B210E357;
-	Thu, 16 Jun 2022 15:49:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE4E610F1FA;
+	Thu, 16 Jun 2022 17:09:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C00F10E47B;
- Thu, 16 Jun 2022 15:49:33 +0000 (UTC)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB8410F1FA;
+ Thu, 16 Jun 2022 17:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655394573; x=1686930573;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=cO4Iax8qycFqwMSRIuxL+xQyN5XpAc9XiJSxFVbdZHk=;
- b=uvmwAIbodR/bSbc7JySS7VmHOpXIll1GI8pOn8fMFHFUnpTS0WLd4l9u
- 5KRJ0j5P5qdsQnIcRckVz8m0kpKVifO2X1EC6AIE66caqJQ3Kki1iPR2L
- /y3JVy0GNabQnPMJ3REvNnkLO1sxRnT0tOdYZG100R5mS8eNXX6926/du A=;
+ t=1655399375; x=1686935375;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=9jD0oil9M4TViSsu8wOGc8TUvg7hRbYdmm3wS1R3F1E=;
+ b=b9fMXTvx8yGkWnT2aukuXec7zzcNKhV/44yAQTtn16Ph17W3xRxal1Aq
+ YCWpxD7S+nZgz53Ch8X/AZwPFft9e5+OM4Be7lUYr1gVe14Z1dMiwo03d
+ eqqaDaM+k+F1zHwZ4x/3g4c4nKIVAi3jaLsfBFLWVuEN3MJBEthEu9fTk U=;
 Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 08:49:31 -0700
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 16 Jun 2022 10:09:34 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
  by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 08:49:31 -0700
+ 16 Jun 2022 10:09:33 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 08:49:30 -0700
-Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 16 Jun
- 2022 08:49:28 -0700
-Message-ID: <c3be3596-5f62-88c7-6545-dc0b52228017@quicinc.com>
-Date: Thu, 16 Jun 2022 08:49:26 -0700
+ 15.2.986.22; Thu, 16 Jun 2022 10:09:32 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 16 Jun 2022 10:09:32 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Thu, 16 Jun 2022 10:09:19 -0700
+Message-ID: <1655399361-10842-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- <freedreno@lists.freedesktop.org>
-References: <1655335395-16159-1-git-send-email-quic_abhinavk@quicinc.com>
- <253d0390-8a90-c16f-41b4-99ad03b781c8@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <253d0390-8a90-c16f-41b4-99ad03b781c8@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: set preferred mode for
- writeback connector
+Subject: [Freedreno] [PATCH v8 0/2] force link training for display
+ resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,84 +63,26 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+1) force link training for display resolution change
+2) remove pixel_rate from struct dp_ctrl
 
+Kuogee Hsieh (2):
+  drm/msm/dp: force link training for display resolution change
+  drm/msm/dp: clean up pixel_rate from dp_ctrl.c
 
-On 6/16/2022 1:36 AM, Dmitry Baryshkov wrote:
-> On 16/06/2022 02:23, Abhinav Kumar wrote:
->> After [1] was merged to IGT, we use either the first supported
->> mode in the list OR the preferred mode to determine the primary
->> plane to use for the sub-test due to the IGT API [2].
->>
->> Since writeback does not set any preferred mode, this was
->> selecting 4k as that was the first entry in the list.
->>
->> We use maxlinewidth to add the list of supported modes for
->> the writeback connector which is the right thing to do, however
->> since we do not have dual-SSPP support yet for DPU, this fails
->> the bandwidth check in dpu_core_perf_crtc_check().
->>
->> Till we have dual-SSPP support, workaround this mismatch between
->> the list of supported modes and maxlinewidth limited modes by
->> marking 640x480 as the preferred mode for DPU writeback because
->> kms_writeback tests 640x480 mode only [3].
-> 
-> Telling that we support modes up to 4k, failing to set 4k mode and then 
-> using the preferred mode to force IGT to lower resolution sounds like a 
-> hack.
-> 
-> As adding wide dual-SSPP support will take some time. I'd suggest 
-> dropping support for 4k modes for now and using DEFAULT_DPU_LINE_WIDTH 
-> instead (or hw_wb->caps->maxlinewidth). A comment in the source code 
-> that the check should be removed/modified once dual-SSPP is supported 
-> would be helpful.
-> 
-Yes, I am planning to drop this one and use max_mixerwidth instead as i 
-posted on IRC.
-> 
->> [1]: https://patchwork.freedesktop.org/patch/486441/
->> [2]: 
->> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/lib/igt_kms.c#L1562 
->>
->> [3]: 
->> https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/master/tests/kms_writeback.c#L68 
->>
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> Any Fixes tags?
-Yes, will add it in the new patch.
-> 
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 7 ++++++-
->>   1 file changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c 
->> b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
->> index 399115e4e217..104cc59d6466 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
->> @@ -10,9 +10,14 @@ static int dpu_wb_conn_get_modes(struct 
->> drm_connector *connector)
->>       struct drm_device *dev = connector->dev;
->>       struct msm_drm_private *priv = dev->dev_private;
->>       struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
->> +    int count;
->> -    return drm_add_modes_noedid(connector, 
->> dpu_kms->catalog->caps->max_linewidth,
->> +    count = drm_add_modes_noedid(connector, 
->> dpu_kms->catalog->caps->max_linewidth,
->>               dev->mode_config.max_height);
->> +
->> +    drm_set_preferred_mode(connector, 640, 480);
->> +
->> +    return count;
->>   }
->>   static const struct drm_connector_funcs dpu_wb_conn_funcs = {
-> 
-> 
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 147 ++++++++++++++++++++----------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |   3 +-
+ drivers/gpu/drm/msm/dp/dp_display.c |  13 ++--
+ 3 files changed, 88 insertions(+), 75 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
