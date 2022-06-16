@@ -2,55 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83C4D54EBFF
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 23:06:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5705D54EDF5
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 01:39:33 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2583510E7CC;
-	Thu, 16 Jun 2022 21:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0418B10E6D1;
+	Thu, 16 Jun 2022 23:39:32 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81E810E7CC;
- Thu, 16 Jun 2022 21:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655413580; x=1686949580;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=WK2j77TFJ/70U37ZeB4rzHVUzdPEhxO1yxy3ztiMc/4=;
- b=TsDrAkC3ymJtbIriuDIrXYkmzS7EnbqUNK8pXgslS8QHoH+YDxN3yHEc
- DM6fXSZB3l6hy8lspHfD0x/hJGFXlTUYiBPkABRDlWhEx5hY1vnJdDDL9
- 2jpbAQ8OGIzVd1jRUKYwKqe+AWIZZmeov6xmEmORzbUKeESslR4kSmT4j
- u3blMg4fN+s3TknfwPeEW7Ze/AtWCL/iONantGko/1tP72ioyNkOX+Hmt
- b/ED83T/ACvAv5lG/1MqCb8gKsDrVsSOkE7loKby74s1BvKHoznjr3Oht
- E6JVw0mNKYLdG/JIlYBRa1hveYA2r66K2gmHDdKNAeXgH2/cM9pck4pLe w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="276926349"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="276926349"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 14:06:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="619027433"
-Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by orsmga001.jf.intel.com with ESMTP; 16 Jun 2022 14:06:15 -0700
-Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o1wgw-000OmT-UJ;
- Thu, 16 Jun 2022 21:06:14 +0000
-Date: Fri, 17 Jun 2022 05:06:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
- airlied@linux.ie, agross@kernel.org, dmitry.baryshkov@linaro.org,
- bjorn.andersson@linaro.org
-Message-ID: <202206170505.2U1jLZVk-lkp@intel.com>
-References: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1069010E6D1
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 23:39:31 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id u9so3606542oiv.12
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 16:39:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=p6AMxpkA8TTGmEn1Bk60SJEuUpFSzeYyFwi5LwIblKY=;
+ b=QoS7HSJcdZbZ6I1shW8c8Ggj/S/yYty4RWZXUUryK1d2L/wd7sLzx8TtlNWAr5tKPh
+ AnyYnAmWsf3hi92uObQ0MmlBsoxc2/xtqjixO2sIOx+fxaF8R06D9WWa6K1q2kC9XnOW
+ 0eQNoUmCMLsWlyATgVG8WVyxWQX5zBwuwAGOs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=p6AMxpkA8TTGmEn1Bk60SJEuUpFSzeYyFwi5LwIblKY=;
+ b=hF8tvqLJkR+GsmQISh+5NWw6oYGx/Kw5LwJs0gp5CQZZ/xSsJJf3MiDBnXVIt9/E3o
+ RmEx5TuAuu/cvEgVxhQNFzNuw5CB3FhgWBu/5DSu5dDSskcCgPQEu7fPlOYBTAnvAJrS
+ favYNWHgSGFl1B4BXrkaLjyIfTssUmGcOIDh1zqSj2KAJeyXKXZN+bkgESsq+7LAui97
+ ePZEXl0iKRdXIVqzkDUx6O8UGcdtUD4VUQqFG7Q73Nzh8jaA2JLXwYIYZfgTcg90+Li2
+ hZl2kqb1sUffxplO0ZGCMwO0rOybUL7aV0Qwsh6uthwUPw1G+mBLOMXGuAT99c2iHviI
+ IE8Q==
+X-Gm-Message-State: AJIora97OBe/y4FLaqVH0tX+8FzWaQUMf4VlaoD7kI06ys2/LEtR6nl8
+ LfrX5EvhceW1HZDjQXpCQPc+ehDUz/9RloZR/IKgdw==
+X-Google-Smtp-Source: AGRyM1tJkP1MW9aiih9SxFvzYQIAdzAgdaP270BY5q2s7l4Xb6sprjP3JR24sFt3jyoliB8V5lZ19MPRnckBuygfQro=
+X-Received: by 2002:a05:6808:e87:b0:32e:4789:d2c with SMTP id
+ k7-20020a0568080e8700b0032e47890d2cmr3721825oil.193.1655422770319; Thu, 16
+ Jun 2022 16:39:30 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 16 Jun 2022 16:39:29 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/dp: clean up pixel_rate from
- dp_ctrl.c
+In-Reply-To: <1655411200-7255-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1655411200-7255-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Thu, 16 Jun 2022 16:39:29 -0700
+Message-ID: <CAE-0n529kPSzweLuwq60b2d7Z49PZO+N_x3rxQW9iHKGgcqrjw@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v9] drm/msm/dp: force link training for
+ display resolution change
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,73 +67,64 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, kbuild-all@lists.01.org,
- linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Kuogee,
+Quoting Kuogee Hsieh (2022-06-16 13:26:40)
+> Display resolution change is implemented through drm modeset. Older
+> modeset (resolution) has to be disabled first before newer modeset
+> (resolution) can be enabled. Display disable will turn off both
+> pixel clock and main link clock so that main link have to be
+> re-trained during display enable to have new video stream flow
+> again. At current implementation, display enable function manually
+> kicks up irq_hpd_handle which will read panel link status and start
+> link training if link status is not in sync state.
+>
+> However, there is rare case that a particular panel links status keep
+> staying in sync for some period of time after main link had been shut
+> down previously at display disabled. In this case, main link retraining
+> will not be executed by irq_hdp_handle(). Hence video stream of newer
+> display resolution will fail to be transmitted to panel due to main
+> link is not in sync between host and panel.
+>
+> This patch will bypass irq_hpd_handle() in favor of directly call
+> dp_ctrl_on_stream() to always perform link training in regardless of
+> main link status. So that no unexpected exception resolution change
+> failure cases will happen. Also this implementation are more efficient
+> than manual kicking off irq_hpd_handle function.
+>
+> Changes in v2:
+> -- set force_link_train flag on DP only (is_edp == false)
+>
+> Changes in v3:
+> -- revise commit  text
+> -- add Fixes tag
+>
+> Changes in v4:
+> -- revise commit  text
+>
+> Changes in v5:
+> -- fix spelling at commit text
+>
+> Changes in v6:
+> -- split dp_ctrl_on_stream() for phy test case
+> -- revise commit text for modeset
+>
+> Changes in v7:
+> -- drop 0 assignment at local variable (ret = 0)
+>
+> Changes in v8:
+> -- add patch to remove pixel_rate from dp_ctrl
+>
+> Changes in v9:
+> -- forward declare dp_ctrl_on_stream_phy_test_report()
+>
+> Fixes: 62671d2ef24b ("drm/msm/dp: fixes wrong connection state caused by failure of link train")
+> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
 
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-exynos/exynos-drm-next drm-tip/drm-tip linus/master v5.19-rc2 next-20220616]
-[cannot apply to drm-intel/for-linux-next tegra-drm/drm/tegra/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20220617/202206170505.2U1jLZVk-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 11.3.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
-        git checkout b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash drivers/gpu/drm/msm/
-
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/dp/dp_ctrl.c:1587:5: warning: no previous prototype for 'dp_ctrl_on_stream_phy_test_report' [-Wmissing-prototypes]
-    1587 | int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +/dp_ctrl_on_stream_phy_test_report +1587 drivers/gpu/drm/msm/dp/dp_ctrl.c
-
-  1586	
-> 1587	int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-  1588	{
-  1589		int ret = 0;
-  1590		struct dp_ctrl_private *ctrl;
-  1591		unsigned long pixel_rate;
-  1592	
-  1593		ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-  1594	
-  1595		pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
-  1596		ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
-  1597		if (ret) {
-  1598			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-  1599			return ret;
-  1600		}
-  1601	
-  1602		dp_ctrl_send_phy_test_pattern(ctrl);
-  1603	
-  1604		return 0;
-  1605	}
-  1606	
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
