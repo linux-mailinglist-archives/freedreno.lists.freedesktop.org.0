@@ -1,60 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3EE54EB6B
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 22:43:03 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 83C4D54EBFF
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 23:06:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0FF10E590;
-	Thu, 16 Jun 2022 20:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2583510E7CC;
+	Thu, 16 Jun 2022 21:06:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6370D10E590;
- Thu, 16 Jun 2022 20:43:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655412181; x=1686948181;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=+pvXpGgCvGMLklfAcFFyeylmCVs7Y2BlrR5HvOXQd8s=;
- b=AAE/GqD7jgFLYNHG6ZlBilnDcJl1ytAApfpbziZTNr+VSyIHLDdJQj57
- sCfYAeDL24XgoQc0asRguEdJw5CX9H2X+xk928mkLKt61+Gp0xUDF8ifN
- usQJTWLaPCvvQbhyE3fTdWKhRbFgB21J2xgtC7LUJHwsd61oR+CUrk6vD g=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 13:43:00 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 13:43:00 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 13:43:00 -0700
-Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 16 Jun
- 2022 13:42:57 -0700
-Message-ID: <2217f2a6-c94c-0efe-a58c-ddae015f6d49@quicinc.com>
-Date: Thu, 16 Jun 2022 13:42:55 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C81E810E7CC;
+ Thu, 16 Jun 2022 21:06:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655413580; x=1686949580;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=WK2j77TFJ/70U37ZeB4rzHVUzdPEhxO1yxy3ztiMc/4=;
+ b=TsDrAkC3ymJtbIriuDIrXYkmzS7EnbqUNK8pXgslS8QHoH+YDxN3yHEc
+ DM6fXSZB3l6hy8lspHfD0x/hJGFXlTUYiBPkABRDlWhEx5hY1vnJdDDL9
+ 2jpbAQ8OGIzVd1jRUKYwKqe+AWIZZmeov6xmEmORzbUKeESslR4kSmT4j
+ u3blMg4fN+s3TknfwPeEW7Ze/AtWCL/iONantGko/1tP72ioyNkOX+Hmt
+ b/ED83T/ACvAv5lG/1MqCb8gKsDrVsSOkE7loKby74s1BvKHoznjr3Oht
+ E6JVw0mNKYLdG/JIlYBRa1hveYA2r66K2gmHDdKNAeXgH2/cM9pck4pLe w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="276926349"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="276926349"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 14:06:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="619027433"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga001.jf.intel.com with ESMTP; 16 Jun 2022 14:06:15 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o1wgw-000OmT-UJ;
+ Thu, 16 Jun 2022 21:06:14 +0000
+Date: Fri, 17 Jun 2022 05:06:10 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
+ airlied@linux.ie, agross@kernel.org, dmitry.baryshkov@linaro.org,
+ bjorn.andersson@linaro.org
+Message-ID: <202206170505.2U1jLZVk-lkp@intel.com>
+References: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220507170922.1723712-1-dmitry.baryshkov@linaro.org>
- <20220507170922.1723712-3-dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220507170922.1723712-3-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v2 3/3] drm/msm: stop storing the array of
- CRTCs in struct msm_drm_private
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/dp: clean up pixel_rate from
+ dp_ctrl.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,201 +63,73 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, kbuild-all@lists.01.org,
+ linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Kuogee,
+
+Thank you for the patch! Perhaps something to improve:
+
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-exynos/exynos-drm-next drm-tip/drm-tip linus/master v5.19-rc2 next-20220616]
+[cannot apply to drm-intel/for-linux-next tegra-drm/drm/tegra/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20220617/202206170505.2U1jLZVk-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 11.3.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
+        git checkout b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.3.0 make.cross W=1 O=build_dir ARCH=m68k SHELL=/bin/bash drivers/gpu/drm/msm/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/msm/dp/dp_ctrl.c:1587:5: warning: no previous prototype for 'dp_ctrl_on_stream_phy_test_report' [-Wmissing-prototypes]
+    1587 | int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-On 5/7/2022 10:09 AM, Dmitry Baryshkov wrote:
-> Handling the array of CRTC duplicate the struct msm_drm_private
-> duplicates a list of CRTCs in the drm_device. Drop it and use the
+vim +/dp_ctrl_on_stream_phy_test_report +1587 drivers/gpu/drm/msm/dp/dp_ctrl.c
 
-There seem to be two duplicates in the commit text :)
+  1586	
+> 1587	int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+  1588	{
+  1589		int ret = 0;
+  1590		struct dp_ctrl_private *ctrl;
+  1591		unsigned long pixel_rate;
+  1592	
+  1593		ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+  1594	
+  1595		pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+  1596		ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+  1597		if (ret) {
+  1598			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+  1599			return ret;
+  1600		}
+  1601	
+  1602		dp_ctrl_send_phy_test_pattern(ctrl);
+  1603	
+  1604		return 0;
+  1605	}
+  1606	
 
-So this should just be "handling the array of CRTCs duplicates a list of
-of CRTCs in the drm_device.
-
-> existing list for CRTC enumeration.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> 
-> Changes since v1:
-> - Intialize the index variable in msm_drm_init() / event thread
->    initialization.
-> 
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  2 +-
->   drivers/gpu/drm/msm/msm_drv.c            | 29 ++++++++++++------------
->   drivers/gpu/drm/msm/msm_drv.h            |  3 +--
->   5 files changed, 19 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index 2b9d931474e0..c84859fb2d9b 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -808,7 +808,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
->   			ret = PTR_ERR(crtc);
->   			return ret;
->   		}
-> -		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		priv->num_crtcs++;
->   	}
->   
->   	/* All CRTCs are compatible with all encoders */
-> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> index fb48c8c19ec3..7449c1693e45 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> @@ -337,7 +337,7 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
->   			goto fail;
->   		}
->   
-> -		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		priv->num_crtcs++;
->   	}
->   
->   	/*
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index 3d5621a68f85..36808990f840 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -497,7 +497,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
->   			DRM_DEV_ERROR(dev->dev, "failed to construct crtc %d (%d)\n", i, ret);
->   			goto fail;
->   		}
-> -		priv->crtcs[priv->num_crtcs++] = crtc;
-> +		priv->num_crtcs++;
->   	}
->   
->   	/*
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 4a3dda23e3e0..db676a142ac1 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -144,7 +144,7 @@ static void msm_irq_uninstall(struct drm_device *dev)
->   
->   struct msm_vblank_work {
->   	struct work_struct work;
-> -	int crtc_id;
-> +	struct drm_crtc *crtc;
->   	bool enable;
->   	struct msm_drm_private *priv;
->   };
-> @@ -157,15 +157,15 @@ static void vblank_ctrl_worker(struct work_struct *work)
->   	struct msm_kms *kms = priv->kms;
->   
->   	if (vbl_work->enable)
-> -		kms->funcs->enable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
-> +		kms->funcs->enable_vblank(kms, vbl_work->crtc);
->   	else
-> -		kms->funcs->disable_vblank(kms,	priv->crtcs[vbl_work->crtc_id]);
-> +		kms->funcs->disable_vblank(kms,	vbl_work->crtc);
->   
->   	kfree(vbl_work);
->   }
->   
->   static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
-> -					int crtc_id, bool enable)
-> +					struct drm_crtc *crtc, bool enable)
->   {
->   	struct msm_vblank_work *vbl_work;
->   
-> @@ -175,7 +175,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
->   
->   	INIT_WORK(&vbl_work->work, vblank_ctrl_worker);
->   
-> -	vbl_work->crtc_id = crtc_id;
-> +	vbl_work->crtc = crtc;
->   	vbl_work->enable = enable;
->   	vbl_work->priv = priv;
->   
-> @@ -349,6 +349,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   	struct msm_drm_private *priv = dev_get_drvdata(dev);
->   	struct drm_device *ddev;
->   	struct msm_kms *kms;
-> +	struct drm_crtc *crtc;
->   	int ret, i;
->   
->   	if (drm_firmware_drivers_only())
-> @@ -422,12 +423,14 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
->   	ddev->mode_config.funcs = &mode_config_funcs;
->   	ddev->mode_config.helper_private = &mode_config_helper_funcs;
->   
-> -	for (i = 0; i < priv->num_crtcs; i++) {
-> +	drm_for_each_crtc(crtc, ddev) {
-> +		i = drm_crtc_index(crtc);
-> +
->   		/* initialize event thread */
-> -		priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
-> +		priv->event_thread[i].crtc = crtc;
->   		priv->event_thread[i].dev = ddev;
-
-Do we really need 'i' here?
-Can't we just do priv->event_thread[drm_crtc_index(crtc)]?
-
->   		priv->event_thread[i].worker = kthread_create_worker(0,
-> -			"crtc_event:%d", priv->event_thread[i].crtc_id);
-> +			"crtc_event:%d", priv->event_thread[i].crtc->base.id);
->   		if (IS_ERR(priv->event_thread[i].worker)) {
->   			ret = PTR_ERR(priv->event_thread[i].worker);
->   			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
-> @@ -558,25 +561,23 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
->   int msm_crtc_enable_vblank(struct drm_crtc *crtc)
->   {
->   	struct drm_device *dev = crtc->dev;
-> -	unsigned int pipe = crtc->index;
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct msm_kms *kms = priv->kms;
->   	if (!kms)
->   		return -ENXIO;
-> -	drm_dbg_vbl(dev, "crtc=%u", pipe);
-> -	return vblank_ctrl_queue_work(priv, pipe, true);
-> +	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-> +	return vblank_ctrl_queue_work(priv, crtc, true);
->   }
->   
->   void msm_crtc_disable_vblank(struct drm_crtc *crtc)
->   {
->   	struct drm_device *dev = crtc->dev;
-> -	unsigned int pipe = crtc->index;
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct msm_kms *kms = priv->kms;
->   	if (!kms)
->   		return;
-> -	drm_dbg_vbl(dev, "crtc=%u", pipe);
-> -	vblank_ctrl_queue_work(priv, pipe, false);
-> +	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-> +	vblank_ctrl_queue_work(priv, crtc, false);
->   }
->   
->   /*
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index fdbaad53eb84..2ba57c575e13 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -102,7 +102,7 @@ struct msm_display_topology {
->   /* Commit/Event thread specific structure */
->   struct msm_drm_thread {
->   	struct drm_device *dev;
-> -	unsigned int crtc_id;
-> +	struct drm_crtc *crtc;
->   	struct kthread_worker *worker;
->   };
->   
-> @@ -178,7 +178,6 @@ struct msm_drm_private {
->   	struct workqueue_struct *wq;
->   
->   	unsigned int num_crtcs;
-> -	struct drm_crtc *crtcs[MAX_CRTCS];
->   
->   	struct msm_drm_thread event_thread[MAX_CRTCS];
->   
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
