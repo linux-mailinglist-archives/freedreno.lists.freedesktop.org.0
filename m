@@ -2,60 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 197E054DA90
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 08:28:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 399F654DAC3
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 08:36:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 453151126A4;
-	Thu, 16 Jun 2022 06:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06E43113F77;
+	Thu, 16 Jun 2022 06:36:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC171126A4
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 06:28:49 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id w16so809652oie.5
- for <freedreno@lists.freedesktop.org>; Wed, 15 Jun 2022 23:28:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=oHzgk00KbwIuUTHYZ9Qcy9lwARKoBhHrOAHADrH7xNM=;
- b=HVBEMJsGibu/PZCc2Oo4PzjURFnvRk506flDbSN4xwS0y2PjJf+iH41jcOp1I6Wchm
- zW3ZN+tnZIz/vQek0kPbYwYPeBGg7OJYiBdi59yRgj+nQLXeML5DGMf3e2FBgtqOXQID
- oiN3ZoTYEJwgzZ1on/qn48BPcgv7zX2ndxid0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=oHzgk00KbwIuUTHYZ9Qcy9lwARKoBhHrOAHADrH7xNM=;
- b=Pq9FyxgyZp7vdR7K2Hod71t9RuAC6+SxAZxNOU+TKzjrVNciMkKYdkgGgcPl5krbQC
- 1FAOZmdxbxgIjWRzRIdgXeYo98szB26KA8KqaK885TV36rAs3rrmkgcxlDLPMSMcmpZs
- Lzx6F4Jd0A0HiEFCgv/PFvvNLfyUyzSRfGtYEz2W59c0/n1aonUh5hqW1VURvEOh5YxT
- El2nAIdK79ioYQ8V389EDIZBHF+v5IDcLu0idpik/ljj0e+vmTPmryMAgDuWS2LwieTl
- hW6xkuqQV+8A8rOQe4xWHSjLhY74B7W4fA1DcEJmVUFqZa874Ae/MckwjgjvTzLLM2zu
- lV7w==
-X-Gm-Message-State: AJIora9LnB/T6zYt1oUdTtziqUGrvweKrU5o7e8Ki6U5KYkPcnkYf2my
- doUWlSRFxzqggsMwabobLOr0G1044SdEq3TjIxBcOA==
-X-Google-Smtp-Source: AGRyM1tcwZUQ2rA8bof/saOnrh/vjmhDjc5rzhpkOThv5IvGNh6JpRcQCLoNdyIR0ePWrf6HSlrb9PxK6jNWYy09svE=
-X-Received: by 2002:a05:6808:1703:b0:32e:851e:7f81 with SMTP id
- bc3-20020a056808170300b0032e851e7f81mr1785243oib.63.1655360928893; Wed, 15
- Jun 2022 23:28:48 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jun 2022 23:28:48 -0700
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C417113B50;
+ Thu, 16 Jun 2022 06:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655361375; x=1686897375;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=6uO1/U8p9gV8E92GnIp5ctp/Lr3j2fXbsBDKvSrZ4xI=;
+ b=t6A9lbExkSxPPPl13doDM/pSp5hUQbYbUgxZycjKw7eyB3Jybl0aZWDU
+ 7xVgbbStwYRfDu3nQ2YHqRfztXj2Mk3RZfM0bVuM4atj/prKnaG74YBwl
+ bK4UJQ7KyWEyH5cj1XMBJRWU6kP5J+QmGrwXw3uZThWs1kuR9MLluQ4jX U=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 15 Jun 2022 23:36:14 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2022 23:36:14 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 15 Jun 2022 23:36:13 -0700
+Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 15 Jun
+ 2022 23:36:11 -0700
+Message-ID: <989c9a5b-7ca8-aa90-e789-6a4252bca7e4@quicinc.com>
+Date: Wed, 15 Jun 2022 23:36:09 -0700
 MIME-Version: 1.0
-In-Reply-To: <CAA8EJpq1Td71FwBP5saYTAnS5zK28om+2C79aMPii06ui2JR+w@mail.gmail.com>
-References: <1655235140-16424-1-git-send-email-quic_abhinavk@quicinc.com>
- <82b09d4d-1985-519e-3657-0d15e07ccc2f@linaro.org>
- <5b35ee5a-ed94-1440-cdc2-909a82c3aa61@quicinc.com>
- <CAE-0n50gNX6XP2O9FJVJB135YUGhi5e8Gqb1FAxj20YQSvumuQ@mail.gmail.com>
- <CAA8EJpq1Td71FwBP5saYTAnS5zK28om+2C79aMPii06ui2JR+w@mail.gmail.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 15 Jun 2022 23:28:48 -0700
-Message-ID: <CAE-0n51CQKObqCmyRaZVNTpX1WWDZ-1KtzQdtU72va-gnFwJNg@mail.gmail.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dpu: move intf and wb
- assignment to dpu_encoder_setup_display()
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
+ <20220505135008.1351533-2-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220505135008.1351533-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/mdp4: move iommu_domain_alloc()
+ call close to its usage
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,19 +67,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, seanpaul@chromium.org, daniel@ffwll.ch,
- quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com,
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-06-15 23:21:56)
->
-> I have more or less the same setup using a longer format and using the
-> git-log instead of git-show. This way I can just do a git fixes
-> drivers/gpu/drm/msm and spot the commit in question.
 
-I've long desired to have this be part of checkpatch.pl, but nobody has
-done it yet. Maybe figuring out if the commit exists is harder than I
-think.
+
+On 5/5/2022 6:50 AM, Dmitry Baryshkov wrote:
+> Move iommu_domain_alloc() in front of adress space/IOMMU initialization.
+> This allows us to drop it from struct mdp4_cfg_platform which
+> remained from the pre-DT days.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 8 ++++----
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h | 1 -
+>   2 files changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> index fb48c8c19ec3..1fba6ab06eb1 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
+> @@ -388,6 +388,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct mdp4_kms *mdp4_kms;
+>   	struct msm_kms *kms = NULL;
+> +	struct iommu_domain *iommu;
+>   	struct msm_gem_address_space *aspace;
+>   	int irq, ret;
+>   	u32 major, minor;
+> @@ -495,9 +496,9 @@ static int mdp4_kms_init(struct drm_device *dev)
+>   	mdp4_disable(mdp4_kms);
+>   	mdelay(16);
+>   
+> -	if (config->iommu) {
+> -		struct msm_mmu *mmu = msm_iommu_new(&pdev->dev,
+> -			config->iommu);
+> +	iommu = iommu_domain_alloc(pdev->dev.bus);
+> +	if (iommu) {
+> +		struct msm_mmu *mmu = msm_iommu_new(&pdev->dev, iommu);
+>   
+>   		aspace  = msm_gem_address_space_create(mmu,
+>   			"mdp4", 0x1000, 0x100000000 - 0x1000);
+> @@ -557,7 +558,6 @@ static struct mdp4_platform_config *mdp4_get_config(struct platform_device *dev)
+>   
+>   	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
+>   	config.max_clk = 266667000;
+> -	config.iommu = iommu_domain_alloc(&platform_bus_type);
+>   
+>   	return &config;
+>   }
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> index e8ee92ab7956..7cc549b6a82b 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
+> @@ -44,7 +44,6 @@ struct mdp4_kms {
+>   
+>   /* platform config data (ie. from DT, or pdata) */
+>   struct mdp4_platform_config {
+> -	struct iommu_domain *iommu;
+>   	uint32_t max_clk;
+>   };
+>   
