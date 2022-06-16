@@ -1,60 +1,59 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D55D54DACC
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 08:37:39 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F5FB54DAD1
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 08:39:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01523113F77;
-	Thu, 16 Jun 2022 06:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7CE10FE17;
+	Thu, 16 Jun 2022 06:39:20 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
  [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7CBD113EA2;
- Thu, 16 Jun 2022 06:37:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4C9710F111;
+ Thu, 16 Jun 2022 06:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655361456; x=1686897456;
+ t=1655361559; x=1686897559;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=paemgS18JWZMUOA+NupPoktR7TSWRKxfJ4CKW88ZFTE=;
- b=WzCEtSRuSLq/EDXZWWfrJbwpvuHQ/9/yLDlfVPpkKnpP0T/wwxXf8Kp6
- 9lUTRkJd4u46ERvLRoHVx29XO6Md13g6FhCjn3YQF9df+x0TB/Nj6vA8e
- rL6QoPx5n3Q2cB6flD0QgDnMNFaLB7NaD148unoWaUbuUr3PwG80sBnJ1 w=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Jun 2022 23:37:36 -0700
+ bh=J4D+lzNfTLikG8wWJ++Wu7CZ6chaUPMyBbaxvNfq1/I=;
+ b=y8n7ivE0oGLP1ategt0mbPHHFsG0wkyYQ+i4FQN525jv3l+LKpdnxc6D
+ csWV8JhcLVswPNo+3advfvq+tTSpxf8EUV8C+rvC4l7IVqz4f5UMtvfVI
+ WW0KnbD8oQiH0kSS+fnOQAV/03dWn9MN1bCZn0ONm+Vet6GIViIKTPe1R w=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 15 Jun 2022 23:39:19 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2022 23:37:36 -0700
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2022 23:39:19 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 15 Jun 2022 23:37:35 -0700
+ 15.2.986.22; Wed, 15 Jun 2022 23:39:18 -0700
 Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 15 Jun
- 2022 23:37:33 -0700
-Message-ID: <e47c0edc-a855-4760-56fc-69710c499ebc@quicinc.com>
-Date: Wed, 15 Jun 2022 23:37:31 -0700
+ 2022 23:39:16 -0700
+Message-ID: <4d334492-0c43-47ae-b8f6-9242fc2ae6bf@quicinc.com>
+Date: Wed, 15 Jun 2022 23:39:14 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
  <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
-References: <20220505135008.1351533-1-dmitry.baryshkov@linaro.org>
- <20220505135008.1351533-3-dmitry.baryshkov@linaro.org>
+References: <20220507115942.1705872-1-dmitry.baryshkov@linaro.org>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220505135008.1351533-3-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220507115942.1705872-1-dmitry.baryshkov@linaro.org>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/mdp4: get rid of struct
- mdp4_platform_config
+Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dpu: dont_use IS_ERR_OR_NULL
+ for encoder phys backends
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,99 +75,56 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 5/5/2022 6:50 AM, Dmitry Baryshkov wrote:
-> Struct mdp4_platform_config is a relict from the DT-conversion time.
-> Move the max_clk field to the mdp4_kms_init(), the place where it is
-> used and drop the struct mdp4_platform_config and the mdp4_get_config()
-> function.
+On 5/7/2022 4:59 AM, Dmitry Baryshkov wrote:
+> The functions dpu_encoder_phys_foo_init() can not return NULL. Replace
+> corresponding IS_ERR_OR_NULL() checks with just IS_ERR().
 > 
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > ---
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 21 ++++++---------------
->   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h |  5 -----
->   2 files changed, 6 insertions(+), 20 deletions(-)
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 12 ++++++------
+>   1 file changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> index 1fba6ab06eb1..ccde710c63fa 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-> @@ -13,8 +13,6 @@
->   #include "msm_mmu.h"
->   #include "mdp4_kms.h"
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> index 52516eb20cb8..07de0c0506d3 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+> @@ -2144,10 +2144,10 @@ static int dpu_encoder_virt_add_phys_encs(
+>   	if (disp_info->capabilities & MSM_DISPLAY_CAP_VID_MODE) {
+>   		enc = dpu_encoder_phys_vid_init(params);
 >   
-> -static struct mdp4_platform_config *mdp4_get_config(struct platform_device *dev);
-> -
->   static int mdp4_hw_init(struct msm_kms *kms)
->   {
->   	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
-> @@ -384,7 +382,6 @@ static void read_mdp_hw_revision(struct mdp4_kms *mdp4_kms,
->   static int mdp4_kms_init(struct drm_device *dev)
->   {
->   	struct platform_device *pdev = to_platform_device(dev->dev);
-> -	struct mdp4_platform_config *config = mdp4_get_config(pdev);
->   	struct msm_drm_private *priv = dev->dev_private;
->   	struct mdp4_kms *mdp4_kms;
->   	struct msm_kms *kms = NULL;
-> @@ -392,6 +389,10 @@ static int mdp4_kms_init(struct drm_device *dev)
->   	struct msm_gem_address_space *aspace;
->   	int irq, ret;
->   	u32 major, minor;
-> +	unsigned long max_clk;
-> +
-> +	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
-> +	max_clk = 266667000;
->   
->   	mdp4_kms = kzalloc(sizeof(*mdp4_kms), GFP_KERNEL);
->   	if (!mdp4_kms) {
-> @@ -459,7 +460,7 @@ static int mdp4_kms_init(struct drm_device *dev)
->   		goto fail;
->   	}
->   
-> -	clk_set_rate(mdp4_kms->clk, config->max_clk);
-> +	clk_set_rate(mdp4_kms->clk, max_clk);
->   
->   	read_mdp_hw_revision(mdp4_kms, &major, &minor);
->   
-> @@ -479,7 +480,7 @@ static int mdp4_kms_init(struct drm_device *dev)
->   			ret = PTR_ERR(mdp4_kms->lut_clk);
->   			goto fail;
+> -		if (IS_ERR_OR_NULL(enc)) {
+> +		if (IS_ERR(enc)) {
+>   			DPU_ERROR_ENC(dpu_enc, "failed to init vid enc: %ld\n",
+>   				PTR_ERR(enc));
+> -			return enc == NULL ? -EINVAL : PTR_ERR(enc);
+> +			return PTR_ERR(enc);
 >   		}
-> -		clk_set_rate(mdp4_kms->lut_clk, config->max_clk);
-> +		clk_set_rate(mdp4_kms->lut_clk, max_clk);
->   	}
 >   
->   	pm_runtime_enable(dev->dev);
-> @@ -552,16 +553,6 @@ static int mdp4_kms_init(struct drm_device *dev)
->   	return ret;
->   }
+>   		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
+> @@ -2157,10 +2157,10 @@ static int dpu_encoder_virt_add_phys_encs(
+>   	if (disp_info->capabilities & MSM_DISPLAY_CAP_CMD_MODE) {
+>   		enc = dpu_encoder_phys_cmd_init(params);
 >   
-> -static struct mdp4_platform_config *mdp4_get_config(struct platform_device *dev)
-> -{
-> -	static struct mdp4_platform_config config = {};
-> -
-> -	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
-> -	config.max_clk = 266667000;
-> -
-> -	return &config;
-> -}
-> -
->   static const struct dev_pm_ops mdp4_pm_ops = {
->   	.prepare = msm_pm_prepare,
->   	.complete = msm_pm_complete,
-> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-> index 7cc549b6a82b..01179e764a29 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-> @@ -42,11 +42,6 @@ struct mdp4_kms {
->   };
->   #define to_mdp4_kms(x) container_of(x, struct mdp4_kms, base)
+> -		if (IS_ERR_OR_NULL(enc)) {
+> +		if (IS_ERR(enc)) {
+>   			DPU_ERROR_ENC(dpu_enc, "failed to init cmd enc: %ld\n",
+>   				PTR_ERR(enc));
+> -			return enc == NULL ? -EINVAL : PTR_ERR(enc);
+> +			return PTR_ERR(enc);
+>   		}
 >   
-> -/* platform config data (ie. from DT, or pdata) */
-> -struct mdp4_platform_config {
-> -	uint32_t max_clk;
-> -};
-> -
->   static inline void mdp4_write(struct mdp4_kms *mdp4_kms, u32 reg, u32 data)
->   {
->   	msm_writel(data, mdp4_kms->mmio + reg);
+>   		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
+> @@ -2170,10 +2170,10 @@ static int dpu_encoder_virt_add_phys_encs(
+>   	if (disp_info->intf_type == DRM_MODE_ENCODER_VIRTUAL) {
+>   		enc = dpu_encoder_phys_wb_init(params);
+>   
+> -		if (IS_ERR_OR_NULL(enc)) {
+> +		if (IS_ERR(enc)) {
+>   			DPU_ERROR_ENC(dpu_enc, "failed to init wb enc: %ld\n",
+>   					PTR_ERR(enc));
+> -			return enc == NULL ? -EINVAL : PTR_ERR(enc);
+> +			return PTR_ERR(enc);
+>   		}
+>   
+>   		dpu_enc->phys_encs[dpu_enc->num_phys_encs] = enc;
