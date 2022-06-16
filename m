@@ -1,67 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 978AF54DCFD
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 10:36:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 49DA054DD80
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 10:50:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52D7A113A04;
-	Thu, 16 Jun 2022 08:36:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C09FF113B04;
+	Thu, 16 Jun 2022 08:50:57 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B75DA113A04
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 08:36:30 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id s10so702527ljh.12
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 01:36:30 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2A2113B02
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 08:50:56 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id c2so1231350lfk.0
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 01:50:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=6388miRoWIYT9dGyAUk+0Vfnm67yqSa2KGN9cxoVxYU=;
- b=HPTjmcdXqAHOb+/kWhdDRqPWnxjuqGaPWvNOUqqoZxlz/Ok1yJTLxulryBj58j0dgV
- tH54KxkCCJaMpsLBfv3FTfaMtQjDKGq0hYGO6YbpaglFabQd7BxaUhPkgZ8zTm6I63NU
- Eoe2UrH14znnPgvS+L/r/Cu6Q8/HhHZhRxrOyx4eE9tPy4XrV/JK8h1Af0AC58FqfKMX
- Pt+jNodkC+Qhl0Tu246EiWrWzHDKnIsPW45yL1nvz7GH6vrDMl6I198g0tnjOShwO2Rz
- f4dH4tkU0OhaoG1pfm/ScdGZU8Pxpc987PZ59/ZvV+C69mWEXkVFVL3l1KuAI26YSMEh
- MfVQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=JCCzD7oRfJJDnx60RNCfCTBL5b1EzprlMae+XENmAMw=;
+ b=nHq0xF0ZYp3tEAz+fksuTFTmTGEc0OFPXgW2/s+GNpAhBfmKPKdBYphT7TZavBVMtU
+ oqp+Vd2l0loY/cKTWoVo5qJeAZeS86Ah39QqsE6KllgN6Kl2vI7xNazan1ZDoG3BHTYr
+ hnwSeJDS20VsYcgtcJI3uZaj50UxyEVjj178GyfLNmn2VtTlestAKHaxMvSKYAcaY1Fc
+ 5x4+nNVQnFe8zgrsv/IOxDbZEPCf2Wn1q+D7xKGgLzmBvhpZHyKg4B0APZvhBQYc/gKV
+ Xb1SCahD3iYTtLUWGFE40OycZeFbB3Es1UYMEO6L1CpM3clkCfoby9q2RDaqcubLSnPn
+ Wckw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=6388miRoWIYT9dGyAUk+0Vfnm67yqSa2KGN9cxoVxYU=;
- b=X88wlnLwg/1YgKfo13Ho6K2NTXEXgs7NB+GNxPiWVPadtG+/ob9mcfGD8Ov0/scesi
- zDpP6hpY3ljRnRfgebADuJk9idle8HL8Xgzel389QACEQIoBkuQfmX0MeIdXIqm6Wl17
- 2f0MVzPL0BsS3IaREKIi04khMKZpcrviRgkiATiJ5Y6UQcQFqaev55YLTYw1NUmqatBQ
- 6wqxcjU123tmhB3UqYNdzzeXAUltj8w4q0oyikk/t2+W+O+3V2xwCw8dUnBG8Tp49JnS
- QmTs77EEVsH2g1NXb1cr+OdW8/I84epO3KE0W58dNvokQMXXWDB8zWwr7v46qLGjdJ75
- Pv7w==
-X-Gm-Message-State: AJIora9QPTaOSl2z9xyuNCLsCBMMp0ucdfiozuQT/zGwArgrHEnEdRwB
- TYfX0DgWAY+T7jjkIVv1+zJt+A==
-X-Google-Smtp-Source: AGRyM1s8sjxgTCCOAcPmpljWMrnYoUKQY/eVbof0PmYJs/AiR/cN011zrxImw3/Twyg66Yc7JOIVRQ==
-X-Received: by 2002:a2e:904a:0:b0:255:7b02:8f32 with SMTP id
- n10-20020a2e904a000000b002557b028f32mr1917751ljg.133.1655368588998; 
- Thu, 16 Jun 2022 01:36:28 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- 8-20020a05651c00c800b002555dd9c20fsm169041ljr.20.2022.06.16.01.36.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Jun 2022 01:36:28 -0700 (PDT)
-Message-ID: <d5579158-631c-4e7f-afcf-437f318b03bd@linaro.org>
-Date: Thu, 16 Jun 2022 11:36:28 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, freedreno@lists.freedesktop.org
-References: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
+ bh=JCCzD7oRfJJDnx60RNCfCTBL5b1EzprlMae+XENmAMw=;
+ b=EneQPeuy7l1VLi1g/jyOsLsx1Qin11lEPKs3dTMGlq37tlDtoOaELSkXh6F+yyCM6I
+ +5PpGxH+7D1fYrCTcMx311lEX5SHYlzU/6A8DKjas6nnD5J5F8oifPmbZWaso5tyHbUo
+ X5Kpa3eVOGFJqFkxpT5dw2kmAanhUDB6MSR41DDtuKucJMcfsWUOymKDiok31ifh6Sjb
+ nwXAX3oIZcGN7Hlb9h41Eu4nUEbY3r0r+Y2aXkQ4HL/YA3c7eyyrsTWFFOcL6SPGXypR
+ rbw++93+Yhg5RKVfbpWyRXR4tRWlBXKIYsKlOoF15zLZZu/zVj7M555GmIX2Pt4s7+wX
+ 28ww==
+X-Gm-Message-State: AJIora8YoLpwwHpNUE7htgaQCAs8CZngMWPvAfsXG1DLSkVsIxjiceZ4
+ /ols7lqlMlY/AKmLFXXbws8deQ==
+X-Google-Smtp-Source: AGRyM1tpGaPfQUuy8/yW8c6Ns9ktOMIazvlJV8x2JhkS9lg7S7PSaaDBdKwrUpogNykTLJfE4MJtiQ==
+X-Received: by 2002:a05:6512:2017:b0:478:f827:67ca with SMTP id
+ a23-20020a056512201700b00478f82767camr2064877lfb.10.1655369455004; 
+ Thu, 16 Jun 2022 01:50:55 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ a16-20020a2e8310000000b002557115af75sm167209ljh.118.2022.06.16.01.50.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jun 2022 01:50:54 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1655328122-23619-1-git-send-email-quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/dpu: move intf and wb
- assignment to dpu_encoder_setup_display()
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Thu, 16 Jun 2022 11:50:54 +0300
+Message-Id: <20220616085054.432317-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/hdmi: drop empty bridge callbacks
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,92 +67,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, dri-devel@lists.freedesktop.org,
- swboyd@chromium.org, robdclark@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16/06/2022 00:22, Abhinav Kumar wrote:
-> intf and wb resources are not dependent on the rm global
-> state so need not be allocated during dpu_encoder_virt_atomic_mode_set().
-> 
-> Move the allocation of intf and wb resources to dpu_encoder_setup_display()
-> so that we can utilize the hw caps even during atomic_check() phase.
-> 
-> Since dpu_encoder_setup_display() already has protection against
-> setting invalid intf_idx and wb_idx, these checks can now
-> be dropped as well.
-> 
-> changes in v2:
-> 	- add phys->hw_intf and phys->hw_wb checks back
-> 
-> Fixes: e02a559a720f ("make changes to dpu_encoder to support virtual encoder")
+Drop empty callbacks msm_hdmi_bridge_enable() and
+msm_hdmi_bridge_disable().
 
-Reviewed: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 36 ++++++++++++++---------------
->   1 file changed, 18 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 3a462e327e0e..3be73211d631 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1048,24 +1048,6 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->   		phys->hw_pp = dpu_enc->hw_pp[i];
->   		phys->hw_ctl = to_dpu_hw_ctl(hw_ctl[i]);
->   
-> -		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
-> -			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
-> -
-> -		if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
-> -			phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
-> -
-> -		if (!phys->hw_intf && !phys->hw_wb) {
-> -			DPU_ERROR_ENC(dpu_enc,
-> -				      "no intf or wb block assigned at idx: %d\n", i);
-> -			return;
-> -		}
-> -
-> -		if (phys->hw_intf && phys->hw_wb) {
-> -			DPU_ERROR_ENC(dpu_enc,
-> -					"invalid phys both intf and wb block at idx: %d\n", i);
-> -			return;
-> -		}
-> -
->   		phys->cached_mode = crtc_state->adjusted_mode;
->   		if (phys->ops.atomic_mode_set)
->   			phys->ops.atomic_mode_set(phys, crtc_state, conn_state);
-> @@ -2293,7 +2275,25 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
->   		struct dpu_encoder_phys *phys = dpu_enc->phys_encs[i];
->   		atomic_set(&phys->vsync_cnt, 0);
->   		atomic_set(&phys->underrun_cnt, 0);
-> +
-> +		if (phys->intf_idx >= INTF_0 && phys->intf_idx < INTF_MAX)
-> +			phys->hw_intf = dpu_rm_get_intf(&dpu_kms->rm, phys->intf_idx);
-> +
-> +		if (phys->wb_idx >= WB_0 && phys->wb_idx < WB_MAX)
-> +			phys->hw_wb = dpu_rm_get_wb(&dpu_kms->rm, phys->wb_idx);
-> +
-> +		if (!phys->hw_intf && !phys->hw_wb) {
-> +			DPU_ERROR_ENC(dpu_enc, "no intf or wb block assigned at idx: %d\n", i);
-> +			ret = -EINVAL;
-> +		}
-> +
-> +		if (phys->hw_intf && phys->hw_wb) {
-> +			DPU_ERROR_ENC(dpu_enc,
-> +					"invalid phys both intf and wb block at idx: %d\n", i);
-> +			ret = -EINVAL;
-> +		}
->   	}
-> +
->   	mutex_unlock(&dpu_enc->enc_lock);
->   
->   	return ret;
-
-
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 97c24010c4d1..d569f0c6cab7 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -159,14 +159,6 @@ static void msm_hdmi_bridge_pre_enable(struct drm_bridge *bridge)
+ 		msm_hdmi_hdcp_on(hdmi->hdcp_ctrl);
+ }
+ 
+-static void msm_hdmi_bridge_enable(struct drm_bridge *bridge)
+-{
+-}
+-
+-static void msm_hdmi_bridge_disable(struct drm_bridge *bridge)
+-{
+-}
+-
+ static void msm_hdmi_bridge_post_disable(struct drm_bridge *bridge)
+ {
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+@@ -306,8 +298,6 @@ static enum drm_mode_status msm_hdmi_bridge_mode_valid(struct drm_bridge *bridge
+ 
+ static const struct drm_bridge_funcs msm_hdmi_bridge_funcs = {
+ 		.pre_enable = msm_hdmi_bridge_pre_enable,
+-		.enable = msm_hdmi_bridge_enable,
+-		.disable = msm_hdmi_bridge_disable,
+ 		.post_disable = msm_hdmi_bridge_post_disable,
+ 		.mode_set = msm_hdmi_bridge_mode_set,
+ 		.mode_valid = msm_hdmi_bridge_mode_valid,
 -- 
-With best wishes
-Dmitry
+2.35.1
+
