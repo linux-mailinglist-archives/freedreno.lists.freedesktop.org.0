@@ -1,63 +1,62 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E84054DC82
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 10:11:15 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD6054DC8E
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 10:11:22 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E18210F253;
-	Thu, 16 Jun 2022 08:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 737921122E1;
+	Thu, 16 Jun 2022 08:11:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1BCA112249
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 08:11:11 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id h36so1039208lfv.9
- for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 01:11:11 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF3A111247A
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 08:11:12 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id h23so1057658lfe.4
+ for <freedreno@lists.freedesktop.org>; Thu, 16 Jun 2022 01:11:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=wkVQHqN9sHWvqiIpS3oFqgJKwWLK+jcdAbCwGIc3Us0=;
- b=z2A2r4hQ3v5XMbMi5nKTm8eVigco81hiZGqy4RYhDnppTbW5C07vQa+Z49yHky5Zb1
- 4MJZzxlwQHNAwYDTtk5h3iXanrpq2b/ZVuiWljG7AK2e7yhURZ37aQn0gdYGsARlQ3AH
- mljVsKYpfDIFa0ACzjNOA0RitV+Q8q22JHAJWoc8WQa1P8qgIbuLudPjEdsWA1Objx4E
- GMmSLA9jIKp/veENqEKdTQfzBz0VVno+YkwNVCRgYdDzlb089ZET3DcA4zwEddRdozGh
- AHwGMC4af3TqxB3xeDtURhgEFO7eo3RVAqzaNHEp7V4yWLDf5jvJzNrUXuZweCv9tL0W
- 09LQ==
+ bh=aLVnUM+AqDl4tXNkj90J627+4z77zCYSsGSFtgLCsrQ=;
+ b=tU8wJlzCAB9KAxWRVZYppXhrZRGt+jzRnYQpAl3BNoGOATcHnBQOY2/mAx7GckMCXS
+ RkjnetmGIHJVl2jxHUro0vUn7AEEA3xVBvRmek1RQHm0hHtrZ1GOuu7o6FSF/imylrQY
+ Az2JAiqCJiXFaGiSvOCKHN2tF0c6+4BrCxksbob0Z1+aK2LEXupPTHS48M0ZMsBydXfL
+ jlOO0xNTAFpj2B4t+Z5hRJo8aL/f7ghIwVt+uv5p0GZ8dzqhOczWi8TTMXaJ7V9OpJQM
+ 74r3SVO6LkxA+81nb0BQ6q6HxdX3YQ6HFhXkW/H6F8MTdJnL5978M3YsVbSSBomjWDtJ
+ eBUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=wkVQHqN9sHWvqiIpS3oFqgJKwWLK+jcdAbCwGIc3Us0=;
- b=qxQJXpDSidO043K8lVUiDJUJT3gMP8JehCSUsBPOmNOXhiWfWOhV45e7bKYkTuTMFu
- Bc4xsaMWWy1PjV94bYhuBw8bzOICqZoXa+yT/I7My9jufSncM2IRc1BTUoz6mdxYFNPh
- ouMNSO/GAcPOW0ZenY0GRly/24xopjHnaEe+vKMDGAGOI57At7r8BGYAhb7AF7EukgFA
- lJc0c3yjD6S+ko1ClimACi07V/HfaQcSclXOryFMNNoCBRL+RYFuEqdQOhpWG346O1k8
- CTnxIa5b4nEbeJgAUN/doUXM2u4cUYZQvSCbBQpQwpycHNOPR3KCr8QHWajBR2kKjJu5
- pM5w==
-X-Gm-Message-State: AJIora/R+lzBEybeQGTBrrAqW6N63zHsBpldGb09Xqelfj4/CzWOLKul
- D83ulaHMB8rBzvvHomQjR8m7CQ==
-X-Google-Smtp-Source: AGRyM1stjvw4oXhtIOuav4qdwjxvxKLEG7e/5DDRJQYYmjqvEYKLNUFrirGRqVmjzwqGW2tJmsnejA==
-X-Received: by 2002:a19:7916:0:b0:479:2c32:7bad with SMTP id
- u22-20020a197916000000b004792c327badmr2014693lfc.519.1655367070185; 
- Thu, 16 Jun 2022 01:11:10 -0700 (PDT)
+ bh=aLVnUM+AqDl4tXNkj90J627+4z77zCYSsGSFtgLCsrQ=;
+ b=FDMNcJUCvnt7dyi56SGEsWZZaCTDhVAeD6wHISl6YQatZYRr6i9rvCVwY27TtSsbdV
+ wOUT2QZQvnZiEMWKryWGTWBb7Ic+Hi2hczM8SWhngTSVMnGn8cEQuwnVHlg84TtaXpYc
+ iPUxi2YtlruzcMDwHdYDv/1q+z+AT+ikHztwzjiIubgK1BxPOCEKtkYFOtkbl1dHDu4o
+ mwP6x6JZiTOtJj3OKxpwvd3enFQMDiwMoIPZvdk5Kp96nKg2ZgCRb/DMqxftpCDz/Db6
+ VEHsOzCreyNDW+gkMJVJy2AREu3RIff1PFdk4AT+rIIkQQCML5MZIlXEnrTGqlg0DLLa
+ 1eAQ==
+X-Gm-Message-State: AJIora/KdKpKVX5/MSNBXdwv0HJQmV+20WOQawMVyhyAIueWOK8uj1Yf
+ Fj8Vood8aS6UbX4Cdsxi36EgiQ==
+X-Google-Smtp-Source: AGRyM1v5s3DiaabHbHg4BhCVByW26chL0Mvy/RL3fwSwKimfMRFRtdA8vLdVpzN7Qirit67Tf5ZxXA==
+X-Received: by 2002:a05:6512:1399:b0:448:9f0b:bf4f with SMTP id
+ p25-20020a056512139900b004489f0bbf4fmr1959636lfa.67.1655367071239; 
+ Thu, 16 Jun 2022 01:11:11 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- y29-20020a19641d000000b004790823d354sm142144lfb.26.2022.06.16.01.11.09
+ y29-20020a19641d000000b004790823d354sm142144lfb.26.2022.06.16.01.11.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jun 2022 01:11:09 -0700 (PDT)
+ Thu, 16 Jun 2022 01:11:10 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Thu, 16 Jun 2022 11:11:03 +0300
-Message-Id: <20220616081106.350262-3-dmitry.baryshkov@linaro.org>
+Date: Thu, 16 Jun 2022 11:11:04 +0300
+Message-Id: <20220616081106.350262-4-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220616081106.350262-1-dmitry.baryshkov@linaro.org>
 References: <20220616081106.350262-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 2/5] drm/msm/mdp5: move iommu_domain_alloc()
- call close to its usage
+Subject: [Freedreno] [PATCH v3 3/5] drm/msm: Stop using iommu_present()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,120 +70,48 @@ List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Move iommu_domain_alloc() in front of adress space/IOMMU initialization.
-This allows us to drop final bits of struct mdp5_cfg_platform which
-remained from the pre-DT days.
+Even if some IOMMU has registered itself on the platform "bus", that
+doesn't necessarily mean it provides translation for the device we
+care about. Replace iommu_present() with a more appropriate check.
 
+On Qualcomm platforms the IOMMU can be specified either for the MDP/DPU
+device or for its parent MDSS device depending on the actual platform.
+Check both of them, since that is how both DPU and MDP5 drivers work.
+
+Co-developed-by: Robin Murphy <robin.murphy@arm.com>
 Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c | 16 ----------------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h |  6 ------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  6 ++++--
- 3 files changed, 4 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-index 1bf9ff5dbabc..714effb967ff 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
-@@ -1248,8 +1248,6 @@ static const struct mdp5_cfg_handler cfg_handlers_v3[] = {
- 	{ .revision = 3, .config = { .hw = &sdm630_config } },
- };
- 
--static struct mdp5_cfg_platform *mdp5_get_config(struct platform_device *dev);
--
- const struct mdp5_cfg_hw *mdp5_cfg_get_hw_config(struct mdp5_cfg_handler *cfg_handler)
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 44485363f37a..c781307464a0 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -271,8 +271,14 @@ bool msm_use_mmu(struct drm_device *dev)
  {
- 	return cfg_handler->config.hw;
-@@ -1274,10 +1272,8 @@ struct mdp5_cfg_handler *mdp5_cfg_init(struct mdp5_kms *mdp5_kms,
- 		uint32_t major, uint32_t minor)
- {
- 	struct drm_device *dev = mdp5_kms->dev;
--	struct platform_device *pdev = to_platform_device(dev->dev);
- 	struct mdp5_cfg_handler *cfg_handler;
- 	const struct mdp5_cfg_handler *cfg_handlers;
--	struct mdp5_cfg_platform *pconfig;
- 	int i, ret = 0, num_handlers;
+ 	struct msm_drm_private *priv = dev->dev_private;
  
- 	cfg_handler = kzalloc(sizeof(*cfg_handler), GFP_KERNEL);
-@@ -1320,9 +1316,6 @@ struct mdp5_cfg_handler *mdp5_cfg_init(struct mdp5_kms *mdp5_kms,
- 	cfg_handler->revision = minor;
- 	cfg_handler->config.hw = mdp5_cfg;
- 
--	pconfig = mdp5_get_config(pdev);
--	memcpy(&cfg_handler->config.platform, pconfig, sizeof(*pconfig));
--
- 	DBG("MDP5: %s hw config selected", mdp5_cfg->name);
- 
- 	return cfg_handler;
-@@ -1333,12 +1326,3 @@ struct mdp5_cfg_handler *mdp5_cfg_init(struct mdp5_kms *mdp5_kms,
- 
- 	return ERR_PTR(ret);
+-	/* a2xx comes with its own MMU */
+-	return priv->is_a2xx || iommu_present(&platform_bus_type);
++	/*
++	 * a2xx comes with its own MMU
++	 * On other platforms IOMMU can be declared specified either for the
++	 * MDP/DPU device or for its parent, MDSS device.
++	 */
++	return priv->is_a2xx ||
++		device_iommu_mapped(dev->dev) ||
++		device_iommu_mapped(dev->dev->parent);
  }
--
--static struct mdp5_cfg_platform *mdp5_get_config(struct platform_device *dev)
--{
--	static struct mdp5_cfg_platform config = {};
--
--	config.iommu = iommu_domain_alloc(&platform_bus_type);
--
--	return &config;
--}
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
-index 6b03d7899309..c2502cc33864 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.h
-@@ -104,14 +104,8 @@ struct mdp5_cfg_hw {
- 	uint32_t max_clk;
- };
  
--/* platform config data (ie. from DT, or pdata) */
--struct mdp5_cfg_platform {
--	struct iommu_domain *iommu;
--};
--
- struct mdp5_cfg {
- 	const struct mdp5_cfg_hw *hw;
--	struct mdp5_cfg_platform platform;
- };
- 
- struct mdp5_kms;
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 3d5621a68f85..a69e23f10d91 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -558,6 +558,7 @@ static int mdp5_kms_init(struct drm_device *dev)
- 	struct msm_gem_address_space *aspace;
- 	int irq, i, ret;
- 	struct device *iommu_dev;
-+	struct iommu_domain *iommu;
- 
- 	ret = mdp5_init(to_platform_device(dev->dev), dev);
- 
-@@ -601,14 +602,15 @@ static int mdp5_kms_init(struct drm_device *dev)
- 	}
- 	mdelay(16);
- 
--	if (config->platform.iommu) {
-+	iommu = iommu_domain_alloc(&platform_bus_type);
-+	if (iommu) {
- 		struct msm_mmu *mmu;
- 
- 		iommu_dev = &pdev->dev;
- 		if (!dev_iommu_fwspec_get(iommu_dev))
- 			iommu_dev = iommu_dev->parent;
- 
--		mmu = msm_iommu_new(iommu_dev, config->platform.iommu);
-+		mmu = msm_iommu_new(iommu_dev, iommu);
- 
- 		aspace = msm_gem_address_space_create(mmu, "mdp5",
- 			0x1000, 0x100000000 - 0x1000);
+ static int msm_init_vram(struct drm_device *dev)
 -- 
 2.35.1
 
