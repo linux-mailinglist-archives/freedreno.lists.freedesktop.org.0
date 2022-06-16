@@ -2,51 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4095054EA1E
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 21:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5B4C54EA4E
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 21:46:25 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A86B811A543;
-	Thu, 16 Jun 2022 19:26:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA0F510E431;
+	Thu, 16 Jun 2022 19:46:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
 Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
  [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0CF11A53D;
- Thu, 16 Jun 2022 19:26:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAF3D10E431;
+ Thu, 16 Jun 2022 19:46:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655407615; x=1686943615;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=eq8EszL+PHtaEuv/f0qST7/2EOFmLubMZ6h6d7Aw3vI=;
- b=fL+WUhrL9Aure74PXhaMdAOy9l6zylbeik2qp5ilzBPJY4D98q75Epwx
- iBXwrpgex3Ta99/rE8G/bB/v/hkL2vvIJiPSe1Nn74vlmJzWP1/Fnl9tt
- 2xwfM6BnVymmucHnequdv5k6foEotvdAXVHKlAzztdHPW1wxtv/DO/5Jv Q=;
-Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 12:26:55 -0700
+ t=1655408782; x=1686944782;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=q+zfdU8CHrLB6fcOwNpYub9QfP/SQqDPjkb0NAMPTC0=;
+ b=eB1LbX4yB25KyfiY/tq6Fa0cLIdoMCzoE8qQHP9ptXIBw70pvmkCS7gJ
+ Tmivq4KVvIbqy5fJVCs6FSpyreMZGkiUwDE2+7UnPSlU4XEwmAeYwh6ES
+ YVC2obpgddQf7Y+QM4Mwjd2CqWRHLvSOBlP8K2LCnI6ZKnegdXGrkXyDw c=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 12:46:22 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 12:26:55 -0700
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 12:46:22 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 12:26:54 -0700
-Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 12:26:54 -0700
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Thu, 16 Jun 2022 12:26:46 -0700
-Message-ID: <1655407606-21760-1-git-send-email-quic_abhinavk@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+ 15.2.986.22; Thu, 16 Jun 2022 12:46:21 -0700
+Received: from [10.111.175.222] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 16 Jun
+ 2022 12:46:19 -0700
+Message-ID: <84f5e432-ee63-68c2-8072-e5ae2024b4ae@quicinc.com>
+Date: Thu, 16 Jun 2022 12:46:17 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
+ <robdclark@gmail.com>, Sean Paul <sean@poorly.run>
+References: <20220507170922.1723712-1-dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20220507170922.1723712-1-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH] drm/msm/dpu: limit wb modes based on
- max_mixer_width
+Subject: Re: [Freedreno] [PATCH v2 1/3] drm/msm/mdp4: convert to
+ drm_crtc_handle_vblank()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,64 +66,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: markyacoub@chromium.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
- quic_jesszhan@quicinc.com, quic_aravindh@quicinc.com
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-As explained in [1], using max_linewidth to limit the modes
-does not seem to remove 4K modes on chipsets such as
-sm8250 where the max_linewidth actually supports 4k.
 
-This would have been alright if dual SSPP support was
-present but otherwise fails the per SSPP bandwidth check.
 
-The ideal way to implement this would be to filter out
-the modes which will exceed the bandwidth check by computing
-it.
-
-But this would be an exhaustive solution till we have
-dual SSPP support.
-
-Let's instead use max_mixer_width to limit the modes.
-
-max_mixer_width still remains 2560 on sm8250 so even if
-the max_linewidth is 4096, the only way 4k modes could have
-been supported is to have source split enabled on the SSPP.
-
-Since source split support is not enabled yet in DPU driver,
-enforce max_mixer_width as the upper limit on the modes.
-
-[1] https://patchwork.freedesktop.org/patch/489662/
-
-Fixes: e67dcecda06f ("drm/msm/dpu: limit writeback modes according to max_linewidth")
-Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-index 399115e4e217..2fd787079f9b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-@@ -11,7 +11,14 @@ static int dpu_wb_conn_get_modes(struct drm_connector *connector)
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
- 
--	return drm_add_modes_noedid(connector, dpu_kms->catalog->caps->max_linewidth,
-+	/*
-+	 * We should ideally be limiting the modes only to the maxlinewidth but
-+	 * on some chipsets this will allow even 4k modes to be added which will
-+	 * fail the per SSPP bandwidth checks. So, till we have dual-SSPP support
-+	 * and source split support added lets limit the modes based on max_mixer_width
-+	 * as 4K modes can then be supported.
-+	 */
-+	return drm_add_modes_noedid(connector, dpu_kms->catalog->caps->max_mixer_width,
- 			dev->mode_config.max_height);
- }
- 
--- 
-2.7.4
-
+On 5/7/2022 10:09 AM, Dmitry Baryshkov wrote:
+> Stop using deprecated drm_handle_vblank(), use drm_crtc_handle_vblank()
+> instead.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+> index 4d49f3ba6a96..ddcdd5e87853 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+> @@ -69,8 +69,7 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
+>   	struct mdp_kms *mdp_kms = to_mdp_kms(kms);
+>   	struct mdp4_kms *mdp4_kms = to_mdp4_kms(mdp_kms);
+>   	struct drm_device *dev = mdp4_kms->dev;
+> -	struct msm_drm_private *priv = dev->dev_private;
+> -	unsigned int id;
+> +	struct drm_crtc *crtc;
+>   	uint32_t status, enable;
+>   
+>   	enable = mdp4_read(mdp4_kms, REG_MDP4_INTR_ENABLE);
+> @@ -81,9 +80,9 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
+>   
+>   	mdp_dispatch_irqs(mdp_kms, status);
+>   
+> -	for (id = 0; id < priv->num_crtcs; id++)
+> -		if (status & mdp4_crtc_vblank(priv->crtcs[id]))
+> -			drm_handle_vblank(dev, id);
+> +	drm_for_each_crtc(crtc, dev)
+> +		if (status & mdp4_crtc_vblank(crtc))
+> +			drm_crtc_handle_vblank(crtc);
+>   
+>   	return IRQ_HANDLED;
+>   }
