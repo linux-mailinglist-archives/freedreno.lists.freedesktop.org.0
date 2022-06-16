@@ -2,43 +2,44 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13BAC54E9B9
-	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 21:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B9854E9BA
+	for <lists+freedreno@lfdr.de>; Thu, 16 Jun 2022 21:01:55 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E26011A4E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 672F011A4EA;
 	Thu, 16 Jun 2022 19:01:52 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6A8C11A4E2;
- Thu, 16 Jun 2022 19:01:50 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172CF11A4EB;
+ Thu, 16 Jun 2022 19:01:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
  t=1655406111; x=1686942111;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=roGI+40BZd/tln2Yb85UFAgrf+HsdV+1G9yDFA3vNzg=;
- b=h49Pezc2MyrmQp8QCow7/UIaJAHUyirhkS6wpavkygytkl8UcwuUNnUU
- Nm+AWnnXbaV1hB6Y1cpXhOeX6hPSvf+BCSQmEEwobEpfsUYr9VtPxOXWz
- yq//cQ2Qv1M032KU0JMucpP9emTGLpBFLc858mEYIwrhBD50+1fALl+AG E=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 16 Jun 2022 12:01:50 -0700
+ bh=lHFm+y5ucgd6orxxm42YZyd5QnhlOerZcbt/dcNUICA=;
+ b=kUcDYBFieszYAHAtc44bUYVWkxuJX4j30iui38heoSMboKUtyvbkHY0G
+ xnB3s4N9FuXUMrKNZPlxp5EmLGD81Rm7iYKCKCwU0nT5u+tewEGWASN+A
+ ozd9m3pkvMk24KJ4x+vhTftKA3vmxlNiXjeOQ01/Gu6wTfGDr3YeMnrRj k=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 16 Jun 2022 12:01:50 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2022 12:01:49 -0700
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2022 12:01:50 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 12:01:49 -0700
+ 15.2.986.22; Thu, 16 Jun 2022 12:01:50 -0700
 Received: from abhinavk-linux.qualcomm.com (10.80.80.8) by
  nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 16 Jun 2022 12:01:48 -0700
+ 15.2.986.22; Thu, 16 Jun 2022 12:01:49 -0700
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 To: <freedreno@lists.freedesktop.org>
-Date: Thu, 16 Jun 2022 12:01:23 -0700
-Message-ID: <1655406084-17407-2-git-send-email-quic_abhinavk@quicinc.com>
+Date: Thu, 16 Jun 2022 12:01:24 -0700
+Message-ID: <1655406084-17407-3-git-send-email-quic_abhinavk@quicinc.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1655406084-17407-1-git-send-email-quic_abhinavk@quicinc.com>
 References: <1655406084-17407-1-git-send-email-quic_abhinavk@quicinc.com>
@@ -47,8 +48,8 @@ Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v3 2/3] drm/msm/dpu: fix maxlinewidth for
- writeback block
+Subject: [Freedreno] [PATCH v3 3/3] drm/msm/dpu: remove hard-coded linewidth
+ limit for writeback
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,53 +69,44 @@ Cc: markyacoub@chromium.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Writeback block for sm8250 was using the default maxlinewidth
-of 2048. But this is not right as it supports upto 4096.
-
-This should have no effect on most resolutions as we are
-still limiting upto maxlinewidth of SSPP for adding the modes.
-
-Fix the maxlinewidth for writeback block on sm8250.
+Remove the hard-coded limit for writeback and lets start using
+the one from catalog instead.
 
 changes in v3:
 	- correct the Fixes tag
 
-Fixes: 53324b99bd7b ("drm/msm/dpu: add writeback blocks to the sm8250 DPU catalog")
+Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-index 400ebceb56bb..dd7537e32f88 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
-@@ -1285,7 +1285,7 @@ static const struct dpu_intf_cfg qcm2290_intf[] = {
-  * Writeback blocks config
-  *************************************************************/
- #define WB_BLK(_name, _id, _base, _features, _clk_ctrl, \
--		__xin_id, vbif_id, _reg, _wb_done_bit) \
-+		__xin_id, vbif_id, _reg, _max_linewidth, _wb_done_bit) \
- 	{ \
- 	.name = _name, .id = _id, \
- 	.base = _base, .len = 0x2c8, \
-@@ -1295,13 +1295,13 @@ static const struct dpu_intf_cfg qcm2290_intf[] = {
- 	.clk_ctrl = _clk_ctrl, \
- 	.xin_id = __xin_id, \
- 	.vbif_idx = vbif_id, \
--	.maxlinewidth = DEFAULT_DPU_LINE_WIDTH, \
-+	.maxlinewidth = _max_linewidth, \
- 	.intr_wb_done = DPU_IRQ_IDX(_reg, _wb_done_bit) \
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 59da348ff339..fc1d4fda69b5 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -20,8 +20,6 @@
+ #include "dpu_crtc.h"
+ #include "disp/msm_disp_snapshot.h"
+ 
+-#define DEFAULT_MAX_WRITEBACK_WIDTH 2048
+-
+ #define to_dpu_encoder_phys_wb(x) \
+ 	container_of(x, struct dpu_encoder_phys_wb, base)
+ 
+@@ -278,9 +276,9 @@ static int dpu_encoder_phys_wb_atomic_check(
+ 		DPU_ERROR("invalid fb h=%d, mode h=%d\n", fb->height,
+ 				  mode->vdisplay);
+ 		return -EINVAL;
+-	} else if (fb->width > DEFAULT_MAX_WRITEBACK_WIDTH) {
++	} else if (fb->width > phys_enc->hw_wb->caps->maxlinewidth) {
+ 		DPU_ERROR("invalid fb w=%d, maxlinewidth=%u\n",
+-				  fb->width, DEFAULT_MAX_WRITEBACK_WIDTH);
++				  fb->width, phys_enc->hw_wb->caps->maxlinewidth);
+ 		return -EINVAL;
  	}
  
- static const struct dpu_wb_cfg sm8250_wb[] = {
- 	WB_BLK("wb_2", WB_2, 0x65000, WB_SM8250_MASK, DPU_CLK_CTRL_WB2, 6,
--			VBIF_RT, MDP_SSPP_TOP0_INTR, 4),
-+			VBIF_RT, MDP_SSPP_TOP0_INTR, 4096, 4),
- };
- 
- /*************************************************************
 -- 
 2.7.4
 
