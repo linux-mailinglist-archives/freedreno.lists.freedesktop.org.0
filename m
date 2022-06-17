@@ -1,59 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967AD54FE89
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 22:53:10 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 53BF654FE8E
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 22:55:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B18A112537;
-	Fri, 17 Jun 2022 20:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DA3010E443;
+	Fri, 17 Jun 2022 20:55:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18CE1112528
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 20:53:08 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-fe4ac3b87fso6941299fac.3
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 13:53:08 -0700 (PDT)
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
+ [IPv6:2607:f8b0:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D1CA10E443
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 20:55:02 +0000 (UTC)
+Received: by mail-ot1-x336.google.com with SMTP id
+ q1-20020a056830018100b0060c2bfb668eso3928619ota.8
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 13:55:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:in-reply-to:references:from:user-agent:date:message-id
  :subject:to:cc;
- bh=pOJ0w1fx8TDvU6Wqqk+kju4f/j2XWysLUuPMKoQ93WQ=;
- b=BCibZwkwaWdmHbyckK1itupaySjS2gpljASTEwZsgmFNvWfcv7hFIh0Q6nCCPGNLjx
- /i/TFOrHBgEmtJlicNOVI2xEFcbx0/J45Y/oeZcqipsroldorlI8/h02GBcyDQ/k7b5d
- a019+LDOh4MT5bMtUHPCY/jUDuG4Zea/gCL30=
+ bh=liQN5qtUNa2mM5mknDTOFWHHb8rU09mHks8H0tyK+vE=;
+ b=J/KAuPGEsivDv33XuIq2xTcMGgDRqhWxAoD+Tzk+nDWGl9jDGTOWTx0nunPwD4byDk
+ FaeETdidas6GwYYNf1qBFXlMcUPvUXBOHATyBbGzeOHRWh76uVa1SqUK1Kll7jRZIw75
+ m1oOrl/2PfMWsQC460Gdx9AksE90kx/JDqn1U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:in-reply-to:references:from
  :user-agent:date:message-id:subject:to:cc;
- bh=pOJ0w1fx8TDvU6Wqqk+kju4f/j2XWysLUuPMKoQ93WQ=;
- b=rDwZoy6b4DtufizpLIK2KJLRb7MAUBxD+KL9IiDdeeBeUfw6f5PoiWpBpaBD4W0Knk
- qQx5hV45gr4PJIP0lfGwUjhIbnHHnvlc4dzTu47iooi1hrIvVyJoKTHGgVjcPFapgNcq
- E3uIywK6d8UNBIVQbrb6GAi8soBhvQ9Hen1UglthwIMuFegQkzuTFYaHn2hpQJVnyhpF
- 2TbSekG/c+jKDf66PvaYzYMWarhJBRrqoHeTDiB6eqTDVNFMla39Xi8tgDVLy7kZL+mM
- tq6WpfYjPow2KsABjElTLfM4qOW/JQJ7ibreDKPIjbXanDrEME0StFXgchTc+yKqO7rD
- NaPA==
-X-Gm-Message-State: AJIora8EjmrX1sGL+mfAdg/jPpLDxix+dcBLVvXWF4m9x6D+8NIGVDRI
- /SpSb7t04vxjY/8Lebisr8f3kVlSBQx42pYXAM4Gzg==
-X-Google-Smtp-Source: AGRyM1tHrKeZbF6x4Ph4v2TGhIyG5/H7CB4DpNOnp0o8Y+JdhKEu01LNai/uLjNuxsjXcEVC20rNgdoz+JZY07qm7Bc=
-X-Received: by 2002:a05:6870:b48a:b0:101:40eb:63a3 with SMTP id
- y10-20020a056870b48a00b0010140eb63a3mr6279169oap.193.1655499187407; Fri, 17
- Jun 2022 13:53:07 -0700 (PDT)
+ bh=liQN5qtUNa2mM5mknDTOFWHHb8rU09mHks8H0tyK+vE=;
+ b=4Ny2bAOI1qMqA9qCgTFswnwN8QUomy+B7zOG82VP7iPZOjj5IDdxTuvrSEpY+7e9+K
+ s2QgLFVee+fD8/Y+JQsENPXDjtzEe/5QihGNv0+OUVCg8L1Nm7pwjAa2ODzzIIHDcwn1
+ b6wnsEN1r+oig+6rgNzwhQfuPJLV0f0udodepHtJAX32/4giAi51QZo3M87Agi4MQ3ss
+ 6p6v1hy6Uz0kn4DCaMRrWaLDKLokLCSjyHwD7gFllvzvnTeyu/2xsWWYDwwAGyn6pCTD
+ 1GpVE+XMllqi2N0LrsRjhYIY51MUSK0G7xw8rfHk51FnIFhr9uN69+tr1oiXIh1AGaGx
+ Pa3Q==
+X-Gm-Message-State: AJIora/uIYuKl6eC6DJ9v5FUf6KKyQstcEySU9HdGrTXx22OM7cDanMm
+ rJfFXyOz0KyGFNBhLSFHogDefNW8rI0CgisF9HiXKw==
+X-Google-Smtp-Source: AGRyM1vP9nApPqYwQndj8FDnlRLdyc8637CAsZQ8w99xEFsa/MBvPzT9PmZCzFl4LEkTZBvNBWJiuG/QFQco0VTetAk=
+X-Received: by 2002:a9d:729b:0:b0:60c:21bd:97c0 with SMTP id
+ t27-20020a9d729b000000b0060c21bd97c0mr4957121otj.77.1655499301490; Fri, 17
+ Jun 2022 13:55:01 -0700 (PDT)
 Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jun 2022 13:53:07 -0700
+ HTTPREST; Fri, 17 Jun 2022 13:55:01 -0700
 MIME-Version: 1.0
-In-Reply-To: <20220616085054.432317-1-dmitry.baryshkov@linaro.org>
-References: <20220616085054.432317-1-dmitry.baryshkov@linaro.org>
+In-Reply-To: <20220616085057.432353-1-dmitry.baryshkov@linaro.org>
+References: <20220616085057.432353-1-dmitry.baryshkov@linaro.org>
 From: Stephen Boyd <swboyd@chromium.org>
 User-Agent: alot/0.10
-Date: Fri, 17 Jun 2022 13:53:06 -0700
-Message-ID: <CAE-0n507ro+ZDAi8eoYbXjuxeT8SB-viCbr3Fh3x9QN56UTLrQ@mail.gmail.com>
+Date: Fri, 17 Jun 2022 13:55:01 -0700
+Message-ID: <CAE-0n50Mrq=iwoEx60uyv7CKXWYJkjMZPgYtNnmfpKka_y3y5w@mail.gmail.com>
 To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/hdmi: drop empty bridge callbacks
+Subject: Re: [Freedreno] [PATCH] drm/msm/hdmi: support attaching the "next"
+ bridge
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,9 +73,10 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-06-16 01:50:54)
-> Drop empty callbacks msm_hdmi_bridge_enable() and
-> msm_hdmi_bridge_disable().
+Quoting Dmitry Baryshkov (2022-06-16 01:50:57)
+> There might be a chain of bridges attached to the HDMI node
+> (including but not limited to the display-connector bridge). Add support
+> for attaching them right to the HDMI bridge chain.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 > ---
