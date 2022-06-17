@@ -1,55 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E70C3550031
-	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 00:50:23 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7CFC550059
+	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 01:08:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99F1410EF68;
-	Fri, 17 Jun 2022 22:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E18A10F809;
+	Fri, 17 Jun 2022 23:08:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0252A10EF6A
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 22:50:20 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id c2so8959960lfk.0
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 15:50:20 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D8B310F80C
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 23:08:02 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id l20so6200905lji.0
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 16:08:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=xOxkF4mzeYd1/+qHSn88D6dzTW2RY4MuLGzz276BBWI=;
- b=q3KoGTIiJaI8clsa4c1ULBUqNwFn85K8GrBZS94T8WSePXvIt6Kv4irUSQ6LRchwSy
- U31y2j3v5RLYshU0GD2pVEryFHf0FzBrdfC92zhwiClFbRNeO8pvUazKliUl9PkitCCX
- XSy+9pb2Rw7qbPoBbYKLsTtnFhH8nQtW/j163QaDo4KPnjMB/fi2eOomoPYcnXO/NOOQ
- lhkO4HZBpIkaFAH8FimyyyoQsto2Uzq2NfHBfr5FA5NWfOZ5fd2py+NLoTpva4b41ro2
- 4CR8biFvWt6yRtfwVqbTGgXhkDq+x0f3HNKJFUxp5jItWeF28yDucUP2dhJIcBMHi3rO
- yLcw==
+ bh=6ZYaMoRyFzzdVkOyMeMhxNNQQcfk+a73MTAQKe18VZo=;
+ b=RXh3EgnMC/4kWNHclXpiSul9Dc/Ob4bXsZK6inOyualZGJ4iznqD1kHoc0adcTZZnD
+ L+L6W8ndCsJGT1OORGpESaqm5/p/30VgrLRgo8zT75zpmLE5F7XhS6J6Vnid+cHtpWZG
+ Hb1oX53AxFwTOw+3PJdhs+aDez8q9p095mpVq6gMzrh54J1a3hXPRx/865gRmszCMxTR
+ bugoa6F+cw0baRkUNVYLM675cgALD2YVe3LgDH3tWPKytzq7YDGep3PDBcAymNicXVKZ
+ Dw7aIHO+SP3NEs5GBdh3pDWDxKCxruFMN1UEEyVRn3SR4BE+CF9Y4Ednvamdvd26XIqN
+ HklA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=xOxkF4mzeYd1/+qHSn88D6dzTW2RY4MuLGzz276BBWI=;
- b=A8NPiBaA1CY8JiUO24zMmFO5zvEJ7yk9YHqBxoSm4h67p+NodFOo1bMrKkg7lCTFu6
- s2H9uOlWG6d0ny/xCanbjhvULVwPmN35z4+GugNDtSt5nkpEaU2k/H2BQiYwf5Gccs2J
- grqMmujRcU93+zSpThsW2R1L0eLJGDFwQNVoGZatdlA/UkDaoNxDHn9iC+ZEOgUIIpjL
- z/1U0w8oP05EQorK3hSu3dgjB452j50brmhBzqRm3UEmD7GMAjDEQo+iGYNN3ZjgSc20
- psNk2UG/mWuK18s5nYzD33yU6bgzuETynO7dCbFJz3vBxVQj6nQV3+jo29GvMzT8MsJn
- h7Qw==
-X-Gm-Message-State: AJIora/9Rc5r0TJISerZUgzM8UJuvYdpdEjVqz3Dycnt/EnpuFBLyg3b
- Okh/Xtmd1to/KK8BYmt6vHc3jg==
-X-Google-Smtp-Source: AGRyM1sbhZsF9OvwGOTigG+v3++nQ+M6/Hvpvsg/tOgLGXFwRYDF8Hd3y4QNNmjUVwmb6jT/u5EXIg==
-X-Received: by 2002:a05:6512:3081:b0:47e:da1e:725f with SMTP id
- z1-20020a056512308100b0047eda1e725fmr6886324lfd.176.1655506217824; 
- Fri, 17 Jun 2022 15:50:17 -0700 (PDT)
+ bh=6ZYaMoRyFzzdVkOyMeMhxNNQQcfk+a73MTAQKe18VZo=;
+ b=h/4QfP7PsM60dPdHRCdbaxeXwG+R2iooRAepA7/czw0wA+KhxGJXT4vA1ZTdsRDfZo
+ sU7Cg7IxnlMjZ6R2hwLzD3aKR34BPIm9V1Akg8WXjBNvcJYYGN14O1T9UJLNqs0ut16u
+ xJxiawVlhHBp3nIz8aHWozXSszRLAIo71bBu5JkpDWhFy0t8J9ZksiliwFG3/J7lIzz5
+ KFBbNuFZPwSmVUj5r1UkLoHS+E9sXmPThInj7LMka5ub1BeLi9frdpvGhCcLrvXzlcnC
+ 8mzPHAaervCftIyVOhXH8v3VK+Us87BWC456KZznPn8r3Krk8GndV/nT3sUnMo7NuVeb
+ 8Skg==
+X-Gm-Message-State: AJIora8erGpz5+0HM3BFvCXeUa6/OJe23ofCIT3zGVVg9dem8AySdX8e
+ W0X7QYJTQociTajkCfQ9fIlt0Q==
+X-Google-Smtp-Source: AGRyM1u4px/R5mYa/q2Ih7N60pbaP0+87kXGXeIvKyOLQnhWdyhLroYYlme5OHm8OUgyfr0MVJVTgA==
+X-Received: by 2002:a2e:80d3:0:b0:255:5c62:7614 with SMTP id
+ r19-20020a2e80d3000000b002555c627614mr6140247ljg.389.1655507280420; 
+ Fri, 17 Jun 2022 16:08:00 -0700 (PDT)
 Received: from [192.168.1.211] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- a19-20020a056512201300b0047d479884b8sm796969lfb.27.2022.06.17.15.50.17
+ u8-20020a2e9f08000000b00255446b1726sm680292ljk.121.2022.06.17.16.07.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 17 Jun 2022 15:50:17 -0700 (PDT)
-Message-ID: <ddddcb1d-46c6-4903-3a8a-83bc96ece159@linaro.org>
-Date: Sat, 18 Jun 2022 01:50:16 +0300
+ Fri, 17 Jun 2022 16:08:00 -0700 (PDT)
+Message-ID: <bb98ca29-8752-6864-ddbd-19547fb6f73b@linaro.org>
+Date: Sat, 18 Jun 2022 02:07:58 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
@@ -57,13 +57,13 @@ Content-Language: en-GB
 To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20220617204750.2347797-1-swboyd@chromium.org>
- <20220617204750.2347797-2-swboyd@chromium.org>
+ <20220617204750.2347797-3-swboyd@chromium.org>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20220617204750.2347797-2-swboyd@chromium.org>
+In-Reply-To: <20220617204750.2347797-3-swboyd@chromium.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 1/3] drm/msm/dp: Reorganize code to avoid
- forward declaration
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dp: Remove pixel_rate from
+ struct dp_ctrl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,156 +83,219 @@ Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On 17/06/2022 23:47, Stephen Boyd wrote:
-> Let's move these functions around to avoid having to forward declare
-> dp_ctrl_on_stream_phy_test_report(). Also remove
-> dp_ctrl_reinitialize_mainlink() forward declaration because we're doing
-> that sort of task.
+> This struct member is stored to in the function that calls the function
+> which uses it. That's possible with a function argument instead of
+> storing to a struct member. Pass the pixel_rate as an argument instead
+> to simplify the code. Note that dp_ctrl_link_maintenance() was storing
+> the pixel_rate but never using it so we just remove the assignment from
+> there.
 > 
 > Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
 > Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 > ---
->   drivers/gpu/drm/msm/dp/dp_ctrl.c | 104 +++++++++++++++----------------
->   1 file changed, 50 insertions(+), 54 deletions(-)
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 57 ++++++++++++++++----------------
+>   drivers/gpu/drm/msm/dp/dp_ctrl.h |  1 -
+>   2 files changed, 28 insertions(+), 30 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 703249384e7c..bd445e683cfc 100644
+> index bd445e683cfc..e114521af2e9 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -1238,8 +1238,6 @@ static int dp_ctrl_link_train_2(struct dp_ctrl_private *ctrl,
->   	return -ETIMEDOUT;
+> @@ -1336,7 +1336,7 @@ static void dp_ctrl_set_clock_rate(struct dp_ctrl_private *ctrl,
+>   				name, rate);
 >   }
 >   
-> -static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl);
-> -
->   static int dp_ctrl_link_train(struct dp_ctrl_private *ctrl,
->   			int *training_step)
+> -static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+> +static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl, unsigned long pixel_rate)
+
+
+I think we can read pixel_rate here rather than getting it as an 
+argument. We'd need to move handling (DP_TEST_LINK_PHY_TEST_PATTERN && 
+!ctrl->panel->dp_mode.drm_mode.clock) case here from dp_ctrl_on_link().
+
 >   {
-> @@ -1534,38 +1532,6 @@ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
+>   	int ret = 0;
+>   	struct dp_io *dp_io = &ctrl->parser->io;
+> @@ -1357,25 +1357,25 @@ static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private *ctrl)
+>   	if (ret)
+>   		DRM_ERROR("Unable to start link clocks. ret=%d\n", ret);
+>   
+> -	drm_dbg_dp(ctrl->drm_dev, "link rate=%d pixel_clk=%d\n",
+> -		ctrl->link->link_params.rate, ctrl->dp_ctrl.pixel_rate);
+> +	drm_dbg_dp(ctrl->drm_dev, "link rate=%d pixel_clk=%lu\n",
+> +		ctrl->link->link_params.rate, pixel_rate);
+>   
 >   	return ret;
 >   }
 >   
-> -static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl);
-> -
-> -static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
-> -{
+> -static int dp_ctrl_enable_stream_clocks(struct dp_ctrl_private *ctrl)
+> +static int dp_ctrl_enable_stream_clocks(struct dp_ctrl_private *ctrl,
+> +					unsigned long pixel_rate)
+>   {
 > -	int ret = 0;
-> -
-> -	if (!ctrl->link->phy_params.phy_test_pattern_sel) {
-> -		drm_dbg_dp(ctrl->drm_dev,
-> -			"no test pattern selected by sink\n");
-> -		return ret;
-> -	}
-> -
-> -	/*
-> -	 * The global reset will need DP link related clocks to be
-> -	 * running. Add the global reset just before disabling the
-> -	 * link clocks and core clocks.
-> -	 */
-> -	ret = dp_ctrl_off(&ctrl->dp_ctrl);
-> -	if (ret) {
-> -		DRM_ERROR("failed to disable DP controller\n");
-> -		return ret;
-> -	}
-> -
-> -	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
-> -	if (!ret)
-> -		ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
-> -	else
-> -		DRM_ERROR("failed to enable DP link controller\n");
-> -
-> -	return ret;
-> -}
-> -
->   static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
->   {
->   	bool success = false;
-> @@ -1618,6 +1584,56 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
->   	return success;
->   }
->   
-> +static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-> +{
 > +	int ret;
-> +	struct dp_ctrl_private *ctrl;
-> +
-> +	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-> +
-> +	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
-> +
-> +	ret = dp_ctrl_enable_stream_clocks(ctrl);
-> +	if (ret) {
-> +		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	dp_ctrl_send_phy_test_pattern(ctrl);
-> +
-> +	return 0;
-> +}
-> +
-> +static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
-> +{
-> +	int ret = 0;
-> +
-> +	if (!ctrl->link->phy_params.phy_test_pattern_sel) {
-> +		drm_dbg_dp(ctrl->drm_dev,
-> +			"no test pattern selected by sink\n");
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * The global reset will need DP link related clocks to be
-> +	 * running. Add the global reset just before disabling the
-> +	 * link clocks and core clocks.
-> +	 */
-> +	ret = dp_ctrl_off(&ctrl->dp_ctrl);
-> +	if (ret) {
-> +		DRM_ERROR("failed to disable DP controller\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
-> +	if (!ret)
-> +		ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
-> +	else
-> +		DRM_ERROR("failed to enable DP link controller\n");
-> +
-> +	return ret;
-> +}
-> +
->   void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
->   {
->   	struct dp_ctrl_private *ctrl;
-> @@ -1815,26 +1831,6 @@ static int dp_ctrl_link_retrain(struct dp_ctrl_private *ctrl)
->   	return dp_ctrl_setup_main_link(ctrl, &training_step);
+>   
+> -	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel",
+> -					ctrl->dp_ctrl.pixel_rate * 1000);
+> +	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel", pixel_rate * 1000);
+
+Note to myself (or to anybody doing further cleanup): store stream_pixel 
+clock into dp_ctrl_private and set it directly here. Then 
+dp_ctrl_set_clock_rate() can be removed.
+
+>   
+>   	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, true);
+>   	if (ret)
+>   		DRM_ERROR("Unabled to start pixel clocks. ret=%d\n", ret);
+>   
+> -	drm_dbg_dp(ctrl->drm_dev, "link rate=%d pixel_clk=%d\n",
+> -			ctrl->link->link_params.rate, ctrl->dp_ctrl.pixel_rate);
+> +	drm_dbg_dp(ctrl->drm_dev, "link rate=%d pixel_clk=%lu\n",
+> +			ctrl->link->link_params.rate, pixel_rate);
+>   
+>   	return ret;
+>   }
+> @@ -1445,7 +1445,7 @@ static bool dp_ctrl_use_fixed_nvid(struct dp_ctrl_private *ctrl)
+>   	return false;
 >   }
 >   
-> -static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-> -{
-> -	int ret;
-> -	struct dp_ctrl_private *ctrl;
+> -static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
+> +static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl, unsigned long pixel_rate)
+>   {
+>   	int ret = 0;
+>   	struct dp_io *dp_io = &ctrl->parser->io;
+> @@ -1469,7 +1469,7 @@ static int dp_ctrl_reinitialize_mainlink(struct dp_ctrl_private *ctrl)
+>   	/* hw recommended delay before re-enabling clocks */
+>   	msleep(20);
+>   
+> -	ret = dp_ctrl_enable_mainlink_clocks(ctrl);
+> +	ret = dp_ctrl_enable_mainlink_clocks(ctrl, pixel_rate);
+>   	if (ret) {
+>   		DRM_ERROR("Failed to enable mainlink clks. ret=%d\n", ret);
+>   		return ret;
+> @@ -1517,8 +1517,6 @@ static int dp_ctrl_link_maintenance(struct dp_ctrl_private *ctrl)
+>   	ctrl->link->phy_params.p_level = 0;
+>   	ctrl->link->phy_params.v_level = 0;
+>   
+> -	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
 > -
-> -	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-> -
+>   	ret = dp_ctrl_setup_main_link(ctrl, &training_step);
+>   	if (ret)
+>   		goto end;
+> @@ -1588,12 +1586,12 @@ static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+>   {
+>   	int ret;
+>   	struct dp_ctrl_private *ctrl;
+> +	unsigned long pixel_rate;
+>   
+>   	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+>   
 > -	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
 > -
 > -	ret = dp_ctrl_enable_stream_clocks(ctrl);
-> -	if (ret) {
-> -		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-> -		return ret;
-> -	}
-> -
-> -	dp_ctrl_send_phy_test_pattern(ctrl);
-> -
-> -	return 0;
-> -}
-> -
->   int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
->   {
+> +	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> +	ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+
+I think we can take another step forward here. Read the 
+ctrl->panel->dp_mode.drm_mode.clock from within the 
+dp_ctrl_enable_stream_clocks() function. This removes the need to pass 
+pixel_rate as an argument here.
+
+>   	if (ret) {
+>   		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+>   		return ret;
+> @@ -1709,6 +1707,7 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>   	u32 const phy_cts_pixel_clk_khz = 148500;
+>   	u8 link_status[DP_LINK_STATUS_SIZE];
+>   	unsigned int training_step;
+> +	unsigned long pixel_rate;
+>   
+>   	if (!dp_ctrl)
+>   		return -EINVAL;
+> @@ -1723,25 +1722,25 @@ int dp_ctrl_on_link(struct dp_ctrl *dp_ctrl)
+>   		drm_dbg_dp(ctrl->drm_dev,
+>   				"using phy test link parameters\n");
+>   		if (!ctrl->panel->dp_mode.drm_mode.clock)
+> -			ctrl->dp_ctrl.pixel_rate = phy_cts_pixel_clk_khz;
+> +			pixel_rate = phy_cts_pixel_clk_khz;
+>   	} else {
+>   		ctrl->link->link_params.rate = rate;
+>   		ctrl->link->link_params.num_lanes =
+>   			ctrl->panel->link_info.num_lanes;
+> -		ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> +		pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+>   	}
+>   
+> -	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%d\n",
+> +	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%lu\n",
+>   		ctrl->link->link_params.rate, ctrl->link->link_params.num_lanes,
+> -		ctrl->dp_ctrl.pixel_rate);
+> +		pixel_rate);
+>   
+>   
+> -	rc = dp_ctrl_enable_mainlink_clocks(ctrl);
+> +	rc = dp_ctrl_enable_mainlink_clocks(ctrl, pixel_rate);
+>   	if (rc)
+>   		return rc;
+>   
+>   	while (--link_train_max_retries) {
+> -		rc = dp_ctrl_reinitialize_mainlink(ctrl);
+> +		rc = dp_ctrl_reinitialize_mainlink(ctrl, pixel_rate);
+>   		if (rc) {
+>   			DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n",
+>   					rc);
+> @@ -1836,6 +1835,7 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
 >   	int ret = 0;
+>   	bool mainlink_ready = false;
+>   	struct dp_ctrl_private *ctrl;
+> +	unsigned long pixel_rate;
+>   	unsigned long pixel_rate_orig;
+>   
+>   	if (!dp_ctrl)
+> @@ -1843,25 +1843,24 @@ int dp_ctrl_on_stream(struct dp_ctrl *dp_ctrl, bool force_link_train)
+>   
+>   	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+>   
+> -	ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> +	pixel_rate = pixel_rate_orig = ctrl->panel->dp_mode.drm_mode.clock;
+>   
+> -	pixel_rate_orig = ctrl->dp_ctrl.pixel_rate;
+>   	if (dp_ctrl->wide_bus_en)
+> -		ctrl->dp_ctrl.pixel_rate >>= 1;
+> +		pixel_rate >>= 1;
+>   
+> -	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%d\n",
+> +	drm_dbg_dp(ctrl->drm_dev, "rate=%d, num_lanes=%d, pixel_rate=%lu\n",
+>   		ctrl->link->link_params.rate,
+> -		ctrl->link->link_params.num_lanes, ctrl->dp_ctrl.pixel_rate);
+> +		ctrl->link->link_params.num_lanes, pixel_rate);
+>   
+>   	if (!dp_power_clk_status(ctrl->power, DP_CTRL_PM)) { /* link clk is off */
+> -		ret = dp_ctrl_enable_mainlink_clocks(ctrl);
+> +		ret = dp_ctrl_enable_mainlink_clocks(ctrl, pixel_rate);
+>   		if (ret) {
+>   			DRM_ERROR("Failed to start link clocks. ret=%d\n", ret);
+>   			goto end;
+>   		}
+>   	}
+>   
+> -	ret = dp_ctrl_enable_stream_clocks(ctrl);
+> +	ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+>   	if (ret) {
+>   		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+>   		goto end;
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+> index b563e2e3bfe5..9f29734af81c 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+> @@ -16,7 +16,6 @@
+>   struct dp_ctrl {
+>   	bool orientation;
+>   	atomic_t aborted;
+> -	u32 pixel_rate;
+>   	bool wide_bus_en;
+>   };
+>   
 
 
 -- 
