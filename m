@@ -2,63 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9055154FD5F
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 21:15:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EAB154FDD7
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 21:49:27 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF7CA10E4CC;
-	Fri, 17 Jun 2022 19:15:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D9D110F6B0;
+	Fri, 17 Jun 2022 19:49:26 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AACC610E11D
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 19:15:05 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id d18so5696253ljc.4
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 12:15:05 -0700 (PDT)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDF1F10F8B2
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 19:49:24 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id h23so5777641ljl.3
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 12:49:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Y577pvISUj8Bc1m6l2z73H1VKVdWpOuKQNmOPguXFKA=;
- b=RDBTxvEqVD73tIF7jTz8ytucFLzJBg+L7DRbFwD3OjOsa3nVhf8a1GKFBBLnmbOtL2
- e7HmUGz/005nZ1LdWAgHoOMvWEEhIJC4gt9X/AAvONOFQke+OAyDbZcP7a0YiLUhJsho
- wqw+pV/uRAyrc9Kf2H9K0psnKYFohFXNjdzt9pmV4dYRVN/Ery/b0KjGxJStI4ALFQNL
- i0e+WYytVzzZy04gCyLqWxhv/ovzbb6YxJJWsINfKdyBWMWJ8lgGTgPLULxin6UlMykB
- PBrJyeEPpEg1Ou7Tav+/Uh1n4dI3tF0+BtGEMduywkwOvOVj/If5glPTTKfBSPcmwPAV
- fr2A==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S2YHUE6KuhI9LWjnIF/QY6BfPuU7y9Rs0VTr/7OX/gE=;
+ b=M5ocfEAJPC8KqXFjO7CwiIVWxyw5VoVoNRrykAqwrd4PAhe+C8w/u/laJ0vYKT6OOI
+ KafqzStiYgogQ/tXx2b8hEz6FAHpMJK8NqpjvfO3wn+xwaMKWyeDXjNkiuFiv8Pg+YOY
+ RoJml8o5ep8AP7qaURp6YJrB+jMlpRoBLScBxIC+oj1F+jwqzUd5wIt1TsT4QiCKAlRF
+ LdOcSuVQOw2tMUpSVcCxpulcycsUmhBQEGjV+s1nlgw+0yseh2iA8YUQreH0NLvTdP4m
+ 3g74ofAQPSHDmFTp/6MBTFGMzFyoYgHjdFg5peyZ+tMv6iXK4tZoml8Ye7cTzu5Kuqjn
+ D2pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Y577pvISUj8Bc1m6l2z73H1VKVdWpOuKQNmOPguXFKA=;
- b=m1VNLn9jPPlQPgWitedSfqO9mimdMv5nQTd4xvQbRTwVACui2OElTNiVLfLegedFCd
- c2g3TiSkYkZd/7CD8j6zuzMMYm+JuNRzgFznW2oqWtEYCro3ZL0UZR3MW6+TiHzVLXie
- P/Ov/cIf0IYCKGIN0dG8Kw4BvIGDFP/cXaYkk9zp8nvUDkYv2Kt5yi+2CnK6FloyDpER
- I77s2wRgy+JYJARuZitzgqxYSOBAVwBv+c3jNW0IdS12t6L65znpWNeVsiw5ivYHW1yO
- sKs31IT23H4VRmkCHdGVczyh+HJn3EQef7pizJ44n9DYkjV02driTUdUPmSm0qEakRHi
- JUMA==
-X-Gm-Message-State: AJIora+QPHhEqh2d4sV4GlQBeSM4FnOOlfiB6sYvGYE4ep2YHdcdAAd6
- KfJX5O7FHK/Mhazr+TdQxUL+Sg==
-X-Google-Smtp-Source: AGRyM1vlflghs40TeHGgnPYgNxZc/gaw3KoSYm+M4XoqGA6M0Fkf1+wKSb8VqZQCvUKng+Ne+hg5bg==
-X-Received: by 2002:a2e:b0e6:0:b0:255:6cf9:ea90 with SMTP id
- h6-20020a2eb0e6000000b002556cf9ea90mr5679387ljl.425.1655493304003; 
- Fri, 17 Jun 2022 12:15:04 -0700 (PDT)
-Received: from eriador.lumag.spb.ru ([95.161.222.59])
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S2YHUE6KuhI9LWjnIF/QY6BfPuU7y9Rs0VTr/7OX/gE=;
+ b=BnlXeS5OKOrcLp451tBznxT3YYmGNJhaQnljqdqcKzkm8+Oa0EIjsMtBydtWKt9BeL
+ SHaJFkaz3iF/CNccyF52ZRHG6/BkADe6LfyJtf+p2zaWPmGv6Y2kLXYHfBhghH1eKOTH
+ TQ/EFbAjLm4E3r3Yd2Ua7SqMjQyBvMELE5IA2aodhW92LSB391FRbnabh1/pegqs30Oc
+ O6iBkGzvhbbp+WHxVFP8wXXJ1jtoNvyN96OSSC1fMDpDr4VjKPYSYWKR7eMg+SiSnnMw
+ ENGJH23MhmiVmJ29QuK6iL2/mtoqc+vx08AUqXGFuzNQlq/FymYqTpK8Xf1+G2m9anOV
+ t/Ig==
+X-Gm-Message-State: AJIora8RwD3kEbpnipkplsaAWr1cTshGzLF97docxXvN1/tNHOmfhgw/
+ BK4/3xCoRdIh+7wWcfqZzd6Cxw==
+X-Google-Smtp-Source: AGRyM1uacJdHbxQIgdQiPwrEQC3qC9H//+2sgXUHvAV9/U3JBDdto1Ga4DM97s13a0kyflHyxEAyuQ==
+X-Received: by 2002:a2e:b0c6:0:b0:255:7c46:16b7 with SMTP id
+ g6-20020a2eb0c6000000b002557c4616b7mr5868686ljl.383.1655495363163; 
+ Fri, 17 Jun 2022 12:49:23 -0700 (PDT)
+Received: from eriador.lumag.spb.ru ([95.161.222.60])
  by smtp.gmail.com with ESMTPSA id
- k15-20020a2e920f000000b00253e1833e8bsm639680ljg.117.2022.06.17.12.14.33
+ p12-20020a056512328c00b0047255d211bbsm738987lfe.234.2022.06.17.12.49.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 12:15:03 -0700 (PDT)
+ Fri, 17 Jun 2022 12:49:22 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Fri, 17 Jun 2022 22:14:29 +0300
-Message-Id: <20220617191429.1087634-4-dmitry.baryshkov@linaro.org>
+Date: Fri, 17 Jun 2022 22:49:20 +0300
+Message-Id: <20220617194921.1098725-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220617191429.1087634-1-dmitry.baryshkov@linaro.org>
-References: <20220617191429.1087634-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v5 3/3] drm/msm: stop storing the array of CRTCs
- in struct msm_drm_private
+Subject: [Freedreno] [PATCH 1/2] drm/msm/dp: remove unused stubs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,201 +68,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The array of CRTC in the struct msm_drm_private duplicates a list of
-CRTCs in the drm_device. Drop it and use the existing list for CRTC
-enumeration.
+Refactoring DP code transformed several functions into empty stubs.
+Remove them.
 
-Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  |  2 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c |  2 +-
- drivers/gpu/drm/msm/msm_drv.c            | 44 +++++++++++++-----------
- drivers/gpu/drm/msm/msm_drv.h            |  3 +-
- 5 files changed, 27 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 35 -----------------------------
+ 1 file changed, 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index e23e2552e802..e79f0a8817ac 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -806,7 +806,7 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 			ret = PTR_ERR(crtc);
- 			return ret;
- 		}
--		priv->crtcs[priv->num_crtcs++] = crtc;
-+		priv->num_crtcs++;
- 	}
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index bce77935394f..1e34ac2126f6 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -856,11 +856,6 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
+ 	return 0;
+ }
  
- 	/* All CRTCs are compatible with all encoders */
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index fb48c8c19ec3..7449c1693e45 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -337,7 +337,7 @@ static int modeset_init(struct mdp4_kms *mdp4_kms)
- 			goto fail;
- 		}
+-static int dp_display_prepare(struct msm_dp *dp_display)
+-{
+-	return 0;
+-}
+-
+ static int dp_display_enable(struct dp_display_private *dp, u32 data)
+ {
+ 	int rc = 0;
+@@ -937,11 +932,6 @@ static int dp_display_disable(struct dp_display_private *dp, u32 data)
+ 	return 0;
+ }
  
--		priv->crtcs[priv->num_crtcs++] = crtc;
-+		priv->num_crtcs++;
- 	}
+-static int dp_display_unprepare(struct msm_dp *dp_display)
+-{
+-	return 0;
+-}
+-
+ int dp_display_set_plugged_cb(struct msm_dp *dp_display,
+ 		hdmi_codec_plugged_cb fn, struct device *codec_dev)
+ {
+@@ -1457,21 +1447,9 @@ static int dp_pm_suspend(struct device *dev)
+ 	return 0;
+ }
  
- 	/*
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index 3d5621a68f85..36808990f840 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -497,7 +497,7 @@ static int modeset_init(struct mdp5_kms *mdp5_kms)
- 			DRM_DEV_ERROR(dev->dev, "failed to construct crtc %d (%d)\n", i, ret);
- 			goto fail;
- 		}
--		priv->crtcs[priv->num_crtcs++] = crtc;
-+		priv->num_crtcs++;
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 44485363f37a..567e77dae43b 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -149,7 +149,7 @@ static void msm_irq_uninstall(struct drm_device *dev)
- 
- struct msm_vblank_work {
- 	struct work_struct work;
--	int crtc_id;
-+	struct drm_crtc *crtc;
- 	bool enable;
- 	struct msm_drm_private *priv;
+-static int dp_pm_prepare(struct device *dev)
+-{
+-	return 0;
+-}
+-
+-static void dp_pm_complete(struct device *dev)
+-{
+-
+-}
+-
+ static const struct dev_pm_ops dp_pm_ops = {
+ 	.suspend = dp_pm_suspend,
+ 	.resume =  dp_pm_resume,
+-	.prepare = dp_pm_prepare,
+-	.complete = dp_pm_complete,
  };
-@@ -162,15 +162,15 @@ static void vblank_ctrl_worker(struct work_struct *work)
- 	struct msm_kms *kms = priv->kms;
  
- 	if (vbl_work->enable)
--		kms->funcs->enable_vblank(kms, priv->crtcs[vbl_work->crtc_id]);
-+		kms->funcs->enable_vblank(kms, vbl_work->crtc);
- 	else
--		kms->funcs->disable_vblank(kms,	priv->crtcs[vbl_work->crtc_id]);
-+		kms->funcs->disable_vblank(kms,	vbl_work->crtc);
- 
- 	kfree(vbl_work);
- }
- 
- static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
--					int crtc_id, bool enable)
-+					struct drm_crtc *crtc, bool enable)
- {
- 	struct msm_vblank_work *vbl_work;
- 
-@@ -180,7 +180,7 @@ static int vblank_ctrl_queue_work(struct msm_drm_private *priv,
- 
- 	INIT_WORK(&vbl_work->work, vblank_ctrl_worker);
- 
--	vbl_work->crtc_id = crtc_id;
-+	vbl_work->crtc = crtc;
- 	vbl_work->enable = enable;
- 	vbl_work->priv = priv;
- 
-@@ -354,7 +354,8 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 	struct msm_drm_private *priv = dev_get_drvdata(dev);
- 	struct drm_device *ddev;
- 	struct msm_kms *kms;
--	int ret, i;
-+	struct drm_crtc *crtc;
-+	int ret;
- 
- 	if (drm_firmware_drivers_only())
- 		return -ENODEV;
-@@ -427,20 +428,23 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 	ddev->mode_config.funcs = &mode_config_funcs;
- 	ddev->mode_config.helper_private = &mode_config_helper_funcs;
- 
--	for (i = 0; i < priv->num_crtcs; i++) {
-+	drm_for_each_crtc(crtc, ddev) {
-+		struct msm_drm_thread *ev_thread;
-+
- 		/* initialize event thread */
--		priv->event_thread[i].crtc_id = priv->crtcs[i]->base.id;
--		priv->event_thread[i].dev = ddev;
--		priv->event_thread[i].worker = kthread_create_worker(0,
--			"crtc_event:%d", priv->event_thread[i].crtc_id);
--		if (IS_ERR(priv->event_thread[i].worker)) {
--			ret = PTR_ERR(priv->event_thread[i].worker);
-+		ev_thread = &priv->event_thread[drm_crtc_index(crtc)];
-+		ev_thread->crtc = crtc;
-+		ev_thread->dev = ddev;
-+		ev_thread->worker = kthread_create_worker(0,
-+			"crtc_event:%d", ev_thread->crtc->base.id);
-+		if (IS_ERR(ev_thread->worker)) {
-+			ret = PTR_ERR(ev_thread->worker);
- 			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
--			ret = PTR_ERR(priv->event_thread[i].worker);
-+			ev_thread->worker = NULL;
- 			goto err_msm_uninit;
- 		}
- 
--		sched_set_fifo(priv->event_thread[i].worker->task);
-+		sched_set_fifo(ev_thread->worker->task);
- 	}
- 
- 	ret = drm_vblank_init(ddev, priv->num_crtcs);
-@@ -563,25 +567,23 @@ static void msm_postclose(struct drm_device *dev, struct drm_file *file)
- int msm_crtc_enable_vblank(struct drm_crtc *crtc)
- {
- 	struct drm_device *dev = crtc->dev;
--	unsigned int pipe = crtc->index;
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_kms *kms = priv->kms;
- 	if (!kms)
- 		return -ENXIO;
--	drm_dbg_vbl(dev, "crtc=%u", pipe);
--	return vblank_ctrl_queue_work(priv, pipe, true);
-+	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-+	return vblank_ctrl_queue_work(priv, crtc, true);
- }
- 
- void msm_crtc_disable_vblank(struct drm_crtc *crtc)
- {
- 	struct drm_device *dev = crtc->dev;
--	unsigned int pipe = crtc->index;
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_kms *kms = priv->kms;
- 	if (!kms)
+ static struct platform_driver dp_display_driver = {
+@@ -1684,13 +1662,6 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
  		return;
--	drm_dbg_vbl(dev, "crtc=%u", pipe);
--	vblank_ctrl_queue_work(priv, pipe, false);
-+	drm_dbg_vbl(dev, "crtc=%u", crtc->base.id);
-+	vblank_ctrl_queue_work(priv, crtc, false);
- }
+ 	}
  
- /*
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 08388d742d65..0e98b6f161df 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -102,7 +102,7 @@ struct msm_display_topology {
- /* Commit/Event thread specific structure */
- struct msm_drm_thread {
- 	struct drm_device *dev;
--	unsigned int crtc_id;
-+	struct drm_crtc *crtc;
- 	struct kthread_worker *worker;
- };
+-	rc = dp_display_prepare(dp);
+-	if (rc) {
+-		DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
+-		mutex_unlock(&dp_display->event_mutex);
+-		return;
+-	}
+-
+ 	state =  dp_display->hpd_state;
  
-@@ -178,7 +178,6 @@ struct msm_drm_private {
- 	struct workqueue_struct *wq;
+ 	if (state == ST_DISPLAY_OFF)
+@@ -1702,7 +1673,6 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
+ 	if (rc) {
+ 		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+ 		dp_display_disable(dp_display, 0);
+-		dp_display_unprepare(dp);
+ 	}
  
- 	unsigned int num_crtcs;
--	struct drm_crtc *crtcs[MAX_CRTCS];
+ 	/* manual kick off plug event to train link */
+@@ -1731,7 +1701,6 @@ void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
+ {
+ 	struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
+ 	struct msm_dp *dp = dp_bridge->dp_display;
+-	int rc = 0;
+ 	u32 state;
+ 	struct dp_display_private *dp_display;
  
- 	struct msm_drm_thread event_thread[MAX_CRTCS];
+@@ -1750,10 +1719,6 @@ void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
  
+ 	dp_display_disable(dp_display, 0);
+ 
+-	rc = dp_display_unprepare(dp);
+-	if (rc)
+-		DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
+-
+ 	state =  dp_display->hpd_state;
+ 	if (state == ST_DISCONNECT_PENDING) {
+ 		/* completed disconnection */
 -- 
 2.35.1
 
