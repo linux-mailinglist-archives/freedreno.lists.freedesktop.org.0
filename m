@@ -1,63 +1,56 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C3A854F58A
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 12:36:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E49254FC3C
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 19:33:37 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B42C211A9F8;
-	Fri, 17 Jun 2022 10:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEBF510E602;
+	Fri, 17 Jun 2022 17:33:35 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C276211A9F9
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 10:36:55 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id l20so4329548lji.0
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 03:36:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=K4qaTb66gTbZJWmfOsRm5JPLXRPUuGXdUkz0yonXfvM=;
- b=mI/dafrtFJcpC4E7BEP+LSW7tz+zSKId9sS9JikzpRHZanwP5fhlgJxaOvwLMfvhV2
- phBUA9FCh6rW0xyd1mboHWPW9NB6usE6rOyYJHs+luEpeNDC9C9JVaRZ08VJiOdRycxy
- qhzxpVRRg4bbnc5T+gte2TjZKbvC8fBe8WXzPwL8BvJAiVsTf223S1aDDSNDfvwxqMaz
- crl9A5OcuwH6n9e2vZa08aSkGd7Q4ZTahURZPssTnfRcdsEL8UAGo9+LrXY/Zhb5kVBq
- RBOSJZ89nfh20DL9g/7feQ86YGGtwl7swzZhbzQYr8UI1dOhACxa2Lp7vQ25jFvBErLH
- 5SIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=K4qaTb66gTbZJWmfOsRm5JPLXRPUuGXdUkz0yonXfvM=;
- b=wCKEjImgxg028XfMaY+ircWYyQ9aHsyks33bFlE9HTH2Tll5OoPw73UinlvDj8z5xv
- O8DQd2q0VANtdys17BsoljtyBlR/vMUnDZLQIUdHlQcnjiztMgJlM3xPIvagrT7v0Hi/
- bCADLbul4kgwaezBlCdetZ+oueHa5Prtpo/Y9w3DmyJVz/0id8mMEomzR7YXzJ3vvVYA
- jocXY4RzymWZuYkEFP1AA/fBJIIr4PdMK6ILRcKVdSCxCwxRDRtQ0wbCZq7/Bu1Z/09z
- gyJWyTejPjOhVqu1FcwJ1UdvMYthMwbLNqsigAUmz6hDpW/+inzzsp094mYvSUnI+XqA
- R7qA==
-X-Gm-Message-State: AJIora/W6kFaUBDSkn2fjPXnOqfhUSpse1sNIFofagRA/m6Nemwp1uFK
- HvIt35fGGTaJBHsAOwQTfBV6dT/gG8FhomzK
-X-Google-Smtp-Source: AGRyM1uojpulIKQGH2iKjaTXZyyy4FI9fy9dyVoCR0/RMEN7Qc4N1lzJE41+w2pEQ2tzs8kXfnle/Q==
-X-Received: by 2002:a05:651c:204c:b0:259:9146:e839 with SMTP id
- t12-20020a05651c204c00b002599146e839mr4704555ljo.138.1655462214103; 
- Fri, 17 Jun 2022 03:36:54 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- 7-20020ac25f47000000b00477b624c0a8sm590011lfz.180.2022.06.17.03.36.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 03:36:53 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Fri, 17 Jun 2022 13:36:52 +0300
-Message-Id: <20220617103652.606250-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5726310E473;
+ Fri, 17 Jun 2022 17:33:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1655487214; x=1687023214;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2VC7mik9w+9dUx7rYCUaY4bTWFXVK+BGRfFpvu1g5bI=;
+ b=b0msJjZFEnBFMQZ1m+l4ECbVK5EqzK1vYMtcsDHfI8oBBpHvSuhCzbfq
+ FtTnGav9ytMsQmO6oE6ABCuN/QcxySgckRX8Y0FXv5y9WkGfZmXXFJHEl
+ NaRPmnnXxMuYjZu/rseQFsaRUuUcazgUsjR+P+A6fNQydxhcJIg1JQkil
+ 8ZVw02ponqqSqaFHSNXkdC65DV4A361FQ10zZcyBTz2i628fPfcrtp8WR
+ WjWn1nYIAhyCs2uFtPdllakckI1GPB33X4SOfZ8EAclVnR8KJ/23H9T7O
+ YYnTJH9XklN1im/AjZr/sXwPmOw6D3rvPIc41bsjaF4g2CDNBV9HgESIj w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="278282825"
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="278282825"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2022 09:05:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="763288840"
+Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
+ by orsmga005.jf.intel.com with ESMTP; 17 Jun 2022 09:05:48 -0700
+Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1o2ETj-000Pa9-JG;
+ Fri, 17 Jun 2022 16:05:47 +0000
+Date: Sat, 18 Jun 2022 00:05:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
+ robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
+ dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
+ airlied@linux.ie, agross@kernel.org, dmitry.baryshkov@linaro.org,
+ bjorn.andersson@linaro.org
+Message-ID: <202206172356.J5CB8zDf-lkp@intel.com>
+References: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] arm64: dts: qcom: msm8996: add second DSI
- interface
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/dp: clean up pixel_rate from
+ dp_ctrl.c
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,111 +63,78 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, kbuild-all@lists.01.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, quic_abhinavk@quicinc.com,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add device nodes for the DSI1, second DSI interface found on
-MSM8996/APQ8096 platforms. For example on db820c it is routed to the
-secondary HS expansion connector.
+Hi Kuogee,
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/msm8996.dtsi | 73 +++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+Thank you for the patch! Perhaps something to improve:
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-index f94f10947f26..dffb87a5ee74 100644
---- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-@@ -831,6 +831,13 @@ mdp5_intf1_out: endpoint {
- 							remote-endpoint = <&dsi0_in>;
- 						};
- 					};
-+
-+					port@2 {
-+						reg = <2>;
-+						mdp5_intf2_out: endpoint {
-+							remote-endpoint = <&dsi1_in>;
-+						};
-+					};
- 				};
- 			};
- 
-@@ -900,6 +907,72 @@ dsi0_phy: dsi-phy@994400 {
- 				status = "disabled";
- 			};
- 
-+			dsi1: dsi@996000 {
-+				compatible = "qcom,mdss-dsi-ctrl";
-+				reg = <0x00996000 0x400>;
-+				reg-names = "dsi_ctrl";
-+
-+				interrupt-parent = <&mdss>;
-+				interrupts = <4>;
-+
-+				clocks = <&mmcc MDSS_MDP_CLK>,
-+					 <&mmcc MDSS_BYTE1_CLK>,
-+					 <&mmcc MDSS_AHB_CLK>,
-+					 <&mmcc MDSS_AXI_CLK>,
-+					 <&mmcc MMSS_MISC_AHB_CLK>,
-+					 <&mmcc MDSS_PCLK1_CLK>,
-+					 <&mmcc MDSS_ESC1_CLK>;
-+				clock-names = "mdp_core",
-+					      "byte",
-+					      "iface",
-+					      "bus",
-+					      "core_mmss",
-+					      "pixel",
-+					      "core";
-+
-+				phys = <&dsi1_phy>;
-+				phy-names = "dsi";
-+				status = "disabled";
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						dsi1_in: endpoint {
-+							remote-endpoint = <&mdp5_intf2_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dsi1_out: endpoint {
-+						};
-+					};
-+				};
-+			};
-+
-+			dsi1_phy: dsi-phy@996400 {
-+				compatible = "qcom,dsi-phy-14nm";
-+				reg = <0x00996400 0x100>,
-+				      <0x00996500 0x300>,
-+				      <0x00996800 0x188>;
-+				reg-names = "dsi_phy",
-+					    "dsi_phy_lane",
-+					    "dsi_pll";
-+
-+				#clock-cells = <1>;
-+				#phy-cells = <0>;
-+
-+				clocks = <&mmcc MDSS_AHB_CLK>, <&rpmcc RPM_SMD_BB_CLK1>;
-+				clock-names = "iface", "ref";
-+				status = "disabled";
-+			};
-+
- 			hdmi: hdmi-tx@9a0000 {
- 				compatible = "qcom,hdmi-tx-8996";
- 				reg =	<0x009a0000 0x50c>,
+[auto build test WARNING on drm/drm-next]
+[also build test WARNING on drm-exynos/exynos-drm-next]
+[cannot apply to drm-intel/for-linux-next tegra-drm/drm/tegra/for-next airlied/drm-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
+base:   git://anongit.freedesktop.org/drm/drm drm-next
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20220617/202206172356.J5CB8zDf-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project f0e608de27b3d568000046eebf3712ab542979d6)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
+        git checkout b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/gpu/drm/msm/
+
+If you fix the issue, kindly add following tag where applicable
+Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/msm/dp/dp_ctrl.c:1587:5: warning: no previous prototype for function 'dp_ctrl_on_stream_phy_test_report' [-Wmissing-prototypes]
+   int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+       ^
+   drivers/gpu/drm/msm/dp/dp_ctrl.c:1587:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+   int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+   ^
+   static 
+   1 warning generated.
+
+
+vim +/dp_ctrl_on_stream_phy_test_report +1587 drivers/gpu/drm/msm/dp/dp_ctrl.c
+
+  1586	
+> 1587	int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+  1588	{
+  1589		int ret = 0;
+  1590		struct dp_ctrl_private *ctrl;
+  1591		unsigned long pixel_rate;
+  1592	
+  1593		ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+  1594	
+  1595		pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+  1596		ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+  1597		if (ret) {
+  1598			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+  1599			return ret;
+  1600		}
+  1601	
+  1602		dp_ctrl_send_phy_test_pattern(ctrl);
+  1603	
+  1604		return 0;
+  1605	}
+  1606	
+
 -- 
-2.35.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
