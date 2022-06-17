@@ -1,59 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B6B54FE2E
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 22:15:51 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A96D854FE4E
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 22:29:52 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC5B112CA8;
-	Fri, 17 Jun 2022 20:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6887410E06F;
+	Fri, 17 Jun 2022 20:29:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 373CA112CA8
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 20:15:48 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so6821378fac.9
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 13:15:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=b27oiy6RHsUuT4Jjsfq7MJzNlUIQ2e5S3fHVAYvBtmE=;
- b=MA73/fhxKHTJ8uYDabaVtaMIiRBaepXPKVxGSSWGPGPA2K1mqga8UkOGtOeNIJJqIO
- 4OOgQtLefRA+PHn0QrdoZTC2XY0RYPEac/Mb+GH7iF3qNpejDkZY6/2x8aZICMuKDH2S
- z7MCvFPVqJMwu5Xb67PjrtVxFReaJimZerCZU=
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6184B10E06F
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 20:29:50 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id w20so8498221lfa.11
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 13:29:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=W20snk6cSE70N48P0RMhJnXFzqgLSe22yxQ6mQfYe0c=;
+ b=DX0iJQCBN7BFYUuCZ5S6I0VMPrwnQVjem4QEuF8tknynjGu5bC/qHybU7IbLnurCxp
+ dvd7bEHZhZZGgB2ESsqdzEVeWNZA/Wjzvof3WuKAzqkqaVwT6HICbdPR6AZaG49TGVTQ
+ vyK0jPvychmEQkv2NzeQQsgsw+DRM9H/uBPUrf/yTjaWIghnyYplfQkh/6GnFXaN1cvN
+ LorTmqFVwNpyRXQYmhEZYUIsxZfv8iDDqZNtjhsLpdqeuzXfYkEqgckoMG6BHHsqoiM+
+ tDgplbtRyd3XkuzhqmDjVhUj/aaErSwKx7ufPI7osS6dQdVtkMGkcboWSKd+Sc+qvrjb
+ jwdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=b27oiy6RHsUuT4Jjsfq7MJzNlUIQ2e5S3fHVAYvBtmE=;
- b=KfRlaGgMmO6llHHjHrYDTkc3izk/Hz4OfkvkRCMpwgtDTLS1MUk6RYo9QmSivKk1my
- 9VSZ5vfy4MkIx8AbWVBAaM+cIPdVDPjcM/wAvNJN8mlpzBcqVGUzbQLxuM2jpUuYzCyw
- GS9LpN3S/iaTFMDVyleLsRLEeRje2C1YdJ3by3VlxiRa54jsrASnEzHvyXUKZUtKwcYc
- UT01pGll2fMqB/UDf2dhwDSLzOzCIXUMJMh/audys2AfutIqyqRHkp9clvgAg6z5l5J6
- YQhRb4hw9w3YxzB7/F3I3BQcoE6ZDKTT/HXmb4txT8hjhIXUxBVmfRjk7/8/KDfTocgc
- dB3A==
-X-Gm-Message-State: AJIora/gA3DTSy6lSfWrOTkt4Bpcyxn78hnZja9VlvlPWoxZlleFWc9v
- 5AbHAXaYHbKYHcyPI00Kb8bLdMM0H9Bmj40FuhtAsA==
-X-Google-Smtp-Source: AGRyM1vYWj5adjCr3oqYPXmSERpaa+NbEphqPPLnMroCJl0YCDYzfPeLgt++eJ4q9h+s/lTqKE32SR9fXSpMZc8eeNE=
-X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
- w1-20020a056870b38100b000fe2004b3b5mr6489018oap.63.1655496947391; Fri, 17 Jun
- 2022 13:15:47 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 17 Jun 2022 13:15:47 -0700
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=W20snk6cSE70N48P0RMhJnXFzqgLSe22yxQ6mQfYe0c=;
+ b=wXsiM4afh9AtBhxEqEiUYBAGwl4ugQO5svNDtKFspObRKe8cB393x+CK7Z2gSB4VAq
+ b9PU+oCLmRT4Zcgd//hJNLw7Qf7mJ9GjdXiQcVE+xJY1CXvxYG7jRIKK1tCo3cwHv9uG
+ wJXhgNium/CKFtEm8pQuXKeDJuuDm6U7y4KDsYsS2rkQhYoLD02iJzLyttFasAQxZTwq
+ /c8TAOM1ndQqL8DM7rCN0DMugUhLX3naof/2SVRN0QLau4EA6iPs5wWxsdX3xw4gu4u0
+ URxr13lt/tDfcvinX2AN6mAxyvz3KLBxbWweXaT/JCU4WInxDSuH6zlzmR62/SZYR3K7
+ oimA==
+X-Gm-Message-State: AJIora+SZ5IPGZPsRmKH3XPHPXc+JNiaEULNh9+nXPGq2p4uWVuGE6x2
+ kzXOK82/U1/f5jFjlPMEiVUrUA==
+X-Google-Smtp-Source: AGRyM1ua5Z8fyTHi1ZXhgSTwnaNoFg5anxheS6A36/vI+0AGDM0Xh1yxQkxdC2GCE584TGcXIFWYvg==
+X-Received: by 2002:a19:4f1e:0:b0:479:278:8d24 with SMTP id
+ d30-20020a194f1e000000b0047902788d24mr6480406lfb.370.1655497788691; 
+ Fri, 17 Jun 2022 13:29:48 -0700 (PDT)
+Received: from [192.168.1.211] ([37.153.55.125])
+ by smtp.gmail.com with ESMTPSA id
+ d14-20020a19f24e000000b00478f3bb79d6sm752104lfk.194.2022.06.17.13.29.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jun 2022 13:29:48 -0700 (PDT)
+Message-ID: <5a86e9bf-2447-8175-4d9a-2d644c939841@linaro.org>
+Date: Fri, 17 Jun 2022 23:29:47 +0300
 MIME-Version: 1.0
-In-Reply-To: <20220617194921.1098725-1-dmitry.baryshkov@linaro.org>
-References: <20220617194921.1098725-1-dmitry.baryshkov@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Fri, 17 Jun 2022 13:15:47 -0700
-Message-ID: <CAE-0n52VABr2xTbEtVyat8CLV=vzgRB3JQV+Undw56ECiHR-Ow@mail.gmail.com>
-To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-GB
+To: Stephen Boyd <swboyd@chromium.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
  Sean Paul <sean@poorly.run>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 1/2] drm/msm/dp: remove unused stubs
+References: <20220617194921.1098725-1-dmitry.baryshkov@linaro.org>
+ <20220617194921.1098725-2-dmitry.baryshkov@linaro.org>
+ <CAE-0n51vDC-a=87hbM_rvxhNNV7KNpCHy3=wH0N5VCEvdrjyuw@mail.gmail.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <CAE-0n51vDC-a=87hbM_rvxhNNV7KNpCHy3=wH0N5VCEvdrjyuw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 2/2] drm/msm/dp: remove
+ dp_display_en/disable prototypes and data argument
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,15 +80,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
+ Daniel Vetter <daniel@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Dmitry Baryshkov (2022-06-17 12:49:20)
-> Refactoring DP code transformed several functions into empty stubs.
-> Remove them.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
+On 17/06/2022 23:15, Stephen Boyd wrote:
+> Quoting Dmitry Baryshkov (2022-06-17 12:49:21)
+>> Remove unused dp_display_en/disable prototypes. While we are at it,
+>> remove extra 'data' argument that is unused.
+>>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 13 +++++--------
+>>   1 file changed, 5 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 1e34ac2126f6..42ceb4c5796c 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -607,9 +607,6 @@ static int dp_hpd_plug_handle(struct dp_display_private *dp, u32 data)
+>>          return 0;
+>>   };
+>>
+>> -static int dp_display_enable(struct dp_display_private *dp, u32 data);
+>> -static int dp_display_disable(struct dp_display_private *dp, u32 data);
+>> -
+> 
+> This part looks good.
+> 
+>>   static void dp_display_handle_plugged_change(struct msm_dp *dp_display,
+>>                  bool plugged)
+>>   {
+>> @@ -856,7 +853,7 @@ static int dp_display_set_mode(struct msm_dp *dp_display,
+>>          return 0;
+>>   }
+>>
+>> -static int dp_display_enable(struct dp_display_private *dp, u32 data)
+>> +static int dp_display_enable(struct dp_display_private *dp)
+> 
+> This will conflict with Kuogee's patch[1]
 
-Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Ack, missed that. I'll rebase it on top of Kuogee's patch and send v2.
+
+> 
+>>   {
+>>          int rc = 0;
+>>          struct msm_dp *dp_display = &dp->dp_display;
+> 
+> [1] https://lore.kernel.org/r/1655411200-7255-1-git-send-email-quic_khsieh@quicinc.com
+
+
+-- 
+With best wishes
+Dmitry
