@@ -2,62 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057A55500CF
-	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 01:33:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9025500D8
+	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 01:33:45 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B0210F8B0;
-	Fri, 17 Jun 2022 23:33:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAFE810FB1E;
+	Fri, 17 Jun 2022 23:33:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [IPv6:2a00:1450:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8BA10F816
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 23:33:33 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id y29so6210132ljd.7
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 16:33:33 -0700 (PDT)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7856B10F8B0
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 23:33:34 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id d18so6208362ljc.4
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 16:33:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9plUk4yuJHI9KQEwjKvSKAhzBHEdS1qic5Z60CrCjLI=;
- b=vwYNKA3mFqnN6V3Y0psPcXFYgGmC7OjV0mQTP0R/36Wp4nsaDK0xw8EA/8M93r/d72
- UBeXvvd617oBpcfeECb8QB1p1QKQOLExELPmWCT8rinXftWy5z0cjH/zW+r8nQdMjogv
- 1rHrUfH54XhDdG9jYD2ZA5cxHobggE95E992uC+wHqrh90xC06zbbcT3JK1UCcdxE2Ve
- fo9iI38UmP76cqTifI0SBUwJBIOUig8xU8EViQ0ErNfOIbr7IQoqLOXcjr3tbLtUUu/B
- EmpXderT7ZBZ+jCCX1cC0Xz22iZatkiSsR4U+47Vrm3sqe6F0FlE15nRUvLnUZXTmVo+
- Nyow==
+ bh=/fpEFi8S0hW+duJvXqSCWOTTPVMo6WlgdDXXr3M0Q4c=;
+ b=ocSpZOvZt/RXZx2+XJFTIGyp5WIUmU2X7i0IZMXDMKytdbB2uqXyaMJfP/kT7YS0O4
+ 6zA/I4Y4KLB8OsxtK48D1R/HD6v1zm3PWwuHzrehJgBpwKIX1aYiBOVtFkU4Z14qvyHA
+ sGxZr0LunlpWM1UuLD/xU8E/cBblwCStj7bGZEljz9SIqetdxmyj/U82I56Lv0RMdDpR
+ DKOPugWMbVIV6QxPg+VyYgeJsgAHYGZjEGWT/t6hPgSiEAObQL6DRIv9uG6n5OMxsVQy
+ Lv0hZBqifLaK4vXZ7/hXAx0xTcb60Vjxw2M0vNoqsa+obklkN64G70oXJbThaA5cCI4k
+ DF1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9plUk4yuJHI9KQEwjKvSKAhzBHEdS1qic5Z60CrCjLI=;
- b=EDk+NNtwtdwG4FoDNun0Gj8wJDuPjbtFN7thaQ4l1YbhW0RAdf7bhQDq1y98OATmCt
- dO+CXxzle9ltfqBa8Re7GD4t+Pa4QP/0Q7MIBLxL5SwUNrQ0j+0pglgvKUojxTfmG4X8
- nGggqZJmkqSWBX4nl/2Kqy4O9nYUsEwjHCk98pTTnMi65UK4fODbdEc2ZRw4Lh7Y+Bvk
- WNjMCe2lNwFAYVYT0vt7/RyljOVehcD8jUrYTxZfTOAzMP26vSg550P+kDmvJMIGa/mh
- A8Xpv3kOVIwB1L7OYUZr1MFOaBBaf2zONtYT6tup13DrNtxHO5INtcFvSe/OcNKtCa92
- 1iWw==
-X-Gm-Message-State: AJIora8/NDcNpvHwLOcTLr8QMC3usMzFRH7M2PD1xeKKzz1ayV2UvPDd
- EbfB3ZqIefUAmMYm+37l88+bqQ==
-X-Google-Smtp-Source: AGRyM1ucXsrdIM7nzBNXjCAc2D9qJZH6jHx/c1+TagewrvF+KfQOEgkB+zuAhD9m+o2RYJMWtS0+FQ==
-X-Received: by 2002:a2e:9958:0:b0:25a:541a:1273 with SMTP id
- r24-20020a2e9958000000b0025a541a1273mr2287584ljj.516.1655508811728; 
- Fri, 17 Jun 2022 16:33:31 -0700 (PDT)
+ bh=/fpEFi8S0hW+duJvXqSCWOTTPVMo6WlgdDXXr3M0Q4c=;
+ b=FBXgCbof0apSUvjbKIZehw1fKmX5d8RaLANWPstLAC5nwZajvinZTxRbw54bZs74Uc
+ 3k0FMo7JwGOjbV03OcpfD/YpB2tGdHFgkCAeJEwC0GgRk9VcJL4hIbPxcex1mXnYXpHv
+ V+MbSeuSL3u707/Q2h9NRioY71DDiVNUcBpnxgWOXpny/GHfwP4oxRcslO+WROQ/6+ad
+ NQR1Z+OSdQNtjCDQRAH6kzVIOTbjuR/d1leyuauQHqbcJJBKn9q8u9MAdNearuFRl0BE
+ /0THo+fdAhmshdGjaEBjdjJFK9j52MHii5fxcFYK3mr9HbvuPq01csmz88QjBRemSnO5
+ 7aug==
+X-Gm-Message-State: AJIora9NYKDU/2E5GSEXY/kQaTDeBbMx9qz2fRil0AjmXc+2REpmbB+/
+ QVTZ1thibbh2/4JlU32ledp50Q==
+X-Google-Smtp-Source: AGRyM1vrq8RQmepLu5AgSzgAH/v5DfiHHZruU6mx6PheCkH1H5Qs7pqQt5U2K+3RsuJWhc1j7slEuA==
+X-Received: by 2002:a2e:9d88:0:b0:25a:5b70:f14 with SMTP id
+ c8-20020a2e9d88000000b0025a5b700f14mr808143ljj.132.1655508812805; 
+ Fri, 17 Jun 2022 16:33:32 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- b2-20020a056512060200b004787d3cbc67sm800138lfe.219.2022.06.17.16.33.30
+ b2-20020a056512060200b004787d3cbc67sm800138lfe.219.2022.06.17.16.33.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 16:33:31 -0700 (PDT)
+ Fri, 17 Jun 2022 16:33:32 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Sat, 18 Jun 2022 02:33:25 +0300
-Message-Id: <20220617233328.1143665-2-dmitry.baryshkov@linaro.org>
+Date: Sat, 18 Jun 2022 02:33:26 +0300
+Message-Id: <20220617233328.1143665-3-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220617233328.1143665-1-dmitry.baryshkov@linaro.org>
 References: <20220617233328.1143665-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v6 1/4] drm/msm: clean event_thread->worker in
- case of an error
+Subject: [Freedreno] [PATCH v6 2/4] drm/msm/mdp4: convert to
+ drm_crtc_handle_vblank()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,29 +77,43 @@ Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If worker creation fails, nullify the event_thread->worker, so that
-msm_drm_uninit() doesn't try accessing invalid memory location. While we
-are at it, remove duplicate assignment to the ret variable.
+Stop using deprecated drm_handle_vblank(), use drm_crtc_handle_vblank()
+instead.
 
-Fixes: 1041dee2178f ("drm/msm: use kthread_create_worker instead of kthread_run")
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 44485363f37a..1aab6bf86278 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -436,7 +436,7 @@ static int msm_drm_init(struct device *dev, const struct drm_driver *drv)
- 		if (IS_ERR(priv->event_thread[i].worker)) {
- 			ret = PTR_ERR(priv->event_thread[i].worker);
- 			DRM_DEV_ERROR(dev, "failed to create crtc_event kthread\n");
--			ret = PTR_ERR(priv->event_thread[i].worker);
-+			priv->event_thread[i].worker = NULL;
- 			goto err_msm_uninit;
- 		}
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+index 4d49f3ba6a96..ddcdd5e87853 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+@@ -69,8 +69,7 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
+ 	struct mdp_kms *mdp_kms = to_mdp_kms(kms);
+ 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(mdp_kms);
+ 	struct drm_device *dev = mdp4_kms->dev;
+-	struct msm_drm_private *priv = dev->dev_private;
+-	unsigned int id;
++	struct drm_crtc *crtc;
+ 	uint32_t status, enable;
  
+ 	enable = mdp4_read(mdp4_kms, REG_MDP4_INTR_ENABLE);
+@@ -81,9 +80,9 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
+ 
+ 	mdp_dispatch_irqs(mdp_kms, status);
+ 
+-	for (id = 0; id < priv->num_crtcs; id++)
+-		if (status & mdp4_crtc_vblank(priv->crtcs[id]))
+-			drm_handle_vblank(dev, id);
++	drm_for_each_crtc(crtc, dev)
++		if (status & mdp4_crtc_vblank(crtc))
++			drm_crtc_handle_vblank(crtc);
+ 
+ 	return IRQ_HANDLED;
+ }
 -- 
 2.35.1
 
