@@ -1,61 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EFB54FE80
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 22:48:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7420954FE83
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 22:48:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C963B10FDE9;
-	Fri, 17 Jun 2022 20:47:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 788F710E187;
+	Fri, 17 Jun 2022 20:48:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4C4710FDD3
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 20:47:55 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id x138so5077293pfc.12
- for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 13:47:55 -0700 (PDT)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 192D688FC8
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 20:48:47 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-100eb6f7782so6930904fac.2
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 13:48:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZkHcSooWDiFQAWanDp+t9iIhWojlq4TIuHk5USWu968=;
- b=EiW2jSIpWnSRYzvxKxkG6vi0w3xy/58QL63gbehgu6Xz2yKJ5Sf2Bfr8wBlOiAOaha
- VILTTueJVdvB68GFjLMbnvdjEe72h5g76xKMIkWXi1UtUr6Uxd0BlGdUaLInDbpIhzQI
- dl7bEPbJsPf6GuAIlyO0Neb7bK8WXwcCwwpIk=
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=Y4XNPPOTHcGQua89ehLw74GJaEq7bj+hezmlX6AJcYE=;
+ b=Oax+hb9jz11E80qid8APuomKpd1AiYADh5Zfb5n+Y6a/her9EiKju+LU3dKDEjr8lY
+ YhYXxlHkYUMfxRzIzmOJT0EvN55leGg8E8A/L0+zVd5ny2ZP8DEsXr1aI88AF5zDhvzM
+ DLkNe7+ayYWePHOAQW6WVD8xdAjTCgjqXOdqc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZkHcSooWDiFQAWanDp+t9iIhWojlq4TIuHk5USWu968=;
- b=H8U6KdKyzfC++P6O6WgbQ20rVimNZxuYGn/Rk7QWLVlqxsVCbT9id7WOQ1CRWnqYEK
- uVzwPF5RiGqDplq967MClZOnlWscWpkbmjqM8hQqBb6H1F31s0P0Qd7zke3g5ic4UNkp
- zgQ0X1SusHgJOWP1lWpjQOzCDF0YAUB/FYJyuR3GfYR6WKoKivK02Q2UiPzyCRVSMB0I
- 80ninfPzvhbc7IBeO3BLqNlSH5Ya08T3IKAQN7jV5oTh0zu0dzaSxeKnJOIxg5CUomwp
- RzHnDpCCYviQByE8VqrA3AQv/VCxDmiluJbvh/GrQqViD1H7ZBxXfbPEzSClZwzJUEOT
- TnbQ==
-X-Gm-Message-State: AJIora+2E7InGvCPTKBv2ScUOraBkvaMAvqD4Mz/B+KZK3CIA8brTgDK
- doADxe9q0Eog1WAa1DBJX0P1bQ==
-X-Google-Smtp-Source: AGRyM1tviS+33tpMgDPQRa+qfam6sWYHX1/xJo9ZNWkAIGRMfkx8jNSbEbSqFZIiC7tLsFzZ8nSlnQ==
-X-Received: by 2002:a05:6a02:201:b0:3fc:6071:a272 with SMTP id
- bh1-20020a056a02020100b003fc6071a272mr10732274pgb.518.1655498875212; 
- Fri, 17 Jun 2022 13:47:55 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:52e2:7dc8:1e20:f870])
- by smtp.gmail.com with ESMTPSA id
- z12-20020aa79f8c000000b0052089e1b88esm4098325pfr.192.2022.06.17.13.47.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Jun 2022 13:47:54 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 17 Jun 2022 13:47:50 -0700
-Message-Id: <20220617204750.2347797-4-swboyd@chromium.org>
-X-Mailer: git-send-email 2.36.1.476.g0c4daa206d-goog
-In-Reply-To: <20220617204750.2347797-1-swboyd@chromium.org>
-References: <20220617204750.2347797-1-swboyd@chromium.org>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=Y4XNPPOTHcGQua89ehLw74GJaEq7bj+hezmlX6AJcYE=;
+ b=KdyTZtOEnksMcn933ddR8VdjXd0LqvIgwTG3gRYoXGt9VjZY3ZQz1TPgnVpsbOo1fz
+ +2zAWHdC+zUW+eGWEPxEuPMUjnyDyKc5sXn532w/iEnnp/WBu6GcfIxWWv83rEWY4gzs
+ xIALuLKNE6cDsPqrUJaD0RtoboHcPEnJyPIJEFp2xSI6B8XVl0tO/rynP6o9OAMlnHSA
+ vd1DosOpweQLwCCnIIaAQtAmckG1lu4ICUrOFrqtO8kDdiRi5vUQgt64NDro/Mg7nPLC
+ SEeFMZ6lMd3AtSNu3Nck9zBCxMb88v6NmOkiu7Va/y0uCK8uC5iCuyGIzWKiV72dUKns
+ Z6zA==
+X-Gm-Message-State: AJIora8A17L+/SG6zipIJ1QyeQHWi7x0ABMXfr1iZncUnu0FFSZ8f1m6
+ yMxX2Nr5cAgcI4vYs0xgphU2tibSGWMeyk/RGmoq5A==
+X-Google-Smtp-Source: AGRyM1sBdyafzJaFAWXzzdqzqbJCmm4BoflbCmCwm6csBW+c/DYUEooGn1aPbS1QG/DhTZ9CKV43uKNzGz9cffP+yjM=
+X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
+ w1-20020a056870b38100b000fe2004b3b5mr6548394oap.63.1655498926376; Fri, 17 Jun
+ 2022 13:48:46 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 17 Jun 2022 13:48:45 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 3/3] drm/msm/dp: Get rid of
- dp_ctrl_on_stream_phy_test_report()
+In-Reply-To: <20220617191429.1087634-2-dmitry.baryshkov@linaro.org>
+References: <20220617191429.1087634-1-dmitry.baryshkov@linaro.org>
+ <20220617191429.1087634-2-dmitry.baryshkov@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 17 Jun 2022 13:48:45 -0700
+Message-ID: <CAE-0n51J5K_o=Mmt5aYiS6MMnHTfhPG28Pe6-9xZC0bn=zbK=A@mail.gmail.com>
+To: Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v5 1/3] drm/msm/mdp4: convert to
+ drm_crtc_handle_vblank()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,88 +68,18 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- patches@lists.linux.dev, freedreno@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This API isn't really more than a couple lines now that we don't store
-the pixel_rate to the struct member. Inline it into the caller.
+Quoting Dmitry Baryshkov (2022-06-17 12:14:27)
+> Stop using deprecated drm_handle_vblank(), use drm_crtc_handle_vblank()
+> instead.
+>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
 
-Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 40 ++++++++++++--------------------
- 1 file changed, 15 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index e114521af2e9..d04fddb29fdf 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1582,34 +1582,15 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
- 	return success;
- }
- 
--static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-+static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
- {
- 	int ret;
--	struct dp_ctrl_private *ctrl;
- 	unsigned long pixel_rate;
- 
--	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--
--	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
--	ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
--	if (ret) {
--		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
--		return ret;
--	}
--
--	dp_ctrl_send_phy_test_pattern(ctrl);
--
--	return 0;
--}
--
--static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
--{
--	int ret = 0;
--
- 	if (!ctrl->link->phy_params.phy_test_pattern_sel) {
- 		drm_dbg_dp(ctrl->drm_dev,
- 			"no test pattern selected by sink\n");
--		return ret;
-+		return 0;
- 	}
- 
- 	/*
-@@ -1624,12 +1605,21 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
- 	}
- 
- 	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
--	if (!ret)
--		ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
--	else
-+	if (ret) {
- 		DRM_ERROR("failed to enable DP link controller\n");
-+		return ret;
-+	}
- 
--	return ret;
-+	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
-+	ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
-+	if (ret) {
-+		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-+		return ret;
-+	}
-+
-+	dp_ctrl_send_phy_test_pattern(ctrl);
-+
-+	return 0;
- }
- 
- void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
--- 
-https://chromeos.dev
-
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
