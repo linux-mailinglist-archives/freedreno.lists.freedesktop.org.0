@@ -1,56 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E49254FC3C
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 19:33:37 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4645F54FC79
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 19:50:26 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEBF510E602;
-	Fri, 17 Jun 2022 17:33:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D30A410E695;
+	Fri, 17 Jun 2022 17:50:24 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5726310E473;
- Fri, 17 Jun 2022 17:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1655487214; x=1687023214;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=2VC7mik9w+9dUx7rYCUaY4bTWFXVK+BGRfFpvu1g5bI=;
- b=b0msJjZFEnBFMQZ1m+l4ECbVK5EqzK1vYMtcsDHfI8oBBpHvSuhCzbfq
- FtTnGav9ytMsQmO6oE6ABCuN/QcxySgckRX8Y0FXv5y9WkGfZmXXFJHEl
- NaRPmnnXxMuYjZu/rseQFsaRUuUcazgUsjR+P+A6fNQydxhcJIg1JQkil
- 8ZVw02ponqqSqaFHSNXkdC65DV4A361FQ10zZcyBTz2i628fPfcrtp8WR
- WjWn1nYIAhyCs2uFtPdllakckI1GPB33X4SOfZ8EAclVnR8KJ/23H9T7O
- YYnTJH9XklN1im/AjZr/sXwPmOw6D3rvPIc41bsjaF4g2CDNBV9HgESIj w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10380"; a="278282825"
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="278282825"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2022 09:05:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,306,1650956400"; d="scan'208";a="763288840"
-Received: from lkp-server01.sh.intel.com (HELO 60dabacc1df6) ([10.239.97.150])
- by orsmga005.jf.intel.com with ESMTP; 17 Jun 2022 09:05:48 -0700
-Received: from kbuild by 60dabacc1df6 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1o2ETj-000Pa9-JG;
- Fri, 17 Jun 2022 16:05:47 +0000
-Date: Sat, 18 Jun 2022 00:05:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- robdclark@gmail.com, sean@poorly.run, swboyd@chromium.org,
- dianders@chromium.org, vkoul@kernel.org, daniel@ffwll.ch,
- airlied@linux.ie, agross@kernel.org, dmitry.baryshkov@linaro.org,
- bjorn.andersson@linaro.org
-Message-ID: <202206172356.J5CB8zDf-lkp@intel.com>
-References: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96DCC10E695
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 17:50:23 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id h23so8002370lfe.4
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 10:50:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=v5Xfd/lShJ436Gkh8UHXXgQps7qSsu2XxGEcqIQNHeg=;
+ b=wtB0Bo7MIsJ7+OPzpfl05X+sDYAE+gl8xK15W2twX4nyEyKCKgCt7fizZOsyqZGes7
+ VMe0bI0baS12/w9GMjCh6GoCsR7jsc4R+A6piCspN8IFwTigTwow1oNqqx/2uXWtrApg
+ pOKTX+zmCDBGfP0Ll80Emf6jaOnnOcY/ko9Se+HGfgh3EAMZ34P+CQX1B3yg0A4SMuxc
+ XF0toEgLfiu3GbcUsTKSa6w6KmQ4YOZxL2iark/0P9By6eCVVF0nqD6HL4EAV6OER0R0
+ emVdtdbCqacDKLAiX1Wt9SpeTAfRfcdPXHsYxanqdrqr318qLVe363/wG9mELFm/eF9n
+ crkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=v5Xfd/lShJ436Gkh8UHXXgQps7qSsu2XxGEcqIQNHeg=;
+ b=SiK36eC7KI8RS4Jb0wn7mODvk7Llb57yQwTe/TFDwH3x8WUKGZn2lzaY1EfuVnhFnj
+ zOZr0jZZnmm2IMacgsWgi2gfotIb/J82gz6Njf6F5u6bYyn/LjoVGJ+BEyymj+8EStas
+ wxvzInY67kjyj2Vi2u0W8I8qyt0aQSrju3cp4u+y3nvxPHHrZxmYiKEyPEyXUMjB70lu
+ HkvmzVxrKwQ0g+OSHwQxMuIUs3yv//vKbe9+Ix9MVUm2pCRhjE/Wn7+ZKpCryTNQWEQQ
+ 5uw5JFRbPAvqKF/eIZWriz8vdcJMXmfxKO2BvORnjZRHkMwBazzkKmp05xUqewDfVY1G
+ RXlw==
+X-Gm-Message-State: AJIora9GH4QOnXJC7SKVbwi5tPAWMyMd8DYZ2wdtGJ/JmKJWm/oMnils
+ Toa2lzSy9GDzazUYsz1dOegwug==
+X-Google-Smtp-Source: AGRyM1sVWbcs49gGGE8BJpLz9BHq37J9II5hNgIZISFkmv9Xdm/bGWIWiEiUnwNPcSZ1LXFS3UFuBQ==
+X-Received: by 2002:a05:6512:4015:b0:479:cb6:f8da with SMTP id
+ br21-20020a056512401500b004790cb6f8damr6447901lfb.484.1655488221904; 
+ Fri, 17 Jun 2022 10:50:21 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ y24-20020a199158000000b0047255d21128sm713399lfj.87.2022.06.17.10.50.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jun 2022 10:50:20 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 17 Jun 2022 20:50:18 +0300
+Message-Id: <20220617175020.1080118-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1655399361-10842-3-git-send-email-quic_khsieh@quicinc.com>
-Subject: Re: [Freedreno] [PATCH v8 2/2] drm/msm/dp: clean up pixel_rate from
- dp_ctrl.c
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v3 1/3] drm/msm/mdp4: convert to
+ drm_crtc_handle_vblank()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,78 +68,49 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, kbuild-all@lists.01.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, quic_abhinavk@quicinc.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Kuogee,
+Stop using deprecated drm_handle_vblank(), use drm_crtc_handle_vblank()
+instead.
 
-Thank you for the patch! Perhaps something to improve:
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-exynos/exynos-drm-next]
-[cannot apply to drm-intel/for-linux-next tegra-drm/drm/tegra/for-next airlied/drm-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20220617/202206172356.J5CB8zDf-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project f0e608de27b3d568000046eebf3712ab542979d6)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Kuogee-Hsieh/force-link-training-for-display-resolution-change/20220617-011110
-        git checkout b04f0b39a03a9fc3728e9414157f9d5f0b8b2366
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/gpu/drm/msm/
-
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/msm/dp/dp_ctrl.c:1587:5: warning: no previous prototype for function 'dp_ctrl_on_stream_phy_test_report' [-Wmissing-prototypes]
-   int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-       ^
-   drivers/gpu/drm/msm/dp/dp_ctrl.c:1587:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-   ^
-   static 
-   1 warning generated.
-
-
-vim +/dp_ctrl_on_stream_phy_test_report +1587 drivers/gpu/drm/msm/dp/dp_ctrl.c
-
-  1586	
-> 1587	int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-  1588	{
-  1589		int ret = 0;
-  1590		struct dp_ctrl_private *ctrl;
-  1591		unsigned long pixel_rate;
-  1592	
-  1593		ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
-  1594	
-  1595		pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
-  1596		ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
-  1597		if (ret) {
-  1598			DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-  1599			return ret;
-  1600		}
-  1601	
-  1602		dp_ctrl_send_phy_test_pattern(ctrl);
-  1603	
-  1604		return 0;
-  1605	}
-  1606	
-
+diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+index 4d49f3ba6a96..ddcdd5e87853 100644
+--- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
++++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_irq.c
+@@ -69,8 +69,7 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
+ 	struct mdp_kms *mdp_kms = to_mdp_kms(kms);
+ 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(mdp_kms);
+ 	struct drm_device *dev = mdp4_kms->dev;
+-	struct msm_drm_private *priv = dev->dev_private;
+-	unsigned int id;
++	struct drm_crtc *crtc;
+ 	uint32_t status, enable;
+ 
+ 	enable = mdp4_read(mdp4_kms, REG_MDP4_INTR_ENABLE);
+@@ -81,9 +80,9 @@ irqreturn_t mdp4_irq(struct msm_kms *kms)
+ 
+ 	mdp_dispatch_irqs(mdp_kms, status);
+ 
+-	for (id = 0; id < priv->num_crtcs; id++)
+-		if (status & mdp4_crtc_vblank(priv->crtcs[id]))
+-			drm_handle_vblank(dev, id);
++	drm_for_each_crtc(crtc, dev)
++		if (status & mdp4_crtc_vblank(crtc))
++			drm_crtc_handle_vblank(crtc);
+ 
+ 	return IRQ_HANDLED;
+ }
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.35.1
+
