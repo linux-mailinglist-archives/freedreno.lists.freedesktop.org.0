@@ -2,47 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C56654EE4F
-	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 02:10:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9423554F57C
+	for <lists+freedreno@lfdr.de>; Fri, 17 Jun 2022 12:36:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACDF910FAC1;
-	Fri, 17 Jun 2022 00:10:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4526711A99E;
+	Fri, 17 Jun 2022 10:36:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96E2B10FA9C;
- Fri, 17 Jun 2022 00:10:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1B84161358;
- Fri, 17 Jun 2022 00:10:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B08EC34114;
- Fri, 17 Jun 2022 00:10:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1655424605;
- bh=cD73xFTYbV7d8FwYS/+LxjiTrj6GgeC/IFBJ0+It07Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tsv9SdWuVyJNQeGUF1E0Nr3uDUJB7EeBVN4u0A2d1DNJmaibpJ6rwo//bI+x83hie
- aqyUD+fTDgnqYB6+kjpDVxuVMQbM5ZhBaucwIzgRmR66O2Y73qfViA6R4DUSDKG8ot
- 26pywnT/zcUitfw8JYK3Av8QaIknlH0gJhsoG3o3NGo0fh2OsXwG1K5CyBtrn0ZCoa
- yry1hDGnxYxhmOGfpf/4zKhfGF+GHYrpP9OuvTx18I7hEMr+wGmdQPKsPyZPR+hmdR
- gO8VzaiAsi/SeYo6HlyAOkvp3lJcdb51Rvn5HBnbqA7Tstf42V8uC4MJQ1rkXllg6a
- mvXY0iCAi1/Vg==
-Date: Thu, 16 Jun 2022 17:10:04 -0700
-From: Vinod Koul <vkoul@kernel.org>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <YqvGXNGIzVHp7QtV@matsya>
-References: <20220425210643.2420919-1-dianders@chromium.org>
- <20220425140619.2.Iae013f0ff4599294189f3a6e91376fad137bbabf@changeid>
- <CAD=FV=Wbi=CXhPpOUJj=1PdgB8i6Lf1Sfr=T7wrQsgBx790S_w@mail.gmail.com>
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3776D11A97C
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 10:36:18 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id r24so4300901ljn.2
+ for <freedreno@lists.freedesktop.org>; Fri, 17 Jun 2022 03:36:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HADbm2Q0iXz5TZbFf0x7dUMSunNE29kysn4VYUvxWAA=;
+ b=SEamXvUPZtDClVb+it2ZQnT30PYuKodPn7A/WyVg6obnHTEkPDJ428TlByPbYDKaJc
+ 4rVdVijNvzxichCr3rxvv5wRQRAeDm4SX5/zz+PtvIRCHR9e39PamDppRJALnU/30JjL
+ 6q8fQXnUnzi6Uc+c4qGH2mCBIeGphmnL2Ic22c0M3rWbHDs1C4KGccUchgtfge90yokd
+ nhF8CyJE2YOWaaSYTHaVz8YzGvV87pFqHKVQPvzoYfgEjbWXY8agLlWZaeYj4/nVwISh
+ 4t9ey8jeIaDv+dPkYWV3I4QN+pygEz/O5XEdbtIgawfTOmbMAi6KrTQdR2su+liBW+w3
+ 8bdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=HADbm2Q0iXz5TZbFf0x7dUMSunNE29kysn4VYUvxWAA=;
+ b=MHBtUah7ghME1JWHQjWgUp2McKHalbnQaZyQlzI/nJhO9Piyv8V8/LHNGfQr1OGKqf
+ 1dLV3qZ00nLjk8KSbUXViYnQfOLt+UQaQMIhfO44MY7Iy6mHUZ3Cjd4nVbUnkGzHH0fq
+ z6TsW1dGR4b50/bikzxPk8RbZ6/WhO5uNyYCtlLSQJoLj+XjwtHp2Yko1JhP8bLfUF+d
+ 5hhQCEUr/ebea3mI5ZECbU8xWbpwW2saq0OqQvKmagHdt3n0qll1/4q7jcchIkj0Lcvs
+ f1pMrs+yzu86emuiG3UsvBPXxwAQV8JgI6YxtYmsBXfE18DDREidSvX5vB4FFLeDz849
+ W75Q==
+X-Gm-Message-State: AJIora8qgpRpVUe/4Pjwk5zRuGwmYxGXz7atwNTdJ+IURdxMxDFwP04Z
+ ZjQGU1ef7ZcpUpey/biAlqO/MQ==
+X-Google-Smtp-Source: AGRyM1vCISv5DGQKfk8IeXYWAss+EKIjGwI/FSSIK50PMS+dysHBeXd4oFs22JKiVbKZeCeXKkdg3A==
+X-Received: by 2002:a2e:9cda:0:b0:255:6bfd:3bd with SMTP id
+ g26-20020a2e9cda000000b002556bfd03bdmr4626470ljj.302.1655462170346; 
+ Fri, 17 Jun 2022 03:36:10 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ d3-20020a056512368300b00478ff020832sm591803lfs.106.2022.06.17.03.36.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jun 2022 03:36:09 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Fri, 17 Jun 2022 13:36:05 +0300
+Message-Id: <20220617103608.605898-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=Wbi=CXhPpOUJj=1PdgB8i6Lf1Sfr=T7wrQsgBx790S_w@mail.gmail.com>
-Subject: Re: [Freedreno] [PATCH 2/2] dt-bindings: phy: List supplies for
- qcom, edp-phy
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/3] drm/msm/hdmi: turn MSM8996 HDMI PHY into OF
+ clock provider
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,61 +68,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant <quic_kalyant@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- Rob Clark <robdclark@chromium.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Kishon Vijay Abraham I <kishon@ti.com>, Rob Herring <robh+dt@kernel.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  linux-phy@lists.infradead.org, Stephen Boyd <swboyd@chromium.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 16-06-22, 08:35, Doug Anderson wrote:
-> Hi,
-> 
-> On Mon, Apr 25, 2022 at 2:07 PM Douglas Anderson <dianders@chromium.org> wrote:
-> >
-> > We're supposed to list the supplies in the dt bindings but there are
-> > none in the eDP PHY bindings.
-> >
-> > Looking at the driver in Linux, I can see that there seem to be two
-> > relevant supplies: "vdda-phy" and "vdda-pll". Let's add those to the
-> > bindings.
-> >
-> > NOTE: from looking at the Qualcomm datasheet for sc7280, it's not
-> > immediately clear how to figure out how to fill in these supplies. The
-> > only two eDP related supplies are simply described as "power for eDP
-> > 0.9V circuits" and "power for eDP 1.2V circuits". From guessing and
-> > from comparing how a similar PHY is hooked up on other similar
-> > Qualcomm boards, I'll make the educated guess that the 1.2V supply
-> > goes to "vdda-phy" and the 0.9V supply goes to "vdda-pll" and I'll use
-> > that in the example here.
-> >
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> >  Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> 
-> Even though patch #1 in this series should be dropped, this patch
-> (patch #2) is still valid. Vinod: I assume this would land in your
-> tree along with the first two patches in Kuogee's series [1], which
-> are related. Please let me know if you need me to re-send or anything.
+On MSM8996 the HDMI PHY is the QMP PHY, it provides an HDMI PLL clock
+used by the MMCC. Add support for providing this clock to the OF
+framework by registerding the clock provider and adding #clock-cells
+property to the DT node.
 
-I have applied this patch, thanks
+Dmitry Baryshkov (3):
+  dt-bindings: phy: qcom,hdmi-phy-qmp: add clock-cells
+  drm/msm/hdmi: make hdmi_phy_8996 OF clk provider
+  arm64: dts: qcom: msm8996: add #clock-cells to the HDMI PHY node
 
-> [1] https://lore.kernel.org/r/1653507433-22585-1-git-send-email-quic_khsieh@quicinc.com/
-
-This needs rebase on phy split which I have picked
+ .../bindings/phy/qcom,hdmi-phy-qmp.yaml           |  4 ++++
+ arch/arm64/boot/dts/qcom/msm8996.dtsi             |  2 ++
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c          | 15 ++++++++++-----
+ 3 files changed, 16 insertions(+), 5 deletions(-)
 
 -- 
-~Vinod
+2.35.1
+
