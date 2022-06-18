@@ -1,63 +1,44 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A28550607
-	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 18:11:19 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CAE550780
+	for <lists+freedreno@lfdr.de>; Sun, 19 Jun 2022 01:39:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A3911B8F4;
-	Sat, 18 Jun 2022 16:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC43910F3F9;
+	Sat, 18 Jun 2022 23:39:37 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3CB11B8F3;
- Sat, 18 Jun 2022 16:11:17 +0000 (UTC)
-Received: by mail-pl1-x62c.google.com with SMTP id h1so6228110plf.11;
- Sat, 18 Jun 2022 09:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=101twesbPuze1J2X5qjELU4Po4+yCThzT6Am7N5Pye8=;
- b=Nz/mSiNmtorVh9k+ROHp/waVo3dX9+KbqBDiCsTJlM17uOzyAItBYDPHngSpv2DtnN
- Pubj2Jb3HZgktpWgYKl+lgrd0ZcBza9f+qvi6LkqtNAaxYLRbnV0OsN23IARMt3nLKku
- j59HB2AIC+sw3fYMssFU+LtuZdIhuGljhvOh7Kcd67d4NbM4ZtOsQnohn+7zVHIC7s6g
- FCirQkMAjiEcetIzTO38OuqU3FDZpJD/EA6xFtBGP2rpU44R1DbYFL/8ZNaqicz/lZ8N
- xsjM2lrqNVuIhVnUgQDvrSJsZa2fxwfkEHTqFpJyPAV3AD8hRnBn0jPY8O6W8lOu06y/
- wRaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=101twesbPuze1J2X5qjELU4Po4+yCThzT6Am7N5Pye8=;
- b=bTwJGjvBJHokSr8/7ujwYj4i09SUZs1UPNuV/NX9laMGSKuiQ+lqlnq9LNoOP9z2iK
- sSlF8fCghT892/H75D5ehm6QlED/STF/ZgFQpJ5i1+x4Cw8SV0knt1UPxT1SK4FDf3Lt
- pUvz4QniVGXPguz11Fg2Wex/6xdevOEOUiXm5Pg+CPm1GP22+ks20nRxIavUb4Vj7OI5
- cT5qB5GdkWSlBZ0hshauRAGU0rZI95/miyqHKJsYTeob/b/pT2F4EFcgXToTpVsDxY9C
- 9AZ3tam8HCOrDB5JhCOHKWob50jorYM8Usj3i8HgWGUe4OdqB4wGV++4rnCMu7y6Nqat
- 2dlA==
-X-Gm-Message-State: AJIora/exBGfQs5+yTP6WdhJMcBXrbAigbxKBiwsckm5Gb9HXOUEw4EW
- Pz3hazimftr6no0k5NxGLJSHM8gRRuc=
-X-Google-Smtp-Source: AGRyM1sSvnoyQNvRjK2a8Qm0nOcDlP48BDcSiSUglqXkGLCfqP6NEX/Epf0W2Qs4KFG+L6n7ZN1HoQ==
-X-Received: by 2002:a17:902:da8d:b0:165:7c1b:6803 with SMTP id
- j13-20020a170902da8d00b001657c1b6803mr15249813plx.157.1655568676007; 
- Sat, 18 Jun 2022 09:11:16 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f70200b001622c377c3esm5542437plo.117.2022.06.18.09.11.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 18 Jun 2022 09:11:14 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 18 Jun 2022 09:11:19 -0700
-Message-Id: <20220618161120.3451993-2-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220618161120.3451993-1-robdclark@gmail.com>
-References: <20220618161120.3451993-1-robdclark@gmail.com>
+Received: from relay01.th.seeweb.it (relay01.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C28ED10F3F9
+ for <freedreno@lists.freedesktop.org>; Sat, 18 Jun 2022 23:39:36 +0000 (UTC)
+Received: from [192.168.1.101] (abxh227.neoplus.adsl.tpnet.pl [83.9.1.227])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r1.th.seeweb.it (Postfix) with ESMTPSA id ED1332054C;
+ Sun, 19 Jun 2022 01:39:32 +0200 (CEST)
+Message-ID: <d271c47a-4c57-030c-7511-4daa7e167bd3@somainline.org>
+Date: Sun, 19 Jun 2022 01:39:32 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 2/2] drm/msm: Don't overwrite hw fence in
- hw_init
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Emma Anholt <emma@anholt.net>, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Jordan Crouse <jcrouse@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>
+References: <20220614230136.3726047-1-emma@anholt.net>
+From: Konrad Dybcio <konrad.dybcio@somainline.org>
+In-Reply-To: <20220614230136.3726047-1-emma@anholt.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH 1/2] iommu: arm-smmu-impl: Add 8250 display
+ compatible to the client list.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,75 +51,36 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- open list <linux-kernel@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Steev Klimaszewski <steev@kali.org>, Jordan Crouse <jordan@cosmicpenguin.net>,
- Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
 
-Prior to the last commit, this could result in setting the GPU
-written fence value back to an older value, if we had missed
-updating completed_fence prior to suspend.  This was mostly
-harmless as the GPU would eventually overwrite it again with
-the correct value.  But we should just not do this.  Instead
-just leave a sanity check that the fence looks plausible (in
-case the GPU scribbled on memory).
 
-Reported-by: Steev Klimaszewski <steev@kali.org>
-Fixes: 95d1deb02a9c ("drm/msm/gem: Add fenced vma unpin")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Tested-by: Steev Klimaszewski <steev@kali.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++++---
- drivers/gpu/drm/msm/msm_gpu.c           |  2 +-
- 2 files changed, 9 insertions(+), 4 deletions(-)
+On 15.06.2022 01:01, Emma Anholt wrote:
+> Required for turning on per-process page tables for the GPU.
+> 
+> Signed-off-by: Emma Anholt <emma@anholt.net>
+> ---
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index f944b69e2a25..efe9840e28fa 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -498,10 +498,15 @@ int adreno_hw_init(struct msm_gpu *gpu)
- 
- 		ring->cur = ring->start;
- 		ring->next = ring->start;
--
--		/* reset completed fence seqno: */
--		ring->memptrs->fence = ring->fctx->completed_fence;
- 		ring->memptrs->rptr = 0;
-+
-+		/* Detect and clean up an impossible fence, ie. if GPU managed
-+		 * to scribble something invalid, we don't want that to confuse
-+		 * us into mistakingly believing that submits have completed.
-+		 */
-+		if (fence_before(ring->fctx->last_fence, ring->memptrs->fence)) {
-+			ring->memptrs->fence = ring->fctx->last_fence;
-+		}
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index cedc88cf8083..c8cd9bfa3eeb 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -418,7 +418,7 @@ static void recover_worker(struct kthread_work *work)
- 		 * one more to clear the faulting submit
- 		 */
- 		if (ring == cur_ring)
--			fence++;
-+			ring->memptrs->fence = ++fence;
- 
- 		msm_update_fence(ring->fctx, fence);
- 	}
--- 
-2.36.1
+Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 
+Konrad
+> 
+>  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> index d8e1ef83c01b..bb9220937068 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> @@ -233,6 +233,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+>  	{ .compatible = "qcom,sc7280-mdss" },
+>  	{ .compatible = "qcom,sc7280-mss-pil" },
+>  	{ .compatible = "qcom,sc8180x-mdss" },
+> +	{ .compatible = "qcom,sm8250-mdss" },
+>  	{ .compatible = "qcom,sdm845-mdss" },
+>  	{ .compatible = "qcom,sdm845-mss-pil" },
+>  	{ }
+> 
