@@ -1,58 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E54CB5505B5
-	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 17:26:24 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB44E550604
+	for <lists+freedreno@lfdr.de>; Sat, 18 Jun 2022 18:11:14 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B5811B7EE;
-	Sat, 18 Jun 2022 15:26:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7585811B8EE;
+	Sat, 18 Jun 2022 16:11:13 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50FE111B7EE
- for <freedreno@lists.freedesktop.org>; Sat, 18 Jun 2022 15:26:22 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id 43so10399648qvb.3
- for <freedreno@lists.freedesktop.org>; Sat, 18 Jun 2022 08:26:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7yl+xWcwVFLnyuaROrrKb0oLsBtG84Oe2zSLgvQZ6no=;
- b=KqY7UVBX2vSSEpwujLQYovb9gYVHEq3Pi80wL996MKdr6yBXPfcsRJfobcBKcQOyhA
- ul2gc27bawxU+xiOUW6Rhj9/3hTqGJsWnoaB2hqov4VIhdwB6X98r9eY0eepbJmRjbUN
- LcWQizgGEnmxWHUZcETlaNwzJ27PiK0Qqg9MrZakcRn748XrGKCeLSTLIVrsYBULvDD7
- JeNQthnoJ3C9XRLzZLnqSHHeN/pVhfqUSVQh0t8DaO5sKVpdnnevLDDUnRFBp4xJqbwq
- SAyEqPKbCP6eqattCeBk8jxTMCX4R4mc8QMofIJ3yesDF6ijarEQci+9jbd/XxDDEXi5
- XF+A==
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7165511B8ED;
+ Sat, 18 Jun 2022 16:11:12 +0000 (UTC)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ y13-20020a17090a154d00b001eaaa3b9b8dso6637997pja.2; 
+ Sat, 18 Jun 2022 09:11:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oFb7npL4PD4+dNt9TMTKGSDFvw0QWZrqS2iKTnt24Qw=;
+ b=hLhs6nAB8Hj6nYs4Z6utsnyy8MWbills7fP/TW/3nHVEFwGxZE3uILPVG//7PAsoOP
+ FDKau/L/oPiGMdtJtfANdKCEO6NoYggtAVDcwXYJEXIgzN9pduWhELjUYPN+MqIs1Yf0
+ ubIEOvHM12hoGS1qxraVPSqWzUiuz7MJ88epzc1IsaCwrc3e54pbCV/WNWWqgAj7qUW6
+ MkOnlfaVMcLyEr9BZYblqPp9hRM//8OJMGKv/Uhd+V1Cpap3Nw9HXf/F1Fcu1IWLT3SG
+ JL3EAeNqZgoMU2/qn5M2muSUxr4nfBxROPYv731sZnMSRCSjgh5Nt++VCfRSqx9LnEip
+ JkoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7yl+xWcwVFLnyuaROrrKb0oLsBtG84Oe2zSLgvQZ6no=;
- b=3JLXXJ95hOKn6i2xyJ5Ky5FSNVQBOPkHEqCCy/0hImtzXaPGD6FsGxEQd/0fAEADfN
- Oy2fK7k/CgkYspxjHpr4OnghIRlHQJf8yUhKzN/Ftdziv5z28nLDqw2uxZxA5BBZW7CV
- ptWD7Mo1tgjvfUkj7s9uQkkrnbgqgAOgkrLybeZb5eRibFmwS701psSBq2EL0xKLO6Db
- UYp+W05RyhBDzsihzr57how7H0MqmYMzF0N46rin4dY8Y+B90R/IGifQimCrG0DS9D+b
- oMV9t4e+gKzJBiqmbIxu7yUucFnKqFWvQ6O3Gz6Q7MRy1MTdIG6ZUAI9sn5A90bD+wxE
- MpjQ==
-X-Gm-Message-State: AJIora8Q6bQQXMKjVsvnxOBZXrMav06Cjl4rsCIx1C0EU41huiDUB15b
- rzGMUf/cvVcbPO/WI1tHUAaCgwfvATvxdlOQag+ymg==
-X-Google-Smtp-Source: AGRyM1sR581qRv4JouVElVM2DI+MmhpNUnbQNeyw6yIKDKnyO1veVGBuLoVpJyWMQ0AVIq/eZxUCftWNW75DgwalseY=
-X-Received: by 2002:a05:622a:487:b0:304:fbfc:9933 with SMTP id
- p7-20020a05622a048700b00304fbfc9933mr13291540qtx.682.1655565981300; Sat, 18
- Jun 2022 08:26:21 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oFb7npL4PD4+dNt9TMTKGSDFvw0QWZrqS2iKTnt24Qw=;
+ b=O7cBL/QTPIE8gkEtP64Oo3vy6ILKlVHe/r6Oh8OdGBAz4HjUwz0xU0Y+slBrvyk70j
+ +QpFhhxJiPALK81NscjOX/MTc2qOI3OG+qe7mA/L1ux/Yj/bzn3G2rxOAup4IvrUFyP7
+ LezfTD8Mlvq5bS0dc1B5HzVMspAVqHx5Jd6ummfJ4l0bM6uIuEvo3YO7hE+bNnYUFjYX
+ xDd25CO/pfrMVC0ftUYDS/RgF7/eVWLoqaGkBU54OztRMtH/N8AcEX9t6CMIzVsBHnMq
+ tlNXLrXqF2X4veWR0IGdAioX/BDxauTByORTVrzNpQ0nyqOaXqyDS6+Po7vrZFwfBt2V
+ MHtg==
+X-Gm-Message-State: AJIora87xuiig2P/J7UNiLIN+FV8BOnjaoDJ5eXuONaTkDg3ImRQFRyU
+ UrQuu8nRhQ0hFlsnA6YDOiMLct8TOA0=
+X-Google-Smtp-Source: AGRyM1tQp1nTafx9dq2YTmnYdD/C7xbKbhSjuD5YDOyAYVynK+I6eyhgcjMjerVikMi2TnQ78p5YAA==
+X-Received: by 2002:a17:902:e54b:b0:166:50b6:a0a0 with SMTP id
+ n11-20020a170902e54b00b0016650b6a0a0mr15169227plf.30.1655568671225; 
+ Sat, 18 Jun 2022 09:11:11 -0700 (PDT)
+Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
+ by smtp.gmail.com with ESMTPSA id
+ d10-20020a170902654a00b0015e8d4eb29csm5490525pln.230.2022.06.18.09.11.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 18 Jun 2022 09:11:09 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Sat, 18 Jun 2022 09:11:18 -0700
+Message-Id: <20220618161120.3451993-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220615135935.87381-1-dmitry.baryshkov@linaro.org>
- <20220615135935.87381-2-dmitry.baryshkov@linaro.org>
- <11998546.O9o76ZdvQC@g550jk>
-In-Reply-To: <11998546.O9o76ZdvQC@g550jk>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 18 Jun 2022 18:26:10 +0300
-Message-ID: <CAA8EJppqpZzF2o-jQGKvFnf62kAdv-2QTsYmXMfw2k7KccNzBg@mail.gmail.com>
-To: Luca Weiss <luca@z3ntu.xyz>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH 2/5] drm/msm/mdss: enable optional core
- clock for MDP5 MDSS
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 1/2] drm/msm: Drop update_fences()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,64 +68,106 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
  linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Sean Paul <sean@poorly.run>
+ Steev Klimaszewski <steev@kali.org>, open list <linux-kernel@vger.kernel.org>,
+ Sean Paul <sean@poorly.run>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 18 Jun 2022 at 17:24, Luca Weiss <luca@z3ntu.xyz> wrote:
->
-> Hi Dmitry,
->
-> On Mittwoch, 15. Juni 2022 15:59:32 CEST Dmitry Baryshkov wrote:
-> > Enable (optional) core (MDP_CLK) clock that allows accessing HW_REV
-> > registers during the platform init.
-> >
->
-> I believe you also need to update Documentation/devicetree/bindings/display/
-> msm/mdp5.txt with the new clock.
+From: Rob Clark <robdclark@chromium.org>
 
-I'm working on converting it to the yaml format.
+I noticed while looking at some traces, that we could miss calls to
+msm_update_fence(), as the irq could have raced with retire_submits()
+which could have already popped the last submit on a ring out of the
+queue of in-flight submits.  But walking the list of submits in the
+irq handler isn't really needed, as dma_fence_is_signaled() will dtrt.
+So lets just drop it entirely.
 
->
-> Regards
-> Luca
->
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/msm/msm_mdss.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> > index b41848bfff91..f7b4628986b8 100644
-> > --- a/drivers/gpu/drm/msm/msm_mdss.c
-> > +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> > @@ -288,7 +288,7 @@ static int msm_mdss_reset(struct device *dev)
-> >  /*
-> >   * MDP5 MDSS uses at most three specified clocks.
-> >   */
-> > -#define MDP5_MDSS_NUM_CLOCKS 3
-> > +#define MDP5_MDSS_NUM_CLOCKS 4
-> >  static int mdp5_mdss_parse_clock(struct platform_device *pdev, struct
-> > clk_bulk_data **clocks) {
-> >       struct clk_bulk_data *bulk;
-> > @@ -305,6 +305,7 @@ static int mdp5_mdss_parse_clock(struct platform_device
-> > *pdev, struct clk_bulk_d bulk[num_clocks++].id = "iface";
-> >       bulk[num_clocks++].id = "bus";
-> >       bulk[num_clocks++].id = "vsync";
-> > +     bulk[num_clocks++].id = "core"; /* for hw_rev access */
-> >
-> >       ret = devm_clk_bulk_get_optional(&pdev->dev, num_clocks, bulk);
-> >       if (ret)
->
->
->
->
+v2: use spin_lock_irqsave/restore as we are no longer protected by the
+    spin_lock_irqsave/restore() in update_fences()
 
+Reported-by: Steev Klimaszewski <steev@kali.org>
+Fixes: 95d1deb02a9c ("drm/msm/gem: Add fenced vma unpin")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+Tested-by: Steev Klimaszewski <steev@kali.org>
+---
+ drivers/gpu/drm/msm/msm_fence.c |  8 +++++---
+ drivers/gpu/drm/msm/msm_gpu.c   | 22 ++--------------------
+ 2 files changed, 7 insertions(+), 23 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
+index 3df255402a33..38e3323bc232 100644
+--- a/drivers/gpu/drm/msm/msm_fence.c
++++ b/drivers/gpu/drm/msm/msm_fence.c
+@@ -46,12 +46,14 @@ bool msm_fence_completed(struct msm_fence_context *fctx, uint32_t fence)
+ 		(int32_t)(*fctx->fenceptr - fence) >= 0;
+ }
+ 
+-/* called from workqueue */
++/* called from irq handler and workqueue (in recover path) */
+ void msm_update_fence(struct msm_fence_context *fctx, uint32_t fence)
+ {
+-	spin_lock(&fctx->spinlock);
++	unsigned long flags;
++
++	spin_lock_irqsave(&fctx->spinlock, flags);
+ 	fctx->completed_fence = max(fence, fctx->completed_fence);
+-	spin_unlock(&fctx->spinlock);
++	spin_unlock_irqrestore(&fctx->spinlock, flags);
+ }
+ 
+ struct msm_fence {
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 244511f85044..cedc88cf8083 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -164,24 +164,6 @@ int msm_gpu_hw_init(struct msm_gpu *gpu)
+ 	return ret;
+ }
+ 
+-static void update_fences(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+-		uint32_t fence)
+-{
+-	struct msm_gem_submit *submit;
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ring->submit_lock, flags);
+-	list_for_each_entry(submit, &ring->submits, node) {
+-		if (fence_after(submit->seqno, fence))
+-			break;
+-
+-		msm_update_fence(submit->ring->fctx,
+-			submit->hw_fence->seqno);
+-		dma_fence_signal(submit->hw_fence);
+-	}
+-	spin_unlock_irqrestore(&ring->submit_lock, flags);
+-}
+-
+ #ifdef CONFIG_DEV_COREDUMP
+ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
+ 		size_t count, void *data, size_t datalen)
+@@ -438,7 +420,7 @@ static void recover_worker(struct kthread_work *work)
+ 		if (ring == cur_ring)
+ 			fence++;
+ 
+-		update_fences(gpu, ring, fence);
++		msm_update_fence(ring->fctx, fence);
+ 	}
+ 
+ 	if (msm_gpu_active(gpu)) {
+@@ -736,7 +718,7 @@ void msm_gpu_retire(struct msm_gpu *gpu)
+ 	int i;
+ 
+ 	for (i = 0; i < gpu->nr_rings; i++)
+-		update_fences(gpu, gpu->rb[i], gpu->rb[i]->memptrs->fence);
++		msm_update_fence(gpu->rb[i]->fctx, gpu->rb[i]->memptrs->fence);
+ 
+ 	kthread_queue_work(gpu->worker, &gpu->retire_work);
+ 	update_sw_cntrs(gpu);
 -- 
-With best wishes
-Dmitry
+2.36.1
+
