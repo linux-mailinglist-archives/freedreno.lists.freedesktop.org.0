@@ -2,61 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D1A55266A
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 23:31:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95298552669
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 23:31:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 135C110F3C1;
-	Mon, 20 Jun 2022 21:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1A2E10F3AE;
+	Mon, 20 Jun 2022 21:31:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8263910F3B3
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 21:31:01 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id c4so19192828lfj.12
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 14:31:01 -0700 (PDT)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B532B10F3C3
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 21:31:02 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id c2so19264020lfk.0
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 14:31:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=yP+P6IJQ0i72s/KiVTiNdt1xKwYjg9nXfM1TumgrgW0=;
- b=mvllWKmTmq2f+xTm1FJYJRAnt1Rxxz8eboJq8zxrxMlhpa5C2jaZMbo0wfq4JCAHHy
- Y84eiOmj1rehoUputTXVf0iuKuk4N/xONH1P9cJ6WXm0oKAFdN/X3b3YQI0ZIWDXfkAt
- n3fA9Tkbhon3TCDZPl6G1WcsLt9uphIMmbBXgiAnngkcX4iFAwI8NIEGMb8rOfEpFTZy
- Iulf1SIb/ZrPOv7APh9Q4T2N93G+5OETDX0LpLjvGWkaBBR6zccPPxsOqGoTHsVMgseW
- /YiMVrR21wGrp9ZzdM1+ztqoZhaw0VXcGn9rBE9Vl/Dz3LZ06XSSRoNRRqv/BGtbaIkf
- ecyA==
+ bh=0A7Tldf1GC2gwlpbAQomv1Bp+9HeSjzZPOOkTnoz/Ng=;
+ b=Bz2VonNk+v3S+fbvzRx/LZFjkdwjYWiBNnHubGlIWiD/mYPE4tvJ4Xpzp7ByhTX38k
+ sqFYOIKviDRSYmNXh0oL385z9mULZ3qDVhx1MKBNXgPRmgUQEPMc0kzPjumaJa4wt7yE
+ 1YN2sdkSeRmPG2wWB5kMTcJmWjKwRge0T77jmK3tiJt+d7R+i2pvUk8qBfh+dSlNnsVu
+ Gu0AP898ftDRI2RPtIZ6Eu282M+vQOCeCjEPOdxzmLh84TA7XzoXXRWwEGmJCVxWptnH
+ MIcHOndHIfdiGFFGkHMfEef/4Yu3fJzEOb2McCPQkMzg0/LVMMe/hUGaQJ8DYUCqxhMO
+ 4gHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=yP+P6IJQ0i72s/KiVTiNdt1xKwYjg9nXfM1TumgrgW0=;
- b=mJjhne6WgR4UVnyue8NKPKzjRJcxdm7s2hsmo8ibPacjNjtXTi6zRjaA6aRklw/sUg
- H9ecREDm1C+uNdNPfcOZiL1/VCSQtpabPYjKMKP4WaoLRYlEeRR+qYBSr+nJ9MRyxjSu
- Zg0DPzxODE8td51woQbq0ZJfdEIN17bnFl1cOdNxAM0r6wjJd234IwUTVnw8rbeCFEKO
- T81V9/JIHzrv+s5lx98t2ZMK/wGFpt8q1s3hAleejxWAvya3zd42G0+sTlmAU6LmWrj+
- sxTlCkaJnUYstynW+iXEmXXhRXFBiS6HpB+YEhtOFeRNvVL8fGkTzYi06lby2hY49cbJ
- ScgQ==
-X-Gm-Message-State: AJIora9/hRfNL46ZeQ0C2hjfWJO9EyvO7RQDea+8ZYSS8IemjP0rF3Uo
- pSRrbmYvBxA95V+wv0oN3FR0AA==
-X-Google-Smtp-Source: AGRyM1urpItppQcrZk4V9waoq5Tg3kck+QC+bu9Cvu3rDFkk4xRM7emA08T1KInI1rfctYGTn9NL1Q==
-X-Received: by 2002:a05:6512:1051:b0:479:6428:7a59 with SMTP id
- c17-20020a056512105100b0047964287a59mr15093000lfb.222.1655760659660; 
- Mon, 20 Jun 2022 14:30:59 -0700 (PDT)
+ bh=0A7Tldf1GC2gwlpbAQomv1Bp+9HeSjzZPOOkTnoz/Ng=;
+ b=v52YHSwoFoHkWo3tjYiT6H0KAZwTdV7pIpmTRPebNnTquh4HXDCLt/gJ+cTWYpTUwv
+ qaK0UTet2vhhy77tJPkLkMJum8kPo/KXxb/MBLB21YfCo46fV1tkNOtUcg/Q3N+g90GT
+ 1AWKz5F1hlxiJMdJulrwPq0/CRMzmgFU5xz73oGclI3/M2HPtPDJK1ZR2JHBUP1VbyLA
+ y130FApcgmS4ANrqFOL8I+NF8/FiROOe+7feWHl5qmFolCPrHs/We7ki40i7zA50C3Cl
+ 4p/dTHXnbZf5X08JgwJPYg+3tD3wU2idGyfgP9kjmtBD1eMkoIZeAxOwnaxnu/za3uou
+ ZE5A==
+X-Gm-Message-State: AJIora95W7JGwxJVjzmzOnqIRvp2yHaoBANYFlna7qSVe9rpnBVEHEPi
+ VBZCDLG2v9RUTyXoIJC+E5Ne7A==
+X-Google-Smtp-Source: AGRyM1tQedvPN3nXzU9NleuW6BWBubNtLxpPWhre0INShfJGUrYZa1tAcgHsRpuwAFhalBCRGjivUg==
+X-Received: by 2002:a05:6512:22cf:b0:47f:7b38:73e7 with SMTP id
+ g15-20020a05651222cf00b0047f7b3873e7mr689716lfu.523.1655760660744; 
+ Mon, 20 Jun 2022 14:31:00 -0700 (PDT)
 Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- l17-20020a2ea311000000b0025a681a7616sm838866lje.105.2022.06.20.14.30.58
+ l17-20020a2ea311000000b0025a681a7616sm838866lje.105.2022.06.20.14.30.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jun 2022 14:30:59 -0700 (PDT)
+ Mon, 20 Jun 2022 14:31:00 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Tue, 21 Jun 2022 00:30:53 +0300
-Message-Id: <20220620213054.1872954-4-dmitry.baryshkov@linaro.org>
+Date: Tue, 21 Jun 2022 00:30:54 +0300
+Message-Id: <20220620213054.1872954-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220620213054.1872954-1-dmitry.baryshkov@linaro.org>
 References: <20220620213054.1872954-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v1 3/4] drm/msm/mdp4: move resource allocation
+Subject: [Freedreno] [PATCH v1 4/4] drm/msm/mdp5: move resource allocation
  to the _probe function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,180 +79,174 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 To let the probe function bail early if any of the resources is
 unavailable, move resource allocattion from kms_init directly to the
-probe callback. While we are at it, replace irq_of_parse_and_map() with
-platform_get_irq().
+probe callback.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 107 +++++++++++------------
- 1 file changed, 51 insertions(+), 56 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 97 +++++++++++-------------
+ 1 file changed, 45 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 41dc60784847..6499713eccf6 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -139,8 +139,6 @@ static void mdp4_destroy(struct msm_kms *kms)
- 		pm_runtime_disable(dev);
- 
- 	mdp_kms_destroy(&mdp4_kms->base);
--
--	kfree(mdp4_kms);
- }
- 
- static const struct mdp_kms_funcs kms_funcs = {
-@@ -383,57 +381,27 @@ static int mdp4_kms_init(struct drm_device *dev)
- {
- 	struct platform_device *pdev = to_platform_device(dev->dev);
- 	struct msm_drm_private *priv = dev->dev_private;
--	struct mdp4_kms *mdp4_kms;
-+	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(priv->kms));
- 	struct msm_kms *kms = NULL;
- 	struct iommu_domain *iommu;
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index daf5b5ca7233..015388f262f4 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -556,17 +556,18 @@ static int mdp5_kms_init(struct drm_device *dev)
+ 	struct mdp5_cfg *config;
+ 	struct msm_kms *kms;
  	struct msm_gem_address_space *aspace;
--	int irq, ret;
-+	int ret;
- 	u32 major, minor;
- 	unsigned long max_clk;
+-	int irq, i, ret;
++	int i, ret;
+ 	struct device *iommu_dev;
  
- 	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
- 	max_clk = 266667000;
- 
--	mdp4_kms = kzalloc(sizeof(*mdp4_kms), GFP_KERNEL);
--	if (!mdp4_kms) {
--		DRM_DEV_ERROR(dev->dev, "failed to allocate kms\n");
--		return -ENOMEM;
--	}
+-	ret = mdp5_init(to_platform_device(dev->dev), dev);
 -
- 	ret = mdp_kms_init(&mdp4_kms->base, &kms_funcs);
- 	if (ret) {
- 		DRM_DEV_ERROR(dev->dev, "failed to init kms\n");
+ 	/* priv->kms would have been populated by the MDP5 driver */
+ 	kms = priv->kms;
+ 	if (!kms)
+ 		return -ENOMEM;
+ 
+ 	mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
++
++	ret = mdp5_init(to_platform_device(dev->dev), dev);
++
+ 	pdev = mdp5_kms->pdev;
+ 
+ 	ret = mdp_kms_init(&mdp5_kms->base, &kms_funcs);
+@@ -575,15 +576,6 @@ static int mdp5_kms_init(struct drm_device *dev)
  		goto fail;
  	}
  
--	priv->kms = &mdp4_kms->base.base;
- 	kms = priv->kms;
- 
- 	mdp4_kms->dev = dev;
- 
--	mdp4_kms->mmio = msm_ioremap(pdev, NULL);
--	if (IS_ERR(mdp4_kms->mmio)) {
--		ret = PTR_ERR(mdp4_kms->mmio);
--		goto fail;
--	}
--
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0) {
--		ret = irq;
--		DRM_DEV_ERROR(dev->dev, "failed to get irq: %d\n", ret);
+-	irq = irq_of_parse_and_map(pdev->dev.of_node, 0);
+-	if (!irq) {
+-		ret = -EINVAL;
+-		DRM_DEV_ERROR(&pdev->dev, "failed to get irq\n");
 -		goto fail;
 -	}
 -
 -	kms->irq = irq;
 -
--	/* NOTE: driver for this regulator still missing upstream.. use
--	 * _get_exclusive() and ignore the error if it does not exist
--	 * (and hope that the bootloader left it on for us)
--	 */
--	mdp4_kms->vdd = devm_regulator_get_exclusive(&pdev->dev, "vdd");
--	if (IS_ERR(mdp4_kms->vdd))
--		mdp4_kms->vdd = NULL;
--
- 	if (mdp4_kms->vdd) {
- 		ret = regulator_enable(mdp4_kms->vdd);
- 		if (ret) {
-@@ -442,24 +410,6 @@ static int mdp4_kms_init(struct drm_device *dev)
- 		}
- 	}
+ 	config = mdp5_cfg_get_config(mdp5_kms->cfg);
  
--	mdp4_kms->clk = devm_clk_get(&pdev->dev, "core_clk");
--	if (IS_ERR(mdp4_kms->clk)) {
--		DRM_DEV_ERROR(dev->dev, "failed to get core_clk\n");
--		ret = PTR_ERR(mdp4_kms->clk);
--		goto fail;
--	}
--
--	mdp4_kms->pclk = devm_clk_get(&pdev->dev, "iface_clk");
--	if (IS_ERR(mdp4_kms->pclk))
--		mdp4_kms->pclk = NULL;
--
--	mdp4_kms->axi_clk = devm_clk_get(&pdev->dev, "bus_clk");
--	if (IS_ERR(mdp4_kms->axi_clk)) {
--		DRM_DEV_ERROR(dev->dev, "failed to get axi_clk\n");
--		ret = PTR_ERR(mdp4_kms->axi_clk);
--		goto fail;
--	}
--
- 	clk_set_rate(mdp4_kms->clk, max_clk);
- 
- 	read_mdp_hw_revision(mdp4_kms, &major, &minor);
-@@ -474,10 +424,9 @@ static int mdp4_kms_init(struct drm_device *dev)
- 	mdp4_kms->rev = minor;
- 
- 	if (mdp4_kms->rev >= 2) {
--		mdp4_kms->lut_clk = devm_clk_get(&pdev->dev, "lut_clk");
--		if (IS_ERR(mdp4_kms->lut_clk)) {
-+		if (!mdp4_kms->lut_clk) {
- 			DRM_DEV_ERROR(dev->dev, "failed to get lut_clk\n");
--			ret = PTR_ERR(mdp4_kms->lut_clk);
-+			ret = -ENODEV;
- 			goto fail;
- 		}
- 		clk_set_rate(mdp4_kms->lut_clk, max_clk);
-@@ -560,7 +509,53 @@ static const struct dev_pm_ops mdp4_pm_ops = {
- 
- static int mdp4_probe(struct platform_device *pdev)
+ 	/* make sure things are off before attaching iommu (bootloader could
+@@ -804,51 +796,17 @@ static int interface_init(struct mdp5_kms *mdp5_kms)
+ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
  {
--	return msm_drv_probe(&pdev->dev, mdp4_kms_init, NULL);
-+	struct device *dev = &pdev->dev;
-+	struct mdp4_kms *mdp4_kms;
-+	int irq;
+ 	struct msm_drm_private *priv = dev->dev_private;
+-	struct mdp5_kms *mdp5_kms;
++	struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(priv->kms));
+ 	struct mdp5_cfg *config;
+ 	u32 major, minor;
+ 	int ret;
+ 
+-	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
+-	if (!mdp5_kms) {
+-		ret = -ENOMEM;
+-		goto fail;
+-	}
+-
+-	spin_lock_init(&mdp5_kms->resource_lock);
+-
+ 	mdp5_kms->dev = dev;
+-	mdp5_kms->pdev = pdev;
+ 
+ 	ret = mdp5_global_obj_init(mdp5_kms);
+ 	if (ret)
+ 		goto fail;
+ 
+-	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
+-	if (IS_ERR(mdp5_kms->mmio)) {
+-		ret = PTR_ERR(mdp5_kms->mmio);
+-		goto fail;
+-	}
+-
+-	/* mandatory clocks: */
+-	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
+-	if (ret)
+-		goto fail;
+-	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
+-	if (ret)
+-		goto fail;
+-	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
+-	if (ret)
+-		goto fail;
+-	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
+-	if (ret)
+-		goto fail;
+-
+-	/* optional clocks: */
+-	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
+-	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
+-	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
+-
+ 	/* we need to set a default rate before enabling.  Set a safe
+ 	 * rate first, then figure out hw revision, and then set a
+ 	 * more optimal rate:
+@@ -906,9 +864,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
+ 	if (ret)
+ 		goto fail;
+ 
+-	/* set uninit-ed kms */
+-	priv->kms = &mdp5_kms->base.base;
+-
+ 	return 0;
+ fail:
+ 	if (mdp5_kms)
+@@ -951,15 +906,53 @@ static int mdp5_setup_interconnect(struct platform_device *pdev)
+ 
+ static int mdp5_dev_probe(struct platform_device *pdev)
+ {
+-	int ret;
++	struct mdp5_kms *mdp5_kms;
++	int ret, irq;
+ 
+ 	DBG("");
+ 
++	mdp5_kms = devm_kzalloc(&pdev->dev, sizeof(*mdp5_kms), GFP_KERNEL);
++	if (!mdp5_kms)
++		return -ENOMEM;
 +
-+	mdp4_kms = devm_kzalloc(dev, sizeof(*mdp4_kms), GFP_KERNEL);
-+	if (!mdp4_kms)
-+		return dev_err_probe(dev, -ENOMEM, "failed to allocate kms\n");
+ 	ret = mdp5_setup_interconnect(pdev);
+ 	if (ret)
+ 		return ret;
+ 
+-	return msm_drv_probe(&pdev->dev, mdp5_kms_init, NULL);
++	mdp5_kms->pdev = pdev;
 +
-+	mdp4_kms->mmio = msm_ioremap(pdev, NULL);
-+	if (IS_ERR(mdp4_kms->mmio))
-+		return PTR_ERR(mdp4_kms->mmio);
++	spin_lock_init(&mdp5_kms->resource_lock);
++
++	mdp5_kms->mmio = msm_ioremap(pdev, "mdp_phys");
++	if (IS_ERR(mdp5_kms->mmio))
++		return PTR_ERR(mdp5_kms->mmio);
++
++	/* mandatory clocks: */
++	ret = get_clk(pdev, &mdp5_kms->axi_clk, "bus", true);
++	if (ret)
++		return ret;
++	ret = get_clk(pdev, &mdp5_kms->ahb_clk, "iface", true);
++	if (ret)
++		return ret;
++	ret = get_clk(pdev, &mdp5_kms->core_clk, "core", true);
++	if (ret)
++		return ret;
++	ret = get_clk(pdev, &mdp5_kms->vsync_clk, "vsync", true);
++	if (ret)
++		return ret;
++
++	/* optional clocks: */
++	get_clk(pdev, &mdp5_kms->lut_clk, "lut", false);
++	get_clk(pdev, &mdp5_kms->tbu_clk, "tbu", false);
++	get_clk(pdev, &mdp5_kms->tbu_rt_clk, "tbu_rt", false);
 +
 +	irq = platform_get_irq(pdev, 0);
 +	if (irq < 0)
-+		return dev_err_probe(dev, irq, "failed to get irq\n");
++		return dev_err_probe(&pdev->dev, irq, "failed to get irq\n");
 +
-+	mdp4_kms->base.base.irq = irq;
++	mdp5_kms->base.base.irq = irq;
 +
-+	/* NOTE: driver for this regulator still missing upstream.. use
-+	 * _get_exclusive() and ignore the error if it does not exist
-+	 * (and hope that the bootloader left it on for us)
-+	 */
-+	mdp4_kms->vdd = devm_regulator_get_exclusive(&pdev->dev, "vdd");
-+	if (IS_ERR(mdp4_kms->vdd))
-+		mdp4_kms->vdd = NULL;
-+
-+	mdp4_kms->clk = devm_clk_get(&pdev->dev, "core_clk");
-+	if (IS_ERR(mdp4_kms->clk))
-+		return dev_err_probe(dev, PTR_ERR(mdp4_kms->clk), "failed to get core_clk\n");
-+
-+	mdp4_kms->pclk = devm_clk_get(&pdev->dev, "iface_clk");
-+	if (IS_ERR(mdp4_kms->pclk))
-+		mdp4_kms->pclk = NULL;
-+
-+	mdp4_kms->axi_clk = devm_clk_get(&pdev->dev, "bus_clk");
-+	if (IS_ERR(mdp4_kms->axi_clk))
-+		return dev_err_probe(dev, PTR_ERR(mdp4_kms->axi_clk), "failed to get axi_clk\n");
-+
-+	/*
-+	 * This is required for revn >= 2. Handle errors here and let the kms
-+	 * init bail out if the clock is not provided.
-+	 */
-+	mdp4_kms->lut_clk = devm_clk_get_optional(&pdev->dev, "lut_clk");
-+	if (IS_ERR(mdp4_kms->lut_clk))
-+		return dev_err_probe(dev, PTR_ERR(mdp4_kms->lut_clk), "failed to get lut_clk\n");
-+
-+	return msm_drv_probe(&pdev->dev, mdp4_kms_init, &mdp4_kms->base.base);
++	return msm_drv_probe(&pdev->dev, mdp5_kms_init, &mdp5_kms->base.base);
  }
  
- static int mdp4_remove(struct platform_device *pdev)
+ static int mdp5_dev_remove(struct platform_device *pdev)
 -- 
 2.35.1
 
