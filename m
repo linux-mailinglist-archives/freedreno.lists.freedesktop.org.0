@@ -2,66 +2,72 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA7E0550E45
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 03:03:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DE9551314
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 10:44:31 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD5A611309C;
-	Mon, 20 Jun 2022 01:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7FD710E11A;
+	Mon, 20 Jun 2022 08:44:29 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD26C113096
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 01:03:07 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id b23so1669209ljh.7
- for <freedreno@lists.freedesktop.org>; Sun, 19 Jun 2022 18:03:07 -0700 (PDT)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABCAF10E11A
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 08:44:27 +0000 (UTC)
+Received: by mail-ej1-x631.google.com with SMTP id v1so19614984ejg.13
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 01:44:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4q2wCt0JYx6qaJhRwDPoSmA5b4OihaTxL4gA7npr16U=;
- b=rsI0vlVTzQzpkdIbqpbf/7eqtUrBOHQcOmH/dDKHYQyv5w5BnNiuqXzOQGLDDGvNzS
- fXsuP66NJgPfGZbfopbYc87BIePz/YSODREPdzBXbhEJdIfIa0niozFq4mWuxf/whC7b
- Sn/Juaqe/sNT4rPQmcvOnABx6ltNxCPc+v0DQHCFjEqw5fMeiLN1t8kCLiRvZvw+U8fF
- l4ULH8eirH7Mo2IWeDTh9SwJ3DB9GFLDnDPzigXv4D9TggLZ2RxZ/V4ZrtM/De2MbVDn
- l7g5B3ov5FA9Dt06RaAnUetHRjDdOifIlcTDrkSvVabk6cglPvixLhS1uP2B8Z6RpVzc
- Sjkg==
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=jbuHCNS3OsbuB14zXqMTZbn7sAxDckRnnJ+WYM/cbbU=;
+ b=ZwIA/Qnhfi5xfKT8y1yrsJWbevwCN531zW4mLOETfhklOrPrrS2Woo/IZvNDMyK10K
+ Hw03XC0h/p0Pg3mrHR5NNfwwQwIij7axyWSaRZ7jeaEWLDuY9084KYkjWJUcqbiJQ229
+ KCHq/Q/vAnBQw9cS8Cy9mH0oDrVbUutadMVZvUskc7UbOfJPwN8Z+9HaMrampohjlUKq
+ 8/Mqjst62TXFkPyTj8s3xpAxJa92JK3CdEAR61DyXar4JXvqufqztippkeYoAv489GSv
+ xYPiQCmsWpB0guNChxqyA9TmLHdgUERvChIzb5Lgj2yO4fT6qMy2aQOj4klrEkOkyGo7
+ 0mTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4q2wCt0JYx6qaJhRwDPoSmA5b4OihaTxL4gA7npr16U=;
- b=pfdWz8h4QwYB+fLC7Lrz1WDWCzlpG1G+IGakp0s6YNRyPt4F/KiqY246iGtZ8ZfFBY
- //+AMtOoqV+vb8OnkzgW0JmrjLF1I399I5mh9DzupusnKyGerTQJft6dIKvVbgHXTvVf
- gHKXYwNZuwl8MRgyh9f2ECMz2kVtArEZZ8IkZUgRfWRqfjGz56ofYxKS6YSnpI5+vedT
- 1PI4wf+cVCyn7s5pCgvBGu9HXrZjbA5tU6fEg973vKVRAO/GvvvZz/lgbzLoibeqTlW5
- TzNsQQsVPdAQjw1D8AmViWC4rM9p8B9C53aB4xOLsJbELI892k25L4EENXCYsreQs9dx
- vAXQ==
-X-Gm-Message-State: AJIora9MS8zXP6adR3e34ROtYoiOV+O4Wf6odEL32d7eJBmNED6Qmg9U
- eN/zoBQb3s9qFvgaaYU7WzePIThBemBz1NTv
-X-Google-Smtp-Source: AGRyM1tdp2xX6YI5PZBzkZwM6r8spgP1XYPDAPFEGuYiS7i9XQ32d7gqAd9JIP49mvbblK054b7l8Q==
-X-Received: by 2002:a2e:a553:0:b0:255:9114:dbff with SMTP id
- e19-20020a2ea553000000b002559114dbffmr11077244ljn.208.1655686986055; 
- Sun, 19 Jun 2022 18:03:06 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- a1-20020a19e301000000b00477a6c86f17sm1550334lfh.8.2022.06.19.18.03.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jun 2022 18:03:05 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=jbuHCNS3OsbuB14zXqMTZbn7sAxDckRnnJ+WYM/cbbU=;
+ b=pOvGfioypgFeeLtYpOswCywMfUFZDKYcdYn5ZI6f1JNnww3PF0BGDRRJEXSm8ePpvk
+ stpZSchiaWOk5zORehDIBv+GBtchuHLxbOdUZLbAh4vOb+R/nADr/X1To83j+0fhQMJH
+ x+pdXl6b3RQzpFGab5Y6pw/m7d8x9cUf5ZNASAHUanY5aIIIXN0i1nn2xjUBLBD3P6n2
+ hpBtxRKmVgpP/DNnBop8pYogaBeqfj8+Y22PJ5/7EPQF+6R+iG3XymzNmTXYgrD8gxBC
+ oVggmO8eRgEF2ypXxg6DurhTuqFt5EBFY16xWhum39geMQhuverU2JPBMavYUhi95eUd
+ uA/w==
+X-Gm-Message-State: AJIora+ERgJD0myxF1NilSmS3RjE9CAbJNrmDuCx2atafN9zFvWq53Gs
+ rZp12ELnQpEP9zyIMD5AdGdMkQ==
+X-Google-Smtp-Source: AGRyM1usrRAbvRtTfJyeMHsqxR2asoTm2C1H1HtsyIpxxvE11PA+G3nY2Tb2OC3QKDrmw34xMlcEtg==
+X-Received: by 2002:a17:906:1109:b0:711:da3b:bdcb with SMTP id
+ h9-20020a170906110900b00711da3bbdcbmr18922623eja.210.1655714666082; 
+ Mon, 20 Jun 2022 01:44:26 -0700 (PDT)
+Received: from [192.168.0.207] (xdsl-188-155-176-92.adslplus.ch.
+ [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
+ dz12-20020a0564021d4c00b00434ed381701sm10069136edb.35.2022.06.20.01.44.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Jun 2022 01:44:25 -0700 (PDT)
+Message-ID: <012d0f02-05a7-ce34-6a24-3e3e2f59f404@linaro.org>
+Date: Mon, 20 Jun 2022 10:44:24 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
+ Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Date: Mon, 20 Jun 2022 04:03:00 +0300
-Message-Id: <20220620010300.1532713-4-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220620010300.1532713-1-dmitry.baryshkov@linaro.org>
 References: <20220620010300.1532713-1-dmitry.baryshkov@linaro.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] arm64: dts: qcom: msm8996: add
- #clock-cells and XO clock to the HDMI PHY node
+ <20220620010300.1532713-2-dmitry.baryshkov@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220620010300.1532713-2-dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Freedreno] [PATCH v2 1/3] dt-bindings: phy: qcom,
+ hdmi-phy-qmp: add clock-cells and XO clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,35 +87,17 @@ Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add #clock-cells property to the HDMI PHY device node to let other nodes
-resolve the hdmipll clock. While we are at it, also add the XO clock to
-the device node.
+On 20/06/2022 03:02, Dmitry Baryshkov wrote:
+> As the QMP HDMI PHY is a clock provider, add constant #clock-cells
+> property. For the compatibility with older DTs the property is not
+> marked as required. Also add the XO clock to the list of the clocks used
+> by the driver.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- arch/arm64/boot/dts/qcom/msm8996.dtsi | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-index 9932186f7ceb..c0def6dd7f00 100644
---- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-@@ -960,9 +960,13 @@ hdmi_phy: hdmi-phy@9a0600 {
- 					    "hdmi_phy";
- 
- 				clocks = <&mmcc MDSS_AHB_CLK>,
--					 <&gcc GCC_HDMI_CLKREF_CLK>;
-+					 <&gcc GCC_HDMI_CLKREF_CLK>,
-+					 <&xo_board>;
- 				clock-names = "iface",
--					      "ref";
-+					      "ref",
-+					      "xo";
-+
-+				#clock-cells = <0>;
- 
- 				status = "disabled";
- 			};
--- 
-2.35.1
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
+
+Best regards,
+Krzysztof
