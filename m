@@ -1,53 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4195522DE
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 19:45:59 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF1E7552403
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 20:36:46 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6449010EC72;
-	Mon, 20 Jun 2022 17:45:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF9210EE49;
+	Mon, 20 Jun 2022 18:36:45 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0737310EC72;
- Mon, 20 Jun 2022 17:45:57 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- m16-20020a7bca50000000b0039c8a224c95so6049383wml.2; 
- Mon, 20 Jun 2022 10:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=IeQAYHSX50DSoga/bjO85m7RJZ5eeGCk6fh4GvV0eXA=;
- b=nLoxWDhzHZdQoJrRs9Lg/ZXFOVIW9AFUdiYl33t81H4gMMwGerK2pyR5MKO6KPkMBr
- gPuUbPTvWQ/RlhxEi5VLNxGmKs4kcTXnbhZmoLmhgFVNbKjwu7goAIQMMC13kqUL0dAN
- qJwxxxOKXgPVG5Hrm4nEMfBp/GReWDmpqdzp5URC9pDM5BhfJFP79e2pGJSTSh1QZi6T
- SNqiCXjHmWHLJXRcCJiec7FPrkjdTgBaIX+fV/XXFssHi4hzq/VAvqkLNgVmk5AJfroO
- NOhbW/UEXZ1HqillXk/AkxLRiVwUrsxERNSzZ2Vq8wqf80sqfyids/I1C6Qk5BJR961W
- xZ+g==
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8AE10F22C
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 18:36:44 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id i15so10477391plr.1
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 11:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=anholt-net.20210112.gappssmtp.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=r8NdoW5AddDmipkvsjih16CXPQjsU0eZxi3OxKkBmN8=;
+ b=H+lKfc53MfoKWbnqFT89h/mhsoe7NhhEKrckelerE5pE/432Z3iaw7F1SU5lSMGrqJ
+ FnKa6NPxdxUeaC+s00glxACfjiGk/WGnMJlbQIH6u00gpgD9cckUxtxVCnf1jyvOPQoU
+ +fOslEDBVTSL1Gy7THBQtu2BMSdTLxqQeFir4ZRti+VfxfwhPYYzcwujuor+6XA5+K6l
+ MO5/6PRdBvYtwVWe+/26N26yUtMeZgxY8fqyDx3J3uqp8zTy0Cu2L3YwStQF9WTEZpAb
+ DWpePaBt/jlMP9L50HQ27nqGppXu167xQ65N079vLwRk9Ybn982GujmmWrz52Kjfdw0x
+ 84xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=IeQAYHSX50DSoga/bjO85m7RJZ5eeGCk6fh4GvV0eXA=;
- b=A9/fMOwozXX53Edqhr115jeX85Pi9dA8XDlJCH/pNj9JXTY/iFD0gXRssg42xCYWD2
- rTJ6qtLN8TAVntCaiV7t1funeaYlnOZ03Gq/ai3wZzPoQ6o0izGe1xR8eBG73K6O5SMR
- cI5OGfRjcQEHfcaUWaKDETm5E/JujhByuaJ4F0pDktxwGLgc/uLMx/51DNcei7H3x0G8
- oeyJgViFDvyPN4HlwjaY8+CG5btJ/dkhAKwItMvO1obqvYH34GG4WLoU/XexRU/15t2u
- /SGqz+b5Vze/6C0XfTcVcMUG1a8woCg1qfScP0CzAjrFHBvbp07iR7dQE4+dCQEDZPEH
- rAuw==
-X-Gm-Message-State: AJIora/aJcW27eDsedQYoYbw4agU6xrvehY+C6ZTkq80U/aWkqPwED19
- VZ4H3mmYoPUuhwot4U7lRfitTI4mUy2/XZVyd24=
-X-Google-Smtp-Source: AGRyM1sbZaeyZDiL8AlWQz++9TMHx0tYJRGXDq69us1pqz9Wni9YYQ5WAwzlZc9IQe7YpygXBwnIsbfU/qOwVxFe6eE=
-X-Received: by 2002:a05:600c:4f96:b0:39c:951e:66b7 with SMTP id
- n22-20020a05600c4f9600b0039c951e66b7mr26056903wmq.84.1655747155463; Mon, 20
- Jun 2022 10:45:55 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=r8NdoW5AddDmipkvsjih16CXPQjsU0eZxi3OxKkBmN8=;
+ b=vdGCUCHmtIvHOIk8YtxqmGemLQlQKEtAwpWeEIgtOx2DLa/hPOEtUfUffDHa6K6WCM
+ hUEBb99rCuluHgb5Nre1Cz2+UJBNE1/PiiUM7fTZXFCh/zmp6Q3ltSwZq9f+3bEOXxlz
+ 5+0qam7ezIvCpyp+D8nt8G21xV0UdG82GIdkInKiLoG+3ilz/w/0qhnjYDXUHbFwLmZ7
+ j2lUmNO9ekKcBweJrGmbRuFnakZ2F5pwhtzrWndNl0FuFYhYxnOBUmm3hrV5pMW+GxZF
+ Gmib/RtuV7vSxuK4tsHHBPzSRzeLIzEOzAegIRbV7yr9dVytbVpAuOfvtRCNZytyNLMN
+ anqQ==
+X-Gm-Message-State: AJIora83829G9KhqF2P2f96k3tBjIlcOXcVX/evZ5uADORmXEz1H7yOU
+ X38/Jqf45u7hXIxu33tNcO25Vg==
+X-Google-Smtp-Source: AGRyM1uQfz7pZ9DWLMJTwN2MFiyDfq/jBEgrSB5FWoXIJh1Yc8zL8k5KuFSfqFGI+JOH70LUpG/riQ==
+X-Received: by 2002:a17:902:d718:b0:168:d9df:4f1c with SMTP id
+ w24-20020a170902d71800b00168d9df4f1cmr25205344ply.41.1655750204246; 
+ Mon, 20 Jun 2022 11:36:44 -0700 (PDT)
+Received: from wildbow.anholt.net ([97.115.187.17])
+ by smtp.gmail.com with ESMTPSA id
+ ds12-20020a17090b08cc00b001e0c1044ceasm8500041pjb.43.2022.06.20.11.36.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jun 2022 11:36:43 -0700 (PDT)
+From: Emma Anholt <emma@anholt.net>
+To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>
+Date: Mon, 20 Jun 2022 11:36:31 -0700
+Message-Id: <20220620183633.1131760-1-emma@anholt.net>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-From: Rob Clark <robdclark@gmail.com>
-Date: Mon, 20 Jun 2022 10:46:02 -0700
-Message-ID: <CAF6AEGvdsOF1-+WfTWyEyu33XPcvxOCU00G-dz7EF2J+fdyUHg@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-06-20 for v5.19-rc4
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2 0/2] per-process page tables for qcom 8250
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,138 +73,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>
+Cc: iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Emma Anholt <emma@anholt.net>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Dave,
+This enable per-process page tables on the Qualcomm RB5 boards I'm
+setting up for Mesa CI.  Has survived a full deqp-vk run.
 
-Here are fixes for v5.19, summary below (and in tag msg)
+v2: moved qcom,adreno-smmu compatible earlier
 
-The following changes since commit 24df12013853ac59c52cc726e9cbe51e38d09eda:
+Emma Anholt (2):
+  iommu: arm-smmu-impl: Add 8250 display compatible to the client list.
+  arm64: dts: qcom: sm8250: Enable per-process page tables.
 
-  MAINTAINERS: Add Dmitry as MSM DRM driver co-maintainer (2022-05-07
-12:02:29 -0700)
+ arch/arm64/boot/dts/qcom/sm8250.dtsi       | 2 +-
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-are available in the Git repository at:
+-- 
+2.36.1
 
-  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2022-06-20
-
-for you to fetch changes up to a6e2af64a79afa7f1b29375b5231e840a84bb845:
-
-  drm/msm/dp: force link training for display resolution change
-(2022-06-18 09:14:06 -0700)
-
-----------------------------------------------------------------
-Fixes for v5.19-rc4
-
-- Workaround for parade DSI bridge power sequencing
-- Fix for multi-planar YUV format offsets
-- Limiting WB modes to max sspp linewidth
-- Fixing the supported rotations to add 180 back for IGT
-- Fix to handle pm_runtime_get_sync() errors to avoid unclocked access
-  in the bind() path for dpu driver
-- Fix the irq_free() without request issue which was being hit frequently
-  in CI.
-- Fix to add minimum ICC vote in the msm_mdss pm_resume path to address
-  bootup splats
-- Fix to avoid dereferencing without checking in WB encoder
-- Fix to avoid crash during suspend in DP driver by ensuring interrupt
-  mask bits are updated
-- Remove unused code from dpu_encoder_virt_atomic_check()
-- Fix to remove redundant init of dsc variable
-- Fix to ensure mmap offset is initialized to avoid memory corruption
-  from unpin/evict
-- Fix double runpm disable in probe-defer path
-- VMA fenced-unpin fixes
-- Fix for WB max-width
-- Fix for rare dp resolution change issue
-
-----------------------------------------------------------------
-Abhinav Kumar (4):
-      drm/msm/dpu: limit writeback modes according to max_linewidth
-      drm/msm/dpu: add DRM_MODE_ROTATE_180 back to supported rotations
-      drm/msm/dpu: handle pm_runtime_get_sync() errors in bind path
-      drm/msm/dpu: limit wb modes based on max_mixer_width
-
-Dmitry Baryshkov (1):
-      drm/msm: don't free the IRQ if it was not requested
-
-Douglas Anderson (2):
-      drm/msm/dsi: don't powerup at modeset time for parade-ps8640
-      drm/msm/dpu: Move min BW request and full BW disable back to mdss
-
-Hangyu Hua (1):
-      drm: msm: fix possible memory leak in mdp5_crtc_cursor_set()
-
-Haowen Bai (1):
-      drm/msm/dpu: Fix pointer dereferenced before checking
-
-Jiapeng Chong (1):
-      drm/msm/dpu: Remove unused code
-
-Jonathan Marek (1):
-      drm/msm: use for_each_sgtable_sg to iterate over scatterlist
-
-Kuogee Hsieh (3):
-      drm/msm/dp: Always clear mask bits to disable interrupts at
-dp_ctrl_reset_irq_ctrl()
-      drm/msm/dp: check core_initialized before disable interrupts at
-dp_display_unbind()
-      drm/msm/dp: force link training for display resolution change
-
-Maximilian Luz (1):
-      drm/msm: Fix double pm_runtime_disable() call
-
-Miaoqian Lin (2):
-      drm/msm/a6xx: Fix refcount leak in a6xx_gpu_init
-      drm/msm/mdp4: Fix refcount leak in mdp4_modeset_init_intf
-
-Rob Clark (9):
-      drm/msm: Fix fb plane offset calculation
-      Merge tag 'msm-next-5.19-fixes' of
-https://gitlab.freedesktop.org/abhinavk/msm into msm-fixes-staging
-      Merge tag 'msm-next-5.19-fixes-06-01' of
-https://gitlab.freedesktop.org/abhinavk/msm into msm-fixes-staging
-      drm/msm: Ensure mmap offset is initialized
-      drm/msm: Switch ordering of runpm put vs devfreq_idle
-      drm/msm/gem: Separate object and vma unpin
-      drm/msm/gem: Drop early returns in close/purge vma
-      drm/msm: Drop update_fences()
-      drm/msm: Don't overwrite hw fence in hw_init
-
-Vinod Koul (1):
-      drm/msm/disp/dpu1: remove superfluous init
-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  1 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c            | 14 ++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  3 --
- .../gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c    |  4 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 12 ++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      | 13 ++++-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c           |  2 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          |  4 +-
- drivers/gpu/drm/msm/dp/dp_ctrl.c                   | 42 ++++++++++++----
- drivers/gpu/drm/msm/dp/dp_ctrl.h                   |  2 +-
- drivers/gpu/drm/msm/dp/dp_display.c                | 16 +++---
- drivers/gpu/drm/msm/dsi/dsi_manager.c              | 32 +++++++++++-
- drivers/gpu/drm/msm/msm_drv.c                      |  9 +++-
- drivers/gpu/drm/msm/msm_drv.h                      |  1 +
- drivers/gpu/drm/msm/msm_fb.c                       |  2 +-
- drivers/gpu/drm/msm/msm_fence.c                    |  8 +--
- drivers/gpu/drm/msm/msm_gem.c                      |  7 ++-
- drivers/gpu/drm/msm/msm_gem.h                      | 11 +++--
- drivers/gpu/drm/msm/msm_gem_prime.c                | 15 ++++++
- drivers/gpu/drm/msm/msm_gem_submit.c               | 18 ++++---
- drivers/gpu/drm/msm/msm_gem_vma.c                  |  6 +--
- drivers/gpu/drm/msm/msm_gpu.c                      | 27 ++--------
- drivers/gpu/drm/msm/msm_iommu.c                    |  2 +-
- drivers/gpu/drm/msm/msm_kms.h                      |  1 +
- drivers/gpu/drm/msm/msm_mdss.c                     | 57 ++++++++++++++++++++++
- drivers/gpu/drm/msm/msm_ringbuffer.c               |  2 +-
- 27 files changed, 222 insertions(+), 91 deletions(-)
