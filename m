@@ -2,59 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C030550C83
-	for <lists+freedreno@lfdr.de>; Sun, 19 Jun 2022 20:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD87C550E38
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 03:03:06 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDDC10EC4A;
-	Sun, 19 Jun 2022 18:20:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 693A711308D;
+	Mon, 20 Jun 2022 01:03:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8998610EB87;
- Sun, 19 Jun 2022 18:20:28 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id go6so3526002pjb.0;
- Sun, 19 Jun 2022 11:20:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3945211308D
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 01:03:04 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id w20so14820890lfa.11
+ for <freedreno@lists.freedesktop.org>; Sun, 19 Jun 2022 18:03:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=9P6Uwhk4lhIbmks8A5vMCm1KO+jVgWZwXx0N6QZ5t04=;
- b=KQfUV5LBjddO+uv/f7u1l5J63AiboIEK8ytUCpq9/cUYGKOJ1sGRDObfK1lnKG8OWu
- jmLJqCRjO2jmK3IxiuczOD9ne08Iz5ECPAz7s9slc7TwLbcEz/d74SELfZYL3+MBAKNo
- lepVoHPvABpp6GNUx9xayCqoSq7uOiaVr2JYgAAo7kpsjWdSl7ym6X4kIBdrrUjC6IAz
- v3eN4/dd4RoGTo3ZtZw4MGGWbeAUgnB8fwDmBkygphQD0fsKaNqACT3IpmlwxFyGz6dV
- bXeKDuX1eN6oTrUJ0gQ3AbKlins1WtqFjwqGftjxGxGO8sw6oxzLDybvLpEB5WNFSuwG
- h77w==
+ bh=LYx02C+EGoQu6KMZwxBVohOCqcqGTmt/TOzhzyy1LWE=;
+ b=m3sa52vAAbFrpDwICO52CQsJYLvI4DPQ04un6oUG38P7j4Q+ZThELmIAd3gmRaRFAq
+ 6pDh3TdB+B1NEgQsF/FJLuH6ZDCupihbcEG2ive+X5rT8oUOAqL0BXVOqNlnSrTCMGHe
+ PuWZE1pedoKE4aSLbr6jrcuR8AGE3QKbNl8ADEKMmYJ97gwwIdnuuDB+HJfG0o7iqZrc
+ 289OTNHwAtpeeg9pBqDdGeT7eVGQOJGlqTNPh2+Rhkuk4rtQgfiYSMjVyfodxJHFNwqR
+ 58Cxyj0YS0rSfMc66y/HkYsrIXGPAJG7rQX1vtrgY+0v6x9FOMib6Nj4QcrQufltmpwI
+ HxjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=9P6Uwhk4lhIbmks8A5vMCm1KO+jVgWZwXx0N6QZ5t04=;
- b=yCWEP4PeU85LZxPmz75TLqUIj4sSXZb5aDaAalFZks2nyhjPWmeB2MACXGzVXRU5zi
- IqYang8dO2632MZgkSzGzodDxBy0j36cKxQkchbW7lAXC+tp9koyaqTQ1rIXd+ld8b5W
- mCW+ZNVgJB6LH7RcR9WbvqRecmasluSq22kFd9Ixw2S0o6xLOTXICNYurIer+74MTVyq
- 8Qdz9BvsqRs7zZC29JdCJ9VqIw6+2vq7OrZxeKquv4g12sIj6nmEbXkTAPinBhWuV/V0
- rt2bfRzyTy71LPzqwz+QyXF+q4NknmiW26+zCrbOSRz/xKwKzjwtGhwOLx0mDEB1sYMW
- moPw==
-X-Gm-Message-State: AJIora/HBwpo0MsDmnRds+J/reY0TBIO8Q3tOwxvswMXi/ZGadyv9Tsn
- iFjxTt2UY8TgNVA5f7zhdiqAUXu4GsM=
-X-Google-Smtp-Source: AGRyM1uWVAKbik9ekW7FpqyAOaegy5JFdAP5oGwFfcYBh8MY7d2kUGYkDdybN1eZtpaD3MPfqyjL5A==
-X-Received: by 2002:a17:902:d707:b0:168:9a6a:936d with SMTP id
- w7-20020a170902d70700b001689a6a936dmr20099132ply.92.1655662827294; 
- Sun, 19 Jun 2022 11:20:27 -0700 (PDT)
-Received: from localhost (c-73-25-156-94.hsd1.or.comcast.net. [73.25.156.94])
- by smtp.gmail.com with ESMTPSA id
- x6-20020a637c06000000b003fbfd5e4ddcsm2551807pgc.75.2022.06.19.11.20.25
+ bh=LYx02C+EGoQu6KMZwxBVohOCqcqGTmt/TOzhzyy1LWE=;
+ b=5S2tVUjOycM3ic9OvOD7ZzCVaZ0ey51pTIshRsey2AAq1WQ5iJwNoVlHCZmZZlN6ln
+ TPjUm/K4ZVACFt2DE53sephBhQf9j8DzmGDXCoTmXQnaskuRQCElJ2j9Uuqi2PrTA0/D
+ xDhwqQuLhEsG3C7ALNp+5b58i82xU1fkZVqKxpg2Tk+S7OUBpUAQP4hxrAgCKIK9GML8
+ UZNy+Jlbq+piwChl8Vai2NoENdRcu3W8Ho1GtMa5JqrEpxYR6vG/tc+PRbcW2OxxB7dQ
+ 0LrlC3zXbKqgM7QNI/XIs+8+W2wS/k22cbQm/MhCx0cdN9fz2z3nZzV5BRf/rUdW8ndw
+ UMuQ==
+X-Gm-Message-State: AJIora8W3mNgK5z/vpFUvAqU2Ucw7LdaejbvexSQcopxcL+HClusyk++
+ pfy1oB75FvE6wXv+5t1PhGXuWg==
+X-Google-Smtp-Source: AGRyM1sMWLywf7r4SVgZehvoyw4bAZ3HVrwRR/gdH4/29NKbQUy4lNRoKx8COczxk47Uko6qNZvqoQ==
+X-Received: by 2002:a05:6512:2828:b0:47f:68dc:9feb with SMTP id
+ cf40-20020a056512282800b0047f68dc9febmr3098074lfb.475.1655686982374; 
+ Sun, 19 Jun 2022 18:03:02 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ a1-20020a19e301000000b00477a6c86f17sm1550334lfh.8.2022.06.19.18.03.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jun 2022 11:20:26 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Sun, 19 Jun 2022 11:20:35 -0700
-Message-Id: <20220619182035.3545006-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
+ Sun, 19 Jun 2022 18:03:01 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Mon, 20 Jun 2022 04:02:57 +0300
+Message-Id: <20220620010300.1532713-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [RFC] drm/gem: Add LRU/shrinker helper
+Subject: [Freedreno] [PATCH v2 0/3] drm/msm/hdmi: turn MSM8996 HDMI PHY into
+ OF clock provider
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,323 +72,34 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
  freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On MSM8996 the HDMI PHY is the QMP PHY, it provides an HDMI PLL clock
+used by the MMCC. Add support for providing this clock to the OF
+framework by registerding the clock provider and adding #clock-cells
+property to the DT node.
 
-Add a simple LRU helper to assist with driver's shrinker implementation.
-It handles tracking the number of backing pages associated with a given
-LRU, and provides a helper to implement shrinker_scan.
+Changes since v1:
+- Also handle the xo clock (include it into the dtsi, use parent_data
+  instead of parent_names). The patches were changed, so I didn't pick
+  up the R-b tags.
 
-A driver can use multiple LRU instances to track objects in various
-states, for example a dontneed LRU for purgeable objects, a willneed LRU
-for evictable objects, and an unpinned LRU for objects without backing
-pages.
+Dmitry Baryshkov (3):
+  dt-bindings: phy: qcom,hdmi-phy-qmp: add clock-cells and XO clock
+  drm/msm/hdmi: make hdmi_phy_8996 OF clk provider
+  arm64: dts: qcom: msm8996: add #clock-cells and XO clock to the HDMI
+    PHY node
 
-All LRUs that the object can be moved between should share a single
-lock.
+ .../bindings/phy/qcom,hdmi-phy-qmp.yaml       | 14 ++++++++---
+ arch/arm64/boot/dts/qcom/msm8996.dtsi         |  8 ++++--
+ drivers/gpu/drm/msm/hdmi/hdmi_phy_8996.c      | 25 +++++++++++--------
+ 3 files changed, 31 insertions(+), 16 deletions(-)
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
-The rough idea was to have something that was usable both by GEM shmem
-helper as well as drivers not using GEM shmem helpers.  It diverges from
-the latest iteration of GEM shmem shrinker support[1] in a couple of
-ways, mostly where I think the shmem helpers are going in the wrong
-direction:
-
-1. This tracks pages per LRU, so that count_objects does not need to do
-   list iteration or acquire locks.
-2. Does not acquire object_name_lock, to avoid serializing multiple
-   threads hitting the shrinker more than otherwise necessary.
-3. Does not track if we hit lock contention.  Without grabbing
-   object_name_lock, I think this is unnecessary.  And either way it
-   is probably better to let shrink_slab() move on to trying other
-   shrinkers in the system.  It will generally try again afterwards
-   if necessary.
-
-The expected usage is:
-
-static unsigned long
-msm_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
-{
-	struct msm_drm_private *priv =
-		container_of(shrinker, struct msm_drm_private, shrinker);
-	unsigned count = priv->dontneed.count;
-
-	if (can_swap())
-		count += priv->willneed.count;
-
-	return count;
-}
-
-static unsigned long
-msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-{
-	struct msm_drm_private *priv =
-		container_of(shrinker, struct msm_drm_private, shrinker);
-	unsigned long freed;
-
-	freed = drm_gem_lru_scan(&priv->dontneed, sc->nr_to_scan, purge);
-
-	if (can_swap() && freed < sc->nr_to_scan) {
-		freed += drm_gem_lru_scan(&priv->willneed,
-					  sc->nr_to_scan - freed,
-					  evict);
-	}
-
-	return (freed > 0) ? freed : SHRINK_STOP;
-}
-
-[1] https://lore.kernel.org/all/20220526235040.678984-18-dmitry.osipenko@collabora.com/
-
- drivers/gpu/drm/drm_gem.c | 150 ++++++++++++++++++++++++++++++++++++++
- include/drm/drm_gem.h     |  55 ++++++++++++++
- 2 files changed, 205 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index eb0c2d041f13..b453463a2cdf 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1274,3 +1274,153 @@ drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
- 	ww_acquire_fini(acquire_ctx);
- }
- EXPORT_SYMBOL(drm_gem_unlock_reservations);
-+
-+/**
-+ * drm_gem_lru_init - initialize a LRU
-+ *
-+ * @lru: The LRU to initialize
-+ * @lock: The lock protecting the LRU
-+ */
-+void
-+drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock)
-+{
-+	lru->lock = lock;
-+	lru->count = 0;
-+	INIT_LIST_HEAD(&lru->list);
-+}
-+EXPORT_SYMBOL(drm_gem_lru_init);
-+
-+/**
-+ * drm_gem_lru_move_tail - move the object to the tail of the LRU
-+ *
-+ * If the object is already in this LRU it will be moved to the
-+ * tail.  Otherwise it will be removed from whichever other LRU
-+ * it is in (if any) and moved into this LRU.
-+ *
-+ * @lru: The LRU to move the object into.
-+ * @obj: The GEM object to move into this LRU
-+ */
-+void
-+drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj)
-+{
-+	mutex_lock(lru->lock);
-+	drm_gem_lru_move_tail_locked(lru, obj);
-+	mutex_unlock(lru->lock);
-+}
-+EXPORT_SYMBOL(drm_gem_lru_move_tail);
-+
-+/**
-+ * drm_gem_lru_move_tail_locked - move the object to the tail of the LRU
-+ *
-+ * If the object is already in this LRU it will be moved to the
-+ * tail.  Otherwise it will be removed from whichever other LRU
-+ * it is in (if any) and moved into this LRU.
-+ *
-+ * Call with LRU lock held.
-+ *
-+ * @lru: The LRU to move the object into.
-+ * @obj: The GEM object to move into this LRU
-+ */
-+void
-+drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj)
-+{
-+	WARN_ON(!mutex_is_locked(lru->lock));
-+
-+	if (obj->lru) {
-+		obj->lru->count -= obj->size >> PAGE_SHIFT;
-+		list_del(&obj->lru_node);
-+	}
-+
-+	lru->count += obj->size >> PAGE_SHIFT;
-+	list_add_tail(&obj->lru_node, &lru->list);
-+}
-+EXPORT_SYMBOL(drm_gem_lru_move_tail_locked);
-+
-+/**
-+ * drm_gem_lru_scan - helper to implement shrinker.scan_objects
-+ *
-+ * If the shrink callback succeeds, it is expected that the driver
-+ * move the object out of this LRU.
-+ *
-+ * If the LRU possibly contain active buffers, it is the responsibility
-+ * of the shrink callback to check for this (ie. dma_resv_test_signaled())
-+ * or if necessary block until the buffer becomes idle.
-+ *
-+ * @lru: The LRU to scan
-+ * @nr_to_scan: The number of pages to try to reclaim
-+ * @shrink: Callback to try to shrink/reclaim the object.
-+ */
-+unsigned long
-+drm_gem_lru_scan(struct drm_gem_lru *lru, unsigned nr_to_scan,
-+		 bool (*shrink)(struct drm_gem_object *obj))
-+{
-+	struct drm_gem_lru still_in_lru;
-+	unsigned freed = 0;
-+
-+	drm_gem_lru_init(&still_in_lru, lru->lock);
-+
-+	mutex_lock(lru->lock);
-+
-+	while (freed < nr_to_scan) {
-+		struct drm_gem_object *obj = list_first_entry_or_null(
-+				&lru->list, typeof(*obj), lru_node);
-+
-+		if (!obj)
-+			break;
-+
-+		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
-+
-+		/*
-+		 * If it's in the process of being freed, gem_object->free()
-+		 * may be blocked on lock waiting to remove it.  So just
-+		 * skip it.
-+		 */
-+		if (!kref_get_unless_zero(&obj->refcount))
-+			continue;
-+
-+		/*
-+		 * Now that we own a reference, we can drop the lock for the
-+		 * rest of the loop body, to reduce contention with other
-+		 * code paths that need the LRU lock
-+		 */
-+		mutex_unlock(lru->lock);
-+
-+		/*
-+		 * Note that this still needs to be trylock, since we can
-+		 * hit shrinker in response to trying to get backing pages
-+		 * for this obj (ie. while it's lock is already held)
-+		 */
-+		if (!dma_resv_trylock(obj->resv))
-+			goto tail;
-+
-+		if (shrink(obj)) {
-+			freed += obj->size >> PAGE_SHIFT;
-+
-+			/*
-+			 * If we succeeded in releasing the object's backing
-+			 * pages, we expect the driver to move moved the object
-+			 * out of this LRU
-+			 */
-+			WARN_ON(obj->lru == &still_in_lru);
-+			WARN_ON(obj->lru == lru);
-+		}
-+
-+		dma_resv_unlock(obj->resv);
-+
-+tail:
-+		drm_gem_object_put(obj);
-+		mutex_lock(lru->lock);
-+	}
-+
-+	/*
-+	 * Move objects we've skipped over out of the temporary still_in_lru
-+	 * back into this LRU
-+	 */
-+	list_splice_tail(&still_in_lru.list, &lru->list);
-+	lru->count += still_in_lru.count;
-+
-+	mutex_unlock(lru->lock);
-+
-+	return freed;
-+}
-+EXPORT_SYMBOL(drm_gem_lru_scan);
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 87cffc9efa85..f9310d0b997a 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -174,6 +174,41 @@ struct drm_gem_object_funcs {
- 	const struct vm_operations_struct *vm_ops;
- };
- 
-+/**
-+ * struct drm_gem_lru - A simple LRU helper
-+ *
-+ * A helper for tracking GEM objects in a given state, to aid in
-+ * driver's shrinker implementation.  Tracks the count of pages
-+ * for lockless &shrinker.count_objects, and provides
-+ * &drm_gem_lru_scan for driver's &shrinker.scan_objects
-+ * implementation.
-+ */
-+struct drm_gem_lru {
-+	/**
-+	 * @lock:
-+	 *
-+	 * Lock protecting movement of GEM objects between LRUs.  All
-+	 * LRUs that the object can move between should be protected
-+	 * by the same lock.
-+	 */
-+	struct mutex *lock;
-+
-+	/**
-+	 * @count:
-+	 *
-+	 * The total number of backing pages of the GEM objects in
-+	 * this LRU.
-+	 */
-+	long count;
-+
-+	/**
-+	 * @list:
-+	 *
-+	 * The LRU list.
-+	 */
-+	struct list_head list;
-+};
-+
- /**
-  * struct drm_gem_object - GEM buffer object
-  *
-@@ -312,6 +347,20 @@ struct drm_gem_object {
- 	 *
- 	 */
- 	const struct drm_gem_object_funcs *funcs;
-+
-+	/**
-+	 * @lru_node:
-+	 *
-+	 * List node in a &drm_gem_lru.
-+	 */
-+	struct list_head lru_node;
-+
-+	/**
-+	 * @lru:
-+	 *
-+	 * The current LRU list that the GEM object is on.
-+	 */
-+	struct drm_gem_lru *lru;
- };
- 
- /**
-@@ -420,4 +469,10 @@ void drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
- int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
- 			    u32 handle, u64 *offset);
- 
-+void drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock);
-+void drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj);
-+void drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj);
-+unsigned long drm_gem_lru_scan(struct drm_gem_lru *lru, unsigned nr_to_scan,
-+			       bool (*shrink)(struct drm_gem_object *obj));
-+
- #endif /* __DRM_GEM_H__ */
 -- 
-2.36.1
+2.35.1
 
