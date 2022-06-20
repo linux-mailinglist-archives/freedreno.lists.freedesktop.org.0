@@ -1,54 +1,53 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48FB5552405
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 20:36:48 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0097F552408
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 20:36:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A25D610F008;
-	Mon, 20 Jun 2022 18:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1696010EEC8;
+	Mon, 20 Jun 2022 18:36:48 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E83E410EE71
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 18:36:45 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id
- b12-20020a17090a6acc00b001ec2b181c98so9912038pjm.4
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 11:36:45 -0700 (PDT)
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [IPv6:2607:f8b0:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2588E10EEC8
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 18:36:47 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id 184so10974791pga.12
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 11:36:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=anholt-net.20210112.gappssmtp.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dYnEPoGZqfZYJAuPegqx++UzPWjcPYHxQtwczgOEqOY=;
- b=j27uV95QDHmh28z29YzfPn3mYVjgQeD4AjLpoagSqW19OAWVkRFOHjYUOCslMxwhqS
- 8lw/4ul9kFOZw8r+4NfjnLyke4Ov1rf8JPUzzFfx2oPJU1GcZHlLopjosMj5XGo3nvUu
- ep4bc9OllPhyOPJ/95NZh5DTjYq3MXOjlURHmycUaCYajuixGmRxiCia5GFA3yo3JMuk
- 3WFrf8GZ2yGDYglM9CNwrlf0gkpbcAVQ/hlVXD7L0hBLUFBsrDcrbDz+wnEK/0ixHu8L
- h2pPMd3Jhe4fy/M+xWzMzstO7ugktrNpSJCtX9eZUIdySavMl3jHcZy7PJt+Mgcqu5ec
- Efgg==
+ bh=cuXafal7oQMsPKjaUnSX0izJjoMCagq43H5IBdJoY/0=;
+ b=HcNySfWkztX+IpyLdapmB5uQv+0HIWkTNMKKAUBo24pLvsbYdt0MhDUZ8AamP/aZZs
+ 2GiClOnQwtLaUHbNNgwZvIlNV1NxAv09YX1qM+M8ZsC+t+woA8HTL0xrUUVHTaXgQtFA
+ 8FBuTsB4XH9nq191ZTS4LYUooQk7H8oCGm9lmcuJSIiPLFVJ0s8wxOaDHR7c3PAHwUYk
+ kkRkFNINd50B/k8Y+kWGdSjF7SLflNWx8DLSASQPsU02g3sr+8mEyVN+hHwDVzV9fGJ+
+ iLaRwn7xGaqfvxbirLEalktbZwqgl36/g2RknT6Z1hinMikKYh5wNN89zPcWPQ4H9C2P
+ uU4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dYnEPoGZqfZYJAuPegqx++UzPWjcPYHxQtwczgOEqOY=;
- b=PD9oXf4lUGuglLO3bvWG/WOK8K0EzLnii1JqYLgYL9ijPyIjlx7QqOFLINCgexv6Zl
- n2EGCl9h5QP018tV7OZZwdBgpIdWJ6EehPlmDIndwcUhx3Ou06lUr5wG06BIqZ+X43YT
- 9xA8ZXsaHLZZSMfva4vvu5kvU74mZ7TVVycWxFzcuyX/CD7FJ4+FF5qT6UPhW8BYZz8p
- LMC49e9x6kRPei4Zg12H1RbiwqmbBdeSTZBuzjkxc0v1MT3KvOkkTWuYZoYM7HFhDHFk
- D3MAeyTfpTHljkOG3lMyQxV/p5eFr0UR9vqkuxD5mRaWBMclVqh8Kf1ojcaFR6IQgOI+
- vlog==
-X-Gm-Message-State: AJIora8v5jDnGcm5SlxJvC+xMojd1coxPcpTiS3w1q+PQU+rhFdawxXw
- UUUL3z8OE25b8c3jJ2vaCAc0Mw==
-X-Google-Smtp-Source: AGRyM1uz/6Ko3AqqWsTQqB/KJYqsG9FJzSMzyl3BFf9B5wef0b4KsUd6G43yzj9L9DvutkGyCDta0A==
-X-Received: by 2002:a17:90b:3b8a:b0:1e2:ee1e:6340 with SMTP id
- pc10-20020a17090b3b8a00b001e2ee1e6340mr28501640pjb.38.1655750205525; 
- Mon, 20 Jun 2022 11:36:45 -0700 (PDT)
+ bh=cuXafal7oQMsPKjaUnSX0izJjoMCagq43H5IBdJoY/0=;
+ b=W6jcN4H8ScopDi5vZDt8DfujQtrl46fcHSx3YbCHJ6/kihYpGRxjwi0Ax5aYMpbPsV
+ CKRYh43b/rIEYLttJ0UyCVI6ZCTI4R4xUwwZl/aYIKucR4LY9VfFqPb6DhvJ9g8K3fyn
+ E4ZUCK1O3fdyrM9jHVGHn3kR0YsyUkDs5iCKy42U0f0bfmeoXF+HUbMaIhQIvucQ1dmS
+ UBdLgMb2haMcens09G4SLW7vJghhcK3nlIuIWHr+Hum3KN6Jdo4b6B9FZrGhcVU7eZDF
+ TWWNoR9iZkBcGpwfLXj7nYqW6RZdG8K0ZgRK4NkaVbrhGOozde9Xwg89gZGfU1zC9L9p
+ r92w==
+X-Gm-Message-State: AJIora8exAMfn2ku0DOEHUIvYpqr8olEt1MBcSa/i2Ro+zqTxCNCpYFp
+ rvCXP7cQYWQ77jUGp2acN5uJSQ==
+X-Google-Smtp-Source: AGRyM1uaVMxPdAdbEkr6R5BXQkH4b9IPtINsC+QUA2arv2IQf8W7zqXF2oWl6/UIv0I4Iw1fk1cI2w==
+X-Received: by 2002:a65:404c:0:b0:3c6:4018:ffbf with SMTP id
+ h12-20020a65404c000000b003c64018ffbfmr23272611pgp.408.1655750206723; 
+ Mon, 20 Jun 2022 11:36:46 -0700 (PDT)
 Received: from wildbow.anholt.net ([97.115.187.17])
  by smtp.gmail.com with ESMTPSA id
- ds12-20020a17090b08cc00b001e0c1044ceasm8500041pjb.43.2022.06.20.11.36.44
+ ds12-20020a17090b08cc00b001e0c1044ceasm8500041pjb.43.2022.06.20.11.36.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jun 2022 11:36:44 -0700 (PDT)
+ Mon, 20 Jun 2022 11:36:46 -0700 (PDT)
 From: Emma Anholt <emma@anholt.net>
 To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>,
@@ -56,15 +55,15 @@ To: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rob Herring <robh+dt@kernel.org>, Will Deacon <will@kernel.org>,
  Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>
-Date: Mon, 20 Jun 2022 11:36:32 -0700
-Message-Id: <20220620183633.1131760-2-emma@anholt.net>
+Date: Mon, 20 Jun 2022 11:36:33 -0700
+Message-Id: <20220620183633.1131760-3-emma@anholt.net>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220620183633.1131760-1-emma@anholt.net>
 References: <20220620183633.1131760-1-emma@anholt.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 1/2] iommu: arm-smmu-impl: Add 8250 display
- compatible to the client list.
+Subject: [Freedreno] [PATCH v2 2/2] arm64: dts: qcom: sm8250: Enable
+ per-process page tables.
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,34 +76,38 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, Konrad Dybcio <konrad.dybcio@somainline.org>,
- linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- linux-arm-kernel@lists.infradead.org
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ iommu@lists.linux-foundation.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Emma Anholt <emma@anholt.net>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Required for turning on per-process page tables for the GPU.
+This is an SMMU for the adreno gpu, and adding this compatible lets
+the driver use per-fd page tables, which are required for security
+between GPU clients.
 
 Signed-off-by: Emma Anholt <emma@anholt.net>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@somainline.org>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index d8e1ef83c01b..bb9220937068 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -233,6 +233,7 @@ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
- 	{ .compatible = "qcom,sc7280-mdss" },
- 	{ .compatible = "qcom,sc7280-mss-pil" },
- 	{ .compatible = "qcom,sc8180x-mdss" },
-+	{ .compatible = "qcom,sm8250-mdss" },
- 	{ .compatible = "qcom,sdm845-mdss" },
- 	{ .compatible = "qcom,sdm845-mss-pil" },
- 	{ }
+v2: moved qcom,adreno-smmu earlier
+
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index a92230bec1dd..aae7b841b81a 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -2513,7 +2513,7 @@ gpucc: clock-controller@3d90000 {
+ 		};
+ 
+ 		adreno_smmu: iommu@3da0000 {
+-			compatible = "qcom,sm8250-smmu-500", "arm,mmu-500";
++			compatible = "qcom,sm8250-smmu-500", "qcom,adreno-smmu", "arm,mmu-500";
+ 			reg = <0 0x03da0000 0 0x10000>;
+ 			#iommu-cells = <2>;
+ 			#global-interrupts = <2>;
 -- 
 2.36.1
 
