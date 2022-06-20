@@ -2,72 +2,59 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B30E551319
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 10:44:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3946F552089
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 17:23:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C303C10E2D4;
-	Mon, 20 Jun 2022 08:44:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D771F10E0A7;
+	Mon, 20 Jun 2022 15:23:21 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9CD710E2DC
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 08:44:41 +0000 (UTC)
-Received: by mail-ej1-x635.google.com with SMTP id s12so19674136ejx.3
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 01:44:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=YVi3D194sdyxvkGLsBfImbrrFHaWe6koIaOfRs7xpZY=;
- b=GPJVd9wkS9872Pj6ecAxEq4OgSG9RQlHL7uaN25HxLizxECezEa516LpRk84sqWK3Y
- fWhr02IZzun6+I5QhG6UV4h7kEJ615sHnaYtV1mA8qPMVQc/vd4UZHDX8HAGh76E12aL
- RB2eyQHZcDVnN/wLQ+E9FtzLksHOdVnc4UMA6bNJm6V2QtPXeM3Wd22lQbPTxGKZuiBT
- DN8OVWndEk+6BM8JCt/OAdkxe/MLv/cxfDxfY8tOPuhMIfyDPKDQDROTERcYrBnHAlRe
- DuceiGj5V9LPzVZP+npWxX+NDPlSg9SJywqHCgbnpQfwPla/iECYH/RktYNt90kJlRDP
- PZyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=YVi3D194sdyxvkGLsBfImbrrFHaWe6koIaOfRs7xpZY=;
- b=z5qdDJfjbT5uonpW/WqBvb6HPoJubZ8m7VVrP8Z9pfqOxT37KzOJZ6gxIRXfCIiV76
- +ipUMi4CQDKaMTiVD5+Q45LULnaMHbdhkIsQkOxd7WtfFMmFJQTwt6pJZ/vEzncC3epM
- bH+hbNxlAxcvGCDMsnoXicQTAOhWC7bpQv9eVF/+vWnIPqnoEQ68c8EWgjXZk1VfqzEo
- ByBNwuo9Gan94HBh3Yes/xu+i1k/mVSEybM8rq87dQ3n6xkZ6+F+AEzuijevykYMS4aE
- xqSIh3KW5Q3KmYGzFjraHnRk6x+hma4OC7HLxll8hgXlZ+E8TLfiy9TP6g8m47SlLXKv
- eRmA==
-X-Gm-Message-State: AJIora8QOTS/IOjiYrU1hBfjf6GdhUUi13BQ8ec9LdhDZxC7w2a5EPBm
- TbJFsmjzkaMAgXefnm65yTHjGw==
-X-Google-Smtp-Source: AGRyM1vBG8xyJ+oIiy6ksUK6rwiJB4h9TTzdrWLDcYP9XK5oslrB5xcWli9w3hX/TofWDYdMRlCMVA==
-X-Received: by 2002:a17:907:1c87:b0:6f0:29ea:cc01 with SMTP id
- nb7-20020a1709071c8700b006f029eacc01mr19990953ejc.671.1655714680330; 
- Mon, 20 Jun 2022 01:44:40 -0700 (PDT)
-Received: from [192.168.0.207] (xdsl-188-155-176-92.adslplus.ch.
- [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
- o2-20020a170906768200b0070fd7da3e47sm5525104ejm.127.2022.06.20.01.44.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jun 2022 01:44:39 -0700 (PDT)
-Message-ID: <93da288d-d6c3-56c8-676c-c5ed22de7bd0@linaro.org>
-Date: Mon, 20 Jun 2022 10:44:38 +0200
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9C4610E0A7;
+ Mon, 20 Jun 2022 15:23:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655738601; x=1687274601;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=3RspoLTY/aaq8/GIIo7KFRfdh26vFE0QgbvyI/ESV+s=;
+ b=lCzLE5MoBAtAiBTIzQTCmAbgXUJt85zdvFZKWU0F01kw9dHN2BFzqjea
+ rBJp7BkGfYTJ8CmPQIWMEw82JSLdNobqFZpnIHM+NIJYj8HAWWEkg+mQu
+ QJTZBvlfEtqSMfbGwbOHDjeoSjvJY20z3t8WoKtvfDLM2ID0TZfqzAsQm k=;
+Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
+ by alexa-out.qualcomm.com with ESMTP; 20 Jun 2022 08:23:19 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2022 08:23:19 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 20 Jun 2022 08:23:18 -0700
+Received: from [10.110.14.194] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 20 Jun
+ 2022 08:23:18 -0700
+Message-ID: <8cc1d090-3f5a-8b30-0bf2-ccb4c9eda176@quicinc.com>
+Date: Mon, 20 Jun 2022 08:23:07 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-References: <20220620010300.1532713-1-dmitry.baryshkov@linaro.org>
- <20220620010300.1532713-4-dmitry.baryshkov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220620010300.1532713-4-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+References: <20220617204750.2347797-1-swboyd@chromium.org>
+ <20220617204750.2347797-4-swboyd@chromium.org>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+In-Reply-To: <20220617204750.2347797-4-swboyd@chromium.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH v2 3/3] arm64: dts: qcom: msm8996: add
- #clock-cells and XO clock to the HDMI PHY node
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: Re: [Freedreno] [PATCH 3/3] drm/msm/dp: Get rid of
+ dp_ctrl_on_stream_phy_test_report()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,23 +67,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- freedreno@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ patches@lists.linux.dev
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 20/06/2022 03:03, Dmitry Baryshkov wrote:
-> Add #clock-cells property to the HDMI PHY device node to let other nodes
-> resolve the hdmipll clock. While we are at it, also add the XO clock to
-> the device node.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-
-Best regards,
-Krzysztof
+On 6/17/2022 1:47 PM, Stephen Boyd wrote:
+> This API isn't really more than a couple lines now that we don't store
+> the pixel_rate to the struct member. Inline it into the caller.
+>
+> Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 40 ++++++++++++--------------------
+>   1 file changed, 15 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> index e114521af2e9..d04fddb29fdf 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> @@ -1582,34 +1582,15 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
+>   	return success;
+>   }
+>   
+> -static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
+> +static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+>   {
+>   	int ret;
+> -	struct dp_ctrl_private *ctrl;
+>   	unsigned long pixel_rate;
+>   
+> -	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
+> -
+> -	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> -	ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+> -	if (ret) {
+> -		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+> -		return ret;
+> -	}
+> -
+> -	dp_ctrl_send_phy_test_pattern(ctrl);
+> -
+> -	return 0;
+> -}
+> -
+> -static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+> -{
+> -	int ret = 0;
+> -
+>   	if (!ctrl->link->phy_params.phy_test_pattern_sel) {
+>   		drm_dbg_dp(ctrl->drm_dev,
+>   			"no test pattern selected by sink\n");
+> -		return ret;
+> +		return 0;
+>   	}
+>   
+>   	/*
+> @@ -1624,12 +1605,21 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
+>   	}
+>   
+>   	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
+> -	if (!ret)
+> -		ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
+> -	else
+> +	if (ret) {
+>   		DRM_ERROR("failed to enable DP link controller\n");
+> +		return ret;
+> +	}
+>   
+> -	return ret;
+> +	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
+> +	ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
+> +	if (ret) {
+> +		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	dp_ctrl_send_phy_test_pattern(ctrl);
+> +
+> +	return 0;
+>   }
+>   
+>   void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
