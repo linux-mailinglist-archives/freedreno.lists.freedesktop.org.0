@@ -1,57 +1,55 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F2955251D
-	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 22:08:01 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E8255257F
+	for <lists+freedreno@lfdr.de>; Mon, 20 Jun 2022 22:12:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFAF210ED7D;
-	Mon, 20 Jun 2022 20:07:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC63110EFA4;
+	Mon, 20 Jun 2022 20:12:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632EE10ED7C;
- Mon, 20 Jun 2022 20:07:58 +0000 (UTC)
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD30710EF7D;
+ Mon, 20 Jun 2022 20:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655755678; x=1687291678;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=WoaLmubst55f6uHn7psiseCm0+Nuf62c9FVGfHGmGRY=;
- b=N1ctxxUNdroyAYXoOngxXbGVCSPT6y2jJoit36men+sJjg+oY31yVZJL
- 0OClADgpOcnlZy20XBcRvbYXjdZ9AY12xghs9E22aXLE6zb9JCRxIvJHT
- G7ZMyYBqLi6HP9jlSFuJ+OY1v4XHFmdwbt6qJr+GqX9BNedJrXb2xgGo6 I=;
-Received: from ironmsg08-lv.qualcomm.com ([10.47.202.152])
- by alexa-out.qualcomm.com with ESMTP; 20 Jun 2022 13:07:58 -0700
+ t=1655755954; x=1687291954;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=DytK7VbPJFLWO4Bkbor6y2YZy2H/xk04y0HMnOOJgqs=;
+ b=te249MiYoTmgBYBsV5JD41vlNTbsBf+2Ffr8Br/+f7jZONntzbz53JbN
+ H20hQsnMNy8zbEk14jefyKwhr/iMAdBv3fL7Rr9L7u9jiMrX9uH5p0HTP
+ RDr9+4mDdpJaDQeoPImjaiJzkgfH8MXVGu9xD4GmowuS53zWHhFJzGsPE U=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 20 Jun 2022 13:12:34 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg08-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2022 13:07:57 -0700
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2022 13:12:33 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 20 Jun 2022 13:07:57 -0700
-Received: from [10.110.14.194] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 20 Jun
- 2022 13:07:55 -0700
-Message-ID: <6f1ade9f-38b0-827c-667b-5c8018b7779a@quicinc.com>
-Date: Mon, 20 Jun 2022 13:07:55 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-References: <1653512540-21956-1-git-send-email-quic_khsieh@quicinc.com>
- <YqvEjzgSbvrOCFtq@matsya>
+ 15.2.986.22; Mon, 20 Jun 2022 13:12:33 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Mon, 20 Jun 2022 13:12:32 -0700
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <YqvEjzgSbvrOCFtq@matsya>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
+ <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
+ <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
+ <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Mon, 20 Jun 2022 13:12:20 -0700
+Message-ID: <1655755943-28594-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v13 0/3] eDP/DP Phy vdda realted function
+Subject: [Freedreno] [PATCH v14 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +62,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
- freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
- bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+0) rebase on https://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tree
+1) add regulator_set_load() to eDP phy
+2) add regulator_set_load() to DP phy
+3) remove vdda related function out of eDP/DP controller
 
-On 6/16/2022 5:02 PM, Vinod Koul wrote:
-> On 25-05-22, 14:02, Kuogee Hsieh wrote:
->> 1) add regulator_set_load() to eDP phy
->> 2) add regulator_set_load() to DP phy
->> 3) remove vdda related function out of eDP/DP controller
->>
->> Kuogee Hsieh (3):
->>    phy: qcom-edp: add regulator_set_load to edp phy
->>    phy: qcom-qmp: add regulator_set_load to dp phy
->>    drm/msm/dp: delete vdda regulator related functions from eDP/DP
->>      controller
->>
->>   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
->>   drivers/gpu/drm/msm/dp/dp_parser.h  |  8 ----
->>   drivers/gpu/drm/msm/dp/dp_power.c   | 95 +------------------------------------
->>   drivers/phy/qualcomm/phy-qcom-edp.c | 12 +++++
->>   drivers/phy/qualcomm/phy-qcom-qmp.c | 40 ++++++++++++----
-> Please rebase this to phy-next and apply to specific qmp phy driver...
-I will rebase to ==> 
-https://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git
+Kuogee Hsieh (3):
+  phy: qcom-edp: add regulator_set_load to edp phy
+  phy: qcom-qmp: add regulator_set_load to dp phy
+  drm/msm/dp: delete vdda regulator related functions from eDP/DP
+    controller
+
+ drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
+ drivers/gpu/drm/msm/dp/dp_parser.h  |  8 ----
+ drivers/gpu/drm/msm/dp/dp_power.c   | 95 +------------------------------------
+ drivers/phy/qualcomm/phy-qcom-edp.c | 12 +++++
+ drivers/phy/qualcomm/phy-qcom-qmp.c | 40 ++++++++++++----
+ 5 files changed, 45 insertions(+), 124 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
