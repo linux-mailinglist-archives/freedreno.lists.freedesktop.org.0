@@ -2,56 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EC99552B10
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 08:38:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D9D552B38
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 08:43:04 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C32B610F794;
-	Tue, 21 Jun 2022 06:37:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 950CB10FC63;
+	Tue, 21 Jun 2022 06:43:02 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [IPv6:2607:f8b0:4864:20::f34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5067610F7A9
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jun 2022 06:37:58 +0000 (UTC)
-Received: by mail-qv1-xf34.google.com with SMTP id q4so6911205qvq.8
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 23:37:58 -0700 (PDT)
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB9B10FC63
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jun 2022 06:43:01 +0000 (UTC)
+Received: by mail-qk1-x729.google.com with SMTP id p63so9357252qkd.10
+ for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 23:43:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P/ZHdlDT/z0JI9+6gk/VhCpD+I3j8EEmsNtdy7Bk49Y=;
- b=no69+S00OHtDn40C4P/ra6GtR2wAm+qZUvTHZI8jEsM7uozh3LIqJgHR6kVRnWoKij
- HhYRSmz/G5z1mA+Kjt9FNiJcqYNTEvbTEkRDTJE7JtvW4lkAMDyGjTfVJuM2UgNeMXJl
- gePm1zHlxL/iFGGe8Os0UpF4giF7MlwaoSf8cr3KSA1Qcx0CN0fYl+bvVQz47ZOu/tK2
- R6jd11qjpSMC90G8aXCxN26qHzzJE5S7JTra7sG7a/1N+FfGbn9O8a0Awa9p9QzPDFTE
- lyouT7/Kl2thQ9ZUkf/mIQ1DbMNmYlJfg0HXEP2wEPfy+uekoBE3ry59aIvICACUGrBc
- aStA==
+ :cc; bh=BDMAfmpcVtwHtSL8Cukz2KZ68UxxlQ/r6RdB8dvo9Ps=;
+ b=ZP1XDFtBZOGEQIt5GmVSpGQXPu6SdOzeRbvSacSQmMVLMUJU7zbGB/CF+ax4KYARi7
+ P7dzOKiTx2c/Tq0myy9Hc1hJ/nkUrGEVNBb7njzYpwsI6NtwaJZNwuOrQA2xgyxd2o1S
+ XrQhjLOsQQQeyg+quhdGtwgz6EGVzSjFtCP3ks13HeEyuqk1GaR7ENXaRz6CUUYEcTA9
+ SACEMNa7vv13oLm5xA6aMA4K5ic8t0Dbg0jlZLVtSBTu54icam8aDkhQNUTiZqQ9nppm
+ j1V3pBSE6aEEBcSWmDKkpUrbCoCSUZyC+JYSrBjMqSae/jIOeKEFGr59Zk1keyEYrPyg
+ 5K6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=P/ZHdlDT/z0JI9+6gk/VhCpD+I3j8EEmsNtdy7Bk49Y=;
- b=i4MZpTCWl8X8KYf0kIVU3DxXShGJDEYlfT5XEI9r2KijHUcGuvCTdiReCsPTvKf//J
- oljYVL7UdvAYKGpuWVS2S99Ah5c0K8tAXBtud0Poj8DMykTO0BRE+gpDqRAHXnW5mhRF
- y8HMEuG7tuPMrJsFegA951VRjPujydP3VpYIL7W7yDz061Xld/FhrzgLcTfVVEL4UCSq
- gWYALrc6q6dHihKc5F7cMRLLJGX26n5pkY8lmgvpj3kMujLoyNs27HGG9pKhVUTQI3ze
- j1dAxwcjTbK7pDmwpLmgIKVecNDToaeN8cTb+rDEShW6p2Tm+yzMVc6/ON9mLrBcmH6J
- v4zQ==
-X-Gm-Message-State: AJIora9GjJbObqQvEGJ0VHG1SJFNKmemv3Y1/DoVb8iiEDNYmqyc+dak
- eHFb4dAFuq4K203017Xk2P1gxWfmNtBE6T4t44XHYA==
-X-Google-Smtp-Source: AGRyM1urfcxXJusoqWuxDZVZribTjRxKDV1QpCSj5lZ2mCOm7wDgdqhAecge8mYsCHku6y64EqEoRchNmz8hELQtKMI=
-X-Received: by 2002:a05:6214:d8d:b0:464:51cc:a552 with SMTP id
- e13-20020a0562140d8d00b0046451cca552mr21693032qve.122.1655793477402; Mon, 20
- Jun 2022 23:37:57 -0700 (PDT)
+ bh=BDMAfmpcVtwHtSL8Cukz2KZ68UxxlQ/r6RdB8dvo9Ps=;
+ b=yVROPbljkQvFAA05h2+kMupNxDBXalEONbY3VPkB4JzL/LpUdjrhD9x8HMOLFkKDcj
+ YrCszr2t2Ap07LDVs+Ezp3lPpJHYU+41F6BM42KysL4ct6r7ZyFGM/HquWuZjQ51BdID
+ U/Hi5PKq8lGH51mqgEU+f5pgBot5wroX/GIIndgwWapnvHM9SLZeh2oDchycD8FQybl/
+ AnL5phvPzfC/zVo+F2bdHlV8zWsf4T+2WQVbVjwFiYV2DlXG4DIXhmcYaTRr8nTllUQj
+ /EMnSt6ZXpCqozBDLjVQRH07QA+snpZCk2AaavyytLDMjh3R+wDAtN8tj2CSBE3xquca
+ ntAQ==
+X-Gm-Message-State: AJIora+jiJ8iGaE4CoqAi6aKpcW3tMgp1dQSekX21CTe7oRbLL5Oh5lH
+ afNHssOWUtGgCw1QWKBuVRRiYmTFu9EcyeJ5S2jOmg==
+X-Google-Smtp-Source: AGRyM1vUeJfYyjh3kydXYSrKDxW/3xDhctDH5Qd9V09GQdUT8GXa3CTxKM7Xu6pn9tKOlomHVaw63TTOqwenOFgDFPQ=
+X-Received: by 2002:a05:620a:4305:b0:6a9:3829:c03 with SMTP id
+ u5-20020a05620a430500b006a938290c03mr18734199qko.363.1655793780796; Mon, 20
+ Jun 2022 23:43:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220621005033.274-1-quic_jesszhan@quicinc.com>
- <20220621005033.274-3-quic_jesszhan@quicinc.com>
-In-Reply-To: <20220621005033.274-3-quic_jesszhan@quicinc.com>
+ <20220621005033.274-2-quic_jesszhan@quicinc.com>
+In-Reply-To: <20220621005033.274-2-quic_jesszhan@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 21 Jun 2022 09:37:46 +0300
-Message-ID: <CAA8EJpowsVp5nOqbo2thDp9ojaTJhh8OHnL6Ot-C6ovzckGJrQ@mail.gmail.com>
+Date: Tue, 21 Jun 2022 09:42:49 +0300
+Message-ID: <CAA8EJprJB2T0BQeaL=eoGa5YFJBKhPoXrDv8x3AkC=bXn1YqTw@mail.gmail.com>
 To: Jessica Zhang <quic_jesszhan@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 2/4] drm/msm/dpu: Move MISR methods to
- dpu_hw_util
+Subject: Re: [Freedreno] [PATCH v3 1/4] drm/msm/dpu: Move LM CRC code into
+ separate method
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,17 +73,207 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 On Tue, 21 Jun 2022 at 03:50, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
 >
-> Move layer mixer specific MISR methods to generalized helper methods.
-> This will make it easier to add CRC support for other blocks in the
-> future.
+> Move layer mixer-specific section of dpu_crtc_get_crc() into a separate
+> helper method. This way, we can make it easier to get CRCs from other HW
+> blocks by adding other get_crc helper methods.
+>
+> Changes since V1:
+> - Move common bitmasks to dpu_hw_util.h
+> - Move common CRC methods to dpu_hw_util.c
+> - Update copyrights
+> - Change crcs array to a dynamically allocated array and added it as a
+>   member of crtc_state
 >
 > Changes since V2:
-> - Reordered parameters so that offsets are after hw_blk_reg_map
-> - Fixed mismatched whitespace in bitmask definitions
+> - Put changes for hw_util into a separate commit
+> - Revert crcs array to a static array
+> - Add else case for set_crc_source to return EINVAL if no valid source
+>   is selected
+> - Add DPU_CRTC_MAX_CRC_ENTRIES macro
 >
 > Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 79 ++++++++++++++----------
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  8 +++
+>  2 files changed, 56 insertions(+), 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> index b56f777dbd0e..69a1257d3b6d 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+> @@ -1,5 +1,6 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+>  /*
+> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+>   * Copyright (c) 2014-2021 The Linux Foundation. All rights reserved.
+>   * Copyright (C) 2013 Red Hat
+>   * Author: Rob Clark <robdclark@gmail.com>
+> @@ -99,17 +100,32 @@ static int dpu_crtc_verify_crc_source(struct drm_crtc *crtc,
+>         return 0;
+>  }
+>
+> +static void dpu_crtc_setup_lm_misr(struct dpu_crtc_state *crtc_state)
+> +{
+> +       struct dpu_crtc_mixer *m;
+> +       int i;
+> +
+> +       for (i = 0; i < crtc_state->num_mixers; ++i) {
+> +               m = &crtc_state->mixers[i];
+> +
+> +               if (!m->hw_lm || !m->hw_lm->ops.setup_misr)
+> +                       continue;
+> +
+> +               /* Calculate MISR over 1 frame */
+> +               m->hw_lm->ops.setup_misr(m->hw_lm, true, 1);
+> +       }
+> +}
+> +
+>  static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>  {
+>         enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
+>         enum dpu_crtc_crc_source current_source;
+>         struct dpu_crtc_state *crtc_state;
+>         struct drm_device *drm_dev = crtc->dev;
+> -       struct dpu_crtc_mixer *m;
+>
+>         bool was_enabled;
+>         bool enable = false;
+> -       int i, ret = 0;
+> +       int ret = 0;
+>
+>         if (source < 0) {
+>                 DRM_DEBUG_DRIVER("Invalid CRC source %s for CRTC%d\n", src_name, crtc->index);
+> @@ -146,16 +162,10 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>
+>         crtc_state->crc_frame_skip_count = 0;
+>
+> -       for (i = 0; i < crtc_state->num_mixers; ++i) {
+> -               m = &crtc_state->mixers[i];
+> -
+> -               if (!m->hw_lm || !m->hw_lm->ops.setup_misr)
+> -                       continue;
+> -
+> -               /* Calculate MISR over 1 frame */
+> -               m->hw_lm->ops.setup_misr(m->hw_lm, true, 1);
+> -       }
+> -
+> +       if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
+> +               dpu_crtc_setup_lm_misr(crtc_state);
+> +       else
+> +               ret = -EINVAL;
+>
+>  cleanup:
+>         drm_modeset_unlock(&crtc->mutex);
+> @@ -174,34 +184,22 @@ static u32 dpu_crtc_get_vblank_counter(struct drm_crtc *crtc)
+>         return dpu_encoder_get_vsync_count(encoder);
+>  }
+>
+> -
+> -static int dpu_crtc_get_crc(struct drm_crtc *crtc)
+> +static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
+> +               struct dpu_crtc_state *crtc_state, u32 *crcs)
+>  {
+> -       struct dpu_crtc_state *crtc_state;
+> -       struct dpu_crtc_mixer *m;
+> -       u32 crcs[CRTC_DUAL_MIXERS];
+> +       struct dpu_crtc_mixer *lm;
+>
+> -       int i = 0;
+>         int rc = 0;
+> -
+> -       crtc_state = to_dpu_crtc_state(crtc->state);
+> -
+> -       BUILD_BUG_ON(ARRAY_SIZE(crcs) != ARRAY_SIZE(crtc_state->mixers));
+> -
+> -       /* Skip first 2 frames in case of "uncooked" CRCs */
+> -       if (crtc_state->crc_frame_skip_count < 2) {
+> -               crtc_state->crc_frame_skip_count++;
+> -               return 0;
+> -       }
+> +       int i;
+>
+>         for (i = 0; i < crtc_state->num_mixers; ++i) {
+>
+> -               m = &crtc_state->mixers[i];
+> +               lm = &crtc_state->mixers[i];
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Why?
+
+>
+> -               if (!m->hw_lm || !m->hw_lm->ops.collect_misr)
+> +               if (!lm->hw_lm || !lm->hw_lm->ops.collect_misr)
+>                         continue;
+>
+> -               rc = m->hw_lm->ops.collect_misr(m->hw_lm, &crcs[i]);
+> +               rc = lm->hw_lm->ops.collect_misr(lm->hw_lm, &crcs[i]);
+>
+>                 if (rc) {
+>                         if (rc != -ENODATA)
+> @@ -214,6 +212,25 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
+>                         drm_crtc_accurate_vblank_count(crtc), crcs);
+>  }
+>
+> +static int dpu_crtc_get_crc(struct drm_crtc *crtc)
+> +{
+> +       struct dpu_crtc_state *crtc_state = to_dpu_crtc_state(crtc->state);
+> +       u32 crcs[DPU_CRTC_MAX_CRC_ENTRIES];
+
+Following up the review of patch 4, I'd suggest moving crcs to
+dpu_crtc_get_lm_crc().
+
+> +
+> +       /* Skip first 2 frames in case of "uncooked" CRCs */
+> +       if (crtc_state->crc_frame_skip_count < 2) {
+> +               crtc_state->crc_frame_skip_count++;
+> +               return 0;
+> +       }
+> +
+> +       if (crtc_state->crc_source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER) {
+> +               BUILD_BUG_ON(ARRAY_SIZE(crcs) < ARRAY_SIZE(crtc_state->mixers));
+> +               return dpu_crtc_get_lm_crc(crtc, crtc_state, crcs);
+> +       }
+> +
+> +       return 0;
+
+-EINVAL?
+
+> +}
+> +
+>  static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
+>                                            bool in_vblank_irq,
+>                                            int *vpos, int *hpos,
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> index b8785c394fcc..aa897ec28ad3 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
+> @@ -69,6 +69,11 @@ struct dpu_crtc_smmu_state_data {
+>         uint32_t transition_error;
+>  };
+>
+> +/*
+> + * Maximum CRC entries that can be in crcs entries array
+> + */
+> +#define DPU_CRTC_MAX_CRC_ENTRIES       8
+> +
+>  /**
+>   * enum dpu_crtc_crc_source: CRC source
+>   * @DPU_CRTC_CRC_SOURCE_NONE: no source set
+> @@ -201,6 +206,9 @@ struct dpu_crtc {
+>   * @mixers        : List of active mixers
+>   * @num_ctls      : Number of ctl paths in use
+>   * @hw_ctls       : List of active ctl paths
+> + * @crc_source    : CRC source
+> + * @crc_frame_skip_count: Number of frames skipped before getting CRC
+> + * @crcs          : Array to store CRC values
+
+There is no crcs array anymore
+
+>   */
+>  struct dpu_crtc_state {
+>         struct drm_crtc_state base;
+> --
+> 2.35.1
+>
 
 
 -- 
