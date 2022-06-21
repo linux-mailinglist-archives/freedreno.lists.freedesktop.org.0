@@ -2,47 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C39552DE5
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 11:06:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59846552FEF
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 12:40:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A46781127CA;
-	Tue, 21 Jun 2022 09:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0038F10E52D;
+	Tue, 21 Jun 2022 10:40:51 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9C11127C5;
- Tue, 21 Jun 2022 09:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655802409; x=1687338409;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=vJPkzk6EQlamjTWr4zwrEkoumU44Ke4DpZgp6nabWaI=;
- b=u06d4Rhv+TX8JC7JKs0hFJSWG/w6ke83gTamWqodev/Sqc3vWNyYH+mS
- GIlshTp+Q4zUodNTY4jDzaN8fj4cilRJdZbbtyeaOVmqDTK3+AbXSSINe
- iYoZAydvi0giZXtwRdqMPXlvOmDoGpBt+5tj6IzSbXqE84+kYY5cGACWF E=;
-Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
- by alexa-out.qualcomm.com with ESMTP; 21 Jun 2022 02:06:48 -0700
-X-QCInternal: smtphost
-Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
- by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 21 Jun 2022 02:06:47 -0700
-X-QCInternal: smtphost
-Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
- by ironmsg02-blr.qualcomm.com with ESMTP; 21 Jun 2022 14:36:31 +0530
-Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
- id 25A1241C5; Tue, 21 Jun 2022 02:06:31 -0700 (PDT)
-From: Kalyan Thota <quic_kalyant@quicinc.com>
-To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Date: Tue, 21 Jun 2022 02:06:27 -0700
-Message-Id: <1655802387-15275-2-git-send-email-quic_kalyant@quicinc.com>
-X-Mailer: git-send-email 2.7.4
+Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
+ [IPv6:2607:f8b0:4864:20::f32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 636EB10E52D
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jun 2022 10:40:51 +0000 (UTC)
+Received: by mail-qv1-xf32.google.com with SMTP id q4so7566875qvq.8
+ for <freedreno@lists.freedesktop.org>; Tue, 21 Jun 2022 03:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=J0pHSWTmAqkhHPu3ewOMcrRY8+PhQnj0jfHcdTdRDz8=;
+ b=R3GE8vGso5FRS+jJMjZddlY67ciEK0NtOwp1vMLp6WYzw0y3wH9uVEGbIa+l9roKRX
+ eSK6mQEMo66vnDTwbEETiIzI8np+jeQVbf6+569W1HDwVhjFsnKUc1h/q02E5qLdsXln
+ bUomPzqz9/w7zeoWTihKrSMU5vyRT0xn6T6Gi1Fy+wi2Fpa/La+VvjpJep1yoWsBiram
+ Z95mhj6iVWCSAr2InYjymblYmKgKr+2IMrlpKLN8s6JghGQVuAbiv07Dv0XISr9zI2xj
+ wHUgzu0en/bM0/EGHjMkfKrkP2Ppg/bWKLGcfRmD7cEVMmNdhaq65oWAxkdvaF9Xqf4w
+ C4Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=J0pHSWTmAqkhHPu3ewOMcrRY8+PhQnj0jfHcdTdRDz8=;
+ b=D7djACN50VEC5kHhxNtwSX1Ur/mBscjwAG98B1sobQzLOZR7SFajGIOzsYn/nK7zi+
+ MXRUH/Rj2mJLsk4aPzHHNhEehWTgHuRpu+q1/h8nmz4VOSIuxCaE+dkA1FTvPFomq44t
+ dZXsmQCfIQLwjM0M87X8S8qNOGrOiM/Ud3yJ/wBwFxn0rSLN4kYqLpYz5JYGtsD0XM6e
+ PdEDHufK0uIzdDInBhW3EJUztPa27OcYHaG0fyOdgdJsRiIohAGT56f+3ABZCZzcXx4S
+ WcaMsxYDQkRjmWbOMS5SLJbUCGMW+BTZE6Cjmmr4QWQjqAvHf3y3wvxbTjR9BL/s8cfQ
+ hJFg==
+X-Gm-Message-State: AJIora8AwrzE4nmWhUkb39UoXh/lKLMi4m4pRz+E6L3ib5nysyffRc8q
+ GwFmoxS3Ol3w3vwY19gnlxiIJXsteRNjJhnyRfb+Qg==
+X-Google-Smtp-Source: AGRyM1urOiTfLmkkWIabUrLK/wKc4zU+J23cZPS1taggxWTn8VedAh7d2hubXG/NEdz5XLnEZWJHk8q7ZC9Z13NzqG8=
+X-Received: by 2002:a05:622a:487:b0:304:fbfc:9933 with SMTP id
+ p7-20020a05622a048700b00304fbfc9933mr23585690qtx.682.1655808050220; Tue, 21
+ Jun 2022 03:40:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <1655802387-15275-1-git-send-email-quic_kalyant@quicinc.com>
 In-Reply-To: <1655802387-15275-1-git-send-email-quic_kalyant@quicinc.com>
-References: <y>
- <1655802387-15275-1-git-send-email-quic_kalyant@quicinc.com>
-Subject: [Freedreno] [v1 2/2] drm/msm/disp/dpu1: enable crtc color
- management based on encoder topology
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Tue, 21 Jun 2022 13:40:39 +0300
+Message-ID: <CAA8EJpqon=3NQJo_jwbXJvvZ5FJJ9xO=k-f4ogNTaH83pbVOjQ@mail.gmail.com>
+To: Kalyan Thota <quic_kalyant@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [v1 1/2] drm/msm/disp/dpu1: add dspp support for
+ sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,190 +63,57 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kalyan Thota <quic_kalyant@quicinc.com>, dianders@chromium.org,
- quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
- quic_vpolimer@quicinc.com, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
- swboyd@chromium.org
+Cc: devicetree@vger.kernel.org, quic_abhinavk@quicinc.com,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org, robdclark@gmail.com,
+ quic_vpolimer@quicinc.com, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org, y@qualcomm.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Crtc color management needs to be registered only for the crtc which has the
-capability to handle it. Since topology decides which encoder will get the
-dspp hw block, tie up the crtc and the encoder together (encoder->possible_crtcs)
+On Tue, 21 Jun 2022 at 12:06, Kalyan Thota <quic_kalyant@quicinc.com> wrote:
+>
+> Add destination side post processing hw block support in sc7280.
+>
+> This hwblock enablement is necessary to support color features
+> like CT Matix (Ex: Night Light feature)
+>
+> Change-Id: Iba7d5e1693b06cede2891f5b998466070a77c6ef
+> Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
 
-Change-Id: If5a0f33547b6f527ca4b8fbb78424b141dbbd711
-Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c    |  8 ++++++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h    |  2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 20 ++++++++++++++++----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  5 +++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     | 22 ++++++++++++++++++----
- 5 files changed, 46 insertions(+), 11 deletions(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 7763558..2913acb 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1511,7 +1511,7 @@ static const struct drm_crtc_helper_funcs dpu_crtc_helper_funcs = {
- 
- /* initialize crtc */
- struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
--				struct drm_plane *cursor)
-+				struct drm_plane *cursor, unsigned int enc_mask)
- {
- 	struct drm_crtc *crtc = NULL;
- 	struct dpu_crtc *dpu_crtc = NULL;
-@@ -1544,7 +1544,11 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
- 
- 	drm_crtc_helper_add(crtc, &dpu_crtc_helper_funcs);
- 
--	drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
-+	/* Register crtc color management if the encoder has dspp, use the
-+	 * crtc to mark it as possible_crtcs for that encoder.
-+	 */
-+	if(BIT(crtc->index) & enc_mask)
-+		drm_crtc_enable_color_mgmt(crtc, 0, true, 0);
- 
- 	/* save user friendly CRTC name for later */
- 	snprintf(dpu_crtc->name, DPU_CRTC_NAME_SIZE, "crtc%u", crtc->base.id);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-index b8785c3..0a6458e 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-@@ -269,7 +269,7 @@ void dpu_crtc_complete_commit(struct drm_crtc *crtc);
-  * @Return: new crtc object or error
-  */
- struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
--			       struct drm_plane *cursor);
-+			       struct drm_plane *cursor, unsigned int enc_mask);
- 
- /**
-  * dpu_crtc_register_custom_event - api for enabling/disabling crtc event
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index f2cb497..893ce68 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -13,6 +13,8 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_file.h>
- #include <drm/drm_probe_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
- 
- #include "msm_drv.h"
- #include "dpu_kms.h"
-@@ -511,13 +513,18 @@ void dpu_encoder_helper_split_config(
- 	}
- }
- 
--static struct msm_display_topology dpu_encoder_get_topology(
--			struct dpu_encoder_virt *dpu_enc,
-+struct msm_display_topology dpu_encoder_get_topology(
-+			struct drm_encoder *drm_enc,
- 			struct dpu_kms *dpu_kms,
- 			struct drm_display_mode *mode)
- {
- 	struct msm_display_topology topology = {0};
-+	struct dpu_encoder_virt *dpu_enc;
-+	struct drm_bridge *bridge;
- 	int i, intf_count = 0;
-+	bool primary_display = false;
-+
-+	dpu_enc = to_dpu_encoder_virt(drm_enc);
- 
- 	for (i = 0; i < MAX_PHYS_ENCODERS_PER_VIRTUAL; i++)
- 		if (dpu_enc->phys_encs[i])
-@@ -542,7 +549,12 @@ static struct msm_display_topology dpu_encoder_get_topology(
- 	else
- 		topology.num_lm = (mode->hdisplay > MAX_HDISPLAY_SPLIT) ? 2 : 1;
- 
--	if (dpu_enc->disp_info.intf_type == DRM_MODE_ENCODER_DSI) {
-+	drm_for_each_bridge_in_chain(drm_enc, bridge) {
-+		if (bridge->type != DRM_MODE_CONNECTOR_DisplayPort)
-+			primary_display = true;
-+	}
-+
-+	if (primary_display) {
- 		if (dpu_kms->catalog->dspp &&
- 			(dpu_kms->catalog->dspp_count >= topology.num_lm))
- 			topology.num_dspp = topology.num_lm;
-@@ -601,7 +613,7 @@ static int dpu_encoder_virt_atomic_check(
- 		}
- 	}
- 
--	topology = dpu_encoder_get_topology(dpu_enc, dpu_kms, adj_mode);
-+	topology = dpu_encoder_get_topology(drm_enc, dpu_kms, adj_mode);
- 
- 	/* Reserve dynamic resources now. */
- 	if (!ret) {
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 1f39327..c4daf7c 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -172,4 +172,9 @@ int dpu_encoder_get_vsync_count(struct drm_encoder *drm_enc);
- 
- bool dpu_encoder_is_widebus_enabled(const struct drm_encoder *drm_enc);
- 
-+struct msm_display_topology dpu_encoder_get_topology(
-+			struct drm_encoder *drm_enc,
-+			struct dpu_kms *dpu_kms,
-+			struct drm_display_mode *mode);
-+
- #endif /* __DPU_ENCODER_H__ */
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 3a4da0d..486ff9d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -687,9 +687,12 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 	unsigned cursor_idx = 0;
- 	unsigned primary_idx = 0;
- 	bool pin_overlays;
-+	unsigned int max_dspp_count = 0;
-+	unsigned int enc_mask = 0;
- 
- 	struct msm_drm_private *priv;
- 	struct dpu_mdss_cfg *catalog;
-+	struct msm_display_topology topology = {0};
- 
- 	int primary_planes_idx = 0, cursor_planes_idx = 0, i, ret;
- 	int max_crtc_count;
-@@ -754,10 +757,19 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 	}
- 
- 	max_crtc_count = min(max_crtc_count, primary_planes_idx);
-+	max_dspp_count = catalog->dspp_count;
-+
-+	drm_for_each_encoder(encoder, dev) {
-+		topology = dpu_encoder_get_topology(encoder, dpu_kms, NULL);
-+		if (topology.num_dspp > 0 && (topology.num_dspp <= max_dspp_count)) {
-+			enc_mask |= BIT(encoder->index);
-+			max_dspp_count -= topology.num_dspp;
-+		}
-+	}
- 
- 	/* Create one CRTC per encoder */
- 	for (i = 0; i < max_crtc_count; i++) {
--		crtc = dpu_crtc_init(dev, primary_planes[i], cursor_planes[i]);
-+		crtc = dpu_crtc_init(dev, primary_planes[i], cursor_planes[i], enc_mask);
- 		if (IS_ERR(crtc)) {
- 			ret = PTR_ERR(crtc);
- 			return ret;
-@@ -765,9 +777,11 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
- 		priv->crtcs[priv->num_crtcs++] = crtc;
- 	}
- 
--	/* All CRTCs are compatible with all encoders */
--	drm_for_each_encoder(encoder, dev)
--		encoder->possible_crtcs = (1 << priv->num_crtcs) - 1;
-+	/* Attach CRTC's to compatiable encoders */
-+	drm_for_each_encoder(encoder, dev) {
-+		encoder->possible_crtcs = (enc_mask & BIT(encoder->index)) ?
-+				BIT(encoder->index) : (((1 << priv->num_crtcs) - 1) & ~enc_mask);
-+	}
- 
- 	return 0;
- }
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> index a4fe77c..021eb2f 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+> @@ -928,7 +928,7 @@ static const struct dpu_lm_cfg sm8150_lm[] = {
+>
+>  static const struct dpu_lm_cfg sc7280_lm[] = {
+>         LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
+> -               &sc7180_lm_sblk, PINGPONG_0, 0, 0),
+> +               &sc7180_lm_sblk, PINGPONG_0, 0, DSPP_0),
+>         LM_BLK("lm_2", LM_2, 0x46000, MIXER_SC7180_MASK,
+>                 &sc7180_lm_sblk, PINGPONG_2, LM_3, 0),
+>         LM_BLK("lm_3", LM_3, 0x47000, MIXER_SC7180_MASK,
+> @@ -1792,6 +1792,8 @@ static void sc7280_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
+>                 .ctl = sc7280_ctl,
+>                 .sspp_count = ARRAY_SIZE(sc7280_sspp),
+>                 .sspp = sc7280_sspp,
+> +               .dspp_count = ARRAY_SIZE(sc7180_dspp),
+> +               .dspp = sc7180_dspp,
+>                 .mixer_count = ARRAY_SIZE(sc7280_lm),
+>                 .mixer = sc7280_lm,
+>                 .pingpong_count = ARRAY_SIZE(sc7280_pp),
+> --
+> 2.7.4
+>
+
+
 -- 
-2.7.4
-
+With best wishes
+Dmitry
