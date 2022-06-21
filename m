@@ -1,57 +1,46 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D9D552B38
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 08:43:04 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8EC8552DE2
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 11:06:50 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 950CB10FC63;
-	Tue, 21 Jun 2022 06:43:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28B1411275B;
+	Tue, 21 Jun 2022 09:06:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB9B10FC63
- for <freedreno@lists.freedesktop.org>; Tue, 21 Jun 2022 06:43:01 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id p63so9357252qkd.10
- for <freedreno@lists.freedesktop.org>; Mon, 20 Jun 2022 23:43:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BDMAfmpcVtwHtSL8Cukz2KZ68UxxlQ/r6RdB8dvo9Ps=;
- b=ZP1XDFtBZOGEQIt5GmVSpGQXPu6SdOzeRbvSacSQmMVLMUJU7zbGB/CF+ax4KYARi7
- P7dzOKiTx2c/Tq0myy9Hc1hJ/nkUrGEVNBb7njzYpwsI6NtwaJZNwuOrQA2xgyxd2o1S
- XrQhjLOsQQQeyg+quhdGtwgz6EGVzSjFtCP3ks13HeEyuqk1GaR7ENXaRz6CUUYEcTA9
- SACEMNa7vv13oLm5xA6aMA4K5ic8t0Dbg0jlZLVtSBTu54icam8aDkhQNUTiZqQ9nppm
- j1V3pBSE6aEEBcSWmDKkpUrbCoCSUZyC+JYSrBjMqSae/jIOeKEFGr59Zk1keyEYrPyg
- 5K6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BDMAfmpcVtwHtSL8Cukz2KZ68UxxlQ/r6RdB8dvo9Ps=;
- b=yVROPbljkQvFAA05h2+kMupNxDBXalEONbY3VPkB4JzL/LpUdjrhD9x8HMOLFkKDcj
- YrCszr2t2Ap07LDVs+Ezp3lPpJHYU+41F6BM42KysL4ct6r7ZyFGM/HquWuZjQ51BdID
- U/Hi5PKq8lGH51mqgEU+f5pgBot5wroX/GIIndgwWapnvHM9SLZeh2oDchycD8FQybl/
- AnL5phvPzfC/zVo+F2bdHlV8zWsf4T+2WQVbVjwFiYV2DlXG4DIXhmcYaTRr8nTllUQj
- /EMnSt6ZXpCqozBDLjVQRH07QA+snpZCk2AaavyytLDMjh3R+wDAtN8tj2CSBE3xquca
- ntAQ==
-X-Gm-Message-State: AJIora+jiJ8iGaE4CoqAi6aKpcW3tMgp1dQSekX21CTe7oRbLL5Oh5lH
- afNHssOWUtGgCw1QWKBuVRRiYmTFu9EcyeJ5S2jOmg==
-X-Google-Smtp-Source: AGRyM1vUeJfYyjh3kydXYSrKDxW/3xDhctDH5Qd9V09GQdUT8GXa3CTxKM7Xu6pn9tKOlomHVaw63TTOqwenOFgDFPQ=
-X-Received: by 2002:a05:620a:4305:b0:6a9:3829:c03 with SMTP id
- u5-20020a05620a430500b006a938290c03mr18734199qko.363.1655793780796; Mon, 20
- Jun 2022 23:43:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220621005033.274-1-quic_jesszhan@quicinc.com>
- <20220621005033.274-2-quic_jesszhan@quicinc.com>
-In-Reply-To: <20220621005033.274-2-quic_jesszhan@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 21 Jun 2022 09:42:49 +0300
-Message-ID: <CAA8EJprJB2T0BQeaL=eoGa5YFJBKhPoXrDv8x3AkC=bXn1YqTw@mail.gmail.com>
-To: Jessica Zhang <quic_jesszhan@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v3 1/4] drm/msm/dpu: Move LM CRC code into
- separate method
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6265F112735;
+ Tue, 21 Jun 2022 09:06:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655802407; x=1687338407;
+ h=from:to:cc:subject:date:message-id:in-reply-to: references;
+ bh=K61hZq+5YAjJeBhqEVmDHQoYLRAUk2L5vlwYe0VhwEA=;
+ b=wPDSBB2K0xnIJgCSdX+4rnFsJXtQoMP4Tkpw57Fe7hIlsWyclnee2SVk
+ uFRC2irU9FVNWjyqiHTMXXAhYSo/Qvwqw7Vo0tBHZPymkVnpXnfUvnceV
+ SH1khh2LVAatOfSfeJk5YUNNIFZlTIgSZ6iPDc3uQ8847zIR3vthe/voz 8=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 21 Jun 2022 02:06:47 -0700
+X-QCInternal: smtphost
+Received: from ironmsg02-blr.qualcomm.com ([10.86.208.131])
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/AES256-SHA;
+ 21 Jun 2022 02:06:46 -0700
+X-QCInternal: smtphost
+Received: from kalyant-linux.qualcomm.com ([10.204.66.210])
+ by ironmsg02-blr.qualcomm.com with ESMTP; 21 Jun 2022 14:36:30 +0530
+Received: by kalyant-linux.qualcomm.com (Postfix, from userid 94428)
+ id 2CFC741B2; Tue, 21 Jun 2022 02:06:29 -0700 (PDT)
+From: Kalyan Thota <quic_kalyant@quicinc.com>
+To: y@qualcomm.com, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Date: Tue, 21 Jun 2022 02:06:26 -0700
+Message-Id: <1655802387-15275-1-git-send-email-quic_kalyant@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <y>
+References: <y>
+Subject: [Freedreno] [v1 1/2] drm/msm/disp/dpu1: add dspp support for sc7280
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,218 +53,46 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
- dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: Kalyan Thota <quic_kalyant@quicinc.com>, dianders@chromium.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_vpolimer@quicinc.com, robdclark@gmail.com, dmitry.baryshkov@linaro.org,
+ swboyd@chromium.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 21 Jun 2022 at 03:50, Jessica Zhang <quic_jesszhan@quicinc.com> wrote:
->
-> Move layer mixer-specific section of dpu_crtc_get_crc() into a separate
-> helper method. This way, we can make it easier to get CRCs from other HW
-> blocks by adding other get_crc helper methods.
->
-> Changes since V1:
-> - Move common bitmasks to dpu_hw_util.h
-> - Move common CRC methods to dpu_hw_util.c
-> - Update copyrights
-> - Change crcs array to a dynamically allocated array and added it as a
->   member of crtc_state
->
-> Changes since V2:
-> - Put changes for hw_util into a separate commit
-> - Revert crcs array to a static array
-> - Add else case for set_crc_source to return EINVAL if no valid source
->   is selected
-> - Add DPU_CRTC_MAX_CRC_ENTRIES macro
->
-> Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 79 ++++++++++++++----------
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h |  8 +++
->  2 files changed, 56 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> index b56f777dbd0e..69a1257d3b6d 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1,5 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  /*
-> + * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
->   * Copyright (c) 2014-2021 The Linux Foundation. All rights reserved.
->   * Copyright (C) 2013 Red Hat
->   * Author: Rob Clark <robdclark@gmail.com>
-> @@ -99,17 +100,32 @@ static int dpu_crtc_verify_crc_source(struct drm_crtc *crtc,
->         return 0;
->  }
->
-> +static void dpu_crtc_setup_lm_misr(struct dpu_crtc_state *crtc_state)
-> +{
-> +       struct dpu_crtc_mixer *m;
-> +       int i;
-> +
-> +       for (i = 0; i < crtc_state->num_mixers; ++i) {
-> +               m = &crtc_state->mixers[i];
-> +
-> +               if (!m->hw_lm || !m->hw_lm->ops.setup_misr)
-> +                       continue;
-> +
-> +               /* Calculate MISR over 1 frame */
-> +               m->hw_lm->ops.setup_misr(m->hw_lm, true, 1);
-> +       }
-> +}
-> +
->  static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
->  {
->         enum dpu_crtc_crc_source source = dpu_crtc_parse_crc_source(src_name);
->         enum dpu_crtc_crc_source current_source;
->         struct dpu_crtc_state *crtc_state;
->         struct drm_device *drm_dev = crtc->dev;
-> -       struct dpu_crtc_mixer *m;
->
->         bool was_enabled;
->         bool enable = false;
-> -       int i, ret = 0;
-> +       int ret = 0;
->
->         if (source < 0) {
->                 DRM_DEBUG_DRIVER("Invalid CRC source %s for CRTC%d\n", src_name, crtc->index);
-> @@ -146,16 +162,10 @@ static int dpu_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
->
->         crtc_state->crc_frame_skip_count = 0;
->
-> -       for (i = 0; i < crtc_state->num_mixers; ++i) {
-> -               m = &crtc_state->mixers[i];
-> -
-> -               if (!m->hw_lm || !m->hw_lm->ops.setup_misr)
-> -                       continue;
-> -
-> -               /* Calculate MISR over 1 frame */
-> -               m->hw_lm->ops.setup_misr(m->hw_lm, true, 1);
-> -       }
-> -
-> +       if (source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER)
-> +               dpu_crtc_setup_lm_misr(crtc_state);
-> +       else
-> +               ret = -EINVAL;
->
->  cleanup:
->         drm_modeset_unlock(&crtc->mutex);
-> @@ -174,34 +184,22 @@ static u32 dpu_crtc_get_vblank_counter(struct drm_crtc *crtc)
->         return dpu_encoder_get_vsync_count(encoder);
->  }
->
-> -
-> -static int dpu_crtc_get_crc(struct drm_crtc *crtc)
-> +static int dpu_crtc_get_lm_crc(struct drm_crtc *crtc,
-> +               struct dpu_crtc_state *crtc_state, u32 *crcs)
->  {
-> -       struct dpu_crtc_state *crtc_state;
-> -       struct dpu_crtc_mixer *m;
-> -       u32 crcs[CRTC_DUAL_MIXERS];
-> +       struct dpu_crtc_mixer *lm;
->
-> -       int i = 0;
->         int rc = 0;
-> -
-> -       crtc_state = to_dpu_crtc_state(crtc->state);
-> -
-> -       BUILD_BUG_ON(ARRAY_SIZE(crcs) != ARRAY_SIZE(crtc_state->mixers));
-> -
-> -       /* Skip first 2 frames in case of "uncooked" CRCs */
-> -       if (crtc_state->crc_frame_skip_count < 2) {
-> -               crtc_state->crc_frame_skip_count++;
-> -               return 0;
-> -       }
-> +       int i;
->
->         for (i = 0; i < crtc_state->num_mixers; ++i) {
->
-> -               m = &crtc_state->mixers[i];
-> +               lm = &crtc_state->mixers[i];
+Add destination side post processing hw block support in sc7280.
 
-Why?
+This hwblock enablement is necessary to support color features
+like CT Matix (Ex: Night Light feature)
 
->
-> -               if (!m->hw_lm || !m->hw_lm->ops.collect_misr)
-> +               if (!lm->hw_lm || !lm->hw_lm->ops.collect_misr)
->                         continue;
->
-> -               rc = m->hw_lm->ops.collect_misr(m->hw_lm, &crcs[i]);
-> +               rc = lm->hw_lm->ops.collect_misr(lm->hw_lm, &crcs[i]);
->
->                 if (rc) {
->                         if (rc != -ENODATA)
-> @@ -214,6 +212,25 @@ static int dpu_crtc_get_crc(struct drm_crtc *crtc)
->                         drm_crtc_accurate_vblank_count(crtc), crcs);
->  }
->
-> +static int dpu_crtc_get_crc(struct drm_crtc *crtc)
-> +{
-> +       struct dpu_crtc_state *crtc_state = to_dpu_crtc_state(crtc->state);
-> +       u32 crcs[DPU_CRTC_MAX_CRC_ENTRIES];
+Change-Id: Iba7d5e1693b06cede2891f5b998466070a77c6ef
+Signed-off-by: Kalyan Thota <quic_kalyant@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Following up the review of patch 4, I'd suggest moving crcs to
-dpu_crtc_get_lm_crc().
-
-> +
-> +       /* Skip first 2 frames in case of "uncooked" CRCs */
-> +       if (crtc_state->crc_frame_skip_count < 2) {
-> +               crtc_state->crc_frame_skip_count++;
-> +               return 0;
-> +       }
-> +
-> +       if (crtc_state->crc_source == DPU_CRTC_CRC_SOURCE_LAYER_MIXER) {
-> +               BUILD_BUG_ON(ARRAY_SIZE(crcs) < ARRAY_SIZE(crtc_state->mixers));
-> +               return dpu_crtc_get_lm_crc(crtc, crtc_state, crcs);
-> +       }
-> +
-> +       return 0;
-
--EINVAL?
-
-> +}
-> +
->  static bool dpu_crtc_get_scanout_position(struct drm_crtc *crtc,
->                                            bool in_vblank_irq,
->                                            int *vpos, int *hpos,
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> index b8785c394fcc..aa897ec28ad3 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.h
-> @@ -69,6 +69,11 @@ struct dpu_crtc_smmu_state_data {
->         uint32_t transition_error;
->  };
->
-> +/*
-> + * Maximum CRC entries that can be in crcs entries array
-> + */
-> +#define DPU_CRTC_MAX_CRC_ENTRIES       8
-> +
->  /**
->   * enum dpu_crtc_crc_source: CRC source
->   * @DPU_CRTC_CRC_SOURCE_NONE: no source set
-> @@ -201,6 +206,9 @@ struct dpu_crtc {
->   * @mixers        : List of active mixers
->   * @num_ctls      : Number of ctl paths in use
->   * @hw_ctls       : List of active ctl paths
-> + * @crc_source    : CRC source
-> + * @crc_frame_skip_count: Number of frames skipped before getting CRC
-> + * @crcs          : Array to store CRC values
-
-There is no crcs array anymore
-
->   */
->  struct dpu_crtc_state {
->         struct drm_crtc_state base;
-> --
-> 2.35.1
->
-
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index a4fe77c..021eb2f 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -928,7 +928,7 @@ static const struct dpu_lm_cfg sm8150_lm[] = {
+ 
+ static const struct dpu_lm_cfg sc7280_lm[] = {
+ 	LM_BLK("lm_0", LM_0, 0x44000, MIXER_SC7180_MASK,
+-		&sc7180_lm_sblk, PINGPONG_0, 0, 0),
++		&sc7180_lm_sblk, PINGPONG_0, 0, DSPP_0),
+ 	LM_BLK("lm_2", LM_2, 0x46000, MIXER_SC7180_MASK,
+ 		&sc7180_lm_sblk, PINGPONG_2, LM_3, 0),
+ 	LM_BLK("lm_3", LM_3, 0x47000, MIXER_SC7180_MASK,
+@@ -1792,6 +1792,8 @@ static void sc7280_cfg_init(struct dpu_mdss_cfg *dpu_cfg)
+ 		.ctl = sc7280_ctl,
+ 		.sspp_count = ARRAY_SIZE(sc7280_sspp),
+ 		.sspp = sc7280_sspp,
++		.dspp_count = ARRAY_SIZE(sc7180_dspp),
++		.dspp = sc7180_dspp,
+ 		.mixer_count = ARRAY_SIZE(sc7280_lm),
+ 		.mixer = sc7280_lm,
+ 		.pingpong_count = ARRAY_SIZE(sc7280_pp),
 -- 
-With best wishes
-Dmitry
+2.7.4
+
