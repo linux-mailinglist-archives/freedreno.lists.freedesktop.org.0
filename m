@@ -2,49 +2,47 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A59235528C8
-	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 02:52:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D74D2552A57
+	for <lists+freedreno@lfdr.de>; Tue, 21 Jun 2022 06:41:43 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04FBB10E946;
-	Tue, 21 Jun 2022 00:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 806F510F87E;
+	Tue, 21 Jun 2022 04:41:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F062210E985;
- Tue, 21 Jun 2022 00:52:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655772739; x=1687308739;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=mwEAUH2mJwVkWedVIVMkFhCgo9vtuRo39L/H8Vk/rBc=;
- b=MJ9rq5qD8HCTuM2fjnPjH0P3e0J6X2R9gFfNqblRlf82cUjQ7TkihftF
- 0UPFOvQvRRIS/pRYAz0qFHV5sNQbwzS2LiNqu7ImzGNEE2KWLDiPa/S3Z
- RKrQ4e/Y2rXvnmBnXAGblt8Ty+gVbeWALcf7LoOmbtuYV9EVXGifOGZdT 4=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 20 Jun 2022 17:52:18 -0700
-X-QCInternal: smtphost
-Received: from nasanex01b.na.qualcomm.com ([10.46.141.250])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2022 17:52:19 -0700
-Received: from JESSZHAN.qualcomm.com (10.80.80.8) by
- nasanex01b.na.qualcomm.com (10.46.141.250) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 20 Jun 2022 17:52:18 -0700
-From: Jessica Zhang <quic_jesszhan@quicinc.com>
-To: <freedreno@lists.freedesktop.org>
-Date: Mon, 20 Jun 2022 17:52:09 -0700
-Message-ID: <20220621005209.377-1-quic_jesszhan@quicinc.com>
-X-Mailer: git-send-email 2.25.1
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C01310F682;
+ Tue, 21 Jun 2022 04:41:41 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 22EAD60DF3;
+ Tue, 21 Jun 2022 04:41:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE615C3411D;
+ Tue, 21 Jun 2022 04:41:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1655786499;
+ bh=nM5Ncu4DzAKAp2OYDGK4cJt8P9gyd3/R9Q7YtZK7zWQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=s9NLOnL0OUJZ+pCJHDYG1PbLQ5Y20ijxniiK6cmkV+dMc+H7f1VFfbiCDd6H8oeuM
+ ZO57bqSvj1amVwI9FFeuAm2GzGh253Rr5ABVZ1MorTNXW6fpcqvS1doU4Z7UWbux1i
+ HSAgWuQJxrUu2J9RUD4YSBL090pwIt+q2FUI4gRa0Rsfka97zuwQZcSy4dOK4Kzdz/
+ 22SzO1L2eOsjdwAt2BpqwPyYfQlSRwCsq9IxvKLqcKw0t+vU6rnGOhlfDVjJ3B9Yf/
+ MEHvUh4W1gpCP59ZTv2lMJifen/5lpsdCcpxtiWL7/auFy26xcwlq7jUs2OszGr/7n
+ dj28Auekh8tQg==
+Date: Tue, 21 Jun 2022 10:11:35 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Message-ID: <YrFL/9Fu/WZXa2EI@matsya>
+References: <1653512540-21956-1-git-send-email-quic_khsieh@quicinc.com>
+ <YqvEjzgSbvrOCFtq@matsya>
+ <6f1ade9f-38b0-827c-667b-5c8018b7779a@quicinc.com>
+ <af23976a-11dc-2503-66ea-8558fc1b3108@quicinc.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-Subject: [Freedreno] [PATCH v3 3/4] drm/msm/dpu: Add MISR register support
- for interface
+In-Reply-To: <af23976a-11dc-2503-66ea-8558fc1b3108@quicinc.com>
+Subject: Re: [Freedreno] [PATCH v13 0/3] eDP/DP Phy vdda realted function
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,106 +55,47 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_abhinavk@quicinc.com,
+Cc: quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com, airlied@linux.ie,
+ freedreno@lists.freedesktop.org, dianders@chromium.org,
  dri-devel@lists.freedesktop.org, swboyd@chromium.org, robdclark@gmail.com,
- seanpaul@chromium.org, dmitry.baryshkov@linaro.org,
- Jessica Zhang <quic_jesszhan@quicinc.com>, quic_aravindh@quicinc.com
+ agross@kernel.org, daniel@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dmitry.baryshkov@linaro.org, quic_aravindh@quicinc.com,
+ bjorn.andersson@linaro.org, sean@poorly.run, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Add support for setting MISR registers within the interface
+On 20-06-22, 13:43, Kuogee Hsieh wrote:
+> 
+> On 6/20/2022 1:07 PM, Kuogee Hsieh wrote:
+> > 
+> > On 6/16/2022 5:02 PM, Vinod Koul wrote:
+> > > On 25-05-22, 14:02, Kuogee Hsieh wrote:
+> > > > 1) add regulator_set_load() to eDP phy
+> > > > 2) add regulator_set_load() to DP phy
+> > > > 3) remove vdda related function out of eDP/DP controller
+> > > > 
+> > > > Kuogee Hsieh (3):
+> > > >    phy: qcom-edp: add regulator_set_load to edp phy
+> > > >    phy: qcom-qmp: add regulator_set_load to dp phy
+> > > >    drm/msm/dp: delete vdda regulator related functions from eDP/DP
+> > > >      controller
+> > > > 
+> > > >   drivers/gpu/drm/msm/dp/dp_parser.c  | 14 ------
+> > > >   drivers/gpu/drm/msm/dp/dp_parser.h  |  8 ----
+> > > >   drivers/gpu/drm/msm/dp/dp_power.c   | 95
+> > > > +------------------------------------
+> > > >   drivers/phy/qualcomm/phy-qcom-edp.c | 12 +++++
+> > > >   drivers/phy/qualcomm/phy-qcom-qmp.c | 40 ++++++++++++----
+> > > Please rebase this to phy-next and apply to specific qmp phy driver...
+> > I will rebase to ==>
+> > https://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git
+> 
+> Hi Vinod,
+> 
+> Would you please specify exactly procedures i have to do as to rebase this
+> patch series to phy=next tree.
 
-Changes since V1:
-- Replaced dpu_hw_intf collect_misr and setup_misr implementations with
-  calls to dpu_hw_utils helper methods
+Yes pls rebase to above tree and next branch
 
-Signed-off-by: Jessica Zhang <quic_jesszhan@quicinc.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c | 19 ++++++++++++++++++-
- drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h |  8 +++++++-
- 2 files changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-index 3f4d2c6e1b45..b37eeea36532 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
--/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-+/*
-+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-  */
- 
- #include "dpu_hwio.h"
-@@ -67,6 +69,9 @@
- #define INTF_CFG2_DATABUS_WIDEN	BIT(0)
- #define INTF_CFG2_DATA_HCTL_EN	BIT(4)
- 
-+#define INTF_MISR_CTRL			0x180
-+#define INTF_MISR_SIGNATURE		0x184
-+
- static const struct dpu_intf_cfg *_intf_offset(enum dpu_intf intf,
- 		const struct dpu_mdss_cfg *m,
- 		void __iomem *addr,
-@@ -319,6 +324,16 @@ static u32 dpu_hw_intf_get_line_count(struct dpu_hw_intf *intf)
- 	return DPU_REG_READ(c, INTF_LINE_COUNT);
- }
- 
-+static void dpu_hw_intf_setup_misr(struct dpu_hw_intf *intf, bool enable, u32 frame_count)
-+{
-+	dpu_hw_setup_misr(&intf->hw, INTF_MISR_CTRL, enable, frame_count);
-+}
-+
-+static int dpu_hw_intf_collect_misr(struct dpu_hw_intf *intf, u32 *misr_value)
-+{
-+	return dpu_hw_collect_misr(&intf->hw, INTF_MISR_CTRL, INTF_MISR_SIGNATURE, misr_value);
-+}
-+
- static void _setup_intf_ops(struct dpu_hw_intf_ops *ops,
- 		unsigned long cap)
- {
-@@ -329,6 +344,8 @@ static void _setup_intf_ops(struct dpu_hw_intf_ops *ops,
- 	ops->get_line_count = dpu_hw_intf_get_line_count;
- 	if (cap & BIT(DPU_INTF_INPUT_CTRL))
- 		ops->bind_pingpong_blk = dpu_hw_intf_bind_pingpong_blk;
-+	ops->setup_misr = dpu_hw_intf_setup_misr;
-+	ops->collect_misr = dpu_hw_intf_collect_misr;
- }
- 
- struct dpu_hw_intf *dpu_hw_intf_init(enum dpu_intf idx,
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-index 7b2d96ac61e8..8d0e7b509260 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_intf.h
-@@ -1,5 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--/* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-+/*
-+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
-  */
- 
- #ifndef _DPU_HW_INTF_H
-@@ -57,6 +59,8 @@ struct intf_status {
-  * @ get_line_count: reads current vertical line counter
-  * @bind_pingpong_blk: enable/disable the connection with pingpong which will
-  *                     feed pixels to this interface
-+ * @setup_misr: enable/disable MISR
-+ * @collect_misr: read MISR signature
-  */
- struct dpu_hw_intf_ops {
- 	void (*setup_timing_gen)(struct dpu_hw_intf *intf,
-@@ -77,6 +81,8 @@ struct dpu_hw_intf_ops {
- 	void (*bind_pingpong_blk)(struct dpu_hw_intf *intf,
- 			bool enable,
- 			const enum dpu_pingpong pp);
-+	void (*setup_misr)(struct dpu_hw_intf *intf, bool enable, u32 frame_count);
-+	int (*collect_misr)(struct dpu_hw_intf *intf, u32 *misr_value);
- };
- 
- struct dpu_hw_intf {
 -- 
-2.35.1
-
+~Vinod
