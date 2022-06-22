@@ -2,63 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28721554F08
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 17:23:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07BEF5551C0
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 18:54:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFCCF1134FF;
-	Wed, 22 Jun 2022 15:23:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C029C11370B;
+	Wed, 22 Jun 2022 16:54:16 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBC151134FB;
- Wed, 22 Jun 2022 15:22:58 +0000 (UTC)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F98411370B;
+ Wed, 22 Jun 2022 16:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655911378; x=1687447378;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=87Qq8BXdj0oC27XtAdkJjn36CJVp5PFQnPwBOeB17fE=;
- b=pDOUb8raof5tCYyBZtyPMFJRB319hbx5AXAgZXxdOc+MVPmBMK7Y0Oa2
- xu0Cd1fuin6tQgtU1VbJR0bERL2+eHoWnAa9owax+El0Pz3hoIB+WsoKk
- Tm9MW9gHaMtV0CjhFhXfOKqSMzXTd+y0feQFHIWWcI36aNQmdfz2IKb0L 4=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 22 Jun 2022 08:22:58 -0700
+ t=1655916855; x=1687452855;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=Mkvb6JV3WucgqjS4lQ47IhKgB1nOOh2VtgzcVyQdrB8=;
+ b=Hu2wpLNF2R1Zn9iDi15j6Hz64syuspCnW9BkVg7HhiTUk1m1QzCtcvoF
+ N7W7FpRNlzUqu6GEKAHU4ehFG7AJI5z4GEr9pbTzbA3LkEUGoRW2UXgRx
+ 0cTYAVs0+2xuRj1YLR4uqUxwuYL0TzGI5NIZAKicQjGMCsRAeR0/I1oOd 8=;
+Received: from ironmsg09-lv.qualcomm.com ([10.47.202.153])
+ by alexa-out.qualcomm.com with ESMTP; 22 Jun 2022 09:54:15 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 08:22:57 -0700
+ by ironmsg09-lv.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 09:54:14 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 22 Jun 2022 08:22:57 -0700
-Received: from [10.110.58.84] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 22 Jun
- 2022 08:22:56 -0700
-Message-ID: <d77d2989-7270-d1ec-fda6-7001ea337f5b@quicinc.com>
-Date: Wed, 22 Jun 2022 08:22:55 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Stephen Boyd
- <swboyd@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark
- <robdclark@gmail.com>
-References: <20220617204750.2347797-1-swboyd@chromium.org>
- <20220617204750.2347797-3-swboyd@chromium.org>
- <bb98ca29-8752-6864-ddbd-19547fb6f73b@linaro.org>
- <CAE-0n51_zysbkktVEfhvXtGqpADTWcaPBAX7A7rD1FV+vcK3Uw@mail.gmail.com>
- <48d83380-edb1-ad61-3878-5fa3ac3e5169@linaro.org>
+ 15.2.986.22; Wed, 22 Jun 2022 09:54:14 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 22 Jun 2022 09:54:13 -0700
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <48d83380-edb1-ad61-3878-5fa3ac3e5169@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 22 Jun 2022 09:54:05 -0700
+Message-ID: <1655916845-31760-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dp: Remove pixel_rate from
- struct dp_ctrl
+Subject: [Freedreno] [PATCH] drm/msm/dp: reset drm_dev to NULL at
+ dp_display_unbind()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,112 +61,75 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- patches@lists.linux.dev
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+During msm initialize phase, dp_display_unbind() will be called to undo
+initializations had been done by dp_display_bind() previously if there is
+error happen at msm_drm_bind. Under this kind of circumstance, drm_device
+may not be populated completed which causes system crash at drm_dev_dbg().
+This patch reset drm_dev to NULL so that following drm_dev_dbg() will not
+refer to any internal fields of drm_device to prevent system from crashing.
+Below are panic stack trace,
 
-On 6/22/2022 12:24 AM, Dmitry Baryshkov wrote:
-> On 22/06/2022 05:59, Stephen Boyd wrote:
->> Quoting Dmitry Baryshkov (2022-06-17 16:07:58)
->>> On 17/06/2022 23:47, Stephen Boyd wrote:
->>>> This struct member is stored to in the function that calls the 
->>>> function
->>>> which uses it. That's possible with a function argument instead of
->>>> storing to a struct member. Pass the pixel_rate as an argument instead
->>>> to simplify the code. Note that dp_ctrl_link_maintenance() was storing
->>>> the pixel_rate but never using it so we just remove the assignment 
->>>> from
->>>> there.
->>>>
->>>> Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_ctrl.c | 57 
->>>> ++++++++++++++++----------------
->>>>    drivers/gpu/drm/msm/dp/dp_ctrl.h |  1 -
->>>>    2 files changed, 28 insertions(+), 30 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
->>>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> index bd445e683cfc..e114521af2e9 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> @@ -1336,7 +1336,7 @@ static void dp_ctrl_set_clock_rate(struct 
->>>> dp_ctrl_private *ctrl,
->>>>                                name, rate);
->>>>    }
->>>>
->>>> -static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private 
->>>> *ctrl)
->>>> +static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private 
->>>> *ctrl, unsigned long pixel_rate)
->>>
->>>
->>> I think we can read pixel_rate here rather than getting it as an
->>> argument. We'd need to move handling (DP_TEST_LINK_PHY_TEST_PATTERN &&
->>> !ctrl->panel->dp_mode.drm_mode.clock) case here from dp_ctrl_on_link().
->>
->> This is also called from dp_ctrl_on_stream() and
->> dp_ctrl_reinitialize_mainlink(). In the dp_ctrl_on_stream() case we may
->> divide the pixel_rate by 2 with widebus. We could move the
->> dp_ctrl_on_link() code here, but then we also need to move widebus, and
->> then I'm not sure which pixel rate to use.
->>
->> It looks like the test code doesn't care about widebus? And similarly,
->> we may run the pixel clk faster until we get a modeset and then divide
->> it for widebus.
->
-> Good question. I'll let Kuogee or somebody else from Qualcomm to 
-> comment on test code vs widebus vs pixel rate, as I don't know these 
-> details.
->
-> I'm not sure if we should halve the pixel clock in 
-> dp_ctrl_on_stream_phy_test_report() or not if the widebus is supported.
-> From the current code I'd assume that we have to do this. Let's raise 
-> this question in the corresponding patch discussion.
->
-yes, phy test does not care pixel clock rate.
->> Is that why you're suggesting to check
->> !ctrl->panel->dp_mode.drm_mode.clock? I hesitate because it isn't a
->> direct conversion, instead it checks some other stashed struct member.
->>
->> I'll also note that dp_ctrl_enable_mainlink_clocks() doesn't really use
->> this argument except to print the value in drm_dbg_dp(). Maybe we should
->> simply remove it from here instead?
->
-> Yes, do it please.
->
->>
->>>> @@ -1588,12 +1586,12 @@ static int 
->>>> dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
->>>>    {
->>>>        int ret;
->>>>        struct dp_ctrl_private *ctrl;
->>>> +     unsigned long pixel_rate;
->>>>
->>>>        ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
->>>>
->>>> -     ctrl->dp_ctrl.pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
->>>> -
->>>> -     ret = dp_ctrl_enable_stream_clocks(ctrl);
->>>> +     pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
->>>> +     ret = dp_ctrl_enable_stream_clocks(ctrl, pixel_rate);
->>>
->>> I think we can take another step forward here. Read the
->>> ctrl->panel->dp_mode.drm_mode.clock from within the
->>> dp_ctrl_enable_stream_clocks() function. This removes the need to pass
->>> pixel_rate as an argument here.
->>
->> This is also affected by widebus and if the function is called from
->> dp_ctrl_on_stream() or dp_ctrl_on_stream_phy_test_report(). Maybe it
->> would be better to inline dp_ctrl_enable_stream_clocks() to the
->> callsites? That would probably simplify things because the function is
->> mostly a wrapper around a couple functions.
->
-> Yes, this sounds good. Then we can drop the drm_dbg_dp from it (as it 
-> nearly duplicates the data that was just printed.
->
->
+[   53.584904] Unable to handle kernel paging request at virtual address 0000000070018001
+.
+[   53.702212] Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
+[   53.710445] pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   53.717596] pc : string_nocheck+0x1c/0x64
+[   53.721738] lr : string+0x54/0x60
+[   53.725162] sp : ffffffc013d6b650
+[   53.728590] pmr_save: 000000e0
+[   53.731743] x29: ffffffc013d6b650 x28: 0000000000000002 x27: 0000000000ffffff
+[   53.739083] x26: ffffffc013d6b710 x25: ffffffd07a066ae0 x24: ffffffd07a419f97
+[   53.746420] x23: ffffffd07a419f99 x22: ffffff81fef360d4 x21: ffffff81fef364d4
+[   53.753760] x20: ffffffc013d6b6f8 x19: ffffffd07a06683c x18: 0000000000000000
+[   53.761093] x17: 4020386678302f30 x16: 00000000000000b0 x15: ffffffd0797523c8
+[   53.768429] x14: 0000000000000004 x13: ffff0000ffffff00 x12: ffffffd07a066b2c
+[   53.775780] x11: 0000000000000000 x10: 000000000000013c x9 : 0000000000000000
+[   53.783117] x8 : ffffff81fef364d4 x7 : 0000000000000000 x6 : 0000000000000000
+[   53.790445] x5 : 0000000000000000 x4 : ffff0a00ffffff04 x3 : ffff0a00ffffff04
+[   53.797783] x2 : 0000000070018001 x1 : ffffffffffffffff x0 : ffffff81fef360d4
+[   53.805136] Call trace:
+[   53.807667]  string_nocheck+0x1c/0x64
+[   53.811439]  string+0x54/0x60
+[   53.814498]  vsnprintf+0x374/0x53c
+[   53.818009]  pointer+0x3dc/0x40c
+[   53.821340]  vsnprintf+0x398/0x53c
+[   53.824854]  vscnprintf+0x3c/0x88
+[   53.828274]  __trace_array_vprintk+0xcc/0x2d4
+[   53.832768]  trace_array_printk+0x8c/0xb4
+[   53.836900]  drm_trace_printf+0x74/0x9c
+[   53.840875]  drm_dev_dbg+0xfc/0x1b8
+[   53.844480]  dp_pm_suspend+0x70/0xf8
+[   53.848164]  dpm_run_callback+0x60/0x1a0
+[   53.852222]  __device_suspend+0x304/0x3f4
+[   53.856363]  dpm_suspend+0xf8/0x3a8
+[   53.859959]  dpm_suspend_start+0x8c/0xc0
+
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 2b72639..02fff70 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -316,6 +316,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+ 
+ 	dp_power_client_deinit(dp->power);
+ 	dp_aux_unregister(dp->aux);
++	dp->drm_dev = NULL;
++	dp->aux->drm_dev = NULL;
+ 	priv->dp[dp->id] = NULL;
+ }
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
