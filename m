@@ -2,67 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC47255530C
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 20:14:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA46E5554F0
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 21:47:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1AD10E473;
-	Wed, 22 Jun 2022 18:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B922510E2F2;
+	Wed, 22 Jun 2022 19:47:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD1FC10E473
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 18:14:10 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id b23so11797332ljh.7
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 11:14:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=tOaTUPPd6PdnEExOp4k5WWfYtYj0K5ouhfpsiU0MJ+w=;
- b=lMSz4dBNNkjwUgQVLw2XHuk6MaRJIayQLYaVfK4Jg5y35/dTMC79+wGsynebGHJPzu
- oEke8IHC9DqEek694z88Vsyk9VHBG+98m0tvqwI6Gv47nFn7SaHIi8fIMqyZei/q7i9j
- AbJBhCa8grNO6PMrhiSwdzC9AwDyUnhf8NbfvnKAo9XXUTs9MgsIpu5QHq2KPFWhjQJt
- AdgoTxsY/5ooIOCtlABRvN19t8xjZwvlfqE1QDNAND/moluseFEqnsmhOJbTFZ0BGD5g
- fBSCyKEgKo+avosEChFcl4zGwUtdyxowcDOPMKyiCrUhNOE8XRFAM60zzgB2Hwo4mOpK
- ePzQ==
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18D6010E32E
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 19:47:17 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-101e1a33fe3so13586585fac.11
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 12:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=P5X0i3YLR+vH/xCKeSIiyUzkgZgxeJh3Gr3zEWyGWZw=;
+ b=eEevZBp5hzAVO7OVafpFcG7EK/jyT2qs+fcQnakr40EPZB5gEKRLfLtb6iT4RXMmbx
+ 6itUVdVsCCEnkiujkl3V2MIuXLMOUIaAvjvmT06nYQ07dX1mO4XoDvkKcTdu5rnm0Gcg
+ 233mkWVIGvdB7XGJZfOVDuqaRuirMlFKKjPzQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=tOaTUPPd6PdnEExOp4k5WWfYtYj0K5ouhfpsiU0MJ+w=;
- b=U+f3SKoIpqGzM/0vRBKivYpXPa5a/EoKAebtwhTKjEeR6VwX5gYnDxJcFlCSXe8Na4
- 8ecBIYu2ASfU29J3IsLKL7X+0MCPKZqrTdQnekxo9/SmaDWAYiszRwXxRXvXvBrHf2kp
- LrlFncnScrn68y2R3jC9qRza3f0NlQec12i0qlGsj+dve9k76x5TLBJcEdkdpIm5noRO
- wUXshcYc+aPNGXfvZXxD7CE4nhFO6JqZMEeijR3w2PxG0GNYeHdWyzlIdQGUbT5TAowV
- k6l8sR4OyU1HyAw6LlO1xJeMkHdodQV3vrcu6kUzNrqCDmpgOJjWINLmijRwy/pg6SKq
- nBMA==
-X-Gm-Message-State: AJIora9ntN/jPscPVgsQpzgQjoaVNCLHIS6t3cfj/fXXKg/TJ0xumvW4
- EhgMWP3tQiwy24tGI3v9mw7zBQ==
-X-Google-Smtp-Source: AGRyM1sDZSQ9wOQc+S8b6FOus1k4rbB5EVldDN3tKv3CSF+uyrl2CuvZ7MLOW3KGU6zXdS6vurt5qw==
-X-Received: by 2002:a2e:a16f:0:b0:25a:7527:95ce with SMTP id
- u15-20020a2ea16f000000b0025a752795cemr2622679ljl.305.1655921649232; 
- Wed, 22 Jun 2022 11:14:09 -0700 (PDT)
-Received: from [192.168.1.212] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- u1-20020a199201000000b0047255d210dbsm2641802lfd.10.2022.06.22.11.14.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jun 2022 11:14:08 -0700 (PDT)
-Message-ID: <fb4310fd-61b1-08ab-c1fb-ed530684a390@linaro.org>
-Date: Wed, 22 Jun 2022 21:14:07 +0300
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=P5X0i3YLR+vH/xCKeSIiyUzkgZgxeJh3Gr3zEWyGWZw=;
+ b=qvF5GPYuQUAwVAjlI/fxK/XgxKQiBMoMvRwAxCTyQy7gnBGz5rQ47HGkji82E9HZaV
+ 2cnNOxB05yAXWlk0umyZBu93paoIfNBklOEAY26JwF9nBRJY6PfpOEre+QgaDtmZ3F80
+ ItiyWwfoDKpefau1h+/Ih4enzJFiyxt5Cgvf9FKgJGahrBML51HzjFXYMnBAmTtnBfc3
+ /yktYjJjgL9oChnTFNsZOs41VI8crHTV1gXBxf6meL8Sr85Pl/T9oO8cpmarSGAO1mop
+ PvWLYoLset7YA6BP+HLtmhHyZuFvl19wtMepqx54cIn1Z1hJNMTG70j0BHzpFBh7YM4F
+ ChJA==
+X-Gm-Message-State: AJIora+MA+HVztzvAM96BXWBJF9cqLvWP7HO726vJXsb4rBMtYbpxYYA
+ A8H7+xumNp8bpFe9ejE01+87AQIQDVOSahDOsL0/fA==
+X-Google-Smtp-Source: AGRyM1vZGszeqoU+XZtNEjQiK9wIw0YFJSaflA/w5PO2Z8WdsymdanQ/ymyF27U0fMlIl/UySOprRauZcbmkCjlv4IU=
+X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
+ w1-20020a056870b38100b000fe2004b3b5mr8306oap.63.1655927236348; Wed, 22 Jun
+ 2022 12:47:16 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 22 Jun 2022 15:47:15 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, dianders@chromium.org,
- vkoul@kernel.org, daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-References: <1655916845-31760-1-git-send-email-quic_khsieh@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 In-Reply-To: <1655916845-31760-1-git-send-email-quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <1655916845-31760-1-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Wed, 22 Jun 2022 15:47:15 -0400
+Message-ID: <CAE-0n52+DSD4Ub5MDD4bBdfHPG-mQzkQjGdB0PwqiRRmWF0HMQ@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
+ vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: reset drm_dev to NULL at
  dp_display_unbind()
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -84,7 +75,7 @@ Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/06/2022 19:54, Kuogee Hsieh wrote:
+Quoting Kuogee Hsieh (2022-06-22 09:54:05)
 > During msm initialize phase, dp_display_unbind() will be called to undo
 > initializations had been done by dp_display_bind() previously if there is
 > error happen at msm_drm_bind. Under this kind of circumstance, drm_device
@@ -92,7 +83,7 @@ On 22/06/2022 19:54, Kuogee Hsieh wrote:
 > This patch reset drm_dev to NULL so that following drm_dev_dbg() will not
 > refer to any internal fields of drm_device to prevent system from crashing.
 > Below are panic stack trace,
-> 
+>
 > [   53.584904] Unable to handle kernel paging request at virtual address 0000000070018001
 > .
 > [   53.702212] Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
@@ -127,30 +118,10 @@ On 22/06/2022 19:54, Kuogee Hsieh wrote:
 > [   53.852222]  __device_suspend+0x304/0x3f4
 > [   53.856363]  dpm_suspend+0xf8/0x3a8
 > [   53.859959]  dpm_suspend_start+0x8c/0xc0
-> 
+>
 > Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-
 > ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 2b72639..02fff70 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -316,6 +316,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
->   
->   	dp_power_client_deinit(dp->power);
->   	dp_aux_unregister(dp->aux);
-> +	dp->drm_dev = NULL;
-> +	dp->aux->drm_dev = NULL;
->   	priv->dp[dp->id] = NULL;
->   }
->   
 
+Any fixes tag?
 
--- 
-With best wishes
-Dmitry
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
