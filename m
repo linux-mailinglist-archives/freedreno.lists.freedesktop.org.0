@@ -2,59 +2,53 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA46E5554F0
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 21:47:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DCF355551C
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 21:55:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B922510E2F2;
-	Wed, 22 Jun 2022 19:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0E9210E9F7;
+	Wed, 22 Jun 2022 19:55:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18D6010E32E
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 19:47:17 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-101e1a33fe3so13586585fac.11
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 12:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=P5X0i3YLR+vH/xCKeSIiyUzkgZgxeJh3Gr3zEWyGWZw=;
- b=eEevZBp5hzAVO7OVafpFcG7EK/jyT2qs+fcQnakr40EPZB5gEKRLfLtb6iT4RXMmbx
- 6itUVdVsCCEnkiujkl3V2MIuXLMOUIaAvjvmT06nYQ07dX1mO4XoDvkKcTdu5rnm0Gcg
- 233mkWVIGvdB7XGJZfOVDuqaRuirMlFKKjPzQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=P5X0i3YLR+vH/xCKeSIiyUzkgZgxeJh3Gr3zEWyGWZw=;
- b=qvF5GPYuQUAwVAjlI/fxK/XgxKQiBMoMvRwAxCTyQy7gnBGz5rQ47HGkji82E9HZaV
- 2cnNOxB05yAXWlk0umyZBu93paoIfNBklOEAY26JwF9nBRJY6PfpOEre+QgaDtmZ3F80
- ItiyWwfoDKpefau1h+/Ih4enzJFiyxt5Cgvf9FKgJGahrBML51HzjFXYMnBAmTtnBfc3
- /yktYjJjgL9oChnTFNsZOs41VI8crHTV1gXBxf6meL8Sr85Pl/T9oO8cpmarSGAO1mop
- PvWLYoLset7YA6BP+HLtmhHyZuFvl19wtMepqx54cIn1Z1hJNMTG70j0BHzpFBh7YM4F
- ChJA==
-X-Gm-Message-State: AJIora+MA+HVztzvAM96BXWBJF9cqLvWP7HO726vJXsb4rBMtYbpxYYA
- A8H7+xumNp8bpFe9ejE01+87AQIQDVOSahDOsL0/fA==
-X-Google-Smtp-Source: AGRyM1vZGszeqoU+XZtNEjQiK9wIw0YFJSaflA/w5PO2Z8WdsymdanQ/ymyF27U0fMlIl/UySOprRauZcbmkCjlv4IU=
-X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
- w1-20020a056870b38100b000fe2004b3b5mr8306oap.63.1655927236348; Wed, 22 Jun
- 2022 12:47:16 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 22 Jun 2022 15:47:15 -0400
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC7D10E1E7;
+ Wed, 22 Jun 2022 19:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1655927741; x=1687463741;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=2xf/FWcxnZUDXgio8gfJjR4b5NBPlvVQvX05MnYgdqs=;
+ b=xOKGTEycAOP/xtFJRztC5OrbcsksFZ+9/oauSIjUM9qLdJQBGsg4kU5Q
+ tTd59vZq8HGFtgykvGy9MHNng5BKg7cieWipDtOA9LoBkPc0LcDk1vgod
+ q0g3NJV0+DjPV8FvTr6Q6Kkqhn9cvbeC757+WMsILpWNy0BpE18d2rtFW U=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 22 Jun 2022 12:55:40 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 12:55:40 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 22 Jun 2022 12:55:39 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Wed, 22 Jun 2022 12:55:38 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Wed, 22 Jun 2022 12:55:31 -0700
+Message-ID: <1655927731-22396-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1655916845-31760-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1655916845-31760-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Wed, 22 Jun 2022 15:47:15 -0400
-Message-ID: <CAE-0n52+DSD4Ub5MDD4bBdfHPG-mQzkQjGdB0PwqiRRmWF0HMQ@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: reset drm_dev to NULL at
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH v2] drm/msm/dp: reset drm_dev to NULL at
  dp_display_unbind()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,58 +64,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
 Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
  quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-06-22 09:54:05)
-> During msm initialize phase, dp_display_unbind() will be called to undo
-> initializations had been done by dp_display_bind() previously if there is
-> error happen at msm_drm_bind. Under this kind of circumstance, drm_device
-> may not be populated completed which causes system crash at drm_dev_dbg().
-> This patch reset drm_dev to NULL so that following drm_dev_dbg() will not
-> refer to any internal fields of drm_device to prevent system from crashing.
-> Below are panic stack trace,
->
-> [   53.584904] Unable to handle kernel paging request at virtual address 0000000070018001
-> .
-> [   53.702212] Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
-> [   53.710445] pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [   53.717596] pc : string_nocheck+0x1c/0x64
-> [   53.721738] lr : string+0x54/0x60
-> [   53.725162] sp : ffffffc013d6b650
-> [   53.728590] pmr_save: 000000e0
-> [   53.731743] x29: ffffffc013d6b650 x28: 0000000000000002 x27: 0000000000ffffff
-> [   53.739083] x26: ffffffc013d6b710 x25: ffffffd07a066ae0 x24: ffffffd07a419f97
-> [   53.746420] x23: ffffffd07a419f99 x22: ffffff81fef360d4 x21: ffffff81fef364d4
-> [   53.753760] x20: ffffffc013d6b6f8 x19: ffffffd07a06683c x18: 0000000000000000
-> [   53.761093] x17: 4020386678302f30 x16: 00000000000000b0 x15: ffffffd0797523c8
-> [   53.768429] x14: 0000000000000004 x13: ffff0000ffffff00 x12: ffffffd07a066b2c
-> [   53.775780] x11: 0000000000000000 x10: 000000000000013c x9 : 0000000000000000
-> [   53.783117] x8 : ffffff81fef364d4 x7 : 0000000000000000 x6 : 0000000000000000
-> [   53.790445] x5 : 0000000000000000 x4 : ffff0a00ffffff04 x3 : ffff0a00ffffff04
-> [   53.797783] x2 : 0000000070018001 x1 : ffffffffffffffff x0 : ffffff81fef360d4
-> [   53.805136] Call trace:
-> [   53.807667]  string_nocheck+0x1c/0x64
-> [   53.811439]  string+0x54/0x60
-> [   53.814498]  vsnprintf+0x374/0x53c
-> [   53.818009]  pointer+0x3dc/0x40c
-> [   53.821340]  vsnprintf+0x398/0x53c
-> [   53.824854]  vscnprintf+0x3c/0x88
-> [   53.828274]  __trace_array_vprintk+0xcc/0x2d4
-> [   53.832768]  trace_array_printk+0x8c/0xb4
-> [   53.836900]  drm_trace_printf+0x74/0x9c
-> [   53.840875]  drm_dev_dbg+0xfc/0x1b8
-> [   53.844480]  dp_pm_suspend+0x70/0xf8
-> [   53.848164]  dpm_run_callback+0x60/0x1a0
-> [   53.852222]  __device_suspend+0x304/0x3f4
-> [   53.856363]  dpm_suspend+0xf8/0x3a8
-> [   53.859959]  dpm_suspend_start+0x8c/0xc0
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
+During msm initialize phase, dp_display_unbind() will be called to undo
+initializations had been done by dp_display_bind() previously if there is
+error happen at msm_drm_bind. Under this kind of circumstance, drm_device
+may not be populated completed which causes system crash at drm_dev_dbg().
+This patch reset drm_dev to NULL so that following drm_dev_dbg() will not
+refer to any internal fields of drm_device to prevent system from crashing.
+Below are panic stack trace,
 
-Any fixes tag?
+[   53.584904] Unable to handle kernel paging request at virtual address 0000000070018001
+.
+[   53.702212] Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
+[   53.710445] pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   53.717596] pc : string_nocheck+0x1c/0x64
+[   53.721738] lr : string+0x54/0x60
+[   53.725162] sp : ffffffc013d6b650
+[   53.728590] pmr_save: 000000e0
+[   53.731743] x29: ffffffc013d6b650 x28: 0000000000000002 x27: 0000000000ffffff
+[   53.739083] x26: ffffffc013d6b710 x25: ffffffd07a066ae0 x24: ffffffd07a419f97
+[   53.746420] x23: ffffffd07a419f99 x22: ffffff81fef360d4 x21: ffffff81fef364d4
+[   53.753760] x20: ffffffc013d6b6f8 x19: ffffffd07a06683c x18: 0000000000000000
+[   53.761093] x17: 4020386678302f30 x16: 00000000000000b0 x15: ffffffd0797523c8
+[   53.768429] x14: 0000000000000004 x13: ffff0000ffffff00 x12: ffffffd07a066b2c
+[   53.775780] x11: 0000000000000000 x10: 000000000000013c x9 : 0000000000000000
+[   53.783117] x8 : ffffff81fef364d4 x7 : 0000000000000000 x6 : 0000000000000000
+[   53.790445] x5 : 0000000000000000 x4 : ffff0a00ffffff04 x3 : ffff0a00ffffff04
+[   53.797783] x2 : 0000000070018001 x1 : ffffffffffffffff x0 : ffffff81fef360d4
+[   53.805136] Call trace:
+[   53.807667]  string_nocheck+0x1c/0x64
+[   53.811439]  string+0x54/0x60
+[   53.814498]  vsnprintf+0x374/0x53c
+[   53.818009]  pointer+0x3dc/0x40c
+[   53.821340]  vsnprintf+0x398/0x53c
+[   53.824854]  vscnprintf+0x3c/0x88
+[   53.828274]  __trace_array_vprintk+0xcc/0x2d4
+[   53.832768]  trace_array_printk+0x8c/0xb4
+[   53.836900]  drm_trace_printf+0x74/0x9c
+[   53.840875]  drm_dev_dbg+0xfc/0x1b8
+[   53.844480]  dp_pm_suspend+0x70/0xf8
+[   53.848164]  dpm_run_callback+0x60/0x1a0
+[   53.852222]  __device_suspend+0x304/0x3f4
+[   53.856363]  dpm_suspend+0xf8/0x3a8
+[   53.859959]  dpm_suspend_start+0x8c/0xc0
 
+Fixes: a65c95ff88f2 ("drm/msm/dp: stop event kernel thread when DP unbind")
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+---
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index 2b72639..02fff70 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -316,6 +316,8 @@ static void dp_display_unbind(struct device *dev, struct device *master,
+ 
+ 	dp_power_client_deinit(dp->power);
+ 	dp_aux_unregister(dp->aux);
++	dp->drm_dev = NULL;
++	dp->aux->drm_dev = NULL;
+ 	priv->dp[dp->id] = NULL;
+ }
+ 
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
