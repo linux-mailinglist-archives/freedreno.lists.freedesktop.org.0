@@ -2,58 +2,60 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CDB5555245
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 19:24:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F2E555263
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 19:29:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E34FF10E9A3;
-	Wed, 22 Jun 2022 17:24:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2FAA10E091;
+	Wed, 22 Jun 2022 17:28:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E611510E9A3;
- Wed, 22 Jun 2022 17:24:26 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85C8210E091
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 17:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1655918667; x=1687454667;
+ t=1655918938; x=1687454938;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=+T1Ha1FXIGuZiI7WiovZ/I2vnWbuysSEufGaNGb5xFw=;
- b=firCLAb6ZP9PMGf5MAK6A5HHGsrZMBYrLW1HrAZybTT1McYdn/4BZUF3
- 9+8mq+XZ12kGaBYVDLdw/+PPDTIybbtSre6tNnV/rJv/fCWbMu15DObj1
- zm9zHhHM3t2HYgaFpQQOwetdds5WzHDbu2Ed5f9c1vjg3YcV8orXwgaLQ I=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 22 Jun 2022 10:24:26 -0700
+ bh=zqnpY4X29rKyTvgX1mfr7bzlTooayOG6LmPdVgV081s=;
+ b=MA4StN2FXn0xL2XjfVOPR8LtLuCAk3OB69FAas94zkv0RMMNew1WosrO
+ gadIB8pZ8c3zOrSg1TMvcF4RYbHv8cG+TZFrt1f2oxxzkooB/iVGLogJw
+ CDdNpIULMzWUpDWMNpvrflxKC0aiNMCfoJmgaQfZlA/Fo6agFjwIS/rEY k=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 22 Jun 2022 10:28:58 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2022 10:24:25 -0700
+ by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2022 10:28:57 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 22 Jun 2022 10:24:25 -0700
+ 15.2.986.22; Wed, 22 Jun 2022 10:28:57 -0700
 Received: from [10.111.161.199] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 22 Jun
- 2022 10:24:23 -0700
-Message-ID: <b133b67f-0d99-af6b-94a5-d5ff4b5752f1@quicinc.com>
-Date: Wed, 22 Jun 2022 10:24:21 -0700
+ 2022 10:28:55 -0700
+Message-ID: <51c48862-967d-fcfa-d744-b234a091a834@quicinc.com>
+Date: Wed, 22 Jun 2022 10:28:53 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Content-Language: en-US
-To: Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220622023855.2970913-1-swboyd@chromium.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+References: <20220621110634.368913-1-sunliming@kylinos.cn>
+ <d4b882ba-b773-5271-6050-416c8f3cad4b@quicinc.com>
+ <955f881c-7731-a337-3ff9-e58863c41976@quicinc.com>
+ <CAA8EJpreR2bk827Mb4doU5yf=Af-3djoJ=UiOomfsGmuV1MUhA@mail.gmail.com>
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <20220622023855.2970913-1-swboyd@chromium.org>
+In-Reply-To: <CAA8EJpreR2bk827Mb4doU5yf=Af-3djoJ=UiOomfsGmuV1MUhA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Increment vsync_cnt before
- waking up userspace
+Subject: Re: [Freedreno] [PATCH] drm/msm/dpu: Fix variable dereferenced
+ before check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,67 +68,82 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Mark Yacoub <markyacoub@chromium.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- patches@lists.linux.dev, Jessica Zhang <quic_jesszhan@quicinc.com>,
- freedreno@lists.freedesktop.org
+Cc: kernel test robot <lkp@intel.com>, kelulanainsley@gmail.com,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ sunliming <sunliming@kylinos.cn>, freedreno <freedreno@lists.freedesktop.org>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6/21/2022 7:38 PM, Stephen Boyd wrote:
-> The 'vsync_cnt' is used to count the number of frames for a crtc.
-> Unfortunately, we increment the count after waking up userspace via
-> dpu_crtc_vblank_callback() calling drm_crtc_handle_vblank().
-> drm_crtc_handle_vblank() wakes up userspace processes that have called
-> drm_wait_vblank_ioctl(), and if that ioctl is expecting the count to
-> increase it won't.
+On 6/21/2022 10:49 AM, Dmitry Baryshkov wrote:
+> On Tue, 21 Jun 2022 at 20:44, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
+>>
+>> Copying freedreno
 > 
-> Increment the count before calling into the drm APIs so that we don't
-> have to worry about ordering the increment with anything else in drm.
-> This fixes a software video decode test that fails to see frame counts
-> increase on Trogdor boards.
+> The patch needs to be sent to freedreno@. Otherwise it doesn't exist
+> in patchwork.
+
+Ack
+
+Hi Sunliming
+
+Can you please re-send this and copy freedreno email list along with the 
+Reviewed-by and Reported-by tags which I have given below?
+
+Thanks
+
+Abhinav
+
 > 
-> Cc: Mark Yacoub <markyacoub@chromium.org>
-> Cc: Jessica Zhang <quic_jesszhan@quicinc.com>
-> Fixes: 885455d6bf82 ("drm/msm: Change dpu_crtc_get_vblank_counter to use vsync count.")
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
-
-This is right, we should increment before drm_crtc_handle_vblank() as 
-that will query the vblank counter. This also matches what we do 
-downstream, hence
-
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-
-One small nit though, shouldnt the fixes tag be
-
-25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
-
-This code has been this way since that commit itself.
-
-> ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> On 6/21/2022 10:42 AM, Abhinav Kumar wrote:
+>>>
+>>>
+>>> On 6/21/2022 4:06 AM, sunliming wrote:
+>>>> Fixes the following smatch warning:
+>>>>
+>>>> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:261
+>>>> dpu_encoder_phys_wb_atomic_check() warn: variable dereferenced before
+>>>> check 'conn_state'
+>>>>
+>>>> Reported-by: kernel test robot <lkp@intel.com>
+>>>> Signed-off-by: sunliming <sunliming@kylinos.cn>
+>>> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+>>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>
+>>>> ---
+>>>>    drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 10 +++++-----
+>>>>    1 file changed, 5 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+>>>> b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+>>>> index 59da348ff339..0ec809ab06e7 100644
+>>>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+>>>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+>>>> @@ -252,11 +252,6 @@ static int dpu_encoder_phys_wb_atomic_check(
+>>>>        DPU_DEBUG("[atomic_check:%d, \"%s\",%d,%d]\n",
+>>>>                phys_enc->wb_idx, mode->name, mode->hdisplay,
+>>>> mode->vdisplay);
+>>>> -    if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
+>>>> -        return 0;
+>>>> -
+>>>> -    fb = conn_state->writeback_job->fb;
+>>>> -
+>>>>        if (!conn_state || !conn_state->connector) {
+>>>>            DPU_ERROR("invalid connector state\n");
+>>>>            return -EINVAL;
+>>>> @@ -267,6 +262,11 @@ static int dpu_encoder_phys_wb_atomic_check(
+>>>>            return -EINVAL;
+>>>>        }
+>>>> +    if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
+>>>> +        return 0;
+>>>> +
+>>>> +    fb = conn_state->writeback_job->fb;
+>>>> +
+>>>>        DPU_DEBUG("[fb_id:%u][fb:%u,%u]\n", fb->base.id,
+>>>>                fb->width, fb->height);
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 3a462e327e0e..a1b8c4592943 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1251,12 +1251,13 @@ static void dpu_encoder_vblank_callback(struct drm_encoder *drm_enc,
->   	DPU_ATRACE_BEGIN("encoder_vblank_callback");
->   	dpu_enc = to_dpu_encoder_virt(drm_enc);
->   
-> +	atomic_inc(&phy_enc->vsync_cnt);
-> +
->   	spin_lock_irqsave(&dpu_enc->enc_spinlock, lock_flags);
->   	if (dpu_enc->crtc)
->   		dpu_crtc_vblank_callback(dpu_enc->crtc);
->   	spin_unlock_irqrestore(&dpu_enc->enc_spinlock, lock_flags);
->   
-> -	atomic_inc(&phy_enc->vsync_cnt);
->   	DPU_ATRACE_END("encoder_vblank_callback");
->   }
->   
 > 
-> base-commit: f2906aa863381afb0015a9eb7fefad885d4e5a56
+> 
