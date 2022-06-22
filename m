@@ -2,68 +2,73 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809255552D8
-	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 19:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F365552E6
+	for <lists+freedreno@lfdr.de>; Wed, 22 Jun 2022 19:58:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31AB110E0F6;
-	Wed, 22 Jun 2022 17:51:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9636610E9A3;
+	Wed, 22 Jun 2022 17:58:25 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4149F10E0F6
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 17:51:43 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id o23so13162974ljg.13
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 10:51:43 -0700 (PDT)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 156A310E59C
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 17:58:24 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id b23so11744302ljh.7
+ for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 10:58:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=lyHjNlGIepIT/t3IaYDnRx3eF0Wl2lezOvJ866alVNE=;
- b=phpEogNR2Dg76Apl+C0m8n/9gUnfdkc6rnmv8hg35SveC82wohLJms9nr8qUFjSTrt
- 4Wqhfvb7TrbFI0PccZBegFGbM6GWr4WH60OyCtbhsxjLU5Gc19GKXWPP4ElsqfSX70r4
- GI8QbEhNgxtYK4Xyzgo0aD4lxO8yoOXSP1ERqgttwcWrM9LBVriiDKrg6TWygQvTAYD1
- gwUXdUJl30pALaY/eKtcdJDLVMhcpnDNUTG8kt/basq2l9yPy5n4cAJPiHRVjSyhApU7
- AIhFhue8YAUjo6mD/YxRMnzlCFrk8+m/fUb1RIXRUrWefCqJsAgGjAgmDmmRQZi0niT4
- eSPQ==
+ bh=RijPorxrzLa0urbw6f5tLG+MBIywxSnLbJeg+24hYzA=;
+ b=H0VPSCsehGXRYxTHzMXRWxGfbmO+IP0LFhFmRmwcDgdae3jk2wjq7FiRgKRv1gUPQM
+ 7mR0hRGMvUOpdgF3Z4XpJoVP9nrtlr+QfMN3sLbcE8uKbscpuY+aTwN/u3FB0RmNDa3J
+ U3el3BPUyFaeOvneYMa/UOcnN4lalmBdXVyyLtnsR6vwkdsuwuO2/AZ1btm/Kwg/G0hW
+ I7KmOaggNgtnvDPNQKsh9kgOYs2u57711q3X9A5MJeK+aS1aiSPvDzTOtkXDKgtzfWfu
+ XxT2/WGyoT/94NmWdS0LaUsUWNuG0UzfNiYVn5obq8o8yTnClnT1iYT91S2JZsfyRihQ
+ fDiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=lyHjNlGIepIT/t3IaYDnRx3eF0Wl2lezOvJ866alVNE=;
- b=Wi3aD2bo9MsX6ozpLt9wSV/E2PCrp2DmCZy+YTanBJv24QvVcMt3D3UQVKKO52JvMS
- semRKRoZNpySNzw0hzOgcLZSDobQOabfy+4HCD4KqFK88VHKM3vF7VjFX2Gjp506kghF
- iglwaOKibZ2+rjHqCkuNh8WE72tNW74G0vrWWL0SY8jJcvD+UeWHZyqFTMGW0QD7Dt9e
- dTT3eqajp2u48jH/ePE5XkHQknwW6bcdIKYB4yXCbDFiPAAgMuAEyQ3zCAn0GMYbEC9H
- 9dPPZFxtObRR1JOgHSzmF5ppZnTq/OSP3XE1hz0fgN/0C/u/MP1nclLwfl/XRCaD222I
- 16fg==
-X-Gm-Message-State: AJIora8t8ybSwnFMY40ZXSBB+XKy5VF9e0mOpujpFSJFaRKA4PqhCt2J
- AALsqDJacTjHMfu8rjbf9fsOXQ==
-X-Google-Smtp-Source: AGRyM1uqRH0eeNtScZfg9vgahrtzqeNiUZh3ZaiXJFRiWQWm4xvksCJ8mnE2AFxPxob07sW9BfcD1A==
-X-Received: by 2002:a05:651c:211e:b0:25a:88ca:d766 with SMTP id
- a30-20020a05651c211e00b0025a88cad766mr2448216ljq.230.1655920301613; 
- Wed, 22 Jun 2022 10:51:41 -0700 (PDT)
+ bh=RijPorxrzLa0urbw6f5tLG+MBIywxSnLbJeg+24hYzA=;
+ b=zqCJaYkvfYQSwnMb8K83k81lyCBhyquqPZBP2C4r7hoHnXGR5Yw1L0mSzkdwVdNGgl
+ odkv/tEhMfqiitoNzAByhPGheXdJr4LIwZBlnPO4ZGEYkgTHxFgIuQJW8uc0UzdyhuGE
+ EtpvT9+C//50yyGnB7nlAA6RchKogyjTtxWKktwsQ/HGkFgVcx3HTrkqOKtABqozMqJb
+ kwUqeryLVd0xC6mbTp1TjnIIPIy/MUml/IAypJTNE44TCkTyAjtiyacPRNbUFOUSBvaD
+ U5ySo50IM/ztOBGCCrDPy6w6ClPkFPMRo0MVX3Y8bEDHzm7eYqZ52a+FavoNn7Dg6Kap
+ nqcg==
+X-Gm-Message-State: AJIora8GIhOsyvfgUZNJ88ulUeMEQVnNTIm/GJZNOegFkGtCYlbwtBQ2
+ deuQGVNrynsl0PupjBDXf8XmIA==
+X-Google-Smtp-Source: AGRyM1sDD/L+lVpsF7kORweCZVDNiYMB+PqxH/Cw0lFPdDBWV98bhtSFtWCX+n4AQJXc48Ve+fm6TA==
+X-Received: by 2002:a05:651c:54c:b0:25a:621e:5cf2 with SMTP id
+ q12-20020a05651c054c00b0025a621e5cf2mr2560846ljp.87.1655920702407; 
+ Wed, 22 Jun 2022 10:58:22 -0700 (PDT)
 Received: from [192.168.1.212] ([37.153.55.125])
  by smtp.gmail.com with ESMTPSA id
- k1-20020a192d01000000b00478fc20dc88sm2628594lfj.73.2022.06.22.10.51.40
+ v11-20020a05651203ab00b0047f9fa2925csm99202lfp.234.2022.06.22.10.58.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jun 2022 10:51:40 -0700 (PDT)
-Message-ID: <54ef4527-bb30-c7c6-ab74-0a2557c763cc@linaro.org>
-Date: Wed, 22 Jun 2022 20:51:40 +0300
+ Wed, 22 Jun 2022 10:58:21 -0700 (PDT)
+Message-ID: <6cc5767f-7961-3410-8693-40dde2348c12@linaro.org>
+Date: Wed, 22 Jun 2022 20:58:21 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, swboyd@chromium.org, vkoul@kernel.org, agross@kernel.org,
- bjorn.andersson@linaro.org, robh+dt@kernel.org, devicetree@vger.kernel.org
-References: <1655916953-32039-1-git-send-email-quic_khsieh@quicinc.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, Stephen Boyd
+ <swboyd@chromium.org>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>
+References: <20220617204750.2347797-1-swboyd@chromium.org>
+ <20220617204750.2347797-3-swboyd@chromium.org>
+ <bb98ca29-8752-6864-ddbd-19547fb6f73b@linaro.org>
+ <CAE-0n51_zysbkktVEfhvXtGqpADTWcaPBAX7A7rD1FV+vcK3Uw@mail.gmail.com>
+ <48d83380-edb1-ad61-3878-5fa3ac3e5169@linaro.org>
+ <d77d2989-7270-d1ec-fda6-7001ea337f5b@quicinc.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <1655916953-32039-1-git-send-email-quic_khsieh@quicinc.com>
+In-Reply-To: <d77d2989-7270-d1ec-fda6-7001ea337f5b@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH] dt-bindings: msm: update maintainers list
- with proper id
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] [PATCH 2/3] drm/msm/dp: Remove pixel_rate from
+ struct dp_ctrl
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,37 +81,80 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- abhinavk@codeaurora.org
+Cc: freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ patches@lists.linux.dev
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 22/06/2022 19:55, Kuogee Hsieh wrote:
-> Use quic id instead of codeaurora id in maintainers list
-> for display devicetree bindings.
+On 22/06/2022 18:22, Kuogee Hsieh wrote:
 > 
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> On 6/22/2022 12:24 AM, Dmitry Baryshkov wrote:
+>> On 22/06/2022 05:59, Stephen Boyd wrote:
+>>> Quoting Dmitry Baryshkov (2022-06-17 16:07:58)
+>>>> On 17/06/2022 23:47, Stephen Boyd wrote:
+>>>>> This struct member is stored to in the function that calls the 
+>>>>> function
+>>>>> which uses it. That's possible with a function argument instead of
+>>>>> storing to a struct member. Pass the pixel_rate as an argument instead
+>>>>> to simplify the code. Note that dp_ctrl_link_maintenance() was storing
+>>>>> the pixel_rate but never using it so we just remove the assignment 
+>>>>> from
+>>>>> there.
+>>>>>
+>>>>> Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
+>>>>> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+>>>>> ---
+>>>>>    drivers/gpu/drm/msm/dp/dp_ctrl.c | 57 
+>>>>> ++++++++++++++++----------------
+>>>>>    drivers/gpu/drm/msm/dp/dp_ctrl.h |  1 -
+>>>>>    2 files changed, 28 insertions(+), 30 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c 
+>>>>> b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>> index bd445e683cfc..e114521af2e9 100644
+>>>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>> @@ -1336,7 +1336,7 @@ static void dp_ctrl_set_clock_rate(struct 
+>>>>> dp_ctrl_private *ctrl,
+>>>>>                                name, rate);
+>>>>>    }
+>>>>>
+>>>>> -static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private 
+>>>>> *ctrl)
+>>>>> +static int dp_ctrl_enable_mainlink_clocks(struct dp_ctrl_private 
+>>>>> *ctrl, unsigned long pixel_rate)
+>>>>
+>>>>
+>>>> I think we can read pixel_rate here rather than getting it as an
+>>>> argument. We'd need to move handling (DP_TEST_LINK_PHY_TEST_PATTERN &&
+>>>> !ctrl->panel->dp_mode.drm_mode.clock) case here from dp_ctrl_on_link().
+>>>
+>>> This is also called from dp_ctrl_on_stream() and
+>>> dp_ctrl_reinitialize_mainlink(). In the dp_ctrl_on_stream() case we may
+>>> divide the pixel_rate by 2 with widebus. We could move the
+>>> dp_ctrl_on_link() code here, but then we also need to move widebus, and
+>>> then I'm not sure which pixel rate to use.
+>>>
+>>> It looks like the test code doesn't care about widebus? And similarly,
+>>> we may run the pixel clk faster until we get a modeset and then divide
+>>> it for widebus.
+>>
+>> Good question. I'll let Kuogee or somebody else from Qualcomm to 
+>> comment on test code vs widebus vs pixel rate, as I don't know these 
+>> details.
+>>
+>> I'm not sure if we should halve the pixel clock in 
+>> dp_ctrl_on_stream_phy_test_report() or not if the widebus is supported.
+>> From the current code I'd assume that we have to do this. Let's raise 
+>> this question in the corresponding patch discussion.
+>>
+> yes, phy test does not care pixel clock rate.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+So, is it 'does not care' or 'set to mode clock'?
 
-> ---
->   Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index cd05cfd..c950710 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
->   title: MSM Display Port Controller
->   
->   maintainers:
-> -  - Kuogee Hsieh <khsieh@codeaurora.org>
-> +  - Kuogee Hsieh <quic_khsieh@quicinc.com>
->   
->   description: |
->     Device tree bindings for DisplayPort host controller for MSM targets
+In other words, can we unify both functions by always accounting for the 
+wide_bus_en value?
 
 
 -- 
