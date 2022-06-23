@@ -2,60 +2,37 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3059556F66
-	for <lists+freedreno@lfdr.de>; Thu, 23 Jun 2022 02:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EAE557F5C
+	for <lists+freedreno@lfdr.de>; Thu, 23 Jun 2022 18:09:20 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC5CC11360C;
-	Thu, 23 Jun 2022 00:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87BBE10E09E;
+	Thu, 23 Jun 2022 16:09:19 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80AF71135EF
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jun 2022 00:25:46 +0000 (UTC)
-Received: by mail-pl1-x633.google.com with SMTP id k7so16769473plg.7
- for <freedreno@lists.freedesktop.org>; Wed, 22 Jun 2022 17:25:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=SygWKchO0k+y7yXsZh0lg7LZ0sosds739AKDKHLdzm8=;
- b=b3st9LQI8EUcf4vRZkN9FuY8JTgqSsuawrFH9hFAlJZTkVCtFxFALeeL3f82fotnXr
- 6LDOe5qKxy8Vz+vQ0mmD1l7s+y6QJmxrb/atmlIsrpBBGx6kLWqfcw1LvOF5iyJO1MCP
- c2DKMugV/35nUO1ROV12YG7FUQWLGIYSHRSiQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=SygWKchO0k+y7yXsZh0lg7LZ0sosds739AKDKHLdzm8=;
- b=jOWdkSSjogRjXjsQ65gujiwSivycSLtR2j+RyjcDMjx6iRcIPvwhZet3i2gqPCnvSG
- cgYlgRq323nUZwNXeCkczcB9A3xyP4yQXzy1ELy+mpn8r3+6Pjjl9QIAy/Gbr2oom6Yp
- rQobTkk/OjW1DUMI3IWC24md330sHoDoQSdwj+r0EoN4AG+dzILxiBtG0jc95Y18yaPi
- gD7qtpkK/re2pEIc9Viw1KcmSFylFFZdCsjgmyEblbmjrcXbLZnPqjlfzMnSF7YaGber
- P50coLmcC6D8FrlPXs34WRkAu3q+6pStHdObSGQkxHXunznkXw0ZBF9xomjQS3/W5Vqj
- Z01g==
-X-Gm-Message-State: AJIora/agT9/cwuJ9FXx4kJ4/SznXe1UGQc1QDyQREPEakhfKXogfkQ1
- iduSZ3Hs8TJCZagMejswgNkXSw==
-X-Google-Smtp-Source: AGRyM1vljkq/ZMbBKLNrU/5jd/GiIb1Avw040L4R6xvEuHNHC8lbPLZXn68o6WxIfLbKiAsrJ+bvnw==
-X-Received: by 2002:a17:902:b216:b0:16a:854:e641 with SMTP id
- t22-20020a170902b21600b0016a0854e641mr29379561plr.154.1655943946136; 
- Wed, 22 Jun 2022 17:25:46 -0700 (PDT)
-Received: from smtp.gmail.com ([2620:15c:202:201:f28c:6f86:743c:1c04])
- by smtp.gmail.com with ESMTPSA id
- j1-20020a170903024100b00163fbb1eec5sm13332705plh.229.2022.06.22.17.25.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jun 2022 17:25:45 -0700 (PDT)
-From: Stephen Boyd <swboyd@chromium.org>
-To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 22 Jun 2022 17:25:40 -0700
-Message-Id: <20220623002540.871994-4-swboyd@chromium.org>
-X-Mailer: git-send-email 2.37.0.rc0.104.g0611611a94-goog
-In-Reply-To: <20220623002540.871994-1-swboyd@chromium.org>
-References: <20220623002540.871994-1-swboyd@chromium.org>
+Received: from nksmu.kylinos.cn (mailgw.kylinos.cn [123.150.8.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1EF11362F
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jun 2022 01:17:04 +0000 (UTC)
+X-UUID: 932eaa0ebaa04524ab875615dcb29b32-20220623
+X-UUID: 932eaa0ebaa04524ab875615dcb29b32-20220623
+Received: from cs2c.com.cn [(172.17.111.24)] by nksmu.kylinos.cn
+ (envelope-from <sunliming@kylinos.cn>) (Generic MTA)
+ with ESMTP id 848284677; Thu, 23 Jun 2022 09:19:16 +0800
+Received: by cs2c.com.cn (NSMail, from userid 10001)
+ id 07648383E604; Thu, 23 Jun 2022 09:16:53 +0800 (CST)
+From: =?UTF-8?B?5a2Z56uL5piO?= <sunliming@kylinos.cn>
+To: =?UTF-8?B?QWJoaW5hdiBLdW1hcg==?= <quic_abhinavk@quicinc.com>,
+ =?UTF-8?B?RG1pdHJ5IEJhcnlzaGtvdg==?= <dmitry.baryshkov@linaro.org>,
+Date: Thu, 23 Jun 2022 09:16:53 +0800
+X-Mailer: NSMAIL 6.0
+Message-ID: <193ehavh2r-194of4aiwk@nsmail6.0>
+References: 51c48862-967d-fcfa-d744-b234a091a834@quicinc.com
+X-Delaysendtime: Thu, 23 Jun 2022 09:16:53 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v2 3/3] drm/msm/dp: Get rid of
- dp_ctrl_on_stream_phy_test_report()
+Content-Type: multipart/mixed; boundary=nsmail-1aasf3377a-1aasf3377b
+X-ns-mid: webmail-62b3bf05-1a6ylmu1
+X-Mailman-Approved-At: Thu, 23 Jun 2022 16:09:17 +0000
+Subject: [Freedreno] =?utf-8?b?5Zue5aSNOiBSZTogW1BBVENIXSBkcm0vbXNtL2Rw?=
+ =?utf-8?q?u=3A_Fix_variable_dereferenced_before_check?=
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,92 +45,119 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- patches@lists.linux.dev, freedreno@lists.freedesktop.org
+Cc: =?UTF-8?B?a2VybmVsIHRlc3Qgcm9ib3Q=?= <lkp@intel.com>,
+ kelulanainsley@gmail.com, linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ =?UTF-8?B?c3VubGltaW5n?= <sunliming@kylinos.cn>,
+ =?UTF-8?B?ZnJlZWRyZW5v?= <freedreno@lists.freedesktop.org>,
+ =?UTF-8?B?RGFuIENhcnBlbnRlcg==?= <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-This API isn't really more than a couple lines now that we don't store
-the pixel_rate to the struct member. Inline it into the caller.
+This message is in MIME format.
 
-Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Signed-off-by: Stephen Boyd <swboyd@chromium.org>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 44 ++++++++++++--------------------
- 1 file changed, 17 insertions(+), 27 deletions(-)
+--nsmail-1aasf3377a-1aasf3377b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index feb26d4d6e97..e475f4ca078a 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1564,36 +1564,15 @@ static bool dp_ctrl_send_phy_test_pattern(struct dp_ctrl_private *ctrl)
- 	return success;
- }
- 
--static int dp_ctrl_on_stream_phy_test_report(struct dp_ctrl *dp_ctrl)
-+static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
- {
- 	int ret;
--	struct dp_ctrl_private *ctrl;
- 	unsigned long pixel_rate;
- 
--	ctrl = container_of(dp_ctrl, struct dp_ctrl_private, dp_ctrl);
--
--	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
--	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel", pixel_rate * 1000);
--
--	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, true);
--	if (ret) {
--		DRM_ERROR("Unable to start pixel clocks. ret=%d\n", ret);
--		return ret;
--	}
--
--	dp_ctrl_send_phy_test_pattern(ctrl);
--
--	return 0;
--}
--
--static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
--{
--	int ret = 0;
--
- 	if (!ctrl->link->phy_params.phy_test_pattern_sel) {
- 		drm_dbg_dp(ctrl->drm_dev,
- 			"no test pattern selected by sink\n");
--		return ret;
-+		return 0;
- 	}
- 
- 	/*
-@@ -1608,12 +1587,23 @@ static int dp_ctrl_process_phy_test_request(struct dp_ctrl_private *ctrl)
- 	}
- 
- 	ret = dp_ctrl_on_link(&ctrl->dp_ctrl);
--	if (!ret)
--		ret = dp_ctrl_on_stream_phy_test_report(&ctrl->dp_ctrl);
--	else
-+	if (ret) {
- 		DRM_ERROR("failed to enable DP link controller\n");
-+		return ret;
-+	}
- 
--	return ret;
-+	pixel_rate = ctrl->panel->dp_mode.drm_mode.clock;
-+	dp_ctrl_set_clock_rate(ctrl, DP_STREAM_PM, "stream_pixel", pixel_rate * 1000);
-+
-+	ret = dp_power_clk_enable(ctrl->power, DP_STREAM_PM, true);
-+	if (ret) {
-+		DRM_ERROR("Failed to start pixel clocks. ret=%d\n", ret);
-+		return ret;
-+	}
-+
-+	dp_ctrl_send_phy_test_pattern(ctrl);
-+
-+	return 0;
- }
- 
- void dp_ctrl_handle_sink_request(struct dp_ctrl *dp_ctrl)
--- 
-https://chromeos.dev
+PHA+T0vvvIxpIHdpbGwgZG8gdGhhdDwvcD48YnI+CgogJm5ic3A7ICZuYnNw
+OzxwPi0tLS08L3A+PHA+PC9wPjxwPjxicj48L3A+PHA+PC9wPjxkaXYgaWQ9
+InJlIiBzdHlsZT0ibWFyZ2luLWxlZnQ6MC41ZW07cGFkZGluZy1sZWZ0OjAu
+NWVtO2JvcmRlci1sZWZ0OjFweCBzb2xpZCBncmVlbjsiPjxicj48YnI+PGJy
+PgogJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7PGRpdiBzdHlsZT0iYmFj
+a2dyb3VuZC1jb2xvcjojZjVmN2ZhIj48Yj7kuLvjgIDpopjvvJo8L2I+PHNw
+YW4gaWQ9InN1YmplY3QiPlJlOiBbUEFUQ0hdIGRybS9tc20vZHB1OiBGaXgg
+dmFyaWFibGUgZGVyZWZlcmVuY2VkIGJlZm9yZSBjaGVjazwvc3Bhbj4KICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7PGJyPjxi
+PuaXpeOAgOacn++8mjwvYj48c3BhbiBpZD0iZGF0ZSI+MjAyMi0wNi0yMyAw
+MToyODwvc3Bhbj4KICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7PGJyPjxiPuWPkeS7tuS6uu+8mjwvYj48c3BhbiBpZD0iZnJv
+bSI+QWJoaW5hdiBLdW1hcjwvc3Bhbj4KICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7PGJyPjxiPuaUtuS7tuS6uu+8mjwvYj48
+c3BhbiBpZD0idG8iPkRtaXRyeSBCYXJ5c2hrb3Y8L3NwYW4+CiAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOwogJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7PC9kaXY+PGJyPgogJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7PGRpdiBpZD0iY29udGVudCI+PGRpdiBjbGFzcz0idmll
+d2VyX3BhcnQiPjxkaXY+PGJyPjxicj5PbiA2LzIxLzIwMjIgMTA6NDkgQU0s
+IERtaXRyeSBCYXJ5c2hrb3Ygd3JvdGU6PGJyPiZndDsgT24gVHVlLCAyMSBK
+dW4gMjAyMiBhdCAyMDo0NCwgQWJoaW5hdiBLdW1hcjxxdWljX2FiaGluYXZr
+QHF1aWNpbmMuY29tPndyb3RlOjxicj4mZ3Q7Jmd0Ozxicj4mZ3Q7Jmd0OyBD
+b3B5aW5nIGZyZWVkcmVubzxicj4mZ3Q7IDxicj4mZ3Q7IFRoZSBwYXRjaCBu
+ZWVkcyB0byBiZSBzZW50IHRvIGZyZWVkcmVub0AuIE90aGVyd2lzZSBpdCBk
+b2Vzbid0IGV4aXN0PGJyPiZndDsgaW4gcGF0Y2h3b3JrLjxicj48YnI+QWNr
+PGJyPjxicj5IaSBTdW5saW1pbmc8YnI+PGJyPkNhbiB5b3UgcGxlYXNlIHJl
+LXNlbmQgdGhpcyBhbmQgY29weSBmcmVlZHJlbm8gZW1haWwgbGlzdCBhbG9u
+ZyB3aXRoIHRoZSA8YnI+UmV2aWV3ZWQtYnkgYW5kIFJlcG9ydGVkLWJ5IHRh
+Z3Mgd2hpY2ggSSBoYXZlIGdpdmVuIGJlbG93Pzxicj48YnI+VGhhbmtzPGJy
+Pjxicj5BYmhpbmF2PGJyPjxicj4mZ3Q7IDxicj4mZ3Q7Jmd0Ozxicj4mZ3Q7
+Jmd0OyBPbiA2LzIxLzIwMjIgMTA6NDIgQU0sIEFiaGluYXYgS3VtYXIgd3Jv
+dGU6PGJyPiZndDsmZ3Q7Jmd0Ozxicj4mZ3Q7Jmd0OyZndDs8YnI+Jmd0OyZn
+dDsmZ3Q7IE9uIDYvMjEvMjAyMiA0OjA2IEFNLCBzdW5saW1pbmcgd3JvdGU6
+PGJyPiZndDsmZ3Q7Jmd0OyZndDsgRml4ZXMgdGhlIGZvbGxvd2luZyBzbWF0
+Y2ggd2FybmluZzo8YnI+Jmd0OyZndDsmZ3Q7Jmd0Ozxicj4mZ3Q7Jmd0OyZn
+dDsmZ3Q7IGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9kcHUxL2RwdV9lbmNv
+ZGVyX3BoeXNfd2IuYzoyNjE8YnI+Jmd0OyZndDsmZ3Q7Jmd0OyBkcHVfZW5j
+b2Rlcl9waHlzX3diX2F0b21pY19jaGVjaygpIHdhcm46IHZhcmlhYmxlIGRl
+cmVmZXJlbmNlZCBiZWZvcmU8YnI+Jmd0OyZndDsmZ3Q7Jmd0OyBjaGVjayAn
+Y29ubl9zdGF0ZSc8YnI+Jmd0OyZndDsmZ3Q7Jmd0Ozxicj4mZ3Q7Jmd0OyZn
+dDsmZ3Q7IFJlcG9ydGVkLWJ5OiBrZXJuZWwgdGVzdCByb2JvdDxsa3BAaW50
+ZWwuY29tPjxicj4mZ3Q7Jmd0OyZndDsmZ3Q7IFNpZ25lZC1vZmYtYnk6IHN1
+bmxpbWluZzxzdW5saW1pbmdAa3lsaW5vcy5jbj48YnI+Jmd0OyZndDsmZ3Q7
+IFJlcG9ydGVkLWJ5OiBEYW4gQ2FycGVudGVyPGRhbi5jYXJwZW50ZXJAb3Jh
+Y2xlLmNvbT48YnI+Jmd0OyZndDsmZ3Q7IFJldmlld2VkLWJ5OiBBYmhpbmF2
+IEt1bWFyPHF1aWNfYWJoaW5hdmtAcXVpY2luYy5jb20+PGJyPiZndDsmZ3Q7
+Jmd0Ozxicj4mZ3Q7Jmd0OyZndDsmZ3Q7IC0tLTxicj4mZ3Q7Jmd0OyZndDsm
+Z3Q7ICZuYnNwOyAmbmJzcDtkcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1
+MS9kcHVfZW5jb2Rlcl9waHlzX3diLmMgfCAxMCArKysrKy0tLS0tPGJyPiZn
+dDsmZ3Q7Jmd0OyZndDsgJm5ic3A7ICZuYnNwOzEgZmlsZSBjaGFuZ2VkLCA1
+IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pPGJyPiZndDsmZ3Q7Jmd0
+OyZndDs8YnI+Jmd0OyZndDsmZ3Q7Jmd0OyBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL21zbS9kaXNwL2RwdTEvZHB1X2VuY29kZXJfcGh5c193Yi5j
+PGJyPiZndDsmZ3Q7Jmd0OyZndDsgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rp
+c3AvZHB1MS9kcHVfZW5jb2Rlcl9waHlzX3diLmM8YnI+Jmd0OyZndDsmZ3Q7
+Jmd0OyBpbmRleCA1OWRhMzQ4ZmYzMzkuLjBlYzgwOWFiMDZlNyAxMDA2NDQ8
+YnI+Jmd0OyZndDsmZ3Q7Jmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXNt
+L2Rpc3AvZHB1MS9kcHVfZW5jb2Rlcl9waHlzX3diLmM8YnI+Jmd0OyZndDsm
+Z3Q7Jmd0OyArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2Rpc3AvZHB1MS9k
+cHVfZW5jb2Rlcl9waHlzX3diLmM8YnI+Jmd0OyZndDsmZ3Q7Jmd0OyBAQCAt
+MjUyLDExICsyNTIsNiBAQCBzdGF0aWMgaW50IGRwdV9lbmNvZGVyX3BoeXNf
+d2JfYXRvbWljX2NoZWNrKDxicj4mZ3Q7Jmd0OyZndDsmZ3Q7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwO0RQVV9ERUJVRygiW2F0b21pY19jaGVjazol
+ZCwgXCIlc1wiLCVkLCVkXVxuIiw8YnI+Jmd0OyZndDsmZ3Q7Jmd0OyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7cGh5c19lbmMtJmd0O3diX2lkeCwgbW9kZS0mZ3Q7bmFtZSwgbW9k
+ZS0mZ3Q7aGRpc3BsYXksPGJyPiZndDsmZ3Q7Jmd0OyZndDsgbW9kZS0mZ3Q7
+dmRpc3BsYXkpOzxicj4mZ3Q7Jmd0OyZndDsmZ3Q7IC0gJm5ic3A7ICZuYnNw
+O2lmICghY29ubl9zdGF0ZS0mZ3Q7d3JpdGViYWNrX2pvYiB8fCAhY29ubl9z
+dGF0ZS0mZ3Q7d3JpdGViYWNrX2pvYi0mZ3Q7ZmIpPGJyPiZndDsmZ3Q7Jmd0
+OyZndDsgLSAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtyZXR1cm4gMDs8
+YnI+Jmd0OyZndDsmZ3Q7Jmd0OyAtPGJyPiZndDsmZ3Q7Jmd0OyZndDsgLSAm
+bmJzcDsgJm5ic3A7ZmIgPSBjb25uX3N0YXRlLSZndDt3cml0ZWJhY2tfam9i
+LSZndDtmYjs8YnI+Jmd0OyZndDsmZ3Q7Jmd0OyAtPGJyPiZndDsmZ3Q7Jmd0
+OyZndDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7aWYgKCFjb25uX3N0
+YXRlIHx8ICFjb25uX3N0YXRlLSZndDtjb25uZWN0b3IpIHs8YnI+Jmd0OyZn
+dDsmZ3Q7Jmd0OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwO0RQVV9FUlJPUigiaW52YWxpZCBjb25uZWN0b3Igc3RhdGVcbiIp
+Ozxicj4mZ3Q7Jmd0OyZndDsmZ3Q7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7cmV0dXJuIC1FSU5WQUw7PGJyPiZndDsmZ3Q7
+Jmd0OyZndDsgQEAgLTI2Nyw2ICsyNjIsMTEgQEAgc3RhdGljIGludCBkcHVf
+ZW5jb2Rlcl9waHlzX3diX2F0b21pY19jaGVjayg8YnI+Jmd0OyZndDsmZ3Q7
+Jmd0OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+O3JldHVybiAtRUlOVkFMOzxicj4mZ3Q7Jmd0OyZndDsmZ3Q7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwO308YnI+Jmd0OyZndDsmZ3Q7Jmd0OyArICZu
+YnNwOyAmbmJzcDtpZiAoIWNvbm5fc3RhdGUtJmd0O3dyaXRlYmFja19qb2Ig
+fHwgIWNvbm5fc3RhdGUtJmd0O3dyaXRlYmFja19qb2ItJmd0O2ZiKTxicj4m
+Z3Q7Jmd0OyZndDsmZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+cmV0dXJuIDA7PGJyPiZndDsmZ3Q7Jmd0OyZndDsgKzxicj4mZ3Q7Jmd0OyZn
+dDsmZ3Q7ICsgJm5ic3A7ICZuYnNwO2ZiID0gY29ubl9zdGF0ZS0mZ3Q7d3Jp
+dGViYWNrX2pvYi0mZ3Q7ZmI7PGJyPiZndDsmZ3Q7Jmd0OyZndDsgKzxicj4m
+Z3Q7Jmd0OyZndDsmZ3Q7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO0RQ
+VV9ERUJVRygiW2ZiX2lkOiV1XVtmYjoldSwldV1cbiIsIGZiLSZndDtiYXNl
+LmlkLDxicj4mZ3Q7Jmd0OyZndDsmZ3Q7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtmYi0mZ3Q7d2lk
+dGgsIGZiLSZndDtoZWlnaHQpOzxicj4mZ3Q7IDxicj4mZ3Q7IDxicj4mZ3Q7
+IDxicj48L3F1aWNfYWJoaW5hdmtAcXVpY2luYy5jb20+PC9kYW4uY2FycGVu
+dGVyQG9yYWNsZS5jb20+PC9zdW5saW1pbmdAa3lsaW5vcy5jbj48L2xrcEBp
+bnRlbC5jb20+PC9xdWljX2FiaGluYXZrQHF1aWNpbmMuY29tPjwvZGl2Pjwv
+ZGl2PjwvZGl2PjwvZGl2Pg==
 
+--nsmail-1aasf3377a-1aasf3377b--
