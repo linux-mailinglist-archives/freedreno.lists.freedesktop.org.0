@@ -1,47 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D4D55A518
-	for <lists+freedreno@lfdr.de>; Sat, 25 Jun 2022 01:53:50 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1A155A520
+	for <lists+freedreno@lfdr.de>; Sat, 25 Jun 2022 01:56:56 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22D4B10F5E6;
-	Fri, 24 Jun 2022 23:53:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABBC10E959;
+	Fri, 24 Jun 2022 23:56:54 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0405910F5E6
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 23:53:48 +0000 (UTC)
-Received: by mail-qk1-x729.google.com with SMTP id b24so2263117qkn.4
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 16:53:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XWbRuL2HNJOazJRDZ8Yz9uaYitC4uPW931tvugnImWs=;
- b=OMISmZTnPSyJ2Zmlprhg32lCJnHsse7hunOaQZu+IvIUb1JqifQ8/cVFphlQf6U1I5
- s4lLnkgPy6GCPqoTsRc38Ek7n/CZs0um1eNVdC12bLEMEahmryIhhQjecpXv/H1miJib
- 2oeTjESwobonRtBvptbyFmqVPMEA+eE7tDV8CMWIKfpiR8bNm0NAc+oIkppKCXQpWKOE
- BXJPPjElweEe+KUkC174tN+rPS54PuS+mBCih3c1hS2xH5LS5v4GPJjcNjMlCiHPCNNd
- Hd8vHuPbA0/Ws6k943RaB75NmTs799P4g3AseYGngL8KMbPsS/VnqKJhRcfyR37ZYKbx
- 1j1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XWbRuL2HNJOazJRDZ8Yz9uaYitC4uPW931tvugnImWs=;
- b=nkrYJJMIFNloqDoVcP/Uc48CB2cWYSCJMbm6rqFyV4e2xHg1eOj4mtqWE0PyzerP/u
- H5FgUWB48e5vE7qgd5Ce56MBiB5N5dQLApob8ZprEf2QEpxLOmdpnR06ZxxPwMSq0OQC
- 3B9Kp4LwXGWUcqoVbCr+IEw8jb4AyuEHRcS3bDFYCnk51FdielETdYdB6QuCEaRY7xTt
- 53uluuTXYtLV2r80V05oHYwbJ+ZUV/gddj8Vma7TtAWkZlI7r9JkOpJFDm/m4OX0bSLk
- 3AZSQ99/lWJo03dMA2msCiPU3NCChaLQBti1S8l8aGnIOvItRTybf6HuuULcPwV64g2U
- V6CA==
-X-Gm-Message-State: AJIora92NvT8QMfqQwTLNs2ibW7NbOzzUn1jNGbBrYPowghuQn1tcmNr
- xROi4OL4DIJyZDL8oTjrCvHA+dM12AVz4UP9t4m5yA==
-X-Google-Smtp-Source: AGRyM1sssDPYLQQkqtjhG0C1nm2ma0r4GcjmmJkpT053S48MTsShoxEygLh6xlx3b4oYiFps99tJYYPjpkLME85zmwY=
-X-Received: by 2002:a05:620a:2a0e:b0:6a7:8346:1601 with SMTP id
- o14-20020a05620a2a0e00b006a783461601mr1333795qkp.593.1656114827059; Fri, 24
- Jun 2022 16:53:47 -0700 (PDT)
+Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E485810E78C;
+ Fri, 24 Jun 2022 23:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1656115013; x=1687651013;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ce8+3ivRZLrF1oiBN5WLS8F06pigi2WinsNpYBazKPI=;
+ b=D/8sb8LgMl5fWx1gdO3Ck+zToNmBTFrhRnlfQPYRr4OONOFO/N16v8no
+ BY3u+hOgkMtLJL1PAyztS+YhluFZnonfrFkFnVMUVCtnZfAOEMkh32Sdf
+ UJUs3I/rGcn8azGjjgJJ8ahOOyIpjOR4TcPafdMSiGWG5BXKf6yQXsrl+ Q=;
+Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
+ by alexa-out.qualcomm.com with ESMTP; 24 Jun 2022 16:56:52 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2022 16:56:36 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 24 Jun 2022 16:56:36 -0700
+Received: from [10.110.58.84] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 24 Jun
+ 2022 16:56:35 -0700
+Message-ID: <66ff4642-f268-f5b0-7e28-b196368c508a@quicinc.com>
+Date: Fri, 24 Jun 2022 16:56:34 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Stephen Boyd <swboyd@chromium.org>, <agross@kernel.org>,
+ <airlied@linux.ie>, <bjorn.andersson@linaro.org>, <daniel@ffwll.ch>,
+ <dianders@chromium.org>, <dmitry.baryshkov@linaro.org>,
+ <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <vkoul@kernel.org>
 References: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
  <1656090912-18074-3-git-send-email-quic_khsieh@quicinc.com>
  <CAE-0n52RW+UFJ=hqMWjwR8qvEbww7QjzPW1nhL3Atd97QXAnYw@mail.gmail.com>
@@ -53,12 +57,13 @@ References: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
  <CAE-0n51qrdrFtSr0vRwgYkMgSZfnzQuinaUROQsp30QoDchWQA@mail.gmail.com>
  <0ff3d6a3-dc5c-7c77-f8a1-6c4f6c1a3215@quicinc.com>
  <CAE-0n515hMKqQ+Vj1Sg54PpwkbWMYJ77QN+y+KZNBWymjhpWKw@mail.gmail.com>
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
 In-Reply-To: <CAE-0n515hMKqQ+Vj1Sg54PpwkbWMYJ77QN+y+KZNBWymjhpWKw@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 25 Jun 2022 02:53:36 +0300
-Message-ID: <CAA8EJpoD-CJ1mgzef0tA4R=BJUdbSPErXG1fvugAd+5UhWiobA@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dp: decoupling dp->id out of
  dp controller_id at scxxxx_dp_cfg table
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -73,54 +78,72 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: vkoul@kernel.org, quic_sbillaka@quicinc.com, quic_abhinavk@quicinc.com,
- airlied@linux.ie, freedreno@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
- robdclark@gmail.com, agross@kernel.org, daniel@ffwll.ch,
- linux-arm-msm@vger.kernel.org, quic_aravindh@quicinc.com,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, sean@poorly.run,
- linux-kernel@vger.kernel.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 25 Jun 2022 at 02:45, Stephen Boyd <swboyd@chromium.org> wrote:
->
+
+On 6/24/2022 4:45 PM, Stephen Boyd wrote:
 > Quoting Kuogee Hsieh (2022-06-24 16:30:59)
-> >
-> > On 6/24/2022 4:12 PM, Stephen Boyd wrote:
-> > > Quoting Kuogee Hsieh (2022-06-24 15:53:45)
-> > >> MSM_DP_CONTROLLER_1 need to match to the index = 1 of sc7280_dp_cfg[] <== This is correct
-> > >>
-> > >> The problem is sc7280_dp_cfg[] have two entries since eDP place at index
-> > >> of MSM_DP_CONTROLLER_1.
-> > >>
-> > >> but .num_desc = 1  <== this said only have one entry at sc7280_dp_cfg[]
-> > >> table. Therefore eDP will never be found at for loop  at
-> > >> _dpu_kms_initialize_displayport().
-> > >>
-> > > Yes, but what else does the MSM_DP_CONTROLLER_1 need to match? Because
-> > > the intention of the previous commit was to make it so the order of
-> > > sc7280_dp_cfg couldn't be messed up and not match the
-> > > MSM_DP_CONTROLLER_1 value that lives in sc7280_intf[].
-> >
-> >
-> > at  _dpu_kms_initialize_displayport()
-> >
-> > > -             info.h_tile_instance[0] = i; <== assign i to become dp controller id, "i" is index of scxxxx_dp_cfg[]
-> >
-> > This what I mean MSM_DP_CONTROLLER_1 need to match to index = 1 of
-> > scxxxx_dp_cfg[].
-> >
-> > it it is not match, then MSM_DP_CONTROLLER_1 with match to different INTF.
->
+>> On 6/24/2022 4:12 PM, Stephen Boyd wrote:
+>>> Quoting Kuogee Hsieh (2022-06-24 15:53:45)
+>>>> MSM_DP_CONTROLLER_1 need to match to the index = 1 of sc7280_dp_cfg[] <== This is correct
+>>>>
+>>>> The problem is sc7280_dp_cfg[] have two entries since eDP place at index
+>>>> of MSM_DP_CONTROLLER_1.
+>>>>
+>>>> but .num_desc = 1  <== this said only have one entry at sc7280_dp_cfg[]
+>>>> table. Therefore eDP will never be found at for loop  at
+>>>> _dpu_kms_initialize_displayport().
+>>>>
+>>> Yes, but what else does the MSM_DP_CONTROLLER_1 need to match? Because
+>>> the intention of the previous commit was to make it so the order of
+>>> sc7280_dp_cfg couldn't be messed up and not match the
+>>> MSM_DP_CONTROLLER_1 value that lives in sc7280_intf[].
+>>
+>> at  _dpu_kms_initialize_displayport()
+>>
+>>> -             info.h_tile_instance[0] = i; <== assign i to become dp controller id, "i" is index of scxxxx_dp_cfg[]
+>> This what I mean MSM_DP_CONTROLLER_1 need to match to index = 1 of
+>> scxxxx_dp_cfg[].
+>>
+>> it it is not match, then MSM_DP_CONTROLLER_1 with match to different INTF.
 > I thought we matched the INTF instance by searching through
 > sc7280_intf[] for a matching MSM_DP_CONTROLLER_1 and then returning that
 > INTF number. See dpu_encoder_get_intf() and the caller.
 
-You both are correct here. We are searching through the _intf[] array
-for the corresponding controller_id. And yes, the controller_ids are
-being passed through the h_tile_instance[] array.
+yes, but the controller_id had been over written by dp->id.
 
--- 
-With best wishes
-Dmitry
+u32 controller_id = disp_info->h_tile_instance[i];
+
+
+See below code.
+
+
+>          for (i = 0; i < disp_info->num_of_h_tiles && !ret; i++) {
+>                  /*
+>                   * Left-most tile is at index 0, content is controller id
+>                   * h_tile_instance_ids[2] = {0, 1}; DSI0 = left, DSI1 = right
+>                   * h_tile_instance_ids[2] = {1, 0}; DSI1 = left, DSI0 = right
+>                   */
+>                  u32 controller_id = disp_info->h_tile_instance[i];   <== kuogee assign dp->id to controller_id
+>
+>                  if (disp_info->num_of_h_tiles > 1) {
+>                          if (i == 0)
+>                                  phys_params.split_role = ENC_ROLE_MASTER;
+>                          else
+>                                  phys_params.split_role = ENC_ROLE_SLAVE;
+>                  } else {
+>                          phys_params.split_role = ENC_ROLE_SOLO;
+>                  }
+>
+>                  DPU_DEBUG("h_tile_instance %d = %d, split_role %d\n",
+>                                  i, controller_id, phys_params.split_role);
+>
+>                  phys_params.intf_idx = dpu_encoder_get_intf(dpu_kms->catalog,
+>
+>                intf_type,
+>
+>                controller_id);
