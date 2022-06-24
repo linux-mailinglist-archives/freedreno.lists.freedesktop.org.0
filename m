@@ -2,60 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A033B55A0E7
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 20:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A928255A15B
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 20:58:23 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B19510E5A2;
-	Fri, 24 Jun 2022 18:45:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B51110E127;
+	Fri, 24 Jun 2022 18:58:22 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
- [IPv6:2607:f8b0:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 186DB10E04C;
- Fri, 24 Jun 2022 18:45:17 +0000 (UTC)
-Received: by mail-pg1-x52b.google.com with SMTP id h192so3189386pgc.4;
- Fri, 24 Jun 2022 11:45:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2PJf9ZqRPQG5hDGmci7MSLL4PtNxINmMcqph4ZWlr04=;
- b=jXC2+LI0A2PyLqhkgdZINUMyFwAOJeqF4mFW2PL3mHngL8oxti+0LA2nwoV+XGBY7U
- P9s6b9HcySIZ2AD7j2bNedeADazLvFNVoClgcFPHfoRfsFRohhSsnTd6QL0c12VFDlXJ
- 9BEszLvKhHZCQXyR717cbQ7OCpa81vAkyFSQ6uolQMgvpaHmzSQ0pNhlCooNGpf2S43s
- XrxaWgS8NjXRYeuP0D+osvjmk2ThPimDmZH6p49iZk2fRchwr5MuwtqsVvCDQMClNqU1
- bTIZn9E/TTVTZxSUnqouCCoLIoWwxXsPIkV9lqboA+leXFrXXBzbzjBAGTUgNSSmFblI
- 4zQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2PJf9ZqRPQG5hDGmci7MSLL4PtNxINmMcqph4ZWlr04=;
- b=m8VgOzzLdWYYbtt83fhfoQ9DyNPOggMn4W6JtLrWgLRWPZcjq40O6JKm7ZAaWpJQbQ
- 6OPdwWlIXiX/mIckAsGSVGdwZ3IRQ0YfLbF33jBmJqLsaiTH5ZVtfHArrjd8wtykJ8Ss
- i00tuNYAy6R6mqgvZaHuhJGIQlyxdXO3m2QtBO/umgLkoc5QPGQ1mqZlrMmEW1k62dDN
- vjrglj02ztKImSD6FzSuASReCrtFTNWDsD+Kds94QDXezZ0iQlRsSL5wFCR2V075Js6b
- Vd0x8q/jboRUE3HEcJt+fXyzjKFUaVct11OUaPtMZwwKcR4MgErUVIGHw8Hg409ATWIG
- zCaQ==
-X-Gm-Message-State: AJIora/O+PHknTvbmMI5GEkkAi6VIBjak1QaggjzPtJsHk3pPRwaLGOS
- cP2e5+EcK6XBCC+egCfErod4XAjikzE=
-X-Google-Smtp-Source: AGRyM1tkOLhGf4SvybcPUuKUjF3i9l9HXNkyA6Q7ggGzOp7H0Rifvhib5L2DGPqO1fC+16R/pvEpDA==
-X-Received: by 2002:a05:6a00:1ac7:b0:525:4ef2:175 with SMTP id
- f7-20020a056a001ac700b005254ef20175mr548025pfv.50.1656096315791; 
- Fri, 24 Jun 2022 11:45:15 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
- by smtp.gmail.com with ESMTPSA id
- b8-20020a170902650800b00168a651316csm2130525plk.270.2022.06.24.11.45.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 11:45:14 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 24 Jun 2022 11:45:28 -0700
-Message-Id: <20220624184528.4036837-1-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5588610E127
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 18:58:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1656097100; x=1687633100;
+ h=message-id:date:mime-version:to:cc:from:subject:
+ content-transfer-encoding;
+ bh=f3OcyFrVsPkFwpNg67V+9RgNemyD4Wvowr/oYHQ0+9g=;
+ b=X12VmSM8W3LXSPzYlaCwh4srmLYNZnwGKlgOHenzxPByaIOqb2EBs0WV
+ YHYVJmfVnod7I5vsa0jKCmfVWv+q+TVGUFCkGVl+/INoPsWh7nEEMN+aB
+ xCORmKaWDtvGEAhNQbMYhw1dccyv3mCN6ghntvUMLrYnL0f4W6um5TYcl k=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 24 Jun 2022 11:58:19 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2022 11:58:19 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Fri, 24 Jun 2022 11:58:19 -0700
+Received: from [10.111.161.199] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 24 Jun
+ 2022 11:58:17 -0700
+Message-ID: <88c866c3-d2ce-a16e-98fc-c4bebf5b34fb@quicinc.com>
+Date: Fri, 24 Jun 2022 11:58:15 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/gem: Fix error return on fence id alloc
- fail
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [GIT PULL] drm/msm: drm-msm-fixes-2022-06-24 for
+ v5.19-rc5
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +64,56 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Douglas Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+Hi Rob
 
-This was a typo, we didn't actually want to return zero.
+Here are the fixes for 5.19.
 
-Fixes: a61acbbe9cf8 ("drm/msm: Track "seqno" fences by idr")
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Namely this has the foll fixes:
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 3c3a0cfade36..c9e4aeb14f4a 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -928,7 +928,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 						    INT_MAX, GFP_KERNEL);
- 	}
- 	if (submit->fence_id < 0) {
--		ret = submit->fence_id = 0;
-+		ret = submit->fence_id;
- 		submit->fence_id = 0;
- 	}
- 
--- 
-2.36.1
+- Fix to reset drm_dev to NULL in dp_display_unbind
+- Fix to increment vsync_cnt before calling drm_crtc_handle_vblank
+(IGT was re-tested with this change and CI also passes)
+- Fix to resolve the smatch error of de-referencing before NULL check in 
+dpu_encoder_phys_wb.c
 
+Thanks
+
+Abhinav
+
+The following changes since commit a6e2af64a79afa7f1b29375b5231e840a84bb845:
+
+   drm/msm/dp: force link training for display resolution change 
+(2022-06-18 09:14:06 -0700)
+
+are available in the git repository at:
+
+   https://gitlab.freedesktop.org/abhinavk/msm.git/ tags/drm-msm-fixes-06-23
+
+for you to fetch changes up to eb174bd875ae504cdc1b5b209da288fffb1e5128:
+
+   drm/msm/dpu: Fix variable dereferenced before check (2022-06-23 
+10:34:36 -0700)
+
+----------------------------------------------------------------
+drm-msm-fixes-2022-06-24 for v5.19-rc5
+
+----------------------------------------------------------------
+Kuogee Hsieh (1):
+       drm/msm/dp: reset drm_dev to NULL at dp_display_unbind()
+
+Stephen Boyd (1):
+       drm/msm/dpu: Increment vsync_cnt before waking up userspace
+
+sunliming (1):
+       drm/msm/dpu: Fix variable dereferenced before check
+
+  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  3 ++-
+  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 10 +++++-----
+  drivers/gpu/drm/msm/dp/dp_display.c                 |  2 ++
+  3 files changed, 9 insertions(+), 6 deletions(-)
