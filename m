@@ -1,61 +1,51 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7795D558C1D
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 02:09:52 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B03A558CA0
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 03:07:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D01A10F17F;
-	Fri, 24 Jun 2022 00:09:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70D5810E5AB;
+	Fri, 24 Jun 2022 01:07:17 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1E3E10F17F
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 00:09:48 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- y10-20020a9d634a000000b006167f7ce0c5so748641otk.0
- for <freedreno@lists.freedesktop.org>; Thu, 23 Jun 2022 17:09:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:in-reply-to:references:from:user-agent:date:message-id
- :subject:to:cc;
- bh=tNICjC0mqZ74g4NWx01ZNVZ2tkGnF23qOG9pMURoZhI=;
- b=keigWUEC4et/ph4vYev3R+C43rBbm6avYfx1ICG8YUlMjI17zFbQ2NqdKaLjP20MgD
- 03TUpRIu3LgOXZ1LnijQy9VU1OpjjuxDho5zFrbATU/RB9F/5S2AJ9Z0bf26Xo+1ooT0
- XGnZvujpKw3kMWwkNxBRfcYiO47Af/Ydzdzyk=
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE80710E5AB
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 01:07:15 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id l2so82059pjf.1
+ for <freedreno@lists.freedesktop.org>; Thu, 23 Jun 2022 18:07:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:in-reply-to:references:from
- :user-agent:date:message-id:subject:to:cc;
- bh=tNICjC0mqZ74g4NWx01ZNVZ2tkGnF23qOG9pMURoZhI=;
- b=1tdfw7ekh9JpDzgW5Dgnl+xBZ5g8SWoa+CfQC46wwJIbBwSGsSG3EJiZnX7DA0z4MT
- JiedOFnvw7cbeCu6nd6hzOyoEVSfpQszGshInJL8/B1BCz+WQw7vNf5l2xCfa/NCG5qq
- NE4xwl/1UzH5El14BEjV3tjSLp75GcjlMMTg47s23rf6zjhwoiuMDLw1G5NxBo6cp0l/
- zFUJiYaEx9WAYTgiuvLSLdekOprbF92xbJFxD7w6U0iMkxamXgYxV0yjz9fgKrwvHfpT
- CMd00IjZAoXFq8Q97o1nLF7zXnCb+nFlYX5eV51ZfevY0jOt04fyab88T/DcK7WUEr8b
- MyYg==
-X-Gm-Message-State: AJIora8a3UQ7954ygmodmMqqykkZ6O1B3r/Hct362i5/HdVvBJ9LcXqo
- rhrobK9Gzl/leKclK8UlTxK/FAlXk7WPGeLFmsgqaw==
-X-Google-Smtp-Source: AGRyM1toYtnlSvt/KriWql1qkmbYZ0fd3ZbL7W+3GyjF+TFTpfJIy6lNOXNS1wd+UjrciaaVGHz2lZIw6TxPwoIv6+Y=
-X-Received: by 2002:a9d:729b:0:b0:60c:21bd:97c0 with SMTP id
- t27-20020a9d729b000000b0060c21bd97c0mr4954986otj.77.1656029388070; Thu, 23
- Jun 2022 17:09:48 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jun 2022 17:09:47 -0700
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PrOfsAJIfOET38Ruitzwe8COyB98R63F6lwvMnTddZg=;
+ b=g+Xxj/+FXBllo7eZsBM3bnRq/cjogtOPdisvBjW5Ib8e9hQC6AthBor1Q7dpeNgRH0
+ BZwLmM5tJ2zjhw//s16XqKMuxuDSdxRF06UqnpSgU1zecoBNMbdY3gwElWUJwBNAMTIu
+ XyKqVy0B2vBZ51UDYTGfRnZxsuC8J8Acd5NPhTtutHPfRI9bTRU/fIfLrZ6uB82wbUwT
+ 7UMDGpJDp1meh14SAeK4KTirYpHtndpD8JQSis9tboCYDmaPFyal/UTOpXXj4XTL4tFR
+ 9pJ9wztVYR+Glshx9IwCKO0Jt8/mll/q2zMt6ixuDwyt/g/t2Iqmz5EWrU/4NCtZNNqi
+ OTsg==
+X-Gm-Message-State: AJIora8daXLgZybm3/zyBD1CoPgtZFcQAkBk0BdJfBb3HuANBOnvvHFk
+ sMUg8IJCyrrXawgLMBqwq8AvQ7IIlc1M
+X-Google-Smtp-Source: AGRyM1ufQ4kmgn4lrWcEKwVDEb3ZW2Hpq6oqy5hDNX+3qcqD4dTRjm5nSUsdiBekVKlLSKxa6s5paw==
+X-Received: by 2002:a17:902:e1d1:b0:16a:1748:19a8 with SMTP id
+ t17-20020a170902e1d100b0016a174819a8mr27925718pla.80.1656032835351; 
+ Thu, 23 Jun 2022 18:07:15 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.53.107])
+ by smtp.gmail.com with ESMTPSA id
+ 63-20020a620542000000b0051be7ecd733sm32620pff.16.2022.06.23.18.07.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jun 2022 18:07:14 -0700 (PDT)
+From: sunliming <sunliming@kylinos.cn>
+To: quic_abhinavk@quicinc.com, robdclark@gmail.com, dmitry.baryshkov@linaro.org
+Date: Fri, 24 Jun 2022 09:07:03 +0800
+Message-Id: <20220624010703.541191-1-sunliming@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1656027256-6552-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1656027256-6552-1-git-send-email-quic_khsieh@quicinc.com>
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.10
-Date: Thu, 23 Jun 2022 17:09:47 -0700
-Message-ID: <CAE-0n534jvnjX5TShZw7CB9Cu9F7yowhwUosNkJE8t_R4xHYOw@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
- bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
- dmitry.baryshkov@linaro.org, robdclark@gmail.com, sean@poorly.run, 
- vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: no dp_hpd_unplug_handle()
- required for eDP
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH RESEND] drm/msm/dpu: Fix variable dereferenced
+ before check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,59 +58,54 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org
+Cc: kernel test robot <lkp@intel.com>, kelulanainsley@gmail.com,
+ linux-kernel@vger.kernel.org, sunliming@kylinos.cn,
+ freedreno@lists.freedesktop.org, dan.carpenter@oracle.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Quoting Kuogee Hsieh (2022-06-23 16:34:16)
-> eDP implementation does not reuried to support hpd signal. Therefore
+Fixes the following smatch warning:
 
-s/reuried/require/
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:261
+dpu_encoder_phys_wb_atomic_check() warn: variable dereferenced before check 'conn_state'
 
-> it only has either ST_DISPLAY_OFF or ST_CONNECTED state during normal
-> operation. This patch remove unnecessary dp_hpd_unplug_handle() for
-> eDP but still keep dp_hpd_plug_handle() to support eDP to either
-> booting up or resume from ST_DISCONNECTED state.
+Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: sunliming <sunliming@kylinos.cn>
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-I take it that making this change also fixes a glitch seen on the eDP
-panel when a second modeset happens? Can you add that detail to the
-commit text? The way it reads makes it sound like this is purely a
-cleanup patch, but then there's a Fixes tag so it must be a bug fix or
-worthy optimization, neither of which is described.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+index 59da348ff339..0ec809ab06e7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c
+@@ -252,11 +252,6 @@ static int dpu_encoder_phys_wb_atomic_check(
+ 	DPU_DEBUG("[atomic_check:%d, \"%s\",%d,%d]\n",
+ 			phys_enc->wb_idx, mode->name, mode->hdisplay, mode->vdisplay);
+ 
+-	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
+-		return 0;
+-
+-	fb = conn_state->writeback_job->fb;
+-
+ 	if (!conn_state || !conn_state->connector) {
+ 		DPU_ERROR("invalid connector state\n");
+ 		return -EINVAL;
+@@ -267,6 +262,11 @@ static int dpu_encoder_phys_wb_atomic_check(
+ 		return -EINVAL;
+ 	}
+ 
++	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
++		return 0;
++
++	fb = conn_state->writeback_job->fb;
++
+ 	DPU_DEBUG("[fb_id:%u][fb:%u,%u]\n", fb->base.id,
+ 			fb->width, fb->height);
+ 
+-- 
+2.25.1
 
->
-> Fixes: 391c96ff0555 ("drm/msm/dp: Support only IRQ_HPD and REPLUG interrupts for eDP")
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index da5c03a..ef9794e 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1666,7 +1666,7 @@ void dp_bridge_enable(struct drm_bridge *drm_bridge)
->                 return;
->         }
->
-> -       if (dp->is_edp)
-> +       if (dp->is_edp && dp_display->hpd_state == ST_DISCONNECTED)
->                 dp_hpd_plug_handle(dp_display, 0);
->
->         mutex_lock(&dp_display->event_mutex);
-> @@ -1737,9 +1737,6 @@ void dp_bridge_post_disable(struct drm_bridge *drm_bridge)
->
->         dp_display = container_of(dp, struct dp_display_private, dp_display);
->
-> -       if (dp->is_edp)
-> -               dp_hpd_unplug_handle(dp_display, 0);
-
-dp_hpd_unplug_handle() has a !edp check, and from what I can tell after
-this patch that condition will always trigger? But then I wonder why we
-aren't masking the irqs for hpd when the eDP display is disabled.
-Shouldn't we at least be doing that so that we don't get spurious hpd
-irqs when the eDP display is off or on the path to suspend where I
-suspect the power may be removed from the panel?
