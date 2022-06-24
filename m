@@ -2,56 +2,61 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A928255A15B
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 20:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B907A55A240
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 22:00:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B51110E127;
-	Fri, 24 Jun 2022 18:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7207D10E0D1;
+	Fri, 24 Jun 2022 20:00:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5588610E127
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 18:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656097100; x=1687633100;
- h=message-id:date:mime-version:to:cc:from:subject:
- content-transfer-encoding;
- bh=f3OcyFrVsPkFwpNg67V+9RgNemyD4Wvowr/oYHQ0+9g=;
- b=X12VmSM8W3LXSPzYlaCwh4srmLYNZnwGKlgOHenzxPByaIOqb2EBs0WV
- YHYVJmfVnod7I5vsa0jKCmfVWv+q+TVGUFCkGVl+/INoPsWh7nEEMN+aB
- xCORmKaWDtvGEAhNQbMYhw1dccyv3mCN6ghntvUMLrYnL0f4W6um5TYcl k=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 24 Jun 2022 11:58:19 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2022 11:58:19 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 24 Jun 2022 11:58:19 -0700
-Received: from [10.111.161.199] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Fri, 24 Jun
- 2022 11:58:17 -0700
-Message-ID: <88c866c3-d2ce-a16e-98fc-c4bebf5b34fb@quicinc.com>
-Date: Fri, 24 Jun 2022 11:58:15 -0700
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B230F10E0D1
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 20:00:38 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1013ecaf7e0so5129355fac.13
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 13:00:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc;
+ bh=oSfiCBI6rADUaj04vQ0405OWvsI1kvVtIUHFA11oGr0=;
+ b=AzTPUiC43Gj/6Z9t+n4i14I6mGkZI/39weVhrwvNGDiaTV4vwIKZbNSfRAN5wtW1nF
+ oDCOsFoC7WQUkXmCGuGxCvYrus4LASoYLkbeuSQnfDmRtkfY21qyLZ2A/1TkZLVaBiKV
+ io052kql7sg6+CHv5tGOG8Qn3PSb0td2XoY50=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc;
+ bh=oSfiCBI6rADUaj04vQ0405OWvsI1kvVtIUHFA11oGr0=;
+ b=uymZFIfhArcasYtBkS4ejYqJzMgSVJ+mLzYqrfe3aSg0iReuqEQVw8rlMl6iX/zkmF
+ Xbag8LkjiQE5oW9kZRzcXfmrMgyk7Rr1qv+EcHCcf6zB4PmE0tM2H4JX0yAfbJMraMHI
+ ScmyikrTA3N4/lAWPSB5C4ME+Xrp1UF0dEfm982NUNmlS4BqRPrGuEWk6adBz/M2eyBq
+ +QrJskTDhZBykKzLZW329/pjL545ceO+PBKSyTpQ7wA5e3dKEH4jKaHb+j9D3fWYNS0w
+ hS3szcyq1j8cKCUoyz1d7N+gy5ghTmOuIAg+yjYjsFJMaD2gAxcbLvymbIWKDY0CyHhm
+ w7Kw==
+X-Gm-Message-State: AJIora+RdK+vvrBuJKtGTotjjpsoNN1HbgD4TlbH/NRzRENudBuZv632
+ Nx7Yu9UjBQTsTPCsBIXTZo/CXAQl94jkchgNFcd9IA==
+X-Google-Smtp-Source: AGRyM1vLrNlfEUnoqHSJ2ARj6K9GI68cyGAkEp1ju+dJRkgXCY63E4sSustNSy9m4JbTmpCAiuev4LGT2ZxCahAMIj0=
+X-Received: by 2002:a05:6870:b381:b0:fe:2004:b3b5 with SMTP id
+ w1-20020a056870b38100b000fe2004b3b5mr461990oap.63.1656100837975; Fri, 24 Jun
+ 2022 13:00:37 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 24 Jun 2022 13:00:37 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [GIT PULL] drm/msm: drm-msm-fixes-2022-06-24 for
- v5.19-rc5
+In-Reply-To: <1656090912-18074-3-git-send-email-quic_khsieh@quicinc.com>
+References: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
+ <1656090912-18074-3-git-send-email-quic_khsieh@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 24 Jun 2022 13:00:37 -0700
+Message-ID: <CAE-0n52RW+UFJ=hqMWjwR8qvEbww7QjzPW1nhL3Atd97QXAnYw@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dp: decoupling dp->id out of
+ dp controller_id at scxxxx_dp_cfg table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,56 +69,33 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Douglas Anderson <dianders@chromium.org>, Stephen Boyd <swboyd@chromium.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi Rob
+Quoting Kuogee Hsieh (2022-06-24 10:15:11)
+> Current the index (dp->id) of DP descriptor table (scxxxx_dp_cfg[]) are tightly
+> coupled with DP controller_id. This means DP use controller id 0 must be placed
+> at first entry of DP descriptor table (scxxxx_dp_cfg[]). Otherwise the internal
+> INTF will mismatch controller_id. This will cause controller kickoff wrong
+> interface timing engine and cause dpu_encoder_phys_vid_wait_for_commit_done
+> vblank timeout error.
+>
+> This patch add controller_id field into struct msm_dp_desc to break the tightly
+> coupled relationship between index (dp->id) of DP descriptor table with DP
+> controller_id.
 
-Here are the fixes for 5.19.
+Please no. This reverts the intention of commit bb3de286d992
+("drm/msm/dp: Support up to 3 DP controllers")
 
-Namely this has the foll fixes:
+    A new enum is introduced to document the connection between the
+    instances referenced in the dpu_intf_cfg array and the controllers in
+    the DP driver and sc7180 is updated.
 
-- Fix to reset drm_dev to NULL in dp_display_unbind
-- Fix to increment vsync_cnt before calling drm_crtc_handle_vblank
-(IGT was re-tested with this change and CI also passes)
-- Fix to resolve the smatch error of de-referencing before NULL check in 
-dpu_encoder_phys_wb.c
-
-Thanks
-
-Abhinav
-
-The following changes since commit a6e2af64a79afa7f1b29375b5231e840a84bb845:
-
-   drm/msm/dp: force link training for display resolution change 
-(2022-06-18 09:14:06 -0700)
-
-are available in the git repository at:
-
-   https://gitlab.freedesktop.org/abhinavk/msm.git/ tags/drm-msm-fixes-06-23
-
-for you to fetch changes up to eb174bd875ae504cdc1b5b209da288fffb1e5128:
-
-   drm/msm/dpu: Fix variable dereferenced before check (2022-06-23 
-10:34:36 -0700)
-
-----------------------------------------------------------------
-drm-msm-fixes-2022-06-24 for v5.19-rc5
-
-----------------------------------------------------------------
-Kuogee Hsieh (1):
-       drm/msm/dp: reset drm_dev to NULL at dp_display_unbind()
-
-Stephen Boyd (1):
-       drm/msm/dpu: Increment vsync_cnt before waking up userspace
-
-sunliming (1):
-       drm/msm/dpu: Fix variable dereferenced before check
-
-  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  3 ++-
-  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 10 +++++-----
-  drivers/gpu/drm/msm/dp/dp_display.c                 |  2 ++
-  3 files changed, 9 insertions(+), 6 deletions(-)
+It sounds like the intent of that commit failed to make a strong enough
+connection. Now it needs to match the INTF number as well? I can't
+really figure out what is actually wrong, because this patch undoes that
+intentional tight coupling. Is the next patch the important part that
+flips the order of the two interfaces?
