@@ -1,59 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 291F2559F2A
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 19:15:33 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A033B55A0E7
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 20:45:19 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AF2010E372;
-	Fri, 24 Jun 2022 17:15:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B19510E5A2;
+	Fri, 24 Jun 2022 18:45:18 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3981910E372;
- Fri, 24 Jun 2022 17:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656090929; x=1687626929;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=fT+ythOYCVlNcrsvXZFZiFoUH/exNdQzHOf/KDYIKOM=;
- b=AWXP7Rfhyhvd7cq2zH3Z7R5zW33w8SE1eAlzWuopWL36gFKnid2r0m8x
- INEtENViP5ieTSP1itSL57uHg3zaU4GdzVSZMYKbE+VwlqjfOF5lI8CDr
- PNTrv543quALmtWwRs5kCMjc2VAIGaFNwJBQUo8sZa1RILuryOjuQbP7V A=;
-Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 24 Jun 2022 10:15:29 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2022 10:15:28 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 24 Jun 2022 10:15:28 -0700
-Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Fri, 24 Jun 2022 10:15:27 -0700
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-To: <dri-devel@lists.freedesktop.org>, <robdclark@gmail.com>,
- <sean@poorly.run>, <swboyd@chromium.org>, <dianders@chromium.org>,
- <vkoul@kernel.org>, <daniel@ffwll.ch>, <airlied@linux.ie>,
- <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
- <bjorn.andersson@linaro.org>
-Date: Fri, 24 Jun 2022 10:15:12 -0700
-Message-ID: <1656090912-18074-4-git-send-email-quic_khsieh@quicinc.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 186DB10E04C;
+ Fri, 24 Jun 2022 18:45:17 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id h192so3189386pgc.4;
+ Fri, 24 Jun 2022 11:45:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2PJf9ZqRPQG5hDGmci7MSLL4PtNxINmMcqph4ZWlr04=;
+ b=jXC2+LI0A2PyLqhkgdZINUMyFwAOJeqF4mFW2PL3mHngL8oxti+0LA2nwoV+XGBY7U
+ P9s6b9HcySIZ2AD7j2bNedeADazLvFNVoClgcFPHfoRfsFRohhSsnTd6QL0c12VFDlXJ
+ 9BEszLvKhHZCQXyR717cbQ7OCpa81vAkyFSQ6uolQMgvpaHmzSQ0pNhlCooNGpf2S43s
+ XrxaWgS8NjXRYeuP0D+osvjmk2ThPimDmZH6p49iZk2fRchwr5MuwtqsVvCDQMClNqU1
+ bTIZn9E/TTVTZxSUnqouCCoLIoWwxXsPIkV9lqboA+leXFrXXBzbzjBAGTUgNSSmFblI
+ 4zQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2PJf9ZqRPQG5hDGmci7MSLL4PtNxINmMcqph4ZWlr04=;
+ b=m8VgOzzLdWYYbtt83fhfoQ9DyNPOggMn4W6JtLrWgLRWPZcjq40O6JKm7ZAaWpJQbQ
+ 6OPdwWlIXiX/mIckAsGSVGdwZ3IRQ0YfLbF33jBmJqLsaiTH5ZVtfHArrjd8wtykJ8Ss
+ i00tuNYAy6R6mqgvZaHuhJGIQlyxdXO3m2QtBO/umgLkoc5QPGQ1mqZlrMmEW1k62dDN
+ vjrglj02ztKImSD6FzSuASReCrtFTNWDsD+Kds94QDXezZ0iQlRsSL5wFCR2V075Js6b
+ Vd0x8q/jboRUE3HEcJt+fXyzjKFUaVct11OUaPtMZwwKcR4MgErUVIGHw8Hg409ATWIG
+ zCaQ==
+X-Gm-Message-State: AJIora/O+PHknTvbmMI5GEkkAi6VIBjak1QaggjzPtJsHk3pPRwaLGOS
+ cP2e5+EcK6XBCC+egCfErod4XAjikzE=
+X-Google-Smtp-Source: AGRyM1tkOLhGf4SvybcPUuKUjF3i9l9HXNkyA6Q7ggGzOp7H0Rifvhib5L2DGPqO1fC+16R/pvEpDA==
+X-Received: by 2002:a05:6a00:1ac7:b0:525:4ef2:175 with SMTP id
+ f7-20020a056a001ac700b005254ef20175mr548025pfv.50.1656096315791; 
+ Fri, 24 Jun 2022 11:45:15 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ b8-20020a170902650800b00168a651316csm2130525plk.270.2022.06.24.11.45.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jun 2022 11:45:14 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Date: Fri, 24 Jun 2022 11:45:28 -0700
+Message-Id: <20220624184528.4036837-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: [Freedreno] [PATCH v1 3/3] drm/msm/dp: place edp at head of drm
- bridge chain to fix screen corruption
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH] drm/msm/gem: Fix error return on fence id alloc
+ fail
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +68,39 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-The msm_dp_modeset_init() is used to attach DP driver to drm bridge chain.
-msm_dp_modeset_init() is executed in the order of index (dp->id) of DP
-descriptor table.
+From: Rob Clark <robdclark@chromium.org>
 
-Currently, DP is placed at first entry (dp->id = 0) of descriptor table
-and eDP is placed at secondary entry (dp->id = 1 ) of descriptor table.
-This means DP will be placed at head of bridge chain and eDP will be
-placed right after DP at bridge chain.
+This was a typo, we didn't actually want to return zero.
 
-Drm screen update is happen sequentially in the order from head to tail
-of bridge chain. Therefore external DP display will have screen updated
-happen before primary eDP display if external DP display presented.
-This is wrong screen update order and cause one frame time screen
-corruption happen at primary display during external DP plugged in.
-
-This patch place eDP at first entry (dp->id = 0) of descriptor table and
-place DP at secondary entry (dp->id = 1) to have primary eDP locate at
-head of bridge chain. This correct screen update order and eliminated
-the one frame time screen corruption happen d at primary display.
-
-Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Fixes: a61acbbe9cf8 ("drm/msm: Track "seqno" fences by idr")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_submit.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index a87a9d8..2755ff3 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -143,10 +143,10 @@ static const struct msm_dp_config sc7180_dp_cfg = {
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 3c3a0cfade36..c9e4aeb14f4a 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -928,7 +928,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
+ 						    INT_MAX, GFP_KERNEL);
+ 	}
+ 	if (submit->fence_id < 0) {
+-		ret = submit->fence_id = 0;
++		ret = submit->fence_id;
+ 		submit->fence_id = 0;
+ 	}
  
- static const struct msm_dp_config sc7280_dp_cfg = {
- 	.descs = (const struct msm_dp_desc[]) {
--		{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort,
--		.controller_id = MSM_DP_CONTROLLER_0, .wide_bus_en = true },
- 		{ .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, 
- 		.controller_id = MSM_DP_CONTROLLER_1, .wide_bus_en = true },
-+		{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort,
-+		.controller_id = MSM_DP_CONTROLLER_0, .wide_bus_en = true },
- 	},
- 	.num_descs = 2,
- };
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+2.36.1
 
