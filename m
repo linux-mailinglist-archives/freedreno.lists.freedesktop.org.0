@@ -2,65 +2,64 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84FA555A3C5
-	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 23:40:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DCF155A3C6
+	for <lists+freedreno@lfdr.de>; Fri, 24 Jun 2022 23:40:32 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E65B710F52D;
-	Fri, 24 Jun 2022 21:40:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE91010F532;
+	Fri, 24 Jun 2022 21:40:30 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0460110F532
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 21:40:21 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id u12so7205954eja.8
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 14:40:21 -0700 (PDT)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 039A110F532
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 21:40:29 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ x9-20020a4ac589000000b004257fd9380cso630640oop.2
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 14:40:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FZYod/LHle/jfmWY/zvHrx8O3LfygSNaaLJbeeaZy9Y=;
- b=DJ9UIKSaDy12f3GUuM7BXgQfiPoT1tdOHJpXBuuYiRAnyaqQSjwsLm4lUs+FHTrtk2
- LQVknHtWZmBnM1asHoNucamNkZ4o/mp0QAs9srJymrFPcXvA+B0Yu3ZssKtFcdl2HwJG
- gplTqpsHbl802WvWckpxCq4yTxwUI5B06ZJy8=
+ h=mime-version:in-reply-to:references:from:user-agent:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=V4s/JUfjkiub/R9w8xaWqvcCDVW+IjEmSNuUoCJ04IM=;
+ b=RD+L9LcFcUeiPzAjSaLBDphHX1XjrAsJM1T2vWIIPc8qr3eshODnL0CK2WHaWpKoNs
+ f6hCqchzCWXSqzDmpJE7k3+D0hr/xr9H0SUGvaKqQG26h+bw4UBLD0d+vcwvTvBl1oYI
+ UmugTVvAEDMBGC8WheR+i45ycPWqO48NFER9A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FZYod/LHle/jfmWY/zvHrx8O3LfygSNaaLJbeeaZy9Y=;
- b=S7OD3hMNgGCKs/ro1J4yBuceYOVzmdZb4ISDFIOX9O4bDRahyoPTOryD3nCsGypudR
- zFtuVb90z2ukeGjyBhMKBNDwcTRk2g6Lzy92Q+CZ6DwqsBVnbGktI96S/APt2kEbKuBw
- b5UyA5e5X7QkVjHFfdd9djG7maRoLAGrnw1SJJw2nkvcFcTJWdiEtg8gxRhJhhUVv4Fj
- MpS9o0y50QX/7fYL45xazv3mGfPq5fUX84UoOa0SyIx3Ym+7pgvq7IcoPv16LxVUMP8u
- m1DRo+mCo24JGKEIxDt4OpkdHvYM5YfGDbKp4cQkTCHyX6ScHZVS+btZiG7M1a3aW+ZU
- MLPQ==
-X-Gm-Message-State: AJIora8NvkapZetIrl+o0Y08GRreS7lJ+j3D9UaxK+vRSGneRwnlIY7j
- v9YQXBuA2mBuGQVqmluaHQP6OIKgkW5WIxQYMoc=
-X-Google-Smtp-Source: AGRyM1tJsF+M8I5oYrXKAjXMjyy5YKqroOae1DeE5aDieEi6zvnhd8/+PMwJUxjuYDQzneFLFEN5fw==
-X-Received: by 2002:a17:906:c154:b0:711:ce44:a0a0 with SMTP id
- dp20-20020a170906c15400b00711ce44a0a0mr1075389ejc.420.1656106820222; 
- Fri, 24 Jun 2022 14:40:20 -0700 (PDT)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com.
- [209.85.128.49]) by smtp.gmail.com with ESMTPSA id
- z23-20020a170906435700b007094f98788csm1707126ejm.113.2022.06.24.14.40.18
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jun 2022 14:40:19 -0700 (PDT)
-Received: by mail-wm1-f49.google.com with SMTP id f190so1715692wma.5
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 14:40:18 -0700 (PDT)
-X-Received: by 2002:a7b:c392:0:b0:39c:4d27:e698 with SMTP id
- s18-20020a7bc392000000b0039c4d27e698mr1150788wmj.57.1656106818114; Fri, 24
- Jun 2022 14:40:18 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from
+ :user-agent:date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=V4s/JUfjkiub/R9w8xaWqvcCDVW+IjEmSNuUoCJ04IM=;
+ b=AYOH0UIj3P2C6Y11u2/xhYRNSlWHco+WpjGoOa3O6qL3wYRHPzxw4xSupZlSryqtSa
+ xr8S1CXudPdrlpvELxTIesgy6OcMbHqsvL0wGry0rtOZWLhCZ1EHnmJoHfd/fcQ549Gr
+ I+FnXWU9XhTpLSafRGsJd3RkW0wyP8ef8GsUthpjqNStIbwrDyIhMF4/VEgSMH5iW89u
+ PWCcj+3NAxOepU6omxiOtn3URJlWcTS+ycl1RsNYS0wonpPfu/mtss5mS1Eh9fj5mQsM
+ iVZjlXYWKs1wRX+hNwKdRehyiyDT+exF55j0j4rs62tBJBbEoVo7Ll3Y5UB4MUGaIKKb
+ onmQ==
+X-Gm-Message-State: AJIora8Kpw9bP7ySNFNf4Qe4y8K6m7Uy5wytpQTQ6TGhE5bHaE2Wf640
+ n/T6kgLPYwcA0U0cZWcbvhB3T23GvRgZjpg6dHziXA==
+X-Google-Smtp-Source: AGRyM1sBd4jFsULRiqxpsKgfh5k0Q/liFWW1HCMnpjiiosrMFZoMEyqHrnbBTlaTslrPhPZ8930ucraQadTKRwAe2qM=
+X-Received: by 2002:a4a:978d:0:b0:425:78aa:f546 with SMTP id
+ w13-20020a4a978d000000b0042578aaf546mr542649ooi.1.1656106829235; Fri, 24 Jun
+ 2022 14:40:29 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 24 Jun 2022 14:40:28 -0700
 MIME-Version: 1.0
+In-Reply-To: <007ea4c9-9701-f4ab-3278-5d36bf2018c4@quicinc.com>
 References: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
- <1656090912-18074-2-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1656090912-18074-2-git-send-email-quic_khsieh@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 24 Jun 2022 14:40:06 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XD0Nb8GiaqEM52rEkUeVjuo46hBv9YUizdDu9zOH6QfA@mail.gmail.com>
-Message-ID: <CAD=FV=XD0Nb8GiaqEM52rEkUeVjuo46hBv9YUizdDu9zOH6QfA@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+ <1656090912-18074-3-git-send-email-quic_khsieh@quicinc.com>
+ <CAE-0n52RW+UFJ=hqMWjwR8qvEbww7QjzPW1nhL3Atd97QXAnYw@mail.gmail.com>
+ <007ea4c9-9701-f4ab-3278-5d36bf2018c4@quicinc.com>
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.10
+Date: Fri, 24 Jun 2022 14:40:28 -0700
+Message-ID: <CAE-0n53kNCK0ajHfY2WQr5HEQZtZSBLnhfbTuZwaUNEOZhsKPg@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, agross@kernel.org, airlied@linux.ie,
+ bjorn.andersson@linaro.org, daniel@ffwll.ch, dianders@chromium.org, 
+ dmitry.baryshkov@linaro.org, dri-devel@lists.freedesktop.org, 
+ robdclark@gmail.com, sean@poorly.run, vkoul@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v1 1/3] drm/msm/dp: move struc of
- msm_display_info to msm_drv.h
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dp: decoupling dp->id out of
+ dp controller_id at scxxxx_dp_cfg table
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,112 +72,88 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
- Vinod Koul <vkoul@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org,
+ quic_aravindh@quicinc.com, freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Fri, Jun 24, 2022 at 10:15 AM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+Quoting Kuogee Hsieh (2022-06-24 14:17:50)
 >
-> With current implementation, communication between interface driver and
-> upper mdss encoder layer are implemented through function calls. This
-> increase code complexity. Since struct msm_display_info contains msm
-> generic display information, it can be expended to contains more useful
-> information, such as widebus and dcs, in future to serve as communication
-> channel purpose between interface driver and upper mdss encoder layer so
-> that existing function calls can be eliminated.
-> This patch more struct msm_display_info to msm_drv.h to be visible by
-> whole msm scope.
+> On 6/24/2022 1:00 PM, Stephen Boyd wrote:
+> > Quoting Kuogee Hsieh (2022-06-24 10:15:11)
+> >> Current the index (dp->id) of DP descriptor table (scxxxx_dp_cfg[]) ar=
+e tightly
+> >> coupled with DP controller_id. This means DP use controller id 0 must =
+be placed
+> >> at first entry of DP descriptor table (scxxxx_dp_cfg[]). Otherwise the=
+ internal
+> >> INTF will mismatch controller_id. This will cause controller kickoff w=
+rong
+> >> interface timing engine and cause dpu_encoder_phys_vid_wait_for_commit=
+_done
+> >> vblank timeout error.
+> >>
+> >> This patch add controller_id field into struct msm_dp_desc to break th=
+e tightly
+> >> coupled relationship between index (dp->id) of DP descriptor table wit=
+h DP
+> >> controller_id.
+> > Please no. This reverts the intention of commit bb3de286d992
+> > ("drm/msm/dp: Support up to 3 DP controllers")
+> >
+> >      A new enum is introduced to document the connection between the
+> >      instances referenced in the dpu_intf_cfg array and the controllers=
+ in
+> >      the DP driver and sc7180 is updated.
+> >
+> > It sounds like the intent of that commit failed to make a strong enough
+> > connection. Now it needs to match the INTF number as well? I can't
+> > really figure out what is actually wrong, because this patch undoes tha=
+t
+> > intentional tight coupling. Is the next patch the important part that
+> > flips the order of the two interfaces?
 >
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h | 20 --------------------
->  drivers/gpu/drm/msm/msm_drv.h               | 19 +++++++++++++++++++
->  2 files changed, 19 insertions(+), 20 deletions(-)
+> The commit bb3de286d992have two problems,
 >
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> index 781d41c..6b604c5 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-> @@ -19,26 +19,6 @@
->  #define IDLE_TIMEOUT   (66 - 16/2)
+> 1)=C2=A0 The below sc7280_dp_cfg will not work, if eDP use
+> MSM_DP_CONTROLLER_2 instead of=C2=A0 MSM_DP_CONTROLLER_1
+
+Why would we use three indices for an soc that only has two indices
+possible? This is not a real problem?
+
 >
->  /**
-> - * struct msm_display_info - defines display properties
-> - * @intf_type:          DRM_MODE_ENCODER_ type
-> - * @capabilities:       Bitmask of display flags
-> - * @num_of_h_tiles:     Number of horizontal tiles in case of split interface
-> - * @h_tile_instance:    Controller instance used per tile. Number of elements is
-> - *                      based on num_of_h_tiles
-> - * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
-> - *                              used instead of panel TE in cmd mode panels
-> - * @dsc:               DSC configuration data for DSC-enabled displays
-> - */
-> -struct msm_display_info {
-> -       int intf_type;
-> -       uint32_t capabilities;
-> -       uint32_t num_of_h_tiles;
-> -       uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
-> -       bool is_te_using_watchdog_timer;
-> -       struct msm_display_dsc_config *dsc;
-
-So in the structure you're "moving" there's this member called "dsc".
-
-
-> -};
-> -
-> -/**
->   * dpu_encoder_assign_crtc - Link the encoder to the crtc it's assigned to
->   * @encoder:   encoder pointer
->   * @crtc:      crtc pointer
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index fdbaad5..f9c263b 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -106,11 +106,30 @@ struct msm_drm_thread {
->         struct kthread_worker *worker;
->  };
+> since it have num_descs =3D2 but eDP is at index 2 (CONTROLLER_2) which
+> never be reached.
 >
-> +<<<<<<< HEAD
-
-The above doesn't look like valid C to me.
-
-
->  /* DSC config */
->  struct msm_display_dsc_config {
->         struct drm_dsc_config *drm;
->  };
+> static const struct msm_dp_config sc7280_dp_cfg =3D {
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .descs =3D (const struct msm_=
+dp_desc[]) {
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 [MSM_DP_CONTROLLER_2] =3D { .io_start =3D 0x0aea0000,
+> .connector_type =3D DRM_MODE_CONNECTOR_eDP, .wide_bus_en =3D true },
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 [MSM_DP_CONTROLLER_0] =3D { .io_start =3D 0x0ae90000,
+> .connector_type =3D DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en =3D true=
+ },
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .num_descs =3D 2,
+> };
 >
-> +/**
-> + * struct msm_display_info - defines display properties
-> + * @intf_type:          DRM_MODE_ENCODER_ type
-> + * @capabilities:       Bitmask of display flags
-> + * @num_of_h_tiles:     Number of horizontal tiles in case of split interface
-> + * @h_tile_instance:    Controller instance used per tile. Number of elements is
-> + *                      based on num_of_h_tiles
-> + * @is_te_using_watchdog_timer:  Boolean to indicate watchdog TE is
-> + *                              used instead of panel TE in cmd mode panels
-> + */
-> +struct msm_display_info {
-> +       int intf_type;
-> +       uint32_t capabilities;
-> +       uint32_t num_of_h_tiles;
-> +       uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
-> +       bool is_te_using_watchdog_timer;
+> 2)=C2=A0 DP always has index of 0 (dp->id =3D 0) and the first one to cal=
+l
+> msm_dp_modeset_init(). This make DP always place at head of bridge chain.
 
-...but then when you "move" the structure to its new location, which
-should be a noop, then <poof> the "dsc" variable vanishes (along with
-the kernel doc description of it before the structure).
+What does this mean? Are you talking about the list of bridges in drm
+core, i.e. 'bridge_list'?
 
--Doug
+>
+> At next patch eDP must be placed at head of bridge chain to fix eDP
+> corruption issue. This is the purpose of this patch. I will revise the
+> commit text.
+>
+
+Wouldn't that be "broken" again if we decided to change drm_bridge_add()
+to add to the list head instead of list tail? Or if somehow
+msm_dp_modeset_init() was called in a different order so that the DP
+bridge was added before the eDP bridge?
