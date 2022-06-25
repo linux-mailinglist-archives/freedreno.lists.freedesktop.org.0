@@ -2,55 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48E1C55A546
-	for <lists+freedreno@lfdr.de>; Sat, 25 Jun 2022 02:12:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D80355A54A
+	for <lists+freedreno@lfdr.de>; Sat, 25 Jun 2022 02:13:39 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9057C10F4BA;
-	Sat, 25 Jun 2022 00:12:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2251110F599;
+	Sat, 25 Jun 2022 00:13:38 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
- [IPv6:2607:f8b0:4864:20::f34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7043B10E958
- for <freedreno@lists.freedesktop.org>; Sat, 25 Jun 2022 00:12:48 +0000 (UTC)
-Received: by mail-qv1-xf34.google.com with SMTP id c1so6831386qvi.11
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 17:12:48 -0700 (PDT)
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [IPv6:2607:f8b0:4864:20::f2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC27910F5AC
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Jun 2022 00:13:36 +0000 (UTC)
+Received: by mail-qv1-xf2a.google.com with SMTP id 88so6855653qva.9
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 17:13:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mB243O2vDZbtklHZe05Xzr0fp3GBiFubevpzgOWKzOU=;
- b=GtEibzDijC4BeVChXPiU/2H4lz4ffgbfvTFu6q18HRJhvIHF5zpBoNQ8NPZr0o1A/M
- oiq4fK/AaGi1CWJ4UXU+ukNcj8/3v6IUcOBV1fGgIJamg10q86KmF+s3fth+XvGVFXKG
- tKxgecGUfAPi/gQXQ8sClI9DJW5S1TADlDQlbwe4PQnJX5PQewGdRFpQsLSwfMXRYhGq
- urM7p8gp+eslHqSnl1R9/pEFTdYHfPOgKsT4Ck5pYmdSFpZb9fYBU6U1ZyNde8cgiV9f
- EFePB6CwBRIjvAPsYqU6jLO02i0mRY80kzzHv509055iUvjkprkTpdnOI3hkfO54lLel
- Dkpw==
+ :cc; bh=vFVKp+DIpzgb4hUKHdKfLQTpwjibehhe/edtSOh7+n8=;
+ b=zaRjLUy3jhfIOSxy6FZPbYqI+7Xgb6YLibXNuwYQ5A8bs8atdxDU88en2htNoOlEIz
+ gRqyMO2J2Na5Gnlxg3Xwi93BBLh6OrvxUfvf2GLLkwJ6KQvjHxZ2vYKGefI41L5Tqw0y
+ paLSbUXLHWvIXOyhFa6sbfqdQNYBSd5qsTZLJAMe+pg65U5hcaMiY9WS/VRDdicTEg81
+ KJhnBaRNPkGoFN4KomnvytXOTVUPtwez+AoFbf3fywep+MntFmQyPnveLKIVZKXHVyWU
+ Qxe0ykMA6rLm6e0m3CM2bvT4GXbe2KujuaCFHRyyrWNDFn229olscomTDsArRwNxaKnP
+ SSDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=mB243O2vDZbtklHZe05Xzr0fp3GBiFubevpzgOWKzOU=;
- b=NuXUDYTtuy2hPSTqDuEtIsShOnxXOQsgiXR5Sr9W8sBL/vBTUgTxQojJhm3ptrtu72
- mXj/0XipYE3f1QoRP805LvMb+vIeHaR2E6tOvKqKfdBFZMXsv2qynaZ/h88vo6XkFlFY
- FvCHoTV3EDDoryEKxrdKQJwE0to/7betXE0/bldkWnvVYp+dMWJ3JDhUDyxUF0p3Cx/9
- VpI9Dpdzgm/zF7sUFB4yjBOaNvDJbpuK9von2b5ECt7GTaNa/l5GMhGg/F7Kh4Y3yeNR
- Izs0nzyRNFMpGkvhBHA02WEfWpO0z2JDDTs6eEZBpOGYQoAF0uM51jlIYJ7WYvr93UAk
- Uo0A==
-X-Gm-Message-State: AJIora+xQJqBF+5YBF1YHc/zhP5FHJ4LCGGWYkcctqqqTg50U3664Y3O
- A1kIvJ//7qX+l/8zZrN1TPwoxB39Ulu/I8iXW+T5AA==
-X-Google-Smtp-Source: AGRyM1ulqLC3UhHGmkjCmq1ZXZo6/6GUqiNwLS35/4vL9h/wWZBzRC4/Bqvi6XyEgTCXEO/7EbD2SvRu66ZMiSV7vAA=
-X-Received: by 2002:a05:6214:2a83:b0:470:a898:e467 with SMTP id
- jr3-20020a0562142a8300b00470a898e467mr1174976qvb.122.1656115967606; Fri, 24
- Jun 2022 17:12:47 -0700 (PDT)
+ bh=vFVKp+DIpzgb4hUKHdKfLQTpwjibehhe/edtSOh7+n8=;
+ b=1eBNOPWpwwexRBXT89ogjHea459vX0ViTaWBQ6NXu3wGxYIZGqdGTURxP02U3Kv1tv
+ YZWrRRukgFwUH5C1QG/ODYyTvxLe9ycwlFz9CBy9NYY4m40YhmLc2tE4qj/6vd5aSZOM
+ e3VbGQ1Mc9f5soNEKleILjlnZ6GuMzdnblBAC5Cag2CIiV0+KRNcFqTSym/ZTha7gaIo
+ 8sRx0eIi+kHrTK3ZDaJE35Y0z/4rSqTJBlT1RYdQZNKR/yQ22NwxXav6nN2QxxjGdQKT
+ 8fhUDQzqpYMQ7/iR8fd/+PBBZpox9i8xqeBeGrkG89GOz2REjN1h9EfY8QW6R2NcwQzu
+ +vnQ==
+X-Gm-Message-State: AJIora+8VS28ZxRrnNemuz4dFGb/nLJvoVUA7dsnQg6cEGdQqn/tstyT
+ kYEsZ44knW5wsPJ+qy6PtCowF8xUAU8xn+ibg2VcRw==
+X-Google-Smtp-Source: AGRyM1uJYAGMPzovKAZ1R22Ezl34Pn7ac31FoRY4+69xihwkidiDi9wThNin4zqhrvUnvGbwnDRcrnPV2023K7t8ayU=
+X-Received: by 2002:a05:6214:d66:b0:470:4528:bbd5 with SMTP id
+ 6-20020a0562140d6600b004704528bbd5mr1383493qvs.73.1656116016045; Fri, 24 Jun
+ 2022 17:13:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220624184528.4036837-1-robdclark@gmail.com>
-In-Reply-To: <20220624184528.4036837-1-robdclark@gmail.com>
+References: <20220624010703.541191-1-sunliming@kylinos.cn>
+In-Reply-To: <20220624010703.541191-1-sunliming@kylinos.cn>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 25 Jun 2022 03:12:36 +0300
-Message-ID: <CAA8EJpot4qN68Edq9SZdE76DJof+2i05SUD1yJ1uBHu49jBM_w@mail.gmail.com>
-To: Rob Clark <robdclark@gmail.com>
+Date: Sat, 25 Jun 2022 03:13:25 +0300
+Message-ID: <CAA8EJprfCV259z_MWUN1yYRkAaPOJcpoZDcKiwKHwTdWaPeyww@mail.gmail.com>
+To: sunliming <sunliming@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/gem: Fix error return on fence id
- alloc fail
+Subject: Re: [Freedreno] [PATCH RESEND] drm/msm/dpu: Fix variable
+ dereferenced before check
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,23 +63,24 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: kernel test robot <lkp@intel.com>, kelulanainsley@gmail.com,
+ quic_abhinavk@quicinc.com, linux-kernel@vger.kernel.org, robdclark@gmail.com,
+ freedreno@lists.freedesktop.org, dan.carpenter@oracle.com
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Fri, 24 Jun 2022 at 21:45, Rob Clark <robdclark@gmail.com> wrote:
+On Fri, 24 Jun 2022 at 04:07, sunliming <sunliming@kylinos.cn> wrote:
 >
-> From: Rob Clark <robdclark@chromium.org>
+> Fixes the following smatch warning:
 >
-> This was a typo, we didn't actually want to return zero.
+> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:261
+> dpu_encoder_phys_wb_atomic_check() warn: variable dereferenced before check 'conn_state'
 >
-> Fixes: a61acbbe9cf8 ("drm/msm: Track "seqno" fences by idr")
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> Fixes: d7d0e73f7de3 ("drm/msm/dpu: introduce the dpu_encoder_phys_* for writeback")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: sunliming <sunliming@kylinos.cn>
+> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
