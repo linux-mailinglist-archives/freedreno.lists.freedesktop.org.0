@@ -1,56 +1,61 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id E015555A585
-	for <lists+freedreno@lfdr.de>; Sat, 25 Jun 2022 02:29:46 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC2D55A587
+	for <lists+freedreno@lfdr.de>; Sat, 25 Jun 2022 02:30:34 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5670610E344;
-	Sat, 25 Jun 2022 00:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3560710ED77;
+	Sat, 25 Jun 2022 00:30:33 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B30DA10E377
- for <freedreno@lists.freedesktop.org>; Sat, 25 Jun 2022 00:29:44 +0000 (UTC)
-Received: by mail-qv1-xf2b.google.com with SMTP id i17so6854188qvo.13
- for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 17:29:44 -0700 (PDT)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A8C210EC25
+ for <freedreno@lists.freedesktop.org>; Sat, 25 Jun 2022 00:30:31 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id t25so7114828lfg.7
+ for <freedreno@lists.freedesktop.org>; Fri, 24 Jun 2022 17:30:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XJj2jKLrKWKYCL3G0JVCzxE24zzw7IepY2Hipgb7xdU=;
- b=ItIXMMRXGzTB4SAjQ/ljwU3he2WFwrwfNYqNw6nx/LVB1pEkb5GqVhkJ0CGNJZSFh2
- 9uvGcLACEQw+x0kHvxWYM5t5IhpCmS6jXGVatAX2Of0e5ohhlghwwgrOIFGZZ/UcmSXD
- Ii1eLOobes6KSm1te90jx4zGT+10O/yHwiFJuX+d2laYGZltRSvs0HilbQkhW/rgexcQ
- GNMwF5CiSGe/2jQMVJvrJXAHvkCluoUoJRperjbVF9eOIvetr30WEkpnV03Ierh+9i9E
- ONExAocAHSxDRAEKUHbd7I1K42nlVAxH2cYewU0r1qiuDVNSLz+G8Eaa8Hz2lBKLQ7Th
- BkmA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=VG/DX3eL+6/NlPCigDEfKk/fZDBpp0l2CQ7qut1J/nk=;
+ b=X2RAWpzb5zfsaioKpFiaDcrudgPO86EFVdo2uY1ggJogYyO7zQpw9/KuKOSFkpFbMB
+ UWwIq+rRzb892IURBWzmr9z2TAV0aqel2bJoO+ZYanSEwmO0T16o7asd/xgb8Wzr13hU
+ LTLwbWTOuiMPPTHbcWnq14eOJW6ppH30DAhNydGkhKIrtHFBlE+T2bgNzUWM4u7A7gH1
+ lq5muRzT/0h1vEjaXCRam5NQGUpetCZ324zg8Ycx6xK1SI/YKJ92oTgxFP7A+jyUHw4Z
+ 4SobBW2zyIZr6YpGvZ7UZ1a5tObCBC7OosfPZNm2cRWDM2/IeFYd4dj3CpEbrJ+6BCBY
+ QSwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XJj2jKLrKWKYCL3G0JVCzxE24zzw7IepY2Hipgb7xdU=;
- b=2rjoC2RevUihzpdXzYsAApdIiGdr6rzHNlBqOkmvJ6BNKib+wX0cNb1obinoLeNKrM
- /bjmopv7saSZmqqJ0vHXCHAeLx0TdLEsIx0EehOmZrwaQmENLL/pvP2TSNegM9bRnai5
- +z9uJrbObGjkNw/z9lUDYV4K1ajLd3dd13S/HinKY1QruuGUxVHcLjLWSwW9chaDX9W1
- 4M8KiBBbHblkPdFtW+Zb08PbQD8/E4meZiEA5xze1ixlalk+gItUXNS8+/b2lqkkJaOE
- ucQXQj05rUJI+B83EtZH4tSm1MVAF6a8jWmL12aNb+OKMweVCKrmM1NG0cF6YRCYFW97
- 9OHQ==
-X-Gm-Message-State: AJIora+HR3qcrSzDK6EQDhvQsqe/TG3551mPKdXITUAm4EugEJX2zQ8r
- ffHLH0eddm05hN9kOdktWLd/Xo+YzkKhXXji99sEbw==
-X-Google-Smtp-Source: AGRyM1t1LNe3ggUGTtV/WfBEzzJamFsd40RNO/gCCttMTGrOCrn1bQ/LPwHe0A/36/p2hLFpcB3urShWjF6qtQ+zjFY=
-X-Received: by 2002:a05:622a:1351:b0:305:2e58:939 with SMTP id
- w17-20020a05622a135100b003052e580939mr1422121qtk.295.1656116983913; Fri, 24
- Jun 2022 17:29:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220625002811.3225344-1-swboyd@chromium.org>
-In-Reply-To: <20220625002811.3225344-1-swboyd@chromium.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=VG/DX3eL+6/NlPCigDEfKk/fZDBpp0l2CQ7qut1J/nk=;
+ b=Qzf0HJNYqm+3Gt5Nfw3VKm152mtwP9oJBxX/8apfmMM69TTSp/cFpgmmGGPQu8NtUH
+ UBVrgw9KhBreh6HTFvSgrPdmWjtuaaPhhDaxj0l2CqzUgcy3ecRFGg3DDVowH3rjJSYY
+ y7H4wucZ10smnIrjAcj9sjcLiZMVbFN9WxusDjypHoWymzW4Pa0TlP0sAFAGvg7i3Ylh
+ yYjbtflqC3Xk4HSToGTnbkNyQGXME3OEjdy3/xUZldL3knQpuy9tOsCn46HI8FEE6NJh
+ ZYhTSMr+6n5sXXbSrXGek6lGJYcPYw1LqIuyNs+N3xNxZQiFie9quJ+vcPVVsot3pFIm
+ +ThQ==
+X-Gm-Message-State: AJIora+cZaezM00o6brVCvSq9pKkOwezf6z4jDxbc8IcaZXwSlVsYbot
+ 95wBOVmSfsvnB/o8HpbEcu5Jdg==
+X-Google-Smtp-Source: AGRyM1v9dtC+FdbrGuG1FLnlvEt8frK2DhVJEb+xVODy6mHi0YJGyHHHWpry/op0jR4oZjK5eBrEBA==
+X-Received: by 2002:a05:6512:32c1:b0:47f:9d05:b6be with SMTP id
+ f1-20020a05651232c100b0047f9d05b6bemr865588lfg.335.1656117029359; 
+ Fri, 24 Jun 2022 17:30:29 -0700 (PDT)
+Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
+ d22-20020a2e3316000000b0025907141aa6sm440094ljc.83.2022.06.24.17.30.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jun 2022 17:30:28 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sat, 25 Jun 2022 03:29:32 +0300
-Message-ID: <CAA8EJprV_wqFrG6TVV0SAyxN9WHfC-vU-B_31toiWOYMqeNeUw@mail.gmail.com>
-To: Stephen Boyd <swboyd@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: Remove encoder pointer from
- struct msm_dp
+To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+Date: Sat, 25 Jun 2022 03:30:28 +0300
+Message-Id: <20220625003028.383259-1-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH v2] drm/msm/dpu: simplify and unify
+ dpu_encoder_get_intf and dpu_encoder_get_wb
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,30 +68,69 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Rob Clark <robdclark@gmail.com>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Sat, 25 Jun 2022 at 03:28, Stephen Boyd <swboyd@chromium.org> wrote:
->
-> We don't need to stash the encoder here. Instead we can simply pass it
-> around as an argument.
->
-> Cc: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Remove extra nestting level from the dpu_encoder_get_intf(), replacing it
+with the explicit return in case the INTF_WB was passed to the function.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+While we are at it, also change dpu_encoder_get_wb() to also use
+explicit return rather than the goto.
 
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 4 +---
->  drivers/gpu/drm/msm/dp/dp_display.h | 1 -
->  drivers/gpu/drm/msm/dp/dp_drm.c     | 8 ++++----
->  drivers/gpu/drm/msm/dp/dp_drm.h     | 2 +-
->  4 files changed, 6 insertions(+), 9 deletions(-)
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
 
+Changes since v1: fix the typo (noticed by Stephen)
+
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index f435baa500f8..c682d4e02d1b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1255,12 +1255,13 @@ static enum dpu_intf dpu_encoder_get_intf(const struct dpu_mdss_cfg *catalog,
+ {
+ 	int i = 0;
+ 
+-	if (type != INTF_WB) {
+-		for (i = 0; i < catalog->intf_count; i++) {
+-			if (catalog->intf[i].type == type
+-				&& catalog->intf[i].controller_id == controller_id) {
+-				return catalog->intf[i].id;
+-			}
++	if (type == INTF_WB)
++		return INTF_MAX;
++
++	for (i = 0; i < catalog->intf_count; i++) {
++		if (catalog->intf[i].type == type
++		    && catalog->intf[i].controller_id == controller_id) {
++			return catalog->intf[i].id;
+ 		}
+ 	}
+ 
+@@ -1273,14 +1274,13 @@ static enum dpu_wb dpu_encoder_get_wb(const struct dpu_mdss_cfg *catalog,
+ 	int i = 0;
+ 
+ 	if (type != INTF_WB)
+-		goto end;
++		return WB_MAX;
+ 
+ 	for (i = 0; i < catalog->wb_count; i++) {
+ 		if (catalog->wb[i].id == controller_id)
+ 			return catalog->wb[i].id;
+ 	}
+ 
+-end:
+ 	return WB_MAX;
+ }
+ 
 -- 
-With best wishes
-Dmitry
+2.35.1
+
