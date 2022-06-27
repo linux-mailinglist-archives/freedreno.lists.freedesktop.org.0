@@ -1,60 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAC1C55BBB9
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 21:26:57 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id C737455BBE3
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 22:03:28 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56A6311B126;
-	Mon, 27 Jun 2022 19:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80A8D11B55B;
+	Mon, 27 Jun 2022 20:03:27 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51CE211B128;
- Mon, 27 Jun 2022 19:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656358015; x=1687894015;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=p7RGYzYkoXiA7n4CTkYXOO66QGVDnCk+6bMDg4xrcKs=;
- b=ApoZK+CuDpla+MY379PtWLLN+64wh5dSl46qLCv1IVfsidDmwyG7LpnH
- QGoVufYl8qQ6lY6CL+H6WvrlbYVkGezeRwSNittJKsS9I72MP+EwcURYc
- DhzA4orYMQmO8RAamdvAIkMNvV1HgYuJpK22hAT9Fy5bCWOsn8e05VEwz c=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 27 Jun 2022 12:26:54 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2022 12:26:54 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Mon, 27 Jun 2022 12:26:53 -0700
-Received: from [10.110.113.167] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Mon, 27 Jun
- 2022 12:26:52 -0700
-Message-ID: <9f82dd3f-5ecc-4e1d-6cce-0749b8316d49@quicinc.com>
-Date: Mon, 27 Jun 2022 12:26:51 -0700
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F3711B55B
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 20:03:26 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1013ecaf7e0so14262609fac.13
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 13:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Aon9KWNqlTPJUCEzfiiGPiFzQemxxhc4mveTBdeN0mQ=;
+ b=bgLsaloJiLF+jGaYy/5nmCIMlKh5WIQB1EG2jQ7fBkV+u6ZUjB/p8TIAjMt8rKmV7Y
+ /sDvbDNejmE9n0B9iJtR+FlGtvZ+HLgS3KlUXrE8RXckTFHv2jBq81yv7uiBRNwc+iQ3
+ 0n8NaW0iXrrs4HS/OWgeBqzUNcKS1LQCdiyOFr0Q1p9MBeRtTwEBHxJvNFXk2MZf0+g9
+ 1em7z2T6w3DR93zgE+Bg+oG4MGyZQq/jN1qYU9r8KlHgs2ZoTQ4zhz23U7N0Dv3c5sCK
+ Ex9pWzzqSQCYtn8M1J0zPMXnIZv9okBdAAbTsSXU9Ut409bWog5+k0Y0oJNbhRb3DCVl
+ YdIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Aon9KWNqlTPJUCEzfiiGPiFzQemxxhc4mveTBdeN0mQ=;
+ b=V/oc4LlHQenl+w0C3QBErZFg7xJynf5VKWY2fR1IXnbeNAsM6lD15VnRqhu5+DjWnp
+ voaZ/q27/7amqh6t06hfkf3/CYP7ZoepMS2IZgwjk0ETNn0g8lmJNsmJKRKYsmXbzu+w
+ NDONDAalE0Ontn+VPQWCBnJ5PjTaQRvCoGZT/ip9lVf8XNVf4Wf3Z22OFELMiHz/Avac
+ N/y+a+VvfZCSqwqC2yCtjp2FYU0QADPisejLtN7A3Ab+uIxrhUV8Z4seVZMMOTXLn1nQ
+ Oi4Sxhfmu5hnr/uAlbIgSWe9eNGJ04bOAzVkuU47EU9vSnGImGNDrGR6X/JH3/fl0Mxu
+ gOJQ==
+X-Gm-Message-State: AJIora8g6ZznXK38XCggenCo7E++QBSNEJtwQsm7RKK8SRrborifspEl
+ N1nNHOye1XCNHw8iNU6DtigeVyWd5NFWfA==
+X-Google-Smtp-Source: AGRyM1tYwpVrLTOek08Oo6ZIoPaPI9ZE8y8ATJCqHorh5n/D6KeaTSUlWZHlXy1t5+Eh+L/Rqf+j+g==
+X-Received: by 2002:a05:6870:f616:b0:f2:dac0:e339 with SMTP id
+ ek22-20020a056870f61600b000f2dac0e339mr11622237oab.116.1656360205558; 
+ Mon, 27 Jun 2022 13:03:25 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ m16-20020a4a9510000000b0041bdf977c6dsm6428729ooi.31.2022.06.27.13.03.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jun 2022 13:03:24 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 27 Jun 2022 15:02:45 -0500
+Message-Id: <165636016349.3080661.3240629203212471824.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220531124735.1165582-1-dmitry.baryshkov@linaro.org>
+References: <20220531124735.1165582-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>
-References: <20220627165413.657142-1-dmitry.baryshkov@linaro.org>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <20220627165413.657142-1-dmitry.baryshkov@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: use ARRAY_SIZE for calculating
- num_descs
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Freedreno] (subset) [PATCH] arm64: dts: qcom: sdm845: use
+ dispcc AHB clock for mdss node
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,97 +74,25 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, Taniya Das <quic_tdas@quicinc.com>,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ devicetree@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue, 31 May 2022 15:47:35 +0300, Dmitry Baryshkov wrote:
+> It was noticed that on sdm845 after an MDSS suspend/resume cycle the
+> driver can not read HW_REV registers properly (they will return 0
+> instead). Chaning the "iface" clock from <&gcc GCC_DISP_AHB_CLK> to
+> <&dispcc DISP_CC_MDSS_AHB_CLK> fixes the issue.
+> 
+> 
 
-On 6/27/2022 9:54 AM, Dmitry Baryshkov wrote:
-> If for some reason the msm_dp_config::descs array starts from non-zero
-> index or contains the hole, setting the msm_dp_config::num_descs might
-> be not that obvious and error-prone. Use ARRAY_SIZE to set this field
-> rather than encoding the value manually.
->
-> Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->   drivers/gpu/drm/msm/dp/dp_display.c | 46 +++++++++++++++++------------
->   1 file changed, 27 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index f87fa3ba1e25..6fed738a9467 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -131,35 +131,43 @@ struct msm_dp_config {
->   	size_t num_descs;
->   };
->   
-> +static const struct msm_dp_desc sc7180_dp_descs[] = {
-> +	[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +};
-> +
->   static const struct msm_dp_config sc7180_dp_cfg = {
-> -	.descs = (const struct msm_dp_desc[]) {
-> -		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> -	},
-> -	.num_descs = 1,
-> +	.descs = sc7180_dp_descs,
-> +	.num_descs = ARRAY_SIZE(sc7180_dp_descs),
-> +};
-> +
+Applied, thanks!
 
-why you want to do that?
+[1/1] arm64: dts: qcom: sdm845: use dispcc AHB clock for mdss node
+      commit: 3ba500dee327e0261e728edec8a4f2f563d2760c
 
-It is very clear only one entry, why you want to make it 2 entry here?
-
-can you just embedded MSM_DP_COTROLLER_x into struct msm_dp_config?
-
-> +static const struct msm_dp_desc sc7280_dp_descs[] = {
-> +	[MSM_DP_CONTROLLER_0] =	{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
-> +	[MSM_DP_CONTROLLER_1] =	{ .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->   };
->   
->   static const struct msm_dp_config sc7280_dp_cfg = {
-> -	.descs = (const struct msm_dp_desc[]) {
-> -		[MSM_DP_CONTROLLER_0] =	{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
-> -		[MSM_DP_CONTROLLER_1] =	{ .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
-> -	},
-> -	.num_descs = 2,
-> +	.descs = sc7280_dp_descs,
-> +	.num_descs = ARRAY_SIZE(sc7280_dp_descs),
-> +};
-> +
-> +static const struct msm_dp_desc sc8180x_dp_descs[] = {
-> +	[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +	[MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> +	[MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
->   };
->   
->   static const struct msm_dp_config sc8180x_dp_cfg = {
-> -	.descs = (const struct msm_dp_desc[]) {
-> -		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> -		[MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> -		[MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
-> -	},
-> -	.num_descs = 3,
-> +	.descs = sc8180x_dp_descs,
-> +	.num_descs = ARRAY_SIZE(sc8180x_dp_descs),
-> +};
-> +
-> +static const struct msm_dp_desc sm8350_dp_descs[] = {
-> +	[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->   };
->   
->   static const struct msm_dp_config sm8350_dp_cfg = {
-> -	.descs = (const struct msm_dp_desc[]) {
-> -		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-> -	},
-> -	.num_descs = 1,
-> +	.descs = sm8350_dp_descs,
-> +	.num_descs = ARRAY_SIZE(sm8350_dp_descs),
->   };
->   
->   static const struct of_device_id dp_dt_match[] = {
+Best regards,
+-- 
+Bjorn Andersson <bjorn.andersson@linaro.org>
