@@ -2,60 +2,55 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1CE155BB32
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 18:54:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6133E55BB49
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 19:18:01 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87EEE10E590;
-	Mon, 27 Jun 2022 16:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DDB112A4F;
+	Mon, 27 Jun 2022 17:17:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45BAB10E6A1
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 16:54:16 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id j21so17729388lfe.1
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 09:54:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=sb3k59JCSBUMXZbamAYmyTO7aoqJwmjb8uQud/mKblY=;
- b=vFZU0OFvS1K2DlH9hzvum8NS33IxACslnIwDv4kzg3Dex+y/9iHXmAv3kUxDwx3ZJY
- OKtnxH2Ry4MT5cjEM2zRQscxEBOkFedcQw1/hSoiHkZmruAYArgvPy/JdQHzspXvuqI1
- TpFzhCodzeXAmlGbnl4QN9QmI/jz9umenHbwmP77k6+I4z44tSAseM3xgMBOxPpvuojL
- Z+k7v8fV8QyfL9BCFq/k57iivg/iwdtpD48w2Hblyg17mZnqipvJjv7Ickr+1j3jZku0
- QAktubsyPsABRm3zD9cWp1OnujLUJbqDVHQKRfvX2u9HN6Swg8onIslrd6fnKLO0lRW3
- SK0g==
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACB7B112A4B;
+ Mon, 27 Jun 2022 17:17:58 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id l24so10213074ion.13;
+ Mon, 27 Jun 2022 10:17:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=sb3k59JCSBUMXZbamAYmyTO7aoqJwmjb8uQud/mKblY=;
- b=QiK6fwVGGLkhGJwROzdY3FLvcfaOGL60/bmcInQT3Hf83/vKKkPavYX4+zdN/g5bly
- 7SfyNpMrWfvnID9xzljtkIRGegrnPF/jrsegBn5pTbBJsDJko6hrrQsq3XrGNTMnjMOL
- gTdktgQq6NlfGk1ViB6kQsgCVkfmdZmPeh7BXrkfIWhQJTNsZqzGoYR4Gmf47/Azq3pJ
- jndks+p92buzAF9NSWmjtQRRv5fhe2P/og+/X4TYXOmtOiLm/eV2SpnT7PnOU5ptyZLn
- WHGws/dDkNd25GS32bg7AiSkX+gqyJoq/XON/rDSZs6w2uQWqeSD9W2mdCC+oiu2jJ2I
- ptwA==
-X-Gm-Message-State: AJIora/1G2st+glE4lwwx2ziJapa6Hd+jr0grCTk6J7yZs2LkDovLOGD
- JwG16r1kLX4e5WxINZHPv1GUrA==
-X-Google-Smtp-Source: AGRyM1uY95jAClQqcZtuObNVNt0GA8FWexab+pJ671Nf0ttJH9A/w1qHC47bDIk+4eGfxO+eIGemHQ==
-X-Received: by 2002:a19:8c04:0:b0:47f:65b7:bf11 with SMTP id
- o4-20020a198c04000000b0047f65b7bf11mr9100950lfd.630.1656348854388; 
- Mon, 27 Jun 2022 09:54:14 -0700 (PDT)
-Received: from eriador.lan ([37.153.55.125]) by smtp.gmail.com with ESMTPSA id
- e18-20020ac25472000000b0047fa941066bsm1867451lfn.96.2022.06.27.09.54.13
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=kaxFnNRB8GMdQ+miLrcwnlUrNBhYoVcXqeLxcTf0qVw=;
+ b=UT9Tt08dJx8hdNwjWIs3bjmzdn10K0PRhMv+xDy/mfQ2cm/DQXsbcj7Q49gGgbzhCX
+ mb2pm980LHkTs3bW/beDIdBFsZVQ0IKnDD5rvz/ckGAqiWLfAZZAA/slAs7UttJhLVPd
+ 5vGE0fNgHvXXbeuA7/MCyZqE/Ymtp/YNfxTh6d1hQfAsq0HGtgqAWOVLDBLWFkNG48do
+ uJ4oasNMAdcIoV3D/pQwE5uEfvyakDQFh1jGz9zXH+xLY5NnBeRAU/tG+j5ET+L73wpc
+ mIhG0NlVOlzuzSUE5oACQEnONEke4D/OAJqImyg+gxdzc5fA6Gp1hHhxF6g52l2ET0aQ
+ Oreg==
+X-Gm-Message-State: AJIora+LPAn2f2SK5p96pF1iNS5G5s8m/+PQVQGAx3l+xdRLs5t6RsIH
+ c1SFGEigsYeTzhCOpAnDn1F44DYo0A==
+X-Google-Smtp-Source: AGRyM1tsXTH75Mc66rG1PrT/Fid3kLPfbtvG3eWXiFBELiDbgFfLZQ3J7nT/9SjPJIebJNZsFsq4xQ==
+X-Received: by 2002:a05:6638:2684:b0:33b:afc4:298d with SMTP id
+ o4-20020a056638268400b0033bafc4298dmr8613041jat.49.1656350277868; 
+ Mon, 27 Jun 2022 10:17:57 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id
+ w18-20020a6bd612000000b00674fe816f79sm5372452ioa.7.2022.06.27.10.17.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jun 2022 09:54:13 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-Date: Mon, 27 Jun 2022 19:54:13 +0300
-Message-Id: <20220627165413.657142-1-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.35.1
+ Mon, 27 Jun 2022 10:17:57 -0700 (PDT)
+Received: (nullmailer pid 2612764 invoked by uid 1000);
+ Mon, 27 Jun 2022 17:17:56 -0000
+Date: Mon, 27 Jun 2022 11:17:56 -0600
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <20220627171756.GA2610798-robh@kernel.org>
+References: <20220620010300.1532713-1-dmitry.baryshkov@linaro.org>
+ <20220620010300.1532713-2-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH] drm/msm/dp: use ARRAY_SIZE for calculating
- num_descs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220620010300.1532713-2-dmitry.baryshkov@linaro.org>
+Subject: Re: [Freedreno] [PATCH v2 1/3] dt-bindings: phy: qcom,
+ hdmi-phy-qmp: add clock-cells and XO clock
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,91 +63,79 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- Kuogee Hsieh <quic_khsieh@quicinc.com>, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Stephen Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-If for some reason the msm_dp_config::descs array starts from non-zero
-index or contains the hole, setting the msm_dp_config::num_descs might
-be not that obvious and error-prone. Use ARRAY_SIZE to set this field
-rather than encoding the value manually.
+On Mon, Jun 20, 2022 at 04:02:58AM +0300, Dmitry Baryshkov wrote:
+> As the QMP HDMI PHY is a clock provider, add constant #clock-cells
+> property. For the compatibility with older DTs the property is not
+> marked as required. Also add the XO clock to the list of the clocks used
+> by the driver.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  .../devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
 
-Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 46 +++++++++++++++++------------
- 1 file changed, 27 insertions(+), 19 deletions(-)
+Doesn't apply, so no checks ran.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index f87fa3ba1e25..6fed738a9467 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -131,35 +131,43 @@ struct msm_dp_config {
- 	size_t num_descs;
- };
- 
-+static const struct msm_dp_desc sc7180_dp_descs[] = {
-+	[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-+};
-+
- static const struct msm_dp_config sc7180_dp_cfg = {
--	.descs = (const struct msm_dp_desc[]) {
--		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
--	},
--	.num_descs = 1,
-+	.descs = sc7180_dp_descs,
-+	.num_descs = ARRAY_SIZE(sc7180_dp_descs),
-+};
-+
-+static const struct msm_dp_desc sc7280_dp_descs[] = {
-+	[MSM_DP_CONTROLLER_0] =	{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
-+	[MSM_DP_CONTROLLER_1] =	{ .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
- };
- 
- static const struct msm_dp_config sc7280_dp_cfg = {
--	.descs = (const struct msm_dp_desc[]) {
--		[MSM_DP_CONTROLLER_0] =	{ .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
--		[MSM_DP_CONTROLLER_1] =	{ .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
--	},
--	.num_descs = 2,
-+	.descs = sc7280_dp_descs,
-+	.num_descs = ARRAY_SIZE(sc7280_dp_descs),
-+};
-+
-+static const struct msm_dp_desc sc8180x_dp_descs[] = {
-+	[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-+	[MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
-+	[MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
- };
- 
- static const struct msm_dp_config sc8180x_dp_cfg = {
--	.descs = (const struct msm_dp_desc[]) {
--		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
--		[MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
--		[MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
--	},
--	.num_descs = 3,
-+	.descs = sc8180x_dp_descs,
-+	.num_descs = ARRAY_SIZE(sc8180x_dp_descs),
-+};
-+
-+static const struct msm_dp_desc sm8350_dp_descs[] = {
-+	[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
- };
- 
- static const struct msm_dp_config sm8350_dp_cfg = {
--	.descs = (const struct msm_dp_desc[]) {
--		[MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
--	},
--	.num_descs = 1,
-+	.descs = sm8350_dp_descs,
-+	.num_descs = ARRAY_SIZE(sm8350_dp_descs),
- };
- 
- static const struct of_device_id dp_dt_match[] = {
--- 
-2.35.1
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml b/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+> index eea2e02678ed..41e6492d4a0f 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,hdmi-phy-qmp.yaml
+> @@ -28,12 +28,14 @@ properties:
+>        - const: hdmi_phy
+>  
+>    clocks:
+> -    maxItems: 2
+> +    minItems: 2
+> +    maxItems: 3
+>  
+>    clock-names:
+>      items:
+>        - const: iface
+>        - const: ref
+> +      - const: xo
 
+minItems: 2
+
+>  
+>    power-domains:
+>      maxItems: 1
+> @@ -44,6 +46,9 @@ properties:
+>    vddio-supply:
+>      description: phandle to VDD I/O supply regulator
+>  
+> +  '#clock-cells':
+> +    const: 0
+> +
+>    '#phy-cells':
+>      const: 0
+>  
+> @@ -75,9 +80,12 @@ examples:
+>                    "hdmi_phy";
+>  
+>        clocks = <&mmcc 116>,
+> -               <&gcc 214>;
+> +               <&gcc 214>,
+> +               <&xo_board>;
+>        clock-names = "iface",
+> -                    "ref";
+> +                    "ref",
+> +                    "xo";
+> +      #clock-cells = <0>;
+>        #phy-cells = <0>;
+>  
+>        vddio-supply = <&vreg_l12a_1p8>;
+> -- 
+> 2.35.1
+> 
+> 
