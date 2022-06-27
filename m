@@ -2,69 +2,40 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5773255BC1B
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 23:23:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B2155BC52
+	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 00:36:11 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7BD810F3BC;
-	Mon, 27 Jun 2022 21:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F317110E161;
+	Mon, 27 Jun 2022 22:36:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E0A610F21C
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 21:23:27 +0000 (UTC)
-Received: by mail-lj1-x235.google.com with SMTP id j22so12588081ljg.0
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 14:23:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=/wLPUoy2pPh5k2BqmFFOQy1JZHLjbPr706Aorr9RkCg=;
- b=ZUvtm84o5Xus6asD33Qz20UyzTK82ynVsnvqIECW2CLfDOWIdFwz79aOYCZXfn4si6
- Ofx2gMQcJPnuq13TzHmlG/CsnjPBslYItdIM8B0NCxiVYI/McIWlZ/Z4kayA6HQsKLeB
- 5vKcA303I1x4QKCPydiaj6cA8XvkldMirOnaXWAtn9kLhvi4j18Axjt6/DyHxfKQcaJZ
- buSdq3CqcUBWJ3u/+gtBVjy/j4ImB39eVf3tBIDT/C8K62t7Q0TjU6uO16f0WycK4wel
- bZFFHCrcY614cmIRdsq7OjLtWc7vk5gMY4k1F7KGqXyKbketsU3epjWnW8+0V8KURHRA
- 5R0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=/wLPUoy2pPh5k2BqmFFOQy1JZHLjbPr706Aorr9RkCg=;
- b=OrakwxlmawUfbp1HIriX8i9K55bV/ioDTqqob1e1pfhQzCk+ygVEGaEzeClh9qGEnO
- hGIpk/h2UqukRK8MydHZAVudYOWPqwmXMaXes0SFneRX2c8+ERkNkzg4PzAARh+1ecJJ
- 21jJP4RY68PKKSsOPSzLF9sdbItLLF/kFyBGoF12FmEhm9W3TtVLf3nec0P1HLzV5Fne
- ayOvObjdoAAdFMG0ub49oJrSU5x4+Y05iuEBMGcm2YDhPBDF6vkFWsFwckZAUjZHUIgg
- rorxss8F0bmv7DLBxl6MD7xeLffPieRfB5LZr3glAEIBE/ete4Pa8FByMVgMyOJCr9z5
- Pxjw==
-X-Gm-Message-State: AJIora/L3w96yEHiwYTRjuG/bdrGJCLOYUC+gEeS3gOUsP3kn5ULBkIR
- O960odLics7ECopC+m3DP+Z9ZQ==
-X-Google-Smtp-Source: AGRyM1sopHDGUg40Tmfjl6TKQ3fPR8QMuGTPk5+XM5+KH9vn2PFRQl0J662G84sETgPQUtNaQIRYbA==
-X-Received: by 2002:a05:651c:a04:b0:25b:bc07:8884 with SMTP id
- k4-20020a05651c0a0400b0025bbc078884mr4939922ljq.39.1656365005631; 
- Mon, 27 Jun 2022 14:23:25 -0700 (PDT)
-Received: from [192.168.1.211] ([37.153.55.125])
- by smtp.gmail.com with ESMTPSA id
- q10-20020a056512210a00b0047da5e98e66sm1946927lfr.1.2022.06.27.14.23.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jun 2022 14:23:24 -0700 (PDT)
-Message-ID: <84819c2b-54b5-218e-6d42-bdd8a5fe9103@linaro.org>
-Date: Tue, 28 Jun 2022 00:23:24 +0300
+Received: from relay07.th.seeweb.it (relay07.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::168])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DBF510E161;
+ Mon, 27 Jun 2022 22:36:08 +0000 (UTC)
+Received: from SoMainline.org (94-209-165-62.cable.dynamic.v4.ziggo.nl
+ [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id B36953F812;
+ Tue, 28 Jun 2022 00:36:05 +0200 (CEST)
+Date: Tue, 28 Jun 2022 00:36:03 +0200
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: Stephen Boyd <sboyd@kernel.org>
+Message-ID: <20220627223603.5dxxbqqqjddkgdnb@SoMainline.org>
+References: <20220601220747.1145095-1-marijn.suijten@somainline.org>
+ <20220601220747.1145095-4-marijn.suijten@somainline.org>
+ <CAA8EJpomtbN0+ocD2pRbkYriUY4D9OnjgoFzL9qNHhPm3Uz5cQ@mail.gmail.com>
+ <20220609221211.684C1C34114@smtp.kernel.org>
+ <20220610074632.abtec5kulbclund4@SoMainline.org>
+ <20220610190112.1352DC34114@smtp.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-GB
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-References: <20220627165413.657142-1-dmitry.baryshkov@linaro.org>
- <9f82dd3f-5ecc-4e1d-6cce-0749b8316d49@quicinc.com>
- <CAA8EJprR23ugdi926BDtGOGdGEqvWBgOQfekyJjD_OFE3yx0Aw@mail.gmail.com>
- <9e7c1015-80e6-308d-7910-95d27df174b4@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <9e7c1015-80e6-308d-7910-95d27df174b4@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: use ARRAY_SIZE for calculating
- num_descs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220610190112.1352DC34114@smtp.kernel.org>
+Subject: Re: [Freedreno] [PATCH v2 03/11] clk: fixed-factor: Introduce
+ *clk_hw_register_fixed_factor_parent_hw()
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,155 +48,59 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+Cc: David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>, dri-devel@lists.freedesktop.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ phone-devel@vger.kernel.org, linux-clk@vger.kernel.org,
+ Jonathan Marek <jonathan@marek.ca>, linux-arm-msm@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Sean Paul <sean@poorly.run>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>, linux-kernel@vger.kernel.org,
  Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 28/06/2022 00:01, Kuogee Hsieh wrote:
+On 2022-06-10 12:01:10, Stephen Boyd wrote:
+> Quoting Marijn Suijten (2022-06-10 00:46:32)
+> > On 2022-06-09 15:12:09, Stephen Boyd wrote:
+> > > Quoting Dmitry Baryshkov (2022-06-02 03:20:19)
+> > > > On Thu, 2 Jun 2022 at 01:07, Marijn Suijten
+> > > > <marijn.suijten@somainline.org> wrote:
+> > > > > diff --git a/drivers/clk/clk-fixed-factor.c b/drivers/clk/clk-fixed-factor.c
+> > > > > index 54942d758ee6..fabb98d0cdb2 100644
+> > > > > --- a/drivers/clk/clk-fixed-factor.c
+> > > > > +++ b/drivers/clk/clk-fixed-factor.c
+> > > > > @@ -148,17 +151,50 @@ struct clk_hw *devm_clk_hw_register_fixed_factor_index(struct device *dev,
+> > > > >                 const char *name, unsigned int index, unsigned long flags,
+> > > > >                 unsigned int mult, unsigned int div)
+> > > > >  {
+> > > > > -       return __clk_hw_register_fixed_factor(dev, NULL, name, NULL, index,
+> > > > > -                                             flags, mult, div, true);
+> > > > > +       return __clk_hw_register_fixed_factor(dev, NULL, name, NULL, NULL,
+> > > > > +                                             index, flags, mult, div, true);
+> > > > 
+> > > > Here (and several times later) you are inserting an argument and then
+> > > > moving arguments to the next line. My slight preference would be to
+> > > > just insert the arg (and maybe break the line if it gets too long) w/o
+> > > > touching the next lines.
+> > 
+> > That'll definitely look odd, as we'll end up with index floating on a
+> > single line, all on its own.
 > 
-> On 6/27/2022 1:05 PM, Dmitry Baryshkov wrote:
->> On Mon, 27 Jun 2022 at 22:26, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->> wrote:
->>>
->>> On 6/27/2022 9:54 AM, Dmitry Baryshkov wrote:
->>>> If for some reason the msm_dp_config::descs array starts from non-zero
->>>> index or contains the hole, setting the msm_dp_config::num_descs might
->>>> be not that obvious and error-prone. Use ARRAY_SIZE to set this field
->>>> rather than encoding the value manually.
->>>>
->>>> Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_display.c | 46 
->>>> +++++++++++++++++------------
->>>>    1 file changed, 27 insertions(+), 19 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->>>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> index f87fa3ba1e25..6fed738a9467 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> @@ -131,35 +131,43 @@ struct msm_dp_config {
->>>>        size_t num_descs;
->>>>    };
->>>>
->>>> +static const struct msm_dp_desc sc7180_dp_descs[] = {
->>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> +};
->>>> +
->>>>    static const struct msm_dp_config sc7180_dp_cfg = {
->>>> -     .descs = (const struct msm_dp_desc[]) {
->>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> -     },
->>>> -     .num_descs = 1,
->>>> +     .descs = sc7180_dp_descs,
->>>> +     .num_descs = ARRAY_SIZE(sc7180_dp_descs),
->>>> +};
->>>> +
->>> why you want to do that?
->>>
->>> It is very clear only one entry, why you want to make it 2 entry here?
->>>
->>> can you just embedded MSM_DP_COTROLLER_x into struct msm_dp_config?
->> Because we had enough stories of using a manually set 'number of
->> something' field. So I'd prefer to have it done automatically.
->> Also using the indexed array spares us from 'look for the DP
->> controller number N' functions. You can just get it.
-> 
-> static const struct msm_dp_config sc7280_dp_cfg = {
->           .descs = (const struct msm_dp_desc[]) {
->                   [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, 
-> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->           },
->           .num_descs = ARRAY_SIZE(sc7280_dp_descs),
+> Pretty sure Dmitry is suggesting to make the line longer, not put the
+> index on a line by itself. Ignore the 80-column limit.
 
-This will not work.
+There's a "(and maybe break the line if it gets too long)" in there, but
+it's ugly especially for short (ie. "0,") arguments.  I'm following your
+request to ignore 80-columns as a limit.
 
-> };
-> 
-> At above example table, it just waste one entry. is it ok?
+Will resend this after being able to physically build-test it tomorrow,
+thanks!
 
-I'd assume this is an interim development state. Then it's fine. In the 
-final version one would fill all existing DP controllers starting from 0.
-
-> 
-> can you elaborate  more on 'look for the DP controller number N' 
-> functions, where is it?
-
-Ignore this.
-
-> 
-> 
->>>> +static const struct msm_dp_desc sc7280_dp_descs[] = {
->>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = 
->>>> true },
->>>> +     [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->>>>    };
->>>>
->>>>    static const struct msm_dp_config sc7280_dp_cfg = {
->>>> -     .descs = (const struct msm_dp_desc[]) {
->>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = 
->>>> true },
->>>> -             [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->>>> -     },
->>>> -     .num_descs = 2,
->>>> +     .descs = sc7280_dp_descs,
->>>> +     .num_descs = ARRAY_SIZE(sc7280_dp_descs),
->>>> +};
->>>> +
->>>> +static const struct msm_dp_desc sc8180x_dp_descs[] = {
->>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> +     [MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> +     [MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_eDP },
->>>>    };
->>>>
->>>>    static const struct msm_dp_config sc8180x_dp_cfg = {
->>>> -     .descs = (const struct msm_dp_desc[]) {
->>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> -             [MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> -             [MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_eDP },
->>>> -     },
->>>> -     .num_descs = 3,
->>>> +     .descs = sc8180x_dp_descs,
->>>> +     .num_descs = ARRAY_SIZE(sc8180x_dp_descs),
->>>> +};
->>>> +
->>>> +static const struct msm_dp_desc sm8350_dp_descs[] = {
->>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>    };
->>>>
->>>>    static const struct msm_dp_config sm8350_dp_cfg = {
->>>> -     .descs = (const struct msm_dp_desc[]) {
->>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>> -     },
->>>> -     .num_descs = 1,
->>>> +     .descs = sm8350_dp_descs,
->>>> +     .num_descs = ARRAY_SIZE(sm8350_dp_descs),
->>>>    };
->>>>
->>>>    static const struct of_device_id dp_dt_match[] = {
->>
->>
-
-
--- 
-With best wishes
-Dmitry
+- Marijn
