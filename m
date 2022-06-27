@@ -1,67 +1,57 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEB455BBE4
-	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 22:03:56 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D5F55BBE6
+	for <lists+freedreno@lfdr.de>; Mon, 27 Jun 2022 22:06:00 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6B5111A4C4;
-	Mon, 27 Jun 2022 20:03:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1477511B570;
+	Mon, 27 Jun 2022 20:05:59 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFEA5899B3
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 20:03:51 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-f2a4c51c45so14303697fac.9
- for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 13:03:51 -0700 (PDT)
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
+ [IPv6:2607:f8b0:4864:20::f2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC1CD11B4E7
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 20:05:57 +0000 (UTC)
+Received: by mail-qv1-xf2c.google.com with SMTP id q4so16657611qvq.8
+ for <freedreno@lists.freedesktop.org>; Mon, 27 Jun 2022 13:05:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=uBL8T3g3R0Pq3whUkb/j5eJUSIuSh7+BTEsAjLrbttw=;
- b=tByXVs4oLqp70UnWrAelQLgAZ02AjGHlRCOv88PrYBSqr+tpiHU5Q+f/xG7zbiFenC
- tiSrYxs9TC477G06hNDlrjxga5jvL580iaOVQGS6EHHO8M55FCPlukXVJTUMpkwdzO5P
- bt9xGTTeA+6oUcHAnORPIsaOH90m5W/HxuLc0sGWNLScVokcy2cOBVkXLeqZNkhZR/HJ
- +9gIG3dMRBkp3pA91MTASZcI6SxfpD2vHTSBtwEsD9C/ME9MWc+SZNyA9AzpAgFu3TGm
- QNnpCpBGzCQzCXk0nqqQ1th0UuAX4myDZ9b36KaYhbKCKvwhJMxcWNugDfPdLOUI5ira
- AR2Q==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=t/YNIIo1OfJZKBOf0su0gdSWMRajt9bfTLqLNeOeO4Y=;
+ b=v0xAz+DZeFRyWeSKh+7LCrjx3NjVWydYH4Jjniy060BfBvCJ++TFGpNNnMMGMZmJL8
+ ZETVJOqNENRp5YzTaPPF23EjOwQMsIKvJjDwt0v+xJgwdkTBJmwJr6NAadZr7HFSuPDb
+ 9bTuOwn03ON3kbc9rcwGxJE9ebcyH9sCzXyLMnLCeYfKIoSgr1TGsHcN170aUsspQ0bK
+ WjmibuGKw1anaRM7too1lWzRIGIFnsne3c2NgMnkNDefryjg8wMCQsXMcp4HSIR9eB/T
+ nhYqlcLL4IG/ZZaXaeRQYWH2nMFljQK+kU9+Bd8YRgYgcvpTYAwvJD4Fs2zAMh+mnVQE
+ dW3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=uBL8T3g3R0Pq3whUkb/j5eJUSIuSh7+BTEsAjLrbttw=;
- b=YBL0wCfRozVHokXqV+u0HIcmVO5wEAjEtVNV74BgmpfhRl0CdDWFosUrMjI2Wdx7rj
- d0Q3K7JMQT/z/azW6E7Hr6Wf6KGdJ+JqW5qR5K5q6owsYaqHjJxSweo00FC5RXTO+GQH
- LRfD/rU3ehEQucTCN/8cEmL8naGkmib++1t9sxjY0GmT8IN2t1NlipMG7gxlECHmklxb
- ODLc+4VRxfWr/wZSa/aodEMfNmzo+fcZ2J71IpVzV+Jt4j9g23QdxDcVyJDkF6qh/fgR
- YXBreAysGK9nejtNcjUM6IJ6iY1OvIYnB9ylCbowXiBwSHPqjndXVX1s45HUfZz3FAIA
- pYSA==
-X-Gm-Message-State: AJIora+J22weFQ+cOhPTYQOpAc4yk/+ZmFX5+oBoR8bp7nPqK86pbCG/
- 9cYneHdGYLIjBx9AdLAs7l/RsMmEOjvolg==
-X-Google-Smtp-Source: AGRyM1uyXxkCopnKmMrwc7YTmNhF77XP6v4iLuNzB3mcEoxBcwwNkqmrJxoiPfBIjXYpp1D8SYTD2Q==
-X-Received: by 2002:a05:6870:23a6:b0:f2:2dfd:d6d5 with SMTP id
- e38-20020a05687023a600b000f22dfdd6d5mr8502700oap.100.1656360230798; 
- Mon, 27 Jun 2022 13:03:50 -0700 (PDT)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
- m16-20020a4a9510000000b0041bdf977c6dsm6428729ooi.31.2022.06.27.13.03.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jun 2022 13:03:49 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- Vinod Polimera <quic_vpolimer@quicinc.com>
-Date: Mon, 27 Jun 2022 15:03:04 -0500
-Message-Id: <165636016347.3080661.10709114868531823730.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <1647919631-14447-1-git-send-email-quic_vpolimer@quicinc.com>
-References: <1647919631-14447-1-git-send-email-quic_vpolimer@quicinc.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=t/YNIIo1OfJZKBOf0su0gdSWMRajt9bfTLqLNeOeO4Y=;
+ b=jOPDKYy4dgwyY4XPe97XRHE4Il7lNHn8uhZ6Gb4oKX9Q7MMevJm70WV2eskIQxksel
+ 512ELBStCjnqfIth38eJqIybxGwT6s6CqLiU6I5CabgKWRhFMAo3IDre8z+FJvaRl79k
+ BFYxA7WWoNjD95nHnO9NOSyPlDIafRJ/ATWTSI5d5JM3E+Bz2hKIS4n35S7VxRQAKnAh
+ HWgsQMq6ThANtKfLUO0dAxGW5xiIlT5sbLUdnok480Eku5VN0booU/aH77G4yfdd4Fgh
+ eImwDHM+zHtffrJbch43K7W7vepr6567HgRvwDT4od8rgwNsxK8b863Nmp2YSdG1da45
+ Qs5Q==
+X-Gm-Message-State: AJIora/1331ejqHEXH0KHLNaL2kracvZsK7wegdqQzfrE3NpNmEYDc9L
+ 8AJc7dfH4L8bVZVyLap4Wt2CpGRKWSd2yyFOXz3UXw==
+X-Google-Smtp-Source: AGRyM1t8TUCoMm1sgNDxPUTsFBn9RdMMW4h/okgLyvJyGwbpiRC4mQQKp1jppN6JlrTCD13/QPtdnx+/ags1m87CMTs=
+X-Received: by 2002:ad4:596d:0:b0:470:7f34:fa13 with SMTP id
+ eq13-20020ad4596d000000b004707f34fa13mr1030321qvb.55.1656360356878; Mon, 27
+ Jun 2022 13:05:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Freedreno] (subset) [PATCH v7 0/5] Update mdp clk to max
- supported value to support higher refresh rates
+References: <20220627165413.657142-1-dmitry.baryshkov@linaro.org>
+ <9f82dd3f-5ecc-4e1d-6cce-0749b8316d49@quicinc.com>
+In-Reply-To: <9f82dd3f-5ecc-4e1d-6cce-0749b8316d49@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 27 Jun 2022 23:05:45 +0300
+Message-ID: <CAA8EJprR23ugdi926BDtGOGdGEqvWBgOQfekyJjD_OFE3yx0Aw@mail.gmail.com>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: use ARRAY_SIZE for calculating
+ num_descs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,33 +64,112 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_kalyant@quicinc.com, dmitry.baryshkov@linaro.org, robdclark@gmail.com,
- linux-kernel@vger.kernel.org, dianders@chromium.org
+Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
+ linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, 22 Mar 2022 08:57:06 +0530, Vinod Polimera wrote:
-> Drop the assigned clock rate property and vote on the mdp clock to
-> max frequency during bind/probe sequence.
-> 
-> Changes in v2:
-> - Remove assigned-clock-rate property and set mdp clk during
-> resume sequence.
-> - Add fixes tag.
-> 
-> [...]
+On Mon, 27 Jun 2022 at 22:26, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+>
+>
+> On 6/27/2022 9:54 AM, Dmitry Baryshkov wrote:
+> > If for some reason the msm_dp_config::descs array starts from non-zero
+> > index or contains the hole, setting the msm_dp_config::num_descs might
+> > be not that obvious and error-prone. Use ARRAY_SIZE to set this field
+> > rather than encoding the value manually.
+> >
+> > Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> > ---
+> >   drivers/gpu/drm/msm/dp/dp_display.c | 46 +++++++++++++++++------------
+> >   1 file changed, 27 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> > index f87fa3ba1e25..6fed738a9467 100644
+> > --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> > @@ -131,35 +131,43 @@ struct msm_dp_config {
+> >       size_t num_descs;
+> >   };
+> >
+> > +static const struct msm_dp_desc sc7180_dp_descs[] = {
+> > +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > +};
+> > +
+> >   static const struct msm_dp_config sc7180_dp_cfg = {
+> > -     .descs = (const struct msm_dp_desc[]) {
+> > -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > -     },
+> > -     .num_descs = 1,
+> > +     .descs = sc7180_dp_descs,
+> > +     .num_descs = ARRAY_SIZE(sc7180_dp_descs),
+> > +};
+> > +
+>
+> why you want to do that?
+>
+> It is very clear only one entry, why you want to make it 2 entry here?
+>
+> can you just embedded MSM_DP_COTROLLER_x into struct msm_dp_config?
 
-Applied, thanks!
+Because we had enough stories of using a manually set 'number of
+something' field. So I'd prefer to have it done automatically.
+Also using the indexed array spares us from 'look for the DP
+controller number N' functions. You can just get it.
 
-[2/5] arm64: dts: qcom: sm7280: remove assigned-clock-rate property for mdp clk
-      commit: 5241fd7fee9bee0cffa33f6d074194e94831e467
-[3/5] arm64: dts: qcom: sm7180: remove assigned-clock-rate property for mdp clk
-      commit: aa4ae511a760e66f22641d9b9b6052b469df3c10
-[4/5] arm64: dts: qcom: sdm845: remove assigned-clock-rate property for mdp clk
-      commit: 0b24829fd74cf954b3a02e9e4c4da3c098c69fbc
-[5/5] arm64: dts: qcom: sm8250: remove assigned-clock-rate property for mdp clk
-      commit: 6edb323837909462d493f22c07a38a23ef44f944
+>
+> > +static const struct msm_dp_desc sc7280_dp_descs[] = {
+> > +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
+> > +     [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
+> >   };
+> >
+> >   static const struct msm_dp_config sc7280_dp_cfg = {
+> > -     .descs = (const struct msm_dp_desc[]) {
+> > -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
+> > -             [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
+> > -     },
+> > -     .num_descs = 2,
+> > +     .descs = sc7280_dp_descs,
+> > +     .num_descs = ARRAY_SIZE(sc7280_dp_descs),
+> > +};
+> > +
+> > +static const struct msm_dp_desc sc8180x_dp_descs[] = {
+> > +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > +     [MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > +     [MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
+> >   };
+> >
+> >   static const struct msm_dp_config sc8180x_dp_cfg = {
+> > -     .descs = (const struct msm_dp_desc[]) {
+> > -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > -             [MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > -             [MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, .connector_type = DRM_MODE_CONNECTOR_eDP },
+> > -     },
+> > -     .num_descs = 3,
+> > +     .descs = sc8180x_dp_descs,
+> > +     .num_descs = ARRAY_SIZE(sc8180x_dp_descs),
+> > +};
+> > +
+> > +static const struct msm_dp_desc sm8350_dp_descs[] = {
+> > +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> >   };
+> >
+> >   static const struct msm_dp_config sm8350_dp_cfg = {
+> > -     .descs = (const struct msm_dp_desc[]) {
+> > -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
+> > -     },
+> > -     .num_descs = 1,
+> > +     .descs = sm8350_dp_descs,
+> > +     .num_descs = ARRAY_SIZE(sm8350_dp_descs),
+> >   };
+> >
+> >   static const struct of_device_id dp_dt_match[] = {
 
-Best regards,
+
+
 -- 
-Bjorn Andersson <bjorn.andersson@linaro.org>
+With best wishes
+Dmitry
