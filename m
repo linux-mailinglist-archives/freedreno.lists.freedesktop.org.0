@@ -1,61 +1,68 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A67655EACC
-	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 19:16:42 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id A657B55EEFA
+	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 22:14:10 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7C1F11A185;
-	Tue, 28 Jun 2022 17:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6382411225B;
+	Tue, 28 Jun 2022 20:14:05 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEB611A185;
- Tue, 28 Jun 2022 17:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656436599; x=1687972599;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=KJyAZybApfU7j5zVJbKavqrJsAlOndcuE9x4PSVA4rw=;
- b=QGGSoQW6Pcq4e9wgd+t56UvqOqkh1DfZhQeJJuixP9ts2HoSpyy3D0wo
- YD8e6cNvP8dmWKUeK5mJzfmaNdR06lYAzQlgMpkNViQrlc7yyYPuOmKvg
- KpcQuYYUuiJ3sd7NpLSXWMCZ26DDXOQOf8BZwunU77iWVOMI9jet1ELC+ s=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 28 Jun 2022 10:16:39 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 10:16:38 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 28 Jun 2022 10:16:38 -0700
-Received: from [10.110.113.167] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 28 Jun
- 2022 10:16:37 -0700
-Message-ID: <7bea8e32-29e2-29e1-3874-2a1be1b00be4@quicinc.com>
-Date: Tue, 28 Jun 2022 10:16:36 -0700
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F398112036
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Jun 2022 20:14:04 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id t24so24267428lfr.4
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Jun 2022 13:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:user-agent:in-reply-to:references
+ :message-id:mime-version:content-transfer-encoding;
+ bh=I2/+5dhRyxuL3Gg1aHlNPvG7vh2LZmL80DGuAx1dO9M=;
+ b=v3/T1HH6xPCsUlhJlqTNwOl2XQgII4I7NrSNEm49EGWF7H8o48QfRduFpQHTuyrvYB
+ L+eYialYzpCRveZPv0LJjUlUsxFY+7/aiuTfmBCaU2a4Q873qI+HQ+va/lF/9f30KV8l
+ mmr3lb0W0+vlo9X5zk7RGZuDTb7Moy+8oPaOhVI7PIvbB1oo9ajzQQIBnxKcbD9BVwYi
+ OMU3PZEmtEtWQMMWYTLjJYgsfhd879dmueMMW2+6JYH/GL/WShJO5AQmVAcvKZquP4i3
+ drc8JzRa1TDSf/+8sWC3nbT072L6DGSsDWrHiO9Fc8W6FOYZbxhkF3rYDTArdJ5oeNn4
+ 9sqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:user-agent:in-reply-to
+ :references:message-id:mime-version:content-transfer-encoding;
+ bh=I2/+5dhRyxuL3Gg1aHlNPvG7vh2LZmL80DGuAx1dO9M=;
+ b=15WW3byrKPI9OcBOvD+NAtvWo21eMgSsAeYJRLL41j8deKpxFbzGYbIUv99ZnXCyQR
+ H0Zh0aQIioZflnoB2yANX9nWwD0229H2vBi9fmEdxz4uxFLUT7H1W9GSaFKj/EN7CSzC
+ vQ2w32H2xs4hEE1Knp2xztlonfti/d2rYnWi+g+QcjRTe+upgQeN5YAI3oSptD7K+vd/
+ GxCOP612uiin5QU7t/oAvmvP1+qlVw8t3ltvkpc9Pk2OAWvhMhY5kj4FDxAOjkY953dc
+ o4qdLiyHttYyavzSl4sXsA1EUBdbvtTMLvQIJ/Qi/H/tIS9B/NEqLvSWuNx5hi+ky7bX
+ kxuQ==
+X-Gm-Message-State: AJIora/2hB8TFZMyB3uMhJMe62EjiSkigNhPc/qB/sq42agmLqwmd82F
+ fMqj1t4u4oAax1GqaBK68kjAQA==
+X-Google-Smtp-Source: AGRyM1uCBKBW3awWOv+JynlB8eHhjWlAkHdDt0Ja1lpBzywpjcpIvfZ1hMjxuqk+Ua0Nz1wdceJyqA==
+X-Received: by 2002:a05:6512:3f84:b0:47f:673c:31b7 with SMTP id
+ x4-20020a0565123f8400b0047f673c31b7mr13979453lfa.473.1656447242387; 
+ Tue, 28 Jun 2022 13:14:02 -0700 (PDT)
+Received: from [127.0.0.1] ([188.162.64.167]) by smtp.gmail.com with ESMTPSA id
+ a15-20020a056512200f00b004811bf4999csm901113lfb.290.2022.06.28.13.14.01
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Jun 2022 13:14:01 -0700 (PDT)
+Date: Tue, 28 Jun 2022 23:13:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
+ sean@poorly.run, 
+ swboyd@chromium.org, dianders@chromium.org, vkoul@kernel.org,
+ daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
+ bjorn.andersson@linaro.org
+User-Agent: K-9 Mail for Android
+In-Reply-To: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
+References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
+Message-ID: <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-References: <20220627165413.657142-1-dmitry.baryshkov@linaro.org>
- <9f82dd3f-5ecc-4e1d-6cce-0749b8316d49@quicinc.com>
- <CAA8EJprR23ugdi926BDtGOGdGEqvWBgOQfekyJjD_OFE3yx0Aw@mail.gmail.com>
- <9e7c1015-80e6-308d-7910-95d27df174b4@quicinc.com>
- <84819c2b-54b5-218e-6d42-bdd8a5fe9103@linaro.org>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <84819c2b-54b5-218e-6d42-bdd8a5fe9103@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: use ARRAY_SIZE for calculating
- num_descs
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
+ connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,159 +75,50 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav
- Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Sean Paul <sean@poorly.run>
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 6/27/2022 2:23 PM, Dmitry Baryshkov wrote:
-> On 28/06/2022 00:01, Kuogee Hsieh wrote:
->>
->> On 6/27/2022 1:05 PM, Dmitry Baryshkov wrote:
->>> On Mon, 27 Jun 2022 at 22:26, Kuogee Hsieh <quic_khsieh@quicinc.com> 
->>> wrote:
->>>>
->>>> On 6/27/2022 9:54 AM, Dmitry Baryshkov wrote:
->>>>> If for some reason the msm_dp_config::descs array starts from 
->>>>> non-zero
->>>>> index or contains the hole, setting the msm_dp_config::num_descs 
->>>>> might
->>>>> be not that obvious and error-prone. Use ARRAY_SIZE to set this field
->>>>> rather than encoding the value manually.
->>>>>
->>>>> Reported-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
->>>>> ---
->>>>>    drivers/gpu/drm/msm/dp/dp_display.c | 46 
->>>>> +++++++++++++++++------------
->>>>>    1 file changed, 27 insertions(+), 19 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
->>>>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> index f87fa3ba1e25..6fed738a9467 100644
->>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> @@ -131,35 +131,43 @@ struct msm_dp_config {
->>>>>        size_t num_descs;
->>>>>    };
->>>>>
->>>>> +static const struct msm_dp_desc sc7180_dp_descs[] = {
->>>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> +};
->>>>> +
->>>>>    static const struct msm_dp_config sc7180_dp_cfg = {
->>>>> -     .descs = (const struct msm_dp_desc[]) {
->>>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> -     },
->>>>> -     .num_descs = 1,
->>>>> +     .descs = sc7180_dp_descs,
->>>>> +     .num_descs = ARRAY_SIZE(sc7180_dp_descs),
->>>>> +};
->>>>> +
->>>> why you want to do that?
->>>>
->>>> It is very clear only one entry, why you want to make it 2 entry here?
->>>>
->>>> can you just embedded MSM_DP_COTROLLER_x into struct msm_dp_config?
->>> Because we had enough stories of using a manually set 'number of
->>> something' field. So I'd prefer to have it done automatically.
->>> Also using the indexed array spares us from 'look for the DP
->>> controller number N' functions. You can just get it.
->>
->> static const struct msm_dp_config sc7280_dp_cfg = {
->>           .descs = (const struct msm_dp_desc[]) {
->>                   [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, 
->> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->>           },
->>           .num_descs = ARRAY_SIZE(sc7280_dp_descs),
+
+On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc=2Eco=
+m> wrote:
+>Some userspace presumes that the first connected connector is the main
+>display, where it's supposed to display e=2Eg=2E the login screen=2E For
+>laptops, this should be the main panel=2E
 >
-> This will not work.
+>This patch call drm_helper_move_panel_connectors_to_head() after
+>drm_bridge_connector_init() to make sure eDP stay at head of
+>connected connector list=2E This fixes unexpected corruption happen
+>at eDP panel if eDP is not placed at head of connected connector
+>list=2E
+
+The change itself is a good fix anyway=2E (And I'd ack it=2E) However I wo=
+uld like to understand why does it fix the corruption issue=2E What is we h=
+ave eDP and DSI, with DSI ending up before the eDP? Would we see the issue?
+Also could you please describe the mind of corruption you are observing?
+
+
 >
->> };
->>
->> At above example table, it just waste one entry. is it ok?
+>Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc=2Ecom>
+>---
+> drivers/gpu/drm/msm/dp/dp_drm=2Ec | 2 ++
+> 1 file changed, 2 insertions(+)
 >
-> I'd assume this is an interim development state. Then it's fine. In 
-> the final version one would fill all existing DP controllers starting 
-> from 0.
->
->>
->> can you elaborate  more on 'look for the DP controller number N' 
->> functions, where is it?
->
-> Ignore this.
->
->>
->>
->>>>> +static const struct msm_dp_desc sc7280_dp_descs[] = {
->>>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = 
->>>>> true },
->>>>> +     [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->>>>>    };
->>>>>
->>>>>    static const struct msm_dp_config sc7280_dp_cfg = {
->>>>> -     .descs = (const struct msm_dp_desc[]) {
->>>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = 
->>>>> true },
->>>>> -             [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->>>>> -     },
->>>>> -     .num_descs = 2,
->>>>> +     .descs = sc7280_dp_descs,
->>>>> +     .num_descs = ARRAY_SIZE(sc7280_dp_descs),
->>>>> +};
->>>>> +
->>>>> +static const struct msm_dp_desc sc8180x_dp_descs[] = {
->>>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> +     [MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> +     [MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_eDP },
->>>>>    };
->>>>>
->>>>>    static const struct msm_dp_config sc8180x_dp_cfg = {
->>>>> -     .descs = (const struct msm_dp_desc[]) {
->>>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> -             [MSM_DP_CONTROLLER_1] = { .io_start = 0x0ae98000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> -             [MSM_DP_CONTROLLER_2] = { .io_start = 0x0ae9a000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_eDP },
->>>>> -     },
->>>>> -     .num_descs = 3,
->>>>> +     .descs = sc8180x_dp_descs,
->>>>> +     .num_descs = ARRAY_SIZE(sc8180x_dp_descs),
->>>>> +};
->>>>> +
->>>>> +static const struct msm_dp_desc sm8350_dp_descs[] = {
->>>>> +     [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>>    };
->>>>>
->>>>>    static const struct msm_dp_config sm8350_dp_cfg = {
->>>>> -     .descs = (const struct msm_dp_desc[]) {
->>>>> -             [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000, 
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort },
->>>>> -     },
->>>>> -     .num_descs = 1,
->>>>> +     .descs = sm8350_dp_descs,
->>>>> +     .num_descs = ARRAY_SIZE(sm8350_dp_descs),
->>>>>    };
->>>>>
->>>>>    static const struct of_device_id dp_dt_match[] = {
->>>
->>>
->
->
+>diff --git a/drivers/gpu/drm/msm/dp/dp_drm=2Ec b/drivers/gpu/drm/msm/dp/d=
+p_drm=2Ec
+>index ce0ec3a=2E=2E2d18884 100644
+>--- a/drivers/gpu/drm/msm/dp/dp_drm=2Ec
+>+++ b/drivers/gpu/drm/msm/dp/dp_drm=2Ec
+>@@ -136,5 +136,7 @@ struct drm_connector *dp_drm_connector_init(struct ms=
+m_dp *dp_display)
+>=20
+> 	drm_connector_attach_encoder(connector, dp_display->encoder);
+>=20
+>+	drm_helper_move_panel_connectors_to_head(dp_display->drm_dev);
+>+
+> 	return connector;
+> }
