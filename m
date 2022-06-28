@@ -2,72 +2,58 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C2EC55E5A4
-	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 17:23:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5529E55E5B9
+	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 17:37:40 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 236F31130F6;
-	Tue, 28 Jun 2022 15:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B81510F6FF;
+	Tue, 28 Jun 2022 15:37:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out.qualcomm.com (alexa-out.qualcomm.com [129.46.98.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A9C1130EB;
- Tue, 28 Jun 2022 15:23:11 +0000 (UTC)
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C29410F6FF;
+ Tue, 28 Jun 2022 15:37:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656429792; x=1687965792;
- h=message-id:date:mime-version:subject:to:cc:references:
+ t=1656430658; x=1687966658;
+ h=message-id:date:mime-version:subject:to:references:cc:
  from:in-reply-to:content-transfer-encoding;
- bh=RvWriGxvnrfUaWIbEbAZdoDVUWgEkiJx6GnkqCbaZDY=;
- b=QBjdLJo+7UZRf03Otov9uV/sTTmY7x7QdIef/CY3FIGDn5ioht6ui3n0
- DqTN693nXz0GAODn73KuIoX7pLGlD6+9ZTC/lHQOwJIf7dE0fagCuah33
- PHTgKv1H7BufZsD8oVF9+azv6WVSRn2GP/ul2ACjZDnMOFjmlsuvodr65 I=;
-Received: from ironmsg-lv-alpha.qualcomm.com ([10.47.202.13])
- by alexa-out.qualcomm.com with ESMTP; 28 Jun 2022 08:23:11 -0700
+ bh=NXj1WZe08kEUAOpbbP1dP8Pw6O6wQJTbDFXzWboZB6I=;
+ b=rvNMfaA/XStyJC7eC4Wq5rrXKxgNSsUqyInHt2hKRLuYp87PJZ0W5buX
+ TULpPoBQOZ0Qz+gTF0/Boq5KE6ujk9gsGGcgbTotgnd/ROi4+guFAZthd
+ LwyRH1UhCgbU/Q5jyq2Oatwm4v306Dho0USv1pJ9eD8yhxnuGpSbMfYCF Q=;
+Received: from unknown (HELO ironmsg03-sd.qualcomm.com) ([10.53.140.143])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 28 Jun 2022 08:37:36 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg-lv-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 08:23:10 -0700
+ by ironmsg03-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 08:37:35 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 28 Jun 2022 08:22:50 -0700
+ 15.2.986.22; Tue, 28 Jun 2022 08:37:35 -0700
 Received: from [10.110.113.167] (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 28 Jun
- 2022 08:22:48 -0700
-Message-ID: <ba89c17a-bf8d-0eda-d975-26e88d43e0aa@quicinc.com>
-Date: Tue, 28 Jun 2022 08:22:47 -0700
+ 2022 08:37:34 -0700
+Message-ID: <fedce9fe-5145-ea90-9012-7e5dceef3163@quicinc.com>
+Date: Tue, 28 Jun 2022 08:37:33 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>, Dmitry Baryshkov
- <dmitry.baryshkov@linaro.org>
-References: <1656090912-18074-1-git-send-email-quic_khsieh@quicinc.com>
- <CAE-0n52RW+UFJ=hqMWjwR8qvEbww7QjzPW1nhL3Atd97QXAnYw@mail.gmail.com>
- <007ea4c9-9701-f4ab-3278-5d36bf2018c4@quicinc.com>
- <CAE-0n53kNCK0ajHfY2WQr5HEQZtZSBLnhfbTuZwaUNEOZhsKPg@mail.gmail.com>
- <fa7f8bf1-33cd-5515-0143-6596df2bd740@quicinc.com>
- <CAE-0n51g-EVsC-i9=sJV-ySa8VnE+yT7cg=b-TNMi9+3uBiOVA@mail.gmail.com>
- <326912ff-9771-0711-366d-79acd436908b@quicinc.com>
- <CAE-0n51qrdrFtSr0vRwgYkMgSZfnzQuinaUROQsp30QoDchWQA@mail.gmail.com>
- <0ff3d6a3-dc5c-7c77-f8a1-6c4f6c1a3215@quicinc.com>
- <CAE-0n515hMKqQ+Vj1Sg54PpwkbWMYJ77QN+y+KZNBWymjhpWKw@mail.gmail.com>
- <66ff4642-f268-f5b0-7e28-b196368c508a@quicinc.com>
- <5cf094cf-343a-82d7-91c4-1284683f9748@quicinc.com>
- <CAA8EJprqq=vxXT2DmEWii_Ajx2UbkHRexPTT58xFcWkBa_D5hA@mail.gmail.com>
- <6523e533-960b-d148-0f87-2ad327a3ac3b@quicinc.com>
- <CAA8EJprQBnZAc-2AxXD8cV_qMoKrusNa+VSHW9Kw-xKS_ZWAkg@mail.gmail.com>
- <CAD=FV=WvNrfYaUgbDayxU0wJUbZbgwVMWjeyTjtd+Sqcvj=e2A@mail.gmail.com>
+To: <dmitry.baryshkov@linaro.org>, <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20220617232434.1139950-1-dmitry.baryshkov@linaro.org>
+ <9b5b6fed-cd42-fd38-a1ff-58cb590482fe@quicinc.com>
 From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <CAD=FV=WvNrfYaUgbDayxU0wJUbZbgwVMWjeyTjtd+Sqcvj=e2A@mail.gmail.com>
+In-Reply-To: <9b5b6fed-cd42-fd38-a1ff-58cb590482fe@quicinc.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] [PATCH v1 2/3] drm/msm/dp: decoupling dp->id out of
- dp controller_id at scxxxx_dp_cfg table
+Subject: Re: [Freedreno] Fwd: [PATCH v2 1/3] drm/msm/dp: remove unused stubs
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,128 +66,124 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vinod Koul <vkoul@kernel.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, freedreno <freedreno@lists.freedesktop.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob
- Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>, Daniel
- Vetter <daniel@ffwll.ch>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
-On 6/27/2022 4:20 PM, Doug Anderson wrote:
-> Hi,
->
-> On Sat, Jun 25, 2022 at 1:48 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->> On Sat, 25 Jun 2022 at 04:23, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>> On 6/24/2022 5:11 PM, Dmitry Baryshkov wrote:
->>>> On Sat, 25 Jun 2022 at 03:03, Abhinav Kumar <quic_abhinavk@quicinc.com> wrote:
->>>>> On 6/24/2022 4:56 PM, Kuogee Hsieh wrote:
->>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> index dcd80c8a794c..7816e82452ca 100644
->>>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>>> @@ -140,8 +140,8 @@ static const struct msm_dp_config sc7180_dp_cfg = {
->>>>>
->>>>>     static const struct msm_dp_config sc7280_dp_cfg = {
->>>>>            .descs = (const struct msm_dp_desc[]) {
->>>>> -               [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000,
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
->>>>>                    [MSM_DP_CONTROLLER_1] = { .io_start = 0x0aea0000,
->>>>> .connector_type = DRM_MODE_CONNECTOR_eDP, .wide_bus_en = true },
->>>>> +               [MSM_DP_CONTROLLER_0] = { .io_start = 0x0ae90000,
->>>>> .connector_type = DRM_MODE_CONNECTOR_DisplayPort, .wide_bus_en = true },
->>>>>            },
->>>>>            .num_descs = 2,
->>>>>     };
->>>>>
->>>>>
->>>>> The reason order is important is because  in this function below, even
->>>>> though it matches the address to find which one to use it loops through
->>>>> the array and so the value of *id will change depending on which one is
->>>>> located where.
->>>>>
->>>>> static const struct msm_dp_desc *dp_display_get_desc(struct
->>>>> platform_device *pdev,
->>>>>                                 unsigned int *id)
->>>>> {
->>>>>        const struct msm_dp_config *cfg = of_device_get_match_data(&pdev->dev);
->>>>>        struct resource *res;
->>>>>        int i;
->>>>>
->>>>>        res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->>>>>        if (!res)
->>>>>            return NULL;
->>>>>
->>>>>        for (i = 0; i < cfg->num_descs; i++) {
->>>>>            if (cfg->descs[i].io_start == res->start) {
->>>>>                *id = i;
->>>> The id is set to the index of the corresponding DP instance in the
->>>> descs array, which is MSM_DP_CONTROLLER_n. Correct up to now.
->>> Right, this is where I misunderstood his explanation.
->>>
->>> Even if we swap the order, but retain the index correctly it will still
->>> work today.
->>>
->>> Hes not sure of the root-cause of why turning on the primary display
->>> first fixes the issue.
->>>
->>> I think till we root-cause that, lets put this on hold.
->> Agreed. Let's find the root cause.
-> FWIW, I was poking a little bit about the glitch that Kuogee was
-> trying to fix here. Through a bunch of hacky heuristics I think the
-> dpu_hw_ctl_trigger_flush_v1() is the function that "causes" the
-> corruption. Specifically I managed to do something like:
->
-> if (hacky_heuristic)
->    pr_info("About to call flush\n);
->    mdelay(2000);
-> }
-> ctl->ops.trigger_flush(ctl)
-> if (hacky_heuristic)
->    pr_info("Finished calling flush\n);
->    mdelay(2000);
->    pr_info("Finished calling flush delay done\n);
-> }
-
-flush bit need to up update at real time.
-
-otherwise unexpected side effects will happen.
-
-i try same thing, but I got fence timeout error.
-
-Anyway, I had submit new patch to fix corruption issue.
-
-Thanks for your efforts and helps.
-
-> I then watched my display and reproduced the problem. When I saw the
-> problem I looked over at the console and saw "Finished calling flush"
-> was the last thing printed.
->
-> I don't know if this helps much. Presumably we're flushing a bunch of
-> previous operations so whatever we had queued up probably matters
-> more, but maybe it'll give a clue?
+On 6/24/2022 10:36 AM, Abhinav Kumar wrote:
 >
 >
-> Other notes FWIW:
 >
-> * If you increase the amount of time of the glitching, you can
-> actually see that we are glitching both the internal and external
-> displays.
+> -------- Forwarded Message --------
+> Subject: [Freedreno] [PATCH v2 1/3] drm/msm/dp: remove unused stubs
+> Date: Sat, 18 Jun 2022 02:24:32 +0300
+> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
+> Abhinav Kumar <quic_abhinavk@quicinc.com>
+> CC: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org, 
+> dri-devel@lists.freedesktop.org, Bjorn Andersson 
+> <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>, Stephen 
+> Boyd <swboyd@chromium.org>, freedreno@lists.freedesktop.org
 >
-> * You can actually make the glitch stay on the screen "permanently" by
-> unplugging the external display while the internal screen is off. I
-> don't know why it doesn't always happen, but it seems to happen often
-> enough. Presumably if someone knew the display controller well they
-> could try to figure out what state it was in and debug the problem.
+> Refactoring DP code transformed several functions into empty stubs.
+> Remove them.
 >
+> Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 35 -----------------------------
+>  1 file changed, 35 deletions(-)
 >
-> -Doug
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
+> b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 08e3f0b1b395..fea610793dc4 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -857,11 +857,6 @@ static int dp_display_set_mode(struct msm_dp 
+> *dp_display,
+>      return 0;
+>  }
+>  -static int dp_display_prepare(struct msm_dp *dp_display)
+> -{
+> -    return 0;
+> -}
+> -
+>  static int dp_display_enable(struct dp_display_private *dp, u32 data)
+>  {
+>      int rc = 0;
+> @@ -938,11 +933,6 @@ static int dp_display_disable(struct 
+> dp_display_private *dp, u32 data)
+>      return 0;
+>  }
+>  -static int dp_display_unprepare(struct msm_dp *dp_display)
+> -{
+> -    return 0;
+> -}
+> -
+>  int dp_display_set_plugged_cb(struct msm_dp *dp_display,
+>          hdmi_codec_plugged_cb fn, struct device *codec_dev)
+>  {
+> @@ -1458,21 +1448,9 @@ static int dp_pm_suspend(struct device *dev)
+>      return 0;
+>  }
+>  -static int dp_pm_prepare(struct device *dev)
+> -{
+> -    return 0;
+> -}
+> -
+> -static void dp_pm_complete(struct device *dev)
+> -{
+> -
+> -}
+> -
+>  static const struct dev_pm_ops dp_pm_ops = {
+>      .suspend = dp_pm_suspend,
+>      .resume =  dp_pm_resume,
+> -    .prepare = dp_pm_prepare,
+> -    .complete = dp_pm_complete,
+>  };
+>   static struct platform_driver dp_display_driver = {
+> @@ -1686,13 +1664,6 @@ void dp_bridge_enable(struct drm_bridge 
+> *drm_bridge)
+>          return;
+>      }
+>  -    rc = dp_display_prepare(dp);
+> -    if (rc) {
+> -        DRM_ERROR("DP display prepare failed, rc=%d\n", rc);
+> -        mutex_unlock(&dp_display->event_mutex);
+> -        return;
+> -    }
+> -
+>      state =  dp_display->hpd_state;
+>       if (state == ST_DISPLAY_OFF) {
+> @@ -1706,7 +1677,6 @@ void dp_bridge_enable(struct drm_bridge 
+> *drm_bridge)
+>      if (rc) {
+>          DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
+>          dp_display_disable(dp_display, 0);
+> -        dp_display_unprepare(dp);
+>      }
+>       /* completed connection */
+> @@ -1731,7 +1701,6 @@ void dp_bridge_post_disable(struct drm_bridge 
+> *drm_bridge)
+>  {
+>      struct msm_dp_bridge *dp_bridge = to_dp_bridge(drm_bridge);
+>      struct msm_dp *dp = dp_bridge->dp_display;
+> -    int rc = 0;
+>      u32 state;
+>      struct dp_display_private *dp_display;
+>  @@ -1750,10 +1719,6 @@ void dp_bridge_post_disable(struct drm_bridge 
+> *drm_bridge)
+>       dp_display_disable(dp_display, 0);
+>  -    rc = dp_display_unprepare(dp);
+> -    if (rc)
+> -        DRM_ERROR("DP display unprepare failed, rc=%d\n", rc);
+> -
+>      state =  dp_display->hpd_state;
+>      if (state == ST_DISCONNECT_PENDING) {
+>          /* completed disconnection */
