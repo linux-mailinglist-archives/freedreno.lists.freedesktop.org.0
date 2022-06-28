@@ -2,60 +2,51 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CEDC55E5BD
-	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 17:41:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DEA855E8E7
+	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 18:37:38 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5B941125BC;
-	Tue, 28 Jun 2022 15:41:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB2671128F4;
+	Tue, 28 Jun 2022 16:37:36 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
- [199.106.114.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE268112823;
- Tue, 28 Jun 2022 15:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656430872; x=1687966872;
- h=message-id:date:mime-version:subject:to:references:cc:
- from:in-reply-to:content-transfer-encoding;
- bh=umUEFXkxpRuTFxwhPM3gZ5RAxhtH9douX/WuwYj1eSA=;
- b=UPrUE4WyatCGyPTQz6aaHSrx5JrnYjHpfTb4UAkM3OhQXBK+AjWfaNu1
- Ic6G1RrBSazm6AFVj/fnqFaBjkQolim54SbOxcgqRlnTAgMu5foAvvKuj
- iD45ORd7Ggd9RhRANrmh4+KLekOO+ybdRtyhR51wtnCwZDrZaTuNONe8u E=;
-Received: from unknown (HELO ironmsg01-sd.qualcomm.com) ([10.53.140.141])
- by alexa-out-sd-02.qualcomm.com with ESMTP; 28 Jun 2022 08:41:12 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg01-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2022 08:41:12 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Tue, 28 Jun 2022 08:41:11 -0700
-Received: from [10.110.113.167] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 28 Jun
- 2022 08:41:10 -0700
-Message-ID: <aae228c6-b1e0-91eb-8b05-a7ac38e271e0@quicinc.com>
-Date: Tue, 28 Jun 2022 08:41:10 -0700
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD9B9112535;
+ Tue, 28 Jun 2022 16:37:35 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id n185so7678282wmn.4;
+ Tue, 28 Jun 2022 09:37:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=zTrnKXsP357t4essNdCGgt/pIcSI3m0gn7jRuKNWiEQ=;
+ b=dYQyZu9hKQVdrmwLqjZuuis22j79t0huSOLkc/q7KbSN2p5jEDEmGQKqxKccXO4PEQ
+ /AF/u57LtJgqmCBOmjUXGL9LVX3784EwUj7hbppVcj/fRXLNxRe4Zn6KJsf9uH6TVtZs
+ Qm6EjILKgODglsV1SG+Vzn4jqAenxwNHHN4gB7I8CUYz+wJ+20h6HaE7BzonhBbSffEC
+ q6Hm7zIG/4bzIW9KxOYoJ+4T/kvaavYZX0DXsF3BJONMyOUsicaZoVq5xJOshlgck260
+ 5IiRk3gZ9x0e7Bu1fpYJytGdiA0otZ5WOfhrmUp7lyS9I17yjPUSYuDznR/GJrW6r6A/
+ qqDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=zTrnKXsP357t4essNdCGgt/pIcSI3m0gn7jRuKNWiEQ=;
+ b=agGyN0jWT1dWFinHfKEq66G5D/VRNSjdGd/UtDgYySVI+9Eoy3MPJMqo3FNAd8SY1S
+ rcfMko1I4MENEpcyrwdUalum4Dvh2zt5S8TGC2Hk7shlPrbxjZog83/wpdw7KnE5ynci
+ UOp+MIxy44rFNQSWsQ6tKfRTdXUY5NnUksiJuwrTE+rJX/sht6ScWnnjEGjxMfQw5/Vk
+ xnLdkLNLdAYO8VAlU2tWSOtFX1srrCH1eElFwCggrGSZDQ3YZF015gES+Mjesi5z7aYp
+ SQTiA2k/zf+JavBWWKb30KTig4Ky82Xj3WXIDWlK1lmw2wMN/jzcKNZBqEbpJKgx4KZI
+ 0WjQ==
+X-Gm-Message-State: AJIora9ZTj6wryywYw/vItsdvnMDJasOdv/TjHB95ycGi8euBOcQo4sH
+ sUHFBGDYGAO3cqjCf1X9hfJ+gBGmQyR8neuKKHk=
+X-Google-Smtp-Source: AGRyM1uOPdxafZdL1L2hYPRlKZOts53RkqBtiPY4vRVqV7TiAXTMG9m44Ga3PBCJeX+pOZH4DKOC2Gr5zsxTPxL6B/Y=
+X-Received: by 2002:a05:600c:4f96:b0:39c:951e:66b7 with SMTP id
+ n22-20020a05600c4f9600b0039c951e66b7mr556966wmq.84.1656434254256; Tue, 28 Jun
+ 2022 09:37:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Rob Clark
- <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, Abhinav Kumar
- <quic_abhinavk@quicinc.com>
-References: <20220617232434.1139950-3-dmitry.baryshkov@linaro.org>
- <c60af04c-4985-88de-5110-341fa985b276@quicinc.com>
-From: Kuogee Hsieh <quic_khsieh@quicinc.com>
-In-Reply-To: <c60af04c-4985-88de-5110-341fa985b276@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-Subject: Re: [Freedreno] Fwd: [PATCH v2 3/3] drm/msm/dp: remove
- dp_display_en/disable prototypes and data argument
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Jun 2022 09:37:48 -0700
+Message-ID: <CAF6AEGvswNKdd02EYKYv5Zjv7f+mcqeWC7hHQ1SBjqYzN_ZHnA@mail.gmail.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Freedreno] [pull] drm/msm: drm-msm-fixes-2022-06-28 for v5.19-rc5
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,80 +59,60 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Stephen Boyd <swboyd@chromium.org>,
- freedreno@lists.freedesktop.org
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+Hi Dave,
 
-On 6/24/2022 10:37 AM, Abhinav Kumar wrote:
->
->
->
-> -------- Forwarded Message --------
-> Subject: [PATCH v2 3/3] drm/msm/dp: remove dp_display_en/disable 
-> prototypes and data argument
-> Date: Sat, 18 Jun 2022 02:24:34 +0300
-> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> To: Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>, 
-> Abhinav Kumar <quic_abhinavk@quicinc.com>
-> CC: Stephen Boyd <swboyd@chromium.org>, David Airlie 
-> <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bjorn Andersson 
-> <bjorn.andersson@linaro.org>, linux-arm-msm@vger.kernel.org, 
-> dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
->
-> Remove unused dp_display_en/disable prototypes. While we are at it,
-> remove extra 'data' argument that is unused.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Reviewed-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
-> Changes since v1:
-> - Rebased and dropped the dp_display_enable() chunk
-> ---
->  drivers/gpu/drm/msm/dp/dp_display.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c 
-> b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 96defacc92dc..c17a799d3009 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -608,9 +608,6 @@ static int dp_hpd_plug_handle(struct 
-> dp_display_private *dp, u32 data)
->      return 0;
->  };
->  -static int dp_display_enable(struct dp_display_private *dp, bool 
-> force_link_train);
-> -static int dp_display_disable(struct dp_display_private *dp, u32 data);
-> -
->  static void dp_display_handle_plugged_change(struct msm_dp *dp_display,
->          bool plugged)
->  {
-> @@ -894,7 +891,7 @@ static int dp_display_post_enable(struct msm_dp 
-> *dp_display)
->      return 0;
->  }
->  -static int dp_display_disable(struct dp_display_private *dp, u32 data)
-> +static int dp_display_disable(struct dp_display_private *dp)
->  {
->      struct msm_dp *dp_display = &dp->dp_display;
->  @@ -1676,7 +1673,7 @@ void dp_bridge_enable(struct drm_bridge 
-> *drm_bridge)
->      rc = dp_display_post_enable(dp);
->      if (rc) {
->          DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
-> -        dp_display_disable(dp_display, 0);
-> +        dp_display_disable(dp_display);
->      }
->       /* completed connection */
-> @@ -1717,7 +1714,7 @@ void dp_bridge_post_disable(struct drm_bridge 
-> *drm_bridge)
->          return;
->      }
->  -    dp_display_disable(dp_display, 0);
-> +    dp_display_disable(dp_display);
->       state =  dp_display->hpd_state;
->      if (state == ST_DISCONNECT_PENDING) {
+A couple remaining fixes for v5.19, summary below (and in tag msg)
+
+The following changes since commit a6e2af64a79afa7f1b29375b5231e840a84bb845:
+
+  drm/msm/dp: force link training for display resolution change
+(2022-06-18 09:14:06 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/msm.git tags/drm-msm-fixes-2022-06-28
+
+for you to fetch changes up to 08de214138cdea438a0dfcb10d355a6650c6017c:
+
+  drm/msm/gem: Fix error return on fence id alloc fail (2022-06-27
+12:48:27 -0700)
+
+----------------------------------------------------------------
+Fixes for v5.19-rc5
+
+- Fix to increment vsync_cnt before calling drm_crtc_handle_vblank so that
+  userspace sees the value *after* it is incremented if waiting for vblank
+  events
+- Fix to reset drm_dev to NULL in dp_display_unbind to avoid a crash in
+  probe/bind error paths
+- Fix to resolve the smatch error of de-referencing before NULL check in
+  dpu_encoder_phys_wb.c
+- Fix error return to userspace if fence-id allocation fails in submit
+  ioctl
+
+----------------------------------------------------------------
+Kuogee Hsieh (1):
+      drm/msm/dp: reset drm_dev to NULL at dp_display_unbind()
+
+Rob Clark (1):
+      drm/msm/gem: Fix error return on fence id alloc fail
+
+Stephen Boyd (1):
+      drm/msm/dpu: Increment vsync_cnt before waking up userspace
+
+sunliming (1):
+      drm/msm/dpu: Fix variable dereferenced before check
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c         |  3 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c | 10 +++++-----
+ drivers/gpu/drm/msm/dp/dp_display.c                 |  2 ++
+ drivers/gpu/drm/msm/msm_gem_submit.c                |  2 +-
+ 4 files changed, 10 insertions(+), 7 deletions(-)
