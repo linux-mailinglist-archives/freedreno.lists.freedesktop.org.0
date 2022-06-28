@@ -2,37 +2,54 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9EF55E53D
-	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 16:16:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6AAC55E5A0
+	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 17:20:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F9810F933;
-	Tue, 28 Jun 2022 14:16:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6441127B2;
+	Tue, 28 Jun 2022 15:20:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D8A010F933;
- Tue, 28 Jun 2022 14:16:50 +0000 (UTC)
-Received: from g550jk.localnet (84-115-211-207.cable.dynamic.surfer.at
- [84.115.211.207])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id EA1F6CD3F8;
- Tue, 28 Jun 2022 14:16:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
- t=1656425808; bh=lq+WHMDTmhBoAD9B4gW/YD5AqyCpF71zh0/AU4Vr1yE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=vLJhH3B3Djq3QHHI7puNgjodPvRhty9qzf5pK63x8jaIb1If4ZvFochwZigj/LU3E
- GEa/QcVDH4S4M83jUXtxRoJiAxZJDX4zrBDdUyL9Xdlotuh7WsQ57ndMhJ/DUvayMA
- LYcIeVGZKgalA5p0MWbMRn18/58/YXWio1sSRlA0=
-From: Luca Weiss <luca@z3ntu.xyz>
-To: ~postmarketos/upstreaming@lists.sr.ht
-Date: Tue, 28 Jun 2022 16:16:46 +0200
-Message-ID: <2634815.mvXUDI8C0e@g550jk>
-In-Reply-To: <20220528160353.157870-2-konrad.dybcio@somainline.org>
-References: <20220528160353.157870-1-konrad.dybcio@somainline.org>
- <20220528160353.157870-2-konrad.dybcio@somainline.org>
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
+ [199.106.114.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBCAC1127B2;
+ Tue, 28 Jun 2022 15:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1656429622; x=1687965622;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=qsVrB4/khfucpjBiFcbeN6QBKJZEym13aaN4eGlpdCk=;
+ b=qK2TnJQH6NPwOiP9azkmzHNF6MgOdgVysHGT41zsMNpv1kbpFT1Zu7Mw
+ wHDvAbvgXS6sdbFoCz1S8Er7B04Krj99kztifkMJr+vnImbad92ToPJl5
+ xXyMd5EDk/bBCuEtACZninb3nKt2fW1p8rJMjNtIzCk6GLSzqHftzFl8u E=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+ by alexa-out-sd-01.qualcomm.com with ESMTP; 28 Jun 2022 08:20:20 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2022 08:20:20 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 28 Jun 2022 08:20:19 -0700
+Received: from khsieh-linux1.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 28 Jun 2022 08:20:18 -0700
+From: Kuogee Hsieh <quic_khsieh@quicinc.com>
+To: <robdclark@gmail.com>, <sean@poorly.run>, <swboyd@chromium.org>,
+ <dianders@chromium.org>, <vkoul@kernel.org>, <daniel@ffwll.ch>,
+ <airlied@linux.ie>, <agross@kernel.org>, <dmitry.baryshkov@linaro.org>,
+ <bjorn.andersson@linaro.org>
+Date: Tue, 28 Jun 2022 08:20:06 -0700
+Message-ID: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Subject: Re: [Freedreno] [PATCH v3 2/4] drm/msm/adreno: Add A619 support
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+Subject: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
+ connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,366 +62,41 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: , Emma Anholt <emma@anholt.net>,
-	Akhil P Oommen <quic_akhilpo@quicinc.com>,
-	Konrad Dybcio <konrad.dybcio@somainline.org>,
-	dri-devel@lists.freedesktop.org,
-	Jordan Crouse <jordan@cosmicpenguin.net>,
-	angelogioacchino.delregno@somainline.org,
-	marijn.suijten@somainline.org, Jonathan Marek <jonathan@marek.ca>,
-	David Airlie <airlied@linux.ie>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	linux-arm-msm@vger.kernel.org, Yangtao Li <tiny.windzz@gmail.com>,
-	Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	jamipkettunen@somainline.org, Nathan Chancellor <nathan@kernel.org>,
-	martin.botka@somainline.org,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Sean Paul <sean@poorly.run>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Konrad Dybcio <konrad.dybcio@somainline.or>, g@freedesktop.org,
-	Vladimir Lypak <vladimir.lypak@gmail.com>,
-	linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	freedreno@lists.freedesktop.org
+Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi all,
+Some userspace presumes that the first connected connector is the main
+display, where it's supposed to display e.g. the login screen. For
+laptops, this should be the main panel.
 
-any comment on this patch series? Would be great to get this into 5.20
+This patch call drm_helper_move_panel_connectors_to_head() after
+drm_bridge_connector_init() to make sure eDP stay at head of
+connected connector list. This fixes unexpected corruption happen
+at eDP panel if eDP is not placed at head of connected connector
+list.
 
-Regards
-Luca
+Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
+---
+ drivers/gpu/drm/msm/dp/dp_drm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On Samstag, 28. Mai 2022 18:03:49 CEST Konrad Dybcio wrote:
-> Add support for the Adreno 619 GPU, as found in Snapdragon 690 (SM6350),
-> 480 (SM4350) and 750G (SM7225).
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@somainline.org>
-> ---
-> Changes since v2:
-> - Fix some values in a619_build_bw_table (I think I miscopied things last
-> time around..)
-> - Add a comment about icache/dcache allocation for future porters
-> - Resolve Dmitry's comment about BUG_ON (check patch 1/4)
-> 
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c      | 13 +++-
->  drivers/gpu/drm/msm/adreno/a6xx_gpu.c      | 70 +++++++++++++++++++++-
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c      | 65 +++++++++++++++++++-
->  drivers/gpu/drm/msm/adreno/adreno_device.c | 14 +++++
->  drivers/gpu/drm/msm/adreno/adreno_gpu.h    | 13 +++-
->  5 files changed, 169 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c index b1c876c339d0..0a7c3514e51b
-> 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -527,6 +527,8 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
->  		pdc_in_aop = true;
->  	else if (adreno_is_a618(adreno_gpu) || 
-adreno_is_a640_family(adreno_gpu))
->  		pdc_address_offset = 0x30090;
-> +	else if (adreno_is_a619(adreno_gpu))
-> +		pdc_address_offset = 0x300a0;
->  	else
->  		pdc_address_offset = 0x30080;
-> 
-> @@ -601,7 +603,8 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
-> 
->  	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 4, 0x10108);
->  	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, 0x30000);
-> -	if (adreno_is_a618(adreno_gpu) || 
-adreno_is_a650_family(adreno_gpu))
-> +	if (adreno_is_a618(adreno_gpu) || adreno_is_a619(adreno_gpu) ||
-> +			adreno_is_a650_family(adreno_gpu))
->  		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 
-0x2);
->  	else
->  		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 
-0x3);
-> @@ -1537,6 +1540,12 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct
-> device_node *node) SZ_16M - SZ_16K, 0x04000, "icache");
->  		if (ret)
->  			goto err_memory;
-> +	/*
-> +	 * NOTE: when porting legacy ("pre-650-family") GPUs you may be 
-tempted to
-> add a condition +	 * to allocate icache/dcache here, as per downstream 
-code
-> flow, but it may not actually be +	 * necessary. If you omit this step 
-and
-> you don't get random pagefaults, you are likely +	 * good to go without
-> this!
-> +	 */
->  	} else if (adreno_is_a640_family(adreno_gpu)) {
->  		ret = a6xx_gmu_memory_alloc(gmu, &gmu->icache,
->  			SZ_256K - SZ_16K, 0x04000, "icache");
-> @@ -1547,7 +1556,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct
-> device_node *node) SZ_256K - SZ_16K, 0x44000, "dcache");
->  		if (ret)
->  			goto err_memory;
-> -	} else {
-> +	} else if (adreno_is_a630(adreno_gpu) ||
-> adreno_is_a615_family(adreno_gpu)) { /* HFI v1, has sptprac */
->  		gmu->legacy = true;
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c index ccc4fcf7a630..331cd2f6b9e3
-> 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> @@ -252,6 +252,74 @@ static void a6xx_submit(struct msm_gpu *gpu, struct
-> msm_gem_submit *submit) a6xx_flush(gpu, ring);
->  }
-> 
-> +/* For a615 family (a615, a616, a618 and a619) */
-> +const struct adreno_reglist a615_hwcg[] = {
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_SP0,  0x02222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02222220},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_SP0,  0x0000F3CF},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_TP0,  0x02222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_TP1,  0x02222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL2_TP1, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL3_TP1, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00022222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL4_TP1, 0x00022222},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_TP0,  0x77777777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_TP1,  0x77777777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST2_TP1, 0x77777777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST3_TP1, 0x77777777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777},
-> +	{REG_A6XX_RBBM_CLOCK_HYST4_TP1, 0x00077777},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_TP1, 0x11111111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY2_TP1, 0x11111111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY3_TP1, 0x11111111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY4_TP1, 0x00011111},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_UCHE,  0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL2_UCHE, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL3_UCHE, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL4_UCHE, 0x00222222},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_UCHE,  0x00000004},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x00002222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002020},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_CCU1, 0x00002220},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_CCU2, 0x00002220},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_CCU3, 0x00002220},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x00040F00},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU1, 0x00040F00},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU2, 0x00040F00},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_RB_CCU3, 0x00040F00},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x05022022},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00005555},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00445044},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222},
-> +	{REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x00222222},
-> +	{REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002},
-> +	{REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222},
-> +	{REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222},
-> +	{REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111},
-> +	{REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555},
-> +	{},
-> +};
-> +
->  const struct adreno_reglist a630_hwcg[] = {
->  	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
->  	{REG_A6XX_RBBM_CLOCK_CNTL_SP1, 0x22222222},
-> @@ -555,7 +623,7 @@ static void a6xx_set_hwcg(struct msm_gpu *gpu, bool
-> state) gpu_write(gpu, REG_A6XX_RBBM_CLOCK_CNTL, state ? clock_cntl_on : 0);
-> }
-> 
-> -/* For a615, a616, a618, A619, a630, a640 and a680 */
-> +/* For a615, a616, a618, a619, a630, a640 and a680 */
->  static const u32 a6xx_protect[] = {
->  	A6XX_PROTECT_RDONLY(0x00000, 0x04ff),
->  	A6XX_PROTECT_RDONLY(0x00501, 0x0005),
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c index d73fce5fdf1f..2cc83e049613
-> 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-> @@ -205,8 +205,8 @@ static int a6xx_hfi_get_fw_version(struct a6xx_gmu *gmu,
-> u32 *version) {
->  	struct a6xx_hfi_msg_fw_version msg = { 0 };
-> 
-> -	/* Currently supporting version 1.1 */
-> -	msg.supported_version = (1 << 28) | (1 << 16);
-> +	/* Currently supporting version 1.10 */
-> +	msg.supported_version = (1 << 28) | (1 << 19) | (1 << 17);
-> 
->  	return a6xx_hfi_send_msg(gmu, HFI_H2F_MSG_FW_VERSION, &msg, 
-sizeof(msg),
->  		version, sizeof(*version));
-> @@ -285,6 +285,65 @@ static void a618_build_bw_table(struct
-> a6xx_hfi_msg_bw_table *msg) msg->cnoc_cmds_data[1][0] =  0x60000001;
->  }
-> 
-> +static void a619_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
-> +{
-> +	msg->bw_level_num = 13;
-> +
-> +	msg->ddr_cmds_num = 3;
-> +	msg->ddr_wait_bitmask = 0x0;
-> +
-> +	msg->ddr_cmds_addrs[0] = 0x50000;
-> +	msg->ddr_cmds_addrs[1] = 0x50004;
-> +	msg->ddr_cmds_addrs[2] = 0x50080;
-> +
-> +	msg->ddr_cmds_data[0][0]  = 0x40000000;
-> +	msg->ddr_cmds_data[0][1]  = 0x40000000;
-> +	msg->ddr_cmds_data[0][2]  = 0x40000000;
-> +	msg->ddr_cmds_data[1][0]  = 0x6000030c;
-> +	msg->ddr_cmds_data[1][1]  = 0x600000db;
-> +	msg->ddr_cmds_data[1][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[2][0]  = 0x60000618;
-> +	msg->ddr_cmds_data[2][1]  = 0x600001b6;
-> +	msg->ddr_cmds_data[2][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[3][0]  = 0x60000925;
-> +	msg->ddr_cmds_data[3][1]  = 0x60000291;
-> +	msg->ddr_cmds_data[3][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[4][0]  = 0x60000dc1;
-> +	msg->ddr_cmds_data[4][1]  = 0x600003dc;
-> +	msg->ddr_cmds_data[4][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[5][0]  = 0x600010ad;
-> +	msg->ddr_cmds_data[5][1]  = 0x600004ae;
-> +	msg->ddr_cmds_data[5][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[6][0]  = 0x600014c3;
-> +	msg->ddr_cmds_data[6][1]  = 0x600005d4;
-> +	msg->ddr_cmds_data[6][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[7][0]  = 0x6000176a;
-> +	msg->ddr_cmds_data[7][1]  = 0x60000693;
-> +	msg->ddr_cmds_data[7][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[8][0]  = 0x60001f01;
-> +	msg->ddr_cmds_data[8][1]  = 0x600008b5;
-> +	msg->ddr_cmds_data[8][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[9][0]  = 0x60002940;
-> +	msg->ddr_cmds_data[9][1]  = 0x60000b95;
-> +	msg->ddr_cmds_data[9][2]  = 0x60000008;
-> +	msg->ddr_cmds_data[10][0] = 0x60002f68;
-> +	msg->ddr_cmds_data[10][1] = 0x60000d50;
-> +	msg->ddr_cmds_data[10][2] = 0x60000008;
-> +	msg->ddr_cmds_data[11][0] = 0x60003700;
-> +	msg->ddr_cmds_data[11][1] = 0x60000f71;
-> +	msg->ddr_cmds_data[11][2] = 0x60000008;
-> +	msg->ddr_cmds_data[12][0] = 0x60003fce;
-> +	msg->ddr_cmds_data[12][1] = 0x600011ea;
-> +	msg->ddr_cmds_data[12][2] = 0x60000008;
-> +
-> +	msg->cnoc_cmds_num = 1;
-> +	msg->cnoc_wait_bitmask = 0x0;
-> +
-> +	msg->cnoc_cmds_addrs[0] = 0x50054;
-> +
-> +	msg->cnoc_cmds_data[0][0] = 0x40000000;
-> +}
-> +
->  static void a640_build_bw_table(struct a6xx_hfi_msg_bw_table *msg)
->  {
->  	/*
-> @@ -462,6 +521,8 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
-> 
->  	if (adreno_is_a618(adreno_gpu))
->  		a618_build_bw_table(&msg);
-> +	else if (adreno_is_a619(adreno_gpu))
-> +		a619_build_bw_table(&msg);
->  	else if (adreno_is_a640_family(adreno_gpu))
->  		a640_build_bw_table(&msg);
->  	else if (adreno_is_a650(adreno_gpu))
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> b/drivers/gpu/drm/msm/adreno/adreno_device.c index
-> 8706bcdd1472..87be25aec540 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-> @@ -264,6 +264,19 @@ static const struct adreno_info gpulist[] = {
->  		.gmem = SZ_512K,
->  		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
->  		.init = a6xx_gpu_init,
-> +	}, {
-> +		.rev = ADRENO_REV(6, 1, 9, ANY_ID),
-> +		.revn = 619,
-> +		.name = "A619",
-> +		.fw = {
-> +			[ADRENO_FW_SQE] = "a630_sqe.fw",
-> +			[ADRENO_FW_GMU] = "a619_gmu.bin",
-> +		},
-> +		.gmem = SZ_512K,
-> +		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-> +		.init = a6xx_gpu_init,
-> +		.zapfw = "a615_zap.mdt",
-> +		.hwcg = a615_hwcg,
->  	}, {
->  		.rev = ADRENO_REV(6, 3, 0, ANY_ID),
->  		.revn = 630,
-> @@ -355,6 +368,7 @@ MODULE_FIRMWARE("qcom/a530_zap.mdt");
->  MODULE_FIRMWARE("qcom/a530_zap.b00");
->  MODULE_FIRMWARE("qcom/a530_zap.b01");
->  MODULE_FIRMWARE("qcom/a530_zap.b02");
-> +MODULE_FIRMWARE("qcom/a619_gmu.bin");
->  MODULE_FIRMWARE("qcom/a630_sqe.fw");
->  MODULE_FIRMWARE("qcom/a630_gmu.bin");
->  MODULE_FIRMWARE("qcom/a630_zap.mbn");
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> b/drivers/gpu/drm/msm/adreno/adreno_gpu.h index 0490c5fbb780..a13a3e5a294b
-> 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-> @@ -57,7 +57,7 @@ struct adreno_reglist {
->  	u32 value;
->  };
-> 
-> -extern const struct adreno_reglist a630_hwcg[], a640_hwcg[], a650_hwcg[],
-> a660_hwcg[]; +extern const struct adreno_reglist a615_hwcg[], a630_hwcg[],
-> a640_hwcg[], a650_hwcg[], a660_hwcg[];
-> 
->  struct adreno_info {
->  	struct adreno_rev rev;
-> @@ -242,6 +242,11 @@ static inline int adreno_is_a618(struct adreno_gpu
-> *gpu) return gpu->revn == 618;
->  }
-> 
-> +static inline int adreno_is_a619(struct adreno_gpu *gpu)
-> +{
-> +	return gpu->revn == 619;
-> +}
-> +
->  static inline int adreno_is_a630(struct adreno_gpu *gpu)
->  {
->         return gpu->revn == 630;
-> @@ -268,6 +273,12 @@ static inline int adreno_is_a660(struct adreno_gpu
-> *gpu) return gpu->revn == 660;
->  }
-> 
-> +/* check for a615, a616, a618, a619 or any derivatives */
-> +static inline int adreno_is_a615_family(struct adreno_gpu *gpu)
-> +{
-> +	return gpu->revn == 615 || gpu->revn == 616 || gpu->revn == 618 ||
-> gpu->revn == 619; +}
-> +
->  static inline int adreno_is_a660_family(struct adreno_gpu *gpu)
->  {
->         return adreno_is_a660(gpu) || adreno_is_7c3(gpu);
-
-
-
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index ce0ec3a..2d18884 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -136,5 +136,7 @@ struct drm_connector *dp_drm_connector_init(struct msm_dp *dp_display)
+ 
+ 	drm_connector_attach_encoder(connector, dp_display->encoder);
+ 
++	drm_helper_move_panel_connectors_to_head(dp_display->drm_dev);
++
+ 	return connector;
+ }
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
