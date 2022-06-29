@@ -2,67 +2,62 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id A657B55EEFA
-	for <lists+freedreno@lfdr.de>; Tue, 28 Jun 2022 22:14:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37AC855F544
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jun 2022 06:29:59 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6382411225B;
-	Tue, 28 Jun 2022 20:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B988B12AB61;
+	Wed, 29 Jun 2022 04:29:55 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F398112036
- for <freedreno@lists.freedesktop.org>; Tue, 28 Jun 2022 20:14:04 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id t24so24267428lfr.4
- for <freedreno@lists.freedesktop.org>; Tue, 28 Jun 2022 13:14:03 -0700 (PDT)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D595C12AB61
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jun 2022 04:29:53 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id p8so20034424oip.8
+ for <freedreno@lists.freedesktop.org>; Tue, 28 Jun 2022 21:29:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:user-agent:in-reply-to:references
- :message-id:mime-version:content-transfer-encoding;
- bh=I2/+5dhRyxuL3Gg1aHlNPvG7vh2LZmL80DGuAx1dO9M=;
- b=v3/T1HH6xPCsUlhJlqTNwOl2XQgII4I7NrSNEm49EGWF7H8o48QfRduFpQHTuyrvYB
- L+eYialYzpCRveZPv0LJjUlUsxFY+7/aiuTfmBCaU2a4Q873qI+HQ+va/lF/9f30KV8l
- mmr3lb0W0+vlo9X5zk7RGZuDTb7Moy+8oPaOhVI7PIvbB1oo9ajzQQIBnxKcbD9BVwYi
- OMU3PZEmtEtWQMMWYTLjJYgsfhd879dmueMMW2+6JYH/GL/WShJO5AQmVAcvKZquP4i3
- drc8JzRa1TDSf/+8sWC3nbT072L6DGSsDWrHiO9Fc8W6FOYZbxhkF3rYDTArdJ5oeNn4
- 9sqQ==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=LsNHzGbkuQ0ikYT/nQZumtGtHKyGK4TJkVZyZ8Oslx4=;
+ b=zTBheeC9uY3ar46fXbbYgTH1O05N1u298bqy4nNOcoohcEmDfXUDmut0iOYG+xdl2c
+ Y9rZQPmLNOiQr/O07Zfik/QSer4mX43ruVWSvEhhSOrgSlYJSl7wcukLqv2yD85cBDB9
+ t26B5SAkGTch5Yvng2cpsP9oiqlCEsVjq96VvOrou2/gOqjp4jN3kqfW+FTQE/RxAnRE
+ Bk4lVmAMA1W8ad58wDSxJFycFkvZOrKBUHQfkr9q76y/tBSAAWeWu8OEuyx0R8JoXa4g
+ afptFf3Cut7L+u/bDr+TTptIOJOh1x09L0LYCp2jcjiMeWPdRrYXMWdPOIHo/EZTKttK
+ Eqsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:user-agent:in-reply-to
- :references:message-id:mime-version:content-transfer-encoding;
- bh=I2/+5dhRyxuL3Gg1aHlNPvG7vh2LZmL80DGuAx1dO9M=;
- b=15WW3byrKPI9OcBOvD+NAtvWo21eMgSsAeYJRLL41j8deKpxFbzGYbIUv99ZnXCyQR
- H0Zh0aQIioZflnoB2yANX9nWwD0229H2vBi9fmEdxz4uxFLUT7H1W9GSaFKj/EN7CSzC
- vQ2w32H2xs4hEE1Knp2xztlonfti/d2rYnWi+g+QcjRTe+upgQeN5YAI3oSptD7K+vd/
- GxCOP612uiin5QU7t/oAvmvP1+qlVw8t3ltvkpc9Pk2OAWvhMhY5kj4FDxAOjkY953dc
- o4qdLiyHttYyavzSl4sXsA1EUBdbvtTMLvQIJ/Qi/H/tIS9B/NEqLvSWuNx5hi+ky7bX
- kxuQ==
-X-Gm-Message-State: AJIora/2hB8TFZMyB3uMhJMe62EjiSkigNhPc/qB/sq42agmLqwmd82F
- fMqj1t4u4oAax1GqaBK68kjAQA==
-X-Google-Smtp-Source: AGRyM1uCBKBW3awWOv+JynlB8eHhjWlAkHdDt0Ja1lpBzywpjcpIvfZ1hMjxuqk+Ua0Nz1wdceJyqA==
-X-Received: by 2002:a05:6512:3f84:b0:47f:673c:31b7 with SMTP id
- x4-20020a0565123f8400b0047f673c31b7mr13979453lfa.473.1656447242387; 
- Tue, 28 Jun 2022 13:14:02 -0700 (PDT)
-Received: from [127.0.0.1] ([188.162.64.167]) by smtp.gmail.com with ESMTPSA id
- a15-20020a056512200f00b004811bf4999csm901113lfb.290.2022.06.28.13.14.01
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 28 Jun 2022 13:14:01 -0700 (PDT)
-Date: Tue, 28 Jun 2022 23:13:56 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>, robdclark@gmail.com,
- sean@poorly.run, 
- swboyd@chromium.org, dianders@chromium.org, vkoul@kernel.org,
- daniel@ffwll.ch, airlied@linux.ie, agross@kernel.org,
- bjorn.andersson@linaro.org
-User-Agent: K-9 Mail for Android
-In-Reply-To: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
-References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
-Message-ID: <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LsNHzGbkuQ0ikYT/nQZumtGtHKyGK4TJkVZyZ8Oslx4=;
+ b=qd9CD3Kcii0Va0MoL3G9AZb9E0hC6uHw/fCGV8o0GYDKnz7SM62N08O+fSvNznKETe
+ vEYQ992RCNYmwv5WIpn2tePDWrcMJ2Uipc9VvWVSPx4IrBoVW0mIN5SZWVQR97EbEGvh
+ bQ/UkqaiCzHiLmvO1W1jZT1E44gp3lqH8fKB86eg6vqmqwIrQ9i/IT4S5GNCc5FgFcZq
+ VPBteK79xpzmQh24foMuSh2DmVuAN6dYY1kKzY4RVWsKCgYbfOXqB08clxMEV6QWYjzI
+ 80c2wKCq1dC4gf0c99Y/OQRKBRXu26qT+QHsRSpJlM3lhoAYLKXqTmaFRu1li9QDzh20
+ FhmQ==
+X-Gm-Message-State: AJIora+OdcNNpd3GPScAptdthStfJtAEHZae5TtuzegzmfiaryjkBIP0
+ gfuMpc+dtWJHjyw+rMI0IRy4ig==
+X-Google-Smtp-Source: AGRyM1urAWT89N7cpLwph3oPJCnPahOlsnfZJ9b7JsB3ugSECMdMylrbT0nE50nn9tcWXfcklF7JSQ==
+X-Received: by 2002:a05:6808:68e:b0:335:4901:1b2f with SMTP id
+ k14-20020a056808068e00b0033549011b2fmr842227oig.149.1656476992933; 
+ Tue, 28 Jun 2022 21:29:52 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186]) by smtp.gmail.com with ESMTPSA id
+ r15-20020a056830080f00b0060c574ebae6sm8965045ots.76.2022.06.28.21.29.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jun 2022 21:29:52 -0700 (PDT)
+Date: Tue, 28 Jun 2022 23:29:50 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Akhil P Oommen <quic_akhilpo@quicinc.com>
+Message-ID: <YrvVPiLQL6d4MrFV@builder.lan>
+References: <20220510132256.v2.1.Ibf12c1b99feecc4130f1e3130a3fc4ddd710a2e9@changeid>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
- connected connector
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220510132256.v2.1.Ibf12c1b99feecc4130f1e3130a3fc4ddd710a2e9@changeid>
+Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/a6xx: Add support for a new
+ 7c3 sku
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,50 +70,51 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: quic_sbillaka@quicinc.com, linux-arm-msm@vger.kernel.org,
- quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
- quic_khsieh@quicinc.com, quic_aravindh@quicinc.com,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Sean Paul <sean@poorly.run>,
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS
+ <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
+ David Airlie <airlied@linux.ie>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, Rob Clark <robdclark@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno <freedreno@lists.freedesktop.org>, Chia-I Wu <olvaffe@gmail.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+On Tue 10 May 02:53 CDT 2022, Akhil P Oommen wrote:
 
+> Add a new sku to the fuse map of 7c3 gpu.
+> 
+> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
 
-On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc=2Eco=
-m> wrote:
->Some userspace presumes that the first connected connector is the main
->display, where it's supposed to display e=2Eg=2E the login screen=2E For
->laptops, this should be the main panel=2E
->
->This patch call drm_helper_move_panel_connectors_to_head() after
->drm_bridge_connector_init() to make sure eDP stay at head of
->connected connector list=2E This fixes unexpected corruption happen
->at eDP panel if eDP is not placed at head of connected connector
->list=2E
+Is this series still needed/wanted? I've been waiting for patch 1 to be
+merged in the driver so that I can pick up the dts change.
 
-The change itself is a good fix anyway=2E (And I'd ack it=2E) However I wo=
-uld like to understand why does it fix the corruption issue=2E What is we h=
-ave eDP and DSI, with DSI ending up before the eDP? Would we see the issue?
-Also could you please describe the mind of corruption you are observing?
+Regards,
+Bjorn
 
-
->
->Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc=2Ecom>
->---
-> drivers/gpu/drm/msm/dp/dp_drm=2Ec | 2 ++
-> 1 file changed, 2 insertions(+)
->
->diff --git a/drivers/gpu/drm/msm/dp/dp_drm=2Ec b/drivers/gpu/drm/msm/dp/d=
-p_drm=2Ec
->index ce0ec3a=2E=2E2d18884 100644
->--- a/drivers/gpu/drm/msm/dp/dp_drm=2Ec
->+++ b/drivers/gpu/drm/msm/dp/dp_drm=2Ec
->@@ -136,5 +136,7 @@ struct drm_connector *dp_drm_connector_init(struct ms=
-m_dp *dp_display)
->=20
-> 	drm_connector_attach_encoder(connector, dp_display->encoder);
->=20
->+	drm_helper_move_panel_connectors_to_head(dp_display->drm_dev);
->+
-> 	return connector;
-> }
+> ---
+> 
+> (no changes since v1)
+> 
+>  drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 841e47a..61bb21d 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -1771,6 +1771,8 @@ static u32 adreno_7c3_get_speed_bin(u32 fuse)
+>  		return 0;
+>  	else if (fuse == 190)
+>  		return 1;
+> +	else if (fuse == 96)
+> +		return 2;
+>  
+>  	return UINT_MAX;
+>  }
+> -- 
+> 2.7.4
+> 
