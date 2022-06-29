@@ -1,59 +1,60 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id C510C56050E
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jun 2022 17:59:41 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C0E560B88
+	for <lists+freedreno@lfdr.de>; Wed, 29 Jun 2022 23:19:12 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A4610E1B2;
-	Wed, 29 Jun 2022 15:59:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A75610E11E;
+	Wed, 29 Jun 2022 21:19:09 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5650810E206;
- Wed, 29 Jun 2022 15:59:38 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id
- bi22-20020a05600c3d9600b003a04de22ab6so4970875wmb.1; 
- Wed, 29 Jun 2022 08:59:38 -0700 (PDT)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBE0110E03D;
+ Wed, 29 Jun 2022 21:19:07 +0000 (UTC)
+Received: by mail-pf1-x42f.google.com with SMTP id a15so16214176pfv.13;
+ Wed, 29 Jun 2022 14:19:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YNly1dfG4RY5ld91Tin+FHgAbZbcnCeyfevD6nD1vfc=;
- b=ZgK2yec9C4SmTv4WPvJao1de+26SSYJi9rBk2Rm5tsjBhm84Yai0AaWoHnwo8hxldR
- 9klx9J26g4poB1ilLULPFvjpYmbTXZgqjR5jBDuDaCXRnejPGxTL9FQWDJQjwvm9d62Z
- wqrON8mV1zO7WtefS2+bi0tYsSsq+R3gxgRt3JZCnSWKxoiX/1wD1l/9G48Nyv48fyK1
- esV/Tfz4nn6Zw1aHdKtTzQgu7Eaic0SxMRHB/Y9gbcJby4fgGAluUiP08MTXcISxD9qO
- +x6hejlvzv8jO2GDoURMi9RpPIAHWVsYCRCbuzEwSmi6pn55/C/vppZqg/HNESGFxliO
- oRiw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=os8p+GPAgFQmOrekd67LxmGjSZ9E3oajR6XVGq4rXGs=;
+ b=Fxa7JJ3tBHPzRrzLasvGyK11P7IMVCNsoz9yBpjCyeHc+PjcVwYvdEk6F3Sj/Hqe5K
+ 27ZH6wW65NtW05mDIiGHxfl7iulE9Wb6ZDLfc7N0wkfnaZQ0u255pw6f2ZXioQ+g8zJu
+ r+XjqGvAG6Ob5J7fABtrw1dIC2hpuIR/FhFAPBXj5qkZ8WaqG6hQ/Igpw9WWVV3svRmU
+ atSV23qmTPeuOeBv5E2I0bJJOrDLZIL6JcpKnuLDwy7kBcPEnOvgHIjJMEi7DjaQA/Zn
+ gGq6ws2qdCXzxmBU1lNcFRbR2Hno+yiStMuyzqmdQvtLAEV30/cFeLOOUIjZWB9Gwn0k
+ IV3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YNly1dfG4RY5ld91Tin+FHgAbZbcnCeyfevD6nD1vfc=;
- b=XcBZ4eeNpPDm6iN9R2wxwlCsgsV9YWlCH9OTdI20d1DEcOMJQd9NBXzqebrojk1v5g
- MI/NfclXnKh5wR5YJ3riuM16aZbwbpH2vtm16eNqFNNhAfZVJtUaZp8wU/cZ/yNk7k9s
- 1uKgj0sx0/O549/FzjoBYLmoFU9aKRNkdaFO/HFdbGe2jNMmAva7Q2pg85UIBDZHbwdK
- GkYDGM8FT+ur5atp2Lx16ufSv5adcKcYspH8sDAdEIgSKxdxDPr8ngulcl1KIOkqtk8C
- FI2CIds2cFcAtxH33tuNdTwsf8Qizmmme1iz/WncxwzWqmgJRJ8EhYbvH6j5+zVFCk//
- f9pA==
-X-Gm-Message-State: AJIora8cc+AccPxTQipOXqo24S+zuH0NscJGbyYij0rrmXlKeF4rat4Z
- vA+jMwDjcC7leIB44G/JvAR7AT/mx6w6AyPjNRg=
-X-Google-Smtp-Source: AGRyM1tAAlS4kM+nsw/NsoxnqWVB7y/vftH9UCWhq7jvEEfRS+sgsPnvHp0EazC+wGHRC5cFIqKQzo9Y/BNHvxxfINU=
-X-Received: by 2002:a05:600c:3516:b0:39c:8091:31b6 with SMTP id
- h22-20020a05600c351600b0039c809131b6mr6732490wmq.164.1656518376833; Wed, 29
- Jun 2022 08:59:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220510132256.v2.1.Ibf12c1b99feecc4130f1e3130a3fc4ddd710a2e9@changeid>
- <YrvVPiLQL6d4MrFV@builder.lan>
- <654c8819-5721-838e-4148-6fbdc5fc2dcd@quicinc.com>
-In-Reply-To: <654c8819-5721-838e-4148-6fbdc5fc2dcd@quicinc.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=os8p+GPAgFQmOrekd67LxmGjSZ9E3oajR6XVGq4rXGs=;
+ b=vKIs2SUkRyd8U8VtLUFZSwwgQw8niQZfytwdhfK1Ael3OYZAAtLGmjTGKZvoa58CQW
+ K7hSvTGREL+yBW/ED+Es/YaU+alpmE5JzGBkd5NG8uycp+pc7GYoMNQsiSNZoFU3h3j9
+ +su0j7SVn5RkTlmx8tQ42DWEawjcCmuVlc0AtqrEpx7QX0GdCdk7MAaYeN9BRs4OuY3S
+ YZVwbYxDbn0uWHKgnGcDfocplqV4/+XJq7k1wNZau39hg9X0nw2gzCQC/pidoVh/u9Nm
+ owefBsQakwTpuyxrH9Zni5mWvkSG0FGWew7LFpxXqa5eMysVwwHnLAjSF1bYfFPkiMkK
+ 6zYQ==
+X-Gm-Message-State: AJIora8XT1xeh7atmalK7QyEM/UNcVezwW1epQjv9FDue89l2xTww3hA
+ N/WD07BCVyoQjlU+dKI5yj6ySoSflf8=
+X-Google-Smtp-Source: AGRyM1uwm93lIJuDOjZiKwc+5OlO5luquq44ur9YrjetzeEh60E0gVYtcFvgBeeABInX7xJ5DufvRw==
+X-Received: by 2002:a05:6a00:21c8:b0:4fd:f89f:ec0e with SMTP id
+ t8-20020a056a0021c800b004fdf89fec0emr12174218pfj.83.1656537546574; 
+ Wed, 29 Jun 2022 14:19:06 -0700 (PDT)
+Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
+ by smtp.gmail.com with ESMTPSA id
+ bt11-20020a17090af00b00b001d95c09f877sm2660330pjb.35.2022.06.29.14.19.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jun 2022 14:19:05 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
-Date: Wed, 29 Jun 2022 08:59:50 -0700
-Message-ID: <CAF6AEGuV=sF2sLfQ53AJ4pQYFCjMH3-ephwyGW_HQqnkKRm5MQ@mail.gmail.com>
-To: Akhil P Oommen <quic_akhilpo@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH v2 1/2] drm/msm/a6xx: Add support for a new
- 7c3 sku
+To: dri-devel@lists.freedesktop.org
+Date: Wed, 29 Jun 2022 14:19:14 -0700
+Message-Id: <20220629211919.563585-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.36.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Freedreno] [PATCH 0/2] drm/msm: A couple GPU devcore enhancements
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,72 +67,32 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
- OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS
- <devicetree@vger.kernel.org>, Jonathan Marek <jonathan@marek.ca>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- freedreno <freedreno@lists.freedesktop.org>, Chia-I Wu <olvaffe@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Rob Clark <robdclark@chromium.org>, Emma Anholt <emma@anholt.net>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On Tue, Jun 28, 2022 at 10:32 PM Akhil P Oommen
-<quic_akhilpo@quicinc.com> wrote:
->
-> On 6/29/2022 9:59 AM, Bjorn Andersson wrote:
-> > On Tue 10 May 02:53 CDT 2022, Akhil P Oommen wrote:
-> >
-> >> Add a new sku to the fuse map of 7c3 gpu.
-> >>
-> >> Signed-off-by: Akhil P Oommen <quic_akhilpo@quicinc.com>
-> > Is this series still needed/wanted? I've been waiting for patch 1 to be
-> > merged in the driver so that I can pick up the dts change.
+From: Rob Clark <robdclark@chromium.org>
 
-It just missed the previous merge window by a couple of days.. I was
-planning to pick it up for the upcoming merge window
+A couple things useful for debugging iova faults:
 
-but I don't think the dt bit should depend on the driver bit in this case
+1. caputre all buffer addresses and sizes even if we don't capture their
+   contents.
+2. capture the GEM buffer debug labels
 
-> >
-> > Regards,
-> > Bjorn
-> Internally, this sku is on hold. So we can drop this series for now. I
-> will resend it if required in future.
+Rob Clark (2):
+  drm/msm/gpu: Capture all BO addr+size in devcore
+  drm/msm/gpu: Add GEM debug label to devcore
 
-ok, I'll hold off for now
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c |  1 +
+ drivers/gpu/drm/msm/msm_gpu.c           | 40 ++++++++-----------------
+ drivers/gpu/drm/msm/msm_gpu.h           |  1 +
+ 3 files changed, 14 insertions(+), 28 deletions(-)
 
-BR,
--R
+-- 
+2.36.1
 
-> -Akhil.
->
-> >
-> >> ---
-> >>
-> >> (no changes since v1)
-> >>
-> >>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 ++
-> >>   1 file changed, 2 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> index 841e47a..61bb21d 100644
-> >> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> >> @@ -1771,6 +1771,8 @@ static u32 adreno_7c3_get_speed_bin(u32 fuse)
-> >>              return 0;
-> >>      else if (fuse == 190)
-> >>              return 1;
-> >> +    else if (fuse == 96)
-> >> +            return 2;
-> >>
-> >>      return UINT_MAX;
-> >>   }
-> >> --
-> >> 2.7.4
-> >>
->
