@@ -2,61 +2,35 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6046560B8C
-	for <lists+freedreno@lfdr.de>; Wed, 29 Jun 2022 23:19:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB454560C8C
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 00:53:41 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 597B910E73C;
-	Wed, 29 Jun 2022 21:19:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14FE010F07B;
+	Wed, 29 Jun 2022 22:53:39 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49D8D10E73C;
- Wed, 29 Jun 2022 21:19:14 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id r1so15233836plo.10;
- Wed, 29 Jun 2022 14:19:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=2+Uwf6eQjQK058s1L2C++JQ0GBO1KImV4TiG9qRxWtw=;
- b=mVmuzUMDRrBJK9xwOiiziy5zE88qL0C/KMDcIMMNmU4pZj1mhmGf7EdWVJmET6PlPt
- KrGFxAYShAmk6btJUE5o3MUTAYc0tdGVx7A4Rzs8bzulZkxez9VUVwegDyU9J8yh6Bsf
- PO78/ehntJEH+3bhU6/7r+VU/IUpN5/wI91whybvSbjKuJe/LkGXN3esaucGNk2x1yyd
- 7cJaxAJb5c/ziPb+WUnPt0XcPALlmaIGNoHmkRwCKgP8iS8ENkWqS1tPZT/zzJSOVZEq
- nqZOiJJhnbm8tyX43Z2+6N1ZO+0nRRqgtPa+juv3PhEBttwaMIgRZ3hvW1g/2O2OBahe
- U8XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=2+Uwf6eQjQK058s1L2C++JQ0GBO1KImV4TiG9qRxWtw=;
- b=TdIEYFgQkNtOqCCrNZrSAj9lRWKedXa3LctyWlC9Z9zHGAzstrr7FrP9ltfcqU7/bd
- V5lVWXPxRKIUQJwqKXi4XzbbS7w5AFEptY4G4i9703MZplZSEBk2WRUWpWlM0HXPm3K1
- 803Llr7cNAQA37YBFUuD1dvz19N2txM2TZbcLab8+6uqW/+63UUYu/Fcz2m0eze+z+ww
- oEgk5d5iIo1GPV9ytOsPs8nn8dvnAagyrDNVGJ77avBhkgHG3pfisMZp9Qga4MWKTPzW
- 7Plh7X2PYt1w/DcumEqAiGkMmuQL7y5Q8x8wUvpTU4+b5NRRhIzOfjJc3Z4LsvKwr6DL
- TRJg==
-X-Gm-Message-State: AJIora8no1MvHqsuAxlKso8L74CIi9CjpNMbu4QPUzxUpQEfUXfNRWZ3
- VoozsPcLoLQFPrtGKyntdskflaMmaWc=
-X-Google-Smtp-Source: AGRyM1tS7i5vwWTt5lfaXv/i3Vu4G1d7d58QYntNci+z9/AHoAI3GSJpl870upg1wxSaM3vy9Mr9Jw==
-X-Received: by 2002:a17:903:1c4:b0:16a:73fd:3c6c with SMTP id
- e4-20020a17090301c400b0016a73fd3c6cmr10961913plh.115.1656537552990; 
- Wed, 29 Jun 2022 14:19:12 -0700 (PDT)
-Received: from localhost ([2601:1c0:5200:a6:307:a401:7b76:c6e5])
- by smtp.gmail.com with ESMTPSA id
- cp19-20020a056a00349300b005254ea64d4bsm11822958pfb.55.2022.06.29.14.19.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jun 2022 14:19:11 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed, 29 Jun 2022 14:19:16 -0700
-Message-Id: <20220629211919.563585-3-robdclark@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220629211919.563585-1-robdclark@gmail.com>
-References: <20220629211919.563585-1-robdclark@gmail.com>
+Received: from relay08.th.seeweb.it (relay08.th.seeweb.it
+ [IPv6:2001:4b7a:2000:18::169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92BB210F070;
+ Wed, 29 Jun 2022 22:53:36 +0000 (UTC)
+Received: from Marijn-Arch-PC.localdomain
+ (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by m-r2.th.seeweb.it (Postfix) with ESMTPSA id A50943F762;
+ Thu, 30 Jun 2022 00:53:32 +0200 (CEST)
+From: Marijn Suijten <marijn.suijten@somainline.org>
+To: phone-devel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Stephen Boyd <sboyd@kernel.org>
+Date: Thu, 30 Jun 2022 00:53:20 +0200
+Message-Id: <20220629225331.357308-1-marijn.suijten@somainline.org>
+X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH 2/2] drm/msm/gpu: Add GEM debug label to devcore
+Subject: [Freedreno] [PATCH v3 00/11] drm/msm/dsi_phy: Replace parent names
+ with clk_hw pointers
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,70 +43,93 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Emma Anholt <emma@anholt.net>,
- Akhil P Oommen <quic_akhilpo@quicinc.com>, David Airlie <airlied@linux.ie>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Sean Paul <sean@poorly.run>,
- Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
+ Jami Kettunen <jami.kettunen@somainline.org>,
+ Rajeev Nandan <quic_rajeevny@quicinc.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>,
+ linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+parent_hw pointers are easier to manage and cheaper to use than
+repeatedly formatting the parent name and subsequently leaving the clk
+framework to perform lookups based on that name.
 
-When trying to understand an iova fault devcore, once you figure out
-which buffer we accessed beyond the end of, it is useful to see the
-buffer's debug label.
+This series starts out by adding extra constructors for divider, mux and
+fixed-factor clocks that have parent_hw(s) pointer argument(s) instead
+of some DT index or name.  Followed by individual patches performing the
+conversion, one DSI PHY at a time.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 1 +
- drivers/gpu/drm/msm/msm_gpu.c           | 4 ++++
- drivers/gpu/drm/msm/msm_gpu.h           | 1 +
- 3 files changed, 6 insertions(+)
+dsi_phy_28nm_8960 includes an extra fixup to replace "eternal"
+devm_kzalloc allocations (for the lifetime of the device) with
+stack-local char arrays, like all the other DSI PHY drivers.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index dff33f0558f3..382fb7f9e497 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -824,6 +824,7 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
- 			drm_printf(p, "  - iova: 0x%016llx\n",
- 				state->bos[i].iova);
- 			drm_printf(p, "    size: %zd\n", state->bos[i].size);
-+			drm_printf(p, "    name: %-32s\n", state->bos[i].name);
- 
- 			adreno_show_object(p, &state->bos[i].data,
- 				state->bos[i].size, &state->bos[i].encoded);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 293f3380fafe..fba85f894314 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -229,6 +229,10 @@ static void msm_gpu_crashstate_get_bo(struct msm_gpu_state *state,
- 	state_bo->size = obj->base.size;
- 	state_bo->iova = iova;
- 
-+	BUILD_BUG_ON(sizeof(state_bo->name) != sizeof(obj->name));
-+
-+	memcpy(state_bo->name, obj->name, sizeof(state_bo->name));
-+
- 	if (full) {
- 		void *ptr;
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index b837785cdb04..4816caed22d0 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -476,6 +476,7 @@ struct msm_gpu_state_bo {
- 	size_t size;
- 	void *data;
- 	bool encoded;
-+	char name[32];
- };
- 
- struct msm_gpu_state {
+(Questions from v1 cover letter regarding the future of these drivers
+ is omitted for brevity.)
+
+And with enough future improvements out of the way, let's round out this
+patch-series by stating that it has been successfully tested on:
+
+- Sony Nile Discovery (Xperia XA2 Ultra): 14nm;
+- Sony Seine PDX201 (Xperia 10II): 14nm;
+- Sony Loire Suzu (Xperia X): 28nm.
+
+And no diff is observed in debugfs's clk_summary.
+
+Unfortunately all other devices in my collection with a 7/10nm DSI PHY
+have a DSC panel which we have yet to get working.
+
+Changes since v2:
+- in fixed-factor:
+  - Reorder if - else if change to consume less diff;
+  - Go over 80-char column lint when adding new arguments to function
+    calls, instead of reflowing all arguments to adhere to this limit;
+    also consuming less diff.
+
+v2: https://lore.kernel.org/linux-arm-msm/20220601220747.1145095-1-marijn.suijten@somainline.org/
+
+Changes since v1:
+
+- Moved indentation changes to separate patch (Dmitry);
+- dsi_phy_28nm_8960: move clock name allocation removal prior to
+  parent_hw refactor;
+- Remove vco_name stack-local char array in favour of reusing clk_name
+  (Dmitry);
+- Inserted additional patch to replace hardcoded char-array length
+  constant 32 with sizeof(clk_name).
+
+v1: https://lore.kernel.org/linux-arm-msm/20220523213837.1016542-1-marijn.suijten@somainline.org/T/#u
+
+Marijn Suijten (11):
+  clk: divider: Introduce devm_clk_hw_register_divider_parent_hw()
+  clk: mux: Introduce devm_clk_hw_register_mux_parent_hws()
+  clk: fixed-factor: Introduce *clk_hw_register_fixed_factor_parent_hw()
+  drm/msm/dsi/phy: Reindent and reflow multiline function calls
+  drm/msm/dsi_phy_28nm_8960: Use stack memory for temporary clock names
+  drm/msm/dsi/phy: Replace hardcoded char-array length with sizeof()
+  drm/msm/dsi_phy_28nm_8960: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_28nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_14nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_10nm: Replace parent names with clk_hw pointers
+  drm/msm/dsi_phy_7nm: Replace parent names with clk_hw pointers
+
+ drivers/clk/clk-fixed-factor.c                |  45 ++++-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_10nm.c    | 165 +++++++++---------
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c    |  55 +++---
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_28nm.c    | 117 ++++++-------
+ .../gpu/drm/msm/dsi/phy/dsi_phy_28nm_8960.c   |  90 +++++-----
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c     | 156 ++++++++---------
+ include/linux/clk-provider.h                  |  34 ++++
+ 7 files changed, 351 insertions(+), 311 deletions(-)
+
 -- 
-2.36.1
+2.37.0
 
