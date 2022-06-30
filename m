@@ -1,67 +1,67 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FD73562116
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 19:18:27 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7297F562112
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 19:18:24 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28C3411B19B;
-	Thu, 30 Jun 2022 17:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2362B11B175;
+	Thu, 30 Jun 2022 17:18:23 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5231A11B19B
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 17:18:24 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id v9so288875ljk.10
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 10:18:24 -0700 (PDT)
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4390C11B175
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 17:18:22 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id j21so34933212lfe.1
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 10:18:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:user-agent:in-reply-to:references
  :message-id:mime-version:content-transfer-encoding;
- bh=p+MC8dZLXIrERN6EMKEuoKgZGT7k1itKEIo1H3PViBE=;
- b=lyTVGZFiwZJPq5wuSCqTGoizXJ9avR8a6qsmAVGVEzrwqjjWzSU4LEQ6LYYRg1azR5
- Hwf3BZHNw6z+tZQNR5nACDJwEkedHXwT2ep4lYgxt4YXT26/j9GvKSrhXfT0tIeHe3P3
- PidtEbYCddr/wd9enPtBFe2FR18Kdfz1y6sqslB45EsdZrvMbt7f0T199FvYfWljetWQ
- NTDrsz/U1K6wYyIgmA11sEDKi0WpCJOaa8ph7Q+K1QI20YxW77Q/9rHb5g6AZSvOeSKO
- OmxsxyPpKJCzHukhbhrhJlVV6qwBkV2ddb7Uau7L9gaQ2YB9Fv+KT9g2hRn8CK0SxZSX
- x9Jg==
+ bh=h6a1dWXChTwCKwnW/kNd1JMMGxhKCAfODxl0ifUihRY=;
+ b=yfS9EQ2f30wjZUo7Mmyex+du61oijkfvbfouHHFq7LGnTU01gHm0lXJwJs4rqk6hp3
+ YrCSg3eXuvUnvtgMFcKtSKl6fnLVRof+YoZEJ/ftdo7q1NDXtXEQDb7awy30FV9wr4nG
+ +61MbaP7BkTcZMOaDaCn0mTw+RosCRlUhn/DtO/j4Oolpx0KSI9esJAt9wspCIGDHa+4
+ OBtz4dDEIOWWl5/EZ2vPCRLEIegpbEtz5cChBXRZSy6wu2g27NqtWA0F3X+TT0oR14Gk
+ WPXVR7vL7LPd7+qRrQzjxB0/TstzVp5W1DFrpWr7wX8U1BrqkNP+9QeD3T6XBNx5bO23
+ b23w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:user-agent:in-reply-to
  :references:message-id:mime-version:content-transfer-encoding;
- bh=p+MC8dZLXIrERN6EMKEuoKgZGT7k1itKEIo1H3PViBE=;
- b=Ke4xIAGnGMZ+SjKNkbMy1zOa0gUv3RYVXBa8wUBdlOouLqL2R7lQLKZyMlAyA7cEoC
- KvjHWwAWlz59Ad6Gok8bfTMelP+nVWmiKoe7ogk5G1k54Wlbv1F25YWKNWZtLklmrFzf
- O2FH5UFeTaL0FY+cuNpWKdPbw3WIUfRfZoOIasy6Ys+63sw1kefhw02MxYgLx8ECR3QY
- jDy+UzJ+OnASabswybS8Qz6E5VCCT26+etygsr5qk81VdDhO5nNdTk1vFrNU3/DkLGKD
- OxiIckckEtTCZ7JteVvo7NpFhcDUNoTh59itNSJhVRyXTPws1fk/d8P5bNqiEDxKJ49S
- fKDQ==
-X-Gm-Message-State: AJIora/BDyEACOpKAk1T4gxYeXdK7cBBzNoXaE73F6C4h3Yk8/Fq4wfd
- KDzRUbOS58MTG6xkj0BnRVKUdQ==
-X-Google-Smtp-Source: AGRyM1v1g8fAyFtEBbGG/KyBWA9/U06AHFGsRQFMCh3W++tYPsmXQxDhYCvVjVLts8SIzzEg6qKodw==
-X-Received: by 2002:a2e:9f12:0:b0:25b:ad89:80e8 with SMTP id
- u18-20020a2e9f12000000b0025bad8980e8mr5371518ljk.145.1656609502443; 
- Thu, 30 Jun 2022 10:18:22 -0700 (PDT)
+ bh=h6a1dWXChTwCKwnW/kNd1JMMGxhKCAfODxl0ifUihRY=;
+ b=HrUTgZcVZ4L9m4L8G9xZZiElGEqavSVUSsyjZsxoqeVhajft/EVb8zhKd720UByZxV
+ fnKpjHp5s6qfxeHSyuSx9HEw4wQPKp+Ebhqp7eZ/PyoDeQVazxg9J4vgMywn491z3RmO
+ 9XkKHHpCcLs701RWTZ5k1Jyo3aB0wR4DQlTNuwyar+kSC1IOdgwysZe3ORolHHrJ9ncP
+ 35FUtqi0oEYnl4kKVHGgtCKxq8Q7M07dcsuiPFbMZYFSX8cj7vtiD68J/SuP9UZ1zxs3
+ 2MawNjp33T8+TAuS4xP1PnVpxYoaDVHvFQI76TKYUfvkWMqLlahh59Wv7mrcj9FHkN4t
+ CGzA==
+X-Gm-Message-State: AJIora+kX5s4AvqohWhH4LBDG1BIivXbrDGNNUlIsKfO8xaxZSMovCSq
+ CGOXNxgvSq13/XQaxD507gj85g==
+X-Google-Smtp-Source: AGRyM1s8R8bDIioUiYfE/tW3QennF5sAfDl/cwAX8X6a6afK/dqg3TKlgCkCUM1zaXwFsLBpgZdffQ==
+X-Received: by 2002:a05:6512:22cd:b0:47f:6e84:f51c with SMTP id
+ g13-20020a05651222cd00b0047f6e84f51cmr6067710lfu.175.1656609500594; 
+ Thu, 30 Jun 2022 10:18:20 -0700 (PDT)
 Received: from [127.0.0.1] ([94.25.229.210]) by smtp.gmail.com with ESMTPSA id
- n4-20020a05651203e400b0047a0bf9540asm3191312lfq.213.2022.06.30.10.18.21
+ v10-20020a2ea60a000000b0025bf92bd024sm348973ljp.102.2022.06.30.10.18.19
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Jun 2022 10:18:21 -0700 (PDT)
-Date: Thu, 30 Jun 2022 20:16:48 +0300
+ Thu, 30 Jun 2022 10:18:20 -0700 (PDT)
+Date: Thu, 30 Jun 2022 20:18:02 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
  quic_abhinavk@quicinc.com, sean@poorly.run, airlied@linux.ie,
  daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
 User-Agent: K-9 Mail for Android
-In-Reply-To: <20220630120845.3356144-5-bryan.odonoghue@linaro.org>
+In-Reply-To: <20220630120845.3356144-8-bryan.odonoghue@linaro.org>
 References: <20220630120845.3356144-1-bryan.odonoghue@linaro.org>
- <20220630120845.3356144-5-bryan.odonoghue@linaro.org>
-Message-ID: <9BCE52A8-E26D-43A0-86D2-90DFE6CB6C62@linaro.org>
+ <20220630120845.3356144-8-bryan.odonoghue@linaro.org>
+Message-ID: <1FDC4CED-AFE7-4D68-9D48-58751DBBF4F6@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH 4/7] dt-bindings: msm: dsi: Add vdd*
- descriptions back in
+Subject: Re: [Freedreno] [PATCH 7/7] dt-bindings: msm: dsi: Add missing qcom,
+ dsi-phy-regulator-ldo-mode
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,58 +83,39 @@ Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 30 June 2022 15:08:42 GMT+03:00, Bryan O'Donoghue <bryan=2Eodonoghue@li=
+On 30 June 2022 15:08:45 GMT+03:00, Bryan O'Donoghue <bryan=2Eodonoghue@li=
 naro=2Eorg> wrote:
->When converting from =2Etxt to =2Eyaml we didn't include descriptions for=
- the
->existing regulator supplies=2E
->
->- vdd
->- vdda
->- vddio
->
->Add those descriptions into the yaml now as they were prior to the
->conversion=2E
+>Add in missing qcom,dsi-phy-regulator-ldo-mode to the 28nm DSI PHY=2E
+>When converting from =2Etxt to =2Eyaml we missed this one=2E
 >
 >Fixes: 4dbe55c97741 ("dt-bindings: msm: dsi: add yaml schemas for DSI bin=
 dings")
 >Signed-off-by: Bryan O'Donoghue <bryan=2Eodonoghue@linaro=2Eorg>
+
+Reviewed-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
+
+
 >---
-> =2E=2E=2E/bindings/display/msm/dsi-controller-main=2Eyaml    | 12 ++++++=
-++++++
-> 1 file changed, 12 insertions(+)
+> =2E=2E=2E/devicetree/bindings/display/msm/dsi-phy-28nm=2Eyaml          |=
+ 3 +++
+> 1 file changed, 3 insertions(+)
 >
->diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller=
--main=2Eyaml b/Documentation/devicetree/bindings/display/msm/dsi-controller=
--main=2Eyaml
->index 91324f0828448=2E=2Efd9d472437853 100644
->--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main=
-=2Eyaml
->+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main=
-=2Eyaml
->@@ -125,6 +125,18 @@ properties:
->       - port@0
->       - port@1
+>diff --git a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm=
+=2Eyaml b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm=2Eyaml
+>index 9ecd513d93661=2E=2E3551e166db966 100644
+>--- a/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm=2Eyaml
+>+++ b/Documentation/devicetree/bindings/display/msm/dsi-phy-28nm=2Eyaml
+>@@ -40,6 +40,9 @@ properties:
+>       - description: dsi phy register set
+>       - description: dsi phy regulator register set
 >=20
->+  vdd-supply:
->+    description:
->+      Phandle to vdd regulator device node
+>+  qcom,dsi-phy-regulator-ldo-mode:
+>+    description: Boolean value indicating if the LDO mode PHY regulator =
+is wanted=2E
 >+
->+  vddio-supply:
->+    description:
->+      Phandle to vdd regulator device node
->+
->+  vdda-supply:
->+    description:
->+      Phandle to vdd regulator device node
-
-
-All three descriptions are the same=2E This looks like a c&p issue
-
->+
-> required:
->   - compatible
->   - reg
+>   reg-names:
+>     items:
+>       - const: dsi_pll
 
 --=20
 With best wishes
