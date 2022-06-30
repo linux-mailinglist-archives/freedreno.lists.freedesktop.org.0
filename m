@@ -1,37 +1,66 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BAE4560C9C
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 00:54:09 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DEB1560E17
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 02:37:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F395110F0C8;
-	Wed, 29 Jun 2022 22:54:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E694510EC85;
+	Thu, 30 Jun 2022 00:37:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from relay05.th.seeweb.it (relay05.th.seeweb.it [5.144.164.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E402710F0C8
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jun 2022 22:53:56 +0000 (UTC)
-Received: from Marijn-Arch-PC.localdomain
- (94-209-165-62.cable.dynamic.v4.ziggo.nl [94.209.165.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id E6DC73F809;
- Thu, 30 Jun 2022 00:53:54 +0200 (CEST)
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: phone-devel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Stephen Boyd <sboyd@kernel.org>
-Date: Thu, 30 Jun 2022 00:53:31 +0200
-Message-Id: <20220629225331.357308-12-marijn.suijten@somainline.org>
-X-Mailer: git-send-email 2.37.0
-In-Reply-To: <20220629225331.357308-1-marijn.suijten@somainline.org>
-References: <20220629225331.357308-1-marijn.suijten@somainline.org>
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94A0010EC85
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 00:37:02 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id h23so35747742ejj.12
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jun 2022 17:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=MD/TmTcrQEiZqX2Bjoyo72hV/tgqwsB/VS7liK0M4hY=;
+ b=HeIA5Da9l8UvD4H4iDgPRtvuycOMJXJpAAfo8lblN1BJG1Th+zubJ+VY5Im1UUxsQe
+ 2pZfW8CNWgyPy0WDAjKew+yjU3CQSjl56GNR5fKp0NRCndcOmqKoTe0IbTZgraD/kuWb
+ TWXX9BCr+B1GfCA33OQtCqwDt5TssQC2VynmI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MD/TmTcrQEiZqX2Bjoyo72hV/tgqwsB/VS7liK0M4hY=;
+ b=JFKXiuOmIL8KwkKgxHdVRCF/Wj2eIptwI46+B0yOEhojDBqqIMIIUxFnb94gCmBkX0
+ wDNDpaONJNNzOIJRqR9zMWJKaqxbgEe5awc4tgl3wYlBdG61d9tpvYMYIcIfF9god1W3
+ oJEG95osSGOGQlAIZyxzZ+20q8yorGrsM2WL50MBnTaFrQP7/EofgBUbj3eAthyKDZdk
+ ehijBokJ8NWqLgRH0tJwQITtsMYYO4jh6mJsfXJoVncSqg2MinQXQqJnAFzCuLxHKPz+
+ Dz0kIrdbIV+LJxjC1VAIKZ6cDjhI0JpfiIxxVuWXY9jICtDKEYjm6xSlmJCRASDkFSKc
+ OJgQ==
+X-Gm-Message-State: AJIora8fL5eaMotyZ1dQ1BafygXf1f2ZpG4ig8ONi6qEygamnUeUBAQs
+ ZGgzPgd/V6ufMea3tyZN4gLA6Yy/y65J59/j+a0=
+X-Google-Smtp-Source: AGRyM1vw2s1jBtdebNMcAfLreKDihIXK2CHWO/BZdc85ls/DSv1tVaKxiBZX5p8dWQBtKkbQDdDU9w==
+X-Received: by 2002:a17:906:77c9:b0:722:ea38:9979 with SMTP id
+ m9-20020a17090677c900b00722ea389979mr5987033ejn.95.1656549420847; 
+ Wed, 29 Jun 2022 17:37:00 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
+ [209.85.221.49]) by smtp.gmail.com with ESMTPSA id
+ rl19-20020a170907217300b00722df6db8f3sm8237787ejb.115.2022.06.29.17.36.59
+ for <freedreno@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jun 2022 17:36:59 -0700 (PDT)
+Received: by mail-wr1-f49.google.com with SMTP id s1so24803740wra.9
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jun 2022 17:36:59 -0700 (PDT)
+X-Received: by 2002:adf:d1c1:0:b0:21b:a5e9:b7b2 with SMTP id
+ b1-20020adfd1c1000000b0021ba5e9b7b2mr5938881wrd.405.1656549418843; Wed, 29
+ Jun 2022 17:36:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Freedreno] [PATCH v3 11/11] drm/msm/dsi_phy_7nm: Replace parent
- names with clk_hw pointers
+References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
+ <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
+In-Reply-To: <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 29 Jun 2022 17:36:45 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X3cv=Q30pODyi__OyRY+LbFT14RfEELvm_DAeHafF70g@mail.gmail.com>
+Message-ID: <CAD=FV=X3cv=Q30pODyi__OyRY+LbFT14RfEELvm_DAeHafF70g@mail.gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
+ connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,188 +73,97 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, Jonathan Marek <jonathan@marek.ca>,
- Jami Kettunen <jami.kettunen@somainline.org>,
- Rajeev Nandan <quic_rajeevny@quicinc.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Konrad Dybcio <konrad.dybcio@somainline.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Rob Clark <robdclark@gmail.com>, Martin Botka <martin.botka@somainline.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Daniel Vetter <daniel@ffwll.ch>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: freedreno <freedreno@lists.freedesktop.org>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
+ David Airlie <airlied@linux.ie>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ Vinod Koul <vkoul@kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ Stephen Boyd <swboyd@chromium.org>, Rob Clark <robdclark@gmail.com>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-parent_hw pointers are easier to manage and cheaper to use than
-repeatedly formatting the parent name and subsequently leaving the clk
-framework to perform lookups based on that name.
+Hi,
 
-Signed-off-by: Marijn Suijten <marijn.suijten@somainline.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 70 +++++++++++------------
- 1 file changed, 34 insertions(+), 36 deletions(-)
+On Tue, Jun 28, 2022 at 1:14 PM Dmitry Baryshkov
+<dmitry.baryshkov@linaro.org> wrote:
+>
+> On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
+> >Some userspace presumes that the first connected connector is the main
+> >display, where it's supposed to display e.g. the login screen. For
+> >laptops, this should be the main panel.
+> >
+> >This patch call drm_helper_move_panel_connectors_to_head() after
+> >drm_bridge_connector_init() to make sure eDP stay at head of
+> >connected connector list. This fixes unexpected corruption happen
+> >at eDP panel if eDP is not placed at head of connected connector
+> >list.
+>
+> The change itself is a good fix anyway. (And I'd ack it.) However I would like to understand why does it fix the corruption issue. What is we have eDP and DSI, with DSI ending up before the eDP? Would we see the issue?
+> Also could you please describe the mind of corruption you are observing?
 
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index 6a58dd62bac5..c1710a8824e7 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -588,24 +588,24 @@ static int dsi_7nm_set_usecase(struct msm_dsi_phy *phy)
-  */
- static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provided_clocks)
- {
--	char clk_name[32], parent[32], vco_name[32];
--	char parent2[32];
-+	char clk_name[32];
- 	struct clk_init_data vco_init = {
- 		.parent_data = &(const struct clk_parent_data) {
- 			.fw_name = "ref",
- 		},
- 		.num_parents = 1,
--		.name = vco_name,
-+		.name = clk_name,
- 		.flags = CLK_IGNORE_UNUSED,
- 		.ops = &clk_ops_dsi_pll_7nm_vco,
- 	};
- 	struct device *dev = &pll_7nm->phy->pdev->dev;
--	struct clk_hw *hw;
-+	struct clk_hw *hw, *pll_out_div, *pll_bit, *pll_by_2_bit;
-+	struct clk_hw *pll_post_out_div, *phy_pll_out_dsi_parent;
- 	int ret;
- 
- 	DBG("DSI%d", pll_7nm->phy->id);
- 
--	snprintf(vco_name, sizeof(vco_name), "dsi%dvco_clk", pll_7nm->phy->id);
-+	snprintf(clk_name, sizeof(clk_name), "dsi%dvco_clk", pll_7nm->phy->id);
- 	pll_7nm->clk_hw.init = &vco_init;
- 
- 	ret = devm_clk_hw_register(dev, &pll_7nm->clk_hw);
-@@ -613,36 +613,34 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
- 		return ret;
- 
- 	snprintf(clk_name, sizeof(clk_name), "dsi%d_pll_out_div_clk", pll_7nm->phy->id);
--	snprintf(parent, sizeof(parent), "dsi%dvco_clk", pll_7nm->phy->id);
- 
--	hw = devm_clk_hw_register_divider(dev, clk_name, parent,
--			CLK_SET_RATE_PARENT, pll_7nm->phy->pll_base +
-+	pll_out_div = devm_clk_hw_register_divider_parent_hw(dev, clk_name,
-+			&pll_7nm->clk_hw, CLK_SET_RATE_PARENT,
-+			pll_7nm->phy->pll_base +
- 				REG_DSI_7nm_PHY_PLL_PLL_OUTDIV_RATE,
- 			0, 2, CLK_DIVIDER_POWER_OF_TWO, NULL);
--	if (IS_ERR(hw)) {
--		ret = PTR_ERR(hw);
-+	if (IS_ERR(pll_out_div)) {
-+		ret = PTR_ERR(pll_out_div);
- 		goto fail;
- 	}
- 
- 	snprintf(clk_name, sizeof(clk_name), "dsi%d_pll_bit_clk", pll_7nm->phy->id);
--	snprintf(parent, sizeof(parent), "dsi%d_pll_out_div_clk", pll_7nm->phy->id);
- 
- 	/* BIT CLK: DIV_CTRL_3_0 */
--	hw = devm_clk_hw_register_divider(dev, clk_name, parent,
--			CLK_SET_RATE_PARENT,
-+	pll_bit = devm_clk_hw_register_divider_parent_hw(dev, clk_name,
-+			pll_out_div, CLK_SET_RATE_PARENT,
- 			pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG0,
- 			0, 4, CLK_DIVIDER_ONE_BASED, &pll_7nm->postdiv_lock);
--	if (IS_ERR(hw)) {
--		ret = PTR_ERR(hw);
-+	if (IS_ERR(pll_bit)) {
-+		ret = PTR_ERR(pll_bit);
- 		goto fail;
- 	}
- 
- 	snprintf(clk_name, sizeof(clk_name), "dsi%d_phy_pll_out_byteclk", pll_7nm->phy->id);
--	snprintf(parent, sizeof(parent), "dsi%d_pll_bit_clk", pll_7nm->phy->id);
- 
- 	/* DSI Byte clock = VCO_CLK / OUT_DIV / BIT_DIV / 8 */
--	hw = devm_clk_hw_register_fixed_factor(dev, clk_name, parent,
--			CLK_SET_RATE_PARENT, 1,
-+	hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, clk_name,
-+			pll_bit, CLK_SET_RATE_PARENT, 1,
- 			pll_7nm->phy->cphy_mode ? 7 : 8);
- 	if (IS_ERR(hw)) {
- 		ret = PTR_ERR(hw);
-@@ -652,24 +650,24 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
- 	provided_clocks[DSI_BYTE_PLL_CLK] = hw;
- 
- 	snprintf(clk_name, sizeof(clk_name), "dsi%d_pll_by_2_bit_clk", pll_7nm->phy->id);
--	snprintf(parent, sizeof(parent), "dsi%d_pll_bit_clk", pll_7nm->phy->id);
- 
--	hw = devm_clk_hw_register_fixed_factor(dev, clk_name, parent,
--					       0, 1, 2);
--	if (IS_ERR(hw)) {
--		ret = PTR_ERR(hw);
-+	pll_by_2_bit = devm_clk_hw_register_fixed_factor_parent_hw(dev,
-+			clk_name, pll_bit, 0, 1, 2);
-+	if (IS_ERR(pll_by_2_bit)) {
-+		ret = PTR_ERR(pll_by_2_bit);
- 		goto fail;
- 	}
- 
- 	snprintf(clk_name, sizeof(clk_name), "dsi%d_pll_post_out_div_clk", pll_7nm->phy->id);
--	snprintf(parent, sizeof(parent), "dsi%d_pll_out_div_clk", pll_7nm->phy->id);
- 
- 	if (pll_7nm->phy->cphy_mode)
--		hw = devm_clk_hw_register_fixed_factor(dev, clk_name, parent, 0, 2, 7);
-+		pll_post_out_div = devm_clk_hw_register_fixed_factor_parent_hw(
-+				dev, clk_name, pll_out_div, 0, 2, 7);
- 	else
--		hw = devm_clk_hw_register_fixed_factor(dev, clk_name, parent, 0, 1, 4);
--	if (IS_ERR(hw)) {
--		ret = PTR_ERR(hw);
-+		pll_post_out_div = devm_clk_hw_register_fixed_factor_parent_hw(
-+				dev, clk_name, pll_out_div, 0, 1, 4);
-+	if (IS_ERR(pll_post_out_div)) {
-+		ret = PTR_ERR(pll_post_out_div);
- 		goto fail;
- 	}
- 
-@@ -682,15 +680,14 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
- 		data = dsi_phy_read(pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1);
- 		dsi_phy_write(pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG1, data | 3);
- 
--		snprintf(parent, sizeof(parent), "dsi%d_pll_post_out_div_clk", pll_7nm->phy->id);
-+		phy_pll_out_dsi_parent = pll_post_out_div;
- 	} else {
- 		snprintf(clk_name, sizeof(clk_name), "dsi%d_pclk_mux", pll_7nm->phy->id);
--		snprintf(parent, sizeof(parent), "dsi%d_pll_bit_clk", pll_7nm->phy->id);
--		snprintf(parent2, sizeof(parent2), "dsi%d_pll_by_2_bit_clk", pll_7nm->phy->id);
- 
--		hw = devm_clk_hw_register_mux(dev, clk_name,
--				((const char *[]){
--					parent, parent2,
-+		hw = devm_clk_hw_register_mux_parent_hws(dev, clk_name,
-+				((const struct clk_hw *[]){
-+					pll_bit,
-+					pll_by_2_bit,
- 				}), 2, 0, pll_7nm->phy->base +
- 					REG_DSI_7nm_PHY_CMN_CLK_CFG1,
- 				0, 1, 0, NULL);
-@@ -699,13 +696,14 @@ static int pll_7nm_register(struct dsi_pll_7nm *pll_7nm, struct clk_hw **provide
- 			goto fail;
- 		}
- 
--		snprintf(parent, sizeof(parent), "dsi%d_pclk_mux", pll_7nm->phy->id);
-+		phy_pll_out_dsi_parent = hw;
- 	}
- 
- 	snprintf(clk_name, sizeof(clk_name), "dsi%d_phy_pll_out_dsiclk", pll_7nm->phy->id);
- 
- 	/* PIX CLK DIV : DIV_CTRL_7_4*/
--	hw = devm_clk_hw_register_divider(dev, clk_name, parent, 0,
-+	hw = devm_clk_hw_register_divider_parent_hw(dev, clk_name,
-+			phy_pll_out_dsi_parent, 0,
- 			pll_7nm->phy->base + REG_DSI_7nm_PHY_CMN_CLK_CFG0,
- 			4, 4, CLK_DIVIDER_ONE_BASED, &pll_7nm->postdiv_lock);
- 	if (IS_ERR(hw)) {
--- 
-2.37.0
+I've spent a whole bunch of time poking at this and in the end my
+conclusion is this:
 
+1. The glitchyness seems to be a result of the Chrome OS userspace
+somehow telling the kernel to do something wrong.
+
+2. I believe (though I have no proof other than Kuogee's patch fixing
+things) that the Chrome OS userspace is simply confused by the eDP
+connector being second. This would imply that Kuogee's patch is
+actually the right one.
+
+3. It would be ideal if the Chrome OS userspace were fixed to handle
+this, but it's an area of code that I've never looked at. It also
+seems terribly low priority to fix since apparently other OSes have
+similar problems (seems like this code was originally added by
+RedHat?)
+
+
+Specifically, I tested with a similar but "persistent" glitch that I
+reproduced. The glitch Kuogee was digging into was a transitory glitch
+on the eDP (internal) display when you plugged in a DP (external)
+display. It would show up for a frame or two and then be fixed. I can
+get a similar-looking glitch (vertical black and white bars) that
+persists by doing these steps on a Chrome OS device (and Chrome OS
+kernel):
+
+a) Observe screen looks good.
+b) Observe DP not connected.
+c) Plug in DP
+d) See transitory glitch on screen, then it all looks fine.
+e) set_power_policy --ac_screen_dim_delay=5 --ac_screen_off_delay=10
+f) Wait for screen to turn off
+g) Unplug DP
+h) Hit key on keyboard to wake device.
+i) See glitchy.
+j) Within 5 seconds: set_power_policy --ac_screen_dim_delay=5000
+--ac_screen_off_delay=10000
+
+Once I'm in the persistent glitch:
+
+* The "screenshot" command in Chrome OS shows corruption. Not exactly
+black and white bars, but the image produced has distinct bands of
+garbage.
+
+* I can actually toggle between VT2 and the main screen (VT1). Note
+that VT1/VT2 are not quite the normal Linux managed solution--I
+believe they're handled by frecon. In any case, when I switch to VT2
+it looks normal (I can see the login prompt). Then back to VT1 and the
+vertical bars glitch. Back to VT2 and it's normal. Back to VT1 and the
+glitch again. This implies (especially with the extra evidence of
+screenshot) that the display controller hardware is all fine and that
+it's the underlying data that's somehow messed up.
+
+When I pick Kuogee's patch then this "persistent" glitch goes away
+just like the transitory one does.
+
+I'm going to go ahead and do:
+
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Tested-by: Douglas Anderson <dianders@chromium.org>
