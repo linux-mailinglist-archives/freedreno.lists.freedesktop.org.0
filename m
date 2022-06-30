@@ -2,66 +2,63 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20CFC561253
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 08:14:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C195561EFA
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 17:17:44 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B9110E8C2;
-	Thu, 30 Jun 2022 06:14:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69F3B10F5C5;
+	Thu, 30 Jun 2022 15:17:42 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7A910E939
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 06:14:47 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id n15so21709253ljg.8
- for <freedreno@lists.freedesktop.org>; Wed, 29 Jun 2022 23:14:47 -0700 (PDT)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8621D11A292
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 12:08:49 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id v14so26958340wra.5
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 05:08:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:user-agent:in-reply-to:references
- :message-id:mime-version:content-transfer-encoding;
- bh=jbstzoBmPE/qzRPXYkpjGy3Fre/2Wq0cgzIWxt2EKNo=;
- b=dE0GPDPN7+EkPuTOwPyhVADLMDB1hwzTYV0wuVdAciotIjmHwpHFUiuiyU6iR4BBJK
- TWk6z0ZGyMkTVmqqcw/T8vS0uyeXBk3nS5ecL1R6EU2esl3pS2+q659ZQUgLqBo8gHfF
- 9wg1/DbkNQotJYgQqIgxutn4RlP4WMo51sqmgGuCTDb33pE1LAexQ8mKC5ZSQvc9b83L
- yfcB0C0SN1j/tFddJN/FmMJDYrahN7e6rfRymwMpVwtnupQyGeEUvNqJ8/wq74joajmc
- vLp1WFy/in0t25ksRE3AVTqsIPcaDkTe1gyO7DZ45cbfESodowWLApu+MosvtlPAL0Xe
- ZA2Q==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=b+2KfJ+EbtiUw/VFlCJvwTsR648bOr42JoNq/qybfo0=;
+ b=tlAlhjc6NZN7ne6vQQPlSmUWHBOWkq6YIolr+75AcP9IiMe7sRBNCo+XTzQUR1fXN0
+ 2bQlmeJCzRQ3xHciw1xCY6gxg9aJ71INftV391l3/TmYL4vsubg/eZxvAD5xyu4G4YGG
+ /6oCIBcdOTRbWjJrif47hNyBPIFO6OOko2gxi4w1VvPq8+UeSx9ZeHqKVtWX3BrsDxkQ
+ Bv3ENwd4eOHgqb9kPbTz6YgBXAlaAlqnpjy+PBCTw82ZBlvIkMiaa1ZvA9r4F9eZcvY8
+ 6OCh7JiR47yYqRfn/c1yK5SeURqJu8nWtfwuMHUbbZTJAiZi8ftu4z8rP/W5O/MKQ8n+
+ jCAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:user-agent:in-reply-to
- :references:message-id:mime-version:content-transfer-encoding;
- bh=jbstzoBmPE/qzRPXYkpjGy3Fre/2Wq0cgzIWxt2EKNo=;
- b=wZEGUMegKwIcNU0C/EULiHHaul3+TC0T8geBVY/Ddao/PxS5WFkZGGj8FKmgu4idhZ
- 4l05F8kF9Eme/P1pFnAivQ+AVVW743GtdTd+3UFbH3RNDRcVIlzupxhQ1RoI6mzK2VGM
- x6hf4to+phob0aiv1+EIi/X3rLIQej7LN4BM/rPN8QVoa0xIsOwZmbIgghOHGJbQW/hk
- +wa+evZOTKscwzME6Ank/9z2Jl4oQ/Lf1e7XEJ0j4LJTcsedGdiyUT5lvXElwp+VdYY4
- eZr58dO3nMj6Aq7s9v8/4rlHFTlSJTV62sJpFa3dMWsFsW/nl30noezKqUiZaueZDVSe
- wWhg==
-X-Gm-Message-State: AJIora/ncxJ5OjWYJHtlNg8awmlZA9DWKbsIFRNPYzCN7A5K+w3d1lWq
- lHQ/M7sL225ygwc9HR7zZORa/g==
-X-Google-Smtp-Source: AGRyM1uoKGxeIs1iPZivYLYdzao86KEYPW5LCYHjgLkBLtqQ45hCjY9py/ak/pnADXnQp+wzawYpAA==
-X-Received: by 2002:a2e:91c4:0:b0:25a:7256:a7aa with SMTP id
- u4-20020a2e91c4000000b0025a7256a7aamr3898468ljg.344.1656569686144; 
- Wed, 29 Jun 2022 23:14:46 -0700 (PDT)
-Received: from [127.0.0.1] ([94.25.229.210]) by smtp.gmail.com with ESMTPSA id
- x19-20020a056512079300b0047f785a3bd5sm2918295lfr.298.2022.06.29.23.14.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 29 Jun 2022 23:14:45 -0700 (PDT)
-Date: Thu, 30 Jun 2022 09:14:42 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Rob Clark <robdclark@gmail.com>, Doug Anderson <dianders@chromium.org>
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
-References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
- <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
- <CAD=FV=X3cv=Q30pODyi__OyRY+LbFT14RfEELvm_DAeHafF70g@mail.gmail.com>
- <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
-Message-ID: <E87F561E-22B4-46B6-AD9B-4995E92A8E29@linaro.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=b+2KfJ+EbtiUw/VFlCJvwTsR648bOr42JoNq/qybfo0=;
+ b=BrpENWiSWDdwNOCraoVleftDX2/fXi3LIG8la4iJU3BywUDxLLpnB7kaw24VNN/Mvl
+ npwHZuVKGRfVXZxc6rJc4ItCg/6AdntvfylQ8tMyw2dTNOG3yjUx1edIrd2E3a5Ex7Th
+ HPExbqHzO1bnvAGLo2E3r1seqlzS9M6p/8osuzfxaTFV8rFKmKXWhQ3WIaChY9nqRwoU
+ nyuZYgFyZ1UOkTwQKn7xoVbeCW9SblIh1DuXEXCPC7a0zM6GXxokaoGcBYZEbw1k1e4U
+ MihNRrAW3qtn6WzMX88CJ92E1SA/pExOeAtiIZvsrgum28C9CWQShMGrx1hKGRUCO6sG
+ 3pwg==
+X-Gm-Message-State: AJIora+KkDi1z3mvQL+fUEo0twcwbkYyzf5+8Ywnrk3FTnogTTHGEMKF
+ 7g8DVH9qCxNjkpQdIUjqoHvz9w==
+X-Google-Smtp-Source: AGRyM1tu763LSSFunvSobsS1rb3AceLNnzNP0wf4briumXSyFXIpk6oc7PQ8fjdRvuPu9CZqhod1rg==
+X-Received: by 2002:a5d:6a81:0:b0:21d:3f7a:3 with SMTP id
+ s1-20020a5d6a81000000b0021d3f7a0003mr1991415wru.300.1656590927998; 
+ Thu, 30 Jun 2022 05:08:47 -0700 (PDT)
+Received: from sagittarius-a.chello.ie (188-141-3-169.dynamic.upc.ie.
+ [188.141.3.169]) by smtp.gmail.com with ESMTPSA id
+ m1-20020a7bcb81000000b003a05621dc53sm6286532wmi.29.2022.06.30.05.08.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jun 2022 05:08:47 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: robdclark@gmail.com, quic_abhinavk@quicinc.com,
+ dmitry.baryshkov@linaro.org, sean@poorly.run, airlied@linux.ie,
+ daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
+Date: Thu, 30 Jun 2022 13:08:38 +0100
+Message-Id: <20220630120845.3356144-1-bryan.odonoghue@linaro.org>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
- connected connector
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 30 Jun 2022 15:17:39 +0000
+Subject: [Freedreno] [PATCH 0/7] msm8916/msm8939 DSI controller and DSI PHY
+ bindings fixes
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,134 +71,35 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno <freedreno@lists.freedesktop.org>,
- Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>,
- "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
- Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
- LKML <linux-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, bjorn.andersson@linaro.org,
+ quic_mkrishn@quicinc.com, bryan.odonoghue@linaro.org, swboyd@chromium.org,
+ freedreno@lists.freedesktop.org
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
+This series fixes up a number of dtbs checks which are being flagged adding
+in the msm8939 dtsi.
 
+When converting from .txt to .yaml a number of the parameters for the older
+msm8916 silicon were not transmitted into the yaml.
 
-On 30 June 2022 04:57:35 GMT+03:00, Rob Clark <robdclark@gmail=2Ecom> wrot=
-e:
->On Wed, Jun 29, 2022 at 5:36 PM Doug Anderson <dianders@chromium=2Eorg> w=
-rote:
->>
->> Hi,
->>
->> On Tue, Jun 28, 2022 at 1:14 PM Dmitry Baryshkov
->> <dmitry=2Ebaryshkov@linaro=2Eorg> wrote:
->> >
->> > On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc=
-=2Ecom> wrote:
->> > >Some userspace presumes that the first connected connector is the ma=
-in
->> > >display, where it's supposed to display e=2Eg=2E the login screen=2E=
- For
->> > >laptops, this should be the main panel=2E
->> > >
->> > >This patch call drm_helper_move_panel_connectors_to_head() after
->> > >drm_bridge_connector_init() to make sure eDP stay at head of
->> > >connected connector list=2E This fixes unexpected corruption happen
->> > >at eDP panel if eDP is not placed at head of connected connector
->> > >list=2E
->> >
->> > The change itself is a good fix anyway=2E (And I'd ack it=2E) However=
- I would like to understand why does it fix the corruption issue=2E What is=
- we have eDP and DSI, with DSI ending up before the eDP? Would we see the i=
-ssue?
->> > Also could you please describe the mind of corruption you are observi=
-ng?
->>
->> I've spent a whole bunch of time poking at this and in the end my
->> conclusion is this:
->>
->> 1=2E The glitchyness seems to be a result of the Chrome OS userspace
->> somehow telling the kernel to do something wrong=2E
->>
->> 2=2E I believe (though I have no proof other than Kuogee's patch fixing
->> things) that the Chrome OS userspace is simply confused by the eDP
->> connector being second=2E This would imply that Kuogee's patch is
->> actually the right one=2E
->>
->> 3=2E It would be ideal if the Chrome OS userspace were fixed to handle
->> this, but it's an area of code that I've never looked at=2E It also
->> seems terribly low priority to fix since apparently other OSes have
->> similar problems (seems like this code was originally added by
->> RedHat?)
->>
->>
->> Specifically, I tested with a similar but "persistent" glitch that I
->> reproduced=2E The glitch Kuogee was digging into was a transitory glitc=
-h
->> on the eDP (internal) display when you plugged in a DP (external)
->> display=2E It would show up for a frame or two and then be fixed=2E I c=
-an
->> get a similar-looking glitch (vertical black and white bars) that
->> persists by doing these steps on a Chrome OS device (and Chrome OS
->> kernel):
->>
->> a) Observe screen looks good=2E
->> b) Observe DP not connected=2E
->> c) Plug in DP
->> d) See transitory glitch on screen, then it all looks fine=2E
->> e) set_power_policy --ac_screen_dim_delay=3D5 --ac_screen_off_delay=3D1=
-0
->> f) Wait for screen to turn off
->> g) Unplug DP
->> h) Hit key on keyboard to wake device=2E
->> i) See glitchy=2E
->> j) Within 5 seconds: set_power_policy --ac_screen_dim_delay=3D5000
->> --ac_screen_off_delay=3D10000
->>
->> Once I'm in the persistent glitch:
->>
->> * The "screenshot" command in Chrome OS shows corruption=2E Not exactly
->> black and white bars, but the image produced has distinct bands of
->> garbage=2E
->>
->> * I can actually toggle between VT2 and the main screen (VT1)=2E Note
->> that VT1/VT2 are not quite the normal Linux managed solution--I
->> believe they're handled by frecon=2E In any case, when I switch to VT2
->> it looks normal (I can see the login prompt)=2E Then back to VT1 and th=
-e
->> vertical bars glitch=2E Back to VT2 and it's normal=2E Back to VT1 and =
-the
->> glitch again=2E This implies (especially with the extra evidence of
->> screenshot) that the display controller hardware is all fine and that
->> it's the underlying data that's somehow messed up=2E
->
->fwiw, from looking at this a bit w/ Doug, I think the "glitch" is
->simply just an un-renderered buffer being interpreted by the display
->controller as UBWC (because userspace tells it to)
+Adding in the msm8939 which is a near 1:1 copy of the msm8916 in terms of
+dtsi triggers a rake of dtbs checks as a result.
 
-Thanks for the description=2E I think the userspace code should be fixed t=
-oo, but this patch can go in on its own=2E
+Bryan O'Donoghue (7):
+  dt-bindings: msm: dsi: Fix phy-name binding
+  dt-bindings: msm: dsi: Fix operating-points-v2 constraint
+  dt-bindings: msm: dsi: Fix power-domains constraint
+  dt-bindings: msm: dsi: Add vdd* descriptions back in
+  dt-bindings: msm: dsi: Fix clock declarations
+  dt-bindings: msm: dsi: Add missing clocks to 28nm DSI PHY YAML
+  dt-bindings: msm: dsi: Add missing qcom,dsi-phy-regulator-ldo-mode
 
-Reviewed-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
+ .../display/msm/dsi-controller-main.yaml      | 39 ++++++++++++++-----
+ .../bindings/display/msm/dsi-phy-28nm.yaml    | 20 ++++++++++
+ 2 files changed, 49 insertions(+), 10 deletions(-)
 
+-- 
+2.36.1
 
->
->BR,
->-R
->
->> When I pick Kuogee's patch then this "persistent" glitch goes away
->> just like the transitory one does=2E
->>
->> I'm going to go ahead and do:
->>
->> Reviewed-by: Douglas Anderson <dianders@chromium=2Eorg>
->> Tested-by: Douglas Anderson <dianders@chromium=2Eorg>
-
---=20
-With best wishes
-Dmitry
