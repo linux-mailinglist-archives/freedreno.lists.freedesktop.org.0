@@ -1,72 +1,71 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71F3F562145
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 19:30:08 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
+	by mail.lfdr.de (Postfix) with ESMTPS id C6314562269
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 20:59:09 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8831127B8;
-	Thu, 30 Jun 2022 17:30:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F02B10F68C;
+	Thu, 30 Jun 2022 18:59:08 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F19A311248B
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 17:30:05 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id
- h14-20020a1ccc0e000000b0039eff745c53so9212wmb.5
- for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 10:30:05 -0700 (PDT)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FDA010ED9F
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 18:59:07 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id ge10so40781807ejb.7
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 11:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=rBlnAHZeL5VXmWVXaof16R/ixBz+W8sUAmztG7bWwdA=;
- b=K/Dd7SQmYF1n30wjzfyn+wicHPLnbgHBONWFA8yAzv5u7Fky/uX0TGZGQaO+6dFuom
- awxlBLCLS0X9hQhgqJoAMg6wxGndw53pbu69G315tkgEUpHyFbeY3Vpkjirw3+vb3tsw
- kNoYgqP9blq7fPXcJEIZzxuE2kCGoQrJMzxEMeOs6A1FPTa++hVZHHveIt8jEWbTf5Vt
- sCpqz0irESo8uEhacBZmzgdgVIJPeRrkYnCmhBNcXs7TrBn3tDc7J7VYMcCXHCI2wxgR
- oQdua2yioRJKcxkhcmgDSVtH8LOas0DUeKKZe0WnAmVmagyolaBzbSzPqiudslvlVrnY
- sdJQ==
+ bh=4q21ggPdTyeit3h5q0XZaKPf1WMDwmb/exUUFTFO1os=;
+ b=Ccf9ma6E9UX3J8fQ3Ht1TewapbhoTIZR4BXkKnLYPdFBaJSW1ynJ06icNRRKF2dxgZ
+ lmfzm/0MWjIQ3xSjA40Swp0uVjdLdgCD2dhndiGiqWgSzc/BAJVvrN7p3OQuERLKtPIh
+ t6rsj9gCvH/MMYwXnTVDXeBHLzFx0TM2LuefZoLVEcUJFEXxKTbYAZmcnno65TyJXtbb
+ /zwcoLzD0V+MgwherN5IypUJazdEa77OLJa+rvgClPgSCRh0XmwTx3ZyeQ7p15b/hWOy
+ eHAyiQTf9rmC/VTYkVAdQfY2KO46iT07qTdPGJlYeueYwi2EwXfo5xg3hdNVft8pmB9Y
+ Zh0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=rBlnAHZeL5VXmWVXaof16R/ixBz+W8sUAmztG7bWwdA=;
- b=lm+VFU+6DIWS4U9B4L+dJhogCOrkC6JmesOLghSuuLshalz9urb3ia7tddLMs1EAhs
- M8rdzHzPfaoLgp3QKzpIdoM7e0nizbdn5IZIiR4RfxTvwjJvrHh0/yes942KbPRFtxlg
- HvafBBbgpdUhxDKRSEBbApkld0kUiVbZOFJ3sG5DNG3nQtNB7/nNGdPJBOIcc4mVAxKb
- /tLEHulPll4fU/Eh1SoyvszRQOuZHmGvvgNUzqXH4dsBKtAEmPIXVQCDvZQ39RhcjSiL
- M4JZ6JuMDV+Oh5gcfD+VLMlpD6HB1scmaPKmyUQpoOkyGDjsAr1hk8OUeBMOA2YfGOfu
- qn2Q==
-X-Gm-Message-State: AJIora/YhEOFlGrIgg63IJu8EiNhLhIBNVdsaI91sdvT52Aolx65/7Ba
- x8/wmCHbq2DuDdA0hYN4E5squg==
-X-Google-Smtp-Source: AGRyM1tLj/vYf0am5BBMHwtKy2IXo0Ez0eVYfADzx1DrAlAhLtgm15DK4/UdzX7sr7zxKR5O2uYPJg==
-X-Received: by 2002:a7b:c354:0:b0:39c:6753:21f8 with SMTP id
- l20-20020a7bc354000000b0039c675321f8mr11578038wmj.113.1656610204470; 
- Thu, 30 Jun 2022 10:30:04 -0700 (PDT)
-Received: from [192.168.0.162] (188-141-3-169.dynamic.upc.ie. [188.141.3.169])
- by smtp.gmail.com with ESMTPSA id
- w24-20020a7bc758000000b003a018e43df2sm3323922wmk.34.2022.06.30.10.30.03
+ bh=4q21ggPdTyeit3h5q0XZaKPf1WMDwmb/exUUFTFO1os=;
+ b=4joiayXBVO9Gyy0soKhF8faPGhXnggWGX9eVX5qv9FR966Ld+WojdPnqwCLNmAqD84
+ M0RHPG4fiOob+94K12caX8E87qQm+gNIR05+G43F9FXTNX14Ky55nwd6ZU9xdXZK6MNo
+ Ou+q08PTBJ44wfgFtmPGicSrFgAspcntslNxNs5HTtzS4Ue5oydvFi+St5NzHDdkmaRv
+ mIjT//GVPxiqsM5s3gi5k80ASdu8rTOEwPIxR2Z1bw/+jofqP/ibvLZjxDccBxGadhhx
+ nUpcq+4Elwn8Iraqoox2CHVOXmGhuA7YNZxVyRgMHbdXbSaugnBuL4aegP1hNOqHvEMU
+ oq7Q==
+X-Gm-Message-State: AJIora/LgqjU9n/rjddJNfdWlB9UI2Wq6ZaZujNSuSHuvu2YOYAOY602
+ NB503a1hLqhhWYuqBRgpnW06Og==
+X-Google-Smtp-Source: AGRyM1uE64dtWtGZMbzHs6M6S5fYap/RCGHDO9B10pekIM+vwNcayRqVPfpHlkOeAiMbW59r9xjd2g==
+X-Received: by 2002:a17:907:948a:b0:726:f3d7:c7d6 with SMTP id
+ dm10-20020a170907948a00b00726f3d7c7d6mr10467497ejc.2.1656615545858; 
+ Thu, 30 Jun 2022 11:59:05 -0700 (PDT)
+Received: from [192.168.0.190] (xdsl-188-155-176-92.adslplus.ch.
+ [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
+ i13-20020a1709061e4d00b006fef51aa566sm9414673ejj.2.2022.06.30.11.59.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jun 2022 10:30:04 -0700 (PDT)
-Message-ID: <d177d650-0c61-0ae0-17bb-9d4311582652@linaro.org>
-Date: Thu, 30 Jun 2022 18:30:02 +0100
+ Thu, 30 Jun 2022 11:59:04 -0700 (PDT)
+Message-ID: <ff3caa0b-a248-d5ee-a3e5-c49fc41b8cff@linaro.org>
+Date: Thu, 30 Jun 2022 20:59:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
+ Thunderbird/91.10.0
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, robdclark@gmail.com,
- quic_abhinavk@quicinc.com, sean@poorly.run, airlied@linux.ie,
- daniel@ffwll.ch, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, robdclark@gmail.com,
+ quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org, sean@poorly.run,
+ airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org
 References: <20220630120845.3356144-1-bryan.odonoghue@linaro.org>
- <20220630120845.3356144-5-bryan.odonoghue@linaro.org>
- <9BCE52A8-E26D-43A0-86D2-90DFE6CB6C62@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <9BCE52A8-E26D-43A0-86D2-90DFE6CB6C62@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20220630120845.3356144-2-bryan.odonoghue@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220630120845.3356144-2-bryan.odonoghue@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Freedreno] [PATCH 4/7] dt-bindings: msm: dsi: Add vdd*
- descriptions back in
+Subject: Re: [Freedreno] [PATCH 1/7] dt-bindings: msm: dsi: Fix phy-name
+ binding
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,10 +84,16 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-On 30/06/2022 18:16, Dmitry Baryshkov wrote:
+On 30/06/2022 14:08, Bryan O'Donoghue wrote:
+> The driver doesn't care about the name of the phy in DTS. msm8916 has since
+> 2016 named the phy "dsi-phy" with later SoCs taking the name "dsi".
 > 
-> All three descriptions are the same. This looks like a c&p issue
+> There's no reason to have a constraint on the name here, simply to have a
+> name. Remove the redundant const in favour of maxItems: 1.
 
-Those are what the previous values were.
+For single entry the names field could be as well removed. But if it is
+there, let's make it specific, not generic. Therefore instead add
+allOf:if:then restricting it per variants.
 
-I'll come up with something less robotic though.
+Best regards,
+Krzysztof
