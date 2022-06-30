@@ -1,59 +1,65 @@
 Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
-Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98082560EFD
-	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 04:10:32 +0200 (CEST)
+Received: from gabe.freedesktop.org (gabe.freedesktop.org [IPv6:2610:10:20:722:a800:ff:fe36:1795])
+	by mail.lfdr.de (Postfix) with ESMTPS id 20CFC561253
+	for <lists+freedreno@lfdr.de>; Thu, 30 Jun 2022 08:14:53 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A49810E0D5;
-	Thu, 30 Jun 2022 02:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66B9110E8C2;
+	Thu, 30 Jun 2022 06:14:49 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com
- [199.106.114.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAEB210E033;
- Thu, 30 Jun 2022 02:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
- t=1656555030; x=1688091030;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=VkE1t8r/62tuKtjsziGoezRkG42VcXA8LP22e3VJDXo=;
- b=WgP6aJ4IN2GLJCfJyNruyIFfG7ryCblGy4SY82tJbLjfv/jdRe0JBK+3
- 4G2dudeduTeveegJZBM52Cfpvrfdv+LxfV/TsGuGhnMO8TpvLwMgYQ2Xy
- A17Sd5n74wM4wOrgdMOFeVYyCAd7IuDGqIcOO9j1JsMwPYz24jfXQnv9a k=;
-Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
- by alexa-out-sd-01.qualcomm.com with ESMTP; 29 Jun 2022 19:10:29 -0700
-X-QCInternal: smtphost
-Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
- by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2022 19:10:27 -0700
-Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
- nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Wed, 29 Jun 2022 19:10:27 -0700
-Received: from [10.38.245.159] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Wed, 29 Jun
- 2022 19:10:24 -0700
-Message-ID: <537e8e8b-03f7-9fc0-4416-3b69d375ba9b@quicinc.com>
-Date: Wed, 29 Jun 2022 19:10:21 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [IPv6:2a00:1450:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7A910E939
+ for <freedreno@lists.freedesktop.org>; Thu, 30 Jun 2022 06:14:47 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id n15so21709253ljg.8
+ for <freedreno@lists.freedesktop.org>; Wed, 29 Jun 2022 23:14:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:user-agent:in-reply-to:references
+ :message-id:mime-version:content-transfer-encoding;
+ bh=jbstzoBmPE/qzRPXYkpjGy3Fre/2Wq0cgzIWxt2EKNo=;
+ b=dE0GPDPN7+EkPuTOwPyhVADLMDB1hwzTYV0wuVdAciotIjmHwpHFUiuiyU6iR4BBJK
+ TWk6z0ZGyMkTVmqqcw/T8vS0uyeXBk3nS5ecL1R6EU2esl3pS2+q659ZQUgLqBo8gHfF
+ 9wg1/DbkNQotJYgQqIgxutn4RlP4WMo51sqmgGuCTDb33pE1LAexQ8mKC5ZSQvc9b83L
+ yfcB0C0SN1j/tFddJN/FmMJDYrahN7e6rfRymwMpVwtnupQyGeEUvNqJ8/wq74joajmc
+ vLp1WFy/in0t25ksRE3AVTqsIPcaDkTe1gyO7DZ45cbfESodowWLApu+MosvtlPAL0Xe
+ ZA2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:user-agent:in-reply-to
+ :references:message-id:mime-version:content-transfer-encoding;
+ bh=jbstzoBmPE/qzRPXYkpjGy3Fre/2Wq0cgzIWxt2EKNo=;
+ b=wZEGUMegKwIcNU0C/EULiHHaul3+TC0T8geBVY/Ddao/PxS5WFkZGGj8FKmgu4idhZ
+ 4l05F8kF9Eme/P1pFnAivQ+AVVW743GtdTd+3UFbH3RNDRcVIlzupxhQ1RoI6mzK2VGM
+ x6hf4to+phob0aiv1+EIi/X3rLIQej7LN4BM/rPN8QVoa0xIsOwZmbIgghOHGJbQW/hk
+ +wa+evZOTKscwzME6Ank/9z2Jl4oQ/Lf1e7XEJ0j4LJTcsedGdiyUT5lvXElwp+VdYY4
+ eZr58dO3nMj6Aq7s9v8/4rlHFTlSJTV62sJpFa3dMWsFsW/nl30noezKqUiZaueZDVSe
+ wWhg==
+X-Gm-Message-State: AJIora/ncxJ5OjWYJHtlNg8awmlZA9DWKbsIFRNPYzCN7A5K+w3d1lWq
+ lHQ/M7sL225ygwc9HR7zZORa/g==
+X-Google-Smtp-Source: AGRyM1uoKGxeIs1iPZivYLYdzao86KEYPW5LCYHjgLkBLtqQ45hCjY9py/ak/pnADXnQp+wzawYpAA==
+X-Received: by 2002:a2e:91c4:0:b0:25a:7256:a7aa with SMTP id
+ u4-20020a2e91c4000000b0025a7256a7aamr3898468ljg.344.1656569686144; 
+ Wed, 29 Jun 2022 23:14:46 -0700 (PDT)
+Received: from [127.0.0.1] ([94.25.229.210]) by smtp.gmail.com with ESMTPSA id
+ x19-20020a056512079300b0047f785a3bd5sm2918295lfr.298.2022.06.29.23.14.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 29 Jun 2022 23:14:45 -0700 (PDT)
+Date: Thu, 30 Jun 2022 09:14:42 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Rob Clark <robdclark@gmail.com>, Doug Anderson <dianders@chromium.org>
+User-Agent: K-9 Mail for Android
+In-Reply-To: <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
 References: <1656429606-2765-1-git-send-email-quic_khsieh@quicinc.com>
  <F35C87BF-46A5-41D3-B8A5-B2AB4A24252D@linaro.org>
  <CAD=FV=X3cv=Q30pODyi__OyRY+LbFT14RfEELvm_DAeHafF70g@mail.gmail.com>
  <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <CAF6AEGvFYK3x_CmErkKsmYNEv9y8AksE9UB_sfp-Z7RieX=tVg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
+Message-ID: <E87F561E-22B4-46B6-AD9B-4995E92A8E29@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 Subject: Re: [Freedreno] [PATCH] drm/msm/dp: make eDP panel as the first
  connected connector
 X-BeenThere: freedreno@lists.freedesktop.org
@@ -68,117 +74,134 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <sean@poorly.run>,
+Cc: freedreno <freedreno@lists.freedesktop.org>,
  Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- David Airlie <airlied@linux.ie>, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>,
+ "Kuogee Hsieh \(QUIC\)" <quic_khsieh@quicinc.com>,
+ "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
  dri-devel <dri-devel@lists.freedesktop.org>,
- Stephen Boyd <swboyd@chromium.org>, Vinod
- Koul <vkoul@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>, "Kuogee Hsieh
- \(QUIC\)" <quic_khsieh@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>
+ Stephen Boyd <swboyd@chromium.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Sean Paul <sean@poorly.run>,
+ LKML <linux-kernel@vger.kernel.org>
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
 
 
-On 6/29/2022 6:57 PM, Rob Clark wrote:
-> On Wed, Jun 29, 2022 at 5:36 PM Doug Anderson <dianders@chromium.org> wrote:
+On 30 June 2022 04:57:35 GMT+03:00, Rob Clark <robdclark@gmail=2Ecom> wrot=
+e:
+>On Wed, Jun 29, 2022 at 5:36 PM Doug Anderson <dianders@chromium=2Eorg> w=
+rote:
 >>
 >> Hi,
 >>
 >> On Tue, Jun 28, 2022 at 1:14 PM Dmitry Baryshkov
->> <dmitry.baryshkov@linaro.org> wrote:
->>>
->>> On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->>>> Some userspace presumes that the first connected connector is the main
->>>> display, where it's supposed to display e.g. the login screen. For
->>>> laptops, this should be the main panel.
->>>>
->>>> This patch call drm_helper_move_panel_connectors_to_head() after
->>>> drm_bridge_connector_init() to make sure eDP stay at head of
->>>> connected connector list. This fixes unexpected corruption happen
->>>> at eDP panel if eDP is not placed at head of connected connector
->>>> list.
->>>
->>> The change itself is a good fix anyway. (And I'd ack it.) However I would like to understand why does it fix the corruption issue. What is we have eDP and DSI, with DSI ending up before the eDP? Would we see the issue?
->>> Also could you please describe the mind of corruption you are observing?
+>> <dmitry=2Ebaryshkov@linaro=2Eorg> wrote:
+>> >
+>> > On 28 June 2022 18:20:06 GMT+03:00, Kuogee Hsieh <quic_khsieh@quicinc=
+=2Ecom> wrote:
+>> > >Some userspace presumes that the first connected connector is the ma=
+in
+>> > >display, where it's supposed to display e=2Eg=2E the login screen=2E=
+ For
+>> > >laptops, this should be the main panel=2E
+>> > >
+>> > >This patch call drm_helper_move_panel_connectors_to_head() after
+>> > >drm_bridge_connector_init() to make sure eDP stay at head of
+>> > >connected connector list=2E This fixes unexpected corruption happen
+>> > >at eDP panel if eDP is not placed at head of connected connector
+>> > >list=2E
+>> >
+>> > The change itself is a good fix anyway=2E (And I'd ack it=2E) However=
+ I would like to understand why does it fix the corruption issue=2E What is=
+ we have eDP and DSI, with DSI ending up before the eDP? Would we see the i=
+ssue?
+>> > Also could you please describe the mind of corruption you are observi=
+ng?
 >>
 >> I've spent a whole bunch of time poking at this and in the end my
 >> conclusion is this:
 >>
->> 1. The glitchyness seems to be a result of the Chrome OS userspace
->> somehow telling the kernel to do something wrong.
+>> 1=2E The glitchyness seems to be a result of the Chrome OS userspace
+>> somehow telling the kernel to do something wrong=2E
 >>
->> 2. I believe (though I have no proof other than Kuogee's patch fixing
+>> 2=2E I believe (though I have no proof other than Kuogee's patch fixing
 >> things) that the Chrome OS userspace is simply confused by the eDP
->> connector being second. This would imply that Kuogee's patch is
->> actually the right one.
+>> connector being second=2E This would imply that Kuogee's patch is
+>> actually the right one=2E
 >>
->> 3. It would be ideal if the Chrome OS userspace were fixed to handle
->> this, but it's an area of code that I've never looked at. It also
+>> 3=2E It would be ideal if the Chrome OS userspace were fixed to handle
+>> this, but it's an area of code that I've never looked at=2E It also
 >> seems terribly low priority to fix since apparently other OSes have
 >> similar problems (seems like this code was originally added by
 >> RedHat?)
 >>
 >>
 >> Specifically, I tested with a similar but "persistent" glitch that I
->> reproduced. The glitch Kuogee was digging into was a transitory glitch
+>> reproduced=2E The glitch Kuogee was digging into was a transitory glitc=
+h
 >> on the eDP (internal) display when you plugged in a DP (external)
->> display. It would show up for a frame or two and then be fixed. I can
+>> display=2E It would show up for a frame or two and then be fixed=2E I c=
+an
 >> get a similar-looking glitch (vertical black and white bars) that
 >> persists by doing these steps on a Chrome OS device (and Chrome OS
 >> kernel):
 >>
->> a) Observe screen looks good.
->> b) Observe DP not connected.
+>> a) Observe screen looks good=2E
+>> b) Observe DP not connected=2E
 >> c) Plug in DP
->> d) See transitory glitch on screen, then it all looks fine.
->> e) set_power_policy --ac_screen_dim_delay=5 --ac_screen_off_delay=10
+>> d) See transitory glitch on screen, then it all looks fine=2E
+>> e) set_power_policy --ac_screen_dim_delay=3D5 --ac_screen_off_delay=3D1=
+0
 >> f) Wait for screen to turn off
 >> g) Unplug DP
->> h) Hit key on keyboard to wake device.
->> i) See glitchy.
->> j) Within 5 seconds: set_power_policy --ac_screen_dim_delay=5000
->> --ac_screen_off_delay=10000
+>> h) Hit key on keyboard to wake device=2E
+>> i) See glitchy=2E
+>> j) Within 5 seconds: set_power_policy --ac_screen_dim_delay=3D5000
+>> --ac_screen_off_delay=3D10000
 >>
 >> Once I'm in the persistent glitch:
 >>
->> * The "screenshot" command in Chrome OS shows corruption. Not exactly
+>> * The "screenshot" command in Chrome OS shows corruption=2E Not exactly
 >> black and white bars, but the image produced has distinct bands of
->> garbage.
+>> garbage=2E
 >>
->> * I can actually toggle between VT2 and the main screen (VT1). Note
+>> * I can actually toggle between VT2 and the main screen (VT1)=2E Note
 >> that VT1/VT2 are not quite the normal Linux managed solution--I
->> believe they're handled by frecon. In any case, when I switch to VT2
->> it looks normal (I can see the login prompt). Then back to VT1 and the
->> vertical bars glitch. Back to VT2 and it's normal. Back to VT1 and the
->> glitch again. This implies (especially with the extra evidence of
+>> believe they're handled by frecon=2E In any case, when I switch to VT2
+>> it looks normal (I can see the login prompt)=2E Then back to VT1 and th=
+e
+>> vertical bars glitch=2E Back to VT2 and it's normal=2E Back to VT1 and =
+the
+>> glitch again=2E This implies (especially with the extra evidence of
 >> screenshot) that the display controller hardware is all fine and that
->> it's the underlying data that's somehow messed up.
-> 
-> fwiw, from looking at this a bit w/ Doug, I think the "glitch" is
-> simply just an un-renderered buffer being interpreted by the display
-> controller as UBWC (because userspace tells it to)
-> 
-> BR,
-> -R
+>> it's the underlying data that's somehow messed up=2E
+>
+>fwiw, from looking at this a bit w/ Doug, I think the "glitch" is
+>simply just an un-renderered buffer being interpreted by the display
+>controller as UBWC (because userspace tells it to)
 
-Acked and agree with the comments both of you have stated and looking at 
-the corrupted buffers in the snapshot.
+Thanks for the description=2E I think the userspace code should be fixed t=
+oo, but this patch can go in on its own=2E
 
-Hence,
+Reviewed-by: Dmitry Baryshkov <dmitry=2Ebaryshkov@linaro=2Eorg>
 
-Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-> 
+>
+>BR,
+>-R
+>
 >> When I pick Kuogee's patch then this "persistent" glitch goes away
->> just like the transitory one does.
+>> just like the transitory one does=2E
 >>
 >> I'm going to go ahead and do:
 >>
->> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->> Tested-by: Douglas Anderson <dianders@chromium.org>
+>> Reviewed-by: Douglas Anderson <dianders@chromium=2Eorg>
+>> Tested-by: Douglas Anderson <dianders@chromium=2Eorg>
+
+--=20
+With best wishes
+Dmitry
