@@ -2,65 +2,56 @@ Return-Path: <freedreno-bounces@lists.freedesktop.org>
 X-Original-To: lists+freedreno@lfdr.de
 Delivered-To: lists+freedreno@lfdr.de
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
-	by mail.lfdr.de (Postfix) with ESMTPS id F107F563764
-	for <lists+freedreno@lfdr.de>; Fri,  1 Jul 2022 18:07:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FF9E563A17
+	for <lists+freedreno@lfdr.de>; Fri,  1 Jul 2022 21:57:05 +0200 (CEST)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77D0A14B49B;
-	Fri,  1 Jul 2022 16:07:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE42114A579;
+	Fri,  1 Jul 2022 19:57:03 +0000 (UTC)
 X-Original-To: freedreno@lists.freedesktop.org
 Delivered-To: freedreno@lists.freedesktop.org
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C614E14B485
- for <freedreno@lists.freedesktop.org>; Fri,  1 Jul 2022 16:07:00 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id q6so4820727eji.13
- for <freedreno@lists.freedesktop.org>; Fri, 01 Jul 2022 09:07:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iU1WXNqtWMrZUa+JVDcKXW+n/u2YiixZY6UAGKLDnPg=;
- b=iq8OARlHdwjKJaotlBm1jpgne1kU1PT5n8rnl6fpp9YAyJoLGzBe5hekwwTHO4U6WG
- ZHK2qR50/rtNqUyDApnn0W+70spOH37v/wSryluuzENNpTsfhHWf5E7ADyc2jEgaJWZ7
- jHT3znd5Z/JBcuN1ieNFm6MgqTMUf+yFMuuW4=
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55D2814A56E;
+ Fri,  1 Jul 2022 19:57:03 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id s17so3244864iob.7;
+ Fri, 01 Jul 2022 12:57:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=iU1WXNqtWMrZUa+JVDcKXW+n/u2YiixZY6UAGKLDnPg=;
- b=A8xEdl9Bkugadt4pumgeEAVipYA6YS87DVMcM2827kEYt9/Wg42wWw5mkFQFJHMjrg
- sxt87OP5bR8Pzv6n/Q8xI14CWvXOLd8UFBRb8VRZzAmDvOmf3AeBt3Jvtd5zVWFmA4xn
- MML/ImxM/RvhU3BrzBC5E9m6hZlQsfsKCMHvNEq1B1CLSxsDDqZMhHu2EN0IKBL0GmDA
- QHWiCOkZBSk/s2n17oEaEvrDiDW4jga9ibq/QUSoiGSJ2YPVL2MhjDWuEaz5+KsArFGe
- /6Xz88uJtJmHQi2OFX1vi9IsHkr1/krzuHb9da1jzrqv4PRheYn6KJJy0y4xYNuO9ZTb
- Renw==
-X-Gm-Message-State: AJIora8oNCk1brgFGZHQaXZf6dVzBDrkbWsG7pocXfp5zVRcWUEY1ICs
- d6KaU6hotQ9JRE0FJ8aA32D7N+22hRTjqzEC
-X-Google-Smtp-Source: AGRyM1vs+1Uh5MmeaXcngrsalP+j4cyrsH6D2c82emy8QwUzWUlIBaIQsEy53IGoTIi+na1yILIleg==
-X-Received: by 2002:a17:906:d550:b0:723:5c2c:8a71 with SMTP id
- cr16-20020a170906d55000b007235c2c8a71mr14773206ejc.254.1656691619096; 
- Fri, 01 Jul 2022 09:06:59 -0700 (PDT)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com.
- [209.85.128.50]) by smtp.gmail.com with ESMTPSA id
- uz12-20020a170907118c00b00711aed17047sm10522046ejb.28.2022.07.01.09.06.58
- for <freedreno@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Jul 2022 09:06:58 -0700 (PDT)
-Received: by mail-wm1-f50.google.com with SMTP id
- g39-20020a05600c4ca700b003a03ac7d540so3985952wmp.3
- for <freedreno@lists.freedesktop.org>; Fri, 01 Jul 2022 09:06:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e8d:b0:3a1:2e4d:1dd2 with SMTP id
- f13-20020a05600c4e8d00b003a12e4d1dd2mr17792094wmq.85.1656691617857; Fri, 01
- Jul 2022 09:06:57 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2236WeJFhld+gP+seBGzERxVMGLyh9tBEeYJJbEdYHE=;
+ b=MJSQcUZy77GEak46phOHD9eNNSjnPsyMw3MpL+XulK/omteQhDTCff6yKIrPabVfvT
+ q8cidG0vIcA1p6Piacv7UEz6sEd5GUWBrYEvF3lhQ0qgEbVr6v1L9v+ZvfDN8V21mAvC
+ 0CjFuniO5EWtULGnvnpymYhQYZBA0ia+T31AxzL4ATUE0eXHf55FDlPnlDT1lmpPLgH6
+ vfRBhZa4Fe9j5tvWPqJv4/zTEdRqbGKNtTae6RVmIaAEoRVMdPG6sXBlJaZr8UgAztyl
+ 2X6d367VbZC+T/hW7JFO8Rkk5LSn1gjN8fy1stiRtWqJkx4GvKe5LfSTK21m3mQ53zXG
+ aUgw==
+X-Gm-Message-State: AJIora+DavqljMNF0f4o++TCnkE+ecPiv5Y0eK+Gx3LqcE4j7azlbi2y
+ m8SjtJ1cW/hgFPbFkLalng==
+X-Google-Smtp-Source: AGRyM1ssGJMKXpVscalQyMv8NhtOBWfOOYKnSAoLW+RU5N3w9LbS3Z9hEO7Wd8qTb11ruIeOEAtfhg==
+X-Received: by 2002:a05:6602:26d1:b0:669:734a:4c8a with SMTP id
+ g17-20020a05660226d100b00669734a4c8amr8404169ioo.209.1656705422645; 
+ Fri, 01 Jul 2022 12:57:02 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id
+ c68-20020a02964a000000b003315fa78c0bsm9926313jai.146.2022.07.01.12.57.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Jul 2022 12:57:02 -0700 (PDT)
+Received: (nullmailer pid 1416680 invoked by uid 1000);
+ Fri, 01 Jul 2022 19:57:00 -0000
+Date: Fri, 1 Jul 2022 13:57:00 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20220701195700.GA1413048-robh@kernel.org>
+References: <20220630120845.3356144-1-bryan.odonoghue@linaro.org>
+ <20220630120845.3356144-2-bryan.odonoghue@linaro.org>
+ <ff3caa0b-a248-d5ee-a3e5-c49fc41b8cff@linaro.org>
 MIME-Version: 1.0
-References: <1656690436-15221-1-git-send-email-quic_khsieh@quicinc.com>
-In-Reply-To: <1656690436-15221-1-git-send-email-quic_khsieh@quicinc.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 1 Jul 2022 09:06:45 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V5uLz9aqrgHrsPYHzBXL+Bx5Ds8aEP_kSzA29d-9jtBg@mail.gmail.com>
-Message-ID: <CAD=FV=V5uLz9aqrgHrsPYHzBXL+Bx5Ds8aEP_kSzA29d-9jtBg@mail.gmail.com>
-To: Kuogee Hsieh <quic_khsieh@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Freedreno] [PATCH] arm64: dta: qcom: sc7180: delete vdda-1p2
- and vdda-0p9 from mdss_dp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ff3caa0b-a248-d5ee-a3e5-c49fc41b8cff@linaro.org>
+Subject: Re: [Freedreno] [PATCH 1/7] dt-bindings: msm: dsi: Fix phy-name
+ binding
 X-BeenThere: freedreno@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,50 +64,29 @@ List-Post: <mailto:freedreno@lists.freedesktop.org>
 List-Help: <mailto:freedreno-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
  <mailto:freedreno-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
- "Abhinav Kumar \(QUIC\)" <quic_abhinavk@quicinc.com>,
- freedreno <freedreno@lists.freedesktop.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rob Clark <robdclark@gmail.com>, Andy Gross <agross@kernel.org>,
- quic_mkrishn@quicinc.com, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "Aravind Venkateswaran \(QUIC\)" <quic_aravindh@quicinc.com>,
- Stephen Boyd <swboyd@chromium.org>, Sean Paul <sean@poorly.run>,
- quic_kalyant@quicinc.coml, LKML <linux-kernel@vger.kernel.org>
+Cc: freedreno@lists.freedesktop.org, krzysztof.kozlowski+dt@linaro.org,
+ devicetree@vger.kernel.org, airlied@linux.ie, linux-arm-msm@vger.kernel.org,
+ quic_abhinavk@quicinc.com, dri-devel@lists.freedesktop.org,
+ swboyd@chromium.org, robdclark@gmail.com, quic_mkrishn@quicinc.com,
+ daniel@ffwll.ch, dmitry.baryshkov@linaro.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, bjorn.andersson@linaro.org,
+ sean@poorly.run
 Errors-To: freedreno-bounces@lists.freedesktop.org
 Sender: "Freedreno" <freedreno-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, Jun 30, 2022 at 08:59:03PM +0200, Krzysztof Kozlowski wrote:
+> On 30/06/2022 14:08, Bryan O'Donoghue wrote:
+> > The driver doesn't care about the name of the phy in DTS. msm8916 has since
+> > 2016 named the phy "dsi-phy" with later SoCs taking the name "dsi".
+> > 
+> > There's no reason to have a constraint on the name here, simply to have a
+> > name. Remove the redundant const in favour of maxItems: 1.
+> 
+> For single entry the names field could be as well removed. But if it is
+> there, let's make it specific, not generic. Therefore instead add
+> allOf:if:then restricting it per variants.
 
-On Fri, Jul 1, 2022 at 8:47 AM Kuogee Hsieh <quic_khsieh@quicinc.com> wrote:
->
-> Both vdda-1p2-supply and vdda-0p9-supply regulators are controlled
-> by dp combo phy. Therefore remove them from dp controller.
->
-> Signed-off-by: Kuogee Hsieh <quic_khsieh@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> index 732e118..824a98c 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
-> @@ -813,8 +813,6 @@ hp_i2c: &i2c9 {
->         pinctrl-names = "default";
->         pinctrl-0 = <&dp_hot_plug_det>;
->         data-lanes = <0 1>;
-> -       vdda-1p2-supply = <&vdda_usb_ss_dp_1p2>;
-> -       vdda-0p9-supply = <&vdda_usb_ss_dp_core>;
->  };
+If we really don't care, an if/then seems excessive. Just mark as 
+deprecated and remove it in all the dts files. 
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-NOTE: this is somewhat related to Kuogee's series [1] but it's OK to
-take even though his series hasn't landed. On trogdor we always keep
-these regulators in HPM mode so we're not truly dependent on the
-addition of regulator_set_load in the DP PHY.
-
-[1] https://lore.kernel.org/lkml/8b751eb3-2e19-0e03-4c94-b26b3badd397@linaro.org/
-
--Doug
+Rob
